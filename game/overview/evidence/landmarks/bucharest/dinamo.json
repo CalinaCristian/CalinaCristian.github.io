@@ -312,54 +312,6 @@
     "paintTextureMipBytes": 2796202,
     "note": "Isolated development viewer actual render, including its2 ground triangles; excludes district world, traffic and mirrors. Paint adds1 main draw and no shadow draw."
   },
-  "historicalImplementationNotes": [
-    {
-      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
-      "priorCaptureRecordSourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
-      "supersededAt": "2026-11-09",
-      "field": "checks[0]",
-      "priorValue": {
-        "label": "Full source boundary and replacement-identity checks",
-        "passed": true,
-        "details": "tools/landmarks/bucharest-source-check.mjs: 0 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
-      },
-      "replacementScope": "Historical source-boundary evidence: tools/landmarks/bucharest-source-check.mjs: 0 authored source rings; explicit replacement IDs match the source ledger. The earlier run across 33 models recorded 306 checks. The later accepted source-book update b203c38abf3651dd3d472c491238ad36089a633a records 456 checks across 33 models, including this entry, in handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json. This wording update cites that existing proof; no tests were rerun and no images were recaptured.",
-      "acceptedImplementationCommits": [
-        "b203c38abf3651dd3d472c491238ad36089a633a"
-      ],
-      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
-    },
-    {
-      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
-      "priorCaptureRecordSourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
-      "supersededAt": "2026-11-09",
-      "field": "remainingGaps[2]",
-      "priorValue": "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity.",
-      "replacementScope": "Source-stamped native Floreasca placement/paint views and two exact-pose atlas tiles are now recorded. They retain raw scene-contact diagnostics and do not establish complete neighbour/terrain clearance, every tourist-scene placement or whole-district parity.",
-      "acceptedImplementationCommits": [
-        "5fe9d0c296361f14a02cf7b0cf746a7dddf0f9ff",
-        "5d6c0f342cb62f0e4a86465ad4a65ceb9b5c27b8"
-      ],
-      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
-    },
-    {
-      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
-      "priorCaptureRecordSourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
-      "supersededAt": "2026-11-09",
-      "field": "checks[5]",
-      "priorValue": {
-        "label": "Complete district / traffic / mirror budget",
-        "passed": false,
-        "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
-      },
-      "replacementScope": "The original source-era paired Romană sample/Arnia timeout remains historical evidence, not a complete budget pass. Later recorded Floreasca paint/placement controls and two atlas tiles establish the narrow visible-paint correction only; full traffic/mirror/controller and all-scene clearance acceptance remain separate. No new render or test was run for this wording correction.",
-      "acceptedImplementationCommits": [
-        "5fe9d0c296361f14a02cf7b0cf746a7dddf0f9ff",
-        "5d6c0f342cb62f0e4a86465ad4a65ceb9b5c27b8"
-      ],
-      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
-    }
-  ],
   "implementationNotesUpdatedAt": "2026-11-09",
   "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
 }

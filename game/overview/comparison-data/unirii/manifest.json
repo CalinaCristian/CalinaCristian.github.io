@@ -30,7 +30,7 @@
     ],
     "sourceCaptureManifests": [
       {
-        "path": "historical/0775fda/capture-manifest.json",
+        "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json",
         "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
         "frames": 81
       },
@@ -41,7 +41,7 @@
         "frames": 17
       },
       {
-        "path": "historical/full-before-07cc3d6b-0ad0a41b/manifest.json",
+        "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/manifest.json",
         "sha256": "0ad0a41b7fb0ee3d59d6a54e3bcefb2390c51a51a18d6390943db4abfc7c4e26",
         "sourceCounts": {
           "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 81,
@@ -134,7 +134,7 @@
     },
     {
       "id": "fountains",
-      "label": "Pia\u021ba Unirii fountains",
+      "label": "Piața Unirii fountains",
       "lat": 44.4268,
       "lon": 26.1025,
       "source": "game/src/landmarks.js:ANCHOR.fountains; mapped water and fountain records",
@@ -195,7 +195,7 @@
   "items": [
     {
       "id": "aerial-r01-c06",
-      "label": "Row 1 \u00b7 Column 6",
+      "label": "Row 1 · Column 6",
       "row": 1,
       "column": 6,
       "lat": 44.439823096857786,
@@ -259,11 +259,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c07",
-      "label": "Row 1 \u00b7 Column 7",
+      "label": "Row 1 · Column 7",
       "row": 1,
       "column": 7,
       "lat": 44.439823096857786,
@@ -327,11 +327,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c08",
-      "label": "Row 1 \u00b7 Column 8",
+      "label": "Row 1 · Column 8",
       "row": 1,
       "column": 8,
       "lat": 44.439823096857786,
@@ -395,11 +395,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c09",
-      "label": "Row 1 \u00b7 Column 9",
+      "label": "Row 1 · Column 9",
       "row": 1,
       "column": 9,
       "lat": 44.439823096857786,
@@ -463,11 +463,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c10",
-      "label": "Row 1 \u00b7 Column 10",
+      "label": "Row 1 · Column 10",
       "row": 1,
       "column": 10,
       "lat": 44.439823096857786,
@@ -531,11 +531,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c11",
-      "label": "Row 1 \u00b7 Column 11",
+      "label": "Row 1 · Column 11",
       "row": 1,
       "column": 11,
       "lat": 44.439823096857786,
@@ -599,11 +599,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c05",
-      "label": "Row 2 \u00b7 Column 5",
+      "label": "Row 2 · Column 5",
       "row": 2,
       "column": 5,
       "lat": 44.437573519778276,
@@ -667,11 +667,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c06",
-      "label": "Row 2 \u00b7 Column 6",
+      "label": "Row 2 · Column 6",
       "row": 2,
       "column": 6,
       "lat": 44.437573519778276,
@@ -735,11 +735,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c07",
-      "label": "Row 2 \u00b7 Column 7",
+      "label": "Row 2 · Column 7",
       "row": 2,
       "column": 7,
       "lat": 44.437573519778276,
@@ -803,11 +803,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c08",
-      "label": "Row 2 \u00b7 Column 8",
+      "label": "Row 2 · Column 8",
       "row": 2,
       "column": 8,
       "lat": 44.437573519778276,
@@ -871,11 +871,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c09",
-      "label": "Row 2 \u00b7 Column 9",
+      "label": "Row 2 · Column 9",
       "row": 2,
       "column": 9,
       "lat": 44.437573519778276,
@@ -939,11 +939,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c10",
-      "label": "Row 2 \u00b7 Column 10",
+      "label": "Row 2 · Column 10",
       "row": 2,
       "column": 10,
       "lat": 44.437573519778276,
@@ -1007,11 +1007,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c11",
-      "label": "Row 2 \u00b7 Column 11",
+      "label": "Row 2 · Column 11",
       "row": 2,
       "column": 11,
       "lat": 44.437573519778276,
@@ -1075,11 +1075,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c12",
-      "label": "Row 2 \u00b7 Column 12",
+      "label": "Row 2 · Column 12",
       "row": 2,
       "column": 12,
       "lat": 44.437573519778276,
@@ -1143,11 +1143,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c03",
-      "label": "Row 3 \u00b7 Column 3",
+      "label": "Row 3 · Column 3",
       "row": 3,
       "column": 3,
       "lat": 44.43532394269877,
@@ -1211,11 +1211,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c04",
-      "label": "Row 3 \u00b7 Column 4",
+      "label": "Row 3 · Column 4",
       "row": 3,
       "column": 4,
       "lat": 44.43532394269877,
@@ -1279,11 +1279,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c05",
-      "label": "Row 3 \u00b7 Column 5",
+      "label": "Row 3 · Column 5",
       "row": 3,
       "column": 5,
       "lat": 44.43532394269877,
@@ -1347,11 +1347,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c06",
-      "label": "Row 3 \u00b7 Column 6",
+      "label": "Row 3 · Column 6",
       "row": 3,
       "column": 6,
       "lat": 44.43532394269877,
@@ -1415,11 +1415,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c07",
-      "label": "Row 3 \u00b7 Column 7",
+      "label": "Row 3 · Column 7",
       "row": 3,
       "column": 7,
       "lat": 44.43532394269877,
@@ -1483,11 +1483,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c08",
-      "label": "Row 3 \u00b7 Column 8",
+      "label": "Row 3 · Column 8",
       "row": 3,
       "column": 8,
       "lat": 44.43532394269877,
@@ -1551,11 +1551,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c09",
-      "label": "Row 3 \u00b7 Column 9",
+      "label": "Row 3 · Column 9",
       "row": 3,
       "column": 9,
       "lat": 44.43532394269877,
@@ -1619,11 +1619,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c10",
-      "label": "Row 3 \u00b7 Column 10",
+      "label": "Row 3 · Column 10",
       "row": 3,
       "column": 10,
       "lat": 44.43532394269877,
@@ -1687,11 +1687,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c11",
-      "label": "Row 3 \u00b7 Column 11",
+      "label": "Row 3 · Column 11",
       "row": 3,
       "column": 11,
       "lat": 44.43532394269877,
@@ -1755,11 +1755,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c12",
-      "label": "Row 3 \u00b7 Column 12",
+      "label": "Row 3 · Column 12",
       "row": 3,
       "column": 12,
       "lat": 44.43532394269877,
@@ -1823,11 +1823,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c02",
-      "label": "Row 4 \u00b7 Column 2",
+      "label": "Row 4 · Column 2",
       "row": 4,
       "column": 2,
       "lat": 44.43307436561926,
@@ -1896,7 +1896,7 @@
     },
     {
       "id": "aerial-r04-c03",
-      "label": "Row 4 \u00b7 Column 3",
+      "label": "Row 4 · Column 3",
       "row": 4,
       "column": 3,
       "lat": 44.43307436561926,
@@ -1965,7 +1965,7 @@
     },
     {
       "id": "aerial-r04-c04",
-      "label": "Row 4 \u00b7 Column 4",
+      "label": "Row 4 · Column 4",
       "row": 4,
       "column": 4,
       "lat": 44.43307436561926,
@@ -2029,11 +2029,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c05",
-      "label": "Row 4 \u00b7 Column 5",
+      "label": "Row 4 · Column 5",
       "row": 4,
       "column": 5,
       "lat": 44.43307436561926,
@@ -2097,11 +2097,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c06",
-      "label": "Row 4 \u00b7 Column 6",
+      "label": "Row 4 · Column 6",
       "row": 4,
       "column": 6,
       "lat": 44.43307436561926,
@@ -2165,11 +2165,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c07",
-      "label": "Row 4 \u00b7 Column 7",
+      "label": "Row 4 · Column 7",
       "row": 4,
       "column": 7,
       "lat": 44.43307436561926,
@@ -2233,11 +2233,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c08",
-      "label": "Row 4 \u00b7 Column 8",
+      "label": "Row 4 · Column 8",
       "row": 4,
       "column": 8,
       "lat": 44.43307436561926,
@@ -2301,11 +2301,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c09",
-      "label": "Row 4 \u00b7 Column 9",
+      "label": "Row 4 · Column 9",
       "row": 4,
       "column": 9,
       "lat": 44.43307436561926,
@@ -2369,11 +2369,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c10",
-      "label": "Row 4 \u00b7 Column 10",
+      "label": "Row 4 · Column 10",
       "row": 4,
       "column": 10,
       "lat": 44.43307436561926,
@@ -2437,11 +2437,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c11",
-      "label": "Row 4 \u00b7 Column 11",
+      "label": "Row 4 · Column 11",
       "row": 4,
       "column": 11,
       "lat": 44.43307436561926,
@@ -2505,11 +2505,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c12",
-      "label": "Row 4 \u00b7 Column 12",
+      "label": "Row 4 · Column 12",
       "row": 4,
       "column": 12,
       "lat": 44.43307436561926,
@@ -2573,11 +2573,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c01",
-      "label": "Row 5 \u00b7 Column 1",
+      "label": "Row 5 · Column 1",
       "row": 5,
       "column": 1,
       "lat": 44.43082478853975,
@@ -2641,11 +2641,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c02",
-      "label": "Row 5 \u00b7 Column 2",
+      "label": "Row 5 · Column 2",
       "row": 5,
       "column": 2,
       "lat": 44.43082478853975,
@@ -2714,7 +2714,7 @@
     },
     {
       "id": "aerial-r05-c03",
-      "label": "Row 5 \u00b7 Column 3",
+      "label": "Row 5 · Column 3",
       "row": 5,
       "column": 3,
       "lat": 44.43082478853975,
@@ -2783,7 +2783,7 @@
     },
     {
       "id": "aerial-r05-c04",
-      "label": "Row 5 \u00b7 Column 4",
+      "label": "Row 5 · Column 4",
       "row": 5,
       "column": 4,
       "lat": 44.43082478853975,
@@ -2852,7 +2852,7 @@
     },
     {
       "id": "aerial-r05-c05",
-      "label": "Row 5 \u00b7 Column 5",
+      "label": "Row 5 · Column 5",
       "row": 5,
       "column": 5,
       "lat": 44.43082478853975,
@@ -2916,11 +2916,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c06",
-      "label": "Row 5 \u00b7 Column 6",
+      "label": "Row 5 · Column 6",
       "row": 5,
       "column": 6,
       "lat": 44.43082478853975,
@@ -2984,11 +2984,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c07",
-      "label": "Row 5 \u00b7 Column 7",
+      "label": "Row 5 · Column 7",
       "row": 5,
       "column": 7,
       "lat": 44.43082478853975,
@@ -3057,7 +3057,7 @@
     },
     {
       "id": "aerial-r05-c08",
-      "label": "Row 5 \u00b7 Column 8",
+      "label": "Row 5 · Column 8",
       "row": 5,
       "column": 8,
       "lat": 44.43082478853975,
@@ -3121,11 +3121,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c09",
-      "label": "Row 5 \u00b7 Column 9",
+      "label": "Row 5 · Column 9",
       "row": 5,
       "column": 9,
       "lat": 44.43082478853975,
@@ -3189,11 +3189,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c10",
-      "label": "Row 5 \u00b7 Column 10",
+      "label": "Row 5 · Column 10",
       "row": 5,
       "column": 10,
       "lat": 44.43082478853975,
@@ -3257,11 +3257,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c11",
-      "label": "Row 5 \u00b7 Column 11",
+      "label": "Row 5 · Column 11",
       "row": 5,
       "column": 11,
       "lat": 44.43082478853975,
@@ -3325,11 +3325,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c12",
-      "label": "Row 5 \u00b7 Column 12",
+      "label": "Row 5 · Column 12",
       "row": 5,
       "column": 12,
       "lat": 44.43082478853975,
@@ -3393,11 +3393,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c01",
-      "label": "Row 6 \u00b7 Column 1",
+      "label": "Row 6 · Column 1",
       "row": 6,
       "column": 1,
       "lat": 44.42857521146024,
@@ -3461,11 +3461,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c02",
-      "label": "Row 6 \u00b7 Column 2",
+      "label": "Row 6 · Column 2",
       "row": 6,
       "column": 2,
       "lat": 44.42857521146024,
@@ -3534,7 +3534,7 @@
     },
     {
       "id": "aerial-r06-c03",
-      "label": "Row 6 \u00b7 Column 3",
+      "label": "Row 6 · Column 3",
       "row": 6,
       "column": 3,
       "lat": 44.42857521146024,
@@ -3603,7 +3603,7 @@
     },
     {
       "id": "aerial-r06-c04",
-      "label": "Row 6 \u00b7 Column 4",
+      "label": "Row 6 · Column 4",
       "row": 6,
       "column": 4,
       "lat": 44.42857521146024,
@@ -3672,7 +3672,7 @@
     },
     {
       "id": "aerial-r06-c05",
-      "label": "Row 6 \u00b7 Column 5",
+      "label": "Row 6 · Column 5",
       "row": 6,
       "column": 5,
       "lat": 44.42857521146024,
@@ -3741,7 +3741,7 @@
     },
     {
       "id": "aerial-r06-c06",
-      "label": "Row 6 \u00b7 Column 6",
+      "label": "Row 6 · Column 6",
       "row": 6,
       "column": 6,
       "lat": 44.42857521146024,
@@ -3805,11 +3805,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c07",
-      "label": "Row 6 \u00b7 Column 7",
+      "label": "Row 6 · Column 7",
       "row": 6,
       "column": 7,
       "lat": 44.42857521146024,
@@ -3873,11 +3873,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c08",
-      "label": "Row 6 \u00b7 Column 8",
+      "label": "Row 6 · Column 8",
       "row": 6,
       "column": 8,
       "lat": 44.42857521146024,
@@ -3941,11 +3941,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c09",
-      "label": "Row 6 \u00b7 Column 9",
+      "label": "Row 6 · Column 9",
       "row": 6,
       "column": 9,
       "lat": 44.42857521146024,
@@ -4009,11 +4009,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c10",
-      "label": "Row 6 \u00b7 Column 10",
+      "label": "Row 6 · Column 10",
       "row": 6,
       "column": 10,
       "lat": 44.42857521146024,
@@ -4077,11 +4077,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c11",
-      "label": "Row 6 \u00b7 Column 11",
+      "label": "Row 6 · Column 11",
       "row": 6,
       "column": 11,
       "lat": 44.42857521146024,
@@ -4145,11 +4145,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c12",
-      "label": "Row 6 \u00b7 Column 12",
+      "label": "Row 6 · Column 12",
       "row": 6,
       "column": 12,
       "lat": 44.42857521146024,
@@ -4213,11 +4213,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c01",
-      "label": "Row 7 \u00b7 Column 1",
+      "label": "Row 7 · Column 1",
       "row": 7,
       "column": 1,
       "lat": 44.42632563438073,
@@ -4281,11 +4281,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c02",
-      "label": "Row 7 \u00b7 Column 2",
+      "label": "Row 7 · Column 2",
       "row": 7,
       "column": 2,
       "lat": 44.42632563438073,
@@ -4349,11 +4349,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c03",
-      "label": "Row 7 \u00b7 Column 3",
+      "label": "Row 7 · Column 3",
       "row": 7,
       "column": 3,
       "lat": 44.42632563438073,
@@ -4417,11 +4417,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c04",
-      "label": "Row 7 \u00b7 Column 4",
+      "label": "Row 7 · Column 4",
       "row": 7,
       "column": 4,
       "lat": 44.42632563438073,
@@ -4490,7 +4490,7 @@
     },
     {
       "id": "aerial-r07-c05",
-      "label": "Row 7 \u00b7 Column 5",
+      "label": "Row 7 · Column 5",
       "row": 7,
       "column": 5,
       "lat": 44.42632563438073,
@@ -4559,7 +4559,7 @@
     },
     {
       "id": "aerial-r07-c06",
-      "label": "Row 7 \u00b7 Column 6",
+      "label": "Row 7 · Column 6",
       "row": 7,
       "column": 6,
       "lat": 44.42632563438073,
@@ -4628,7 +4628,7 @@
     },
     {
       "id": "aerial-r07-c07",
-      "label": "Row 7 \u00b7 Column 7",
+      "label": "Row 7 · Column 7",
       "row": 7,
       "column": 7,
       "lat": 44.42632563438073,
@@ -4697,7 +4697,7 @@
     },
     {
       "id": "aerial-r07-c08",
-      "label": "Row 7 \u00b7 Column 8",
+      "label": "Row 7 · Column 8",
       "row": 7,
       "column": 8,
       "lat": 44.42632563438073,
@@ -4761,11 +4761,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c09",
-      "label": "Row 7 \u00b7 Column 9",
+      "label": "Row 7 · Column 9",
       "row": 7,
       "column": 9,
       "lat": 44.42632563438073,
@@ -4829,11 +4829,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c10",
-      "label": "Row 7 \u00b7 Column 10",
+      "label": "Row 7 · Column 10",
       "row": 7,
       "column": 10,
       "lat": 44.42632563438073,
@@ -4897,11 +4897,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c11",
-      "label": "Row 7 \u00b7 Column 11",
+      "label": "Row 7 · Column 11",
       "row": 7,
       "column": 11,
       "lat": 44.42632563438073,
@@ -4965,11 +4965,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r08-c01",
-      "label": "Row 8 \u00b7 Column 1",
+      "label": "Row 8 · Column 1",
       "row": 8,
       "column": 1,
       "lat": 44.42407605730122,
@@ -5033,11 +5033,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r08-c02",
-      "label": "Row 8 \u00b7 Column 2",
+      "label": "Row 8 · Column 2",
       "row": 8,
       "column": 2,
       "lat": 44.42407605730122,
@@ -5101,11 +5101,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r08-c03",
-      "label": "Row 8 \u00b7 Column 3",
+      "label": "Row 8 · Column 3",
       "row": 8,
       "column": 3,
       "lat": 44.42407605730122,
@@ -5169,11 +5169,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r08-c04",
-      "label": "Row 8 \u00b7 Column 4",
+      "label": "Row 8 · Column 4",
       "row": 8,
       "column": 4,
       "lat": 44.42407605730122,
@@ -5237,11 +5237,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r08-c05",
-      "label": "Row 8 \u00b7 Column 5",
+      "label": "Row 8 · Column 5",
       "row": 8,
       "column": 5,
       "lat": 44.42407605730122,
@@ -5305,11 +5305,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r08-c06",
-      "label": "Row 8 \u00b7 Column 6",
+      "label": "Row 8 · Column 6",
       "row": 8,
       "column": 6,
       "lat": 44.42407605730122,
@@ -5378,7 +5378,7 @@
     },
     {
       "id": "aerial-r08-c07",
-      "label": "Row 8 \u00b7 Column 7",
+      "label": "Row 8 · Column 7",
       "row": 8,
       "column": 7,
       "lat": 44.42407605730122,
@@ -5447,7 +5447,7 @@
     },
     {
       "id": "aerial-r08-c08",
-      "label": "Row 8 \u00b7 Column 8",
+      "label": "Row 8 · Column 8",
       "row": 8,
       "column": 8,
       "lat": 44.42407605730122,
@@ -5511,11 +5511,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r09-c01",
-      "label": "Row 9 \u00b7 Column 1",
+      "label": "Row 9 · Column 1",
       "row": 9,
       "column": 1,
       "lat": 44.42182648022172,
@@ -5579,11 +5579,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r09-c02",
-      "label": "Row 9 \u00b7 Column 2",
+      "label": "Row 9 · Column 2",
       "row": 9,
       "column": 2,
       "lat": 44.42182648022172,
@@ -5647,11 +5647,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r09-c03",
-      "label": "Row 9 \u00b7 Column 3",
+      "label": "Row 9 · Column 3",
       "row": 9,
       "column": 3,
       "lat": 44.42182648022172,
@@ -5715,11 +5715,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r09-c04",
-      "label": "Row 9 \u00b7 Column 4",
+      "label": "Row 9 · Column 4",
       "row": 9,
       "column": 4,
       "lat": 44.42182648022172,
@@ -5783,11 +5783,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r09-c05",
-      "label": "Row 9 \u00b7 Column 5",
+      "label": "Row 9 · Column 5",
       "row": 9,
       "column": 5,
       "lat": 44.42182648022172,
@@ -5851,11 +5851,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r09-c06",
-      "label": "Row 9 \u00b7 Column 6",
+      "label": "Row 9 · Column 6",
       "row": 9,
       "column": 6,
       "lat": 44.42182648022172,
@@ -5919,11 +5919,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r09-c07",
-      "label": "Row 9 \u00b7 Column 7",
+      "label": "Row 9 · Column 7",
       "row": 9,
       "column": 7,
       "lat": 44.42182648022172,
@@ -5992,7 +5992,7 @@
     },
     {
       "id": "aerial-r09-c08",
-      "label": "Row 9 \u00b7 Column 8",
+      "label": "Row 9 · Column 8",
       "row": 9,
       "column": 8,
       "lat": 44.42182648022172,
@@ -6056,11 +6056,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r10-c02",
-      "label": "Row 10 \u00b7 Column 2",
+      "label": "Row 10 · Column 2",
       "row": 10,
       "column": 2,
       "lat": 44.41957690314221,
@@ -6124,11 +6124,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r10-c03",
-      "label": "Row 10 \u00b7 Column 3",
+      "label": "Row 10 · Column 3",
       "row": 10,
       "column": 3,
       "lat": 44.41957690314221,
@@ -6192,11 +6192,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r10-c04",
-      "label": "Row 10 \u00b7 Column 4",
+      "label": "Row 10 · Column 4",
       "row": 10,
       "column": 4,
       "lat": 44.41957690314221,
@@ -6260,11 +6260,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r10-c05",
-      "label": "Row 10 \u00b7 Column 5",
+      "label": "Row 10 · Column 5",
       "row": 10,
       "column": 5,
       "lat": 44.41957690314221,
@@ -6328,11 +6328,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r10-c06",
-      "label": "Row 10 \u00b7 Column 6",
+      "label": "Row 10 · Column 6",
       "row": 10,
       "column": 6,
       "lat": 44.41957690314221,
@@ -6396,11 +6396,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "aerial-r10-c07",
-      "label": "Row 10 \u00b7 Column 7",
+      "label": "Row 10 · Column 7",
       "row": 10,
       "column": 7,
       "lat": 44.41957690314221,
@@ -6469,7 +6469,7 @@
     },
     {
       "id": "context-northwest",
-      "label": "Distant context \u00b7 northwest",
+      "label": "Distant context · northwest",
       "row": 1,
       "column": 1,
       "lat": 44.439823096857786,
@@ -6533,11 +6533,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "context-northeast",
-      "label": "Distant context \u00b7 northeast",
+      "label": "Distant context · northeast",
       "row": 1,
       "column": 12,
       "lat": 44.439823096857786,
@@ -6601,11 +6601,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "context-southwest",
-      "label": "Distant context \u00b7 southwest",
+      "label": "Distant context · southwest",
       "row": 10,
       "column": 1,
       "lat": 44.41957690314221,
@@ -6669,11 +6669,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "context-southeast",
-      "label": "Distant context \u00b7 southeast",
+      "label": "Distant context · southeast",
       "row": 10,
       "column": 12,
       "lat": 44.41957690314221,
@@ -6737,7 +6737,7 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "context-parliament",
@@ -6806,7 +6806,7 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     },
     {
       "id": "context-cathedral",
@@ -6875,7 +6875,7 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/0775fda/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
     }
   ],
   "locationId": "unirii",
@@ -6944,7 +6944,7 @@
       "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1
     },
     "priorCompleteReview": {
-      "manifest": "historical/full-before-07cc3d6b-0ad0a41b/manifest.json",
+      "manifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/manifest.json",
       "sha256": "0ad0a41b7fb0ee3d59d6a54e3bcefb2390c51a51a18d6390943db4abfc7c4e26",
       "note": "Every earlier review/source-specific finding is preserved verbatim in the complete prior collection."
     },
@@ -6952,43 +6952,6 @@
     "priorTargetedRetakeReview": "retakes/bbaffc0d/paired-review.json",
     "structureRetakeReviewedAt": "2026-11-09T02:11:54.821237+00:00"
   },
-  "historicalCollections": [
-    {
-      "manifest": "historical/4198996/manifest.json",
-      "frames": 98,
-      "gameSourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
-      "generatedAt": "2026-11-08T20:27:38.007Z",
-      "label": "Before corrected tree inputs \u00b7 4198996"
-    },
-    {
-      "manifest": "historical/4378317/manifest.json",
-      "frames": 98,
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-      "generatedAt": "2026-11-08T21:44:07.898Z",
-      "label": "Before corrected tree inputs \u00b7 4378317"
-    },
-    {
-      "label": "Full atlas before water overlap correction",
-      "manifest": "historical/0775fda/manifest.json",
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "frames": 98,
-      "generatedAt": "2026-11-08T22:24:28.197Z",
-      "note": "All original images, thumbnails, raw capture ledger and source-file provenance are preserved unchanged."
-    },
-    {
-      "manifest": "historical/full-before-07cc3d6b-0ad0a41b/manifest.json",
-      "label": "Full prior current atlas before structural/separator retakes 07cc3d6b",
-      "frames": 98,
-      "generatedAt": "2026-11-08T22:24:28.197Z",
-      "gameSourceCommit": null,
-      "sourceCounts": {
-        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 81,
-        "bbaffc0d6cdccb6246edeb9478c58590852980d9": 17
-      },
-      "captureType": "mixed-source-survey",
-      "note": "Entire prior current collection and its GAME images/thumbnails, review, street/context and provenance files are byte-identical. Earlier histories retain their stable paths."
-    }
-  ],
   "comparisonSourceCommits": {
     "atlas": [
       "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
@@ -6998,7 +6961,7 @@
   },
   "sourceCaptureManifests": [
     {
-      "path": "historical/0775fda/capture-manifest.json",
+      "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json",
       "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
       "frames": 81
     },
@@ -7009,7 +6972,7 @@
       "frames": 17
     },
     {
-      "path": "historical/full-before-07cc3d6b-0ad0a41b/manifest.json",
+      "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/manifest.json",
       "sha256": "0ad0a41b7fb0ee3d59d6a54e3bcefb2390c51a51a18d6390943db4abfc7c4e26",
       "sourceCounts": {
         "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 81,

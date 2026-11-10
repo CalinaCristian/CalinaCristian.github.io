@@ -61,3 +61,13 @@ exclude:
   - handoffs/fidelity/situational-dialogue-20261109
   - handoffs/fidelity/situational-dialogue-integration-20261109
   - handoffs/fidelity/batch-20261110
+
+  # Latest public surveys only; original archived source stays in Git history.
+  - game/overview/comparison-data/floreasca/historical
+  - game/overview/comparison-data/romana/historical
+  - game/overview/comparison-data/grozavesti/historical
+  - game/overview/comparison-data/otopeni/historical
+  - game/overview/comparison-data/seatac/historical
+  - game/overview/comparison-data/unirii/historical
+  - game/overview/comparison-data/pipera/historical
+  - game/overview/comparison-data/bellevue/historical

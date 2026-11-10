@@ -97,7 +97,7 @@
     },
     {
       "id": "ase",
-      "label": "ASE \u2014 Palatul Ion N. Angelescu",
+      "label": "ASE — Palatul Ion N. Angelescu",
       "kind": "landmark",
       "lat": 44.447807,
       "lon": 26.0971572,
@@ -142,7 +142,7 @@
     },
     {
       "id": "ateneu",
-      "label": "Ateneul Rom\u00e2n",
+      "label": "Ateneul Român",
       "kind": "landmark",
       "lat": 44.441344,
       "lon": 26.0973695,
@@ -160,7 +160,7 @@
     },
     {
       "id": "tnb",
-      "label": "Teatrul Na\u021bional Bucure\u0219ti",
+      "label": "Teatrul Național București",
       "kind": "landmark",
       "lat": 44.4370273,
       "lon": 26.1036159,
@@ -173,7 +173,7 @@
   "items": [
     {
       "id": "aerial-r01-c03",
-      "label": "Row 1 \u00b7 Column 3",
+      "label": "Row 1 · Column 3",
       "row": 1,
       "column": 3,
       "lat": 44.46292225101681,
@@ -236,7 +236,7 @@
     },
     {
       "id": "aerial-r01-c04",
-      "label": "Row 1 \u00b7 Column 4",
+      "label": "Row 1 · Column 4",
       "row": 1,
       "column": 4,
       "lat": 44.46292225101681,
@@ -299,7 +299,7 @@
     },
     {
       "id": "aerial-r01-c05",
-      "label": "Row 1 \u00b7 Column 5",
+      "label": "Row 1 · Column 5",
       "row": 1,
       "column": 5,
       "lat": 44.46292225101681,
@@ -362,7 +362,7 @@
     },
     {
       "id": "aerial-r01-c06",
-      "label": "Row 1 \u00b7 Column 6",
+      "label": "Row 1 · Column 6",
       "row": 1,
       "column": 6,
       "lat": 44.46292225101681,
@@ -425,7 +425,7 @@
     },
     {
       "id": "aerial-r02-c02",
-      "label": "Row 2 \u00b7 Column 2",
+      "label": "Row 2 · Column 2",
       "row": 2,
       "column": 2,
       "lat": 44.4606726739373,
@@ -488,7 +488,7 @@
     },
     {
       "id": "aerial-r02-c03",
-      "label": "Row 2 \u00b7 Column 3",
+      "label": "Row 2 · Column 3",
       "row": 2,
       "column": 3,
       "lat": 44.4606726739373,
@@ -551,7 +551,7 @@
     },
     {
       "id": "aerial-r02-c04",
-      "label": "Row 2 \u00b7 Column 4",
+      "label": "Row 2 · Column 4",
       "row": 2,
       "column": 4,
       "lat": 44.4606726739373,
@@ -614,7 +614,7 @@
     },
     {
       "id": "aerial-r02-c05",
-      "label": "Row 2 \u00b7 Column 5",
+      "label": "Row 2 · Column 5",
       "row": 2,
       "column": 5,
       "lat": 44.4606726739373,
@@ -677,7 +677,7 @@
     },
     {
       "id": "aerial-r02-c06",
-      "label": "Row 2 \u00b7 Column 6",
+      "label": "Row 2 · Column 6",
       "row": 2,
       "column": 6,
       "lat": 44.4606726739373,
@@ -740,7 +740,7 @@
     },
     {
       "id": "aerial-r02-c07",
-      "label": "Row 2 \u00b7 Column 7",
+      "label": "Row 2 · Column 7",
       "row": 2,
       "column": 7,
       "lat": 44.4606726739373,
@@ -803,7 +803,7 @@
     },
     {
       "id": "aerial-r03-c01",
-      "label": "Row 3 \u00b7 Column 1",
+      "label": "Row 3 · Column 1",
       "row": 3,
       "column": 1,
       "lat": 44.45842309685779,
@@ -866,7 +866,7 @@
     },
     {
       "id": "aerial-r03-c02",
-      "label": "Row 3 \u00b7 Column 2",
+      "label": "Row 3 · Column 2",
       "row": 3,
       "column": 2,
       "lat": 44.45842309685779,
@@ -929,7 +929,7 @@
     },
     {
       "id": "aerial-r03-c03",
-      "label": "Row 3 \u00b7 Column 3",
+      "label": "Row 3 · Column 3",
       "row": 3,
       "column": 3,
       "lat": 44.45842309685779,
@@ -992,7 +992,7 @@
     },
     {
       "id": "aerial-r03-c04",
-      "label": "Row 3 \u00b7 Column 4",
+      "label": "Row 3 · Column 4",
       "row": 3,
       "column": 4,
       "lat": 44.45842309685779,
@@ -1055,7 +1055,7 @@
     },
     {
       "id": "aerial-r03-c05",
-      "label": "Row 3 \u00b7 Column 5",
+      "label": "Row 3 · Column 5",
       "row": 3,
       "column": 5,
       "lat": 44.45842309685779,
@@ -1118,7 +1118,7 @@
     },
     {
       "id": "aerial-r03-c06",
-      "label": "Row 3 \u00b7 Column 6",
+      "label": "Row 3 · Column 6",
       "row": 3,
       "column": 6,
       "lat": 44.45842309685779,
@@ -1181,7 +1181,7 @@
     },
     {
       "id": "aerial-r03-c07",
-      "label": "Row 3 \u00b7 Column 7",
+      "label": "Row 3 · Column 7",
       "row": 3,
       "column": 7,
       "lat": 44.45842309685779,
@@ -1244,7 +1244,7 @@
     },
     {
       "id": "aerial-r03-c08",
-      "label": "Row 3 \u00b7 Column 8",
+      "label": "Row 3 · Column 8",
       "row": 3,
       "column": 8,
       "lat": 44.45842309685779,
@@ -1307,7 +1307,7 @@
     },
     {
       "id": "aerial-r03-c09",
-      "label": "Row 3 \u00b7 Column 9",
+      "label": "Row 3 · Column 9",
       "row": 3,
       "column": 9,
       "lat": 44.45842309685779,
@@ -1370,7 +1370,7 @@
     },
     {
       "id": "aerial-r04-c01",
-      "label": "Row 4 \u00b7 Column 1",
+      "label": "Row 4 · Column 1",
       "row": 4,
       "column": 1,
       "lat": 44.45617351977828,
@@ -1433,7 +1433,7 @@
     },
     {
       "id": "aerial-r04-c02",
-      "label": "Row 4 \u00b7 Column 2",
+      "label": "Row 4 · Column 2",
       "row": 4,
       "column": 2,
       "lat": 44.45617351977828,
@@ -1496,7 +1496,7 @@
     },
     {
       "id": "aerial-r04-c03",
-      "label": "Row 4 \u00b7 Column 3",
+      "label": "Row 4 · Column 3",
       "row": 4,
       "column": 3,
       "lat": 44.45617351977828,
@@ -1559,7 +1559,7 @@
     },
     {
       "id": "aerial-r04-c04",
-      "label": "Row 4 \u00b7 Column 4",
+      "label": "Row 4 · Column 4",
       "row": 4,
       "column": 4,
       "lat": 44.45617351977828,
@@ -1622,7 +1622,7 @@
     },
     {
       "id": "aerial-r04-c05",
-      "label": "Row 4 \u00b7 Column 5",
+      "label": "Row 4 · Column 5",
       "row": 4,
       "column": 5,
       "lat": 44.45617351977828,
@@ -1685,7 +1685,7 @@
     },
     {
       "id": "aerial-r04-c06",
-      "label": "Row 4 \u00b7 Column 6",
+      "label": "Row 4 · Column 6",
       "row": 4,
       "column": 6,
       "lat": 44.45617351977828,
@@ -1748,7 +1748,7 @@
     },
     {
       "id": "aerial-r04-c07",
-      "label": "Row 4 \u00b7 Column 7",
+      "label": "Row 4 · Column 7",
       "row": 4,
       "column": 7,
       "lat": 44.45617351977828,
@@ -1811,7 +1811,7 @@
     },
     {
       "id": "aerial-r04-c08",
-      "label": "Row 4 \u00b7 Column 8",
+      "label": "Row 4 · Column 8",
       "row": 4,
       "column": 8,
       "lat": 44.45617351977828,
@@ -1874,7 +1874,7 @@
     },
     {
       "id": "aerial-r04-c09",
-      "label": "Row 4 \u00b7 Column 9",
+      "label": "Row 4 · Column 9",
       "row": 4,
       "column": 9,
       "lat": 44.45617351977828,
@@ -1937,7 +1937,7 @@
     },
     {
       "id": "aerial-r04-c10",
-      "label": "Row 4 \u00b7 Column 10",
+      "label": "Row 4 · Column 10",
       "row": 4,
       "column": 10,
       "lat": 44.45617351977828,
@@ -2000,7 +2000,7 @@
     },
     {
       "id": "aerial-r05-c01",
-      "label": "Row 5 \u00b7 Column 1",
+      "label": "Row 5 · Column 1",
       "row": 5,
       "column": 1,
       "lat": 44.45392394269878,
@@ -2063,7 +2063,7 @@
     },
     {
       "id": "aerial-r05-c02",
-      "label": "Row 5 \u00b7 Column 2",
+      "label": "Row 5 · Column 2",
       "row": 5,
       "column": 2,
       "lat": 44.45392394269878,
@@ -2126,7 +2126,7 @@
     },
     {
       "id": "aerial-r05-c03",
-      "label": "Row 5 \u00b7 Column 3",
+      "label": "Row 5 · Column 3",
       "row": 5,
       "column": 3,
       "lat": 44.45392394269878,
@@ -2189,7 +2189,7 @@
     },
     {
       "id": "aerial-r05-c04",
-      "label": "Row 5 \u00b7 Column 4",
+      "label": "Row 5 · Column 4",
       "row": 5,
       "column": 4,
       "lat": 44.45392394269878,
@@ -2252,7 +2252,7 @@
     },
     {
       "id": "aerial-r05-c05",
-      "label": "Row 5 \u00b7 Column 5",
+      "label": "Row 5 · Column 5",
       "row": 5,
       "column": 5,
       "lat": 44.45392394269878,
@@ -2315,7 +2315,7 @@
     },
     {
       "id": "aerial-r05-c06",
-      "label": "Row 5 \u00b7 Column 6",
+      "label": "Row 5 · Column 6",
       "row": 5,
       "column": 6,
       "lat": 44.45392394269878,
@@ -2378,7 +2378,7 @@
     },
     {
       "id": "aerial-r05-c07",
-      "label": "Row 5 \u00b7 Column 7",
+      "label": "Row 5 · Column 7",
       "row": 5,
       "column": 7,
       "lat": 44.45392394269878,
@@ -2441,7 +2441,7 @@
     },
     {
       "id": "aerial-r05-c08",
-      "label": "Row 5 \u00b7 Column 8",
+      "label": "Row 5 · Column 8",
       "row": 5,
       "column": 8,
       "lat": 44.45392394269878,
@@ -2504,7 +2504,7 @@
     },
     {
       "id": "aerial-r05-c09",
-      "label": "Row 5 \u00b7 Column 9",
+      "label": "Row 5 · Column 9",
       "row": 5,
       "column": 9,
       "lat": 44.45392394269878,
@@ -2567,7 +2567,7 @@
     },
     {
       "id": "aerial-r05-c10",
-      "label": "Row 5 \u00b7 Column 10",
+      "label": "Row 5 · Column 10",
       "row": 5,
       "column": 10,
       "lat": 44.45392394269878,
@@ -2630,7 +2630,7 @@
     },
     {
       "id": "aerial-r06-c02",
-      "label": "Row 6 \u00b7 Column 2",
+      "label": "Row 6 · Column 2",
       "row": 6,
       "column": 2,
       "lat": 44.45167436561927,
@@ -2693,7 +2693,7 @@
     },
     {
       "id": "aerial-r06-c03",
-      "label": "Row 6 \u00b7 Column 3",
+      "label": "Row 6 · Column 3",
       "row": 6,
       "column": 3,
       "lat": 44.45167436561927,
@@ -2756,7 +2756,7 @@
     },
     {
       "id": "aerial-r06-c04",
-      "label": "Row 6 \u00b7 Column 4",
+      "label": "Row 6 · Column 4",
       "row": 6,
       "column": 4,
       "lat": 44.45167436561927,
@@ -2819,7 +2819,7 @@
     },
     {
       "id": "aerial-r06-c05",
-      "label": "Row 6 \u00b7 Column 5",
+      "label": "Row 6 · Column 5",
       "row": 6,
       "column": 5,
       "lat": 44.45167436561927,
@@ -2882,7 +2882,7 @@
     },
     {
       "id": "aerial-r06-c06",
-      "label": "Row 6 \u00b7 Column 6",
+      "label": "Row 6 · Column 6",
       "row": 6,
       "column": 6,
       "lat": 44.45167436561927,
@@ -2945,7 +2945,7 @@
     },
     {
       "id": "aerial-r06-c07",
-      "label": "Row 6 \u00b7 Column 7",
+      "label": "Row 6 · Column 7",
       "row": 6,
       "column": 7,
       "lat": 44.45167436561927,
@@ -3008,7 +3008,7 @@
     },
     {
       "id": "aerial-r06-c08",
-      "label": "Row 6 \u00b7 Column 8",
+      "label": "Row 6 · Column 8",
       "row": 6,
       "column": 8,
       "lat": 44.45167436561927,
@@ -3071,7 +3071,7 @@
     },
     {
       "id": "aerial-r06-c09",
-      "label": "Row 6 \u00b7 Column 9",
+      "label": "Row 6 · Column 9",
       "row": 6,
       "column": 9,
       "lat": 44.45167436561927,
@@ -3134,7 +3134,7 @@
     },
     {
       "id": "aerial-r06-c10",
-      "label": "Row 6 \u00b7 Column 10",
+      "label": "Row 6 · Column 10",
       "row": 6,
       "column": 10,
       "lat": 44.45167436561927,
@@ -3197,7 +3197,7 @@
     },
     {
       "id": "aerial-r06-c11",
-      "label": "Row 6 \u00b7 Column 11",
+      "label": "Row 6 · Column 11",
       "row": 6,
       "column": 11,
       "lat": 44.45167436561927,
@@ -3260,7 +3260,7 @@
     },
     {
       "id": "aerial-r07-c02",
-      "label": "Row 7 \u00b7 Column 2",
+      "label": "Row 7 · Column 2",
       "row": 7,
       "column": 2,
       "lat": 44.44942478853976,
@@ -3323,7 +3323,7 @@
     },
     {
       "id": "aerial-r07-c03",
-      "label": "Row 7 \u00b7 Column 3",
+      "label": "Row 7 · Column 3",
       "row": 7,
       "column": 3,
       "lat": 44.44942478853976,
@@ -3386,7 +3386,7 @@
     },
     {
       "id": "aerial-r07-c04",
-      "label": "Row 7 \u00b7 Column 4",
+      "label": "Row 7 · Column 4",
       "row": 7,
       "column": 4,
       "lat": 44.44942478853976,
@@ -3449,7 +3449,7 @@
     },
     {
       "id": "aerial-r07-c05",
-      "label": "Row 7 \u00b7 Column 5",
+      "label": "Row 7 · Column 5",
       "row": 7,
       "column": 5,
       "lat": 44.44942478853976,
@@ -3512,7 +3512,7 @@
     },
     {
       "id": "aerial-r07-c06",
-      "label": "Row 7 \u00b7 Column 6",
+      "label": "Row 7 · Column 6",
       "row": 7,
       "column": 6,
       "lat": 44.44942478853976,
@@ -3575,7 +3575,7 @@
     },
     {
       "id": "aerial-r07-c07",
-      "label": "Row 7 \u00b7 Column 7",
+      "label": "Row 7 · Column 7",
       "row": 7,
       "column": 7,
       "lat": 44.44942478853976,
@@ -3638,7 +3638,7 @@
     },
     {
       "id": "aerial-r07-c08",
-      "label": "Row 7 \u00b7 Column 8",
+      "label": "Row 7 · Column 8",
       "row": 7,
       "column": 8,
       "lat": 44.44942478853976,
@@ -3701,7 +3701,7 @@
     },
     {
       "id": "aerial-r07-c09",
-      "label": "Row 7 \u00b7 Column 9",
+      "label": "Row 7 · Column 9",
       "row": 7,
       "column": 9,
       "lat": 44.44942478853976,
@@ -3764,7 +3764,7 @@
     },
     {
       "id": "aerial-r07-c10",
-      "label": "Row 7 \u00b7 Column 10",
+      "label": "Row 7 · Column 10",
       "row": 7,
       "column": 10,
       "lat": 44.44942478853976,
@@ -3827,7 +3827,7 @@
     },
     {
       "id": "aerial-r07-c11",
-      "label": "Row 7 \u00b7 Column 11",
+      "label": "Row 7 · Column 11",
       "row": 7,
       "column": 11,
       "lat": 44.44942478853976,
@@ -3890,7 +3890,7 @@
     },
     {
       "id": "aerial-r08-c02",
-      "label": "Row 8 \u00b7 Column 2",
+      "label": "Row 8 · Column 2",
       "row": 8,
       "column": 2,
       "lat": 44.44717521146025,
@@ -3953,7 +3953,7 @@
     },
     {
       "id": "aerial-r08-c03",
-      "label": "Row 8 \u00b7 Column 3",
+      "label": "Row 8 · Column 3",
       "row": 8,
       "column": 3,
       "lat": 44.44717521146025,
@@ -4016,7 +4016,7 @@
     },
     {
       "id": "aerial-r08-c04",
-      "label": "Row 8 \u00b7 Column 4",
+      "label": "Row 8 · Column 4",
       "row": 8,
       "column": 4,
       "lat": 44.44717521146025,
@@ -4079,7 +4079,7 @@
     },
     {
       "id": "aerial-r08-c05",
-      "label": "Row 8 \u00b7 Column 5",
+      "label": "Row 8 · Column 5",
       "row": 8,
       "column": 5,
       "lat": 44.44717521146025,
@@ -4142,7 +4142,7 @@
     },
     {
       "id": "aerial-r08-c06",
-      "label": "Row 8 \u00b7 Column 6",
+      "label": "Row 8 · Column 6",
       "row": 8,
       "column": 6,
       "lat": 44.44717521146025,
@@ -4205,7 +4205,7 @@
     },
     {
       "id": "aerial-r08-c07",
-      "label": "Row 8 \u00b7 Column 7",
+      "label": "Row 8 · Column 7",
       "row": 8,
       "column": 7,
       "lat": 44.44717521146025,
@@ -4268,7 +4268,7 @@
     },
     {
       "id": "aerial-r08-c08",
-      "label": "Row 8 \u00b7 Column 8",
+      "label": "Row 8 · Column 8",
       "row": 8,
       "column": 8,
       "lat": 44.44717521146025,
@@ -4331,7 +4331,7 @@
     },
     {
       "id": "aerial-r08-c09",
-      "label": "Row 8 \u00b7 Column 9",
+      "label": "Row 8 · Column 9",
       "row": 8,
       "column": 9,
       "lat": 44.44717521146025,
@@ -4394,7 +4394,7 @@
     },
     {
       "id": "aerial-r08-c10",
-      "label": "Row 8 \u00b7 Column 10",
+      "label": "Row 8 · Column 10",
       "row": 8,
       "column": 10,
       "lat": 44.44717521146025,
@@ -4457,7 +4457,7 @@
     },
     {
       "id": "aerial-r08-c11",
-      "label": "Row 8 \u00b7 Column 11",
+      "label": "Row 8 · Column 11",
       "row": 8,
       "column": 11,
       "lat": 44.44717521146025,
@@ -4520,7 +4520,7 @@
     },
     {
       "id": "aerial-r08-c12",
-      "label": "Row 8 \u00b7 Column 12",
+      "label": "Row 8 · Column 12",
       "row": 8,
       "column": 12,
       "lat": 44.44717521146025,
@@ -4583,7 +4583,7 @@
     },
     {
       "id": "aerial-r09-c03",
-      "label": "Row 9 \u00b7 Column 3",
+      "label": "Row 9 · Column 3",
       "row": 9,
       "column": 3,
       "lat": 44.44492563438074,
@@ -4646,7 +4646,7 @@
     },
     {
       "id": "aerial-r09-c04",
-      "label": "Row 9 \u00b7 Column 4",
+      "label": "Row 9 · Column 4",
       "row": 9,
       "column": 4,
       "lat": 44.44492563438074,
@@ -4709,7 +4709,7 @@
     },
     {
       "id": "aerial-r09-c05",
-      "label": "Row 9 \u00b7 Column 5",
+      "label": "Row 9 · Column 5",
       "row": 9,
       "column": 5,
       "lat": 44.44492563438074,
@@ -4772,7 +4772,7 @@
     },
     {
       "id": "aerial-r09-c06",
-      "label": "Row 9 \u00b7 Column 6",
+      "label": "Row 9 · Column 6",
       "row": 9,
       "column": 6,
       "lat": 44.44492563438074,
@@ -4835,7 +4835,7 @@
     },
     {
       "id": "aerial-r09-c07",
-      "label": "Row 9 \u00b7 Column 7",
+      "label": "Row 9 · Column 7",
       "row": 9,
       "column": 7,
       "lat": 44.44492563438074,
@@ -4898,7 +4898,7 @@
     },
     {
       "id": "aerial-r09-c08",
-      "label": "Row 9 \u00b7 Column 8",
+      "label": "Row 9 · Column 8",
       "row": 9,
       "column": 8,
       "lat": 44.44492563438074,
@@ -4961,7 +4961,7 @@
     },
     {
       "id": "aerial-r09-c09",
-      "label": "Row 9 \u00b7 Column 9",
+      "label": "Row 9 · Column 9",
       "row": 9,
       "column": 9,
       "lat": 44.44492563438074,
@@ -5024,7 +5024,7 @@
     },
     {
       "id": "aerial-r09-c10",
-      "label": "Row 9 \u00b7 Column 10",
+      "label": "Row 9 · Column 10",
       "row": 9,
       "column": 10,
       "lat": 44.44492563438074,
@@ -5087,7 +5087,7 @@
     },
     {
       "id": "aerial-r09-c11",
-      "label": "Row 9 \u00b7 Column 11",
+      "label": "Row 9 · Column 11",
       "row": 9,
       "column": 11,
       "lat": 44.44492563438074,
@@ -5150,7 +5150,7 @@
     },
     {
       "id": "aerial-r09-c12",
-      "label": "Row 9 \u00b7 Column 12",
+      "label": "Row 9 · Column 12",
       "row": 9,
       "column": 12,
       "lat": 44.44492563438074,
@@ -5213,7 +5213,7 @@
     },
     {
       "id": "aerial-r10-c05",
-      "label": "Row 10 \u00b7 Column 5",
+      "label": "Row 10 · Column 5",
       "row": 10,
       "column": 5,
       "lat": 44.44267605730123,
@@ -5276,7 +5276,7 @@
     },
     {
       "id": "aerial-r10-c06",
-      "label": "Row 10 \u00b7 Column 6",
+      "label": "Row 10 · Column 6",
       "row": 10,
       "column": 6,
       "lat": 44.44267605730123,
@@ -5339,7 +5339,7 @@
     },
     {
       "id": "aerial-r10-c07",
-      "label": "Row 10 \u00b7 Column 7",
+      "label": "Row 10 · Column 7",
       "row": 10,
       "column": 7,
       "lat": 44.44267605730123,
@@ -5402,7 +5402,7 @@
     },
     {
       "id": "aerial-r10-c08",
-      "label": "Row 10 \u00b7 Column 8",
+      "label": "Row 10 · Column 8",
       "row": 10,
       "column": 8,
       "lat": 44.44267605730123,
@@ -5465,7 +5465,7 @@
     },
     {
       "id": "aerial-r10-c09",
-      "label": "Row 10 \u00b7 Column 9",
+      "label": "Row 10 · Column 9",
       "row": 10,
       "column": 9,
       "lat": 44.44267605730123,
@@ -5528,7 +5528,7 @@
     },
     {
       "id": "aerial-r10-c10",
-      "label": "Row 10 \u00b7 Column 10",
+      "label": "Row 10 · Column 10",
       "row": 10,
       "column": 10,
       "lat": 44.44267605730123,
@@ -5591,7 +5591,7 @@
     },
     {
       "id": "aerial-r10-c11",
-      "label": "Row 10 \u00b7 Column 11",
+      "label": "Row 10 · Column 11",
       "row": 10,
       "column": 11,
       "lat": 44.44267605730123,
@@ -5654,7 +5654,7 @@
     },
     {
       "id": "aerial-r10-c12",
-      "label": "Row 10 \u00b7 Column 12",
+      "label": "Row 10 · Column 12",
       "row": 10,
       "column": 12,
       "lat": 44.44267605730123,
@@ -5717,7 +5717,7 @@
     },
     {
       "id": "aerial-r11-c06",
-      "label": "Row 11 \u00b7 Column 6",
+      "label": "Row 11 · Column 6",
       "row": 11,
       "column": 6,
       "lat": 44.440426480221724,
@@ -5780,7 +5780,7 @@
     },
     {
       "id": "aerial-r11-c07",
-      "label": "Row 11 \u00b7 Column 7",
+      "label": "Row 11 · Column 7",
       "row": 11,
       "column": 7,
       "lat": 44.440426480221724,
@@ -5843,7 +5843,7 @@
     },
     {
       "id": "aerial-r11-c08",
-      "label": "Row 11 \u00b7 Column 8",
+      "label": "Row 11 · Column 8",
       "row": 11,
       "column": 8,
       "lat": 44.440426480221724,
@@ -5906,7 +5906,7 @@
     },
     {
       "id": "aerial-r11-c09",
-      "label": "Row 11 \u00b7 Column 9",
+      "label": "Row 11 · Column 9",
       "row": 11,
       "column": 9,
       "lat": 44.440426480221724,
@@ -5969,7 +5969,7 @@
     },
     {
       "id": "aerial-r11-c10",
-      "label": "Row 11 \u00b7 Column 10",
+      "label": "Row 11 · Column 10",
       "row": 11,
       "column": 10,
       "lat": 44.440426480221724,
@@ -6032,7 +6032,7 @@
     },
     {
       "id": "aerial-r11-c11",
-      "label": "Row 11 \u00b7 Column 11",
+      "label": "Row 11 · Column 11",
       "row": 11,
       "column": 11,
       "lat": 44.440426480221724,
@@ -6095,7 +6095,7 @@
     },
     {
       "id": "aerial-r11-c12",
-      "label": "Row 11 \u00b7 Column 12",
+      "label": "Row 11 · Column 12",
       "row": 11,
       "column": 12,
       "lat": 44.440426480221724,
@@ -6158,7 +6158,7 @@
     },
     {
       "id": "aerial-r12-c06",
-      "label": "Row 12 \u00b7 Column 6",
+      "label": "Row 12 · Column 6",
       "row": 12,
       "column": 6,
       "lat": 44.438176903142214,
@@ -6221,7 +6221,7 @@
     },
     {
       "id": "aerial-r12-c07",
-      "label": "Row 12 \u00b7 Column 7",
+      "label": "Row 12 · Column 7",
       "row": 12,
       "column": 7,
       "lat": 44.438176903142214,
@@ -6284,7 +6284,7 @@
     },
     {
       "id": "aerial-r12-c08",
-      "label": "Row 12 \u00b7 Column 8",
+      "label": "Row 12 · Column 8",
       "row": 12,
       "column": 8,
       "lat": 44.438176903142214,
@@ -6347,7 +6347,7 @@
     },
     {
       "id": "aerial-r12-c09",
-      "label": "Row 12 \u00b7 Column 9",
+      "label": "Row 12 · Column 9",
       "row": 12,
       "column": 9,
       "lat": 44.438176903142214,
@@ -6410,7 +6410,7 @@
     },
     {
       "id": "aerial-r12-c10",
-      "label": "Row 12 \u00b7 Column 10",
+      "label": "Row 12 · Column 10",
       "row": 12,
       "column": 10,
       "lat": 44.438176903142214,
@@ -6473,7 +6473,7 @@
     },
     {
       "id": "aerial-r12-c11",
-      "label": "Row 12 \u00b7 Column 11",
+      "label": "Row 12 · Column 11",
       "row": 12,
       "column": 11,
       "lat": 44.438176903142214,
@@ -6536,7 +6536,7 @@
     },
     {
       "id": "aerial-r12-c12",
-      "label": "Row 12 \u00b7 Column 12",
+      "label": "Row 12 · Column 12",
       "row": 12,
       "column": 12,
       "lat": 44.438176903142214,
@@ -6599,7 +6599,7 @@
     },
     {
       "id": "aerial-r13-c07",
-      "label": "Row 13 \u00b7 Column 7",
+      "label": "Row 13 · Column 7",
       "row": 13,
       "column": 7,
       "lat": 44.4359273260627,
@@ -6662,7 +6662,7 @@
     },
     {
       "id": "aerial-r13-c08",
-      "label": "Row 13 \u00b7 Column 8",
+      "label": "Row 13 · Column 8",
       "row": 13,
       "column": 8,
       "lat": 44.4359273260627,
@@ -6725,7 +6725,7 @@
     },
     {
       "id": "aerial-r13-c09",
-      "label": "Row 13 \u00b7 Column 9",
+      "label": "Row 13 · Column 9",
       "row": 13,
       "column": 9,
       "lat": 44.4359273260627,
@@ -6788,7 +6788,7 @@
     },
     {
       "id": "aerial-r13-c10",
-      "label": "Row 13 \u00b7 Column 10",
+      "label": "Row 13 · Column 10",
       "row": 13,
       "column": 10,
       "lat": 44.4359273260627,
@@ -6851,7 +6851,7 @@
     },
     {
       "id": "aerial-r13-c11",
-      "label": "Row 13 \u00b7 Column 11",
+      "label": "Row 13 · Column 11",
       "row": 13,
       "column": 11,
       "lat": 44.4359273260627,
@@ -6914,7 +6914,7 @@
     },
     {
       "id": "aerial-r13-c12",
-      "label": "Row 13 \u00b7 Column 12",
+      "label": "Row 13 · Column 12",
       "row": 13,
       "column": 12,
       "lat": 44.4359273260627,
@@ -6977,7 +6977,7 @@
     },
     {
       "id": "aerial-r14-c08",
-      "label": "Row 14 \u00b7 Column 8",
+      "label": "Row 14 · Column 8",
       "row": 14,
       "column": 8,
       "lat": 44.43367774898319,
@@ -7040,7 +7040,7 @@
     },
     {
       "id": "aerial-r14-c09",
-      "label": "Row 14 \u00b7 Column 9",
+      "label": "Row 14 · Column 9",
       "row": 14,
       "column": 9,
       "lat": 44.43367774898319,
@@ -7103,7 +7103,7 @@
     },
     {
       "id": "aerial-r14-c10",
-      "label": "Row 14 \u00b7 Column 10",
+      "label": "Row 14 · Column 10",
       "row": 14,
       "column": 10,
       "lat": 44.43367774898319,
@@ -7166,7 +7166,7 @@
     },
     {
       "id": "context-northwest",
-      "label": "Distant context \u00b7 northwest",
+      "label": "Distant context · northwest",
       "row": 1,
       "column": 1,
       "lat": 44.46292225101681,
@@ -7229,7 +7229,7 @@
     },
     {
       "id": "context-northeast",
-      "label": "Distant context \u00b7 northeast",
+      "label": "Distant context · northeast",
       "row": 1,
       "column": 12,
       "lat": 44.46292225101681,
@@ -7292,7 +7292,7 @@
     },
     {
       "id": "context-southwest",
-      "label": "Distant context \u00b7 southwest",
+      "label": "Distant context · southwest",
       "row": 14,
       "column": 1,
       "lat": 44.43367774898319,
@@ -7355,7 +7355,7 @@
     },
     {
       "id": "context-southeast",
-      "label": "Distant context \u00b7 southeast",
+      "label": "Distant context · southeast",
       "row": 14,
       "column": 12,
       "lat": 44.43367774898319,
@@ -8243,7 +8243,7 @@
         "reviewSheetSha256": "be58fbc0fb5b2c7fe7c25f100d1057e137dc1f33d9e35765951a2d337833eea1",
         "reviewedAt": "2026-11-08T22:34:01.418310+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Iancu de Hunedoara corridor: source frontages and dual carriageway are visible; Dinamo exterior and distant stand mass remain approximate in Roman\u0103. Roof/facade/canopy detail differs from reference."
+        "observations": "Iancu de Hunedoara corridor: source frontages and dual carriageway are visible; Dinamo exterior and distant stand mass remain approximate in Romană. Roof/facade/canopy detail differs from reference."
       },
       {
         "id": "aerial-r05-c09",
@@ -8262,7 +8262,7 @@
         "reviewSheetSha256": "be58fbc0fb5b2c7fe7c25f100d1057e137dc1f33d9e35765951a2d337833eea1",
         "reviewedAt": "2026-11-08T22:34:01.420442+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Iancu de Hunedoara corridor: source frontages and dual carriageway are visible; Dinamo exterior and distant stand mass remain approximate in Roman\u0103. Roof/facade/canopy detail differs from reference."
+        "observations": "Iancu de Hunedoara corridor: source frontages and dual carriageway are visible; Dinamo exterior and distant stand mass remain approximate in Romană. Roof/facade/canopy detail differs from reference."
       },
       {
         "id": "aerial-r05-c10",
@@ -8281,7 +8281,7 @@
         "reviewSheetSha256": "be58fbc0fb5b2c7fe7c25f100d1057e137dc1f33d9e35765951a2d337833eea1",
         "reviewedAt": "2026-11-08T22:34:01.435060+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Iancu de Hunedoara corridor: source frontages and dual carriageway are visible; Dinamo exterior and distant stand mass remain approximate in Roman\u0103. Roof/facade/canopy detail differs from reference."
+        "observations": "Iancu de Hunedoara corridor: source frontages and dual carriageway are visible; Dinamo exterior and distant stand mass remain approximate in Romană. Roof/facade/canopy detail differs from reference."
       },
       {
         "id": "aerial-r06-c02",
@@ -8300,7 +8300,7 @@
         "reviewSheetSha256": "be58fbc0fb5b2c7fe7c25f100d1057e137dc1f33d9e35765951a2d337833eea1",
         "reviewedAt": "2026-11-08T22:34:01.437630+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Iancu de Hunedoara corridor: source frontages and dual carriageway are visible; Dinamo exterior and distant stand mass remain approximate in Roman\u0103. Roof/facade/canopy detail differs from reference."
+        "observations": "Iancu de Hunedoara corridor: source frontages and dual carriageway are visible; Dinamo exterior and distant stand mass remain approximate in Romană. Roof/facade/canopy detail differs from reference."
       },
       {
         "id": "aerial-r06-c03",
@@ -8319,7 +8319,7 @@
         "reviewSheetSha256": "be58fbc0fb5b2c7fe7c25f100d1057e137dc1f33d9e35765951a2d337833eea1",
         "reviewedAt": "2026-11-08T22:34:01.471662+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Iancu de Hunedoara corridor: source frontages and dual carriageway are visible; Dinamo exterior and distant stand mass remain approximate in Roman\u0103. Roof/facade/canopy detail differs from reference."
+        "observations": "Iancu de Hunedoara corridor: source frontages and dual carriageway are visible; Dinamo exterior and distant stand mass remain approximate in Romană. Roof/facade/canopy detail differs from reference."
       },
       {
         "id": "aerial-r06-c04",
@@ -8338,7 +8338,7 @@
         "reviewSheetSha256": "be58fbc0fb5b2c7fe7c25f100d1057e137dc1f33d9e35765951a2d337833eea1",
         "reviewedAt": "2026-11-08T22:34:01.474091+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Iancu de Hunedoara corridor: source frontages and dual carriageway are visible; Dinamo exterior and distant stand mass remain approximate in Roman\u0103. Roof/facade/canopy detail differs from reference."
+        "observations": "Iancu de Hunedoara corridor: source frontages and dual carriageway are visible; Dinamo exterior and distant stand mass remain approximate in Romană. Roof/facade/canopy detail differs from reference."
       },
       {
         "id": "aerial-r06-c05",
@@ -8699,7 +8699,7 @@
         "reviewSheetSha256": "5398a8d93910191c7cc4e2c8b50004be405568925eeba0ab8db8e7cf761b7506",
         "reviewedAt": "2026-11-08T22:34:01.617764+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "ASE/Roman\u0103 surroundings: source courtyards and native roof pieces are visible, while dormer/roof ornament, materials, mature canopy and parking density remain simplified. North-up review does not establish street-facade parity."
+        "observations": "ASE/Romană surroundings: source courtyards and native roof pieces are visible, while dormer/roof ornament, materials, mature canopy and parking density remain simplified. North-up review does not establish street-facade parity."
       },
       {
         "id": "aerial-r08-c04",
@@ -8718,7 +8718,7 @@
         "reviewSheetSha256": "5398a8d93910191c7cc4e2c8b50004be405568925eeba0ab8db8e7cf761b7506",
         "reviewedAt": "2026-11-08T22:34:01.626909+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "ASE/Roman\u0103 surroundings: source courtyards and native roof pieces are visible, while dormer/roof ornament, materials, mature canopy and parking density remain simplified. North-up review does not establish street-facade parity."
+        "observations": "ASE/Romană surroundings: source courtyards and native roof pieces are visible, while dormer/roof ornament, materials, mature canopy and parking density remain simplified. North-up review does not establish street-facade parity."
       },
       {
         "id": "aerial-r08-c05",
@@ -8737,7 +8737,7 @@
         "reviewSheetSha256": "5398a8d93910191c7cc4e2c8b50004be405568925eeba0ab8db8e7cf761b7506",
         "reviewedAt": "2026-11-08T22:34:01.629754+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "ASE/Roman\u0103 surroundings: source courtyards and native roof pieces are visible, while dormer/roof ornament, materials, mature canopy and parking density remain simplified. North-up review does not establish street-facade parity."
+        "observations": "ASE/Romană surroundings: source courtyards and native roof pieces are visible, while dormer/roof ornament, materials, mature canopy and parking density remain simplified. North-up review does not establish street-facade parity."
       },
       {
         "id": "aerial-r08-c06",
@@ -8756,7 +8756,7 @@
         "reviewSheetSha256": "5398a8d93910191c7cc4e2c8b50004be405568925eeba0ab8db8e7cf761b7506",
         "reviewedAt": "2026-11-08T22:34:01.635138+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "ASE/Roman\u0103 surroundings: source courtyards and native roof pieces are visible, while dormer/roof ornament, materials, mature canopy and parking density remain simplified. North-up review does not establish street-facade parity."
+        "observations": "ASE/Romană surroundings: source courtyards and native roof pieces are visible, while dormer/roof ornament, materials, mature canopy and parking density remain simplified. North-up review does not establish street-facade parity."
       },
       {
         "id": "aerial-r08-c07",
@@ -8775,7 +8775,7 @@
         "reviewSheetSha256": "5398a8d93910191c7cc4e2c8b50004be405568925eeba0ab8db8e7cf761b7506",
         "reviewedAt": "2026-11-08T22:34:01.637594+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "ASE/Roman\u0103 surroundings: source courtyards and native roof pieces are visible, while dormer/roof ornament, materials, mature canopy and parking density remain simplified. North-up review does not establish street-facade parity."
+        "observations": "ASE/Romană surroundings: source courtyards and native roof pieces are visible, while dormer/roof ornament, materials, mature canopy and parking density remain simplified. North-up review does not establish street-facade parity."
       },
       {
         "id": "aerial-r08-c08",
@@ -8794,7 +8794,7 @@
         "reviewSheetSha256": "5398a8d93910191c7cc4e2c8b50004be405568925eeba0ab8db8e7cf761b7506",
         "reviewedAt": "2026-11-08T22:34:01.643890+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "ASE/Roman\u0103 surroundings: source courtyards and native roof pieces are visible, while dormer/roof ornament, materials, mature canopy and parking density remain simplified. North-up review does not establish street-facade parity."
+        "observations": "ASE/Romană surroundings: source courtyards and native roof pieces are visible, while dormer/roof ornament, materials, mature canopy and parking density remain simplified. North-up review does not establish street-facade parity."
       },
       {
         "id": "aerial-r08-c09",
@@ -9751,34 +9751,10 @@
   "collectionNotes": {
     "atlas": "103 frames on 4378317, 13 frames on 0775fda. High quality, summer, clear daylight; moving traffic and mirrors disabled. Every frame retains its actual immutable source SHA. Historical captures preserve their original source and date in historical/."
   },
-  "historicalCollections": [
-    {
-      "manifest": "historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/manifest.json",
-      "frames": 199,
-      "generatedAt": "2026-11-08",
-      "gameSourceCommit": null,
-      "publishedBaseline": "58129abe74a93be2ef52d3c3bf40682768531bc3",
-      "sourceCounts": {
-        "b10d8d3684b702fa529076bb92e3f0c1948d85cd": 192,
-        "ce54c6b548b155c3bafe9a120d24627d0b38346f": 3
-      },
-      "captureType": "historical-survey",
-      "note": "Entire original collection retained, including unchanged image bytes, per-frame source identities and capture provenance."
-    },
-    {
-      "manifest": "historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-0fa9d108/manifest.json",
-      "label": "Original full atlas \u00b7 4378317",
-      "frames": 116,
-      "generatedAt": "2026-11-08T21:53:32.179Z",
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-      "captureType": "branch-source-snapshot",
-      "note": "Entire original capture retained, including the frames superseded by current water retakes."
-    }
-  ],
   "perspectiveCollections": [
     {
       "manifest": "context/summer-clear-night/manifest.json",
-      "label": "Summer Clear Night \u00b7 district context",
+      "label": "Summer Clear Night · district context",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "frames": 9,
@@ -9786,7 +9762,7 @@
     },
     {
       "manifest": "context/winter-snow-day/manifest.json",
-      "label": "Winter Snow Day \u00b7 district context",
+      "label": "Winter Snow Day · district context",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "frames": 9,
@@ -9794,7 +9770,7 @@
     },
     {
       "manifest": "context/summer-clear-day/manifest.json",
-      "label": "Summer Clear Day \u00b7 district context",
+      "label": "Summer Clear Day · district context",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "frames": 37,

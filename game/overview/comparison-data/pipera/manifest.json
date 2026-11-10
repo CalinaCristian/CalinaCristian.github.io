@@ -30,7 +30,7 @@
     ],
     "sourceCaptureManifests": [
       {
-        "path": "historical/c78a5f4/capture-manifest.json",
+        "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
         "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
         "frames": 98
       },
@@ -41,7 +41,7 @@
         "frames": 35
       },
       {
-        "path": "historical/full-before-07cc3d6b-4b598272/manifest.json",
+        "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/manifest.json",
         "sha256": "4b5982724681558afaa65ead6bf82086a55cf7c6ccef1c02973c24ca3525592f",
         "sourceCounts": {
           "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 98,
@@ -192,7 +192,7 @@
   "items": [
     {
       "id": "aerial-r01-c06",
-      "label": "Row 1 \u00b7 Column 6",
+      "label": "Row 1 · Column 6",
       "row": 1,
       "column": 6,
       "lat": 44.487873519778276,
@@ -253,12 +253,12 @@
         26.10355728048669
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r01-c07",
-      "label": "Row 1 \u00b7 Column 7",
+      "label": "Row 1 · Column 7",
       "row": 1,
       "column": 7,
       "lat": 44.487873519778276,
@@ -319,12 +319,12 @@
         26.106704853657792
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r01-c08",
-      "label": "Row 1 \u00b7 Column 8",
+      "label": "Row 1 · Column 8",
       "row": 1,
       "column": 8,
       "lat": 44.487873519778276,
@@ -385,12 +385,12 @@
         26.109852426828898
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r01-c09",
-      "label": "Row 1 \u00b7 Column 9",
+      "label": "Row 1 · Column 9",
       "row": 1,
       "column": 9,
       "lat": 44.487873519778276,
@@ -451,12 +451,12 @@
         26.113
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r01-c10",
-      "label": "Row 1 \u00b7 Column 10",
+      "label": "Row 1 · Column 10",
       "row": 1,
       "column": 10,
       "lat": 44.487873519778276,
@@ -517,12 +517,12 @@
         26.1161475731711
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r01-c11",
-      "label": "Row 1 \u00b7 Column 11",
+      "label": "Row 1 · Column 11",
       "row": 1,
       "column": 11,
       "lat": 44.487873519778276,
@@ -583,12 +583,12 @@
         26.119295146342207
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c02",
-      "label": "Row 2 \u00b7 Column 2",
+      "label": "Row 2 · Column 2",
       "row": 2,
       "column": 2,
       "lat": 44.48562394269877,
@@ -649,12 +649,12 @@
         26.09096698780228
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c03",
-      "label": "Row 2 \u00b7 Column 3",
+      "label": "Row 2 · Column 3",
       "row": 2,
       "column": 3,
       "lat": 44.48562394269877,
@@ -715,12 +715,12 @@
         26.09411456097338
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c04",
-      "label": "Row 2 \u00b7 Column 4",
+      "label": "Row 2 · Column 4",
       "row": 2,
       "column": 4,
       "lat": 44.48562394269877,
@@ -781,12 +781,12 @@
         26.097262134144483
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c05",
-      "label": "Row 2 \u00b7 Column 5",
+      "label": "Row 2 · Column 5",
       "row": 2,
       "column": 5,
       "lat": 44.48562394269877,
@@ -847,12 +847,12 @@
         26.10040970731559
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c06",
-      "label": "Row 2 \u00b7 Column 6",
+      "label": "Row 2 · Column 6",
       "row": 2,
       "column": 6,
       "lat": 44.48562394269877,
@@ -913,12 +913,12 @@
         26.10355728048669
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c07",
-      "label": "Row 2 \u00b7 Column 7",
+      "label": "Row 2 · Column 7",
       "row": 2,
       "column": 7,
       "lat": 44.48562394269877,
@@ -979,12 +979,12 @@
         26.106704853657792
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c08",
-      "label": "Row 2 \u00b7 Column 8",
+      "label": "Row 2 · Column 8",
       "row": 2,
       "column": 8,
       "lat": 44.48562394269877,
@@ -1045,12 +1045,12 @@
         26.109852426828898
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c09",
-      "label": "Row 2 \u00b7 Column 9",
+      "label": "Row 2 · Column 9",
       "row": 2,
       "column": 9,
       "lat": 44.48562394269877,
@@ -1111,12 +1111,12 @@
         26.113
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c10",
-      "label": "Row 2 \u00b7 Column 10",
+      "label": "Row 2 · Column 10",
       "row": 2,
       "column": 10,
       "lat": 44.48562394269877,
@@ -1177,12 +1177,12 @@
         26.1161475731711
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c11",
-      "label": "Row 2 \u00b7 Column 11",
+      "label": "Row 2 · Column 11",
       "row": 2,
       "column": 11,
       "lat": 44.48562394269877,
@@ -1243,12 +1243,12 @@
         26.119295146342207
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c12",
-      "label": "Row 2 \u00b7 Column 12",
+      "label": "Row 2 · Column 12",
       "row": 2,
       "column": 12,
       "lat": 44.48562394269877,
@@ -1309,12 +1309,12 @@
         26.12244271951331
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c13",
-      "label": "Row 2 \u00b7 Column 13",
+      "label": "Row 2 · Column 13",
       "row": 2,
       "column": 13,
       "lat": 44.48562394269877,
@@ -1375,12 +1375,12 @@
         26.12559029268441
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c14",
-      "label": "Row 2 \u00b7 Column 14",
+      "label": "Row 2 · Column 14",
       "row": 2,
       "column": 14,
       "lat": 44.48562394269877,
@@ -1441,12 +1441,12 @@
         26.128737865855516
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c15",
-      "label": "Row 2 \u00b7 Column 15",
+      "label": "Row 2 · Column 15",
       "row": 2,
       "column": 15,
       "lat": 44.48562394269877,
@@ -1507,12 +1507,12 @@
         26.131885439026618
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c01",
-      "label": "Row 3 \u00b7 Column 1",
+      "label": "Row 3 · Column 1",
       "row": 3,
       "column": 1,
       "lat": 44.48337436561926,
@@ -1573,12 +1573,12 @@
         26.087819414631177
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c02",
-      "label": "Row 3 \u00b7 Column 2",
+      "label": "Row 3 · Column 2",
       "row": 3,
       "column": 2,
       "lat": 44.48337436561926,
@@ -1639,12 +1639,12 @@
         26.09096698780228
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c03",
-      "label": "Row 3 \u00b7 Column 3",
+      "label": "Row 3 · Column 3",
       "row": 3,
       "column": 3,
       "lat": 44.48337436561926,
@@ -1705,12 +1705,12 @@
         26.09411456097338
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c04",
-      "label": "Row 3 \u00b7 Column 4",
+      "label": "Row 3 · Column 4",
       "row": 3,
       "column": 4,
       "lat": 44.48337436561926,
@@ -1771,12 +1771,12 @@
         26.097262134144483
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c05",
-      "label": "Row 3 \u00b7 Column 5",
+      "label": "Row 3 · Column 5",
       "row": 3,
       "column": 5,
       "lat": 44.48337436561926,
@@ -1837,12 +1837,12 @@
         26.10040970731559
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c06",
-      "label": "Row 3 \u00b7 Column 6",
+      "label": "Row 3 · Column 6",
       "row": 3,
       "column": 6,
       "lat": 44.48337436561926,
@@ -1903,12 +1903,12 @@
         26.10355728048669
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c07",
-      "label": "Row 3 \u00b7 Column 7",
+      "label": "Row 3 · Column 7",
       "row": 3,
       "column": 7,
       "lat": 44.48337436561926,
@@ -1969,12 +1969,12 @@
         26.106704853657792
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c08",
-      "label": "Row 3 \u00b7 Column 8",
+      "label": "Row 3 · Column 8",
       "row": 3,
       "column": 8,
       "lat": 44.48337436561926,
@@ -2035,12 +2035,12 @@
         26.109852426828898
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c09",
-      "label": "Row 3 \u00b7 Column 9",
+      "label": "Row 3 · Column 9",
       "row": 3,
       "column": 9,
       "lat": 44.48337436561926,
@@ -2101,12 +2101,12 @@
         26.113
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c10",
-      "label": "Row 3 \u00b7 Column 10",
+      "label": "Row 3 · Column 10",
       "row": 3,
       "column": 10,
       "lat": 44.48337436561926,
@@ -2167,12 +2167,12 @@
         26.1161475731711
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c11",
-      "label": "Row 3 \u00b7 Column 11",
+      "label": "Row 3 · Column 11",
       "row": 3,
       "column": 11,
       "lat": 44.48337436561926,
@@ -2233,12 +2233,12 @@
         26.119295146342207
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c12",
-      "label": "Row 3 \u00b7 Column 12",
+      "label": "Row 3 · Column 12",
       "row": 3,
       "column": 12,
       "lat": 44.48337436561926,
@@ -2299,12 +2299,12 @@
         26.12244271951331
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c13",
-      "label": "Row 3 \u00b7 Column 13",
+      "label": "Row 3 · Column 13",
       "row": 3,
       "column": 13,
       "lat": 44.48337436561926,
@@ -2365,12 +2365,12 @@
         26.12559029268441
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c14",
-      "label": "Row 3 \u00b7 Column 14",
+      "label": "Row 3 · Column 14",
       "row": 3,
       "column": 14,
       "lat": 44.48337436561926,
@@ -2431,12 +2431,12 @@
         26.128737865855516
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c15",
-      "label": "Row 3 \u00b7 Column 15",
+      "label": "Row 3 · Column 15",
       "row": 3,
       "column": 15,
       "lat": 44.48337436561926,
@@ -2497,12 +2497,12 @@
         26.131885439026618
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c16",
-      "label": "Row 3 \u00b7 Column 16",
+      "label": "Row 3 · Column 16",
       "row": 3,
       "column": 16,
       "lat": 44.48337436561926,
@@ -2563,12 +2563,12 @@
         26.13503301219772
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c01",
-      "label": "Row 4 \u00b7 Column 1",
+      "label": "Row 4 · Column 1",
       "row": 4,
       "column": 1,
       "lat": 44.48112478853975,
@@ -2629,12 +2629,12 @@
         26.087819414631177
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c02",
-      "label": "Row 4 \u00b7 Column 2",
+      "label": "Row 4 · Column 2",
       "row": 4,
       "column": 2,
       "lat": 44.48112478853975,
@@ -2695,12 +2695,12 @@
         26.09096698780228
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c03",
-      "label": "Row 4 \u00b7 Column 3",
+      "label": "Row 4 · Column 3",
       "row": 4,
       "column": 3,
       "lat": 44.48112478853975,
@@ -2761,12 +2761,12 @@
         26.09411456097338
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c04",
-      "label": "Row 4 \u00b7 Column 4",
+      "label": "Row 4 · Column 4",
       "row": 4,
       "column": 4,
       "lat": 44.48112478853975,
@@ -2827,12 +2827,12 @@
         26.097262134144483
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c05",
-      "label": "Row 4 \u00b7 Column 5",
+      "label": "Row 4 · Column 5",
       "row": 4,
       "column": 5,
       "lat": 44.48112478853975,
@@ -2893,12 +2893,12 @@
         26.10040970731559
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c06",
-      "label": "Row 4 \u00b7 Column 6",
+      "label": "Row 4 · Column 6",
       "row": 4,
       "column": 6,
       "lat": 44.48112478853975,
@@ -2964,7 +2964,7 @@
     },
     {
       "id": "aerial-r04-c07",
-      "label": "Row 4 \u00b7 Column 7",
+      "label": "Row 4 · Column 7",
       "row": 4,
       "column": 7,
       "lat": 44.48112478853975,
@@ -3025,12 +3025,12 @@
         26.106704853657792
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c08",
-      "label": "Row 4 \u00b7 Column 8",
+      "label": "Row 4 · Column 8",
       "row": 4,
       "column": 8,
       "lat": 44.48112478853975,
@@ -3091,12 +3091,12 @@
         26.109852426828898
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c09",
-      "label": "Row 4 \u00b7 Column 9",
+      "label": "Row 4 · Column 9",
       "row": 4,
       "column": 9,
       "lat": 44.48112478853975,
@@ -3157,12 +3157,12 @@
         26.113
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c10",
-      "label": "Row 4 \u00b7 Column 10",
+      "label": "Row 4 · Column 10",
       "row": 4,
       "column": 10,
       "lat": 44.48112478853975,
@@ -3223,12 +3223,12 @@
         26.1161475731711
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c11",
-      "label": "Row 4 \u00b7 Column 11",
+      "label": "Row 4 · Column 11",
       "row": 4,
       "column": 11,
       "lat": 44.48112478853975,
@@ -3289,12 +3289,12 @@
         26.119295146342207
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c12",
-      "label": "Row 4 \u00b7 Column 12",
+      "label": "Row 4 · Column 12",
       "row": 4,
       "column": 12,
       "lat": 44.48112478853975,
@@ -3355,12 +3355,12 @@
         26.12244271951331
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c13",
-      "label": "Row 4 \u00b7 Column 13",
+      "label": "Row 4 · Column 13",
       "row": 4,
       "column": 13,
       "lat": 44.48112478853975,
@@ -3421,12 +3421,12 @@
         26.12559029268441
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c14",
-      "label": "Row 4 \u00b7 Column 14",
+      "label": "Row 4 · Column 14",
       "row": 4,
       "column": 14,
       "lat": 44.48112478853975,
@@ -3487,12 +3487,12 @@
         26.128737865855516
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c15",
-      "label": "Row 4 \u00b7 Column 15",
+      "label": "Row 4 · Column 15",
       "row": 4,
       "column": 15,
       "lat": 44.48112478853975,
@@ -3553,12 +3553,12 @@
         26.131885439026618
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c16",
-      "label": "Row 4 \u00b7 Column 16",
+      "label": "Row 4 · Column 16",
       "row": 4,
       "column": 16,
       "lat": 44.48112478853975,
@@ -3619,12 +3619,12 @@
         26.13503301219772
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c01",
-      "label": "Row 5 \u00b7 Column 1",
+      "label": "Row 5 · Column 1",
       "row": 5,
       "column": 1,
       "lat": 44.47887521146024,
@@ -3685,12 +3685,12 @@
         26.087819414631177
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c02",
-      "label": "Row 5 \u00b7 Column 2",
+      "label": "Row 5 · Column 2",
       "row": 5,
       "column": 2,
       "lat": 44.47887521146024,
@@ -3751,12 +3751,12 @@
         26.09096698780228
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c03",
-      "label": "Row 5 \u00b7 Column 3",
+      "label": "Row 5 · Column 3",
       "row": 5,
       "column": 3,
       "lat": 44.47887521146024,
@@ -3817,12 +3817,12 @@
         26.09411456097338
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c04",
-      "label": "Row 5 \u00b7 Column 4",
+      "label": "Row 5 · Column 4",
       "row": 5,
       "column": 4,
       "lat": 44.47887521146024,
@@ -3883,12 +3883,12 @@
         26.097262134144483
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c05",
-      "label": "Row 5 \u00b7 Column 5",
+      "label": "Row 5 · Column 5",
       "row": 5,
       "column": 5,
       "lat": 44.47887521146024,
@@ -3949,12 +3949,12 @@
         26.10040970731559
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c06",
-      "label": "Row 5 \u00b7 Column 6",
+      "label": "Row 5 · Column 6",
       "row": 5,
       "column": 6,
       "lat": 44.47887521146024,
@@ -4020,7 +4020,7 @@
     },
     {
       "id": "aerial-r05-c07",
-      "label": "Row 5 \u00b7 Column 7",
+      "label": "Row 5 · Column 7",
       "row": 5,
       "column": 7,
       "lat": 44.47887521146024,
@@ -4081,12 +4081,12 @@
         26.106704853657792
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c08",
-      "label": "Row 5 \u00b7 Column 8",
+      "label": "Row 5 · Column 8",
       "row": 5,
       "column": 8,
       "lat": 44.47887521146024,
@@ -4147,12 +4147,12 @@
         26.109852426828898
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c09",
-      "label": "Row 5 \u00b7 Column 9",
+      "label": "Row 5 · Column 9",
       "row": 5,
       "column": 9,
       "lat": 44.47887521146024,
@@ -4213,12 +4213,12 @@
         26.113
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c10",
-      "label": "Row 5 \u00b7 Column 10",
+      "label": "Row 5 · Column 10",
       "row": 5,
       "column": 10,
       "lat": 44.47887521146024,
@@ -4279,12 +4279,12 @@
         26.1161475731711
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c11",
-      "label": "Row 5 \u00b7 Column 11",
+      "label": "Row 5 · Column 11",
       "row": 5,
       "column": 11,
       "lat": 44.47887521146024,
@@ -4345,12 +4345,12 @@
         26.119295146342207
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c12",
-      "label": "Row 5 \u00b7 Column 12",
+      "label": "Row 5 · Column 12",
       "row": 5,
       "column": 12,
       "lat": 44.47887521146024,
@@ -4411,12 +4411,12 @@
         26.12244271951331
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c13",
-      "label": "Row 5 \u00b7 Column 13",
+      "label": "Row 5 · Column 13",
       "row": 5,
       "column": 13,
       "lat": 44.47887521146024,
@@ -4477,12 +4477,12 @@
         26.12559029268441
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c14",
-      "label": "Row 5 \u00b7 Column 14",
+      "label": "Row 5 · Column 14",
       "row": 5,
       "column": 14,
       "lat": 44.47887521146024,
@@ -4543,12 +4543,12 @@
         26.128737865855516
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c15",
-      "label": "Row 5 \u00b7 Column 15",
+      "label": "Row 5 · Column 15",
       "row": 5,
       "column": 15,
       "lat": 44.47887521146024,
@@ -4609,12 +4609,12 @@
         26.131885439026618
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c16",
-      "label": "Row 5 \u00b7 Column 16",
+      "label": "Row 5 · Column 16",
       "row": 5,
       "column": 16,
       "lat": 44.47887521146024,
@@ -4675,12 +4675,12 @@
         26.13503301219772
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c01",
-      "label": "Row 6 \u00b7 Column 1",
+      "label": "Row 6 · Column 1",
       "row": 6,
       "column": 1,
       "lat": 44.47662563438073,
@@ -4746,7 +4746,7 @@
     },
     {
       "id": "aerial-r06-c02",
-      "label": "Row 6 \u00b7 Column 2",
+      "label": "Row 6 · Column 2",
       "row": 6,
       "column": 2,
       "lat": 44.47662563438073,
@@ -4812,7 +4812,7 @@
     },
     {
       "id": "aerial-r06-c03",
-      "label": "Row 6 \u00b7 Column 3",
+      "label": "Row 6 · Column 3",
       "row": 6,
       "column": 3,
       "lat": 44.47662563438073,
@@ -4873,12 +4873,12 @@
         26.09411456097338
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c04",
-      "label": "Row 6 \u00b7 Column 4",
+      "label": "Row 6 · Column 4",
       "row": 6,
       "column": 4,
       "lat": 44.47662563438073,
@@ -4939,12 +4939,12 @@
         26.097262134144483
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c05",
-      "label": "Row 6 \u00b7 Column 5",
+      "label": "Row 6 · Column 5",
       "row": 6,
       "column": 5,
       "lat": 44.47662563438073,
@@ -5005,12 +5005,12 @@
         26.10040970731559
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c06",
-      "label": "Row 6 \u00b7 Column 6",
+      "label": "Row 6 · Column 6",
       "row": 6,
       "column": 6,
       "lat": 44.47662563438073,
@@ -5071,12 +5071,12 @@
         26.10355728048669
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c07",
-      "label": "Row 6 \u00b7 Column 7",
+      "label": "Row 6 · Column 7",
       "row": 6,
       "column": 7,
       "lat": 44.47662563438073,
@@ -5137,12 +5137,12 @@
         26.106704853657792
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c08",
-      "label": "Row 6 \u00b7 Column 8",
+      "label": "Row 6 · Column 8",
       "row": 6,
       "column": 8,
       "lat": 44.47662563438073,
@@ -5203,12 +5203,12 @@
         26.109852426828898
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c09",
-      "label": "Row 6 \u00b7 Column 9",
+      "label": "Row 6 · Column 9",
       "row": 6,
       "column": 9,
       "lat": 44.47662563438073,
@@ -5269,12 +5269,12 @@
         26.113
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c10",
-      "label": "Row 6 \u00b7 Column 10",
+      "label": "Row 6 · Column 10",
       "row": 6,
       "column": 10,
       "lat": 44.47662563438073,
@@ -5335,12 +5335,12 @@
         26.1161475731711
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c11",
-      "label": "Row 6 \u00b7 Column 11",
+      "label": "Row 6 · Column 11",
       "row": 6,
       "column": 11,
       "lat": 44.47662563438073,
@@ -5401,12 +5401,12 @@
         26.119295146342207
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c12",
-      "label": "Row 6 \u00b7 Column 12",
+      "label": "Row 6 · Column 12",
       "row": 6,
       "column": 12,
       "lat": 44.47662563438073,
@@ -5467,12 +5467,12 @@
         26.12244271951331
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c13",
-      "label": "Row 6 \u00b7 Column 13",
+      "label": "Row 6 · Column 13",
       "row": 6,
       "column": 13,
       "lat": 44.47662563438073,
@@ -5533,12 +5533,12 @@
         26.12559029268441
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c14",
-      "label": "Row 6 \u00b7 Column 14",
+      "label": "Row 6 · Column 14",
       "row": 6,
       "column": 14,
       "lat": 44.47662563438073,
@@ -5604,7 +5604,7 @@
     },
     {
       "id": "aerial-r06-c15",
-      "label": "Row 6 \u00b7 Column 15",
+      "label": "Row 6 · Column 15",
       "row": 6,
       "column": 15,
       "lat": 44.47662563438073,
@@ -5670,7 +5670,7 @@
     },
     {
       "id": "aerial-r06-c16",
-      "label": "Row 6 \u00b7 Column 16",
+      "label": "Row 6 · Column 16",
       "row": 6,
       "column": 16,
       "lat": 44.47662563438073,
@@ -5736,7 +5736,7 @@
     },
     {
       "id": "aerial-r07-c01",
-      "label": "Row 7 \u00b7 Column 1",
+      "label": "Row 7 · Column 1",
       "row": 7,
       "column": 1,
       "lat": 44.47437605730122,
@@ -5802,7 +5802,7 @@
     },
     {
       "id": "aerial-r07-c02",
-      "label": "Row 7 \u00b7 Column 2",
+      "label": "Row 7 · Column 2",
       "row": 7,
       "column": 2,
       "lat": 44.47437605730122,
@@ -5868,7 +5868,7 @@
     },
     {
       "id": "aerial-r07-c03",
-      "label": "Row 7 \u00b7 Column 3",
+      "label": "Row 7 · Column 3",
       "row": 7,
       "column": 3,
       "lat": 44.47437605730122,
@@ -5934,7 +5934,7 @@
     },
     {
       "id": "aerial-r07-c04",
-      "label": "Row 7 \u00b7 Column 4",
+      "label": "Row 7 · Column 4",
       "row": 7,
       "column": 4,
       "lat": 44.47437605730122,
@@ -6000,7 +6000,7 @@
     },
     {
       "id": "aerial-r07-c05",
-      "label": "Row 7 \u00b7 Column 5",
+      "label": "Row 7 · Column 5",
       "row": 7,
       "column": 5,
       "lat": 44.47437605730122,
@@ -6066,7 +6066,7 @@
     },
     {
       "id": "aerial-r07-c06",
-      "label": "Row 7 \u00b7 Column 6",
+      "label": "Row 7 · Column 6",
       "row": 7,
       "column": 6,
       "lat": 44.47437605730122,
@@ -6127,12 +6127,12 @@
         26.10355728048669
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r07-c07",
-      "label": "Row 7 \u00b7 Column 7",
+      "label": "Row 7 · Column 7",
       "row": 7,
       "column": 7,
       "lat": 44.47437605730122,
@@ -6198,7 +6198,7 @@
     },
     {
       "id": "aerial-r07-c08",
-      "label": "Row 7 \u00b7 Column 8",
+      "label": "Row 7 · Column 8",
       "row": 7,
       "column": 8,
       "lat": 44.47437605730122,
@@ -6264,7 +6264,7 @@
     },
     {
       "id": "aerial-r07-c09",
-      "label": "Row 7 \u00b7 Column 9",
+      "label": "Row 7 · Column 9",
       "row": 7,
       "column": 9,
       "lat": 44.47437605730122,
@@ -6330,7 +6330,7 @@
     },
     {
       "id": "aerial-r07-c10",
-      "label": "Row 7 \u00b7 Column 10",
+      "label": "Row 7 · Column 10",
       "row": 7,
       "column": 10,
       "lat": 44.47437605730122,
@@ -6396,7 +6396,7 @@
     },
     {
       "id": "aerial-r07-c11",
-      "label": "Row 7 \u00b7 Column 11",
+      "label": "Row 7 · Column 11",
       "row": 7,
       "column": 11,
       "lat": 44.47437605730122,
@@ -6462,7 +6462,7 @@
     },
     {
       "id": "aerial-r07-c12",
-      "label": "Row 7 \u00b7 Column 12",
+      "label": "Row 7 · Column 12",
       "row": 7,
       "column": 12,
       "lat": 44.47437605730122,
@@ -6523,12 +6523,12 @@
         26.12244271951331
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r07-c13",
-      "label": "Row 7 \u00b7 Column 13",
+      "label": "Row 7 · Column 13",
       "row": 7,
       "column": 13,
       "lat": 44.47437605730122,
@@ -6594,7 +6594,7 @@
     },
     {
       "id": "aerial-r07-c14",
-      "label": "Row 7 \u00b7 Column 14",
+      "label": "Row 7 · Column 14",
       "row": 7,
       "column": 14,
       "lat": 44.47437605730122,
@@ -6660,7 +6660,7 @@
     },
     {
       "id": "aerial-r07-c15",
-      "label": "Row 7 \u00b7 Column 15",
+      "label": "Row 7 · Column 15",
       "row": 7,
       "column": 15,
       "lat": 44.47437605730122,
@@ -6726,7 +6726,7 @@
     },
     {
       "id": "aerial-r07-c16",
-      "label": "Row 7 \u00b7 Column 16",
+      "label": "Row 7 · Column 16",
       "row": 7,
       "column": 16,
       "lat": 44.47437605730122,
@@ -6792,7 +6792,7 @@
     },
     {
       "id": "aerial-r08-c03",
-      "label": "Row 8 \u00b7 Column 3",
+      "label": "Row 8 · Column 3",
       "row": 8,
       "column": 3,
       "lat": 44.47212648022172,
@@ -6853,12 +6853,12 @@
         26.09411456097338
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r08-c04",
-      "label": "Row 8 \u00b7 Column 4",
+      "label": "Row 8 · Column 4",
       "row": 8,
       "column": 4,
       "lat": 44.47212648022172,
@@ -6924,7 +6924,7 @@
     },
     {
       "id": "aerial-r08-c05",
-      "label": "Row 8 \u00b7 Column 5",
+      "label": "Row 8 · Column 5",
       "row": 8,
       "column": 5,
       "lat": 44.47212648022172,
@@ -6990,7 +6990,7 @@
     },
     {
       "id": "aerial-r08-c06",
-      "label": "Row 8 \u00b7 Column 6",
+      "label": "Row 8 · Column 6",
       "row": 8,
       "column": 6,
       "lat": 44.47212648022172,
@@ -7056,7 +7056,7 @@
     },
     {
       "id": "aerial-r08-c07",
-      "label": "Row 8 \u00b7 Column 7",
+      "label": "Row 8 · Column 7",
       "row": 8,
       "column": 7,
       "lat": 44.47212648022172,
@@ -7122,7 +7122,7 @@
     },
     {
       "id": "aerial-r08-c08",
-      "label": "Row 8 \u00b7 Column 8",
+      "label": "Row 8 · Column 8",
       "row": 8,
       "column": 8,
       "lat": 44.47212648022172,
@@ -7188,7 +7188,7 @@
     },
     {
       "id": "aerial-r08-c09",
-      "label": "Row 8 \u00b7 Column 9",
+      "label": "Row 8 · Column 9",
       "row": 8,
       "column": 9,
       "lat": 44.47212648022172,
@@ -7254,7 +7254,7 @@
     },
     {
       "id": "aerial-r08-c10",
-      "label": "Row 8 \u00b7 Column 10",
+      "label": "Row 8 · Column 10",
       "row": 8,
       "column": 10,
       "lat": 44.47212648022172,
@@ -7320,7 +7320,7 @@
     },
     {
       "id": "aerial-r08-c11",
-      "label": "Row 8 \u00b7 Column 11",
+      "label": "Row 8 · Column 11",
       "row": 8,
       "column": 11,
       "lat": 44.47212648022172,
@@ -7386,7 +7386,7 @@
     },
     {
       "id": "aerial-r08-c12",
-      "label": "Row 8 \u00b7 Column 12",
+      "label": "Row 8 · Column 12",
       "row": 8,
       "column": 12,
       "lat": 44.47212648022172,
@@ -7447,12 +7447,12 @@
         26.12244271951331
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r08-c13",
-      "label": "Row 8 \u00b7 Column 13",
+      "label": "Row 8 · Column 13",
       "row": 8,
       "column": 13,
       "lat": 44.47212648022172,
@@ -7518,7 +7518,7 @@
     },
     {
       "id": "aerial-r08-c14",
-      "label": "Row 8 \u00b7 Column 14",
+      "label": "Row 8 · Column 14",
       "row": 8,
       "column": 14,
       "lat": 44.47212648022172,
@@ -7579,12 +7579,12 @@
         26.128737865855516
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r08-c15",
-      "label": "Row 8 \u00b7 Column 15",
+      "label": "Row 8 · Column 15",
       "row": 8,
       "column": 15,
       "lat": 44.47212648022172,
@@ -7645,12 +7645,12 @@
         26.131885439026618
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r08-c16",
-      "label": "Row 8 \u00b7 Column 16",
+      "label": "Row 8 · Column 16",
       "row": 8,
       "column": 16,
       "lat": 44.47212648022172,
@@ -7711,12 +7711,12 @@
         26.13503301219772
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r09-c10",
-      "label": "Row 9 \u00b7 Column 10",
+      "label": "Row 9 · Column 10",
       "row": 9,
       "column": 10,
       "lat": 44.46987690314221,
@@ -7777,12 +7777,12 @@
         26.1161475731711
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r09-c11",
-      "label": "Row 9 \u00b7 Column 11",
+      "label": "Row 9 · Column 11",
       "row": 9,
       "column": 11,
       "lat": 44.46987690314221,
@@ -7848,7 +7848,7 @@
     },
     {
       "id": "aerial-r09-c12",
-      "label": "Row 9 \u00b7 Column 12",
+      "label": "Row 9 · Column 12",
       "row": 9,
       "column": 12,
       "lat": 44.46987690314221,
@@ -7909,12 +7909,12 @@
         26.12244271951331
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r09-c13",
-      "label": "Row 9 \u00b7 Column 13",
+      "label": "Row 9 · Column 13",
       "row": 9,
       "column": 13,
       "lat": 44.46987690314221,
@@ -7980,7 +7980,7 @@
     },
     {
       "id": "aerial-r09-c14",
-      "label": "Row 9 \u00b7 Column 14",
+      "label": "Row 9 · Column 14",
       "row": 9,
       "column": 14,
       "lat": 44.46987690314221,
@@ -8041,12 +8041,12 @@
         26.128737865855516
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r09-c15",
-      "label": "Row 9 \u00b7 Column 15",
+      "label": "Row 9 · Column 15",
       "row": 9,
       "column": 15,
       "lat": 44.46987690314221,
@@ -8107,12 +8107,12 @@
         26.131885439026618
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r09-c16",
-      "label": "Row 9 \u00b7 Column 16",
+      "label": "Row 9 · Column 16",
       "row": 9,
       "column": 16,
       "lat": 44.46987690314221,
@@ -8173,12 +8173,12 @@
         26.13503301219772
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r10-c11",
-      "label": "Row 10 \u00b7 Column 11",
+      "label": "Row 10 · Column 11",
       "row": 10,
       "column": 11,
       "lat": 44.4676273260627,
@@ -8244,7 +8244,7 @@
     },
     {
       "id": "aerial-r10-c12",
-      "label": "Row 10 \u00b7 Column 12",
+      "label": "Row 10 · Column 12",
       "row": 10,
       "column": 12,
       "lat": 44.4676273260627,
@@ -8310,7 +8310,7 @@
     },
     {
       "id": "aerial-r10-c13",
-      "label": "Row 10 \u00b7 Column 13",
+      "label": "Row 10 · Column 13",
       "row": 10,
       "column": 13,
       "lat": 44.4676273260627,
@@ -8376,7 +8376,7 @@
     },
     {
       "id": "aerial-r10-c14",
-      "label": "Row 10 \u00b7 Column 14",
+      "label": "Row 10 · Column 14",
       "row": 10,
       "column": 14,
       "lat": 44.4676273260627,
@@ -8437,12 +8437,12 @@
         26.128737865855516
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r10-c15",
-      "label": "Row 10 \u00b7 Column 15",
+      "label": "Row 10 · Column 15",
       "row": 10,
       "column": 15,
       "lat": 44.4676273260627,
@@ -8503,12 +8503,12 @@
         26.131885439026618
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r11-c12",
-      "label": "Row 11 \u00b7 Column 12",
+      "label": "Row 11 · Column 12",
       "row": 11,
       "column": 12,
       "lat": 44.46537774898319,
@@ -8574,7 +8574,7 @@
     },
     {
       "id": "aerial-r11-c13",
-      "label": "Row 11 \u00b7 Column 13",
+      "label": "Row 11 · Column 13",
       "row": 11,
       "column": 13,
       "lat": 44.46537774898319,
@@ -8640,7 +8640,7 @@
     },
     {
       "id": "aerial-r11-c14",
-      "label": "Row 11 \u00b7 Column 14",
+      "label": "Row 11 · Column 14",
       "row": 11,
       "column": 14,
       "lat": 44.46537774898319,
@@ -8701,12 +8701,12 @@
         26.128737865855516
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "context-northwest",
-      "label": "Distant context \u00b7 northwest",
+      "label": "Distant context · northwest",
       "row": 1,
       "column": 1,
       "lat": 44.487873519778276,
@@ -8767,12 +8767,12 @@
         26.087819414631177
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "context-northeast",
-      "label": "Distant context \u00b7 northeast",
+      "label": "Distant context · northeast",
       "row": 1,
       "column": 16,
       "lat": 44.487873519778276,
@@ -8833,12 +8833,12 @@
         26.13503301219772
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "context-southwest",
-      "label": "Distant context \u00b7 southwest",
+      "label": "Distant context · southwest",
       "row": 11,
       "column": 1,
       "lat": 44.46537774898319,
@@ -8899,12 +8899,12 @@
         26.087819414631177
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     },
     {
       "id": "context-southeast",
-      "label": "Distant context \u00b7 southeast",
+      "label": "Distant context · southeast",
       "row": 11,
       "column": 16,
       "lat": 44.46537774898319,
@@ -8965,8 +8965,8 @@
         26.13503301219772
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "historical/c78a5f4/review.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
     }
   ],
   "locationId": "pipera",
@@ -9005,7 +9005,7 @@
     "reviewedAt": "2026-11-09T00:45:41.469364+00:00",
     "method": "Earlier complete and water-review ledgers retain their original source scope in priorCompleteReview. The latest 2 structural/separator retakes were manually reviewed as original/retake/reference triplets; all other current frames keep their earlier actual reviews.",
     "originalFullAtlasReview": {
-      "path": "historical/c78a5f4/review.json",
+      "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json",
       "sha256": "acb1b605aa93ce51fcfe8c65d4868bf365438b004f93238eaaa6287b1718f053",
       "framesInOriginalReview": 133,
       "framesRetainedHere": 96
@@ -9272,7 +9272,7 @@
       "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 35
     },
     "priorCompleteReview": {
-      "manifest": "historical/full-before-07cc3d6b-4b598272/manifest.json",
+      "manifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/manifest.json",
       "sha256": "4b5982724681558afaa65ead6bf82086a55cf7c6ccef1c02973c24ca3525592f",
       "note": "Every earlier review/source-specific finding is preserved verbatim in the complete prior collection."
     },
@@ -9288,29 +9288,6 @@
     "07cc3d6bcefe90967c5bde3af2237dab4b972705": 2,
     "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 35
   },
-  "historicalCollections": [
-    {
-      "label": "Full atlas before water overlap correction",
-      "manifest": "historical/c78a5f4/manifest.json",
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
-      "frames": 133,
-      "generatedAt": "2026-11-08T23:17:43.466Z",
-      "note": "All original images, thumbnails, raw capture ledger and source-file provenance are preserved unchanged."
-    },
-    {
-      "manifest": "historical/full-before-07cc3d6b-4b598272/manifest.json",
-      "label": "Full prior current atlas before structural/separator retakes 07cc3d6b",
-      "frames": 133,
-      "generatedAt": "2026-11-09T00:44:34.272Z",
-      "gameSourceCommit": null,
-      "sourceCounts": {
-        "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 98,
-        "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 35
-      },
-      "captureType": "mixed-source-survey",
-      "note": "Entire prior current collection and its GAME images/thumbnails, review, street/context and provenance files are byte-identical. Earlier histories retain their stable paths."
-    }
-  ],
   "comparisonSourceCommits": {
     "atlas": [
       "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
@@ -9320,7 +9297,7 @@
   },
   "sourceCaptureManifests": [
     {
-      "path": "historical/c78a5f4/capture-manifest.json",
+      "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
       "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
       "frames": 98
     },
@@ -9331,7 +9308,7 @@
       "frames": 35
     },
     {
-      "path": "historical/full-before-07cc3d6b-4b598272/manifest.json",
+      "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/manifest.json",
       "sha256": "4b5982724681558afaa65ead6bf82086a55cf7c6ccef1c02973c24ca3525592f",
       "sourceCounts": {
         "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 98,

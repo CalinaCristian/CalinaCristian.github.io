@@ -53,7 +53,7 @@
     ],
     "sourceCaptureManifests": [
       {
-        "path": "historical/full-before-07cc3d6b-5978c6d9/manifest.json",
+        "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/manifest.json",
         "sha256": "5978c6d95b290767b7cd5a1f4fe4316e301e8f7159646e9ed6583417b675e182",
         "sourceCounts": {
           "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 69,
@@ -155,7 +155,7 @@
     },
     {
       "id": "cathedral",
-      "label": "Catedrala M\u00e2ntuirii Neamului",
+      "label": "Catedrala Mântuirii Neamului",
       "kind": "skyline",
       "lat": 44.4259297,
       "lon": 26.0822981,
@@ -168,7 +168,7 @@
   "items": [
     {
       "id": "aerial-r01-c07",
-      "label": "Row 1 \u00b7 Column 7",
+      "label": "Row 1 · Column 7",
       "row": 1,
       "column": 7,
       "lat": 44.45582225101681,
@@ -231,7 +231,7 @@
     },
     {
       "id": "aerial-r01-c08",
-      "label": "Row 1 \u00b7 Column 8",
+      "label": "Row 1 · Column 8",
       "row": 1,
       "column": 8,
       "lat": 44.45582225101681,
@@ -294,7 +294,7 @@
     },
     {
       "id": "aerial-r01-c09",
-      "label": "Row 1 \u00b7 Column 9",
+      "label": "Row 1 · Column 9",
       "row": 1,
       "column": 9,
       "lat": 44.45582225101681,
@@ -357,7 +357,7 @@
     },
     {
       "id": "aerial-r01-c10",
-      "label": "Row 1 \u00b7 Column 10",
+      "label": "Row 1 · Column 10",
       "row": 1,
       "column": 10,
       "lat": 44.45582225101681,
@@ -420,7 +420,7 @@
     },
     {
       "id": "aerial-r02-c05",
-      "label": "Row 2 \u00b7 Column 5",
+      "label": "Row 2 · Column 5",
       "row": 2,
       "column": 5,
       "lat": 44.4535726739373,
@@ -483,7 +483,7 @@
     },
     {
       "id": "aerial-r02-c06",
-      "label": "Row 2 \u00b7 Column 6",
+      "label": "Row 2 · Column 6",
       "row": 2,
       "column": 6,
       "lat": 44.4535726739373,
@@ -546,7 +546,7 @@
     },
     {
       "id": "aerial-r02-c07",
-      "label": "Row 2 \u00b7 Column 7",
+      "label": "Row 2 · Column 7",
       "row": 2,
       "column": 7,
       "lat": 44.4535726739373,
@@ -609,7 +609,7 @@
     },
     {
       "id": "aerial-r02-c08",
-      "label": "Row 2 \u00b7 Column 8",
+      "label": "Row 2 · Column 8",
       "row": 2,
       "column": 8,
       "lat": 44.4535726739373,
@@ -672,7 +672,7 @@
     },
     {
       "id": "aerial-r02-c09",
-      "label": "Row 2 \u00b7 Column 9",
+      "label": "Row 2 · Column 9",
       "row": 2,
       "column": 9,
       "lat": 44.4535726739373,
@@ -735,7 +735,7 @@
     },
     {
       "id": "aerial-r02-c10",
-      "label": "Row 2 \u00b7 Column 10",
+      "label": "Row 2 · Column 10",
       "row": 2,
       "column": 10,
       "lat": 44.4535726739373,
@@ -798,7 +798,7 @@
     },
     {
       "id": "aerial-r02-c11",
-      "label": "Row 2 \u00b7 Column 11",
+      "label": "Row 2 · Column 11",
       "row": 2,
       "column": 11,
       "lat": 44.4535726739373,
@@ -861,7 +861,7 @@
     },
     {
       "id": "aerial-r03-c04",
-      "label": "Row 3 \u00b7 Column 4",
+      "label": "Row 3 · Column 4",
       "row": 3,
       "column": 4,
       "lat": 44.45132309685779,
@@ -924,7 +924,7 @@
     },
     {
       "id": "aerial-r03-c05",
-      "label": "Row 3 \u00b7 Column 5",
+      "label": "Row 3 · Column 5",
       "row": 3,
       "column": 5,
       "lat": 44.45132309685779,
@@ -987,7 +987,7 @@
     },
     {
       "id": "aerial-r03-c06",
-      "label": "Row 3 \u00b7 Column 6",
+      "label": "Row 3 · Column 6",
       "row": 3,
       "column": 6,
       "lat": 44.45132309685779,
@@ -1050,7 +1050,7 @@
     },
     {
       "id": "aerial-r03-c07",
-      "label": "Row 3 \u00b7 Column 7",
+      "label": "Row 3 · Column 7",
       "row": 3,
       "column": 7,
       "lat": 44.45132309685779,
@@ -1113,7 +1113,7 @@
     },
     {
       "id": "aerial-r03-c08",
-      "label": "Row 3 \u00b7 Column 8",
+      "label": "Row 3 · Column 8",
       "row": 3,
       "column": 8,
       "lat": 44.45132309685779,
@@ -1176,7 +1176,7 @@
     },
     {
       "id": "aerial-r03-c09",
-      "label": "Row 3 \u00b7 Column 9",
+      "label": "Row 3 · Column 9",
       "row": 3,
       "column": 9,
       "lat": 44.45132309685779,
@@ -1239,7 +1239,7 @@
     },
     {
       "id": "aerial-r03-c10",
-      "label": "Row 3 \u00b7 Column 10",
+      "label": "Row 3 · Column 10",
       "row": 3,
       "column": 10,
       "lat": 44.45132309685779,
@@ -1302,7 +1302,7 @@
     },
     {
       "id": "aerial-r03-c11",
-      "label": "Row 3 \u00b7 Column 11",
+      "label": "Row 3 · Column 11",
       "row": 3,
       "column": 11,
       "lat": 44.45132309685779,
@@ -1365,7 +1365,7 @@
     },
     {
       "id": "aerial-r04-c04",
-      "label": "Row 4 \u00b7 Column 4",
+      "label": "Row 4 · Column 4",
       "row": 4,
       "column": 4,
       "lat": 44.44907351977828,
@@ -1428,7 +1428,7 @@
     },
     {
       "id": "aerial-r04-c05",
-      "label": "Row 4 \u00b7 Column 5",
+      "label": "Row 4 · Column 5",
       "row": 4,
       "column": 5,
       "lat": 44.44907351977828,
@@ -1491,7 +1491,7 @@
     },
     {
       "id": "aerial-r04-c06",
-      "label": "Row 4 \u00b7 Column 6",
+      "label": "Row 4 · Column 6",
       "row": 4,
       "column": 6,
       "lat": 44.44907351977828,
@@ -1554,7 +1554,7 @@
     },
     {
       "id": "aerial-r04-c07",
-      "label": "Row 4 \u00b7 Column 7",
+      "label": "Row 4 · Column 7",
       "row": 4,
       "column": 7,
       "lat": 44.44907351977828,
@@ -1617,7 +1617,7 @@
     },
     {
       "id": "aerial-r04-c08",
-      "label": "Row 4 \u00b7 Column 8",
+      "label": "Row 4 · Column 8",
       "row": 4,
       "column": 8,
       "lat": 44.44907351977828,
@@ -1680,7 +1680,7 @@
     },
     {
       "id": "aerial-r04-c09",
-      "label": "Row 4 \u00b7 Column 9",
+      "label": "Row 4 · Column 9",
       "row": 4,
       "column": 9,
       "lat": 44.44907351977828,
@@ -1743,7 +1743,7 @@
     },
     {
       "id": "aerial-r04-c10",
-      "label": "Row 4 \u00b7 Column 10",
+      "label": "Row 4 · Column 10",
       "row": 4,
       "column": 10,
       "lat": 44.44907351977828,
@@ -1806,7 +1806,7 @@
     },
     {
       "id": "aerial-r04-c11",
-      "label": "Row 4 \u00b7 Column 11",
+      "label": "Row 4 · Column 11",
       "row": 4,
       "column": 11,
       "lat": 44.44907351977828,
@@ -1869,7 +1869,7 @@
     },
     {
       "id": "aerial-r05-c04",
-      "label": "Row 5 \u00b7 Column 4",
+      "label": "Row 5 · Column 4",
       "row": 5,
       "column": 4,
       "lat": 44.44682394269878,
@@ -1934,7 +1934,7 @@
     },
     {
       "id": "aerial-r05-c05",
-      "label": "Row 5 \u00b7 Column 5",
+      "label": "Row 5 · Column 5",
       "row": 5,
       "column": 5,
       "lat": 44.44682394269878,
@@ -1999,7 +1999,7 @@
     },
     {
       "id": "aerial-r05-c06",
-      "label": "Row 5 \u00b7 Column 6",
+      "label": "Row 5 · Column 6",
       "row": 5,
       "column": 6,
       "lat": 44.44682394269878,
@@ -2064,7 +2064,7 @@
     },
     {
       "id": "aerial-r05-c07",
-      "label": "Row 5 \u00b7 Column 7",
+      "label": "Row 5 · Column 7",
       "row": 5,
       "column": 7,
       "lat": 44.44682394269878,
@@ -2129,7 +2129,7 @@
     },
     {
       "id": "aerial-r05-c08",
-      "label": "Row 5 \u00b7 Column 8",
+      "label": "Row 5 · Column 8",
       "row": 5,
       "column": 8,
       "lat": 44.44682394269878,
@@ -2192,7 +2192,7 @@
     },
     {
       "id": "aerial-r05-c09",
-      "label": "Row 5 \u00b7 Column 9",
+      "label": "Row 5 · Column 9",
       "row": 5,
       "column": 9,
       "lat": 44.44682394269878,
@@ -2255,7 +2255,7 @@
     },
     {
       "id": "aerial-r05-c10",
-      "label": "Row 5 \u00b7 Column 10",
+      "label": "Row 5 · Column 10",
       "row": 5,
       "column": 10,
       "lat": 44.44682394269878,
@@ -2318,7 +2318,7 @@
     },
     {
       "id": "aerial-r05-c11",
-      "label": "Row 5 \u00b7 Column 11",
+      "label": "Row 5 · Column 11",
       "row": 5,
       "column": 11,
       "lat": 44.44682394269878,
@@ -2381,7 +2381,7 @@
     },
     {
       "id": "aerial-r06-c02",
-      "label": "Row 6 \u00b7 Column 2",
+      "label": "Row 6 · Column 2",
       "row": 6,
       "column": 2,
       "lat": 44.44457436561927,
@@ -2446,7 +2446,7 @@
     },
     {
       "id": "aerial-r06-c03",
-      "label": "Row 6 \u00b7 Column 3",
+      "label": "Row 6 · Column 3",
       "row": 6,
       "column": 3,
       "lat": 44.44457436561927,
@@ -2511,7 +2511,7 @@
     },
     {
       "id": "aerial-r06-c04",
-      "label": "Row 6 \u00b7 Column 4",
+      "label": "Row 6 · Column 4",
       "row": 6,
       "column": 4,
       "lat": 44.44457436561927,
@@ -2576,7 +2576,7 @@
     },
     {
       "id": "aerial-r06-c05",
-      "label": "Row 6 \u00b7 Column 5",
+      "label": "Row 6 · Column 5",
       "row": 6,
       "column": 5,
       "lat": 44.44457436561927,
@@ -2641,7 +2641,7 @@
     },
     {
       "id": "aerial-r06-c06",
-      "label": "Row 6 \u00b7 Column 6",
+      "label": "Row 6 · Column 6",
       "row": 6,
       "column": 6,
       "lat": 44.44457436561927,
@@ -2706,7 +2706,7 @@
     },
     {
       "id": "aerial-r06-c07",
-      "label": "Row 6 \u00b7 Column 7",
+      "label": "Row 6 · Column 7",
       "row": 6,
       "column": 7,
       "lat": 44.44457436561927,
@@ -2772,7 +2772,7 @@
     },
     {
       "id": "aerial-r06-c08",
-      "label": "Row 6 \u00b7 Column 8",
+      "label": "Row 6 · Column 8",
       "row": 6,
       "column": 8,
       "lat": 44.44457436561927,
@@ -2835,7 +2835,7 @@
     },
     {
       "id": "aerial-r06-c09",
-      "label": "Row 6 \u00b7 Column 9",
+      "label": "Row 6 · Column 9",
       "row": 6,
       "column": 9,
       "lat": 44.44457436561927,
@@ -2898,7 +2898,7 @@
     },
     {
       "id": "aerial-r06-c10",
-      "label": "Row 6 \u00b7 Column 10",
+      "label": "Row 6 · Column 10",
       "row": 6,
       "column": 10,
       "lat": 44.44457436561927,
@@ -2961,7 +2961,7 @@
     },
     {
       "id": "aerial-r06-c11",
-      "label": "Row 6 \u00b7 Column 11",
+      "label": "Row 6 · Column 11",
       "row": 6,
       "column": 11,
       "lat": 44.44457436561927,
@@ -3024,7 +3024,7 @@
     },
     {
       "id": "aerial-r07-c01",
-      "label": "Row 7 \u00b7 Column 1",
+      "label": "Row 7 · Column 1",
       "row": 7,
       "column": 1,
       "lat": 44.44232478853976,
@@ -3087,7 +3087,7 @@
     },
     {
       "id": "aerial-r07-c02",
-      "label": "Row 7 \u00b7 Column 2",
+      "label": "Row 7 · Column 2",
       "row": 7,
       "column": 2,
       "lat": 44.44232478853976,
@@ -3152,7 +3152,7 @@
     },
     {
       "id": "aerial-r07-c03",
-      "label": "Row 7 \u00b7 Column 3",
+      "label": "Row 7 · Column 3",
       "row": 7,
       "column": 3,
       "lat": 44.44232478853976,
@@ -3217,7 +3217,7 @@
     },
     {
       "id": "aerial-r07-c04",
-      "label": "Row 7 \u00b7 Column 4",
+      "label": "Row 7 · Column 4",
       "row": 7,
       "column": 4,
       "lat": 44.44232478853976,
@@ -3282,7 +3282,7 @@
     },
     {
       "id": "aerial-r07-c05",
-      "label": "Row 7 \u00b7 Column 5",
+      "label": "Row 7 · Column 5",
       "row": 7,
       "column": 5,
       "lat": 44.44232478853976,
@@ -3347,7 +3347,7 @@
     },
     {
       "id": "aerial-r07-c06",
-      "label": "Row 7 \u00b7 Column 6",
+      "label": "Row 7 · Column 6",
       "row": 7,
       "column": 6,
       "lat": 44.44232478853976,
@@ -3412,7 +3412,7 @@
     },
     {
       "id": "aerial-r07-c07",
-      "label": "Row 7 \u00b7 Column 7",
+      "label": "Row 7 · Column 7",
       "row": 7,
       "column": 7,
       "lat": 44.44232478853976,
@@ -3477,7 +3477,7 @@
     },
     {
       "id": "aerial-r07-c08",
-      "label": "Row 7 \u00b7 Column 8",
+      "label": "Row 7 · Column 8",
       "row": 7,
       "column": 8,
       "lat": 44.44232478853976,
@@ -3542,7 +3542,7 @@
     },
     {
       "id": "aerial-r07-c09",
-      "label": "Row 7 \u00b7 Column 9",
+      "label": "Row 7 · Column 9",
       "row": 7,
       "column": 9,
       "lat": 44.44232478853976,
@@ -3607,7 +3607,7 @@
     },
     {
       "id": "aerial-r07-c10",
-      "label": "Row 7 \u00b7 Column 10",
+      "label": "Row 7 · Column 10",
       "row": 7,
       "column": 10,
       "lat": 44.44232478853976,
@@ -3672,7 +3672,7 @@
     },
     {
       "id": "aerial-r08-c01",
-      "label": "Row 8 \u00b7 Column 1",
+      "label": "Row 8 · Column 1",
       "row": 8,
       "column": 1,
       "lat": 44.44007521146025,
@@ -3735,7 +3735,7 @@
     },
     {
       "id": "aerial-r08-c02",
-      "label": "Row 8 \u00b7 Column 2",
+      "label": "Row 8 · Column 2",
       "row": 8,
       "column": 2,
       "lat": 44.44007521146025,
@@ -3798,7 +3798,7 @@
     },
     {
       "id": "aerial-r08-c03",
-      "label": "Row 8 \u00b7 Column 3",
+      "label": "Row 8 · Column 3",
       "row": 8,
       "column": 3,
       "lat": 44.44007521146025,
@@ -3861,7 +3861,7 @@
     },
     {
       "id": "aerial-r08-c04",
-      "label": "Row 8 \u00b7 Column 4",
+      "label": "Row 8 · Column 4",
       "row": 8,
       "column": 4,
       "lat": 44.44007521146025,
@@ -3924,7 +3924,7 @@
     },
     {
       "id": "aerial-r08-c05",
-      "label": "Row 8 \u00b7 Column 5",
+      "label": "Row 8 · Column 5",
       "row": 8,
       "column": 5,
       "lat": 44.44007521146025,
@@ -3987,7 +3987,7 @@
     },
     {
       "id": "aerial-r08-c06",
-      "label": "Row 8 \u00b7 Column 6",
+      "label": "Row 8 · Column 6",
       "row": 8,
       "column": 6,
       "lat": 44.44007521146025,
@@ -4050,7 +4050,7 @@
     },
     {
       "id": "aerial-r08-c07",
-      "label": "Row 8 \u00b7 Column 7",
+      "label": "Row 8 · Column 7",
       "row": 8,
       "column": 7,
       "lat": 44.44007521146025,
@@ -4115,7 +4115,7 @@
     },
     {
       "id": "aerial-r08-c08",
-      "label": "Row 8 \u00b7 Column 8",
+      "label": "Row 8 · Column 8",
       "row": 8,
       "column": 8,
       "lat": 44.44007521146025,
@@ -4180,7 +4180,7 @@
     },
     {
       "id": "aerial-r08-c09",
-      "label": "Row 8 \u00b7 Column 9",
+      "label": "Row 8 · Column 9",
       "row": 8,
       "column": 9,
       "lat": 44.44007521146025,
@@ -4245,7 +4245,7 @@
     },
     {
       "id": "aerial-r08-c10",
-      "label": "Row 8 \u00b7 Column 10",
+      "label": "Row 8 · Column 10",
       "row": 8,
       "column": 10,
       "lat": 44.44007521146025,
@@ -4310,7 +4310,7 @@
     },
     {
       "id": "aerial-r09-c01",
-      "label": "Row 9 \u00b7 Column 1",
+      "label": "Row 9 · Column 1",
       "row": 9,
       "column": 1,
       "lat": 44.43782563438074,
@@ -4373,7 +4373,7 @@
     },
     {
       "id": "aerial-r09-c02",
-      "label": "Row 9 \u00b7 Column 2",
+      "label": "Row 9 · Column 2",
       "row": 9,
       "column": 2,
       "lat": 44.43782563438074,
@@ -4436,7 +4436,7 @@
     },
     {
       "id": "aerial-r09-c03",
-      "label": "Row 9 \u00b7 Column 3",
+      "label": "Row 9 · Column 3",
       "row": 9,
       "column": 3,
       "lat": 44.43782563438074,
@@ -4499,7 +4499,7 @@
     },
     {
       "id": "aerial-r09-c04",
-      "label": "Row 9 \u00b7 Column 4",
+      "label": "Row 9 · Column 4",
       "row": 9,
       "column": 4,
       "lat": 44.43782563438074,
@@ -4562,7 +4562,7 @@
     },
     {
       "id": "aerial-r09-c05",
-      "label": "Row 9 \u00b7 Column 5",
+      "label": "Row 9 · Column 5",
       "row": 9,
       "column": 5,
       "lat": 44.43782563438074,
@@ -4625,7 +4625,7 @@
     },
     {
       "id": "aerial-r09-c06",
-      "label": "Row 9 \u00b7 Column 6",
+      "label": "Row 9 · Column 6",
       "row": 9,
       "column": 6,
       "lat": 44.43782563438074,
@@ -4688,7 +4688,7 @@
     },
     {
       "id": "aerial-r09-c07",
-      "label": "Row 9 \u00b7 Column 7",
+      "label": "Row 9 · Column 7",
       "row": 9,
       "column": 7,
       "lat": 44.43782563438074,
@@ -4753,7 +4753,7 @@
     },
     {
       "id": "aerial-r09-c08",
-      "label": "Row 9 \u00b7 Column 8",
+      "label": "Row 9 · Column 8",
       "row": 9,
       "column": 8,
       "lat": 44.43782563438074,
@@ -4818,7 +4818,7 @@
     },
     {
       "id": "aerial-r09-c09",
-      "label": "Row 9 \u00b7 Column 9",
+      "label": "Row 9 · Column 9",
       "row": 9,
       "column": 9,
       "lat": 44.43782563438074,
@@ -4883,7 +4883,7 @@
     },
     {
       "id": "aerial-r10-c01",
-      "label": "Row 10 \u00b7 Column 1",
+      "label": "Row 10 · Column 1",
       "row": 10,
       "column": 1,
       "lat": 44.435576057301226,
@@ -4946,7 +4946,7 @@
     },
     {
       "id": "aerial-r10-c02",
-      "label": "Row 10 \u00b7 Column 2",
+      "label": "Row 10 · Column 2",
       "row": 10,
       "column": 2,
       "lat": 44.435576057301226,
@@ -5009,7 +5009,7 @@
     },
     {
       "id": "aerial-r10-c03",
-      "label": "Row 10 \u00b7 Column 3",
+      "label": "Row 10 · Column 3",
       "row": 10,
       "column": 3,
       "lat": 44.435576057301226,
@@ -5072,7 +5072,7 @@
     },
     {
       "id": "aerial-r10-c04",
-      "label": "Row 10 \u00b7 Column 4",
+      "label": "Row 10 · Column 4",
       "row": 10,
       "column": 4,
       "lat": 44.435576057301226,
@@ -5135,7 +5135,7 @@
     },
     {
       "id": "aerial-r10-c05",
-      "label": "Row 10 \u00b7 Column 5",
+      "label": "Row 10 · Column 5",
       "row": 10,
       "column": 5,
       "lat": 44.435576057301226,
@@ -5198,7 +5198,7 @@
     },
     {
       "id": "aerial-r10-c06",
-      "label": "Row 10 \u00b7 Column 6",
+      "label": "Row 10 · Column 6",
       "row": 10,
       "column": 6,
       "lat": 44.435576057301226,
@@ -5261,7 +5261,7 @@
     },
     {
       "id": "aerial-r10-c07",
-      "label": "Row 10 \u00b7 Column 7",
+      "label": "Row 10 · Column 7",
       "row": 10,
       "column": 7,
       "lat": 44.435576057301226,
@@ -5324,7 +5324,7 @@
     },
     {
       "id": "aerial-r10-c08",
-      "label": "Row 10 \u00b7 Column 8",
+      "label": "Row 10 · Column 8",
       "row": 10,
       "column": 8,
       "lat": 44.435576057301226,
@@ -5387,7 +5387,7 @@
     },
     {
       "id": "aerial-r10-c09",
-      "label": "Row 10 \u00b7 Column 9",
+      "label": "Row 10 · Column 9",
       "row": 10,
       "column": 9,
       "lat": 44.435576057301226,
@@ -5450,7 +5450,7 @@
     },
     {
       "id": "aerial-r11-c02",
-      "label": "Row 11 \u00b7 Column 2",
+      "label": "Row 11 · Column 2",
       "row": 11,
       "column": 2,
       "lat": 44.43332648022172,
@@ -5513,7 +5513,7 @@
     },
     {
       "id": "aerial-r11-c03",
-      "label": "Row 11 \u00b7 Column 3",
+      "label": "Row 11 · Column 3",
       "row": 11,
       "column": 3,
       "lat": 44.43332648022172,
@@ -5576,7 +5576,7 @@
     },
     {
       "id": "aerial-r11-c04",
-      "label": "Row 11 \u00b7 Column 4",
+      "label": "Row 11 · Column 4",
       "row": 11,
       "column": 4,
       "lat": 44.43332648022172,
@@ -5639,7 +5639,7 @@
     },
     {
       "id": "aerial-r11-c05",
-      "label": "Row 11 \u00b7 Column 5",
+      "label": "Row 11 · Column 5",
       "row": 11,
       "column": 5,
       "lat": 44.43332648022172,
@@ -5702,7 +5702,7 @@
     },
     {
       "id": "aerial-r11-c06",
-      "label": "Row 11 \u00b7 Column 6",
+      "label": "Row 11 · Column 6",
       "row": 11,
       "column": 6,
       "lat": 44.43332648022172,
@@ -5765,7 +5765,7 @@
     },
     {
       "id": "aerial-r11-c07",
-      "label": "Row 11 \u00b7 Column 7",
+      "label": "Row 11 · Column 7",
       "row": 11,
       "column": 7,
       "lat": 44.43332648022172,
@@ -5828,7 +5828,7 @@
     },
     {
       "id": "aerial-r11-c08",
-      "label": "Row 11 \u00b7 Column 8",
+      "label": "Row 11 · Column 8",
       "row": 11,
       "column": 8,
       "lat": 44.43332648022172,
@@ -5891,7 +5891,7 @@
     },
     {
       "id": "aerial-r12-c03",
-      "label": "Row 12 \u00b7 Column 3",
+      "label": "Row 12 · Column 3",
       "row": 12,
       "column": 3,
       "lat": 44.43107690314221,
@@ -5954,7 +5954,7 @@
     },
     {
       "id": "aerial-r12-c04",
-      "label": "Row 12 \u00b7 Column 4",
+      "label": "Row 12 · Column 4",
       "row": 12,
       "column": 4,
       "lat": 44.43107690314221,
@@ -6017,7 +6017,7 @@
     },
     {
       "id": "aerial-r12-c05",
-      "label": "Row 12 \u00b7 Column 5",
+      "label": "Row 12 · Column 5",
       "row": 12,
       "column": 5,
       "lat": 44.43107690314221,
@@ -6080,7 +6080,7 @@
     },
     {
       "id": "aerial-r12-c06",
-      "label": "Row 12 \u00b7 Column 6",
+      "label": "Row 12 · Column 6",
       "row": 12,
       "column": 6,
       "lat": 44.43107690314221,
@@ -6143,7 +6143,7 @@
     },
     {
       "id": "aerial-r12-c07",
-      "label": "Row 12 \u00b7 Column 7",
+      "label": "Row 12 · Column 7",
       "row": 12,
       "column": 7,
       "lat": 44.43107690314221,
@@ -6206,7 +6206,7 @@
     },
     {
       "id": "context-northwest",
-      "label": "Distant context \u00b7 northwest",
+      "label": "Distant context · northwest",
       "row": 1,
       "column": 1,
       "lat": 44.45582225101681,
@@ -6269,7 +6269,7 @@
     },
     {
       "id": "context-northeast",
-      "label": "Distant context \u00b7 northeast",
+      "label": "Distant context · northeast",
       "row": 1,
       "column": 11,
       "lat": 44.45582225101681,
@@ -6332,7 +6332,7 @@
     },
     {
       "id": "context-southwest",
-      "label": "Distant context \u00b7 southwest",
+      "label": "Distant context · southwest",
       "row": 12,
       "column": 1,
       "lat": 44.43107690314221,
@@ -6395,7 +6395,7 @@
     },
     {
       "id": "context-southeast",
-      "label": "Distant context \u00b7 southeast",
+      "label": "Distant context · southeast",
       "row": 12,
       "column": 11,
       "lat": 44.43107690314221,
@@ -6458,7 +6458,7 @@
     },
     {
       "id": "context-cathedral",
-      "label": "Catedrala M\u00e2ntuirii Neamului",
+      "label": "Catedrala Mântuirii Neamului",
       "row": null,
       "column": null,
       "lat": 44.4259297,
@@ -8395,7 +8395,7 @@
       "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
     },
     "priorCompleteReview": {
-      "manifest": "historical/full-before-07cc3d6b-5978c6d9/manifest.json",
+      "manifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/manifest.json",
       "sha256": "5978c6d95b290767b7cd5a1f4fe4316e301e8f7159646e9ed6583417b675e182",
       "note": "Every earlier review/source-specific finding is preserved verbatim in the complete prior collection."
     },
@@ -8405,60 +8405,10 @@
   "collectionNotes": {
     "atlas": "Current complete mixed-source atlas: 69 frames on 4378317f, 25 frames on bbaffc0d, 1 frames on 07cc3d6b, 5 frames on 0775fdaf. Actual per-frame source/date retained; only the conservative structure/separator subset is fresh 07cc3d6b. Full prior current collection archived. Technical aerial settings and separate native limitations remain."
   },
-  "historicalCollections": [
-    {
-      "manifest": "historical/ff70806113efe0253cf5c623c87e181bbde595b5-dcfd7be3/manifest.json",
-      "frames": 99,
-      "generatedAt": "2026-11-08T16:28:15.080Z",
-      "gameSourceCommit": "ff70806113efe0253cf5c623c87e181bbde595b5",
-      "publishedBaseline": null,
-      "sourceCounts": {
-        "ff70806113efe0253cf5c623c87e181bbde595b5": 99
-      },
-      "captureType": "branch-source-snapshot",
-      "note": "Entire original collection retained, including unchanged image bytes, per-frame source identities and capture provenance."
-    },
-    {
-      "manifest": "historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-fed96a2d/manifest.json",
-      "label": "Original full atlas \u00b7 4378317",
-      "frames": 100,
-      "generatedAt": "2026-11-08T22:06:13.178Z",
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-      "captureType": "branch-source-snapshot",
-      "note": "Entire original capture retained, including the frames superseded by current water retakes."
-    },
-    {
-      "manifest": "historical/mixed-before-bbaffc0d-5978bf1b/manifest.json",
-      "label": "Full mixed atlas before bbaffc0d scoped water/paint retakes",
-      "frames": 100,
-      "generatedAt": "2026-11-08T22:45:44.496Z",
-      "gameSourceCommit": null,
-      "sourceCounts": {
-        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 81,
-        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 19
-      },
-      "captureType": "mixed-source-survey",
-      "note": "Full previous current collection: original metadata, dates, image/thumbnail bytes and per-frame source identities preserved."
-    },
-    {
-      "manifest": "historical/full-before-07cc3d6b-5978c6d9/manifest.json",
-      "label": "Full prior current atlas before structural/separator retakes 07cc3d6b",
-      "frames": 100,
-      "generatedAt": "2026-11-09T00:39:29.681Z",
-      "gameSourceCommit": null,
-      "sourceCounts": {
-        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 69,
-        "bbaffc0d6cdccb6246edeb9478c58590852980d9": 26,
-        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
-      },
-      "captureType": "branch-source-snapshot",
-      "note": "Entire prior current collection and its GAME images/thumbnails, review, street/context and provenance files are byte-identical. Earlier histories retain their stable paths."
-    }
-  ],
   "perspectiveCollections": [
     {
       "manifest": "context/summer-clear-day/manifest.json",
-      "label": "Summer Clear Day \u00b7 district context",
+      "label": "Summer Clear Day · district context",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "frames": 16,
@@ -8466,7 +8416,7 @@
     },
     {
       "manifest": "context/summer-clear-night/manifest.json",
-      "label": "Summer Clear Night \u00b7 district context",
+      "label": "Summer Clear Night · district context",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "frames": 6,
@@ -8474,7 +8424,7 @@
     },
     {
       "manifest": "context/winter-snow-day/manifest.json",
-      "label": "Winter Snow Day \u00b7 district context",
+      "label": "Winter Snow Day · district context",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "frames": 6,
@@ -8483,7 +8433,7 @@
   ],
   "sourceCaptureManifests": [
     {
-      "path": "historical/full-before-07cc3d6b-5978c6d9/manifest.json",
+      "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/manifest.json",
       "sha256": "5978c6d95b290767b7cd5a1f4fe4316e301e8f7159646e9ed6583417b675e182",
       "sourceCounts": {
         "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 69,

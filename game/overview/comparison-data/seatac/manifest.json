@@ -30,7 +30,7 @@
     ],
     "sourceCaptureManifests": [
       {
-        "path": "historical/full-before-07cc3d6b-2215e3c4/manifest.json",
+        "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/seatac/historical/full-before-07cc3d6b-2215e3c4/manifest.json",
         "sha256": "2215e3c4de5505606f7ee78c4fd2519d25b586852ff55a7910f11fbf9a7f9991",
         "sourceCounts": {
           "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 139
@@ -11782,7 +11782,7 @@
       "07cc3d6bcefe90967c5bde3af2237dab4b972705": 20
     },
     "priorCompleteReview": {
-      "manifest": "historical/full-before-07cc3d6b-2215e3c4/manifest.json",
+      "manifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/seatac/historical/full-before-07cc3d6b-2215e3c4/manifest.json",
       "sha256": "2215e3c4de5505606f7ee78c4fd2519d25b586852ff55a7910f11fbf9a7f9991",
       "note": "Every earlier review/source-specific finding is preserved verbatim in the complete prior collection."
     },
@@ -11841,7 +11841,7 @@
   ],
   "sourceCaptureManifests": [
     {
-      "path": "historical/full-before-07cc3d6b-2215e3c4/manifest.json",
+      "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/seatac/historical/full-before-07cc3d6b-2215e3c4/manifest.json",
       "sha256": "2215e3c4de5505606f7ee78c4fd2519d25b586852ff55a7910f11fbf9a7f9991",
       "sourceCounts": {
         "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 139
@@ -11854,20 +11854,6 @@
       "sha256": "bb73a1278b01f0e1dfd3dd3b0f2c1a5bff3d92a73dbf757fd2285e92f32c3a57",
       "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
       "frames": 20
-    }
-  ],
-  "historicalCollections": [
-    {
-      "manifest": "historical/full-before-07cc3d6b-2215e3c4/manifest.json",
-      "label": "Full prior current atlas before structural/separator retakes 07cc3d6b",
-      "frames": 139,
-      "generatedAt": "2026-11-08T23:15:39.242Z",
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
-      "sourceCounts": {
-        "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 139
-      },
-      "captureType": "source-snapshot",
-      "note": "Entire prior current collection and its GAME images/thumbnails, review, street/context and provenance files are byte-identical. Earlier histories retain their stable paths."
     }
   ],
   "sourceCompatibility": {

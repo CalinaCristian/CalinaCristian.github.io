@@ -292,6 +292,7 @@ export async function mountComparisonViewer(element, {baseURL = new URL('./compa
       $('location').value = state.location;
       onLocation(state.location);
       const collection = $('collection'); collection.replaceChildren();
+      collection.closest('label').hidden=!hasBaseline&&!(latest.historicalCollections||[]).length;
       const choices = [['survey',`District survey · ${latest.items.length-baselineCount} views`],...(hasBaseline?[['baseline',`${baselineCount} published baseline views`]]:[])];
       for(const history of latest.historicalCollections || []) {
         const saved = archives.get(archiveKey(state.location,history.manifest));

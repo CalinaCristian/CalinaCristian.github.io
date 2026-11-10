@@ -313,24 +313,6 @@
     "drawCalls": 2,
     "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
   },
-  "historicalImplementationNotes": [
-    {
-      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
-      "priorCaptureRecordSourceCommit": "5b92547699c6053b28050955d619232e18422958",
-      "supersededAt": "2026-11-09",
-      "field": "checks[0]",
-      "priorValue": {
-        "label": "Full source boundary and replacement-identity checks",
-        "passed": true,
-        "details": "tools/landmarks/bucharest-source-check.mjs: 2 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
-      },
-      "replacementScope": "Historical source-boundary evidence: tools/landmarks/bucharest-source-check.mjs: 2 authored source rings; explicit replacement IDs match the source ledger. The earlier run across 33 models recorded 306 checks. The later accepted source-book update b203c38abf3651dd3d472c491238ad36089a633a records 456 checks across 33 models, including this entry, in handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json. This wording update cites that existing proof; no tests were rerun and no images were recaptured.",
-      "acceptedImplementationCommits": [
-        "b203c38abf3651dd3d472c491238ad36089a633a"
-      ],
-      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
-    }
-  ],
   "implementationNotesUpdatedAt": "2026-11-09",
   "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
 }

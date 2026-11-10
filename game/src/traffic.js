@@ -3096,11 +3096,20 @@ export class Pedestrians {
         if (!this._yieldView) {
             this._yieldView = Object.create(this.t);
             for (const key of ['_t', '_pf', '_pr', '_pc', '_pa', '_pb']) this._yieldView[key] = undefined;
-            this._yieldMesh = { position: { set() {} }, rotation: { set() {} } };
+            this._yieldMesh = { position: { set() {} }, rotation: { set(x,y,z,order) { Object.assign(this,{x,y,z,order}); } } };
             this._yieldVehicle = {};
         }
         const proposal = Object.assign(this._yieldVehicle, v); proposal.mesh = this._yieldMesh; proposal.speed = speed; proposal.s = v.s + speed * dt;
-        this._yieldView.placeOnLane(proposal, false, dt);
+        proposal.mesh.userData=v.mesh?.userData;proposal.mesh.scale=v.mesh?.scale;
+        Object.assign(proposal.mesh.rotation,{x:v.mesh?.rotation?.x??0,y:v.mesh?.rotation?.y??v.heading,z:v.mesh?.rotation?.z??0,order:'YXZ'});
+        proposal.route=v.route?.slice()||[];proposal.hist=v.hist?.slice();
+        try{this._yieldView.placeOnLane(proposal,false,dt);}
+        catch(error){
+            const stats=this.stats||(this.stats={});
+            stats.yieldPreviewRefused=(stats.yieldPreviewRefused||0)+1;
+            stats.lastYieldPreviewRefusal={vehicle:v.id,edge:v.edge.id,reason:String(error?.message||error).slice(0,240)};
+            return false;
+        }
         let previous = before;
         for (let i = 1; i <= 4; i++) {
             const f = i / 4, next = distance(v.x + (proposal.x - v.x) * f, v.z + (proposal.z - v.z) * f, angleLerp(v.heading, proposal.heading, f));

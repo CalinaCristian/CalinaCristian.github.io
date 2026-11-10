@@ -144,3 +144,5 @@ Horn audio: dual400/500Hz shaped harmonics,45ms attack/90ms release,basegain0.14
 
 ### 10 November 2026 · full-population CPU investigation
 Owner reports 48.125ms traffic /50.1ms frame in Grozavesti. Native immutable8abd component replay retained311cars560people for600simulation seconds; V8 attributes71%of traffic time to pedestrians. Candidate replaces dirty-peer full scans with indexed-cell/moved-body union and removes per-height string allocation; exact collision/height predicates retained. Native sustained comparison pending.
+
+Private Grid.queryUntil is reserved for conclusive boolean predicates. Ordinary query always visits all selected entries, including callbacks returning false. peerClearStep can stop its stable-cell and moved-body scans after the first blocking body; exact height/body/outward-progress rules and the conservative candidate union are unchanged. The complete visitor, large-range fallback, physical motion and4,000moving/full-scan decisions are regression controls.

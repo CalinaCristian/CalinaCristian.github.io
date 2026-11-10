@@ -8,6 +8,11 @@ import {EdgeIndex} from '../src/nav.js';
 import {collideBuildings} from '../src/world.js';
 
 class EmptyTraffic extends Traffic {setupTransit(){} buildBusStops(){} spawnAll(){}}
+const queryGrid=new EmptyTraffic({graph:{edges:[],nodes:[]},buildings:[],walkTop:()=>.13},{id:'seattle'},new THREE.Scene(),{maxPeds:0}).peds.grid;
+queryGrid.build([{x:0,z:0},{x:.1,z:.1},{x:.2,z:.2}]);let allVisits=0,earlyVisits=0;
+queryGrid.query(0,0,1,()=>{allVisits++;return false;});queryGrid.queryUntil(0,0,1,()=>{earlyVisits++;return false;});
+assert.equal(allVisits,3,'ordinary grid visitors retain the complete-query contract');assert.equal(earlyVisits,1,'a conclusive contact query stops immediately');
+earlyVisits=0;queryGrid.queryUntil(0,0,1000,()=>{earlyVisits++;return false;});assert.equal(earlyVisits,1,'the large-query fallback also stops at a conclusive result');
 function scene(Impl=Pedestrians) {
     const empty=new EmptyTraffic({graph:{edges:[],nodes:[]},buildings:[],walkTop:()=>.13},{id:'seattle'},new THREE.Scene(),{maxPeds:0});
     const a={id:0,x:0,z:0,radius:2,edges:[]},b={id:1,x:200,z:0,radius:2,edges:[]};

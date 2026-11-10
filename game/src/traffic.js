@@ -177,6 +177,16 @@ class Grid {
             }
         }
     }
+    /** Boolean contact queries can stop at a conclusive false predicate.
+     * Keep query's existing complete-visitor contract for every other caller. */
+    queryUntil(x,z,r,fn){
+        const c=this.cell,x0=Math.floor((x-r)/c),x1=Math.floor((x+r)/c),z0=Math.floor((z-r)/c),z1=Math.floor((z+r)/c),it=this.items;
+        if((x1-x0+1)*(z1-z0+1)>400){for(const o of it)if(fn(o)===false)return;return;}
+        for(let ix=x0;ix<=x1;ix++)for(let iz=z0;iz<=z1;iz++)for(let i=this.head[this.hash(ix,iz)];i!==-1;i=this.next[i]){
+            const o=it[i],ox=this.fixed?this.ix[i]:Math.floor(o.x/c),oz=this.fixed?this.iz[i]:Math.floor(o.z/c);
+            if(ox===ix&&oz===iz&&fn(o)===false)return;
+        }
+    }
 }
 
 /**
@@ -3005,15 +3015,16 @@ export class Pedestrians {
             if(y===undefined){const top=W.walkTop?.(x,z);y=top==null?.2:top+.01;}
             const qt = W.walkTop?.(q.x, q.z), qy = qt == null ? 0.2 : qt + 0.01;
             if (y + 1.75 * (p.scale || 1) <= qy || qy + 1.75 * (q.scale || 1) <= y) return;
-            if (d <= Math.hypot(oldX - q.x, oldZ - q.z) + 1e-6) clear = false;
+            if (d <= Math.hypot(oldX - q.x, oldZ - q.z) + 1e-6) {clear = false;return false;}
         };
         // Keep the in-flight chains stable. Their recorded cells plus every
         // actor that crossed a cell form a conservative union of ALL bodies.
         // Exact body/height tests still decide; no population scan per contact.
-        if (!this.grid.items || (this._peerGridDirty && !this.grid.fixed)) { for (const q of this.list) check(q); }
+        if (!this.grid.items || (this._peerGridDirty && !this.grid.fixed)) { for (const q of this.list) if(check(q)===false)break; }
         else {
-            this.grid.query(x, z, 2 * PED_R + 0.2, check);
-            if(this._peerGridDirty)for(const q of this._movedPeers)check(q);
+            if(this.grid.queryUntil)this.grid.queryUntil(x,z,2*PED_R+.2,check);
+            else this.grid.query(x,z,2*PED_R+.2,check);
+            if(clear&&this._peerGridDirty)for(const q of this._movedPeers)if(check(q)===false)break;
         }
         return clear;
     }

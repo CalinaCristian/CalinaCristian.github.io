@@ -284,6 +284,7 @@
     "The selected primary activity approach is accepted separately from full-scene comparison."
   ],
   "remainingGaps": [
+    "Fresh ground correction is scoped: the complete Gum Wall approach still stops before its final route goal; generic market facades/canopy supports and current Seattle context remain open.",
     "Whole-market frontage/artwork accuracy and full fish trajectory framing remain open",
     "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
     "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
@@ -513,11 +514,12 @@
     }
   ],
   "perf": {
-    "triangles": 507798,
-    "drawCalls": 245,
-    "maxRenderedTriangles": 507798,
-    "maxDrawCalls": 245,
-    "note": "Maximum across the selected source-stamped native views; not a full-world traffic budget or hardware FPS result."
+    "triangles": 836498,
+    "drawCalls": 265,
+    "maxRenderedTriangles": 836498,
+    "maxDrawCalls": 265,
+    "sourceCommit": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+    "note": "Actual desktop High native-app ground-correction frames, including retained obstructed technical fixtures; not a mobile, complete-world or hardware FPS acceptance."
   },
   "sceneId": "pike-place",
   "sourceGeometry": {
@@ -839,19 +841,978 @@
       "review": "Inspected arrival, native public-path walk, postcard and activity approach at clean 94ef228; also inspected the full-size postcard. Existing Starbucks frontage is retained; the secret room remains the owner's explicit fiction exception.",
       "id": "previous-context-gallery",
       "label": "Earlier scene/context and activity captures — original source and dates retained"
+    },
+    {
+      "id": "visitor-preview-aabd-before-ground-correction",
+      "label": "Earlier visitor preview before continuous ground correction",
+      "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+      "updatedAt": "2026-11-09T08:18:02.329Z",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/pike-place/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:18:02.329Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -19.622449085792063,
+            "z": 17.0575347537532,
+            "y": -2.1248124068135157,
+            "heading": 2.286381328125
+          },
+          "pose": {
+            "position": [
+              -19.622449085792063,
+              -0.4748124068135158,
+              17.0575347537532
+            ],
+            "bearing": 228.99999954092166,
+            "pitch": 11.999998965706924
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:17:57.335Z",
+          "triangles": 521521,
+          "drawCalls": 156,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "0df12482b0db1f2eda1b079c0813d028173fdabf11f93fc6a7abbf1a331a9b7d",
+          "bytes": 51514,
+          "fullPageHUD": false,
+          "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/trial-results.json",
+          "setup": {
+            "arrival": {
+              "x": -9.5,
+              "z": 13.5,
+              "y": -1.1196706226673887,
+              "heading": -4.1887902047863905
+            },
+            "viewpoint": {
+              "view": null,
+              "id": "pike-place",
+              "x": -19.622449085792063,
+              "z": 17.0575347537532,
+              "bearing": 229,
+              "pitch": 12,
+              "fov": 55,
+              "text": "Looking down Pike St: the PUBLIC MARKET CENTER sign and clock above the arcade corner, fish stall and crowds below; best at blue hour when the neon glows.",
+              "r": 12,
+              "tol": 30,
+              "targets": [],
+              "cond": null,
+              "condHint": null
+            },
+            "position": {
+              "x": -19.622449085792063,
+              "z": 17.0575347537532,
+              "y": -2.1248124068135157,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "pike-place",
+            "origin": {
+              "lat": 47.60897,
+              "lon": -122.33987,
+              "elev": 36.8
+            },
+            "projection": {
+              "mLat": 111182.71,
+              "mLon": 75187.56
+            }
+          },
+          "label": "Market sign, clock and arcade",
+          "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+        },
+        {
+          "kind": "activity-phone",
+          "image": "assets/spots/pike-place/visit-aabd/activity-phone.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:30:11.385Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -53.14768236141362,
+            "z": 35.97335325679389,
+            "y": -6.411679728001929,
+            "heading": 1.8157749899217597
+          },
+          "pose": {
+            "position": [
+              -53.14768236141362,
+              -4.76167972800193,
+              35.97335325679389
+            ],
+            "bearing": 255.9637565320736,
+            "pitch": -23.826686164566883
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:30:08.933Z",
+          "triangles": 454516,
+          "drawCalls": 145,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "0e2a0a2f4c953dc9dc178e780ea60eb369db0c9b1739ac9111f32473af2fdd0d",
+          "bytes": 53239,
+          "fullPageHUD": true,
+          "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/activity-results.json",
+          "setup": {
+            "arrival": {
+              "x": -9.5,
+              "z": 13.5,
+              "y": -1.1196706226673887,
+              "heading": -4.1887902047863905
+            },
+            "viewpoint": {
+              "x": -53.14768236141362,
+              "z": 35.97335325679389,
+              "bearing": 255.96375653207357,
+              "pitch": -23.826686164566866
+            },
+            "target": {
+              "x": -54.747682361413624,
+              "z": 36.37335325679389,
+              "y": -5.49
+            },
+            "position": {
+              "x": -53.14768236141362,
+              "z": 35.97335325679389,
+              "y": -6.411679728001929,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "pike-place",
+            "origin": {
+              "lat": 47.60897,
+              "lon": -122.33987,
+              "elev": 36.8
+            },
+            "projection": {
+              "mLat": 111182.71,
+              "mLon": 75187.56
+            }
+          },
+          "label": "Drop a coin in Rachel · phone interaction",
+          "purpose": "Coin in flight after actual Use and Drop taps. Nearby setup; this does not show the arrival route."
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/pike-place/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:18:08.671Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -19.622449085792063,
+            "z": 17.0575347537532,
+            "y": -2.1248124068135157,
+            "heading": 2.286381328125
+          },
+          "pose": {
+            "position": [
+              -19.622449085792063,
+              -0.4748124068135158,
+              17.0575347537532
+            ],
+            "bearing": 228.99999954092166,
+            "pitch": 11.999998965706924
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:18:03.672Z",
+          "triangles": 501235,
+          "drawCalls": 101,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "3a164d1c03d07138079787833fad55fb21bb176da4ae77f18e559d653e1f7a9d",
+          "bytes": 57673,
+          "fullPageHUD": true,
+          "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/trial-results.json",
+          "setup": {
+            "arrival": {
+              "x": -9.5,
+              "z": 13.5,
+              "y": -1.1196706226673887,
+              "heading": -4.1887902047863905
+            },
+            "viewpoint": {
+              "view": null,
+              "id": "pike-place",
+              "x": -19.622449085792063,
+              "z": 17.0575347537532,
+              "bearing": 229,
+              "pitch": 12,
+              "fov": 55,
+              "text": "Looking down Pike St: the PUBLIC MARKET CENTER sign and clock above the arcade corner, fish stall and crowds below; best at blue hour when the neon glows.",
+              "r": 12,
+              "tol": 30,
+              "targets": [],
+              "cond": null,
+              "condHint": null
+            },
+            "position": {
+              "x": -19.622449085792063,
+              "z": 17.0575347537532,
+              "y": -2.1248124068135157,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "pike-place",
+            "origin": {
+              "lat": 47.60897,
+              "lon": -122.33987,
+              "elev": 36.8
+            },
+            "projection": {
+              "mLat": 111182.71,
+              "mLon": 75187.56
+            }
+          },
+          "label": "Initial portrait framing (retained)",
+          "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+        },
+        {
+          "kind": "phone-ui-touch",
+          "image": "assets/spots/pike-place/visit-aabd/phone-ui-touch.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:27:17.995Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -19.622449085792063,
+            "z": 17.0575347537532,
+            "y": -2.1248124068135157,
+            "heading": 2.2463999999999995
+          },
+          "pose": {
+            "position": [
+              -19.622449085792063,
+              -0.4748124068135158,
+              17.0575347537532
+            ],
+            "bearing": 231.2907609018119,
+            "pitch": 3.9999996552356425
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:27:16.637Z",
+          "triangles": 529031,
+          "drawCalls": 204,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "0ba5e5f8d6e0e39efe5bc535f2751bc5a57aa5b8a1c4833d4f0de25c0df88304",
+          "bytes": 64111,
+          "fullPageHUD": true,
+          "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+          "setup": {
+            "arrival": {
+              "x": -9.5,
+              "z": 13.5,
+              "y": -1.1196706226673887,
+              "heading": -4.1887902047863905
+            },
+            "viewpoint": {
+              "view": null,
+              "id": "pike-place",
+              "x": -19.622449085792063,
+              "z": 17.0575347537532,
+              "bearing": 229,
+              "pitch": 12,
+              "fov": 55,
+              "text": "Looking down Pike St: the PUBLIC MARKET CENTER sign and clock above the arcade corner, fish stall and crowds below; best at blue hour when the neon glows.",
+              "r": 12,
+              "tol": 30,
+              "targets": [],
+              "cond": null,
+              "condHint": null
+            },
+            "position": {
+              "x": -19.622449085792063,
+              "z": 17.0575347537532,
+              "y": -2.1248124068135157,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "pike-place",
+            "origin": {
+              "lat": 47.60897,
+              "lon": -122.33987,
+              "elev": 36.8
+            },
+            "projection": {
+              "mLat": 111182.71,
+              "mLon": 75187.56
+            }
+          },
+          "label": "Phone view with the native touch interface",
+          "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+        }
+      ],
+      "visitorGallery": {
+        "id": "pike-place",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "captures": [
+          {
+            "kind": "scene",
+            "image": "assets/spots/pike-place/visit-aabd/scene.webp",
+            "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+            "capturedAt": "2026-11-09T08:18:02.329Z",
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            },
+            "position": {
+              "x": -19.622449085792063,
+              "z": 17.0575347537532,
+              "y": -2.1248124068135157,
+              "heading": 2.286381328125
+            },
+            "pose": {
+              "position": [
+                -19.622449085792063,
+                -0.4748124068135158,
+                17.0575347537532
+              ],
+              "bearing": 228.99999954092166,
+              "pitch": 11.999998965706924
+            },
+            "conditions": {
+              "tod": "day",
+              "weather": "clear",
+              "season": "summer"
+            },
+            "simulationDate": "2026-11-09T08:17:57.335Z",
+            "triangles": 521521,
+            "drawCalls": 156,
+            "cameraParent": "onfoot",
+            "ui": {
+              "touch": true,
+              "spotHUD": true,
+              "touchAction": true
+            },
+            "sha256": "0df12482b0db1f2eda1b079c0813d028173fdabf11f93fc6a7abbf1a331a9b7d",
+            "bytes": 51514,
+            "fullPageHUD": false,
+            "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/trial-results.json",
+            "setup": {
+              "arrival": {
+                "x": -9.5,
+                "z": 13.5,
+                "y": -1.1196706226673887,
+                "heading": -4.1887902047863905
+              },
+              "viewpoint": {
+                "view": null,
+                "id": "pike-place",
+                "x": -19.622449085792063,
+                "z": 17.0575347537532,
+                "bearing": 229,
+                "pitch": 12,
+                "fov": 55,
+                "text": "Looking down Pike St: the PUBLIC MARKET CENTER sign and clock above the arcade corner, fish stall and crowds below; best at blue hour when the neon glows.",
+                "r": 12,
+                "tol": 30,
+                "targets": [],
+                "cond": null,
+                "condHint": null
+              },
+              "position": {
+                "x": -19.622449085792063,
+                "z": 17.0575347537532,
+                "y": -2.1248124068135157,
+                "heading": 0
+              },
+              "walker": "OnFootController",
+              "sceneId": "pike-place",
+              "origin": {
+                "lat": 47.60897,
+                "lon": -122.33987,
+                "elev": 36.8
+              },
+              "projection": {
+                "mLat": 111182.71,
+                "mLon": 75187.56
+              }
+            },
+            "label": "Market sign, clock and arcade",
+            "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+          },
+          {
+            "kind": "activity-phone",
+            "image": "assets/spots/pike-place/visit-aabd/activity-phone.jpg",
+            "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+            "capturedAt": "2026-11-09T08:30:11.385Z",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "position": {
+              "x": -53.14768236141362,
+              "z": 35.97335325679389,
+              "y": -6.411679728001929,
+              "heading": 1.8157749899217597
+            },
+            "pose": {
+              "position": [
+                -53.14768236141362,
+                -4.76167972800193,
+                35.97335325679389
+              ],
+              "bearing": 255.9637565320736,
+              "pitch": -23.826686164566883
+            },
+            "conditions": {
+              "tod": "day",
+              "weather": "clear",
+              "season": "summer"
+            },
+            "simulationDate": "2026-11-09T08:30:08.933Z",
+            "triangles": 454516,
+            "drawCalls": 145,
+            "cameraParent": "onfoot",
+            "ui": {
+              "touch": true,
+              "spotHUD": true,
+              "touchAction": true
+            },
+            "sha256": "0e2a0a2f4c953dc9dc178e780ea60eb369db0c9b1739ac9111f32473af2fdd0d",
+            "bytes": 53239,
+            "fullPageHUD": true,
+            "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/activity-results.json",
+            "setup": {
+              "arrival": {
+                "x": -9.5,
+                "z": 13.5,
+                "y": -1.1196706226673887,
+                "heading": -4.1887902047863905
+              },
+              "viewpoint": {
+                "x": -53.14768236141362,
+                "z": 35.97335325679389,
+                "bearing": 255.96375653207357,
+                "pitch": -23.826686164566866
+              },
+              "target": {
+                "x": -54.747682361413624,
+                "z": 36.37335325679389,
+                "y": -5.49
+              },
+              "position": {
+                "x": -53.14768236141362,
+                "z": 35.97335325679389,
+                "y": -6.411679728001929,
+                "heading": 0
+              },
+              "walker": "OnFootController",
+              "sceneId": "pike-place",
+              "origin": {
+                "lat": 47.60897,
+                "lon": -122.33987,
+                "elev": 36.8
+              },
+              "projection": {
+                "mLat": 111182.71,
+                "mLon": 75187.56
+              }
+            },
+            "label": "Drop a coin in Rachel · phone interaction",
+            "purpose": "Coin in flight after actual Use and Drop taps. Nearby setup; this does not show the arrival route."
+          }
+        ],
+        "retainedIllustrations": [
+          {
+            "kind": "phone-ui",
+            "image": "assets/spots/pike-place/visit-aabd/phone-ui.jpg",
+            "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+            "capturedAt": "2026-11-09T08:18:08.671Z",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "position": {
+              "x": -19.622449085792063,
+              "z": 17.0575347537532,
+              "y": -2.1248124068135157,
+              "heading": 2.286381328125
+            },
+            "pose": {
+              "position": [
+                -19.622449085792063,
+                -0.4748124068135158,
+                17.0575347537532
+              ],
+              "bearing": 228.99999954092166,
+              "pitch": 11.999998965706924
+            },
+            "conditions": {
+              "tod": "day",
+              "weather": "clear",
+              "season": "summer"
+            },
+            "simulationDate": "2026-11-09T08:18:03.672Z",
+            "triangles": 501235,
+            "drawCalls": 101,
+            "cameraParent": "onfoot",
+            "ui": {
+              "touch": true,
+              "spotHUD": true,
+              "touchAction": true
+            },
+            "sha256": "3a164d1c03d07138079787833fad55fb21bb176da4ae77f18e559d653e1f7a9d",
+            "bytes": 57673,
+            "fullPageHUD": true,
+            "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/trial-results.json",
+            "setup": {
+              "arrival": {
+                "x": -9.5,
+                "z": 13.5,
+                "y": -1.1196706226673887,
+                "heading": -4.1887902047863905
+              },
+              "viewpoint": {
+                "view": null,
+                "id": "pike-place",
+                "x": -19.622449085792063,
+                "z": 17.0575347537532,
+                "bearing": 229,
+                "pitch": 12,
+                "fov": 55,
+                "text": "Looking down Pike St: the PUBLIC MARKET CENTER sign and clock above the arcade corner, fish stall and crowds below; best at blue hour when the neon glows.",
+                "r": 12,
+                "tol": 30,
+                "targets": [],
+                "cond": null,
+                "condHint": null
+              },
+              "position": {
+                "x": -19.622449085792063,
+                "z": 17.0575347537532,
+                "y": -2.1248124068135157,
+                "heading": 0
+              },
+              "walker": "OnFootController",
+              "sceneId": "pike-place",
+              "origin": {
+                "lat": 47.60897,
+                "lon": -122.33987,
+                "elev": 36.8
+              },
+              "projection": {
+                "mLat": 111182.71,
+                "mLon": 75187.56
+              }
+            },
+            "label": "Initial portrait framing (retained)",
+            "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+          },
+          {
+            "kind": "phone-ui-touch",
+            "image": "assets/spots/pike-place/visit-aabd/phone-ui-touch.jpg",
+            "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+            "capturedAt": "2026-11-09T08:27:17.995Z",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "position": {
+              "x": -19.622449085792063,
+              "z": 17.0575347537532,
+              "y": -2.1248124068135157,
+              "heading": 2.2463999999999995
+            },
+            "pose": {
+              "position": [
+                -19.622449085792063,
+                -0.4748124068135158,
+                17.0575347537532
+              ],
+              "bearing": 231.2907609018119,
+              "pitch": 3.9999996552356425
+            },
+            "conditions": {
+              "tod": "day",
+              "weather": "clear",
+              "season": "summer"
+            },
+            "simulationDate": "2026-11-09T08:27:16.637Z",
+            "triangles": 529031,
+            "drawCalls": 204,
+            "cameraParent": "onfoot",
+            "ui": {
+              "touch": true,
+              "spotHUD": true,
+              "touchAction": true
+            },
+            "sha256": "0ba5e5f8d6e0e39efe5bc535f2751bc5a57aa5b8a1c4833d4f0de25c0df88304",
+            "bytes": 64111,
+            "fullPageHUD": true,
+            "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+            "setup": {
+              "arrival": {
+                "x": -9.5,
+                "z": 13.5,
+                "y": -1.1196706226673887,
+                "heading": -4.1887902047863905
+              },
+              "viewpoint": {
+                "view": null,
+                "id": "pike-place",
+                "x": -19.622449085792063,
+                "z": 17.0575347537532,
+                "bearing": 229,
+                "pitch": 12,
+                "fov": 55,
+                "text": "Looking down Pike St: the PUBLIC MARKET CENTER sign and clock above the arcade corner, fish stall and crowds below; best at blue hour when the neon glows.",
+                "r": 12,
+                "tol": 30,
+                "targets": [],
+                "cond": null,
+                "condHint": null
+              },
+              "position": {
+                "x": -19.622449085792063,
+                "z": 17.0575347537532,
+                "y": -2.1248124068135157,
+                "heading": 0
+              },
+              "walker": "OnFootController",
+              "sceneId": "pike-place",
+              "origin": {
+                "lat": 47.60897,
+                "lon": -122.33987,
+                "elev": 36.8
+              },
+              "projection": {
+                "mLat": 111182.71,
+                "mLon": 75187.56
+              }
+            },
+            "label": "Phone view with the native touch interface",
+            "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+          }
+        ],
+        "limitations": [
+          "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+          "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+        ],
+        "reports": [
+          {
+            "label": "Initial Pike scene and portrait capture",
+            "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/trial-results.json",
+            "sha256": "b2c9a13699088ac62216208f0984dbd0587b2693709ffa40d17a61d9040555f1"
+          },
+          {
+            "label": "Actual portrait touch-look capture",
+            "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+            "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+          },
+          {
+            "label": "Native Rachel coin interaction",
+            "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/activity-results.json",
+            "sha256": "73706b714d5e8b89184cac399fb4ff7df3f4b0c80457a5d3e4968d9d826e4c00"
+          }
+        ],
+        "updatedAt": "2026-11-09T08:30:11.385Z",
+        "notice": "These views come from the staged game under test; the live game can differ.",
+        "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+        "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+      }
+    },
+    {
+      "id": "ground-before-4787",
+      "label": "Same native scene before ground correction",
+      "sourceCommit": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+      "updatedAt": "2026-11-09T11:53:54.843Z",
+      "captures": [
+        {
+          "kind": "scene",
+          "label": "Pike Place arrival",
+          "purpose": "Actual native arrival; the market facades and sign supports still need source-based architectural work.",
+          "image": "assets/spots/pike-place/ground-d91aadd8/before-spawn.jpg",
+          "sourceCommit": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+          "capturedAt": "2026-11-09T11:52:39.264Z",
+          "sha256": "ba4bc3eb1c3cb6d91df2fa83ff896c376d7c8deae445ce635d8a4cc948467133",
+          "bytes": 215376,
+          "viewport": {
+            "width": 1100,
+            "height": 760
+          },
+          "pose": {
+            "position": [
+              -9.5,
+              0.5303293773326112,
+              13.5
+            ],
+            "heading": -4.1887902047863905,
+            "pitch": 0,
+            "fov": 72,
+            "coordinateSystem": "scene-local metres, x east / y up / z south"
+          },
+          "position": {
+            "x": -9.5,
+            "z": 13.5,
+            "y": -1.1196706226673887,
+            "heading": -4.1887902047863905
+          },
+          "setupConditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "conditionsProvenance": "Configured actual native options before enterSpot; per-frame selected-condition snapshot was not recorded.",
+          "triangles": 756490,
+          "drawCalls": 252,
+          "fullPageHUD": false,
+          "cameraParent": "onfoot",
+          "controllerExercised": true,
+          "limitations": [
+            "Actual game scene with known architectural/access gaps; not photographic parity."
+          ]
+        },
+        {
+          "kind": "walk-end",
+          "label": "Gum Wall approach: access still blocked",
+          "purpose": "Actual endpoint after normal keyboard walking. Four of five route goals reached; this is an open access finding.",
+          "image": "assets/spots/pike-place/ground-d91aadd8/before-walk-end.jpg",
+          "sourceCommit": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+          "capturedAt": "2026-11-09T11:52:47.492Z",
+          "sha256": "5e38623ff4bbc7bd635dd1ed43b9310e90c459d46cf89051475473519b7b736e",
+          "bytes": 294675,
+          "viewport": {
+            "width": 1100,
+            "height": 760
+          },
+          "pose": {
+            "position": [
+              -41.82002795740962,
+              -7.2920127112414175,
+              55.7073026178642
+            ],
+            "heading": -2.858790204786388,
+            "pitch": 0,
+            "fov": 72,
+            "coordinateSystem": "scene-local metres, x east / y up / z south"
+          },
+          "position": {
+            "x": -41.82002795740962,
+            "z": 55.7073026178642,
+            "y": -8.942012711241418,
+            "heading": -2.858790204786388
+          },
+          "setupConditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "conditionsProvenance": "Configured actual native options before enterSpot; per-frame selected-condition snapshot was not recorded.",
+          "triangles": 541698,
+          "drawCalls": 172,
+          "fullPageHUD": false,
+          "cameraParent": "onfoot",
+          "controllerExercised": true,
+          "limitations": [
+            "Actual game scene with known architectural/access gaps; not photographic parity."
+          ]
+        },
+        {
+          "kind": "market-sign",
+          "label": "Market entrance and street slope",
+          "purpose": "Same fixed ground-level camera request before and after the ground correction; overhead geometry remains under review.",
+          "image": "assets/spots/pike-place/ground-d91aadd8/before-market-sign.jpg",
+          "sourceCommit": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+          "capturedAt": "2026-11-09T11:52:53.133Z",
+          "sha256": "e051e7dd5a707fe9b5d55aef6dc0ddfa80d4772a6f0f3ca87f71fd81d4883394",
+          "bytes": 236494,
+          "viewport": {
+            "width": 1100,
+            "height": 760
+          },
+          "pose": {
+            "position": [
+              -35,
+              -2.692774936061381,
+              25
+            ],
+            "heading": -4.258603374866164,
+            "pitch": 0.06981317007977318,
+            "fov": 72,
+            "coordinateSystem": "scene-local metres, x east / y up / z south"
+          },
+          "position": {
+            "x": -35,
+            "z": 25,
+            "y": -4.342774936061381,
+            "heading": -4.258603374866164
+          },
+          "setupConditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "conditionsProvenance": "Configured actual native options before enterSpot; per-frame selected-condition snapshot was not recorded.",
+          "triangles": 835846,
+          "drawCalls": 222,
+          "fullPageHUD": false,
+          "cameraParent": "onfoot",
+          "controllerExercised": false,
+          "limitations": [
+            "Actual game scene with known architectural/access gaps; not photographic parity."
+          ]
+        },
+        {
+          "kind": "stalls",
+          "label": "Market stalls and canopy",
+          "purpose": "Actual rendered stalls; the repeated-window upper facade remains an architectural gap.",
+          "image": "assets/spots/pike-place/ground-d91aadd8/before-stalls.jpg",
+          "sourceCommit": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+          "capturedAt": "2026-11-09T11:53:00.429Z",
+          "sha256": "8acc61a5c2f18a20b3a1d2e6c7728a5bafc016f31ff5e024fb068dad00dbe0b0",
+          "bytes": 219747,
+          "viewport": {
+            "width": 1100,
+            "height": 760
+          },
+          "pose": {
+            "position": [
+              -80,
+              -4.608849230751963,
+              3
+            ],
+            "heading": -4.101523742186674,
+            "pitch": 0,
+            "fov": 72,
+            "coordinateSystem": "scene-local metres, x east / y up / z south"
+          },
+          "position": {
+            "x": -80,
+            "z": 3,
+            "y": -6.258849230751963,
+            "heading": -4.101523742186674
+          },
+          "setupConditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "conditionsProvenance": "Configured actual native options before enterSpot; per-frame selected-condition snapshot was not recorded.",
+          "triangles": 669474,
+          "drawCalls": 158,
+          "fullPageHUD": false,
+          "cameraParent": "onfoot",
+          "controllerExercised": false,
+          "limitations": [
+            "Actual game scene with known architectural/access gaps; not photographic parity."
+          ]
+        },
+        {
+          "kind": "gum-wall",
+          "label": "The Gum Wall alley",
+          "purpose": "Ground-level game view; authored wall alignment and complete access remain under review.",
+          "image": "assets/spots/pike-place/ground-d91aadd8/before-gum-wall.jpg",
+          "sourceCommit": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+          "capturedAt": "2026-11-09T11:53:14.715Z",
+          "sha256": "250e89315bd3604123f25278cba8d8487eb5dcec73064aca964afd03e316f66f",
+          "bytes": 344264,
+          "viewport": {
+            "width": 1100,
+            "height": 760
+          },
+          "pose": {
+            "position": [
+              -44,
+              -6.395153375427714,
+              57
+            ],
+            "heading": -2.0943951023931953,
+            "pitch": -0.06981317007977318,
+            "fov": 72,
+            "coordinateSystem": "scene-local metres, x east / y up / z south"
+          },
+          "position": {
+            "x": -44,
+            "z": 57,
+            "y": -8.045153375427715,
+            "heading": -2.0943951023931953
+          },
+          "setupConditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "conditionsProvenance": "Configured actual native options before enterSpot; per-frame selected-condition snapshot was not recorded.",
+          "triangles": 533042,
+          "drawCalls": 159,
+          "fullPageHUD": false,
+          "cameraParent": "onfoot",
+          "controllerExercised": false,
+          "limitations": [
+            "Actual game scene with known architectural/access gaps; not photographic parity."
+          ]
+        }
+      ]
     }
   ],
   "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
   "menuAvailable": true,
   "captureSourceCommits": [
     "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
-    "f056a5e1da18a554af52a147391188d90ddf39b5"
+    "f056a5e1da18a554af52a147391188d90ddf39b5",
+    "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc"
   ],
   "captureRange": [
     "2026-11-08T23:56:04.286Z",
     "2026-11-09T00:18:05.123Z"
   ],
   "nativeProofs": [
+    {
+      "label": "Fresh native ground correction and retained blocked Gum Wall route",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/pike-ground-d91aadd8/native-report.json",
+      "sha256": "95ffb6084d0679aac0d3ebd91d2cf6e0e3a23cda133d7f958c531c6cf9837824",
+      "sourceCommit": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+      "passed": false,
+      "scope": "Ground stability improves: maximum native vertical step1.527784→0.009372m and foot/floor discrepancy0.895601→0.007141m. Both full routes stop before final goal; no full-route acceptance.",
+      "cases": [
+        "pike-place"
+      ]
+    },
     {
       "label": "Current native scene, phone conditions and selected activity approach",
       "report": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
@@ -903,372 +1864,251 @@
   ],
   "visitorGallery": {
     "id": "pike-place",
-    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "sourceCommit": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+    "notice": "Fresh ground-correction views. Market architecture, canopy/support details and the complete Gum Wall approach remain unfinished.",
     "captures": [
       {
         "kind": "scene",
-        "image": "assets/spots/pike-place/visit-aabd/scene.webp",
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "capturedAt": "2026-11-09T08:18:02.329Z",
+        "label": "Pike Place arrival",
+        "purpose": "Actual native arrival; the market facades and sign supports still need source-based architectural work.",
+        "image": "assets/spots/pike-place/ground-d91aadd8/after-spawn.jpg",
+        "sourceCommit": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+        "capturedAt": "2026-11-09T11:54:43.066Z",
+        "sha256": "3133273beaacf34254070d2f292e5415230843054bfbab3ccc1d4e7b266d1641",
+        "bytes": 218036,
         "viewport": {
-          "width": 1280,
-          "height": 720
-        },
-        "position": {
-          "x": -19.622449085792063,
-          "z": 17.0575347537532,
-          "y": -2.1248124068135157,
-          "heading": 2.286381328125
+          "width": 1100,
+          "height": 760
         },
         "pose": {
           "position": [
-            -19.622449085792063,
-            -0.4748124068135158,
-            17.0575347537532
+            -9.5,
+            0.949856662750244,
+            13.5
           ],
-          "bearing": 228.99999954092166,
-          "pitch": 11.999998965706924
+          "heading": -4.1887902047863905,
+          "pitch": 0,
+          "fov": 72,
+          "coordinateSystem": "scene-local metres, x east / y up / z south"
         },
-        "conditions": {
+        "position": {
+          "x": -9.5,
+          "z": 13.5,
+          "y": -0.7001433372497559,
+          "heading": -4.1887902047863905
+        },
+        "setupConditions": {
           "tod": "day",
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-09T08:17:57.335Z",
-        "triangles": 521521,
-        "drawCalls": 156,
-        "cameraParent": "onfoot",
-        "ui": {
-          "touch": true,
-          "spotHUD": true,
-          "touchAction": true
-        },
-        "sha256": "0df12482b0db1f2eda1b079c0813d028173fdabf11f93fc6a7abbf1a331a9b7d",
-        "bytes": 51514,
+        "conditionsProvenance": "Configured actual native options before enterSpot; per-frame selected-condition snapshot was not recorded.",
+        "triangles": 756494,
+        "drawCalls": 252,
         "fullPageHUD": false,
-        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/trial-results.json",
-        "setup": {
-          "arrival": {
-            "x": -9.5,
-            "z": 13.5,
-            "y": -1.1196706226673887,
-            "heading": -4.1887902047863905
-          },
-          "viewpoint": {
-            "view": null,
-            "id": "pike-place",
-            "x": -19.622449085792063,
-            "z": 17.0575347537532,
-            "bearing": 229,
-            "pitch": 12,
-            "fov": 55,
-            "text": "Looking down Pike St: the PUBLIC MARKET CENTER sign and clock above the arcade corner, fish stall and crowds below; best at blue hour when the neon glows.",
-            "r": 12,
-            "tol": 30,
-            "targets": [],
-            "cond": null,
-            "condHint": null
-          },
-          "position": {
-            "x": -19.622449085792063,
-            "z": 17.0575347537532,
-            "y": -2.1248124068135157,
-            "heading": 0
-          },
-          "walker": "OnFootController",
-          "sceneId": "pike-place",
-          "origin": {
-            "lat": 47.60897,
-            "lon": -122.33987,
-            "elev": 36.8
-          },
-          "projection": {
-            "mLat": 111182.71,
-            "mLon": 75187.56
-          }
-        },
-        "label": "Market sign, clock and arcade",
-        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+        "cameraParent": "onfoot",
+        "controllerExercised": true,
+        "limitations": [
+          "Actual game scene with known architectural/access gaps; not photographic parity."
+        ]
       },
       {
-        "kind": "activity-phone",
-        "image": "assets/spots/pike-place/visit-aabd/activity-phone.jpg",
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "capturedAt": "2026-11-09T08:30:11.385Z",
+        "kind": "walk-end",
+        "label": "Gum Wall approach: access still blocked",
+        "purpose": "Actual endpoint after normal keyboard walking. Four of five route goals reached; this is an open access finding.",
+        "image": "assets/spots/pike-place/ground-d91aadd8/after-walk-end.jpg",
+        "sourceCommit": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+        "capturedAt": "2026-11-09T11:55:03.021Z",
+        "sha256": "c70c44ecf1c4913f7fccded881ff36611a988ea8b853e6ff97c3e15a4bcc332b",
+        "bytes": 289803,
         "viewport": {
-          "width": 390,
-          "height": 844
-        },
-        "position": {
-          "x": -53.14768236141362,
-          "z": 35.97335325679389,
-          "y": -6.411679728001929,
-          "heading": 1.8157749899217597
+          "width": 1100,
+          "height": 760
         },
         "pose": {
           "position": [
-            -53.14768236141362,
-            -4.76167972800193,
-            35.97335325679389
+            -43.23973390141103,
+            -6.3464083045062685,
+            56.01914734987253
           ],
-          "bearing": 255.9637565320736,
-          "pitch": -23.826686164566883
+          "heading": -2.6687902047863874,
+          "pitch": 0,
+          "fov": 72,
+          "coordinateSystem": "scene-local metres, x east / y up / z south"
         },
-        "conditions": {
+        "position": {
+          "x": -43.23973390141103,
+          "z": 56.01914734987253,
+          "y": -7.996408304506922,
+          "heading": -2.6687902047863874
+        },
+        "setupConditions": {
           "tod": "day",
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-09T08:30:08.933Z",
-        "triangles": 454516,
-        "drawCalls": 145,
+        "conditionsProvenance": "Configured actual native options before enterSpot; per-frame selected-condition snapshot was not recorded.",
+        "triangles": 536042,
+        "drawCalls": 174,
+        "fullPageHUD": false,
         "cameraParent": "onfoot",
-        "ui": {
-          "touch": true,
-          "spotHUD": true,
-          "touchAction": true
-        },
-        "sha256": "0e2a0a2f4c953dc9dc178e780ea60eb369db0c9b1739ac9111f32473af2fdd0d",
-        "bytes": 53239,
-        "fullPageHUD": true,
-        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/activity-results.json",
-        "setup": {
-          "arrival": {
-            "x": -9.5,
-            "z": 13.5,
-            "y": -1.1196706226673887,
-            "heading": -4.1887902047863905
-          },
-          "viewpoint": {
-            "x": -53.14768236141362,
-            "z": 35.97335325679389,
-            "bearing": 255.96375653207357,
-            "pitch": -23.826686164566866
-          },
-          "target": {
-            "x": -54.747682361413624,
-            "z": 36.37335325679389,
-            "y": -5.49
-          },
-          "position": {
-            "x": -53.14768236141362,
-            "z": 35.97335325679389,
-            "y": -6.411679728001929,
-            "heading": 0
-          },
-          "walker": "OnFootController",
-          "sceneId": "pike-place",
-          "origin": {
-            "lat": 47.60897,
-            "lon": -122.33987,
-            "elev": 36.8
-          },
-          "projection": {
-            "mLat": 111182.71,
-            "mLon": 75187.56
-          }
-        },
-        "label": "Drop a coin in Rachel · phone interaction",
-        "purpose": "Coin in flight after actual Use and Drop taps. Nearby setup; this does not show the arrival route."
-      }
-    ],
-    "retainedIllustrations": [
-      {
-        "kind": "phone-ui",
-        "image": "assets/spots/pike-place/visit-aabd/phone-ui.jpg",
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "capturedAt": "2026-11-09T08:18:08.671Z",
-        "viewport": {
-          "width": 390,
-          "height": 844
-        },
-        "position": {
-          "x": -19.622449085792063,
-          "z": 17.0575347537532,
-          "y": -2.1248124068135157,
-          "heading": 2.286381328125
-        },
-        "pose": {
-          "position": [
-            -19.622449085792063,
-            -0.4748124068135158,
-            17.0575347537532
-          ],
-          "bearing": 228.99999954092166,
-          "pitch": 11.999998965706924
-        },
-        "conditions": {
-          "tod": "day",
-          "weather": "clear",
-          "season": "summer"
-        },
-        "simulationDate": "2026-11-09T08:18:03.672Z",
-        "triangles": 501235,
-        "drawCalls": 101,
-        "cameraParent": "onfoot",
-        "ui": {
-          "touch": true,
-          "spotHUD": true,
-          "touchAction": true
-        },
-        "sha256": "3a164d1c03d07138079787833fad55fb21bb176da4ae77f18e559d653e1f7a9d",
-        "bytes": 57673,
-        "fullPageHUD": true,
-        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/trial-results.json",
-        "setup": {
-          "arrival": {
-            "x": -9.5,
-            "z": 13.5,
-            "y": -1.1196706226673887,
-            "heading": -4.1887902047863905
-          },
-          "viewpoint": {
-            "view": null,
-            "id": "pike-place",
-            "x": -19.622449085792063,
-            "z": 17.0575347537532,
-            "bearing": 229,
-            "pitch": 12,
-            "fov": 55,
-            "text": "Looking down Pike St: the PUBLIC MARKET CENTER sign and clock above the arcade corner, fish stall and crowds below; best at blue hour when the neon glows.",
-            "r": 12,
-            "tol": 30,
-            "targets": [],
-            "cond": null,
-            "condHint": null
-          },
-          "position": {
-            "x": -19.622449085792063,
-            "z": 17.0575347537532,
-            "y": -2.1248124068135157,
-            "heading": 0
-          },
-          "walker": "OnFootController",
-          "sceneId": "pike-place",
-          "origin": {
-            "lat": 47.60897,
-            "lon": -122.33987,
-            "elev": 36.8
-          },
-          "projection": {
-            "mLat": 111182.71,
-            "mLon": 75187.56
-          }
-        },
-        "label": "Initial portrait framing (retained)",
-        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+        "controllerExercised": true,
+        "limitations": [
+          "Actual game scene with known architectural/access gaps; not photographic parity."
+        ]
       },
       {
-        "kind": "phone-ui-touch",
-        "image": "assets/spots/pike-place/visit-aabd/phone-ui-touch.jpg",
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "capturedAt": "2026-11-09T08:27:17.995Z",
+        "kind": "market-sign",
+        "label": "Market entrance and street slope",
+        "purpose": "Same fixed ground-level camera request before and after the ground correction; overhead geometry remains under review.",
+        "image": "assets/spots/pike-place/ground-d91aadd8/after-market-sign.jpg",
+        "sourceCommit": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+        "capturedAt": "2026-11-09T11:55:14.279Z",
+        "sha256": "c94db70ec1f2cb1807225e4ae7c3e75a3e58e3e6217884b08f975072280ac660",
+        "bytes": 237281,
         "viewport": {
-          "width": 390,
-          "height": 844
-        },
-        "position": {
-          "x": -19.622449085792063,
-          "z": 17.0575347537532,
-          "y": -2.1248124068135157,
-          "heading": 2.2463999999999995
+          "width": 1100,
+          "height": 760
         },
         "pose": {
           "position": [
-            -19.622449085792063,
-            -0.4748124068135158,
-            17.0575347537532
+            -35,
+            -2.6918970108032227,
+            25
           ],
-          "bearing": 231.2907609018119,
-          "pitch": 3.9999996552356425
+          "heading": -4.258603374866164,
+          "pitch": 0.06981317007977318,
+          "fov": 72,
+          "coordinateSystem": "scene-local metres, x east / y up / z south"
         },
-        "conditions": {
+        "position": {
+          "x": -35,
+          "z": 25,
+          "y": -4.341897010803223,
+          "heading": -4.258603374866164
+        },
+        "setupConditions": {
           "tod": "day",
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-09T08:27:16.637Z",
-        "triangles": 529031,
-        "drawCalls": 204,
+        "conditionsProvenance": "Configured actual native options before enterSpot; per-frame selected-condition snapshot was not recorded.",
+        "triangles": 836498,
+        "drawCalls": 228,
+        "fullPageHUD": false,
         "cameraParent": "onfoot",
-        "ui": {
-          "touch": true,
-          "spotHUD": true,
-          "touchAction": true
+        "controllerExercised": false,
+        "limitations": [
+          "Actual game scene with known architectural/access gaps; not photographic parity."
+        ]
+      },
+      {
+        "kind": "stalls",
+        "label": "Market stalls and canopy",
+        "purpose": "Actual rendered stalls; the repeated-window upper facade remains an architectural gap.",
+        "image": "assets/spots/pike-place/ground-d91aadd8/after-stalls.jpg",
+        "sourceCommit": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+        "capturedAt": "2026-11-09T11:55:28.011Z",
+        "sha256": "6f01311d48d800d47bbbfc00d7322bfeb65293df5b449f416af27d8b2cfa4060",
+        "bytes": 219693,
+        "viewport": {
+          "width": 1100,
+          "height": 760
         },
-        "sha256": "0ba5e5f8d6e0e39efe5bc535f2751bc5a57aa5b8a1c4833d4f0de25c0df88304",
-        "bytes": 64111,
-        "fullPageHUD": true,
-        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
-        "setup": {
-          "arrival": {
-            "x": -9.5,
-            "z": 13.5,
-            "y": -1.1196706226673887,
-            "heading": -4.1887902047863905
-          },
-          "viewpoint": {
-            "view": null,
-            "id": "pike-place",
-            "x": -19.622449085792063,
-            "z": 17.0575347537532,
-            "bearing": 229,
-            "pitch": 12,
-            "fov": 55,
-            "text": "Looking down Pike St: the PUBLIC MARKET CENTER sign and clock above the arcade corner, fish stall and crowds below; best at blue hour when the neon glows.",
-            "r": 12,
-            "tol": 30,
-            "targets": [],
-            "cond": null,
-            "condHint": null
-          },
-          "position": {
-            "x": -19.622449085792063,
-            "z": 17.0575347537532,
-            "y": -2.1248124068135157,
-            "heading": 0
-          },
-          "walker": "OnFootController",
-          "sceneId": "pike-place",
-          "origin": {
-            "lat": 47.60897,
-            "lon": -122.33987,
-            "elev": 36.8
-          },
-          "projection": {
-            "mLat": 111182.71,
-            "mLon": 75187.56
-          }
+        "pose": {
+          "position": [
+            -80,
+            -4.608849143981933,
+            3
+          ],
+          "heading": -4.101523742186674,
+          "pitch": 0,
+          "fov": 72,
+          "coordinateSystem": "scene-local metres, x east / y up / z south"
         },
-        "label": "Phone view with the native touch interface",
-        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+        "position": {
+          "x": -80,
+          "z": 3,
+          "y": -6.258849143981934,
+          "heading": -4.101523742186674
+        },
+        "setupConditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "conditionsProvenance": "Configured actual native options before enterSpot; per-frame selected-condition snapshot was not recorded.",
+        "triangles": 669802,
+        "drawCalls": 161,
+        "fullPageHUD": false,
+        "cameraParent": "onfoot",
+        "controllerExercised": false,
+        "limitations": [
+          "Actual game scene with known architectural/access gaps; not photographic parity."
+        ]
+      },
+      {
+        "kind": "gum-wall",
+        "label": "The Gum Wall alley",
+        "purpose": "Ground-level game view; authored wall alignment and complete access remain under review.",
+        "image": "assets/spots/pike-place/ground-d91aadd8/after-gum-wall.jpg",
+        "sourceCommit": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+        "capturedAt": "2026-11-09T11:55:42.061Z",
+        "sha256": "09d54a5b9e54c64623ad00e3ff8827ecc4e9b5805297c3c34ae7831d263ace68",
+        "bytes": 328171,
+        "viewport": {
+          "width": 1100,
+          "height": 760
+        },
+        "pose": {
+          "position": [
+            -44,
+            -6.395153141021728,
+            57
+          ],
+          "heading": -2.0943951023931953,
+          "pitch": -0.06981317007977318,
+          "fov": 72,
+          "coordinateSystem": "scene-local metres, x east / y up / z south"
+        },
+        "position": {
+          "x": -44,
+          "z": 57,
+          "y": -8.045153141021729,
+          "heading": -2.0943951023931953
+        },
+        "setupConditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "conditionsProvenance": "Configured actual native options before enterSpot; per-frame selected-condition snapshot was not recorded.",
+        "triangles": 540286,
+        "drawCalls": 161,
+        "fullPageHUD": false,
+        "cameraParent": "onfoot",
+        "controllerExercised": false,
+        "limitations": [
+          "Actual game scene with known architectural/access gaps; not photographic parity."
+        ]
       }
     ],
+    "setup": "Actual public application, desktop High, 1100 × 760. Arrival and route endpoint use native controller positions; other views are fixed on-foot camera fixtures. No cropping or source substitution.",
     "limitations": [
-      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
-      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+      "The normal-keyboard route reaches four of five goals and remains blocked at the Gum Wall approach.",
+      "Three obstructed technical fixture views per source are retained in the raw manifest and rejected for this gallery.",
+      "These canvas images do not show a phone interface.",
+      "Generic market facades and distant context are not accepted as realistic."
     ],
+    "report": "assets/spots/pike-place/ground-d91aadd8/manifest.json",
     "reports": [
       {
-        "label": "Initial Pike scene and portrait capture",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/trial-results.json",
-        "sha256": "b2c9a13699088ac62216208f0984dbd0587b2693709ffa40d17a61d9040555f1"
-      },
-      {
-        "label": "Actual portrait touch-look capture",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
-        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
-      },
-      {
-        "label": "Native Rachel coin interaction",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/activity-results.json",
-        "sha256": "73706b714d5e8b89184cac399fb4ff7df3f4b0c80457a5d3e4968d9d826e4c00"
+        "label": "Native before/after ground and walking report",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/pike-ground-d91aadd8/native-report.json",
+        "sha256": "95ffb6084d0679aac0d3ebd91d2cf6e0e3a23cda133d7f958c531c6cf9837824"
       }
     ],
-    "updatedAt": "2026-11-09T08:30:11.385Z",
-    "notice": "These views come from the staged game under test; the live game can differ.",
-    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
-    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
-    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
-  }
+    "reportSha256": "298a2d16f54d3e3a6bc136e75b807d10f76ec90fb57a8fb25c5d7b4be43cf1e8"
+  },
+  "implementationNotesUpdatedAt": "2026-11-09T11:56:18.007Z"
 }

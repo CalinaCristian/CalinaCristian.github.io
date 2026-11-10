@@ -2777,18 +2777,46 @@ export class Pedestrians {
         });
         return clear;
     }
-    clearWalkStep(x, z, escaping) {
-        const W = this.t.world;
-        return (escaping || !this.roadAt(x, z, PED_R)) && !this.inWater(x, z) && !collideBuildings(W.buildings || [], x, z, PED_R, (W.walkTop?.(x, z) ?? 0.2) + 0.01) && this.freeVehiclePoint(x, z);
+    /** Leave an existing stopped-body comfort margin without taking a step
+     * deeper into any body. The normal vehicle guard still checks actual motion. */
+    separatingVehiclePoint(from, x, z, reach = undefined) {
+        const T = this.t, G = T.grid;
+        if (!G?.items || !G.query) return false;
+        if (reach === undefined) {
+            reach = 0;
+            for (const v of T.vehicles || G.items) if (Number.isFinite(v.length) && Number.isFinite(v.width)) reach = Math.max(reach, Math.hypot(v.length, v.width) / 2);
+        }
+        let clear = true, margin = false;
+        G.query((from.x + x) / 2, (from.z + z) / 2, Math.hypot(x - from.x, z - from.z) / 2 + reach + PED_R + .45, v => {
+            if (!clear || v.inactive || !streetLevel(v)) return;
+            const fx = -Math.sin(v.heading), fz = -Math.cos(v.heading);
+            const distance = (x, z) => { const dx = x - v.x, dz = z - v.z; return Math.max(Math.abs(dx * fx + dz * fz) - v.length / 2, Math.abs(-dx * fz + dz * fx) - v.width / 2); };
+            const before = distance(from.x, from.z), after = distance(x, z);
+            if (after < PED_R + .45) {
+                margin = true;
+                if (after < before - 1e-6 || (before >= PED_R && after < PED_R) || (before < PED_R && after <= before)) clear = false;
+            }
+        });
+        return clear && margin;
     }
-    clearWalkSegment(a, b, escaping) {
+    clearWalkStep(x, z, escaping, escapeFrom = null, escapeReach = undefined) {
+        const W = this.t.world;
+        return (escaping || !this.roadAt(x, z, PED_R)) && !this.inWater(x, z) && !collideBuildings(W.buildings || [], x, z, PED_R, (W.walkTop?.(x, z) ?? 0.2) + 0.01) &&
+            (this.freeVehiclePoint(x, z) || (!!escapeFrom && this.separatingVehiclePoint(escapeFrom, x, z, escapeReach)));
+    }
+    clearWalkSegment(a, b, escaping, vehicleEscape = false) {
         const n = Math.max(1, Math.ceil(Math.hypot(b.x - a.x, b.z - a.z) / 0.3));
-        for (let k = 1; k <= n; k++) if (!this.clearWalkStep(a.x + (b.x - a.x) * k / n, a.z + (b.z - a.z) * k / n, escaping)) return false;
+        let previous = a;
+        for (let k = 1; k <= n; k++) {
+            const point = { x: a.x + (b.x - a.x) * k / n, z: a.z + (b.z - a.z) * k / n };
+            if (!this.clearWalkStep(point.x, point.z, escaping, vehicleEscape ? previous : null, vehicleEscape?.reach)) return false;
+            previous = point;
+        }
         return true;
     }
     /** A local walking detour for a blocked recovery, including the corners of
      * parked cars. Every segment uses the same vehicle clearance as walking. */
-    escapeRoute(p, goals, escaping) {
+    escapeRoute(p, goals, escaping, vehicleEscape = false) {
         if(this._escapeFrame!==this._fr){this._escapeFrame=this._fr;this._escapeSearches=0;}
         if(this._escapeSearches>=1)return null;this._escapeSearches++;
         const stride = 0.7, extent = 16, key = (i, j) => (i + extent) * (2 * extent + 1) + j + extent;
@@ -2797,25 +2825,28 @@ export class Pedestrians {
         first.score = heuristic(first);
         for (let attempts = 0; open.length && attempts < 900; attempts++) {
             open.sort((a, b) => b.score - a.score); const q = open.pop();
-            for (const goal of goals) if (Math.hypot(q.x - goal.x, q.z - goal.z) < 1 && this.clearWalkSegment(q, goal, escaping)) {
+            for (const goal of goals) if (Math.hypot(q.x - goal.x, q.z - goal.z) < 1 && this.clearWalkSegment(q, goal, escaping, vehicleEscape)) {
                 const path = [goal]; for (let a = q; a.prev; a = a.prev) path.push({ x: a.x, z: a.z }); path.reverse();
                 // Remove redundant grid steps only when the entire shortcut is clear.
                 const legs = []; let from = p;
-                for (let i = 0; i < path.length;) { let j = i; while (j + 1 < path.length && this.clearWalkSegment(from, path[j + 1], escaping)) j++; legs.push(path[j]); from = path[j]; i = j + 1; }
+                for (let i = 0; i < path.length;) { let j = i; while (j + 1 < path.length && this.clearWalkSegment(from, path[j + 1], escaping, vehicleEscape)) j++; legs.push(path[j]); from = path[j]; i = j + 1; }
                 return { goal, legs };
             }
             for (let di = -1; di <= 1; di++) for (let dj = -1; dj <= 1; dj++) {
                 if (!di && !dj) continue;
                 const i = q.i + di, j = q.j + dj; if (Math.abs(i) > extent || Math.abs(j) > extent) continue;
                 const x = p.x + i * stride, z = p.z + j * stride, cost = q.cost + Math.hypot(di, dj) * stride * (this.roadAt(x, z) ? 1.8 : 1), old = seen.get(key(i, j));
-                if ((old && old.cost <= cost) || !this.clearWalkSegment(q, { x, z }, escaping)) continue;
+                if ((old && old.cost <= cost) || !this.clearWalkSegment(q, { x, z }, escaping, vehicleEscape)) continue;
                 const next = { i, j, x, z, cost, score: cost + heuristic({ x, z }), prev: q }; seen.set(key(i, j), next); open.push(next);
             }
         }
         return null;
     }
-    replanWalk(p) {
-        if ((p.onRoad && !p.recovery && !p.legs?.[0]?.escape) || p.agent || p.react || p.talkT > 0) return false;
+    replanWalk(p, { blockedReturn = false } = {}) {
+        const vehicleEscape = blockedReturn && p.state === 'legs' && p.legs?.[0]?.cross && p.legs[0].back ? { reach: 0 } : null;
+        if (vehicleEscape) for (const v of this.t.vehicles || this.t.grid?.items || [])
+            if (Number.isFinite(v.length) && Number.isFinite(v.width)) vehicleEscape.reach = Math.max(vehicleEscape.reach, Math.hypot(v.length, v.width) / 2);
+        if ((p.onRoad && !p.recovery && !p.legs?.[0]?.escape && !vehicleEscape) || p.agent || p.react || p.talkT > 0) return false;
         const escaping = !!(p.onRoad || this.roadAt(p.x, p.z)), goals = [];
         let best = null, bd = Infinity, route = null;
         for (const e of this.t.index.near(p.x, p.z, 20, [])) {
@@ -2829,11 +2860,11 @@ export class Pedestrians {
                     const s = clamp(along + shift, 0, e.len), u = this.off(e, side), x = e.a.x + e.dirx * s + e.nx * u * side, z = e.a.z + e.dirz * s + e.nz * u * side, d = Math.hypot(x - p.x, z - p.z);
                     if (!this.freeWalkPoint(x, z) || !this.freeVehiclePoint(x, z)) continue;
                     const goal = { e, side, x, z, s }; goals.push(goal);
-                    if (d < bd && this.clearWalkSegment(p, goal, escaping)) { best = goal; bd = d; }
+                    if (d < bd && this.clearWalkSegment(p, goal, escaping, vehicleEscape)) { best = goal; bd = d; }
                 }
             }
         }
-        if (!best && goals.length) { route = this.escapeRoute(p, goals, escaping); if (route) { best = route.goal; bd = Infinity; } }
+        if (!best && goals.length) { route = this.escapeRoute(p, goals, escaping, vehicleEscape); if (route) { best = route.goal; bd = Infinity; } }
         if (!best) return false;
         const dir = best.e === p.e ? -p.dir : 1;
         p.e = best.e; p.side = best.side; p.dir = dir; p.dodge = 0; p.dodgeEdge = p.e;
@@ -2841,8 +2872,8 @@ export class Pedestrians {
         p.walkGoal = undefined; p.blockT = p.legStall = 0; p.legBest = undefined;
         this.syncWalkPose(p);
         if (bd > 0.25) {
-            p.legs = (route?.legs || [best]).map(q => ({ x: q.x, z: q.z, cross: escaping, started: escaping, sx: p.x, sz: p.z, len: Math.hypot(q.x - p.x, q.z - p.z), back: true, escape: true }));
-            p.next = { e: best.e, side: best.side, dir, s: best.s }; p.state = 'legs'; p.onRoad = escaping;
+            p.legs = (route?.legs || [best]).map(q => ({ x: q.x, z: q.z, cross: escaping, started: escaping, sx: p.x, sz: p.z, len: Math.hypot(q.x - p.x, q.z - p.z), back: true, escape: true, vehicleEscape: !!vehicleEscape }));
+            p.next = { e: best.e, side: best.side, dir, s: best.s, arriveWalkOff: 0 }; p.state = 'legs'; p.onRoad = escaping;
         }
         this.stats.replans = (this.stats.replans || 0) + 1;
         return true;
@@ -3080,7 +3111,7 @@ export class Pedestrians {
                     const e = p.e, u = ((x - e.a.x) * e.nx + (z - e.a.z) * e.nz) * p.side, w = roadSideWidth(e, p.side);
                     if (u < w + PED_R + 0.05 || u > w + this.width(e, p.side) - PED_R - 0.05) continue;
                 }
-                const physical = correction ? this.peerCorrectionClear(p, x, z, oldX, oldZ) : this.clearWalkStep(x, z, !!(p.onRoad || p.recovery));
+                const physical = correction ? this.peerCorrectionClear(p, x, z, oldX, oldZ) : this.clearWalkStep(x, z, !!(p.onRoad || p.recovery), p.legs?.[0]?.vehicleEscape ? { x: oldX, z: oldZ } : null);
                 if (!physical || !this.peerClearStep(p, x, z, oldX, oldZ)) continue;
                 p.x = x; p.z = z; p.heading = Math.atan2(oldX - x, oldZ - z); p.passT = 1.2;
                 break;
@@ -3274,7 +3305,7 @@ export class Pedestrians {
             } else {
                 p.progressT = (p.progressT || 0) + dt;
                 if (p.progressT > 6) {
-                    if (Math.hypot(p.x - p.progressX, p.z - p.progressZ) < 0.4) this.replanWalk(p);
+                    if (Math.hypot(p.x - p.progressX, p.z - p.progressZ) < 0.4) this.replanWalk(p, { blockedReturn: true });
                     p.progressX = p.x; p.progressZ = p.z; p.progressT = 0;
                 }
             }
@@ -3371,7 +3402,7 @@ export class Pedestrians {
                     if (!stalled) { p.x = leg.x; p.z = leg.z; reached = this.guardPeerStep(p, ox, oz, dt, true); }
                     if (reached) {
                         p.legs.shift(); p.legBest = undefined; p.legStall = 0;
-                        if (!p.legs.length) { const qx = p.x, qz = p.z; p.state = 'walk'; p.onRoad = false; p.e = p.next.e; p.dir = p.next.dir; p.side = p.next.side; p.s = p.next.s; this.placeWalk(p); this.adoptLine(p, qx, qz); }
+                        if (!p.legs.length) { const qx = p.x, qz = p.z; p.state = 'walk'; p.onRoad = false; p.e = p.next.e; p.dir = p.next.dir; p.side = p.next.side; p.s = p.next.s; if (p.next.arriveWalkOff !== undefined) { p.walkOff = p.next.arriveWalkOff; p.walkGoal = undefined; } this.placeWalk(p); this.adoptLine(p, qx, qz); }
                     }
                 } else {
                     p.x += dx / d * sp * dt; p.z += dz / d * sp * dt; p.heading = Math.atan2(-dx, -dz);
@@ -3423,7 +3454,7 @@ export class Pedestrians {
                 if (leg && (p.blockT || 0) > 4) {
                     p.blockT = 0;
                     if (leg.cross && leg.sx !== undefined && !leg.back) { leg.back = true; leg.x = leg.sx; leg.z = leg.sz; p.legs.length = 1; p.next = { e: p.e, dir: -p.dir, side: p.side, s: p.s }; }
-                    else if (!leg.cross) { p.legs.shift(); if (!p.legs.length && p.next) { const qx = p.x, qz = p.z; p.state = 'walk'; p.onRoad = false; p.e = p.next.e; p.dir = p.next.dir; p.side = p.next.side; p.s = p.next.s; this.placeWalk(p); this.adoptLine(p, qx, qz); } }
+                    else if (!leg.cross) { p.legs.shift(); if (!p.legs.length && p.next) { const qx = p.x, qz = p.z; p.state = 'walk'; p.onRoad = false; p.e = p.next.e; p.dir = p.next.dir; p.side = p.next.side; p.s = p.next.s; if (p.next.arriveWalkOff !== undefined) { p.walkOff = p.next.arriveWalkOff; p.walkGoal = undefined; } this.placeWalk(p); this.adoptLine(p, qx, qz); } }
                 }
                 if (leg && leg.cross && leg.sx !== undefined && p.crossT > 5 + (leg.len || 10) / 1.2 && !leg.back) {
                     leg.back = true; leg.x = leg.sx; leg.z = leg.sz; p.blockT = 0;

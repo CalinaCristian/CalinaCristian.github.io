@@ -75,3 +75,5 @@ Update your own rows when you start/finish (status, `updated` as `YYYY-MM-DD HH:
 | Owner update · 2026-11-10 | Linear chapter stories, owner office floors, guide search highlights and portrait HUD simplification | 10/14/17/23 | root | in progress | 2026-11-10 Pacific | Search desktop/phone checks pass; full linear story, floor-view and portrait native acceptance pending. |
 
 | R13.linked-exit-storage | Literal linked-signal route span and blocked-movement admission | 13 | root | in progress | 2026-11-10 18:05 UTC | R15 actual ordinary-spawn drive stalls at238m/188.7s with0contacts; preserve negative and full actor records. Source-route/controller and queue admission repair in progress; fresh native acceptance pending. |
+
+| R13.blocked-crossing-return | Bounded source-kerb escape for a stalled return around a stopped body | 13 | root | in progress | 2026-11-10 18:21 UTC | R16 full ordinary approach fails228.999m/186.7s; source taxi23 yields to on-road person454. Preserve exact native negative; controlled return/comfort-margin repair and fresh drive required. |

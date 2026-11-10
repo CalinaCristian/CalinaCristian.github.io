@@ -900,7 +900,7 @@
   },
   "linkedSignalMovement": {
     "candidateSource": "ec4027b40a39efdef1d04413c6cba41bd85513b6",
-    "status": "candidate-native-drive-running-not-accepted",
+    "status": "R16-native-drive-failed-at-pedestrian-blocker",
     "priorNative": {
       "source": "05ef158c20319502e589d20f46234e5d52a93e72",
       "pathM": 570.92011978818,
@@ -929,6 +929,29 @@
       "No full bridge/return/bus/tram passage acceptance",
       "No controlled hardware FPS result",
       "Source piers/parapets/undersides/road shimmer and original driver/north budgets remain open"
+    ]
+  },
+  "crossingReturn": {
+    "candidateSource": "21d4e27824cad4131eca078f09d7226680515194",
+    "status": "fresh-native-and-logic-running-not-accepted",
+    "priorNegative": {
+      "source": "ec4027b40a39efdef1d04413c6cba41bd85513b6",
+      "progressM": 228.9991970155181,
+      "simulationSeconds": 186.76666666665864,
+      "stop": "observer-120s-no-progress",
+      "contacts": 0,
+      "heightStepsM": 0,
+      "nativeErrors": 0,
+      "vehicles": 311,
+      "pedestrians": 560,
+      "taxi": 23,
+      "person": 454
+    },
+    "controls": "actual watchdog/300-frame bounded physical return; full stopped-body detour; normal outward crossing/deeper step/second body/water refusals; unchanged pedestrian/signal/source gates",
+    "limits": [
+      "Native person454 edge/legs/goal not captured; recorded poses and explicit synthetic source sidewalks only in unit controls",
+      "Fresh combined ordinary journey and all scene/render/CPU gates remain open",
+      "No source/actor/physical blocker removal"
     ]
   }
 }

@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-e17d4843c5db9912",
-  "sourceCommit": "7ac898a8cd03bfe95906de7acbb95cdd5817f38f",
-  "fingerprint": "e17d4843c5db9912836a7f1097df2a47a5076b52bd5070293a5419e124b8f906",
+  "releaseId": "game-a240db509dc002f1",
+  "sourceCommit": "d708f38fe255491e30aa49d14cc6d8938dfb9e70",
+  "fingerprint": "a240db509dc002f170120d8829c96a25ac5a434f8010af4246c0dcd8b3fb4008",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -301,6 +301,10 @@
       "sha256": "2f8abf2e4b3e14f1002f0088322b9e59e713f1865bba60644d200030cf653993"
     },
     {
+      "path": "game/src/facade-panels.js",
+      "sha256": "5a732e72373eb3375992bbbaccbfc3bc7245ef5263f9477c194333498b031bde"
+    },
+    {
       "path": "game/src/fallback-ground.js",
       "sha256": "de71ecc3bbbd1b7e15b4ef9140bbc6212c4b66f5bde07d143e82050930759084"
     },
@@ -422,7 +426,7 @@
     },
     {
       "path": "game/src/landmarks.js",
-      "sha256": "b2ff4e01aeb85b4e40824a6d26c470b2585d2e253870e7ab73de41e94c2fedcb"
+      "sha256": "019dcced08e799b6bd580046172399956586743418d5da65c6586012900b72ce"
     },
     {
       "path": "game/src/main.js",

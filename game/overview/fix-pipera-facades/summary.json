@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "reports": [
+    41,
+    42
+  ],
+  "status": "Native reported-view and regression checks passed; publication tracked separately",
+  "scope": "Hermes fins and BOB corner cladding have disjoint facade ownership; mapped footprints, heights, courtyards and colliders retained. Native controlled High-quality poses; no ordinary-flight or hardware FPS claim. Other Pipera building/road reports remain open.",
+  "captures": [
+    {
+      "file": "bob-before.png",
+      "report": 41,
+      "source": "e21797e7a5c66233c8689b4b595f9837a18c45ed",
+      "capturedAt": "2026-11-10T23:37:48.133Z",
+      "sha256": "5fb9019bc4c29596294290e0c98ee3c4e2e6278f46323f8ef700d13349f6147f",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "cameraBeforeCapture": {
+        "eye": [
+          248.144,
+          30.042,
+          49.903
+        ],
+        "bearing": 259.494,
+        "pitch": -29.133,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:38.053Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "quality": "high",
+      "observerSHA256": "ea643c5fefe7550ce5f768d1cc165b29759b8b8a0b59b0712365e07f1e7f6419",
+      "scope": "Setup inspection immediately before the original observer draws two native frames and captures. Small native camera sway is retained."
+    },
+    {
+      "file": "bob-after.png",
+      "report": 41,
+      "source": "9ae4ae1e604a1b99b51387031d6d338f0276cf80",
+      "capturedAt": "2026-11-10T23:40:40.237Z",
+      "sha256": "b6482d699da1b64d9a37c5d191a08f6c63124fd0562260d4c0f46d03b3d7da12",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "cameraBeforeCapture": {
+        "eye": [
+          248.144,
+          30.042,
+          49.903
+        ],
+        "bearing": 259.531,
+        "pitch": -29.116,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:26.304Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "quality": "high",
+      "observerSHA256": "ea643c5fefe7550ce5f768d1cc165b29759b8b8a0b59b0712365e07f1e7f6419",
+      "scope": "Setup inspection immediately before the original observer draws two native frames and captures. Small native camera sway is retained."
+    },
+    {
+      "file": "hermes-before.png",
+      "report": 42,
+      "source": "e21797e7a5c66233c8689b4b595f9837a18c45ed",
+      "capturedAt": "2026-11-10T23:37:55.956Z",
+      "sha256": "fbe2a7ceeff7f5f1f503e8a79ee12542bff3b85e46f6e481e9f32a20aedabcae",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "cameraBeforeCapture": {
+        "eye": [
+          54.157,
+          55.005,
+          -220.834
+        ],
+        "bearing": 169.032,
+        "pitch": -19.199,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:48.215Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "quality": "high",
+      "observerSHA256": "ea643c5fefe7550ce5f768d1cc165b29759b8b8a0b59b0712365e07f1e7f6419",
+      "scope": "Setup inspection immediately before the original observer draws two native frames and captures. Small native camera sway is retained."
+    },
+    {
+      "file": "hermes-after.png",
+      "report": 42,
+      "source": "9ae4ae1e604a1b99b51387031d6d338f0276cf80",
+      "capturedAt": "2026-11-10T23:40:54.043Z",
+      "sha256": "321fb729d9feb6a3cfb5278ca759cd7f9543397354805a102c9b86e53cfcfd5c",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "cameraBeforeCapture": {
+        "eye": [
+          54.157,
+          55.005,
+          -220.834
+        ],
+        "bearing": 169.066,
+        "pitch": -19.351,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:40.411Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "quality": "high",
+      "observerSHA256": "ea643c5fefe7550ce5f768d1cc165b29759b8b8a0b59b0712365e07f1e7f6419",
+      "scope": "Setup inspection immediately before the original observer draws two native frames and captures. Small native camera sway is retained."
+    }
+  ],
+  "validation": {
+    "geometryControls": 4,
+    "footA": {
+      "high": 0,
+      "medium": 0,
+      "low": 1,
+      "lowReason": "Software-GL FPS informational"
+    },
+    "pairedVisual": {
+      "coverage": "9/9 both",
+      "unchangedFindings": 92,
+      "peakDrawCalls": 288,
+      "baselinePeakTriangles": 849296,
+      "candidatePeakTriangles": 855316
+    },
+    "ultra": "Both reported poses and two 0.15m lateral offsets inspected; zero browser errors",
+    "separateObserverFailure": "A subsequent road-wall diagnostic failed on a null edge reference after all six captures; it is not facade evidence and remains retained in the raw report.",
+    "modelStudies": {
+      "captures": 6,
+      "source": "9ae4ae1e604a1b99b51387031d6d338f0276cf80",
+      "errors": []
+    }
+  }
+}

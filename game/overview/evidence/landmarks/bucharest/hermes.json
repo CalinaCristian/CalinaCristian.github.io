@@ -3,7 +3,7 @@
   "id": "hermes",
   "city": "bucharest",
   "name": "Hermes Business Campus",
-  "sourceCommit": "94508c6c36888591a02d584886da6270e1f6b550",
+  "sourceCommit": "9ae4ae1e604a1b99b51387031d6d338f0276cf80",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.4810862,
@@ -62,7 +62,8 @@
   "improvements": [
     "Preserved all three source records and the mapped B+C courtyard through facade, roof and exact collision geometry.",
     "Removed unsupported rooftop lettering and large invented roof-service blocks.",
-    "Used the current owner exterior photograph for facade comparison; mapped dimensions and parts retain priority."
+    "Used the current owner exterior photograph for facade comparison; mapped dimensions and parts retain priority.",
+    "Partitioned glazing and structural cladding into disjoint facade panels; removed overlapping corner/fin surfaces without changing the mapped footprint, height or collision volumes."
   ],
   "remainingGaps": [
     "Untagged total heights and the4.5m ground-storey band remain explicit estimates from independent storey/reference information.",
@@ -71,22 +72,694 @@
   ],
   "checks": [
     {
-      "label": "Exact source rings and courtyard collision",
+      "label": "Current native reported facade views",
       "passed": true,
-      "details": "tools/landmarks/pipera-check.mjs:102 controls pass across the three models; all61 landmark geometry fixtures finite."
+      "details": "High before/after and Ultra original/\u00b10.15m camera captures inspected. The corner and fin depth artifacts are removed. Controlled native frames, not ordinary-flight or hardware FPS acceptance."
     },
     {
-      "label": "Owner references and all three game studies inspected",
+      "label": "Regression and geometry",
       "passed": true,
-      "details": "Front, perspective top and oblique side images inspected against exact mapped outlines and independently sourced owner references; no imagery-derived measurements from Street View."
+      "details": "Four disjoint-face geometry controls pass; foot/a 0 high / 0 medium; paired Pipera visual sweep covers 9/9 views with identical 92 existing issues and peak 288 draw calls. Other district defects remain open."
     },
     {
-      "label": "Published capture provenance",
+      "label": "Current three-view model provenance",
       "passed": true,
-      "details": "Each capture retains its immutable game-source SHA and actual camera metadata. Top studies were recaptured at720\u00d7720 with actual orthographic left/right/top/bottom bounds, up vector and square ground span exported from the frozen camera. Published WebP bytes are SHA256 verified; no external imagery included."
+      "details": "All three isolated studies recaptured from 9ae4ae1e604a1b99b51387031d6d338f0276cf80; full-size originals inspected. Earlier captures and checks retained as historical."
     }
   ],
   "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/hermes/facade-20261110/front.png",
+      "sourceCommit": "9ae4ae1e604a1b99b51387031d6d338f0276cf80",
+      "sha256": "e2e1badd9c9e3728e5d74a7b185c47a5bf55b6bfd797d6eeda2e4606507826b6",
+      "capturedAt": "2026-11-10T23:49:04.696Z",
+      "pose": {
+        "id": "hermes",
+        "triangles": 3008,
+        "height": 36,
+        "w": 160.36282739047508,
+        "d": 166.76498266619961,
+        "ms": 19.5,
+        "drawCalls": 3,
+        "sourceIds": [
+          "w533147567",
+          "w231123137",
+          "r6774709"
+        ],
+        "pose": {
+          "position": [
+            -175.9223415490615,
+            1.3,
+            78.38218998169
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "quaternion": [
+            0.032523353270033584,
+            -0.5442221029992208,
+            0.02112051245491679,
+            0.8380444248682881
+          ],
+          "projection": "perspective",
+          "fov": 62,
+          "target": [
+            -0.816664876755496,
+            16.2,
+            0.4164885859402716
+          ],
+          "frame": "isolated landmark model, +x east / +z south, metres"
+        },
+        "name": "Hermes Business Campus",
+        "anchor": {
+          "lat": 44.4810862,
+          "lon": 26.1140757,
+          "rotation": -1.1519
+        },
+        "view": "front",
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            -175.9223415490615,
+            1.3,
+            78.38218998169
+          ],
+          "quaternion": [
+            0.032523353270033584,
+            -0.5442221029992208,
+            0.02112051245491679,
+            0.8380444248682881
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 3833.570064417625,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -80.99807857199303,
+            0,
+            -82.96600274715954
+          ],
+          "max": [
+            79.36474881848204,
+            36,
+            83.79897991904008
+          ]
+        },
+        "collision": [
+          {
+            "x": -7.152988811960215,
+            "z": 41.867528476475314,
+            "hw": 29.5108,
+            "hd": 33.91965,
+            "angle": -1.1519,
+            "h": 36,
+            "y0": 0,
+            "y1": 36,
+            "poly": [
+              [
+                -49.744631645505564,
+                28.527591644458283
+              ],
+              [
+                12.072748769960254,
+                1.6558469698082465
+              ],
+              [
+                35.43207654497271,
+                55.21039392615483
+              ],
+              [
+                -26.377465461276,
+                82.08204195223941
+              ]
+            ],
+            "holes": []
+          },
+          {
+            "x": 45.59065548714676,
+            "z": 6.184511704637206,
+            "hw": 19.423099999999998,
+            "hd": 18.43545,
+            "angle": -1.1519,
+            "h": 28,
+            "y0": 0,
+            "y1": 28,
+            "poly": [
+              [
+                20.8891484776558,
+                -4.078550296177596
+              ],
+              [
+                54.56583960585407,
+                -18.98134634208562
+              ],
+              [
+                70.29225385047957,
+                16.447533030206696
+              ],
+              [
+                36.61547136843946,
+                31.350369751360038
+              ]
+            ],
+            "holes": []
+          },
+          {
+            "x": -18.172857549480355,
+            "z": -29.568976047054708,
+            "hw": 30.348050000000004,
+            "hd": 52.96705,
+            "angle": -1.1519,
+            "h": 32.4,
+            "y0": 0,
+            "y1": 32.4,
+            "poly": [
+              [
+                -54.20043598766339,
+                19.692614931166535
+              ],
+              [
+                -67.40115164212892,
+                -9.913010820368395
+              ],
+              [
+                -78.79883137720108,
+                -35.79562870683277
+              ],
+              [
+                16.94160943314598,
+                -77.80356005366811
+              ],
+              [
+                42.37389300470818,
+                -23.80445582817518
+              ],
+              [
+                11.493004229695606,
+                -9.89078016013898
+              ]
+            ],
+            "holes": [
+              [
+                [
+                  9.69798725410368,
+                  -35.495584480175026
+                ],
+                [
+                  2.3748380082769494,
+                  -52.45424847039983
+                ],
+                [
+                  -50.030642699122374,
+                  -29.927820002344863
+                ],
+                [
+                  -42.651879879251126,
+                  -12.813520475104903
+                ]
+              ]
+            ]
+          }
+        ],
+        "render": {
+          "triangles": 3010,
+          "calls": 3
+        },
+        "viewerRoute": "/game/dev/landmarks.html?id=hermes&clean=1&fountains=on&view=street&az=-65.99900842111953",
+        "frame": "Isolated model study; native district appearance checked separately in the Pipera facade comparison"
+      },
+      "render": {
+        "triangles": 3010,
+        "calls": 3
+      }
+    },
+    {
+      "id": "top",
+      "label": "North-up orthographic model study",
+      "kind": "top",
+      "image": "assets/landmarks/hermes/facade-20261110/top.png",
+      "sourceCommit": "9ae4ae1e604a1b99b51387031d6d338f0276cf80",
+      "sha256": "ca43a93e238e2310086da9449f403ab769d72c680638dec93f88d01f5963499f",
+      "capturedAt": "2026-11-10T23:49:05.502Z",
+      "pose": {
+        "id": "hermes",
+        "triangles": 3008,
+        "height": 36,
+        "w": 160.36282739047508,
+        "d": 166.76498266619961,
+        "ms": 22,
+        "drawCalls": 3,
+        "sourceIds": [
+          "w533147567",
+          "w231123137",
+          "r6774709"
+        ],
+        "pose": {
+          "position": [
+            -0.816664876755496,
+            233.44737989279153,
+            0.4164885859402716
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "projection": "orthographic",
+          "groundSquareM": 197.44737989279153,
+          "orientation": "north-up",
+          "target": [
+            -0.816664876755496,
+            0,
+            0.4164885859402716
+          ],
+          "frame": "isolated landmark model, +x east / +z south, metres"
+        },
+        "name": "Hermes Business Campus",
+        "anchor": {
+          "lat": 44.4810862,
+          "lon": 26.1140757,
+          "rotation": -1.1519
+        },
+        "view": "top",
+        "camera": {
+          "projection": "orthographic",
+          "position": [
+            -0.816664876755496,
+            233.44737989279153,
+            0.4164885859402716
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 4668.94759785583,
+          "viewport": [
+            720,
+            720
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -98.72368994639577,
+          "right": 98.72368994639577,
+          "top": 98.72368994639577,
+          "bottom": -98.72368994639577,
+          "zoom": 1,
+          "groundSquareM": 197.44737989279153,
+          "groundWidthM": 197.44737989279153,
+          "groundDepthM": 197.44737989279153,
+          "orientation": "north-up"
+        },
+        "bounds": {
+          "min": [
+            -80.99807857199303,
+            0,
+            -82.96600274715954
+          ],
+          "max": [
+            79.36474881848204,
+            36,
+            83.79897991904008
+          ]
+        },
+        "collision": [
+          {
+            "x": -7.152988811960215,
+            "z": 41.867528476475314,
+            "hw": 29.5108,
+            "hd": 33.91965,
+            "angle": -1.1519,
+            "h": 36,
+            "y0": 0,
+            "y1": 36,
+            "poly": [
+              [
+                -49.744631645505564,
+                28.527591644458283
+              ],
+              [
+                12.072748769960254,
+                1.6558469698082465
+              ],
+              [
+                35.43207654497271,
+                55.21039392615483
+              ],
+              [
+                -26.377465461276,
+                82.08204195223941
+              ]
+            ],
+            "holes": []
+          },
+          {
+            "x": 45.59065548714676,
+            "z": 6.184511704637206,
+            "hw": 19.423099999999998,
+            "hd": 18.43545,
+            "angle": -1.1519,
+            "h": 28,
+            "y0": 0,
+            "y1": 28,
+            "poly": [
+              [
+                20.8891484776558,
+                -4.078550296177596
+              ],
+              [
+                54.56583960585407,
+                -18.98134634208562
+              ],
+              [
+                70.29225385047957,
+                16.447533030206696
+              ],
+              [
+                36.61547136843946,
+                31.350369751360038
+              ]
+            ],
+            "holes": []
+          },
+          {
+            "x": -18.172857549480355,
+            "z": -29.568976047054708,
+            "hw": 30.348050000000004,
+            "hd": 52.96705,
+            "angle": -1.1519,
+            "h": 32.4,
+            "y0": 0,
+            "y1": 32.4,
+            "poly": [
+              [
+                -54.20043598766339,
+                19.692614931166535
+              ],
+              [
+                -67.40115164212892,
+                -9.913010820368395
+              ],
+              [
+                -78.79883137720108,
+                -35.79562870683277
+              ],
+              [
+                16.94160943314598,
+                -77.80356005366811
+              ],
+              [
+                42.37389300470818,
+                -23.80445582817518
+              ],
+              [
+                11.493004229695606,
+                -9.89078016013898
+              ]
+            ],
+            "holes": [
+              [
+                [
+                  9.69798725410368,
+                  -35.495584480175026
+                ],
+                [
+                  2.3748380082769494,
+                  -52.45424847039983
+                ],
+                [
+                  -50.030642699122374,
+                  -29.927820002344863
+                ],
+                [
+                  -42.651879879251126,
+                  -12.813520475104903
+                ]
+              ]
+            ]
+          }
+        ],
+        "render": {
+          "triangles": 3010,
+          "calls": 3
+        },
+        "viewerRoute": "/game/dev/landmarks.html?id=hermes&clean=1&fountains=on&view=top&az=0",
+        "frame": "Isolated model study; native district appearance checked separately in the Pipera facade comparison"
+      },
+      "render": {
+        "triangles": 3010,
+        "calls": 3
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique side model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/hermes/facade-20261110/oblique.png",
+      "sourceCommit": "9ae4ae1e604a1b99b51387031d6d338f0276cf80",
+      "sha256": "b1a5fd4e101fba0bc6dc4f199fed4f698840b8e0abf521593bd183821712310d",
+      "capturedAt": "2026-11-10T23:49:06.390Z",
+      "pose": {
+        "id": "hermes",
+        "triangles": 3008,
+        "height": 36,
+        "w": 160.36282739047508,
+        "d": 166.76498266619961,
+        "ms": 16.399999991059303,
+        "drawCalls": 3,
+        "sourceIds": [
+          "w533147567",
+          "w231123137",
+          "r6774709"
+        ],
+        "pose": {
+          "position": [
+            -116.61432816547638,
+            133.94938127495035,
+            193.14371876759327
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "quaternion": [
+            -0.23312386532279036,
+            -0.25929216343677597,
+            -0.06464879726257895,
+            0.9350087541888256
+          ],
+          "projection": "perspective",
+          "fov": 45,
+          "target": [
+            -0.816664876755496,
+            14.4,
+            0.4164885859402716
+          ],
+          "frame": "isolated landmark model, +x east / +z south, metres"
+        },
+        "name": "Hermes Business Campus",
+        "anchor": {
+          "lat": 44.4810862,
+          "lon": 26.1140757,
+          "rotation": -1.1519
+        },
+        "view": "oblique",
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            -116.61432816547638,
+            133.94938127495035,
+            193.14371876759327
+          ],
+          "quaternion": [
+            -0.23312386532279036,
+            -0.25929216343677597,
+            -0.06464879726257895,
+            0.9350087541888256
+          ],
+          "fov": 45,
+          "near": 0.5092933875079992,
+          "far": 5092.9338750799925,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -80.99807857199303,
+            0,
+            -82.96600274715954
+          ],
+          "max": [
+            79.36474881848204,
+            36,
+            83.79897991904008
+          ]
+        },
+        "collision": [
+          {
+            "x": -7.152988811960215,
+            "z": 41.867528476475314,
+            "hw": 29.5108,
+            "hd": 33.91965,
+            "angle": -1.1519,
+            "h": 36,
+            "y0": 0,
+            "y1": 36,
+            "poly": [
+              [
+                -49.744631645505564,
+                28.527591644458283
+              ],
+              [
+                12.072748769960254,
+                1.6558469698082465
+              ],
+              [
+                35.43207654497271,
+                55.21039392615483
+              ],
+              [
+                -26.377465461276,
+                82.08204195223941
+              ]
+            ],
+            "holes": []
+          },
+          {
+            "x": 45.59065548714676,
+            "z": 6.184511704637206,
+            "hw": 19.423099999999998,
+            "hd": 18.43545,
+            "angle": -1.1519,
+            "h": 28,
+            "y0": 0,
+            "y1": 28,
+            "poly": [
+              [
+                20.8891484776558,
+                -4.078550296177596
+              ],
+              [
+                54.56583960585407,
+                -18.98134634208562
+              ],
+              [
+                70.29225385047957,
+                16.447533030206696
+              ],
+              [
+                36.61547136843946,
+                31.350369751360038
+              ]
+            ],
+            "holes": []
+          },
+          {
+            "x": -18.172857549480355,
+            "z": -29.568976047054708,
+            "hw": 30.348050000000004,
+            "hd": 52.96705,
+            "angle": -1.1519,
+            "h": 32.4,
+            "y0": 0,
+            "y1": 32.4,
+            "poly": [
+              [
+                -54.20043598766339,
+                19.692614931166535
+              ],
+              [
+                -67.40115164212892,
+                -9.913010820368395
+              ],
+              [
+                -78.79883137720108,
+                -35.79562870683277
+              ],
+              [
+                16.94160943314598,
+                -77.80356005366811
+              ],
+              [
+                42.37389300470818,
+                -23.80445582817518
+              ],
+              [
+                11.493004229695606,
+                -9.89078016013898
+              ]
+            ],
+            "holes": [
+              [
+                [
+                  9.69798725410368,
+                  -35.495584480175026
+                ],
+                [
+                  2.3748380082769494,
+                  -52.45424847039983
+                ],
+                [
+                  -50.030642699122374,
+                  -29.927820002344863
+                ],
+                [
+                  -42.651879879251126,
+                  -12.813520475104903
+                ]
+              ]
+            ]
+          }
+        ],
+        "render": {
+          "triangles": 3010,
+          "calls": 3
+        },
+        "viewerRoute": "/game/dev/landmarks.html?id=hermes&clean=1&fountains=on&view=oblique&az=-30.999008421119527&el=28",
+        "frame": "Isolated model study; native district appearance checked separately in the Pipera facade comparison"
+      },
+      "render": {
+        "triangles": 3010,
+        "calls": 3
+      }
+    }
+  ],
+  "historicalCaptures": [
     {
       "id": "front",
       "label": "Street-height model study",
@@ -266,5 +939,23 @@
         "calls": 3
       }
     }
-  ]
+  ],
+  "historicalChecks": [
+    {
+      "label": "Exact source rings and courtyard collision",
+      "passed": true,
+      "details": "tools/landmarks/pipera-check.mjs:102 controls pass across the three models; all61 landmark geometry fixtures finite."
+    },
+    {
+      "label": "Owner references and all three game studies inspected",
+      "passed": true,
+      "details": "Front, perspective top and oblique side images inspected against exact mapped outlines and independently sourced owner references; no imagery-derived measurements from Street View."
+    },
+    {
+      "label": "Published capture provenance",
+      "passed": true,
+      "details": "Each capture retains its immutable game-source SHA and actual camera metadata. Top studies were recaptured at720\u00d7720 with actual orthographic left/right/top/bottom bounds, up vector and square ground span exported from the frozen camera. Published WebP bytes are SHA256 verified; no external imagery included."
+    }
+  ],
+  "implementationNotesUpdatedAt": "2026-11-10T23:49:41.140030+00:00"
 }

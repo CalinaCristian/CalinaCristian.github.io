@@ -3,7 +3,7 @@
   "id": "bob",
   "city": "bucharest",
   "name": "BOB Tower (DB Global Technology)",
-  "sourceCommit": "94508c6c36888591a02d584886da6270e1f6b550",
+  "sourceCommit": "9ae4ae1e604a1b99b51387031d6d338f0276cf80",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.479608,
@@ -15,7 +15,7 @@
       "label": "OpenStreetMap w55450549; retrieved2026-11-08",
       "type": "osm",
       "facts": {
-        "addr:city": "București",
+        "addr:city": "Bucure\u0219ti",
         "addr:country": "RO",
         "building": "office",
         "name": "BOB Tower",
@@ -37,7 +37,8 @@
   "improvements": [
     "Restored every source corner of the six-vertex mapped outline instead of truncating it to a rectangle.",
     "Retained GF+6 storeys documented in the owner particulars.",
-    "Replaced protruding cylindrical corner guesses with cladding inside the mapped outline and kept roof services within the estimated total envelope."
+    "Replaced protruding cylindrical corner guesses with cladding inside the mapped outline and kept roof services within the estimated total envelope.",
+    "Partitioned glazing and structural cladding into disjoint facade panels; removed overlapping corner/fin surfaces without changing the mapped footprint, height or collision volumes."
   ],
   "remainingGaps": [
     "No authoritative metre-height tag or owner total height was found;28m total and rooftop service dimensions remain explicit estimates.",
@@ -46,22 +47,568 @@
   ],
   "checks": [
     {
-      "label": "Exact source rings and courtyard collision",
+      "label": "Current native reported facade views",
       "passed": true,
-      "details": "tools/landmarks/pipera-check.mjs:102 controls pass across the three models; all61 landmark geometry fixtures finite."
+      "details": "High before/after and Ultra original/\u00b10.15m camera captures inspected. The corner and fin depth artifacts are removed. Controlled native frames, not ordinary-flight or hardware FPS acceptance."
     },
     {
-      "label": "Owner references and all three game studies inspected",
+      "label": "Regression and geometry",
       "passed": true,
-      "details": "Front, perspective top and oblique side images inspected against exact mapped outlines and independently sourced owner references; no imagery-derived measurements from Street View."
+      "details": "Four disjoint-face geometry controls pass; foot/a 0 high / 0 medium; paired Pipera visual sweep covers 9/9 views with identical 92 existing issues and peak 288 draw calls. Other district defects remain open."
     },
     {
-      "label": "Published capture provenance",
+      "label": "Current three-view model provenance",
       "passed": true,
-      "details": "Each capture retains its immutable game-source SHA and actual camera metadata. Top studies were recaptured at720×720 with actual orthographic left/right/top/bottom bounds, up vector and square ground span exported from the frozen camera. Published WebP bytes are SHA256 verified; no external imagery included."
+      "details": "All three isolated studies recaptured from 9ae4ae1e604a1b99b51387031d6d338f0276cf80; full-size originals inspected. Earlier captures and checks retained as historical."
     }
   ],
   "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/bob/facade-20261110/front.png",
+      "sourceCommit": "9ae4ae1e604a1b99b51387031d6d338f0276cf80",
+      "sha256": "e2d1ca855e5b90e7e297e9617df931d2ed94d08eee502b7deba03fbef1205e48",
+      "capturedAt": "2026-11-10T23:49:01.943Z",
+      "pose": {
+        "id": "bob",
+        "triangles": 7352,
+        "height": 28,
+        "w": 150.94983673095703,
+        "d": 117.86290740966797,
+        "ms": 63.29999999701977,
+        "drawCalls": 3,
+        "sourceIds": [
+          "w55450549"
+        ],
+        "pose": {
+          "position": [
+            -0.004001617431640625,
+            1.3,
+            160.33618438720706
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "quaternion": [
+            0.035173104113906874,
+            0,
+            0,
+            0.9993812349383953
+          ],
+          "projection": "perspective",
+          "fov": 62,
+          "target": [
+            -0.004001617431640625,
+            12.6,
+            0.00032806396484375
+          ],
+          "frame": "isolated landmark model, +x east / +z south, metres"
+        },
+        "name": "BOB Tower (DB Global Technology)",
+        "anchor": {
+          "lat": 44.479608,
+          "lon": 26.1147802,
+          "rotation": 0
+        },
+        "view": "front",
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            -0.004001617431640625,
+            1.3,
+            160.33618438720706
+          ],
+          "quaternion": [
+            0.035173104113906874,
+            0,
+            0,
+            0.9993812349383953
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 3206.717126464844,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -75.47891998291016,
+            0,
+            -58.93112564086914
+          ],
+          "max": [
+            75.47091674804688,
+            28,
+            58.93178176879883
+          ]
+        },
+        "collision": [
+          {
+            "x": -0.003978675810508037,
+            "z": -0.0016447925609561764,
+            "hw": 56.459609369958976,
+            "hd": 39.938736455865424,
+            "angle": 0,
+            "h": 28,
+            "y0": 25.5,
+            "y1": 28,
+            "poly": [
+              [
+                -56.463588045769484,
+                2.770029900048631
+              ],
+              [
+                -39.94015633375363,
+                39.937091663304464
+              ],
+              [
+                56.45563069414847,
+                -2.800471205630193
+              ],
+              [
+                39.939963546114,
+                -39.94038124842638
+              ],
+              [
+                -6.077745031609342,
+                -19.55236958706859
+              ],
+              [
+                -7.388075642888525,
+                -18.974544283552188
+              ]
+            ],
+            "holes": []
+          },
+          {
+            "x": -0.0040000000000048885,
+            "z": 0,
+            "hw": 72.3057,
+            "hd": 55.766,
+            "angle": 0,
+            "h": 25.5,
+            "y0": 0,
+            "y1": 25.5,
+            "poly": [
+              [
+                -72.3097,
+                -3.334
+              ],
+              [
+                -46.0355,
+                55.766
+              ],
+              [
+                72.3017,
+                3.3006
+              ],
+              [
+                46.0355,
+                -55.766
+              ],
+              [
+                -10.9291,
+                -30.528
+              ],
+              [
+                -12.2396,
+                -29.9501
+              ]
+            ],
+            "holes": []
+          }
+        ],
+        "render": {
+          "triangles": 7354,
+          "calls": 3
+        },
+        "viewerRoute": "/game/dev/landmarks.html?id=bob&clean=1&fountains=on&view=street&az=0",
+        "frame": "Isolated model study; native district appearance checked separately in the Pipera facade comparison"
+      },
+      "render": {
+        "triangles": 7354,
+        "calls": 3
+      }
+    },
+    {
+      "id": "top",
+      "label": "North-up orthographic model study",
+      "kind": "top",
+      "image": "assets/landmarks/bob/facade-20261110/top.png",
+      "sourceCommit": "9ae4ae1e604a1b99b51387031d6d338f0276cf80",
+      "sha256": "259b45b7365f01ac1109fc2469556c2fb2b76de3dede6dc17df1316cdfec6c61",
+      "capturedAt": "2026-11-10T23:49:02.936Z",
+      "pose": {
+        "id": "bob",
+        "triangles": 7352,
+        "height": 28,
+        "w": 150.94983673095703,
+        "d": 117.86290740966797,
+        "ms": 35.79999999701977,
+        "drawCalls": 3,
+        "sourceIds": [
+          "w55450549"
+        ],
+        "pose": {
+          "position": [
+            -0.004001617431640625,
+            207.10181060791015,
+            0.00032806396484375
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "projection": "orthographic",
+          "groundSquareM": 179.10181060791015,
+          "orientation": "north-up",
+          "target": [
+            -0.004001617431640625,
+            0,
+            0.00032806396484375
+          ],
+          "frame": "isolated landmark model, +x east / +z south, metres"
+        },
+        "name": "BOB Tower (DB Global Technology)",
+        "anchor": {
+          "lat": 44.479608,
+          "lon": 26.1147802,
+          "rotation": 0
+        },
+        "view": "top",
+        "camera": {
+          "projection": "orthographic",
+          "position": [
+            -0.004001617431640625,
+            207.10181060791015,
+            0.00032806396484375
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 4142.036212158203,
+          "viewport": [
+            720,
+            720
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -89.55090530395508,
+          "right": 89.55090530395508,
+          "top": 89.55090530395508,
+          "bottom": -89.55090530395508,
+          "zoom": 1,
+          "groundSquareM": 179.10181060791015,
+          "groundWidthM": 179.10181060791015,
+          "groundDepthM": 179.10181060791015,
+          "orientation": "north-up"
+        },
+        "bounds": {
+          "min": [
+            -75.47891998291016,
+            0,
+            -58.93112564086914
+          ],
+          "max": [
+            75.47091674804688,
+            28,
+            58.93178176879883
+          ]
+        },
+        "collision": [
+          {
+            "x": -0.003978675810508037,
+            "z": -0.0016447925609561764,
+            "hw": 56.459609369958976,
+            "hd": 39.938736455865424,
+            "angle": 0,
+            "h": 28,
+            "y0": 25.5,
+            "y1": 28,
+            "poly": [
+              [
+                -56.463588045769484,
+                2.770029900048631
+              ],
+              [
+                -39.94015633375363,
+                39.937091663304464
+              ],
+              [
+                56.45563069414847,
+                -2.800471205630193
+              ],
+              [
+                39.939963546114,
+                -39.94038124842638
+              ],
+              [
+                -6.077745031609342,
+                -19.55236958706859
+              ],
+              [
+                -7.388075642888525,
+                -18.974544283552188
+              ]
+            ],
+            "holes": []
+          },
+          {
+            "x": -0.0040000000000048885,
+            "z": 0,
+            "hw": 72.3057,
+            "hd": 55.766,
+            "angle": 0,
+            "h": 25.5,
+            "y0": 0,
+            "y1": 25.5,
+            "poly": [
+              [
+                -72.3097,
+                -3.334
+              ],
+              [
+                -46.0355,
+                55.766
+              ],
+              [
+                72.3017,
+                3.3006
+              ],
+              [
+                46.0355,
+                -55.766
+              ],
+              [
+                -10.9291,
+                -30.528
+              ],
+              [
+                -12.2396,
+                -29.9501
+              ]
+            ],
+            "holes": []
+          }
+        ],
+        "render": {
+          "triangles": 7354,
+          "calls": 3
+        },
+        "viewerRoute": "/game/dev/landmarks.html?id=bob&clean=1&fountains=on&view=top&az=0",
+        "frame": "Isolated model study; native district appearance checked separately in the Pipera facade comparison"
+      },
+      "render": {
+        "triangles": 7354,
+        "calls": 3
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique side model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/bob/facade-20261110/oblique.png",
+      "sourceCommit": "9ae4ae1e604a1b99b51387031d6d338f0276cf80",
+      "sha256": "e1c4d51fb048897527b13bc7c757b318f9a7b83c82af876a1e3674a228005b45",
+      "capturedAt": "2026-11-10T23:49:03.855Z",
+      "pose": {
+        "id": "bob",
+        "triangles": 7352,
+        "height": 28,
+        "w": 150.94983673095703,
+        "d": 117.86290740966797,
+        "ms": 24.69999998807907,
+        "drawCalls": 3,
+        "sourceIds": [
+          "w55450549"
+        ],
+        "pose": {
+          "position": [
+            116.87350784411129,
+            119.54628166588694,
+            166.91871023445003
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "quaternion": [
+            -0.2307250125905461,
+            0.2917735521254029,
+            0.07274731703388738,
+            0.9253874813879795
+          ],
+          "projection": "perspective",
+          "fov": 45,
+          "target": [
+            -0.004001617431640625,
+            11.200000000000001,
+            0.00032806396484375
+          ],
+          "frame": "isolated landmark model, +x east / +z south, metres"
+        },
+        "name": "BOB Tower (DB Global Technology)",
+        "anchor": {
+          "lat": 44.479608,
+          "lon": 26.1147802,
+          "rotation": 0
+        },
+        "view": "oblique",
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            116.87350784411129,
+            119.54628166588694,
+            166.91871023445003
+          ],
+          "quaternion": [
+            -0.2307250125905461,
+            0.2917735521254029,
+            0.07274731703388738,
+            0.9253874813879795
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 4615.669627482838,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -75.47891998291016,
+            0,
+            -58.93112564086914
+          ],
+          "max": [
+            75.47091674804688,
+            28,
+            58.93178176879883
+          ]
+        },
+        "collision": [
+          {
+            "x": -0.003978675810508037,
+            "z": -0.0016447925609561764,
+            "hw": 56.459609369958976,
+            "hd": 39.938736455865424,
+            "angle": 0,
+            "h": 28,
+            "y0": 25.5,
+            "y1": 28,
+            "poly": [
+              [
+                -56.463588045769484,
+                2.770029900048631
+              ],
+              [
+                -39.94015633375363,
+                39.937091663304464
+              ],
+              [
+                56.45563069414847,
+                -2.800471205630193
+              ],
+              [
+                39.939963546114,
+                -39.94038124842638
+              ],
+              [
+                -6.077745031609342,
+                -19.55236958706859
+              ],
+              [
+                -7.388075642888525,
+                -18.974544283552188
+              ]
+            ],
+            "holes": []
+          },
+          {
+            "x": -0.0040000000000048885,
+            "z": 0,
+            "hw": 72.3057,
+            "hd": 55.766,
+            "angle": 0,
+            "h": 25.5,
+            "y0": 0,
+            "y1": 25.5,
+            "poly": [
+              [
+                -72.3097,
+                -3.334
+              ],
+              [
+                -46.0355,
+                55.766
+              ],
+              [
+                72.3017,
+                3.3006
+              ],
+              [
+                46.0355,
+                -55.766
+              ],
+              [
+                -10.9291,
+                -30.528
+              ],
+              [
+                -12.2396,
+                -29.9501
+              ]
+            ],
+            "holes": []
+          }
+        ],
+        "render": {
+          "triangles": 7354,
+          "calls": 3
+        },
+        "viewerRoute": "/game/dev/landmarks.html?id=bob&clean=1&fountains=on&view=oblique&az=35&el=28",
+        "frame": "Isolated model study; native district appearance checked separately in the Pipera facade comparison"
+      },
+      "render": {
+        "triangles": 7354,
+        "calls": 3
+      }
+    }
+  ],
+  "historicalCaptures": [
     {
       "id": "front",
       "label": "Street-height model study",
@@ -241,5 +788,23 @@
         "calls": 3
       }
     }
-  ]
+  ],
+  "historicalChecks": [
+    {
+      "label": "Exact source rings and courtyard collision",
+      "passed": true,
+      "details": "tools/landmarks/pipera-check.mjs:102 controls pass across the three models; all61 landmark geometry fixtures finite."
+    },
+    {
+      "label": "Owner references and all three game studies inspected",
+      "passed": true,
+      "details": "Front, perspective top and oblique side images inspected against exact mapped outlines and independently sourced owner references; no imagery-derived measurements from Street View."
+    },
+    {
+      "label": "Published capture provenance",
+      "passed": true,
+      "details": "Each capture retains its immutable game-source SHA and actual camera metadata. Top studies were recaptured at720\u00d7720 with actual orthographic left/right/top/bottom bounds, up vector and square ground span exported from the frozen camera. Published WebP bytes are SHA256 verified; no external imagery included."
+    }
+  ],
+  "implementationNotesUpdatedAt": "2026-11-10T23:49:41.140030+00:00"
 }

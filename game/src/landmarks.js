@@ -1,3 +1,4 @@
+import { facadePanels, facadePiers } from './facade-panels.js';
 import * as THREE from '../vendor/three.module.min.js';
 import { makeWaterMaterial } from './water.js';
 import { LANDMARK_SOURCE_IDS } from './landmark-source-identities.js';
@@ -1731,9 +1732,12 @@ function bHermes(b, ctx = {}) {
         const levels=source?.levels|| (i===1?7:9),gf=4.5,fh=(top-gf)/Math.max(1,levels-1);
         b.prism(offset(ps[i],-.6),0,gf,'#3f5664',{mat:'g',top:false,holes});
         b.pilasters(ps[i],0,gf,8,.4,.3,'#a8adb0',{});
-        b.prism(ps[i],gf,top,'#b3b6b9',{holes,topCol:source?.roofColour||'#979d9f'});
-        b.bands(ps[i],gf,top,fh,'#6d8796',{frac:.58,off:.025,mat:'g',start:.9,wall:null,holes});
-        b.pilasters(ps[i],gf,top,9,.9,.025,'#596f7d',{every:3});
+        const bands=[];
+        for(let y=gf+.9;y+fh*.58<=top-.3;y+=fh)bands.push({lo:y,hi:y+fh*.58,colour:'#6d8796',material:'g'});
+        const emit=(quad,colour,material,normal)=>b.quad(...quad,colour,material,normal);
+        facadePanels(ps[i],gf,top,{wall:'#b3b6b9',bands,strips:(_,length)=>facadePiers(length,9,.9,.025,'#596f7d',3)},emit);
+        for(const hole of holes)facadePanels(hole,gf,top,{wall:'#b3b6b9',bands,inward:true},emit);
+        b.cap(ps[i],top,source?.roofColour||'#979d9f',holes);
         b.cornice(ps[i],top-.15,.15,.035,'#c9cdcf');
         b.colPolygon(ps[i],{holes,y1:top});
     }
@@ -3070,9 +3074,16 @@ function bBOB(b, ctx = {}) {
     b.prism(p, 0, 4.8, '#5a4d47', { top: false });                                            // dark granite ground floor
     b.windows(p, 0, 4.8, 4.8, '#3d4c52', { bay: 7.2, wf: 0.55, hf: 0.82, start: 0.1, minL: 6, mat: 'g', off: 0.06 });
     b.cornice(p, 4.8, 0.45, 2.4, WH, { solid: true });                                        // white projecting slab
-    curtainTower(b, p, 5.25, upper, { glass: GL, spandrel: SP, mullion: '#3c4447', pitch: 1.6, mw: 0.08, md: 0.12, fh: (upper-5.25)/6, frac: 0.7, start: 0.55 });
+    const bands=[],fh=(upper-5.25)/6;
+    for(let y=5.8;y+fh*.7<=upper-.7;y+=fh)bands.push({lo:y,hi:y+fh*.7,colour:GL,material:'g'});
+    facadePanels(p,5.25,upper,{wall:SP,bands,strips:(i,length)=>{
+        const corners=[];
+        if(i===0||i===2)corners.push({lo:0,hi:Math.min(3,length*.3),colour:WH});
+        if((i+1)%p.length===0||(i+1)%p.length===2)corners.push({lo:length-Math.min(3,length*.3),hi:length,colour:WH});
+        return [...corners,...facadePiers(length,1.6,.08,.12,'#3c4447')];
+    }},(quad,colour,material,normal)=>b.quad(...quad,colour,material,normal));
+    b.cap(p,upper,'#9ca3a8');
     b.cornice(p, upper, 0.5, 0.25, WH, { solid: true });                                        // thin projecting roof edge
-    for (const k of [0, 2]) { const a=p[k],prev=p[(k+p.length-1)%p.length],next=p[(k+1)%p.length],toward=q=>{const L=Math.hypot(q[0]-a[0],q[1]-a[1]);return[a[0]+(q[0]-a[0])*Math.min(3/L,.3),a[1]+(q[1]-a[1])*Math.min(3/L,.3)];}; b.prism([a,toward(next),toward(prev)],5.25,upper,WH); } // white cladding stays inside the mapped acute corners
     { const t = offset(p, -12); b.prism(t, roof, total, '#a3a7a8'); b.colPolygon(t,{y0:roof,y1:total}); }                        // plant enclosure
     const f = nearestFacade(p, -11.5, -30.2);
     entrance(b, f, { w: 4.8, h: 3.9, canopyText: null, plate: { w: 0.7, h: 0.5, y: 1.3, bg: '#ffffff', lines: [['DB', 0.14, '#0018a8'], ['GLOBAL', 0.05, '#0018a8'], ['TECHNOLOGY', 0.05, '#0018a8']] } });

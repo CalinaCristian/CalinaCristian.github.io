@@ -933,7 +933,7 @@
   },
   "crossingReturn": {
     "candidateSource": "21d4e27824cad4131eca078f09d7226680515194",
-    "status": "fresh-native-and-logic-running-not-accepted",
+    "status": "R17-incomplete-blocked-native-120s; alignment-recovery-case-found",
     "priorNegative": {
       "source": "ec4027b40a39efdef1d04413c6cba41bd85513b6",
       "progressM": 228.9991970155181,
@@ -953,5 +953,27 @@
       "Fresh combined ordinary journey and all scene/render/CPU gates remain open",
       "No source/actor/physical blocker removal"
     ]
+  },
+  "alignmentRecovery": {
+    "candidateSource": "8a6099a39ab3fbc847496ba0f1eaa8ad63f81c43",
+    "status": "fresh-native-drive-and-logic-running-not-accepted",
+    "methodSHA256": "98c90b8aefedea860e05256740e373002e31de5995994cbb83fed7383b0a6bd8",
+    "nativeMethodControl": {
+      "runtime": "21d4e27824cad4131eca078f09d7226680515194",
+      "simulationSeconds": 119.99999999999575,
+      "baseline": false,
+      "candidate": true,
+      "person": 454,
+      "sourceEdge": 1113,
+      "target": [
+        397.26046863687327,
+        -720.8568038149431
+      ],
+      "distanceM": 2.003971426372061,
+      "liveActorsUnchanged": true,
+      "scope": "Isolated planner over exact native recovery; not complete physical journey."
+    },
+    "scope": "Same physical escape context for stalled visible alignment recovery; no source/actor/motion guard exemptions.",
+    "open": "Complete ordinary approach/bridge/return/native visual/budget/all8/CPU/mobile/lifecycle/overview/publication gates"
   }
 }

@@ -405,3 +405,5 @@ The current Basarab traffic batch also retains real tram models in pedestrian pr
 Staged Basarab traffic follow-up: linked signal reservations now follow the literal source route through unlit branch nodes and check the swept movement for stopped queues before entry. Source signals, directions, all actors and physical guards remain. Focused native-input controls pass; fresh ordinary driving and the combined scene/performance gates are still pending.
 
 Staged pedestrian follow-up: a stalled crossing return can walk around a stopped car to an available mapped sidewalk, with bounded steps and full body/peer/static guards. Arrival binds the destination sidewalk offset instead of reusing the departure offset. Focused physical controls pass; native combined driving and visual/performance acceptance remain open.
+
+The same staged escape now covers a visible sidewalk-alignment recovery blocked beside a vehicle. An isolated native case finds a2.004m route to an existing sidewalk with every live actor unchanged; the full ordinary-spawn journey remains under test.

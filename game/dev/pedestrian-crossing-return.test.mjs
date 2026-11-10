@@ -21,6 +21,11 @@ const f = scene();
 const automatic = scene();
 for (let i = 0; i < 300; i++) { automatic.C.buildGrid(); automatic.C.update(1 / 30); }
 assert.ok(automatic.C.stats.replans > 0 && automatic.p.x > 4, 'the actual stalled-progress watchdog plans and completes the return');
+const recovery = scene();
+recovery.p.recovery = { x: 4.6, z: 0, state: 'walk', onRoad: false, legs: [] };
+recovery.p.legs = [{ x: 4.6, z: 0, cross: true, started: true, recovery: true }];
+for (let i = 0; i < 300; i++) { recovery.C.buildGrid(); recovery.C.update(1 / 30); }
+assert.ok(recovery.C.stats.replans > 0 && recovery.p.x > 4 && !recovery.p.recovery, 'a stalled visible alignment recovery also reaches a source sidewalk');
 const outbound = scene(); outbound.p.legs[0].back = false;
 assert.equal(outbound.C.replanWalk(outbound.p, { blockedReturn: true }), false, 'the watchdog does not cancel a normal outbound crossing');
 assert.equal(f.C.replanWalk(f.p), false, 'ordinary active crossing retains its existing plan');

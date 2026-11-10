@@ -1,3 +1,7 @@
+# Active continuation
+
+Read [ACTIVE-20261110.md](ACTIVE-20261110.md) first for the latest jobs/source and next steps. The material below preserves historical checkpoints and their actual scope.
+
 # Current owner steering · 9 November 2026 Pacific
 
 Root is the only active agent; no new delegation. The owner asked for a better/searchable/city-filtered/alphabetical landmark menu, aligned caret, visible close/nearby/distant chips, and latest public galleries without historical archives. This UI is LIVE on master57e6581c (Pages42760784680),44desktop/phone checks and112livebytechecks pass. Historical district archives364,273,055B excluded; committed source estimate840MB→477MB and14,343→6,971files. See overview-search-latest-20261109/. Latest Carusel19b is the selected OldTown main gallery, not a global block or duplicate appendix; inspector shows7current visits. Code/data/picture sources remain distinct.

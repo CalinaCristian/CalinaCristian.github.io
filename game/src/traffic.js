@@ -156,13 +156,14 @@ function segDist(p0x, p0z, p1x, p1z, q0x, q0z, q1x, q1z) {
 
 // ---------- fixed-size spatial hash (no per-frame allocation) ----------
 class Grid {
-    constructor(cell, bits = 12) { this.cell = cell; this.mask = (1 << bits) - 1; this.head = new Int32Array(1 << bits); this.next = new Int32Array(64); this.items = null; }
+    constructor(cell, bits = 12, fixed = false) { this.fixed=fixed;this.cell = cell; this.mask = (1 << bits) - 1; this.head = new Int32Array(1 << bits); this.next = new Int32Array(64); this.items = null; }
     hash(ix, iz) { return ((ix * 92837111) ^ (iz * 689287499)) & this.mask; }
     build(items) {
         this.items = items; this.head.fill(-1);
         if (this.next.length < items.length) this.next = new Int32Array(items.length * 2);
         const c = this.cell;
-        for (let i = 0; i < items.length; i++) { const h = this.hash(Math.floor(items[i].x / c), Math.floor(items[i].z / c)); this.next[i] = this.head[h]; this.head[h] = i; }
+        if(this.fixed&&(!this.ix||this.ix.length<items.length)){this.ix=new Int32Array(items.length);this.iz=new Int32Array(items.length);}
+        for (let i = 0; i < items.length; i++) {const x=Math.floor(items[i].x/c),z=Math.floor(items[i].z/c);if(this.fixed){this.ix[i]=x;this.iz[i]=z;} const h = this.hash(x,z); this.next[i] = this.head[h]; this.head[h] = i; }
     }
     /** calls fn(item) for items in cells overlapping the square (x±r, z±r); may include a few extras (hash collisions) */
     query(x, z, r, fn) {
@@ -171,7 +172,7 @@ class Grid {
         if ((x1 - x0 + 1) * (z1 - z0 + 1) > 400) { for (const o of it) fn(o); return; }
         for (let ix = x0; ix <= x1; ix++) for (let iz = z0; iz <= z1; iz++) {
             for (let i = this.head[this.hash(ix, iz)]; i !== -1; i = this.next[i]) {
-                const o = it[i]; const ox = Math.floor(o.x / c), oz = Math.floor(o.z / c);
+                const o = it[i]; const ox = this.fixed?this.ix[i]:Math.floor(o.x / c), oz = this.fixed?this.iz[i]:Math.floor(o.z / c);
                 if (ox === ix && oz === iz) fn(o);
             }
         }
@@ -1770,6 +1771,8 @@ export class Traffic {
             if (!hit) { v.ovT = 0; continue; }
             // 2) already overlapping: the follower (the one with the other ahead of it) backs off along its path
             const k = v.id < hit.id ? v.id + ':' + hit.id : hit.id + ':' + v.id; if (seen.has(k)) continue; seen.add(k);
+            const contacts=this._contactDialogue||(this._contactDialogue=new Map());
+            if(this._situational&&this.time-(contacts.get(k)??-Infinity)>8){contacts.set(k,this.time);while(contacts.size>128)contacts.delete(contacts.keys().next().value);const event=this.dialogueEvent('collision',v,{sourceRole:'driver',target:hit,targetRole:'driver',facts:{contact:true,collisionType:'vehicle',playerCausedContact:false}});this.speakSituational(event,hit,'driver');this.emitDialogueEvent(event,{participant:v});}
             const ahead = (a, b) => (b.x - a.x) * -Math.sin(a.heading) + (b.z - a.z) * -Math.cos(a.heading);
             let fol = ahead(v, hit) >= ahead(hit, v) ? v : hit;
             if (fol.parked || fol.tram) fol = fol === v ? hit : v;
@@ -2601,8 +2604,9 @@ export class Pedestrians {
 
     reach(p) { return this.crowd.reach?.(p.i) || PED_R; }
     freeWalkPoint(x, z, r = PED_R) {
-        const W = this.t.world, y = (W.walkTop?.(x, z) ?? 0.2) + 0.01;
-        return !this.inWater(x, z) && !this.roadAt(x, z, r + 0.05) && !collideBuildings(W.buildings || [], x, z, r, y);
+        if(this.inWater(x,z)||this.roadAt(x,z,r+.05))return false;
+        const W=this.t.world,y=(W.walkTop?.(x,z)??.2)+.01;
+        return !collideBuildings(W.buildings||[],x,z,r,y);
     }
     /** Walking room, with a one-second headway at the normal 1.2 m/s pace.
      * The kerb, walls, props and intersection mouths consume real slots. */
@@ -2753,6 +2757,8 @@ export class Pedestrians {
     /** A local walking detour for a blocked recovery, including the corners of
      * parked cars. Every segment uses the same vehicle clearance as walking. */
     escapeRoute(p, goals, escaping) {
+        if(this._escapeFrame!==this._fr){this._escapeFrame=this._fr;this._escapeSearches=0;}
+        if(this._escapeSearches>=1)return null;this._escapeSearches++;
         const stride = 0.7, extent = 16, key = (i, j) => (i + extent) * (2 * extent + 1) + j + extent;
         const first = { i: 0, j: 0, x: p.x, z: p.z, cost: 0, prev: null }, open = [first], seen = new Map([[key(0, 0), first]]);
         const heuristic = q => Math.min(...goals.map(g => Math.hypot(g.x - q.x, g.z - q.z)));
@@ -2820,7 +2826,7 @@ export class Pedestrians {
             const a = c.angle || 0;
             obs.push({ x: c.x, z: c.z, r: c.r, box, hw: box ? c.hw : c.r, hd: box ? c.hd : c.r, c: Math.cos(a), s: Math.sin(a), kind: c.kind || 'prop' });
         }
-        this.obsGrid = new Grid(4, 15); this.obsGrid.build(obs);
+        this.obsGrid = new Grid(4, 15, true); this.obsGrid.build(obs);
         this._side = new Map(); this._walkSpace = new Map();
         this.t.stats.pedObstacles = obs.length;
     }
@@ -2853,8 +2859,9 @@ export class Pedestrians {
     }
     /** a pedestrian ends every step outside every obstacle; walkers shift their sidewalk line instead of being dragged back */
     clearObstacles(p) {
+        if(p._obsClearX===p.x&&p._obsClearZ===p.z)return false;
         const oldX = p.x, oldZ = p.z;
-        const push = this.obsClamp(p); if (!push) return false;
+        const push = this.obsClamp(p); if (!push){p._obsClearX=p.x;p._obsClearZ=p.z;return false;}
         // a waiter pushed off a shelter / pole into the road: back to the kerb, else another free spot close by
         if (p.state !== 'walk' && !p.onRoad && this.roadAt(p.x, p.z, 0.4)) {
             this.kerbClamp(p);
@@ -2988,10 +2995,11 @@ export class Pedestrians {
      * An existing contact may still take a small, monotonically outward step. */
     peerClearStep(p, x, z, oldX, oldZ) {
         let clear = true;
-        const W = this.t.world, top = W.walkTop?.(x, z), y = top == null ? 0.2 : top + 0.01;
+        const W = this.t.world;let y;
         const check = q => {
             if (!clear || q === p || q.hidden || q.state === 'down') return;
             const d = Math.hypot(x - q.x, z - q.z); if (d >= 2 * PED_R - 1e-6) return;
+            if(y===undefined){const top=W.walkTop?.(x,z);y=top==null?.2:top+.01;}
             const qt = W.walkTop?.(q.x, q.z), qy = qt == null ? 0.2 : qt + 0.01;
             if (y + 1.75 * (p.scale || 1) <= qy || qy + 1.75 * (q.scale || 1) <= y) return;
             if (d <= Math.hypot(oldX - q.x, oldZ - q.z) + 1e-6) clear = false;
@@ -3003,12 +3011,28 @@ export class Pedestrians {
         else this.grid.query(x, z, 2 * PED_R + 0.2, check);
         return clear;
     }
+    staticWalkClear(p,x,z,oldX,oldZ) {
+        const W=this.t.world,B=W.buildings||[],free=p._emptyStatic;
+        if(free&&Math.hypot(x-free.x,z-free.z)<=.24)return true;
+        if(B.query){let candidate=false;B.query(x,z,PED_R+.25,()=>{candidate=true;});if(!candidate){p._emptyStatic={x,z};return true;}}
+        else if(!B.length)return true;
+        const height=(x,z)=>(W.walkTop?.(x,z)??.2)+.01,hit=collideBuildings(B,x,z,PED_R,height(x,z));
+        if(!hit)return true;
+        const before=collideBuildings(B,oldX,oldZ,PED_R,height(oldX,oldZ));
+        return !!before&&Math.hypot(hit.px,hit.pz)<=Math.hypot(before.px,before.pz)+1e-6;
+    }
     /** Refuse a prospective body incursion before admitting the step. A
      * source-clear sidestep supplies bounded passing motion instead of a snap. */
     guardPeerStep(p, oldX, oldZ, dt = this._stepDt || 1 / 30, sidestep = false, correction = false) {
         const dx = p.x - oldX, dz = p.z - oldZ, distance = Math.hypot(dx, dz);
         if (!p.live || p.relocating || p.state === 'down' || distance < 1e-10) { this.notePeerMove(p, oldX, oldZ); return true; }
-        if (this.peerClearStep(p, p.x, p.z, oldX, oldZ) && (!correction || this.peerCorrectionClear(p, p.x, p.z, oldX, oldZ))) { this.notePeerMove(p, oldX, oldZ); return true; }
+        const staticClear=this.staticWalkClear(p,p.x,p.z,oldX,oldZ);
+        if(!staticClear&&!correction){
+            const now=this.t.time??this._fr*(this._stepDt||1/30);
+            if(p.state==='walk'&&p.e&&now>=(p._staticTurnUntil??-Infinity)){p.dir=-p.dir;p._staticTurnUntil=now+3;p.passT=.5;this.stats.staticTurns=(this.stats.staticTurns||0)+1;}
+            else if(p.state==='legs'&&p.legs?.[0]?.sx!==undefined&&!p.legs[0].back){const leg=p.legs[0];leg.x=leg.sx;leg.z=leg.sz;leg.back=true;p.legs.length=1;if(p.next)p.next.dir=-p.dir;}
+        }
+        if (staticClear && this.peerClearStep(p, p.x, p.z, oldX, oldZ) && (!correction || this.peerCorrectionClear(p, p.x, p.z, oldX, oldZ))) { this.notePeerMove(p, oldX, oldZ); return true; }
         p.x = oldX; p.z = oldZ;
         if (sidestep) {
             const step = Math.min(1.3 * dt, distance), rx = -dz / distance, rz = dx / distance;
@@ -3124,6 +3148,7 @@ export class Pedestrians {
      * and a vehicle that moves into a pedestrian pushes it out sideways (toward the kerb). Returns true if blocked.
      */
     avoidVehicles(p, ox, oz, moved) {
+        if(!moved&&p._vehicleClearFrame===this._fr&&p._vehicleClearX===p.x&&p._vehicleClearZ===p.z)return false;
         const R = 0.3, M = 0.4; let blocked = false;
         if (p.vehiclePushFrame !== this._fr) { p.vehiclePushFrame = this._fr; p.vehiclePushLeft = 1.45 * (this._stepDt || 1 / 30); }
         const T = this.t; if (!T.grid.items) return false;
@@ -3159,6 +3184,7 @@ export class Pedestrians {
             if (!any) break;
         }
         if (pushed) this.stats.pushes++;
+        if(!pushed&&!blocked){p._vehicleClearFrame=this._fr;p._vehicleClearX=p.x;p._vehicleClearZ=p.z;}
         return blocked;
     }
     /** a stopped / parked vehicle sits on the crossing line from the pedestrian to the far kerb */

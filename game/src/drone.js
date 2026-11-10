@@ -1,3 +1,4 @@
+import {inspectionEnabled} from './inspection.js';
 // ============================================================================
 //  DRONE (note 74, explore lane) — "Deploy drone" on foot, in the districts and in the tourist spots
 //  (never indoors / under cover): lift-off from the player's hand → drone camera with its own HUD
@@ -155,7 +156,7 @@ const HUD_HTML = `
   <div class="dr-acts"><button data-dr="gohere" title="Go here: walk-teleport to the ground under the drone, then land (T)">⇩ Go here</button><button data-dr="rth" title="Return home (H)">⌂ Home</button><button data-dr="photo" title="Photo (P)">📷</button><button data-dr="land" class="dr-exit" title="Fly back and land in your hand (G / X)">✕ Land</button></div>
 </div>
 <div class="dr-stick" aria-hidden="true"><i></i></div>
-<div class="dr-help">Mouse look · W/S follow view · A/D strafe · look up/down + W to climb/descend · Shift boost · 1/2/3 or wheel speed · N minimap · T go here · H home (hold land) · G/X land · P photo · Esc pause</div>`;
+<div class="dr-help">Mouse look · W/S follow view · A/D strafe · look up/down + W to climb/descend · Shift boost · 1/2/3 or wheel speed · N minimap · T go here · H home (hold land) · G/X land · P photo · Esc pause${inspectionEnabled()?' · F8 copy location · Places: districts / visits':''}</div>`;
 
 export class Drone {
     constructor(game, { onEvent = null, onGoHere = null } = {}) {
@@ -175,12 +176,12 @@ export class Drone {
         const g = this.g;
         if (g.state === 'spot' && g.spot?.ctl && g.spot.spot) {
             const s = g.spot, sp = s.spot;
-            return { kind: 'spot', scene: sp.scene, walker: s.ctl, session: s, colliders: sp.colliders, boundary: flightBoundary(sp, spotFlightSource(sp)), units: sp.units === 'mph' ? 'imperial' : 'metric',
+            return { kind: 'spot', scene: sp.scene, walker: s.ctl, session: s, colliders: sp.colliders, boundary: inspectionEnabled()?null:flightBoundary(sp, spotFlightSource(sp)), units: sp.units === 'mph' ? 'imperial' : 'metric',
                 groundAt: (x, z, y) => { try { const h = sp.ground?.flightHeightAt ? sp.ground.flightHeightAt(x, z, y) : sp.groundAt(x, z, y); return Number.isFinite(h) ? h : sp.ground?.heightAt?.(x, z) ?? 0; } catch { return 0; } } };
         }
         if (g.state === 'foot' && g.foot?.active && g.world) {
             const w = g.world;
-            return { kind: 'district', scene: g.scene, walker: g.foot, colliders: w.buildings, boundary: flightBoundary(w, w.district?.flightBoundary), units: g.city?.units === 'mph' ? 'imperial' : 'metric',
+            return { kind: 'district', scene: g.scene, walker: g.foot, colliders: w.buildings, boundary: inspectionEnabled()?null:flightBoundary(w, w.district?.flightBoundary), units: g.city?.units === 'mph' ? 'imperial' : 'metric',
                 groundAt: (x, z, y) => { try { const h = w.roadHeight?.(x, z, { y }); return Number.isFinite(h) ? Math.max(0, h - 0.24) : 0; } catch { return 0; } } };
         }
         return null;
@@ -194,7 +195,7 @@ export class Drone {
         const c = this.ctx(); if (!c) return { ok: false, reason: 'Only on foot, in a district or a tourist spot.' };
         if (g.photo?.active || g.hud?.panelOpen || g._pauseOpen || c.session?.ui?.panelOpen) return { ok: false, reason: 'Close the panel first.' };
         if (c.boundary && !c.boundary.allowed(c.walker)) return { ok: false, reason: `Outside the flight area: walk back within ${FLIGHT_GRACE} m of the playable area.` };
-        if (this.covered(c)) return { ok: false, reason: 'Something is overhead (a roof, a bridge or tree crowns): step out under open sky.' };
+        if (!inspectionEnabled() && this.covered(c)) return { ok: false, reason: 'Something is overhead (a roof, a bridge or tree crowns): step out under open sky.' };
         return { ok: true };
     }
     /** a short ray straight up from the head: roofs, decks, canopies, tree crowns */
@@ -217,7 +218,7 @@ export class Drone {
         this.active = true; this.phase = 'lift'; this.t = 0; this.pt = 0; this.battery = 1; this.recT = 0; this.rth = false; this.rthPath = null; this.autoRth = false; this.maxD = 0; this.maxAlt = 0; this.dist = 0;
         this.home = { x: w.x, z: w.z, y: w.y || 0, heading: w.heading, pitch: w.pitch || 0 };
         this.yaw = w.heading; this.gimbal = 0; this.vel.set(0, 0, 0); this.tiltP = this.tiltR = 0;
-        this.range = RANGE[c.kind]; this.imperial = c.units === 'imperial';
+        this.range = inspectionEnabled()?Infinity:RANGE[c.kind]; this.imperial = c.units === 'imperial';
         // camera leaves the walker's head (world space); the walker freezes (its input is swapped for a dead one)
         this.saved = { fov: cam.fov, parent: cam.parent, r3dPlayer: g.r3d?.player ?? null, lookAllowed: g.input.lookAllowed };
         const eye = this._eye();
@@ -400,7 +401,7 @@ export class Drone {
         this.homeMk.visible = cam.position.distanceTo(eye) > 2.5;
         for (const f of this.homeMk.userData.figure) f.visible = this.homeMk.visible;
         if (this.t > 2.2) document.body.classList.remove('drone-lift');
-        if (u >= 1) { this.phase = 'fly'; this.pos.copy(fly0); this.c.boundary?.constrain(this.pos, this.vel); this.model.visible = false; this.t = 0; this.warn(`${MODES[this.mode].name} mode · ${this._fmtDist(this.range)} range · ${this.imperial ? '400 ft' : `${CEIL_M} m`} ceiling`, 3.5); }
+        if (u >= 1) { this.phase = 'fly'; this.pos.copy(fly0); this.c.boundary?.constrain(this.pos, this.vel); this.model.visible = false; this.t = 0; this.warn(inspectionEnabled()?'Inspection flight · unrestricted range, altitude and battery':`${MODES[this.mode].name} mode · ${this._fmtDist(this.range)} range · ${this.imperial ? '400 ft' : `${CEIL_M} m`} ceiling`, 3.5); }
     }
     _fly(dt) {
         // Looking upward/downward uses the full mode speed too. Sweep physical
@@ -465,10 +466,10 @@ export class Drone {
         else if (rd > this.range * 0.9) this.warn('Approaching max range', 0.6);
         const gy = c.groundAt(this.pos.x, this.pos.z, ny);
         const ceil = gy + (this.imperial ? 121.9 : CEIL_M);
-        if (ny > ceil) { ny = ceil; if (this.vel.y > 0) this.vel.y = 0; this.warn(this.imperial ? 'Altitude limit 400 ft (FAA recreational ceiling)' : `Altitude limit ${CEIL_M} m (EU open category)`, 1.2); }
+        if (!inspectionEnabled() && ny > ceil) { ny = ceil; if (this.vel.y > 0) this.vel.y = 0; this.warn(this.imperial ? 'Altitude limit 400 ft (FAA recreational ceiling)' : `Altitude limit ${CEIL_M} m (EU open category)`, 1.2); }
         if (ny < gy + 0.6) { ny = gy + 0.6; if (this.vel.y < 0) this.vel.y = 0; }
         this.pos.y = ny;
-        this._collide(c, !!c.boundary);
+        this._collide(c, inspectionEnabled() || !!c.boundary);
         // The geofence runs after physical pushes, and at every height (including above
         // the driving-mask walls). Projection removes outward speed, preserving slides.
         if (c.boundary?.constrain(this.pos, this.vel, previous)) this.warn(`Flight area edge · ${FLIGHT_GRACE} m beyond the playable area`, 0.6);
@@ -489,7 +490,7 @@ export class Drone {
         if (cam.fov !== 70 && !photo) { cam.fov = 70; cam.updateProjectionMatrix(); }
         // battery, stats
         const sp = Math.hypot(this.vel.x, this.vel.z);
-        this.battery = Math.max(0, this.battery - dt / BATTERY_S * (1 + sp / 40 + Math.abs(this.vel.y) / 12));
+        this.battery = inspectionEnabled()?1:Math.max(0, this.battery - dt / BATTERY_S * (1 + sp / 40 + Math.abs(this.vel.y) / 12));
         if (this.battery < RTH_LOW && !this.rth) this.returnHome(true);
         if (this.battery <= 0.02 && this.rth) this.warn('Battery reserve — returning to land', 2, 'hot');
         this.recT += dt; this.dist += sp * dt;
@@ -587,7 +588,7 @@ export class Drone {
         this.q.mode.textContent = `⚡ ${MODES[this.mode].name} · ${this._fmtSpeed(MODES[this.mode].h)} (wheel / 1 2 3)`; this.q.mode.title = MODES[this.mode].name + ' mode'; // (after round 6: the bare 'N' chip didn't say it was the speed)
         for (const b of this.hudEl.querySelectorAll('[data-dr^=mode]')) b.classList.toggle('on', +b.dataset.dr.split(':')[1] === this.mode);
     }
-    _fmtDist(m) { return this.imperial ? (m >= 1609 ? `${(m / 1609.34).toFixed(1)} mi` : `${Math.round(m * 3.281)} ft`) : (m >= 1000 ? `${(m / 1000).toFixed(1)} km` : `${Math.round(m)} m`); }
+    _fmtDist(m) { if(!Number.isFinite(m))return 'unlimited'; return this.imperial ? (m >= 1609 ? `${(m / 1609.34).toFixed(1)} mi` : `${Math.round(m * 3.281)} ft`) : (m >= 1000 ? `${(m / 1000).toFixed(1)} km` : `${Math.round(m)} m`); }
     _fmtAlt(m) { return this.imperial ? `${Math.round(m * 3.281)} ft` : `${Math.round(m)} m`; }
     _fmtSpeed(ms) { return this.imperial ? `${Math.round(ms * 2.237)} mph` : `${Math.round(ms * 3.6)} km/h`; }
     warn(text, secs = 1.5, cls = '') { this._warnT = secs; if (this.q?.warn) { this.q.warn.textContent = text; this.q.warn.className = 'dr-warn show ' + cls; } }

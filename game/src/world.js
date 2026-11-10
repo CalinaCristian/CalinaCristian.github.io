@@ -4344,7 +4344,8 @@ export async function buildWorld(city, renderer, opts = {}) {
             const P = (s2, o) => [ax + ux * s2 + nx * o, az + uz * s2 + nz * o];
             // cheap projecting element: front face + top (+ ends when deep): 4–8 triangles instead of a 12-triangle box
             const slab = (s2, y, w, hh, d, col, ends = d > 0.3) => {
-                const [x0, z0] = P(s2 - w / 2, d), [x1, z1] = P(s2 + w / 2, d), [b0x, b0z] = P(s2 - w / 2, 0.02), [b1x, b1z] = P(s2 + w / 2, 0.02);
+                const lo=Math.max(0,s2-w/2),hi=Math.min(L,s2+w/2);if(hi<=lo)return;
+                const [x0, z0] = P(lo, d), [x1, z1] = P(hi, d), [b0x, b0z] = P(lo, 0.02), [b1x, b1z] = P(hi, 0.02);
                 db.wall(x0, z0, x1, z1, y, y + hh, nx, nz, col);
                 db.flatQuad(b0x, b0z, b1x, b1z, x1, z1, x0, z0, y + hh, shadeRgb(col, 1.06), 0, -1);
                 if (ends) { db.wall(b0x, b0z, x0, z0, y, y + hh, -ux, -uz, shadeRgb(col, 0.9)); db.wall(x1, z1, b1x, b1z, y, y + hh, ux, uz, shadeRgb(col, 0.9)); }
@@ -4392,8 +4393,8 @@ export async function buildWorld(city, renderer, opts = {}) {
                             const t = r < 0.12 ? (colType[i] === 'open' ? 'glazed' : 'open') : colType[i]; // (a few owners differ)
                             const front = colAcc[i] ? accent : t === 'clad' ? encl[i % encl.length] : neutral;
                             if (h <= 40) { // taller blocks retain the existing far silhouette in addDetail
-                                emitFacadeSlab(db, { ax, az, ux, uz, nx, nz }, s2, yb - 0.1, bayW * 0.9, 0.12, 1.1, neutral); // floor incl. soffit / side edges
-                                emitFacadeSlab(db, { ax, az, ux, uz, nx, nz }, s2, yb + 0.02, bayW * 0.9, 0.95, 1.1, front, { back: 1.02, soffit: false }); // thin parapet plate
+                                emitFacadeSlab(db, { ax, az, ux, uz, nx, nz, length:L }, s2, yb - 0.1, bayW * 0.9, 0.12, 1.1, neutral); // floor incl. soffit / side edges
+                                emitFacadeSlab(db, { ax, az, ux, uz, nx, nz, length:L }, s2, yb + 0.02, bayW * 0.9, 0.95, 1.1, front, { back: 1.02, soffit: false }); // thin parapet plate
                                 if (t === 'glazed') slab(s2, yb + 0.97, bayW * 0.88, floorH - 1.15, 1.02, rgb('#71879a'));     // glazed upper part
                                 else if (t === 'clad') slab(s2, yb + 0.97, bayW * 0.88, floorH - 1.15, 1.04, shadeRgb(front, 0.92));
                             }
@@ -5510,10 +5511,12 @@ export async function buildWorld(city, renderer, opts = {}) {
             m.geometry.dispose(); m.geometry = g2; shoreTris += g2.attributes.position.count / 3; }
         catch (err) { if (prepared) throw err; console.warn('shore foam failed', err); }
     };
-    const areaMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: false }); areaMat.name = 'landuse';
-    const paveMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: false }); paveMat.name = 'paved-areas';
-    const grassMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: false }); grassMat.name = 'grass';
-    const sportMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: false }); sportMat.name = 'sport-ground'; // (own weather: a dusting, not buried like a lawn)
+    // Compose native opaque ground in its existing painter order, then retain
+    // the final surface depth so later vehicles below it cannot show through.
+    const areaMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: true, depthFunc: THREE.AlwaysDepth }); areaMat.name = 'landuse';
+    const paveMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: true, depthFunc: THREE.AlwaysDepth }); paveMat.name = 'paved-areas';
+    const grassMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: true, depthFunc: THREE.AlwaysDepth }); grassMat.name = 'grass';
+    const sportMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: true, depthFunc: THREE.AlwaysDepth }); sportMat.name = 'sport-ground'; // (own weather: a dusting, not buried like a lawn)
     const roofMat = new THREE.MeshLambertMaterial({ vertexColors: true }); roofMat.name = 'roofs';
     const backdropMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: atlas, emissive: new THREE.Color('#ffc98a'), emissiveIntensity: 0 }); backdropMat.name = 'backdrop';
     // (after round 6) the distant city keeps its lights on at night: a procedural window grid on the walls (≈ 38 % lit,
@@ -6112,9 +6115,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             }))),
     } : null;
     const allColl = collision.concat(collisionBoxes, propColl, pierColl, underpassColl, walls);
-    const collGrid = new BoxGrid(32);
-    for (const b of allColl) collGrid.insert(b.x - b.r, b.z - b.r, b.x + b.r, b.z + b.r, b);
-    Object.defineProperty(allColl, 'query', { value: (x, z, r, cb) => { const seen = new Set(); collGrid.each(x - r, z - r, x + r, z + r, (b) => { if (!seen.has(b)) { seen.add(b); cb(b); } }); }, enumerable: false });
+    const collGrid = new BoxGrid(16), collisionQueryBounds = new WeakMap();
+    // Index the actual footprint. A long thin wall's bounding-circle square
+    // formerly occupied whole city blocks and was visited by every walker.
+    for (const b of allColl) { const box=collisionBounds(b);collisionQueryBounds.set(b,box);collGrid.insert(...box,b); }
+    Object.defineProperty(allColl, 'query', { value: (x, z, r, cb) => { const seen = new Set(); collGrid.each(x - r, z - r, x + r, z + r, (b) => { const box=collisionQueryBounds.get(b);if (!seen.has(b) && box[2]>=x-r && box[0]<=x+r && box[3]>=z-r && box[1]<=z+r) { seen.add(b); cb(b); } }); }, enumerable: false });
 
     // ---- districts / labels
     const districts = data.places.map(([n, x, z, rank]) => ({ name: str(n), x: x / 10, z: z / 10, rank }));
@@ -6242,7 +6247,9 @@ export async function buildWorld(city, renderer, opts = {}) {
          * The surface includes sidewalks and junction pads.
          */
         /** (realPass districts) top of the raised sidewalk at (x, z) or null — where walkers' feet go (traffic crowd) */
-        walkTop: (x, z) => raisedTop(x, z),
+        // Exact-coordinate bounded cache, populated only after construction.
+        // Static sidewalk geometry has no time/weather dependence.
+        walkTop: (()=>{const cache=new Map(),keys=new Array(4096);let next=0;return(x,z)=>{const key=x+','+z,cached=cache.get(key);if(cached!==undefined)return cached;const top=raisedTop(x,z);if(keys[next]!==undefined)cache.delete(keys[next]);keys[next]=key;next=(next+1)&4095;cache.set(key,top);return top;};})(),
         roadHeight(x, z, opts = null) {
             if (opts && opts.a && opts.b && opts.len) return Y.road + yAlong(opts, x, z); // legacy (edge)
             const y = opts && typeof opts.y === 'number' ? opts.y : null;
@@ -6426,17 +6433,29 @@ export function buildingBlocksRoad(c, x, z, roadY, bodyHeight = 2) {
     return true;
 }
 
+/** Conservative horizontal bounds for the exact native collision primitives. */
+export function collisionBounds(b) {
+    if(b.wall&&[b.ax,b.az,b.bx,b.bz].every(Number.isFinite))return[Math.min(b.ax,b.bx),Math.min(b.az,b.bz),Math.max(b.ax,b.bx),Math.max(b.az,b.bz)];
+    if(b.poly?.length){let x0=Infinity,z0=Infinity,x1=-Infinity,z1=-Infinity;for(const[x,z]of b.poly){x0=Math.min(x0,x);z0=Math.min(z0,z);x1=Math.max(x1,x);z1=Math.max(z1,z);}return[x0,z0,x1,z1];}
+    if(!(b.prop&&b.hw===b.r)&&Number.isFinite(b.hw)&&Number.isFinite(b.hd)&&Number.isFinite(b.angle)){const c=Math.abs(Math.cos(b.angle)),s=Math.abs(Math.sin(b.angle)),x=c*b.hw+s*b.hd,z=s*b.hw+c*b.hd;return[b.x-x,b.z-z,b.x+x,b.z+z];}
+    return[b.x-b.r,b.z-b.r,b.x+b.r,b.z+b.r];
+}
+
+function collisionHeightClear(b,x,z,radius,y,bodyHeight) {
+    if (b.roofHeightAt) {
+        const top = b.roofHeightAt(x, z, radius);
+        // The same triangulated roof drives collision; the full total-height box is only broad phase.
+        if (top === null || (y ?? 0.24) > top || (b.roadDeck && (y ?? .24) >= b.roofHeightAt(x, z, 0) - 1e-4)) return false;
+    }
+    if (b.minHeightAt) { const bottom = b.minHeightAt(x, z, radius); if (bottom === null || (y ?? .24) + bodyHeight < bottom) return false; }
+    return true;
+}
+
 function collideOne(b, x, z, radius, y, bodyHeight = 2) {
     if (!b.wall) {
         const height = y ?? 0.24;
         if ((b.y0 !== undefined && (b.roofHeightAt ? height + bodyHeight < b.y0 : height < b.y0)) || (b.y1 !== undefined && height > b.y1)) return null;
     }
-    if (b.roofHeightAt) {
-        const top = b.roofHeightAt(x, z, radius);
-        // The same triangulated roof drives collision; the full total-height box is only broad phase.
-        if (top === null || (y ?? 0.24) > top || (b.roadDeck && (y ?? .24) >= b.roofHeightAt(x, z, 0) - 1e-4)) return null;
-    }
-    if (b.minHeightAt) { const bottom = b.minHeightAt(x, z, radius); if (bottom === null || (y ?? .24) + bodyHeight < bottom) return null; }
     if (b.wall) { // wall segment, active only for bodies within its height band
         const r = distPointSeg(x, z, b.ax, b.az, b.bx, b.bz);
         if (r.d >= radius) return null;
@@ -6445,6 +6464,7 @@ function collideOne(b, x, z, radius, y, bodyHeight = 2) {
         if (yq < y0 - 0.3 || yq > y1) return null;
         let nx, nz;
         if (r.d > 1e-4) { nx = (x - r.cx) / r.d; nz = (z - r.cz) / r.d; } else { nx = b.nx; nz = b.nz; }
+        if(!collisionHeightClear(b,x,z,radius,y,bodyHeight))return null;
         return { nx, nz, pen: radius - r.d };
     }
     if(b.passageSolids){
@@ -6453,13 +6473,14 @@ function collideOne(b, x, z, radius, y, bodyHeight = 2) {
             if(height+bodyHeight<band.y0||height>band.y1)continue;
             for(const poly of band.polys){const hit=collideOne({...b,passageSolids:null,poly,holes:[],minH:band.y0,y0:undefined,y1:band.y1},x,z,radius,y,bodyHeight);if(hit&&(!best||hit.pen>best.pen))best=hit;}
         }
-        return best;
+        return best&&collisionHeightClear(b,x,z,radius,y,bodyHeight)?best:null;
     }
     if (b.minH > (y ?? 0.24) + bodyHeight) return null; // mapped passage: body fits below the source underside
     if (b.yMax !== undefined && (y ?? 0.24) > b.yMax) return null; // e.g. bridge piers: only for traffic below the deck
     if (b.prop && b.hw === b.r) { // small circle (tree trunk, post…)
         const dx = x - b.x, dz = z - b.z, d = Math.hypot(dx, dz);
         if (d >= b.r + radius) return null;
+        if(!collisionHeightClear(b,x,z,radius,y,bodyHeight))return null;
         return d > 1e-4 ? { nx: dx / d, nz: dz / d, pen: b.r + radius - d } : { nx: 1, nz: 0, pen: b.r + radius };
     }
     if (b.poly) {
@@ -6471,6 +6492,7 @@ function collideOne(b, x, z, radius, y, bodyHeight = 2) {
             const r = distPointSeg(x, z, boundary[j][0], boundary[j][1], boundary[i][0], boundary[i][1]);
             if (r.d < bd) { bd = r.d; if (r.d > 1e-5) { bnx = (x - r.cx) / r.d; bnz = (z - r.cz) / r.d; } else { bnx = 0; bnz = 0; } }
         }
+        if((inside||bd<radius)&&!collisionHeightClear(b,x,z,radius,y,bodyHeight))return null;
         if (inside) return { nx: -bnx, nz: -bnz, pen: radius + bd };
         if (bd < radius) return { nx: bnx, nz: bnz, pen: radius - bd };
         return null;
@@ -6485,6 +6507,7 @@ function collideOne(b, x, z, radius, y, bodyHeight = 2) {
     let nx, nz;
     if (d > 1e-4) { nx = ddx / d; nz = ddz / d; }
     else { const ox = b.hw - Math.abs(lx), oz = b.hd - Math.abs(lz); if (ox < oz) { nx = Math.sign(lx) || 1; nz = 0; } else { nx = 0; nz = Math.sign(lz) || 1; } }
+    if(!collisionHeightClear(b,x,z,radius,y,bodyHeight))return null;
     const pen = d > 1e-4 ? radius - d : radius + Math.min(b.hw - Math.abs(lx), b.hd - Math.abs(lz));
     return { nx: nx * c + nz * s, nz: -nx * s + nz * c, pen };
 }

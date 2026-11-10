@@ -296,8 +296,12 @@ export class Office {
         this.portrait = portraitURL(n.look, n.persona);
         // exit mat by the door (front wall)
         const exit = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 1.4), new THREE.MeshBasicMaterial({ map: makeCanvasTexture(256, 128, (ctx) => drawExitMat(ctx)) }));
-        exit.rotation.x = -Math.PI / 2; exit.position.set(0, 0.02, D / 2 - 0.9); this.scene.add(exit);
+        exit.rotation.x = -Math.PI / 2; exit.rotation.z = Math.PI; exit.position.set(0, 0.02, D / 2 - 0.9); this.scene.add(exit);
         box(1.6, 2.3, 0.08, 0, 1.15, D / 2 - 0.08, mat('#3b3f46', { roughness: 0.4, metalness: 0.3 })); // door
+        // Full jambs/header in front of the wall make the exit edge legible.
+        const doorTrim=mat('#bbbdb8',{roughness:.75}),doorZ=D/2-.16;
+        box(.10,2.42,.10,-.85,1.21,doorZ,doorTrim);box(.10,2.42,.10,.85,1.21,doorZ,doorTrim);
+        box(1.8,.10,.10,0,2.37,doorZ,doorTrim);box(.035,.22,.055,.59,1.12,doorZ-.07,mat('#d3d8dc',{metalness:.7,roughness:.25}));
         this.exitZ = D / 2 - 0.9;
         this.x = 0; this.z = D / 2 - 2; this.heading = 0;
     }

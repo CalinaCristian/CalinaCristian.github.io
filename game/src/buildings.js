@@ -16,7 +16,8 @@ const PYR = new THREE.ConeGeometry(0.72, 1, 4); PYR.rotateY(Math.PI / 4); // squ
 export function emitFacadeSlab(mb, frame, s, y, w, h, depth, color, { back = 0.02, ends = true, soffit = true } = {}) {
     const { ax, az, ux, uz, nx, nz } = frame;
     const at = (u, d, yy) => [ax + ux * u + nx * d, yy, az + uz * u + nz * d];
-    const a = at(s - w / 2, back, y), b = at(s + w / 2, back, y), c = at(s + w / 2, depth, y), d = at(s - w / 2, depth, y);
+    const lo=Math.max(0,s-w/2),hi=Math.min(frame.length??Infinity,s+w/2);if(hi<=lo)return;
+    const a = at(lo, back, y), b = at(hi, back, y), c = at(hi, depth, y), d = at(lo, depth, y);
     const top = p => [p[0], y + h, p[2]], tint = k => color.map(v => Math.min(255, Math.round(v * k)));
     mb.face4(d, c, top(c), top(d), color, [nx, 0, nz]);
     mb.face4(top(a), top(b), top(c), top(d), tint(1.06), [0, 1, 0]);

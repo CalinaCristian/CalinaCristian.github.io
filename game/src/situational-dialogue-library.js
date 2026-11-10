@@ -81,8 +81,26 @@ group('buc.crash.witness',{locale:'bucharest',...witness},[
  ['Aici merită o pauză de la comentarii.','This is a good moment to pause the commentary.'],
  ['Puțin spațiu ajută mai mult decât zece păreri.','A little space helps more than ten opinions.'],
 ]);
-group('buc.crash.bobita',{locale:'bucharest',kinds:['collision'],roles:['driver','pedestrian'],relations:['participant','witness'],facts:{contact:true,collisionType:'vehicle',playerCausedContact:true}},[
+group('buc.crash.bobita',{locale:'bucharest',kinds:['collision'],roles:['driver','pedestrian'],relations:['participant','witness'],facts:{contact:true,collisionType:'vehicle'}},[
  ['Ce-ai făcut, Bobiță?','What have you done, Bobiță?'],
+]);
+group('buc.crash.local',{locale:'bucharest',...vehicle},[
+ ['Ce-ai făcut, Bobiță? Aici era bandă, nu pistă de popice!','What happened, Bobiță? This is a lane, not a bowling alley!'],
+ ['Ușor, nea Gică! Nu se termină Bucureștiul la semaforul ăsta.','Easy, nea Gică! Bucharest doesn’t end at this traffic light.'],
+ ['Ai venit cu tot cu mașină la îmbrățișat?','Did you bring the whole car in for a hug?'],
+ ['N-am comandat tamponare la pachet!','I didn’t order a takeaway fender-bender!'],
+ ['Boss, distanța de siguranță nu e opțională, ca pătrunjelul!','Boss, a safe gap isn’t optional like parsley!'],
+ ['Bine că n-aveam ciorba pe bord.','Good thing I didn’t have soup on the dashboard.'],
+ ['Oprim, verificăm, respirăm. După aia ne certăm politicos.','Stop, check, breathe. Then we can argue politely.'],
+ ['M-ai apropiat de centru, dar nu așa voiam.','You got me closer to the centre, but that’s not how I meant it.'],
+]);
+group('buc.honk.local',{locale:'bucharest',...heard},[
+ ['Am auzit, boss! S-a auzit până la Obor.','I heard you, boss! They heard that all the way in Obor.'],
+ ['Claxonul nu-i telecomandă de semafor!','The horn isn’t a remote control for the lights!'],
+ ['Stai că n-am buton de teleportare pe Dacie.','Hang on, my Dacia doesn’t have a teleport button.'],
+ ['Băi, ai claxon sau fanfară de nuntă?','Is that a horn or an entire wedding brass band?'],
+ ['Ce facem aici, repetiții pentru Revelion?','Are we rehearsing for New Year’s Eve here?'],
+ ['Verde se face și fără coloană sonoră.','It’ll turn green without a soundtrack too.'],
 ]);
 group('buc.crash.person',{locale:'bucharest',kinds:['collision'],roles:['driver','pedestrian','staff'],relations:['participant','witness'],facts:{contact:true,collisionType:'pedestrian'}},[
  ['Opriți. Are nevoie cineva de ajutor?','Stop. Does anyone need help?'],

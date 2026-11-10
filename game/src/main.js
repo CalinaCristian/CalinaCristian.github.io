@@ -1,3 +1,4 @@
+import {mountInspection} from './inspection.js';
 import * as THREE from '../vendor/three.module.min.js';
 import * as CITY_MOD from './cities.js';
 import { chapterCard, chapterMontage, chapterSelectHtml, loadProgress, saveProgress, chapterCardOpen } from './chapters.js';
@@ -2848,3 +2849,5 @@ ${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" 
 window.game = new Game();
 initAchievements(window.game); // spec 23: achievements, completion %, panel
 try { initExplore(window.game); } catch (e) { console.error('[explore] init', e); } // explore lane: game.explore API
+
+window.game.inspection = mountInspection(window.game);

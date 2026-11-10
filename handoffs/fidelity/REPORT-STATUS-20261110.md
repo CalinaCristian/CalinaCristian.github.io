@@ -1,6 +1,6 @@
 # Full owner-report delivery status · 10 November 2026
 
-**Delivered and closed from this 71-report batch: 3 / 71, through two fixes. Basarab white ground and both SkyTower reports are live; the other 68 reports remain open.**
+**Delivered and closed from this 71-report batch: 4 / 71, through three fixes. Basarab white ground, both SkyTower reports and Otopeni report54 are live; the other67reports remain open.**
 
 This is a delivery ledger. A staged candidate is code awaiting acceptance; it is not a completed fix. All original reports and supplied poses remain in [the exact register](owner-reports-20261110.json).
 
@@ -9,9 +9,9 @@ Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integrat
 | Current implementation state | Reports |
 | --- | ---: |
 | Staged candidate | 3 |
-| Open — no verified fix | 55 |
+| Open — no verified fix | 54 |
 | Shared fix in progress | 8 |
-| Delivered — verified live | 3 |
+| Delivered — verified live | 4 |
 | In progress | 1 |
 | Unfinished | 1 |
 
@@ -70,7 +70,7 @@ Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integrat
 | 51 | Romana | Floating detached upper office volume | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 52 | General / interiors | Owner asks whether Luxoft is unfinished; screenshot shows generic interior and opaque windows. Confirmed still unfinished and outlook unavailable pending floor. | **Unfinished** | Interior and geographically correct window view remain incomplete; assigned floor is unresolved. |
 | 53 | Otopeni | Unexpected concrete object/median in driven road | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 54 | Otopeni | Repeated displaced concrete road median pieces | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
+| 54 | Otopeni | Repeated displaced concrete road median pieces | **Delivered — verified live** | Ground-road guards render from final collision segments; exact owner drone before/after inspected. Geometry/collision equality, foot/a,8constructors,Highview and overview layouts pass; original visual findings unchanged. Master9d681f45/releasegame-61b37c69fe8629e8;301live-file checks pass. [Original evidence](https://cristiancalina.com/game/overview/#road-guard-fix). |
 | 55 | Otopeni | Large floating roof/upper building shell | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 56 | Otopeni | Small generic buildings overlap terminal facade | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 57 | Seatac | Skybridge/connector connected to nothing | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |

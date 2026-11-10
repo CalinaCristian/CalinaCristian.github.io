@@ -17,3 +17,8 @@ Next improvements worth testing, in priority order:
 Population thinning, lowering Ultra, hiding real geometry and quoting software-renderer FPS are not acceptance methods. Basarab normal approaches, ascent, both directions, ground exit, mirror views and same-population sustained frames remain required.
 
 Quiet sequential control completed after all render browsers closed:180simulation seconds/5400steps each,311vehicles560people throughout,0page errors. Baseline8abd median of18batch medians38.85ms,last60s38.30ms; candidate67b median32.50ms,last60s32.00ms. Median reduction16.34%. Raw report quiet-comparison-summary.json and bothquiet-*directories retain scope and exact hashes. This is fixed-spawn component CPU; complete driven-route/hardware and published acceptance remain open.
+
+
+Additional candidate under measurement: conservative cached road-segment AABBs skip distant strips before the unchanged pedestrian projection/hypot/asymmetric-width/deepest-contact predicate.16,000native-source queries match the retained predicate in district and legacy modes; native physical motion/recovery and4,000peer decisions pass. Current67b V8 self-time includes about36.5s in roadAt across its sampled invocations, motivating this bounded change. No measured speedup is claimed yet.
+
+Mandatory immutable67b foot/a run completed:0HIGH/0MEDIUM, traffic-update8.9ms LOW and software-GL FPS LOW. Immutable1816a467(CPU plus elevated-view light coverage) foot/a also0HIGH/0MEDIUM, one software-GL FPS LOW. These legacy scenarios do not certify the complete Basarab journey. Raw basarab-20261110/logic-candidate and night-viewer-20261110/logic-candidate retain served file hashes and reports.

@@ -12,3 +12,12 @@ test('unchanged visibility reuses the index upload; a real view change updates i
  assert.equal(selectTerrainIndices(chunks,matrix(),output,cache).changed,true);const before=output.slice();assert.equal(selectTerrainIndices(chunks,matrix(),output,cache).changed,false);assert.deepEqual(output,before);
  camera.rotation.y=-Math.PI/2;camera.updateMatrixWorld();const changed=selectTerrainIndices(chunks,matrix(),output,cache);assert.equal(changed.changed,true);assert.equal(changed.count,3);assert.deepEqual([...output.slice(0,3)],[3,4,5]);
 });
+
+test('native ground selection keeps source vertices, original topology and transforms while changing only submission',async()=>{
+ const{terrainMeshViewSelection}=await import('../src/spots/source-terrain-visibility.js');
+ const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.BufferAttribute(positions.slice(),3));geometry.setIndex(new THREE.BufferAttribute(indices.slice(),1));const sourceIndex=geometry.index,original=geometry.attributes.position.array.slice(),mesh=new THREE.Mesh(geometry,new THREE.MeshBasicMaterial()),selection=terrainMeshViewSelection(mesh);
+ camera.rotation.y=0;camera.updateMatrixWorld();mesh.updateMatrixWorld();assert.equal(selection.update(camera).triangles,1);assert.deepEqual([...geometry.index.array.slice(0,3)],[0,1,2]);
+ const version=geometry.index.version;selection.update(camera);assert.equal(geometry.index.version,version);assert.equal(selection.sourceIndex,sourceIndex);assert.deepEqual(sourceIndex.array,indices);assert.deepEqual(geometry.attributes.position.array,original);
+ mesh.position.x=-5000;mesh.updateMatrixWorld();assert.equal(selection.update(camera).triangles,1);assert.deepEqual([...geometry.index.array.slice(0,3)],[3,4,5]);assert.equal(mesh.userData.terrainViewSelection.sourceTriangles,2);
+ mesh.castShadow=true;assert.throws(()=>terrainMeshViewSelection(mesh),/offscreen shadows/);
+});

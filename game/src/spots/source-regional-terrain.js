@@ -1,7 +1,7 @@
 import * as THREE from '../../vendor/three.module.min.js';
 import {decodeRegionalContainer} from './regional-array-codec.js';
 import {terrainProjectionAttributes,terrainMorphBounds,installSourceTerrainFog} from './source-terrain-projection.js';
-import {terrainIndexChunks,selectTerrainIndices} from './source-terrain-visibility.js';
+import {terrainIndexChunks,selectTerrainIndices,terrainMeshViewSelection} from './source-terrain-visibility.js';
 import {waterMaterial} from './scenes/sea-common.js';
 
 const packets=new Map();let manifestPromise;
@@ -74,7 +74,7 @@ export function addRegionalTerrain(ctx){
     // Connected measured geography supplies the content edge; actual shared
     // weather now determines contrast instead of an artificial scene-edge haze.
     ctx.env.edgeM=0;ctx.add(group);s.group=group;s.rendered=true;s.totalTriangles=c.batches.reduce((n,b)=>n+b.index.length/3,0);
-    const original=ctx.scene.onBeforeRender;
+    const original=ctx.scene.onBeforeRender;let nativeGround=null;
     ctx.scene.onBeforeRender=function(renderer,scene,camera,...args){
         const result=original.call(this,renderer,scene,camera,...args);camera.getWorldPosition(eye);
         s.actualEye=eye.toArray();s.outsideEyeDomain=Math.hypot(eye.x,eye.z)>c.eyeHorizontalBoundM||eye.y<eyeMin[1]||eye.y>eyeMax[1];
@@ -82,6 +82,11 @@ export function addRegionalTerrain(ctx){
         s.lodCamera={effectiveVerticalFovDeg:fov,physicalHeightPx:bufferSize.y,aspect:camera.aspect,eye:s.actualEye};
         s.outsideLODEnvelope=s.outsideEyeDomain||fov<policy.fovMinDeg||fov>policy.fovMaxDeg||bufferSize.y>policy.physicalHeightPx||camera.aspect>policy.aspectMax;
         s.submittedTriangles=0;s.visibleChunks=0;
+        // The standard scene finish creates these after this regional setup.
+        // Their floor sampler retains the original vertices and grid topology.
+        if(!nativeGround&&ctx.extras.terrain)nativeGround=[ctx.extras.terrain.inner,ctx.extras.terrain.outer].filter(m=>m.geometry.index?.count).map(m=>terrainMeshViewSelection(m));
+        s.nativeGroundSubmittedTriangles=0;
+        for(const item of nativeGround||[]){item.mesh.updateWorldMatrix(true,false);s.nativeGroundSubmittedTriangles+=item.update(camera).triangles;}
         for(const item of meshes){
             const m=item.mesh;m.updateWorldMatrix(true,false);localEye.copy(eye);m.worldToLocal(localEye);m.morphTargetInfluences.splice(0,3,localEye.x,localEye.y,localEye.z);
             vp.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse).multiply(m.matrixWorld);

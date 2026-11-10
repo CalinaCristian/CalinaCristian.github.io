@@ -31,3 +31,20 @@ export function selectTerrainIndices(chunks,sourceViewProjection,output,cache=nu
     if(cache){cache.output=output;cache.visible=visibleList;}
     return{count,triangles:count/3,visibleChunks,totalChunks:chunks.length,...(cache?{changed:!unchanged}:{})};
 }
+
+/** Render-only selection for static, non-shadow-casting native ground meshes. */
+export function terrainMeshViewSelection(mesh,{chunkM=32}={}){
+    if(mesh.castShadow)throw Error('View-selected ground must not cast offscreen shadows');
+    const geometry=mesh.geometry,sourceIndex=geometry.index,positions=geometry.attributes.position.array;
+    if(!sourceIndex)throw Error('View-selected ground must be indexed');
+    const chunks=terrainIndexChunks(positions,sourceIndex.array,{chunkM}),output=new sourceIndex.array.constructor(sourceIndex.array.length),cache={},vp=new THREE.Matrix4();
+    output.set(sourceIndex.array);geometry.setIndex(new THREE.BufferAttribute(output,1).setUsage(THREE.DynamicDrawUsage));
+    const stats=mesh.userData.terrainViewSelection={sourceTriangles:sourceIndex.count/3,submittedTriangles:sourceIndex.count/3,totalChunks:chunks.length};
+    return{mesh,sourceIndex,update(camera){
+        vp.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse).multiply(mesh.matrixWorld);
+        const selected=selectTerrainIndices(chunks,vp,output,cache);
+        if(selected.changed){geometry.index.needsUpdate=true;geometry.setDrawRange(0,selected.count);}
+        stats.submittedTriangles=selected.triangles;stats.visibleChunks=selected.visibleChunks;
+        return selected;
+    }};
+}

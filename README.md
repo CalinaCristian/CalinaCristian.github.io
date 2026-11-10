@@ -357,3 +357,5 @@ Office outlooks now follow the owner-assigned floors within their retained sourc
 The overview highlights accent-insensitive guide search matches and supplies four matched summer/winter day/night ground galleries for all eight districts and seven visits (252 original selected images). Every image retains its own source, camera and capture time; appearance fixtures do not certify activity completion. Source-labelled performance/depth/inspection diagnostics and remaining visual gaps stay explicit.
 
 Office outlook ownership checks read sparse precise dimensions or retained source-row heights. Lower podiums therefore do not block upper-floor views merely because they lack a precision override; same-height foreign volumes still reject.
+
+Overview landmark range chips retain the separately sourced intended staging rollout; they do not assert that all of those models are included in this runtime. The live district inventory and original range provenance remain separate.

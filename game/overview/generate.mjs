@@ -137,6 +137,13 @@ const comparisonLocations = JSON.parse(read('game/overview/comparison-data/catal
 const data = {comparisonLocations,sourceSha,reviewedOn:'2026-11-10',repository:'https://github.com/CalinaCristian/CalinaCristian.github.io',counts:{districts:districts.length,chapters:CHAPTERS.length,landmarks:landmarks.length,landmarkBuilders:new Set(landmarks.map(x=>x.builder)).size,landmarkEvidence:landmarks.filter(lm=>lm.evidence).length,spots:spots.length,spotEvidence:spots.filter(s=>s.evidence).length,scenes:new Set(spots.map(s=>s.scene)).size,historicalReady:ready.length,menuAvailable:MENU_AVAILABLE.size,...visitorTotals(),achievements:[...read('game/src/data.js').split('export const ACHIEVEMENTS = [')[1].split('\n];')[0].matchAll(/\{ id: '/g)].length},districts,landmarks,spots,sources};
 const priorInventory=JSON.parse(read('game/overview/inventory.json'));
 if(priorInventory.stagingEvidence)data.stagingEvidence=priorInventory.stagingEvidence;
+// Keep intended staging range evidence at its original source. This runtime
+// does not yet contain that broader landmark rollout; never relabel it current.
+if(priorInventory.landmarkRanges){
+ data.landmarkRanges={...priorInventory.landmarkRanges,currentRuntimeMatchesInputs:false,currentRuntimeNote:'Retained intended staging coverage; additional district models are not part of this runtime release.'};
+ for(const landmark of data.landmarks)landmark.rangeContexts=priorInventory.landmarks.find(x=>x.id===landmark.id)?.rangeContexts||[];
+}
+
 writeFileSync(resolve(root,'game/overview/inventory.json'),JSON.stringify(data,null,2)+'\n');
-execFileSync(process.execPath,['tools/osm/update-overview-landmark-ranges.mjs','--source='+sourceSha],{cwd:root,stdio:'pipe'});
+
 process.stdout.write(JSON.stringify(data.counts)+'\n');

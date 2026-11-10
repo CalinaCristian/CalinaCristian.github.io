@@ -4,6 +4,8 @@
 
 This is a delivery ledger. A staged candidate is code awaiting acceptance; it is not a completed fix. All original reports and supplied poses remain in [the exact register](owner-reports-20261110.json).
 
+Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integration.** [Current ownership](WORK-PACK-OWNERSHIP-20261110.md). Codex has resumed packC with immutable native reproductions at the reported Romană/Otopeni cameras. This investigation closes no additional report yet.
+
 | Current implementation state | Reports |
 | --- | ---: |
 | Staged candidate | 3 |

@@ -342,3 +342,5 @@ The public overview now includes the dated Carusel doorway, gallery and phone ca
 The public Pages payload excludes the closed internal native-budget diagnostics while retaining every public runtime/overview asset and all original diagnostics in Git.
 
 Current public overview: searchable city-filtered alphabetical evidence pickers, explicit landmark viewing ranges and latest published captures. Historical district image trees are excluded from Pages. The game preview retains the tested bridge/office/dialogue batch; the newer Seattle architecture/activities/terrain and expanded district landmark coverage are still staging candidates. Full fidelity, continuous routes and Ultra hardware performance are not accepted by this preview.
+
+Release stamping verifies source datasets larger than32MB with a buffer sized to the tracked input. Mismatched revisions still fail before output files are changed.

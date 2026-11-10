@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // No game build step. Stamp committed runtime content so every diagnostic identifies its source.
-import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync, existsSync, statSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
@@ -22,7 +22,7 @@ if (!process.argv.includes('--write')) {
     const requestedSource = process.argv.find(arg => arg.startsWith('--source='))?.slice(9) || 'HEAD';
     const sourceCommit = execFileSync('git', ['rev-parse', '--verify', `${requestedSource}^{commit}`], { cwd: root, encoding: 'utf8' }).trim();
     for (const source of sources) {
-        const committed = execFileSync('git', ['show', `${sourceCommit}:${source.path}`], { cwd: root, maxBuffer: 32 * 1024 * 1024 });
+        const committed = execFileSync('git', ['show', `${sourceCommit}:${source.path}`], { cwd: root, maxBuffer: Math.max(32 * 1024 * 1024, statSync(resolve(root, source.path)).size + 65536) });
         if (hash(canonical(source.path, committed)) !== source.sha256) throw new Error(`Commit ${source.path} before stamping the release.`);
     }
     for (const path of ['index.html', 'game/index.html']) {

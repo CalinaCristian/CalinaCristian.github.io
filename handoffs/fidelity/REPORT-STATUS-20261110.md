@@ -1,6 +1,6 @@
 # Full owner-report delivery status · 10 November 2026
 
-**Delivered and closed from this 71-report batch: 0 / 71. No new batch deployment.**
+**Delivered and closed from this 71-report batch: 1 / 71. The Basarab white-ground fix is live; the other 70 reports remain open.**
 
 This is a delivery ledger. A staged candidate is code awaiting acceptance; it is not a completed fix. All original reports and supplied poses remain in [the exact register](owner-reports-20261110.json).
 
@@ -9,7 +9,7 @@ This is a delivery ledger. A staged candidate is code awaiting acceptance; it is
 | Staged candidate | 5 |
 | Open — no verified fix | 55 |
 | Shared fix in progress | 8 |
-| Local check passed; unreleased | 1 |
+| Delivered — verified live | 1 |
 | In progress | 1 |
 | Unfinished | 1 |
 
@@ -25,7 +25,7 @@ This is a delivery ledger. A staged candidate is code awaiting acceptance; it is
 | 8 | Floreasca | Inspect crowd blockage by parked cars/closures; route around if a legal walkable path exists or turn back without teleporting. | **Shared fix in progress** | Pedestrian/car recovery fixes are under test. This specific reported location has not been verified. |
 | 9 | Floreasca | Inspect crowd blockage by parked cars/closures; route around if a legal walkable path exists or turn back without teleporting. | **Shared fix in progress** | Pedestrian/car recovery fixes are under test. This specific reported location has not been verified. |
 | 10 | Floreasca | Owner asks whether courtyard-facing windows and a large inner blue roof/slab are expected; verify source parts before classifying. | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 11 | Grozavesti | White flat ground patches below Basarab | **Local check passed; unreleased** | Ground cutout/depth candidate removes the patches in native controls. A narrow release and affected overview capture are still required. |
+| 11 | Grozavesti | White flat ground patches below Basarab | **Delivered — verified live** | White patches removed at the reported camera; lowered river and dry ground retained. Mastera256e0c5/releasegame-d4c54bc944e67ace;287live-file checks passed. [Original evidence](https://cristiancalina.com/game/overview/#white-ground-fix). |
 | 12 | Grozavesti | Deck underside missing/cut pieces | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 13 | Grozavesti | Missing chunks on lower ramp approach | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 14 | Grozavesti | Discontinuous ramp guard panels | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
@@ -98,6 +98,6 @@ This is a delivery ledger. A staged candidate is code awaiting acceptance; it is
 | Quieter realistic horns and reactions | Audio candidate exists; native player/NPC audio, H/touch and interaction acceptance remain. |
 | Linear story, portrait HUD, guide/menu regressions | Partial implementations and earlier UI checks exist; full story/phone regression acceptance remains. |
 | Sustained CPU/FPS, all eight district budgets, mirrors, disposal and full physical journeys | Open. Latest R18 foot/a:0 high,0 medium,2 low. Busy full-population traffic is still too expensive. |
-| Current overview captures, tested master publication, live-byte verification and owned-branch cleanup | Open. A narrow verified release is the next delivery task; the unresolved bridge work remains separately tracked. |
+| Current overview captures, tested master publication, live-byte verification and owned-branch cleanup | First ground-fix release is live with synchronized evidence and287live-file checks. Publication of the remaining work and final owned-branch cleanup remain open. |
 
 The latest implementation/evidence handoff is [ACTIVE-20261110.md](ACTIVE-20261110.md). Original negative runs and source limits are retained.

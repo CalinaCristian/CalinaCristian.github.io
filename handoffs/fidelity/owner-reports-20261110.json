@@ -574,7 +574,7 @@
     {
       "id": "basarab-white-ground",
       "ownerNote": "White flat ground patches below Basarab",
-      "status": "reported-not-yet-accepted",
+      "status": "verified-live",
       "report": {
         "schemaVersion": 1,
         "release": "game-471508886d4ff5a1",
@@ -632,12 +632,20 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "candidate": "8a6099a39ab3fbc847496ba0f1eaa8ad63f81c43",
-        "previousCandidate": "2bbf755f67bbfa710bb28ccd46cea552f5f3739d",
-        "evidence": "BASARAB-20261110.md",
-        "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
-        "deliveryStatus": "Local check passed; unreleased",
-        "deliveryNote": "Ground cutout/depth candidate removes the patches in native controls. A narrow release and affected overview capture are still required."
+        "candidate": "a4afabcc2f07d095b5793cca56d7f7a04b5cc1a8",
+        "previousCandidate": "8a6099a39ab3fbc847496ba0f1eaa8ad63f81c43",
+        "evidence": "GROUND-RELEASE-20261110.md",
+        "scope": "Closed only the white fallback-ground patches. Exact native owner camera, independent lowered-river image and ground/water rays passed. All8 production World constructors, required foot/a0H0M and scoped visual comparison passed. Other Basarab geometry and travel reports remain open.",
+        "deliveryStatus": "Delivered — verified live",
+        "deliveryNote": "Live mastera256e0c5, releasegame-d4c54bc944e67ace, source5e268382. All287 live file checks passed; original before/after and lowered-river evidence published.",
+        "publication": {
+          "master": "a256e0c506454ec3b30be6a277b8806bec42446b",
+          "source": "5e268382052521827fc6eade2748ec51cc62000a",
+          "release": "game-d4c54bc944e67ace",
+          "verifiedAt": "2026-11-10T20:17:52.350064+00:00",
+          "liveChecks": 287,
+          "overview": "https://cristiancalina.com/game/overview/#white-ground-fix"
+        }
       }
     },
     {

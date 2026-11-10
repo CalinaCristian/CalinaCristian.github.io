@@ -371,3 +371,7 @@ The portrait World map wraps its city tabs into two rows, keeping Bellevue and W
 Office view ownership checks use both precise building-height overrides and the retained legacy height rows, so lower podiums do not incorrectly block upper-floor windows when no precision override exists.
 
 Bellevue Downtown Park’s cascade candidate now follows an official City of Bellevue photograph: thin lit water streams reveal a wet retaining wall, a narrow irregular impact line replaces the broad white foam strip, and the opaque mist curtain is removed. Source plan coordinates are retained; the 2.4 m drop remains estimated. All water textures are original procedural work, with two bounded draw calls and no provider pixels. Native four-condition appearance and activity-route checks are still required before acceptance.
+
+Horn refinement candidate: softer, pressure-like attack/release and shaped dual 400/500 Hz tones replace the sharp sawtooth blast. Nearby horns mix at reduced gain with distance filtering; NPC pitch varies narrowly instead of the former broad coordinate-dependent range. Engine and other sound levels are unchanged.
+
+Near-window clarity candidate: capture only the visible window subsection and apply its inverse UV crop to the unchanged pane. This removes enlargement of a small patch of the full-window texture. Reusable128px growth buckets are capped by the selected quality (Ultra4M/High2M/Medium1M/Low0.5M pixels), with no new world or actor simulation. Native near-glass/High/Ultra acceptance is pending.

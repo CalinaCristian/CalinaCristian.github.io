@@ -11,7 +11,7 @@ export function boundedOfficeWindowSize(width,height,pixelRatio=1,{maxPixels=262
 /** Grow in bounded buckets during a visit; camera motion never shrinks/reallocates a target. */
 export function retainedOfficeWindowCapacity(width,height,previous=null,{maxPixels=1000000,maxDimension=2048}={}){
  const request=boundedOfficeWindowSize(width,height,1,{maxPixels,maxDimension});
- const bucket=n=>Math.min(maxDimension,Math.max(64,2**Math.ceil(Math.log2(n))));
+ const bucket=n=>Math.min(maxDimension,Math.max(128,Math.ceil(n/128)*128));
  return{width:Math.max(previous?.width||0,bucket(request.width)),height:Math.max(previous?.height||0,bucket(request.height))};
 }
 /**

@@ -12,10 +12,32 @@ not available (see "Not available"), publication and live verification by the in
 | `dda67f21` | traffic: visible crossing knots open by bounded reversing | `game/src/traffic.js` |
 | `d538aaad` | traffic: recovery "in view" test bounded at 700 m | `game/src/traffic.js` |
 | `6c07fd94` | merge of `origin/master` (`e21797e7`) | none conflicting |
+| (next) | bridges: Basarab superstructure candidate r9 integrated selectively | `game/src/world.js`, `trees.js`, `bridge-bents.js` (+ four new modules) |
 
 To keep master linear, cherry-pick the first three; the merge commit carries no change of its own.
 
 ## Pack A · reports 12-17 (in progress)
+
+**Update, superstructure integrated.** On the owner's instruction the candidate `fidelity/basarab-render-r9` (`81464a88`) was
+integrated selectively after the first three commits. The numbers in the list below are from before that integration; the
+current ones are:
+
+- Taken: `basarab-structure.js`, `basarab-anchor-clearance.js`, `basarab-source.js`, `covered-platform-canopies.js`, the
+  `exclude` hook in `trees.js`, and the `world.js` wiring (guard drawing, structure build, platform/tree conflicts).
+- Not taken: `tree-view-selection.js` and far-tree culling, the larger merged render cells (`SUPER`), and the traffic CPU
+  commit `67b39084` (pack B; not evaluated yet). `fidelity/basarab-piers-r22` was not used at all.
+- Grozăvești now: 72 crosshead bents and 3 wall piers on 125 columns; **47 pier stations are left to the stays and the arch**;
+  60 of 60 stays anchored, 0 unresolved; 336 centre-support pieces; 2 literal platforms; 412 slot infill quads (3195 m²);
+  3 measured canopies inside a covered platform excluded after generation.
+- Frame budget, High, traffic and mirror, 77 driver poses: **max 364 draw calls, 1,405,285 triangles** (about 6 % triangle
+  headroom). If more headroom is needed, the candidate's far-tree selection and merged cells are the untaken options.
+- No lane of any Basarab bridge edge and no point of the elevated tram track touches a `basarab-*` member or a pier (3998
+  lane samples, 1015 track samples). Pre-existing contacts seen in that sweep and not investigated: 18 lane samples against
+  tram slabs that overlap a carriageway, and 7 track samples against a lamp or road signs.
+- Evidence: `evidence/after-superstructure.jpg`. The three earlier sheets predate the superstructure.
+- Still wrong against the real bridge: no station lift tower, plain frames where the ramp has inclined piers, no curved lamp
+  posts, and an open slot at the north-east end of the station. The source ledger `game/research/basarab.json` that
+  `basarab-source.js` cites is not on the candidate branch.
 
 Found on live master: Pasajul Basarab had **15 piers on about 3.5 km of elevated deck** (placed per short source edge by a
 hash), open slots between the carriageway slabs and the tram slabs, and tree crowns standing in the elevated carriageway
@@ -34,8 +56,7 @@ Now, on Grozăvești (built-world check, High):
   bridge decks. SeaTac's bents were looked at once; pack D owns that district's acceptance.
 
 Pier positions are a MODEL estimate (30 m bents), not a survey. No support is invented where none can stand: the river
-crossing and the rail-yard crossing keep an open span. **The arch and the cable-stayed structure that really carry those
-spans are not modelled here**, so those spans still read as unsupported.
+crossing and the rail-yard crossing keep an open span. (Before the superstructure integration those spans read as unsupported; see the update above.)
 
 Still open in pack A:
 

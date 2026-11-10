@@ -48,14 +48,25 @@ const server = http.createServer((req, res) => {
                 }
                 if (!(b.seat >= M.minWallTopM)) failures.push({ i, type: 'seat', seat: b.seat });
             }
+            // Pasajul Basarab: nothing stands under a stretch its stays or arch carry; every stay is anchored
+            const B = W.basarabStructure, S = B?.superstructure || null, spans = S?.carriedSpans || [];
+            const inSpan = (x, z) => spans.find(sp => { const dx = sp.b[0] - sp.a[0], dz = sp.b[1] - sp.a[1], L = Math.hypot(dx, dz) || 1, t = ((x - sp.a[0]) * dx + (z - sp.a[1]) * dz) / L; return t > 12 && t < L - 12 && Math.abs((x - sp.a[0]) * -dz + (z - sp.a[1]) * dx) / L < 12; });
+            for (const [i, b] of bents.entries()) { const sp = inSpan(b.x, b.z); if (sp) failures.push({ i, type: 'bent-under-carried-span', span: sp.kind, x: b.x, z: b.z }); }
+            const basarab = B?.active ? { platforms: B.sourcePlatforms, centrePieces: B.gapPieces, stays: S.emittedStays, plannedStays: S.stays, anchorUnresolved: S.anchorUnresolved.length, unresolved: B.unresolved.length, pylonHeightM: S.pylonHeightM, archSpanM: S.archSpanM, roofLengthM: S.roofLengthM, physicalMembers: S.physicalMembers, carriedSpans: spans.map(sp => sp.kind), treeConflicts: { excludedMeasured: B.treeSourceConflicts?.excludedMeasured.length, retainedMapped: B.treeSourceConflicts?.retainedMapped.length } } : null;
             const piers = W.stats.piers, expectedPiers = bents.reduce((n, b) => n + (b.kind === 'wall' ? 1 : b.columns.length), 0);
-            return { city, district, model: M.basis, planner: W.stats.bridgeBents, trees: W.stats.treeDeckClearance, bents: bents.length, columns, piers, expectedPiers,
+            return { city, district, model: M.basis, basarab, planner: W.stats.bridgeBents, trees: W.stats.treeDeckClearance, bents: bents.length, columns, piers, expectedPiers,
                 maxColumnSpanM: maxSpan, minCrossheadClearanceM: Number.isFinite(minClearance) ? minClearance : null, failures };
         }, { city, district });
         fs.writeFileSync(path.join(out, `${city}-${district}.json`), JSON.stringify({ root, method: 'Built district world facts; RAF disabled; no visual, journey or performance claim.', ...report, errors }, null, 2));
         assert.deepEqual(errors, []); assert.deepEqual(report.failures, []);
         assert.equal(report.piers, report.expectedPiers); assert.ok(report.maxColumnSpanM <= 26 + 1e-6);
-        if (district === 'grozavesti') { assert.ok(report.bents >= 80, 'bents ' + report.bents); assert.ok(report.planner.slotInfill.quads >= 400); }
+        if (district === 'grozavesti') {
+            assert.ok(report.bents >= 60, 'bents ' + report.bents); assert.ok(report.planner.slotInfill.quads >= 300);
+            assert.ok(report.planner.carriedBySuperstructure >= 30, 'stations left to the stays and the arch');
+            assert.ok(report.basarab, 'Basarab superstructure active'); assert.equal(report.basarab.stays, 60); assert.equal(report.basarab.anchorUnresolved, 0); assert.equal(report.basarab.unresolved, 0);
+            assert.deepEqual(report.basarab.platforms, ['w620826242', 'w620826243']); assert.deepEqual(report.basarab.carriedSpans, ['cable-stayed', 'river-arch']);
+        } else assert.equal(report.basarab, null);
+        if (report.basarab) console.log(`     Basarab: ${report.basarab.stays}/${report.basarab.plannedStays} stays anchored, ${report.basarab.centrePieces} centre pieces, ${report.basarab.platforms.length} platforms, ${report.basarab.physicalMembers} physical members, ${report.planner.carriedBySuperstructure} bent stations left to the stays and arch.`);
         console.log(`PASS ${city}/${district}: ${report.bents} bents, ${report.columns} columns, ${report.planner.straddles || 0} straddle frames, slot infill ${report.planner.slotInfill.areaM2} m², trees narrowed ${report.trees.narrowed} / lowered ${report.trees.lowered} / excluded ${report.trees.excluded.length}; min crosshead clearance ${report.minCrossheadClearanceM?.toFixed(2)} m.`);
     } finally { await browser.close(); await new Promise(resolve => server.close(resolve)); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

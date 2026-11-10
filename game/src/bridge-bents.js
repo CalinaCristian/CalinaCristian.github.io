@@ -72,19 +72,22 @@ const chainPoint = (chain, s) => {
  * @param {(x0, z0, x1, z1, cb) => void} [o.eachRailDeck] rail decks {a:[x,z], b:[x,z], halfWidth, topAt(x,z), soffitAt(x,z)}
  * @param {(x, z, radius, belowY) => boolean} o.columnFree can a column stand here (nothing below `belowY` in the way)
  * @param {(x, z, belowY) => ({y:number, rail?:boolean}|null)} o.lowerSurface what passes under this point, below `belowY`
+ * @param {(x, z) => boolean} [o.carried] is this deck point carried by a modelled long-span structure (stays, an arch)
  */
-export function planBridgeBents({ edges, halfWidth, topAt, soffitAt, eachEdge, eachRailDeck, columnFree, lowerSurface, model = BENT_MODEL }) {
+export function planBridgeBents({ edges, halfWidth, topAt, soffitAt, eachEdge, eachRailDeck, columnFree, lowerSurface, carried = null, model = BENT_MODEL }) {
     const M = model, chains = deckChains(edges), owner = new Map();
     for (const c of chains) for (const it of c.items) owner.set(it.e, it);
     const all = (x0, z0, x1, z1, cb) => { for (const e of edges) cb(e); };
-    const near = eachEdge || all, bents = [], report = { chains: chains.length, stations: 0, bents: 0, walls: 0, coveredBySibling: 0, noColumn: 0, lowClearance: 0, tooLow: 0, shortChains: 0 };
+    const near = eachEdge || all, bents = [], report = { chains: chains.length, stations: 0, bents: 0, walls: 0, coveredBySibling: 0, carriedBySuperstructure: 0, noColumn: 0, lowClearance: 0, tooLow: 0, shortChains: 0 };
     for (const chain of [...chains].sort((a, b) => b.length - a.length || a.id - b.id)) {
         if (chain.length < M.minChainM) { report.shortChains++; continue; }
         const count = Math.max(1, Math.round(chain.length / M.spacingM)), step = chain.length / count;
         for (let i = 0; i < count; i++) {
             const s = (i + .5) * step; report.stations++;
             if (chain.covered.some(c => Math.abs(c - s) < M.spacingM * .5)) { report.coveredBySibling++; continue; }
-            const p = chainPoint(chain, s), nx = -p.tz, nz = p.tx; // n = left of travel… sign is irrelevant, offsets are signed along n
+            const p = chainPoint(chain, s);
+            if (carried?.(p.x, p.z)) { report.carriedBySuperstructure++; continue; } // stays or an arch carry this stretch
+            const nx = -p.tz, nz = p.tx; // n = left of travel… sign is irrelevant, offsets are signed along n
             const top0 = topAt(p.e, p.x, p.z);
             // every deck measures its own two sides explicitly (edges may run either way, with unequal sides)
             const sideOffset = (e, ex, ez, side) => { const w = halfWidth(e, side), ox = e.nx * side, oz = e.nz * side; return dot(ex + ox * w - p.x, ez + oz * w - p.z, nx, nz); };

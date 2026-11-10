@@ -164,7 +164,7 @@ export function buildSpeciesTrees(trees, opts = {}) {
     const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), pV = new THREE.Vector3(), sV = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0), col = new THREE.Color();
     const ZERO = new THREE.Matrix4().makeScale(0, 0, 0);
     // per tree: near crown matrix, far crown matrix, near trunk matrix, far trunk matrix, colour
-    const T = trees.map((t) => {
+    let T = trees.map((t) => {
         const sp = SPECIES[t.species] || SPECIES.generic, sh = G.shapes[sp.shape], s = t.s || 1, rot = t.rot ?? R() * 6.28, y = t.y ?? 0.12;
         const w = t.sh || 1;
         q.setFromAxisAngle(up, rot);
@@ -181,6 +181,10 @@ export function buildSpeciesTrees(trees, opts = {}) {
         const centre = sh.geo.boundingSphere.center.clone().applyMatrix4(nc);
         return { t, centre, shape: sp.shape, con: !!sh.conifer, nc, fc, nt, ft, c: col.clone(), chunk: Math.floor(t.x / CH) + ',' + Math.floor(t.z / CH), fi: -1, near: false };
     });
+    // Source conflicts are resolved after deterministic instance generation:
+    // excluded survey detections must not shift retained rotations/colours or
+    // the caller's RNG stream. No rendering-budget exclusion uses this hook.
+    if(opts.exclude?.size)T=T.filter(r=>!opts.exclude.has(r.t));
     // far chunk meshes
     const chunks = new Map();
     for (const r of T) { let c = chunks.get(r.chunk); if (!c) chunks.set(r.chunk, c = { dec: [], con: [] }); (r.con ? c.con : c.dec).push(r); }

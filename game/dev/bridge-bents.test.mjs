@@ -15,9 +15,9 @@ function line(points, extra = {}) {
     return edges;
 }
 const straight = (z, x0, x1, step = 10, extra) => line(Array.from({ length: Math.round(Math.abs(x1 - x0) / step) + 1 }, (_, i) => [x0 + Math.sign(x1 - x0) * i * step, z]), extra);
-const plan = (edges, { top = 10, half = 4, blocked = () => false, lower = () => null, heights } = {}) => planBridgeBents({
+const plan = (edges, { top = 10, half = 4, blocked = () => false, lower = () => null, heights, carried } = {}) => planBridgeBents({
     edges, halfWidth: e => e.half ?? half, topAt: (e, x, z) => heights ? heights(e, x, z) : e.top ?? top, soffitAt: (e, x, z) => (heights ? heights(e, x, z) : e.top ?? top) - 1.1,
-    columnFree: (x, z, r, belowY) => !blocked(x, z, r, belowY), lowerSurface: lower,
+    columnFree: (x, z, r, belowY) => !blocked(x, z, r, belowY), lowerSurface: lower, carried,
 });
 
 test('short source edges form one chain with bents about every 30 m', () => {
@@ -66,4 +66,10 @@ test('a crosshead never fouls what passes below; a low deck gets a wall pier onl
     assert.ok(ramp.bents.length >= 2);
     for (const b of ramp.bents) { if (b.seat - BENT_MODEL.beamDepthM < BENT_MODEL.minBeamSoffitM) assert.equal(b.kind, 'wall'); else assert.equal(b.kind, 'crosshead'); assert.ok(b.seat >= BENT_MODEL.minWallTopM); }
     assert.ok(ramp.report.tooLow >= 1);
+});
+
+test('a stretch carried by stays or an arch gets no pier, the deck on both sides keeps its bents', () => {
+    const { bents, report } = plan(straight(0, 0, 300), { carried: (x) => x > 90 && x < 210 });
+    assert.deepEqual(bents.map(b => Math.round(b.x)), [15, 45, 75, 225, 255, 285]);
+    assert.equal(report.carriedBySuperstructure, 4);
 });

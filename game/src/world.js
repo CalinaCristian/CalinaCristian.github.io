@@ -42,6 +42,10 @@ import { emittedTramClearance } from './tram-clearance.js';
 import { inferredRoadSignUnit } from './inferred-road-sign.js';
 import { bridgeJunctionSlab, inferredBridgeFasciaUpstand } from './bridge-junction.js';
 import { planBridgeBents, BENT_MODEL } from './bridge-bents.js';
+import { basarabEdge, buildBasarabStructure, drawBasarabGuard } from './basarab-structure.js';
+import { coveredPlatformCanopies } from './covered-platform-canopies.js';
+import { BASARAB_PLATFORMS } from './basarab-source.js';
+import { raisedRoadTriangles } from './basarab-anchor-clearance.js';
 import { buildRailRoadsideClearance } from './rail-roadside.js';
 import { buildCoveredRoadModels } from './covered-road-models.js';
 import { roadMiter, needsRoadBevelPad } from './road-joins.js';
@@ -2416,7 +2420,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if(polygon.length)sourceMarks.flatPolygon(polygon,q[8],q[9],q[10]);
         }
         // bridges: railings
-        if (e.bridge) {
+        if (e.bridge && !basarabEdge(data,e)) {
             const sb = bridgeGuard || c.solid;
             for (const s of [1, -1]) {
                 const pa = corner(e, e.a, s, widthAsphalt(e, s) + 0.3, widthAsphalt), pb = corner(e, e.b, s, widthAsphalt(e, s) + 0.3, widthAsphalt);
@@ -3072,6 +3076,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         walls.length = 0; walls.push(...railClearWalls);
         // draw the concrete separation barriers that survived
         for (const w of walls) {
+            if(w.kind==='rail'&&w.edge&&basarabEdge(data,w.edge))drawBasarabGuard(w,cellOf);
             if (w.generatedMedian || w.generatedRoadGuard) {
                 // Exactly the final surviving collision intervals, including
                 // openings at pads and crossing ribbons. Real OSM barriers use
@@ -3450,139 +3455,6 @@ export async function buildWorld(city, renderer, opts = {}) {
     const bGrid = new BoxGrid(32);
     for (const b of bRecs) bGrid.insert(b.x0, b.z0, b.x1, b.z1, b);
     const buildingAt = (x, z) => { let r = null; bGrid.each(x, z, x, z, (b) => { if (!r && !b.skip && x >= b.x0 && x <= b.x1 && z >= b.z0 && z <= b.z1 && pointInPolygon(x, z, b.ring) && !b.holes.some(h => pointInPolygon(x, z, h))) r = b; }); return r; };
-
-    // -----------------------------------------------------------------------
-    //  BRIDGE BENTS (MODEL estimate; bridge-bents.js): one crosshead carries every parallel deck of a structure
-    //  (both carriageways and the tram viaduct between them). Columns stand only on free ground: never on a lower
-    //  carriageway, sidewalk, rail, water or building; a bent that cannot stand, or whose crosshead would foul the
-    //  clearance of what passes below, is left out, so long spans keep their real long-span structure.
-    // -----------------------------------------------------------------------
-    let bridgeBents = { bents: [], report: null, chains: [] };
-    {
-        const deckEdges = raised.filter(e => e.bridge && !e.virtual && Math.max(e.ya, e.yb) > 0.3);
-        // elevated rail slabs join the same plan as pseudo-edges (their own half width and exact rendered band)
-        const railNodes = new Map(), railNode = p => { const k = Math.round(p[0] * 100) + ',' + Math.round(p[1] * 100); let n = railNodes.get(k); if (!n) railNodes.set(k, n = { x: p[0], z: p[1] }); return n; };
-        const railEdgeGrid = new BoxGrid(32), railEdges = [];
-        for (const d of tramDecks) {
-            if (d.kind !== 'source-tram-deck' || !d.supportA || !(d.y1 > 1.2)) continue;
-            const [ax, az] = d.supportA, [bx, bz] = d.supportB, len = Math.hypot(bx - ax, bz - az); if (len < .05) continue;
-            const dirx = (bx - ax) / len, dirz = (bz - az) / len, half = Math.abs((d.poly[0][0] - ax) * -dirz + (d.poly[0][1] - az) * dirx);
-            const e = { a: railNode(d.supportA), b: railNode(d.supportB), dirx, dirz, len, nx: -dirz, nz: dirx, railDeck: d, half };
-            railEdges.push(e); railEdgeGrid.insert(Math.min(ax, bx), Math.min(az, bz), Math.max(ax, bx), Math.max(az, bz), e);
-        }
-        // rails that a column / crosshead must keep clear of: tram tracks (at their own level) and heavy rail at grade
-        const railGrid = new BoxGrid(32), railSeg = (ax, az, bx, bz, y) => railGrid.insert(Math.min(ax, bx) - 4, Math.min(az, bz) - 4, Math.max(ax, bx) + 4, Math.max(az, bz) + 4, { ax, az, bx, bz, y });
-        const railDeckTop = (x, z) => { let y = 0; sceneryDeckGrid.each(x, z, x, z, d => { if (d.kind === 'source-tram-deck' && pointInPolygon(x, z, d.poly)) y = Math.max(y, d.y1); }); return y; };
-        for (const pl of trams) for (let i = 0; i < pl.length - 1; i++) { const [ax, az] = pl[i], [bx, bz] = pl[i + 1]; railSeg(ax, az, bx, bz, railDeckTop((ax + bx) / 2, (az + bz) / 2)); }
-        for (const r of data.railways || []) { const t = r.tags || {}; if (t.railway === 'abandoned' || (t.tunnel && t.tunnel !== 'no')) continue; const pts = undelta(r.points, 0); for (let i = 1; i < pts.length; i++) railSeg(pts[i - 1][0], pts[i - 1][1], pts[i][0], pts[i][1], 0); }
-        const railNear = (x, z, reach, belowY) => { let found = null; railGrid.each(x, z, x, z, s => { if (found || s.y >= belowY) return; const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1, t = clamp(((x - s.ax) * dx + (z - s.az) * dz) / L2, 0, 1); if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) < reach) found = s; }); return found; };
-        const lowerEdge = (x, z, margin, belowY, sidewalks) => { let found = null; edgeGrid.each(x - 14, z - 14, x + 14, z + 14, f => {
-            if (found || f.virtual || f.lidded || Math.max(f.ya, f.yb) >= belowY) return;
-            const s = (x - f.a.x) * f.dirx + (z - f.a.z) * f.dirz; if (s < -margin || s > f.len + margin) return;
-            const lat = (x - f.a.x) * f.nx + (z - f.a.z) * f.nz, side = lat >= 0 ? 1 : -1;
-            if (Math.abs(lat) < (sidewalks ? widthSide(f, side) : side > 0 ? f.wR : f.wL) + margin) found = f; }); return found; };
-        const lowerRibbon = (x, z, r, belowY) => onRibbon(x, z, r, rb => rb.y < belowY);
-        const ring = (x, z, r) => [[x, z], [x + r, z], [x - r, z], [x, z + r], [x, z - r]];
-        // mapped / measured trees keep their place: a column stands clear of them (inferred trees avoid the columns later)
-        const sourceTreeGrid = new BoxGrid(16); for (let i = 0; i + 2 < (data.trees || []).length; i += 3) { const tx = data.trees[i] / 10, tz = data.trees[i + 1] / 10; sourceTreeGrid.insert(tx, tz, tx, tz, [tx, tz]); }
-        const sourceTreeNear = (x, z, reach) => { let hit = false; sourceTreeGrid.each(x - reach, z - reach, x + reach, z + reach, t => { if (!hit && Math.hypot(t[0] - x, t[1] - z) < reach) hit = true; }); return hit; };
-        const columnFree = (x, z, r, belowY) => {
-            if (sourceTreeNear(x, z, r + 1.6)) return false;
-            if (ring(x, z, r + .6).some(([px, pz]) => isWater(px, pz) || buildingAt(px, pz))) return false;
-            if (lowerRibbon(x, z, r + .3, belowY) || lowerEdge(x, z, r + .3, belowY, true) || railNear(x, z, 1.7 + r + .4, belowY)) return false;
-            { let built = false; for (const [px, pz] of ring(x, z, r + .3)) surfacesAt(px, pz, h => { if (h < belowY) built = true; }); if (built) return false; } // any walked / driven surface
-            let deck = false; sceneryDeckGrid.each(x - r, z - r, x + r, z + r, d => { if (!deck && d.h < belowY && ring(x, z, r).some(([px, pz]) => pointInPolygon(px, pz, d.poly))) deck = true; });
-            return !deck;
-        };
-        // the highest thing passing below a crosshead: a lower carriageway with its sidewalks, a pad, a rail, a lower slab
-        const lowerSurface = (x, z, belowY) => {
-            let y = null, rail = false; const take = (h, isRail) => { if (y === null || h > y + .5) { y = h; rail = isRail; } };
-            const track = railNear(x, z, 1.7, belowY); if (track) take(track.y, true);
-            const rb = lowerRibbon(x, z, .5, belowY); if (rb) take(rb.y, false);
-            const f = lowerEdge(x, z, 0, belowY, true); if (f) take(yAlong(f, x, z), false);
-            sceneryDeckGrid.each(x, z, x, z, d => { if (d.h < belowY && pointInPolygon(x, z, d.poly)) take(d.roofHeightAt(x, z), d.kind === 'source-tram-deck'); });
-            surfacesAt(x, z, h => { if (h < belowY) take(h, false); }); // also sidewalk hulls round junction corners
-            return y === null ? null : { y, rail };
-        };
-        bridgeBents = planBridgeBents({
-            edges: deckEdges.concat(railEdges),
-            halfWidth: (e, side) => e.railDeck ? e.half : widthSide(e, side),
-            topAt: (e, x, z) => e.railDeck ? e.railDeck.roofHeightAt(x, z) : yAlong(e, x, z) + Y.road,
-            soffitAt: (e, x, z) => { if (e.railDeck) return e.railDeck.minHeightAt(x, z); const y = yAlong(e, x, z); return y + Y.road - Math.min(1.1, Math.max(.05, y)); },
-            eachEdge: (x0, z0, x1, z1, cb) => { edgeGrid.each(x0, z0, x1, z1, cb); railEdgeGrid.each(x0, z0, x1, z1, cb); },
-            columnFree, lowerSurface,
-        });
-        const conc = rgb('#a9a69e'), base = -.4;
-        for (const b of bridgeBents.bents) {
-            const sb = cellOf(b.x, b.z).solid;
-            if (b.kind === 'wall') {
-                const w = Math.max(1, b.width - .4);
-                sb.box(b.x, base, b.z, w, b.seat - base, .9, b.angle, conc);
-                pierColl.push({ x: b.x, z: b.z, hw: w / 2, hd: .45, angle: b.angle, r: Math.hypot(w / 2, .45), poly: null, h: b.seat, prop: true, kind: 'pier', yMax: b.seat - .5 });
-                continue;
-            }
-            sb.box(b.x, b.soffit, b.z, b.width + .6, BENT_MODEL.beamDepthM, BENT_MODEL.beamWidthM, b.angle, conc);
-            for (const p of b.pedestals) sb.box(p.x, p.y0, p.z, p.width, p.y1 - p.y0, 1, b.angle, conc);
-            for (const c of b.columns) {
-                const m = BENT_MODEL.columnM;
-                sb.box(c.x, base, c.z, m, b.soffit - base, m, b.angle, conc);
-                pierColl.push({ x: c.x, z: c.z, hw: m / 2, hd: m / 2, angle: b.angle, r: m * .75, poly: null, h: b.soffit, prop: true, kind: 'pier', yMax: b.seat - .5 });
-            }
-        }
-        // ---- one structure, one deck: close the open slot between the parallel slabs of a structure (carriageway |
-        //      tram slab | tram slab | carriageway). Only gaps up to the bent model's join gap, between slabs at one
-        //      level; a slab that already overlaps its neighbour, or faces open air, is left as it is.
-        const infill = { quads: 0, areaM2: 0, maxGapM: 0 };
-        {
-            const GAP = BENT_MODEL.joinGapM, LEVEL = BENT_MODEL.levelToleranceM, slab = rgb('#96938b'), dark = rgb('#55524d');
-            const strips = [];
-            for (const e of deckEdges) strips.push({ road: e, id: e.id, na: e.a, nb: e.b, a: [e.a.x, e.a.z], b: [e.b.x, e.b.z], nx: e.nx, nz: e.nz, half: s2 => widthSide(e, s2),
-                topAt: (x, z) => yAlong(e, x, z) + Y.road, soffitAt: (x, z) => { const y = yAlong(e, x, z); return y + Y.road - Math.min(1.1, Math.max(.05, y)); } });
-            for (const [i, e] of railEdges.entries()) strips.push({ rail: e.railDeck, id: 1e6 + i, na: e.a, nb: e.b, a: [e.a.x, e.a.z], b: [e.b.x, e.b.z], nx: e.nx, nz: e.nz, half: () => e.half,
-                topAt: (x, z) => e.railDeck.roofHeightAt(x, z), soffitAt: (x, z) => e.railDeck.minHeightAt(x, z) });
-            const stripGrid = new BoxGrid(32);
-            for (const st of strips) {
-                const wr = st.half(1), wl = st.half(-1);
-                st.poly = [[st.a[0] + st.nx * wr, st.a[1] + st.nz * wr], [st.b[0] + st.nx * wr, st.b[1] + st.nz * wr], [st.b[0] - st.nx * wl, st.b[1] - st.nz * wl], [st.a[0] - st.nx * wl, st.a[1] - st.nz * wl]];
-                stripGrid.insert(Math.min(...st.poly.map(q => q[0])), Math.min(...st.poly.map(q => q[1])), Math.max(...st.poly.map(q => q[0])), Math.max(...st.poly.map(q => q[1])), st);
-            }
-            // nearest neighbouring slab edge along a transverse ray from (ox, oz); null when the point is already on a neighbour
-            const reach = (own, ox, oz, dx, dz, level) => {
-                let best = null, covered = false;
-                stripGrid.each(Math.min(ox, ox + dx * GAP), Math.min(oz, oz + dz * GAP), Math.max(ox, ox + dx * GAP), Math.max(oz, oz + dz * GAP), st => {
-                    if (covered || st === own || st.na === own.na || st.na === own.nb || st.nb === own.na || st.nb === own.nb) return; // itself / its own run continuing
-                    if (pointInPolygon(ox, oz, st.poly)) { if (Math.abs(st.topAt(ox, oz) - level) < LEVEL) covered = true; return; }
-                    for (let i = 0, j = 3; i < 4; j = i++) {
-                        const [x1, z1] = st.poly[j], [x2, z2] = st.poly[i], ex = x2 - x1, ez = z2 - z1, den = dx * ez - dz * ex; if (Math.abs(den) < 1e-9) continue;
-                        const t = ((x1 - ox) * ez - (z1 - oz) * ex) / den, u = ((x1 - ox) * dz - (z1 - oz) * dx) / den;
-                        if (t > .03 && t <= GAP && u >= -1e-6 && u <= 1 + 1e-6 && (!best || t < best.t)) { const hx = ox + dx * t, hz = oz + dz * t; if (Math.abs(st.topAt(hx, hz) - level) < LEVEL) best = { t, st, x: hx, z: hz, top: st.topAt(hx, hz), soffit: st.soffitAt(hx, hz) }; }
-                    }
-                });
-                return covered ? null : best;
-            };
-            for (const st of strips) for (const side of [1, -1]) {
-                const w = st.half(side), dx = st.nx * side, dz = st.nz * side, ends = [st.a, st.b].map(q => { const ox = q[0] + dx * w, oz = q[1] + dz * w, top = st.topAt(ox, oz); return { ox, oz, top, soffit: st.soffitAt(ox, oz), hit: reach(st, ox, oz, dx, dz, top) }; });
-                if (!ends[0].hit || !ends[1].hit || !(ends[0].top > 2.5)) continue;
-                if (st.road && !(ends[0].hit.st.road && ends[0].hit.st.id > st.id)) continue;          // carriageway pairs once; tram slabs fill toward carriageways
-                if (st.rail && ends[0].hit.st.rail && ends[0].hit.st.id < st.id) continue;              // tram pair once
-                const [A, B] = ends, top = [[A.ox, A.top, A.oz], [B.ox, B.top, B.oz], [B.hit.x, B.hit.top, B.hit.z], [A.hit.x, A.hit.top, A.hit.z]], bottom = [[A.ox, A.soffit, A.oz], [B.ox, B.soffit, B.oz], [B.hit.x, B.hit.soffit, B.hit.z], [A.hit.x, A.hit.soffit, A.hit.z]];
-                const up = (top[1][2] - top[0][2]) * (top[2][0] - top[0][0]) - (top[1][0] - top[0][0]) * (top[2][2] - top[0][2]) > 0; // +y normal for this winding?
-                const sb = cellOf((A.ox + B.ox) / 2, (A.oz + B.oz) / 2).solid;
-                sb.face4(...(up ? top : top.slice().reverse()), slab, [0, 1, 0]);
-                sb.face4(...(up ? bottom.slice().reverse() : bottom), dark, [0, -1, 0]);
-                const poly = top.map(q => [q[0], q[2]]), cx = poly.reduce((n, q) => n + q[0], 0) / 4, cz = poly.reduce((n, q) => n + q[1], 0) / 4;
-                const plane = (pts) => (x, z) => { // height on the quad's two triangles
-                    for (const [i, j, k] of [[0, 1, 2], [0, 2, 3]]) { const a = pts[i], b = pts[j], c = pts[k], den = (b[2] - c[2]) * (a[0] - c[0]) + (c[0] - b[0]) * (a[2] - c[2]); if (Math.abs(den) < 1e-12) continue; const u = ((b[2] - c[2]) * (x - c[0]) + (c[0] - b[0]) * (z - c[2])) / den, v = ((c[2] - a[2]) * (x - c[0]) + (a[0] - c[0]) * (z - c[2])) / den; if (u >= -1e-6 && v >= -1e-6 && u + v <= 1 + 1e-6) return u * a[1] + v * b[1] + (1 - u - v) * c[1]; }
-                    return pts.reduce((n, q) => n + q[1], 0) / 4; };
-                const deck = { x: cx, z: cz, r: Math.max(...poly.map(q => Math.hypot(q[0] - cx, q[1] - cz))), poly, holes: [], roadDeck: true, kind: 'bridge-slot-infill', estimated: true,
-                    y0: Math.min(...bottom.map(q => q[1])), y1: Math.max(...top.map(q => q[1])), h: Math.max(...top.map(q => q[1])), roofHeightAt: plane(top), minHeightAt: plane(bottom) };
-                sceneryDeckGrid.insert(cx - deck.r, cz - deck.r, cx + deck.r, cz + deck.r, deck);
-                const gap = Math.max(A.hit.t, B.hit.t), len = Math.hypot(B.ox - A.ox, B.oz - A.oz);
-                infill.quads++; infill.areaM2 += len * (A.hit.t + B.hit.t) / 2; infill.maxGapM = Math.max(infill.maxGapM, gap);
-            }
-        }
-        bridgeBents.report.slotInfill = { quads: infill.quads, areaM2: Math.round(infill.areaM2), maxGapM: +infill.maxGapM.toFixed(2) };
-    }
 
     // landmarks (another module; optional)
     let LANDMARKS = [], buildLandmarkFn = null, landmarkSurfaceMats = [];
@@ -4019,6 +3891,149 @@ export async function buildWorld(city, renderer, opts = {}) {
     const collision = [];
     const propColl = []; // small circles for street furniture (trees, posts, shelters…)
     propColl.push(...tramDecks, ...bridgeJunctionDecks);
+    // -----------------------------------------------------------------------
+    //  BRIDGE BENTS (MODEL estimate; bridge-bents.js): one crosshead carries every parallel deck of a structure
+    //  (both carriageways and the tram viaduct between them). Columns stand only on free ground: never on a lower
+    //  carriageway, sidewalk, rail, water or building; a bent that cannot stand, or whose crosshead would foul the
+    //  clearance of what passes below, is left out, so long spans keep their real long-span structure.
+    // -----------------------------------------------------------------------
+    let bridgeBents = { bents: [], report: null, chains: [] }, basarabStructure = { report: { active: false, sourcePlatforms: [] }, pieces: [], colliders: [] };
+    {
+        const basarabDistrict = city.id === 'bucharest' && distId === 'grozavesti';
+        const deckEdges = raised.filter(e => e.bridge && !e.virtual && Math.max(e.ya, e.yb) > 0.3);
+        // elevated rail slabs join the same plan as pseudo-edges (their own half width and exact rendered band)
+        const railNodes = new Map(), railNode = p => { const k = Math.round(p[0] * 100) + ',' + Math.round(p[1] * 100); let n = railNodes.get(k); if (!n) railNodes.set(k, n = { x: p[0], z: p[1] }); return n; };
+        const railEdgeGrid = new BoxGrid(32), railEdges = [];
+        for (const d of tramDecks) {
+            if (d.kind !== 'source-tram-deck' || !d.supportA || !(d.y1 > 1.2)) continue;
+            const [ax, az] = d.supportA, [bx, bz] = d.supportB, len = Math.hypot(bx - ax, bz - az); if (len < .05) continue;
+            const dirx = (bx - ax) / len, dirz = (bz - az) / len, half = Math.abs((d.poly[0][0] - ax) * -dirz + (d.poly[0][1] - az) * dirx);
+            const e = { a: railNode(d.supportA), b: railNode(d.supportB), dirx, dirz, len, nx: -dirz, nz: dirx, railDeck: d, half };
+            railEdges.push(e); railEdgeGrid.insert(Math.min(ax, bx), Math.min(az, bz), Math.max(ax, bx), Math.max(az, bz), e);
+        }
+        // rails that a column / crosshead must keep clear of: tram tracks (at their own level) and heavy rail at grade
+        const railGrid = new BoxGrid(32), railSeg = (ax, az, bx, bz, y) => railGrid.insert(Math.min(ax, bx) - 4, Math.min(az, bz) - 4, Math.max(ax, bx) + 4, Math.max(az, bz) + 4, { ax, az, bx, bz, y });
+        const railDeckTop = (x, z) => { let y = 0; sceneryDeckGrid.each(x, z, x, z, d => { if (d.kind === 'source-tram-deck' && pointInPolygon(x, z, d.poly)) y = Math.max(y, d.y1); }); return y; };
+        for (const pl of trams) for (let i = 0; i < pl.length - 1; i++) { const [ax, az] = pl[i], [bx, bz] = pl[i + 1]; railSeg(ax, az, bx, bz, railDeckTop((ax + bx) / 2, (az + bz) / 2)); }
+        for (const r of data.railways || []) { const t = r.tags || {}; if (t.railway === 'abandoned' || (t.tunnel && t.tunnel !== 'no')) continue; const pts = undelta(r.points, 0); for (let i = 1; i < pts.length; i++) railSeg(pts[i - 1][0], pts[i - 1][1], pts[i][0], pts[i][1], 0); }
+        const railNear = (x, z, reach, belowY) => { let found = null; railGrid.each(x, z, x, z, s => { if (found || s.y >= belowY) return; const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1, t = clamp(((x - s.ax) * dx + (z - s.az) * dz) / L2, 0, 1); if (Math.hypot(x - s.ax - dx * t, z - s.az - dz * t) < reach) found = s; }); return found; };
+        const lowerEdge = (x, z, margin, belowY, sidewalks) => { let found = null; edgeGrid.each(x - 14, z - 14, x + 14, z + 14, f => {
+            if (found || f.virtual || f.lidded || Math.max(f.ya, f.yb) >= belowY) return;
+            const s = (x - f.a.x) * f.dirx + (z - f.a.z) * f.dirz; if (s < -margin || s > f.len + margin) return;
+            const lat = (x - f.a.x) * f.nx + (z - f.a.z) * f.nz, side = lat >= 0 ? 1 : -1;
+            if (Math.abs(lat) < (sidewalks ? widthSide(f, side) : side > 0 ? f.wR : f.wL) + margin) found = f; }); return found; };
+        const lowerRibbon = (x, z, r, belowY) => onRibbon(x, z, r, rb => rb.y < belowY);
+        const ring = (x, z, r) => [[x, z], [x + r, z], [x - r, z], [x, z + r], [x, z - r]];
+        // mapped / measured trees keep their place: a column stands clear of them (inferred trees avoid the columns later)
+        const sourceTreeGrid = new BoxGrid(16); for (let i = 0; i + 2 < (data.trees || []).length; i += 3) { const tx = data.trees[i] / 10, tz = data.trees[i + 1] / 10; sourceTreeGrid.insert(tx, tz, tx, tz, [tx, tz]); }
+        const sourceTreeNear = (x, z, reach) => { let hit = false; sourceTreeGrid.each(x - reach, z - reach, x + reach, z + reach, t => { if (!hit && Math.hypot(t[0] - x, t[1] - z) < reach) hit = true; }); return hit; };
+        const columnFree = (x, z, r, belowY) => {
+            if (sourceTreeNear(x, z, r + 1.6)) return false;
+            if (ring(x, z, r + .6).some(([px, pz]) => isWater(px, pz) || buildingAt(px, pz))) return false;
+            if (lowerRibbon(x, z, r + .3, belowY) || lowerEdge(x, z, r + .3, belowY, true) || railNear(x, z, 1.7 + r + .4, belowY)) return false;
+            { let built = false; for (const [px, pz] of ring(x, z, r + .3)) surfacesAt(px, pz, h => { if (h < belowY) built = true; }); if (built) return false; } // any walked / driven surface
+            let deck = false; sceneryDeckGrid.each(x - r, z - r, x + r, z + r, d => { if (!deck && d.h < belowY && ring(x, z, r).some(([px, pz]) => pointInPolygon(px, pz, d.poly))) deck = true; });
+            return !deck;
+        };
+        // the highest thing passing below a crosshead: a lower carriageway with its sidewalks, a pad, a rail, a lower slab
+        const lowerSurface = (x, z, belowY) => {
+            let y = null, rail = false; const take = (h, isRail) => { if (y === null || h > y + .5) { y = h; rail = isRail; } };
+            const track = railNear(x, z, 1.7, belowY); if (track) take(track.y, true);
+            const rb = lowerRibbon(x, z, .5, belowY); if (rb) take(rb.y, false);
+            const f = lowerEdge(x, z, 0, belowY, true); if (f) take(yAlong(f, x, z), false);
+            sceneryDeckGrid.each(x, z, x, z, d => { if (d.h < belowY && pointInPolygon(x, z, d.poly)) take(d.roofHeightAt(x, z), d.kind === 'source-tram-deck'); });
+            surfacesAt(x, z, h => { if (h < belowY) take(h, false); }); // also sidewalk hulls round junction corners
+            return y === null ? null : { y, rail };
+        };
+        // ---- one structure, one deck: close the open slot between the parallel slabs of a structure (carriageway |
+        //      tram slab | tram slab | carriageway). Only gaps up to the bent model's join gap, between slabs at one
+        //      level; a slab that already overlaps its neighbour, or faces open air, is left as it is.
+        const infill = { quads: 0, areaM2: 0, maxGapM: 0 };
+        {
+            const GAP = BENT_MODEL.joinGapM, LEVEL = BENT_MODEL.levelToleranceM, slab = rgb('#96938b'), dark = rgb('#55524d');
+            const strips = [];
+            for (const e of deckEdges) strips.push({ road: e, id: e.id, na: e.a, nb: e.b, a: [e.a.x, e.a.z], b: [e.b.x, e.b.z], nx: e.nx, nz: e.nz, half: s2 => widthSide(e, s2),
+                topAt: (x, z) => yAlong(e, x, z) + Y.road, soffitAt: (x, z) => { const y = yAlong(e, x, z); return y + Y.road - Math.min(1.1, Math.max(.05, y)); } });
+            for (const [i, e] of railEdges.entries()) strips.push({ rail: e.railDeck, id: 1e6 + i, na: e.a, nb: e.b, a: [e.a.x, e.a.z], b: [e.b.x, e.b.z], nx: e.nx, nz: e.nz, half: () => e.half,
+                topAt: (x, z) => e.railDeck.roofHeightAt(x, z), soffitAt: (x, z) => e.railDeck.minHeightAt(x, z) });
+            const stripGrid = new BoxGrid(32);
+            for (const st of strips) {
+                const wr = st.half(1), wl = st.half(-1);
+                st.poly = [[st.a[0] + st.nx * wr, st.a[1] + st.nz * wr], [st.b[0] + st.nx * wr, st.b[1] + st.nz * wr], [st.b[0] - st.nx * wl, st.b[1] - st.nz * wl], [st.a[0] - st.nx * wl, st.a[1] - st.nz * wl]];
+                stripGrid.insert(Math.min(...st.poly.map(q => q[0])), Math.min(...st.poly.map(q => q[1])), Math.max(...st.poly.map(q => q[0])), Math.max(...st.poly.map(q => q[1])), st);
+            }
+            // nearest neighbouring slab edge along a transverse ray from (ox, oz); null when the point is already on a neighbour
+            const reach = (own, ox, oz, dx, dz, level) => {
+                let best = null, covered = false;
+                stripGrid.each(Math.min(ox, ox + dx * GAP), Math.min(oz, oz + dz * GAP), Math.max(ox, ox + dx * GAP), Math.max(oz, oz + dz * GAP), st => {
+                    if (covered || st === own || st.na === own.na || st.na === own.nb || st.nb === own.na || st.nb === own.nb) return; // itself / its own run continuing
+                    if (pointInPolygon(ox, oz, st.poly)) { if (Math.abs(st.topAt(ox, oz) - level) < LEVEL) covered = true; return; }
+                    for (let i = 0, j = 3; i < 4; j = i++) {
+                        const [x1, z1] = st.poly[j], [x2, z2] = st.poly[i], ex = x2 - x1, ez = z2 - z1, den = dx * ez - dz * ex; if (Math.abs(den) < 1e-9) continue;
+                        const t = ((x1 - ox) * ez - (z1 - oz) * ex) / den, u = ((x1 - ox) * dz - (z1 - oz) * dx) / den;
+                        if (t > .03 && t <= GAP && u >= -1e-6 && u <= 1 + 1e-6 && (!best || t < best.t)) { const hx = ox + dx * t, hz = oz + dz * t; if (Math.abs(st.topAt(hx, hz) - level) < LEVEL) best = { t, st, x: hx, z: hz, top: st.topAt(hx, hz), soffit: st.soffitAt(hx, hz) }; }
+                    }
+                });
+                return covered ? null : best;
+            };
+            for (const st of strips) for (const side of [1, -1]) {
+                const w = st.half(side), dx = st.nx * side, dz = st.nz * side, ends = [st.a, st.b].map(q => { const ox = q[0] + dx * w, oz = q[1] + dz * w, top = st.topAt(ox, oz); return { ox, oz, top, soffit: st.soffitAt(ox, oz), hit: reach(st, ox, oz, dx, dz, top) }; });
+                if (!ends[0].hit || !ends[1].hit || !(ends[0].top > 2.5)) continue;
+                if (st.road && !(ends[0].hit.st.road && ends[0].hit.st.id > st.id)) continue;          // carriageway pairs once; tram slabs fill toward carriageways
+                if (st.rail && ends[0].hit.st.rail && ends[0].hit.st.id < st.id) continue;              // tram pair once
+                if (basarabDistrict && st.rail && ends[0].hit.st.rail) continue;                        // Basarab: the literal centre support between the two tracks owns that gap
+                const [A, B] = ends, top = [[A.ox, A.top, A.oz], [B.ox, B.top, B.oz], [B.hit.x, B.hit.top, B.hit.z], [A.hit.x, A.hit.top, A.hit.z]], bottom = [[A.ox, A.soffit, A.oz], [B.ox, B.soffit, B.oz], [B.hit.x, B.hit.soffit, B.hit.z], [A.hit.x, A.hit.soffit, A.hit.z]];
+                const up = (top[1][2] - top[0][2]) * (top[2][0] - top[0][0]) - (top[1][0] - top[0][0]) * (top[2][2] - top[0][2]) > 0; // +y normal for this winding?
+                const sb = cellOf((A.ox + B.ox) / 2, (A.oz + B.oz) / 2).solid;
+                sb.face4(...(up ? top : top.slice().reverse()), slab, [0, 1, 0]);
+                sb.face4(...(up ? bottom.slice().reverse() : bottom), dark, [0, -1, 0]);
+                const poly = top.map(q => [q[0], q[2]]), cx = poly.reduce((n, q) => n + q[0], 0) / 4, cz = poly.reduce((n, q) => n + q[1], 0) / 4;
+                const plane = (pts) => (x, z) => { // height on the quad's two triangles
+                    for (const [i, j, k] of [[0, 1, 2], [0, 2, 3]]) { const a = pts[i], b = pts[j], c = pts[k], den = (b[2] - c[2]) * (a[0] - c[0]) + (c[0] - b[0]) * (a[2] - c[2]); if (Math.abs(den) < 1e-12) continue; const u = ((b[2] - c[2]) * (x - c[0]) + (c[0] - b[0]) * (z - c[2])) / den, v = ((c[2] - a[2]) * (x - c[0]) + (a[0] - c[0]) * (z - c[2])) / den; if (u >= -1e-6 && v >= -1e-6 && u + v <= 1 + 1e-6) return u * a[1] + v * b[1] + (1 - u - v) * c[1]; }
+                    return pts.reduce((n, q) => n + q[1], 0) / 4; };
+                const deck = { x: cx, z: cz, r: Math.max(...poly.map(q => Math.hypot(q[0] - cx, q[1] - cz))), poly, holes: [], roadDeck: true, kind: 'bridge-slot-infill', estimated: true,
+                    y0: Math.min(...bottom.map(q => q[1])), y1: Math.max(...top.map(q => q[1])), h: Math.max(...top.map(q => q[1])), roofHeightAt: plane(top), minHeightAt: plane(bottom) };
+                sceneryDeckGrid.insert(cx - deck.r, cz - deck.r, cx + deck.r, cz + deck.r, deck);
+                const gap = Math.max(A.hit.t, B.hit.t), len = Math.hypot(B.ox - A.ox, B.oz - A.oz);
+                infill.quads++; infill.areaM2 += len * (A.hit.t + B.hit.t) / 2; infill.maxGapM = Math.max(infill.maxGapM, gap);
+            }
+        }
+        // ---- Pasajul Basarab superstructure (basarab-structure.js, integrated from fidelity/basarab-render-r9): platforms,
+        //      centre support, station roof, H-frame, stays and river arch. The slot infill above is real deck for its stay
+        //      anchors; the stretches its stays and arch carry get no pier below.
+        const basarabRoadRegions = basarabDistrict ? raisedRoadTriangles(cells.values()) : [];
+        basarabStructure = buildBasarabStructure(data, tramGrades, cellOf, group, edges, { roadRegions: basarabRoadRegions, tramEnvelope: tramPropEnvelope, supportAt: (x, z, base) => { let top = null; surfacesAt(x, z, h => { if (Math.abs(h - base) < .3 && (top === null || Math.abs(h - base) < Math.abs(top - base))) top = h; }); return top; } });
+        const carriedSpans = basarabStructure.report.superstructure?.carriedSpans || [];
+        const carried = (x, z) => carriedSpans.some(sp => { const dx = sp.b[0] - sp.a[0], dz = sp.b[1] - sp.a[1], L = Math.hypot(dx, dz) || 1, t = ((x - sp.a[0]) * dx + (z - sp.a[1]) * dz) / L; return t > 6 && t < L - 6 && Math.abs((x - sp.a[0]) * -dz + (z - sp.a[1]) * dx) / L < sp.halfWidthM; });
+        bridgeBents = planBridgeBents({
+            edges: deckEdges.concat(railEdges),
+            halfWidth: (e, side) => e.railDeck ? e.half : widthSide(e, side),
+            topAt: (e, x, z) => e.railDeck ? e.railDeck.roofHeightAt(x, z) : yAlong(e, x, z) + Y.road,
+            soffitAt: (e, x, z) => { if (e.railDeck) return e.railDeck.minHeightAt(x, z); const y = yAlong(e, x, z); return y + Y.road - Math.min(1.1, Math.max(.05, y)); },
+            eachEdge: (x0, z0, x1, z1, cb) => { edgeGrid.each(x0, z0, x1, z1, cb); railEdgeGrid.each(x0, z0, x1, z1, cb); },
+            columnFree, lowerSurface, carried,
+        });
+        const conc = rgb('#a9a69e'), base = -.4;
+        for (const b of bridgeBents.bents) {
+            const sb = cellOf(b.x, b.z).solid;
+            if (b.kind === 'wall') {
+                const w = Math.max(1, b.width - .4);
+                sb.box(b.x, base, b.z, w, b.seat - base, .9, b.angle, conc);
+                pierColl.push({ x: b.x, z: b.z, hw: w / 2, hd: .45, angle: b.angle, r: Math.hypot(w / 2, .45), poly: null, h: b.seat, prop: true, kind: 'pier', yMax: b.seat - .5 });
+                continue;
+            }
+            sb.box(b.x, b.soffit, b.z, b.width + .6, BENT_MODEL.beamDepthM, BENT_MODEL.beamWidthM, b.angle, conc);
+            for (const p of b.pedestals) sb.box(p.x, p.y0, p.z, p.width, p.y1 - p.y0, 1, b.angle, conc);
+            for (const c of b.columns) {
+                const m = BENT_MODEL.columnM;
+                sb.box(c.x, base, c.z, m, b.soffit - base, m, b.angle, conc);
+                pierColl.push({ x: c.x, z: c.z, hw: m / 2, hd: m / 2, angle: b.angle, r: m * .75, poly: null, h: b.soffit, prop: true, kind: 'pier', yMax: b.seat - .5 });
+            }
+        }
+        bridgeBents.report.slotInfill = { quads: infill.quads, areaM2: Math.round(infill.areaM2), maxGapM: +infill.maxGapM.toFixed(2) };
+    }
+    propColl.push(...basarabStructure.colliders);
+    for(const piece of basarabStructure.pieces){propColl.push(piece);tramDecks.push(piece);sceneryDeckGrid.insert(piece.x-piece.r,piece.z-piece.r,piece.x+piece.r,piece.z+piece.r,piece);}
     const treeClear = []; // (after round 6) {x, z, r}: no trees here (fuel forecourts)
     const addPropColl = (x, z, r, kind = 'prop') => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h: 3, prop: true, kind });
     propColl.push(...sportsColl); // (pitch / court fences, dugouts, goal and hoop posts)
@@ -4983,7 +4998,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     setProgress('Planting trees…'); await tick();
     // every tree / lamp / prop below is checked against the carriageway ribbons (onRibbon) before it is placed
     const maxTrees = city.id === 'bucharest' ? 32000 : 28000;
-    const treeList = [];
+    const treeList = [],treeSourceMetadata=new WeakMap();
     const treeSeen = new Set();
     const exactTreeCentres = new Set();
     const dtSea = US ? city.proj(47.6062, -122.3321) : null, dtBel = US ? city.proj(47.6150, -122.2000) : null;
@@ -5011,7 +5026,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (rb.y < 2.5 || x < rb.x0 - reach || x > rb.x1 + reach || z < rb.z0 - reach || z > rb.z1 + reach) return;
             const low = rb.e ? Math.min(rb.e.ya, rb.e.yb) : rb.node.y; take(rb.poly, low + Y.road - Math.min(1.1, Math.max(.05, low)), rb.y + Y.road);
         });
-        sceneryDeckGrid.each(x - reach, z - reach, x + reach, z + reach, d => { if (d.kind === 'source-tram-deck' && d.y1 > 2.5) take(d.poly, d.y0, d.y1); });
+        sceneryDeckGrid.each(x - reach, z - reach, x + reach, z + reach, d => { if ((d.kind === 'source-tram-deck' || d.kind === 'bridge-slot-infill' || d.kind === 'basarab-centre-support' || d.kind === 'basarab-platform') && d.y1 > 2.5) take(d.poly, d.y0, d.y1); });
         return best;
     };
     const placeTree = (x, z, s, kind, con = null, dec = null, opt = {}) => {
@@ -5020,7 +5035,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (kind !== 'osm' && measuredCanopyAt(x, z)) return false;
         if (treeList.length >= maxTrees) return false;
         if (kind === 'street' && treeNear(x, z, 4.5)) return false; // (a mapped OSM tree already stands there)
-        { let under = false; surfacesAt(x, z, (hh) => { if (hh > Y.road + 2.5) under = true; }); if (under) return false; } // (no trees under a bridge deck / viaduct)
+        { let under = false; surfacesAt(x, z, (hh,raised,surface) => { if(surface?.kind?.startsWith('basarab-')||surface?.kind==='bridge-slot-infill')return;if (hh > Y.road + 2.5) under = true; }); if (under) return false; } // New Basarab survey conflicts and slot slabs are audited after generation, preserving retained instances/RNG.
         if (kind === 'street' && onRibbon(x, z, 1.3)) return false; // (no row trees on medians / verges narrower than ≈ 2.6 m)
         const sourceCentre = sourceTreeCentrePolicy(kind, data.treeRetention);
         const k = Math.round(x / 1.6) + ',' + Math.round(z / 1.6);
@@ -5067,6 +5082,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         treeList.push({ x, z, s: sz, species, con: !!isCon, dec: dec ?? (isCon ? 0 : 1), kind, sh }); treeGrid.insert(x, z, x, z, treeList[treeList.length - 1]);
         exactTreeCentres.add(`${x},${z}`);
         addPropColl(x, z, collR, 'tree');
+        if(basarabStructure.report.active&&Number.isInteger(opt.sourceIndex))treeSourceMetadata.set(treeList.at(-1),{sourceIndex:opt.sourceIndex,crownRadiusM:opt.crownRadiusM||0,collider:propColl.at(-1)});
         return true;
     };
     // OSM natural=tree / tree_row (real positions, leaf type where tagged)
@@ -5082,7 +5098,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (con) species = 'conifer'; else if (species === 'conifer') species = null;
         const dbh = circ > 0 ? circ / Math.PI : 0; // trunk diameter, cm
         const h = hh > 0 ? hh : dbh > 0 ? clamp(4 + dbh * 0.2, 4, 26) : 0;
-        if (placeTree(x, z, h > 0 ? clamp(h / 6.5, 0.6, 2.0) : rng.range(0.85, 1.25), 'osm', con, null, { h, species: species || undefined, crownRadiusM: (data.treeCrownRadii?.[k] || 0) / 10 })) treesOSM++;
+        if (placeTree(x, z, h > 0 ? clamp(h / 6.5, 0.6, 2.0) : rng.range(0.85, 1.25), 'osm', con, null, { h, species: species || undefined, crownRadiusM: (data.treeCrownRadii?.[k] || 0) / 10,sourceIndex:k })) treesOSM++;
     }
     for (const [x, z, s, kind, road, sp] of treeSpots) if (placeTree(x, z, s, kind, null, null, { road, species: sp || undefined })) treesRows++;
     // parks & forests
@@ -5106,13 +5122,21 @@ export async function buildWorld(city, renderer, opts = {}) {
             placeTree(x, z, rng.range(0.8, 1.3), 'garden');
         }
     }
-    const treeCount = treeList.length;
+    const coveredCanopies=coveredPlatformCanopies(treeList,BASARAB_PLATFORMS.filter(p=>basarabStructure.report.sourcePlatforms.includes(p.sourceId)),treeSourceMetadata);
+    basarabStructure.report.treeSourceConflicts={excludedMeasured:coveredCanopies.conflicts,retainedMapped:coveredCanopies.unresolved};
+    const treeCount = treeList.length-coveredCanopies.excluded.size;
     // instanced trees in district 250 m / legacy 500 m chunks; crowns keep a per-instance colour (instanceColor)
     // so the season / weather code can tint each tree (world.vegetation)
     const vegetation = { treeCrownMeshes: [], treeTrunkMeshes: [], deciduousMask: null, grassMaterials: [], groundMaterials: [], roofMaterials: [], trees: treeList };
     {
         // (2026-11-08) district worlds carry the measured canopy (thousands of real trees): fewer full-detail near trees
-        const T = buildSpeciesTrees(treeList, { rng, cull: distId ? 480 : 550, chunk: distId ? 250 : 500, near: distId ? 60 : 95, maxNear: distId ? 110 : 240, farLayer: 2 }); // smaller district chunks cull off-screen trees precisely; no trees or LOD geometry are removed
+        const T = buildSpeciesTrees(treeList, { rng, cull: distId ? 480 : 550, chunk: distId ? 250 : 500, near: distId ? 60 : 95, maxNear: distId ? 110 : 240, farLayer: 2, exclude: coveredCanopies.excluded }); // Source-covered-platform conflicts are recorded separately from LOD/culling.
+        if(coveredCanopies.excluded.size){
+            const props=new Set([...coveredCanopies.excluded].map(t=>treeSourceMetadata.get(t).collider));
+            let at=0;for(const t of treeList)if(!coveredCanopies.excluded.has(t))treeList[at++]=t;treeList.length=at;
+            at=0;for(const p of propColl)if(!props.has(p))propColl[at++]=p;propColl.length=at;
+            treesOSM-=coveredCanopies.excluded.size;
+        }
         vegetation.treeCrownMeshes.push(...T.crownMeshes); vegetation.treeTrunkMeshes.push(...T.trunkMeshes);
         vegetation.update = T.update;
         vegetation.deciduousMask = new Float32Array(treeList.map(t => t.dec));
@@ -6353,7 +6377,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */
     function surfacesAt(x, z, cb, prefer = null, carriagewayOnly = false, exclude = null) {
         const seen = new Set();
-        sceneryDeckGrid.each(x, z, x, z, deck => { if (pointInPolygon(x, z, deck.poly)) cb(deck.roofHeightAt(x, z)); });
+        sceneryDeckGrid.each(x, z, x, z, deck => { if (pointInPolygon(x, z, deck.poly)) cb(deck.roofHeightAt(x, z),false,deck); });
         if (realPass && !carriagewayOnly && cornerPolys.length) { // a raised junction corner: the only surface there (cb(h, raised))
             let hc = null; cornerGrid.each(x, z, x, z, (cp) => { if (hc === null && x >= cp.x0 && x <= cp.x1 && z >= cp.z0 && z <= cp.z1 && pointInPolygon(x, z, cp.p)) hc = Y.road + Y.kerb + padHeightAt(cp.n, x, z); });
             if (hc !== null && !onRibbon(x, z, 0, RIB_ONLY)) { cb(hc, true); return; }
@@ -6377,7 +6401,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         camera: null, // optional: set to the main camera for distance culling (auto-detected otherwise)
         group, graph, buildings: allColl, pois, lights, nodeLight, bounds, nearestEdge, edgesInBox, isWater, isPark, waterMesh, sky,
         districts, areas, landmarks, trams, stats, data, spawn, city, allEdges,
-        tramGrade: tramGrades.resolveGrade, tramDecks, tramDeckSupportAt, bridgeBents: bridgeBents.bents, sidewalkWidth, sourceBridgeProfile:sharedBridgeProfile.report, sourceBridgeMeshAudit:sharedBridgeMeshAudit,
+        tramGrade: tramGrades.resolveGrade, tramDecks, tramDeckSupportAt, bridgeBents: bridgeBents.bents, basarabStructure: basarabStructure.report, sidewalkWidth, sourceBridgeProfile:sharedBridgeProfile.report, sourceBridgeMeshAudit:sharedBridgeMeshAudit,
         generatedParapetOwnership:{report:parapetOwnership.report,caps:parapetOwnership.pieces.map(({id,top,heightM,owner,box})=>({id,top,heightM,owner,box}))},
         /** placed trees {x, z, species, con, kind} (read-only; QA detectors) */
         treeSpots: treeList,

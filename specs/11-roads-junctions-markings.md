@@ -70,8 +70,7 @@ pedestals where a slab sits higher); 1.4 m columns stand only on free ground: ne
 a tram or heavy-rail track, water, a building or a mapped tree. A frame may stand up to 9 m outside the deck edges and span
 at most 26 m, so it straddles a street running under the viaduct. A bent with no legal column site, or whose crosshead would
 leave less than 4.7 m over a road or 5.2 m over rails, is omitted: the river crossing and the rail-yard crossing keep an open
-span and receive no invented supports. The arch and cable-stayed structures that really carry those spans are not modelled
-here. Decks lower than a crosshead frame get a wall pier on entirely free ground, or nothing below 1.2 m, where the thinning
+span and receive no invented supports (see the superstructure below for what carries them). Decks lower than a crosshead frame get a wall pier on entirely free ground, or nothing below 1.2 m, where the thinning
 fascia already meets the ground. Columns and wall piers share the existing level-aware `pier` collider.
 
 The open slot between the parallel slabs of one structure is closed with a top and soffit between slab edges at one level and
@@ -84,11 +83,35 @@ below the soffit; only a tree that fits neither way is dropped, and each such ph
 `world.stats.treeDeckClearance.excluded`. Mapped positions and source records are unchanged. Inferred trees keep off the new
 columns; columns keep off mapped trees.
 
+**Superstructure (integrated candidate, 2026-11-10).** The Pasajul Basarab superstructure from the integration owner's
+candidate branch `fidelity/basarab-render-r9` (`81464a88`) is integrated selectively: `basarab-structure.js`,
+`basarab-anchor-clearance.js`, `basarab-source.js`, `covered-platform-canopies.js`, the post-generation `exclude` hook in
+`trees.js` and their `world.js` wiring. It adds the two literal OSM covered platforms (`w620826242`, `w620826243`), a centre
+support between the two tracks, the glazed station barrel roof, the twin-leg H-frame with three crossbeams, sixty stays whose
+deck anchors are searched clear of every carriageway and tram envelope, the river arch with hangers, and white open rails with
+a blue fascia drawn from the surviving guard collision intervals. Every dimension there is that candidate's documented
+estimate (80 m legs, 170 m main span south-west of the pylon, 132 m backspan, 120 m arch span, 26 m rise), not a survey; its
+source ledger `game/research/basarab.json` is referenced by the module but is not on that branch. Not taken from it: the
+far-tree view selection (`tree-view-selection.js`), the larger merged render cells and the unrelated traffic CPU commit
+`67b39084`.
+
+How it meets this branch's work: the slot infill is emitted first and is real deck for the stay anchors (60 of 60 anchored, 0
+unresolved); between the two Basarab tracks the candidate's centre support owns the gap and no second slab is emitted; the
+structure reports the stretches its stays and arch carry (`carriedSpans`), and the bent planner places nothing inside them
+(47 stations on Grozavesti). Tree placement keeps the candidate's rule: its own pieces and the slot slabs no longer reject a
+trunk early (which shifted the random stream for every later tree); three measured canopies inside a covered platform are
+excluded after generation and listed in `world.basarabStructure.treeSourceConflicts`.
+
+Measured on the integrated tree, High, traffic and mirror, 77 driver poses on and under the structure: at most 364 draw calls
+and 1,405,285 triangles (targets 400 / 1.5 M; about 6 % triangle headroom, down from 1.18 M before the superstructure). A sweep
+of every lane of every Basarab bridge edge and of the elevated tram track found no contact with any `basarab-*` member or pier.
+
 Controls: `node --test game/dev/bridge-bents.test.mjs` (planner rules on synthetic decks) and
 `node game/dev/harness/bridge-bents-check.cjs . <out> <city> <district>` (built-world facts: columns on free ground,
-crosshead clearance, collider count, slot infill). Neither is a visual or driving acceptance. Still open for reports 12-17:
-ramp guards and upper parapets, railings on the tram-only viaduct, the remaining lower-ramp pieces, the arch/cable structures,
-full both-direction journeys with tram/bus clearance, and budget measurements.
+crosshead clearance, collider count, slot infill, no bent under a carried span, every stay anchored). Neither is a visual or
+driving acceptance. Still open for reports 12-17: three short unguarded deck edges, railings on the tram-only viaduct, the
+remaining lower-ramp pieces, the open slot at the north-east end of the station, the station lift tower, the real inclined
+ramp piers and lamp posts, full both-direction journeys with tram/bus clearance, Ultra, and the original report cameras.
 
 ## Structural bridge pads (2026-11-09)
 

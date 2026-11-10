@@ -4,20 +4,44 @@
   "city": "bucharest",
   "district": "grozavesti",
   "model": "MODEL estimate: 30 m bents, 1.6 x 1.3 m crossheads, 1.4 m square columns; not surveyed",
+  "basarab": {
+    "platforms": [
+      "w620826242",
+      "w620826243"
+    ],
+    "centrePieces": 336,
+    "stays": 60,
+    "plannedStays": 60,
+    "anchorUnresolved": 0,
+    "unresolved": 0,
+    "pylonHeightM": 80,
+    "archSpanM": 120,
+    "roofLengthM": 96.6677889457362,
+    "physicalMembers": 660,
+    "carriedSpans": [
+      "cable-stayed",
+      "river-arch"
+    ],
+    "treeConflicts": {
+      "excludedMeasured": 3,
+      "retainedMapped": 0
+    }
+  },
   "planner": {
     "chains": 13,
     "stations": 268,
-    "bents": 87,
+    "bents": 72,
     "walls": 3,
-    "coveredBySibling": 73,
-    "noColumn": 56,
+    "coveredBySibling": 58,
+    "carriedBySuperstructure": 47,
+    "noColumn": 39,
     "lowClearance": 43,
     "tooLow": 6,
     "shortChains": 0,
-    "straddles": 8,
+    "straddles": 1,
     "slotInfill": {
-      "quads": 620,
-      "areaM2": 3840,
+      "quads": 412,
+      "areaM2": 3195,
       "maxGapM": 5.93
     }
   },
@@ -33,10 +57,10 @@
       }
     ]
   },
-  "bents": 90,
-  "columns": 154,
-  "piers": 157,
-  "expectedPiers": 157,
+  "bents": 75,
+  "columns": 125,
+  "piers": 128,
+  "expectedPiers": 128,
   "maxColumnSpanM": 21.5,
   "minCrossheadClearanceM": 4.645750322454971,
   "failures": [],

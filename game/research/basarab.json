@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "name": "Pasajul Basarab",
+  "retrievedAt": "2026-11-10T11:36:28.972590+00:00",
+  "sources": [
+    {
+      "url": "https://www.webuildgroup.ro/en/projects-romania/basarab-overpass/",
+      "role": "Builder project description and two private reference photographs",
+      "facts": {
+        "cableStayedDeckWidthM": 44,
+        "cableStayedLengthM": 340,
+        "mainSpanM": 170,
+        "pylonHeightM": 80,
+        "stayCount": 60,
+        "riverArchSpanM": 120,
+        "viaductLengthM": 790,
+        "viaductSpanRangeM": [
+          12,
+          35
+        ]
+      }
+    },
+    {
+      "url": "https://www.midasbridge.com/en/project-application/the-basarab-overpass-0",
+      "role": "Structural-analysis project application; dimensional scope differs from builder summary",
+      "facts": {
+        "cableStayedDeckWidthM": 40,
+        "cableStayedLengthM": 302,
+        "riverArchSpanM": 125,
+        "viaductLengthM": 791
+      }
+    },
+    {
+      "url": "https://doc.pmb.ro/primarul/prioritati_proiecte/pasajul_basarab/docs/pasaj.pdf",
+      "role": "Municipal 26 September 2006 proposal, not an as-built measurement",
+      "facts": {
+        "proposedMainSpanM": 150,
+        "proposedBackSpanM": 72,
+        "proposedDeckWidthM": 44,
+        "proposedPylonHeightM": 80,
+        "proposedArchSpanM": 100
+      }
+    }
+  ],
+  "sourceFactsConflicts": "Builder and analysis summaries use different lengths/widths. Municipal document is a 2006 alternative proposal. Do not silently treat its 100m arch/222m suspended deck as the completed bridge.",
+  "platforms": [
+    {
+      "id": "w620826242",
+      "version": "8",
+      "timestamp": "2023-12-17T07:30:51Z",
+      "tags": {
+        "area": "yes",
+        "bench": "yes",
+        "bin": "yes",
+        "covered": "yes",
+        "level": "1",
+        "lit": "yes",
+        "name": "Pasajul Basarab",
+        "public_transport": "platform",
+        "railway": "platform",
+        "tactile_paving": "yes"
+      },
+      "nodes": [
+        {
+          "id": 5865238781,
+          "lat": 44.4497155,
+          "lon": 26.068363
+        },
+        {
+          "id": 5868253565,
+          "lat": 44.4500546,
+          "lon": 26.0689845
+        },
+        {
+          "id": 5868253564,
+          "lat": 44.4501501,
+          "lon": 26.0691597
+        },
+        {
+          "id": 5870632076,
+          "lat": 44.4501985,
+          "lon": 26.0692484
+        },
+        {
+          "id": 5865238780,
+          "lat": 44.4502428,
+          "lon": 26.0693295
+        },
+        {
+          "id": 5865241085,
+          "lat": 44.4501893,
+          "lon": 26.0693868
+        },
+        {
+          "id": 5870632079,
+          "lat": 44.4501297,
+          "lon": 26.0692776
+        },
+        {
+          "id": 5868253570,
+          "lat": 44.4500966,
+          "lon": 26.069217
+        },
+        {
+          "id": 5868253569,
+          "lat": 44.4500011,
+          "lon": 26.0690418
+        },
+        {
+          "id": 5865238784,
+          "lat": 44.449662,
+          "lon": 26.0684202
+        },
+        {
+          "id": 5865238781,
+          "lat": 44.4497155,
+          "lon": 26.068363
+        }
+      ]
+    },
+    {
+      "id": "w620826243",
+      "version": "8",
+      "timestamp": "2023-12-17T07:30:51Z",
+      "tags": {
+        "area": "yes",
+        "bench": "yes",
+        "bin": "yes",
+        "covered": "yes",
+        "level": "1",
+        "lit": "yes",
+        "name": "Pasajul Basarab",
+        "public_transport": "platform",
+        "railway": "platform",
+        "tactile_paving": "yes"
+      },
+      "nodes": [
+        {
+          "id": 5865241086,
+          "lat": 44.4503467,
+          "lon": 26.0692183
+        },
+        {
+          "id": 5865238783,
+          "lat": 44.4502944,
+          "lon": 26.0692743
+        },
+        {
+          "id": 5870632077,
+          "lat": 44.4502505,
+          "lon": 26.0691939
+        },
+        {
+          "id": 5868253567,
+          "lat": 44.4502017,
+          "lon": 26.0691045
+        },
+        {
+          "id": 5868253566,
+          "lat": 44.4501061,
+          "lon": 26.0689293
+        },
+        {
+          "id": 5865238782,
+          "lat": 44.449767,
+          "lon": 26.0683077
+        },
+        {
+          "id": 5865241087,
+          "lat": 44.4498193,
+          "lon": 26.0682517
+        },
+        {
+          "id": 5868253568,
+          "lat": 44.4501584,
+          "lon": 26.0688733
+        },
+        {
+          "id": 5868253571,
+          "lat": 44.450254,
+          "lon": 26.0690485
+        },
+        {
+          "id": 5870632078,
+          "lat": 44.4502884,
+          "lon": 26.0691115
+        },
+        {
+          "id": 5865241086,
+          "lat": 44.4503467,
+          "lon": 26.0692183
+        }
+      ]
+    }
+  ],
+  "coordinateBasis": "Literal OSM platform nodes. Projection uses unchanged Grozavesti data.proj. OSM level1 is categorical, not metres.",
+  "geometryPolicy": "Preserve every source motor/rail vertex and direction. Centre tram support joins follow paired source rails; model heights and structural thickness remain estimates.",
+  "estimated": [
+    "Deck absolute elevations and ramp grades",
+    "Pylon longitudinal placement,14m leg-centre spacing and3m square section; photo-informed central H-frame, not surveyed",
+    "Arch rise and rib sections",
+    "Barrier member sections and post spacing",
+    "Station canopy eaves3.8m/crown6.65m above the shared deck and rib spacing; visual estimates, not surveyed",
+    "Forked pier study: existing inferred generic support stations retained; 1.3m stem width/1.8m depth, six chord branches, 0.6m crosshead/2.1m depth, 0.35m bearing height. Head half-span1.8\u20133m from unchanged deck width. Shape informed by private MIDAS construction photo3; dimensions and locations are not surveyed. Conservative full projection must clear lower source roads and source tram envelope; blocked study sites retain previous geometry."
+  ],
+  "privateReferencePolicy": "Builder photographs retained outside repository for visual review. No reference-provider pixels published.",
+  "canopySourcePolicy": "Literal OSM covered platforms take priority over measured canopy classification at the same centre. Record excluded survey indices/centres/radii; retain mapped/unknown source conflicts. Keep all inputs and retained instance/RNG values unchanged."
+}

@@ -1,6 +1,7 @@
 import { sourceTransitShelterDecision } from './source-transit-shelter.js';
 import { cachedPointHeight } from './point-height-cache.js';
 import { basarabEdge, buildBasarabStructure, drawBasarabGuard } from './basarab-structure.js';
+import {forkedBridgePier,emitForkedBridgePier} from './forked-bridge-pier.js';
 import { coveredPlatformCanopies } from './covered-platform-canopies.js';
 import { BASARAB_PLATFORMS } from './basarab-source.js';
 import { raisedRoadTriangles } from './basarab-anchor-clearance.js';
@@ -2787,10 +2788,24 @@ export async function buildWorld(city, renderer, opts = {}) {
         return hit;
     };
     const clearOf = (x, z, r = 0.3) => !onRibbon(x, z, r);
+    const basarabPierAudit={estimated:true,rebuilt:[],retained:[],basis:'Existing inferred stations; photo-informed sections, not surveyed pier positions.'};
     // bridge piers: never on the road below (only where they clear every lower carriageway)
     for (const p of pierSpots) {
         const e = p.e;
         if (onRibbon(p.x, p.z, 1.0, (rb) => rb.e !== e && rb.node !== e.a && rb.node !== e.b && rb.y < p.y - 0.5)) continue;
+        if (basarabEdge(data,e) && p.y>=4.8) {
+            const half=Math.min(3,Math.max(1.8,Math.max(widthSide(e,1),widthSide(e,-1))*.24));
+            const plan=forkedBridgePier({x:p.x,z:p.z,height:p.y,along:[e.dirx,e.dirz],headHalfWidth:half});
+            const radius=Math.hypot(half+.6,1.05);
+            const road=onRibbon(p.x,p.z,radius,rb=>rb.e!==e&&rb.node!==e.a&&rb.node!==e.b&&rb.y<p.y-.5);
+            const rail=tramPropEnvelope&&tramGrades.excludesInferredObstacle([p.x,p.z],[p.x,p.z],{inferred:true,bodyEnvelope:tramPropEnvelope,radiusM:radius,y0a:0,y1a:p.y,kind:'basarab-inferred-pier'});
+            if (plan && !road && !rail) {
+                emitForkedBridgePier(p.sb,plan,p.col,rgb('#414441'));pierColl.push(...plan.colliders);
+                basarabPierAudit.rebuilt.push({sourceId:e.access?.sourceId,edgeId:e.id,x:p.x,z:p.z,topM:p.y,headHalfWidthM:half,members:plan.members.length});
+                continue;
+            }
+            basarabPierAudit.retained.push({sourceId:e.access?.sourceId,edgeId:e.id,x:p.x,z:p.z,reason:road?'lower-carriageway-projection':rail?'source-tram-envelope':'invalid-section'});
+        }
         p.sb.box(p.x, 0, p.z, 1.3, p.y, 1.3, p.ang, p.col);
         pierColl.push({ x: p.x, z: p.z, hw: 0.65, hd: 0.65, angle: p.ang, r: 0.95, poly: null, h: p.y, prop: true, kind: 'pier', yMax: p.y - 0.5 });
     }
@@ -3903,6 +3918,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     propColl.push(...tramDecks, ...bridgeJunctionDecks);
     const basarabRoadRegions=city.id==='bucharest'&&distId==='grozavesti'?raisedRoadTriangles(cells.values()):[];
     const basarabStructure=buildBasarabStructure(data,tramGrades,cellOf,group,edges,{roadRegions:basarabRoadRegions,tramEnvelope:tramPropEnvelope,supportAt:(x,z,base)=>{let top=null;surfacesAt(x,z,h=>{if(Math.abs(h-base)<.3&&(top===null||Math.abs(h-base)<Math.abs(top-base)))top=h;});return top;}});
+    basarabStructure.report.piers=basarabPierAudit;
     propColl.push(...basarabStructure.colliders);
     for(const piece of basarabStructure.pieces){propColl.push(piece);tramDecks.push(piece);sceneryDeckGrid.insert(piece.x-piece.r,piece.z-piece.r,piece.x+piece.r,piece.z+piece.r,piece);}
     const treeClear = []; // (after round 6) {x, z, r}: no trees here (fuel forecourts)

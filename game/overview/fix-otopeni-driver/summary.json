@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "report": 53,
+  "status": "Verified reported cockpit view",
+  "scope": "Same eye, bearing, pitch and FOV as the owner report; High quality. Existing accepted road-guard repair removes the stray strip. Source road and physical guard data unchanged by this verification. Setup pose and native frames, not a completed driving journey or hardware FPS measurement.",
+  "captures": [
+    {
+      "file": "before.png",
+      "source": "54a45f6c3224d1da96f6d24457e719e4cd47f7c5",
+      "capturedAt": "2026-11-10T23:32:29.337Z",
+      "sha256": "3133f1590eef3186b6ff85b45ef5280211e3da9e27620511abb2f8dbdc035b17",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "eye": [
+          -617.38,
+          1.6,
+          996.919
+        ],
+        "bearing": 334.389,
+        "pitch": 0,
+        "fov": 72
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:29.343Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "quality": "high",
+      "vehicles": 144,
+      "pedestrians": 560,
+      "drawCalls": 266,
+      "triangles": 587453,
+      "observerSHA256": "ea643c5fefe7550ce5f768d1cc165b29759b8b8a0b59b0712365e07f1e7f6419"
+    },
+    {
+      "file": "after.png",
+      "source": "3cc387ba6ffcd8829e8d7463553c343d71c81e75",
+      "capturedAt": "2026-11-10T23:32:29.258Z",
+      "sha256": "7a87d39792f891460b4ebfe8d581f37732bec4f817537601ba51badf989a9982",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "eye": [
+          -617.38,
+          1.6,
+          996.919
+        ],
+        "bearing": 334.389,
+        "pitch": 0,
+        "fov": 72
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:29.263Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "quality": "high",
+      "vehicles": 144,
+      "pedestrians": 560,
+      "drawCalls": 266,
+      "triangles": 587865,
+      "observerSHA256": "ea643c5fefe7550ce5f768d1cc165b29759b8b8a0b59b0712365e07f1e7f6419"
+    }
+  ]
+}

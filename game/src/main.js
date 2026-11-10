@@ -1296,7 +1296,7 @@ class Game {
         if (d > 120) return;
         { const now = performance.now(); if (now - (this._honkAt || 0) < 160) return; this._honkAt = now; } // (a jam's honk storm: ≤ 6 horns a second)
         const pan = clamp((dx * -p.fz + dz * p.fx) / (d || 1), -1, 1) * -1;
-        this.audio.horn(pan, d, 0.8 + ((v.x * 13) % 7) / 10, 0.3 + Math.random() * 0.4);
+        this.audio.horn(pan, d, 1 + Math.sin(v.x * 13 + v.z * 7) * .06, 0.3 + Math.random() * 0.4);
         if (d < 40) this.hud.addRage(2);
         const dialogueEvent=this.traffic.dialogueEvent('npc-honk',v,{sourceRole:'driver'});
         this.traffic.emitDialogueEvent(dialogueEvent,{participant:v});return dialogueEvent;

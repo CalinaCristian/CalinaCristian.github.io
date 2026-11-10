@@ -1,4 +1,7 @@
 # About
+
+Ground-road motorway/trunk guard panels now follow the final collision segments after overlapping roads and junction mouths are cut, with closed ends. Bridge parapets remain a separate implementation.
+
 This is my Resume (CV) website.
 
 I wanted to create something responsive & animated, and to challenge myself with some CSS.
@@ -370,3 +373,8 @@ Overview landmark range chips retain the separately sourced intended staging rol
 Basarab’s white fallback-ground patches are corrected without capping lowered roads, trams or the river. The fallback plane now has exact openings from complete final source-floor triangles before depth writes are enabled; incomplete or refused inputs keep the previous explicit unknown fallback. Original before/after and lowered-river controls are linked in the [overview](game/overview/index.html#white-ground-fix). This isolated visual fix does not complete the other reported bridge, road or traffic work.
 
 SkyTower’s glass and fine frame strips form one partitioned exterior skin. The exact source-owned coarse skyline mass in Floreasca yields to the detailed tower, while the source data, full mapped footprint, 137m top, flat roof and 37-level rhythm remain intact. The [overview](game/overview/index.html#skytower-fix) records original matched Floreasca and Pipera captures and their framing limits. This does not complete the other reported office facades.
+
+
+Horn audio uses shaped 400/500 Hz harmonics, a 45 ms attack and 90 ms release, lower gain, and at most six overlapping horns. NPC pitch stays within ±6%; completed voices disconnect their audio nodes. Chromium rendered the isolated horn at 47% of the earlier RMS level. Keyboard H, the Horn button in a 390 px touch layout, and the original NPC submission path pass. Existing dialogue, rage and achievement triggers remain. The technical overview includes before/after audio at the same volume. Bridge and district work remains open.
+
+Church facade windows now fit whole rows between the base and eaves, avoiding partial windows cut by the roof while retaining the mapped building and roof dimensions.

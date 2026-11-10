@@ -4058,8 +4058,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         const ccw = signedArea(ring) > 0; // counter-clockwise (x right, z up) → outward normal = (dz, -dx)
         const h = b.roofProfile?.eavesM ?? b.h, y0 = b.minH > 0 ? b.minH : Math.min(0.18, h);
         // (after round 6) whole storeys: the wall holds an integer number of window rows, so the top row is never sliced
-        // by the eaves / roof line (it was wherever the height wasn't a multiple of the storey height)
-        if (b.style !== 'church' && h - y0 > 2) { const n = Math.max(1, Math.round((h - y0) / floorH)); floorH = (h - y0) / n; }
+        // by the eaves / roof line. Church facades use the same atlas and need whole rows too.
+        if (h - y0 > 2) { const n = Math.max(1, Math.round((h - y0) / floorH)); floorH = (h - y0) / n; }
         const shop = (b.flags & 1) && b.minH <= 0 && h > 6;
         if (shop && !b.shopFaces && distId) b.shopFaces = streetFacing(b, signedArea(b.ring) > 0); // (district worlds: shopfronts on the street faces only)
         const yShop = y0 + (b.gfh || 4.2); // (researched ground-floor height)

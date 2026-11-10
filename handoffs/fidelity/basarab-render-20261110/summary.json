@@ -897,5 +897,38 @@
     },
     "sourcePolicy": "Full emitted primary-model convex projection plus native collision rectangle and declared render width prove separation only. No prop/tree/wall/source deletion, movement, resize, actor thinning or real-contact exemption. Unsupported remains blocking.",
     "checks": "Focused7Node suites plus9source support/10static-certificate controls pass; fresh frozen native drive and final combined harness/visual/budget/overview/publication remain open."
+  },
+  "linkedSignalMovement": {
+    "candidateSource": "ec4027b40a39efdef1d04413c6cba41bd85513b6",
+    "status": "candidate-native-drive-running-not-accepted",
+    "priorNative": {
+      "source": "05ef158c20319502e589d20f46234e5d52a93e72",
+      "pathM": 570.92011978818,
+      "progressM": 238.0027016127064,
+      "simulationSeconds": 188.7333333333252,
+      "stop": "observer-120s-no-progress",
+      "playerContacts": 0,
+      "nativeExceptions": 0,
+      "heightStepsM": 0,
+      "vehicles": 311,
+      "pedestrians": 560,
+      "previewRefused": 0,
+      "bus51EventuallyCleared": true,
+      "fullSizeQueueImageInspected": true
+    },
+    "causeScope": "Phase1 entrants fill the source connecting road while downstream phase0 waits for actual pad938 occupancy. Prior reservations stop at unlit branching source node939; candidate spans the literal same-controller route and waits before admitting a blocked motor movement.",
+    "controls": [
+      "native-source-edge/peer fixture",
+      "clear/blocked/turned/adjacent lane and different level",
+      "committed body retains path",
+      "different controller/U-turn/disconnected/missing/over100m connection refused",
+      "existing signal/queue/recovery and lane-drop suites"
+    ],
+    "limits": [
+      "Fresh ordinary native drive pending",
+      "No full bridge/return/bus/tram passage acceptance",
+      "No controlled hardware FPS result",
+      "Source piers/parapets/undersides/road shimmer and original driver/north budgets remain open"
+    ]
   }
 }

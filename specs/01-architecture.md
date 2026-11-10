@@ -20,6 +20,8 @@ Shared files touched by several roles (`main.js` hooks for new modules) go throu
 
 ## Contracts (keep in sync; update here first)
 
+- Linked signal reservations follow only the vehicle's literal legal route across unlit branch/shape nodes to a later node of the same existing controller, within the existing100m connection bound and without passing another controller or U-turn. Before admission, a motor movement waits if a slow native body occupies its swept lane through the controller. No signal/source/route/actor/collision policy changes, and already committed bodies retain their clearance path. Unknown/partial routes never invent a connection.
+
 - Office teardown preserves an active loading/menu transition rather than re-enabling disposed driving state. Office-local speech shares real HUD panel state but carries a per-visit ownership token; district anchors are filtered before office-camera projection. Live window targets grow in bounded capacity buckets during a visit. Temporary eye-envelope failures recover on the next valid frame; actual binding/render faults remain explicit holds.
 
 - Generated parapet ownership applies only to later inferred separation render faces inside exact earlier emitted bridge-cap prisms. Keep every source/physical guard and outside/partial fragment. Capture earlier guard triangles only after their normal displacement/rail clipping; preserve their actual cell/material/attributes. Directed Float32 output reports collapsed children, unresolved sub-ULP vertices and residual area explicitly; no expanded prism, source-width edit, collision waiver or inferred physical-clearance claim. Fresh native full-size views remain required.

@@ -1,0 +1,694 @@
+{
+  "scope": "Native immutable R15 read-only source route and stalled peer poses at188.933s. No imagery, graph inference or acceptance claim. Source path may continue further than this bounded captured test.",
+  "source": "05ef158c20319502e589d20f46234e5d52a93e72",
+  "entry": 938,
+  "vehicle": {
+    "id": 192,
+    "length": 4.72,
+    "width": 1.85,
+    "edge": {
+      "id": 850,
+      "source": "w360811525",
+      "len": 8.886751837417526,
+      "a": {
+        "id": 938,
+        "x": 308.52980896251245,
+        "z": -708.5998583998086,
+        "cluster": true,
+        "light": true,
+        "r": 4
+      },
+      "b": {
+        "id": 939,
+        "x": 315.913414736015,
+        "z": -713.545232399957,
+        "cluster": false,
+        "light": false,
+        "r": 7.5
+      },
+      "lanesF": 2,
+      "lanesB": 0
+    },
+    "s": 4.394019372637721,
+    "dir": 1,
+    "x": 312.3606321259804,
+    "z": -709.0623763883267,
+    "stop": null,
+    "D": null,
+    "leader": 160,
+    "route": [
+      {
+        "dir": 1,
+        "id": 1242,
+        "source": "w295382931",
+        "len": 21.47940208733272,
+        "a": {
+          "id": 939,
+          "x": 315.913414736015,
+          "z": -713.545232399957,
+          "cluster": false,
+          "light": false,
+          "r": 7.5
+        },
+        "b": {
+          "id": 1375,
+          "x": 333.85978915692897,
+          "z": -701.7430139994325,
+          "cluster": false,
+          "light": false,
+          "r": 7.5
+        },
+        "lanesF": 4,
+        "lanesB": 0
+      },
+      {
+        "dir": 1,
+        "id": 1243,
+        "source": "w295382931",
+        "len": 1.9148672310806296,
+        "a": {
+          "id": 1375,
+          "x": 333.85978915692897,
+          "z": -701.7430139994325,
+          "cluster": false,
+          "light": false,
+          "r": 7.5
+        },
+        "b": {
+          "id": 1376,
+          "x": 335.45731850087753,
+          "z": -700.6872599997291,
+          "cluster": false,
+          "light": false,
+          "r": 7.5
+        },
+        "lanesF": 4,
+        "lanesB": 0
+      },
+      {
+        "dir": 1,
+        "id": 1244,
+        "source": "w295382931",
+        "len": 1.8179253734525158,
+        "a": {
+          "id": 1376,
+          "x": 335.45731850087753,
+          "z": -700.6872599997291,
+          "cluster": false,
+          "light": false,
+          "r": 7.5
+        },
+        "b": {
+          "id": 1377,
+          "x": 336.9753687729078,
+          "z": -699.6870719998855,
+          "cluster": false,
+          "light": false,
+          "r": 7.5
+        },
+        "lanesF": 4,
+        "lanesB": 0
+      },
+      {
+        "dir": 1,
+        "id": 1245,
+        "source": "w295382931",
+        "len": 2.387338125708675,
+        "a": {
+          "id": 1377,
+          "x": 336.9753687729078,
+          "z": -699.6870719998855,
+          "cluster": false,
+          "light": false,
+          "r": 7.5
+        },
+        "b": {
+          "id": 1378,
+          "x": 338.9702934758832,
+          "z": -698.375714399564,
+          "cluster": false,
+          "light": false,
+          "r": 7.5
+        },
+        "lanesF": 4,
+        "lanesB": 0
+      },
+      {
+        "dir": 1,
+        "id": 1246,
+        "source": "w295382931",
+        "len": 24.306547296505872,
+        "a": {
+          "id": 1378,
+          "x": 338.9702934758832,
+          "z": -698.375714399564,
+          "cluster": false,
+          "light": false,
+          "r": 7.5
+        },
+        "b": {
+          "id": 1379,
+          "x": 359.27719633025794,
+          "z": -685.017647999809,
+          "cluster": false,
+          "light": false,
+          "r": 7.5
+        },
+        "lanesF": 4,
+        "lanesB": 0
+      },
+      {
+        "dir": 1,
+        "id": 1247,
+        "source": "w295382931",
+        "len": 4.641710177971886,
+        "a": {
+          "id": 1379,
+          "x": 359.27719633025794,
+          "z": -685.017647999809,
+          "cluster": false,
+          "light": false,
+          "r": 7.5
+        },
+        "b": {
+          "id": 1226,
+          "x": 363.06040014956,
+          "z": -682.3282535999662,
+          "cluster": true,
+          "light": true,
+          "r": 7.5
+        },
+        "lanesF": 4,
+        "lanesB": 0
+      },
+      {
+        "dir": 1,
+        "id": 1112,
+        "source": "w139758830",
+        "len": 45.65145026379577,
+        "a": {
+          "id": 1226,
+          "x": 363.06040014956,
+          "z": -682.3282535999662,
+          "cluster": true,
+          "light": true,
+          "r": 7.5
+        },
+        "b": {
+          "id": 1237,
+          "x": 396.50519357844985,
+          "z": -713.400760799848,
+          "cluster": true,
+          "light": false,
+          "r": 7.5
+        },
+        "lanesF": 3,
+        "lanesB": 0
+      },
+      {
+        "dir": 1,
+        "id": 1113,
+        "source": "w139758830",
+        "len": 14.606497342875937,
+        "a": {
+          "id": 1237,
+          "x": 396.50519357844985,
+          "z": -713.400760799848,
+          "cluster": true,
+          "light": false,
+          "r": 7.5
+        },
+        "b": {
+          "id": 1238,
+          "x": 407.47330549188223,
+          "z": -723.0470183996565,
+          "cluster": true,
+          "light": true,
+          "r": 7.5
+        },
+        "lanesF": 3,
+        "lanesB": 0
+      },
+      {
+        "dir": 1,
+        "id": 1416,
+        "source": "w906667150",
+        "len": 11.630506275782858,
+        "a": {
+          "id": 1238,
+          "x": 407.47330549188223,
+          "z": -723.0470183996565,
+          "cluster": true,
+          "light": true,
+          "r": 7.5
+        },
+        "b": {
+          "id": 1536,
+          "x": 416.8756796901898,
+          "z": -729.8927495999027,
+          "cluster": true,
+          "light": true,
+          "r": 4
+        },
+        "lanesF": 2,
+        "lanesB": 0
+      },
+      {
+        "dir": 1,
+        "id": 1417,
+        "source": "w906667150",
+        "len": 7.213366817844376,
+        "a": {
+          "id": 1536,
+          "x": 416.8756796901898,
+          "z": -729.8927495999027,
+          "cluster": true,
+          "light": true,
+          "r": 4
+        },
+        "b": {
+          "id": 1537,
+          "x": 422.9717245001405,
+          "z": -733.7490299999581,
+          "cluster": false,
+          "light": false,
+          "r": 4
+        },
+        "lanesF": 2,
+        "lanesB": 0
+      }
+    ],
+    "claims": [
+      {
+        "entryNode": 938,
+        "exitNode": 938,
+        "inE": 849,
+        "outE": 850,
+        "phase": 1,
+        "entered": true,
+        "internal": []
+      }
+    ]
+  },
+  "peers": [
+    {
+      "id": 30,
+      "kind": "compact-sedan",
+      "x": 350.0931384798718,
+      "y": 0.24,
+      "z": -691.1404987920984,
+      "h": -2.5725593595177916,
+      "speed": 0,
+      "edge": 1246,
+      "source": "w295382931",
+      "s": 13.77097816585149,
+      "lane": 3,
+      "laneCur": 1.5653014471231703,
+      "stop": "light",
+      "D": 3.8972793086262683,
+      "zero": "guard",
+      "leader": 194,
+      "stuck": 182.6666666666589,
+      "red": true,
+      "redQ": true,
+      "route": [
+        {
+          "id": 1247,
+          "dir": 1
+        },
+        {
+          "id": 1112,
+          "dir": 1
+        },
+        {
+          "id": 1113,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 116,
+      "kind": "compact-sedan",
+      "x": 339.00422996073223,
+      "y": 0.24,
+      "z": -696.2636526704731,
+      "h": -2.153437138298549,
+      "speed": 0,
+      "edge": 1246,
+      "source": "w295382931",
+      "s": 1.192851507404095,
+      "lane": 2,
+      "laneCur": 1.9994176870728728,
+      "stop": "light",
+      "D": 16.475405967073662,
+      "leader": 119,
+      "stuck": 119.33333333332912,
+      "red": false,
+      "redQ": true,
+      "route": [
+        {
+          "id": 1247,
+          "dir": 1
+        },
+        {
+          "id": 1112,
+          "dir": 1
+        },
+        {
+          "id": 1113,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 194,
+      "kind": "estate",
+      "x": 352.68459408527,
+      "y": 0.24,
+      "z": -687.2596423154035,
+      "h": -2.1526417060290837,
+      "speed": 0,
+      "edge": 1246,
+      "source": "w295382931",
+      "s": 17.566633137425057,
+      "lane": 1,
+      "laneCur": 2,
+      "stop": "light",
+      "D": -0.0633756629472999,
+      "stuck": 188.8333333333252,
+      "red": true,
+      "redQ": true,
+      "route": [
+        {
+          "id": 1247,
+          "dir": 1
+        },
+        {
+          "id": 1100,
+          "dir": 1
+        },
+        {
+          "id": 1101,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 295,
+      "kind": "compact-sedan",
+      "x": 345.9031555059309,
+      "y": 0.24,
+      "z": -695.9097144626224,
+      "h": -2.152424099464756,
+      "speed": 0,
+      "edge": 1246,
+      "source": "w295382931",
+      "s": 7.641106027363236,
+      "lane": 1,
+      "laneCur": 1.0000099157807283,
+      "stop": "light",
+      "D": 10.027151447114521,
+      "leader": 30,
+      "stuck": 179.29999999999242,
+      "red": false,
+      "redQ": true,
+      "route": [
+        {
+          "id": 1247,
+          "dir": 1
+        },
+        {
+          "id": 1100,
+          "dir": 1
+        },
+        {
+          "id": 1101,
+          "dir": 1
+        }
+      ]
+    }
+  ],
+  "incoming": {
+    "id": 849,
+    "source": "w360811525",
+    "len": 39.913053524364756,
+    "a": {
+      "id": 937,
+      "x": 275.07706762634604,
+      "z": -686.8290995996576,
+      "cluster": false,
+      "light": false,
+      "r": 4
+    },
+    "b": {
+      "id": 938,
+      "x": 308.52980896251245,
+      "z": -708.5998583998086,
+      "cluster": true,
+      "light": true,
+      "r": 4
+    },
+    "lanesF": 2,
+    "lanesB": 0
+  },
+  "laneFields": [
+    {
+      "id": 849,
+      "laneW": 3.5,
+      "median": -7,
+      "lanesF": 2,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 235,
+      "ya": 0,
+      "yb": 0,
+      "source": "w360811525",
+      "a": 937,
+      "b": 938
+    },
+    {
+      "id": 850,
+      "laneW": 3.5,
+      "median": -7,
+      "lanesF": 2,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 235,
+      "ya": 0,
+      "yb": 0,
+      "source": "w360811525",
+      "a": 938,
+      "b": 939
+    },
+    {
+      "id": 1001,
+      "laneW": 3.5,
+      "median": -7,
+      "lanesF": 2,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 265,
+      "ya": 0,
+      "yb": 0,
+      "source": "w106797419",
+      "a": 1107,
+      "b": 1108
+    },
+    {
+      "id": 1100,
+      "laneW": 3.5,
+      "median": -7,
+      "lanesF": 2,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 284,
+      "ya": 0,
+      "yb": 0,
+      "source": "w139758829",
+      "a": 1226,
+      "b": 1227
+    },
+    {
+      "id": 1101,
+      "laneW": 3.5,
+      "median": -7,
+      "lanesF": 2,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 284,
+      "ya": 0,
+      "yb": 0,
+      "source": "w139758829",
+      "a": 1227,
+      "b": 1228
+    },
+    {
+      "id": 1102,
+      "laneW": 3.5,
+      "median": -7,
+      "lanesF": 2,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 284,
+      "ya": 0,
+      "yb": 0,
+      "source": "w139758829",
+      "a": 1228,
+      "b": 1229
+    },
+    {
+      "id": 1112,
+      "laneW": 3.5,
+      "median": -7,
+      "lanesF": 3,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 285,
+      "ya": 0,
+      "yb": 0,
+      "source": "w139758830",
+      "a": 1226,
+      "b": 1237
+    },
+    {
+      "id": 1113,
+      "laneW": 3.5,
+      "median": -7,
+      "lanesF": 3,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 285,
+      "ya": 0,
+      "yb": 0,
+      "source": "w139758830",
+      "a": 1237,
+      "b": 1238
+    },
+    {
+      "id": 1242,
+      "laneW": 3.5,
+      "median": -14,
+      "lanesF": 4,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 316,
+      "ya": 0,
+      "yb": 0,
+      "source": "w295382931",
+      "a": 939,
+      "b": 1375
+    },
+    {
+      "id": 1243,
+      "laneW": 3.5,
+      "median": -14,
+      "lanesF": 4,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 316,
+      "ya": 0,
+      "yb": 0,
+      "source": "w295382931",
+      "a": 1375,
+      "b": 1376
+    },
+    {
+      "id": 1244,
+      "laneW": 3.5,
+      "median": -14,
+      "lanesF": 4,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 316,
+      "ya": 0,
+      "yb": 0,
+      "source": "w295382931",
+      "a": 1376,
+      "b": 1377
+    },
+    {
+      "id": 1245,
+      "laneW": 3.5,
+      "median": -14,
+      "lanesF": 4,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 316,
+      "ya": 0,
+      "yb": 0,
+      "source": "w295382931",
+      "a": 1377,
+      "b": 1378
+    },
+    {
+      "id": 1246,
+      "laneW": 3.5,
+      "median": -14,
+      "lanesF": 4,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 316,
+      "ya": 0,
+      "yb": 0,
+      "source": "w295382931",
+      "a": 1378,
+      "b": 1379
+    },
+    {
+      "id": 1247,
+      "laneW": 3.5,
+      "median": -14,
+      "lanesF": 4,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 316,
+      "ya": 0,
+      "yb": 0,
+      "source": "w295382931",
+      "a": 1379,
+      "b": 1226
+    },
+    {
+      "id": 1416,
+      "laneW": 3.5,
+      "median": -7,
+      "lanesF": 2,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 378,
+      "ya": 0,
+      "yb": 0,
+      "source": "w906667150",
+      "a": 1238,
+      "b": 1536
+    },
+    {
+      "id": 1417,
+      "laneW": 3.5,
+      "median": -7,
+      "lanesF": 2,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 378,
+      "ya": 0,
+      "yb": 0,
+      "source": "w906667150",
+      "a": 1536,
+      "b": 1537
+    },
+    {
+      "id": 1418,
+      "laneW": 3.5,
+      "median": -7,
+      "lanesF": 2,
+      "lanesB": 0,
+      "oneway": true,
+      "road": 378,
+      "ya": 0,
+      "yb": 0,
+      "source": "w906667150",
+      "a": 1537,
+      "b": 1107
+    }
+  ]
+}

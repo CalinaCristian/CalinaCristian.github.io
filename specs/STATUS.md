@@ -73,3 +73,5 @@ Update your own rows when you start/finish (status, `updated` as `YYYY-MM-DD HH:
 | R19.groz-runtime-regression | root | in progress | 2026-11-09 Pacific | Owner reports 28 → 8 FPS independently of quality; immutable live CPU profile identifies traffic/peer/static-collider queries. Candidate optimization and `?inspect=1`/F8/Places/unrestricted inspection drone staged; native combined performance, visual and screenshot refresh gates pending. |
 
 | Owner update · 2026-11-10 | Linear chapter stories, owner office floors, guide search highlights and portrait HUD simplification | 10/14/17/23 | root | in progress | 2026-11-10 Pacific | Search desktop/phone checks pass; full linear story, floor-view and portrait native acceptance pending. |
+
+| R13.linked-exit-storage | Literal linked-signal route span and blocked-movement admission | 13 | root | in progress | 2026-11-10 18:05 UTC | R15 actual ordinary-spawn drive stalls at238m/188.7s with0contacts; preserve negative and full actor records. Source-route/controller and queue admission repair in progress; fresh native acceptance pending. |

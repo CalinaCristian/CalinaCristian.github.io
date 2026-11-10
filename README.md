@@ -369,3 +369,5 @@ Portrait touch layouts keep Map and Menu at the top and movement/current interac
 The portrait World map wraps its city tabs into two rows, keeping Bellevue and World visible alongside the current district, Bucharest and Seattle.
 
 Office view ownership checks use both precise building-height overrides and the retained legacy height rows, so lower podiums do not incorrectly block upper-floor windows when no precision override exists.
+
+Bellevue Downtown Park’s cascade candidate now follows an official City of Bellevue photograph: thin lit water streams reveal a wet retaining wall, a narrow irregular impact line replaces the broad white foam strip, and the opaque mist curtain is removed. Source plan coordinates are retained; the 2.4 m drop remains estimated. All water textures are original procedural work, with two bounded draw calls and no provider pixels. Native four-condition appearance and activity-route checks are still required before acceptance.

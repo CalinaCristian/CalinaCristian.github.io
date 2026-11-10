@@ -17,6 +17,7 @@ import * as THREE from '../../../vendor/three.module.min.js';
 import { activityBlocked, onActivityCancel } from '../participation.js';
 import { GeoBatch, rng, headingFromBearing, smooth, lerp, clamp, inPoly, polyBox, canvas, canvasTexture, distPolyline } from '../kit.js';
 import { coinDrop } from '../coin-drop.js';
+import { fallingWater } from '../falling-water.js';
 import { meshSDF, sdCapsule, sdEllipsoid, smin, smax, noise3 } from '../sdf.js';
 import { seattleBackdrop } from '../backdrop.js';
 import { addTraffic } from '../cars.js';
@@ -105,14 +106,12 @@ export default {
         for (const w of d.ways) { if (w.bridge !== 'yes' || w.k !== 'footway' || w.pts.length < 2) continue; const [p0, p1] = [w.pts[0], w.pts[w.pts.length - 1]], mx = (p0[0] + p1[0]) / 2, mz = (p0[1] + p1[1]) / 2; if (Math.abs(Math.hypot(mx - C.x, mz - C.z) - R) > 8) continue; const a = ang(mx, mz), y = bankY(a) + 0.02, L2 = Math.max(7, Math.hypot(p1[0] - p0[0], p1[1] - p0[1])); wb.box(mx, y - 0.35, mz, 3.2, 0.35, L2, '#c8b8ae', 'stone', Math.atan2(p1[0] - p0[0], p1[1] - p0[1])); g.addBox(mx, mz, 1.6, L2 / 2, -Math.atan2(p1[0] - p0[0], p1[1] - p0[1]), y - 2, y); }
         // ---------------------------------------------------------------- the 240-ft waterfall (upper pool → reflecting pool)
         const wfLine = [[-156, 121.2], [-146, 121.2], [-128, 121.2], [-98, 120.6], [-87, 120.4]];
-        const fallTex = (() => { const c = canvas(512, 128), x = c.getContext('2d'); x.fillStyle = '#7f9ea3'; x.fillRect(0, 0, 512, 128); for (let i = 0; i < 700; i++) { const w = 1 + Math.random() * 3, y0 = Math.random() * 40; x.fillStyle = Math.random() < 0.6 ? `rgba(255,255,255,${0.35 + Math.random() * 0.55})` : 'rgba(40,70,78,0.45)'; x.fillRect(Math.random() * 512, y0, w, 128 - y0); } const gr = x.createLinearGradient(0, 0, 0, 128); gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(0.8, 'rgba(255,255,255,0.15)'); gr.addColorStop(1, 'rgba(255,255,255,0.85)'); x.fillStyle = gr; x.fillRect(0, 0, 512, 128); return canvasTexture(c, { repeat: true }); })();
-        const fallMat = new THREE.MeshStandardMaterial({ map: fallTex, color: '#ffffff', transparent: true, opacity: 0.88, roughness: 0.15, metalness: 0.1, emissive: '#dbe9ec', emissiveMap: fallTex, emissiveIntensity: 0.12, side: THREE.DoubleSide, depthWrite: false });
-        fallMat.userData.nightEmissive = 0.22; fallMat.userData.nightGlow = 0.22; fallMat.userData.dayGlow = 0.12; fallTex.repeat.set(18, 1);
-        { const pos = [], uv = [], idx = []; let u = 0; for (let i = 0; i < wfLine.length; i++) { const [x, z] = wfLine[i]; if (i) u += Math.hypot(x - wfLine[i - 1][0], z - wfLine[i - 1][1]) / 73; pos.push(x, UPPER_Y + 0.02, z, x, POOL_Y + 0.6, z + 0.9, x, POOL_Y + 0.02, z + 1.6); uv.push(u, 1, u, 0.25, u, 0); if (i) { const a = (i - 1) * 3; idx.push(a, a + 3, a + 4, a, a + 4, a + 1, a + 1, a + 4, a + 5, a + 1, a + 5, a + 2); } }
-            const fg = new THREE.BufferGeometry(); fg.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); fg.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); fg.setIndex(idx); fg.computeVertexNormals(); const fall = new THREE.Mesh(fg, fallMat); fall.name = 'waterfall'; fall.renderOrder = 2; ctx.add(fall); }
-        for (let i = 1; i < wfLine.length; i++) { const [ax, az] = wfLine[i - 1], [qx, qz] = wfLine[i], Lq = Math.hypot(qx - ax, qz - az); wb.box((ax + qx) / 2, POOL_Y - 0.5, (az + qz) / 2 - 0.3, Lq + 0.1, UPPER_Y - POOL_Y + 0.4, 0.6, '#6f6a66', 'stone', Math.atan2(qx - ax, qz - az) + Math.PI / 2); wb.box((ax + qx) / 2, POOL_Y + 0.01, (az + qz) / 2 + 2.6, Lq, 0.03, 3.2, '#eef5f6', 'paint', Math.atan2(qx - ax, qz - az) + Math.PI / 2); } // dark wall + foam band
-        { const mist = new THREE.MeshBasicMaterial({ color: '#f4f9fa', transparent: true, opacity: 0.32, depthWrite: false, side: THREE.DoubleSide, fog: true }); const pos = [], idx = []; wfLine.forEach(([x, z], i) => { pos.push(x, POOL_Y + 0.05, z + 2.4, x, POOL_Y + 1.5, z + 1.6); if (i) { const a = (i - 1) * 2; idx.push(a, a + 2, a + 3, a, a + 3, a + 1); } }); const mg = new THREE.BufferGeometry(); mg.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); mg.setIndex(idx); const m = new THREE.Mesh(mg, mist); m.name = 'waterfall-spray'; m.renderOrder = 3; ctx.add(m); ctx.onUpdate((dt, s) => { mist.opacity = 0.26 + 0.08 * Math.sin(s.t * 2.7); }); }
-        ctx.onUpdate((dt) => { fallTex.offset.y = (fallTex.offset.y + dt * 1.1) % 1; });
+        for (let i = 1; i < wfLine.length; i++) {
+            const [ax, az] = wfLine[i - 1], [qx, qz] = wfLine[i], Lq = Math.hypot(qx - ax, qz - az), yaw = Math.atan2(qx - ax, qz - az) + Math.PI / 2;
+            wb.box((ax + qx) / 2, POOL_Y - .5, (az + qz) / 2 - .3, Lq + .1, UPPER_Y - POOL_Y + .4, .6, '#766d59', 'stone', yaw);
+            wb.box((ax + qx) / 2, UPPER_Y -.10, (az + qz) / 2 -.22, Lq + .08, .12, .72, '#b8afa0', 'stone', yaw);
+        }
+        ctx.extras.cascade = fallingWater(ctx, {line:wfLine,top:UPPER_Y+.02,bottom:POOL_Y+.02});
         // ---------------------------------------------------------------- promenade ring (crushed gravel), obelisk lamps, benches, double tree row
         const P = ctx.painter;
         P.custom((x, T, k, isMask) => { x.strokeStyle = isMask ? 'rgb(0,0,120)' : '#c4b49a'; x.lineWidth = 9 * k; x.beginPath(); for (let i = 0; i <= 200; i++) { const a = A_N - westL + (i / 200) * (westL + eastL); const [px, py] = T(C.x + Math.cos(a) * (R + 8.2), C.z + Math.sin(a) * (R + 8.2)); if (i) x.lineTo(px, py); else x.moveTo(px, py); } x.stroke(); });

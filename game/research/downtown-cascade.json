@@ -1,0 +1,30 @@
+{
+  "reviewedUTC": "2026-11-10",
+  "place": "Bellevue Downtown Park",
+  "scope": "Cascade appearance candidate, not a complete scene reconstruction or measured vertical survey",
+  "sources": [
+    {
+      "url": "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/bellevue-downtown-park",
+      "resolved": "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/bellevue-downtown-park",
+      "date": "2026-11-10T10:18:13.843073+00:00",
+      "sha256": "a9f8ea91ad30975faa6ce516d0f36670b1cb79f57c941ef314ba0e15510c584f",
+      "bytes": 133457
+    },
+    {
+      "url": "https://parks.bellevuewa.gov/parks-and-trails/nature-trails/downtown-park-trails",
+      "supports": "Half-mile promenade and 240-foot waterfall into a reflecting pond"
+    },
+    {
+      "url": "https://bellevuewa.gov/sites/default/files/styles/header_image/public/media/header_image/2019-06/dtp-1600x400.jpg?h=9af50fc2&itok=0SqIH9rw",
+      "sha256": "c5f374a9543f99204371663ea0e4a2ddd62442a1c60c3400a477dba682044b4e",
+      "review": "Actual city park photo: wet brown/grey retaining wall visible behind thin water streams, pale coping and narrow impact foam; towers and trees behind. Upload path is not a photographic capture date.",
+      "usage": "Private comparison only; no provider pixels in the game or overview."
+    }
+  ],
+  "geometry": "Existing five-point authored line retained from the prepared park layout. Its exact end points and 2.4 m drop remain estimates. Official width is 73.152 m; retained modeled line is not claimed to be a new survey.",
+  "pending": [
+    "Native full-size four-condition appearance review",
+    "Ordinary approach, event triggers, cancellation/completion/awards/persistence",
+    "Full scene architecture/skyline and physical review"
+  ]
+}

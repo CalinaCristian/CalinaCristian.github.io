@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "ae3c9c845418171b02fbafd85a01d31882ac2e71",
+  "sourceSha": "9310831ad1edb42a0088841076bc1f72a389f2ab",
   "reviewedOn": "2026-11-09",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -24,10 +24,10 @@
     "historicalReady": 12,
     "menuAvailable": 7,
     "spotVisitorGalleries": 24,
-    "spotVisitorCaptures": 51,
-    "spotVisitorRetainedCaptures": 29,
-    "spotVisitorImages": 80,
-    "spotVisitorReports": 7,
+    "spotVisitorCaptures": 48,
+    "spotVisitorRetainedCaptures": 0,
+    "spotVisitorImages": 48,
+    "spotVisitorReports": 8,
     "achievements": 121
   },
   "districts": [
@@ -3107,16 +3107,16 @@
       "menuAvailable": true,
       "menuTier": "recommended",
       "visitorGallery": {
-        "sourceCommit": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
-        "captureCount": 5,
+        "sourceCommit": "c4b8b9d74682e19390f9a60313013898bcf28428",
+        "captureCount": 1,
         "retainedCaptureCount": 0,
-        "reportCount": 2,
+        "reportCount": 1,
         "captureSourceCommits": [
-          "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc"
+          "c4b8b9d74682e19390f9a60313013898bcf28428"
         ],
         "captureRange": [
-          "2026-11-09T11:54:43.066Z",
-          "2026-11-09T11:55:42.061Z"
+          "2026-11-10T04:50:26.646Z",
+          "2026-11-10T04:50:26.646Z"
         ]
       },
       "evidence": "evidence/spots/pike-place.json"
@@ -3133,7 +3133,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3157,7 +3157,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3181,7 +3181,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3205,7 +3205,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3229,7 +3229,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3253,7 +3253,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3277,7 +3277,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3301,13 +3301,13 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 3,
+        "retainedCaptureCount": 0,
         "reportCount": 4,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
         ],
         "captureRange": [
-          "2026-11-09T08:19:50.884Z",
+          "2026-11-09T08:29:12.819Z",
           "2026-11-09T08:29:18.386Z"
         ]
       },
@@ -3325,7 +3325,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3349,7 +3349,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3373,7 +3373,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3397,7 +3397,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3421,7 +3421,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3445,13 +3445,13 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 5,
+        "retainedCaptureCount": 0,
         "reportCount": 5,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
         ],
         "captureRange": [
-          "2026-11-09T08:23:13.623Z",
+          "2026-11-09T08:32:10.030Z",
           "2026-11-09T08:32:14.728Z"
         ]
       },
@@ -3467,16 +3467,16 @@
       "menuAvailable": true,
       "menuTier": "recommended",
       "visitorGallery": {
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "captureCount": 2,
-        "retainedCaptureCount": 1,
-        "reportCount": 3,
+        "sourceCommit": "19b2298de4a8cf84de383a578d22520affdfb399",
+        "captureCount": 3,
+        "retainedCaptureCount": 0,
+        "reportCount": 2,
         "captureSourceCommits": [
-          "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
+          "19b2298de4a8cf84de383a578d22520affdfb399"
         ],
         "captureRange": [
-          "2026-11-09T08:22:41.076Z",
-          "2026-11-09T08:26:52.219Z"
+          "2026-11-09T15:58:44.543Z",
+          "2026-11-09T16:00:51.794Z"
         ]
       },
       "evidence": "evidence/spots/old-town-lipscani.json"
@@ -3493,7 +3493,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3517,7 +3517,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3541,7 +3541,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3565,7 +3565,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3589,7 +3589,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3613,7 +3613,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3637,7 +3637,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3661,7 +3661,7 @@
       "visitorGallery": {
         "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "captureCount": 2,
-        "retainedCaptureCount": 1,
+        "retainedCaptureCount": 0,
         "reportCount": 3,
         "captureSourceCommits": [
           "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
@@ -3685,7 +3685,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "ec2b9a231b4e7ac381693dc84845e91155b9626b034d71ecdb7228cb5c290c61"
+      "sha256": "19309346ddb0150e45f6f39ad7681f085105f9360a9670c2d0756b9a6e0d0b02"
     },
     {
       "path": "specs/README.md",
@@ -3705,7 +3705,7 @@
     },
     {
       "path": "specs/12-buildings-streetscape.md",
-      "sha256": "a84a11c36b6313ac227b888dfb983242ddf99e1bc5c65d10c106a3a7a93ae0de"
+      "sha256": "52ee39079b5d18762d0fe559d3993a8bf946b72c2397a83db3b6da15ad83ec73"
     },
     {
       "path": "specs/13-traffic.md",
@@ -4489,7 +4489,7 @@
     },
     {
       "path": "game/src/spots/source-regional-terrain.js",
-      "sha256": "a559ae411acc8285d91af0393aaef0738c5e7721e4afd17feee4adba51100686"
+      "sha256": "f80b0cdeec0a211bb7d609b719f7e292431b90d0c1b1b458d4941eb1fda12c83"
     },
     {
       "path": "game/src/spots/source-terrain-projection.js",
@@ -4497,7 +4497,7 @@
     },
     {
       "path": "game/src/spots/source-terrain-visibility.js",
-      "sha256": "87ad476ef26c2e463ba7d764a1c1ff2f13f8dbbdff3ffdabde23d8a703a599dc"
+      "sha256": "508af9b4f1914590d9f8dd096e9b744030e48bec557600b2fa001243ce13468a"
     },
     {
       "path": "game/src/spots/source-water-faces.js",
@@ -4616,6 +4616,10 @@
       "sha256": "298a2d16f54d3e3a6bc136e75b807d10f76ec90fb57a8fb25c5d7b4be43cf1e8"
     },
     {
+      "path": "game/overview/assets/spots/pike-place/latest-c4b8b9d7/manifest.json",
+      "sha256": "d331028ebc7da1d1636318ba35752f40b62972ef7b99ca31d67c8a5bb3e25d89"
+    },
+    {
       "path": "game/overview/comparison-data/bellevue/boundary-source.json",
       "sha256": "0caae36707217d6f29d54b276cc3de80ba918d9fe8030ab257cd546b82fd1ac8"
     },
@@ -4632,100 +4636,8 @@
       "sha256": "8d3c3811d7d66eda37e88cab5a1337d43e1ac77117fe6b8b92321959224b8b3a"
     },
     {
-      "path": "game/overview/comparison-data/bellevue/historical/c78a5f4/boundary-source.json",
-      "sha256": "0caae36707217d6f29d54b276cc3de80ba918d9fe8030ab257cd546b82fd1ac8"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json",
-      "sha256": "b63f1d4561f5ec822573824a891ce9a2454a71c2246b712cd6b230e7327c02cc"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/c78a5f4/capture-report.json",
-      "sha256": "b899689fb71cb6b2e6b05a3a5bc68c85a51ca979ea1a289cd14c8b4c164375c3"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/c78a5f4/grid-plan.json",
-      "sha256": "a0923035def0f9697460f5deb144493e0e505e632417d2ea35f3e9379d57028a"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/c78a5f4/manifest.json",
-      "sha256": "4e4e5429d654cf4acf00744b75b7779acd8b9d3bb3460039f43ebfd4d3f7662b"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/c78a5f4/source-provenance.json",
-      "sha256": "c56c42d2f2f3dd19f062ee54254b2e68f554b52654fc07a674b18f63d3cb9e60"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/c78a5f4/validation.json",
-      "sha256": "d7d6da28e94a616f3ac6ee8cbbeb51c5d077100a5a67f6a8e62da1d4c1175a60"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/boundary-source.json",
-      "sha256": "0caae36707217d6f29d54b276cc3de80ba918d9fe8030ab257cd546b82fd1ac8"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/capture-manifest.json",
-      "sha256": "b63f1d4561f5ec822573824a891ce9a2454a71c2246b712cd6b230e7327c02cc"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/capture-report.json",
-      "sha256": "b899689fb71cb6b2e6b05a3a5bc68c85a51ca979ea1a289cd14c8b4c164375c3"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/grid-plan.json",
-      "sha256": "a0923035def0f9697460f5deb144493e0e505e632417d2ea35f3e9379d57028a"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/manifest.json",
-      "sha256": "ff026d4487d7cc831cb8b8a8b4b5980e30acf83fba4f1e4f4131155548299b3b"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/retakes/338300a9/capture-report.json",
-      "sha256": "69f09c10cca22726f5617e985158219b8b648bda7d8ead77b0f5436184939917"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/retakes/338300a9/grid-plan.json",
-      "sha256": "6501ba6e6e6e4393522cec5b9113a206ed721bbd1cb8a88796467fd9582a3cb9"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/retakes/338300a9/manifest.json",
-      "sha256": "a2036091fa5b218f7a4d562120b5329e6904de3fee658d9442e20c8922108eed"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/retakes/338300a9/paired-review.json",
-      "sha256": "9f838c0b5cdbaa6113897af722d59c7e83c3e92505cf2f632606ef56019e8f53"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/retakes/338300a9/poses.json",
-      "sha256": "09baa9f79adfa8e9189b1aa67d6458fc2b67da78be7a3b2ac735614e33c5347f"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/retakes/338300a9/publication-validation.json",
-      "sha256": "c468865c68a665a3c7075399f539df2addd1c7e54669317d39e11eccbc9a5184"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/retakes/338300a9/source-provenance.json",
-      "sha256": "2b4afe8b5a7fd23e838fa94e5eb24af7b8751da5ee60f8b4d0ddffd54aa3666a"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/retakes/338300a9/world-stats.json",
-      "sha256": "ff47d25f5027afcf9ac815cfe087e489fd45630a004746a7e02b7a06f6d4aacb"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/source-provenance.json",
-      "sha256": "c56c42d2f2f3dd19f062ee54254b2e68f554b52654fc07a674b18f63d3cb9e60"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/street-walk/manifest.json",
-      "sha256": "7f51a0632a216d45e7f25899ac7a950b00dac6fe60ae322e14a4b379d43767a7"
-    },
-    {
-      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/validation.json",
-      "sha256": "d7d6da28e94a616f3ac6ee8cbbeb51c5d077100a5a67f6a8e62da1d4c1175a60"
-    },
-    {
       "path": "game/overview/comparison-data/bellevue/manifest.json",
-      "sha256": "4f2d3a1527a4c7c048be450ca5e72b5cd7b811f86310453e14e88727036ead3e"
+      "sha256": "6aaff5ca88a1bb0ecaf5825d95783230fd2eef539a241c2e9ea5bf0bfc666c63"
     },
     {
       "path": "game/overview/comparison-data/bellevue/retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/boundary-source.json",
@@ -5048,344 +4960,8 @@
       "sha256": "ed2a000e1e553f7bc44d49b4c726a1456f37aa3b1cffab1e1e69a9976003b955"
     },
     {
-      "path": "game/overview/comparison-data/floreasca/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-d7393248/boundary-source.json",
-      "sha256": "bd83acc9c271d3f56889b7e6f1c30072107282c7debe02a5d778707f73ea8b33"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-d7393248/capture-manifest.json",
-      "sha256": "d73932484aeac2f13321a8498300fd407010532b3e6bbe80191c0e4375b0adc8"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-d7393248/capture-report.json",
-      "sha256": "e3b0122074089342742da129f614c05d6296960b33b9c5b6b90ceac4ac335650"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-d7393248/grid-plan.json",
-      "sha256": "d69129ba47911c929ecff491feaee296303b19022a2adcc9ccd64f5c2abf365e"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-d7393248/manifest.json",
-      "sha256": "31260f2aeb55501c785f7093681296c7e2fb4b6615a94835569c02f9f143cc28"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-d7393248/poses.json",
-      "sha256": "32bf15f2483d0010f608eaccf3a19157743d3c1dbd6a6c8795b104be4b338fcf"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-d7393248/source-provenance.json",
-      "sha256": "bf13670d198da808f838b07fe3e6649e793db251ef9b4e49f2d4b79d8add9d59"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-d7393248/validation.json",
-      "sha256": "8cb70e71faeed88a0cf03331fe694e737327d8471d5bb5e7b9ad3c006ab1d20d"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/df9b2e2ced83b8b30bcc8e34cf809a434b25bc27-859cfbde/boundary-source.json",
-      "sha256": "0312d241700b05b3c6a53a84ab1aece7b4bbda1241d34c4934b7ae878af35de2"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/df9b2e2ced83b8b30bcc8e34cf809a434b25bc27-859cfbde/capture-manifest.json",
-      "sha256": "2e60028650e0017dc29d693d4aeb4e74c003b5bdd151266dfd4356a2c9b2d45a"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/df9b2e2ced83b8b30bcc8e34cf809a434b25bc27-859cfbde/capture-report.json",
-      "sha256": "b60550b04a1974f3ca0169e49db5e86ce997f38e4ec60fb94028e604470c6a06"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/df9b2e2ced83b8b30bcc8e34cf809a434b25bc27-859cfbde/manifest.json",
-      "sha256": "859cfbde3da4e9493050a22c09e232e9d896103ea94629ba3119e7cf4c4053a2"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/df9b2e2ced83b8b30bcc8e34cf809a434b25bc27-859cfbde/source-provenance.json",
-      "sha256": "d73017ac5673de63648d2dd291081dbb11a920485f28d3a1edff2998bbbf5ecd"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/df9b2e2ced83b8b30bcc8e34cf809a434b25bc27-859cfbde/validation.json",
-      "sha256": "ac336a583bcbfe339b79921473c5afcd26f8260ba5ef59d470de9cefd251e9a7"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/boundary-source.json",
-      "sha256": "bd83acc9c271d3f56889b7e6f1c30072107282c7debe02a5d778707f73ea8b33"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/capture-manifest.json",
-      "sha256": "645603ca2fcd68aa554800b730addf098e825ab43f5e36e445aa41f7439496c0"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/capture-report.json",
-      "sha256": "61793fd62d0c409ecf29a6aadf145f2540c3aa36ea20b5f794731cdcad5a6c32"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/capture-manifest.json",
-      "sha256": "24c6691cddf1dad799d0fa955808cd198489b2eb667b35d8277b29072bfc0ccf"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/capture-validation.json",
-      "sha256": "ba825575e5a8ed219530ccd37a515430edc1c95a47b3985c3dd83744512d2cde"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/manifest.json",
-      "sha256": "7481b9a6d538f2bc8f202a58bd69a31441dcf37775ce27d33d22fd0df4a04755"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/capture-validation.json",
-      "sha256": "088549e6c1638cc8f4315f41ca6b4f41a2134d68b34789df47243a76f0c79e64"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
-      "sha256": "0bd4dc277693951fb03f0295d091f1a113bd5799e11c7371cca64827404dee8a"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/review.json",
-      "sha256": "2350ea1f8eac096da4c4c55d2718ce2b917571b2b1d717e07b917d09630d4142"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/runtime-integrity.json",
-      "sha256": "5b95d5f16917b38600bba4108d6eb69dbe146ccb07e45b7df914ec015be7e0c6"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/source-contact-probe.json",
-      "sha256": "e4becfe571e896754344d772f9d59a283f93c5a6be70ed3854dcab6996d698c1"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/source-provenance.json",
-      "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/world-stats.json",
-      "sha256": "d3da36b7c4df3f7aa1f7341696c5ba0686a0afcbe737a2355a3d3f89dda51de9"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/capture-validation.json",
-      "sha256": "766a4f46d2a359a8fa32670c26173d8ba1bc7631ba4b03c6ce58c0ec60368b20"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/manifest.json",
-      "sha256": "3abba632908eeae77e4cf7ab340b18c5f2249ee915a6b1ea958229e899e09bfc"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/review.json",
-      "sha256": "228388b676c375c042929988a89ae6b1349d637d974ecde51d6b8b0343a19874"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/runtime-integrity.json",
-      "sha256": "833be5e6c8674a8ac8e8e36989ed4726766f55d84a0319d86ede8547ce267a30"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/source-contact-probe.json",
-      "sha256": "d6abfddb5952a0de8850e92f7c499cfa61066eed8d8fa2d5b58f943f8bf22971"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/source-provenance.json",
-      "sha256": "50ebd384f16ca78942d341b0c6413335e8ac32d804d23a5f9170fe4396ea0df4"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/world-stats.json",
-      "sha256": "421da9a397872aba6b6159a3153de60cbf110cbe2f888800659b63f32fe6b1e8"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/runtime-integrity.json",
-      "sha256": "5b95d5f16917b38600bba4108d6eb69dbe146ccb07e45b7df914ec015be7e0c6"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/source-contact-probe.json",
-      "sha256": "e4becfe571e896754344d772f9d59a283f93c5a6be70ed3854dcab6996d698c1"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/source-provenance.json",
-      "sha256": "0b718b0db6b7a87f571bd8b8683c36886ff43ee00b0ba9c832363d818388867d"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-day/world-stats.json",
-      "sha256": "d3da36b7c4df3f7aa1f7341696c5ba0686a0afcbe737a2355a3d3f89dda51de9"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-night/capture-manifest.json",
-      "sha256": "1325750e42092c3299be8e70af779bf0cbab140921e15080d30dc4de1a9af9b0"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-night/capture-validation.json",
-      "sha256": "32779a38a95891451e41fdcef8f8e9a634708cff3c1486915a05043e4fb4345d"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-night/manifest.json",
-      "sha256": "50f968ba6724a8f503f75005848e13d3b2370bfea46e8320c9dc7004989729ce"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-night/runtime-integrity.json",
-      "sha256": "5b95d5f16917b38600bba4108d6eb69dbe146ccb07e45b7df914ec015be7e0c6"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-night/source-contact-probe.json",
-      "sha256": "e4becfe571e896754344d772f9d59a283f93c5a6be70ed3854dcab6996d698c1"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-night/source-provenance.json",
-      "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/summer-clear-night/world-stats.json",
-      "sha256": "431ad2561b31060ddce805c91789cc5727f8bc6e401dbf0700c86e2b77d91e1b"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/capture-manifest.json",
-      "sha256": "50f6296d128c1b86a73d4db3252c8f2932f1c30e8873822a4530d66b90700892"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/capture-validation.json",
-      "sha256": "52ba3717754fc616de253adc52560fce74732c021b11c0250ca7883f21a88441"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/manifest.json",
-      "sha256": "4c7e18251eb24ef33d109cea2ba895bf5af9ad60e72f08aea15a655946249ea5"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/capture-validation.json",
-      "sha256": "76129c74af62f2dda50255184076c5f7b5d37d2884c11aa90a73fdb651a80330"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
-      "sha256": "e0a8bd9f44376d9a0a3aa77beb3ebc3ddcb715524b64bd34e15be9ee540dbf73"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/review.json",
-      "sha256": "278e960d24575142a1f4c187b4baed069827c9490177b14bfb941fc8442005ee"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/runtime-integrity.json",
-      "sha256": "5b95d5f16917b38600bba4108d6eb69dbe146ccb07e45b7df914ec015be7e0c6"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/source-contact-probe.json",
-      "sha256": "e4becfe571e896754344d772f9d59a283f93c5a6be70ed3854dcab6996d698c1"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/source-provenance.json",
-      "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/world-stats.json",
-      "sha256": "3b0209cdf9d1697803bf9c2ee4e4c41cd8147bcbc748937d069e833e5369e325"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/capture-validation.json",
-      "sha256": "ff2dffa4e512cca4aed1d591ea43588576c32664ba41c6148c1f3a4854e733ea"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/manifest.json",
-      "sha256": "99d081a8fc31f850f65a52772ac587088f2c18d072da9d01728f4569235589cf"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/review.json",
-      "sha256": "a69540c72131ebc33383bea9dc6807d7744190f3c98322d3f38fc9c87b7b6ced"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/runtime-integrity.json",
-      "sha256": "833be5e6c8674a8ac8e8e36989ed4726766f55d84a0319d86ede8547ce267a30"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/source-contact-probe.json",
-      "sha256": "d6abfddb5952a0de8850e92f7c499cfa61066eed8d8fa2d5b58f943f8bf22971"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/source-provenance.json",
-      "sha256": "50ebd384f16ca78942d341b0c6413335e8ac32d804d23a5f9170fe4396ea0df4"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/world-stats.json",
-      "sha256": "9a4c9791e9f5feeb59bd355f7bfad949ffe47aa919fb521446505e9f896edb9d"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/runtime-integrity.json",
-      "sha256": "5b95d5f16917b38600bba4108d6eb69dbe146ccb07e45b7df914ec015be7e0c6"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/source-contact-probe.json",
-      "sha256": "e4becfe571e896754344d772f9d59a283f93c5a6be70ed3854dcab6996d698c1"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/source-provenance.json",
-      "sha256": "394a5d8f1333a948e9aab80e2caad63a67082a44504a43b65459205f7811d6c7"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/context/winter-snow-day/world-stats.json",
-      "sha256": "3b0209cdf9d1697803bf9c2ee4e4c41cd8147bcbc748937d069e833e5369e325"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/grid-plan.json",
-      "sha256": "5824ef225e69855b25645642d57d0edc4447a6e5d5c36823de8d65b2df6d3fb2"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/manifest.json",
-      "sha256": "3c104b16729fc75d66a51530c3b63fa4f46234ec49761833db215074fc57df5c"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/poses.json",
-      "sha256": "2cebfe76dbc0c7ca098b6effd3ee69826f6a5957dfd9693e8543c3da2de60bf3"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/capture-report.json",
-      "sha256": "967290a248ff3ff803acb3c6b2b7dbb8e863b7be970a030d40e354a64003f73a"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/grid-plan.json",
-      "sha256": "696c0ed30efba5b99c95cd685950d47a33684bcc8efd69121e3875c4549a703c"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
-      "sha256": "24381f85b46d3e632bc29297841a8bca3098778e7d3a071b309f0e41ec036402"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/poses.json",
-      "sha256": "6f0236833b3a41da4476a8225636392b0b9713517c9e0c16bcebca7fc4792173"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/source-provenance.json",
-      "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/validation.json",
-      "sha256": "59c16fcf77eb20152ca4dcd83e8ba04c080b03ef58c203fd2d2423e175551db4"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/capture-report.json",
-      "sha256": "e3b0122074089342742da129f614c05d6296960b33b9c5b6b90ceac4ac335650"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/grid-plan.json",
-      "sha256": "d69129ba47911c929ecff491feaee296303b19022a2adcc9ccd64f5c2abf365e"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/manifest.json",
-      "sha256": "d73932484aeac2f13321a8498300fd407010532b3e6bbe80191c0e4375b0adc8"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/poses.json",
-      "sha256": "32bf15f2483d0010f608eaccf3a19157743d3c1dbd6a6c8795b104be4b338fcf"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/source-provenance.json",
-      "sha256": "bf13670d198da808f838b07fe3e6649e793db251ef9b4e49f2d4b79d8add9d59"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/validation.json",
-      "sha256": "8cb70e71faeed88a0cf03331fe694e737327d8471d5bb5e7b9ad3c006ab1d20d"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/source-provenance.json",
-      "sha256": "d7df3db3e2c76209500762ef9475b28da9f22b7745c36f95e7545fe6cbc75c56"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/validation.json",
-      "sha256": "eab395f0d59655d4e10a816d5d9fb02019a71a8faa749aeec5fdb225fbe80260"
-    },
-    {
-      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/water-mask.json",
-      "sha256": "ef406d3988751acaea3cd10ccc97918955d0ed02e9f8b268d8291fc9c6713c70"
-    },
-    {
       "path": "game/overview/comparison-data/floreasca/manifest.json",
-      "sha256": "54451888ab12df421795de60c2224ebb87289a6e01bfdb5e823c6e849d7daf88"
+      "sha256": "f1b362365cb98b0ce85531285b4e678b68ed665981fd955e6c66279113d5f84e"
     },
     {
       "path": "game/overview/comparison-data/floreasca/poses.json",
@@ -5596,436 +5172,8 @@
       "sha256": "b7439c89ac20d1025e0d58dab3d3d0e6293160f6ff1789744098f37670604fb8"
     },
     {
-      "path": "game/overview/comparison-data/grozavesti/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-fed96a2d/boundary-source.json",
-      "sha256": "088acda5d3a4133d1f7614a33dc13d6e9f12cbec98fa52ea0bbdf1647913d8ff"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-fed96a2d/capture-manifest.json",
-      "sha256": "fed96a2d9376961fe566b752e869f2cdf9337aa870a87b2f2eba5eef03008dda"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-fed96a2d/capture-report.json",
-      "sha256": "77c38c660f22ac0704a91ddc23463fcc60e3fdbd13ad47a43c60161efa6294bc"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-fed96a2d/grid-plan.json",
-      "sha256": "e140b564bd3c29acdaaa9992ce44a3366c64398acc10a905f373cdc969ee4348"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-fed96a2d/manifest.json",
-      "sha256": "753cdf4b00bfcea278d63b50573f66337582039eb73821e1b1eb154f4576f57f"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-fed96a2d/poses.json",
-      "sha256": "e3b0eec438f518e55a2d14fde4368d468968079e887d34378025e7105e516208"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-fed96a2d/source-provenance.json",
-      "sha256": "bf13670d198da808f838b07fe3e6649e793db251ef9b4e49f2d4b79d8add9d59"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-fed96a2d/validation.json",
-      "sha256": "b741ecef9639237a4ff2bff884d5478f8d58524b6512f4b24caf01abf5a3096b"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/ff70806113efe0253cf5c623c87e181bbde595b5-dcfd7be3/boundary-source.json",
-      "sha256": "9e434091164d582ff75bf60ad52283547ba45911659abd22406acf012a4b08ea"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/ff70806113efe0253cf5c623c87e181bbde595b5-dcfd7be3/capture-manifest.json",
-      "sha256": "952374a5fb3ec5a3828cebcc4e9590b8765a34f9e7f76ce76565fb7523e8a84e"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/ff70806113efe0253cf5c623c87e181bbde595b5-dcfd7be3/manifest.json",
-      "sha256": "dcfd7be3bf98df8fd241064a5517b9cb03aa141872a4a406c5f264bbe9ee5b10"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/ff70806113efe0253cf5c623c87e181bbde595b5-dcfd7be3/source-provenance.json",
-      "sha256": "cff953f5e1927a9fd530e64a574c40bd97bcfebf900ecb568d989994acd22bd8"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/ff70806113efe0253cf5c623c87e181bbde595b5-dcfd7be3/validation.json",
-      "sha256": "f405d9ecfaa19d9a2c253293fccb30f0c29493aa151e230c0b4efaecfb7903ae"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/boundary-source.json",
-      "sha256": "088acda5d3a4133d1f7614a33dc13d6e9f12cbec98fa52ea0bbdf1647913d8ff"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/capture-manifest.json",
-      "sha256": "5978c6d95b290767b7cd5a1f4fe4316e301e8f7159646e9ed6583417b675e182"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/capture-report.json",
-      "sha256": "043ebd4adbccb13fc8f6c6251c8785e03eae28d8c1846d9872ebbf10e9bd7fac"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/summer-clear-day/capture-manifest.json",
-      "sha256": "0b9b64b5b28015afcf2577c0eb1df852e97df42521c0c404561dec2b7e7810d7"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/summer-clear-day/manifest.json",
-      "sha256": "a3b696170e25a6b98865e8cc3055cedfa36e0dc3c08a8d96c8f0af3baada7053"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/summer-clear-day/runtime-integrity.json",
-      "sha256": "e6a3770b957cea00af113e78c180ff8a695b5d70af65eef9d11105f046e6508d"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/summer-clear-day/source-contact-probe.json",
-      "sha256": "c442f53d8d3da0655e7a67171a8882c73ebf0004a45faadae7018abe01df59ac"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/summer-clear-day/source-provenance.json",
-      "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/summer-clear-day/world-stats.json",
-      "sha256": "606c986c178ebe91db6806556506e768f6e51d9ef8682c048c25d70574752625"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/summer-clear-night/capture-manifest.json",
-      "sha256": "6266e90cc965887695c9ffd450aadd879cfdf38a006948c033f85e498eedb059"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/summer-clear-night/capture-validation.json",
-      "sha256": "87dd76446135dc445fea3b5688bdd149c36264658b9c56e9ac11eb5bf89cd01a"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/summer-clear-night/manifest.json",
-      "sha256": "a6d9ef84b2e5009d8aee1537d1871ba3056a7e19c88bd279c3020bbdc8966578"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/summer-clear-night/runtime-integrity.json",
-      "sha256": "e6a3770b957cea00af113e78c180ff8a695b5d70af65eef9d11105f046e6508d"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/summer-clear-night/source-contact-probe.json",
-      "sha256": "c442f53d8d3da0655e7a67171a8882c73ebf0004a45faadae7018abe01df59ac"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/summer-clear-night/source-provenance.json",
-      "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/summer-clear-night/world-stats.json",
-      "sha256": "37309f9382ddc6eb8a1b97fa8c53f1d85e7add2ab43897889cc8a4aff5d635d9"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/winter-snow-day/capture-manifest.json",
-      "sha256": "2c252b6d720cd5799faa1aff9c3fffe41c05ca1975db5cdcbb2d9da098e7c101"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/winter-snow-day/capture-validation.json",
-      "sha256": "43225890621c1a510e7ed2b28d3d761cb358a7dd938045fe835e2c03793bf50a"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/winter-snow-day/manifest.json",
-      "sha256": "8767c8702eb23aff97c90db4f209dc4d8e38f6f2399270e5180ffb81e2f222f2"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/winter-snow-day/runtime-integrity.json",
-      "sha256": "e6a3770b957cea00af113e78c180ff8a695b5d70af65eef9d11105f046e6508d"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/winter-snow-day/source-contact-probe.json",
-      "sha256": "c442f53d8d3da0655e7a67171a8882c73ebf0004a45faadae7018abe01df59ac"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/winter-snow-day/source-provenance.json",
-      "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/context/winter-snow-day/world-stats.json",
-      "sha256": "290cded588d109b0ba6b39fa3bf04ff221d25b652f278e59d2a2e12d63451e0d"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/grid-plan.json",
-      "sha256": "5ce06d657eac7c03a5294e8e65e6477777c4037a6d2e896117d3760c1de6feaa"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/manifest.json",
-      "sha256": "5978c6d95b290767b7cd5a1f4fe4316e301e8f7159646e9ed6583417b675e182"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/poses.json",
-      "sha256": "1303784b9248ee18ff9bb0b2d4a281b9e74a0d760fb691fef9b4851f7abe13b1"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/capture-report.json",
-      "sha256": "06c64e75be49452bbf106cd1ce82ef28ab7ae54a76b1057ceffa5dec2527e8fc"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/grid-plan.json",
-      "sha256": "38f318f5b859d68dcca7c5f92405c8366971efa573246164c6a840d0d31e8e1d"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
-      "sha256": "2ec17090452c2a61241a46b0c585667fe3f8389f3c5b455db091210c31b5a92a"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/poses.json",
-      "sha256": "9495bc5c4621e04dbdf1caf958f3a85318519f6cf3076ca0b03135d41d448498"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/source-provenance.json",
-      "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/validation.json",
-      "sha256": "a191d259f1cf2562d5593e79a942e66de1a49c1758c857cd72434a6b5e4b753b"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/capture-report.json",
-      "sha256": "77c38c660f22ac0704a91ddc23463fcc60e3fdbd13ad47a43c60161efa6294bc"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/grid-plan.json",
-      "sha256": "e140b564bd3c29acdaaa9992ce44a3366c64398acc10a905f373cdc969ee4348"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/manifest.json",
-      "sha256": "fed96a2d9376961fe566b752e869f2cdf9337aa870a87b2f2eba5eef03008dda"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/poses.json",
-      "sha256": "e3b0eec438f518e55a2d14fde4368d468968079e887d34378025e7105e516208"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/source-provenance.json",
-      "sha256": "bf13670d198da808f838b07fe3e6649e793db251ef9b4e49f2d4b79d8add9d59"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/validation.json",
-      "sha256": "b741ecef9639237a4ff2bff884d5478f8d58524b6512f4b24caf01abf5a3096b"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/boundary-source.json",
-      "sha256": "088acda5d3a4133d1f7614a33dc13d6e9f12cbec98fa52ea0bbdf1647913d8ff"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/capture-progress.json",
-      "sha256": "3f07f127e6885f2a5c6f93f387680b64de78acb7ea06db96c4c7ef84edc10344"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/capture-report.json",
-      "sha256": "3e4fdbfea133b4c501c1664a190b9180463e9f0a66a4d6977fc079e1b7d09fcd"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/grid-plan.json",
-      "sha256": "e1984066e73a2f3d89a5ea39cd910160ac7065e8e0dee9edc86fda35404b3b51"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
-      "sha256": "3d058be0be137130ceb6d41058b25bfa81e8563a8cd9c251205c8405b72b7b1e"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/paired-review.json",
-      "sha256": "4a4ba41aac8cfc4350518c8621ad02cc2f6024870522970fa91bbb4c22781367"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/poses.json",
-      "sha256": "ee5fc75bcf0a409d508a71b0530f1487212ca61d4a52d7a614e9ae72aeed2366"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/publication-validation.json",
-      "sha256": "74d2ae17a5e38e2105b34a282a49fd8b9957ff72febd9adb25e19bf63bee0cfe"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/recapture-mask.json",
-      "sha256": "47135ff7784d66f259938282412f4b4722b0d666c2b6e30b8368e157a2814f77"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/source-provenance.json",
-      "sha256": "f05664c4657ca87bf793d3d9ff188af55049ec4cb6790cf10c6b45efb39b5bc1"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/validation.json",
-      "sha256": "6746dfc05a35ec384ff3f819d49d787f88e8d7cbdbf68383a97d72f568000837"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/world-stats.json",
-      "sha256": "4baf2ea8717b8e4b640fe9663acd36e1abef06480a8ac4018350121b82bce809"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/source-provenance.json",
-      "sha256": "43e84b081d124446b36e3b96a5765492de66d492c4e94e3a465f5bfd5813a183"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/validation.json",
-      "sha256": "74d2ae17a5e38e2105b34a282a49fd8b9957ff72febd9adb25e19bf63bee0cfe"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/water-mask.json",
-      "sha256": "2bc61f911dd0ea674b1d31d03e684f4a2e626534aa8bb77cce7251abd9300ad8"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/boundary-source.json",
-      "sha256": "088acda5d3a4133d1f7614a33dc13d6e9f12cbec98fa52ea0bbdf1647913d8ff"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/capture-manifest.json",
-      "sha256": "904843f50da676438d57ed130b283eddd5a3b78148a476d528480dcfc69b0546"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/capture-report.json",
-      "sha256": "464e74cd89a06d0d24cd60d664d93b79f310efe79ded9ce37aa394e1d9a2a52d"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/summer-clear-day/capture-manifest.json",
-      "sha256": "0b9b64b5b28015afcf2577c0eb1df852e97df42521c0c404561dec2b7e7810d7"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/summer-clear-day/manifest.json",
-      "sha256": "a3b696170e25a6b98865e8cc3055cedfa36e0dc3c08a8d96c8f0af3baada7053"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/summer-clear-day/runtime-integrity.json",
-      "sha256": "e6a3770b957cea00af113e78c180ff8a695b5d70af65eef9d11105f046e6508d"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/summer-clear-day/source-contact-probe.json",
-      "sha256": "c442f53d8d3da0655e7a67171a8882c73ebf0004a45faadae7018abe01df59ac"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/summer-clear-day/source-provenance.json",
-      "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/summer-clear-day/world-stats.json",
-      "sha256": "606c986c178ebe91db6806556506e768f6e51d9ef8682c048c25d70574752625"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/summer-clear-night/capture-manifest.json",
-      "sha256": "6266e90cc965887695c9ffd450aadd879cfdf38a006948c033f85e498eedb059"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/summer-clear-night/capture-validation.json",
-      "sha256": "87dd76446135dc445fea3b5688bdd149c36264658b9c56e9ac11eb5bf89cd01a"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/summer-clear-night/manifest.json",
-      "sha256": "a6d9ef84b2e5009d8aee1537d1871ba3056a7e19c88bd279c3020bbdc8966578"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/summer-clear-night/runtime-integrity.json",
-      "sha256": "e6a3770b957cea00af113e78c180ff8a695b5d70af65eef9d11105f046e6508d"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/summer-clear-night/source-contact-probe.json",
-      "sha256": "c442f53d8d3da0655e7a67171a8882c73ebf0004a45faadae7018abe01df59ac"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/summer-clear-night/source-provenance.json",
-      "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/summer-clear-night/world-stats.json",
-      "sha256": "37309f9382ddc6eb8a1b97fa8c53f1d85e7add2ab43897889cc8a4aff5d635d9"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/winter-snow-day/capture-manifest.json",
-      "sha256": "2c252b6d720cd5799faa1aff9c3fffe41c05ca1975db5cdcbb2d9da098e7c101"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/winter-snow-day/capture-validation.json",
-      "sha256": "43225890621c1a510e7ed2b28d3d761cb358a7dd938045fe835e2c03793bf50a"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/winter-snow-day/manifest.json",
-      "sha256": "8767c8702eb23aff97c90db4f209dc4d8e38f6f2399270e5180ffb81e2f222f2"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/winter-snow-day/runtime-integrity.json",
-      "sha256": "e6a3770b957cea00af113e78c180ff8a695b5d70af65eef9d11105f046e6508d"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/winter-snow-day/source-contact-probe.json",
-      "sha256": "c442f53d8d3da0655e7a67171a8882c73ebf0004a45faadae7018abe01df59ac"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/winter-snow-day/source-provenance.json",
-      "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/context/winter-snow-day/world-stats.json",
-      "sha256": "290cded588d109b0ba6b39fa3bf04ff221d25b652f278e59d2a2e12d63451e0d"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/grid-plan.json",
-      "sha256": "3f3ce5ffa67562e941ac8bc5cc2b03e558b5c0297e6ac154119a46dc35e98f88"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/manifest.json",
-      "sha256": "5978bf1b7cb34de16980571ce85235e784050e450322e7117387c75ef2d5ee1d"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/poses.json",
-      "sha256": "cc339e8e97dbea969db988a6f0a6218cd7a27d023be66d544a2916a45f0113e0"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/capture-report.json",
-      "sha256": "06c64e75be49452bbf106cd1ce82ef28ab7ae54a76b1057ceffa5dec2527e8fc"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/grid-plan.json",
-      "sha256": "38f318f5b859d68dcca7c5f92405c8366971efa573246164c6a840d0d31e8e1d"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
-      "sha256": "2ec17090452c2a61241a46b0c585667fe3f8389f3c5b455db091210c31b5a92a"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/poses.json",
-      "sha256": "9495bc5c4621e04dbdf1caf958f3a85318519f6cf3076ca0b03135d41d448498"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/source-provenance.json",
-      "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/validation.json",
-      "sha256": "a191d259f1cf2562d5593e79a942e66de1a49c1758c857cd72434a6b5e4b753b"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/capture-report.json",
-      "sha256": "77c38c660f22ac0704a91ddc23463fcc60e3fdbd13ad47a43c60161efa6294bc"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/grid-plan.json",
-      "sha256": "e140b564bd3c29acdaaa9992ce44a3366c64398acc10a905f373cdc969ee4348"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/manifest.json",
-      "sha256": "fed96a2d9376961fe566b752e869f2cdf9337aa870a87b2f2eba5eef03008dda"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/poses.json",
-      "sha256": "e3b0eec438f518e55a2d14fde4368d468968079e887d34378025e7105e516208"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/source-provenance.json",
-      "sha256": "bf13670d198da808f838b07fe3e6649e793db251ef9b4e49f2d4b79d8add9d59"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/validation.json",
-      "sha256": "b741ecef9639237a4ff2bff884d5478f8d58524b6512f4b24caf01abf5a3096b"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/source-provenance.json",
-      "sha256": "b922dd4a2cdf7938f1b2f246dec021a7b2b72a6e8dfdf678efc5e750f9450ea9"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/validation.json",
-      "sha256": "e858c77c887f6778bd8aa35d172ce7ae809d800ad8320fb959a569f00f844ff0"
-    },
-    {
-      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/water-mask.json",
-      "sha256": "2bc61f911dd0ea674b1d31d03e684f4a2e626534aa8bb77cce7251abd9300ad8"
-    },
-    {
       "path": "game/overview/comparison-data/grozavesti/manifest.json",
-      "sha256": "00f5d11901a1e086b4769fcfcca3a6e1653bc5a0b436cc56b18e63ad9c5d078f"
+      "sha256": "1cbf07336a74294d7ad4da187de17b8b79ded844aa32ac19b73255391c4c6379"
     },
     {
       "path": "game/overview/comparison-data/grozavesti/poses.json",
@@ -6204,80 +5352,8 @@
       "sha256": "f8e347efd6e12761a82890d67e00fbd869873b160b00bf89e36e24ab43ba652e"
     },
     {
-      "path": "game/overview/comparison-data/otopeni/historical/4198996/boundary-source.json",
-      "sha256": "e9f47600a7996e9686ef471f7d564706d101dc917a24ea224bf020d1197d9b70"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4198996/capture-manifest.json",
-      "sha256": "5e267d3f1deb9a197ca64c47558cac5365e0c34201c4a687c347853de2bf7e1f"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4198996/capture-report.json",
-      "sha256": "4192b5b3ef281e5f0ba6a422fc7da64449198cddfd25992093870cd544689ae1"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4198996/grid-plan.json",
-      "sha256": "7ab41fbd56865bd523487c5c1ca45726e7f1f0cf6a5a476858a4f6b1ef2742b6"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4198996/manifest.json",
-      "sha256": "a7e2c4c10c98472695187338fa30a21d7a16ec32d8c0488492c5d4765d59ac09"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4198996/poses.json",
-      "sha256": "54a49c74a09a69f737980de43f7a3a2adbf29d41a25581ce4d2c17de9795ec56"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4198996/source-provenance.json",
-      "sha256": "8cf4a4b56c4050af04d1d1589635eaab1a1d4f3b7033c65baa65b15867d1c53e"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4198996/validation.json",
-      "sha256": "f360a7b880e877ce098918850ca58f8dfcb44b2cc7c496b54862c97f81c99068"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4198996/world-stats.json",
-      "sha256": "0b995560ffb5846d47ed41dbb981697a51cce7e8a8bd4a3a7579e8e5a9f86e2f"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4378317/boundary-source.json",
-      "sha256": "159855b3e1400cb20a827ebf47dd9be73b2dcf97b0bef03ce05e94744ef5d0c2"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4378317/capture-manifest.json",
-      "sha256": "5b43b295134fc9e955ba5b5cfddbdf6675249197d68414214c09fbe53c55f03e"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4378317/capture-report.json",
-      "sha256": "661ae6e05b252fbbb044e7a3a36acd25fa5b9eb421c84a4952b2ecb6f85d5c0c"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4378317/grid-plan.json",
-      "sha256": "e6593f9eac68c54c0a5a7534caeddd3fcabde6289bbd8d79daf430a97a02261d"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4378317/manifest.json",
-      "sha256": "e3c8ec0315ae6e755234bc8520e252fcb073a7d5dba69f9ac163d6b69394c929"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4378317/poses.json",
-      "sha256": "e14ff57efe74e764fd5bb430a4ad42cff1c3ee5f1df27265ef4fcdaf616e9a51"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4378317/source-provenance.json",
-      "sha256": "d072d9fe7d08c711d6d43bf23f3773503e7aba6155867f0a57f4be424804565d"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4378317/validation.json",
-      "sha256": "cdc05c5ae236526d2763dd2a4eef7226bebb3c93b3a234e4997f3251cc20cfe5"
-    },
-    {
-      "path": "game/overview/comparison-data/otopeni/historical/4378317/world-stats.json",
-      "sha256": "d2fdc57e154e77b2714b7984d3b454ccbd7b1908e27b36391a37c7fb0dcb78f3"
-    },
-    {
       "path": "game/overview/comparison-data/otopeni/manifest.json",
-      "sha256": "c5820604b5b803c6d4654cdeb22ae01758ac38d66c28ebcb38a322c005bcf155"
+      "sha256": "4759c0fc4acf65be9e6081f01e06ad28c2ea78c32238d3d36e02c9f656a692e9"
     },
     {
       "path": "game/overview/comparison-data/otopeni/poses.json",
@@ -6312,136 +5388,8 @@
       "sha256": "4c4714482144351cd30fd032dd113156aaf7a34247a0560195ce199986d12ee0"
     },
     {
-      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/boundary-source.json",
-      "sha256": "0eab74111ca1fb114369cc119b8509eb5c7a764446ab601f07d931c4e6b19129"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
-      "sha256": "67b0dac64fdd882db788b51523e5566b964d4c39309fb88e327f0fde07f2832d"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/capture-report.json",
-      "sha256": "81e551daa756fa9be57cb5694b5568352fc352acd799f2f1a8ec030f1f096f64"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/grid-plan.json",
-      "sha256": "307d3f99e08abdc32720489151bd01064fc98a1f2dbc9a4b81f1c7bb4d644c4f"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/manifest.json",
-      "sha256": "803521c793e0eb12e668bbe198cc2275350b4bc943dfd975c6adff540b33acd8"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/poses.json",
-      "sha256": "fbf638e77bae9519aa4cccc5a0af3356926c5dc0da810d35cf69a6b66bf13c2e"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/review.json",
-      "sha256": "acb1b605aa93ce51fcfe8c65d4868bf365438b004f93238eaaa6287b1718f053"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/source-provenance.json",
-      "sha256": "bedee6790e941fd84d4a7409c4a34d9744e7ffb6077b35a24e8722e52aee2850"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/validation.json",
-      "sha256": "50d818f599f8bffc6eb567b6c404315364d8b0599bdc0bc421199882adc03068"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/boundary-source.json",
-      "sha256": "0eab74111ca1fb114369cc119b8509eb5c7a764446ab601f07d931c4e6b19129"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/capture-manifest.json",
-      "sha256": "1ba053f3b48eb5915a7c69ba8c738c84fe8fe201a02cebf5ae63c52027fbd535"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/capture-report.json",
-      "sha256": "89ca6abe3d51bf5185201f6afb7b0b4735dfbd461fbe8b5b4577789c50489fbf"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/grid-plan.json",
-      "sha256": "a4467112973082405fe973302a02a6b4a622ff4c7f211ccfefbd18037207e47f"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/manifest.json",
-      "sha256": "4b5982724681558afaa65ead6bf82086a55cf7c6ccef1c02973c24ca3525592f"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/poses.json",
-      "sha256": "464630466b49c7de738277fd1120c5f63521e3adb4c8616e2814fbf7c5a3a495"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/retakes/bc9a3ff3/boundary-source.json",
-      "sha256": "0eab74111ca1fb114369cc119b8509eb5c7a764446ab601f07d931c4e6b19129"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/retakes/bc9a3ff3/capture-report.json",
-      "sha256": "47028b74968b1a4f948098a75bcf826c88a238594e42c77a787d8a7ea887ef3f"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/retakes/bc9a3ff3/grid-plan.json",
-      "sha256": "36ac96cddfa0f7a165b40e5feea370664dc19f59f9cc87fb4f454f74ad395c21"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/retakes/bc9a3ff3/manifest.json",
-      "sha256": "85245cb4df7a9b626117254380c15baea205bfb7496cb0373f2b499c5ebdbb13"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/retakes/bc9a3ff3/original-archive-hashes.json",
-      "sha256": "9187f5387d42234933520ee609cd76608d58f19c447927df7eced5b64fd1dd58"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/retakes/bc9a3ff3/paired-review.json",
-      "sha256": "7126aa8d288a034764775fd59832aeca54adb62baa722195b892b7843add8a4c"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/retakes/bc9a3ff3/poses.json",
-      "sha256": "2805f9314ed4b1ba4f96cc66d5f4aac608f1bdaf6649ee38c9eb5825265248cf"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/retakes/bc9a3ff3/publication-validation.json",
-      "sha256": "b58af989c2ffde0ee80e5a7a96362b4cb54a0715e8687ca3d0f4a05cf15cdbda"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/retakes/bc9a3ff3/retake-impact-mask.json",
-      "sha256": "405b3b611c8f3e53f2561ff2692d6a382639f13f23822428b32e7066a24b2ddd"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/retakes/bc9a3ff3/source-equivalence.json",
-      "sha256": "e9035d9787471e13b942518b28cf0393dd4dfbe0dcbecdc183343a16e9f8d092"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/retakes/bc9a3ff3/source-provenance.json",
-      "sha256": "8903d3205876f09e9a2f7f8eb380658ac4bf83e8c48e797db425039e7c60db3b"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/retakes/bc9a3ff3/triplet-source-ledger.json",
-      "sha256": "630965c1002f932167bb39c3d31b2a7706494e18587b31a5e8a775fd28cbf396"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/retakes/bc9a3ff3/validation.json",
-      "sha256": "608f1588c831f6dafd1b51cad4df3a14e46750c96b2edc01135e31c27836dff0"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/retakes/bc9a3ff3/world-stats.json",
-      "sha256": "e496158174031312dd923f2fba21e0ade3075d90bc1995f3ab11de97352e168a"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/review.json",
-      "sha256": "ff90aaf10dc15e4531cfed79dafc866c8463ecca79fdd0cf63daafd5450702ea"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/source-provenance.json",
-      "sha256": "4a7296dc03fde108fd2f275c166a5fb50268a9928bd8ebdd0f8bd7c90e62a2c1"
-    },
-    {
-      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/validation.json",
-      "sha256": "b58af989c2ffde0ee80e5a7a96362b4cb54a0715e8687ca3d0f4a05cf15cdbda"
-    },
-    {
       "path": "game/overview/comparison-data/pipera/manifest.json",
-      "sha256": "1d685d3712c3e76f957729e64e83e764dc142333ea45fef920a5bc4a4228004c"
+      "sha256": "e5db4a9f3e47e8d75ed78e69f6d72bbbc7a62c4799064e63d7db26d231282c93"
     },
     {
       "path": "game/overview/comparison-data/pipera/poses.json",
@@ -6664,44 +5612,8 @@
       "sha256": "52abbef6967118af282d04486d9c46aa513bc370ecbc232f79dea7fe6a4be9e3"
     },
     {
-      "path": "game/overview/comparison-data/romana/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-0fa9d108/boundary-source.json",
-      "sha256": "07c3b94d4d5eb72aea7fc5e5718751b7b3b4a581af134e0dc5d857bbe49a3513"
-    },
-    {
-      "path": "game/overview/comparison-data/romana/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-0fa9d108/capture-manifest.json",
-      "sha256": "0fa9d10879d00ae5647440b5a041ec09fa73e46dc0a5051ff1c892a459fe0d87"
-    },
-    {
-      "path": "game/overview/comparison-data/romana/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-0fa9d108/capture-report.json",
-      "sha256": "6d085a5c4f52ddc36dcd67a2f31ebbb6852394f7dd36095fb88556fff2e38926"
-    },
-    {
-      "path": "game/overview/comparison-data/romana/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-0fa9d108/grid-plan.json",
-      "sha256": "4e67d2ab45d160042f67c672a04db535e024cbb59068ab6a07bf724b6b327305"
-    },
-    {
-      "path": "game/overview/comparison-data/romana/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-0fa9d108/manifest.json",
-      "sha256": "c99106035b43028243b0396db4aa02e9394d55f8c6ee2ef8c94f695ff9fc56f0"
-    },
-    {
-      "path": "game/overview/comparison-data/romana/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-0fa9d108/poses.json",
-      "sha256": "04f8c0a86f8c612545b09eb7c5136dba25ac767c8c012ec18de10b55d50c1c77"
-    },
-    {
-      "path": "game/overview/comparison-data/romana/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-0fa9d108/source-provenance.json",
-      "sha256": "bf13670d198da808f838b07fe3e6649e793db251ef9b4e49f2d4b79d8add9d59"
-    },
-    {
-      "path": "game/overview/comparison-data/romana/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-0fa9d108/validation.json",
-      "sha256": "b1c0af573745eb9abaf7daefd1d1d76edd3ef2400d9423aaa8fdcc318e7e92ad"
-    },
-    {
-      "path": "game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/manifest.json",
-      "sha256": "b234323f3ce72854f75578c84187701e99ee0c3f386be823393d3e9f236fe0df"
-    },
-    {
       "path": "game/overview/comparison-data/romana/manifest.json",
-      "sha256": "aa4e7668f19a60963bbbbd98a0bdb87d9d95111774b52f9fd17dfb7a85e941e8"
+      "sha256": "301037e12de863a172670e4c11548bdff924f2a706cda54ca8dee10db56c6813"
     },
     {
       "path": "game/overview/comparison-data/romana/poses.json",
@@ -6788,40 +5700,8 @@
       "sha256": "e459ebd5e75d04b0cf6a5c8a862663879c52cdfa41b628b713817e9d4e5a2a63"
     },
     {
-      "path": "game/overview/comparison-data/seatac/historical/full-before-07cc3d6b-2215e3c4/boundary-source.json",
-      "sha256": "4fffa03c553d9aafb034367cfdd8cb19f42c7d65552e51ee6e49a2dffade3afc"
-    },
-    {
-      "path": "game/overview/comparison-data/seatac/historical/full-before-07cc3d6b-2215e3c4/capture-manifest.json",
-      "sha256": "40959807f04dd6b33c24caf189e7ae2c8ebd71d6bb6b385211d26109085ee214"
-    },
-    {
-      "path": "game/overview/comparison-data/seatac/historical/full-before-07cc3d6b-2215e3c4/capture-report.json",
-      "sha256": "4c7212a4d536c960e68078eb5816f9762e1c50ae3531ad701049e7c274153592"
-    },
-    {
-      "path": "game/overview/comparison-data/seatac/historical/full-before-07cc3d6b-2215e3c4/grid-plan.json",
-      "sha256": "8db72692a43bcdb5e85440f3595b7683ab7bb1edea4d0831c644e421d53a7fec"
-    },
-    {
-      "path": "game/overview/comparison-data/seatac/historical/full-before-07cc3d6b-2215e3c4/manifest.json",
-      "sha256": "2215e3c4de5505606f7ee78c4fd2519d25b586852ff55a7910f11fbf9a7f9991"
-    },
-    {
-      "path": "game/overview/comparison-data/seatac/historical/full-before-07cc3d6b-2215e3c4/source-provenance.json",
-      "sha256": "c56c42d2f2f3dd19f062ee54254b2e68f554b52654fc07a674b18f63d3cb9e60"
-    },
-    {
-      "path": "game/overview/comparison-data/seatac/historical/full-before-07cc3d6b-2215e3c4/street-walk/manifest.json",
-      "sha256": "ad7088ca996d55a67f5215ab82bedd0d1401ccf3fb02162f427de904dbe30d04"
-    },
-    {
-      "path": "game/overview/comparison-data/seatac/historical/full-before-07cc3d6b-2215e3c4/validation.json",
-      "sha256": "83641614940c64bf56ded69bd40cd0965d9283d2bc690c5cc79bffafd76b0aa4"
-    },
-    {
       "path": "game/overview/comparison-data/seatac/manifest.json",
-      "sha256": "e4fe0a575822cd9edb592565c80f4e6cbd7d72e08d00bd8c7c109aa68c2cd912"
+      "sha256": "eeebd3b892320d4fab08ba780d5a7aa9b2224143799b52234c0bb43df9f17af6"
     },
     {
       "path": "game/overview/comparison-data/seatac/retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/boundary-source.json",
@@ -6900,184 +5780,8 @@
       "sha256": "bcfd2b0cafeb8e7d7820fa4bf68a900381fb190175444dab483ad0038f00ae98"
     },
     {
-      "path": "game/overview/comparison-data/unirii/historical/0775fda/boundary-source.json",
-      "sha256": "f74efa18ed961f6e3180c6f1507186ede2fb482bf092809a100dbe4ad1b69f61"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json",
-      "sha256": "7cf921938fc414826996ce941dcf8ee4cbe532aa8b8521a7378358c5f20397e4"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/0775fda/capture-report.json",
-      "sha256": "ae1bfe3d5b6e095950df06a25b40332f66d8f3aeb5a6e98ce4077d142036b83f"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/0775fda/grid-plan.json",
-      "sha256": "ae350c8b307d0a9afe85d28847ab3ed8d04babeab39525416b482600ea0a0363"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/0775fda/manifest.json",
-      "sha256": "767a94ad116d67b134c12a608cc3ead300cfb240674497a34708e291a38cff56"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/0775fda/poses.json",
-      "sha256": "7cf32d459fe671be739ca1a09b3c5aefe8aac7b28334720e42fb5e8a639434cd"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/0775fda/source-provenance.json",
-      "sha256": "71fc32a05fdb356f4cebb11bf1228594f34ee52267e174598dbd8d46be3e2398"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/0775fda/validation.json",
-      "sha256": "3e08f0ebeb5d40459eaa1b00a580491fd60047b07d9d1b4b94b5b05da4cb0626"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/0775fda/world-stats.json",
-      "sha256": "072b7885b1742735de160fb9f79b97f24e7dc42ab213012a0d84cd156fad2440"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4198996/boundary-source.json",
-      "sha256": "9ffcc8410e7aad4319ce1a466d11fb510d53a4c47527d262d65161648a572c4d"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4198996/capture-manifest.json",
-      "sha256": "db97d61328994952da0a6252a3d4bf6da57e81f37c2cfb6d33f879f3be3da7c1"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4198996/capture-report.json",
-      "sha256": "7320387f722ceff3d662c06a1c4c71ff66bcfed284fdf2a74c12017c8776e3ab"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4198996/grid-plan.json",
-      "sha256": "98edbce3a22412ce9251b9fb90382330f27ebc325dd5e3bf22bbadd9676da49a"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4198996/manifest.json",
-      "sha256": "97375354468e07bb0c88ed3d913b4596f7f4cad5f614064ca933dccd16a7f514"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4198996/poses.json",
-      "sha256": "630f0adf0a61c61b5cb4bfdaf277411adbd09d1a18976cc5101de4f75f479818"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4198996/source-provenance.json",
-      "sha256": "8cf4a4b56c4050af04d1d1589635eaab1a1d4f3b7033c65baa65b15867d1c53e"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4198996/validation.json",
-      "sha256": "6b3839ba669eb5239afeae3595074993d4cd1ea9edf08d083e4854711e31c05e"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4198996/world-stats.json",
-      "sha256": "af9bd19de8f88bd28c9acbb10fed2135071d4aa43467c0bbd81ad6f931eaf8e1"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4378317/boundary-source.json",
-      "sha256": "765a86db0c8910e3ffe59dd6ca0c160dbc1e0245a033e5c113bc85a3fe4bdf6a"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4378317/capture-manifest.json",
-      "sha256": "cc8b6bb7b8fe309a74e7986af93f3036ded81b619c52fb2a7e9a98464d6aeb1b"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4378317/capture-report.json",
-      "sha256": "41f6e7eb919ddcfcd94b2c8144145f6d35a81ce5ff0a087d986f5d2b97d7ccdc"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4378317/grid-plan.json",
-      "sha256": "74b076cbfe0d34179df8ded2d59873c141621fad5984606464aea2e3f1f7a1ee"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4378317/manifest.json",
-      "sha256": "37ef5e663c30f0cfa70d25369af4873dacadd5941a2efa0047d85e1d8e4d23ff"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4378317/poses.json",
-      "sha256": "b9fb1826e299f69f93df9301ca129f7e3d66bb8ddf61ea37b8ee81b0787e4466"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4378317/source-provenance.json",
-      "sha256": "d072d9fe7d08c711d6d43bf23f3773503e7aba6155867f0a57f4be424804565d"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4378317/validation.json",
-      "sha256": "3e27bbfa3cb7578f3b56aa88ff7c378c20c9a9b6afc40e9ef4392f5e165b6158"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/4378317/world-stats.json",
-      "sha256": "d83895aac56aadbb462b9a3c9fc7aa6d7debe3e34ed64b7bbbd16a620a12ff2a"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/boundary-source.json",
-      "sha256": "f74efa18ed961f6e3180c6f1507186ede2fb482bf092809a100dbe4ad1b69f61"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/capture-manifest.json",
-      "sha256": "7cf921938fc414826996ce941dcf8ee4cbe532aa8b8521a7378358c5f20397e4"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/capture-report.json",
-      "sha256": "ae1bfe3d5b6e095950df06a25b40332f66d8f3aeb5a6e98ce4077d142036b83f"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/grid-plan.json",
-      "sha256": "ae350c8b307d0a9afe85d28847ab3ed8d04babeab39525416b482600ea0a0363"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/manifest.json",
-      "sha256": "0ad0a41b7fb0ee3d59d6a54e3bcefb2390c51a51a18d6390943db4abfc7c4e26"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/poses.json",
-      "sha256": "7cf32d459fe671be739ca1a09b3c5aefe8aac7b28334720e42fb5e8a639434cd"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/retakes/bbaffc0d/capture-report.json",
-      "sha256": "2819cd9966732c02cc9faaee2bd0fdc2fc5ec7ee060a16bcbcde2f0699446e57"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/retakes/bbaffc0d/grid-plan.json",
-      "sha256": "d697054219f5ca8cc61a035f6a7e2015c7edaddde2c34591dbc6ba55d26a8214"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/retakes/bbaffc0d/manifest.json",
-      "sha256": "eb249401c87853a4a3e8c1f50a95af5538942a84ca716f8f5fb77b0f4073699d"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/retakes/bbaffc0d/paired-review.json",
-      "sha256": "110305c334d33e68eb86243a35d07bf33471f618073e24cd3b25149482c46ebc"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/retakes/bbaffc0d/poses.json",
-      "sha256": "a910cb5553c65285062e3133e1b45619d0f4c41974f44437a9253d5a2ec1dcd2"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/retakes/bbaffc0d/publication-validation.json",
-      "sha256": "45f43a026de3345af75c28290b35ad445959ccdfd05ce7680f06c4f17a04ed42"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/retakes/bbaffc0d/source-provenance.json",
-      "sha256": "3e8d7220269393ffc24dfdb25dc83bdfd07f0c9acbd718daa84850455271c76a"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/retakes/bbaffc0d/world-stats.json",
-      "sha256": "2d954b59b13a5dd0f38c217917ab3b5fe68d888875f11a025ed7795e7c0f6913"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/source-provenance.json",
-      "sha256": "71fc32a05fdb356f4cebb11bf1228594f34ee52267e174598dbd8d46be3e2398"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/validation.json",
-      "sha256": "3e08f0ebeb5d40459eaa1b00a580491fd60047b07d9d1b4b94b5b05da4cb0626"
-    },
-    {
-      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/world-stats.json",
-      "sha256": "072b7885b1742735de160fb9f79b97f24e7dc42ab213012a0d84cd156fad2440"
-    },
-    {
       "path": "game/overview/comparison-data/unirii/manifest.json",
-      "sha256": "ffd63f8bb89e341fd738ff67900258e69ab3d12262d5d60533d15f5446512e41"
+      "sha256": "dbfdabcf4b3dcffc7c829f775c7ad4918fcfe42b1ce47f1e5d65d811885fe7a2"
     },
     {
       "path": "game/overview/comparison-data/unirii/poses.json",
@@ -7181,7 +5885,7 @@
     },
     {
       "path": "game/overview/comparison-viewer.js",
-      "sha256": "b9e8aeda8f8507a6da88c9216fb7cc307fd126a90b6678c2e0c43f6d5f15fff2"
+      "sha256": "ee43aa20c31675651c411c3d1812588d7e673c0d44abf452bbac6209095d662b"
     },
     {
       "path": "game/overview/evidence/carusel-staging-20261109/component.js",
@@ -7197,35 +5901,35 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/ambasador.json",
-      "sha256": "acfc44eb67ea21268f163504f025c74f22c4d09f57affb7f1c560f01137b52e3"
+      "sha256": "81661c0cc1f61cfcfabdbf8aa813e03dbe7d47376b964c2936fedc90823fdea5"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/arcul.json",
-      "sha256": "9f9788312cd21347cb24f857c6724fa2015467574bfd1907419cae853fbb1f01"
+      "sha256": "72005cb6f7289790b3c2c8bb0849d244889806e3763ed0dd442e5a543846c12d"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/aro.json",
-      "sha256": "ff156a4ab67dc11a08e965ba9af56f90f2c99809788a2ecc42329ad7d5a075c6"
+      "sha256": "8e91ce26b64f782a20594af8dc01b4b999553f76c2639ea177851403d1264d99"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/ase.json",
-      "sha256": "0f177b11572fd09cf77427f44761db04d1d3174362478d270660e8d8682b0d41"
+      "sha256": "7c1a07e52c8ca5583045779b2cc9223889048895b834fbe830a3f4b847506528"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/ateneu.json",
-      "sha256": "fd3dc7f7a477528188972c6235a0744e78b28e7fa4389af92903a91f9d5e9dd1"
+      "sha256": "18b6827e5ee163981688fadfe32db9a9f3f28b747d6f4300539f885e61ad5d4a"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/aviatorilor.json",
-      "sha256": "63b1ec6a964579fbe34bc918fd3f78dabd0ea5eb1b5d9849b4119af86fb4c57d"
+      "sha256": "f4fd94c85fec6e863aa5caeddd3ec8b98ac12559eb621dcaf20d8204a9a7b10a"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/baneasasc.json",
-      "sha256": "e0e09d22bd6b6001f13075e5091e8fd2970188a3c60616d593fe52abbf875b9b"
+      "sha256": "fada5a4471a15cee27e375557e17992bb79acf100e51fd9dcb5ba2e8cf354696"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/baneasaterm.json",
-      "sha256": "a440dd1dbdce5b07bdf24239332b632baafdaae8782596fd83f64a7de12cd80c"
+      "sha256": "b6afaef6e4bfd5fd18dbb6b6719d0b90aa980dc188e7b6e6b7f2e259ae23eb74"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/bob.json",
@@ -7233,7 +5937,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/casapresei.json",
-      "sha256": "0df164a27bde2e13afdf86fd5a1c2fdc338dec77a3d62ba205706b83dbbbca16"
+      "sha256": "68e69fbfeebc5435539efd23e482988deb9d674f720d8204e9336824f27e2ba9"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/cathedral.json",
@@ -7241,39 +5945,39 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/cec.json",
-      "sha256": "7df56f46230a0d6b6da4678719b746e0c9c755d944416f4eb7e3efc5698a1981"
+      "sha256": "5e6cea0e12b67e37354ceb7bf559e2d663be3807ce0a557c8d4936ae6246a296"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/dinamo.json",
-      "sha256": "6188bbc5cb77e8524684be5dc32860f8d03edc3f37c5c9adaefd93633d7036c5"
+      "sha256": "e493bf89e45e9f992a2e69173c40e8cd5b9d42766c3e86ba1457192cb97e5bdc"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/europehouse.json",
-      "sha256": "cc74ed794495da621fba7c40aa0a671e60e34aa6d2a3f230712a3b251e78bca5"
+      "sha256": "1152f9d86bfe1a969a59cad792bd75a4ff0ca9b7215acc11963c0f0d9feacd0d"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/fountains.json",
-      "sha256": "8c630b72daeadb9c52072afa41b1af6a8322976cfb1e5aa28f0cbb8cd13aaf20"
+      "sha256": "f10d5007b8453c28f504df5e7a59c222ad207122951c8d43fdda01a8955dd970"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/gara.json",
-      "sha256": "5391957ab089b833a2c217d1eff976084cc9c6de488c3dd36dfcb28d6a7cbc6b"
+      "sha256": "bc984304e6c91314ae0ef5d8275db53e0703c26c0c30494195ea883a89717a3e"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/globalworth.json",
-      "sha256": "e858640468e6687e02195ba90e7a5d53fce3271cdae8f07b0a2f67e507c3f05f"
+      "sha256": "9a67ed0d32b28798ee24808ca2ca3d28c55bae30442c5e1eb814dcbc31bf97f0"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/grandhotel.json",
-      "sha256": "c1f2015d9083f3a48c7147cec751794c8443ae86ca5314efbb28ef214964c4d9"
+      "sha256": "97c5eced33d9dd6365d35652365a796be01aa895ff47dc1de5f50ea0055f9545"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/gts.json",
-      "sha256": "2d5c1b4d9efc0f9fcbd7562ca781231d635b17fbb2d25c58e305dc4fb70145a4"
+      "sha256": "0706f34bcda68c01c4282ac6d90acd9ea4d0bb6805a0a8125d9d842b6c15ce1a"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/halatraian.json",
-      "sha256": "0c79650739b7c4ea90de10d32c94fefde1ac6dcf8239de8c2a9fcfcf91ef1759"
+      "sha256": "2ffbb916a3f6e1ca28648ef6ca18f1a2cf136c0e4b8c6e9b7c422487b6a343f9"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/hermes.json",
@@ -7281,31 +5985,31 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/marriott.json",
-      "sha256": "afaba7ef4c176b9d9818b1a66da03408b240174d3facc455831829e90ffe4d5a"
+      "sha256": "7793c69462252f6fe3afe0fd685169ea91fc7dc59e40aca78d73edb495f97ac3"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/mnir.json",
-      "sha256": "806dbe056477bb5b29db8cfa86e6e6c828e97ed6bfd1fffc5136d1675df34149"
+      "sha256": "9476a281e15fe85d212bcde5a0a28325585f22c495b56541e6469e6480e642db"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/opera.json",
-      "sha256": "de55d295b49eb3387c2fbceeed575d0cdd0e153dd762e1b2ea0781ddc0351c20"
+      "sha256": "c9d1e72da58bfc6c4ef6a74fe7786bb6d694790a137c0b2d498f8ccc8e9b6c22"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/otp.json",
-      "sha256": "5476845e8a486123b7b9b8d275ee3b413ad709dfc92ffab8bcd4bab5c813c13b"
+      "sha256": "5fb058d81cb22ae58887f544cc1b853dd5474ec02e639fcfa47e0062d2e85dc7"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/parliament.json",
-      "sha256": "472af79fa6f129c542a46b64394eb2252672e0b1abf987a86fd9175f89a4078d"
+      "sha256": "5f5e2c25062751dea6069932a3d783e7ab6872f2b37e2354e973cf14b9fdb2af"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/politehnica.json",
-      "sha256": "7b4d3211431826c697651577f5fb53a2046e004b275c2d05fc1f37672f0982e9"
+      "sha256": "56541914d42985903af93cde40e620d5f4557468289496448c0969a9849094e8"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/promenada.json",
-      "sha256": "65c785f20b987400dbb1eb1170b06b68089307b419995635cb1a71ff330f2232"
+      "sha256": "e418c7274df944fc1a1a42290ec556d723bdad4a7a6a3b7ee54d13a3fc8bf7ca"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/regal.json",
@@ -7313,11 +6017,11 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/romexpo.json",
-      "sha256": "308d76b02583e4852349543abaf4f666b64f7847d0fafb5282e6c407d14eb06f"
+      "sha256": "d5d8a5d3918456793f4b64c4eba07052a85b7d5d434ff68a5600e4d7c001886e"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/rosetti.json",
-      "sha256": "5dc73090698984e9bff346d7b44d13d2d418058282f96e585abfb2660291abe7"
+      "sha256": "0e967a197321531f59b09095cc2609fcf2ed13f57a6be9cc0bcea31322524b4a"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/skytower.json",
@@ -7325,119 +6029,119 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/thelandmark.json",
-      "sha256": "94fb92941dcd836dc396587de9e62f157f3f25902fa888397405b75ef7c7ba55"
+      "sha256": "fc8c54f2a18ef8f48d04d201514aaed34c1dde4f4a1569b41ba0319b9d52da8c"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/tnb.json",
-      "sha256": "9911c049223ab17058d59cb87cf4849329bcf97d15b18d87668075d6a5fc23fb"
+      "sha256": "48be1e713c6dd4529e8a131bb8bfc7636ed081565b0c34abac775fdea19cb7f6"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/unirea.json",
-      "sha256": "7e3a8968b6e199807a8ecb9ac6983cc2d8238c681af87ab05d0eedb5ba3f7343"
+      "sha256": "d1a433d88f6d994367fa088416071fe38b3f6f69704d805da3b56ca97f4832d7"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/univ.json",
-      "sha256": "1be523ad33d9d726df56b3149d6b68e3e7deed5e71891acd222f2c2440da2cbf"
+      "sha256": "b340bdfe34cd9bbda102d3cc2cd332e6c770c93383ba85c7447cbeb904cfee12"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/victoria.json",
-      "sha256": "af5ca1109e9122e7e3c8147269a9774c2e18e9f8910ababe82095a27e61b32b3"
+      "sha256": "38e4530fef2a856e8bea7f06f5b4ed8c70b5d0a4ad917bd0f79178375b394aaf"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/bellevue600.json",
-      "sha256": "354d7d73699c752eedfb111d5d5f0dce62e874ae41b885b678bf7b732fa1820a"
+      "sha256": "2ac49074bac05f55b8ebfe1e724dafda971042a89f58123bc025b9273c6e9ed9"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/bellevuesq.json",
-      "sha256": "524764f1253433bb6ac93e42b4429acf59c0effda36ad6a355c9d87f90635552"
+      "sha256": "fbb295746082d682b2a4f792a2c2282f5fe9791a274d328798087111d4f67e61"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/bellevuetowers.json",
-      "sha256": "495ab87e8ef8d076a2ace64e6881821006e99cfe23790edbaaac58a72fa052f9"
+      "sha256": "5429857676ce99c0d3ee70defdecf3034d31114945a96ac98eedd81315228026"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/columbia.json",
-      "sha256": "97414b556885586918601ae96f2a2ec25b5bc3015b2d3ba9897d895660c404e5"
+      "sha256": "e7408c8ee4a9b5e7b5d6c4b4367bfd2f7b3a61bca9fe07fa7e8a202d773a3ae1"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/greatwheel.json",
-      "sha256": "4608e8baff83b6a437d1941aaffda98aac8746d377026d14d2112485e59ab86c"
+      "sha256": "c4a1911e69eb388fc7ff779e7ab6ef1e50902837feea8b49d62081e266898f95"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/lincoln.json",
-      "sha256": "c92e071e59c09e675a37529da1c4d5fac209b330d5aa2d2946ae0e1edc3709af"
+      "sha256": "8067e69f7929b946a81130fb25c0478b6b0c1ee4efa96d51b45ed67226d72239"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/lincolnsouth.json",
-      "sha256": "f649d0eeecf384f1859151a869dc5901b22696042d9ec57805ea9847643465b9"
+      "sha256": "aac42c9ea9d38c1fbc8d9651fefd1e2bdcca4c4969815e6cb838ae7bcc631511"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/lumen.json",
-      "sha256": "1b8b022ecd687b3259812967c3bb332b74db5e02b7943a6f3bbc22e59bdcaaa8"
+      "sha256": "039e8d10fd4b0de45bd13fdb879806312fcff5fa6ae0d18689c2695aecb0f509"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/mtbaker.json",
-      "sha256": "cabba4090e1cd9fe12753f2102c543ffce1930bf09c8ded158ac5601ca6e617e"
+      "sha256": "c68595fd68fe7fa0dad9ef8aca60c83571faf7a74b42cb7ba7fb67ca97b148dc"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/murrowe.json",
-      "sha256": "d90cc96f4f30f6fb229fac0a34e0103864bb7df687f11e030b24d2015a90360d"
+      "sha256": "2d3e1cf354ef25d71fddcd3d6396b26e4f28f205d2bfe1e06938b6542cece830"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/murroww.json",
-      "sha256": "fbd250bfc3009279e8263a3f1ae41cdfd7dbf98eb30645f3cf636da9a483d91b"
+      "sha256": "daceebe3e8e953616545914d1ccc2eaf11e57bd8b42b2fa755f672314148afff"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/olympics.json",
-      "sha256": "cf91868c27e61af03e6961dadf9ac0ff79bf1d3ee477269d16906f02742eba43"
+      "sha256": "52b750afcf29d62f026e6881d3c8c81062532bf164669c0215ae6fdc7f65a0b1"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/onelincoln.json",
-      "sha256": "9a07e57190960cefb52cb1c4f1a462b6b53e1685e6d9a991e91fefe99635e4b6"
+      "sha256": "b8a5c0c4a2e3a86cb1009f7186115d96d3b9a59d68be975178e379d3e347cf51"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/plazacenter.json",
-      "sha256": "c62fa322a593d15754cf37a6c64aec7fcecf76a9515b76508d7ea538c95da23b"
+      "sha256": "383a0509d4146984293bc8ad5cdaa463d3951a9b85b4f8cd8befe782ca3e9a3b"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/rainier.json",
-      "sha256": "890bf84b09503618541f2882a8fe9a2614a2bcb7c6a9fb82cad4b976368d6911"
+      "sha256": "1019ea14f29a1a4c8ca584db9674697c7864f552e3efed64aa4f9c6482733fa4"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/seagarage.json",
-      "sha256": "93512c3a7a23b0ce1ca6d264f24a3e5605bd14ae76708c31bd1ef422751077f1"
+      "sha256": "f763a4f4cd418d7cbd710299748425cb73d8af8eafb77e008e994985eb85ea9f"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/sealink.json",
-      "sha256": "d3b4df6467024513169a65809cdc75100067fd82fefb8544e968e98dfb0bab36"
+      "sha256": "ea65291bb1f5a260930f73d20c6a2068c47454702e59a67578a1081064f191c7"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/seatac.json",
-      "sha256": "badc7e865dcf183ce50983e7b40e9af70a1135eb551181e31002cea962dc0c1c"
+      "sha256": "4d9cd6f61abc37ca216b4f4315be6332170ae069afd2508a189700615d7b280d"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/seatower.json",
-      "sha256": "4b1ae6ba37a0d5e2343af26f1dbd5040381b45fdd754deb036d2b7ea1d2f080e"
+      "sha256": "da4aba5de8960b9629a46d52ce04d30827e8389657b5af6f1fd982c04f47aca8"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/smith.json",
-      "sha256": "395151bc0b6781d3e0f7c1eb288134f6d0e33e19e55844ba7e429522ffec04d9"
+      "sha256": "d101a8c5610008d8343dbe8e414400dcd0ffef888673a3fd49c6f83b8a737ca5"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/sonic.json",
-      "sha256": "46d976ce3c7ad69564fadc35e1a5ccdbf35c16c00d5b4b088a8d6556a73cd414"
+      "sha256": "0bcbef39e01af290519d8f34a3e92c6808dcb43a47de833c6d05c75d3e914115"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/spaceneedle.json",
-      "sha256": "92f4a5f43d2207b6142162e654376a74c4709c16ac790b9537dc3da051a72f16"
+      "sha256": "9df0fecdabc778f603db6545184822c34e0b54a10a31ed2711277089820ff0f4"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/spheres.json",
-      "sha256": "0c4ea167be1bf20667c913768ffc2908f6ef318ecf6cea00c54b022478857c2f"
+      "sha256": "7a2b2d733b1e88931175411ad296b485ceb8633c15efa4b50ff292f4c6948046"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/tmobile.json",
-      "sha256": "9d7d4ede89f72ba1a1e4b5fe997f39f9050c02c27ccb266fcb4ef06bfef1ead0"
+      "sha256": "0b9e35cbf47b7996dac60dd582aa061448a1fc39afda12501a8aa80cf9022191"
     },
     {
       "path": "game/overview/evidence/road-office-batch-20261110/manifest.json",
@@ -7449,115 +6153,119 @@
     },
     {
       "path": "game/overview/evidence/spots/arcul-de-triumf.json",
-      "sha256": "1a41a8cc36e4a977d2a3367faf5b3c391dfafe55ee5bdff467d8d74c365b8b51"
+      "sha256": "370f58fb7cb63023c76622ee2e8d7684510ef9b8eb68a62c917a90248f4e211d"
     },
     {
       "path": "game/overview/evidence/spots/athenaeum-revolution.json",
-      "sha256": "752728459b36984614872d393b0b341a4f60a0637d8eedf6743976a8f5a0afc4"
+      "sha256": "90c01e013a8829b6a5b98022a5e412e370d853699189dfec2a5903f5596c7f0b"
     },
     {
       "path": "game/overview/evidence/spots/ballard-locks.json",
-      "sha256": "a0a457e641f40149b58c205b6f342cd5cdc459250078d1bc9139d0865bbec44f"
+      "sha256": "f4bbdb4f6673afa907e9ccb315876bd7953e31ec777f4e2dba1049a85888f98b"
     },
     {
       "path": "game/overview/evidence/spots/bel-botanical-garden.json",
-      "sha256": "52e070becfe40ca275ef1440bc39e2a836a8e24f97f724b6f42e01db30d57680"
+      "sha256": "0e6701edf047dbd4e90f35500a4c8b4263d8817d4e1c62f152acd72dd57f2cf9"
     },
     {
       "path": "game/overview/evidence/spots/bel-downtown-park.json",
-      "sha256": "7921f8d3b40fbafcd32ec7c9c77564ab48e25c8cbeafdc5ec4cd816b1563974e"
+      "sha256": "1de34eacdea0b18243a2bbd7855a2223f574e183d69aed20484170fa2624803c"
     },
     {
       "path": "game/overview/evidence/spots/bel-lincoln-square.json",
-      "sha256": "0ae630cdd6328114c0aeed47743f1f46ce61c6b7704d99b5d2571622620ee61f"
+      "sha256": "61618a4acd74f7b43cafed72723d3b355a6ad19c45fd7dab9e6cbec8937f7669"
     },
     {
       "path": "game/overview/evidence/spots/bel-meydenbauer.json",
-      "sha256": "8e3a9c19bdeb81c69f6e472c0d57516cb581146d25e8b7eca7575beec06512e1"
+      "sha256": "3d9a26f100ca7aed1e7f9a62272f1cf61e1e4886d9ceefb221bfec19540adb3f"
     },
     {
       "path": "game/overview/evidence/spots/chihuly.json",
-      "sha256": "cf2f378df189ab02660dd99a4618e220166a6f17c3d81e86f09511c875622789"
+      "sha256": "ab5ebe8292c2e5f0da4674db120be2e6946ac5f68f088bad2b6373ebd9957687"
     },
     {
       "path": "game/overview/evidence/spots/cismigiu.json",
-      "sha256": "db23b9b125d3b2059a610376682120d7cebd9ed77a0925568f69f4fdebdfc308"
+      "sha256": "d12302417cffe9adb042f568c7f43993a079a6aefd55f5bf7cd1d4a002a65a16"
     },
     {
       "path": "game/overview/evidence/spots/fremont-troll.json",
-      "sha256": "e3ffcb4b932feccabebd2dcd71293375a1be44a606c5fd349a4e710109a46ee5"
+      "sha256": "a6dcf3d133cff979fee95f642fe045de93e1df8338277c3f029d41f906fff8d9"
     },
     {
       "path": "game/overview/evidence/spots/gas-works.json",
-      "sha256": "a33578d4a249ff0c69f9855419f3c01fb0f5a85f278c40e1c43f5c9d4dbef1eb"
+      "sha256": "6d6eb52ec8307a4dfff591769355f77061d53051180794ec7534c8642c1bafe6"
     },
     {
       "path": "game/overview/evidence/spots/herastrau-park.json",
-      "sha256": "cca1eed32b1dbe9ac35e7663b7408c09b7e44865a263f88e0fde4fce9cacfd66"
+      "sha256": "2bd461edac965c8b16bafb1860735b16c836491c2bd2cc411f81d9d7c827cef5"
     },
     {
       "path": "game/overview/evidence/spots/kerry-park.json",
-      "sha256": "1d357634c045a38e5f6eff53faf93deaa52336bc2e0af603c985ad48b7cbc07f"
+      "sha256": "9ffc5b4c6740a9939fbb09b49c22a4bc36a706b6dd8c422bd40186c6bb99f769"
     },
     {
       "path": "game/overview/evidence/spots/mopop.json",
-      "sha256": "fa411b6f3eebddc37bf9045803a0fefd672a1cdb9379bee54fffb8b220c035bd"
+      "sha256": "b54f6032d86c26048613395db0617c5209f599087a2403073c97f13e1a918478"
     },
     {
       "path": "game/overview/evidence/spots/old-town-lipscani.json",
-      "sha256": "6d8ae1d71d27c35a0152651ed2eff02f1ba9984b176a9e613d6e2d2b20835280"
+      "sha256": "357cb914f2b0bdd730f91b0a6b8cb60c8df5542ed5ed577bcc4783e786aaecc2"
     },
     {
       "path": "game/overview/evidence/spots/palace-parliament.json",
-      "sha256": "f8786b75418ebb87d0550afa08bf0f4fc0ac09969c66e2dba83f554bfc2e90be"
+      "sha256": "46f2e4778351dee1246bbc45cca5e92260cae4a236f55120cdb3b2e7c0dbcd43"
     },
     {
       "path": "game/overview/evidence/spots/peoples-salvation-cathedral.json",
-      "sha256": "89687b9813885808caec28f1ea87504f3d6039c7ccb7fc0671a73fba0ef39042"
+      "sha256": "9d8cc317629559036ac7074a5fe0d87bf23d9cf247ca64e80cb70da133352de2"
     },
     {
       "path": "game/overview/evidence/spots/pike-place.json",
-      "sha256": "785f96c00357d920121e5008a2b1622bb2cb560402b26cfa9c6ed62354fe5bac"
+      "sha256": "0448c2f702e417efea6f881634bff254b8039d1ee69be8cb503d7d78bfd77d7e"
     },
     {
       "path": "game/overview/evidence/spots/pioneer-square.json",
-      "sha256": "b7fe9a22886d6c7b2756aa661b722d1f3b461c71d38e20f91e996b63723a1027"
+      "sha256": "3c6f59992839536f6f7a584c6dd399db9c8ef87291df046850626101044fb1e4"
     },
     {
       "path": "game/overview/evidence/spots/space-needle.json",
-      "sha256": "0f913bbd31b2f2cd4ffe0deb17117f2d28fb7964be4ce548b0cac5f6a710b4ea"
+      "sha256": "9a188938869043d8d6b24bcdc5ba6770898ab2f7af050894410ecbc74498b8a9"
     },
     {
       "path": "game/overview/evidence/spots/spring-palace.json",
-      "sha256": "3ffede279b4cd4bb2280370f22c7ade0196f1c29724385ac42a0dfa5e71eada6"
+      "sha256": "77fa6be8793a0debcc7539c4206288314cfd41e90dbd9ed88fae4707b8b5e6cf"
     },
     {
       "path": "game/overview/evidence/spots/stavropoleos-cec.json",
-      "sha256": "6cf0ba0c3ac1788a3fa26ab2d978b9464dd066bbf77545b89b018977ac8a63ec"
+      "sha256": "9af9da77df1886689ecc7b78ab043dfbc2c285d69521ad8c5676334365832286"
     },
     {
       "path": "game/overview/evidence/spots/village-museum.json",
-      "sha256": "10c124fa72ad8cba3b38e609f01d6a41d30334c31244dca33c834fc9175e936d"
+      "sha256": "c8d1d600b8d0fec0eb95cf9f56f2c3c68f6a9e349438cd893e23128a94f227d7"
     },
     {
       "path": "game/overview/evidence/spots/waterfront.json",
-      "sha256": "044964c66aefb427d4626276f2cf443d93fad2e1df339a51a0cbecf94ade7e63"
+      "sha256": "970dfd18d855e894185178d07b8761c3eac128905d08cf41dea2748822ccc258"
     },
     {
       "path": "game/overview/evidence-paths.js",
-      "sha256": "2df7835b74ae58bf9dbcc11082edadbe99207b31705560775c743b22075ed294"
+      "sha256": "96a4bcc90847fb6d13ae761509878549167501c6ba6f7f30896d996ba25e4745"
+    },
+    {
+      "path": "game/overview/evidence-picker.js",
+      "sha256": "bcbdce232300fd8b91f1d376ef664eba9fe8f5901df29c4d75c459576f5ed29b"
     },
     {
       "path": "game/overview/generate.mjs",
-      "sha256": "547500d8e54ac6a0109c0e2328aaeb4cfb70bf3b85b5fe32501c1abf55c2d123"
+      "sha256": "c3102aa9495b24be5468f1eb67d76dcc2da01a7f12d3848ab0ee346b8747a52d"
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "5248ef922d984692a5f1120ac5f4e0fcc57a5ee57ab29a04b39fe4d33eaffeeb"
+      "sha256": "b8fdf5db8e82094888b10ce44d2c4ba1043b9425b9f324573817692011868017"
     },
     {
       "path": "game/overview/landmark-evidence.js",
-      "sha256": "49d97ca764dfbd53bc4a97ab8f13585cffed9627e99e6e75fcb55ff5ca0c30b1"
+      "sha256": "c15a99db023e3631065e1b4f7b47652482d5962182632a184ba195daf223a50a"
     },
     {
       "path": "game/overview/landmark-ranges.js",
@@ -7565,7 +6273,7 @@
     },
     {
       "path": "game/overview/overview.js",
-      "sha256": "d1fe88f0ed206ae92e6d7c2e00c1e91413bb7f0e07d54632d968a2af4804e3fd"
+      "sha256": "1970190534542319e23e940ab791132a6ab01f632386dbe87c90e87f64941cc6"
     },
     {
       "path": "game/overview/perspective-viewer.js",
@@ -7573,7 +6281,7 @@
     },
     {
       "path": "game/overview/style.css",
-      "sha256": "fe74b17e657db44b58d9c98054016784edc5d5143005b7512fc3786748d3ab82"
+      "sha256": "60e1781517fd8bd5311ddfb01bebe9ae96789fd218026fbf221908e5d401f9f6"
     }
   ],
   "stagingEvidence": [
@@ -7588,7 +6296,7 @@
   ],
   "landmarkRanges": {
     "schemaVersion": 1,
-    "sourceSha": "ae3c9c845418171b02fbafd85a01d31882ac2e71",
+    "sourceSha": "9310831ad1edb42a0088841076bc1f72a389f2ab",
     "displayTimeZone": "America/Los_Angeles",
     "drawDistanceM": 5000,
     "flightMarginM": 150,

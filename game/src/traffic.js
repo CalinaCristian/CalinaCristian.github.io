@@ -1444,7 +1444,8 @@ export class Traffic {
                     // car-following and the junction claim keep it off the others (a stop inside the box locks the junction)
                     if (D - rad - 1.5 > -0.5 && v.stuck < 3) { const _d = D - rad - 1.5; if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop'; } }
                 } else {
-                    const _d = this.laneDropStop(v, nl, D, rad, curLaneCur);
+                    const clearing = this.boxes.get(node.lightCluster)?.some(r => r.v === v && r.entered && this.inBox(r,node.lightCluster));
+                    const _d = this.laneDropStop(v, nl, D, rad, curLaneCur, clearing);
                     if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop2'; }
                 }
             }
@@ -1609,7 +1610,8 @@ export class Traffic {
     }
     /** Once its body has passed the stop line it must clear the intersection;
      * travel supplies the remaining smooth lateral merge, never a stopped slide. */
-    laneDropStop(v, nextLanes, distance, radius, laneCur = v.laneCur) {
+    laneDropStop(v, nextLanes, distance, radius, laneCur = v.laneCur, clearingMovement = false) {
+        if (clearingMovement) return Infinity; // complete the same admitted movement under native physical guards
         const stop = distance - radius - 1.5;
         return laneCur > nextLanes - 1 + 0.25 && distance - radius < 6 && stop > -0.5 ? stop : Infinity;
     }

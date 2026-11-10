@@ -33,10 +33,11 @@ function worldPoints(vehicle, geometry, y, pitch, roll = 0) {
         return [vehicle.x + ch * x + sh * z1, y + y1, vehicle.z - sh * x + ch * z1];
     });
 }
-function poseHash(v, y, pitch, roll = 0) {
+function poseValues(v,y,pitch,roll=0){
     const s = v.mesh.scale || { x: 1, y: 1, z: 1 };
-    return hashString([v.edge?.id, v.dir, v.s, v.x, y, v.z, v.heading, pitch, roll, s.x, s.y, s.z].join('|'));
+    return [v.edge?.id,v.dir,v.s,v.x,y,v.z,v.heading,pitch,roll,s.x,s.y,s.z];
 }
+function poseHash(v,y,pitch,roll=0){return hashString(poseValues(v,y,pitch,roll).join('|'));}
 function nearbyPieces(supportAt, points, modelIds) {
     const box = bounds(points);
     return [...new Set(modelIds.flatMap(modelId => supportAt.inBox(box.x0, box.z0, box.x1, box.z1, { modelId })))];
@@ -138,9 +139,12 @@ export function fitTramBodySupport(vehicle, { samplePath, supportAt, nativePitch
     if (!modelIds.length) return { known: true, y: baselineY, pitch: nativePitch, verticalOffsetM: 0, basis: 'unchanged-native-source-pose-outside-shared-slab-model' };
     if (typeof supportAt.inBox !== 'function') return { known: false, reason: 'missing-shared-tram-support-piece-query' };
     // Worlds/source catalogues are immutable after construction. Weak keys keep
-    // no retired vehicle/world alive; moving actors always recompute exactly.
-    const cacheKey = [geometry.fingerprint, poseHash(vehicle, baselineY, nativePitch), front.y, rear.y, ...extremes.map(p => p.y), ...modelIds].join('|'), cached = fitCache.get(vehicle);
-    if (vehicle.speed === 0 && cached?.key === cacheKey && cached.supportAt === supportAt) return cached.result;
+    // no retired vehicle/world alive. A blocked vehicle can repeatedly propose
+    // the same nonzero-speed step; speed changes do not change its geometry.
+    // Full-precision fields and the actual geometry revision authorize reuse,
+    // never the shorter diagnostic pose hash.
+    const cacheKey=[...poseValues(vehicle,baselineY,nativePitch),actorBaseM,...[center,front,rear,...extremes].flatMap(p=>[p.edge.id,p.x,p.y,p.z]),...modelIds].join('|'),cached=fitCache.get(vehicle);
+    if(cached?.key===cacheKey&&cached.geometry===geometry&&cached.supportAt===supportAt)return cached.result;
     const pitch = Math.atan2(front.y - rear.y, Math.hypot(front.x - rear.x, front.z - rear.z));
     const weight = geometry.rearZ / (geometry.rearZ - geometry.frontZ), bogieChordY = rear.y + (front.y - rear.y) * weight + actorBaseM;
     const anchorY = Math.max(baselineY, bogieChordY), points = worldPoints(vehicle, geometry, anchorY, pitch), pieces = nearbyPieces(supportAt, points, modelIds);
@@ -149,7 +153,7 @@ export function fitTramBodySupport(vehicle, { samplePath, supportAt, nativePitch
     if (!fitted.known) return fitted;
     const y = anchorY + fitted.liftM, pieceIds = pieces.map(p => p.id).sort();
     const result = { known: true, y, pitch, baselineY, bogieChordY, verticalOffsetM: y - baselineY, supportLiftM: fitted.liftM, rawClearanceM: fitted.rawClearanceM, witness: fitted.witness, testedEdges: fitted.testedEdges, pieceCount: pieces.length, pieceIds, piecesHash: catalogueHash(pieces), geometryFingerprint: geometry.fingerprint, poseHash: poseHash(vehicle, y, pitch), modelIds, actualSupport: { localMinY: geometry.minY, frontZ: geometry.frontZ, rearZ: geometry.rearZ, vertices: geometry.points.length }, basis: 'actual emitted lowest wheel-support chord and minimum rigid mesh vertical anchor over exact shared source rail slab; not an articulated model or measured suspension' };
-    if (vehicle.speed === 0) fitCache.set(vehicle, { key: cacheKey, supportAt, result });
+    fitCache.set(vehicle,{key:cacheKey,geometry,supportAt,result});
     return result;
 }
 

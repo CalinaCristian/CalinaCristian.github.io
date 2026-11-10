@@ -3085,12 +3085,13 @@ export async function buildWorld(city, renderer, opts = {}) {
         walls.length = 0; walls.push(...railClearWalls);
         // draw the concrete separation barriers that survived
         for (const w of walls) {
+            if(w.kind==='barrier'&&w.inferred===true)w.renderHalfWidthM=w.generatedMedian?.3:.15;
             if(w.kind==='rail'&&w.edge&&basarabEdge(data,w.edge))drawBasarabGuard(w,cellOf);
             if (w.generatedMedian) {
                 // Exactly the final surviving collision intervals, including
                 // openings at pads and crossing ribbons. Real OSM barriers use
                 // their separate existing source-emission path.
-                const L = Math.hypot(w.bx-w.ax,w.bz-w.az), px = -(w.bz-w.az)/L*.3, pz = (w.bx-w.ax)/L*.3, ya = w.y1a-.85, yb = w.y1b-.85, c = cellOf(w.x,w.z);
+                const halfWidth=w.renderHalfWidthM??.3,L = Math.hypot(w.bx-w.ax,w.bz-w.az), px = -(w.bz-w.az)/L*halfWidth, pz = (w.bx-w.ax)/L*halfWidth, ya = w.y1a-.85, yb = w.y1b-.85, c = cellOf(w.x,w.z);
                 const a=[w.ax+px,ya,w.az+pz],b=[w.bx+px,yb,w.bz+pz],d=[w.ax-px,ya,w.az-pz],q=[w.bx-px,yb,w.bz-pz],up=p=>[p[0],p[1]+.8,p[2]];
                 c.solid.face4(a,b,up(b),up(a),barrierCol,[px,0,pz]);c.solid.face4(q,d,up(d),up(q),barrierCol,[-px,0,-pz]);
                 c.solid.face4(up(a),up(b),up(q),up(d),rgb('#cfccc4'),[0,1,0]);
@@ -3098,7 +3099,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 continue;
             }
             if (w.kind !== 'barrier') continue;
-            const ya = w.y0a + 0.45, yb = w.y0b + 0.45, L = Math.hypot(w.bx - w.ax, w.bz - w.az) || 1, px = -(w.bz - w.az) / L * 0.15, pz = (w.bx - w.ax) / L * 0.15;
+            const halfWidth=w.renderHalfWidthM??.15,ya = w.y0a + 0.45, yb = w.y0b + 0.45, L = Math.hypot(w.bx - w.ax, w.bz - w.az) || 1, px = -(w.bz - w.az) / L * halfWidth, pz = (w.bx - w.ax) / L * halfWidth;
             const c = cellOf(w.x, w.z);
             const metadata={inferred:w.inferred===true,emitter:'separation-barrier',sourceId:data.roadSourceGeometry?.[w.edge?.road]?.sourceId,edgeId:w.edge?.id};
             for (const sd of [1, -1]) emitOwnedSeparationQuad(c.solid,[[w.ax + px * sd, ya, w.az + pz * sd], [w.bx + px * sd, yb, w.bz + pz * sd], [w.bx + px * sd, yb + 0.9, w.bz + pz * sd], [w.ax + px * sd, ya + 0.9, w.az + pz * sd]],shadeRgb(barrierCol,sd>0?1:.9),[px*sd,0,pz*sd],metadata,parapetOwnership);

@@ -875,7 +875,27 @@
       "maxHeightStepM": 0,
       "vehicles": 311,
       "pedestrians": 560,
-      "limits": "Past old stopping point but another queue remains; no complete route acceptance. Source51 claim retained and physicalOccupancy=false confirmed natively; other currently occupied pads remain protected."
+      "limits": "Past old stopping point but another queue remains; no complete route acceptance. Source51 claim retained and physicalOccupancy=false confirmed natively; other currently occupied pads remain protected.",
+      "status": "full-route failed; second queue then production prediction exception at184.7s"
     }
+  },
+  "previewAndSupportBatch": {
+    "source": "05ef158c20319502e589d20f46234e5d52a93e72",
+    "previewSource": "dc90181ed8e8db43dc64ebfd18846ed6c24ae1ec",
+    "cacheSource": "8527f76ff718db782646585c084ee5bd1c15335b",
+    "status": "staged, fresh combined native run in progress",
+    "nativeFailureReport": "/workspace/integration-qa-evidence/basarab-20261110/physical-route-r12/report.json",
+    "productionException": "Pedestrians.vehicleStepClearsPerson preview omitted actual tram model/scale; native support fit threw at184.7simsec. Old observer lost its interrupted chunk; prior complete chunks retained.",
+    "causalMethodReport": "/workspace/integration-qa-evidence/basarab-20261110/physical-route-r12/native-model-backed-preview-causal-control.json",
+    "cacheComponentReport": "/workspace/integration-qa-evidence/basarab-20261110/physical-route-r12/native-support-cache-component-control.json",
+    "cacheScope": "Actual four tram/source/world inputs;1600repeated results match and live actors unchanged.100-fit raised-model phases805/387.3ms baseline versus34.1/6.1ms candidate; source queries100vs0.1e-9source station move recomputes/equal. No whole-traffic speedup or hardwareFPS claim.",
+    "projectionFixture": "game/dev/fixtures/basarab-tram-static-cover.json",
+    "horizontalSourceGapsM": {
+      "bollard492": 0.1392891160040091,
+      "barrier493": 0.01450288668764224,
+      "tree491": 0.0557617540605553
+    },
+    "sourcePolicy": "Full emitted primary-model convex projection plus native collision rectangle and declared render width prove separation only. No prop/tree/wall/source deletion, movement, resize, actor thinning or real-contact exemption. Unsupported remains blocking.",
+    "checks": "Focused7Node suites plus9source support/10static-certificate controls pass; fresh frozen native drive and final combined harness/visual/budget/overview/publication remain open."
   }
 }

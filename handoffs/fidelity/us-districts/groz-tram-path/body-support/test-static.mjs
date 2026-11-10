@@ -18,11 +18,12 @@ const controls = [], test = (name, fn) => { fn(); controls.push({ name, passed: 
 test('identified own slab independently clears actual emitted geometry', () => {
     const { v, world } = fixture(); assert.equal(initialTrafficStaticClearance(world, v).valid, true);
 });
-test('stationary exact geometry fit and revalidation cache preserve result identity', () => {
+test('exact geometry fit is speed independent and source-pose sensitive; validation remains independent', () => {
     const { v, supportAt, samplePath } = fixture();
     const a = v.railSupport, b = fitTramBodySupport(v, { samplePath, supportAt, nativePitch: 0 }); assert.equal(a, b);
     const x = validateTramSupportCertificate(v, supportAt), y = validateTramSupportCertificate(v, supportAt); assert.equal(x, y);
-    v.speed = 1; assert.notEqual(fitTramBodySupport(v, { samplePath, supportAt, nativePitch: 0 }), b);
+    v.speed = 1; assert.equal(fitTramBodySupport(v, { samplePath, supportAt, nativePitch: 0 }), b);
+    v.s += 1e-9; assert.notEqual(fitTramBodySupport(v, { samplePath, supportAt, nativePitch: 0 }), b);
 });
 test('forged fresh assertions cannot conceal actual own-slab penetration', () => {
     const { v, world } = fixture(); v.y -= .1;

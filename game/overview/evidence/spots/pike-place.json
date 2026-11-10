@@ -298,7 +298,7 @@
     {
       "label": "Native phone condition controls",
       "passed": true,
-      "details": "Actual390\u00d7844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
+      "details": "Actual390×844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
     },
     {
       "label": "Selected primary activity entry",
@@ -597,7 +597,7 @@
       "captures": [
         {
           "kind": "arrival",
-          "label": "Pike Place Market & the Gum Wall \u2014 arrival",
+          "label": "Pike Place Market & the Gum Wall — arrival",
           "image": "assets/spots/pike-place/arrival.webp",
           "sha256": "2c92ed7331a941a4b4f586029d9ab1fc78db0d925cd853e468cce1a82d28c196",
           "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
@@ -628,7 +628,7 @@
         },
         {
           "kind": "public-walk",
-          "label": "Pike Place Market & the Gum Wall \u2014 public walk",
+          "label": "Pike Place Market & the Gum Wall — public walk",
           "image": "assets/spots/pike-place/public-walk.webp",
           "sha256": "54412c1c1368aef7f0ff803f054bd0cb0bba9bf9a98b98f415243d4dd8e3e6a5",
           "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
@@ -659,7 +659,7 @@
         },
         {
           "kind": "postcard",
-          "label": "Pike Place Market & the Gum Wall \u2014 postcard",
+          "label": "Pike Place Market & the Gum Wall — postcard",
           "image": "assets/spots/pike-place/postcard.webp",
           "sha256": "7f0e40d105fc45c50bf95de6d448d26c4700611c4e86c0195da3c21d3c042d7d",
           "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
@@ -690,7 +690,7 @@
         },
         {
           "kind": "activity-approach",
-          "label": "Pike Place Market & the Gum Wall \u2014 activity approach",
+          "label": "Pike Place Market & the Gum Wall — activity approach",
           "image": "assets/spots/pike-place/activity-approach.webp",
           "sha256": "28a9eecd3fdc2f53d67e29d3714f9d97adb0325c00b9845be2f173bc69704e78",
           "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
@@ -840,7 +840,7 @@
       ],
       "review": "Inspected arrival, native public-path walk, postcard and activity approach at clean 94ef228; also inspected the full-size postcard. Existing Starbucks frontage is retained; the secret room remains the owner's explicit fiction exception.",
       "id": "previous-context-gallery",
-      "label": "Earlier scene/context and activity captures \u2014 original source and dates retained"
+      "label": "Earlier scene/context and activity captures — original source and dates retained"
     },
     {
       "id": "visitor-preview-aabd-before-ground-correction",
@@ -1011,7 +1011,7 @@
               "mLon": 75187.56
             }
           },
-          "label": "Drop a coin in Rachel \u00b7 phone interaction",
+          "label": "Drop a coin in Rachel · phone interaction",
           "purpose": "Coin in flight after actual Use and Drop taps. Nearby setup; this does not show the arrival route."
         },
         {
@@ -1182,7 +1182,7 @@
             }
           },
           "label": "Phone view with the native touch interface",
-          "purpose": "Entire 390 \u00d7 844 game page; native portrait look gestures and HUD."
+          "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
         }
       ],
       "visitorGallery": {
@@ -1352,7 +1352,7 @@
                 "mLon": 75187.56
               }
             },
-            "label": "Drop a coin in Rachel \u00b7 phone interaction",
+            "label": "Drop a coin in Rachel · phone interaction",
             "purpose": "Coin in flight after actual Use and Drop taps. Nearby setup; this does not show the arrival route."
           }
         ],
@@ -1525,7 +1525,7 @@
               }
             },
             "label": "Phone view with the native touch interface",
-            "purpose": "Entire 390 \u00d7 844 game page; native portrait look gestures and HUD."
+            "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
           }
         ],
         "limitations": [
@@ -1808,7 +1808,7 @@
       "sha256": "95ffb6084d0679aac0d3ebd91d2cf6e0e3a23cda133d7f958c531c6cf9837824",
       "sourceCommit": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
       "passed": false,
-      "scope": "Ground stability improves: maximum native vertical step1.527784\u21920.009372m and foot/floor discrepancy0.895601\u21920.007141m. Both full routes stop before final goal; no full-route acceptance.",
+      "scope": "Ground stability improves: maximum native vertical step1.527784→0.009372m and foot/floor discrepancy0.895601→0.007141m. Both full routes stop before final goal; no full-route acceptance.",
       "cases": [
         "pike-place"
       ]
@@ -2093,7 +2093,7 @@
         ]
       }
     ],
-    "setup": "Actual public application, desktop High, 1100 \u00d7 760. Arrival and route endpoint use native controller positions; other views are fixed on-foot camera fixtures. No cropping or source substitution.",
+    "setup": "Actual public application, desktop High, 1100 × 760. Arrival and route endpoint use native controller positions; other views are fixed on-foot camera fixtures. No cropping or source substitution.",
     "limitations": [
       "The normal-keyboard route reaches four of five goals and remains blocked at the Gum Wall approach.",
       "Three obstructed technical fixture views per source are retained in the raw manifest and rejected for this gallery.",
@@ -2104,7 +2104,8 @@
     "reports": [
       {
         "label": "Native before/after ground and walking report",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/pike-ground-d91aadd8/native-report.json"
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/pike-ground-d91aadd8/native-report.json",
+        "sha256": "95ffb6084d0679aac0d3ebd91d2cf6e0e3a23cda133d7f958c531c6cf9837824"
       }
     ]
   },

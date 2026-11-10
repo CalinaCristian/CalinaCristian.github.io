@@ -11872,5 +11872,11 @@
       "count": 3,
       "note": "Actual native controller approaches with full traffic and mirrors; exact source-edge start fixtures, camera, route, condition and renderer metadata. Structural datums and facade estimates remain explicit. Separate from the aerial atlas and historical street walk."
     }
-  ]
+  ],
+  "groundConditions": {
+    "manifest": "context/ground-dc93023f/manifest.json",
+    "gameSourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+    "conditionCount": 4,
+    "viewpointCount": 4
+  }
 }

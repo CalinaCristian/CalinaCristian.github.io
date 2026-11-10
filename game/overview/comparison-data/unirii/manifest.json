@@ -7005,5 +7005,11 @@
     "mask": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/recapture-mask.json",
     "maskSha256": "76452a133fce352a1051e7e18c4cd3c0f1df9add16c1f76b36afaccca4e0fb49",
     "unchangedDistrictDataSha256": "9797d9f5b1a4f2593528ce6c8c4ad04ec38fb953c9770bf32f6d7d5c7c54f26c"
+  },
+  "groundConditions": {
+    "manifest": "context/ground-dc93023f/manifest.json",
+    "gameSourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+    "conditionCount": 4,
+    "viewpointCount": 4
   }
 }

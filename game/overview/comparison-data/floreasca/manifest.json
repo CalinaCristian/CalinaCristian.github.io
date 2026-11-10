@@ -7005,5 +7005,11 @@
         "d5795e20c85e8122a62fc503f33a182d05eceaf0": 1
       }
     }
-  ]
+  ],
+  "groundConditions": {
+    "manifest": "context/ground-dc93023f/manifest.json",
+    "gameSourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+    "conditionCount": 4,
+    "viewpointCount": 4
+  }
 }

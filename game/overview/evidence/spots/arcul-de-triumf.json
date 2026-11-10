@@ -360,206 +360,1518 @@
     }
   ],
   "visitorGallery": {
-    "id": "arcul-de-triumf",
-    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "schemaVersion": 1,
+    "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+    "notice": "4 matched walking-height viewpoints in each of four conditions, captured from the recorded production game source. Open any picture at its original size.",
+    "setup": "Production app, scene, actors, lighting and renderer at High quality, 1280 × 800. Automatic animation was paused and explicit frames rendered at fixed on-foot cameras 1.65 m above their supporting surfaces. Local simulation dates and weather were controlled; capturedAt records the real capture time.",
+    "limitations": [
+      "Fixed on-foot appearance fixtures; cameras were positioned for inspection. These pictures do not establish a traversed route, activity completion, physical-phone behavior or hardware FPS."
+    ],
+    "conditionSets": [
+      {
+        "id": "summer-day",
+        "label": "Summer · Day",
+        "season": "summer",
+        "period": "day",
+        "weather": "clear",
+        "hour": 12,
+        "captures": [
+          {
+            "id": "axis-approach",
+            "kind": "visit",
+            "place": "arcul-de-triumf",
+            "label": "Kiseleff axis · the Arc and roundabout",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:35:16.406Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "summer-day",
+              "label": "Summer · day",
+              "season": "summer",
+              "period": "day",
+              "hour": 12,
+              "weather": {
+                "source": "override",
+                "code": 0,
+                "kind": "clear",
+                "label": "Clear sky",
+                "icon": "☀️",
+                "tempC": 22,
+                "precipMm": 0,
+                "snowCm": 0,
+                "snowfallCm": 0,
+                "windKmh": 8,
+                "windDir": 270,
+                "visibilityM": 19500,
+                "cloud": 0.1,
+                "season": "summer",
+                "updatedAt": 1794299682196,
+                "climate": null
+              },
+              "date": "2026-07-15T09:00:00.000Z",
+              "timeZone": "Europe/Bucharest",
+              "sunElevation": 61.51440228923067,
+              "nightLights": false,
+              "quality": "high"
+            },
+            "sha256": "fd63372f1cbf383cc8c999c79bfa631450defb3249fb333c0bd41ef988f5860a",
+            "bytes": 150289,
+            "pose": {
+              "x": -14.6,
+              "z": -21.9,
+              "floor": -0.12758983994523684,
+              "eye": [
+                -14.6,
+                1.522410160054763,
+                -21.9
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 348.6017118138968,
+              "pitch": 8.554150731895765,
+              "fov": 62
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.04,
+              "frameMs": 27303.1,
+              "drawCalls": 199,
+              "triangles": 450326,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/arcul-de-triumf/ground-dc93023f/summer-day/axis-approach.jpg"
+          },
+          {
+            "id": "sculpted-pier",
+            "kind": "visit",
+            "place": "arcul-de-triumf",
+            "label": "Arc · opening, sculpted pier and relief",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:35:19.415Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "summer-day",
+              "label": "Summer · day",
+              "season": "summer",
+              "period": "day",
+              "hour": 12,
+              "weather": {
+                "source": "override",
+                "code": 0,
+                "kind": "clear",
+                "label": "Clear sky",
+                "icon": "☀️",
+                "tempC": 22,
+                "precipMm": 0,
+                "snowCm": 0,
+                "snowfallCm": 0,
+                "windKmh": 8,
+                "windDir": 270,
+                "visibilityM": 19500,
+                "cloud": 0.1,
+                "season": "summer",
+                "updatedAt": 1794299682196,
+                "climate": null
+              },
+              "date": "2026-07-15T09:00:00.000Z",
+              "timeZone": "Europe/Bucharest",
+              "sunElevation": 61.51440228923067,
+              "nightLights": false,
+              "quality": "high"
+            },
+            "sha256": "4dd5617e9cd4ab8c3ec09e0ff9af186acdb156056af41a63c32597493599d852",
+            "bytes": 157873,
+            "pose": {
+              "x": -17,
+              "z": -78,
+              "floor": -0.2784762978553772,
+              "eye": [
+                -17,
+                1.3715237021446227,
+                -78
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 327.9946167919165,
+              "pitch": 27.03559451375807,
+              "fov": 66
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.14,
+              "frameMs": 6952.8,
+              "drawCalls": 175,
+              "triangles": 497426,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/arcul-de-triumf/ground-dc93023f/summer-day/sculpted-pier.jpg"
+          },
+          {
+            "id": "race-course",
+            "kind": "visit",
+            "place": "arcul-de-triumf",
+            "label": "Island race · start and blue course markers",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:35:22.729Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "summer-day",
+              "label": "Summer · day",
+              "season": "summer",
+              "period": "day",
+              "hour": 12,
+              "weather": {
+                "source": "override",
+                "code": 0,
+                "kind": "clear",
+                "label": "Clear sky",
+                "icon": "☀️",
+                "tempC": 22,
+                "precipMm": 0,
+                "snowCm": 0,
+                "snowfallCm": 0,
+                "windKmh": 8,
+                "windDir": 270,
+                "visibilityM": 19500,
+                "cloud": 0.1,
+                "season": "summer",
+                "updatedAt": 1794299682196,
+                "climate": null
+              },
+              "date": "2026-07-15T09:00:00.000Z",
+              "timeZone": "Europe/Bucharest",
+              "sunElevation": 61.51440228923067,
+              "nightLights": false,
+              "quality": "high"
+            },
+            "sha256": "f21501b6bdbd1c893cbac2ce80ba14c6554589c881d2e0740182317b31b2a71a",
+            "bytes": 150402,
+            "pose": {
+              "x": -23,
+              "z": -121,
+              "floor": -0.2581974615653356,
+              "eye": [
+                -23,
+                1.3918025384346644,
+                -121
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 221.1859251657096,
+              "pitch": -2.110834143123882,
+              "fov": 74
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.33,
+              "frameMs": 2997.5,
+              "drawCalls": 183,
+              "triangles": 505942,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/arcul-de-triumf/ground-dc93023f/summer-day/race-course.jpg"
+          },
+          {
+            "id": "baguette-catch",
+            "kind": "visit",
+            "place": "arcul-de-triumf",
+            "label": "Baguette catch · activity area and south facade",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:35:25.324Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "summer-day",
+              "label": "Summer · day",
+              "season": "summer",
+              "period": "day",
+              "hour": 12,
+              "weather": {
+                "source": "override",
+                "code": 0,
+                "kind": "clear",
+                "label": "Clear sky",
+                "icon": "☀️",
+                "tempC": 22,
+                "precipMm": 0,
+                "snowCm": 0,
+                "snowfallCm": 0,
+                "windKmh": 8,
+                "windDir": 270,
+                "visibilityM": 19500,
+                "cloud": 0.1,
+                "season": "summer",
+                "updatedAt": 1794299682196,
+                "climate": null
+              },
+              "date": "2026-07-15T09:00:00.000Z",
+              "timeZone": "Europe/Bucharest",
+              "sunElevation": 61.51440228923067,
+              "nightLights": false,
+              "quality": "high"
+            },
+            "sha256": "040780b7542157943f2155e8f822ceca5793a47dd84546d4326df2476ee2ab72",
+            "bytes": 161274,
+            "pose": {
+              "x": -33,
+              "z": -70,
+              "floor": -0.27333190043767297,
+              "eye": [
+                -33,
+                1.3766680995623268,
+                -70
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 356.18592516570965,
+              "pitch": 13.551003784962534,
+              "fov": 72
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.3,
+              "frameMs": 3338,
+              "drawCalls": 185,
+              "triangles": 495938,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/arcul-de-triumf/ground-dc93023f/summer-day/baguette-catch.jpg"
+          }
+        ]
+      },
+      {
+        "id": "summer-night",
+        "label": "Summer · Night",
+        "season": "summer",
+        "period": "night",
+        "weather": "clear",
+        "hour": 23,
+        "captures": [
+          {
+            "id": "axis-approach",
+            "kind": "visit",
+            "place": "arcul-de-triumf",
+            "label": "Kiseleff axis · the Arc and roundabout",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:35:36.919Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "summer-night",
+              "label": "Summer · night",
+              "season": "summer",
+              "period": "night",
+              "hour": 23,
+              "weather": {
+                "source": "override",
+                "code": 0,
+                "kind": "clear",
+                "label": "Clear sky",
+                "icon": "🌙",
+                "tempC": 22,
+                "precipMm": 0,
+                "snowCm": 0,
+                "snowfallCm": 0,
+                "windKmh": 8,
+                "windDir": 270,
+                "visibilityM": 19500,
+                "cloud": 0.1,
+                "season": "summer",
+                "updatedAt": 1794299725352,
+                "climate": null
+              },
+              "date": "2026-07-15T20:00:00.000Z",
+              "timeZone": "Europe/Bucharest",
+              "sunElevation": -16.59195679247379,
+              "nightLights": true,
+              "quality": "high"
+            },
+            "sha256": "002f57c07338a363b2b6e9bcded8948c5e49e2b413190f6bbafa346aa709e7ec",
+            "bytes": 166480,
+            "pose": {
+              "x": -14.6,
+              "z": -21.9,
+              "floor": -0.12758983994523684,
+              "eye": [
+                -14.6,
+                1.522410160054763,
+                -21.9
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 348.6017118138968,
+              "pitch": 8.554150731895765,
+              "fov": 62
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.21,
+              "frameMs": 4729.7,
+              "drawCalls": 120,
+              "triangles": 266526,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/arcul-de-triumf/ground-dc93023f/summer-night/axis-approach.jpg"
+          },
+          {
+            "id": "sculpted-pier",
+            "kind": "visit",
+            "place": "arcul-de-triumf",
+            "label": "Arc · opening, sculpted pier and relief",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:35:39.931Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "summer-night",
+              "label": "Summer · night",
+              "season": "summer",
+              "period": "night",
+              "hour": 23,
+              "weather": {
+                "source": "override",
+                "code": 0,
+                "kind": "clear",
+                "label": "Clear sky",
+                "icon": "🌙",
+                "tempC": 22,
+                "precipMm": 0,
+                "snowCm": 0,
+                "snowfallCm": 0,
+                "windKmh": 8,
+                "windDir": 270,
+                "visibilityM": 19500,
+                "cloud": 0.1,
+                "season": "summer",
+                "updatedAt": 1794299725352,
+                "climate": null
+              },
+              "date": "2026-07-15T20:00:00.000Z",
+              "timeZone": "Europe/Bucharest",
+              "sunElevation": -16.59195679247379,
+              "nightLights": true,
+              "quality": "high"
+            },
+            "sha256": "6bba482fb94074d2f912f137498d5d649c479e939796e150f344a78b4107de22",
+            "bytes": 145648,
+            "pose": {
+              "x": -17,
+              "z": -78,
+              "floor": -0.2784762978553772,
+              "eye": [
+                -17,
+                1.3715237021446227,
+                -78
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 327.9946167919165,
+              "pitch": 27.03559451375807,
+              "fov": 66
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.14,
+              "frameMs": 6927.1,
+              "drawCalls": 92,
+              "triangles": 284463,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/arcul-de-triumf/ground-dc93023f/summer-night/sculpted-pier.jpg"
+          },
+          {
+            "id": "race-course",
+            "kind": "visit",
+            "place": "arcul-de-triumf",
+            "label": "Island race · start and blue course markers",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:35:43.704Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "summer-night",
+              "label": "Summer · night",
+              "season": "summer",
+              "period": "night",
+              "hour": 23,
+              "weather": {
+                "source": "override",
+                "code": 0,
+                "kind": "clear",
+                "label": "Clear sky",
+                "icon": "🌙",
+                "tempC": 22,
+                "precipMm": 0,
+                "snowCm": 0,
+                "snowfallCm": 0,
+                "windKmh": 8,
+                "windDir": 270,
+                "visibilityM": 19500,
+                "cloud": 0.1,
+                "season": "summer",
+                "updatedAt": 1794299725352,
+                "climate": null
+              },
+              "date": "2026-07-15T20:00:00.000Z",
+              "timeZone": "Europe/Bucharest",
+              "sunElevation": -16.59195679247379,
+              "nightLights": true,
+              "quality": "high"
+            },
+            "sha256": "70e5ef843436529fb99243856f96d378523cb875d24f561e1370fe534ae280c4",
+            "bytes": 156245,
+            "pose": {
+              "x": -23,
+              "z": -121,
+              "floor": -0.2581974615653356,
+              "eye": [
+                -23,
+                1.3918025384346644,
+                -121
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 221.1859251657096,
+              "pitch": -2.110834143123882,
+              "fov": 74
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.34,
+              "frameMs": 2962,
+              "drawCalls": 101,
+              "triangles": 289522,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/arcul-de-triumf/ground-dc93023f/summer-night/race-course.jpg"
+          },
+          {
+            "id": "baguette-catch",
+            "kind": "visit",
+            "place": "arcul-de-triumf",
+            "label": "Baguette catch · activity area and south facade",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:35:46.903Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "summer-night",
+              "label": "Summer · night",
+              "season": "summer",
+              "period": "night",
+              "hour": 23,
+              "weather": {
+                "source": "override",
+                "code": 0,
+                "kind": "clear",
+                "label": "Clear sky",
+                "icon": "🌙",
+                "tempC": 22,
+                "precipMm": 0,
+                "snowCm": 0,
+                "snowfallCm": 0,
+                "windKmh": 8,
+                "windDir": 270,
+                "visibilityM": 19500,
+                "cloud": 0.1,
+                "season": "summer",
+                "updatedAt": 1794299725352,
+                "climate": null
+              },
+              "date": "2026-07-15T20:00:00.000Z",
+              "timeZone": "Europe/Bucharest",
+              "sunElevation": -16.59195679247379,
+              "nightLights": true,
+              "quality": "high"
+            },
+            "sha256": "da1095cd90c406d92b6384a0f3b84bb261af2250d4f08e8b965c5d4ef7958347",
+            "bytes": 156493,
+            "pose": {
+              "x": -33,
+              "z": -70,
+              "floor": -0.27333190043767297,
+              "eye": [
+                -33,
+                1.3766680995623268,
+                -70
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 356.18592516570965,
+              "pitch": 13.551003784962534,
+              "fov": 72
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.26,
+              "frameMs": 3774.8,
+              "drawCalls": 108,
+              "triangles": 286645,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/arcul-de-triumf/ground-dc93023f/summer-night/baguette-catch.jpg"
+          }
+        ]
+      },
+      {
+        "id": "winter-day",
+        "label": "Winter · Day",
+        "season": "winter",
+        "period": "day",
+        "weather": "snow",
+        "hour": 12,
+        "captures": [
+          {
+            "id": "axis-approach",
+            "kind": "visit",
+            "place": "arcul-de-triumf",
+            "label": "Kiseleff axis · the Arc and roundabout",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:35:52.678Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "winter-day",
+              "label": "Winter · day",
+              "season": "winter",
+              "period": "day",
+              "hour": 12,
+              "weather": {
+                "source": "override",
+                "code": 73,
+                "kind": "snow",
+                "label": "Snow",
+                "icon": "🌨️",
+                "tempC": -2,
+                "precipMm": 0.8,
+                "snowCm": 12,
+                "snowfallCm": 0.6,
+                "windKmh": 12,
+                "windDir": 330,
+                "visibilityM": 1600,
+                "cloud": 1,
+                "season": "winter",
+                "updatedAt": 1794299746930,
+                "climate": null
+              },
+              "date": "2026-01-15T10:00:00.000Z",
+              "timeZone": "Europe/Bucharest",
+              "sunElevation": 24.202302157690482,
+              "nightLights": false,
+              "quality": "high"
+            },
+            "sha256": "243acaba7fdcbdeb3d52ee59f70142f6d5df4986e6cc6f8c8b4f5f6666208a04",
+            "bytes": 125447,
+            "pose": {
+              "x": -14.6,
+              "z": -21.9,
+              "floor": -0.12758983994523684,
+              "eye": [
+                -14.6,
+                1.522410160054763,
+                -21.9
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 348.6017118138968,
+              "pitch": 8.554150731895765,
+              "fov": 62
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.31,
+              "frameMs": 221,
+              "drawCalls": 191,
+              "triangles": 386764,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/arcul-de-triumf/ground-dc93023f/winter-day/axis-approach.jpg"
+          },
+          {
+            "id": "sculpted-pier",
+            "kind": "visit",
+            "place": "arcul-de-triumf",
+            "label": "Arc · opening, sculpted pier and relief",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:35:55.236Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "winter-day",
+              "label": "Winter · day",
+              "season": "winter",
+              "period": "day",
+              "hour": 12,
+              "weather": {
+                "source": "override",
+                "code": 73,
+                "kind": "snow",
+                "label": "Snow",
+                "icon": "🌨️",
+                "tempC": -2,
+                "precipMm": 0.8,
+                "snowCm": 12,
+                "snowfallCm": 0.6,
+                "windKmh": 12,
+                "windDir": 330,
+                "visibilityM": 1600,
+                "cloud": 1,
+                "season": "winter",
+                "updatedAt": 1794299746930,
+                "climate": null
+              },
+              "date": "2026-01-15T10:00:00.000Z",
+              "timeZone": "Europe/Bucharest",
+              "sunElevation": 24.202302157690482,
+              "nightLights": false,
+              "quality": "high"
+            },
+            "sha256": "14716b85a671cfb64a021faa0d28dfc0e45ff06c2a7d54fde008bd69b6b47cc0",
+            "bytes": 155820,
+            "pose": {
+              "x": -17,
+              "z": -78,
+              "floor": -0.2784762978553772,
+              "eye": [
+                -17,
+                1.3715237021446227,
+                -78
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 327.9946167919165,
+              "pitch": 27.03559451375807,
+              "fov": 66
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.35,
+              "frameMs": 5547.7,
+              "drawCalls": 162,
+              "triangles": 422278,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/arcul-de-triumf/ground-dc93023f/winter-day/sculpted-pier.jpg"
+          },
+          {
+            "id": "race-course",
+            "kind": "visit",
+            "place": "arcul-de-triumf",
+            "label": "Island race · start and blue course markers",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:35:58.397Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "winter-day",
+              "label": "Winter · day",
+              "season": "winter",
+              "period": "day",
+              "hour": 12,
+              "weather": {
+                "source": "override",
+                "code": 73,
+                "kind": "snow",
+                "label": "Snow",
+                "icon": "🌨️",
+                "tempC": -2,
+                "precipMm": 0.8,
+                "snowCm": 12,
+                "snowfallCm": 0.6,
+                "windKmh": 12,
+                "windDir": 330,
+                "visibilityM": 1600,
+                "cloud": 1,
+                "season": "winter",
+                "updatedAt": 1794299746930,
+                "climate": null
+              },
+              "date": "2026-01-15T10:00:00.000Z",
+              "timeZone": "Europe/Bucharest",
+              "sunElevation": 24.202302157690482,
+              "nightLights": false,
+              "quality": "high"
+            },
+            "sha256": "ca2e9834fc44329e0fb86d1478ed2207c1b5970cc0b1ac54456b22dbf9da0c90",
+            "bytes": 139796,
+            "pose": {
+              "x": -23,
+              "z": -121,
+              "floor": -0.2581974615653356,
+              "eye": [
+                -23,
+                1.3918025384346644,
+                -121
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 221.1859251657096,
+              "pitch": -2.110834143123882,
+              "fov": 74
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.39,
+              "frameMs": 2595.6,
+              "drawCalls": 172,
+              "triangles": 430582,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/arcul-de-triumf/ground-dc93023f/winter-day/race-course.jpg"
+          },
+          {
+            "id": "baguette-catch",
+            "kind": "visit",
+            "place": "arcul-de-triumf",
+            "label": "Baguette catch · activity area and south facade",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:36:01.287Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "winter-day",
+              "label": "Winter · day",
+              "season": "winter",
+              "period": "day",
+              "hour": 12,
+              "weather": {
+                "source": "override",
+                "code": 73,
+                "kind": "snow",
+                "label": "Snow",
+                "icon": "🌨️",
+                "tempC": -2,
+                "precipMm": 0.8,
+                "snowCm": 12,
+                "snowfallCm": 0.6,
+                "windKmh": 12,
+                "windDir": 330,
+                "visibilityM": 1600,
+                "cloud": 1,
+                "season": "winter",
+                "updatedAt": 1794299746930,
+                "climate": null
+              },
+              "date": "2026-01-15T10:00:00.000Z",
+              "timeZone": "Europe/Bucharest",
+              "sunElevation": 24.202302157690482,
+              "nightLights": false,
+              "quality": "high"
+            },
+            "sha256": "051bb5a8f640f7519e704e67c7b04edc1623809a72dd1bab515e308250349c2a",
+            "bytes": 146142,
+            "pose": {
+              "x": -33,
+              "z": -70,
+              "floor": -0.27333190043767297,
+              "eye": [
+                -33,
+                1.3766680995623268,
+                -70
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 356.18592516570965,
+              "pitch": 13.551003784962534,
+              "fov": 72
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.32,
+              "frameMs": 3126,
+              "drawCalls": 180,
+              "triangles": 420176,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/arcul-de-triumf/ground-dc93023f/winter-day/baguette-catch.jpg"
+          }
+        ]
+      },
+      {
+        "id": "winter-night",
+        "label": "Winter · Night",
+        "season": "winter",
+        "period": "night",
+        "weather": "snow",
+        "hour": 23,
+        "captures": [
+          {
+            "id": "axis-approach",
+            "kind": "visit",
+            "place": "arcul-de-triumf",
+            "label": "Kiseleff axis · the Arc and roundabout",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:36:15.091Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "winter-night",
+              "label": "Winter · night",
+              "season": "winter",
+              "period": "night",
+              "hour": 23,
+              "weather": {
+                "source": "override",
+                "code": 73,
+                "kind": "snow",
+                "label": "Snow",
+                "icon": "🌨️",
+                "tempC": -2,
+                "precipMm": 0.8,
+                "snowCm": 12,
+                "snowfallCm": 0.6,
+                "windKmh": 12,
+                "windDir": 330,
+                "visibilityM": 1600,
+                "cloud": 1,
+                "season": "winter",
+                "updatedAt": 1794299761330,
+                "climate": null
+              },
+              "date": "2026-01-15T21:00:00.000Z",
+              "timeZone": "Europe/Bucharest",
+              "sunElevation": -60.66079334159904,
+              "nightLights": true,
+              "quality": "high"
+            },
+            "sha256": "066e0df21571104ed879aa6b0023a709d031a452de62184a12214872227081e7",
+            "bytes": 164631,
+            "pose": {
+              "x": -14.6,
+              "z": -21.9,
+              "floor": -0.12758983994523684,
+              "eye": [
+                -14.6,
+                1.522410160054763,
+                -21.9
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 348.6017118138968,
+              "pitch": 8.554150731895765,
+              "fov": 62
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.34,
+              "frameMs": 87.7,
+              "drawCalls": 121,
+              "triangles": 266526,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/arcul-de-triumf/ground-dc93023f/winter-night/axis-approach.jpg"
+          },
+          {
+            "id": "sculpted-pier",
+            "kind": "visit",
+            "place": "arcul-de-triumf",
+            "label": "Arc · opening, sculpted pier and relief",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:36:20.156Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "winter-night",
+              "label": "Winter · night",
+              "season": "winter",
+              "period": "night",
+              "hour": 23,
+              "weather": {
+                "source": "override",
+                "code": 73,
+                "kind": "snow",
+                "label": "Snow",
+                "icon": "🌨️",
+                "tempC": -2,
+                "precipMm": 0.8,
+                "snowCm": 12,
+                "snowfallCm": 0.6,
+                "windKmh": 12,
+                "windDir": 330,
+                "visibilityM": 1600,
+                "cloud": 1,
+                "season": "winter",
+                "updatedAt": 1794299761330,
+                "climate": null
+              },
+              "date": "2026-01-15T21:00:00.000Z",
+              "timeZone": "Europe/Bucharest",
+              "sunElevation": -60.66079334159904,
+              "nightLights": true,
+              "quality": "high"
+            },
+            "sha256": "e8cb770ed50872cc821517c3dfb01d5e7061d7b220e6cb3706ea9f1bc247bab1",
+            "bytes": 170993,
+            "pose": {
+              "x": -17,
+              "z": -78,
+              "floor": -0.2784762978553772,
+              "eye": [
+                -17,
+                1.3715237021446227,
+                -78
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 327.9946167919165,
+              "pitch": 27.03559451375807,
+              "fov": 66
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.14,
+              "frameMs": 13720.7,
+              "drawCalls": 95,
+              "triangles": 285099,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/arcul-de-triumf/ground-dc93023f/winter-night/sculpted-pier.jpg"
+          },
+          {
+            "id": "race-course",
+            "kind": "visit",
+            "place": "arcul-de-triumf",
+            "label": "Island race · start and blue course markers",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:36:23.488Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "winter-night",
+              "label": "Winter · night",
+              "season": "winter",
+              "period": "night",
+              "hour": 23,
+              "weather": {
+                "source": "override",
+                "code": 73,
+                "kind": "snow",
+                "label": "Snow",
+                "icon": "🌨️",
+                "tempC": -2,
+                "precipMm": 0.8,
+                "snowCm": 12,
+                "snowfallCm": 0.6,
+                "windKmh": 12,
+                "windDir": 330,
+                "visibilityM": 1600,
+                "cloud": 1,
+                "season": "winter",
+                "updatedAt": 1794299761330,
+                "climate": null
+              },
+              "date": "2026-01-15T21:00:00.000Z",
+              "timeZone": "Europe/Bucharest",
+              "sunElevation": -60.66079334159904,
+              "nightLights": true,
+              "quality": "high"
+            },
+            "sha256": "6116914de57612501eefa4a93c3be715718c3adc2308c319fe79c2abc42a75fe",
+            "bytes": 158717,
+            "pose": {
+              "x": -23,
+              "z": -121,
+              "floor": -0.2581974615653356,
+              "eye": [
+                -23,
+                1.3918025384346644,
+                -121
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 221.1859251657096,
+              "pitch": -2.110834143123882,
+              "fov": 74
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.2,
+              "frameMs": 5044.8,
+              "drawCalls": 100,
+              "triangles": 286986,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/arcul-de-triumf/ground-dc93023f/winter-night/race-course.jpg"
+          },
+          {
+            "id": "baguette-catch",
+            "kind": "visit",
+            "place": "arcul-de-triumf",
+            "label": "Baguette catch · activity area and south facade",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:36:27.101Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "winter-night",
+              "label": "Winter · night",
+              "season": "winter",
+              "period": "night",
+              "hour": 23,
+              "weather": {
+                "source": "override",
+                "code": 73,
+                "kind": "snow",
+                "label": "Snow",
+                "icon": "🌨️",
+                "tempC": -2,
+                "precipMm": 0.8,
+                "snowCm": 12,
+                "snowfallCm": 0.6,
+                "windKmh": 12,
+                "windDir": 330,
+                "visibilityM": 1600,
+                "cloud": 1,
+                "season": "winter",
+                "updatedAt": 1794299761330,
+                "climate": null
+              },
+              "date": "2026-01-15T21:00:00.000Z",
+              "timeZone": "Europe/Bucharest",
+              "sunElevation": -60.66079334159904,
+              "nightLights": true,
+              "quality": "high"
+            },
+            "sha256": "30a7dce53e5909417070ed9b81fbf74f3ac50916f5cfb4fdaa7811e3c05ef879",
+            "bytes": 166821,
+            "pose": {
+              "x": -33,
+              "z": -70,
+              "floor": -0.27333190043767297,
+              "eye": [
+                -33,
+                1.3766680995623268,
+                -70
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 356.18592516570965,
+              "pitch": 13.551003784962534,
+              "fov": 72
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.3,
+              "frameMs": 3346.6,
+              "drawCalls": 115,
+              "triangles": 285714,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/arcul-de-triumf/ground-dc93023f/winter-night/baguette-catch.jpg"
+          }
+        ]
+      }
+    ],
     "captures": [
       {
-        "kind": "scene",
-        "image": "assets/spots/arcul-de-triumf/visit-aabd/scene.webp",
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "capturedAt": "2026-11-09T08:19:30.219Z",
+        "id": "axis-approach",
+        "kind": "visit",
+        "place": "arcul-de-triumf",
+        "label": "Kiseleff axis · the Arc and roundabout",
+        "purpose": "Walking-height detail of the production scene.",
+        "capturedAt": "2026-11-10T08:35:16.406Z",
+        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
         "viewport": {
           "width": 1280,
-          "height": 720
+          "height": 800
         },
-        "position": {
-          "x": -13.274371973762545,
-          "z": -45.71971323598915,
-          "y": -0.08562885447913324,
-          "heading": 0.3490659375
+        "condition": {
+          "id": "summer-day",
+          "label": "Summer · day",
+          "season": "summer",
+          "period": "day",
+          "hour": 12,
+          "weather": {
+            "source": "override",
+            "code": 0,
+            "kind": "clear",
+            "label": "Clear sky",
+            "icon": "☀️",
+            "tempC": 22,
+            "precipMm": 0,
+            "snowCm": 0,
+            "snowfallCm": 0,
+            "windKmh": 8,
+            "windDir": 270,
+            "visibilityM": 19500,
+            "cloud": 0.1,
+            "season": "summer",
+            "updatedAt": 1794299682196,
+            "climate": null
+          },
+          "date": "2026-07-15T09:00:00.000Z",
+          "timeZone": "Europe/Bucharest",
+          "sunElevation": 61.51440228923067,
+          "nightLights": false,
+          "quality": "high"
         },
+        "sha256": "fd63372f1cbf383cc8c999c79bfa631450defb3249fb333c0bd41ef988f5860a",
+        "bytes": 150289,
         "pose": {
-          "position": [
-            -13.274371973762545,
-            1.5643711455208666,
-            -45.71971323598915
+          "x": -14.6,
+          "z": -21.9,
+          "floor": -0.12758983994523684,
+          "eye": [
+            -14.6,
+            1.522410160054763,
+            -21.9
           ],
-          "bearing": 339.9999950094726,
-          "pitch": 10.999997373310727
+          "heightAboveSupport": 1.65,
+          "bearing": 348.6017118138968,
+          "pitch": 8.554150731895765,
+          "fov": 62
         },
-        "conditions": {
-          "tod": "day",
-          "weather": "clear",
-          "season": "summer"
+        "cameraBodyClear": true,
+        "stats": {
+          "fps": 0.04,
+          "frameMs": 27303.1,
+          "drawCalls": 199,
+          "triangles": 450326,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
         },
-        "simulationDate": "2026-11-09T08:19:28.561Z",
-        "triangles": 287503,
-        "drawCalls": 108,
-        "cameraParent": "onfoot",
-        "ui": {
-          "touch": true,
-          "spotHUD": true,
-          "touchAction": true
-        },
-        "sha256": "bd80427a68639691d7e6c5775ed7afe90edaf4dd1fde7d64da888f0d185f494f",
-        "bytes": 42222,
-        "fullPageHUD": false,
-        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
-        "setup": {
-          "arrival": {
-            "x": -25.651450004398864,
-            "z": -79.7254556439903,
-            "y": -0.12020864978336726,
-            "heading": -5.934119456780721
-          },
-          "viewpoint": {
-            "view": [
-              -32.4275,
-              -98.34250000000002
-            ],
-            "id": "arcul-de-triumf",
-            "x": -13.274371973762545,
-            "z": -45.71971323598915,
-            "bearing": 340,
-            "pitch": 11,
-            "fov": 60,
-            "text": "From the south side of the roundabout on the Kiseleff axis, ~90 m south of the arch, looking NNW through the opening at the south face with Ferdinand & Maria medallions.",
-            "r": 12,
-            "tol": 24,
-            "targets": [],
-            "cond": null,
-            "condHint": null
-          },
-          "position": {
-            "x": -13.274371973762545,
-            "z": -45.71971323598915,
-            "y": -0.08562885447913324,
-            "heading": 0
-          },
-          "walker": "OnFootController",
-          "sceneId": "arcul-de-triumf",
-          "origin": {
-            "lat": 44.46632,
-            "lon": 26.0785,
-            "elev": 90.4
-          },
-          "projection": {
-            "mLat": 111121.35,
-            "mLon": 79575.39
-          }
-        },
-        "label": "The arch and its surrounding streets",
-        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+        "image": "assets/spots/arcul-de-triumf/ground-dc93023f/summer-day/axis-approach.jpg"
       },
       {
-        "kind": "phone-ui-touch",
-        "image": "assets/spots/arcul-de-triumf/visit-aabd/phone-ui-touch.jpg",
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "capturedAt": "2026-11-09T08:25:03.419Z",
+        "id": "sculpted-pier",
+        "kind": "visit",
+        "place": "arcul-de-triumf",
+        "label": "Arc · opening, sculpted pier and relief",
+        "purpose": "Walking-height detail of the production scene.",
+        "capturedAt": "2026-11-10T08:35:19.415Z",
+        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
         "viewport": {
-          "width": 390,
-          "height": 844
+          "width": 1280,
+          "height": 800
         },
-        "position": {
-          "x": -13.274371973762545,
-          "z": -45.71971323598915,
-          "y": -0.08562885447913324,
-          "heading": 0.34906587890624996
+        "condition": {
+          "id": "summer-day",
+          "label": "Summer · day",
+          "season": "summer",
+          "period": "day",
+          "hour": 12,
+          "weather": {
+            "source": "override",
+            "code": 0,
+            "kind": "clear",
+            "label": "Clear sky",
+            "icon": "☀️",
+            "tempC": 22,
+            "precipMm": 0,
+            "snowCm": 0,
+            "snowfallCm": 0,
+            "windKmh": 8,
+            "windDir": 270,
+            "visibilityM": 19500,
+            "cloud": 0.1,
+            "season": "summer",
+            "updatedAt": 1794299682196,
+            "climate": null
+          },
+          "date": "2026-07-15T09:00:00.000Z",
+          "timeZone": "Europe/Bucharest",
+          "sunElevation": 61.51440228923067,
+          "nightLights": false,
+          "quality": "high"
         },
+        "sha256": "4dd5617e9cd4ab8c3ec09e0ff9af186acdb156056af41a63c32597493599d852",
+        "bytes": 157873,
         "pose": {
-          "position": [
-            -13.274371973762545,
-            1.5643711455208666,
-            -45.71971323598915
+          "x": -17,
+          "z": -78,
+          "floor": -0.2784762978553772,
+          "eye": [
+            -17,
+            1.3715237021446227,
+            -78
           ],
-          "bearing": 339.9999983666472,
-          "pitch": 10.999997373310729
+          "heightAboveSupport": 1.65,
+          "bearing": 327.9946167919165,
+          "pitch": 27.03559451375807,
+          "fov": 66
         },
-        "conditions": {
-          "tod": "day",
-          "weather": "clear",
-          "season": "summer"
+        "cameraBodyClear": true,
+        "stats": {
+          "fps": 0.14,
+          "frameMs": 6952.8,
+          "drawCalls": 175,
+          "triangles": 497426,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
         },
-        "simulationDate": "2026-11-09T08:25:01.937Z",
-        "triangles": 295320,
-        "drawCalls": 184,
-        "cameraParent": "onfoot",
-        "ui": {
-          "touch": true,
-          "spotHUD": true,
-          "touchAction": true
-        },
-        "sha256": "edde39f588016dc106a86ba2ee4f801f9995f949c8935ed90ae18c7dc223acbb",
-        "bytes": 50280,
-        "fullPageHUD": true,
-        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
-        "setup": {
-          "arrival": {
-            "x": -25.651450004398864,
-            "z": -79.7254556439903,
-            "y": -0.12020864978336726,
-            "heading": -5.934119456780721
-          },
-          "viewpoint": {
-            "view": [
-              -32.4275,
-              -98.34250000000002
-            ],
-            "id": "arcul-de-triumf",
-            "x": -13.274371973762545,
-            "z": -45.71971323598915,
-            "bearing": 340,
-            "pitch": 11,
-            "fov": 60,
-            "text": "From the south side of the roundabout on the Kiseleff axis, ~90 m south of the arch, looking NNW through the opening at the south face with Ferdinand & Maria medallions.",
-            "r": 12,
-            "tol": 24,
-            "targets": [],
-            "cond": null,
-            "condHint": null
-          },
-          "position": {
-            "x": -13.274371973762545,
-            "z": -45.71971323598915,
-            "y": -0.08562885447913324,
-            "heading": 0
-          },
-          "walker": "OnFootController",
-          "sceneId": "arcul-de-triumf",
-          "origin": {
-            "lat": 44.46632,
-            "lon": 26.0785,
-            "elev": 90.4
-          },
-          "projection": {
-            "mLat": 111121.35,
-            "mLon": 79575.39
-          }
-        },
-        "label": "Phone view with the native touch interface",
-        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
-      }
-    ],
-    "limitations": [
-      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
-      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
-    ],
-    "reports": [
-      {
-        "label": "Initial 23-destination scene and portrait capture",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
-        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+        "image": "assets/spots/arcul-de-triumf/ground-dc93023f/summer-day/sculpted-pier.jpg"
       },
       {
-        "label": "Actual portrait touch-look capture",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
-        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+        "id": "race-course",
+        "kind": "visit",
+        "place": "arcul-de-triumf",
+        "label": "Island race · start and blue course markers",
+        "purpose": "Walking-height detail of the production scene.",
+        "capturedAt": "2026-11-10T08:35:22.729Z",
+        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "condition": {
+          "id": "summer-day",
+          "label": "Summer · day",
+          "season": "summer",
+          "period": "day",
+          "hour": 12,
+          "weather": {
+            "source": "override",
+            "code": 0,
+            "kind": "clear",
+            "label": "Clear sky",
+            "icon": "☀️",
+            "tempC": 22,
+            "precipMm": 0,
+            "snowCm": 0,
+            "snowfallCm": 0,
+            "windKmh": 8,
+            "windDir": 270,
+            "visibilityM": 19500,
+            "cloud": 0.1,
+            "season": "summer",
+            "updatedAt": 1794299682196,
+            "climate": null
+          },
+          "date": "2026-07-15T09:00:00.000Z",
+          "timeZone": "Europe/Bucharest",
+          "sunElevation": 61.51440228923067,
+          "nightLights": false,
+          "quality": "high"
+        },
+        "sha256": "f21501b6bdbd1c893cbac2ce80ba14c6554589c881d2e0740182317b31b2a71a",
+        "bytes": 150402,
+        "pose": {
+          "x": -23,
+          "z": -121,
+          "floor": -0.2581974615653356,
+          "eye": [
+            -23,
+            1.3918025384346644,
+            -121
+          ],
+          "heightAboveSupport": 1.65,
+          "bearing": 221.1859251657096,
+          "pitch": -2.110834143123882,
+          "fov": 74
+        },
+        "cameraBodyClear": true,
+        "stats": {
+          "fps": 0.33,
+          "frameMs": 2997.5,
+          "drawCalls": 183,
+          "triangles": 505942,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        },
+        "image": "assets/spots/arcul-de-triumf/ground-dc93023f/summer-day/race-course.jpg"
+      },
+      {
+        "id": "baguette-catch",
+        "kind": "visit",
+        "place": "arcul-de-triumf",
+        "label": "Baguette catch · activity area and south facade",
+        "purpose": "Walking-height detail of the production scene.",
+        "capturedAt": "2026-11-10T08:35:25.324Z",
+        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "condition": {
+          "id": "summer-day",
+          "label": "Summer · day",
+          "season": "summer",
+          "period": "day",
+          "hour": 12,
+          "weather": {
+            "source": "override",
+            "code": 0,
+            "kind": "clear",
+            "label": "Clear sky",
+            "icon": "☀️",
+            "tempC": 22,
+            "precipMm": 0,
+            "snowCm": 0,
+            "snowfallCm": 0,
+            "windKmh": 8,
+            "windDir": 270,
+            "visibilityM": 19500,
+            "cloud": 0.1,
+            "season": "summer",
+            "updatedAt": 1794299682196,
+            "climate": null
+          },
+          "date": "2026-07-15T09:00:00.000Z",
+          "timeZone": "Europe/Bucharest",
+          "sunElevation": 61.51440228923067,
+          "nightLights": false,
+          "quality": "high"
+        },
+        "sha256": "040780b7542157943f2155e8f822ceca5793a47dd84546d4326df2476ee2ab72",
+        "bytes": 161274,
+        "pose": {
+          "x": -33,
+          "z": -70,
+          "floor": -0.27333190043767297,
+          "eye": [
+            -33,
+            1.3766680995623268,
+            -70
+          ],
+          "heightAboveSupport": 1.65,
+          "bearing": 356.18592516570965,
+          "pitch": 13.551003784962534,
+          "fov": 72
+        },
+        "cameraBodyClear": true,
+        "stats": {
+          "fps": 0.3,
+          "frameMs": 3338,
+          "drawCalls": 185,
+          "triangles": 495938,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        },
+        "image": "assets/spots/arcul-de-triumf/ground-dc93023f/summer-day/baguette-catch.jpg"
       }
     ],
-    "updatedAt": "2026-11-09T08:25:03.419Z",
-    "notice": "These views come from the staged game under test; the live game can differ.",
-    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
-    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
-    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+    "report": "assets/spots/arcul-de-triumf/ground-dc93023f/manifest.json",
+    "reportSha256": "ff23007acfa56164d14eccc597074502274a074dccfec0be98d8611fa430b534"
   }
 }

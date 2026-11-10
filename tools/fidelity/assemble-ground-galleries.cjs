@@ -8,9 +8,15 @@ const districts=['grozavesti','unirii','romana','floreasca','pipera','otopeni','
 const reports=(arg('reports')||'visits-v2,districts-final').split(',').map(dir=>({dir:path.join(input,dir),data:read(path.join(input,dir,'report.json'))}));
 const selected=new Map();
 for(const report of reports)for(const c of report.data.captures){const key=[c.kind,c.place,c.condition.id,c.id].join('/'),previous=selected.get(key);if(!previous||Date.parse(c.capturedAt)>Date.parse(previous.c.capturedAt))selected.set(key,{c,report});}
+const exclusions=[{kind:'visit',place:'space-needle',id:'needle-legs',reason:'The close canopy blocks the intended leg detail; raw four-condition frames are retained outside the public gallery. Five other matched views cover the tower, entrance, Glasshouse and Loupe.'}];
+const displayLabels = {
+ 'unirii/frontage-gts':'Calea Călărașilor · building frontages and sidewalk',
+ 'floreasca/frontage-dinamo':'Calea Floreasca · perimeter buildings and fence',
+ 'otopeni/frontage-otp':'Otopeni · airport-approach road and nearby facades'
+};
 const counts=[];
 for(const [kind,places] of [['visit',visits],['district',districts]])for(const place of places){
- const day=[...selected.values()].filter(({c})=>c.kind===kind&&c.place===place&&c.condition.id===ids[0]);
+ const day=[...selected.values()].filter(({c})=>c.kind===kind&&c.place===place&&c.condition.id===ids[0]&&!exclusions.some(e=>e.kind===kind&&e.place===place&&e.id===c.id));
  assert(day.length>=4,place+': fewer than four views');
  const cohort='ground-'+day[0].c.sourceCommit.slice(0,8);
  const relative=kind==='visit'?`assets/spots/${place}/${cohort}`:`comparison-data/${place}/context/${cohort}`;
@@ -21,12 +27,16 @@ for(const [kind,places] of [['visit',visits],['district',districts]])for(const p
    for(const field of ['x','z','floor','bearing','pitch','fov'])assert(Math.abs(c.pose[field]-base.pose[field])<.05,place+': unmatched '+field+' '+c.id);
    const bytes=fs.readFileSync(path.join(report.dir,c.file));assert.equal(sha(bytes),c.sha256);sources.add(c.sourceCommit);
    const target=path.join(dest,id,c.id+'.jpg');fs.mkdirSync(path.dirname(target),{recursive:true});if(!fs.existsSync(target))fs.linkSync(path.join(report.dir,c.file),target);else assert.equal(sha(fs.readFileSync(target)),c.sha256,'Old output needs a new directory: '+target);
-   const capture={...c,image:kind==='visit'?`${relative}/${id}/${c.id}.jpg`:`${id}/${c.id}.jpg`};delete capture.file;records.push({...capture,observerSHA256:report.data.toolSHA256});return capture;
+   const capture={...c,image:kind==='visit'?`${relative}/${id}/${c.id}.jpg`:`${id}/${c.id}.jpg`};
+   const label=displayLabels[place+'/'+c.id];if(label){capture.originalLabel=c.label;capture.label=label;capture.captionReview='Presentation caption describes the visible street context; it does not certify that the nearby named landmark is visible. Raw observer record remains unchanged.';}
+   delete capture.file;records.push({...capture,observerSHA256:report.data.toolSHA256});return capture;
  })}));
  assert.equal(sources.size,1,place+': mixed game sources');
  const limitations=['Fixed on-foot appearance fixtures; cameras were positioned for inspection. These pictures do not establish a traversed route, activity completion, physical-phone behavior or hardware FPS.'];
  if(place==='old-town-lipscani')limitations.push('The shipped renderer currently draws some snow particles inside the bookshop and bars. This remains a rendering defect. The Hagi screen here is its idle game surface; video playback is not demonstrated.');
- if(place==='space-needle')limitations.push('The Loupe picture is taken on its modeled supporting floor, not a drone. It does not establish a completed elevator ride or an accurate distant Seattle skyline.');
+ if(place==='space-needle')limitations.push('The Loupe picture is taken on its modeled supporting floor, not a drone. It does not establish a completed elevator ride or an accurate distant Seattle skyline. Snow particles currently appear inside the modeled Glasshouse; indoor weather occlusion needs work. The captured High-quality submitted workload reaches 1,532,282 triangles / 473 draw calls; full-scene performance remains open.');
+ if(place==='pike-place')limitations.push('The market facades, windows and awnings remain coarse; these captures expose the remaining fidelity work. The Gum Wall overhang does not currently occlude every snow particle.');
+ if(place==='bel-downtown-park')limitations.push('The waterfall remains a simplified sheet and foam strip; a source-led cascade rebuild is requested. Fixed pictures do not verify loop timing or coin-throw completion.');
  const gallery={schemaVersion:1,sourceCommit:[...sources][0],notice:`${day.length} matched walking-height viewpoints in each of four conditions, captured from the recorded production game source. Open any picture at its original size.`,setup:'Production app, scene, actors, lighting and renderer at High quality, 1280 × 800. Automatic animation was paused and explicit frames rendered at fixed on-foot cameras 1.65 m above their supporting surfaces. Local simulation dates and weather were controlled; capturedAt records the real capture time.',limitations,conditionSets};
  write(path.join(dest,'manifest.json'),{...gallery,captureScope:'appearance-only',captures:records});
  if(kind==='visit'){
@@ -38,4 +48,4 @@ for(const [kind,places] of [['visit',visits],['district',districts]])for(const p
  }
  counts.push({kind,place,viewpoints:day.length,conditions:4,captures:records.length,source:gallery.sourceCommit});
 }
-write(path.join(input,'assembled.json'),{createdAt:new Date().toISOString(),counts,total:counts.reduce((n,c)=>n+c.captures,0)});console.log(JSON.stringify(counts));
+write(path.join(input,'assembled.json'),{createdAt:new Date().toISOString(),counts,excludedViewpoints:exclusions,total:counts.reduce((n,c)=>n+c.captures,0)});console.log(JSON.stringify(counts));

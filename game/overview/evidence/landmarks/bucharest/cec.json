@@ -476,38 +476,6 @@
     "modelTriangles": 24156,
     "note": "Isolated development viewer including its ground; excludes district, traffic, mirrors and tourist-scene population."
   },
-  "historicalImplementationNotes": [
-    {
-      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
-      "priorCaptureRecordSourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
-      "supersededAt": "2026-11-09",
-      "field": "remainingGaps[4]",
-      "priorValue": "Shaped-roof collision retains each complete source total-height band rather than a pointwise curved roof height. Tourist-scene placement and public approach need the scene owner’s native context check after canonical association.",
-      "replacementScope": "Shaped-roof collision retains each complete source total-height band rather than a pointwise curved roof height. Canonical association and removal of obsolete blanket parent caps are integrated; complete independent courtyard/frontage, neighbouring-MNIR, public-access and crowd-behaviour comparison remains separate from the recorded primary candle approach.",
-      "acceptedImplementationCommits": [
-        "bb32f06f2b84080edf7efef90e361498f4227e12",
-        "052ecc8d02358782b5e191050842952d529db853"
-      ],
-      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
-    },
-    {
-      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
-      "priorCaptureRecordSourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
-      "supersededAt": "2026-11-09",
-      "field": "checks[3]",
-      "priorValue": {
-        "label": "Tourist-scene native placement and access",
-        "passed": false,
-        "details": "Pending scene owner canonical association and removal of obsolete blanket parent collider. Isolated model views do not test adjacent MNIR, public approaches or crowd behavior."
-      },
-      "replacementScope": "Canonical association and obsolete blanket parent-cap removal are implemented in accepted bb32f06f2b84080edf7efef90e361498f4227e12 and 052ecc8d02358782b5e191050842952d529db853. Existing source93b0d8649e7c3a1217ae5b009f124347c41da6a8 tourist evidence records the physical 26.095 m primary candle approach with ordinary source solids/crowd enabled. This broad complete-context gate remains open: that route does not establish matched frontage/courtyard/adjacent-MNIR fidelity, all public approaches or all crowd behaviour. No new browser or test execution accompanies this wording update.",
-      "acceptedImplementationCommits": [
-        "bb32f06f2b84080edf7efef90e361498f4227e12",
-        "052ecc8d02358782b5e191050842952d529db853"
-      ],
-      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
-    }
-  ],
   "implementationNotesUpdatedAt": "2026-11-09",
   "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
 }

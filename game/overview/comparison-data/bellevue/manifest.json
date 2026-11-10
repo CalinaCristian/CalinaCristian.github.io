@@ -30,7 +30,7 @@
     ],
     "sourceCaptureManifests": [
       {
-        "path": "historical/c78a5f4/capture-manifest.json",
+        "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json",
         "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
         "frames": 78
       },
@@ -41,7 +41,7 @@
         "frames": 4
       },
       {
-        "path": "historical/full-before-07cc3d6b-ff026d44/manifest.json",
+        "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/manifest.json",
         "sha256": "ff026d4487d7cc831cb8b8a8b4b5980e30acf83fba4f1e4f4131155548299b3b",
         "sourceCounts": {
           "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 78,
@@ -206,7 +206,7 @@
     },
     {
       "id": "sonic-source-anchor",
-      "label": "Bellevue skyline \u2014 City Center",
+      "label": "Bellevue skyline — City Center",
       "lat": 47.6148782,
       "lon": -122.1968365,
       "kind": "district-anchor",
@@ -288,7 +288,7 @@
   "items": [
     {
       "id": "aerial-r01-c03",
-      "label": "Row 1 \u00b7 Column 3",
+      "label": "Row 1 · Column 3",
       "row": 1,
       "column": 3,
       "lat": 47.62462309685779,
@@ -352,11 +352,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c04",
-      "label": "Row 1 \u00b7 Column 4",
+      "label": "Row 1 · Column 4",
       "row": 1,
       "column": 4,
       "lat": 47.62462309685779,
@@ -420,11 +420,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c05",
-      "label": "Row 1 \u00b7 Column 5",
+      "label": "Row 1 · Column 5",
       "row": 1,
       "column": 5,
       "lat": 47.62462309685779,
@@ -488,11 +488,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c06",
-      "label": "Row 1 \u00b7 Column 6",
+      "label": "Row 1 · Column 6",
       "row": 1,
       "column": 6,
       "lat": 47.62462309685779,
@@ -556,11 +556,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c07",
-      "label": "Row 1 \u00b7 Column 7",
+      "label": "Row 1 · Column 7",
       "row": 1,
       "column": 7,
       "lat": 47.62462309685779,
@@ -624,11 +624,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c08",
-      "label": "Row 1 \u00b7 Column 8",
+      "label": "Row 1 · Column 8",
       "row": 1,
       "column": 8,
       "lat": 47.62462309685779,
@@ -692,11 +692,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c09",
-      "label": "Row 1 \u00b7 Column 9",
+      "label": "Row 1 · Column 9",
       "row": 1,
       "column": 9,
       "lat": 47.62462309685779,
@@ -760,11 +760,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c10",
-      "label": "Row 1 \u00b7 Column 10",
+      "label": "Row 1 · Column 10",
       "row": 1,
       "column": 10,
       "lat": 47.62462309685779,
@@ -828,11 +828,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c02",
-      "label": "Row 2 \u00b7 Column 2",
+      "label": "Row 2 · Column 2",
       "row": 2,
       "column": 2,
       "lat": 47.62237351977828,
@@ -896,11 +896,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c03",
-      "label": "Row 2 \u00b7 Column 3",
+      "label": "Row 2 · Column 3",
       "row": 2,
       "column": 3,
       "lat": 47.62237351977828,
@@ -964,11 +964,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c04",
-      "label": "Row 2 \u00b7 Column 4",
+      "label": "Row 2 · Column 4",
       "row": 2,
       "column": 4,
       "lat": 47.62237351977828,
@@ -1032,11 +1032,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c05",
-      "label": "Row 2 \u00b7 Column 5",
+      "label": "Row 2 · Column 5",
       "row": 2,
       "column": 5,
       "lat": 47.62237351977828,
@@ -1100,11 +1100,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c06",
-      "label": "Row 2 \u00b7 Column 6",
+      "label": "Row 2 · Column 6",
       "row": 2,
       "column": 6,
       "lat": 47.62237351977828,
@@ -1168,11 +1168,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c07",
-      "label": "Row 2 \u00b7 Column 7",
+      "label": "Row 2 · Column 7",
       "row": 2,
       "column": 7,
       "lat": 47.62237351977828,
@@ -1236,11 +1236,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c08",
-      "label": "Row 2 \u00b7 Column 8",
+      "label": "Row 2 · Column 8",
       "row": 2,
       "column": 8,
       "lat": 47.62237351977828,
@@ -1304,11 +1304,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c09",
-      "label": "Row 2 \u00b7 Column 9",
+      "label": "Row 2 · Column 9",
       "row": 2,
       "column": 9,
       "lat": 47.62237351977828,
@@ -1372,11 +1372,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c10",
-      "label": "Row 2 \u00b7 Column 10",
+      "label": "Row 2 · Column 10",
       "row": 2,
       "column": 10,
       "lat": 47.62237351977828,
@@ -1440,11 +1440,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c11",
-      "label": "Row 2 \u00b7 Column 11",
+      "label": "Row 2 · Column 11",
       "row": 2,
       "column": 11,
       "lat": 47.62237351977828,
@@ -1508,11 +1508,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c01",
-      "label": "Row 3 \u00b7 Column 1",
+      "label": "Row 3 · Column 1",
       "row": 3,
       "column": 1,
       "lat": 47.620123942698775,
@@ -1576,11 +1576,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c02",
-      "label": "Row 3 \u00b7 Column 2",
+      "label": "Row 3 · Column 2",
       "row": 3,
       "column": 2,
       "lat": 47.620123942698775,
@@ -1644,11 +1644,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c03",
-      "label": "Row 3 \u00b7 Column 3",
+      "label": "Row 3 · Column 3",
       "row": 3,
       "column": 3,
       "lat": 47.620123942698775,
@@ -1712,11 +1712,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c04",
-      "label": "Row 3 \u00b7 Column 4",
+      "label": "Row 3 · Column 4",
       "row": 3,
       "column": 4,
       "lat": 47.620123942698775,
@@ -1785,7 +1785,7 @@
     },
     {
       "id": "aerial-r03-c05",
-      "label": "Row 3 \u00b7 Column 5",
+      "label": "Row 3 · Column 5",
       "row": 3,
       "column": 5,
       "lat": 47.620123942698775,
@@ -1854,7 +1854,7 @@
     },
     {
       "id": "aerial-r03-c06",
-      "label": "Row 3 \u00b7 Column 6",
+      "label": "Row 3 · Column 6",
       "row": 3,
       "column": 6,
       "lat": 47.620123942698775,
@@ -1918,11 +1918,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c07",
-      "label": "Row 3 \u00b7 Column 7",
+      "label": "Row 3 · Column 7",
       "row": 3,
       "column": 7,
       "lat": 47.620123942698775,
@@ -1986,11 +1986,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c08",
-      "label": "Row 3 \u00b7 Column 8",
+      "label": "Row 3 · Column 8",
       "row": 3,
       "column": 8,
       "lat": 47.620123942698775,
@@ -2054,11 +2054,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c09",
-      "label": "Row 3 \u00b7 Column 9",
+      "label": "Row 3 · Column 9",
       "row": 3,
       "column": 9,
       "lat": 47.620123942698775,
@@ -2122,11 +2122,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c10",
-      "label": "Row 3 \u00b7 Column 10",
+      "label": "Row 3 · Column 10",
       "row": 3,
       "column": 10,
       "lat": 47.620123942698775,
@@ -2190,11 +2190,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c11",
-      "label": "Row 3 \u00b7 Column 11",
+      "label": "Row 3 · Column 11",
       "row": 3,
       "column": 11,
       "lat": 47.620123942698775,
@@ -2258,11 +2258,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c12",
-      "label": "Row 3 \u00b7 Column 12",
+      "label": "Row 3 · Column 12",
       "row": 3,
       "column": 12,
       "lat": 47.620123942698775,
@@ -2326,11 +2326,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c01",
-      "label": "Row 4 \u00b7 Column 1",
+      "label": "Row 4 · Column 1",
       "row": 4,
       "column": 1,
       "lat": 47.617874365619265,
@@ -2394,11 +2394,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c02",
-      "label": "Row 4 \u00b7 Column 2",
+      "label": "Row 4 · Column 2",
       "row": 4,
       "column": 2,
       "lat": 47.617874365619265,
@@ -2462,11 +2462,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c03",
-      "label": "Row 4 \u00b7 Column 3",
+      "label": "Row 4 · Column 3",
       "row": 4,
       "column": 3,
       "lat": 47.617874365619265,
@@ -2530,11 +2530,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c04",
-      "label": "Row 4 \u00b7 Column 4",
+      "label": "Row 4 · Column 4",
       "row": 4,
       "column": 4,
       "lat": 47.617874365619265,
@@ -2603,7 +2603,7 @@
     },
     {
       "id": "aerial-r04-c05",
-      "label": "Row 4 \u00b7 Column 5",
+      "label": "Row 4 · Column 5",
       "row": 4,
       "column": 5,
       "lat": 47.617874365619265,
@@ -2674,7 +2674,7 @@
     },
     {
       "id": "aerial-r04-c06",
-      "label": "Row 4 \u00b7 Column 6",
+      "label": "Row 4 · Column 6",
       "row": 4,
       "column": 6,
       "lat": 47.617874365619265,
@@ -2738,11 +2738,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c07",
-      "label": "Row 4 \u00b7 Column 7",
+      "label": "Row 4 · Column 7",
       "row": 4,
       "column": 7,
       "lat": 47.617874365619265,
@@ -2808,11 +2808,11 @@
         "plazacenter-source-anchor"
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c08",
-      "label": "Row 4 \u00b7 Column 8",
+      "label": "Row 4 · Column 8",
       "row": 4,
       "column": 8,
       "lat": 47.617874365619265,
@@ -2881,7 +2881,7 @@
     },
     {
       "id": "aerial-r04-c09",
-      "label": "Row 4 \u00b7 Column 9",
+      "label": "Row 4 · Column 9",
       "row": 4,
       "column": 9,
       "lat": 47.617874365619265,
@@ -2947,11 +2947,11 @@
         "bellevue-chapter-start"
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c10",
-      "label": "Row 4 \u00b7 Column 10",
+      "label": "Row 4 · Column 10",
       "row": 4,
       "column": 10,
       "lat": 47.617874365619265,
@@ -3015,11 +3015,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c11",
-      "label": "Row 4 \u00b7 Column 11",
+      "label": "Row 4 · Column 11",
       "row": 4,
       "column": 11,
       "lat": 47.617874365619265,
@@ -3083,11 +3083,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c12",
-      "label": "Row 4 \u00b7 Column 12",
+      "label": "Row 4 · Column 12",
       "row": 4,
       "column": 12,
       "lat": 47.617874365619265,
@@ -3151,11 +3151,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c01",
-      "label": "Row 5 \u00b7 Column 1",
+      "label": "Row 5 · Column 1",
       "row": 5,
       "column": 1,
       "lat": 47.615624788539755,
@@ -3219,11 +3219,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c02",
-      "label": "Row 5 \u00b7 Column 2",
+      "label": "Row 5 · Column 2",
       "row": 5,
       "column": 2,
       "lat": 47.615624788539755,
@@ -3287,11 +3287,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c03",
-      "label": "Row 5 \u00b7 Column 3",
+      "label": "Row 5 · Column 3",
       "row": 5,
       "column": 3,
       "lat": 47.615624788539755,
@@ -3355,11 +3355,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c04",
-      "label": "Row 5 \u00b7 Column 4",
+      "label": "Row 5 · Column 4",
       "row": 5,
       "column": 4,
       "lat": 47.615624788539755,
@@ -3425,11 +3425,11 @@
         "bellevuesq-source-anchor"
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c05",
-      "label": "Row 5 \u00b7 Column 5",
+      "label": "Row 5 · Column 5",
       "row": 5,
       "column": 5,
       "lat": 47.615624788539755,
@@ -3496,11 +3496,11 @@
         "lincolnsouth-source-anchor"
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c06",
-      "label": "Row 5 \u00b7 Column 6",
+      "label": "Row 5 · Column 6",
       "row": 5,
       "column": 6,
       "lat": 47.615624788539755,
@@ -3566,11 +3566,11 @@
         "sonic-source-anchor"
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c07",
-      "label": "Row 5 \u00b7 Column 7",
+      "label": "Row 5 · Column 7",
       "row": 5,
       "column": 7,
       "lat": 47.615624788539755,
@@ -3636,11 +3636,11 @@
         "bellevue600-source-anchor"
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c08",
-      "label": "Row 5 \u00b7 Column 8",
+      "label": "Row 5 · Column 8",
       "row": 5,
       "column": 8,
       "lat": 47.615624788539755,
@@ -3704,11 +3704,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c09",
-      "label": "Row 5 \u00b7 Column 9",
+      "label": "Row 5 · Column 9",
       "row": 5,
       "column": 9,
       "lat": 47.615624788539755,
@@ -3772,11 +3772,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c10",
-      "label": "Row 5 \u00b7 Column 10",
+      "label": "Row 5 · Column 10",
       "row": 5,
       "column": 10,
       "lat": 47.615624788539755,
@@ -3840,11 +3840,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c11",
-      "label": "Row 5 \u00b7 Column 11",
+      "label": "Row 5 · Column 11",
       "row": 5,
       "column": 11,
       "lat": 47.615624788539755,
@@ -3908,11 +3908,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c12",
-      "label": "Row 5 \u00b7 Column 12",
+      "label": "Row 5 · Column 12",
       "row": 5,
       "column": 12,
       "lat": 47.615624788539755,
@@ -3976,11 +3976,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c02",
-      "label": "Row 6 \u00b7 Column 2",
+      "label": "Row 6 · Column 2",
       "row": 6,
       "column": 2,
       "lat": 47.613375211460244,
@@ -4044,11 +4044,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c03",
-      "label": "Row 6 \u00b7 Column 3",
+      "label": "Row 6 · Column 3",
       "row": 6,
       "column": 3,
       "lat": 47.613375211460244,
@@ -4117,7 +4117,7 @@
     },
     {
       "id": "aerial-r06-c04",
-      "label": "Row 6 \u00b7 Column 4",
+      "label": "Row 6 · Column 4",
       "row": 6,
       "column": 4,
       "lat": 47.613375211460244,
@@ -4186,7 +4186,7 @@
     },
     {
       "id": "aerial-r06-c05",
-      "label": "Row 6 \u00b7 Column 5",
+      "label": "Row 6 · Column 5",
       "row": 6,
       "column": 5,
       "lat": 47.613375211460244,
@@ -4250,11 +4250,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c06",
-      "label": "Row 6 \u00b7 Column 6",
+      "label": "Row 6 · Column 6",
       "row": 6,
       "column": 6,
       "lat": 47.613375211460244,
@@ -4320,11 +4320,11 @@
         "bellevuetowers-source-anchor"
       ],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c07",
-      "label": "Row 6 \u00b7 Column 7",
+      "label": "Row 6 · Column 7",
       "row": 6,
       "column": 7,
       "lat": 47.613375211460244,
@@ -4388,11 +4388,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c08",
-      "label": "Row 6 \u00b7 Column 8",
+      "label": "Row 6 · Column 8",
       "row": 6,
       "column": 8,
       "lat": 47.613375211460244,
@@ -4456,11 +4456,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c09",
-      "label": "Row 6 \u00b7 Column 9",
+      "label": "Row 6 · Column 9",
       "row": 6,
       "column": 9,
       "lat": 47.613375211460244,
@@ -4524,11 +4524,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c10",
-      "label": "Row 6 \u00b7 Column 10",
+      "label": "Row 6 · Column 10",
       "row": 6,
       "column": 10,
       "lat": 47.613375211460244,
@@ -4592,11 +4592,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c11",
-      "label": "Row 6 \u00b7 Column 11",
+      "label": "Row 6 · Column 11",
       "row": 6,
       "column": 11,
       "lat": 47.613375211460244,
@@ -4660,11 +4660,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c02",
-      "label": "Row 7 \u00b7 Column 2",
+      "label": "Row 7 · Column 2",
       "row": 7,
       "column": 2,
       "lat": 47.611125634380734,
@@ -4728,11 +4728,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c03",
-      "label": "Row 7 \u00b7 Column 3",
+      "label": "Row 7 · Column 3",
       "row": 7,
       "column": 3,
       "lat": 47.611125634380734,
@@ -4801,7 +4801,7 @@
     },
     {
       "id": "aerial-r07-c04",
-      "label": "Row 7 \u00b7 Column 4",
+      "label": "Row 7 · Column 4",
       "row": 7,
       "column": 4,
       "lat": 47.611125634380734,
@@ -4870,7 +4870,7 @@
     },
     {
       "id": "aerial-r07-c05",
-      "label": "Row 7 \u00b7 Column 5",
+      "label": "Row 7 · Column 5",
       "row": 7,
       "column": 5,
       "lat": 47.611125634380734,
@@ -4934,11 +4934,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c06",
-      "label": "Row 7 \u00b7 Column 6",
+      "label": "Row 7 · Column 6",
       "row": 7,
       "column": 6,
       "lat": 47.611125634380734,
@@ -5002,11 +5002,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c07",
-      "label": "Row 7 \u00b7 Column 7",
+      "label": "Row 7 · Column 7",
       "row": 7,
       "column": 7,
       "lat": 47.611125634380734,
@@ -5070,11 +5070,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c08",
-      "label": "Row 7 \u00b7 Column 8",
+      "label": "Row 7 · Column 8",
       "row": 7,
       "column": 8,
       "lat": 47.611125634380734,
@@ -5138,11 +5138,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c09",
-      "label": "Row 7 \u00b7 Column 9",
+      "label": "Row 7 · Column 9",
       "row": 7,
       "column": 9,
       "lat": 47.611125634380734,
@@ -5206,11 +5206,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c10",
-      "label": "Row 7 \u00b7 Column 10",
+      "label": "Row 7 · Column 10",
       "row": 7,
       "column": 10,
       "lat": 47.611125634380734,
@@ -5274,11 +5274,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c11",
-      "label": "Row 7 \u00b7 Column 11",
+      "label": "Row 7 · Column 11",
       "row": 7,
       "column": 11,
       "lat": 47.611125634380734,
@@ -5342,11 +5342,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r08-c03",
-      "label": "Row 8 \u00b7 Column 3",
+      "label": "Row 8 · Column 3",
       "row": 8,
       "column": 3,
       "lat": 47.608876057301224,
@@ -5410,11 +5410,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r08-c04",
-      "label": "Row 8 \u00b7 Column 4",
+      "label": "Row 8 · Column 4",
       "row": 8,
       "column": 4,
       "lat": 47.608876057301224,
@@ -5478,11 +5478,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r08-c05",
-      "label": "Row 8 \u00b7 Column 5",
+      "label": "Row 8 · Column 5",
       "row": 8,
       "column": 5,
       "lat": 47.608876057301224,
@@ -5546,11 +5546,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r08-c06",
-      "label": "Row 8 \u00b7 Column 6",
+      "label": "Row 8 · Column 6",
       "row": 8,
       "column": 6,
       "lat": 47.608876057301224,
@@ -5614,11 +5614,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "context-northwest",
-      "label": "Distant context \u00b7 northwest",
+      "label": "Distant context · northwest",
       "row": 1,
       "column": 1,
       "lat": 47.62462309685779,
@@ -5682,11 +5682,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "context-northeast",
-      "label": "Distant context \u00b7 northeast",
+      "label": "Distant context · northeast",
       "row": 1,
       "column": 12,
       "lat": 47.62462309685779,
@@ -5750,11 +5750,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "context-southwest",
-      "label": "Distant context \u00b7 southwest",
+      "label": "Distant context · southwest",
       "row": 8,
       "column": 1,
       "lat": 47.608876057301224,
@@ -5818,11 +5818,11 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "context-southeast",
-      "label": "Distant context \u00b7 southeast",
+      "label": "Distant context · southeast",
       "row": 8,
       "column": 12,
       "lat": 47.608876057301224,
@@ -5886,7 +5886,7 @@
       "orientation": "north-up",
       "places": [],
       "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
     }
   ],
   "locationId": "bellevue",
@@ -6533,11 +6533,11 @@
           "classification": "Authored model detail limits",
           "note": "The existing source-scoped landmark volumes, broad skybridge connections and source business identities are present. Facade colours, storefront architecture, detailed entrances, street planting and individual signs remain visibly simplified. This review does not establish photographic identity."
         },
-        "Poses 201\u2013275 manually inspected on paired sheets 012\u2013016. Northeast 8th Street bridge and downtown street walls retain simplified facade/planting/sign detail; overlapping elevated-source camera ambiguity remains flagged. Current source geometry is not changed from Google comparisons.",
+        "Poses 201–275 manually inspected on paired sheets 012–016. Northeast 8th Street bridge and downtown street walls retain simplified facade/planting/sign detail; overlapping elevated-source camera ambiguity remains flagged. Current source geometry is not changed from Google comparisons.",
         "All 22 flagged elevation ambiguities were inspected. Several I-405/NE8th reference panoramas lie beneath a crossing while the retained sampled source way is an elevated deck. Google metadata supplies no altitude; these remain uncertain comparisons, without road-layer or camera relocation claims."
       ]
     },
-    "streetWalkLabel": "Before source-grade and render integration \u00b7 4198996",
+    "streetWalkLabel": "Before source-grade and render integration · 4198996",
     "streetWalkSourceNote": "These426 GAME frames are completed historical4198996 evidence, with22unresolved camera altitude comparisons. They are retained separately from the currentc78a5f4 aerial/native source and never relabelled as that newer runtime.",
     "atlasSourceNote": "Current source counts: 73 on c78a5f4c, 5 on 07cc3d6b, 4 on 338300a9. Earlier source-specific review blocks remain historical to their recorded revisions; the new structural subset has its own linked review.",
     "visualAcceptance": "Every frame reviewed; the four canal retakes resolve the broad fallback ribbon finding. Unknown source heights, detailed materials, occupancy, imagery date and the 0.46633m untagged waterway boundary continuation remain unresolved; no full-scene parity claim.",
@@ -6560,7 +6560,7 @@
       "338300a95a79a2cabf3d7256ff745c6a1bac0372": 4
     },
     "priorCompleteReview": {
-      "manifest": "historical/full-before-07cc3d6b-ff026d44/manifest.json",
+      "manifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/manifest.json",
       "sha256": "ff026d4487d7cc831cb8b8a8b4b5980e30acf83fba4f1e4f4131155548299b3b",
       "note": "Every earlier review/source-specific finding is preserved verbatim in the complete prior collection."
     },
@@ -6609,7 +6609,7 @@
     }
   ],
   "streetWalk": {
-    "label": "Before source-grade and render integration \u00b7 4198996",
+    "label": "Before source-grade and render integration · 4198996",
     "sourceNote": "These426 GAME frames are completed historical4198996 evidence, with22unresolved camera altitude comparisons. They are retained separately from the currentc78a5f4 aerial/native source and never relabelled as that newer runtime.",
     "manifest": "street-walk/manifest.json",
     "gameSourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
@@ -6620,7 +6620,7 @@
     "retakes": [
       {
         "manifest": "street-walk/retakes/aabd17ad/manifest.json",
-        "label": "Recorded road-height issue \u00b7 103rd Avenue Northeast",
+        "label": "Recorded road-height issue · 103rd Avenue Northeast",
         "gameSourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
         "status": "known-issue",
         "gameFrames": 4,
@@ -6648,32 +6648,9 @@
       }
     ]
   },
-  "historicalCollections": [
-    {
-      "label": "Full atlas before canal fallback correction",
-      "manifest": "historical/c78a5f4/manifest.json",
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
-      "frames": 82,
-      "generatedAt": "2026-11-08T23:25:13.529Z",
-      "note": "All original images, thumbnails, raw capture ledger and source-file provenance are preserved unchanged."
-    },
-    {
-      "manifest": "historical/full-before-07cc3d6b-ff026d44/manifest.json",
-      "label": "Full prior current atlas before structural/separator retakes 07cc3d6b",
-      "frames": 82,
-      "generatedAt": "2026-11-08T23:25:13.529Z",
-      "gameSourceCommit": null,
-      "sourceCounts": {
-        "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 78,
-        "338300a95a79a2cabf3d7256ff745c6a1bac0372": 4
-      },
-      "captureType": "mixed-source-survey",
-      "note": "Entire prior current collection and its GAME images/thumbnails, review, street/context and provenance files are byte-identical. Earlier histories retain their stable paths."
-    }
-  ],
   "sourceCaptureManifests": [
     {
-      "path": "historical/c78a5f4/capture-manifest.json",
+      "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json",
       "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
       "frames": 78
     },
@@ -6684,7 +6661,7 @@
       "frames": 4
     },
     {
-      "path": "historical/full-before-07cc3d6b-ff026d44/manifest.json",
+      "path": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/manifest.json",
       "sha256": "ff026d4487d7cc831cb8b8a8b4b5980e30acf83fba4f1e4f4131155548299b3b",
       "sourceCounts": {
         "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 78,

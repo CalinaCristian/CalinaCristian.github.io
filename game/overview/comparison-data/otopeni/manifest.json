@@ -11,7 +11,7 @@
     "core-touches": 26,
     "outside-ring": 4
   },
-  "publishedBaseline": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "publishedBaseline": null,
   "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
   "capture": {
     "startedAt": "2026-11-08T22:25:03.107Z",
@@ -7208,21 +7208,5 @@
       "Partial boundary squares include land beyond the exact 600 m ring; the private review dims that exterior. Four optional distant squares are separately labelled outside-ring and retain coarse contextual treatment.",
       "These world-only top-down captures disable moving traffic and mirrors. Full public-road Street View, native walking/driving, grade and bridge clearance, drone-controller coverage, street/night/winter context and evolving traffic/mirror budgets remain separate acceptance gates."
     ]
-  },
-  "historicalCollections": [
-    {
-      "manifest": "historical/4198996/manifest.json",
-      "frames": 107,
-      "gameSourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
-      "generatedAt": "2026-11-08T20:46:52.325Z",
-      "label": "Before corrected tree inputs · 4198996"
-    },
-    {
-      "manifest": "historical/4378317/manifest.json",
-      "frames": 107,
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-      "generatedAt": "2026-11-08T21:57:19.815Z",
-      "label": "Before corrected tree inputs · 4378317"
-    }
-  ]
+  }
 }

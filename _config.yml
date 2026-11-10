@@ -28,6 +28,46 @@ exclude:
   - handoffs/fidelity/tram-pedestrian-signal-semantics
   - handoffs/fidelity/game-preview-ff6b2bff
   - handoffs/fidelity/history-unsigned-20261109
+  - handoffs/fidelity/game-preview-publication-20261109
+  - handoffs/fidelity/native-final-qa
+  - handoffs/fidelity/road-marking-closure-audit
+  - handoffs/fidelity/source-surface-ownership
+  - handoffs/fidelity/root-duplicate-source-cleanup
+  - handoffs/fidelity/root-foot-a-4cd4
+  - handoffs/fidelity/pedestrian-relocation-performance
 
-  # Closed internal native diagnostics stay in Git; public viewer evidence is unchanged.
+  - handoffs/fidelity/shared-bridge-native-8b51e6f3
+  - handoffs/fidelity/basarab-north-descent
+  - handoffs/fidelity/generated-parapet-ownership
+  - handoffs/fidelity/bridge-closure-hud-8b51
+  - handoffs/fidelity/unirii-pasaj-source-return
+  - handoffs/fidelity/cv-interiors-photo-led-20261109
+  - handoffs/fidelity/cv-window-bindings-20261109
+  - handoffs/fidelity/old-town-nightlife-20261109/source-cleanup-20261109
+
+  # Closed internal native/controller diagnostics; public viewer assets stay under game/overview.
   - handoffs/fidelity/combined-native-budget
+  - handoffs/fidelity/backgammon-result-confirmation-20261109
+  - handoffs/fidelity/staging-pages-headroom-20261109
+  - handoffs/fidelity/source-identity-regression-20261109
+  - handoffs/fidelity/overview-carusel-viewport-20261109
+  - handoffs/fidelity/unirii-initial-parking
+  - handoffs/fidelity/root-combined-984d-regression
+  - handoffs/fidelity/overview-carusel-progress-publication
+  - handoffs/fidelity/tram490-native-984
+  - handoffs/fidelity/inferred-road-sign-native-984
+
+  - handoffs/fidelity/live-office-windows
+  - handoffs/fidelity/situational-dialogue-20261109
+  - handoffs/fidelity/situational-dialogue-integration-20261109
+  - handoffs/fidelity/batch-20261110
+
+  # Latest public surveys only; original archived source stays in Git history.
+  - game/overview/comparison-data/floreasca/historical
+  - game/overview/comparison-data/romana/historical
+  - game/overview/comparison-data/grozavesti/historical
+  - game/overview/comparison-data/otopeni/historical
+  - game/overview/comparison-data/seatac/historical
+  - game/overview/comparison-data/unirii/historical
+  - game/overview/comparison-data/pipera/historical
+  - game/overview/comparison-data/bellevue/historical

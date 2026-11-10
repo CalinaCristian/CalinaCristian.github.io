@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "c4b8b9d74682e19390f9a60313013898bcf28428",
+  "capturedAt": "2026-11-10T04:50:26.646Z",
+  "scope": "Latest ordinary-RAF public-menu arrival only; no full fish shift or reference-parity acceptance. Software GPU timing is not hardware FPS proof.",
+  "capture": {
+    "image": "assets/spots/pike-place/latest-c4b8b9d7/pike-arrival.png",
+    "label": "Pike Place \u00b7 latest market arrival",
+    "purpose": "Public-menu arrival with the low arcade and separate Leland facade. A source-scene checkpoint; complete activities and visual acceptance remain open.",
+    "sourceCommit": "c4b8b9d74682e19390f9a60313013898bcf28428",
+    "capturedAt": "2026-11-10T04:50:26.646Z",
+    "sha256": "0b8a7f89add804010112184a08ba1eb7ab8588b4a0bd74e6a34a80a3fabfda09",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "camera": {
+      "position": [
+        -9.5,
+        0.949856662750244,
+        13.5
+      ],
+      "quaternion": [
+        0,
+        0.8660254037844388,
+        0,
+        0.4999999999999999
+      ],
+      "fov": 72
+    },
+    "conditions": {
+      "time": "Noon",
+      "weather": "Clear",
+      "quality": "High"
+    },
+    "fullPageHUD": false
+  },
+  "high": {
+    "fps": 0.28,
+    "frameMs": 3553.3,
+    "drawCalls": 285,
+    "triangles": 1486446,
+    "pixelRatio": 1,
+    "shadows": 4096,
+    "post": "full",
+    "quality": "high",
+    "auto": false,
+    "level": 1
+  },
+  "ultra": {
+    "fps": 0.22,
+    "frameMs": 4532.3,
+    "drawCalls": 464,
+    "triangles": 2761766,
+    "pixelRatio": 1,
+    "shadows": 4096,
+    "post": "full+ao",
+    "quality": "ultra",
+    "auto": false,
+    "level": 0
+  },
+  "openFindings": [
+    "The selected High frame is under1.5M triangles/400calls; Ultra AO exceeds that frame budget.",
+    "Full fish activity and Seattle Center playthrough remain unverified.",
+    "Roof patches, surrounding facades and detailed source parity remain open."
+  ]
+}

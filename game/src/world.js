@@ -2434,16 +2434,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 }
             }
         }
-        // motorway barriers (only along plain stretches)
-        if (/^(motorway|trunk)$/.test(e.type) && !e.a.pad && !e.b.pad && e.a.edges.length === 2 && e.b.edges.length === 2 && !e.bridge && !e.tunnel) {
-            const sides = e.oneway ? [1, -1] : [1, -1];
-            for (const s of sides) {
-                const pa = corner(e, e.a, s, widthAsphalt(e, s) + 0.2, widthAsphalt), pb = corner(e, e.b, s, widthAsphalt(e, s) + 0.2, widthAsphalt);
-                const col = rgb('#a7a9a6');
-                c.solid.wall(pa[0], pa[1], pb[0], pb[1], yR, yR + 0.85, -e.nx * s, -e.nz * s, col);
-                c.solid.wall(pa[0], pa[1], pb[0], pb[1], yR, yR + 0.85, e.nx * s, e.nz * s, shadeRgb(col, 0.9));
-            }
-        }
+        // Ground-road guards are emitted from their final cut collision segments below.
         // street furniture spots (lamps on the outer edge of the sidewalk, trees in pits on wide sidewalks)
         const big = /^(trunk|primary|secondary)$/.test(e.type) && !e.tunnel;
         const treeStreet = city.treeStreets && city.treeStreets.test(e.name);
@@ -2897,7 +2888,11 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (e.bridge) { add(e, s, widthAsphalt(e, s) + 0.3, 'rail', t0, t1); continue; }
                 const up = sub((y, t) => y > t, 0.35); if (up) add(e, s, widthSide(e, s), 'embank', up[0], up[1]);
                 const dn = sub((y, t) => y < t, -0.35); if (dn) add(e, s, widthSide(e, s), 'trench', dn[0], dn[1]);
-                if (!up && !dn && plainMw) add(e, s, widthAsphalt(e, s) + 0.2, 'guard', t0, t1);
+                if (!up && !dn && plainMw) {
+                    const first = walls.length;
+                    add(e, s, widthAsphalt(e, s) + 0.2, 'guard', t0, t1);
+                    for (let i = first; i < walls.length; i++) walls[i].generatedRoadGuard = true;
+                }
             }
             // median barrier on two-way motorways / trunk roads with a central reservation
             if (/^(motorway|trunk)$/.test(e.type) && !e.oneway && e.median > 0.5 && !e.tramMedian && t1 - t0 > 0.05) {
@@ -3081,12 +3076,12 @@ export async function buildWorld(city, renderer, opts = {}) {
         walls.length = 0; walls.push(...railClearWalls);
         // draw the concrete separation barriers that survived
         for (const w of walls) {
-            if (w.generatedMedian) {
+            if (w.generatedMedian || w.generatedRoadGuard) {
                 // Exactly the final surviving collision intervals, including
                 // openings at pads and crossing ribbons. Real OSM barriers use
                 // their separate existing source-emission path.
                 const L = Math.hypot(w.bx-w.ax,w.bz-w.az), px = -(w.bz-w.az)/L*.3, pz = (w.bx-w.ax)/L*.3, ya = w.y1a-.85, yb = w.y1b-.85, c = cellOf(w.x,w.z);
-                const a=[w.ax+px,ya,w.az+pz],b=[w.bx+px,yb,w.bz+pz],d=[w.ax-px,ya,w.az-pz],q=[w.bx-px,yb,w.bz-pz],up=p=>[p[0],p[1]+.8,p[2]];
+                const a=[w.ax+px,ya,w.az+pz],b=[w.bx+px,yb,w.bz+pz],d=[w.ax-px,ya,w.az-pz],q=[w.bx-px,yb,w.bz-pz],up=p=>[p[0],p[1]+(w.generatedMedian ? .8 : .85),p[2]];
                 c.solid.face4(a,b,up(b),up(a),barrierCol,[px,0,pz]);c.solid.face4(q,d,up(d),up(q),barrierCol,[-px,0,-pz]);
                 c.solid.face4(up(a),up(b),up(q),up(d),rgb('#cfccc4'),[0,1,0]);
                 c.solid.face4(d,a,up(a),up(d),barrierCol,[-w.edge.dirx,0,-w.edge.dirz]);c.solid.face4(b,q,up(q),up(b),barrierCol,[w.edge.dirx,0,w.edge.dirz]);

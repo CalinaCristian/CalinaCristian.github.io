@@ -1,4 +1,7 @@
 # About
+
+Ground-road motorway/trunk guard panels now follow the final collision segments after overlapping roads and junction mouths are cut, with closed ends. Bridge parapets remain a separate implementation.
+
 This is my Resume (CV) website.
 
 I wanted to create something responsive & animated, and to challenge myself with some CSS.

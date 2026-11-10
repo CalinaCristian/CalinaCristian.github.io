@@ -2,6 +2,8 @@ import * as THREE from '../vendor/three.module.min.js';
 import { makeCanvasTexture, clamp, damp, angleLerp } from './util.js';
 import { drawFitText } from './canvasText.js';
 import { makeCrowd } from './crowd.js';
+import {buildArniaInterior,buildDBInterior,buildRosettiInterior,buildUPBInterior,makeUPBFloor} from './office-interior-details.js';
+import {captureOfficeResources} from './office-resources.js';
 
 const SANS = (w) => (px) => `${w} ${px}px "Helvetica Neue", Helvetica, Arial, sans-serif`;
 const BOLD = SANS('bold'), REG = SANS('normal');
@@ -138,11 +140,11 @@ const carpet = (base) => tex(128, 128, (ctx) => { ctx.fillStyle = base; ctx.fill
 
 /** per-stop theme: room size, surfaces, view, NPC persona + look, colleagues, props builder name */
 const THEMES = {
-    rosetti: { W: 10, D: 10, H: 3.4, floor: () => parquet('#8a5a34'), wallLow: '#5f7f5a', wall: '#ede3cc', ceil: '#f2efe6', view: 'bucharest', props: 'classroom',
+    rosetti: { W: 10, D: 10, H: 3.4, photoLed:true, floor: () => carpet('#a6adab'), wallLow: '#90999a', wall: '#eef0ea', ceil: '#f1f3ed', view: 'bucharest', props: 'classroom',
         npc: { title: 'Form teacher', persona: 'teacher', look: { top: '#5a4636', bottom: '#2f3237', skin: '#e8bc9a', hair: '#5a4030' }, at: [-2.6, -3.6], yaw: 0.35 },
-        // students on the desk chairs (desks at x = −3.2 / 0 / 3.2, z = −1.4 + r·1.6, seats at x ± 0.3, z + 0.45), facing the board (note 2)
-        mates: [[-3.5, 0.65, 'sit', 0], [0.3, 0.65, 'sit', 0], [2.9, 2.25, 'sit', 0], [4.4, 4.0, 'phone', -0.4]], tone: 'room' },
-    upb: { W: 18, D: 22, H: 7, floor: () => stone('#d8d4cc', 'rgba(120,110,100,0.25)', 128), wallLow: '#b9b2a6', wall: '#e6e0d4', ceil: '#efe9df', view: 'bucharest', props: 'rectorat',
+        // Virtual classmates occupy the paired desks of the estimated photo-led room.
+        mates: [[-3.5, 0.65, 'sit', 0], [-2.7, 2.25, 'sit', 0], [2.9, 2.25, 'sit', 0], [4.4, 4.0, 'phone', -0.4]], tone: 'room' },
+    upb: { W: 18, D: 22, H: 7, photoLed:true, floorRoughness:.48, floor:makeUPBFloor, wallLow: '#aaa49a', wall: '#e6e3da', ceil: '#eeeee7', view: 'bucharest', props: 'rectorat',
         npc: { title: 'Professor', persona: 'professor', look: { top: '#3a3d44', bottom: '#2f3237', skin: '#e8bc9a', hair: '#9a9a96' }, at: [2.5, -6], yaw: -0.4 },
         mates: [[-4, -2, 'talk'], [-3.2, -1.2, 'talk'], [5, 3, 'phone'], [-6, 5, 'walk']], tone: 'hall' },
     gts: { W: 9, D: 9, H: 2.9, floor: () => parquet('#b39470'), wallLow: '#f2f2ef', wall: '#f2f2ef', ceil: '#f7f7f5', view: 'bucharest', props: 'startup',
@@ -151,10 +153,10 @@ const THEMES = {
     luxoft: { W: 16, D: 18, H: 5, floor: () => stone('#3b3f46', 'rgba(255,255,255,0.08)', 128), wallLow: '#e9edf1', wall: '#f4f6f8', ceil: '#f4f6f8', view: 'pipera', props: 'lobby',
         npc: { title: 'Team lead', persona: 'lead', look: { top: '#1f2a44', bottom: '#2f3237', skin: '#e8bc9a', hair: '#1a1410' }, at: [3, -3.5], yaw: -0.3 },
         mates: [[-4, 2, 'phone'], [5, -6, 'walk'], [-5.5, -5, 'talk']], tone: 'lobby' },
-    db: { W: 16, D: 18, H: 6, floor: () => stone('#22262d', 'rgba(255,255,255,0.07)', 128), wallLow: '#1c2a4a', wall: '#dfe4ec', ceil: '#e9edf2', view: 'pipera', props: 'bank',
+    db: { W: 16, D: 18, H: 3.8, photoLed: true, floor: () => carpet('#747a7b'), wallLow: '#deded7', wall: '#eeeee8', ceil: '#252b2d', view: 'pipera', props: 'bank',
         npc: { title: 'Engineering manager', persona: 'manager', look: { top: '#16181c', bottom: '#16181c', skin: '#e8bc9a', hair: '#3b2a1e' }, at: [-3, -3.5], yaw: 0.3 },
         mates: [[4, 1, 'phone'], [-5, 3, 'talk'], [-4.3, 3.6, 'talk']], tone: 'lobby' },
-    arnia: { W: 14, D: 14, H: 3.2, floor: () => carpet('#4a4f57'), wallLow: '#f3f1ec', wall: '#f3f1ec', ceil: '#f6f5f2', view: 'romana', props: 'agency',
+    arnia: { W: 14, D: 14, H: 3.2, photoLed: true, floor: () => carpet('#8f9698'), wallLow: '#eeeee7', wall: '#eeeee7', ceil: '#f0f0e9', view: 'romana', props: 'agency',
         npc: { title: 'Delivery manager', persona: 'manager', look: { top: '#9a7652', bottom: '#2c3e5c', skin: '#e8bc9a', hair: '#5a4030' }, at: [0.5, -3.2], yaw: 0 },
         mates: [[-4, -1, 'sit'], [-4, 1.6, 'sit'], [4, -1, 'sit'], [4, 3.5, 'talk']], tone: 'office' },
     'uipath-buc': { W: 18, D: 16, H: 3.6, floor: () => carpet('#3a3d44'), wallLow: '#fa4616', wall: '#f4f4f2', ceil: '#f6f6f4', view: 'romana', props: 'robots',
@@ -229,6 +231,7 @@ export class Office {
         this.boxes = [];
         this.talking = false;
         this.build();
+        this.roomResources=captureOfficeResources(this.scene,{sharedGeometries:new Set([BOXG]),helperMaterials:this.interiorDetails?.ownedMaterials,helperTextures:this.interiorDetails?.ownedTextures});
         this.camRig = new THREE.Group(); this.camRig.rotation.order = 'YXZ'; this.camRig.add(camera); this.scene.add(this.camRig);
         camera.position.set(0, 0, 0); camera.rotation.set(0, 0, 0);
         this.t = 0;
@@ -244,7 +247,7 @@ export class Office {
         this.box = box; this.mat = mat;
         // floor / ceiling / walls (lower band + upper)
         const ft = T.floor(); ft.wrapS = ft.wrapT = THREE.RepeatWrapping; ft.repeat.set(W / 3, D / 3);
-        const floor = new THREE.Mesh(new THREE.PlaneGeometry(W, D), new THREE.MeshStandardMaterial({ map: ft, roughness: 0.45, metalness: 0.05 }));
+        const floor = new THREE.Mesh(new THREE.PlaneGeometry(W, D), new THREE.MeshStandardMaterial({ map: ft, roughness: T.floorRoughness ?? (T.photoLed ? .93 : .45), metalness: T.photoLed?0:.05 }));
         floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; this.scene.add(floor);
         const ceil = new THREE.Mesh(new THREE.PlaneGeometry(W, D), mat(T.ceil, { roughness: 0.95 })); ceil.rotation.x = Math.PI / 2; ceil.position.y = H; this.scene.add(ceil);
         const wallM = mat(T.wall, { roughness: 0.9 }), lowM = mat(T.wallLow, { roughness: 0.6 });
@@ -255,7 +258,7 @@ export class Office {
         const viewT = tex(1024, 512, (ctx, w, h) => paintView(ctx, w, h, T.view));
         const winH = Math.min(H - 1.2, 2.2 + (H > 5 ? H * 0.4 : 0)), winY = 0.95 + winH / 2;
         const view = new THREE.Mesh(new THREE.PlaneGeometry(D - 1, winH), new THREE.MeshBasicMaterial({ map: viewT, toneMapped: true }));
-        view.position.set(W / 2 + 0.25, winY, 0); view.rotation.y = -Math.PI / 2; this.scene.add(view);
+        view.position.set(W / 2 + 0.25, winY, 0); view.rotation.y = -Math.PI / 2; view.name='office-live-window-pane'; this.windowPane=view; this.scene.add(view);
         box(0.2, 0.95, D, W / 2, 0.47, 0, lowM); box(0.2, H - winY - winH / 2, D, W / 2, H - (H - winY - winH / 2) / 2, 0, wallM);
         const frameM = mat('#2b2e33', { roughness: 0.5, metalness: 0.4 });
         for (let z = -D / 2 + 0.5; z <= D / 2 - 0.4; z += 2.2) box(0.1, winH, 0.08, W / 2 - 0.02, winY, z, frameM);
@@ -266,7 +269,7 @@ export class Office {
         Object.assign(sun.shadow.camera, { left: -W, right: W, top: D, bottom: -D }); this.scene.add(sun);
         for (let z = -D / 2 + 3; z < D / 2 - 1; z += Math.max(4, D / 3)) for (const x of W > 12 ? [-W / 4, W / 4] : [0]) {
             const l = new THREE.PointLight('#fff2dd', H > 5 ? 90 : 35, H * 4, 1.6); l.position.set(x, H - 0.25, z); this.scene.add(l);
-            box(1.2, 0.04, 0.3, x, H - 0.03, z, new THREE.MeshBasicMaterial({ color: '#fffaf0' }));
+            if(!T.photoLed)box(1.2, 0.04, 0.3, x, H - 0.03, z, new THREE.MeshBasicMaterial({ color: '#fffaf0' }));
         }
         // company sign (fitted text) on the back wall + accent stripe
         // (round 6 note 12) the sign fits: below the ceiling, above the wainscot stripe, and narrower than the gap to the
@@ -276,9 +279,9 @@ export class Office {
         const sy = clamp(2.4 + (H - 3) * 0.4, sBot + sh / 2, sTop - sh / 2);
         const sign = new THREE.Mesh(new THREE.PlaneGeometry(sw, sh), new THREE.MeshBasicMaterial({ map: makeCanvasTexture(1024, 256, (ctx) => drawLobbySign(ctx, s, accent)) }));
         sign.position.set(0, sy, -D / 2 + 0.12); this.scene.add(sign); this.signMesh = sign;
-        if (T.props !== 'classroom') box(W, 0.06, 0.04, 0, low + 0.04, -D / 2 + 0.12, new THREE.MeshBasicMaterial({ color: accent }));
+        if (T.props !== 'classroom' && !T.photoLed) box(W, 0.06, 0.04, 0, low + 0.04, -D / 2 + 0.12, new THREE.MeshBasicMaterial({ color: accent }));
         // themed props
-        (PROPS[T.props] || PROPS.startup)(this, { W, D, H, accent, s });
+        this.interiorDetails=(PROPS[T.props] || PROPS.startup)(this, { W, D, H, accent, s })||null;
         // NPC + colleagues (instanced crowd: 2 draw calls)
         const city = s.city || 'bucharest';
         this.crowd = makeCrowd({ max: 8, city, rng: makeRngLite(s.id.length * 31) });
@@ -368,7 +371,7 @@ export class Office {
         if (inp.take('Escape') && !panel) this.done = true;
         const touch = document.body.classList.contains('touch');
         const lookHint = touch ? 'drag to look' : inp.lookMode === 'lock' ? (inp.locked ? 'mouse look · Esc frees the cursor' : 'click to look around') : 'A/D turn';
-        this.hud.setHint(`${this.read.size}/${N} answers heard · walk to the ${n.title.toLowerCase()} and press E · W/S walk · ${lookHint} · Esc leave`);
+        this.hud.setHint(`${this.read.size}/${N} answers heard · walk to the ${n.title.toLowerCase()} and press E · W/S walk · ${lookHint} · Esc leave${this.windowViewLabel ? ` · ${this.windowViewLabel()}` : ''}`);
     }
 
     // ---------------------------------------------------------------------------------------------------------------
@@ -477,11 +480,13 @@ export class Office {
 
     render() { this.renderer.render(this.scene, this.camera); }
     dispose() {
+        if(this._disposed)return;this._disposed=true;
         if (this.talking) this.endTalk(false);
         this.stopTone();
         this.input.releaseLock(); this.camRig.remove(this.camera);
         this.crowd?.dispose();
-        this.scene.traverse(o => { if (o.geometry && o.geometry !== BOXG && !o.userData.shared) o.geometry.dispose(); });
+        this.interiorDetails?.dispose();
+        this.roomResources.dispose();
     }
 }
 function makeRngLite(seed) { let s = seed || 1; return () => (s = (s * 16807) % 2147483647) / 2147483647; }
@@ -490,46 +495,10 @@ function makeRngLite(seed) { let s = seed || 1; return () => (s = (s * 16807) % 
 //  prop sets per interior
 // ---------------------------------------------------------------------------------------------------------------------
 const PROPS = {
-    /** 2009 classroom: chalkboard, teacher's desk, double school desks + chairs, notice board, beige CRT, radiator */
-    classroom(o, { W, D, H, accent }) {
-        const { box, mat } = o, wood = mat('#a0703f', { roughness: 0.6 }), metal = mat('#3d4148', { roughness: 0.5, metalness: 0.5 });
-        const board = new THREE.Mesh(new THREE.PlaneGeometry(4.2, 1.3), new THREE.MeshStandardMaterial({ roughness: 0.9, map: makeCanvasTexture(1024, 320, (ctx) => {
-            ctx.fillStyle = '#20402e'; ctx.fillRect(0, 0, 1024, 320); ctx.fillStyle = 'rgba(255,255,255,0.08)'; for (let i = 0; i < 40; i++) ctx.fillRect(Math.random() * 1024, Math.random() * 320, 80, 3);
-            ctx.fillStyle = '#ece9e0'; ctx.textAlign = 'center';
-            drawFitText(ctx, 'Matematică-Informatică · 2009', 512, 90, 900, { maxSize: 64, minSize: 24, font: (sz) => `italic ${sz}px "Comic Sans MS", "Segoe Print", cursive`, label: 'chalkboard title' });
-            drawFitText(ctx, 'f(x) = x² − 4x + 3   ·   program p; begin writeln(\'Hello\'); end.', 512, 210, 960, { maxSize: 40, minSize: 16, font: (sz) => `${sz}px "Courier New", monospace`, label: 'chalkboard code' });
-        }) }));
-        board.position.set(0, 1.75, -D / 2 + 0.145); o.scene.add(board); // (25 mm proud of its wooden backing: it z-fought at +0.12 — round 6 note 1)
-        box(4.4, 0.08, 0.08, 0, 1.08, -D / 2 + 0.16, wood); box(4.5, 1.5, 0.04, 0, 1.75, -D / 2 + 0.1, wood);
-        o.signMesh.position.set(-W / 2 + 0.13, 2.6, -1); o.signMesh.rotation.y = Math.PI / 2; o.signMesh.scale.setScalar(0.45); // school name on the side wall
-        box(1.4, 0.06, 0.7, -2.6, 0.76, -3.1, wood, true); box(1.3, 0.7, 0.04, -2.6, 0.4, -2.78, wood);
-        for (let r = 0; r < 4; r++) for (let c = -1; c <= 1; c++) {
-            const x = c * 3.2, z = -1.4 + r * 1.6;
-            box(1.25, 0.04, 0.5, x, 0.74, z, wood, true); for (const dx of [-0.55, 0.55]) box(0.04, 0.72, 0.45, x + dx, 0.37, z, metal);
-            for (const dx of [-0.3, 0.3]) { box(0.38, 0.04, 0.38, x + dx, 0.44, z + 0.45, wood); box(0.38, 0.4, 0.03, x + dx, 0.68, z + 0.65, wood); }
-        }
-        const notice = makeCanvasTexture(512, 256, (ctx) => { ctx.fillStyle = '#b08a5a'; ctx.fillRect(0, 0, 512, 256); const cols = ['#fff7c2', '#ffffff', '#cde8ff', '#ffd9d9']; for (let i = 0; i < 9; i++) { ctx.fillStyle = cols[i % 4]; ctx.save(); ctx.translate(30 + (i % 5) * 96, 30 + Math.floor(i / 5) * 110); ctx.rotate((i % 3 - 1) * 0.05); ctx.fillRect(0, 0, 80, 96); ctx.fillStyle = '#c0392b'; ctx.beginPath(); ctx.arc(40, 6, 5, 0, 7); ctx.fill(); ctx.fillStyle = 'rgba(0,0,0,0.25)'; for (let y = 22; y < 90; y += 10) ctx.fillRect(8, y, 64, 2); ctx.restore(); } });
-        const nb = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 1.2), new THREE.MeshStandardMaterial({ map: notice, roughness: 0.9 })); nb.position.set(-2.9, 1.7, D / 2 - 0.03); nb.rotation.y = Math.PI; o.scene.add(nb); // (beside the door: it was centred on it, at the door's own depth — note 3)
-        box(0.5, 0.42, 0.45, -W / 2 + 0.6, 1.0, 2.6, mat('#d9d2bd')); box(0.5, 0.05, 0.6, -W / 2 + 0.6, 0.76, 2.6, wood, true); // beige CRT on a side table
-        box(0.44, 0.32, 0.02, -W / 2 + 0.86, 1.02, 2.6, new THREE.MeshBasicMaterial({ color: '#2a4d6b' }), false, Math.PI / 2);
-        box(0.12, 0.6, 3.6, W / 2 - 0.3, 0.55, 0, mat('#e6e6e0')); // radiator under the windows
-        void H; void accent;
-    },
-    /** Rectorat hall: columns, benches, glass case with the BEST hackathon trophy, notice board of the faculty */
-    rectorat(o, { W, D, H, accent }) {
-        const { box, mat } = o, col = mat('#ece6da', { roughness: 0.5 }), wood = mat('#6e4a2c', { roughness: 0.5 });
-        for (const x of [-W / 2 + 3, W / 2 - 3]) for (let z = -D / 2 + 4; z < D / 2 - 2; z += 5) { const c = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.48, H, 16), col); c.position.set(x, H / 2, z); c.castShadow = true; o.scene.add(c); o.addBox(x, z, 1, 1); box(1.2, 0.3, 1.2, x, 0.15, z, col); }
-        for (let r = 0; r < 3; r++) box(6, 0.45, 0.6, -2, 0.23 + r * 0.3, 4 + r * 1.2, wood, true); // tiered benches
-        box(1.2, 1.0, 1.2, 4, 0.5, -3, mat('#2b2e33'), true);
-        const glass = new THREE.Mesh(BOXG, new THREE.MeshStandardMaterial({ color: '#cfe3ea', roughness: 0.05, metalness: 0.1, transparent: true, opacity: 0.25 })); glass.scale.set(1.1, 1.0, 1.1); glass.position.set(4, 1.5, -3); o.scene.add(glass);
-        const cup = new THREE.Mesh(new THREE.LatheGeometry([[0, 0], [0.12, 0], [0.05, 0.08], [0.04, 0.3], [0.16, 0.5], [0.18, 0.66], [0, 0.66]].map(([x, y]) => new THREE.Vector2(x, y)), 18), mat('#d4a62a', { roughness: 0.25, metalness: 0.9 }));
-        cup.position.set(4, 1.02, -3); o.scene.add(cup);
-        const lbl = makeCanvasTexture(512, 128, (ctx) => { ctx.fillStyle = '#1b1d22'; ctx.fillRect(0, 0, 512, 128); ctx.fillStyle = '#e8d9a8'; ctx.textAlign = 'center'; drawFitText(ctx, 'BEST Engineering Marathon · 1st place · 2017', 256, 64, 480, { maxSize: 34, minSize: 14, font: (sz) => `600 ${sz}px Georgia, serif`, label: 'trophy plaque' }); });
-        const pl = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 0.27), new THREE.MeshBasicMaterial({ map: lbl })); pl.position.set(4, 0.7, -2.38); o.scene.add(pl);
-        for (let z = -D / 2 + 4; z < D / 2 - 2; z += 6) { const ch = new THREE.Mesh(new THREE.SphereGeometry(0.5, 12, 8), new THREE.MeshStandardMaterial({ color: '#fff4d6', emissive: '#fff0c8', emissiveIntensity: 1.2 })); ch.position.set(0, H - 1.2, z); o.scene.add(ch); }
-        box(W - 2, 0.12, 0.3, 0, H - 0.6, -D / 2 + 0.25, mat('#cbb68a', { metalness: 0.5, roughness: 0.4 })); // gilt cornice
-        void accent;
-    },
+    /** Privately compared Rosetti school tour; exact2009room appearance is unknown. */
+    classroom(o,d) { return buildRosettiInterior(o,d); },
+    /** Official tour's Rectorat cupola ground-hall character; layout remains estimated. */
+    rectorat(o,d) { return buildUPBInterior(o,d); },
     /** small startup office near Hala Traian: four desks with laptops + LCDs, whiteboard with sticky notes, bean bag, kitchenette */
     startup(o, { W, D, H, accent }) {
         const { box, mat } = o, white = mat('#f4f4f2', { roughness: 0.5 }), leg = mat('#9aa0a6', { metalness: 0.6, roughness: 0.4 });
@@ -547,15 +516,9 @@ const PROPS = {
     /** corporate lobby (Hermes Business Campus): reception, turnstile gates, glass partition, sofas */
     lobby(o, d) { lobbyCommon(o, d, '#7cc4e8', false); },
     /** bank tower lobby (BOB Tower): darker palette, deep-blue feature wall, turnstiles */
-    bank(o, d) { lobbyCommon(o, d, '#1d4ed8', true); },
-    /** Arnia (Europe House): open space, amber feature wall, glass meeting room, dual monitors */
-    agency(o, { W, D, H, accent }) {
-        const { box, mat } = o, desk = mat('#e8e4dc', { roughness: 0.5 });
-        box(0.15, H - 0.3, 4, -W / 2 + 0.15, (H - 0.3) / 2, -2, mat(accent, { roughness: 0.6 }));
-        for (const side of [-1, 1]) for (let r = 0; r < 3; r++) { const x = side * 4, z = -1.6 + r * 2.4; box(2.6, 0.04, 0.9, x, 0.74, z, desk, true); for (const dx of [-0.45, 0.45]) { box(0.6, 0.36, 0.03, x + dx, 1.12, z - 0.3, mat('#111214')); box(0.55, 0.32, 0.01, x + dx, 1.12, z - 0.284, new THREE.MeshBasicMaterial({ color: '#2b4c6f' })); } }
-        meetingRoom(o, 3.5, -D / 2 + 2.6, 4, 3, H, accent);
-        void W;
-    },
+    bank(o, d) { return buildDBInterior(o,d); },
+    /** Europe House/TECTO: photo-led selected workplace, all room dimensions estimated. */
+    agency(o,d) { return buildArniaInterior(o,d); },
     /** UiPath Bucharest: the orange brand world — orange walls, robot figures, glass meeting rooms, bean bags */
     robots(o, { W, D, H, accent }) {
         const { box, mat } = o, desk = mat('#f6f6f4', { roughness: 0.5 }), or = mat('#fa4616', { roughness: 0.6 });

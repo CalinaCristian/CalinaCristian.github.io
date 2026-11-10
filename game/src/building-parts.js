@@ -13,6 +13,11 @@ export function insideRing(p, ring) {
     return inside;
 }
 const edgesOf = ring => ring.map((a, i) => [a, ring[(i + 1) % ring.length]]).filter(([a, b]) => Math.hypot(...sub(b, a)) > EPS);
+const insideSolid = (p, solid) => insideRing(p, solid.ring) && !(solid.holes || []).some(hole => insideRing(p, hole));
+const ownsBefore = (other, owner) => {
+    const rank = typeof owner === 'number' ? 0 : (owner.surfacePriority ?? 0), index = typeof owner === 'number' ? owner : owner.i, otherRank = other.surfacePriority ?? 0;
+    return otherRank < rank || otherRank === rank && other.i < index;
+};
 const boundsCache = new WeakMap();
 const boundsOf = ring => {
     if (!boundsCache.has(ring)) boundsCache.set(ring, [Math.min(...ring.map(p => p[0])), Math.min(...ring.map(p => p[1])), Math.max(...ring.map(p => p[0])), Math.max(...ring.map(p => p[1]))]);
@@ -61,7 +66,7 @@ export function exposedWall(a, b, y0, y1, nx, nz, others, owner = Infinity) {
     others = others.filter(o => o.h > y0 && (o.minH || 0) < y1 && overlaps(box, boundsOf(o.ring)));
     const u = sub(b, a), l2 = u[0] ** 2 + u[1] ** 2, cuts = [0, 1];
     if (l2 < EPS) return [];
-    for (const o of others) for (const [c, d] of edgesOf(o.ring)) {
+    for (const o of others) for (const [c, d] of [o.ring, ...(o.holes || [])].flatMap(edgesOf)) {
         const v = sub(d, c), den = cross(u, v);
         if (Math.abs(den) > EPS) {
             const t = cross(sub(c, a), v) / den, w = cross(sub(c, a), u) / den;
@@ -75,7 +80,7 @@ export function exposedWall(a, b, y0, y1, nx, nz, others, owner = Infinity) {
         const t0 = ts[i - 1], t1 = ts[i], t = (t0 + t1) / 2;
         const p = [a[0] + u[0] * t + nx * 1e-5, a[1] + u[1] * t + nz * 1e-5];
         let bands = [[y0, y1]];
-        for (const o of others) if (insideRing(p, o.ring) || (o.i < owner && insideRing([p[0] - nx * 2e-5, p[1] - nz * 2e-5], o.ring))) {
+        for (const o of others) if (insideSolid(p, o) || (ownsBefore(o, owner) && insideSolid([p[0] - nx * 2e-5, p[1] - nz * 2e-5], o))) {
             bands = bands.flatMap(([lo, hi]) => [[lo, Math.min(hi, o.minH || 0)], [Math.max(lo, o.h), hi]].filter(([l, h]) => h - l > EPS));
         }
         for (const [lo, hi] of bands) faces.push({ t0, t1, y0: lo, y1: hi });
@@ -177,8 +182,8 @@ export function bakeAssembly(base, parts, residualHeight, adjacentGround, keepOu
 // solids can share an interior face without being one enclosing OSM assembly.
 export function touchingSolids(a, b) {
     if (!overlaps(boundsOf(a.ring), boundsOf(b.ring)) || a.h < b.minH - EPS || b.h < a.minH - EPS) return false;
-    if (a.ring.some(p => insideRing(p, b.ring)) || b.ring.some(p => insideRing(p, a.ring))) return true;
-    for (const [p, q] of edgesOf(a.ring)) for (const [r, s] of edgesOf(b.ring)) {
+    if (a.ring.some(p => insideSolid(p, b)) || b.ring.some(p => insideSolid(p, a))) return true;
+    for (const [p, q] of [a.ring, ...(a.holes || [])].flatMap(edgesOf)) for (const [r, s] of [b.ring, ...(b.holes || [])].flatMap(edgesOf)) {
         const u = sub(q, p), v = sub(s, r), den = cross(u, v), d = sub(r, p);
         if (Math.abs(den) > EPS) { const t = cross(d, v) / den, w = cross(d, u) / den; if (t > EPS && t < 1 - EPS && w > EPS && w < 1 - EPS) return true; }
         else if (Math.abs(cross(d, u)) < EPS * Math.hypot(...u)) {
@@ -205,5 +210,33 @@ export function bakeSurface(b, volumes) {
     return { walls, roof, underside };
 }
 
+// Physical surface ownership is independent of an OSM building:part tag.
+// h denotes the actual vertical BODY/eaves bound, not a pitched roof's maximum.
+// Full source roof planes keep their existing separate visibility contract.
+export function bakeSourceSolidSurface(b, volumes) {
+    const others = volumes.filter(p => p !== b);
+    const wallsFor = (ring, hole = false) => {
+        const sg = Math.sign(ringArea(ring)) * (hole ? -1 : 1);
+        return ring.map((a, i) => {
+            const p = ring[(i + 1) % ring.length], u = sub(p, a), length = Math.hypot(...u) || 1;
+            return exposedWall(a, p, b.minH > 0 ? b.minH : Math.min(.18, b.h), b.h, sg * u[1] / length, -sg * u[0] / length, others, b);
+        });
+    };
+    const visibleHorizontal = occluders => {
+        const masks = [...(b.holes || [])], ownHoles = masks.length, bands = [];
+        for (const o of occluders) {
+            const outer = masks.push(o.ring) - 1, holes = (o.holes || []).map(h => masks.push(h) - 1);
+            bands.push({ outer, holes });
+        }
+        return footprintCells(b.ring, masks).filter(c => {
+            const covered = new Set(c.covered);
+            return !Array.from({ length: ownHoles }, (_, i) => i).some(i => covered.has(i)) && !bands.some(o => covered.has(o.outer) && !o.holes.some(i => covered.has(i)));
+        }).map(c => c.ring);
+    };
+    const top = others.filter(p => p.minH <= b.h + EPS && (p.h > b.h + EPS || p.h >= b.h - EPS && ownsBefore(p, b)));
+    const bottom = b.minH > 0 ? others.filter(p => p.h >= b.minH - EPS && (p.minH < b.minH - EPS || p.minH <= b.minH + EPS && ownsBefore(p, b))) : [];
+    return { walls: wallsFor(b.ring), holeWalls: (b.holes || []).map(r => wallsFor(r, true)), roof: visibleHorizontal(top), underside: b.minH > 0 ? visibleHorizontal(bottom) : [] };
+}
+
 export const geometryRing = (ring, points) => points ? ring.map(i => points[i]) : ring;
-export const geometrySurface = (surface, points) => points ? { walls: surface.walls, roof: surface.roof.map(r => geometryRing(r, points)), underside: surface.underside.map(r => geometryRing(r, points)) } : surface;
+export const geometrySurface = (surface, points) => points ? { walls: surface.walls, ...(surface.holeWalls ? { holeWalls: surface.holeWalls } : {}), roof: surface.roof.map(r => geometryRing(r, points)), underside: surface.underside.map(r => geometryRing(r, points)) } : surface;

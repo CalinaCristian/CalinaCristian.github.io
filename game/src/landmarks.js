@@ -11,6 +11,7 @@ import { US_FOOTPRINTS as U, US_SOURCE_TAGS as UT } from './landmark-us-source.j
 import { emitUSLandmarkTerrain } from './landmark-us-terrain.js';
 import { sourceProfile, sourceSlope, sourceSurfaceText } from './landmark-us-geometry.js';
 import { makeDinamoPaintTexture, makeDinamoPaintMesh } from './landmark-pitch-paint.js';
+import { emitArcGround, emitArcSourceColliders, ARC_SOURCE_FLAGPOLE } from './landmark-arcul-source.js';
 
 // ============================================================================
 //  Drive My CV — procedural models of the real landmarks of Bucharest and
@@ -862,7 +863,7 @@ function bCathedral(b) {
 // Src: https://ro.wikipedia.org/wiki/Arcul_de_Triumf_din_București ; OSM way 217851530
 function bArcul(b) {
     const W = 25, D = 9.6, S = '#ebe3d2', S2 = '#e0d5bf', TR = '#f2ecdf', RL = '#cdbfa3', TX = '#857660';   // pale Rușchița marble
-    b.box(0, 0, 0, W + 1.4, 1.3, D + 1.4, '#bfb3a0');                                     // granite plinth
+    emitArcGround(b); // four literal pier bases and the .01/.1m public passage, never a solid plinth across it
     b.archWall(W, 17.1, D, [{ x: 0, w: 8.8, h: 15.7 }], S, M(0, 1.3, 0));                     // piers + vault
     b.archWall(D + 0.1, 4.4, 2.2, [{ x: 0, w: 1.8, h: 3.2 }], S, M(-W / 2 + 1.1, 1.3, 0, Math.PI / 2));   // small side doors
     b.archWall(D + 0.1, 4.4, 2.2, [{ x: 0, w: 1.8, h: 3.2 }], S, M(W / 2 - 1.1, 1.3, 0, Math.PI / 2));
@@ -898,11 +899,12 @@ function bArcul(b) {
     b.box(0, 21.4, 0, W - 0.2, 1.2, D - 0.2, S2);
     b.box(0, 24.6, 0, W - 1.2, 2.4, D - 1.2, S);
     for (const s of [-1, 1]) for (let i = 0; i < 6; i++) b.box(-9.4 + i * 3.76, 27, s * (D / 2 - 0.8), 0.9, 0.8, 0.9, TR);
-    b.cyl(-6, 27, 0, 0.07, 0.1, 7, '#dddddd', 5);
-    flag(b, -6, 33.8, 0, 1.8);
-    // bollards + chain ring around the monument
-    for (let i = 0; i < 20; i++) { const a = i / 20 * Math.PI * 2; b.box(Math.cos(a) * 19, 0, Math.sin(a) * 13, 0.35, 0.9, 0.35, '#e2dccf'); }
-    b.col(-W / 2 + 4.1, 0, 4.1, D / 2 + 0.7); b.col(W / 2 - 4.1, 0, 4.1, D / 2 + 0.7);
+    const fp = ARC_SOURCE_FLAGPOLE;
+    b.cyl(fp.point[0], fp.minimumM, fp.point[1], .05, .05, fp.heightM - fp.minimumM, '#dddddd', 6);
+    flag(b, fp.point[0], fp.heightM - .05, fp.point[1], 1.8);
+    // The scene/district owns mapped bollards; do not duplicate them with an
+    // invented ellipse inside the actual public pedestrian walks.
+    emitArcSourceColliders(b); // exact27 source parts retain their tagged vertical intervals
 }
 
 // Casa Presei Libere (ex-Casa Scînteii, Horia Maicu, 1952-57) — 91.6 m + 12.4 m antenna = 104 m (ro.wikipedia

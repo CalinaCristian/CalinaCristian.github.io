@@ -17,6 +17,7 @@ import { buildingStyle, wallGeometry, facadeMaterial, facadeStyle } from '../osm
 import { seaActivity, seaWheel, seaBackdrop, signAtlas } from './sea-common.js';
 import { coinDrop } from '../coin-drop.js';
 import { activityBlocked, onActivityCancel } from '../participation.js';
+import {prepareSourceContext,addSourceContext} from '../source-context.js';
 
 // ---------------------------------------------------------------------------- street profile (OSM centrelines, research elevations)
 const PIKE_PLACE = [[-50, 33], [-60, 25], [-76, 10], [-91, -3], [-95, -6], [-103, -14], [-126, -34], [-141, -48], [-148, -53], [-151, -56], [-172, -75], [-179, -81], [-263, -155], [-270, -161]];
@@ -362,6 +363,7 @@ function buildSteinbrueck(ctx) {
 export default {
     env: { fogFar: 3200 },
     async build(ctx) {
+        await prepareSourceContext(ctx,{heroSourceIds:['w12903132']}); // The existing source-named Needle model is already visible across the city.
         const g = ctx.ground, d = ctx.data, sp = ctx.spot('pike-place');
         // ---- ground: Pike Place, Pike St, Post Alley at their real levels; Elliott Bay below the bluff
         g.mod((x, z, h) => { // Pike Place corridor (brick street + both sidewalks) follows the street profile
@@ -371,10 +373,12 @@ export default {
         g.corridor([[-60, -95], [-39, -34], [-20, -3], [-10, 14], [10, 46], [54, 118]], 16, 6, (x, z) => g.base(x, z)); // 1st Ave keeps its grade, smooth across
         g.corridor(PIKE_ST.slice(1), 32, 3, (x, z) => { const t = clamp((x + 4) / (-50 + 4), 0, 1); return lerp(0.1, -6.4, t); });
         g.corridor(POST_ALLEY_S, 5.5, 3, (x, z) => { const t = clamp((z - 40) / (82 - 40), 0, 1); return lerp(-6.5, -10.6, smooth(0, 1, t)); });
-        g.mod((x, z, h) => (x < -335 ? Math.min(h, -40) : x < -315 ? Math.min(h, lerp(-31, -40, (-315 - x) / 20)) : h));
-        ctx.water(-36.6, { x0: -3500, z0: -2600, x1: -318, z1: 2600 });
+        g.mod((x,z,h)=>{const t=d.terrain,dx=Math.max(t.x0-x,0,x-(t.x0+(t.nx-1)*t.d)),dz=Math.max(t.z0-z,0,z-(t.z0+(t.nz-1)*t.d)),weight=1-smooth(0,t.d,Math.hypot(dx,dz));
+            const local=x < -335 ? Math.min(h,-40) : x < -315 ? Math.min(h,lerp(-31,-40,(-315-x)/20)) : h;return lerp(h,local,weight);});
+        ctx.waterLevel=g.waterY=1-d.origin.elev; // Literal coast mask supplies the actual water mesh.
         // ---- paint
-        ctx.terrainOpts = { bg: '#6d6a60', bgMask: 'slab', brickAngle: 0.72, innerPx: 2048 };
+        ctx.terrainOpts = { bg: '#6d6a60', bgMask: 'slab', brickAngle: 0.72, innerPx: 2048, outerPad: 0, skirt: 0 };
+        ctx.treeLod = { cap: Infinity, near: 90, max: 700, force: true };
         ctx.skipBuildings = new Set(['w231357660', 'w1271653801', 'w1271653800', 'w1275882970', 'w1275882966']); // + the covered stretch of Post Alley (open alley here) // hero arcade replaces these footprints
         ctx.exclude.push([...offsetPolyline(PIKE_ST, -11), ...offsetPolyline(PIKE_ST, 11).reverse()]); // no street trees on lower Pike St (open view to the sign)
         ctx.osmBackdrop({ paint: {}, streetTreeOpts: { spacing: 14, prob: 0.5, kinds: ['primary', 'secondary', 'tertiary'] }, lampOpts: { kinds: ['primary', 'secondary', 'tertiary'] }, style: (b) => (/hotel|apartments/.test(b.k) && (b.h || 0) < 25 ? 'brick' : buildingStyle(b, true)) });
@@ -424,7 +428,8 @@ export default {
         // Elliott Bay view: the Great Wheel at Pier 57 (≈ 370 m south of MarketFront)
         { const w = ctx.ll(47.60617, -122.3425), wh = seaWheel(w.x, -33.5, w.z, -0.35, { spin: true }); ctx.add(wh.group); ctx.onUpdate((dt, s) => wh.update(dt, s.nightK, s.t)); }
         // the city + bay context: downtown towers beyond the OSM extract, ferries on the Bainbridge run, port cranes, the Olympics
-        ctx.extras.seaBackdrop = seaBackdrop(ctx, { clear: 330, needle: true, eyeY: 1.6 });
+        addSourceContext(ctx);
+        ctx.extras.seaBackdrop = seaBackdrop(ctx, { clear: 330, needle: true, towers: false, bay: false, eyeY: 1.6 });
         // MarketFront viewpoint railing
         { const b = new GeoBatch(); railing(b, [[-268, -98], [-262, -72], [-250, -50], [-238, -36]], (x, z) => g.heightAt(x, z)); ctx.add(b.build('marketfront-rail')); }
         // 1st Ave traffic (Pike Place itself is car-free)

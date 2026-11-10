@@ -23,6 +23,7 @@ export function activityFlow(ctx) {
     const restore = () => {
         if (!run) return null;
         const old = run; run = null;
+        old.s.ui.setActivityActive?.(false);
         old.ui.remove(); old.s.ctl.active = old.active;
         old.s.input?.take?.('KeyE'); old.s.input?.keys?.delete?.('KeyE'); old.s.input?.takeLook?.();
         return old;
@@ -31,7 +32,7 @@ export function activityFlow(ctx) {
         get active() { return !!run; },
         get run() { return run; },
         cancel(reason = 'cancel') { const old = restore(); old?.opts.cancel?.(old.s, reason); },
-        complete() { const old = restore(); old?.opts.complete?.(old.s); },
+        complete() { const old = restore(); if (old) { old.opts.complete?.(old.s); old.s.completeTourActivity?.(old.tourStop); } },
         begin(s, opts) {
             if (run || s.ctl.active === false || activityBlocked(s) || ctx.extras.venueActivities?.active) return false;
             if (!document.getElementById('sp-participation-css')) { const st = document.createElement('style'); st.id = 'sp-participation-css'; st.textContent = CSS; document.head.append(st); }
@@ -44,9 +45,11 @@ export function activityFlow(ctx) {
             run = { s, opts, ui, button, status: ui.querySelector('[data-status]'), progress: ui.querySelector('progress'), active: s.ctl.active, busy: false, t: 0, start: { x: p.x, z: p.z, y: p.y, heading: s.ctl.heading } };
             button.onclick = () => { if (run && !run.busy && !activityBlocked(s)) opts.actioned?.(s, run); };
             ui.querySelector('[data-leave]').onclick = () => api.cancel('leave');
-            s.endTour?.(); s.input?.releaseLock?.(); s.input?.take?.('KeyE'); s.ui.prompt(null);
+            run.tourStop = s.captureTourActivity?.();
+            s.input?.releaseLock?.(); s.input?.take?.('KeyE'); s.ui.prompt(null);
             if (opts.lockWalker !== false) s.ctl.active = false;
             s.ui.el.append(ui);
+            s.ui.setActivityActive?.(true);
             if(opts.focus){const dx=opts.focus.x-p.x,dz=opts.focus.z-p.z;s.ctl.heading=Math.atan2(-dx,-dz);s.ctl.pitch=Math.atan2(opts.focus.y-p.y-1.65,Math.hypot(dx,dz));s.ctl.place?.();}
             opts.started?.(s, run); return true;
         },
@@ -54,6 +57,7 @@ export function activityFlow(ctx) {
     };
     const key = e => {
         if (!run) return;
+        if (run.opts.key?.(e, run)) { e.preventDefault(); e.stopImmediatePropagation(); return; }
         if (run.ui.contains(e.target) && ['Enter', 'Space'].includes(e.code)) { e.stopImmediatePropagation(); return; }
         if (!['KeyE', 'Escape'].includes(e.code)) return;
         e.preventDefault(); e.stopImmediatePropagation();

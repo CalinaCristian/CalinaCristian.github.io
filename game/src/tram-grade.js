@@ -78,7 +78,7 @@ function stationSection(point, normal, edges) {
 
 /** Returns one displacement resolver for renderer and Traffic. Registry entries
  * select reviewed structures; source node IDs alone create path connections. */
-export function buildTramGrades(data, { coreEdges = [], models = TRAM_BRIDGE_MODELS, extraGrades = null, extraReport = null } = {}) {
+export function buildTramGrades(data, { coreEdges = [], models = TRAM_BRIDGE_MODELS, extraGrades = null, extraReport = null, sharedProfile = null } = {}) {
     const report = { estimated: true, models: [...(extraReport?.models || [])], unresolved: [...(extraReport?.unresolved || [])], renderedDeckPieces: 0, renderedTriangles: 0,
         inferredObstacleExclusions: { count: 0, byKind: {}, samples: [], policy: 'Only inferred emission candidates; actual source rails and emitted fleet clearance, compatible absolute model height. Mapped barriers are untouched.' } }, grades = new Map(), ways = new Map();
     for (const [id, grade] of extraGrades || []) {
@@ -169,6 +169,7 @@ export function buildTramGrades(data, { coreEdges = [], models = TRAM_BRIDGE_MOD
                 southEaseM: p.up.easeM, northEaseM: p.down.easeM, bridgeEntryHeightM: p.entry, bridgeRiseLengthM: p.rise.length, deckPeakGrade: p.deckPeak,
                 maxGrade: Math.max(p.up.peakGrade, p.down.peakGrade, p.rise.peakGrade), bridgeIntervalM: [p.lo, p.hi], groundIntervalM: [p.south, p.north] })) });
     }
+    if (sharedProfile?.known) for (const [id, grade] of grades) { const split=id.lastIndexOf(':'),way=ways.get(id.slice(0,split)); if(way)grades.set(id,sharedProfile.adaptRailGrade(way,Number(id.slice(split+1)),grade)); }
     const resolveGrade = (way, leg) => grades.get(key(way.sourceId, leg.index)) || null;
     const forRun = (run, segment) => {
         const source = data.tramSources?.[run], way = ways.get(source?.sourceId); if (!way) return null;
@@ -184,15 +185,22 @@ export function buildTramGrades(data, { coreEdges = [], models = TRAM_BRIDGE_MOD
             const grade = forRun(run, i - 1) || ((tags.level == null || Number(tags.level) === 0) ? flatTramGrade(way) : null);
             if (!grade?.known) continue;
             const a = points[i - 1], b = points[i];
+            // Reviewed grade functions are piecewise quadratic. Endpoints and
+            // midpoint of every declared polynomial interval prove a flat leg;
+            // a model-wide grade cap alone does not mean this leg is sloped.
+            const heightAt = grade.heightAt || (t => grade.ya + (grade.yb - grade.ya) * t);
+            const breaks = [...new Set([0, 1, ...(grade.breaks || [])])].filter(t => t >= 0 && t <= 1).sort((a, b) => a - b);
+            const groundLevel = breaks.every(t => Math.abs(heightAt(t)) < 1e-8) && breaks.slice(1).every((t, k) => Math.abs(heightAt((t + breaks[k]) / 2)) < 1e-8);
             const halfWidthM = Math.max(gauge / 2000, 1.2) + .5;
             corridors.push({ a, b, sourceId: source.sourceId, sourceNodeIds: source.nodeIds.slice(i - 1, i + 1), gaugeM: gauge / 1000,
-                heightAt: grade.heightAt || (t => grade.ya + (grade.yb - grade.ya) * t), halfWidthM, maxGrade: grade.maxGrade || 0,
+                heightAt, groundLevel, sourceBridgeModelId:grade.sourceBridgeModelId, halfWidthM, maxGrade: grade.maxGrade || 0,
                 x0: Math.min(a[0], b[0]) - halfWidthM, x1: Math.max(a[0], b[0]) + halfWidthM, z0: Math.min(a[1], b[1]) - halfWidthM, z1: Math.max(a[1], b[1]) + halfWidthM });
         }
     }
-    const excludesInferredObstacle = (a, b, { inferred = false, y0a, y1a, y0b = y0a, y1b = y1a, radiusM = .35, kind = 'inferred', sourceId = null, bodyEnvelope = null } = {}) => {
+    const excludesInferredObstacle = (a, b, { inferred = false, y0a, y1a, y0b = y0a, y1b = y1a, radiusM = .35, kind = 'inferred', sourceId = null, bodyEnvelope = null, sourceBridgeModelId = null } = {}) => {
         if (!inferred) return false;
         for (const c of corridors) {
+            if(sourceBridgeModelId&&c.sourceBridgeModelId!==sourceBridgeModelId)continue;
             if (Math.max(a[0], b[0]) < c.x0 - radiusM || Math.min(a[0], b[0]) > c.x1 + radiusM || Math.max(a[1], b[1]) < c.z0 - radiusM || Math.min(a[1], b[1]) > c.z1 + radiusM) continue;
             const halfWidthM = bodyEnvelope ? Math.max(c.gaugeM / 2, bodyEnvelope.halfWidthM) : c.halfWidthM;
             const q = closestSegments(a, b, c.a, c.b); if (q.distance > halfWidthM + radiusM) continue;
@@ -225,17 +233,20 @@ export function tramGradeRenderPieces(a, b, grade, baseM = .2) {
         const t0 = ts[i - 1], t1 = ts[i]; if ((t1 - t0) * len < 1e-6) continue;
         const p = [a[0] + dx * t0, a[1] + dz * t0], q = [a[0] + dx * t1, a[1] + dz * t1], y0 = grade.heightAt(t0), y1 = grade.heightAt(t1);
         const n0 = t0 === 0 && grade.aOffset ? grade.aOffset : [nx, nz], n1 = t1 === 1 && grade.bOffset ? grade.bOffset : [nx, nz];
-        const quad = (width, h0, h1) => [[p[0] + n0[0] * width, h0, p[1] + n0[1] * width], [q[0] + n1[0] * width, h1, q[1] + n1[1] * width], [q[0] - n1[0] * width, h1, q[1] - n1[1] * width], [p[0] - n0[0] * width, h0, p[1] - n0[1] * width]];
+        const quad = (width, h0, h1) => [[p[0] + n0[0] * width, h0, p[1] + n0[1] * width], [q[0] + n1[0] * width, h1, q[1] + n1[1] * width], [q[0] - n1[0] * width, h1, q[1] - n1[1] * width], [p[0] - n0[0] * width, h0, p[1] - n0[1] * width]].map((v,k)=>grade.heightAtWorld?[v[0],v[1]+grade.heightAtWorld(v[0],v[2])-(k===0||k===3?y0:y1),v[2]]:v);
         const local = { ...grade, heightAt: t => grade.heightAt(t0 + (t1 - t0) * Math.max(0, Math.min(1, t))) };
         const h0 = baseM + y0, h1 = baseM + y1, hm = baseM + local.heightAt(.5);
         // All reviewed ramps are piecewise quadratic, with every derivative
         // break included above. Export coefficients for an independent replay.
         const topProfile = { basis: 'quadratic-local-u', coefficients: [2 * (h0 + h1 - 2 * hm), 4 * hm - 3 * h0 - h1, h0],
             parameter: 'clamped projection onto piece a→b', domain: [0, 1], thicknessM: grade.thicknessM };
-        pieces.push({ a: p, b: q, t0, t1, y0, y1, nx, nz, quad, top: quad(grade.deckHalfWidthM, baseM + y0, baseM + y1),
+        const top=quad(grade.deckHalfWidthM,baseM+y0,baseM+y1), regions=grade.surfaceRegions?.(top.map(v=>[v[0],v[2]])).map(r=>({...r,maxTop:baseM+r.maxHeightM,band:(x,z)=>({top:baseM+r.heightAtWorld(x,z),bottom:baseM+r.heightAtWorld(x,z)-grade.thicknessM})}));
+        if(regions) {topProfile.basis='quadratic-affine-source-regions';topProfile.regions=regions.map(({poly,stationCoefficients,stationIntervalM,heightCoefficients})=>({poly,stationCoefficients,stationIntervalM,heightCoefficients,baseM}));}
+        const sharedBand=grade.heightAtWorld?sharedTramDeckBand(top,grade,baseM):null;
+        pieces.push({ a: p, b: q, t0, t1, y0, y1, nx, nz, quad, top, regions,
             topProfile,
             roof: grade.roof?.known && grade.roof.intervals.some(([lo, hi]) => (t0 + t1) / 2 >= lo && (t0 + t1) / 2 <= hi) ? grade.roof : null,
-            supported: grade.bridge || grade.tunnel || Math.max(Math.abs(y0), Math.abs(y1), Math.abs(grade.heightAt((t0 + t1) / 2))) > 1e-8, band: tramDeckBand(p, q, local, baseM) });
+            supported: grade.bridge || grade.tunnel || Math.max(Math.abs(y0), Math.abs(y1), Math.abs(grade.heightAt((t0 + t1) / 2))) > 1e-8, band: sharedBand || tramDeckBand(p, q, local, baseM) });
     }
     return pieces;
 }
@@ -302,4 +313,11 @@ export function tramDeckBand(a, b, grade, baseM = .2) {
         const values = [grade.heightAt(t - pad), grade.heightAt(t), grade.heightAt(t + pad)];
         return { top: baseM + Math.max(...values), bottom: baseM + Math.min(...values) - grade.thicknessM };
     };
+}
+
+/** The actual chord mesh and the continuous shared field both constrain support.
+ * A radius expands by the declared Lipschitz grade bound, never a clearance epsilon. */
+function sharedTramDeckBand(top,grade,baseM){
+ const rendered=(x,z)=>{for(const ids of [[0,1,2],[0,2,3]]){const [a,b,c]=ids.map(i=>top[i]),den=(b[2]-c[2])*(a[0]-c[0])+(c[0]-b[0])*(a[2]-c[2]);if(Math.abs(den)<1e-12)continue;const u=((b[2]-c[2])*(x-c[0])+(c[0]-b[0])*(z-c[2]))/den,v=((c[2]-a[2])*(x-c[0])+(a[0]-c[0])*(z-c[2]))/den;if(u>=-1e-8&&v>=-1e-8&&u+v<=1+1e-8)return u*a[1]+v*b[1]+(1-u-v)*c[1];}return baseM+grade.heightAtWorld(x,z);};
+ return(x,z,radius=0)=>{const a=baseM+grade.heightAtWorld(x,z),b=rendered(x,z),pad=Math.max(0,radius)*(grade.maxGrade||.08);return{top:Math.max(a,b)+pad,bottom:Math.min(a,b)-pad-grade.thicknessM};};
 }

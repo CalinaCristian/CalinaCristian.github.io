@@ -8,6 +8,7 @@ html, body { margin: 0; height: 100%; overflow: hidden; background: #0b0d12; col
 #gl { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
 kbd { display: inline-block; min-width: 1.6em; padding: 2px 7px; margin: 0 2px; border-radius: 6px; background: #1f2937; border: 1px solid #4b5563; border-bottom-width: 3px; font: 600 12px/1.4 var(--font); color: #fff; text-align: center; }
 .btn { appearance: none; border: 0; cursor: pointer; font: 600 16px var(--font); padding: 14px 22px; border-radius: 12px; color: #fff; background: #1f2937; text-decoration: none; display: inline-block; transition: transform .15s, background .2s; }
+#continue[hidden] { display: none; }
 .btn:hover { transform: translateY(-1px); }
 .btn.primary { background: var(--accent); box-shadow: 0 8px 30px rgba(250, 70, 22, 0.4); }
 .btn.ghost { background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.15); }
@@ -124,6 +125,10 @@ body.no-minimap .bottom-left { display: none; }
 .nav-item.active { outline: 2px solid #3b82f6; }
 .nav-item button.ft { background: #7c3aed; padding: 5px 7px; }
 .nav-item button.ft:hover { background: #8b5cf6; }
+.nav-item button.nav-action { display: inline-flex; flex: 0 0 32px; align-items: center; justify-content: center; width: 32px; height: 32px; padding: 0; }
+.nav-item .nav-action svg { width: 17px; height: 17px; pointer-events: none; }
+.nav-item .nav-place-name { white-space: normal; overflow-wrap: anywhere; line-height: 1.35; }
+body.touch #navlist .nav-item button.nav-action { flex-basis: 44px; width: 44px; height: 44px; padding: 0; }
 .small-btn { background: rgba(255,255,255,.12); margin-left: 10px; }
 .map-hint { margin-top: 12px; color: var(--muted); font-size: 13px; }
 @media (max-width: 900px) { .map-row { flex-direction: column; } #navpanel { width: auto; max-height: 42vh; } }
@@ -859,8 +864,8 @@ body[data-mode=spot] .pad button[data-btn=foot], body[data-mode=spot] .pad butto
 #ft-hold .fg { stroke: #fbbf24; stroke-dasharray: 113.1; stroke-dashoffset: 113.1; stroke-linecap: round; }
 
 /* Gameplay launchers yield to the active modal; its own Back / Close controls stay interactive. */
-body.ui-modal :is(#pause-btn, #explore-bar, #touch, .photo-open, #cond-btn, #car-finder, #story-chip, #drone-hud, #hud > .bottom-left) { visibility: hidden !important; pointer-events: none !important; }
-body.ui-modal #touch * { pointer-events: none !important; }
+body:is(.ui-modal, .ui-activity) :is(#pause-btn, #explore-bar, #touch, .photo-open, #cond-btn, #car-finder, #story-chip, #drone-hud, #hud > .bottom-left) { visibility: hidden !important; pointer-events: none !important; }
+body:is(.ui-modal, .ui-activity) #touch * { pointer-events: none !important; }
 #minimap-toggle, .map-touch-help { display: none; }
 body.touch #minimap-toggle { display: block; position: absolute; top: 4px; right: 4px; min-width: 44px; height: 44px; padding: 4px 10px; border: 1px solid rgba(255,255,255,.4); border-radius: 10px; background: rgba(15,23,42,.92); color: #fff; font: 600 13px system-ui,sans-serif; cursor: pointer; pointer-events: auto; }
 body.touch #minimap { pointer-events: auto; cursor: pointer; }
@@ -927,6 +932,7 @@ body.touch #spot-ui :is(.sp-plaque button, .sp-btns button, .sp-tour button, .sp
 body.touch #spot-ui li[data-i] { display: flex; align-items: center; white-space: normal; }
 body.touch #spot-ui .sp-card { max-height: min(42vh, 360px); overflow-y: auto; pointer-events: auto; touch-action: pan-y; }
 body.ui-modal #spot-ui :is(.sp-prompt, .sp-mini, .sp-tour-controls) { visibility: hidden !important; pointer-events: none !important; }
+body.ui-activity #spot-ui :is(.sp-prompt, .sp-mini) { visibility: hidden !important; pointer-events: none !important; }
 @media (max-width: 600px) and (orientation: portrait) {
     body.touch #spot-ui .sp-mini { bottom: 78px; }
     body.touch #spot-ui .sp-prompt { left: 12px; right: 136px; bottom: 100px; transform: none; max-width: none; }

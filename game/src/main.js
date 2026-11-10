@@ -9,12 +9,16 @@ import { Input } from './input.js';
 import { Audio } from './audio.js';
 import { HUD } from './hud.js';
 import * as MINIMAP from './minimap.js';
+import { mapPlaceActions } from './map-place-actions.js';
 const { MiniMap } = MINIMAP;
 /** the map category toggles shared with minimap.js' legend (MAP_FILTER; spec 12 Request) — own defaults until it is exported */
 // shared place-category filter (spec 12 Requests, note 81): `game.mapFilter` / minimap.js MAP_FILTER, keys cv landmark spot fuel shop park transit
 const mapFilter = () => globalThis.game?.mapFilter ?? MINIMAP.MAP_FILTER;
 const fkey = (cat) => (cat === 'business' ? 'shop' : cat);
 import { Office } from './office.js';
+import { createOfficeWindowService } from './office-window-service.js';
+import { createOfficeBubbleScope } from './office-bubble-scope.js';
+import { syncModalControls } from './modal-controls.js';
 import { playFlight } from './flight.js';
 import { Navigator, CarScreen, canTravel, edgeSpeed, isMotorway, roadName, fmtDist, stepText, stepArrow, lanesDir, roadSideWidth, roadWidthAt } from './nav.js';
 import { isTouch, clamp, angleDiff, signTexture } from './util.js';
@@ -348,6 +352,11 @@ class Game {
     // ----------------------------------------------------------------------------------
     /** Release the outgoing district before fetching/building its replacement. The cockpit and render rig survive. */
     disposeCity() {
+        if (this.officeReturn) {
+            const transitionState = this.state === 'office' ? 'loading' : this.state;
+            try { this.restoreOfficeReturn(); }
+            finally { this.state = transitionState; }
+        }
         this.endFoot();
         this.football?.dispose(); this.football = null;
         this.basketball?.dispose(); this.basketball = null;
@@ -408,6 +417,7 @@ class Game {
             onBubble: (v, kind) => this.hud.bubble(v, kind, city.id),
             onSay: (target, text, sub, cls) => this.hud.say(target, text, sub, cls), // (parking reactions, driver lines with the English gloss)
             onHonk: (v, reason) => this.vehicleHonk(v, reason),
+            dialogueHost: this,
             onBand: (band, prev) => this.onTrafficBand(band, prev),
         });
         try { this.traffic.onParkingEvent?.((ev) => this.onParkingEvent(ev)); } catch (e) { console.warn('[parking]', e); } // traffic lane, note 8
@@ -423,6 +433,7 @@ class Game {
             this.setupScreen();
         } else { scene.add(this.player.rig); this.player.scene = scene; }
         this.player.world = world; this.player.traffic = this.traffic; this.player.bounds = world.bounds;
+        this.nav.sourceVehicle = this.player;
         this.placeSpawn(city, world);
         // Admit the replacement crowd around the new pose before its first render.
         // The previous world's eye/vehicle pose is invalid in this world.
@@ -647,11 +658,7 @@ class Game {
     // ----------------------------------------------------------------------------------
     /** Keep gameplay controls out of every modal, including the hub's early-return frame. */
     syncModalControls() {
-        const modal = !!(!['drive', 'foot', 'office', 'spot'].includes(this.state) || this._pauseOpen || this.mapOpen || this.condOpen || this.hud.panelOpen || this.spot?.ui?.panelOpen || this.explore?.map?.isOpen || this.photo?.active || document.querySelector('#achv-panel.show, #save-gallery.show') || document.body.classList.contains('finale-open'));
-        if (modal === this._controlsModal) return;
-        this._controlsModal = modal; document.body.classList.toggle('ui-modal', modal);
-        for (const el of document.querySelectorAll('#touch, #pause-btn, #explore-bar, .photo-open, #cond-btn, #car-finder, #story-chip, #drone-hud, #minimap-toggle, #spot-ui .sp-prompt, #spot-ui .sp-mini, #spot-ui .sp-tour-controls')) el.inert = modal;
-        if (modal) { this.input.cancelTouch?.(); if (this.photo?.active) this.input.touch.brake = true; }
+        syncModalControls(this);
     }
     fastTravelStatus() {
         const d = this.explore?.destination || (this.navManual && this.nav?.dest) || (!this.chapterDone && this.objective);
@@ -682,7 +689,7 @@ class Game {
         if (this._pauseOpen) { // paused: nothing moves; the scene keeps being drawn behind the menu
             if (this.input.take('Escape')) this.togglePause(false);
             this.input.flush();
-            if (this.state === 'office') this.office?.render(); else if (this.state === 'spot') this.r3d.frame(); else if (this.scene) this.drawFrame();
+            if (this.state === 'office') this.renderOffice(); else if (this.state === 'spot') this.r3d.frame(); else if (this.scene) this.drawFrame();
             return;
         }
         if ((this.state === 'drive' || this.state === 'foot') && !this.photo?.active && !this.mapOpen && !this.hud?.panelOpen) this.football?.update(dt);
@@ -744,6 +751,7 @@ class Game {
         if (this.holdToTravel(input, dt)) { this.fastTravelToObjective(); if (this.state !== 'drive') return; }
         if (input.take('Enter') || input.take('NumpadEnter')) { if (this.exitCar()) return; }
         hud.update(dt, this.camera, city.id);
+        traffic.situationalHudFrame();
         this.audio.engine(empty ? player.speed * 0.3 : player.speed, empty ? 0 : input.throttle, dt);
         this.stats.time += dt;
         // (sun follow / shadows / rain are handled inside Renderer3D.frame())
@@ -997,8 +1005,9 @@ class Game {
     talkToPed(p, F) {
         const persona = this.pedPersona(p); p.talkN = (p.talkN || 0) + 1; p.talkT = 6; p.talkTo = F; p.talkWave = p.talkN === 1 ? 1.4 : 0;
         const order = p.talkN === 1 ? ['greeting', 'street', 'idle'] : p.talkN === 2 ? ['street', 'idle'] : ['idle', 'street'];
-        const l = this.talkLine(persona, order);
-        if (l) this.traffic.say(p, { t: l.orig || l.text, en: l.orig ? l.text : '' }, '', 3);
+        const l = this.talkLine(persona, order),dialogueEvent=this.traffic.dialogueEvent('greeting',F,{target:p,targetRole:'pedestrian'});
+        if (l) this.traffic.say(p, { t: l.orig || l.text, en: l.orig ? l.text : '' }, '', 3,{situational:true,event:dialogueEvent,role:'pedestrian'});
+        else this.traffic.speakSituational(dialogueEvent,p,'pedestrian');
         const tips = this.talkData()?.culture || [];
         if (p.talkN >= 2 && tips.length && /^(local|tech)/.test(persona) && Math.random() < 0.6) {
             const tp = tips[((p.i ?? 0) * 7 + p.talkN * 3) % tips.length]; let n = String(tp.note || ''); const cut = n.lastIndexOf('. ', 230);
@@ -1013,8 +1022,9 @@ class Game {
         this._chatT = (this._chatT ?? 6) - dt; if (this._chatT > 0) return; this._chatT = 7 + Math.random() * 7;
         const peds = (this.traffic?.peds?.near(F.x, F.z, 22) || []).filter((p) => p.state !== 'down' && !p.hidden && !p.agent && !p.react && !(p.talkT > 0) && Math.hypot(p.x - F.x, p.z - F.z) > 4);
         if (!peds.length) return; const p = peds[Math.floor(Math.random() * peds.length)];
-        const l = this.talkLine(this.pedPersona(p), Math.random() < 0.6 ? ['street', 'idle'] : ['idle', 'street']);
-        if (l) this.traffic.say(p, { t: l.orig || l.text, en: l.orig ? l.text : '' }, '', 1);
+        const l = this.talkLine(this.pedPersona(p), Math.random() < 0.6 ? ['street', 'idle'] : ['idle', 'street']),dialogueEvent=this.traffic.dialogueEvent('ambient',p,{sourceRole:'pedestrian'});
+        if (l) this.traffic.say(p, { t: l.orig || l.text, en: l.orig ? l.text : '' }, '', 1,{situational:true,event:dialogueEvent,role:'pedestrian'});
+        else this.traffic.speakSituational(dialogueEvent,p,'pedestrian');
     }
     cityHours() { const c = this.clock; return c.override ? OVERRIDE_HOURS[c.override] : localHours(this.nowDate(), c.timeZone); }
     /** the game's "now": real time, shifted by the free-roam time-of-day pick (clock.offsetMs) */
@@ -1272,7 +1282,9 @@ class Game {
         const p = this.player;
         this.audio.horn(0, 0, 1.0, 0.45);
         this.honks++;
-        const reacted = this.traffic.playerHonk(p.x, p.z, p.fx, p.fz);
+        const dialogueEvent=this.traffic.dialogueEvent('player-honk',p);
+        const reacted = this.traffic.playerHonk(p.x, p.z, p.fx, p.fz,dialogueEvent);
+        this.traffic.emitDialogueEvent(dialogueEvent);
         const rage = this.hud.addRage(this.city.id === 'bucharest' ? 6 + reacted * 2 : 3);
         if (this.honks === 1) this.hud.achievement('first-honk');
         if (this.honks === 10) this.hud.achievement('honk-10');
@@ -1285,21 +1297,25 @@ class Game {
         const pan = clamp((dx * -p.fz + dz * p.fx) / (d || 1), -1, 1) * -1;
         this.audio.horn(pan, d, 0.8 + ((v.x * 13) % 7) / 10, 0.3 + Math.random() * 0.4);
         if (d < 40) this.hud.addRage(2);
+        const dialogueEvent=this.traffic.dialogueEvent('npc-honk',v,{sourceRole:'driver'});
+        this.traffic.emitDialogueEvent(dialogueEvent,{participant:v});return dialogueEvent;
     }
     onCollide(strength, what, v) {
+        const dialogueEvent=this.traffic?.dialogueEvent('collision',this.player,{target:what==='vehicle'||what==='pedestrian'?v:null,targetRole:what==='pedestrian'?'pedestrian':'driver',facts:{contact:true,collisionType:what==='vehicle'?'vehicle':what==='pedestrian'?'pedestrian':'static'}});
         if (what === 'pedestrian') {
             this.audio.crash(0.35);
             this.stats.peds++;
             this.hud.addRage(35);
-            this.giveFine('🚶 Pieton!', this.city.id === 'bucharest' ? 'Pedestrians have priority. They got up and are shouting at you.' : 'They\'re okay, thankfully. The officer is less okay.', 0, 'pedestrian');
+            this.giveFine('🚶 Pieton!', this.city.id === 'bucharest' ? 'Contact cu un pieton. Oprește și verifică dacă e nevoie de ajutor.' : 'Pedestrian contact. Stop and check whether help is needed.', 0, 'pedestrian');
             this.hud.achievement('pedestrian');
             this.traffic.playerHonk(this.player.x, this.player.z, this.player.fx, this.player.fz);
-            return;
+            this.traffic.emitDialogueEvent(dialogueEvent);return;
         }
         this.audio.crash(clamp(strength / 10, 0.2, 1));
-        if (what === 'vehicle' && v) { this.traffic.bump(v); this.hud.addRage(12); }
+        if (what === 'vehicle' && v) { this.traffic.bump(v,dialogueEvent); this.hud.addRage(12); }
         else if (what === 'edge') { /* deck edge / trench wall: the crash sound is enough */ }
-        else if (strength > 8) this.hud.toast('💥 Ouch', this.city.id === 'bucharest' ? 'Buildings in Bucharest do not move. Neither do double-parked cars.' : 'That was not a drive-thru. Your rental deposit just got smaller.', 'warn');
+        else if (strength > 8) this.hud.toast('💥 Ouch', this.city.id === 'bucharest' ? 'Oprește și verifică oamenii și împrejurimile înainte să continui.' : 'Stop and check people and surroundings before continuing.', 'warn');
+        this.traffic.emitDialogueEvent(dialogueEvent,{participant:what==='vehicle'?v:null});
     }
 
     // ---------------------------------------------------------------------------------- dev: collision overlay
@@ -1485,7 +1501,7 @@ class Game {
         for (const gr of groups) {
             const isOpen = open[gr.name] ?? (OPEN.has(gr.name) && (!gr.cat || MINIMAP.filterOn?.(gr.cat) !== false)), cb = gr.cat && fkey(gr.cat) in F ? `<input type="checkbox" data-filter="${gr.cat}" title="Show on the map"${F[fkey(gr.cat)] ? ' checked' : ''}>` : '';
             html += `<details class="nav-group" data-group="${gr.name}"${isOpen ? ' open' : ''}><summary><span>${gr.name}</span><small>${gr.rows.length}${isOpen ? '' : ' ›'}</small>${cb}</summary>`;
-            for (const i of gr.rows) { const it = items[i]; html += `<div class="nav-item"><span>${it.icon} ${it.label} <small>${dist(it.x, it.z)}${it.walk ? ` · walk the last ${fmtDist(it.walk, this.city.units)}` : ''}</small></span><button data-nav="${i}" title="Set a route and mark this destination">Mark</button><button class="ft" data-ft="${i}" title="Fast travel (skip the drive)">Fast travel</button></div>`; }
+            for (const i of gr.rows) { const it = items[i]; html += `<div class="nav-item"><span class="nav-place-name">${it.icon} ${it.label} <small>${dist(it.x, it.z)}${it.walk ? ` · walk the last ${fmtDist(it.walk, this.city.units)}` : ''}</small></span>${mapPlaceActions(i, it.label)}</div>`; }
             html += '</details>';
         }
         html += '<div class="nav-item active"><span>☀️ Time, weather &amp; season</span><button data-cond="1">Open</button></div>'; // (everyone; districts: the world-map hub, explore.js)
@@ -1673,6 +1689,7 @@ class Game {
         if (input.take('KeyR')) this.resetPosition();
         this.updateActionMarkers(F.x, F.z);
         hud.update(dt, this.camera, city.id);
+        traffic.situationalHudFrame();
         this.stats.time += dt;
         // find the car: T calls it; the HUD chip and map offer a route back.
         this.nav.walking = true;
@@ -1731,7 +1748,7 @@ class Game {
         this.crew?.dispose?.(); this.crew = null;
         if (city.id !== 'bucharest' || !this.closures.length) return;
         // one instanced crowd for the whole roadworks crew (2 draw calls instead of 7 meshes per worker; crowd.js)
-        const list = this.closures.filter(c => c.edge);
+        const list = this.closures.filter(c => c.edge && c.worker !== false);
         const crew = this.crew = makeCrowd({ max: list.length, city: city.id, season: seasonOf(this.nowDate()), castShadow: true });
         list.forEach((c, i) => {
             const e = c.edge;
@@ -1741,7 +1758,7 @@ class Game {
             if (c.worker && Number.isFinite(c.worker.x)) { x = c.worker.x; z = c.worker.z; y = Number.isFinite(c.worker.y) ? c.worker.y : y; } // world-visual: behind the barrier, clear of the sign plates (note 6)
             crew.dress(i, dressFor(city.id, crew.season, null, Math.random, 'worker'));
             crew.set(i, { x, y, z, yaw: Math.atan2(-ix, -iz), amp: 0, phase: i }); // facing into the map (the traffic coming from inside)
-            this.workers.push({ x, z, nextT: 0 });
+            this.workers.push({ x, z, levelBand: c, nextT: 0 });
         });
         this.scene.add(crew.object);
     }
@@ -1760,6 +1777,7 @@ class Game {
         if (!this.closures?.length) return null;
         const P = this.player, now = performance.now(); let prompt = null;
         for (const c of this.closures) {
+            if (!P.atLevel(c)) continue;
             const dx = c.x - P.x, dz = c.z - P.z, d = Math.hypot(dx, dz);
             if (d < 40 && d > 0.5 && (dx * P.fx + dz * P.fz) / d > 0.6 && now - c.toastT > 30000 && now - (this._closureToastT || 0) > 8000) { c.toastT = now; this._closureToastT = now; const [t, b] = this.closureText(c); this.hud.toast(t, b, 'warn'); }
         }
@@ -1769,6 +1787,7 @@ class Game {
             if (this.input.take('KeyU')) { this.uTurn(); prompt = null; }
         }
         for (const w of this.workers || []) {
+            if (w.levelBand && !P.atLevel(w.levelBand)) continue;
             if (now < w.nextT) continue;
             const d = Math.hypot(w.x - P.x, w.z - P.z);
             if (d < 35) { const L = ROADWORKS[this.city.id] || ROADWORKS.bucharest; const l = L[Math.floor(Math.random() * L.length)]; this.hud.say(w, l.text, l.en); w.nextT = now + 9000 + Math.random() * 7000; }
@@ -1820,19 +1839,14 @@ class Game {
     /** buttons for a list of SPOTS entries grouped Bucharest / Seattle / Bellevue (whatever SPOTS holds) */
     spotGroupsHtml(list, { heading = 'h4', button = null } = {}) {
         const esc = (t) => String(t ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-        const ordinary = s => s.menuTier !== 'recommended' && s.menuTier !== 'parks';
-        const groups = [['Recommended', s => s.menuTier === 'recommended'],
-            ['București', s => ordinary(s) && s.city === 'bucharest'], ['Seattle', s => ordinary(s) && s.city === 'seattle' && s.area !== 'bellevue'], ['Bellevue', s => ordinary(s) && s.area === 'bellevue'],
-            ['More', s => ordinary(s) && s.city !== 'bucharest' && s.city !== 'seattle'], ['Quieter parks & gardens', s => s.menuTier === 'parks']];
+        const groups = [['București', s => s.city === 'bucharest'], ['Seattle', s => s.city === 'seattle' && s.area !== 'bellevue'], ['Bellevue', s => s.area === 'bellevue']];
         const done = this.spotsMod?.spotProgress?.()?.postcards || {};
         let html = '';
         for (const [label, f] of groups) {
             const items = list.filter(f); if (!items.length) continue;
-            if (label === 'Quieter parks & gardens') html += '<details class="spot-parks"><summary>🌳 Quieter parks & gardens</summary>';
-            else html += `<${heading} class="spot-group">📷 ${label}</${heading}>`;
+            html += `<${heading} class="spot-group">${label}</${heading}>`;
             if (button) html += items.map(s => `<div class="nav-item"><span>${done[s.id] ? '✓ ' : ''}${esc(s.name)}</span><button data-spot="${esc(s.id)}" title="${esc(s.blurb)}">${button}</button></div>`).join('');
             else html += `<div class="chs">${items.map(s => `<button data-spot="${esc(s.id)}" title="${esc(s.blurb)}">${done[s.id] ? '✓ ' : ''}${esc(s.name)}</button>`).join('')}</div>`;
-            if (label === 'Quieter parks & gardens') html += '</details>';
         }
         return html;
     }
@@ -1921,6 +1935,7 @@ class Game {
             this.input.lookAllowed = true; this.frameClock.getDelta();
         } else {
             this._menuTod = conditions.tod;
+            this.r3d.releaseScene();
             this.state = 'menu'; this.input.lookAllowed = false;
             $('#hud').classList.remove('show'); $('#menu').classList.add('show'); document.body.classList.remove('playing');
             this.renderMenuSpots();
@@ -2667,12 +2682,36 @@ ${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" 
         this.basketball?.cancel('office');
         this.explore?.hooks?.abortDrone?.();
         this.photo?.close?.();
-        if (this.state === 'foot') { this.officeFromFoot = true; this.foot.exit(); }
+        // Preserve the physical street pose; the virtual room never relocates the player/car.
+        this.camera.updateWorldMatrix(true, false);
+        const entryCamera = this.camera.clone();
+        entryCamera.position.setFromMatrixPosition(this.camera.matrixWorld);
+        entryCamera.quaternion.setFromRotationMatrix(this.camera.matrixWorld); entryCamera.scale.set(1, 1, 1); entryCamera.updateMatrixWorld(true);
+        this.officeFromFoot = this.state === 'foot';
+        this.officeReturn = { camera: entryCamera, driveRigShown: this.player.driveRigShown !== false,
+            carParent: this.carBody?.parent || null, carBox: this.carBox,
+            foot: this.officeFromFoot ? { x: this.foot.x, y: this.foot.y, z: this.foot.z, heading: this.foot.heading, pitch: this.foot.pitch } : null };
+        if (this.officeFromFoot) this.foot.exit();
+        else {
+            this.player.speed = 0;
+            if (!this.carBody) { this.carBody = makeVehicle('hatch', '#1e3a8a', { instanced: true, city: this.city.id }); this.carBody.userData.parked = true; }
+            const p = this.player;
+            this.carBody.position.set(p.x, p.surfY ?? 0.24, p.z); this.carBody.rotation.set(0, p.heading, 0); this.scene.add(this.carBody);
+            this.carBox = { x: p.x, z: p.z, fx: p.fx, fz: p.fz, length: this.carBody.userData.length || 4.2, width: this.carBody.userData.width || 1.8 };
+        }
+        this.setDriveRigShown(false);
+        this._officePresentedAt = null; this._officeFPSAcc = this._officeFPSN = 0;
         this.state = 'office';
         this.audio.stopEngine(); this.audio.blip(520, 0.15, 0.1);
         $('#hud').classList.add('in-office');
         this.player.resetLook();
-        this.office = new Office(this.renderer, this.camera, stop, this.hud, this.input, this.audio);
+        try {
+            this.officeBubbleScope = createOfficeBubbleScope(this.hud);
+            this.office = new Office(this.renderer, this.camera, stop, this.officeBubbleScope.hud, this.input, this.audio);
+            this.officeWindow = createOfficeWindowService({ renderer: this.renderer, r3d: this.r3d, world: this.world, scene: this.scene, traffic: this.traffic, office: this.office, entryCamera });
+        } catch (error) {
+            this.restoreOfficeReturn(); this.hud.toast('Room unavailable', 'The street state has been restored.', 'warn'); console.warn('[office] enter', error); return;
+        }
         this.hud.toast(`${stop.icon} ${stop.company}`, stop.tagline);
         this.hud.setStreet(stop.company, stop.address);
         this.hud.prompt(null);
@@ -2681,25 +2720,60 @@ ${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" 
     updateOffice(dt) {
         const o = this.office;
         o.update(dt);
-        this.hud.update(dt, this.camera, this.city.id);
-        o.render();
+        this.frame++; this.updateClock(dt);
+        if (this.frame % 30 === 0) this.pollWeather();
+        this.officeWindow.prepare(dt);
+        this.traffic.setHour(this.trafficHours()); this.traffic.update(dt);
+        this.carBody?.userData.setLights?.(((this.clock.date?.getTime?.() ?? performance.now()) / 400 | 0) % 2 === 0);
+        this.officeWindow.capture();
+        this.hud.update(dt, this.camera, this.city.id, { bubbleFilter: this.officeBubbleScope.accepts });
+        this.renderOffice();
         if (o.done) this.leaveOffice();
     }
-    leaveOffice() {
-        this.photo?.close?.();
-        const o = this.office; const stop = o.stop;
-        o.dispose(); this.office = null;
+    renderOffice() {
+        if (!this.office) return;
+        try { this.office.render(); }
+        finally {
+            // Include all submitted environment, portal, shadow and room work before reset.
+            const now = performance.now(), visible = document.visibilityState !== 'hidden', elapsed = visible && this._officePresentedAt != null ? now - this._officePresentedAt : 0;
+            this._officePresentedAt = visible ? now : null;
+            Object.assign(this.r3d.stats, { drawCalls: this.renderer.info.render.calls, triangles: this.renderer.info.render.triangles });
+            if (!visible) { this._officeFPSAcc = this._officeFPSN = 0; this.r3d.stats.fps = this.r3d.stats.frameMs = 0; }
+            if (elapsed > 0) {
+                this.r3d.stats.frameMs = Math.round(elapsed * 10) / 10; this._officeFPSAcc += elapsed; this._officeFPSN++;
+                if (this._officeFPSAcc >= 500) { this.r3d.stats.fps = Math.round(10000 * this._officeFPSN / this._officeFPSAcc) / 10; this._officeFPSAcc = this._officeFPSN = 0; }
+            }
+            this.renderer.info.reset();
+        }
+    }
+    restoreOfficeReturn() {
+        if (!this.officeReturn && !this.office && !this.officeWindow) return;
+        const restore = this.officeReturn;
+        this.officeWindow?.dispose(); this.officeWindow = null;
+        this.office?.dispose(); this.office = null;
+        this.officeBubbleScope?.dispose(); this.officeBubbleScope = null;
+        this.officeReturn = null; this._officePresentedAt = null;
+        this.r3d._lastStatsNow = null; // mode boundary: no office-duration gap in the next driving FPS sample
         $('#hud').classList.remove('in-office');
         this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0);
         this.player.resetLook();
         this.state = 'drive';
-        if (this.officeFromFoot) { // walked in: walk out of the door
-            this.officeFromFoot = false;
-            const p = stop.poiRef, dx = p.doorX ?? p.x, dz = p.doorZ ?? p.z, ne = this.nav.index.nearest(dx, dz, 60);
-            const hd = ne ? Math.atan2(-(ne.cx - dx), -(ne.cz - dz)) : this.foot.heading;
-            this.foot.enter(dx + (ne ? (ne.cx - dx) * 0.15 : 0), dz + (ne ? (ne.cz - dz) * 0.15 : 0), hd);
-            this.state = 'foot';
+        if (restore?.camera) {
+            for (const key of ['fov', 'aspect', 'near', 'far', 'zoom', 'filmGauge', 'filmOffset']) this.camera[key] = restore.camera[key];
+            this.camera.updateProjectionMatrix();
         }
+        if (this.officeFromFoot && restore?.foot) {
+            const f = restore.foot; this.foot.enter(f.x, f.z, f.heading, f.y); this.foot.pitch = f.pitch; this.foot.place(); this.state = 'foot';
+        } else if (restore) {
+            if (!restore.carParent) this.carBody?.removeFromParent(); else restore.carParent.add(this.carBody);
+            this.carBox = restore.carBox; this.setDriveRigShown(restore.driveRigShown);
+        }
+        this.officeFromFoot = false;
+    }
+    leaveOffice() {
+        this.photo?.close?.();
+        const o = this.office, stop = o.stop;
+        this.restoreOfficeReturn();
         if (this.freeRoam) { // free roam (R10.10): the CV content, no story progress
             if (o.read.size === 0) this.hud.toast('💬 Nobody asked', 'Walk up to your host and press E to talk.');
             else this.hud.toast(`${stop.icon} ${stop.short}`, 'Free roam: keep going (M → world map: districts and tourist spots).');

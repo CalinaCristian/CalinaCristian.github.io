@@ -212,7 +212,7 @@ export function buildScene(sceneId) {
             if (seen.has(w.id)) continue; seen.add(w.id);
             const pts = w.line.map(([la, lo]) => P.xy(la, lo));
             const o = { id: w.id, k: w.highway || w.railway || w.barrier || w.man_made || 'line', pts };
-            const keep = ['name', 'footway', 'surface', 'lanes', 'oneway', 'bridge', 'tunnel', 'layer', 'width', 'service', 'crossing', 'incline', 'step_count', 'covered', 'area', 'sidewalk', 'sidewalk:both', 'cycleway', 'access', 'level', 'indoor', 'height', 'material', 'fence_type', 'natural', 'tram', 'junction'];
+            const keep = ['name', 'footway', 'surface', 'lanes', 'oneway', 'bridge', 'tunnel', 'layer', 'width', 'service', 'crossing', 'incline', 'step_count', 'covered', 'area', 'sidewalk', 'sidewalk:both', 'cycleway', 'access', 'foot', 'motor_vehicle', 'level', 'indoor', 'height', 'material', 'fence_type', 'natural', 'tram', 'junction'];
             for (const k of keep) if (w[k] !== undefined) o[k.replace(':', '_')] = w[k];
             out.ways.push(o);
         }

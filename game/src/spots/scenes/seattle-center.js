@@ -1,29 +1,28 @@
 // ============================================================================
-//  Seattle Center — one scene, three spawns (spec 15 R15.7): the Space Needle
+//  Seattle Center — one combined visit (spec 15 R15.7): the Space Needle
 //  (1962; walk its base, ride up to the 158 m deck), Chihuly Garden and Glass
 //  (Glasshouse with the 30 m red/orange/yellow suspended sculpture; glass in
-//  the garden beds — Dale Chihuly credited), MoPOP (Frank O. Gehry, 2000: the
-//  coloured shingled masses with the Monorail running through), the 1962
+//  the garden beds — Dale Chihuly credited), actual mapped museum context, the 1962
 //  ALWEG monorail with a train looping to the station, the Wright fountain.
 //  Artworks are modelled from descriptions (no photo textures).
 //  Local frame: x east, z south; origin = Space Needle centre (OSM w12903132).
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, canvas, canvasTexture, inPoly, clamp, lerp, smooth, headingFromBearing, polyBox, alongPolyline, polylineLength, centroid, offsetPolyline, compactTriangles, capsuleGeometry } from '../kit.js';
-import { meshSDF, sdEllipsoid, sdCapsule, sdBox, sdSphere, smin, smax, noise3, fbm3 } from '../sdf.js';
 import { signBoard, railing } from '../props.js';
 import { seaNeedle, seaBackdrop, seaActivity } from './sea-common.js';
 import { addTraffic } from '../cars.js';
 import { photoHunt } from '../photo-hunt.js';
 import { activityFlow } from '../participation.js';
-import { polyCollider, facadeMaterial } from '../osm.js';
+import { facadeMaterial } from '../osm.js';
+import {prepareSourceContext,addSourceContext} from '../source-context.js';
 
 const NEEDLE = { x: 0.3, z: 0.7, y: 1.5 };
 const MONO = [[-46, -86], [-23, -87], [-8, -87], [10, -88], [37, -89], [49, -88], [56, -87], [64, -86], [71, -83], [78, -80], [96, -62], [102, -54], [105, -50], [109, -43], [115, -39], [124, -30], [129, -10], [129, 60], [126, 160], [126, 300]];
 const MONO_Y = 7.6; // guideway top above the plaza (≈ 2nd-floor level at MoPOP)
-// These separately mapped museum parts retain their exact native source solids.
+// Museum parent/parts remain context, without an invented replacement mass.
 // Their metal skins are not apartment façades or additional hero replacements.
-const MOPOP_PARTS = new Set(['w1534908988', 'w1534908989', 'w1534908990', 'w1534908991', 'w1534908992', 'w1534908993', 'w1534908994']);
+const MOPOP_PARTS = new Set(['w161587742', 'w1092469435', 'w1534908988', 'w1534908989', 'w1534908990', 'w1534908991', 'w1534908992', 'w1534908993', 'w1534908994']);
 const MOPOP_METAL = 'mopop-source-metal';
 
 function mopopMetalMaterial() {
@@ -234,77 +233,6 @@ function buildChihuly(ctx) {
     return { cx, cz, bb, sunC, y0, H };
 }
 
-// ---------------------------------------------------------------------------- MoPOP (Frank O. Gehry, 2000): shingled coloured masses, monorail slot, steel ribbon
-function buildMoPOP(ctx) {
-    const d = ctx.data, g = ctx.ground;
-    const fp = d.buildings.find((b) => b.id === 'w161587742'); ctx.skipBuildings.add('w161587742'); ctx.skipBuildings.add('w1092469435'); ctx.exclude.push(fp.poly);
-    mopopMetalMaterial();
-    const bb = polyBox(fp.poly), y0 = g.heightAt((bb.x0 + bb.x1) / 2, (bb.z0 + bb.z1) / 2) - 0.5;
-    // masses (local metres from the footprint SW corner): colour id, centre, radii
-    const ox = bb.x0, oz = bb.z0, W = bb.x1 - bb.x0, D = bb.z1 - bb.z0;
-    const masses = [
-        { c: 0, x: 0.8, z: 0.3, rx: 13, ry: 21, rz: 15, tilt: 0.25 },   // iridescent gold → magenta → purple (east lobes)
-        { c: 0, x: 0.66, z: 0.12, rx: 9, ry: 15, rz: 10, tilt: -0.3 },
-        { c: 1, x: 0.45, z: 0.52, rx: 13, ry: 26, rz: 14, tilt: 0.15 }, // matte silver (centre, tallest)
-        { c: 2, x: 0.27, z: 0.2, rx: 12, ry: 18, rz: 13, tilt: -0.2 },  // sky blue (north-west, around the monorail)
-        { c: 3, x: 0.62, z: 0.8, rx: 14, ry: 15, rz: 13, tilt: 0.3 },   // deep red (south)
-        { c: 4, x: 0.2, z: 0.74, rx: 10, ry: 13, rz: 12, tilt: -0.25 }, // gold (south-west)
-        { c: 1, x: 0.86, z: 0.66, rx: 9, ry: 11, rz: 11, tilt: 0.2 },   // silver (south-east)
-        { c: 2, x: 0.42, z: 0.86, rx: 8, ry: 10, rz: 9, tilt: 0 },
-    ].map((m) => ({ ...m, x: ox + m.x * W, z: oz + m.z * D }));
-    const slotZ = -86.5, slotY = y0 + MONO_Y - 0.6;
-    // Gehry's folded sheet-metal masses (note 59): each mass is an ellipsoid cut by 9 tilted planes (crisp folds, flat
-    // facets that catch the light differently), slightly sheared, joined with tight blends — no smooth eggs
-    const fr = rng(41);
-    for (const m of masses) { m.planes = []; for (let k = 0; k < 12; k++) { const th = fr() * Math.PI * 2, ph = (fr() - 0.35) * 1.4, n = [Math.cos(th) * Math.cos(ph), Math.sin(ph), Math.sin(th) * Math.cos(ph)], sup = Math.sqrt((n[0] * m.rx) ** 2 + (n[1] * m.ry) ** 2 + (n[2] * m.rz) ** 2); m.planes.push([n, sup * (0.55 + fr() * 0.2)]); } m.shear = (fr() - 0.5) * 0.5; }
-    const one = (x, y, z, m) => {
-        const yy = y - y0, lx = x - m.x + yy * m.shear * 0.3, ly = yy * Math.cos(m.tilt) - lx * Math.sin(m.tilt), lxx = lx * Math.cos(m.tilt) + yy * Math.sin(m.tilt), lz = z - m.z;
-        let dd = sdEllipsoid(lxx, ly, lz, 0, 0, 0, m.rx, m.ry, m.rz);
-        for (const [n, o] of m.planes) dd = smax(dd, lxx * n[0] + ly * n[1] + lz * n[2] - o, 0.15);
-        // a soft crease running across the larger facets (the "crumpled" read)
-        dd += 0.45 * Math.sin(lxx * 0.42 + ly * 0.27 + m.c) * Math.sin(lz * 0.36 - ly * 0.19);
-        return dd;
-    };
-    const sdf = (x, y, z) => {
-        let dd = 1e9; for (const m of masses) dd = smin(dd, one(x, y, z, m), 0.45);
-        dd = smax(dd, -(y - y0), 0.5);                           // cut at the ground
-        dd = smax(dd, -sdBox(x, y, z, (bb.x0 + bb.x1) / 2, slotY + 3.2, slotZ, W, 3.6, 5.2, 0.8), 1.2); // monorail slot through the building
-        return dd;
-    };
-    const IRI = ['#c99a3e', '#a6487a', '#5d3a86'], COLS = [null, '#c3c7cb', '#8cc2e6', '#9e1f26', '#c8963a'];
-    const tmp = new THREE.Color(), tmp2 = new THREE.Color();
-    const t0 = performance.now();
-    const geo = meshSDF(sdf, {
-        min: [bb.x0 - 8, y0 - 0.5, bb.z0 - 8], max: [bb.x1 + 8, y0 + 30, bb.z1 + 8], cell: 0.6, ao: 2.2, lipschitz: 2.6,
-        color: (x, y, z, nx, ny, nz, ao, out) => {
-            let best = 0, bd = 1e9; masses.forEach((m, i) => { const v = one(x, y, z, m); if (v < bd) { bd = v; best = i; } });
-            const m = masses[best];
-            if (m.c === 0) { const t = clamp(0.5 + 0.45 * ny + 0.35 * nx + 0.2 * Math.sin(y * 0.4), 0, 1); out.set(IRI[2]).lerp(tmp.set(IRI[1]), smooth(0.25, 0.55, t)).lerp(tmp2.set(IRI[0]), smooth(0.6, 0.9, t)); }
-            else out.set(COLS[m.c]);
-            // shingle seams: thin darker lines on a 1 m grid following the surface
-            const sx = Math.abs((((x + z) * 0.85) % 1 + 1) % 1 - 0.5), sy = Math.abs(((y * 1.6 + (x - z) * 0.12) % 1 + 1) % 1 - 0.5);
-            if (sx > 0.465 || sy > 0.465) out.multiplyScalar(0.78); // shingled stainless / aluminium panels
-            else out.multiplyScalar(0.96 + 0.08 * Math.sin((x * 3.1 + y * 2.3 + z * 1.7)));
-            out.multiplyScalar(0.94 + 0.12 * noise3(x * 0.6, y * 0.6, z * 0.6));
-            return out.multiplyScalar(0.7 + 0.3 * ao);
-        },
-    });
-    const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, metalness: 0.75, roughness: 0.32, envMapIntensity: 1.3 }));
-    mesh.name = 'mopop'; mesh.castShadow = true; mesh.receiveShadow = true; ctx.add(mesh);
-    // the crumpled stainless "guitar neck" ribbon on top
-    const b = new GeoBatch(), r = rng(5), pts = [];
-    let px = ox + W * 0.45, py = y0 + 24, pz = oz + D * 0.4;
-    void pts; void px; void py; void pz; void r; // (the old floating ribbon is gone: the steel 'guitar' fins are part of the folded masses)
-    // glass entrance on the Needle side
-    b.box(ox + W * 0.12, y0, oz + D * 0.62, 0.4, 7, 14, '#2c3a44', 'glass');
-    ctx.add(b.build('mopop-ribbon'));
-    ctx.collider({ ...polyCollider(fp.poly) });
-    const sign = signBoard('MoPOP', 4.2, 1.1, { bg: '#111', fg: '#ffffff', font: (s) => `800 ${s}px "Helvetica Neue", Arial, sans-serif` });
-    sign.position.set(ox + W * 0.1, y0 + 8.2, oz + D * 0.62 + 7.5); sign.rotation.y = -Math.PI / 2; ctx.add(sign);
-    ctx.extras.mopopMs = Math.round(performance.now() - t0);
-    return { bb, y0, cx: (bb.x0 + bb.x1) / 2, cz: (bb.z0 + bb.z1) / 2 };
-}
-
 // ---------------------------------------------------------------------------- monorail: twin guideways on T-columns + a 4-car train looping through MoPOP
 function buildMonorail(ctx) {
     const g = ctx.ground, b = new GeoBatch(), L = polylineLength(MONO);
@@ -359,16 +287,18 @@ function buildMonorail(ctx) {
 export default {
     env: { fogFar: 4200 },
     async build(ctx) {
+        await prepareSourceContext(ctx,{replaceNativeSourceIds:['r20085315']});
         const g = ctx.ground, d = ctx.data;
         // plaza level around the Needle base (flat), gentle elsewhere
         const plaza = []; for (let i = 0; i < 40; i++) { const a = i / 40 * Math.PI * 2; plaza.push([NEEDLE.x + Math.cos(a) * 34, NEEDLE.z + Math.sin(a) * 34]); }
         g.flatten(plaza, NEEDLE.y, 10);
-        ctx.terrainOpts = { bg: '#8f8b82', bgMask: 'slab', innerPx: 2048, outerPad: 420, skirtY: -42, skirtColor: '#1f333c' };
+        ctx.terrainOpts = { bg: '#8f8b82', bgMask: 'slab', innerPx: 2048, outerPad: 0, skirt: 0 };
+        ctx.treeLod = { cap: Infinity, near: 90, max: 700, force: true };
         { const c = []; for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; c.push([NEEDLE.x + Math.cos(a) * 26, NEEDLE.z + Math.sin(a) * 26]); } ctx.exclude.push(c); } // the Needle's OSM parts → hero model
         const needle = buildNeedle(ctx);
         const chi = buildChihuly(ctx);
-        const mop = buildMoPOP(ctx);
-        const monorail = buildMonorail(ctx);
+        buildMonorail(ctx);
+        mopopMetalMaterial(); // literal source solids remain ordinary museum context
         ctx.osmBackdrop({ paint: {}, style: (b) => MOPOP_PARTS.has(b.id) ? MOPOP_METAL : undefined,
             streetTreeOpts: { spacing: 12, prob: 0.7 }, areaTreeOpts: { conifer: 0.4 } });
         const P = ctx.painter;
@@ -376,40 +306,25 @@ export default {
         // Howard S. Wright Memorial Fountain: shallow pool south of the base
         { const fw = d.areas.find((a) => a.id === 'w241876412'); if (fw) { const c = centroid(fw.poly), w = new THREE.Mesh(new THREE.CircleGeometry(4.2, 32), new THREE.MeshStandardMaterial({ color: '#3d6f80', roughness: 0.05, metalness: 0.3 })); w.rotation.x = -Math.PI / 2; w.position.set(c[0], g.heightAt(c[0], c[1]) + 0.06, c[1]); ctx.add(w); } }
         // the city around the grounds (seen from the deck: 360°) — real towers, blocks, ground, Elliott Bay + ferries, mountains
-        { const W = Object.values(d.spots).flatMap((sp) => sp.extent?.polygon || []), xs = W.map((p) => p[0]), zs = W.map((p) => p[1]), m8 = (v) => Math.round(v / 8) * 8, OUT = 420;
-          const hole = { x0: m8(Math.min(...xs) - 60) - OUT + 16, z0: m8(Math.min(...zs) - 60) - OUT + 16, x1: m8(Math.max(...xs) + 60) + OUT - 16, z1: m8(Math.max(...zs) + 60) + OUT - 16 };
-          ctx.extras.seaBackdrop = seaBackdrop(ctx, { needle: false, clear: 380, eyeY: 1.6, midrise: 1800, midClear: 420, midBox: [47.596, -122.375, 47.645, -122.31],
-            ground: { box: { x0: -4000, z0: -3600, x1: 4000, z1: 3600 }, hole, step: 24, simplify: 0.025, omitSubmerged: true }, trees: 2600, treeClear: 420, lake: true }); }
+        addSourceContext(ctx);
+        ctx.extras.seaBackdrop = seaBackdrop(ctx, { needle: false, towers: false, bay: false, clear: 380, eyeY: 1.6 });
         // 5th Ave / Broad St traffic
         addTraffic(ctx, { lanes: [{ pts: [[129, 160], [129, -20], [129, -174], [130, -219], [124, -305]], n: 3, speed: 10 }, { pts: [[124, -305], [130, -219], [129, -174], [129, -20], [129, 160]].map(([x, z]) => [x - 5, z]), n: 3, speed: 10 }, { pts: [[7, 120], [18, 108], [40, 83], [79, 34], [103, 6], [129, -20]], n: 2, speed: 10 }] });
-        // ---- plaques (Needle 5, Chihuly 3, MoPOP 4) with artist / architect credits
+        // ---- plaques (Needle 5, Chihuly 3) with artist / architect credits
         const S = d.spots, needleY = NEEDLE.y;
         S['space-needle'].plaques.forEach((pl, i) => { const a = Math.PI / 2 + (i - 2) * 0.32, r = 26; ctx.plaque(pl, NEEDLE.x + Math.cos(a) * r, NEEDLE.z + Math.sin(a) * r, a - Math.PI / 2 + Math.PI, { credit: i === 0 ? 'Space Needle (1962): John Graham Jr., Edward E. Carlson, Victor Steinbrueck.' : null }); });
         S['chihuly'].plaques.forEach((pl, i) => ctx.plaque(pl, chi.bb.x0 - 6 - i * 4, chi.bb.z1 + 6, Math.PI, { credit: 'Glass © Dale Chihuly — modelled in 3-D from public descriptions.', style: 'city' }));
-        S['mopop'].plaques.forEach((pl, i) => ctx.plaque(pl, mop.bb.x0 - 6, mop.bb.z0 + 30 + i * 4, -Math.PI / 2, { credit: 'Building: Frank O. Gehry (2000). Artworks nearby © their artists.', style: 'city' }));
         void needleY;
         // ---- challenges
         ctx.challenge('space-needle', { r: 16, tol: 45, pitch: 60, cond: (s) => s.camera.getWorldDirection(new THREE.Vector3()).y > 0.42, condHint: 'Look straight up the legs.' });
-        ctx.challenge('chihuly', { x: chi.cx - 2.5, z: chi.cz + 7, heading: 60, r: 12, tol: 80, pitch: 38, cond: (s) => s.camera.getWorldDirection(new THREE.Vector3()).y > 0.3, condHint: 'Stand inside the Glasshouse and look up through the sculpture.' });
         // Visitor exercises use actual looking and shutters. Their guide rings
         // are temporary game aids, not invented museum hardware.
-        ctx.extras.chihulyFraming = photoHunt(ctx, { x: chi.cx + 3, z: chi.cz, spot: 'chihuly', title: 'Frame the suspended sculpture',
+        ctx.extras.chihulyFraming = photoHunt(ctx, { x: chi.cx + 3, z: chi.cz, spot: 'space-needle', title: 'Frame the Chihuly suspended sculpture',
             unavailable: 'Dale Chihuly’s suspended forms are modelled from public descriptions.',
             targets: [.2, .5, .8].map((t, i) => ({ label: ['North hanging forms', 'Central hanging forms', 'South hanging forms'][i], x: chi.cx - 1, y: chi.y0 + chi.H - 4.6, z: lerp(chi.bb.z0 + 3, chi.bb.z1 - 3, t), radius: .65, surfaceTolerance: 1.2, holdSeconds: .35 })),
-            onDone: s => seaActivity(s, 'lm-chihuly-glasshouse', 'chihuly', '🌺 Glasshouse details framed', 'You framed three parts of Dale Chihuly’s suspended sculpture using your own camera view.') });
-        const lead = monorail.cars[0];
-        // Use the south end of the mapped west pedestrian edge. Looking along
-        // the beam from its crossing hid the car behind the concrete guideway.
-        // The visible approach ends at the actual museum-side source edge;
-        // retained building volumes still occlude the train once it enters.
-        ctx.extras.monorailFraming = photoHunt(ctx, { x: 29.6, z: -61.4, spot: 'mopop', title: 'Frame the Monorail passing MoPOP',
-            unavailable: 'Watch from mapped public pedestrian way w394955940. The animated train follows a shortened scene loop.',
-            targets: [{ label: 'The moving leading car at the museum passage', get x() { return lead.position.x; }, get y() { return lead.position.y + .35; }, get z() { return lead.position.z; }, radius: 1.1, featureName: 'monorail-leading-car', surfaceTolerance: .5, holdSeconds: .6,
-                available: () => lead.position.x > 30 && lead.position.x < 49 && lead.position.z > -93 && lead.position.z < -70, waitHint: 'Wait for the train approaching the passage' }],
-            onDone: s => seaActivity(s, 'lm-mopop-monorail', 'mopop', '🚝 Monorail framed in motion', 'You tracked the moving train at MoPOP and captured it from the public path.') });
-        ctx.challenge('mopop', { view: [mop.cx, mop.cz], r: 30, tol: 40, cond: (s) => { const t = s.spot.ctx.extras.trainPos; return t && Math.hypot(t.x - mop.cx, t.z - mop.cz) < 70; }, condHint: 'Wait for the Monorail to pass through the building.' });
+            onDone: s => seaActivity(s, 'lm-chihuly-glasshouse', 'space-needle', '🌺 Glasshouse details framed', 'You framed three parts of Dale Chihuly’s suspended sculpture using your own camera view.') });
         // ---- spawns (research)
-        for (const id of ['space-needle', 'chihuly', 'mopop']) { const sp = S[id].spawn; ctx.spawns[id] = { x: sp.x, z: sp.z, heading: headingFromBearing(sp.heading_deg) }; }
+        for (const id of ['space-needle', 'chihuly']) { const sp = S[id]?.spawn; if (sp) ctx.spawns[id] = { x: sp.x, z: sp.z, heading: headingFromBearing(sp.heading_deg) }; }
         // Arrive on the mapped public approach, 8.3 m from the entrance;
         // the fountain/photo arrival remains freely reachable to the south.
         ctx.spawns['space-needle'] = { x: 0.2, z: 27.2, heading: 0 };
@@ -427,7 +342,6 @@ export default {
                 { x: chi.cx, z: chi.cz, r: 6, n: 8, act: 'photo', look: [chi.cx, chi.cz], y: chi.y0, personas: ['tourist_us', 'tourist_kr', 'tourist_jp', 'tourist_cn', 'photographer'] },
                 { x: chi.sunC.x + 7, z: chi.sunC.z + 2, r: 2, n: 4, act: 'watch', look: [chi.sunC.x, chi.sunC.z], personas: ['tourist_us', 'tourist_de', 'kid'] },
                 { x: chi.bb.x1 + 4, z: chi.cz + 12, r: 0.3, n: 1, act: 'watch', look: [chi.bb.x1 + 10, chi.cz + 12], personas: ['staff'] },
-                { x: mop.bb.x0 - 8, z: mop.cz + 6, r: 3, n: 6, act: 'photo', look: [mop.cx, mop.cz], personas: ['tourist_us', 'tourist_es', 'tech', 'local'] },
                 { x: 111.3, z: -73.5, r: 1.2, n: 3, act: 'watch', look: [111.3, -76], personas: ['local', 'tourist_us'] },
                 { x: -20, z: -78, r: 3, n: 6, act: 'watch', look: [-40, -86], personas: ['tourist_us', 'local', 'tech', 'kid'] },
             ],

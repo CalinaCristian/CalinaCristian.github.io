@@ -17,14 +17,14 @@ import { Crowd } from './people.js';
 import { SpotUI, SpotMap, plaqueMesh } from './ui.js';
 import { SpotSound } from './sound.js';
 import { colliderIndex, LocalWalker, collide } from './walker.js';
-import { findWalkPath, pathLength, walkHeight, walkSegment, withMovingBodies } from './tour.js';
+import { findWalkPath, pathLength, walkHeight, walkSegment, withMovingBodies, walkingLevelGround, TOUR_WALK_LIMIT_M } from './tour.js';
 import { countTris, disposeTree, headingFromBearing, inPoly, polyBox, DEG, rng, distPolyline } from './kit.js';
 
 // ---------------------------------------------------------------------------- registry (Seattle 10 + Bellevue 4; Bucharest added by its builder)
 export const SPOTS_ALL = [
     { id: 'pike-place', city: 'seattle', name: 'Pike Place Market & the Gum Wall', lat: 47.60897, lon: -122.33987, kind: 'walk', scene: 'pike-place', blurb: 'Seattle\'s 1907 public market under the red PUBLIC MARKET CENTER neon sign: flying fish, Rachel the bronze pig, the original Starbucks and the Gum Wall in Post Alley.' },
     { id: 'chihuly', city: 'seattle', name: 'Chihuly Garden and Glass', lat: 47.6204, lon: -122.3504, kind: 'walk', scene: 'seattle-center', blurb: 'Dale Chihuly\'s glass art at the foot of the Space Needle: the Glasshouse with its 100-ft red-orange-yellow suspended sculpture and a garden of glass among plants.' },
-    { id: 'space-needle', city: 'seattle', name: 'Space Needle & Seattle Center', lat: 47.61995, lon: -122.34935, kind: 'walk', scene: 'seattle-center', blurb: 'The 605-ft (184 m) 1962 World\'s Fair tower with its flying-saucer top and the Seattle Center grounds at its feet.' },
+    { id: 'space-needle', city: 'seattle', name: 'Seattle Center · Space Needle & Chihuly', lat: 47.61995, lon: -122.34935, kind: 'walk', scene: 'seattle-center', blurb: 'One Seattle Center visit: ride the Space Needle elevator, explore the observation deck and discover the Chihuly garden.' },
     { id: 'fremont-troll', city: 'seattle', name: 'Fremont Troll', lat: 47.6506, lon: -122.34722, kind: 'walk', scene: 'fremont-troll', blurb: 'An 18-ft (5.5 m) concrete troll crouching under the north end of the Aurora Bridge, crushing a real Volkswagen Beetle in its left hand.' },
     { id: 'kerry-park', city: 'seattle', name: 'Kerry Park viewpoint', lat: 47.6295, lon: -122.3601, kind: 'walk', scene: 'kerry-park', blurb: 'A small terrace on Queen Anne Hill with Seattle\'s postcard view: the Space Needle in front of downtown, Elliott Bay, and Mount Rainier on clear days.' },
     { id: 'mopop', city: 'seattle', name: 'Museum of Pop Culture (MoPOP)', lat: 47.6216, lon: -122.3474, kind: 'walk', scene: 'seattle-center', blurb: 'Frank Gehry\'s "smashed guitar" of 21,000 stainless-steel and painted-aluminium shingles, with the Monorail gliding straight through it.' },
@@ -38,14 +38,14 @@ export const SPOTS_ALL = [
     // ---- Bucharest (research: game/research/bucharest-spots.json; scenes share a module when adjacent)
     { id: 'palace-parliament', city: 'bucharest', name: 'Palace of the Parliament & Piața Constituției', lat: 44.42741, lon: 26.09205, kind: 'walk', scene: 'buc-parliament', blurb: 'The heaviest building on Earth, seen from the vast square at the head of Bulevardul Unirii: 270 m of cream stone façade, 84 m tall, built 1984–97.' },
     { id: 'peoples-salvation-cathedral', city: 'bucharest', name: 'People\'s Salvation Cathedral', lat: 44.42528, lon: 26.08135, kind: 'walk', scene: 'buc-parliament', blurb: 'The tallest Orthodox church in the world (127 m), white stone and gilded domes on the hill behind the Palace of the Parliament; consecrated 2018–2025.' },
-    { id: 'old-town-lipscani', city: 'bucharest', name: 'Old Town: Lipscani & Cărturești Carusel', lat: 44.43218, lon: 26.10100, kind: 'walk', scene: 'buc-old-town', blurb: 'The pedestrian medieval core: guild-named lanes full of terraces, the white "carousel" bookshop, the 1808 Manuc\'s Inn and Vlad the Impaler\'s princely court.' },
+    { id: 'old-town-lipscani', city: 'bucharest', name: 'Old Town · clubs, Carusel & a hidden bar', lat: 44.43218, lon: 26.10100, kind: 'walk', scene: 'buc-old-town', blurb: 'A short Lipscani–Smârdan night out: dance at Freddo, pour a virtual shot, browse Carusel and find the secret sports room.' },
     { id: 'stavropoleos-cec', city: 'bucharest', name: 'Stavropoleos, Caru\' cu Bere & CEC Palace', lat: 44.43212, lon: 26.09830, kind: 'walk', scene: 'buc-old-town', blurb: 'A tiny 1724 Brâncovenesc jewel of a church between a neo-Gothic beer hall, the domed CEC Palace and the National History Museum.' },
     { id: 'athenaeum-revolution', city: 'bucharest', name: 'Romanian Athenaeum & Piața Revoluției', lat: 44.44085, lon: 26.09765, kind: 'walk', scene: 'athenaeum-revolution', blurb: 'The domed 1888 concert hall in its garden, and the square where the December 1989 revolution began under the Central Committee balcony.' },
     { id: 'arcul-de-triumf', city: 'bucharest', name: 'Arcul de Triumf', lat: 44.46632, lon: 26.07850, kind: 'walk', scene: 'arcul-de-triumf', blurb: 'Bucharest\'s 27 m granite triumphal arch (1936) for the First World War and the 1918 union, in a busy roundabout on Șoseaua Kiseleff.' },
     { id: 'village-museum', city: 'bucharest', name: 'Dimitrie Gusti National Village Museum', lat: 44.47085, lon: 26.07800, kind: 'walk', scene: 'buc-herastrau', blurb: 'A whole Romanian village of real wooden houses, wells and churches moved to the shore of Lake Herăstrău in 1936, with the 1722 church from Dragomirești.' },
     { id: 'herastrau-park', city: 'bucharest', name: 'King Michael I (Herăstrău) Park', lat: 44.46985, lon: 26.08310, kind: 'walk', scene: 'buc-herastrau', blurb: 'Bucharest\'s biggest park: an alley of stone busts of writers and composers, the Sleeping Nymph, a Japanese garden and the south tip of Lake Herăstrău.' },
     { id: 'spring-palace', city: 'bucharest', name: 'Spring Palace (Ceaușescu Mansion)', lat: 44.46850, lon: 26.09235, kind: 'walk', scene: 'spring-palace', blurb: 'The Ceaușescus\' private home for 24 years on a quiet villa boulevard: a cream 1960s mansion with a mosaic pool wing — and peacocks in the garden.' },
-    { id: 'cismigiu', city: 'bucharest', name: 'Cișmigiu Gardens', lat: 44.43700, lon: 26.09120, kind: 'walk', scene: 'cismigiu', blurb: 'Bucharest\'s oldest public garden (1847–54): rowing boats on a winding lake, weeping willows, chess players and the Writers\' Rotunda.' },
+    { id: 'cismigiu', city: 'bucharest', name: 'Cișmigiu Gardens', lat: 44.43700, lon: 26.09120, kind: 'walk', scene: 'cismigiu', blurb: 'Bucharest\'s oldest public garden (1847–54): row on the winding lake and play table — backgammon — against a park regular.' },
     { id: 'bel-meydenbauer', city: 'seattle', area: 'bellevue', name: 'Meydenbauer Bay Park', lat: 47.6106, lon: -122.2108, kind: 'walk', scene: 'bel-meydenbauer', blurb: 'Bellevue\'s lakefront: a sandy beach and a floating 420-ft crescent pier on Lake Washington with Seattle on the horizon.' },
 ];
 /** spots still being built: loadable by id (dev page) but not listed in SPOTS / the game menu until verified */
@@ -56,14 +56,17 @@ export const DEV_SPOTS = [
  * `game.emit('activity', { spot, id })` / `dmcv:activity` when one is completed. Scene lanes: ask spots-core to add yours.
  */
 export const ACTIVITIES = [
-    ['cismigiu', 'rowboat', 'Row a boat on the lake'], ['cismigiu', 'chess', 'Play a chess opening'], ['cismigiu', 'rotunda', 'Visit the Writers\' Rotunda'],
+    ['cismigiu', 'rowboat', 'Row a boat on the lake'], ['cismigiu', 'backgammon', 'Beat Doru at backgammon'], ['cismigiu', 'rotunda', 'Visit the Writers\' Rotunda'],
     ['herastrau-park', 'boat', 'Boat on Lake Herăstrău'], ['village-museum', 'farmhouse', 'Collect a virtual household passport'],
     ['old-town-lipscani', 'wcp-bar', 'Hidden project'],
+    ['old-town-lipscani', 'freddo-dance', 'Find your rhythm at Freddo'], ['old-town-lipscani', 'freddo-shot', 'Pour, toast and drink at Freddo'],
     ['old-town-lipscani', 'carusel', 'Climb Cărturești Carusel'], ['old-town-lipscani', 'curtea-veche', 'Old Princely Court'],
     ['old-town-lipscani', 'dristor-shaorma', 'Eat a shaorma at Dristor Kebap'], ['old-town-lipscani', 'shoteria-shot', 'Pour, toast and drink at Shoteria'],
     ['palace-parliament', 'balcony', 'Frame the Palace facade'], ['palace-parliament', 'pace', 'Walk the public Palace sidewalk'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
     ['bel-meydenbauer', 'pier-end', 'Walk to the end of the pier'], ['bel-meydenbauer', 'kayak', 'Kayak on Meydenbauer Bay'], ['bel-downtown-park', 'loop', 'Walk the park loop'],
     ['bel-botanical-garden', 'bridge', 'Cross the suspension bridge'], ['bel-lincoln-square', 'badge-in', 'Frame Lincoln Square'],
+    ['space-needle', 'lm-chihuly-glasshouse', 'Explore the Glasshouse details'],
+    ['arcul-de-triumf', 'arcul-race', 'Win the island race'], ['arcul-de-triumf', 'arcul-baguette', 'Catch the baguette three times'],
 ].map(([spot, id, title]) => ({ spot, id, title }));
 /**
  * READY retains historical side-by-side review records. MENU_AVAILABLE separately
@@ -144,7 +147,7 @@ class SceneContext {
         const d = this.data, ex = [...this.exclude, ...(o.exclude || [])];
         this.ground.settle?.(o.settle);
         paintOSM(this.painter, d, { skipWays: this.skipWays, skipAreas: this.skipAreas, skipBuildings: this.skipBuildings, ...o.paint });
-        const B = buildBuildings(d, this.ground, { skip: this.skipBuildings, preserveSources:o.preserveSources, exclude: ex, urban: o.urban ?? true, style: o.style, filter: o.filter, shopStyle: o.shopStyle });
+        const B = buildBuildings(d, this.ground, { skip: this.skipBuildings, preserveSources:o.preserveSources, wallOpenings:o.wallOpenings, exclude: ex, urban: o.urban ?? true, style: o.style, filter: o.filter, shopStyle: o.shopStyle });
         this.add(B.group); this.colliders.push(...B.colliders); this.extras.buildings = B;
         if (o.trees !== false) {
             this.trees.push(...d.trees.filter(([x, z]) => !ex.some((p) => inPoly(x, z, p))).map(([x, z, lt]) => ({ x, z, kind: lt === 'needleleaved' ? 'con' : 'broad' })));
@@ -233,10 +236,10 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         const cap = ctx.treeLod.cap ?? 4500; if (ctx.trees.length > cap) { for (const t of ctx.trees) t._d = dist(t); ctx.trees.sort((a, b) => a._d - b._d); ctx.trees.length = cap; }
     }
     { const cut = globalThis.__spotsLegacy ? [] : ctx.trees.filter((t) => !t.keepOnRoad && ctx.onRoad(t.x, t.z, 0.2)); ctx.trees = ctx.trees.filter((t) => !cut.includes(t)); ctx.extras.clippedOnRoad = { trees: cut.length, treeSamples: cut.slice(0, 6).map((t) => [Math.round(t.x), Math.round(t.z)]) }; }
-    const trees = buildTrees(ctx.trees, ctx.ground, { seed: data.id.length, lod: ctx.treeLod ? { near: ctx.treeLod.near ?? 90, max: ctx.treeLod.max ?? 700 } : null });
+    const trees = buildTrees(ctx.trees, ctx.ground, { seed: data.id.length, lod: ctx.treeLod ? { near: ctx.treeLod.near ?? 90, max: ctx.treeLod.max ?? 700, force: ctx.treeLod.force } : null });
     if (trees.update) {
         const v = new THREE.Vector3();
-        ctx.updaters.push((dt, s) => { s.camera.getWorldPosition(v); trees.update(v.x, v.z); });
+        ctx.updaters.push((dt, s) => { s.camera.getWorldPosition(v); trees.update(v.x, v.z, v.y); });
         const sp0 = Object.values(ctx.spawns)[0] || data.spots[data.members[0]].spawn; trees.update(sp0.x, sp0.z);
     }
     ctx.add(trees.group); ctx.colliders.push(...trees.colliders); ctx.crownMeshes.push(...trees.crowns);
@@ -289,7 +292,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         ctx.add(crowd.group);
         void sp;
     }
-    const vegetation = { treeCrownMeshes: ctx.crownMeshes, grassMaterials: ctx.grassMaterials, groundMaterials: terr.materials, roofMaterials: ctx.roofMaterials };
+    const vegetation = { treeCrownMeshes: ctx.crownMeshes, grassMaterials: ctx.grassMaterials, groundMaterials: [...terr.materials, ...(ctx.extras.sourceGroundMaterials || [])], roofMaterials: ctx.roofMaterials };
     ctx.scene.userData.vegetation = vegetation;
     const tris = countTris(ctx.scene);
     const city = CITIES[entry.city] || CITIES.seattle;
@@ -337,7 +340,9 @@ export class SpotSession {
     }
     async start() {
         const { spot, host } = this, r3d = this.r3d, cam = this.camera;
-        cam.near = 0.25; // on foot: render's depth-precision test (note 55) cam.far = Math.max(cam.far, 9000); cam.updateProjectionMatrix();
+        cam.near = 0.25; // on foot: render's depth-precision test (note 55)
+        cam.far = Math.max(cam.far, Number.isFinite(spot.env.cameraFarM) ? spot.env.cameraFarM : 9000);
+        cam.updateProjectionMatrix();
         const T = [performance.now()];
         if (host.season !== undefined) r3d.setSeason(host.season === 'auto' ? null : host.season);
         r3d.setScene(spot.scene, cam, spot.env, { units: spot.units, vegetation: spot.vegetation,
@@ -353,6 +358,7 @@ export class SpotSession {
         this.ctl = Ctl ? new Ctl(opts) : new LocalWalker(opts);
         this.walkerKind = Ctl ? 'OnFootController' : 'LocalWalker';
         const sp = spot.spawn; this.ctl.enter(sp.x, sp.z, sp.heading, sp.y);
+        if (Number.isFinite(sp.pitch)) { this.ctl.pitch = Math.max(-1.3, Math.min(1.3, sp.pitch)); this.ctl.place(); }
         r3d.setPlayer(this.ctl);
         if (this.input) this.input.lookAllowed = true;
         // UI + sound
@@ -380,25 +386,35 @@ export class SpotSession {
     /** everything worth finding in this scene: { kind, x, z, label, done, icon? } (landmarks, plaques, postcard, activities, entrances) */
     objectives() {
         const S = this.spot, out = [], P = this.progress, read = P.plaques || {};
-        for (const mid of S.data.members || []) { const e = spotById(mid), d = S.data.spots[mid]; if (!e || !d) continue;
+        for (const mid of S.data.members || []) { const e = spotById(mid), d = S.data.spots[mid]; if (!e || !d || mid !== S.id && !e.available) continue;
             const ch = S.challenges.find((c) => c.id === mid), ext = d.extent?.polygon?.length ? polyBox(d.extent.polygon) : null;
             // the spot itself (its extent centre, else the postcard stand / spawn) — not ch.view, the point the postcard
             // looks AT (Kerry Park: downtown, 1.2 km away — the tour walked you into the city; after round 6)
-            const hx = ext ? (ext.x0 + ext.x1) / 2 : ch?.x ?? d.spawn?.x ?? 0, hz = ext ? (ext.z0 + ext.z1) / 2 : ch?.z ?? d.spawn?.z ?? 0;
+            let hx = ext ? (ext.x0 + ext.x1) / 2 : ch?.x ?? d.spawn?.x ?? 0, hz = ext ? (ext.z0 + ext.z1) / 2 : ch?.z ?? d.spawn?.z ?? 0;
+            const boundary = S.ctx.extras.walkBoundary;
+            if (boundary && !boundary.inside(hx, hz)) {
+                const arrival = S.spawns?.[mid] || d.spawn;
+                if (!arrival || !boundary.inside(arrival.x, arrival.z)) continue;
+                hx = arrival.x; hz = arrival.z;
+            }
             out.push({ kind: 'hero', id: mid, x: hx, z: hz, label: e.name, blurb: e.blurb, done: !!this._seen?.has('hero:' + mid) }); }
-        for (const [k, sp] of Object.entries(S.spawns || {})) if (Object.keys(S.spawns).length > 1) out.push({ kind: 'entrance', x: sp.x, z: sp.z, label: 'Entrance: ' + (spotById(k)?.name || k), done: true, noTour: true });
+        const entrances = Object.entries(S.spawns || {}).filter(([k]) => k === S.id || spotById(k)?.available);
+        for (const [k, sp] of entrances) if (entrances.length > 1) out.push({ kind: 'entrance', x: sp.x, z: sp.z, label: 'Entrance: ' + (spotById(k)?.name || k), done: true, noTour: true });
         for (const pl of S.plaques) out.push({ kind: 'plaque', x: pl.x, z: pl.z, label: pl.title, text: pl.text, done: !!read[S.sceneId + ':' + pl.title], plaque: pl });
-        for (const c of S.challenges) out.push({ kind: 'postcard', id: c.id, challenge: c, x: c.x, z: c.z, label: 'Postcard photo: ' + (spotById(c.id)?.name || 'the iconic view'), text: c.text, done: !!P.postcards?.[c.id] });
+        for (const c of S.challenges) if (c.id === S.id || spotById(c.id)?.available) out.push({ kind: 'postcard', id: c.id, challenge: c, x: c.x, z: c.z, label: 'Postcard photo: ' + (spotById(c.id)?.name || 'the iconic view'), text: c.text, done: !!P.postcards?.[c.id] });
         const acts = [];
         for (const it of S.interactables) { if (it.kind === 'plaque' || it.kind === 'guide' || it.kind === 'talk' || it.hidden) continue; const lb = typeof it.label === 'function' ? it.label(this) : it.label; if (!lb) continue;
-            acts.push({ kind: it.kind === 'bike' ? 'bike' : 'activity', interaction: it, x: it.x, z: it.z, full: lb, done: false }); }
+            acts.push({ kind: it.kind === 'bike' ? 'bike' : 'activity', interaction: it, noTour: !!it.noTour, x: it.x, z: it.z, full: lb, done: false }); }
         // short labels; activities sharing a "Verb: name" prefix (≥ 3, e.g. the Village Museum houses) become one group objective
         const pre = (l) => (/^([^:—]{3,40}):\s*(.+)$/.exec(l) || null), count = {};
         for (const a of acts) { const m = pre(a.full); if (m) count[m[1]] = (count[m[1]] || 0) + 1; }
         for (const a of acts) { const m = pre(a.full);
             if (m && count[m[1]] >= 3) { a.group = groupName(m[1]); a.name = m[2]; a.label = shortLabel(m[2]); }
             else { a.name = a.full; a.label = shortLabel(a.full.split(' — ')[0]); } out.push(a); }
-        for (const o of out) { if (!o.name) o.name = o.label; o.short = o.short || shortLabel(o.label); }
+        for (const o of out) {
+            if (!o.name) o.name = o.label; o.short = o.short || shortLabel(o.label);
+            o.floorY = S.ground.groundAt(o.x, o.z, o.interaction?.y ?? S.ground.heightAt(o.x, o.z) + 1.2);
+        }
         return out;
     }
     _initMap() {
@@ -443,7 +459,7 @@ export class SpotSession {
             if (m.group) { let g = groups.get(m.group); if (!g) { g = { icon: ICONS[m.kind] || '•', label: m.group, members: [], kind: m.kind }; groups.set(m.group, g); items.push(g); } g.members.push(m); continue; }
             items.push({ icon: ICONS[m.kind] || '•', label: m.short || m.label, done: m.done, kind: m.kind, marker: m }); }
         for (const g of groups.values()) { const d = g.members.filter((m) => m.done).length; g.label = `${g.label} (${d}/${g.members.length})`; g.done = d === g.members.length; }
-        await this.ui.showMap(this.map, { title: this.spot.name, items, tour: this.guide ? { label: this.tour && this.tour.state !== 'done' ? 'End the guided tour' : '🚩 Short guided tour · up to 3 stops', run: () => { if (this.tour && this.tour.state !== 'done') this.endTour(); else { this.endTour(); this.startTour(); } } } : null });
+        await this.ui.showMap(this.map, { title: this.spot.name, items, navigate: {set: target => this.setWaypoint(target),clear:()=>this.clearWaypoint()}, tour: this.guide ? { label: this.tour && this.tour.state !== 'done' ? 'End the guided tour' : '🚩 Short guided tour · up to 3 stops', run: () => { if (this.tour && this.tour.state !== 'done') this.endTour(); else { this.endTour(); this.startTour(); } } } : null });
         if (this.input) { this.input.lookAllowed = true; this.input.flush?.(); this.input.keys?.clear?.(); }
         this.returnFocus();
     }
@@ -461,7 +477,39 @@ export class SpotSession {
         const bodies=[...(this.spot.crowd?.obstacles((ax+bx)/2,(az+bz)/2,range)||[]),...(this.spot.ctx.extras.obstacles?.()||[])];
         return withMovingBodies(this.spot.colliders,bodies,this.guide);
     }
-    _navPath(ax, az, bx, bz, opts = {}) { return findWalkPath(this.spot.ground, this._navColliders(ax,az,bx,bz), ax, az, bx, bz, opts); }
+    _navigationGround(x = this.ctl?.x, z = this.ctl?.z, y = this.ctl?.y) {
+        const g=walkingLevelGround(this.spot.ground,x,z,y),boundary=this.spot.ctx.extras.walkBoundary;
+        if(!boundary)return g;
+        const view=Object.create(g);view.walkInside=(x,z)=>boundary.inside(x,z);return view;
+    }
+    _navPath(ax, az, bx, bz, opts = {}) {
+        const ground = this._navigationGround(ax, az, opts.startY ?? this.ctl?.y);
+        if (Number.isFinite(opts.targetY)) {
+            const endY = ground.groundAt(bx, bz, ground.heightAt(bx, bz) + 1.2);
+            if (!Number.isFinite(endY) || Math.abs(endY - opts.targetY) > .55) return null;
+        }
+        return findWalkPath(ground, this._navColliders(ax,az,bx,bz), ax, az, bx, bz, opts);
+    }
+    setWaypoint(target) {
+        if(!Number.isFinite(target?.x)||!Number.isFinite(target?.z))return{message:'Choose a point on the map.'};
+        const p=this.position,ground=this._navigationGround(p.x,p.z,this.ctl?.y ?? p.y);
+        let floorY=target.floorY ?? ground.groundAt(target.x,target.z,this.ctl?.y ?? p.y);
+        if(!Number.isFinite(floorY))floorY=this.spot.ground.groundAt(target.x,target.z,this.spot.ground.heightAt(target.x,target.z)+1.2);
+        this.waypoint={x:target.x,z:target.z,floorY,label:target.name||target.label||'Custom waypoint',radius:target.interaction?Math.max(.4,(target.interaction.r||2)-.4):1.5};
+        this._waypointFrom=null;this._updateWaypoint(true);
+        return{message:`Waypoint: ${this.waypoint.label}. ${this._waypointPath?'Follow the blue route.':'No walking route on this level. Use the stairs or choose another approach.'}`};
+    }
+    clearWaypoint(){this.waypoint=null;this._waypointPath=null;this.map?.setWaypoint(null);this.ui.setWaypoint(null);}
+    _updateWaypoint(force=false){
+        const w=this.waypoint;if(!w)return;const p=this.position,y=this.ctl?.y ?? p.y,d=Math.hypot(w.x-p.x,w.z-p.z),arrived=d<=w.radius+1&&Number.isFinite(w.floorY)&&Math.abs(y-w.floorY)<=.75;
+        if(force||!this._waypointFrom||Math.hypot(p.x-this._waypointFrom.x,p.z-this._waypointFrom.z)>3||Math.abs(y-this._waypointFrom.y)>.55){
+            this._waypointFrom={x:p.x,z:p.z,y};
+            this._waypointPath=arrived?null:this._navPath(p.x,p.z,w.x,w.z,{radius:w.radius,maxLength:600,startY:y,targetY:w.floorY});
+            this.map?.setWaypoint(w,this._waypointPath);
+        }
+        const turn=Math.atan2(-(w.x-p.x),-(w.z-p.z))-(this.ctl.heading||0),direction=['↑','↖','←','↙','↓','↘','→','↗'][(Math.round(turn/(Math.PI/4))%8+8)%8];
+        this.ui.setWaypoint({...w,direction,distance:d,arrived,routed:!!this._waypointPath,clear:()=>this.clearWaypoint()});
+    }
     /** Optional quick visit: one activity first, a nearby fact, then this spot's postcard; all content remains on the map. */
     startTour() {
         if (!this.guide || this.tour) return;
@@ -475,20 +523,23 @@ export class SpotSession {
             return !it || ((!it.cond || it.cond(this)) && (!it.tourAvailable || it.tourAvailable(this)) && Math.abs((it.y ?? this.ctl.y) - this.ctl.y) < 3);
         };
         const objs = this.objectives().filter((m) => !m.noTour && m.kind !== 'entrance' && near(m));
-        const stops = []; let x = this.guide.x, z = this.guide.z, walked = 0;
+        const stops = []; let x = this.guide.x, z = this.guide.z, y = this.guide.y, walked = 0;
         const addNearest = (pool) => {
             // A detour counts against the budget before the stop enters the itinerary.
             for (const m of pool.sort((a, b) => Math.hypot(a.x - x, a.z - z) - Math.hypot(b.x - x, b.z - z))) {
                 const radius = m.interaction ? Math.min(1.5, Math.max(0.4, (m.interaction.r || 2) - 0.4)) : m.kind === 'postcard' ? Math.min(2, (m.challenge.r || 8) - 0.4) : 1.5;
-                const path = this._navPath(x, z, m.x, m.z, { radius, maxLength: 180 - walked });
+                const path = this._navPath(x, z, m.x, m.z, { radius, maxLength: TOUR_WALK_LIMIT_M - walked, startY: y, targetY: m.floorY });
                 if (!path) continue;
                 const end = path.at(-1); m.tx = end[0]; m.tz = end[1]; m.path = path; m.radius = radius;
-                m.done = false; stops.push(m); walked += pathLength(path); x = m.tx; z = m.tz; return true;
+                m.done = false; stops.push(m); walked += pathLength(path); x = m.tx; z = m.tz; y = this.spot.ground.groundAt(x,z,y); return true;
             }
             return false;
         };
         const active = objs.filter((m) => ['activity', 'bike'].includes(m.kind));
-        if (!addNearest(active)) addNearest(objs.filter((m) => m.kind === 'hero'));
+        if (!addNearest(active)) {
+            this.ui.toast('No activity route right now', 'Choose an activity on M and explore freely. The guide could not find a safe short route to an available activity.');
+            return false;
+        }
         addNearest(objs.filter((m) => m.kind === 'plaque'));
         addNearest(objs.filter((m) => m.kind === 'postcard'));
         if (!stops.length) { this.ui.toast('No short walking route', 'Explore freely with M. The guide could not find a safe route from here.'); return false; }
@@ -502,7 +553,7 @@ export class SpotSession {
         const T = this.tour; if (!T) return this.ui.setTour(null);
         const st = T.stops[T.i], done = T.state === 'done';
         this.ui.setTour({ title: done ? (T.skipped ? 'Tour ended' : 'Tour complete') : 'Short guided tour', i: T.i, n: T.stops.length, done,
-            stop: st ? (st.short || shortLabel(st.label)) : '', text: T.narr || '', dots: T.stops.map((m, k) => (m.skipped ? 3 : k < T.i ? 1 : k === T.i ? 2 : 0)),
+            stop: st ? st.label : '', text: T.narr || '', dots: T.stops.map((m, k) => (m.skipped ? 3 : k < T.i ? 1 : k === T.i ? 2 : 0)),
             skip: done ? null : () => this.skipTourStop(), end: () => this.endTour() });
     }
     endTour() {
@@ -510,12 +561,30 @@ export class SpotSession {
         if (this.guide) { this.guide.speed = 0; this.guide.sayCd = 5; }
         this.tour = null; this._tourUI(); this._routeLine(); this._refreshMarkers();
     }
-    skipTourStop() { if (!this.tour || this.tour.state === 'done') return; this.tour.stops[this.tour.i].skipped = true; this.tour.skipped++; this._nextTourStop(); }
+    /** An activity keeps the itinerary; its owning flow retains this exact stop until completion. */
+    captureTourActivity() {
+        const st = this.tour?.stops[this.tour.i];
+        return this.tour?.state !== 'done' && st?.interaction && st.interaction === this._usingInteraction ? st : null;
+    }
+    recordTourActivity(spot, id) {
+        const st = this.tour?.stops[this.tour.i];
+        if (spot === this.spot.id && st?.interaction?.tourActivityIds?.includes(id)) this.completeTourActivity(st);
+    }
+    completeTourActivity(st) {
+        if (!st || this.tour?.state === 'done' || this.tour?.stops[this.tour.i] !== st) return;
+        st.participated = true;
+        this._nextTourStop();
+    }
+    skipTourStop() {
+        if (!this.tour || this.tour.state === 'done') return;
+        this.cancelActivities('tour-skip');
+        this.tour.stops[this.tour.i].skipped = true; this.tour.skipped++; this._nextTourStop();
+    }
     _nextTourStop() {
         const T = this.tour; if (!T) return;
         T.stops[T.i].done = !T.stops[T.i].skipped; T.i++; T.said = false; T.t = 0; T.wait = 0;
         if (T.i >= T.stops.length) return this._finishTour();
-        const st = T.stops[T.i], path = this._navPath(this.guide.x, this.guide.z, st.x, st.z, { radius: st.radius, maxLength: Math.max(0, 180 - (T.travelled || 0)) });
+        const st = T.stops[T.i], path = this._navPath(this.guide.x, this.guide.z, st.x, st.z, { radius: st.radius, maxLength: Math.max(0, TOUR_WALK_LIMIT_M - (T.travelled || 0)), startY: this.guide.y, targetY: st.floorY });
         if (!path) { T.narr = 'The next stop is blocked. You can skip it or end the tour.'; T.state = 'blocked'; this.guide.speed = 0; }
         else { st.path = path; st.wi = 1; [st.tx, st.tz] = path.at(-1); T.state = 'walk'; T.narr = 'Follow the flag to the next stop.'; }
         this._tourUI(); this._routeLine(); this._refreshMarkers();
@@ -524,7 +593,7 @@ export class SpotSession {
     _routeLine() {
         if (this._route) { this.spot.scene.remove(this._route); this._route.geometry.dispose(); this._route.material.dispose(); this._route = null; }
         const T = this.tour, st = T?.stops[T.i]; if (!st || T.state === 'done' || T.state === 'blocked') { this.map?.setRoute(null); return; }
-        const a = this.guide, g = this.spot.ground, pos = [];
+        const a = this.guide, g = this._navigationGround(a.x,a.z,a.y), pos = [];
         // the remaining route of this leg (guide → waypoints → stop), dashed on the ground
         const route = [[a.x, a.z], ...(st.path && st.path.length > 1 ? st.path.slice(st.wi ?? 1) : [[st.tx, st.tz]])];
         for (let r = 1; r < route.length; r++) { const [px, pz] = route[r - 1], [qx, qz] = route[r], L = Math.hypot(qx - px, qz - pz), n = Math.max(1, Math.floor(L / 1.6)), nx = -(qz - pz) / (L || 1), nz = (qx - px) / (L || 1);
@@ -536,7 +605,9 @@ export class SpotSession {
         this.map?.setRoute(route);
     }
     _updateTour(dt, p) {
-        const T = this.tour, G = this.guide; if (!T || !G || T.state === 'done' || T.state === 'blocked' || dt <= 0) return;
+        const T = this.tour, G = this.guide; if (!T || !G || T.state === 'done' || dt <= 0) return;
+        if (T.stops[T.i]?.participated) { this._nextTourStop(); return; }
+        if (T.state === 'blocked') return;
         const st = T.stops[T.i]; T.t += dt;
         let dP = Math.hypot(p.x - G.x, p.z - G.z), dS = Math.hypot(st.tx - G.x, st.tz - G.z);
         const pS = Math.hypot(st.tx - p.x, st.tz - p.z); // player → stop
@@ -552,7 +623,7 @@ export class SpotSession {
                 if (wp) while (st.wi < wp.length - 1 && Math.hypot(wp[st.wi][0] - G.x, wp[st.wi][1] - G.z) < 0.35) st.wi++;
                 const tgx = wp ? wp[st.wi][0] : st.tx, tgz = wp ? wp[st.wi][1] : st.tz, dT = Math.hypot(tgx - G.x, tgz - G.z) || 1;
                 let dx = (tgx - G.x) / dT, dz = (tgz - G.z) / dT; const step = Math.min(v * dt, dT);
-                const cols = this._navColliders(G.x,G.z,G.x,G.z,12), ground = this.spot.ground; let nx = G.x, nz = G.z, moved = false;
+                const cols = this._navColliders(G.x,G.z,G.x,G.z,12), ground = this._navigationGround(G.x,G.z,G.y); let nx = G.x, nz = G.z, moved = false;
                 for (const turn of [0, 0.7, -0.7, 1.4, -1.4]) {
                     const c = Math.cos(turn), s2 = Math.sin(turn), ex = dx * c - dz * s2, ez = dx * s2 + dz * c, tx = G.x + ex * step, tz = G.z + ez * step;
                     if (walkSegment(ground, cols, [G.x, G.z], [tx, tz])) { nx = tx; nz = tz; dx = ex; dz = ez; moved = true; break; }
@@ -563,9 +634,9 @@ export class SpotSession {
                 if (st.progressWaypoint !== st.wi || remaining < (st.bestRemaining ?? Infinity) - 0.05) {
                     st.progressWaypoint = st.wi; st.bestRemaining = remaining; st.blockedFor = 0;
                 } else st.blockedFor = (st.blockedFor || 0) + dt;
-                if(T.travelled>180){T.state='blocked';T.narr='This short walk has reached its distance budget. You can end the tour and keep exploring freely.';G.speed=0;this._tourUI();this._routeLine();return;}
+                if(T.travelled>TOUR_WALK_LIMIT_M){T.state='blocked';T.narr='This short walk has reached its distance budget. You can end the tour and keep exploring freely.';G.speed=0;this._tourUI();this._routeLine();return;}
                 if(st.blockedFor>1){
-                    const replanned=this._navPath(G.x,G.z,st.x,st.z,{radius:st.radius,maxLength:180-T.travelled});st.blockedFor=0;
+                    const replanned=this._navPath(G.x,G.z,st.x,st.z,{radius:st.radius,maxLength:TOUR_WALK_LIMIT_M-T.travelled,startY:G.y,targetY:st.floorY});st.blockedFor=0;
                     if(replanned){st.path=replanned;st.wi=1;st.progressWaypoint=null;st.bestRemaining=Infinity;[st.tx,st.tz]=replanned.at(-1);this._routeLine();}
                     else{T.state='blocked';T.narr='The public route is currently blocked. You can skip this stop or end the tour.';G.speed=0;this._tourUI();this._routeLine();return;}
                 }
@@ -670,13 +741,28 @@ export class SpotSession {
         const cv = this.host.r3d?.renderer?.domElement || this.host.r3d?.canvas; try { cv?.focus?.({ preventScroll: true }); } catch { /* ignore */ }
         if (this.input) { this.input.flush?.(); this.input.keys?.clear?.(); this.input.lookAllowed = true; }
     }
+    /** Keep a nearby guide's conversation from swallowing the arrived task's E prompt. */
+    _interactionAt(p) {
+        const T=this.tour, target=T?.state==='arrive'?T.stops[T.i]?.interaction:null;
+        let best=null,bd=Infinity,task=null;
+        for(const it of this.spot.interactables){
+            if(it.cond&&!it.cond(this))continue;
+            const d=Math.hypot(p.x-it.x,p.z-it.z);
+            if(!(d<(it.r||2)&&Math.abs((it.y??p.y)-p.y)<3))continue;
+            if(it===target)task=it;
+            if(d<bd){bd=d;best=it;}
+        }
+        return task&&['guide','talk'].includes(best?.kind)?task:best;
+    }
     /** per-frame: walker, crowd, interactions, scene animations, night, UI, sound */
     update(dt) {
         dt = Math.min(dt, 0.1); this.t += dt;
         const photo = this.host.photo?.active, panel = this.ui.panelOpen;
+        const walkBefore = { x: this.ctl.x, z: this.ctl.z };
         if (!panel) this.ctl.update(photo ? 0 : dt);
         if (this.ctl.active !== false && this.ctl.rig) this.ctl.rig.rotation.z = 0; // the walker camera stays level on slopes
         if (this.ctl.active !== false) this._pushOut();
+        this.spot.ctx.extras.walkBoundary?.constrain(this.ctl, walkBefore, this);
         const p = this.ctl.position, pl = { x: p.x, z: p.z, y: p.y, speed: this.ctl.speed || 0, heading: this.ctl.heading };
         // night factor (lamps, windows, neon)
         const tgt = this.r3d.nightLights ? 1 : 0; this.nightK += Math.sign(tgt - this.nightK) * Math.min(Math.abs(tgt - this.nightK), dt / 1.5);
@@ -692,17 +778,22 @@ export class SpotSession {
             if (this.tour && !panel && !photo && !drone?.active && this.ctl.active !== false) this._updateTour(dt, p);
             else if (this.guide) this.guide.speed = 0;
             if (this.map && !photo) { /* (the drone's position while it flies — note 43) */ const dr = this.host.explore?.drone, flying = dr?.active && dr.phase === 'fly'; this.map.update(dt, flying ? { x: dr.pos.x, z: dr.pos.z, heading: dr.yaw } : { x: p.x, z: p.z, heading: this.ctl.heading }); if (this.guide && (this._mkT = (this._mkT ?? 0) - dt) <= 0) { this._mkT = 1; this._refreshMarkers(); } }
+            if(this.waypoint&&!panel&&!photo&&(this._waypointTick=(this._waypointTick||0)-dt)<=0){this._waypointTick=.5;this._updateWaypoint();}
         } catch (e) { if (!this._mapErr) { this._mapErr = true; console.warn('[spots] map/tour', e); } }
+        if (this.input?.take?.('KeyJ') && !photo && !panel && !this.host.explore?.drone?.active) this.skipTourStop();
         if (!photo && !panel && this.input?.take?.('KeyM')) this.openMap(); // (G is the drone everywhere — round 6 note 14)
         // interactions (nearest within reach)
         if (!photo && !panel && !this.spot.ctx.extras.venueActivities?.active && !this.spot.ctx.extras.participation?.active) {
-            let best = null, bd = 1e9;
-            for (const it of this.spot.interactables) { if (it.cond && !it.cond(this)) continue; const d = Math.hypot(p.x - it.x, p.z - it.z); if (d < (it.r || 2) && d < bd && Math.abs((it.y ?? p.y) - p.y) < 3) { bd = d; best = it; } }
+            const best=this._interactionAt(p);
             this.ui.prompt(best ? `<kbd>E</kbd>${escapeHtml(typeof best.label === 'function' ? best.label(this) : best.label)}` : null);
             this.ui.crosshair(!!best?.aim);
             if (best && this.input?.take?.('KeyE')) {
-                best.use(this, best);
-                const st = this.tour?.stops[this.tour.i]; if (st?.interaction === best) st.participated = true;
+                const st = this.tour?.stops[this.tour.i];
+                this._usingInteraction = best;
+                try { best.use(this, best); } finally { this._usingInteraction = null; }
+                // Modal flows report completion themselves. Merely opening or cancelling one never completes its stop.
+                if (st && this.tour?.stops[this.tour.i] === st && st.interaction === best &&
+                    !best.tourActivityIds?.length && !this.spot.ctx.extras.participation?.active && !this.spot.ctx.extras.venueActivities?.active) st.participated = true;
             }
             else this.input?.take?.('KeyE');
             // reset if fallen out of the world
@@ -729,7 +820,9 @@ export class SpotSession {
     teleport(spotId) {
         const s = this.spot.spawns[spotId], entry = spotById(spotId); if (!s || !entry) return;
         this.cancelActivities('teleport');
+        this.clearWaypoint();
         this.endTour(); this.ctl.teleport(s.x, s.z, s.heading);
+        if (Number.isFinite(s.pitch)) { this.ctl.pitch = Math.max(-1.3, Math.min(1.3, s.pitch)); this.ctl.place(); }
         Object.assign(this.spot, { id: spotId, name: entry.name, entry, spawn: s });
         this.ui.setTitle(this.spot.name, `${placeLabel(this.spot)} · walk-only bonus`);
         this._updateChallengeText(); this._refreshMarkers();

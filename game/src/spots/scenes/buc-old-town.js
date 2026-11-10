@@ -21,6 +21,10 @@ import { candleLight } from '../candle-light.js';
 import { photoHunt } from '../photo-hunt.js';
 import { sourceRecord } from '../source-buildings.js';
 import { onActivityCancel } from '../participation.js';
+import { buildOldTownNightlife, OLD_TOWN_FOCUS, nightlifeHours } from './old-town-nightlife.js';
+import { walkBoundary, markVisitExits } from '../walk-boundary.js';
+import {freddoFrontagePlan,oldTownGlazing} from './freddo-look.js';
+import {buildCaruselInterior} from './carusel-interior.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
 const simplifyRing = (p, tol) => { const s2 = simplify([...p, p[0]], tol); s2.pop(); return s2.length >= 3 ? s2 : p; };
@@ -167,7 +171,12 @@ function buildCarusel(ctx) {
     const ux = (B[0] - A[0]) / FW, uz = (B[1] - A[1]) / FW; let nx = uz, nz = -ux; if (nz < 0) { nx = -nx; nz = -nz; } // outward normal (toward the street)
     const yaw = Math.atan2(nx, nz), H = 19.5, b = new GeoBatch(), WH = '#e9e2d2';
     const fac = classicFacade('carusel-side', [{ t: 'blank', rustic: true }, { t: 'rect', w: 0.3 }, { t: 'rect', w: 0.3 }, { t: 'small', w: 0.26 }], { bay: 3.4, floor: 4.9, lit: 0.5 });
-    classicWalls(b, fac, p, y0, y0 + H, WH, y0);
+    // The custom front elevation owns this exact face. Keep the other source
+    // faces in the shell, so an opaque duplicate cannot cover the open door.
+    const sides=wallGeometry(p,y0,y0+H,fac.S,y0,WH), vertices=sides.attributes.position, kept=[];
+    for(let i=0;i<sides.index.count;i+=3){const tri=[sides.index.getX(i),sides.index.getX(i+1),sides.index.getX(i+2)];
+        if(tri.every(j=>Math.abs((vertices.getX(j)-fx)*nx+(vertices.getZ(j)-fzz)*nz)<.01))continue;kept.push(...tri);}
+    sides.setIndex(kept);b.add(sides,fac.key,null,WH);sides.dispose();
     // the street front: a canvas elevation (no photo): rustication, giant arch with 3 arched lights, sign band, door
     const fc = canvas(512, 768), x = fc.getContext('2d'), S = 512 / FW, PX = (m) => m * S, PY = (m) => 768 - m * (768 / (H + 0.5));
     x.fillStyle = '#ebe5d8'; x.fillRect(0, 0, 512, 768);
@@ -188,9 +197,29 @@ function buildCarusel(ctx) {
     x.fillStyle = '#2a2a28'; x.fillRect(ax0 + aw * 0.44, PY(4.0), aw * 0.12, PY(0.4) - PY(4.0)); // door
     x.fillStyle = 'rgba(255,255,255,0.7)'; x.beginPath(); x.arc(256, aTop - 4, 22, 0, 7); x.fill(); x.fillStyle = '#8a3a2a'; x.fillRect(244, aTop - 2, 24, 8); // cartouche
     x.fillStyle = 'rgba(90,80,65,0.5)'; x.fillRect(0, PY(H - 0.4), 512, 6); // cornice shadow
+    // Match the existing physical entrance gap with a visibly open central
+    // doorway. Its detailed size is an estimate, not a surveyed portal plan.
+    x.clearRect(PX(FW/2-1.15),PY(3.1),PX(2.3),PY(0)-PY(3.1)+2);
+    // The two ground-floor shop windows transmit the modeled interior; only
+    // these existing glazed openings lose opaque paint, not the source piers.
+    x.globalCompositeOperation='destination-out';
+    for(const start of [.04,.6]){const gx=ax0+aw*start,gy=PY(4.9),gw=aw*.36,gh=PY(.5)-PY(4.9);x.beginPath();x.moveTo(gx,gy+gh);x.lineTo(gx,gy+gw/2);x.arc(gx+gw/2,gy+gw/2,gw/2,Math.PI,0);x.lineTo(gx+gw,gy+gh);x.closePath();x.fill();}
+    x.globalCompositeOperation='source-over';
     const ft = canvasTexture(fc);
-    const fm = new THREE.MeshStandardMaterial({ map: ft, roughness: 0.75, emissive: new THREE.Color('#ffe7c2'), emissiveMap: ft, emissiveIntensity: 0 }); fm.userData.dayGlow = 0; fm.userData.nightGlow = 0.45;
+    const fm = new THREE.MeshStandardMaterial({ map: ft, alphaTest:.5, side:THREE.FrontSide, roughness: 0.75, emissive: new THREE.Color('#ffe7c2'), emissiveMap: ft, emissiveIntensity: 0 }); fm.userData.dayGlow = 0; fm.userData.nightGlow = 0.45;
     const front = new THREE.Mesh(new THREE.PlaneGeometry(FW, H + 0.5), fm); front.position.set(fx + nx * 0.06, y0 + (H + 0.5) / 2, fzz + nz * 0.06); front.rotation.y = yaw; front.name = 'carusel-front'; ctx.add(front);
+    // The interior sees plain plaster, never the exterior shop sign backwards.
+    // Reuse only our procedural elevation's alpha silhouette so the exact
+    // doorway/window openings still transmit the real modeled room.
+    const backCanvas=canvas(512,768),backPaint=backCanvas.getContext('2d');backPaint.drawImage(fc,0,0);backPaint.globalCompositeOperation='source-in';backPaint.fillStyle='#f4f2eb';backPaint.fillRect(0,0,512,768);
+    const frontBack=new THREE.Mesh(new THREE.PlaneGeometry(FW,H+.5),new THREE.MeshStandardMaterial({map:canvasTexture(backCanvas),alphaTest:.5,side:THREE.BackSide,roughness:.88}));frontBack.name='carusel-front-inward-plaster';frontBack.position.copy(front.position).add(new THREE.Vector3(-nx*.025,0,-nz*.025));frontBack.rotation.y=yaw;ctx.add(frontBack);
+    const glazing=new GeoBatch(),glassMat=new THREE.MeshStandardMaterial({color:'#a4c3c8',transparent:true,opacity:.13,roughness:.16,metalness:.04,depthWrite:false,side:THREE.DoubleSide});
+    for(const start of [.04,.6]){const centre=(1.6+((FW-3.2)*start)+(FW-3.2)*.18)-FW/2,px=fx+ux*centre+nx*.025,pz=fzz+uz*centre+nz*.025,w=(FW-3.2)*.36;
+        glazing.quad([px-ux*w/2,y0+.5,pz-uz*w/2],[px+ux*w/2,y0+.5,pz+uz*w/2],[px+ux*w/2,y0+4.9,pz+uz*w/2],[px-ux*w/2,y0+4.9,pz-uz*w/2],'#ffffff','caruselGlass');}
+    ctx.add(glazing.build('carusel-source-front-glazing',{castShadow:false,matOverrides:{caruselGlass:glassMat}}));
+    for(const side of [-1,1])b.box(fx+ux*side*1.2,y0,fzz+uz*side*1.2,.1,3.15,.15,'#34332d','wood',yaw);
+    b.box(fx,y0+3.1,fzz,2.5,.12,.15,'#34332d','wood',yaw);
+    ctx.extras.caruselDoor={x:fx,z:fzz,y:y0,nx,nz,width:2.3,estimatedPortal:true};
     // cornice, attic aedicule with urns, glass mansard
     b.box(fx + nx * 0.3, y0 + H - 0.2, fzz + nz * 0.3, 0.9, 0.9, FW + 0.6, '#f1ece2', 'stone', yaw + Math.PI / 2);
     b.box(fx - nx * 0.6, y0 + H + 0.7, fzz - nz * 0.6, 1.2, 5.6, 4.2, WH, 'stone', yaw + Math.PI / 2);
@@ -199,72 +228,43 @@ function buildCarusel(ctx) {
     b.sphere(fx - nx * 0.3, y0 + H + 8.3, fzz - nz * 0.3, 0.45, 0.6, 0.45, '#efe9dc', 'stone', 10, 8);
     const roofP = grow(p, -0.3), oc = o;
     b.add(new THREE.CylinderGeometry(Math.SQRT1_2 * 0.7, Math.SQRT1_2, 1, 4, 1).rotateY(Math.PI / 4), 'darkglass', M(oc.cx, y0 + H + 2.3, oc.cz, 0, -oc.angle, 0, oc.len - 0.6, 4.6, oc.wid - 0.6), '#3b4148');
+    const roofPoint=(u,v,y)=>[oc.cx+oc.ux*u+oc.uz*v,y,oc.cz+oc.uz*u-oc.ux*v];
+    for(const su of [-1,1])for(const sv of [-1,1])b.rod(roofPoint(su*(oc.len-.6)/2,sv*(oc.wid-.6)/2,y0+H+.02),roofPoint(su*(oc.len-.6)*.35,sv*(oc.wid-.6)*.35,y0+H+4.62),.03,'#59605a','metal',5);
     void roofP;
-    // ---- interior: levels, atrium, balustrades, shelves
-    const LV = [0, 4.6, 8.4, 12.2, 16.0], stair={x:oc.cx-oc.ux*oc.len*.38,z:oc.cz-oc.uz*oc.len*.38}, stairWell=Array.from({length:32},(_,i)=>[stair.x+Math.cos(i/32*Math.PI*2)*2.45,stair.z+Math.sin(i/32*Math.PI*2)*2.45]), innerP = grow(p, -0.35), ecx = oc.cx + (fx - oc.cx) * 0.08, ecz = oc.cz + (fzz - oc.cz) * 0.08;
-    const along = Math.atan2(oc.ux, oc.uz); // long axis direction
-    const ell = (k, rxK = 1) => { const pts = []; for (let i = 0; i < 48; i++) { const a = i / 48 * Math.PI * 2, wob = 1 + 0.07 * Math.sin(a * 5 + k * 1.3), rx = (3.1 - k * 0.1) * wob * rxK, rz = (8.2 - k * 0.35) * wob * rxK; const lx = Math.cos(a) * rx, lz = Math.sin(a) * rz; pts.push([ecx + lx * Math.cos(along) + lz * Math.sin(along), ecz - lx * Math.sin(along) + lz * Math.cos(along)]); } return pts; };
-    const iw = new GeoBatch(), WHITE = '#f6f5f1';
-    const shelf = (() => { const c = canvas(256, 256), q = c.getContext('2d'); q.fillStyle = '#f2f0ea'; q.fillRect(0, 0, 256, 256); const r = rng(5); for (let row = 0; row < 4; row++) { const y = row * 64; q.fillStyle = '#e6e3db'; q.fillRect(0, y + 56, 256, 8); for (let xx = 2; xx < 254;) { const w = 3 + r() * 6, h = 34 + r() * 18; q.fillStyle = `hsl(${r() * 360},${30 + r() * 40}%,${30 + r() * 40}%)`; q.fillRect(xx, y + 56 - h, w, h); xx += w + 0.6; } } const t = canvasTexture(c, { repeat: true }); const m = new THREE.MeshStandardMaterial({ map: t, roughness: 0.85, emissive: new THREE.Color('#ffffff'), emissiveMap: t, emissiveIntensity: 0.22 }); return m; })();
-    const shelves = new GeoBatch();
-    for (let k = 0; k < LV.length; k++) {
-        const ly = y0 + LV[k];
-        if (k > 0) { // slab with the atrium hole (white, slightly self-lit so the interior reads bright)
-            const sh = new THREE.Shape(innerP.map(([a, c]) => new THREE.Vector2(a, -c))); sh.holes.push(new THREE.Path(ell(k).map(([a, c]) => new THREE.Vector2(a, -c))));sh.holes.push(new THREE.Path(stairWell.map(([a,c])=>new THREE.Vector2(a,-c))));
-            const sg = new THREE.ExtrudeGeometry(sh, { depth: 0.38, bevelEnabled: false, curveSegments: 4 }); sg.rotateX(-Math.PI / 2); sg.translate(0, ly - 0.38, 0);
-            iw.add(sg, 'paint', null, WHITE, { emissive: '#ffffff', emissiveIntensity: 0.28, roughness: 0.5 }); sg.dispose();
-            // undulating balustrade round the hole + walk surface + wall collider at this level
-            const e = ell(k), pos = [], idx = [];
-            for (let i = 0; i <= e.length; i++) { const [a, c] = e[i % e.length], hh = 1.05 + 0.12 * Math.sin(i / e.length * Math.PI * 10 + k); pos.push(a, ly - 0.38, c, a, ly + hh, c); if (i) { const j = (i - 1) * 2; idx.push(j, j + 1, j + 2, j + 1, j + 3, j + 2); } }
-            const bg = new THREE.BufferGeometry(); bg.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); bg.setIndex(idx); bg.computeVertexNormals();
-            iw.add(bg, 'paint', null, '#fbfaf7', { emissive: '#ffffff', emissiveIntensity: 0.35, roughness: 0.4, side: THREE.DoubleSide }); bg.dispose();
-            for (let i = 0; i < e.length; i++) { const [a, c] = e[i], [a2, c2] = e[(i + 1) % e.length]; wallSeg(ctx, a, c, a2, c2, ly - 0.2, ly + 1.1); }
-            const holeE = ell(k);
-            g.surfaces.push({ kind: 'carusel', x: oc.cx, z: oc.cz, r: oc.len / 2 + 2, bottom: ly - 0.6, contains: (px, pz) => inPoly(px, pz, innerP) && !inPoly(px, pz, holeE) && !inPoly(px,pz,stairWell), top: () => ly });
-        }
-        // shelves along the long walls (not across the front)
-        for (let i = 0; i < innerP.length; i++) { const [ax, az] = innerP[i], [bx, bz] = innerP[(i + 1) % innerP.length], L = Math.hypot(bx - ax, bz - az); if (L < 6) continue; const mx = (ax + bx) / 2, mz = (az + bz) / 2; if (Math.hypot(mx - fx, mz - fzz) < 3) continue; const a = Math.atan2(bx - ax, bz - az); shelves.box(mx, ly, mz, 0.4, 3.1, L - 0.8, '#ffffff', 'shelf', a); }
-    }
-    // ground floor tables of books + the white stair
-    const r = rng(8);
-    for (let i = 0; i < 6; i++) { const t = (i + 0.5) / 6 - 0.5, px = oc.cx + oc.ux * t * oc.len * 0.6, pz = oc.cz + oc.uz * t * oc.len * 0.6; iw.box(px + (r() - 0.5), y0, pz, 1.3, 0.8, 0.8, '#d8d2c4', 'wood', along); ctx.box(px, pz, 0.7, 0.45, along, { prop: true, h: 0.8 }); }
-    // Continuous walkable version of the existing estimated stair. The real
-    // bookstore has stairs and galleries; this reconstruction's exact curve,
-    // tread sizes and landings are estimates, not a measured interior plan.
-    const stairPath=[];
-    for(let k=0;k<LV.length-1;k++){
-        const rise=LV[k+1]-LV[k];
-        for(let j=0;j<10;j++){
-            const a=(k+j/10)*Math.PI,x=stair.x+Math.cos(a)*1.7,z=stair.z+Math.sin(a)*1.7,top=y0+LV[k]+rise*(j+1)/10;
-            iw.box(x,top-.18,z,1.2,.18,.62,WHITE,'paint',-a);
-            g.addBox(x,z,.6,.31,-a,top-.18,top,{kind:'carusel-stair'});stairPath.push({x,z,y:top});
-            for(const rr of [1.06,2.34])if(j>0&&j<8){const p0=[stair.x+Math.cos(a)*rr,top+1,stair.z+Math.sin(a)*rr],a1=a+Math.PI/10,p1=[stair.x+Math.cos(a1)*rr,top+rise/10+1,stair.z+Math.sin(a1)*rr];iw.rod(p0,p1,.035,WHITE,'paint',6);wallSeg(ctx,p0[0],p0[2],p1[0],p1[2],top-.1,top+1);}
-        }
-        const a=(k+.9)*Math.PI,x=stair.x+Math.cos(a)*2.3,z=stair.z+Math.sin(a)*2.3,top=y0+LV[k+1];
-        iw.box(x,top-.18,z,1.5,.18,1.05,WHITE,'paint',-a);g.addBox(x,z,.75,.525,-a,top-.18,top,{kind:'carusel-landing'});
-    }
-    // walls (enter through the shop door): wall colliders round the outline with a door gap on the front
-    ringWalls(ctx, p, y0 - 1, y0 + H + 6, [{ x: fx, z: fzz, w: 3.2 }]);
-    ctx.extras.caruselFloor = () => ctx.painter.poly(innerP, '#ebe8e1', 'slab');
-    ctx.add(iw.build('carusel-interior', { castShadow: false }));
-    ctx.add(shelves.build('carusel-shelves', { castShadow: false, matOverrides: { shelf } }));
-    const shell=b.build('carusel', { matOverrides: { [fac.key]: fac.mat } });
-    // The same estimated shell encloses the modeled interior. Its real walls
-    // and roof must remain visible from the galleries as well as the street.
-    const insideMaterials=new Map();shell.traverse(o=>{if(!o.isMesh)return;const inward=m=>{if(!insideMaterials.has(m)){const copy=m.clone();copy.side=THREE.DoubleSide;insideMaterials.set(m,copy);}return insideMaterials.get(m);};o.material=Array.isArray(o.material)?o.material.map(inward):inward(o.material);});ctx.add(shell);
-    for (let k = 0; k < LV.length; k++) ctx.lampPoints.push({ x: ecx, z: ecz, h: LV[k] + 3.6 - (ctx.ground.heightAt(ecx, ecz) - y0), noPost: true });
-    const climb={previous:null,distance:0,ascent:0,done:false};
-    onActivityCancel(ctx, () => { climb.previous = null; climb.distance = 0; climb.ascent = 0; });
-    ctx.onUpdate((dt,s,pl)=>{if(!pl||climb.done)return;const previous=climb.previous;climb.previous={x:pl.x,y:pl.y,z:pl.z};if(!previous)return;
-        const d=Math.hypot(pl.x-previous.x,pl.z-previous.z),dy=pl.y-previous.y;
-        if(!s.ctl.active||d>Math.max(.8,dt*6)||Math.abs(dy)>.75){climb.distance=0;climb.ascent=0;return;}
-        if(!inPoly(pl.x,pl.z,innerP)){climb.distance=0;climb.ascent=0;return;}
-        climb.distance+=d;climb.ascent+=Math.max(0,dy);
-        if(pl.y>=y0+LV.at(-1)-.15&&climb.distance>=18&&climb.ascent>=14){climb.done=true;bucActivity(s,'old-town-lipscani','carusel','📚 Carusel stair climb','You walked the modeled stair to the top gallery. The interior layout and stair dimensions remain an estimated reconstruction.');}
-    });
-    ctx.interactables.push({kind:'stairs',x:stairPath[0].x,z:stairPath[0].z,y:y0,r:2.2,tourAvailable:()=>false,label:'Walk the visible stairs to the top gallery',use:s=>s.ui.toast('📚 Walk up the stairs','Use the movement controls on the visible treads. Reaching the top after a continuous climb completes the activity; E does not move you between floors. Stair dimensions are estimates.')});
-    ctx.extras.caruselStairs={path:stairPath,climb,well:stairWell,estimatedLayout:true};
-    return { front: { x: fx, z: fzz, nx, nz, yaw }, y0, LV, ecx, ecz, along, stair };
+    // The source outline and the existing2.3m door stay physically exact.
+    ringWalls(ctx,p,y0-1,y0+H+6,[{x:fx,z:fzz,w:2.3}]);
+    ctx.extras.caruselFloor=()=>ctx.painter.poly(p,'#9b8062','wood');
+    const roofGlass=new THREE.MeshStandardMaterial({color:'#b9ced0',transparent:true,opacity:.2,roughness:.16,metalness:.06,depthWrite:false,side:THREE.DoubleSide});roofGlass.name='carusel-skylight-glass';
+    const shell=b.build('carusel',{matOverrides:{[fac.key]:fac.mat,darkglass:roofGlass}}),insideMaterials=new Map(),plaster=new THREE.Group();plaster.name='carusel-white-interior-walls';
+    const plasterMat=new THREE.MeshStandardMaterial({color:'#ece8de',side:THREE.BackSide,roughness:.88,emissive:'#fff4df',emissiveIntensity:.025});
+    shell.traverse(o=>{if(!o.isMesh)return;if(o.material===fac.mat){const finish=o.geometry.clone(),pos=finish.attributes.position,normal=finish.attributes.normal;
+            for(let i=0;i<pos.count;i++)pos.setXYZ(i,pos.getX(i)-normal.getX(i)*.025,pos.getY(i),pos.getZ(i)-normal.getZ(i)*.025);finish.computeBoundingSphere();
+            const wall=new THREE.Mesh(finish,plasterMat);wall.name='carusel-inward-plaster';wall.receiveShadow=true;plaster.add(wall);}
+        const inward=m=>{if(m===roofGlass)return m;if(!insideMaterials.has(m)){const copy=m.clone();copy.side=m===fac.mat?THREE.FrontSide:THREE.DoubleSide;copy.userData={...m.userData,shared:true};insideMaterials.set(m,copy);}return insideMaterials.get(m);};o.material=Array.isArray(o.material)?o.material.map(inward):inward(o.material);});ctx.add(shell);ctx.add(plaster);
+    (ctx.extras.sceneCleanups||=[]).push(()=>{for(const m of insideMaterials.values())m.dispose();});
+    const result={front:{x:fx,z:fzz,nx,nz,yaw},y0,sourceDatum:y0,ecx:oc.cx,ecz:oc.cz,along:Math.atan2(oc.ux,oc.uz),poly:p};
+    // The backdrop settles untouched lots onto final street levels. Construct
+    // only the interior afterwards, leaving every exterior/collider datum above
+    // exactly where it was placed from the original source boundary.
+    result.finishInterior=()=>{
+        if(result.interior)return result;
+        const interior=buildCaruselInterior(ctx,{poly:p,o:oc,front:result.front,datum:y0,height:H});
+        const floorY=interior.floorY,LV=interior.levels,stairPath=interior.path;
+        ctx.extras.caruselDoor.y=floorY;
+        const climb={previous:null,distance:0,ascent:0,done:false};
+        onActivityCancel(ctx,()=>{climb.previous=null;climb.distance=0;climb.ascent=0;});
+        ctx.onUpdate((dt,s,pl)=>{if(!pl||climb.done)return;const previous=climb.previous;climb.previous={x:pl.x,y:pl.y,z:pl.z};if(!previous)return;
+            const d=Math.hypot(pl.x-previous.x,pl.z-previous.z),dy=pl.y-previous.y;
+            if(!s.ctl.active||d>Math.max(.8,dt*6)||Math.abs(dy)>.75){climb.distance=0;climb.ascent=0;return;}
+            if(!inPoly(pl.x,pl.z,p)){climb.distance=0;climb.ascent=0;return;}
+            climb.distance+=d;climb.ascent+=Math.max(0,dy);
+            if(pl.y>=floorY+LV.at(-1)-.15&&climb.distance>=18&&climb.ascent>=LV.at(-1)*.86){climb.done=true;bucActivity(s,'old-town-lipscani','carusel','📚 Carusel stair climb','Top gallery reached. Enjoy the view down into the bookshop atrium.');}
+        });
+        ctx.interactables.push({kind:'stairs',x:stairPath[0].x,z:stairPath[0].z,y:floorY,r:2.2,tourAvailable:()=>false,label:'Walk the visible stairs to the top gallery',use:s=>s.ui.toast('📚 Walk up the stairs','Follow the visible treads and galleries to the top. Keep climbing to complete the stair walk.')});
+        ctx.extras.caruselStairs={path:stairPath,climb,landings:interior.landings,holes:interior.holes,gallerySurfaces:interior.gallerySurfaces,estimatedLayout:true};
+        Object.assign(result,{y0:floorY,LV,stair:stairPath[0],interior});return result;
+    };
+    return result;
 }
 
 // ---------------------------------------------------------------------------- Hanul lui Manuc
@@ -405,6 +405,11 @@ export default {
     env: { fogFar: 3000, ambientCity: 0.65, groundAlbedo: 0.15 },
     async build(ctx) {
         const g = ctx.ground, d = ctx.data, spL = ctx.spot('old-town-lipscani'), spS = ctx.spot('stavropoleos-cec');
+        // A short visit at real scale: Lipscani 28–71 and upper Smârdan.
+        // All prepared streets/buildings remain in the 600 m scenery context.
+        const focused=(x,z)=>inPoly(x,z,OLD_TOWN_FOCUS), plaque=ctx.plaque.bind(ctx), challenge=ctx.challenge.bind(ctx);
+        ctx.plaque=(p,x,z,...args)=>focused(x,z)?plaque(p,x,z,...args):null;
+        ctx.challenge=(id,o={})=>id==='old-town-lipscani' && focused(o.x??spL.photo.iconic.x,o.z??spL.photo.iconic.z)?challenge(id,o):null;
         // a flat old town (bare-earth grid) — smooth the DEM noise
         const T0 = g.heightAt(0, 0); g.mod((x, z, h) => T0 + (h - T0) * 0.35);
         // most old-town buildings have no height in OSM: 2–5 storeys (uneven skyline), lantern-lit ground floors
@@ -422,10 +427,13 @@ export default {
         const caruB = d.buildings.find((x) => x.id === 'w1456401783');
         if (caruB) { ctx.skipBuildings.add(caruB.id); const b = new GeoBatch(), y = Math.min(...caruB.poly.map(([x, z]) => g.heightAt(x, z))) - 0.2; const fac = classicFacade('caru', [{ t: 'arch', w: 0.36, top: 0.1, bottom: 0.06, rustic: true }, { t: 'arch2', w: 0.34, pil: true }, { t: 'arch', w: 0.26, pil: true, top: 0.3 }, { t: 'small', w: 0.24 }], { bay: 3.2, floor: 4.2, lit: 0.85 }); classicWalls(b, fac, caruB.poly, y, y + 15.5, '#c9b79a', y); b.flat(caruB.poly, y + 15.5, '#6b5f55', 'roofs'); const o = obb(caruB.poly); b.add(new THREE.ConeGeometry(4.5, 5, 4), 'roofs', M(-111, y + 18, -73.5, 0, Math.PI / 4, 0, 1, 1, 0.35), '#5a4f46'); ctx.poly(caruB.poly, { y0: y - 1, y1: y + 22 }); ctx.add(b.build('caru-cu-bere', { matOverrides: { [fac.key]: fac.mat } })); void o; }
         const OT = oldTownFronts(ctx);
-        const WB = buildSecretWcpBar(ctx, CA);
+        const FRONT=freddoFrontagePlan(ctx);ctx.extras.freddoFrontage=FRONT;
         // ground: shared-surface grey granite setts over every pedestrian street (no kerbs), slab bands
         ctx.terrainOpts = { bg: '#8f8b84', bgMask: 'cobble', innerPx: 2048, innerStep: 3, outerStep: 16, outerPad: 700 };
-        bucBackdrop(ctx, { lampStyle: 'lantern', lampColor: '#191b1c', lampH: 4.4, lampPad: 15, treeLod: { cap: 1600, max: 400 }, lampOpts: { spacing: 24, kinds: ['pedestrian', 'living_street'] }, streetTreeOpts: { kinds: ['primary', 'secondary', 'tertiary'], prob: 0.5 }, style: (bd) => (OT.decoratedIds.has(bd.id) || bd.k === 'church' ? 'eclectic' : undefined) });
+        bucBackdrop(ctx, { wallOpenings:FRONT?[FRONT.opening]:[],lampStyle: 'lantern', lampColor: '#191b1c', lampH: 4.4, lampPad: 15, treeLod: { cap: 1600, max: 400 }, lampOpts: { spacing: 24, kinds: ['pedestrian', 'living_street'] }, streetTreeOpts: { kinds: ['primary', 'secondary', 'tertiary'], prob: 0.5 }, style: (bd) => (OT.decoratedIds.has(bd.id) || bd.k === 'church' ? 'eclectic' : undefined) });
+        CA?.finishInterior();
+        const WB = buildSecretWcpBar(ctx, CA);
+        oldTownGlazing(ctx,FRONT);
         for (const w of d.ways) if (['pedestrian', 'living_street'].includes(w.k) && !w.tunnel) ctx.painter.line(w.pts, 11, '#7f7c76', 'cobble');
         // the inn passages (Hanul cu Tei, Pasajul Gabroveni, Intrarea Nicolae Șelari) are paved courtyards between the façades, not lawns
         for (const w of d.ways) if (w.k === 'footway' && /Hanul cu Tei|Pasajul Gabroveni|Nicolae Șelari/.test(w.name || '')) ctx.painter.line(w.pts, 18, '#86827b', 'cobble');
@@ -434,12 +442,14 @@ export default {
         ctx.painter.custom((x, T, k, isMask) => { if (isMask) return; for (const w of d.ways) { if (w.k !== 'pedestrian') continue; x.strokeStyle = 'rgba(205,200,190,0.55)'; x.lineWidth = Math.max(1, 0.9 * k); x.beginPath(); w.pts.forEach(([a, c], i) => { const [px, py] = T(a, c); if (i) x.lineTo(px, py); else x.moveTo(px, py); }); x.stroke(); } });
         // terraces + shop signs from OSM (bars, restaurants, cafés, shops along the pedestrian lanes)
         const inside = (x, z) => Object.values(d.spots).some((s) => inPoly(x, z, s.extent.polygon));
-        const TR = oldTownTerraces(ctx, { inside, seed: 3, prioritySources: ['n1731040881', 'n10775253367'] });
+        const TR = oldTownTerraces(ctx, { inside, seed: 3, prioritySources: ['n1416523788', 'n7613023091', 'n10775260925'],canopies:{n1416523788:{colour:'#30382f',glass:true}} });
+        TR.signs=TR.signs.filter(s=>s.source!=='n1416523788');
         ctx.extras.sourceFrontages = { signs: TR.signs, terraces: TR.terraces };
         ctx.add(TR.group); ctx.lampPoints.push(...TR.lamps.filter((_, i) => i % 2 === 0));
         // Real OSM POIs, on their existing street-facing footprint. Camera-held props only:
         // no invented kiosk/interior, source footprint, terrace or collision changes.
         const VA = createVenueActivities(ctx);
+        const NIGHTLIFE = buildOldTownNightlife(ctx, VA);
         for (const [source, kind, address, label] of [
             ['n1731040881', 'shaorma', 'Strada Franceză 17', 'Eat a shaorma at Dristor Kebap'],
             ['n10775253367', 'shot', 'Strada Șelari 17', 'Pour a shot at Shoteria'],
@@ -519,17 +529,37 @@ export default {
         groups.push({ x: CV.bust.x - 3, z: CV.bust.z - 3.5, r: 0.3, n: 1, act: 'watch', personas: ['vendor'] }, { x: CV.bust.x + 2, z: CV.bust.z - 4, r: 2, n: 4, act: 'photo', look: [CV.bust.x, CV.bust.z], personas: ['tourist_uk', 'tourist_it', 'tourist_us'] });
         groups.push({ x: 60, z: -66, r: 0.3, n: 1, act: 'perform', personas: ['busker'], prop: 'guitar' }, { x: 62, z: -62, r: 2.5, n: 4, act: 'watch', look: [60, -66], personas: ['local_young', 'tourist_uk'] });
         if (MA) groups.push({ x: MA.gate.x + MA.gn.x * 2.5 + MA.gn.z * 2.6, z: MA.gate.z + MA.gn.z * 2.5 - MA.gn.x * 2.6, r: 0.3, n: 1, act: 'watch', yaw: Math.atan2(MA.gn.x, MA.gn.z), personas: ['waiter'] });
+        // Keep the native street crowd concentrated on the selected source ways.
+        // Path points are unscaled source points; splitting the walking itinerary
+        // does not alter or delete a road in the prepared dataset.
+        const paths=[];
+        for(const way of d.ways.filter(w=>['pedestrian','footway','living_street'].includes(w.k))){let run=[];for(const p of way.pts){if(focused(...p))run.push(p);else{if(run.length>1)paths.push(run);run=[];}}if(run.length>1)paths.push(run);}
+        const party=[];
+        for(const path of paths)for(let i=1;i<path.length;i++){const [ax,az]=path[i-1],[bx,bz]=path[i],L=Math.hypot(bx-ax,bz-az);if(L<1)continue;
+            for(let u=1;u<L;u+=4.5)for(const side of [-1,1]){const x=ax+(bx-ax)*u/L+(bz-az)/L*side*2.1,z=az+(bz-az)*u/L-(bx-ax)/L*side*2.1;
+                if(party.length>=64||!focused(x,z)||collide(ctx.colliders,x,z,.45,g.heightAt(x,z)+.3)||party.some(p=>Math.hypot(p.x-x,p.z-z)<1.1)||NIGHTLIFE&&Math.hypot(x-NIGHTLIFE.entry.x,z-NIGHTLIFE.entry.z)<2.2)continue;
+                party.push({x,z,r:0,n:1,act:'talk',party:true,fixedYaw:true,personas:['local_young','tourist_uk','tourist_it','tourist_us']});}}
         ctx.crowdCfg = {
             spots: ['old-town-lipscani', 'stavropoleos-cec'],
             personas: { local_young: 4, tourist_uk: 2.5, tourist_it: 1.8, tourist_us: 1.8, tourist_de: 1.5, tourist_fr: 1.2, local_elder: 1, local_parent: 0.8, kid: 0.4 },
-            walkers: 46, paths: ctx.footLines().concat(d.ways.filter((w) => w.k === 'pedestrian').map((w) => w.pts)), groups,
+            walkers: 92, paths, groups:groups.filter(q=>q.wcpFan||focused(q.x??q.line?.[0]?.[0],q.z??q.line?.[0]?.[1])).concat(party),
         };
+        let partyPeople=null;
+        ctx.onUpdate((dt,s)=>{if(!partyPeople&&s.spot.crowd?.cr)partyPeople=s.spot.crowd.peds.map((p,i)=>({p,i})).filter(({p})=>p.group?.party);
+            if(!partyPeople||!nightlifeHours(s.spot.crowd.cond?.hour??12).party)return;
+            for(const {p,i} of partyPeople){const phase=s.t*Math.PI*2.1+p.phase;s.spot.crowd.cr.set(i,{x:p.x,y:p.y+Math.max(0,Math.sin(phase))*.035,z:p.z,yaw:p.yaw+Math.sin(phase*.5)*.16,phase,scale:p.look.scale,amp:.45,pose:i%3?'talk':'cheer',prop:null});}});
+        ctx.interactables=ctx.interactables.filter(it=>it.hidden||focused(it.x,it.z)||it.x>7000);
         // ambience
         ctx.sound('crowd', 120, -60, 60, 1); ctx.sound('crowd', 200, 120, 50, 0.8); ctx.sound('crowd', -60, -66, 40, 0.6);
         ctx.sound('bell', CV.church?.x ?? 205, CV.church?.z ?? 134, 260, 0.45); ctx.sound('traffic', -240, -60, 120, 0.7); ctx.sound('traffic', 300, 0, 120, 0.5);
         // spawns
-        ctx.spawns['old-town-lipscani'] = { x: 128, z: -56.5, heading: headingFromBearing(78) };
-        ctx.spawns['stavropoleos-cec'] = { x: -92, z: -67.5, heading: headingFromBearing(100) };
+        ctx.spawns['old-town-lipscani'] = NIGHTLIFE ? { x:NIGHTLIFE.entry.x+3,z:NIGHTLIFE.entry.z+2.5,heading:headingFromBearing(300) } : { x:128,z:-56.5,heading:headingFromBearing(78) };
+        // Legacy ID remains loadable, with the same compact arrival and saves intact.
+        ctx.spawns['stavropoleos-cec'] = { ...ctx.spawns['old-town-lipscani'] };
+        ctx.extras.walkBoundary=walkBoundary(()=>[OLD_TOWN_FOCUS,
+            ...(NIGHTLIFE?.room.visible?[NIGHTLIFE.polygon]:[]),
+            ...(ctx.extras.wcpRoom?.room.visible?[[[7994.2,7999.5],[8005.8,7999.5],[8005.8,8011],[7994.2,8011]]]:[])]);
+        ctx.extras.visitExits=markVisitExits(ctx,OLD_TOWN_FOCUS);
         void balustradeMaterial; void fitDraw;
     },
 };

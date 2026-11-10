@@ -60,13 +60,14 @@ export function createVenueActivities(ctx) {
         const { s, ctlActive, ui } = run;
         s.ctl.active = ctlActive; s.input?.take?.('KeyE'); s.input?.keys?.delete?.('KeyE');
         s.input?.takeLook?.(); s.input?.take?.('Space');
+        s.ui.setActivityActive?.(false);
         ui.remove(); p.root.visible = false; owner.add(p.root);
         if (ui.contains(document.activeElement)) document.activeElement.blur?.();
         run = null;
     }
     function note(type, extra = {}) {
         if (!run) return;
-        window.dispatchEvent(new CustomEvent('dmcv:activity-flow', { detail: { type, spot: run.spot, id: run.kind === 'shaorma' ? 'dristor-shaorma' : 'shoteria-shot', attempt: run.token, step: run.step, elapsed_ms: Math.round(performance.now() - run.began), ...extra } }));
+        window.dispatchEvent(new CustomEvent('dmcv:activity-flow', { detail: { type, spot: run.spot, id: run.venue.activity || (run.kind === 'shaorma' ? 'dristor-shaorma' : 'shoteria-shot'), attempt: run.token, step: run.step, elapsed_ms: Math.round(performance.now() - run.began), ...extra } }));
     }
     function cancel(reason = 'cancel') { if (!run) return; lastCancel = reason; note('cancel', { reason }); restore(); }
     function blocked(s) {
@@ -128,8 +129,9 @@ export function createVenueActivities(ctx) {
                 run.step++; run.animating = false;
                 note('step');
                 if (run.step === 3) {
-                    const { kind } = run; restore();
-                    bucActivity(s, 'old-town-lipscani', kind === 'shaorma' ? 'dristor-shaorma' : 'shoteria-shot', kind === 'shaorma' ? '🥙 Poftă bună!' : '🥂 Noroc!', kind === 'shaorma' ? 'Shaorma finished at Dristor Kebap, Strada Franceză 17.' : 'Poured, raised and finished a shot at Shoteria, Strada Șelari 17.');
+                    const { kind, venue, tourStop } = run; restore();
+                    bucActivity(s, 'old-town-lipscani', venue.activity || (kind === 'shaorma' ? 'dristor-shaorma' : 'shoteria-shot'), kind === 'shaorma' ? '🥙 Poftă bună!' : '🥂 Noroc!', kind === 'shaorma' ? 'Shaorma finished at Dristor Kebap, Strada Franceză 17.' : `Poured, raised and finished a virtual shot at ${venue.name}, ${venue.address}.`);
+                    s.completeTourActivity?.(tourStop);
                     return;
                 }
                 run.status.textContent = `${run.step}/3 · ${run.kind === 'shaorma' ? 'A little less shaorma, a little more Old Town.' : run.step === 1 ? 'Glass filled. Time for a toast.' : 'A toast to the Old Town.'}`;
@@ -159,13 +161,14 @@ export function createVenueActivities(ctx) {
             if (!document.getElementById('sp-venue-css')) { const st = document.createElement('style'); st.id = 'sp-venue-css'; st.textContent = CSS; document.head.append(st); }
             const ui = document.createElement('section'); ui.className = 'sp-venue'; ui.setAttribute('aria-label', `${venue.name} activity`);
             ui.innerHTML = '<h2></h2><small></small><p aria-live="polite"></p><progress max="3" value="0" aria-label="Activity progress"></progress><nav><button data-act></button><button data-cancel>Leave</button></nav>';
-            ui.querySelector('h2').textContent = kind === 'shaorma' ? '🥙 Dristor Kebap' : '🥂 Shoteria';
+            ui.querySelector('h2').textContent = (kind === 'shaorma' ? '🥙 ' : '🥂 ') + venue.name;
             ui.querySelector('small').textContent = venue.address;
             const button = ui.querySelector('[data-act]'), status = ui.querySelector('p'), progress = ui.querySelector('progress');
-            run = { s, kind, spot: s.spot.id, x: s.position.x, z: s.position.z, step: 0, t: 0, intro: .4, animating: false, ctlActive: s.ctl.active, ui, button, status, progress, began: performance.now(), token: globalThis.crypto?.randomUUID?.() || String(performance.now()) };
+            run = { s, kind, venue, spot: s.spot.id, x: s.position.x, z: s.position.z, step: 0, t: 0, intro: .4, animating: false, ctlActive: s.ctl.active, ui, button, status, progress, began: performance.now(), token: globalThis.crypto?.randomUUID?.() || String(performance.now()) };
             note('start');
-            s.endTour?.(); s.ctl.active = false; s.input.releaseLock?.(); s.input.take?.('KeyE'); s.ui.prompt(null);
-            s.ui.el.append(ui); button.textContent = steps()[0] + ' (E)'; status.textContent = kind === 'shaorma' ? 'Three bites. Take your time.' : 'Pour, raise, then drink. Three small actions.';
+            run.tourStop = s.captureTourActivity?.();
+            s.ctl.active = false; s.input.releaseLock?.(); s.input.take?.('KeyE'); s.ui.prompt(null);
+            s.ui.el.append(ui); s.ui.setActivityActive?.(true, ui); button.textContent = steps()[0] + ' (E)'; status.textContent = kind === 'shaorma' ? 'Three bites. Take your time.' : 'Pour, raise, then drink. Three small actions.';
             button.onclick = act; ui.querySelector('[data-cancel]').onclick = () => cancel('leave');
             p.root.visible = true; s.camera.add(p.root); render(); return true;
         },

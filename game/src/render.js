@@ -1,4 +1,5 @@
 import * as THREE from '../vendor/three.module.min.js';
+import { installNormalGuard } from './normal-guard.js';
 import { EffectComposer } from '../vendor/addons/EffectComposer.js';
 import { RenderPass } from '../vendor/addons/RenderPass.js';
 import { ShaderPass } from '../vendor/addons/ShaderPass.js';
@@ -70,10 +71,8 @@ const OVERRIDES = { day: { el: 48, az: 200 }, sunset: { el: 3, az: 290 }, dusk: 
 const FOG_H = 1100;
 {
     const C = THREE.ShaderChunk;
-    // zero-length vertex normals (degenerate triangles in generated geometry) made normalize() return NaN, which the
-    // bloom pass then smeared into a black screen-aligned block (feedback note 28): fall back to the face normal
-    C.normal_fragment_begin = C.normal_fragment_begin.replace('vec3 normal = normalize( vNormal );',
-        'vec3 normal = dot( vNormal, vNormal ) > 1e-12 ? normalize( vNormal ) : normalize( cross( dFdx( vViewPosition ), dFdy( vViewPosition ) ) + 1e-9 );');
+    // Keep the face-normal fallback valid in Ultra's smooth normal-only pass too.
+    installNormalGuard(THREE);
     C.fog_pars_vertex = `#ifdef USE_FOG
         varying float vFogDepth;
         #ifdef FOG_EXP2
@@ -510,7 +509,7 @@ export class Renderer3D {
 
         // adaptive quality state
         this._ema = 16.7; this._slowT = 0; this._fastT = 0; this._settle = 2; this._dts = []; this._block = {}; this._backoff = {};
-        this._fpsAcc = 0; this._fpsN = 0;
+        this._fpsAcc = 0; this._fpsN = 0; this._lastStatsNow = null;
         this._pmrem = new THREE.PMREMGenerator(r);
         this._tmp = { v: new THREE.Vector3(), v2: new THREE.Vector3(), v3: new THREE.Vector3(), m: new THREE.Matrix4(), cam: new THREE.Vector3(), vel: new THREE.Vector3() };
         this.setQuality(opts.quality || 'auto');
@@ -525,7 +524,7 @@ export class Renderer3D {
         for (const o of retained) o.removeFromParent();
         for (const k of ['rain', 'snow']) if (this[k]) { this[k].mesh.removeFromParent(); this[k].dispose(); this[k] = null; }
         this._wxGen++; this._wxBusy = false; this._wxLoc = ''; // discard the old response; setClock refreshes the new place
-        this._crowns = []; this._nightMats = []; this._lampHead = null;
+        this._crowns = []; this._nightMats = []; this._sourceBackdrops = []; this._lampHead = null;
         this.lamps = this._lampDens = this._lampTint = this._lampReal = null; this._lampNear = [];
         for (const sl of this._lampSlots) { sl.lamp = -1; sl.w = sl.target = 0; sl.light.intensity = 0; }
         this.scene = null; this.player = null; this.renderPass.scene = null;
@@ -546,6 +545,8 @@ export class Renderer3D {
      */
     setScene(scene, camera, env, o = {}) {
         this.scene = scene; this.camera = camera; this.env = env; this.mph = o.units === 'mph';
+        this._sourceBackdrops = [];
+        scene.traverse(object => { if (Number.isFinite(object.userData?.sourceProjection?.cameraFarM)) this._sourceBackdrops.push(object); });
         camera.layers.enable(1); // layer 1 = seen by the main camera only (rear cabin; the mirror camera stays on layer 0)
         const replace = o.replaceLights !== false;
         if (replace) for (const c of [...scene.children]) if ((c.isDirectionalLight || c.isHemisphereLight || c.isAmbientLight || (c.isLightProbe && c !== this.probe)) && c !== this.sun) scene.remove(c);
@@ -581,6 +582,8 @@ export class Renderer3D {
         if (this.gtaoPass) { this.gtaoPass.scene = scene; this.gtaoPass.camera = camera; }
         else if (this.tier?.ao) this._buildPasses();
         this._settle = 2;
+        this._lastStatsNow = null;
+        this._fpsAcc = 0; this._fpsN = 0; this.stats.fps = 0; this.stats.frameMs = 0;
     }
 
     // ------------------------------------------------------------------ time of day
@@ -1363,13 +1366,12 @@ export class Renderer3D {
     }
 
     // ------------------------------------------------------------------ frame
-    /** Render one frame. dt in seconds; omit it to use an internal clock. */
-    frame(dt) {
-        const { scene, camera } = this;
-        if (!scene || !camera) return;
-        const now = performance.now();
-        if (dt === undefined) dt = this._lastNow ? Math.min(0.1, (now - this._lastNow) / 1000) : 1 / 60;
-        this._lastNow = now;
+    /** Advance the existing scene's environment without drawing or ticking any actors.
+     * A window uses its dedicated source-world camera and configures off-axis
+     * projection AFTER this update; cull:false preserves that projection. */
+    advanceEnvironment(dt, {camera = this.camera, cockpit = true, cull = true} = {}) {
+        if (!this.scene || !camera) return false;
+        if (!Number.isFinite(dt) || dt < 0) throw new RangeError('Finite nonnegative environment dt required');
         this.time += dt;
         tickWater(dt);
         const T = this._tmp;
@@ -1394,7 +1396,7 @@ export class Renderer3D {
         this._updateSun(T.cam);
         this._updateLamps(T.cam, dt);
         // weather + cockpit
-        const p = this.player;
+        const p = cockpit ? this.player : null;
         if (p) {
             T.vel.set(p.fx * p.speed, 0, p.fz * p.speed);
             const ck = p.cockpit?.userData;
@@ -1413,8 +1415,24 @@ export class Renderer3D {
             }
         } else T.vel.set(0, 0, 0);
         this._updateWeather(dt, T.cam, T.vel);
-        this._updateWindshield();
-        this._fogCull(camera);
+        if (cockpit) this._updateWindshield();
+        if (cull) this._fogCull(camera);
+        return true;
+    }
+
+    /** Render one frame. dt advances effects; diagnostics use actual visible frame cadence. */
+    frame(dt) {
+        const { scene, camera } = this;
+        if (!scene || !camera) return;
+        const now = performance.now();
+        const visible = typeof document === 'undefined' || document.visibilityState !== 'hidden';
+        const elapsed = visible && this._lastStatsNow != null ? (now - this._lastStatsNow) / 1000 : 0;
+        this._lastStatsNow = visible ? now : null;
+        if (!visible) { this._fpsAcc = 0; this._fpsN = 0; this.stats.fps = 0; this.stats.frameMs = 0; }
+        if (dt === undefined) dt = this._lastNow ? Math.min(0.1, (now - this._lastNow) / 1000) : 1 / 60;
+        this._lastNow = now;
+        this.advanceEnvironment(dt);
+        const p = this.player;
         // render
         const fu = this.finalPass.uniforms; fu.uTime.value = this.time;
         this.sun.shadow.needsUpdate = true;
@@ -1427,8 +1445,15 @@ export class Renderer3D {
         const info = this._renderer.info;
         this.stats.drawCalls = info.render.calls; this.stats.triangles = info.render.triangles;
         info.reset();
-        this._fpsAcc += dt; this._fpsN++;
-        if (this._fpsAcc > 0.5) { this.stats.fps = Math.round(this._fpsN / this._fpsAcc); this._fpsAcc = 0; this._fpsN = 0; }
+        if (elapsed > 0 && Number.isFinite(elapsed)) {
+            this.stats.frameMs = Math.round(elapsed * 10000) / 10;
+            this._fpsAcc += elapsed; this._fpsN++;
+            if (this._fpsAcc >= 0.5) {
+                const rate = this._fpsN / this._fpsAcc, precision = rate < 1 ? 100 : rate < 10 ? 10 : 1;
+                this.stats.fps = Math.round(rate * precision) / precision;
+                this._fpsAcc = 0; this._fpsN = 0;
+            }
+        }
         this._adapt(dt);
     }
 
@@ -1438,12 +1463,23 @@ export class Renderer3D {
      * buildings and their draw calls are frustum-culled. Never below 220 m, restored as soon as it clears; clear-weather
      * fog is left alone (backdrops beyond it are meant to show).
      */
-    _fogCull(camera) {
+    /** Read the current scene/weather limit without rewriting a camera projection. */
+    visibilityFar(baseFar) {
         const fog = this.scene?.fog;
+        let want = baseFar;
+        if (fog?.isFogExp2 && fog.density > 0) want = Math.min(baseFar, Math.max(220, 5.3 / fog.density)); // 0.5 % left
+        for (const object of this._sourceBackdrops || []) {
+            let visible = true;
+            for (let p = object; p; p = p.parent) if (!p.visible) { visible = false; break; }
+            if (visible) want = Math.max(want, Math.min(baseFar, object.userData.sourceProjection.cameraFarM));
+        }
+        return want;
+    }
+
+    _fogCull(camera) {
         if (!camera?.isPerspectiveCamera) return;
         if (this._farSet === undefined || Math.abs(camera.far - this._farSet) > 0.01) { this._farBase = camera.far; this._farSet = camera.far; }
-        let want = this._farBase;
-        if (fog?.isFogExp2 && fog.density > 0) want = Math.min(this._farBase, Math.max(220, 5.3 / fog.density)); // 0.5 % left
+        const want = this.visibilityFar(this._farBase);
         if (Math.abs(want - camera.far) > camera.far * 0.04) { camera.far = want; camera.updateProjectionMatrix(); this._farSet = want; }
     }
 
@@ -1520,7 +1556,6 @@ export class Renderer3D {
         const ms = dt * 1000;
         const a = 1 - Math.exp(-dt / 0.4);
         this._ema += (ms - this._ema) * a;
-        this.stats.frameMs = Math.round(this._ema * 10) / 10;
         // display refresh estimate (10th percentile of recent intervals, clamped to 59..144 Hz)
         const d = this._dts; d.push(ms); if (d.length > 120) d.shift();
         const sorted = [...d].sort((x, y) => x - y);

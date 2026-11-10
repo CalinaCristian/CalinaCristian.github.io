@@ -309,12 +309,23 @@ export function buildBuildings(data, ground, o = {}) {
         r.style=style;r.cx=cx;r.cz=cz;records.push(r);
     }
     const plan=resolveSourcePlan(records,data.buildingGeometry),add=(style,g,col)=>{if(!g.index?.count){g.dispose();return;}const key='f-'+style;mats[key]=facadeMaterial(style);batch.add(g,key,null,col);g.dispose();};
-    const collisionKeys=new Map();
+    const collisionKeys=new Map();let reusedVolumes=0;
     for(const v of plan.volumes){
+        if(o.reuseSceneSourceIds?.has(v.source.id)){reusedVolumes++;continue;}
+        o.onSourceVolume?.(v.source.id); // geometry-cache observer: primitive identity only
         const r=v.owner,b=v.source,style=r.style,S=facadeStyle(style),pal=PALETTES[style]||(style==='house'?HOUSE_COLS:style==='office'?OFFICE_COLS:style==='brick'?BRICK_COLS:APT_COLS),hcol=b.c?safeCol(b.c):pal[Math.floor(hash2(r.cx,r.cz)*pal.length)],roofcol=b.rc?safeCol(b.rc):style==='office'?'#7d8288':v.owner.profile.shape==='flat'?'#8a8784':['#4a4a4f','#5b4a42','#3f4a52','#6b6660'][Math.floor(hash2(r.cz,r.cx)*4)];
         const shop=urban&&r.minHeight===0&&r.height>7&&(b.shop||b.amenity||style==='mall'||/commercial|retail|mixed|yes/.test(b.k))&&style!=='house'&&style!=='industrial',gf=shop?Math.min(v.h,r.datum+4.3):v.minH;
         const wall=(ring,bands,hole=false)=>{
-            if(shop)add(o.shopStyle||'shop',sourceWallGeometry(ring,bands,facadeStyle(o.shopStyle||'shop'),r.datum,{max:gf,hole}),hcol);
+            if(shop){const g=sourceWallGeometry(ring,bands,facadeStyle(o.shopStyle||'shop'),r.datum,{max:gf,hole});
+                // Authored, source-boundary storefront glazing replaces only
+                // a selected ground-floor face; source volumes/roofs/colliders
+                // and every other face remain in the native source plan.
+                for(const opening of o.wallOpenings||[]){if(hole||opening.source!==b.id)continue;const a=opening.a,z=opening.b,dx=z[0]-a[0],dz=z[1]-a[1],L=Math.hypot(dx,dz),p=g.attributes.position,kept=[];
+                    const lo=opening.foundation?r.bottom:(opening.relative?r.datum:0)+opening.y0,hi=(opening.relative?r.datum:0)+opening.y1;
+                    for(let i=0;i<g.index.count;i+=3){const t=[g.index.getX(i),g.index.getX(i+1),g.index.getX(i+2)],onFace=t.every(j=>Math.abs((p.getX(j)-a[0])*dz-(p.getZ(j)-a[1])*dx)/L<.02&&p.getY(j)>=lo-.02&&p.getY(j)<=hi+.02);
+                        if(!onFace)kept.push(...t);else opening.replacedTriangles=(opening.replacedTriangles||0)+1;}
+                    g.setIndex(kept);}
+                add(o.shopStyle||'shop',g,hcol);}
             add(style,sourceWallGeometry(ring,bands,S,shop?gf:r.datum,{min:shop?gf:-Infinity,hole}),hcol);
         };
         wall(v.ring,v.surface.walls);v.holes.forEach((h,i)=>wall(h,v.holeWalls[i],true));
@@ -331,7 +342,7 @@ export function buildBuildings(data, ground, o = {}) {
     }
     for(const m of Object.values(mats))m.side=THREE.DoubleSide;
     const group=batch.build('osm-buildings',{matOverrides:mats});
-    const stats={...plan.stats,cacheHit:plan.cacheHit,buildMs:Math.round(performance.now()-started),sourceRecords:records.length,renderedVolumes:plan.volumes.length,heroReplacements:[...skip].filter(id=>data.buildings.some(b=>b.id===id))};
+    const stats={...plan.stats,cacheHit:plan.cacheHit,buildMs:Math.round(performance.now()-started),sourceRecords:records.length,renderedVolumes:plan.volumes.length-reusedVolumes,heroReplacements:[...skip].filter(id=>data.buildings.some(b=>b.id===id)),...(o.reuseSceneSourceIds?{reusedSceneSourceIds:[...o.reuseSceneSourceIds].filter(id=>records.some(r=>r.source.id===id)),reusedVolumes}: {})};
     return{group,colliders,tris:countFromGroup(group),dedupe:{dropped:0,inset:0},sourceGeometry:stats,sourceMembers:members,geometryCache:plan.geometryCache};
 }
 function sourceCollisionKey(ring,holes,y0,y1){
@@ -492,8 +503,9 @@ const SHRUB_C = ['#456f35', '#3e6530', '#567d3c', '#3a5c2e'];
 /**
  * instanced trees. list: [{x, z, y?, s?, kind:'broad'|'con'|'shrub', c?}]
  * lod: optional { near = 90, max = 700 } → dynamic LOD: the `max` trees within `near` m of the viewer use the full crown,
- *      all others a low-detail crown + trunk (same season tinting); call update(x, z) with the viewer position.
- * @returns {{ group, crowns[], colliders[], update?(x, z) }}
+ *      all others a low-detail crown + trunk (same season tinting). `force` enables existing low variants for small groups too.
+ *      update(x, z, eyeY?) uses actual emitted crown centres in 3D when eyeY is finite; two arguments preserve legacy XZ.
+ * @returns {{ group, crowns[], colliders[], update?(x, z, eyeY?) }}
  */
 export function buildTrees(list, ground, { seed = 5, collide = true, lod = null } = {}) {
     const G = treeGeos(), r = rng(seed), grp = new THREE.Group(); grp.name = 'trees';
@@ -504,7 +516,7 @@ export function buildTrees(list, ground, { seed = 5, collide = true, lod = null 
     for (const kind of ['broad', 'con', 'shrub', ...SPECIES]) {
         const L = list.filter((t) => (t.kind || 'broad') === kind); if (!L.length) continue;
         const sp = SPECIES.includes(kind);
-        const useLod = !!lod && kind !== 'shrub' && L.length > (lod.max ?? 700) * (sp ? 0.25 : 0.6);
+        const useLod = !!lod && kind !== 'shrub' && (lod.force || L.length > (lod.max ?? 700) * (sp ? 0.25 : 0.6));
         const crownMat = new THREE.MeshLambertMaterial({ color: '#ffffff' }); crownMat.name = 'treeCrowns';
         const trunkMat = new THREE.MeshLambertMaterial({ color: '#5f4632' });
         const hiN = useLod ? Math.min(L.length, Math.round((lod.max ?? 700) * (sp ? 0.3 : 1))) : L.length;
@@ -513,12 +525,13 @@ export function buildTrees(list, ground, { seed = 5, collide = true, lod = null 
         const lowC = useLod ? mk(sp ? G.speciesLow : kind === 'broad' ? G.broadLow : G.conLow, crownMat, L.length, `treeCrowns ${kind === 'con' ? 'conifer' : kind} low`) : null;
         if (lowC) lowC.userData.conifer = crown.userData.conifer;
         const lowT = useLod ? mk(sp ? G.trunk_speciesLow : G.trunkLow, trunkMat, L.length, 'treeTrunks low') : null;
-        const mats = [], cols = [];
+        const mats = [], cols = [], centres = [];
+        if (useLod && !crown.geometry.boundingSphere) crown.geometry.computeBoundingSphere();
         L.forEach((t, i) => {
             const s = t.s || (kind === 'shrub' ? 0.7 + r() * 0.8 : sp ? 0.85 + r() * 0.3 : 0.75 + r() * 0.5), y = t.y ?? ground.heightAt(t.x, t.z) - 0.05;
             m4.compose(new THREE.Vector3(t.x, y, t.z), q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), r() * 6.28), new THREE.Vector3(s * (t.sx || 1), s * (t.sy || 1), s * (t.sx || 1)));
             col.set(t.c || (kind === 'con' ? r.pick(CON_C) : kind === 'shrub' ? r.pick(SHRUB_C) : r.pick(BROAD_C)));
-            if (useLod) { mats.push(m4.clone()); cols.push(col.clone()); }
+            if (useLod) { mats.push(m4.clone()); cols.push(col.clone()); centres.push(crown.geometry.boundingSphere.center.clone().applyMatrix4(m4)); }
             else { crown.setMatrixAt(i, m4); trunk?.setMatrixAt(i, m4); crown.setColorAt(i, col); }
             if (collide && kind !== 'shrub') colliders.push({ x: t.x, z: t.z, r: (sp ? 0.32 : 0.28) * s, hw: (sp ? 0.32 : 0.28) * s, prop: true, h: 6 });
         });
@@ -530,8 +543,9 @@ export function buildTrees(list, ground, { seed = 5, collide = true, lod = null 
         if (useLod) {
             const near2 = (lod.near ?? 90) ** 2;
             const D = { L, mats, cols, crown, trunk, lowC, lowT, hiN, last: null, shell };
-            D.apply = (px, pz) => {
-                const idx = L.map((t, i) => [i, (t.x - px) ** 2 + (t.z - pz) ** 2]).filter((e) => e[1] < near2).sort((a, b2) => a[1] - b2[1]).slice(0, hiN).map((e) => e[0]).reverse(); // (far → near: bare crowns blend in order)
+            D.apply = (px, pz, eyeY) => {
+                const spatial = Number.isFinite(eyeY);
+                const idx = L.map((t, i) => { const p = spatial ? centres[i] : t; return [i, (p.x - px) ** 2 + (p.z - pz) ** 2 + (spatial ? (p.y - eyeY) ** 2 : 0)]; }).filter((e) => e[1] < near2).sort((a, b2) => a[1] - b2[1]).slice(0, hiN).map((e) => e[0]).reverse(); // (far → near: bare crowns blend in order)
                 const hi = new Uint8Array(L.length); let k = 0;
                 for (const i of idx) { hi[i] = 1; crown.setMatrixAt(k, mats[i]); trunk?.setMatrixAt(k, mats[i]); crown.setColorAt(k, cols[i]); k++; }
                 crown.count = k; if (trunk) trunk.count = k; if (D.shell) D.shell.count = k;
@@ -543,8 +557,8 @@ export function buildTrees(list, ground, { seed = 5, collide = true, lod = null 
         } else { crown.instanceMatrix.needsUpdate = true; crown.computeBoundingSphere(); trunk?.computeBoundingSphere(); if (shell) { shell.count = crown.count; shell.computeBoundingSphere(); } }
         for (const m of [crown, trunk, lowC, lowT, shell]) if (m) m.frustumCulled = !useLod;
     }
-    let lx = 1e9, lz = 1e9;
-    const update = dyn.length ? (x, z) => { if (Math.hypot(x - lx, z - lz) < 12) return; lx = x; lz = z; for (const D of dyn) D.apply(x, z); } : null;
+    let lx = 1e9, lz = 1e9, ly;
+    const update = dyn.length ? (x, z, eyeY) => { const spatial = Number.isFinite(eyeY), wasSpatial = Number.isFinite(ly); if (spatial === wasSpatial && Math.hypot(x - lx, z - lz, spatial ? eyeY - ly : 0) < 12) return; lx = x; lz = z; ly = spatial ? eyeY : undefined; for (const D of dyn) D.apply(x, z, eyeY); } : null;
     return { group: grp, crowns, colliders, update };
 }
 /** street trees along motor roads (both sides, skipping building footprints / exclusions) */

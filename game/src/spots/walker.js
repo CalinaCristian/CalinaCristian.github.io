@@ -32,6 +32,10 @@ function collideOne(b, x, z, radius, y) {
     if (b.prop && b.h !== undefined && y !== undefined && y > (b.y ?? -1e9) + b.h - 0.05 && b.y !== undefined) return null;
     if (b.wall) {
         const r = distSeg(x, z, b.ax, b.az, b.bx, b.bz); if (r.d >= radius) return null;
+        // Match the native world's segment-height convention. Upper galleries
+        // must not become infinite-height obstacles to ground-floor routing.
+        const y0 = b.y0a + (b.y0b - b.y0a) * r.t, y1 = b.y1a + (b.y1b - b.y1a) * r.t;
+        if (y !== undefined && (y < y0 - 0.3 || y > y1)) return null;
         return r.d > 1e-4 ? { nx: (x - r.cx) / r.d, nz: (z - r.cz) / r.d, pen: radius - r.d } : { nx: b.nx, nz: b.nz, pen: radius };
     }
     if (b.prop && b.hw === b.r) { const dx = x - b.x, dz = z - b.z, d = Math.hypot(dx, dz); if (d >= b.r + radius) return null; return d > 1e-4 ? { nx: dx / d, nz: dz / d, pen: b.r + radius - d } : { nx: 1, nz: 0, pen: b.r + radius }; }

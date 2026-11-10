@@ -39,6 +39,10 @@ s.dispose()
 `r3d.setScene`), `crowd`, `interactables[]`, `challenges[]`, `updaters[]`, `nightHooks[]`, `sounds[]`, `tris`,
 `timing`.
 
+Source-backed surrounding terrain can expose its materials in `ctx.extras.sourceGroundMaterials`.
+The loader adds them to `vegetation.groundMaterials` for the same weather/season treatment as the fine terrain;
+they are not grass/crown materials and must not receive vegetation wind deformation.
+
 `SpotSession` wires everything a host needs: `Renderer3D.setScene/setClock/setLamps` (real sun, weather and
 season at the spot's lat/lon — spec 18), the walker (`OnFootController` from `src/onfoot.js` when present,
 otherwise `walker.js` `LocalWalker` with the same interface), the crowd, the UI overlay (`ui.js`), the ambience
@@ -97,7 +101,7 @@ Colliders use the `world.js` formats (polygon `{x,z,r,poly}`, oriented box `{x,z
            ctx.interactables.push({ x, z, r, label, use(session) })     // E actions (fun)
            ctx.crowdCfg = { personas, walkers, paths: ctx.footLines(), groups: [...] }
            ctx.sound(kind, x, z, radius, gain); ctx.onUpdate(fn); ctx.onNight(fn)
-           ctx.spawns['<id>'] = { x, z, heading }
+           ctx.spawns['<id>'] = { x, z, heading, pitch: 0 } // optional finite pitch in radians, clamped to native ±1.3
        },
    };
    ```

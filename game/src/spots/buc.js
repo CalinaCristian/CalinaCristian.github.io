@@ -462,13 +462,13 @@ export function oldTownTerraces(ctx, o = {}) {
         if (!eat || p.outdoor_seating !== 'yes' || half < 2.2) continue;
         if (placed.some((q) => Math.hypot(q.x - f.x, q.z - f.z) < 7)) continue;
         placed.push(f);
-        const depth = Math.min(o.maxDepth ?? 3.4, half * 0.62), W = 5.5 + r() * 3, col = r.pick(awn), cx = f.x + f.nx * depth / 2, cz = f.z + f.nz * depth / 2;
+        const depth = Math.min(o.maxDepth ?? 3.4, half * 0.62), W = 5.5 + r() * 3, seededColour=r.pick(awn),canopy=o.canopies?.[p.id],col=canopy?.colour||seededColour,canopyKey=canopy?.glass?'terrace-glass':'fabric',cx = f.x + f.nx * depth / 2, cz = f.z + f.nz * depth / 2;
         // pergola: 4 posts, beams, canvas roof sloping to the street, side valance
         const P = (u, v) => [f.x + tx * u + f.nx * v, f.z + tz * u + f.nz * v];
         for (const [u, v] of [[-W / 2, depth - 0.15], [W / 2, depth - 0.15], [-W / 2, 0.3], [W / 2, 0.3]]) { const [x, z] = P(u, v); b.box(x, y, z, 0.1, 2.75, 0.1, '#2b2724', 'metal'); }
         const [ax, az] = P(-W / 2, 0.15), [bx, bz] = P(W / 2, 0.15), [cx2, cz2] = P(W / 2, depth), [dx2, dz2] = P(-W / 2, depth);
-        b.quad([dx2, y + 2.6, dz2], [cx2, y + 2.6, cz2], [bx, y + 3.05, bz], [ax, y + 3.05, az], col, 'fabric');
-        b.quad([ax, y + 3.03, az], [bx, y + 3.03, bz], [cx2, y + 2.58, cz2], [dx2, y + 2.58, dz2], col, 'fabric'); // underside, 2 cm below (no coplanar faces)
+        b.quad([dx2, y + 2.6, dz2], [cx2, y + 2.6, cz2], [bx, y + 3.05, bz], [ax, y + 3.05, az], col, canopyKey);
+        b.quad([ax, y + 3.03, az], [bx, y + 3.03, bz], [cx2, y + 2.58, cz2], [dx2, y + 2.58, dz2], col, canopyKey); // underside, 2 cm below (no coplanar faces)
         { const [vx, vz] = P(0, depth); b.box(vx, y + 2.3, vz, 0.03, 0.3, W, col, 'fabric', yaw + Math.PI / 2); }
         // furniture at real size (note 22): round bistro tables with two slatted chairs facing each other, a cushioned rattan
         // sofa along the façade on some terraces, bamboo planters at the ends, a patio heater, a menu A-board at the street end
@@ -497,7 +497,8 @@ export function oldTownTerraces(ctx, o = {}) {
         out.lamps.push({ x: cx, z: cz, h: 2.6, noPost: true });
         out.terraces.push({ source: p.id, x: cx, z: cz, yaw, W, depth, name: p.name, f });
     }
-    out.group = b.build('terraces');
+    const overrides=Object.values(o.canopies||{}).some(c=>c.glass)?{'terrace-glass':new THREE.MeshStandardMaterial({color:'#9da89b',transparent:true,opacity:.2,roughness:.2,metalness:.12,depthWrite:false,side:THREE.DoubleSide})}:{};
+    out.group = b.build('terraces',{matOverrides:overrides});
     return out;
 }
 function distPolylineK(px, pz, pts) { let best = { d: 1e9 }; for (let i = 1; i < pts.length; i++) { const [ax, az] = pts[i - 1], [bx, bz] = pts[i], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1; let t = ((px - ax) * dx + (pz - az) * dz) / L2; t = Math.max(0, Math.min(1, t)); const cx = ax + dx * t, cz = az + dz * t, d2 = Math.hypot(px - cx, pz - cz); if (d2 < best.d) best = { d: d2, cx, cz }; } return best; }
@@ -514,6 +515,7 @@ export function floodlight(root, colour = '#ffd9a0', k = 0.35) {
 // ---------------------------------------------------------------------------- activities (note 57; contract 01 *Activities*)
 /** report a finished spot activity (achievements listen to `dmcv:activity`) and show its toast */
 export function bucActivity(s, spot, id, title, body) {
+    s.recordTourActivity?.(spot, id);
     s._bucDone = s._bucDone || new Set(); s._bucDone.add(spot + ':' + id);
     try {
         if (typeof window.game?.emit === 'function') window.game.emit('activity', { spot, id });

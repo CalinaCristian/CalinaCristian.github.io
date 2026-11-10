@@ -12,7 +12,7 @@ import { bucBackdrop, osmPoly, cityFiller, signAtlas, bucActivity, boatRide } fr
 import { bench } from '../osm.js';
 import { clockFace, railing } from '../props.js';
 import { shortWaterRoute, dryLanding } from '../water-route.js';
-import { chessOpening } from '../chess-opening.js';
+import { backgammonGame } from '../backgammon-game.js';
 
 const WRITERS = ['Mihai Eminescu', 'Ion Creangă', 'Ion Luca Caragiale', 'Vasile Alecsandri', 'George Coșbuc', 'Alexandru Vlahuță', 'Barbu Ștefănescu Delavrancea', 'Duiliu Zamfirescu', 'Titu Maiorescu', 'Nicolae Bălcescu', 'Alexandru Odobescu', 'Ștefan Octavian Iosif'];
 
@@ -78,7 +78,18 @@ export default {
         // "La Șahiști": concrete chess tables, players, onlookers
         const ch = d.pois.find((p) => p.id === 'n473428599') || { x: -134.5, z: 78.6 };
         const chessTables = [];
-        { const y = g.heightAt(ch.x, ch.z); for (let i = 0; i < 6; i++) { const x = ch.x + (i % 3) * 3.4 - 3.4, z = ch.z + Math.floor(i / 3) * 3.6 - 1.8; b.cyl(x, y, z, 0.22, 0.72, '#b8b3a8', 'concrete', 8); b.box(x, y + 0.72, z, 0.95, 0.08, 0.95, '#cfcac0', 'concrete'); b.box(x, y + 0.805, z, 0.6, 0.01, 0.6, '#3a3a3a', 'paint'); for(let rank=0;rank<8;rank++)for(let file=0;file<8;file++)if((rank+file)%2===0)b.box(x+(file-3.5)*.075,y+.816,z+(rank-3.5)*.075,.075,.003,.075,'#e8e4d8','paint'); for (const s of [-1, 1]) { b.box(x + s * 0.95, y, z, 0.4, 0.45, 0.4, '#b8b3a8', 'concrete'); } ctx.box(x, z, 0.55, 0.55, 0, { prop: true, h: 0.8 }); chessTables.push([x, z]); } }
+        {
+            const y = g.heightAt(ch.x, ch.z);
+            for (let i = 0; i < 6; i++) {
+                const x = ch.x + (i % 3) * 3.4 - 3.4, z = ch.z + Math.floor(i / 3) * 3.6 - 1.8;
+                b.cyl(x,y,z,.22,.72,'#b8b3a8','concrete',8);b.box(x,y+.72,z,.95,.08,.95,'#cfcac0','concrete');
+                // Table2 keeps its source concrete base and two seats; the
+                // scene-owned full backgammon board replaces its chess paint.
+                if(i!==2){b.box(x,y+.805,z,.6,.01,.6,'#3a3a3a','paint');for(let rank=0;rank<8;rank++)for(let file=0;file<8;file++)if((rank+file)%2===0)b.box(x+(file-3.5)*.075,y+.816,z+(rank-3.5)*.075,.075,.003,.075,'#e8e4d8','paint');}
+                for(const s of [-1,1])b.box(x+s*.95,y,z,.4,.45,.4,'#b8b3a8','concrete');
+                ctx.box(x,z,.55,.55,0,{prop:true,h:.8});chessTables.push([x,z]);
+            }
+        }
         // French Heroes monument, Sissi Stefanidi spring, the pole clock at the Regina Elisabeta gate
         const fh = d.pois.find((p) => p.id === 'n473428601'); if (fh) { const y = g.heightAt(fh.x, fh.z); b.box(fh.x, y, fh.z, 3.2, 1.0, 3.2, '#bdb6a8', 'stone'); b.box(fh.x, y + 1, fh.z, 2.2, 3.2, 1.6, '#d6cfc0', 'stone'); b.sphere(fh.x, y + 4.8, fh.z, 0.55, 0.9, 0.5, '#3f4a3c', 'bronze', 10, 8); ctx.box(fh.x, fh.z, 1.6, 1.6, 0, { y0: y - 1, y1: y + 6 }); }
         const ck = d.pois.find((p) => p.id === 'n10864971740'); if (ck) { const y = g.heightAt(ck.x, ck.z); b.cyl(ck.x, y, ck.z, 0.12, 4.2, '#25332c', 'metal', 8); b.box(ck.x, y + 4.2, ck.z, 0.9, 0.9, 0.9, '#25332c', 'metal'); for (let i = 0; i < 4; i++) { const a = i * Math.PI / 2, c = clockFace(0.78, { timeZone: 'Europe/Bucharest', ink: '#1d1d1d', ring: '#1d1d1d' }); c.position.set(ck.x + Math.sin(a) * 0.46, y + 4.65, ck.z + Math.cos(a) * 0.46); c.rotation.y = a; ctx.add(c); } signs.push({ x: ck.x, y: y + 5.45, z: ck.z + 0.46, yaw: 0, w: 1.2, h: 0.28, text: 'CIȘMIGIU', bg: '#25332c', fg: '#e8d9a8', border: false }); ctx.circle(ck.x, ck.z, 0.2, 5); }
@@ -108,7 +119,7 @@ export default {
         if (rink) { const [rx, rz] = centroid(rink); ctx.plaque(PL[2], rx - 18, rz, -Math.PI / 2, { style: 'park' }); }
         ctx.plaque(PL[3], rot.x + 14.5, rot.z + 2, Math.PI / 2, { style: 'bronze', credit: 'Writers\' Rotunda (1943); busts by several sculptors.' });
         ctx.plaque(PL[4], -40, 40, Math.PI / 2, { style: 'park' });
-        { const [x,z]=chessTables[2];chessOpening(ctx,{x,z,y:g.heightAt(ch.x,ch.z)+.823,source:ch.id,onDone:s=>bucActivity(s,'cismigiu','chess','♟ An opening at La Șahiști','You moved the king pawns and developed a knight: e4, …e5, Nf3.')}); }
+        { const [x,z]=chessTables[2];backgammonGame(ctx,{x,z,y:g.heightAt(ch.x,ch.z)+.8,source:ch.id,onDone:s=>bucActivity(s,'cismigiu','backgammon','🎲 A match at La Șahiști','You bore off all fifteen checkers and beat Doru, a park regular.')}); }
         // activity (note 57): row round the lake from the landing (boats April–October; the rink replaces them in winter)
         if (lake) {
             const loop = landing && shortWaterRoute(lake, landing, { avoid: (x, z) => bridges.some(w => distPolyline(x, z, w.pts).d < 4) });
@@ -133,7 +144,7 @@ export default {
             personas: { local_elder: 3.5, local_young: 3, local_parent: 2, kid: 1.4, tourist_fr: 1, tourist_it: 1 },
             walkers: 40, paths: ctx.footLines(),
             groups: [
-                ...chessTables.slice(0, 4).flatMap(([x, z]) => [{ x: x - 0.95, z, r: 0.05, n: 1, act: 'sit', yaw: Math.PI / 2, personas: ['local_elder'] }, { x: x + 0.95, z, r: 0.05, n: 1, act: 'sit', yaw: -Math.PI / 2, personas: ['local_elder'] }]),
+                ...chessTables.slice(0, 4).filter((_,i)=>i!==2).flatMap(([x, z]) => [{ x: x - 0.95, z, r: 0.05, n: 1, act: 'sit', yaw: Math.PI / 2, personas: ['local_elder'] }, { x: x + 0.95, z, r: 0.05, n: 1, act: 'sit', yaw: -Math.PI / 2, personas: ['local_elder'] }]),
                 { x: ch.x, z: ch.z + 4, r: 2.5, n: 6, act: 'watch', look: [ch.x, ch.z], personas: ['local_elder', 'local_elder', 'local_young'] },
                 { x: rot.x + 6, z: rot.z - 5, r: 3, n: 4, act: 'photo', look: [rot.x, rot.z], personas: ['tourist_fr', 'tourist_it', 'local_young'] },
                 { x: -40, z: 30, r: 3, n: 5, act: 'watch', look: [-60, 20], personas: ['kid', 'local_parent'] },

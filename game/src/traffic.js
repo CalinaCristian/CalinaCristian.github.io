@@ -2,6 +2,7 @@ import * as THREE from '../vendor/three.module.min.js';
 import { makeVehicle, CAR_COLORS } from './vehicles.js';
 import * as VEH from './vehicles.js';
 import { TRANSIT, TRANSIT_RE, PHRASES } from './data.js';
+import {TrafficDialogue} from './situational-dialogue-traffic.js';
 import { makeRng, clamp, angleLerp } from './util.js';
 import { makeCrowd, dressFor } from './crowd.js';
 import { lanesDir, canTravel, edgeSpeed, isMotorway, turnAngle, nodeList, EdgeIndex, roadSideWidth, roadLateral } from './nav.js';
@@ -12,6 +13,10 @@ import { ambientTrafficAccess } from './road-access.js';
 import { admitInitialTraffic, previewInitialTrafficPose, initialTrafficStaticClearance, initialBodyCover } from './initial-traffic-admission.js';
 import { buildTramNetwork, canTravelTram, tramContinuations, sampleTramPath, tramSpan, tramPathPolyline, nearestTramSource, projectTramStations } from './tram-path.js';
 import { buildTurnLaneRules, laneTurnAllowed, preservesTurnLane } from './turn-lanes.js';
+import { buildMotorTurnRestrictions, motorTurnAllowed, motorRestrictionMode } from './motor-turn-restrictions.js';
+import {sourceRoadClearance} from './source-road-clearance.js';
+import {relocationPeerQuery} from './pedestrian-relocation-peers.js';
+import {evaluateInitialParking} from './initial-parking-behavior.js';
 import { buildTramSourceSignals, tramSourceSignalState } from './tram-source-signals.js';
 import { fitTramBodySupport } from './tram-body-support.js';
 
@@ -63,7 +68,7 @@ export function medianOf(e) {
 export function laneOffset(edge, lane, dir = 1) { return (edge.sharedLane ? 0 : medianOf(edge) / 2 + (edge.laneW ?? 3.3) * (lane + 0.5)) + dir * (edge.laneCenterShiftM || 0); }
 const tramBaseOffset = e => Math.max(1.45, medianOf(e) / 4);
 const tramOffset = (e, dir = 1) => e.rail ? 0 : tramBaseOffset(e) + dir * (e.laneCenterShiftM || 0);
-const layerOf = (e) => (e.bridge ? 1 : 0) + (e.tunnel ? -1 : 0) + (e.layer | 0);
+const layerOf = (e) => e.modelLayer ?? ((e.bridge ? 1 : 0) + (e.tunnel ? -1 : 0) + (e.layer | 0));
 const isJunction = (n) => n.edges.length >= 3 || n.hasLight;
 /** a road cut at the district boundary (closure at its map-end node, spec R10.9): never routed into, never spawned on */
 const closedEdge = (e) => e.rail ? !e.usable : !!(e.a.mapEnd || e.b.mapEnd || !ambientTrafficAccess(e));
@@ -184,6 +189,7 @@ export class Traffic {
     constructor(world, city, scene, opts = {}) {
         this.world = world; this.city = city; this.scene = scene;
         this.turnLaneRules = buildTurnLaneRules(world.data, world.graph.edges);
+        this.motorTurnRestrictions = buildMotorTurnRestrictions(world.data, world.graph.edges);
         this.buc = city.id === 'bucharest';
         this.rng = makeRng(this.buc ? 99 : 7);
         this.vehicles = [];
@@ -197,6 +203,7 @@ export class Traffic {
         this.onSay = opts.onSay || null; // (target, text, sub, cls): free-text bubbles (parking reactions); falls back to game.hud.say
         this.park = null; this.parking = null; // illegal-parking watch (note 8)
         this.onHonk = opts.onHonk || (() => { });
+        this._situational=opts.dialogueHost?new TrafficDialogue(this,opts.dialogueHost):null;this._replyTimers=new Set();
         this.player = null;
         this.maxVehicles = opts.maxVehicles || (this.buc ? 210 : 70);
         this.group = new THREE.Group();
@@ -215,8 +222,10 @@ export class Traffic {
         // Keep the historic constructor fleet/RNG draws, then assign each tram
         // its real directed rail source before any actor becomes visible.
         this.initialTramBinding = this.bindSourceTrams();
+        this.initialMotorTurnAudit = this.auditMotorRouteTurns();
         this.initialAdmission = admitInitialTraffic(this);
         if (!this.initialTramBinding.passed) this.initialAdmission.passed = false;
+        if (!this.initialMotorTurnAudit.passed) this.initialAdmission.passed = false;
         this.base = { moving: this.vehicles.filter(v => this.cls(v) === 'moving').length, parked: this.vehicles.filter(v => v.parked).length };
         this.peds = new Pedestrians(this, opts.maxPeds ?? (this.buc ? 250 : 60));
         if (opts.hour != null) this.setHour(opts.hour, true);
@@ -593,6 +602,9 @@ export class Traffic {
         // double-parked cars (Bucharest special)
         const pc = this.city.traffic?.parkedChance ?? 0;
         const maxParked = Math.round(this.maxVehicles * 0.2), maxTrams = this.large ? 26 : 200;
+        this.initialParking = { attempted: 0, admitted: 0, refused: 0, records: [], rngDraws: 0,
+            scope: 'Generated parked behavior admitted before publication only; refused slots keep their original ordinary actor, source station and all historic RNG draws.' };
+        const parkingWalk = Object.create(Pedestrians.prototype); parkingWalk.t = this;
         let nParked = 0, nTrams = 0;
         const shuffled = edges.slice(); for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(this.rng() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; }
         if (pc > 0) {
@@ -605,8 +617,21 @@ export class Traffic {
                     const s = this.rng.range(15, e.len - 15);
                     if (junctionDist(e, s) < 30 || !free(e, dir, lanes - 1, s, 6)) continue;
                     const v = this.spawn({ edge: e, dir, lane: lanes - 1, s, kind: this.rng.pick(['hatch', 'sedan', 'van', 'hatch']) });
-                    v.parked = true; v.mesh.userData.parked = true; v.speed = 0; v.lateralExtra = (e.laneW ?? 3.3) * 0.55; v.hazard = true; nParked++;
-                    this.placeOnLane(v, true, 0);
+                    // Keep the historic attempted-slot count/loop termination and
+                    // every spawn draw. A refused behavior is the same ordinary
+                    // new actor, never a deleted/rerolled or later unparked car.
+                    nParked++; this.initialParking.attempted++;
+                    const original = { id:v.id, kind:v.kind, edgeId:e.id, sourceId:e.access?.sourceId, dir, lane:v.lane, s, x:v.x, y:v.y, z:v.z, latExtraCur:v.latExtraCur, lateralExtra:v.lateralExtra };
+                    const parking = evaluateInitialParking(this, v, { desiredOffset:(e.laneW ?? 3.3)*.55, walkOffset:(edge,side)=>parkingWalk.off(edge,side) });
+                    if (parking.valid) {
+                        v.parked = true; v.mesh.userData.parked = true; v.speed = 0; v.hazard = true;
+                        v.latExtraCur = v.lateralExtra = parking.offset;
+                        v.x=parking.body.x; v.y=parking.body.y; v.z=parking.body.z; v.heading=parking.body.heading;
+                        v.mesh.position.set(v.x,v.y,v.z); v.mesh.rotation.set(0,v.heading,0,'YXZ');
+                        this.initialParking.admitted++;
+                    } else this.initialParking.refused++;
+                    const { body, ...proof } = parking;
+                    this.initialParking.records.push({ original, parked:v.parked, ...proof });
                 }
             }
         }
@@ -843,12 +868,18 @@ export class Traffic {
         }
         const e = v.edge;
         if (e.rail) { const p = sampleTramPath(v); if (!p) throw new Error('Unresolved native rail grade'); v.y = p.y + .24; }
+        else if (e.sourceBridgeGrade?.known) { v.y=e.sourceBridgeGrade.heightAtWorld(v.x,v.z)+.24; }
         else if (e.a.y !== undefined && e.b.y !== undefined) { const tt = clamp(v.dir > 0 ? v.s / e.len : 1 - v.s / e.len, 0, 1); v.y = e.a.y + (e.b.y - e.a.y) * tt + 0.24; }
         v.mesh.position.set(v.x, v.y, v.z);
         // pitch with the ramp (bridges / tunnels)
         const railF = e.rail ? sampleTramPath(v, v.length * .36) : null, railR = e.rail ? sampleTramPath(v, -v.length * .36) : null;
         const slope = e.rail ? (railF.y - railR.y) / Math.max(1e-6, Math.hypot(railF.x - railR.x, railF.z - railR.z)) : e.a.y !== undefined && e.b.y !== undefined ? (e.b.y - e.a.y) / Math.max(1, e.len) * v.dir : 0;
         let pitch = Math.atan(slope);
+        if(!e.rail&&e.sourceBridgeGrade?.known){
+            const d=v.length*.36,F=this.pathPoint(v,d,this._pf||(this._pf={})),R=this.pathPoint(v,-d,this._pr||(this._pr={}));
+            const height=p=>this.world?.roadHeight?this.world.roadHeight(p.x,p.z,{y:v.y,edge:e})-.24:e.sourceBridgeGrade.heightAtWorld(p.x,p.z);
+            pitch=Math.atan((height(F)-height(R))/Math.max(1e-6,Math.hypot(F.x-R.x,F.z-R.z)));
+        }
         if (e.rail) {
             const support = fitTramBodySupport(v, { samplePath: sampleTramPath, supportAt: this.world?.tramDeckSupportAt, nativePitch: pitch });
             if (!support.known) throw new Error('Unresolved native tram body support: ' + support.reason);
@@ -903,8 +934,8 @@ export class Traffic {
         if (G?.traffic !== this) return false;
         if (!this._recoveryViews || this._recoveryViewFrame !== this._frame) {
             this._recoveryViewFrame = this._frame; this._recoveryViews = [];
-            const cameras = [G.camera];
-            if (!this.walker?.active && this.player?.mirrorEnabled) cameras.push(this.player.mirrorCam);
+            const cameras = [this.observerCamera || G.camera];
+            if (!this.observerCamera && !this.walker?.active && this.player?.mirrorEnabled) cameras.push(this.player.mirrorCam);
             for (const camera of cameras) if (camera) {
                 camera.updateWorldMatrix(true, false);
                 const matrix = new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
@@ -980,7 +1011,27 @@ export class Traffic {
 
     // ------------------------------------------------------------------ routing
     turnLaneAllows(e, dir, lane, next, v) {
-        return v?.tram || laneTurnAllowed(this.turnLaneRules, e, dir, lane, next?.e, next?.dir);
+        return v?.tram || laneTurnAllowed(this.turnLaneRules, e, dir, lane, next?.e, next?.dir) &&
+            (!next || motorTurnAllowed(this.motorTurnRestrictions,e,dir,next.e,next.dir,{mode:motorRestrictionMode(v)}) && sourceRoadClearance(this.world?.data,next.e,v).eligible===true);
+    }
+    /** Constructor planning normally has no motor routes: spawnAll consumes no
+     * route-choice RNG. Still expose any invalid supplied/bound future turn,
+     * especially one whose pad/body span could already influence publication. */
+    auditMotorRouteTurns() {
+        const invalid = []; let vehicles = 0, transitions = 0;
+        for (const v of this.vehicles) {
+            if (v.tram || v.edge?.rail) continue; vehicles++;
+            let e = v.edge, dir = v.dir, distance = e.len - v.s;
+            for (let i = 0; i < v.route.length; i++) {
+                const next = v.route[i]; transitions++;
+                if (!motorTurnAllowed(this.motorTurnRestrictions,e,dir,next.e,next.dir,{mode:motorRestrictionMode(v)})) {
+                    const node = dir > 0 ? e.b : e.a, blend = Math.min(Math.max(node.radius??0,3),e.len*.45);
+                    invalid.push({vehicleId:v.id,index:i,fromSourceId:e.access?.sourceId??e.sourceId,toSourceId:next.e.access?.sourceId??next.e.sourceId,viaSourceId:node.sourceId,distanceToViaM:distance,bodyPadMayInfluencePose:distance <= v.length/2+blend});
+                }
+                distance += next.e.len; e = next.e; dir = next.dir;
+            }
+        }
+        return {passed:invalid.length===0,vehicles,transitions,invalid,rngDraws:0,scope:'Declared motor-route source turns only; full emitted body/grade/static clearance remains a separate admission gate. Invalid futures are revalidated before physical motion; no actor hiding or constructor RNG reroll.'};
     }
     keepsTurnLane(e, dir, next) {
         return !!next && !next.uturn && preservesTurnLane(this.turnLaneRules, e, dir, next.e, next.dir);
@@ -1281,7 +1332,7 @@ export class Traffic {
         const laneDropMax = this.laneDropMax(v, 60);
         if (!v.tram && v.lane > laneDropMax && this.laneFree(v, v.lane - 1)) { v.lane--; v.laneChangeCd = 2; }
         let stopD = Infinity, vCap = Infinity, waitingRed = false, stopWhy = null;
-        let curE = e, curDir = v.dir, D = L - v.s - half, prevNode = null, prevD = 0;
+        let curE = e, curDir = v.dir, curLane = v.lane, curLaneCur = v.laneCur, D = L - v.s - half, prevNode = null, prevD = 0;
         const seenSignals = new Set();
         const maxLook = Math.max(70, v.speed * v.speed / 4 + 30);
         for (let k = -1; k < v.route.length && D < maxLook; k++) {
@@ -1361,12 +1412,12 @@ export class Traffic {
             // instead of being squeezed sideways onto a car in the remaining lane
             if (nxt && !v.tram && !nxt.uturn && D < 60 && !this.keepsTurnLane(curE, curDir, nxt)) {
                 const nl = Math.max(1, lanesDir(nxt.e, nxt.dir));
-                if (v.lane > nl - 1) {
+                if (curLane > nl - 1) {
                     // wait for a gap before the line; already at / past it (or waited long): merge on the move,
                     // car-following and the junction claim keep it off the others (a stop inside the box locks the junction)
                     if (D - rad - 1.5 > -0.5 && v.stuck < 3) { const _d = D - rad - 1.5; if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop'; } }
                 } else {
-                    const _d = this.laneDropStop(v, nl, D, rad);
+                    const _d = this.laneDropStop(v, nl, D, rad, curLaneCur);
                     if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop2'; }
                 }
             }
@@ -1379,6 +1430,10 @@ export class Traffic {
             const ns = (v.tram ? (nxt.e.rail ? Math.min(11, edgeSpeed(nxt.e)) : 11) : edgeSpeed(nxt.e) * v.desiredMul);
             if (ns < desired) vCap = Math.min(vCap, Math.sqrt(ns * ns + 2 * 2 * Math.max(0, D)));
             prevNode = node; prevD = D;
+            // A future shape leg uses the lane it will actually inherit at the
+            // handoff, not the index on this vehicle's current wider road.
+            curLane = this.laneOnNext(v, curLane, nxt.e, nxt.dir);
+            curLaneCur = clamp(curLaneCur, 0, (lanesDir(nxt.e, nxt.dir) || 1) - 1);
             D += nxt.e.len; curE = nxt.e; curDir = nxt.dir;
         }
         // trams: stops every few hundred metres
@@ -1527,9 +1582,9 @@ export class Traffic {
     }
     /** Once its body has passed the stop line it must clear the intersection;
      * travel supplies the remaining smooth lateral merge, never a stopped slide. */
-    laneDropStop(v, nextLanes, distance, radius) {
+    laneDropStop(v, nextLanes, distance, radius, laneCur = v.laneCur) {
         const stop = distance - radius - 1.5;
-        return v.laneCur > nextLanes - 1 + 0.25 && distance - radius < 6 && stop > -0.5 ? stop : Infinity;
+        return laneCur > nextLanes - 1 + 0.25 && distance - radius < 6 && stop > -0.5 ? stop : Infinity;
     }
 
     /** path across the junction pad for v going (curE,curDir) → nxt: entry lane point → exit lane point */
@@ -1972,28 +2027,28 @@ export class Traffic {
     }
 
     honk(v, reason) {
-        this.onHonk(v, reason);
+        const dialogueEvent=this.onHonk(v, reason);
         const P = this.player;
         if (P && Math.hypot(P.x - v.x, P.z - v.z) < 70 && v.bubbleCd <= 0) {
             v.bubbleCd = 4;
-            this.bubble(v, reason === 'stuck' ? 'stuck' : 'honkedAt');
+            this.bubble(v, reason === 'stuck' ? 'stuck' : 'honkedAt',dialogueEvent);
         }
     }
 
     /** the player honked: nearby drivers react */
-    playerHonk(px, pz, fx, fz) {
+    playerHonk(px, pz, fx, fz,dialogueEvent=null) {
         let reacted = 0;
         for (const v of this.near(px, pz, 28)) {
             const dx = v.x - px, dz = v.z - pz;
             const d = Math.hypot(dx, dz);
             const ahead = (dx * fx + dz * fz) / (d || 1);
             if (ahead < -0.2 && d > 10) continue;
-            if (v.parked && this.rng.chance(0.3)) { this.bubble(v, 'honkedAt'); reacted++; continue; }
+            if (v.parked && this.rng.chance(0.3)) { this.bubble(v, 'honkedAt',dialogueEvent); reacted++; continue; }
             v.annoyed = 6;
             if (v.bubbleCd <= 0 && this.rng.chance(this.chaos > 0.5 ? 0.6 : 0.3)) {
                 v.bubbleCd = 3;
-                this.bubble(v, 'honkedAt'); reacted++;
-                if (this.rng.chance(0.4 * this.chaos)) setTimeout(() => this.honk(v, 'reply'), 300 + this.rng() * 800);
+                this.bubble(v, 'honkedAt',dialogueEvent); reacted++;
+                if (this.rng.chance(0.4 * this.chaos)) this._scheduleHornReply(v,300 + this.rng() * 800);
             }
             if (v.speed < 0.2 && !v.parked && this.rng.chance(0.25)) v.speed = 1.5;
         }
@@ -2005,17 +2060,23 @@ export class Traffic {
             let said = 0;
             for (const p of peds) { if (said >= 2 || !L?.length) break; if (this.rng.chance(0.55)) continue;
                 const it = L[Math.floor(this.rng() * L.length)], line = typeof it === 'string' ? { t: it } : it;
-                if (this.say(p, line, 'mad', 1)) { said++; reacted++; } }
+                if (this.say(p, line, 'mad', 1,{situational:true,event:dialogueEvent,role:'pedestrian',simulation:true})) { said++; reacted++; } }
             if (said) this._pedHonkT = now + 2500;
         } }
         return reacted;
     }
 
     /** player bumped vehicle v */
-    bump(v) {
-        if (v.bubbleCd <= 0) { v.bubbleCd = 4; this.bubble(v, 'bumped'); }
+    bump(v,dialogueEvent=null) {
+        if (v.bubbleCd <= 0) { v.bubbleCd = 4; this.bubble(v, 'bumped',dialogueEvent); }
         if (this.rng.chance(0.5 * this.chaos + 0.1)) this.honk(v, 'bumped');
     }
+
+    _scheduleHornReply(v,delay) { const timer=setTimeout(()=>{this._replyTimers?.delete(timer);this.honk(v,'reply');},delay);(this._replyTimers||=new Set()).add(timer); }
+    dialogueEvent(kind,source,options) { return this._situational?.event(kind,source,options)||null; }
+    emitDialogueEvent(event,options) { return this._situational?.dispatch(event,options)||0; }
+    speakSituational(event,actor,role,options) { return this._situational?.present(event,actor,role,options)||false; }
+    situationalHudFrame() { this._situational?.hudFrame(); }
 
     /** nearby vehicles for collision tests */
     near(x, z, r) {
@@ -2055,7 +2116,7 @@ export class Traffic {
     /** nearest police car within r (or null) */
     policeNear(x, z, r) { let best = null, bd = r; for (const p of this.police) { const d = Math.hypot(p.x - x, p.z - z); if (d < bd) { bd = d; best = p; } } return best; }
 
-    dispose() { try { this.endParking('dispose'); } catch { /* ignore */ } this.scene.remove(this.group); this.peds.dispose(); }
+    dispose() { try { this.endParking('dispose'); } catch { /* ignore */ } this._situational?.dispose();this._situational=null;for(const timer of this._replyTimers||[])clearTimeout(timer);this._replyTimers?.clear();this._bub=[];this.scene.remove(this.group); this.peds.dispose(); }
 
     // ------------------------------------------------------------------ illegal parking reactions (note 8)
     /**
@@ -2085,26 +2146,33 @@ export class Traffic {
     }
     /** a driver's chat bubble of a kind (honkedAt, bumped, stuck, green, redLight) from data.js PHRASES: Romanian lines
      *  are {t, en} and show the English gloss underneath (plain strings still work); falls back to opts.onBubble */
-    bubble(v, kind) {
+    bubble(v, kind,dialogueEvent=null) {
         const L = (PHRASES[this.city.id] || PHRASES.bucharest)?.[kind] || PHRASES.bucharest?.[kind];
         const canSay = !!(this.onSay || globalThis.game?.hud?.say);
-        if (!L?.length || !canSay) { this.onBubble(v, kind); return; }
+        if (!L?.length || !canSay) { if(!this._situational)this.onBubble(v, kind); return; }
         const last = (this._lastLine || (this._lastLine = {}))[kind]; let k = Math.floor(Math.random() * L.length);
         if (L.length > 1 && k === last) k = (k + 1 + Math.floor(Math.random() * (L.length - 1))) % L.length; // (never the same line twice in a row)
         this._lastLine[kind] = k;
         const it = L[k], line = typeof it === 'string' ? { t: it } : it;
-        this.say(v, line, kind === 'bumped' ? 'angry' : kind === 'honkedAt' ? 'mad' : '', kind === 'bumped' ? 2 : 1);
+        this.say(v, line, kind === 'bumped' ? 'angry' : kind === 'honkedAt' ? 'mad' : '', kind === 'bumped' ? 2 : 1,{situational:true,event:dialogueEvent,role:'driver'});
     }
     /** a chat bubble over anything with {x, z}: opts.onSay(target, text, sub, cls) when gameplay wires it, else hud.say */
-    say(target, line, cls = '', pri = 2) {
+    say(target, line, cls = '', pri = 2,options=null) {
+        if(this._situational&&!options?.actual&&!options?.legacyAdmission){
+            const legacy=this._situational.legacyAdmission(target,line,cls,pri);
+            const actual=options?.situational?this._situational.present(options.event,target,options.role):this.say(target,line,cls,pri,{actual:true});
+            return options?.simulation?legacy:actual;
+        }
         if (!line || !target) return false;
         const ref = this.walker?.active ? this.walker : this.player;
         if (ref && Math.hypot(target.x - ref.x, target.z - ref.z) > 75) return false;
         // (after round 6) someone on another level (under the bridge / on the deck above) isn't talking to us
         if (ref && Number.isFinite(ref.y) && Math.abs((Number.isFinite(target.y) ? target.y : 0) - ref.y) > 3.5) return false; // (pedestrians: street level)
         const text = line.t, sub = line.en && line.en !== line.t ? line.en : '';
-        const tgt = this.placeBubble(target, pri, !!sub); if (!tgt) return false;
-        try { if (this.onSay) this.onSay(tgt, text, sub, cls); else globalThis.game?.hud?.say?.(tgt, text, sub, cls); } catch { /* no HUD */ }
+        const tgt = this.placeBubble(target, pri, !!sub,options?.legacyAdmission); if (!tgt) return false;
+        if(options?.legacyAdmission){const h=options.legacyAdmission.hud;h.bubbles.push({v:tgt,until:performance.now()+4200});if(h.bubbles.length>14)h.bubbles.shift();return true;}
+        try { if (this.onSay) this.onSay(tgt, text, sub, cls); else if(globalThis.game?.hud?.say)globalThis.game.hud.say(tgt,text,sub,cls);else if(options?.actual)return false; } catch { if(options?.actual)return false; }
+        this._situational?.markEmitted(tgt);
         this.stats.parkingBubbles = (this.stats.parkingBubbles || 0) + 1;
         (this._sayLog || (this._sayLog = [])).push(text); if (this._sayLog.length > 40) this._sayLog.shift();
         return true;
@@ -2115,11 +2183,11 @@ export class Traffic {
      * re-projects the anchor every frame), and when no nudge is free the lower-priority bubble is dropped (driver
      * grumbles 1 < passers-by / bumps 2 < officer / tow 3). Returns the anchor to hand to hud.say, or null (dropped).
      */
-    placeBubble(target, pri, two) {
-        const now = performance.now(), cam = globalThis.game?.camera, hud = globalThis.game?.hud;
-        const act = (this._bub = (this._bub || []).filter(b => b.until > now && (!hud?.bubbles || hud.bubbles.some(h => h.v === b.anchor))));
+    placeBubble(target, pri, two,layout=null) {
+        const now = performance.now(), cam = globalThis.game?.camera, hud = layout?.hud||globalThis.game?.hud,state=layout||this;
+        const act = (state._bub = (state._bub || []).filter(b => b.until > now && (!hud?.bubbles || hud.bubbles.some(h => h.v === b.anchor))));
         const W = globalThis.innerWidth || 1280, Hh = globalThis.innerHeight || 720;
-        const V = this._bv || (this._bv = new THREE.Vector3());
+        const V = state._bv || (state._bv = new THREE.Vector3());
         const scr = (x, z, y = 2.6) => { if (!cam) return null; V.set(x, y, z).project(cam); if (V.z > 1 || Math.abs(V.x) > 1.2 || Math.abs(V.y) > 1.2) return null; return [(V.x + 1) / 2 * W, (1 - V.y) / 2 * Hh]; };
         const drop = (b) => { b.until = 0; const h = hud?.bubbles?.find(q => q.v === b.anchor); if (h) h.until = 0; };
         // at most three: make room by dropping the lowest priority (never one that outranks the new bubble)
@@ -2142,7 +2210,7 @@ export class Traffic {
             if (!ok) { const h = hit(p0[0], p0[1]); if (h && h.pri < pri) drop(h); else return null; }
         }
         const anchor = ox || oz ? { get x() { return target.x + ox; }, get z() { return target.z + oz; }, get bubbleY() { return target.bubbleY; } } : target;
-        this._bub.push({ anchor, pri, until: now + 4300 });
+        state._bub.push({ anchor, pri, until: now + 4300 });
         return anchor;
     }
     /** where the car stands and why that is illegal → { illegal, reasons, primary, severity, edge, dir, lat, along } */
@@ -2263,7 +2331,7 @@ export class Traffic {
                 else if (kind === 'note') line = pick(L.note);
                 if (kind === 'call') { const c = pick(L.call), w = L.where[rsn] || L.where.lane; line = { t: c.t.replace('{where}', w.t), en: c.en ? c.en.replace('{where}', w.en || w.t) : undefined }; }
                 p.react = { t: kind === 'remark' ? rng.range(2, 3.5) : rng.range(3.5, 5), x: face.x, z: face.z, pose: kind === 'photo' ? 'photo' : kind === 'call' ? 'phone' : kind === 'note' ? 'point' : 'talk', prop: kind === 'photo' || kind === 'call' ? 'phone' : null };
-                if (this.say(p, line)) st.bubbleT = rng.range(2.2, 3.6);
+                if (this.say(p, line,'',2,{simulation:true})) st.bubbleT = rng.range(2.2, 3.6);
                 this.emitParking(kind === 'remark' ? 'noticed' : kind === 'photo' ? 'photo' : kind === 'note' ? 'note' : 'report', { by: 'passer-by' });
                 if (kind === 'note') { S.note = true; this.addCarProp('note'); }
                 if (kind === 'call') S.report = true;
@@ -2277,7 +2345,7 @@ export class Traffic {
             for (const v of this.near(st.x, st.z, 32)) {
                 if (v.parked || v.service || v.leader !== P || v.speed > 0.5 || (v.blockT || 0) < 1.5) continue;
                 if (rng() < (US ? 0.15 : 0.55)) this.onHonk(v, 'stuck');
-                if (st.bubbleT <= 0 && rng() < 0.6 && this.say(v, pick(L.driver), '', 1)) { st.bubbleT = rng.range(2, 3); st.driverT = 3; this.stats.parkingHonks = (this.stats.parkingHonks || 0) + 1; }
+                if (st.bubbleT <= 0 && rng() < 0.6 && this.say(v, pick(L.driver), '', 1,{simulation:true})) { st.bubbleT = rng.range(2, 3); st.driverT = 3; this.stats.parkingHonks = (this.stats.parkingHonks || 0) + 1; }
                 break;
             }
         }
@@ -2436,8 +2504,8 @@ export class Pedestrians {
         if (G?.traffic !== this.t) return false;
         if (!this._views || this._viewFrame !== this._fr) {
             this._viewFrame = this._fr; this._views = [];
-            const cams = [G.camera];
-            if (!this.t.walker?.active && this.t.player?.mirrorEnabled) cams.push(this.t.player.mirrorCam);
+            const cams = [this.t.observerCamera || G.camera];
+            if (!this.t.observerCamera && !this.t.walker?.active && this.t.player?.mirrorEnabled) cams.push(this.t.player.mirrorCam);
             for (const camera of cams) if (camera) {
                 camera.updateWorldMatrix(true, false);
                 const m = new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
@@ -2460,6 +2528,7 @@ export class Pedestrians {
     relocate(p, rMin, rMax, hidden) {
         const T = this.t, P = T.player; if (!P) return;
         if (hidden && this.inView(p)) return;
+        const peers=relocationPeerQuery(this.list,p,o=>this.reach(o));
         const saved = { x: p.x, z: p.z, e: p.e, dir: p.dir, side: p.side, s: p.s, state: p.state, legs: p.legs, waitT: p.waitT, onRoad: p.onRoad, recovery: p.recovery, relocating: false, next: p.next, walkOff: p.walkOff, walkGoal: p.walkGoal, dodge: p.dodge, dodgeEdge: p.dodgeEdge, dodgeFrame: p.dodgeFrame, heading: p.heading };
         p.recovery = null; p.relocating = true;
         if (p.state === 'stand' && this.stops.length) {
@@ -2468,9 +2537,9 @@ export class Pedestrians {
                 const d = Math.hypot(sx - P.x, sz - P.z); if (d < rMin || d > rMax) continue;
                 // (2026-11-08, owner: "stuck people") at most 4 waiting at a stop: a dozen squeezed between the kerb and the
                 // shelter stood inside each other
-                if (this.list.filter(o => o !== p && o.state === 'stand' && Math.hypot(o.x - sx, o.z - sz) < 4).length >= 4) continue;
+                if (peers.standingCount(sx,sz,4) >= 4) continue;
                 const a = this.rng() * 6.28, r = this.rng.range(0.4, 2.2); p.x = sx + Math.cos(a) * r; p.z = sz + Math.sin(a) * r; this.kerbClamp(p);
-                if (this.inWater(p.x, p.z) || !this.freeWalkPoint(p.x, p.z, this.reach(p)) || !this.freePersonalSpace(p)) continue; // a shelter is not extra standing capacity
+                if (this.inWater(p.x, p.z) || !this.freeWalkPoint(p.x, p.z, this.reach(p)) || !this.freePersonalSpace(p,peers)) continue; // a shelter is not extra standing capacity
                 if (hidden && this.inView(p)) continue;
                 p.relocating = false; return;
             }
@@ -2485,7 +2554,7 @@ export class Pedestrians {
             const mx = (e.a.x + e.b.x) / 2 - P.x, mz = (e.a.z + e.b.z) / 2 - P.z, d = Math.hypot(mx, mz);
             if (d < rMin || d > rMax || (hidden && d < 250 && mx * P.fx + mz * P.fz > 0)) continue;
             for (const side of [-1, 1]) {
-                const space = this.walkSpace(e, side), load = this.spaceLoad(e, side, p);
+                const space = this.walkSpace(e, side), load = this.spaceLoad(e, side, p,peers);
                 const free = Math.max(0, space.cells.length - load);
                 if (!free) continue;
                 total += free * (0.2 + Math.min(0.8, trafficMulOf(e) * 0.45));
@@ -2499,7 +2568,7 @@ export class Pedestrians {
             p.walkOff = cell.u - this.off(c.e, c.side); p.walkGoal = undefined; p.dodge = 0; p.dodgeEdge = c.e; p.dodgeFrame = this._fr;
             p.state = 'walk'; p.legs = []; p.next = null; p.onRoad = false; p.waitT = 0;
             this.placeWalk(p);
-            if (!this.admit(p) || (hidden && this.inView(p))) continue;
+            if (!this.admit(p,peers) || (hidden && this.inView(p))) continue;
             p.animX = p.x; p.animZ = p.z; p.animVX = p.animVZ = 0; p.progressX = p.x; p.progressZ = p.z; p.progressT = 0;
             p.relocating = false; return;
         }
@@ -2553,8 +2622,9 @@ export class Pedestrians {
     }
     /** Count actual bodies and inbound routes, including people on adjacent
      * split records whose bodies already occupy this sidewalk corridor. */
-    spaceLoad(e, side, except) {
+    spaceLoad(e, side, except, peers = null) {
         const space = this.walkSpace(e, side); let n = 0;
+        if(peers&&peers.except===except)return peers.spaceLoad(e,side,space,PED_R);
         for (const o of this.list) {
             if (o === except || o.hidden) continue;
             const dx = o.x - e.a.x, dz = o.z - e.a.z, s = dx * e.dirx + dz * e.dirz, u = (dx * e.nx + dz * e.nz) * side;
@@ -2563,12 +2633,13 @@ export class Pedestrians {
         }
         return n;
     }
-    freePersonalSpace(p) {
+    freePersonalSpace(p, peers = null) {
         const r = this.reach(p);
+        if(peers&&peers.except===p)return peers.freePersonalSpace(p,r,.35);
         return !this.list.some(o => o !== p && !o.hidden && Math.hypot(o.x - p.x, o.z - p.z) < r + this.reach(o) + 0.35);
     }
-    admit(p) {
-        return this.spaceLoad(p.e, p.side, p) < this.walkSpace(p.e, p.side).cells.length && this.freeWalkPoint(p.x, p.z, this.reach(p)) && this.freePersonalSpace(p) && this.freeVehiclePoint(p.x, p.z, Math.max(this.reach(p), PED_R + 0.4));
+    admit(p, peers = null) {
+        return this.spaceLoad(p.e, p.side, p,peers) < this.walkSpace(p.e, p.side).cells.length && this.freeWalkPoint(p.x, p.z, this.reach(p)) && this.freePersonalSpace(p,peers) && this.freeVehiclePoint(p.x, p.z, Math.max(this.reach(p), PED_R + 0.4));
     }
     /** A source sidewalk line can end inside a crossing street's carriageway.
      * Pick a clear existing sidewalk slot before first visibility, without

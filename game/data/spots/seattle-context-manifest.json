@@ -1,0 +1,4863 @@
+{
+  "schemaVersion": 1,
+  "status": "Runtime/data candidate; fresh native pictures, cold-load/frame budget, physical walkthrough and overview synchronization remain open",
+  "sourceCommitBase": "144eb1248af4eb52d9682388881cdf792b5a8c03",
+  "attribution": "© OpenStreetMap contributors, ODbL1.0; USGS3DEP public-domain numeric elevations",
+  "assets": [
+    {
+      "path": "seattle-context.json.gz",
+      "bytes": 4383945,
+      "sha256": "8793003010552f72b13c305aded8af6e6caa6ba72e8a247822de87b75a4af7c6",
+      "uncompressedBytes": 17013052,
+      "uncompressedSHA256": "19afb36376e615e7075dcf5eb5f8d70e7c95d351b3759848dff271d2c793cea8"
+    },
+    {
+      "path": "seattle-context-render.bin.gz",
+      "bytes": 23887661,
+      "sha256": "7af4d78ceec697587d90c7604a94225d79e18ba8b368318d386ef1777a4d2e28",
+      "uncompressedBytes": 105377008,
+      "uncompressedSHA256": "a46264e5d064f702517e188ef4eb59691fb24a5963a994921b94a1ffd9c25a03"
+    }
+  ],
+  "totalBytes": 28271606,
+  "sourceCoverage": [
+    -122.375,
+    47.596,
+    -122.31,
+    47.645
+  ],
+  "frame": {
+    "origin": {
+      "lat": 47.6205063,
+      "lon": -122.3493043,
+      "elev": 40.5
+    },
+    "projection": {
+      "mLat": 111182.94,
+      "mLon": 75171.03
+    },
+    "sourceFileSHA256": "68daf29e90ea1e0a9dac45b5365d40af5de4bc81b3437d571fd39f2d47cd8f41"
+  },
+  "sourceCounts": {
+    "buildings": 17028,
+    "modeledBuildingRecords": 17021,
+    "modeledBuildingVolumes": 17278,
+    "ways": 28798,
+    "areas": 1665,
+    "trees": 5808,
+    "coastlines": 58,
+    "relations": 150,
+    "nodes": 245549
+  },
+  "buildingDimensions": {
+    "literalHeight": 797,
+    "sourceLevelEstimate": 2201,
+    "typeEstimate": 14023
+  },
+  "unresolvedSourceClosure": [
+    {
+      "id": "r2305831",
+      "reason": "missing-source-relation-ways",
+      "members": [
+        {
+          "type": "way",
+          "ref": 172697828,
+          "role": "inner"
+        }
+      ]
+    },
+    {
+      "id": "r8822106",
+      "reason": "missing-source-relation-ways",
+      "members": [
+        {
+          "type": "way",
+          "ref": 634929977,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929972,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929970,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929968,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929967,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929965,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929963,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929962,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929960,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929956,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 460666560,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929954,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929952,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929951,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 458208137,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 458208131,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929949,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929947,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929946,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929944,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 458208125,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 458208136,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634940022,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634952114,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634952116,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634952119,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634940023,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634940025,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634952121,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634952124,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634952131,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634952138,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634952136,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634952133,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634952111,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634952129,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634952127,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929959,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929957,
+          "role": "outer"
+        }
+      ]
+    },
+    {
+      "id": "r8822107",
+      "reason": "missing-source-relation-ways",
+      "members": [
+        {
+          "type": "way",
+          "ref": 634929931,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929978,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929980,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929981,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 460666556,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 460666541,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 460666551,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 460666545,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 460666543,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 460666557,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 460666553,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 460666537,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 460666546,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 460666539,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 460666559,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 460666549,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634934169,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634934172,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634934173,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634934175,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634934176,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634934178,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634934179,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634934181,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634934182,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634934184,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634934185,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634934187,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634934170,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634946775,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634946777,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634946778,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634946780,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634946782,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634946783,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634946785,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634946787,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634946788,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634946790,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634946791,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634946792,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634946772,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634946770,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634946768,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 634929930,
+          "role": "outer"
+        }
+      ]
+    },
+    {
+      "id": "r12206692",
+      "reason": "missing-source-relation-ways",
+      "members": [
+        {
+          "type": "way",
+          "ref": 271628169,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 271628167,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 271628168,
+          "role": "outer"
+        }
+      ]
+    },
+    {
+      "id": "r8823877",
+      "reason": "missing-source-relation-ways",
+      "members": [
+        {
+          "type": "way",
+          "ref": 635152549,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152548,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152547,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152546,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152545,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152544,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152543,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152542,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152541,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152540,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152539,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152538,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152537,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152536,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152535,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152534,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152533,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152532,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152531,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152530,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152529,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152528,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152527,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152526,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152525,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152524,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152523,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152522,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152521,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152520,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152519,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152518,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152517,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152516,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152515,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152514,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152513,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152510,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 635152512,
+          "role": "outer"
+        }
+      ]
+    },
+    {
+      "id": "r20200252",
+      "reason": "missing-source-relation-ways",
+      "members": [
+        {
+          "type": "way",
+          "ref": 1476506144,
+          "role": "outer"
+        }
+      ]
+    },
+    {
+      "id": "r20200253",
+      "reason": "missing-source-relation-ways",
+      "members": [
+        {
+          "type": "way",
+          "ref": 1476506136,
+          "role": "outer"
+        }
+      ]
+    },
+    {
+      "id": "r20200254",
+      "reason": "missing-source-relation-ways",
+      "members": [
+        {
+          "type": "way",
+          "ref": 1476506153,
+          "role": "outer"
+        }
+      ]
+    },
+    {
+      "id": "r20200255",
+      "reason": "missing-source-relation-ways",
+      "members": [
+        {
+          "type": "way",
+          "ref": 1476506147,
+          "role": "outer"
+        }
+      ]
+    },
+    {
+      "id": "r20200256",
+      "reason": "missing-source-relation-ways",
+      "members": [
+        {
+          "type": "way",
+          "ref": 1476506141,
+          "role": "outer"
+        }
+      ]
+    },
+    {
+      "id": "r3148300",
+      "reason": "missing-source-relation-ways",
+      "members": [
+        {
+          "type": "way",
+          "ref": 1119604126,
+          "role": "outer"
+        }
+      ]
+    },
+    {
+      "id": "r5342294",
+      "reason": "missing-source-relation-ways",
+      "members": [
+        {
+          "type": "way",
+          "ref": 358934581,
+          "role": "outer"
+        }
+      ]
+    },
+    {
+      "id": "r1047789",
+      "reason": "missing-source-relation-ways",
+      "members": [
+        {
+          "type": "way",
+          "ref": 444645300,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 4835072,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 66775796,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 66775794,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 374963246,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 488557505,
+          "role": "outer"
+        }
+      ]
+    },
+    {
+      "id": "r2793831",
+      "reason": "missing-source-relation-ways",
+      "members": [
+        {
+          "type": "way",
+          "ref": 353075152,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 4848692,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 159937578,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 207778550,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 5492172,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 353499561,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 207779062,
+          "role": "outer"
+        }
+      ]
+    },
+    {
+      "id": "r6057934",
+      "reason": "missing-source-relation-ways",
+      "members": [
+        {
+          "type": "way",
+          "ref": 481291025,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 6450315,
+          "role": "outer"
+        },
+        {
+          "type": "way",
+          "ref": 404149787,
+          "role": "outer"
+        }
+      ]
+    },
+    {
+      "id": "r19391229",
+      "reason": "missing-source-relation-ways",
+      "members": [
+        {
+          "type": "way",
+          "ref": 786048663,
+          "role": "outer"
+        }
+      ]
+    }
+  ],
+  "unresolvedVerticalParts": [
+    {
+      "id": "w1220369177",
+      "rawTags": {
+        "area": "yes",
+        "building:part": "roof",
+        "description": "Fisher Pavilion rooftop",
+        "highway": "pedestrian",
+        "layer": "3",
+        "surface": "paved"
+      },
+      "reason": "Minimum-height/level unknown; no layer-to-metres conversion"
+    },
+    {
+      "id": "w1220369181",
+      "rawTags": {
+        "building:part": "roof",
+        "description": "Fisher Pavilion rooftop",
+        "layer": "2",
+        "leisure": "outdoor_seating",
+        "surface": "paved"
+      },
+      "reason": "Minimum-height/level unknown; no layer-to-metres conversion"
+    },
+    {
+      "id": "w206623439",
+      "rawTags": {
+        "building:levels": "2",
+        "building:part": "yes",
+        "layer": "1",
+        "source": "data.seattle.gov"
+      },
+      "reason": "Minimum-height/level unknown; no layer-to-metres conversion"
+    },
+    {
+      "id": "w236754216",
+      "rawTags": {
+        "building:levels": "2",
+        "building:part": "yes",
+        "layer": "3",
+        "source": "data.seattle.gov"
+      },
+      "reason": "Minimum-height/level unknown; no layer-to-metres conversion"
+    },
+    {
+      "id": "w244468438",
+      "rawTags": {
+        "building:part": "yes",
+        "layer": "2",
+        "location": "indoor",
+        "name": "Union Street Substation",
+        "power": "substation",
+        "source": "knowledge",
+        "substation": "distribution"
+      },
+      "reason": "Minimum-height/level unknown; no layer-to-metres conversion"
+    },
+    {
+      "id": "w397021769",
+      "rawTags": {
+        "building": "roof",
+        "building:levels": "1",
+        "building:part": "yes",
+        "layer": "1",
+        "roof:material": "glass"
+      },
+      "reason": "Minimum-height/level unknown; no layer-to-metres conversion"
+    },
+    {
+      "id": "w397021770",
+      "rawTags": {
+        "building": "roof",
+        "building:levels": "1",
+        "building:part": "yes",
+        "layer": "1",
+        "roof:material": "glass"
+      },
+      "reason": "Minimum-height/level unknown; no layer-to-metres conversion"
+    }
+  ],
+  "unmodeledWayGrades": [
+    {
+      "id": "w1009185478",
+      "level": "-1"
+    },
+    {
+      "id": "w1020457466",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1022153399",
+      "layer": -1
+    },
+    {
+      "id": "w1027523814",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1027523829",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1027523833",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w1027523834",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1027523835",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w1038931861",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w105682808",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w105806396",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1059170410",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1063049067",
+      "layer": -3,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w1067912205",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w106927264",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w106927265",
+      "layer": -2,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w106927266",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w106927268",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w106927592",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1070027147",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1070500830",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w107327846",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1080195990",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1091993835",
+      "layer": -1
+    },
+    {
+      "id": "w1092053848",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1097540964",
+      "layer": -1
+    },
+    {
+      "id": "w1107010535",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1107095133",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1120881861",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1123264332",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1123264333",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1123264334",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1123264335",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1123997232",
+      "layer": -1
+    },
+    {
+      "id": "w1132354352",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1132354353",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1132354354",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1132354355",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1134446852",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w1136059227",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1136059230",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1136117632",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1136117635",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1138233779",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1147495869",
+      "bridge": "boardwalk"
+    },
+    {
+      "id": "w1147495877",
+      "layer": 1
+    },
+    {
+      "id": "w1147495878",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1151035783",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1151385638",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1151646666",
+      "bridge": "boardwalk"
+    },
+    {
+      "id": "w1151665979",
+      "bridge": "boardwalk"
+    },
+    {
+      "id": "w1151665983",
+      "bridge": "boardwalk"
+    },
+    {
+      "id": "w1154870283",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1154870286",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1155365203",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1155365205",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1155365206",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1156608502",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1156608503",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1156843250",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1156843251",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1157540883",
+      "layer": -1
+    },
+    {
+      "id": "w1157540906",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1157540907",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1157556707",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1157848709",
+      "layer": -1
+    },
+    {
+      "id": "w1164624753",
+      "layer": -1
+    },
+    {
+      "id": "w1167470484",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1167470485",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1167479104",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1169556813"
+    },
+    {
+      "id": "w1172797365",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1173225395",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1173831647",
+      "layer": -1
+    },
+    {
+      "id": "w1174206329",
+      "layer": 2,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1174206330",
+      "layer": 1
+    },
+    {
+      "id": "w1184322381",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1184322382",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1184322383",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1184322384",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1184322385",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1185830436",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1187907701",
+      "layer": 1
+    },
+    {
+      "id": "w1187907703",
+      "layer": 1,
+      "bridge": "boardwalk"
+    },
+    {
+      "id": "w1187907706",
+      "layer": 1
+    },
+    {
+      "id": "w1188399122",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1188399124",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1188399127",
+      "layer": -1
+    },
+    {
+      "id": "w1188399128",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w1190954653",
+      "layer": -1
+    },
+    {
+      "id": "w1190962172",
+      "layer": -1
+    },
+    {
+      "id": "w1191307203",
+      "layer": -1,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1194539051",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1194539052",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1196116729",
+      "layer": -1
+    },
+    {
+      "id": "w1201240163",
+      "layer": 1,
+      "level": "1",
+      "bridge": "yes"
+    },
+    {
+      "id": "w1212002388",
+      "level": "-1",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1212002389",
+      "level": "-1",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1212002390",
+      "level": "-1",
+      "bridge": "yes"
+    },
+    {
+      "id": "w1212002392",
+      "level": "-2",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1216748981",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1217909729",
+      "layer": -2,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1217909730",
+      "layer": -2,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1217909731",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1217909732",
+      "layer": -2,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1217909734",
+      "layer": -2,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1217909735",
+      "layer": -2,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1217909736",
+      "layer": -2,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1219601908",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1220369169",
+      "layer": 1
+    },
+    {
+      "id": "w1220369170",
+      "layer": 1
+    },
+    {
+      "id": "w1220369171",
+      "layer": 1
+    },
+    {
+      "id": "w1220369174",
+      "layer": 1
+    },
+    {
+      "id": "w1220369175",
+      "layer": 1
+    },
+    {
+      "id": "w1220369177",
+      "layer": 3
+    },
+    {
+      "id": "w1220369182",
+      "layer": 3
+    },
+    {
+      "id": "w1220369183",
+      "layer": 3
+    },
+    {
+      "id": "w1220369184",
+      "layer": 3
+    },
+    {
+      "id": "w1220369185",
+      "layer": 3
+    },
+    {
+      "id": "w1220369186",
+      "layer": 3
+    },
+    {
+      "id": "w1220369187",
+      "layer": 3
+    },
+    {
+      "id": "w1220369218",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1220437492",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1221593420",
+      "layer": 3
+    },
+    {
+      "id": "w1221593421",
+      "layer": 3
+    },
+    {
+      "id": "w1221593422",
+      "layer": 3
+    },
+    {
+      "id": "w1221593423",
+      "layer": 3
+    },
+    {
+      "id": "w1221593424",
+      "layer": 3
+    },
+    {
+      "id": "w1221593428",
+      "layer": 3
+    },
+    {
+      "id": "w1221593432",
+      "layer": 3
+    },
+    {
+      "id": "w1221593433",
+      "layer": 3
+    },
+    {
+      "id": "w1221593435",
+      "layer": 3
+    },
+    {
+      "id": "w1221593436",
+      "layer": 3
+    },
+    {
+      "id": "w1221593437",
+      "layer": 3
+    },
+    {
+      "id": "w1221593438",
+      "layer": 3
+    },
+    {
+      "id": "w1221593439",
+      "layer": 3
+    },
+    {
+      "id": "w1221593440",
+      "layer": 2
+    },
+    {
+      "id": "w1221593441",
+      "layer": 2
+    },
+    {
+      "id": "w1221593442",
+      "layer": 2
+    },
+    {
+      "id": "w1221593443",
+      "layer": 2
+    },
+    {
+      "id": "w1221593444",
+      "layer": 2
+    },
+    {
+      "id": "w1221593446",
+      "layer": 3
+    },
+    {
+      "id": "w1228376735",
+      "level": "1",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1228376736",
+      "layer": 1,
+      "level": "1",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1228376737",
+      "layer": 1,
+      "level": "1"
+    },
+    {
+      "id": "w1228376738",
+      "layer": 1,
+      "level": "1"
+    },
+    {
+      "id": "w1228376739",
+      "layer": 1,
+      "level": "1",
+      "bridge": "yes"
+    },
+    {
+      "id": "w1233097252",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1233114975",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1233130037",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w124045505",
+      "layer": -1
+    },
+    {
+      "id": "w1241786941",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w124272619",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w124272620",
+      "layer": -2,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w124272625",
+      "layer": -1
+    },
+    {
+      "id": "w124272636",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w124272639",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w1245442566",
+      "layer": -1
+    },
+    {
+      "id": "w124940362",
+      "layer": -2,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w125534892",
+      "layer": 2,
+      "bridge": "viaduct"
+    },
+    {
+      "id": "w1256939002",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1256939003",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1256939004",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1256939005",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1256939006",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1256939008",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1256939012",
+      "layer": 3
+    },
+    {
+      "id": "w1256939015",
+      "layer": -1
+    },
+    {
+      "id": "w1256939017",
+      "layer": -1
+    },
+    {
+      "id": "w1257186849",
+      "layer": -1
+    },
+    {
+      "id": "w1268858361",
+      "layer": -1
+    },
+    {
+      "id": "w1268858362",
+      "layer": -1
+    },
+    {
+      "id": "w1268858365",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1275882972"
+    },
+    {
+      "id": "w1275882977"
+    },
+    {
+      "id": "w1275882988",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1275882996"
+    },
+    {
+      "id": "w1275882997"
+    },
+    {
+      "id": "w1282650719",
+      "level": "1"
+    },
+    {
+      "id": "w1282650730",
+      "level": "1"
+    },
+    {
+      "id": "w1282650734"
+    },
+    {
+      "id": "w1289027232",
+      "layer": 2
+    },
+    {
+      "id": "w1289027233",
+      "layer": 4
+    },
+    {
+      "id": "w1289027234",
+      "layer": 1
+    },
+    {
+      "id": "w1289027239",
+      "layer": 3,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1289027240",
+      "layer": 2
+    },
+    {
+      "id": "w1289027241",
+      "layer": 1
+    },
+    {
+      "id": "w1289027242",
+      "layer": 3,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1290930703",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w1291096884",
+      "layer": -1
+    },
+    {
+      "id": "w1293263804",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1298725474",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1298897455",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1300438071",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1306972387",
+      "layer": 2,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1306972389",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1307579217",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1314151137",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1316453669",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1316459662",
+      "layer": 1
+    },
+    {
+      "id": "w1316459665",
+      "layer": 1
+    },
+    {
+      "id": "w1316459666",
+      "layer": 1
+    },
+    {
+      "id": "w1316459667",
+      "layer": 1
+    },
+    {
+      "id": "w1316459668",
+      "layer": 1
+    },
+    {
+      "id": "w1316459669",
+      "layer": 1
+    },
+    {
+      "id": "w1318938775",
+      "layer": 1
+    },
+    {
+      "id": "w1320267780"
+    },
+    {
+      "id": "w1320933924",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1320933925",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1320933926",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1320934378",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1324825629",
+      "level": "-0.5;-1"
+    },
+    {
+      "id": "w1324825631"
+    },
+    {
+      "id": "w1324825632"
+    },
+    {
+      "id": "w1324825633",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w1324825636",
+      "layer": -2,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w1324825637",
+      "layer": -1,
+      "level": "-1;-2"
+    },
+    {
+      "id": "w1324825638",
+      "layer": -1,
+      "level": "-1;-2"
+    },
+    {
+      "id": "w1324825642",
+      "layer": -2,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w1324825645",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w132922668",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1333686772",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1333686774",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1333719752",
+      "layer": 1
+    },
+    {
+      "id": "w1333719753",
+      "layer": 1
+    },
+    {
+      "id": "w1334397520",
+      "layer": 2,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1334470273",
+      "layer": 1
+    },
+    {
+      "id": "w1340875472",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1369406780",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w13726933",
+      "layer": 2,
+      "bridge": "yes"
+    },
+    {
+      "id": "w13726935",
+      "layer": 2,
+      "bridge": "yes"
+    },
+    {
+      "id": "w13802846",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1383924411",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1383924412",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w13866253",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w13866257",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w13866260",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1391460549",
+      "bridge": "yes"
+    },
+    {
+      "id": "w1391460550",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1393686431",
+      "layer": 2,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1393686433",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w14017480",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w14024701",
+      "layer": 3,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1408863731",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1409521106",
+      "layer": 1
+    },
+    {
+      "id": "w1409521108",
+      "layer": 2,
+      "level": "1"
+    },
+    {
+      "id": "w1415265350",
+      "level": "-2",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1416650809",
+      "layer": 1
+    },
+    {
+      "id": "w1416650810",
+      "layer": 1
+    },
+    {
+      "id": "w1417652520",
+      "layer": 2,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1417652524",
+      "layer": 1
+    },
+    {
+      "id": "w143178399",
+      "layer": 2,
+      "bridge": "viaduct"
+    },
+    {
+      "id": "w1436091946",
+      "layer": 1
+    },
+    {
+      "id": "w1436091947",
+      "layer": 1
+    },
+    {
+      "id": "w1442763522",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1444644011",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w144481463",
+      "layer": 3,
+      "bridge": "yes"
+    },
+    {
+      "id": "w144481466",
+      "layer": 3,
+      "bridge": "yes"
+    },
+    {
+      "id": "w144481467",
+      "layer": 3
+    },
+    {
+      "id": "w144481468",
+      "layer": 3,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1459736629",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1459736630",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1463043066",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1463631927",
+      "layer": 1
+    },
+    {
+      "id": "w1469622512",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469622513",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469622514",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660376",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660377",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660381",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660382",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660383",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660395",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660396",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660397",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660398",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660399",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660400",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660401",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660402",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660403",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660404",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660405",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660406",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660407",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660408",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660409",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660416",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660417",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660418",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660419",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660420",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660421",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660422",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1469660423",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1474625484",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1474625486",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1481278730",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1481647351",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1481647352",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1481648672",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1481648673",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1481648674",
+      "layer": 1
+    },
+    {
+      "id": "w1481648675",
+      "layer": 1
+    },
+    {
+      "id": "w1481648676",
+      "layer": -1
+    },
+    {
+      "id": "w1483666352",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w1483666353",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w1483666354"
+    },
+    {
+      "id": "w1483666355",
+      "layer": -1
+    },
+    {
+      "id": "w1483666356"
+    },
+    {
+      "id": "w1483666358",
+      "layer": -1
+    },
+    {
+      "id": "w1483666359",
+      "layer": -1
+    },
+    {
+      "id": "w1483666360"
+    },
+    {
+      "id": "w1483666361",
+      "layer": -1
+    },
+    {
+      "id": "w1483666364",
+      "layer": -1
+    },
+    {
+      "id": "w1483666365",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1483666366",
+      "layer": -1
+    },
+    {
+      "id": "w1483666629"
+    },
+    {
+      "id": "w1483966402",
+      "layer": -1
+    },
+    {
+      "id": "w1483966403",
+      "layer": -1
+    },
+    {
+      "id": "w1483966413",
+      "layer": -1
+    },
+    {
+      "id": "w1500049693",
+      "layer": -1,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1505402253",
+      "bridge": "boardwalk"
+    },
+    {
+      "id": "w1505402256",
+      "bridge": "boardwalk"
+    },
+    {
+      "id": "w1505402260",
+      "bridge": "boardwalk"
+    },
+    {
+      "id": "w1505402261",
+      "bridge": "boardwalk"
+    },
+    {
+      "id": "w1505402263",
+      "bridge": "boardwalk"
+    },
+    {
+      "id": "w1509040019",
+      "layer": -1
+    },
+    {
+      "id": "w1509040020",
+      "layer": -1
+    },
+    {
+      "id": "w1509655679",
+      "layer": 0,
+      "level": "0"
+    },
+    {
+      "id": "w1509655682",
+      "level": "2"
+    },
+    {
+      "id": "w1509655683",
+      "level": "2"
+    },
+    {
+      "id": "w1524056422",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w1524755495",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1524755496",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w15257844",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w15257846",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w15257849",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w15257850",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w15258396",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1536328239",
+      "layer": -1
+    },
+    {
+      "id": "w1536328240",
+      "layer": -1
+    },
+    {
+      "id": "w1536328241",
+      "layer": -1
+    },
+    {
+      "id": "w1536328242",
+      "level": "-1;-2"
+    },
+    {
+      "id": "w1536328243",
+      "level": "-1;-2"
+    },
+    {
+      "id": "w1536328244",
+      "layer": -1
+    },
+    {
+      "id": "w1536328246",
+      "layer": -2
+    },
+    {
+      "id": "w1536328249",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w1536328250",
+      "level": "-1;-.5"
+    },
+    {
+      "id": "w1547084297",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1558193467"
+    },
+    {
+      "id": "w1564081005",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w1564174395",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w157413497",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w157413507",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w164241876",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w164242786",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w169473534",
+      "layer": 2,
+      "bridge": "yes"
+    },
+    {
+      "id": "w169510047",
+      "layer": -1,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w171121248",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w171121261",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w171121268",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w171121275",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w171729609",
+      "tunnel": "yes"
+    },
+    {
+      "id": "w177678599",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w177678602",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w177678672",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w177678685",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w223063532",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w223783262",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w226323964",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w22759108",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w22768206",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w22768210",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w22768212",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w22927949",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w234436248",
+      "layer": -1
+    },
+    {
+      "id": "w23866838",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w240704053",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w243738299",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w243738306",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w243738308",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w244468437",
+      "layer": 2
+    },
+    {
+      "id": "w244468439",
+      "layer": 2
+    },
+    {
+      "id": "w246391407",
+      "bridge": "boardwalk"
+    },
+    {
+      "id": "w248606643",
+      "layer": 3,
+      "bridge": "yes"
+    },
+    {
+      "id": "w256915986",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w256988343",
+      "layer": 3,
+      "bridge": "yes"
+    },
+    {
+      "id": "w26419249",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w264859145",
+      "layer": 1
+    },
+    {
+      "id": "w264973852",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w264974208",
+      "layer": 3,
+      "bridge": "yes"
+    },
+    {
+      "id": "w272957022",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w272967785",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w284562185",
+      "bridge": "yes"
+    },
+    {
+      "id": "w284562187",
+      "bridge": "yes"
+    },
+    {
+      "id": "w295939847",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w306258894",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w310004600",
+      "layer": -2,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w316757970",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w330872730",
+      "tunnel": "yes"
+    },
+    {
+      "id": "w330874570",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w331572140",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w332070114",
+      "layer": 1,
+      "level": "1",
+      "bridge": "yes"
+    },
+    {
+      "id": "w332168314",
+      "layer": -1
+    },
+    {
+      "id": "w332357214",
+      "tunnel": "yes"
+    },
+    {
+      "id": "w332471585",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w332471598",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w332471599",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w332471602",
+      "layer": 1,
+      "level": "1",
+      "bridge": "yes"
+    },
+    {
+      "id": "w332592991",
+      "layer": -2,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w332946374",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w332946375",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w332956741",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w332962225",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w332962233",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w333363890",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w333373679",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w333374598",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w334270991",
+      "layer": 1
+    },
+    {
+      "id": "w339062619",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w339831624",
+      "layer": 2,
+      "bridge": "yes"
+    },
+    {
+      "id": "w339831625",
+      "layer": 1
+    },
+    {
+      "id": "w34151227",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w343526633",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w34576084",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w350234710",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w350234712"
+    },
+    {
+      "id": "w350234714"
+    },
+    {
+      "id": "w355823451",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w356104365",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w356104368",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w357335121",
+      "layer": 1
+    },
+    {
+      "id": "w357335122",
+      "layer": 1
+    },
+    {
+      "id": "w357335124",
+      "layer": 1
+    },
+    {
+      "id": "w357842684",
+      "layer": -1
+    },
+    {
+      "id": "w35824613",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w361785339",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w362332262",
+      "layer": -1
+    },
+    {
+      "id": "w362332748",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w363229973",
+      "layer": -1
+    },
+    {
+      "id": "w367192355",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w368831835",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w368831836",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w37057157",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w37120936",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w372135598",
+      "layer": -2,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w37551504",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w37551507",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w378090317",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w38008156",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w384273806",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w384273807",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w384273808",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w385937884",
+      "layer": -1,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w391510268",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w396606884",
+      "level": "1",
+      "bridge": "yes"
+    },
+    {
+      "id": "w396815286",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w396815287",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w397007195",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w397021776",
+      "layer": 1
+    },
+    {
+      "id": "w400085535",
+      "layer": -1,
+      "level": "-1"
+    },
+    {
+      "id": "w400085537",
+      "layer": -1,
+      "level": "-1"
+    },
+    {
+      "id": "w400085539"
+    },
+    {
+      "id": "w400085540"
+    },
+    {
+      "id": "w400085541"
+    },
+    {
+      "id": "w402084473",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w402084474",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w403223397",
+      "layer": -1
+    },
+    {
+      "id": "w409362335",
+      "layer": 1
+    },
+    {
+      "id": "w41497791",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w41500675",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w415358601",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w424418982",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w424468289",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w426055964",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w428222728",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w428222730",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w428230574",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w428230590",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w428230631",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w428230635",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w428237339",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w428237344",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w428237354",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w428240084",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w428245583",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w428245584",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w428245585",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w428246781",
+      "layer": 4,
+      "bridge": "yes"
+    },
+    {
+      "id": "w43035138",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w43035860",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w43035861",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w43035862",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w431085568"
+    },
+    {
+      "id": "w431431055",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w434763111"
+    },
+    {
+      "id": "w434763112"
+    },
+    {
+      "id": "w434763113"
+    },
+    {
+      "id": "w434931200",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w436165672",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w438443197"
+    },
+    {
+      "id": "w438443550"
+    },
+    {
+      "id": "w438443596",
+      "layer": -1
+    },
+    {
+      "id": "w443220505",
+      "bridge": "yes"
+    },
+    {
+      "id": "w445103080",
+      "layer": 1
+    },
+    {
+      "id": "w445530964",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w446010581",
+      "layer": 1,
+      "bridge": "viaduct"
+    },
+    {
+      "id": "w450556876",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w450556877",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w452336728",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w452336735",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w457997472",
+      "layer": -1,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w4634838",
+      "layer": 1,
+      "bridge": "viaduct"
+    },
+    {
+      "id": "w4637363",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w4712852",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w4712862",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w4712863",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w4722441",
+      "layer": 2,
+      "bridge": "yes"
+    },
+    {
+      "id": "w4722443",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w47283415",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w4748963",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w4748969",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w4748973",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w4748998",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w483269256",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w483269258",
+      "layer": 1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w483269259",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w4848633",
+      "layer": -1
+    },
+    {
+      "id": "w486260017",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w486260018",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w486261398",
+      "layer": 1
+    },
+    {
+      "id": "w489426843",
+      "layer": -1
+    },
+    {
+      "id": "w4910873",
+      "layer": 3,
+      "bridge": "yes"
+    },
+    {
+      "id": "w491467430"
+    },
+    {
+      "id": "w491472330"
+    },
+    {
+      "id": "w491472333"
+    },
+    {
+      "id": "w491472334",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w491476373"
+    },
+    {
+      "id": "w491476377"
+    },
+    {
+      "id": "w491476379"
+    },
+    {
+      "id": "w491476381"
+    },
+    {
+      "id": "w491476382",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w491476383"
+    },
+    {
+      "id": "w491476385"
+    },
+    {
+      "id": "w491476388"
+    },
+    {
+      "id": "w491476391"
+    },
+    {
+      "id": "w491476394"
+    },
+    {
+      "id": "w491477784"
+    },
+    {
+      "id": "w491477789",
+      "layer": -1
+    },
+    {
+      "id": "w492435017",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w492435020",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w492435022",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w492435025",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w495805529",
+      "layer": 1
+    },
+    {
+      "id": "w495805530",
+      "layer": 1
+    },
+    {
+      "id": "w495805533",
+      "tunnel": "yes"
+    },
+    {
+      "id": "w497319861",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w503144462",
+      "bridge": "yes"
+    },
+    {
+      "id": "w511180875",
+      "layer": -1,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w511181152",
+      "layer": -1,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w5130429",
+      "layer": -1
+    },
+    {
+      "id": "w51475043",
+      "bridge": "yes"
+    },
+    {
+      "id": "w51476454",
+      "layer": 3,
+      "bridge": "yes"
+    },
+    {
+      "id": "w51476456",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w519716882",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w520905798",
+      "layer": 1
+    },
+    {
+      "id": "w520908363",
+      "bridge": "boardwalk"
+    },
+    {
+      "id": "w520908477",
+      "layer": -1,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w52563651",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w52563654",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w52638114",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w53100925",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w53547954",
+      "tunnel": "yes"
+    },
+    {
+      "id": "w542661882",
+      "level": "0"
+    },
+    {
+      "id": "w542661885",
+      "layer": 1,
+      "level": "1"
+    },
+    {
+      "id": "w542661887",
+      "layer": 1
+    },
+    {
+      "id": "w542661890",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w542661893",
+      "layer": 1
+    },
+    {
+      "id": "w543601910",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w548291532",
+      "tunnel": "passage"
+    },
+    {
+      "id": "w548597249",
+      "layer": -4,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w548597250",
+      "layer": -4,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w548597251",
+      "layer": -3,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w548757678",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w548757679",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w550806332"
+    },
+    {
+      "id": "w550806337"
+    },
+    {
+      "id": "w550806346",
+      "layer": -1
+    },
+    {
+      "id": "w550931298",
+      "layer": -1
+    },
+    {
+      "id": "w550935943",
+      "layer": 1
+    },
+    {
+      "id": "w550935945",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w550935962",
+      "layer": -1
+    },
+    {
+      "id": "w550970619",
+      "layer": -1,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w550973792",
+      "layer": 2,
+      "bridge": "yes"
+    },
+    {
+      "id": "w550975117",
+      "layer": 2,
+      "bridge": "yes"
+    },
+    {
+      "id": "w550987055",
+      "layer": 2,
+      "bridge": "yes"
+    },
+    {
+      "id": "w550987057",
+      "layer": 2,
+      "bridge": "yes"
+    },
+    {
+      "id": "w550989596",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w550989612",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w550991906",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w550991918",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w550991919",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w550992767",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w550992768",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w550992769",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w550992770",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w550992771",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w550992772",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w55752452",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w56178982",
+      "layer": 2,
+      "bridge": "yes"
+    },
+    {
+      "id": "w564754866",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w594403485",
+      "layer": -1
+    },
+    {
+      "id": "w599441017",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w608025490",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608720263",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608727259",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608730074",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608730075",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608730078",
+      "layer": 3,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608738415",
+      "layer": 3,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608792544",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w608799188",
+      "layer": -2,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w608799199",
+      "layer": -2,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w608799200",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w608799202",
+      "layer": 1,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w608803057",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608803081",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w608805275",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608805276",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608805277",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608805278",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608805279",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608805280",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608805281",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608808798",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608810480",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608812663",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w608843302",
+      "layer": -1
+    },
+    {
+      "id": "w61032263",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w62412693",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w6327309",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w6346101",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w635718965",
+      "layer": -8,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w635762265",
+      "layer": -7,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w635847561",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w6367020",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w6383712",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w6385947",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w6416584",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w642239206"
+    },
+    {
+      "id": "w642239208"
+    },
+    {
+      "id": "w642239210"
+    },
+    {
+      "id": "w6516987",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w6520688",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w6522507",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w663415257",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w665720046",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w665720049",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w665720073",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w665720074",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w668153335",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w68666001",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w68666651",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w727170440",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w727570412",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w730883451",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w731216178",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w736858269",
+      "layer": 1
+    },
+    {
+      "id": "w736858275",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w736865664",
+      "layer": 1,
+      "level": "1",
+      "bridge": "yes"
+    },
+    {
+      "id": "w736865665",
+      "layer": 1,
+      "level": "1"
+    },
+    {
+      "id": "w736865666",
+      "layer": 1,
+      "level": "1",
+      "bridge": "yes"
+    },
+    {
+      "id": "w737123597",
+      "layer": 1,
+      "level": "1",
+      "bridge": "yes"
+    },
+    {
+      "id": "w737348647",
+      "layer": 1,
+      "level": "1",
+      "bridge": "yes"
+    },
+    {
+      "id": "w737749765",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w737749766",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w756635118",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w756635120",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w758433326",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w758433327",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w758434317",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w758434318",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w758434319",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w758434322",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w758434323",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w758436601",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w758436893",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w758436894",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w758448664",
+      "layer": -1,
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w772564508",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w772564509",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w778179308",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w778780644",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w796774806",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w7976627",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w8027789",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w808139322",
+      "layer": 1
+    },
+    {
+      "id": "w8111487",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w824474757",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w831441941",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w836091421",
+      "layer": -1
+    },
+    {
+      "id": "w85106513",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w857876864",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w858631024",
+      "layer": -1
+    },
+    {
+      "id": "w858999207",
+      "layer": -1
+    },
+    {
+      "id": "w8591563",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w859189426",
+      "layer": -1
+    },
+    {
+      "id": "w860292638",
+      "layer": 4,
+      "bridge": "yes"
+    },
+    {
+      "id": "w860292639",
+      "layer": 4,
+      "bridge": "yes"
+    },
+    {
+      "id": "w863010626"
+    },
+    {
+      "id": "w863010627"
+    },
+    {
+      "id": "w879114442",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w879114443",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w879125193",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w879209399",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w879209401",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w879215161",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w880274153",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w880571247",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w881519115",
+      "layer": -1
+    },
+    {
+      "id": "w881519116",
+      "layer": -1
+    },
+    {
+      "id": "w890680970",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w890680971",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w890680972",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w890680973",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w891398771",
+      "layer": -1
+    },
+    {
+      "id": "w891399615",
+      "layer": -1
+    },
+    {
+      "id": "w914010266",
+      "layer": -1
+    },
+    {
+      "id": "w914010267",
+      "layer": -1
+    },
+    {
+      "id": "w920654925",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w920654927",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w921809840",
+      "level": "-1"
+    },
+    {
+      "id": "w929804977",
+      "layer": 1
+    },
+    {
+      "id": "w934499087",
+      "bridge": "yes"
+    },
+    {
+      "id": "w946723330",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w949548500",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w953945004",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w954033510",
+      "bridge": "yes"
+    },
+    {
+      "id": "w954033511",
+      "layer": -1
+    },
+    {
+      "id": "w96260963",
+      "layer": -1,
+      "tunnel": "yes"
+    },
+    {
+      "id": "w97129773",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w97129777",
+      "layer": 1,
+      "bridge": "yes"
+    },
+    {
+      "id": "w971475833",
+      "layer": 1
+    },
+    {
+      "id": "w971475834",
+      "layer": 1
+    },
+    {
+      "id": "w971475837",
+      "layer": 1
+    },
+    {
+      "id": "w971475838",
+      "layer": 1
+    },
+    {
+      "id": "w971475839",
+      "layer": 1
+    },
+    {
+      "id": "w998780617",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w998780641",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w998780642",
+      "tunnel": "building_passage"
+    },
+    {
+      "id": "w998780665",
+      "tunnel": "building_passage"
+    }
+  ],
+  "unmodeledDeckAreas": [
+    "r11142620",
+    "r15610966",
+    "r20221724",
+    "r20221725",
+    "r20222949",
+    "r20230057",
+    "r20237377",
+    "r20237378",
+    "r20237379",
+    "r3156099",
+    "r3156100",
+    "r3156101",
+    "r812602",
+    "r812606",
+    "r812608",
+    "r812609",
+    "r812611",
+    "r812612",
+    "r812613",
+    "r8455861",
+    "w1020445130",
+    "w1059451758",
+    "w1059451759",
+    "w1059452102",
+    "w1087645878",
+    "w1154870291",
+    "w1154870293",
+    "w1155067802",
+    "w118121969",
+    "w1220369212",
+    "w1228550866",
+    "w1228550867",
+    "w1228550868",
+    "w1228751687",
+    "w1241786940",
+    "w1253574326",
+    "w1256939020",
+    "w1262286554",
+    "w1262286557",
+    "w1268858356",
+    "w1334160955",
+    "w1334389181",
+    "w1334466549",
+    "w1334470274",
+    "w1361502520",
+    "w1361502521",
+    "w1474201687",
+    "w223063531",
+    "w234436236",
+    "w234436248",
+    "w292809816",
+    "w296789534",
+    "w362635170",
+    "w363197086",
+    "w370645739",
+    "w37551463",
+    "w389138743",
+    "w389138749",
+    "w396606859",
+    "w396815278",
+    "w396815279",
+    "w396815281",
+    "w396815285",
+    "w397007172",
+    "w397007173",
+    "w415327716",
+    "w442511848",
+    "w448857944",
+    "w448857945",
+    "w448857947",
+    "w465015401",
+    "w492680046",
+    "w51475044",
+    "w51475045",
+    "w51475046",
+    "w51475047",
+    "w51479120",
+    "w51817331",
+    "w532222868",
+    "w53720502",
+    "w57391649",
+    "w58740252",
+    "w76145614",
+    "w76145657",
+    "w877391001",
+    "w910256766",
+    "w934499086",
+    "w961721946",
+    "w961721947",
+    "w961721948",
+    "w961721950",
+    "w961721956",
+    "w961721957",
+    "w961721958",
+    "w961721959",
+    "w961721960",
+    "w961721970",
+    "w961721971",
+    "w990540647",
+    "w990540648",
+    "w991834002",
+    "w991834003"
+  ],
+  "terrain": {
+    "format": "float32-le-base64",
+    "nx": 513,
+    "nz": 513,
+    "westPixelCentre": -122.4298538011696,
+    "northPixelCentre": 47.6973538011696,
+    "lonStep": 0.0002923976608187245,
+    "latStep": 0.0002923976608187245,
+    "pixelInterpretation": "Actual GeoTIFF PixelIsArea cell centres; service adjusted bbox to preserve pixel aspect.",
+    "verticalUnits": "metres",
+    "verticalDatum": "USGS3DEP bare-earth service; no local datum conversion applied",
+    "sourceServicePublishedThrough": "2026-10-26",
+    "sourceURL": "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer/exportImage?bbox=-122.43,47.57,-122.28,47.675&bboxSR=4326&imageSR=4326&size=513,513&format=tiff&pixelType=F32&interpolation=RSP_BilinearInterpolation&f=image",
+    "sourceSHA256": "d73a02413448ebd073b9b7cb383e5cb88394b4771a3022db55feeaaa15d75715",
+    "retrievedAt": "2026-11-09T12:21:58.983731+00:00"
+  },
+  "nativeGeometryConsumerHashes": {
+    "game/src/spots/osm.js": "6578c0627324db7ae12e42f3d3b612b65575ddd0387da6dc25b649ac091d4360",
+    "game/src/spots/source-buildings.js": "4d51ef45abbedb9f4b04627cb97c4b388ccd332e1737486005d4a327e2182362",
+    "game/src/spots/kit.js": "382f5353be67766e36183babd4a321dc4e709c709429167fc461968a033cffcc",
+    "game/src/building-parts.js": "d3844e4f67e0c29a28a7e9880bfcc6f5d9011cd0440e0b2eeba001838751fc5a",
+    "game/src/building-roofs.js": "a82db31d1197b3953c9f4718dbc44b2972a90e25d9c2c07c683e6ab5386fa8ac",
+    "game/src/spots/source-context-data.js": "2a4232db32d748b2ebfff087265ef3b8afe6052a3b0b3aff6638efe8d6f096db",
+    "game/src/spots/context-array-codec.js": "2f0a5c32cacedb5b605341a57a4d6191738028ad4bb3424a013eee75aa373282"
+  },
+  "sourceLedger": [
+    {
+      "file": "seattle-context-0-0.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.375000000,47.596000000,-122.353333333,47.608250000",
+      "retrievedAt": "2026-11-09T12:10:41.990208+00:00",
+      "bytes": 195145,
+      "sha256": "7083e7a95f4251bea5539770a33c10e88960ed7a8318e48e968660febc63a958",
+      "cached": false
+    },
+    {
+      "file": "seattle-context-0-1.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.353333333,47.596000000,-122.331666667,47.608250000",
+      "retrievedAt": "2026-11-09T12:10:42.003886+00:00",
+      "bytes": 6917409,
+      "sha256": "ac259289c1800b0de1f48e3d12cc7aa9dbc3d1be00d15d02d82aedf741afbb18",
+      "cached": false
+    },
+    {
+      "file": "seattle-context-0-2.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.331666667,47.596000000,-122.310000000,47.608250000",
+      "retrievedAt": "2026-11-09T12:10:43.209512+00:00",
+      "bytes": 12579543,
+      "sha256": "b29a33f3d40b40114ddd0091afc1f3961587afa2c0a88b8cbf0a0fd06f759319",
+      "cached": false
+    },
+    {
+      "file": "seattle-context-1-0.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.375000000,47.608250000,-122.353333333,47.620500000",
+      "retrievedAt": "2026-11-09T12:10:45.527486+00:00",
+      "bytes": 2469950,
+      "sha256": "7babd3baf16365aa4e3feb39c64ee7e51c3955f9d49214dbef3080b6d9d6ee54",
+      "cached": false
+    },
+    {
+      "file": "seattle-context-1-1.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.353333333,47.608250000,-122.331666667,47.620500000",
+      "retrievedAt": "2026-11-09T12:10:47.731476+00:00",
+      "bytes": 12407802,
+      "sha256": "df723b91d64d363ca82403156ed0972784a0ab468cca0d26851ff7afbe186173",
+      "cached": false
+    },
+    {
+      "file": "seattle-context-1-2.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.331666667,47.608250000,-122.310000000,47.620500000",
+      "retrievedAt": "2026-11-09T12:10:48.255574+00:00",
+      "bytes": 12550150,
+      "sha256": "7ce750beeb4f04d248ba950276d961f0c52eaed873ec4a57f6dcca058dd1e5e2",
+      "cached": false
+    },
+    {
+      "file": "seattle-context-2-0.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.375000000,47.620500000,-122.353333333,47.632750000",
+      "retrievedAt": "2026-11-09T12:10:52.779411+00:00",
+      "bytes": 8273379,
+      "sha256": "3068c3a4a839f3f4f8667a1c647965159709523c813031619c4d9d0d68884e2c",
+      "cached": false
+    },
+    {
+      "file": "seattle-context-2-1.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.353333333,47.620500000,-122.331666667,47.632750000",
+      "retrievedAt": "2026-11-09T12:10:53.684607+00:00",
+      "bytes": 9481846,
+      "sha256": "dc4dac684be6c32ca28721e189a1a5f1db9200017fce53a7e00a52292a40df7f",
+      "cached": false
+    },
+    {
+      "file": "seattle-context-2-2.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.331666667,47.620500000,-122.310000000,47.632750000",
+      "retrievedAt": "2026-11-09T12:10:56.221113+00:00",
+      "bytes": 9820259,
+      "sha256": "6c653e148e8ae1d3191f24ef0a3cb88d72e143acb20adf6da36395ee4d676c17",
+      "cached": false
+    },
+    {
+      "file": "seattle-context-3-0.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.375000000,47.632750000,-122.353333333,47.645000000",
+      "retrievedAt": "2026-11-09T12:10:57.681253+00:00",
+      "bytes": 11644901,
+      "sha256": "9568d64908828fb2b1caf7134900dd397d37a4db27a67d6e19d17256f0cef7cd",
+      "cached": false
+    },
+    {
+      "file": "seattle-context-3-1.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.353333333,47.632750000,-122.331666667,47.645000000",
+      "retrievedAt": "2026-11-09T12:10:59.218093+00:00",
+      "bytes": 6165865,
+      "sha256": "e8d0c37aab859b7c4750bda60d7f2f814951da568344176cc2376bfee14c7442",
+      "cached": false
+    },
+    {
+      "file": "seattle-context-3-2.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.331666667,47.632750000,-122.310000000,47.645000000",
+      "retrievedAt": "2026-11-09T12:11:00.118873+00:00",
+      "bytes": 7612720,
+      "sha256": "a7dbb879928ca1353c1c4aea8b0c9c1db87c7430f96e9137e9db9dc29b85e2de",
+      "cached": false
+    },
+    {
+      "file": "relation-2793813-full.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/relation/2793813/full",
+      "retrievedAt": "2026-11-09T12:16:48.231129+00:00",
+      "bytes": 142026,
+      "sha256": "9ce33efeebccf285588119411d7eaaeba51333e32fddbbce2dafe0ffd79e6705",
+      "purpose": "Complete literal Lake Union multipolygon members/holes; no fabricated coast closure"
+    },
+    {
+      "file": "coast-extension-4964042.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/4964042/full",
+      "retrievedAt": "2026-11-09T13:13:53.499706+00:00",
+      "bytes": 22864,
+      "sha256": "1f5161bdfe5708109be7ef865fe5127780867792b133a9a6dbe725e6885de3d3",
+      "purpose": "Literal shared-node coastal continuation at original node685038907; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-375137199.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/375137199/full",
+      "retrievedAt": "2026-11-09T13:13:54.969355+00:00",
+      "bytes": 15505,
+      "sha256": "e4b6eb40a13b3213544e7b04494b8dab466697610ecb14118370f242693373dd",
+      "purpose": "Literal shared-node coastal continuation at original node8866692930; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-375137206.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/375137206/full",
+      "retrievedAt": "2026-11-09T13:13:56.349124+00:00",
+      "bytes": 1477,
+      "sha256": "f8285f3b9fe5df2c3428c2854e8f888640687a733dca1d84623f22373ab721cb",
+      "purpose": "Literal shared-node coastal continuation at original node3618119056; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-375137196.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/375137196/full",
+      "retrievedAt": "2026-11-09T13:13:56.879901+00:00",
+      "bytes": 892,
+      "sha256": "0720aa6adf85416da2a29254c1d9f9e0a1621619db0859f815248a99910010a9",
+      "purpose": "Literal shared-node coastal continuation at original node3618119053; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-82659446.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/82659446/full",
+      "retrievedAt": "2026-11-09T13:13:57.388682+00:00",
+      "bytes": 1093,
+      "sha256": "cfd3933adee57e89621e12188e63f4a8de38f5e833ebc682ddb2c0d9c25e0dbd",
+      "purpose": "Literal shared-node coastal continuation at original node962026117; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-82659444.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/82659444/full",
+      "retrievedAt": "2026-11-09T13:13:57.867240+00:00",
+      "bytes": 1754,
+      "sha256": "167d591996d8e16d4f55a2e73c882ec543abda6a16bcd80783cb737e6658f44b",
+      "purpose": "Literal shared-node coastal continuation at original node962026038; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-375137195.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/375137195/full",
+      "retrievedAt": "2026-11-09T13:13:58.336425+00:00",
+      "bytes": 2732,
+      "sha256": "37c4914a39336ab205dc07ac96c2d30224d1fb59142cd0e6d181a3a26f016f0e",
+      "purpose": "Literal shared-node coastal continuation at original node3618119032; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-375137209.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/375137209/full",
+      "retrievedAt": "2026-11-09T13:13:58.823123+00:00",
+      "bytes": 1400,
+      "sha256": "27237901e317d0515f83e052600969c66f55f493e10381157e2b8cedfec1b5a3",
+      "purpose": "Literal shared-node coastal continuation at original node3618119027; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-1464859362.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/1464859362/full",
+      "retrievedAt": "2026-11-09T13:13:59.712377+00:00",
+      "bytes": 1197,
+      "sha256": "a76c96df32ff74557369212084067c2bab9663824c500588f21ca66aef433088",
+      "purpose": "Literal shared-node coastal continuation at original node3618119024; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-992089594.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/992089594/full",
+      "retrievedAt": "2026-11-09T13:14:00.224733+00:00",
+      "bytes": 1208,
+      "sha256": "d4e32e2fcba4a345f368d25b20565249abcbec9fa40438bc6b14476d9b27a390",
+      "purpose": "Literal shared-node coastal continuation at original node3785273409; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-401505242.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/401505242/full",
+      "retrievedAt": "2026-11-09T13:14:00.729923+00:00",
+      "bytes": 1550,
+      "sha256": "ad585314f63203692ebed849385892855eac57287a816118ca3628154daa9c11",
+      "purpose": "Literal shared-node coastal continuation at original node3785273410; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-375137202.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/375137202/full",
+      "retrievedAt": "2026-11-09T13:14:01.206636+00:00",
+      "bytes": 959,
+      "sha256": "0fa277b3be592b8c6c126c808a07c368714b54ef8447a8b0b88dae5b2d83a11e",
+      "purpose": "Literal shared-node coastal continuation at original node4039263829; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-82659443.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/82659443/full",
+      "retrievedAt": "2026-11-09T13:14:01.756300+00:00",
+      "bytes": 2336,
+      "sha256": "6b076377b763a3f0786e1c5b7c2722dc0b4467a69592519d1cbb2b05efa6956f",
+      "purpose": "Literal shared-node coastal continuation at original node4039263834; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-82659448.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/82659448/full",
+      "retrievedAt": "2026-11-09T13:14:02.476758+00:00",
+      "bytes": 1918,
+      "sha256": "626caa32c2d75639d533ac4d3b54f499c1613cf4a55c611763bc2c04a89d765c",
+      "purpose": "Literal shared-node coastal continuation at original node132860011; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-82789689.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/82789689/full",
+      "retrievedAt": "2026-11-09T13:14:02.971132+00:00",
+      "bytes": 1066,
+      "sha256": "1c46fbc7f2446b5d8474b369d972a157087451a3127b4c8cfd1ec639acbcf9ca",
+      "purpose": "Literal shared-node coastal continuation at original node132860021; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-992089595.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/992089595/full",
+      "retrievedAt": "2026-11-09T13:14:03.480549+00:00",
+      "bytes": 4403,
+      "sha256": "3039c7b99456735c06390b750573a9be86200380443fab6ff06b6abb3eebc738",
+      "purpose": "Literal shared-node coastal continuation at original node668464121; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-233810752.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/233810752/full",
+      "retrievedAt": "2026-11-09T13:14:04.309884+00:00",
+      "bytes": 3633,
+      "sha256": "7a21f410f2d23e66461dd161ade3f9b83599a8d23fb270675689a024457ddaf4",
+      "purpose": "Literal shared-node coastal continuation at original node30523039; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-5011698.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/5011698/full",
+      "retrievedAt": "2026-11-09T13:14:05.109493+00:00",
+      "bytes": 5676,
+      "sha256": "e5e36dc18b7b2f732c7288a792c375c009b2b50b36948da0dee97659cb7d59d6",
+      "purpose": "Literal shared-node coastal continuation at original node4993200950; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-4921210.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/4921210/full",
+      "retrievedAt": "2026-11-09T13:14:05.599194+00:00",
+      "bytes": 6085,
+      "sha256": "6f90ca6d371a2219d17f4c0e008782b260e5127130b5ac0000f752b3a1c69474",
+      "purpose": "Literal shared-node coastal continuation at original node4993200927; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-4921209.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/4921209/full",
+      "retrievedAt": "2026-11-09T13:14:06.036885+00:00",
+      "bytes": 4233,
+      "sha256": "76234233528d56cc5a62e33d02503f4ad408e4a7a6a34ce248d0e39d9155c795",
+      "purpose": "Literal shared-node coastal continuation at original node5296280196; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-1466538334.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/1466538334/full",
+      "retrievedAt": "2026-11-09T13:14:06.498154+00:00",
+      "bytes": 923,
+      "sha256": "1c572fcc133727567afc2b898acbb12d922160f9bf46877cb07c144cb62f83af",
+      "purpose": "Literal shared-node coastal continuation at original node4993200867; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-4921208.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/4921208/full",
+      "retrievedAt": "2026-11-09T13:14:07.026620+00:00",
+      "bytes": 6999,
+      "sha256": "66429fb49bc332221f10196854832582354e1af1c5db7bab44cfd805969c6f9b",
+      "purpose": "Literal shared-node coastal continuation at original node30524506; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-656314805.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/656314805/full",
+      "retrievedAt": "2026-11-09T13:14:07.489225+00:00",
+      "bytes": 1287,
+      "sha256": "6467534088a23988661868aea670c65d43cc6a080bc4647399828845ab49d16f",
+      "purpose": "Literal shared-node coastal continuation at original node4993200707; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-4921207.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/4921207/full",
+      "retrievedAt": "2026-11-09T13:14:07.974042+00:00",
+      "bytes": 2881,
+      "sha256": "f170f976d09d641764360bebffa7359f3f85c321c65aa52897d00e80e389bc3d",
+      "purpose": "Literal shared-node coastal continuation at original node4993200703; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-656314804.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/656314804/full",
+      "retrievedAt": "2026-11-09T13:14:08.456570+00:00",
+      "bytes": 899,
+      "sha256": "4655247c0e6c19c698bcc2732c8a41371af04b265d9abf422a75c65f61990d55",
+      "purpose": "Literal shared-node coastal continuation at original node3441641016; no nearest-neighbour joins"
+    },
+    {
+      "file": "coast-extension-159553422.osm",
+      "url": "https://api.openstreetmap.org/api/0.6/way/159553422/full",
+      "retrievedAt": "2026-11-09T13:14:08.938026+00:00",
+      "bytes": 10482,
+      "sha256": "89e9c42a78ef3aec3deb1ec5bdbf899390f316531c051b853f10eb4a778f30ef",
+      "purpose": "Literal shared-node coastal continuation at original node3892911879; no nearest-neighbour joins"
+    }
+  ],
+  "notes": [
+    "All literal raw source records/rings/holes and original closed node order retained; no image textures or reference-provider pixels.",
+    "Missing building dimensions/materials, unclassified ground materials and small water heights remain explicit model estimates.",
+    "Lake Union uses literal OSM ele=5m, datum/time unknown; ocean retains existing 1m game mean-sea estimate, not a tide measurement.",
+    "Finite coast render-frame closures create no source road/rail topology joins. Unmodeled source bridges/tunnels/pier decks remain named.",
+    "Source cache is exact native geometry with lossless vertex sharing, binary transport and whole-source spatial chunks; no source thinning.",
+    "Every original close-up DEM query is preserved; measured surround applies outside. New water cuts/floor queries use the same emitted Float32 faces. Serialization-invalid derived shore fragments are reported separately.",
+    "Pike retains the existing source-named Needle hero instead of a second generic tower; source identities retained. SeattleCenter replaces only malformed concatenated relation r20085315 with its two actual source outer components.",
+    "No native graphics-quality, target-load, submitted-budget, route or full-parity acceptance is implied by CPU controls.",
+    "Closed 00c native run failed cold loads, some render budgets, the Gum Wall route and visual acceptance; original full-size pictures/source dates remain historical. The tree eye-distance follow-up requires new native captures and overview synchronization."
+  ],
+  "historicalCacheVersions": [
+    {
+      "implementationCommit": "e57d3a1784494ada51a4d87870b85a6ab1eea498",
+      "kernelBase": "144eb1248af4eb52d9682388881cdf792b5a8c03",
+      "asset": {
+        "path": "seattle-context-render.bin.gz",
+        "bytes": 23887672,
+        "sha256": "742ac4493c9fc863e05ebb2807861ce1b292feaf0e22cb60381ec7e572ed12a4",
+        "uncompressedBytes": 105377008,
+        "uncompressedSHA256": "2343118c1de9362c180b7daac8acc6d811e9945ae2fddd92fcab12fe1bca3f5f"
+      },
+      "proofRoot": "handoffs/fidelity/seattle-source-context/proof/runtime-candidate/"
+    },
+    {
+      "implementationCommit": "b6969c4a7f2fceb22f789afad067c911571b6986",
+      "kernelBase": "76db0c4afbed5ff7c43c33c3e43efdb15baebb5e",
+      "nativeCaptureSourceCommit": "00c603358ac547b898cb8ad18f3d7ed9b229c10c",
+      "asset": {
+        "path": "seattle-context-render.bin.gz",
+        "bytes": 23887638,
+        "sha256": "86426ad9023f354e00617513cb65077aa4066f77cf01d33d39f027b855445f11",
+        "uncompressedBytes": 105377008,
+        "uncompressedSHA256": "f48e7c3261d303accff3a9d2f525b6bb307946b1d0ec02b7c586747941b3ff6d"
+      },
+      "proofRoot": "handoffs/fidelity/seattle-source-context/proof/native-00c/"
+    }
+  ],
+  "cacheKernelSourceCommit": "ab6478f080ff5433a6a9c193f2e5faae3c6dc732"
+}

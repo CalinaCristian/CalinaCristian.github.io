@@ -94,3 +94,17 @@ Instrumented with a float render target and a non-finite pixel count every 0.5 s
 
 
 - 2026-11-08 root tourist conditions integration: actual cross-city probe reproduced h14.25/storm/winter becoming04:15/overcast in Seattle. Entering a tourist scene now reapplies the selected local hour in its timezone and passes explicit weather/season; returning to the retained district reapplies its local timezone. Tourist K and pause Settings expose conditions, cancel unfinished activities and freeze scene progress while the panel is open. Setters refresh the scene clock at its own coordinates. Syntax passes; native travel/live/season/weather/pause regression is assigned before acceptance.
+
+### 2026-11-09 — normal-only pass shader correctness
+
+The shared zero-normal guard used vViewPosition in smooth MeshNormalMaterial, although Three r170 declares it only under flat/bump/tangent-normal variants. Native Ultra/GTAO produced undeclared-varying compile errors. `normal-guard.js` preserves the lit face-normal fallback and supplies a dedicated normal-pass view-position varying from the actual projected vertex. It is idempotent, adds no draw calls/geometry, and leaves healthy lit normal calculations unchanged. `tools/normal-guard-check.mjs` reproduces the old native compile failure then checks smooth/flat normal, Lambert, Phong and Standard zero-normal pixels with zero shader/GL errors. Actual full-scene Ultra budgets/visuals remain a separate gate.
+
+### 2026-11-09 — finite source backdrop bounds
+
+setScene caches only source-projection group references; fog culling preserves each effectively visible group's finite geometry/camera-domain far requirement. Hidden groups/ancestors release it and ordinary weather trimming resumes. The original4% projection hysteresis stays. Actual Renderer3D method controls cover visible/hidden/parent-hidden transitions; native public-app elevated/day/weather images and budget gates remain required.
+
+### 2026-11-09 — actual visible frame cadence diagnostics
+
+Renderer FPS/last-frame milliseconds now use monotonic elapsed intervals independently of the capped effects dt. Explicit1/60test stepping cannot manufacture60fps; a15sforeground gap reports15000ms/0.07fps. Three controls execute the actual Renderer3D.frame/_adapt orchestration with only GPU work stubbed: long stalls, unequal elapsed interval weighting, manual/explicitdt, Auto input preservation,60Hz, hidden-tab reset and no-scene calls. These are diagnostic CPU controls, not native GPU or hardware FPS. Existing effects/physics dt, Auto policy and all presets remain unchanged. New-scene diagnostic boundaries reset separately. Fresh combined native Ultra/repeated-flight gates remain open.
+
+- 2026-11-09 root: extracted the unchanged normal-frame environment update into advanceEnvironment(dt,{camera,cockpit,cull}), enabling one retained district environment to update without a second draw or simulation. Pure visibilityFar(baseFar) preserves off-axis projections instead of calling ordinary updateProjectionMatrix on them. Normal frame() still owns effects dt/render/adaptation/diagnostics. Five actual-Renderer3D orchestration CPU controls pass, including source-camera/weather dispatch, no actor/draw/quality/FPS mutation and pure fog/source-backdrop far limits. This is window foundation only; Main live-window binding and native rendering/weather/traffic acceptance remain open.

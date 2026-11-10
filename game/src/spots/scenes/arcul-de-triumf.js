@@ -1,17 +1,14 @@
-// ============================================================================
-//  Arcul de Triumf (Bucharest): Petre Antonescu's 27 m granite arch (1935–36)
-//  in the middle of the Piața Arcul de Triumf roundabout on Șoseaua Kiseleff.
-//  Arch: landmarks.js model (bArcul, read-only import: inscriptions, medallions
-//  of Ferdinand and Maria, Victories) floodlit at night. Around it: the lawn
-//  island with granite paving, bollards and chains, zebra crossings with
-//  signals, constant roundabout traffic, Kiseleff lined with tall trees, the
-//  King Michael I park edge. Artists credited on the plaques (R15.7).
-// ============================================================================
-import * as THREE from '../../../vendor/three.module.min.js';
+// Arcul de Triumf: literal source roads/paved walks and the low public passage.
+// Races, blue course markers and the baguette are explicitly authored game play.
 import { photoHunt } from '../photo-hunt.js';
-import { GeoBatch, M, rng, headingFromBearing, centroid, inPoly, polyBox } from '../kit.js';
-import { bucBackdrop, placeLandmark, cityFiller, floodlight, flagpole, bucActivity } from '../buc.js';
+import { GeoBatch, offsetPolyline, inPoly } from '../kit.js';
+import { bucBackdrop, placeLandmark } from '../buc.js';
+import { roadWidth } from '../osm.js';
 import { addTraffic } from '../cars.js';
+import { ARC_SOURCE_PARTS } from '../../landmark-arcul-source.js';
+import { collideBuildings } from '../../world.js';
+import { arcRaceCourse, arcRoundabout, arcActiveCarriageway, arcPlaquePlacements } from './arcul-layout.js';
+import { createArcActivities } from './arcul-activities.js';
 
 const INSCRIPTIONS = [
     { face: 'south', ro: 'FERDINAND I · DOMN ȘI REGE AL ROMÂNILOR', en: 'Ferdinand I, Prince and King of the Romanians — the 1918 union completed under his reign.' },
@@ -21,79 +18,70 @@ const INSCRIPTIONS = [
 ];
 
 export default {
-    env: { fogFar: 3000, ambientCity: 0.25, groundAlbedo: 0.12 },
+    env: { fogFar: 3000, ambientCity: .25, groundAlbedo: .12 },
     async build(ctx) {
-        const g = ctx.ground, d = ctx.data, sp = ctx.spot('arcul-de-triumf');
-        const T0 = g.heightAt(0, 0); g.mod((x, z, h) => T0 + (h - T0) * 0.4);
-        const arch = d.buildings.find((x) => x.id === 'w217851530');
-        if (arch) { ctx.skipBuildings.add(arch.id); for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, arch.poly)) ctx.skipBuildings.add(x.id); } }
-        // the island: centre of the circular carriageway
-        const ring = d.ways.filter((w) => w.junction === 'circular' || /^w11100510/.test(w.id) || w.id === 'w227396567').flatMap((w) => w.pts);
-        let cx = -31, cz = -96, R = 30; if (ring.length > 6) { cx = ring.reduce((s, p) => s + p[0], 0) / ring.length; cz = ring.reduce((s, p) => s + p[1], 0) / ring.length; R = ring.reduce((s, p) => s + Math.hypot(p[0] - cx, p[1] - cz), 0) / ring.length; }
-        const IR = R - 7.5; // island radius (carriageway ~ 3 lanes)
-        const island = []; for (let i = 0; i < 40; i++) { const a = i / 40 * Math.PI * 2; island.push([cx + Math.cos(a) * IR, cz + Math.sin(a) * IR]); }
-        const yI = g.heightAt(cx, cz); g.flatten(island, yI, 8);
-        const AR = placeLandmark(ctx, 'arcul', { y: yI + 0.15, colliderH: 30 });
-        const b = new GeoBatch();
-        // kerb ring, bollards with chains along the island edge (gaps at the crossings)
-        b.add(new THREE.TorusGeometry(IR, 0.18, 4, 64).rotateX(Math.PI / 2), 'stone', M(cx, yI + 0.08, cz), '#bdb6a8');
-        const nb = 56; for (let i = 0; i < nb; i++) { const a = i / nb * Math.PI * 2, a2 = (i + 1) / nb * Math.PI * 2, x = cx + Math.cos(a) * (IR - 0.6), z = cz + Math.sin(a) * (IR - 0.6); if (i % 7 === 3) continue; b.cyl(x, yI, z, 0.12, 0.9, '#e6e1d6', 'stone', 8); b.sphere(x, yI + 0.95, z, 0.13, 0.1, 0.13, '#e6e1d6', 'stone', 6, 4); if (i % 7 !== 2) b.rod([x, yI + 0.75, z], [cx + Math.cos(a2) * (IR - 0.6), yI + 0.75, cz + Math.sin(a2) * (IR - 0.6)], 0.025, '#2b2b2b', 'metal', 4); ctx.circle(x, z, 0.13, 0.9); }
-        // signals at the crossings
-        for (const w of d.ways) if (w.k === 'footway' && w.footway === 'crossing') for (const [x, z] of [w.pts[0], w.pts[w.pts.length - 1]]) { const y = g.heightAt(x, z); b.cyl(x, y, z, 0.07, 3.2, '#2d3135', 'metal', 6); b.box(x, y + 2.4, z, 0.32, 0.9, 0.28, '#1d2023', 'metal'); b.sphere(x, y + 2.95, z + 0.16, 0.08, 0.08, 0.04, '#d92b2b', 'glow', 6, 4); ctx.circle(x, z, 0.1, 3); }
-        // flagpole by the park entrance (OSM flagpole), Romanian flag
-        const fp = d.furniture.flagpole?.[0]; let flag = null; if (fp) { flag = flagpole(fp[0], g.heightAt(fp[0], fp[1]), fp[1], 14, 'ro', { yaw: Math.PI * 0.8 }); ctx.add(flag.group); ctx.circle(fp[0], fp[1], 0.2, 14); }
-        ctx.add(b.build('arch-island'));
-        // ground: granite slabs round the arch, lawn beds, the roundabout + Kiseleff
-        ctx.terrainOpts = { bg: '#6f8545', bgMask: 'grass', innerPx: 2048, innerStep: 3, outerStep: 16, outerPad: 700 };
-        bucBackdrop(ctx, { species: { plane: 0.55, linden: 0.3, chestnut: 0.15 }, doubleCentre: true, lampStyle: 'cobra', lampColor: '#5c6066', lampH: 10, lampPad: 30, treeLod: { cap: 1500, max: 420 }, lampOpts: { spacing: 34, kinds: ['primary', 'secondary'] }, streetTreeOpts: { spacing: 8.5, prob: 0.92, kinds: ['primary', 'secondary', 'tertiary'] } });
-        ctx.painter.poly(island, '#6c8a44', 'grass');
-        ctx.painter.custom((x, T, k) => { const [px, py] = T(cx, cz); x.fillStyle = '#b5b0a6'; x.beginPath(); x.ellipse(px, py, 19 * k, 19 * k, 0, 0, 7); x.fill(); x.strokeStyle = 'rgba(90,85,78,0.35)'; x.lineWidth = Math.max(1, 0.1 * k); for (let r2 = 3; r2 < 19; r2 += 2.4) { x.beginPath(); x.arc(px, py, r2 * k, 0, 7); x.stroke(); } });
-        // no trees on the island apart from a few by the lawn edge
-        ctx.trees = ctx.trees.filter((t) => Math.hypot(t.x - cx, t.z - cz) > R + 4);
-        // rows along the outer kerbs only: nothing on the carriageways or in the Kiseleff median (the view to the arch stays open)
-        const roads = d.ways.filter((w) => ['primary', 'secondary', 'tertiary'].includes(w.k)).map((w) => ({ pts: w.pts, hw: (parseInt(w.lanes, 10) || 2) * 3.3 / 2 + 1.6 }));
-        const onRoad = (x, z) => roads.some((w) => { for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1, u = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / L2)); if (Math.hypot(x - ax - dx * u, z - az - dz * u) < w.hw) return true; } return false; });
-        const kis = d.ways.find((w) => w.id === 'w281701377')?.pts || [];
-        ctx.trees = ctx.trees.filter((t) => !onRoad(t.x, t.z) && !(kis.length && (() => { for (let i = 1; i < kis.length; i++) { const [ax, az] = kis[i - 1], [bx, bz] = kis[i], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1, u = Math.max(0, Math.min(1, ((t.x - ax) * dx + (t.z - az) * dz) / L2)); if (Math.hypot(t.x - ax - dx * u, t.z - az - dz * u) < 13) return true; } return false; })()));
-        cityFiller(ctx, { ring: 650 });
-        // traffic: the roundabout loop (counter-clockwise seen from above) + Kiseleff both ways + Prezan
-        const loop = []; for (let i = 0; i <= 48; i++) { const a = -i / 48 * Math.PI * 2; loop.push([cx + Math.cos(a) * (R - 2.5), cz + Math.sin(a) * (R - 2.5)]); }
-        const way = (id) => d.ways.find((w) => w.id === id)?.pts || [];
-        addTraffic(ctx, { lanes: [{ pts: loop, n: 7, speed: 8 }, { pts: loop.map(([x, z]) => [cx + (x - cx) * 0.88, cz + (z - cz) * 0.88]), n: 5, speed: 7 }, { pts: way('w281701377').slice().reverse(), n: 6, speed: 12 }, { pts: [...way('w281701377')].map(([x, z]) => [x + 9, z]), n: 6, speed: 12 }, { pts: way('w229373804'), n: 4, speed: 12 }] });
-        // plaques round the island + "read the arch" at the four faces
-        const PL = sp.plaques;
-        const credits = [null, null, 'Architect Petre Antonescu; sculptors Ion Jalea, Constantin Baraschi, Mac Constantinescu, Dimitrie Paciurea (1935–36).', 'Medallions of King Ferdinand and Queen Maria restored after 1989.', null];
-        PL.forEach((pl, i) => { const a = Math.PI * 0.35 + i * 0.32, x = cx + Math.cos(a) * (IR - 2.2), z = cz + Math.sin(a) * (IR - 2.2); ctx.plaque(pl, x, z, Math.atan2(cx - x, cz - z) + Math.PI, { style: 'bronze', credit: credits[i], y: yI }); });
-        if (AR) {
-            const rot = AR.lm.rotation, c = Math.cos(rot), s = Math.sin(rot), L = (u, v) => ({ x: AR.x + u * c + v * s, z: AR.z - u * s + v * c });
-            const faces = { south: L(0, -9), north: L(0, 9), east: L(17, 0), west: L(-17, 0) };
-            let read = new Set();
-            for (const ins of INSCRIPTIONS) { const p = faces[ins.face]; ctx.interactables.push({ x: p.x, z: p.z, r: 3.2, label: `Read the inscription (${ins.face} face)`, use: (sess) => { read.add(ins.face); sess.ui.toast(ins.ro, `${ins.en} (${read.size}/4 faces read)`); if (read.size === 4) sess.ui.toast('🏛 All four faces read', 'Roof and museum admission varies; check the official visitor information before travelling.'); } }); }
-        }
-        if(AR){const rot=AR.lm.rotation,c=Math.cos(rot),sn=Math.sin(rot),L=(u,v)=>({x:AR.x+u*c+v*sn,z:AR.z-u*sn+v*c}),start=L(0,-17),left=L(-9,-4.8),right=L(9,-4.8);
-            photoHunt(ctx,{...start,title:'Frame the Arc memorial',unavailable:'Current museum and roof admission are not verified; interior access is unavailable.',targets:[
-                {label:'The central arch opening',x:AR.x,y:AR.y+10,z:AR.z,radius:2},
-                {label:'The western sculpted pier',...left,y:AR.y+15,radius:1.8},
-                {label:'The eastern sculpted pier',...right,y:AR.y+15,radius:1.8},
-            ],onDone:s=>bucActivity(s,'arcul-de-triumf','terrace','📷 The Arc memorial','You framed the opening and both sculpted piers from the public island.')});
-        }
-        // postcard: on the Kiseleff axis south of the roundabout, looking NNW through the opening (≈ 52 m from the arch)
-        const pa = 160 * Math.PI / 180, px = cx + Math.sin(pa) * 56, pz = cz - Math.cos(pa) * 56;
-        ctx.challenge('arcul-de-triumf', { view: [cx, cz], x: px, z: pz, heading: 340, pitch: 11, r: 12, tol: 24 });
-        // spawn on the paved island round the arch (pedestrian, reached by the crossings), south side, facing the arch — not on Kiseleff
-        ctx.spawns['arcul-de-triumf'] = { x: cx + Math.sin(pa) * (IR - 3.2), z: cz - Math.cos(pa) * (IR - 3.2), heading: headingFromBearing(340) };
-        ctx.crowdCfg = {
-            personas: { local_young: 3, local_elder: 1.5, tourist_de: 1.5, tourist_it: 1.5, kid: 0.6, local_parent: 1 },
-            walkers: 26, paths: ctx.footLines(),
-            groups: [
-                { x: cx + 4, z: cz + IR - 5, r: 3, n: 5, act: 'photo', look: [cx, cz], personas: ['tourist_de', 'tourist_it', 'local_young'], y: yI },
-                { x: cx - 8, z: cz - IR + 6, r: 2, n: 3, act: 'photo', look: [cx, cz], personas: ['tourist_it', 'tourist_de'], y: yI },
-                { x: cx + 14.3, z: cz - 7.2, r: 0.3, n: 1, act: 'watch', look: [cx, cz], personas: ['guard'], y: yI },
-            ],
-        };
-        ctx.sound('traffic', cx, cz, 120, 1.2); ctx.sound('traffic', 30, 120, 160, 0.8); ctx.sound('wind', cx, cz, 60, 0.4); ctx.sound('birds', 60, -160, 90, 0.5);
-        if (flag) ctx.onUpdate((dt, s) => flag.update(s.t, s.r3d.weather?.windKmh ?? 12));
-
-        void rng; void polyBox;
+        const g=ctx.ground,d=ctx.data,sp=ctx.spot('arcul-de-triumf'),course=arcRaceCourse(d),roundabout=arcRoundabout(d);
+        const arch=d.buildings.find(b=>b.id==='w217851530');
+        if(!arch)throw Error('Missing literal Arc footprint');
+        ctx.skipBuildings.add(arch.id);for(const q of ARC_SOURCE_PARTS)ctx.skipBuildings.add(q.id);
+        const firstRoad=d.ways.find(w=>w.id===roundabout.sourceWays[0]);
+        // Share the native road painter's width estimate, without moving any
+        // literal source vertex or width tag. Grade only the real public island.
+        const island=offsetPolyline(roundabout.points,-roadWidth(firstRoad)/2),mid=arch.poly.reduce((a,p)=>[a[0]+p[0]/arch.poly.length,a[1]+p[1]/arch.poly.length],[0,0]);
+        const floor=g.heightAt(...mid);g.flatten(island,floor,3);
+        const AR=placeLandmark(ctx,'arcul',{y:floor,colliderH:30});
+        if(!AR)throw Error('Missing Arc model');
+        // These walks already have exact paved area polygons; a second default
+        // 2.2m-wide line would widen them and paint across the gravel petals.
+        for(const id of ['w1479986588','w1479986589','w1479986590'])ctx.skipWays.add(id);
+        ctx.terrainOpts={bg:'#707c54',bgMask:'grass',innerPx:2048,innerStep:3,outerStep:16,outerPad:700};
+        bucBackdrop(ctx,{species:{plane:.55,linden:.3,chestnut:.15},doubleCentre:true,lampStyle:'cobra',lampColor:'#5c6066',lampH:10,lampPad:30,
+            treeLod:{cap:1500,max:420},lampOpts:{spacing:34,kinds:['primary','secondary']},streetTreeOpts:{spacing:8.5,prob:.92,kinds:['primary','secondary','tertiary']}});
+        for(const id of ['w1191615184','w1191615185','w1191624784','w1191624785']){const a=d.areas.find(a=>a.id===id);if(a)ctx.painter.poly(a.poly,'#b6b5ad','dirt');}
+        for(const id of ['w1191615188','w1458987299']){const a=d.areas.find(a=>a.id===id);if(a)ctx.painter.poly(a.poly,'#b9b7ad','slab');}
+        ctx.painter.poly(arch.poly,'#b9b5aa','slab');
+        // Preserve every literal tree; remove only generated trees on actual
+        // roads/the public island. There is no invented far tower filler here.
+        const sourceTrees=new Set(d.trees.map(t=>Math.round(t[0]*10)+','+Math.round(t[1]*10))),onRoad=arcActiveCarriageway(d);
+        ctx.trees=ctx.trees.filter(t=>sourceTrees.has(Math.round(t.x*10)+','+Math.round(t.z*10))||(!onRoad(t.x,t.z,.2)&&Math.hypot(t.x-AR.x,t.z-AR.z)>27));
+        const edge=new GeoBatch();for(let i=1;i<island.length;i++)edge.rod([island[i-1][0],floor+.07,island[i-1][1]],[island[i][0],floor+.07,island[i][1]],.08,'#bbb7ad','stone',4);
+        ctx.add(edge.build('source-roundabout-inner-kerb'));
+        // The mapped mast belongs to the monument roof: literal source node
+        //11056553808 has min_height27/height31. The hero owns that same record;
+        // no second14m pole or collider is invented on the public ground.
+        const way=id=>d.ways.find(w=>w.id===id)?.pts||[];
+        // Same28 ambient cars, source-legal directions. The old reverse copy
+        // of one-way Kiseleff is replaced by another lane on the actual way.
+        ctx.extras.arcAmbientTraffic=addTraffic(ctx,{lanes:[{pts:roundabout.points,n:7,speed:8},{pts:offsetPolyline(roundabout.points,-3.1),n:5,speed:7},
+            {pts:way('w281701377'),n:6,speed:12},{pts:offsetPolyline(way('w281701377'),3.2),n:6,speed:12},
+            {pts:offsetPolyline(way('w229373804'),4.8),n:4,speed:12}]});
+        const credits=[null,null,'Architect Petre Antonescu; sculptors Ion Jalea, Constantin Baraschi, Mac Constantinescu, Dimitrie Paciurea (1935–36).','Medallions of King Ferdinand and Queen Maria restored after 1989.',null];
+        // Game interpretation plaques sit beside the mapped walks, outside the
+        // actual race centreline and carriageway; they claim no surveyed signs.
+        const plaqueSites=arcPlaquePlacements(course,AR,sp.plaques.length,{inside:(x,z)=>inPoly(x,z,island),activeRoad:onRoad,
+            blocked:(x,z,r)=>!!collideBuildings(ctx.colliders,x,z,r,floor+.2)});
+        sp.plaques.forEach((pl,i)=>{const p=plaqueSites[i];ctx.plaque(pl,p.x,p.z,p.yaw,{style:'bronze',credit:credits[i],y:floor});});
+        const c=Math.cos(AR.lm.rotation),sn=Math.sin(AR.lm.rotation),local=(u,v)=>({x:AR.x+u*c+v*sn,z:AR.z-u*sn+v*c});
+        const faces={south:local(0,-6.2),north:local(0,6.2),east:local(15.8,0),west:local(-15.8,0)},read=new Set();
+        for(const ins of INSCRIPTIONS){const p=faces[ins.face];ctx.interactables.push({...p,y:floor,r:2.3,label:`Read the inscription (${ins.face} face)`,use:s=>{read.add(ins.face);s.ui.toast(ins.ro,`${ins.en} (${read.size}/4 faces read)`);}});}
+        const photoAt=local(0,17.5),left=local(-9,-4.8),right=local(9,-4.8);
+        photoHunt(ctx,{...photoAt,title:'Frame the Arc memorial',unavailable:'Current museum and roof admission are not verified; interior access is unavailable.',targets:[
+            {label:'The central arch opening',x:AR.x,y:AR.y+10,z:AR.z,radius:2},{label:'The western sculpted pier',...left,y:AR.y+15,radius:1.8},{label:'The eastern sculpted pier',...right,y:AR.y+15,radius:1.8}],
+            onDone:s=>s.ui.toast('The Arc memorial','You framed the opening and both sculpted piers. The race and baguette catch are separate activities.')});
+        createArcActivities(ctx,course,{floor,arch:AR});
+        // Actual north-apron path arrival. Both activities are reachable without
+        // crossing the roundabout. The optional pitch is a normal entry pose.
+        const start=course.at(course.length-1.2),dx=AR.x-start.x,dz=AR.z-start.z;
+        ctx.spawns['arcul-de-triumf']={x:start.x,z:start.z,heading:Math.atan2(-dx,-dz),pitch:.5};
+        const photo=way('w1571030032')[0];
+        if(photo){const bearing=(Math.atan2(AR.x-photo[0],photo[1]-AR.z)*180/Math.PI+360)%360;ctx.challenge('arcul-de-triumf',{view:[AR.x,AR.z],x:photo[0],z:photo[1],heading:bearing,pitch:11,r:8,tol:20});}
+        ctx.crowdCfg={personas:{local_young:3,local_elder:1.5,tourist_de:1.5,tourist_it:1.5,kid:.6,local_parent:1},walkers:26,paths:ctx.footLines(),groups:[
+            {x:29,z:-99,r:2,n:5,act:'photo',look:[AR.x,AR.z],personas:['tourist_de','tourist_it','local_young']},
+            {x:-45,z:-121,r:1,n:3,act:'photo',look:[AR.x,AR.z],personas:['tourist_it','tourist_de']},
+            {x:AR.x+6,z:AR.z-8,r:.2,n:1,act:'watch',look:[AR.x,AR.z],personas:['guard']}]};
+        ctx.extras.arcSource={courseSources:course.sourceWays,courseLengthM:course.length,publicApronConnectors:course.publicApronConnectors,
+            circularSourceWays:roundabout.sourceWays,sourceParts:ARC_SOURCE_PARTS.map(p=>p.id),sourceTrees:d.trees.length,plaqueSites,
+            sourcePathNote:'Short transverse game-course connectors cross clear public apron; no new OSM way or paving footprint is added.'};
+        ctx.sound('traffic',AR.x,AR.z,120,1.2);ctx.sound('wind',AR.x,AR.z,60,.4);ctx.sound('birds',60,-160,90,.5);
     },
 };

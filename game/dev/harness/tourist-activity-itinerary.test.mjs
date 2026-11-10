@@ -27,3 +27,15 @@ test('blocked and unavailable activities never produce a hero/plaque-only fallba
         assert.equal(messages.at(-1)[0],'No activity route right now');
     }
 });
+test('a substantial primary activity leads even when a coin interaction is nearer',()=>{
+    const{s}=session(),primary=s.objectives()[0];primary.interaction.tourPrimary=true;
+    s.objectives=()=>[{kind:'activity',x:5,z:0,floorY:0,label:'Drop a coin',interaction:{r:2}},primary];
+    assert.equal(s.startTour(),true);assert.equal(s.tour.stops[0],primary);
+});
+test('a blocked or unavailable primary activity cannot become a coin-only tour',()=>{
+    for(const options of[{blocked:true},{available:false}]){
+        const{s}=session(options),primary=s.objectives()[0];primary.interaction.tourPrimary=true;
+        s.objectives=()=>[{kind:'activity',x:5,z:0,floorY:0,label:'Drop a coin',interaction:{r:2}},primary];
+        assert.equal(s.startTour(),false);assert.equal(s.tour,undefined);
+    }
+});

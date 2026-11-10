@@ -237,7 +237,7 @@ function buildFishThrow(ctx) {
         if(ambient<0&&next<=0){ambient=0;next=5+Math.random()*6;const crowd=s.spot.crowd,m=crowd?.peds.find(p=>p.persona==='fishmonger'&&Math.hypot(p.x-front.x,p.z-front.z)<2.5);if(m&&fishLine.length)crowd&&s.ui.bubbles.say(crowd._headRef(m),fishLine[Math.floor(Math.random()*fishLine.length)].text,'','');s.sound.play('calls',1);}
         if(ambient>=0){ambient+=dt/1.05;place(fishFlightPoint(mongers[0],mongers[1],ambient,2.4),ambient*9);if(ambient>=1){ambient=-1;fish.visible=false;}}
     });
-    ctx.interactables.push({kind:'fish',tourActivityIds:['fish-shift'],x:front.x+(front.x-back.x)*.5,z:front.z+(front.z-back.z)*.5,r:4.5,
+    ctx.interactables.push({kind:'fish',tourPrimary:true,tourActivityIds:['fish-shift'],x:front.x+(front.x-back.x)*.5,z:front.z+(front.z-back.z)*.5,r:4.5,
         label:()=>flow.active?'Fish delivery in progress':'Join the fishmongers · three catches and returns',
         use(s){
             if(activityBlocked(s)||flow.active)return;

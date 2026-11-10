@@ -123,7 +123,7 @@ function buildNeedle(ctx) {
             },
         });
     };
-    ctx.interactables.push({ kind: 'activity', x: door.x, z: door.z, y, r: 3, label: 'Ride the elevator to The Loupe (41 s)', cond: s => s.spot.entry.id === 'space-needle' && !ride && Math.abs(s.ctl.position.y - y) < 1.2, use: s => startRide(s, true) });
+    ctx.interactables.push({ kind: 'activity', tourPrimary:true, x: door.x, z: door.z, y, r: 3, label: 'Ride the elevator to The Loupe (41 s)', cond: s => s.spot.entry.id === 'space-needle' && !ride && Math.abs(s.ctl.position.y - y) < 1.2, use: s => startRide(s, true) });
     // An authored walking circuit uses the actual supported Loupe ring instead of another photo task.
     const onLevel=(s,yy)=>Math.abs(s.ctl.position.y-yy)<1.2;
     const circuitMarker=new THREE.Mesh(new THREE.TorusGeometry(.38,.035,6,28),new THREE.MeshBasicMaterial({color:'#56d6ee',transparent:true,opacity:.9,depthWrite:false}));
@@ -132,7 +132,7 @@ function buildNeedle(ctx) {
     const circuitLine=new THREE.Line(new THREE.BufferGeometry().setFromPoints(circuitPoints),new THREE.LineDashedMaterial({color:'#56d6ee',dashSize:.45,gapSize:.5,transparent:true,opacity:.65,depthWrite:false}));
     circuitLine.computeLineDistances();circuitLine.visible=false;circuitLine.userData.noFloor=true;circuitLine.name='virtual-glass-circuit-route';ctx.add(circuitLine);
     let glassCircuit=null;ctx.extras.glassCircuit={debug:()=>glassCircuit?.snapshot()||null};
-    ctx.interactables.push({kind:'activity',tourActivityIds:['glass-circuit'],x:NEEDLE.x,z:NEEDLE.z+17.6,y:LOUPE_Y,r:2,
+    ctx.interactables.push({kind:'activity',tourPrimary:true,tourActivityIds:['glass-circuit'],x:NEEDLE.x,z:NEEDLE.z+17.6,y:LOUPE_Y,r:2,
         label:'Glass-floor circuit · walk a full lap above Seattle',cond:s=>!ride&&onLevel(s,LOUPE_Y),
         use(s){const circuit=createGlassCircuit({x:NEEDLE.x,z:NEEDLE.z,y:LOUPE_Y});
             flow.begin(s,{title:'The Loupe · glass-floor circuit',lockWalker:false,action:'Start walking (E)',help:'Walk the blue ring through four checkpoints and return here. WASD or touch to move. Look down through the glass or out at Seattle as you go. Leave cancels the unfinished circuit.',

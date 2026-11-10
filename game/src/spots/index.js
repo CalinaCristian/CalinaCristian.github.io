@@ -522,7 +522,8 @@ export class SpotSession {
             const it = m.interaction;
             return !it || ((!it.cond || it.cond(this)) && (!it.tourAvailable || it.tourAvailable(this)) && Math.abs((it.y ?? this.ctl.y) - this.ctl.y) < 3);
         };
-        const objs = this.objectives().filter((m) => !m.noTour && m.kind !== 'entrance' && near(m));
+        const allObjectives=this.objectives(),requiresPrimary=allObjectives.some(m=>m.interaction?.tourPrimary===true);
+        const objs = allObjectives.filter((m) => !m.noTour && m.kind !== 'entrance' && near(m));
         const stops = []; let x = this.guide.x, z = this.guide.z, y = this.guide.y, walked = 0;
         const addNearest = (pool) => {
             // A detour counts against the budget before the stop enters the itinerary.
@@ -536,7 +537,8 @@ export class SpotSession {
             return false;
         };
         const active = objs.filter((m) => ['activity', 'bike'].includes(m.kind));
-        if (!addNearest(active)) {
+        const primary=active.filter(m=>m.interaction?.tourPrimary===true);
+        if (!addNearest(requiresPrimary ? primary : active)) {
             this.ui.toast('No activity route right now', 'Choose an activity on M and explore freely. The guide could not find a safe short route to an available activity.');
             return false;
         }

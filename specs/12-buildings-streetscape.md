@@ -273,3 +273,5 @@ Immutable native runtimea8fedd35: matched Floreasca/Pipera owner-area views and 
 
 ### Church window rows (10 November 2026)
 The shared facade atlas must end on a whole window row for churches as well as other buildings. Keep the selected row count, source footprint, total height, eaves, roof profile and collision unchanged; adjust only the per-row UV height to fit the wall band. Report49 is the native visual acceptance witness.
+
+Pipera facade candidate (2026-11-10): use one edge-space facade skin for Hermes and BOB. Retain the existing floor/pilaster rhythm, colours and fin depths; emit opaque structural strips instead of the underlying glass/wall, with returns for projecting fins. BOB white acute-corner strips replace coplanar triangular overlay prisms. Preserve source rings, inner courtyards, heights, roof caps and colliders. Required gates: finite disjoint facade coverage, original native reported poses and movement, foot/a and paired district visual budgets.

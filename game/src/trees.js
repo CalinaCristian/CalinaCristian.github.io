@@ -1,4 +1,5 @@
 import * as THREE from '../vendor/three.module.min.js';
+import {treeViewSelection} from './tree-view-selection.js';
 
 // ============================================================================
 //  Species trees (world-visual, 2026-11-07). Smooth lobed crowns after the
@@ -188,7 +189,7 @@ export function buildSpeciesTrees(trees, opts = {}) {
     // far chunk meshes
     const chunks = new Map();
     for (const r of T) { let c = chunks.get(r.chunk); if (!c) chunks.set(r.chunk, c = { dec: [], con: [] }); (r.con ? c.con : c.dec).push(r); }
-    const crownMeshes = [], trunkMeshes = [], farOf = [];
+    const crownMeshes = [], trunkMeshes = [], farOf = [], farBatches=[];
     const cull = opts.cull ?? 1600;
     for (const [k, c] of chunks) {
         const [ci, cj] = k.split(',').map(Number);
@@ -205,6 +206,8 @@ export function buildSpeciesTrees(trees, opts = {}) {
             crownMeshes.push(m); mine.push(m);
         }
         all.forEach((r, i) => { r.farT = { m: trunks, i }; });
+        farBatches.push({mesh:trunks,records:all,mode:'ft'});
+        for(const m of mine)if(m!==trunks)farBatches.push({mesh:m,records:m.userData.conifer?c.con:c.dec,mode:'fc'});
         trunkMeshes.push(trunks);
         for (const m of mine) {
             m.instanceMatrix.needsUpdate = true; if (m.instanceColor) m.instanceColor.needsUpdate = true;
@@ -229,6 +232,7 @@ export function buildSpeciesTrees(trees, opts = {}) {
     // spatial grid for near queries
     const GS = 50, grid = new Map(), crownGrid = new Map();
     T.forEach((r) => { for (const [g, p] of [[grid, r.t], [crownGrid, r.centre]]) { const k = Math.floor(p.x / GS) + ',' + Math.floor(p.z / GS); let a = g.get(k); if (!a) g.set(k, a = []); a.push(r); } });
+    const farSelection=opts.cullFar&&opts.farLayer===2?treeViewSelection(farBatches):null;
     let lx = 1e9, lz = 1e9, ly, cur = [];
     const update = (x, z, eyeY) => {
         const spatial = Number.isFinite(eyeY), wasSpatial = Number.isFinite(ly);
@@ -243,8 +247,11 @@ export function buildSpeciesTrees(trees, opts = {}) {
         const touched = new Set();
         for (const r of cur) { r.near = false; }
         for (const r of sel) r.near = true;
-        for (const r of cur) if (!r.near) { r.far.m.setMatrixAt(r.far.i, r.fc); r.farT.m.setMatrixAt(r.farT.i, r.ft); touched.add(r.far.m); touched.add(r.farT.m); }
-        for (const r of sel) if (!cur.includes(r)) { r.far.m.setMatrixAt(r.far.i, ZERO); r.farT.m.setMatrixAt(r.farT.i, ZERO); touched.add(r.far.m); touched.add(r.farT.m); }
+        if(farSelection)farSelection.invalidate();
+        else{
+            for (const r of cur) if (!r.near) { r.far.m.setMatrixAt(r.far.i, r.fc); r.farT.m.setMatrixAt(r.farT.i, r.ft); touched.add(r.far.m); touched.add(r.farT.m); }
+            for (const r of sel) if (!cur.includes(r)) { r.far.m.setMatrixAt(r.far.i, ZERO); r.farT.m.setMatrixAt(r.farT.i, ZERO); touched.add(r.far.m); touched.add(r.farT.m); }
+        }
         for (const m of touched) m.instanceMatrix.needsUpdate = true;
         const k = {}; for (const name in nearM) k[name] = 0; let kt = 0;
         // far → near: bare crowns blend in order
@@ -253,5 +260,5 @@ export function buildSpeciesTrees(trees, opts = {}) {
         nearT.count = kt; nearT.instanceMatrix.needsUpdate = true;
         cur = sel;
     };
-    return { group, crownMeshes, trunkMeshes, update, count: T.length };
+    return { group, crownMeshes, trunkMeshes, update, selectFar:farSelection?.update, count: T.length };
 }

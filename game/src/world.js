@@ -4975,7 +4975,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const vegetation = { treeCrownMeshes: [], treeTrunkMeshes: [], deciduousMask: null, grassMaterials: [], groundMaterials: [], roofMaterials: [], trees: treeList };
     {
         // (2026-11-08) district worlds carry the measured canopy (thousands of real trees): fewer full-detail near trees
-        const T = buildSpeciesTrees(treeList, { rng, cull: distId ? 480 : 550, chunk: distId ? 250 : 500, near: distId ? 60 : 95, maxNear: distId ? 110 : 240, farLayer: 2,exclude:coveredCanopies.excluded }); // Source-covered-platform conflicts are recorded separately from LOD/culling.
+        const T = buildSpeciesTrees(treeList, { rng, cull: distId ? 480 : 550, chunk: distId ? 250 : 500, near: distId ? 60 : 95, maxNear: distId ? 110 : 240, farLayer: 2,cullFar:!!distId,exclude:coveredCanopies.excluded }); // Source-covered-platform conflicts are recorded separately from LOD/culling.
         if(coveredCanopies.excluded.size){
             const props=new Set([...coveredCanopies.excluded].map(t=>treeSourceMetadata.get(t).collider));
             let at=0;for(const t of treeList)if(!coveredCanopies.excluded.has(t))treeList[at++]=t;treeList.length=at;
@@ -4984,6 +4984,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         vegetation.treeCrownMeshes.push(...T.crownMeshes); vegetation.treeTrunkMeshes.push(...T.trunkMeshes);
         vegetation.update = T.update;
+        vegetation.selectFar = T.selectFar;
         vegetation.deciduousMask = new Float32Array(treeList.map(t => t.dec));
     }
     // street lamps: real OSM highway=street_lamp nodes (moved to the sidewalk edge when mapped on the carriageway)
@@ -5862,7 +5863,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     let cx = 0, cz = 0;
     // (2026-11-07, world-visual) draw calls: the flat / cheap layers of neighbouring cells are merged into super-cells
     // (2×2 cells = 500 m; the far backdrop 4×4) — fewer meshes for the same pixels; solid buildings stay per cell (culling)
-    const SUPER = { area: 4, grass: 4, pave: 4, sport: 4, roof: 4, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 4, signs: 4, spill: 4, solid: 2, detail: 1 };
+    const SUPER = { area: 4, grass: 4, pave: 4, sport: 4, roof: 4, backdrop: 4, ground: 2, road: 4, pad: 4, marks: 4, water: 4, signs: 4, spill: 4, solid: 4, detail: 1 };
     const supers = new Map();
     const superOf = (c, layer, page = 0) => {
         const K = SUPER[layer], I = Math.floor(c.i / K), J = Math.floor(c.j / K), key = layer + page + ':' + I + ',' + J;
@@ -5887,7 +5888,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const addSuper = (o, mat, cast, name) => {
         cx = o.I * o.K + o.K / 2 - 0.5; cz = o.J * o.K + o.K / 2 - 0.5; // (addMesh centres at (cx + 0.5) · CELL)
         const m = addMesh(o.mb, mat, cast, `${name} ${o.I},${o.J}`); if (!m) return null;
-        if (o.parts) cullMergedCells(m, o.parts, { blockTriangles: o.layer === 'ground' || o.layer === 'grass' ? 64 : 0 });
+        if (o.parts) cullMergedCells(m, o.parts, { blockTriangles: ['ground','grass','solid','roof'].includes(o.layer) ? 64 : 0 });
         const extra = CELL * (o.K - 1) * 0.71; m.userData.cull = (m.userData.cull || cullR) + extra;
         return m;
     };
@@ -6056,6 +6057,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
         }
         THREE.Group.prototype.updateMatrixWorld.call(this, force);
+        vegetation.selectFar?.(cam);
     };
     function findCamera(obj) {
         let root = obj; while (root.parent) root = root.parent;

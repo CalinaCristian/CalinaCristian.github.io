@@ -74,11 +74,15 @@ export class EdgeIndex {
     /** all edges whose rasterised cells fall within r of (x,z) */
     near(x, z, r, out = []) {
         const c = this.cell, x0 = Math.floor((x - r) / c), x1 = Math.floor((x + r) / c), z0 = Math.floor((z - r) / c), z1 = Math.floor((z + r) / c);
-        const seen = this._seen || (this._seen = new Set()); seen.clear(); out.length = 0;
+        const cache=this._nearCache||(this._nearCache=new Map()),key=x0+','+x1+','+z0+','+z1;
+        const cached=cache.get(key);out.length=0;
+        if(cached){for(const e of cached)out.push(e);return out;}
+        const seen = this._seen || (this._seen = new Set()); seen.clear();
         for (let ix = x0; ix <= x1; ix++) for (let iz = z0; iz <= z1; iz++) {
             const arr = this.map.get(this.key(ix, iz)); if (!arr) continue;
             for (const e of arr) if (!seen.has(e)) { seen.add(e); out.push(e); }
         }
+        if(cache.size>=256)cache.delete(cache.keys().next().value);cache.set(key,out.slice());
         return out;
     }
 }

@@ -156,13 +156,14 @@ function segDist(p0x, p0z, p1x, p1z, q0x, q0z, q1x, q1z) {
 
 // ---------- fixed-size spatial hash (no per-frame allocation) ----------
 class Grid {
-    constructor(cell, bits = 12) { this.cell = cell; this.mask = (1 << bits) - 1; this.head = new Int32Array(1 << bits); this.next = new Int32Array(64); this.items = null; }
+    constructor(cell, bits = 12, fixed = false) { this.fixed=fixed;this.cell = cell; this.mask = (1 << bits) - 1; this.head = new Int32Array(1 << bits); this.next = new Int32Array(64); this.items = null; }
     hash(ix, iz) { return ((ix * 92837111) ^ (iz * 689287499)) & this.mask; }
     build(items) {
         this.items = items; this.head.fill(-1);
         if (this.next.length < items.length) this.next = new Int32Array(items.length * 2);
         const c = this.cell;
-        for (let i = 0; i < items.length; i++) { const h = this.hash(Math.floor(items[i].x / c), Math.floor(items[i].z / c)); this.next[i] = this.head[h]; this.head[h] = i; }
+        if(this.fixed&&(!this.ix||this.ix.length<items.length)){this.ix=new Int32Array(items.length);this.iz=new Int32Array(items.length);}
+        for (let i = 0; i < items.length; i++) {const x=Math.floor(items[i].x/c),z=Math.floor(items[i].z/c);if(this.fixed){this.ix[i]=x;this.iz[i]=z;} const h = this.hash(x,z); this.next[i] = this.head[h]; this.head[h] = i; }
     }
     /** calls fn(item) for items in cells overlapping the square (x±r, z±r); may include a few extras (hash collisions) */
     query(x, z, r, fn) {
@@ -171,7 +172,7 @@ class Grid {
         if ((x1 - x0 + 1) * (z1 - z0 + 1) > 400) { for (const o of it) fn(o); return; }
         for (let ix = x0; ix <= x1; ix++) for (let iz = z0; iz <= z1; iz++) {
             for (let i = this.head[this.hash(ix, iz)]; i !== -1; i = this.next[i]) {
-                const o = it[i]; const ox = Math.floor(o.x / c), oz = Math.floor(o.z / c);
+                const o = it[i]; const ox = this.fixed?this.ix[i]:Math.floor(o.x / c), oz = this.fixed?this.iz[i]:Math.floor(o.z / c);
                 if (ox === ix && oz === iz) fn(o);
             }
         }
@@ -2825,7 +2826,7 @@ export class Pedestrians {
             const a = c.angle || 0;
             obs.push({ x: c.x, z: c.z, r: c.r, box, hw: box ? c.hw : c.r, hd: box ? c.hd : c.r, c: Math.cos(a), s: Math.sin(a), kind: c.kind || 'prop' });
         }
-        this.obsGrid = new Grid(4, 15); this.obsGrid.build(obs);
+        this.obsGrid = new Grid(4, 15, true); this.obsGrid.build(obs);
         this._side = new Map(); this._walkSpace = new Map();
         this.t.stats.pedObstacles = obs.length;
     }

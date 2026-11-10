@@ -156,8 +156,34 @@ until the other has pulled clear or 4 s pass. Ordinary queues are unchanged.
 Controls: `node game/dev/vehicle-knot-recovery.test.mjs` replays the recorded node-210 poses through the production grid and
 guard (it fails on the previous guard: the contact stays at 0.049 m) and checks the bounded step, the struck car moving on
 and an unchanged ordinary queue; `vehicle-cell-boundary.test.mjs` now allows only that bounded back-off after its rollback.
-Still open: the pedestrian piles, whole-population CPU (no optimisation has been made yet), a fresh full-length evolved run
-on the final guard, complete journeys, and the Basarab drive that stalls in the integration owner's candidate.
+**Recovery was disabled almost everywhere.** Every automatic vehicle recovery (deadlock relocation, stuck respawn) acts
+only out of view, and `Traffic.inView` was the camera frustum with no depth limit short of the 5 km far plane. Measured
+with the player at the Grozavesti chapter start facing the district: 305 of 311 vehicles counted as in view, 219 of them
+more than 400 m away (queue heads up to 2 km away, behind buildings). The pedestrian version of the same test already stops
+at 300 m. The vehicle test now keeps its near rules and the frustum but ends 700 m from the active camera, where a 4.4 m car
+subtends what a person does at that 300 m (about 6 mrad). It measures from the camera, so a drone keeps its own surroundings.
+
+Total distance travelled by all vehicles per 30 simulated seconds, same start, stationary player, 311 vehicles:
+
+| simulated time | live-equivalent guard | + knot recovery | + bounded view test |
+| --- | --- | --- | --- |
+| 0-30 s | 84.7 km | 84.6 km | 88.5 km |
+| 150-180 s | 12.5 km | 12.5 km | 37.7 km |
+| 390-420 s | 1.6 km | 4.3 km | 22.6 km |
+| stopped at 420 s | 296 | 293 | 225 |
+
+So the district no longer runs to a standstill, but traffic is still not steady: throughput keeps falling, and at 420 s
+about 100 vehicles had been stopped for more than two minutes, in queues whose head is nearer than 700 m in the frustum.
+Those need physical resolution at the junctions (box-full and claim waits), not relocation.
+
+Also found, not changed: `Traffic` defines both `get bubble()` (650 m) and the speech-bubble method `bubble(v, kind)`; the
+method wins, so in the legacy corridor worlds every `relocate(v, ..., this.bubble, ...)` finds no candidate edge and
+`recycle` never fires. District worlds are not `large` and do not use that path. The legacy `b:dn1` harness scenario is
+already route-blocked by a barrier wall on live master.
+
+Controls: `node game/dev/recovery-view-range.test.mjs`. Still open: the pedestrian piles, whole-population CPU (no
+optimisation has been made yet; there is no level of detail at all in district worlds), the remaining junction waits,
+complete journeys, and the Basarab drive that stalls in the integration owner's candidate.
 
 ### Reviewed finite source bridge descents
 

@@ -164,6 +164,9 @@ function noseInto(a, b) {
 }
 /** A knot that has been opened keeps being opened to this real gap, so the struck car's next step is not refused again. */
 const KNOT_OPEN_GAP = 0.3, KNOT_HOLD_S = 1.5;
+/** A vehicle farther than this from every active camera is not "in view" for recovery: a 4.4 m car at 700 m subtends
+ *  what a 1.8 m person does at the pedestrian recovery limit of 300 m (about 6 mrad, under 10 px at 1080p / 72 degrees). */
+const RECOVERY_VIEW_FAR_M = 700;
 /** Converging noses (a merge corner): one car keeps yielding at this gap until the other has pulled clear. */
 const KNOT_YIELD_GAP = 1.2, KNOT_YIELD_S = 4;
 /** penetration between two vehicles as drawn (mesh heading) */
@@ -964,8 +967,8 @@ export class Traffic {
             if (!this.observerCamera && !this.walker?.active && this.player?.mirrorEnabled) cameras.push(this.player.mirrorCam);
             for (const camera of cameras) if (camera) {
                 camera.updateWorldMatrix(true, false);
-                const matrix = new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
-                this._recoveryViews.push(new THREE.Frustum().setFromProjectionMatrix(matrix));
+                const matrix = new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse), m = camera.matrixWorld.elements;
+                this._recoveryViews.push({ frustum: new THREE.Frustum().setFromProjectionMatrix(matrix), x: m[12], y: m[13], z: m[14], far: Math.min(RECOVERY_VIEW_FAR_M, camera.far) });
             }
         }
         const sphere = this._recoverySphere || (this._recoverySphere = new THREE.Sphere());
@@ -973,7 +976,10 @@ export class Traffic {
         // Include the model and the fleet renderer's frustum padding. This only
         // guards a relocation; camera planes, LODs and draw population stay native.
         sphere.radius = (v.mesh?.userData?._model?.radius ?? Math.hypot(v.length || 5, v.width || 2, 4) / 2) + 8;
-        return this._recoveryViews.some(frustum => frustum.intersectsSphere(sphere));
+        // A frustum has no depth limit short of the 5 km far plane: facing the district, almost every vehicle in it
+        // counted as "in view", so no stalled queue was ever recovered and the gridlock only grew. Beyond
+        // RECOVERY_VIEW_FAR_M a car is smaller on screen than a person at the pedestrians' own 300 m limit.
+        return this._recoveryViews.some(view => Math.hypot(v.x - view.x, sphere.center.y - view.y, v.z - view.z) - sphere.radius < view.far && view.frustum.intersectsSphere(sphere));
     }
     savePose(v) {
         const keys = ['edge', 'dir', 's', 'lane', 'laneCur', 'lateralExtra', 'latExtraCur', 'layer', 'speed', 'x', 'z', 'y', 'heading', 'fx', 'fz', 'rx', 'rz', 'latBlend', 'transition', 'stuck', 'still', 'touchT', 'blockT', 'ghost', 'bypass', 'served', 'dwell'];

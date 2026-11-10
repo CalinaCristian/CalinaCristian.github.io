@@ -245,6 +245,7 @@ Generated road signs use their source side's pavement width and check the comple
 - `node game/dev/harness/drone-boundary-check.cjs` and `drone-flight-check.cjs` — buffered flight limits and actual-controller returns.
 - `node game/dev/harness/map-waypoints-check.cjs` — map marking, held-F travel, fuel checks, and desktop/touch interactions.
 - `node game/dev/signals.test.mjs` — conflicting approaches, junction clearance and pedestrian recovery regression checks.
+- `node game/dev/recovery-view-range.test.mjs` — the out-of-view test that gates vehicle recovery ends 700 m from the active camera.
 - `node game/dev/vehicle-knot-recovery.test.mjs` — a recorded crossing knot opens by bounded reversing (no teleport, no penetration) and an ordinary queue is unchanged.
 - `node --test game/dev/bridge-bents.test.mjs` and `node game/dev/harness/bridge-bents-check.cjs . <out> <city> <district>` — estimated bridge bents: columns only on free ground, crosshead clearance over lower roads and rails, closed slab slots.
 - `node tools/profile-traffic-native.mjs OUT FULL_SOURCE_SHA` — actual RAF V8 attribution at High/Ultra through public settings; software FPS is not hardware evidence.

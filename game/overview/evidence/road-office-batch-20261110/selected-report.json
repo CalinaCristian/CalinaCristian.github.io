@@ -1,0 +1,21 @@
+{
+  "sourceCommit": "277d7723b77efec2efad4c3a59a7e68fca9edea6",
+  "complete": true,
+  "runtimeErrors": [],
+  "servedFiles": 164,
+  "officeExit": {
+    "world": true,
+    "traffic": true,
+    "actorIds": true
+  },
+  "nodeSuite": "150 passed initially; the two failures were corrected clipping provenance and browser binary setup. Both reran successfully, giving 152/152 current cases.",
+  "dialogueIntegrationControls": 23,
+  "dialogueLibraryControls": 19,
+  "footA": {
+    "high": 0,
+    "medium": 0,
+    "low": 1,
+    "note": "software renderer cadence only; controlled legacy fixture, zero vehicles"
+  },
+  "nativeScope": "One combined browser review. Public menu district entry; production fastTravel API for legal checkpoint landings and direct enterOffice for room renderer inspection. Ordinary production RAF remains active throughout; no loop/updateDrive/draw suppression. Checkpoints are not a full continuous road or public office-access playthrough. Software GL counters are not hardware FPS proof."
+}

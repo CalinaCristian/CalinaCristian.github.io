@@ -1,0 +1,141 @@
+{
+  "sourceCommit": "277d7723b77efec2efad4c3a59a7e68fca9edea6",
+  "capturedOn": "2026-11-10",
+  "status": "staging checkpoint; live runtime unchanged",
+  "method": "One combined browser review. Public menu district entry; production fastTravel API for legal checkpoint landings and direct enterOffice for room renderer inspection. Ordinary production RAF remains active throughout; no loop/updateDrive/draw suppression. Checkpoints are not a full continuous road or public office-access playthrough. Software GL counters are not hardware FPS proof.",
+  "frames": [
+    {
+      "file": "bridge-driver.png",
+      "title": "Basarab bridge parapet",
+      "caption": "The new render owner removes the broad duplicated-skin patches in this driver view. Roads, mapped geometry and physical guards are retained.",
+      "capturedAt": "2026-11-10T02:34:50.581Z",
+      "sha256": "674d920979613bece44a2fb56b846fac1691c669df7539fc01e9c9247b007a0e",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1
+      },
+      "camera": {
+        "mode": "native driver seat",
+        "playerPose": {
+          "x": 611.8361557857025,
+          "y": 11.24,
+          "z": -852.2954255401058,
+          "heading": -1.096262338451349,
+          "speed": 0,
+          "support": 1744
+        },
+        "matrixExported": false
+      },
+      "conditions": {
+        "quality": "high",
+        "time": "noon menu preset; normal fast-travel clock advancement",
+        "weather": "clear override",
+        "season": "automatic November foliage"
+      },
+      "submittedFrame": {
+        "fps": 0.28,
+        "frameMs": 3623.1,
+        "drawCalls": 217,
+        "triangles": 808574,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      }
+    },
+    {
+      "file": "tunnel-driver.png",
+      "title": "Covered Pasajul Unirii",
+      "caption": "The covered section blocks exterior sky, grass and buildings in the driver and mirror views. This is a legal fast-travel checkpoint, not proof of a complete driven passage.",
+      "capturedAt": "2026-11-10T02:36:20.689Z",
+      "sha256": "a712fe2a59f29c7668a27cec9de33aa745f7da6be3b0ca1665eec94de1f370ac",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1
+      },
+      "camera": {
+        "mode": "native driver seat",
+        "playerPose": {
+          "x": -410.50038695400934,
+          "y": -5.76,
+          "z": 227.9956135067204,
+          "heading": -3.0885976683372145,
+          "speed": 0,
+          "support": 1194
+        },
+        "matrixExported": false
+      },
+      "conditions": {
+        "quality": "high",
+        "time": "noon menu preset; normal fast-travel clock advancement",
+        "weather": "clear override",
+        "season": "automatic November foliage"
+      },
+      "submittedFrame": {
+        "fps": 0.25,
+        "frameMs": 3963.8,
+        "drawCalls": 291,
+        "triangles": 1124936,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      }
+    },
+    {
+      "file": "gts-live-window.png",
+      "title": "GTS live district window",
+      "caption": "The window renders the retained street, pedestrians and current conditions. The room layout and ground-floor view are model estimates; the actual office floor remains unverified.",
+      "capturedAt": "2026-11-10T02:38:06.040Z",
+      "sha256": "ee894f4dcc5aff45ee66eacd45deebbfb70ef4c0782c5965a064e5c7d1186abd",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1
+      },
+      "camera": {
+        "mode": "native office room, yaw -pi/2 for window inspection",
+        "playerPose": {
+          "x": -410.50038695400934,
+          "y": -5.76,
+          "z": 227.9956135067204,
+          "heading": -3.0885976683372145,
+          "speed": 0,
+          "support": 1194
+        },
+        "matrixExported": false
+      },
+      "conditions": {
+        "quality": "high",
+        "time": "noon menu preset; normal fast-travel clock advancement",
+        "weather": "clear override",
+        "season": "automatic November foliage"
+      },
+      "submittedFrame": {
+        "fps": 0.6,
+        "frameMs": 1733.1,
+        "drawCalls": 197,
+        "triangles": 584747,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      }
+    }
+  ],
+  "limitations": [
+    "Checkpoint review, not complete continuous road/office-access playthrough.",
+    "Tunnel-side observer set an unused lookYaw field; that image does not prove a fresh side view and is omitted.",
+    "Actual player honk was submitted but no nearby actor bubble was visible in this browser run; event/library controls are separate.",
+    "No exact camera matrix was exported; native mode and supported player poses are recorded.",
+    "Ultra and hardware FPS, repeated-flight growth and other rooms remain open."
+  ]
+}

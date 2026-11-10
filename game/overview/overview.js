@@ -1,5 +1,6 @@
 'use strict';
 import {mountCaruselStagingEvidence} from './evidence/carusel-staging-20261109/component.js';
+
 const $ = s => document.querySelector(s);
 const normal = value => String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 const repo = 'https://github.com/CalinaCristian/CalinaCristian.github.io';
@@ -36,7 +37,7 @@ document.addEventListener('click',async event=>{
 });
 async function initInventory() {
   try {
-    const response = await fetch('inventory.json');
+    const response = await fetch('inventory.json?v=20261110-batch');
     if (!response.ok) throw new Error(`Inventory HTTP ${response.status}`);
     inventory = await response.json();
     for (const selector of ['#hero-sha','#source-sha']) { const e=$(selector); e.textContent=selector==='#hero-sha'?inventory.sourceSha.slice(0,7):inventory.sourceSha; e.href=`${repo}/tree/${inventory.sourceSha}`; }
@@ -97,4 +98,4 @@ const observer=new IntersectionObserver(entries=>{for(const entry of entries)if(
 sections.forEach(s=>observer.observe(s));
 initInventory().then(revealHash);
 
-mountCaruselStagingEvidence(document.getElementById('carusel-staging-evidence')).catch(error=>{const host=document.getElementById('carusel-staging-evidence');if(host)host.textContent='Dated Carusel evidence could not load in this copy.';console.error('Carusel dated evidence:',error);});
+mountCaruselStagingEvidence(document.getElementById('carusel-staging-evidence')).catch(error=>{ const host=document.getElementById('carusel-staging-evidence'); if(host)host.textContent='Dated Carusel evidence could not load in this copy.'; console.error('Carusel dated evidence:',error); });

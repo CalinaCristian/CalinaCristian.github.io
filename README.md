@@ -353,3 +353,5 @@ Portrait touch layouts keep Map and Menu at the top and movement/current interac
 The portrait World map wraps its city tabs into two rows, keeping Bellevue and World visible alongside the current district, Bucharest and Seattle.
 
 Office outlooks now follow the owner-assigned floors within their retained source buildings. Full-room/source-polygon, emitted height and foreign-volume checks remain required; virtual wide panes may use up to 1.2 m of the same owner’s exterior skin. Exact window position, bearing and floor spacing remain estimates, and no real architectural window is certified. Known source identity conflicts and missing floor data remain unavailable.
+
+The overview highlights accent-insensitive guide search matches and supplies four matched summer/winter day/night ground galleries for all eight districts and seven visits (252 original selected images). Every image retains its own source, camera and capture time; appearance fixtures do not certify activity completion. Source-labelled performance/depth/inspection diagnostics and remaining visual gaps stay explicit.

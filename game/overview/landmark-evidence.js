@@ -1,6 +1,7 @@
 // Individual evidence instances. Only the selected record and its game captures are loaded.
 import { aerialURL, createAerialCache } from './comparison-viewer.js';
 import { evidenceAsset, evidenceReport } from './evidence-paths.js';
+import {mountConditionGallery} from './condition-gallery.js';
 import {mountEvidencePicker} from './evidence-picker.js';
 import {landmarkRangeSummary,landmarkRangeContexts} from './landmark-ranges.js';
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -13,6 +14,7 @@ const validationPurpose = capture => ({arrival: 'Native entry position', 'activi
 function visitGallery(record, id, name) {
     const gallery = record.visitorGallery;
     if (!gallery) return '';
+    if (gallery.conditionSets) return '<div class="visit-condition-host"></div>';
     const views = (gallery.captures || []).filter(capture => evidenceAsset(capture.image, {kind: 'spot', id}));
     const retained = (gallery.retainedIllustrations || []).filter(capture => evidenceAsset(capture.image, {kind: 'spot', id}));
     const figure = capture => `<figure class="${capture.fullPageHUD ? 'visit-phone' : 'visit-scene'}"><a href="${esc(capture.image)}" target="_blank" rel="noopener"><img src="${esc(capture.image)}" alt="${esc(capture.label || name + ' game scene')}" loading="lazy" decoding="async" width="${capture.viewport.width}" height="${capture.viewport.height}"></a><figcaption><b>${esc(capture.label)}</b><br>${esc(capture.purpose)}<br>${esc(capture.viewport.width)} × ${esc(capture.viewport.height)} · ${esc(captureDate(capture.capturedAt))} · ${commit(capture.sourceCommit)}</figcaption></figure>`;
@@ -26,10 +28,10 @@ function mountEvidence(root, entries, kind) {
     const cache = createAerialCache();
     root.innerHTML = '<div class="evidence-picker-host"></div><div class="lm-evidence" aria-live="polite"></div>';
     const body = root.querySelector('.lm-evidence'), picker=mountEvidencePicker(root.querySelector('.evidence-picker-host'),{entries,kind,onSelect:id=>show(id)});
-    let request = 0;
+    let request = 0, conditionGallery;
     async function show(id, { navigate = true } = {}) {
         const lm = entries.find(value => value.id === id); if (!lm) return;
-        const ticket = ++request; picker.setValue(id);
+        const ticket = ++request; conditionGallery?.dispose(); conditionGallery=null; picker.setValue(id);
         if (navigate) { const url = new URL(location.href); url.searchParams.set(kind, id); url.hash = anchor; history.pushState(null, '', url); }
         body.innerHTML = `<h4>${esc(lm.name)}</h4><p role="status">Loading dedicated evidence…</p>`;
         let record;
@@ -61,6 +63,7 @@ function mountEvidence(root, entries, kind) {
           ${record.perf ? `<p class="notice">${Number.isFinite(record.perf.triangles) ? `${record.perf.triangles.toLocaleString()} triangles. ` : ''}${Number.isFinite(record.perf.drawCalls) ? `${record.perf.drawCalls} draw calls. ` : ''}${esc(record.perf.note || 'Focused capture; not a full district traffic budget.')}</p>` : ''}
           ${record.checks?.length ? `<details><summary>Verification checks</summary><ul>${record.checks.map(check => `<li>${check.passed === true ? 'Passed' : check.passed === false ? 'Open' : 'Recorded'}: ${esc(check.label)}${check.details ? ` · ${esc(typeof check.details === 'string' ? check.details : JSON.stringify(check.details))}` : ''}</li>`).join('')}</ul></details>` : ''}
           <details open><summary>Sources and independent references</summary><ul>${sources || '<li>No independently linked reference published yet.</li>'}</ul><p>Street View is comparison-only. Reference imagery is not copied into the game or this site. Live aerial images stay in the browser for 15 minutes, including reloads where storage is available; acquisition dates may differ.</p></details></article>`;
+        if(kind==='spot'&&record.visitorGallery?.conditionSets)conditionGallery=mountConditionGallery(body.querySelector('.visit-condition-host'),record.visitorGallery,{resolveImage:image=>evidenceAsset(image,{kind:'spot',id}),manifestURL:evidenceReport(record.visitorGallery.report)});
         for (const target of body.querySelectorAll('[data-aerial]')) {
             const capture = captures[Number(target.dataset.aerial)], url = aerialURL(capture.comparison);
             cache.get(url).then(image => {
@@ -73,5 +76,5 @@ function mountEvidence(root, entries, kind) {
     addEventListener('popstate', fromLocation);
     const initial = new URL(location.href).searchParams.get(kind) || entries.find(lm => lm.evidence)?.id || entries[0]?.id;
     if (initial) show(initial, { navigate: false });
-    return { show, dispose() { request++; picker.dispose();cache.dispose(); removeEventListener('popstate', fromLocation); root.replaceChildren(); } };
+    return { show, dispose() { request++; conditionGallery?.dispose(); picker.dispose();cache.dispose(); removeEventListener('popstate', fromLocation); root.replaceChildren(); } };
 }

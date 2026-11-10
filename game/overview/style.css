@@ -1515,3 +1515,20 @@ section.search-match {
 .ep-empty{padding:1rem .5rem;color:var(--muted);font-size:.9rem}.range-label{margin-top:1.25rem!important}
 .evidence-picker button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media(max-width:640px){.ep-panel{padding:.65rem}.ep-results{max-height:280px}.ep-trigger{gap:.65rem;padding:.75rem}.ep-cities button{font-size:.75rem}.ep-value small{font-size:.74rem}}
+
+/* Every selected visit and district shares the same matched condition controls. */
+.condition-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:24px 0 12px}
+.condition-tabs button{font:inherit;font-weight:700;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px 8px;min-height:48px;cursor:pointer;background:white}
+.condition-tabs button[aria-selected=true]{background:var(--ink);color:white;border-color:var(--ink)}
+.condition-tabs button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.condition-status{color:var(--muted);font-size:13px;margin-bottom:20px}
+.condition-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:20px 0}
+.condition-grid figure{margin:0;min-width:0;padding:12px;background:white;border:1px solid var(--line);border-radius:12px}
+.condition-grid img{display:block;width:100%;height:auto;border-radius:6px;background:var(--dark)}
+.condition-grid figcaption{padding-top:12px;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+.condition-grid figcaption p{margin:6px 0}.condition-grid small{color:var(--muted)}
+.condition-gallery pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px;max-height:400px;overflow:auto}
+@media(max-width:700px){.condition-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.condition-grid{grid-template-columns:1fr}}
+
+/* Search marks retain original spelling, links and control handlers. */
+mark.guide-match{background:#ffe28a;color:#172f3b;border-radius:2px;box-shadow:0 0 0 2px #ffe28a;box-decoration-break:clone;-webkit-box-decoration-break:clone}

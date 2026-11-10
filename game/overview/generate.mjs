@@ -6,6 +6,7 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const read = p => readFileSync(resolve(root, p), 'utf8');
+const { matchedConditions } = await import('data:text/javascript;base64,' + Buffer.from(read('game/overview/condition-gallery.js')).toString('base64'));
 const { evidenceAsset, evidenceReport } = await import('data:text/javascript;base64,' + Buffer.from(read('game/overview/evidence-paths.js')).toString('base64'));
 const visitorCounts = {spotVisitorGalleries:0,spotVisitorCaptures:0,spotVisitorRetainedCaptures:0,spotVisitorImages:0};
 const visitorReports = new Set();
@@ -18,7 +19,9 @@ function visitorGallerySummary(record, id, recordPath) {
     if (!Array.isArray(gallery.captures) || !gallery.captures.length) fail('requires primary captures');
     if (gallery.retainedIllustrations !== undefined && !Array.isArray(gallery.retainedIllustrations)) fail('retainedIllustrations must be an array');
     if (gallery.reports !== undefined && !Array.isArray(gallery.reports)) fail('reports must be an array');
-    const captures = [...gallery.captures, ...(gallery.retainedIllustrations || [])], images = new Set(), sources = new Set();
+    if(gallery.conditionSets && !matchedConditions(gallery.conditionSets)) fail('requires four conditions with at least four matching viewpoint IDs');
+    const primary = gallery.conditionSets ? gallery.conditionSets.flatMap(set=>set.captures) : gallery.captures;
+    const captures = [...primary, ...(gallery.retainedIllustrations || [])], images = new Set(), sources = new Set();
     for (const capture of captures) {
         if (!capture || !evidenceAsset(capture.image, {kind:'spot',id})) fail('has an unsafe/missing image path');
         if (images.has(capture.image)) fail(`repeats image ${capture.image}`);
@@ -45,11 +48,11 @@ function visitorGallerySummary(record, id, recordPath) {
     // original sourceCommit, captureSourceCommits, captureRange or collections.
     const ordered = captures.map(capture => capture.capturedAt).sort((a,b) => Date.parse(a)-Date.parse(b));
     visitorCounts.spotVisitorGalleries++;
-    visitorCounts.spotVisitorCaptures += gallery.captures.length;
+    visitorCounts.spotVisitorCaptures += primary.length;
     visitorCounts.spotVisitorRetainedCaptures += (gallery.retainedIllustrations || []).length;
     visitorCounts.spotVisitorImages += images.size;
     for (const report of reportPaths) visitorReports.add(report);
-    return {sourceCommit:gallery.sourceCommit,captureCount:gallery.captures.length,retainedCaptureCount:(gallery.retainedIllustrations || []).length,reportCount:reportPaths.size,captureSourceCommits:[...sources].sort(),captureRange:[ordered[0],ordered.at(-1)]};
+    return {sourceCommit:gallery.sourceCommit,captureCount:primary.length,conditionCount:gallery.conditionSets?.length||0,viewpointCount:gallery.conditionSets?.[0]?.captures.length||gallery.captures.length,retainedCaptureCount:(gallery.retainedIllustrations || []).length,reportCount:reportPaths.size,captureSourceCommits:[...sources].sort(),captureRange:[ordered[0],ordered.at(-1)]};
 }
 const visitorTotals = () => ({...visitorCounts,spotVisitorReports:visitorReports.size});
 // Read-only validation is useful before the orchestrator adopts this generator;
@@ -122,7 +125,7 @@ for (const spot of spots) {
     spot.evidence = recordPath;
 }
 const districts = Object.entries(CITIES).flatMap(([city,c])=>Object.entries(c.districts).map(([id,d])=>({id,city,name:d.name,label:d.label,landmarks:d.landmarks,scenery:d.scenery||[],chapters:CHAPTERS.filter(x=>x.city===city && x.district===id).map(x=>({id:x.id,title:x.title,year:x.year})),data:`game/data/${city}-${id}.json`})));
-const paths = ['game/dev/landmarks.html','AGENTS.md','README.md','specs/README.md','specs/00-vision.md','specs/01-architecture.md','specs/STATUS.md','specs/12-buildings-streetscape.md','specs/13-traffic.md','specs/15-tourist-spots.md','specs/18-weather-lighting.md','specs/19-qa-harness.md','game/index.html','game/data/README.md','tools/osm/build-data.mjs','tools/aerial/README.md','game/src/main.js','game/src/world.js','game/src/cities.js','game/src/geobuild.js','game/src/buildings.js','game/src/archetypes.js','game/src/landmarks.js','game/src/render.js','game/src/weather.js','game/src/traffic.js','game/src/signals.js','game/src/crowd.js','game/src/vehicles.js','game/src/onfoot.js','game/src/input.js','game/src/nav.js','game/src/minimap.js','game/src/worldmap.js','game/src/explore.js','game/src/drone.js','game/src/photo.js','game/src/save.js','game/src/achievements.js','game/src/data.js','game/src/spots/index.js','game/src/spots/osm.js','game/src/spots/tour.js','game/src/spots/bike.js','game/src/football.js','game/src/office.js','game/src/flight.js','game/src/globe.js','game/src/trees.js','game/src/water.js','game/src/audio.js','game/src/telemetry-game.js','public/telemetry.js'];
+const paths = ['game/dev/landmarks.html','AGENTS.md','README.md','specs/README.md','specs/00-vision.md','specs/01-architecture.md','specs/STATUS.md','specs/12-buildings-streetscape.md','specs/13-traffic.md','specs/15-tourist-spots.md','specs/18-weather-lighting.md','specs/19-qa-harness.md','game/index.html','game/data/README.md','tools/osm/build-data.mjs','tools/aerial/README.md','game/src/main.js','game/src/world.js','game/src/cities.js','game/src/geobuild.js','game/src/buildings.js','game/src/archetypes.js','game/src/landmarks.js','game/src/render.js','game/src/weather.js','game/src/traffic.js','game/src/signals.js','game/src/crowd.js','game/src/vehicles.js','game/src/onfoot.js','game/src/input.js','game/src/nav.js','game/src/minimap.js','game/src/worldmap.js','game/src/explore.js','game/src/drone.js','game/src/inspection.js','game/src/photo.js','game/src/save.js','game/src/achievements.js','game/src/data.js','game/src/spots/index.js','game/src/spots/osm.js','game/src/spots/tour.js','game/src/spots/bike.js','game/src/football.js','game/src/office.js','game/src/flight.js','game/src/globe.js','game/src/trees.js','game/src/water.js','game/src/audio.js','game/src/telemetry-game.js','public/telemetry.js'];
 const walk = (dir, pattern = /\.js$/) => readdirSync(resolve(root,dir),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(`${dir}/${e.name}`,pattern):pattern.test(e.name)?[`${dir}/${e.name}`]:[]);
 const allPaths = [...new Set([...paths,...walk('game/src',/\.(?:js|mjs)$/),...walk('game/overview',/\.(?:js|mjs|css|html|json)$/).filter(p=>p!=='game/overview/inventory.json'&&!p.includes('/historical/'))])];
 const sources = allPaths.map(path=>({path,sha256:createHash('sha256').update(read(path)).digest('hex')}));
@@ -131,7 +134,7 @@ for (const source of sources) {
     if(createHash('sha256').update(committed).digest('hex') !== source.sha256) throw new Error(`Source ${source.path} differs from ${sourceSha}. Commit game/docs changes before pinning provenance.`);
 }
 const comparisonLocations = JSON.parse(read('game/overview/comparison-data/catalog.json')).locations.map(place=>place.id);
-const data = {comparisonLocations,sourceSha,reviewedOn:'2026-11-09',repository:'https://github.com/CalinaCristian/CalinaCristian.github.io',counts:{districts:districts.length,chapters:CHAPTERS.length,landmarks:landmarks.length,landmarkBuilders:new Set(landmarks.map(x=>x.builder)).size,landmarkEvidence:landmarks.filter(lm=>lm.evidence).length,spots:spots.length,spotEvidence:spots.filter(s=>s.evidence).length,scenes:new Set(spots.map(s=>s.scene)).size,historicalReady:ready.length,menuAvailable:MENU_AVAILABLE.size,...visitorTotals(),achievements:[...read('game/src/data.js').split('export const ACHIEVEMENTS = [')[1].split('\n];')[0].matchAll(/\{ id: '/g)].length},districts,landmarks,spots,sources};
+const data = {comparisonLocations,sourceSha,reviewedOn:'2026-11-10',repository:'https://github.com/CalinaCristian/CalinaCristian.github.io',counts:{districts:districts.length,chapters:CHAPTERS.length,landmarks:landmarks.length,landmarkBuilders:new Set(landmarks.map(x=>x.builder)).size,landmarkEvidence:landmarks.filter(lm=>lm.evidence).length,spots:spots.length,spotEvidence:spots.filter(s=>s.evidence).length,scenes:new Set(spots.map(s=>s.scene)).size,historicalReady:ready.length,menuAvailable:MENU_AVAILABLE.size,...visitorTotals(),achievements:[...read('game/src/data.js').split('export const ACHIEVEMENTS = [')[1].split('\n];')[0].matchAll(/\{ id: '/g)].length},districts,landmarks,spots,sources};
 const priorInventory=JSON.parse(read('game/overview/inventory.json'));
 if(priorInventory.stagingEvidence)data.stagingEvidence=priorInventory.stagingEvidence;
 writeFileSync(resolve(root,'game/overview/inventory.json'),JSON.stringify(data,null,2)+'\n');

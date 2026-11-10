@@ -9776,5 +9776,11 @@
       "frames": 37,
       "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99"
     }
-  ]
+  ],
+  "groundConditions": {
+    "manifest": "context/ground-dc93023f/manifest.json",
+    "gameSourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+    "conditionCount": 4,
+    "viewpointCount": 4
+  }
 }

@@ -394,206 +394,1518 @@
     }
   ],
   "visitorGallery": {
-    "id": "bel-meydenbauer",
-    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "schemaVersion": 1,
+    "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+    "notice": "4 matched walking-height viewpoints in each of four conditions, captured from the recorded production game source. Open any picture at its original size.",
+    "setup": "Production app, scene, actors, lighting and renderer at High quality, 1280 × 800. Automatic animation was paused and explicit frames rendered at fixed on-foot cameras 1.65 m above their supporting surfaces. Local simulation dates and weather were controlled; capturedAt records the real capture time.",
+    "limitations": [
+      "Fixed on-foot appearance fixtures; cameras were positioned for inspection. These pictures do not establish a traversed route, activity completion, physical-phone behavior or hardware FPS."
+    ],
+    "conditionSets": [
+      {
+        "id": "summer-day",
+        "label": "Summer · Day",
+        "season": "summer",
+        "period": "day",
+        "weather": "clear",
+        "hour": 12,
+        "captures": [
+          {
+            "id": "crescent-pier",
+            "kind": "visit",
+            "place": "bel-meydenbauer",
+            "label": "Meydenbauer · crescent pier from the shore promenade",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:57:13.495Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "summer-day",
+              "label": "Summer · day",
+              "season": "summer",
+              "period": "day",
+              "hour": 12,
+              "weather": {
+                "source": "override",
+                "code": 0,
+                "kind": "clear",
+                "label": "Clear sky",
+                "icon": "☀️",
+                "tempC": 22,
+                "precipMm": 0,
+                "snowCm": 0,
+                "snowfallCm": 0,
+                "windKmh": 8,
+                "windDir": 270,
+                "visibilityM": 19500,
+                "cloud": 0.1,
+                "season": "summer",
+                "updatedAt": 1794301024319,
+                "climate": null
+              },
+              "date": "2026-07-15T19:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "sunElevation": 59.7866820717143,
+              "nightLights": false,
+              "quality": "high"
+            },
+            "sha256": "178ed85631de204875d04f2e01e6c326852da24f1bbb79368af6316acef814d6",
+            "bytes": 159250,
+            "pose": {
+              "x": 44.0901213,
+              "z": 28.351515,
+              "floor": 0.26185336692432337,
+              "eye": [
+                44.0901213,
+                1.9118533669243232,
+                28.351515
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 248.08460999999997,
+              "pitch": 1,
+              "fov": 60
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.97,
+              "frameMs": 1031.8,
+              "drawCalls": 175,
+              "triangles": 988390,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/bel-meydenbauer/ground-dc93023f/summer-day/crescent-pier.jpg"
+          },
+          {
+            "id": "pier-end",
+            "kind": "visit",
+            "place": "bel-meydenbauer",
+            "label": "Crescent pier · terminal deck and bay",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:57:15.886Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "summer-day",
+              "label": "Summer · day",
+              "season": "summer",
+              "period": "day",
+              "hour": 12,
+              "weather": {
+                "source": "override",
+                "code": 0,
+                "kind": "clear",
+                "label": "Clear sky",
+                "icon": "☀️",
+                "tempC": 22,
+                "precipMm": 0,
+                "snowCm": 0,
+                "snowfallCm": 0,
+                "windKmh": 8,
+                "windDir": 270,
+                "visibilityM": 19500,
+                "cloud": 0.1,
+                "season": "summer",
+                "updatedAt": 1794301024319,
+                "climate": null
+              },
+              "date": "2026-07-15T19:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "sunElevation": 59.7866820717143,
+              "nightLights": false,
+              "quality": "high"
+            },
+            "sha256": "781bf181d8a07d52c3f8c58e01bad413d41f88fc5ff0a2a1d4dbdad05a24b08a",
+            "bytes": 159826,
+            "pose": {
+              "x": -57.8,
+              "z": 42.3,
+              "floor": 0.06999999999999995,
+              "eye": [
+                -57.8,
+                1.7199999999999998,
+                42.3
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 304.7431801583036,
+              "pitch": -7.698876330701589,
+              "fov": 78
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.12,
+              "frameMs": 8200.8,
+              "drawCalls": 133,
+              "triangles": 998400,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/bel-meydenbauer/ground-dc93023f/summer-day/pier-end.jpg"
+          },
+          {
+            "id": "kayak-landing",
+            "kind": "visit",
+            "place": "bel-meydenbauer",
+            "label": "Kayak launch · dock and bay access",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T09:02:34.737Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "summer-day",
+              "label": "Summer · day",
+              "season": "summer",
+              "period": "day",
+              "hour": 12,
+              "weather": {
+                "source": "override",
+                "code": 0,
+                "kind": "clear",
+                "label": "Clear sky",
+                "icon": "☀️",
+                "tempC": 22,
+                "precipMm": 0,
+                "snowCm": 0,
+                "snowfallCm": 0,
+                "windKmh": 8,
+                "windDir": 270,
+                "visibilityM": 19500,
+                "cloud": 0.1,
+                "season": "summer",
+                "updatedAt": 1794301350849,
+                "climate": null
+              },
+              "date": "2026-07-15T19:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "sunElevation": 59.7866820717143,
+              "nightLights": false,
+              "quality": "high"
+            },
+            "sha256": "7b82cd1642562597481a510ca681a6a7340663b46e42770b2a42f644667b4d39",
+            "bytes": 133865,
+            "pose": {
+              "x": 58,
+              "z": 51.3,
+              "floor": -0.13000000000000006,
+              "eye": [
+                58,
+                1.5199999999999998,
+                51.3
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 352.2348339815747,
+              "pitch": -39.341020023393526,
+              "fov": 74
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0,
+              "frameMs": 55.1,
+              "drawCalls": 132,
+              "triangles": 994664,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/bel-meydenbauer/ground-dc93023f/summer-day/kayak-landing.jpg"
+          },
+          {
+            "id": "stone-skipping",
+            "kind": "visit",
+            "place": "bel-meydenbauer",
+            "label": "Stone skipping · shoreline and bay",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T08:57:20.136Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "summer-day",
+              "label": "Summer · day",
+              "season": "summer",
+              "period": "day",
+              "hour": 12,
+              "weather": {
+                "source": "override",
+                "code": 0,
+                "kind": "clear",
+                "label": "Clear sky",
+                "icon": "☀️",
+                "tempC": 22,
+                "precipMm": 0,
+                "snowCm": 0,
+                "snowfallCm": 0,
+                "windKmh": 8,
+                "windDir": 270,
+                "visibilityM": 19500,
+                "cloud": 0.1,
+                "season": "summer",
+                "updatedAt": 1794301024319,
+                "climate": null
+              },
+              "date": "2026-07-15T19:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "sunElevation": 59.7866820717143,
+              "nightLights": false,
+              "quality": "high"
+            },
+            "sha256": "b980b29f55203f30368a867becc204ddd43cf9f308c03fe47bfbe89761fb49fe",
+            "bytes": 148175,
+            "pose": {
+              "x": -18.5,
+              "z": -27,
+              "floor": -0.3665781617164612,
+              "eye": [
+                -18.5,
+                1.2834218382835387,
+                -27
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 327.6525565005579,
+              "pitch": -2.204294389156607,
+              "fov": 76
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.51,
+              "frameMs": 1969.7,
+              "drawCalls": 104,
+              "triangles": 969210,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/bel-meydenbauer/ground-dc93023f/summer-day/stone-skipping.jpg"
+          }
+        ]
+      },
+      {
+        "id": "summer-night",
+        "label": "Summer · Night",
+        "season": "summer",
+        "period": "night",
+        "weather": "clear",
+        "hour": 23,
+        "captures": [
+          {
+            "id": "crescent-pier",
+            "kind": "visit",
+            "place": "bel-meydenbauer",
+            "label": "Meydenbauer · crescent pier from the shore promenade",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T09:02:42.055Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "summer-night",
+              "label": "Summer · night",
+              "season": "summer",
+              "period": "night",
+              "hour": 23,
+              "weather": {
+                "source": "override",
+                "code": 0,
+                "kind": "clear",
+                "label": "Clear sky",
+                "icon": "🌙",
+                "tempC": 22,
+                "precipMm": 0,
+                "snowCm": 0,
+                "snowfallCm": 0,
+                "windKmh": 8,
+                "windDir": 270,
+                "visibilityM": 19500,
+                "cloud": 0.1,
+                "season": "summer",
+                "updatedAt": 1794301354782,
+                "climate": null
+              },
+              "date": "2026-07-16T06:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "sunElevation": -14.673780443805796,
+              "nightLights": true,
+              "quality": "high"
+            },
+            "sha256": "124f398bc70a5bfe2aa597179fd15cae7ce9fca742198e552f5fcb0080de8da2",
+            "bytes": 172451,
+            "pose": {
+              "x": 44.0901213,
+              "z": 28.351515,
+              "floor": 0.26185336692432337,
+              "eye": [
+                44.0901213,
+                1.9118533669243232,
+                28.351515
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 248.08460999999997,
+              "pitch": 1,
+              "fov": 60
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.43,
+              "frameMs": 2303.1,
+              "drawCalls": 109,
+              "triangles": 597174,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/bel-meydenbauer/ground-dc93023f/summer-night/crescent-pier.jpg"
+          },
+          {
+            "id": "pier-end",
+            "kind": "visit",
+            "place": "bel-meydenbauer",
+            "label": "Crescent pier · terminal deck and bay",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T09:02:44.371Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "summer-night",
+              "label": "Summer · night",
+              "season": "summer",
+              "period": "night",
+              "hour": 23,
+              "weather": {
+                "source": "override",
+                "code": 0,
+                "kind": "clear",
+                "label": "Clear sky",
+                "icon": "🌙",
+                "tempC": 22,
+                "precipMm": 0,
+                "snowCm": 0,
+                "snowfallCm": 0,
+                "windKmh": 8,
+                "windDir": 270,
+                "visibilityM": 19500,
+                "cloud": 0.1,
+                "season": "summer",
+                "updatedAt": 1794301354782,
+                "climate": null
+              },
+              "date": "2026-07-16T06:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "sunElevation": -14.673780443805796,
+              "nightLights": true,
+              "quality": "high"
+            },
+            "sha256": "909c5f5fface7fd56234ff56b689ca4c9751307b36c6bc826412c6ec05068e38",
+            "bytes": 173976,
+            "pose": {
+              "x": -57.8,
+              "z": 42.3,
+              "floor": 0.06999999999999995,
+              "eye": [
+                -57.8,
+                1.7199999999999998,
+                42.3
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 304.7431801583036,
+              "pitch": -7.698876330701589,
+              "fov": 78
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.2,
+              "frameMs": 5008.4,
+              "drawCalls": 94,
+              "triangles": 601262,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/bel-meydenbauer/ground-dc93023f/summer-night/pier-end.jpg"
+          },
+          {
+            "id": "kayak-landing",
+            "kind": "visit",
+            "place": "bel-meydenbauer",
+            "label": "Kayak launch · dock and bay access",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T09:02:46.499Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "summer-night",
+              "label": "Summer · night",
+              "season": "summer",
+              "period": "night",
+              "hour": 23,
+              "weather": {
+                "source": "override",
+                "code": 0,
+                "kind": "clear",
+                "label": "Clear sky",
+                "icon": "🌙",
+                "tempC": 22,
+                "precipMm": 0,
+                "snowCm": 0,
+                "snowfallCm": 0,
+                "windKmh": 8,
+                "windDir": 270,
+                "visibilityM": 19500,
+                "cloud": 0.1,
+                "season": "summer",
+                "updatedAt": 1794301354782,
+                "climate": null
+              },
+              "date": "2026-07-16T06:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "sunElevation": -14.673780443805796,
+              "nightLights": true,
+              "quality": "high"
+            },
+            "sha256": "5664cbafe17d8bc7d6c6c4ff8e3294aa673cf6674aa01f43943d51544cdf37d4",
+            "bytes": 137902,
+            "pose": {
+              "x": 58,
+              "z": 51.3,
+              "floor": -0.13000000000000006,
+              "eye": [
+                58,
+                1.5199999999999998,
+                51.3
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 352.2348339815747,
+              "pitch": -39.341020023393526,
+              "fov": 74
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.43,
+              "frameMs": 2346.1,
+              "drawCalls": 73,
+              "triangles": 599158,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/bel-meydenbauer/ground-dc93023f/summer-night/kayak-landing.jpg"
+          },
+          {
+            "id": "stone-skipping",
+            "kind": "visit",
+            "place": "bel-meydenbauer",
+            "label": "Stone skipping · shoreline and bay",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T09:02:48.498Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "summer-night",
+              "label": "Summer · night",
+              "season": "summer",
+              "period": "night",
+              "hour": 23,
+              "weather": {
+                "source": "override",
+                "code": 0,
+                "kind": "clear",
+                "label": "Clear sky",
+                "icon": "🌙",
+                "tempC": 22,
+                "precipMm": 0,
+                "snowCm": 0,
+                "snowfallCm": 0,
+                "windKmh": 8,
+                "windDir": 270,
+                "visibilityM": 19500,
+                "cloud": 0.1,
+                "season": "summer",
+                "updatedAt": 1794301354782,
+                "climate": null
+              },
+              "date": "2026-07-16T06:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "sunElevation": -14.673780443805796,
+              "nightLights": true,
+              "quality": "high"
+            },
+            "sha256": "ae9f0490c0124065727d6bcca4f6b20a637219bb5eb4dcbc8355770cefabf834",
+            "bytes": 150560,
+            "pose": {
+              "x": -18.5,
+              "z": -27,
+              "floor": -0.3665781617164612,
+              "eye": [
+                -18.5,
+                1.2834218382835387,
+                -27
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 327.6525565005579,
+              "pitch": -2.204294389156607,
+              "fov": 76
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.48,
+              "frameMs": 2097.8,
+              "drawCalls": 60,
+              "triangles": 576463,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/bel-meydenbauer/ground-dc93023f/summer-night/stone-skipping.jpg"
+          }
+        ]
+      },
+      {
+        "id": "winter-day",
+        "label": "Winter · Day",
+        "season": "winter",
+        "period": "day",
+        "weather": "snow",
+        "hour": 12,
+        "captures": [
+          {
+            "id": "crescent-pier",
+            "kind": "visit",
+            "place": "bel-meydenbauer",
+            "label": "Meydenbauer · crescent pier from the shore promenade",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T09:02:52.435Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "winter-day",
+              "label": "Winter · day",
+              "season": "winter",
+              "period": "day",
+              "hour": 12,
+              "weather": {
+                "source": "override",
+                "code": 73,
+                "kind": "snow",
+                "label": "Snow",
+                "icon": "🌨️",
+                "tempC": -2,
+                "precipMm": 0.8,
+                "snowCm": 12,
+                "snowfallCm": 0.6,
+                "windKmh": 12,
+                "windDir": 330,
+                "visibilityM": 1600,
+                "cloud": 1,
+                "season": "winter",
+                "updatedAt": 1794301368546,
+                "climate": null
+              },
+              "date": "2026-01-15T20:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "sunElevation": 21.261654459679914,
+              "nightLights": false,
+              "quality": "high"
+            },
+            "sha256": "9922b6be048dcc20beebb7e9a35b1f4aa4e9f8e6710ae00d34515bc40d931e09",
+            "bytes": 139401,
+            "pose": {
+              "x": 44.0901213,
+              "z": 28.351515,
+              "floor": 0.26185336692432337,
+              "eye": [
+                44.0901213,
+                1.9118533669243232,
+                28.351515
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 248.08460999999997,
+              "pitch": 1,
+              "fov": 60
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.73,
+              "frameMs": 1362.1,
+              "drawCalls": 130,
+              "triangles": 853594,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/bel-meydenbauer/ground-dc93023f/winter-day/crescent-pier.jpg"
+          },
+          {
+            "id": "pier-end",
+            "kind": "visit",
+            "place": "bel-meydenbauer",
+            "label": "Crescent pier · terminal deck and bay",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T09:02:54.604Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "winter-day",
+              "label": "Winter · day",
+              "season": "winter",
+              "period": "day",
+              "hour": 12,
+              "weather": {
+                "source": "override",
+                "code": 73,
+                "kind": "snow",
+                "label": "Snow",
+                "icon": "🌨️",
+                "tempC": -2,
+                "precipMm": 0.8,
+                "snowCm": 12,
+                "snowfallCm": 0.6,
+                "windKmh": 12,
+                "windDir": 330,
+                "visibilityM": 1600,
+                "cloud": 1,
+                "season": "winter",
+                "updatedAt": 1794301368546,
+                "climate": null
+              },
+              "date": "2026-01-15T20:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "sunElevation": 21.261654459679914,
+              "nightLights": false,
+              "quality": "high"
+            },
+            "sha256": "56e275c2a5c4ceea9dbfdf4a54d4e50acf25713d31cd2ce62c789779803f3057",
+            "bytes": 144513,
+            "pose": {
+              "x": -57.8,
+              "z": 42.3,
+              "floor": 0.06999999999999995,
+              "eye": [
+                -57.8,
+                1.7199999999999998,
+                42.3
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 304.7431801583036,
+              "pitch": -7.698876330701589,
+              "fov": 78
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.39,
+              "frameMs": 2557.3,
+              "drawCalls": 93,
+              "triangles": 863060,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/bel-meydenbauer/ground-dc93023f/winter-day/pier-end.jpg"
+          },
+          {
+            "id": "kayak-landing",
+            "kind": "visit",
+            "place": "bel-meydenbauer",
+            "label": "Kayak launch · dock and bay access",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T09:02:56.381Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "winter-day",
+              "label": "Winter · day",
+              "season": "winter",
+              "period": "day",
+              "hour": 12,
+              "weather": {
+                "source": "override",
+                "code": 73,
+                "kind": "snow",
+                "label": "Snow",
+                "icon": "🌨️",
+                "tempC": -2,
+                "precipMm": 0.8,
+                "snowCm": 12,
+                "snowfallCm": 0.6,
+                "windKmh": 12,
+                "windDir": 330,
+                "visibilityM": 1600,
+                "cloud": 1,
+                "season": "winter",
+                "updatedAt": 1794301368546,
+                "climate": null
+              },
+              "date": "2026-01-15T20:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "sunElevation": 21.261654459679914,
+              "nightLights": false,
+              "quality": "high"
+            },
+            "sha256": "3dc96fe4a5a92d986a985558056841936fb315665077b0b59935fb2f89a088d9",
+            "bytes": 130516,
+            "pose": {
+              "x": 58,
+              "z": 51.3,
+              "floor": -0.13000000000000006,
+              "eye": [
+                58,
+                1.5199999999999998,
+                51.3
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 352.2348339815747,
+              "pitch": -39.341020023393526,
+              "fov": 74
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.46,
+              "frameMs": 2181.1,
+              "drawCalls": 128,
+              "triangles": 870896,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/bel-meydenbauer/ground-dc93023f/winter-day/kayak-landing.jpg"
+          },
+          {
+            "id": "stone-skipping",
+            "kind": "visit",
+            "place": "bel-meydenbauer",
+            "label": "Stone skipping · shoreline and bay",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T09:02:58.139Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "winter-day",
+              "label": "Winter · day",
+              "season": "winter",
+              "period": "day",
+              "hour": 12,
+              "weather": {
+                "source": "override",
+                "code": 73,
+                "kind": "snow",
+                "label": "Snow",
+                "icon": "🌨️",
+                "tempC": -2,
+                "precipMm": 0.8,
+                "snowCm": 12,
+                "snowfallCm": 0.6,
+                "windKmh": 12,
+                "windDir": 330,
+                "visibilityM": 1600,
+                "cloud": 1,
+                "season": "winter",
+                "updatedAt": 1794301368546,
+                "climate": null
+              },
+              "date": "2026-01-15T20:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "sunElevation": 21.261654459679914,
+              "nightLights": false,
+              "quality": "high"
+            },
+            "sha256": "8534cc333a0093ed6660e4896a19384acc327d2128e374fff550cbe88c97ae7a",
+            "bytes": 123737,
+            "pose": {
+              "x": -18.5,
+              "z": -27,
+              "floor": -0.3665781617164612,
+              "eye": [
+                -18.5,
+                1.2834218382835387,
+                -27
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 327.6525565005579,
+              "pitch": -2.204294389156607,
+              "fov": 76
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.57,
+              "frameMs": 1762.5,
+              "drawCalls": 108,
+              "triangles": 834704,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/bel-meydenbauer/ground-dc93023f/winter-day/stone-skipping.jpg"
+          }
+        ]
+      },
+      {
+        "id": "winter-night",
+        "label": "Winter · Night",
+        "season": "winter",
+        "period": "night",
+        "weather": "snow",
+        "hour": 23,
+        "captures": [
+          {
+            "id": "crescent-pier",
+            "kind": "visit",
+            "place": "bel-meydenbauer",
+            "label": "Meydenbauer · crescent pier from the shore promenade",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T09:03:02.221Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "winter-night",
+              "label": "Winter · night",
+              "season": "winter",
+              "period": "night",
+              "hour": 23,
+              "weather": {
+                "source": "override",
+                "code": 73,
+                "kind": "snow",
+                "label": "Snow",
+                "icon": "🌨️",
+                "tempC": -2,
+                "precipMm": 0.8,
+                "snowCm": 12,
+                "snowfallCm": 0.6,
+                "windKmh": 12,
+                "windDir": 330,
+                "visibilityM": 1600,
+                "cloud": 1,
+                "season": "winter",
+                "updatedAt": 1794301378202,
+                "climate": null
+              },
+              "date": "2026-01-16T07:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "sunElevation": -58.96166180985276,
+              "nightLights": true,
+              "quality": "high"
+            },
+            "sha256": "942211faebcd42b792d328d8ec5f5e023944268d01a9c8af4badc642c4627ff4",
+            "bytes": 183779,
+            "pose": {
+              "x": 44.0901213,
+              "z": 28.351515,
+              "floor": 0.26185336692432337,
+              "eye": [
+                44.0901213,
+                1.9118533669243232,
+                28.351515
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 248.08460999999997,
+              "pitch": 1,
+              "fov": 60
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.71,
+              "frameMs": 1408,
+              "drawCalls": 72,
+              "triangles": 579774,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/bel-meydenbauer/ground-dc93023f/winter-night/crescent-pier.jpg"
+          },
+          {
+            "id": "pier-end",
+            "kind": "visit",
+            "place": "bel-meydenbauer",
+            "label": "Crescent pier · terminal deck and bay",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T09:03:04.515Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "winter-night",
+              "label": "Winter · night",
+              "season": "winter",
+              "period": "night",
+              "hour": 23,
+              "weather": {
+                "source": "override",
+                "code": 73,
+                "kind": "snow",
+                "label": "Snow",
+                "icon": "🌨️",
+                "tempC": -2,
+                "precipMm": 0.8,
+                "snowCm": 12,
+                "snowfallCm": 0.6,
+                "windKmh": 12,
+                "windDir": 330,
+                "visibilityM": 1600,
+                "cloud": 1,
+                "season": "winter",
+                "updatedAt": 1794301378202,
+                "climate": null
+              },
+              "date": "2026-01-16T07:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "sunElevation": -58.96166180985276,
+              "nightLights": true,
+              "quality": "high"
+            },
+            "sha256": "d01a59147d0ad9bac19fc0364896f1379d278aee50b9a2da2af63238385117e8",
+            "bytes": 189137,
+            "pose": {
+              "x": -57.8,
+              "z": 42.3,
+              "floor": 0.06999999999999995,
+              "eye": [
+                -57.8,
+                1.7199999999999998,
+                42.3
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 304.7431801583036,
+              "pitch": -7.698876330701589,
+              "fov": 78
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.38,
+              "frameMs": 2639,
+              "drawCalls": 60,
+              "triangles": 583887,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/bel-meydenbauer/ground-dc93023f/winter-night/pier-end.jpg"
+          },
+          {
+            "id": "kayak-landing",
+            "kind": "visit",
+            "place": "bel-meydenbauer",
+            "label": "Kayak launch · dock and bay access",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T09:03:06.764Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "winter-night",
+              "label": "Winter · night",
+              "season": "winter",
+              "period": "night",
+              "hour": 23,
+              "weather": {
+                "source": "override",
+                "code": 73,
+                "kind": "snow",
+                "label": "Snow",
+                "icon": "🌨️",
+                "tempC": -2,
+                "precipMm": 0.8,
+                "snowCm": 12,
+                "snowfallCm": 0.6,
+                "windKmh": 12,
+                "windDir": 330,
+                "visibilityM": 1600,
+                "cloud": 1,
+                "season": "winter",
+                "updatedAt": 1794301378202,
+                "climate": null
+              },
+              "date": "2026-01-16T07:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "sunElevation": -58.96166180985276,
+              "nightLights": true,
+              "quality": "high"
+            },
+            "sha256": "943956e87802d1afd30d740c56e18d8d0dceb377d988213949094f39daa7a883",
+            "bytes": 138199,
+            "pose": {
+              "x": 58,
+              "z": 51.3,
+              "floor": -0.13000000000000006,
+              "eye": [
+                58,
+                1.5199999999999998,
+                51.3
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 352.2348339815747,
+              "pitch": -39.341020023393526,
+              "fov": 74
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.4,
+              "frameMs": 2479.3,
+              "drawCalls": 79,
+              "triangles": 594640,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/bel-meydenbauer/ground-dc93023f/winter-night/kayak-landing.jpg"
+          },
+          {
+            "id": "stone-skipping",
+            "kind": "visit",
+            "place": "bel-meydenbauer",
+            "label": "Stone skipping · shoreline and bay",
+            "purpose": "Walking-height detail of the production scene.",
+            "capturedAt": "2026-11-10T09:03:08.704Z",
+            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "condition": {
+              "id": "winter-night",
+              "label": "Winter · night",
+              "season": "winter",
+              "period": "night",
+              "hour": 23,
+              "weather": {
+                "source": "override",
+                "code": 73,
+                "kind": "snow",
+                "label": "Snow",
+                "icon": "🌨️",
+                "tempC": -2,
+                "precipMm": 0.8,
+                "snowCm": 12,
+                "snowfallCm": 0.6,
+                "windKmh": 12,
+                "windDir": 330,
+                "visibilityM": 1600,
+                "cloud": 1,
+                "season": "winter",
+                "updatedAt": 1794301378202,
+                "climate": null
+              },
+              "date": "2026-01-16T07:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "sunElevation": -58.96166180985276,
+              "nightLights": true,
+              "quality": "high"
+            },
+            "sha256": "46665096586e1d07ca70c723bb9c825f04c7f21dc119bafda97684c4ff40ef1a",
+            "bytes": 155349,
+            "pose": {
+              "x": -18.5,
+              "z": -27,
+              "floor": -0.3665781617164612,
+              "eye": [
+                -18.5,
+                1.2834218382835387,
+                -27
+              ],
+              "heightAboveSupport": 1.65,
+              "bearing": 327.6525565005579,
+              "pitch": -2.204294389156607,
+              "fov": 76
+            },
+            "cameraBodyClear": true,
+            "stats": {
+              "fps": 0.48,
+              "frameMs": 2067.3,
+              "drawCalls": 68,
+              "triangles": 562159,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1
+            },
+            "image": "assets/spots/bel-meydenbauer/ground-dc93023f/winter-night/stone-skipping.jpg"
+          }
+        ]
+      }
+    ],
     "captures": [
       {
-        "kind": "scene",
-        "image": "assets/spots/bel-meydenbauer/visit-aabd/scene.webp",
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "capturedAt": "2026-11-09T08:20:36.829Z",
+        "id": "crescent-pier",
+        "kind": "visit",
+        "place": "bel-meydenbauer",
+        "label": "Meydenbauer · crescent pier from the shore promenade",
+        "purpose": "Walking-height detail of the production scene.",
+        "capturedAt": "2026-11-10T08:57:13.495Z",
+        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
         "viewport": {
           "width": 1280,
-          "height": 720
+          "height": 800
         },
-        "position": {
-          "x": 44.09012130325257,
-          "z": 28.351514994392115,
-          "y": 0.26185336692432337,
-          "heading": 1.9532920312499997
+        "condition": {
+          "id": "summer-day",
+          "label": "Summer · day",
+          "season": "summer",
+          "period": "day",
+          "hour": 12,
+          "weather": {
+            "source": "override",
+            "code": 0,
+            "kind": "clear",
+            "label": "Clear sky",
+            "icon": "☀️",
+            "tempC": 22,
+            "precipMm": 0,
+            "snowCm": 0,
+            "snowfallCm": 0,
+            "windKmh": 8,
+            "windDir": 270,
+            "visibilityM": 19500,
+            "cloud": 0.1,
+            "season": "summer",
+            "updatedAt": 1794301024319,
+            "climate": null
+          },
+          "date": "2026-07-15T19:00:00.000Z",
+          "timeZone": "America/Los_Angeles",
+          "sunElevation": 59.7866820717143,
+          "nightLights": false,
+          "quality": "high"
         },
+        "sha256": "178ed85631de204875d04f2e01e6c326852da24f1bbb79368af6316acef814d6",
+        "bytes": 159250,
         "pose": {
-          "position": [
-            44.09012130325257,
+          "x": 44.0901213,
+          "z": 28.351515,
+          "floor": 0.26185336692432337,
+          "eye": [
+            44.0901213,
             1.9118533669243232,
-            28.351514994392115
+            28.351515
           ],
-          "bearing": 248.08461045283929,
-          "pitch": 1.000001592396201
+          "heightAboveSupport": 1.65,
+          "bearing": 248.08460999999997,
+          "pitch": 1,
+          "fov": 60
         },
-        "conditions": {
-          "tod": "day",
-          "weather": "clear",
-          "season": "summer"
+        "cameraBodyClear": true,
+        "stats": {
+          "fps": 0.97,
+          "frameMs": 1031.8,
+          "drawCalls": 175,
+          "triangles": 988390,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
         },
-        "simulationDate": "2026-11-09T08:20:33.958Z",
-        "triangles": 586555,
-        "drawCalls": 54,
-        "cameraParent": "onfoot",
-        "ui": {
-          "touch": true,
-          "spotHUD": true,
-          "touchAction": true
-        },
-        "sha256": "68a795ce8fd76be5d76e7904f6f475d5c1617a0109bd94345e441bded6231517",
-        "bytes": 51984,
-        "fullPageHUD": false,
-        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
-        "setup": {
-          "arrival": {
-            "x": 22,
-            "z": -21,
-            "y": 3.000899735713793,
-            "heading": 2.9909261469919177
-          },
-          "viewpoint": {
-            "view": [
-              -33.8299437497493,
-              59.6994944079871
-            ],
-            "id": "bel-meydenbauer",
-            "x": 44.09012130325257,
-            "z": 28.351514994392115,
-            "bearing": 248.08461040089054,
-            "pitch": 1,
-            "fov": 45,
-            "text": "The crescent pier curving out over Meydenbauer Bay, Seattle on the horizon",
-            "r": 14,
-            "tol": 35,
-            "targets": [],
-            "cond": null,
-            "condHint": null
-          },
-          "position": {
-            "x": 44.09012130325257,
-            "z": 28.351514994392115,
-            "y": 0.26185336692432337,
-            "heading": 0
-          },
-          "walker": "OnFootController",
-          "sceneId": "bel-meydenbauer",
-          "origin": {
-            "lat": 47.6106,
-            "lon": -122.2108,
-            "elev": 5.7
-          },
-          "projection": {
-            "mLat": 111182.74,
-            "mLon": 75185.23
-          }
-        },
-        "label": "The crescent pier and Meydenbauer Bay",
-        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+        "image": "assets/spots/bel-meydenbauer/ground-dc93023f/summer-day/crescent-pier.jpg"
       },
       {
-        "kind": "phone-ui-touch",
-        "image": "assets/spots/bel-meydenbauer/visit-aabd/phone-ui-touch.jpg",
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "capturedAt": "2026-11-09T08:25:50.443Z",
+        "id": "pier-end",
+        "kind": "visit",
+        "place": "bel-meydenbauer",
+        "label": "Crescent pier · terminal deck and bay",
+        "purpose": "Walking-height detail of the production scene.",
+        "capturedAt": "2026-11-10T08:57:15.886Z",
+        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
         "viewport": {
-          "width": 390,
-          "height": 844
+          "width": 1280,
+          "height": 800
         },
-        "position": {
-          "x": 44.09012130325257,
-          "z": 28.351514994392115,
-          "y": 0.26185336692432337,
-          "heading": 1.9532920312499997
+        "condition": {
+          "id": "summer-day",
+          "label": "Summer · day",
+          "season": "summer",
+          "period": "day",
+          "hour": 12,
+          "weather": {
+            "source": "override",
+            "code": 0,
+            "kind": "clear",
+            "label": "Clear sky",
+            "icon": "☀️",
+            "tempC": 22,
+            "precipMm": 0,
+            "snowCm": 0,
+            "snowfallCm": 0,
+            "windKmh": 8,
+            "windDir": 270,
+            "visibilityM": 19500,
+            "cloud": 0.1,
+            "season": "summer",
+            "updatedAt": 1794301024319,
+            "climate": null
+          },
+          "date": "2026-07-15T19:00:00.000Z",
+          "timeZone": "America/Los_Angeles",
+          "sunElevation": 59.7866820717143,
+          "nightLights": false,
+          "quality": "high"
         },
+        "sha256": "781bf181d8a07d52c3f8c58e01bad413d41f88fc5ff0a2a1d4dbdad05a24b08a",
+        "bytes": 159826,
         "pose": {
-          "position": [
-            44.09012130325257,
-            1.9118533669243232,
-            28.351514994392115
+          "x": -57.8,
+          "z": 42.3,
+          "floor": 0.06999999999999995,
+          "eye": [
+            -57.8,
+            1.7199999999999998,
+            42.3
           ],
-          "bearing": 248.08461045283929,
-          "pitch": 1.000001592396201
+          "heightAboveSupport": 1.65,
+          "bearing": 304.7431801583036,
+          "pitch": -7.698876330701589,
+          "fov": 78
         },
-        "conditions": {
-          "tod": "day",
-          "weather": "clear",
-          "season": "summer"
+        "cameraBodyClear": true,
+        "stats": {
+          "fps": 0.12,
+          "frameMs": 8200.8,
+          "drawCalls": 133,
+          "triangles": 998400,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
         },
-        "simulationDate": "2026-11-09T08:25:47.079Z",
-        "triangles": 598700,
-        "drawCalls": 149,
-        "cameraParent": "onfoot",
-        "ui": {
-          "touch": true,
-          "spotHUD": true,
-          "touchAction": true
-        },
-        "sha256": "885432136fcfd168f6a293b4cce21702e4c934aa3fc05fb47bf4fcbed7c6b369",
-        "bytes": 50584,
-        "fullPageHUD": true,
-        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
-        "setup": {
-          "arrival": {
-            "x": 22,
-            "z": -21,
-            "y": 3.000899735713793,
-            "heading": 2.9909261469919177
-          },
-          "viewpoint": {
-            "view": [
-              -33.8299437497493,
-              59.6994944079871
-            ],
-            "id": "bel-meydenbauer",
-            "x": 44.09012130325257,
-            "z": 28.351514994392115,
-            "bearing": 248.08461040089054,
-            "pitch": 1,
-            "fov": 45,
-            "text": "The crescent pier curving out over Meydenbauer Bay, Seattle on the horizon",
-            "r": 14,
-            "tol": 35,
-            "targets": [],
-            "cond": null,
-            "condHint": null
-          },
-          "position": {
-            "x": 44.09012130325257,
-            "z": 28.351514994392115,
-            "y": 0.26185336692432337,
-            "heading": 0
-          },
-          "walker": "OnFootController",
-          "sceneId": "bel-meydenbauer",
-          "origin": {
-            "lat": 47.6106,
-            "lon": -122.2108,
-            "elev": 5.7
-          },
-          "projection": {
-            "mLat": 111182.74,
-            "mLon": 75185.23
-          }
-        },
-        "label": "Phone view with the native touch interface",
-        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
-      }
-    ],
-    "limitations": [
-      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
-      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
-    ],
-    "reports": [
-      {
-        "label": "Initial 23-destination scene and portrait capture",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
-        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+        "image": "assets/spots/bel-meydenbauer/ground-dc93023f/summer-day/pier-end.jpg"
       },
       {
-        "label": "Actual portrait touch-look capture",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
-        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+        "id": "kayak-landing",
+        "kind": "visit",
+        "place": "bel-meydenbauer",
+        "label": "Kayak launch · dock and bay access",
+        "purpose": "Walking-height detail of the production scene.",
+        "capturedAt": "2026-11-10T09:02:34.737Z",
+        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "condition": {
+          "id": "summer-day",
+          "label": "Summer · day",
+          "season": "summer",
+          "period": "day",
+          "hour": 12,
+          "weather": {
+            "source": "override",
+            "code": 0,
+            "kind": "clear",
+            "label": "Clear sky",
+            "icon": "☀️",
+            "tempC": 22,
+            "precipMm": 0,
+            "snowCm": 0,
+            "snowfallCm": 0,
+            "windKmh": 8,
+            "windDir": 270,
+            "visibilityM": 19500,
+            "cloud": 0.1,
+            "season": "summer",
+            "updatedAt": 1794301350849,
+            "climate": null
+          },
+          "date": "2026-07-15T19:00:00.000Z",
+          "timeZone": "America/Los_Angeles",
+          "sunElevation": 59.7866820717143,
+          "nightLights": false,
+          "quality": "high"
+        },
+        "sha256": "7b82cd1642562597481a510ca681a6a7340663b46e42770b2a42f644667b4d39",
+        "bytes": 133865,
+        "pose": {
+          "x": 58,
+          "z": 51.3,
+          "floor": -0.13000000000000006,
+          "eye": [
+            58,
+            1.5199999999999998,
+            51.3
+          ],
+          "heightAboveSupport": 1.65,
+          "bearing": 352.2348339815747,
+          "pitch": -39.341020023393526,
+          "fov": 74
+        },
+        "cameraBodyClear": true,
+        "stats": {
+          "fps": 0,
+          "frameMs": 55.1,
+          "drawCalls": 132,
+          "triangles": 994664,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        },
+        "image": "assets/spots/bel-meydenbauer/ground-dc93023f/summer-day/kayak-landing.jpg"
+      },
+      {
+        "id": "stone-skipping",
+        "kind": "visit",
+        "place": "bel-meydenbauer",
+        "label": "Stone skipping · shoreline and bay",
+        "purpose": "Walking-height detail of the production scene.",
+        "capturedAt": "2026-11-10T08:57:20.136Z",
+        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "condition": {
+          "id": "summer-day",
+          "label": "Summer · day",
+          "season": "summer",
+          "period": "day",
+          "hour": 12,
+          "weather": {
+            "source": "override",
+            "code": 0,
+            "kind": "clear",
+            "label": "Clear sky",
+            "icon": "☀️",
+            "tempC": 22,
+            "precipMm": 0,
+            "snowCm": 0,
+            "snowfallCm": 0,
+            "windKmh": 8,
+            "windDir": 270,
+            "visibilityM": 19500,
+            "cloud": 0.1,
+            "season": "summer",
+            "updatedAt": 1794301024319,
+            "climate": null
+          },
+          "date": "2026-07-15T19:00:00.000Z",
+          "timeZone": "America/Los_Angeles",
+          "sunElevation": 59.7866820717143,
+          "nightLights": false,
+          "quality": "high"
+        },
+        "sha256": "b980b29f55203f30368a867becc204ddd43cf9f308c03fe47bfbe89761fb49fe",
+        "bytes": 148175,
+        "pose": {
+          "x": -18.5,
+          "z": -27,
+          "floor": -0.3665781617164612,
+          "eye": [
+            -18.5,
+            1.2834218382835387,
+            -27
+          ],
+          "heightAboveSupport": 1.65,
+          "bearing": 327.6525565005579,
+          "pitch": -2.204294389156607,
+          "fov": 76
+        },
+        "cameraBodyClear": true,
+        "stats": {
+          "fps": 0.51,
+          "frameMs": 1969.7,
+          "drawCalls": 104,
+          "triangles": 969210,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        },
+        "image": "assets/spots/bel-meydenbauer/ground-dc93023f/summer-day/stone-skipping.jpg"
       }
     ],
-    "updatedAt": "2026-11-09T08:25:50.443Z",
-    "notice": "These views come from the staged game under test; the live game can differ.",
-    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
-    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
-    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+    "report": "assets/spots/bel-meydenbauer/ground-dc93023f/manifest.json",
+    "reportSha256": "9b36b59cff552c9ec62bbcb20677e2e45d7b8d610107f5fd4658ce682ea2ec76"
   }
 }

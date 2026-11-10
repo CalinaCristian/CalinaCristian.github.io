@@ -1,6 +1,8 @@
 import { sourceTransitShelterDecision } from './source-transit-shelter.js';
 import { cachedPointHeight } from './point-height-cache.js';
 import { basarabEdge, buildBasarabStructure, drawBasarabGuard } from './basarab-structure.js';
+import { coveredPlatformCanopies } from './covered-platform-canopies.js';
+import { BASARAB_PLATFORMS } from './basarab-source.js';
 import { projectCoveredWater, prepareFinalWaterGeometry, prepareSmallWaterGroups, consumePreparedSmallWater, waterOwnerSurface, landmarkWaterSurfaces, combineUnderpassWaterOwners } from './final-water-topology.js';
 import { buildUnderpassOwnerIndex } from './underpass-ground-owner.js';
 import { underpassRoofModel, underpassRoofFaces, underpassRoofCollider, UNDERPASS_COVER_POLICY } from './underpass-roof.js';
@@ -4871,7 +4873,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     setProgress('Planting trees…'); await tick();
     // every tree / lamp / prop below is checked against the carriageway ribbons (onRibbon) before it is placed
     const maxTrees = city.id === 'bucharest' ? 32000 : 28000;
-    const treeList = [];
+    const treeList = [],treeSourceMetadata=new WeakMap();
     const treeSeen = new Set();
     const exactTreeCentres = new Set();
     const dtSea = US ? city.proj(47.6062, -122.3321) : null, dtBel = US ? city.proj(47.6150, -122.2000) : null;
@@ -4897,7 +4899,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (kind !== 'osm' && measuredCanopyAt(x, z)) return false;
         if (treeList.length >= maxTrees) return false;
         if (kind === 'street' && treeNear(x, z, 4.5)) return false; // (a mapped OSM tree already stands there)
-        { let under = false; surfacesAt(x, z, (hh) => { if (hh > Y.road + 2.5) under = true; }); if (under) return false; } // (no trees under a bridge deck / viaduct)
+        { let under = false; surfacesAt(x, z, (hh,raised,surface) => { if(surface?.kind?.startsWith('basarab-'))return;if (hh > Y.road + 2.5) under = true; }); if (under) return false; } // New Basarab survey conflicts are audited after generation, preserving retained instances/RNG.
         if (kind === 'street' && onRibbon(x, z, 1.3)) return false; // (no row trees on medians / verges narrower than ≈ 2.6 m)
         const sourceCentre = sourceTreeCentrePolicy(kind, data.treeRetention);
         const k = Math.round(x / 1.6) + ',' + Math.round(z / 1.6);
@@ -4931,6 +4933,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         treeList.push({ x, z, s: sz, species, con: !!isCon, dec: dec ?? (isCon ? 0 : 1), kind, sh }); treeGrid.insert(x, z, x, z, treeList[treeList.length - 1]);
         exactTreeCentres.add(`${x},${z}`);
         addPropColl(x, z, collR, 'tree');
+        if(basarabStructure.report.active&&Number.isInteger(opt.sourceIndex))treeSourceMetadata.set(treeList.at(-1),{sourceIndex:opt.sourceIndex,crownRadiusM:opt.crownRadiusM||0,collider:propColl.at(-1)});
         return true;
     };
     // OSM natural=tree / tree_row (real positions, leaf type where tagged)
@@ -4946,7 +4949,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (con) species = 'conifer'; else if (species === 'conifer') species = null;
         const dbh = circ > 0 ? circ / Math.PI : 0; // trunk diameter, cm
         const h = hh > 0 ? hh : dbh > 0 ? clamp(4 + dbh * 0.2, 4, 26) : 0;
-        if (placeTree(x, z, h > 0 ? clamp(h / 6.5, 0.6, 2.0) : rng.range(0.85, 1.25), 'osm', con, null, { h, species: species || undefined, crownRadiusM: (data.treeCrownRadii?.[k] || 0) / 10 })) treesOSM++;
+        if (placeTree(x, z, h > 0 ? clamp(h / 6.5, 0.6, 2.0) : rng.range(0.85, 1.25), 'osm', con, null, { h, species: species || undefined, crownRadiusM: (data.treeCrownRadii?.[k] || 0) / 10,sourceIndex:k })) treesOSM++;
     }
     for (const [x, z, s, kind, road, sp] of treeSpots) if (placeTree(x, z, s, kind, null, null, { road, species: sp || undefined })) treesRows++;
     // parks & forests
@@ -4970,13 +4973,21 @@ export async function buildWorld(city, renderer, opts = {}) {
             placeTree(x, z, rng.range(0.8, 1.3), 'garden');
         }
     }
-    const treeCount = treeList.length;
+    const coveredCanopies=coveredPlatformCanopies(treeList,BASARAB_PLATFORMS.filter(p=>basarabStructure.report.sourcePlatforms.includes(p.sourceId)),treeSourceMetadata);
+    basarabStructure.report.treeSourceConflicts={excludedMeasured:coveredCanopies.conflicts,retainedMapped:coveredCanopies.unresolved};
+    const treeCount = treeList.length-coveredCanopies.excluded.size;
     // instanced trees in district 250 m / legacy 500 m chunks; crowns keep a per-instance colour (instanceColor)
     // so the season / weather code can tint each tree (world.vegetation)
     const vegetation = { treeCrownMeshes: [], treeTrunkMeshes: [], deciduousMask: null, grassMaterials: [], groundMaterials: [], roofMaterials: [], trees: treeList };
     {
         // (2026-11-08) district worlds carry the measured canopy (thousands of real trees): fewer full-detail near trees
-        const T = buildSpeciesTrees(treeList, { rng, cull: distId ? 480 : 550, chunk: distId ? 250 : 500, near: distId ? 60 : 95, maxNear: distId ? 110 : 240, farLayer: 2 }); // smaller district chunks cull off-screen trees precisely; no trees or LOD geometry are removed
+        const T = buildSpeciesTrees(treeList, { rng, cull: distId ? 480 : 550, chunk: distId ? 250 : 500, near: distId ? 60 : 95, maxNear: distId ? 110 : 240, farLayer: 2,exclude:coveredCanopies.excluded }); // Source-covered-platform conflicts are recorded separately from LOD/culling.
+        if(coveredCanopies.excluded.size){
+            const props=new Set([...coveredCanopies.excluded].map(t=>treeSourceMetadata.get(t).collider));
+            let at=0;for(const t of treeList)if(!coveredCanopies.excluded.has(t))treeList[at++]=t;treeList.length=at;
+            at=0;for(const p of propColl)if(!props.has(p))propColl[at++]=p;propColl.length=at;
+            treesOSM-=coveredCanopies.excluded.size;
+        }
         vegetation.treeCrownMeshes.push(...T.crownMeshes); vegetation.treeTrunkMeshes.push(...T.trunkMeshes);
         vegetation.update = T.update;
         vegetation.deciduousMask = new Float32Array(treeList.map(t => t.dec));
@@ -6194,7 +6205,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */
     function surfacesAt(x, z, cb, prefer = null, carriagewayOnly = false, exclude = null) {
         const seen = new Set();
-        sceneryDeckGrid.each(x, z, x, z, deck => { if (pointInPolygon(x, z, deck.poly)) cb(deck.roofHeightAt(x, z)); });
+        sceneryDeckGrid.each(x, z, x, z, deck => { if (pointInPolygon(x, z, deck.poly)) cb(deck.roofHeightAt(x, z),false,deck); });
         if (realPass && !carriagewayOnly && cornerPolys.length) { // a raised junction corner: the only surface there (cb(h, raised))
             let hc = null; cornerGrid.each(x, z, x, z, (cp) => { if (hc === null && x >= cp.x0 && x <= cp.x1 && z >= cp.z0 && z <= cp.z1 && pointInPolygon(x, z, cp.p)) hc = Y.road + Y.kerb + padHeightAt(cp.n, x, z); });
             if (hc !== null && !onRibbon(x, z, 0, RIB_ONLY)) { cb(hc, true); return; }

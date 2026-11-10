@@ -48,4 +48,11 @@ assert.equal(sloping.roofHeightAt(20,0),null,'a finite member does not create an
 const glazing=result.colliders.filter(c=>c.kind==='basarab-station-glazing');assert.equal(glazing.length,240,'every visible station glass pane has its own finite physical shell');
 for(const c of glazing){const bottom=c.minHeightAt(c.x,c.z),top=c.roofHeightAt(c.x,c.z);assert(top>bottom&&top-bottom<.4);assert(collideBuildings([c],c.x,c.z,.15,(top+bottom)/2,.1),'native collision detects the pane at its actual height');assert.equal(collideBuildings([c],c.x,c.z,.15,bottom-3,1),null,'native collision leaves the space below the pane clear');}
 assert(result.colliders.some(c=>c.kind==='basarab-river-arch'));assert.equal(result.colliders.filter(c=>c.kind==='basarab-stay').length,60);
+let stationTramChecks=0;
+for(const c of grades.corridors.filter(c=>['w118416425','w205971103'].includes(c.sourceId))){for(const t of[0,.25,.5,.75,1]){
+ const x=c.a[0]+(c.b[0]-c.a[0])*t,z=c.a[1]+(c.b[1]-c.a[1])*t;if(x<690||x>840||z< -1040||z> -900)continue;
+ const y=.24+c.heightAt(t),hit=collideBuildings(result.colliders,x,z,envelope.halfWidthM,y+envelope.tiltedMinY,envelope.tiltedMaxY-envelope.tiltedMinY);
+ assert.equal(hit,null,'the station roof/stays leave the complete pitched native tram envelope clear at '+[x,z]);stationTramChecks++;
+}}
+assert(stationTramChecks>30,'the physical review exercises the entire literal station tram runs');
 console.log(JSON.stringify({passed:true,platforms:result.report.sourcePlatforms,gapPieces:result.report.gapPieces,triangles:cell.solid.ic/3,scope:'Geometry/compiler fixture only; native route, eyes and full physical clearance remain unaccepted.'}));

@@ -389,3 +389,5 @@ Pasajul Basarab reconstruction is staged for review: literal OSM tram platforms,
 High drone and upper-floor night views select existing street-light pools around the viewed ground, with a finite600m range ceiling and the same220pool/quality-tier point-light limits. Ground driving retains its150m policy. Native night appearance and repeated flight checks remain under review.
 
 Pedestrian boolean contact queries can stop once a blocking body is established; complete spatial visitors retain their original behavior. Native contact-parity and motion controls pass; complete CPU timing remains under review.
+
+Basarab review now follows the literal paired-road curve for arch feet and source-track midlines for stay anchors. Canopy eaves3.2m/crown6.65m remain explicit estimates. Surveyed canopy detections centred inside literally mapped covered tram platforms are recorded as source conflicts; mapped/unknown trees remain pending review. Classification runs after deterministic generation so every retained instance and the random stream are preserved. Full native source/population/road-vehicle review is still required.

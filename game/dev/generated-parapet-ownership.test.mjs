@@ -28,3 +28,11 @@ for(const t of faces){const r=N.subtractFace(t.vertices,later);if(!r.changed)con
 // widened ownership volume or a physical/visual clearance acceptance.
 const nativeMagnitude=Math.max(...faces.flatMap(t=>t.vertices.flat()).map(Math.abs)),float32CoordinateBoundM=2**(Math.floor(Math.log2(nativeMagnitude))-23);assert(serializationMaxM<=float32CoordinateBoundM);
 const report={passed:true,source:source.source,scope:'Exact historical1053native-triangle slice,101cap prisms and234laterfaces, plus material/source/height negatives. No new native render/physical or visual acceptance.',caps:caps.length,inputFaces:faces.length,changed,untouched,maxAreaIncreaseM2:maxAreaIncrease,remainingInsideAreaM2:remainingInsideArea,stats:nativeStats,serialization:{maxCoordinateErrorM:serializationMaxM,float32CoordinateBoundM,triangles:serializedTriangles,collapsed:serializedCollapsed,insideAreaAfterSerializationM2:serializedOwnedAreaM2,constrainedVertices:N.report.constrainedSerializationVertices,unresolvedVertices:N.report.unresolvedSerializationVertices,note:"Child Float32 rounding is measured separately; fresh native full-size visual acceptance remains required."},residuals,results};fs.writeFileSync(process.argv[2]||'/tmp/generated-parapet-ownership-controls.json',JSON.stringify(report,null,2));console.log(JSON.stringify({passed:true,caps:caps.length,faces:faces.length,changed,untouched,maxAreaIncrease,remainingInsideArea,serialization:report.serialization}));
+
+// Actual native 984 driver ray: the brown face was 2.96 micrometres in
+// front of the blue bridge guard, due to independently rounded subdivisions.
+const witness=JSON.parse(fs.readFileSync(new URL('./fixtures/parapet-rounding-984.json',import.meta.url))),roundingOwner=buildGeneratedParapetOwnership();
+for(const cap of witness.caps)roundingOwner.addCapTriangle(cap.vertices,{heightM:1.1,owner});
+assert.equal(roundingOwner.subtractFace(witness.face,later).polygons.length,0,'independent Float32 subdivisions have one render owner');
+const clearFace=witness.face.map(p=>[p[0]-.01,p[1],p[2]-.01]);
+assert.equal(roundingOwner.subtractFace(clearFace,later).polygons[0],clearFace,'a distinct face beyond rounding cells remains exact');

@@ -141,6 +141,31 @@ function boxPen(ax, az, afx, afz, al, aw, bx, bz, bfx, bfz, bl, bw) {
     }
     return m;
 }
+/** Signed SAT separation of two drawn vehicle bodies: > 0 penetration, < 0 the widest separating gap (no early exit,
+ * so a negative value is a real clearance, unlike boxPen's first separating axis). */
+function vvClearance(a, b) {
+    const afx = -Math.sin(a.heading), afz = -Math.cos(a.heading), bfx = -Math.sin(b.heading), bfz = -Math.cos(b.heading), dx = b.x - a.x, dz = b.z - a.z;
+    let m = Infinity;
+    for (let k = 0; k < 4; k++) {
+        const ux = k === 0 ? afx : k === 1 ? -afz : k === 2 ? bfx : -bfz, uz = k === 0 ? afz : k === 1 ? afx : k === 2 ? bfz : bfx;
+        const ra = Math.abs(afx * ux + afz * uz) * a.length / 2 + Math.abs(-afz * ux + afx * uz) * a.width / 2;
+        const rb = Math.abs(bfx * ux + bfz * uz) * b.length / 2 + Math.abs(-bfz * ux + bfx * uz) * b.width / 2;
+        m = Math.min(m, ra + rb - Math.abs(dx * ux + dz * uz));
+    }
+    return m;
+}
+/** Is a's nose pointing into b's body (b ahead of a and across a's own width band)? In a T-bone exactly one car is. */
+function noseInto(a, b) {
+    const fx = -Math.sin(a.heading), fz = -Math.cos(a.heading), dx = b.x - a.x, dz = b.z - a.z;
+    if (dx * fx + dz * fz <= 0) return false;
+    const bfx = -Math.sin(b.heading), bfz = -Math.cos(b.heading), rx = -fz, rz = fx; // a's lateral axis
+    const extent = Math.abs(bfx * rx + bfz * rz) * b.length / 2 + Math.abs(-bfz * rx + bfx * rz) * b.width / 2;
+    return Math.abs(dx * rx + dz * rz) - extent < a.width / 2;
+}
+/** A knot that has been opened keeps being opened to this real gap, so the struck car's next step is not refused again. */
+const KNOT_OPEN_GAP = 0.3, KNOT_HOLD_S = 1.5;
+/** Converging noses (a merge corner): one car keeps yielding at this gap until the other has pulled clear. */
+const KNOT_YIELD_GAP = 1.2, KNOT_YIELD_S = 4;
 /** penetration between two vehicles as drawn (mesh heading) */
 const vvPen = (a, b, ax = a.x, az = a.z, ah = a.heading) => boxPen(ax, az, -Math.sin(ah), -Math.cos(ah), a.length / 2, a.width / 2, b.x, b.z, -Math.sin(b.heading), -Math.cos(b.heading), b.length / 2, b.width / 2);
 /** penetration between a vehicle (as drawn) and the player */
@@ -1459,6 +1484,7 @@ export class Traffic {
         if (stopD < Infinity) target = Math.min(target, Math.sqrt(Math.max(0, 2 * b * (stopD - 0.3))));
         if (leader === P && gap < 0.6) target = 0;
         if (v.jamHold > 0) target = 0;
+        if (v.yieldT > 0) { v.yieldT -= dt; const o = v.yieldTo; if (!o || o.inactive || o.parked || Math.hypot(o.x - v.x, o.z - v.z) > v.length / 2 + o.length / 2 + 3) { v.yieldT = 0; v.yieldTo = null; } else target = 0; }
         const accel = v.tram ? 1.2 : v.bus || v.kind === 'truck' ? 1.6 : (this.buc ? 3.0 : 2.4);
         if (target > v.speed) v.speed = Math.min(target, v.speed + accel * dt);
         else v.speed = Math.max(target, v.speed - (leader === P && gap < 3 ? 14 : 8.5) * dt);
@@ -1761,20 +1787,48 @@ export class Traffic {
                 if (p > hp) { hp = p; hit = o; }
             });
             // 1) this frame's step made it worse: take it back
+            let reverted = false;
             if (worse && this.revert(v)) {
                 v.speed = 0; v.zeroWhy = 'guard'; this.stats.guard = (this.stats.guard || 0) + 1;
                 // A long wait cannot make another rendered body passable.
-                v.revT = (v.revT || 0) + dt;
-                continue;
+                v.revT = (v.revT || 0) + dt; reverted = true;
+                v.knotHold = Math.max(v.knotHold || 0, KNOT_HOLD_S); // a refused step is a contact too: bodies touching below the overlap threshold
+                // The restored pose can itself be an established contact (a nose in a crossing car's side). Every
+                // later step is refused the same way, so that contact still needs the bounded back-off below:
+                // skipping it left visible knots frozen for minutes, with the whole queue behind them.
+                hit = null; hp = 0;
+                this.grid.query(v.x, v.z, vl + 9, (o) => {
+                    if (o === v || o.inactive || Math.abs(o.y - v.y) > 2) return;
+                    const p = vvPen(v, o); if (p > 0.05 && p > hp) { hp = p; hit = o; }
+                });
             }
-            if (v.revT) v.revT = Math.max(0, v.revT - dt * 0.5);
-            if (!hit) { v.ovT = 0; continue; }
+            if (!reverted && v.revT) v.revT = Math.max(0, v.revT - dt * 0.5);
+            let opening = false;
+            if (!hit) {
+                // an opened contact is widened to a small real gap before ordinary driving resumes
+                let near = null, gap = Infinity;
+                if (v.knotHold > 0 || v.yieldT > 0) this.grid.query(v.x, v.z, vl + 9, (o) => {
+                    if (o === v || o.inactive || o.parked || Math.abs(o.y - v.y) > 2) return;
+                    const yielding = (v.yieldT > 0 && v.yieldTo === o) || (o.yieldT > 0 && o.yieldTo === v);
+                    const c = -vvClearance(v, o); if (c < (yielding ? KNOT_YIELD_GAP : KNOT_OPEN_GAP) && c < gap) { gap = c; near = o; }
+                });
+                if (!near) { v.ovT = 0; v.knotHold = 0; continue; }
+                v.knotHold -= dt; hit = near; hp = -gap; opening = true;
+            } else v.knotHold = KNOT_HOLD_S;
             // 2) already overlapping: the follower (the one with the other ahead of it) backs off along its path
             const k = v.id < hit.id ? v.id + ':' + hit.id : hit.id + ':' + v.id; if (seen.has(k)) continue; seen.add(k);
             const contacts=this._contactDialogue||(this._contactDialogue=new Map());
-            if(this._situational&&this.time-(contacts.get(k)??-Infinity)>8){contacts.set(k,this.time);while(contacts.size>128)contacts.delete(contacts.keys().next().value);const event=this.dialogueEvent('collision',v,{sourceRole:'driver',target:hit,targetRole:'driver',facts:{contact:true,collisionType:'vehicle',playerCausedContact:false}});this.speakSituational(event,hit,'driver');this.emitDialogueEvent(event,{participant:v});}
+            if(!opening&&this._situational&&this.time-(contacts.get(k)??-Infinity)>8){contacts.set(k,this.time);while(contacts.size>128)contacts.delete(contacts.keys().next().value);const event=this.dialogueEvent('collision',v,{sourceRole:'driver',target:hit,targetRole:'driver',facts:{contact:true,collisionType:'vehicle',playerCausedContact:false}});this.speakSituational(event,hit,'driver');this.emitDialogueEvent(event,{participant:v});}
             const ahead = (a, b) => (b.x - a.x) * -Math.sin(a.heading) + (b.z - a.z) * -Math.cos(a.heading);
             let fol = ahead(v, hit) >= ahead(hit, v) ? v : hit;
+            // (a crossing contact: the car whose nose is in the other's side reverses; sliding the struck car along that
+            // nose keeps the same contact and only looked like a separation)
+            let crossing = false;
+            { const vn = noseInto(v, hit), hn = noseInto(hit, v);
+                if (vn !== hn) fol = vn ? v : hit;
+                // converging noses have no follower either: one of them keeps yielding (the same one, once chosen)
+                else if (vn && Math.abs(Math.sin(v.heading - hit.heading)) > .35) fol = v.yieldT > 0 && v.yieldTo === hit ? v : hit.yieldT > 0 && hit.yieldTo === v ? hit : v.id > hit.id ? v : hit;
+                crossing = (vn || hn) && Math.abs(Math.sin(v.heading - hit.heading)) > .35; }
             if (fol.parked || fol.tram) fol = fol === v ? hit : v;
             if (fol.parked) {
                 // two parked cars inside each other (placed / respawned onto one another): move one away, out of view
@@ -1782,13 +1836,23 @@ export class Traffic {
                 continue;
             }
             const other = fol === v ? hit : v;
-            fol.speed = 0; fol.zeroWhy = 'ovFol:' + (other.kind || '') + '#' + other.id; fol.ovT = (fol.ovT || 0) + dt;
-            const back = Math.min(hp + 0.05, 0.8 * dt);
+            fol.speed = 0; fol.zeroWhy = (opening ? 'ovOpen:' : 'ovFol:') + (other.kind || '') + '#' + other.id; if (!opening) fol.ovT = (fol.ovT || 0) + dt;
+            const yields = (a, b) => { if (!crossing || a.tram) return; a.yieldTo = b; a.yieldT = KNOT_YIELD_S; if (b.yieldTo === a) b.yieldT = 0; };
+            const back = Math.min(hp + (opening ? (crossing ? KNOT_YIELD_GAP : KNOT_OPEN_GAP) : 0.05), 0.8 * dt);
             let separated = false;
-            if (fol.s - back > 0.3 && !fol.tram && !(P && Math.hypot(P.x - fol.x, P.z - fol.z) < 12 && vpPen(fol, P) > -0.4 && (P.x - fol.x) * -Math.sin(fol.heading) + (P.z - fol.z) * -Math.cos(fol.heading) < 0)) {
+            const canBack = (a) => a.s - back > 0.3 && !a.tram && !a.parked && !(P && Math.hypot(P.x - a.x, P.z - a.z) < 12 && vpPen(a, P) > -0.4 && (P.x - a.x) * -Math.sin(a.heading) + (P.z - a.z) * -Math.cos(a.heading) < 0);
+            if (canBack(fol)) {
                 separated = this.separateVehicleStep(fol, other, -back);
-                if (separated) this.stats.separate = (this.stats.separate || 0) + 1;
+                if (separated) { this.stats.separate = (this.stats.separate || 0) + 1; yields(fol, other); }
             }
+            // A T-bone has no follower along one path: the car whose nose is in the other's side is the one whose
+            // own reversing opens the contact, whichever of the two the path order names.
+            if (!separated && canBack(other) && this.separateVehicleStep(other, fol, -back)) {
+                separated = true; other.speed = 0; other.zeroWhy = (opening ? 'ovOpen:' : 'ovFol:') + (fol.kind || '') + '#' + fol.id;
+                yields(other, fol);
+                this.stats.separate = (this.stats.separate || 0) + 1; this.stats.separateCross = (this.stats.separateCross || 0) + 1;
+            }
+            if (opening) continue;
             if (!separated && other.speed < 0.3 && !other.parked && !other.tram && other.s + 0.25 < other.edge.len - 0.5 && !(P && vpPen(other, P) > -0.3)) {
                 // the follower cannot back up (start of its edge): nudge the one in front forward instead
                 this.separateVehicleStep(other, fol, Math.min(0.25, 0.8 * dt));

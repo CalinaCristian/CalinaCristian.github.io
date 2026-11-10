@@ -245,6 +245,7 @@ Generated road signs use their source side's pavement width and check the comple
 - `node game/dev/harness/drone-boundary-check.cjs` and `drone-flight-check.cjs` — buffered flight limits and actual-controller returns.
 - `node game/dev/harness/map-waypoints-check.cjs` — map marking, held-F travel, fuel checks, and desktop/touch interactions.
 - `node game/dev/signals.test.mjs` — conflicting approaches, junction clearance and pedestrian recovery regression checks.
+- `node game/dev/vehicle-knot-recovery.test.mjs` — a recorded crossing knot opens by bounded reversing (no teleport, no penetration) and an ordinary queue is unchanged.
 - `node --test game/dev/bridge-bents.test.mjs` and `node game/dev/harness/bridge-bents-check.cjs . <out> <city> <district>` — estimated bridge bents: columns only on free ground, crosshead clearance over lower roads and rails, closed slab slots.
 - `node tools/profile-traffic-native.mjs OUT FULL_SOURCE_SHA` — actual RAF V8 attribution at High/Ultra through public settings; software FPS is not hardware evidence.
 - `node --test game/dev/render-cadence.test.mjs` — actual render orchestration timing, environment-only adapter boundaries and projection-preserving weather-distance controls; CPU evidence, not GPU speed.
@@ -322,6 +323,8 @@ Seattle mountain backdrops keep the existing USGS terrain vertices and use the a
 
 Source building rendering now has a separately validated surface-ownership cache for ordinary adjacent buildings and mapped parts, including courtyard walls. Inferred facade/roof details keep their exterior shape and are clipped only where actual neighboring source roof planes occupy the same space; source footprints, heights, holes and colliders are retained. Matched native High captures remove the targeted campus roof seam and duplicate Belvedere facade, with all source records and native actors retained. Remaining inferred corner overlaps, SkyTower streaks and broader final visual/physical acceptance stay open.
 GPS and NPC continuation choices now enforce supported literal node-via motor turn restrictions from the retained source catalogue. Routing keeps the incoming edge as part of its search state and cannot evade an only-straight rule with an immediate unmarked reversal. Malformed, conditional and unsupported relations stay named unknowns; fresh actual navigation/traffic checks remain required.
+
+Cars that end up nose-to-side at a junction no longer freeze in view: the car whose nose is in the other's side reverses slowly to a real gap, a merge-corner pair settles which one yields, and the struck car drives on. Nothing is teleported and bodies never pass through each other; pedestrian piles and overall simulation cost are still open.
 
 Traffic checks future lane drops using the lane actually inherited through each intervening source leg, including its fractional lateral position. A turn into a one-lane road cannot create a second false merge stop at the next shape node. Genuine unfinished merges, red queues and vehicle-body guards retain their existing rules; fresh full traffic journeys remain required.
 

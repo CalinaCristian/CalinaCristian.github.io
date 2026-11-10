@@ -132,6 +132,33 @@ Lane-drop lookahead carries the planned lane with native `laneOnNext` and the fr
 
 - Generated parapet render ownership: `buildGeneratedParapetOwnership` captures only dedicated earlier `bridge-parapet` cap triangles after the existing height displacement and rail-side mesh policy. The exact emitted cap triangle, extruded by its existing authored 1.1 m guard height, defines each inferred prism. Only `separation-barrier` render faces with `inferred:true` may be subtracted. Sequential convex subtraction preserves outside/partial fragments; the cap/road/source geometry, mapped barriers and every physical wall/collider remain unchanged. Earlier guard triangles/attributes stay in the same cell/material batch. Construction-boundary bookkeeping uses exact zero membership rather than a widened prism or geometric epsilon. Newly constructed child vertices choose adjacent Float32 values satisfying already-proven outside halfplanes where representable; report coordinate error, unresolved sub-ULP vertices, collapsed serialized triangles and remaining owned boundary area separately. These numerical reports are not a physical-clearance exemption or full-size visual acceptance. Source IDs/edge IDs accompany live cap ownership; historical material-attributed captures retain their limited source scope.
 
+### Visible knots open by bounded reversing · 2026-11-10 (owner reports 6-9, 18, 37-39, 67: in progress)
+
+Measured on Grozavesti at High in a 15 simulated-minute run (311 vehicles, 560 pedestrians, real CPU in headless Chromium):
+`traffic.update` costs about 15-25 ms per step (`stepVehicle` about 8 ms, `peds.update` about 7 ms; the profile is flat,
+led by the spatial-grid query at about 1.6 ms). It did not grow over the 15 minutes. After those minutes 92 vehicles were
+stopped, 61 of them by the overlap guard, including a twelve-car queue on Soseaua Orhideelor that had stood for 95-158 s
+behind three cars at node 210, and 111 pedestrians stood in piles (up to 18 people within 1.5 m of one person).
+
+Cause of that frozen queue: two southbound cars had their noses at the side of a crossing car (a 4.7 cm contact and a 7 cm
+gap, both under the guard's 5 cm overlap threshold). Each car's small step worsened a contact and was refused every frame,
+and the refusal left the guard before its only back-off, so nothing could ever move; a queue in the player's view is never
+relocated, so it stayed. Where a contact did reach the back-off, the path-order rule named the struck car as the follower
+and slid it along the noses, which keeps the same contact.
+
+The guard keeps every existing rule: no penetration, no teleport or swap in view, no weakened pedestrian or signal checks.
+A refused step now arms the same bounded recovery as an established overlap. The recovery opens a contact to a real 0.3 m
+gap (signed SAT clearance over all axes), reversing at most 0.8 m/s through the existing `separateVehicleStep` checks against
+other vehicles, the player and pedestrians. In a crossing contact the car whose nose is in the other's side is the one that
+reverses. Converging noses at a merge corner have no follower: one car, chosen once (and kept), yields at 1.2 m and holds
+until the other has pulled clear or 4 s pass. Ordinary queues are unchanged.
+
+Controls: `node game/dev/vehicle-knot-recovery.test.mjs` replays the recorded node-210 poses through the production grid and
+guard (it fails on the previous guard: the contact stays at 0.049 m) and checks the bounded step, the struck car moving on
+and an unchanged ordinary queue; `vehicle-cell-boundary.test.mjs` now allows only that bounded back-off after its rollback.
+Still open: the pedestrian piles, whole-population CPU (no optimisation has been made yet), a fresh full-length evolved run
+on the final guard, complete journeys, and the Basarab drive that stalls in the integration owner's candidate.
+
 ### Reviewed finite source bridge descents
 
 `compileSourceBridgeDescents(data, { coreEdges, lanePolygon, padLanePolygon })` is a pure, registry-driven association. It retains literal source geometry, direction and tags; it requires the reviewed incoming/outgoing at-grade source joins and complete source-node metric coverage. Numeric elevations or inclines, changed context, missing native joins or infeasible grades return an explicit unresolved report. A MODEL ground datum is not a surveyed elevation.

@@ -32,7 +32,15 @@ assert.equal(Math.floor(native.vehicles[1].x/16),4);
 let missed=true;native.grid.query(native.vehicles[0].x,native.vehicles[0].z,12,v=>{if(v.id===609)missed=false;});
 assert.equal(missed,true,'the actual old-position hash reproduces the missed native cell-boundary query');
 native.overlapGuard();
-assert.equal(native.vehicles[0].x,fixture.guard.beforeGuard.actors[0]._x0,'the worsening 593 proposal is now rolled back');
+// The worsening proposal is rolled back. The restored pose is itself an established contact, so the same guard
+// pass may then back that car off along its own axis by at most 0.8 m/s: never forward, never past the proposal.
+{
+    const v=native.vehicles[0],o=native.vehicles[1],start=fixture.guard.beforeGuard.actors[0],proposed=fixture.guard.beforeGuard.actors[0];
+    const moved=Math.hypot(v.x-start._x0,v.z-start._z0),restored=obbPen({...vObb(v),x:start._x0,z:start._z0},vObb(o));
+    assert.ok(moved<=.8*fixture.dt+1e-9,'the worsening 593 proposal is rolled back (only a bounded back-off may follow)');
+    assert.ok(Math.hypot(v.x-proposed.x,v.z-proposed.z)>1e-6,'the proposed worsening pose is not kept');
+    assert.ok(penetration(native)<=restored+1e-9,'a back-off after the rollback never deepens the restored contact');
+}
 assert.ok(penetration(native)<initial,'the native pair does not accumulate the unchecked worsening step');
 assert.deepEqual(native.vehicles.map(v=>v.id),[593,609]);
 

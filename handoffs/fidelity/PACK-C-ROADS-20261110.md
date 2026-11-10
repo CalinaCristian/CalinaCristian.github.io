@@ -1,5 +1,7 @@
 # Pack C — active Codex implementation
 
+**Latest checkpoint:** report54is verified live on9d681f45. Romană trial2accf08c did NOTfix the original wedge/stop-bar view; full-size picture inspected and rejection recorded in `crossing-2accf08c/review.json`. Its browser closed normally with0pageerrors; no heavy browser is running. Trial retained on fidelity/source-crossing-paint-20261110; releaseWTrestored clean to accepted9d681f45. Continue diagnosing report47and the other Codex C–Nitems.
+
 **Delivered:** runtime57eec0dd is live through master9d681f45, releasegame-61b37c69fe8629e8/sourceef048080. Pages42918751922succeeded and301live-file checks pass. Report54closed. NativeHighpost-frame215calls/335837tri passes this view only. Both original visual runs completed6/6with identical43findings and no new issues; desktop1440/phone390overview image decode/hash/layout checks pass. All those browsers closed. Public evidence: https://cristiancalina.com/game/overview/#road-guard-fix . Historical pending-gate text below is superseded.
 
 Next local source2accf08c tests source-crossing flags for report47; not published or accepted. SparseWTnow2acc; original native inspector206317/pack-c-crossing.in is active with a normal close queued.

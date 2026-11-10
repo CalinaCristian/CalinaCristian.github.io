@@ -1,0 +1,941 @@
+{
+  "scope": "Report54 Otopeni ground-road guard rendering. Report53 driver camera, other road defects and full journeys remain unaccepted.",
+  "runtime": "57eec0dd957e009f6d67630ea2a63fdf0abbcef0",
+  "geometry": {
+    "source": "57eec0dd957e009f6d67630ea2a63fdf0abbcef0",
+    "edgesIdentical": true,
+    "ribbonsIdentical": true,
+    "collisionWallsIdentical": true,
+    "baselineWalls": 23,
+    "candidateWalls": 23,
+    "renderedGuards": 9,
+    "scope": "All source edges/ribbons and physical wall records within350m of the reported Otopeni view. Only new render-ownership metadata is excluded from collision equality."
+  },
+  "captures": [
+    {
+      "file": "before.png",
+      "source": "54a45f6c3224d1da96f6d24457e719e4cd47f7c5",
+      "capturedAt": "2026-11-10T22:44:01.340Z",
+      "sha256": "399b14db8205c3e9264801ee0028f3a53b188a829e501922544f567d0ff322b2",
+      "inspectionAtSetup": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-10T22:43:52.367Z",
+        "release": "game-67d8f5c949266563",
+        "source": "b8e2b35ac607bea599a64828ff808c61a332dc1c",
+        "city": "bucharest",
+        "district": "otopeni",
+        "visit": null,
+        "scene": "otopeni",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 44.5596095,
+          "lon": 26.0694155
+        },
+        "position": {
+          "x": -601.534,
+          "y": 31.58,
+          "z": 599.058
+        },
+        "camera": {
+          "eye": [
+            -601.534,
+            31.58,
+            599.058
+          ],
+          "bearing": 0.029,
+          "pitch": -39.897,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T10:30:52.366Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 487,
+          "triangles": 649702,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 5.36,
+          "vehicles": 144,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:39413/game/?inspect=1"
+      },
+      "note": "Explicit native frames at owner camera. Inspection records setup; capture follows two further native frames. No continuous driving or hardware performance claim."
+    },
+    {
+      "file": "after.png",
+      "source": "57eec0dd957e009f6d67630ea2a63fdf0abbcef0",
+      "capturedAt": "2026-11-10T22:45:41.005Z",
+      "sha256": "984e23c2733962808c80bdc4729ff47b61429c0366240f2d5eddd16f9aff8e32",
+      "inspectionAtSetup": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-10T22:45:34.923Z",
+        "release": "game-67d8f5c949266563",
+        "source": "b8e2b35ac607bea599a64828ff808c61a332dc1c",
+        "city": "bucharest",
+        "district": "otopeni",
+        "visit": null,
+        "scene": "otopeni",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 44.5596095,
+          "lon": 26.0694155
+        },
+        "position": {
+          "x": -601.534,
+          "y": 31.58,
+          "z": 599.058
+        },
+        "camera": {
+          "eye": [
+            -601.534,
+            31.58,
+            599.058
+          ],
+          "bearing": 0.029,
+          "pitch": -39.897,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T10:30:34.923Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 310,
+          "triangles": 347610,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 8.17,
+          "vehicles": 144,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:39461/game/?inspect=1"
+      },
+      "note": "Explicit native frames at owner camera. Inspection records setup; capture follows two further native frames. No continuous driving or hardware performance claim."
+    }
+  ],
+  "logic": {
+    "source": "57eec0dd957e009f6d67630ea2a63fdf0abbcef0",
+    "scenarios": [
+      "foot",
+      "a"
+    ],
+    "high": 0,
+    "medium": 0,
+    "low": 1,
+    "lowScope": "Software GL frame rate informational finding; not hardware performance."
+  },
+  "constructors": {
+    "source": "57eec0dd957e009f6d67630ea2a63fdf0abbcef0",
+    "scope": "Eight production World constructors using immutable source on port8137; Canvas2D, source-floor apertures and finite non-bridge ground-guard segments only, no renderer/traffic/route/FPS acceptance.",
+    "started": "2026-11-10T22:47:22.219Z",
+    "districts": [
+      {
+        "city": "bucharest",
+        "district": "grozavesti",
+        "elapsedMs": 19784.20000000298,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 229433,
+          "apertures": 2363,
+          "byKind": {
+            "final-water": 1542,
+            "road-floor": 821
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 6971,
+          "leaves": 3486,
+          "triangles": 13512
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 4111,
+        "roadGuards": 0,
+        "invalidGuards": 0,
+        "coarseOwnership": [],
+        "builtLandmarks": [
+          "cathedral",
+          "politehnica"
+        ]
+      },
+      {
+        "city": "bucharest",
+        "district": "unirii",
+        "elapsedMs": 27741.60000000894,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 224957,
+          "apertures": 60190,
+          "byKind": {
+            "road-floor": 393,
+            "final-water": 59797
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 6223,
+          "leaves": 3112,
+          "triangles": 42167
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 7072,
+        "roadGuards": 0,
+        "invalidGuards": 0,
+        "coarseOwnership": [],
+        "builtLandmarks": [
+          "parliament",
+          "cathedral",
+          "unirea",
+          "fountains",
+          "gts",
+          "halatraian"
+        ]
+      },
+      {
+        "city": "bucharest",
+        "district": "romana",
+        "elapsedMs": 16522.39999999106,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 176855,
+          "apertures": 3511,
+          "byKind": {
+            "tram-floor": 1042,
+            "road-floor": 2313,
+            "final-water": 156
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 7067,
+          "leaves": 3534,
+          "triangles": 19752
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 5682,
+        "roadGuards": 0,
+        "invalidGuards": 0,
+        "coarseOwnership": [],
+        "builtLandmarks": [
+          "tnb",
+          "ateneu",
+          "regal",
+          "victoria",
+          "skytower",
+          "ase",
+          "ambasador",
+          "thelandmark",
+          "europehouse"
+        ]
+      },
+      {
+        "city": "bucharest",
+        "district": "floreasca",
+        "elapsedMs": 6478.29999999702,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 188742,
+          "apertures": 156,
+          "byKind": {
+            "final-water": 156
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 7033,
+          "leaves": 3517,
+          "triangles": 9857
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 3366,
+        "roadGuards": 0,
+        "invalidGuards": 0,
+        "coarseOwnership": [
+          {
+            "index": 3186,
+            "landmark": "skytower",
+            "sourceIds": [
+              "w219622660"
+            ],
+            "tuple": [
+              745,
+              -15068,
+              403,
+              317,
+              1370,
+              104
+            ]
+          }
+        ],
+        "builtLandmarks": [
+          "skytower",
+          "dinamo",
+          "rosetti",
+          "globalworth"
+        ]
+      },
+      {
+        "city": "bucharest",
+        "district": "pipera",
+        "elapsedMs": 6256.199999988079,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 249525,
+          "apertures": 1467,
+          "byKind": {
+            "road-floor": 1467
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 73,
+          "leaves": 37,
+          "triangles": 3387
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 2283,
+        "roadGuards": 4,
+        "invalidGuards": 0,
+        "coarseOwnership": [],
+        "builtLandmarks": [
+          "skytower",
+          "promenada",
+          "hermes",
+          "bob",
+          "globalworth"
+        ]
+      },
+      {
+        "city": "bucharest",
+        "district": "otopeni",
+        "elapsedMs": 4459.29999999702,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 75137,
+          "apertures": 1375,
+          "byKind": {
+            "road-floor": 1375
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 67,
+          "leaves": 34,
+          "triangles": 2451
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 1208,
+        "roadGuards": 36,
+        "invalidGuards": 0,
+        "coarseOwnership": [],
+        "builtLandmarks": [
+          "otp"
+        ]
+      },
+      {
+        "city": "seattle",
+        "district": "seatac",
+        "elapsedMs": 13736.5,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 320275,
+          "apertures": 3334,
+          "byKind": {
+            "road-floor": 3334
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 221,
+          "leaves": 111,
+          "triangles": 8890
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 1858,
+        "roadGuards": 188,
+        "invalidGuards": 0,
+        "coarseOwnership": [],
+        "builtLandmarks": [
+          "seatac",
+          "seatower",
+          "seagarage",
+          "sealink"
+        ]
+      },
+      {
+        "city": "seattle",
+        "district": "bellevue",
+        "elapsedMs": 11459.09999999404,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 124202,
+          "apertures": 636,
+          "byKind": {
+            "road-floor": 636
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 83,
+          "leaves": 42,
+          "triangles": 1521
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 1197,
+        "roadGuards": 14,
+        "invalidGuards": 0,
+        "coarseOwnership": [],
+        "builtLandmarks": [
+          "lincoln",
+          "onelincoln",
+          "lincolnsouth",
+          "plazacenter",
+          "sonic",
+          "bellevue600",
+          "bellevuetowers",
+          "bellevuesq"
+        ]
+      }
+    ],
+    "errors": [],
+    "passed": true,
+    "finished": "2026-11-10T22:49:15.173Z"
+  },
+  "visualReview": "Original before and after images inspected at full size: stray sheets in the traffic lanes are removed; surviving roadside guards remain. Other reported road and building defects remain open.",
+  "visualHarness": {
+    "baseline": "54a45f6c3224d1da96f6d24457e719e4cd47f7c5",
+    "candidate": "57eec0dd957e009f6d67630ea2a63fdf0abbcef0",
+    "issuesIdentical": true,
+    "baselineCoverage": {
+      "complete": true,
+      "status": "complete",
+      "requiredSamples": 6,
+      "capturedSamples": 6,
+      "missingSamples": 0,
+      "errors": [],
+      "routes": [
+        {
+          "city": "bucharest",
+          "group": "bucharest-otopeni",
+          "route": "otopeni",
+          "required": 2,
+          "captured": 2,
+          "missing": 0,
+          "missingIndices": []
+        },
+        {
+          "city": "bucharest",
+          "group": "bucharest-otopeni",
+          "route": "sweep-drumul-g-rii-od-ii",
+          "required": 1,
+          "captured": 1,
+          "missing": 0,
+          "missingIndices": []
+        },
+        {
+          "city": "bucharest",
+          "group": "bucharest-otopeni",
+          "route": "sweep-drumul-g-rii-od-ii-run-2",
+          "required": 1,
+          "captured": 1,
+          "missing": 0,
+          "missingIndices": []
+        },
+        {
+          "city": "bucharest",
+          "group": "bucharest-otopeni",
+          "route": "sweep-drumul-g-rii-od-ii-run-3",
+          "required": 1,
+          "captured": 1,
+          "missing": 0,
+          "missingIndices": []
+        },
+        {
+          "city": "bucharest",
+          "group": "bucharest-otopeni",
+          "route": "sweep-drumul-g-rii-od-ii-run-4",
+          "required": 1,
+          "captured": 1,
+          "missing": 0,
+          "missingIndices": []
+        }
+      ]
+    },
+    "candidateCoverage": {
+      "complete": true,
+      "status": "complete",
+      "requiredSamples": 6,
+      "capturedSamples": 6,
+      "missingSamples": 0,
+      "errors": [],
+      "routes": [
+        {
+          "city": "bucharest",
+          "group": "bucharest-otopeni",
+          "route": "otopeni",
+          "required": 2,
+          "captured": 2,
+          "missing": 0,
+          "missingIndices": []
+        },
+        {
+          "city": "bucharest",
+          "group": "bucharest-otopeni",
+          "route": "sweep-drumul-g-rii-od-ii",
+          "required": 1,
+          "captured": 1,
+          "missing": 0,
+          "missingIndices": []
+        },
+        {
+          "city": "bucharest",
+          "group": "bucharest-otopeni",
+          "route": "sweep-drumul-g-rii-od-ii-run-2",
+          "required": 1,
+          "captured": 1,
+          "missing": 0,
+          "missingIndices": []
+        },
+        {
+          "city": "bucharest",
+          "group": "bucharest-otopeni",
+          "route": "sweep-drumul-g-rii-od-ii-run-3",
+          "required": 1,
+          "captured": 1,
+          "missing": 0,
+          "missingIndices": []
+        },
+        {
+          "city": "bucharest",
+          "group": "bucharest-otopeni",
+          "route": "sweep-drumul-g-rii-od-ii-run-4",
+          "required": 1,
+          "captured": 1,
+          "missing": 0,
+          "missingIndices": []
+        }
+      ]
+    },
+    "rawFindingCount": 43,
+    "note": "Both original visual harnesses exit1 with the same43pre-existing findings (1high/2medium/40low); zero new findings and complete6/6capture coverage. Not full district acceptance.",
+    "performance": {
+      "baseline": [
+        {
+          "route": "otopeni",
+          "perf": {
+            "start": {
+              "idx": 0,
+              "s": 2,
+              "street": "DN1 \u2014 Calea Bucure\u0219tilor",
+              "x": -616,
+              "z": 996.3,
+              "calls": 241,
+              "tris": 572708,
+              "quality": "medium"
+            },
+            "worstCalls": {
+              "idx": 1,
+              "s": 42,
+              "street": "DN1 \u2014 Calea Bucure\u0219tilor",
+              "x": -614.7,
+              "z": 956.3,
+              "calls": 242,
+              "tris": 566567,
+              "quality": "medium"
+            },
+            "worstTris": {
+              "idx": 0,
+              "s": 2,
+              "street": "DN1 \u2014 Calea Bucure\u0219tilor",
+              "x": -616,
+              "z": 996.3,
+              "calls": 241,
+              "tris": 572708,
+              "quality": "medium"
+            },
+            "startT": null,
+            "worstCallsT": null,
+            "worstTrisT": null
+          }
+        },
+        {
+          "route": "sweep-drumul-g-rii-od-ii",
+          "perf": {
+            "start": {
+              "idx": 2,
+              "s": 42,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -616.7,
+              "z": -285.8,
+              "calls": 161,
+              "tris": 278106,
+              "quality": "medium"
+            },
+            "worstCalls": {
+              "idx": 2,
+              "s": 42,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -616.7,
+              "z": -285.8,
+              "calls": 161,
+              "tris": 278106,
+              "quality": "medium"
+            },
+            "worstTris": {
+              "idx": 2,
+              "s": 42,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -616.7,
+              "z": -285.8,
+              "calls": 161,
+              "tris": 278106,
+              "quality": "medium"
+            },
+            "startT": null,
+            "worstCallsT": null,
+            "worstTrisT": null
+          }
+        },
+        {
+          "route": "sweep-drumul-g-rii-od-ii-run-2",
+          "perf": {
+            "start": {
+              "idx": 3,
+              "s": 14,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -686.3,
+              "z": -262.3,
+              "calls": 190,
+              "tris": 388367,
+              "quality": "medium"
+            },
+            "worstCalls": {
+              "idx": 3,
+              "s": 14,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -686.3,
+              "z": -262.3,
+              "calls": 190,
+              "tris": 388367,
+              "quality": "medium"
+            },
+            "worstTris": {
+              "idx": 3,
+              "s": 14,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -686.3,
+              "z": -262.3,
+              "calls": 190,
+              "tris": 388367,
+              "quality": "medium"
+            },
+            "startT": null,
+            "worstCallsT": null,
+            "worstTrisT": null
+          }
+        },
+        {
+          "route": "sweep-drumul-g-rii-od-ii-run-3",
+          "perf": {
+            "start": {
+              "idx": 4,
+              "s": 40,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -634.1,
+              "z": -277.2,
+              "calls": 194,
+              "tris": 390336,
+              "quality": "medium"
+            },
+            "worstCalls": {
+              "idx": 4,
+              "s": 40,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -634.1,
+              "z": -277.2,
+              "calls": 194,
+              "tris": 390336,
+              "quality": "medium"
+            },
+            "worstTris": {
+              "idx": 4,
+              "s": 40,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -634.1,
+              "z": -277.2,
+              "calls": 194,
+              "tris": 390336,
+              "quality": "medium"
+            },
+            "startT": null,
+            "worstCallsT": null,
+            "worstTrisT": null
+          }
+        },
+        {
+          "route": "sweep-drumul-g-rii-od-ii-run-4",
+          "perf": {
+            "start": {
+              "idx": 5,
+              "s": 8,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -587.3,
+              "z": -290.5,
+              "calls": 187,
+              "tris": 360373,
+              "quality": "medium"
+            },
+            "worstCalls": {
+              "idx": 5,
+              "s": 8,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -587.3,
+              "z": -290.5,
+              "calls": 187,
+              "tris": 360373,
+              "quality": "medium"
+            },
+            "worstTris": {
+              "idx": 5,
+              "s": 8,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -587.3,
+              "z": -290.5,
+              "calls": 187,
+              "tris": 360373,
+              "quality": "medium"
+            },
+            "startT": null,
+            "worstCallsT": null,
+            "worstTrisT": null
+          }
+        }
+      ],
+      "candidate": [
+        {
+          "route": "otopeni",
+          "perf": {
+            "start": {
+              "idx": 0,
+              "s": 2,
+              "street": "DN1 \u2014 Calea Bucure\u0219tilor",
+              "x": -616,
+              "z": 996.3,
+              "calls": 241,
+              "tris": 573058,
+              "quality": "medium"
+            },
+            "worstCalls": {
+              "idx": 1,
+              "s": 42,
+              "street": "DN1 \u2014 Calea Bucure\u0219tilor",
+              "x": -614.7,
+              "z": 956.3,
+              "calls": 242,
+              "tris": 566979,
+              "quality": "medium"
+            },
+            "worstTris": {
+              "idx": 0,
+              "s": 2,
+              "street": "DN1 \u2014 Calea Bucure\u0219tilor",
+              "x": -616,
+              "z": 996.3,
+              "calls": 241,
+              "tris": 573058,
+              "quality": "medium"
+            },
+            "startT": null,
+            "worstCallsT": null,
+            "worstTrisT": null
+          }
+        },
+        {
+          "route": "sweep-drumul-g-rii-od-ii",
+          "perf": {
+            "start": {
+              "idx": 2,
+              "s": 42,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -616.7,
+              "z": -285.8,
+              "calls": 161,
+              "tris": 278430,
+              "quality": "medium"
+            },
+            "worstCalls": {
+              "idx": 2,
+              "s": 42,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -616.7,
+              "z": -285.8,
+              "calls": 161,
+              "tris": 278430,
+              "quality": "medium"
+            },
+            "worstTris": {
+              "idx": 2,
+              "s": 42,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -616.7,
+              "z": -285.8,
+              "calls": 161,
+              "tris": 278430,
+              "quality": "medium"
+            },
+            "startT": null,
+            "worstCallsT": null,
+            "worstTrisT": null
+          }
+        },
+        {
+          "route": "sweep-drumul-g-rii-od-ii-run-2",
+          "perf": {
+            "start": {
+              "idx": 3,
+              "s": 14,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -686.3,
+              "z": -262.3,
+              "calls": 190,
+              "tris": 388691,
+              "quality": "medium"
+            },
+            "worstCalls": {
+              "idx": 3,
+              "s": 14,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -686.3,
+              "z": -262.3,
+              "calls": 190,
+              "tris": 388691,
+              "quality": "medium"
+            },
+            "worstTris": {
+              "idx": 3,
+              "s": 14,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -686.3,
+              "z": -262.3,
+              "calls": 190,
+              "tris": 388691,
+              "quality": "medium"
+            },
+            "startT": null,
+            "worstCallsT": null,
+            "worstTrisT": null
+          }
+        },
+        {
+          "route": "sweep-drumul-g-rii-od-ii-run-3",
+          "perf": {
+            "start": {
+              "idx": 4,
+              "s": 40,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -634.1,
+              "z": -277.2,
+              "calls": 194,
+              "tris": 390660,
+              "quality": "medium"
+            },
+            "worstCalls": {
+              "idx": 4,
+              "s": 40,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -634.1,
+              "z": -277.2,
+              "calls": 194,
+              "tris": 390660,
+              "quality": "medium"
+            },
+            "worstTris": {
+              "idx": 4,
+              "s": 40,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -634.1,
+              "z": -277.2,
+              "calls": 194,
+              "tris": 390660,
+              "quality": "medium"
+            },
+            "startT": null,
+            "worstCallsT": null,
+            "worstTrisT": null
+          }
+        },
+        {
+          "route": "sweep-drumul-g-rii-od-ii-run-4",
+          "perf": {
+            "start": {
+              "idx": 5,
+              "s": 8,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -587.3,
+              "z": -290.5,
+              "calls": 187,
+              "tris": 360697,
+              "quality": "medium"
+            },
+            "worstCalls": {
+              "idx": 5,
+              "s": 8,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -587.3,
+              "z": -290.5,
+              "calls": 187,
+              "tris": 360697,
+              "quality": "medium"
+            },
+            "worstTris": {
+              "idx": 5,
+              "s": 8,
+              "street": "Drumul G\u0103rii Od\u0103ii",
+              "x": -587.3,
+              "z": -290.5,
+              "calls": 187,
+              "tris": 360697,
+              "quality": "medium"
+            },
+            "startT": null,
+            "worstCallsT": null,
+            "worstTrisT": null
+          }
+        }
+      ]
+    },
+    "qualityScope": "Medium quality, as recorded by the original default harness. Native High check is separate."
+  }
+}

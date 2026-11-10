@@ -81,7 +81,7 @@ group('buc.crash.witness',{locale:'bucharest',...witness},[
  ['Aici merită o pauză de la comentarii.','This is a good moment to pause the commentary.'],
  ['Puțin spațiu ajută mai mult decât zece păreri.','A little space helps more than ten opinions.'],
 ]);
-group('buc.crash.bobita',{locale:'bucharest',kinds:['collision'],roles:['driver','pedestrian'],relations:['participant','witness'],facts:{contact:true,collisionType:'vehicle',playerCausedContact:true}},[
+group('buc.crash.bobita',{locale:'bucharest',kinds:['collision'],roles:['driver','pedestrian'],relations:['participant','witness'],facts:{contact:true,collisionType:'vehicle'}},[
  ['Ce-ai făcut, Bobiță?','What have you done, Bobiță?'],
 ]);
 group('buc.crash.local',{locale:'bucharest',...vehicle},[

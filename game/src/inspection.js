@@ -5,7 +5,7 @@ const rounded = (v, digits = 3) => Number.isFinite(v) ? +v.toFixed(digits) : nul
 export function inspectionReport(g) {
     const spot = g.state === 'spot' ? g.spot?.spot : null, drone = g.explore?.drone;
     const camera = g.camera, eye = camera?.getWorldPosition(camera.position.clone()), direction = camera?.getWorldDirection(camera.position.clone());
-    const actor = drone?.active ? drone.pos : spot ? g.spot.ctl : g.state === 'foot' ? g.foot : g.player;
+    const actor = drone?.active ? eye : spot ? g.spot.ctl : g.state === 'foot' ? g.foot : g.player;
     const position = actor ? {x:rounded(actor.x),y:rounded(actor.y),z:rounded(actor.z)} : null;
     let geographic = null;
     if (position && spot) {

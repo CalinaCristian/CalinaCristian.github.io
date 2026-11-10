@@ -1302,7 +1302,7 @@ class Game {
         this.traffic.emitDialogueEvent(dialogueEvent,{participant:v});return dialogueEvent;
     }
     onCollide(strength, what, v) {
-        const dialogueEvent=this.traffic?.dialogueEvent('collision',this.player,{target:what==='vehicle'||what==='pedestrian'?v:null,targetRole:what==='pedestrian'?'pedestrian':'driver',facts:{contact:true,collisionType:what==='vehicle'?'vehicle':what==='pedestrian'?'pedestrian':'static',playerCausedContact:true}});
+        const dialogueEvent=this.traffic?.dialogueEvent('collision',this.player,{target:what==='vehicle'||what==='pedestrian'?v:null,targetRole:what==='pedestrian'?'pedestrian':'driver',facts:{contact:true,collisionType:what==='vehicle'?'vehicle':what==='pedestrian'?'pedestrian':'static'}});
         if (what === 'pedestrian') {
             this.audio.crash(0.35);
             this.stats.peds++;

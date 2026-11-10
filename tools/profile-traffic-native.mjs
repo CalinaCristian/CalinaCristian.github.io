@@ -46,7 +46,7 @@ function reduce(profile){
  return{sampledElapsedUs:elapsedUs,samples:profile.samples?.length||0,topGameSelf:[...rows.values()].sort((a,b)=>b.selfUs-a.selfUs).slice(0,35),topTrafficInclusive:[...rows.values()].filter(r=>r.file==='traffic.js').sort((a,b)=>b.inclusiveUs-a.inclusiveUs).slice(0,25)};
 }
 try{
- await page.goto(`http://127.0.0.1:${server.address().port}/game/`,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.game?.r3d);
+ await page.goto(`http://127.0.0.1:${server.address().port}/game/`,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>!!window.game?.r3d,null,{polling:100});
  await page.selectOption('#quality','high');
  await page.evaluate(async()=>{game.audio?.setMuted?.(true);const ok=await game.startFreeRoam('grozavesti',{tod:'noon',weather:'clear',season:'summer'});if(ok===false||game.state!=='drive')throw Error('Public district entry failed');});
  if(!component)await page.keyboard.down('Space');

@@ -2,7 +2,7 @@ import * as THREE from '../../vendor/three.module.min.js';
 import {terrainDistanceScale} from './source-terrain-projection.js';
 
 /** Every original triangle belongs to one chunk; bounds use its actual vertices. */
-export function terrainIndexChunks(positions,index,{chunkM=8000,eyeBoundM=1000}={}){
+export function terrainIndexChunks(positions,index,{chunkM=1000,eyeBoundM=1000}={}){
     const chunks=new Map(),point=new THREE.Vector3();
     for(let i=0;i<index.length;i+=3){
         const ids=[index[i],index[i+1],index[i+2]],x=ids.reduce((s,k)=>s+positions[k*3]/3,0),z=ids.reduce((s,k)=>s+positions[k*3+2]/3,0),key=Math.floor(x/chunkM)+','+Math.floor(z/chunkM);
@@ -20,11 +20,14 @@ export function terrainIndexChunks(positions,index,{chunkM=8000,eyeBoundM=1000}=
 }
 
 /** Positive per-vertex ray scaling preserves angular clip planes; omit far only. */
-export function selectTerrainIndices(chunks,sourceViewProjection,output){
-    const frustum=new THREE.Frustum().setFromProjectionMatrix(sourceViewProjection),planes=[...frustum.planes.slice(0,4),frustum.planes[5]];let count=0,visibleChunks=0;
+export function selectTerrainIndices(chunks,sourceViewProjection,output,cache=null){
+    const frustum=new THREE.Frustum().setFromProjectionMatrix(sourceViewProjection),planes=[...frustum.planes.slice(0,4),frustum.planes[5]],visibleList=[];let count=0,visibleChunks=0;
     for(const c of chunks){
         const b=c.box,visible=planes.every(p=>p.normal.x*(p.normal.x>0?b.max.x:b.min.x)+p.normal.y*(p.normal.y>0?b.max.y:b.min.y)+p.normal.z*(p.normal.z>0?b.max.z:b.min.z)+p.constant>=0);
-        if(visible){output.set(c.index,count);count+=c.index.length;visibleChunks++;}
+        if(visible){visibleList.push(c);count+=c.index.length;visibleChunks++;}
     }
-    return{count,triangles:count/3,visibleChunks,totalChunks:chunks.length};
+    const unchanged=cache?.output===output&&cache.visible?.length===visibleList.length&&visibleList.every((c,i)=>cache.visible[i]===c);
+    if(!unchanged){let offset=0;for(const c of visibleList){output.set(c.index,offset);offset+=c.index.length;}}
+    if(cache){cache.output=output;cache.visible=visibleList;}
+    return{count,triangles:count/3,visibleChunks,totalChunks:chunks.length,...(cache?{changed:!unchanged}:{})};
 }

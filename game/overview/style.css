@@ -17,6 +17,10 @@
 .batch-captures img{display:block;width:100%;height:auto;background:var(--dark)}
 .batch-captures figcaption{padding:.7rem 0;line-height:1.5}
 .batch-evidence code{overflow-wrap:anywhere}
+.landmark-ranges{display:flex;flex-wrap:wrap;gap:.45rem;margin:.75rem 0}
+.range-chip{display:inline-block;padding:.3rem .6rem;border:1px solid var(--line);border-radius:999px;background:#eceee8;font-size:.85rem;line-height:1.5}
+.range-chip small{font-size:inherit;color:var(--muted)}
+.range-close{background:#e0f2e8;border-color:#a6cfb8}.range-nearby{background:#e2eef5;border-color:#acc6d8}.range-distant{background:#eeece5;border-color:#cbc5b8}
 @media(max-width:680px){.batch-captures{grid-template-columns:1fr}}
 * {
   box-sizing:border-box

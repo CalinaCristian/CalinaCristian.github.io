@@ -67,7 +67,7 @@ export function addRegionalTerrain(ctx){
         if(b.key==='shore')material.side=THREE.DoubleSide;
         if(b.key!=='water')(ctx.extras.sourceGroundMaterials??=[]).push(material);
         const mesh=new THREE.Mesh(g,material);mesh.name='regional-source:'+b.key;mesh.castShadow=false;mesh.receiveShadow=false;mesh.frustumCulled=false;mesh.userData.noFloor=true;
-        const chunks=terrainIndexChunks(raw,b.index,{eyeBoundM:c.eyeHorizontalBoundM});meshes.push({mesh,chunks,output});group.add(mesh);
+        const chunks=terrainIndexChunks(raw,b.index,{eyeBoundM:c.eyeHorizontalBoundM});meshes.push({mesh,chunks,output,selectionCache:{}});group.add(mesh);
     }
     group.userData.sourceProjection={cameraFarM:far,basis:'Retained USGS/NHD source; WGS84 ENU outside the exact native local boundary, then continuous distance compression about the actual eye',sourceDataSHA256:c.sourceDataSHA256,projectionPolicy:c.projectionPolicy,renderOnly:true};
     ctx.env.cameraFarM=Math.max(ctx.env.cameraFarM||0,far);ctx.env.backdropFarM=Math.max(ctx.env.backdropFarM||0,far);
@@ -85,7 +85,8 @@ export function addRegionalTerrain(ctx){
         for(const item of meshes){
             const m=item.mesh;m.updateWorldMatrix(true,false);localEye.copy(eye);m.worldToLocal(localEye);m.morphTargetInfluences.splice(0,3,localEye.x,localEye.y,localEye.z);
             vp.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse).multiply(m.matrixWorld);
-            const selected=selectTerrainIndices(item.chunks,vp,item.output);m.geometry.index.needsUpdate=true;m.geometry.setDrawRange(0,selected.count);
+            const selected=selectTerrainIndices(item.chunks,vp,item.output,item.selectionCache);
+            if(selected.changed){m.geometry.index.needsUpdate=true;m.geometry.setDrawRange(0,selected.count);}
             s.submittedTriangles+=selected.triangles;s.visibleChunks+=selected.visibleChunks;
         }
         return result;

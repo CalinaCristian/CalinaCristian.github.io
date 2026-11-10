@@ -82,3 +82,9 @@ Do not declare the goal complete merely because every scene loads, geometry coun
 - Existing source-grade/domain/skin lanes finish their concrete shared fixes before taking individual remaining visit rebuilds; root coordinates disjoint file ownership and native browser slots.
 
 Live preview master remains `24ceb55e546862babe36af849613cff221bb357e` until a new tested publication. Staging candidates are not live and are not accepted by association with earlier scoped checks. Original district/source/physics defects in [PLAYTEST-20261109.md](PLAYTEST-20261109.md) remain tracked alongside this primary tourist rebuild.
+
+## Added owner scope · 9 November 2026, Pacific time
+
+Every landmark selector and detail view needs a clear intended-range label: close range, nearby scenery or distant backdrop, with its district/visit context. Distance is separate from unfinished model fidelity. Audit all61catalogue entities against all8districts’ actual allowed flight/playable geometry and render policy; add omitted models that can appear in drone views, retain source geometry, and verify actual construction and submitted frame costs. Camera direction, occlusion and weather remain separate from potential visibility. Physical horizons beyond the existing5km ordinary camera limit remain explicit coverage gaps.
+
+Remove the standalone Carusel gallery from the general tourist overview flow. Its dated walkthrough belongs inside the selected Old Town visit details. Keep dated road/office diagnostics inside development details rather than above the visit inspector. Preserve capture sources/dates; render user-facing dates in America/Los_Angeles.

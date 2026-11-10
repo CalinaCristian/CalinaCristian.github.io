@@ -14,17 +14,17 @@
   "scenes": {
     "seattle-center": {
       "path": "seattle-regional-seattle-center.bin.gz",
-      "bytes": 22819279,
-      "sha256": "8710b5593912abc1ec904344f3d47bd96a873241e11dd19ed1c23abb048986cd",
+      "bytes": 22819332,
+      "sha256": "da21895e63ab0e64f8a02b301200a9704b331d61f99ac7815f2bf8c448639cde",
       "uncompressedBytes": 63663924,
-      "uncompressedSHA256": "d67ca4439513935ce4ebb1562f7e52155077c3fffec12b94cd4af8bfa6fc9eb1"
+      "uncompressedSHA256": "4caf5f52bbcd18df7efa5224bead95e88c70ee190b419f1afcc8db206410c2cd"
     },
     "pike-place": {
       "path": "seattle-regional-pike-place.bin.gz",
-      "bytes": 22753405,
-      "sha256": "83e1aacfbdc74e3bc549d416041148b733554c8c24d402d835544760e81cab53",
+      "bytes": 22753355,
+      "sha256": "906396f4bdb9809a3169d92975c1f043db41a69476a229f3b68569657998da00",
       "uncompressedBytes": 63525872,
-      "uncompressedSHA256": "804b6515a7f06750c3b385453c1697f574f4271bf351e11cd9ed3e53b5ab46d3"
+      "uncompressedSHA256": "ebef57ddc89a3ce397f5831b5bd43281b4bcdc965a12bb84d27356b01adfc802"
     }
   },
   "waterModelReport": {

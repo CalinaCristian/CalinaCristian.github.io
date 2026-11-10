@@ -73,8 +73,8 @@ const BUC_DISTRICTS = {
             { r: 130, chapter: 'upb', line: [[44.448553, 26.065443], [44.447432, 26.062617], [44.446923, 26.060540], [44.446793, 26.060264], [44.446586, 26.060205], [44.444227, 26.060704], [44.443543, 26.060555], [44.441596, 26.059892], [44.440701, 26.058795], [44.440322, 26.058441], [44.438050, 26.055450]] },
         ],
         circles: [{ lat: 44.438050, lon: 26.055450, r: 200, name: 'upb door' }, { lat: 44.448490, lon: 26.065400, r: 110, name: 'upb start' }, { lat: 44.438500, lon: 26.051500, r: 120, name: 'upb building' }],
-        landmarks: ['politehnica', 'cathedral'],
-        scenery: ['cathedral'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
+        landmarks: ['politehnica', 'cathedral', 'parliament', 'arcul', 'casapresei', 'grandhotel', 'univ', 'tnb', 'ateneu', 'regal', 'victoria', 'cec', 'mnir', 'marriott', 'unirea', 'fountains', 'skytower', 'promenada', 'romexpo', 'aviatorilor', 'gara', 'opera', 'hermes', 'baneasaterm', 'ase', 'ambasador', 'aro', 'thelandmark', 'europehouse', 'gts', 'dinamo', 'rosetti', 'bob', 'halatraian', 'globalworth'],
+        scenery: ['cathedral', 'parliament', 'arcul', 'casapresei', 'grandhotel', 'univ', 'tnb', 'ateneu', 'regal', 'victoria', 'cec', 'mnir', 'marriott', 'unirea', 'fountains', 'skytower', 'promenada', 'romexpo', 'aviatorilor', 'gara', 'opera', 'hermes', 'baneasaterm', 'ase', 'ambasador', 'aro', 'thelandmark', 'europehouse', 'gts', 'dinamo', 'rosetti', 'bob', 'halatraian', 'globalworth'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
         congestion: [ // from game/research/bucharest-grozavesti.json traffic.hotspots
             { lat: 44.44370, lon: 26.06120, radius: 180, hours: [[7.5,  10],  [16.5,  19.5]], level: 0.65, note: 'Podul Grozăvești / Orhideelor' },
             { lat: 44.43460, lon: 26.05450, radius: 160, hours: [[7.5,  9.5],  [16,  19]], level: 0.60, note: 'Iuliu Maniu × Doina Cornea (Politehnica)' },
@@ -90,8 +90,8 @@ const BUC_DISTRICTS = {
             { r: 130, chapter: 'gts', line: [[44.426927, 26.100981], [44.426111, 26.100920], [44.425907, 26.101701], [44.425784, 26.104054], [44.427032, 26.103996], [44.428195, 26.103841], [44.428610, 26.103876], [44.428684, 26.104054], [44.428791, 26.103988], [44.428978, 26.104592], [44.429683, 26.106264], [44.431118, 26.109333], [44.432334, 26.111620], [44.432857, 26.112458], [44.433274, 26.115953], [44.433300, 26.117620]] },
         ],
         circles: [{ lat: 44.433300, lon: 26.117620, r: 200, name: 'gts door' }, { lat: 44.426766, lon: 26.100968, r: 110, name: 'gts start' }, { lat: 44.433300, lon: 26.117620, r: 120, name: 'gts building' }],
-        landmarks: ['gts', 'unirea', 'fountains', 'halatraian', 'parliament', 'cathedral'],
-        scenery: ['parliament', 'cathedral'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
+        landmarks: ['gts', 'unirea', 'fountains', 'halatraian', 'parliament', 'cathedral', 'arcul', 'grandhotel', 'univ', 'tnb', 'ateneu', 'regal', 'victoria', 'cec', 'mnir', 'marriott', 'skytower', 'promenada', 'aviatorilor', 'gara', 'opera', 'politehnica', 'ase', 'ambasador', 'aro', 'thelandmark', 'europehouse', 'dinamo', 'rosetti', 'bob', 'hermes', 'globalworth'],
+        scenery: ['parliament', 'cathedral', 'arcul', 'grandhotel', 'univ', 'tnb', 'ateneu', 'regal', 'victoria', 'cec', 'mnir', 'marriott', 'skytower', 'promenada', 'aviatorilor', 'gara', 'opera', 'politehnica', 'ase', 'ambasador', 'aro', 'thelandmark', 'europehouse', 'dinamo', 'rosetti', 'bob', 'hermes', 'globalworth'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
         congestion: [ // from game/research/bucharest-unirii.json traffic.hotspots
             { lat: 44.42680, lon: 26.10250, radius: 250, hours: [[7.5,  10],  [16,  19.5]], level: 0.90, note: 'Piața Unirii (all arms, Pasajul Unirii)' },
             { lat: 44.43230, lon: 26.11180, radius: 150, hours: [[8,  10],  [17,  19]], level: 0.60, note: 'Bd. Mircea Vodă × Coposu × Călărașilor' },
@@ -108,8 +108,8 @@ const BUC_DISTRICTS = {
             { r: 130, chapter: 'uipath-buc', line: [[44.456072, 26.083680], [44.453471, 26.085201], [44.452535, 26.085595], [44.451904, 26.086143], [44.451921, 26.087215], [44.452318, 26.090390], [44.451142, 26.090449], [44.451624, 26.094327], [44.449900, 26.094400]] },
         ],
         circles: [{ lat: 44.451180, lon: 26.087950, r: 200, name: 'arnia door' }, { lat: 44.441800, lon: 26.098800, r: 110, name: 'arnia start' }, { lat: 44.451180, lon: 26.087950, r: 120, name: 'arnia building' }, { lat: 44.449900, lon: 26.094400, r: 200, name: 'uipath-buc door' }, { lat: 44.456000, lon: 26.084200, r: 110, name: 'uipath-buc start' }, { lat: 44.449900, lon: 26.094400, r: 120, name: 'uipath-buc building' }],
-        landmarks: ['victoria', 'ase', 'ambasador', 'thelandmark', 'europehouse', 'skytower', 'ateneu', 'regal', 'tnb'],
-        scenery: ['skytower', 'ateneu', 'regal', 'tnb'], // real skyline/600 m ring landmarks; no unreachable marker, label or route
+        landmarks: ['victoria', 'ase', 'ambasador', 'thelandmark', 'europehouse', 'skytower', 'ateneu', 'regal', 'tnb', 'parliament', 'cathedral', 'arcul', 'casapresei', 'grandhotel', 'univ', 'cec', 'mnir', 'marriott', 'unirea', 'fountains', 'promenada', 'romexpo', 'aviatorilor', 'gara', 'opera', 'politehnica', 'hermes', 'baneasaterm', 'aro', 'gts', 'dinamo', 'rosetti', 'bob', 'halatraian', 'globalworth'],
+        scenery: ['skytower', 'ateneu', 'regal', 'tnb', 'parliament', 'cathedral', 'arcul', 'casapresei', 'grandhotel', 'univ', 'cec', 'mnir', 'marriott', 'unirea', 'fountains', 'promenada', 'romexpo', 'aviatorilor', 'gara', 'opera', 'politehnica', 'hermes', 'baneasaterm', 'aro', 'gts', 'dinamo', 'rosetti', 'bob', 'halatraian', 'globalworth'], // real skyline/600 m ring landmarks; no unreachable marker, label or route
         congestion: [ // from game/research/bucharest-romana.json traffic.hotspots
             { lat: 44.45260, lon: 26.08580, radius: 220, hours: [[7.5,  10],  [16,  19.5]], level: 0.90, note: 'Piața Victoriei' },
             { lat: 44.44680, lon: 26.09700, radius: 160, hours: [[7.5,  10],  [16,  19.5]], level: 0.85, note: 'Piața Romană' },
@@ -126,8 +126,8 @@ const BUC_DISTRICTS = {
             { r: 130, chapter: 'rosetti', line: [[44.454951, 26.100726], [44.458072, 26.100564], [44.465921, 26.102013], [44.465668, 26.104509], [44.465449, 26.106037], [44.467042, 26.106528], [44.467090, 26.106300]] },
         ],
         circles: [{ lat: 44.467090, lon: 26.106300, r: 200, name: 'rosetti door' }, { lat: 44.455600, lon: 26.100710, r: 110, name: 'rosetti start' }, { lat: 44.467090, lon: 26.106300, r: 120, name: 'rosetti building' }],
-        landmarks: ['rosetti', 'dinamo', 'skytower', 'globalworth'],
-        scenery: ['skytower', 'globalworth'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
+        landmarks: ['rosetti', 'dinamo', 'skytower', 'globalworth', 'parliament', 'cathedral', 'arcul', 'casapresei', 'grandhotel', 'univ', 'tnb', 'ateneu', 'regal', 'victoria', 'cec', 'mnir', 'marriott', 'unirea', 'fountains', 'promenada', 'baneasasc', 'romexpo', 'aviatorilor', 'gara', 'opera', 'politehnica', 'hermes', 'baneasaterm', 'ase', 'ambasador', 'aro', 'thelandmark', 'europehouse', 'gts', 'bob', 'halatraian'],
+        scenery: ['skytower', 'globalworth', 'parliament', 'cathedral', 'arcul', 'casapresei', 'grandhotel', 'univ', 'tnb', 'ateneu', 'regal', 'victoria', 'cec', 'mnir', 'marriott', 'unirea', 'fountains', 'promenada', 'baneasasc', 'romexpo', 'aviatorilor', 'gara', 'opera', 'politehnica', 'hermes', 'baneasaterm', 'ase', 'ambasador', 'aro', 'thelandmark', 'europehouse', 'gts', 'bob', 'halatraian'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
         congestion: [ // from game/research/bucharest-floreasca.json traffic.hotspots
             { lat: 44.47100, lon: 26.10350, radius: 200, hours: [[8,  10],  [17,  19.5]], level: 0.70, note: 'Calea Floreasca N (towards Barbu Văcărescu / Sky Tower)' },
             { lat: 44.46650, lon: 26.10550, radius: 140, hours: [[7.5,  8.25],  [13,  14.5]], level: 0.45, note: 'Rosetti school run (Garibaldi/Ceaikovski)' },
@@ -144,8 +144,8 @@ const BUC_DISTRICTS = {
             { r: 130, chapter: 'db', line: [[44.479160, 26.095132], [44.479249, 26.096969], [44.479190, 26.097300], [44.479334, 26.099265], [44.479665, 26.101054], [44.480292, 26.103069], [44.478865, 26.105057], [44.478228, 26.105800], [44.479212, 26.110726], [44.480350, 26.114420]] },
         ],
         circles: [{ lat: 44.480290, lon: 26.113970, r: 200, name: 'luxoft door' }, { lat: 44.473000, lon: 26.124300, r: 110, name: 'luxoft start' }, { lat: 44.480400, lon: 26.113900, r: 120, name: 'luxoft building' }, { lat: 44.480350, lon: 26.114420, r: 200, name: 'db door' }, { lat: 44.479190, lon: 26.096300, r: 110, name: 'db start' }, { lat: 44.479690, lon: 26.114610, r: 120, name: 'db building' }],
-        landmarks: ['hermes', 'bob', 'globalworth', 'skytower', 'promenada'],
-        scenery: [], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
+        landmarks: ['hermes', 'bob', 'globalworth', 'skytower', 'promenada', 'arcul', 'casapresei', 'grandhotel', 'univ', 'tnb', 'ateneu', 'regal', 'victoria', 'cec', 'mnir', 'unirea', 'baneasasc', 'romexpo', 'aviatorilor', 'gara', 'opera', 'baneasaterm', 'ase', 'ambasador', 'aro', 'thelandmark', 'europehouse', 'gts', 'dinamo', 'rosetti', 'halatraian'],
+        scenery: ['arcul', 'casapresei', 'grandhotel', 'univ', 'tnb', 'ateneu', 'regal', 'victoria', 'cec', 'mnir', 'unirea', 'baneasasc', 'romexpo', 'aviatorilor', 'gara', 'opera', 'baneasaterm', 'ase', 'ambasador', 'aro', 'thelandmark', 'europehouse', 'gts', 'dinamo', 'rosetti', 'halatraian'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
         congestion: [ // from game/research/bucharest-pipera.json traffic.hotspots
             { lat: 44.48020, lon: 26.11400, radius: 300, hours: [[8,  10.5],  [16.5,  20]], level: 0.95, note: 'Bd. Dimitrie Pompeiu (whole street)' },
             { lat: 44.47750, lon: 26.10450, radius: 220, hours: [[8,  10],  [16.5,  19.5]], level: 0.85, note: 'Barbu Văcărescu × Fabrica de Glucoză (Sky Tower)' },
@@ -239,8 +239,8 @@ const SEA_DISTRICTS = {
             { r: 130, chapter: 'uipath-bel', line: [[47.617456, -122.187236], [47.617379, -122.187755], [47.617488, -122.196736], [47.617485, -122.201792], [47.616422, -122.201779], [47.616112, -122.201664], [47.616804, -122.201630], [47.617230, -122.201520]] },
         ],
         circles: [{ lat: 47.617230, lon: -122.201520, r: 200, name: 'uipath-bel door' }, { lat: 47.617460, lon: -122.187250, r: 110, name: 'uipath-bel start' }, { lat: 47.617230, lon: -122.201480, r: 120, name: 'uipath-bel building' }],
-        landmarks: ['lincoln', 'onelincoln', 'lincolnsouth', 'plazacenter', 'sonic', 'bellevue600', 'bellevuetowers', 'bellevuesq', 'rainier', 'olympics'],
-        scenery: ['sonic', 'bellevue600', 'bellevuetowers', 'rainier', 'olympics'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
+        landmarks: ['lincoln', 'onelincoln', 'lincolnsouth', 'plazacenter', 'sonic', 'bellevue600', 'bellevuetowers', 'bellevuesq', 'rainier', 'olympics', 'murrowe'],
+        scenery: ['sonic', 'bellevue600', 'bellevuetowers', 'rainier', 'olympics', 'murrowe'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
         congestion: [ // from game/research/seattle-bellevue.json traffic.hotspots (I-90 / Bellevue Way SE entries dropped with those roads)
             { lat: 47.60500, lon: -122.18500, radius: 500, hours: [[6.5,  9.5],  [15,  19]], level: 0.85, note: 'I-405 NB through downtown (SE 8th → NE 8th)' },
             { lat: 47.60900, lon: -122.18700, radius: 450, hours: [[15,  19]], level: 0.90, note: 'I-405 SB Bellevue → Tukwila (opposite carriageway)' },

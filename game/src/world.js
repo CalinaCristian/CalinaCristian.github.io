@@ -3462,10 +3462,10 @@ export async function buildWorld(city, renderer, opts = {}) {
     let LANDMARKS = [], buildLandmarkFn = null, landmarkSurfaceMats = [];
     let SEA_SCALE = 0.5;
     try { const mod = await import('./landmarks.js'); landmarkSurfaceMats = mod.landmarkSurfaceMaterials?.() || []; LANDMARKS = (mod.LANDMARKS || []).filter(l => l.city === city.id); buildLandmarkFn = mod.buildLandmark || null; SEA_SCALE = mod.SEA_SCALE || 0.5; } catch (err) { LANDMARKS = []; }
-    // a district only builds its own landmarks (+ distant backdrops such as Rainier)
-    // (a landmark the district lists explicitly may stand outside it, up to ~2.5 km: skyline landmarks seen down an
-    //  avenue, e.g. the Parliament / People's Salvation Cathedral at the west end of Bd. Unirii seen from Piața Unirii)
-    if (distCfg) LANDMARKS = LANDMARKS.filter(l => (distCfg.landmarks ? distCfg.landmarks.includes(l.id) : true) && (l.backdrop || inDistrictLL(l.lat, l.lon, distCfg.landmarks ? 0.022 : 0.004)));
+    // Explicit district lists include audited drone-view scenery within the
+    // ordinary camera range. A second latitude-box cut must not silently drop it.
+    if (distCfg) LANDMARKS = LANDMARKS.filter(l => distCfg.landmarks ? distCfg.landmarks.includes(l.id) : l.backdrop || inDistrictLL(l.lat,l.lon,.004));
+    const landmarkBuildAudit={expected:LANDMARKS.map(l=>l.id),built:[],failed:[]};
     const landmarks = [], landmarkSourceReplacements = [];
     const landmarkFences = []; // (2026-11-08) fences of landmark grounds, drawn off the streets (below)
     const lmGrounds = []; // (2026-11-08) a landmark's own surfaces (sports grounds): no measured / generated trees on them
@@ -3500,7 +3500,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 p = { x: cx + dx / real * want, z: cz + dz / real * want };
             }
             const res = buildLandmarkFn ? buildLandmarkFn(lm, ctx) : lm.build(ctx);
-            if (!res || !res.mesh) continue;
+            if (!res || !res.mesh) {landmarkBuildAudit.failed.push({id:lm.id,reason:'Builder returned no mesh'});continue;}
             res.mesh.position.set(p.x, res.mesh.position.y || 0.12, p.z);
             // models are authored at 1:1 (Seattle ones already squashed to 0.5) → match the world's x/z scale
             const lk = distId && res.authoredScale ? data.proj.scale / res.authoredScale : lm.city === 'seattle' ? data.proj.scale / SEA_SCALE : data.proj.scale; // (legacy: Seattle models are authored squashed by SEA_SCALE)
@@ -3511,7 +3511,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 wrap.position.copy(res.mesh.position); res.mesh.position.set(0, 0, 0);
                 wrap.scale.set(lk, 1, lk * cf); wrap.add(res.mesh); res.mesh = wrap;
             } else if (lk !== 1 && !lm.backdrop) { res.mesh.scale.x *= lk; res.mesh.scale.z *= lk; }
-            if (lm.backdrop) { lmGroup.add(res.mesh); res.mesh.traverse(o => { if (o.isMesh) o.frustumCulled = false; }); continue; }
+            if (lm.backdrop) { lmGroup.add(res.mesh); res.mesh.traverse(o => { if (o.isMesh) o.frustumCulled = false; });landmarkBuildAudit.built.push(lm.id);continue; }
             res.mesh.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
             lmGroup.add(res.mesh);
             const names = (lm.osmNames || []).map(s => s.toLowerCase());
@@ -3576,7 +3576,8 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (!sourcePolicy) bGrid.each(cx, cz, cx, cz, (b) => { if (!b.skip && cx >= b.x0 && cx <= b.x1 && cz >= b.z0 && cz <= b.z1 && pointInPolygon(cx, cz, b.ring)) b.skip = true; });
             }
             landmarks.push({ id: lm.id, label: lm.name, x: p.x, z: p.z, clear: res.clear || R, radius: R, mesh: res.mesh });
-        } catch (err) { console.warn('landmark failed', lm.id, err); }
+            landmarkBuildAudit.built.push(lm.id);
+        } catch (err) { landmarkBuildAudit.failed.push({id:lm.id,reason:String(err?.message||err)});console.warn('landmark failed', lm.id, err); }
     }
     // Validate physical visibility after authored replacements, without changing
     // source assembly membership or suppressing legitimate exterior details.
@@ -6152,6 +6153,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     setProgress(''); const phases = PHASES.splice(0);
     const stats = { parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, inferredBuildingDetails: inferredDetailAudit, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
+    stats.landmarkBuildAudit=landmarkBuildAudit;
     stats.scenerySource = scenerySourceAudit;
     stats.districtBoundary = boundarySupport.report;
     stats.transitShelters = { schema: 1, records: transitShelterAudit, withheldUnknown: transitShelterAudit.filter(r => r.status === 'unknown-shelter-geometry').length, literalNo: transitShelterAudit.filter(r => r.status === 'literal-no-shelter').length, legacyUnreviewed: transitShelterAudit.filter(r => r.status === 'legacy-unreviewed').length, limits: 'Inferred generic-unit decisions only; no real shelter absence, mapped geometry removal or constructor/route clearance acceptance.' };

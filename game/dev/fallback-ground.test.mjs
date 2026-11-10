@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import * as THREE from '../vendor/three.module.min.js';
+import {fallbackGroundApertures,buildFallbackGround} from '../src/fallback-ground.js';
+const box={x0:-10,x1:10,z0:-10,z1:10,leafSize:2};
+const rectangle=(a,x0,z0,x1,z1,y=-4.4)=>{const p=[[x0,y,z0],[x0,y,z1],[x1,y,z1],[x1,y,z0]];a.addTriangle(p.slice(0,3),'water');a.addTriangle([p[0],p[2],p[3]],'water');};
+const groundArea=g=>{const p=g.attributes.position,index=g.index;let area=0;for(let i=0;i<index.count;i+=3){const a=index.getX(i),b=index.getX(i+1),c=index.getX(i+2);area+=Math.abs((p.getX(b)-p.getX(a))*(p.getZ(c)-p.getZ(a))-(p.getZ(b)-p.getZ(a))*(p.getX(c)-p.getX(a)))/2;}return area;};
+const hit=(mesh,x,z)=>new THREE.Raycaster(new THREE.Vector3(x,10,z),new THREE.Vector3(0,-1,0)).intersectObject(mesh);
+const a=fallbackGroundApertures();
+// Literal water around a dry island: no broad water buffer may erase it.
+rectangle(a,-4,-4,-1,4);rectangle(a,1,-4,4,4);rectangle(a,-1,-4,1,-1);rectangle(a,-1,1,1,4);
+const r=buildFallbackGround(a,box);assert(r.report.known);assert(Math.abs(groundArea(r.geometry)-340)<1e-4);
+const mesh=new THREE.Mesh(r.geometry,new THREE.MeshBasicMaterial());mesh.updateMatrixWorld();assert.equal(hit(mesh,2,0).length,0,'the real lowered water stays open');assert(hit(mesh,0,0).length,'source dry island remains opaque');assert(hit(mesh,6,0).length,'unrelated ground blocks projected water');
+const overlap=fallbackGroundApertures();rectangle(overlap,-3,-3,1,1);rectangle(overlap,-1,-1,3,3);const o=buildFallbackGround(overlap,box);assert(Math.abs(groundArea(o.geometry)-372)<1e-4,'overlapping triangles cut their finite union exactly once');
+const ramp=fallbackGroundApertures();ramp.addTriangle([[-4,-1,-4],[-4,1,4],[4,1,4]],'road');const rampResult=buildFallbackGround(ramp,box);assert(Math.abs(groundArea(rampResult.geometry)-(400-32*.35**2))<1e-4,'a ramp opening begins at the actual affine datum intersection');
+const src=new THREE.BufferGeometry();src.setAttribute('position',new THREE.Float32BufferAttribute([-2,-1,-2,-2,-1,2,2,-1,2,2,-1,-2],3));src.setIndex([0,1,2,0,2,3]);const positions=src.attributes.position.array.slice(),indices=src.index.array.slice(),read=fallbackGroundApertures();read.addGeometry(src,'road');buildFallbackGround(read,box);assert.deepEqual(src.attributes.position.array,positions);assert.deepEqual(src.index.array,indices,'native source geometry is never edited');
+src.setDrawRange(0,3);const selected=fallbackGroundApertures();selected.addGeometry(src,'road');const refused=buildFallbackGround(selected,box);assert.equal(refused.report.known,false);assert.equal(refused.geometry,null,'a selected render subset cannot certify ground openings');
+const above=fallbackGroundApertures();rectangle(above,-4,-4,4,4,.11);const flat=buildFallbackGround(above,box);assert.equal(flat.report.apertures,0);assert.equal(groundArea(flat.geometry),400,'ordinary above-ground water needs no hole');
+const capped=buildFallbackGround(a,{...box,maxNodes:1});assert.equal(capped.report.known,false);assert.equal(capped.geometry,null,'a complexity refusal never publishes a partial ground cap');
+const invalid=fallbackGroundApertures();invalid.addTriangle([[NaN,-1,0],[0,-1,1],[1,-1,1]],'water');assert.equal(buildFallbackGround(invalid,box).geometry,null);
+const large=buildFallbackGround(a,{x0:-32000,x1:32000,z0:-32000,z1:32000,leafSize:64});assert(large.report.triangles<200,'distant filler is not expanded into a huge uniform grid');
+console.log(JSON.stringify({passed:true,sourceApertures:r.report.apertures,triangles:r.report.triangles,largePlaneTriangles:large.report.triangles,scope:'Exact source union/island/ramp-datum/retained-buffer/selected-input/refusal controls; native colour, water opening and budgets remain separate.'}));

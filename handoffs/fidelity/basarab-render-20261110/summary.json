@@ -318,6 +318,517 @@
     "Anchor positions/spacing and structural sections remain explicit estimates.",
     "No provider reference imagery in Git/public.",
     "First A/A tree frame warmed differently; all six comparisons use the warmed repeat.",
-    "Static/water culling native pixel control, physical journeys, original eight poses, source piers/underside/white-ground/road shimmer and evolving mirror/mobile budgets remain open."
-  ]
+    "Static/water and tree pixel controls are scoped passes. Original eight poses still expose source piers/underside/parapet/shimmer and driver/north budgets. R11 ground fix is staged. Connected journeys, evolving mirror/mobile/disposal checks, affected overview retakes and publication remain open."
+  ],
+  "staticWaterPixelProof": {
+    "source": "c08512c3b501b04ab5a81432ac01f14902466a84",
+    "scope": "Complete canonical static/water indices versus production view selection; six warmed same-scene summer/winter comparisons. Initial first A/A warming difference retained; comparison uses repeat. Private read-only capture observer, exact source/modified hashes retained.",
+    "pairs": [
+      {
+        "condition": "summer-river",
+        "aaChangedPixels": 575204,
+        "abChangedPixels": 0,
+        "abBounds": null,
+        "cameraEqual": true,
+        "before": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 211,
+          "triangles": 1407147,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 0,
+          "vehicles": 311,
+          "pedestrians": 560
+        },
+        "after": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 387,
+          "triangles": 1492822,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 0,
+          "vehicles": 311,
+          "pedestrians": 560
+        },
+        "resources": {
+          "geometry": 170,
+          "textures": 40
+        }
+      },
+      {
+        "condition": "summer-station",
+        "aaChangedPixels": 0,
+        "abChangedPixels": 0,
+        "abBounds": null,
+        "cameraEqual": true,
+        "before": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 334,
+          "triangles": 2140475,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 0,
+          "vehicles": 311,
+          "pedestrians": 560
+        },
+        "after": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 334,
+          "triangles": 802377,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 0,
+          "vehicles": 311,
+          "pedestrians": 560
+        },
+        "resources": {
+          "geometry": 187,
+          "textures": 40
+        }
+      },
+      {
+        "condition": "summer-reverse",
+        "aaChangedPixels": 0,
+        "abChangedPixels": 0,
+        "abBounds": null,
+        "cameraEqual": true,
+        "before": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 355,
+          "triangles": 2025425,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 0,
+          "vehicles": 311,
+          "pedestrians": 560
+        },
+        "after": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 355,
+          "triangles": 772778,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 0,
+          "vehicles": 311,
+          "pedestrians": 560
+        },
+        "resources": {
+          "geometry": 250,
+          "textures": 40
+        }
+      },
+      {
+        "condition": "winter-river",
+        "aaChangedPixels": 0,
+        "abChangedPixels": 0,
+        "abBounds": null,
+        "cameraEqual": true,
+        "before": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 384,
+          "triangles": 2414244,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 0,
+          "vehicles": 311,
+          "pedestrians": 560
+        },
+        "after": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 384,
+          "triangles": 1485078,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 0,
+          "vehicles": 311,
+          "pedestrians": 560
+        },
+        "resources": {
+          "geometry": 250,
+          "textures": 40
+        }
+      },
+      {
+        "condition": "winter-station",
+        "aaChangedPixels": 0,
+        "abChangedPixels": 0,
+        "abBounds": null,
+        "cameraEqual": true,
+        "before": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 331,
+          "triangles": 2126715,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 0,
+          "vehicles": 311,
+          "pedestrians": 560
+        },
+        "after": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 331,
+          "triangles": 788617,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 0,
+          "vehicles": 311,
+          "pedestrians": 560
+        },
+        "resources": {
+          "geometry": 250,
+          "textures": 40
+        }
+      },
+      {
+        "condition": "winter-reverse",
+        "aaChangedPixels": 0,
+        "abChangedPixels": 0,
+        "abBounds": null,
+        "cameraEqual": true,
+        "before": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 352,
+          "triangles": 2017681,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 0,
+          "vehicles": 311,
+          "pedestrians": 560
+        },
+        "after": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 352,
+          "triangles": 765034,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 0,
+          "vehicles": 311,
+          "pedestrians": 560
+        },
+        "resources": {
+          "geometry": 250,
+          "textures": 40
+        }
+      }
+    ]
+  },
+  "originalOwnerPoseReview": {
+    "source": "c08512c3b501b04ab5a81432ac01f14902466a84",
+    "scope": "Original eight reported poses, native driving/foot controllers; controlled noon matches weather/season, actual camera metadata retained. Setup poses only; no physical journey or hardware FPS claim. Several views still exceed budget.",
+    "pageErrors": [],
+    "report": "/workspace/integration-qa-evidence/basarab-20261110/owner-poses-r10/report.json",
+    "captures": [
+      {
+        "name": "basarab-white-ground",
+        "file": "basarab-white-ground.png",
+        "sha256": "c8cab5cd20fecefd5c7521afa025010781c79cfed1df1c44668c434328aefc53"
+      },
+      {
+        "name": "basarab-underside-gaps",
+        "file": "basarab-underside-gaps.png",
+        "sha256": "369c5616d73cffc1b094052d1fcc1391e2cd37694300f58f6689fb4bbdcea585"
+      },
+      {
+        "name": "basarab-ramp-missing-chunks",
+        "file": "basarab-ramp-missing-chunks.png",
+        "sha256": "042d15291fb8e4d29a99a5e74343609591005207dddd0db6af19fe69a843d92c"
+      },
+      {
+        "name": "basarab-ramp-parapets",
+        "file": "basarab-ramp-parapets.png",
+        "sha256": "21789cc8befe7be5cbe1a7d70d0d9662d8db70df4d1ee32b1d4049eb3013ceac"
+      },
+      {
+        "name": "basarab-deck-tree",
+        "file": "basarab-deck-tree.png",
+        "sha256": "12b2778a1f58c718f0afc4131161cb3da41176bab0eab83b63976b2bb59efa1f"
+      },
+      {
+        "name": "basarab-north-approach",
+        "file": "basarab-north-approach.png",
+        "sha256": "f59878d40b8cf78545c81de9efe633a9200c2680d06530258e8776462c00d564"
+      },
+      {
+        "name": "basarab-upper-parapets",
+        "file": "basarab-upper-parapets.png",
+        "sha256": "1e178407bda1e7d6e1a89daa28a2f897b531fb4635bc3dbcf84b5a19d0397150"
+      },
+      {
+        "name": "basarab-tram-deck-slot",
+        "file": "basarab-tram-deck-slot.png",
+        "sha256": "0e7f18fb86213bc14862f3e57b436b3753781030d2c60cd84278cac315b8ae28"
+      }
+    ],
+    "fullSizeReviewed": true,
+    "drawCallsAndTriangles": {
+      "white-ground": [
+        456,
+        1110156
+      ],
+      "underside": [
+        441,
+        1125216
+      ],
+      "ramp-missing": [
+        473,
+        1777195
+      ],
+      "ramp-parapets": [
+        464,
+        1741446
+      ],
+      "deck-tree": [
+        328,
+        905749
+      ],
+      "north": [
+        528,
+        2035057
+      ],
+      "foot-upper": [
+        221,
+        636359
+      ],
+      "foot-tram": [
+        392,
+        1574734
+      ]
+    }
+  },
+  "fallbackGround": {
+    "source": "2bbf755f67bbfa710bb28ccd46cea552f5f3739d",
+    "status": "staged, original white panels removed natively; all-location final acceptance open",
+    "cause": "Fallback ground at estimated Y=-.3 did not write depth; later river at Y=-4.4 projected through unrelated ground.",
+    "implementation": "Finite union of complete final below-datum water and emitted road/tram floors opens the fallback plane before depth writes. Water/source/actor/physical inputs unchanged. Invalid/complex inputs explicitly retain legacy behavior.",
+    "nativeReport": "/workspace/integration-qa-evidence/basarab-20261110/ground-r11/report.json",
+    "causalControls": {
+      "report": "/workspace/integration-qa-evidence/basarab-20261110/ground-depth-proof-r11/report.json",
+      "scope": "Same frozen native camera/time/actors, ground depth-write counterfactual. White patches return with depth writes off; first white frame warmed, so no whole-image pixel-equivalence claim. River images are exact with writes off/on and after restoring the correct apertured plane. Intentional uncut cap hides water, retained as negative control.",
+      "riverOffOnChangedPixels": 0,
+      "riverRestoredChangedPixels": 0,
+      "naiveCapChangedPixels": 479748,
+      "pageErrors": []
+    },
+    "rayControls": "/workspace/integration-qa-evidence/basarab-20261110/ground-r11/ground-ray-controls.json",
+    "constructorControls": {
+      "report": "/workspace/integration-qa-evidence/basarab-20261110/ground-constructors-r11.json",
+      "passed": true,
+      "districts": [
+        {
+          "district": "grozavesti",
+          "report": {
+            "known": true,
+            "datum": -0.3,
+            "sourceTriangles": 229433,
+            "apertures": 2363,
+            "byKind": {
+              "final-water": 1542,
+              "road-floor": 821
+            },
+            "reason": null,
+            "leafSize": 64,
+            "nodes": 6971,
+            "leaves": 3486,
+            "triangles": 13537
+          }
+        },
+        {
+          "district": "unirii",
+          "report": {
+            "known": true,
+            "datum": -0.3,
+            "sourceTriangles": 224957,
+            "apertures": 60190,
+            "byKind": {
+              "road-floor": 393,
+              "final-water": 59797
+            },
+            "reason": null,
+            "leafSize": 64,
+            "nodes": 6223,
+            "leaves": 3112,
+            "triangles": 41725
+          }
+        },
+        {
+          "district": "romana",
+          "report": {
+            "known": true,
+            "datum": -0.3,
+            "sourceTriangles": 176855,
+            "apertures": 3511,
+            "byKind": {
+              "tram-floor": 1042,
+              "road-floor": 2313,
+              "final-water": 156
+            },
+            "reason": null,
+            "leafSize": 64,
+            "nodes": 7067,
+            "leaves": 3534,
+            "triangles": 19968
+          }
+        },
+        {
+          "district": "floreasca",
+          "report": {
+            "known": true,
+            "datum": -0.3,
+            "sourceTriangles": 188742,
+            "apertures": 156,
+            "byKind": {
+              "final-water": 156
+            },
+            "reason": null,
+            "leafSize": 64,
+            "nodes": 7033,
+            "leaves": 3517,
+            "triangles": 9826
+          }
+        },
+        {
+          "district": "pipera",
+          "report": {
+            "known": true,
+            "datum": -0.3,
+            "sourceTriangles": 249525,
+            "apertures": 1467,
+            "byKind": {
+              "road-floor": 1467
+            },
+            "reason": null,
+            "leafSize": 64,
+            "nodes": 73,
+            "leaves": 37,
+            "triangles": 3387
+          }
+        },
+        {
+          "district": "otopeni",
+          "report": {
+            "known": true,
+            "datum": -0.3,
+            "sourceTriangles": 75137,
+            "apertures": 1375,
+            "byKind": {
+              "road-floor": 1375
+            },
+            "reason": null,
+            "leafSize": 64,
+            "nodes": 67,
+            "leaves": 34,
+            "triangles": 2444
+          }
+        },
+        {
+          "district": "seatac",
+          "report": {
+            "known": true,
+            "datum": -0.3,
+            "sourceTriangles": 320275,
+            "apertures": 3334,
+            "byKind": {
+              "road-floor": 3334
+            },
+            "reason": null,
+            "leafSize": 64,
+            "nodes": 221,
+            "leaves": 111,
+            "triangles": 8870
+          }
+        },
+        {
+          "district": "bellevue",
+          "report": {
+            "known": true,
+            "datum": -0.3,
+            "sourceTriangles": 124202,
+            "apertures": 636,
+            "byKind": {
+              "road-floor": 636
+            },
+            "reason": null,
+            "leafSize": 64,
+            "nodes": 83,
+            "leaves": 42,
+            "triangles": 1521
+          }
+        }
+      ],
+      "scope": "Eight production World constructors using immutable source on port8129; Canvas2D and source-floor apertures only, no renderer/traffic/route/FPS acceptance."
+    },
+    "logic": {
+      "report": "/workspace/integration-qa-evidence/basarab-20261110/logic-ground-r11/latest.json",
+      "scenario": "foot,a",
+      "high": 0,
+      "medium": 0,
+      "low": 1,
+      "lowScope": "software GL FPS only"
+    },
+    "limits": [
+      "Original mirror/driver and wider north budgets still fail.",
+      "Real source piers, continuous parapets, underside joins, road shimmer and complete reset-free journeys remain open.",
+      "No native all-district views, mobile/disposal/evolving budget or publication acceptance from constructor controls."
+    ]
+  }
 }

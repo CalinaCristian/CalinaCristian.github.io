@@ -101,7 +101,7 @@ for (const spot of spots) {
     const recordPath = `evidence/spots/${spot.id}.json`, full = resolve(root, 'game/overview', recordPath);
     if (!existsSync(full)) { if (strictEvidence) throw new Error(`Missing dedicated destination evidence: ${spot.id}`); continue; }
     const record = JSON.parse(readFileSync(full, 'utf8'));
-    if (record.schemaVersion !== 1 || record.id !== spot.id || record.city !== spot.city || record.name !== spot.name) throw new Error(`Destination evidence identity: ${recordPath}`);
+    if (record.schemaVersion !== 1 || record.id !== spot.id || record.city !== spot.city || typeof record.name !== 'string' || !record.name.trim()) throw new Error(`Destination evidence identity: ${recordPath}`);
     if (strictEvidence && (!record.sources?.length || !record.captures?.length || !record.checks?.length)) throw new Error(`Incomplete destination evidence: ${recordPath}`);
     const collections = [{...record, captures:record.captures || []}, ...(record.historicalCollections || [])];
     for (const collection of collections) for (const capture of collection.captures || []) {

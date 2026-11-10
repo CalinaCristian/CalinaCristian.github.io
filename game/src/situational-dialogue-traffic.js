@@ -1,6 +1,6 @@
 import {createSituationalDialogue} from './situational-dialogue.js';
 import {compileDialoguePlaces,currentDialogueContext,dialogueActorY} from './situational-dialogue-context.js';
-export const SITUATIONAL_DIALOGUE_INTEGRATION=Object.freeze({wiredEvents:Object.freeze(['player-honk','npc-honk','collision','ambient','greeting']),nativeProvedEvents:Object.freeze([]),collisionAuthority:'actual Player.hit→Main.onCollide only; NPC-NPC impacts not wired',mode:'existing city traffic in drive/foot'});
+export const SITUATIONAL_DIALOGUE_INTEGRATION=Object.freeze({wiredEvents:Object.freeze(['player-honk','npc-honk','collision','ambient','greeting']),nativeProvedEvents:Object.freeze([]),collisionAuthority:'Player.hit→Main.onCollide and retained actual NPC body contacts after overlap rollback',mode:'existing city traffic in drive/foot'});
 let sceneSequence=0;
 /** Owns one bounded governor and a 3-slot legacy admission ledger. It never
  * chooses/moves actors, rolls traffic RNG, fabricates impacts or renders a world. */
@@ -28,7 +28,7 @@ export class TrafficDialogue {
   if(this.disposed||event?.confirmed!==true||![event.x,event.z,event.y,event.atMs].every(Number.isFinite)||!['drive','foot'].includes(this.host?.state))return false;
   const t=this.traffic,id=this.actorId(actor,role),y=dialogueActorY(actor,role,t.world);
   if(!id||actor.hidden||actor.inactive||actor.state==='down'||!Number.isFinite(actor.x)||!Number.isFinite(actor.z)||y===null||Math.abs(y-event.y)>2.5||Math.hypot(actor.x-event.x,actor.z-event.z)>32)return false;
-  relation??=event.kind==='greeting'?'conversant':id===event.sourceId?'source':event.kind==='collision'&&id===event.targetId?'participant':event.targetId===id?'recipient':'witness';
+  relation??=event.kind==='greeting'?'conversant':event.kind==='collision'&&(id===event.sourceId||id===event.targetId)?'participant':id===event.sourceId?'source':event.targetId===id?'recipient':'witness';
   const now=performance.now(),offer=this.governor.offer({nowMs:now,event,speaker:{id,role,relation,eligible:true},context:currentDialogueContext(this.host,this.places,actor)});
   if(!offer)return false;let accepted=false;
   const anchor={get x(){return actor.x;},get z(){return actor.z;},get y(){return dialogueActorY(actor,role,t.world)??y;},get bubbleY(){return(dialogueActorY(actor,role,t.world)??y)+2.4;}};

@@ -28,3 +28,5 @@ Performance ideas and measured limits: [PERFORMANCE-20261110.md](PERFORMANCE-202
 Current register: 71 records. Further owner reports are appended as they arrive.
 
 Night-lighting candidate evidence and the remaining airport/apron gap: [NIGHT-DRONE-20261110.md](NIGHT-DRONE-20261110.md).
+
+Basarab source and native controls, explicit tree conflicts and remaining physical/budget blockers: [BASARAB-20261110.md](BASARAB-20261110.md).

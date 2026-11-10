@@ -830,5 +830,52 @@
       "Real source piers, continuous parapets, underside joins, road shimmer and complete reset-free journeys remain open.",
       "No native all-district views, mobile/disposal/evolving budget or publication acceptance from constructor controls."
     ]
+  },
+  "signalOccupancy": {
+    "source": "e16ec1691cc9d59414f4f4b020fd7502457a89a4",
+    "parent": "2bbf755f67bbfa710bb28ccd46cea552f5f3739d",
+    "status": "staged; native continuous drive still incomplete",
+    "problem": {
+      "source": "c08512c3b501b04ab5a81432ac01f14902466a84",
+      "report": "/workspace/integration-qa-evidence/basarab-20261110/physical-route-r10/report.json",
+      "durationSimulationSec": 182.1,
+      "ordinaryPathM": 570.92011978818,
+      "progressM": 204.72,
+      "stop": "120simsec without1mprogress",
+      "playerContacts": 0,
+      "maxHeightStepM": 0,
+      "actorCounts": {
+        "initialVehicles": 311,
+        "finalVehicles": 314,
+        "pedestrians": 560
+      },
+      "cause": "Bus51 retained phase0 across13linked signal nodes after its full body cleared every actual junction pad. Immediate leader zeroWhy strings were stale diagnostic history; current queue stopped for red lights."
+    },
+    "implementation": "Keep original route claims, phases, source paths and all physical guards. Phase occupancy follows a conservative complete primary model bound unioned with the native collision rectangle over final convex source pads; include entry/exit pads. Missing or malformed geometry keeps legacy occupancy. No timeout releases a conflicting phase.",
+    "unitControls": [
+      "recorded source51 link negative",
+      "route reservation retained",
+      "stopped bus/rotated/pitched/touching rear positives",
+      "missing model/pad/nonconvex/legacy conservative negatives",
+      "existing signals/path/queue/recovery controls"
+    ],
+    "mandatoryLogic": {
+      "report": "/workspace/integration-qa-evidence/basarab-20261110/logic-signal-r12/latest.json",
+      "high": 0,
+      "medium": 0,
+      "low": 2,
+      "limits": "337wallsec with another native driving browser active.10.3ms traffic LOW and softwareGL FPS LOW; no controlled CPU or hardware-FPS comparison."
+    },
+    "nativeProgress": {
+      "report": "/workspace/integration-qa-evidence/basarab-20261110/physical-route-r12/report.json",
+      "scope": "Same ordinary spawn/nav target and exact R10 private DOM driver, actual native AI/body/height/lights. No player/actor/source relocation or reset during journey. Intermediate3Ddraws suppressed; no CPU/FPS claim.",
+      "simulationSec": 120,
+      "progressM": 234.94080917092043,
+      "playerContacts": 0,
+      "maxHeightStepM": 0,
+      "vehicles": 311,
+      "pedestrians": 560,
+      "limits": "Past old stopping point but another queue remains; no complete route acceptance. Source51 claim retained and physicalOccupancy=false confirmed natively; other currently occupied pads remain protected."
+    }
   }
 }

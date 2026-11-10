@@ -1,0 +1,36 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {signalPadOccupancy} from '../src/signal-pad-occupancy.js';
+import {signalState} from '../src/signals.js';
+import {Traffic} from '../src/traffic.js';
+import {makeVehicle} from '../src/vehicles.js';
+
+const F=JSON.parse(fs.readFileSync(new URL('./fixtures/basarab-signal-pad-51.json',import.meta.url)));
+const nodes=F.clusterNodes.map(n=>({...n})),cl={nodes,phaseCount:4,offset:0,occupiedPhases:[]};
+for(const n of nodes)n.lightCluster=cl;
+const ribbons=F.pads.map(p=>({node:nodes.find(n=>n.id===p.node),poly:p.poly}));
+const world={ribbons,lights:nodes.map(node=>({node}))};
+const v={...F.vehicle,mesh:makeVehicle('stb-bus','#fff',{instanced:true})};
+const occupies=signalPadOccupancy(world),claim={v,phase:0,entered:true};
+assert.equal(occupies(v,cl,claim),false,'recorded native bus51 has cleared all physical linked pads despite its retained route claim');
+const T=Object.assign(Object.create(Traffic.prototype),{world,boxes:new Map([[cl,[claim]]]),inBox:()=>true});
+T.syncSignalOccupancy();assert.deepEqual(cl.occupiedPhases,[]);assert.equal(T.boxes.get(cl)[0],claim,'the full source route reservation remains intact');
+assert.equal(signalState(cl,1,12.5,12),'green','a body on a clear connecting lane cannot permanently hold another phase red');
+
+const target=F.pads[0].poly.reduce((s,p)=>[s[0]+p[0]/F.pads[0].poly.length,s[1]+p[1]/F.pads[0].poly.length],[0,0]);
+v.x=target[0];v.z=target[1];v.speed=0;
+T.syncSignalOccupancy();assert.deepEqual(cl.occupiedPhases,[0]);assert.equal(signalState(cl,1,12.5,12),'red','a stopped full-size bus still occupies the actual pad without a timeout');
+const n={pad:true},square=[[-2,-2],[-2,2],[2,2],[2,-2]],controller={};n.lightCluster=controller;
+v.mesh.userData._model.geo.computeBoundingBox();
+const rear=-v.mesh.userData._model.geo.boundingBox.min.z;
+const exact=signalPadOccupancy({ribbons:[{node:n,poly:square}]}),bus={...v,x:0,z:2+rear,heading:0};
+assert.equal(exact(bus,controller,{}),true,'the rear touching a pad boundary keeps occupancy');
+bus.z+=.01;assert.equal(exact(bus,controller,{}),false,'the entire body clears the last pad geometrically');
+bus.x=0;bus.z=0;bus.heading=Math.PI/4;assert.equal(exact(bus,controller,{}),true,'rotated edges crossing a pad are occupied');
+bus.heading=0;bus.pitch=-.3;bus.z=8.7;assert.equal(exact(bus,controller,{}),true,'pitched emitted model bounds are included beyond the flat collision rectangle');
+const missing={...bus,mesh:null};assert.equal(exact(missing,controller,{}),null,'unknown model geometry keeps legacy conservative occupancy');
+assert.equal(signalPadOccupancy({})(bus,controller,{}),null,'legacy worlds retain their existing complete-box rule');
+assert.equal(exact(bus,controller,{entryNode:{pad:true}}),null,'a missing required final pad cannot release a phase');
+const malformed=signalPadOccupancy({ribbons:[{node:n,poly:[[0,0],[2,0],[.5,.5],[2,2],[0,2]]}]});
+assert.equal(malformed(bus,controller,{}),null,'an unsupported nonconvex pad is conservative');
+console.log('PASS: recorded native bus51 link, retained route claim, conflicting phase release, stopped/rotated/pitched/touching rear positives, malformed/missing model/pad/legacy negatives');

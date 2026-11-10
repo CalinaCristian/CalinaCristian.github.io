@@ -19,6 +19,7 @@ import {relocationPeerQuery} from './pedestrian-relocation-peers.js';
 import {evaluateInitialParking} from './initial-parking-behavior.js';
 import { buildTramSourceSignals, tramSourceSignalState } from './tram-source-signals.js';
 import { fitTramBodySupport } from './tram-body-support.js';
+import {signalPadOccupancy} from './signal-pad-occupancy.js';
 
 // ============================================================================
 //  TRAFFIC — vehicles + pedestrians on the road graph.
@@ -1645,6 +1646,7 @@ export class Traffic {
     reservationPath(v, curE, curDir, nxt, node, rad) {
         const path = this.boxPath(v, curE, curDir, nxt, rad);
         path.segments = path.railSegments || [{ ...path }]; path.internalEdges = new Set(); path.entryRad = rad; path.exitRad = rad;
+        path.entryNode=node;path.exitNode=node;
         path.phase = node.sourceSignal?.phase ?? this.world.nodeLight?.[node.id]?.approaches.find(a => a.edge === curE)?.phase;
         const cl = node.lightCluster;
         let step = nxt, i = 0, exitIndex = 0;
@@ -1655,6 +1657,7 @@ export class Traffic {
             const segment = this.boxPath(v, step.e, step.dir, after, end.radius ?? 6), last = path.segments[path.segments.length - 1];
             path.segments.push({ p0x: last.p1x, p0z: last.p1z, p1x: segment.p0x, p1z: segment.p0z }, segment);
             path.outE = after.e; path.outDir = after.dir; path.exitRad = end.radius ?? 6; step = after; exitIndex = i;
+            path.exitNode=end;
         }
         path.generation = v._moveGeneration || 0;
         path.clearEdges = new Set(v.route.slice(exitIndex).map(r => r.e));
@@ -1676,9 +1679,10 @@ export class Traffic {
         return false;
     }
     syncSignalOccupancy() {
+        const occupies=this._signalPadOccupancy||(this._signalPadOccupancy=signalPadOccupancy(this.world));
         for (const l of this.world.lights || []) l.node.lightCluster.occupiedPhases = [];
         for (const [key, list] of this.boxes) for (const r of list) {
-            if (this.inBox(r, key) && r.entered && Number.isInteger(r.phase) && key.occupiedPhases && !key.occupiedPhases.includes(r.phase)) key.occupiedPhases.push(r.phase);
+            if (this.inBox(r, key) && r.entered && Number.isInteger(r.phase) && key.occupiedPhases && !key.occupiedPhases.includes(r.phase)&&occupies(r.v,key,r)!==false) key.occupiedPhases.push(r.phase);
         }
     }
     pruneBoxes() {

@@ -8,7 +8,8 @@ export const OFFICE_WINDOW_SOURCES = Object.freeze({
   upb: {
     landmark: 'politehnica',
     ids: ['w28240552'],
-    hold: 'Full aperture meets recessed ground facade and structural fins'
+    skin: 0.15,
+    floorViewSkinM: 1.2
   },
   gts: {
     landmark: 'gts',
@@ -255,6 +256,7 @@ export function createOfficeWindowBinding(world, office) {
     audit = world.stats?.landmarkSourceReplacements?.find((l) => l.landmark === policy.landmark);
   if (!owner || !audit) return hold('Source replacement ownership unavailable');
   owner.updateWorldMatrix(true, true);
+  const ownerEnvelope = new THREE.Box3().setFromObject(owner);
   const modelFloor = new THREE.Vector3().setFromMatrixPosition(owner.matrixWorld).y,
     candidates = [],
     diagnostics = [];
@@ -297,7 +299,8 @@ export function createOfficeWindowBinding(world, office) {
           width: frame.width,
           height: frame.height,
           sourceCenter,
-          sourceOutward
+          sourceOutward,
+          allowVerticalProjection: !!floorAssignment
         });
         if (!result.known || !result.planes.length) {
           diagnostics.push({
@@ -426,7 +429,24 @@ export function createOfficeWindowBinding(world, office) {
           y1: floor + frame.ul.y,
           maxSkin: policy.skin
         });
-      if (!facade.known) {
+      const sourceFacadeCoverage = facade.known;
+      if (!sourceFacadeCoverage && floorAssignment) {
+        // A virtual room's complete wide pane need not match one real wall opening.
+        // Anchor the outlook to the same source footprint and the owner-assigned
+        // floor. Sample only this owner's emitted exterior skin; retain its raw
+        // coverage gaps and never certify an actual architectural aperture.
+        const maxSkin = policy.floorViewSkinM ?? 1.2;
+        const sampled = emittedFacade(owner, {center:structural,right,outward,width:frame.width,
+          y0:floor+frame.ll.y,y1:floor+frame.ul.y,maxSkin});
+        const skin = Math.max(sampled.offsetM, sampled.limitingProjection?.offsetM || 0);
+        if (floor + frame.ll.y >= ownerEnvelope.min.y - EPS && floor + frame.ul.y <= ownerEnvelope.max.y + EPS && skin <= maxSkin + EPS) {
+          facade = {...sampled, originalCoverage:facade, offsetM:skin,
+            viewBasis:'Source-bound outlook at owner-assigned floor; aperture position, bearing and metre conversion estimated'};
+        } else {
+          diagnostics.push({sourceId,edgeIndex:i,reason:'owner-floor-outlook-outside-retained-envelope-or-skin',facade:sampled});
+          continue;
+        }
+      } else if (!sourceFacadeCoverage) {
         diagnostics.push({ sourceId, edgeIndex: i, reason: 'emitted-facade-incompatible', facade });
         continue;
       }
@@ -492,6 +512,9 @@ export function createOfficeWindowBinding(world, office) {
         structuralCenter: structural.toArray(),
         skinOffsetM: facade.offsetM,
         facadeEvidence: facade,
+        sourceFacadeCoverage,
+        architecturalApertureVerified: false,
+        viewKind: sourceFacadeCoverage ? 'source-facade-outlook' : 'owner-floor-outlook',
         floorModelY: floor,
         actualOfficeFloor: floorAssignment?.floor ?? null,
         floorAssignment,

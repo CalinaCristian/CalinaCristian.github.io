@@ -3,7 +3,7 @@ import * as THREE from '../vendor/three.module.min.js';
 // Only callers with an independently reviewed unchanged builder band may use
 // this certificate. It does not discover an arbitrary nearby surface or infer
 // a source room/floor from a mesh. All exterior geometry remains untouched.
-export function structuralOwnerPlanes(owner, { floor, band, width, height, sourceCenter, sourceOutward }) {
+export function structuralOwnerPlanes(owner, { floor, band, width, height, sourceCenter, sourceOutward, allowVerticalProjection = false }) {
   if (
     !band ||
     ![
@@ -106,8 +106,8 @@ export function structuralOwnerPlanes(owner, { floor, band, width, height, sourc
     if (
       Math.min(...u) > -width / 2 + EPS ||
       Math.max(...u) < width / 2 - EPS ||
-      sourceCenter.y - height / 2 < lo - EPS ||
-      sourceCenter.y + height / 2 > hi + EPS
+      (!allowVerticalProjection && (sourceCenter.y - height / 2 < lo - EPS ||
+      sourceCenter.y + height / 2 > hi + EPS))
     )
       continue;
     // All triangles in the chosen actual plane are retained for a full coverage

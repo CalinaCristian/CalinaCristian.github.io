@@ -1,6 +1,6 @@
 # Softer horn release · 10 November 2026
 
-Pushed to master54a45f6c3224d1da96f6d24457e719e4cd47f7c5. Pages run42913805769 and delivered-byte verification are still pending. Do not call this live until both finish. The71-report batch remains3verified-live and68open; quieter horns belong to the earlier continuing work.
+**Live on master `54a45f6c3224d1da96f6d24457e719e4cd47f7c5`.** [Pages run42913805769](https://github.com/CalinaCristian/CalinaCristian.github.io/actions/runs/42913805769) completed successfully at22:26:22UTC. All298delivered-file checks pass, covering170,795,285bytes, with exact release/source metadata. The71-report batch remains3verified-live and68open; quieter horns belong to the earlier continuing work.
 
 The isolated runtime37904eb57ddde163fc0da097393713362310a400 is a direct child of the previous live139ab165. It changes only Audio.horn and the NPC pitch expression in Main. Shaped400/500Hz harmonics,45ms attack/90ms release,lower gain, six overlapping horns, bounded NPC pitch and completed-node disconnection replace the former sawtooth sound. Existing gameplay/dialogue/rage/achievement triggers remain.
 
@@ -14,8 +14,8 @@ Mandatory frozen-source foot/a passes0high/0medium, one informational softwareGL
 
 The technical overview adds original unnormalized48kHz stereo WAV comparisons and source/metric metadata. Desktop1440 and phone390 layouts pass decoding, native audio playback, duration, byte/hash, links, source and no-overflow checks, with0page errors. Both complete card screenshots were inspected. The audio change requires no recapture of unchanged game geometry images.
 
-Private evidence: `/workspace/integration-qa-evidence/horn-release-20261110`. Public card after delivery: https://cristiancalina.com/game/overview/#horn-audio-fix . Local verifier `/tmp/verify-horn-live.py` is pinned to54a45f6c and includes all275runtime files, prior ground/SkyTower assets, retained gzip data and3new audio files.
+Private evidence: `/workspace/integration-qa-evidence/horn-release-20261110`, including `live-verification.json` and `publication.json`. [Live original audio comparison](https://cristiancalina.com/game/overview/#horn-audio-fix). Local verifier `/tmp/verify-horn-live.py` is pinned to54a45f6c and includes all275runtime files, prior ground/SkyTower assets, retained gzip data and3new audio files. Local exact-source desktop/phone playback checks and trusted-TLS delivered-byte checks remain separately scoped; no direct live-browser playback or hardware speaker-quality claim is made.
 
 Sparse generation initially stopped on omitted files. Temporary exact-Git hydration was removed after byte comparison and sparse flags restored; no source/evidence/history was deleted. Inventory update preserves previous key/source ordering, counts and capture provenance, rehashes all668prior selected source paths from exactb8Git blobs and adds the one audio summary. Final source tree has13changed paths and no source asset removals. Metadata correction receipts remain private.
 
-Coordination: the owner gave the full handoff prompt to Claude. Codex keeps horn publication and integration. Basarab should be explicitly assigned to Claude as packsA/B; its actual progress is not visible here. Do not start another Basarab implementation in parallel.
+Coordination: the owner gave the full handoff prompt to Claude and asked who owns Basarab. Codex told the owner to leave Basarab with Claude and keeps horn publication and integration. Claude's actual progress is not visible here. Do not start another Basarab implementation in parallel. Claude's integration base must include current master54a45f6c, preserving the accepted horn, ground and SkyTower fixes.

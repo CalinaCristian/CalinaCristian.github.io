@@ -1002,3 +1002,8 @@ body.touch #touch :is([data-btn=map],[data-btn=jump],[data-btn=horn],[data-btn=l
  body.touch #spot-ui.sp-tour-active:not(.sp-participating) .sp-card>span,body.touch #spot-ui.sp-tour-active:not(.sp-participating) .sp-chal,body.touch #spot-ui.sp-tour-active .sp-dots{display:none}
  body.touch #spot-ui.sp-tour-active:not(.sp-participating) .sp-narr{max-height:3em;overflow:auto;pointer-events:auto;touch-action:pan-y}
 }
+
+@media (max-width:700px) and (orientation:portrait){
+ body.touch #world-map .wm-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;overflow:visible}
+ body.touch #world-map .wm-tabs button{min-width:0;max-width:100%;min-height:44px;padding:8px 5px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}

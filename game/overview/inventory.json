@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "b8e2b35ac607bea599a64828ff808c61a332dc1c",
+  "sourceSha": "ef04808030bfb578b4b094189cb7c51d903412af",
   "reviewedOn": "2026-11-10",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -3444,7 +3444,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "bb077d2e5cb3d600d197330b33c7815e48a5e5d246be5b362e2273ff11e9d70b"
+      "sha256": "49f94a13fb60938915fb3ca372c0f9dc96cd32c0e92c6378a9afc6443458e04d"
     },
     {
       "path": "specs/README.md",
@@ -3464,7 +3464,7 @@
     },
     {
       "path": "specs/12-buildings-streetscape.md",
-      "sha256": "938e47cfaabc5a2bb052be4743773ac01f22cca5508b7d76fcdf422f1742c91b"
+      "sha256": "4911683d790521854315f1917e94cadef518a55168e6929dc034a1ec36cd9acb"
     },
     {
       "path": "specs/13-traffic.md",
@@ -3484,7 +3484,7 @@
     },
     {
       "path": "game/index.html",
-      "sha256": "ff5ca41f834268f10d073944594c39f4e19a6af33658e9e43d31c0f5a78dae7e"
+      "sha256": "25ff993ed3f51e9ea1d2243eb9c82c3a1e66964903bfaf16a8ee792c94c2c6eb"
     },
     {
       "path": "game/data/README.md",
@@ -3504,7 +3504,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "3b3fd5c5ca7c2589c1869bef4dc49adc1acbe1c3fde6b13b636d239fd84d0e42"
+      "sha256": "0e356bf21b0afcf02bb9fad8716030fe57fe341c266f1c3e567943ef6ef7d2c9"
     },
     {
       "path": "game/src/cities.js",
@@ -6064,7 +6064,7 @@
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "757f119dc4048e860ac64ba6af895c216b24a041b39e62756ec69e3aa7b6fde7"
+      "sha256": "6786282b41834f59990ced2fbc1cd0e646a4e7816f2ae1cfeb1c1dc39321f5ed"
     },
     {
       "path": "game/overview/landmark-evidence.js",
@@ -6109,6 +6109,10 @@
     {
       "path": "game/overview/evidence/softer-horns-20261110/summary.json",
       "sha256": "da917e7a2338e77a91210bcf64604dc7760d3273c9b83a8c8342e8366a928f5e"
+    },
+    {
+      "path": "game/overview/fix-road-guards/summary.json",
+      "sha256": "bb76d0a89a0b9fb7d5d87e000170ef3d70224993d1c75ea5e84508261e75eb10"
     }
   ],
   "stagingEvidence": [
@@ -6215,5 +6219,10 @@
     "runtimeSource": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
     "summary": "assets/landmarks/skytower/native-20261110/summary.json",
     "scope": "Partitioned source facade and exact coarse owner; matched district appearance controls. Existing Arnia route and other reports remain open."
+  },
+  "roadGuardFixEvidence": {
+    "source": "57eec0dd957e009f6d67630ea2a63fdf0abbcef0",
+    "summary": "game/overview/fix-road-guards/summary.json",
+    "scope": "Reported Otopeni drone view only; other road reports remain open."
   }
 }

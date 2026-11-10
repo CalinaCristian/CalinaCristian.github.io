@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-67d8f5c949266563",
-  "sourceCommit": "b8e2b35ac607bea599a64828ff808c61a332dc1c",
-  "fingerprint": "67d8f5c9492665639165e6ae9c9390e32be8106a0cbab22bbc3d5343ede63251",
+  "releaseId": "game-61b37c69fe8629e8",
+  "sourceCommit": "ef04808030bfb578b4b094189cb7c51d903412af",
+  "fingerprint": "61b37c69fe8629e8459648e25cda48a277e0a23acf551e9ff3cb090d5a8657b4",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -1006,7 +1006,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "3b3fd5c5ca7c2589c1869bef4dc49adc1acbe1c3fde6b13b636d239fd84d0e42"
+      "sha256": "0e356bf21b0afcf02bb9fad8716030fe57fe341c266f1c3e567943ef6ef7d2c9"
     },
     {
       "path": "game/src/worldmap.js",

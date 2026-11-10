@@ -52,13 +52,34 @@ const route = detour.C.escapeRoute(detour.p, [{ x: -4.6, z: 0 }], true, { reach:
 assert.ok(route?.legs.length >= 2, 'a bounded physical detour goes around the complete stopped rectangle');
 let from = detour.p;
 for (const to of route.legs) { assert.ok(detour.C.clearWalkSegment(from, to, true, { reach: 3 })); from = to; }
-assert.equal(detour.C.separatingVehiclePoint(detour.p, 1.1, 0), false, 'a deeper step is still blocked');
-const second = { ...detour.v, x: 2.5 };
+const crowd = scene(), q = { ...crowd.p, i: 455, x: 2.1, z: 0, state: 'stand', onRoad: false, legs: [] };
+crowd.C.list.push(q); crowd.C.buildGrid();
+const peerPoses = JSON.stringify(crowd.C.list.map(p => [p.i, p.x, p.z]));
+assert.equal(crowd.C.clearWalkSegment(crowd.p, { x: 4.6, z: 0 }, true, { reach: 3 }, crowd.p), false, 'a vehicle-clear shortcut through a peer is blocked');
+const peerRoute = crowd.C.escapeRoute(crowd.p, [{ x: 4.6, z: 0 }], true, { reach: 3 });
+assert.ok(peerRoute?.legs.length >= 2, 'the local planner finds a physical route around the peer');
+from = crowd.p;
+for (const to of peerRoute.legs) { assert.ok(crowd.C.clearWalkSegment(from, to, true, { reach: 3 }, crowd.p)); from = to; }
+assert.equal(JSON.stringify(crowd.C.list.map(p => [p.i, p.x, p.z])), peerPoses, 'peer planning never pushes or moves the crowd');
+const ring = scene(); ring.p.x = 0; ring.p.z = 10;
+ring.C.list = [ring.p, ...Array.from({ length: 6 }, (_, i) => ({ ...q, i: 460 + i, x: .6 * Math.cos(i * Math.PI / 3), z: 10 + .6 * Math.sin(i * Math.PI / 3) }))]; ring.C.buildGrid();
+assert.equal(ring.C.escapeRoute(ring.p, [{ x: 4.6, z: 10 }], true, { reach: 3 }), null, 'a completely occupied first step remains blocked instead of crossing people');
+assert.equal(detour.C.vehicleEscapePointClear(detour.p, 1.1, 0), false, 'a deeper step is still blocked');
+const second = { ...detour.v, x: 2.4 };
 detour.C.t.vehicles.push(second); detour.C.t.grid.query = (x, z, r, fn) => detour.C.t.vehicles.forEach(fn);
-assert.equal(detour.C.separatingVehiclePoint(detour.p, 1.205, 0), false, 'escaping one body cannot move toward another body');
+assert.equal(detour.C.vehicleEscapePointClear(detour.p, 1.205, 0), false, 'escaping one body cannot move toward another body');
 detour.C.t.vehicles.pop(); detour.C.t.grid.query = (x, z, r, fn) => fn(detour.v);
 assert.equal(detour.C.clearWalkStep(1.2, 0, true), false, 'ordinary walking keeps the unchanged comfort margin');
 assert.equal(detour.C.clearWalkStep(1.2, 0, true, detour.p), true, 'only a separating return step can leave an existing margin');
+const carried = scene(); carried.p.x = 1.5; carried.p.legs[0].vehicleEscape = true; carried.C._stepDt = 1 / 30;
+carried.C.crowd.reach = () => .6;
+assert.equal(carried.C.avoidVehicles(carried.p, 1.6, 0, true), true, 'a marked escape still protects the actual carried-item radius');
+assert.equal(carried.p.x, 1.6);
+assert.equal(carried.C.vehicleEscapePointClear({x:1.6,z:0,radius:NaN},1.7,0), false, 'an unresolved carried radius cannot authorize an escape');
+carried.C.crowd.reach = () => .3; carried.p.x = 1.5;
+assert.equal(carried.C.avoidVehicles(carried.p, 1.6, 0, true), false, 'a body-clear tight escape corridor can be used');
+carried.p.legs = []; carried.p.x = 1.5;
+assert.equal(carried.C.avoidVehicles(carried.p, 1.6, 0, true), true, 'ordinary walking retains the full comfort margin');
 detour.C.inWater = () => true;
 assert.equal(detour.C.clearWalkStep(1.2, 0, true, detour.p), false, 'water cannot be used for an escape');
 
@@ -68,6 +89,6 @@ C.t.vehicles = C.t.grid.items = [v]; C.t.grid.query = (x, z, r, fn) => fn(v);
 const fx = -Math.sin(v.heading), fz = -Math.cos(v.heading), dx = p.x - v.x, dz = p.z - v.z, side = Math.sign(-dx * fz + dz * fx);
 const away = { x: p.x - fz * side * .03, z: p.z + fx * side * .03 };
 assert.equal(C.freeVehiclePoint(p.x, p.z), false, 'actual454 starts inside the native stopped-body comfort margin');
-assert.equal(C.separatingVehiclePoint(p, away.x, away.z), true, 'actual454 has a physically separating first step');
-assert.equal(C.separatingVehiclePoint(p, 2 * p.x - away.x, 2 * p.z - away.z), false, 'the actual toward-body step stays blocked');
-console.log('PASS: physical stalled-return escape, unchanged normal crossing/margin, full stopped-body detour, source/actor preservation, water and actual454 pose controls');
+assert.equal(C.vehicleEscapePointClear(p, away.x, away.z), true, 'actual454 has a physically separating first step');
+assert.equal(C.vehicleEscapePointClear(p, 2 * p.x - away.x, 2 * p.z - away.z), false, 'the actual toward-body step stays blocked');
+console.log('PASS: bounded physical crossing/recovery escape, unchanged ordinary comfort, complete vehicle/peer detours and blocked ring, carried body, source/actor/water/native454 controls');

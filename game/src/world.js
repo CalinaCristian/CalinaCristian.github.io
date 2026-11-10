@@ -1,5 +1,6 @@
 import { sourceTransitShelterDecision } from './source-transit-shelter.js';
 import { cachedPointHeight } from './point-height-cache.js';
+import { basarabEdge, buildBasarabStructure, drawBasarabGuard } from './basarab-structure.js';
 import { projectCoveredWater, prepareFinalWaterGeometry, prepareSmallWaterGroups, consumePreparedSmallWater, waterOwnerSurface, landmarkWaterSurfaces, combineUnderpassWaterOwners } from './final-water-topology.js';
 import { buildUnderpassOwnerIndex } from './underpass-ground-owner.js';
 import { underpassRoofModel, underpassRoofFaces, underpassRoofCollider, UNDERPASS_COVER_POLICY } from './underpass-roof.js';
@@ -2414,7 +2415,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if(polygon.length)sourceMarks.flatPolygon(polygon,q[8],q[9],q[10]);
         }
         // bridges: railings
-        if (e.bridge) {
+        if (e.bridge && !basarabEdge(data,e)) {
             const sb = bridgeGuard || c.solid;
             for (const s of [1, -1]) {
                 const pa = corner(e, e.a, s, widthAsphalt(e, s) + 0.3, widthAsphalt), pb = corner(e, e.b, s, widthAsphalt(e, s) + 0.3, widthAsphalt);
@@ -3080,6 +3081,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         walls.length = 0; walls.push(...railClearWalls);
         // draw the concrete separation barriers that survived
         for (const w of walls) {
+            if(w.kind==='rail'&&w.edge&&basarabEdge(data,w.edge))drawBasarabGuard(w,cellOf);
             if (w.generatedMedian) {
                 // Exactly the final surviving collision intervals, including
                 // openings at pads and crossing ribbons. Real OSM barriers use
@@ -3894,6 +3896,9 @@ export async function buildWorld(city, renderer, opts = {}) {
     const collision = [];
     const propColl = []; // small circles for street furniture (trees, posts, shelters…)
     propColl.push(...tramDecks, ...bridgeJunctionDecks);
+    const basarabStructure=buildBasarabStructure(data,tramGrades,cellOf,group);
+    propColl.push(...basarabStructure.colliders);
+    for(const piece of basarabStructure.pieces){propColl.push(piece);tramDecks.push(piece);sceneryDeckGrid.insert(piece.x-piece.r,piece.z-piece.r,piece.x+piece.r,piece.z+piece.r,piece);}
     const treeClear = []; // (after round 6) {x, z, r}: no trees here (fuel forecourts)
     const addPropColl = (x, z, r, kind = 'prop') => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h: 3, prop: true, kind });
     propColl.push(...sportsColl); // (pitch / court fences, dugouts, goal and hoop posts)
@@ -6204,7 +6209,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         camera: null, // optional: set to the main camera for distance culling (auto-detected otherwise)
         group, graph, buildings: allColl, pois, lights, nodeLight, bounds, nearestEdge, edgesInBox, isWater, isPark, waterMesh, sky,
         districts, areas, landmarks, trams, stats, data, spawn, city, allEdges,
-        tramGrade: tramGrades.resolveGrade, tramDecks, tramDeckSupportAt, sidewalkWidth, sourceBridgeProfile:sharedBridgeProfile.report, sourceBridgeMeshAudit:sharedBridgeMeshAudit,
+        tramGrade: tramGrades.resolveGrade, tramDecks, tramDeckSupportAt, sidewalkWidth, sourceBridgeProfile:sharedBridgeProfile.report, sourceBridgeMeshAudit:sharedBridgeMeshAudit, basarabStructure:basarabStructure.report,
         generatedParapetOwnership:{report:parapetOwnership.report,caps:parapetOwnership.pieces.map(({id,top,heightM,owner,box})=>({id,top,heightM,owner,box}))},
         /** placed trees {x, z, species, con, kind} (read-only; QA detectors) */
         treeSpots: treeList,

@@ -128,7 +128,7 @@ function personGeometry() {
 // ---------------------------------------------------------------------------
 //  Material: MeshStandard + per-instance colours / anim / flags; skeleton-free poses in the vertex shader
 // ---------------------------------------------------------------------------
-let MAT = null, DEPTH = null;
+let MAT = null, DEPTH = null, NORMAL = null;
 const UTIME = { value: 0 };
 const GLSL_HEAD = `
     attribute float aPart; attribute float aLimb; attribute vec4 aAnim;
@@ -264,6 +264,21 @@ function crowdDepthMaterial() {
     return (DEPTH = m);
 }
 
+// Ultra's AO normal pass must see the same posed limbs and enabled outfit
+// pieces as the color/shadow passes. A plain override shows every hidden prop.
+function crowdNormalMaterial() {
+    if (NORMAL) return NORMAL;
+    const m = new THREE.MeshNormalMaterial();
+    m.onBeforeCompile = sh => {
+        sh.uniforms.uCrowdTime = UTIME;
+        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\n'+GLSL_HEAD)
+            .replace('#include <beginnormal_vertex>', '#include <beginnormal_vertex>\n{vec3 pDummy=crowdPose(position,objectNormal);}')
+            .replace('#include <begin_vertex>', '#include <begin_vertex>\n'+GLSL_POSE);
+    };
+    m.customProgramCacheKey=()=> 'crowd-normal-posed-1';
+    return (NORMAL=m);
+}
+
 // ---------------------------------------------------------------------------
 //  Outfits per city / season / weather (real-world-ish shares)
 // ---------------------------------------------------------------------------
@@ -320,7 +335,7 @@ export function makeCrowd({ max = 256, city = 'bucharest', season = seasonOf(), 
         g.setIndex(geo.index);
         const at = {};
         for (const [k, n] of [['aTop', 3], ['aBottom', 3], ['aSkin', 3], ['aHair', 3], ['aAcc', 3], ['aAnim', 4]]) { at[k] = new THREE.InstancedBufferAttribute(new Float32Array(N * n), n); at[k].setUsage(THREE.DynamicDrawUsage); g.setAttribute(k, at[k]); }
-        const mesh = new THREE.InstancedMesh(g, mat, N); mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage); mesh.customDepthMaterial = crowdDepthMaterial();
+        const mesh = new THREE.InstancedMesh(g, mat, N); mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage); mesh.customDepthMaterial = crowdDepthMaterial(); mesh.customNormalMaterial = crowdNormalMaterial();
         mesh.frustumCulled = false; mesh.castShadow = cast; mesh.receiveShadow = true; mesh.count = 0; mesh.userData.shared = true;
         object.add(mesh);
         return { mesh, at };

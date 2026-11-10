@@ -476,13 +476,28 @@ class GTAOPass extends Pass {
 
 		}
 
-		this.scene.overrideMaterial = overrideMaterial;
-		renderer.render( this.scene, this.camera );
-		this.scene.overrideMaterial = null;
-
-		renderer.autoClear = originalAutoClear;
-		renderer.setClearColor( this.originalClearColor );
-		renderer.setClearAlpha( originalClearAlpha );
+		// Local extension: animated/conditionally visible geometry may provide a
+		// matching customNormalMaterial. A plain normal override otherwise draws
+		// hidden crowd props in rest pose, leaving phantom AO silhouettes.
+		const previousOverride = this.scene.overrideMaterial, swapped = [];
+		if ( overrideMaterial === this.normalMaterial ) {
+			this.scene.traverse( object => {
+				if ( ! object.isMesh ) return;
+				const original = object.material, normal = object.customNormalMaterial || overrideMaterial;
+				swapped.push( [ object, original ] );
+				object.material = Array.isArray( original ) ? original.map( () => normal ) : normal;
+			} );
+			this.scene.overrideMaterial = null;
+		} else this.scene.overrideMaterial = overrideMaterial;
+		try {
+			renderer.render( this.scene, this.camera );
+		} finally {
+			for ( const [ object, original ] of swapped ) object.material = original;
+			this.scene.overrideMaterial = previousOverride;
+			renderer.autoClear = originalAutoClear;
+			renderer.setClearColor( this.originalClearColor );
+			renderer.setClearAlpha( originalClearAlpha );
+		}
 
 	}
 

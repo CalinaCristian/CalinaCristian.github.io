@@ -14,7 +14,12 @@ const nodes=new Map();for(const e of f.edges)for(const k of ['a','b']){if(nodes.
 const profile=compileSharedBridgeProfile(f.data,{coreEdges:f.edges,lanePolygon:e=>f.lanes[e.id]||[],padLanePolygon:n=>f.pads[n.id]||[],padSurfacePolygon:n=>f.roadPads[n.id]||f.pads[n.id]||[]});assert(profile.known);
 const roadIndex=new Map(Object.entries(f.data.roadSourceGeometry).map(([i,w])=>[w.sourceId,Number(i)]));
 const E=f.edges.map(e=>{e={...e,road:roadIndex.get(e.sourceId)??-1};const g=profile.roadGrades.get(e.id);return g?{...e,ya:g.ya,yb:g.yb,a:{...e.a,y:g.ya},b:{...e.b,y:g.yb},sourceBridgeGrade:g}:e;});
-const grades=buildTramGrades(f.data,{coreEdges:E,sharedProfile:profile});
+// This older road-profile fixture retained clipped rail runs. Use the current
+// complete literal runs for clearance, including the station north of x620.
+const nativeData=JSON.parse(fs.readFileSync(new URL('../data/bucharest-grozavesti.json',import.meta.url)));
+const gradeData={...f.data,trams:nativeData.trams,tramSources:nativeData.tramSources};
+const grades=buildTramGrades(gradeData,{coreEdges:E,sharedProfile:profile});
+assert(grades.corridors.some(c=>c.sourceId==='w118416425'&&c.a[0]>700),'clearance includes the complete station rail run');
 // Fixtures retain their native source dataset, including its actual district.
 const cell={solid:new MeshBuilder()},input={...f.data,city:'bucharest',district:{id:'grozavesti'}},before=JSON.stringify(f.data),result=buildBasarabStructure(input,grades,()=>cell,null,E);
 assert.equal(JSON.stringify(f.data),before,'all source records remain exact');assert(result.report.active);assert.equal(result.report.sourcePlatforms.length,2);assert(result.report.gapPieces>0);

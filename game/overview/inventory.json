@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "00fb4506291a2063663ff7a1707ee8d8c5c44508",
+  "sourceSha": "7ac898a8cd03bfe95906de7acbb95cdd5817f38f",
   "reviewedOn": "2026-11-10",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -6064,7 +6064,7 @@
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "23ce02cf74482a7d2d940fb8ce82b86b8f8ce56d48f636cb8012e3c95222b7ed"
+      "sha256": "82693522e04490de53053326a49d1cd39a631983c8971bc300e3ccd58f1aa304"
     },
     {
       "path": "game/overview/landmark-evidence.js",
@@ -6117,6 +6117,10 @@
     {
       "path": "game/overview/fix-church-windows/summary.json",
       "sha256": "632f5801b086c31edf633b6ee8da8418fe5b8260321b944938566d54782eed1c"
+    },
+    {
+      "path": "game/overview/fix-otopeni-driver/summary.json",
+      "sha256": "657b739e9fe57175a11f4ed1f155701f01ef186b1f27d029f3956351263c428a"
     }
   ],
   "stagingEvidence": [
@@ -6233,5 +6237,10 @@
     "source": "3cc387ba6ffcd8829e8d7463553c343d71c81e75",
     "summary": "game/overview/fix-church-windows/summary.json",
     "scope": "Report49: whole facade window rows below eaves. Other roof and floating-part reports remain open; paired Roman\u0103 QA retains existing route and geometry failures."
+  },
+  "otopeniDriverFixEvidence": {
+    "source": "3cc387ba6ffcd8829e8d7463553c343d71c81e75",
+    "summary": "game/overview/fix-otopeni-driver/summary.json",
+    "scope": "Report53 exact cockpit view; existing road-guard fix. Other road reports and complete journeys remain open."
   }
 }

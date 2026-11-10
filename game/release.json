@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-6ed33383c1ff3d9c",
-  "sourceCommit": "374374011f92d588238ed7d1aa8dd3d3845fa392",
-  "fingerprint": "6ed33383c1ff3d9caaf97d312ebbb1f22ce568e9485e2d842b38627669d6db41",
+  "releaseId": "game-f16785c2fa9920ea",
+  "sourceCommit": "3d48fb8b3ff955e7723528c1d51e80898139b265",
+  "fingerprint": "f16785c2fa9920eaa0f7dddeca859d96acf3b413383062c3c41fee52a6f3e106",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -174,11 +174,11 @@
     },
     {
       "path": "game/index.html",
-      "sha256": "49bb71b10d7cd803ae6e2d5031317119e63581660b7b2353d8b4654d2c52014b"
+      "sha256": "dd80673267d562e6b8951062a0c2d01c2a24d23ba1fc596754740b57f30b2d26"
     },
     {
       "path": "game/src/achievements.js",
-      "sha256": "c4a293f388c1b8f7387b915095ccc91d21e282e2fe0183b9a6295577b214ec1c"
+      "sha256": "39628641dc1c63cc69cf8528a1970f8f4e786caeed588c717ed7912d77892b19"
     },
     {
       "path": "game/src/archetypes.js",
@@ -278,7 +278,7 @@
     },
     {
       "path": "game/src/data.js",
-      "sha256": "c1906c932e7d7de283466cf1195e2f988186055dc0776655b588ef4fb39aa579"
+      "sha256": "ba5f484aa4b543dcbc4254c30081b9dad5acdbfff7d641fd159bfaa84615ffd0"
     },
     {
       "path": "game/src/district-boundary.js",
@@ -330,7 +330,7 @@
     },
     {
       "path": "game/src/hud.js",
-      "sha256": "d31f73e6ba058383a9bb787cd7265efd9ada3b01f8d4f95f19ee7792ca5f4f6e"
+      "sha256": "64f3a6c6a73b8fc7afa1a512a82820cd977b384322a9cf149007064c1ee8bc83"
     },
     {
       "path": "game/src/inferred-road-sign.js",
@@ -418,7 +418,7 @@
     },
     {
       "path": "game/src/main.js",
-      "sha256": "26aafe38752c9dd00af83ed8f46d18e54022081dd478a096794f6b5cc3951a4f"
+      "sha256": "6f3f8cdac0097e7bf30b8767bdf4c29658f10301827988e4b9e34166036ab138"
     },
     {
       "path": "game/src/map-place-actions.js",
@@ -449,6 +449,10 @@
       "sha256": "d059974cc92a5784ec42314dd3d57b013f8963b792201cc0a0e38c85f059a228"
     },
     {
+      "path": "game/src/office-floors.js",
+      "sha256": "81d7e8a92814a24d0b94905486f581c5ce591f0a05bb8d2a25a07c8a7ce60351"
+    },
+    {
       "path": "game/src/office-interior-details.js",
       "sha256": "1ba4c8a675d1891bd2c0bef20a3b0a6bd8a878a45e912152d34fb3168bcb15e8"
     },
@@ -458,7 +462,7 @@
     },
     {
       "path": "game/src/office-window-binding.js",
-      "sha256": "0546ab4130edc5bfff0f50e6b026f6ca16bafa59bad3475ef04cf0223b0192b0"
+      "sha256": "f2255f6bc4720bc0aa377e572ef22561e529ea3a5d98434cedf49ecae5f41935"
     },
     {
       "path": "game/src/office-window-math.js",
@@ -466,7 +470,7 @@
     },
     {
       "path": "game/src/office-window-service.js",
-      "sha256": "0aa60fdaddd7617f72274fa198b17fca6cd0abd448540a58ca772c9ecca1315f"
+      "sha256": "09ed2efa3eea65e191112ec89607fc6c399bf8c6ddd9f3e100191e80274f2b49"
     },
     {
       "path": "game/src/office-window-structural-plane.js",
@@ -478,7 +482,7 @@
     },
     {
       "path": "game/src/office.js",
-      "sha256": "c080eadae0171c484fee7b9ae0904af115e8376e9ab1d308a60c06188c958b66"
+      "sha256": "499796b6147367ada9b0ba33ec1a8b1099ec1bdb96ece747ee98b1321c683ab6"
     },
     {
       "path": "game/src/onfoot.js",
@@ -1002,7 +1006,7 @@
     },
     {
       "path": "game/style.css",
-      "sha256": "70d097dd5090960f2c3e03ce8357bcdb177f078fcab54ee8a50ad5c8cdd9abe4"
+      "sha256": "a31c06d3122664f416a246d453d35e1ce5873f92cc0300f0083cd9ecc1e9d3e7"
     },
     {
       "path": "game/vendor/addons/CopyShader.js",

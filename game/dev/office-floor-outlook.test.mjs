@@ -39,3 +39,12 @@ test('an existing compatible source facade also does not prove a real window', (
   assert.equal(b.known,true); assert.equal(b.sourceFacadeCoverage,true);
   assert.equal(b.architecturalApertureVerified,false);
 });
+
+test('a lower source podium uses its legacy height when the precision override is absent', () => {
+  const f=fixture({foreign:true});
+  delete f.world.data.buildingDimensions[1];
+  f.world.data.buildings[1]=[0,20,0,0,0,0,1];
+  assert.equal(createOfficeWindowBinding(f.world,f.office).known,true);
+  f.world.data.buildings[1][1]=120;
+  assert.equal(createOfficeWindowBinding(f.world,f.office).known,false,'same-height foreign volume must still block');
+});

@@ -21,6 +21,7 @@ import {evaluateInitialParking} from './initial-parking-behavior.js';
 import { buildTramSourceSignals, tramSourceSignalState } from './tram-source-signals.js';
 import { fitTramBodySupport } from './tram-body-support.js';
 import {signalPadOccupancy} from './signal-pad-occupancy.js';
+import {initialSignalMovement} from './initial-signal-movement.js';
 
 // ============================================================================
 //  TRAFFIC — vehicles + pedestrians on the road graph.
@@ -229,6 +230,7 @@ export class Traffic {
         this.initialAdmission = admitInitialTraffic(this);
         if (!this.initialTramBinding.passed) this.initialAdmission.passed = false;
         if (!this.initialMotorTurnAudit.passed) this.initialAdmission.passed = false;
+        for (const v of this.vehicles) v._initialSignalPending = true;
         this.base = { moving: this.vehicles.filter(v => this.cls(v) === 'moving').length, parked: this.vehicles.filter(v => v.parked).length };
         this.peds = new Pedestrians(this, opts.maxPeds ?? (this.buc ? 250 : 60));
         if (opts.hour != null) this.setHour(opts.hour, true);
@@ -1245,6 +1247,18 @@ export class Traffic {
         if (v.edge.rail) v._railHist0 = v.hist?.slice();
         { const P0 = this.player; v._pp0 = P0 && Math.abs(P0.x - v.x) < 16 && Math.abs(P0.z - v.z) < 16 && Math.abs((P0.y ?? 0.24) - v.y) < 2.5 ? vpPen(v, P0) : undefined; }
         this.ensureRoute(v);
+        if (v._initialSignalPending) {
+            v._initialSignalPending = false;
+            const owner = initialSignalMovement(v,(a,ad,b,bd)=>motorTurnAllowed(this.motorTurnRestrictions,a,ad,b,bd,{mode:motorRestrictionMode(v)}));
+            if (owner && v.route[0]) {
+                const node = v.dir > 0 ? v.edge.b : v.edge.a;
+                const path = this.reservationPath(v,v.edge,v.dir,v.route[0],node,node.radius??6,owner.controller);
+                Object.assign(path,{v,t:this.time,t0:this.time-1,entered:true,phase:owner.phase,initialSourceOrigins:owner.origins.map(n=>n.sourceId)});
+                let list = this.boxes.get(owner.controller);
+                if (!list) this.boxes.set(owner.controller,list=[]);
+                if (!list.some(r=>r.v===v)) list.push(path);
+            }
+        }
         const e = v.edge, L = e.len, half = v.length / 2;
         const lim = v.tram ? (e.rail ? Math.min(11, edgeSpeed(e)) : 11) : edgeSpeed(e);
         let desired = lim * (v.tram ? 1 : v.desiredMul) * (this.weatherMul ?? 1); // rain / snow: everyone drives slower
@@ -1648,12 +1662,12 @@ export class Traffic {
         path.v = v; path.t = this.time; path.t0 = this.time; list.push(path);
     }
     /** Reserve every pad and connecting lane through this controller, including turns. */
-    reservationPath(v, curE, curDir, nxt, node, rad) {
+    reservationPath(v, curE, curDir, nxt, node, rad, controller = node.lightCluster) {
         const path = this.boxPath(v, curE, curDir, nxt, rad);
         path.segments = path.railSegments || [{ ...path }]; path.internalEdges = new Set(); path.entryRad = rad; path.exitRad = rad;
         path.entryNode=node;path.exitNode=node;
         path.phase = node.sourceSignal?.phase ?? this.world.nodeLight?.[node.id]?.approaches.find(a => a.edge === curE)?.phase;
-        const cl = node.lightCluster;
+        const cl = controller;
         let step = nxt, i = 0, exitIndex = 0;
         while (cl && step && i < v.route.length) {
             const end = step.dir > 0 ? step.e.b : step.e.a, after = v.route[++i];

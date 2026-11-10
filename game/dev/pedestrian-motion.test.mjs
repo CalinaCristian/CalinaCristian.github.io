@@ -67,7 +67,9 @@ if(baseline){const Old=(await import(pathToFileURL(path.resolve(baseline,'game/s
 const native=JSON.parse(fs.readFileSync(new URL('./fixtures/unirii-peer-cell-86-199.json',import.meta.url))),n=scene();
 n.C.list=native.actors.map((p,i)=>({...p,i:p.id,x:native.indexed[i].x,z:native.indexed[i].z,live:true,scale:p.scale||1}));n.C.buildGrid();
 n.C.list.forEach((p,i)=>Object.assign(p,{x:native.actors[i].x,z:native.actors[i].z}));
+n.C.grid.fixed=false; // legacy negative only
 let seen=false;n.C.grid.query(n.C.list[0].x,n.C.list[0].z,1.1,p=>{if(p.i===199)seen=true;});assert.equal(seen,false,'the actual old-cell hash omits native199');
+n.C.grid.fixed=true; // restore production query contract
 n.C.list.forEach((p,i)=>n.C.notePeerMove(p,native.indexed[i].x,native.indexed[i].z));
 assert.equal(n.C.peerClearStep(n.C.list[0],n.C.list[0].x,n.C.list[0].z,native.indexed[0].x,native.indexed[0].z),false,'dirty membership cannot admit a worsening native contact');
 n.C.ensurePeerGrid();seen=false;n.C.grid.query(n.C.list[0].x,n.C.list[0].z,1.1,p=>{if(p.i===199)seen=true;});assert.equal(seen,true);

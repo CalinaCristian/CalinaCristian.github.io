@@ -405,9 +405,10 @@ export class Office {
         const el = this.hud.el?.panel?.querySelector('.dlg') || document.querySelector('#panel .dlg'); if (!el) return;
         const N = this.stations.length, s = this.stop;
         this.opts = this.options();
-        el.innerHTML = `<div class="dlg-head"><img class="dlg-portrait" alt="" src="${this.portrait}"><div><div class="dlg-name">${esc(this.npc.title)}</div><div class="dlg-where" style="color:${s.color}">${s.icon || ''} ${esc(s.company)} · ${esc(s.period)}</div></div><div class="dlg-count">Story ${this.cur + 1}/${N}</div></div>`
+        el.innerHTML = `<div class="dlg-head"><img class="dlg-portrait" alt="" src="${this.portrait}"><div><div class="dlg-name">${esc(this.npc.title)}</div><div class="dlg-where" style="color:${s.color}">${s.icon || ''} ${esc(s.company)} · ${esc(s.period)}</div><span class="dlg-count">Story ${this.cur + 1}/${N}</span></div><button type="button" class="dlg-pause" aria-label="Pause conversation" title="Pause conversation (Esc)">×</button></div>`
             + `<div class="dlg-text">${text}</div>${sub ? `<div class="dlg-sub">${sub}</div>` : ''}`
-            + `<div class="dlg-opts dlg-linear"><button data-opt="0"><kbd>↵</kbd>${esc(this.opts[0].label)}</button></div><div class="dlg-help">Enter / Space or tap Continue · Esc pauses the story</div>`;
+            + `<div class="dlg-opts dlg-linear"><button data-opt="0"><kbd>↵</kbd>${esc(this.opts[0].label)}</button></div><div class="dlg-help">Enter / Space or tap Continue · × / Esc pauses the story</div>`;
+        el.querySelector('.dlg-pause').addEventListener('click', () => this.endTalk(true));
         el.querySelectorAll('[data-opt]').forEach(b => b.addEventListener('click', (e) => { e.preventDefault(); this.pick(+b.dataset.opt); }));
     }
     pick(i) { const o = this.opts?.[i]; if (o) { this.audio.blip?.(880, 0.03, 0.04); o.act(); } }

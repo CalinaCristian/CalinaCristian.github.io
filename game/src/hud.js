@@ -134,9 +134,17 @@ export class HUD {
         return true;
     }
     prompt(text) {
+        const useAction = !!text && /<kbd>(?:E|Enter)<\/kbd>/.test(text);
+        document.body.classList.toggle('has-use-prompt', useAction);
         if (text && document.body.classList.contains('touch')) text = text.replace(/<kbd>E<\/kbd>/g, '<b>Use</b>').replace(/<kbd>Enter<\/kbd>/g, '🚶');
         if (!text) { this.el.prompt.classList.remove('show'); return; }
         if (this.el.prompt.innerHTML !== text) this.el.prompt.innerHTML = text;
+        if (useAction && this._touchPrompt !== text) {
+            this._touchPrompt = text;
+            const label = this.el.prompt.cloneNode(true); label.querySelectorAll('small,kbd').forEach(el => el.remove());
+            const button = this._useButton ||= document.querySelector('#touch [data-btn=act]');
+            if (button) { const text=label.textContent.replace(/^(?:Use|🚶)\s*/, '').trim().slice(0, 70) || 'Use'; button.dataset.promptLabel=text; button.setAttribute('aria-label',text); }
+        }
         this.el.prompt.classList.add('show');
     }
     /** full-screen panel; returns a promise resolved on close */

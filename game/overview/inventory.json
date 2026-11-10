@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "ef04808030bfb578b4b094189cb7c51d903412af",
+  "sourceSha": "00fb4506291a2063663ff7a1707ee8d8c5c44508",
   "reviewedOn": "2026-11-10",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -34,8 +34,8 @@
     {
       "id": "grozavesti",
       "city": "bucharest",
-      "name": "Grozăvești",
-      "label": "Grozăvești & Politehnica — Splaiul Independenței, Podul Grozăvești, Bd. Doina Cornea",
+      "name": "Groz\u0103ve\u0219ti",
+      "label": "Groz\u0103ve\u0219ti & Politehnica \u2014 Splaiul Independen\u021bei, Podul Groz\u0103ve\u0219ti, Bd. Doina Cornea",
       "landmarks": [
         "politehnica",
         "cathedral"
@@ -56,7 +56,7 @@
       "id": "unirii",
       "city": "bucharest",
       "name": "Unirii",
-      "label": "Piața Unirii, Calea Călărașilor, Hala Traian",
+      "label": "Pia\u021ba Unirii, Calea C\u0103l\u0103ra\u0219ilor, Hala Traian",
       "landmarks": [
         "gts",
         "unirea",
@@ -81,8 +81,8 @@
     {
       "id": "romana",
       "city": "bucharest",
-      "name": "Romană & Victoriei",
-      "label": "Piața Romană, Bd. Lascăr Catargiu, Piața Victoriei, Vasile Alecsandri",
+      "name": "Roman\u0103 & Victoriei",
+      "label": "Pia\u021ba Roman\u0103, Bd. Lasc\u0103r Catargiu, Pia\u021ba Victoriei, Vasile Alecsandri",
       "landmarks": [
         "victoria",
         "ase",
@@ -118,7 +118,7 @@
       "id": "floreasca",
       "city": "bucharest",
       "name": "Floreasca",
-      "label": "Calea Floreasca, Piața Floreasca, Str. Garibaldi and the streets around C.A. Rosetti",
+      "label": "Calea Floreasca, Pia\u021ba Floreasca, Str. Garibaldi and the streets around C.A. Rosetti",
       "landmarks": [
         "rosetti",
         "dinamo",
@@ -142,7 +142,7 @@
       "id": "pipera",
       "city": "bucharest",
       "name": "Pipera",
-      "label": "Bd. Dimitrie Pompeiu, Hermes Business Campus, BOB Tower, Șos. Fabrica de Glucoză, Șos. Pipera",
+      "label": "Bd. Dimitrie Pompeiu, Hermes Business Campus, BOB Tower, \u0218os. Fabrica de Glucoz\u0103, \u0218os. Pipera",
       "landmarks": [
         "hermes",
         "bob",
@@ -169,7 +169,7 @@
       "id": "otopeni",
       "city": "bucharest",
       "name": "Otopeni",
-      "label": "DN1 at Otopeni and the Henri Coandă terminal (OTP)",
+      "label": "DN1 at Otopeni and the Henri Coand\u0103 terminal (OTP)",
       "landmarks": [
         "otp"
       ],
@@ -187,7 +187,7 @@
       "id": "seatac",
       "city": "seattle",
       "name": "SeaTac",
-      "label": "SeaTac — arrivals kerb, terminal loop and the Airport Expressway",
+      "label": "SeaTac \u2014 arrivals kerb, terminal loop and the Airport Expressway",
       "landmarks": [
         "seatac",
         "seatower",
@@ -260,7 +260,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 2305.089259771249,
           "scenery": true,
@@ -278,7 +278,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 1649.5272421600612,
           "scenery": true,
@@ -298,7 +298,7 @@
     {
       "id": "cathedral",
       "city": "bucharest",
-      "name": "Catedrala Mântuirii Neamului",
+      "name": "Catedrala M\u00e2ntuirii Neamului",
       "builder": "bCathedral",
       "lat": 44.4259297,
       "lon": 26.0822981,
@@ -307,7 +307,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 2002.597300341679,
           "scenery": true,
@@ -325,7 +325,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 2033.3076566872483,
           "scenery": true,
@@ -354,7 +354,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 1545.9735395117164,
           "scenery": true,
@@ -372,7 +372,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 1182.0279346138104,
           "scenery": true,
@@ -418,7 +418,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 3112.7768567482435,
           "scenery": true,
@@ -427,7 +427,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 2873.9183740633816,
           "scenery": true,
@@ -465,7 +465,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 2789.7691610053307,
           "scenery": true,
@@ -483,7 +483,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "nearby",
           "distanceM": 310.77665083587465,
           "scenery": true,
@@ -512,7 +512,7 @@
     {
       "id": "univ",
       "city": "bucharest",
-      "name": "Palatul Universității",
+      "name": "Palatul Universit\u0103\u021bii",
       "builder": "bUniv",
       "lat": 44.4355639,
       "lon": 26.1007589,
@@ -521,7 +521,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 2749.5338959885603,
           "scenery": true,
@@ -539,7 +539,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "nearby",
           "distanceM": 461.03374601752785,
           "scenery": true,
@@ -566,7 +566,7 @@
         {
           "kind": "visit",
           "id": "old-town-lipscani",
-          "name": "Old Town · clubs, Carusel & a hidden bar",
+          "name": "Old Town \u00b7 clubs, Carusel & a hidden bar",
           "range": "nearby",
           "distanceM": 369.8074248127765,
           "modelScope": "Tourist scenes use their own models/source geometry; the catalogue study is separate."
@@ -576,7 +576,7 @@
     {
       "id": "tnb",
       "city": "bucharest",
-      "name": "Teatrul Național București",
+      "name": "Teatrul Na\u021bional Bucure\u0219ti",
       "builder": "bTNB",
       "lat": 44.4370273,
       "lon": 26.1036159,
@@ -585,7 +585,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 2899.0497145727695,
           "scenery": true,
@@ -603,7 +603,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "nearby",
           "distanceM": 390.7753423687136,
           "scenery": true,
@@ -632,7 +632,7 @@
     {
       "id": "ateneu",
       "city": "bucharest",
-      "name": "Ateneul Român",
+      "name": "Ateneul Rom\u00e2n",
       "builder": "bAteneu",
       "lat": 44.441344,
       "lon": 26.0973695,
@@ -641,7 +641,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 2238.7554791410953,
           "scenery": true,
@@ -659,7 +659,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "nearby",
           "distanceM": 14.46463348068751,
           "scenery": true,
@@ -697,7 +697,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 2241.9764834428947,
           "scenery": true,
@@ -715,7 +715,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "nearby",
           "distanceM": 204.74488335054303,
           "scenery": true,
@@ -742,7 +742,7 @@
         {
           "kind": "visit",
           "id": "cismigiu",
-          "name": "Cișmigiu Gardens",
+          "name": "Ci\u0219migiu Gardens",
           "range": "nearby",
           "distanceM": 205.17679828036393,
           "modelScope": "Tourist scenes use their own models/source geometry; the catalogue study is separate."
@@ -761,7 +761,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 1027.9423048745123,
           "scenery": true,
@@ -779,7 +779,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "close",
           "distanceM": 0,
           "scenery": false,
@@ -817,7 +817,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 2648.9884728534475,
           "scenery": true,
@@ -835,7 +835,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 884.8758044282068,
           "scenery": true,
@@ -862,7 +862,7 @@
         {
           "kind": "visit",
           "id": "old-town-lipscani",
-          "name": "Old Town · clubs, Carusel & a hidden bar",
+          "name": "Old Town \u00b7 clubs, Carusel & a hidden bar",
           "range": "nearby",
           "distanceM": 228.8673860448853,
           "modelScope": "Tourist scenes use their own models/source geometry; the catalogue study is separate."
@@ -872,7 +872,7 @@
     {
       "id": "mnir",
       "city": "bucharest",
-      "name": "Muzeul Național de Istorie a României",
+      "name": "Muzeul Na\u021bional de Istorie a Rom\u00e2niei",
       "builder": "bMNIR",
       "lat": 44.4313746,
       "lon": 26.097758,
@@ -881,7 +881,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 2773.7417897920755,
           "scenery": true,
@@ -899,7 +899,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 934.1569075695663,
           "scenery": true,
@@ -926,7 +926,7 @@
         {
           "kind": "visit",
           "id": "old-town-lipscani",
-          "name": "Old Town · clubs, Carusel & a hidden bar",
+          "name": "Old Town \u00b7 clubs, Carusel & a hidden bar",
           "range": "nearby",
           "distanceM": 126.70317890001053,
           "modelScope": "Tourist scenes use their own models/source geometry; the catalogue study is separate."
@@ -945,7 +945,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 1629.7007603999116,
           "scenery": true,
@@ -963,7 +963,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 2360.5298047167457,
           "scenery": true,
@@ -992,7 +992,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 3452.1271559392308,
           "scenery": true,
@@ -1010,7 +1010,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 1351.2256913482995,
           "scenery": true,
@@ -1037,7 +1037,7 @@
         {
           "kind": "visit",
           "id": "old-town-lipscani",
-          "name": "Old Town · clubs, Carusel & a hidden bar",
+          "name": "Old Town \u00b7 clubs, Carusel & a hidden bar",
           "range": "nearby",
           "distanceM": 421.9759768935229,
           "modelScope": "Tourist scenes use their own models/source geometry; the catalogue study is separate."
@@ -1047,7 +1047,7 @@
     {
       "id": "fountains",
       "city": "bucharest",
-      "name": "Fântânile din Piața Unirii",
+      "name": "F\u00e2nt\u00e2nile din Pia\u021ba Unirii",
       "builder": "bFountains",
       "lat": 44.4268,
       "lon": 26.1025,
@@ -1056,7 +1056,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 3380.2761331621805,
           "scenery": true,
@@ -1074,7 +1074,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 1444.7357140688596,
           "scenery": true,
@@ -1103,7 +1103,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 3636.872514865303,
           "scenery": true,
@@ -1121,7 +1121,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 2822.1330669071594,
           "scenery": true,
@@ -1159,7 +1159,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 3587.727828130306,
           "scenery": true,
@@ -1177,7 +1177,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 2785.7815003753126,
           "scenery": true,
@@ -1206,7 +1206,7 @@
     {
       "id": "baneasasc",
       "city": "bucharest",
-      "name": "Băneasa Shopping City",
+      "name": "B\u0103neasa Shopping City",
       "builder": "bBaneasaSC",
       "lat": 44.507022,
       "lon": 26.0897843,
@@ -1244,7 +1244,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 2613.097292792312,
           "scenery": true,
@@ -1253,7 +1253,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 2555.9949760031145,
           "scenery": true,
@@ -1291,7 +1291,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 1163.99264792661,
           "scenery": true,
@@ -1309,7 +1309,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "nearby",
           "distanceM": 322.9665743021311,
           "scenery": true,
@@ -1347,7 +1347,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "nearby",
           "distanceM": 450.412603751385,
           "scenery": true,
@@ -1365,7 +1365,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 939.5814220945806,
           "scenery": true,
@@ -1394,7 +1394,7 @@
     {
       "id": "opera",
       "city": "bucharest",
-      "name": "Opera Națională București",
+      "name": "Opera Na\u021bional\u0103 Bucure\u0219ti",
       "builder": "bOpera",
       "lat": 44.4360568,
       "lon": 26.0795203,
@@ -1403,7 +1403,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 1332.926856927261,
           "scenery": true,
@@ -1421,7 +1421,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 1549.7710600581674,
           "scenery": true,
@@ -1459,7 +1459,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "close",
           "distanceM": 0,
           "scenery": false,
@@ -1477,7 +1477,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 2998.681653700951,
           "scenery": true,
@@ -1506,7 +1506,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 4401.721781153181,
           "scenery": true,
@@ -1524,7 +1524,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 3500.896961445598,
           "scenery": true,
@@ -1553,7 +1553,7 @@
     {
       "id": "baneasaterm",
       "city": "bucharest",
-      "name": "Aeroportul Băneasa (terminal 1952)",
+      "name": "Aeroportul B\u0103neasa (terminal 1952)",
       "builder": "bBaneasaTerm",
       "lat": 44.4962356,
       "lon": 26.0814666,
@@ -1562,7 +1562,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 4776.283224622156,
           "scenery": true,
@@ -1571,7 +1571,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 4336.925766784328,
           "scenery": true,
@@ -1600,7 +1600,7 @@
     {
       "id": "otp",
       "city": "bucharest",
-      "name": "Aeroportul Henri Coandă",
+      "name": "Aeroportul Henri Coand\u0103",
       "builder": "bOTP",
       "lat": 44.5708154,
       "lon": 26.0795884,
@@ -1620,7 +1620,7 @@
     {
       "id": "ase",
       "city": "bucharest",
-      "name": "ASE — Palatul Ion N. Angelescu",
+      "name": "ASE \u2014 Palatul Ion N. Angelescu",
       "builder": "bASE",
       "lat": 44.447807,
       "lon": 26.0971572,
@@ -1629,7 +1629,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 1896.2843139932238,
           "scenery": true,
@@ -1647,7 +1647,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "close",
           "distanceM": 0,
           "scenery": false,
@@ -1685,7 +1685,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 2344.2493318830425,
           "scenery": true,
@@ -1703,7 +1703,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "close",
           "distanceM": 0,
           "scenery": false,
@@ -1741,7 +1741,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 2299.1740354739086,
           "scenery": true,
@@ -1759,7 +1759,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "close",
           "distanceM": 0,
           "scenery": true,
@@ -1797,7 +1797,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 1636.1205768414397,
           "scenery": true,
@@ -1815,7 +1815,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "close",
           "distanceM": 0,
           "scenery": false,
@@ -1853,7 +1853,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 1072.4019388518486,
           "scenery": true,
@@ -1871,7 +1871,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "close",
           "distanceM": 0,
           "scenery": false,
@@ -1900,7 +1900,7 @@
     {
       "id": "gts",
       "city": "bucharest",
-      "name": "Calea Călărașilor 101 (GTS Global Intelligence)",
+      "name": "Calea C\u0103l\u0103ra\u0219ilor 101 (GTS Global Intelligence)",
       "builder": "bGTS",
       "lat": 44.433369,
       "lon": 26.1176015,
@@ -1909,7 +1909,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 4068.1903093434603,
           "scenery": true,
@@ -1927,7 +1927,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 1510.06997513322,
           "scenery": true,
@@ -1965,7 +1965,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 2220.401955631531,
           "scenery": true,
@@ -1983,7 +1983,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 615.157423857625,
           "scenery": true,
@@ -2021,7 +2021,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 2946.164474484828,
           "scenery": true,
@@ -2039,7 +2039,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 1834.6551255823606,
           "scenery": true,
@@ -2077,7 +2077,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 4330.179696949903,
           "scenery": true,
@@ -2095,7 +2095,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 3379.0635143849504,
           "scenery": true,
@@ -2133,7 +2133,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 4269.55694402141,
           "scenery": true,
@@ -2151,7 +2151,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 1717.800289009395,
           "scenery": true,
@@ -2189,7 +2189,7 @@
         {
           "kind": "district",
           "id": "grozavesti",
-          "name": "Grozăvești",
+          "name": "Groz\u0103ve\u0219ti",
           "range": "distant",
           "distanceM": 3628.2205238769275,
           "scenery": true,
@@ -2207,7 +2207,7 @@
         {
           "kind": "district",
           "id": "romana",
-          "name": "Romană & Victoriei",
+          "name": "Roman\u0103 & Victoriei",
           "range": "distant",
           "distanceM": 2844.165193141683,
           "scenery": true,
@@ -2509,7 +2509,7 @@
     {
       "id": "plazacenter",
       "city": "seattle",
-      "name": "Plaza Center (UiPath Bellevue 2018–2025)",
+      "name": "Plaza Center (UiPath Bellevue 2018\u20132025)",
       "builder": "bPlazaCenter",
       "lat": 47.6178822,
       "lon": -122.1940388,
@@ -2569,7 +2569,7 @@
     {
       "id": "murroww",
       "city": "seattle",
-      "name": "Murrow Bridge — west high-rise arches",
+      "name": "Murrow Bridge \u2014 west high-rise arches",
       "builder": "bMurrow",
       "lat": 47.5898848,
       "lon": -122.28406,
@@ -2579,7 +2579,7 @@
     {
       "id": "murrowe",
       "city": "seattle",
-      "name": "Murrow Bridge — east high-rise arches",
+      "name": "Murrow Bridge \u2014 east high-rise arches",
       "builder": "bMurrow",
       "lat": 47.5892424,
       "lon": -122.2554,
@@ -2864,7 +2864,7 @@
       "id": "space-needle",
       "city": "seattle",
       "area": null,
-      "name": "Seattle Center · Space Needle & Chihuly",
+      "name": "Seattle Center \u00b7 Space Needle & Chihuly",
       "scene": "seattle-center",
       "historicalReady": false,
       "menuAvailable": true,
@@ -3150,7 +3150,7 @@
       "id": "palace-parliament",
       "city": "bucharest",
       "area": null,
-      "name": "Palace of the Parliament & Piața Constituției",
+      "name": "Palace of the Parliament & Pia\u021ba Constitu\u021biei",
       "scene": "buc-parliament",
       "historicalReady": true,
       "menuAvailable": false,
@@ -3202,7 +3202,7 @@
       "id": "old-town-lipscani",
       "city": "bucharest",
       "area": null,
-      "name": "Old Town · clubs, Carusel & a hidden bar",
+      "name": "Old Town \u00b7 clubs, Carusel & a hidden bar",
       "scene": "buc-old-town",
       "historicalReady": false,
       "menuAvailable": true,
@@ -3254,7 +3254,7 @@
       "id": "athenaeum-revolution",
       "city": "bucharest",
       "area": null,
-      "name": "Romanian Athenaeum & Piața Revoluției",
+      "name": "Romanian Athenaeum & Pia\u021ba Revolu\u021biei",
       "scene": "athenaeum-revolution",
       "historicalReady": true,
       "menuAvailable": false,
@@ -3332,7 +3332,7 @@
       "id": "herastrau-park",
       "city": "bucharest",
       "area": null,
-      "name": "King Michael I (Herăstrău) Park",
+      "name": "King Michael I (Her\u0103str\u0103u) Park",
       "scene": "buc-herastrau",
       "historicalReady": true,
       "menuAvailable": false,
@@ -3358,7 +3358,7 @@
       "id": "spring-palace",
       "city": "bucharest",
       "area": null,
-      "name": "Spring Palace (Ceaușescu Mansion)",
+      "name": "Spring Palace (Ceau\u0219escu Mansion)",
       "scene": "spring-palace",
       "historicalReady": false,
       "menuAvailable": false,
@@ -3384,7 +3384,7 @@
       "id": "cismigiu",
       "city": "bucharest",
       "area": null,
-      "name": "Cișmigiu Gardens",
+      "name": "Ci\u0219migiu Gardens",
       "scene": "cismigiu",
       "historicalReady": true,
       "menuAvailable": true,
@@ -3444,7 +3444,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "49f94a13fb60938915fb3ca372c0f9dc96cd32c0e92c6378a9afc6443458e04d"
+      "sha256": "2c3c824fdb89a3c3a32cf5969056e8e86baae60aacc5ef57551bd2622e9c052f"
     },
     {
       "path": "specs/README.md",
@@ -3464,7 +3464,7 @@
     },
     {
       "path": "specs/12-buildings-streetscape.md",
-      "sha256": "4911683d790521854315f1917e94cadef518a55168e6929dc034a1ec36cd9acb"
+      "sha256": "b9b4a3bbe1f8d213c136af32d5bae507d73a28f4c618fd7314b2a7f2625e19ca"
     },
     {
       "path": "specs/13-traffic.md",
@@ -3484,7 +3484,7 @@
     },
     {
       "path": "game/index.html",
-      "sha256": "25ff993ed3f51e9ea1d2243eb9c82c3a1e66964903bfaf16a8ee792c94c2c6eb"
+      "sha256": "630797b36ad4fcc9b6a56c21773bec0d933708b221bb64e51ff3eaffb5bf2e60"
     },
     {
       "path": "game/data/README.md",
@@ -3504,7 +3504,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "0e356bf21b0afcf02bb9fad8716030fe57fe341c266f1c3e567943ef6ef7d2c9"
+      "sha256": "0c028a09c03ce98ff74db3d177186a873a3e7995211d7c5341f3bc474810250b"
     },
     {
       "path": "game/src/cities.js",
@@ -6064,7 +6064,7 @@
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "6786282b41834f59990ced2fbc1cd0e646a4e7816f2ae1cfeb1c1dc39321f5ed"
+      "sha256": "23ce02cf74482a7d2d940fb8ce82b86b8f8ce56d48f636cb8012e3c95222b7ed"
     },
     {
       "path": "game/overview/landmark-evidence.js",
@@ -6076,7 +6076,7 @@
     },
     {
       "path": "game/overview/overview.js",
-      "sha256": "0c29f0b74b2e37a793707725fa051bf3961206f4f3d03158d81e77a1b1a37ce5"
+      "sha256": "10df728495c90cd3395f5da73c5a4ca931b96edffe16de8faf682ca80f704182"
     },
     {
       "path": "game/overview/perspective-viewer.js",
@@ -6113,6 +6113,10 @@
     {
       "path": "game/overview/fix-road-guards/summary.json",
       "sha256": "bb76d0a89a0b9fb7d5d87e000170ef3d70224993d1c75ea5e84508261e75eb10"
+    },
+    {
+      "path": "game/overview/fix-church-windows/summary.json",
+      "sha256": "632f5801b086c31edf633b6ee8da8418fe5b8260321b944938566d54782eed1c"
     }
   ],
   "stagingEvidence": [
@@ -6224,5 +6228,10 @@
     "source": "57eec0dd957e009f6d67630ea2a63fdf0abbcef0",
     "summary": "game/overview/fix-road-guards/summary.json",
     "scope": "Reported Otopeni drone view only; other road reports remain open."
+  },
+  "churchWindowFixEvidence": {
+    "source": "3cc387ba6ffcd8829e8d7463553c343d71c81e75",
+    "summary": "game/overview/fix-church-windows/summary.json",
+    "scope": "Report49: whole facade window rows below eaves. Other roof and floating-part reports remain open; paired Roman\u0103 QA retains existing route and geometry failures."
   }
 }

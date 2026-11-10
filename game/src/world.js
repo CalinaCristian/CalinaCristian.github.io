@@ -3896,7 +3896,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const collision = [];
     const propColl = []; // small circles for street furniture (trees, posts, shelters…)
     propColl.push(...tramDecks, ...bridgeJunctionDecks);
-    const basarabStructure=buildBasarabStructure(data,tramGrades,cellOf,group);
+    const basarabStructure=buildBasarabStructure(data,tramGrades,cellOf,group,edges);
     propColl.push(...basarabStructure.colliders);
     for(const piece of basarabStructure.pieces){propColl.push(piece);tramDecks.push(piece);sceneryDeckGrid.insert(piece.x-piece.r,piece.z-piece.r,piece.x+piece.r,piece.z+piece.r,piece);}
     const treeClear = []; // (after round 6) {x, z, r}: no trees here (fuel forecourts)

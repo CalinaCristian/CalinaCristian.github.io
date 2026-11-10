@@ -166,7 +166,11 @@ function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPa
   colliders.push({x:c[0],z:c[2],r:Math.SQRT2*1.5,poly,holes:[],h:80,y0:.2,y1:80,prop:true,kind:'basarab-pylon',estimated:true});
   for(const dir of [-1,1])for(let i=0;i<15;i++){
    const fraction=(i+1)/15,span=dir>0?backspanNE:mainSpanSW,plannedS=towerS+dir*(18+fraction*(span-18-anchorEndSetback)),tower=at(towerS,nc+sign*legOffset,42+fraction*35);let chosen=null,lastFailure='native-road/tram-catalogue-missing';
-   const shifts=[0];for(let d=.5;d<=(dir<0?4.5:3);d+=.5)shifts.push(-d,d);
+   // Anchor stations are estimates. Search at most5m along the main arm and
+   //3m on the shorter backspan, with complete source clearance still required.
+   // The last half-metre admits a supported outer band beside the mapped fork;
+   // it never changes the carriageway, rail path or structural collision rule.
+   const shifts=[0];for(let d=.5;d<=(dir<0?5:3);d+=.5)shifts.push(-d,d);
    if(roads.length&&tramHalfWidth>0&&supportAt)for(const shift of shifts){
     const anchorS=plannedS+shift,raw=at(anchorS,nc,0),centre=[raw[0],raw[2]],base=deck,normal=n,localCentre=deckSectionCentre(centre,normal,base,roads),desired=localCentre+sign*legOffset,free=anchorFreeIntervals(centre,normal,base,roads,trams).filter(r=>sign>0?r.hi>localCentre+.3:r.lo<localCentre-.3),distance=r=>Math.max(r.lo-desired,0,desired-r.hi);free.sort((a,b)=>distance(a)-distance(b));
     if(!free.length){lastFailure={kind:'no-source-clear-deck-band',centre,base};continue;}

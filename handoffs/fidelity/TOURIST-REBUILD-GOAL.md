@@ -108,3 +108,11 @@ Cișmigiu must offer a zoom onto the actual table and a full playable match agai
 ### Owner steering · 10 November 2026 · window clarity and horn
 
 Close approaches to the office windows visibly enlarge a blurry/aliased view (owner’s Bellevue screenshot). Reproduce near-glass eye poses and fix visible-window texel density and antialiasing with bounded reusable targets; test High/Ultra, parallax, viewport changes, repeated movement and lifecycle without multiplying worlds. Improve player/NPC horns: realistic dual-tone timbre, softer attack/release, lower level and readable distance attenuation; avoid overwhelming overlapping traffic honks.
+
+## Latest owner priority · 10 November 2026 · Pasajul Basarab
+
+Focus on Pasajul Basarab. Rebuild it from real source data at high fidelity: actual mapped bridge/deck extent, ramps and connections, tram compartments, continuous barriers, supports, undersides, road/rail height and body clearance. Reproduce every supplied Grozăvești camera/route report, including gaps, white below-ground patches, trees on the deck, rail-center void and broken parapets. Inspect complete normal approaches, ascent, both travel directions, descent and ground/side/mirror views. Profile the same evolved311/312vehicle560pedestrian cohort; owner still falls to22FPS after driving, with reported traffic CPU15.9→28.1ms. Preserve source geometry and population, and fix measured costs rather than weakening Ultra or hiding contradictory geometry. Other tourist/office/backgammon/horn fixes remain in the goal; Basarab is the immediate priority.
+
+## Complete scope · 10 November 2026 owner instruction
+
+“track everything, goal is to finish all the reported items + work you had to finish anyway”. [OWNER-REGRESSIONS-GOAL.md](OWNER-REGRESSIONS-GOAL.md) is the full continuing work list; [owner-reports-20261110.json](owner-reports-20261110.json) retains each supplied location. Basarab/CPU remain first, with every previous tourist/interior/backgammon/mobile/evidence requirement retained.

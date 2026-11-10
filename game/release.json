@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-471508886d4ff5a1",
-  "sourceCommit": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
-  "fingerprint": "471508886d4ff5a19e5cc64202befd811ca0ef861fff7a27fdce1bb513ad22a9",
+  "releaseId": "game-d4c54bc944e67ace",
+  "sourceCommit": "5e268382052521827fc6eade2748ec51cc62000a",
+  "fingerprint": "d4c54bc944e67ace1eefb7e1eb3fc143efb7bcdd0d117d8068005dd4c71e3e90",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -295,6 +295,10 @@
     {
       "path": "game/src/explore.js",
       "sha256": "2f8abf2e4b3e14f1002f0088322b9e59e713f1865bba60644d200030cf653993"
+    },
+    {
+      "path": "game/src/fallback-ground.js",
+      "sha256": "de71ecc3bbbd1b7e15b4ef9140bbc6212c4b66f5bde07d143e82050930759084"
     },
     {
       "path": "game/src/final-water-topology.js",
@@ -998,7 +1002,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "c450a37d7b5e886f20c8cd21f8f658c90738aa591aafe51c87718c0bfb0f3c06"
+      "sha256": "3be9a353e185711140dc8e7b55bcb2079569a8e386cc3f66836d02f83df0ee53"
     },
     {
       "path": "game/src/worldmap.js",

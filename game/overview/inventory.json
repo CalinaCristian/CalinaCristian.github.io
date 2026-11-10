@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "7496e6bfa9e4fd700bfdde6fd1a184d15663b0e9",
+  "sourceSha": "5e268382052521827fc6eade2748ec51cc62000a",
   "reviewedOn": "2026-11-10",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -3444,7 +3444,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "75af52432ff86cbb30cbcf47a4b6b2c1a510bd4bd94697b6f6ee2f167cfc0b94"
+      "sha256": "61c3adceecc048a1d2e4c666aa0c7775ffc970b8c7b9ce8e9f1fe25faad0cb2d"
     },
     {
       "path": "specs/README.md",
@@ -3476,7 +3476,7 @@
     },
     {
       "path": "specs/18-weather-lighting.md",
-      "sha256": "ddee1a6c41789f0b4e24cc9229b1d27390d1965b45ce1c7323b0b4045413410b"
+      "sha256": "9fd5084c120d730f487c25db94fd3a92814f038eb1394ac87873a76a0725d188"
     },
     {
       "path": "specs/19-qa-harness.md",
@@ -3504,7 +3504,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "c450a37d7b5e886f20c8cd21f8f658c90738aa591aafe51c87718c0bfb0f3c06"
+      "sha256": "3be9a353e185711140dc8e7b55bcb2079569a8e386cc3f66836d02f83df0ee53"
     },
     {
       "path": "game/src/cities.js",
@@ -6064,7 +6064,7 @@
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "55f4b2f35492cc25fea2ffc572f6fc6e72073b97274a52dae67eeeb06378f05a"
+      "sha256": "a39b192a9cf3f4698e252bf895cd2756a182360348cf11ca0bb7db297c084107"
     },
     {
       "path": "game/overview/landmark-evidence.js",
@@ -6076,7 +6076,7 @@
     },
     {
       "path": "game/overview/overview.js",
-      "sha256": "5e7b85b68860351264d135a21177a0cd3fc6ea1b8aa3609efc43c78eae3093e9"
+      "sha256": "0a02a024eb4b7bb19f838a0806949e2e3fcb97a8ee45d03088911e46276a878a"
     },
     {
       "path": "game/overview/perspective-viewer.js",
@@ -6088,7 +6088,15 @@
     },
     {
       "path": "game/overview/style.css",
-      "sha256": "3dce7cd822217e1431c912c2b92bbfe937c5d18d581f1c857b983ad8d8cd2f11"
+      "sha256": "9df282e5ffc547056a0162bdc7e3adbdd72d6a865dee64ffbcb821460ee64706"
+    },
+    {
+      "path": "game/src/fallback-ground.js",
+      "sha256": "de71ecc3bbbd1b7e15b4ef9140bbc6212c4b66f5bde07d143e82050930759084"
+    },
+    {
+      "path": "game/overview/fix-white-ground/summary.json",
+      "sha256": "ba1c72c12a462bcc74cdf78e20121450b1deaf6b5bbe4771dc3cbda4b78a19e6"
     }
   ],
   "stagingEvidence": [
@@ -6184,5 +6192,11 @@
     },
     "currentRuntimeMatchesInputs": false,
     "currentRuntimeNote": "Retained intended staging coverage; additional district models are not part of this runtime release."
+  },
+  "renderFixEvidence": {
+    "id": "basarab-white-ground",
+    "runtimeSource": "a4afabcc2f07d095b5793cca56d7f7a04b5cc1a8",
+    "summary": "fix-white-ground/summary.json",
+    "scope": "Fixed appearance and independent lowered-water controls; other owner reports remain open."
   }
 }

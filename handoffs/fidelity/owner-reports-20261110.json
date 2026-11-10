@@ -57,7 +57,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Master139ab165/releasegame-ae151cd51522d241/sourcee8b6ff4d.295live-file checks pass. Original Floreasca owner-eye pair and explicitly supplemental Pipera tower-facing pair retain exact cameras/dates/conditions/hashes.",
         "candidate": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
         "evidence": "SKYTOWER-RELEASE-20261110.md",
@@ -129,7 +129,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -189,7 +189,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -249,7 +249,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -579,7 +579,7 @@
       },
       "image": "Owner image in conversation; no attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -648,7 +648,7 @@
         "previousCandidate": "8a6099a39ab3fbc847496ba0f1eaa8ad63f81c43",
         "evidence": "GROUND-RELEASE-20261110.md",
         "scope": "Closed only the white fallback-ground patches. Exact native owner camera, independent lowered-river image and ground/water rays passed. All8 production World constructors, required foot/a0H0M and scoped visual comparison passed. Other Basarab geometry and travel reports remain open.",
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Live mastera256e0c5, releasegame-d4c54bc944e67ace, source5e268382. All287 live file checks passed; original before/after and lowered-river evidence published.",
         "publication": {
           "master": "a256e0c506454ec3b30be6a277b8806bec42446b",
@@ -725,7 +725,7 @@
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
         "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -794,7 +794,7 @@
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
         "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -863,7 +863,7 @@
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
         "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -932,7 +932,7 @@
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
         "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1001,7 +1001,7 @@
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
         "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1204,7 +1204,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1269,7 +1269,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1334,7 +1334,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1399,7 +1399,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1464,7 +1464,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1475,7 +1475,7 @@
       "scene": "gts",
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1540,7 +1540,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1605,7 +1605,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1670,7 +1670,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1735,7 +1735,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1800,7 +1800,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1865,7 +1865,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1930,7 +1930,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1995,7 +1995,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -2060,7 +2060,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -2125,7 +2125,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -2190,7 +2190,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -2255,7 +2255,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -2515,14 +2515,14 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
     {
       "id": "pipera-corner-flicker",
       "ownerNote": "Curtain wall corner flickers",
-      "status": "reported-not-yet-accepted",
+      "status": "verified-live",
       "report": {
         "schemaVersion": 1,
         "release": "game-471508886d4ff5a1",
@@ -2580,14 +2580,16 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Delivered \u2014 verified live",
+        "deliveryNote": "Reports41/42: disjoint BOB corner and Hermes fin facade panels. Native High before/after, Ultra original/\u00b10.15m offsets,4geometry controls,foot/a0H0M; paired9/9 sweep keeps92existing findings. Master54ab3d3e/releasegame-a240db509dc002f1/source d708f38f; Pages42926690854success;321live-file checks pass. Six current model studies and desktop/phone comparison checks pass.",
+        "candidate": "9ae4ae1e604a1b99b51387031d6d338f0276cf80",
+        "evidence": "https://cristiancalina.com/game/overview/#pipera-facade-fix"
       }
     },
     {
       "id": "pipera-long-facade-flicker",
       "ownerNote": "Long office facade flickers",
-      "status": "reported-not-yet-accepted",
+      "status": "verified-live",
       "report": {
         "schemaVersion": 1,
         "release": "game-471508886d4ff5a1",
@@ -2645,8 +2647,10 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Delivered \u2014 verified live",
+        "deliveryNote": "Reports41/42: disjoint BOB corner and Hermes fin facade panels. Native High before/after, Ultra original/\u00b10.15m offsets,4geometry controls,foot/a0H0M; paired9/9 sweep keeps92existing findings. Master54ab3d3e/releasegame-a240db509dc002f1/source d708f38f; Pages42926690854success;321live-file checks pass. Six current model studies and desktop/phone comparison checks pass.",
+        "candidate": "9ae4ae1e604a1b99b51387031d6d338f0276cf80",
+        "evidence": "https://cristiancalina.com/game/overview/#pipera-facade-fix"
       }
     },
     {
@@ -2710,7 +2714,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Master139ab165/releasegame-ae151cd51522d241/sourcee8b6ff4d.295live-file checks pass. Original Floreasca owner-eye pair and explicitly supplemental Pipera tower-facing pair retain exact cameras/dates/conditions/hashes.",
         "candidate": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
         "evidence": "SKYTOWER-RELEASE-20261110.md",
@@ -2787,7 +2791,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -2852,7 +2856,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -2917,7 +2921,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -2982,7 +2986,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3047,7 +3051,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3112,8 +3116,8 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
-        "deliveryNote": "Report49: whole window rows now fit below unchanged eaves. Native before/after, foot/a 0H0M, paired Romană29/29 sampled views with same existing136findings/Arnia missing route. No district-wide pass. Mastere21797e7/releasegame-e17d4843c5db9912; Pages42924422032 success and307live-file checks pass.",
+        "deliveryStatus": "Delivered \u2014 verified live",
+        "deliveryNote": "Report49: whole window rows now fit below unchanged eaves. Native before/after, foot/a 0H0M, paired Roman\u010329/29 sampled views with same existing136findings/Arnia missing route. No district-wide pass. Mastere21797e7/releasegame-e17d4843c5db9912; Pages42924422032 success and307live-file checks pass.",
         "evidence": "https://cristiancalina.com/game/overview/#church-window-fix"
       }
     },
@@ -3178,7 +3182,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3243,7 +3247,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3319,7 +3323,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Report53: exact reported driver eye/bearing/pitch/FOV reproduces strip before and removes it after accepted guard repair. High266calls/587865tri;144vehicles560peds. View verification, not a full road journey. Mastere21797e7/releasegame-e17d4843c5db9912; Pages42924422032 success and307live-file checks pass.",
         "evidence": "https://cristiancalina.com/game/overview/#otopeni-driver-fix"
       }
@@ -3385,7 +3389,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Master9d681f45, game-61b37c69fe8629e8; final surviving road guards replace uncut render strips. Original supplied drone view, geometry equality, foot/a and8constructors pass;301live-file checks. Other road reports remain open.",
         "evidence": "https://cristiancalina.com/game/overview/#road-guard-fix"
       }
@@ -3451,7 +3455,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3516,7 +3520,7 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3581,7 +3585,7 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3646,7 +3650,7 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3711,7 +3715,7 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3776,7 +3780,7 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3841,7 +3845,7 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3906,7 +3910,7 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3971,7 +3975,7 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -4036,7 +4040,7 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -4101,7 +4105,7 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -4244,7 +4248,7 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -4309,7 +4313,7 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -4374,7 +4378,7 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -4439,7 +4443,7 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     }

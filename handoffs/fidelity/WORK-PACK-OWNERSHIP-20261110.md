@@ -1,6 +1,6 @@
 # Work ownership — corrected by owner, 10 November 2026
 
-Claude was given **A and B only**. Codex owns **C–N and integration**. The earlier assumption that Claude had all unfinished implementation was incorrect. External Claude progress is unknown; assignment does not mean acceptance.
+Claude was given **A and B only**. Codex owns **C–N and integration**. The earlier assumption that Claude had all unfinished implementation was incorrect. Claude has pushed candidate6650809c with bridge bents/slot fill and traffic recovery; native acceptance remains open.
 
 | Pack | Owner | Scope | Current state |
 | --- | --- | --- | --- |
@@ -22,3 +22,5 @@ Claude was given **A and B only**. Codex owns **C–N and integration**. The ear
 Current accepted master:9d681f454817179848868b9661a1eae49fe137d5. Ground, SkyTower, softer horns and report54road guards are verified live. The reported batch is4/71closed and67open. Preserve the accepted fixes during integration and curate only tested changes; the large staging branch must not be merged wholesale.
 
 Pack C baseline: original immutable `tools/fidelity/inspect-portrait.cjs`, source54a45f6c, private output `/workspace/integration-qa-evidence/pack-c-roads-20261110/baseline`, FIFO `/tmp/pack-c-native.in`. Exact reported camera positions; static native rendering does not establish a driving journey or hardware performance. No application code has been changed for this investigation yet.
+
+Latest verified update: master54ab3d3e;8/71closed,63open. Reports41/42facades delivered with321live-file checks. Codex continues facade reports4/5 independently of ClaudeA/B; shared road/bridge integration must review Claude changes first.

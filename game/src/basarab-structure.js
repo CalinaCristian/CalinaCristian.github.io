@@ -15,7 +15,14 @@ function sourceLine(data,id,grades){
 }
 function roadLine(data,id,edges){
  const es=edges.filter(e=>(data.roadSourceGeometry?.[e.road]?.sourceId||e.sourceId)===id);
- return es.length?{id,segments:es.map(e=>({a:[e.a.x,e.a.z],b:[e.b.x,e.b.z],length:e.len,edge:e,grade:{known:true,baseY:.24,heightAt:t=>e.sourceBridgeGrade?.known?e.sourceBridgeGrade.heightAt(t):e.ya+(e.yb-e.ya)*t}}))}:null;
+ let station=0;
+ return es.length?{id,segments:es.map(e=>{const s={a:[e.a.x,e.a.z],b:[e.b.x,e.b.z],s0:station,length:e.len,edge:e,grade:{known:true,baseY:.24,heightAt:t=>e.sourceBridgeGrade?.known?e.sourceBridgeGrade.heightAt(t):e.ya+(e.yb-e.ya)*t}};station+=e.len;return s;})}:null;
+}
+function alongRoad(line,anchor,offset){
+ const target=anchor.s0+anchor.t*anchor.length+offset;
+ const s=line.segments.find(s=>target>=s.s0&&target<=s.s0+s.length);
+ if(!s)return null;
+ const t=(target-s.s0)/s.length;return{...s,t,p:mix(s.a,s.b,t),dx:(s.b[0]-s.a[0])/s.length,dz:(s.b[1]-s.a[1])/s.length};
 }
 function nearest(line,p){
  let best=null;
@@ -123,7 +130,11 @@ function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPa
  const colliders=[],report={estimated:true,pylonHeightM:80,stays:60,archSpanM:120,roofLengthM:s1-s0,roofWidthM:2*half,sourcePlatforms:platforms.map(p=>p.sourceId),placementBasis:'Station frame from literal platform boundaries; pylon/arch anchor offsets and structural sections estimated, not surveyed'};
  if(deck===null)return {colliders,report:{...report,unresolved:'station-height-missing'}};
  // Transparent station barrel, open at both ends, with white steel hoops.
- const glass=new MeshBuilder(),bands=12,ribs=Math.ceil((s1-s0)/5),roof=(s,k)=>{const theta=k/bands*Math.PI;return at(s,nc-Math.cos(theta)*half,deck+.35+Math.sin(theta)*6.3);};
+ // It is an elevated canopy, not a semicylinder ending at platform level.
+ // Eaves/rise remain explicit visual estimates; the original6.65m crown is kept.
+ const roofEaves=3.2,roofRise=3.45;
+ report.roofEavesAboveDeckM=roofEaves;report.roofCrownAboveDeckM=roofEaves+roofRise;
+ const glass=new MeshBuilder(),bands=12,ribs=Math.ceil((s1-s0)/5),roof=(s,k)=>{const theta=k/bands*Math.PI;return at(s,nc-Math.cos(theta)*half,deck+roofEaves+Math.sin(theta)*roofRise);};
  for(let i=0;i<=ribs;i++)for(let j=0;j<bands;j++)bridgeBeam(cellOf,roof(s0+(s1-s0)*i/ribs,j),roof(s0+(s1-s0)*i/ribs,j+1),.105,'#dce6e7',colliders);
  for(let j=1;j<bands;j+=2)bridgeBeam(cellOf,roof(s0,j),roof(s1,j),.075,'#dce6e7',colliders);
  for(let i=0;i<ribs;i++)for(let j=0;j<bands;j++){const sa=s0+(s1-s0)*i/ribs,sb=s0+(s1-s0)*(i+1)/ribs,A=roof(sa,j),B=roof(sb,j),C=roof(sb,j+1),D=roof(sa,j+1);glass.face4(A,B,C,D,rgb('#aacbd8'),[n[0],1,n[1]]);colliders.push(roofPaneCollider(A,B,D));}
@@ -139,7 +150,11 @@ function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPa
   const c=at(towerS,nc+sign*legOffset,.2);cellOf(c[0],c[2]).solid.box(c[0],.2,c[2],3,79.8,3,Math.atan2(u[0],u[1]),rgb('#d8d8d0'));
   const poly=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([v,w])=>[c[0]+u[0]*v*1.5+n[0]*w*1.5,c[2]+u[1]*v*1.5+n[1]*w*1.5]);
   colliders.push({x:c[0],z:c[2],r:Math.SQRT2*1.5,poly,holes:[],h:80,y0:.2,y1:80,prop:true,kind:'basarab-pylon',estimated:true});
-  for(const dir of [-1,1])for(let i=0;i<15;i++){const fraction=(i+1)/15,anchorS=towerS+dir*(18+fraction*(dir>0?152:92));bridgeBeam(cellOf,at(towerS,nc+sign*legOffset,42+fraction*35),at(anchorS,nc+sign*legOffset,deck+.4),.11,'#b4c3c9',colliders,'basarab-stay');}
+  for(const dir of [-1,1])for(let i=0;i<15;i++){
+   const fraction=(i+1)/15,anchorS=towerS+dir*(18+fraction*(dir>0?152:92)),raw=at(anchorS,nc,0),q=nearest(line,[raw[0],raw[2]]),mate=nearest(paired,q.p),centre=mix(q.p,mate.p,.5),orientation=q.dx*u[0]+q.dz*u[1]>=0?1:-1,nx=-q.dz*orientation,nz=q.dx*orientation;
+   const anchor=[centre[0]+nx*sign*legOffset,(height(q)+height(mate))/2+.4,centre[1]+nz*sign*legOffset];
+   bridgeBeam(cellOf,at(towerS,nc+sign*legOffset,42+fraction*35),anchor,.11,'#b4c3c9',colliders,'basarab-stay');
+  }
  }
  for(const y of [58,67,76])bridgeBeam(cellOf,at(towerS,nc-legOffset,y),at(towerS,nc+legOffset,y),1,'#d7d9d3',colliders);
  // River crossing: the mapped lower Grozavesti bridge constrains its position;
@@ -147,8 +162,13 @@ function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPa
  const river=riverLine&&riverPair?nearest(riverLine,[115,-222]):null;
  if(river?.grade?.known){
   report.riverSourceIds=[riverLine.id,riverPair.id];report.riverSourceAnchor=river.p;
-  const mate=nearest(riverPair,river.p),center=mix(river.p,mate.p,.5),ux=river.dx,uz=river.dz,nx=-uz,nz=ux,base=height(river),halfWidth=distance(river.p,mate.p)/2+Math.max(river.edge.wR,river.edge.wL,mate.edge.wR,mate.edge.wL)+.8,span=120,arch=(t,sign)=>[center[0]+ux*(t-.5)*span+nx*sign*halfWidth,base+Math.sin(Math.PI*t)*26,center[1]+uz*(t-.5)*span+nz*sign*halfWidth];
-  for(const sign of [-1,1]){for(let i=0;i<32;i++)bridgeBeam(cellOf,arch(i/32,sign),arch((i+1)/32,sign),1.15,'#e1e5e4',colliders,'basarab-river-arch');for(let i=1;i<16;i++){const t=i/16,q=arch(t,sign);bridgeBeam(cellOf,q,[q[0],base+.15,q[2]],.115,'#b6c4c8',colliders,'basarab-hanger');}}
+  const span=120,section=t=>{
+   const q=alongRoad(riverLine,river,(t-.5)*span);if(!q)return null;
+   const mate=nearest(riverPair,q.p),center=mix(q.p,mate.p,.5),halfWidth=distance(q.p,mate.p)/2+Math.max(q.edge.wR,q.edge.wL,mate.edge.wR,mate.edge.wL)+.8;
+   return {center,nx:-q.dz,nz:q.dx,base:(height(q)+height(mate))/2,halfWidth};
+  },arch=(t,sign)=>{const s=section(t);return s&&[s.center[0]+s.nx*sign*s.halfWidth,s.base+Math.sin(Math.PI*t)*26,s.center[1]+s.nz*sign*s.halfWidth];};
+  if(!section(0)||!section(1)){report.unresolved='river-span-exceeds-source-road';return{colliders,report};}
+  for(const sign of [-1,1]){for(let i=0;i<32;i++)bridgeBeam(cellOf,arch(i/32,sign),arch((i+1)/32,sign),1.15,'#e1e5e4',colliders,'basarab-river-arch');for(let i=1;i<16;i++){const t=i/16,q=arch(t,sign);bridgeBeam(cellOf,q,[q[0],section(t).base+.15,q[2]],.115,'#b6c4c8',colliders,'basarab-hanger');}}
   for(const t of [.25,.5,.75])bridgeBeam(cellOf,arch(t,-1),arch(t,1),.65,'#d8e0e1',colliders);
  }
  report.physicalMembers=colliders.length;

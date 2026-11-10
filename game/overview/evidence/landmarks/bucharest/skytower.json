@@ -3,7 +3,7 @@
   "id": "skytower",
   "city": "bucharest",
   "name": "Sky Tower",
-  "sourceCommit": "94508c6c36888591a02d584886da6270e1f6b550",
+  "sourceCommit": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.4779551,
@@ -15,10 +15,10 @@
       "label": "OpenStreetMap w219622660; retrieved2026-11-08",
       "type": "osm",
       "facts": {
-        "addr:city": "Bucure\u0219ti",
+        "addr:city": "București",
         "addr:housenumber": "246C",
         "addr:postcode": "014476",
-        "addr:street": "Strada Barbu V\u0103c\u0103rescu",
+        "addr:street": "Strada Barbu Văcărescu",
         "building": "office",
         "building:colour": "#3960DA",
         "building:levels": "37",
@@ -46,16 +46,17 @@
     "w219622660"
   ],
   "sourceLedger": "../../../../research/landmark-source-bucharest-pipera.json",
-  "reviewedAt": "2026-11-08",
+  "reviewedAt": "2026-11-10",
   "improvements": [
     "Preserved the complete mapped elliptical source outline,137m total height and37-level rhythm.",
     "Removed the invented8m pitched crown and expanded base; the source roof is flat.",
-    "OSM glass material and #3960DA colour take precedence over photographic impressions."
+    "OSM glass material and #3960DA colour take precedence over photographic impressions.",
+    "Frames and panes now partition one continuous source wall skin; the coarse Floreasca SkyTower duplicate yields only to the exact successfully built source owner."
   ],
   "remainingGaps": [
     "Facade mullions and crown service details are simplified; source roof-service dimensions are unknown.",
     "Underground levels are source metadata and are not excavated in the flat district terrain.",
-    "Published images are isolated model studies; complete district placement, traffic and mirror checks are recorded separately."
+    "Current native district pairs establish this facade/duplicate correction. Earlier isolated studies remain explicitly historical; full travel and other nearby defects remain separate."
   ],
   "checks": [
     {
@@ -71,13 +72,18 @@
     {
       "label": "Published capture provenance",
       "passed": true,
-      "details": "Each capture retains its immutable game-source SHA and actual camera metadata. Top studies were recaptured at720\u00d7720 with actual orthographic left/right/top/bottom bounds, up vector and square ground span exported from the frozen camera. Published WebP bytes are SHA256 verified; no external imagery included."
+      "details": "Each capture retains its immutable game-source SHA and actual camera metadata. Top studies were recaptured at720×720 with actual orthographic left/right/top/bottom bounds, up vector and square ground span exported from the frozen camera. Published WebP bytes are SHA256 verified; no external imagery included."
+    },
+    {
+      "label": "Native source-owned facade correction",
+      "passed": true,
+      "details": "See fix-skytower/summary.json for exact native sources/cameras, complete wall coverage, all8constructors and foot/a0H0M."
     }
   ],
   "captures": [
     {
       "id": "front",
-      "label": "Street-height model study",
+      "label": "Historical 8Nov model study · Street-height model study",
       "kind": "front",
       "image": "assets/landmarks/skytower/front.webp",
       "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
@@ -132,7 +138,7 @@
     },
     {
       "id": "top",
-      "label": "North-up orthographic model study",
+      "label": "Historical 8Nov model study · North-up orthographic model study",
       "kind": "top",
       "image": "assets/landmarks/skytower/top.webp",
       "sourceCommit": "94508c6c36888591a02d584886da6270e1f6b550",
@@ -201,7 +207,7 @@
     },
     {
       "id": "oblique",
-      "label": "Oblique side model study",
+      "label": "Historical 8Nov model study · Oblique side model study",
       "kind": "oblique",
       "image": "assets/landmarks/skytower/oblique.webp",
       "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
@@ -253,6 +259,110 @@
         "triangles": 6320,
         "calls": 3
       }
+    },
+    {
+      "id": "floreasca-before",
+      "label": "floreasca before · native district",
+      "kind": "district",
+      "image": "fix-skytower/floreasca-before.png",
+      "sourceCommit": "f95e4b052417ac104e5f902a62470883fb64ffa7",
+      "sha256": "4dde15eca8f91b932625b27c322df7abccadb9b467a6136f15887e40e6b9fc9a",
+      "capturedAt": "2026-11-10T20:16:04.607Z",
+      "pose": {
+        "eye": [
+          182.959,
+          68.629,
+          -1408.616
+        ],
+        "bearing": 314.464,
+        "pitch": 8.556,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:04.611Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "scope": "Original native district images, explicit fixed poses and one tiny camera movement. These establish the reported SkyTower skin and source-owned duplicate correction, not all-district fidelity, full journeys, hardware FPS or the other curtain-wall reports. All counters below were read after the corresponding screenshot native frames."
+    },
+    {
+      "id": "floreasca-after",
+      "label": "floreasca after · native district",
+      "kind": "district",
+      "image": "fix-skytower/floreasca-after.png",
+      "sourceCommit": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
+      "sha256": "0f805fa6f5b9b2d7e4af3ea0e8afd8109724282c8eb3e02a19f3c6f23a211371",
+      "capturedAt": "2026-11-10T20:16:03.632Z",
+      "pose": {
+        "eye": [
+          182.959,
+          68.629,
+          -1408.616
+        ],
+        "bearing": 314.461,
+        "pitch": 8.561,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:03.636Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "scope": "Original native district images, explicit fixed poses and one tiny camera movement. These establish the reported SkyTower skin and source-owned duplicate correction, not all-district fidelity, full journeys, hardware FPS or the other curtain-wall reports. All counters below were read after the corresponding screenshot native frames."
+    },
+    {
+      "id": "pipera-before",
+      "label": "pipera before · native district",
+      "kind": "district",
+      "image": "fix-skytower/pipera-before.png",
+      "sourceCommit": "f95e4b052417ac104e5f902a62470883fb64ffa7",
+      "sha256": "863ff74a1b12be7a85ff126c06d862188db5aeee87fa422a68f99710bca22e5b",
+      "capturedAt": "2026-11-10T20:17:44.358Z",
+      "pose": {
+        "eye": [
+          -713.527,
+          167.974,
+          196.169
+        ],
+        "bearing": 118.424,
+        "pitch": -57.524,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:44.365Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "scope": "Original native district images, explicit fixed poses and one tiny camera movement. These establish the reported SkyTower skin and source-owned duplicate correction, not all-district fidelity, full journeys, hardware FPS or the other curtain-wall reports. All counters below were read after the corresponding screenshot native frames."
+    },
+    {
+      "id": "pipera-after",
+      "label": "pipera after · native district",
+      "kind": "district",
+      "image": "fix-skytower/pipera-after.png",
+      "sourceCommit": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
+      "sha256": "a75f5abb313a55bf11cdfadd308a2d4b1da0bb8c7b007e11cf7b3522589b5a5b",
+      "capturedAt": "2026-11-10T20:17:44.590Z",
+      "pose": {
+        "eye": [
+          -713.527,
+          167.974,
+          196.169
+        ],
+        "bearing": 118.432,
+        "pitch": -57.508,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:44.596Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "scope": "Original native district images, explicit fixed poses and one tiny camera movement. These establish the reported SkyTower skin and source-owned duplicate correction, not all-district fidelity, full journeys, hardware FPS or the other curtain-wall reports. All counters below were read after the corresponding screenshot native frames."
     }
   ]
 }

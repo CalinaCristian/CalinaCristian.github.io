@@ -1,0 +1,848 @@
+{
+  "runtimeSource": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
+  "baselineSource": "f95e4b052417ac104e5f902a62470883fb64ffa7",
+  "scope": "Original native district images, explicit fixed poses and one tiny camera movement. These establish the reported SkyTower skin and source-owned duplicate correction, not all-district fidelity, full journeys, hardware FPS or the other curtain-wall reports. All counters below were read after the corresponding screenshot native frames.",
+  "captures": [
+    {
+      "file": "floreasca-before.png",
+      "source": "f95e4b052417ac104e5f902a62470883fb64ffa7",
+      "capturedAt": "2026-11-10T20:16:04.607Z",
+      "sha256": "4dde15eca8f91b932625b27c322df7abccadb9b467a6136f15887e40e6b9fc9a",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "native": {
+        "report": {
+          "schemaVersion": 1,
+          "inspection": true,
+          "reportedAt": "2026-11-10T20:16:04.612Z",
+          "release": "game-d4c54bc944e67ace",
+          "source": "5e268382052521827fc6eade2748ec51cc62000a",
+          "city": "bucharest",
+          "district": "floreasca",
+          "visit": null,
+          "scene": "floreasca",
+          "office": null,
+          "mode": "foot",
+          "drone": true,
+          "geographic": {
+            "lat": 44.4770752,
+            "lon": 26.1061029
+          },
+          "position": {
+            "x": 182.959,
+            "y": 68.629,
+            "z": -1408.616
+          },
+          "camera": {
+            "eye": [
+              182.959,
+              68.629,
+              -1408.616
+            ],
+            "bearing": 314.464,
+            "pitch": 8.556,
+            "fov": 70
+          },
+          "conditions": {
+            "date": "2026-11-11T10:31:04.611Z",
+            "timeZone": "Europe/Bucharest",
+            "weather": "partly",
+            "season": "autumn"
+          },
+          "performance": {
+            "fps": 0.11,
+            "frameMs": 49.6,
+            "drawCalls": 78,
+            "triangles": 42524,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full+ao",
+            "quality": "ultra",
+            "auto": false,
+            "level": 0,
+            "trafficUpdateMs": 22.806,
+            "vehicles": 153,
+            "pedestrians": 560
+          },
+          "url": "http://127.0.0.1:39003/game/?inspect=1"
+        },
+        "sourceBuildings": 3366,
+        "admission": true,
+        "vehicles": 153,
+        "peds": 560
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "file": "floreasca-after.png",
+      "source": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
+      "capturedAt": "2026-11-10T20:16:03.632Z",
+      "sha256": "0f805fa6f5b9b2d7e4af3ea0e8afd8109724282c8eb3e02a19f3c6f23a211371",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "native": {
+        "report": {
+          "schemaVersion": 1,
+          "inspection": true,
+          "reportedAt": "2026-11-10T20:16:03.637Z",
+          "release": "game-d4c54bc944e67ace",
+          "source": "5e268382052521827fc6eade2748ec51cc62000a",
+          "city": "bucharest",
+          "district": "floreasca",
+          "visit": null,
+          "scene": "floreasca",
+          "office": null,
+          "mode": "foot",
+          "drone": true,
+          "geographic": {
+            "lat": 44.4770752,
+            "lon": 26.1061029
+          },
+          "position": {
+            "x": 182.959,
+            "y": 68.629,
+            "z": -1408.616
+          },
+          "camera": {
+            "eye": [
+              182.959,
+              68.629,
+              -1408.616
+            ],
+            "bearing": 314.461,
+            "pitch": 8.561,
+            "fov": 70
+          },
+          "conditions": {
+            "date": "2026-11-11T10:31:03.636Z",
+            "timeZone": "Europe/Bucharest",
+            "weather": "partly",
+            "season": "autumn"
+          },
+          "performance": {
+            "fps": 0.11,
+            "frameMs": 77.1,
+            "drawCalls": 78,
+            "triangles": 55464,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full+ao",
+            "quality": "ultra",
+            "auto": false,
+            "level": 0,
+            "trafficUpdateMs": 20.716,
+            "vehicles": 153,
+            "pedestrians": 560
+          },
+          "url": "http://127.0.0.1:32903/game/?inspect=1"
+        },
+        "sourceOwnership": [
+          {
+            "index": 3186,
+            "landmark": "skytower",
+            "sourceIds": [
+              "w219622660"
+            ],
+            "tuple": [
+              745,
+              -15068,
+              403,
+              317,
+              1370,
+              104
+            ]
+          }
+        ],
+        "sourceBuildings": 3366,
+        "admission": true,
+        "vehicles": 153,
+        "peds": 560
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "file": "pipera-before.png",
+      "source": "f95e4b052417ac104e5f902a62470883fb64ffa7",
+      "capturedAt": "2026-11-10T20:17:44.358Z",
+      "sha256": "863ff74a1b12be7a85ff126c06d862188db5aeee87fa422a68f99710bca22e5b",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "native": {
+        "report": {
+          "schemaVersion": 1,
+          "inspection": true,
+          "reportedAt": "2026-11-10T20:17:44.366Z",
+          "release": "game-d4c54bc944e67ace",
+          "source": "5e268382052521827fc6eade2748ec51cc62000a",
+          "city": "bucharest",
+          "district": "pipera",
+          "visit": null,
+          "scene": "pipera",
+          "office": null,
+          "mode": "foot",
+          "drone": true,
+          "geographic": {
+            "lat": 44.4782348,
+            "lon": 26.1040165
+          },
+          "position": {
+            "x": -713.527,
+            "y": 167.974,
+            "z": 196.169
+          },
+          "camera": {
+            "eye": [
+              -713.527,
+              167.974,
+              196.169
+            ],
+            "bearing": 118.424,
+            "pitch": -57.524,
+            "fov": 70
+          },
+          "conditions": {
+            "date": "2026-11-11T10:31:44.365Z",
+            "timeZone": "Europe/Bucharest",
+            "weather": "partly",
+            "season": "autumn"
+          },
+          "performance": {
+            "fps": 0.15,
+            "frameMs": 56.6,
+            "drawCalls": 372,
+            "triangles": 756271,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full+ao",
+            "quality": "ultra",
+            "auto": false,
+            "level": 0,
+            "trafficUpdateMs": 39.475,
+            "vehicles": 303,
+            "pedestrians": 560
+          },
+          "url": "http://127.0.0.1:39003/game/?inspect=1"
+        },
+        "sourceBuildings": 2283,
+        "admission": true,
+        "vehicles": 303,
+        "peds": 560
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "file": "pipera-after.png",
+      "source": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
+      "capturedAt": "2026-11-10T20:17:44.590Z",
+      "sha256": "a75f5abb313a55bf11cdfadd308a2d4b1da0bb8c7b007e11cf7b3522589b5a5b",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "native": {
+        "report": {
+          "schemaVersion": 1,
+          "inspection": true,
+          "reportedAt": "2026-11-10T20:17:44.598Z",
+          "release": "game-d4c54bc944e67ace",
+          "source": "5e268382052521827fc6eade2748ec51cc62000a",
+          "city": "bucharest",
+          "district": "pipera",
+          "visit": null,
+          "scene": "pipera",
+          "office": null,
+          "mode": "foot",
+          "drone": true,
+          "geographic": {
+            "lat": 44.4782348,
+            "lon": 26.1040165
+          },
+          "position": {
+            "x": -713.527,
+            "y": 167.974,
+            "z": 196.169
+          },
+          "camera": {
+            "eye": [
+              -713.527,
+              167.974,
+              196.169
+            ],
+            "bearing": 118.432,
+            "pitch": -57.508,
+            "fov": 70
+          },
+          "conditions": {
+            "date": "2026-11-11T10:31:44.596Z",
+            "timeZone": "Europe/Bucharest",
+            "weather": "partly",
+            "season": "autumn"
+          },
+          "performance": {
+            "fps": 0.17,
+            "frameMs": 49.2,
+            "drawCalls": 372,
+            "triangles": 775845,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full+ao",
+            "quality": "ultra",
+            "auto": false,
+            "level": 0,
+            "trafficUpdateMs": 42.838,
+            "vehicles": 303,
+            "pedestrians": 560
+          },
+          "url": "http://127.0.0.1:32903/game/?inspect=1"
+        },
+        "sourceOwnership": [],
+        "sourceBuildings": 2283,
+        "admission": true,
+        "vehicles": 303,
+        "peds": 560
+      },
+      "bytesUnmodified": true
+    }
+  ],
+  "framing": "Floreasca uses the supplied owner eye and look direction (native drone sway is retained). The supplied Pipera bearing points over the neighbouring mall rather than toward the tower; its literal pictures are retained in the private report. The published Pipera pair is an additional tower-facing view from the reported area after a0.035m movement. Every actual camera and condition is recorded. Embedded release labels predate the final stamp; immutable served-source receipts identify the tested bytes.",
+  "allEightConstructors": {
+    "source": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
+    "scope": "Eight production World constructors using immutable source on port8140; Canvas2D and source-floor apertures only, no renderer/traffic/route/FPS acceptance.",
+    "started": "2026-11-10T20:19:15.388Z",
+    "districts": [
+      {
+        "city": "bucharest",
+        "district": "grozavesti",
+        "elapsedMs": 25127.89999999851,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 229433,
+          "apertures": 2363,
+          "byKind": {
+            "final-water": 1542,
+            "road-floor": 821
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 6971,
+          "leaves": 3486,
+          "triangles": 13512
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 4111,
+        "coarseOwnership": [],
+        "builtLandmarks": [
+          "cathedral",
+          "politehnica"
+        ]
+      },
+      {
+        "city": "bucharest",
+        "district": "unirii",
+        "elapsedMs": 39291.39999999851,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 224957,
+          "apertures": 60190,
+          "byKind": {
+            "road-floor": 393,
+            "final-water": 59797
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 6223,
+          "leaves": 3112,
+          "triangles": 42167
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 7072,
+        "coarseOwnership": [],
+        "builtLandmarks": [
+          "parliament",
+          "cathedral",
+          "unirea",
+          "fountains",
+          "gts",
+          "halatraian"
+        ]
+      },
+      {
+        "city": "bucharest",
+        "district": "romana",
+        "elapsedMs": 20226,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 176855,
+          "apertures": 3511,
+          "byKind": {
+            "tram-floor": 1042,
+            "road-floor": 2313,
+            "final-water": 156
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 7067,
+          "leaves": 3534,
+          "triangles": 19752
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 5682,
+        "coarseOwnership": [],
+        "builtLandmarks": [
+          "tnb",
+          "ateneu",
+          "regal",
+          "victoria",
+          "skytower",
+          "ase",
+          "ambasador",
+          "thelandmark",
+          "europehouse"
+        ]
+      },
+      {
+        "city": "bucharest",
+        "district": "floreasca",
+        "elapsedMs": 7434.5,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 188742,
+          "apertures": 156,
+          "byKind": {
+            "final-water": 156
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 7033,
+          "leaves": 3517,
+          "triangles": 9857
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 3366,
+        "coarseOwnership": [
+          {
+            "index": 3186,
+            "landmark": "skytower",
+            "sourceIds": [
+              "w219622660"
+            ],
+            "tuple": [
+              745,
+              -15068,
+              403,
+              317,
+              1370,
+              104
+            ]
+          }
+        ],
+        "builtLandmarks": [
+          "skytower",
+          "dinamo",
+          "rosetti",
+          "globalworth"
+        ]
+      },
+      {
+        "city": "bucharest",
+        "district": "pipera",
+        "elapsedMs": 10992.10000000149,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 249525,
+          "apertures": 1467,
+          "byKind": {
+            "road-floor": 1467
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 73,
+          "leaves": 37,
+          "triangles": 3387
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 2283,
+        "coarseOwnership": [],
+        "builtLandmarks": [
+          "skytower",
+          "promenada",
+          "hermes",
+          "bob",
+          "globalworth"
+        ]
+      },
+      {
+        "city": "bucharest",
+        "district": "otopeni",
+        "elapsedMs": 5244.19999999553,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 75137,
+          "apertures": 1375,
+          "byKind": {
+            "road-floor": 1375
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 67,
+          "leaves": 34,
+          "triangles": 2451
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 1208,
+        "coarseOwnership": [],
+        "builtLandmarks": [
+          "otp"
+        ]
+      },
+      {
+        "city": "seattle",
+        "district": "seatac",
+        "elapsedMs": 17380.30000000447,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 320275,
+          "apertures": 3334,
+          "byKind": {
+            "road-floor": 3334
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 221,
+          "leaves": 111,
+          "triangles": 8890
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 1858,
+        "coarseOwnership": [],
+        "builtLandmarks": [
+          "seatac",
+          "seatower",
+          "seagarage",
+          "sealink"
+        ]
+      },
+      {
+        "city": "seattle",
+        "district": "bellevue",
+        "elapsedMs": 5400.4000000059605,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 124202,
+          "apertures": 636,
+          "byKind": {
+            "road-floor": 636
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 83,
+          "leaves": 42,
+          "triangles": 1521
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 1197,
+        "coarseOwnership": [],
+        "builtLandmarks": [
+          "lincoln",
+          "onelincoln",
+          "lincolnsouth",
+          "plazacenter",
+          "sonic",
+          "bellevue600",
+          "bellevuetowers",
+          "bellevuesq"
+        ]
+      }
+    ],
+    "errors": [],
+    "passed": true,
+    "finished": "2026-11-10T20:21:36.346Z"
+  },
+  "coarseSourceControl": {
+    "passed": true,
+    "scope": "Exact original40m-cell membership and coarse tuple reproduced from the retained source-preserving Pipera geometry, transformed into Floreasca projection. All original source buffers stay unchanged. No proximity suppression.",
+    "cell": [
+      1,
+      -38
+    ],
+    "contributors": [
+      {
+        "sourceId": "w219622660",
+        "index": 705,
+        "centroidFloreasca": [
+          74.46636407494975,
+          -1506.8253476012699
+        ],
+        "areaM2": 1309.7979491516885,
+        "longestEdgeDegrees": 103.54783455541227,
+        "tuple": [
+          745,
+          -15068,
+          403,
+          317,
+          1370,
+          104
+        ]
+      }
+    ],
+    "coarseRow": 3186,
+    "coarseTuple": [
+      745,
+      -15068,
+      403,
+      317,
+      1370,
+      104
+    ]
+  },
+  "skinCoverageControl": {
+    "source": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
+    "passed": true,
+    "sourceId": "w219622660",
+    "sourceRingPoints": 26,
+    "height": 137,
+    "results": [
+      {
+        "signedSourceArea": 1309.447885939997,
+        "quads": 6362,
+        "sourceWallArea": 17139.387287806698,
+        "emittedWallArea": 17139.38728780671
+      },
+      {
+        "signedSourceArea": -1309.447885939997,
+        "quads": 6362,
+        "sourceWallArea": 17139.387287806694,
+        "emittedWallArea": 17139.387287806705
+      }
+    ],
+    "scope": "Calls the exact production SkyTower builder with the literal retained source ring and reverse winding, checking all emitted frame/pane rectangles for positive-area overlap, full-edge coverage, source retention, cap and collider height. Native Float32 GPU appearance and frame budgets are checked separately."
+  },
+  "logic": {
+    "generated": "2026-11-10T20:21:25.821Z",
+    "args": {
+      "scenario": "foot,a",
+      "city": "bucharest",
+      "audit": false,
+      "headed": false,
+      "verbose": false,
+      "port": 8140,
+      "width": 640,
+      "height": 360,
+      "traffic": "full",
+      "dt": 0.03333333333333333,
+      "shots": 30,
+      "timeout": 240
+    },
+    "summary": {
+      "dynamic": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "byType": {
+          "perf-fps": 1
+        }
+      },
+      "audit": {}
+    },
+    "scenarios": [
+      {
+        "id": "foot",
+        "title": "On foot: get out, walk ~120 m on the sidewalk to an office, walk in, read, walk out, back to the car, drive away",
+        "city": "bucharest",
+        "wallMs": 20530,
+        "simSec": 64.5,
+        "newIssues": 0,
+        "stepMs": {
+          "autopilot": 0.2,
+          "game": 6.53,
+          "checks": 0.36,
+          "steps": 303,
+          "shotsMs": 8600,
+          "yieldMs": 253,
+          "auditMs": 0
+        },
+        "result": {
+          "stop": "rosetti",
+          "exited": true,
+          "exitDist": 1.5,
+          "shotOut": "shots/201915-bucharest-foot-out.jpg",
+          "walkSec": 27.6,
+          "walked": 119.3,
+          "doorDist": 2.9,
+          "office": true,
+          "leftOnFoot": true,
+          "backIn": true,
+          "drive": {
+            "ok": true,
+            "reason": "arrived",
+            "t": 8.7,
+            "dist": 86,
+            "resets": 0,
+            "remaining": 15
+          }
+        },
+        "error": null
+      },
+      {
+        "id": "a",
+        "title": "Spawn sanity",
+        "city": "bucharest",
+        "wallMs": 7288,
+        "simSec": 15.8,
+        "newIssues": 0,
+        "stepMs": {
+          "autopilot": 0.09,
+          "game": 5.08,
+          "checks": 0.34,
+          "steps": 475,
+          "shotsMs": 3380,
+          "yieldMs": 38,
+          "auditMs": 12
+        },
+        "result": {
+          "spawn": {
+            "x": -2378,
+            "z": -1263.8,
+            "lat": 44.443045,
+            "lon": 26.059767,
+            "street": "Splaiul Independenței",
+            "edge": 4418
+          },
+          "problems": [],
+          "navline": "⬅Turn left onto Podul Grozăvești in 60 m",
+          "street": "Splaiul Independenței",
+          "shot": "shots/201915-bucharest-scenario-a-spawn.jpg",
+          "driveBudget": {
+            "timeout": 88,
+            "driving": 40,
+            "signalCycle": 55,
+            "crossing": 10,
+            "signals": [
+              {
+                "node": 4156,
+                "phases": 5,
+                "seconds": 55
+              }
+            ]
+          },
+          "drive": {
+            "ok": true,
+            "reason": "arrived",
+            "t": 14.7,
+            "dist": 137,
+            "resets": 0,
+            "remaining": 15
+          },
+          "objectsInRoad": 0
+        },
+        "error": null
+      }
+    ],
+    "issues": [
+      {
+        "type": "perf-fps",
+        "severity": "low",
+        "msg": "0.6 fps (1781 ms/frame, 108 draw calls, 299054 tris) at quality low 640×360 in software GL — not representative of real GPUs",
+        "scenario": "end",
+        "city": "bucharest",
+        "count": 1
+      }
+    ]
+  },
+  "remaining": "Fine facade members are simplified and may alias at subpixel sizes. Source roof services are unmeasured. Other building, facade, road, bridge, crowd, interior and performance reports remain open.",
+  "visualRegression": {
+    "baselineSource": "a256e0c506454ec3b30be6a277b8806bec42446b",
+    "candidateSource": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
+    "scope": "Narrow Floreasca/Rosetti and Pipera/Luxoft opening samples. Existing Arnia route fails on both sources; broad visual survey remains incomplete.",
+    "baselineCoverage": {
+      "complete": false,
+      "status": "incomplete",
+      "requiredSamples": 2,
+      "capturedSamples": 2,
+      "missingSamples": 0,
+      "errors": [
+        {
+          "city": "bucharest",
+          "message": "arnia: required route could not be sampled"
+        }
+      ],
+      "routes": [
+        {
+          "city": "bucharest",
+          "group": "bucharest-floreasca",
+          "route": "rosetti",
+          "required": 1,
+          "captured": 1,
+          "missing": 0,
+          "missingIndices": []
+        },
+        {
+          "city": "bucharest",
+          "group": "bucharest-pipera",
+          "route": "luxoft",
+          "required": 1,
+          "captured": 1,
+          "missing": 0,
+          "missingIndices": []
+        }
+      ]
+    },
+    "candidateCoverage": {
+      "complete": false,
+      "status": "incomplete",
+      "requiredSamples": 2,
+      "capturedSamples": 2,
+      "missingSamples": 0,
+      "errors": [
+        {
+          "city": "bucharest",
+          "message": "arnia: required route could not be sampled"
+        }
+      ],
+      "routes": [
+        {
+          "city": "bucharest",
+          "group": "bucharest-floreasca",
+          "route": "rosetti",
+          "required": 1,
+          "captured": 1,
+          "missing": 0,
+          "missingIndices": []
+        },
+        {
+          "city": "bucharest",
+          "group": "bucharest-pipera",
+          "route": "luxoft",
+          "required": 1,
+          "captured": 1,
+          "missing": 0,
+          "missingIndices": []
+        }
+      ]
+    },
+    "sameNormalizedDetectorRecords": true,
+    "findingsPerSource": 274
+  }
+}

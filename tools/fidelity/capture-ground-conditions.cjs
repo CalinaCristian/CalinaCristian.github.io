@@ -54,7 +54,7 @@ async function capture(c){
     return{pixels,pose:{x,z,floor,eye:actual.toArray(),heightAboveSupport:actual.y-floor,bearing:(Math.atan2(dir.x,-dir.z)*180/Math.PI+360)%360,pitch:Math.asin(dir.y)*180/Math.PI,fov:cam.fov},cameraBodyClear:!blocked,sourceEdge:pose.sourceEdge,sourceRoadId:pose.sourceRoadId,stats:{...r.stats}};
    },{pose,kind:current.kind});
    if(Math.abs(shot.pose.heightAboveSupport-1.65)>.04)throw Error('Incorrect eye height '+pose.id);
-   const pixels=Buffer.from(shot.pixels,'base64');delete shot.pixels;const rel=`${current.kind}/${current.id}/${condition.id}/${pose.id}.jpg`,file=path.join(out,rel);fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,pixels);
+   const pixels=Buffer.from(shot.pixels,'base64');delete shot.pixels;const rel=`${current.kind}/${current.id}/${condition.id}/${pose.id}-${hash(pixels).slice(0,12)}.jpg`,file=path.join(out,rel);fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,pixels);
    const record={id:pose.id,kind:current.kind,place:current.id,label:pose.label,purpose:pose.purpose||'Walking-height detail of the production scene.',file:rel,capturedAt:new Date().toISOString(),sourceCommit:source,viewport:{width:1280,height:800},condition:{...condition,...observed},sha256:hash(pixels),bytes:pixels.length,...shot};report.captures.push(record);save();note('captured',{id:current.id+':'+pose.id,condition:condition.id});
   }
  }

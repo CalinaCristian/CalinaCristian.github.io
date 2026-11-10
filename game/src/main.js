@@ -2020,6 +2020,7 @@ class Game {
         if (inGame && st !== 'office') items.push(['map', '🗺️', 'Map & navigation']);
         if (['drive', 'foot', 'spot'].includes(st)) { const ft = this.fastTravelStatus(); items.push(['fast-travel', '⏩', 'Fast travel', ft.note, ft.disabled]); }
         if (st === 'drive' || st === 'foot') items.push(['reset-position', '🛟', 'Reset position', st === 'drive' ? 'Return to the nearest road · position only' : 'Return to the nearest sidewalk · position only', droneOn || !!this.refuel || (st === 'drive' && Math.abs(this.player?.speed || 0) >= 6)]);
+        if (st === 'drive' && !droneOn) items.push(['car-exit', '🚶', 'Get out of the car']);
         if (st === 'drive' && !droneOn) items.push(['headlights', '💡', 'Headlights', this.headlightsOn ? 'On · tap to turn off' : 'Off · tap to turn on']);
         if (ex) items.push(['worldmap', '🌍', 'World map', ex.active || !this.chapters ? 'every district & tourist spot' : 'go anywhere · the story waits']);
         if (this.clamp && !this.clamp.paid && (st === 'drive' || st === 'foot')) items.push(['pay-clamp', '🔓', 'Pay fine', `wheel clamp${this.clamp.amount ? ' · ' + money(this.clamp.cur, this.clamp.amount) : ''}`]);
@@ -2029,7 +2030,7 @@ class Game {
         if (['drive', 'foot', 'spot'].includes(st)) items.push(['conditions', '☀️', 'Time, weather & season']);
         if (this.achievements?.open) { let pct = null; try { pct = this.achievements.completion?.().pct; } catch { /* ignore */ } items.push(['achievements', '🏆', `Achievements${pct != null ? ` · ${pct} %` : ''}`]); }
         if (ex && !droneOn && (st === 'foot' || st === 'spot')) items.push(['drone', '🚁', 'Deploy drone']);
-        if (this.photo && st !== 'office' && st !== 'drive') items.push(['photo', '📷', 'Photo mode']);
+        if (this.photo && st !== 'drive') items.push(['photo', '📷', 'Photo mode']);
         if (this.save?.openGallery || save?.openGallery) items.push(['gallery', '🖼️', 'Photo gallery']);
         items.push(['settings', '⚙️', 'Settings']);
         items.push(['main-menu', '🏠', 'Main menu']);
@@ -2037,7 +2038,7 @@ class Game {
     }
     buildPause() {
         if (document.getElementById('pause-menu')) return;
-        const btn = document.createElement('button'); btn.id = 'pause-btn'; btn.title = 'Pause (Esc)'; btn.textContent = '⏸';
+        const btn = document.createElement('button'); btn.id = 'pause-btn'; btn.title = this.touch ? 'Menu & pause (Esc)' : 'Pause (Esc)'; btn.setAttribute('aria-label',btn.title); btn.textContent = this.touch ? '☰' : '⏸';
         btn.addEventListener('click', (e) => { e.preventDefault(); this.togglePause(); });
         document.body.appendChild(btn);
         const el = document.createElement('div'); el.id = 'pause-menu'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Pause');
@@ -2118,7 +2119,8 @@ ${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" 
             if (ex.drone?.active && !['photo', 'achievements'].includes(k)) ex.hooks?.abortDrone?.();
         }
         this.togglePause(false);
-        if (k === 'map') this.toggleMap(true);
+        if (k === 'car-exit') this.exitCar();
+        else if (k === 'map') this.toggleMap(true);
         else if (k === 'fast-travel') this.fastTravelToObjective();
         else if (k === 'reset-position') this.resetPosition();
         else if (k === 'headlights') { this.headlights = !this.headlightsOn; this.hud.toast(this.headlights ? '💡 Headlights on' : '💡 Headlights off', ''); }
@@ -2486,7 +2488,7 @@ ${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" 
     async flightCutscene(from) {
         $('#hud').classList.add('in-office');
         try { await playFlight({ from, hud: this.hud, audio: this.audio }); } catch (e) { console.warn('[flight]', e); }
-        $('#hud').classList.remove('in-office');
+        $('#hud').classList.remove('in-office'); document.body.classList.remove('in-office');
     }
 
     // ---------------------------------------------------------------------------------- unstick / reset
@@ -2704,7 +2706,7 @@ ${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" 
         this._officePresentedAt = null; this._officeFPSAcc = this._officeFPSN = 0;
         this.state = 'office';
         this.audio.stopEngine(); this.audio.blip(520, 0.15, 0.1);
-        $('#hud').classList.add('in-office');
+        $('#hud').classList.add('in-office'); document.body.classList.add('in-office');
         this.player.resetLook();
         try {
             this.officeBubbleScope = createOfficeBubbleScope(this.hud);
@@ -2755,7 +2757,7 @@ ${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" 
         this.officeBubbleScope?.dispose(); this.officeBubbleScope = null;
         this.officeReturn = null; this._officePresentedAt = null;
         this.r3d._lastStatsNow = null; // mode boundary: no office-duration gap in the next driving FPS sample
-        $('#hud').classList.remove('in-office');
+        $('#hud').classList.remove('in-office'); document.body.classList.remove('in-office');
         this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0);
         this.player.resetLook();
         this.state = 'drive';
@@ -2809,7 +2811,7 @@ ${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" 
         await this.loadCity(from === 'bucharest' ? 'seattle' : 'bucharest');
         this.fuel = TANK_L * 0.85; // rental car / back home: fresh tank
         $('#loading').classList.remove('show');
-        $('#hud').classList.remove('in-office');
+        $('#hud').classList.remove('in-office'); document.body.classList.remove('in-office');
         this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0);
         this.state = 'drive';
         if (from === 'bucharest') { this.hud.achievement('flight'); this.hud.toast('🌧️ Welcome to Seattle', 'Rental car picked up at SeaTac. Follow the route: I-5 N → I-90 E → I-405 N to Bellevue.', 'intro'); }

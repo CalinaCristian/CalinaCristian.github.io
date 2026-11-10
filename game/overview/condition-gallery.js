@@ -13,7 +13,7 @@ export function mountConditionGallery(root, gallery, { resolveImage = value => v
   const section = node('section', undefined, 'condition-gallery'), tabs = node('div', undefined, 'condition-tabs'), panel = node('div'), status = node('p', undefined, 'condition-status');
   tabs.setAttribute('role', 'tablist'); tabs.setAttribute('aria-label', 'Season and time of day');
   panel.id = prefix + '-panel'; panel.setAttribute('role', 'tabpanel');
-  section.append(node('p', gallery.notice || 'Matched walking-height views from the shipped game. Open a picture at its original size.', 'notice'), tabs, status, panel);
+  section.append(node('p', gallery.notice || 'Matched walking-height views from the recorded production game source. Open a picture at its original size.', 'notice'), tabs, status, panel);
   root.replaceChildren(section);
   const buttons = sets.map((set, i) => {
     const button = node('button', set.label); button.type = 'button'; button.id = prefix + '-tab-' + i;

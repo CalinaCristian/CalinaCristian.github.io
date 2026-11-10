@@ -1,0 +1,59 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import * as THREE from '../vendor/three.module.min.js';
+import { Traffic, Pedestrians } from '../src/traffic.js';
+import { EdgeIndex } from '../src/nav.js';
+
+class EmptyTraffic extends Traffic { setupTransit() {} buildBusStops() {} spawnAll() {} }
+function scene() {
+    const empty = new EmptyTraffic({ graph: { edges: [], nodes: [] }, buildings: [], walkTop: () => .13 }, { id: 'seattle' }, new THREE.Scene(), { maxPeds: 0 });
+    const a = { id: 0, x: 0, z: -100, radius: 2, edges: [] }, b = { id: 1, x: 0, z: 100, radius: 2, edges: [] };
+    const e = { id: 1, a, b, len: 200, dirx: 0, dirz: 1, nx: -1, nz: 0, wR: 3, wL: 3, halfW: 3, sidewalk: 3, type: 'residential', ya: 0, yb: 0 };
+    a.edges = b.edges = [e];
+    const v = { x: 0, z: 0, y: .24, heading: 0, length: 4.36, width: 1.73, speed: 0 };
+    const C = Object.create(Pedestrians.prototype), t = { world: { district: true, buildings: [], walkTop: () => .13 }, index: new EdgeIndex([e]), stats: {}, vehicles: [v], grid: { items: [v], query(x, z, r, fn) { fn(v); } } };
+    Object.assign(C, { t, list: [], crowd: { reach: () => .3, set() {} }, grid: empty.peds.grid, obsGrid: empty.peds.obsGrid, obs: [], stats: {}, _fr: 0, _walkSpace: new Map(), _side: new Map(), crossCount: new Map(), rng: () => { throw Error('No recovery RNG'); } });
+    const p = { i: 454, x: 1.175, z: 0, e, s: 100, side: -1, dir: 1, state: 'legs', legs: [{ x: 4.6, z: 0, cross: true, started: true, back: true, sx: 4.6, sz: 0, len: 5 }], next: { e, s: 100, side: -1, dir: 1 }, onRoad: true, heading: -Math.PI / 2, speed: 1.44, phase: 0, scale: 1, live: true, waitT: 0, walkOff: 0, progressX: 1.175, progressZ: 0, progressT: 6.01 };
+    C.list = [p]; C.buildGrid();
+    return { C, p, v };
+}
+const f = scene();
+assert.equal(f.C.replanWalk(f.p), false, 'ordinary active crossing retains its existing plan');
+const original = [f.p.x, f.p.z], bodies = JSON.stringify(f.C.t.vehicles);
+assert.ok(f.C.replanWalk(f.p, { blockedReturn: true }), 'a stalled return can plan to a real available sidewalk');
+assert.deepEqual([f.p.x, f.p.z], original, 'planning never moves the person');
+assert.ok(f.p.legs[0].vehicleEscape && f.p.legs[0].escape, 'only the returned escape carries the motion context');
+let maxStep = 0, minimum = Infinity;
+for (let i = 0; i < 300; i++) {
+    const x = f.p.x, z = f.p.z;
+    f.C.buildGrid(); f.C.update(1 / 30);
+    maxStep = Math.max(maxStep, Math.hypot(f.p.x - x, f.p.z - z));
+    minimum = Math.min(minimum, Math.max(Math.abs(f.p.x) - f.v.width / 2, Math.abs(f.p.z) - f.v.length / 2));
+}
+assert.ok(f.p.x > 4, 'the physical pedestrian leaves the car and reaches the sidewalk');
+assert.ok(maxStep < .13 && minimum >= .3, 'every actual step retains body clearance and normal walking pace');
+assert.equal(JSON.stringify(f.C.t.vehicles), bodies, 'no vehicle moves, hides or changes dimensions to clear the return');
+
+const detour = scene();
+assert.equal(detour.C.clearWalkSegment(detour.p, { x: -4.6, z: 0 }, true, { reach: 3 }), false, 'direct route through the stopped body is refused');
+assert.equal(detour.C.escapeRoute(detour.p, [{ x: -4.6, z: 0 }], true), null, 'legacy comfort margin traps this starting point');
+detour.C._fr++;
+const route = detour.C.escapeRoute(detour.p, [{ x: -4.6, z: 0 }], true, { reach: 3 });
+assert.ok(route?.legs.length >= 2, 'a bounded physical detour goes around the complete stopped rectangle');
+let from = detour.p;
+for (const to of route.legs) { assert.ok(detour.C.clearWalkSegment(from, to, true, { reach: 3 })); from = to; }
+assert.equal(detour.C.separatingVehiclePoint(detour.p, 1.1, 0), false, 'a deeper step is still blocked');
+assert.equal(detour.C.clearWalkStep(1.2, 0, true), false, 'ordinary walking keeps the unchanged comfort margin');
+assert.equal(detour.C.clearWalkStep(1.2, 0, true, detour.p), true, 'only a separating return step can leave an existing margin');
+detour.C.inWater = () => true;
+assert.equal(detour.C.clearWalkStep(1.2, 0, true, detour.p), false, 'water cannot be used for an escape');
+
+const native = JSON.parse(fs.readFileSync(new URL('./fixtures/basarab-pedestrian-return.json', import.meta.url)));
+const v = { ...native.vehicle, heading: native.vehicle.h, length: native.vehicle.L, width: native.vehicle.W }, p = native.person, C = scene().C;
+C.t.vehicles = C.t.grid.items = [v]; C.t.grid.query = (x, z, r, fn) => fn(v);
+const fx = -Math.sin(v.heading), fz = -Math.cos(v.heading), dx = p.x - v.x, dz = p.z - v.z, side = Math.sign(-dx * fz + dz * fx);
+const away = { x: p.x - fz * side * .03, z: p.z + fx * side * .03 };
+assert.equal(C.freeVehiclePoint(p.x, p.z), false, 'actual454 starts inside the native stopped-body comfort margin');
+assert.equal(C.separatingVehiclePoint(p, away.x, away.z), true, 'actual454 has a physically separating first step');
+assert.equal(C.separatingVehiclePoint(p, 2 * p.x - away.x, 2 * p.z - away.z), false, 'the actual toward-body step stays blocked');
+console.log('PASS: physical stalled-return escape, unchanged normal crossing/margin, full stopped-body detour, source/actor preservation, water and actual454 pose controls');

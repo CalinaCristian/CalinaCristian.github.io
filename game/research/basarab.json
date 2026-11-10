@@ -197,7 +197,7 @@
   "geometryPolicy": "Preserve every source motor/rail vertex and direction. Centre tram support joins follow paired source rails; model heights and structural thickness remain estimates.",
   "estimated": [
     "Deck absolute elevations and ramp grades",
-    "Pylon longitudinal placement, leg spacing and section",
+    "Pylon longitudinal placement,14m leg-centre spacing and3m square section; photo-informed central H-frame, not surveyed",
     "Arch rise and rib sections",
     "Barrier member sections and post spacing",
     "Station roof cross-section and rib spacing"

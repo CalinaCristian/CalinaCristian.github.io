@@ -103,7 +103,11 @@ function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPa
  if(group){const mesh=new THREE.Mesh(glass.build(),new THREE.MeshStandardMaterial({vertexColors:true,transparent:true,opacity:.2,roughness:.34,metalness:.08,depthWrite:false,side:THREE.DoubleSide}));mesh.name='Basarab mapped-platform station roof (estimated section)';mesh.castShadow=false;mesh.receiveShadow=true;group.add(mesh);}
  // Twin 80m legs with upper crossbeams and sixty fan stays. Their longitudinal
  // anchor is a MODEL30m southwest of the literal covered-platform endpoint.
- const towerS=s0-30,legOffset=half+1.8;
+ // The H-frame stands beside the central tracks, inside the flanking motor
+ // carriageways. Its14m leg-centre spacing is an explicit photo-informed
+ // estimate; using the wider station roof as its span put both legs in lanes.
+ const towerS=s0-30,legOffset=7;
+ report.pylonLegCentreSpacingM=legOffset*2;
  for(const sign of [-1,1]){
   const c=at(towerS,nc+sign*legOffset,.2);cellOf(c[0],c[2]).solid.box(c[0],.2,c[2],3,79.8,3,Math.atan2(u[0],u[1]),rgb('#d8d8d0'));
   const poly=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([v,w])=>[c[0]+u[0]*v*1.5+n[0]*w*1.5,c[2]+u[1]*v*1.5+n[1]*w*1.5]);

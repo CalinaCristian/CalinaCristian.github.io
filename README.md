@@ -372,4 +372,4 @@ Horn audio uses shaped 400/500 Hz harmonics, a 45 ms attack and 90 ms release, l
 
 Church facade windows now fit whole rows between the base and eaves, avoiding partial windows cut by the roof while retaining the mapped building and roof dimensions.
 
-Hermes and BOB facade cladding now partitions each wall into glazing, spandrels and structural strips. Glass no longer overlaps the fins or white corner panels; source footprints, heights, courtyards and collision volumes are retained. Native reported-view acceptance is pending.
+Hermes and BOB facade cladding now partitions each wall into glazing, spandrels and structural strips. Glass no longer overlaps the fins or white corner panels; source footprints, heights, courtyards and collision volumes are retained. Original reported-view High/Ultra captures, small camera offsets, four geometry controls and foot/a pass. The paired Pipera sweep retains the same 92 existing findings. The overview includes the before/after facade comparison and refreshed three-view studies.

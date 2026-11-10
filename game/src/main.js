@@ -1,3 +1,4 @@
+import {mountInspection} from './inspection.js';
 import * as THREE from '../vendor/three.module.min.js';
 import * as CITY_MOD from './cities.js';
 import { chapterCard, chapterMontage, chapterSelectHtml, loadProgress, saveProgress, chapterCardOpen } from './chapters.js';
@@ -1301,7 +1302,7 @@ class Game {
         this.traffic.emitDialogueEvent(dialogueEvent,{participant:v});return dialogueEvent;
     }
     onCollide(strength, what, v) {
-        const dialogueEvent=this.traffic?.dialogueEvent('collision',this.player,{target:what==='vehicle'||what==='pedestrian'?v:null,targetRole:what==='pedestrian'?'pedestrian':'driver',facts:{contact:true,collisionType:what==='vehicle'?'vehicle':what==='pedestrian'?'pedestrian':'static'}});
+        const dialogueEvent=this.traffic?.dialogueEvent('collision',this.player,{target:what==='vehicle'||what==='pedestrian'?v:null,targetRole:what==='pedestrian'?'pedestrian':'driver',facts:{contact:true,collisionType:what==='vehicle'?'vehicle':what==='pedestrian'?'pedestrian':'static',playerCausedContact:true}});
         if (what === 'pedestrian') {
             this.audio.crash(0.35);
             this.stats.peds++;
@@ -2848,3 +2849,5 @@ ${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" 
 window.game = new Game();
 initAchievements(window.game); // spec 23: achievements, completion %, panel
 try { initExplore(window.game); } catch (e) { console.error('[explore] init', e); } // explore lane: game.explore API
+
+window.game.inspection = mountInspection(window.game);

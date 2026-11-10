@@ -1,3 +1,4 @@
+import {inspectionEnabled} from '../inspection.js';
 // ============================================================================
 //  Spot UI: DOM overlay for tourist-spot scenes — title card, interaction
 //  prompt, plaque reader (title, text, artist credit, source link), toasts,
@@ -110,7 +111,7 @@ export class SpotUI {
         window.addEventListener('resize',this._layoutToasts);this._layoutToasts();
     }
     setTitle(name, sub) { this.$('.sp-card b').textContent = name; this.$('.sp-card span').textContent = sub || ''; }
-    setHelp(t) { this.$('.sp-help').textContent = t || ''; }
+    setHelp(t) { this.$('.sp-help').textContent = (t || '')+(inspectionEnabled()?' · F8 copy location · Places: districts / visits':''); }
     /** Keep the current step and Skip/End accessible above a phone activity. */
     setActivityActive(active, panel = null) {
         this._activityLayout?.disconnect(); this._activityLayout = null;

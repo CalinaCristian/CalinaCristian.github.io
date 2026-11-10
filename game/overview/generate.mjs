@@ -6,6 +6,7 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const read = p => readFileSync(resolve(root, p), 'utf8');
+const { matchedConditions } = await import('data:text/javascript;base64,' + Buffer.from(read('game/overview/condition-gallery.js')).toString('base64'));
 const { evidenceAsset, evidenceReport } = await import('data:text/javascript;base64,' + Buffer.from(read('game/overview/evidence-paths.js')).toString('base64'));
 const visitorCounts = {spotVisitorGalleries:0,spotVisitorCaptures:0,spotVisitorRetainedCaptures:0,spotVisitorImages:0};
 const visitorReports = new Set();
@@ -18,7 +19,9 @@ function visitorGallerySummary(record, id, recordPath) {
     if (!Array.isArray(gallery.captures) || !gallery.captures.length) fail('requires primary captures');
     if (gallery.retainedIllustrations !== undefined && !Array.isArray(gallery.retainedIllustrations)) fail('retainedIllustrations must be an array');
     if (gallery.reports !== undefined && !Array.isArray(gallery.reports)) fail('reports must be an array');
-    const captures = [...gallery.captures, ...(gallery.retainedIllustrations || [])], images = new Set(), sources = new Set();
+    if(gallery.conditionSets && !matchedConditions(gallery.conditionSets)) fail('requires four conditions with at least four matching viewpoint IDs');
+    const primary = gallery.conditionSets ? gallery.conditionSets.flatMap(set=>set.captures) : gallery.captures;
+    const captures = [...primary, ...(gallery.retainedIllustrations || [])], images = new Set(), sources = new Set();
     for (const capture of captures) {
         if (!capture || !evidenceAsset(capture.image, {kind:'spot',id})) fail('has an unsafe/missing image path');
         if (images.has(capture.image)) fail(`repeats image ${capture.image}`);
@@ -45,11 +48,11 @@ function visitorGallerySummary(record, id, recordPath) {
     // original sourceCommit, captureSourceCommits, captureRange or collections.
     const ordered = captures.map(capture => capture.capturedAt).sort((a,b) => Date.parse(a)-Date.parse(b));
     visitorCounts.spotVisitorGalleries++;
-    visitorCounts.spotVisitorCaptures += gallery.captures.length;
+    visitorCounts.spotVisitorCaptures += primary.length;
     visitorCounts.spotVisitorRetainedCaptures += (gallery.retainedIllustrations || []).length;
     visitorCounts.spotVisitorImages += images.size;
     for (const report of reportPaths) visitorReports.add(report);
-    return {sourceCommit:gallery.sourceCommit,captureCount:gallery.captures.length,retainedCaptureCount:(gallery.retainedIllustrations || []).length,reportCount:reportPaths.size,captureSourceCommits:[...sources].sort(),captureRange:[ordered[0],ordered.at(-1)]};
+    return {sourceCommit:gallery.sourceCommit,captureCount:primary.length,conditionCount:gallery.conditionSets?.length||0,viewpointCount:gallery.conditionSets?.[0]?.captures.length||gallery.captures.length,retainedCaptureCount:(gallery.retainedIllustrations || []).length,reportCount:reportPaths.size,captureSourceCommits:[...sources].sort(),captureRange:[ordered[0],ordered.at(-1)]};
 }
 const visitorTotals = () => ({...visitorCounts,spotVisitorReports:visitorReports.size});
 // Read-only validation is useful before the orchestrator adopts this generator;

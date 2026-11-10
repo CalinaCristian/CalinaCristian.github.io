@@ -1,3 +1,4 @@
+import {mountConditionGallery} from './condition-gallery.js';
 // Street/drone context is game-only evidence. It must never inherit the aerial
 // viewer's north-up, equal-ground-square or matched-reference labels.
 export function perspectiveTitle(item) {
@@ -31,7 +32,7 @@ function readableScope(streetWalk) {
 
 export async function mountPerspectiveViewer(element, { baseURL = new URL('./comparison-data/', import.meta.url), onLocation = () => {} } = {}) {
   const base = new URL(baseURL, document.baseURI), cache = new Map();
-  let sequence = 0, selected = '', disposed = false;
+  let sequence = 0, selected = '', disposed = false, conditionGallery;
   const node = (tag, text, className) => { const el = document.createElement(tag); if (text !== undefined) el.textContent = text; if (className) el.className = className; return el; };
   const json = async url => { const response = await fetch(url); if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); };
   const get = url => { const key = String(url); if (!cache.has(key)) cache.set(key, json(url).catch(error => { cache.delete(key); throw error; })); return cache.get(key); };
@@ -43,7 +44,7 @@ export async function mountPerspectiveViewer(element, { baseURL = new URL('./com
   const root = node('div', undefined, 'perspective-viewer');
   const label = node('label', 'District'), select = document.createElement('select'), content = node('div');
   label.append(select); root.append(label, content); element.replaceChildren(root);
-  const controller = { show, dispose() { disposed = true; sequence++; root.remove(); } };
+  const controller = { show, dispose() { disposed = true; sequence++; conditionGallery?.dispose(); root.remove(); } };
   let catalog;
   try {
     catalog = await get(new URL('catalog.json', base));
@@ -55,13 +56,18 @@ export async function mountPerspectiveViewer(element, { baseURL = new URL('./com
 
   async function show(id) {
     if (disposed || id === selected) return;
-    selected = id; const request = ++sequence, place = catalog?.locations.find(p => p.id === id);
+    conditionGallery?.dispose();conditionGallery=null; selected = id; const request = ++sequence, place = catalog?.locations.find(p => p.id === id);
     select.value = place?.id || ''; content.replaceChildren(node('p', 'Loading game context…', 'notice'));
     if (!place) { content.replaceChildren(node('p', 'No context collection is published for this district yet.', 'notice')); return; }
     try {
       const manifestURL = new URL(place.manifest, base), manifest = await get(manifestURL);
       if (disposed || request !== sequence) return;
       content.replaceChildren();
+      if(manifest.groundConditions && /^context\/[a-zA-Z0-9_/-]+\/manifest\.json$/.test(manifest.groundConditions.manifest||'')){
+        const url=new URL(manifest.groundConditions.manifest,manifestURL),gallery=await get(url);
+        if(disposed||request!==sequence)return;
+        conditionGallery=mountConditionGallery(content,gallery,{resolveImage:path=>localAsset(path,url),manifestURL:url.href});return;
+      }
       const collections = (manifest.perspectiveCollections || []).filter(c => c.captureType === 'game-perspective-context' && c.comparisonCompatible === false && /^context\/[a-zA-Z0-9_/-]+\/manifest\.json$/.test(c.manifest || ''));
       if (manifest.streetWalk?.manifest === 'street-walk/manifest.json') {
         const revision = manifest.streetWalk.gameSourceCommit;

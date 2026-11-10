@@ -2601,8 +2601,9 @@ export class Pedestrians {
 
     reach(p) { return this.crowd.reach?.(p.i) || PED_R; }
     freeWalkPoint(x, z, r = PED_R) {
-        const W = this.t.world, y = (W.walkTop?.(x, z) ?? 0.2) + 0.01;
-        return !this.inWater(x, z) && !this.roadAt(x, z, r + 0.05) && !collideBuildings(W.buildings || [], x, z, r, y);
+        if(this.inWater(x,z)||this.roadAt(x,z,r+.05))return false;
+        const W=this.t.world,y=(W.walkTop?.(x,z)??.2)+.01;
+        return !collideBuildings(W.buildings||[],x,z,r,y);
     }
     /** Walking room, with a one-second headway at the normal 1.2 m/s pace.
      * The kerb, walls, props and intersection mouths consume real slots. */
@@ -2988,10 +2989,11 @@ export class Pedestrians {
      * An existing contact may still take a small, monotonically outward step. */
     peerClearStep(p, x, z, oldX, oldZ) {
         let clear = true;
-        const W = this.t.world, top = W.walkTop?.(x, z), y = top == null ? 0.2 : top + 0.01;
+        const W = this.t.world;let y;
         const check = q => {
             if (!clear || q === p || q.hidden || q.state === 'down') return;
             const d = Math.hypot(x - q.x, z - q.z); if (d >= 2 * PED_R - 1e-6) return;
+            if(y===undefined){const top=W.walkTop?.(x,z);y=top==null?.2:top+.01;}
             const qt = W.walkTop?.(q.x, q.z), qy = qt == null ? 0.2 : qt + 0.01;
             if (y + 1.75 * (p.scale || 1) <= qy || qy + 1.75 * (q.scale || 1) <= y) return;
             if (d <= Math.hypot(oldX - q.x, oldZ - q.z) + 1e-6) clear = false;

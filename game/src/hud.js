@@ -1,3 +1,4 @@
+import {inspectionEnabled} from './inspection.js';
 import * as THREE from '../vendor/three.module.min.js';
 import { PHRASES, ACHIEVEMENTS } from './data.js';
 import { clamp } from './util.js';
@@ -32,7 +33,7 @@ export class HUD {
     }
     setYear(y) { this.el.year.textContent = y; }
     setChapter(t) { this.el.chapter.textContent = t; }
-    setHint(t) { this.el.hint.textContent = t; }
+    setHint(t) { this.el.hint.textContent = t + (inspectionEnabled() ? ' · F8 copy location · Places: jump between districts / visits' : ''); }
     /** road sign with the current limit. value=null hides it. */
     setLimit(value, us, over) {
         const el = this.el.limit; if (!el) return;

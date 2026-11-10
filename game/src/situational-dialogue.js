@@ -101,7 +101,7 @@ export function createSituationalDialogue({seed='situational-dialogue-v1',limits
    for(const l of fresh){const score=(hash([seed,r.eventId,r.speakerId,l.id])+1)/(1+specificity(l)*2);if(score<best||(score===best&&l.id<line.id)){best=score;line=l;}}
    serial=serial>=Number.MAX_SAFE_INTEGER?1:serial+1;const token=`${hash([seed,r.eventId,r.speakerId,line.id,now]).toString(36)}-${serial}`;
    pending.set(token,{eventId:r.eventId,signature:sig,speakerId:r.speakerId,pair,lineId:line.id,expires:now+cfg.pendingTtlMs});offered++;lastReason='offered';
-   return Object.freeze({token,line:Object.freeze({id:line.id,t:line.t,en:line.en}),priority:r.kind==='greeting'?3:r.kind==='collision'?2:1,cls:'',expiresAtMs:now+cfg.pendingTtlMs});
+   return Object.freeze({token,line:Object.freeze({id:line.id,t:line.t,en:line.en}),priority:r.kind==='greeting'?3:r.kind==='collision'?2:1,cls:r.kind==='collision'?'angry':'',expiresAtMs:now+cfg.pendingTtlMs});
   },
   settle(token,accepted,now){
    if(!time(now))return false;prune(now);const p=pending.get(token);if(!p){lastReason='unknown-or-expired-offer';return false;}pending.delete(token);

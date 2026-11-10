@@ -26,9 +26,11 @@ const server=createServer((req,res)=>{
 });
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const{chromium}=createRequire(import.meta.url)('playwright');
-const browser=await chromium.launch({headless:true,args:['--mute-audio','--use-angle=swiftshader','--enable-unsafe-swiftshader']}),page=await browser.newPage({viewport:{width:1280,height:720}});
+const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--mute-audio','--use-angle=swiftshader','--enable-unsafe-swiftshader']}),page=await browser.newPage({viewport:{width:1280,height:720}});
 page.on('pageerror',e=>errors.push(String(e)));
 await page.route('**/api.open-meteo.com/**',route=>route.fulfill({status:200,contentType:'application/json',body:'{"error":true,"reason":"profile uses explicit clear preset"}'}));
+const component=process.argv.includes('--component');
+if(component){await page.addInitScript(()=>{window.requestAnimationFrame=()=>0;});report.scope='Native production traffic/pedestrian component with all admitted actors, paused renderer, fixed public Grozavesti spawn, explicit 1/30 s simulation steps. CPU attribution only, not elapsed physical-play soak or hardware FPS.';}
 const state=()=>page.evaluate(()=>{const g=game,t=g.traffic;return{state:g.state,quality:g.r3d.quality,stats:{...g.r3d.stats},nativeFrame:t?._frame,trafficTime:t?.time,updateMs:t?.stats?.updateMs,active:t?.vehicles.length,pool:t?.pool.length,peds:t?.peds?.list.length,ids:t?.vehicles.map(v=>v.id),player:g.player&&{x:g.player.x,y:g.player.y,z:g.player.z,speed:g.player.speed},date:g.r3d.simDate?.toISOString(),initialAdmissionPassed:t?.initialAdmission?.passed};});
 function reduce(profile){
  const nodes=new Map(profile.nodes.map(n=>[n.id,n])),parent=new Map();for(const n of profile.nodes)for(const id of n.children||[])parent.set(id,n.id);
@@ -47,9 +49,16 @@ try{
  await page.goto(`http://127.0.0.1:${server.address().port}/game/`,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.game?.r3d);
  await page.selectOption('#quality','high');
  await page.evaluate(async()=>{game.audio?.setMuted?.(true);const ok=await game.startFreeRoam('grozavesti',{tod:'noon',weather:'clear',season:'summer'});if(ok===false||game.state!=='drive')throw Error('Public district entry failed');});
- await page.keyboard.down('Space');
+ if(!component)await page.keyboard.down('Space');
  const cdp=await page.context().newCDPSession(page);await cdp.send('Profiler.enable');await cdp.send('Profiler.setSamplingInterval',{interval:500});
- for(const quality of['high','ultra']){
+ if(component){
+  await cdp.send('Profiler.start');
+  for(let batch=0;batch<12;batch++){
+   const data=await page.evaluate(()=>{const g=game,t=g.traffic,durations=[];for(let i=0;i<300;i++){const start=performance.now();t.update(1/30);g.hud.update(1/30,g.camera,g.city.id);durations.push(performance.now()-start);}durations.sort((a,b)=>a-b);return {simSeconds:t.time,frames:t._frame,medianMs:durations[150],p95Ms:durations[285],maxMs:durations[299],vehicles:t.vehicles.length,pool:t.pool.length,peds:t.peds.list.length,pedStates:t.peds.list.reduce((o,p)=>(o[p.state]=(o[p.state]||0)+1,o),{}),stats:{...t.stats},pedStats:{...t.peds.stats}};});
+   report.phases.push(data);await save();console.log(JSON.stringify(data));
+  }
+  const{profile}=await cdp.send('Profiler.stop');await writeFile(path.join(out,'component-v8-profile.json.gz'),gzipSync(JSON.stringify(profile),{level:6}));report.profile=reduce(profile);
+ }else for(const quality of['high','ultra']){
   if(quality==='ultra'){
    await page.keyboard.up('Space');await page.locator('#pause-btn').click();
    await page.locator('[data-pa="settings"]').click();await page.locator('[data-set="quality"]').selectOption(quality);
@@ -61,6 +70,6 @@ try{
   await writeFile(path.join(out,`${quality}-v8-profile.json.gz`),gzipSync(JSON.stringify(profile),{level:6}));
   report.phases.push({quality,before,after,profile:reduce(profile)});await save();console.log(JSON.stringify({phase:quality,nativeFrames:after.nativeFrame-before.nativeFrame,active:after.active,top:report.phases.at(-1).profile.topTrafficInclusive.slice(0,6)}));
  }
- await page.keyboard.up('Space');report.complete=true;
+ if(!component)await page.keyboard.up('Space');report.complete=true;
 }catch(e){report.failure=String(e.stack||e);throw e;}
 finally{await browser.close();await new Promise(r=>server.close(r));report.closed=new Date().toISOString();report.executedToolSHA256=hash(await readFile(new URL(import.meta.url)));await save();console.log(JSON.stringify({complete:!!report.complete,source,errors,httpErrors,phases:report.phases.length}));}

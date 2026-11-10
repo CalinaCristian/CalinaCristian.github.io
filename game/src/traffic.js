@@ -3122,18 +3122,10 @@ export class Pedestrians {
     /** the carriageway (ground level) the point is deepest inside → { e, d, cx, cz, hw } or null (every nearby edge, not just the nearest) */
     roadAt(x, z, margin = 0.4) {
         const list = this.t.index.near(x, z, 30, this._near || (this._near = []));
-        const geometry = this._roadGeometry || (this._roadGeometry = new WeakMap());
         let best = null, bp = 0;
         for (const e of list) {
             if (e.tunnel || (e.ya ?? 0) > 1.5 || (e.yb ?? 0) > 1.5) continue;
-            let g=geometry.get(e);
-            if(!g){const dx=e.b.x-e.a.x,dz=e.b.z-e.a.z;g={dx,dz,L2:dx*dx+dz*dz||1,x0:Math.min(e.a.x,e.b.x),x1:Math.max(e.a.x,e.b.x),z0:Math.min(e.a.z,e.b.z),z1:Math.max(e.a.z,e.b.z)};geometry.set(e,g);}
-            // The spatial bucket contains many distant strips. Reject only
-            // outside a conservative AABB; keep the exact asymmetric-width,
-            // projection, hypot and deepest-penetration predicate below.
-            const bound=(this.t.world.district?Math.max(e.wL??e.halfW??6,e.wR??e.halfW??6):e.halfW??6)+margin+1e-8;
-            if(x<g.x0-bound||x>g.x1+bound||z<g.z0-bound||z>g.z1+bound)continue;
-            const {dx,dz,L2}=g;
+            const dx = e.b.x - e.a.x, dz = e.b.z - e.a.z, L2 = dx * dx + dz * dz || 1;
             const t = clamp(((x - e.a.x) * dx + (z - e.a.z) * dz) / L2, 0, 1);
             const cx = e.a.x + dx * t, cz = e.a.z + dz * t, d = Math.hypot(x - cx, z - cz);
             const side = (x - cx) * e.nx + (z - cz) * e.nz;

@@ -10,7 +10,7 @@ import {TrafficDialogue,SITUATIONAL_DIALOGUE_INTEGRATION} from '../../../game/sr
 import {compileDialoguePlaces,currentDialogueContext,knownDialogueWeather,dialogueActorY} from '../../../game/src/situational-dialogue-context.js';
 import {SITUATIONAL_DIALOGUE} from '../../../game/src/situational-dialogue-library.js';
 import {makeRng} from '../../../game/src/util.js';
-const base='027b681bf08e2b9000c5685fd5f5345f0792d31a',root=new URL('../../../',import.meta.url),out=new URL('./',import.meta.url),checks=[],parity=[],hash=v=>createHash('sha256').update(v).digest('hex');
+const base='027b681bf08e2b9000c5685fd5f5345f0792d31a',root=new URL('../../../',import.meta.url),out=new URL(process.env.DIALOGUE_CONTROL_OUT||'./',import.meta.url),checks=[],parity=[],hash=v=>createHash('sha256').update(v).digest('hex');
 process.on('uncaughtException',e=>{console.error(String(e.stack||e).replace(/data:text\/javascript[^\s)]+/g,'<in-memory-module>'));process.exit(1);});
 globalThis.location={hostname:'localhost',search:''};globalThis.window={};globalThis.document={};
 const original=p=>execFileSync('git',['show',base+':'+p],{cwd:root,encoding:'utf8'});

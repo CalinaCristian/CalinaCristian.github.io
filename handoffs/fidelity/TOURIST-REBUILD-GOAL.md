@@ -4,6 +4,10 @@ Owner instruction, 9 November 2026: rebuild the selected tourist visits with goo
 
 **Latest priority: bridges and underpasses need the most work.** Resolve the shared physical and visible level transitions before treating the tourist rebuild as ready to publish. Inspect source-labelled decks, pad joins, retaining walls, ramp cuts, tunnel ceilings and earth occlusion from normal driving approaches, throughout the passage and on exit, including side and mirror views. Actual vehicle clearance and smooth support must agree with the rendered surfaces; a static aerial or isolated helper pass is insufficient. The systematic all-district lane review continues alongside this priority.
 
+## Delivery cadence
+
+Owner instruction, 10 November 2026: finish substantial playable implementation batches before auditing. Combine logic, browser, visuals and overview checks at each batch milestone. Avoid separate proof campaigns for every small edit; preserve existing evidence and fix concrete failures found by the combined audit.
+
 ## Fixed scope
 
 At most three visits per Bucharest, Seattle and Bellevue; seven total. One menu entry per experience. Retired visits, old saved achievements and historical evidence must not inflate current completion. Source buildings outside the focus remain geographic context rather than additional visits.

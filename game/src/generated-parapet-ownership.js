@@ -5,6 +5,7 @@ const area3 = P => { let sum=0;for(let i=1;i<P.length-1;i++){const a=P[i].map((v
 // same plane again must return zero rather than a cancellation-sized signed
 // distance. Coordinates are never offset and no geometric epsilon is used.
 const boundaries=new WeakMap();
+const constructionFaces=new WeakMap();
 function makePlane(raw,key){const score=v=>boundaries.get(v)?.has(key)?0:raw(v);score.key=key;return score;}
 function clip(P,score,inside){const Q=[];for(let i=0;i<P.length;i++){const a=P[i],b=P[(i+1)%P.length],sa=score(a),sb=score(b),ia=inside?sa>=0:sa<0,ib=inside?sb>=0:sb<0;if(ia)Q.push(a);if(ia!==ib){const t=sa/(sa-sb),p=a.map((v,k)=>v+(b[k]-v)*t),A=boundaries.get(a),B=boundaries.get(b),on=new Set([score.key]);if(A&&B)for(const key of A)if(B.has(key))on.add(key);boundaries.set(p,on);Q.push(p);}}return Q;}
 
@@ -51,7 +52,9 @@ export function buildGeneratedParapetOwnership(){
  const subtractFace=(face,metadata={})=>{
   if(metadata.inferred!==true||metadata.emitter!=='separation-barrier')return{changed:false,polygons:[face],ownerIds:[]};
   report.faces++;const originalArea=area3(face),box=bounds(face),r=radius3(face),search={x0:box.x0-4*r[0],x1:box.x1+4*r[0],y0:box.y0-4*r[1],y1:box.y1+4*r[1],z0:box.z0-4*r[2],z1:box.z1+4*r[2]},near=[...new Set(keys(search).flatMap(k=>cells.get(k)||[]))].filter(p=>overlaps(search,p.box));let polygons=[face],changed=false;const ownerIds=[];
-  for(const piece of near){const planes=roundingPlanes(piece,face),next=[];for(const P of polygons){let rest=P,parts=[];for(const plane of planes){const outside=clip(rest,plane,false);if(outside.length>=3&&area3(outside)>0)parts.push(outside);rest=clip(rest,plane,true);if(rest.length<3)break;}const boundaryOnly=rest.length>=3&&planes.some(plane=>rest.every(v=>plane(v)===0)&&P.some(v=>plane(v)!==0));if(rest.length>=3&&!boundaryOnly&&area3(rest)>0){changed=true;ownerIds.push(piece.id);next.push(...parts);}else next.push(P);}polygons=next;if(!polygons.length)break;}
+  const constructionFace=constructionFaces.get(face)||face;
+  for(const piece of near){const planes=roundingPlanes(piece,constructionFace),next=[];for(const P of polygons){let rest=P,parts=[];for(const plane of planes){const outside=clip(rest,plane,false);if(outside.length>=3&&area3(outside)>0)parts.push(outside);rest=clip(rest,plane,true);if(rest.length<3)break;}const boundaryOnly=rest.length>=3&&planes.some(plane=>rest.every(v=>plane(v)===0)&&P.some(v=>plane(v)!==0));if(rest.length>=3&&!boundaryOnly&&area3(rest)>0){changed=true;ownerIds.push(piece.id);next.push(...parts);}else next.push(P);}polygons=next;if(!polygons.length)break;}
+  for(const P of polygons)constructionFaces.set(P,constructionFace);
   const kept=polygons.reduce((n,P)=>n+area3(P),0);report.inputAreaM2+=originalArea;report.keptAreaM2+=kept;if(!changed)report.untouched++;else if(!polygons.length)report.fullyOwned++;else report.partial++;return{changed,polygons,ownerIds:[...new Set(ownerIds)]};
  };
  // Round newly constructed intersections to an adjacent representable point

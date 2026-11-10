@@ -1,6 +1,6 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { configureOffAxisWindow } from './office-window-math.js';
-import { createOfficeWindowTarget } from './office-window-target.js';
+import { createOfficeWindowTarget, retainedOfficeWindowCapacity } from './office-window-target.js';
 import { createOfficeWindowBinding, inRing } from './office-window-binding.js';
 
 /** Homogeneous clipping gives actual visible aperture pixels, including near-plane crossings. */
@@ -82,7 +82,9 @@ export function createOfficeWindowService({
   let target = null,
     disposed = false,
     active = false,
-    reason = binding.reason || null;
+    reason = binding.reason || null,
+    fault = reason,
+    capacity = null;
   const far = entryCamera.far,
     eye = new THREE.Vector3(),
     size = new THREE.Vector2();
@@ -102,10 +104,10 @@ export function createOfficeWindowService({
   };
   invalidate();
   const hdr = renderer.capabilities?.isWebGL2 && renderer.extensions?.has?.('EXT_color_buffer_float');
-  if (binding.known && !hdr) reason = 'HDR window target is unsupported on this renderer';
+  if (binding.known && !hdr) fault = reason = 'HDR window target is unsupported on this renderer';
   const hold = (message) => {
     active = false;
-    reason = message;
+    fault = reason = message;
     paneMap(neutral);
   };
   const service = {
@@ -131,7 +133,8 @@ export function createOfficeWindowService({
     prepare(dt) {
       if (disposed) throw Error('Office window service is disposed');
       active = false;
-      if (binding.known && hdr && !reason) {
+      reason = fault;
+      if (binding.known && hdr && !fault) {
         office.camera.getWorldPosition(eye);
         const mapped = binding.mapPoint(eye);
         if (
@@ -145,7 +148,8 @@ export function createOfficeWindowService({
           eye.y < 1.55 ||
           eye.y > 2.3
         ) {
-          hold('Virtual eye is outside the certified room envelope');
+          reason = 'Virtual eye is outside the certified room envelope';
+          paneMap(neutral);
         } else {
           camera.position.copy(mapped);
           camera.updateMatrixWorld(true);
@@ -186,7 +190,8 @@ export function createOfficeWindowService({
           colorSpace: THREE.LinearSRGBColorSpace,
           linearHDR: true
         });
-        target.resize(pixels.width, pixels.height, 1);
+        capacity = retainedOfficeWindowCapacity(pixels.width, pixels.height, capacity);
+        target.resize(capacity.width, capacity.height, 1);
         if (r3d.sun?.shadow) r3d.sun.shadow.needsUpdate = true;
         target.capture(camera, (c) => renderer.render(scene, c));
         paneMap(target.texture);

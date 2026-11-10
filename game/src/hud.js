@@ -55,7 +55,7 @@ export class HUD {
     setNavLine(html) { if (!this.el.navline) return; if (this._nav !== html) { this._nav = html; this.el.navline.innerHTML = html || ''; this.el.navline.classList.toggle('show', !!html); } }
     flash() { const f = this.el.flash; if (!f) return; f.classList.remove('go'); void f.offsetWidth; f.classList.add('go'); }
     addRage(v, max = 100) { this.rage = clamp(this.rage + v, 0, max); return this.rage; }
-    update(dt, camera, cityId) {
+    update(dt, camera, cityId, { bubbleFilter = null } = {}) {
         this.rage = Math.max(0, this.rage - dt * 1.5);
         this.el.rage.style.width = this.rage + '%';
         this.el.rageWrap.classList.toggle('hot', this.rage > 70);
@@ -64,6 +64,9 @@ export class HUD {
         const w = window.innerWidth, h = window.innerHeight;
         this.bubbles = this.bubbles.filter(b => {
             if (now > b.until) { b.el.remove(); return false; }
+            // Excluded coordinate spaces expire normally without projecting their
+            // world anchors through an unrelated office-local camera.
+            if (bubbleFilter && !bubbleFilter(b)) { b.el.style.display = 'none'; return true; }
             this._tmp.set(b.v.x, b.v.bubbleY ?? 2.6, b.v.z).project(camera); // (pedestrians: just above the head; vehicles/crews: 2.6 m)
             const visible = this._tmp.z < 1 && Math.abs(this._tmp.x) < 1.2 && Math.abs(this._tmp.y) < 1.2;
             b.el.style.display = visible ? 'block' : 'none';

@@ -8,6 +8,12 @@ export function boundedOfficeWindowSize(width,height,pixelRatio=1,{maxPixels=262
  if(x*y>maxPixels){if(x>=y)x=Math.max(1,Math.floor(maxPixels/y));else y=Math.max(1,Math.floor(maxPixels/x));}
  return{width:x,height:y,pixels:x*y};
 }
+/** Grow in bounded buckets during a visit; camera motion never shrinks/reallocates a target. */
+export function retainedOfficeWindowCapacity(width,height,previous=null,{maxPixels=1000000,maxDimension=2048}={}){
+ const request=boundedOfficeWindowSize(width,height,1,{maxPixels,maxDimension});
+ const bucket=n=>Math.min(maxDimension,Math.max(64,2**Math.ceil(Math.log2(n))));
+ return{width:Math.max(previous?.width||0,bucket(request.width)),height:Math.max(previous?.height||0,bucket(request.height))};
+}
 /**
  * Own exactly one bounded target. Root supplies a synchronous render callback
  * for its ONE existing world, including current actors/time/weather/season.

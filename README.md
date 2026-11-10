@@ -330,6 +330,8 @@ Pike Place and Seattle Center now have a bounded literal OSM city-context candid
 
 Seattle tree detail now follows the actual world-space eye, including elevator height, rather than a child camera's local zero or only its ground position. Existing near/far tree forms, source records and colliders are retained; these two scenes do not cap away trees. The failed 00c cold loads, mountain/context appearance and original pass costs remain recorded in `handoffs/fidelity/seattle-source-context/proof/native-00c/`. Fresh native images and submitted budgets are still required for the distance-selection candidate; this is not a finished graphics or performance claim.
 
+Live office windows retain the existing district simulation and now reuse bounded render-target capacity during movement. Jumping outside the supported viewing envelope temporarily blanks the pane and recovers on landing. Office host speech remains visible without projecting street bubbles into the room; leaving for a new district preserves its loading state. Four source-compatible ground-floor model views are staged; the real office floors and remaining locations are still unverified.
+
 Generated bridge parapets and later inferred separation faces have explicit render ownership. The earlier bridge cap owns overlapping inferred skins, including whole coincident faces whose independent subdivisions differ only within calculated Float32 rounding cells. Outside fragments, mapped barriers and every physical guard remain; roads and guard volumes do not move. The actual native bridge flicker witness is covered by a regression. Fresh full-size bridge views remain part of the combined road validation.
 
 

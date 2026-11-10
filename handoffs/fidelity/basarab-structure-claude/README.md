@@ -1,6 +1,7 @@
 # Packs A and B (Claude) · Basarab structure, traffic queues · 2026-11-10
 
-Branch `fidelity/basarab-structure-claude`, from live master `139ab165`, with master `e21797e7` merged in (no conflicts).
+Branch `fidelity/basarab-structure-claude`, from live master `139ab165`, with master merged in twice (`e21797e7`, then
+`54ab3d3e`; no conflicts either time).
 **Nothing here is published.** No owner report is closed by this branch: closing needs the original report poses, which were
 not available (see "Not available"), publication and live verification by the integration owner.
 
@@ -12,9 +13,10 @@ not available (see "Not available"), publication and live verification by the in
 | `dda67f21` | traffic: visible crossing knots open by bounded reversing | `game/src/traffic.js` |
 | `d538aaad` | traffic: recovery "in view" test bounded at 700 m | `game/src/traffic.js` |
 | `6c07fd94` | merge of `origin/master` (`e21797e7`) | none conflicting |
-| (next) | bridges: Basarab superstructure candidate r9 integrated selectively | `game/src/world.js`, `trees.js`, `bridge-bents.js` (+ four new modules) |
+| `576adda5` | bridges: Basarab superstructure candidate r9 integrated selectively | `game/src/world.js`, `trees.js`, `bridge-bents.js` (+ four new modules) |
 
-To keep master linear, cherry-pick the first three; the merge commit carries no change of its own.
+To keep master linear, cherry-pick `c82b1fa5`, `dda67f21`, `d538aaad` and `576adda5` in that order; the merge commits
+(`6c07fd94`, `02562dea`) carry no change of their own.
 
 ## Pack A · reports 12-17 (in progress)
 
@@ -112,7 +114,7 @@ Found, not changed:
 - The legacy harness scenario `b:dn1` is route-blocked by a barrier wall on live master `139ab165` as well.
 - `harness/landmark-cec-source.test.mjs` and `harness/spot-availability.test.mjs` fail on live master (stale expectations).
 
-## Checks run on the merged tree `6c07fd94`
+## Checks run on the merged tree `6c07fd94` (re-run after the superstructure and the second merge, `02562dea`: planner 6/6, traffic tests, Grozăvești and Pipera built-world check, foot/a 0 high / 0 medium)
 
 - `node --test game/dev/bridge-bents.test.mjs` 5/5; `vehicle-knot-recovery` (fails on the previous guard: contact stays at
   0.049 m), `recovery-view-range`, `vehicle-cell-boundary` (updated: only the bounded back-off may follow its rollback),

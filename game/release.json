@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-89b21c8b4c45670c",
-  "sourceCommit": "5c483867b507a04208eb5370b4365964ab316708",
-  "fingerprint": "89b21c8b4c45670cb01d6350463d3e6d420211c783fbd81e4075e19cf30902c5",
+  "releaseId": "game-6ed33383c1ff3d9c",
+  "sourceCommit": "374374011f92d588238ed7d1aa8dd3d3845fa392",
+  "fingerprint": "6ed33383c1ff3d9caaf97d312ebbb1f22ce568e9485e2d842b38627669d6db41",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -242,7 +242,7 @@
     },
     {
       "path": "game/src/buildings.js",
-      "sha256": "634c8a5149d9de9761c62f445c6318dcb3087b41980b574a5afa6d02dfa7cfe4"
+      "sha256": "b08383fe3176bf2ab6715c661c7ff8169df25bff0934350f1776663da51c770b"
     },
     {
       "path": "game/src/canvasText.js",
@@ -290,7 +290,7 @@
     },
     {
       "path": "game/src/drone.js",
-      "sha256": "adebeb686c17fb03116d31246161405f517bc80dc58fcc1e1c58d4f85bcb726e"
+      "sha256": "13bb4465177bae41bda90cb69d81d7c7efd8a1a47a3d1984b55b374853422dff"
     },
     {
       "path": "game/src/explore.js",
@@ -330,7 +330,7 @@
     },
     {
       "path": "game/src/hud.js",
-      "sha256": "258a6108ab898ac05801bea8aac7cdb015d312975abb20766251a382ae838c0b"
+      "sha256": "d31f73e6ba058383a9bb787cd7265efd9ada3b01f8d4f95f19ee7792ca5f4f6e"
     },
     {
       "path": "game/src/inferred-road-sign.js",
@@ -359,6 +359,10 @@
     {
       "path": "game/src/input.js",
       "sha256": "8be7e47e6416e63208a84250eab6f866d432fa73ecd23519c7adbea939f07e4f"
+    },
+    {
+      "path": "game/src/inspection.js",
+      "sha256": "e6108ced8e407fe493816bbea1131a7ec23c6645339f25b5de3a4da56637e6eb"
     },
     {
       "path": "game/src/landmark-arcul-source.js",
@@ -414,7 +418,7 @@
     },
     {
       "path": "game/src/main.js",
-      "sha256": "d8bfbe745dd90d56470d7b0aaaae097602173cb638f41ee8f174f0dd1d883914"
+      "sha256": "26aafe38752c9dd00af83ed8f46d18e54022081dd478a096794f6b5cc3951a4f"
     },
     {
       "path": "game/src/map-place-actions.js",
@@ -434,7 +438,7 @@
     },
     {
       "path": "game/src/nav.js",
-      "sha256": "44ea9aea4cc452849eb21dc65f34e4959cc33ad2388c1489dc03065370c04d63"
+      "sha256": "e6610c76bd5482d24acb50380dc65318c543021fec4e48629ca7762127386ffe"
     },
     {
       "path": "game/src/normal-guard.js",
@@ -474,7 +478,7 @@
     },
     {
       "path": "game/src/office.js",
-      "sha256": "c2a47fe446a970aab51310ff4476dff9f04e4fd8142416f7d68e91d3b2566e07"
+      "sha256": "c080eadae0171c484fee7b9ae0904af115e8376e9ab1d308a60c06188c958b66"
     },
     {
       "path": "game/src/onfoot.js",
@@ -570,15 +574,15 @@
     },
     {
       "path": "game/src/situational-dialogue-library.js",
-      "sha256": "2342a347b8604f56aec72abcb37bfab201fb47158cb9c3d6790d198ee9f9d153"
+      "sha256": "5feff6f9d1abc4ae63ed239c94fa8754e9ddefd5819d03b4df25cacb8cfd8949"
     },
     {
       "path": "game/src/situational-dialogue-traffic.js",
-      "sha256": "9554e71d40c60019d614db914a6abc0c61eff3ffc516d5d90f7df6c1b6158866"
+      "sha256": "dc38041a90ca0cdc27f234ded6aceb611028cb1ddfb834028e2ebfd2e42744e6"
     },
     {
       "path": "game/src/situational-dialogue.js",
-      "sha256": "b2e4ddd6042c8f59d6c6b665a4e6e07b9b309eef3aa5cb209ff05cb5cc53b520"
+      "sha256": "3d5877b22027c022c09e5937bd941d8e5a7781ffb8ccb804a31c3b912940202d"
     },
     {
       "path": "game/src/source-bridge-descent-models.js",
@@ -874,7 +878,7 @@
     },
     {
       "path": "game/src/spots/ui.js",
-      "sha256": "0f8e4ead8159e36322f472840766186b23b54cc38af926baa130ba7e65abefad"
+      "sha256": "2e6433740079b900e4b58c9cbb3a380827f851f940587506c32176854e6dfdd1"
     },
     {
       "path": "game/src/spots/venue-activities.js",
@@ -902,7 +906,7 @@
     },
     {
       "path": "game/src/traffic.js",
-      "sha256": "3a8f2bbede6ac9fc64c82c10ad7725c12a88762008874291e03302ecb5c7ed72"
+      "sha256": "2032708ea9d15a416312c33b32c452cc5265020018c07708c00a53bbfe81c695"
     },
     {
       "path": "game/src/tram-body-support.js",
@@ -990,7 +994,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "f4a8e10a452d385b84fe4042df3f5147374f31561c8804ab154dde09ed177a1e"
+      "sha256": "c450a37d7b5e886f20c8cd21f8f658c90738aa591aafe51c87718c0bfb0f3c06"
     },
     {
       "path": "game/src/worldmap.js",

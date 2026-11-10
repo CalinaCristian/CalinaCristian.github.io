@@ -5876,7 +5876,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (c[layer].empty) continue;
             if (['area', 'grass', 'pave', 'sport', 'ground'].includes(layer)) c[layer] = tramTrench.cut(c[layer]);
             const o = superOf(c, layer);
-            if (['solid', 'roof', 'area', 'grass', 'pave', 'sport', 'ground', 'road', 'pad', 'marks'].includes(layer)) {
+            if (['solid', 'roof', 'area', 'grass', 'pave', 'sport', 'ground', 'road', 'pad', 'marks','detail','backdrop'].includes(layer)) {
                 const mb = c[layer], box = new THREE.Box3().setFromArray(mb.p.subarray(0, mb.vc * 3));
                 (o.parts ||= []).push({ start: o.mb?.ic || 0, count: mb.ic, bounds: [...box.min.toArray(), ...box.max.toArray()] });
             }
@@ -5888,7 +5888,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const addSuper = (o, mat, cast, name) => {
         cx = o.I * o.K + o.K / 2 - 0.5; cz = o.J * o.K + o.K / 2 - 0.5; // (addMesh centres at (cx + 0.5) · CELL)
         const m = addMesh(o.mb, mat, cast, `${name} ${o.I},${o.J}`); if (!m) return null;
-        if (o.parts) cullMergedCells(m, o.parts, { blockTriangles: ['ground','grass','solid','roof'].includes(o.layer) ? 64 : 0 });
+        if (o.parts) cullMergedCells(m, o.parts, { blockTriangles: ['ground','grass','solid','roof','detail','backdrop'].includes(o.layer) ? 64 : 0 });
         const extra = CELL * (o.K - 1) * 0.71; m.userData.cull = (m.userData.cull || cullR) + extra;
         return m;
     };
@@ -5983,7 +5983,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         cellsGroup.add(pg);
     }
     for (const m of vegetation.treeCrownMeshes.concat(vegetation.treeTrunkMeshes)) { cellsGroup.add(m); tris += (m.userData.always ? m.instanceMatrix.count : m.count) * (m.geometry.index.count / 3); }
-    { const hMat = new THREE.MeshLambertMaterial({ vertexColors: true }); hMat.name = 'horizon'; const hm = addMesh(horizon, hMat, false, 'horizon'); if (hm) { hm.userData.always = true; hm.frustumCulled = true; } }
+    { const hMat = new THREE.MeshLambertMaterial({ vertexColors: true }); hMat.name = 'horizon'; const hm = addMesh(horizon, hMat, false, 'horizon'); if (hm) {
+        hm.userData.always = true; hm.frustumCulled = true;
+        hm.geometry.computeBoundingBox();const b=hm.geometry.boundingBox;
+        cullMergedCells(hm,[{start:0,count:hm.geometry.index.count,bounds:[...b.min.toArray(),...b.max.toArray()]}],{blockTriangles:64});
+    } }
     let waterMesh = addMesh(bigWater, waterMat, false, 'water-big'); if (waterMesh) shoreFoam(waterMesh);
     if (distId && waterMesh && (waterMesh.geometry.index?.count || waterMesh.geometry.attributes.position.count) > 15000) {
         // A single lake/river mesh spanning the district defeats frustum culling:
@@ -5997,7 +6001,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const a = vertex(i), b = vertex(i + 1), c = vertex(i + 2);
             const x = (position.getX(a) + position.getX(b) + position.getX(c)) / 3;
             const z = (position.getZ(a) + position.getZ(b) + position.getZ(c)) / 3;
-            const key = Math.floor(x / 500) + ',' + Math.floor(z / 500);
+            const key = Math.floor(x / 64) + ',' + Math.floor(z / 64);
             let vertices = chunks.get(key); if (!vertices) chunks.set(key, vertices = []);
             vertices.push(a, b, c);
         }

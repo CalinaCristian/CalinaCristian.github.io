@@ -30,7 +30,7 @@ function writeBounds(array, offset, box) { box.min.toArray(array, offset); box.m
 // Merged static meshes keep their original cell spans. Reject only complete
 // spans outside the current camera, preserving every attribute and index order.
 export function cullMergedCells(mesh, parts, { blockTriangles = 0 } = {}) {
-    if (parts.length < 2 || !mesh.geometry.index || mesh.geometry.groups.length) return null;
+    if (!parts.length || (parts.length < 2 && !(blockTriangles > 0 && parts[0].count > Math.max(64, blockTriangles) * 3)) || !mesh.geometry.index || mesh.geometry.groups.length) return null;
     const geometry = mesh.geometry, sourceIndex = geometry.index, canonical = sourceIndex.array, sourceRange = { ...geometry.drawRange };
     const output = new THREE.BufferAttribute(canonical.slice(), 1).setUsage(THREE.DynamicDrawUsage);
     const blockSize = Number.isFinite(blockTriangles) && blockTriangles > 0 ? Math.max(64, Math.floor(blockTriangles)) : 0;

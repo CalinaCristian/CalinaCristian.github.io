@@ -53,11 +53,12 @@ export class Audio {
         this._hornWave ||= this.ctx.createPeriodicWave(new Float32Array(7),new Float32Array([0,1,.55,.30,.14,.09,.04]));
         const p = this.ctx.createStereoPanner ? this.ctx.createStereoPanner() : null;
         if (p) { p.pan.value = Math.max(-1, Math.min(1, pan)); g.connect(p); p.connect(this.master); } else g.connect(this.master);
+        let ending=2;
         for (const f of [400 * pitch, 500 * pitch]) {
             const o = this.ctx.createOscillator();o.setPeriodicWave(this._hornWave);o.frequency.setValueAtTime(f*.985,t);o.frequency.exponentialRampToValueAtTime(f,t+.035);
             const fl = this.ctx.createBiquadFilter(); fl.type = 'lowpass'; fl.frequency.value = 1400/(1+dist/120);fl.Q.value=.7;
             o.connect(fl); fl.connect(g); o.start(t); o.stop(t + dur);
-            o.onended=()=>{o.disconnect();fl.disconnect();};
+            o.onended=()=>{o.disconnect();fl.disconnect();if(--ending===0){g.disconnect();p?.disconnect();}};
         }
     }
     blip(freq = 880, dur = 0.08, vol = 0.12) {

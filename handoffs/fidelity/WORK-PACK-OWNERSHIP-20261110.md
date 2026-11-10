@@ -6,10 +6,10 @@ Claude was given **A and B only**. Codex owns **C–N and integration**. The ear
 | --- | --- | --- | --- |
 | A | Claude | Basarab structure; reports12–17 | Unaccepted; awaiting Claude implementation/evidence |
 | B | Claude | Traffic, pedestrians and CPU; reports6–9,18,37–39,67 | Unaccepted; awaiting Claude implementation/evidence |
-| C | Codex | Bucharest roads/paint; reports3,26,32–34,44–48,53–54 | Active: report54fixed and verified live; Romană47/48reproduced, crossing-paint trial under review |
+| C | Codex | Bucharest roads/paint; reports3,26,32–34,44–48,53–54 | Active: report54fixed and verified live; Romană47/48reproduced, source-control paint28639c75 under review; not accepted |
 | D | Codex | SeaTac roads, ramps and connections; reports57–65 | Open |
 | E | Codex | Bellevue roads/closures; reports68–71, plus waterfall | Open; waterfall candidate unaccepted |
-| F | Codex | Buildings, facades, roofs; reports4–5,10,19,22,25,27,35–36,40–42,49–51,55–56 | Open; staged components require reported-view acceptance |
+| F | Codex | Buildings, facades, roofs; reports4–5,10,19,22,25,27,35–36,40–42,49–51,55–56 | Active: report49window-row fix3cc387ba passes native comparison/foot-a, paired visual/publication pending; floating51/55 source causes traced |
 | G | Codex | Bucharest landmarks, trees, fountains and dressing; reports2,20–21,23,28–31 | Open |
 | H | Codex | Interiors; reports24,52 and all eight enterable locations | Open |
 | I | Codex | Night lighting in drone mode; report66 | Open; staged view-selection candidate does not yet close airport lighting |

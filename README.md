@@ -385,5 +385,3 @@ Ultra crowd shading candidate: the AO normal pass now uses the same outfit visib
 Traffic CPU work is being optimized without reducing actors: conservative moving-peer queries retain every body, and static sidewalk heights use a bounded exact-coordinate cache. Sustained hardware performance and Basarab’s full route remain under validation.
 
 Pasajul Basarab reconstruction is staged for review: literal OSM tram platforms, render-matched centre support and white/blue guard treatment; builder-sourced80m pylons,60stays and120m river arch. Untagged placements, roof/member sections and absolute levels remain estimates. Native visual, approach/drive, body-clearance and budget acceptance is still pending.
-
-Night streetlight selection follows the active view on foot, in the drone and through an office window, including views far from the parked car. The light pool remains bounded and retains its existing fade and quality settings. Native lighting acceptance is in progress.

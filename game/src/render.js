@@ -1069,7 +1069,7 @@ export class Renderer3D {
      *    stable ordering (look-ahead distance, tie-break by lamp id), ≤ LAMP_MAX_NEW new lights per selection;
      *    each light fades in/out over LAMP_FADE_S and its intensity also falls off continuously with distance.
      */
-    _updateLamps(cam, dt, viewCamera = this.camera) {
+    _updateLamps(cam, dt) {
         if (!(this._nightK > 0) || !this.lamps || !this.lamps.length) {
             if (this._lampSlots.length && this._lampSlots[0].lamp !== -2) { // day: release every light once, then idle
                 for (const sl of this._lampSlots) { if (sl.lamp >= 0 && this._lampReal) this._lampReal[sl.lamp] = 0; sl.lamp = -1; sl.w = 0; sl.target = 0; sl.light.intensity = 0; }
@@ -1078,12 +1078,7 @@ export class Renderer3D {
             return;
         }
         if (this._lampSlots.length && this._lampSlots[0].lamp === -2) this._lampSlots[0].lamp = -1;
-        const p = this.player, cx = cam.x, cz = cam.z;
-        // The viewer can be walking, flying or looking through an office
-        // aperture hundreds of metres from the retained parked car.
-        this._lampViewDir ||= new THREE.Vector3();
-        viewCamera.getWorldDirection(this._lampViewDir);
-        this._lampViewerNearCar=!!p&&Math.hypot(cx-p.x,cz-p.z)<3&&Math.abs(cam.y-(p.y??.24))<4;
+        const p = this.player, cx = p ? p.x : cam.x, cz = p ? p.z : cam.z;
         const L = this.lamps, sm = THREE.MathUtils.smoothstep;
         // ---- candidate scan
         this._lampT -= dt;
@@ -1142,8 +1137,8 @@ export class Renderer3D {
     }
     _assignLampLights(cx, cz) {
         const L = this.lamps, p = this.player, slots = this._lampSlots, list = this._lampNear;
-        const sp = p&&this._lampViewerNearCar ? Math.abs(p.speed || 0) : 0, la = THREE.MathUtils.clamp(10 + sp * 0.9, 10, 32),direction=this._lampViewDir;
-        const ax = cx + (direction?.x||0) * la, az = cz + (direction?.z||0) * la;
+        const sp = p ? Math.abs(p.speed || 0) : 0, la = THREE.MathUtils.clamp(10 + sp * 0.9, 10, 32);
+        const ax = p ? cx + p.fx * la : cx, az = p ? cz + p.fz * la : cz;
         const owner = new Map(); for (const sl of slots) if (sl.lamp >= 0) owner.set(sl.lamp, sl);
         // score = distance to the look-ahead point; lamps that already own a light get a strong bonus (hysteresis)
         const cand = [], R2 = LAMP_ASSIGN_R * LAMP_ASSIGN_R;
@@ -1399,7 +1394,7 @@ export class Renderer3D {
         this._stepEnvFade(dt);
         this._updateNight(dt);
         this._updateSun(T.cam);
-        this._updateLamps(T.cam, dt, camera);
+        this._updateLamps(T.cam, dt);
         // weather + cockpit
         const p = cockpit ? this.player : null;
         if (p) {

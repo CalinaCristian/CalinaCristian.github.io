@@ -3054,7 +3054,7 @@
     {
       "id": "romana-window-eaves",
       "ownerNote": "Windows cut by roof/eaves",
-      "status": "reported-not-yet-accepted",
+      "status": "verified-live",
       "report": {
         "schemaVersion": 1,
         "release": "game-471508886d4ff5a1",
@@ -3112,8 +3112,9 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Delivered — verified live",
+        "deliveryNote": "Report49: whole window rows now fit below unchanged eaves. Native before/after, foot/a 0H0M, paired Romană29/29 sampled views with same existing136findings/Arnia missing route. No district-wide pass. Mastere21797e7/releasegame-e17d4843c5db9912; Pages42924422032 success and307live-file checks pass.",
+        "evidence": "https://cristiancalina.com/game/overview/#church-window-fix"
       }
     },
     {
@@ -3260,7 +3261,7 @@
     {
       "id": "otopeni-road-median-object",
       "ownerNote": "Unexpected concrete object/median in driven road",
-      "status": "reported-not-yet-accepted",
+      "status": "verified-live",
       "report": {
         "schemaVersion": 1,
         "release": "game-471508886d4ff5a1",
@@ -3318,8 +3319,9 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Delivered — verified live",
+        "deliveryNote": "Report53: exact reported driver eye/bearing/pitch/FOV reproduces strip before and removes it after accepted guard repair. High266calls/587865tri;144vehicles560peds. View verification, not a full road journey. Mastere21797e7/releasegame-e17d4843c5db9912; Pages42924422032 success and307live-file checks pass.",
+        "evidence": "https://cristiancalina.com/game/overview/#otopeni-driver-fix"
       }
     },
     {

@@ -1,17 +1,17 @@
 # Full owner-report delivery status · 10 November 2026
 
-**Delivered and closed from this 71-report batch: 4 / 71, through three fixes. Basarab white ground, both SkyTower reports and Otopeni report54 are live; the other67reports remain open.**
+**Delivered and closed from this 71-report batch: 6 / 71. Basarab white ground, both SkyTower reports, Otopeni reports53/54 and Romană roof-window report49 are live; the other65reports remain open.**
 
 This is a delivery ledger. A staged candidate is code awaiting acceptance; it is not a completed fix. All original reports and supplied poses remain in [the exact register](owner-reports-20261110.json).
 
-Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integration.** [Current ownership](WORK-PACK-OWNERSHIP-20261110.md). Codex has resumed packC with immutable native reproductions at the reported Romană/Otopeni cameras. This investigation closes no additional report yet.
+Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integration.** [Current ownership](WORK-PACK-OWNERSHIP-20261110.md). Codex has resumed packC with immutable native reproductions at the reported Romană/Otopeni cameras. Reports49/53 have since passed targeted review and live delivery. Night lighting and Pipera facade candidates remain under review.
 
 | Current implementation state | Reports |
 | --- | ---: |
 | Staged candidate | 3 |
-| Open — no verified fix | 54 |
+| Open — no verified fix | 52 |
 | Shared fix in progress | 8 |
-| Delivered — verified live | 4 |
+| Delivered — verified live | 6 |
 | In progress | 1 |
 | Unfinished | 1 |
 
@@ -65,11 +65,11 @@ Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integrat
 | 46 | Pipera | Long street/pavement contains tapered spikes | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 47 | Romana | Broken crossing and junction paint | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 48 | Romana | Road markings missing or intersect parking islands | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 49 | Romana | Windows cut by roof/eaves | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
+| 49 | Romana | Windows cut by roof/eaves | **Delivered — verified live** | Report49: whole window rows now fit below unchanged eaves. Native before/after, foot/a 0H0M, paired Romană29/29 sampled views with same existing136findings/Arnia missing route. No district-wide pass. Mastere21797e7/releasegame-e17d4843c5db9912; Pages42924422032 success and307live-file checks pass. [Original evidence](https://cristiancalina.com/game/overview/#church-window-fix). |
 | 50 | Romana | Building intersects street | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 51 | Romana | Floating detached upper office volume | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 52 | General / interiors | Owner asks whether Luxoft is unfinished; screenshot shows generic interior and opaque windows. Confirmed still unfinished and outlook unavailable pending floor. | **Unfinished** | Interior and geographically correct window view remain incomplete; assigned floor is unresolved. |
-| 53 | Otopeni | Unexpected concrete object/median in driven road | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
+| 53 | Otopeni | Unexpected concrete object/median in driven road | **Delivered — verified live** | Report53: exact reported driver eye/bearing/pitch/FOV reproduces strip before and removes it after accepted guard repair. High266calls/587865tri;144vehicles560peds. View verification, not a full road journey. Mastere21797e7/releasegame-e17d4843c5db9912; Pages42924422032 success and307live-file checks pass. [Original evidence](https://cristiancalina.com/game/overview/#otopeni-driver-fix). |
 | 54 | Otopeni | Repeated displaced concrete road median pieces | **Delivered — verified live** | Ground-road guards render from final collision segments; exact owner drone before/after inspected. Geometry/collision equality, foot/a,8constructors,Highview and overview layouts pass; original visual findings unchanged. Master9d681f45/releasegame-61b37c69fe8629e8;301live-file checks pass. [Original evidence](https://cristiancalina.com/game/overview/#road-guard-fix). |
 | 55 | Otopeni | Large floating roof/upper building shell | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 56 | Otopeni | Small generic buildings overlap terminal facade | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
@@ -100,6 +100,6 @@ Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integrat
 | Quieter realistic horns and reactions | **Softer horns delivered live** on isolated master54a45f6c/releasegame-67d8f5c949266563. Native H/touch/NPC submission, rendered waveform/voice/cleanup, foot/a and desktop/phone audio comparison controls pass. Pages42913805769 succeeds;298live-file checks pass. [Original audio comparison](https://cristiancalina.com/game/overview/#horn-audio-fix). Broader visible reaction acceptance remains separate. |
 | Linear story, portrait HUD, guide/menu regressions | Partial implementations and earlier UI checks exist; full story/phone regression acceptance remains. |
 | Sustained CPU/FPS, all eight district budgets, mirrors, disposal and full physical journeys | Open. Latest R18 foot/a:0 high,0 medium,2 low. Busy full-population traffic is still too expensive. |
-| Current overview captures, tested master publication, live-byte verification and owned-branch cleanup | Ground, SkyTower and softer horns are live with synchronized original evidence;298current live-file checks pass on master54a45f6c. Publication of the remaining work and final owned-branch cleanup remain open. |
+| Current overview captures, tested master publication, live-byte verification and owned-branch cleanup | Ground, SkyTower, softer horns, Otopeni guard views and Romană roof-window repair are live with synchronized original evidence;307current live-file checks pass on mastere21797e7. Publication of the remaining work and final owned-branch cleanup remain open. |
 
 The latest implementation/evidence handoff is [ACTIVE-20261110.md](ACTIVE-20261110.md). Original negative runs and source limits are retained.

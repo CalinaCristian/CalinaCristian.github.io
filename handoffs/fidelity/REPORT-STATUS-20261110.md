@@ -1,21 +1,21 @@
 # Full owner-report delivery status · 10 November 2026
 
-**Delivered and closed from this 71-report batch: 1 / 71. The Basarab white-ground fix is live; the other 70 reports remain open.**
+**Delivered and closed from this 71-report batch: 3 / 71, through two fixes. Basarab white ground and both SkyTower reports are live; the other 68 reports remain open.**
 
 This is a delivery ledger. A staged candidate is code awaiting acceptance; it is not a completed fix. All original reports and supplied poses remain in [the exact register](owner-reports-20261110.json).
 
 | Current implementation state | Reports |
 | --- | ---: |
-| Staged candidate | 5 |
+| Staged candidate | 3 |
 | Open — no verified fix | 55 |
 | Shared fix in progress | 8 |
-| Delivered — verified live | 1 |
+| Delivered — verified live | 3 |
 | In progress | 1 |
 | Unfinished | 1 |
 
 | # | Area | Report | Current state | Remaining work / actual evidence |
 | ---: | --- | --- | --- | --- |
-| 1 | Floreasca | Broken/flickering blue facade patches; Sky Tower is the closest matching catalogue bearing. | **Staged candidate** | Facade partition fix exists; both native scene views and render budgets still need acceptance. |
+| 1 | Floreasca | Broken/flickering blue facade patches; Sky Tower is the closest matching catalogue bearing. | **Delivered — verified live** | Partitioned source skin and exact coarse SkyTower owner; original native Floreasca pair published. Master139ab165/releasegame-ae151cd51522d241;295live-file checks pass. |
 | 2 | Floreasca | Owner reports bus shelter facing wrong direction or misplaced; check public road versus path alignment and whole sidewalk support. | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 3 | Floreasca | Flickering rectangular overlapping road/marking surface. | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 4 | Floreasca | Partial lower window row intersects the grass/ground; no authored basement should be inferred from a shader repeat. | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
@@ -57,7 +57,7 @@ This is a delivery ledger. A staged candidate is code awaiting acceptance; it is
 | 40 | Pipera | Buildings overlap or appear to intersect around podiums | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 41 | Pipera | Curtain wall corner flickers | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 42 | Pipera | Long office facade flickers | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 43 | Pipera | Sky Tower coplanar blue facade patches repeat in Pipera scene | **Staged candidate** | Same facade partition candidate as Floreasca; this reported Pipera view remains unverified. |
+| 43 | Pipera | Sky Tower coplanar blue facade patches repeat in Pipera scene | **Delivered — verified live** | Same source skin fix; the supplied bearing points across the mall, so an explicitly supplemental tower-facing pair from the reported area is published with actual cameras.295live-file checks pass. |
 | 44 | Pipera | Ramp or pavement ribbons contain spikes and broken guards | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 45 | Pipera | Walls and barriers cross streets beneath bridge | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 46 | Pipera | Long street/pavement contains tapered spikes | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
@@ -98,6 +98,6 @@ This is a delivery ledger. A staged candidate is code awaiting acceptance; it is
 | Quieter realistic horns and reactions | Audio candidate exists; native player/NPC audio, H/touch and interaction acceptance remain. |
 | Linear story, portrait HUD, guide/menu regressions | Partial implementations and earlier UI checks exist; full story/phone regression acceptance remains. |
 | Sustained CPU/FPS, all eight district budgets, mirrors, disposal and full physical journeys | Open. Latest R18 foot/a:0 high,0 medium,2 low. Busy full-population traffic is still too expensive. |
-| Current overview captures, tested master publication, live-byte verification and owned-branch cleanup | First ground-fix release is live with synchronized evidence and287live-file checks. Publication of the remaining work and final owned-branch cleanup remain open. |
+| Current overview captures, tested master publication, live-byte verification and owned-branch cleanup | Ground and SkyTower releases are live with synchronized original evidence;295current live-file checks pass. Publication of the remaining work and final owned-branch cleanup remain open. |
 
 The latest implementation/evidence handoff is [ACTIVE-20261110.md](ACTIVE-20261110.md). Original negative runs and source limits are retained.

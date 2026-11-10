@@ -4,7 +4,7 @@
     {
       "id": "sky-tower-facade",
       "ownerNote": "Broken/flickering blue facade patches; Sky Tower is the closest matching catalogue bearing.",
-      "status": "reported-not-yet-accepted",
+      "status": "verified-live",
       "report": {
         "schemaVersion": 1,
         "release": "game-471508886d4ff5a1",
@@ -57,8 +57,20 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Staged candidate",
-        "deliveryNote": "Facade partition fix exists; both native scene views and render budgets still need acceptance."
+        "deliveryStatus": "Delivered — verified live",
+        "deliveryNote": "Master139ab165/releasegame-ae151cd51522d241/sourcee8b6ff4d.295live-file checks pass. Original Floreasca owner-eye pair and explicitly supplemental Pipera tower-facing pair retain exact cameras/dates/conditions/hashes.",
+        "candidate": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
+        "evidence": "SKYTOWER-RELEASE-20261110.md",
+        "scope": "Closed the coplanar SkyTower skin/duplicate coarse-volume defects. Full source outline137m/37levels/flat roof retained. Fine subpixel members remain simplified; other office-facade reports are separate. Native reported-area pairs, literal cameras, source ownership/wall coverage, all8constructors and foot/a0H0M pass. Existing Arnia route failure remains open.",
+        "publication": {
+          "master": "139ab165f728c2077ef65cf7deab6dfb78514265",
+          "source": "e8b6ff4d74f78e1897c4da8a02668320f5f1b31d",
+          "release": "game-ae151cd51522d241",
+          "verifiedAt": "2026-11-10T20:44:08.731664+00:00",
+          "checks": 295,
+          "overview": "https://cristiancalina.com/game/overview/#skytower-fix",
+          "liveBrowserNote": "Direct headless live-origin render encountered the environment proxy CA trust error. Matching committed-source desktop/390phone layouts and four-image gallery pass, and all295live HTTPS byte/hash checks pass with curl TLS validation."
+        }
       }
     },
     {
@@ -2640,7 +2652,7 @@
     {
       "id": "pipera-skytower-flicker",
       "ownerNote": "Sky Tower coplanar blue facade patches repeat in Pipera scene",
-      "status": "reported-not-yet-accepted",
+      "status": "verified-live",
       "report": {
         "schemaVersion": 1,
         "release": "game-471508886d4ff5a1",
@@ -2698,8 +2710,20 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Staged candidate",
-        "deliveryNote": "Same facade partition candidate as Floreasca; this reported Pipera view remains unverified."
+        "deliveryStatus": "Delivered — verified live",
+        "deliveryNote": "Master139ab165/releasegame-ae151cd51522d241/sourcee8b6ff4d.295live-file checks pass. Original Floreasca owner-eye pair and explicitly supplemental Pipera tower-facing pair retain exact cameras/dates/conditions/hashes.",
+        "candidate": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
+        "evidence": "SKYTOWER-RELEASE-20261110.md",
+        "scope": "Closed the coplanar SkyTower skin/duplicate coarse-volume defects. Full source outline137m/37levels/flat roof retained. Fine subpixel members remain simplified; other office-facade reports are separate. Native reported-area pairs, literal cameras, source ownership/wall coverage, all8constructors and foot/a0H0M pass. Existing Arnia route failure remains open.",
+        "publication": {
+          "master": "139ab165f728c2077ef65cf7deab6dfb78514265",
+          "source": "e8b6ff4d74f78e1897c4da8a02668320f5f1b31d",
+          "release": "game-ae151cd51522d241",
+          "verifiedAt": "2026-11-10T20:44:08.731664+00:00",
+          "checks": 295,
+          "overview": "https://cristiancalina.com/game/overview/#skytower-fix",
+          "liveBrowserNote": "Direct headless live-origin render encountered the environment proxy CA trust error. Matching committed-source desktop/390phone layouts and four-image gallery pass, and all295live HTTPS byte/hash checks pass with curl TLS validation."
+        }
       }
     },
     {

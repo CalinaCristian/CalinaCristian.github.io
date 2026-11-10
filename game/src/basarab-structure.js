@@ -12,12 +12,16 @@ function sourceLine(data,id,grades){
  const segments=points.slice(1).map((b,i)=>{const a=points[i],length=distance(a,b);return{a,b,length,i,grade:grades.resolveGrade(w,{index:i})};});
  return {id,points,segments};
 }
+function roadLine(data,id,edges){
+ const es=edges.filter(e=>(data.roadSourceGeometry?.[e.road]?.sourceId||e.sourceId)===id);
+ return es.length?{id,segments:es.map(e=>({a:[e.a.x,e.a.z],b:[e.b.x,e.b.z],length:e.len,edge:e,grade:{known:true,baseY:.24,heightAt:t=>e.sourceBridgeGrade?.known?e.sourceBridgeGrade.heightAt(t):e.ya+(e.yb-e.ya)*t}}))}:null;
+}
 function nearest(line,p){
  let best=null;
  for(const s of line.segments){const dx=s.b[0]-s.a[0],dz=s.b[1]-s.a[1],t=Math.max(0,Math.min(1,((p[0]-s.a[0])*dx+(p[1]-s.a[1])*dz)/(s.length*s.length))),q=mix(s.a,s.b,t),d=distance(q,p);if(!best||d<best.d)best={...s,p:q,t,d,dx:dx/s.length,dz:dz/s.length};}
  return best;
 }
-function height(q,p=q.p){const g=q?.grade;return g?.known? .2+(g.heightAtWorld?g.heightAtWorld(...p):g.heightAt(q.t)):null;}
+function height(q,p=q.p){const g=q?.grade;return g?.known? (g.baseY??.2)+(g.heightAtWorld?g.heightAtWorld(...p):g.heightAt(q.t)):null;}
 /** Closed support pieces expose their actual serialized top triangles to both
  * rendering and physical height readers; they never alter rail/motor routing. */
 function support(poly,ys,depth,sourceId,kind){
@@ -45,7 +49,7 @@ export function basarabEdge(data,e){return data.city==='bucharest'&&data.distric
 /** Real literal platform outlines and a bounded centre support gap. The same
  * source height field already carries the two tracks. No invented broad deck
  * polygon, coordinate snapping, lane edits or source-record deletion. */
-export function buildBasarabStructure(data,grades,cellOf,group){
+export function buildBasarabStructure(data,grades,cellOf,group,edges=[]){
  const report={active:false,sourcePlatforms:[],gapPieces:0,unresolved:[],estimated:true},pieces=[],colliders=[];
  if(data.city!=='bucharest'||data.district?.id!=='grozavesti')return{report,pieces,colliders};
  const [line,paired]=railIds.map(id=>sourceLine(data,id,grades));if(!line||!paired)return{report,pieces,colliders};report.active=true;
@@ -67,7 +71,7 @@ export function buildBasarabStructure(data,grades,cellOf,group){
   const hs=platform.points.map(p=>height(nearest(line,p)));if(hs.some(h=>h===null)||Math.max(...hs)-Math.min(...hs)>.5){report.unresolved.push({sourceId:platform.sourceId,reason:'platform-compatible-source-grade-missing'});continue;}
   const piece=support(platform.points,hs.map(h=>h+.18),.35,platform.sourceId,'basarab-platform');drawSupport(piece,cellOf);pieces.push(piece);report.sourcePlatforms.push(platform.sourceId);
  }
- const structure=drawSuperstructure(BASARAB_PLATFORMS,line,paired,cellOf,group);
+ const structure=drawSuperstructure(BASARAB_PLATFORMS,line,paired,cellOf,group,roadLine(data,'w458458361',edges),roadLine(data,'w1552024280',edges));
  colliders.push(...structure.colliders);report.superstructure=structure.report;
  return {report,pieces,colliders};
 }
@@ -84,7 +88,7 @@ export function drawBasarabGuard(w,cellOf){
 /** Completed bridge form from the builder's description/photos. Untagged
  * placement and member sections are estimates, listed in the source ledger.
  * The 2006 proposal's different span sizes are deliberately not used. */
-function drawSuperstructure(platforms,line,paired,cellOf,group){
+function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPair){
  const pts=platforms.flatMap(p=>p.points),a=platforms[0].points[0],b=platforms[0].points[4],L=distance(a,b),u=[(b[0]-a[0])/L,(b[1]-a[1])/L],n=[-u[1],u[0]],ss=p=>(p[0]-a[0])*u[0]+(p[1]-a[1])*u[1],ns=p=>(p[0]-a[0])*n[0]+(p[1]-a[1])*n[1];
  const s0=Math.min(...pts.map(ss)),s1=Math.max(...pts.map(ss)),n0=Math.min(...pts.map(ns)),n1=Math.max(...pts.map(ns)),nc=(n0+n1)/2,half=(n1-n0)/2+.25;
  const at=(s,t,y)=>[a[0]+u[0]*s+n[0]*t,y,a[1]+u[1]*s+n[1]*t];
@@ -109,9 +113,10 @@ function drawSuperstructure(platforms,line,paired,cellOf,group){
  for(const y of [58,67,76])bridgeBeam(cellOf,at(towerS,nc-legOffset,y),at(towerS,nc+legOffset,y),1,'#d7d9d3');
  // River crossing: the mapped lower Grozavesti bridge constrains its position;
  // the upper main rail pair supplies the local Basarab direction and level.
- const river=nearest(line,[115,-222]);
+ const river=riverLine&&riverPair?nearest(riverLine,[115,-222]):null;
  if(river?.grade?.known){
-  const center=mix(river.p,nearest(paired,river.p).p,.5),ux=river.dx,uz=river.dz,nx=-uz,nz=ux,base=height(river),span=120,arch=(t,sign)=>[center[0]+ux*(t-.5)*span+nx*sign*15,base+Math.sin(Math.PI*t)*26,center[1]+uz*(t-.5)*span+nz*sign*15];
+  report.riverSourceIds=[riverLine.id,riverPair.id];report.riverSourceAnchor=river.p;
+  const mate=nearest(riverPair,river.p),center=mix(river.p,mate.p,.5),ux=river.dx,uz=river.dz,nx=-uz,nz=ux,base=height(river),halfWidth=distance(river.p,mate.p)/2+Math.max(river.edge.wR,river.edge.wL,mate.edge.wR,mate.edge.wL)+.8,span=120,arch=(t,sign)=>[center[0]+ux*(t-.5)*span+nx*sign*halfWidth,base+Math.sin(Math.PI*t)*26,center[1]+uz*(t-.5)*span+nz*sign*halfWidth];
   for(const sign of [-1,1]){for(let i=0;i<32;i++)bridgeBeam(cellOf,arch(i/32,sign),arch((i+1)/32,sign),1.15,'#e1e5e4');for(let i=1;i<16;i++){const t=i/16,q=arch(t,sign);bridgeBeam(cellOf,q,[q[0],base+.15,q[2]],.115,'#b6c4c8');}}
   for(const t of [.25,.5,.75])bridgeBeam(cellOf,arch(t,-1),arch(t,1),.65,'#d8e0e1');
  }

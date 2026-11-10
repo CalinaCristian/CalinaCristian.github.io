@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-ae151cd51522d241",
-  "sourceCommit": "e8b6ff4d74f78e1897c4da8a02668320f5f1b31d",
-  "fingerprint": "ae151cd51522d2415a2b46f979615c6d74d17e477884e679cce958bd2144e3ac",
+  "releaseId": "game-67d8f5c949266563",
+  "sourceCommit": "b8e2b35ac607bea599a64828ff808c61a332dc1c",
+  "fingerprint": "67d8f5c9492665639165e6ae9c9390e32be8106a0cbab22bbc3d5343ede63251",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -186,7 +186,7 @@
     },
     {
       "path": "game/src/audio.js",
-      "sha256": "11863937c63883facc59e7549bde428e3e660e6e39ab50b3d55f4a6cf1afe611"
+      "sha256": "6d07c8ef41357d20036a2cbf2ade42e9556fe59cda2604630fbd907c2773a1a9"
     },
     {
       "path": "game/src/backdrop-source-owner.js",
@@ -426,7 +426,7 @@
     },
     {
       "path": "game/src/main.js",
-      "sha256": "6f3f8cdac0097e7bf30b8767bdf4c29658f10301827988e4b9e34166036ab138"
+      "sha256": "ac257ff1bc6865be0238428f9dae0a4cb5e5a038efed2eef8156853a08e556c1"
     },
     {
       "path": "game/src/map-place-actions.js",

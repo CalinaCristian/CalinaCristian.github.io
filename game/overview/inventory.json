@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "e8b6ff4d74f78e1897c4da8a02668320f5f1b31d",
+  "sourceSha": "b8e2b35ac607bea599a64828ff808c61a332dc1c",
   "reviewedOn": "2026-11-10",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -3444,7 +3444,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "9b498a5e63aa2cb8e66ec2c39fcc1edeec9ad9fe1eb89f1d2b85ef6ce9e2c664"
+      "sha256": "bb077d2e5cb3d600d197330b33c7815e48a5e5d246be5b362e2273ff11e9d70b"
     },
     {
       "path": "specs/README.md",
@@ -3468,7 +3468,7 @@
     },
     {
       "path": "specs/13-traffic.md",
-      "sha256": "4a9261e2a970869f594f9f9208863ea18e6f929d6847fdcfad8872d116df0698"
+      "sha256": "1798063b534ee33328bfc052ccf3aea9f4443e765874a1eeaac776639b0f981d"
     },
     {
       "path": "specs/15-tourist-spots.md",
@@ -3484,7 +3484,7 @@
     },
     {
       "path": "game/index.html",
-      "sha256": "040df10ad9a8675a7ea2a152987a4441b451ffde0739366796550d2b2bf736d8"
+      "sha256": "ff5ca41f834268f10d073944594c39f4e19a6af33658e9e43d31c0f5a78dae7e"
     },
     {
       "path": "game/data/README.md",
@@ -3500,7 +3500,7 @@
     },
     {
       "path": "game/src/main.js",
-      "sha256": "6f3f8cdac0097e7bf30b8767bdf4c29658f10301827988e4b9e34166036ab138"
+      "sha256": "ac257ff1bc6865be0238428f9dae0a4cb5e5a038efed2eef8156853a08e556c1"
     },
     {
       "path": "game/src/world.js",
@@ -3640,7 +3640,7 @@
     },
     {
       "path": "game/src/audio.js",
-      "sha256": "11863937c63883facc59e7549bde428e3e660e6e39ab50b3d55f4a6cf1afe611"
+      "sha256": "6d07c8ef41357d20036a2cbf2ade42e9556fe59cda2604630fbd907c2773a1a9"
     },
     {
       "path": "game/src/telemetry-game.js",
@@ -6064,7 +6064,7 @@
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "104b41bae726582b1dcc1f53b8cb54b1a4022cfa4e8947477772a9af9cd0cdda"
+      "sha256": "757f119dc4048e860ac64ba6af895c216b24a041b39e62756ec69e3aa7b6fde7"
     },
     {
       "path": "game/overview/landmark-evidence.js",
@@ -6088,7 +6088,7 @@
     },
     {
       "path": "game/overview/style.css",
-      "sha256": "9df282e5ffc547056a0162bdc7e3adbdd72d6a865dee64ffbcb821460ee64706"
+      "sha256": "f2c88d56f1c1f6bd3a39c4dbd0df3a492a73d18970e0526c3df278a7519b2a5a"
     },
     {
       "path": "game/src/fallback-ground.js",
@@ -6105,6 +6105,10 @@
     {
       "path": "game/overview/assets/landmarks/skytower/native-20261110/summary.json",
       "sha256": "87681db148e41a246feef390d951d99ceeecb659aab5f59e6bbcdd2955ddc046"
+    },
+    {
+      "path": "game/overview/evidence/softer-horns-20261110/summary.json",
+      "sha256": "da917e7a2338e77a91210bcf64604dc7760d3273c9b83a8c8342e8366a928f5e"
     }
   ],
   "stagingEvidence": [

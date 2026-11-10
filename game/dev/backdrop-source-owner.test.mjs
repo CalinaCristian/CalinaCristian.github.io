@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {backdropSourceOwner} from '../src/backdrop-source-owner.js';
+const tuple=[745,-15068,403,317,1370,104], sourceIds=['w219622660'];
+const binding={landmark:'skytower',sourceIds,declaredSourceIds:sourceIds,tuple};
+const flat=[...tuple,745,-15068,403,317,1369,104],before=flat.slice();
+assert.equal(backdropSourceOwner(flat,0,[binding]),binding);
+assert.equal(backdropSourceOwner(flat,6,[binding]),null,'a nearby or changed-height mass is retained');
+assert.equal(backdropSourceOwner(flat,0,[]),null,'an unbuilt owner cannot suppress geometry');
+assert.equal(backdropSourceOwner(flat,0,[{...binding,sourceIds:[...sourceIds,'w123']}]),null,'a mixed-source cell needs every source owned');
+assert.equal(backdropSourceOwner(flat,0,[binding,{...binding,landmark:'other'}]),null,'ambiguous ownership retains the mass');
+assert.equal(backdropSourceOwner(flat,0,[{...binding,sourceIds:['unknown']}]),null);
+assert.equal(backdropSourceOwner(flat,0,[{...binding,tuple:[NaN,...tuple.slice(1)]}]),null);
+assert.equal(backdropSourceOwner(flat,1,[binding]),null);
+assert.deepEqual(flat,before,'the complete source tuple buffer is retained');
+console.log('PASS exact source ownership, changed tuple, unbuilt, partial, ambiguous, invalid and source-retention controls');

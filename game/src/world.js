@@ -31,6 +31,7 @@ import { sceneryBridgeProfiles, sceneryDeckBand } from './scenery-bridges.js';
 import { batchWaterChunks } from './water-batch.js';
 import { cullMergedCells } from './cell-frustum.js';
 import {fallbackGroundApertures,buildFallbackGround} from './fallback-ground.js';
+import {backdropSourceOwner} from './backdrop-source-owner.js';
 import { waterChannelDecision } from './water-channel.js';
 import { uncoveredWaterLine } from './water-lines.js';
 import { buildTramGrades, tramGradeRenderPieces, tramSupportPieceId } from './tram-grade.js';
@@ -5734,6 +5735,10 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     // low-poly backdrop: building masses beyond the corridors (so the horizon is not empty)
     let backdropCount = 0;
+    const backdropSourceOwnership = [];
+    const builtLandmarks = new Set(landmarks.map(lm => lm.id));
+    const backdropBindings = LANDMARKS.filter(lm => builtLandmarks.has(lm.id)).flatMap(lm =>
+        (lm.backdropSources?.[distId] || []).map(record => ({...record, landmark:lm.id, declaredSourceIds:lm.sourceIds || []})));
     const ringGeometry = data.district?.geometry || (distCfg?.bands ? {
         pieces: distCfg.bands.map(b => ({ r: b.r, pts: b.line.map(([lat, lon]) => { const p = city.proj(lat, lon); return [p.x, p.z]; }) })),
         circles: (distCfg.circles || []).map(c => ({ ...city.proj(c.lat, c.lon), r: c.r })), polys: [],
@@ -5791,6 +5796,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (polyOnRibbon(obbPoly({ ...box, hw: w / 2 + 2, hd: d / 2 + 2 }))) continue;
             const st = h > 30 ? 'glass' : h > 14 ? 'bloc' : US ? 'house' : 'bloc';
             const colr = shadeRgb(rgb(rng.pick(pal[st])), 0.9);
+            // Consume the original palette draw above, retaining later RNG order.
+            const owner = backdropSourceOwner(bd, i, backdropBindings);
+            if (owner) { backdropSourceOwnership.push({index:i/6,landmark:owner.landmark,sourceIds:owner.sourceIds,tuple:owner.tuple}); continue; }
             cellOf(x, z).backdrop.box(x, 0.12, z, w, h, d, rot, colr);
             propColl.push(box); backdropCount++;
         }
@@ -6172,7 +6180,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     graph.edges = driv;
 
     setProgress(''); const phases = PHASES.splice(0);
-    const stats = { parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
+    const stats = { parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, backdropSourceOwnership, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, inferredBuildingDetails: inferredDetailAudit, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     stats.scenerySource = scenerySourceAudit;
     stats.fallbackGround=fallback.report;

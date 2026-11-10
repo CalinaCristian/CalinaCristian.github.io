@@ -1527,17 +1527,34 @@ function bSkyTower(b, ctx = {}) {
     // OSM height137m,37levels and roof:shape=flat are authoritative. The owner's
     // daylight photograph supports vertical glazing variation, not an invented8m crown slope.
     b.prism(p, 0, 5, '#344754', { mat: 'g', top: false });
-    b.prism(p, 5, top, GL, { mat: 'g', topCol: source?.roofColour || '#a6a9aa' });
-    const fh = (top - 5) / 36;
-    for (let y = 5 + fh; y < top - .1; y += fh) b.cornice(p, y, .08, .035, LN);
+    b.cap(p, top, source?.roofColour || '#a6a9aa', [], 1, 'g');
+    const fh = (top - 5) / 36, sign = signedArea(p) >= 0 ? 1 : -1;
     for (let i = 0; i < p.length; i++) {
-        const a=p[i],q=p[(i+1)%p.length],L=Math.hypot(q[0]-a[0],q[1]-a[1]),n=Math.max(1,Math.round(L/1.5));
-        for(let j=0;j<n;j++) {
-            const f=(j+.08)/n,g=(j+.92)/n,x0=a[0]+(q[0]-a[0])*f,z0=a[1]+(q[1]-a[1])*f,x1=a[0]+(q[0]-a[0])*g,z1=a[1]+(q[1]-a[1])*g;
-            if((i+j)%4===1) b.quad([x0,5,z0],[x1,5,z1],[x1,top-.1,z1],[x0,top-.1,z0],'#a3b5c4','g',[(q[1]-a[1]),0,-(q[0]-a[0])]);
+        const a = p[i], q = p[(i + 1) % p.length], L = Math.hypot(q[0] - a[0], q[1] - a[1]);
+        if (L < 1e-8) continue;
+        const n = Math.max(1, Math.round(L / 1.5)), bay = L / n, cuts = new Set([0, L]);
+        for (let j = 0; j <= n; j++) for (const d of [-.04, .04]) cuts.add(Math.max(0, Math.min(L, j * bay + d)));
+        const xs = [...cuts].sort((u, v) => u - v), hint = [sign * (q[1] - a[1]), 0, -sign * (q[0] - a[0])];
+        const face = (lo, hi, y0, y1, colour, material) => {
+            if (hi - lo < 1e-9 || y1 - y0 < 1e-9) return;
+            const x0 = a[0] + (q[0] - a[0]) * lo / L, z0 = a[1] + (q[1] - a[1]) * lo / L;
+            const x1 = a[0] + (q[0] - a[0]) * hi / L, z1 = a[1] + (q[1] - a[1]) * hi / L;
+            b.quad([x0,y0,z0],[x1,y0,z1],[x1,y1,z1],[x0,y1,z0],colour,material,hint);
+        };
+        // Frames and panes partition the same skin. Separate 2.5cm-proud
+        // strips caused depth interference at grazing drone angles.
+        for (let k = 1; k < xs.length; k++) {
+            const lo = xs[k - 1], hi = xs[k], mid = (lo + hi) / 2;
+            if (Math.abs(mid - Math.round(mid / bay) * bay) <= .04 + 1e-9) { face(lo,hi,5,top,LN,'m'); continue; }
+            const colour = (i + Math.min(n - 1, Math.floor(mid / bay))) % 4 === 1 ? '#a3b5c4' : GL;
+            for (let floor = 0; floor < 36; floor++) {
+                const y0 = 5 + floor * fh, y1 = floor === 35 ? top : 5 + (floor + 1) * fh;
+                const pane0 = floor ? Math.min(y1, y0 + .08) : y0;
+                if (floor) face(lo,hi,y0,pane0,LN,'m');
+                face(lo,hi,pane0,y1,colour,'g');
+            }
         }
     }
-    b.pilasters(p, 5, top, 1.5, .08, .025, LN, {});
     b.colPolygon(p, { holes: source?.holes || [], y1: top });
 }
 
@@ -3444,7 +3461,10 @@ export const LANDMARKS = [
     L('marriott', 'bucharest', 'JW Marriott Grand Hotel', ['JW Marriott', 'JW Marriott Bucharest Grand Hotel'], 75, bMarriott),
     L('unirea', 'bucharest', 'Unirea Shopping Center', ['Unirea Shopping Center'], 115, bUnirea),
     L('fountains', 'bucharest', 'Fântânile din Piața Unirii', [], 0, bFountains),
-    L('skytower', 'bucharest', 'Sky Tower', ['Sky Tower'], 28, bSkyTower, { sourceIds: ['w219622660'] }),
+    L('skytower', 'bucharest', 'Sky Tower', ['Sky Tower'], 28, bSkyTower, { sourceIds: ['w219622660'],
+        // Reproduced from the retained w219622660 source centroid, 137m height,
+        // longest-edge104deg and original40m-cell compiler (see spec12).
+        backdropSources:{floreasca:[{sourceIds:['w219622660'],tuple:[745,-15068,403,317,1370,104]}]} }),
     L('promenada', 'bucharest', 'Promenada Mall', ['Promenada Mall'], 95, bPromenada),
     L('baneasasc', 'bucharest', 'Băneasa Shopping City', ['Băneasa Shopping City'], 190, bBaneasaSC),
     L('romexpo', 'bucharest', 'Romexpo', ['Romexpo'], 65, bRomexpo),

@@ -3027,7 +3027,11 @@ export class Pedestrians {
         const dx = p.x - oldX, dz = p.z - oldZ, distance = Math.hypot(dx, dz);
         if (!p.live || p.relocating || p.state === 'down' || distance < 1e-10) { this.notePeerMove(p, oldX, oldZ); return true; }
         const staticClear=this.staticWalkClear(p,p.x,p.z,oldX,oldZ);
-        if(!staticClear)p.progressT=Math.max(p.progressT||0,6);
+        if(!staticClear&&!correction){
+            const now=this.t.time??this._fr*(this._stepDt||1/30);
+            if(p.state==='walk'&&p.e&&now>=(p._staticTurnUntil??-Infinity)){p.dir=-p.dir;p._staticTurnUntil=now+3;p.passT=.5;this.stats.staticTurns=(this.stats.staticTurns||0)+1;}
+            else if(p.state==='legs'&&p.legs?.[0]?.sx!==undefined&&!p.legs[0].back){const leg=p.legs[0];leg.x=leg.sx;leg.z=leg.sz;leg.back=true;p.legs.length=1;if(p.next)p.next.dir=-p.dir;}
+        }
         if (staticClear && this.peerClearStep(p, p.x, p.z, oldX, oldZ) && (!correction || this.peerCorrectionClear(p, p.x, p.z, oldX, oldZ))) { this.notePeerMove(p, oldX, oldZ); return true; }
         p.x = oldX; p.z = oldZ;
         if (sidestep) {

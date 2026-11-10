@@ -3325,7 +3325,7 @@
     {
       "id": "otopeni-road-median-repeat",
       "ownerNote": "Repeated displaced concrete road median pieces",
-      "status": "reported-not-yet-accepted",
+      "status": "verified-live",
       "report": {
         "schemaVersion": 1,
         "release": "game-471508886d4ff5a1",
@@ -3383,8 +3383,9 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Delivered — verified live",
+        "deliveryNote": "Master9d681f45, game-61b37c69fe8629e8; final surviving road guards replace uncut render strips. Original supplied drone view, geometry equality, foot/a and8constructors pass;301live-file checks. Other road reports remain open.",
+        "evidence": "https://cristiancalina.com/game/overview/#road-guard-fix"
       }
     },
     {

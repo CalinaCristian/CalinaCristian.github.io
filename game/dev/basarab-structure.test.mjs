@@ -59,7 +59,15 @@ const glazing=result.colliders.filter(c=>c.kind==='basarab-station-glazing');ass
 for(const c of glazing){const bottom=c.minHeightAt(c.x,c.z),top=c.roofHeightAt(c.x,c.z);assert(top>bottom&&top-bottom<.4);assert(collideBuildings([c],c.x,c.z,.15,(top+bottom)/2,.1),'native collision detects the pane at its actual height');assert.equal(collideBuildings([c],c.x,c.z,.15,bottom-3,1),null,'native collision leaves the space below the pane clear');}
 assert(result.colliders.some(c=>c.kind==='basarab-river-arch'));
 assert.equal(result.colliders.filter(c=>c.kind==='basarab-stay').length,result.report.superstructure.emittedStays);
-assert.equal(result.report.superstructure.emittedStays+result.report.superstructure.anchorUnresolved.length,60,'all source stays are either safely emitted or explicitly unresolved; full acceptance separately requires60/0');
+assert.equal(result.report.superstructure.emittedStays,60,'every expected stay has source-clear native support in this fixture');
+assert.deepEqual(result.report.superstructure.anchorUnresolved,[],'a partial reconstruction cannot pass the complete fixture');
+for(const sign of[-1,1])for(const direction of[-1,1]){
+ const anchors=result.report.superstructure.anchors.filter(a=>a.sign===sign&&a.direction===direction);
+ for(let i=1;i<anchors.length;i++)assert((anchors[i].anchorS-anchors[i-1].anchorS)*direction>3,'finite station adjustments preserve separate, ordered anchors');
+}
+const missing=buildBasarabStructure(input,grades,()=>({solid:new MeshBuilder()}),null,E);
+assert.equal(missing.report.superstructure.emittedStays,0,'missing native road/tram evidence cannot emit unchecked stays');
+assert.equal(missing.report.superstructure.anchorUnresolved.length,60,'every omitted stay remains explicitly unresolved');
 let stationTramChecks=0;
 for(const c of grades.corridors.filter(c=>['w118416425','w205971103'].includes(c.sourceId))){for(const t of[0,.25,.5,.75,1]){
  const x=c.a[0]+(c.b[0]-c.a[0])*t,z=c.a[1]+(c.b[1]-c.a[1])*t;if(x<690||x>840||z< -1040||z> -900)continue;

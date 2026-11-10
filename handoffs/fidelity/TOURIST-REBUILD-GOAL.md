@@ -100,3 +100,11 @@ Preserve the four-condition ground-gallery work, then recapture affected picture
 ### Owner steering · 10 November 2026 Pacific · realistic visits and offices
 
 After the current runtime/window/portrait batch, continue the seven-visit rebuild: increase source-led realism, especially Bellevue Downtown Park’s cascade. Exercise each event/activity end to end through its real approach, interaction, cancellation, completion, award and persistence paths; scene loading and fixed-camera pictures are not completion proof. Revisit every office and both schools against actual authenticated reference photographs or official tours, keeping era, floor, dimensions and room identity estimates explicit. Update overview evidence after every affected visual change. This remains active work, not a declaration that the current scenes are accepted.
+
+### Owner steering · 10 November 2026 · full table backgammon
+
+Cișmigiu must offer a zoom onto the actual table and a full playable match against the older park regular. Verify real rules: starting setup, dice/doubles, compulsory legal dice usage, blocked points, hitting/blots, bar-entry priority, bearing off and ending/awards. It must be actual player-selected moves on a readable board, not a scripted opening or quiz. Preserve cancellation/resumption and completion-only achievement rules; inspect actual keyboard/mouse/touch play end to end.
+
+### Owner steering · 10 November 2026 · window clarity and horn
+
+Close approaches to the office windows visibly enlarge a blurry/aliased view (owner’s Bellevue screenshot). Reproduce near-glass eye poses and fix visible-window texel density and antialiasing with bounded reusable targets; test High/Ultra, parallax, viewport changes, repeated movement and lifecycle without multiplying worlds. Improve player/NPC horns: realistic dual-tone timbre, softer attack/release, lower level and readable distance attenuation; avoid overwhelming overlapping traffic honks.

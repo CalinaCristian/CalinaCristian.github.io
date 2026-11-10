@@ -377,3 +377,5 @@ Horn refinement candidate: softer, pressure-like attack/release and shaped dual 
 Near-window clarity candidate: capture only the visible window subsection and apply its inverse UV crop to the unchanged pane. This removes enlargement of a small patch of the full-window texture. Reusable128px growth buckets are capped by the selected quality (Ultra4M/High2M/Medium1M/Low0.5M pixels), with no new world or actor simulation. Native near-glass/High/Ultra acceptance is pending.
 
 Cascade source correction: restore mapped catch basin w842753013 and use the exact retained weir w1389890023 instead of the authored approximation. The missing basin caused grass under the falling water. The prepared OSM polygons and IDs remain unchanged.
+
+Facade correction candidates from owner coordinates: Sky Tower now partitions its coloured glazing into one exterior skin instead of placing coplanar strips over a full prism. Generic block balconies gain return guards at both ends, including upper sides for enclosed variants; their floor/soffit and facade-end bounds remain intact. Native camera acceptance and budget checks are pending.

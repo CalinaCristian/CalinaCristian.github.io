@@ -1527,14 +1527,15 @@ function bSkyTower(b, ctx = {}) {
     // OSM height137m,37levels and roof:shape=flat are authoritative. The owner's
     // daylight photograph supports vertical glazing variation, not an invented8m crown slope.
     b.prism(p, 0, 5, '#344754', { mat: 'g', top: false });
-    b.prism(p, 5, top, GL, { mat: 'g', topCol: source?.roofColour || '#a6a9aa' });
+    b.cap(p, top, source?.roofColour || '#a6a9aa');
     const fh = (top - 5) / 36;
     for (let y = 5 + fh; y < top - .1; y += fh) b.cornice(p, y, .08, .035, LN);
     for (let i = 0; i < p.length; i++) {
         const a=p[i],q=p[(i+1)%p.length],L=Math.hypot(q[0]-a[0],q[1]-a[1]),n=Math.max(1,Math.round(L/1.5));
         for(let j=0;j<n;j++) {
-            const f=(j+.08)/n,g=(j+.92)/n,x0=a[0]+(q[0]-a[0])*f,z0=a[1]+(q[1]-a[1])*f,x1=a[0]+(q[0]-a[0])*g,z1=a[1]+(q[1]-a[1])*g;
-            if((i+j)%4===1) b.quad([x0,5,z0],[x1,5,z1],[x1,top-.1,z1],[x0,top-.1,z0],'#a3b5c4','g',[(q[1]-a[1]),0,-(q[0]-a[0])]);
+            const f=j/n,g=(j+1)/n,x0=a[0]+(q[0]-a[0])*f,z0=a[1]+(q[1]-a[1])*f,x1=a[0]+(q[0]-a[0])*g,z1=a[1]+(q[1]-a[1])*g;
+            // Partition one exterior skin; overlays on a full prism z-fought.
+            b.quad([x0,5,z0],[x1,5,z1],[x1,top,z1],[x0,top,z0],(i+j)%4===1?'#a3b5c4':GL,'g',[(q[1]-a[1]),0,-(q[0]-a[0])]);
         }
     }
     b.pilasters(p, 5, top, 1.5, .08, .025, LN, {});

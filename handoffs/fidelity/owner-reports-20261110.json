@@ -1,0 +1,536 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "id": "sky-tower-facade",
+      "ownerNote": "Broken/flickering blue facade patches; Sky Tower is the closest matching catalogue bearing.",
+      "status": "reported-not-yet-accepted",
+      "report": {
+        "schemaVersion": 1,
+        "release": "game-471508886d4ff5a1",
+        "source": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+        "city": "bucharest",
+        "district": "floreasca",
+        "scene": "floreasca",
+        "mode": "foot",
+        "drone": true,
+        "url": "https://cristiancalina.com/game/?inspect=1",
+        "reportedAt": "2026-11-10T10:39:09.008Z",
+        "geographic": {
+          "lat": 44.4770752,
+          "lon": 26.1061029
+        },
+        "position": {
+          "x": 182.959,
+          "y": 68.629,
+          "z": -1408.616
+        },
+        "camera": {
+          "eye": [
+            182.959,
+            68.629,
+            -1408.616
+          ],
+          "bearing": 314.559,
+          "pitch": 8.395,
+          "fov": 70
+        },
+        "conditions": {
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 60,
+          "drawCalls": 72,
+          "triangles": 77070,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 6.377,
+          "vehicles": 165,
+          "pedestrians": 560
+        }
+      },
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+    },
+    {
+      "id": "bus-shelter",
+      "ownerNote": "Owner reports bus shelter facing wrong direction or misplaced; check public road versus path alignment and whole sidewalk support.",
+      "status": "reported-not-yet-accepted",
+      "report": {
+        "schemaVersion": 1,
+        "release": "game-471508886d4ff5a1",
+        "source": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+        "city": "bucharest",
+        "district": "floreasca",
+        "scene": "floreasca",
+        "mode": "foot",
+        "drone": true,
+        "url": "https://cristiancalina.com/game/?inspect=1",
+        "reportedAt": "2026-11-10T10:40:25.623Z",
+        "geographic": {
+          "lat": 44.4658736,
+          "lon": 26.10304
+        },
+        "position": {
+          "x": -60.376,
+          "y": 2.619,
+          "z": -163.763
+        },
+        "camera": {
+          "eye": [
+            -60.376,
+            2.619,
+            -163.763
+          ],
+          "bearing": 333.101,
+          "pitch": -15.291,
+          "fov": 70
+        },
+        "conditions": {
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 60,
+          "drawCalls": 257,
+          "triangles": 1056664,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 6.783,
+          "vehicles": 167,
+          "pedestrians": 560
+        }
+      },
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+    },
+    {
+      "id": "road-flicker",
+      "ownerNote": "Flickering rectangular overlapping road/marking surface.",
+      "status": "reported-not-yet-accepted",
+      "report": {
+        "schemaVersion": 1,
+        "release": "game-471508886d4ff5a1",
+        "source": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+        "city": "bucharest",
+        "district": "floreasca",
+        "scene": "floreasca",
+        "mode": "foot",
+        "drone": true,
+        "url": "https://cristiancalina.com/game/?inspect=1",
+        "reportedAt": "2026-11-10T10:42:52.767Z",
+        "geographic": {
+          "lat": 44.466608,
+          "lon": 26.1063879
+        },
+        "position": {
+          "x": 205.6,
+          "y": 2.111,
+          "z": -245.374
+        },
+        "camera": {
+          "eye": [
+            205.6,
+            2.111,
+            -245.374
+          ],
+          "bearing": 189.755,
+          "pitch": -25.572,
+          "fov": 70
+        },
+        "conditions": {
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 60,
+          "drawCalls": 388,
+          "triangles": 1839307,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 6.575,
+          "vehicles": 169,
+          "pedestrians": 560
+        }
+      },
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+    },
+    {
+      "id": "ground-windows",
+      "ownerNote": "Partial lower window row intersects the grass/ground; no authored basement should be inferred from a shader repeat.",
+      "status": "reported-not-yet-accepted",
+      "report": {
+        "schemaVersion": 1,
+        "release": "game-471508886d4ff5a1",
+        "source": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+        "city": "bucharest",
+        "district": "floreasca",
+        "scene": "floreasca",
+        "mode": "foot",
+        "drone": true,
+        "url": "https://cristiancalina.com/game/?inspect=1",
+        "reportedAt": "2026-11-10T10:45:08.400Z",
+        "geographic": {
+          "lat": 44.4647749,
+          "lon": 26.1007801
+        },
+        "position": {
+          "x": -239.925,
+          "y": 4.859,
+          "z": -41.668
+        },
+        "camera": {
+          "eye": [
+            -239.925,
+            4.859,
+            -41.668
+          ],
+          "bearing": 255.143,
+          "pitch": -25.41,
+          "fov": 70
+        },
+        "conditions": {
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 60,
+          "drawCalls": 228,
+          "triangles": 1003101,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 6.433,
+          "vehicles": 173,
+          "pedestrians": 560
+        }
+      },
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+    },
+    {
+      "id": "open-balcony-ends",
+      "ownerNote": "Balcony parapet/slab ends look open. Review shared facade-detail geometry and caps on both orientations.",
+      "status": "reported-not-yet-accepted",
+      "report": {
+        "schemaVersion": 1,
+        "release": "game-471508886d4ff5a1",
+        "source": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+        "city": "bucharest",
+        "district": "floreasca",
+        "scene": "floreasca",
+        "mode": "foot",
+        "drone": true,
+        "url": "https://cristiancalina.com/game/?inspect=1",
+        "reportedAt": "2026-11-10T10:45:42.128Z",
+        "geographic": {
+          "lat": 44.4629014,
+          "lon": 26.1002528
+        },
+        "position": {
+          "x": -281.814,
+          "y": 7.859,
+          "z": 166.543
+        },
+        "camera": {
+          "eye": [
+            -281.814,
+            7.859,
+            166.543
+          ],
+          "bearing": 208.258,
+          "pitch": -5.3,
+          "fov": 70
+        },
+        "conditions": {
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 60,
+          "drawCalls": 284,
+          "triangles": 1308856,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 5.814,
+          "vehicles": 173,
+          "pedestrians": 560
+        }
+      },
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+    },
+    {
+      "id": "pedestrians-parked-car",
+      "ownerNote": "Inspect crowd blockage by parked cars/closures; route around if a legal walkable path exists or turn back without teleporting.",
+      "status": "reported-not-yet-accepted",
+      "report": {
+        "schemaVersion": 1,
+        "release": "game-471508886d4ff5a1",
+        "source": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+        "city": "bucharest",
+        "district": "floreasca",
+        "scene": "floreasca",
+        "mode": "foot",
+        "drone": true,
+        "url": "https://cristiancalina.com/game/?inspect=1",
+        "reportedAt": "2026-11-10T10:48:20.474Z",
+        "geographic": {
+          "lat": 44.4561672,
+          "lon": 26.0995465
+        },
+        "position": {
+          "x": -337.932,
+          "y": 7.755,
+          "z": 914.925
+        },
+        "camera": {
+          "eye": [
+            -337.932,
+            7.755,
+            914.925
+          ],
+          "bearing": 248.64,
+          "pitch": -36.636,
+          "fov": 70
+        },
+        "conditions": {
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 60,
+          "drawCalls": 219,
+          "triangles": 1051967,
+          "quality": "ultra",
+          "level": 0,
+          "pedestrians": 560
+        }
+      },
+      "image": "Owner image in conversation; no attachment pixels copied or fabricated."
+    },
+    {
+      "id": "pedestrians-closure",
+      "ownerNote": "Inspect crowd blockage by parked cars/closures; route around if a legal walkable path exists or turn back without teleporting.",
+      "status": "reported-not-yet-accepted",
+      "report": {
+        "schemaVersion": 1,
+        "release": "game-471508886d4ff5a1",
+        "source": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+        "city": "bucharest",
+        "district": "floreasca",
+        "scene": "floreasca",
+        "mode": "foot",
+        "drone": true,
+        "url": "https://cristiancalina.com/game/?inspect=1",
+        "reportedAt": "2026-11-10T10:48:36.922Z",
+        "geographic": {
+          "lat": 44.4558887,
+          "lon": 26.099081
+        },
+        "position": {
+          "x": -374.916,
+          "y": 2.194,
+          "z": 945.873
+        },
+        "camera": {
+          "eye": [
+            -374.916,
+            2.194,
+            945.873
+          ],
+          "bearing": 208.541,
+          "pitch": -11.983,
+          "fov": 70
+        },
+        "conditions": {
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 60,
+          "drawCalls": 220,
+          "triangles": 996427,
+          "quality": "ultra",
+          "level": 0,
+          "pedestrians": 560
+        }
+      },
+      "image": "Owner image in conversation; no attachment pixels copied or fabricated."
+    },
+    {
+      "id": "pedestrians-car-pileup",
+      "ownerNote": "Inspect crowd blockage by parked cars/closures; route around if a legal walkable path exists or turn back without teleporting.",
+      "status": "reported-not-yet-accepted",
+      "report": {
+        "schemaVersion": 1,
+        "release": "game-471508886d4ff5a1",
+        "source": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+        "city": "bucharest",
+        "district": "floreasca",
+        "scene": "floreasca",
+        "mode": "foot",
+        "drone": true,
+        "url": "https://cristiancalina.com/game/?inspect=1",
+        "reportedAt": "2026-11-10T10:49:05.725Z",
+        "geographic": {
+          "lat": 44.4544944,
+          "lon": 26.1002222
+        },
+        "position": {
+          "x": -284.247,
+          "y": 10.029,
+          "z": 1100.834
+        },
+        "camera": {
+          "eye": [
+            -284.247,
+            10.029,
+            1100.834
+          ],
+          "bearing": 119.889,
+          "pitch": -41.967,
+          "fov": 70
+        },
+        "conditions": {
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 60,
+          "drawCalls": 232,
+          "triangles": 1019772,
+          "quality": "ultra",
+          "level": 0,
+          "pedestrians": 560
+        }
+      },
+      "image": "Owner image in conversation; no attachment pixels copied or fabricated."
+    },
+    {
+      "id": "pedestrians-next-closure",
+      "ownerNote": "Inspect crowd blockage by parked cars/closures; route around if a legal walkable path exists or turn back without teleporting.",
+      "status": "reported-not-yet-accepted",
+      "report": {
+        "schemaVersion": 1,
+        "release": "game-471508886d4ff5a1",
+        "source": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+        "city": "bucharest",
+        "district": "floreasca",
+        "scene": "floreasca",
+        "mode": "foot",
+        "drone": true,
+        "url": "https://cristiancalina.com/game/?inspect=1",
+        "reportedAt": "2026-11-10T10:49:24.306Z",
+        "geographic": {
+          "lat": 44.4538489,
+          "lon": 26.1008342
+        },
+        "position": {
+          "x": -235.625,
+          "y": 2.527,
+          "z": 1172.56
+        },
+        "camera": {
+          "eye": [
+            -235.625,
+            2.527,
+            1172.56
+          ],
+          "bearing": 113.749,
+          "pitch": -7.096,
+          "fov": 70
+        },
+        "conditions": {
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 60,
+          "drawCalls": 229,
+          "triangles": 773514,
+          "quality": "ultra",
+          "level": 0,
+          "pedestrians": 560
+        }
+      },
+      "image": "Owner image in conversation; no attachment pixels copied or fabricated."
+    },
+    {
+      "id": "courtyard-roof-query",
+      "ownerNote": "Owner asks whether courtyard-facing windows and a large inner blue roof/slab are expected; verify source parts before classifying.",
+      "status": "reported-not-yet-accepted",
+      "report": {
+        "schemaVersion": 1,
+        "release": "game-471508886d4ff5a1",
+        "source": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+        "city": "bucharest",
+        "district": "floreasca",
+        "scene": "floreasca",
+        "mode": "foot",
+        "drone": true,
+        "url": "https://cristiancalina.com/game/?inspect=1",
+        "reportedAt": "2026-11-10T10:50:04.573Z",
+        "geographic": {
+          "lat": 44.4536821,
+          "lon": 26.1014093
+        },
+        "position": {
+          "x": -189.939,
+          "y": 65.402,
+          "z": 1191.097
+        },
+        "camera": {
+          "eye": [
+            -189.939,
+            65.402,
+            1191.097
+          ],
+          "bearing": 176.719,
+          "pitch": -89.866,
+          "fov": 70
+        },
+        "conditions": {
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 60,
+          "drawCalls": 203,
+          "triangles": 675751,
+          "quality": "ultra",
+          "level": 0,
+          "pedestrians": 560
+        }
+      },
+      "image": "Owner image in conversation; no attachment pixels copied or fabricated."
+    }
+  ],
+  "scope": "Exact reported camera/geographic fields and selected performance metadata transcribed from owner reports; this is not a native reproduction or acceptance receipt."
+}

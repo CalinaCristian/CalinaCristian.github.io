@@ -44,14 +44,20 @@ export class Audio {
     horn(pan = 0, dist = 0, pitch = 1, dur = 0.5) {
         if (!this.enabled) return;
         const t = this.ctx.currentTime;
-        const g = this.ctx.createGain(); const vol = 0.35 / (1 + dist / 25);
-        g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.02); g.gain.setValueAtTime(vol, t + dur - 0.05); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+        dur=Math.max(.16,Math.min(1.2,Number.isFinite(dur)?dur:.45));pitch=Math.max(.8,Math.min(1.15,Number.isFinite(pitch)?pitch:1));dist=Math.max(0,Number.isFinite(dist)?dist:0);
+        this._hornEnds=(this._hornEnds||[]).filter(end=>end>t);
+        if(this._hornEnds.length>=6)return;
+        const g = this.ctx.createGain(),vol=.14/(1+dist/20)/Math.sqrt(1+this._hornEnds.length*.6);
+        this._hornEnds.push(t+dur);
+        g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.045);g.gain.setValueAtTime(vol,t+dur-.09);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+        this._hornWave ||= this.ctx.createPeriodicWave(new Float32Array(7),new Float32Array([0,1,.55,.30,.14,.09,.04]));
         const p = this.ctx.createStereoPanner ? this.ctx.createStereoPanner() : null;
         if (p) { p.pan.value = Math.max(-1, Math.min(1, pan)); g.connect(p); p.connect(this.master); } else g.connect(this.master);
         for (const f of [400 * pitch, 500 * pitch]) {
-            const o = this.ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f;
-            const fl = this.ctx.createBiquadFilter(); fl.type = 'lowpass'; fl.frequency.value = 1800;
+            const o = this.ctx.createOscillator();o.setPeriodicWave(this._hornWave);o.frequency.setValueAtTime(f*.985,t);o.frequency.exponentialRampToValueAtTime(f,t+.035);
+            const fl = this.ctx.createBiquadFilter(); fl.type = 'lowpass'; fl.frequency.value = 1400/(1+dist/120);fl.Q.value=.7;
             o.connect(fl); fl.connect(g); o.start(t); o.stop(t + dur);
+            o.onended=()=>{o.disconnect();fl.disconnect();};
         }
     }
     blip(freq = 880, dur = 0.08, vol = 0.12) {

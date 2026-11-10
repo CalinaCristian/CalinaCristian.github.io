@@ -2833,7 +2833,7 @@ export class Pedestrians {
         return null;
     }
     replanWalk(p, { blockedReturn = false } = {}) {
-        const vehicleEscape = blockedReturn && p.state === 'legs' && p.legs?.[0]?.cross && p.legs[0].back ? { reach: 0 } : null;
+        const vehicleEscape = blockedReturn && p.state === 'legs' && (p.recovery || (p.legs?.[0]?.cross && p.legs[0].back)) ? { reach: 0 } : null;
         if (vehicleEscape) for (const v of this.t.vehicles || this.t.grid?.items || [])
             if (Number.isFinite(v.length) && Number.isFinite(v.width)) vehicleEscape.reach = Math.max(vehicleEscape.reach, Math.hypot(v.length, v.width) / 2);
         if ((p.onRoad && !p.recovery && !p.legs?.[0]?.escape && !vehicleEscape) || p.agent || p.react || p.talkT > 0) return false;

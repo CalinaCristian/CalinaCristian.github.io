@@ -18,6 +18,16 @@ function scene() {
     return { C, p, v };
 }
 const f = scene();
+const automatic = scene();
+for (let i = 0; i < 300; i++) { automatic.C.buildGrid(); automatic.C.update(1 / 30); }
+assert.ok(automatic.C.stats.replans > 0 && automatic.p.x > 4, 'the actual stalled-progress watchdog plans and completes the return');
+const recovery = scene();
+recovery.p.recovery = { x: 4.6, z: 0, state: 'walk', onRoad: false, legs: [] };
+recovery.p.legs = [{ x: 4.6, z: 0, cross: true, started: true, recovery: true }];
+for (let i = 0; i < 300; i++) { recovery.C.buildGrid(); recovery.C.update(1 / 30); }
+assert.ok(recovery.C.stats.replans > 0 && recovery.p.x > 4 && !recovery.p.recovery, 'a stalled visible alignment recovery also reaches a source sidewalk');
+const outbound = scene(); outbound.p.legs[0].back = false;
+assert.equal(outbound.C.replanWalk(outbound.p, { blockedReturn: true }), false, 'the watchdog does not cancel a normal outbound crossing');
 assert.equal(f.C.replanWalk(f.p), false, 'ordinary active crossing retains its existing plan');
 const original = [f.p.x, f.p.z], bodies = JSON.stringify(f.C.t.vehicles);
 assert.ok(f.C.replanWalk(f.p, { blockedReturn: true }), 'a stalled return can plan to a real available sidewalk');
@@ -43,6 +53,10 @@ assert.ok(route?.legs.length >= 2, 'a bounded physical detour goes around the co
 let from = detour.p;
 for (const to of route.legs) { assert.ok(detour.C.clearWalkSegment(from, to, true, { reach: 3 })); from = to; }
 assert.equal(detour.C.separatingVehiclePoint(detour.p, 1.1, 0), false, 'a deeper step is still blocked');
+const second = { ...detour.v, x: 2.5 };
+detour.C.t.vehicles.push(second); detour.C.t.grid.query = (x, z, r, fn) => detour.C.t.vehicles.forEach(fn);
+assert.equal(detour.C.separatingVehiclePoint(detour.p, 1.205, 0), false, 'escaping one body cannot move toward another body');
+detour.C.t.vehicles.pop(); detour.C.t.grid.query = (x, z, r, fn) => fn(detour.v);
 assert.equal(detour.C.clearWalkStep(1.2, 0, true), false, 'ordinary walking keeps the unchanged comfort margin');
 assert.equal(detour.C.clearWalkStep(1.2, 0, true, detour.p), true, 'only a separating return step can leave an existing margin');
 detour.C.inWater = () => true;

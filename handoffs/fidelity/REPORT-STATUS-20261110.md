@@ -95,7 +95,7 @@ This is a delivery ledger. A staged candidate is code awaiting acceptance; it is
 | Seven tourist visits: Old Town, Cișmigiu, Arcul de Triumf, Pike Place, Seattle Center, Meydenbauer, Downtown Park | All remain open under the rebuilt-visit goal, including source visuals, ordinary access and complete activities. |
 | Real backgammon with actual 3D table zoom and desktop/touch play | Rules engine and scoped game tests exist; full native table/phone experience remains unfinished. |
 | Bellevue cascade / waterfall | A replacement candidate exists; source-setting and native visual acceptance remain unfinished. |
-| Quieter realistic horns and reactions | Audio candidate exists; native player/NPC audio, H/touch and interaction acceptance remain. |
+| Quieter realistic horns and reactions | Softer sound passes native H/touch/NPC submission, rendered waveform/voice/cleanup and foot/a controls. Desktop/phone audio comparison layouts pass. Pushed isolated master54a45f6c; Pages and live-byte verification pending. Broader visible reaction acceptance remains separate. |
 | Linear story, portrait HUD, guide/menu regressions | Partial implementations and earlier UI checks exist; full story/phone regression acceptance remains. |
 | Sustained CPU/FPS, all eight district budgets, mirrors, disposal and full physical journeys | Open. Latest R18 foot/a:0 high,0 medium,2 low. Busy full-population traffic is still too expensive. |
 | Current overview captures, tested master publication, live-byte verification and owned-branch cleanup | Ground and SkyTower releases are live with synchronized original evidence;295current live-file checks pass. Publication of the remaining work and final owned-branch cleanup remain open. |

@@ -1,0 +1,1395 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+  "scope": "Production game and native UI in a touch-enabled portrait browser. Paused automatic RAF, explicit native frames and setup poses; no physical-phone or normal-route claim.",
+  "notice": "Six source-bound estimated floor outlooks; no real room/window identity, normal approach, complete interior realism, hardware FPS or physical-phone claim. Five are High, Bellevue is the recorded mobile auto-low tier. UiPath Bucharest A/B and Luxoft floor remain unresolved.",
+  "observerSHA256": "9ba8dc1079c31ff5392b974569a7304c90aa1a19444fff4a2c3009474a23f5bc",
+  "sourceVerification": {
+    "sourceCommit": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+    "requestedRef": "inspect-overview-20261110",
+    "servedFilesChecked": 170,
+    "servedByteMismatches": [],
+    "observerCommandFailures": [
+      {
+        "failedCommand": "",
+        "error": "SyntaxError: Unexpected end of JSON input\n    at JSON.parse (<anonymous>)\n    at /workspace/CalinaCristian.github.io/tools/fidelity/inspect-portrait.cjs:9:91"
+      }
+    ],
+    "classification": "Empty JSONL lines were rejected by the observer, not by the application. Original report and observer retained. All served bytes independently matched the fixed resolved source."
+  },
+  "captures": [
+    {
+      "name": "window-floor-rosetti-facing-window-high",
+      "file": "window-floor-rosetti-facing-window-high.png",
+      "capturedAt": "2026-11-10T10:14:20.181Z",
+      "sha256": "4b9d978a385100c02ecde5fbcdee17d2dbaba8c7e62475207818854a673ff7fc",
+      "mode": "office",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "",
+          "text": "Jump",
+          "title": "Jump",
+          "rect": {
+            "x": 1224,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Run",
+          "title": "Toggle running",
+          "rect": {
+            "x": 1170,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Use",
+          "title": "Interact / enter office / refuel",
+          "rect": {
+            "x": 1116,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "🚶",
+          "title": "Get out / get in",
+          "rect": {
+            "x": 1062,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Map",
+          "title": "Map & navigation",
+          "rect": {
+            "x": 1008,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "cond-btn",
+          "text": "☀️",
+          "title": "Time, weather & season (K)",
+          "rect": {
+            "x": 1020,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "cond-btn"
+        },
+        {
+          "id": "pause-btn",
+          "text": "☰",
+          "title": "Menu & pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "📷",
+          "title": "Camera (P)",
+          "rect": {
+            "x": 1218,
+            "y": 376,
+            "width": 48,
+            "height": 48
+          },
+          "centerHit": true
+        }
+      ],
+      "sourceCommit": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+      "inspection": {
+        "stop": "rosetti",
+        "active": true,
+        "reason": null,
+        "label": "Live district view · floor 2",
+        "known": true,
+        "floorAssignment": {
+          "floor": 2,
+          "basis": "owner-authorized assumption",
+          "storeyM": 3.6666666666666665,
+          "offsetM": 7.333333333333333,
+          "heightBasis": "Prepared building envelope height divided by mapped levels; estimated floor spacing"
+        },
+        "viewKind": "owner-floor-outlook",
+        "sourceFacadeCoverage": false,
+        "architecturalApertureVerified": false,
+        "skinOffsetM": 0.13237205312526457,
+        "actualOfficeFloor": 2,
+        "floorModelY": 7.453333333333333,
+        "sourceId": "w28240279",
+        "exteriorEye": [
+          204.53501795227433,
+          9.073333333333334,
+          -301.756234317916
+        ],
+        "conditions": {
+          "date": "2026-11-10T10:31:10.970Z",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "actors": {
+          "vehicles": 153,
+          "peds": 260
+        },
+        "stats": {
+          "fps": 0,
+          "frameMs": 79.1,
+          "drawCalls": 176,
+          "triangles": 720944,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      }
+    },
+    {
+      "name": "window-floor-upb-facing-window-high",
+      "file": "window-floor-upb-facing-window-high.png",
+      "capturedAt": "2026-11-10T10:15:05.959Z",
+      "sha256": "07c18b0a4d7467f417054e01945c87468a2c27743e80e888086cf53fea365895",
+      "mode": "office",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "",
+          "text": "Jump",
+          "title": "Jump",
+          "rect": {
+            "x": 1224,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Run",
+          "title": "Toggle running",
+          "rect": {
+            "x": 1170,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Use",
+          "title": "Interact / enter office / refuel",
+          "rect": {
+            "x": 1116,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "🚶",
+          "title": "Get out / get in",
+          "rect": {
+            "x": 1062,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Map",
+          "title": "Map & navigation",
+          "rect": {
+            "x": 1008,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "cond-btn",
+          "text": "☀️",
+          "title": "Time, weather & season (K)",
+          "rect": {
+            "x": 1020,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "cond-btn"
+        },
+        {
+          "id": "pause-btn",
+          "text": "☰",
+          "title": "Menu & pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "📷",
+          "title": "Camera (P)",
+          "rect": {
+            "x": 1218,
+            "y": 376,
+            "width": 48,
+            "height": 48
+          },
+          "centerHit": true
+        }
+      ],
+      "sourceCommit": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+      "inspection": {
+        "stop": "upb",
+        "active": true,
+        "reason": null,
+        "label": "Live district view · floor 1",
+        "known": true,
+        "floorAssignment": {
+          "floor": 1,
+          "basis": "owner-provided",
+          "storeyM": 3.8,
+          "heightBasis": "Retained Rectorat first upper-floor datum",
+          "offsetM": 3.8
+        },
+        "viewKind": "owner-floor-outlook",
+        "sourceFacadeCoverage": false,
+        "architecturalApertureVerified": false,
+        "skinOffsetM": 0.7734382705761405,
+        "actualOfficeFloor": 1,
+        "floorModelY": 3.92,
+        "sourceId": "w28240552",
+        "exteriorEye": [
+          -587.1358211683676,
+          5.54,
+          303.1962858148591
+        ],
+        "conditions": {
+          "date": "2026-11-10T10:30:54.703Z",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "actors": {
+          "vehicles": 112,
+          "peds": 260
+        },
+        "stats": {
+          "fps": 0,
+          "frameMs": 65.7,
+          "drawCalls": 329,
+          "triangles": 1207182,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      }
+    },
+    {
+      "name": "window-floor-gts-facing-window-high",
+      "file": "window-floor-gts-facing-window-high.png",
+      "capturedAt": "2026-11-10T10:16:00.896Z",
+      "sha256": "601746f3cbdf4fc94cb56db2cf39873888e5c888b88e7436fcd56ab1bbfd38c8",
+      "mode": "office",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "",
+          "text": "Jump",
+          "title": "Jump",
+          "rect": {
+            "x": 1224,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Run",
+          "title": "Toggle running",
+          "rect": {
+            "x": 1170,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Use",
+          "title": "Interact / enter office / refuel",
+          "rect": {
+            "x": 1116,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "🚶",
+          "title": "Get out / get in",
+          "rect": {
+            "x": 1062,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Map",
+          "title": "Map & navigation",
+          "rect": {
+            "x": 1008,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "cond-btn",
+          "text": "☀️",
+          "title": "Time, weather & season (K)",
+          "rect": {
+            "x": 1020,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "cond-btn"
+        },
+        {
+          "id": "pause-btn",
+          "text": "☰",
+          "title": "Menu & pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "📷",
+          "title": "Camera (P)",
+          "rect": {
+            "x": 1218,
+            "y": 376,
+            "width": 48,
+            "height": 48
+          },
+          "centerHit": true
+        }
+      ],
+      "sourceCommit": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+      "inspection": {
+        "stop": "gts",
+        "active": true,
+        "reason": null,
+        "label": "Live district view · floor 2",
+        "known": true,
+        "floorAssignment": {
+          "floor": 2,
+          "basis": "owner-provided",
+          "storeyM": 2.8,
+          "heightBasis": "Estimated 2.8m storeys; retained facade/roof compatibility still required",
+          "offsetM": 5.6
+        },
+        "viewKind": "owner-floor-outlook",
+        "sourceFacadeCoverage": false,
+        "architecturalApertureVerified": false,
+        "skinOffsetM": 0.3759656917523429,
+        "actualOfficeFloor": 2,
+        "floorModelY": 5.72,
+        "sourceId": "w245117704",
+        "exteriorEye": [
+          682.6533121394858,
+          7.34,
+          -402.6918458518127
+        ],
+        "conditions": {
+          "date": "2026-11-10T10:30:40.796Z",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "actors": {
+          "vehicles": 110,
+          "peds": 260
+        },
+        "stats": {
+          "fps": 0,
+          "frameMs": 135.9,
+          "drawCalls": 293,
+          "triangles": 1098921,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      }
+    },
+    {
+      "name": "window-floor-arnia-facing-window-high",
+      "file": "window-floor-arnia-facing-window-high.png",
+      "capturedAt": "2026-11-10T10:16:46.165Z",
+      "sha256": "6fa5df004b9ef241f23c0e1ca462b317b5e797e6c8722dc4b4c1a98ce530d09b",
+      "mode": "office",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "",
+          "text": "Jump",
+          "title": "Jump",
+          "rect": {
+            "x": 1224,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Run",
+          "title": "Toggle running",
+          "rect": {
+            "x": 1170,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Use",
+          "title": "Interact / enter office / refuel",
+          "rect": {
+            "x": 1116,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "🚶",
+          "title": "Get out / get in",
+          "rect": {
+            "x": 1062,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Map",
+          "title": "Map & navigation",
+          "rect": {
+            "x": 1008,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "cond-btn",
+          "text": "☀️",
+          "title": "Time, weather & season (K)",
+          "rect": {
+            "x": 1020,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "cond-btn"
+        },
+        {
+          "id": "pause-btn",
+          "text": "☰",
+          "title": "Menu & pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "📷",
+          "title": "Camera (P)",
+          "rect": {
+            "x": 1218,
+            "y": 376,
+            "width": 48,
+            "height": 48
+          },
+          "centerHit": true
+        }
+      ],
+      "sourceCommit": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+      "inspection": {
+        "stop": "arnia",
+        "active": true,
+        "reason": null,
+        "label": "Live district view · floor 6",
+        "known": true,
+        "floorAssignment": {
+          "floor": 6,
+          "basis": "owner-authorized assumption",
+          "storeyM": 3.2142857142857144,
+          "offsetM": 19.285714285714285,
+          "heightBasis": "Prepared building envelope height divided by mapped levels; estimated floor spacing"
+        },
+        "viewKind": "owner-floor-outlook",
+        "sourceFacadeCoverage": false,
+        "architecturalApertureVerified": false,
+        "skinOffsetM": 0.11961767010142438,
+        "actualOfficeFloor": 6,
+        "floorModelY": 19.405714285714286,
+        "sourceId": "w246115249",
+        "exteriorEye": [
+          -299.2589679371018,
+          21.025714285714287,
+          -321.20471524654977
+        ],
+        "conditions": {
+          "date": "2026-11-10T10:30:27.837Z",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "actors": {
+          "vehicles": 115,
+          "peds": 260
+        },
+        "stats": {
+          "fps": 0,
+          "frameMs": 65,
+          "drawCalls": 250,
+          "triangles": 948020,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      }
+    },
+    {
+      "name": "window-floor-db-facing-window-high",
+      "file": "window-floor-db-facing-window-high.png",
+      "capturedAt": "2026-11-10T10:17:13.195Z",
+      "sha256": "56310d978c0457f12c55311fcfd8699903a694c89cc3ea62e59551f0386e3c8b",
+      "mode": "office",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "",
+          "text": "Jump",
+          "title": "Jump",
+          "rect": {
+            "x": 1224,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Run",
+          "title": "Toggle running",
+          "rect": {
+            "x": 1170,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Use",
+          "title": "Interact / enter office / refuel",
+          "rect": {
+            "x": 1116,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "🚶",
+          "title": "Get out / get in",
+          "rect": {
+            "x": 1062,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Map",
+          "title": "Map & navigation",
+          "rect": {
+            "x": 1008,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "cond-btn",
+          "text": "☀️",
+          "title": "Time, weather & season (K)",
+          "rect": {
+            "x": 1020,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "cond-btn"
+        },
+        {
+          "id": "pause-btn",
+          "text": "☰",
+          "title": "Menu & pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "📷",
+          "title": "Camera (P)",
+          "rect": {
+            "x": 1218,
+            "y": 376,
+            "width": 48,
+            "height": 48
+          },
+          "centerHit": true
+        }
+      ],
+      "sourceCommit": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+      "inspection": {
+        "stop": "db",
+        "active": true,
+        "reason": null,
+        "label": "Live district view · floor 6",
+        "known": true,
+        "floorAssignment": {
+          "floor": 6,
+          "basis": "owner-authorized assumption",
+          "storeyM": 4,
+          "offsetM": 24,
+          "heightBasis": "Prepared building envelope height divided by mapped levels; estimated floor spacing"
+        },
+        "viewKind": "owner-floor-outlook",
+        "sourceFacadeCoverage": false,
+        "architecturalApertureVerified": false,
+        "skinOffsetM": 0.2500015839326269,
+        "actualOfficeFloor": 6,
+        "floorModelY": 24.12,
+        "sourceId": "w55450549",
+        "exteriorEye": [
+          83.59275247295373,
+          25.740000000000002,
+          69.17044640939287
+        ],
+        "conditions": {
+          "date": "2026-11-10T10:31:02.601Z",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "actors": {
+          "vehicles": 109,
+          "peds": 260
+        },
+        "stats": {
+          "fps": 0,
+          "frameMs": 25.7,
+          "drawCalls": 285,
+          "triangles": 563166,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      }
+    },
+    {
+      "name": "window-floor-uipath-bel-facing-window",
+      "file": "window-floor-uipath-bel-facing-window.png",
+      "capturedAt": "2026-11-10T10:13:52.930Z",
+      "sha256": "cdd1177bc64126d1e96cc1fb27c16941a80deb85470295c4baca023c2856e149",
+      "mode": "office",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "",
+          "text": "Jump",
+          "title": "Jump",
+          "rect": {
+            "x": 1224,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Run",
+          "title": "Toggle running",
+          "rect": {
+            "x": 1170,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Use",
+          "title": "Interact / enter office / refuel",
+          "rect": {
+            "x": 1116,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "🚶",
+          "title": "Get out / get in",
+          "rect": {
+            "x": 1062,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "",
+          "text": "Map",
+          "title": "Map & navigation",
+          "rect": {
+            "x": 1008,
+            "y": 740,
+            "width": 46,
+            "height": 46
+          },
+          "centerHit": true,
+          "hit": "touch"
+        },
+        {
+          "id": "cond-btn",
+          "text": "☀️",
+          "title": "Time, weather & season (K)",
+          "rect": {
+            "x": 1020,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "cond-btn"
+        },
+        {
+          "id": "pause-btn",
+          "text": "☰",
+          "title": "Menu & pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "📷",
+          "title": "Camera (P)",
+          "rect": {
+            "x": 1218,
+            "y": 376,
+            "width": 48,
+            "height": 48
+          },
+          "centerHit": true
+        }
+      ],
+      "sourceCommit": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+      "inspection": {
+        "stop": "uipath-bel",
+        "active": true,
+        "reason": null,
+        "label": "Live district view · floor 6",
+        "known": true,
+        "floorAssignment": {
+          "floor": 6,
+          "basis": "owner-provided; applied to both UiPath chapters",
+          "storeyM": 4.5,
+          "offsetM": 27,
+          "heightBasis": "Prepared building envelope height divided by mapped levels; estimated floor spacing"
+        },
+        "viewKind": "owner-floor-outlook",
+        "sourceFacadeCoverage": false,
+        "architecturalApertureVerified": false,
+        "skinOffsetM": 0.2182923970584857,
+        "actualOfficeFloor": 6,
+        "floorModelY": 27.12,
+        "sourceId": "w604028609",
+        "exteriorEye": [
+          -485.9321227675123,
+          28.740000000000002,
+          -279.10580572229077
+        ],
+        "conditions": {
+          "date": "2026-11-10T20:30:43.264Z",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "actors": {
+          "vehicles": 96,
+          "peds": 90
+        },
+        "stats": {
+          "fps": 0,
+          "frameMs": 43.8,
+          "drawCalls": 171,
+          "triangles": 307310,
+          "pixelRatio": 1,
+          "shadows": 0,
+          "post": "lite",
+          "quality": "auto (low+)",
+          "auto": true,
+          "level": 4
+        },
+        "viewDirection": [
+          1,
+          0,
+          -2.220446049250313e-16
+        ]
+      }
+    },
+    {
+      "name": "portrait-map-settled",
+      "file": "portrait-map-settled.png",
+      "capturedAt": "2026-11-10T10:18:03.126Z",
+      "sha256": "84c9e856c9083d30bb37c49dcc4b05871e753d969ee4dc7f19c44fa9d4ef72e3",
+      "mode": "drive",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "",
+          "text": "📍 Here Grozăvești",
+          "title": "",
+          "rect": {
+            "x": 10,
+            "y": 60,
+            "width": 119.328125,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "world-map"
+        },
+        {
+          "id": "",
+          "text": "🇷🇴 București",
+          "title": "",
+          "rect": {
+            "x": 135.328125,
+            "y": 60,
+            "width": 119.328125,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "world-map"
+        },
+        {
+          "id": "",
+          "text": "🇺🇸 Seattle",
+          "title": "",
+          "rect": {
+            "x": 260.65625,
+            "y": 60,
+            "width": 119.34375,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "world-map"
+        },
+        {
+          "id": "",
+          "text": "🇺🇸 Bellevue",
+          "title": "",
+          "rect": {
+            "x": 10,
+            "y": 110,
+            "width": 119.328125,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "world-map"
+        },
+        {
+          "id": "",
+          "text": "🌍 World",
+          "title": "",
+          "rect": {
+            "x": 135.328125,
+            "y": 110,
+            "width": 119.328125,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "world-map"
+        },
+        {
+          "id": "",
+          "text": "☀️",
+          "title": "Time, weather & season",
+          "rect": {
+            "x": 286,
+            "y": 8,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "world-map"
+        },
+        {
+          "id": "",
+          "text": "✕",
+          "title": "",
+          "rect": {
+            "x": 336,
+            "y": 8,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "world-map"
+        },
+        {
+          "id": "",
+          "text": "+",
+          "title": "",
+          "rect": {
+            "x": 338,
+            "y": 171,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "world-map"
+        },
+        {
+          "id": "",
+          "text": "−",
+          "title": "",
+          "rect": {
+            "x": 338,
+            "y": 221,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "world-map"
+        },
+        {
+          "id": "",
+          "text": "⤢",
+          "title": "",
+          "rect": {
+            "x": 338,
+            "y": 271,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "world-map"
+        },
+        {
+          "id": "",
+          "text": "Mark",
+          "title": "",
+          "rect": {
+            "x": 313.296875,
+            "y": 590.609375,
+            "width": 60.703125,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "world-map"
+        },
+        {
+          "id": "",
+          "text": "Here",
+          "title": "",
+          "rect": {
+            "x": 316.65625,
+            "y": 646.609375,
+            "width": 57.34375,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "world-map"
+        },
+        {
+          "id": "",
+          "text": "Mark",
+          "title": "",
+          "rect": {
+            "x": 313.296875,
+            "y": 702.609375,
+            "width": 60.703125,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "world-map"
+        },
+        {
+          "id": "",
+          "text": "Mark",
+          "title": "",
+          "rect": {
+            "x": 313.296875,
+            "y": 758.609375,
+            "width": 60.703125,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "world-map"
+        },
+        {
+          "id": "",
+          "text": "Mark",
+          "title": "",
+          "rect": {
+            "x": 313.296875,
+            "y": 814.609375,
+            "width": 60.703125,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "world-map"
+        },
+        {
+          "id": "",
+          "text": "Mark",
+          "title": "",
+          "rect": {
+            "x": 313.296875,
+            "y": 870.609375,
+            "width": 60.703125,
+            "height": 44
+          },
+          "centerHit": false
+        },
+        {
+          "id": "",
+          "text": "Mark",
+          "title": "",
+          "rect": {
+            "x": 313.296875,
+            "y": 926.609375,
+            "width": 60.703125,
+            "height": 44
+          },
+          "centerHit": false
+        },
+        {
+          "id": "",
+          "text": "Mark",
+          "title": "",
+          "rect": {
+            "x": 313.296875,
+            "y": 982.609375,
+            "width": 60.703125,
+            "height": 44
+          },
+          "centerHit": false
+        },
+        {
+          "id": "",
+          "text": "Mark",
+          "title": "",
+          "rect": {
+            "x": 313.296875,
+            "y": 1038.609375,
+            "width": 60.703125,
+            "height": 44
+          },
+          "centerHit": false
+        },
+        {
+          "id": "",
+          "text": "Mark",
+          "title": "",
+          "rect": {
+            "x": 313.296875,
+            "y": 1127.453125,
+            "width": 60.703125,
+            "height": 44
+          },
+          "centerHit": false
+        },
+        {
+          "id": "",
+          "text": "Mark",
+          "title": "",
+          "rect": {
+            "x": 313.296875,
+            "y": 1183.453125,
+            "width": 60.703125,
+            "height": 44
+          },
+          "centerHit": false
+        },
+        {
+          "id": "",
+          "text": "Mark",
+          "title": "",
+          "rect": {
+            "x": 313.296875,
+            "y": 1239.453125,
+            "width": 60.703125,
+            "height": 44
+          },
+          "centerHit": false
+        },
+        {
+          "id": "",
+          "text": "Mark",
+          "title": "",
+          "rect": {
+            "x": 313.296875,
+            "y": 1328.296875,
+            "width": 60.703125,
+            "height": 44
+          },
+          "centerHit": false
+        },
+        {
+          "id": "",
+          "text": "Mark",
+          "title": "",
+          "rect": {
+            "x": 313.296875,
+            "y": 1384.296875,
+            "width": 60.703125,
+            "height": 44
+          },
+          "centerHit": false
+        },
+        {
+          "id": "",
+          "text": "Mark",
+          "title": "",
+          "rect": {
+            "x": 313.296875,
+            "y": 1440.296875,
+            "width": 60.703125,
+            "height": 44
+          },
+          "centerHit": false
+        }
+      ],
+      "sourceCommit": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb"
+    }
+  ],
+  "portraitTabs": [
+    {
+      "label": "📍 Here Grozăvești",
+      "disabled": false,
+      "x": 10,
+      "y": 60,
+      "width": 119.328125,
+      "height": 44,
+      "visible": true
+    },
+    {
+      "label": "🇷🇴 București",
+      "disabled": false,
+      "x": 135.328125,
+      "y": 60,
+      "width": 119.328125,
+      "height": 44,
+      "visible": true
+    },
+    {
+      "label": "🇺🇸 Seattle",
+      "disabled": false,
+      "x": 260.65625,
+      "y": 60,
+      "width": 119.34375,
+      "height": 44,
+      "visible": true
+    },
+    {
+      "label": "🇺🇸 Bellevue",
+      "disabled": false,
+      "x": 10,
+      "y": 110,
+      "width": 119.328125,
+      "height": 44,
+      "visible": true
+    },
+    {
+      "label": "🌍 World",
+      "disabled": false,
+      "x": 135.328125,
+      "y": 110,
+      "width": 119.328125,
+      "height": 44,
+      "visible": true
+    }
+  ],
+  "errors": []
+}

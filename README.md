@@ -383,3 +383,5 @@ Facade correction candidates from owner coordinates: Sky Tower now partitions it
 Ultra crowd shading candidate: the AO normal pass now uses the same outfit visibility and skeletal poses as the visible crowd. Hidden umbrellas/phones/guitars previously entered the generic override in their rest pose and could leave ghost-like shapes around people. Materials and render state restore after the pass; native A/B acceptance remains pending.
 
 Traffic CPU work is being optimized without reducing actors: conservative moving-peer queries retain every body, and static sidewalk heights use a bounded exact-coordinate cache. Sustained hardware performance and Basarab’s full route remain under validation.
+
+Pasajul Basarab reconstruction is staged for review: literal OSM tram platforms, render-matched centre support and white/blue guard treatment; builder-sourced80m pylons,60stays and120m river arch. Untagged placements, roof/member sections and absolute levels remain estimates. Native visual, approach/drive, body-clearance and budget acceptance is still pending.

@@ -1,3 +1,4 @@
+import { nextControllerRouteEnd, signalMovementBlocked } from './signal-movement-space.js';
 import * as THREE from '../vendor/three.module.min.js';
 import { makeVehicle, CAR_COLORS } from './vehicles.js';
 import * as VEH from './vehicles.js';
@@ -1612,6 +1613,20 @@ export class Traffic {
     boxCheck(v, curE, curDir, nxt, node, rad) {
         const path = this.reservationPath(v, curE, curDir, nxt, node, rad);
         const key = this.boxController(node);
+        // A linked movement must have room to clear its whole controller.
+        // Scan its actual source-lane chords, including unlit branch nodes;
+        // the current straight cone cannot see a queue after a turn.
+        if (!curE.rail && key === node.lightCluster && path.internalEdges.size &&
+            !this.boxes.get(key)?.some(r => r.v === v && r.entered && this.inBox(r, key))) {
+            const points = path.segments.flatMap(s => [[s.p0x, s.p0z], [s.p1x, s.p1z]]);
+            const xs = points.map(p => p[0]), zs = points.map(p => p[1]), x0 = Math.min(...xs), x1 = Math.max(...xs), z0 = Math.min(...zs), z1 = Math.max(...zs);
+            const peers = [], x = (x0 + x1) / 2, z = (z0 + z1) / 2;
+            let bodyReach = 0;
+            for (const o of this.vehicles || []) if (Number.isFinite(o.length) && Number.isFinite(o.width)) bodyReach = Math.max(bodyReach, Math.hypot(o.length, o.width) / 2);
+            if (this.grid?.query) this.grid.query(x, z, Math.hypot(x1 - x0, z1 - z0) / 2 + bodyReach + v.width / 2 + .5, o => peers.push(o));
+            else peers.push(...(this.vehicles || []));
+            if (signalMovementBlocked(v, path, peers)) return 'wait';
+        }
         const list = this.boxes.get(key); if (!list) return path;
         // first come, first served: only claims older than ours count (no two cars ever wait for each other)
         let mine = Infinity; for (const r of list) if (r.v === v) mine = r.t0;
@@ -1642,7 +1657,9 @@ export class Traffic {
         let step = nxt, i = 0, exitIndex = 0;
         while (cl && step && i < v.route.length) {
             const end = step.dir > 0 ? step.e.b : step.e.a, after = v.route[++i];
-            if (end.lightCluster !== cl || !after || after.uturn) break;
+            if (!after || after.uturn) break;
+            if (end.lightCluster !== cl && nextControllerRouteEnd(v.route, i - 1, cl, 100,
+                i === 1 ? node : (v.route[i - 2].dir > 0 ? v.route[i - 2].e.b : v.route[i - 2].e.a)) < 0) break;
             path.internalEdges.add(step.e);
             const segment = this.boxPath(v, step.e, step.dir, after, end.radius ?? 6), last = path.segments[path.segments.length - 1];
             path.segments.push({ p0x: last.p1x, p0z: last.p1z, p1x: segment.p0x, p1z: segment.p0z }, segment);

@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "7ac898a8cd03bfe95906de7acbb95cdd5817f38f",
+  "sourceSha": "d708f38fe255491e30aa49d14cc6d8938dfb9e70",
   "reviewedOn": "2026-11-10",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -1546,7 +1546,8 @@
           "range": "close",
           "distanceM": 0,
           "scenery": false,
-          "nativeBuildVerified": false
+          "nativeBuildVerified": true,
+          "sourceCommit": "9ae4ae1e604a1b99b51387031d6d338f0276cf80"
         }
       ]
     },
@@ -2117,7 +2118,8 @@
           "range": "close",
           "distanceM": 0,
           "scenery": false,
-          "nativeBuildVerified": false
+          "nativeBuildVerified": true,
+          "sourceCommit": "9ae4ae1e604a1b99b51387031d6d338f0276cf80"
         }
       ]
     },
@@ -3444,7 +3446,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "2c3c824fdb89a3c3a32cf5969056e8e86baae60aacc5ef57551bd2622e9c052f"
+      "sha256": "d97b200550be5b1cac56ddb08b764a44ecd563ad4ae21dea927b22f09f3a7af4"
     },
     {
       "path": "specs/README.md",
@@ -3464,7 +3466,7 @@
     },
     {
       "path": "specs/12-buildings-streetscape.md",
-      "sha256": "b9b4a3bbe1f8d213c136af32d5bae507d73a28f4c618fd7314b2a7f2625e19ca"
+      "sha256": "80b0fd5e376bb477a05e76006151595f120cf847866d06a08dd9362a5564a0a0"
     },
     {
       "path": "specs/13-traffic.md",
@@ -3524,7 +3526,7 @@
     },
     {
       "path": "game/src/landmarks.js",
-      "sha256": "b2ff4e01aeb85b4e40824a6d26c470b2585d2e253870e7ab73de41e94c2fedcb"
+      "sha256": "019dcced08e799b6bd580046172399956586743418d5da65c6586012900b72ce"
     },
     {
       "path": "game/src/render.js",
@@ -5736,7 +5738,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/bob.json",
-      "sha256": "568a7092fd96c145297bcc78fc475a0a22ffaced43961023ce57c246e0907b64"
+      "sha256": "c29d1389d854bd23899ee94bcec7b3f9d68e3a073fed13cdd30f561d7e35d73b"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/casapresei.json",
@@ -5784,7 +5786,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/hermes.json",
-      "sha256": "e7c1e06cff24f231ab91f59f56748d4ade985ca657c8567507bc7c8fef47915f"
+      "sha256": "c82e759bfe8f0ef3921973e9f7e0dd29cb3342358f6cdbe9842f233b996e43d2"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/marriott.json",
@@ -6064,7 +6066,7 @@
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "82693522e04490de53053326a49d1cd39a631983c8971bc300e3ccd58f1aa304"
+      "sha256": "5230b2184469bba8121927d6409c53b641c4e87ec331e94ce9d8a180786170c4"
     },
     {
       "path": "game/overview/landmark-evidence.js",
@@ -6076,7 +6078,7 @@
     },
     {
       "path": "game/overview/overview.js",
-      "sha256": "10df728495c90cd3395f5da73c5a4ca931b96edffe16de8faf682ca80f704182"
+      "sha256": "b9cd3db834642468e2c034ee5bcd6edbd3735ab45d06fcc9043363d15d124ebf"
     },
     {
       "path": "game/overview/perspective-viewer.js",
@@ -6121,6 +6123,58 @@
     {
       "path": "game/overview/fix-otopeni-driver/summary.json",
       "sha256": "657b739e9fe57175a11f4ed1f155701f01ef186b1f27d029f3956351263c428a"
+    },
+    {
+      "path": "game/overview/assets/landmarks/bob/facade-20261110/top.png",
+      "sha256": "259b45b7365f01ac1109fc2469556c2fb2b76de3dede6dc17df1316cdfec6c61"
+    },
+    {
+      "path": "game/overview/fix-pipera-facades/hermes-after.png",
+      "sha256": "321fb729d9feb6a3cfb5278ca759cd7f9543397354805a102c9b86e53cfcfd5c"
+    },
+    {
+      "path": "game/overview/fix-pipera-facades/hermes-before.png",
+      "sha256": "fbe2a7ceeff7f5f1f503e8a79ee12542bff3b85e46f6e481e9f32a20aedabcae"
+    },
+    {
+      "path": "game/overview/fix-pipera-facades/summary.json",
+      "sha256": "91fd6619c8036c2d23ea5000d3f960599faa7e3c45e4545a207eb13c23293889"
+    },
+    {
+      "path": "game/overview/assets/landmarks/hermes/facade-20261110/front.png",
+      "sha256": "e2e1badd9c9e3728e5d74a7b185c47a5bf55b6bfd797d6eeda2e4606507826b6"
+    },
+    {
+      "path": "game/overview/assets/landmarks/bob/facade-20261110/front.png",
+      "sha256": "e2d1ca855e5b90e7e297e9617df931d2ed94d08eee502b7deba03fbef1205e48"
+    },
+    {
+      "path": "game/src/facade-panels.js",
+      "sha256": "5a732e72373eb3375992bbbaccbfc3bc7245ef5263f9477c194333498b031bde"
+    },
+    {
+      "path": "game/overview/fix-pipera-facades/bob-before.png",
+      "sha256": "5fb9019bc4c29596294290e0c98ee3c4e2e6278f46323f8ef700d13349f6147f"
+    },
+    {
+      "path": "game/overview/fix-pipera-facades/bob-after.png",
+      "sha256": "b6482d699da1b64d9a37c5d191a08f6c63124fd0562260d4c0f46d03b3d7da12"
+    },
+    {
+      "path": "tools/fidelity/facade-panels.test.mjs",
+      "sha256": "da3d23fca68847ceedede4f904fa1c3b6e2f0a58f3b805ca6973d1479442ccde"
+    },
+    {
+      "path": "game/overview/assets/landmarks/hermes/facade-20261110/top.png",
+      "sha256": "ca43a93e238e2310086da9449f403ab769d72c680638dec93f88d01f5963499f"
+    },
+    {
+      "path": "game/overview/assets/landmarks/hermes/facade-20261110/oblique.png",
+      "sha256": "b1a5fd4e101fba0bc6dc4f199fed4f698840b8e0abf521593bd183821712310d"
+    },
+    {
+      "path": "game/overview/assets/landmarks/bob/facade-20261110/oblique.png",
+      "sha256": "e1c4d51fb048897527b13bc7c757b318f9a7b83c82af876a1e3674a228005b45"
     }
   ],
   "stagingEvidence": [
@@ -6242,5 +6296,13 @@
     "source": "3cc387ba6ffcd8829e8d7463553c343d71c81e75",
     "summary": "game/overview/fix-otopeni-driver/summary.json",
     "scope": "Report53 exact cockpit view; existing road-guard fix. Other road reports and complete journeys remain open."
+  },
+  "piperaFacadeFixEvidence": {
+    "path": "fix-pipera-facades/summary.json",
+    "sourceCommit": "9ae4ae1e604a1b99b51387031d6d338f0276cf80",
+    "reports": [
+      41,
+      42
+    ]
   }
 }

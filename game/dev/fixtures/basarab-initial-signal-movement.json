@@ -1,0 +1,608 @@
+{
+  "time": 187.93333333332524,
+  "stopped": "observer-120s-no-progress",
+  "car": {
+    "id": 194,
+    "s": 17.566633137425057,
+    "edge": {
+      "id": 1246,
+      "source": "w295382931",
+      "len": 24.306547296505872,
+      "lanesF": 4,
+      "lanesB": 0,
+      "oneway": true,
+      "dirx": 0.8354499142415807,
+      "dirz": 0.5495665935932926,
+      "a": {
+        "id": 1378,
+        "sourceId": 8407738663,
+        "x": 338.9702934758832,
+        "z": -698.375714399564,
+        "hasLight": false,
+        "cluster": false,
+        "approaches": []
+      },
+      "b": {
+        "id": 1379,
+        "sourceId": 6262920765,
+        "x": 359.27719633025794,
+        "z": -685.017647999809,
+        "hasLight": false,
+        "cluster": false,
+        "approaches": []
+      }
+    },
+    "route": [
+      {
+        "dir": 1,
+        "e": {
+          "id": 1247,
+          "source": "w295382931",
+          "len": 4.641710177971886,
+          "lanesF": 4,
+          "lanesB": 0,
+          "oneway": true,
+          "dirx": 0.8150452471711761,
+          "dirz": 0.5793973119230675,
+          "a": {
+            "id": 1379,
+            "sourceId": 6262920765,
+            "x": 359.27719633025794,
+            "z": -685.017647999809,
+            "hasLight": false,
+            "cluster": false,
+            "approaches": []
+          },
+          "b": {
+            "id": 1226,
+            "sourceId": 981549067,
+            "x": 363.06040014956,
+            "z": -682.3282535999662,
+            "hasLight": true,
+            "cluster": true,
+            "approaches": [
+              {
+                "edge": 1247,
+                "phase": 2
+              },
+              {
+                "edge": 1398,
+                "phase": 1
+              }
+            ]
+          }
+        }
+      },
+      {
+        "dir": 1,
+        "e": {
+          "id": 1100,
+          "source": "w139758829",
+          "len": 6.887511345692895,
+          "lanesF": 2,
+          "lanesB": 0,
+          "oneway": true,
+          "dirx": 0.9323990454624369,
+          "dirz": 0.36143051893930656,
+          "a": {
+            "id": 1226,
+            "sourceId": 981549067,
+            "x": 363.06040014956,
+            "z": -682.3282535999662,
+            "hasLight": true,
+            "cluster": true,
+            "approaches": [
+              {
+                "edge": 1247,
+                "phase": 2
+              },
+              {
+                "edge": 1398,
+                "phase": 1
+              }
+            ]
+          },
+          "b": {
+            "id": 1227,
+            "sourceId": 8769891980,
+            "x": 369.48230915389576,
+            "z": -679.838896800092,
+            "hasLight": false,
+            "cluster": true,
+            "approaches": []
+          }
+        }
+      },
+      {
+        "dir": 1,
+        "e": {
+          "id": 1101,
+          "source": "w139758829",
+          "len": 6.043002806326626,
+          "lanesF": 2,
+          "lanesB": 0,
+          "oneway": true,
+          "dirx": 0.9916795024836216,
+          "dirz": 0.12873136507408234,
+          "a": {
+            "id": 1227,
+            "sourceId": 8769891980,
+            "x": 369.48230915389576,
+            "z": -679.838896800092,
+            "hasLight": false,
+            "cluster": true,
+            "approaches": []
+          },
+          "b": {
+            "id": 1228,
+            "sourceId": 1228161142,
+            "x": 375.4750311703809,
+            "z": -679.0609727996871,
+            "hasLight": true,
+            "cluster": true,
+            "approaches": [
+              {
+                "edge": 1101,
+                "phase": 3
+              }
+            ]
+          }
+        }
+      },
+      {
+        "dir": 1,
+        "e": {
+          "id": 1102,
+          "source": "w139758829",
+          "len": 20.641854653408974,
+          "lanesF": 2,
+          "lanesB": 0,
+          "oneway": true,
+          "dirx": 0.9960944028216152,
+          "dirz": -0.08829462422735423,
+          "a": {
+            "id": 1228,
+            "sourceId": 1228161142,
+            "x": 375.4750311703809,
+            "z": -679.0609727996871,
+            "hasLight": true,
+            "cluster": true,
+            "approaches": [
+              {
+                "edge": 1101,
+                "phase": 3
+              }
+            ]
+          },
+          "b": {
+            "id": 1229,
+            "sourceId": 1418267164,
+            "x": 396.03626705449886,
+            "z": -680.8835375996655,
+            "hasLight": false,
+            "cluster": false,
+            "approaches": []
+          }
+        }
+      },
+      {
+        "dir": 1,
+        "e": {
+          "id": 1103,
+          "source": "w139758829",
+          "len": 13.679815542341531,
+          "lanesF": 2,
+          "lanesB": 0,
+          "oneway": true,
+          "dirx": 0.9987307509044515,
+          "dirz": -0.05036752125954437,
+          "a": {
+            "id": 1229,
+            "sourceId": 1418267164,
+            "x": 396.03626705449886,
+            "z": -680.8835375996655,
+            "hasLight": false,
+            "cluster": false,
+            "approaches": []
+          },
+          "b": {
+            "id": 1230,
+            "sourceId": 4232376549,
+            "x": 409.698719503336,
+            "z": -681.572555999821,
+            "hasLight": false,
+            "cluster": false,
+            "approaches": []
+          }
+        }
+      },
+      {
+        "dir": 1,
+        "e": {
+          "id": 1104,
+          "source": "w139758829",
+          "len": 7.861944155127013,
+          "lanesF": 2,
+          "lanesB": 0,
+          "oneway": true,
+          "dirx": 0.9957700565452287,
+          "dirz": 0.09188032699066853,
+          "a": {
+            "id": 1230,
+            "sourceId": 4232376549,
+            "x": 409.698719503336,
+            "z": -681.572555999821,
+            "hasLight": false,
+            "cluster": false,
+            "approaches": []
+          },
+          "b": {
+            "id": 1231,
+            "sourceId": 981562925,
+            "x": 417.52740807924226,
+            "z": -680.8501980000656,
+            "hasLight": false,
+            "cluster": false,
+            "approaches": []
+          }
+        }
+      },
+      {
+        "dir": 1,
+        "e": {
+          "id": 1105,
+          "source": "w139758829",
+          "len": 7.548543397761142,
+          "lanesF": 2,
+          "lanesB": 0,
+          "oneway": true,
+          "dirx": 0.970779399054303,
+          "dirz": 0.23997366182930685,
+          "a": {
+            "id": 1231,
+            "sourceId": 981562925,
+            "x": 417.52740807924226,
+            "z": -680.8501980000656,
+            "hasLight": false,
+            "cluster": false,
+            "approaches": []
+          },
+          "b": {
+            "id": 1232,
+            "sourceId": 3208556808,
+            "x": 424.85537850265615,
+            "z": -679.0387463994274,
+            "hasLight": false,
+            "cluster": false,
+            "approaches": []
+          }
+        }
+      },
+      {
+        "dir": 1,
+        "e": {
+          "id": 1106,
+          "source": "w139758829",
+          "len": 5.846512626476234,
+          "lanesF": 2,
+          "lanesB": 0,
+          "oneway": true,
+          "dirx": 0.8605172978251462,
+          "dirz": 0.5094212207434127,
+          "a": {
+            "id": 1232,
+            "sourceId": 3208556808,
+            "x": 424.85537850265615,
+            "z": -679.0387463994274,
+            "hasLight": false,
+            "cluster": false,
+            "approaches": []
+          },
+          "b": {
+            "id": 1076,
+            "sourceId": 984553357,
+            "x": 429.8864037496921,
+            "z": -676.0604088001561,
+            "hasLight": false,
+            "cluster": false,
+            "approaches": []
+          }
+        }
+      }
+    ]
+  },
+  "upstream": [
+    {
+      "distance": 2.387338125708675,
+      "path": [
+        {
+          "id": 1245,
+          "dir": 1
+        }
+      ],
+      "edge": {
+        "id": 1245,
+        "source": "w295382931",
+        "len": 2.387338125708675,
+        "lanesF": 4,
+        "lanesB": 0,
+        "oneway": true,
+        "dirx": 0.8356272123720135,
+        "dirz": 0.5492969706300754,
+        "a": {
+          "id": 1377,
+          "sourceId": 8407738659,
+          "x": 336.9753687729078,
+          "z": -699.6870719998855,
+          "hasLight": false,
+          "cluster": false,
+          "approaches": []
+        },
+        "b": {
+          "id": 1378,
+          "sourceId": 8407738663,
+          "x": 338.9702934758832,
+          "z": -698.375714399564,
+          "hasLight": false,
+          "cluster": false,
+          "approaches": []
+        }
+      }
+    },
+    {
+      "distance": 4.205263499161191,
+      "path": [
+        {
+          "id": 1245,
+          "dir": 1
+        },
+        {
+          "id": 1244,
+          "dir": 1
+        }
+      ],
+      "edge": {
+        "id": 1244,
+        "source": "w295382931",
+        "len": 1.8179253734525158,
+        "lanesF": 4,
+        "lanesB": 0,
+        "oneway": true,
+        "dirx": 0.8350454282659976,
+        "dirz": 0.5501809999736964,
+        "a": {
+          "id": 1376,
+          "sourceId": 8407738662,
+          "x": 335.45731850087753,
+          "z": -700.6872599997291,
+          "hasLight": false,
+          "cluster": false,
+          "approaches": []
+        },
+        "b": {
+          "id": 1377,
+          "sourceId": 8407738659,
+          "x": 336.9753687729078,
+          "z": -699.6870719998855,
+          "hasLight": false,
+          "cluster": false,
+          "approaches": []
+        }
+      }
+    },
+    {
+      "distance": 6.12013073024182,
+      "path": [
+        {
+          "id": 1245,
+          "dir": 1
+        },
+        {
+          "id": 1244,
+          "dir": 1
+        },
+        {
+          "id": 1243,
+          "dir": 1
+        }
+      ],
+      "edge": {
+        "id": 1243,
+        "source": "w295382931",
+        "len": 1.9148672310806296,
+        "lanesF": 4,
+        "lanesB": 0,
+        "oneway": true,
+        "dirx": 0.834276819833102,
+        "dirz": 0.5513457970177752,
+        "a": {
+          "id": 1375,
+          "sourceId": 8407738661,
+          "x": 333.85978915692897,
+          "z": -701.7430139994325,
+          "hasLight": false,
+          "cluster": false,
+          "approaches": []
+        },
+        "b": {
+          "id": 1376,
+          "sourceId": 8407738662,
+          "x": 335.45731850087753,
+          "z": -700.6872599997291,
+          "hasLight": false,
+          "cluster": false,
+          "approaches": []
+        }
+      }
+    },
+    {
+      "distance": 27.59953281757454,
+      "path": [
+        {
+          "id": 1245,
+          "dir": 1
+        },
+        {
+          "id": 1244,
+          "dir": 1
+        },
+        {
+          "id": 1243,
+          "dir": 1
+        },
+        {
+          "id": 1242,
+          "dir": 1
+        }
+      ],
+      "edge": {
+        "id": 1242,
+        "source": "w295382931",
+        "len": 21.47940208733272,
+        "lanesF": 4,
+        "lanesB": 0,
+        "oneway": true,
+        "dirx": 0.835515548707833,
+        "dirz": 0.549466803244244,
+        "a": {
+          "id": 939,
+          "sourceId": 981579827,
+          "x": 315.913414736015,
+          "z": -713.545232399957,
+          "hasLight": false,
+          "cluster": false,
+          "approaches": []
+        },
+        "b": {
+          "id": 1375,
+          "sourceId": 8407738661,
+          "x": 333.85978915692897,
+          "z": -701.7430139994325,
+          "hasLight": false,
+          "cluster": false,
+          "approaches": []
+        }
+      }
+    },
+    {
+      "distance": 36.48628465499207,
+      "path": [
+        {
+          "id": 1245,
+          "dir": 1
+        },
+        {
+          "id": 1244,
+          "dir": 1
+        },
+        {
+          "id": 1243,
+          "dir": 1
+        },
+        {
+          "id": 1242,
+          "dir": 1
+        },
+        {
+          "id": 850,
+          "dir": 1
+        }
+      ],
+      "edge": {
+        "id": 850,
+        "source": "w360811525",
+        "len": 8.886751837417526,
+        "lanesF": 2,
+        "lanesB": 0,
+        "oneway": true,
+        "dirx": 0.8308554023545475,
+        "dirz": -0.5564883649981042,
+        "a": {
+          "id": 938,
+          "sourceId": 6263837332,
+          "x": 308.52980896251245,
+          "z": -708.5998583998086,
+          "hasLight": true,
+          "cluster": true,
+          "approaches": [
+            {
+              "edge": 849,
+              "phase": 1
+            }
+          ]
+        },
+        "b": {
+          "id": 939,
+          "sourceId": 981579827,
+          "x": 315.913414736015,
+          "z": -713.545232399957,
+          "hasLight": false,
+          "cluster": false,
+          "approaches": []
+        }
+      }
+    },
+    {
+      "distance": 33.31442919894427,
+      "path": [
+        {
+          "id": 1245,
+          "dir": 1
+        },
+        {
+          "id": 1244,
+          "dir": 1
+        },
+        {
+          "id": 1243,
+          "dir": 1
+        },
+        {
+          "id": 1242,
+          "dir": 1
+        },
+        {
+          "id": 1241,
+          "dir": 1
+        }
+      ],
+      "edge": {
+        "id": 1241,
+        "source": "w295382931",
+        "len": 5.714896381369725,
+        "lanesF": 4,
+        "lanesB": 0,
+        "oneway": true,
+        "dirx": 0.8107985830004668,
+        "dirz": 0.5853252581295594,
+        "a": {
+          "id": 908,
+          "sourceId": 981556145,
+          "x": 311.27978484800593,
+          "z": -716.8903055995659,
+          "hasLight": true,
+          "cluster": true,
+          "approaches": [
+            {
+              "edge": 936,
+              "phase": 0
+            },
+            {
+              "edge": 1000,
+              "phase": 1
+            }
+          ]
+        },
+        "b": {
+          "id": 939,
+          "sourceId": 981579827,
+          "x": 315.913414736015,
+          "z": -713.545232399957,
+          "hasLight": false,
+          "cluster": false,
+          "approaches": []
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "root": "(repository root)",
+  "method": "Built district world facts; RAF disabled; no visual, journey or performance claim.",
+  "city": "bucharest",
+  "district": "grozavesti",
+  "model": "MODEL estimate: 30 m bents, 1.6 x 1.3 m crossheads, 1.4 m square columns; not surveyed",
+  "planner": {
+    "chains": 13,
+    "stations": 268,
+    "bents": 87,
+    "walls": 3,
+    "coveredBySibling": 73,
+    "noColumn": 56,
+    "lowClearance": 43,
+    "tooLow": 6,
+    "shortChains": 0,
+    "straddles": 8,
+    "slotInfill": {
+      "quads": 620,
+      "areaM2": 3840,
+      "maxGapM": 5.93
+    }
+  },
+  "trees": {
+    "narrowed": 9,
+    "lowered": 4,
+    "excluded": [
+      {
+        "x": 137.3,
+        "z": -353.2,
+        "kind": "osm",
+        "soffitM": 3
+      }
+    ]
+  },
+  "bents": 90,
+  "columns": 154,
+  "piers": 157,
+  "expectedPiers": 157,
+  "maxColumnSpanM": 21.5,
+  "minCrossheadClearanceM": 4.645750322454971,
+  "failures": [],
+  "errors": []
+}

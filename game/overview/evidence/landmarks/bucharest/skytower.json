@@ -77,7 +77,7 @@
     {
       "label": "Native source-owned facade correction",
       "passed": true,
-      "details": "See fix-skytower/summary.json for exact native sources/cameras, complete wall coverage, all8constructors and foot/a0H0M."
+      "details": "See assets/landmarks/skytower/native-20261110/summary.json for exact native sources/cameras, complete wall coverage, all8constructors and foot/a0H0M."
     }
   ],
   "captures": [
@@ -264,7 +264,7 @@
       "id": "floreasca-before",
       "label": "floreasca before · native district",
       "kind": "district",
-      "image": "fix-skytower/floreasca-before.png",
+      "image": "assets/landmarks/skytower/native-20261110/floreasca-before.png",
       "sourceCommit": "f95e4b052417ac104e5f902a62470883fb64ffa7",
       "sha256": "4dde15eca8f91b932625b27c322df7abccadb9b467a6136f15887e40e6b9fc9a",
       "capturedAt": "2026-11-10T20:16:04.607Z",
@@ -290,7 +290,7 @@
       "id": "floreasca-after",
       "label": "floreasca after · native district",
       "kind": "district",
-      "image": "fix-skytower/floreasca-after.png",
+      "image": "assets/landmarks/skytower/native-20261110/floreasca-after.png",
       "sourceCommit": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
       "sha256": "0f805fa6f5b9b2d7e4af3ea0e8afd8109724282c8eb3e02a19f3c6f23a211371",
       "capturedAt": "2026-11-10T20:16:03.632Z",
@@ -316,7 +316,7 @@
       "id": "pipera-before",
       "label": "pipera before · native district",
       "kind": "district",
-      "image": "fix-skytower/pipera-before.png",
+      "image": "assets/landmarks/skytower/native-20261110/pipera-before.png",
       "sourceCommit": "f95e4b052417ac104e5f902a62470883fb64ffa7",
       "sha256": "863ff74a1b12be7a85ff126c06d862188db5aeee87fa422a68f99710bca22e5b",
       "capturedAt": "2026-11-10T20:17:44.358Z",
@@ -342,7 +342,7 @@
       "id": "pipera-after",
       "label": "pipera after · native district",
       "kind": "district",
-      "image": "fix-skytower/pipera-after.png",
+      "image": "assets/landmarks/skytower/native-20261110/pipera-after.png",
       "sourceCommit": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
       "sha256": "a75f5abb313a55bf11cdfadd308a2d4b1da0bb8c7b007e11cf7b3522589b5a5b",
       "capturedAt": "2026-11-10T20:17:44.590Z",
@@ -363,6 +363,15 @@
         "season": "autumn"
       },
       "scope": "Original native district images, explicit fixed poses and one tiny camera movement. These establish the reported SkyTower skin and source-owned duplicate correction, not all-district fidelity, full journeys, hardware FPS or the other curtain-wall reports. All counters below were read after the corresponding screenshot native frames."
+    }
+  ],
+  "nativeProofs": [
+    {
+      "label": "Native SkyTower facade and exact coarse source owner",
+      "report": "assets/landmarks/skytower/native-20261110/summary.json",
+      "sourceCommit": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
+      "passed": true,
+      "scope": "Reported-area appearance, complete wall partition, exact source identity, all8constructors and foot/a0H0M. The unchanged Arnia route failure keeps the broad survey incomplete."
     }
   ]
 }

@@ -374,6 +374,8 @@ Church facade windows now fit whole rows between the base and eaves, avoiding pa
 
 Hermes and BOB facade cladding now partitions each wall into glazing, spandrels and structural strips. Glass no longer overlaps the fins or white corner panels; source footprints, heights, courtyards and collision volumes are retained. Original reported-view High/Ultra captures, small camera offsets, four geometry controls and foot/a pass. The paired Pipera sweep retains the same 92 existing findings. The overview includes the before/after facade comparison and refreshed three-view studies.
 
-Balcony parapets now return to the facade at both ends; enclosed balcony sides also continue above the guard. Native reported-view acceptance is pending.
+Balcony parapets now return to the facade at both ends; enclosed balcony sides also continue above the guard. Reported High/Ultra views and small camera offsets pass; the original before/after comparison is in the overview.
 
-Residential sides of shopfront buildings use one complete ground-storey window row below the shop datum, preserving the upper-storey alignment and source dimensions. This prevents negative UV repetition from drawing partial windows at ground level; native checks are pending.
+Residential sides of shopfront buildings use one complete ground-storey window row below the shop datum, preserving the upper-storey alignment and source dimensions. This prevents negative UV repetition from drawing partial windows at ground level; reported native High/Ultra checks pass.
+
+Floreasca reports4/5 pass foot/a with0high/0medium; two low performance findings remain recorded. Paired visual coverage6/6 keeps identical36existing findings, with250peakdrawcalls and863641triangles. This does not complete the other district defects.

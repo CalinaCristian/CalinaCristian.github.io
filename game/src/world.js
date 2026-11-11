@@ -51,6 +51,7 @@ import { BASARAB_PLATFORMS } from './basarab-source.js';
 import { raisedRoadTriangles } from './basarab-anchor-clearance.js';
 import { buildRailRoadsideClearance } from './rail-roadside.js';
 import { districtTramSweep } from './tram-sweep.js';
+import { planOverlapCuts } from './building-overlap.js';
 import { buildCoveredRoadModels } from './covered-road-models.js';
 import { roadMiter, needsRoadBevelPad } from './road-joins.js';
 import { markingArea, clipMarkingHalfPlane, clipMarkingConvex, subtractMarkingConvex, clipAffineMarkingRange, buildMarkingStations, markingDashIntervals } from './road-markings.js';
@@ -3511,6 +3512,24 @@ export async function buildWorld(city, renderer, opts = {}) {
         bRecs.push(...residuals);
         assemblyAudit.push({ mode: spec.mode, outline: data.buildingIds?.[base.i] || base.i, parts: indices.map(i => data.buildingIds?.[i] || i), residualArea: residuals.reduce((sum, p) => sum + p.area, 0), residualHeight: residualH, residualHeightSource: spec.residualHeightSource, residualHeights: [...new Set(residuals.map(p => p.h))].sort((a, b) => a - b), cells: residuals.length });
     }
+    // ---- overlapping source buildings (building-overlap.js): a lower building is cut to stop at a taller one's walls
+    const overlapCuts = { pairs: 0, cut: 0, removedM2: 0, skipped: {}, samples: [] };
+    {
+        const plan = planOverlapCuts(bRecs);
+        for (const q of plan.skipped) overlapCuts.skipped[q.reason] = (overlapCuts.skipped[q.reason] || 0) + 1;
+        for (const cut of plan.cuts) {
+            const L = cut.lower; overlapCuts.pairs += cut.tallers.length; overlapCuts.removedM2 += cut.removedM2;
+            if (overlapCuts.samples.length < 40) overlapCuts.samples.push({ lower: L.sourceId ?? L.i, tallers: cut.tallers.map(t => t.sourceId ?? t.i), overlapM2: Math.round(cut.overlapM2), pieces: cut.pieces.length });
+            L.skip = true; L.overlapCutBy = cut.tallers.map(t => t.i); overlapCuts.cut++;
+            const primary = cut.pieces.reduce((a, b) => Math.abs(signedArea(b)) > Math.abs(signedArea(a)) ? b : a, cut.pieces[0]);
+            for (const ring of cut.pieces) {
+                let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
+                const own = ring === primary; // the name, sign and ground-floor tenant stay on the largest piece
+                bRecs.push({ ...L, i: bRecs.length, ring, holes: [], c: centroid(ring), x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false, derivedFrom: L.i, overlapCut: true, name: own ? L.name : '', flags: own ? L.flags : (L.flags & ~(1 | 2 | 8)) });
+            }
+        }
+        overlapCuts.removedM2 = Math.round(overlapCuts.removedM2);
+    }
     for(const b of bRecs)if(b.derivedFrom!==undefined)configurePassages(b);
     const buildingIndex = (index, x, z) => {
         const b = bRecs[index];
@@ -4387,8 +4406,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             continue;
         }
         const surface = b.sourceSurface || b.assemblySurface;
-        const brng = makeRng(b.i * 7919 + 13);
-        const AR = !b.roofProfile && !b.assembly && !b.sourceSurface && !b.holes.length && !b.passages?.length && b.arch && ARCH ? ARCH.emit(b, c, makeRng(b.i * 7919 + 17)) : null; // archetype roofs do not yet support courtyards
+        const seedI = b.overlapCut ? b.derivedFrom : b.i; // (the pieces of a cut building keep its one colour and style)
+        const brng = makeRng(seedI * 7919 + 13);
+        const AR = !b.roofProfile && !b.assembly && !b.sourceSurface && !b.holes.length && !b.passages?.length && b.arch && ARCH ? ARCH.emit(b, c, makeRng(seedI * 7919 + 17)) : null; // archetype roofs do not yet support courtyards
         // (2026-11-08) Bucharest villas keep the interwar facade tiles but the villa quarter's warmer plasters (cream, ochre,
         // pale yellow, salmon, off-white, sage — Floreasca / Dorobanți), not the interwar blocks' greys
         const pal = (b.villa && VILLA_PAL) || palette[b.style] || palette.plain;
@@ -4464,7 +4484,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (shop && !(b.shopFaces && !b.shopFaces[k])) { // (researched shopfronts: street faces only)
                 // (district worlds: the shopfront's frame / piers take a light tint of the building's plaster, so a unit in
                 //  an old house reads as windows in a rendered wall, not an aluminium curtain)
-                mb.wall(ax, az, bx, bz, y0, yShop, nx, nz, distId ? mixRgb(wallCol, [255, 255, 255], 0.45) : rgb('#ffffff'), perim / 16, (perim + L) / 16, 0, 1, TILE.shop + (b.i % 2) * 8);
+                mb.wall(ax, az, bx, bz, y0, yShop, nx, nz, distId ? mixRgb(wallCol, [255, 255, 255], 0.45) : rgb('#ffffff'), perim / 16, (perim + L) / 16, 0, 1, TILE.shop + (seedI % 2) * 8);
                 mb.wall(ax, az, bx, bz, yShop, wallTop, nx, nz, wallCol, u0, u1, 0, (wallTop - yShop) / (floorH * gr), tile);
                 // night light spill on the sidewalk in front of the shop window (additive decal, 0 by day)
                 if (L > 2.5) {
@@ -6680,7 +6700,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.tramPropEnvelope = tramPropEnvelope;
     stats.tramSweep = tramSweep ? { ...tramSweep.report, conflicts: tramSweepConflicts } : null;
     stats.tramRailings = tramRailings;
-    stats.landmarkWaterFootprints = landmarkWaterFootprints; // (world-space basin outlines: audits of what stands in or over them)
+    stats.landmarkWaterFootprints = landmarkWaterFootprints;
+    stats.buildingOverlapCuts = overlapCuts; // (world-space basin outlines: audits of what stands in or over them)
     stats.bridgeGuardCompletion = guardCompletion;
     stats.basarabLamps = basarabLamps;
     stats.barrierJoins = walls.barrierJoins || null;

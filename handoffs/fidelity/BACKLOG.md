@@ -18,7 +18,6 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Unirii | #25 facade flicker near the ground floor | not reproduced in still captures (street-level capture at the pose shows a park) |
 | Unirii | L22 junction markings (67, -189) | re-checked 2026-11-11 (capture + Street View, Bd. Corneliu Coposu): approaches carry lane lines and whole crossings, the junction interior is unmarked in both; owner to give a pose if a specific marking is missing |
 | Romană | L23 sign flicker (Penny) | not reproducible: no Penny sign or POI in the current Romană data; facade signs stand 0.14 m off their walls; owner to give the pose if it still flickers |
-
 | Floreasca | #10 courtyard windows and inner slab | the slab is a mapped building part; owner question, not a defect yet |
 | Bellevue | #67 / L15 pedestrian pileups at closures | mitigated on branch (walkers blocked head-on by peers on a crossing step through after 1.5 s; walkers boxed in by a closure both ways leave the road); the headless probe still shows walkers frozen mid-crossing with no recorded blocker, so re-check live |
 | SeaTac | #59 / #60 garage helix and ramps | partly: edge bands open where the mapped ramps pass (74136408); trench walls no longer cross the other ramp at gores and two sunken ramps side by side share one wall (58a8908a). Left: short inferred drop barriers at the gore mouths of the sunken ramps beside the helix (each at its own road's height); the report camera stands inside the garage footprint, where the garage is cut away |

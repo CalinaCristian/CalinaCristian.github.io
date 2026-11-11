@@ -381,3 +381,5 @@ Residential sides of shopfront buildings use one complete ground-storey window r
 Floreasca reports4/5 pass foot/a with0high/0medium; two low performance findings remain recorded. Paired visual coverage6/6 keeps identical36existing findings, with250peakdrawcalls and863641triangles. This does not complete the other district defects.
 
 The GTS team lead stands in the clear central aisle beside the rear desk, instead of intersecting its tabletop and monitor. Native interaction and visual checks are pending.
+
+GTS desk-overlap repair: the overview includes original before/after room views and desktop/390px native conversation checks from sourcee83e9bf1. The actual room layout remains an interpretation; this narrow fix does not certify the full office story route.

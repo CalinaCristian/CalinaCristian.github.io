@@ -1,0 +1,1008 @@
+{
+  "schemaVersion": 1,
+  "report": 24,
+  "baselineSource": "54ab3d3effbaf6251510fa0b54d13de68291f4ff",
+  "candidateSource": "e83e9bf12b6f9b1a73508282fcbdc7be9d4b4269",
+  "scope": "Original native GTS room appearance and E interaction. Controlled initial room entry and camera setup; no exact owner pose supplied. Automatic RAF paused with explicit native frames. Phone-width viewport in a desktop Chromium context; not physical-phone or ordinary street approach acceptance.",
+  "captures": [
+    {
+      "name": "gts-host-desktop",
+      "file": "before.png",
+      "capturedAt": "2026-11-11T00:01:45.601Z",
+      "sha256": "b48f0df7b5eceb023fc2a3bf382c0e4f63d2f1fd0c76806693bdd9fdd2e17845",
+      "mode": "office",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "cond-btn",
+          "text": "☀️",
+          "title": "Time, weather & season (K)",
+          "rect": {
+            "x": 1020,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "cond-btn"
+        },
+        {
+          "id": "pause-btn",
+          "text": "⏸",
+          "title": "Pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "Copy location · F8",
+          "title": "",
+          "rect": {
+            "x": 25,
+            "y": 667,
+            "width": 116.734375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Places",
+          "title": "",
+          "rect": {
+            "x": 147.734375,
+            "y": 667,
+            "width": 53.375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Drone · G",
+          "title": "",
+          "rect": {
+            "x": 207.109375,
+            "y": 667,
+            "width": 71.125,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        }
+      ],
+      "source": "54ab3d3effbaf6251510fa0b54d13de68291f4ff",
+      "setup": {
+        "state": "office",
+        "npc": {
+          "x": 2.2,
+          "z": -2.6,
+          "yaw": 0.027271916279053454,
+          "title": "Team lead",
+          "persona": "lead"
+        },
+        "boxes": [
+          {
+            "x0": -3.4000000000000004,
+            "x1": -1.8,
+            "z0": -2.6,
+            "z1": -1.8000000000000003
+          },
+          {
+            "x0": -3.4000000000000004,
+            "x1": -1.8,
+            "z0": -0.10000000000000003,
+            "z1": 0.7
+          },
+          {
+            "x0": 1.8,
+            "x1": 3.4000000000000004,
+            "z0": -0.10000000000000003,
+            "z1": 0.7
+          },
+          {
+            "x0": 1.8,
+            "x1": 3.4000000000000004,
+            "z0": -2.6,
+            "z1": -1.8000000000000003
+          },
+          {
+            "x0": -3.25,
+            "x1": -2.3499999999999996,
+            "z0": 2.3499999999999996,
+            "z1": 3.25
+          },
+          {
+            "x0": 1.7999999999999998,
+            "x1": 4,
+            "z0": 3.6,
+            "z1": 4.2
+          },
+          {
+            "x0": -2.95,
+            "x1": -2.25,
+            "z0": -1.9500000000000002,
+            "z1": -1.25
+          },
+          {
+            "x0": -2.95,
+            "x1": -2.25,
+            "z0": 0.55,
+            "z1": 1.25
+          },
+          {
+            "x0": 2.25,
+            "x1": 2.95,
+            "z0": 0.55,
+            "z1": 1.25
+          },
+          {
+            "x0": 1.9000000000000001,
+            "x1": 2.5,
+            "z0": -2.9,
+            "z1": -2.3000000000000003
+          }
+        ],
+        "camera": [
+          0,
+          0,
+          0
+        ],
+        "view": {
+          "x": 0.4,
+          "z": -0.6,
+          "heading": -0.7328151017865067,
+          "pitch": 0
+        },
+        "window": {
+          "active": true,
+          "reason": null
+        },
+        "report": {
+          "schemaVersion": 1,
+          "inspection": true,
+          "reportedAt": "2026-11-11T00:01:31.587Z",
+          "release": "game-a240db509dc002f1",
+          "source": "d708f38fe255491e30aa49d14cc6d8938dfb9e70",
+          "city": "bucharest",
+          "district": "unirii",
+          "visit": null,
+          "scene": "unirii",
+          "office": "gts",
+          "mode": "office",
+          "drone": false,
+          "geographic": {
+            "lat": 44.4267882,
+            "lon": 26.1010138
+          },
+          "position": {
+            "x": -634.858,
+            "y": 0.24,
+            "z": 323.596
+          },
+          "camera": {
+            "eye": [
+              0.4,
+              1.62,
+              -0.6
+            ],
+            "bearing": 41.987,
+            "pitch": 0,
+            "fov": 71.55760156614281
+          },
+          "conditions": {
+            "date": "2026-11-11T10:31:31.586Z",
+            "timeZone": "Europe/Bucharest",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "performance": {
+            "fps": 0,
+            "frameMs": 0,
+            "drawCalls": 335,
+            "triangles": 844441,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1,
+            "trafficUpdateMs": 18.31,
+            "vehicles": 306,
+            "pedestrians": 560
+          },
+          "url": "http://127.0.0.1:40945/game/?inspect=1"
+        }
+      }
+    },
+    {
+      "name": "gts-host-desktop",
+      "file": "after.png",
+      "capturedAt": "2026-11-11T00:06:34.628Z",
+      "sha256": "b4086b0139e0289e62b2b4b7b6f869db60176ec450334d8e09362d92ec3803a1",
+      "mode": "office",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "cond-btn",
+          "text": "☀️",
+          "title": "Time, weather & season (K)",
+          "rect": {
+            "x": 1020,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "cond-btn"
+        },
+        {
+          "id": "pause-btn",
+          "text": "⏸",
+          "title": "Pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "Copy location · F8",
+          "title": "",
+          "rect": {
+            "x": 25,
+            "y": 667,
+            "width": 116.734375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Places",
+          "title": "",
+          "rect": {
+            "x": 147.734375,
+            "y": 667,
+            "width": 53.375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Drone · G",
+          "title": "",
+          "rect": {
+            "x": 207.109375,
+            "y": 667,
+            "width": 71.125,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        }
+      ],
+      "source": "e83e9bf12b6f9b1a73508282fcbdc7be9d4b4269",
+      "setup": {
+        "state": "office",
+        "npc": {
+          "x": 0.8,
+          "z": -2.8,
+          "yaw": -1.0114414194546293,
+          "title": "Team lead",
+          "persona": "lead"
+        },
+        "boxes": [
+          {
+            "x0": -3.4000000000000004,
+            "x1": -1.8,
+            "z0": -2.6,
+            "z1": -1.8000000000000003
+          },
+          {
+            "x0": -3.4000000000000004,
+            "x1": -1.8,
+            "z0": -0.10000000000000003,
+            "z1": 0.7
+          },
+          {
+            "x0": 1.8,
+            "x1": 3.4000000000000004,
+            "z0": -0.10000000000000003,
+            "z1": 0.7
+          },
+          {
+            "x0": 1.8,
+            "x1": 3.4000000000000004,
+            "z0": -2.6,
+            "z1": -1.8000000000000003
+          },
+          {
+            "x0": -3.25,
+            "x1": -2.3499999999999996,
+            "z0": 2.3499999999999996,
+            "z1": 3.25
+          },
+          {
+            "x0": 1.7999999999999998,
+            "x1": 4,
+            "z0": 3.6,
+            "z1": 4.2
+          },
+          {
+            "x0": -2.95,
+            "x1": -2.25,
+            "z0": -1.9500000000000002,
+            "z1": -1.25
+          },
+          {
+            "x0": -2.95,
+            "x1": -2.25,
+            "z0": 0.55,
+            "z1": 1.25
+          },
+          {
+            "x0": 2.25,
+            "x1": 2.95,
+            "z0": 0.55,
+            "z1": 1.25
+          },
+          {
+            "x0": 0.5,
+            "x1": 1.1,
+            "z0": -3.0999999999999996,
+            "z1": -2.5
+          }
+        ],
+        "camera": [
+          0,
+          0,
+          0
+        ],
+        "view": {
+          "x": 0.4,
+          "z": -0.6,
+          "heading": -0.7328151017865067,
+          "pitch": 0
+        },
+        "window": {
+          "active": true,
+          "reason": null
+        },
+        "report": {
+          "schemaVersion": 1,
+          "inspection": true,
+          "reportedAt": "2026-11-11T00:06:23.413Z",
+          "release": "game-0aecc01ea5d88606",
+          "source": "7f592fce2df634139633fa09f134f45a4348fb48",
+          "city": "bucharest",
+          "district": "unirii",
+          "visit": null,
+          "scene": "unirii",
+          "office": "gts",
+          "mode": "office",
+          "drone": false,
+          "geographic": {
+            "lat": 44.4267882,
+            "lon": 26.1010138
+          },
+          "position": {
+            "x": -634.858,
+            "y": 0.24,
+            "z": 323.596
+          },
+          "camera": {
+            "eye": [
+              0.4,
+              1.62,
+              -0.6
+            ],
+            "bearing": 41.987,
+            "pitch": 0,
+            "fov": 71.55760156614281
+          },
+          "conditions": {
+            "date": "2026-11-11T10:31:23.413Z",
+            "timeZone": "Europe/Bucharest",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "performance": {
+            "fps": 0,
+            "frameMs": 0,
+            "drawCalls": 335,
+            "triangles": 844901,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1,
+            "trafficUpdateMs": 13.76,
+            "vehicles": 306,
+            "pedestrians": 560
+          },
+          "url": "http://127.0.0.1:42957/game/?inspect=1"
+        }
+      }
+    },
+    {
+      "name": "gts-host-conversation",
+      "file": "conversation.png",
+      "capturedAt": "2026-11-11T00:06:39.219Z",
+      "sha256": "ef247d18b8813894292e86a0209a47a8129a0121c0e45e03aeb8c8a599d7e13a",
+      "mode": "office",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "",
+          "text": "×",
+          "title": "Pause conversation (Esc)",
+          "rect": {
+            "x": 1201,
+            "y": 485.25,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "panel"
+        },
+        {
+          "id": "",
+          "text": "↵Continue →",
+          "title": "",
+          "rect": {
+            "x": 643,
+            "y": 693,
+            "width": 602,
+            "height": 48
+          },
+          "centerHit": true,
+          "hit": "panel"
+        },
+        {
+          "id": "",
+          "text": "Copy location · F8",
+          "title": "",
+          "rect": {
+            "x": 25,
+            "y": 667,
+            "width": 116.734375,
+            "height": 36
+          },
+          "centerHit": false,
+          "hit": "panel"
+        },
+        {
+          "id": "",
+          "text": "Places",
+          "title": "",
+          "rect": {
+            "x": 147.734375,
+            "y": 667,
+            "width": 53.375,
+            "height": 36
+          },
+          "centerHit": false,
+          "hit": "panel"
+        },
+        {
+          "id": "",
+          "text": "Drone · G",
+          "title": "",
+          "rect": {
+            "x": 207.109375,
+            "y": 667,
+            "width": 71.125,
+            "height": 36
+          },
+          "centerHit": false,
+          "hit": "panel"
+        }
+      ],
+      "source": "e83e9bf12b6f9b1a73508282fcbdc7be9d4b4269",
+      "setup": {
+        "state": "office",
+        "npc": {
+          "x": 0.8,
+          "z": -2.8,
+          "yaw": -1.0114414194546293,
+          "title": "Team lead",
+          "persona": "lead"
+        },
+        "boxes": [
+          {
+            "x0": -3.4000000000000004,
+            "x1": -1.8,
+            "z0": -2.6,
+            "z1": -1.8000000000000003
+          },
+          {
+            "x0": -3.4000000000000004,
+            "x1": -1.8,
+            "z0": -0.10000000000000003,
+            "z1": 0.7
+          },
+          {
+            "x0": 1.8,
+            "x1": 3.4000000000000004,
+            "z0": -0.10000000000000003,
+            "z1": 0.7
+          },
+          {
+            "x0": 1.8,
+            "x1": 3.4000000000000004,
+            "z0": -2.6,
+            "z1": -1.8000000000000003
+          },
+          {
+            "x0": -3.25,
+            "x1": -2.3499999999999996,
+            "z0": 2.3499999999999996,
+            "z1": 3.25
+          },
+          {
+            "x0": 1.7999999999999998,
+            "x1": 4,
+            "z0": 3.6,
+            "z1": 4.2
+          },
+          {
+            "x0": -2.95,
+            "x1": -2.25,
+            "z0": -1.9500000000000002,
+            "z1": -1.25
+          },
+          {
+            "x0": -2.95,
+            "x1": -2.25,
+            "z0": 0.55,
+            "z1": 1.25
+          },
+          {
+            "x0": 2.25,
+            "x1": 2.95,
+            "z0": 0.55,
+            "z1": 1.25
+          },
+          {
+            "x0": 0.5,
+            "x1": 1.1,
+            "z0": -3.0999999999999996,
+            "z1": -2.5
+          }
+        ],
+        "camera": [
+          0,
+          0,
+          0
+        ],
+        "view": {
+          "x": 0.4,
+          "z": -0.6,
+          "heading": -0.7328151017865067,
+          "pitch": 0
+        },
+        "window": {
+          "active": true,
+          "reason": null
+        },
+        "report": {
+          "schemaVersion": 1,
+          "inspection": true,
+          "reportedAt": "2026-11-11T00:06:23.413Z",
+          "release": "game-0aecc01ea5d88606",
+          "source": "7f592fce2df634139633fa09f134f45a4348fb48",
+          "city": "bucharest",
+          "district": "unirii",
+          "visit": null,
+          "scene": "unirii",
+          "office": "gts",
+          "mode": "office",
+          "drone": false,
+          "geographic": {
+            "lat": 44.4267882,
+            "lon": 26.1010138
+          },
+          "position": {
+            "x": -634.858,
+            "y": 0.24,
+            "z": 323.596
+          },
+          "camera": {
+            "eye": [
+              0.4,
+              1.62,
+              -0.6
+            ],
+            "bearing": 41.987,
+            "pitch": 0,
+            "fov": 71.55760156614281
+          },
+          "conditions": {
+            "date": "2026-11-11T10:31:23.413Z",
+            "timeZone": "Europe/Bucharest",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "performance": {
+            "fps": 0,
+            "frameMs": 0,
+            "drawCalls": 335,
+            "triangles": 844901,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1,
+            "trafficUpdateMs": 13.76,
+            "vehicles": 306,
+            "pedestrians": 560
+          },
+          "url": "http://127.0.0.1:42957/game/?inspect=1"
+        }
+      }
+    },
+    {
+      "name": "gts-host-phone",
+      "file": "phone.png",
+      "capturedAt": "2026-11-11T00:06:40.345Z",
+      "sha256": "21215a2a37e0c2cd6866e31ef89fab41c711c476303ce3f0e69a9931ad4ebfcf",
+      "mode": "office",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "",
+          "text": "×",
+          "title": "Pause conversation (Esc)",
+          "rect": {
+            "x": 317,
+            "y": 509.25,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "panel"
+        },
+        {
+          "id": "",
+          "text": "↵Continue →",
+          "title": "",
+          "rect": {
+            "x": 29,
+            "y": 739,
+            "width": 332,
+            "height": 48
+          },
+          "centerHit": true,
+          "hit": "panel"
+        },
+        {
+          "id": "",
+          "text": "Copy location · F8",
+          "title": "",
+          "rect": {
+            "x": 25,
+            "y": 628,
+            "width": 100.28125,
+            "height": 36
+          },
+          "centerHit": false,
+          "hit": "panel"
+        },
+        {
+          "id": "",
+          "text": "Places",
+          "title": "",
+          "rect": {
+            "x": 131.28125,
+            "y": 628,
+            "width": 47.484375,
+            "height": 36
+          },
+          "centerHit": false,
+          "hit": "panel"
+        },
+        {
+          "id": "",
+          "text": "Drone · G",
+          "title": "",
+          "rect": {
+            "x": 184.765625,
+            "y": 628,
+            "width": 62.265625,
+            "height": 36
+          },
+          "centerHit": false,
+          "hit": "panel"
+        }
+      ],
+      "source": "e83e9bf12b6f9b1a73508282fcbdc7be9d4b4269",
+      "setup": {
+        "state": "office",
+        "npc": {
+          "x": 0.8,
+          "z": -2.8,
+          "yaw": -1.0114414194546293,
+          "title": "Team lead",
+          "persona": "lead"
+        },
+        "boxes": [
+          {
+            "x0": -3.4000000000000004,
+            "x1": -1.8,
+            "z0": -2.6,
+            "z1": -1.8000000000000003
+          },
+          {
+            "x0": -3.4000000000000004,
+            "x1": -1.8,
+            "z0": -0.10000000000000003,
+            "z1": 0.7
+          },
+          {
+            "x0": 1.8,
+            "x1": 3.4000000000000004,
+            "z0": -0.10000000000000003,
+            "z1": 0.7
+          },
+          {
+            "x0": 1.8,
+            "x1": 3.4000000000000004,
+            "z0": -2.6,
+            "z1": -1.8000000000000003
+          },
+          {
+            "x0": -3.25,
+            "x1": -2.3499999999999996,
+            "z0": 2.3499999999999996,
+            "z1": 3.25
+          },
+          {
+            "x0": 1.7999999999999998,
+            "x1": 4,
+            "z0": 3.6,
+            "z1": 4.2
+          },
+          {
+            "x0": -2.95,
+            "x1": -2.25,
+            "z0": -1.9500000000000002,
+            "z1": -1.25
+          },
+          {
+            "x0": -2.95,
+            "x1": -2.25,
+            "z0": 0.55,
+            "z1": 1.25
+          },
+          {
+            "x0": 2.25,
+            "x1": 2.95,
+            "z0": 0.55,
+            "z1": 1.25
+          },
+          {
+            "x0": 0.5,
+            "x1": 1.1,
+            "z0": -3.0999999999999996,
+            "z1": -2.5
+          }
+        ],
+        "camera": [
+          0,
+          0,
+          0
+        ],
+        "view": {
+          "x": 0.4,
+          "z": -0.6,
+          "heading": -0.7328151017865067,
+          "pitch": 0
+        },
+        "window": {
+          "active": true,
+          "reason": null
+        },
+        "report": {
+          "schemaVersion": 1,
+          "inspection": true,
+          "reportedAt": "2026-11-11T00:06:23.413Z",
+          "release": "game-0aecc01ea5d88606",
+          "source": "7f592fce2df634139633fa09f134f45a4348fb48",
+          "city": "bucharest",
+          "district": "unirii",
+          "visit": null,
+          "scene": "unirii",
+          "office": "gts",
+          "mode": "office",
+          "drone": false,
+          "geographic": {
+            "lat": 44.4267882,
+            "lon": 26.1010138
+          },
+          "position": {
+            "x": -634.858,
+            "y": 0.24,
+            "z": 323.596
+          },
+          "camera": {
+            "eye": [
+              0.4,
+              1.62,
+              -0.6
+            ],
+            "bearing": 41.987,
+            "pitch": 0,
+            "fov": 71.55760156614281
+          },
+          "conditions": {
+            "date": "2026-11-11T10:31:23.413Z",
+            "timeZone": "Europe/Bucharest",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "performance": {
+            "fps": 0,
+            "frameMs": 0,
+            "drawCalls": 335,
+            "triangles": 844901,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1,
+            "trafficUpdateMs": 13.76,
+            "vehicles": 306,
+            "pedestrians": 560
+          },
+          "url": "http://127.0.0.1:42957/game/?inspect=1"
+        }
+      }
+    }
+  ],
+  "clearanceBefore": {
+    "npc": {
+      "x": 2.2,
+      "z": -2.6,
+      "yaw": 0.8124065845645483,
+      "title": "Team lead",
+      "persona": "lead"
+    },
+    "radius": 0.3,
+    "overlaps": [
+      {
+        "x0": 1.8,
+        "x1": 3.4000000000000004,
+        "z0": -2.6,
+        "z1": -1.8000000000000003
+      }
+    ],
+    "hostCollider": {
+      "x0": 1.9000000000000001,
+      "x1": 2.5,
+      "z0": -2.9,
+      "z1": -2.3000000000000003
+    },
+    "stations": [
+      {
+        "x": 2.2,
+        "z": -2.6
+      },
+      {
+        "x": 2.2,
+        "z": -2.6
+      },
+      {
+        "x": 2.2,
+        "z": -2.6
+      }
+    ],
+    "view": {
+      "x": 0.4,
+      "z": -0.6,
+      "heading": -0.7328151017865067,
+      "pitch": 0
+    },
+    "mode": "office"
+  },
+  "clearanceAfter": {
+    "npc": {
+      "x": 0.8,
+      "z": -2.8,
+      "yaw": -1.7730036737933497,
+      "title": "Team lead",
+      "persona": "lead"
+    },
+    "radius": 0.3,
+    "overlaps": [],
+    "hostCollider": {
+      "x0": 0.5,
+      "x1": 1.1,
+      "z0": -3.0999999999999996,
+      "z1": -2.5
+    },
+    "stations": [
+      {
+        "x": 0.8,
+        "z": -2.8
+      },
+      {
+        "x": 0.8,
+        "z": -2.8
+      },
+      {
+        "x": 0.8,
+        "z": -2.8
+      }
+    ],
+    "view": {
+      "x": 0.4,
+      "z": -0.6,
+      "heading": -0.7328151017865067,
+      "pitch": 0
+    },
+    "mode": "office"
+  },
+  "phonePause": {
+    "talking": false,
+    "panelOpen": false
+  },
+  "phoneResume": {
+    "talking": true,
+    "overflow": false,
+    "npc": {
+      "x": 0.8,
+      "z": -2.8,
+      "yaw": -1.121446153382272,
+      "title": "Team lead",
+      "persona": "lead"
+    },
+    "frame": {
+      "x": 2.8716779980820055,
+      "z": -3.7990747080488685,
+      "heading": 2.0201465002075216,
+      "pitch": -0.3,
+      "snap": false
+    }
+  },
+  "validation": {
+    "logic": "foot,a:0high0medium1LOWsoftwareGLFPS,144wallsec,640x360Low,legacy0vehicles250peds scope",
+    "fullSizeReviewed": true,
+    "runtimeErrors": [],
+    "limits": "Room identity, historical interior authenticity, complete story route, GPU hardware performance and remaining office reports stay open. Initial old phone observer called endTalk without closing the panel and returned undefined; retained privately as failed evidence, not a pass."
+  }
+}

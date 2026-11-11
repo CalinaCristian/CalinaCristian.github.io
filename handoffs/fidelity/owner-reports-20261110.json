@@ -1676,8 +1676,9 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Prepared candidate; native validation pending",
+        "deliveryNote": "Complete fascia-board reservations replace centre-distance checks. Eight positive/negative layout controls pass. Original reports27/36 must still be captured and reviewed; not published.",
+        "candidate": "e417cb92"
       }
     },
     {
@@ -1806,8 +1807,9 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Native validated; district gates in progress",
+        "deliveryNote": "Original High/Ultra view clear after physical trunk-versus-rendered-rim correction. Sixteen conflicts excluded;18,590retained tree/collider records, source data and basin geometry unchanged. Foot/a0H0M; nine affected atlas images refreshed. Paired full district sweeps running; not published or closed.",
+        "candidate": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195"
       }
     },
     {
@@ -2261,8 +2263,9 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Prepared candidate; native validation pending",
+        "deliveryNote": "Same shared fascia-layout candidate as report27. No original-camera acceptance yet; pharmacy/blade signs remain explicitly unverified.",
+        "candidate": "e417cb92"
       }
     },
     {
@@ -3526,8 +3529,8 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Source investigation in progress",
+        "deliveryNote": "Official OSM terminal assembly and additional elevated parts/jetbridge records recovered. Authored and generic representations require original-camera comparison; legitimate mapped parts must be retained. No fix accepted."
       }
     },
     {
@@ -4121,11 +4124,11 @@
       "status": "reported-not-yet-accepted",
       "image": "Owner screenshot in conversation.",
       "work": {
-        "candidate": "1816a467546c3b387a2c99e33f31eb861a6ef127",
+        "candidate": "a61e09a2f42fe1296abe63b9e388007117d28126",
         "evidence": "NIGHT-DRONE-20261110.md",
         "scope": "Elevated viewed-ground coverage only; apron floodlight/source coverage and original screenshot context remain unresolved. Not published.",
-        "deliveryStatus": "Staged candidate",
-        "deliveryNote": "Active-camera lamp-selection candidate exists; the reported airport night view and apron coverage are not accepted."
+        "deliveryStatus": "Held partial candidate",
+        "deliveryNote": "Four native elevated views and foot/a0H0M pass for bounded viewed-ground selection of existing lights. Airport apron remains dark; no independently verified floodlight layout yet. Unpublished; report remains open."
       }
     },
     {

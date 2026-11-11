@@ -816,5 +816,15 @@
       "scope": "Controlled Medium-quality district sweep plus geometry and office checks. Original reported High/Ultra views are separate. The complete district is not visually or performance accepted: inherited road/building/office findings and two over-budget Pasaj views remain open. This physical-tree correction adds no measured frame cost or findings."
     }
   },
-  "acceptance": "Scoped report29 physical basin/rim conflict fixed; district-wide fidelity and inherited frame-budget failures remain open."
+  "acceptance": "Scoped report29 physical basin/rim conflict fixed; district-wide fidelity and inherited frame-budget failures remain open.",
+  "groundGalleryRefresh": {
+    "sourceCommit": "0a60128ffe26b5ebacf1d865f8c53440d15131ec",
+    "manifest": "../comparison-data/unirii/context/ground-0a60128f/manifest.json",
+    "captures": 16,
+    "viewpoints": 4,
+    "conditions": 4,
+    "errors": 0,
+    "servedHashesUnchanged": true,
+    "scope": "Original matched walking-height appearance fixtures, all sixteen viewed at native size. No continuous route, hardware FPS or district-wide fidelity acceptance."
+  }
 }

@@ -6843,7 +6843,7 @@
   "coverageNote": "98 captured 250 m squares: 26 touch the playable mask, 66 additional squares touch its exact 600 m ring and 6 are optional distant context. Boundary squares also include land beyond the ring.",
   "reviewNote": "Nine affected original-pose game frames inspected at full size after physical fountain/rim tree correction. Earlier comparison reviews remain historical; no new photographic-parity claim.",
   "collectionNotes": {
-    "atlas": "Current complete mixed-source atlas: 80 frames on 0775fdaf, 17 frames on bbaffc0d, 1 frames on 07cc3d6b. Actual per-frame source/date retained; only the conservative structure/separator subset is fresh 07cc3d6b. Full prior current collection archived. Technical aerial settings and separate native limitations remain."
+    "atlas": "Current mixed-source atlas: 76 frames from0775fdaf,12 frombbaffc0d,1 from07cc3d6b and9 fountain/tree retakes fromb2c4ea4a. Each frame retains its actual capture date and source. The nine affected squares were refreshed11November2026; earlier frames are unchanged. Capture coverage is not a fidelity or photographic-parity score."
   },
   "atlasSourceCounts": {
     "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 76,
@@ -6995,8 +6995,8 @@
     "sourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195"
   },
   "groundConditions": {
-    "manifest": "context/ground-dc93023f/manifest.json",
-    "gameSourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+    "manifest": "context/ground-0a60128f/manifest.json",
+    "gameSourceCommit": "0a60128ffe26b5ebacf1d865f8c53440d15131ec",
     "conditionCount": 4,
     "viewpointCount": 4
   }

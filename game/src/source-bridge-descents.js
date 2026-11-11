@@ -41,12 +41,14 @@ export function compileSourceBridgeDescents(data,{coreEdges=[],lanePolygon,padLa
    for(const p of reservePoints){const q=frames.locate(p);if(q)flatReserveM=Math.max(flatReserveM,path.length-q.s);else{const a=path.points.at(-1),b=path.points.at(-2),dx=a[0]-b[0],dz=a[1]-b[1];if((p[0]-a[0])*dx+(p[1]-a[1])*dz< -1e-7)return fail('actual-ground-overlap-outside-bounded-source-field',{point:p});}}
    const incidentGroundReserveM=flatReserveM;
    if(model.modelRampFinishSourceNode!=null){const end=path.stations.get(model.modelRampFinishSourceNode);if(!Number.isFinite(end))return fail('reviewed-model-ramp-finish-vertex-absent');flatReserveM=Math.max(flatReserveM,path.length-end);}
-   const length=path.length-flatReserveM,rise=model.crownHeightM-model.groundHeightM,ramp=smoothTramRamp(length,rise,{maxGrade:model.maxGrade,easeM:model.preferredEaseM});
+   // (2026-11-11) a crown hold keeps the crown height up to a named vertex (a station platform on the deck), the ramp starts there
+   const holdM=model.crownHoldSourceNode!=null?path.stations.get(model.crownHoldSourceNode):0;if(!Number.isFinite(holdM))return fail('reviewed-crown-hold-vertex-absent');
+   const length=path.length-flatReserveM-holdM,rise=model.crownHeightM-model.groundHeightM,ramp=smoothTramRamp(length,rise,{maxGrade:model.maxGrade,easeM:model.preferredEaseM});
    if(!ramp)return fail('finite-source-descent-c1-grade-infeasible',{pathLengthM:path.length,flatReserveM,length,rise});
-   const atStation=s=>model.crownHeightM-ramp.at(s);
+   const atStation=s=>model.crownHeightM-ramp.at(s-holdM);
    const station=p=>{const q=frames.locate(p);if(q)return q.s;for(const[start,at]of [[true,0],[false,path.length]]){const i=start?0:path.points.length-1,a=path.points[i],b=path.points[start?1:i-1],dx=a[0]-b[0],dz=a[1]-b[1];if((p[0]-a[0])*dx+(p[1]-a[1])*dz>=0)return at;}throw Error('Source descent height query outside certified source-section bounds: '+model.id);};
    const atWorld=(x,z)=>atStation(station([x,z]));
-   const profileBreaks=[...ramp.breaks,path.length].sort((a,b)=>a-b);
+   const profileBreaks=[...ramp.breaks.map(b=>b+holdM),holdM,path.length].filter((v,i,a)=>a.indexOf(v)===i).sort((a,b)=>a-b);
    const surfaceRegions=poly=>{
     const result=[];
     for(const cell of frames.cells){const P=clipConvex(poly,cell.poly);if(polygonArea(P)<1e-10)continue;const C=cell.stationCoefficients,at=p=>C[0]*p[0]+C[1]*p[1]+C[2],lo=Math.min(...P.map(at)),hi=Math.max(...P.map(at)),bounds=[lo,...profileBreaks.filter(s=>s>lo+1e-8&&s<hi-1e-8),hi];

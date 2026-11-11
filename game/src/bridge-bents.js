@@ -120,52 +120,61 @@ export function planBridgeBents({ edges, halfWidth, topAt, soffitAt, eachEdge, e
                 if (group.length && m.lo - reach > M.joinGapM) { if (hasRef) break; group = []; reach = -Infinity; }
                 group.push(m); reach = Math.max(reach, m.hi); hasRef = hasRef || m.e === p.e;
             }
-            const lo = Math.min(...group.map(m => m.lo)), hi = Math.max(...group.map(m => m.hi));
-            const seat = Math.min(...group.map(m => m.soffit));
-            const mark = () => { for (const m of group) if (m.e && m.e !== p.e) { const it = owner.get(m.e), c = chains[it.chain]; c.covered.push(it.s0 + (it.forward ? m.u : m.e.len - m.u)); } chain.covered.push(s); };
-            if (seat < M.minWallTopM) return 'tooLow';
-            const at = o => [p.x + nx * o, p.z + nz * o];
-            const wall = seat - M.beamDepthM < M.minBeamSoffitM, soffit = wall ? 0 : seat - M.beamDepthM;
-            // what passes below: nothing under a wall pier; a crosshead must clear it
-            const clear = (from, to) => {
-                for (let o = from + .4; o <= to - .4 + 1e-9; o += 1) {
-                    const [x, z] = at(o), under = lowerSurface(x, z, seat - 1.5); if (!under) continue;
-                    if (wall || soffit - under.y < (under.rail ? M.railClearanceM : M.roadClearanceM)) return false;
+            // (owner, 2026-11-11: "we need those supports across the bridge otherwise it looks like it's floating -- LIKE THE
+            // REAL THING"; Street View at 44.44516, 26.06153: single hammerhead piers stand in the strips between the roads and
+            // tracks below) a frame under the whole group of parallel decks often cannot stand; each deck then tries its own pier
+            const build = (group, single = false) => {
+                const lo = Math.min(...group.map(m => m.lo)), hi = Math.max(...group.map(m => m.hi));
+                const seat = Math.min(...group.map(m => m.soffit));
+                const mark = () => { for (const m of group) if (m.e && m.e !== p.e) { const it = owner.get(m.e), c = chains[it.chain]; c.covered.push(it.s0 + (it.forward ? m.u : m.e.len - m.u)); } chain.covered.push(s); };
+                if (seat < M.minWallTopM) return 'tooLow';
+                const at = o => [p.x + nx * o, p.z + nz * o];
+                const wall = seat - M.beamDepthM < M.minBeamSoffitM, soffit = wall ? 0 : seat - M.beamDepthM;
+                // what passes below: nothing under a wall pier; a crosshead must clear it
+                const clear = (from, to) => {
+                    for (let o = from + .4; o <= to - .4 + 1e-9; o += 1) {
+                        const [x, z] = at(o), under = lowerSurface(x, z, seat - 1.5); if (!under) continue;
+                        if (wall || soffit - under.y < (under.rail ? M.railClearanceM : M.roadClearanceM)) return false;
+                    }
+                    return true;
+                };
+                if (!clear(lo, hi)) return 'lowClearance';
+                const columns = []; let beamLo = lo, beamHi = hi;
+                if (wall) {
+                    // a wall pier needs its whole footprint on free ground
+                    let free = true; for (let o = lo + .5; o <= hi - .5 + 1e-9 && free; o += 1) { const [x, z] = at(o); free = columnFree(x, z, M.beamWidthM * .5, seat - 1.5); }
+                    if (!free) return 'noColumn';
+                } else {
+                    // free column sites under the decks, and up to straddleM outside them (a portal frame over a lower road)
+                    const free = [], step = M.columnSearchStepM, inside = o => o >= lo + M.columnM * .5 && o <= hi - M.columnM * .5;
+                    for (let o = lo - M.straddleM; o <= hi + M.straddleM + 1e-9; o += step) { const [x, z] = at(o); if (columnFree(x, z, M.columnM * .5 + .5, seat - 1.5)) free.push(o); }
+                    // prefer sites under the deck; an outside site costs its distance again
+                    const nearest = (target, from, to) => { let found = null, cost = Infinity; for (const o of free) { if (o < from || o > to) continue; const c = Math.abs(o - target) + (inside(o) ? 0 : Math.min(Math.abs(o - lo), Math.abs(o - hi)) + 2); if (c < cost) { cost = c; found = o; } } return found; };
+                    const width0 = hi - lo, bays = Math.max(1, Math.round(width0 / M.columnPitchM)), pitch = width0 / bays;
+                    let last = nearest(lo + pitch / 2, lo - M.straddleM, lo + M.maxCantileverM);
+                    while (last !== null) {
+                        columns.push({ o: last, x: at(last)[0], z: at(last)[1] });
+                        if (last >= hi - Math.min(M.maxCantileverM, pitch / 2 + step)) break;
+                        last = nearest(last + pitch, last + Math.min(pitch, 4), last + M.maxSpanM);
+                    }
+                    if (!columns.length || hi - columns[columns.length - 1].o > M.maxCantileverM) return 'noColumn';
+                    beamLo = Math.min(lo, columns[0].o - M.columnM * .5 - .2); beamHi = Math.max(hi, columns[columns.length - 1].o + M.columnM * .5 + .2);
+                    if ((beamLo < lo && !clear(beamLo, lo + .8)) || (beamHi > hi && !clear(hi - .8, beamHi))) return 'lowClearance';
+                    if (beamLo < lo || beamHi > hi) report.straddles = (report.straddles || 0) + 1;
                 }
-                return true;
+                const width = beamHi - beamLo;
+                mark();
+                const pedestals = group.filter(m => m.soffit - seat > .05).map(m => ({ o: (m.lo + m.hi) / 2, x: at((m.lo + m.hi) / 2)[0], z: at((m.lo + m.hi) / 2)[1], width: Math.max(1, (m.hi - m.lo) * .7), y0: seat, y1: m.soffit }));
+                const [cx, cz] = at((beamLo + beamHi) / 2);
+                bents.push({ kind: wall ? 'wall' : 'crosshead', x: cx, z: cz, angle: Math.atan2(p.tx, p.tz), tx: p.tx, tz: p.tz, nx, nz, lo: beamLo, hi: beamHi, deckLo: lo, deckHi: hi, width, seat, soffit, columns, pedestals,
+                    members: group.map(m => ({ lo: m.lo, hi: m.hi, top: m.top, soffit: m.soffit, rail: !!(m.rail || m.e?.railDeck) })), chain: chain.id, s, single });
+                report[wall ? 'walls' : 'bents']++;
+                return 'ok';
             };
-            if (!clear(lo, hi)) return 'lowClearance';
-            const columns = []; let beamLo = lo, beamHi = hi;
-            if (wall) {
-                // a wall pier needs its whole footprint on free ground
-                let free = true; for (let o = lo + .5; o <= hi - .5 + 1e-9 && free; o += 1) { const [x, z] = at(o); free = columnFree(x, z, M.beamWidthM * .5, seat - 1.5); }
-                if (!free) return 'noColumn';
-            } else {
-                // free column sites under the decks, and up to straddleM outside them (a portal frame over a lower road)
-                const free = [], step = M.columnSearchStepM, inside = o => o >= lo + M.columnM * .5 && o <= hi - M.columnM * .5;
-                for (let o = lo - M.straddleM; o <= hi + M.straddleM + 1e-9; o += step) { const [x, z] = at(o); if (columnFree(x, z, M.columnM * .5 + .5, seat - 1.5)) free.push(o); }
-                // prefer sites under the deck; an outside site costs its distance again
-                const nearest = (target, from, to) => { let found = null, cost = Infinity; for (const o of free) { if (o < from || o > to) continue; const c = Math.abs(o - target) + (inside(o) ? 0 : Math.min(Math.abs(o - lo), Math.abs(o - hi)) + 2); if (c < cost) { cost = c; found = o; } } return found; };
-                const width0 = hi - lo, bays = Math.max(1, Math.round(width0 / M.columnPitchM)), pitch = width0 / bays;
-                let last = nearest(lo + pitch / 2, lo - M.straddleM, lo + M.maxCantileverM);
-                while (last !== null) {
-                    columns.push({ o: last, x: at(last)[0], z: at(last)[1] });
-                    if (last >= hi - Math.min(M.maxCantileverM, pitch / 2 + step)) break;
-                    last = nearest(last + pitch, last + Math.min(pitch, 4), last + M.maxSpanM);
-                }
-                if (!columns.length || hi - columns[columns.length - 1].o > M.maxCantileverM) return 'noColumn';
-                beamLo = Math.min(lo, columns[0].o - M.columnM * .5 - .2); beamHi = Math.max(hi, columns[columns.length - 1].o + M.columnM * .5 + .2);
-                if ((beamLo < lo && !clear(beamLo, lo + .8)) || (beamHi > hi && !clear(hi - .8, beamHi))) return 'lowClearance';
-                if (beamLo < lo || beamHi > hi) report.straddles = (report.straddles || 0) + 1;
-            }
-            const width = beamHi - beamLo;
-            mark();
-            const pedestals = group.filter(m => m.soffit - seat > .05).map(m => ({ o: (m.lo + m.hi) / 2, x: at((m.lo + m.hi) / 2)[0], z: at((m.lo + m.hi) / 2)[1], width: Math.max(1, (m.hi - m.lo) * .7), y0: seat, y1: m.soffit }));
-            const [cx, cz] = at((beamLo + beamHi) / 2);
-            bents.push({ kind: wall ? 'wall' : 'crosshead', x: cx, z: cz, angle: Math.atan2(p.tx, p.tz), tx: p.tx, tz: p.tz, nx, nz, lo: beamLo, hi: beamHi, deckLo: lo, deckHi: hi, width, seat, soffit, columns, pedestals,
-                members: group.map(m => ({ lo: m.lo, hi: m.hi, top: m.top, soffit: m.soffit, rail: !!(m.rail || m.e?.railDeck) })), chain: chain.id, s });
-            report[wall ? 'walls' : 'bents']++;
-            return 'ok';
+            const r0 = build(group); if (r0 === 'ok' || group.length < 2) return r0;
+            let any = false; for (const m of group) if (!m.rail && build([m], true) === 'ok') any = true;
+            if (any) { report.hammerheads = (report.hammerheads || 0) + 1; return 'ok'; }
+            return r0;
         };
         for (let i = 0; i < count; i++) {
             const s0 = (i + .5) * step; report.stations++;

@@ -6680,6 +6680,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.tramPropEnvelope = tramPropEnvelope;
     stats.tramSweep = tramSweep ? { ...tramSweep.report, conflicts: tramSweepConflicts } : null;
     stats.tramRailings = tramRailings;
+    stats.landmarkWaterFootprints = landmarkWaterFootprints; // (world-space basin outlines: audits of what stands in or over them)
     stats.bridgeGuardCompletion = guardCompletion;
     stats.basarabLamps = basarabLamps;
     stats.barrierJoins = walls.barrierJoins || null;

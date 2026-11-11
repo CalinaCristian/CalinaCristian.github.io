@@ -1316,6 +1316,19 @@ function bMarriott(b) {
 // (way 23492027), 43,760 m² (en.wikipedia). Long curved glass front on Piața Unirii (-x side) with the red
 // "UNIREA" lettering, beige stone end walls; multi-storey car park block behind (OSM 184169515, not modelled).
 // Src: https://en.wikipedia.org/wiki/Unirea_Shopping_Center (43,760 m², 4 floors) ; OSM way 23492027
+/** An inward offset of a footprint that stays inside it and does not fold over itself: the first of `insets` (m) that
+ *  does, or null. */
+function safeInset(poly, insets) {
+    const inside = (x, z) => { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const [xi, zi] = poly[i], [xj, zj] = poly[j]; if (((zi > z) !== (zj > z)) && x < (xj - xi) * (z - zi) / (zj - zi) + xi) c = !c; } return c; };
+    const cross = (a, b, c, d) => { const o = (p, q, r) => (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0]); return o(a, b, c) * o(a, b, d) < 0 && o(c, d, a) * o(c, d, b) < 0; };
+    for (const d of insets) {
+        const q = offset(poly, -d); if (!q || q.length < 3) continue;
+        if (!q.every(([x, z]) => inside(x, z))) continue;
+        let simple = true; for (let i = 0; i < q.length && simple; i++) for (let j = i + 2; j < q.length; j++) { if (i === 0 && j === q.length - 1) continue; if (cross(q[i], q[(i + 1) % q.length], q[j], q[(j + 1) % q.length])) { simple = false; break; } }
+        if (simple) return q;
+    }
+    return null;
+}
 function bUnirea(b) {
     const [p] = P.unirea.map(pts);
     // Independent 2017 façade reference: opaque ribbed metal skin over a glazed ground floor.
@@ -1324,7 +1337,10 @@ function bUnirea(b) {
     b.windows(p,0.3,4.9,4.8,'#415564',{bay:3.2,wf:0.9,hf:0.84,start:0.2,mat:'g',minL:4});
     for(let y=5.2;y<22.8;y+=0.38) b.ring(offset(p,0.09),y,y+0.1,'#c2c5c2');
     b.cornice(p,4.8,0.55,0.45,'#d4d4cc');b.cornice(p,23.4,0.6,0.35,'#575e63');
-    b.prism(offset(p,-12),24,28.5,'#c9c4b9',{topCol:'#aaa69e'});
+    // (owner, 2026-11-11: "this still sticks out") The roof storey is the footprint inset by 12 m. On this concave outline
+    // a plain 12 m inset folds over itself and a slab of it stood out over the street. The inset is used only when every
+    // vertex of it lies inside the footprint and no two of its edges cross; otherwise a smaller one, or none.
+    const top = safeInset(p, [12, 9, 6]); if (top) b.prism(top,24,28.5,'#c9c4b9',{topCol:'#aaa69e'});
     b.colPolygon(p,{y1:24});
 }
 

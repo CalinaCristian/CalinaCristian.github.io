@@ -1333,7 +1333,10 @@ export class Renderer3D {
                 // (owner: "shadows for pedestrians, invisible boxes"). Such meshes (userData.skipNormalPrepass) sit that
                 // prepass out; they are still drawn, lit and shadowed as before.
                 { const pass = this.gtaoPass, hide = pass.overrideVisibility.bind(pass), show = pass.restoreVisibility.bind(pass), parked = [];
-                  pass.overrideVisibility = () => { hide(); pass.scene?.traverse(o => { if (o.userData?.skipNormalPrepass && o.visible) { o.visible = false; parked.push(o); } }); };
+                  // A transparent mesh (fountain jets and spray, glass, water) is drawn opaque by that override material too: the
+                  // fountains' jets became grey ghost shapes ("fountains are still just a shadow"). Transparent meshes sit it out as well.
+                  const skip = o => o.userData?.skipNormalPrepass || (o.isMesh && (Array.isArray(o.material) ? o.material.some(m => m?.transparent) : o.material?.transparent));
+                  pass.overrideVisibility = () => { hide(); pass.scene?.traverse(o => { if (o.visible && skip(o)) { o.visible = false; parked.push(o); } }); };
                   pass.restoreVisibility = () => { for (const o of parked) o.visible = true; parked.length = 0; show(); }; }
                 this.gtaoPass.updateGtaoMaterial({ radius: 0.6, distanceExponent: 1.5, thickness: 1, scale: 1 });
                 this.gtaoPass.blendIntensity = 0.85;

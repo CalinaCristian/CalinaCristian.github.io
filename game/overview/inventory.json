@@ -9,8 +9,8 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "b480d9f039468597e45de673bc61eaefe1adc8ce",
-  "reviewedOn": "2026-11-10",
+  "sourceSha": "4a84d6d6602e95975e47ece966fc9f88cdd50f14",
+  "reviewedOn": "2026-11-11",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
     "districts": 8,
@@ -3446,7 +3446,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "65f8cbc868e30db1438588017969c68146a78f741b361244c2c61b8a0a9a4576"
+      "sha256": "9f404bad437f9ba7cc155c9e3a4c41bf126eea7e169cba9f61cad8bbc5eacec1"
     },
     {
       "path": "specs/README.md",
@@ -3466,7 +3466,7 @@
     },
     {
       "path": "specs/12-buildings-streetscape.md",
-      "sha256": "42b4c76f197defb6ff19dabb22a0d4c79e55792891898157857e8bda5c7548a3"
+      "sha256": "628093aa7edeb553c6d2cceb9e09d43ace8c3014c74a0066e638298a2d1eedb6"
     },
     {
       "path": "specs/13-traffic.md",
@@ -3486,7 +3486,7 @@
     },
     {
       "path": "game/index.html",
-      "sha256": "630797b36ad4fcc9b6a56c21773bec0d933708b221bb64e51ff3eaffb5bf2e60"
+      "sha256": "2076baaeac304bc2426cd4ad6305804b2e9df00bb02c10fb85123328bc02f8fc"
     },
     {
       "path": "game/data/README.md",
@@ -3506,7 +3506,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "ecba2f7342ca144b9e755846c94ee9c3f41d8f30669b0f53f8c62f576925b139"
+      "sha256": "96d4e7943c74c7dff22b381f7df315f689acf71d7cbbe8a6b9267d8db078c23c"
     },
     {
       "path": "game/src/cities.js",
@@ -3526,7 +3526,7 @@
     },
     {
       "path": "game/src/landmarks.js",
-      "sha256": "019dcced08e799b6bd580046172399956586743418d5da65c6586012900b72ce"
+      "sha256": "65f14debdd3fa70ee950bd09155d362c596f4ea381319a5026e0549eef339f2c"
     },
     {
       "path": "game/src/render.js",
@@ -3634,7 +3634,7 @@
     },
     {
       "path": "game/src/trees.js",
-      "sha256": "9ffa650f45cf498f1acfd244d4cc0c9f9c1621b9f8b6a10fd8db6164e83fb70c"
+      "sha256": "968891c47e5ceb7d57989a7ce1e1915fb589fbc771aa61bccb0ead66f5f8a620"
     },
     {
       "path": "game/src/water.js",
@@ -5582,7 +5582,7 @@
     },
     {
       "path": "game/overview/comparison-data/unirii/manifest.json",
-      "sha256": "08987ceb795cf0cc7ddf10d6936c0787e940d20bcd674b0edbf877d31682d066"
+      "sha256": "eb5db070ca09ab8bfa5e914b9734d77bd27eb907636733b4f206ed925aeb4bb6"
     },
     {
       "path": "game/overview/comparison-data/unirii/poses.json",
@@ -5762,7 +5762,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/fountains.json",
-      "sha256": "f10d5007b8453c28f504df5e7a59c222ad207122951c8d43fdda01a8955dd970"
+      "sha256": "947d1746b2fd8b761093aef9689b2c3fd5cc9b64a95b30e754513199033b0666"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/gara.json",
@@ -6066,7 +6066,7 @@
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "f8a0f3bf9a850df60282b485955b468cd09e48320ef1f6c32e78d54aca3fc89b"
+      "sha256": "5ca054e69a0ac6899150607cfee2d7b3a292598fcfd06ec4f400bcfe17c38af3"
     },
     {
       "path": "game/overview/landmark-evidence.js",
@@ -6078,7 +6078,7 @@
     },
     {
       "path": "game/overview/overview.js",
-      "sha256": "bf63001f7ddc427e6e190e858f585201a946a33a4872ed9aeb4312c8183a4984"
+      "sha256": "4bd9269245025955cfd260d1f2cd5ff0ad322a15bbae1f47598995e48513369c"
     },
     {
       "path": "game/overview/perspective-viewer.js",

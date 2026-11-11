@@ -2,7 +2,7 @@
 
 Owner instruction, 10 November 2026: “track everything, goal is to finish all the reported items + work you had to finish anyway”. This goal adds every new report to the existing scope. It does not replace or close earlier requests. Basarab’s source-led reconstruction and sustained CPU/crowd performance remain immediate priorities.
 
-The exact report register is [owner-reports-20261110.json](owner-reports-20261110.json). Original owner screenshots remain in the conversation; no screenshot pixels or source evidence are fabricated. Reports **1,4,5,11,24,41,42,43,49,53,54** are verified live: **11 closed, 60 open**, including staged candidates. Only complete, tested, published fixes may be closed. Grouping related causes never drops individual reported locations. Current delivery and job facts are in [ACTIVE-20261110.md](ACTIVE-20261110.md).
+The exact report register is [owner-reports-20261110.json](owner-reports-20261110.json). Original owner screenshots remain in the conversation; no screenshot pixels or source evidence are fabricated. Reports **1,4,5,11,24,29,41,42,43,49,53,54** are verified live: **12 closed, 59 open**, including staged candidates. Only complete, tested, published fixes may be closed. Grouping related causes never drops individual reported locations. Current delivery and job facts are in [ACTIVE-20261110.md](ACTIVE-20261110.md).
 
 The previous full goal remains [TOURIST-REBUILD-GOAL.md](TOURIST-REBUILD-GOAL.md), with older accepted/rejected evidence and source limits in [FIDELITY-GOAL.md](FIDELITY-GOAL.md). Live release and active-job facts are in [RESUME.md](RESUME.md).
 

@@ -10,7 +10,7 @@ Claude was given **A and B only**. Codex owns **C–N and integration**. The ear
 | D | Codex | SeaTac roads, ramps and connections; reports57–65 | Open |
 | E | Codex | Bellevue roads/closures; reports68–71, plus waterfall | Open; waterfall candidate unaccepted |
 | F | Codex | Buildings, facades, roofs; reports4–5,10,19,22,25,27,35–36,40–42,49–51,55–56 | Reports4/5/41/42/49 verified live. Floating51/55 source causes traced; other listed reports open |
-| G | Codex | Bucharest landmarks, trees, fountains and dressing; reports2,20–21,23,28–31 | Report29 corrected candidateb2c4ea4a passes original-camera and foot/a checks; paired district sweeps running. Firstf48trial rejected. Other listed reports open |
+| G | Codex | Bucharest landmarks, trees, fountains and dressing; reports2,20–21,23,28–31 | Report29 verified live at28e54da0; native, foot/a,155-view comparison and affected overview checks complete. Firstf48trial rejected. Other listed reports open |
 | H | Codex | Interiors; reports24,52 and all eight enterable locations | Report24 GTS host desk overlap verified live; Luxoft and broader interior work remain open |
 | I | Codex | Night lighting in drone mode; report66 | Open; staged view-selection candidate does not yet close airport lighting |
 | J | Codex | Old Town, Cișmigiu, Arcul de Triumf visits | Open |
@@ -19,7 +19,7 @@ Claude was given **A and B only**. Codex owns **C–N and integration**. The ear
 | M | Codex | Real 3D-table backgammon experience | Open |
 | N | Codex | Story/mobile/conditions/headlights/lifecycle/sports/drone/cache/overview and remaining integration | Open; softer horns delivered separately |
 
-Current accepted master: **c45ccae6ab5197495ccc8fc07fa706d472655124**. Release **game-70c1e8a47a0ec0ff**, Pages42929132998SUCCESS,332live-file checks pass. Reports **1,4,5,11,24,41,42,43,49,53,54** are verified live: **11/71 closed,60 open**. Softer horns delivered separately. Preserve accepted fixes and curate tested changes; do not merge the large staging branch wholesale.
+Current accepted master: **28e54da02114b04cb72fc500fb88a71ab256e224**. Release **game-0263e743870e4f9a**, Pages42935856311SUCCESS,371live-file checks pass. Reports **1,4,5,11,24,29,41,42,43,49,53,54** are verified live: **12/71 closed,59 open**. Softer horns delivered separately. Preserve accepted fixes and curate tested changes; do not merge the large staging branch wholesale.
 
 Pack C baseline: original immutable `tools/fidelity/inspect-portrait.cjs`, source54a45f6c, private output `/workspace/integration-qa-evidence/pack-c-roads-20261110/baseline`, FIFO `/tmp/pack-c-native.in`. Exact reported camera positions; static native rendering does not establish a driving journey or hardware performance. No application code has been changed for this investigation yet.
 

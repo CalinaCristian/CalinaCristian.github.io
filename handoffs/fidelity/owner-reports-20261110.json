@@ -1676,8 +1676,8 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Prepared candidate; native validation pending",
-        "deliveryNote": "Complete fascia-board reservations replace centre-distance checks. Eight positive/negative layout controls pass. Original reports27/36 must still be captured and reviewed; not published.",
+        "deliveryStatus": "Native and logic validated; broader regression in progress",
+        "deliveryNote": "Candidatee417 separates overlapping boards at both original High/Ultra locations. Source POIs and strings unchanged; eight layout controls and foot/a0H0M pass. Full Unirii visual sweep running; other district sign/affected overview coverage remains open. Not published.",
         "candidate": "e417cb92"
       }
     },
@@ -1749,7 +1749,7 @@
     {
       "id": "unirii-tree-fountain",
       "ownerNote": "Tree trunk in fountain basin",
-      "status": "reported-not-yet-accepted",
+      "status": "verified-live",
       "report": {
         "schemaVersion": 1,
         "release": "game-471508886d4ff5a1",
@@ -1807,9 +1807,10 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Native validated; district gates in progress",
-        "deliveryNote": "Original High/Ultra view clear after physical trunk-versus-rendered-rim correction. Sixteen conflicts excluded;18,590retained tree/collider records, source data and basin geometry unchanged. Foot/a0H0M; nine affected atlas images refreshed. Paired full district sweeps running; not published or closed.",
-        "candidate": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195"
+        "deliveryStatus": "Delivered — verified live",
+        "deliveryNote": "Original High/Ultra rim view clear; 16 physical conflicts excluded while 18,590 retained tree/collider records and source/basin geometry stay exact. Foot/a 0H0M. Paired district coverage 155/155 each with no matched rendering-cost increase; inherited findings and two frame-budget overruns remain open. Nine atlas and 16 ground frames refreshed; desktop/phone delivery checks pass. Master28e54da0, releasegame-0263e743870e4f9a, stampedsource4a84d6d6; Pages42935856311success and371live-file checks pass.",
+        "candidate": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+        "evidence": "https://cristiancalina.com/game/overview/#fountain-tree-fix"
       }
     },
     {
@@ -2263,8 +2264,8 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Prepared candidate; native validation pending",
-        "deliveryNote": "Same shared fascia-layout candidate as report27. No original-camera acceptance yet; pharmacy/blade signs remain explicitly unverified.",
+        "deliveryStatus": "Native and logic validated; broader regression in progress",
+        "deliveryNote": "Candidatee417 separates overlapping boards at both original High/Ultra locations. Source POIs and strings unchanged; eight layout controls and foot/a0H0M pass. Full Unirii visual sweep running; other district sign/affected overview coverage remains open. Not published.",
         "candidate": "e417cb92"
       }
     },
@@ -3529,8 +3530,9 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Source investigation in progress",
-        "deliveryNote": "Official OSM terminal assembly and additional elevated parts/jetbridge records recovered. Authored and generic representations require original-camera comparison; legitimate mapped parts must be retained. No fix accepted."
+        "deliveryStatus": "Source assembly candidate; native review in progress",
+        "deliveryNote": "32 mapped pier/jetbridge parts retain exact source footprints and literal height/minimum bands. Residual estimate fills only uncovered outline area. CPU partition/clearance controls pass; native original-camera comparison running. No acceptance/publication yet.",
+        "candidate": "7d98bdaa30ec661184f5655cda395cc0c0bdebc8"
       }
     },
     {

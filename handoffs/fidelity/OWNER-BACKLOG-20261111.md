@@ -46,8 +46,23 @@ States: **fixed on branch** (implemented and checked in the probe; not published
 | L31 | Tourist spots | a custom waypoint should draw the same trail as the guided tour | open | |
 | L33 | Old Town, Freddo | "this is broken": by day the ground floor read as a hole through the building, the name board ran into the balcony, guests sat on the closed club's terrace | fixed on branch | the room behind the glass keeps its walls; board over the left bays below the balcony; the club's terrace seats are empty while closed |
 | L35 | Old Town (Freddo and every street) | "you are working around a broken building, that balcony looks broken" | fixed on branch | the 3-D balconies and string course now follow the facade actually drawn (shop floor 4.3 m, the style's storey and window bays): they stood between windows and under the sills on every Old Town street |
-| L34 | All tourist spots | "all tourist spots suck -- fix all" | open | Cișmigiu first (L32), then a captured pass over every spot |
+| L34 | All tourist spots | "all tourist spots suck -- fix all" | partly | captured pass over the 7 live spots (below); fixed so far: Cișmigiu (L32), Freddo (L33), Old Town balconies (L35), Pike Place and Space Needle not opening on this branch (L36), Space Needle spawn canopy (L37) |
 | L32 | Cișmigiu Gardens | "still looks terrible, needs a FULL visual refresh to make it more real" (stepped jagged lake shore, railing standing in the water, flat grass banks) | fixed on branch | graded banks, terrain cut exactly at the outline, granite kerb, lake-shaped water, railing on the coping, weeping willows, Debarcader landing stage; paths and lawns not yet reworked |
+
+| L36 | Pike Place, Space Needle | (found in the spot pass) "Could not open the spot" on this branch | fixed on branch | osm.js is hashed into the Seattle source-context cache; restored byte for byte, willows and the facade frame moved to their own modules; new test guards the hashed scripts |
+| L37 | Space Needle | (found in the spot pass) a dark slab 5.6 m over the spawn | fixed on branch | OSM way 241876407 is a glass canopy (building=roof, material=glass); drawn as clear glass on a steel edge with posts |
+
+### Spot pass, 11 November (probe captures at the spawn, four directions, 25 m ahead, above)
+
+| Spot | Seen | Next |
+| --- | --- | --- |
+| Old Town (Lipscani) | neutral shopfront glazing reads as dark panels with tan blocks close up; long uniform shop rows | richer shopfront glazing (displays, doors, fascia bands) without inventing businesses |
+| Cișmigiu | lake fixed (L32); paths are plain grey strips, lawns one flat green | gravel/asphalt alleys with edging, lawn variation, flower beds at the gates |
+| Arcul de Triumf | the arch is a plain block with an opening; verges and bollards fine | relief on the arch (columns, attic, reliefs) |
+| Pike Place | sound; a parked van blocks the spawn view | |
+| Space Needle | glass canopy fixed (L37) | |
+| Bellevue Meydenbauer | sound (beach, boulders, pier) | |
+| Bellevue Downtown Park | falling-leaf flakes float at eye level as large dark shapes | check the leaf particle size and height |
 
 ## The 71-report register
 

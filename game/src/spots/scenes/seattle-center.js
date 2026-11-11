@@ -16,6 +16,7 @@ import { photoHunt } from '../photo-hunt.js';
 import { activityFlow } from '../participation.js';
 import { facadeMaterial } from '../osm.js';
 import {prepareSourceContext,addSourceContext} from '../source-context.js';
+import { sourceRecord } from '../source-buildings.js';
 
 const NEEDLE = { x: 0.3, z: 0.7, y: 1.5 };
 const MONO = [[-46, -86], [-23, -87], [-8, -87], [10, -88], [37, -89], [49, -88], [56, -87], [64, -86], [71, -83], [78, -80], [96, -62], [102, -54], [105, -50], [109, -43], [115, -39], [124, -30], [129, -10], [129, 60], [126, 160], [126, 300]];
@@ -283,6 +284,20 @@ function buildMonorail(ctx) {
     return { cars };
 }
 
+// A mapped glass canopy (building=roof, building:material=glass): the native renderer draws every roof as an opaque slab,
+// which over the Space Needle spawn read as a dark ceiling 5.6 m up. Drawn instead as clear glass on a thin steel edge with
+// posts, at its mapped height. (OSM way 241876407, height 4.3 m; frame and post sizes are estimates.)
+function glassCanopy(ctx, id) {
+    const bd = ctx.data.buildings.find(b => b.id === id); if (!bd?.poly || bd.k !== 'roof' || !/glass/.test(bd.mat || '')) return null;
+    ctx.skipBuildings.add(id);
+    const r = sourceRecord(bd, 0, ctx.ground), y = r.datum + r.height, ring = bd.poly, b = new GeoBatch();
+    const glass = new THREE.MeshStandardMaterial({ color: '#d7e7ec', transparent: true, opacity: 0.22, roughness: 0.08, metalness: 0.1, side: THREE.DoubleSide, depthWrite: false });
+    b.flat(ring, y, '#ffffff', 'canopyGlass');
+    for (let i = 0; i < ring.length; i++) { const [ax, az] = ring[i], [bx, bz] = ring[(i + 1) % ring.length], L = Math.hypot(bx - ax, bz - az); b.rod([ax, y, az], [bx, y, bz], 0.07, '#c9ccc9', 'metal', 6);
+        for (let t = 0; t < L; t += 7) { const x = ax + (bx - ax) * t / L, z = az + (bz - az) * t / L, g0 = ctx.ground.heightAt(x, z); if (y - g0 > 1.8) { b.cyl(x, g0, z, 0.09, y - g0, '#c9ccc9', 'metal', 8); ctx.circle?.(x, z, 0.15, y - g0); } } }
+    const mesh = b.build('glass-canopy-' + id, { castShadow: false, matOverrides: { canopyGlass: glass } }); ctx.add(mesh); return mesh;
+}
+
 // ============================================================================
 export default {
     env: { fogFar: 4200 },
@@ -296,6 +311,7 @@ export default {
         ctx.treeLod = { cap: Infinity, near: 90, max: 700, force: true };
         { const c = []; for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; c.push([NEEDLE.x + Math.cos(a) * 26, NEEDLE.z + Math.sin(a) * 26]); } ctx.exclude.push(c); } // the Needle's OSM parts → hero model
         const needle = buildNeedle(ctx);
+        glassCanopy(ctx, 'w241876407');
         const chi = buildChihuly(ctx);
         buildMonorail(ctx);
         mopopMetalMaterial(); // literal source solids remain ordinary museum context

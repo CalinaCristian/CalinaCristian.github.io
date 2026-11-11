@@ -868,8 +868,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         // (owner, 2026-11-11, Grozavesti: "the tram path is still going on the street") on the Basarab deck a tram line runs
         // 3-5 m from the mapped centre line of a carriageway drawn 3.5 m to each side, so the asphalt reached over the tracks.
-        // The mapped line stays; on a bridge carriageway the tram-facing side is narrowed to keep 2.2 m clear of the track
-        // (at least 1.75 m) and the far side takes the difference, so the total width is unchanged.
+        // The mapped line and the far edge stay; on a bridge carriageway the tram-facing side is narrowed to keep 2.2 m clear
+        // of the track (at least 1.75 m) and the lanes share the narrower width (widening the far side pushed the deck into
+        // neighbouring ramps).
         let tramShifted = 0;
         for (const e of edges) {
             if (e.virtual || !e.bridge || !e.oneway) continue;
@@ -879,7 +880,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (!(d < e.halfW + 2.2) || d < 1.2) continue;
             const near = sgn > 0 ? 'wR' : 'wL', far = sgn > 0 ? 'wL' : 'wR', total = e.wL + e.wR, nw = Math.max(1.75, d - 2.2);
             if (nw >= e[near] - 0.05) continue;
-            e[near] = nw; e[far] = total - nw; e.halfW = Math.max(e.wL, e.wR); e.tramClearShift = true; e.tram = false; tramShifted++;
+            e[near] = nw; e.laneW = (e.wL + e.wR) / Math.max(1, e.lanesF + e.lanesB); e.halfW = Math.max(e.wL, e.wR); e.tramClearShift = true; e.tram = false; tramShifted++; void far; void total;
         }
         if (tramShifted) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + 0.5; sccInfo.tramClearShift = tramShifted; }
     }

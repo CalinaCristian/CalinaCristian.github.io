@@ -5598,6 +5598,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         sceneryDeckGrid.each(x - reach, z - reach, x + reach, z + reach, d => { if ((d.kind === 'source-tram-deck' || d.kind === 'bridge-slot-infill' || d.kind === 'basarab-centre-support' || d.kind === 'basarab-platform') && d.y1 > 2.5) take(d.poly, d.y0, d.y1); });
         return best;
     };
+    const treeBuildingClearance = { narrowed: 0, skipped: 0, mapped: 0 };
     const placeTree = (x, z, s, kind, con = null, dec = null, opt = {}) => {
         // Mapped/measured crowns arrive first as 'osm'. Where a canopy survey
         // actually covers the ground, do not fill its lawns/gaps with invented trees.
@@ -5648,6 +5649,18 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (treeClear.some((q) => (x - q.x) ** 2 + (z - q.z) ** 2 < q.r * q.r)) return false;
         if (kind !== 'osm' && pierColl.some(q => Math.abs(x - q.x) < q.r + 1.2 && Math.abs(z - q.z) < q.r + 1.2)) return false; // (inferred trees keep off the bridge columns)
         if (!measuredCrown && (shape.cy - shape.ry * 0.8) * sz < 4.4 && onRibbon(x, z, R * sh * 0.9)) { if (kind === 'street' || kind === 'garden') return false; sh = Math.max(0.3, sh * 0.6); }
+        // (owner register #23, Unirii: "tree crown intersects building facade") a crown may not reach into a building: it is narrowed
+        // to 0.3 m off the nearest wall (down to 45 %); an invented tree closer than that is not planted, a mapped one keeps its place
+        {
+            const Rc = shape.rx * sz * sh, wallAt = r => { for (let k = 0; k < 12; k++) { const a = k * Math.PI / 6; if (buildingAt(x + Math.cos(a) * r, z + Math.sin(a) * r)) return true; } return false; };
+            if (wallAt(Rc)) {
+                let lo = 0, hi = Rc; for (let it = 0; it < 6; it++) { const m = (lo + hi) / 2; if (wallAt(m)) hi = m; else lo = m; }
+                const fit = (lo - .3) / (shape.rx * sz);
+                if (fit >= .45) { sh = Math.min(sh, fit); treeBuildingClearance.narrowed++; }
+                else if (kind !== 'osm') { treeBuildingClearance.skipped++; return false; }
+                else { sh = Math.min(sh, .45); treeBuildingClearance.mapped++; }
+            }
+        }
         treeList.push({ x, z, s: sz, species, con: !!isCon, dec: dec ?? (isCon ? 0 : 1), kind, sh }); treeGrid.insert(x, z, x, z, treeList[treeList.length - 1]);
         exactTreeCentres.add(`${x},${z}`);
         addPropColl(x, z, collR, 'tree');
@@ -7011,6 +7024,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, inferredBuildingDetails: inferredDetailAudit, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     stats.scenerySource = scenerySourceAudit;
     stats.backdropInLandmark = backdropInLandmark;
+    stats.treeBuildingClearance = treeBuildingClearance;
     stats.floatingSupport = { parts: floatingSupport.parts, columns: floatingSupport.columns, grounded: floatingSupport.grounded || 0 };
     stats.medianFill = { quads: medianFill.quads, areaM2: medianFill.areaM2, grass: medianFill.decks.filter(d => d.medianKind === 'grass').length, concrete: medianFill.decks.filter(d => d.medianKind === 'concrete').length, asphalt: medianFill.decks.filter(d => d.medianKind === 'asphalt').length };
     stats.fallbackGround=fallback.report;

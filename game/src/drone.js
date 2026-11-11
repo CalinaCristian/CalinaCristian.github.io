@@ -410,7 +410,7 @@ export class Drone {
         const steps = Math.max(1, Math.ceil(dt * maxSpeed / COLLISION_STEP));
         if (steps > 1) { for (let i = 0; i < steps && this.phase === 'fly'; i++) this._fly(dt / steps); return; }
         const g = this.g, c = this.c, inp = g.input, cam = g.camera, h = this.home;
-        const previous = { x: this.pos.x, z: this.pos.z };
+        const previous = { x: this.pos.x, z: this.pos.z, y: this.pos.y };
         const photo = !!g.photo?.active;
         // look: yaw + gimbal tilt
         const lk = inp.takeLook();
@@ -464,6 +464,11 @@ export class Drone {
         const rd = Math.hypot(this.pos.x - h.x, this.pos.z - h.z);
         if (rd > this.range) { const s = this.range / rd; this.pos.x = h.x + (this.pos.x - h.x) * s; this.pos.z = h.z + (this.pos.z - h.z) * s; const ux = (this.pos.x - h.x) / this.range, uz = (this.pos.z - h.z) / this.range, vr = this.vel.x * ux + this.vel.z * uz; if (vr > 0) { this.vel.x -= ux * vr; this.vel.z -= uz * vr; } this.warn(`Max range ${this._fmtDist(this.range)} — press H to return home`, 1.2, 'hot'); }
         else if (rd > this.range * 0.9) this.warn('Approaching max range', 0.6);
+        // (owner, 2026-11-11, Grozavesti: "drone can fly through bridge street from underneath") the ground under the drone
+        // is the surface below its new height, so a climb that crossed a deck in one step stood the drone on top of it. A
+        // drone that was under a deck stops 1.6 m below the deck surface (girders and slab).
+        { const under = c.groundAt(this.pos.x, this.pos.z, previous.y), over = c.groundAt(this.pos.x, this.pos.z, Math.max(ny, previous.y) + 2.5);
+          if (over > under + 2 && previous.y < over - 1 && ny > over - 1.6) { ny = Math.min(ny, Math.max(previous.y, over - 1.6)); if (this.vel.y > 0) this.vel.y = 0; } }
         const gy = c.groundAt(this.pos.x, this.pos.z, ny);
         const ceil = gy + (this.imperial ? 121.9 : CEIL_M);
         if (!inspectionEnabled() && ny > ceil) { ny = ceil; if (this.vel.y > 0) this.vel.y = 0; this.warn(this.imperial ? 'Altitude limit 400 ft (FAA recreational ceiling)' : `Altitude limit ${CEIL_M} m (EU open category)`, 1.2); }

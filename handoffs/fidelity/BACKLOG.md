@@ -27,13 +27,13 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Everywhere | L14 60 fps at Ultra (RTX 5070) | probe means 8–16 ms per frame; not measurable on the owner's hardware from here |
 | Everywhere | L16 cars stuck / nose to nose | crossing deadlock fixed (ba592d07); re-check live |
 | Spots | L28 hidden bar video | the official video does not embed; no licensed loop available |
-| Interiors | #52 Luxoft interior | unfinished: generic interior, opaque windows |
+| Interiors | #52 Luxoft interior | needs the owner's floor number. Tried 2026-11-11: with a floor-3 estimate (10.8 m) and the facade hold lifted, the Hermes window binding resolves, but the live view is refused ("virtual eye outside the certified room envelope": the 16 × 18 m ground-floor lobby room does not fit the building at that floor), so the room has to be re-planned to the real floor's depth. Reverted; the interior is still the generic lobby |
 
 ## Fixed on branch `fidelity/basarab-structure-claude` (awaiting publication and a live re-check)
 
 | Commit | Reports |
 | --- | --- |
-| (next commit) | #66 night drone road lighting: street-lamp pools and real lights followed the player on the ground while the drone flew elsewhere; a camera away from the player is now the centre (its ground point plus a look-ahead growing with height) and the lit reach widens with height (capture 300 m from the player: 13 lights / 47 pools under the drone, before 7 / 21 by the player) |
+| 2e751d33 | #66 night drone road lighting: street-lamp pools and real lights followed the player on the ground while the drone flew elsewhere; a camera away from the player is now the centre (its ground point plus a look-ahead growing with height) and the lit reach widens with height (capture 300 m from the player: 13 lights / 47 pools under the drone, before 7 / 21 by the player) |
 | 66d4bfe6 | L34 tourist spots (all 7 live spots now reviewed): Pike Place spawn moved off the 1st Avenue carriageway (a car brushed past the player); mapped canopies (`building=roof`) stand on posts along their free edges (Pike Place arcade canopy, Seattle Center walkways, a Bellevue fuel station), none inside a building; Bellevue's Piloti shell covers its mapped 19 × 17 m footprint instead of a dark slab over a shell a third its size. Earlier on this branch: Cișmigiu, Freddo, Old Town shopfronts and balconies, Arcul masonry, Space Needle canopy, Downtown Park crowns |
 | 561576a4 | L30 spot chat bubbles: each person keeps one character's voice (no fishmonger selling cherries, no visitor speaking another tourist's language), talks about the sub-spot they stand at, and keeps quiet rather than repeat; place and yearly-event lines added for every Seattle and Bellevue spot (Bumbershoot, Solstice Parade, Snowflake Lane, Garden d'Lights…) and Bucharest (Mărțișor, Enescu Festival, Easter, December 1989) |
 | 281ac396 | holes in autumn crowns; L50 Basarab link ramp reaches Calea Griviței at street level |

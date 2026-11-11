@@ -29,6 +29,8 @@ export function vehicleVerticalInterval(v) {
                 const yy = cx * sz * a.getX(i) * scale.x + cx * cz * a.getY(i) * scale.y - sx * a.getZ(i) * scale.z;
                 min = Math.min(min, yy); max = Math.max(max, yy);
             }
+            // A tram on a ramp has a new pitch on every step: without a bound this map grew for as long as it drove.
+            if (cache.size >= 256) cache.clear();
             range = { min, max }; cache.set(key, range); modelYCache.set(geometry, cache);
         }
         if (finite(range.min) && finite(range.max) && range.max > range.min) return { min: y + range.min, max: y + range.max, known: true, source: 'emitted-model-vertices-YXZ' };
@@ -36,6 +38,41 @@ export function vehicleVerticalInterval(v) {
     const height = v.height ?? mesh?.userData?.height;
     if (finite(height) && height > 0 && pitch === 0 && roll === 0) return { min: y, max: y + height, known: true, source: 'explicit-model-height-unpitched' };
     return { known: false, source: 'missing-emitted-model-height-or-orientation' };
+}
+
+const lengthProfiles = new WeakMap();
+/** Actual emitted height range of the body between two stations of its own length (metres ahead of its centre), at its
+ * pitch. vehicleVerticalInterval gives one range for the whole body: on a ramp that range holds the low end's underside
+ * and the high end's roof at once, 1.4 m apart from either on a 36 m tram at 8 %. This is the same vertex data cut by
+ * length; a triangle counts in every slice its length extent touches, with its whole height range, so no part of the
+ * mesh is left out. Null when it cannot be had (roll, unknown geometry): the caller keeps the whole-body range.
+ */
+export function vehicleVerticalIntervalAlong(v, alongLo, alongHi) {
+    const y = v.y, mesh = v.mesh, geometry = mesh?.userData?._model?.geo, a = geometry?.attributes?.position;
+    const pitch = v.pitch ?? mesh?.rotation?.x ?? 0, roll = v.roll ?? mesh?.rotation?.z ?? 0, scale = v.scale || mesh?.scale || { x: 1, y: 1, z: 1 };
+    if (v.verticalInterval || !finite(y) || !a?.count || typeof a.getX !== 'function' || roll !== 0 || ![pitch, scale.x, scale.y, scale.z, alongLo, alongHi].every(finite) || !(alongHi >= alongLo)) return null;
+    let profile = lengthProfiles.get(geometry);
+    if (!profile || profile.position !== a || profile.version !== a.version || profile.index !== geometry.index) {
+        const SLICE = .25, index = geometry.index?.array, count = index ? index.length : a.count; let z0 = Infinity, z1 = -Infinity;
+        for (let i = 0; i < a.count; i++) { const z = a.getZ(i); if (!finite(z) || !finite(a.getY(i))) return null; z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
+        const n = Math.max(1, Math.ceil((z1 - z0) / SLICE)), lo = new Float64Array(n).fill(Infinity), hi = new Float64Array(n).fill(-Infinity);
+        for (let i = 0; i + 2 < count; i += 3) {
+            const p = index ? [index[i], index[i + 1], index[i + 2]] : [i, i + 1, i + 2], zs = p.map(k => a.getZ(k)), ys = p.map(k => a.getY(k));
+            const yl = Math.min(...ys), yh = Math.max(...ys);
+            for (let k = Math.max(0, Math.floor((Math.min(...zs) - z0) / SLICE)), last = Math.min(n - 1, Math.floor((Math.max(...zs) - z0) / SLICE)); k <= last; k++) { if (yl < lo[k]) lo[k] = yl; if (yh > hi[k]) hi[k] = yh; }
+        }
+        lengthProfiles.set(geometry, profile = { position: a, version: a.version, index: geometry.index, z0, n, SLICE, lo, hi });
+    }
+    // native models face -z: a station `along` metres ahead of the centre is at local z = -along / scale.z
+    const zl = -alongHi / scale.z, zh = -alongLo / scale.z, cx = Math.cos(pitch), sx = Math.sin(pitch);
+    let min = Infinity, max = -Infinity;
+    for (let k = Math.max(0, Math.floor((zl - profile.z0) / profile.SLICE)), last = Math.min(profile.n - 1, Math.floor((zh - profile.z0) / profile.SLICE)); k <= last; k++) {
+        if (!(profile.hi[k] >= profile.lo[k])) continue;
+        // same transform as vehicleVerticalInterval (YXZ, roll 0): world dy = cos(pitch) * y - sin(pitch) * z, over this slice's own length
+        const za = Math.max(zl, profile.z0 + k * profile.SLICE) * scale.z, zb = Math.min(zh, profile.z0 + (k + 1) * profile.SLICE) * scale.z, a0 = -sx * za, a1 = -sx * zb;
+        min = Math.min(min, cx * profile.lo[k] * scale.y + Math.min(a0, a1)); max = Math.max(max, cx * profile.hi[k] * scale.y + Math.max(a0, a1));
+    }
+    return max > min ? { min: y + min, max: y + max, known: true, source: 'emitted-model-triangles-by-length-YXZ' } : { min: Infinity, max: -Infinity, known: true, empty: true, source: 'no-emitted-model-in-this-stretch' };
 }
 
 /** SAT penetration of the actual drawn-heading length/width rectangles. */

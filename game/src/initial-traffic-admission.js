@@ -4,7 +4,7 @@ import { canTravel, lanesDir } from './nav.js';
 import { ambientTrafficAccess } from './road-access.js';
 import { collideBuildings } from './world.js';
 import {sourceRoadClearance} from './source-road-clearance.js';
-import { planInitialVehicleAdmission, ordinaryVehicleStations, vehicleVerticalInterval, initialVehicleConflict } from './initial-vehicle-admission.js';
+import { planInitialVehicleAdmission, ordinaryVehicleStations, vehicleVerticalInterval, vehicleVerticalIntervalAlong, initialVehicleConflict } from './initial-vehicle-admission.js';
 import { canTravelTram } from './tram-path.js';
 import { validateTramSupportCertificate } from './tram-body-support.js';
 import { ordinarySourceSpan, ordinarySourceBodyPlacement } from './initial-ordinary-source-span.js';
@@ -78,8 +78,13 @@ export function initialTrafficStaticClearance(world, body, { cellM = 0.75 } = {}
     if (!interval.known) return { valid: false, reason: 'unknown-model-vertical-interval', interval };
     if (!world?.buildings) return { valid: false, reason: 'missing-native-static-collider-set' };
     let samples = 0, hit = null, railCertificate = null;
+    // A pitched tram: the whole-body range above holds its low end's underside and its high end's roof together. Each
+    // disc is tested against the actual range of the stretch of the body it covers (never wider than the whole-body range).
+    const pitched = !!body.edge?.rail && Math.abs(body.pitch ?? body.mesh?.rotation?.x ?? 0) > 1e-9;
     for (const sample of initialBodyCover(body, cellM)) {
         samples++;
+        const local = pitched ? vehicleVerticalIntervalAlong(body, sample.along - sample.radius, sample.along + sample.radius) : null;
+        const range = local?.known ? { min: Math.max(interval.min, local.min), max: Math.min(interval.max, local.max) } : interval;
         const check = c => {
             if (hit) return;
             if (body.edge?.rail && c.railDeck && c.modelId && body.railSupport?.modelIds?.includes(c.modelId)) {
@@ -95,7 +100,7 @@ export function initialTrafficStaticClearance(world, body, { cellM = 0.75 } = {}
                 return;
             }
             const band = colliderBand(c, sample.x, sample.z, sample.radius); if (!band) return;
-            const lo = Math.max(interval.min, band.min), hi = Math.min(interval.max, band.max);
+            const lo = Math.max(range.min, band.min), hi = Math.min(range.max, band.max);
             if (!(hi > lo)) return;
             // Same support rule as native collideOne: an exact road-deck roof
             // under this vehicle's native ground anchor is a support surface.

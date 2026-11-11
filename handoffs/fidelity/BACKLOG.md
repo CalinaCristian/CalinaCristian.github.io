@@ -27,7 +27,6 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Everywhere | L14 60 fps at Ultra (RTX 5070) | probe means 8–16 ms per frame; not measurable on the owner's hardware from here |
 | Everywhere | L16 cars stuck / nose to nose | crossing deadlock fixed (ba592d07); re-check live |
 | Spots | L28 hidden bar video | the official video does not embed; no licensed loop available |
-| Spots | L30 chat bubbles | wants location / event specific cultural lines (content rewrite) |
 | Spots | L34 tourist spot refresh | Cișmigiu, Freddo, Old Town, Arcul, Space Needle done; the rest not reworked |
 | Interiors | #52 Luxoft interior, #66 night drone road lighting | unfinished / unverified |
 
@@ -35,6 +34,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 
 | Commit | Reports |
 | --- | --- |
+| (next commit) | L30 spot chat bubbles: each person keeps one character's voice (no fishmonger selling cherries, no visitor speaking another tourist's language), talks about the sub-spot they stand at, and keeps quiet rather than repeat; place and yearly-event lines added for every Seattle and Bellevue spot (Bumbershoot, Solstice Parade, Snowflake Lane, Garden d'Lights…) and Bucharest (Mărțișor, Enescu Festival, Easter, December 1989) |
 | 281ac396 | holes in autumn crowns; L50 Basarab link ramp reaches Calea Griviței at street level |
 | 687fcde6 | Basarab ramps by Șos. Nicolae Titulescu and the west ramp follow Street View (street-level starts, retaining walls, filled medians, hammerhead piers, Podul Grozăvești deck plate); `tunnel=passage` at street level |
 | ba592d07 | traffic jam at Calea Plevnei (crossing deadlock) |
@@ -52,7 +52,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | earlier on this branch | L1–L7, L9–L13, L19 (all three places), L20, L21, L32, L33, L35–L40, L42, L43, L44, L46–L49; register #12–#14, #16–#18 (re-checked at their poses 2026-11-11) |
 | 4ba732e4 | #57 / #58 SeaTac station west bridge reaches the garage; #61 the station name board stands on posts |
 | af8237bb | L24 / #30 Unirii fountain kerbs on and inside the OSM outlines (no basin reaches a carriageway) |
-| (next commit) | #50 Romană (and #22 / #35 Unirii, part of L8): a street side running into OSM building footprints narrows to 0.3 m off the wall (Romană 49 sides, Unirii 60); #47 / #48 checked close up: crossings and parking-island markings whole |
+| 92486a7a | #50 Romană (and #22 / #35 Unirii, part of L8): a street side running into OSM building footprints narrows to 0.3 m off the wall (Romană 49 sides, Unirii 60); #47 / #48 checked close up: crossings and parking-island markings whole |
 | by design | #64 SeaTac road ending in grass: OSM w1067079743 is a real dead-end service road (live API checked) |
 | by design | #28 Unirii fountains run May–October 10:00–23:00 (`?fountains=on` forces them); L18 Romană underpass re-checked closed |
 

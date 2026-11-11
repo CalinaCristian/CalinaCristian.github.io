@@ -986,7 +986,7 @@ class Game {
         const D = this.talkData(); if (!D) return null;
         const fam = (k) => (k || '').replace(/_.*$/, ''), recent = this._talkRecent || (this._talkRecent = []), fresh = (l) => !recent.includes(l);
         for (const c of ctxs) {
-            const all = D.lines.filter((l) => l.ctx === c && this.talkFits(l));
+            const all = D.lines.filter((l) => l.ctx === c && !l.spot && this.talkFits(l)); // (spot-tagged lines belong to that tourist spot)
             for (const pool of [all.filter((l) => l.p === persona), all.filter((l) => fam(l.p) === fam(persona)), all.filter((l) => !l.p)]) {
                 const f = pool.filter(fresh), pick = (f.length ? f : pool)[Math.floor(Math.random() * (f.length ? f.length : pool.length))];
                 if (pick) { recent.push(pick); if (recent.length > 10) recent.shift(); return pick; }

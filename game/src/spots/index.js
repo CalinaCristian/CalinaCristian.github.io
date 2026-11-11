@@ -209,7 +209,9 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         import(`./scenes/${sceneId}.js`), extraDialogue(),
     ]);
     { const X = xtra?.[data.city === 'bucharest' ? 'bucharest' : 'seattle']; if (X && !data._xtra) { data._xtra = true; // (spot JSONs are cached by the host: merge once)
-        data.dialogueGeneral = { ...(data.dialogueGeneral || {}), lines: [...(data.dialogueGeneral?.lines || []), ...(X.lines || []).filter((l) => l.ctx !== 'street' && l.src !== 'spots')] };
+        data.dialogueGeneral = { ...(data.dialogueGeneral || {}), lines: [...(data.dialogueGeneral?.lines || []), ...(X.lines || []).filter((l) => l.ctx !== 'street' && l.src !== 'spots' && !l.spot)] };
+        // L30: lines written for one place (its history, customs, yearly events) join that place's own lines
+        for (const l of X.lines || []) { const s = l.spot && data.spots?.[l.spot]; if (s) { const { spot, ...line } = l; (s.dialogue ??= { lines: [] }).lines.push(line); } }
         data.talkTips = X.culture || []; } } // (player-facing tips: the spots' own `culture` notes are writing guidance for the lines)
     const tFetch = performance.now();
     const ctx = new SceneContext(data, id);
@@ -318,8 +320,16 @@ export async function loadSpot(id, renderer = null, opts = {}) {
 }
 function mergeDialogue(data, ids) {
     const lines = [], personas = new Set();
-    for (const id of ids) { const d = data.spots[id]?.dialogue; if (!d) continue; lines.push(...d.lines); for (const p of d.personas || []) personas.add(p); }
-    return { lines, personas: [...personas] };
+    const anchors = {};
+    for (const id of ids) { const s = data.spots[id], d = s?.dialogue; if (!d) continue;
+        // L30: each line remembers the sub-spot it was written for (extent centre, else spawn), so a person at Lipscani
+        // talks about Lipscani, not about the Stavropoleos church two streets away (anchor: the sub-spot's spawn; members
+        // of one scene often share a single extent)
+        const poly = s.extent?.polygon, at = Number.isFinite(s.spawn?.x) ? { x: s.spawn.x, z: s.spawn.z } : poly?.length ? { x: poly.reduce((a, p) => a + p[0], 0) / poly.length, z: poly.reduce((a, p) => a + p[1], 0) / poly.length } : null;
+        if (at) anchors[id] = at;
+        for (const l of d.lines) lines.push(at ? { ...l, at: id } : l);
+        for (const p of d.personas || []) personas.add(p); }
+    return { lines, personas: [...personas], anchors };
 }
 
 // ============================================================================

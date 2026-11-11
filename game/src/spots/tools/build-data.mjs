@@ -86,13 +86,15 @@ function lineTags(t) {
 }
 function bucDialogue(spot, general) {
     const lines = [], personas = new Set();
-    const push = (p, ctx, l, lang) => {
+    // w: the research character (carusel_bookseller, party_young…) — several share one look (local_young), and a person
+    // in the crowd keeps to one character's lines (L30)
+    const push = (p, ctx, l, lang, w) => {
         const en = l.en || l.text, orig = lang && lang !== 'en' && l.text !== en ? l.text : null;
-        lines.push({ p, ctx, text: en, ...(orig ? { orig, lang } : {}), ...lineTags((l.text || '') + ' ' + en) });
+        lines.push({ p, ...(w ? { w } : {}), ctx, text: en, ...(orig ? { orig, lang } : {}), ...lineTags((l.text || '') + ' ' + en) });
     };
     for (const per of spot.dialogue?.personas || []) {
         const p = LOOK_OF[per.base] || per.base; personas.add(p);
-        for (const [ctx, L] of Object.entries(per.lines || {})) for (const l of L) push(p, ctx, l, per.lang);
+        for (const [ctx, L] of Object.entries(per.lines || {})) for (const l of L) push(p, ctx, l, per.lang, per.id);
     }
     for (const l of spot.dialogue?.ambient_pairs || []) push('local_young', 'spot', l, 'ro');
     void general;

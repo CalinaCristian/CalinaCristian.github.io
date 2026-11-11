@@ -112,6 +112,7 @@ export class Crowd {
         this.o = o; this.ground = o.ground; this.r = rng(o.seed || 77);
         this.peds = []; this.t = 0; this.chatT = 4; this.globalCd = 0; this.idleT = 0; this.recent = [];
         this.lines = o.dialogue?.lines || [];
+        this.anchors = o.dialogue?.anchors && Object.keys(o.dialogue.anchors).length > 1 ? o.dialogue.anchors : null;
         // note 48: only place-appropriate city-wide lines — a persona line (e.g. office talk) only where that persona is in the scene
         { const here = new Set([...Object.keys(o.personas || {}), ...(o.groups || []).flatMap((g) => g.personas || []), 'local', 'tourist', 'tourist_us']);
             this.general = (o.general?.lines || []).filter((l) => !l.p || here.has(l.p) || /^(local|tourist)/.test(l.p)); }
@@ -287,7 +288,11 @@ export class Crowd {
         if (this.chatT <= 0 && player && camera) {
             this.chatT = r.range(6, 12);
             const cand = this.peds.filter((p) => p.sayCd <= 0 && Math.hypot(p.x - player.x, p.z - player.z) < 26 && this._inView(p, camera));
-            if (cand.length) { const p = r.pick(cand); if (!(this.rainy && r() < 0.3 && this._say(p, 'rain', { ambient: true }))) this._say(p, r() < 0.7 ? 'spot' : 'idle', { ambient: true }); }
+            // (L30: mostly lines about this place; small talk a fifth of the time)
+            for (let k = 0; k < 4 && cand.length; k++) { // (up to four tries: someone with nothing new keeps quiet)
+                const p = cand.splice(Math.floor(r() * cand.length), 1)[0];
+                if ((this.rainy && r() < 0.3 && this._say(p, 'rain', { ambient: true })) || this._say(p, r() < 0.8 ? 'spot' : 'idle', { ambient: true })) break;
+            }
         }
         this._writeMatrices();
     }
@@ -372,23 +377,65 @@ export class Crowd {
     }
     /** pick a dialogue line for persona + context (scene lines first, then city-wide), avoiding repeats.
      *  Lines tagged for the current time / weather / season are preferred (about half the time when there are any). */
-    pickLine(persona, ctx) {
-        const fresh = (l) => !this.recent.includes(l);
-        const ok = (l) => l.ctx === ctx && this.fits(l);
+    /** L30: the sub-spot (scene member) a person stands at — scene lines written for another member are about another place */
+    _hereId(p) {
+        const A = this.anchors; if (!p || !A) return null;
+        let best = null, bd = Infinity; for (const id in A) { const d = Math.hypot(A[id].x - p.x, A[id].z - p.z); if (d < bd) { bd = d; best = id; } }
+        return best;
+    }
+    /** a persona's family: local_* and *_ro are locals, tourist_* visitors; roles (waiter, vendor, guard…) are their own */
+    static fam(k) { k = k || ''; return /elder/.test(k) ? 'elder' : /parent/.test(k) ? 'parent' : /^local|_ro$/.test(k) ? 'local' : /^tourist/.test(k) ? 'tourist' : k; }
+    /** the language a persona speaks: its own lines', else its `_xx` suffix, else its family's most common */
+    _tongue(persona) {
+        const T = this._tongues ??= {}; if (persona in T) return T[persona];
+        const all = this.lines.concat(this.general), own = all.filter((l) => l.p === persona);
+        // (own lines without a language are English: a British visitor does not speak the Italian couple's lines)
+        let lang = own.find((l) => l.lang)?.lang || (own.length || /_(us|uk|ca|in|au)$/.test(persona || '') ? 'en' : (/_(ro|it|de|fr|bg|es)$/.exec(persona || '') || [])[1] || null);
+        if (!lang) { const n = {}; for (const l of all) if (l.lang && l.p && Crowd.fam(l.p) === Crowd.fam(persona)) n[l.lang] = (n[l.lang] || 0) + 1; lang = Object.keys(n).sort((a, b) => n[b] - n[a])[0] || null; }
+        return (T[persona] = lang);
+    }
+    /** L30: may this persona say this line? its own lines, lines written for anyone, or its family's in its own language —
+     *  never another role's (a fishmonger does not sell cherries, a football fan does not offer a table for two) */
+    _voice(l, persona, who = null) {
+        if (l.w && who) return l.w === who; // one character per person (a bookseller's lines are not a partygoer's)
+        if (!l.p || l.p === persona) return true;
+        if (Crowd.fam(l.p) !== Crowd.fam(persona)) return false;
+        const t = this._tongue(persona);
+        return !l.orig || !l.lang ? t === 'en' || !t || !/^tourist/.test(persona) : l.lang === t;
+    }
+    /** the research character a person speaks as (lines tagged `w`): one of its own persona's characters at its place,
+     *  else (a persona without lines) a non-staff character of its family in its language; stable per person */
+    _who(p) {
+        if (!p) return null; if (p.who !== undefined) return p.who;
+        const hereId = this._hereId(p), here = (l) => !hereId || !l.at || l.at === hereId, persona = p.persona;
+        const staff = /vendor|seller|staff|waiter|guard|guide|rental|attendant|craftsman|nun|gendarme|busker|violinist|monger/;
+        let ws = [...new Set(this.lines.filter((l) => l.w && l.p === persona && here(l)).map((l) => l.w))];
+        if (!ws.length) ws = [...new Set(this.lines.filter((l) => l.w && here(l) && !staff.test(l.w) && this._voice(l, persona)).map((l) => l.w))];
+        return (p.who = ws.length ? ws.sort()[(p.id ?? 0) % ws.length] : null);
+    }
+    pickLine(persona, ctx, p = null, ambient = false) {
+        const fresh = (l) => !this.recent.includes(l), who = this._who(p);
+        const ok = (l) => l.ctx === ctx && this.fits(l) && this._voice(l, persona, who);
+        const hereId = this._hereId(p), here = (l) => !hereId || !l.at || l.at === hereId;
+        // L30: this place's lines in this persona's own voice first, then its family's (same language), then the
+        // city-wide small talk in that voice, then the scene's other places
+        // ('spot' lines are about the place: never the city-wide phrasebook)
+        const G = ctx === 'spot' ? [] : this.general;
         const pools = [
-            this.lines.filter((l) => ok(l) && l.p === persona), this.general.filter((l) => ok(l) && l.p === persona),
-            this.lines.filter(ok), this.general.filter(ok),
+            this.lines.filter((l) => ok(l) && here(l) && l.p === persona), this.lines.filter((l) => ok(l) && here(l)),
+            G.filter((l) => ok(l) && l.p === persona), G.filter(ok), this.lines.filter(ok),
         ];
-        const tagged = pools[0].concat(pools[2]).filter((l) => (l.when || l.wx || l.season) && fresh(l));
+        const tagged = pools[0].concat(pools[1]).filter((l) => (l.when || l.wx || l.season) && fresh(l));
         if (tagged.length && this.r() < 0.5) return this.r.pick(tagged);
-        for (const pool of pools) { const f = pool.filter(fresh); if (f.length) return this.r.pick(f); }
-        for (const pool of pools) if (pool.length) return this.r.pick(pool);
+        // (a repeat about this place beats a line about the scene's other places)
+        for (const pool of pools.slice(0, 4)) { const f = pool.filter(fresh); if (f.length) return this.r.pick(f); }
+        if (ambient) return null; // (chatter: someone with nothing new to say about this place just keeps quiet)
+        for (const pool of pools) if (pool.length) return this.r.pick(pool.filter(fresh).length ? pool.filter(fresh) : pool);
         return null;
     }
     _say(p, ctx, { force = false, ambient = false } = {}) {
         if (!force && (p.sayCd > 0 || this.globalCd > 0)) return false;
-        const line = this.pickLine(p.persona, ctx); if (!line) return false;
-        // a line written for another persona: borrow its voice only if this persona has nothing for the context
+        const line = this.pickLine(p.persona, ctx, p, ambient); if (!line) return false;
         this.recent.push(line); if (this.recent.length > 8) this.recent.shift();
         p.sayCd = 9; this.globalCd = ambient ? 1.5 : 2.2;
         const main = line.orig || line.text, sub = line.orig ? line.text : '';
@@ -417,13 +464,12 @@ export class Crowd {
         p.tyaw = p.yaw = Math.atan2(player.x - p.x, player.z - p.z);
         const order = p.talkN === 1 ? ['greeting', 'spot', 'idle'] : p.talkN === 2 ? ['spot', 'idle', 'greeting'] : ['idle', 'spot', 'greeting'];
         // only this persona's voice (then its family: tourist_* / local_*, then lines for anyone) — never a vendor's call from a tourist
-        const fam = (k) => (k || '').replace(/_.*$/, ''), me = p.persona || '', fresh = (l) => !this.recent.includes(l);
-        const mine = this.lines.concat(this.general).filter((l) => l.p === me && l.lang), myLang = mine.length ? mine[0].lang : null;
-        const sameTongue = (l) => !l.orig || !l.lang || l.lang === myLang; // (a family line in another language: an Italian visitor doesn't speak French)
+        const me = p.persona || '', fresh = (l) => !this.recent.includes(l);
         let line = null;
         for (const c of order) {
-            const all = this.lines.concat(this.general).filter((l) => l.ctx === c && this.fits(l));
-            for (const pool of [all.filter((l) => l.p === me), all.filter((l) => l.p && fam(l.p) === fam(me) && sameTongue(l)), all.filter((l) => !l.p)]) { const f = pool.filter(fresh); if (f.length) { line = this.r.pick(f); break; } if (pool.length && !line) line = this.r.pick(pool); }
+            // (_voice: own lines, family lines in the same language — an Italian visitor doesn't speak French — or anyone's)
+            const hereId = this._hereId(p), all = this.lines.concat(c === 'spot' ? [] : this.general).filter((l) => l.ctx === c && this.fits(l) && this._voice(l, me, this._who(p)) && (!hereId || !l.at || l.at === hereId));
+            for (const pool of [all.filter((l) => l.p === me), all.filter((l) => l.p), all.filter((l) => !l.p)]) { const f = pool.filter(fresh); if (f.length) { line = this.r.pick(f); break; } if (pool.length && !line) line = this.r.pick(pool); }
             if (line) break;
         }
         const tip = p.talkN >= 2 && culture.length && /^(local|staff|vendor|tour_guide|tech)/.test(p.persona || '') && this.r() < 0.7 ? culture[(p.id * 7 + p.talkN * 3) % culture.length] : null;

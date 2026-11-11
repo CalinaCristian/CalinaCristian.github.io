@@ -1,5 +1,5 @@
 {
-"_about": "Extra crowd dialogue (after round 6): city-wide lines {p, ctx: greeting|idle|spot|street, text, orig?, lang?, when?, wx?, season?} and culture tips, used by spot crowds (merged into dialogueGeneral) and by city pedestrians (E to talk, ambient chatter on foot).",
+"_about": "Extra crowd dialogue (after round 6): city-wide lines {p, ctx: greeting|idle|spot|street, text, orig?, lang?, when?, wx?, season?} and culture tips, used by spot crowds (merged into dialogueGeneral) and by city pedestrians (E to talk, ambient chatter on foot). A line with `spot` (a tourist spot id) is about that place only and joins its scene lines (L30).",
 "seattle": {
 "lines": [
 {
@@ -435,6 +435,255 @@
 "ctx": "greeting",
 "text": "Nice day for it.",
 "src": "spots"
+},
+{
+"spot": "pike-place",
+"p": "vendor",
+"ctx": "spot",
+"text": "Farmers drive in before dawn — stalls are set by nine.",
+"when": "morning"
+},
+{
+"spot": "pike-place",
+"p": "vendor",
+"ctx": "spot",
+"text": "Rainier cherries are in — Washington grown!",
+"season": "summer"
+},
+{
+"spot": "pike-place",
+"p": "vendor",
+"ctx": "spot",
+"text": "Honeycrisp from Wenatchee, first of the season!",
+"season": "autumn"
+},
+{
+"spot": "pike-place",
+"p": "vendor",
+"ctx": "spot",
+"text": "Holiday wreaths, fresh cedar and fir this week!",
+"season": "xmas"
+},
+{
+"spot": "pike-place",
+"p": "local",
+"ctx": "spot",
+"text": "Most stalls close at six; Post Alley stays lively after.",
+"when": "evening"
+},
+{
+"spot": "pike-place",
+"p": "local",
+"ctx": "spot",
+"text": "Under the arcade nobody minds the rain.",
+"wx": "rain"
+},
+{
+"spot": "space-needle",
+"p": "local",
+"ctx": "spot",
+"text": "Bumbershoot takes over the Center on Labor Day weekend.",
+"season": "summer"
+},
+{
+"spot": "space-needle",
+"p": "local",
+"ctx": "spot",
+"text": "Folklife Festival fills these lawns on Memorial Day weekend.",
+"season": "spring"
+},
+{
+"spot": "space-needle",
+"p": "local",
+"ctx": "spot",
+"text": "New Year's Eve the fireworks go off from the Needle itself.",
+"season": "xmas"
+},
+{
+"spot": "space-needle",
+"p": "kid",
+"ctx": "spot",
+"text": "Can we run through the International Fountain?",
+"season": "summer"
+},
+{
+"spot": "space-needle",
+"p": "guide",
+"ctx": "spot",
+"text": "At night the top is lit — watch it from the fountain lawn.",
+"when": "evening"
+},
+{
+"spot": "chihuly",
+"p": "local",
+"ctx": "spot",
+"text": "Rain makes the glass in the garden glow.",
+"wx": "rain"
+},
+{
+"spot": "mopop",
+"p": "local",
+"ctx": "spot",
+"text": "Show in the Sky Church tonight — that's the big hall inside.",
+"when": "evening"
+},
+{
+"spot": "fremont-troll",
+"p": "local",
+"ctx": "spot",
+"text": "Solstice Parade is in June — painted cyclists, the whole neighbourhood out.",
+"season": "summer"
+},
+{
+"spot": "fremont-troll",
+"p": "local",
+"ctx": "spot",
+"text": "Troll-o-ween: on Halloween he gets a party of his own.",
+"season": "autumn"
+},
+{
+"spot": "fremont-troll",
+"p": "local",
+"ctx": "spot",
+"text": "Sunday market's a few blocks down by the canal."
+},
+{
+"spot": "gas-works",
+"p": "local",
+"ctx": "spot",
+"text": "Fourth of July the whole hill fills up for the fireworks over Lake Union.",
+"season": "summer"
+},
+{
+"spot": "gas-works",
+"p": "photographer",
+"ctx": "spot",
+"text": "Sunset behind the skyline across the lake — come early for a spot.",
+"when": "evening"
+},
+{
+"spot": "gas-works",
+"p": "local",
+"ctx": "spot",
+"text": "Rain or not, somebody's always flying a kite up here.",
+"wx": "rain"
+},
+{
+"spot": "kerry-park",
+"p": "local",
+"ctx": "spot",
+"text": "Summer sunsets are after nine — the wall gets packed.",
+"season": "summer"
+},
+{
+"spot": "kerry-park",
+"p": "local",
+"ctx": "spot",
+"text": "Locals say \"the mountain is out\" — not today.",
+"wx": "rain"
+},
+{
+"spot": "pioneer-square",
+"p": "guide",
+"ctx": "spot",
+"text": "The Underground Tour leaves from Doc Maynard's on First Avenue.",
+"when": "day"
+},
+{
+"spot": "pioneer-square",
+"p": "guide",
+"ctx": "spot",
+"text": "The Klondike Gold Rush started here in 1897 — the park museum is round the corner."
+},
+{
+"spot": "pioneer-square",
+"p": "local",
+"ctx": "spot",
+"text": "Game night: the square fills with Seahawks and Mariners fans.",
+"when": "evening"
+},
+{
+"spot": "waterfront",
+"p": "local",
+"ctx": "spot",
+"text": "At night the wheel lights up in colours.",
+"when": "evening"
+},
+{
+"spot": "waterfront",
+"p": "local",
+"ctx": "spot",
+"text": "Summer evenings the Bainbridge ferry is full of commuters and bikes.",
+"season": "summer"
+},
+{
+"spot": "ballard-locks",
+"p": "staff",
+"ctx": "spot",
+"text": "Summer weekends we lock pleasure boats through nonstop.",
+"season": "summer"
+},
+{
+"spot": "ballard-locks",
+"p": "guide",
+"ctx": "spot",
+"text": "After the sockeye come the chinook, then coho into the autumn.",
+"season": "autumn"
+},
+{
+"spot": "bel-botanical-garden",
+"p": "local",
+"ctx": "spot",
+"text": "Garden d'Lights is on — half a million lights shaped like plants.",
+"season": "xmas"
+},
+{
+"spot": "bel-botanical-garden",
+"p": "staff",
+"ctx": "spot",
+"text": "Rhododendrons peak in May — it's the state flower.",
+"season": "spring"
+},
+{
+"spot": "bel-downtown-park",
+"p": "local",
+"ctx": "spot",
+"text": "Snowflake Lane is just across Bellevue Way — drummers and \"snow\" every evening.",
+"season": "xmas"
+},
+{
+"spot": "bel-downtown-park",
+"p": "local",
+"ctx": "spot",
+"text": "The ice rink is up in the park for the winter.",
+"season": "winter"
+},
+{
+"spot": "bel-downtown-park",
+"p": "local",
+"ctx": "spot",
+"text": "Arts fair weekend in late July — the streets around here fill with booths.",
+"season": "summer"
+},
+{
+"spot": "bel-lincoln-square",
+"p": "local",
+"ctx": "spot",
+"text": "Movie at Lincoln Square after dinner?",
+"when": "evening"
+},
+{
+"spot": "bel-meydenbauer",
+"p": "guide",
+"ctx": "spot",
+"text": "Whaling ships wintered in this bay until the 1940s."
+},
+{
+"spot": "bel-meydenbauer",
+"p": "kid",
+"ctx": "spot",
+"text": "The beach is open — can we swim?",
+"season": "summer"
 }
 ],
 "culture": [
@@ -1081,6 +1330,77 @@
 "orig": "Las' că merge și-așa.",
 "lang": "ro",
 "src": "spots"
+},
+{
+"spot": "old-town-lipscani",
+"p": "vendor",
+"ctx": "spot",
+"text": "Mărțișor! Red and white string, for luck in spring!",
+"orig": "Mărțișoare! Șnur alb-roșu, de noroc în primăvară!",
+"lang": "ro",
+"season": "march"
+},
+{
+"spot": "old-town-lipscani",
+"p": "local_young",
+"ctx": "spot",
+"text": "I got you a mărțișor, wear it till the end of the month.",
+"orig": "Ți-am luat un mărțișor, poartă-l până la sfârșitul lunii.",
+"lang": "ro",
+"season": "march"
+},
+{
+"spot": "cismigiu",
+"p": "vendor",
+"ctx": "spot",
+"text": "Mărțișor, snowdrops, flowers for the ladies!",
+"orig": "Mărțișoare, ghiocei, flori pentru doamne!",
+"lang": "ro",
+"season": "march"
+},
+{
+"spot": "stavropoleos-cec",
+"p": "local_elder",
+"ctx": "spot",
+"text": "On Christmas Eve the carollers come round to the doors.",
+"orig": "În Ajun vin colindătorii pe la porți.",
+"lang": "ro",
+"season": "xmas"
+},
+{
+"spot": "athenaeum-revolution",
+"p": "tour_guide",
+"ctx": "spot",
+"text": "Every other September the Enescu Festival fills this hall.",
+"season": "autumn"
+},
+{
+"spot": "athenaeum-revolution",
+"p": "local_elder",
+"ctx": "spot",
+"text": "In December we light candles for the people of '89.",
+"orig": "În decembrie aprindem lumânări pentru cei din '89.",
+"lang": "ro",
+"season": "xmas"
+},
+{
+"spot": "peoples-salvation-cathedral",
+"p": "local_elder",
+"ctx": "spot",
+"text": "At Easter midnight the whole square holds candles: Christ is risen!",
+"orig": "La Înviere toată piața ține lumânări: Hristos a înviat!",
+"lang": "ro",
+"season": "spring"
+},
+{
+"spot": "herastrau-park",
+"p": "local_young",
+"ctx": "spot",
+"text": "In summer there are concerts by the lake in the evening.",
+"orig": "Vara sunt concerte pe malul lacului, seara.",
+"lang": "ro",
+"season": "summer",
+"when": "evening"
 }
 ],
 "culture": [

@@ -1,3 +1,4 @@
+import { buildBellevueSquare, BELLEVUE_MACYS_SOURCE } from './landmark-bellevue-square.js';
 import { buildOTPPier } from './landmark-otp-pier.js';
 import { facadePanels, facadePiers } from './facade-panels.js';
 import * as THREE from '../vendor/three.module.min.js';
@@ -2399,21 +2400,11 @@ function bBellevueTowers(b) {
 // Bellevue Square (1946, rebuilt as an enclosed mall 1981) — 3-level regional mall (OSM way 29234887),
 // skylit malls, main glazed entrance + lettering on Bellevue Way NE (east, model -z).
 // Src: https://en.wikipedia.org/wiki/Bellevue_Square ; OSM way 29234887
-function bBellevueSq(b) {
-    const p = U.w29234887;
-    // round 6 note 29: one shopfront band at street level and blank cream cladding above (the old full-height glass
-    // stripes read as striped boxes), the skylit spines kept on the roof inside the footprint, the lettering on the
-    // entrance pavilion's face (it floated above the canopy, cut off)
-    b.prism(p, 0, 15, '#e3dccf', { topCol: '#cbc4b7' }); b.bands(p, 0, 5, 5, '#3f5666', { frac: 0.78, mat: 'g', start: 0.4 });
-    b.bands(p, 13.2, 15, 1.8, '#d2cabb', { frac: 0.5, start: 0.3 });             // cornice line
-    b.box(15, 15, 0, 230, 1.6, 10, '#cbd6dc', { mat: 'g' });                  // skylit mall spines (low glazed ridges)
-    b.box(-20, 15, 0, 10, 1.6, 190, '#cbd6dc', { mat: 'g' });
-    // main entrance on Bellevue Way NE (model -z = east): glazed pavilion, canopy and the name on its face
-    const ze = zAt([p], 0)?.[0] ?? -126;
-    b.box(0, 0, ze - 4, 30, 13, 8, '#6f8ea2', { mat: 'g' }); b.box(0, 13, ze - 4.5, 34, 1.4, 10, '#efe9df');
-    b.box(0, 9.6, ze - 8.25, 24, 2.6, 0.3, '#efe9df');                            // sign fascia
-    b.text('BELLEVUE SQUARE', 0, 10.15, ze - 8.45, Math.PI, 1.5, '#2e3b46');
-    b.colPolygon(p, { y1: 15 });
+function bBellevueSq(b, ctx = {}) {
+    // Exact OSM outline and the contained, undimensioned Macy's part share the
+    // sourced low mall envelope. The old random 57.6m glass estimate is not a tower.
+    buildBellevueSquare(b, ctx.sourceBuildings?.w29234887?.[0]?.ring || U.w29234887,
+        ctx.sourceBuildings?.w497739259?.[0]?.ring || BELLEVUE_MACYS_SOURCE);
 }
 
 // Mount Rainier — 4,392 m stratovolcano, summit 46.8529 N 121.7604 W (~90 km SE of downtown).
@@ -3518,7 +3509,7 @@ export const LANDMARKS = [
     L('seagarage', 'seattle', 'Sea-Tac parking garage + skybridges', ['Sea-Tac Parking Garage', 'Seattle-Tacoma International Airport Parking Garage'], 80, bSeaGarage, { sourceIds: ['r15763840','w37017724','w37017725','w37017726','w37017727','w37017728','w37017729'] }),
     L('sealink', 'seattle', 'SeaTac/Airport Link station', ['SeaTac/Airport'], 30, bSeaLink, { sourceIds: ['w54139654'] }),
     L('bellevuetowers', 'seattle', 'Bellevue Towers', ['Bellevue Towers', 'North Tower', 'South Tower'], 55, bBellevueTowers, { sourceIds: ['w118119171','w370237986','w370239409'] }),
-    L('bellevuesq', 'seattle', 'Bellevue Square', ['Bellevue Square Mall'], 190, bBellevueSq, { sourceIds: ['w29234887'] }),
+    L('bellevuesq', 'seattle', 'Bellevue Square', ['Bellevue Square Mall'], 190, bBellevueSq, { sourceIds: ['w29234887','w497739259'] }),
     L('rainier', 'seattle', 'Mount Rainier', [], 0, bRainier, {  backdrop: true, realDistanceKm: 87, sourceIds: [] }),
     L('olympics', 'seattle', 'Olympic Mountains', [], 0, bOlympics, {  backdrop: true, realDistanceKm: 60, sourceIds: [] }),
 ];

@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "report": 71,
+  "sourcePolicy": "Preserve exact mall and Macy\u2019s source footprints. One low mall envelope owns their overlap. No dimensioned building is deleted or moved.",
+  "sourceIds": [
+    "w29234887",
+    "w497739259"
+  ],
+  "sourceEntrance": {
+    "id": "n5752777692",
+    "lat": 47.6156362,
+    "lon": -122.202091,
+    "tags": {
+      "entrance": "yes",
+      "level": "0"
+    }
+  },
+  "references": [
+    {
+      "url": "https://www.openstreetmap.org/way/497739259",
+      "checkedAt": "2026-11-11T02:46:22.820187+00:00",
+      "tags": {
+        "brand": "Macy's",
+        "brand:wikidata": "Q629269",
+        "building:part": "yes",
+        "name": "Macy's",
+        "shop": "department_store",
+        "website": "https://www.macys.com/stores/wa/bellevue/bellevue-square_368.html",
+        "wheelchair": "yes"
+      },
+      "facts": "building:part=yes, shop=department_store; no height or building:levels.",
+      "sha256": "e085ddedbc21e4be103d63bb80c6a3811b146ed68da8c94e78580e2b1ae1c24a"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/29234887",
+      "facts": "Containing mall has building:levels=3; exact source entrance recess retained.",
+      "sha256": "4764abed23cf24cba540e46460c9bbedde047694e18fd85a44f75b6ccd1ac8ee"
+    },
+    {
+      "url": "https://www.macys.com/stores/wa/bellevue/bellevue-square_368.html",
+      "checkedAt": "2026-11-11T02:46:22.820368+00:00",
+      "facts": "Official department lists Lower Level, Floor 1, Floor 2; B Building Floor 1 separately. This establishes store use/levels, not a surveyed building elevation.",
+      "sha256": "f84b48d665a13d4e4f64341f897cab28a7eef720e6ddb8959362360f327231ef"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Bellevue_Square_Entrance,_April_2023.png",
+      "author": "Spicypepper999",
+      "license": "CC0",
+      "date": "2023-04-28",
+      "facts": "Front entrance: recessed gridded glass, brick upper flanks, raised concrete gable with open shoulders, stacked Bellevue Square lettering. Reference kept private; no photograph textures.",
+      "referenceImageSha256": "2f2fbb864cc598a2b8db64ade84f543cea93363facf8aa406a5e8550250b042d"
+    }
+  ],
+  "modelEstimates": {
+    "bodyHeightM": 15,
+    "gableSpringM": 18.4,
+    "gablePeakM": 21,
+    "gableHalfWidthM": 5.2,
+    "note": "Existing 15m mall envelope retained as a three-level model estimate. Actual metre height, floor datums, facade bay spacing, colours and gable dimensions remain unsurveyed."
+  },
+  "removedUnsupportedGeometry": "The 30m-wide box and canopy crossed the source recess wings. Replaced by glazing on the source wall and a roof-supported gable. Two unverified rectangular roof spines were omitted; no mapped source roof removed.",
+  "partModel": {
+    "sourceId": "w497739259",
+    "ring": [
+      [
+        -50.5779,
+        -58.4861
+      ],
+      [
+        -50.119,
+        -83.7367
+      ],
+      [
+        -49.5809,
+        -126.8627
+      ],
+      [
+        -5.3145,
+        -126.4812
+      ],
+      [
+        -5.6997,
+        -109.7128
+      ],
+      [
+        1.5136,
+        -109.6111
+      ],
+      [
+        1.5995,
+        -111.4327
+      ],
+      [
+        5.7561,
+        -111.3702
+      ],
+      [
+        16.358,
+        -111.1803
+      ],
+      [
+        16.2948,
+        -109.6883
+      ],
+      [
+        22.9279,
+        -109.5318
+      ],
+      [
+        23.2,
+        -119.5539
+      ],
+      [
+        23.373,
+        -126.1029
+      ],
+      [
+        31.2643,
+        -125.9926
+      ],
+      [
+        53.3218,
+        -125.5454
+      ],
+      [
+        51.9621,
+        -59.2013
+      ],
+      [
+        47.0499,
+        -59.2827
+      ],
+      [
+        4.8481,
+        -59.8775
+      ],
+      [
+        -35.1496,
+        -60.538
+      ],
+      [
+        -35.2921,
+        -57.4119
+      ],
+      [
+        -43.7927,
+        -57.5885
+      ],
+      [
+        -43.7595,
+        -58.5409
+      ]
+    ],
+    "rendering": "Entire contained plan shares the mall\u2019s physical envelope, replacing an unsupported generic57.6mglass estimate. Source record in district data remains unchanged."
+  }
+}

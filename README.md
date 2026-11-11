@@ -397,3 +397,5 @@ Ground-floor business fascias reserve their full opaque board spans, including t
 The sign correction includes before/after evidence for reports27/36 and refreshed affected aerial, walking-height and context galleries. Mixed-source condition sets link each actual revision; unchanged captures keep their original dates and sources. Column, balcony and tree occlusion remains a separate placement limitation.
 
 The Politehnica interior’s CV placard sits on the clear ground-hall wall below the gallery, in front of the brick finish. It remains an authored game exhibit, not a claim about signage in the real Rectorat.
+
+Bellevue Square’s entrance follows its mapped recess and photo-led glass/gabled frontage. The contained Macy’s department-store part shares the three-level mall model instead of an unsupported estimated glass tower; metre heights and facade details remain estimates. See `game/research/landmarks-bellevue-square.json`.

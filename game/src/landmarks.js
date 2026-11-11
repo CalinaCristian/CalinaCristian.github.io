@@ -1548,7 +1548,7 @@ function bFountains(b) {
         const ang = 0.5 * Math.atan2(2 * sxz, sxx - szz), ux = Math.cos(ang), uz = Math.sin(ang);
         let lmin = 1e9, lmax = -1e9, wmax = 0; for (const [x, z] of ring) { const l = (x - cx) * ux + (z - cz) * uz, w = Math.abs(-(x - cx) * uz + (z - cz) * ux); lmin = Math.min(lmin, l); lmax = Math.max(lmax, l); wmax = Math.max(wmax, w); }
         const L = lmax - lmin, Wd = wmax * 2, plaza = Math.abs(cx) < 100 && Wd > 12;
-        const outer = offset(ring, 0.35), inner = offset(ring, -0.35);
+        const outer = ring.map(p => [...p]), inner = offset(ring, -0.7); // (owner L24 / register #30: the kerb stood 0.35 m outside the OSM outline, up to 0.27 m into the carriageway: it now lies on and inside the literal outline)
         b.waterFootprints.push({ sourceId: FOUNTAIN_SOURCE_IDS[basinIndex], ring: outer.map(p => [...p]) });
         b.ring(outer, 0, 0.6, '#a5a29b'); b.ring(inner, 0.35, 0.6, '#a5a29b', { inward: true }); b.lip(inner, outer, 0.6, '#b4b1a9', 1);   // granite kerb on the real outline
         b.ring(inner, 0.12, 0.35, '#8fb9bf', { inward: true });

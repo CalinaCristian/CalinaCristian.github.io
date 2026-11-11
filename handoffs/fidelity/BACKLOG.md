@@ -16,7 +16,6 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Grozăvești | Pasajul west deck height over the Dâmbovița | the shared Basarab model holds 11 m over the river; Street View on the arch suggests a lower deck (not measured) |
 | Grozăvești | Reality-check viewpoints | most of the 19 viewpoints in `game/dev/reality/viewpoints.json` not reviewed yet; other districts have none |
 | Unirii | #25 facade flicker near the ground floor | not reproduced in still captures |
-| Unirii | L24 / #30 fountain basin in the carriageway | 1 of 44 basins reaches 0.27 m into the carriageway |
 | Unirii | L22 / #26 / #32–#34 junction and longitudinal markings | look whole at the report poses from above; verify at street level |
 | Romană | L23 sign flicker (Penny) | not reproducible: no Penny sign or POI in the current Romană data; facade signs stand 0.14 m off their walls; owner to give the pose if it still flickers |
 | Romană | #47 / #48 / #50 crossing paint, markings at parking islands, building in the street | look whole at the report poses; verify at street level |
@@ -52,6 +51,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | 7d2d7cd4 | #2 Floreasca bus shelter: faces the nearest public carriageway (Strada Ceaikovski, the bus route), never a service lane |
 | earlier on this branch | L1–L7, L9–L13, L19 (all three places), L20, L21, L32, L33, L35–L40, L42, L43, L44, L46–L49; register #12–#14, #16–#18 (re-checked at their poses 2026-11-11) |
 | 4ba732e4 | #57 / #58 SeaTac station west bridge reaches the garage; #61 the station name board stands on posts |
+| (next commit) | L24 / #30 Unirii fountain kerbs on and inside the OSM outlines (no basin reaches a carriageway) |
 | by design | #64 SeaTac road ending in grass: OSM w1067079743 is a real dead-end service road (live API checked) |
 | by design | #28 Unirii fountains run May–October 10:00–23:00 (`?fountains=on` forces them); L18 Romană underpass re-checked closed |
 

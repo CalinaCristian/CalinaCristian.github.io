@@ -2477,6 +2477,18 @@ export async function buildWorld(city, renderer, opts = {}) {
             if(polygon.length)sourceMarks.flatPolygon(polygon,q[8],q[9],q[10]);
         }
         // bridges: railings
+        // (a parapet piece is "soft"-dropped where it stands over another carriageway at its level or at street level)
+        const guardSoft = (f, A, B) => { const mx = (A[0] + B[0]) / 2, mz = (A[1] + B[1]) / 2; return coveredByOther(mx, mz, f, yAlong(f, mx, mz), 0.1, false, 0.3) || (!f.overWater && Math.max(yAlong(f, ...A), yAlong(f, ...B)) < 0.6); };
+        // the same road continuing through a node: its 3 m parapet pieces nearest the node on the matching side, keep flags
+        const guardNeighbour = (n, s0) => {
+            const f = (n.allEdges || n.edges || []).find(q => q !== e && q.bridge && q.road === e.road && !q.virtual && !basarabEdge(data, q)); if (!f) return [];
+            const sameDir = (f.dirx * e.dirx + f.dirz * e.dirz) > 0, sf = sameDir ? s0 : -s0;
+            const qa = corner(f, f.a, sf, widthAsphalt(f, sf) + 0.3, widthAsphalt), qb = corner(f, f.b, sf, widthAsphalt(f, sf) + 0.3, widthAsphalt);
+            const L2 = Math.hypot(qb[0] - qa[0], qb[1] - qa[1]), k2 = Math.max(1, Math.ceil(L2 / 3)), at = j => [qa[0] + (qb[0] - qa[0]) * j / k2, qa[1] + (qb[1] - qa[1]) * j / k2];
+            const nearA = f.a === n, out = [];
+            for (let i = 0; i < Math.min(4, k2); i++) { const j = nearA ? i : k2 - 1 - i; out.push(!guardSoft(f, at(j), at(j + 1))); }
+            return out; // nearest the node first
+        };
         if (e.bridge && !basarabEdge(data,e)) {
             const sb = bridgeGuard || c.solid;
             for (const s of [1, -1]) {
@@ -2488,7 +2500,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const A = [pa[0] + (pb[0] - pa[0]) * j / k, pa[1] + (pb[1] - pa[1]) * j / k], B = [pa[0] + (pb[0] - pa[0]) * (j + 1) / k, pa[1] + (pb[1] - pa[1]) * (j + 1) / k];
                     const mx = (A[0] + B[0]) / 2, mz = (A[1] + B[1]) / 2;
                     // (owner, 2026-11-11, Grozavesti (-28, 59)) no parapet on a stretch at street level; bridges over water keep theirs
-                    const soft = coveredByOther(mx, mz, e, yAlong(e, mx, mz), 0.1) || (!e.overWater && Math.max(yAlong(e, ...A), yAlong(e, ...B)) < 0.6);
+                    const soft = guardSoft(e, A, B);
                     const hard = tramGrades.excludesInferredObstacle(A, B, { inferred: true, y0a: Y.road + yAlong(e, ...A), y1a: Y.road + yAlong(e, ...A) + 1.1,
                         y0b: Y.road + yAlong(e, ...B), y1b: Y.road + yAlong(e, ...B) + 1.1, kind: 'bridge-guard-visual', sourceId: data.roadSourceGeometry?.[e.road]?.sourceId });
                     piece.push({ A, B, keep: !soft && !hard, hard });
@@ -2496,13 +2508,18 @@ export async function buildWorld(city, renderer, opts = {}) {
                 // (owner, 2026-11-11, Grozavesti (286, -776): "still broken") each piece used to be decided on its own, so a
                 // low ramp beside a parallel road (Exit to Giulesti) got a barrier in chunks with gaps. One continuous run per
                 // side: gaps of up to four pieces (12 m) between kept pieces are filled (never across the tram sweep), lone pieces dropped.
-                for (let j = 0; j < k; j++) if (!piece[j].keep && !piece[j].hard) {
-                    let a = j - 1; while (a >= 0 && !piece[a].keep && j - a <= 4) a--;
-                    let b = j + 1; while (b < k && !piece[b].keep && b - j <= 4) b++;
-                    if (a >= 0 && b < k && piece[a].keep && piece[b].keep && b - a - 1 <= 4 && piece.slice(a + 1, b).every(q => !q.hard)) for (let q = a + 1; q < b; q++) piece[q].fill = true;
+                // (owner, 2026-11-11, L45: the median barrier still broke where its gap spanned two edges) the run looks four
+                // pieces into the same road's neighbouring edges, so a gap across an edge boundary is filled too
+                const before = guardNeighbour(e.a, s).reverse().map(keep => ({ keep, hard: false, ghost: true })), after = guardNeighbour(e.b, s).map(keep => ({ keep, hard: false, ghost: true }));
+                const run = [...before, ...piece, ...after], off = before.length, K = run.length;
+                for (let j = 0; j < K; j++) if (!run[j].keep && !run[j].hard) {
+                    let a = j - 1; while (a >= 0 && !run[a].keep && j - a <= 4) a--;
+                    let b = j + 1; while (b < K && !run[b].keep && b - j <= 4) b++;
+                    if (a >= 0 && b < K && run[a].keep && run[b].keep && b - a - 1 <= 4 && run.slice(a + 1, b).every(q => !q.hard)) for (let q = a + 1; q < b; q++) run[q].fill = true;
                 }
+                void off;
                 for (let j = 0; j < k; j++) if (piece[j].fill) piece[j].keep = true;
-                for (let j = 0; j < k; j++) if (piece[j].keep && !(piece[j - 1]?.keep) && !(piece[j + 1]?.keep) && k > 2) piece[j].keep = false;
+                for (let j = off; j < off + k; j++) if (run[j].keep && !(run[j - 1]?.keep) && !(run[j + 1]?.keep) && K > 2) run[j].keep = false;
                 for (const { A, B, keep } of piece) {
                     if (!keep) continue;
                     sb.wall(A[0], A[1], B[0], B[1], yR, yR + 1.1, e.nx * s, e.nz * s, rgb('#9aa3ad'));

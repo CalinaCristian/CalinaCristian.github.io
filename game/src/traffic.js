@@ -3571,6 +3571,9 @@ export class Pedestrians {
                 if (leg && (p.blockT || 0) > 4) {
                     p.blockT = 0;
                     if (leg.cross && leg.sx !== undefined && !leg.back) { leg.back = true; leg.x = leg.sx; leg.z = leg.sz; p.legs.length = 1; p.next = { e: p.e, dir: -p.dir, side: p.side, s: p.s }; }
+                    // (owner, 2026-11-11, Grozavesti (477, -673): "traffic jam") pinned both ways (the way back is blocked too): the cars
+                    // wait for them for good; they leave the carriageway (back onto a sidewalk away from the camera)
+                    else if (leg.cross && leg.back) { this.stats.pinnedRelocated = (this.stats.pinnedRelocated || 0) + 1; p.onRoad = false; p.state = 'walk'; p.legs.length = 0; if (T.large) this.relocate(p, 120, 420, true); else this.relocate(p, 30, 200, true); continue; }
                     else if (!leg.cross) { p.legs.shift(); if (!p.legs.length && p.next) { const qx = p.x, qz = p.z; p.state = 'walk'; p.onRoad = false; p.e = p.next.e; p.dir = p.next.dir; p.side = p.next.side; p.s = p.next.s; this.placeWalk(p); this.adoptLine(p, qx, qz); } }
                 }
                 if (leg && leg.cross && leg.sx !== undefined && p.crossT > 5 + (leg.len || 10) / 1.2 && !leg.back) {
@@ -3819,7 +3822,9 @@ export class Pedestrians {
             if (!ok || v.parked) return;
             const dx = mx - v.x, dz = mz - v.z; const d = Math.hypot(dx, dz);
             if (d < r && v.speed > 1.5 && (dx * v.fx + dz * v.fz) > -2) ok = false;
-            if (d < 5) ok = false;
+            // (owner, 2026-11-11, Grozavesti (477, -673): "traffic jam") a car standing still in front of the crossing is the one
+            // waiting for the walker: it no longer keeps them at the kerb (a car on the crossing still does: crossBlocked)
+            if (d < 5 && v.speed > .3) ok = false;
         });
         const P = this.t.player;
         if (P) { const dx = mx - P.x, dz = mz - P.z; const d = Math.hypot(dx, dz); if (d < r && Math.abs(P.speed) > 2 && (dx * P.fx + dz * P.fz) > -2) ok = false; }

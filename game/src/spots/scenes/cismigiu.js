@@ -179,6 +179,39 @@ export default {
         ctx.terrainOpts = { bg: '#6a8444', bgMask: 'grass', innerPx: 2048, innerStep: 2, outerStep: 16, outerPad: 600, cutouts: lake ? [lake] : [] };
         bucBackdrop(ctx, { lampStyle: 'lantern', lampColor: '#22262a', lampH: 4.2, lampPad: 5, treeLod: { cap: 1800, max: 380 }, lampOpts: { spacing: 26, kinds: ['footway', 'path', 'pedestrian'] }, streetTreeOpts: { kinds: ['secondary', 'tertiary'], prob: 0.6 }, areaTreeOpts: { kinds: ['wood', 'forest', 'park'], density: 1 / 140, conifer: 0.08 } });
         const park = osmPoly(d, 'w16291869');
+        // (owner, 2026-11-11, spot pass: plain grey path strips, one flat green) Lawns mottled in greens and straw; the alleys
+        // redrawn by their mapped surface (asphalt, paving stones, setts) with a stone kerb, at estimated widths (untagged in
+        // OSM: asphalt 3 m, paving 2.6 m, setts 2.4 m); low green hoop borders along the lawn edges, as in Bucharest parks.
+        if (park) {
+            const pr = rng(77), pb = polyBox(park);
+            ctx.painter.custom((x, T, k) => { x.save(); x.beginPath(); park.forEach(([wx, wz], i) => { const [px, py] = T(wx, wz); if (i) x.lineTo(px, py); else x.moveTo(px, py); }); x.closePath(); x.clip();
+                for (let i = 0; i < 2600; i++) { const wx = pb.x0 + pr() * (pb.x1 - pb.x0), wz = pb.z0 + pr() * (pb.z1 - pb.z0), [px, py] = T(wx, wz), rr = (2 + pr() * 7) * k;
+                    x.fillStyle = pr() < 0.55 ? `rgba(48,74,30,${0.05 + pr() * 0.07})` : pr() < 0.6 ? `rgba(150,150,80,${0.05 + pr() * 0.06})` : `rgba(110,140,60,${0.05 + pr() * 0.06})`; x.beginPath(); x.ellipse(px, py, rr, rr * (0.5 + pr() * 0.5), pr() * 3, 0, 7); x.fill(); }
+                x.restore(); });
+            const parkWays = d.ways.filter((w) => ['footway', 'path', 'pedestrian'].includes(w.k) && !(w.bridge && w.bridge !== 'no') && w.pts.length > 1 && w.pts.some(([x, z]) => inPoly(x, z, park)));
+            const look = (w) => w.surface === 'sett' ? { W: 2.4, c: '#8a847a', m: 'cobble' } : /paving|concrete/.test(w.surface || '') ? { W: 2.6, c: '#aaa497', m: 'slab' } : w.surface === 'dirt' ? { W: 1.6, c: '#9c8a6c', m: 'dirt' } : { W: 3.0, c: '#5d5d58', m: 'asphalt' };
+            for (const w of parkWays) { const L2 = look(w); ctx.painter.line(w.pts, L2.W + 0.36, '#bdb7aa', 'slab'); }
+            for (const w of parkWays) { const L2 = look(w); ctx.painter.line(w.pts, L2.W, L2.c, L2.m); }
+            // hoop borders: a strip of overlapping low hoops (alpha-tested), 0.45 m off the kerb, broken where another alley,
+            // a bridge or the lake comes close
+            const hoopTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 64; const x = c.getContext('2d'); x.clearRect(0, 0, 256, 64); x.strokeStyle = '#ffffff'; x.lineWidth = 3.2;
+                for (let i = -1; i < 9; i++) { x.beginPath(); x.arc(i * 32 + 16, 64, 30, Math.PI, 2 * Math.PI); x.stroke(); }
+                const t = new THREE.CanvasTexture(c); t.wrapS = THREE.RepeatWrapping; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; })();
+            const hoopMat = new THREE.MeshStandardMaterial({ map: hoopTex, color: '#2e4a34', alphaTest: 0.5, side: THREE.DoubleSide, roughness: 0.6, metalness: 0.3 });
+            const segs = new Map(), cell = 8, key = (i, j) => i + ',' + j;
+            for (const w of d.ways) { if (!['footway', 'path', 'pedestrian', 'cycleway', 'service', 'steps'].includes(w.k)) continue; const hw = (w.k === 'footway' || w.k === 'path' || w.k === 'pedestrian' ? look(w).W : 4) / 2;
+                for (let i = 1; i < w.pts.length; i++) { const a = w.pts[i - 1], c2 = w.pts[i]; for (let ci = Math.floor(Math.min(a[0], c2[0]) / cell) - 1; ci <= Math.floor(Math.max(a[0], c2[0]) / cell) + 1; ci++) for (let cj = Math.floor(Math.min(a[1], c2[1]) / cell) - 1; cj <= Math.floor(Math.max(a[1], c2[1]) / cell) + 1; cj++) { const k2 = key(ci, cj); if (!segs.has(k2)) segs.set(k2, []); segs.get(k2).push([a, c2, hw, w]); } } }
+            const clearOf = (x, z, own) => { for (const [a, c2, hw, w] of segs.get(key(Math.floor(x / cell), Math.floor(z / cell))) || []) { if (w === own) continue; const ex = c2[0] - a[0], ez = c2[1] - a[1], l2 = ex * ex + ez * ez || 1, t = Math.max(0, Math.min(1, ((x - a[0]) * ex + (z - a[1]) * ez) / l2)); if (Math.hypot(x - a[0] - ex * t, z - a[1] - ez * t) < hw + 0.6) return false; } return true; };
+            const hb = new GeoBatch(); let hoopM = 0;
+            for (const w of parkWays) { if (w.surface === 'dirt') continue; const off = look(w).W / 2 + 0.18 + 0.45;
+                for (const sd of [-1, 1]) { const line = offsetPolyline(w.pts, sd * off); let run = [];
+                    const flush = () => { for (let i = 1; i < run.length; i++) { const [ax, az] = run[i - 1], [bx, bz] = run[i], l = Math.hypot(bx - ax, bz - az), ya = g.heightAt(ax, az), yb = g.heightAt(bx, bz); hoopM += l; hb.quad([ax, ya, az], [bx, yb, bz], [bx, yb + 0.32, bz], [ax, ya + 0.32, az], '#ffffff', 'hoop', [0, 0, l / 0.5, 0, l / 0.5, 1, 0, 1]); } run = []; };
+                    for (let i = 1; i < line.length; i++) { const [ax, az] = line[i - 1], [bx, bz] = line[i], l = Math.hypot(bx - ax, bz - az), n = Math.max(1, Math.ceil(l / 1)); for (let q = (i === 1 ? 0 : 1); q <= n; q++) { const x = ax + (bx - ax) * q / n, z = az + (bz - az) * q / n;
+                        const ok = inPoly(x, z, park) && clearOf(x, z, w) && !(lakeD && lakeD(x, z) < 1.5) && !bridges.some((bw) => distPolyline(x, z, bw.pts).d < 4);
+                        if (ok) run.push([x, z]); else flush(); } }
+                    flush(); } }
+            if (hoopM) { ctx.add(hb.build('cismigiu-hoop-borders', { castShadow: false, matOverrides: { hoop: hoopMat } })); ctx.extras.hoopBordersM = Math.round(hoopM); }
+        }
         if (park) { for (const w of d.ways) { if (!['footway', 'path'].includes(w.k) || !w.pts.some(([x, z]) => inPoly(x, z, park))) continue; for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 1) continue; const nx = -(bz - az) / L, nz = (bx - ax) / L; for (let t = r() * 10; t < L; t += 9 + r() * 5) for (const sd of [-1, 1]) { if (r() < 0.35) continue; const x = ax + (bx - ax) * t / L + nx * sd * (3.6 + r() * 2), z = az + (bz - az) * t / L + nz * sd * (3.6 + r() * 2); if (lake && (inPoly(x, z, lake) || distPolyline(x, z, [...lake, lake[0]]).d < 2.5)) continue; if (Math.hypot(x - rot.x, z - rot.z) < 15 || Math.hypot(x - ch.x, z - ch.z) < 7) continue; ctx.trees.push({ x, z, kind: r() < 0.08 ? 'con' : 'broad', s: 1.2 + r() * 0.6 }); } } } }
         ctx.trees = ctx.trees.filter((t) => !(lake && inPoly(t.x, t.z, lake)));
         // keep the alleys clear (no trunks on the paths) and the postcard view along the lake open

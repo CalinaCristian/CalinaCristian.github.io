@@ -57,12 +57,12 @@ States: **fixed on branch** (implemented and checked in the probe; not published
 | Spot | Seen | Next |
 | --- | --- | --- |
 | Old Town (Lipscani) | neutral shopfront glazing read as dark panels with tan blocks; one design repeated | fixed on branch: a 16-bay shopfront atlas (fascia, awnings, transoms, lit displays of eight kinds of shop, doors, stall risers, piers), one picked per bay; interiors lit at night; no business names |
-| Cișmigiu | lake fixed (L32); paths are plain grey strips, lawns one flat green | gravel/asphalt alleys with edging, lawn variation, flower beds at the gates |
-| Arcul de Triumf | the arch is a plain block with an opening; verges and bollards fine | relief on the arch (columns, attic, reliefs) |
+| Cișmigiu | lake fixed (L32); paths were plain grey strips, lawns one flat green | fixed on branch: alleys by mapped surface with kerbs, mottled lawns, low hoop borders; flower beds not added |
+| Arcul de Triumf | read as a plain pale block; bare sides | fixed on branch: dressed-stone masonry (coursed blocks, per-block tint) on the landmark's walls |
 | Pike Place | sound; a parked van blocks the spawn view | |
 | Space Needle | glass canopy fixed (L37) | |
 | Bellevue Meydenbauer | sound (beach, boulders, pier) | |
-| Bellevue Downtown Park | falling-leaf flakes float at eye level as large dark shapes | check the leaf particle size and height |
+| Bellevue Downtown Park | dark flakes at eye level round the trees | fixed on branch: they were the last leaf clumps of nearly bare crowns; past about 60 % bare a crown keeps only its twig haze |
 
 ## The 71-report register
 

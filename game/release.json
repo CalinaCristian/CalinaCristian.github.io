@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-dc1b7ab415b7eb7a",
-  "sourceCommit": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
-  "fingerprint": "dc1b7ab415b7eb7a835b4ed38aa5e86464fa0c6bfabe9ade2a35dea57f541a27",
+  "releaseId": "game-3421a339bab2cbfa",
+  "sourceCommit": "6c4b122fa7564aa5cb1519b76534bf4ab125d063",
+  "fingerprint": "3421a339bab2cbfa5fd476ca635d17ec892fd1b8eb820e0e8d654a6b7c49e99d",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -389,6 +389,10 @@
       "sha256": "b28578073b825692dbf98f1e1efa4d05fff98252e2be27e130f579adfff46cf6"
     },
     {
+      "path": "game/src/landmark-bellevue-square.js",
+      "sha256": "6dc123febbb43293548bd52b2ca76641620ae4539f7eb6ff18ff37b7f9173bb8"
+    },
+    {
       "path": "game/src/landmark-cec-source.js",
       "sha256": "4891822203ad126ab75511e2196965848db37cfdfabadef54b13cea4ffbe4356"
     },
@@ -442,7 +446,7 @@
     },
     {
       "path": "game/src/landmarks.js",
-      "sha256": "b313127abdcf664af91fa38768ce64450e20d7f13b010511cb90a82748dffd6a"
+      "sha256": "ef6b97d423d32c74c2f1c990a4f41ff0c7b4c2cd9c02340b771be6f29f3493e3"
     },
     {
       "path": "game/src/main.js",

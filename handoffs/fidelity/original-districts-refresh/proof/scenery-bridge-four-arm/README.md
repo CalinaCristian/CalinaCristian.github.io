@@ -1,7 +1,0 @@
-# Mapped link at a named bridge-mouth fork
-
-This extends ceae0c5's narrow exact-source fork rule to the actual SR99 four-arm junction at source node490756658. The bridgew428056673 points−70.85°, the two primary International Boulevard approach armsw65588356/w124940472 point121.05°/99.68°, and the fourth armw52735007 is a mapped motorway_link already admissible by the existing link policy. A normal additional cross-street still blocks this fork inference. Eligibility does not depend on source iteration order. Source coordinates, width, access, nodes, core grades and fixed ties are unchanged.
-
-All1182 pure controls pass. All eight CPU reconstructions still match actual native baseline core hashes and full baseline statistics. Five non-Pipera Romanian profile sets remain byte-identical. Relative to the immutable437 baseline, the two SR99 production2m-body contacts become clear, while one highway model clearance target remains4.939m rather than5.2m and stays unresolved. SeaTac has14 unresolved targets and seven remaining CPU body contacts. Rental road source ordering is a separate open issue; zero overlap alone cannot prove correct upper/lower ordering. Native integrated collision/render follow-up remains required.
-
-Per-district files use the same evidence contract and reproduction helper as `../scenery-bridge-continuation`. These are CPU production collision queries on exact quads, not native controller travel. All437 images in changed areas remain before evidence.

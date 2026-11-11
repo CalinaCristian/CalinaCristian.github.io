@@ -1,9 +1,0 @@
-# Native route and initial admission proof — source3ca210a
-
-Source `3ca210ac24a8fa83a5db84d6ebf65bae3146ebd8`, completed2026-11-09. All five day/night/winter native approaches arrived with0contacts,0resets and0high/medium findings. No runtime, console or failed-request errors. The full raw report retains original low machine-timing and budget findings. The184 served runtime/data/vendor/caller files are hash verified. All16 frozen render-frame pose records preserve the full624 vehicle identities (including the native night pool) and560 pedestrians; each adjacent render pair has identical physical-pose hashes.
-
-The complete previsible560 admission gate has173 walking and19 standing repairs, no unresolved/static/carried/body/vehicle/peer failures, minimum centres0.622520m. Native live crowd-flow is a separate OPEN gate: the dynamic XY proximity counts are not zero. Per-frame same-edge close pairs and the original sampled metrics are retained; a bounded actual model/height/pose/visibility/duration replay is classifying them before freeze. This directory therefore does not claim final crowd acceptance.
-
-All8 actual main/mirror images were inspected. High quality, native camera planes/pixel ratio/full mirror, source geometry, all actor identities and native controllers remain unchanged. Day first150 is339calls/1,579,954triangles; winter327/1,509,569. These are retained budget failures on the unoptimized historical world. Root must measure the combined rendering candidate, not assume its earlier c78 delta.
-
-148/461 and593/609 do not meet in this changed native trajectory; their negative intervals are not a challenged same-encounter regression claim. The original exact native states, complete failed reports and production-method positive/negative fixtures remain separately retained. Root also owns the final load-order invariant and combined900/foot-a/district-load/hotspot gates.

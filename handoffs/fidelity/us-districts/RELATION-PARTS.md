@@ -1,9 +1,0 @@
-# Positive multipolygon building parts
-
-District source admission now independently accepts a positive `building` or positive `building:part` on an OSM multipolygon relation. Explicit `no`, `false` and `0` are negative classifications; a positive other classification still admits the source body. Legacy corridor admission stays unchanged. Every assembled outer and its contained inner rings uses the existing exact source-footprint path.
-
-`buildingSourceTags` is an additive dictionary keyed by relation source ID. It preserves the complete original tag map before research or derived style classification. Repeated outer bodies of one relation share this same original tag record. `buildingSourceIssues` explicitly reports nonstandard `building:min_levels` values. Those raw relative counts do not establish a physical minimum in metres and are not converted into one. The independent auditor exposes the same raw uncertainty separately from literal height/minimum fidelity.
-
-The earlier builder and independent auditor both omitted nine Bellevue part-only relations. The corrected expected set includes their exact original source bodies: r4547846–r4547854. Two have literal total heights of 110 m and 102 m; the remaining positive mapped storeys are retained. The admission correction does not change ordinary building relations or any source footprint.
-
-`node tools/osm/relation-parts-check.mjs` builds all nine actual relations and checks their independent audit, original tags, every outer/inner topology and literal dimensions. Five explicitly controlled classification variants cover positive part with building=no, both negative, false/0 negatives and ordinary positive building with part=no. `research-source-check.mjs` separately verifies the actual relation/way identity collision and positive literal priority. Test-only synthetic identities do not enter production data.

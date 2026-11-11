@@ -1,5 +1,0 @@
-# Native cockpit camera measurement
-
-Actual Player constructor, updateRig and production uiChecks in muted Chromium;390×844desktop/touch,844×390touch,1280×720desktop. This geometry/DOM fixture does not load a district, measure FPS or prove traffic/render budgets. Native initial and settled camera poses give zero nav-screen offscreen/occlusion in all4cases. Forcing camHolder rotation to zero after updateRig reproduces22%screen offscreen on bothportrait cases. The old visual harness did exactly that, cancelling the native portrait yaw; its13%/9%flags were a harness pose defect. Removing the forced-zero line preserves production camera/zoom and corrects future captures.
-
-The separate one-word footer in narrow desktop was a real CSS defect and was corrected earlier. Run a local static server for the intended committed source; BASE_URL selects it, OUT selects the raw JSON. Read-only module/CPU geometry checks; no reference imagery or physical-device claims. Captured source modules match4378317 for Player/vehicles/uiChecks; root subsequently integrated unrelated CEC source mass.

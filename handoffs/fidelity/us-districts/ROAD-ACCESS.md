@@ -1,7 +1,0 @@
-The SeaTac source census found private Air Cargo Road segments admitted as public roads because the old restriction check applied only to `highway=service`. Generic source access now resolves the complete motorcar hierarchy and separates physical source rows from legal public routing.
-
-Restricted core roads remain physical road rows so their bridge, tunnel and layer profile survives. Their access metadata excludes them from the runtime SCC/navigation/ambient traffic and avoids invented private-road map closures. Destination/customer access is allowed only for a selected endpoint in the connected limited-access area. Conditional permissions are retained verbatim and excluded while their context is unresolved; no time parser or current-open claim is implied.
-
-`node tools/osm/road-access-check.mjs` passed 15 access cases, five router checks and ten builder fixture checks. The builder fixture runs in a temporary repository, preserving a private elevated trunk and public motorcar override on an inherited-private service road; footways and runways do not become driving roads. Syntax checks pass for every edited module. Final source district rebuilds and browser/route/performance acceptance follow the native roof and exact-road geometry prerequisites.
-
-The generic schema is `data.roadAccess[roadIndex]` / `data.sceneryAccess[sceneryIndex]`, containing `sourceId`, resolved permission/provenance and original access/grade tags. Runtime `edge.access` exposes the same record; consumers can match `edge.access.sourceId` without proximity matching.

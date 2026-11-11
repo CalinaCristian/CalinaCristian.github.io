@@ -3311,7 +3311,9 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const own = Y.road + yAlong(e,e.a.x+e.dirx*e.len*tt,e.a.z+e.dirz*e.len*tt);
                     const x = e.a.x + e.dirx * e.len * tt + e.nx * (off + 0.6) * s, z = e.a.z + e.dirz * e.len * tt + e.nz * (off + 0.6) * s;
                     const ix = e.a.x + e.dirx * e.len * tt + e.nx * (s > 0 ? e.wR : e.wL) * 0.5 * s, iz = e.a.z + e.dirz * e.len * tt + e.nz * (s > 0 ? e.wR : e.wL) * 0.5 * s;
-                    const bad = Math.abs(land(x, z, own) - own) > 0.45 && !blocked(ix, iz, x, z, own);
+                    // (owner register #59: the drop beside a sunken ramp hovering about 0.45 m switched the barrier on and off in
+                    // 2-5 m pieces) a run starts at a 0.45 m drop and goes on while the drop stays over 0.25 m
+                    const bad = Math.abs(land(x, z, own) - own) > (run ? 0.25 : 0.45) && !blocked(ix, iz, x, z, own);
                     if (bad) { if (!run) run = { ta: Math.max(t0, tt - step * 0.6), tb: Math.min(t1, tt + step * 0.6) }; else run.tb = Math.min(t1, tt + step * 0.6); }
                     else flush();
                 }
@@ -3360,9 +3362,12 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (const w of walls) if ((w.kind === 'barrier' && w.inferred === true) || (w.kind === 'rail' && w.edge?.bridge && !w.tramDeckRailing)) for (const end of [0, 1]) { const rail = w.kind === 'rail', q = { w, end, x: end ? w.bx : w.ax, z: end ? w.bz : w.az, y0: rail ? (end ? w.y1b : w.y1a) - 1.55 : end ? w.y0b : w.y0a, y1: end ? w.y1b : w.y1a, done: false }; ends.push(q); eg.insert(q.x, q.z, q.x, q.z, q); }
             for (const a of ends) {
                 if (a.done) continue; let best = null; const da = unit(a.w);
-                eg.each(a.x - 1.4, a.z - 1.4, a.x + 1.4, a.z + 1.4, b => {
+                // (owner register #59, SeaTac: drop barriers at the sunken ramps beside the helix stood in 2-5 m pieces with 1-3 m
+                // gaps) inferred concrete barriers join across up to 3 m; bridge rails keep 1.4 m
+                const reachM = a.w.kind === 'barrier' ? 3 : 1.4;
+                eg.each(a.x - reachM, a.z - reachM, a.x + reachM, a.z + reachM, b => {
                     if (b.w === a.w || b.done || b.w.kind !== a.w.kind) return; const dx = b.x - a.x, dz = b.z - a.z, d = Math.hypot(dx, dz), db = unit(b.w);
-                    if (d < .02 || d > 1.4 || (best && d >= best.d) || Math.abs(da[0] * db[0] + da[1] * db[1]) < .94 || Math.abs(dx * da[1] - dz * da[0]) > .35 || Math.abs(a.y0 - b.y0) > .3) return;
+                    if (d < .02 || d > reachM || (best && d >= best.d) || Math.abs(da[0] * db[0] + da[1] * db[1]) < .94 || Math.abs(dx * da[1] - dz * da[0]) > .35 || Math.abs(a.y0 - b.y0) > .3) return;
                     // the gap lies beyond this end, not back along the piece
                     if ((dx * da[0] + dz * da[1]) * (a.end ? 1 : -1) < 0) return;
                     best = { d, b };
@@ -3804,13 +3809,13 @@ export async function buildWorld(city, renderer, opts = {}) {
         for (const q of plan.skipped) overlapCuts.skipped[q.reason] = (overlapCuts.skipped[q.reason] || 0) + 1;
         for (const cut of plan.cuts) {
             const L = cut.lower; overlapCuts.pairs += cut.tallers.length; overlapCuts.removedM2 += cut.removedM2;
-            if (overlapCuts.samples.length < 40) overlapCuts.samples.push({ lower: L.sourceId ?? L.i, tallers: cut.tallers.map(t => t.sourceId ?? t.i), overlapM2: Math.round(cut.overlapM2), pieces: cut.pieces.length });
+            if (overlapCuts.samples.length < 40 || L.assembly) overlapCuts.samples.push({ lower: L.sourceId ?? L.i, tallers: cut.tallers.map(t => t.sourceId ?? t.i), overlapM2: Math.round(cut.overlapM2), pieces: cut.pieces.length, ...(L.assembly ? { assemblyMember: true, at: [Math.round(L.c?.[0] ?? (L.x0 + L.x1) / 2), Math.round(L.c?.[1] ?? (L.z0 + L.z1) / 2)], h: L.h } : {}) });
             L.skip = true; L.overlapCutBy = cut.tallers.map(t => t.i); overlapCuts.cut++;
             const primary = cut.pieces.reduce((a, b) => Math.abs(signedArea(b)) > Math.abs(signedArea(a)) ? b : a, cut.pieces[0]);
             for (const ring of cut.pieces) {
                 let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
                 const own = ring === primary; // the name, sign and ground-floor tenant stay on the largest piece
-                bRecs.push({ ...L, i: bRecs.length, ring, holes: [], c: centroid(ring), x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false, derivedFrom: L.i, overlapCut: true, name: own ? L.name : '', flags: own ? L.flags : (L.flags & ~(1 | 2 | 8)) });
+                bRecs.push({ ...L, ...(L.assembly ? { assembly: null, assemblySurface: null, assemblyCut: true } : {}), i: bRecs.length, ring, holes: [], c: centroid(ring), x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false, derivedFrom: L.i, overlapCut: true, name: own ? L.name : '', flags: own ? L.flags : (L.flags & ~(1 | 2 | 8)) });
             }
         }
         overlapCuts.removedM2 = Math.round(overlapCuts.removedM2);

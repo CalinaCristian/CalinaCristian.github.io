@@ -104,8 +104,12 @@ export function planOverlapCuts(recs, { minOverlapM2 = 2, minPieceM2 = 4, height
             const ov = overlapArea(lower.ring, taller.ring, [lower.x0, lower.z0, lower.x1, lower.z1], [taller.x0, taller.z0, taller.x1, taller.z1]);
             if (ov < minOverlapM2) continue;
             // a member of a prepared assembly keeps its prepared geometry; a building beside one is cut as usual
-            if (lower.assembly) { skipped.push({ lower: lower.i, taller: taller.i, reason: 'prepared-assembly' }); continue; }
-            if (lower.holes?.length) { skipped.push({ lower: lower.i, taller: taller.i, reason: 'courtyard-outline' }); continue; }
+            // parts of one prepared assembly stack by design (a tower part on its podium): not a collision. A ground-level member
+            // running into a taller building outside its assembly (owner L8) is cut like any other building
+            if (lower.assembly && (lower.assembly.includes(taller) || (lower.minH || 0) > .5)) { skipped.push({ lower: lower.i, taller: taller.i, reason: lower.assembly.includes(taller) ? 'same-assembly' : 'raised-assembly-member' }); continue; }
+            // (owner L8: courtyard buildings were left running through a taller neighbour) a lower courtyard building is cut like
+            // any other; its courtyard is then taken out of the pieces again (below), so the courtyard stays open
+            if (lower.holes?.length && !lower.holeParts) { const hp = lower.holes.map(h => isConvex(h) ? [h] : triangulate(h)); if (hp.some(c => !c)) { skipped.push({ lower: lower.i, taller: taller.i, reason: 'untriangulable-courtyard-outline' }); continue; } lower.holeParts = hp.flat(); }
             let courtyards = null;
             if (taller.holes?.length) { courtyards = taller.holes.map(h => isConvex(h) ? [h] : triangulate(h)); if (courtyards.some(c => !c)) { skipped.push({ lower: lower.i, taller: taller.i, reason: 'untriangulable-courtyard' }); continue; } courtyards = courtyards.flat(); }
             const parts = isConvex(taller.ring) ? [taller.ring] : triangulate(taller.ring);
@@ -122,8 +126,9 @@ export function planOverlapCuts(recs, { minOverlapM2 = 2, minPieceM2 = 4, height
             for (const part of parts) pieces = pieces.flatMap(p => subtractConvex(p, part));
             pieces.push(...kept);
         }
+        if (lower.holeParts) for (const hole of lower.holeParts) pieces = pieces.flatMap(p => subtractConvex(p, hole));
         pieces = pieces.filter(p => Math.abs(area(p)) >= minPieceM2);
-        cuts.push({ lower, tallers: list.map(q => q.taller), overlapM2: list.reduce((n, q) => n + q.ov, 0), pieces, removedM2: Math.abs(area(lower.ring)) - pieces.reduce((n, p) => n + Math.abs(area(p)), 0) });
+        cuts.push({ lower, tallers: list.map(q => q.taller), overlapM2: list.reduce((n, q) => n + q.ov, 0), pieces, removedM2: Math.abs(area(lower.ring)) - (lower.holes || []).reduce((n, h) => n + Math.abs(area(h)), 0) - pieces.reduce((n, p) => n + Math.abs(area(p)), 0) });
     }
     return { cuts, skipped };
 }

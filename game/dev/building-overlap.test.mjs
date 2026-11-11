@@ -36,7 +36,10 @@ test('plan: the lower building is cut, the taller untouched; a raised part, an a
     assert.ok(Math.abs(plan.cuts[0].removedM2 - 160) < 1e-6);
     const raised = rec(3, rect(20, 4, 40, 30), 43.2, { minH: 10 });
     assert.equal(planOverlapCuts([rec(0, rect(0, 0, 60, 12), 8.7), raised]).cuts.length, 0, 'a part raised above the lower roof is an overhang');
-    assert.equal(planOverlapCuts([rec(0, rect(0, 0, 60, 12), 8.7, { assembly: [] }), rec(1, rect(20, 4, 40, 30), 43.2)]).cuts.length, 0, 'a member of a prepared assembly keeps its geometry');
+    { const tower = rec(1, rect(20, 4, 40, 30), 43.2), podium = rec(0, rect(0, 0, 60, 12), 8.7); podium.assembly = [podium, tower]; tower.assembly = podium.assembly;
+      assert.equal(planOverlapCuts([podium, tower]).cuts.length, 0, 'parts of one prepared assembly stack by design'); }
+    assert.equal(planOverlapCuts([rec(0, rect(0, 0, 60, 12), 8.7, { assembly: [] }), rec(1, rect(20, 4, 40, 30), 43.2)]).cuts.length, 1, 'a ground member running into a taller building outside its assembly is cut (L8)');
+    assert.equal(planOverlapCuts([rec(0, rect(0, 0, 60, 12), 8.7, { assembly: [], minH: 3 }), rec(1, rect(20, 4, 40, 30), 43.2)]).cuts.length, 0, 'a raised assembly member is left');
     assert.equal(planOverlapCuts([rec(0, rect(0, 0, 60, 12), 8.7), rec(1, rect(20, 4, 40, 30), 43.2, { assembly: [] })]).cuts.length, 1, 'a building beside a taller assembly member is cut');
     assert.equal(planOverlapCuts([rec(0, rect(0, 0, 60, 12), 8.7), rec(1, rect(59, 11, 70, 20), 43.2)]).cuts.length, 0, 'a 1 m² overlap is left');
     // equal heights: the smaller one is cut
@@ -55,4 +58,17 @@ test('a taller courtyard building: what stands in its courtyard is kept, what is
     const kept = plan.cuts[0].pieces.reduce((n, p) => n + area(p), 0);
     assert.ok(Math.abs(kept - 50) < 1e-6, String(kept)); // the 5 m x 10 m half inside the courtyard
     for (const p of plan.cuts[0].pieces) for (const [x, z] of p) assert.ok(x >= 10 - 1e-9);
+});
+
+test('a lower courtyard building is cut at a taller neighbour and its courtyard stays open (L8)', () => {
+    const block = rec(0, rect(0, 0, 40, 30), 12, { holes: [rect(10, 10, 30, 20)] }), tower = rec(1, rect(30, 5, 50, 25), 40);
+    const plan = planOverlapCuts([block, tower]);
+    assert.equal(plan.cuts.length, 1);
+    assert.ok(!plan.skipped.some(s => s.reason === 'courtyard-outline'));
+    const pieces = plan.cuts[0].pieces, kept = pieces.reduce((n, p) => n + area(p), 0);
+    assert.ok(Math.abs(kept - (1200 - 200 - 200)) < 1e-6, String(kept)); // outline minus the courtyard minus the tower's 10 m x 20 m
+    for (let x = .5; x < 50; x += 1) for (let z = .5; z < 30; z += 1) {
+        const inPieces = pieces.some(p => inside(x, z, p)), want = x < 40 && !(x > 10 && x < 30 && z > 10 && z < 20) && !(x > 30 && z > 5 && z < 25);
+        assert.equal(inPieces, want, `${x},${z}`);
+    }
 });

@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-0263e743870e4f9a",
-  "sourceCommit": "4a84d6d6602e95975e47ece966fc9f88cdd50f14",
-  "fingerprint": "0263e743870e4f9abb25ba2c17a51e92c99a6112436e6885e3611de1934edb27",
+  "releaseId": "game-ea2d06c2566f8551",
+  "sourceCommit": "e1449965dbdcbdba09ed4814ec8231370c04d31e",
+  "fingerprint": "ea2d06c2566f855187d516687f764770b9994549ee160ab7481a5c8ac4de61c2",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -389,8 +389,16 @@
       "sha256": "4891822203ad126ab75511e2196965848db37cfdfabadef54b13cea4ffbe4356"
     },
     {
+      "path": "game/src/landmark-otp-pier.js",
+      "sha256": "a83edb0c9e51fd01644b1e2a7f48ee3f3550f62c69697fdb2ffb43a7907b6e36"
+    },
+    {
       "path": "game/src/landmark-otp-roofs.js",
       "sha256": "f071c4b256efe77dae8eaf64e0d4c2a04af9f01b4447686bd2cd91f77950b8a6"
+    },
+    {
+      "path": "game/src/landmark-otp-source.js",
+      "sha256": "360f553df971200d2fe9ff67c60937d07d650e98d6c5dbb60ed4a8442685e3cd"
     },
     {
       "path": "game/src/landmark-pitch-paint-coverage.js",
@@ -410,7 +418,7 @@
     },
     {
       "path": "game/src/landmark-source-identities.js",
-      "sha256": "4f93c8853d3f1ae65badd1940f4f7286bc6538353defb94a0268f7fed699adfc"
+      "sha256": "03bc7c88e8cbe6e9aa8db4bba660a3e868a54b2b12e5d1a80522bd14858e244c"
     },
     {
       "path": "game/src/landmark-source-masses.js",
@@ -430,7 +438,7 @@
     },
     {
       "path": "game/src/landmarks.js",
-      "sha256": "65f14debdd3fa70ee950bd09155d362c596f4ea381319a5026e0549eef339f2c"
+      "sha256": "b313127abdcf664af91fa38768ce64450e20d7f13b010511cb90a82748dffd6a"
     },
     {
       "path": "game/src/main.js",

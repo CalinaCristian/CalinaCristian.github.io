@@ -222,7 +222,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     const inner = T.inner || { x0: m8(wb.x0 - 60), z0: m8(wb.z0 - 60), x1: m8(wb.x1 + 60), z1: m8(wb.z1 + 60) };
     const outerPad = T.outerPad ?? 420;
     const outer = T.outer || { x0: inner.x0 - m8(outerPad), z0: inner.z0 - m8(outerPad), x1: inner.x1 + m8(outerPad), z1: inner.z1 + m8(outerPad) };
-    const terr = buildTerrain(ctx.ground, ctx.painter, { inner, outer, innerPx: T.innerPx || 2048, outerPx: T.outerPx || 1024, innerStep: T.innerStep || 2, outerStep: T.outerStep || 8, bg: T.bg || '#617242', bgMask: T.bgMask || 'grass', brickAngle: T.brickAngle || 0, skirt: T.skirt ?? 6000, skirtY: T.skirtY ?? null, skirtColor: T.skirtColor ?? null });
+    const terr = buildTerrain(ctx.ground, ctx.painter, { inner, outer, innerPx: T.innerPx || 2048, outerPx: T.outerPx || 1024, innerStep: T.innerStep || 2, outerStep: T.outerStep || 8, bg: T.bg || '#617242', bgMask: T.bgMask || 'grass', brickAngle: T.brickAngle || 0, skirt: T.skirt ?? 6000, skirtY: T.skirtY ?? null, skirtColor: T.skirtColor ?? null, cutouts: T.cutouts || [] });
     ctx.add(terr.group); ctx.extras.terrain = terr; ctx.extras.terrainBox = inner;
     // optional tree budget + dynamic LOD (ctx.treeLod = { cap, near, max }): beyond `cap` the trees farthest from every
     // member extent are dropped; the `max` trees within `near` m of the viewer get the full crown, the rest a low one

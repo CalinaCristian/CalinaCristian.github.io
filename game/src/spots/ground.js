@@ -7,6 +7,7 @@
 // ============================================================================
 import * as THREE from '../../vendor/three.module.min.js';
 import { clamp, canvas, canvasTexture, inPoly, polyBox, distSeg } from './kit.js';
+import { subtractConvex, triangulate } from '../building-overlap.js';
 
 /** three box-blur passes per axis (≈ Gaussian with σ ≈ r cells), clamped edges */
 function boxBlur3(src, nx, nz, r) {
@@ -413,7 +414,11 @@ export function groundMaterial(colorTex, maskTex, { brickAngle = 0, name = 'grou
  * Terrain meshes: an inner patch (fine grid, high-res splat) and an outer apron (coarse grid, low-res splat)
  * with the inner rectangle cut out. Returns { group, inner, outer, materials[] }.
  */
-export function buildTerrain(ground, painter, { inner, outer, innerPx = 2048, outerPx = 1024, innerStep = 2, outerStep = 8, bg = '#6b7a4f', bgMask = 'grass', brickAngle = 0, skirt = 0, skirtY = null, skirtColor = null }) {
+export function buildTerrain(ground, painter, { inner, outer, innerPx = 2048, outerPx = 1024, innerStep = 2, outerStep = 8, bg = '#6b7a4f', bgMask = 'grass', brickAngle = 0, skirt = 0, skirtY = null, skirtColor = null, cutouts = [] }) {
+    // Cutouts (rings of [x, z] inside the inner box, e.g. a lake): the inner grid is cut exactly along them, so a scene can
+    // build its own edge (a stone kerb, a basin) without the grid's 2-3 m cells drawing a jagged, stepped bank across it.
+    const cutTris = [];
+    for (const poly of cutouts || []) for (const t of triangulate(poly) || []) { const xs = t.map(p => p[0]), zs = t.map(p => p[1]); cutTris.push({ t, x0: Math.min(...xs), x1: Math.max(...xs), z0: Math.min(...zs), z1: Math.max(...zs) }); }
     const grp = new THREE.Group(); grp.name = 'terrain';
     const mats = [];
     const mk = (box, px, step, hole) => {
@@ -429,11 +434,25 @@ export function buildTerrain(ground, painter, { inner, outer, innerPx = 2048, ou
             const x = box.x0 + i * W / nx, z = box.z0 + j * H / nz;
             vid[id] = pos.length / 3; pos.push(x, ground.heightAt(x, z), z); uv.push(i / nx, 1 - j / nz); return vid[id];
         };
+        const cuts = hole ? [] : cutTris, free = new Map();
+        const freeVert = (x, z) => { const key = Math.round(x * 1000) + ',' + Math.round(z * 1000); let v = free.get(key); if (v === undefined) { v = pos.length / 3; pos.push(x, ground.heightAt(x, z), z); uv.push((x - box.x0) / W, 1 - (z - box.z0) / H); free.set(key, v); } return v; };
+        const sArea = p => { let s = 0; for (let k = 0; k < p.length; k++) { const [x1, z1] = p[k], [x2, z2] = p[(k + 1) % p.length]; s += x1 * z2 - x2 * z1; } return s; };
         for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) {
             const xa = box.x0 + i * W / nx, za = box.z0 + j * H / nz, xb = xa + W / nx, zb = za + H / nz;
             if (insideHole((xa + xb) / 2, (za + zb) / 2)) continue;
             const a = vert(i, j), b = vert(i + 1, j), c = vert(i + 1, j + 1), d = vert(i, j + 1);
-            idx.push(a, d, b, b, d, c);
+            const hits = cuts.length ? cuts.filter(q => q.x1 > xa && q.x0 < xb && q.z1 > za && q.z0 < zb) : null;
+            if (!hits?.length) { idx.push(a, d, b, b, d, c); continue; }
+            // the cell's two triangles minus every cutout triangle over it; corners keep their grid vertex
+            const corner = new Map([[`${xa},${za}`, a], [`${xb},${za}`, b], [`${xb},${zb}`, c], [`${xa},${zb}`, d]]);
+            for (const tri of [[[xa, za], [xa, zb], [xb, za]], [[xb, za], [xa, zb], [xb, zb]]]) {
+                let pieces = [tri]; const want = Math.sign(sArea(tri));
+                for (const h of hits) { pieces = pieces.flatMap(p => subtractConvex(p, h.t)); if (!pieces.length) break; }
+                for (const p of pieces) {
+                    const ids = p.map(([x, z]) => corner.get(`${x},${z}`) ?? freeVert(x, z)), flip = Math.sign(sArea(p)) !== want;
+                    for (let k = 1; k < p.length - 1; k++) { const t = [ids[0], ids[k], ids[k + 1]]; if (t[0] === t[1] || t[1] === t[2] || t[0] === t[2]) continue; idx.push(...(flip ? [t[0], t[2], t[1]] : t)); }
+                }
+            }
         }
         const g = new THREE.BufferGeometry();
         g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
@@ -456,7 +475,7 @@ export function buildTerrain(ground, painter, { inner, outer, innerPx = 2048, ou
         };
         return mesh;
     };
-    const i = mk(inner, innerPx, innerStep, null), o = mk(outer, outerPx, outerStep, inner);
+    const i = mk(inner, innerPx, innerStep, null), o = mk(outer, outerPx, outerStep, inner); // (cutouts: inner grid only)
     i.name = 'terrain-inner'; o.name = 'terrain-outer';
     ground.renderedHeightAt = (x, z) => i.userData.heightAt(x, z) ?? o.userData.heightAt(x, z);
     grp.add(i, o);

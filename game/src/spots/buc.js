@@ -55,7 +55,7 @@ export function assignSpecies(ctx, weights = { plane: 0.4, linden: 0.35, chestnu
     for (const t of ctx.trees) {
         if ((t.kind || 'broad') !== 'broad' || t.c) continue;
         const sp = bySpot.get(Math.round(t.x * 10) + ',' + Math.round(t.z * 10)) || '';
-        if (/Platanus/.test(sp)) t.kind = 'plane'; else if (/Tilia/.test(sp)) t.kind = 'linden'; else if (/Aesculus|Quercus|Juglans|Acer/.test(sp)) t.kind = 'chestnut';
+        if (/Platanus/.test(sp)) t.kind = 'plane'; else if (/Salix/.test(sp)) t.kind = 'willow'; else if (/Tilia/.test(sp)) t.kind = 'linden'; else if (/Aesculus|Quercus|Juglans|Acer/.test(sp)) t.kind = 'chestnut';
         else { let q = r() * tot; for (const [k, w] of W) { q -= w; if (q <= 0) { t.kind = k; break; } } }
         t.s = (t.s || 1) * (0.85 + r() * 0.25) / Math.max(0.8, t.s || 1); // species crowns carry their real size
     }

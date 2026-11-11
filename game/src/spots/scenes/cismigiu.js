@@ -14,6 +14,37 @@ import { clockFace, railing } from '../props.js';
 import { shortWaterRoute, dryLanding } from '../water-route.js';
 import { backgammonGame } from '../backgammon-game.js';
 
+// Signed distance to a ring (m; > 0 outside, < 0 inside), sampled on a grid round it and read back bilinearly. Beyond the
+// grid, `far` (positive: outside). Rows use a scanline for inside/outside.
+function ringDistance(ring, { pad = 14, res = 0.75, far = 1e3 } = {}) {
+    const bb = polyBox(ring), x0 = bb.x0 - pad, z0 = bb.z0 - pad, nx = Math.ceil((bb.x1 - bb.x0 + 2 * pad) / res) + 1, nz = Math.ceil((bb.z1 - bb.z0 + 2 * pad) / res) + 1;
+    const D = new Float32Array(nx * nz), n = ring.length, seg = [];
+    for (let k = 0; k < n; k++) { const [ax, az] = ring[k], [bx, bz] = ring[(k + 1) % n], ex = bx - ax, ez = bz - az; seg.push([ax, az, ex, ez, ex * ex + ez * ez || 1e-9]); }
+    for (let j = 0; j < nz; j++) {
+        const z = z0 + j * res, xs = [];
+        for (const [ax, az, ex, ez] of seg) { const bz = az + ez; if ((az > z) !== (bz > z)) xs.push(ax + ex * (z - az) / ez); }
+        xs.sort((a, b) => a - b);
+        for (let i = 0, c = 0; i < nx; i++) {
+            const x = x0 + i * res; while (c < xs.length && xs[c] < x) c++;
+            let best = 1e18; for (const [ax, az, ex, ez, l2] of seg) { const t = Math.max(0, Math.min(1, ((x - ax) * ex + (z - az) * ez) / l2)), dx = x - ax - ex * t, dz = z - az - ez * t, d2 = dx * dx + dz * dz; if (d2 < best) best = d2; }
+            D[i + j * nx] = Math.sqrt(best) * (c % 2 ? -1 : 1);
+        }
+    }
+    return (x, z) => {
+        const u = (x - x0) / res, v = (z - z0) / res; if (u < 0 || v < 0 || u >= nx - 1 || v >= nz - 1) return far;
+        const i = Math.floor(u), j = Math.floor(v), fu = u - i, fv = v - j, k = i + j * nx;
+        return (D[k] * (1 - fu) + D[k + 1] * fu) * (1 - fv) + (D[k + nx] * (1 - fu) + D[k + nx + 1] * fu) * fv;
+    };
+}
+/** a closed ring offset by d (> 0 outward), per vertex along the bisector of its two edges */
+function ringOffset(ring, d) {
+    const n = ring.length, out = polyArea(ring) < 0 ? 1 : -1;
+    return ring.map((p, i) => { const a = ring[(i + n - 1) % n], b = ring[(i + 1) % n], [px, pz] = p;
+        let t1x = px - a[0], t1z = pz - a[1], t2x = b[0] - px, t2z = b[1] - pz; const l1 = Math.hypot(t1x, t1z) || 1, l2 = Math.hypot(t2x, t2z) || 1; t1x /= l1; t1z /= l1; t2x /= l2; t2z /= l2;
+        const n1x = -t1z * out, n1z = t1x * out, n2x = -t2z * out, n2z = t2x * out; let mx = n1x + n2x, mz = n1z + n2z; const ml = Math.hypot(mx, mz) || 1; mx /= ml; mz /= ml;
+        const k = d / Math.max(0.5, mx * n1x + mz * n1z); return [px + mx * k, pz + mz * k]; });
+}
+
 const WRITERS = ['Mihai Eminescu', 'Ion Creangă', 'Ion Luca Caragiale', 'Vasile Alecsandri', 'George Coșbuc', 'Alexandru Vlahuță', 'Barbu Ștefănescu Delavrancea', 'Duiliu Zamfirescu', 'Titu Maiorescu', 'Nicolae Bălcescu', 'Alexandru Odobescu', 'Ștefan Octavian Iosif'];
 
 export default {
@@ -23,9 +54,25 @@ export default {
         const T0 = g.heightAt(0, 0); g.mod((x, z, h) => T0 + (h - T0) * 0.5);
         const lake = osmPoly(d, 'w16292044');
         const landing = d.pois.find(p => p.id === 'n473428602');
-        let level = T0 - 1.3;
+        let level = T0 - 1.3, lakeD = null, shoreY = T0;
         const winterSeason = s => s.r3d?.weather?.season ? s.r3d.weather.season === 'winter' : [12,1,2].includes(+new Intl.DateTimeFormat('en', {timeZone:'Europe/Bucharest',month:'numeric'}).format(s.r3d?.simDate || s.host.date || new Date()));
-        if (lake) { ctx.skipAreas.add('w16292044'); let s = 0; for (const [x, z] of lake) s += g.heightAt(x, z); level = s / lake.length - 1.1; ctx.water(level, polyBox(lake), [lake], { color: '#3f5a52', depth: 1.6 }); }
+        // (owner, 2026-11-11: "cismigiu gardens still look terrible ... a FULL visual refresh") The lake was a flat sheet over a
+        // terrain pushed down inside the outline, drawn by 3 m grid cells as a jagged stepped bank, water spilling past the
+        // railing. Now: the lawns ease down to one shore height, the terrain is cut exactly along the mapped outline, and a
+        // granite kerb edges the water 0.4 m below it, as round the real lake. Shore height and kerb sizes are estimates.
+        if (lake) {
+            ctx.skipAreas.add('w16292044');
+            const outside = ringOffset(lake, 2.5); let s = 0; for (const [x, z] of outside) s += g.heightAt(x, z);
+            shoreY = s / outside.length; level = shoreY - 0.42; lakeD = ringDistance(lake);
+            const smooth = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+            g.mod((x, z, h) => { const sd = lakeD(x, z); if (sd >= 12) return h; if (sd >= 0) return shoreY + (h - shoreY) * smooth(1.2, 12, sd); return sd > -0.4 ? shoreY + (level - 1.4 - shoreY) * (-sd / 0.4) : level - 1.4; });
+            const w = ctx.water(level, polyBox(lake), [], { color: '#3d5a50' }), wr = ringOffset(lake, 0.12), wg = new THREE.BufferGeometry();
+            const tris = THREE.ShapeUtils.triangulateShape(wr.map(([x, z]) => new THREE.Vector2(x, z)), []), wp = [];
+            for (const [x, z] of wr) wp.push(x, 0, z);
+            const idx = []; for (const [a, b2, c] of tris) { const ax = wr[a], bx = wr[b2], cx = wr[c], up = (bx[0] - ax[0]) * (cx[1] - ax[1]) - (bx[1] - ax[1]) * (cx[0] - ax[0]); idx.push(...(up < 0 ? [a, b2, c] : [a, c, b2])); }
+            wg.setAttribute('position', new THREE.Float32BufferAttribute(wp, 3)); wg.setIndex(idx); wg.computeVertexNormals();
+            w.geometry.dispose(); w.geometry = wg; w.position.set(0, level, 0);
+        }
         const b = new GeoBatch(), signs = [];
         // footbridges over the lake (OSM bridge ways), note 35: smooth arched decks (walkable surface follows the arch), white
         // stone fascia girders, continuous cast-iron railings; the lakeside railing opens where a bridge or a path meets the shore
@@ -55,14 +102,47 @@ export default {
             g.addPoly(deck, (x, z) => { let bi = 0, bd = 1e9; samp.forEach((q, k) => { const dd = (q.x - x) ** 2 + (q.z - z) ** 2; if (dd < bd) { bd = dd; bi = k; } }); return samp[bi].y; }, level - 2);
             w._samp = samp;
         }
-        // lake edge: low railing (posts + rails) with openings at bridge heads and paths reaching the shore; weeping willows
-        if (lake) { const L = [...lake, lake[0]];
-            const lw = offsetPolyline(L, polyArea(lake) > 0 ? -1.4 : 1.4);
+        // lake edge: a granite kerb (0.45 m coping, a vertical face down into the water, darker below the waterline) on a dark
+        // lake bed; a low cast-iron railing on the coping, open at the landing, the bridge heads and paths reaching the shore;
+        // weeping willows on the banks, leaning over the water
+        if (lake) {
+            const n = lake.length, Oc = ringOffset(lake, 0.45), yTop = shoreY + 0.07, yBed = level - 1.25, kerb = new GeoBatch();
+            for (let i = 0; i < n; i++) {
+                const P0 = lake[i], P1 = lake[(i + 1) % n], O0 = Oc[i], O1 = Oc[(i + 1) % n], V = ([x, z], y) => [x, y, z];
+                kerb.quad(V(P0, yTop), V(P1, yTop), V(O1, yTop), V(O0, yTop), '#bdb6a8', 'stone'); kerb.quad(V(O0, yTop), V(O1, yTop), V(P1, yTop), V(P0, yTop), '#bdb6a8', 'stone');
+                for (const [ya, yb, c] of [[yTop, level + 0.1, '#a9a294'], [level + 0.1, yBed, '#4c4b40']]) { kerb.quad(V(P0, ya), V(P1, ya), V(P1, yb), V(P0, yb), c, 'stone'); kerb.quad(V(P0, yb), V(P1, yb), V(P1, ya), V(P0, ya), c, 'stone'); }
+                kerb.quad(V(O0, yTop), V(O1, yTop), V(O1, shoreY - 0.3), V(O0, shoreY - 0.3), '#a59e90', 'stone'); kerb.quad(V(O0, shoreY - 0.3), V(O1, shoreY - 0.3), V(O1, yTop), V(O0, yTop), '#a59e90', 'stone');
+            }
+            kerb.flat(lake, yBed, '#2c362d', 'stone');
+            ctx.add(kerb.build('cismigiu-lake-kerb', { castShadow: false }));
+            ctx.extras.lakeShore = { level, shoreY, kerbTop: yTop };
+            // the Debarcader (boat landing, OSM node 473428602): a timber landing stage on piles out from the kerb, with three
+            // rowing boats moored along it. Its size and build are estimates.
+            if (landing) {
+                const q = distPolyline(landing.x, landing.z, [...lake, lake[0]]), [ax, az] = lake[q.i], [bx, bz] = lake[(q.i + 1) % n], el = Math.hypot(bx - ax, bz - az) || 1;
+                const ux = (bx - ax) / el, uz = (bz - az) / el; let nx = -uz, nz = ux; if (lakeD(q.cx + nx, q.cz + nz) > 0) { nx = -nx; nz = -nz; } // (n: into the water)
+                const st = new GeoBatch(), yD = yTop + 0.02, D = 3.2, Wd = 7, P = (u, v, y) => [q.cx + ux * u + nx * v, y, q.cz + uz * u + nz * v], yaw = Math.atan2(ux, uz);
+                for (let k = 0; k < 14; k++) { const u0 = -Wd / 2 + k * Wd / 14 + .02, u1 = u0 + Wd / 14 - .04; const c = k % 3 ? '#8a6a48' : '#7c5d3e'; st.quad(P(u0, -.3, yD), P(u0, D, yD), P(u1, D, yD), P(u1, -.3, yD), c, 'wood'); st.quad(P(u1, -.3, yD), P(u1, D, yD), P(u0, D, yD), P(u0, -.3, yD), c, 'wood'); st.box(...P((u0 + u1) / 2, D / 2 - .15, yD - .12), D + .3, .12, u1 - u0, '#5e4630', 'wood', yaw); }
+                for (const u of [-Wd / 2 + .2, 0, Wd / 2 - .2]) for (const v of [1.1, D - .15]) { const [x, , z] = P(u, v, 0); st.cyl(x, level - 1.2, z, .11, yD - level + 1.15, '#4b3a2a', 'wood', 8); }
+                st.box(...P(0, D - .08, yD - .22), .16, .2, Wd, '#6b5236', 'wood', yaw);
+                for (const u of [-Wd / 2 + .2, Wd / 2 - .2]) { const [x, , z] = P(u, D - .15, 0); st.cyl(x, yD, z, .07, .55, '#3c3026', 'wood', 8); }
+                ctx.add(st.build('cismigiu-debarcader'));
+                g.addPoly([P(-Wd / 2, -.3, 0), P(Wd / 2, -.3, 0), P(Wd / 2, D, 0), P(-Wd / 2, D, 0)].map(([x, , z]) => [x, z]), yD, level - 2);
+                for (let k = 0; k < 3; k++) { const [x, , z] = P(-2.2 + k * 2.2, D + 1.05, 0), m = new THREE.Group(), hull = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 6, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), new THREE.MeshStandardMaterial({ color: ['#e8e2d2', '#2f5a7a', '#e8e2d2'][k], roughness: 0.6 })); hull.scale.set(0.75, 0.42, 2.0); m.add(hull);
+                    const seat = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.06, 0.3), new THREE.MeshStandardMaterial({ color: '#7a5a3c' })); seat.position.y = -0.05; m.add(seat); m.position.set(x, level + .02, z); m.rotation.y = Math.atan2(nx, nz) + (k - 1) * .06; ctx.add(m);
+                    ctx.onUpdate((dt, s2) => { m.visible = !winterSeason(s2); m.position.y = level + .02 + Math.sin(s2.t * 1.1 + k) * .02; }); }
+            }
+            const lw = ringOffset(lake, 0.24); lw.push(lw[0]);
             const open = (x, z) => (landing && Math.hypot(x - landing.x, z - landing.z) < 8) || bridges.some((w) => distPolyline(x, z, w.pts).d < 2.6) || shorePaths.some((w) => { const e0 = w.pts[0], e1 = w.pts[w.pts.length - 1]; return [e0, e1].some(([ex, ez]) => Math.hypot(ex - x, ez - z) < 2.2) && distPolyline(x, z, w.pts).d < 1.8; });
-            let run = []; const flush = () => { if (run.length >= 2) { railing(b, run, (x, z) => g.heightAt(x, z), { h: 0.7, post: 2.6, color: '#2a2e2c', r: 0.025 }); for (let i = 1; i < run.length; i++) { const [ax, az] = run[i - 1], [bx, bz] = run[i]; ctx.collider({ wall: true, ax, az, bx, bz, y0a: level - 3, y1a: level + 4, y0b: level - 3, y1b: level + 4, x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + 0.5 }); } } run = []; };
+            let run = []; const flush = () => { if (run.length >= 2) { railing(b, run, () => yTop, { h: 0.75, post: 2.4, color: '#22292a', r: 0.022 }); for (let i = 1; i < run.length; i++) { const [ax, az] = run[i - 1], [bx, bz] = run[i]; ctx.collider({ wall: true, ax, az, bx, bz, y0a: level - 3, y1a: level + 4, y0b: level - 3, y1b: level + 4, x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + 0.5 }); } } run = []; };
             for (let i = 0; i < lw.length; i++) { const [x, z] = lw[i]; if (open(x, z)) { flush(); continue; } if (i > 0 && open((x + lw[i - 1][0]) / 2, (z + lw[i - 1][1]) / 2)) flush(); run.push([x, z]); }
             flush();
-            for (let i = 0; i < L.length; i += 6) { const [x, z] = L[i], o = offsetPolyline(L.slice(Math.max(0, i - 1), i + 2), polyArea(lake) > 0 ? -4.5 : 4.5)[Math.min(1, i)] || [x, z]; if (r() < 0.55 && !bridges.some((w) => distPolyline(o[0], o[1], w.pts).d < 5)) ctx.trees.push({ x: o[0], z: o[1], kind: 'broad', s: 1.3 + r() * 0.4, sy: 0.85, sx: 1.25, c: r.pick(['#8aa04a', '#94a852', '#7d9640']) }); }
+            // willows: about every 14 m of bank, 2.2-3.4 m back from the kerb (their curtains hang out over the water)
+            const ends = shorePaths.flatMap(w => [w.pts[0], w.pts[w.pts.length - 1]]), back0 = ringOffset(lake, 1);
+            for (let acc = 0, i = 0; i < n; i++) { const [x, z] = lake[i], [x2, z2] = lake[(i + 1) % n]; acc += Math.hypot(x2 - x, z2 - z); if (acc < 14) continue; acc = r() * 4;
+                const back = 2.2 + r() * 1.2, tx = x + (back0[i][0] - x) * back, tz = z + (back0[i][1] - z) * back;
+                if (lakeD(tx, tz) < 1.8 || bridges.some((w) => distPolyline(tx, tz, w.pts).d < 6) || (landing && Math.hypot(tx - landing.x, tz - landing.z) < 10) || ends.some(([ex2, ez2]) => Math.hypot(ex2 - tx, ez2 - tz) < 4)) continue;
+                ctx.trees.push({ x: tx, z: tz, kind: 'willow', willow: true, s: 0.9 + r() * 0.3, c: r.pick(['#9cb457', '#a5bb5e', '#92ad50', '#aac163']) }); }
         }
         // rowing boats (summer) moored at the landing + drifting; in winter the rink is up (OSM ice_rink area)
         const boats = [];
@@ -96,7 +176,7 @@ export default {
         ctx.add(b.build('cismigiu'));
         const SA = signAtlas(signs, { name: 'cismigiu-signs', night: 0.3 }); if (SA) ctx.add(SA);
         // ground, dense old trees, lamps, benches (OSM benches + rows along the lake)
-        ctx.terrainOpts = { bg: '#6a8444', bgMask: 'grass', innerPx: 2048, innerStep: 3, outerStep: 16, outerPad: 600 };
+        ctx.terrainOpts = { bg: '#6a8444', bgMask: 'grass', innerPx: 2048, innerStep: 2, outerStep: 16, outerPad: 600, cutouts: lake ? [lake] : [] };
         bucBackdrop(ctx, { lampStyle: 'lantern', lampColor: '#22262a', lampH: 4.2, lampPad: 5, treeLod: { cap: 1800, max: 380 }, lampOpts: { spacing: 26, kinds: ['footway', 'path', 'pedestrian'] }, streetTreeOpts: { kinds: ['secondary', 'tertiary'], prob: 0.6 }, areaTreeOpts: { kinds: ['wood', 'forest', 'park'], density: 1 / 140, conifer: 0.08 } });
         const park = osmPoly(d, 'w16291869');
         if (park) { for (const w of d.ways) { if (!['footway', 'path'].includes(w.k) || !w.pts.some(([x, z]) => inPoly(x, z, park))) continue; for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 1) continue; const nx = -(bz - az) / L, nz = (bx - ax) / L; for (let t = r() * 10; t < L; t += 9 + r() * 5) for (const sd of [-1, 1]) { if (r() < 0.35) continue; const x = ax + (bx - ax) * t / L + nx * sd * (3.6 + r() * 2), z = az + (bz - az) * t / L + nz * sd * (3.6 + r() * 2); if (lake && (inPoly(x, z, lake) || distPolyline(x, z, [...lake, lake[0]]).d < 2.5)) continue; if (Math.hypot(x - rot.x, z - rot.z) < 15 || Math.hypot(x - ch.x, z - ch.z) < 7) continue; ctx.trees.push({ x, z, kind: r() < 0.08 ? 'con' : 'broad', s: 1.2 + r() * 0.6 }); } } } }

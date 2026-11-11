@@ -504,6 +504,12 @@ function speciesGeos() {
         // horse chestnut: rounded broad dome from ≈ 3.5 m, 4–11 m
         chestnut: lobeCrown([[0, 7.4, 0, 3.6, 3.0, 3.6], [2.0, 6.4, 0.8, 2.4, 2.0, 2.4], [-1.9, 6.6, -0.9, 2.4, 2.0, 2.4], [0.3, 9.4, 0, 2.6, 1.8, 2.6]], { seed: 3, amp: 0.2 }),
         trunk_chestnut: trunkWithLimbs(4.6, 0.26, [[1, 0.2, 2.4, 0.55], [-0.9, -0.3, 2.3, 0.5], [0, 1, 2.0, 0.45]], [7.3, 3.4, 10.4]),
+        // weeping willow (Salix babylonica, lakesides): a short, thick, forked trunk, a rounded top at 6-9 m and long curtains
+        // of hanging shoots all round, down to about 1.5 m above the ground
+        willow: lobeCrown([[0, 6.9, 0, 3.0, 1.5, 3.0], [0, 5.6, 0, 2.2, 1.8, 2.2], ...Array.from({ length: 16 }, (_, k) => { const a = k / 16 * Math.PI * 2 + (k % 2) * .12, rr = 2.5 + (k * 7 % 5) * .22, hang = 2.7 + (k * 5 % 4) * .22; return [Math.cos(a) * rr, 6.3 - hang * .78, Math.sin(a) * rr, .62, hang, .62]; }), ...Array.from({ length: 7 }, (_, k) => { const a = k / 7 * Math.PI * 2 + .2; return [Math.cos(a) * 1.5, 4.4, Math.sin(a) * 1.5, .7, 2.3, .7]; })], { seg: [7, 6], seed: 6, amp: .1, freq: 2.6, bend: .25 }),
+        trunk_willow: trunkWithLimbs(3.2, 0.36, [[1, 0.2, 3.0, 0.8], [-0.8, -0.5, 2.9, 0.75], [0.2, 1, 2.7, 0.7], [-0.3, -1, 2.5, 0.7]], [6.4, 3.6, 8.6]),
+        willowLow: lobeCrown([[0, 5.4, 0, 3.8, 3.7, 3.8]], { seg: [6, 4], seed: 7, amp: 0.12, bend: 0.3 }),
+        trunk_willowLow: (() => { const t = new THREE.CylinderGeometry(0.2, 0.32, 3.4, 4); t.translate(0, 1.7, 0); return t; })(),
         // smooth low crown for distant species trees (one lobe, few triangles)
         speciesLow: lobeCrown([[0, 8.8, 0, 3.4, 3.4, 3.4]], { seg: [6, 4], seed: 4, amp: 0.15, bend: 0.4 }),
         trunk_speciesLow: (() => { const t = new THREE.CylinderGeometry(0.16, 0.25, 6.4, 4); t.translate(0, 3.2, 0); return mergeGeos([t, ...branchSkeleton(6.1, 8.8, 3.2, 12.0, 0.25, true)]); })(),
@@ -524,7 +530,7 @@ export function buildTrees(list, ground, { seed = 5, collide = true, lod = null 
     const crowns = [], colliders = [], dyn = [];
     const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), col = new THREE.Color();
     const mk = (geo, mat, n, name) => { const m = new THREE.InstancedMesh(geo, mat, Math.max(1, n)); m.name = name; return m; };
-    const SPECIES = ['plane', 'linden', 'chestnut'];
+    const SPECIES = ['plane', 'linden', 'chestnut', 'willow'];
     for (const kind of ['broad', 'con', 'shrub', ...SPECIES]) {
         const L = list.filter((t) => (t.kind || 'broad') === kind); if (!L.length) continue;
         const sp = SPECIES.includes(kind);
@@ -534,9 +540,9 @@ export function buildTrees(list, ground, { seed = 5, collide = true, lod = null 
         const hiN = useLod ? Math.min(L.length, Math.round((lod.max ?? 700) * (sp ? 0.3 : 1))) : L.length;
         const crown = mk(sp ? G[kind] : kind === 'broad' ? G.broad : kind === 'con' ? G.con : G.shrub, crownMat, hiN, `treeCrowns ${kind === 'con' ? 'conifer' : kind}`); crown.userData.conifer = kind === 'con' || kind === 'shrub';
         const trunk = kind === 'shrub' ? null : mk(sp ? G['trunk_' + kind] : kind === 'con' ? G.trunkC : G.trunk, trunkMat, hiN, 'treeTrunks');
-        const lowC = useLod ? mk(sp ? G.speciesLow : kind === 'broad' ? G.broadLow : G.conLow, crownMat, L.length, `treeCrowns ${kind === 'con' ? 'conifer' : kind} low`) : null;
+        const lowC = useLod ? mk(sp ? (G[kind + 'Low'] || G.speciesLow) : kind === 'broad' ? G.broadLow : G.conLow, crownMat, L.length, `treeCrowns ${kind === 'con' ? 'conifer' : kind} low`) : null;
         if (lowC) lowC.userData.conifer = crown.userData.conifer;
-        const lowT = useLod ? mk(sp ? G.trunk_speciesLow : G.trunkLow, trunkMat, L.length, 'treeTrunks low') : null;
+        const lowT = useLod ? mk(sp ? (G['trunk_' + kind + 'Low'] || G.trunk_speciesLow) : G.trunkLow, trunkMat, L.length, 'treeTrunks low') : null;
         const mats = [], cols = [], centres = [];
         if (useLod && !crown.geometry.boundingSphere) crown.geometry.computeBoundingSphere();
         L.forEach((t, i) => {

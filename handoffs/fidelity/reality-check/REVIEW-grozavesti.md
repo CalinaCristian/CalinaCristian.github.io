@@ -16,7 +16,6 @@ What Street View established on 2026-11-11 (and the game now follows):
 
 | Viewpoint | Open finding |
 | --- | --- |
-| grz-pasaj-west-overpass, arch over the Dâmbovița | the deck height over the river (the shared model holds 11 m; the panorama suggests lower, not measured) |
 | tall curved twin-arm lamps on the west ramp median | the median now carries the ordinary lamps of the carriageways |
 | grz-deck-west-span | matches (Șos. Orhideelor beside the viaduct on single piers, parking beneath); the capture tool puts the `top` eye on the ground here because the panorama point lies beside the deck, not on it |
 

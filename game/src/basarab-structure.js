@@ -241,6 +241,13 @@ function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPa
   (report.carriedSpans||(report.carriedSpans=[])).push({kind:'river-arch',a:section(0).center,b:section(1).center,halfWidthM:Math.max(section(0).halfWidth,section(.5).halfWidth,section(1).halfWidth)+6});
   for(const sign of [-1,1]){for(let i=0;i<32;i++)bridgeBeam(cellOf,arch(i/32,sign),arch((i+1)/32,sign),1.15,'#e1e5e4',colliders,'basarab-river-arch');for(let i=1;i<16;i++){const t=i/16,q=arch(t,sign);bridgeBeam(cellOf,q,[q[0],section(t).base+.15,q[2]],.115,'#b6c4c8',colliders,'basarab-hanger');}}
   for(const t of [.25,.5,.75])bridgeBeam(cellOf,arch(t,-1),arch(t,1),.65,'#d8e0e1',colliders);
+  // (backlog: west deck over the Dambovita; Street View from Pod Grozavesti, 2026-11-11) the arch carries a deep steel-blue
+  // box girder: its underside passes about two storeys over the lower bridge, where the thin slab left 9.9 m of air. Edge
+  // girders about 2.5 m deep along both sides and cross girders under the deck (depth and colour estimated from the panorama).
+  const BLUE='#2d5d8c',edge=(t,sign,dy)=>{const s=section(t);return s&&[s.center[0]+s.nx*sign*(s.halfWidth-.7),s.base+dy,s.center[1]+s.nz*sign*(s.halfWidth-.7)];};
+  for(const sign of [-1,1])for(let i=0;i<32;i++)bridgeBeam(cellOf,edge(i/32,sign,-1.35),edge((i+1)/32,sign,-1.35),2.2,BLUE,colliders,'basarab-river-girder');
+  for(let i=0;i<=16;i++)bridgeBeam(cellOf,edge(i/16,-1,-1.1),edge(i/16,1,-1.1),.8,BLUE,colliders,'basarab-river-cross-girder');
+  report.riverGirder={estimated:true,depthM:2.45,colour:BLUE};
  }
  report.physicalMembers=colliders.length;
  return {colliders,report};

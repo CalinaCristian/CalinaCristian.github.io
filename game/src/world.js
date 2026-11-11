@@ -3819,6 +3819,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             let p = city.proj(lm.lat, lm.lon);
             // district worlds (1:1): realScale models (contract 01: lk = scale / authoredScale, R = radiusM · scale)
             const ctx = { THREE, rng: makeRng(Math.floor(Math.abs(lm.lat * 1e4 + lm.lon * 1e4))), helpers: landmarkHelpers, proj: city.proj, scale: data.proj.scale, US, realScale: !!distId };
+            { // (owner register #59 / #60, SeaTac: ramps cut into the garage helix) a model may ask whether a mapped road surface passes
+              // a point of its own (local, unrotated) frame within a height band, to leave an opening there
+              const c0 = Math.cos(lm.rotation || 0), s0 = Math.sin(lm.rotation || 0), sc = data.proj.scale;
+              ctx.roadAt = (lx, lz, y0, y1) => { const wx = p.x + (lx * c0 + lz * s0) * sc, wz = p.z + (-lx * s0 + lz * c0) * sc; let hit = false; surfacesAt(wx, wz, h => { if (h > y0 - .4 && h < y1 + 2.2) hit = true; }, null, true); return hit; };
+            }
             if (data.buildingGeometryPolicy === 'source') {
                 const c = Math.cos(lm.rotation || 0), s = Math.sin(lm.rotation || 0), scale = data.proj.scale;
                 const local = ([x, z]) => { const dx = (x - p.x) / scale, dz = (z - p.z) / scale; return [dx * c - dz * s, dx * s + dz * c]; };

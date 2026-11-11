@@ -2770,7 +2770,20 @@ function bMurrow(b) {
 // Individual deck datums remain estimates; mapped source road-floor datums are unresolved.
 // Src: game/research/seattle-seatac.json landmarks[sea-garage] ; en.wikipedia.org/wiki/Seattle–Tacoma_International_Airport ;
 //      OSM rel 15763840, w37017724-w37017729 ; Commons "SeaTacAerial.jpg" (Bernstea, CC BY-SA 4.0, reference only)
-function bSeaGarage(b) {
+// a ring of wall bands left open where a mapped road passes at its level (ctx.roadAt; whole ring when unavailable)
+function ringOpen(b, p, y0, y1, col, o, ctx) {
+    if (!ctx?.roadAt) return b.ring(p, y0, y1, col, o);
+    const s = (signedArea(p) > 0 ? 1 : -1) * (o?.inward ? -1 : 1);
+    for (let i = 0; i < p.length; i++) {
+        const [ax, az] = p[i], [bx, bz] = p[(i + 1) % p.length], L = Math.hypot(bx - ax, bz - az), n = Math.max(1, Math.ceil(L / 1.5)), hint = [s * (bz - az), 0, -s * (bx - ax)];
+        for (let k = 0; k < n; k++) {
+            const t0 = k / n, t1 = (k + 1) / n, x0 = ax + (bx - ax) * t0, z0 = az + (bz - az) * t0, x1 = ax + (bx - ax) * t1, z1 = az + (bz - az) * t1;
+            if (ctx.roadAt((x0 + x1) / 2, (z0 + z1) / 2, y0, y1)) continue;
+            b.quad([x0, y0, z0], [x1, y0, z1], [x1, y1, z1], [x0, y1, z0], col, o?.mat || 'm', hint);
+        }
+    }
+}
+function bSeaGarage(b, ctx = {}) {
     const source=U.r15763840, outer=source.find(q=>q.role==='outer').poly, holes=source.filter(q=>q.role==='inner').map(q=>q.poly), G1 = '#a9a8a2', IN = '#4a4c4f', FH = 3.05;
     // Official Port records/photos and mapped aisles establish open parking decks.
     // Keep exact source outer/eight holes and complete roof; explicit deck datums support the source Level4 connection.
@@ -2782,8 +2795,8 @@ function bSeaGarage(b) {
         b.prism(outer,y0,y1,IN,{holes,topCol:k===7?'#8d8c88':G1,bottom:true});
         structureCollider(b,outer,holes,y0,y1,'r15763840','garage-deck');
         const sp0=Math.max(0,y-(k<=3?profile.lowerSpandrelDepthM:profile.spandrelDepthM));
-        b.ring(offset(outer,.12),sp0,y1,G1);boundaryBand(b,outer,sp0,y1,.3,'r15763840','garage-edge-spandrel');
-        for(const h of holes){b.ring(offset(h,-.1),sp0,y1,'#9d9c97',{inward:true});boundaryBand(b,h,sp0,y1,.2,'r15763840','garage-inner-spandrel');}
+        ringOpen(b,offset(outer,.12),sp0,y1,G1,{},ctx);boundaryBand(b,outer,sp0,y1,.3,'r15763840','garage-edge-spandrel');
+        for(const h of holes){ringOpen(b,offset(h,-.1),sp0,y1,'#9d9c97',{inward:true},ctx);boundaryBand(b,h,sp0,y1,.2,'r15763840','garage-inner-spandrel');} // (#59 / #60: open where a mapped ramp passes at that level)
     }
     b.ring(offset(outer, 0.12), 7 * FH + 0.05, 7 * FH + 1.1, '#b5b4ae');                       // roof parapet
     boundaryBand(b,outer,7*FH+.05,7*FH+1.1,.3,'r15763840','garage-roof-parapet');

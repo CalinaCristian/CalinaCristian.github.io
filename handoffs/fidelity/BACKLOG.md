@@ -12,13 +12,11 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Where | Report | State / diagnosis |
 | --- | --- | --- |
 | Grozăvești | L17 Basarab tram ramp fork | the climbing track's slab starts at the fork node, on the flat branch's track (tram-sweep-audit: 105 refused poses on w660918284 / w314447163). Holding the climb at grade until 3.4 m clear does not fit: the south approach already climbs at the 8 % cap (95 m to the 6 m bridge entry). Needs a lower, Street View-checked bridge entry height or a longer source approach |
-| Grozăvești | L41 hole under the north-east branch split | the branch deck parts from the main deck after the gore (median fill closes it up to 6 m); owner to confirm this matches the real split |
 | Grozăvești | Pasajul west deck height over the Dâmbovița | the shared Basarab model holds 11 m over the river; Street View on the arch suggests a lower deck (not measured) |
 | Everywhere | Reality-check viewpoints | Grozăvești: all 19 rendered and reviewed 2026-11-11 (open findings in reality-check/REVIEW-grozavesti.md); other districts have no viewpoints yet |
 | Unirii | #25 facade flicker near the ground floor | not reproduced in still captures (street-level capture at the pose shows a park) |
 | Unirii | L22 junction markings (67, -189) | re-checked 2026-11-11 (capture + Street View, Bd. Corneliu Coposu): approaches carry lane lines and whole crossings, the junction interior is unmarked in both; owner to give a pose if a specific marking is missing |
 | Romană | L23 sign flicker (Penny) | not reproducible: no Penny sign or POI in the current Romană data; facade signs stand 0.14 m off their walls; owner to give the pose if it still flickers |
-| Floreasca | #10 courtyard windows and inner slab | the slab is a mapped building part; owner question, not a defect yet |
 | Bellevue | #67 / L15 pedestrian pileups at closures | mitigated on branch (walkers blocked head-on by peers on a crossing step through after 1.5 s; walkers boxed in by a closure both ways leave the road); the headless probe still shows walkers frozen mid-crossing with no recorded blocker, so re-check live |
 | SeaTac | #59 / #60 garage helix and ramps | partly: edge bands open where the mapped ramps pass (74136408); trench walls no longer cross the other ramp at gores and two sunken ramps side by side share one wall (58a8908a). Left: short inferred drop barriers at the gore mouths of the sunken ramps beside the helix (each at its own road's height); the report camera stands inside the garage footprint, where the garage is cut away |
 | SeaTac | #62 / #63 / #65 frontage objects, parapet gaps, markings | not reproduced at the report poses or closer (the drive hugs the terminal face; ramp edges and crossings look whole); owner to give a closer pose |
@@ -32,6 +30,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 
 | Commit | Reports |
 | --- | --- |
+| (next commit) | L41 sky through the Basarab deck west of the station: Street View under the station shows one continuous underside; an elevated tram deck now joins a carriageway up to 12 m away (only the Basarab viaduct has tram decks that high: slot infill 2,476 → 7,944 m²), and the gore partners leaving one split node are paired for the median fill. A hairline gap remains under the deck near (600, -880) |
 | 2e751d33 | #66 night drone road lighting: street-lamp pools and real lights followed the player on the ground while the drone flew elsewhere; a camera away from the player is now the centre (its ground point plus a look-ahead growing with height) and the lit reach widens with height (capture 300 m from the player: 13 lights / 47 pools under the drone, before 7 / 21 by the player) |
 | 66d4bfe6 | L34 tourist spots (all 7 live spots now reviewed): Pike Place spawn moved off the 1st Avenue carriageway (a car brushed past the player); mapped canopies (`building=roof`) stand on posts along their free edges (Pike Place arcade canopy, Seattle Center walkways, a Bellevue fuel station), none inside a building; Bellevue's Piloti shell covers its mapped 19 × 17 m footprint instead of a dark slab over a shell a third its size. Earlier on this branch: Cișmigiu, Freddo, Old Town shopfronts and balconies, Arcul masonry, Space Needle canopy, Downtown Park crowns |
 | 561576a4 | L30 spot chat bubbles: each person keeps one character's voice (no fishmonger selling cherries, no visitor speaking another tourist's language), talks about the sub-spot they stand at, and keeps quiet rather than repeat; place and yearly-event lines added for every Seattle and Bellevue spot (Bumbershoot, Solstice Parade, Snowflake Lane, Garden d'Lights…) and Bucharest (Mărțișor, Enescu Festival, Easter, December 1989) |
@@ -54,6 +53,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | af8237bb | L24 / #30 Unirii fountain kerbs on and inside the OSM outlines (no basin reaches a carriageway) |
 | 92486a7a | #50 Romană (and #22 / #35 Unirii, part of L8): a street side running into OSM building footprints narrows to 0.3 m off the wall (Romană 49 sides, Unirii 60); #47 / #48 checked close up: crossings and parking-island markings whole |
 | by design | #64 SeaTac road ending in grass: OSM w1067079743 is a real dead-end service road (live API checked) |
+| by design | #10 Floreasca courtyard: the blue inner roof is the hospital's real courtyard building (OSM w236118733, blue roof on satellite imagery), and the main block has courtyard windows |
 | by design | #28 Unirii fountains run May–October 10:00–23:00 (`?fountains=on` forces them); L18 Romană underpass re-checked closed |
 
 ## Checks before every push

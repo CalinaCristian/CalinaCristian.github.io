@@ -3057,10 +3057,15 @@ export async function buildWorld(city, renderer, opts = {}) {
         for (const e of raised) if (!e.virtual && !e.tunnel && Math.max(e.ya, e.yb) > .3) strips.push({ e, id: e.id, na: e.a, nb: e.b, a: [e.a.x, e.a.z], b: [e.b.x, e.b.z], nx: e.nx, nz: e.nz, half: s2 => widthSide(e, s2), topAt: (x, z) => yAlong(e, x, z) + Y.road });
         const grid = new BoxGrid(32);
         for (const st of strips) { const wr = st.half(1), wl = st.half(-1); st.poly = [[st.a[0] + st.nx * wr, st.a[1] + st.nz * wr], [st.b[0] + st.nx * wr, st.b[1] + st.nz * wr], [st.b[0] - st.nx * wl, st.b[1] - st.nz * wl], [st.a[0] - st.nx * wl, st.a[1] - st.nz * wl]]; grid.insert(Math.min(...st.poly.map(q => q[0])), Math.min(...st.poly.map(q => q[1])), Math.max(...st.poly.map(q => q[0])), Math.max(...st.poly.map(q => q[1])), st); }
+        // (owner L41, Grozavesti (731, -955): sky through the deck where the north-east branch leaves the main deck; Street
+        // View there shows one continuous underside) the first segments of two carriageways leaving one split node share
+        // that node, and a shared node meant "its own run continuing": the gore between them was never filled. A different
+        // road leaving the same node in nearly the same direction is a gore partner, not a continuation.
+        const goreMate = (a, b) => a.e.road !== b.e.road && Math.abs(a.e.dirx * b.e.dirx + a.e.dirz * b.e.dirz) > 0.9;
         const reach = (own, ox, oz, dx, dz, level) => {
             let best = null, covered = false;
             grid.each(Math.min(ox, ox + dx * GAP), Math.min(oz, oz + dz * GAP), Math.max(ox, ox + dx * GAP), Math.max(oz, oz + dz * GAP), st => {
-                if (covered || st === own || st.na === own.na || st.na === own.nb || st.nb === own.na || st.nb === own.nb) return;
+                if (covered || st === own || ((st.na === own.na || st.na === own.nb || st.nb === own.na || st.nb === own.nb) && !goreMate(st, own))) return;
                 if (pointInPolygon(ox, oz, st.poly)) { if (Math.abs(st.topAt(ox, oz) - level) < LEVEL) covered = true; return; }
                 for (let i = 0, j = 3; i < 4; j = i++) {
                     const [x1, z1] = st.poly[j], [x2, z2] = st.poly[i], ex = x2 - x1, ez = z2 - z1, den = dx * ez - dz * ex; if (Math.abs(den) < 1e-9) continue;
@@ -4396,9 +4401,13 @@ export async function buildWorld(city, renderer, opts = {}) {
                 });
                 return covered ? null : best;
             };
+            // (owner L41, Grozavesti (731, -955): sky between the carriageway and the tram deck west of the Basarab station;
+            // Street View under the station shows one continuous underside) an elevated tram deck joins a carriageway up to
+            // 12 m away. Only the Basarab viaduct has tram decks this high, so nowhere else changes.
+            const railJoin = (st, top) => st.rail && top > 8 + Y.road ? 12 : GAP;
             const slotQueue = [], goreQueue = [];
             for (const st of strips) for (const side of [1, -1]) {
-                const w = st.half(side), dx = st.nx * side, dz = st.nz * side, ends = [st.a, st.b].map(q => { const ox = q[0] + dx * w, oz = q[1] + dz * w, top = st.topAt(ox, oz); return { ox, oz, top, soffit: st.soffitAt(ox, oz), hit: reach(st, ox, oz, dx, dz, top, st.low ? 10 : GAP) }; }); // (a street-level river bridge: its slabs up to 10 m apart are one deck)
+                const w = st.half(side), dx = st.nx * side, dz = st.nz * side, ends = [st.a, st.b].map(q => { const ox = q[0] + dx * w, oz = q[1] + dz * w, top = st.topAt(ox, oz); return { ox, oz, top, soffit: st.soffitAt(ox, oz), hit: reach(st, ox, oz, dx, dz, top, st.low ? 10 : railJoin(st, top)) }; }); // (a street-level river bridge: its slabs up to 10 m apart are one deck)
                 if (!ends[0].hit !== !ends[1].hit && Math.max(ends[0].top, ends[1].top) > 2.5 && !st.low) goreQueue.push({ st, side, w, dx, dz, ends }); // (one end joined: a split)
                 if (!ends[0].hit || !ends[1].hit) continue;
                 const overWater = st.low && ends.some(q => isWater((q.ox + q.hit.x) / 2, (q.oz + q.hit.z) / 2)); // (a street-level bridge: only its slots over water)
@@ -4458,7 +4467,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 let prev = null;
                 for (let i = 0; i <= n; i++) {
                     const f = i / n, cx = P0[0] + (P1[0] - P0[0]) * f, cz = P0[1] + (P1[1] - P0[1]) * f, ox = cx + dx * w, oz = cz + dz * w, top = st.topAt(ox, oz);
-                    const cur = { ox, oz, top, soffit: st.soffitAt(ox, oz), hit: reach(st, ox, oz, dx, dz, top) };
+                    const cur = { ox, oz, top, soffit: st.soffitAt(ox, oz), hit: reach(st, ox, oz, dx, dz, top, railJoin(st, top)) };
                     if (!cur.hit) break;
                     if (prev) { const pair = [prev, cur]; pair.ownRoad = !!st.road; emitSlot(pair); gore++; }
                     prev = cur;

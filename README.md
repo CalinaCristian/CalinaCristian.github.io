@@ -385,3 +385,5 @@ The GTS team lead stands in the clear central aisle beside the rear desk, instea
 GTS desk-overlap repair: the overview includes original before/after room views and desktop/390px native conversation checks from sourcee83e9bf1. The actual room layout remains an interpretation; this narrow fix does not certify the full office story route.
 
 Unirii fountain basins now share their detailed source outlines with tree conflict detection. A trunk body intersecting a rendered basin or its granite rim is excluded with its matching collider and an audit record; original source detections remain intact. Trees clear of the physical basin keep their locations, shapes, colours, rotations and random stream. The check uses the existing trunk collider, without an extra bank buffer.
+
+The fountain comparison is published in [the overview](https://cristiancalina.com/game/overview/#fountain-tree-fix), with the original High/Ultra report camera and nine refreshed aerial squares. District-wide road, office and frame-budget findings remain separately open.

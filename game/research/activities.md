@@ -1,5 +1,7 @@
 # Activities at landmarks and tourist spots (note 57)
 
+Activities the game has retired (`RETIRED_ACTIVITIES` in `game/src/spot-availability.js`) are removed from this file.
+
 Research pass 2026-11-07. Machine-readable: `activities.json` (one entry per place: real activity, hours/season, sources, confidence, in-game interaction, achievement id for a new **Landmarks** category). Only activities visitors really do; where official hours could not be fetched, the entry says so instead of guessing.
 
 ## Space Needle (seattle, spot `space-needle`)
@@ -153,11 +155,6 @@ Research pass 2026-11-07. Machine-readable: `activities.json` (one entry per pla
   - In game: Sit at a courtyard table (time skip to the evening, string lights on).
   - Achievement: `lm-manuc-terrace` "A table at Manuc"
   - Sources (high): https://en.wikipedia.org/wiki/Manuc%27s_Inn, https://ro.wikipedia.org/wiki/Hanul_lui_Manuc
-- **Curtea Veche ruins and Vlad III**: The Old Princely Court: ruins and the 1559 church; Vlad III dated a document here on 20 September 1459. A bust of Vlad stands in front.
-  - When: Museum open-air ruins; the interior museum's opening varies (not checked).
-  - In game: Find the Vlad bust; politely refuse souvenir sellers.
-  - Achievement: `lm-curtea-veche` "At Vlad's court"
-  - Sources (medium): https://en.wikipedia.org/wiki/Curtea_Veche
 
 ## Stavropoleos, Caru' cu Bere and the CEC Palace (bucharest, spot `stavropoleos-cec`)
 - **Stavropoleos courtyard and chant**: A 1724 Brâncovenesc church of a convent of nuns. The courtyard is lined with old stone crosses and tombstones; the choir sings neo-Byzantine chant; the library holds over 8,000 books.
@@ -179,11 +176,6 @@ Research pass 2026-11-07. Machine-readable: `activities.json` (one entry per pla
   - Sources (high): https://en.wikipedia.org/wiki/Romanian_Athenaeum
 
 ## Arcul de Triumf (bucharest, spot `arcul-de-triumf`)
-- **Climb to the roof terrace and the small museum**: Inside the arch is a small museum with four exhibitions (the Great War, heraldry, the arch in pictures, the 1918 Union). Per ro.wikipedia it can be visited only on special occasions, typically national holidays such as 1 December. Stairs lead up to the terrace on top, with a view down Kiseleff.
-  - When: Special occasions / public holidays. Note: OSM opening_hours on the node read Apr–Oct Tu–Fr 10–18, Sa–Su 11–19; Nov–Mar Tu–Su 9–17 (earlier dossier). The two sources disagree: in game, open the terrace on Romanian public holidays and weekends.
-  - In game: On an open day climb the internal stairs to the terrace; the 1 December parade passes underneath.
-  - Achievement: `lm-arc-terrace` "On top of the Arc"
-  - Sources (medium): https://ro.wikipedia.org/wiki/Arcul_de_Triumf_din_București, bucharest-spots.json arcul-de-triumf.interaction
 
 ## Dimitrie Gusti National Village Museum (bucharest, spot `village-museum`)
 - **Walk through the farmsteads**: An open-air museum (1936) inside King Michael I Park: 123 peasant households, 363 monuments brought from every region, including the Dragomirești wooden church (1722). Many houses can be looked into.
@@ -217,11 +209,6 @@ Research pass 2026-11-07. Machine-readable: `activities.json` (one entry per pla
   - In game: Row round the island (summer) / skate (winter).
   - Achievement: `lm-cismigiu-boat` "Rowed in Cișmigiu"
   - Sources (medium): https://ro.wikipedia.org/wiki/Parcul_Cișmigiu, https://en.wikipedia.org/wiki/Cișmigiu_Gardens
-- **Watch the chess players**: Concrete chess tables mapped in the park (OSM sport=chess, 3 tables around 44.4363, 26.0896) where regulars play.
-  - When: All year, daytime.
-  - In game: Watch a game; the regulars comment if you play a move.
-  - Achievement: `lm-cismigiu-chess` "Kibitzer"
-  - Sources (medium): OSM nodes 10877390595–10877390597
 - **Writers' Rotunda**: A circular alley with stone busts of twelve Romanian writers (Eminescu, Caragiale, Creangă…).
   - When: All year.
   - In game: Find all 12 busts.
@@ -248,6 +235,5 @@ Research pass 2026-11-07. Machine-readable: `activities.json` (one entry per pla
   - In game: Pop in after the gts chapter.
   - Achievement: `lm-hala-traian` "Inside Hala Traian"
   - Sources (medium): bucharest-unirii.json landmarks.hala_traian
-
 
 26 places, 39 activities. Not reachable from here on 2026-11-07: cic.cdep.ro (Parliament tours), fge.org.ro (Athenaeum concerts), palatulprimaverii.ro, alpab.ro (Cișmigiu/Herăstrău boats), catedralaneamului.ro, carturesti.ro (403), USACE Ballard Locks page (403). Wikipedia's API was rate-limited, so its pages were read via `action=raw`.

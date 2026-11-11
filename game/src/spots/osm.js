@@ -291,6 +291,18 @@ export function buildingStyle(b, urban) {
     return urban ? 'apartment' : 'house';
 }
 export function buildingHeight(b) { return sourceBuildingHeight(b); }
+/** does a source building get a shopfront ground floor (the shop facade up to datum + 4.3 m)? Shared with scene details
+ *  that must line up with the drawn facade (balconies, string courses). */
+export const SHOP_FLOOR_M = 4.3;
+export function sourceHasShopFloor(b, r, style, urban = true) {
+    return !!(urban && r.minHeight === 0 && r.height > 7 && (b.shop || b.amenity || style === 'mall' || /commercial|retail|mixed|yes/.test(b.k)) && style !== 'house' && style !== 'industrial');
+}
+/** where the drawn upper-floor facade of a source building sits: its style's bay and storey, and the height its first upper
+ *  storey starts at (window bays per wall: max(1, round(L / bay)) equal bays, the windows centred in them). */
+export function sourceFacadeFrame(b, r, { style = null, urban = true } = {}) {
+    const st = style || buildingStyle(b, urban), S = facadeStyle(st), shop = sourceHasShopFloor(b, r, st, urban);
+    return { style: st, S, shop, upperBase: shop ? Math.min(r.datum + r.height, r.datum + SHOP_FLOOR_M) : r.datum, datum: r.datum };
+}
 
 /**
  * extrude OSM buildings
@@ -314,7 +326,7 @@ export function buildBuildings(data, ground, o = {}) {
         if(o.reuseSceneSourceIds?.has(v.source.id)){reusedVolumes++;continue;}
         o.onSourceVolume?.(v.source.id); // geometry-cache observer: primitive identity only
         const r=v.owner,b=v.source,style=r.style,S=facadeStyle(style),pal=PALETTES[style]||(style==='house'?HOUSE_COLS:style==='office'?OFFICE_COLS:style==='brick'?BRICK_COLS:APT_COLS),hcol=b.c?safeCol(b.c):pal[Math.floor(hash2(r.cx,r.cz)*pal.length)],roofcol=b.rc?safeCol(b.rc):style==='office'?'#7d8288':v.owner.profile.shape==='flat'?'#8a8784':['#4a4a4f','#5b4a42','#3f4a52','#6b6660'][Math.floor(hash2(r.cz,r.cx)*4)];
-        const shop=urban&&r.minHeight===0&&r.height>7&&(b.shop||b.amenity||style==='mall'||/commercial|retail|mixed|yes/.test(b.k))&&style!=='house'&&style!=='industrial',gf=shop?Math.min(v.h,r.datum+4.3):v.minH;
+        const shop=sourceHasShopFloor(b,r,style,urban),gf=shop?Math.min(v.h,r.datum+SHOP_FLOOR_M):v.minH;
         const wall=(ring,bands,hole=false)=>{
             if(shop){const g=sourceWallGeometry(ring,bands,facadeStyle(o.shopStyle||'shop'),r.datum,{max:gf,hole});
                 // Authored, source-boundary storefront glazing replaces only

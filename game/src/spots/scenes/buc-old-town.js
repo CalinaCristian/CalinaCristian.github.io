@@ -13,7 +13,7 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, hash2, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, distPolyline, canvas, canvasTexture, fitDraw, obb, polyArea } from '../kit.js';
 import { bucBackdrop, classicFacade, classicWalls, balustradeMaterial, palisade, osmPoly, cityFiller, placeLandmark, signAtlas, oldTownTerraces, facadeToward, floodlight, shopfrontFacade, bucActivity } from '../buc.js';
-import { wallGeometry } from '../osm.js';
+import { wallGeometry, sourceFacadeFrame } from '../osm.js';
 import { buildSecretWcpBar } from './wcp-secret-bar.js';
 import { createVenueActivities } from '../venue-activities.js';
 import { collide } from '../walker.js';
@@ -80,8 +80,12 @@ function oldTownFronts(ctx, { exclude = [] } = {}) {
         if(bd.holes?.length || bd.hasParts) continue;
         if (!exts.some((e) => inPoly(cx, cz, e)) || exclude.some((e) => inPoly(cx, cz, e)) || Math.abs(polyArea(p)) < 25) continue;
         if (!p.some(([x, z]) => nearWay(x, z) < 8)) continue;
-        const hs=hash2(cx*.37,cz*.53),record=sourceRecord(bd,0,g),gmax=record.datum,GF=Math.min(4.4,record.height*.5),top=gmax+record.height;
-        const lv=Math.max(1,Math.floor((record.height-GF)/3.7)+1),light='#f2ede2';
+        const hs=hash2(cx*.37,cz*.53),record=sourceRecord(bd,0,g),gmax=record.datum,top=gmax+record.height;
+        // (owner, 2026-11-11: "that balcony looks broken") Trim and balconies follow the facade actually drawn on this building
+        // (decorated fronts are drawn 'eclectic'): its shop floor, storey height and window bays. They used an invented 4.4 m
+        // ground floor, 3.7 m storeys and 3.4 m bays, so balconies stood between windows and under the sills.
+        const F=sourceFacadeFrame(bd,record,{style:'eclectic'}),SF=F.S.floor,first=F.shop?F.upperBase:gmax+SF,GF=first-gmax;
+        const lv=Math.max(1,Math.floor((top-first)/SF+1e-6)),light='#f2ede2';
         // Ornament sizes and balcony repetition are explicit visual estimates;
         // literal source mass/roof heights and every geometry member win.
         if(record.height>7)b.prism(grow(p,.12),gmax+GF-.12,gmax+GF+.08,light,'stone',{noTop:true});
@@ -91,10 +95,12 @@ function oldTownFronts(ctx, { exclude = [] } = {}) {
             const [ax, az] = p[i], [bx, bz] = p[(i + 1) % p.length], L = Math.hypot(bx - ax, bz - az); if (L < 6.5) continue;
             const mx = (ax + bx) / 2, mz = (az + bz) / 2; if (nearWay(mx, mz) > 9) continue;
             const ux = (bx - ax) / L, uz = (bz - az) / L, nx = uz, nz = -ux; // outward normal (CCW polygon)
-            const n = Math.max(1, Math.round(L / 3.4)), bw = L / n, span = n >= 3 && hash2(mx, mz) < 0.45 ? 3 : 1, c0 = Math.floor((n - span) / 2);
+            // window bays exactly as drawn on this wall: n equal bays, a window centred in each
+            const n = Math.max(1, Math.round(L / F.S.bay)), bw = L / n, span = n >= 3 && hash2(mx, mz) < 0.45 ? 3 : 1, c0 = Math.floor((n - span) / 2);
             for (const fl of lv >= 3 && hash2(mz, mx) < 0.5 ? [1, 2] : [1]) {
                 if (fl === 2 && span === 3) continue;
-                const yb = gmax + GF + (fl - 1) * 3.7 + 0.05, u0 = (c0 + 0.12) * bw, u1 = (c0 + span - 0.12) * bw, w = u1 - u0, uc = (u0 + u1) / 2, D = 0.8;
+                if (fl * SF > top - first + 1e-6) continue; // (the storey must exist on the drawn facade)
+                const yb = first + (fl - 1) * SF + 0.05, u0 = (c0 + 0.12) * bw, u1 = (c0 + span - 0.12) * bw, w = u1 - u0, uc = (u0 + u1) / 2, D = 0.8;
                 const px = ax + ux * uc + nx * D / 2, pz = az + uz * uc + nz * D / 2, yaw = Math.atan2(ux, uz);
                 b.box(px + nx * 0.03, yb - 0.14, pz + nz * 0.03, D - 0.04, 0.16, w, light, 'stone', yaw);
                 for (const k of [-0.42, 0.42]) b.box(ax + ux * (uc + k * w) + nx * 0.3, yb - 0.5, az + uz * (uc + k * w) + nz * 0.3, 0.45, 0.36, 0.14, light, 'stone', yaw);

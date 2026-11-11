@@ -1,6 +1,6 @@
 # Full owner-report delivery status · 10 November 2026
 
-**Delivered and closed from this 71-report batch: 13 / 71. Reports 1,4,5,11,24,29,41,42,43,49,53,54,56 are verified live. The other 58 reports remain open.**
+**Delivered and closed from this 71-report batch: 15 / 71. Reports 1,4,5,11,24,27,29,36,41,42,43,49,53,54,56 are verified live. The other 56 reports remain open.**
 
 This is a delivery ledger. A staged candidate is code awaiting acceptance; it is not a completed fix. All original reports and supplied poses remain in [the exact register](owner-reports-20261110.json).
 
@@ -8,12 +8,12 @@ Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integrat
 
 | Current implementation state | Reports |
 | --- | ---: |
-| Delivered — verified live | 13 |
-| Open — no verified fix | 43 |
+| Delivered — verified live | 15 |
+| Open — no verified fix | 42 |
 | Shared fix in progress | 8 |
 | Staged candidate | 1 |
 | In progress | 1 |
-| Native and logic validated; broader regression in progress | 2 |
+| Candidate under native validation | 1 |
 | Unfinished | 1 |
 | Source research in progress | 1 |
 | Held partial candidate | 1 |
@@ -39,14 +39,14 @@ Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integrat
 | 17 | Grozavesti | Open slot between tram decks exposes street below | **Staged candidate** | Centre-support/platform geometry exists; full bridge/tram journey and final visuals remain open. |
 | 18 | Grozavesti | North approach ramp and crowds; growing simulation cost | **In progress** | CPU and movement fixes have scoped tests. The evolving population, full approach, visual frame budget and sustained performance still fail or remain open. |
 | 19 | Grozavesti | Residential building intersects Rectorat landmark | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 20 | Grozavesti | University sign behind balustrade and wooden fins | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
+| 20 | Grozavesti | University sign behind balustrade and wooden fins | **Candidate under native validation** | UPB interior placard behind gallery/fins reproduced in supplemental frontal native view. Candidate7f070ee0 places unchanged CV exhibit on clear lower wall in front of brickwork. Final native interaction/phone, logic and affected overview checks pending. Original supplied bearing faces a different wall; that pose is retained separately. |
 | 21 | Unirii | Large pale protruding structure and holes in crowns | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 22 | Unirii | Multiple buildings occupying driven road | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 23 | Unirii | Tree crown intersects building facade | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 24 | General / interiors | Manager body intersects desk and monitor. Screenshot only; no exact camera supplied. | **Delivered — verified live** | Host body, collider and3conversation stations clear rear desk. Native before/after, E and390px visible pause/resume reviewed; foot/a0H0M1LOWsoftwareFPS. Masterc45ccae6/sourceb480d9f0/releasegame-70c1e8a47a0ec0ff; Pages42929132998success;332live-file checks pass. Controlled room setup, not ordinary street journey or authentic-room acceptance. |
 | 25 | Unirii | Facade overlap/flicker near ground floor | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 26 | Unirii | Malformed/overlapping junction road and markings | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 27 | Unirii | Shop fascias overlap each other | **Native and logic validated; broader regression in progress** | Candidate e417 separates overlapping boards at both original High/Ultra locations. Source POIs and strings unchanged; eight layout controls and foot/a 0H0M pass. Full Unirii visual coverage complete155/155, zero capture/runtime errors, unchanged228 inherited findings. Other district sign impact and affected overview remain open. Not published. |
+| 27 | Unirii | Shop fascias overlap each other | **Delivered — verified live** | Master760ab635 / releasegame-8ffd9e016f7f2def / source6ad7b5f3. Pages42945366964SUCCESS;517live-file hashes pass (one HTTP/2 transfer retried successfully). Original27/36High/Ultra, native8district378unit/936boardzero-overlap controls, foot/a0H0M and paired155/155Unirii with unchanged228inherited findings. Affected34atlas/56ground/37context views updated;167images decode/hash and48desktop/phone condition selections pass. Columns/balconies/tree occlusions remain separate open limits. |
 | 28 | Unirii | Fountain jets absent | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 29 | Unirii | Tree trunk in fountain basin | **Delivered — verified live** | Original High/Ultra rim view clear; 16 physical conflicts excluded while 18,590 retained tree/collider records and source/basin geometry stay exact. Foot/a 0H0M. Paired district coverage 155/155 each with no matched rendering-cost increase; inherited findings and two frame-budget overruns remain open. Nine atlas and 16 ground frames refreshed; desktop/phone delivery checks pass. Master28e54da0, releasegame-0263e743870e4f9a, stampedsource4a84d6d6; Pages42935856311success and371live-file checks pass. |
 | 30 | Unirii | Fountain basin occupies carriageway | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
@@ -55,7 +55,7 @@ Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integrat
 | 33 | Unirii | Long gap in longitudinal markings | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 34 | Unirii | Repeated gap in longitudinal markings | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 35 | Unirii | Building frontage intersects roadway | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 36 | Unirii | Overlapping pharmacy/business signs | **Native and logic validated; broader regression in progress** | Candidate e417 separates overlapping boards at both original High/Ultra locations. Source POIs and strings unchanged; eight layout controls and foot/a 0H0M pass. Full Unirii visual coverage complete155/155, zero capture/runtime errors, unchanged228 inherited findings. Other district sign impact and affected overview remain open. Not published. |
+| 36 | Unirii | Overlapping pharmacy/business signs | **Delivered — verified live** | Master760ab635 / releasegame-8ffd9e016f7f2def / source6ad7b5f3. Pages42945366964SUCCESS;517live-file hashes pass (one HTTP/2 transfer retried successfully). Original27/36High/Ultra, native8district378unit/936boardzero-overlap controls, foot/a0H0M and paired155/155Unirii with unchanged228inherited findings. Affected34atlas/56ground/37context views updated;167images decode/hash and48desktop/phone condition selections pass. Columns/balconies/tree occlusions remain separate open limits. |
 | 37 | Unirii | Van and cars block corner with pedestrians | **Shared fix in progress** | Pedestrian/car recovery fixes are under test. This specific reported location has not been verified. |
 | 38 | Unirii | Pedestrians collect around parked car at corner | **Shared fix in progress** | Pedestrian/car recovery fixes are under test. This specific reported location has not been verified. |
 | 39 | Pipera | Lots of stuck people around road closures | **Shared fix in progress** | Pedestrian/car recovery fixes are under test. This specific reported location has not been verified. |

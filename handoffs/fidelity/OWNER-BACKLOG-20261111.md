@@ -44,6 +44,7 @@ States: **fixed on branch** (implemented and checked in the probe; not published
 | L29 | Carturești Carusel | jumping from the top floor teleports to the ground, no falling | open | |
 | L30 | All spots | chat bubbles feel random; want location/event-specific cultural lines | open | content rewrite |
 | L31 | Tourist spots | a custom waypoint should draw the same trail as the guided tour | open | |
+| L32 | Cișmigiu Gardens | "still looks terrible, needs a FULL visual refresh to make it more real" (stepped jagged lake shore, railing standing in the water, flat grass banks) | open | large: lake shoreline and banks, railing on the real edge, paths, planting |
 
 ## The 71-report register
 

@@ -63,6 +63,7 @@ States: **fixed on branch** (implemented and checked in the probe; not published
 | L47 | Grozăvești (549.1, 28.7, -831.5), bearing 55.5 pitch -30.2 | "why is this cut": a pale triangular wedge in the middle of the Basarab deck between the left carriageway and the tram tracks; the deck reads as sliced at an angle (35 fps at this camera) | open | likely the slot infill between the carriageway and tram decks (world.js tram-to-tram / centre slot infill): wrong colour and a tapering outline |
 | L48 | Grozăvești, Basarab | "drone can fly through bridge street from underneath": the drone passes up through an elevated deck from below | open | deck collision for the drone appears to cover the top surface only |
 | L49 | Grozăvești (1030.1, 13.4, -869.3), bearing 62.4 pitch -44.0 | "car stuck": the police car at the Pasajul closure sank into the rising road | fixed on branch | the car takes the road height where it stands; no car on a slope over 3 % |
+| L50 | Grozăvești (579.3, 18.7, -1245.9), bearing 173.5 pitch -28.4 | screenshot without a comment: a side road with edge lines meets a junction whose surface is a patchwork of dark asphalt and pale grey pads; the edge lines end at a dark bar, and grey squares lie on the lawn | open | reading of the screenshot to be confirmed by the owner |
 ### Spot pass, 11 November (probe captures at the spawn, four directions, 25 m ahead, above)
 
 | Spot | Seen | Next |

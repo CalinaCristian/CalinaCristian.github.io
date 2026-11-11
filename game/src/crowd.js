@@ -62,13 +62,17 @@ function personGeometry() {
         b.add(taper(0.06, 0.075, 0.08, KNEE_Y + 0.02, 7, 1.05), TM(x, 0, 0), P.BOTTOM, R ? 8 : 7); // shin
         b.add(taper(0.074, 0.088, KNEE_Y - 0.02, HIP_Y + 0.02, 7, 1.05), TM(x, 0, 0), P.BOTTOM, R ? 2 : 1); // thigh
         b.add(taper(0.055, 0.058, ELBOW_Y - 0.02, SHOULDER_Y - 0.02, 6), TM(s * 0.24, 0, 0), P.SLEEVE, R ? 4 : 3); // upper arm
+        b.add(new THREE.SphereGeometry(0.064, 8, 6), TM(s * 0.238, SHOULDER_Y - 0.03, 0, 1, 0.95, 1.05), P.SLEEVE, R ? 4 : 3); // shoulder cap
         b.add(taper(0.045, 0.053, 0.88, ELBOW_Y + 0.02, 6), TM(s * 0.245, 0, 0), P.SLEEVE, R ? 6 : 5);   // forearm
         b.add(BOX, TM(s * 0.245, 0.83, 0, 0.065, 0.11, 0.085), P.SKIN, R ? 6 : 5);                 // hand
     }
     b.add(taper(0.155, 0.158, HIP_Y - 0.07, HIP_Y + 0.08, 10, 0.64), TM(0, 0, 0), P.BOTTOM);       // pelvis (elliptical: the old box's corners poked out of coats as dark 'pockets' — after round 6)
     b.add(taper(0.165, 0.2, 0.96, 1.46, 9, 0.62), TM(0, 0, 0), P.TOP);                         // torso
-    b.add(BOX, TM(0, 1.425, 0, 0.42, 0.09, 0.185), P.TOP);                                     // shoulders
-    b.add(BOX, TM(0, 1.43, 0, 0.455, 0.105, 0.215), P.COAT);                                   // coat shoulders (round 6 note 55: the shirt's shoulder plate poked out over the coat)
+    // (2026-11-11, owner: "people still have those weird boxes on them") the shoulders were two literal boxes, 42 and 46 cm
+    // wide, whose corners stood out over the arms on every walker. They are sloped elliptical yokes now, with a round cap
+    // on each upper arm that turns with the arm.
+    b.add(taper(0.212, 0.125, 1.375, 1.468, 12, 0.47), TM(0, 0, 0), P.TOP);                      // shoulders
+    b.add(taper(0.228, 0.14, 1.368, 1.485, 12, 0.5), TM(0, 0, 0), P.COAT);                      // coat shoulders (round 6 note 55: the shirt's shoulder plate poked out over the coat)
     b.add(taper(0.062, 0.054, 1.46, 1.57, 8), TM(0, 0, 0), P.SKIN);                             // neck (fuller: the old 5 cm stick read as a pin)
     const head = new THREE.SphereGeometry(0.105, 16, 12); b.add(head, TM(0, 1.645, -0.005, 0.9, 1.1, 1.0), P.SKIN);   // head (smoother)
     b.add(new THREE.SphereGeometry(0.06, 10, 6), TM(0, 1.585, -0.035, 1.25, 0.75, 1.0), P.SKIN);                       // jaw / chin
@@ -88,7 +92,7 @@ function personGeometry() {
     b.add(taper(0.21, 0.205, 0.98, 1.47, 9, 0.66), TM(0, 0, 0), P.COAT);                        // coat body (over the top)
     b.add(new THREE.SphereGeometry(0.118, 10, 5, 0, Math.PI * 2, 0, Math.PI * 0.5), TM(0, 1.672, 0.01, 1, 1.28, 1.02), P.HAT); // knit beanie: rounded crown…
     b.add(taper(0.123, 0.121, 1.655, 1.705, 12, 1.0, true), TM(0, 0, 0.01, 1, 1, 1.03), P.HAT);                                      // …folded brim
-    b.add(BOX, TM(0, 1.2, 0.165, 0.28, 0.36, 0.13), P.BAG);                                    // backpack
+    b.add(taper(0.145, 0.12, 1.02, 1.38, 10, 0.46), TM(0, 0, 0.158), P.BAG);                    // backpack (rounded; it was a box too)
     // umbrella held in the right hand in front of the chest (pose 'umbrella'): canopy rim ~1.9 m, apex ~2.15 m
     b.add(new THREE.ConeGeometry(0.5, 0.26, 10, 1, true), TM(0.074, 2.02, -0.25), P.UMBRELLA);
     b.add(taper(0.011, 0.011, 1.36, 2.12, 4), TM(0.074, 0, -0.25), P.POLE);   // the shaft runs through the fist (umbrella arm pose)

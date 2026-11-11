@@ -57,6 +57,7 @@ import { roadMiter, needsRoadBevelPad } from './road-joins.js';
 import { markingArea, clipMarkingHalfPlane, clipMarkingConvex, subtractMarkingConvex, clipAffineMarkingRange, buildMarkingStations, markingDashIntervals } from './road-markings.js';
 import { decodeDistrictMask, buildSourceBoundarySupport, normalizeSourceMapEnds, districtMaskSegments } from './district-boundary.js';
 import { FACADE_DETAIL_GLSL } from './facade-detail.js';
+import { subtractConvex } from './building-overlap.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -1704,8 +1705,37 @@ export async function buildWorld(city, renderer, opts = {}) {
     // flat ground layers do not write depth (drawn first, in this order) → no z-fighting, sunken roads stay visible
     const AREA_ORDER = ['residential', 'industrial', 'commercial', 'retail', 'railway', 'construction', 'yard', 'cemetery', 'grass', 'scrub', 'forest', 'park', 'track', 'pitch', 'turf', 'clay', 'hard', 'pool', 'parking', 'apron', 'runway', 'water'];
     areas.sort((p, q) => AREA_ORDER.indexOf(p.kind) - AREA_ORDER.indexOf(q.kind));
+    // (owner, 2026-11-11, Unirii (-425, -27): "car drives under grass") The ground layers keep their depth so vehicles in
+    // covered tunnels cannot show through; but a grass / landuse / paved polygon mapped across an OPEN trench (a road
+    // sunk below the street, not a tunnel) then covered the trench, its road and its traffic. Those layers are cut out of
+    // every open sunken carriageway corridor (the carriageway plus 0.6 m each side). Tunnels stay covered.
+    const trenchQuads = [];
+    for (const e of edges) {
+        if (e.virtual || e.tunnel || !(Math.min(e.ya ?? 0, e.yb ?? 0) < -0.4)) continue;
+        const wl = (e.wL ?? 4) + 0.6, wr = (e.wR ?? 4) + 0.6, ex = e.dirx * 0.3, ez = e.dirz * 0.3;
+        const q = [[e.a.x - ex + e.nx * wr, e.a.z - ez + e.nz * wr], [e.b.x + ex + e.nx * wr, e.b.z + ez + e.nz * wr], [e.b.x + ex - e.nx * wl, e.b.z + ez - e.nz * wl], [e.a.x - ex - e.nx * wl, e.a.z - ez - e.nz * wl]];
+        const xs = q.map(v => v[0]), zs = q.map(v => v[1]);
+        trenchQuads.push({ q, x0: Math.min(...xs), x1: Math.max(...xs), z0: Math.min(...zs), z1: Math.max(...zs) });
+    }
+    let trenchCutTris = 0;
+    const cutTrenches = (pts, tris) => { // pts [[x, z]], tris [[i, j, k]] (flatPoly orients each triangle up itself)
+        if (!trenchQuads.length) return { pts, tris };
+        const P = pts.slice(), T = [];
+        for (const t of tris) {
+            const tri = t.map(k => P[k]);
+            const x0 = Math.min(tri[0][0], tri[1][0], tri[2][0]), x1 = Math.max(tri[0][0], tri[1][0], tri[2][0]), z0 = Math.min(tri[0][1], tri[1][1], tri[2][1]), z1 = Math.max(tri[0][1], tri[1][1], tri[2][1]);
+            const hits = trenchQuads.filter(h => h.x1 > x0 && h.x0 < x1 && h.z1 > z0 && h.z0 < z1);
+            if (!hits.length) { T.push(t); continue; }
+            let pieces = [tri];
+            for (const h of hits) { pieces = pieces.flatMap(pc => subtractConvex(pc, h.q)); if (!pieces.length) break; }
+            trenchCutTris++;
+            for (const pc of pieces) { const base = P.length; P.push(...pc.map(v => [v[0], v[1]])); for (let k = 1; k < pc.length - 1; k++) T.push([base, base + k, base + k + 1]); }
+        }
+        return { pts: P, tris: T };
+    };
     for (const a of areas) {
-        const { pts, tris } = triangulate(a.outer, a.holes);
+        let { pts, tris } = triangulate(a.outer, a.holes);
+        if (a.kind !== 'water' && tris.length) ({ pts, tris } = cutTrenches(pts, tris));
         if (!tris.length) continue;
         const y = AREA_Y[a.kind] ?? Y.landuse;
         const col = rgb(areaColors[a.kind] || env.ground);
@@ -1917,7 +1947,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         const flush = (o, r1) => {
             const x0 = G.x0 + o.c * G.cx, x1 = G.x0 + (o.c + o.n) * G.cx, z0 = G.z0 + o.r0 * G.cz, z1 = G.z0 + r1 * G.cz;
             const k = 0.9 + gr() * 0.16, col = [Math.round(base[0] * k), Math.round(base[1] * (k + 0.02)), Math.round(base[2] * k)];
-            cellOf((x0 + x1) / 2, (z0 + z1) / 2).grass.flatQuad(x0, z0, x1, z0, x1, z1, x0, z1, Y.grass + 0.004, col, 0.1); greenQuads++;
+            const gq = cellOf((x0 + x1) / 2, (z0 + z1) / 2).grass;
+            // (the aerial green raster also sees grass on the banks of open trenches: cut it out of them like the areas)
+            if (trenchQuads.some(h => h.x1 > x0 && h.x0 < x1 && h.z1 > z0 && h.z0 < z1)) { const cut = cutTrenches([[x0, z0], [x1, z0], [x1, z1], [x0, z1]], [[0, 1, 2], [0, 2, 3]]); if (cut.tris.length) gq.flatPoly(cut.pts, cut.tris, Y.grass + 0.004, col, 0.1); }
+            else gq.flatQuad(x0, z0, x1, z0, x1, z1, x0, z1, Y.grass + 0.004, col, 0.1);
+            greenQuads++;
         };
         let r = 0, c = 0, cur = 0; let rowRuns = [];
         const endRow = () => {
@@ -2454,6 +2488,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const A = [pa[0] + (pb[0] - pa[0]) * j / k, pa[1] + (pb[1] - pa[1]) * j / k], B = [pa[0] + (pb[0] - pa[0]) * (j + 1) / k, pa[1] + (pb[1] - pa[1]) * (j + 1) / k];
                     const mx = (A[0] + B[0]) / 2, mz = (A[1] + B[1]) / 2;
                     if (coveredByOther(mx, mz, e, yAlong(e, mx, mz), 0.1)) continue;
+                    // (owner, 2026-11-11, Grozavesti (-28, 59): "looks broken") a way tagged bridge often runs on at grade for its
+                    // last metres; no parapet stands on a stretch at street level (it ran down a lane as a concrete wall). Bridges
+                    // over water keep theirs at any height.
+                    if (!e.overWater && Math.max(yAlong(e, ...A), yAlong(e, ...B)) < 0.6) continue;
                     if (tramGrades.excludesInferredObstacle(A, B, { inferred: true, y0a: Y.road + yAlong(e, ...A), y1a: Y.road + yAlong(e, ...A) + 1.1,
                         y0b: Y.road + yAlong(e, ...B), y1b: Y.road + yAlong(e, ...B) + 1.1, kind: 'bridge-guard-visual', sourceId: data.roadSourceGeometry?.[e.road]?.sourceId })) continue;
                     sb.wall(A[0], A[1], B[0], B[1], yR, yR + 1.1, e.nx * s, e.nz * s, rgb('#9aa3ad'));
@@ -6712,6 +6750,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.tramSweep = tramSweep ? { ...tramSweep.report, conflicts: tramSweepConflicts } : null;
     stats.tramRailings = tramRailings;
     stats.landmarkWaterFootprints = landmarkWaterFootprints;
+    stats.trenchGroundCuts = { corridors: trenchQuads.length, triangles: trenchCutTris }; // (ground layers cut out of open trenches)
     stats.buildingOverlapCuts = overlapCuts; // (world-space basin outlines: audits of what stands in or over them)
     stats.bridgeGuardCompletion = guardCompletion;
     stats.basarabLamps = basarabLamps;

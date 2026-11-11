@@ -31,9 +31,9 @@ States: **fixed on branch** (implemented and checked in the probe; not published
 | L16 | Unirii and others | cars stuck in junctions ("traffic caused by collisions"); a car looping a U-turn; two cars nose to nose (1148, -1278) | open | idle-claim release tried and set aside (made head-on contacts) |
 | L17 | Grozăvești | Basarab tram ramp fork: flat-branch tram overlaps the estimated ramp slab | open | needs the tram grade model changed |
 | L18 | Romană (-588, -422) | underground pass leaks; tram stuck there | open | |
-| L19 | Grozăvești (1069, -849), (896, -1091); Unirii (-28, 59) | broken / see-through ramps and bridges ("fix all bridges/paths") | open | |
+| L19 | Grozăvești (1069, -849), (896, -1091), (-28, 59) (the summary had it under Unirii; the F8 report says Grozăvești) | broken / see-through ramps and bridges ("fix all bridges/paths") | partly | (-28, 59) fixed: no bridge parapet on an at-grade stretch. (1069, -849) diagnosed: the Basarab approach leaves the district 7 m up, the closure stands there, the road beyond the boundary is drawn at street level. (896, -1091) diagnosed: flat green ground breaks into triangles on the embankment beside the viaduct |
 | L20 | Grozăvești (863, -1109) | tram path goes on the road | open | |
-| L21 | Unirii (-425, -27) | car drives under grass | open | |
+| L21 | Unirii (-425, -27) | car drives under grass | fixed on branch | aerial green ground and mapped grass / landuse lying across the open Pasajul Unirii trench covered its traffic; those layers are cut out of open sunken corridors (tunnels stay covered) |
 | L22 | Unirii (67, -189) | junction markings incomplete | open | related to reports 26, 32-34 |
 | L23 | Romană (Penny) | sign flicker; wants a generic fix | open | coplanar surfaces |
 | L24 | Unirii (-1153, 285) | fountains go on the streets | partly | measured: 1 of 44 basins reaches 0.27 m into the carriageway; the rest fill the median to the kerbs |

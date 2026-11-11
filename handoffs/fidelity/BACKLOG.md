@@ -19,9 +19,9 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Unirii | #25 facade flicker near the ground floor | not reproduced in still captures |
 | Unirii | L24 / #30 fountain basin in the carriageway | 1 of 44 basins reaches 0.27 m into the carriageway |
 | Unirii | L22 / #26 / #32–#34 junction and longitudinal markings | look whole at the report poses from above; verify at street level |
-| Romană | L23 sign flicker (Penny) | coplanar surfaces; generic fix wanted |
+| Romană | L23 sign flicker (Penny) | not reproducible: no Penny sign or POI in the current Romană data; facade signs stand 0.14 m off their walls; owner to give the pose if it still flickers |
 | Romană | #47 / #48 / #50 crossing paint, markings at parking islands, building in the street | look whole at the report poses; verify at street level |
-| Floreasca | #2 bus shelter orientation, #3 rectangular road patch flicker | open |
+| Floreasca | #2 bus shelter orientation | open |
 | Floreasca | #10 courtyard windows and inner slab | the slab is a mapped building part; owner question, not a defect yet |
 | Bellevue | #67 / L15 pedestrian pileups at closures | mitigated on branch (walkers blocked head-on by peers on a crossing step through after 1.5 s; walkers boxed in by a closure both ways leave the road); the headless probe still shows walkers frozen mid-crossing with no recorded blocker, so re-check live |
 | SeaTac | #57–#65 airport assembly | skybridge connector ends in the air, garage helix and ramps cut into each other, station sign and roof without mounting, frontage objects on the terminal road, parapet gaps, truncated road, broken markings |
@@ -48,6 +48,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | 0311834a | #31 / L25 blank blocks in front of the Parliament |
 | ae7fef3d | #23 tree crowns in facades |
 | 94e9bb78, dd0ceacc | #45 Pipera walls across streets under the bridge |
+| (this commit) | #3 Floreasca road patch flicker: overlapping repair patches each get their own height below the lines |
 | earlier on this branch | L1–L7, L9–L13, L19 (all three places), L20, L21, L32, L33, L35–L40, L42, L43, L44, L46–L49; register #12–#14, #16–#18 (re-checked at their poses 2026-11-11) |
 | by design | #28 Unirii fountains run May–October 10:00–23:00 (`?fountains=on` forces them); L18 Romană underpass re-checked closed |
 

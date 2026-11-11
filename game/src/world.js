@@ -2429,7 +2429,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const wR2 = e.wR - 0.3, wL2 = -(e.wL - 0.3); if (wR2 - wL2 < 2) break;
                     const W = Math.min(wR2 - wL2, pr.range(0.9, e.laneW * 1.1)), o = pr.range(wL2, wR2 - W);
                     const pc = shadeRgb(asphaltBase, US ? 0.72 : pr.chance(0.6) ? 0.74 : 1.12);
-                    band(m, e, sa, sa + L, o, o + W, yM - 0.008, pc);
+                    band(m, e, sa, sa + L, o, o + W, yM - 0.0095 + Math.min(q, 9) * 0.0007 + (e.id % 3) * 0.0002, pc); // (owner register #3, Floreasca: overlapping patches at one height flickered: each its own height, all below the lines)
                 }
             }
             // lane dividers

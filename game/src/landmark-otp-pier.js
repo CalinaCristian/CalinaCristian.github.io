@@ -28,7 +28,28 @@ export function buildOTPPier(b, outline, sourceBuildings, roofZones, profiles) {
                 const end = ring[(i + 1) % ring.length], dx = end[0] - a[0], dz = end[1] - a[1];
                 const at = (t, y) => [a[0] + dx * t, y, a[1] + dz * t];
                 for (const band of bands[i]) {
-                    b.quad(at(band.t0, band.y0), at(band.t1, band.y0), at(band.t1, band.y1), at(band.t0, band.y1), wallColour, mat, [sign * dz, 0, -sign * dx]);
+                    const length = Math.hypot(dx, dz), lo = band.t0 * length, hi = band.t1 * length;
+                    // Retain the previous estimated eight-metre facade cadence, clipped
+                    // into the owned face itself. Frames never sit on top of glass faces.
+                    const xs = [lo, hi], ys = [band.y0, band.y1];
+                    const cut = (list, value, low, high) => { if (value > low + 1e-7 && value < high - 1e-7) list.push(value); };
+                    if (!bridge) {
+                        for (let x = Math.floor(lo / 8) * 8; x <= hi; x += 8) for (const edge of [x, x + .18]) cut(xs, edge, lo, hi);
+                        for (let y = Math.floor(band.y0 / 4) * 4; y <= band.y1; y += 4) for (const edge of [y, y + .16]) cut(ys, edge, band.y0, band.y1);
+                        cut(ys, volume.h - .3, band.y0, band.y1);
+                    } else if (volume.minH > 0) {
+                        cut(ys, volume.minH + .8, band.y0, band.y1);
+                        cut(ys, volume.h - .6, band.y0, band.y1);
+                    }
+                    xs.sort((a, b) => a - b); ys.sort((a, b) => a - b);
+                    for (let x = 1; x < xs.length; x++) for (let y = 1; y < ys.length; y++) {
+                        const midX = (xs[x - 1] + xs[x]) / 2, midY = (ys[y - 1] + ys[y]) / 2;
+                        const frame = !bridge && (midX % 8 < .18 || midY % 4 < .16 || midY >= volume.h - .3);
+                        const bridgeGlass = bridge && volume.minH > 0 && midY > volume.minH + .8 && midY < volume.h - .6;
+                        const col = frame ? '#d6dde2' : bridgeGlass ? '#4f7690' : wallColour;
+                        const surfaceMat = frame ? 'm' : bridgeGlass ? 'g' : mat;
+                        b.quad(at(xs[x - 1] / length, ys[y - 1]), at(xs[x] / length, ys[y - 1]), at(xs[x] / length, ys[y]), at(xs[x - 1] / length, ys[y]), col, surfaceMat, [sign * dz, 0, -sign * dx]);
+                    }
                 }
             });
         }

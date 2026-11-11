@@ -32,3 +32,7 @@ The owner supersedes the earlier A–D conversation design: E starts/resumes the
 GTS report24 candidate: shift the virtual host from(2.2,-2.6), the rear desk boundary, to(.8,-2.8) in the central aisle. The existing host collider and story stations derive from the same theme position. Furniture and the source-bound room/window remain unchanged. Verify native clearance, approach, conversation and exit on desktop/phone before acceptance. Gameplay placement is not a claim about a real employee location.
 
 GTS report24 acceptance: native host reach0.3m overlaps one desk before and no furniture after; all3story stations and the host collider bind to the relocated host. E opens the dialogue at desktop and390px after the visible pause button closes it. Original screenshots inspected. Mandatory foot/a0H0M1LOWsoftwareGLFPS; no ordinary physical street approach or authentic-room claim. Original evidence is published at overview/fix-gts-host/summary.json.
+
+## UPB CV placard clearance · 11 November 2026
+
+Report20: the shared tall-room sign formula placed the placard at4m, behind the gallery rail and vertical fins. The UPB theme now places its unchanged5.6×1.4m sign at1.5m centre height (top2.2m, below the gallery underside2.73m), .18m inward from the back wall to clear the brick finish at.145m. Other themes keep the previous placement. This is an authored CV exhibit in an estimated hall, not surveyed real-world signage. Native before/after and normal-room interaction acceptance remain required.

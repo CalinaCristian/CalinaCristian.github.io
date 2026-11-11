@@ -395,3 +395,5 @@ Otopeni’s terminal pier now uses all 32 mapped parts with their exact footprin
 Ground-floor business fascias reserve their full opaque board spans, including the building-name board. Inferred unit signs fit the remaining space on the same source wall instead of relying on a fixed distance between sign centres. Source business names and POIs remain unchanged; locations without a clear inferred fascia span remain explicit in the layout audit.
 
 The sign correction includes before/after evidence for reports27/36 and refreshed affected aerial, walking-height and context galleries. Mixed-source condition sets link each actual revision; unchanged captures keep their original dates and sources. Column, balcony and tree occlusion remains a separate placement limitation.
+
+The Politehnica interior’s CV placard sits on the clear ground-hall wall below the gallery, in front of the brick finish. It remains an authored game exhibit, not a claim about signage in the real Rectorat.

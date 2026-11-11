@@ -144,7 +144,7 @@ const THEMES = {
         npc: { title: 'Form teacher', persona: 'teacher', look: { top: '#5a4636', bottom: '#2f3237', skin: '#e8bc9a', hair: '#5a4030' }, at: [-2.6, -3.6], yaw: 0.35 },
         // Virtual classmates occupy the paired desks of the estimated photo-led room.
         mates: [[-3.5, 0.65, 'sit', 0], [-2.7, 2.25, 'sit', 0], [2.9, 2.25, 'sit', 0], [4.4, 4.0, 'phone', -0.4]], tone: 'room' },
-    upb: { W: 18, D: 22, H: 7, photoLed:true, floorRoughness:.48, floor:makeUPBFloor, wallLow: '#aaa49a', wall: '#e6e3da', ceil: '#eeeee7', view: 'bucharest', props: 'rectorat',
+    upb: { W: 18, D: 22, H: 7, photoLed:true, signCenterY:1.5, signWallOffset:.18, floorRoughness:.48, floor:makeUPBFloor, wallLow: '#aaa49a', wall: '#e6e3da', ceil: '#eeeee7', view: 'bucharest', props: 'rectorat',
         npc: { title: 'Professor', persona: 'professor', look: { top: '#3a3d44', bottom: '#2f3237', skin: '#e8bc9a', hair: '#9a9a96' }, at: [2.5, -6], yaw: -0.4 },
         mates: [[-4, -2, 'talk'], [-3.2, -1.2, 'talk'], [5, 3, 'phone'], [-6, 5, 'walk']], tone: 'hall' },
     gts: { W: 9, D: 9, H: 2.9, floor: () => parquet('#b39470'), wallLow: '#f2f2ef', wall: '#f2f2ef', ceil: '#f7f7f5', view: 'bucharest', props: 'startup',
@@ -257,9 +257,11 @@ export class Office {
         // meeting rooms / feature walls at the sides (it ran into the ceiling and under the glass of UiPath Bucharest)
         let sw = Math.min(5.6, W * 0.5), sh = sw / 4;
         const sTop = H - 0.35, sBot = low + 0.3; if (sh > sTop - sBot) { sh = sTop - sBot; sw = sh * 4; }
-        const sy = clamp(2.4 + (H - 3) * 0.4, sBot + sh / 2, sTop - sh / 2);
+        // UPB's CV placard belongs on the clear ground-hall wall, below the gallery.
+        // Its front face must also clear the procedural brick finish.
+        const sy = T.signCenterY ?? clamp(2.4 + (H - 3) * 0.4, sBot + sh / 2, sTop - sh / 2);
         const sign = new THREE.Mesh(new THREE.PlaneGeometry(sw, sh), new THREE.MeshBasicMaterial({ map: makeCanvasTexture(1024, 256, (ctx) => drawLobbySign(ctx, s, accent)) }));
-        sign.position.set(0, sy, -D / 2 + 0.12); this.scene.add(sign); this.signMesh = sign;
+        sign.position.set(0, sy, -D / 2 + (T.signWallOffset ?? 0.12)); this.scene.add(sign); this.signMesh = sign;
         if (T.props !== 'classroom' && !T.photoLed) box(W, 0.06, 0.04, 0, low + 0.04, -D / 2 + 0.12, new THREE.MeshBasicMaterial({ color: accent }));
         // themed props
         this.interiorDetails=(PROPS[T.props] || PROPS.startup)(this, { W, D, H, accent, s })||null;

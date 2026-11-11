@@ -2715,7 +2715,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         // the same at the ends, mitred with the next edge (decks, walls and lids join without gaps / overlaps at bends)
         const Pm = (end, o, y) => { const sd = o >= 0 ? 1 : -1, ex = Math.abs(o) - widthSide(e, sd); const q = corner(e, end ? e.b : e.a, sd, Math.abs(o), (f, sf) => widthSide(f, sf) + ex); return [q[0], y, q[1]]; };
         const yA = e.ya + Y.road, yB = e.yb + Y.road;
-        const up = Math.max(e.ya, e.yb) > 0.3, down = Math.min(e.ya, e.yb) < -0.3;
+        const up = Math.max(e.ya, e.yb) > 0.3, down = Math.min(e.ya, e.yb) < (e.tunnel || e.lidded ? -0.3 : -1.0); // (register #45: a dip under 1 m is a slope, no trench walls)
         if (up && e.bridge) {
             // deck fascia + underside + piers
             // (the fascia / underside thins to nothing where the deck meets the ground: no slab through the street)
@@ -3115,7 +3115,9 @@ export async function buildWorld(city, renderer, opts = {}) {
                     continue;
                 }
                 const up = sub((y, t) => y > t, 0.35); if (up) add(e, s, widthSide(e, s), 'embank', up[0], up[1]);
-                const dn = sub((y, t) => y < t, -0.35); if (dn) add(e, s, widthSide(e, s), 'trench', dn[0], dn[1]);
+                // (owner register #45, Pipera: "walls and barriers cross streets beneath bridge") a road dipping less than 1 m is a
+                // slope, not a trench: no retaining wall (they stood across the junction mouths under Podul Barbu Vacarescu)
+                const dn = e.tunnel || e.lidded ? sub((y, t) => y < t, -0.35) : sub((y, t) => y < t, -1.0); if (dn) add(e, s, widthSide(e, s), 'trench', dn[0], dn[1]);
                 if (!up && !dn && plainMw) {
                     const first = walls.length;
                     add(e, s, widthAsphalt(e, s) + 0.2, 'guard', t0, t1);

@@ -27,7 +27,7 @@
     "spotVisitorCaptures": 158,
     "spotVisitorRetainedCaptures": 0,
     "spotVisitorImages": 158,
-    "spotVisitorReports": 12,
+    "spotVisitorReports": 13,
     "achievements": 119
   },
   "districts": [
@@ -3080,18 +3080,18 @@
       "menuAvailable": false,
       "menuTier": "destination",
       "visitorGallery": {
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
         "captureCount": 2,
         "conditionCount": 0,
         "viewpointCount": 2,
         "retainedCaptureCount": 0,
-        "reportCount": 3,
+        "reportCount": 1,
         "captureSourceCommits": [
-          "aabd17adfc8853c1ea23d3846782c5d1cc9be50f"
+          "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d"
         ],
         "captureRange": [
-          "2026-11-09T08:20:24.653Z",
-          "2026-11-09T08:25:42.297Z"
+          "2026-11-11T03:04:19.632Z",
+          "2026-11-11T03:04:30.231Z"
         ]
       },
       "evidence": "evidence/spots/bel-lincoln-square.json"
@@ -6428,5 +6428,13 @@
       27,
       36
     ]
+  },
+  "bellevueSquareFixEvidence": {
+    "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+    "reports": [
+      71
+    ],
+    "manifest": "fix-bellevue-square/summary.json",
+    "scope": "Source-preserving entrance/part overlap repair; other mall architecture remains open."
   }
 }

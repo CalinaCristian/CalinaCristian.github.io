@@ -23,7 +23,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Romană | #47 / #48 / #50 crossing paint, markings at parking islands, building in the street | look whole at the report poses; verify at street level |
 | Floreasca | #2 bus shelter orientation, #3 rectangular road patch flicker | open |
 | Floreasca | #10 courtyard windows and inner slab | the slab is a mapped building part; owner question, not a defect yet |
-| Bellevue | #67 / L15 pedestrian pileups at closures | crowds still gather at the district-edge closures |
+| Bellevue | #67 / L15 pedestrian pileups at closures | mitigated on branch (walkers blocked head-on by peers on a crossing step through after 1.5 s; walkers boxed in by a closure both ways leave the road); the headless probe still shows walkers frozen mid-crossing with no recorded blocker, so re-check live |
 | SeaTac | #57–#65 airport assembly | skybridge connector ends in the air, garage helix and ramps cut into each other, station sign and roof without mounting, frontage objects on the terminal road, parapet gaps, truncated road, broken markings |
 | Everywhere | L8 colliding buildings | partly: members of prepared assemblies and courtyard buildings still cut |
 | Everywhere | L14 60 fps at Ultra (RTX 5070) | probe means 8–16 ms per frame; not measurable on the owner's hardware from here |

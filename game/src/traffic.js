@@ -3212,8 +3212,17 @@ export class Pedestrians {
             const now=this.t.time??this._fr*(this._stepDt||1/30);
             if(p.state==='walk'&&p.e&&now>=(p._staticTurnUntil??-Infinity)){p.dir=-p.dir;p._staticTurnUntil=now+3;p.passT=.5;this.stats.staticTurns=(this.stats.staticTurns||0)+1;}
             else if(p.state==='legs'&&p.legs?.[0]?.sx!==undefined&&!p.legs[0].back){const leg=p.legs[0];leg.x=leg.sx;leg.z=leg.sz;leg.back=true;p.legs.length=1;if(p.next)p.next.dir=-p.dir;}
+            // (owner register #67 Bellevue, L15: "pedestrian pileups at multiple closures") a closure standing across the crossing
+            // both ways (turned back once, blocked again): they froze in the road for good. After 2 s they leave the carriageway
+            // for a sidewalk away from the camera, like a walker pinned between cars
+            else if(p.state==='legs'&&p.legs?.[0]?.back){p.staticPinT=(p.staticPinT||0)+dt;if(p.staticPinT>2){p.staticPinT=0;p.onRoad=false;p.state='walk';p.legs.length=0;this.stats.closurePinnedRelocated=(this.stats.closurePinnedRelocated||0)+1;if(this.t.large)this.relocate(p,120,420,true);else this.relocate(p,30,200,true);return false;}}
         }
-        if (staticClear && this.peerClearStep(p, p.x, p.z, oldX, oldZ) && (!correction || this.peerCorrectionClear(p, p.x, p.z, oldX, oldZ))) { this.notePeerMove(p, oldX, oldZ); return true; }
+        // (owner register #67 Bellevue, L15: "pedestrian pileups at multiple closures") two flows meeting head-on on a crossing
+        // refused each other's steps for good (79 of 121 walkers frozen). Someone on the carriageway blocked only by peers for
+        // 1.5 s steps through them (static bodies, buildings and cars still block)
+        const peerRelease = staticClear && !correction && p.onRoad && p.state === 'legs' && (p.peerBlockT || 0) > 1.5;
+        if (staticClear && (peerRelease || this.peerClearStep(p, p.x, p.z, oldX, oldZ)) && (!correction || this.peerCorrectionClear(p, p.x, p.z, oldX, oldZ))) { if (peerRelease) this.stats.peerReleased = (this.stats.peerReleased || 0) + 1; p.peerBlockT = 0; this.notePeerMove(p, oldX, oldZ); return true; }
+        if (staticClear) p.peerBlockT = (p.peerBlockT || 0) + dt;
         p.x = oldX; p.z = oldZ;
         if (sidestep) {
             const step = Math.min(1.3 * dt, distance), rx = -dz / distance, rz = dx / distance;

@@ -3133,6 +3133,33 @@ function bBOB(b, ctx = {}) {
     b.colPolygon(p, { holes: source?.holes || [], y1: roof });
 }
 
+// The Bridge 1 (BCR headquarters), Soseaua Orhideelor 15D — OSM w661134293 (building=office, 11 levels, height 52, 2017).
+// (owner, 2026-11-11: "BCR is famous landmark near the bridge, I want accurate representation of the building 1to1")
+// Street View at 44.4452, 26.0608 (reference only, nothing kept): a glass office box on the literal OSM footprint, its
+// ground floor set back behind a row of dark columns, ten glazed storeys behind a regular dark-grey mullion grid with
+// dark floor bands, a flat roof edge; BCR's blue band with white lettering at the top corner and a blue canopy over the
+// entrance on the Orhideelor side. Storey height, bay width and sign sizes are estimates.
+function bTheBridge1(b, ctx = {}) {
+    const source = ctx.sourceBuildings?.w661134293?.[0], p = source?.ring; if (!p) return;
+    const total = source.h ?? 52, gf = 5.2, roof = total - .6, GL = '#5f7f93', MU = '#3a4146', BL = '#1f5fbf', WH = '#ffffff';
+    const inner = offset(p, -1.8);
+    b.prism(inner, 0, gf, '#41494e', { top: false });                                                  // recessed ground floor
+    b.windows(inner, 0, gf, gf, '#6d8a99', { bay: 3.6, wf: .78, hf: .86, start: .05, minL: 5, mat: 'g', off: .05 });
+    b.pilasters(p, 0, gf, 7.2, .7, .7, MU, {});                                                       // the colonnade
+    b.cornice(p, gf, .55, .2, MU, { solid: true });
+    const fh = (roof - gf) / 10, bands = [];
+    for (let i = 0; i < 10; i++) bands.push({ lo: gf + i * fh + .45, hi: gf + (i + 1) * fh - .05, colour: GL, material: 'g' });
+    facadePanels(p, gf, roof, { wall: MU, bands, strips: (i, length) => facadePiers(length, 1.5, .09, .14, MU) }, (quad, colour, material, normal) => b.quad(...quad, colour, material, normal));
+    b.cap(p, roof, '#8d9398');
+    b.cornice(p, roof, .6, .15, MU, { solid: true });
+    { const t = offset(p, -9); b.prism(t, roof, total + 1.6, '#9a9fa3'); }                               // plant screen
+    // BCR: blue band with white letters at the top of the Orhideelor facade's corner, and the entrance canopy below
+    const f = nearestFacade(p, 80, -80), ux = -f.nz, uz = f.nx, ry = Math.atan2(f.nx, f.nz);
+    { const cx = f.x + ux * 14 + f.nx * .35, cz = f.z + uz * 14 + f.nz * .35; b.box(cx, roof - 3.4, cz, 18, 3.2, .3, BL, { ry }); b.text('BCR', cx + f.nx * .18, roof - 2.9, cz + f.nz * .18, ry, 2.2, WH, { d: .04 }); }
+    entrance(b, { x: f.x + ux * 12, z: f.z + uz * 12, nx: f.nx, nz: f.nz }, { w: 5.2, h: 4.2, canopy: 2.4, canopyCol: BL, frame: MU });
+    b.colPolygon(p, { holes: source.holes || [], y1: total });
+}
+
 // Rectoratul Universității Politehnica București (1970s) — OSM w28240552 (5 levels) + dome part. From the Commons refs
 // (game/research/refs/grozavesti: "RO B Politehnica university rectorate", "Politehnica University of Bucharest 0x"):
 // brick recessed lower floor, three red-panel storeys behind pale concrete fins and sills, a projecting slab, a recessed
@@ -3479,7 +3506,7 @@ const A = {
     // rotation = road heading (model +x along the road): west high-rise dir (0.9995, 0.0326), east (0.9991, 0.0433)
     murroww: [47.5898848, -122.28406, -0.0326], murrowe: [47.5892424, -122.25540, -0.0433],
     seagarage: [47.4432823, -122.2992416, 0], sealink: [47.4452089, -122.2969786, 0],
-    gts: [44.433369, 26.1176015, 0], rosetti: [44.4671565, 26.106133, 0], dinamo: [44.4551306, 26.1023192, 0], bob: [44.479608, 26.1147802, 0], thelandmark: [44.450012, 26.0946079, 0], europehouse: [44.4511557, 26.087697, 0], halatraian: [44.4333566, 26.120567, 0], globalworth: [44.4792401, 26.1024141, 0],
+    gts: [44.433369, 26.1176015, 0], rosetti: [44.4671565, 26.106133, 0], dinamo: [44.4551306, 26.1023192, 0], bob: [44.479608, 26.1147802, 0], thelandmark: [44.450012, 26.0946079, 0], europehouse: [44.4511557, 26.087697, 0], halatraian: [44.4333566, 26.120567, 0], globalworth: [44.4792401, 26.1024141, 0], thebridge1: [44.44481317, 26.06011122, 0],
 };
 
 function L(id, city, name, osmNames, radius, fn, extra = {}) {
@@ -3539,6 +3566,7 @@ export const LANDMARKS = [
     L('bob', 'bucharest', 'BOB Tower (DB Global Technology)', ['BOB Tower'], 40, bBOB, { cvStop: 'db', ownSign: true, sourceIds: ['w55450549'] }),
     L('halatraian', 'bucharest', 'Hala Traian', ['Hala Traian'], 12, bHalaTraian),
     L('globalworth', 'bucharest', 'Globalworth Tower', ['Globalworth Tower'], 12, bGlobalworth),
+    L('thebridge1', 'bucharest', 'The Bridge 1 (BCR)', ['The Bridge 1'], 45, bTheBridge1, { sourceIds: ['w661134293'] }),
     // ---- Seattle / Bellevue (radius given in real metres, halved by L()) ----
     L('spaceneedle', 'seattle', 'Space Needle', ['Space Needle'], 30, bSpaceNeedle, { sourceIds: ['w12903132','w394254329','w394254330','w394254331','w394254332','w394254333','w394254334','w394254335','w394254336','w394254337','w394254484','w394254485','w394254486','w394254487','w394254488','w394956342','w394956343','w394956344'] }),
     L('columbia', 'seattle', 'Columbia Center', ['Columbia Center'], 50, bColumbia, { sourceIds: ['r4648083','w107124288','w331293871','w418132520','w418132515','w418132517','w418132525'] }),

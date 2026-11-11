@@ -2821,12 +2821,17 @@ function bSeaLink(b) {
     }
     for (const x of [-11.5, 0, 11.5]) b.strut([x, yP + 9.2 + (x === 0 ? 2.3 : 0), z0 + 6], [x, yP + 9.2 + (x === 0 ? 2.3 : 0), z1 - 6], 0.3, 0.3, WH);   // chords
     b.box(0, yP + 2.6, z1 - 4.1, 13, 1.9, 0.3, '#1d4f91');
+    for (const x of [-5.5, 5.5]) b.box(x, yP + 1, z1 - 4.1, 0.22, 1.65, 0.22, '#9aa0a4'); // (owner register #61: the name board stood on nothing: two posts to the platform)
     b.pop();
     { const r = Math.atan2(7, 148); b.text('SEATAC/AIRPORT', 6 + 70.05 * Math.sin(r), yP + 3, 70.05 * Math.cos(r), r, 1.1, '#ffffff'); }
     // bridges at concourse level (9 m): east over the Airport Expressway (OSM w54139652), west to the garage (approx.)
     const br = (a, c) => { b.strut([a[0], 10.6, a[1]], [c[0], 10.6, c[1]], 5.5, 3.6, '#8aa5b5', 'g'); b.strut([a[0], 8.5, a[1]], [c[0], 8.5, c[1]], 6, 0.7, CON); b.strut([a[0], 12.7, a[1]], [c[0], 12.7, c[1]], 6.4, 0.5, WH); };
     br([13, -55], [73.4, -58.3]);
-    br([-3.5, -10], [-46, 8]);
+    // (owner register #57 / #58: "skybridge / connector connected to nothing") the approximate west bridge stopped 30.6 m short of
+    // the garage, over a 5.8 m building: it now runs on to the garage's level-4 edge (OSM r15763840 outline, measured in the
+    // district world), on two columns
+    br([-3.5, -10], [-66.1, 31.9]);
+    for (const t of [.38, .72]) { const x = -3.5 + (-66.1 + 3.5) * t, z = -10 + (31.9 + 10) * t; b.box(x, 0, z, 1.1, 8.1, 1.1, CON); b.col(x, z, .7, .7, 0); }
     for (let z = z0 + 6; z <= z1 - 6; z += 18.5) b.col(6 + z * 7 / 148, z, 1.4, 1.8, Math.atan2(7, 148));
 }
 

@@ -14,15 +14,99 @@ export function freddoFrontagePlan(ctx){
     return{...f,...edge,building:f.b,L,ux,uz,source:f.b.id,poi:p.id,opening:{source:f.b.id,a:edge.a,b:edge.b,y0:0,y1:4.3,relative:true,foundation:true}};
 }
 
+// ---------------------------------------------------------------------------- Old Town shopfronts
+// (owner, 2026-11-11: "Old Town shopfronts") The shop ground floors were one neutral bay design repeated: dark panels with
+// tan blocks. They are now a 4 x 4 atlas of 16 shopfront bays in the Lipscani manner: a cornice, a painted fascia with a
+// gilt line (left blank: no business names are invented), some with a striped awning, a transom of small panes, a lit
+// display of a kind of shop (café, books, clothes, souvenirs, bakery, wine, jewellery, flowers), a glazed door in most, a
+// stone stall riser, plastered piers between bays. The renderer maps one shop storey of 4 bays onto every wall, so the
+// shader picks one of the 16 bays per bay from the bay's index and the building's colour: neighbouring bays and buildings
+// differ. At night the interiors are lit. All procedural; the contents are generic and estimated.
+const SHOP_KINDS=['cafe','books','fashion','souvenir','bakery','wine','jewel','florist'];
+const FASCIA=['#1f3a2e','#5a1f22','#1d2023','#23324a','#3b2a1e','#e6dcc6','#2c4a44','#4a1d33'];
+const AWNING=[['#7d1f22','#e9e1cf'],['#1f4a36','#e6dfcc'],['#2a3550','#e3dccb'],null];
+function drawShopBay(g,e,x0,y0,k,rnd){
+    const kind=SHOP_KINDS[k%8],fas=FASCIA[(k*5+1)%8],aw=k%4===1||k%7===3?AWNING[(k>>1)%3]:null,door=['l','r','c',null][(k*3)%4],frame=k%3===0?'#24282a':k%3===1?fas:'#3a3128';
+    // plaster (tinted by the building colour), piers, cornice
+    g.fillStyle='#efe8da';g.fillRect(x0,y0,256,256);
+    for(const px of [x0,x0+246]){g.fillStyle='#f4eee2';g.fillRect(px,y0,10,256);g.fillStyle='rgba(0,0,0,.12)';g.fillRect(px===x0?px+9:px,y0,1.5,256);}
+    g.fillStyle='#f6f1e6';g.fillRect(x0,y0,256,11);g.fillStyle='rgba(0,0,0,.2)';g.fillRect(x0,y0+11,256,3);
+    // fascia: painted board with a gilt line, blank
+    g.fillStyle=fas;g.fillRect(x0+10,y0+16,236,40);g.strokeStyle='#b99a5b';g.lineWidth=2;g.strokeRect(x0+15,y0+20,226,32);
+    g.fillStyle='rgba(255,255,255,.07)';g.fillRect(x0+10,y0+16,236,6);
+    let top=y0+60;
+    if(aw){ // striped canvas awning with a scalloped valance
+        for(let i=0;i<15;i++){g.fillStyle=aw[i%2];g.fillRect(x0+10+i*15.8,y0+58,15.8,26);}
+        g.fillStyle='rgba(0,0,0,.18)';g.fillRect(x0+10,y0+58,236,4);
+        for(let i=0;i<15;i++){g.fillStyle=aw[i%2];g.beginPath();g.arc(x0+18+i*15.8,y0+84,7.9,0,Math.PI);g.fill();}
+        top=y0+96;}
+    const bot=y0+226,L=x0+12,R=x0+244;
+    g.fillStyle=frame;g.fillRect(L,top,R-L,bot-top);
+    // openings: door (58 px = 0.9 m) and display window(s)
+    const dw=58,dx=door==='l'?L+6:door==='r'?R-6-dw:door==='c'?x0+128-dw/2:null;
+    const wins=[];if(dx===null)wins.push([L+6,R-6]);else{if(dx-(L+6)>20)wins.push([L+6,dx-6]);if(R-6-(dx+dw)>20)wins.push([dx+dw+6,R-6]);}
+    const tTop=top+5,tBot=top+22,gTop=tBot+5;
+    // transom panes over everything
+    for(let x=L+6;x<R-6;x+=29){const w=Math.min(26,R-6-x);g.fillStyle='#3c4446';g.fillRect(x,tTop,w,tBot-tTop);g.fillStyle='rgba(255,226,170,.35)';g.fillRect(x+2,tTop+2,w-4,tBot-tTop-4);}
+    const interior=(ax,ay,bx,by,dark=1)=>{ // the lit room seen through the glass
+        const gr=g.createLinearGradient(0,ay,0,by);gr.addColorStop(0,kind==='jewel'?'#2a2622':'#8a6a46');gr.addColorStop(.55,kind==='jewel'?'#3a332b':'#b8935f');gr.addColorStop(1,'#4a3a2a');
+        g.fillStyle=gr;g.fillRect(ax,ay,bx-ax,by-ay);
+        g.fillStyle='rgba(255,236,190,.55)';for(let x=ax+14;x<bx-6;x+=34){g.fillRect(x,ay,1,10);g.beginPath();g.arc(x+.5,ay+12,3.2,0,7);g.fill();}
+        const W=bx-ax,H=by-ay,c=['#a33a2e','#2f5d7a','#d0a43c','#3f6b3a','#6d3a6b','#c76a2b','#e2d8c4','#2b2b2b'];
+        if(kind==='books'||kind==='wine'||kind==='bakery'||kind==='souvenir'){
+            for(let sy=ay+22;sy<by-10;sy+=kind==='souvenir'?16:20){g.fillStyle='#5a4128';g.fillRect(ax+3,sy+14,W-6,3);
+                for(let x=ax+5;x<bx-6;){const w=kind==='books'?3+rnd()*4:kind==='wine'?4:kind==='bakery'?11+rnd()*6:7+rnd()*3,h=kind==='books'?9+rnd()*5:kind==='wine'?13:kind==='bakery'?6:10;
+                    if(kind==='bakery'){g.fillStyle=rnd()<.5?'#c48a4a':'#d9a865';g.beginPath();g.ellipse(x+w/2,sy+14-h/2,w/2,h/2,0,0,7);g.fill();}
+                    else if(kind==='wine'){g.fillStyle=rnd()<.5?'#2d4a2a':'#4a2626';g.fillRect(x,sy+14-h,w,h);g.fillRect(x+1,sy+14-h-4,2,4);}
+                    else{g.fillStyle=c[Math.floor(rnd()*c.length)];g.fillRect(x,sy+14-h,w,h);}
+                    x+=w+(kind==='books'?.6:kind==='wine'?2.5:2);}}}
+        else if(kind==='fashion'){g.fillStyle='#2b2520';g.fillRect(ax+4,ay+26,W-8,2);for(let x=ax+8;x<bx-10;x+=11+rnd()*4){g.fillStyle=c[Math.floor(rnd()*c.length)];g.beginPath();g.moveTo(x,ay+30);g.lineTo(x+9,ay+30);g.lineTo(x+11,ay+30+34+rnd()*12);g.lineTo(x-2,ay+30+34+rnd()*12);g.fill();}
+            g.fillStyle='#d8cfc0';const mx=ax+W*.5;g.beginPath();g.arc(mx,by-H*.62,4,0,7);g.fill();g.fillRect(mx-6,by-H*.58,12,24);g.fillStyle=c[Math.floor(rnd()*5)];g.fillRect(mx-7,by-H*.58,14,20);g.fillStyle='#2a2a2a';g.fillRect(mx-1,by-H*.58+24,2,H*.3);}
+        else if(kind==='cafe'){g.fillStyle='#3a2a1e';g.fillRect(ax+4,by-30,W*.45,22);g.fillStyle='#d8c7a3';g.fillRect(ax+4,by-32,W*.45,3);
+            for(let x=ax+W*.55;x<bx-14;x+=26){g.fillStyle='#2a201a';g.fillRect(x,by-24,16,2);g.fillRect(x+7,by-24,2,16);g.fillRect(x-6,by-20,2,14);g.fillRect(x+20,by-20,2,14);g.fillStyle='rgba(240,230,210,.9)';g.fillRect(x+5,by-27,5,3);}
+            g.fillStyle='#262626';g.fillRect(ax+8,ay+28,W*.35,16);g.fillStyle='#efe6d2';for(let i=0;i<4;i++)g.fillRect(ax+11,ay+31+i*3.2,W*.25,1.2);}
+        else if(kind==='jewel'){for(let x=ax+8;x<bx-20;x+=32){g.fillStyle='#1c1a18';g.fillRect(x,by-34,26,26);g.fillStyle='rgba(220,235,240,.25)';g.fillRect(x,by-34,26,8);for(let i=0;i<6;i++){g.fillStyle=rnd()<.5?'#f2e2a0':'#ffffff';g.fillRect(x+3+rnd()*20,by-30+rnd()*8,1.6,1.6);}}}
+        else if(kind==='florist'){for(let x=ax+6;x<bx-8;x+=14){g.fillStyle='#4a4f4a';g.fillRect(x,by-16,11,10);for(let i=0;i<7;i++){g.fillStyle=i<3?'#3f6b34':c[[0,2,4,5,6][Math.floor(rnd()*5)]];g.beginPath();g.arc(x+5.5+(rnd()-.5)*10,by-20-rnd()*16,2.6+rnd()*2,0,7);g.fill();}}
+            g.fillStyle='#3f6b34';for(let i=0;i<5;i++){g.beginPath();g.arc(ax+10+rnd()*(W-20),ay+30+rnd()*20,5+rnd()*5,0,7);g.fill();}}
+        g.fillStyle=`rgba(0,0,0,${.12*dark})`;g.fillRect(ax,ay,W,H);
+    };
+    const glass=(ax,ay,bx,by)=>{g.fillStyle='rgba(150,180,190,.12)';g.fillRect(ax,ay,bx-ax,by-ay);g.fillStyle='rgba(230,240,245,.13)';g.beginPath();g.moveTo(ax+(bx-ax)*.15,ay);g.lineTo(ax+(bx-ax)*.32,ay);g.lineTo(ax+(bx-ax)*.06,by);g.lineTo(ax-(bx-ax)*.11,by);g.closePath();g.save();g.beginPath();g.rect(ax,ay,bx-ax,by-ay);g.clip();g.beginPath();g.moveTo(ax+(bx-ax)*.55,ay);g.lineTo(ax+(bx-ax)*.62,ay);g.lineTo(ax+(bx-ax)*.4,by);g.lineTo(ax+(bx-ax)*.33,by);g.fill();g.restore();};
+    const lit=[];
+    for(const [ax,bx] of wins){interior(ax,gTop,bx,bot-4);glass(ax,gTop,bx,bot-4);if(bx-ax>110){g.fillStyle=frame;g.fillRect((ax+bx)/2-2.5,gTop,5,bot-4-gTop);}g.fillStyle='rgba(0,0,0,.35)';g.fillRect(ax,bot-6,bx-ax,2);lit.push([ax,gTop,bx,bot-4]);}
+    lit.push([L+6,tTop,R-6,tBot]);
+    if(dx!==null){g.fillStyle=frame;g.fillRect(dx-3,gTop-2,dw+6,256+y0-gTop+2);interior(dx+5,gTop+3,dx+dw-5,bot+8,1.6);glass(dx+5,gTop+3,dx+dw-5,bot+8);g.fillStyle=frame;g.fillRect(dx+5,bot+8,dw-10,y0+252-bot-8);
+        g.fillStyle='#c9a85a';g.fillRect(door==='r'?dx+9:dx+dw-12,gTop+60,3,26);lit.push([dx+5,gTop+3,dx+dw-5,bot+8]);g.fillStyle='#6f685d';g.fillRect(dx-4,y0+250,dw+8,6);}
+    // stall riser: stone panel under the windows
+    for(const [ax,bx] of wins){g.fillStyle='#a49c8e';g.fillRect(ax-2,bot,bx-ax+4,y0+256-bot);g.strokeStyle='rgba(0,0,0,.18)';g.lineWidth=1.5;g.strokeRect(ax+4,bot+6,bx-ax-8,y0+256-bot-12);}
+    // night: the same lit areas, brighter lamps
+    for(const [ax,ay,bx,by] of lit){e.drawImage(g.canvas,ax,ay,bx-ax,by-ay,ax,ay,bx-ax,by-ay);}
+    e.fillStyle='rgba(0,0,0,.35)';for(const [ax,ay,bx,by] of lit)e.fillRect(ax,ay,bx-ax,by-ay);
+}
 export function oldTownGlazing(ctx,plan){
-    // Neutral black frames and warm/cool glass replace the former repeated
-    // invented tricolour fascias. No business identities are invented.
-    const c=canvas(1024,1024),g=c.getContext('2d'),random=rng(32);
-    for(let row=0;row<4;row++)for(let bay=0;bay<4;bay++){const x=bay*256,y=row*256;g.fillStyle=['#d3c9b5','#bdb7a9','#c8c2b6','#dad2c2'][row];g.fillRect(x,y,256,256);g.fillStyle='#242825';g.fillRect(x+12,y+38,232,218);
-        const grad=g.createLinearGradient(0,y+44,0,y+256);grad.addColorStop(0,'#25343a');grad.addColorStop(.4,row%2?'#403c31':'#4c4636');grad.addColorStop(1,'#181e20');g.fillStyle=grad;g.fillRect(x+19,y+45,218,211);
-        g.fillStyle='#c4af84';for(let j=0;j<8;j++)if(random()>.35)g.fillRect(x+24+j*25,y+172,9+random()*9,22+random()*35);
-        g.fillStyle='#a18b66';g.fillRect(x+20,y+212,216,4);g.fillStyle='#171c1d';g.fillRect(x+122,y+45,7,211);g.fillStyle='rgba(176,198,201,.16)';g.beginPath();g.moveTo(x+25,y+45);g.lineTo(x+72,y+45);g.lineTo(x+210,y+256);g.lineTo(x+167,y+256);g.fill();}
-    const map=canvasTexture(c,{repeat:true}),mat=new THREE.MeshStandardMaterial({map,vertexColors:true,emissiveMap:map,emissive:new THREE.Color('#f2d5a0'),emissiveIntensity:.12,roughness:.5});mat.name='old-town-neutral-shop-glazing';
+    const c=canvas(1024,1024),g=c.getContext('2d'),ec=canvas(1024,1024),e=ec.getContext('2d'),random=rng(32);
+    e.fillStyle='#000';e.fillRect(0,0,1024,1024);
+    for(let k=0;k<16;k++)drawShopBay(g,e,(k%4)*256,Math.floor(k/4)*256,k,random);
+    const map=canvasTexture(c,{repeat:true}),em=canvasTexture(ec,{repeat:true});
+    const mat=new THREE.MeshStandardMaterial({map,vertexColors:true,emissiveMap:em,emissive:new THREE.Color('#ffe0b0'),emissiveIntensity:0,roughness:.55});
+    mat.name='old-town-shopfront-atlas';mat.userData.nightEmissive=.42;
+    mat.customProgramCacheKey=()=>'old-town-shopfront-atlas';
+    mat.onBeforeCompile=sh=>{
+        const pick=`
+            vec2 otU = vMapUv * 4.0; float otBay = floor(otU.x);
+            #ifdef USE_COLOR
+                vec3 otC = vColor.rgb;
+            #else
+                vec3 otC = vec3(0.5);
+            #endif
+            float otH = fract(sin(dot(vec3(otBay, otC.r * 61.0 + otC.g * 17.0, otC.b * 43.0), vec3(12.9898, 78.233, 37.719))) * 43758.5453);
+            float otK = floor(otH * 15.999);
+            vec2 otUV = (vec2(mod(otK, 4.0), floor(otK / 4.0)) + vec2(fract(otU.x), clamp(fract(otU.y), 0.002, 0.998))) / 4.0;
+            vec2 otDX = dFdx(vMapUv), otDY = dFdy(vMapUv);`;
+        sh.fragmentShader=sh.fragmentShader.replace('#include <map_fragment>',`${pick}
+            vec4 sampledDiffuseColor = textureGrad(map, otUV, otDX, otDY); diffuseColor *= sampledDiffuseColor;`)
+            .replace('#include <emissivemap_fragment>',`
+            vec4 emissiveColor = textureGrad(emissiveMap, otUV, otDX, otDY); totalEmissiveRadiance *= emissiveColor.rgb;`);
+    };
     ctx.extras.buildings.group.traverse(o=>{if(o.isMesh&&o.material?.name==='facade-bucshop')o.material=mat;});
     if(!plan)return;
     const record=sourceRecord(plan.building,0,ctx.ground),y=record.datum;plan.baseY=y;

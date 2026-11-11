@@ -56,7 +56,7 @@ States: **fixed on branch** (implemented and checked in the probe; not published
 
 | Spot | Seen | Next |
 | --- | --- | --- |
-| Old Town (Lipscani) | neutral shopfront glazing reads as dark panels with tan blocks close up; long uniform shop rows | richer shopfront glazing (displays, doors, fascia bands) without inventing businesses |
+| Old Town (Lipscani) | neutral shopfront glazing read as dark panels with tan blocks; one design repeated | fixed on branch: a 16-bay shopfront atlas (fascia, awnings, transoms, lit displays of eight kinds of shop, doors, stall risers, piers), one picked per bay; interiors lit at night; no business names |
 | Cișmigiu | lake fixed (L32); paths are plain grey strips, lawns one flat green | gravel/asphalt alleys with edging, lawn variation, flower beds at the gates |
 | Arcul de Triumf | the arch is a plain block with an opening; verges and bollards fine | relief on the arch (columns, attic, reliefs) |
 | Pike Place | sound; a parked van blocks the spawn view | |

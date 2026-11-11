@@ -11,7 +11,6 @@ the original pose. Until then a fix stays under "Fixed on branch".
 
 | Where | Report | State / diagnosis |
 | --- | --- | --- |
-| Grozăvești | #15 upper ramp parapet gaps | railing pieces still stand on a junction pad at the foot of a ramp (original pose) |
 | Grozăvești | L17 Basarab tram ramp fork | the flat-branch tram overlaps the estimated ramp slab; needs the tram grade model changed |
 | Grozăvești | L41 hole under the north-east branch split | the branch deck parts from the main deck after the gore (median fill closes it up to 6 m); owner to confirm this matches the real split |
 | Grozăvești | Pasajul west deck height over the Dâmbovița | the shared Basarab model holds 11 m over the river; Street View on the arch suggests a lower deck (not measured) |
@@ -48,7 +47,8 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | 0311834a | #31 / L25 blank blocks in front of the Parliament |
 | ae7fef3d | #23 tree crowns in facades |
 | 94e9bb78, dd0ceacc | #45 Pipera walls across streets under the bridge |
-| (this commit) | #3 Floreasca road patch flicker: overlapping repair patches each get their own height below the lines |
+| 4c8849d1 | #3 Floreasca road patch flicker: overlapping repair patches each get their own height below the lines |
+| (next commit) | #15 Basarab parapet gaps: rail pieces joined across slots, width changes and deck corners |
 | earlier on this branch | L1–L7, L9–L13, L19 (all three places), L20, L21, L32, L33, L35–L40, L42, L43, L44, L46–L49; register #12–#14, #16–#18 (re-checked at their poses 2026-11-11) |
 | by design | #28 Unirii fountains run May–October 10:00–23:00 (`?fountains=on` forces them); L18 Romană underpass re-checked closed |
 

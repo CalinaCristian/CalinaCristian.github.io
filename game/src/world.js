@@ -3292,11 +3292,13 @@ export async function buildWorld(city, renderer, opts = {}) {
         for (let round = 0, before = -1; round < 4 && barrierJoins.joined !== before; round++) { // (pieces of the three sweeps overlap: an end can be taken by another pair first)
             before = barrierJoins.joined;
             const ends = [], eg = new BoxGrid(8), unit = w => { const L = Math.hypot(w.bx - w.ax, w.bz - w.az) || 1; return [(w.bx - w.ax) / L, (w.bz - w.az) / L]; };
-            for (const w of walls) if (w.kind === 'barrier' && w.inferred === true) for (const end of [0, 1]) { const q = { w, end, x: end ? w.bx : w.ax, z: end ? w.bz : w.az, y0: end ? w.y0b : w.y0a, y1: end ? w.y1b : w.y1a, done: false }; ends.push(q); eg.insert(q.x, q.z, q.x, q.z, q); }
+            // (owner register #15, Grozavesti: "upper ramp parapet gaps") bridge rails cut into 1-2 m pieces left 0.3-1 m slots that the
+            // drawn guard showed as a broken railing: they are joined the same way (compared at their tops: the collision bands hang differently)
+            for (const w of walls) if ((w.kind === 'barrier' && w.inferred === true) || (w.kind === 'rail' && w.edge?.bridge && !w.tramDeckRailing)) for (const end of [0, 1]) { const rail = w.kind === 'rail', q = { w, end, x: end ? w.bx : w.ax, z: end ? w.bz : w.az, y0: rail ? (end ? w.y1b : w.y1a) - 1.55 : end ? w.y0b : w.y0a, y1: end ? w.y1b : w.y1a, done: false }; ends.push(q); eg.insert(q.x, q.z, q.x, q.z, q); }
             for (const a of ends) {
                 if (a.done) continue; let best = null; const da = unit(a.w);
                 eg.each(a.x - 1.4, a.z - 1.4, a.x + 1.4, a.z + 1.4, b => {
-                    if (b.w === a.w || b.done) return; const dx = b.x - a.x, dz = b.z - a.z, d = Math.hypot(dx, dz), db = unit(b.w);
+                    if (b.w === a.w || b.done || b.w.kind !== a.w.kind) return; const dx = b.x - a.x, dz = b.z - a.z, d = Math.hypot(dx, dz), db = unit(b.w);
                     if (d < .02 || d > 1.4 || (best && d >= best.d) || Math.abs(da[0] * db[0] + da[1] * db[1]) < .94 || Math.abs(dx * da[1] - dz * da[0]) > .35 || Math.abs(a.y0 - b.y0) > .3) return;
                     // the gap lies beyond this end, not back along the piece
                     if ((dx * da[0] + dz * da[1]) * (a.end ? 1 : -1) < 0) return;
@@ -4524,6 +4526,35 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
         }
         guardCompletion.addedM = Math.round(guardCompletion.addedM * 10) / 10; guardCompletion.sweptM = Math.round(guardCompletion.sweptM * 10) / 10;
+        // (owner register #15, Grozavesti: "upper ramp parapet gaps") Basarab guards end where an edge ends: at a change of deck
+        // width the next run starts up to 1.3 m to the side, and guards added above are not joined to the cut ones. Two guard
+        // ends at most 2 m apart, at one top height and running the same way, get a connecting piece, unless a surface continues
+        // at the deck level beyond the gap (a mouth).
+        {
+            const ends = [], eg = new BoxGrid(8);
+            for (const w of walls) if (w.kind === 'rail' && !w.tramDeckRailing && w.edge && basarabEdge(data, w.edge)) {
+                const L = Math.hypot(w.bx - w.ax, w.bz - w.az); if (L < .05) continue;
+                for (const end of [0, 1]) { const q = { w, end, x: end ? w.bx : w.ax, z: end ? w.bz : w.az, top: end ? w.y1b : w.y1a, ux: (w.bx - w.ax) / L * (end ? 1 : -1), uz: (w.bz - w.az) / L * (end ? 1 : -1), used: false }; ends.push(q); eg.insert(q.x, q.z, q.x, q.z, q); }
+            }
+            let joins = 0;
+            for (const a of ends) {
+                if (a.used) continue; let best = null;
+                eg.each(a.x - 3, a.z - 3, a.x + 3, a.z + 3, b => {
+                    if (b === a || b.w === a.w || b.used) return; const dx = b.x - a.x, dz = b.z - a.z, d = Math.hypot(dx, dz);
+                    if (d < .05 || d > 3 || (best && d >= best.d) || Math.abs(a.top - b.top) > .4) return;
+                    const cont = a.ux * -b.ux + a.uz * -b.uz; // (1: the runs continue each other; a deck corner turns them)
+                    if (cont < (d <= 1.3 ? -.2 : d <= 2 ? .7 : .95) || (dx * a.ux + dz * a.uz) < -.2 || (-dx * b.ux - dz * b.uz) < -.2) return; // (the gap lies ahead of both)
+                    best = { b, d };
+                });
+                if (!best) continue;
+                const b = best.b, mx = (a.x + b.x) / 2, mz = (a.z + b.z) / 2, n = [a.w.nx, a.w.nz], yDeck = (a.top + b.top) / 2 - 1.1;
+                if (level(mx - n[0] * 1.2, mz - n[1] * 1.2, yDeck)) continue;
+                const w = { wall: true, completed: true, ax: a.x, az: a.z, bx: b.x, bz: b.z, y0a: a.top - 1.1 - (a.w.y1a - a.w.y0a - 1.1), y1a: a.top, y0b: b.top - 1.1 - (b.w.y1b - b.w.y0b - 1.1), y1b: b.top, yr: undefined, nx: a.w.nx, nz: a.w.nz, kind: 'rail', edge: a.w.edge, x: mx, z: mz, r: best.d / 2 + .3, hw: 0, hd: 0, angle: 0, poly: null, h: 1, gapJoin: true };
+                if (tramSweep && tramSweep.segment([w.ax, w.az], [w.bx, w.bz], .05, Math.min(w.y0a, w.y0b), Math.max(w.y1a, w.y1b))) continue;
+                walls.push(w); drawBasarabGuard(w, cellOf, basarabBlue); a.used = b.used = true; joins++;
+            }
+            guardCompletion.gapJoins = joins;
+        }
     }
     // ---- railings of the tram-only decks. The estimated tram viaduct had none: an open slab edge 6-11 m up. A railing runs
     //      along every slab edge that is high (or over water) and has no surface at its level beside it (the other track's

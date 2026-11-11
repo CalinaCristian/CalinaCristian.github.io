@@ -11,7 +11,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 
 | Where | Report | State / diagnosis |
 | --- | --- | --- |
-| Grozăvești | L17 Basarab tram ramp fork | the flat-branch tram overlaps the estimated ramp slab; needs the tram grade model changed |
+| Grozăvești | L17 Basarab tram ramp fork | the climbing track's slab starts at the fork node, on the flat branch's track (tram-sweep-audit: 105 refused poses on w660918284 / w314447163). Holding the climb at grade until 3.4 m clear does not fit: the south approach already climbs at the 8 % cap (95 m to the 6 m bridge entry). Needs a lower, Street View-checked bridge entry height or a longer source approach |
 | Grozăvești | L41 hole under the north-east branch split | the branch deck parts from the main deck after the gore (median fill closes it up to 6 m); owner to confirm this matches the real split |
 | Grozăvești | Pasajul west deck height over the Dâmbovița | the shared Basarab model holds 11 m over the river; Street View on the arch suggests a lower deck (not measured) |
 | Grozăvești | Reality-check viewpoints | most of the 19 viewpoints in `game/dev/reality/viewpoints.json` not reviewed yet; other districts have none |
@@ -48,7 +48,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | 94e9bb78, dd0ceacc | #45 Pipera walls across streets under the bridge |
 | 4c8849d1 | #3 Floreasca road patch flicker: overlapping repair patches each get their own height below the lines |
 | ef1ce210 | #15 Basarab parapet gaps: rail pieces joined across slots, width changes and deck corners |
-| (next commit) | #2 Floreasca bus shelter: faces the nearest public carriageway (Strada Ceaikovski, the bus route), never a service lane |
+| 7d2d7cd4 | #2 Floreasca bus shelter: faces the nearest public carriageway (Strada Ceaikovski, the bus route), never a service lane |
 | earlier on this branch | L1–L7, L9–L13, L19 (all three places), L20, L21, L32, L33, L35–L40, L42, L43, L44, L46–L49; register #12–#14, #16–#18 (re-checked at their poses 2026-11-11) |
 | by design | #28 Unirii fountains run May–October 10:00–23:00 (`?fountains=on` forces them); L18 Romană underpass re-checked closed |
 

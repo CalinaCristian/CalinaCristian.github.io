@@ -1488,7 +1488,6 @@ function bFountains(b) {
     for (const [basinIndex, flat] of FOUNTAIN_RINGS.entries()) {
         const ring = []; for (let i = 0; i < flat.length; i += 2) ring.push([flat[i], flat[i + 1]]);
         if (Math.sign(sa(ring)) !== wind) ring.reverse();
-        b.waterFootprints.push({ sourceId: FOUNTAIN_SOURCE_IDS[basinIndex], ring: ring.map(p => [...p]) });
         // principal axis + size of the real basin (OSM outline)
         let cx = 0, cz = 0; for (const [x, z] of ring) { cx += x; cz += z; } cx /= ring.length; cz /= ring.length;
         let sxx = 0, szz = 0, sxz = 0; for (const [x, z] of ring) { sxx += (x - cx) ** 2; szz += (z - cz) ** 2; sxz += (x - cx) * (z - cz); }
@@ -1496,6 +1495,7 @@ function bFountains(b) {
         let lmin = 1e9, lmax = -1e9, wmax = 0; for (const [x, z] of ring) { const l = (x - cx) * ux + (z - cz) * uz, w = Math.abs(-(x - cx) * uz + (z - cz) * ux); lmin = Math.min(lmin, l); lmax = Math.max(lmax, l); wmax = Math.max(wmax, w); }
         const L = lmax - lmin, Wd = wmax * 2, plaza = Math.abs(cx) < 100 && Wd > 12;
         const outer = offset(ring, 0.35), inner = offset(ring, -0.35);
+        b.waterFootprints.push({ sourceId: FOUNTAIN_SOURCE_IDS[basinIndex], ring: outer.map(p => [...p]) });
         b.ring(outer, 0, 0.6, '#a5a29b'); b.ring(inner, 0.35, 0.6, '#a5a29b', { inward: true }); b.lip(inner, outer, 0.6, '#b4b1a9', 1);   // granite kerb on the real outline
         b.ring(inner, 0.12, 0.35, '#8fb9bf', { inward: true });
         b.cap(inner, 0.12, '#6f8f93', [], 1);

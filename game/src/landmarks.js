@@ -149,6 +149,38 @@ function materials() {
     };
     fl.customProgramCacheKey = () => 'landmark-floodlit';
     MATS.fl = fl;
+    // dressed-stone masonry on the floodlit material (LANDMARKS[].masonry; owner, 2026-11-11, Arcul de Triumf: "a plain
+    // block"): coursed blocks drawn in the shader from the model's own coordinates, so the joints run level and square to
+    // the monument: 0.62 m courses, 1.24 m blocks, every other course shifted half a block, a slight tint per block. Only on
+    // pale stone (not the dark, gilt or coloured parts) and only on walls; the joints fade out with distance. Sizes are
+    // estimates of the Rușchița marble cladding.
+    const flm = new THREE.MeshLambertMaterial({ vertexColors: true, emissive: new THREE.Color('#ffd7a3'), emissiveIntensity: 0 });
+    flm.name = 'landmark-floodlit-masonry'; Object.assign(flm.userData, fl.userData);
+    flm.onBeforeCompile = (sh) => {
+        fl.onBeforeCompile(sh);
+        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vMsL; varying vec3 vMsN;')
+            .replace('#include <begin_vertex>', '#include <begin_vertex>\nvMsL = position; vMsN = objectNormal;');
+        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec3 vMsL; varying vec3 vMsN;')
+            .replace('#include <color_fragment>', `#include <color_fragment>
+            {
+                vec3 an = abs(normalize(vMsN)); float lum = 1.0;
+                #ifdef USE_COLOR
+                    lum = min(vColor.r, min(vColor.g, vColor.b));
+                #endif
+                if (an.y < 0.6 && lum > 0.6) {
+                    float row = floor(vMsL.y / 0.62), u = (an.z > an.x ? vMsL.x : vMsL.z) / 1.24 + 0.5 * mod(row, 2.0);
+                    float fy = fract(vMsL.y / 0.62), fu = fract(u);
+                    float wy = fwidth(vMsL.y / 0.62), wu = fwidth(u);
+                    float jy = 1.0 - smoothstep(0.0, wy * 1.2 + 0.014, min(fy, 1.0 - fy));
+                    float ju = 1.0 - smoothstep(0.0, wu * 1.2 + 0.009, min(fu, 1.0 - fu));
+                    float fade = 1.0 - smoothstep(0.08, 0.35, max(wy, wu));
+                    float id = fract(sin(dot(vec2(floor(u), row), vec2(12.9898, 78.233))) * 43758.5453);
+                    diffuseColor.rgb *= mix(1.0, (0.955 + 0.07 * id) * (1.0 - 0.3 * max(jy, ju)), fade);
+                }
+            }`);
+    };
+    flm.customProgramCacheKey = () => 'landmark-floodlit-masonry';
+    MATS.flm = flm;
     // night-lit accent (e.g. the blue-lit rim of the UPB Rectorat dome): vertex-coloured Lambert + emissive eased by render.js
     const nb = new THREE.MeshLambertMaterial({ vertexColors: true, emissive: new THREE.Color('#3f7fff'), emissiveIntensity: 0 });
     nb.name = 'landmark-nightlight'; nb.userData.nightEmissive = 2.2; nb.userData.nightGlow = 2.2; nb.userData.dayGlow = 0;
@@ -562,7 +594,7 @@ class Builder {
         let tris = 0;
         for (const [k0, b] of Object.entries(this.bk)) {
             if (!b.p.length) continue;
-            const k = k0 === 'm' && o.floodlit ? 'fl' : k0;
+            const k = k0 === 'm' && o.floodlit ? (o.masonry ? 'flm' : 'fl') : k0;
             const g = new THREE.BufferGeometry();
             g.setAttribute('position', new THREE.Float32BufferAttribute(b.p, 3));
             g.setAttribute('normal', new THREE.Float32BufferAttribute(b.n, 3));
@@ -3465,7 +3497,7 @@ export const LANDMARKS = [
     // ---- Bucharest ----
     L('parliament', 'bucharest', 'Palatul Parlamentului', ['Palatul Parlamentului', 'Casa Poporului'], 175, bParliament, { floodlit: true }),
     L('cathedral', 'bucharest', 'Catedrala Mântuirii Neamului', ['Catedrala Națională', 'Catedrala Mântuirii Neamului', 'Catedrala Mântuirii Neamului Românesc'], 70, bCathedral, { floodlit: true }),
-    L('arcul', 'bucharest', 'Arcul de Triumf', ['Arcul de Triumf'], 18, bArcul, { floodlit: true }),
+    L('arcul', 'bucharest', 'Arcul de Triumf', ['Arcul de Triumf'], 18, bArcul, { floodlit: true, masonry: true }),
     L('casapresei', 'bucharest', 'Casa Presei Libere', ['Casa Presei Libere', 'Casa Scînteii'], 160, bCasaPresei),
     L('grandhotel', 'bucharest', 'Grand Hotel Bucharest (ex-InterContinental)', ['Grand Hotel Bucharest', 'InterContinental', 'Hotel InterContinental'], 40, bGrandHotel),
     L('univ', 'bucharest', 'Palatul Universității', ['Universitatea din București', 'Palatul Universității'], 110, bUniv, { floodlit: true }),
@@ -3547,7 +3579,7 @@ export function buildLandmark(lm, ctx = {}) {
     const hs = lm.city === 'seattle' && !ctx.realScale ? SEA_SCALE : 1;
     const b = new Builder(hs);
     lm._fn(b, ctx);
-    const { group, tris } = b.finish({ floodlit: !!lm.floodlit && ctx.floodlit !== false && !(lm.city === 'seattle' && !ctx.realScale) });
+    const { group, tris } = b.finish({ floodlit: !!lm.floodlit && ctx.floodlit !== false && !(lm.city === 'seattle' && !ctx.realScale), masonry: !!lm.masonry });
     group.name = 'landmark:' + lm.id;
     group.userData.landmark = lm.id;
     if (b.sourceMassAudit) group.userData.sourceMassAudit = b.sourceMassAudit;

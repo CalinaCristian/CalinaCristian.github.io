@@ -981,11 +981,12 @@ export class Traffic {
         return e.list;
     }
     /** Automatic recycling must keep both the old and new body out of view. */
-    /** No viewer (player, walker, active camera: see update) within `far` metres of the point. */
-    farFromViewers(x, z, far) {
-        const F = this._viewers; if (!F || !F.length) return false;
-        for (let i = 0; i < F.length; i += 2) { const dx = x - F[i], dz = z - F[i + 1]; if (dx * dx + dz * dz < far * far) return false; }
-        return true;
+    /** 0: a viewer (player, walker, active camera: see update) within `near` metres of the point; 1: none within `near`;
+     *  2: none within `far`. */
+    viewerTier(x, z, near, far) {
+        const F = this._viewers; if (!F || !F.length) return 0;
+        let best = Infinity; for (let i = 0; i < F.length; i += 2) { const dx = x - F[i], dz = z - F[i + 1], d = dx * dx + dz * dz; if (d < best) best = d; }
+        return best < near * near ? 0 : best < far * far ? 1 : 2;
     }
     inView(v) {
         const P = this.walker?.active ? this.walker : this.player; if (!P) return false;
@@ -1283,7 +1284,11 @@ export class Traffic {
                 const dx = v.x - P.x, dz = v.z - P.z;
                 if (dx * dx + dz * dz > 90000) { if (((this._frame + v.id) & 1) === 0) continue; this.stepVehicle(v, Math.min(dt * 2, 0.08)); continue; }
             }
-            else if (lodDistrict && this.farFromViewers(v.x, v.z, DISTRICT_LOD_VEHICLE_M)) { this.stats.lodVehicles++; if (((this._frame + v.id) & 1) === 0) continue; this.stepVehicle(v, Math.min(dt * 2, 0.08)); continue; }
+            else if (lodDistrict) {
+                // (a vehicle that has stood still for a second, wherever it is, is asked every other frame: it starts a frame later)
+                const tier = this.viewerTier(v.x, v.z, DISTRICT_LOD_VEHICLE_M, DISTRICT_LOD_VEHICLE_FAR_M), n = lodStride(tier || (v.speed === 0 && v.still > 1 && !v.tram ? 1 : 0), dt);
+                if (n > 1) { this.stats.lodVehicles++; if ((this._frame + v.id) % n) continue; this.stepVehicle(v, dt * n); continue; }
+            }
             this.stepVehicle(v, dt);
         }
         this.overlapGuard();
@@ -2586,8 +2591,14 @@ const CLOTHES_S = ['#1f2937', '#334155', '#0f766e', '#1d4ed8', '#4b5563', '#7c2d
 /** District level of detail. A district world (about 1 km²) simulated every vehicle and walker at full rate wherever the
  * player was: at the morning peak 485 of 581 vehicles were more than 300 m away. An actor farther than this from the
  * player, the walker and the active camera steps every other frame with twice the time step, as far vehicles on the
- * large legacy maps always have. Nothing is removed and nothing nearer than this changes. */
-const DISTRICT_LOD_VEHICLE_M = 250, DISTRICT_LOD_WALKER_M = 160;
+ * large legacy maps always have; beyond the second distance every fourth frame. The stride never makes a step longer
+ * than 0.08 s, so at 30 fps both tiers step every other frame and below 25 fps nothing is thinned. Nothing is removed and
+ * nothing nearer than the first distance changes. */
+const DISTRICT_LOD_VEHICLE_M = 250, DISTRICT_LOD_VEHICLE_FAR_M = 450, DISTRICT_LOD_WALKER_M = 160, DISTRICT_LOD_WALKER_FAR_M = 320;
+const lodStride = (tier, dt) => tier ? Math.max(1, Math.min(tier === 2 ? 4 : 2, Math.floor(0.08 / dt + 1e-6))) : 1;
+/** Walkers are drawn between their simulated positions (writeMatrices), so at 45 fps and above even a near walker is
+ * simulated every other frame and a far one every fourth; a walk of 1.3 m/s is a few centimetres per step either way. */
+const walkerStride = (tier, dt) => Math.max(1, Math.min(tier ? 4 : dt <= 0.0225 ? 2 : 1, Math.floor(0.08 / dt + 1e-6)));
 /** Share of a sidewalk's standing cells that relocation may fill with walkers (see Pedestrians.relocate). */
 const WALK_FILL = 0.35;
 export class Pedestrians {
@@ -3168,7 +3179,8 @@ export class Pedestrians {
     staticWalkClear(p,x,z,oldX,oldZ) {
         const W=this.t.world,B=W.buildings||[],free=p._emptyStatic;
         if(free&&Math.hypot(x-free.x,z-free.z)<=.24)return true;
-        if(B.query){let candidate=false;B.query(x,z,PED_R+.25,()=>{candidate=true;});if(!candidate){p._emptyStatic={x,z};return true;}}
+        if(B.anyBoxNear){if(!B.anyBoxNear(x,z,PED_R+.25)){p._emptyStatic={x,z};return true;}}
+        else if(B.query){let candidate=false;B.query(x,z,PED_R+.25,()=>{candidate=true;});if(!candidate){p._emptyStatic={x,z};return true;}}
         else if(!B.length)return true;
         const height=(x,z)=>(W.walkTop?.(x,z)??.2)+.01,hit=collideBuildings(B,x,z,PED_R,height(x,z));
         if(!hit)return true;
@@ -3376,14 +3388,16 @@ export class Pedestrians {
         this._stepDt = dt;
         this._fr = (this._fr || 0) + 1;
         // district level of detail (see DISTRICT_LOD_WALKER_M): a far walker takes every other frame, with twice the step
-        const lod = !T.large && typeof T.farFromViewers === 'function' && T.districtLod !== false, parity = this._fr & 1;
-        const skipped = p => lod && ((p.i ^ parity) & 1) === 1 && T.farFromViewers(p.x, p.z, DISTRICT_LOD_WALKER_M);
+        const lod = !T.large && typeof T.viewerTier === 'function' && T.districtLod !== false;
+        const strideOf = p => lod ? walkerStride(T.viewerTier(p.x, p.z, DISTRICT_LOD_WALKER_M, DISTRICT_LOD_WALKER_FAR_M), frameDt) : 1;
+        const skipped = p => { const n = strideOf(p); return n > 1 && (this._fr + p.i) % n !== 0; };
         this.stats.lodWalkers = 0;
         this.ensurePeerGrid(true);
         for (const p of this.list) {
-            const far = lod && T.farFromViewers(p.x, p.z, DISTRICT_LOD_WALKER_M);
-            if (far) { this.stats.lodWalkers++; if (((p.i ^ parity) & 1) === 1) continue; }
-            const dt = far ? Math.min(frameDt * 2, 0.08) : frameDt; // (shadows the frame step for this walker's whole move)
+            const stride = strideOf(p);
+            if (stride > 1) { this.stats.lodWalkers++; if ((this._fr + p.i) % stride !== 0) continue; }
+            p.drawStride = stride;
+            const dt = frameDt * stride; // (shadows the frame step for this walker's whole move)
             this._stepDt = dt;
             this.ensurePeerGrid();
             const frameX = p.x, frameZ = p.z;
@@ -3806,7 +3820,11 @@ export class Pedestrians {
         const footY = (p) => { if (!wt) return 0.2; if (p._fyx === undefined || Math.abs(p.x - p._fyx) + Math.abs(p.z - p._fyz) > 0.5) { const h = wt(p.x, p.z); p._fy = h === null ? 0.2 : h + 0.01; p._fyx = p.x; p._fyz = p.z; } return p._fy; };
         for (const p of this.list) {
             const s = p.scale;
-            if (p.state === 'down') { C.set(p.i, { x: p.x, y: footY(p), z: p.z, scale: s, down: true, fallDir: p.fallDir }); continue; }
+            if (p.state === 'down') { p.drawX = undefined; C.set(p.i, { x: p.x, y: footY(p), z: p.z, scale: s, down: true, fallDir: p.fallDir }); continue; }
+            // A walker simulated every n-th frame is drawn on the way from where it was drawn to where it now is, arriving as
+            // its next step is taken; one simulated every frame is drawn where it is, as before. A jump (relocation) is not eased.
+            if (p.drawToX !== p.x || p.drawToZ !== p.z) { p.drawFromX = p.drawX ?? p.x; p.drawFromZ = p.drawZ ?? p.z; p.drawToX = p.x; p.drawToZ = p.z; p.drawT = 0; if (Math.hypot(p.x - p.drawFromX, p.z - p.drawFromZ) > 1.5) { p.drawFromX = p.x; p.drawFromZ = p.z; } }
+            { const n = p.drawStride > 1 ? p.drawStride : 1, t = n > 1 ? Math.min(1, (p.drawT = (p.drawT || 0) + 1) / n) : 1; p.drawX = p.drawFromX + (p.x - p.drawFromX) * t; p.drawZ = p.drawFromZ + (p.z - p.drawFromZ) * t; }
             const k = dt > 0 ? 1 - Math.exp(-8 * dt) : 1;
             const vx = dt > 0 && p.animX !== undefined ? (p.x - p.animX) / dt : 0, vz = dt > 0 && p.animZ !== undefined ? (p.z - p.animZ) / dt : 0;
             p.animVX = (p.animVX || 0) + (vx - (p.animVX || 0)) * k; p.animVZ = (p.animVZ || 0) + (vz - (p.animVZ || 0)) * k;
@@ -3814,7 +3832,7 @@ export class Pedestrians {
             const talking = p.talkT > 0, speed = Math.hypot(p.animVX, p.animVZ), amp = talking || speed < 0.12 ? 0 : Math.min(1, speed / p.speed), moving = amp > 0;
             p.phase += Math.min(speed, p.speed * 1.25) * dt * 5.5;
             const bob = moving ? Math.abs(Math.sin(p.phase)) * 0.03 * amp : 0;
-            C.set(p.i, { x: p.x, y: footY(p) + bob, z: p.z, yaw: p.heading, phase: p.phase, amp, scale: s, pose: talking ? (p.talkWave > 0 ? 4 : 7) : moving ? 0 : (p.pose || 0), prop: moving || talking ? null : (p.prop || null) });
+            C.set(p.i, { x: p.drawX, y: footY(p) + bob, z: p.drawZ, yaw: p.heading, phase: p.phase, amp, scale: s, pose: talking ? (p.talkWave > 0 ? 4 : 7) : moving ? 0 : (p.pose || 0), prop: moving || talking ? null : (p.prop || null) });
         }
     }
     dispose() { this.crowd.dispose(); }

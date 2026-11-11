@@ -367,6 +367,46 @@ progress check passes on Grozavesti and Romana, foot/a stays at 0 high / 0 mediu
 of the run against 334 before. Not done: 13 ms is still above what 60 fps needs for the whole frame; no frame rate was
 measured on the owner's hardware; the pedestrian side is now 40 % of the step.
 
+### Ultra frame time on the owner's GPU, all districts · 2026-11-11 (owner: "I need 60 fps on ultra on my PC, an RTX 5070")
+
+Method. Headless Chromium rendering on the owner's RTX 5070 (ANGLE D3D11), 2560x1440, device pixel ratio 1, quality tier
+`ultra` (4096 shadows, full post with ambient occlusion), morning peak traffic, driver view with mirror at each district's
+chapter start, 150 frames at a 1/60 s step. Each frame is ended by a pixel read-back so that the GPU's work is inside the
+measured time. That serialises CPU and GPU, which a real browser does not, so the real frame is nearer the "CPU" column
+plus browser overhead. **It is not a measurement in the owner's own browser**: an F8 report from the game is that.
+
+| district | frame, mean (95th) | simulation | draw submit | GPU wait | CPU only | vehicles / walkers |
+| --- | --- | --- | --- | --- | --- | --- |
+| Grozavesti | 16.1 ms (19.0) | 8.6 | 3.2 | 4.0 | 12.1 ms | 581 / 560 |
+| Romana | 15.2 ms (18.9) | 6.0 | 2.5 | 6.5 | 8.7 ms | 579 / 560 |
+| Unirii | 12.9 ms (16.1) | 6.4 | 2.5 | 3.8 | 9.2 ms | 576 / 560 |
+| Pipera | 12.7 ms (14.9) | 6.5 | 2.2 | 3.7 | 9.0 ms | 571 / 560 |
+| Floreasca | 9.5 ms (13.4) | 3.4 | 2.2 | 3.7 | 5.9 ms | 183 / 560 |
+| Bellevue | 9.3 ms (11.6) | 4.0 | 1.8 | 3.3 | 6.1 ms | 102 / 180 |
+| Otopeni | 9.2 ms (11.4) | 3.8 | 1.7 | 3.5 | 5.8 ms | 218 / 560 |
+| SeaTac | 8.4 ms (10.3) | 2.9 | 1.5 | 3.7 | 4.8 ms | 102 / 180 |
+
+The GPU is not the limit anywhere (3-4 ms at 1440p Ultra); the simulation was. Changes since the previous section:
+
+- **A second stride tier.** Vehicles beyond 450 m and walkers beyond 320 m from every viewer step every fourth frame; the
+  stride never makes a step longer than 0.08 s, so at 30 fps both tiers are every other frame as before.
+- **Walkers are drawn between their simulated positions**, so at 45 fps and above a near walker is simulated every other
+  frame (it moves 2-4 cm per step either way; the drawn position trails by at most 5 cm). A relocation is not eased.
+- **A vehicle that has stood still for a second** is asked every other frame, wherever it is (it starts one frame later).
+- **Large collision outlines.** SeaTac spent 70 % of its simulation in `collideOne`: nearly every walker is inside the
+  bounding box of the terminal (408 vertices) and the garage (164 plus 152 in holes), each on several levels, and every
+  edge of every level was walked per walker per step. Outlines of 40 vertices or more keep their edges in 2 m rows; a far
+  outline is rejected by its bounding box. SeaTac simulation 9.9 -> 2.9 ms. Same results:
+  `game/dev/collide-outline.test.mjs` compares with the full walk at about 24,000 probes (inside, touching, clear, on
+  vertices and row boundaries, with holes).
+- **Walkers' "is anything near" test** stops at the first body instead of visiting all of them.
+
+Grozavesti at the reported spot, same method: 16.3 ms before these (simulation 9.6), about 14.3 after the stride tier.
+Checks after all of it: 70 unit tests, foot/a 0 high / 0 medium, tram progress check passes on Grozavesti and Romana.
+
+Still open: Grozavesti's 95th percentile is above 16.7 ms in this serialised measurement; the remaining cost there is the
+pedestrian update near the viewer and the trams' per-step guard. Tourist visits and the office scenes were not measured.
+
 ### Reviewed finite source bridge descents
 
 `compileSourceBridgeDescents(data, { coreEdges, lanePolygon, padLanePolygon })` is a pure, registry-driven association. It retains literal source geometry, direction and tags; it requires the reviewed incoming/outgoing at-grade source joins and complete source-node metric coverage. Numeric elevations or inclines, changed context, missing native joins or infeasible grades return an explicit unresolved report. A MODEL ground datum is not a surveyed elevation.

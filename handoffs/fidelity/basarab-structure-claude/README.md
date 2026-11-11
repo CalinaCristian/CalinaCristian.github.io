@@ -21,6 +21,24 @@ not available (see "Not available"), publication and live verification by the in
 To keep master linear, cherry-pick `c82b1fa5`, `dda67f21`, `d538aaad` and `576adda5` in that order; the merge commits
 (`6c07fd94`, `02562dea`) carry no change of their own.
 
+## Update 6 · Ultra frame time across the districts; walkers' shoulders (2026-11-11)
+
+Owner: "please do performance fixes across the app, I need 60 fps on ultra on my PC which is 5070 RTX".
+Measured on that GPU from the headless probe (2560x1440, Ultra, morning peak, pixel read-back each frame): mean frame
+8.4-16.1 ms in the eight districts (Grozăvești 16.1, 95th percentile 19.0; SeaTac 8.4). The GPU takes 3-4 ms; the
+simulation was the limit. Table, method and its limits in `specs/13-traffic.md`. **Not yet confirmed in the owner's own
+browser**; an F8 report after a reload is the real number.
+
+Changes: a second stride tier for very distant actors, near walkers simulated every other frame and drawn between steps,
+standing vehicles asked every other frame, large collision outlines indexed (`world.js` `collideOne`, now exported for its
+test; SeaTac simulation 9.9 -> 2.9 ms), an early-exit presence query. Shared files: `traffic.js`, `world.js`.
+
+Also: "people still have those weird boxes on them". The walkers' shoulders were two literal boxes and the backpack a
+box; they are rounded now (`crowd.js`, commit `43ae2a44`, evidence `before-/after-people-shoulders.jpg`).
+
+Checks: 70 unit tests, foot/a 0 high / 0 medium, tram progress check on Grozăvești and Romana, tram sweep audit,
+built-world bridge check on Grozăvești and SeaTac.
+
 ## Update 5 · simulation cost (2026-11-11)
 
 Owner: "performance is very bad in grozavesti" (F8 report: traffic step 25 of a 27 ms frame, 586 vehicles).

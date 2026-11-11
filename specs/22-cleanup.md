@@ -18,7 +18,3 @@ R22.7 Before effort-branch cleanup, retain all local/fetched-remote tips, detach
 - [ ] Logic harness and visual QA results before vs after: no new issues, no new review defects (attach both summaries).
 - [ ] Total game JS size and per-district load time logged before/after (target: −30 % JS, no slower loads).
 - [ ] No file in `game/src/` > 60 KB except vendored code; no unused exports (simple script check).
-
-## Progress log
-
-- 2026-11-09 07:40 UTC — Archive utility accounts for all local heads, fetched remote heads and detached worktree sources with explicit provenance. Six temporary-Git controls pass, including actual ref/worktree removal and garbage-collection survival. Final remote fetch/tag/readback/cleanup remain pending; internal proof-reference expansion is a separate follow-up.

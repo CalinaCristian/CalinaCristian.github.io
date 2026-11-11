@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-a240db509dc002f1",
-  "sourceCommit": "d708f38fe255491e30aa49d14cc6d8938dfb9e70",
-  "fingerprint": "a240db509dc002f170120d8829c96a25ac5a434f8010af4246c0dcd8b3fb4008",
+  "releaseId": "game-0aecc01ea5d88606",
+  "sourceCommit": "7f592fce2df634139633fa09f134f45a4348fb48",
+  "fingerprint": "0aecc01ea5d886062f35b6546432a3190ddbb89c1a1d31b586f22518e8b86911",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -303,6 +303,10 @@
     {
       "path": "game/src/facade-panels.js",
       "sha256": "5a732e72373eb3375992bbbaccbfc3bc7245ef5263f9477c194333498b031bde"
+    },
+    {
+      "path": "game/src/facade-window-bands.js",
+      "sha256": "0a405be3707eb1c151ec593e46c8a6c2c58e3dbff242f8682af227da861eb65f"
     },
     {
       "path": "game/src/fallback-ground.js",
@@ -1010,7 +1014,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "0c028a09c03ce98ff74db3d177186a873a3e7995211d7c5341f3bc474810250b"
+      "sha256": "ecba2f7342ca144b9e755846c94ee9c3f41d8f30669b0f53f8c62f576925b139"
     },
     {
       "path": "game/src/worldmap.js",

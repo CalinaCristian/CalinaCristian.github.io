@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "d708f38fe255491e30aa49d14cc6d8938dfb9e70",
+  "sourceSha": "7f592fce2df634139633fa09f134f45a4348fb48",
   "reviewedOn": "2026-11-10",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -3446,7 +3446,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "d97b200550be5b1cac56ddb08b764a44ecd563ad4ae21dea927b22f09f3a7af4"
+      "sha256": "a9930b7b83005fed5411b61c016054b2a0ad800bedd922b99e21099263d02cfe"
     },
     {
       "path": "specs/README.md",
@@ -3466,7 +3466,7 @@
     },
     {
       "path": "specs/12-buildings-streetscape.md",
-      "sha256": "80b0fd5e376bb477a05e76006151595f120cf847866d06a08dd9362a5564a0a0"
+      "sha256": "42b4c76f197defb6ff19dabb22a0d4c79e55792891898157857e8bda5c7548a3"
     },
     {
       "path": "specs/13-traffic.md",
@@ -3506,7 +3506,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "0c028a09c03ce98ff74db3d177186a873a3e7995211d7c5341f3bc474810250b"
+      "sha256": "ecba2f7342ca144b9e755846c94ee9c3f41d8f30669b0f53f8c62f576925b139"
     },
     {
       "path": "game/src/cities.js",
@@ -6066,7 +6066,7 @@
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "5230b2184469bba8121927d6409c53b641c4e87ec331e94ce9d8a180786170c4"
+      "sha256": "aed118b14204acdd015bd3529130450da24d8a174e5b19c46adbf0ab418896f8"
     },
     {
       "path": "game/overview/landmark-evidence.js",
@@ -6078,7 +6078,7 @@
     },
     {
       "path": "game/overview/overview.js",
-      "sha256": "b9cd3db834642468e2c034ee5bcd6edbd3735ab45d06fcc9043363d15d124ebf"
+      "sha256": "bf63001f7ddc427e6e190e858f585201a946a33a4872ed9aeb4312c8183a4984"
     },
     {
       "path": "game/overview/perspective-viewer.js",
@@ -6175,6 +6175,34 @@
     {
       "path": "game/overview/assets/landmarks/bob/facade-20261110/oblique.png",
       "sha256": "e1c4d51fb048897527b13bc7c757b318f9a7b83c82af876a1e3674a228005b45"
+    },
+    {
+      "path": "game/overview/fix-floreasca-facades/balconies-after.png",
+      "sha256": "3063fd4cdf55d98a39a7a988c4eee996279286a7436608b4aa2bd8e42ab8f67c"
+    },
+    {
+      "path": "game/overview/fix-floreasca-facades/balconies-before.png",
+      "sha256": "6eacd8d504df3ac1be7c4e47b9d8bf7c5f259b919b38422b8e8ae8fea071d3f7"
+    },
+    {
+      "path": "game/overview/fix-floreasca-facades/summary.json",
+      "sha256": "ce626883b64918f3723e2257a9dc5552a011030aa488cca3072a5fb24c2b129c"
+    },
+    {
+      "path": "game/overview/fix-floreasca-facades/windows-after.png",
+      "sha256": "0fec6a521018ef8913a8d3fdfc306810dcbf4dfec4dee0b1736cea69f4d28538"
+    },
+    {
+      "path": "game/overview/fix-floreasca-facades/windows-before.png",
+      "sha256": "4be92ffecb4bd411a125c043c1dffaf369b4cfd2b6ec8d2e8c7152049fb73a09"
+    },
+    {
+      "path": "game/src/facade-window-bands.js",
+      "sha256": "0a405be3707eb1c151ec593e46c8a6c2c58e3dbff242f8682af227da861eb65f"
+    },
+    {
+      "path": "tools/fidelity/facade-window-bands.test.mjs",
+      "sha256": "30d736a1fae40d2d37bb06b4ed5a863a411449897304234041159e8da3b2a133"
     }
   ],
   "stagingEvidence": [
@@ -6304,5 +6332,13 @@
       41,
       42
     ]
+  },
+  "floreascaFacadeFixEvidence": {
+    "path": "fix-floreasca-facades/summary.json",
+    "reports": [
+      4,
+      5
+    ],
+    "sourceCommit": "a5c7ca16f2dae72a5c37480e475c108a9786607d"
   }
 }

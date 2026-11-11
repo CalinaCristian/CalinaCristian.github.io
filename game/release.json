@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-ea2d06c2566f8551",
-  "sourceCommit": "e1449965dbdcbdba09ed4814ec8231370c04d31e",
-  "fingerprint": "ea2d06c2566f855187d516687f764770b9994549ee160ab7481a5c8ac4de61c2",
+  "releaseId": "game-8ffd9e016f7f2def",
+  "sourceCommit": "6ad7b5f3322acc3c27fa01b428bc9f2aa2b7266c",
+  "fingerprint": "8ffd9e016f7f2defbe1629e5ce9581a73b22d5eecc12f43a4907a53a2c754582",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -303,6 +303,10 @@
     {
       "path": "game/src/facade-panels.js",
       "sha256": "5a732e72373eb3375992bbbaccbfc3bc7245ef5263f9477c194333498b031bde"
+    },
+    {
+      "path": "game/src/facade-sign-layout.js",
+      "sha256": "82517212e9e0534ad90412247ff087592c92de09131d906f09e590708cf4f72c"
     },
     {
       "path": "game/src/facade-window-bands.js",
@@ -1026,7 +1030,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "96d4e7943c74c7dff22b381f7df315f689acf71d7cbbe8a6b9267d8db078c23c"
+      "sha256": "177ad6e264230712bde789a05abac61316ccdf5a45a17cfb8334c2dcbe2575ba"
     },
     {
       "path": "game/src/worldmap.js",

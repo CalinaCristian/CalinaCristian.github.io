@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-8ffd9e016f7f2def",
-  "sourceCommit": "6ad7b5f3322acc3c27fa01b428bc9f2aa2b7266c",
-  "fingerprint": "8ffd9e016f7f2defbe1629e5ce9581a73b22d5eecc12f43a4907a53a2c754582",
+  "releaseId": "game-dc1b7ab415b7eb7a",
+  "sourceCommit": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
+  "fingerprint": "dc1b7ab415b7eb7a835b4ed38aa5e86464fa0c6bfabe9ade2a35dea57f541a27",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -510,7 +510,7 @@
     },
     {
       "path": "game/src/office.js",
-      "sha256": "f97a2647b742335b019efae3d096876c952c8c6d0285a6097db14bf7ac3c9319"
+      "sha256": "5998d93648732e2ec7dcd14ed3f35a7362377a31ef8862f58f47ab1388d8d5df"
     },
     {
       "path": "game/src/onfoot.js",

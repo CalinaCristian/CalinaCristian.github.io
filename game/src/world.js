@@ -2604,21 +2604,21 @@ export async function buildWorld(city, renderer, opts = {}) {
             // the sidewalk rides with the ramp; on an embankment ramp the verge beyond it stays on the ground, under the skirt
             const fg = e.bridge || e.tunnel ? f : (x, z) => { const lat = (x - e.a.x) * e.nx + (z - e.a.z) * e.nz; return Math.abs(lat) <= widthSide(e, lat >= 0 ? 1 : -1) + 0.05 ? f(x, z) : Math.min(0, f(x, z)); };
             displace(c.ground, v0g, fg, e, i0g);
-            // (owner, 2026-11-11, Grozavesti (68.5, 203): "looks odd", then "if that screenshot is proof it's not smooth") the
-            // verge of a raised ramp ended in a stepped cliff above the grass (each segment's strip ends square-on). Each side of
-            // an embankment ramp (not a bridge) now gets a continuous grassed skirt from the mitred verge edge down to the
-            // ground on a 1:1.5 slope; where another road lies within that footprint the skirt steepens to fit (down to a face).
+            // (owner, 2026-11-11, Grozavesti (68.5, 203): "looks odd", "not smooth", "let's simulate real life") the verge of a
+            // raised ramp ended in a stepped cliff above the grass (each segment's strip ends square-on). Street-level reference
+            // (handoffs/fidelity/reality-check/REVIEW-grozavesti.md): the Basarab and Pasajul ramps stand on vertical concrete
+            // retaining walls beside the streets. Each side of an embankment ramp (not a bridge) is one continuous wall from the
+            // mitred sidewalk edge straight down to the ground (a 2 % batter), weathered concrete with the ground's texture.
             if (!e.bridge && !e.tunnel && Math.max(e.ya, e.yb) > 0.25) for (const sd of [1, -1]) {
                 const W0 = widthSide(e, sd), ca = corner(e, e.a, sd, W0, widthSide), cb = corner(e, e.b, sd, W0, widthSide), L = Math.hypot(cb[0] - ca[0], cb[1] - ca[1]), k = Math.max(1, Math.ceil(L / 2.5));
-                const ol = Math.hypot(ca[0] - e.a.x, ca[1] - e.a.z) || 1, ox = (ca[0] - e.a.x) / ol, oz = (ca[1] - e.a.z) / ol, green = rgb(shadeHex(env.grass, 0.94)), uvOf = p => [p[0] * 0.125, p[2] * 0.125];
-                const row = t => { const x = ca[0] + (cb[0] - ca[0]) * t, z = ca[1] + (cb[1] - ca[1]) * t, h = Math.max(0, yAlong(e, x, z)); let reach = h * 1.5;
-                    for (let d = 0.5; d < reach; d += 0.5) if (coveredByOther(x + ox * d, z + oz * d, e, 0, 0, false, 99)) { reach = Math.max(0, d - 0.3); break; }
+                const ol = Math.hypot(ca[0] - e.a.x, ca[1] - e.a.z) || 1, ox = (ca[0] - e.a.x) / ol, oz = (ca[1] - e.a.z) / ol, wallCol = rgb('#8f8c86'), uvOf = p => [(p[0] + p[2]) * 0.125, p[1] * 0.125];
+                const row = t => { const x = ca[0] + (cb[0] - ca[0]) * t, z = ca[1] + (cb[1] - ca[1]) * t, h = Math.max(0, yAlong(e, x, z)), reach = h * 0.02;
                     return { top: [x, Y.side + h, z], bottom: [x + ox * reach, Math.min(Y.side, 0.02), z + oz * reach], h }; };
                 let prev = row(0);
                 for (let j = 1; j <= k; j++) { const cur = row(j / k);
                     if (prev.h > 0.05 || cur.h > 0.05) { const cs = cellOf((prev.top[0] + cur.top[0]) / 2, (prev.top[2] + cur.top[2]) / 2).ground; // (the ground's own grass texture and light)
                         const q1 = [prev.top, cur.top, cur.bottom, prev.bottom], q2 = [prev.bottom, cur.bottom, cur.top, prev.top];
-                        cs.face4(...q1, green, [ox, 0.6, oz], -1, q1.map(uvOf)); cs.face4(...q2, green, [ox, 0.6, oz], -1, q2.map(uvOf)); }
+                        cs.face4(...q1, wallCol, [ox, 0, oz], -1, q1.map(uvOf)); cs.face4(...q2, wallCol, [-ox, 0, -oz], -1, q2.map(uvOf)); }
                     prev = cur; }
             } displace(c.road, v0p, f, e, i0p); displace(c.marks, v0m, f, e, i0m); displace(c.solid, v0s, f, e, i0s); }
         railRoadside.apply(c.ground, i0g, e); railRoadside.apply(c.road, i0p, e); railRoadside.apply(c.solid, i0s, e);

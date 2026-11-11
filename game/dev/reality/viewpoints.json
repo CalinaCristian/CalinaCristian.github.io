@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "purpose": "Real-life reference viewpoints. Each one is rendered from the game (capture.cjs) and compared by eye with the street-level panorama at the same place (link only). No third-party imagery is stored or committed; findings are written as text in handoffs/fidelity/reality-check/.",
+  "fields": {
+    "lat/lon": "WGS84 position of the viewer",
+    "heading": "compass bearing of the view, degrees (0 = north)",
+    "pitch": "degrees, + up",
+    "surface": "'top' = stand on the highest road surface at that spot (a deck), 'ground' = the lowest",
+    "eyeM": "eye height above that surface (a street-view car camera is about 2.5 m)",
+    "source": "why this viewpoint exists (owner report id, landmark, verified reference)"
+  },
+  "viewpoints": [
+    { "id": "grz-pasaj-west-cet", "district": "grozavesti", "name": "82 Șoseaua Grozăvești, beside the CET tanks", "lat": 44.4393733, "lon": 26.0600619, "heading": 34, "pitch": 0, "surface": "ground", "eyeM": 2.5, "source": "L44 report; reference checked 2026-11-11: both carriageways at grade, grass median, kerb, bollards" },
+    { "id": "grz-pasaj-west-start", "district": "grozavesti", "name": "31 Șoseaua Grozăvești, looking north up Pasajul Basarab", "lat": 44.43942, "lon": 26.06023, "heading": 355, "pitch": 0, "surface": "ground", "eyeM": 2.5, "source": "L44; reference checked: flat for 100 m, overpass far ahead" },
+    { "id": "grz-pasaj-west-overpass", "district": "grozavesti", "name": "Pasajul Basarab west ramp, on the deck", "lat": 44.44031, "lon": 26.06022, "heading": 0, "pitch": 3, "surface": "top", "eyeM": 2.5, "source": "L44; reference checked: deck a few metres up, Șoseaua Grozăvești below on the right behind a concrete parapet and steel railing, grass median with tall curved twin-arm lamps" },
+    { "id": "grz-l19c", "district": "grozavesti", "name": "Bulevardul Doina Cornea, end of the bridge-tagged stretch", "lat": 44.4406727, "lon": 26.0588527, "heading": 243.5, "pitch": 0, "surface": "ground", "eyeM": 2.5, "source": "L19 (-28, 59)" },
+    { "id": "grz-l45", "district": "grozavesti", "name": "Exit to Calea Giulești ramp", "lat": 44.4481845, "lon": 26.0627972, "heading": 94.3, "pitch": 0, "surface": "top", "eyeM": 2.5, "source": "L45 (286, -776)" },
+    { "id": "grz-l46", "district": "grozavesti", "name": "Pasajul Basarab carriageways split, near Orhideelor", "lat": 44.4477454, "lon": 26.0637836, "heading": 254.7, "pitch": 0, "surface": "top", "eyeM": 2.5, "source": "L46 (364, -727)" },
+    { "id": "grz-l47", "district": "grozavesti", "name": "Pasajul Basarab deck, centre strip between the tram tracks", "lat": 44.4486821, "lon": 26.0661087, "heading": 55.5, "pitch": 0, "surface": "top", "eyeM": 2.5, "source": "L47 (549, -831)" },
+    { "id": "grz-deck-west-span", "district": "grozavesti", "name": "Basarab deck, west of the cable-stayed span", "lat": 44.4483744, "lon": 26.0666561, "heading": 228.8, "pitch": 0, "surface": "top", "eyeM": 2.5, "source": "report (593, -797)" },
+    { "id": "grz-l41", "district": "grozavesti", "name": "Under the Basarab deck near the north-east branch split", "lat": 44.4497907, "lon": 26.0683999, "heading": 178.6, "pitch": 15, "surface": "ground", "eyeM": 2.5, "source": "L41 (731, -955)" },
+    { "id": "grz-deck-fences", "district": "grozavesti", "name": "Basarab deck, fences", "lat": 44.4500372, "lon": 26.0681759, "heading": 256.8, "pitch": 0, "surface": "top", "eyeM": 2.5, "source": "report (713, -982)" },
+    { "id": "grz-l40", "district": "grozavesti", "name": "Basarab deck, tram slab beside the carriageway", "lat": 44.4511782, "lon": 26.0700582, "heading": 190.5, "pitch": 0, "surface": "top", "eyeM": 2.5, "source": "L40 / L20 (863, -1109)" },
+    { "id": "grz-l19b", "district": "grozavesti", "name": "Embankment beside the viaduct, Nicolae Titulescu side", "lat": 44.4510163, "lon": 26.0704696, "heading": 225.5, "pitch": 0, "surface": "ground", "eyeM": 2.5, "source": "L19 (896, -1091)" },
+    { "id": "grz-l42", "district": "grozavesti", "name": "Railing join where the tram deck meets the descending carriageway", "lat": 44.4518774, "lon": 26.071558, "heading": 57.2, "pitch": 0, "surface": "top", "eyeM": 2.5, "source": "L42 (982, -1187)" },
+    { "id": "grz-l43", "district": "grozavesti", "name": "Tram ramp foot towards Nicolae Titulescu", "lat": 44.4528078, "lon": 26.0731295, "heading": 215.6, "pitch": 0, "surface": "ground", "eyeM": 2.5, "source": "L43 (1107, -1290)" },
+    { "id": "grz-closure-grivita", "district": "grozavesti", "name": "Pasajul Basarab north-east branch at Calea Griviței", "lat": 44.4488405, "lon": 26.0726551, "heading": 307.1, "pitch": 0, "surface": "ground", "eyeM": 2.5, "source": "L19a / L49 (1069, -849)" },
+    { "id": "grz-l50", "district": "grozavesti", "name": "Scenery bridge end, south-west of the Basarab span", "lat": 44.452411, "lon": 26.0664887, "heading": 173.5, "pitch": 0, "surface": "ground", "eyeM": 2.5, "source": "L50 (579, -1246)" },
+    { "id": "grz-l1-basarab-east", "district": "grozavesti", "name": "Basarab east ramps, fences and borders", "lat": 44.452582, "lon": 26.073678, "heading": 227.3, "pitch": 0, "surface": "top", "eyeM": 2.5, "source": "L1 / L2 (1151, -1265)" },
+    { "id": "grz-l16-nose", "district": "grozavesti", "name": "Two cars nose to nose, east end", "lat": 44.4527916, "lon": 26.0735258, "heading": 250.8, "pitch": 0, "surface": "ground", "eyeM": 2.5, "source": "L16 (1148, -1278)" }
+  ]
+}

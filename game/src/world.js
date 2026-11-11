@@ -4125,9 +4125,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                 });
                 return covered ? null : best;
             };
-            const slotQueue = [];
+            const slotQueue = [], goreQueue = [];
             for (const st of strips) for (const side of [1, -1]) {
                 const w = st.half(side), dx = st.nx * side, dz = st.nz * side, ends = [st.a, st.b].map(q => { const ox = q[0] + dx * w, oz = q[1] + dz * w, top = st.topAt(ox, oz); return { ox, oz, top, soffit: st.soffitAt(ox, oz), hit: reach(st, ox, oz, dx, dz, top) }; });
+                if (!ends[0].hit !== !ends[1].hit && Math.max(ends[0].top, ends[1].top) > 2.5) goreQueue.push({ st, side, w, dx, dz, ends }); // (one end joined: a split)
                 if (!ends[0].hit || !ends[1].hit || !(ends[0].top > 2.5)) continue;
                 if (st.road && !(ends[0].hit.st.road && ends[0].hit.st.id > st.id)) continue;          // carriageway pairs once; tram slabs fill toward carriageways
                 if (st.rail && ends[0].hit.st.rail && ends[0].hit.st.id < st.id) continue;              // tram pair once
@@ -4151,6 +4152,24 @@ export async function buildWorld(city, renderer, opts = {}) {
                 infill.quads++; infill.areaM2 += len * (A.hit.t + B.hit.t) / 2; infill.maxGapM = Math.max(infill.maxGapM, gap);
             };
             for (const ends of slotQueue) emitSlot(ends);
+            // (owner, 2026-11-11, Grozavesti (731, -955): "why are there holes") where two decks split (the north-east Pasajul
+            // branch leaving the main Basarab deck) only one end of a strip side reached the neighbour, so the whole wedge
+            // stayed open and the sky showed through between the slabs near the nose. From the joined end, the gore is filled
+            // in 1 m steps while the neighbour at the same level is within the join gap; beyond it the decks part.
+            let gore = 0;
+            for (const { st, side, w, dx, dz, ends } of goreQueue) {
+                const k0 = ends[0].hit ? 0 : 1, P0 = k0 ? st.b : st.a, P1 = k0 ? st.a : st.b, L = Math.hypot(P1[0] - P0[0], P1[1] - P0[1]), n = Math.max(1, Math.ceil(L));
+                const hit0 = ends[k0].hit; if (st.road && !(hit0.st.road && hit0.st.id > st.id)) continue;
+                let prev = null;
+                for (let i = 0; i <= n; i++) {
+                    const f = i / n, cx = P0[0] + (P1[0] - P0[0]) * f, cz = P0[1] + (P1[1] - P0[1]) * f, ox = cx + dx * w, oz = cz + dz * w, top = st.topAt(ox, oz);
+                    const cur = { ox, oz, top, soffit: st.soffitAt(ox, oz), hit: reach(st, ox, oz, dx, dz, top) };
+                    if (!cur.hit) break;
+                    if (prev) { emitSlot([prev, cur]); gore++; }
+                    prev = cur;
+                }
+            }
+            infill.gore = gore;
         }
         // ---- Pasajul Basarab superstructure (basarab-structure.js, integrated from fidelity/basarab-render-r9): platforms,
         //      centre support, station roof, H-frame, stays and river arch. The slot infill above is real deck for its stay
@@ -4223,7 +4242,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 pierColl.push({ x: c.x, z: c.z, hw: m / 2, hd: m / 2, angle: b.angle, r: m * .75, poly: null, h: b.soffit, prop: true, kind: 'pier', yMax: pierTop(c.x, c.z, m * .75, b.seat) });
             }
         }
-        bridgeBents.report.slotInfill = { quads: infill.quads, areaM2: Math.round(infill.areaM2), maxGapM: +infill.maxGapM.toFixed(2) };
+        bridgeBents.report.slotInfill = { quads: infill.quads, areaM2: Math.round(infill.areaM2), maxGapM: +infill.maxGapM.toFixed(2), goreQuads: infill.gore || 0 };
     }
     propColl.push(...basarabStructure.colliders);
     for(const piece of basarabStructure.pieces){propColl.push(piece);tramDecks.push(piece);sceneryDeckGrid.insert(piece.x-piece.r,piece.z-piece.r,piece.x+piece.r,piece.z+piece.r,piece);}

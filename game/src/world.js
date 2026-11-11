@@ -4156,7 +4156,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const [A, B] = ends, top = [[A.ox, A.top, A.oz], [B.ox, B.top, B.oz], [B.hit.x, B.hit.top, B.hit.z], [A.hit.x, A.hit.top, A.hit.z]], bottom = [[A.ox, A.soffit, A.oz], [B.ox, B.soffit, B.oz], [B.hit.x, B.hit.soffit, B.hit.z], [A.hit.x, A.hit.soffit, A.hit.z]];
                 const up = (top[1][2] - top[0][2]) * (top[2][0] - top[0][0]) - (top[1][0] - top[0][0]) * (top[2][2] - top[0][2]) > 0; // +y normal for this winding?
                 const sb = cellOf((A.ox + B.ox) / 2, (A.oz + B.oz) / 2).solid;
-                sb.face4(...(up ? top : top.slice().reverse()), slab, [0, 1, 0]);
+                // (owner, 2026-11-11, Grozavesti (549, -831): "why is this cut") a pale concrete strip tapering between a
+                // carriageway and the tram slab read as a slice through the deck: next to a carriageway the infill is asphalt
+                const topCol = A.hit?.st?.road || B.hit?.st?.road ? rgb(ASPHALT) : slab;
+                sb.face4(...(up ? top : top.slice().reverse()), topCol, [0, 1, 0]);
                 sb.face4(...(up ? bottom.slice().reverse() : bottom), dark, [0, -1, 0]);
                 const poly = top.map(q => [q[0], q[2]]), cx = poly.reduce((n, q) => n + q[0], 0) / 4, cz = poly.reduce((n, q) => n + q[1], 0) / 4;
                 const plane = (pts) => (x, z) => { // height on the quad's two triangles

@@ -43,7 +43,8 @@ function support(poly,ys,depth,sourceId,kind){
 }
 function drawSupport(piece,cellOf){
  const mb=cellOf(piece.x,piece.z).solid;
- for(const t of piece.triangles){mb.face3(...t,rgb('#a8aaa7'),[0,1,0]);mb.face3(...t.map(p=>[p[0],p[1]-piece.depth,p[2]]),rgb('#555a60'),[0,-1,0]);}
+ // (owner, 2026-11-11, (549, -831) "why is this cut": the pale top read as a slice through the deck between the tracks; deck concrete now)
+ for(const t of piece.triangles){mb.face3(...t,rgb('#6f6d68'),[0,1,0]);mb.face3(...t.map(p=>[p[0],p[1]-piece.depth,p[2]]),rgb('#555a60'),[0,-1,0]);}
  for(let i=0;i<piece.top.length;i++){const a=piece.top[i],b=piece.top[(i+1)%piece.top.length];mb.face4([a[0],a[1]-piece.depth,a[2]],[b[0],b[1]-piece.depth,b[2]],b,a,rgb('#92999d'),[b[2]-a[2],0,a[0]-b[0]]);}
 }
 /** Mesh-batched square beam. Member dimensions remain documented estimates. */

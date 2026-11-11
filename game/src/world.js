@@ -2600,7 +2600,12 @@ export async function buildWorld(city, renderer, opts = {}) {
                 else if (e.cycleTrack && sidewalkWidth(e, sd) >= 2.2) { const o = w + shoulderOf(e), sw = sidewalkWidth(e, sd); band(c.marks, e, s0b, s1b, sd * (o + sw - 1.7), sd * (o + sw - 0.3), raisedEdge(e, sd) ? Y.road + Y.kerb + 0.006 : yS + 0.01, shadeRgb(bc, 1.1)); }
             }
         }
-        if (elevated) { const f = (x, z) => yAlong(e, x, z); displace(c.ground, v0g, f, e, i0g); displace(c.road, v0p, f, e, i0p); displace(c.marks, v0m, f, e, i0m); displace(c.solid, v0s, f, e, i0s); }
+        if (elevated) { const f = (x, z) => yAlong(e, x, z);
+            // (owner, 2026-11-11, Grozavesti (68.5, 203): "looks odd") the verge beyond the sidewalk of a raised ramp stood at
+            // road height with a stepped cliff edge (each segment's strip ends square-on). On an embankment ramp (not a
+            // bridge) the verge falls away on a 1:1.5 slope toward the ground; the sidewalk keeps the road height.
+            const fg = e.bridge ? f : (x, z) => { const y = f(x, z); if (!(y > 0)) return y; const lat = (x - e.a.x) * e.nx + (z - e.a.z) * e.nz, out = Math.abs(lat) - widthSide(e, lat >= 0 ? 1 : -1); return out > 0 ? Math.max(0, y - out / 1.5) : y; };
+            displace(c.ground, v0g, fg, e, i0g); displace(c.road, v0p, f, e, i0p); displace(c.marks, v0m, f, e, i0m); displace(c.solid, v0s, f, e, i0s); }
         railRoadside.apply(c.ground, i0g, e); railRoadside.apply(c.road, i0p, e); railRoadside.apply(c.solid, i0s, e);
         if(bridgeGuard){
             if(elevated)displace(bridgeGuard,0,(x,z)=>yAlong(e,x,z),e,0);

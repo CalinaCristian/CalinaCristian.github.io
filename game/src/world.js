@@ -3768,6 +3768,38 @@ export async function buildWorld(city, renderer, opts = {}) {
     const landmarkWaterFootprints = [];
     const lmGrounds = []; // (2026-11-08) a landmark's own surfaces (sports grounds): no measured / generated trees on them
     const collisionBoxes = [];
+    // ---- floating source parts (owner register #51 Romana "floating detached upper office volume", #55 Otopeni "large floating
+    //      roof / upper building shell": the elevated train station, OSM min_height 5). A mapped part that starts above the ground
+    //      (min_height > 2.5 m) with nothing under it read as hovering. Where no lower part or building reaches its underside,
+    //      it stands on columns (inset 0.6 m along its outline, at most 9 m apart, never on a road, rail or water); an estimate.
+    const floatingSupport = { parts: 0, columns: 0, colls: [] };
+    {
+        const grid = new BoxGrid(32);
+        for (const o of bRecs) { if (!o.ring || o.ring.length < 3) continue; const xs = o.ring.map(p => p[0]), zs = o.ring.map(p => p[1]); grid.insert(Math.min(...xs), Math.min(...zs), Math.max(...xs), Math.max(...zs), o); }
+        const conc = rgb('#a9a69e');
+        for (const b of bRecs) {
+            if (!(b.minH > 2.5) || !b.ring || b.ring.length < 3) continue;
+            const cx = b.ring.reduce((n, p) => n + p[0], 0) / b.ring.length, cz = b.ring.reduce((n, p) => n + p[1], 0) / b.ring.length;
+            const inset = (p, d) => { const dx = cx - p[0], dz = cz - p[1], L = Math.hypot(dx, dz) || 1; return [p[0] + dx / L * Math.min(d, L * .5), p[1] + dz / L * Math.min(d, L * .5)]; };
+            const under = (x, z) => { let hit = false; grid.each(x, z, x, z, o => { if (!hit && o !== b && o.minH < b.minH - .3 && o.h >= b.minH - .6 && pointInPolygon(x, z, o.ring)) hit = true; }); return hit; };
+            const samples = [[cx, cz], ...b.ring.map(p => inset(p, 1))];
+            if (samples.filter(([x, z]) => under(x, z)).length >= samples.length * .4) continue;
+            // a volume more than 8 m up with nothing under it is a source part whose lower storeys are not mapped (not a 60 m stilt
+            // frame): it is drawn down to the ground
+            if (b.minH > 8 && samples.some(([x, z]) => onRibbon(x, z, 1) || isWater(x, z))) continue; // (a building spanning a street or water: a real passage over it)
+            if (b.minH > 8) { b.minH = 0; floatingSupport.grounded = (floatingSupport.grounded || 0) + 1; continue; }
+            let n = 0;
+            for (let i = 0; i < b.ring.length; i++) {
+                const a = b.ring[i], c = b.ring[(i + 1) % b.ring.length], L = Math.hypot(c[0] - a[0], c[1] - a[1]), k = Math.max(1, Math.ceil(L / 9));
+                for (let j = 0; j < k; j++) {
+                    const [x, z] = inset([a[0] + (c[0] - a[0]) * j / k, a[1] + (c[1] - a[1]) * j / k], .6);
+                    if (under(x, z) || onRibbon(x, z, .6) || isWater(x, z)) continue;
+                    cellOf(x, z).solid.box(x, 0, z, .6, b.minH, .6, 0, conc); floatingSupport.colls.push({ x, z, hw: .3, hd: .3, angle: 0, r: .45, poly: null, h: b.minH, prop: true, kind: 'pier' }); n++;
+                }
+            }
+            if (n) { floatingSupport.parts++; floatingSupport.columns += n; }
+        }
+    }
     const lmGroup = new THREE.Group(); lmGroup.name = 'landmarks'; group.add(lmGroup);
     const sourceBuildingRecs = new Map();
     if (data.buildingGeometryPolicy === 'source') for (const b of bRecs) {
@@ -4192,6 +4224,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const collision = [];
     const facadeBoards = [], fasciaLayoutAudit = [];
     const propColl = []; // small circles for street furniture (trees, posts, shelters…)
+    propColl.push(...floatingSupport.colls); // (the columns under floating source parts, above)
     propColl.push(...tramDecks, ...bridgeJunctionDecks);
     // -----------------------------------------------------------------------
     //  BRIDGE BENTS (MODEL estimate; bridge-bents.js): one crosshead carries every parallel deck of a structure
@@ -6970,6 +7003,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const stats = { fasciaLayout: { records: fasciaLayoutAudit, boards: facadeBoards, scope: 'Inferred coplanar fascia boards on existing source walls; source POIs and names unchanged' }, sourceWaterTreeConflicts: { records: waterTreeConflicts.records, sourceRecordsRetained: true, marginM: 0, scope: 'Physical trunk bodies intersect detailed basins and their rendered granite rims; not canopy thinning or road/traffic change' }, parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, bridgeBents: bridgeBents.report, treeDeckClearance, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, backdropSourceOwnership, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, inferredBuildingDetails: inferredDetailAudit, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     stats.scenerySource = scenerySourceAudit;
+    stats.floatingSupport = { parts: floatingSupport.parts, columns: floatingSupport.columns, grounded: floatingSupport.grounded || 0 };
     stats.medianFill = { quads: medianFill.quads, areaM2: medianFill.areaM2, grass: medianFill.decks.filter(d => d.medianKind === 'grass').length, concrete: medianFill.decks.filter(d => d.medianKind === 'concrete').length, asphalt: medianFill.decks.filter(d => d.medianKind === 'asphalt').length };
     stats.fallbackGround=fallback.report;
     stats.districtBoundary = boundarySupport.report;

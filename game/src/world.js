@@ -1,3 +1,4 @@
+import { sourceWaterTreeConflicts } from './source-water-tree-conflicts.js';
 import { nonShopWindowBands } from './facade-window-bands.js';
 import { sourceTransitShelterDecision } from './source-transit-shelter.js';
 import { projectCoveredWater, prepareFinalWaterGeometry, prepareSmallWaterGroups, consumePreparedSmallWater, waterOwnerSurface, landmarkWaterSurfaces, combineUnderpassWaterOwners } from './final-water-topology.js';
@@ -3466,6 +3467,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     if (distCfg) LANDMARKS = LANDMARKS.filter(l => (distCfg.landmarks ? distCfg.landmarks.includes(l.id) : true) && (l.backdrop || inDistrictLL(l.lat, l.lon, distCfg.landmarks ? 0.022 : 0.004)));
     const landmarks = [], landmarkSourceReplacements = [];
     const landmarkFences = []; // (2026-11-08) fences of landmark grounds, drawn off the streets (below)
+    const landmarkWaterFootprints = [];
     const lmGrounds = []; // (2026-11-08) a landmark's own surfaces (sports grounds): no measured / generated trees on them
     const collisionBoxes = [];
     const lmGroup = new THREE.Group(); lmGroup.name = 'landmarks'; group.add(lmGroup);
@@ -3563,6 +3565,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 } else collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk, hw: cb.hw * lk, hd: cb.hd * lk, angle: cb.angle || 0, r: Math.hypot(cb.hw, cb.hd) * lk, ...bands, poly: null, landmark: lm.id });
             }
             const toW = ([x, z]) => [p.x + x * lk, p.z + z * lk];
+            for (const a of res.waterFootprints || []) landmarkWaterFootprints.push({ ...a, ring: a.ring.map(toW) });
             for (const f of res.fences || []) landmarkFences.push({ ...f, ring: f.ring.map(toW), inside: f.inside ? f.inside.map(toW) : (f.closed ? f.ring.map(toW) : null), gates: (f.gates || []).map(g => ({ ...g, x: p.x + g.x * lk, z: p.z + g.z * lk, w: (g.w || 4) * lk })) });
             for (const g of res.grounds || []) { const q = g.map(toW); lmGrounds.push({ p: q, x0: Math.min(...q.map(v => v[0])), x1: Math.max(...q.map(v => v[0])), z0: Math.min(...q.map(v => v[1])), z1: Math.max(...q.map(v => v[1])) }); }
             for (const g of res.coverPolys || []) { // every OSM building centred inside (a stadium's own stands / boxes)
@@ -4868,7 +4871,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     setProgress('Planting trees…'); await tick();
     // every tree / lamp / prop below is checked against the carriageway ribbons (onRibbon) before it is placed
     const maxTrees = city.id === 'bucharest' ? 32000 : 28000;
-    const treeList = [];
+    const treeList = [], treeBodies = new WeakMap();
     const treeSeen = new Set();
     const exactTreeCentres = new Set();
     const dtSea = US ? city.proj(47.6062, -122.3321) : null, dtBel = US ? city.proj(47.6150, -122.2000) : null;
@@ -4928,6 +4931,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         treeList.push({ x, z, s: sz, species, con: !!isCon, dec: dec ?? (isCon ? 0 : 1), kind, sh }); treeGrid.insert(x, z, x, z, treeList[treeList.length - 1]);
         exactTreeCentres.add(`${x},${z}`);
         addPropColl(x, z, collR, 'tree');
+        treeBodies.set(treeList.at(-1), propColl.at(-1));
         return true;
     };
     // OSM natural=tree / tree_row (real positions, leaf type where tagged)
@@ -4967,13 +4971,21 @@ export async function buildWorld(city, renderer, opts = {}) {
             placeTree(x, z, rng.range(0.8, 1.3), 'garden');
         }
     }
-    const treeCount = treeList.length;
+    const waterTreeConflicts = sourceWaterTreeConflicts(treeList, landmarkWaterFootprints);
+    const treeCount = treeList.length - waterTreeConflicts.excluded.size;
     // instanced trees in district 250 m / legacy 500 m chunks; crowns keep a per-instance colour (instanceColor)
     // so the season / weather code can tint each tree (world.vegetation)
     const vegetation = { treeCrownMeshes: [], treeTrunkMeshes: [], deciduousMask: null, grassMaterials: [], groundMaterials: [], roofMaterials: [], trees: treeList };
     {
         // (2026-11-08) district worlds carry the measured canopy (thousands of real trees): fewer full-detail near trees
-        const T = buildSpeciesTrees(treeList, { rng, cull: distId ? 480 : 550, chunk: distId ? 250 : 500, near: distId ? 60 : 95, maxNear: distId ? 110 : 240, farLayer: 2 }); // smaller district chunks cull off-screen trees precisely; no trees or LOD geometry are removed
+        const T = buildSpeciesTrees(treeList, { rng, cull: distId ? 480 : 550, chunk: distId ? 250 : 500, near: distId ? 60 : 95, maxNear: distId ? 110 : 240, farLayer: 2, exclude: waterTreeConflicts.excluded }); // smaller district chunks cull off-screen trees precisely; no trees or LOD geometry are removed
+        // Generate every instance first so unaffected colours, rotations and RNG stay identical.
+        if (waterTreeConflicts.excluded.size) {
+            const bodies = new Set([...waterTreeConflicts.excluded].map(t => treeBodies.get(t)));
+            treesOSM -= [...waterTreeConflicts.excluded].filter(t => t.kind === 'osm').length;
+            let at = 0; for (const t of treeList) if (!waterTreeConflicts.excluded.has(t)) treeList[at++] = t; treeList.length = at;
+            at = 0; for (const p of propColl) if (!bodies.has(p)) propColl[at++] = p; propColl.length = at;
+        }
         vegetation.treeCrownMeshes.push(...T.crownMeshes); vegetation.treeTrunkMeshes.push(...T.trunkMeshes);
         vegetation.update = T.update;
         vegetation.deciduousMask = new Float32Array(treeList.map(t => t.dec));
@@ -6189,7 +6201,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     graph.edges = driv;
 
     setProgress(''); const phases = PHASES.splice(0);
-    const stats = { parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, backdropSourceOwnership, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
+    const stats = { sourceWaterTreeConflicts: { records: waterTreeConflicts.records, sourceRecordsRetained: true, marginM: 0, scope: 'Physical trunk conflicts with detailed rendered basin rings; not a canopy thinning or road/traffic change' }, parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, backdropSourceOwnership, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, inferredBuildingDetails: inferredDetailAudit, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     stats.scenerySource = scenerySourceAudit;
     stats.fallbackGround=fallback.report;

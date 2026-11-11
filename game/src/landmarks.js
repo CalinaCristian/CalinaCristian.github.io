@@ -1470,7 +1470,9 @@ const FOUNTAIN_RINGS = [
     [558.8,36.02,557.96,35.92,557.13,36.04,556.62,36.28,556.06,36.65,555.84,37.12,555.76,38.07,556.02,38.67,556.4,39.2,557.02,39.46,557.6,39.67,558.41,39.73,558.94,40.9,560.96,41.05,561.26,40.82,561.87,40.33,562.67,40.14,563.91,40.24,564.47,40.4,565.71,40.75,567.14,41.29,568.46,41.55,569.96,41.69,571.41,41.47,572.92,41.24,573.85,40.92,574.84,40.9,576.08,41.13,576.64,41.5,577.22,41.97,580.4,42.21,580.94,41.51,581.52,41.43,582.22,41.22,582.95,40.8,583.37,40.16,583.5,39.53,583.48,39.34,583.34,38.71,583.13,38.31,582.69,37.83,582.15,37.63,581.16,37.62,580.54,36.77,577.92,36.46,577.52,36.9,576.77,37.28,575.94,37.42,574.99,37.36,574.13,37.14,572.91,36.58,571.76,36.08,570.46,35.77,569.29,35.77,567.49,35.87,566.01,36.26,564.86,36.48,563.64,36.36,563.05,36.12,562.19,35.73,561.72,35.26,559.25,35.06], // w1177038219
     [206.12,-9.16,205.64,-9.88,205.4,-10.72,205.42,-11.6,205.71,-12.42,206.24,-13.12,206.94,-13.64,207.78,-13.9,208.65,-13.91,209.49,-13.66,210.21,-13.17,210.77,-12.44,211.08,-11.57,211.08,-10.66,210.8,-9.78,210.26,-9.04,209.5,-8.5,208.63,-8.23,207.71,-8.27,206.84,-8.58], // w413969309
 ];
+const FOUNTAIN_SOURCE_IDS = ["w1177217423", "w1177217420", "w1177026766", "w1177217417", "w1177026763", "w1177042949", "w1177026760", "w1177042946", "w1177023237", "w1177042943", "w1177023234", "w1177038230", "w1177023231", "w1177038227", "w1177023228", "w1177038224", "w1177023225", "w1176581103", "w1177667553", "w1128204284", "w1128204285", "w1176591248", "w1176969066", "w1128204292", "w1128204286", "w1128204287", "w1128204293", "w1176969064", "w1176632036", "w1128204288", "w1128204289", "w1176632037", "w1176969065", "w1177026767", "w1177038207", "w1177026770", "w1177038210", "w1177038202", "w1177038213", "w1177026776", "w1177038216", "w1177026773", "w1177038219", "w413969309"];
 function bFountains(b) {
+    b.waterFootprints = [];
     const P = [], N = [], U = [], CO = [], J = [], I = [];
     const spray = rgb('#eef6fb');
     const add = (g, x, y, z, kind, seed, h) => {               // append a THREE geometry (local) to the jet buffers
@@ -1483,9 +1485,10 @@ function bFountains(b) {
     let n = 0;
     const sa = (q) => { let A = 0; for (let i = 0; i < q.length; i++) { const [x1, z1] = q[i], [x2, z2] = q[(i + 1) % q.length]; A += x1 * z2 - x2 * z1; } return A; };
     const wind = Math.sign(sa(ellipse(0, 0, 2, 1, 8)));
-    for (const flat of FOUNTAIN_RINGS) {
+    for (const [basinIndex, flat] of FOUNTAIN_RINGS.entries()) {
         const ring = []; for (let i = 0; i < flat.length; i += 2) ring.push([flat[i], flat[i + 1]]);
         if (Math.sign(sa(ring)) !== wind) ring.reverse();
+        b.waterFootprints.push({ sourceId: FOUNTAIN_SOURCE_IDS[basinIndex], ring: ring.map(p => [...p]) });
         // principal axis + size of the real basin (OSM outline)
         let cx = 0, cz = 0; for (const [x, z] of ring) { cx += x; cz += z; } cx /= ring.length; cz /= ring.length;
         let sxx = 0, szz = 0, sxz = 0; for (const [x, z] of ring) { sxx += (x - cx) ** 2; szz += (z - cz) ** 2; sxz += (x - cx) * (z - cz); }
@@ -3564,5 +3567,6 @@ export function buildLandmark(lm, ctx = {}) {
         gates: (f.gates || []).map(g => ({ ...g, x: g.x * hs * c + g.z * hs * s, z: -g.x * hs * s + g.z * hs * c })) }));
     const covers = lm.backdrop ? [] : b.covers.map(rot), grounds = lm.backdrop ? [] : b.grounds.map(g => g.map(rot)); // grounds: surfaces kept clear of trees
     const coverPolys = lm.backdrop ? [] : b.coverPolys.map(g => g.map(rot)); // polygons: every OSM building centred inside is the model's own
-    return { mesh: group, clear: hs === 1 ? lm.radiusM : lm.footprintRadius, clearM: lm.radiusM, collision, triangles: tris, authoredScale: hs, fences, covers, grounds, coverPolys };
+    const waterFootprints = lm.backdrop ? [] : (b.waterFootprints || []).map(a => ({ ...a, ring: a.ring.map(rot) }));
+    return { waterFootprints, mesh: group, clear: hs === 1 ? lm.radiusM : lm.footprintRadius, clearM: lm.radiusM, collision, triangles: tris, authoredScale: hs, fences, covers, grounds, coverPolys };
 }

@@ -383,3 +383,5 @@ Floreasca reports4/5 pass foot/a with0high/0medium; two low performance findings
 The GTS team lead stands in the clear central aisle beside the rear desk, instead of intersecting its tabletop and monitor. Native interaction and visual checks are pending.
 
 GTS desk-overlap repair: the overview includes original before/after room views and desktop/390px native conversation checks from sourcee83e9bf1. The actual room layout remains an interpretation; this narrow fix does not certify the full office story route.
+
+Unirii fountain basins now share their detailed source outlines with tree conflict detection. A trunk inside a rendered basin is excluded with its matching collider and an audit record; original source detections remain intact. Trees outside the basin keep their locations, shapes, colours, rotations and random stream. No buffer removes legitimate bank-side trees.

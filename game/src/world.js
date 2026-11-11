@@ -2521,7 +2521,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (let i = 0; i < Math.min(4, k2); i++) { const j = nearA ? i : k2 - 1 - i; out.push(!guardSoft(f, at(j), at(j + 1))); }
             return out; // nearest the node first
         };
-        if (e.bridge && !basarabEdge(data,e)) {
+        if (false && e.bridge && !basarabEdge(data,e)) { // (2026-11-11, L45: drawn from the final collision rails instead, below)
             const sb = bridgeGuard || c.solid;
             for (const s of [1, -1]) {
                 const pa = corner(e, e.a, s, widthAsphalt(e, s) + 0.3, widthAsphalt), pb = corner(e, e.b, s, widthAsphalt(e, s) + 0.3, widthAsphalt);
@@ -3331,6 +3331,17 @@ export async function buildWorld(city, renderer, opts = {}) {
         // draw the concrete separation barriers that survived
         for (const w of walls) {
             if(w.kind==='rail'&&w.edge&&basarabEdge(data,w.edge))drawBasarabGuard(w,cellOf,basarabBlue);
+            // (owner, 2026-11-11, Grozavesti (286, -776): "still broken", barriers on the Exit to Giulesti ramp in chunks) the
+            // parapet of every other bridge is drawn exactly along its final collision rail: one continuous run wherever the
+            // deck has an edge to guard, open exactly where the rail is open (junction mouths, merging decks)
+            else if (w.kind === 'rail' && w.edge && w.edge.bridge && !w.tramDeckRailing) {
+                const L = Math.hypot(w.bx - w.ax, w.bz - w.az); if (L > .05) {
+                    const sb = cellOf((w.ax + w.bx) / 2, (w.az + w.bz) / 2).solid, ta = w.y1a, tb = w.y1b, ba = ta - 1.1, bb = tb - 1.1, ox = -w.nx * .3, oz = -w.nz * .3;
+                    const A0 = [w.ax, ba, w.az], B0 = [w.bx, bb, w.bz], B1 = [w.bx, tb, w.bz], A1 = [w.ax, ta, w.az], A2 = [w.ax + ox, ta, w.az + oz], B2 = [w.bx + ox, tb, w.bz + oz], A3 = [w.ax + ox, ba, w.az + oz], B3 = [w.bx + ox, bb, w.bz + oz];
+                    sb.face4(A0, B0, B1, A1, rgb('#8a939d'), [w.nx, 0, w.nz]); sb.face4(B3, A3, A2, B2, rgb('#9aa3ad'), [-w.nx, 0, -w.nz]); sb.face4(A1, B1, B2, A2, rgb('#b0b8c0'), [0, 1, 0]);
+                    sb.face4(A3, A0, A1, A2, rgb('#9aa3ad'), [-(w.bx - w.ax) / L, 0, -(w.bz - w.az) / L]); sb.face4(B0, B3, B2, B1, rgb('#9aa3ad'), [(w.bx - w.ax) / L, 0, (w.bz - w.az) / L]);
+                }
+            }
             if (w.generatedMedian || w.generatedRoadGuard) {
                 // Exactly the final surviving collision intervals, including
                 // openings at pads and crossing ribbons. Real OSM barriers use

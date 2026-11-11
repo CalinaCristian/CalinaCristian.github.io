@@ -19,7 +19,7 @@ export const BENT_MODEL = Object.freeze({
     parallelDot: .8,
     beamDepthM: 1.3, beamWidthM: 1.6,
     columnM: 1.4, columnPitchM: 8, columnSearchStepM: .5, maxCantileverM: 9,
-    straddleM: 9, maxSpanM: 26, // a portal frame may stand outside the deck edges and span a lower road
+    straddleM: 4, maxSpanM: 26, // a portal frame may stand outside the deck edges and span a lower road
     minBeamSoffitM: 2.4,   // below this a wall pier replaces the crosshead frame
     minWallTopM: 1.2,      // below this the thinning deck fascia already meets the ground
     roadClearanceM: 4.7, railClearanceM: 5.2,

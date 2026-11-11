@@ -151,6 +151,22 @@ function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPa
  const glass=new MeshBuilder(),bands=12,ribs=Math.ceil((s1-s0)/5),roof=(s,k)=>{const theta=k/bands*Math.PI;return at(s,nc-Math.cos(theta)*half,deck+roofEaves+Math.sin(theta)*roofRise);};
  for(let i=0;i<=ribs;i++)for(let j=0;j<bands;j++)bridgeBeam(cellOf,roof(s0+(s1-s0)*i/ribs,j),roof(s0+(s1-s0)*i/ribs,j+1),.105,'#dce6e7',colliders);
  for(let j=1;j<bands;j+=2)bridgeBeam(cellOf,roof(s0,j),roof(s1,j),.075,'#dce6e7',colliders);
+ // The canopy hung in the air: its hoops ended 3.8 m above the platforms with nothing below. An eaves beam now runs along
+ // each side and a vertical post stands under every second hoop, footed on the platform inside its outer edge and meeting
+ // the hoop above it (ESTIMATE of form, like the roof). The foot moves inward until it has deck under it and the post is
+ // clear of every road and tram volume; a post that finds no such place is left out and listed.
+ report.roofPosts=0;report.roofPostsOmitted=[];
+ for(const j of[0,bands])bridgeBeam(cellOf,roof(s0,j),roof(s1,j),.14,'#dce6e7',colliders);
+ for(let i=0;i<=ribs;i+=2)for(const side of[-1,1]){
+  const s=s0+(s1-s0)*i/ribs;let placed=false,why='no-deck-under-foot';
+  for(const inset of[.6,1,1.4,1.8]){
+   const t=nc+side*(half-inset),foot=at(s,t,0),ground=supportAt?supportAt(foot[0],foot[2],deck):deck;if(ground===null||ground===undefined)continue;
+   const top=at(s,t,deck+roofEaves+Math.sqrt(Math.max(0,1-((half-inset)/half)**2))*roofRise),base=[foot[0],ground,foot[2]],lift=[foot[0],ground+.35,foot[2]];
+   if(!cableClearance(lift,top,roads,trams,.1).clear||(tramSweep&&cableInTramSweep(tramSweep,lift,top,.12))){why='road-or-tram-volume';continue;}
+   bridgeBeam(cellOf,base,top,.16,'#dce6e7',colliders);report.roofPosts++;placed=true;break;
+  }
+  if(!placed)report.roofPostsOmitted.push({s,side,reason:why});
+ }
  for(let i=0;i<ribs;i++)for(let j=0;j<bands;j++){const sa=s0+(s1-s0)*i/ribs,sb=s0+(s1-s0)*(i+1)/ribs,A=roof(sa,j),B=roof(sb,j),C=roof(sb,j+1),D=roof(sa,j+1);glass.face4(A,B,C,D,rgb('#aacbd8'),[n[0],1,n[1]]);colliders.push(roofPaneCollider(A,B,D));}
  if(group){const mesh=new THREE.Mesh(glass.build(),new THREE.MeshStandardMaterial({vertexColors:true,transparent:true,opacity:.2,roughness:.34,metalness:.08,depthWrite:false,side:THREE.DoubleSide}));mesh.name='Basarab mapped-platform station roof (estimated section)';mesh.castShadow=false;mesh.receiveShadow=true;group.add(mesh);}
  // Twin 80m legs with upper crossbeams and sixty fan stays. Their longitudinal

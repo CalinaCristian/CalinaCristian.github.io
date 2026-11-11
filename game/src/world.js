@@ -45,7 +45,7 @@ import { emittedTramClearance } from './tram-clearance.js';
 import { inferredRoadSignUnit } from './inferred-road-sign.js';
 import { bridgeJunctionSlab, inferredBridgeFasciaUpstand } from './bridge-junction.js';
 import { planBridgeBents, BENT_MODEL } from './bridge-bents.js';
-import { basarabEdge, buildBasarabStructure, drawBasarabGuard } from './basarab-structure.js';
+import { basarabEdge, buildBasarabStructure, drawBasarabGuard, bridgeBeam } from './basarab-structure.js';
 import { coveredPlatformCanopies } from './covered-platform-canopies.js';
 import { BASARAB_PLATFORMS } from './basarab-source.js';
 import { raisedRoadTriangles } from './basarab-anchor-clearance.js';
@@ -3073,6 +3073,31 @@ export async function buildWorld(city, renderer, opts = {}) {
         };
         genBarriers(); cutWalls(); genBarriers(); cutWalls();
         genBarriers(); cutWalls(); // last sweep: barriers only where a car would still drop / step, and never standing in a lane
+        // The inferred barrier is built pad by pad, and each piece stops 0.3-0.6 m short of its pad's end: along a deck that
+        // left a see-through slot at every source node (233 on Grozavesti). Two pieces of one line, at one height, whose
+        // ends are less than 1.4 m apart are joined at the middle of the gap, unless a surface continues at their level
+        // just beyond it (a real mouth stays open).
+        const barrierJoins = walls.barrierJoins = { joined: 0, keptOpen: 0 }; // (read again for the build statistics)
+        for (let round = 0, before = -1; round < 4 && barrierJoins.joined !== before; round++) { // (pieces of the three sweeps overlap: an end can be taken by another pair first)
+            before = barrierJoins.joined;
+            const ends = [], eg = new BoxGrid(8), unit = w => { const L = Math.hypot(w.bx - w.ax, w.bz - w.az) || 1; return [(w.bx - w.ax) / L, (w.bz - w.az) / L]; };
+            for (const w of walls) if (w.kind === 'barrier' && w.inferred === true) for (const end of [0, 1]) { const q = { w, end, x: end ? w.bx : w.ax, z: end ? w.bz : w.az, y0: end ? w.y0b : w.y0a, y1: end ? w.y1b : w.y1a, done: false }; ends.push(q); eg.insert(q.x, q.z, q.x, q.z, q); }
+            for (const a of ends) {
+                if (a.done) continue; let best = null; const da = unit(a.w);
+                eg.each(a.x - 1.4, a.z - 1.4, a.x + 1.4, a.z + 1.4, b => {
+                    if (b.w === a.w || b.done) return; const dx = b.x - a.x, dz = b.z - a.z, d = Math.hypot(dx, dz), db = unit(b.w);
+                    if (d < .02 || d > 1.4 || (best && d >= best.d) || Math.abs(da[0] * db[0] + da[1] * db[1]) < .94 || Math.abs(dx * da[1] - dz * da[0]) > .35 || Math.abs(a.y0 - b.y0) > .3) return;
+                    // the gap lies beyond this end, not back along the piece
+                    if ((dx * da[0] + dz * da[1]) * (a.end ? 1 : -1) < 0) return;
+                    best = { d, b };
+                });
+                if (!best) continue;
+                const b = best.b, mx = (a.x + b.x) / 2, mz = (a.z + b.z) / 2, own = (a.y0 + b.y0) / 2 + .45 - Y.road;
+                if ((surfaceAt(mx - a.w.nx * .6, mz - a.w.nz * .6, a.w.edge).items || []).some(([h, par]) => Math.abs(h - own) < (par ? .3 : .45))) { barrierJoins.keptOpen++; continue; }
+                for (const q of [a, b]) { const w = q.w; if (q.end) { w.bx = mx; w.bz = mz; } else { w.ax = mx; w.az = mz; } w.x = (w.ax + w.bx) / 2; w.z = (w.az + w.bz) / 2; w.r = Math.hypot(w.bx - w.ax, w.bz - w.az) / 2 + .3; q.done = true; }
+                barrierJoins.joined++;
+            }
+        }
         // These barriers are inferred, not source barrier records. Clip only
         // bounded pieces conflicting with a known source rail's actual fleet.
         const railClearWalls = [];
@@ -4063,6 +4088,24 @@ export async function buildWorld(city, renderer, opts = {}) {
         // under its high end. A pier is under the slab that carries that tram, so its collider ends below that reading;
         // the drawn pier is unchanged and nothing but the tram above could reach the difference.
         const pierTop = (x, z, r, seat) => { const under = tramSweep ? tramSweep.undersideOver(x, z, r, p => p.y >= seat - .5) : Infinity; if (under - .05 < seat - .5) tramSweepConflicts.pierTopsLowered++; return Math.min(seat - .5, under - .05); };
+        // A single-column bent with a wide crosshead becomes a V: two inclined legs from the column's own footing. Only
+        // where both legs keep the planner's clearance over whatever passes under them (4.7 m road, 5.2 m rail), touch no
+        // building, water or mapped tree and stay out of a tram's sweep; otherwise the plain stem stays. ESTIMATE of form.
+        const veeLegs = b => {
+            if (!basarabStructure.report.active) return null; // (the Basarab district only; other districts keep the plain stems they were reviewed with)
+            if (b.kind !== 'crosshead' || b.columns.length !== 1 || b.width < 6 || b.soffit < 3.5) return null;
+            const c = b.columns[0], mid = (b.lo + b.hi) / 2, spread = Math.min(b.hi - c.o - .9, c.o - b.lo - .9, Math.max(1.6, b.soffit * .22));
+            if (!(spread >= 1.2)) return null;
+            const foot = [c.x, .3, c.z], tops = [c.o - spread, c.o + spread].map(o => [b.x + b.nx * (o - mid), b.soffit + .15, b.z + b.nz * (o - mid)]);
+            for (const top of tops) for (const t of [.2, .4, .6, .8, 1]) {
+                const x = foot[0] + (top[0] - foot[0]) * t, y = foot[1] + (top[1] - foot[1]) * t, z = foot[2] + (top[2] - foot[2]) * t;
+                if (buildingAt(x, z) || isWater(x, z) || sourceTreeNear(x, z, 1.3)) return null;
+                const under = lowerSurface(x, z, y - .2);
+                if (under && y - .7 - under.y < (under.rail ? BENT_MODEL.railClearanceM : BENT_MODEL.roadClearanceM)) return null;
+                if (tramSweep?.circle(x, z, .7, y - .7, y + .7, q => q.y < b.seat - .5)) return null;
+            }
+            return { foot, tops, spread };
+        };
         for (const b of bridgeBents.bents) {
             const sb = cellOf(b.x, b.z).solid;
             if (b.kind === 'wall') {
@@ -4073,6 +4116,16 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
             sb.box(b.x, b.soffit, b.z, b.width + .6, BENT_MODEL.beamDepthM, BENT_MODEL.beamWidthM, b.angle, conc);
             for (const p of b.pedestals) sb.box(p.x, p.y0, p.z, p.width, p.y1 - p.y0, 1, b.angle, conc);
+            const vee = veeLegs(b);
+            if (vee) {
+                // one footing, two inclined legs to the crosshead (the single stem of a hammerhead pier, opened into a V)
+                const c = b.columns[0];
+                sb.box(c.x, base, c.z, 2.4, .7 - base, 1.5, b.angle, conc);
+                pierColl.push({ x: c.x, z: c.z, hw: 1.2, hd: .75, angle: b.angle, r: 1.45, poly: null, h: .7, prop: true, kind: 'pier' });
+                for (const top of vee.tops) bridgeBeam(cellOf, vee.foot, top, .95, '#a9a69e', pierColl, 'pier');
+                b.vee = { spreadM: vee.spread, foot: vee.foot, tops: vee.tops }; bridgeBents.report.veePiers = (bridgeBents.report.veePiers || 0) + 1;
+                continue;
+            }
             for (const c of b.columns) {
                 const m = BENT_MODEL.columnM;
                 sb.box(c.x, base, c.z, m, b.soffit - base, m, b.angle, conc);
@@ -4122,6 +4175,43 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (run) emit(run);
         }
         for (const k of ['lengthM', 'outboardM', 'sweptEdgeM']) tramRailings[k] = Math.round(tramRailings[k]);
+    }
+    // ---- elevated carriageway edges left without a guard. The guard builder leaves an edge open where another road
+    //      surface continues at its level just beyond (a junction mouth, a merging ramp). Where two ramps part, that
+    //      neighbour is only a sliver at the very edge and the drop begins behind it: 12 m of Pasajul Basarab at 9 m had
+    //      no guard at all. Every elevated Basarab edge is walked once more: where nothing continues at its level 1.2 m
+    //      beyond its outer edge and no wall stands within 1.6 m, the same guard is added.
+    const guardCompletion = { basis: 'Pasajul Basarab: elevated edge with open air beyond and no wall within 1.6 m', samples: 0, addedM: 0, runs: [], sweptM: 0 };
+    {
+        const wg = new BoxGrid(16); for (const w of walls) if (w.wall && w.kind !== 'boundary') wg.insert(Math.min(w.ax, w.bx) - 1.6, Math.min(w.az, w.bz) - 1.6, Math.max(w.ax, w.bx) + 1.6, Math.max(w.az, w.bz) + 1.6, w);
+        const guarded = (x, z, y) => { let hit = false; wg.each(x, z, x, z, w => { if (hit) return; const dx = w.bx - w.ax, dz = w.bz - w.az, t = clamp(((x - w.ax) * dx + (z - w.az) * dz) / (dx * dx + dz * dz || 1), 0, 1); if (Math.hypot(x - w.ax - dx * t, z - w.az - dz * t) > 1.6) return; if (w.y1a + (w.y1b - w.y1a) * t > y + .4 && w.y0a + (w.y0b - w.y0a) * t < y + .6) hit = true; }); return hit; };
+        const level = (x, z, y) => { let found = false; surfacesAt(x, z, h => { if (Math.abs(h - y) < 1.2) found = true; }); return found; };
+        for (const e of edges) {
+            // Pasajul Basarab only. The same walk reports long unguarded elevated edges on Departures Drive (SeaTac) and at
+            // Otopeni; those decks belong to terminal assemblies with their own bodies and were not examined here.
+            if (!e.bridge || e.virtual || e.tunnel || !(Math.min(e.ya, e.yb) > 1.5) || !basarabEdge(data, e)) continue;
+            for (const side of [1, -1]) {
+                const outer = widthSide(e, side), off = widthAsphalt(e, side) + .3, at = (s, o) => [e.a.x + e.dirx * s + e.nx * side * o, e.a.z + e.dirz * s + e.nz * side * o];
+                let run = null;
+                const flush = () => {
+                    if (!run) return; const [s0, s1] = run; run = null;
+                    const [ax, az] = at(s0, off), [bx, bz] = at(s1, off), ya = Y.road + yAlong(e, ax, az), yb = Y.road + yAlong(e, bx, bz), len = Math.hypot(bx - ax, bz - az);
+                    let base = 2.2; // the builder's band for a bridge guard; above a tram passing below as for every other guard
+                    if (tramSweep) { while (base > .2 && tramSweep.segment([ax, az], [bx, bz], .05, Math.min(ya, yb) - base - .3, Math.max(ya, yb) + 1.1)) base -= 1; if (tramSweep.segment([ax, az], [bx, bz], .05, Math.min(ya, yb) - base - .3, Math.max(ya, yb) + 1.1)) { guardCompletion.sweptM += len; return; } }
+                    const w = { wall: true, completed: true, ax, az, bx, bz, y0a: ya - base, y1a: ya + 1.1, y0b: yb - base, y1b: yb + 1.1, yr: undefined, nx: -e.nx * side, nz: -e.nz * side, kind: 'rail', edge: e, x: (ax + bx) / 2, z: (az + bz) / 2, r: len / 2 + .3, hw: 0, hd: 0, angle: 0, poly: null, h: 1, ta: s0 / e.len, tb: s1 / e.len };
+                    walls.push(w); if (basarabEdge(data, e)) drawBasarabGuard(w, cellOf);
+                    guardCompletion.addedM += len; if (guardCompletion.runs.length < 40) guardCompletion.runs.push({ edgeId: e.id, road: e.road, name: e.name || null, side, from: [ax, az], to: [bx, bz], y: (ya + yb) / 2 });
+                };
+                for (let s = 1; s < e.len; s += 2) {
+                    const [bx, bz] = at(s, 0), y = Y.road + yAlong(e, bx, bz), [ox, oz] = at(s, outer + 1.2), [ex, ez] = at(s, outer);
+                    guardCompletion.samples++;
+                    if (level(ox, oz, y) || guarded(ex, ez, y)) { flush(); continue; }
+                    if (run) run[1] = Math.min(e.len, s + 1); else run = [Math.max(0, s - 1), Math.min(e.len, s + 1)];
+                }
+                flush();
+            }
+        }
+        guardCompletion.addedM = Math.round(guardCompletion.addedM * 10) / 10; guardCompletion.sweptM = Math.round(guardCompletion.sweptM * 10) / 10;
     }
     const treeClear = []; // (after round 6) {x, z, r}: no trees here (fuel forecourts)
     const addPropColl = (x, z, r, kind = 'prop') => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h: 3, prop: true, kind });
@@ -5297,6 +5387,30 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (lampNear(x, z, osmLamps.length > 300 ? 17 : 10) || buildingAt(x, z) || onRibbon(x, z, 0.35)) continue;
         addLamp({ x, z, h: hh, rot: ang, y: 0.15 + ly, osm: false });
     }
+    // ---- Pasajul Basarab deck lamps. The generic rule above keeps no lamp on a deck (its spot is on the carriageway
+    //      ribbon), so the whole structure was unlit. One arc lamp stands in the guard line about every 30 m along each
+    //      guarded outer edge of the road decks: ESTIMATED positions and form (a white post curving in over the deck).
+    //      None inside a tram's sweep or touching a stay, pylon, arch or roof member.
+    const basarabLamps = { basis: 'MODEL: estimated arc lamps in the guard line of the Basarab road decks, about every 30 m', lamps: 0, skippedStructure: 0, skippedTram: 0 };
+    if (basarabStructure.report.active) {
+        const along = new Map(), members = basarabStructure.colliders.filter(c => c.minHeightAt && c.roofHeightAt), H = 9, STEP = 30;
+        const touches = (x, z, y0, y1) => members.some(c => { if (Math.abs(x - c.x) > c.r + .5 || Math.abs(z - c.z) > c.r + .5 || !pointInPolygon(x, z, c.poly)) return false; const lo = c.minHeightAt(x, z, .4), hi = c.roofHeightAt(x, z, .4); return lo !== null && hi !== null && hi > y0 && lo < y1; });
+        for (const w of walls) {
+            if (!w.wall || w.kind !== 'rail' || !w.edge || w.tramDeckRailing || !basarabEdge(data, w.edge)) continue;
+            const side = w.nx * w.edge.nx + w.nz * w.edge.nz < 0 ? 1 : -1, key = w.edge.road + '|' + side, len = Math.hypot(w.bx - w.ax, w.bz - w.az);
+            let cum = along.get(key) ?? STEP * .5;
+            for (let d = STEP - cum; d <= len; d += STEP) {
+                const t = len ? d / len : 0, x = w.ax + (w.bx - w.ax) * t, z = w.az + (w.bz - w.az) * t, y = w.y1a + (w.y1b - w.y1a) * t - 1.1;
+                if (!(y > 2) || lampNear(x, z, 14)) continue;
+                if (tramSweep?.circle(x, z, .2, y, y + H) || tramGrades.excludesInferredObstacle([x, z], [x, z], { inferred: true, bodyEnvelope: tramPropEnvelope, radiusM: .18, y0a: y, y1a: y + H, kind: 'inferred-deck-lamp' })) { basarabLamps.skippedTram++; continue; }
+                if ([0, 1.2, 2.5].some(o => touches(x + w.nx * o, z + w.nz * o, y + (o ? 6.5 : 1.2), y + H + .4))) { basarabLamps.skippedStructure++; continue; }
+                const l = { x, z, y, h: H, rot: Math.atan2(-w.nz, w.nx), osm: false, arc: true };
+                lamps.push(l); lampGrid.insert(x, z, x, z, l); basarabLamps.lamps++;
+                propColl.push({ x, z, r: .18, hw: .18, hd: .18, angle: 0, poly: null, prop: true, kind: 'lamp', inferred: true, y, h: H, top: y + H, y0: y - .3, y1: y + H });
+            }
+            along.set(key, (cum + len) % STEP);
+        }
+    }
     // street furniture from OSM (benches, bins, bollards, post boxes, hydrants, …) — never on a carriageway
     let furnCount = 0;
     {
@@ -5595,6 +5709,16 @@ export async function buildWorld(city, renderer, opts = {}) {
         toGeo(mergeProps([bakeProp(pole, { y: 4, sy: 8 }), bakeProp(new THREE.BoxGeometry(1, 1, 1), { x: 0.9, y: 7.9, sx: 1.9, sy: 0.12, sz: 0.12 })]), postGeo);
         toGeo(bakeProp(new THREE.BoxGeometry(1, 1, 1), { x: 1.8, y: 7.78, sx: 0.75, sy: 0.16, sz: 0.34 }), headGeo);
     }
+    const arcPostGeo = new THREE.BufferGeometry(), arcHeadGeo = new THREE.BufferGeometry();
+    {
+        // unit height 8 like the street lamp (scaled by h / 8): a straight post to 5.6, then three chords curving in to 2.1 m
+        const toGeo = (p, g) => { g.setAttribute('position', new THREE.BufferAttribute(p.pos, 3)); g.setAttribute('normal', new THREE.BufferAttribute(p.nor, 3)); g.setIndex(new THREE.BufferAttribute(p.index, 1)); };
+        const pts = [[0, 5.6], [.3, 6.7], [.95, 7.5], [1.95, 7.9]], parts = [bakeProp(new THREE.CylinderGeometry(0.075, 0.12, 1, 5), { y: 2.8, sy: 5.6 })];
+        for (let i = 1; i < pts.length; i++) { const [x0, y0] = pts[i - 1], [x1, y1] = pts[i], L = Math.hypot(x1 - x0, y1 - y0); parts.push(bakeProp(new THREE.BoxGeometry(L + .06, .13, .13), { x: (x0 + x1) / 2, y: (y0 + y1) / 2, rz: Math.atan2(y1 - y0, x1 - x0) })); }
+        toGeo(mergeProps(parts), arcPostGeo);
+        toGeo(bakeProp(new THREE.BoxGeometry(1, 1, 1), { x: 2.3, y: 7.84, sx: 0.8, sy: 0.14, sz: 0.34 }), arcHeadGeo);
+    }
+    const ARC_MAX = lamps.filter(l => l.arc).length || 1;
     const LAMP_MAX = Math.min(lamps.length, 6000) || 1;
     const lampPostMesh = new THREE.InstancedMesh(postGeo, new THREE.MeshLambertMaterial({ color: '#4a4f57' }), LAMP_MAX);
     const lampHeadMesh = new THREE.InstancedMesh(headGeo, new THREE.MeshStandardMaterial({ color: '#f4f1e6', emissive: '#000000', emissiveIntensity: 1, roughness: 0.4 }), LAMP_MAX);
@@ -5602,17 +5726,23 @@ export async function buildWorld(city, renderer, opts = {}) {
     lampPostMesh.castShadow = true; lampPostMesh.frustumCulled = false; lampHeadMesh.frustumCulled = false;
     lampPostMesh.count = lampHeadMesh.count = 0;
     group.add(lampPostMesh, lampHeadMesh);
+    const arcPostMesh = new THREE.InstancedMesh(arcPostGeo, new THREE.MeshLambertMaterial({ color: '#dfe4e3' }), ARC_MAX), arcHeadMesh = new THREE.InstancedMesh(arcHeadGeo, lampHeadMesh.material, ARC_MAX);
+    arcPostMesh.name = 'lampArcPosts'; arcHeadMesh.name = 'lampArcHeads'; arcPostMesh.castShadow = true; arcPostMesh.frustumCulled = false; arcHeadMesh.frustumCulled = false;
+    arcPostMesh.count = arcHeadMesh.count = 0;
+    if (lamps.some(l => l.arc)) group.add(arcPostMesh, arcHeadMesh);
     const _lm = new THREE.Matrix4(), _lq = new THREE.Quaternion(), _lp = new THREE.Vector3(), _ls = new THREE.Vector3(), _ly = new THREE.Vector3(0, 1, 0);
     const fillLamps = (vx, vz, R) => {
-        let n = 0;
+        let n = 0, na = 0;
         lampGrid.each(vx - R, vz - R, vx + R, vz + R, (l) => {
-            if (n >= LAMP_MAX || Math.abs(l.x - vx) > R || Math.abs(l.z - vz) > R) return;
+            if (Math.abs(l.x - vx) > R || Math.abs(l.z - vz) > R || (l.arc ? na >= ARC_MAX : n >= LAMP_MAX)) return;
             const k = l.h / 8;
             _lm.compose(_lp.set(l.x, l.y, l.z), _lq.setFromAxisAngle(_ly, l.rot), _ls.set(k, k, k));
-            lampPostMesh.setMatrixAt(n, _lm); lampHeadMesh.setMatrixAt(n, _lm); n++;
+            if (l.arc) { arcPostMesh.setMatrixAt(na, _lm); arcHeadMesh.setMatrixAt(na, _lm); na++; }
+            else { lampPostMesh.setMatrixAt(n, _lm); lampHeadMesh.setMatrixAt(n, _lm); n++; }
         });
-        lampPostMesh.count = lampHeadMesh.count = n;
+        lampPostMesh.count = lampHeadMesh.count = n; arcPostMesh.count = arcHeadMesh.count = na;
         lampPostMesh.instanceMatrix.needsUpdate = true; lampHeadMesh.instanceMatrix.needsUpdate = true;
+        arcPostMesh.instanceMatrix.needsUpdate = true; arcHeadMesh.instanceMatrix.needsUpdate = true;
     };
     void P;
     // parked cars on surface parking lots
@@ -6493,6 +6623,9 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.tramPropEnvelope = tramPropEnvelope;
     stats.tramSweep = tramSweep ? { ...tramSweep.report, conflicts: tramSweepConflicts } : null;
     stats.tramRailings = tramRailings;
+    stats.bridgeGuardCompletion = guardCompletion;
+    stats.basarabLamps = basarabLamps;
+    stats.barrierJoins = walls.barrierJoins || null;
     stats.coveredRoadModels = coveredRoadModels.report;
     stats.underpassRoofs = { estimated: true, ownerIndex: underpassOwners.report, roofTriangles: underpassCover.ic / 3, colliders: underpassColl.length,
         models: underpassRoofAudit.map(({ edge, ...record }) => ({ ...record, edgeId: edge.id })) };

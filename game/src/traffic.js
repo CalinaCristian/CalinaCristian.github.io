@@ -2609,7 +2609,7 @@ const CLOTHES_S = ['#1f2937', '#334155', '#0f766e', '#1d4ed8', '#4b5563', '#7c2d
  * large legacy maps always have; beyond the second distance every fourth frame. The stride never makes a step longer
  * than 0.08 s, so at 30 fps both tiers step every other frame and below 25 fps nothing is thinned. Nothing is removed and
  * nothing nearer than the first distance changes. */
-const DISTRICT_LOD_VEHICLE_M = 250, DISTRICT_LOD_VEHICLE_FAR_M = 450, DISTRICT_LOD_WALKER_M = 160, DISTRICT_LOD_WALKER_FAR_M = 320;
+const DISTRICT_LOD_VEHICLE_M = 160, DISTRICT_LOD_VEHICLE_FAR_M = 380, DISTRICT_LOD_WALKER_M = 160, DISTRICT_LOD_WALKER_FAR_M = 320;
 const lodStride = (tier, dt) => tier ? Math.max(1, Math.min(tier === 2 ? 4 : 2, Math.floor(0.08 / dt + 1e-6))) : 1;
 /** Walkers are drawn between their simulated positions (writeMatrices), so at 45 fps and above even a near walker is
  * simulated every other frame and a far one every fourth; a walk of 1.3 m/s is a few centimetres per step either way. */

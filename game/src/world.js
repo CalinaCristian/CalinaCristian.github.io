@@ -5917,6 +5917,22 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
             along.set(key, (cum + len) % STEP);
         }
+        // (reality check, Pasajul Basarab west ramp, Street View 2026-11-11) tall curved twin-arm lamps stand on the median
+        // between the carriageways: two arc lamps back to back on the filled medians, about every 30 m (form estimated)
+        const twins = [];
+        for (const d of medianFill.decks) {
+            if (d.medianKind === 'asphalt') continue;
+            const x = d.x, z = d.z, y = d.roofHeightAt(x, z), skip = r => { (basarabLamps.medianSkipped ??= {})[r] = (basarabLamps.medianSkipped[r] || 0) + 1; };
+            if (!(y > .3)) { skip('low'); continue; } if (!pointInPolygon(x, z, d.poly)) { skip('outside'); continue; } if (twins.some(q => Math.hypot(q[0] - x, q[1] - z) < 28)) { skip('spacing'); continue; }
+            const ne = nearestEdge(x, z, null, 20); if (!ne) { skip('no-edge'); continue; } const e = ne.edge, MH = 10;
+            if (tramSweep?.circle(x, z, .25, y, y + MH) || [0, 1.5, 2.6].some(o => [1, -1].some(sg => touches(x + e.nx * o * sg, z + e.nz * o * sg, y + (o ? 7 : 1.2), y + MH + .4)))) { basarabLamps.skippedStructure++; continue; }
+            // an ordinary inferred lamp standing on this median gives way (Street View: the median carries the twin-arm lamps)
+            for (let i = lamps.length - 1; i >= 0; i--) { const q = lamps[i]; if (q.osm === false && !q.arc && Math.hypot(q.x - x, q.z - z) < 16 && pointInPolygon(q.x, q.z, d.poly)) { lamps.splice(i, 1); basarabLamps.medianOrdinaryReplaced = (basarabLamps.medianOrdinaryReplaced || 0) + 1; } }
+            twins.push([x, z]);
+            for (const sg of [1, -1]) { const l = { x, z, y, h: MH, rot: Math.atan2(-e.nz * sg, e.nx * sg), osm: false, arc: true, twin: true }; lamps.push(l); lampGrid.insert(x, z, x, z, l); }
+            propColl.push({ x, z, r: .2, hw: .2, hd: .2, angle: 0, poly: null, prop: true, kind: 'lamp', inferred: true, y, h: MH, top: y + MH, y0: y - .3, y1: y + MH });
+            basarabLamps.medianTwin = (basarabLamps.medianTwin || 0) + 1;
+        }
     }
     // street furniture from OSM (benches, bins, bollards, post boxes, hydrants, …) — never on a carriageway
     let furnCount = 0;

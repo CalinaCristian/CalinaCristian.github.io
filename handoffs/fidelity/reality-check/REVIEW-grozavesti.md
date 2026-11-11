@@ -14,10 +14,9 @@ What Street View established on 2026-11-11 (and the game now follows):
 - Calea Griviței at the south-west link ramp foot and Șos. Pipera under Podul Barbu Văcărescu (Pipera) are at street
   level.
 
-| Viewpoint | Open finding |
-| --- | --- |
-| tall curved twin-arm lamps on the west ramp median | the median now carries the ordinary lamps of the carriageways |
-| grz-deck-west-span | matches (Șos. Orhideelor beside the viaduct on single piers, parking beneath); the capture tool puts the `top` eye on the ground here because the panorama point lies beside the deck, not on it |
+No open finding. Fixed from this review: twin-arm lamps on the west ramp median and the steel-blue girder under the river
+arch (BACKLOG, "Fixed on branch"). The capture tool puts a `top` eye on the ground where the panorama point lies beside
+the deck, not on it (grz-deck-west-span: matches; Șos. Orhideelor beside the viaduct on single piers, parking beneath).
 
 All 19 viewpoints rendered 2026-11-11 (`capture.cjs --district=grozavesti`). Compared with the panorama: grz-pasaj-west-cet,
 grz-pasaj-west-start (matches: two lanes, grass median, parallel road, bollards, ramp rising ahead), grz-pasaj-west-overpass,

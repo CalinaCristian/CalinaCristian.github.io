@@ -1,0 +1,608 @@
+{
+  "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+  "scope": "Whole source mall and Macy part footprint plus conservative180m shadow margin. Refresh all16 published ground condition views;426street views already explicitly historical. Isolated model studies separately refreshed; Lincoln Square tourist scene shares this model and is separately refreshed; Downtown Park uses separate scenery. UiPath office window faces east, away from the mall.",
+  "boundsXZ": [
+    -954.6716,
+    -490.8807,
+    -336.30010000000004,
+    237.3441
+  ],
+  "items": [
+    {
+      "id": "aerial-r04-c03",
+      "label": "Row 4 · Column 3",
+      "row": 4,
+      "column": 3,
+      "lat": 47.617874365619265,
+      "lon": -122.20666005377196,
+      "x": -874.9999999995217,
+      "z": -375.00000000021555,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "ring-touches",
+      "sourceRingMinDistanceM": 60.72266804437186,
+      "boundsXZ": [
+        -1000,
+        -500,
+        -750,
+        -250
+      ],
+      "gameSourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 87,
+        "triangles": 197877
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-11T02:57:01.494Z",
+      "gamePath": "retakes/mall-7593b636/atlas/aerial-r04-c03.png",
+      "image": "retakes/mall-7593b636/atlas/aerial-r04-c03.png",
+      "thumbnail": "retakes/mall-7593b636/atlas/aerial-r04-c03.png",
+      "sha256": "84d35e39e1c61caff25e9f2e0d24fe02241bf84818ddcdd17fef323f6ce560a6",
+      "width": 640,
+      "height": 640,
+      "dataset": "atlas",
+      "thumbnailSha256": "84d35e39e1c61caff25e9f2e0d24fe02241bf84818ddcdd17fef323f6ce560a6",
+      "captureType": "source-snapshot",
+      "boundsWgs84": [
+        47.61674957707951,
+        -122.20832577573938,
+        47.61899915415902,
+        -122.20499433180454
+      ],
+      "coverageType": "ring-touches",
+      "orientation": "north-up",
+      "places": [],
+      "sourceNote": "Current native recapture after source mall envelope and entrance correction.",
+      "sourceCaptureManifest": "retakes/mall-7593b636/atlas-capture.json",
+      "district": "bellevue"
+    },
+    {
+      "id": "aerial-r04-c04",
+      "label": "Row 4 · Column 4",
+      "row": 4,
+      "column": 4,
+      "lat": 47.617874365619265,
+      "lon": -122.20332860983711,
+      "x": -625.0000000001154,
+      "z": -375.00000000021555,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -189.27733195562814,
+      "boundsXZ": [
+        -750,
+        -500,
+        -500,
+        -250
+      ],
+      "coverageType": "core-touches",
+      "orientation": "north-up",
+      "places": [],
+      "gameSourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 92,
+        "triangles": 145808
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-11T02:57:05.096Z",
+      "gamePath": "retakes/mall-7593b636/atlas/aerial-r04-c04.png",
+      "image": "retakes/mall-7593b636/atlas/aerial-r04-c04.png",
+      "thumbnail": "retakes/mall-7593b636/atlas/aerial-r04-c04.png",
+      "sha256": "6a7e82dd9611554e04a229cbf380352c164038afafe6bc23b7e9b9f15e408622",
+      "width": 640,
+      "height": 640,
+      "dataset": "atlas",
+      "thumbnailSha256": "6a7e82dd9611554e04a229cbf380352c164038afafe6bc23b7e9b9f15e408622",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        47.61674957707951,
+        -122.20499433180454,
+        47.61899915415902,
+        -122.20166288786969
+      ],
+      "sourceCaptureManifest": "retakes/mall-7593b636/atlas-capture.json",
+      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+      "sourceNote": "Current native recapture after source mall envelope and entrance correction.",
+      "district": "bellevue"
+    },
+    {
+      "id": "aerial-r04-c05",
+      "label": "Row 4 · Column 5",
+      "row": 4,
+      "column": 5,
+      "lat": 47.617874365619265,
+      "lon": -122.19999716590226,
+      "x": -374.9999999996427,
+      "z": -375.00000000021555,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -200,
+      "boundsXZ": [
+        -500,
+        -500,
+        -250,
+        -250
+      ],
+      "coverageType": "core-touches",
+      "orientation": "north-up",
+      "places": [
+        "lincoln-source-anchor"
+      ],
+      "gameSourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 102,
+        "triangles": 170531
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-11T02:57:08.002Z",
+      "gamePath": "retakes/mall-7593b636/atlas/aerial-r04-c05.png",
+      "image": "retakes/mall-7593b636/atlas/aerial-r04-c05.png",
+      "thumbnail": "retakes/mall-7593b636/atlas/aerial-r04-c05.png",
+      "sha256": "acad8db5256138cfc6db7682a4453aa002b55b586d368dce84c0770b2d3df608",
+      "width": 640,
+      "height": 640,
+      "dataset": "atlas",
+      "thumbnailSha256": "acad8db5256138cfc6db7682a4453aa002b55b586d368dce84c0770b2d3df608",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        47.61674957707951,
+        -122.20166288786969,
+        47.61899915415902,
+        -122.19833144393485
+      ],
+      "sourceCaptureManifest": "retakes/mall-7593b636/atlas-capture.json",
+      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+      "sourceNote": "Current native recapture after source mall envelope and entrance correction.",
+      "district": "bellevue"
+    },
+    {
+      "id": "aerial-r05-c03",
+      "label": "Row 5 · Column 3",
+      "row": 5,
+      "column": 3,
+      "lat": 47.615624788539755,
+      "lon": -122.20666005377196,
+      "x": -874.9999999995217,
+      "z": -125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "ring-touches",
+      "sourceRingMinDistanceM": 66.13312490763246,
+      "boundsXZ": [
+        -1000,
+        -250,
+        -750,
+        0
+      ],
+      "gameSourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 92,
+        "triangles": 180200
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-11T02:57:10.231Z",
+      "gamePath": "retakes/mall-7593b636/atlas/aerial-r05-c03.png",
+      "image": "retakes/mall-7593b636/atlas/aerial-r05-c03.png",
+      "thumbnail": "retakes/mall-7593b636/atlas/aerial-r05-c03.png",
+      "sha256": "b5f54b495879c3651e956beb6db758c70fbc692fb12381aa02d88f892366d4c7",
+      "width": 640,
+      "height": 640,
+      "dataset": "atlas",
+      "thumbnailSha256": "b5f54b495879c3651e956beb6db758c70fbc692fb12381aa02d88f892366d4c7",
+      "captureType": "source-snapshot",
+      "boundsWgs84": [
+        47.6145,
+        -122.20832577573938,
+        47.61674957707951,
+        -122.20499433180454
+      ],
+      "coverageType": "ring-touches",
+      "orientation": "north-up",
+      "places": [],
+      "sourceNote": "Current native recapture after source mall envelope and entrance correction.",
+      "sourceCaptureManifest": "retakes/mall-7593b636/atlas-capture.json",
+      "district": "bellevue"
+    },
+    {
+      "id": "aerial-r05-c04",
+      "label": "Row 5 · Column 4",
+      "row": 5,
+      "column": 4,
+      "lat": 47.615624788539755,
+      "lon": -122.20332860983711,
+      "x": -625.0000000001154,
+      "z": -125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -145.54353894242152,
+      "boundsXZ": [
+        -750,
+        -250,
+        -500,
+        0
+      ],
+      "gameSourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 93,
+        "triangles": 143263
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-11T02:57:12.978Z",
+      "gamePath": "retakes/mall-7593b636/atlas/aerial-r05-c04.png",
+      "image": "retakes/mall-7593b636/atlas/aerial-r05-c04.png",
+      "thumbnail": "retakes/mall-7593b636/atlas/aerial-r05-c04.png",
+      "sha256": "f04634aa7d1d9cfe8c4028d25e3ebdec849429bef128220f2f72795fd8706d9e",
+      "width": 640,
+      "height": 640,
+      "dataset": "atlas",
+      "thumbnailSha256": "f04634aa7d1d9cfe8c4028d25e3ebdec849429bef128220f2f72795fd8706d9e",
+      "captureType": "source-snapshot",
+      "boundsWgs84": [
+        47.6145,
+        -122.20499433180454,
+        47.61674957707951,
+        -122.20166288786969
+      ],
+      "coverageType": "core-touches",
+      "orientation": "north-up",
+      "places": [
+        "bellevuesq-source-anchor"
+      ],
+      "sourceNote": "Current native recapture after source mall envelope and entrance correction.",
+      "sourceCaptureManifest": "retakes/mall-7593b636/atlas-capture.json",
+      "district": "bellevue"
+    },
+    {
+      "id": "aerial-r05-c05",
+      "label": "Row 5 · Column 5",
+      "row": 5,
+      "column": 5,
+      "lat": 47.615624788539755,
+      "lon": -122.19999716590226,
+      "x": -374.9999999996427,
+      "z": -125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -146.60964000003588,
+      "boundsXZ": [
+        -500,
+        -250,
+        -250,
+        0
+      ],
+      "gameSourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 99,
+        "triangles": 131952
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-11T02:57:15.853Z",
+      "gamePath": "retakes/mall-7593b636/atlas/aerial-r05-c05.png",
+      "image": "retakes/mall-7593b636/atlas/aerial-r05-c05.png",
+      "thumbnail": "retakes/mall-7593b636/atlas/aerial-r05-c05.png",
+      "sha256": "6a88c089349aaa9d582cb385335df8b71775e2a4be30793728d07cf7163cdf47",
+      "width": 640,
+      "height": 640,
+      "dataset": "atlas",
+      "thumbnailSha256": "6a88c089349aaa9d582cb385335df8b71775e2a4be30793728d07cf7163cdf47",
+      "captureType": "source-snapshot",
+      "boundsWgs84": [
+        47.6145,
+        -122.20166288786969,
+        47.61674957707951,
+        -122.19833144393485
+      ],
+      "coverageType": "core-touches",
+      "orientation": "north-up",
+      "places": [
+        "onelincoln-source-anchor",
+        "lincolnsouth-source-anchor"
+      ],
+      "sourceNote": "Current native recapture after source mall envelope and entrance correction.",
+      "sourceCaptureManifest": "retakes/mall-7593b636/atlas-capture.json",
+      "district": "bellevue"
+    },
+    {
+      "id": "aerial-r06-c03",
+      "label": "Row 6 · Column 3",
+      "row": 6,
+      "column": 3,
+      "lat": 47.613375211460244,
+      "lon": -122.20666005377196,
+      "x": -874.9999999995217,
+      "z": 125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "ring-touches",
+      "sourceRingMinDistanceM": 177.4916780346773,
+      "boundsXZ": [
+        -1000,
+        0,
+        -750,
+        250
+      ],
+      "gameSourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 100,
+        "triangles": 209083
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-11T02:57:19.654Z",
+      "gamePath": "retakes/mall-7593b636/atlas/aerial-r06-c03.png",
+      "image": "retakes/mall-7593b636/atlas/aerial-r06-c03.png",
+      "thumbnail": "retakes/mall-7593b636/atlas/aerial-r06-c03.png",
+      "sha256": "4a1cab67db779e04b9829cc5613c2122b647c0c5304d64ff138c7f79c31b79f7",
+      "width": 640,
+      "height": 640,
+      "dataset": "atlas",
+      "thumbnailSha256": "4a1cab67db779e04b9829cc5613c2122b647c0c5304d64ff138c7f79c31b79f7",
+      "captureType": "source-snapshot",
+      "boundsWgs84": [
+        47.61225042292049,
+        -122.20832577573938,
+        47.6145,
+        -122.20499433180454
+      ],
+      "coverageType": "ring-touches",
+      "orientation": "north-up",
+      "places": [],
+      "posePlanSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "sourceNote": "Current native recapture after source mall envelope and entrance correction.",
+      "sourceCaptureManifest": "retakes/mall-7593b636/atlas-capture.json",
+      "district": "bellevue"
+    },
+    {
+      "id": "aerial-r06-c04",
+      "label": "Row 6 · Column 4",
+      "row": 6,
+      "column": 4,
+      "lat": 47.613375211460244,
+      "lon": -122.20332860983711,
+      "x": -625.0000000001154,
+      "z": 125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "ring-touches",
+      "sourceRingMinDistanceM": 49.14478400016682,
+      "boundsXZ": [
+        -750,
+        0,
+        -500,
+        250
+      ],
+      "gameSourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 102,
+        "triangles": 190314
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-11T02:57:22.087Z",
+      "gamePath": "retakes/mall-7593b636/atlas/aerial-r06-c04.png",
+      "image": "retakes/mall-7593b636/atlas/aerial-r06-c04.png",
+      "thumbnail": "retakes/mall-7593b636/atlas/aerial-r06-c04.png",
+      "sha256": "4942b9587fb2a32209cdecd5bba21372d89285a6a19ff6b339de41d57a35f7b5",
+      "width": 640,
+      "height": 640,
+      "dataset": "atlas",
+      "thumbnailSha256": "4942b9587fb2a32209cdecd5bba21372d89285a6a19ff6b339de41d57a35f7b5",
+      "captureType": "source-snapshot",
+      "boundsWgs84": [
+        47.61225042292049,
+        -122.20499433180454,
+        47.6145,
+        -122.20166288786969
+      ],
+      "coverageType": "ring-touches",
+      "orientation": "north-up",
+      "places": [],
+      "posePlanSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "sourceNote": "Current native recapture after source mall envelope and entrance correction.",
+      "sourceCaptureManifest": "retakes/mall-7593b636/atlas-capture.json",
+      "district": "bellevue"
+    },
+    {
+      "id": "aerial-r06-c05",
+      "label": "Row 6 · Column 5",
+      "row": 6,
+      "column": 5,
+      "lat": 47.613375211460244,
+      "lon": -122.19999716590226,
+      "x": -374.9999999996427,
+      "z": 125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "ring-touches",
+      "sourceRingMinDistanceM": 49.144803439983406,
+      "boundsXZ": [
+        -500,
+        0,
+        -250,
+        250
+      ],
+      "gameSourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 98,
+        "triangles": 128045
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-11T02:57:25.160Z",
+      "gamePath": "retakes/mall-7593b636/atlas/aerial-r06-c05.png",
+      "image": "retakes/mall-7593b636/atlas/aerial-r06-c05.png",
+      "thumbnail": "retakes/mall-7593b636/atlas/aerial-r06-c05.png",
+      "sha256": "1c92aa840fe861335ef115db89747522f4b0c47f724f32c6c283290d0b3f233c",
+      "width": 640,
+      "height": 640,
+      "dataset": "atlas",
+      "thumbnailSha256": "1c92aa840fe861335ef115db89747522f4b0c47f724f32c6c283290d0b3f233c",
+      "captureType": "source-snapshot",
+      "boundsWgs84": [
+        47.61225042292049,
+        -122.20166288786969,
+        47.6145,
+        -122.19833144393485
+      ],
+      "coverageType": "ring-touches",
+      "orientation": "north-up",
+      "places": [],
+      "sourceNote": "Current native recapture after source mall envelope and entrance correction.",
+      "sourceCaptureManifest": "retakes/mall-7593b636/atlas-capture.json",
+      "district": "bellevue"
+    }
+  ]
+}

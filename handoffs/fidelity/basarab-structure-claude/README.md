@@ -21,6 +21,30 @@ not available (see "Not available"), publication and live verification by the in
 To keep master linear, cherry-pick `c82b1fa5`, `dda67f21`, `d538aaad` and `576adda5` in that order; the merge commits
 (`6c07fd94`, `02562dea`) carry no change of their own.
 
+## Update 4 · owner feedback on the structure, crowd at (713, -982), performance (2026-11-11)
+
+The owner inspected this branch on the local preview and sent screenshots and one F8 report.
+
+| owner said | what was wrong | now |
+| --- | --- | --- |
+| "this looks weird" | one crosshead reached 9 m past the deck to a leg on the far sidewalk, at (564, -832) | a portal leg stands at most 4 m outside the deck; that bent is gone |
+| "fix all holes" | the inferred concrete edge barrier stopped short at every source node: 233 see-through slots on the decks | pieces of one line meet (762 joins); none left |
+| "roof is floating" | the station canopy's hoops ended 3.8 m above the platforms | eaves beams and 21 posts on the platforms |
+| "people getting stuck here" | relocation filled sidewalks to the last standing cell; 431 of 560 walkers on one 2.1 km fragment | walkers brought in to 35 % of the cells: not moving in 30 s 129 -> 68, piles of 10-11 -> 4-9. **Reduced, not cured.** |
+| "performance is very bad in grozavesti" | traffic step 25 ms of a 27 ms frame | **not fixed**: pedestrian update 9 -> 6 ms only. Needs distant vehicles and walkers updated less often. |
+
+Also in this round: the last unguarded elevated Basarab edge closed (12 m near (869, -1093)); 21 V piers and 92 arc deck
+lamps (estimated form); an exception fixed that stopped the simulation step when a walker stood near a moving tram on the
+Basarab track (reachable only since the trams run).
+
+Budget, High and Ultra, traffic and mirror, 117 driver poses: max 365 draw calls, 1.46 M triangles (2.7 % headroom).
+Evidence: `evidence/after-owner-feedback.jpg`. Checks: 68 unit tests, built-world bridge check on all eight districts,
+tram sweep audit on Grozăvești and Romana, foot/a 0 high / 0 medium. `tram-progress-check` passes on Romana; on Grozăvești
+this round's run met the known fork hold (tram 491 at the estimated ramp slab `w314447163`), which is still open.
+
+Found, not changed: long elevated edges without a wall by the same audit on Departures Drive (SeaTac, 935 m) and at
+Otopeni (415 m), in terminal assemblies that belong to other packs.
+
 ## Update 3 · trams run, tram railings (2026-11-10)
 
 The owner asked for both: fix the held trams, and the Basarab details.

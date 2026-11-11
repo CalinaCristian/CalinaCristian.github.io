@@ -300,6 +300,42 @@ generated body in the sweep; lists the rest) and `tram-progress-check.cjs` (pass
 the fork above, the pedestrian side (42-47 % of the step, about 300 refused pedestrian steps per step), junction waits,
 driven journeys and a frame-rate measurement on real hardware.
 
+### Walkers brought in to a walking density; a tram-and-walker exception · 2026-11-11 (owner reports 6-9, 18, 37-39, 67: in progress)
+
+Owner inspection report at (713, -982) on Grozavesti: "people getting stuck here", and "performance is very bad"
+(30 fps at automatic low quality, `trafficUpdateMs` 25 of a 27 ms frame, 586 vehicles and 560 pedestrians).
+
+Cause of the crowd. In a district every walker farther than 230 m from the player is relocated to within 45-200 m, and
+relocation filled each sidewalk to its last standing cell (three abreast every 1.8 m on a 3.5 m sidewalk). The walkable
+network is in fragments (bridges and service roads carry no walkers): at that spot 431 of the 560 walkers ended up on one
+2.1 km fragment along Soseaua Orhideelor, with several sidewalks at 100 % of their cells. Two streams of solid bodies
+cannot pass at that density: at the crossing node (684, -896), 34 people within 5 m had 39 % of their steps refused, all
+by each other (no static body, no vehicle).
+
+Change: relocation brings walkers in only up to 35 % of a sidewalk's standing cells (`WALK_FILL`). The rest stay where
+they are, spread over the district. Measured with the player at the reported position, 180 simulated seconds:
+
+| | before | with the limit |
+| --- | --- | --- |
+| walkers within 230 m | 419 | 257 |
+| walkers that moved less than 2 m in 30 s | 129 | 68 |
+| largest pile (people within 1.5 m of one person) | 10-11 | 4-9 |
+| refused walker steps per simulation step | about 200 | about 75 |
+| pedestrian update per step | 8.8-9.4 ms | 6.0-6.5 ms |
+
+It is a reduction, not a cure: small piles still form where streams meet at a crossing, and the walkers that walk in by
+themselves raise the count again over time.
+
+**An exception that stopped the simulation step.** `Pedestrians.vehicleStepClearsPerson` places a copy of a vehicle one
+step ahead; its stand-in mesh had no geometry, and a tram on a graded slab is fitted to its actual geometry, so
+`placeOnLane` threw ("missing-actual-emitted-tram-support-geometry") whenever a walker stood near a moving tram on the
+Basarab track. Unreachable while the trams stood still; reached once they ran. The stand-in now carries the tram's
+geometry and scale.
+
+**Performance is not fixed.** The traffic step is still 15-27 ms at that spot (pedestrians about 6 ms of it). A frame rate
+on the owner's hardware needs the whole step near 8 ms: that takes updating distant vehicles and walkers less often, which
+has not been started. The fork hold of the estimated tram ramp was met in this round's 180 s check (tram 491).
+
 ### Reviewed finite source bridge descents
 
 `compileSourceBridgeDescents(data, { coreEdges, lanePolygon, padLanePolygon })` is a pure, registry-driven association. It retains literal source geometry, direction and tags; it requires the reviewed incoming/outgoing at-grade source joins and complete source-node metric coverage. Numeric elevations or inclines, changed context, missing native joins or infeasible grades return an explicit unresolved report. A MODEL ground datum is not a surveyed elevation.

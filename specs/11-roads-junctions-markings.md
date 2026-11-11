@@ -120,10 +120,35 @@ Railing and walkway are estimates, like the slab width they stand on. Frame budg
 driver poses on and under the structure: at most 360 draw calls and 1,441,066 triangles (targets 400 / 1.5 M, about 4 %
 triangle headroom). Evidence: `handoffs/fidelity/basarab-structure-claude/evidence/after-tram-railings.jpg`.
 
+**Owner feedback on the structure, 2026-11-10/11 (inspection reports from this branch's preview).**
+
+- *"Fix all holes."* The inferred concrete edge barrier is built pad by pad and each piece stopped 0.3-0.6 m short of its
+  pad's end: a see-through slot at every source node along the decks (233 between elevated pieces on Grozavesti). Pieces
+  of one line at one height whose ends are less than 1.4 m apart now meet at the middle of the gap, unless a surface
+  continues at their level just beyond it (762 joins in the district, none refused; no gap of that kind is left between
+  elevated pieces).
+- *"Roof is floating."* The station canopy's hoops ended 3.8 m above the platforms with nothing under them. An eaves beam
+  runs along each side and a vertical post stands under every second hoop, footed on the platform inside its outer edge
+  and clear of every road and tram volume (21 of 22 posts; the one at the far end has no deck under it and is omitted).
+- *"This looks weird"* (a crosshead reaching 9 m past the deck to a leg on the far sidewalk, at (564, -832)). A portal leg
+  may now stand at most 4 m outside the deck edge (`BENT_MODEL.straddleM`, was 9); that bent is gone and no other changed.
+- Also closed: the last elevated Basarab edge without a guard (12 m at 9 m height near (869, -1093), where two ramps part and
+  the guard builder took a sliver of the neighbouring ramp for a continuing road). The same walk reports long unguarded
+  elevated edges on Departures Drive (SeaTac, 935 m) and at Otopeni (415 m); those belong to terminal assemblies with their
+  own bodies and were not examined or changed.
+- Form, estimated: 21 of the 38 single-column bents are V piers (two inclined legs from one footing, only where both legs
+  keep 4.7 m over a road and 5.2 m over a rail and touch no building, water, mapped tree or tram sweep); 92 arc lamps
+  stand in the guard line of the road decks about every 30 m (the generic lamp rule keeps no lamp on a deck, so the
+  structure was unlit), as their own instanced model sharing the lit lamp material.
+
+Grozavesti now: 64 crosshead bents and 3 wall piers on 104 columns, 5 portal frames. Frame budget with traffic and mirror,
+117 driver poses: at most **365 draw calls and 1,459,757 triangles at High, 365 and 1,459,906 at Ultra** (targets 400 /
+1.5 M; 2.7 % triangle headroom). Evidence: `handoffs/fidelity/basarab-structure-claude/evidence/after-owner-feedback.jpg`.
+
 Controls: `node --test game/dev/bridge-bents.test.mjs` (planner rules on synthetic decks) and
 `node game/dev/harness/bridge-bents-check.cjs . <out> <city> <district>` (built-world facts: columns on free ground,
 crosshead clearance, collider count, slot infill, no bent under a carried span, every stay anchored). Neither is a visual or
-driving acceptance. Still open for reports 12-17: three short unguarded deck edges, the
+driving acceptance. Still open for reports 12-17: the
 remaining lower-ramp pieces, the open slot at the north-east end of the station, the station lift tower, the real inclined
 ramp piers and lamp posts, full both-direction journeys with tram/bus clearance, Ultra, and the original report cameras.
 

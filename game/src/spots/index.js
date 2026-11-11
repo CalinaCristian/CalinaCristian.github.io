@@ -13,6 +13,7 @@ import { MENU_ORDER, MENU_AVAILABLE, RECOMMENDED_SPOTS, PARK_WALKS } from '../sp
 export { MENU_AVAILABLE } from '../spot-availability.js';
 import { Ground, Painter, buildTerrain } from './ground.js';
 import { buildWillows } from './willow.js';
+import { patchSpotFacade } from '../facade-detail.js';
 import { paintOSM, buildBuildings, buildTrees, buildLamps, buildFurniture, roadLampPoints, streetTrees, areaTrees, waterPlane, polyCollider, streetBands, carriagewayTest } from './osm.js';
 import { Crowd } from './people.js';
 import { SpotUI, SpotMap, plaqueMesh } from './ui.js';
@@ -246,6 +247,8 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         const sp0 = Object.values(ctx.spawns)[0] || data.spots[data.members[0]].spawn; trees.update(sp0.x, sp0.z);
     }
     ctx.add(trees.group); ctx.colliders.push(...trees.colliders); ctx.crownMeshes.push(...trees.crowns);
+    // facade surface detail (stone, rusticated bases, panel joints, plaster) on every facade material of the spot
+    ctx.scene.traverse((o) => { for (const m of !o.material ? [] : Array.isArray(o.material) ? o.material : [o.material]) patchSpotFacade(m); });
     // note 29: no lamp post or tree inside a carriageway (scene points included; `keepOnRoad: true` keeps a deliberate one)
     { const n0 = ctx.lampPoints.length;
         if (!globalThis.__spotsLegacy) ctx.lampPoints = ctx.lampPoints.filter((p) => p.noPost || p.keepOnRoad || !ctx.onRoad(p.x, p.z, 0.25));

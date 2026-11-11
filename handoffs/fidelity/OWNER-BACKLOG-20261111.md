@@ -51,6 +51,7 @@ States: **fixed on branch** (implemented and checked in the probe; not published
 
 | L36 | Pike Place, Space Needle | (found in the spot pass) "Could not open the spot" on this branch | fixed on branch | osm.js is hashed into the Seattle source-context cache; restored byte for byte, willows and the facade frame moved to their own modules; new test guards the hashed scripts |
 | L37 | Space Needle | (found in the spot pass) a dark slab 5.6 m over the spawn | fixed on branch | OSM way 241876407 is a glass canopy (building=roof, material=glass); drawn as clear glass on a steel edge with posts |
+| L38 | Everywhere | "improve all buildings to make them look nicer (the generic ones too and other landmarks if they fit)" | fixed on branch | facade-detail.js: plaster, ashlar, rusticated bases, panel joints and base grime on world and spot facades; masonry on ten stone-fronted landmarks |
 
 ### Spot pass, 11 November (probe captures at the spawn, four directions, 25 m ahead, above)
 

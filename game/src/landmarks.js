@@ -154,14 +154,15 @@ function materials() {
     // the monument: 0.62 m courses, 1.24 m blocks, every other course shifted half a block, a slight tint per block. Only on
     // pale stone (not the dark, gilt or coloured parts) and only on walls; the joints fade out with distance. Sizes are
     // estimates of the Rușchița marble cladding.
-    const flm = new THREE.MeshLambertMaterial({ vertexColors: true, emissive: new THREE.Color('#ffd7a3'), emissiveIntensity: 0 });
-    flm.name = 'landmark-floodlit-masonry'; Object.assign(flm.userData, fl.userData);
-    flm.onBeforeCompile = (sh) => {
-        fl.onBeforeCompile(sh);
-        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vMsL; varying vec3 vMsN;')
-            .replace('#include <begin_vertex>', '#include <begin_vertex>\nvMsL = position; vMsN = objectNormal;');
-        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec3 vMsL; varying vec3 vMsN;')
-            .replace('#include <color_fragment>', `#include <color_fragment>
+    const masonry = (base, name) => {
+        const mm = new THREE.MeshLambertMaterial({ vertexColors: true, emissive: base.emissive.clone(), emissiveIntensity: base.emissiveIntensity });
+        mm.name = name; Object.assign(mm.userData, base.userData);
+        mm.onBeforeCompile = (sh) => {
+            base.onBeforeCompile?.(sh);
+            sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vMsL; varying vec3 vMsN;')
+                .replace('#include <begin_vertex>', '#include <begin_vertex>\nvMsL = position; vMsN = objectNormal;');
+            sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec3 vMsL; varying vec3 vMsN;')
+                .replace('#include <color_fragment>', `#include <color_fragment>
             {
                 vec3 an = abs(normalize(vMsN)); float lum = 1.0;
                 #ifdef USE_COLOR
@@ -178,9 +179,12 @@ function materials() {
                     diffuseColor.rgb *= mix(1.0, (0.955 + 0.07 * id) * (1.0 - 0.3 * max(jy, ju)), fade);
                 }
             }`);
+        };
+        mm.customProgramCacheKey = () => name;
+        return mm;
     };
-    flm.customProgramCacheKey = () => 'landmark-floodlit-masonry';
-    MATS.flm = flm;
+    MATS.flm = masonry(fl, 'landmark-floodlit-masonry');
+    MATS.mm = masonry(MATS.m, 'landmark-masonry');
     // night-lit accent (e.g. the blue-lit rim of the UPB Rectorat dome): vertex-coloured Lambert + emissive eased by render.js
     const nb = new THREE.MeshLambertMaterial({ vertexColors: true, emissive: new THREE.Color('#3f7fff'), emissiveIntensity: 0 });
     nb.name = 'landmark-nightlight'; nb.userData.nightEmissive = 2.2; nb.userData.nightGlow = 2.2; nb.userData.dayGlow = 0;
@@ -594,7 +598,7 @@ class Builder {
         let tris = 0;
         for (const [k0, b] of Object.entries(this.bk)) {
             if (!b.p.length) continue;
-            const k = k0 === 'm' && o.floodlit ? (o.masonry ? 'flm' : 'fl') : k0;
+            const k = k0 === 'm' ? (o.floodlit ? (o.masonry ? 'flm' : 'fl') : o.masonry ? 'mm' : 'm') : k0;
             const g = new THREE.BufferGeometry();
             g.setAttribute('position', new THREE.Float32BufferAttribute(b.p, 3));
             g.setAttribute('normal', new THREE.Float32BufferAttribute(b.n, 3));
@@ -3495,18 +3499,18 @@ function L(id, city, name, osmNames, radius, fn, extra = {}) {
  */
 export const LANDMARKS = [
     // ---- Bucharest ----
-    L('parliament', 'bucharest', 'Palatul Parlamentului', ['Palatul Parlamentului', 'Casa Poporului'], 175, bParliament, { floodlit: true }),
-    L('cathedral', 'bucharest', 'Catedrala Mântuirii Neamului', ['Catedrala Națională', 'Catedrala Mântuirii Neamului', 'Catedrala Mântuirii Neamului Românesc'], 70, bCathedral, { floodlit: true }),
+    L('parliament', 'bucharest', 'Palatul Parlamentului', ['Palatul Parlamentului', 'Casa Poporului'], 175, bParliament, { floodlit: true, masonry: true }),
+    L('cathedral', 'bucharest', 'Catedrala Mântuirii Neamului', ['Catedrala Națională', 'Catedrala Mântuirii Neamului', 'Catedrala Mântuirii Neamului Românesc'], 70, bCathedral, { floodlit: true, masonry: true }),
     L('arcul', 'bucharest', 'Arcul de Triumf', ['Arcul de Triumf'], 18, bArcul, { floodlit: true, masonry: true }),
     L('casapresei', 'bucharest', 'Casa Presei Libere', ['Casa Presei Libere', 'Casa Scînteii'], 160, bCasaPresei),
     L('grandhotel', 'bucharest', 'Grand Hotel Bucharest (ex-InterContinental)', ['Grand Hotel Bucharest', 'InterContinental', 'Hotel InterContinental'], 40, bGrandHotel),
-    L('univ', 'bucharest', 'Palatul Universității', ['Universitatea din București', 'Palatul Universității'], 110, bUniv, { floodlit: true }),
+    L('univ', 'bucharest', 'Palatul Universității', ['Universitatea din București', 'Palatul Universității'], 110, bUniv, { floodlit: true, masonry: true }),
     L('tnb', 'bucharest', 'Teatrul Național București', ['Teatrul Național', 'Teatrul Național București', 'Teatrul Național „Ion Luca Caragiale”'], 95, bTNB),
-    L('ateneu', 'bucharest', 'Ateneul Român', ['Ateneul Român'], 38, bAteneu, { floodlit: true }),
-    L('regal', 'bucharest', 'Palatul Regal (MNAR)', ['Palatul Regal', 'Muzeul Național de Artă al României'], 130, bRegal, { floodlit: true }),
-    L('victoria', 'bucharest', 'Palatul Victoria', ['Palatul Victoria'], 58, bVictoria, { floodlit: true }),
-    L('cec', 'bucharest', 'Palatul CEC', ['Palatul Casei de Economii şi Consemnaţiuni', 'Palatul CEC'], 36, bCEC, { floodlit: true }),
-    L('mnir', 'bucharest', 'Muzeul Național de Istorie a României', ['Palatul Poștelor', 'Muzeul Național de Istorie a României'], 70, bMNIR, { floodlit: true }),
+    L('ateneu', 'bucharest', 'Ateneul Român', ['Ateneul Român'], 38, bAteneu, { floodlit: true, masonry: true }),
+    L('regal', 'bucharest', 'Palatul Regal (MNAR)', ['Palatul Regal', 'Muzeul Național de Artă al României'], 130, bRegal, { floodlit: true, masonry: true }),
+    L('victoria', 'bucharest', 'Palatul Victoria', ['Palatul Victoria'], 58, bVictoria, { floodlit: true, masonry: true }),
+    L('cec', 'bucharest', 'Palatul CEC', ['Palatul Casei de Economii şi Consemnaţiuni', 'Palatul CEC'], 36, bCEC, { floodlit: true, masonry: true }),
+    L('mnir', 'bucharest', 'Muzeul Național de Istorie a României', ['Palatul Poștelor', 'Muzeul Național de Istorie a României'], 70, bMNIR, { floodlit: true, masonry: true }),
     L('marriott', 'bucharest', 'JW Marriott Grand Hotel', ['JW Marriott', 'JW Marriott Bucharest Grand Hotel'], 75, bMarriott),
     L('unirea', 'bucharest', 'Unirea Shopping Center', ['Unirea Shopping Center'], 115, bUnirea),
     L('fountains', 'bucharest', 'Fântânile din Piața Unirii', [], 0, bFountains),
@@ -3517,7 +3521,7 @@ export const LANDMARKS = [
     L('promenada', 'bucharest', 'Promenada Mall', ['Promenada Mall'], 95, bPromenada),
     L('baneasasc', 'bucharest', 'Băneasa Shopping City', ['Băneasa Shopping City'], 190, bBaneasaSC),
     L('romexpo', 'bucharest', 'Romexpo', ['Romexpo'], 65, bRomexpo),
-    L('aviatorilor', 'bucharest', 'Monumentul Eroilor Aerului', ['Monumentul Eroilor Aerului'], 8, bAviatorilor),
+    L('aviatorilor', 'bucharest', 'Monumentul Eroilor Aerului', ['Monumentul Eroilor Aerului'], 8, bAviatorilor, { masonry: true }),
     L('gara', 'bucharest', 'Gara de Nord', ['Gara de Nord'], 120, bGara),
     L('opera', 'bucharest', 'Opera Națională București', ['Opera Națională'], 70, bOpera),
     L('politehnica', 'bucharest', 'Rectoratul Politehnicii', ['Rectorat Universitatea Politehnica din București'], 30, bPolitehnica, { cvStop: 'upb', ownSign: true, floodlit: true, sourceIds: ['w28240552', 'w1217715300'] }),
@@ -3525,7 +3529,7 @@ export const LANDMARKS = [
     L('baneasaterm', 'bucharest', 'Aeroportul Băneasa (terminal 1952)', ['Aeroportul Internațional Aurel Vlaicu'], 75, bBaneasaTerm),
     L('otp', 'bucharest', 'Aeroportul Henri Coandă', ['Aeroportul Otopeni Henri Coandă - Plecări', 'Aeroportul Otopeni Henri Coandă - Sosiri', 'Terminalul Vioara'], 230, bOTP),
     L('ase', 'bucharest', 'ASE — Palatul Ion N. Angelescu', ['Clădirea Ion N. Angelescu', 'Academia de Studii Economice'], 0, bASE, { ownSign: true }),
-    L('ambasador', 'bucharest', 'Hotel Ambasador', ['Hotel Ambasador'], 30, bAmbasador, { floodlit: true }),
+    L('ambasador', 'bucharest', 'Hotel Ambasador', ['Hotel Ambasador'], 30, bAmbasador, { floodlit: true, masonry: true }),
     L('aro', 'bucharest', 'Blocul ARO / Patria', ['Bl. ARO/Patria', 'Hanul Elias - Patria'], 32, bARO),
     L('thelandmark', 'bucharest', 'The Landmark (UiPath HQ)', ['The Landmark Corp B'], 25, bTheLandmark, { cvStop: 'uipath-buc', ownSign: true }),
     L('europehouse', 'bucharest', 'Europe House', ['Europe House'], 24, bEuropeHouse, { cvStop: 'arnia', ownSign: true }),

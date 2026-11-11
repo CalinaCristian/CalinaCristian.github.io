@@ -56,6 +56,7 @@ import { buildCoveredRoadModels } from './covered-road-models.js';
 import { roadMiter, needsRoadBevelPad } from './road-joins.js';
 import { markingArea, clipMarkingHalfPlane, clipMarkingConvex, subtractMarkingConvex, clipAffineMarkingRange, buildMarkingStations, markingDashIntervals } from './road-markings.js';
 import { decodeDistrictMask, buildSourceBoundarySupport, normalizeSourceMapEnds, districtMaskSegments } from './district-boundary.js';
+import { FACADE_DETAIL_GLSL } from './facade-detail.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -348,7 +349,7 @@ function solidMaterial(atlas) {
     m.onBeforeCompile = (sh) => {
         sh.uniforms.winTexel = { value: 4 / atlas.image.width }; sh.uniforms.nightMap = { value: night }; sh.uniforms.winMap = { value: win }; sh.uniforms.uClosed = m.userData.uClosed;
         sh.vertexShader = 'attribute float tile;\nvarying float vTileRaw;\nvarying float vWY;\n' + sh.vertexShader.replace('#include <uv_vertex>', '#include <uv_vertex>\n\tvTileRaw = tile;').replace('#include <begin_vertex>', '#include <begin_vertex>\n\tvWY = (modelMatrix * vec4(transformed, 1.0)).y;');
-        sh.fragmentShader = 'varying float vTileRaw;\nvarying float vWY;\nuniform sampler2D nightMap;\nuniform sampler2D winMap;\nuniform float winTexel;\nuniform float uClosed;\nfloat fh1(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }\nfloat fvn(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f); return mix(mix(fh1(i), fh1(i + vec2(1, 0)), f.x), mix(fh1(i + vec2(0, 1)), fh1(i + vec2(1, 1)), f.x), f.y); }\n' + sh.fragmentShader.replace('#include <map_fragment>', `
+        sh.fragmentShader = FACADE_DETAIL_GLSL + '\nconst vec2 FD_GRID[16] = vec2[16](vec2(2.,2.),vec2(3.,2.),vec2(4.,2.),vec2(4.,2.),vec2(4.,2.),vec2(3.,1.),vec2(1.,1.),vec2(1.,1.),vec2(3.,2.),vec2(3.,2.),vec2(2.,2.),vec2(4.,2.),vec2(2.,4.),vec2(2.,1.),vec2(1.,1.),vec2(4.,1.));\nconst float FD_KIND[16] = float[16](2.,2.,1.,3.,-1.,0.,-1.,0.,2.,2.,1.,3.,-1.,0.,-1.,4.);\n' + 'varying float vTileRaw;\nvarying float vWY;\nuniform sampler2D nightMap;\nuniform sampler2D winMap;\nuniform float winTexel;\nuniform float uClosed;\nfloat fh1(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }\nfloat fvn(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f); return mix(mix(fh1(i), fh1(i + vec2(1, 0)), f.x), mix(fh1(i + vec2(0, 1)), fh1(i + vec2(1, 1)), f.x), f.y); }\n' + sh.fragmentShader.replace('#include <map_fragment>', `
     float isGlass = 0.0, winFar = 1.0, glassOpen = 0.0; vec3 roomCol = vec3(0.0);
 #ifdef USE_MAP
     // Derivatives are evaluated before divergent window branches, in the current draw camera's view frame.
@@ -410,6 +411,16 @@ function solidMaterial(atlas) {
             bool old = abs(vTile - 1.0) < 0.1 || abs(vTile - 9.0) < 0.1 || abs(vTile - 3.0) < 0.1 || abs(vTile - 11.0) < 0.1;
             if (old) g *= 0.94 + 0.12 * smoothstep(0.35, 0.75, fvn(vMapUv * vec2(1.7, 2.3) + vTile));
             diffuseColor.rgb *= mix(g, 1.0, winFar * 0.6);
+            // stone, rusticated base, panel joints, plaster tone by facade type (facade-detail.js; owner, 2026-11-11: "improve
+            // all buildings"). Metres along / up the wall from the facade's own UV derivatives (taken above, outside branches).
+            int fdT = int(vTile + 0.5); float fdK = (fdT >= 0 && fdT < 16) ? FD_KIND[fdT] : -1.0;
+            if (fdK > -0.5) {
+                vec2 fdG = FD_GRID[fdT];
+                float fdDet = uvDx.x * uvDy.y - uvDx.y * uvDy.x, fdInv = 1.0 / (abs(fdDet) > 1e-12 ? fdDet : 1e-12);
+                float mU = length((facadeDx * uvDy.y - facadeDy * uvDx.y) * fdInv), mV = length((facadeDy * uvDx.x - facadeDx * uvDy.x) * fdInv);
+                vec2 fdW = abs(uvDx) + abs(uvDy);
+                diffuseColor.rgb = facadeDetail(diffuseColor.rgb, fdK, vMapUv.x * mU, vMapUv.y * mV, fdW.x * mU, fdW.y * mV, vMapUv.x * fdG.x, fdW.x * fdG.x, vMapUv.y * fdG.y, fdW.y * fdG.y);
+            }
         }
         if (uClosed > 0.001 && (abs(vTile - 6.0) < 0.1 || abs(vTile - 14.0) < 0.1)) { // closed shops: roller shutters over the glass
             // the whole shop opening below the sign band (not the per-pixel glass mask, which aliased into vertical
@@ -481,7 +492,7 @@ function solidMaterial(atlas) {
         // (the tile id is an interpolated varying: 7.99999 picked the wrong atlas cell on some pixels — the 'TV static' on
         //  windows; round it once per fragment)
         sh.fragmentShader = sh.fragmentShader.replace('void main() {', 'void main() {\n\tfloat vTile = floor(vTileRaw + 0.5);'); }; }
-    m.customProgramCacheKey = () => 'osm-solid-atlas-pbr5-anchored-rooms';
+    m.customProgramCacheKey = () => 'osm-solid-atlas-pbr5-anchored-rooms-facade-detail';
     return m;
 }
 

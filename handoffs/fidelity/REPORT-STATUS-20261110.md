@@ -1,6 +1,6 @@
 # Full owner-report delivery status · 10 November 2026
 
-**Delivered and closed from this 71-report batch: 16 / 71. Reports 1,4,5,11,20,24,27,29,36,41,42,43,49,53,54,56 are verified live. The other 55 reports remain open.**
+**Delivered and closed from this 71-report batch: 17 / 71. Reports 1,4,5,11,20,24,27,29,36,41,42,43,49,53,54,56,71 are verified live. The other 54 reports remain open.**
 
 This is a delivery ledger. A staged candidate is code awaiting acceptance; it is not a completed fix. All original reports and supplied poses remain in [the exact register](owner-reports-20261110.json).
 
@@ -8,13 +8,13 @@ Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integrat
 
 | Current implementation state | Reports |
 | --- | ---: |
-| Delivered — verified live | 16 |
+| Delivered — verified live | 17 |
 | Open — no verified fix | 29 |
 | Shared fix in progress | 8 |
 | Staged candidate | 1 |
 | In progress | 1 |
 | Unfinished | 1 |
-| Source research in progress | 14 |
+| Source research in progress | 13 |
 | Held partial candidate | 1 |
 
 | # | Area | Report | Current state | Remaining work / actual evidence |
@@ -89,7 +89,7 @@ Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integrat
 | 68 | Bellevue | Bridge seams and barrier/deck edge gaps | **Source research in progress** | Native original-camera review760ab635 still shows inconsistent bridge margins and guard joins. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
 | 69 | Bellevue | Truncated/misaligned junction markings and edge geometry | **Source research in progress** | Native original-camera review760ab635 still shows malformed road/turn markings at the ramp junction. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
 | 70 | Bellevue | Street paint has rectangular missing region and odd arrow | **Source research in progress** | Native original-camera review760ab635 still shows a discontinuity in road paint. Source/control-envelope investigation pending. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
-| 71 | Bellevue | Bellevue Square signage/bridge/building assembly clips or conflicts | **Source research in progress** | Native original-camera review760ab635 still shows the Bellevue Square pavilion sign occluded by adjacent source building geometry; source mass/placement investigation started. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
+| 71 | Bellevue | Bellevue Square signage/bridge/building assembly clips or conflicts | **Delivered — verified live** | Masterc14e266c / releasegame-3421a339bab2cbfa / source6c4b122f. Pages42950967049SUCCESS;332live-file hashes pass. Exact85mall+22Macyvertices retained; unsupported generic tower replaced by shared low mall envelope and source entrance recess. Native original/phone, source/collision controls, foot/a0H0M, paired67/67Bellevue with unchanged149findings;9atlas/16ground/3model/5shared-scene views refreshed. Overall architecture and other road defects remain open. |
 
 ## Previously authorized work still to finish
 

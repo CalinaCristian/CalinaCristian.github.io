@@ -1,6 +1,6 @@
 # Full owner-report delivery status · 10 November 2026
 
-**Delivered and closed from this 71-report batch: 15 / 71. Reports 1,4,5,11,24,27,29,36,41,42,43,49,53,54,56 are verified live. The other 56 reports remain open.**
+**Delivered and closed from this 71-report batch: 16 / 71. Reports 1,4,5,11,20,24,27,29,36,41,42,43,49,53,54,56 are verified live. The other 55 reports remain open.**
 
 This is a delivery ledger. A staged candidate is code awaiting acceptance; it is not a completed fix. All original reports and supplied poses remain in [the exact register](owner-reports-20261110.json).
 
@@ -8,14 +8,13 @@ Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integrat
 
 | Current implementation state | Reports |
 | --- | ---: |
-| Delivered — verified live | 15 |
-| Open — no verified fix | 42 |
+| Delivered — verified live | 16 |
+| Open — no verified fix | 29 |
 | Shared fix in progress | 8 |
 | Staged candidate | 1 |
 | In progress | 1 |
-| Candidate under native validation | 1 |
 | Unfinished | 1 |
-| Source research in progress | 1 |
+| Source research in progress | 14 |
 | Held partial candidate | 1 |
 
 | # | Area | Report | Current state | Remaining work / actual evidence |
@@ -39,7 +38,7 @@ Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integrat
 | 17 | Grozavesti | Open slot between tram decks exposes street below | **Staged candidate** | Centre-support/platform geometry exists; full bridge/tram journey and final visuals remain open. |
 | 18 | Grozavesti | North approach ramp and crowds; growing simulation cost | **In progress** | CPU and movement fixes have scoped tests. The evolving population, full approach, visual frame budget and sustained performance still fail or remain open. |
 | 19 | Grozavesti | Residential building intersects Rectorat landmark | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 20 | Grozavesti | University sign behind balustrade and wooden fins | **Candidate under native validation** | UPB interior placard behind gallery/fins reproduced in supplemental frontal native view. Candidate7f070ee0 places unchanged CV exhibit on clear lower wall in front of brickwork. Final native interaction/phone, logic and affected overview checks pending. Original supplied bearing faces a different wall; that pose is retained separately. |
+| 20 | Grozavesti | University sign behind balustrade and wooden fins | **Delivered — verified live** | Master95763baa/releasegame-dc1b7ab415b7eb7a/source99856bfd. Live290-file hashes PASS and Pages build95763baa built. Placard below gallery and 3.5cm in front of brickwork. Matched Ultra frontal views, fresh390px touch-browser appearance, foot/a0H0M1LOW, overview1440/390/reload/decode/hash pass; all281 runtime inputs equal tested7f070ee0. Original supplied bearing faces another wall. Exterior report19 and dialogue UI acceptance remain open. |
 | 21 | Unirii | Large pale protruding structure and holes in crowns | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 22 | Unirii | Multiple buildings occupying driven road | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 23 | Unirii | Tree crown intersects building facade | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
@@ -76,21 +75,21 @@ Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integrat
 | 54 | Otopeni | Repeated displaced concrete road median pieces | **Delivered — verified live** | Master9d681f45, game-61b37c69fe8629e8; final surviving road guards replace uncut render strips. Original supplied drone view, geometry equality, foot/a and8constructors pass;301live-file checks. Other road reports remain open. |
 | 55 | Otopeni | Large floating roof/upper building shell | **Source research in progress** | Identified exact w813193384 as elevated train station with literal min_height5. Official OSM retains gabled roof; authenticated Commons photographs show arched steel/glass canopy and platforms. Contradiction retained; no source geometry change or completed fix claimed. |
 | 56 | Otopeni | Small generic buildings overlap terminal facade | **Delivered — verified live** | Master b6e1dd6e / release game-ea2d06c2566f8551 / source e1449965. Pages 42940424313 succeeded; all 329 live-file checks passed. Exact 32 mapped source parts and literal height bands, 152 collider bands, bridge body-clearance controls, six native views, foot/a 0H/0M, paired 53/53 district captures, 12 refreshed atlas tiles, 16 ground views and three model views. Original full-size pictures and desktop/phone overview checked. Other airport issues remain open. |
-| 57 | Seatac | Skybridge/connector connected to nothing | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 58 | Seatac | Same disconnected connector from another pose | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 59 | Seatac | Car intersects helix/garage, disconnected ramp mouth | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 60 | Seatac | Ramps cut into garage helix with broken ends | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 61 | Seatac | Detached angled airport signage and roof | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 62 | Seatac | Rows of poles or frontage objects occupy terminal road | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 63 | Seatac | Road edge barriers and surfaces missing pieces | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 64 | Seatac | Missing road continuation leaves car at cut edge | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 65 | Seatac | Broken/truncated crossing and road markings | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
+| 57 | Seatac | Skybridge/connector connected to nothing | **Source research in progress** | Native original-camera review760ab635 still shows detached station walkway/concourse assembly. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
+| 58 | Seatac | Same disconnected connector from another pose | **Source research in progress** | Native original-camera review760ab635 confirms the station walkway endpoint mismatch from the second view. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
+| 59 | Seatac | Car intersects helix/garage, disconnected ramp mouth | **Source research in progress** | Native original-camera review760ab635 still shows the garage helix connection interrupted by solid wall/ramp geometry. No moving-car acceptance claimed. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
+| 60 | Seatac | Ramps cut into garage helix with broken ends | **Source research in progress** | Native original-camera review760ab635 still shows ramp geometry entering a solid helix band, with unsupported-looking triangular joins. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
+| 61 | Seatac | Detached angled airport signage and roof | **Source research in progress** | Native original-camera review760ab635 still shows the station name board suspended above its deck without visible mounting. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
+| 62 | Seatac | Rows of poles or frontage objects occupy terminal road | **Source research in progress** | Native original-camera review760ab635 still shows terminal frontage/door frames intersecting the elevated road. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
+| 63 | Seatac | Road edge barriers and surfaces missing pieces | **Source research in progress** | Native original-camera review760ab635 still shows parapet gaps along the airport ramps. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
+| 64 | Seatac | Missing road continuation leaves car at cut edge | **Source research in progress** | Native original-camera review760ab635 still shows the truncated road. Absence of the originally stuck car in this static capture is not a traffic fix. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
+| 65 | Seatac | Broken/truncated crossing and road markings | **Source research in progress** | Native original-camera review760ab635 still shows malformed junction/edge paint. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
 | 66 | General / interiors | Night drone view does not show the road-lighting fix. Airport screenshot only; no exact simultaneous inspection report supplied. Check active-camera lamp selection, altitude fade and ground/flight parity. | **Held partial candidate** | Four native elevated views and foot/a0H0M pass for bounded viewed-ground selection of existing lights. Airport apron remains dark; no independently verified floodlight layout yet. Unpublished; report remains open. |
 | 67 | Bellevue | Pedestrian pileups at multiple closures and crossings | **Shared fix in progress** | Pedestrian/car recovery fixes are under test. This specific reported location has not been verified. |
-| 68 | Bellevue | Bridge seams and barrier/deck edge gaps | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 69 | Bellevue | Truncated/misaligned junction markings and edge geometry | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 70 | Bellevue | Street paint has rectangular missing region and odd arrow | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 71 | Bellevue | Bellevue Square signage/bridge/building assembly clips or conflicts | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
+| 68 | Bellevue | Bridge seams and barrier/deck edge gaps | **Source research in progress** | Native original-camera review760ab635 still shows inconsistent bridge margins and guard joins. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
+| 69 | Bellevue | Truncated/misaligned junction markings and edge geometry | **Source research in progress** | Native original-camera review760ab635 still shows malformed road/turn markings at the ramp junction. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
+| 70 | Bellevue | Street paint has rectangular missing region and odd arrow | **Source research in progress** | Native original-camera review760ab635 still shows a discontinuity in road paint. Source/control-envelope investigation pending. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
+| 71 | Bellevue | Bellevue Square signage/bridge/building assembly clips or conflicts | **Source research in progress** | Native original-camera review760ab635 still shows the Bellevue Square pavilion sign occluded by adjacent source building geometry; source mass/placement investigation started. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted. |
 
 ## Previously authorized work still to finish
 

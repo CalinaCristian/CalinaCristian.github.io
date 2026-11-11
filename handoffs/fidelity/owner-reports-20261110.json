@@ -57,7 +57,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Master139ab165/releasegame-ae151cd51522d241/sourcee8b6ff4d.295live-file checks pass. Original Floreasca owner-eye pair and explicitly supplemental Pipera tower-facing pair retain exact cameras/dates/conditions/hashes.",
         "candidate": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
         "evidence": "SKYTOWER-RELEASE-20261110.md",
@@ -129,7 +129,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -189,7 +189,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -249,7 +249,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Reports4/5: whole ground-window UV row and balcony end returns. Original High/Ultra views and offset controls, paired6/6 Floreasca sweep with identical36 findings, foot/a0H0M(2LOW retained). Master20794a38/releasegame-0aecc01ea5d88606/source7f592fce; Pages42928435136success;327live-file checks pass.",
         "candidate": "a5c7ca16f2dae72a5c37480e475c108a9786607d",
         "evidence": "https://cristiancalina.com/game/overview/#floreasca-facade-fix"
@@ -311,7 +311,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Reports4/5: whole ground-window UV row and balcony end returns. Original High/Ultra views and offset controls, paired6/6 Floreasca sweep with identical36 findings, foot/a0H0M(2LOW retained). Master20794a38/releasegame-0aecc01ea5d88606/source7f592fce; Pages42928435136success;327live-file checks pass.",
         "candidate": "a5c7ca16f2dae72a5c37480e475c108a9786607d",
         "evidence": "https://cristiancalina.com/game/overview/#floreasca-facade-fix"
@@ -583,7 +583,7 @@
       },
       "image": "Owner image in conversation; no attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -652,7 +652,7 @@
         "previousCandidate": "8a6099a39ab3fbc847496ba0f1eaa8ad63f81c43",
         "evidence": "GROUND-RELEASE-20261110.md",
         "scope": "Closed only the white fallback-ground patches. Exact native owner camera, independent lowered-river image and ground/water rays passed. All8 production World constructors, required foot/a0H0M and scoped visual comparison passed. Other Basarab geometry and travel reports remain open.",
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Live mastera256e0c5, releasegame-d4c54bc944e67ace, source5e268382. All287 live file checks passed; original before/after and lowered-river evidence published.",
         "publication": {
           "master": "a256e0c506454ec3b30be6a277b8806bec42446b",
@@ -729,7 +729,7 @@
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
         "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -798,7 +798,7 @@
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
         "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -867,7 +867,7 @@
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
         "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -936,7 +936,7 @@
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
         "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1005,7 +1005,7 @@
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
         "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1208,14 +1208,14 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
     {
       "id": "upb-sign-occluded",
       "ownerNote": "University sign behind balustrade and wooden fins",
-      "status": "reported-not-yet-accepted",
+      "status": "verified-live",
       "report": {
         "schemaVersion": 1,
         "release": "game-471508886d4ff5a1",
@@ -1273,9 +1273,10 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Candidate under native validation",
-        "deliveryNote": "UPB interior placard behind gallery/fins reproduced in supplemental frontal native view. Candidate7f070ee0 places unchanged CV exhibit on clear lower wall in front of brickwork. Final native interaction/phone, logic and affected overview checks pending. Original supplied bearing faces a different wall; that pose is retained separately.",
-        "candidate": "7f070ee07c26e7ea04ae0f358425ea97bec193c0"
+        "deliveryStatus": "Delivered \u2014 verified live",
+        "deliveryNote": "Master95763baa/releasegame-dc1b7ab415b7eb7a/source99856bfd. Live290-file hashes PASS and Pages build95763baa built. Placard below gallery and 3.5cm in front of brickwork. Matched Ultra frontal views, fresh390px touch-browser appearance, foot/a0H0M1LOW, overview1440/390/reload/decode/hash pass; all281 runtime inputs equal tested7f070ee0. Original supplied bearing faces another wall. Exterior report19 and dialogue UI acceptance remain open.",
+        "candidate": "7f070ee07c26e7ea04ae0f358425ea97bec193c0",
+        "evidence": "https://cristiancalina.com/game/overview/#upb-sign-fix"
       }
     },
     {
@@ -1339,7 +1340,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1404,7 +1405,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1469,7 +1470,7 @@
       },
       "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1480,7 +1481,7 @@
       "scene": "gts",
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Host body, collider and3conversation stations clear rear desk. Native before/after, E and390px visible pause/resume reviewed; foot/a0H0M1LOWsoftwareFPS. Masterc45ccae6/sourceb480d9f0/releasegame-70c1e8a47a0ec0ff; Pages42929132998success;332live-file checks pass. Controlled room setup, not ordinary street journey or authentic-room acceptance.",
         "candidate": "e83e9bf12b6f9b1a73508282fcbdc7be9d4b4269",
         "evidence": "https://cristiancalina.com/game/overview/#gts-host-fix"
@@ -1547,7 +1548,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1612,7 +1613,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1677,7 +1678,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Master760ab635 / releasegame-8ffd9e016f7f2def / source6ad7b5f3. Pages42945366964SUCCESS;517live-file hashes pass (one HTTP/2 transfer retried successfully). Original27/36High/Ultra, native8district378unit/936boardzero-overlap controls, foot/a0H0M and paired155/155Unirii with unchanged228inherited findings. Affected34atlas/56ground/37context views updated;167images decode/hash and48desktop/phone condition selections pass. Columns/balconies/tree occlusions remain separate open limits.",
         "candidate": "8add95f35681eddaf01a136ff1f5769a5329b102",
         "releaseCommit": "760ab635ef53d1f58b93818d00fce14e0f4e705b",
@@ -1746,7 +1747,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1811,7 +1812,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Original High/Ultra rim view clear; 16 physical conflicts excluded while 18,590 retained tree/collider records and source/basin geometry stay exact. Foot/a 0H0M. Paired district coverage 155/155 each with no matched rendering-cost increase; inherited findings and two frame-budget overruns remain open. Nine atlas and 16 ground frames refreshed; desktop/phone delivery checks pass. Master28e54da0, releasegame-0263e743870e4f9a, stampedsource4a84d6d6; Pages42935856311success and371live-file checks pass.",
         "candidate": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
         "evidence": "https://cristiancalina.com/game/overview/#fountain-tree-fix"
@@ -1878,7 +1879,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -1943,7 +1944,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -2008,7 +2009,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -2073,7 +2074,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -2138,7 +2139,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -2203,7 +2204,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -2268,7 +2269,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Master760ab635 / releasegame-8ffd9e016f7f2def / source6ad7b5f3. Pages42945366964SUCCESS;517live-file hashes pass (one HTTP/2 transfer retried successfully). Original27/36High/Ultra, native8district378unit/936boardzero-overlap controls, foot/a0H0M and paired155/155Unirii with unchanged228inherited findings. Affected34atlas/56ground/37context views updated;167images decode/hash and48desktop/phone condition selections pass. Columns/balconies/tree occlusions remain separate open limits.",
         "candidate": "8add95f35681eddaf01a136ff1f5769a5329b102",
         "releaseCommit": "760ab635ef53d1f58b93818d00fce14e0f4e705b",
@@ -2532,7 +2533,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -2597,8 +2598,8 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
-        "deliveryNote": "Reports41/42: disjoint BOB corner and Hermes fin facade panels. Native High before/after, Ultra original/±0.15m offsets,4geometry controls,foot/a0H0M; paired9/9 sweep keeps92existing findings. Master54ab3d3e/releasegame-a240db509dc002f1/source d708f38f; Pages42926690854success;321live-file checks pass. Six current model studies and desktop/phone comparison checks pass.",
+        "deliveryStatus": "Delivered \u2014 verified live",
+        "deliveryNote": "Reports41/42: disjoint BOB corner and Hermes fin facade panels. Native High before/after, Ultra original/\u00b10.15m offsets,4geometry controls,foot/a0H0M; paired9/9 sweep keeps92existing findings. Master54ab3d3e/releasegame-a240db509dc002f1/source d708f38f; Pages42926690854success;321live-file checks pass. Six current model studies and desktop/phone comparison checks pass.",
         "candidate": "9ae4ae1e604a1b99b51387031d6d338f0276cf80",
         "evidence": "https://cristiancalina.com/game/overview/#pipera-facade-fix"
       }
@@ -2664,8 +2665,8 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
-        "deliveryNote": "Reports41/42: disjoint BOB corner and Hermes fin facade panels. Native High before/after, Ultra original/±0.15m offsets,4geometry controls,foot/a0H0M; paired9/9 sweep keeps92existing findings. Master54ab3d3e/releasegame-a240db509dc002f1/source d708f38f; Pages42926690854success;321live-file checks pass. Six current model studies and desktop/phone comparison checks pass.",
+        "deliveryStatus": "Delivered \u2014 verified live",
+        "deliveryNote": "Reports41/42: disjoint BOB corner and Hermes fin facade panels. Native High before/after, Ultra original/\u00b10.15m offsets,4geometry controls,foot/a0H0M; paired9/9 sweep keeps92existing findings. Master54ab3d3e/releasegame-a240db509dc002f1/source d708f38f; Pages42926690854success;321live-file checks pass. Six current model studies and desktop/phone comparison checks pass.",
         "candidate": "9ae4ae1e604a1b99b51387031d6d338f0276cf80",
         "evidence": "https://cristiancalina.com/game/overview/#pipera-facade-fix"
       }
@@ -2731,7 +2732,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Master139ab165/releasegame-ae151cd51522d241/sourcee8b6ff4d.295live-file checks pass. Original Floreasca owner-eye pair and explicitly supplemental Pipera tower-facing pair retain exact cameras/dates/conditions/hashes.",
         "candidate": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
         "evidence": "SKYTOWER-RELEASE-20261110.md",
@@ -2808,7 +2809,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -2873,7 +2874,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -2938,7 +2939,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3003,7 +3004,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3068,7 +3069,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3133,8 +3134,8 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
-        "deliveryNote": "Report49: whole window rows now fit below unchanged eaves. Native before/after, foot/a 0H0M, paired Romană29/29 sampled views with same existing136findings/Arnia missing route. No district-wide pass. Mastere21797e7/releasegame-e17d4843c5db9912; Pages42924422032 success and307live-file checks pass.",
+        "deliveryStatus": "Delivered \u2014 verified live",
+        "deliveryNote": "Report49: whole window rows now fit below unchanged eaves. Native before/after, foot/a 0H0M, paired Roman\u010329/29 sampled views with same existing136findings/Arnia missing route. No district-wide pass. Mastere21797e7/releasegame-e17d4843c5db9912; Pages42924422032 success and307live-file checks pass.",
         "evidence": "https://cristiancalina.com/game/overview/#church-window-fix"
       }
     },
@@ -3199,7 +3200,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3264,7 +3265,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
+        "deliveryStatus": "Open \u2014 no verified fix",
         "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
@@ -3340,7 +3341,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Report53: exact reported driver eye/bearing/pitch/FOV reproduces strip before and removes it after accepted guard repair. High266calls/587865tri;144vehicles560peds. View verification, not a full road journey. Mastere21797e7/releasegame-e17d4843c5db9912; Pages42924422032 success and307live-file checks pass.",
         "evidence": "https://cristiancalina.com/game/overview/#otopeni-driver-fix"
       }
@@ -3406,7 +3407,7 @@
       },
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Master9d681f45, game-61b37c69fe8629e8; final surviving road guards replace uncut render strips. Original supplied drone view, geometry equality, foot/a and8constructors pass;301live-file checks. Other road reports remain open.",
         "evidence": "https://cristiancalina.com/game/overview/#road-guard-fix"
       }
@@ -3537,7 +3538,7 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Delivered — verified live",
+        "deliveryStatus": "Delivered \u2014 verified live",
         "deliveryNote": "Master b6e1dd6e / release game-ea2d06c2566f8551 / source e1449965. Pages 42940424313 succeeded; all 329 live-file checks passed. Exact 32 mapped source parts and literal height bands, 152 collider bands, bridge body-clearance controls, six native views, foot/a 0H/0M, paired 53/53 district captures, 12 refreshed atlas tiles, 16 ground views and three model views. Original full-size pictures and desktop/phone overview checked. Other airport issues remain open.",
         "candidate": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
         "releaseCommit": "b6e1dd6ebdae873065dce5f4a1e3adb9cf44ca3d",
@@ -3606,8 +3607,8 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Source research in progress",
+        "deliveryNote": "Native original-camera review760ab635 still shows detached station walkway/concourse assembly. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted."
       }
     },
     {
@@ -3671,8 +3672,8 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Source research in progress",
+        "deliveryNote": "Native original-camera review760ab635 confirms the station walkway endpoint mismatch from the second view. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted."
       }
     },
     {
@@ -3736,8 +3737,8 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Source research in progress",
+        "deliveryNote": "Native original-camera review760ab635 still shows the garage helix connection interrupted by solid wall/ramp geometry. No moving-car acceptance claimed. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted."
       }
     },
     {
@@ -3801,8 +3802,8 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Source research in progress",
+        "deliveryNote": "Native original-camera review760ab635 still shows ramp geometry entering a solid helix band, with unsupported-looking triangular joins. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted."
       }
     },
     {
@@ -3866,8 +3867,8 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Source research in progress",
+        "deliveryNote": "Native original-camera review760ab635 still shows the station name board suspended above its deck without visible mounting. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted."
       }
     },
     {
@@ -3931,8 +3932,8 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Source research in progress",
+        "deliveryNote": "Native original-camera review760ab635 still shows terminal frontage/door frames intersecting the elevated road. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted."
       }
     },
     {
@@ -3996,8 +3997,8 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Source research in progress",
+        "deliveryNote": "Native original-camera review760ab635 still shows parapet gaps along the airport ramps. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted."
       }
     },
     {
@@ -4061,8 +4062,8 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Source research in progress",
+        "deliveryNote": "Native original-camera review760ab635 still shows the truncated road. Absence of the originally stuck car in this static capture is not a traffic fix. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted."
       }
     },
     {
@@ -4126,8 +4127,8 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Source research in progress",
+        "deliveryNote": "Native original-camera review760ab635 still shows malformed junction/edge paint. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted."
       }
     },
     {
@@ -4269,8 +4270,8 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Source research in progress",
+        "deliveryNote": "Native original-camera review760ab635 still shows inconsistent bridge margins and guard joins. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted."
       }
     },
     {
@@ -4334,8 +4335,8 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Source research in progress",
+        "deliveryNote": "Native original-camera review760ab635 still shows malformed road/turn markings at the ramp junction. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted."
       }
     },
     {
@@ -4399,8 +4400,8 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Source research in progress",
+        "deliveryNote": "Native original-camera review760ab635 still shows a discontinuity in road paint. Source/control-envelope investigation pending. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted."
       }
     },
     {
@@ -4464,8 +4465,8 @@
       },
       "image": "Owner screenshot/report in conversation.",
       "work": {
-        "deliveryStatus": "Open — no verified fix",
-        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+        "deliveryStatus": "Source research in progress",
+        "deliveryNote": "Native original-camera review760ab635 still shows the Bellevue Square pavilion sign occluded by adjacent source building geometry; source mass/placement investigation started. Raw original-pose evidence: /workspace/integration-qa-evidence/us-reports-current-20261111; no repair accepted."
       }
     }
   ],

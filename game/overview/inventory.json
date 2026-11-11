@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "4a84d6d6602e95975e47ece966fc9f88cdd50f14",
+  "sourceSha": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
   "reviewedOn": "2026-11-11",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -3446,7 +3446,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "9f404bad437f9ba7cc155c9e3a4c41bf126eea7e169cba9f61cad8bbc5eacec1"
+      "sha256": "257613d304196dbe4d5bbabef82d4f8e12b89a049c47c9394467ca6ee6437b57"
     },
     {
       "path": "specs/README.md",
@@ -3466,7 +3466,7 @@
     },
     {
       "path": "specs/12-buildings-streetscape.md",
-      "sha256": "628093aa7edeb553c6d2cceb9e09d43ace8c3014c74a0066e638298a2d1eedb6"
+      "sha256": "4d338a3e4d395f068d3e70c0d743ac82c24d86a41aa445d943de5dcdd92ee7c5"
     },
     {
       "path": "specs/13-traffic.md",
@@ -3526,7 +3526,7 @@
     },
     {
       "path": "game/src/landmarks.js",
-      "sha256": "65f14debdd3fa70ee950bd09155d362c596f4ea381319a5026e0549eef339f2c"
+      "sha256": "b313127abdcf664af91fa38768ce64450e20d7f13b010511cb90a82748dffd6a"
     },
     {
       "path": "game/src/render.js",
@@ -3810,7 +3810,7 @@
     },
     {
       "path": "game/src/landmark-source-identities.js",
-      "sha256": "4f93c8853d3f1ae65badd1940f4f7286bc6538353defb94a0268f7fed699adfc"
+      "sha256": "03bc7c88e8cbe6e9aa8db4bba660a3e868a54b2b12e5d1a80522bd14858e244c"
     },
     {
       "path": "game/src/landmark-source-masses.js",
@@ -5138,7 +5138,7 @@
     },
     {
       "path": "game/overview/comparison-data/otopeni/manifest.json",
-      "sha256": "446f2bc380665cf15cd3ea4318424b3552590fa6baedd5724707135af83d9a3d"
+      "sha256": "969673022a0dcb1c2c10c95cd1bf5d07310a6d3458754e272115f93858670e92"
     },
     {
       "path": "game/overview/comparison-data/otopeni/poses.json",
@@ -5802,7 +5802,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/otp.json",
-      "sha256": "5fb058d81cb22ae58887f544cc1b853dd5474ec02e639fcfa47e0062d2e85dc7"
+      "sha256": "36004cfed5cbb095db512b7cd3a49d96aeef726effcbdbe71daf8358bf68ab96"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/parliament.json",
@@ -6066,7 +6066,7 @@
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "5ca054e69a0ac6899150607cfee2d7b3a292598fcfd06ec4f400bcfe17c38af3"
+      "sha256": "dfdc49dd7060a4368b57f29665622659f24332bfa42b239355c0a5b680f5a81c"
     },
     {
       "path": "game/overview/landmark-evidence.js",
@@ -6078,7 +6078,7 @@
     },
     {
       "path": "game/overview/overview.js",
-      "sha256": "4bd9269245025955cfd260d1f2cd5ff0ad322a15bbae1f47598995e48513369c"
+      "sha256": "2c6ae80c6a71611153a977aa18e61a263392571c528811d21b986e918150d7ad"
     },
     {
       "path": "game/overview/perspective-viewer.js",
@@ -6227,6 +6227,38 @@
     {
       "path": "specs/14-on-foot.md",
       "sha256": "799b9df53abc7bbd97bcdba5477dd5d7f4ac877513ad7e9832ea38eed080d8c0"
+    },
+    {
+      "path": "game/src/landmark-otp-pier.js",
+      "sha256": "a83edb0c9e51fd01644b1e2a7f48ee3f3550f62c69697fdb2ffb43a7907b6e36"
+    },
+    {
+      "path": "game/src/landmark-otp-source.js",
+      "sha256": "360f553df971200d2fe9ff67c60937d07d650e98d6c5dbb60ed4a8442685e3cd"
+    },
+    {
+      "path": "tools/fidelity/test-otp-pier.mjs",
+      "sha256": "3da4a50eab6993d8dd37f8057596c746707b22a648e34d5107876327fcf20eea"
+    },
+    {
+      "path": "game/overview/fix-otp-terminal/summary.json",
+      "sha256": "dc7ed401c051ced7bdbe3e03c1f5d0d515960ee67a7bd61fa86b641e21a6a9ca"
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/retakes/b1e33eee/capture-report.json",
+      "sha256": "19386d48e13241832b5f10a40d9f295293d296f8d456534f0083b5b88eaad7d4"
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/retakes/b1e33eee/superseded-frames.json",
+      "sha256": "def3d7bb130f7aaaa60018f3f8b20ca6ecc7cedfd98f2115fa15596540afa7a7"
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/retakes/b1e33eee/source-provenance.json",
+      "sha256": "5938213bf5ad957c7d803055059c0d49d086a958df440e011aff9f7f986fa7d9"
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/context/ground-b1e33eee/manifest.json",
+      "sha256": "1958d12e5a1b7a1b96f16f255dc092095d44fb26004b715f4034f59701199d56"
     }
   ],
   "stagingEvidence": [
@@ -6378,6 +6410,14 @@
     "status": "scoped-native-validated",
     "reports": [
       29
+    ]
+  },
+  "otpTerminalFixEvidence": {
+    "summary": "fix-otp-terminal/summary.json",
+    "sourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+    "status": "scoped-native-validated",
+    "reports": [
+      56
     ]
   }
 }

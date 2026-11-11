@@ -1,0 +1,2005 @@
+{
+  "schemaVersion": 1,
+  "report": 56,
+  "runtimeSource": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+  "scope": "OTP pier and elevated connector source-part assembly. Fixed native original report and alternate cameras, not a traversed airport route or complete airport fidelity acceptance.",
+  "captures": [
+    {
+      "name": "otopeni-terminal-overlap",
+      "file": "before.png",
+      "capturedAt": "2026-11-11T00:53:47.075Z",
+      "sha256": "ee90fd6490379cbf3e4fc1faafd216ddcd0af3308949116a3ccbd8cd65238d3d",
+      "mode": "foot",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "pause-btn",
+          "text": "⏸",
+          "title": "Pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "🌍",
+          "title": "World map",
+          "rect": {
+            "x": 618,
+            "y": 716,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "explore-bar"
+        },
+        {
+          "id": "",
+          "text": "Copy location · F8",
+          "title": "",
+          "rect": {
+            "x": 25,
+            "y": 667,
+            "width": 116.734375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Places",
+          "title": "",
+          "rect": {
+            "x": 147.734375,
+            "y": 667,
+            "width": 53.375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Drone · G",
+          "title": "",
+          "rect": {
+            "x": 207.109375,
+            "y": 667,
+            "width": 71.125,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        }
+      ],
+      "source": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "native": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T00:53:47.079Z",
+        "release": "game-70c1e8a47a0ec0ff",
+        "source": "b480d9f039468597e45de673bc61eaefe1adc8ce",
+        "city": "bucharest",
+        "district": "otopeni",
+        "visit": null,
+        "scene": "otopeni",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 44.5713435,
+          "lon": 26.0791239
+        },
+        "position": {
+          "x": 168.451,
+          "y": 16.865,
+          "z": -704.97
+        },
+        "camera": {
+          "eye": [
+            168.451,
+            16.865,
+            -704.97
+          ],
+          "bearing": 188.478,
+          "pitch": 0.474,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T10:30:47.079Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 0.09,
+          "frameMs": 45.7,
+          "drawCalls": 230,
+          "triangles": 384252,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": 22.099,
+          "vehicles": 144,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:41461/game/?inspect=1"
+      }
+    },
+    {
+      "name": "owner-ultra",
+      "file": "after.png",
+      "capturedAt": "2026-11-11T01:31:24.849Z",
+      "sha256": "4f07c3c15ecefee62f6bea32892522600b0bbd8e1058a715c0c78ca4c11f74db",
+      "mode": "foot",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "pause-btn",
+          "text": "⏸",
+          "title": "Pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "🌍",
+          "title": "World map",
+          "rect": {
+            "x": 618,
+            "y": 716,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "explore-bar"
+        },
+        {
+          "id": "",
+          "text": "Copy location · F8",
+          "title": "",
+          "rect": {
+            "x": 25,
+            "y": 667,
+            "width": 116.734375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Places",
+          "title": "",
+          "rect": {
+            "x": 147.734375,
+            "y": 667,
+            "width": 53.375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Drone · G",
+          "title": "",
+          "rect": {
+            "x": 207.109375,
+            "y": 667,
+            "width": 71.125,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        }
+      ],
+      "source": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+      "native": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T01:31:24.880Z",
+        "release": "game-0263e743870e4f9a",
+        "source": "4a84d6d6602e95975e47ece966fc9f88cdd50f14",
+        "city": "bucharest",
+        "district": "otopeni",
+        "visit": null,
+        "scene": "otopeni",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 44.5713435,
+          "lon": 26.0791239
+        },
+        "position": {
+          "x": 168.451,
+          "y": 16.865,
+          "z": -704.97
+        },
+        "camera": {
+          "eye": [
+            168.451,
+            16.865,
+            -704.97
+          ],
+          "bearing": 188.484,
+          "pitch": 0.462,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T10:31:24.879Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 0.04,
+          "frameMs": 137,
+          "drawCalls": 230,
+          "triangles": 385035,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 34.386,
+          "vehicles": 144,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:39909/game/?inspect=1"
+      }
+    },
+    {
+      "name": "north-pier",
+      "file": "north.png",
+      "capturedAt": "2026-11-11T01:31:34.917Z",
+      "sha256": "10e298a5b9b6f5b80209d5c80cc8f3af332c91bf45c58ab75752ad0d5cf31529",
+      "mode": "foot",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "pause-btn",
+          "text": "⏸",
+          "title": "Pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "🌍",
+          "title": "World map",
+          "rect": {
+            "x": 618,
+            "y": 716,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "explore-bar"
+        },
+        {
+          "id": "",
+          "text": "Copy location · F8",
+          "title": "",
+          "rect": {
+            "x": 25,
+            "y": 667,
+            "width": 116.734375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Places",
+          "title": "",
+          "rect": {
+            "x": 147.734375,
+            "y": 667,
+            "width": 53.375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Drone · G",
+          "title": "",
+          "rect": {
+            "x": 207.109375,
+            "y": 667,
+            "width": 71.125,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        }
+      ],
+      "source": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+      "native": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T01:31:34.922Z",
+        "release": "game-0263e743870e4f9a",
+        "source": "4a84d6d6602e95975e47ece966fc9f88cdd50f14",
+        "city": "bucharest",
+        "district": "otopeni",
+        "visit": null,
+        "scene": "otopeni",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 44.5715778,
+          "lon": 26.0803413
+        },
+        "position": {
+          "x": 265,
+          "y": 28,
+          "z": -731
+        },
+        "camera": {
+          "eye": [
+            265,
+            28,
+            -731
+          ],
+          "bearing": 183.112,
+          "pitch": -11.115,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T10:31:34.922Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 0.17,
+          "frameMs": 50.3,
+          "drawCalls": 216,
+          "triangles": 280673,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": 47.679,
+          "vehicles": 144,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:39909/game/?inspect=1"
+      }
+    },
+    {
+      "name": "bridge-ground",
+      "file": "clearance.png",
+      "capturedAt": "2026-11-11T01:32:21.553Z",
+      "sha256": "01c18b408b0ada69d5d3cd4e4e6a0562e593419294160fca38119c53aa0d5999",
+      "mode": "foot",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "pause-btn",
+          "text": "⏸",
+          "title": "Pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "🌍",
+          "title": "World map",
+          "rect": {
+            "x": 618,
+            "y": 716,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "explore-bar"
+        },
+        {
+          "id": "",
+          "text": "Copy location · F8",
+          "title": "",
+          "rect": {
+            "x": 25,
+            "y": 667,
+            "width": 116.734375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Places",
+          "title": "",
+          "rect": {
+            "x": 147.734375,
+            "y": 667,
+            "width": 53.375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Drone · G",
+          "title": "",
+          "rect": {
+            "x": 207.109375,
+            "y": 667,
+            "width": 71.125,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        }
+      ],
+      "source": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+      "native": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T01:32:21.583Z",
+        "release": "game-0263e743870e4f9a",
+        "source": "4a84d6d6602e95975e47ece966fc9f88cdd50f14",
+        "city": "bucharest",
+        "district": "otopeni",
+        "visit": null,
+        "scene": "otopeni",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 44.5708219,
+          "lon": 26.0790174
+        },
+        "position": {
+          "x": 160,
+          "y": 1.65,
+          "z": -647
+        },
+        "camera": {
+          "eye": [
+            160,
+            1.65,
+            -647
+          ],
+          "bearing": 95.848,
+          "pitch": 23.154,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T10:32:21.580Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 0.06,
+          "frameMs": 320.7,
+          "drawCalls": 110,
+          "triangles": 96077,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": 103.246,
+          "vehicles": 144,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:39909/game/?inspect=1"
+      }
+    }
+  ],
+  "controls": {
+    "maxResidualDistanceM": 0.23220665308241742,
+    "parts": 32,
+    "residuals": 120,
+    "residualArea": 3.4803168807017317,
+    "wallFaces": 3971,
+    "roofAndUndersidePieces": 1076,
+    "colliders": 152,
+    "literalFootprintsAndBandsExact": true,
+    "sourceDataUnchanged": true,
+    "clearanceRetained": true,
+    "scope": "CPU source/partition/render-adapter controls; native visuals still required"
+  },
+  "releaseScope": {
+    "source": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+    "baseline": "28e54da02114b04cb72fc500fb88a71ab256e224",
+    "changedFiles": [
+      "README.md",
+      "game/src/landmark-otp-pier.js",
+      "game/src/landmark-otp-source.js",
+      "game/src/landmark-source-identities.js",
+      "game/src/landmarks.js",
+      "specs/12-buildings-streetscape.md",
+      "tools/fidelity/test-otp-pier.mjs"
+    ],
+    "unchangedInputHashes": {
+      "game/data/bucharest-otopeni.json": "eea0a6023fd5053b3564f4d5da8a6de96b8f420038ff91cfc9c8d749e5501229",
+      "game/src/world.js": "96d4e7943c74c7dff22b381f7df315f689acf71d7cbbe8a6b9267d8db078c23c",
+      "game/src/traffic.js": "2032708ea9d15a416312c33b32c452cc5265020018c07708c00a53bbfe81c695"
+    },
+    "claudeScopeTouched": false,
+    "signCandidateIncluded": false
+  },
+  "physicalClearance": {
+    "samples": [
+      {
+        "x": 164,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 164.5,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 165,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 165.5,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 166,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 166.5,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 167,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 167.5,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 168,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 168.5,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 169,
+        "z": -646,
+        "ground": null,
+        "insideBridge": {
+          "px": -0.19132447034538932,
+          "pz": 0.019620459145637367,
+          "hit": {
+            "kind": "landmark",
+            "x": 170.18045,
+            "z": -646.5271,
+            "h": 8.12,
+            "y0": 5.12,
+            "y1": 8.12,
+            "landmark": "otp"
+          }
+        }
+      },
+      {
+        "x": 169.5,
+        "z": -646,
+        "ground": null,
+        "insideBridge": {
+          "px": -0.6861208713034482,
+          "pz": 0.07036217845027719,
+          "hit": {
+            "kind": "landmark",
+            "x": 170.18045,
+            "z": -646.5271,
+            "h": 8.12,
+            "y0": 5.12,
+            "y1": 8.12,
+            "landmark": "otp"
+          }
+        }
+      },
+      {
+        "x": 170,
+        "z": -646,
+        "ground": null,
+        "insideBridge": {
+          "px": -1.1809172722614705,
+          "pz": 0.1211038977549971,
+          "hit": {
+            "kind": "landmark",
+            "x": 170.18045,
+            "z": -646.5271,
+            "h": 8.12,
+            "y0": 5.12,
+            "y1": 8.12,
+            "landmark": "otp"
+          }
+        }
+      },
+      {
+        "x": 170.5,
+        "z": -646,
+        "ground": null,
+        "insideBridge": {
+          "px": 1.1538540662612236,
+          "pz": -0.11752122718978172,
+          "hit": {
+            "kind": "landmark",
+            "x": 170.18045,
+            "z": -646.5271,
+            "h": 8.12,
+            "y0": 5.12,
+            "y1": 8.12,
+            "landmark": "otp"
+          }
+        }
+      },
+      {
+        "x": 171,
+        "z": -646,
+        "ground": null,
+        "insideBridge": {
+          "px": 0.6589876289068717,
+          "pz": -0.06711856994454865,
+          "hit": {
+            "kind": "landmark",
+            "x": 170.18045,
+            "z": -646.5271,
+            "h": 8.12,
+            "y0": 5.12,
+            "y1": 8.12,
+            "landmark": "otp"
+          }
+        }
+      },
+      {
+        "x": 171.5,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 172,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 172.5,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 173,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 173.5,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 174,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 174.5,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 175,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 175.5,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      },
+      {
+        "x": 176,
+        "z": -646,
+        "ground": null,
+        "insideBridge": null
+      }
+    ],
+    "upperPart": {
+      "below": null,
+      "solid": {
+        "px": -13.495941632122893,
+        "pz": 1.4292007830824336,
+        "hit": {
+          "kind": "landmark",
+          "x": 119.50104999999999,
+          "z": -619.97765,
+          "h": 15.12,
+          "y0": 5.12,
+          "y1": 15.12,
+          "landmark": "otp"
+        }
+      }
+    },
+    "source": [
+      {
+        "landmark": "otp",
+        "declared": [
+          "r16476195",
+          "w771096081",
+          "w771096082",
+          "w771096083",
+          "w794617342",
+          "w1321861230",
+          "w1321861231",
+          "w1321861232",
+          "w1321861233",
+          "w1325276784",
+          "w1325276785",
+          "w1325276786",
+          "w1325276787",
+          "w1325276788",
+          "w1325276789",
+          "w1325276790",
+          "w1325276791",
+          "w1325276792",
+          "w1325276793",
+          "w1325276794",
+          "w1325276795",
+          "w1325276796",
+          "w1325276797",
+          "w1325276798",
+          "w1325276799",
+          "w1325276800",
+          "w1325276801",
+          "w1325276802",
+          "w1325276803",
+          "w1325276804",
+          "w1325276805",
+          "w1325276806",
+          "w1325276807",
+          "w1325276808",
+          "w1325276809",
+          "w1325276810",
+          "w1325276811"
+        ],
+        "replaced": [
+          "r16476195",
+          "w771096081",
+          "w771096082",
+          "w771096083",
+          "w794617342",
+          "w1321861230",
+          "w1321861231",
+          "w1321861232",
+          "w1321861233",
+          "w1325276784",
+          "w1325276785",
+          "w1325276786",
+          "w1325276787",
+          "w1325276788",
+          "w1325276789",
+          "w1325276790",
+          "w1325276791",
+          "w1325276792",
+          "w1325276793",
+          "w1325276794",
+          "w1325276795",
+          "w1325276796",
+          "w1325276797",
+          "w1325276798",
+          "w1325276799",
+          "w1325276800",
+          "w1325276801",
+          "w1325276802",
+          "w1325276803",
+          "w1325276804",
+          "w1325276805",
+          "w1325276806",
+          "w1325276807",
+          "w1325276808",
+          "w1325276809",
+          "w1325276810",
+          "w1325276811"
+        ],
+        "unmatched": []
+      }
+    ],
+    "scope": "Native full body collision primitive queried at fixed poses; does not claim a player journey."
+  },
+  "regression": {
+    "footA": {
+      "dynamic": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "byType": {
+          "perf-fps": 1
+        }
+      },
+      "audit": {}
+    },
+    "pairedDistrict": {
+      "matched": 53,
+      "baseline": "28e54da02114b04cb72fc500fb88a71ab256e224",
+      "candidate": "46bfe61c8b68034b634e92fbf65216c4d252a2fa",
+      "findingsBefore": {
+        "pad-overlap": 50,
+        "ribbon-zfight": 77,
+        "ribbon-stacked": 1,
+        "building-over-road": 2,
+        "office-sign-capture": 2
+      },
+      "findingsAfter": {
+        "pad-overlap": 50,
+        "ribbon-zfight": 77,
+        "ribbon-stacked": 1,
+        "building-over-road": 2,
+        "office-sign-capture": 2
+      },
+      "callDeltaMax": 1,
+      "triangleDeltaMax": 4529,
+      "beforeMaxTriangles": 581682,
+      "afterMaxTriangles": 583444,
+      "beforeMaxCalls": 242,
+      "afterMaxCalls": 242,
+      "budgetFailures": [],
+      "samples": [
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            0
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 241,
+            "tris": 581682,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 241,
+            "tris": 583444,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            1
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 242,
+            "tris": 575603,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 242,
+            "tris": 577365,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            2
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 237,
+            "tris": 560542,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 237,
+            "tris": 562304,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            3
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 233,
+            "tris": 556051,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 233,
+            "tris": 557813,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            4
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 226,
+            "tris": 482046,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 226,
+            "tris": 483808,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            5
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 228,
+            "tris": 471879,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 228,
+            "tris": 473641,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            6
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 226,
+            "tris": 481060,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 226,
+            "tris": 482822,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            7
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 223,
+            "tris": 470148,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 223,
+            "tris": 471910,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            8
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 224,
+            "tris": 498592,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 224,
+            "tris": 500354,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            9
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 223,
+            "tris": 482074,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 223,
+            "tris": 483836,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            10
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 217,
+            "tris": 457387,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 217,
+            "tris": 459149,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            11
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 212,
+            "tris": 424109,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 212,
+            "tris": 425871,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            12
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 216,
+            "tris": 453986,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 216,
+            "tris": 455748,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            13
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 212,
+            "tris": 432274,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 212,
+            "tris": 434036,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            14
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 203,
+            "tris": 409767,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 203,
+            "tris": 411529,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            15
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 198,
+            "tris": 386931,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 198,
+            "tris": 388693,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            16
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 197,
+            "tris": 365026,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 197,
+            "tris": 366788,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            17
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 192,
+            "tris": 334634,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 192,
+            "tris": 336396,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            18
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 191,
+            "tris": 360756,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 191,
+            "tris": 362518,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            19
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 185,
+            "tris": 380458,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 185,
+            "tris": 382220,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            20
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 184,
+            "tris": 364822,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 184,
+            "tris": 366584,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            21
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 182,
+            "tris": 339140,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 182,
+            "tris": 340902,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            22
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 185,
+            "tris": 312563,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 185,
+            "tris": 314325,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            23
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 189,
+            "tris": 319452,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 189,
+            "tris": 321214,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            24
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 188,
+            "tris": 327166,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 188,
+            "tris": 328928,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            25
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 191,
+            "tris": 379326,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 191,
+            "tris": 381088,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            26
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 184,
+            "tris": 368889,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 184,
+            "tris": 370651,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            27
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 182,
+            "tris": 356428,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 182,
+            "tris": 358190,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            28
+          ],
+          "callsDelta": 0,
+          "triDelta": 2335,
+          "before": {
+            "calls": 179,
+            "tris": 335244,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 179,
+            "tris": 337579,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            29
+          ],
+          "callsDelta": 0,
+          "triDelta": 2335,
+          "before": {
+            "calls": 174,
+            "tris": 324573,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 174,
+            "tris": 326908,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            30
+          ],
+          "callsDelta": 0,
+          "triDelta": 2335,
+          "before": {
+            "calls": 169,
+            "tris": 328443,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 169,
+            "tris": 330778,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            31
+          ],
+          "callsDelta": 1,
+          "triDelta": 2493,
+          "before": {
+            "calls": 162,
+            "tris": 336668,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 163,
+            "tris": 339161,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            32
+          ],
+          "callsDelta": 0,
+          "triDelta": 2469,
+          "before": {
+            "calls": 164,
+            "tris": 351859,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 164,
+            "tris": 354328,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            33
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 184,
+            "tris": 445602,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 184,
+            "tris": 447364,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            34
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 181,
+            "tris": 446766,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 181,
+            "tris": 448528,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            35
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 190,
+            "tris": 453455,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 190,
+            "tris": 455217,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            36
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 185,
+            "tris": 422179,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 185,
+            "tris": 423941,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            37
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 184,
+            "tris": 400257,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 184,
+            "tris": 402019,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            38
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 183,
+            "tris": 352727,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 183,
+            "tris": 354489,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            39
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 178,
+            "tris": 316208,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 178,
+            "tris": 317970,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            40
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 180,
+            "tris": 323091,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 180,
+            "tris": 324853,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            41
+          ],
+          "callsDelta": 0,
+          "triDelta": 4529,
+          "before": {
+            "calls": 182,
+            "tris": 350001,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 182,
+            "tris": 354530,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            42
+          ],
+          "callsDelta": 0,
+          "triDelta": 4529,
+          "before": {
+            "calls": 177,
+            "tris": 351886,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 177,
+            "tris": 356415,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            43
+          ],
+          "callsDelta": 0,
+          "triDelta": 4529,
+          "before": {
+            "calls": 166,
+            "tris": 286537,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 166,
+            "tris": 291066,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            44
+          ],
+          "callsDelta": 0,
+          "triDelta": 4529,
+          "before": {
+            "calls": 168,
+            "tris": 295714,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 168,
+            "tris": 300243,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            45
+          ],
+          "callsDelta": 0,
+          "triDelta": 4529,
+          "before": {
+            "calls": 173,
+            "tris": 316651,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 173,
+            "tris": 321180,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "otopeni",
+            46
+          ],
+          "callsDelta": 0,
+          "triDelta": 1788,
+          "before": {
+            "calls": 172,
+            "tris": 348664,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 172,
+            "tris": 350452,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "sweep-drumul-g-rii-od-ii",
+            47
+          ],
+          "callsDelta": 0,
+          "triDelta": 0,
+          "before": {
+            "calls": 161,
+            "tris": 281062,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 161,
+            "tris": 281062,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "sweep-drumul-g-rii-od-ii",
+            48
+          ],
+          "callsDelta": 0,
+          "triDelta": 0,
+          "before": {
+            "calls": 161,
+            "tris": 290913,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 161,
+            "tris": 290913,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "sweep-drumul-g-rii-od-ii",
+            49
+          ],
+          "callsDelta": 0,
+          "triDelta": 0,
+          "before": {
+            "calls": 158,
+            "tris": 301768,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 158,
+            "tris": 301768,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "sweep-drumul-g-rii-od-ii-run-2",
+            50
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 190,
+            "tris": 396031,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 190,
+            "tris": 397793,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "sweep-drumul-g-rii-od-ii-run-3",
+            51
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 194,
+            "tris": 393284,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 194,
+            "tris": 395046,
+            "quality": "medium"
+          }
+        },
+        {
+          "key": [
+            "bucharest",
+            "bucharest-otopeni",
+            "sweep-drumul-g-rii-od-ii-run-4",
+            52
+          ],
+          "callsDelta": 0,
+          "triDelta": 1762,
+          "before": {
+            "calls": 187,
+            "tris": 363321,
+            "quality": "medium"
+          },
+          "after": {
+            "calls": 187,
+            "tris": 365083,
+            "quality": "medium"
+          }
+        }
+      ],
+      "scope": "Matched Medium default native road fixtures; inherited findings remain open. Not global High/Ultra or hardware FPS acceptance."
+    }
+  },
+  "limitations": [
+    "Source footprints, literal total/minimum heights and all road/POI data are unchanged.",
+    "120 residual outline cells covering 3.48031688 square metres have estimated height ranges inherited from their nearest mapped part. Maximum centre-to-part distance is 0.232207 m; bridge infill is within 0.05 m.",
+    "Facade materials, framing cadence and roof finish are estimates. Other terminal masses and station geometry remain under review.",
+    "The paired district comparison used 46bfe61c with this same terminal code plus an unrelated sign candidate. Final isolated b1e33 has separate regression, original/alternate native captures and body-clearance checks.",
+    "District comparison retains 132 existing findings (2 high, 3 medium, 127 low). This correction does not close roads, markings, station, night-lighting or traffic issues."
+  ]
+}

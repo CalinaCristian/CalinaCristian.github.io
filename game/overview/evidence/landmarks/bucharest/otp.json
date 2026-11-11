@@ -3,7 +3,7 @@
   "id": "otp",
   "city": "bucharest",
   "name": "Aeroportul Henri Coandă",
-  "sourceCommit": "59f953ff63eff92cd00da3f36dc093d8bff317d9",
+  "sourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.5708154,
@@ -82,6 +82,161 @@
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/b203c38abf3651dd3d472c491238ad36089a633a/handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json",
       "label": "Existing recorded source-book/topology result; not a new execution",
       "type": "validation"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1321861230",
+      "label": "Mapped pier part w1321861230 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1321861232",
+      "label": "Mapped pier part w1321861232 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1321861233",
+      "label": "Mapped pier part w1321861233 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276784",
+      "label": "Mapped pier part w1325276784 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276785",
+      "label": "Mapped pier part w1325276785 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276786",
+      "label": "Mapped pier part w1325276786 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276787",
+      "label": "Mapped pier part w1325276787 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276788",
+      "label": "Mapped pier part w1325276788 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276789",
+      "label": "Mapped pier part w1325276789 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276790",
+      "label": "Mapped pier part w1325276790 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276791",
+      "label": "Mapped pier part w1325276791 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276792",
+      "label": "Mapped pier part w1325276792 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276793",
+      "label": "Mapped pier part w1325276793 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276794",
+      "label": "Mapped pier part w1325276794 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276795",
+      "label": "Mapped pier part w1325276795 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276796",
+      "label": "Mapped pier part w1325276796 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276797",
+      "label": "Mapped pier part w1325276797 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276798",
+      "label": "Mapped pier part w1325276798 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276799",
+      "label": "Mapped pier part w1325276799 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276800",
+      "label": "Mapped pier part w1325276800 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276801",
+      "label": "Mapped pier part w1325276801 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276802",
+      "label": "Mapped pier part w1325276802 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276803",
+      "label": "Mapped pier part w1325276803 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276804",
+      "label": "Mapped pier part w1325276804 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276805",
+      "label": "Mapped pier part w1325276805 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276806",
+      "label": "Mapped pier part w1325276806 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276807",
+      "label": "Mapped pier part w1325276807 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276808",
+      "label": "Mapped pier part w1325276808 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276809",
+      "label": "Mapped pier part w1325276809 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276810",
+      "label": "Mapped pier part w1325276810 · literal footprint and height/minimum retained"
+    },
+    {
+      "type": "osm",
+      "url": "https://www.openstreetmap.org/way/1325276811",
+      "label": "Mapped pier part w1325276811 · literal footprint and height/minimum retained"
     }
   ],
   "sourceIds": [
@@ -90,20 +245,52 @@
     "w771096081",
     "w771096082",
     "w771096083",
-    "w794617342"
+    "w794617342",
+    "w1321861230",
+    "w1321861232",
+    "w1321861233",
+    "w1325276784",
+    "w1325276785",
+    "w1325276786",
+    "w1325276787",
+    "w1325276788",
+    "w1325276789",
+    "w1325276790",
+    "w1325276791",
+    "w1325276792",
+    "w1325276793",
+    "w1325276794",
+    "w1325276795",
+    "w1325276796",
+    "w1325276797",
+    "w1325276798",
+    "w1325276799",
+    "w1325276800",
+    "w1325276801",
+    "w1325276802",
+    "w1325276803",
+    "w1325276804",
+    "w1325276805",
+    "w1325276806",
+    "w1325276807",
+    "w1325276808",
+    "w1325276809",
+    "w1325276810",
+    "w1325276811"
   ],
   "sourceLedger": "../../../../research/landmark-source-bucharest.json",
-  "reviewedAt": "2026-11-08",
+  "reviewedAt": "2026-11-11",
   "improvements": [
     "Added the full r16476195 aggregate connectors around the five mapped terminal parts.",
     "Preserved the verified inner courtyard w1215078738.",
     "Replaced guessed control-cabin and 20 m pier-spine outlines with the exact source polygons; cabin spans 20–25 m.",
     "Separated independently measured departures white hall roofs, dark membrane zones, Vioara membranes and seven roof strips, clipped to complete mapped source rings. All seven colliders, source IDs, heights and courtyard geometry remain unchanged.",
-    "Replaced the flat arrivals cap with ten independently measured repeated curved bays, clipped to the exact source ring; total14m and existing collision bands stay unchanged."
+    "Replaced the flat arrivals cap with ten independently measured repeated curved bays, clipped to the exact source ring; total14m and existing collision bands stay unchanged.",
+    "Pier assembly uses 32 literal source-part footprints and height ranges once, including open space below mapped elevated connectors; narrow untagged residual strips inherit an explicit estimated adjacent height band."
   ],
   "remainingGaps": [
     "Connector roof height 12 m is explicitly estimated; the aggregate has max_level=2 but no height.",
-    "Departures, arrivals and pier roof heights remain estimates without mapped height tags.",
+    "Departures and arrivals heights remain estimates. Pier parts use literal mapped heights; 120 small residual outline cells use estimated adjacent part bands.",
     "Static aircraft and some jet-bridge details are legacy illustrations, not surveyed current aircraft positions.",
     "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity.",
     "Roof plant/HVAC equipment and membrane/weathering detail are incomplete. Pixel RGB observations have unknown imagery acquisition lighting and are material-colour estimates.",
@@ -149,9 +336,216 @@
       "label": "Arrivals roof/source model regression",
       "passed": true,
       "details": "All61-model finite geometry/normal/triangle-accounting checks and all33 Bucharest source checks pass after the roof profile change. Seven source/courtyard colliders remain byte-identical to d35d3d5. Three fresh59f953f game-only studies were inspected; oblique camera distance1000m retains the complete terminal."
+    },
+    {
+      "label": "Pier part union and elevated clearance",
+      "passed": true,
+      "details": "32 source footprints and height ranges exactly retained, 152 collider bands, original/alternate native views, physical under-bridge and solid-volume controls. Mandatory foot/a 0 high / 0 medium. District sweep has unchanged inherited findings. See fix-otp-terminal/summary.json."
     }
   ],
   "captures": [
+    {
+      "id": "front",
+      "label": "Departures facade detail — street-height model study",
+      "sha256": "79f8ec94da06f426739ec71c08a7f3d0bfd29c6a58585dc5117be2fced19ea54",
+      "capturedAt": "2026-11-11T01:33:35.445Z",
+      "sourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=street&az=-84.00134234412998&d=220&tx=-170.20144234878296&tz=-88.69875434522132&ty=9&ey=1.6",
+        "anchor": {
+          "lat": 44.5708154,
+          "lon": 26.0795884,
+          "rotation": -1.4661
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            -388.9967980336489,
+            1.6,
+            -65.70761842867692
+          ],
+          "quaternion": [
+            0.012492914134061586,
+            -0.6690447517347269,
+            0.0112489354033115,
+            0.7430319701903471
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 5332.080824981656,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -225.6367935160489,
+            0,
+            -227.5981963697926
+          ],
+          "max": [
+            224.98425943834576,
+            30,
+            303.609886128373
+          ]
+        },
+        "render": {
+          "triangles": 48974,
+          "calls": 3
+        },
+        "isolatedModel": true,
+        "scope": "Current source-part assembly; isolated model view, no district or photographic parity claim."
+      },
+      "image": "assets/landmarks/otp/source-parts-b1e33eee/front.png",
+      "kind": "front"
+    },
+    {
+      "id": "top",
+      "label": "Top model study (north-up orthographic)",
+      "sha256": "92b18e06fe689b3aa313981a2d222a70d9ace58a8398245f9be3f8e774314801",
+      "capturedAt": "2026-11-11T01:33:44.888Z",
+      "sourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.5708154,
+          "lon": 26.0795884,
+          "rotation": -1.4661
+        },
+        "camera": {
+          "projection": "orthographic",
+          "position": [
+            -0.3262670388515687,
+            650.2013756978721,
+            38.005844879290194
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "fov": 45,
+          "near": 1.3004027513957441,
+          "far": 13004.027513957442,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -413.46758379858136,
+          "right": 413.46758379858136,
+          "top": 310.10068784893605,
+          "bottom": -310.10068784893605,
+          "zoom": 1,
+          "groundSquareM": 826.9351675971627,
+          "groundWidthM": 826.9351675971627,
+          "groundDepthM": 620.2013756978721,
+          "orientation": "north-up"
+        },
+        "bounds": {
+          "min": [
+            -225.6367935160489,
+            0,
+            -227.5981963697926
+          ],
+          "max": [
+            224.98425943834576,
+            30,
+            303.609886128373
+          ]
+        },
+        "render": {
+          "triangles": 48974,
+          "calls": 3
+        },
+        "isolatedModel": true,
+        "scope": "Current source-part assembly; isolated model view, no district or photographic parity claim."
+      },
+      "image": "assets/landmarks/otp/source-parts-b1e33eee/top.png",
+      "kind": "top"
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "sha256": "854c9a998dccac2c8bdb52c61e23cc36ca9c9a3af69cf223fe6f18db38ea988b",
+      "capturedAt": "2026-11-11T01:33:56.500Z",
+      "sourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=oblique&az=-49.00134234412998&el=28&d=1000&el=38",
+        "anchor": {
+          "lat": 44.5708154,
+          "lon": 26.0795884,
+          "rotation": -1.4661
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            -666.7088452471284,
+            481.4715627858908,
+            617.2559732313376
+          ],
+          "quaternion": [
+            -0.22013838035332248,
+            -0.40238542384061593,
+            -0.10032595409938755,
+            0.882926818660568
+          ],
+          "fov": 45,
+          "near": 2,
+          "far": 20000,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -225.6367935160489,
+            0,
+            -227.5981963697926
+          ],
+          "max": [
+            224.98425943834576,
+            30,
+            303.609886128373
+          ]
+        },
+        "render": {
+          "triangles": 48974,
+          "calls": 3
+        },
+        "isolatedModel": true,
+        "scope": "Current source-part assembly; isolated model view, no district or photographic parity claim."
+      },
+      "image": "assets/landmarks/otp/source-parts-b1e33eee/oblique.png",
+      "kind": "oblique"
+    }
+  ],
+  "perf": {
+    "triangles": 48972,
+    "drawCalls": 3,
+    "note": "Isolated current model studies; excludes district, traffic and mirrors."
+  },
+  "roofMeasurementLedger": "../../../../../../handoffs/fidelity/d-otopeni/terminal-roof-measurements.json",
+  "implementationNotesUpdatedAt": "2026-11-09",
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance.",
+  "historicalCaptures": [
     {
       "id": "front",
       "label": "Departures facade detail — street-height model study",
@@ -340,13 +734,5 @@
         "note": "Isolated game-only source model study. Roof plan/colours and ten arrivals bay positions use independent Esri measurements; arrivals rise1.2m is explicitly estimated. All base/total heights, source footprints/courtyard and seven colliders remain unchanged."
       }
     }
-  ],
-  "perf": {
-    "triangles": 15665,
-    "drawCalls": 3,
-    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
-  },
-  "roofMeasurementLedger": "../../../../../../handoffs/fidelity/d-otopeni/terminal-roof-measurements.json",
-  "implementationNotesUpdatedAt": "2026-11-09",
-  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+  ]
 }

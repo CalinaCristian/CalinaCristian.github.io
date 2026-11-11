@@ -38,7 +38,7 @@ document.addEventListener('click',async event=>{
 });
 async function initInventory() {
   try {
-    const response = await fetch('inventory.json?v=20261111-fountain-trees');
+    const response = await fetch('inventory.json?v=20261111-otp-terminal');
     if (!response.ok) throw new Error(`Inventory HTTP ${response.status}`);
     inventory = await response.json();
     for (const selector of ['#hero-sha','#source-sha']) { const e=$(selector); e.textContent=selector==='#hero-sha'?inventory.sourceSha.slice(0,7):inventory.sourceSha; e.href=`${repo}/tree/${inventory.sourceSha}`; }

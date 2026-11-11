@@ -276,6 +276,32 @@ export class Traffic {
         return true;
     }
 
+    /** Centre station on (edge, dir), ahead of station `from`, one metre before the first one from which a body of this
+     *  size is no longer wholly inside the district (the invisible boundary wall is met a little before that); Infinity
+     *  when the rest of the leg is inside. Plan geometry from the source path only: the per-step guard is unchanged and
+     *  still has the last word. */
+    railDistrictLimit(edge, dir, length, width, route, from = 0) {
+        if (!this.world.district?.inside) return Infinity;
+        const cache = this._railLimits || (this._railLimits = new Map()), key = edge.id + '|' + dir + '|' + length + '|' + width + '|' + (route?.[0]?.e.id ?? '');
+        let next = cache.get(key);
+        if (!next) {
+            // next[i]: first station index >= i (every 0.5 m) whose body pose is not wholly inside, or -1
+            const n = Math.floor(edge.len / .5) + 1, probe = { edge, dir, s: 0, route: route ? route.slice() : [], hist: [] }, d = length * .36, body = { x: 0, z: 0, heading: 0, length, width };
+            next = new Int32Array(n + 1).fill(-1);
+            for (let i = n - 1; i >= 0; i--) {
+                probe.s = Math.min(edge.len, i * .5); next[i] = next[i + 1];
+                const C = sampleTramPath(probe, 0), F = sampleTramPath(probe, d), R = sampleTramPath(probe, -d);
+                if (!C || !F || !R) continue; // the path ends or forks unresolved here: the leaf rule owns that stop
+                const hx = F.x - R.x, hz = F.z - R.z; if (hx * hx + hz * hz < 1e-9) continue;
+                body.x = C.x; body.z = C.z; body.heading = Math.atan2(-hx, -hz);
+                if (!this.railBodyInside(body)) next[i] = i; // the guard's own domain test; a track may run right along the edge
+            }
+            cache.set(key, next);
+        }
+        const bad = next[Math.min(next.length - 1, Math.max(0, Math.ceil(from / .5 - 1e-9)))];
+        return bad < 0 ? Infinity : Math.max(from, bad * .5 - 1);
+    }
+
     bindSourceTrams() {
         const actors = this.vehicles.filter(v => v.tram), summary = { passed: true, bindings: [], unresolved: [], rngDraws: 0 };
         if (!actors.length) return summary;
@@ -1364,6 +1390,18 @@ export class Traffic {
         const laneDropMax = this.laneDropMax(v, 60);
         if (!v.tram && v.lane > laneDropMax && this.laneFree(v, v.lane - 1)) { v.lane--; v.laneChangeCd = 2; }
         let stopD = Infinity, vCap = Infinity, waitingRed = false, stopWhy = null;
+        if (e.rail && this.world.district?.inside) {
+            // A source rail runs on past the district edge. The leaf rule below stops a tram at the end of the rail, which
+            // lies outside: the guard then refused the tram at the edge on every step, for good. It stops inside instead.
+            const ahead = this._railAhead || (this._railAhead = []);
+            let before = -v.s, re = e, rd = v.dir;
+            for (let k = -1; k < v.route.length && k < 1; k++) {
+                if (k >= 0) { before += re.len; re = v.route[k].e; rd = v.route[k].dir; if (!re.rail) break; }
+                ahead.length = 0; for (let i = k + 1; i < v.route.length && ahead.length < 4; i++) ahead.push(v.route[i]);
+                const limit = this.railDistrictLimit(re, rd, v.length, v.width, ahead, k < 0 ? v.s : 0);
+                if (limit < Infinity) { const d = before + limit; if (d < stopD) { stopD = Math.max(0, d); stopWhy = 'rail-district-boundary'; } break; }
+            }
+        }
         let curE = e, curDir = v.dir, curLane = v.lane, curLaneCur = v.laneCur, D = L - v.s - half, prevNode = null, prevD = 0;
         const seenSignals = new Set();
         const maxLook = Math.max(70, v.speed * v.speed / 4 + 30);

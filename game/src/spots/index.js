@@ -503,15 +503,28 @@ export class SpotSession {
         if(!Number.isFinite(floorY))floorY=this.spot.ground.groundAt(target.x,target.z,this.spot.ground.heightAt(target.x,target.z)+1.2);
         this.waypoint={x:target.x,z:target.z,floorY,label:target.name||target.label||'Custom waypoint',radius:target.interaction?Math.max(.4,(target.interaction.r||2)-.4):1.5};
         this._waypointFrom=null;this._updateWaypoint(true);
-        return{message:`Waypoint: ${this.waypoint.label}. ${this._waypointPath?'Follow the blue route.':'No walking route on this level. Use the stairs or choose another approach.'}`};
+        return{message:`Waypoint: ${this.waypoint.label}. ${this._waypointPath?'Follow the trail.':'No walking route on this level. Use the stairs or choose another approach.'}`};
     }
-    clearWaypoint(){this.waypoint=null;this._waypointPath=null;this.map?.setWaypoint(null);this.ui.setWaypoint(null);}
+    clearWaypoint(){this.waypoint=null;this._waypointPath=null;this.map?.setWaypoint(null);this.ui.setWaypoint(null);this._waypointLine(null);}
+    // (owner, 2026-11-11, L31: "a custom waypoint should draw the same trail as the guided tour") the planned walking route to a
+    // waypoint is drawn on the ground as the tour's dashed amber trail, from where the walker stands
+    _waypointLine(path){
+        if(this._wpRoute){this.spot.scene.remove(this._wpRoute);this._wpRoute.geometry.dispose();this._wpRoute.material.dispose();this._wpRoute=null;}
+        if(!path||path.length<2)return;const p=this.position,g=this._navigationGround(p.x,p.z,this.ctl?.y ?? p.y),route=[[p.x,p.z],...path.slice(1)],pos=[];
+        for(let r=1;r<route.length;r++){const [px,pz]=route[r-1],[qx,qz]=route[r],L=Math.hypot(qx-px,qz-pz),n=Math.max(1,Math.floor(L/1.6)),nx=-(qz-pz)/(L||1),nz=(qx-px)/(L||1);
+            for(let i=0;i<n;i++){const u0=i/n,u1=Math.min(1,(i+.55)/n);for(const [u,sd] of [[u0,-.12],[u0,.12],[u1,.12],[u1,-.12]]){const x=px+(qx-px)*u,z=pz+(qz-pz)*u;pos.push(x+nx*sd,g.groundAt(x,z,this.ctl?.y ?? p.y)+.06,z+nz*sd);}}}
+        if(!pos.length)return;const idx=[];for(let q=0;q<pos.length/12;q++){const b=q*4;idx.push(b,b+1,b+2,b,b+2,b+3);}
+        const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.setIndex(idx);
+        const m=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color:'#fbbf24',transparent:true,opacity:.75,depthWrite:false,side:THREE.DoubleSide,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2}));
+        m.name='waypoint-route';m.userData.noAudit=true;m.renderOrder=2;this.spot.scene.add(m);this._wpRoute=m;
+    }
     _updateWaypoint(force=false){
         const w=this.waypoint;if(!w)return;const p=this.position,y=this.ctl?.y ?? p.y,d=Math.hypot(w.x-p.x,w.z-p.z),arrived=d<=w.radius+1&&Number.isFinite(w.floorY)&&Math.abs(y-w.floorY)<=.75;
         if(force||!this._waypointFrom||Math.hypot(p.x-this._waypointFrom.x,p.z-this._waypointFrom.z)>3||Math.abs(y-this._waypointFrom.y)>.55){
             this._waypointFrom={x:p.x,z:p.z,y};
             this._waypointPath=arrived?null:this._navPath(p.x,p.z,w.x,w.z,{radius:w.radius,maxLength:600,startY:y,targetY:w.floorY});
             this.map?.setWaypoint(w,this._waypointPath);
+            this._waypointLine(this._waypointPath);
         }
         const turn=Math.atan2(-(w.x-p.x),-(w.z-p.z))-(this.ctl.heading||0),direction=['↑','↖','←','↙','↓','↘','→','↗'][(Math.round(turn/(Math.PI/4))%8+8)%8];
         this.ui.setWaypoint({...w,direction,distance:d,arrived,routed:!!this._waypointPath,clear:()=>this.clearWaypoint()});

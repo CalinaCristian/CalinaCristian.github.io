@@ -27,14 +27,14 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Everywhere | L14 60 fps at Ultra (RTX 5070) | probe means 8–16 ms per frame; not measurable on the owner's hardware from here |
 | Everywhere | L16 cars stuck / nose to nose | crossing deadlock fixed (ba592d07); re-check live |
 | Spots | L28 hidden bar video | the official video does not embed; no licensed loop available |
-| Spots | L34 tourist spot refresh | Cișmigiu, Freddo, Old Town, Arcul, Space Needle done; the rest not reworked |
 | Interiors | #52 Luxoft interior, #66 night drone road lighting | unfinished / unverified |
 
 ## Fixed on branch `fidelity/basarab-structure-claude` (awaiting publication and a live re-check)
 
 | Commit | Reports |
 | --- | --- |
-| (next commit) | L30 spot chat bubbles: each person keeps one character's voice (no fishmonger selling cherries, no visitor speaking another tourist's language), talks about the sub-spot they stand at, and keeps quiet rather than repeat; place and yearly-event lines added for every Seattle and Bellevue spot (Bumbershoot, Solstice Parade, Snowflake Lane, Garden d'Lights…) and Bucharest (Mărțișor, Enescu Festival, Easter, December 1989) |
+| (next commit) | L34 tourist spots (all 7 live spots now reviewed): Pike Place spawn moved off the 1st Avenue carriageway (a car brushed past the player); mapped canopies (`building=roof`) stand on posts along their free edges (Pike Place arcade canopy, Seattle Center walkways, a Bellevue fuel station), none inside a building; Bellevue's Piloti shell covers its mapped 19 × 17 m footprint instead of a dark slab over a shell a third its size. Earlier on this branch: Cișmigiu, Freddo, Old Town shopfronts and balconies, Arcul masonry, Space Needle canopy, Downtown Park crowns |
+| 561576a4 | L30 spot chat bubbles: each person keeps one character's voice (no fishmonger selling cherries, no visitor speaking another tourist's language), talks about the sub-spot they stand at, and keeps quiet rather than repeat; place and yearly-event lines added for every Seattle and Bellevue spot (Bumbershoot, Solstice Parade, Snowflake Lane, Garden d'Lights…) and Bucharest (Mărțișor, Enescu Festival, Easter, December 1989) |
 | 281ac396 | holes in autumn crowns; L50 Basarab link ramp reaches Calea Griviței at street level |
 | 687fcde6 | Basarab ramps by Șos. Nicolae Titulescu and the west ramp follow Street View (street-level starts, retaining walls, filled medians, hammerhead piers, Podul Grozăvești deck plate); `tunnel=passage` at street level |
 | ba592d07 | traffic jam at Calea Plevnei (crossing deadlock) |

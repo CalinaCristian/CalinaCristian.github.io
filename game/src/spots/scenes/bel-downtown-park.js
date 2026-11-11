@@ -30,7 +30,8 @@ const TAU = Math.PI * 2;
 const ang = (x, z) => Math.atan2(z - C.z, x - C.x);
 const A_N = ang(-63, -10), A_W_END = ang(-158, 112), A_E_END = ang(-82, 186); // north high point, west + east branch ends
 
-function piloti(ctx, x, y, z) {
+// (sx, sz: horizontal scale to the mapped footprint; the shell is modelled 7.2 × 6.4 m)
+function piloti(ctx, x, y, z, sx = 1, sz = 1) {
     const sdf = (px, py, pz) => {
         let d = sdEllipsoid(px, py, pz, 0, 6.0, 0, 3.6, 1.3, 3.2);
         d = smax(d, -sdEllipsoid(px, py, pz, 0, 5.3, 0, 3.3, 1.1, 2.9), 0.15);
@@ -40,8 +41,8 @@ function piloti(ctx, x, y, z) {
     const geo = meshSDF(sdf, { min: [-4.4, -0.2, -4], max: [4.4, 7.6, 4], cell: 0.1, ao: 0.4,
         color: (px, py, pz, nx, ny, nz, ao, o) => { const hex = Math.abs(Math.sin(px * 6.0) * Math.sin(pz * 6.0 + py * 4.0)); o.set(hex > 0.92 ? '#c9ced2' : '#f4f5f6'); return o.multiplyScalar(0.75 + 0.25 * ao); } });
     const m = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.45, metalness: 0.3, side: THREE.DoubleSide }));
-    m.position.set(x, y, z); m.castShadow = true; m.name = 'piloti'; ctx.add(m);
-    for (let i = 0; i < 3; i++) { const a = i / 3 * TAU + 0.4; ctx.circle(x + Math.cos(a) * 2.2, z + Math.sin(a) * 2.2, 0.6, 5); }
+    m.position.set(x, y, z); m.scale.set(sx, 1, sz); m.castShadow = true; m.name = 'piloti'; ctx.add(m);
+    for (let i = 0; i < 3; i++) { const a = i / 3 * TAU + 0.4; ctx.circle(x + Math.cos(a) * 2.2 * sx, z + Math.sin(a) * 2.2 * sz, 0.6 * Math.min(sx, sz), 5); }
 }
 /** arc distance (rad) from the north high point along a branch: dir +1 east branch, −1 west */
 const along = (a, dir) => { let d = (a - A_N) * dir; d = ((d % TAU) + TAU) % TAU; return d; };
@@ -146,7 +147,11 @@ export default {
         { const mb = new GeoBatch(), y = g.heightAt(mem.x, mem.z); mb.box(mem.x, y, mem.z, 1.4, 0.9, 0.6, '#8d8a84', 'stone', 0.2); ctx.add(mb.build('memorial-stone')); ctx.box(mem.x, mem.z, 0.7, 0.3, -0.2, { prop: true, h: 0.9 }); const t = glowText('LEST WE FORGET · 1926', 1.2, 0.22, { fg: '#2a2a28', bg: '#9a968e', font: (s) => `700 ${s}px Georgia, serif`, night: 0 }); t.position.set(mem.x - Math.sin(0.2) * 0.31, y + 0.62, mem.z - Math.cos(0.2) * 0.31); t.rotation.y = Math.PI + 0.2; ctx.add(t); }
         // ---------------------------------------------------------------- NE gateway: Piloti + DOWNTOWN PARK sign
         const pl = sp.structures.find((s) => s.id === 'piloti') || { x: 70, z: -31 };
-        piloti(ctx, pl.x, g.heightAt(pl.x, pl.z), pl.z);
+        // L34: the shell covers its mapped footprint (OSM w1326469154, building=roof, about 19 × 17 m) and replaces it — the
+        // native slab drew a dark roof over a shell a third of its size
+        { const fp = d.buildings.find((b) => b.id === 'w1326469154'); let sx = 1, sz = 1;
+            if (fp) { ctx.skipBuildings.add(fp.id); const xs = fp.poly.map((p) => p[0]), zs = fp.poly.map((p) => p[1]); sx = (Math.max(...xs) - Math.min(...xs)) / 2 / 3.6 * 0.95; sz = (Math.max(...zs) - Math.min(...zs)) / 2 / 3.2 * 0.95; }
+            piloti(ctx, pl.x, g.heightAt(pl.x, pl.z), pl.z, sx, sz); }
         { const s = glowText('DOWNTOWN PARK', 3.4, 0.5, { fg: '#f1ece0', bg: '#2f4a36', font: (q) => `700 ${q}px Georgia, serif`, night: 0.9 }); const sx = pl.x - 12, sz = pl.z + 10, y = g.heightAt(sx, sz); s.position.set(sx, y + 1.1, sz); s.rotation.y = Math.PI * 0.75; ctx.add(s); const sb = new GeoBatch(); sb.box(sx, y, sz, 3.8, 0.85, 0.35, '#a78d84', 'stone', Math.PI * 0.75); ctx.add(sb.build('gateway-sign')); ctx.box(sx, sz, 1.9, 0.2, -Math.PI * 0.75, { prop: true, h: 1.4 }); }
         // ---------------------------------------------------------------- Inspiration Playground (SW): towers, nets, slides (simplified)
         const pgp = area('w503657594');

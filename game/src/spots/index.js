@@ -14,6 +14,7 @@ export { MENU_AVAILABLE } from '../spot-availability.js';
 import { Ground, Painter, buildTerrain } from './ground.js';
 import { buildWillows } from './willow.js';
 import { patchSpotFacade } from '../facade-detail.js';
+import { canopyPosts } from './canopy-posts.js';
 import { paintOSM, buildBuildings, buildTrees, buildLamps, buildFurniture, roadLampPoints, streetTrees, areaTrees, waterPlane, polyCollider, streetBands, carriagewayTest } from './osm.js';
 import { Crowd } from './people.js';
 import { SpotUI, SpotMap, plaqueMesh } from './ui.js';
@@ -151,6 +152,7 @@ class SceneContext {
         paintOSM(this.painter, d, { skipWays: this.skipWays, skipAreas: this.skipAreas, skipBuildings: this.skipBuildings, ...o.paint });
         const B = buildBuildings(d, this.ground, { skip: this.skipBuildings, preserveSources:o.preserveSources, wallOpenings:o.wallOpenings, exclude: ex, urban: o.urban ?? true, style: o.style, filter: o.filter, shopStyle: o.shopStyle });
         this.add(B.group); this.colliders.push(...B.colliders); this.extras.buildings = B;
+        { const P = canopyPosts(d, this.ground, B.sourceMembers, { skip: this.skipBuildings }); if (P.group) { this.add(P.group); this.colliders.push(...P.colliders); } this.extras.canopyPosts = P.posts; }
         if (o.trees !== false) {
             this.trees.push(...d.trees.filter(([x, z]) => !ex.some((p) => inPoly(x, z, p))).map(([x, z, lt]) => ({ x, z, kind: lt === 'needleleaved' ? 'con' : 'broad' })));
             if (o.streetTrees !== false) this.trees.push(...streetTrees(d, { exclude: ex, skip: this.skipWays, ...(o.streetTreeOpts || {}) }));

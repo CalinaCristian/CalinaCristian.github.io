@@ -479,7 +479,9 @@ export default {
         // ---- sounds: crowd murmur, fish calls, gulls over the bay, 1st Ave traffic
         ctx.sound('crowd', -60, 30, 60, 1.2); ctx.sound('crowd', -150, -60, 70, 1); ctx.sound('calls', fish.front.x, fish.front.z, 40, 1);
         ctx.sound('gulls', -240, -40, 160, 1); ctx.sound('traffic', -10, 10, 50, 0.6); ctx.sound('bell', -150, -60, 200, 0.5);
-        ctx.spawns['pike-place'] = { x: -9.5, z: 13.5, heading: headingFromBearing(240) }; // top of Pike St, the sign straight ahead
+        // top of Pike St, the sign straight ahead — 9 m down from the 1st Avenue centreline (L34: the old spawn stood in the
+        // 1st Ave carriageway, a car brushing past the player)
+        ctx.spawns['pike-place'] = { x: -17.3, z: 18.0, heading: headingFromBearing(240) };
         ctx.minY = -60;
     },
 };

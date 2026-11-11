@@ -60,6 +60,7 @@ States: **fixed on branch** (implemented and checked in the probe; not published
 | L44 | Grozăvești (68.5, 1.9, 203.0), bearing 33.9 pitch -14.7 | "looks odd": the side slope of a ramp meets the grass in a sawtooth line | open | the embankment fill follows the terrain grid cells |
 | L45 | Grozăvești (285.9, 13.4, -776.2), bearing 94.3 pitch -31.4 | "still broken": barriers on the Exit to Giulești ramp in chunks | partly | `world: bridge parapets in continuous runs`: the outer barrier is continuous; the median barrier still breaks where a gap spans two road edges (decided per edge) |
 | L46 | Grozăvești (364.3, 24.3, -727.4), bearing 254.7 pitch -42.2 | "broken lines": lane markings on the elevated carriageway break, jump sideways and stop, with dark patches on the asphalt | open | related to L22 (junction markings) |
+| L47 | Grozăvești (549.1, 28.7, -831.5), bearing 55.5 pitch -30.2 | "why is this cut": a pale triangular wedge in the middle of the Basarab deck between the left carriageway and the tram tracks; the deck reads as sliced at an angle (35 fps at this camera) | open | likely the slot infill between the carriageway and tram decks (world.js tram-to-tram / centre slot infill): wrong colour and a tapering outline |
 ### Spot pass, 11 November (probe captures at the spawn, four directions, 25 m ahead, above)
 
 | Spot | Seen | Next |

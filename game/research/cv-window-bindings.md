@@ -41,7 +41,7 @@ The separate structural-plane follow-up certifies GTS against its actual unchang
 
 ## Owner floor assignments · 10 November 2026
 
-GTS: floor2. Arnia: assumed floor6. Deutsche Bank: assumed floor6. UiPath: floor6, applied to both chapters. Politehnica: floor1. Rosetti: assumed floor2. Luxoft remains unspecified. These owner instructions supersede earlier unknown-floor/ground-view descriptions, while dated historical proof retains its original source. Metre elevations, window bearings, source-building identity conflicts and complete-aperture compatibility still require evidence; a numbered floor does not authorize relocating a real building or clipping unrelated geometry.
+GTS: floor2. Arnia: assumed floor6. Deutsche Bank: assumed floor6. UiPath: floor6, applied to both chapters. Politehnica: floor1. Rosetti: assumed floor2. Luxoft: floor 3 is an estimate (2026-11-11, register #52), for the owner to confirm. These owner instructions supersede earlier unknown-floor/ground-view descriptions, while dated historical proof retains its original source. Metre elevations, window bearings, source-building identity conflicts and complete-aperture compatibility still require evidence; a numbered floor does not authorize relocating a real building or clipping unrelated geometry.
 
 ### Estimated outlook contract · 10 November 2026
 

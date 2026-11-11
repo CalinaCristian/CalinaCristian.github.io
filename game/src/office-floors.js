@@ -6,6 +6,7 @@ export const OFFICE_FLOORS = Object.freeze({
   gts: Object.freeze({floor:2,basis:'owner-provided',storeyM:2.8,heightBasis:'Estimated 2.8m storeys; retained facade/roof compatibility still required'}),
   arnia: Object.freeze({floor:6,basis:'owner-authorized assumption'}),
   db: Object.freeze({floor:6,basis:'owner-authorized assumption'}),
+  luxoft: Object.freeze({floor:3,basis:'estimate, owner to confirm (register #52)'}),
   'uipath-buc': Object.freeze({floor:6,basis:'owner-provided'}),
   'uipath-bel': Object.freeze({floor:6,basis:'owner-provided; applied to both UiPath chapters'})
 });

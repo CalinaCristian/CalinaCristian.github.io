@@ -23,7 +23,7 @@ export const OFFICE_WINDOW_SOURCES = Object.freeze({
   luxoft: {
     landmark: 'hermes',
     ids: ['w533147567', 'w231123137', 'r6774709'],
-    hold: 'Full aperture crosses recessed ground facade and floor transition'
+    skin: 0.15
   },
   db: { landmark: 'bob', ids: ['w55450549'], skin: 0.08 },
   arnia: { landmark: 'europehouse', ids: ['w246115249'], skin: 0.26 },

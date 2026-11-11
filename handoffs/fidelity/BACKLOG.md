@@ -12,16 +12,14 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Where | Report | State / diagnosis |
 | --- | --- | --- |
 | Grozăvești | L17 Basarab tram ramp fork | the climbing track's slab starts at the fork node, on the flat branch's track (tram-sweep-audit: 105 refused poses on w660918284 / w314447163). Holding the climb at grade until 3.4 m clear does not fit: the south approach already climbs at the 8 % cap (95 m to the 6 m bridge entry). Needs a lower, Street View-checked bridge entry height or a longer source approach |
-| Everywhere | Reality-check viewpoints | Grozăvești: all 19 rendered and reviewed 2026-11-11 (open findings in reality-check/REVIEW-grozavesti.md); other districts have no viewpoints yet |
-| Unirii | L22 junction markings (67, -189) | re-checked 2026-11-11 (capture + Street View, Bd. Corneliu Coposu): approaches carry lane lines and whole crossings, the junction interior is unmarked in both; owner to give a pose if a specific marking is missing |
 | SeaTac | #59 / #60 garage helix and ramps | partly: edge bands open where the mapped ramps pass (74136408); trench walls no longer cross the other ramp at gores and two sunken ramps side by side share one wall (58a8908a). Left: short inferred drop barriers at the gore mouths of the sunken ramps beside the helix (each at its own road's height); the report camera stands inside the garage footprint, where the garage is cut away |
 | Everywhere | L8 colliding buildings | partly: members of prepared assemblies and courtyard buildings still cut |
-| Interiors | #52 Luxoft interior | needs the owner's floor number. Tried 2026-11-11: with a floor-3 estimate (10.8 m) and the facade hold lifted, the Hermes window binding resolves, but the live view is refused ("virtual eye outside the certified room envelope": the 16 × 18 m ground-floor lobby room does not fit the building at that floor), so the room has to be re-planned to the real floor's depth. Reverted; the interior is still the generic lobby |
 
 ## Fixed on branch `fidelity/basarab-structure-claude` (awaiting publication and a live re-check)
 
 | Commit | Reports |
 | --- | --- |
+| (next commit) | #52 Luxoft: an upper office floor (floor 3, an estimate for the owner to confirm, 10.8 m) with open-plan desks, a meeting room and a live window onto Pipera from the Hermes facade; the window binding resolves and the view is active everywhere in the room. It was a ground-floor lobby with an opaque window band |
 | 55ca854d | #67 / L15 Bellevue pedestrian pileups at closures: walkers blocked head-on by peers on a crossing step through after 1.5 s; walkers boxed in by a closure both ways leave the road |
 | ceccfdd8 | Pasajul west deck over the Dâmbovița: it crosses right above Podul Grozăvești (OSM layer 2 over layer 1, no `maxheight` mapped). Street View from Podul Grozăvești shows a deep steel-blue box girder whose underside passes about two storeys up; the arch span now carries 2.45 m edge girders and cross girders in that blue (estimated), underside 8.5 m up instead of a thin slab at 9.9 m; road heights unchanged |
 | f63b6aa4 | L41 sky through the Basarab deck west of the station: Street View under the station shows one continuous underside; an elevated tram deck now joins a carriageway up to 12 m away (only the Basarab viaduct has tram decks that high: slot infill 2,476 → 7,944 m²), and the gore partners leaving one split node are paired for the median fill. A hairline gap remains under the deck near (600, -880) |
@@ -58,6 +56,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | L23 Romană Penny sign flicker | no Penny sign or POI in the current Romană data; facade signs stand 0.14 m off their walls |
 | #62 / #63 / #65 SeaTac frontage, parapets, markings | not reproduced at the report poses or closer: the drive hugs the terminal face, ramp edges and crossings whole |
 | L14 60 fps at Ultra (RTX 5070) | measured headless at 2560×1440 Ultra: mean 8.4–16.1 ms per frame in all eight districts (Grozăvești 95th percentile 19 ms); the owner's own browser is the final check |
+| L22 Unirii junction markings (67, -189) | re-checked against Street View on Bd. Corneliu Coposu: approaches carry lane lines and whole crossings; the junction interior is unmarked in reality too |
 | L28 hidden bar video | the official video does not allow embedding and no licensed loop exists; the bar shows a still instead |
 
 ## Checks before every push

@@ -150,9 +150,11 @@ const THEMES = {
     gts: { W: 9, D: 9, H: 2.9, floor: () => parquet('#b39470'), wallLow: '#f2f2ef', wall: '#f2f2ef', ceil: '#f7f7f5', view: 'bucharest', props: 'startup',
         npc: { title: 'Team lead', persona: 'lead', look: { top: '#1f2937', bottom: '#2c3e5c', skin: '#e8bc9a', hair: '#3b2a1e' }, at: [0.8, -2.8], yaw: -0.5 },
         mates: [[-2.6, -1.6, 'sit'], [-2.6, 0.9, 'sit'], [2.6, 0.9, 'sit']], tone: 'office' },
-    luxoft: { W: 16, D: 18, H: 5, floor: () => stone('#3b3f46', 'rgba(255,255,255,0.08)', 128), wallLow: '#e9edf1', wall: '#f4f6f8', ceil: '#f4f6f8', view: 'pipera', props: 'lobby',
-        npc: { title: 'Team lead', persona: 'lead', look: { top: '#1f2a44', bottom: '#2f3237', skin: '#e8bc9a', hair: '#1a1410' }, at: [3, -3.5], yaw: -0.3 },
-        mates: [[-4, 2, 'phone'], [5, -6, 'walk'], [-5.5, -5, 'talk']], tone: 'lobby' },
+    // (owner register #52: "generic interior, opaque windows") an upper office floor (floor 3 estimate, owner to confirm) with
+    // open-plan development desks and a live window onto Pipera, not the campus's ground-floor lobby
+    luxoft: { W: 16, D: 18, H: 3.4, floor: () => carpet('#5d636b'), wallLow: '#e9edf1', wall: '#f4f6f8', ceil: '#f4f6f8', view: 'pipera', props: 'devFloor',
+        npc: { title: 'Team lead', persona: 'lead', look: { top: '#1f2a44', bottom: '#2f3237', skin: '#e8bc9a', hair: '#1a1410' }, at: [3, -3.4], yaw: -0.3 },
+        mates: [[-4.2, -4.1, 'sit', Math.PI], [4.2, -0.9, 'sit', Math.PI], [-4.2, 2.3, 'sit', Math.PI], [-1.2, 6.2, 'talk', 0.5], [-0.2, 6.6, 'talk', -2.6]], tone: 'office' },
     db: { W: 16, D: 18, H: 3.8, photoLed: true, floor: () => carpet('#747a7b'), wallLow: '#deded7', wall: '#eeeee8', ceil: '#252b2d', view: 'pipera', props: 'bank',
         npc: { title: 'Engineering manager', persona: 'manager', look: { top: '#16181c', bottom: '#16181c', skin: '#e8bc9a', hair: '#3b2a1e' }, at: [-3, -3.5], yaw: 0.3 },
         mates: [[4, 1, 'phone'], [-5, 3, 'talk'], [-4.3, 3.6, 'talk']], tone: 'lobby' },
@@ -505,6 +507,18 @@ const PROPS = {
     },
     /** corporate lobby (Hermes Business Campus): reception, turnstile gates, glass partition, sofas */
     lobby(o, d) { lobbyCommon(o, d, '#7cc4e8', false); },
+    /** open-plan development floor: rows of desks with two monitors each, a glass meeting room, a kitchenette (layout estimated) */
+    devFloor(o, { W, D, H, accent }) {
+        const { box, mat } = o, desk = mat('#f4f5f6', { roughness: 0.5 }), leg = mat('#8d939a', { metalness: 0.6, roughness: 0.35 }), screen = mat('#15171a'), glow = new THREE.MeshBasicMaterial({ color: '#2a5d8f' }), chair = mat('#2b2f36', { roughness: 0.8 });
+        for (const side of [-1, 1]) for (let r = 0; r < 4; r++) {
+            const x = side * 4.2, z = -5 + r * 3.2; if (r === 3) continue; // (back row: the meeting room and the kitchen corner)
+            box(3.2, 0.04, 1.4, x, 0.74, z, desk, true); for (const dx of [-1.5, 1.5]) box(0.05, 0.72, 1.3, x + dx, 0.37, z, leg);
+            for (const dx of [-0.8, 0.8]) for (const s of [-1, 1]) { box(0.6, 0.36, 0.03, x + dx, 1.12, z + s * 0.25, screen); box(0.56, 0.32, 0.01, x + dx, 1.12, z + s * 0.25 + s * 0.017, glow); box(0.5, 0.5, 0.5, x + dx, 0.25, z + s * 0.95, chair); }
+        }
+        meetingRoom(o, -W / 2 + 3.2, D / 2 - 2.4, 5, 3.6, H, accent);
+        box(2.4, 0.9, 0.6, W / 2 - 3, 0.45, D / 2 - 0.6, mat('#e8e8e4'), true); box(0.3, 0.38, 0.3, W / 2 - 2.4, 1.08, D / 2 - 0.6, mat('#1c1d21')); // kitchenette + coffee machine
+        box(W - 0.4, 0.05, 0.05, 0, H - 0.12, -D / 2 + 0.2, new THREE.MeshBasicMaterial({ color: accent || '#7cc4e8' }));
+    },
     /** bank tower lobby (BOB Tower): darker palette, deep-blue feature wall, turnstiles */
     bank(o, d) { return buildDBInterior(o,d); },
     /** Europe House/TECTO: photo-led selected workplace, all room dimensions estimated. */

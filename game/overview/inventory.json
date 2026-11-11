@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "7f592fce2df634139633fa09f134f45a4348fb48",
+  "sourceSha": "b480d9f039468597e45de673bc61eaefe1adc8ce",
   "reviewedOn": "2026-11-10",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -3446,7 +3446,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "a9930b7b83005fed5411b61c016054b2a0ad800bedd922b99e21099263d02cfe"
+      "sha256": "65f8cbc868e30db1438588017969c68146a78f741b361244c2c61b8a0a9a4576"
     },
     {
       "path": "specs/README.md",
@@ -3622,7 +3622,7 @@
     },
     {
       "path": "game/src/office.js",
-      "sha256": "499796b6147367ada9b0ba33ec1a8b1099ec1bdb96ece747ee98b1321c683ab6"
+      "sha256": "f97a2647b742335b019efae3d096876c952c8c6d0285a6097db14bf7ac3c9319"
     },
     {
       "path": "game/src/flight.js",
@@ -6066,7 +6066,7 @@
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "aed118b14204acdd015bd3529130450da24d8a174e5b19c46adbf0ab418896f8"
+      "sha256": "f8a0f3bf9a850df60282b485955b468cd09e48320ef1f6c32e78d54aca3fc89b"
     },
     {
       "path": "game/overview/landmark-evidence.js",
@@ -6203,6 +6203,30 @@
     {
       "path": "tools/fidelity/facade-window-bands.test.mjs",
       "sha256": "30d736a1fae40d2d37bb06b4ed5a863a411449897304234041159e8da3b2a133"
+    },
+    {
+      "path": "game/overview/fix-gts-host/after.png",
+      "sha256": "b4086b0139e0289e62b2b4b7b6f869db60176ec450334d8e09362d92ec3803a1"
+    },
+    {
+      "path": "game/overview/fix-gts-host/before.png",
+      "sha256": "b48f0df7b5eceb023fc2a3bf382c0e4f63d2f1fd0c76806693bdd9fdd2e17845"
+    },
+    {
+      "path": "game/overview/fix-gts-host/conversation.png",
+      "sha256": "ef247d18b8813894292e86a0209a47a8129a0121c0e45e03aeb8c8a599d7e13a"
+    },
+    {
+      "path": "game/overview/fix-gts-host/phone.png",
+      "sha256": "21215a2a37e0c2cd6866e31ef89fab41c711c476303ce3f0e69a9931ad4ebfcf"
+    },
+    {
+      "path": "game/overview/fix-gts-host/summary.json",
+      "sha256": "53cd34ffd43ffa9f602d7b8150c6d12bb13d3bdeac51ff5c83f56aa97f7f22f7"
+    },
+    {
+      "path": "specs/14-on-foot.md",
+      "sha256": "799b9df53abc7bbd97bcdba5477dd5d7f4ac877513ad7e9832ea38eed080d8c0"
     }
   ],
   "stagingEvidence": [
@@ -6342,9 +6366,10 @@
     "sourceCommit": "a5c7ca16f2dae72a5c37480e475c108a9786607d"
   },
   "gtsHostFixEvidence": {
-    "summary": "game/overview/fix-gts-host/summary.json",
-    "source": "e83e9bf12b6f9b1a73508282fcbdc7be9d4b4269",
-    "report": 24,
-    "scope": "Original native GTS room appearance and E interaction. Controlled initial room entry and camera setup; no exact owner pose supplied. Automatic RAF paused with explicit native frames. Phone-width viewport in a desktop Chromium context; not physical-phone or ordinary street approach acceptance."
+    "path": "fix-gts-host/summary.json",
+    "reports": [
+      24
+    ],
+    "sourceCommit": "e83e9bf12b6f9b1a73508282fcbdc7be9d4b4269"
   }
 }

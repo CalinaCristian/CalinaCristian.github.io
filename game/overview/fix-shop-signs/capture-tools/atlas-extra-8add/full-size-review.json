@@ -1,0 +1,14 @@
+{
+  "source": "8add95f35681eddaf01a136ff1f5769a5329b102",
+  "reviewedAt": "2026-11-11T02:10:02.604188+00:00",
+  "inspectedOriginalFiles": [
+    "bellevue/aerial-r03-c04.png",
+    "bellevue/aerial-r03-c05.png",
+    "grozavesti/aerial-r05-c07.png",
+    "grozavesti/aerial-r05-c08.png",
+    "grozavesti/aerial-r06-c09.png",
+    "grozavesti/aerial-r07-c07.png",
+    "grozavesti/aerial-r07-c08.png"
+  ],
+  "scope": "All7 original640px atlas files viewed; full source-building radius plus30m catches unplaced records missed by original POI-only mask. Technical coverage/current imagery, not source-parity or road/traffic acceptance."
+}

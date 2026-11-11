@@ -1,0 +1,115 @@
+{
+  "scope": "Superseded records, original pixels retained.",
+  "items": [
+    {
+      "id": "chapter-rosetti-street",
+      "chapterId": "rosetti",
+      "label": "rosetti actual chapter start street view",
+      "kind": "street",
+      "x": -245.49278934593488,
+      "z": 977.9616000000897,
+      "y": 1.7,
+      "target": [
+        -247.23776418105993,
+        1.7,
+        927.9920586491348
+      ],
+      "fov": 80,
+      "cameraY": 1.7,
+      "groundY": 0,
+      "heading": 358,
+      "pitch": 0,
+      "aspect": 1.5,
+      "pose": {
+        "x": -245.49278934593488,
+        "y": 1.7,
+        "z": 977.9616000000897,
+        "heading": 358,
+        "pitch": 0,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          0,
+          0.0174524064372835,
+          0,
+          0.9998476951563912
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "night",
+        "rendererClockOverride": "night",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "🌙",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794179163874,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": -28
+      },
+      "perf": {
+        "fps": 14,
+        "frameMs": 0,
+        "drawCalls": 204,
+        "triangles": 803982,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 2,
+      "lat": 44.4556,
+      "lon": 26.10071,
+      "image": "images/chapter-rosetti-street.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:09:55.237Z",
+      "sha256": "515e5ccfc1222b70be72f00443f76dfcace4e65e2f839c68b3cefa54227755c4",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "night",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      },
+      "thumbnail": "thumbs/chapter-rosetti-street.jpg",
+      "thumb": "thumbs/chapter-rosetti-street.jpg",
+      "thumbnailSha256": "5ea43e714edb25c689782473b43943d73ddf29af9c0a4cab61241dbdfbf2f4c4",
+      "reviewNote": "Actual night outward views show the transition to sparse generic distant blocks and unmeasured window/ground lighting. The actual chapter-start street is visible. All are static GAME camera poses; no drone controller or driving/mirror budget acceptance is claimed."
+    }
+  ]
+}

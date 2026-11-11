@@ -1,0 +1,389 @@
+{
+  "scope": "Superseded records, original pixels retained.",
+  "items": [
+    {
+      "id": "ambasador-street",
+      "label": "ambasador · close partial facade in selected snow conditions",
+      "kind": "street",
+      "landmark": "ambasador",
+      "sourceEdge": 50,
+      "sourceRoadId": "w119241030",
+      "x": 642.16745536412,
+      "z": 711.2888480978056,
+      "y": 1.7,
+      "absoluteY": 1.94,
+      "target": [
+        662.3639904547023,
+        9,
+        704.2570829842916
+      ],
+      "fov": 85,
+      "cameraBodyValidation": {
+        "method": "Production collideBuildings at actual public source-road centre and its exact native roadHeight, before capture; no offset toward or through the source facade",
+        "radiusM": 0.25,
+        "footY": 0.29,
+        "heightM": 1.7,
+        "clear": true
+      },
+      "cameraY": 1.94,
+      "groundY": 0.24,
+      "heading": 70.80357389711827,
+      "pitch": 18.26950396383729,
+      "aspect": 1.5,
+      "pose": {
+        "x": 642.16745536412,
+        "y": 1.94,
+        "z": 711.2888480978056,
+        "heading": 70.80357389711827,
+        "pitch": 18.26950396383729,
+        "fov": 85,
+        "aspect": 1.5,
+        "quaternion": [
+          0.12940432680847486,
+          -0.5719596523205417,
+          0.09196894261944104,
+          0.8047722596573967
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "winter",
+        "weatherOverride": "snow",
+        "weather": {
+          "source": "override",
+          "code": 73,
+          "kind": "snow",
+          "label": "Snow",
+          "icon": "🌨️",
+          "tempC": -2,
+          "precipMm": 0.8,
+          "snowCm": 12,
+          "snowfallCm": 0.6,
+          "windKmh": 12,
+          "windDir": 330,
+          "visibilityM": 1600,
+          "cloud": 1,
+          "season": "winter",
+          "updatedAt": 1794180309893,
+          "climate": null
+        },
+        "season": {
+          "season": "winter",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 1,
+          "brown": 0.75,
+          "fresh": 0,
+          "doy": 20
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 140,
+        "triangles": 737507,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": 653.002668844464,
+          "z": 766.2329702549368,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w1561134314"
+        },
+        {
+          "x": 646.5199028311812,
+          "z": 697.6347832893657,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w119241030"
+        },
+        {
+          "x": 628.254008832354,
+          "z": 696.8031247468854,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w119241030"
+        }
+      ],
+      "vehiclesWithin60m": 10,
+      "lat": 44.44189960364164,
+      "lon": 26.0992806870794,
+      "image": "images/ambasador-street.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:26:06.063Z",
+      "sha256": "8ef7d0af6326be6243cb4306f123c4dafea8e2da08021ed3c84b21e6cf8b949b",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "winter",
+        "weather": "snow",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      },
+      "thumbnail": "thumbs/ambasador-street.jpg",
+      "thumb": "thumbs/ambasador-street.jpg",
+      "thumbnailSha256": "9ae86e7089eae16bf42fad47e2c4d2a379d266cd5b405105d58838e5a936a358",
+      "reviewNote": "Actual renderer readback is winter/snow/day. Close ASE/Ambasador/Europe House facade crops and leafless crowns are visible. These partial facades do not show complete landmarks; snow/fog, architectural detail and canopy appearance are not a matched winter reference. Outward views retain sparse generic context beneath the weather."
+    },
+    {
+      "id": "chapter-arnia-street",
+      "chapterId": "arnia",
+      "label": "arnia actual chapter start street view",
+      "kind": "street",
+      "x": 603.9675355340652,
+      "z": 722.3580000002905,
+      "y": 1.7,
+      "target": [
+        603.9675355340652,
+        1.7,
+        672.3580000002905
+      ],
+      "fov": 80,
+      "cameraY": 1.94,
+      "groundY": 0.24,
+      "heading": 0,
+      "pitch": -0.2750176295403771,
+      "aspect": 1.5,
+      "pose": {
+        "x": 603.9675355340652,
+        "y": 1.94,
+        "z": 722.3580000002905,
+        "heading": 0,
+        "pitch": -0.2750176295403771,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.0023999792643085464,
+          0,
+          0,
+          0.9999971200456182
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "winter",
+        "weatherOverride": "snow",
+        "weather": {
+          "source": "override",
+          "code": 73,
+          "kind": "snow",
+          "label": "Snow",
+          "icon": "🌨️",
+          "tempC": -2,
+          "precipMm": 0.8,
+          "snowCm": 12,
+          "snowfallCm": 0.6,
+          "windKmh": 12,
+          "windDir": 330,
+          "visibilityM": 1600,
+          "cloud": 1,
+          "season": "winter",
+          "updatedAt": 1794180309893,
+          "climate": null
+        },
+        "season": {
+          "season": "winter",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 1,
+          "brown": 0.75,
+          "fresh": 0,
+          "doy": 20
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 16,
+        "frameMs": 0,
+        "drawCalls": 247,
+        "triangles": 1108504,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": 650.7723462609758,
+          "z": 759.6643364141318,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w1561134314"
+        },
+        {
+          "x": 643.5333297740999,
+          "z": 689.0567909113203,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w119241030"
+        },
+        {
+          "x": 625.5626266494415,
+          "z": 689.3475419503247,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w119241030"
+        }
+      ],
+      "vehiclesWithin60m": 14,
+      "lat": 44.4418,
+      "lon": 26.0988,
+      "image": "images/chapter-arnia-street.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:27:05.257Z",
+      "sha256": "867189ed2e6ec802f2b8fbb690572ce4032a249e2d2504647c21a707f22f5d79",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "winter",
+        "weather": "snow",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      },
+      "thumbnail": "thumbs/chapter-arnia-street.jpg",
+      "thumb": "thumbs/chapter-arnia-street.jpg",
+      "thumbnailSha256": "63fc3d4bb6d0b7c5b3b21255fd99a60a9035f634d77b07e26690b95a2db8d639",
+      "reviewNote": "Actual winter outward south and chapter-start poses are retained. UiPath chapter-start looks through park trees, not a clear office frontage. The selected snow/fog limits distance visibility naturally; all frames preserve full source content and actual poses. No controller or all-scene clearance pass is claimed."
+    },
+    {
+      "id": "chapter-uipath-buc-street",
+      "chapterId": "uipath-buc",
+      "label": "UiPath winter chapter-start pose · park trees limit the view",
+      "kind": "street",
+      "x": -556.2858879920136,
+      "z": -855.7163999999798,
+      "y": 1.7,
+      "target": [
+        -539.1848808257301,
+        1.7,
+        -808.7317689606843
+      ],
+      "fov": 80,
+      "cameraY": 1.94,
+      "groundY": 0.24,
+      "heading": 160,
+      "pitch": -0.27501762954037706,
+      "aspect": 1.5,
+      "pose": {
+        "x": -556.2858879920136,
+        "y": 1.94,
+        "z": -855.7163999999798,
+        "heading": 160,
+        "pitch": -0.27501762954037706,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          0.00041675202568559953,
+          0.9848049168108046,
+          0.00236351818655959,
+          -0.17364767756810043
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "winter",
+        "weatherOverride": "snow",
+        "weather": {
+          "source": "override",
+          "code": 73,
+          "kind": "snow",
+          "label": "Snow",
+          "icon": "🌨️",
+          "tempC": -2,
+          "precipMm": 0.8,
+          "snowCm": 12,
+          "snowfallCm": 0.6,
+          "windKmh": 12,
+          "windDir": 330,
+          "visibilityM": 1600,
+          "cloud": 1,
+          "season": "winter",
+          "updatedAt": 1794180309893,
+          "climate": null
+        },
+        "season": {
+          "season": "winter",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 1,
+          "brown": 0.75,
+          "fresh": 0,
+          "doy": 20
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 16,
+        "frameMs": 0,
+        "drawCalls": 253,
+        "triangles": 1181563,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 3,
+      "lat": 44.456,
+      "lon": 26.0842,
+      "image": "images/chapter-uipath-buc-street.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:27:20.519Z",
+      "sha256": "019fff86799f2eb029708b27834f5a605177ca4031ea5e8f2c4512272cccdd95",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "winter",
+        "weather": "snow",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      },
+      "thumbnail": "thumbs/chapter-uipath-buc-street.jpg",
+      "thumb": "thumbs/chapter-uipath-buc-street.jpg",
+      "thumbnailSha256": "92e21c84e6923d91131e1e2673cb83850125127d136d0de3a330b593400a6704",
+      "reviewNote": "Actual winter outward south and chapter-start poses are retained. UiPath chapter-start looks through park trees, not a clear office frontage. The selected snow/fog limits distance visibility naturally; all frames preserve full source content and actual poses. No controller or all-scene clearance pass is claimed."
+    }
+  ]
+}

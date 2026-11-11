@@ -1,0 +1,2902 @@
+{
+  "schemaVersion": 1,
+  "reports": [
+    27,
+    36
+  ],
+  "runtimeSource": "8add95f35681eddaf01a136ff1f5769a5329b102",
+  "scope": "Separate inferred coplanar shop fascia boards; keep mapped buildings, source POIs and labels.",
+  "captures": [
+    {
+      "name": "unirii-overlapping-signs",
+      "file": "unirii-overlapping-signs-before.png",
+      "capturedAt": "2026-11-11T00:50:59.950Z",
+      "sha256": "63f21ab2070728ea348a9db14c9c086aa15d29c97dfe5dd77949c33a252a93f7",
+      "mode": "foot",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "pause-btn",
+          "text": "⏸",
+          "title": "Pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "🌍",
+          "title": "World map",
+          "rect": {
+            "x": 618,
+            "y": 716,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "explore-bar"
+        },
+        {
+          "id": "",
+          "text": "Copy location · F8",
+          "title": "",
+          "rect": {
+            "x": 25,
+            "y": 667,
+            "width": 116.734375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Places",
+          "title": "",
+          "rect": {
+            "x": 147.734375,
+            "y": 667,
+            "width": 53.375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Drone · G",
+          "title": "",
+          "rect": {
+            "x": 207.109375,
+            "y": 667,
+            "width": 71.125,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        }
+      ],
+      "source": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "native": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T00:50:59.956Z",
+        "release": "game-70c1e8a47a0ec0ff",
+        "source": "b480d9f039468597e45de673bc61eaefe1adc8ce",
+        "city": "bucharest",
+        "district": "unirii",
+        "visit": null,
+        "scene": "unirii",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 44.4310421,
+          "lon": 26.1034303
+        },
+        "position": {
+          "x": -442.762,
+          "y": 4.684,
+          "z": -149.152
+        },
+        "camera": {
+          "eye": [
+            -442.762,
+            4.684,
+            -149.152
+          ],
+          "bearing": 274.657,
+          "pitch": -6.893,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T10:32:59.955Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 0.03,
+          "frameMs": 136.8,
+          "drawCalls": 165,
+          "triangles": 783601,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": 76.242,
+          "vehicles": 306,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:35939/game/?inspect=1"
+      }
+    },
+    {
+      "name": "unirii-overlapping-signs-high",
+      "file": "unirii-overlapping-signs-after.png",
+      "capturedAt": "2026-11-11T02:02:52.233Z",
+      "sha256": "a0074eefed4e69d3092bc11720116efe4e6fc3a6ad973ec01f5c8a7032390c93",
+      "mode": "foot",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "pause-btn",
+          "text": "⏸",
+          "title": "Pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "🌍",
+          "title": "World map",
+          "rect": {
+            "x": 618,
+            "y": 716,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "explore-bar"
+        },
+        {
+          "id": "",
+          "text": "Copy location · F8",
+          "title": "",
+          "rect": {
+            "x": 25,
+            "y": 667,
+            "width": 116.734375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Places",
+          "title": "",
+          "rect": {
+            "x": 147.734375,
+            "y": 667,
+            "width": 53.375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Drone · G",
+          "title": "",
+          "rect": {
+            "x": 207.109375,
+            "y": 667,
+            "width": 71.125,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        }
+      ],
+      "source": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "native": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T02:02:52.303Z",
+        "release": "game-ea2d06c2566f8551",
+        "source": "e1449965dbdcbdba09ed4814ec8231370c04d31e",
+        "city": "bucharest",
+        "district": "unirii",
+        "visit": null,
+        "scene": "unirii",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 44.4310421,
+          "lon": 26.1034303
+        },
+        "position": {
+          "x": -442.762,
+          "y": 4.684,
+          "z": -149.152
+        },
+        "camera": {
+          "eye": [
+            -442.762,
+            4.684,
+            -149.152
+          ],
+          "bearing": 274.652,
+          "pitch": -6.881,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T10:31:52.302Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 0.09,
+          "frameMs": 79.8,
+          "drawCalls": 165,
+          "triangles": 783711,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": 48.363,
+          "vehicles": 306,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:39497/game/?inspect=1"
+      }
+    },
+    {
+      "name": "unirii-sign-overlap-east",
+      "file": "unirii-sign-overlap-east-before.png",
+      "capturedAt": "2026-11-11T00:51:55.042Z",
+      "sha256": "0398ceb18a9c77ae49dbd067c91b088b512f75c908ec876b7095905acf138961",
+      "mode": "foot",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "pause-btn",
+          "text": "⏸",
+          "title": "Pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "🌍",
+          "title": "World map",
+          "rect": {
+            "x": 618,
+            "y": 716,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "explore-bar"
+        },
+        {
+          "id": "",
+          "text": "Copy location · F8",
+          "title": "",
+          "rect": {
+            "x": 25,
+            "y": 667,
+            "width": 116.734375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Places",
+          "title": "",
+          "rect": {
+            "x": 147.734375,
+            "y": 667,
+            "width": 53.375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Drone · G",
+          "title": "",
+          "rect": {
+            "x": 207.109375,
+            "y": 667,
+            "width": 71.125,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        }
+      ],
+      "source": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "native": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T00:51:55.050Z",
+        "release": "game-70c1e8a47a0ec0ff",
+        "source": "b480d9f039468597e45de673bc61eaefe1adc8ce",
+        "city": "bucharest",
+        "district": "unirii",
+        "visit": null,
+        "scene": "unirii",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 44.4327298,
+          "lon": 26.1115308
+        },
+        "position": {
+          "x": 201.183,
+          "y": 2.22,
+          "z": -336.711
+        },
+        "camera": {
+          "eye": [
+            201.183,
+            2.22,
+            -336.711
+          ],
+          "bearing": 297.748,
+          "pitch": 35.067,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T10:33:55.049Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 0.08,
+          "frameMs": 33.4,
+          "drawCalls": 200,
+          "triangles": 748158,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": 118.428,
+          "vehicles": 306,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:35939/game/?inspect=1"
+      }
+    },
+    {
+      "name": "unirii-sign-overlap-east-high",
+      "file": "unirii-sign-overlap-east-after.png",
+      "capturedAt": "2026-11-11T02:03:26.889Z",
+      "sha256": "635b4d59d42c4294a18012eabbfbe31939993022646ae8eba4009b7d52b4e497",
+      "mode": "foot",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "pause-btn",
+          "text": "⏸",
+          "title": "Pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "🌍",
+          "title": "World map",
+          "rect": {
+            "x": 618,
+            "y": 716,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "explore-bar"
+        },
+        {
+          "id": "",
+          "text": "Copy location · F8",
+          "title": "",
+          "rect": {
+            "x": 25,
+            "y": 667,
+            "width": 116.734375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Places",
+          "title": "",
+          "rect": {
+            "x": 147.734375,
+            "y": 667,
+            "width": 53.375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Drone · G",
+          "title": "",
+          "rect": {
+            "x": 207.109375,
+            "y": 667,
+            "width": 71.125,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        }
+      ],
+      "source": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "native": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T02:03:26.950Z",
+        "release": "game-ea2d06c2566f8551",
+        "source": "e1449965dbdcbdba09ed4814ec8231370c04d31e",
+        "city": "bucharest",
+        "district": "unirii",
+        "visit": null,
+        "scene": "unirii",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 44.4327298,
+          "lon": 26.1115308
+        },
+        "position": {
+          "x": 201.183,
+          "y": 2.22,
+          "z": -336.711
+        },
+        "camera": {
+          "eye": [
+            201.183,
+            2.22,
+            -336.711
+          ],
+          "bearing": 297.724,
+          "pitch": 35.152,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T10:32:26.949Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 0.19,
+          "frameMs": 94.7,
+          "drawCalls": 200,
+          "triangles": 748189,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": 71.606,
+          "vehicles": 306,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:39497/game/?inspect=1"
+      }
+    }
+  ],
+  "layoutControls": {
+    "passed": true,
+    "controls": 8,
+    "legacyCentreGapMissesOverlap": true,
+    "occupiedBuildingBoard": {
+      "ax": 3.5,
+      "az": 0.12,
+      "bx": 10.5,
+      "bz": 0.12,
+      "y0": 2,
+      "y1": 3,
+      "label": "named building"
+    },
+    "shiftedFascia": {
+      "width": 6.5,
+      "centre": 14.08,
+      "score": 4.08
+    },
+    "retainedClearPlacement": {
+      "width": 6.5,
+      "centre": 10,
+      "score": 0
+    },
+    "placedCrowdedUnits": 4
+  },
+  "nativeBoardControls": {
+    "source": "e417cb924cf2a2817aa7fcabc3b7ded899188068",
+    "scope": "All native inferred unit boards versus every registered opaque primary and unit board; coplanar spans with actual padding and height overlap. Perpendicular blades excluded.",
+    "districts": [
+      {
+        "district": "bellevue",
+        "placedUnits": 59,
+        "fullBoards": 97,
+        "overlaps": []
+      },
+      {
+        "district": "floreasca",
+        "placedUnits": 35,
+        "fullBoards": 72,
+        "overlaps": []
+      },
+      {
+        "district": "grozavesti",
+        "placedUnits": 27,
+        "fullBoards": 109,
+        "overlaps": []
+      },
+      {
+        "district": "otopeni",
+        "placedUnits": 2,
+        "fullBoards": 20,
+        "overlaps": []
+      },
+      {
+        "district": "pipera",
+        "placedUnits": 46,
+        "fullBoards": 117,
+        "overlaps": []
+      },
+      {
+        "district": "romana",
+        "placedUnits": 120,
+        "fullBoards": 269,
+        "overlaps": []
+      },
+      {
+        "district": "seatac",
+        "placedUnits": 5,
+        "fullBoards": 35,
+        "overlaps": []
+      },
+      {
+        "district": "unirii",
+        "placedUnits": 84,
+        "fullBoards": 217,
+        "overlaps": []
+      }
+    ],
+    "passed": true
+  },
+  "footA": {
+    "dynamic": {
+      "high": 0,
+      "medium": 0,
+      "low": 2,
+      "byType": {
+        "perf-traffic-update": 1,
+        "perf-fps": 1
+      }
+    },
+    "audit": {}
+  },
+  "pairedDistrict": {
+    "coverageBefore": true,
+    "coverageAfter": true,
+    "matched": 155,
+    "findingsBefore": {
+      "pad-overlap": 82,
+      "ribbon-zfight": 71,
+      "ribbon-stacked": 4,
+      "surface-above-road": 3,
+      "marking-buried": 1,
+      "building-over-road": 59,
+      "in-water": 4,
+      "office-sign-capture": 2,
+      "canvas-text-overflow": 2
+    },
+    "findingsAfter": {
+      "pad-overlap": 82,
+      "ribbon-zfight": 71,
+      "ribbon-stacked": 4,
+      "surface-above-road": 3,
+      "marking-buried": 1,
+      "building-over-road": 59,
+      "in-water": 4,
+      "office-sign-capture": 2,
+      "canvas-text-overflow": 2
+    },
+    "maxCallDelta": 0,
+    "maxTriDelta": 244,
+    "costIncreases": [
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          0
+        ],
+        "calls": 0,
+        "tris": 126,
+        "after": {
+          "calls": 269,
+          "tris": 1241784,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          1
+        ],
+        "calls": 0,
+        "tris": 32,
+        "after": {
+          "calls": 212,
+          "tris": 1078189,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          2
+        ],
+        "calls": 0,
+        "tris": 32,
+        "after": {
+          "calls": 257,
+          "tris": 1274420,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          3
+        ],
+        "calls": 0,
+        "tris": 68,
+        "after": {
+          "calls": 261,
+          "tris": 1243948,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          4
+        ],
+        "calls": 0,
+        "tris": 102,
+        "after": {
+          "calls": 272,
+          "tris": 1305034,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          5
+        ],
+        "calls": 0,
+        "tris": 102,
+        "after": {
+          "calls": 271,
+          "tris": 1267009,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          6
+        ],
+        "calls": 0,
+        "tris": 78,
+        "after": {
+          "calls": 276,
+          "tris": 1270778,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          7
+        ],
+        "calls": 0,
+        "tris": 78,
+        "after": {
+          "calls": 270,
+          "tris": 1172197,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          8
+        ],
+        "calls": 0,
+        "tris": 32,
+        "after": {
+          "calls": 230,
+          "tris": 1005827,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          9
+        ],
+        "calls": 0,
+        "tris": 102,
+        "after": {
+          "calls": 249,
+          "tris": 1199535,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          10
+        ],
+        "calls": 0,
+        "tris": 102,
+        "after": {
+          "calls": 244,
+          "tris": 1170712,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          11
+        ],
+        "calls": 0,
+        "tris": 102,
+        "after": {
+          "calls": 229,
+          "tris": 1114495,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          12
+        ],
+        "calls": 0,
+        "tris": 102,
+        "after": {
+          "calls": 231,
+          "tris": 1065957,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          13
+        ],
+        "calls": 0,
+        "tris": 126,
+        "after": {
+          "calls": 229,
+          "tris": 1075907,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          14
+        ],
+        "calls": 0,
+        "tris": 126,
+        "after": {
+          "calls": 219,
+          "tris": 1005074,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          15
+        ],
+        "calls": 0,
+        "tris": 174,
+        "after": {
+          "calls": 252,
+          "tris": 1099226,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          16
+        ],
+        "calls": 0,
+        "tris": 174,
+        "after": {
+          "calls": 249,
+          "tris": 1043515,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          17
+        ],
+        "calls": 0,
+        "tris": 126,
+        "after": {
+          "calls": 250,
+          "tris": 942316,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          18
+        ],
+        "calls": 0,
+        "tris": 172,
+        "after": {
+          "calls": 251,
+          "tris": 935725,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          19
+        ],
+        "calls": 0,
+        "tris": 172,
+        "after": {
+          "calls": 247,
+          "tris": 966591,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          20
+        ],
+        "calls": 0,
+        "tris": 172,
+        "after": {
+          "calls": 241,
+          "tris": 926740,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          21
+        ],
+        "calls": 0,
+        "tris": 208,
+        "after": {
+          "calls": 244,
+          "tris": 942492,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          22
+        ],
+        "calls": 0,
+        "tris": 184,
+        "after": {
+          "calls": 242,
+          "tris": 862940,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          23
+        ],
+        "calls": 0,
+        "tris": 184,
+        "after": {
+          "calls": 232,
+          "tris": 822250,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          24
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 240,
+          "tris": 869602,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          25
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 232,
+          "tris": 829915,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          26
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 229,
+          "tris": 792450,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          27
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 228,
+          "tris": 780458,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          28
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 230,
+          "tris": 809420,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          29
+        ],
+        "calls": 0,
+        "tris": 96,
+        "after": {
+          "calls": 227,
+          "tris": 770626,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          30
+        ],
+        "calls": 0,
+        "tris": 96,
+        "after": {
+          "calls": 219,
+          "tris": 677494,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          31
+        ],
+        "calls": 0,
+        "tris": 82,
+        "after": {
+          "calls": 205,
+          "tris": 648814,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          32
+        ],
+        "calls": 0,
+        "tris": 82,
+        "after": {
+          "calls": 201,
+          "tris": 686215,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          33
+        ],
+        "calls": 0,
+        "tris": 46,
+        "after": {
+          "calls": 200,
+          "tris": 687704,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          34
+        ],
+        "calls": 0,
+        "tris": 10,
+        "after": {
+          "calls": 202,
+          "tris": 669900,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          35
+        ],
+        "calls": 0,
+        "tris": 10,
+        "after": {
+          "calls": 190,
+          "tris": 623488,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "gts",
+          36
+        ],
+        "calls": 0,
+        "tris": 10,
+        "after": {
+          "calls": 187,
+          "tris": 631178,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu",
+          48
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 243,
+          "tris": 1190560,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu",
+          49
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 243,
+          "tris": 1162921,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu",
+          50
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 247,
+          "tris": 1201791,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu",
+          51
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 248,
+          "tris": 1198457,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu",
+          52
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 245,
+          "tris": 1140462,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu",
+          53
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 241,
+          "tris": 1126223,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu",
+          54
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 232,
+          "tris": 1086337,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu",
+          55
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 230,
+          "tris": 1085118,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu",
+          56
+        ],
+        "calls": 0,
+        "tris": 180,
+        "after": {
+          "calls": 230,
+          "tris": 1086629,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu",
+          57
+        ],
+        "calls": 0,
+        "tris": 148,
+        "after": {
+          "calls": 240,
+          "tris": 1108973,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu",
+          58
+        ],
+        "calls": 0,
+        "tris": 184,
+        "after": {
+          "calls": 240,
+          "tris": 1057240,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu",
+          59
+        ],
+        "calls": 0,
+        "tris": 220,
+        "after": {
+          "calls": 245,
+          "tris": 1099679,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu",
+          60
+        ],
+        "calls": 0,
+        "tris": 160,
+        "after": {
+          "calls": 246,
+          "tris": 1086996,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu",
+          61
+        ],
+        "calls": 0,
+        "tris": 150,
+        "after": {
+          "calls": 227,
+          "tris": 1033731,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-2",
+          62
+        ],
+        "calls": 0,
+        "tris": 244,
+        "after": {
+          "calls": 224,
+          "tris": 943491,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-2",
+          63
+        ],
+        "calls": 0,
+        "tris": 220,
+        "after": {
+          "calls": 223,
+          "tris": 918929,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-2",
+          64
+        ],
+        "calls": 0,
+        "tris": 184,
+        "after": {
+          "calls": 221,
+          "tris": 866903,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-2",
+          65
+        ],
+        "calls": 0,
+        "tris": 184,
+        "after": {
+          "calls": 211,
+          "tris": 839426,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-2",
+          66
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 203,
+          "tris": 824301,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-2",
+          67
+        ],
+        "calls": 0,
+        "tris": 120,
+        "after": {
+          "calls": 196,
+          "tris": 804192,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-2",
+          68
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 196,
+          "tris": 761362,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-2",
+          69
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 183,
+          "tris": 750667,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-2",
+          70
+        ],
+        "calls": 0,
+        "tris": 128,
+        "after": {
+          "calls": 175,
+          "tris": 782263,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-2",
+          71
+        ],
+        "calls": 0,
+        "tris": 104,
+        "after": {
+          "calls": 170,
+          "tris": 714949,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-2",
+          72
+        ],
+        "calls": 0,
+        "tris": 104,
+        "after": {
+          "calls": 167,
+          "tris": 706631,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-2",
+          73
+        ],
+        "calls": 0,
+        "tris": 68,
+        "after": {
+          "calls": 161,
+          "tris": 652116,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-3",
+          74
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 239,
+          "tris": 1177593,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-3",
+          75
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 244,
+          "tris": 1215245,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-3",
+          76
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 248,
+          "tris": 1208766,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-3",
+          77
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 242,
+          "tris": 1195063,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-3",
+          78
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 241,
+          "tris": 1137861,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-3",
+          79
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 232,
+          "tris": 1120498,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-3",
+          80
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 232,
+          "tris": 1092301,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-3",
+          81
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 228,
+          "tris": 1091471,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-3",
+          82
+        ],
+        "calls": 0,
+        "tris": 160,
+        "after": {
+          "calls": 255,
+          "tris": 1131314,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-3",
+          83
+        ],
+        "calls": 0,
+        "tris": 148,
+        "after": {
+          "calls": 241,
+          "tris": 1109917,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-3",
+          84
+        ],
+        "calls": 0,
+        "tris": 220,
+        "after": {
+          "calls": 243,
+          "tris": 1063752,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-3",
+          85
+        ],
+        "calls": 0,
+        "tris": 220,
+        "after": {
+          "calls": 245,
+          "tris": 1113051,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-3",
+          86
+        ],
+        "calls": 0,
+        "tris": 160,
+        "after": {
+          "calls": 246,
+          "tris": 1097579,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-3",
+          87
+        ],
+        "calls": 0,
+        "tris": 114,
+        "after": {
+          "calls": 222,
+          "tris": 967211,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-4",
+          88
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 238,
+          "tris": 1159165,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-4",
+          89
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 242,
+          "tris": 1171892,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-4",
+          90
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 247,
+          "tris": 1197982,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-4",
+          91
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 243,
+          "tris": 1196364,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-4",
+          92
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 240,
+          "tris": 1131510,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-4",
+          93
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 237,
+          "tris": 1142999,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-4",
+          94
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 229,
+          "tris": 1086727,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-4",
+          95
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 228,
+          "tris": 1079574,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-4",
+          96
+        ],
+        "calls": 0,
+        "tris": 180,
+        "after": {
+          "calls": 231,
+          "tris": 1087633,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-5",
+          97
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 203,
+          "tris": 818757,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-6",
+          98
+        ],
+        "calls": 0,
+        "tris": 156,
+        "after": {
+          "calls": 198,
+          "tris": 771646,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-7",
+          99
+        ],
+        "calls": 0,
+        "tris": 20,
+        "after": {
+          "calls": 161,
+          "tris": 648076,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-8",
+          100
+        ],
+        "calls": 0,
+        "tris": 68,
+        "after": {
+          "calls": 164,
+          "tris": 658697,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-9",
+          101
+        ],
+        "calls": 0,
+        "tris": 68,
+        "after": {
+          "calls": 163,
+          "tris": 635983,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-10",
+          102
+        ],
+        "calls": 0,
+        "tris": 20,
+        "after": {
+          "calls": 162,
+          "tris": 628273,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-11",
+          103
+        ],
+        "calls": 0,
+        "tris": 104,
+        "after": {
+          "calls": 173,
+          "tris": 781264,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-12",
+          104
+        ],
+        "calls": 0,
+        "tris": 104,
+        "after": {
+          "calls": 167,
+          "tris": 710098,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-13",
+          105
+        ],
+        "calls": 0,
+        "tris": 104,
+        "after": {
+          "calls": 159,
+          "tris": 659165,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-14",
+          106
+        ],
+        "calls": 0,
+        "tris": 68,
+        "after": {
+          "calls": 166,
+          "tris": 657738,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-15",
+          107
+        ],
+        "calls": 0,
+        "tris": 20,
+        "after": {
+          "calls": 155,
+          "tris": 633049,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-16",
+          108
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 189,
+          "tris": 738422,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-17",
+          109
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 184,
+          "tris": 760345,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-18",
+          110
+        ],
+        "calls": 0,
+        "tris": 132,
+        "after": {
+          "calls": 178,
+          "tris": 750114,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-bulevardul-ion-constantin-br-tianu-run-19",
+          111
+        ],
+        "calls": 0,
+        "tris": 20,
+        "after": {
+          "calls": 159,
+          "tris": 614683,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii",
+          112
+        ],
+        "calls": 0,
+        "tris": 148,
+        "after": {
+          "calls": 241,
+          "tris": 1071705,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii",
+          113
+        ],
+        "calls": 0,
+        "tris": 184,
+        "after": {
+          "calls": 243,
+          "tris": 1063852,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii",
+          114
+        ],
+        "calls": 0,
+        "tris": 220,
+        "after": {
+          "calls": 246,
+          "tris": 1112820,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii",
+          115
+        ],
+        "calls": 0,
+        "tris": 174,
+        "after": {
+          "calls": 245,
+          "tris": 1147049,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii",
+          116
+        ],
+        "calls": 0,
+        "tris": 174,
+        "after": {
+          "calls": 237,
+          "tris": 1102343,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii",
+          117
+        ],
+        "calls": 0,
+        "tris": 150,
+        "after": {
+          "calls": 238,
+          "tris": 1105592,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii",
+          118
+        ],
+        "calls": 0,
+        "tris": 150,
+        "after": {
+          "calls": 239,
+          "tris": 1116405,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii",
+          119
+        ],
+        "calls": 0,
+        "tris": 42,
+        "after": {
+          "calls": 234,
+          "tris": 1054018,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii",
+          120
+        ],
+        "calls": 0,
+        "tris": 42,
+        "after": {
+          "calls": 231,
+          "tris": 1104268,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii",
+          121
+        ],
+        "calls": 0,
+        "tris": 32,
+        "after": {
+          "calls": 218,
+          "tris": 1094877,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii",
+          122
+        ],
+        "calls": 0,
+        "tris": 32,
+        "after": {
+          "calls": 216,
+          "tris": 1061322,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii",
+          123
+        ],
+        "calls": 0,
+        "tris": 32,
+        "after": {
+          "calls": 214,
+          "tris": 1084621,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii",
+          124
+        ],
+        "calls": 0,
+        "tris": 8,
+        "after": {
+          "calls": 208,
+          "tris": 1042966,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii",
+          125
+        ],
+        "calls": 0,
+        "tris": 8,
+        "after": {
+          "calls": 204,
+          "tris": 920713,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii",
+          126
+        ],
+        "calls": 0,
+        "tris": 8,
+        "after": {
+          "calls": 199,
+          "tris": 894973,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii",
+          127
+        ],
+        "calls": 0,
+        "tris": 8,
+        "after": {
+          "calls": 201,
+          "tris": 944605,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-2",
+          128
+        ],
+        "calls": 0,
+        "tris": 8,
+        "after": {
+          "calls": 199,
+          "tris": 985347,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-2",
+          129
+        ],
+        "calls": 0,
+        "tris": 8,
+        "after": {
+          "calls": 192,
+          "tris": 1010502,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-3",
+          130
+        ],
+        "calls": 0,
+        "tris": 8,
+        "after": {
+          "calls": 191,
+          "tris": 985535,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-3",
+          131
+        ],
+        "calls": 0,
+        "tris": 8,
+        "after": {
+          "calls": 189,
+          "tris": 961066,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-3",
+          132
+        ],
+        "calls": 0,
+        "tris": 8,
+        "after": {
+          "calls": 187,
+          "tris": 961493,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          133
+        ],
+        "calls": 0,
+        "tris": 92,
+        "after": {
+          "calls": 278,
+          "tris": 1467688,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          134
+        ],
+        "calls": 0,
+        "tris": 92,
+        "after": {
+          "calls": 279,
+          "tris": 1504770,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          135
+        ],
+        "calls": 0,
+        "tris": 92,
+        "after": {
+          "calls": 275,
+          "tris": 1507482,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          136
+        ],
+        "calls": 0,
+        "tris": 92,
+        "after": {
+          "calls": 272,
+          "tris": 1501157,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          137
+        ],
+        "calls": 0,
+        "tris": 92,
+        "after": {
+          "calls": 271,
+          "tris": 1394892,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          138
+        ],
+        "calls": 0,
+        "tris": 92,
+        "after": {
+          "calls": 261,
+          "tris": 1270972,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          139
+        ],
+        "calls": 0,
+        "tris": 102,
+        "after": {
+          "calls": 267,
+          "tris": 1308806,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          140
+        ],
+        "calls": 0,
+        "tris": 102,
+        "after": {
+          "calls": 262,
+          "tris": 1223828,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          141
+        ],
+        "calls": 0,
+        "tris": 102,
+        "after": {
+          "calls": 258,
+          "tris": 1154737,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          142
+        ],
+        "calls": 0,
+        "tris": 102,
+        "after": {
+          "calls": 255,
+          "tris": 1222616,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          143
+        ],
+        "calls": 0,
+        "tris": 102,
+        "after": {
+          "calls": 251,
+          "tris": 1218277,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          144
+        ],
+        "calls": 0,
+        "tris": 102,
+        "after": {
+          "calls": 234,
+          "tris": 1075588,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          145
+        ],
+        "calls": 0,
+        "tris": 102,
+        "after": {
+          "calls": 235,
+          "tris": 1071261,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          146
+        ],
+        "calls": 0,
+        "tris": 102,
+        "after": {
+          "calls": 230,
+          "tris": 1018261,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          147
+        ],
+        "calls": 0,
+        "tris": 126,
+        "after": {
+          "calls": 229,
+          "tris": 1001674,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          148
+        ],
+        "calls": 0,
+        "tris": 150,
+        "after": {
+          "calls": 230,
+          "tris": 1025060,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          149
+        ],
+        "calls": 0,
+        "tris": 174,
+        "after": {
+          "calls": 223,
+          "tris": 1005775,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          150
+        ],
+        "calls": 0,
+        "tris": 174,
+        "after": {
+          "calls": 218,
+          "tris": 907802,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          151
+        ],
+        "calls": 0,
+        "tris": 220,
+        "after": {
+          "calls": 221,
+          "tris": 909484,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          152
+        ],
+        "calls": 0,
+        "tris": 220,
+        "after": {
+          "calls": 226,
+          "tris": 916334,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          153
+        ],
+        "calls": 0,
+        "tris": 184,
+        "after": {
+          "calls": 220,
+          "tris": 869704,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          154
+        ],
+        "calls": 0,
+        "tris": 160,
+        "after": {
+          "calls": 210,
+          "tris": 816482,
+          "quality": "medium"
+        }
+      }
+    ],
+    "retainedBudgetOverruns": [
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          134
+        ],
+        "calls": 0,
+        "tris": 92,
+        "after": {
+          "calls": 279,
+          "tris": 1504770,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          135
+        ],
+        "calls": 0,
+        "tris": 92,
+        "after": {
+          "calls": 275,
+          "tris": 1507482,
+          "quality": "medium"
+        }
+      },
+      {
+        "key": [
+          "bucharest",
+          "bucharest-unirii",
+          "sweep-pasajul-unirii-run-4",
+          136
+        ],
+        "calls": 0,
+        "tris": 92,
+        "after": {
+          "calls": 272,
+          "tris": 1501157,
+          "quality": "medium"
+        }
+      }
+    ],
+    "scope": "Matched Medium native district fixtures, not High/Ultra full-scene acceptance. Existing detector findings retained."
+  },
+  "overviewRefresh": {
+    "atlas": 34,
+    "ground": 56,
+    "context": 37,
+    "districts": [
+      "bellevue",
+      "floreasca",
+      "grozavesti",
+      "pipera",
+      "romana",
+      "unirii"
+    ],
+    "runtimeSource": "8add95f35681eddaf01a136ff1f5769a5329b102"
+  },
+  "limitations": [
+    "Native all-district sign audit and paired district sweep use e417cb924cf2a2817aa7fcabc3b7ded899188068. Its sign code is identical to final 8add; 8add adds the separately accepted OTP terminal release and has fresh native original views, affected overview retakes and mandatory logic regression.",
+    "Columns and balconies still partially obscure some signs. Identical-camera baseline controls show these obstructions also before the overlap correction. This does not certify all sign placement or facade architecture.",
+    "The 155/155 paired Unirii sweep retains 228 findings (36 high,38 medium,154 low), including two inherited triangle-budget exceedances. No district-wide or evolving mirror-budget pass is claimed.",
+    "No source/reference-provider photographs are published. Static camera captures and body queries do not establish a walked route."
+  ]
+}

@@ -1,0 +1,446 @@
+{
+  "scope": "Superseded records; original pixels remain available at original paths.",
+  "items": [
+    {
+      "id": "aerial-r08-c08",
+      "label": "Row 8 · Column 8",
+      "row": 8,
+      "column": 8,
+      "lat": 44.44717521146025,
+      "lon": 26.09591879667751,
+      "x": 375.00000000014063,
+      "z": 125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        250,
+        0,
+        500,
+        250
+      ],
+      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 118,
+        "triangles": 765132,
+        "renderMs": 41.30000000074506,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 312
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-08T21:46:55.742Z",
+      "gamePath": "images/aerial-r08-c08.jpg",
+      "image": "images/aerial-r08-c08.jpg",
+      "thumbnail": "thumbs/aerial-r08-c08.jpg",
+      "sha256": "c62ba2d7fdb5c0b4a85c0202d67628e861e7fec48a257cc2300c81e028aab648",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 15175,
+      "dataset": "atlas",
+      "thumbnailSha256": "83364dbbf2066e450ecd105052a67ad51746116672cb685a15b1de63e25da591",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.44605042292049,
+        26.09434586445167,
+        44.4483,
+        26.097491728903343
+      ]
+    },
+    {
+      "id": "aerial-r08-c09",
+      "label": "Row 8 · Column 9",
+      "row": 8,
+      "column": 9,
+      "lat": 44.44717521146025,
+      "lon": 26.09906466112918,
+      "x": 625.0000000001403,
+      "z": 125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -114.88026864814194,
+      "boundsXZ": [
+        500,
+        0,
+        750,
+        250
+      ],
+      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 116,
+        "triangles": 664216,
+        "renderMs": 14.699999999254942,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 312
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-08T21:47:10.923Z",
+      "gamePath": "images/aerial-r08-c09.jpg",
+      "image": "images/aerial-r08-c09.jpg",
+      "thumbnail": "thumbs/aerial-r08-c09.jpg",
+      "sha256": "d5a563fc8d2b9c70cf8bddbd988fa1bf1144ec22b3fcf7b84ff74c4071a321d5",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 13086,
+      "dataset": "atlas",
+      "thumbnailSha256": "53c4866d375593cf5d8101e1e4758f225260aa29a0062d0468595640f4d0735b",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.44605042292049,
+        26.097491728903343,
+        44.4483,
+        26.100637593355014
+      ]
+    },
+    {
+      "id": "aerial-r09-c08",
+      "label": "Row 9 · Column 8",
+      "row": 9,
+      "column": 8,
+      "lat": 44.44492563438074,
+      "lon": 26.09591879667751,
+      "x": 375.00000000014063,
+      "z": 375.00000000021555,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        250,
+        250,
+        500,
+        500
+      ],
+      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 105,
+        "triangles": 676200,
+        "renderMs": 3,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 312
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-08T21:48:29.670Z",
+      "gamePath": "images/aerial-r09-c08.jpg",
+      "image": "images/aerial-r09-c08.jpg",
+      "thumbnail": "thumbs/aerial-r09-c08.jpg",
+      "sha256": "c87f48b3a64d6c98a2861e1192ac7b622ce2b0e0bd4dc7d23d15a1e34427e70e",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 11715,
+      "dataset": "atlas",
+      "thumbnailSha256": "f7ef0e66ba95df80ce56f72bb737b2521006e93b5855b0a83f526a6eb4fb1417",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.44380084584098,
+        26.09434586445167,
+        44.44605042292049,
+        26.097491728903343
+      ]
+    },
+    {
+      "id": "aerial-r09-c09",
+      "label": "Row 9 · Column 9",
+      "row": 9,
+      "column": 9,
+      "lat": 44.44492563438074,
+      "lon": 26.09906466112918,
+      "x": 625.0000000001403,
+      "z": 375.00000000021555,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        500,
+        250,
+        750,
+        500
+      ],
+      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 102,
+        "triangles": 611476,
+        "renderMs": 29.5,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 312
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-08T21:48:41.386Z",
+      "gamePath": "images/aerial-r09-c09.jpg",
+      "image": "images/aerial-r09-c09.jpg",
+      "thumbnail": "thumbs/aerial-r09-c09.jpg",
+      "sha256": "44c228f0cc96c14523630e62b584584b8fca19f9e96c97b225e959a092895966",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 12756,
+      "dataset": "atlas",
+      "thumbnailSha256": "8684d62590cb00e9590b09aed9cdd91a023fa3ce9e845e71a087eda8c3501812",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.44380084584098,
+        26.097491728903343,
+        44.44605042292049,
+        26.100637593355014
+      ]
+    },
+    {
+      "id": "aerial-r10-c08",
+      "label": "Row 10 · Column 8",
+      "row": 10,
+      "column": 8,
+      "lat": 44.44267605730123,
+      "lon": 26.09591879667751,
+      "x": 375.00000000014063,
+      "z": 625.0000000003593,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -63.68015615329418,
+      "boundsXZ": [
+        250,
+        500,
+        500,
+        750
+      ],
+      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 105,
+        "triangles": 610535,
+        "renderMs": 2.800000000745058,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 312
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-08T21:49:44.445Z",
+      "gamePath": "images/aerial-r10-c08.jpg",
+      "image": "images/aerial-r10-c08.jpg",
+      "thumbnail": "thumbs/aerial-r10-c08.jpg",
+      "sha256": "5f4e78b0a4ed62e36cb76b0dbef36e38745bf0909c688547e8cfcdd93a70eac3",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 7537,
+      "dataset": "atlas",
+      "thumbnailSha256": "664a5db32bdb1282943734db169546defb70d13b51d9a73f5900752f6faff7d7",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.44155126876148,
+        26.09434586445167,
+        44.44380084584098,
+        26.097491728903343
+      ]
+    },
+    {
+      "id": "aerial-r10-c09",
+      "label": "Row 10 · Column 9",
+      "row": 10,
+      "column": 9,
+      "lat": 44.44267605730123,
+      "lon": 26.09906466112918,
+      "x": 625.0000000001403,
+      "z": 625.0000000003593,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        500,
+        500,
+        750,
+        750
+      ],
+      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 110,
+        "triangles": 671941,
+        "renderMs": 3.199999999254942,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 312
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-08T21:49:51.983Z",
+      "gamePath": "images/aerial-r10-c09.jpg",
+      "image": "images/aerial-r10-c09.jpg",
+      "thumbnail": "thumbs/aerial-r10-c09.jpg",
+      "sha256": "e4e657aed2b23ddb2fc5f31f7b6144ad91a4f477a918554739f603fe958fd8b4",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 7743,
+      "dataset": "atlas",
+      "thumbnailSha256": "8fed10aef99aa48329337577efd45357c34c4063aab90ee729a29bf20b25ac51",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.44155126876148,
+        26.097491728903343,
+        44.44380084584098,
+        26.100637593355014
+      ]
+    },
+    {
+      "id": "aerial-r11-c09",
+      "label": "Row 11 · Column 9",
+      "row": 11,
+      "column": 9,
+      "lat": 44.440426480221724,
+      "lon": 26.09906466112918,
+      "x": 625.0000000001403,
+      "z": 874.9999999997133,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        500,
+        750,
+        750,
+        1000
+      ],
+      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 103,
+        "triangles": 661218,
+        "renderMs": 7.800000000745058,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 312
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-08T21:50:36.135Z",
+      "gamePath": "images/aerial-r11-c09.jpg",
+      "image": "images/aerial-r11-c09.jpg",
+      "thumbnail": "thumbs/aerial-r11-c09.jpg",
+      "sha256": "7fb568fee37ba8d12180a55160943df876e5c8a55a8f9ac90d2c2a99b84f73bc",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 8254,
+      "dataset": "atlas",
+      "thumbnailSha256": "3f52acb7fd6e2ba4aace2fd0a00d68c700c435ccf0735a95e6be6877c69646e8",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.43930169168197,
+        26.097491728903343,
+        44.44155126876148,
+        26.100637593355014
+      ]
+    }
+  ]
+}

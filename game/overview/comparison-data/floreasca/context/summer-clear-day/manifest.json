@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "captureType": "game-perspective-context",
   "comparisonCompatible": false,
-  "gameSourceCommit": null,
+  "gameSourceCommit": "mixed",
   "captureTool": null,
   "district": "floreasca",
   "season": "summer",
@@ -67,7 +67,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -168,16 +168,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -187,25 +184,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794180600813,
+          "updatedAt": 1794362764421,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 0,
-        "frameMs": 0,
-        "drawCalls": 174,
-        "triangles": 555425,
+        "fps": 0.16,
+        "frameMs": 6248.3,
+        "drawCalls": 173,
+        "triangles": 464393,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -216,16 +206,14 @@
       "inPlayable": false,
       "inFlightEnvelope": false,
       "distanceFromFlightDomainM": 1168.9088891413946,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 0,
       "lat": 44.47949606030912,
       "lon": 26.103273758075844,
-      "image": "images/skytower-opposite.jpg",
+      "image": "signs-8add95f3/skytower-opposite.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:30:35.699Z",
-      "sha256": "f99bb637b9aea8156103c51a959387d6f339b9328564de96d41203ac2605cc7d",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:06:19.707Z",
+      "sha256": "5e0ede9b8f093389b24c203d091e7d420a3ef61eed40d8564f32eb212e218ee6",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -238,10 +226,18 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/skytower-opposite.jpg",
-      "thumb": "thumbs/skytower-opposite.jpg",
-      "thumbnailSha256": "840e8e1c3921d483738b537b9daf08d67bcd7c0676b5d55760fe417b0d809a37",
-      "reviewNote": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
+      "thumbnail": "signs-8add95f3/skytower-opposite.png",
+      "thumb": "signs-8add95f3/skytower-opposite.png",
+      "thumbnailSha256": "5e0ede9b8f093389b24c203d091e7d420a3ef61eed40d8564f32eb212e218ee6",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 107.39999999999999,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "5e0ede9b8f093389b24c203d091e7d420a3ef61eed40d8564f32eb212e218ee6"
     },
     {
       "id": "dinamo-context",
@@ -278,16 +274,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -297,25 +290,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794180600813,
+          "updatedAt": 1794362764421,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 12,
-        "frameMs": 0,
+        "fps": 0.17,
+        "frameMs": 27.5,
         "drawCalls": 226,
-        "triangles": 820861,
+        "triangles": 695773,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -326,16 +312,14 @@
       "inPlayable": false,
       "inFlightEnvelope": false,
       "distanceFromFlightDomainM": 215.23677851475472,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 0,
       "lat": 44.45237851384033,
       "lon": 26.104862325220644,
-      "image": "images/dinamo-context.jpg",
+      "image": "signs-8add95f3/dinamo-context.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:30:54.575Z",
-      "sha256": "69f6289baaf666a10d4bc43dfe62c59ac4ee5e325a365bede30e7f5bacb8b36e",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:06:25.112Z",
+      "sha256": "3b1db8afbeb5e0913b9b00d1e098edcf17137a65bfbe9df32915318fe56375de",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -348,10 +332,18 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/dinamo-context.jpg",
-      "thumb": "thumbs/dinamo-context.jpg",
-      "thumbnailSha256": "683bd7c649f7ae19da218557df3c3ba3019055f02d093d77503cc19894d16633",
-      "reviewNote": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
+      "thumbnail": "signs-8add95f3/dinamo-context.png",
+      "thumb": "signs-8add95f3/dinamo-context.png",
+      "thumbnailSha256": "3b1db8afbeb5e0913b9b00d1e098edcf17137a65bfbe9df32915318fe56375de",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 50.525000000000006,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "3b1db8afbeb5e0913b9b00d1e098edcf17137a65bfbe9df32915318fe56375de"
     },
     {
       "id": "dinamo-opposite",
@@ -397,7 +389,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -560,7 +552,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -692,7 +684,7 @@
     },
     {
       "id": "dinamo-football",
-      "label": "Dinamo walking-height view \u00b7 retained 0775fdaf before paint correction",
+      "label": "Dinamo walking-height view · retained 0775fdaf before paint correction",
       "kind": "sports",
       "x": -119.05461355265025,
       "z": 993.4412242784146,
@@ -733,7 +725,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -801,7 +793,7 @@
     },
     {
       "id": "dinamo-football-drone",
-      "label": "Dinamo filtered physical pitch markings \u00b7 summer daylight \u00b7 same 70.12 m pose",
+      "label": "Dinamo filtered physical pitch markings · summer daylight · same 70.12 m pose",
       "kind": "sports",
       "x": -171.58518023710013,
       "z": 1046.9719590371544,
@@ -844,7 +836,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -954,7 +946,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1064,7 +1056,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1184,7 +1176,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1293,7 +1285,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1438,7 +1430,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1745,7 +1737,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1846,16 +1838,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1865,25 +1854,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794180600813,
+          "updatedAt": 1794362764421,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 15,
-        "frameMs": 0,
+        "fps": 0.37,
+        "frameMs": 25.6,
         "drawCalls": 164,
-        "triangles": 521141,
+        "triangles": 449468,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -1894,16 +1876,14 @@
       "inPlayable": false,
       "inFlightEnvelope": false,
       "distanceFromFlightDomainM": 1321.6150114253944,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 0,
       "lat": 44.48058972003166,
       "lon": 26.101129677689315,
-      "image": "images/globalworth-opposite.jpg",
+      "image": "signs-8add95f3/globalworth-opposite.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:32:58.471Z",
-      "sha256": "f478eaaf2f9e05e79eda7060796dbca6b7f2a183053638ad2f0bdb487aedb6ae",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:06:30.645Z",
+      "sha256": "0c54d1a0f4fb52ee738fcaaf04b727994d51863242f9c7768a217c3b9e339d29",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -1916,10 +1896,18 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/globalworth-opposite.jpg",
-      "thumb": "thumbs/globalworth-opposite.jpg",
-      "thumbnailSha256": "3387e8ab56914d4735d2f696512bba8a34be69772ad289f7e3845c74e8f188a5",
-      "reviewNote": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
+      "thumbnail": "signs-8add95f3/globalworth-opposite.png",
+      "thumb": "signs-8add95f3/globalworth-opposite.png",
+      "thumbnailSha256": "0c54d1a0f4fb52ee738fcaaf04b727994d51863242f9c7768a217c3b9e339d29",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 96.35,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "0c54d1a0f4fb52ee738fcaaf04b727994d51863242f9c7768a217c3b9e339d29"
     },
     {
       "id": "signal-1",
@@ -1967,7 +1955,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -2070,16 +2058,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -2089,25 +2074,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794180600813,
+          "updatedAt": 1794362764421,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 15,
-        "frameMs": 0,
-        "drawCalls": 184,
-        "triangles": 912657,
+        "fps": 0.36,
+        "frameMs": 58.5,
+        "drawCalls": 185,
+        "triangles": 789027,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -2118,402 +2096,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [
-        {
-          "x": -157.4701485424631,
-          "z": 35.21557436066027,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -182.1910690039083,
-          "z": 60.541585398677604,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -158.22292015451063,
-          "z": 33.4372708903754,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -107.3819165795322,
-          "z": 55.72609806521238,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w26974392"
-        },
-        {
-          "x": -180.08072823499288,
-          "z": 44.97741606066567,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -156.8582052896907,
-          "z": 35.148607776810685,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -182.83208149078604,
-          "z": 60.707904738170086,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -177.6513943193435,
-          "z": 32.77255509562752,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -181.21909151496877,
-          "z": 52.01269606037016,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -109.86365724860077,
-          "z": 75.2280685308752,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w26974392"
-        },
-        {
-          "x": -161.3281911790002,
-          "z": 67.06701589265123,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -180.0916872414425,
-          "z": 50.369832094195864,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -180.89919038539784,
-          "z": 51.3718993247009,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -182.20992551255097,
-          "z": 55.57287902516589,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -176.20364034658957,
-          "z": 14.849427588986796,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -155.15022638100785,
-          "z": 15.195480779076755,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -159.1165697220129,
-          "z": 45.70179362477278,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -177.16865257684503,
-          "z": 18.001050700168822,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -159.96450007431665,
-          "z": 47.728267858286245,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -181.20859240818905,
-          "z": 61.25476528165232,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -158.7163235069768,
-          "z": 35.34327572901427,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -157.71917550504745,
-          "z": 34.09672953086056,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -156.85727216152907,
-          "z": 29.423864191201083,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -154.2493108385889,
-          "z": 13.995614000213733,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -159.47402996265075,
-          "z": 48.67115665336464,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -156.84757741443897,
-          "z": 22.678266762353143,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -179.18053819664314,
-          "z": 38.79896169316564,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -175.7456800764741,
-          "z": 15.610098177750803,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -178.7690206229851,
-          "z": 35.774672031267635,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -161.66696759493252,
-          "z": 62.62310168799619,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -158.1364316481905,
-          "z": 37.57758741619146,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -156.97233396904593,
-          "z": 27.928569747264028,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -154.8073806333019,
-          "z": 14.2306028730064,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -177.22881259883465,
-          "z": 23.008136451733765,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -181.93218930023355,
-          "z": 61.99366636772002,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -160.53478660259674,
-          "z": 60.977635144107076,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -178.30274487282387,
-          "z": 36.91915324363337,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -156.117503719393,
-          "z": 17.679803731103714,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -179.74250264157422,
-          "z": 38.649190772800104,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -161.04764191512484,
-          "z": 59.057152636741904,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -161.5723694692342,
-          "z": 66.00186151744865,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -160.43006415877517,
-          "z": 58.79484649069236,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -178.20537756670814,
-          "z": 31.45059837360994,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -180.00432222242756,
-          "z": 42.298608006070026,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -178.52655920159003,
-          "z": 38.93847482160068,
-          "state": "legs",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -162.14403690243824,
-          "z": 62.95697142339794,
-          "state": "legs",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -175.86576337432578,
-          "z": 16.70430684163542,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -158.35753243094487,
-          "z": 31.492675461078598,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -158.32356939837032,
-          "z": 39.84147867785468,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -159.83864822649073,
-          "z": 51.68698573784283,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -176.3429729478056,
-          "z": 15.664751348179394,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -180.824636510912,
-          "z": 53.64823442647612,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -107.96456401415239,
-          "z": 58.44596099166624,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w26974392"
-        },
-        {
-          "x": -158.8583933844515,
-          "z": 47.8615171341941,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -160.60414201370563,
-          "z": 62.33174559608556,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        }
-      ],
-      "vehiclesWithin60m": 16,
       "lat": 44.46374823943965,
       "lon": 26.101748955558573,
-      "image": "images/signal-2.jpg",
+      "image": "signs-8add95f3/signal-2.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:33:39.503Z",
-      "sha256": "cd69e815e30057c04e384bc2cbc46f9064c784de6868ec265edb9cca94d516b6",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:06:43.850Z",
+      "sha256": "d227e8c6f3df38afa194c8d5598de3c32c3871a3146ba678d40a2fe4280f4527",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -2526,10 +2116,18 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/signal-2.jpg",
-      "thumb": "thumbs/signal-2.jpg",
-      "thumbnailSha256": "2613bb69865d11745d4e9d6156c98baf67c4bbddd1838fabae956f150b8f77d2",
-      "reviewNote": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
+      "thumbnail": "signs-8add95f3/signal-2.png",
+      "thumb": "signs-8add95f3/signal-2.png",
+      "thumbnailSha256": "d227e8c6f3df38afa194c8d5598de3c32c3871a3146ba678d40a2fe4280f4527",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 0.050000000000000044,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "d227e8c6f3df38afa194c8d5598de3c32c3871a3146ba678d40a2fe4280f4527"
     },
     {
       "id": "signal-3",
@@ -2553,7 +2151,7 @@
       "pitch": 9.48090361795083,
       "aspect": 1.5,
       "pose": {
-        "x": -164.2888670068491,
+        "x": -163.0388670068491,
         "y": 1.7,
         "z": 82.48395824833281,
         "heading": 187.4805354053692,
@@ -2568,16 +2166,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -2587,25 +2182,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794180600813,
+          "updatedAt": 1794363270987,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 15,
-        "frameMs": 0,
-        "drawCalls": 183,
-        "triangles": 911025,
+        "fps": 0.16,
+        "frameMs": 6216.4,
+        "drawCalls": 180,
+        "triangles": 786086,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -2616,318 +2204,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [
-        {
-          "x": -157.47362011552653,
-          "z": 36.39502420935284,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -181.99533961250737,
-          "z": 59.20689131183292,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -157.5691396858515,
-          "z": 32.18731826115958,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -179.7233030573705,
-          "z": 43.684565020057185,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -156.70770916979632,
-          "z": 33.90116974306002,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -182.95995994558118,
-          "z": 61.935043316812774,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -178.18478571617445,
-          "z": 34.27162030865408,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -180.82694344387224,
-          "z": 50.637716095063666,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -110.26984585425568,
-          "z": 76.62527850305536,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w26974392"
-        },
-        {
-          "x": -161.70684961539442,
-          "z": 67.86748517694468,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w1206961912"
-        },
-        {
-          "x": -180.2009423006053,
-          "z": 51.78917403951809,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -181.43791429613543,
-          "z": 52.37663070665718,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -182.04647418866094,
-          "z": 57.04278300284153,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -159.22226914108882,
-          "z": 47.22780861495724,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -159.80571774486864,
-          "z": 46.418368346668416,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -181.12911335005373,
-          "z": 59.748124221233915,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -158.22666202824558,
-          "z": 34.20668074504549,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -157.8572223907114,
-          "z": 35.24097787253827,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -156.95759234510615,
-          "z": 27.80637880709461,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -159.62760837683277,
-          "z": 49.93771050546388,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -179.4403243388056,
-          "z": 40.088457800660876,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -178.96975785539695,
-          "z": 37.28810309771371,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -161.41601973964103,
-          "z": 63.75876278560523,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -158.14421989886975,
-          "z": 36.491468428120626,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -156.79101969390916,
-          "z": 26.42568500162202,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -177.4135125660149,
-          "z": 24.539084651958863,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -182.07150779546163,
-          "z": 63.14845487571869,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -161.02557307119878,
-          "z": 62.123554987437416,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -178.25476467470557,
-          "z": 35.45000548655027,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -179.60960099496785,
-          "z": 37.420130616542735,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -161.20545312590608,
-          "z": 60.36522427751861,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -161.69834403875927,
-          "z": 67.10170399808047,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -160.24107741122657,
-          "z": 57.2283658602785,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -178.40506692283634,
-          "z": 32.75791858667051,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -179.50032909868744,
-          "z": 41.04322033108132,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -178.40125413228887,
-          "z": 37.58523315141406,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -161.71873131614223,
-          "z": 62.35239469337765,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -158.14335477307912,
-          "z": 32.625606475125515,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -158.16364246689878,
-          "z": 38.73752823896619,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -160.0012744590877,
-          "z": 53.034968316858404,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -180.7970407904336,
-          "z": 52.584603688404904,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -159.34648633983863,
-          "z": 48.98511088146943,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        },
-        {
-          "x": -160.8497868299296,
-          "z": 63.56200409012013,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w669019911"
-        }
-      ],
-      "vehiclesWithin60m": 16,
       "lat": 44.46365778391239,
       "lon": 26.101732107902624,
-      "image": "images/signal-3.jpg",
+      "image": "signs-8add95f3/signal-3.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:33:57.702Z",
-      "sha256": "b4ebdbca3697550056c32c321163f0808ad32746ea37901fd603d36230286177",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:14:50.522Z",
+      "sha256": "7073eff9e0211cc302d4a31363e9d3825b8fee097b23f3cfd7aa63569088f4f4",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -2940,10 +2224,19 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/signal-3.jpg",
-      "thumb": "thumbs/signal-3.jpg",
-      "thumbnailSha256": "5ea48eadf26f7733d800c97339ad5605d50a2dcd9bbc032b8e051f51ecd175ab",
-      "reviewNote": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
+      "thumbnail": "signs-8add95f3/signal-3.png",
+      "thumb": "signs-8add95f3/signal-3.png",
+      "thumbnailSha256": "7073eff9e0211cc302d4a31363e9d3825b8fee097b23f3cfd7aa63569088f4f4",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 0.050000000000000044,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "cameraRevision": "Camera reframed to clear foreground obstruction; actual pose recorded. Floreasca signal3 shifts1.25m east; Romană TNB/Regal cameras rise35m.",
+      "imageSha256": "7073eff9e0211cc302d4a31363e9d3825b8fee097b23f3cfd7aa63569088f4f4"
     },
     {
       "id": "parking-1",
@@ -2990,7 +2283,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -3101,7 +2394,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -3169,7 +2462,7 @@
     },
     {
       "id": "parking-3",
-      "label": "Mapped parking context \u00b7 foreground tower obscures most of the area",
+      "label": "Mapped parking context · foreground tower obscures most of the area",
       "kind": "parking",
       "parkingSourceId": "w281299678",
       "parkedCars": 17,
@@ -3212,7 +2505,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -3328,7 +2621,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -3442,7 +2735,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -3556,7 +2849,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -3670,7 +2963,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -3769,16 +3062,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -3788,25 +3078,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794180600813,
+          "updatedAt": 1794362764421,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 12,
-        "frameMs": 0,
-        "drawCalls": 225,
-        "triangles": 978422,
+        "fps": 0.21,
+        "frameMs": 88,
+        "drawCalls": 227,
+        "triangles": 854504,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -3817,16 +3100,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 3,
       "lat": 44.4556,
       "lon": 26.10071,
-      "image": "images/chapter-rosetti-street.jpg",
+      "image": "signs-8add95f3/chapter-rosetti-street.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:35:42.925Z",
-      "sha256": "206ea207feb86f61412b88debf7092cf202becbb4f97565021a4929949709bc3",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:07:03.364Z",
+      "sha256": "a1c097353a32f21143389341c4e04e8f5613ce518665632565c9045c845e4f60",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -3839,14 +3120,23 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/chapter-rosetti-street.jpg",
-      "thumb": "thumbs/chapter-rosetti-street.jpg",
-      "thumbnailSha256": "5521b0166b80f110bd8dbbdb749ebb36435db71a564335a0a01afb18f4cee7d8",
-      "reviewNote": "Actual Rosetti chapter-start street is visible with a passing bus in the recorded scene. Static camera capture does not exercise controls or certify complete clearance/parity."
+      "thumbnail": "signs-8add95f3/chapter-rosetti-street.png",
+      "thumb": "signs-8add95f3/chapter-rosetti-street.png",
+      "thumbnailSha256": "a1c097353a32f21143389341c4e04e8f5613ce518665632565c9045c845e4f60",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 0.29000000000000004,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "a1c097353a32f21143389341c4e04e8f5613ce518665632565c9045c845e4f60"
     }
   ],
   "sourceCounts": {
-    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 24,
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 18,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 6,
     "d5795e20c85e8122a62fc503f33a182d05eceaf0": 1
   },
   "sourceSnapshots": [
@@ -3874,235 +3164,251 @@
     ],
     "unchangedDistrictDataSha256": "e7c961ee4acc9bd0c6850e7fcce9ba170d1899134f10376c2a3b3f8af5695358"
   },
-  "review": {
-    "district": "floreasca",
-    "gameSourceCommit": null,
-    "imagesReviewed": 25,
-    "status": "Complete reviewed perspective collection with fresh exact-pose filtered-coverage pitch visibility proof from d5795e20c85e8122a62fc503f33a182d05eceaf0; every retained original frame keeps its actual source. Other source/appearance gaps remain.",
-    "captureCoverageAccepted": true,
-    "realWorldParityAccepted": false,
-    "reportedMarkingIssueAccepted": true,
-    "publicPromotionHeld": false,
-    "rawSourceContactHits": 62,
-    "entries": [
-      {
-        "id": "skytower-context",
-        "sha256": "11d62678aef973a53e5ba3861fa40db940f08ff189db62a274bde62edda3baf7",
-        "reviewedAt": "2026-11-08T23:38:21.021714+00:00",
-        "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
-        "status": "reviewed_with_gaps",
-        "observations": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
+  "historicalMetadata": [
+    {
+      "review": {
+        "district": "floreasca",
+        "gameSourceCommit": null,
+        "imagesReviewed": 25,
+        "status": "Complete reviewed perspective collection with fresh exact-pose filtered-coverage pitch visibility proof from d5795e20c85e8122a62fc503f33a182d05eceaf0; every retained original frame keeps its actual source. Other source/appearance gaps remain.",
+        "captureCoverageAccepted": true,
+        "realWorldParityAccepted": false,
+        "reportedMarkingIssueAccepted": true,
+        "publicPromotionHeld": false,
+        "rawSourceContactHits": 62,
+        "entries": [
+          {
+            "id": "skytower-context",
+            "sha256": "11d62678aef973a53e5ba3861fa40db940f08ff189db62a274bde62edda3baf7",
+            "reviewedAt": "2026-11-08T23:38:21.021714+00:00",
+            "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
+            "status": "reviewed_with_gaps",
+            "observations": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
+          },
+          {
+            "id": "skytower-opposite",
+            "sha256": "f99bb637b9aea8156103c51a959387d6f339b9328564de96d41203ac2605cc7d",
+            "reviewedAt": "2026-11-08T23:38:21.031295+00:00",
+            "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
+            "status": "reviewed_with_gaps",
+            "observations": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
+          },
+          {
+            "id": "dinamo-context",
+            "sha256": "69f6289baaf666a10d4bc43dfe62c59ac4ee5e325a365bede30e7f5bacb8b36e",
+            "reviewedAt": "2026-11-08T23:38:21.032164+00:00",
+            "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
+            "status": "reviewed_with_gaps",
+            "observations": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
+          },
+          {
+            "id": "dinamo-opposite",
+            "sha256": "5a3620a3d6c089635b9df7f429753c1f4afeb0a365069c6fb605b2c7bb784249",
+            "reviewedAt": "2026-11-08T23:38:21.032489+00:00",
+            "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
+            "status": "reviewed_with_gaps",
+            "observations": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
+          },
+          {
+            "id": "dinamo-street",
+            "sha256": "57292830489414a973681ccd42d93afd8ec18e43edab0fa3206ea237aa047945",
+            "reviewedAt": "2026-11-08T23:38:21.032827+00:00",
+            "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
+            "status": "reviewed_with_gaps",
+            "observations": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
+          },
+          {
+            "id": "dinamo-football",
+            "sha256": "0fa6a7db9b7d547ff5f587d290dc505521755740862046f3322604a4260d7a06",
+            "reviewedAt": "2026-11-08T23:38:21.033199+00:00",
+            "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
+            "status": "retained_before_paint_correction",
+            "observations": "Retained 0775fdaf walking-height frame before the paint correction. See the fresh d5795e20 elevated pitch view for current marking visibility.",
+            "sourceCaptureObservation": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint.",
+            "displayLabel": "Dinamo walking-height view · retained 0775fdaf before paint correction"
+          },
+          {
+            "id": "dinamo-football-drone",
+            "sha256": "a193c424b1c7423f0ffa34cc8f63ab31c43087813ef33a03054a66a80ff81ba5",
+            "reviewedAt": "2026-11-09T00:14:31.920035+00:00",
+            "status": "reviewed_paint_visible_with_context_gaps",
+            "observations": "Continuous halfway line, complete 40-chord centre circle, both penalty and goal boxes, and perimeter. Native 12 cm coverage filtering; no camera/render-distance override. Clear summer daylight makes all markings readable in the same 70.12 m pose and lower/oblique controls.",
+            "displayLabel": "Dinamo filtered physical pitch markings · summer daylight · same 70.12 m pose"
+          },
+          {
+            "id": "rosetti-context",
+            "sha256": "fe35e712a8e7cf094038fffe548394945423aa9a5ecb9dd65ee23e35289ca78d",
+            "reviewedAt": "2026-11-08T23:38:21.038639+00:00",
+            "reviewSheetSha256": "4ee4ad57f79c9909796f131033d299d89362f4a87adc0bd3509dcf2176e4675c",
+            "status": "reviewed_with_gaps",
+            "observations": "The close elevated Dinamo view reproduces broken/stippled circle and box lines and absent halfway line on source0775. The reported paint-visibility issue is not accepted. Rosetti school/courts are visible; source facade/canopy appearance remains approximate."
+          },
+          {
+            "id": "rosetti-opposite",
+            "sha256": "84b45e8c4d75730249d788a0a317e36e16ddf658ce387a40aed5094b22eb2b1e",
+            "reviewedAt": "2026-11-08T23:38:21.039170+00:00",
+            "reviewSheetSha256": "4ee4ad57f79c9909796f131033d299d89362f4a87adc0bd3509dcf2176e4675c",
+            "status": "reviewed_with_gaps",
+            "observations": "The close elevated Dinamo view reproduces broken/stippled circle and box lines and absent halfway line on source0775. The reported paint-visibility issue is not accepted. Rosetti school/courts are visible; source facade/canopy appearance remains approximate."
+          },
+          {
+            "id": "rosetti-street",
+            "sha256": "5563584d926c6ea7b2ea6ddc6ec5491c7a11b900682b31dacf35c8419972b08c",
+            "reviewedAt": "2026-11-08T23:38:21.039721+00:00",
+            "reviewSheetSha256": "4ee4ad57f79c9909796f131033d299d89362f4a87adc0bd3509dcf2176e4675c",
+            "status": "reviewed_with_gaps",
+            "observations": "The close elevated Dinamo view reproduces broken/stippled circle and box lines and absent halfway line on source0775. The reported paint-visibility issue is not accepted. Rosetti school/courts are visible; source facade/canopy appearance remains approximate."
+          },
+          {
+            "id": "rosetti-basketball-0",
+            "sha256": "01cfb081734e9094ee97cdd33c696ac145a3ca33317d0b61a974ba044f5308a0",
+            "reviewedAt": "2026-11-08T23:38:21.040197+00:00",
+            "reviewSheetSha256": "4ee4ad57f79c9909796f131033d299d89362f4a87adc0bd3509dcf2176e4675c",
+            "status": "reviewed_with_gaps",
+            "observations": "The close elevated Dinamo view reproduces broken/stippled circle and box lines and absent halfway line on source0775. The reported paint-visibility issue is not accepted. Rosetti school/courts are visible; source facade/canopy appearance remains approximate."
+          },
+          {
+            "id": "rosetti-basketball-1",
+            "sha256": "ae521649ff52e0daf71f93c7fa2f7795a3f252bc3b8b826f8fed0786a5c46643",
+            "reviewedAt": "2026-11-08T23:38:21.042577+00:00",
+            "reviewSheetSha256": "4ee4ad57f79c9909796f131033d299d89362f4a87adc0bd3509dcf2176e4675c",
+            "status": "reviewed_with_gaps",
+            "observations": "The close elevated Dinamo view reproduces broken/stippled circle and box lines and absent halfway line on source0775. The reported paint-visibility issue is not accepted. Rosetti school/courts are visible; source facade/canopy appearance remains approximate."
+          },
+          {
+            "id": "globalworth-context",
+            "sha256": "1d4aac2a9796b3ccf76f0dee0f90c03bebe57178c34639e21a97067fc66b9f06",
+            "reviewedAt": "2026-11-08T23:38:21.042914+00:00",
+            "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
+            "status": "reviewed_with_gaps",
+            "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
+          },
+          {
+            "id": "globalworth-opposite",
+            "sha256": "f478eaaf2f9e05e79eda7060796dbca6b7f2a183053638ad2f0bdb487aedb6ae",
+            "reviewedAt": "2026-11-08T23:38:21.043710+00:00",
+            "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
+            "status": "reviewed_with_gaps",
+            "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
+          },
+          {
+            "id": "signal-1",
+            "sha256": "e8e27e73655ec67fc40d623c1c27354d14857dfa6dad3f02ff25fb57bd697f48",
+            "reviewedAt": "2026-11-08T23:38:21.044078+00:00",
+            "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
+            "status": "reviewed_with_gaps",
+            "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
+          },
+          {
+            "id": "signal-2",
+            "sha256": "cd69e815e30057c04e384bc2cbc46f9064c784de6868ec265edb9cca94d516b6",
+            "reviewedAt": "2026-11-08T23:38:21.053501+00:00",
+            "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
+            "status": "reviewed_with_gaps",
+            "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
+          },
+          {
+            "id": "signal-3",
+            "sha256": "b4ebdbca3697550056c32c321163f0808ad32746ea37901fd603d36230286177",
+            "reviewedAt": "2026-11-08T23:38:21.054619+00:00",
+            "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
+            "status": "reviewed_with_gaps",
+            "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
+          },
+          {
+            "id": "parking-1",
+            "sha256": "dbeca17bbe6457cd521bde8bcdff8ace8ce4be96eed403180d3633bdca03a185",
+            "reviewedAt": "2026-11-08T23:38:21.055218+00:00",
+            "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
+            "status": "reviewed_with_gaps",
+            "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
+          },
+          {
+            "id": "parking-2",
+            "sha256": "3a4d427c62c9e2a863a30a18afc3c309893f34dc079c92e8a6a82fcbcb8ac795",
+            "reviewedAt": "2026-11-08T23:38:21.055935+00:00",
+            "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
+            "status": "reviewed_with_gaps",
+            "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance."
+          },
+          {
+            "id": "parking-3",
+            "sha256": "271308fbe6ab9beda642ed1343b8303de18f802dbf2414bbe4360cfb6d060b2f",
+            "reviewedAt": "2026-11-08T23:38:21.058118+00:00",
+            "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
+            "status": "reviewed_with_gaps",
+            "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance.",
+            "displayLabel": "Mapped parking context · foreground tower obscures most of the area"
+          },
+          {
+            "id": "drone-edge-west",
+            "sha256": "5718586a6d5cb303eba325806474a22b87f1d476440ca2892fcf4e7ca1cd2dfd",
+            "reviewedAt": "2026-11-08T23:38:21.067239+00:00",
+            "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
+            "status": "reviewed_with_gaps",
+            "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance."
+          },
+          {
+            "id": "drone-edge-east",
+            "sha256": "0fcc77aa2165af0676611a4a5b04031414f7a370a8aa2d743bf445f35ea86aba",
+            "reviewedAt": "2026-11-08T23:38:21.068070+00:00",
+            "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
+            "status": "reviewed_with_gaps",
+            "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance."
+          },
+          {
+            "id": "drone-edge-north",
+            "sha256": "270f84602826e1b6c615eea2322e7b7c9c1c7be45c3e820ec3a27e3b99d47699",
+            "reviewedAt": "2026-11-08T23:38:21.068625+00:00",
+            "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
+            "status": "reviewed_with_gaps",
+            "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance."
+          },
+          {
+            "id": "drone-edge-south",
+            "sha256": "dfa3f8db420f673e0d143c01d023713e746d3b3b78a38861b8271e7b0db7d84c",
+            "reviewedAt": "2026-11-08T23:38:21.069126+00:00",
+            "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
+            "status": "reviewed_with_gaps",
+            "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance."
+          },
+          {
+            "id": "chapter-rosetti-street",
+            "sha256": "206ea207feb86f61412b88debf7092cf202becbb4f97565021a4929949709bc3",
+            "reviewedAt": "2026-11-08T23:38:21.072967+00:00",
+            "reviewSheetSha256": "188c660954aff5bfb6293bbf984e88ef96370bd89ae3f3e61b189a0a531141c9",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual Rosetti chapter-start street is visible with a passing bus in the recorded scene. Static camera capture does not exercise controls or certify complete clearance/parity."
+          }
+        ],
+        "sourceCounts": {
+          "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 24,
+          "d5795e20c85e8122a62fc503f33a182d05eceaf0": 1
+        },
+        "pitchVisibilityAccepted": true
       },
-      {
-        "id": "skytower-opposite",
-        "sha256": "f99bb637b9aea8156103c51a959387d6f339b9328564de96d41203ac2605cc7d",
-        "reviewedAt": "2026-11-08T23:38:21.031295+00:00",
-        "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
-        "status": "reviewed_with_gaps",
-        "observations": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
+      "generatedAt": "2026-11-09T00:11:58.506Z",
+      "sourceCaptureManifest": "capture-manifest.json",
+      "sourceProvenance": {
+        "manifest": "source-provenance.json",
+        "sha256": "0b718b0db6b7a87f571bd8b8683c36886ff43ee00b0ba9c832363d818388867d",
+        "filesVerified": 8987
       },
-      {
-        "id": "dinamo-context",
-        "sha256": "69f6289baaf666a10d4bc43dfe62c59ac4ee5e325a365bede30e7f5bacb8b36e",
-        "reviewedAt": "2026-11-08T23:38:21.032164+00:00",
-        "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
-        "status": "reviewed_with_gaps",
-        "observations": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
-      },
-      {
-        "id": "dinamo-opposite",
-        "sha256": "5a3620a3d6c089635b9df7f429753c1f4afeb0a365069c6fb605b2c7bb784249",
-        "reviewedAt": "2026-11-08T23:38:21.032489+00:00",
-        "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
-        "status": "reviewed_with_gaps",
-        "observations": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
-      },
-      {
-        "id": "dinamo-street",
-        "sha256": "57292830489414a973681ccd42d93afd8ec18e43edab0fa3206ea237aa047945",
-        "reviewedAt": "2026-11-08T23:38:21.032827+00:00",
-        "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
-        "status": "reviewed_with_gaps",
-        "observations": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
-      },
-      {
-        "id": "dinamo-football",
-        "sha256": "0fa6a7db9b7d547ff5f587d290dc505521755740862046f3322604a4260d7a06",
-        "reviewedAt": "2026-11-08T23:38:21.033199+00:00",
-        "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
-        "status": "retained_before_paint_correction",
-        "observations": "Retained 0775fdaf walking-height frame before the paint correction. See the fresh d5795e20 elevated pitch view for current marking visibility.",
-        "sourceCaptureObservation": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint.",
-        "displayLabel": "Dinamo walking-height view \u00b7 retained 0775fdaf before paint correction"
-      },
-      {
-        "id": "dinamo-football-drone",
-        "sha256": "a193c424b1c7423f0ffa34cc8f63ab31c43087813ef33a03054a66a80ff81ba5",
-        "reviewedAt": "2026-11-09T00:14:31.920035+00:00",
-        "status": "reviewed_paint_visible_with_context_gaps",
-        "observations": "Continuous halfway line, complete 40-chord centre circle, both penalty and goal boxes, and perimeter. Native 12 cm coverage filtering; no camera/render-distance override. Clear summer daylight makes all markings readable in the same 70.12 m pose and lower/oblique controls.",
-        "displayLabel": "Dinamo filtered physical pitch markings \u00b7 summer daylight \u00b7 same 70.12 m pose"
-      },
-      {
-        "id": "rosetti-context",
-        "sha256": "fe35e712a8e7cf094038fffe548394945423aa9a5ecb9dd65ee23e35289ca78d",
-        "reviewedAt": "2026-11-08T23:38:21.038639+00:00",
-        "reviewSheetSha256": "4ee4ad57f79c9909796f131033d299d89362f4a87adc0bd3509dcf2176e4675c",
-        "status": "reviewed_with_gaps",
-        "observations": "The close elevated Dinamo view reproduces broken/stippled circle and box lines and absent halfway line on source0775. The reported paint-visibility issue is not accepted. Rosetti school/courts are visible; source facade/canopy appearance remains approximate."
-      },
-      {
-        "id": "rosetti-opposite",
-        "sha256": "84b45e8c4d75730249d788a0a317e36e16ddf658ce387a40aed5094b22eb2b1e",
-        "reviewedAt": "2026-11-08T23:38:21.039170+00:00",
-        "reviewSheetSha256": "4ee4ad57f79c9909796f131033d299d89362f4a87adc0bd3509dcf2176e4675c",
-        "status": "reviewed_with_gaps",
-        "observations": "The close elevated Dinamo view reproduces broken/stippled circle and box lines and absent halfway line on source0775. The reported paint-visibility issue is not accepted. Rosetti school/courts are visible; source facade/canopy appearance remains approximate."
-      },
-      {
-        "id": "rosetti-street",
-        "sha256": "5563584d926c6ea7b2ea6ddc6ec5491c7a11b900682b31dacf35c8419972b08c",
-        "reviewedAt": "2026-11-08T23:38:21.039721+00:00",
-        "reviewSheetSha256": "4ee4ad57f79c9909796f131033d299d89362f4a87adc0bd3509dcf2176e4675c",
-        "status": "reviewed_with_gaps",
-        "observations": "The close elevated Dinamo view reproduces broken/stippled circle and box lines and absent halfway line on source0775. The reported paint-visibility issue is not accepted. Rosetti school/courts are visible; source facade/canopy appearance remains approximate."
-      },
-      {
-        "id": "rosetti-basketball-0",
-        "sha256": "01cfb081734e9094ee97cdd33c696ac145a3ca33317d0b61a974ba044f5308a0",
-        "reviewedAt": "2026-11-08T23:38:21.040197+00:00",
-        "reviewSheetSha256": "4ee4ad57f79c9909796f131033d299d89362f4a87adc0bd3509dcf2176e4675c",
-        "status": "reviewed_with_gaps",
-        "observations": "The close elevated Dinamo view reproduces broken/stippled circle and box lines and absent halfway line on source0775. The reported paint-visibility issue is not accepted. Rosetti school/courts are visible; source facade/canopy appearance remains approximate."
-      },
-      {
-        "id": "rosetti-basketball-1",
-        "sha256": "ae521649ff52e0daf71f93c7fa2f7795a3f252bc3b8b826f8fed0786a5c46643",
-        "reviewedAt": "2026-11-08T23:38:21.042577+00:00",
-        "reviewSheetSha256": "4ee4ad57f79c9909796f131033d299d89362f4a87adc0bd3509dcf2176e4675c",
-        "status": "reviewed_with_gaps",
-        "observations": "The close elevated Dinamo view reproduces broken/stippled circle and box lines and absent halfway line on source0775. The reported paint-visibility issue is not accepted. Rosetti school/courts are visible; source facade/canopy appearance remains approximate."
-      },
-      {
-        "id": "globalworth-context",
-        "sha256": "1d4aac2a9796b3ccf76f0dee0f90c03bebe57178c34639e21a97067fc66b9f06",
-        "reviewedAt": "2026-11-08T23:38:21.042914+00:00",
-        "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
-        "status": "reviewed_with_gaps",
-        "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
-      },
-      {
-        "id": "globalworth-opposite",
-        "sha256": "f478eaaf2f9e05e79eda7060796dbca6b7f2a183053638ad2f0bdb487aedb6ae",
-        "reviewedAt": "2026-11-08T23:38:21.043710+00:00",
-        "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
-        "status": "reviewed_with_gaps",
-        "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
-      },
-      {
-        "id": "signal-1",
-        "sha256": "e8e27e73655ec67fc40d623c1c27354d14857dfa6dad3f02ff25fb57bd697f48",
-        "reviewedAt": "2026-11-08T23:38:21.044078+00:00",
-        "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
-        "status": "reviewed_with_gaps",
-        "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
-      },
-      {
-        "id": "signal-2",
-        "sha256": "cd69e815e30057c04e384bc2cbc46f9064c784de6868ec265edb9cca94d516b6",
-        "reviewedAt": "2026-11-08T23:38:21.053501+00:00",
-        "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
-        "status": "reviewed_with_gaps",
-        "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
-      },
-      {
-        "id": "signal-3",
-        "sha256": "b4ebdbca3697550056c32c321163f0808ad32746ea37901fd603d36230286177",
-        "reviewedAt": "2026-11-08T23:38:21.054619+00:00",
-        "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
-        "status": "reviewed_with_gaps",
-        "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
-      },
-      {
-        "id": "parking-1",
-        "sha256": "dbeca17bbe6457cd521bde8bcdff8ace8ce4be96eed403180d3633bdca03a185",
-        "reviewedAt": "2026-11-08T23:38:21.055218+00:00",
-        "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
-        "status": "reviewed_with_gaps",
-        "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
-      },
-      {
-        "id": "parking-2",
-        "sha256": "3a4d427c62c9e2a863a30a18afc3c309893f34dc079c92e8a6a82fcbcb8ac795",
-        "reviewedAt": "2026-11-08T23:38:21.055935+00:00",
-        "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
-        "status": "reviewed_with_gaps",
-        "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance."
-      },
-      {
-        "id": "parking-3",
-        "sha256": "271308fbe6ab9beda642ed1343b8303de18f802dbf2414bbe4360cfb6d060b2f",
-        "reviewedAt": "2026-11-08T23:38:21.058118+00:00",
-        "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
-        "status": "reviewed_with_gaps",
-        "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance.",
-        "displayLabel": "Mapped parking context \u00b7 foreground tower obscures most of the area"
-      },
-      {
-        "id": "drone-edge-west",
-        "sha256": "5718586a6d5cb303eba325806474a22b87f1d476440ca2892fcf4e7ca1cd2dfd",
-        "reviewedAt": "2026-11-08T23:38:21.067239+00:00",
-        "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
-        "status": "reviewed_with_gaps",
-        "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance."
-      },
-      {
-        "id": "drone-edge-east",
-        "sha256": "0fcc77aa2165af0676611a4a5b04031414f7a370a8aa2d743bf445f35ea86aba",
-        "reviewedAt": "2026-11-08T23:38:21.068070+00:00",
-        "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
-        "status": "reviewed_with_gaps",
-        "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance."
-      },
-      {
-        "id": "drone-edge-north",
-        "sha256": "270f84602826e1b6c615eea2322e7b7c9c1c7be45c3e820ec3a27e3b99d47699",
-        "reviewedAt": "2026-11-08T23:38:21.068625+00:00",
-        "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
-        "status": "reviewed_with_gaps",
-        "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance."
-      },
-      {
-        "id": "drone-edge-south",
-        "sha256": "dfa3f8db420f673e0d143c01d023713e746d3b3b78a38861b8271e7b0db7d84c",
-        "reviewedAt": "2026-11-08T23:38:21.069126+00:00",
-        "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
-        "status": "reviewed_with_gaps",
-        "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance."
-      },
-      {
-        "id": "chapter-rosetti-street",
-        "sha256": "206ea207feb86f61412b88debf7092cf202becbb4f97565021a4929949709bc3",
-        "reviewedAt": "2026-11-08T23:38:21.072967+00:00",
-        "reviewSheetSha256": "188c660954aff5bfb6293bbf984e88ef96370bd89ae3f3e61b189a0a531141c9",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual Rosetti chapter-start street is visible with a passing bus in the recorded scene. Static camera capture does not exercise controls or certify complete clearance/parity."
-      }
+      "captureValidation": "capture-validation.json",
+      "runtimeIntegrity": "runtime-integrity.json",
+      "sourceContactProbe": "source-contact-probe.json"
+    }
+  ],
+  "latestRefresh": {
+    "sourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+    "ids": [
+      "skytower-opposite",
+      "dinamo-context",
+      "globalworth-opposite",
+      "signal-2",
+      "signal-3",
+      "chapter-rosetti-street"
     ],
-    "sourceCounts": {
-      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 24,
-      "d5795e20c85e8122a62fc503f33a182d05eceaf0": 1
-    },
-    "pitchVisibilityAccepted": true
-  },
-  "generatedAt": "2026-11-09T00:11:58.506Z",
-  "sourceCaptureManifest": "capture-manifest.json",
-  "sourceProvenance": {
-    "manifest": "source-provenance.json",
-    "sha256": "0b718b0db6b7a87f571bd8b8683c36886ff43ee00b0ba9c832363d818388867d",
-    "filesVerified": 8987
-  },
-  "captureValidation": "capture-validation.json",
-  "runtimeIntegrity": "runtime-integrity.json",
-  "sourceContactProbe": "source-contact-probe.json"
+    "scope": "Only affected static views replaced; historical fields below retain their earlier scope. Individual current camera/date/condition/hash fields are authoritative."
+  }
 }

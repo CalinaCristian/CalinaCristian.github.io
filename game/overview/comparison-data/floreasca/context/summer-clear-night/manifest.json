@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "captureType": "game-perspective-context",
   "comparisonCompatible": false,
-  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "gameSourceCommit": "mixed",
   "district": "floreasca",
   "season": "summer",
   "weather": "clear",
@@ -75,7 +75,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\ud83c\udf19",
+          "icon": "🌙",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -346,7 +346,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\ud83c\udf19",
+          "icon": "🌙",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -465,7 +465,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\ud83c\udf19",
+          "icon": "🌙",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -574,7 +574,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\ud83c\udf19",
+          "icon": "🌙",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -683,7 +683,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\ud83c\udf19",
+          "icon": "🌙",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -799,7 +799,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\ud83c\udf19",
+          "icon": "🌙",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -913,7 +913,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\ud83c\udf19",
+          "icon": "🌙",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1027,7 +1027,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\ud83c\udf19",
+          "icon": "🌙",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1141,7 +1141,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\ud83c\udf19",
+          "icon": "🌙",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1240,16 +1240,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "night",
-        "rendererClockOverride": "night",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\ud83c\udf19",
+          "icon": "🌙",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1259,25 +1256,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794179163874,
+          "updatedAt": 1794362732287,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": -28
+        "clockOverride": "night",
+        "sunElevation": -28,
+        "nightLights": true
       },
       "perf": {
-        "fps": 14,
-        "frameMs": 0,
-        "drawCalls": 204,
-        "triangles": 803982,
+        "fps": 0.1,
+        "frameMs": 9683.4,
+        "drawCalls": 212,
+        "triangles": 741406,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -1288,16 +1278,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 2,
       "lat": 44.4556,
       "lon": 26.10071,
-      "image": "images/chapter-rosetti-street.jpg",
+      "image": "signs-8add95f3/chapter-rosetti-street.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:09:55.237Z",
-      "sha256": "515e5ccfc1222b70be72f00443f76dfcace4e65e2f839c68b3cefa54227755c4",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:06:04.417Z",
+      "sha256": "02abc4d8b993bc09deb7455b7d9e1f554f9721f980a639e834fdb52c55abe258",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -1310,113 +1298,136 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/chapter-rosetti-street.jpg",
-      "thumb": "thumbs/chapter-rosetti-street.jpg",
-      "thumbnailSha256": "5ea43e714edb25c689782473b43943d73ddf29af9c0a4cab61241dbdfbf2f4c4",
-      "reviewNote": "Actual night outward views show the transition to sparse generic distant blocks and unmeasured window/ground lighting. The actual chapter-start street is visible. All are static GAME camera poses; no drone controller or driving/mirror budget acceptance is claimed."
+      "thumbnail": "signs-8add95f3/chapter-rosetti-street.png",
+      "thumb": "signs-8add95f3/chapter-rosetti-street.png",
+      "thumbnailSha256": "02abc4d8b993bc09deb7455b7d9e1f554f9721f980a639e834fdb52c55abe258",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 0.050000000000000044,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "02abc4d8b993bc09deb7455b7d9e1f554f9721f980a639e834fdb52c55abe258"
     }
   ],
-  "review": {
-    "district": "floreasca",
-    "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-    "imagesReviewed": 10,
-    "status": "All10 actual GAME night perspective views reviewed with explicit source/appearance gaps. Capture coverage complete; real-world parity remains incomplete.",
-    "captureCoverageAccepted": true,
-    "realWorldParityAccepted": false,
-    "comparisonScope": "GAME-only static perspectives; the reference-paired north-up atlas is separate. All10 frames retain actual renderer condition readback.",
-    "rawSourceContactHits": 62,
-    "sourceContactNote": "Raw native core road/building queries remain attached as unresolved diagnostics; capture coverage is not all-scene clearance.",
-    "entries": [
-      {
-        "id": "dinamo-street",
-        "sha256": "2c14126a13d2265b1e8a294849f72adfd41c242ee7a31b6ce3c56de72b0ffdd5",
-        "reviewedAt": "2026-11-08T23:11:06.799492+00:00",
-        "reviewSheetSha256": "38c9b7f0c33bf6cd44eff7b054cd07eadc3ccf38ab878baccbc9fdaf1136471c",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is summer/clear/night. Dinamo street/stadium, goals and both Rosetti hoops remain visible at night. Generic facades, canopy appearance and lighting placement/intensity remain modelling estimates; this is not a date-matched night reference comparison or sports/controller test."
+  "historicalMetadata": [
+    {
+      "review": {
+        "district": "floreasca",
+        "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+        "imagesReviewed": 10,
+        "status": "All10 actual GAME night perspective views reviewed with explicit source/appearance gaps. Capture coverage complete; real-world parity remains incomplete.",
+        "captureCoverageAccepted": true,
+        "realWorldParityAccepted": false,
+        "comparisonScope": "GAME-only static perspectives; the reference-paired north-up atlas is separate. All10 frames retain actual renderer condition readback.",
+        "rawSourceContactHits": 62,
+        "sourceContactNote": "Raw native core road/building queries remain attached as unresolved diagnostics; capture coverage is not all-scene clearance.",
+        "entries": [
+          {
+            "id": "dinamo-street",
+            "sha256": "2c14126a13d2265b1e8a294849f72adfd41c242ee7a31b6ce3c56de72b0ffdd5",
+            "reviewedAt": "2026-11-08T23:11:06.799492+00:00",
+            "reviewSheetSha256": "38c9b7f0c33bf6cd44eff7b054cd07eadc3ccf38ab878baccbc9fdaf1136471c",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is summer/clear/night. Dinamo street/stadium, goals and both Rosetti hoops remain visible at night. Generic facades, canopy appearance and lighting placement/intensity remain modelling estimates; this is not a date-matched night reference comparison or sports/controller test."
+          },
+          {
+            "id": "dinamo-football",
+            "sha256": "2412cdbfcdd837280bca58491f37c311c5c12fa2c42d10250e47f2ce9e5a1a75",
+            "reviewedAt": "2026-11-08T23:11:06.802601+00:00",
+            "reviewSheetSha256": "38c9b7f0c33bf6cd44eff7b054cd07eadc3ccf38ab878baccbc9fdaf1136471c",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is summer/clear/night. Dinamo street/stadium, goals and both Rosetti hoops remain visible at night. Generic facades, canopy appearance and lighting placement/intensity remain modelling estimates; this is not a date-matched night reference comparison or sports/controller test."
+          },
+          {
+            "id": "rosetti-street",
+            "sha256": "dec493d13e93c9ceedee522b4144dd25c3a5a93729fe403718310d61eca14faf",
+            "reviewedAt": "2026-11-08T23:11:06.803252+00:00",
+            "reviewSheetSha256": "38c9b7f0c33bf6cd44eff7b054cd07eadc3ccf38ab878baccbc9fdaf1136471c",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is summer/clear/night. Dinamo street/stadium, goals and both Rosetti hoops remain visible at night. Generic facades, canopy appearance and lighting placement/intensity remain modelling estimates; this is not a date-matched night reference comparison or sports/controller test."
+          },
+          {
+            "id": "rosetti-basketball-0",
+            "sha256": "84c59a3314d85661e0ea287675f8e4c6cf5bc7a6169a8a0421d5f206a1be60c1",
+            "reviewedAt": "2026-11-08T23:11:06.803572+00:00",
+            "reviewSheetSha256": "38c9b7f0c33bf6cd44eff7b054cd07eadc3ccf38ab878baccbc9fdaf1136471c",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is summer/clear/night. Dinamo street/stadium, goals and both Rosetti hoops remain visible at night. Generic facades, canopy appearance and lighting placement/intensity remain modelling estimates; this is not a date-matched night reference comparison or sports/controller test."
+          },
+          {
+            "id": "rosetti-basketball-1",
+            "sha256": "290e8126ef9d8a5872116e40014694249e7cd648c425a48a58730980afb035eb",
+            "reviewedAt": "2026-11-08T23:11:06.803825+00:00",
+            "reviewSheetSha256": "38c9b7f0c33bf6cd44eff7b054cd07eadc3ccf38ab878baccbc9fdaf1136471c",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is summer/clear/night. Dinamo street/stadium, goals and both Rosetti hoops remain visible at night. Generic facades, canopy appearance and lighting placement/intensity remain modelling estimates; this is not a date-matched night reference comparison or sports/controller test."
+          },
+          {
+            "id": "drone-edge-west",
+            "sha256": "51fa8ae85284716432f7ebe28e5a6d1921646746404f795a00cf1f1de4b59263",
+            "reviewedAt": "2026-11-08T23:11:06.804105+00:00",
+            "reviewSheetSha256": "38c9b7f0c33bf6cd44eff7b054cd07eadc3ccf38ab878baccbc9fdaf1136471c",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is summer/clear/night. Dinamo street/stadium, goals and both Rosetti hoops remain visible at night. Generic facades, canopy appearance and lighting placement/intensity remain modelling estimates; this is not a date-matched night reference comparison or sports/controller test."
+          },
+          {
+            "id": "drone-edge-east",
+            "sha256": "1d9fa9955ceab77d0a93a3b8b7f45397302781d685c2a2e871db3a14f2088507",
+            "reviewedAt": "2026-11-08T23:11:06.810655+00:00",
+            "reviewSheetSha256": "bf5a93b03a96204e1406c8410e07857784f0367453a3e8ddce64021e6f015dc7",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual night outward views show the transition to sparse generic distant blocks and unmeasured window/ground lighting. The actual chapter-start street is visible. All are static GAME camera poses; no drone controller or driving/mirror budget acceptance is claimed."
+          },
+          {
+            "id": "drone-edge-north",
+            "sha256": "80f8fd806b2d2d074910610be0c05b13cc4cc2e8de7daa6d6a08a1bcf9929d58",
+            "reviewedAt": "2026-11-08T23:11:06.811442+00:00",
+            "reviewSheetSha256": "bf5a93b03a96204e1406c8410e07857784f0367453a3e8ddce64021e6f015dc7",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual night outward views show the transition to sparse generic distant blocks and unmeasured window/ground lighting. The actual chapter-start street is visible. All are static GAME camera poses; no drone controller or driving/mirror budget acceptance is claimed."
+          },
+          {
+            "id": "drone-edge-south",
+            "sha256": "dd42b2940a0b48916aeb1014cb5ff5d8273d225ce24b91bec298fcb951818704",
+            "reviewedAt": "2026-11-08T23:11:06.811708+00:00",
+            "reviewSheetSha256": "bf5a93b03a96204e1406c8410e07857784f0367453a3e8ddce64021e6f015dc7",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual night outward views show the transition to sparse generic distant blocks and unmeasured window/ground lighting. The actual chapter-start street is visible. All are static GAME camera poses; no drone controller or driving/mirror budget acceptance is claimed."
+          },
+          {
+            "id": "chapter-rosetti-street",
+            "sha256": "515e5ccfc1222b70be72f00443f76dfcace4e65e2f839c68b3cefa54227755c4",
+            "reviewedAt": "2026-11-08T23:11:06.811925+00:00",
+            "reviewSheetSha256": "bf5a93b03a96204e1406c8410e07857784f0367453a3e8ddce64021e6f015dc7",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual night outward views show the transition to sparse generic distant blocks and unmeasured window/ground lighting. The actual chapter-start street is visible. All are static GAME camera poses; no drone controller or driving/mirror budget acceptance is claimed."
+          }
+        ]
       },
-      {
-        "id": "dinamo-football",
-        "sha256": "2412cdbfcdd837280bca58491f37c311c5c12fa2c42d10250e47f2ce9e5a1a75",
-        "reviewedAt": "2026-11-08T23:11:06.802601+00:00",
-        "reviewSheetSha256": "38c9b7f0c33bf6cd44eff7b054cd07eadc3ccf38ab878baccbc9fdaf1136471c",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is summer/clear/night. Dinamo street/stadium, goals and both Rosetti hoops remain visible at night. Generic facades, canopy appearance and lighting placement/intensity remain modelling estimates; this is not a date-matched night reference comparison or sports/controller test."
+      "generatedAt": "2026-11-08T23:09:55.237Z",
+      "sourceCaptureManifest": "capture-manifest.json",
+      "sourceProvenance": {
+        "manifest": "source-provenance.json",
+        "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429",
+        "filesVerified": 1647
       },
-      {
-        "id": "rosetti-street",
-        "sha256": "dec493d13e93c9ceedee522b4144dd25c3a5a93729fe403718310d61eca14faf",
-        "reviewedAt": "2026-11-08T23:11:06.803252+00:00",
-        "reviewSheetSha256": "38c9b7f0c33bf6cd44eff7b054cd07eadc3ccf38ab878baccbc9fdaf1136471c",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is summer/clear/night. Dinamo street/stadium, goals and both Rosetti hoops remain visible at night. Generic facades, canopy appearance and lighting placement/intensity remain modelling estimates; this is not a date-matched night reference comparison or sports/controller test."
-      },
-      {
-        "id": "rosetti-basketball-0",
-        "sha256": "84c59a3314d85661e0ea287675f8e4c6cf5bc7a6169a8a0421d5f206a1be60c1",
-        "reviewedAt": "2026-11-08T23:11:06.803572+00:00",
-        "reviewSheetSha256": "38c9b7f0c33bf6cd44eff7b054cd07eadc3ccf38ab878baccbc9fdaf1136471c",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is summer/clear/night. Dinamo street/stadium, goals and both Rosetti hoops remain visible at night. Generic facades, canopy appearance and lighting placement/intensity remain modelling estimates; this is not a date-matched night reference comparison or sports/controller test."
-      },
-      {
-        "id": "rosetti-basketball-1",
-        "sha256": "290e8126ef9d8a5872116e40014694249e7cd648c425a48a58730980afb035eb",
-        "reviewedAt": "2026-11-08T23:11:06.803825+00:00",
-        "reviewSheetSha256": "38c9b7f0c33bf6cd44eff7b054cd07eadc3ccf38ab878baccbc9fdaf1136471c",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is summer/clear/night. Dinamo street/stadium, goals and both Rosetti hoops remain visible at night. Generic facades, canopy appearance and lighting placement/intensity remain modelling estimates; this is not a date-matched night reference comparison or sports/controller test."
-      },
-      {
-        "id": "drone-edge-west",
-        "sha256": "51fa8ae85284716432f7ebe28e5a6d1921646746404f795a00cf1f1de4b59263",
-        "reviewedAt": "2026-11-08T23:11:06.804105+00:00",
-        "reviewSheetSha256": "38c9b7f0c33bf6cd44eff7b054cd07eadc3ccf38ab878baccbc9fdaf1136471c",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is summer/clear/night. Dinamo street/stadium, goals and both Rosetti hoops remain visible at night. Generic facades, canopy appearance and lighting placement/intensity remain modelling estimates; this is not a date-matched night reference comparison or sports/controller test."
-      },
-      {
-        "id": "drone-edge-east",
-        "sha256": "1d9fa9955ceab77d0a93a3b8b7f45397302781d685c2a2e871db3a14f2088507",
-        "reviewedAt": "2026-11-08T23:11:06.810655+00:00",
-        "reviewSheetSha256": "bf5a93b03a96204e1406c8410e07857784f0367453a3e8ddce64021e6f015dc7",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual night outward views show the transition to sparse generic distant blocks and unmeasured window/ground lighting. The actual chapter-start street is visible. All are static GAME camera poses; no drone controller or driving/mirror budget acceptance is claimed."
-      },
-      {
-        "id": "drone-edge-north",
-        "sha256": "80f8fd806b2d2d074910610be0c05b13cc4cc2e8de7daa6d6a08a1bcf9929d58",
-        "reviewedAt": "2026-11-08T23:11:06.811442+00:00",
-        "reviewSheetSha256": "bf5a93b03a96204e1406c8410e07857784f0367453a3e8ddce64021e6f015dc7",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual night outward views show the transition to sparse generic distant blocks and unmeasured window/ground lighting. The actual chapter-start street is visible. All are static GAME camera poses; no drone controller or driving/mirror budget acceptance is claimed."
-      },
-      {
-        "id": "drone-edge-south",
-        "sha256": "dd42b2940a0b48916aeb1014cb5ff5d8273d225ce24b91bec298fcb951818704",
-        "reviewedAt": "2026-11-08T23:11:06.811708+00:00",
-        "reviewSheetSha256": "bf5a93b03a96204e1406c8410e07857784f0367453a3e8ddce64021e6f015dc7",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual night outward views show the transition to sparse generic distant blocks and unmeasured window/ground lighting. The actual chapter-start street is visible. All are static GAME camera poses; no drone controller or driving/mirror budget acceptance is claimed."
-      },
-      {
-        "id": "chapter-rosetti-street",
-        "sha256": "515e5ccfc1222b70be72f00443f76dfcace4e65e2f839c68b3cefa54227755c4",
-        "reviewedAt": "2026-11-08T23:11:06.811925+00:00",
-        "reviewSheetSha256": "bf5a93b03a96204e1406c8410e07857784f0367453a3e8ddce64021e6f015dc7",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual night outward views show the transition to sparse generic distant blocks and unmeasured window/ground lighting. The actual chapter-start street is visible. All are static GAME camera poses; no drone controller or driving/mirror budget acceptance is claimed."
-      }
-    ]
+      "captureValidation": "capture-validation.json",
+      "runtimeIntegrity": "runtime-integrity.json",
+      "sourceContactProbe": "source-contact-probe.json"
+    }
+  ],
+  "sourceCounts": {
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 9,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 1
   },
-  "generatedAt": "2026-11-08T23:09:55.237Z",
-  "sourceCaptureManifest": "capture-manifest.json",
-  "sourceProvenance": {
-    "manifest": "source-provenance.json",
-    "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429",
-    "filesVerified": 1647
-  },
-  "captureValidation": "capture-validation.json",
-  "runtimeIntegrity": "runtime-integrity.json",
-  "sourceContactProbe": "source-contact-probe.json"
+  "latestRefresh": {
+    "sourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+    "ids": [
+      "chapter-rosetti-street"
+    ],
+    "scope": "Only affected static views replaced; historical fields below retain their earlier scope. Individual current camera/date/condition/hash fields are authoritative."
+  }
 }

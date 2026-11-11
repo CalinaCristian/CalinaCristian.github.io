@@ -6419,5 +6419,14 @@
     "reports": [
       56
     ]
+  },
+  "shopSignFixEvidence": {
+    "summary": "fix-shop-signs/summary.json",
+    "sourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+    "status": "scoped-native-validated",
+    "reports": [
+      27,
+      36
+    ]
   }
 }

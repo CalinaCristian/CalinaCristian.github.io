@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "Bellevue aerial comparisons",
-  "generatedDate": "2026-11-09",
-  "generatedAt": "2026-11-09T02:03:49.037Z",
+  "generatedDate": "2026-11-11",
+  "generatedAt": "2026-11-11T02:08:38.399Z",
   "defaultTile": "aerial-r04-c09",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -1740,19 +1740,16 @@
       "coverageType": "core-touches",
       "orientation": "north-up",
       "places": [],
-      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 93,
-        "triangles": 246017,
-        "renderMs": 101,
-        "quality": "high"
+        "drawCalls": 94,
+        "triangles": 217585
       },
       "traffic": {
         "enabled": false,
-        "visible": false,
-        "vehicleCount": 149
+        "visible": false
       },
       "renderer": {
         "width": 640,
@@ -1762,16 +1759,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T02:03:31.848Z",
-      "gamePath": "images/aerial-r03-c04.jpg",
-      "image": "images/aerial-r03-c04.jpg",
-      "thumbnail": "thumbs/aerial-r03-c04.jpg",
-      "sha256": "64246f974c18276720091b24a96e40f9209e5fc3a0066c1f84c93d36e192685d",
+      "capturedAt": "2026-11-11T02:08:35.324Z",
+      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r03-c04.png",
+      "image": "retakes/signs-8add95f3/atlas/aerial-r03-c04.png",
+      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r03-c04.png",
+      "sha256": "76d557e77f61fee6827cfca0a86439be87bc71077c9aab2ab97eeda38ff8f256",
       "width": 640,
       "height": 640,
       "captureWallMs": 5713,
       "dataset": "atlas",
-      "thumbnailSha256": "37f271bfa2eed6d22360b10ed979d94e3cb13de14401ac13eb452be3eaef2e24",
+      "thumbnailSha256": "76d557e77f61fee6827cfca0a86439be87bc71077c9aab2ab97eeda38ff8f256",
       "captureType": "game-topdown",
       "boundsWgs84": [
         47.61899915415902,
@@ -1779,9 +1776,10 @@
         47.62124873123852,
         -122.20166288786969
       ],
-      "sourceCaptureManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json",
       "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
-      "sourceNote": "Exact original-pose structural/separator retake; original complete prior collection is archived byte-identically. Capture source is 07cc3d6b and capturedAt is the actual retake time; this frame is not relabelled as a later release."
+      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
+      "district": "bellevue"
     },
     {
       "id": "aerial-r03-c05",
@@ -1809,19 +1807,16 @@
       "coverageType": "core-touches",
       "orientation": "north-up",
       "places": [],
-      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 88,
-        "triangles": 227582,
-        "renderMs": 4.5,
-        "quality": "high"
+        "drawCalls": 90,
+        "triangles": 191548
       },
       "traffic": {
         "enabled": false,
-        "visible": false,
-        "vehicleCount": 149
+        "visible": false
       },
       "renderer": {
         "width": 640,
@@ -1831,16 +1826,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T02:03:37.562Z",
-      "gamePath": "images/aerial-r03-c05.jpg",
-      "image": "images/aerial-r03-c05.jpg",
-      "thumbnail": "thumbs/aerial-r03-c05.jpg",
-      "sha256": "aac4710f0ae6191e062858ed09c85400a2745ce72d4de9225f8607742a4b216a",
+      "capturedAt": "2026-11-11T02:08:38.399Z",
+      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r03-c05.png",
+      "image": "retakes/signs-8add95f3/atlas/aerial-r03-c05.png",
+      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r03-c05.png",
+      "sha256": "ea384ea24252a5577932c6a6544618b35ac5a708d46acd3e9a3397bcb3b5d867",
       "width": 640,
       "height": 640,
       "captureWallMs": 2138,
       "dataset": "atlas",
-      "thumbnailSha256": "25a1bf7697460589cb2819556ce49c58ce62ef6532ff3b9cf6d48935f7559111",
+      "thumbnailSha256": "ea384ea24252a5577932c6a6544618b35ac5a708d46acd3e9a3397bcb3b5d867",
       "captureType": "game-topdown",
       "boundsWgs84": [
         47.61899915415902,
@@ -1848,9 +1843,10 @@
         47.62124873123852,
         -122.19833144393485
       ],
-      "sourceCaptureManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json",
       "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
-      "sourceNote": "Exact original-pose structural/separator retake; original complete prior collection is archived byte-identically. Capture source is 07cc3d6b and capturedAt is the actual retake time; this frame is not relabelled as a later release."
+      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
+      "district": "bellevue"
     },
     {
       "id": "aerial-r03-c06",
@@ -2558,19 +2554,16 @@
       "coverageType": "core-touches",
       "orientation": "north-up",
       "places": [],
-      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 92,
-        "triangles": 173353,
-        "renderMs": 4.600000001490116,
-        "quality": "high"
+        "triangles": 145530
       },
       "traffic": {
         "enabled": false,
-        "visible": false,
-        "vehicleCount": 149
+        "visible": false
       },
       "renderer": {
         "width": 640,
@@ -2580,16 +2573,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T02:03:39.701Z",
-      "gamePath": "images/aerial-r04-c04.jpg",
-      "image": "images/aerial-r04-c04.jpg",
-      "thumbnail": "thumbs/aerial-r04-c04.jpg",
-      "sha256": "b66f8457b89cd14e492679ce88984e4722673929f88073855139d3e91661c2bb",
+      "capturedAt": "2026-11-11T01:51:12.401Z",
+      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r04-c04.png",
+      "image": "retakes/signs-8add95f3/atlas/aerial-r04-c04.png",
+      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r04-c04.png",
+      "sha256": "952faa56301ef1c9a081065b1e3afb02e64552802764e7b4343203df7db2f69f",
       "width": 640,
       "height": 640,
       "captureWallMs": 2876,
       "dataset": "atlas",
-      "thumbnailSha256": "e93d55cd70b65279b0eb74a083009d8729f751d2ef2f1b43e19c97f9222f2239",
+      "thumbnailSha256": "952faa56301ef1c9a081065b1e3afb02e64552802764e7b4343203df7db2f69f",
       "captureType": "game-topdown",
       "boundsWgs84": [
         47.61674957707951,
@@ -2597,9 +2590,10 @@
         47.61899915415902,
         -122.20166288786969
       ],
-      "sourceCaptureManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json",
       "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
-      "sourceNote": "Exact original-pose structural/separator retake; original complete prior collection is archived byte-identically. Capture source is 07cc3d6b and capturedAt is the actual retake time; this frame is not relabelled as a later release."
+      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
+      "district": "bellevue"
     },
     {
       "id": "aerial-r04-c05",
@@ -2629,19 +2623,16 @@
       "places": [
         "lincoln-source-anchor"
       ],
-      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 100,
-        "triangles": 232128,
-        "renderMs": 6.200000002980232,
-        "quality": "high"
+        "drawCalls": 102,
+        "triangles": 170233
       },
       "traffic": {
         "enabled": false,
-        "visible": false,
-        "vehicleCount": 149
+        "visible": false
       },
       "renderer": {
         "width": 640,
@@ -2651,16 +2642,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T02:03:42.578Z",
-      "gamePath": "images/aerial-r04-c05.jpg",
-      "image": "images/aerial-r04-c05.jpg",
-      "thumbnail": "thumbs/aerial-r04-c05.jpg",
-      "sha256": "a96a8159a2f766b9b42daf56005efec22625c2b32aa58f3c7ebd14b0c5261c1f",
+      "capturedAt": "2026-11-11T01:51:15.553Z",
+      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r04-c05.png",
+      "image": "retakes/signs-8add95f3/atlas/aerial-r04-c05.png",
+      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r04-c05.png",
+      "sha256": "5d512c81c6448565d3a48f14182707a566d0e7505461fb2c6ad5fdaefef316d0",
       "width": 640,
       "height": 640,
       "captureWallMs": 2632,
       "dataset": "atlas",
-      "thumbnailSha256": "ebed6a4426798a566dbbebe54a269be967ecea714c2295c9d18deb98c82f6af4",
+      "thumbnailSha256": "5d512c81c6448565d3a48f14182707a566d0e7505461fb2c6ad5fdaefef316d0",
       "captureType": "game-topdown",
       "boundsWgs84": [
         47.61674957707951,
@@ -2668,9 +2659,10 @@
         47.61899915415902,
         -122.19833144393485
       ],
-      "sourceCaptureManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json",
       "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
-      "sourceNote": "Exact original-pose structural/separator retake; original complete prior collection is archived byte-identically. Capture source is 07cc3d6b and capturedAt is the actual retake time; this frame is not relabelled as a later release."
+      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
+      "district": "bellevue"
     },
     {
       "id": "aerial-r04-c06",
@@ -5891,7 +5883,7 @@
   ],
   "locationId": "bellevue",
   "captureType": "mixed-source-survey",
-  "description": "Complete exact source core and 600 m ring survey with separate distant context cells.",
+  "description": "Mixed-source technical atlas: 4 sign-affected poses refreshed at 8add95f3; all other images retain their recorded sources and dates.",
   "coverageNote": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
   "review": {
     "atlasFramesReviewed": 82,
@@ -6569,7 +6561,7 @@
     "priorTargetedRetakeReview": "retakes/338300a9/paired-review.json",
     "structureRetakeReviewedAt": "2026-11-09T02:11:54.817511+00:00"
   },
-  "reviewNote": "Complete retained earlier review coverage plus 5 fresh exact-pose structural/separator pairs inspected; genuine source-height, materials, context and imagery-date limits remain.",
+  "reviewNote": "Sign-affected current game captures inspected at full size; source/aerial comparisons retain their historical scope. No district fidelity acceptance.",
   "comparisonSourceCommits": {
     "atlas": [
       "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
@@ -6579,7 +6571,7 @@
     "streetWalk": "4198996ab142e3496c9224478eb8cd1aced676fb"
   },
   "collectionNotes": {
-    "atlas": "Current complete mixed-source atlas: 73 frames on c78a5f4c, 5 frames on 07cc3d6b, 4 frames on 338300a9. Actual per-frame source/date retained; only the conservative structure/separator subset is fresh 07cc3d6b. Full prior current collection archived. Technical aerial settings and separate native limitations remain.",
+    "atlas": "Mixed-source technical atlas: 4 sign-affected poses refreshed at 8add95f3; all other images retain their recorded sources and dates.",
     "streetWalk": "Immutable source 4198996. Every available comparison pose, game image only. Reference imagery remains outside git; official reference URLs and dates are retained. Camera season follows reference metadata month. These426 GAME frames are completed historical4198996 evidence, with22unresolved camera altitude comparisons. They are retained separately from the currentc78a5f4 aerial/native source and never relabelled as that newer runtime."
   },
   "aerial": {
@@ -6592,7 +6584,8 @@
   },
   "atlasSourceCounts": {
     "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 73,
-    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 5,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 4,
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
     "338300a95a79a2cabf3d7256ff745c6a1bac0372": 4
   },
   "sourceCaptureManifest": {
@@ -6675,6 +6668,12 @@
       "sha256": "350f0e645203323bc4c5a3258612774a2ba53d302bf5d94bdb42174a29eeceb3",
       "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
       "frames": 5
+    },
+    {
+      "path": "retakes/signs-8add95f3/atlas-capture.json",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "frames": 4,
+      "sha256": "008bb1d932b433dbf12eaec17b9d3b10b41ad8770cc709283e93eb8c73e966d7"
     }
   ],
   "resolvedMaterialFindings": [
@@ -6710,9 +6709,23 @@
     "unchangedDistrictDataSha256": "60506e422b1a0c8edbccc5fbbb7800015bd39e7f8c3767d49d262e4c9c2c6e38"
   },
   "groundConditions": {
-    "manifest": "context/ground-dc93023f/manifest.json",
-    "gameSourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+    "manifest": "context/ground-signs-8add95f3/manifest.json",
+    "gameSourceCommit": "mixed",
     "conditionCount": 4,
-    "viewpointCount": 4
+    "viewpointCount": 4,
+    "sourceCounts": {
+      "8add95f35681eddaf01a136ff1f5769a5329b102": 8,
+      "dc93023fa589ae865fe281ef2af74e481632101c": 8
+    }
+  },
+  "signRefresh": {
+    "sourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+    "atlasIds": [
+      "aerial-r04-c04",
+      "aerial-r04-c05",
+      "aerial-r03-c04",
+      "aerial-r03-c05"
+    ],
+    "scope": "Conservative camera-frustum sphere intersections, 30m sign/shadow margin. Unplaced sign includes whole source building. No occlusion or distance culling assumed. Every condition of affected walking viewpoints included. Isolated model studies and standalone tourist scenes do not use district unit fascias."
   }
 }

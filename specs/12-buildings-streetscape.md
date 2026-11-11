@@ -299,3 +299,5 @@ Facade bay spacing8m, horizontal bands4m and bridgehead finish/flat roofs are ap
 ## Shop fascia overlap candidate · 11 November 2026
 
 Reports27/36: the previous centre-only3.5m unit-sign check ignored the full board width and building-name signs. A shared wall-span allocator now reserves full padded coplanar fascia boards at their actual height, fits subsequent inferred unit labels into clear spans near their source point, and records placements/unavailable spans. It does not move buildings, change POIs or rename businesses. Perpendicular blade signs and measured signage require independent validation; this candidate is not accepted until original report views and retained source records are checked.
+
+Validation: eight layout controls; native all-eight-district audit checks378placed unit boards against936registered boards with zero coplanar overlap. Original27/36High/Ultra views, final8addfoot/a0H0M, paired155/155Unirii sweep with unchanged228findings, and34atlas/56ground/37context retakes. Columns/balconies still obscure some boards; no whole-district fidelity or budget acceptance. Public evidence: `game/overview/fix-shop-signs/summary.json`.

@@ -43,9 +43,14 @@ export function mountConditionGallery(root, gallery, { resolveImage = value => v
       figure.append(link, caption); grid.append(figure);
     }
     const details = node('details'), summary = node('summary', 'Camera, conditions and source');
-    const source = captureSource(set), sourceLink = node('a', 'Game source ' + source.slice(0, 7));
-    sourceLink.href = 'https://github.com/CalinaCristian/CalinaCristian.github.io/commit/' + source;
-    details.append(summary, node('p', gallery.setup || 'Production renderer; fixed on-foot cameras 1.65 m above supporting surfaces. Controlled appearance captures, without gameplay HUD. These pictures do not verify route access, activity completion or hardware FPS.'), sourceLink);
+    const sourceLinks = node('p');
+    for (const source of [...new Set(set.captures.map(c => c.sourceCommit))]) {
+      if (!/^[a-f0-9]{40}$/.test(source || '')) throw new Error('Missing game source');
+      const link = node('a', 'Game source ' + source.slice(0, 7));
+      link.href = 'https://github.com/CalinaCristian/CalinaCristian.github.io/commit/' + source;
+      sourceLinks.append(link, document.createTextNode(' '));
+    }
+    details.append(summary, node('p', gallery.setup || 'Production renderer; fixed on-foot cameras 1.65 m above supporting surfaces. Controlled appearance captures, without gameplay HUD. These pictures do not verify route access, activity completion or hardware FPS.'), sourceLinks);
     details.append(node('p', 'Summer uses 15 July and clear weather; winter uses 15 January and the game’s snow preset. These are controlled scenarios, not a claim about the typical weather of a city.'));
     for(const limitation of gallery.limitations || []) details.append(node('p', limitation, 'notice'));
     if(manifestURL){const link=node('a','Download capture manifest');link.href=manifestURL;const p=node('p');p.append(link);details.append(p);}
@@ -54,9 +59,4 @@ export function mountConditionGallery(root, gallery, { resolveImage = value => v
   }
   show(0);
   return {dispose() { section.remove(); }};
-}
-function captureSource(set) {
-  const source = set.captures[0]?.sourceCommit;
-  if (!/^[a-f0-9]{40}$/.test(source || '')) throw new Error('Missing game source');
-  return source;
 }

@@ -23,7 +23,8 @@ function geometryInfo(geometry) {
     return result;
 }
 
-const bounds = p => ({ x0: Math.min(...p.map(q => q[0])), x1: Math.max(...p.map(q => q[0])), z0: Math.min(...p.map(q => q[2])), z1: Math.max(...p.map(q => q[2])) });
+// Iterated Math.min/Math.max: the same values as the spread form (empty input, NaN and signed zero included).
+const bounds = p => { let x0 = Infinity, x1 = -Infinity, z0 = Infinity, z1 = -Infinity; for (const q of p) { x0 = Math.min(x0, q[0]); x1 = Math.max(x1, q[0]); z0 = Math.min(z0, q[2]); z1 = Math.max(z1, q[2]); } return { x0, x1, z0, z1 }; };
 const overlaps = (a, b) => a.x0 <= b.x1 && a.x1 >= b.x0 && a.z0 <= b.z1 && a.z1 >= b.z0;
 const mix = (a, b, t) => a.map((v, i) => v + (b[i] - v) * t);
 function worldPoints(vehicle, geometry, y, pitch, roll = 0) {
@@ -41,11 +42,30 @@ function nearbyPieces(supportAt, points, modelIds) {
     const box = bounds(points);
     return [...new Set(modelIds.flatMap(modelId => supportAt.inBox(box.x0, box.z0, box.x1, box.z1, { modelId })))];
 }
+// Support pieces are immutable after world construction (see fitTramBodySupport). Their catalogue text and their
+// clipped support entries are derived once per piece object; the identity guards recompute for a replaced field.
+const pieceTextCache = new WeakMap(), pieceEntryCache = new WeakMap();
+function pieceText(p) {
+    const cached = pieceTextCache.get(p);
+    if (cached && cached.id === p.id && cached.poly === p.poly && cached.top === p.top && cached.band === p.band && cached.topProfile === p.topProfile) return cached.text;
+    const x = p.poly.reduce((s, q) => s + q[0], 0) / p.poly.length, z = p.poly.reduce((s, q) => s + q[1], 0) / p.poly.length;
+    const text = p.id + ':' + JSON.stringify([p.poly, p.top, p.band(x, z, 0), p.topProfile || null]);
+    pieceTextCache.set(p, { id: p.id, poly: p.poly, top: p.top, band: p.band, topProfile: p.topProfile, text });
+    return text;
+}
 function catalogueHash(pieces) {
-    return hashString(pieces.map(p => {
-        const x = p.poly.reduce((s, q) => s + q[0], 0) / p.poly.length, z = p.poly.reduce((s, q) => s + q[1], 0) / p.poly.length;
-        return p.id + ':' + JSON.stringify([p.poly, p.top, p.band(x, z, 0), p.topProfile || null]);
-    }).sort().join('|'));
+    return hashString(pieces.map(pieceText).sort().join('|'));
+}
+function pieceEntries(piece) {
+    const cached = pieceEntryCache.get(piece);
+    if (cached && cached.top === piece.top && cached.regions === piece.regions && cached.band === piece.band && cached.sourceId === piece.sourceId && cached.modelId === piece.modelId) return cached.entries;
+    const entries = [[0, 1, 2], [0, 2, 3]].flatMap(index => {
+        const top = index.map(i => piece.top[i]), poly=top.map(p=>[p[0],p[2]]),maxTop=Math.max(...piece.top.map(p=>p[1]));
+        if(!piece.regions)return [{piece,top,poly,bounds:bounds(top),maxTop}];
+        return piece.regions.map(region=>({piece:{...piece,band:region.band},top,poly:clipConvex(poly,region.poly),bounds:bounds(top),maxTop:Math.max(maxTop,region.maxTop)})).filter(e=>polygonArea(e.poly)>1e-10);
+    });
+    pieceEntryCache.set(piece, { top: piece.top, regions: piece.regions, band: piece.band, sourceId: piece.sourceId, modelId: piece.modelId, entries });
+    return entries;
 }
 
 // Sutherland-Hodgman clipping retains interpolated actual triangle height.
@@ -97,13 +117,14 @@ function edgeMaximum(a, b, piece) {
  * of a one-dimensional quadratic also meets the polygon boundary). */
 export function minimumTramSupportLift(points, indices, pieces) {
     let required = -Infinity, witness = null, tested = 0;
-    const catalogue = pieces.flatMap(piece => [[0, 1, 2], [0, 2, 3]].flatMap(index => {
-        const top = index.map(i => piece.top[i]), poly=top.map(p=>[p[0],p[2]]),maxTop=Math.max(...piece.top.map(p=>p[1]));
-        if(!piece.regions)return [{piece,top,poly,bounds:bounds(top),maxTop}];
-        return piece.regions.map(region=>({piece:{...piece,band:region.band},top,poly:clipConvex(poly,region.poly),bounds:bounds(top),maxTop:Math.max(maxTop,region.maxTop)})).filter(e=>polygonArea(e.poly)>1e-10);
-    }));
+    const catalogue = pieces.flatMap(pieceEntries);
+    // Highest slab top of the whole catalogue (NaN propagates and then disables the shortcut below).
+    let highestTop = -Infinity; for (const entry of catalogue) highestTop = Math.max(highestTop, entry.maxTop);
     for (let i = 0; i < indices.length; i += 3) {
-        const triangle = [points[indices[i]], points[indices[i + 1]], points[indices[i + 2]]], box = bounds(triangle), minY = Math.min(...triangle.map(p => p[1]));
+        const p0 = points[indices[i]], p1 = points[indices[i + 1]], p2 = points[indices[i + 2]], minY = Math.min(p0[1], p1[1], p2[1]);
+        // A triangle wholly above every slab top fails `minY > entry.maxTop` for each entry: same result, no per-entry work.
+        if (minY > highestTop) continue;
+        const triangle = [p0, p1, p2], box = bounds(triangle);
         for (const entry of catalogue) {
             if (minY > entry.maxTop || !overlaps(box, entry.bounds)) continue;
             const clipped = clipTriangle(triangle, entry.poly); if (!clipped.length) continue;

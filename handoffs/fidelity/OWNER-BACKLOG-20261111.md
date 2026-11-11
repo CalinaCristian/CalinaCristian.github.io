@@ -64,6 +64,25 @@ States: **fixed on branch** (implemented and checked in the probe; not published
 | L48 | Grozăvești, Basarab | "drone can fly through bridge street from underneath": the drone passes up through an elevated deck from below | fixed on branch | a drone under a deck stops 1.6 m below its surface |
 | L49 | Grozăvești (1030.1, 13.4, -869.3), bearing 62.4 pitch -44.0 | "car stuck": the police car at the Pasajul closure sank into the rising road | fixed on branch | the car takes the road height where it stands; no car on a slope over 3 % |
 | L50 | Grozăvești (579.3, 18.7, -1245.9), bearing 173.5 pitch -28.4 | screenshot without a comment: a side road with edge lines meets a junction whose surface is a patchwork of dark asphalt and pale grey pads; the edge lines end at a dark bar, and grey squares lie on the lawn | open | reading of the screenshot to be confirmed by the owner |
+
+### Cross-district sweep (owner, 2026-11-11: "figure out all districts and locations for those kind of issues")
+
+The fixes made for Grozăvești are general rules in world.js / bridge-bents.js and apply in every district: trench grass
+cut, at-grade parapets, continuous parapet runs, gore infill, support positions, tram-clear carriageways, embankment slopes.
+First counts per district (probe, 11 November):
+
+| District | tram line inside an unflagged carriageway (points) | embankment ramps (slope) | open-trench corridors (grass cut) | carriageways narrowed for a tram |
+| --- | ---: | ---: | ---: | ---: |
+| Unirii | 19 (Bd. Dimitrie Cantemir, Str. Bibescu Vodă: likely at-grade crossings, to check) | 0 | 4 | 0 |
+| Romană | 0 | 0 | 29 | 0 |
+| Grozăvești | 13 (Șos. Grozăvești, Str. Alfabetului: at grade, to check) | 10 | 14 | 141 |
+| Pipera | 0 | 0 | 61 | 0 |
+| Floreasca | 0 | 0 | 0 | 0 |
+| Otopeni | 0 | 0 | 20 | 0 |
+
+Next: an audit script per issue class (parapet gaps, deck holes between same-level decks, unsupported spans, stepped verges,
+rails on asphalt, surface patchwork) run over all eight districts with a capture at each worst location.
+
 ### Spot pass, 11 November (probe captures at the spawn, four directions, 25 m ahead, above)
 
 | Spot | Seen | Next |

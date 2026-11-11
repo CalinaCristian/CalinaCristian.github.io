@@ -3124,8 +3124,8 @@ export async function buildWorld(city, renderer, opts = {}) {
             let last = null;
             for (let k = 0; k < n; k++) {
                 const t0 = tFrom + (tTo - tFrom) * k / n, t1 = tFrom + (tTo - tFrom) * (k + 1) / n;
-                const ax = e.a.x + e.dirx * e.len * t0 + e.nx * off * s, az = e.a.z + e.dirz * e.len * t0 + e.nz * off * s;
-                const bx = e.a.x + e.dirx * e.len * t1 + e.nx * off * s, bz = e.a.z + e.dirz * e.len * t1 + e.nz * off * s;
+                let ax = e.a.x + e.dirx * e.len * t0 + e.nx * off * s, az = e.a.z + e.dirz * e.len * t0 + e.nz * off * s;
+                let bx = e.a.x + e.dirx * e.len * t1 + e.nx * off * s, bz = e.a.z + e.dirz * e.len * t1 + e.nz * off * s;
                 const mx = (ax + bx) / 2, mz = (az + bz) / 2, ym = yAtT((t0 + t1) / 2) - Y.road;
                 // another road continues the surface just beyond the wall at the same level (junction mouth, merging
                 // ramp, the adjacent carriageway): leave it open. A road at a different level (a ramp diving next to a
@@ -3388,6 +3388,11 @@ export async function buildWorld(city, renderer, opts = {}) {
                 y0b: w.y0a + (w.y0b - w.y0a) * f1, y1b: w.y1a + (w.y1b - w.y1a) * f1 + .45,
                 kind: 'inferred-separation-barrier', sourceId: data.roadSourceGeometry?.[w.edge?.road]?.sourceId })
                 || !!tramSweep?.segment(a, b, .15, Math.min(w.y0a + (w.y0b - w.y0a) * f0, w.y0a + (w.y0b - w.y0a) * f1) - .3, Math.max(w.y1a + (w.y1b - w.y1a) * f0, w.y1a + (w.y1b - w.y1a) * f1));
+            // (tram sweep, Pasajul Basarab west start: a ramp's embankment wall stood 5 cm inside a tram running beside it) an
+            // embankment collision wall touching a tram's swept path moves toward its own carriageway by up to 1 m; the
+            // drawn retaining wall is unchanged
+            if (w.kind === 'embank' && tramPropEnvelope) { const hit = (dx, dz) => conflict([w.ax + dx, w.az + dz], [w.bx + dx, w.bz + dz], 0, 1);
+                if (hit(0, 0)) for (const d of [.1, .2, .3, .4, .5, .6, .8, 1]) if (!hit(w.nx * d, w.nz * d)) { w.ax += w.nx * d; w.az += w.nz * d; w.bx += w.nx * d; w.bz += w.nz * d; w.x += w.nx * d; w.z += w.nz * d; tramSweepConflicts.embankWallsInset = (tramSweepConflicts.embankWallsInset || 0) + 1; break; } }
             if (w.kind !== 'barrier' || w.inferred !== true || !tramPropEnvelope || !conflict([w.ax, w.az], [w.bx, w.bz], 0, 1)) { railClearWalls.push(w); continue; }
             const count = Math.max(1, Math.ceil(Math.hypot(w.bx - w.ax, w.bz - w.az))); let run = null;
             const emit = () => {
@@ -4524,12 +4529,12 @@ export async function buildWorld(city, renderer, opts = {}) {
             const c = b.columns[0], mid = (b.lo + b.hi) / 2, spread = Math.min(b.hi - c.o - .9, c.o - b.lo - .9, Math.max(1.6, b.soffit * .22));
             if (!(spread >= 1.2)) return null;
             const foot = [c.x, .3, c.z], tops = [c.o - spread, c.o + spread].map(o => [b.x + b.nx * (o - mid), b.soffit + .15, b.z + b.nz * (o - mid)]);
-            for (const top of tops) for (const t of [.2, .4, .6, .8, 1]) {
+            for (const top of tops) for (const t of [.1, .2, .3, .4, .5, .6, .7, .8, .9, 1]) { // (L17 recheck: between five samples a leg leaned 1 cm into a ground tram's body)
                 const x = foot[0] + (top[0] - foot[0]) * t, y = foot[1] + (top[1] - foot[1]) * t, z = foot[2] + (top[2] - foot[2]) * t;
                 if (buildingAt(x, z) || isWater(x, z) || sourceTreeNear(x, z, 1.3)) return null;
                 const under = lowerSurface(x, z, y - .2);
                 if (under && y - .7 - under.y < (under.rail ? BENT_MODEL.railClearanceM : BENT_MODEL.roadClearanceM)) return null;
-                if (tramSweep?.circle(x, z, .7, y - .7, y + .7, q => q.y < b.seat - .5)) return null;
+                if (tramSweep?.circle(x, z, .8, y - .9, y + .7, q => q.y < b.seat - .5)) return null;
             }
             return { foot, tops, spread };
         };

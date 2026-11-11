@@ -26,6 +26,16 @@ function closestSegments(a, b, c, d) {
 }
 
 /** C1 quadratic/linear/quadratic ramp. The explicit cap is a MODEL choice. */
+/** station (from `south`) along a source path where its distance to a branch polyline first reaches `spacing` (0 when never) */
+function clearOfBranch(path, south, lo, branchXY, spacing) {
+    const dist = p => { let d = Infinity; for (let i = 1; i < branchXY.length; i++) { const [ax, az] = branchXY[i - 1], [bx, bz] = branchXY[i], dx = bx - ax, dz = bz - az, L = dx * dx + dz * dz || 1, u = Math.max(0, Math.min(1, ((p[0] - ax) * dx + (p[1] - az) * dz) / L)); d = Math.min(d, Math.hypot(p[0] - ax - dx * u, p[1] - az - dz * u)); } return d; };
+    const nodes = path.ids.map((id, i) => ({ s: path.station.get(id), p: path.points[i] })).filter(n => Number.isFinite(n.s) && n.s >= south - 1e-6 && n.s <= lo).sort((a, b) => a.s - b.s);
+    for (let i = 1; i < nodes.length; i++) {
+        const A = nodes[i - 1], B = nodes[i], n = Math.max(1, Math.ceil(B.s - A.s));
+        for (let k = 1; k <= n; k++) { const f = k / n, q = [A.p[0] + (B.p[0] - A.p[0]) * f, A.p[1] + (B.p[1] - A.p[1]) * f]; if (dist(q) >= spacing) return A.s + (B.s - A.s) * f - south; }
+    }
+    return 0;
+}
 export function smoothTramRamp(length, height, { maxGrade = .08, easeM = 20 } = {}) {
     if (!(height >= 0) || !(length > height / maxGrade + 1e-6)) return null;
     const ease = Math.min(easeM, length / 3, (length - height / maxGrade) * .999), peak = height / (length - ease);
@@ -144,7 +154,12 @@ export function buildTramGrades(data, { coreEdges = [], models = TRAM_BRIDGE_MOD
                 ? { nodeId: def.southGround, sourceId: def.southFlatBranch, modelY: 0, basis: 'MODEL preserves existing flat source rail branch at its real source-node fork; no new branch bridge', referenceGround: reference }
                 : sourceGround(def.southGround, def.southRoad);
             const anchors = [southAnchor, sourceGround(def.northGround, def.northRoad)], station = path.station.get(model.stationNodes[k]);
-            const entry = model.bridgeEntryHeightM ?? height, up = smoothTramRamp(lo - south, entry, model), down = smoothTramRamp(north - hi, height, model);
+            // (owner L17: the climbing track's slab started at the fork node, on the flat branch's track) the climb is held at grade
+            // until this track is clear of the flat branch (centre spacing ≥ southClearSpacingM: deck half width + a tram's half
+            // width + margin), measured on the source geometry; then it rises to the bridge entry
+            const holdM = model.southClearSpacingM && branch?.xy ? clearOfBranch(path, south, lo, branch.xy, model.southClearSpacingM) : 0;
+            const entry = model.bridgeEntryHeightM ?? height, ramp = smoothTramRamp(lo - south - holdM, entry, holdM > 0 && model.southMaxGrade ? { ...model, maxGrade: model.southMaxGrade } : model), down = smoothTramRamp(north - hi, height, model);
+            const up = ramp && (holdM > 0 ? { ...ramp, length: ramp.length + holdM, holdM, at: s => s <= holdM ? 0 : ramp.at(s - holdM), breaks: [0, ...ramp.breaks.map(s => s + holdM)] } : ramp);
             const rise = smoothTramRamp(Math.min(model.bridgeRiseLengthM ?? station - lo, station - lo), height - entry, { ...model, maxGrade: model.maxDeckGrade ?? model.maxGrade });
             const deckPeak = rise?.peakGrade;
             if (anchors.some(a => !a) || !up || !down || !rise || !(south < lo && lo < station && station < hi && hi < north)) { invalid = true; break; }

@@ -19,7 +19,10 @@ export const TRAM_BRIDGE_MODELS = [
         ],
         basis: 'MODEL independent central rail viaduct; common cable-station profile, original source ground joins and smooth source-connected approaches; not surveyed',
         evidence: ['https://www.webuildgroup.ro/en/projects-romania/basarab-overpass/', 'https://www.midasbridge.com/en/project-application/the-basarab-overpass-0', 'https://doc.pmb.ro/primarul/prioritati_proiecte/pasajul_basarab/docs/pasaj.pdf'],
-        bridgeEntryHeightM: 6, bridgeRiseLengthM: 100, maxDeckGrade: .08,
+        // southClearSpacingM: the climb waits until the track is 3 m (deck half 1.7 + tram half 1.3) from the flat branch
+        // (owner L17). The entry stays at 6.1 m (a tram passes under the bridge entry, 6.03 m tall with its pantograph), so the shorter south approach climbs at up
+        // to 9 % (southMaxGrade); the deck rise keeps 8 %. MODEL estimates, not surveyed
+        bridgeEntryHeightM: 6.1, bridgeRiseLengthM: 100, maxDeckGrade: .08, southClearSpacingM: 3, southMaxGrade: .09,
         maxGrade: .08, easeM: 20, deckHalfWidthM: 1.7, thicknessM: .4,
     },
 ];

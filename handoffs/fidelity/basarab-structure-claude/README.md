@@ -14,6 +14,9 @@ not available (see "Not available"), publication and live verification by the in
 | `d538aaad` | traffic: recovery "in view" test bounded at 700 m | `game/src/traffic.js` |
 | `6c07fd94` | merge of `origin/master` (`e21797e7`) | none conflicting |
 | `576adda5` | bridges: Basarab superstructure candidate r9 integrated selectively | `game/src/world.js`, `trees.js`, `bridge-bents.js` (+ four new modules) |
+| `93f11cb0` | merge of `origin/master` (`a5f80d75`), conflicts resolved in `trees.js` and `world.js` | see Update 2 |
+| `53c66104` | trams: body support costs less with identical results | `game/src/tram-body-support.js` (+ test and oracle fixture) |
+| `d1883e09` | traffic: tram progress check (failing), CPU candidate evaluation, docs | none |
 
 To keep master linear, cherry-pick `c82b1fa5`, `dda67f21`, `d538aaad` and `576adda5` in that order; the merge commits
 (`6c07fd94`, `02562dea`) carry no change of their own.
@@ -40,8 +43,12 @@ feed one exclusion set; master's stats plus `bridgeBents` and `treeDeckClearance
   branch's (from candidate r9), is not fixed, and must be fixed before the superstructure is considered for publication.
 - Nothing was changed in the rail guard or in the world for the holds. They are the next piece of pack B.
 
-Cherry-pick list for a linear master is now `c82b1fa5`, `dda67f21`, `d538aaad`, `576adda5`, then the tram body-support
-commit and the tram check commit named in the branch log (both touch no shared file).
+Cherry-pick list for a linear master is now `c82b1fa5`, `dda67f21`, `d538aaad`, `576adda5`, then `53c66104`
+(tram body support) and `d1883e09` (tram check and docs); neither touches a shared source file.
+
+Checks on this tree (`93f11cb0` + those two): all 58 `node --test game/dev/*.test.mjs` tests, `vehicle-knot-recovery`,
+`recovery-view-range`, the built-world bridge check on Grozăvești, Otopeni and Bellevue, and
+`npm run harness -- --scenario=foot,a --city=bucharest` at 0 high / 0 medium. `tram-progress-check.cjs` fails as described.
 
 ## Pack A · reports 12-17 (in progress)
 

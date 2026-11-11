@@ -61,6 +61,8 @@ States: **fixed on branch** (implemented and checked in the probe; not published
 | L45 | Grozăvești (285.9, 13.4, -776.2), bearing 94.3 pitch -31.4 | "still broken": barriers on the Exit to Giulești ramp in chunks | partly | `world: bridge parapets in continuous runs`: the outer barrier is continuous; the median barrier still breaks where a gap spans two road edges (decided per edge) |
 | L46 | Grozăvești (364.3, 24.3, -727.4), bearing 254.7 pitch -42.2 | "broken lines": lane markings on the elevated carriageway break, jump sideways and stop, with dark patches on the asphalt | open | related to L22 (junction markings) |
 | L47 | Grozăvești (549.1, 28.7, -831.5), bearing 55.5 pitch -30.2 | "why is this cut": a pale triangular wedge in the middle of the Basarab deck between the left carriageway and the tram tracks; the deck reads as sliced at an angle (35 fps at this camera) | open | likely the slot infill between the carriageway and tram decks (world.js tram-to-tram / centre slot infill): wrong colour and a tapering outline |
+| L48 | Grozăvești, Basarab | "drone can fly through bridge street from underneath": the drone passes up through an elevated deck from below | open | deck collision for the drone appears to cover the top surface only |
+| L49 | Grozăvești (1030.1, 13.4, -869.3), bearing 62.4 pitch -44.0 | "car stuck": the police car at the Pasajul closure sank into the rising road | fixed on branch | the car takes the road height where it stands; no car on a slope over 3 % |
 ### Spot pass, 11 November (probe captures at the spawn, four directions, 25 m ahead, above)
 
 | Spot | Seen | Next |

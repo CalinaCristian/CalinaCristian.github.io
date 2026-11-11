@@ -5744,8 +5744,12 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (!US && kind !== 'highway' && pick === 0) { /* the excavator digs in the work site (above) */
             } else if (!US && kind !== 'small' && pick === 1 && m.bundlePrimary) { // one paired rendered/colliding car
                 const [qx, qz] = at(6, half * 0.45);
-                discrete(c.solid, () => { c.solid.geo(carProps('sedan', '#e8e8e8'), qx, y - .12, qz, ang, 1, 1, 1, [255, 255, 255]);
-                    c.solid.box(qx, y + 1.5, qz, .9, .12, .25, ang, rgb('#1e5bff')); }, qx, qz, 1.9);
+                // (owner, 2026-11-11, Grozavesti (1030, -869): "car stuck") the car stands 6 m from the barrier: on a graded
+                // road (a ramp foot) it takes the road height where it stands, not the barrier's, and sits level on a slope of
+                // at most 3 % (steeper: no car, it would hang over the asphalt or sink into it)
+                const dy = yAlong(e, qx, qz) - yAlong(e, m.x, m.z), slope = Math.abs(dy) / 6;
+                if (slope <= 0.03) discrete(c.solid, () => { c.solid.geo(carProps('sedan', '#e8e8e8'), qx, y + dy - .12, qz, ang, 1, 1, 1, [255, 255, 255]);
+                    c.solid.box(qx, y + dy + 1.5, qz, .9, .12, .25, ang, rgb('#1e5bff')); }, qx, qz, 1.9);
             } else if (US && pick !== 2 && m.bundlePrimary) { // flagger with a STOP paddle
                 const [fx, fz] = at(7, half - 1.2), vest = rgb('#d7ff1f');
                 if (boundarySupport.clearCircle(fx, fz, .85, { ownerEdges: m.ownerEdges, y0: y - .3, y1: y + 2.1 })) {

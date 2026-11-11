@@ -58,7 +58,7 @@ const server = http.createServer((req, res) => {
             return { city, district, stepM, railLegs: rails.length, bodyLengthsM: protos.map(p => p.length), poses, bodyOutsideDistrict: outside, noPose: unresolved, refused, sweep: W.stats.tramSweep, obstacles: list };
         }, { city, district, stepM });
         // what the world builder generates on its own: none of it may stand in a tram's way
-        const generated = o => o.inferred || /^(bollard|tlight|pier|closure|rail-roadside-cap|furniture|basarab-|bridge-|lamp|tree)/.test(o.kind);
+        const generated = o => o.inferred || /^(bollard|tlight|pier|closure|rail-roadside-cap|furniture|busstop|basarab-|bridge-|lamp|tree)/.test(o.kind);
         const own = report.obstacles.filter(generated), others = report.obstacles.filter(o => !generated(o)), byKind = {};
         for (const o of report.obstacles) { const k = byKind[o.kind] || (byKind[o.kind] = { obstacles: 0, poses: 0 }); k.obstacles++; k.poses += o.poses; }
         fs.writeFileSync(path.join(out, `${city}-${district}.json`), JSON.stringify({ root, method: 'Built district world; game pose and rail guard at every station; RAF disabled; no visual or journey claim.', ...report, byKind, errors }, null, 2));

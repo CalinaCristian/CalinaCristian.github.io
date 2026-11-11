@@ -2556,6 +2556,8 @@ const SKIN = ['#f1c7a5', '#e0ac85', '#c68863', '#8d5a3b', '#f5d6bd'];
 const CLOTHES_B = ['#1f2937', '#374151', '#7f1d1d', '#1e3a8a', '#4b5563', '#0f172a', '#78350f', '#6b21a8', '#9ca3af', '#065f46'];
 const CLOTHES_S = ['#1f2937', '#334155', '#0f766e', '#1d4ed8', '#4b5563', '#7c2d12', '#facc15', '#111827'];
 
+/** Share of a sidewalk's standing cells that relocation may fill with walkers (see Pedestrians.relocate). */
+const WALK_FILL = 0.35;
 export class Pedestrians {
     constructor(traffic, count) {
         this.t = traffic; this.rng = makeRng(traffic.buc ? 321 : 654);
@@ -2666,7 +2668,10 @@ export class Pedestrians {
             if (d < rMin || d > rMax || (hidden && d < 250 && mx * P.fx + mz * P.fz > 0)) continue;
             for (const side of [-1, 1]) {
                 const space = this.walkSpace(e, side), load = this.spaceLoad(e, side, p,peers);
-                const free = Math.max(0, space.cells.length - load);
+                // The cells are standing room (three abreast every 1.8 m on a 3.5 m sidewalk). Walkers are brought in only up
+                // to WALK_FILL of that: filled to the last cell, two streams of solid bodies could not pass each other and the
+                // whole population (kept within 230 m of the player in a district) jammed the few sidewalks under a viaduct.
+                const free = Math.max(0, Math.ceil(space.cells.length * WALK_FILL) - load);
                 if (!free) continue;
                 total += free * (0.2 + Math.min(0.8, trafficMulOf(e) * 0.45));
                 cands.push({ e, side, space, total });
@@ -3197,6 +3202,10 @@ export class Pedestrians {
             this._yieldMesh = { position: { set() {} }, rotation: { set() {} } };
             this._yieldVehicle = {};
         }
+        // The proposal is placed without touching the live mesh, but a tram on a graded slab is fitted to its actual emitted
+        // geometry: the stand-in mesh carries that geometry and scale (without them placeOnLane threw as soon as a walker
+        // stood near a moving tram on the Basarab track).
+        this._yieldMesh.userData = v.mesh?.userData; this._yieldMesh.scale = v.mesh?.scale;
         const proposal = Object.assign(this._yieldVehicle, v); proposal.mesh = this._yieldMesh; proposal.speed = speed; proposal.s = v.s + speed * dt;
         this._yieldView.placeOnLane(proposal, false, dt);
         let previous = before;

@@ -81,8 +81,15 @@ export function sceneryBridgeProfiles(data, profiles, coreEdges = []) {
         if (end.links.length !== 1 || !(end.sourceNode > 0)) return null;
         return sourceBuildingVertices.get(end.p[0].toFixed(4) + ',' + end.p[1].toFixed(4)) || null;
     };
+    // (owner, 2026-11-11, Grozavesti (1069, -849): "looks broken") A raised core road leaving the district on a way that is
+    // not tagged bridge (Pasajul Basarab: layer 0, 6.6 m up at the map end) had its scenery continuation drawn at street
+    // level: a 6.6 m step behind the boundary closure. A scenery piece tied to a raised core node on its own source way is
+    // profiled like a bridge piece: it carries the core height on and descends at the model approach grade.
+    const raisedTie = pieces.filter(p => !p.bridge && p.nodes.some(n => n.coreY !== null && n.coreY > .5));
+    for (const p of raisedTie) for (const e of p.edges) e.eligible = true;
+    stats.raisedCoreContinuations = raisedTie.map(p => ({ piece: p.index, sourceId: p.source.sourceId, coreY: Math.max(...p.nodes.map(n => n.coreY ?? 0)) }));
     // Extend a ramp only along actual source-connected continuations or links, up to 300m.
-    for (const p of pieces.filter(p => p.bridge)) for (const start of p.nodes.filter((n, i) => i === 0 || i === p.nodes.length - 1 || n.links.some(e => !e.piece.bridge))) {
+    for (const p of pieces.filter(p => p.bridge || raisedTie.includes(p))) for (const start of p.nodes.filter((n, i) => i === 0 || i === p.nodes.length - 1 || n.links.some(e => !e.piece.bridge))) {
         const queue = [[start, 0, p.edges.find(e => e.a === start || e.b === start)]], seen = new Set();
         while (queue.length) {
             const [n, travelled, incoming] = queue.shift(); if (seen.has(n) || travelled > 300 || !incoming) continue; seen.add(n);
@@ -110,8 +117,8 @@ export function sceneryBridgeProfiles(data, profiles, coreEdges = []) {
     }
     stats.continuations = [...continuationEvidence.values()];
     // A bridge over a real lower road needs an estimated clearance. River/rail-only bridges stay at grade.
-    for (const e of originalEdges.filter(e => e.piece.bridge)) {
-        const upper = layerOf(e.piece.tags, true), candidates = [];
+    for (const e of originalEdges.filter(e => e.piece.bridge || raisedTie.includes(e.piece))) {
+        const upper = e.piece.bridge ? layerOf(e.piece.tags, true) : Math.max(1, layerOf(e.piece.tags, true)), candidates = [];
         for (const f of coreEdges) if (!f.virtual && !f.tunnel && data.roadSourceGeometry?.[f.road]?.sourceId !== e.piece.source.sourceId && upper > (f.bridge ? Math.max(1, f.layer || 1) : 0)) {
             candidates.push({ a: [f.a.x, f.a.z], b: [f.b.x, f.b.z], y0: f.ya, y1: f.yb, halfW: Math.max(f.wL, f.wR), id: data.roadSourceGeometry?.[f.road]?.sourceId, sourceNodeIds: [f.a.sourceId, f.b.sourceId], core: true });
         }

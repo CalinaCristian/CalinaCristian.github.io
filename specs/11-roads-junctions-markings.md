@@ -106,10 +106,24 @@ Measured on the integrated tree, High, traffic and mirror, 77 driver poses on an
 and 1,405,285 triangles (targets 400 / 1.5 M; about 6 % triangle headroom, down from 1.18 M before the superstructure). A sweep
 of every lane of every Basarab bridge edge and of the elevated tram track found no contact with any `basarab-*` member or pier.
 
+**Tram sweep, pier positions and tram railings (2026-11-10).** The pier planner used to keep columns 2.8 m from a rail
+centreline. A tram body is rigid and swings on a bend, and ten columns stood where a ground-level tram reaches them (the
+rail guard refused those trams for good; see `specs/13-traffic.md`). `columnFree` now also rejects any spot inside the swept
+cover of a tram passing below or beside (`game/src/tram-sweep.js`), and a pier's collider ends below the tram it carries.
+Grozavesti: 65 crosshead bents and 3 wall piers on 107 columns (was 72 and 3 on 125), 6 portal frames straddling what
+passes under, 57 stations without free ground for a column. The Basarab stay anchors are searched clear of the same sweep
+(60 of 60 anchored). The tram-only slabs had no railing at all, 6-11 m up: every slab edge that is high or over water and
+has no surface at its level beside it now carries the white rails and blue fascia of the road decks, with a collision
+wall (309 runs, 2099 m). On a bend the rigid tram body overhangs its own 1.7 m half-slab, so 999 m of that railing
+stands outboard, up to 0.75 m, on a walkway strip; 86 m of edge stays open where even that is inside a tram's sweep.
+Railing and walkway are estimates, like the slab width they stand on. Frame budget at High with traffic and mirror, 117
+driver poses on and under the structure: at most 360 draw calls and 1,441,066 triangles (targets 400 / 1.5 M, about 4 %
+triangle headroom). Evidence: `handoffs/fidelity/basarab-structure-claude/evidence/after-tram-railings.jpg`.
+
 Controls: `node --test game/dev/bridge-bents.test.mjs` (planner rules on synthetic decks) and
 `node game/dev/harness/bridge-bents-check.cjs . <out> <city> <district>` (built-world facts: columns on free ground,
 crosshead clearance, collider count, slot infill, no bent under a carried span, every stay anchored). Neither is a visual or
-driving acceptance. Still open for reports 12-17: three short unguarded deck edges, railings on the tram-only viaduct, the
+driving acceptance. Still open for reports 12-17: three short unguarded deck edges, the
 remaining lower-ramp pieces, the open slot at the north-east end of the station, the station lift tower, the real inclined
 ramp piers and lamp posts, full both-direction journeys with tram/bus clearance, Ultra, and the original report cameras.
 

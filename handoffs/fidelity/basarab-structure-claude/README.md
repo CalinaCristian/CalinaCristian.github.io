@@ -21,6 +21,42 @@ not available (see "Not available"), publication and live verification by the in
 To keep master linear, cherry-pick `c82b1fa5`, `dda67f21`, `d538aaad` and `576adda5` in that order; the merge commits
 (`6c07fd94`, `02562dea`) carry no change of their own.
 
+## Update 3 · trams run, tram railings (2026-11-10)
+
+The owner asked for both: fix the held trams, and the Basarab details.
+
+**Trams (pack B).** A deterministic audit (`game/dev/harness/tram-sweep-audit.cjs`: the game's own tram pose and rail
+guard at every metre of every rail leg) found 1051 of 14,831 poses refused by 65 static bodies on Grozăvești, ten of them
+this branch's own bridge piers and one its stay. Now 105 poses, all at one estimated structure:
+
+| commit | what | shared files |
+| --- | --- | --- |
+| `50988aac` | world: generated objects stay out of the tram sweep (new `tram-sweep.js`) | `world.js`, `basarab-structure.js` |
+| `9e8ff070` | guard: a pitched tram is tested with the height of each stretch; height cache bounded | `initial-traffic-admission.js`, `initial-vehicle-admission.js` (**integration owner: please review, this refines your guard**) |
+| `a4743707` | traffic: a tram plans its stop inside the district | `traffic.js` |
+| `d1cdaf37` | world: tram viaduct railings, bridge guard collision band above a tram below, inferred shelters out of the sweep | `world.js` |
+
+- `tram-progress-check.cjs`, 180 s: no tram refused on any step (was 3-4 of 4 on almost every step); three travel about
+  1 km (in the GPU probe run one of them was on the Basarab deck at 180 s); the fourth stops at the district edge. Romana: 318 -> 0 refused poses, both trams run.
+- Nine mapped trees with the trunk inside the sweep are left out and listed (`stats.tramSweep.conflicts.trees`), as
+  master does for basins. Two of the nine are inside only the guard's 0.18 m disc reach, not the literal body.
+- Five district-edge closure spans are shortened; two of them by about 9 m (roads with embedded track).
+- **Open, needs the grade model's owner:** the estimated Basarab tram ramp rises from the fork node while the flat branch
+  is still alongside (1.06 m high at 2.72 m separation). Flat-branch trams overlap the slab for about 15 m and are refused
+  there (105 poses); one held there also blocks the up ramp. Numbers in `specs/13-traffic.md`.
+
+**Basarab (pack A).** Piers no longer stand where a ground tram sweeps (65 bents + 3 wall piers on 107 columns). The
+tram-only slabs have railings: 2099 m, 999 m of it outboard on a walkway strip where the rigid tram overhangs its slab on
+a bend, 86 m still open. Budget, High, traffic and mirror, 117 driver poses: max 360 draw calls, 1,441,066 triangles
+(about 4 % triangle headroom). Evidence: `evidence/after-tram-railings.jpg` (free-camera views, not report poses).
+
+Not done in pack A: station lift tower (no source position in the district data; it would be a pure guess), inclined
+ramp piers, curved lamp posts, the three short unguarded deck edges, the open slot at the north-east end of the station,
+low ramps above a street, Ultra, driven journeys, the original report cameras, overview imagery.
+
+Checks on this tree: 68 unit tests, built-world bridge check on all eight districts, tram sweep audit on all eight
+(Grozăvești and Romana have trams), tram progress check on Grozăvești and Romana, foot/a 0 high / 0 medium.
+
 ## Update 2 · CPU candidate evaluated, tram cost, held trams (2026-11-10)
 
 Master `a5f80d75` merged (`93f11cb0`). It conflicted in `trees.js` (the same `exclude` hook landed on master: master's
@@ -41,7 +77,7 @@ feed one exclusion set; master's stats plus `bridgeBents` and `treeDeckClearance
   came from a centreline point sweep. With the full rigid body the longest stay's deck anchor end (1.89 m from the
   centreline of rail `w118416425` near (793, -996)) held a tram for 357 steps in one run. That conflict is this
   branch's (from candidate r9), is not fixed, and must be fixed before the superstructure is considered for publication.
-- Nothing was changed in the rail guard or in the world for the holds. They are the next piece of pack B.
+- Nothing was changed in the rail guard or in the world for the holds at that point; Update 3 does.
 
 Cherry-pick list for a linear master is now `c82b1fa5`, `dda67f21`, `d538aaad`, `576adda5`, then `53c66104`
 (tram body support) and `d1883e09` (tram check and docs); neither touches a shared source file.

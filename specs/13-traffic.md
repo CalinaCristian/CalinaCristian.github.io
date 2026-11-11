@@ -232,8 +232,8 @@ centreline and does not cover the rigid body. The check is not identical from ru
 within 120 s varies), and its longest uninterrupted refusal reads about 12 s: roughly one step in every 12 s is not
 refused, which was not investigated.
 
-Nothing is changed in the guard or in the world for these holds yet. Not weakened, not hidden: the obstacles are listed
-above and the check fails on master and on this branch.
+At the time of this measurement nothing had been changed for these holds; the next section does. The obstacles are
+listed above and the check failed on master and on this branch.
 
 Controls: `node --test game/dev/tram-body-support.test.mjs` (the live module against the pre-change module kept as an
 oracle in `game/dev/fixtures/tram-body-support-reference.mjs`: equal lift, witness, fitted pose and certificate over 540
@@ -242,6 +242,63 @@ synthetic poses with and without contact, an empty catalogue, a non-finite top, 
 Still open: the held trams (inferred bollards and the closure wall in the rail corridor, the mapped tree, the stay
 anchor, the rigid-body sweep on bends), the pedestrian static checks and piles (about 300 refused pedestrian steps per
 simulation step), and a frame-rate measurement on real hardware.
+
+### Trams run: the builder keeps its own objects out of the tram sweep · 2026-11-10 (owner reports 6-9, 18, 37-39, 67: in progress)
+
+A tram body is one rigid 27 m or 36 m box: its centre rides the source rail and its heading is the chord between the path
+points 0.36 L ahead and behind, so on a bend its ends and its middle leave the straight rail corridor. The rail guard
+covers that body with discs that reach 0.18 m beyond its sides. Inferred objects had been kept out of the straight literal
+corridor only (1.22 m half-width), so the guard refused trams for good wherever a generated object stood a little further out.
+
+`game/dev/harness/tram-sweep-audit.cjs` makes this deterministic: on every usable rail leg, each direction and each body
+length, every metre, it takes the game's own pose (`previewInitialTrafficPose`) and the game's own verdict
+(`railBodyInside`, `initialTrafficStaticClearance`). Grozavesti before any change: **1051 of 14,831 poses refused by 65
+static bodies** (bollards 14, bridge piers of this branch 10, trees 5, inferred roadside caps 5, closure walls 3, inferred
+barriers 2, lamps 2, deck parapets 3, a Basarab stay, a signal pole, 19 pieces of the tram ramp slab).
+
+What changed, in three isolated commits plus the railing commit:
+
+1. **World (`game/src/tram-sweep.js`, wired in `world.js`).** The builder reproduces those poses and that cover at build
+   time from the source rail network and the emitted tram meshes (33,539 poses on Grozavesti) and keeps what it generates
+   out of them: bollard rows (23 dropped), inferred street lamps (5), signal poles (they step outward as they do from a
+   carriageway), inferred separation barriers, inferred bus-stop shelters (Romana: 21 shelter colliders were in the sweep),
+   the district-edge "road closed" span and its props (5 spans shortened: 0.5, 2.2, 3.0, 8.7 and 9.0 m; the two long cuts
+   are on roads with embedded track, where half the road now has no barrier in front of the invisible boundary), collider
+   pieces of the inferred roadside cap faces (21 m; the drawn faces are unchanged), bridge bent columns beside a ground
+   track, the Basarab stay anchors (still 60 of 60 anchored), and the collision band of bridge guards, which hung 2.2 m
+   below the deck surface: where a tram passes below, it now starts above the tram (112 pieces; the parapet on the deck
+   keeps its height). **Nine mapped trees** whose trunk stands inside the sweep are left out after generation and listed
+   in `stats.tramSweep.conflicts.trees` (trunk edge 0.56-1.31 m from the body axis; seven of them inside the literal 1.2 m
+   half-width, two only inside the guard's disc reach). No rail, actor or source structure is moved.
+2. **Guard (`initial-traffic-admission.js`, `initial-vehicle-admission.js`), for the integration owner to review.** The
+   guard took one height range for a whole pitched body: on a 36 m tram at 8 % that holds the low end's underside and the
+   high end's roof at once. A deck parapet 0.3 m clear of the roof below it stopped every tram on the Basarab ramp. Each
+   cover disc of a pitched rail body now takes the actual emitted range of the stretch it covers (the same vertices cut by
+   length; never wider than the whole-body range). Level bodies and all other vehicles are unchanged. The per-pitch
+   height cache, which gained an entry on every step a tram spent on a ramp, is bounded.
+3. **Traffic.** A source rail runs on past the district edge and the leaf rule stopped a tram at the end of the rail,
+   outside, so the guard refused it at the edge on every step. A tram now plans its stop one metre before the first pose
+   ahead from which its body would not be wholly inside (the guard's own domain test, cached per leg).
+
+Result, Grozavesti: 1051 -> **105 refused poses**, all 19 bodies pieces of one estimated structure (below). Romana: 318 ->
+0. The other districts have no tram rail. `tram-progress-check.cjs`, 180 simulated seconds: before, three or four of four
+trams refused on almost every step; now **no tram is refused on any step**, three of four travel 0.9-1.1 km (in the
+GPU probe run one of them was on the Basarab deck at 180 s) and the fourth stops at the district edge 16 m from its start. Simulation step with the trams
+moving: about 20 ms (18-24 ms per 30 s block), the same as with the trams standing; nothing else was optimised.
+
+**Still refused, not hidden: the estimated tram ramp at its fork.** The Basarab tram ramp model starts to rise at the
+source fork node where the flat branch (`w660918283`, and `w660918281` on the other track) leaves it. 23 m along, the
+ramp is 1.06 m high and the two centrelines are 2.72 m apart, less than the 2.9 m a 1.7 m half-slab and a 1.2 m half-body
+need: for about 15 m a tram on the flat branch stands inside the low ramp slab (105 poses; it is a literal overlap, the
+rendered tram passes through the slab edge). Delaying the rise to where the tracks have separated needs about 11 % on the
+remaining ramp against the model's 8 % cap, so it is a decision for the grade model's owner, not a guard matter. A
+flat-branch tram held there also blocks the up ramp behind it. The run above did not meet it; a longer run will.
+
+Controls: `node --test game/dev/tram-sweep.test.mjs` (pose rule, cover reach equal to the guard's own disc cover, bend,
+fork, ramp, wall queries), `node --test game/dev/tram-pitched-clearance.test.mjs`, `tram-sweep-audit.cjs` (fails on any
+generated body in the sweep; lists the rest) and `tram-progress-check.cjs` (passes on Grozavesti and Romana). Still open:
+the fork above, the pedestrian side (42-47 % of the step, about 300 refused pedestrian steps per step), junction waits,
+driven journeys and a frame-rate measurement on real hardware.
 
 ### Reviewed finite source bridge descents
 

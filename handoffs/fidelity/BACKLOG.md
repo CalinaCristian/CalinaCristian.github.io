@@ -21,18 +21,19 @@ the original pose. Until then a fix stays under "Fixed on branch".
 
 | Floreasca | #10 courtyard windows and inner slab | the slab is a mapped building part; owner question, not a defect yet |
 | Bellevue | #67 / L15 pedestrian pileups at closures | mitigated on branch (walkers blocked head-on by peers on a crossing step through after 1.5 s; walkers boxed in by a closure both ways leave the road); the headless probe still shows walkers frozen mid-crossing with no recorded blocker, so re-check live |
-| SeaTac | #59 / #60 garage helix and ramps | partly: edge bands open where the mapped ramps pass (74136408); trench walls no longer cross the other ramp at gores and two sunken ramps side by side share one wall (next commit). Left: short inferred drop barriers at the gore mouths of the sunken ramps beside the helix (each at its own road's height); the report camera stands inside the garage footprint, where the garage is cut away |
+| SeaTac | #59 / #60 garage helix and ramps | partly: edge bands open where the mapped ramps pass (74136408); trench walls no longer cross the other ramp at gores and two sunken ramps side by side share one wall (58a8908a). Left: short inferred drop barriers at the gore mouths of the sunken ramps beside the helix (each at its own road's height); the report camera stands inside the garage footprint, where the garage is cut away |
 | SeaTac | #62 / #63 / #65 frontage objects, parapet gaps, markings | not reproduced at the report poses or closer (the drive hugs the terminal face; ramp edges and crossings look whole); owner to give a closer pose |
 | Everywhere | L8 colliding buildings | partly: members of prepared assemblies and courtyard buildings still cut |
 | Everywhere | L14 60 fps at Ultra (RTX 5070) | probe means 8–16 ms per frame; not measurable on the owner's hardware from here |
 | Everywhere | L16 cars stuck / nose to nose | crossing deadlock fixed (ba592d07); re-check live |
 | Spots | L28 hidden bar video | the official video does not embed; no licensed loop available |
-| Interiors | #52 Luxoft interior, #66 night drone road lighting | unfinished / unverified |
+| Interiors | #52 Luxoft interior | unfinished: generic interior, opaque windows |
 
 ## Fixed on branch `fidelity/basarab-structure-claude` (awaiting publication and a live re-check)
 
 | Commit | Reports |
 | --- | --- |
+| (next commit) | #66 night drone road lighting: street-lamp pools and real lights followed the player on the ground while the drone flew elsewhere; a camera away from the player is now the centre (its ground point plus a look-ahead growing with height) and the lit reach widens with height (capture 300 m from the player: 13 lights / 47 pools under the drone, before 7 / 21 by the player) |
 | 66d4bfe6 | L34 tourist spots (all 7 live spots now reviewed): Pike Place spawn moved off the 1st Avenue carriageway (a car brushed past the player); mapped canopies (`building=roof`) stand on posts along their free edges (Pike Place arcade canopy, Seattle Center walkways, a Bellevue fuel station), none inside a building; Bellevue's Piloti shell covers its mapped 19 × 17 m footprint instead of a dark slab over a shell a third its size. Earlier on this branch: Cișmigiu, Freddo, Old Town shopfronts and balconies, Arcul masonry, Space Needle canopy, Downtown Park crowns |
 | 561576a4 | L30 spot chat bubbles: each person keeps one character's voice (no fishmonger selling cherries, no visitor speaking another tourist's language), talks about the sub-spot they stand at, and keeps quiet rather than repeat; place and yearly-event lines added for every Seattle and Bellevue spot (Bumbershoot, Solstice Parade, Snowflake Lane, Garden d'Lights…) and Bucharest (Mărțișor, Enescu Festival, Easter, December 1989) |
 | 281ac396 | holes in autumn crowns; L50 Basarab link ramp reaches Calea Griviței at street level |

@@ -92,7 +92,11 @@ export class LocalWalker {
         const ox = this.x, oz = this.z; this.x += this.vx * dt; this.z += this.vz * dt;
         const gy = this.groundAt(this.x, this.z, this.y);
         if (gy - this.y > STEP && this.jumpY + this.y < gy - 0.05) { this.x = ox; this.z = oz; }
-        else if (this.jumpY <= 0) this.y = gy; else if (gy > this.y) { this.jumpY = Math.max(0, this.jumpY - (gy - this.y)); this.y = gy; }
+        // (owner, 2026-11-11, L29, Carturesti Carusel: "jumping from the top floor teleports to the ground, no falling") stepping off
+        // a gallery is a fall: a drop of more than 0.35 m becomes height above the new ground, which gravity then brings down
+        else if (this.jumpY <= 0) { if (this.y - gy > .35) { this.jumpY = this.y - gy; this.vy = Math.min(this.vy, 0); } this.y = gy; }
+        else if (gy > this.y) { this.jumpY = Math.max(0, this.jumpY - (gy - this.y)); this.y = gy; }
+        else if (gy < this.y) { this.jumpY += this.y - gy; this.y = gy; } // (airborne over a lower floor: keep the absolute height)
         const feet = this.y + this.jumpY;
         for (let pass = 0; pass < 2; pass++) {
             let any = false;

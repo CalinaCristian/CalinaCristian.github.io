@@ -79,7 +79,11 @@ export class OnFootController {
             for (const [px, pz] of [[tx, oz], [ox, tz]]) { const h = this.groundAt(px, pz, this.y + this.jumpY); if (!blocked(h)) { this.x = px; this.z = pz; gy = h; ok = true; break; } }
             if (!ok) { this.x = ox; this.z = oz; gy = this.y; }
         }
-        if (this.jumpY <= 0) this.y = gy; else if (gy > this.y) { this.jumpY = Math.max(0, this.jumpY - (gy - this.y)); this.y = gy; }
+        // (owner, 2026-11-11, L29, Carturesti Carusel: "jumping from the top floor teleports to the ground, no falling") stepping off
+        // a gallery, a deck edge or a wall is a fall: a drop of more than 0.35 m becomes height above the new ground (gravity below)
+        if (this.jumpY <= 0) { if (this.y - gy > .35) { this.jumpY = this.y - gy; this.vy = Math.min(this.vy, 0); } this.y = gy; }
+        else if (gy > this.y) { this.jumpY = Math.max(0, this.jumpY - (gy - this.y)); this.y = gy; }
+        else if (gy < this.y) { this.jumpY += this.y - gy; this.y = gy; } // (airborne over lower ground: keep the absolute height)
         this.collide();
         this.vel = Math.hypot(this.x - ox, this.z - oz) / Math.max(dt, 1e-4);
         if ((inp.take('Space') || this.auto?.jump) && this.jumpY <= 0) { this.vy = JUMP_V; this.audio?.blip?.(330, 0.04, 0.04); if (this.auto) this.auto.jump = false; }

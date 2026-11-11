@@ -160,6 +160,9 @@ export class WorldMap {
         this.searchEl.blur(); this.sel = it;
         if (center) { if (this.tab !== it.region) { this.tab = it.region; this.renderTabs(); this._size(); } const v = this._view(); if (v) { const p = this._ll(it.lat, it.lon); v.cx = p.x; v.cy = p.y; } }
         this.o.onSelect?.(it);
+        // (owner, 2026-11-11, L27: "Mark on another district should fast-travel directly, in any mode") marking a place in
+        // another area travels there at once (the drone, foot and drive modes alike); the current area keeps mark-then-travel
+        if (!this.startMode && it.key !== this.curKey && this.o.onTravel) { this.close(); this.o.onTravel(); return; }
         this.renderDestination(); this.renderList(); this.draw();
     }
     renderDestination() {

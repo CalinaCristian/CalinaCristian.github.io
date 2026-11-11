@@ -522,7 +522,9 @@ export default {
         const SP0 = { x: 128, z: -56.5 }, dist0 = (q) => Math.min(Math.hypot(q.x - SP0.x, q.z - SP0.z), Math.hypot(q.x + 92, q.z + 67.5));
         [...TR.terraces].sort((a, b) => dist0(a) - dist0(b)).slice(0, 16).forEach((t) => { groups.push({ x: t.x + Math.sin(t.yaw) * (t.depth / 2 + 0.5), z: t.z + Math.cos(t.yaw) * (t.depth / 2 + 0.5), r: 0.2, n: 1, act: 'talk', yaw: t.yaw + Math.PI, personas: ['waiter'] }); });
         // sitters: the terraces near the arrival points are busy (≈ 2 of 3 seats taken), one person per seat, facing the table
-        [...TR.seats].sort((a, b) => dist0(a) - dist0(b)).slice(0, 130).forEach((q, i) => { if (i % 3 !== 2) groups.push({ x: q.x, z: q.z, r: 0.01, n: 1, act: 'sit', yaw: q.yaw, y: q.y, fixedYaw: true, personas: ['local_young', 'tourist_uk', 'tourist_it', 'tourist_us', 'local_parent', 'local_elder'] }); });
+        // (the terrace in front of Freddo is the club's: its seats are taken only while the club is open, see the update below)
+        const clubTerrace = (q) => FRONT && Math.hypot(q.x - FRONT.x, q.z - FRONT.z) < 10;
+        [...TR.seats].sort((a, b) => dist0(a) - dist0(b)).slice(0, 130).forEach((q, i) => { if (i % 3 !== 2) groups.push({ x: q.x, z: q.z, r: 0.01, n: 1, act: 'sit', yaw: q.yaw, y: q.y, fixedYaw: true, club: clubTerrace(q), personas: ['local_young', 'tourist_uk', 'tourist_it', 'tourist_us', 'local_parent', 'local_elder'] }); });
         if (ST) groups.push({ x: ST.x + 4, z: -67.5, r: 2.6, n: 8, act: 'photo', look: [ST.x, ST.z], personas: ['tourist_de', 'tourist_fr', 'tourist_us'] }, { x: ST.x + 8.5, z: -66.5, r: 0.3, n: 1, act: 'guide', look: [ST.x + 4, -67.5], personas: ['tour_guide'] });
         if (caruB) groups.push({ line: [[-111, -70.2], [-105, -69.6], [-99, -69.2], [-93, -68.8]], n: 9, act: 'queue', personas: ['tourist_de', 'tourist_us', 'local_young', 'tourist_fr', 'tourist_uk'] });
         if (CA) groups.push({ x: CA.front.x + CA.front.nx * 4, z: CA.front.z + CA.front.nz * 4, r: 2.5, n: 5, act: 'photo', look: [CA.front.x, CA.front.z], personas: ['tourist_it', 'tourist_us', 'local_young'] }, { x: CA.ecx, z: CA.ecz, r: 3, n: 5, act: 'watch', personas: ['local_young', 'tourist_uk', 'tourist_fr'] });
@@ -545,8 +547,11 @@ export default {
             walkers: 92, paths, groups:groups.filter(q=>q.wcpFan||focused(q.x??q.line?.[0]?.[0],q.z??q.line?.[0]?.[1])).concat(party),
         };
         let partyPeople=null;
+        let clubSitters=null;
         ctx.onUpdate((dt,s)=>{if(!partyPeople&&s.spot.crowd?.cr)partyPeople=s.spot.crowd.peds.map((p,i)=>({p,i})).filter(({p})=>p.group?.party);
+            if(!clubSitters&&s.spot.crowd?.peds)clubSitters=s.spot.crowd.peds.filter(p=>p.group?.club);
             const night=nightlifeHours(s.spot.crowd.cond?.hour??12).party;
+            if(clubSitters)for(const p of clubSitters)p.hidden=!nightlifeHours(s.spot.crowd.cond?.hour??12).open;
             // the 64 people standing out in the lanes are the club night's crowd: by day they are not there
             if(partyPeople)for(const {p} of partyPeople)p.hidden=!night;
             if(!partyPeople||!night)return;

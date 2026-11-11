@@ -33,7 +33,10 @@ export function oldTownGlazing(ctx,plan){
     for(let i=0;i<=n;i++){const [x,h,z]=P(i*bay,0,.08);b.box(x,h,z,.12,3.92,.14,'#22231f','metal',Math.atan2(plan.nx,plan.nz));}
     for(const h of [.12,3.74,4.1])b.rod(P(.02,h,.08),P(plan.L-.02,h,.08),h===4.1?.07:.035,'#a7864f','metal',6);
     ctx.add(b.build('freddo-source-glazed-front',{castShadow:false,matOverrides:{freddoGlass:glass}}));
-    const sign=signAtlas([{x:plan.x+plan.nx*.2,y:y+3.98,z:plan.z+plan.nz*.2,yaw:Math.atan2(plan.nx,plan.nz),w:4.7,h:.75,text:'Freddo',bg:'#1e201d',fg:'#f5edda',font:q=>`italic 700 ${q}px Georgia, serif`,border:false}],{name:'freddo-official-name',night:.8});if(sign)ctx.add(sign);
+    // (the name board hangs inside the top of the glazing, clear of the first-floor balcony: that sits at the middle of the
+    // frontage, right of centre, with brackets from 3.95 m, so the board goes over the left-hand bays)
+    const sw=Math.min(3.6,plan.L*.42),[sx,,sz]=P(Math.min(plan.L-sw/2-.3,plan.L*.73),0,.2); // (seen from the street, the balcony is right of centre)
+    const sign=signAtlas([{x:sx,y:y+3.45,z:sz,yaw:Math.atan2(plan.nx,plan.nz),w:sw,h:.6,text:'Freddo',bg:'#1e201d',fg:'#f5edda',font:q=>`italic 700 ${q}px Georgia, serif`,border:false}],{name:'freddo-official-name',night:.8});if(sign)ctx.add(sign);
 }
 
 export function freddoRoomDetails(ctx,b,{building,Q,floor,barX,barZ,djX,djZ,front}){

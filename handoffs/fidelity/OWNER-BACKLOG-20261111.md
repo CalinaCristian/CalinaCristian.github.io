@@ -44,6 +44,8 @@ States: **fixed on branch** (implemented and checked in the probe; not published
 | L29 | Carturești Carusel | jumping from the top floor teleports to the ground, no falling | open | |
 | L30 | All spots | chat bubbles feel random; want location/event-specific cultural lines | open | content rewrite |
 | L31 | Tourist spots | a custom waypoint should draw the same trail as the guided tour | open | |
+| L33 | Old Town, Freddo | "this is broken": by day the ground floor read as a hole through the building, the name board ran into the balcony, guests sat on the closed club's terrace | fixed on branch | the room behind the glass keeps its walls; board over the left bays below the balcony; the club's terrace seats are empty while closed |
+| L34 | All tourist spots | "all tourist spots suck -- fix all" | open | Cișmigiu first (L32), then a captured pass over every spot |
 | L32 | Cișmigiu Gardens | "still looks terrible, needs a FULL visual refresh to make it more real" (stepped jagged lake shore, railing standing in the water, flat grass banks) | open | large: lake shoreline and banks, railing on the real edge, paths, planting |
 
 ## The 71-report register

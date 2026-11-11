@@ -70,12 +70,16 @@ export function buildOldTownNightlife(ctx, venueActivities) {
     // behind the actual glazed frontage. The portal view is mutually exclusive.
     const frontage=ctx.extras.freddoFrontage,preview=new THREE.Group(),previewGeometries=[];preview.name='freddo-visible-street-interior';ctx.add(preview);
     const previewCrowd=makeCrowd({max:54,city:'bucharest',season:'summer',rng:rng(713),castShadow:false});previewCrowd.count=54;preview.add(previewCrowd.object);outfits.forEach((o,i)=>previewCrowd.dress(i,o));
-    if(frontage){const copy=staticRoom.clone(true);copy.traverse(o=>{if(!o.isMesh)return;const g=o.geometry.clone(),pos=g.attributes.position,kept=[];for(let i=0;i<g.index.count;i+=3){const t=[g.index.getX(i),g.index.getX(i+1),g.index.getX(i+2)];let boundary=false;for(let j=0;j<polygon.length;j++){const a=polygon[j],z=polygon[(j+1)%polygon.length],ex=z[0]-a[0],ez=z[1]-a[1],L=Math.hypot(ex,ez);if(t.every(k=>Math.abs((pos.getX(k)-a[0])*ez-(pos.getZ(k)-a[1])*ex)/L<.025)){boundary=true;break;}}if(!boundary)kept.push(...t);}g.setIndex(kept);o.geometry=g;o.userData.shared=true;previewGeometries.push(g);});preview.add(copy);preview.position.set(-dx,frontage.baseY-floor,-dz);
+    // Only the room's wall behind the glazing is left out of the copy: its other walls must stay, since the source building's
+    // own walls face outward and are not drawn from inside (owner, 2026-11-11: without them the ground floor was a hole
+    // through the building to the next street).
+    const glazedEdge=frontage&&[Q(...frontage.a),Q(...frontage.b)];
+    if(frontage){const copy=staticRoom.clone(true);copy.traverse(o=>{if(!o.isMesh)return;const g=o.geometry.clone(),pos=g.attributes.position,kept=[];for(let i=0;i<g.index.count;i+=3){const t=[g.index.getX(i),g.index.getX(i+1),g.index.getX(i+2)];const a=glazedEdge[0],z=glazedEdge[1],ex=z[0]-a[0],ez=z[1]-a[1],L=Math.hypot(ex,ez),boundary=t.every(k=>Math.abs((pos.getX(k)-a[0])*ez-(pos.getZ(k)-a[1])*ex)/L<.025);if(!boundary)kept.push(...t);}g.setIndex(kept);o.geometry=g;o.userData.shared=true;previewGeometries.push(g);});preview.add(copy);preview.position.set(-dx,frontage.baseY-floor,-dz);
         const warm=new THREE.PointLight('#ffd395',20,14,2);warm.position.set(cx,frontage.baseY+3.1,cz);ctx.add(warm);
     }else preview.visible=false;
     // A door sign while closed: on the facade beside the entrance, facing the street.
-    const closedSign=signAtlas([{x:front.x+front.nx*.09,y:entry.y+2.15,z:front.z+front.nz*.09,yaw:Math.atan2(front.nx,front.nz),w:1.5,h:.42,text:'ÎNCHIS · deschidem la 22:00',bg:'#efe6d2',fg:'#3a2a1f',font:q=>`700 ${q}px Georgia, serif`,border:true},
-        {x:front.x+front.nx*.09,y:entry.y+1.78,z:front.z+front.nz*.09,yaw:Math.atan2(front.nx,front.nz),w:1.5,h:.26,text:'Closed · opens at 22:00',bg:'#efe6d2',fg:'#3a2a1f',font:q=>`italic 600 ${q}px Georgia, serif`,border:false}],{name:'freddo-closed-sign',night:.5});
+    const closedSign=signAtlas([{x:front.x+front.nx*.2,y:entry.y+2.15,z:front.z+front.nz*.2,yaw:Math.atan2(front.nx,front.nz),w:1.5,h:.42,text:'ÎNCHIS · deschidem la 22:00',bg:'#efe6d2',fg:'#3a2a1f',font:q=>`700 ${q}px Georgia, serif`,border:true},
+        {x:front.x+front.nx*.2,y:entry.y+1.78,z:front.z+front.nz*.2,yaw:Math.atan2(front.nx,front.nz),w:1.5,h:.26,text:'Closed · opens at 22:00',bg:'#efe6d2',fg:'#3a2a1f',font:q=>`italic 600 ${q}px Georgia, serif`,border:false}],{name:'freddo-closed-sign',night:.5});
     if(closedSign)ctx.add(closedSign);
     const flow=activityFlow(ctx), music=clubMusic(), slot={x:18.8+dx,z:56.7+dz,y:floor}, spawn={x:22+dx,z:57+dz,y:floor};
     let lastSession=null,returnPose=null,mapUpdate=null,dancing=false, disposed=false, localHour=23, clockT=0,danceCamera=null;
@@ -134,7 +138,9 @@ export function buildOldTownNightlife(ctx, venueActivities) {
         const hours=nightlifeHours(localHour),blocked=activityBlocked(s),party=hours.party;
         const distance=Math.hypot(s.position.x-entry.x,s.position.z-entry.z),volume=party&&!blocked?(room.visible ? .82 : Math.max(0,1-distance/55)**2*.6):0;music.update(s.sound,volume,room.visible);
         if(room.visible && !hours.open){leave(s);return;}
-        preview.visible=!!frontage&&!room.visible&&hours.open; // (closed: no guests behind the glass)
+        // (the room copy fills the glazed frontage: it stays, or the ground floor reads as a hole through the building;
+        // only the guests behind the glass leave while the club is closed)
+        preview.visible=!!frontage&&!room.visible;previewCrowd.object.visible=hours.open;
         if(closedSign)closedSign.visible=!hours.open;
         ball.rotation.y+=dt*.3;disco.rotation.y=Math.sin(s.t*.18)*.12;
         for(let i=0;i<dancers.length;i++){const p=dancers[i],beatPhase=s.t/CLUB_BEAT*Math.PI*p.speed+p.phase,pose=!party?'talk':p.motion<.045?'cheer':p.motion<.2?'wave':p.motion<.65?'walk':p.motion<.93?'talk':'phone',groove=party&&pose==='walk',values={x:p.x+Math.sin(beatPhase)*.035,y:floor+(groove?Math.max(0,Math.sin(beatPhase))*.035:0),z:p.z+Math.cos(beatPhase*.7)*.025,yaw:p.yaw+Math.sin(beatPhase*.5)*.12,phase:groove?beatPhase:p.phase,amp:groove ? .48 : 0,pose,scale:p.scale,prop:p.motion>.93?'phone':null};indoor.set(i,values);previewCrowd.set(i,values);}

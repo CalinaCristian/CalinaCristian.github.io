@@ -22,7 +22,8 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Romană | #47 / #48 / #50 crossing paint, markings at parking islands, building in the street | look whole at the report poses; verify at street level |
 | Floreasca | #10 courtyard windows and inner slab | the slab is a mapped building part; owner question, not a defect yet |
 | Bellevue | #67 / L15 pedestrian pileups at closures | mitigated on branch (walkers blocked head-on by peers on a crossing step through after 1.5 s; walkers boxed in by a closure both ways leave the road); the headless probe still shows walkers frozen mid-crossing with no recorded blocker, so re-check live |
-| SeaTac | #57–#65 airport assembly | skybridge connector ends in the air, garage helix and ramps cut into each other, station sign and roof without mounting, frontage objects on the terminal road, parapet gaps, truncated road, broken markings |
+| SeaTac | #59 / #60 garage helix and ramps | edge bands now open where the mapped ramps pass (74136408); the ramps' own barrier pieces still read broken at #59 |
+| SeaTac | #62 / #63 / #65 frontage objects, parapet gaps, markings | not reproduced at the report poses or closer (the drive hugs the terminal face; ramp edges and crossings look whole); owner to give a closer pose |
 | Everywhere | L8 colliding buildings | partly: members of prepared assemblies and courtyard buildings still cut |
 | Everywhere | L14 60 fps at Ultra (RTX 5070) | probe means 8–16 ms per frame; not measurable on the owner's hardware from here |
 | Everywhere | L16 cars stuck / nose to nose | crossing deadlock fixed (ba592d07); re-check live |
@@ -50,6 +51,8 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | ef1ce210 | #15 Basarab parapet gaps: rail pieces joined across slots, width changes and deck corners |
 | 7d2d7cd4 | #2 Floreasca bus shelter: faces the nearest public carriageway (Strada Ceaikovski, the bus route), never a service lane |
 | earlier on this branch | L1–L7, L9–L13, L19 (all three places), L20, L21, L32, L33, L35–L40, L42, L43, L44, L46–L49; register #12–#14, #16–#18 (re-checked at their poses 2026-11-11) |
+| 4ba732e4 | #57 / #58 SeaTac station west bridge reaches the garage; #61 the station name board stands on posts |
+| by design | #64 SeaTac road ending in grass: OSM w1067079743 is a real dead-end service road (live API checked) |
 | by design | #28 Unirii fountains run May–October 10:00–23:00 (`?fountains=on` forces them); L18 Romană underpass re-checked closed |
 
 ## Checks before every push

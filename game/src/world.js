@@ -905,7 +905,10 @@ export async function buildWorld(city, renderer, opts = {}) {
     // Soseaua Nicolae Titulescu runs at street level under the Basarab viaduct) OSM tunnel=passage / building_passage on
     // layer 0 is a way at street level under a structure (here a service drive under the viaduct, w1295846860), not a dug
     // tunnel: taken as a tunnel it was anchored 6 m down and dragged both Titulescu carriageways into a 5 m trench.
-    for (const e of edges) { const t = data.roadSourceGeometry?.[e.road]?.tags; if (e.tunnel && t && /^(passage|building_passage)$/.test(t.tunnel) && !(Number(t.layer) < 0)) { e.tunnel = false; e.sourcePassage = true; } }
+    // The same for a tunnel explicitly mapped on layer 0 (register #45, Pipera: a covered drive, tunnel=yes covered=yes layer=0,
+    // w1284446130, pulled Soseaua Pipera and the Calea Floreasca junction 1.2-4 m down under Podul Barbu Vacarescu, where Street
+    // View at 44.47973, 26.10135 shows them at street level): a covered way at street level.
+    for (const e of edges) { const t = data.roadSourceGeometry?.[e.road]?.tags; if (e.tunnel && t && (/^(passage|building_passage)$/.test(t.tunnel) ? !(Number(t.layer) < 0) : t.layer !== undefined && Number(t.layer) === 0)) { e.tunnel = false; e.sourcePassage = true; } }
     const crossings = []; // {u (upper), f (lower), x, z}
     let profileStats = null, profileStats0 = null, wallCut = 0, blocksLane = null;
     {

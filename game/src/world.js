@@ -5444,11 +5444,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         const c = cellOf(x, z);
         if (['food', 'shop', 'bank', 'pharmacy', 'hotel'].includes(kind) && bIdx >= 0 && bRecs[bIdx] && (brand || name) && sub !== 'atm') addUnitSign(bRecs[bIdx], x, z, (brand || name), kind); // (ATMs do not name a unit — world-data Request)
-        const ne = nearestEdge(x, z);
+        let ne = nearestEdge(x, z);
         if (!ne) continue;
-        const e = ne.edge;
-        const side = ((x - ne.cx) * e.nx + (z - ne.cz) * e.nz) >= 0 ? 1 : -1;
-        const roadAng = Math.atan2(e.dirx, e.dirz); // rotation about Y that maps local +z onto the edge direction
+        let e = ne.edge;
+        let side = ((x - ne.cx) * e.nx + (z - ne.cz) * e.nz) >= 0 ? 1 : -1;
+        let roadAng = Math.atan2(e.dirx, e.dirz); // rotation about Y that maps local +z onto the edge direction
         if (kind === 'fuel') { // sourced stations keep their anchor; only clear footprints get forecourt decoration
             const sourceCanopy = bIdx >= 0 ? bRecs[bIdx] : null;
             if (sourceCanopy?.canopy && !sourceCanopy.skip) {
@@ -5521,6 +5521,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         if (kind === 'busstop') {
             if (!poi.shelterModel.emitInferred) continue; // no guessed unit/colliders; source owners and POI remain intact
+            // (owner register #2, Floreasca: "bus shelter facing wrong direction or misplaced; check public road versus path
+            // alignment") the shelter took the nearest edge of any kind (a service lane, a drive); it faces the bus road: the
+            // nearest public carriageway within 25 m
+            const neBus = nearestEdge(x, z, f => !f.virtual && !f.tunnel && f.publicDrive !== false && f.type !== 'service', 25);
+            if (neBus) { ne = neBus; e = neBus.edge; side = ((x - ne.cx) * e.nx + (z - ne.cz) * e.nz) >= 0 ? 1 : -1; roadAng = Math.atan2(e.dirx, e.dirz); }
             const sideW = side > 0 ? e.wR : e.wL;
             if (ne.d > sideW + 12) continue;
             let off = sideW + shoulderOf(e) + Math.max(1.3, Math.min(e.sidewalk, 3) * 0.6);

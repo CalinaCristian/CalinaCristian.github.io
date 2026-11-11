@@ -2483,17 +2483,28 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const pa = corner(e, e.a, s, widthAsphalt(e, s) + 0.3, widthAsphalt), pb = corner(e, e.b, s, widthAsphalt(e, s) + 0.3, widthAsphalt);
                 // in ~3 m pieces; a piece standing on another deck / carriageway at this level (two ways mapped side by
                 // side on one viaduct, a merging ramp) is left out — no parapet fins across a deck (upb route, Basarab)
-                const L = Math.hypot(pb[0] - pa[0], pb[1] - pa[1]), k = Math.max(1, Math.ceil(L / 3));
+                const L = Math.hypot(pb[0] - pa[0], pb[1] - pa[1]), k = Math.max(1, Math.ceil(L / 3)), piece = [];
                 for (let j = 0; j < k; j++) {
                     const A = [pa[0] + (pb[0] - pa[0]) * j / k, pa[1] + (pb[1] - pa[1]) * j / k], B = [pa[0] + (pb[0] - pa[0]) * (j + 1) / k, pa[1] + (pb[1] - pa[1]) * (j + 1) / k];
                     const mx = (A[0] + B[0]) / 2, mz = (A[1] + B[1]) / 2;
-                    if (coveredByOther(mx, mz, e, yAlong(e, mx, mz), 0.1)) continue;
-                    // (owner, 2026-11-11, Grozavesti (-28, 59): "looks broken") a way tagged bridge often runs on at grade for its
-                    // last metres; no parapet stands on a stretch at street level (it ran down a lane as a concrete wall). Bridges
-                    // over water keep theirs at any height.
-                    if (!e.overWater && Math.max(yAlong(e, ...A), yAlong(e, ...B)) < 0.6) continue;
-                    if (tramGrades.excludesInferredObstacle(A, B, { inferred: true, y0a: Y.road + yAlong(e, ...A), y1a: Y.road + yAlong(e, ...A) + 1.1,
-                        y0b: Y.road + yAlong(e, ...B), y1b: Y.road + yAlong(e, ...B) + 1.1, kind: 'bridge-guard-visual', sourceId: data.roadSourceGeometry?.[e.road]?.sourceId })) continue;
+                    // (owner, 2026-11-11, Grozavesti (-28, 59)) no parapet on a stretch at street level; bridges over water keep theirs
+                    const soft = coveredByOther(mx, mz, e, yAlong(e, mx, mz), 0.1) || (!e.overWater && Math.max(yAlong(e, ...A), yAlong(e, ...B)) < 0.6);
+                    const hard = tramGrades.excludesInferredObstacle(A, B, { inferred: true, y0a: Y.road + yAlong(e, ...A), y1a: Y.road + yAlong(e, ...A) + 1.1,
+                        y0b: Y.road + yAlong(e, ...B), y1b: Y.road + yAlong(e, ...B) + 1.1, kind: 'bridge-guard-visual', sourceId: data.roadSourceGeometry?.[e.road]?.sourceId });
+                    piece.push({ A, B, keep: !soft && !hard, hard });
+                }
+                // (owner, 2026-11-11, Grozavesti (286, -776): "still broken") each piece used to be decided on its own, so a
+                // low ramp beside a parallel road (Exit to Giulesti) got a barrier in chunks with gaps. One continuous run per
+                // side: gaps of up to four pieces (12 m) between kept pieces are filled (never across the tram sweep), lone pieces dropped.
+                for (let j = 0; j < k; j++) if (!piece[j].keep && !piece[j].hard) {
+                    let a = j - 1; while (a >= 0 && !piece[a].keep && j - a <= 4) a--;
+                    let b = j + 1; while (b < k && !piece[b].keep && b - j <= 4) b++;
+                    if (a >= 0 && b < k && piece[a].keep && piece[b].keep && b - a - 1 <= 4 && piece.slice(a + 1, b).every(q => !q.hard)) for (let q = a + 1; q < b; q++) piece[q].fill = true;
+                }
+                for (let j = 0; j < k; j++) if (piece[j].fill) piece[j].keep = true;
+                for (let j = 0; j < k; j++) if (piece[j].keep && !(piece[j - 1]?.keep) && !(piece[j + 1]?.keep) && k > 2) piece[j].keep = false;
+                for (const { A, B, keep } of piece) {
+                    if (!keep) continue;
                     sb.wall(A[0], A[1], B[0], B[1], yR, yR + 1.1, e.nx * s, e.nz * s, rgb('#9aa3ad'));
                     sb.wall(A[0], A[1], B[0], B[1], yR, yR + 1.1, -e.nx * s, -e.nz * s, rgb('#8a939d'));
                     sb.flatQuad(A[0], A[1], B[0], B[1], B[0] + e.nx * s * 0.3, B[1] + e.nz * s * 0.3, A[0] + e.nx * s * 0.3, A[1] + e.nz * s * 0.3, yR + 1.1, rgb('#b0b8c0'), 0, -1);

@@ -57,6 +57,8 @@ States: **fixed on branch** (implemented and checked in the probe; not published
 | L41 | Grozăvești (731, -955), camera bearing 178.6 pitch 14.7 | "why are there holes": seen from below, a rectangular gap in the deck soffit with sky through it | open | |
 | L42 | Grozăvești (982, -1187), bearing 57.2 pitch -51.1; also (978.6, 14.5, -1186.0), bearing 47.9 pitch -35.3 (two railing runs overlap side by side with a step instead of meeting) | "fence still broken": the white guard stops short where the elevated carriageway meets the descending one; gap and overlap at the join | open | related to L1 / L2 |
 | L43 | Grozăvești (1107, -1290), bearing 215.6 pitch 1.5 | "still; doesn't go all the way": the tram-deck railing ends before the ramp foot | open | related to L2 |
+| L44 | Grozăvești (68.5, 1.9, 203.0), bearing 33.9 pitch -14.7 | "looks odd": the side slope of a ramp meets the grass in a sawtooth line | open | the embankment fill follows the terrain grid cells |
+| L45 | Grozăvești (285.9, 13.4, -776.2), bearing 94.3 pitch -31.4 | "still broken": barriers on the Exit to Giulești ramp in chunks | partly | `world: bridge parapets in continuous runs`: the outer barrier is continuous; the median barrier still breaks where a gap spans two road edges (decided per edge) |
 ### Spot pass, 11 November (probe captures at the spawn, four directions, 25 m ahead, above)
 
 | Spot | Seen | Next |

@@ -148,7 +148,7 @@ const THEMES = {
         npc: { title: 'Professor', persona: 'professor', look: { top: '#3a3d44', bottom: '#2f3237', skin: '#e8bc9a', hair: '#9a9a96' }, at: [2.5, -6], yaw: -0.4 },
         mates: [[-4, -2, 'talk'], [-3.2, -1.2, 'talk'], [5, 3, 'phone'], [-6, 5, 'walk']], tone: 'hall' },
     gts: { W: 9, D: 9, H: 2.9, floor: () => parquet('#b39470'), wallLow: '#f2f2ef', wall: '#f2f2ef', ceil: '#f7f7f5', view: 'bucharest', props: 'startup',
-        npc: { title: 'Team lead', persona: 'lead', look: { top: '#1f2937', bottom: '#2c3e5c', skin: '#e8bc9a', hair: '#3b2a1e' }, at: [2.2, -2.6], yaw: -0.5 },
+        npc: { title: 'Team lead', persona: 'lead', look: { top: '#1f2937', bottom: '#2c3e5c', skin: '#e8bc9a', hair: '#3b2a1e' }, at: [0.8, -2.8], yaw: -0.5 },
         mates: [[-2.6, -1.6, 'sit'], [-2.6, 0.9, 'sit'], [2.6, 0.9, 'sit']], tone: 'office' },
     luxoft: { W: 16, D: 18, H: 5, floor: () => stone('#3b3f46', 'rgba(255,255,255,0.08)', 128), wallLow: '#e9edf1', wall: '#f4f6f8', ceil: '#f4f6f8', view: 'pipera', props: 'lobby',
         npc: { title: 'Team lead', persona: 'lead', look: { top: '#1f2a44', bottom: '#2f3237', skin: '#e8bc9a', hair: '#1a1410' }, at: [3, -3.5], yaw: -0.3 },

@@ -379,3 +379,5 @@ Balcony parapets now return to the facade at both ends; enclosed balcony sides a
 Residential sides of shopfront buildings use one complete ground-storey window row below the shop datum, preserving the upper-storey alignment and source dimensions. This prevents negative UV repetition from drawing partial windows at ground level; reported native High/Ultra checks pass.
 
 Floreasca reports4/5 pass foot/a with0high/0medium; two low performance findings remain recorded. Paired visual coverage6/6 keeps identical36existing findings, with250peakdrawcalls and863641triangles. This does not complete the other district defects.
+
+The GTS team lead stands in the clear central aisle beside the rear desk, instead of intersecting its tabletop and monitor. Native interaction and visual checks are pending.

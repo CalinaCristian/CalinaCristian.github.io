@@ -28,3 +28,5 @@ R14.8 Car finding uses the distance chip, map/walking route, V to return and T t
 ## Current linear office story · 10 November 2026
 
 The owner supersedes the earlier A–D conversation design: E starts/resumes the teacher/professor/manager’s fixed CV sequence; Enter, Space or a single Continue button advances it. Follow-up lines are included in order. Esc or the close button pauses; leaving early does not complete a chapter. The final Continue finishes the visit and advances the story. CV completion uses fully presented sections and preserves the existing stop/topic achievement keys and previous earned progress. Dated progress logs above describe their original historical implementations.
+
+GTS report24 candidate: shift the virtual host from(2.2,-2.6), the rear desk boundary, to(.8,-2.8) in the central aisle. The existing host collider and story stations derive from the same theme position. Furniture and the source-bound room/window remain unchanged. Verify native clearance, approach, conversation and exit on desktop/phone before acceptance. Gameplay placement is not a claim about a real employee location.

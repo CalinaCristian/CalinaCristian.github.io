@@ -55,7 +55,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Report | Evidence |
 | --- | --- |
 | #62 / #63 / #65 SeaTac frontage objects, ramp edge pieces, crossings | reported on release `game-471508886`; rendered at the report poses on published `master` (a5f80d75) and on this branch: no poles in the terminal road, ramp barriers and crossings whole in both, so already fixed and published |
-| L22 Unirii junction markings (67, -189) | Street View on Bd. Corneliu Coposu: the real junction has no markings inside the pad; the approaches' lane lines and crossings are whole in the game; adding marks the street does not have would make it less real |
+| L22 Unirii junction markings (67, -189) | checked against live OSM and Street View / satellite on Bd. Corneliu Coposu: zebras stand at the mapped signalised crossings, the two crossings mapped `crossing=unmarked` have none, the junction interior is unmarked in reality, and the tram rails are mapped `railway=construction` (the line is being rebuilt), so no tracks are drawn; published master and this branch render the junction identically |
 
 ## Checks before every push
 

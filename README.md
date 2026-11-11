@@ -250,6 +250,8 @@ Generated road signs use their source side's pavement width and check the comple
 - `node game/dev/signals.test.mjs` — conflicting approaches, junction clearance and pedestrian recovery regression checks.
 - `node game/dev/recovery-view-range.test.mjs` — the out-of-view test that gates vehicle recovery ends 700 m from the active camera.
 - `node game/dev/vehicle-knot-recovery.test.mjs` — a recorded crossing knot opens by bounded reversing (no teleport, no penetration) and an ordinary queue is unchanged.
+- `node --test game/dev/tram-body-support.test.mjs` — the faster tram body-support mathematics returns exactly what the previous implementation returned (kept as an oracle in `game/dev/fixtures/`).
+- `node game/dev/harness/tram-progress-check.cjs . <out> <city> <district> [seconds]` — steps the built district and reports every tram step refused by a static body in the tram's sweep; it currently fails on Grozăvești (trams held by a closure wall, bollards, a mapped tree and one bridge stay anchor), which is open work.
 - `node --test game/dev/bridge-bents.test.mjs` and `node game/dev/harness/bridge-bents-check.cjs . <out> <city> <district>` — estimated bridge bents: columns only on free ground, crosshead clearance over lower roads and rails, closed slab slots.
 - `node tools/profile-traffic-native.mjs OUT FULL_SOURCE_SHA` — actual RAF V8 attribution at High/Ultra through public settings; software FPS is not hardware evidence.
 - `node --test game/dev/render-cadence.test.mjs` — actual render orchestration timing, environment-only adapter boundaries and projection-preserving weather-distance controls; CPU evidence, not GPU speed.

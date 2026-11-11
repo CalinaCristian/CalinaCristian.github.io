@@ -181,9 +181,67 @@ method wins, so in the legacy corridor worlds every `relocate(v, ..., this.bubbl
 `recycle` never fires. District worlds are not `large` and do not use that path. The legacy `b:dn1` harness scenario is
 already route-blocked by a barrier wall on live master.
 
-Controls: `node game/dev/recovery-view-range.test.mjs`. Still open: the pedestrian piles, whole-population CPU (no
-optimisation has been made yet; there is no level of detail at all in district worlds), the remaining junction waits,
-complete journeys, and the Basarab drive that stalls in the integration owner's candidate.
+Controls: `node game/dev/recovery-view-range.test.mjs`. Still open: the pedestrian piles, whole-population CPU (see the
+next section for the first reduction; there is no level of detail at all in district worlds), the remaining junction
+waits, complete journeys, and the Basarab drive that stalls in the integration owner's candidate.
+
+### Simulation cost: candidate evaluated, tram body support reduced, trams held by static bodies · 2026-11-10 (owner reports 6-9, 18, 37-39, 67: in progress)
+
+Method for every number here: Grozavesti at High, 311 vehicles and 560 pedestrians, stationary player, fixed 1/30 s steps
+through `Main.updateDrive` with the final render stubbed, real CPU in headless Chromium on the owner's desktop. A state
+hash (every vehicle's position, height, heading, speed, pitch and tram support result; every pedestrian's position) is
+taken each 30 simulated seconds. Two runs of the same source give identical hashes; wall time varies about 15 % between
+identical runs.
+
+**The integration owner's CPU candidate `67b39084` (`fidelity/basarab-render-r9`) is not integrated.** It replaces the
+string-keyed `walkTop` cache with typed arrays and the pedestrian peer check's whole-population fallback with the fixed
+grid plus the set of people who crossed a cell. Applied to this branch it produced identical state hashes over 180
+simulated seconds, so it is behaviour-preserving there, and no measurable saving: pedestrian update 9.5-12.0 ms per step
+before, 11.6-12.8 ms with it (inside the run-to-run variation). The reason is the size of its target: the whole-population
+fallback runs 3.3 times per step out of about 1400 peer checks, and `peerClearStep` as a whole is about 5 % of the step.
+
+Where the step goes (CPU profile, inclusive share of the simulation step, before any change): pedestrians 42-47 %
+(`guardPeerStep` 25 %, of which static building checks 11 %; `separate` 12-14 %; `roadAt` 6-9 %), vehicles 44-48 %. Inside
+the vehicle share, **four trams took about a third of the whole step**: `fitTramBodySupport` 14 % and the rail static
+guard 19 % (of which `validateTramSupportCertificate` 14 %), both through `minimumTramSupportLift` (23 %).
+
+**Reduced, with identical results.** `minimumTramSupportLift` rebuilt its slab catalogue on every call and tested each of
+a tram's 1732 proxy triangles against every catalogue entry, allocating a bounds object and three arrays per triangle. Now
+the per-piece catalogue entries and catalogue text are derived once per (immutable) support piece, `bounds` iterates
+instead of spreading thousands of arguments, and a triangle wholly above the highest slab top is skipped by one comparison
+(the same outcome as failing each entry's own `minY > maxTop` test). The state hashes are identical at every checkpoint
+over 180 simulated seconds. Measured step: 25.6 ms -> 19.8 ms average over those 180 s (vehicle side about 12 -> 8 ms;
+the unchanged pedestrian side moved 13.4 -> 11.4 ms between the two runs, which is the size of the measurement noise).
+`minimumTramSupportLift` still takes about 17 % of the step: a tram on a graded slab has triangles that really reach the
+exact clipped-edge test, and both the fit and the certificate run it every step.
+
+**Why trams cost that much: most of them are refused every step.** The rail guard (`stepVehicle`: `railBodyInside` and
+`initialTrafficStaticClearance` on the full 27 m / 36 m rigid body) reverts a tram whose next pose meets any static body
+and sets its speed to zero, so the tram tries again on the next step: a fit, a certificate and a full-body cover each
+time, and the stall recovery never sees a tram that keeps restarting. `game/dev/harness/tram-progress-check.cjs` records
+this (120 simulated seconds, default quality). On live master `a5f80d75`, three of four trams: tram 493 held from 2.3 s by
+the road closure wall `w50584780`, whose end stands 0.35 m past the rail centreline (3454 of 3600 steps refused, 3.3 m
+travelled); tram 492 from 14 s by a generated bollard row 2.35-2.5 m from the centreline, reached by the tail of the rigid
+27 m body on a 9 degree bend (3113 steps); tram 490 by a mapped chestnut 1.36 m from the centreline (2843 steps). Other
+runs of the same check also meet a generated bollard 0.6 m from a centreline and the ground-level start of the tram slab
+`w314447163` (its 0.26 m top against the 0.25 m body base). On this branch one more: **a Basarab cable stay**, whose deck
+anchor end is 1.89 m from the centreline of rail `w118416425` near (793, -996) with its band at 11.73-12.10 m inside the
+tram's 11.25-17.03 m, held tram 490 for 357 steps in one run. That conflict comes from the integrated superstructure
+candidate; the earlier statement that no track point touches a superstructure member came from a point sweep along the
+centreline and does not cover the rigid body. The check is not identical from run to run (which obstacle a tram reaches
+within 120 s varies), and its longest uninterrupted refusal reads about 12 s: roughly one step in every 12 s is not
+refused, which was not investigated.
+
+Nothing is changed in the guard or in the world for these holds yet. Not weakened, not hidden: the obstacles are listed
+above and the check fails on master and on this branch.
+
+Controls: `node --test game/dev/tram-body-support.test.mjs` (the live module against the pre-change module kept as an
+oracle in `game/dev/fixtures/tram-body-support-reference.mjs`: equal lift, witness, fitted pose and certificate over 540
+synthetic poses with and without contact, an empty catalogue, a non-finite top, replaced piece fields);
+`node game/dev/harness/tram-progress-check.cjs . <out> bucharest grozavesti 120` (currently fails: 3-4 of 4 trams held).
+Still open: the held trams (inferred bollards and the closure wall in the rail corridor, the mapped tree, the stay
+anchor, the rigid-body sweep on bends), the pedestrian static checks and piles (about 300 refused pedestrian steps per
+simulation step), and a frame-rate measurement on real hardware.
 
 ### Reviewed finite source bridge descents
 

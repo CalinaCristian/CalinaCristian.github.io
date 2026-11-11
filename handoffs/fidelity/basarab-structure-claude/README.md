@@ -18,6 +18,31 @@ not available (see "Not available"), publication and live verification by the in
 To keep master linear, cherry-pick `c82b1fa5`, `dda67f21`, `d538aaad` and `576adda5` in that order; the merge commits
 (`6c07fd94`, `02562dea`) carry no change of their own.
 
+## Update 2 · CPU candidate evaluated, tram cost, held trams (2026-11-10)
+
+Master `a5f80d75` merged (`93f11cb0`). It conflicted in `trees.js` (the same `exclude` hook landed on master: master's
+text kept) and in `world.js` (master's water-basin tree conflicts next to the covered-platform ones: both are kept and
+feed one exclusion set; master's stats plus `bridgeBents` and `treeDeckClearance`).
+
+- **Candidate `67b39084` (pedestrian peer scan, `walkTop` cache): evaluated, not integrated.** State hashes identical over
+  180 simulated seconds, no measurable saving (its target runs 3.3 times per step). Details in `specs/13-traffic.md`.
+- **Tram body support, same results for less work** (`game/src/tram-body-support.js`, not a shared-world change): four
+  trams took about a third of the simulation step. Step 25.6 -> 19.8 ms average over 180 s with identical state hashes at
+  every 30 s checkpoint; equality test against the previous implementation in `game/dev/tram-body-support.test.mjs`.
+- **Trams are held by static bodies, on master too.** `game/dev/harness/tram-progress-check.cjs` (new, currently
+  failing): on master three of four Grozăvești trams are refused on almost every step by the closure wall `w50584780`
+  (end 0.35 m past the rail centreline), a generated bollard row reached by the tail of the rigid 27 m body, and a mapped
+  chestnut 1.36 m from the centreline. Each refused tram restarts every step, which is the tram CPU cost and why stall
+  recovery never fires for them.
+- **Correction to the superstructure update above.** "No point of the elevated tram track touches a `basarab-*` member"
+  came from a centreline point sweep. With the full rigid body the longest stay's deck anchor end (1.89 m from the
+  centreline of rail `w118416425` near (793, -996)) held a tram for 357 steps in one run. That conflict is this
+  branch's (from candidate r9), is not fixed, and must be fixed before the superstructure is considered for publication.
+- Nothing was changed in the rail guard or in the world for the holds. They are the next piece of pack B.
+
+Cherry-pick list for a linear master is now `c82b1fa5`, `dda67f21`, `d538aaad`, `576adda5`, then the tram body-support
+commit and the tram check commit named in the branch log (both touch no shared file).
+
 ## Pack A · reports 12-17 (in progress)
 
 **Update, superstructure integrated.** On the owner's instruction the candidate `fidelity/basarab-render-r9` (`81464a88`) was
@@ -103,7 +128,7 @@ Still open in pack B:
   resolution at the junctions.
 - Pedestrian piles are untouched: after 15 minutes 111 of 560 people stood in piles, the largest at (62.8, −469.4) and
   (101.7, −424).
-- CPU: no reduction made.
+- CPU: first reduction made (tram body support, see Update 2); pedestrians (42-47 % of the step) untouched.
 - The Basarab drive that stalls in the integration owner's candidate `1444d5f8` was not reproduced: that commit is not on
   this machine or on the remote.
 

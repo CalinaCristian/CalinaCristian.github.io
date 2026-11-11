@@ -861,8 +861,27 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (!e.tram) continue;
             const mx = (e.a.x + e.b.x) / 2, mz = (e.a.z + e.b.z) / 2;
             let d = Infinity; tg.each(mx - 10, mz - 10, mx + 10, mz + 10, ([a, b]) => { d = Math.min(d, distPointSeg(mx, mz, a[0], a[1], b[0], b[1]).d); });
-            e.tram = d < e.halfW + 4;
+            // (owner, 2026-11-11, Grozavesti (863, -1109): "the tram path is still going on the street") on a bridge the trams
+            // run on their own slab beside the carriageway (Pasajul Basarab: 5-7 m from a 3.5 m half width); rails are drawn
+            // into a deck carriageway only where the tram line lies within its asphalt. At grade the mapping tolerance stays.
+            e.tram = d < e.halfW + (e.bridge ? 0.5 : 4);
         }
+        // (owner, 2026-11-11, Grozavesti: "the tram path is still going on the street") on the Basarab deck a tram line runs
+        // 3-5 m from the mapped centre line of a carriageway drawn 3.5 m to each side, so the asphalt reached over the tracks.
+        // The mapped line stays; on a bridge carriageway the tram-facing side is narrowed to keep 2.2 m clear of the track
+        // (at least 1.75 m) and the far side takes the difference, so the total width is unchanged.
+        let tramShifted = 0;
+        for (const e of edges) {
+            if (e.virtual || !e.bridge || !e.oneway) continue;
+            let d = Infinity, sgn = 0;
+            for (const f of [0.1, 0.5, 0.9]) { const x = e.a.x + (e.b.x - e.a.x) * f, z = e.a.z + (e.b.z - e.a.z) * f;
+                tg.each(x - 10, z - 10, x + 10, z + 10, ([a, b]) => { const q = distPointSeg(x, z, a[0], a[1], b[0], b[1]); if (q.d < d) { d = q.d; sgn = Math.sign((q.cx - x) * e.nx + (q.cz - z) * e.nz) || 1; } }); }
+            if (!(d < e.halfW + 2.2) || d < 1.2) continue;
+            const near = sgn > 0 ? 'wR' : 'wL', far = sgn > 0 ? 'wL' : 'wR', total = e.wL + e.wR, nw = Math.max(1.75, d - 2.2);
+            if (nw >= e[near] - 0.05) continue;
+            e[near] = nw; e[far] = total - nw; e.halfW = Math.max(e.wL, e.wR); e.tramClearShift = true; e.tram = false; tramShifted++;
+        }
+        if (tramShifted) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + 0.5; sccInfo.tramClearShift = tramShifted; }
     }
 
     // ---- vertical profile. Only real grade separations are lifted / lowered:
@@ -4150,7 +4169,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (st.road && !(ends[0].hit.st.road && ends[0].hit.st.id > st.id)) continue;          // carriageway pairs once; tram slabs fill toward carriageways
                 if (st.rail && ends[0].hit.st.rail && ends[0].hit.st.id < st.id) continue;              // tram pair once
                 if (basarabDistrict && st.rail && ends[0].hit.st.rail) { deferredRailSlots.push(ends); continue; } // Basarab: the literal centre support between the two tracks owns that gap where it exists (see below)
-                slotQueue.push(ends);
+                ends.ownRoad = !!st.road; slotQueue.push(ends);
             }
             emitSlot = ends => {
                 const [A, B] = ends, top = [[A.ox, A.top, A.oz], [B.ox, B.top, B.oz], [B.hit.x, B.hit.top, B.hit.z], [A.hit.x, A.hit.top, A.hit.z]], bottom = [[A.ox, A.soffit, A.oz], [B.ox, B.soffit, B.oz], [B.hit.x, B.hit.soffit, B.hit.z], [A.hit.x, A.hit.soffit, A.hit.z]];
@@ -4158,7 +4177,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const sb = cellOf((A.ox + B.ox) / 2, (A.oz + B.oz) / 2).solid;
                 // (owner, 2026-11-11, Grozavesti (549, -831): "why is this cut") a pale concrete strip tapering between a
                 // carriageway and the tram slab read as a slice through the deck: next to a carriageway the infill is asphalt
-                const topCol = A.hit?.st?.road || B.hit?.st?.road ? rgb(ASPHALT) : slab;
+                const topCol = ends.ownRoad && A.hit?.st?.road && B.hit?.st?.road ? rgb(ASPHALT) : slab; // (asphalt only between two carriageways; a tram slab keeps its concrete separator)
                 sb.face4(...(up ? top : top.slice().reverse()), topCol, [0, 1, 0]);
                 sb.face4(...(up ? bottom.slice().reverse() : bottom), dark, [0, -1, 0]);
                 const poly = top.map(q => [q[0], q[2]]), cx = poly.reduce((n, q) => n + q[0], 0) / 4, cz = poly.reduce((n, q) => n + q[1], 0) / 4;
@@ -4185,7 +4204,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const f = i / n, cx = P0[0] + (P1[0] - P0[0]) * f, cz = P0[1] + (P1[1] - P0[1]) * f, ox = cx + dx * w, oz = cz + dz * w, top = st.topAt(ox, oz);
                     const cur = { ox, oz, top, soffit: st.soffitAt(ox, oz), hit: reach(st, ox, oz, dx, dz, top) };
                     if (!cur.hit) break;
-                    if (prev) { emitSlot([prev, cur]); gore++; }
+                    if (prev) { const pair = [prev, cur]; pair.ownRoad = !!st.road; emitSlot(pair); gore++; }
                     prev = cur;
                 }
             }

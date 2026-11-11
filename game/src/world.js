@@ -2742,6 +2742,28 @@ export async function buildWorld(city, renderer, opts = {}) {
     let underpassOwners = combineUnderpassWaterOwners(underpassGroundOwners, buildUnderpassOwnerIndex(underpassRegions.length ?
         [...cells].map(([key, c]) => ({ mesh: c.water, id: 'water:' + key, water: true })) : [], underpassOwnerOptions));
     const deferredUnderpassDown = [], coveredWater = projectCoveredWater(city, { us: US });
+    // (owner register #59, SeaTac: "barrier pieces read broken") where two sunken ramps part, each one's trench wall and
+    // rim parapet ran on through the other's carriageway (an X of walls at the gore). A trench wall stops where its line
+    // lies on another road's carriageway — not the same road's own continuation (that is the wall going on).
+    const carriagewayIndex = new BoxGrid(24);
+    for (const rb of ribbons) if (rb.e && !rb.e.virtual && !(rb.e.tunnel && rb.e.lidded)) { let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of rb.poly) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); } carriagewayIndex.insert(x0, z0, x1, z1, { rb, x0, z0, x1, z1 }); }
+    // (the other road is in the cut too: a wall between a sunken ramp and a street at grade always stays)
+    const otherSunkenAt = (e, x, z) => { let lo = null; carriagewayIndex.each(x, z, x, z, (q) => { if (q.rb.e === e || q.rb.e.road === e.road || x < q.x0 || x > q.x1 || z < q.z0 || z > q.z1 || !pointInPolygon(x, z, q.rb.poly)) return; const h = yAlong(q.rb.e, x, z); if (h < -0.35 && (lo === null || h < lo)) lo = h; }); return lo; };
+    const onOtherCarriageway = (e, x, z) => otherSunkenAt(e, x, z) !== null;
+    // Two sunken ramps side by side share one wall: the lower road's (it retains the higher one and, rising to street
+    // level, guards it too). The higher road, or both when they run level, leave that side open — before, each drew its
+    // own wall and parapet, a doubled, stepped pair of barriers with a gap between (#59).
+    const sharedTrenchSide = (e, x, z, ox, oz, y) => { const h = otherSunkenAt(e, x + ox * 1.2, z + oz * 1.2); return h !== null && h <= y + 0.45; };
+    /** parts [t0, t1] of edge e's wall line at offset o that are clear of other carriageways (1 m samples) */
+    const trenchWallRuns = (e, o) => {
+        const n = Math.max(2, Math.ceil(e.len)), runs = [], sg = Math.sign(o) || 1; let start = null;
+        for (let i = 0; i <= n; i++) { const t = i / n, x = e.a.x + e.dirx * e.len * t + e.nx * o, z = e.a.z + e.dirz * e.len * t + e.nz * o, free = !onOtherCarriageway(e, x, z) && !sharedTrenchSide(e, x, z, e.nx * sg, e.nz * sg, e.ya + (e.yb - e.ya) * t);
+            if (free && start === null) start = i === 0 ? 0 : (i - 0.5) / n; if (!free && start !== null) { runs.push([start, (i - 0.5) / n]); start = null; } }
+        if (start !== null) runs.push([start, 1]);
+        return runs;
+    };
+    const clipRuns = (runs, a, b) => runs.map(([x, y]) => [Math.max(a, x), Math.min(b, y)]).filter(([x, y]) => y - x > 1e-4);
+    let trenchGoreCuts = 0;
     let WATER_API = null, preparedSmallWater = null;
     for (const e of raised) {
         const c = cellOf((e.a.x + e.b.x) / 2, (e.a.z + e.b.z) / 2);
@@ -2795,11 +2817,13 @@ export async function buildWorld(city, renderer, opts = {}) {
             // The covered wall meets its actual underside, not a floating street-
             // level strip. Uncovered ramp retaining walls keep their prior rim.
             const wallStations = closedRoof ? [...new Set([0, ...roof.stations, 1])].sort((a, b) => a - b) : [0, 1];
+            const sideRuns = closedRoof ? null : new Map([[wr, trenchWallRuns(e, wr)], [-wl, trenchWallRuns(e, -wl)]]);
+            if (sideRuns) for (const r of sideRuns.values()) if (r.length !== 1 || r[0][0] > 0 || r[0][1] < 1) trenchGoreCuts++;
             for (let k = 1; k < wallStations.length; k++) {
                 const a = wallStations[k - 1], b = wallStations[k], mid = (a + b) / 2;
                 const covered = closedRoof && mid >= roof.span[0] && mid <= roof.span[1];
                 const top = t => covered ? roof.ceilingAt(t) : .4;
-                for (const [o, sgn] of [[wr, -1], [-wl, 1]]) sb.face4(roofPoint(a, o, Math.min(yA + (yB - yA) * a, 0)), roofPoint(b, o, Math.min(yA + (yB - yA) * b, 0)), roofPoint(b, o, top(b)), roofPoint(a, o, top(a)), conc, [e.nx * sgn, 0, e.nz * sgn]);
+                for (const [o, sgn] of [[wr, -1], [-wl, 1]]) for (const [a2, b2] of sideRuns ? clipRuns(sideRuns.get(o), a, b) : [[a, b]]) sb.face4(roofPoint(a2, o, Math.min(yA + (yB - yA) * a2, 0)), roofPoint(b2, o, Math.min(yA + (yB - yA) * b2, 0)), roofPoint(b2, o, top(b2)), roofPoint(a2, o, top(a2)), conc, [e.nx * sgn, 0, e.nz * sgn]);
             }
             // parapet on the trench rim where the collision wall stands above street level (to 1.0 m; play-test note 46: the
             // 1 m trench wall beside Bd. Iancu de Hunedoara was invisible from the street side) — open / uncovered part only
@@ -2809,11 +2833,11 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const cut = (thr, keepBelow) => { if (fY(0) < thr === fY(1) < thr) return (fY(0) < thr) === keepBelow; const tc = tAt(thr); if ((fY(0) < thr) === keepBelow) p1 = Math.min(p1, tc); else p0 = Math.max(p0, tc); return true; };
                 if (cut(-0.35, true) && (!e.tunnel || cut(-4.2, false)) && p1 - p0 > 0.01) {
                     const Pt = (t, o, y) => P(t * e.len, o, y), cap = rgb('#b4b0a8');
-                    for (const [o, sgn] of [[wr, -1], [-wl, 1]]) {
+                    for (const [o, sgn] of [[wr, -1], [-wl, 1]]) for (const [q0, q1] of sideRuns ? clipRuns(sideRuns.get(o), p0, p1) : [[p0, p1]]) {
                         const oo = o + 0.25 * -sgn;
-                        sb.face4(Pt(p0, o, 0.4), Pt(p1, o, 0.4), Pt(p1, o, 1.0), Pt(p0, o, 1.0), conc, [e.nx * sgn, 0, e.nz * sgn]);
-                        sb.face4(Pt(p1, oo, 0), Pt(p0, oo, 0), Pt(p0, oo, 1.0), Pt(p1, oo, 1.0), conc, [-e.nx * sgn, 0, -e.nz * sgn]);
-                        sb.face4(Pt(p0, oo, 1.0), Pt(p1, oo, 1.0), Pt(p1, o, 1.0), Pt(p0, o, 1.0), cap, [0, 1, 0]);
+                        sb.face4(Pt(q0, o, 0.4), Pt(q1, o, 0.4), Pt(q1, o, 1.0), Pt(q0, o, 1.0), conc, [e.nx * sgn, 0, e.nz * sgn]);
+                        sb.face4(Pt(q1, oo, 0), Pt(q0, oo, 0), Pt(q0, oo, 1.0), Pt(q1, oo, 1.0), conc, [-e.nx * sgn, 0, -e.nz * sgn]);
+                        sb.face4(Pt(q0, oo, 1.0), Pt(q1, oo, 1.0), Pt(q1, o, 1.0), Pt(q0, o, 1.0), cap, [0, 1, 0]);
                     }
                 }
             }
@@ -3106,7 +3130,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const px = ax + (bx - ax) * f + e.nx * s * o, pz = az + (bz - az) * f + e.nz * s * o;
                     const yy = yAtT(t0 + (t1 - t0) * f) - Y.road; open = (surfaceAt(px, pz, e).items || []).some(([h, par]) => Math.abs(h - yy) < (par ? 0.3 : 0.45));
                 }
-                if (open) { last = null; continue; }
+                if (open || (kind === 'trench' && (onOtherCarriageway(e, mx, mz) || sharedTrenchSide(e, mx, mz, e.nx * s, e.nz * s, ym)))) { last = null; continue; } // (#59: no trench wall across the other ramp at a gore; one shared wall between two sunken ramps)
                 const ra = range(yAtT(t0)), rbb = range(yAtT(t1));
                 if (kind === 'rail' && tramGrades.excludesInferredObstacle([ax, az], [bx, bz], { inferred: true, y0a: ra[0], y1a: ra[1], y0b: rbb[0], y1b: rbb[1], kind: 'bridge-guard-collision', sourceId: data.roadSourceGeometry?.[e.road]?.sourceId })) { last = null; continue; }
                 let skirtRaised = false;
@@ -7122,6 +7146,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.tramRailings = tramRailings;
     stats.landmarkWaterFootprints = landmarkWaterFootprints;
     stats.trenchGroundCuts = { corridors: trenchQuads.length, triangles: trenchCutTris }; // (ground layers cut out of open trenches)
+    stats.trenchGoreCuts = trenchGoreCuts; // (#59: trench wall sides stopped at another sunken ramp)
     stats.buildingOverlapCuts = overlapCuts; // (world-space basin outlines: audits of what stands in or over them)
     stats.bridgeGuardCompletion = guardCompletion;
     stats.basarabLamps = basarabLamps;

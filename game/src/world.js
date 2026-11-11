@@ -6496,7 +6496,10 @@ export async function buildWorld(city, renderer, opts = {}) {
     };
     backdropMat.customProgramCacheKey = () => 'backdrop-night2';
     const signTex = signs.textures();
-    const signMats = signTex.map(t => new THREE.MeshBasicMaterial({ map: t, color: '#e8e8e8', alphaTest: 0.5 }));
+    // (owner L23 / #25: a facade sign flickering) a sign stands 0.14 m off its wall; with the 0.2 m near plane the depth
+    // buffer cannot hold 0.14 m apart beyond about 600 m (drone views), so the wall and the sign fought. A small polygon
+    // offset keeps the sign in front of its wall at any distance, as road markings over the asphalt
+    const signMats = signTex.map(t => new THREE.MeshBasicMaterial({ map: t, color: '#e8e8e8', alphaTest: 0.5, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 }));
     // ---- front-garden boundaries (district worlds, Bucharest, 2026-11-08): along residential streets the property line
     //      behind the sidewalk is a railing on a low plinth, a plastered wall or a hedge (one kind per stretch, a gate /
     //      driveway gap every 15–35 m), wherever a garden lies between the sidewalk and the house. Visual only (no

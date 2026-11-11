@@ -12,7 +12,9 @@ import {freddoRoomDetails} from './freddo-look.js';
 import {danceViewFit} from '../dance-camera.js';
 
 export const OLD_TOWN_FOCUS = [[-12,-104],[286,-104],[286,-32],[62,-32],[62,89],[-12,89]];
-export const nightlifeHours = hour => ({ open: hour >= 10 || hour < 5, party: hour >= 22 || hour < 5, closes: '05:00' });
+// (owner, 2026-11-11: "old town during the day shouldn't have Freddo busy ... visibly closed with a sign that says opens at
+// 10 PM") The game's Freddo is its club night: doors 22:00-05:00. The bar's published daytime hours (10:00) are not modelled.
+export const nightlifeHours = hour => ({ open: hour >= 22 || hour < 5, party: hour >= 22 || hour < 5, opens: '22:00', closes: '05:00' });
 
 function reverse(geometry) { const index = geometry.index.array; for (let i=0;i<index.length;i+=3) [index[i],index[i+1]]=[index[i+1],index[i]]; geometry.computeVertexNormals(); return geometry; }
 
@@ -71,6 +73,10 @@ export function buildOldTownNightlife(ctx, venueActivities) {
     if(frontage){const copy=staticRoom.clone(true);copy.traverse(o=>{if(!o.isMesh)return;const g=o.geometry.clone(),pos=g.attributes.position,kept=[];for(let i=0;i<g.index.count;i+=3){const t=[g.index.getX(i),g.index.getX(i+1),g.index.getX(i+2)];let boundary=false;for(let j=0;j<polygon.length;j++){const a=polygon[j],z=polygon[(j+1)%polygon.length],ex=z[0]-a[0],ez=z[1]-a[1],L=Math.hypot(ex,ez);if(t.every(k=>Math.abs((pos.getX(k)-a[0])*ez-(pos.getZ(k)-a[1])*ex)/L<.025)){boundary=true;break;}}if(!boundary)kept.push(...t);}g.setIndex(kept);o.geometry=g;o.userData.shared=true;previewGeometries.push(g);});preview.add(copy);preview.position.set(-dx,frontage.baseY-floor,-dz);
         const warm=new THREE.PointLight('#ffd395',20,14,2);warm.position.set(cx,frontage.baseY+3.1,cz);ctx.add(warm);
     }else preview.visible=false;
+    // A door sign while closed: on the facade beside the entrance, facing the street.
+    const closedSign=signAtlas([{x:front.x+front.nx*.09,y:entry.y+2.15,z:front.z+front.nz*.09,yaw:Math.atan2(front.nx,front.nz),w:1.5,h:.42,text:'ÎNCHIS · deschidem la 22:00',bg:'#efe6d2',fg:'#3a2a1f',font:q=>`700 ${q}px Georgia, serif`,border:true},
+        {x:front.x+front.nx*.09,y:entry.y+1.78,z:front.z+front.nz*.09,yaw:Math.atan2(front.nx,front.nz),w:1.5,h:.26,text:'Closed · opens at 22:00',bg:'#efe6d2',fg:'#3a2a1f',font:q=>`italic 600 ${q}px Georgia, serif`,border:false}],{name:'freddo-closed-sign',night:.5});
+    if(closedSign)ctx.add(closedSign);
     const flow=activityFlow(ctx), music=clubMusic(), slot={x:18.8+dx,z:56.7+dz,y:floor}, spawn={x:22+dx,z:57+dz,y:floor};
     let lastSession=null,returnPose=null,mapUpdate=null,dancing=false, disposed=false, localHour=23, clockT=0,danceCamera=null;
     const avatar=makeCrowd({max:1,city:'bucharest',season:'summer',rng:rng(604),castShadow:false});avatar.count=1;avatar.object.name='player-dancing-avatar';avatar.object.visible=false;room.add(avatar.object);
@@ -113,9 +119,9 @@ export function buildOldTownNightlife(ctx, venueActivities) {
     };
     const visible=s=>room.visible && !activityBlocked(s);
     ctx.interactables.push({x:entry.x,z:entry.z,y:entry.y,r:2.1,source:poi.id,building:building.id,tourActivityIds:['freddo-dance','freddo-shot'],tourAvailable:()=>nightlifeHours(localHour).open,
-        label:()=>nightlifeHours(localHour).open?'Enter Freddo · dance or pour a shot':'Freddo · opens at 10:00',
+        label:()=>nightlifeHours(localHour).open?'Enter Freddo · dance or pour a shot':'Freddo · closed · opens at 22:00',
         cond:()=>!room.visible,
-        use(s){if(!nightlifeHours(localHour).open){s.ui.toast('Freddo is closed','Published opening hours: 10:00–05:00. Try a late evening visit.');return;}lastSession=s;returnPose={...s.position,heading:s.ctl.heading};room.visible=true;
+        use(s){if(!nightlifeHours(localHour).open){s.ui.toast('Freddo is closed','The club night starts at 22:00 and runs until 05:00. Come back tonight.');return;}lastSession=s;returnPose={...s.position,heading:s.ctl.heading};room.visible=true;
             if(s.map && !mapUpdate){mapUpdate=s.map.update;s.map.update=function(dt,p){return mapUpdate.call(this,dt,room.visible?{...entry,heading:p.heading}:p);};}
             s.ctl.enter(spawn.x,spawn.z,Math.PI/2,spawn.y);s.ui.toast('Freddo · Smârdan 24','DJs, cocktails and a late dance floor. Closing time: 05:00.');s.returnFocus?.();}});
     ctx.interactables.push({hidden:true,x:spawn.x,z:spawn.z,y:floor,r:1.25,label:'Return to Smârdan',cond:visible,use:leave},
@@ -128,7 +134,8 @@ export function buildOldTownNightlife(ctx, venueActivities) {
         const hours=nightlifeHours(localHour),blocked=activityBlocked(s),party=hours.party;
         const distance=Math.hypot(s.position.x-entry.x,s.position.z-entry.z),volume=party&&!blocked?(room.visible ? .82 : Math.max(0,1-distance/55)**2*.6):0;music.update(s.sound,volume,room.visible);
         if(room.visible && !hours.open){leave(s);return;}
-        preview.visible=!!frontage&&!room.visible;
+        preview.visible=!!frontage&&!room.visible&&hours.open; // (closed: no guests behind the glass)
+        if(closedSign)closedSign.visible=!hours.open;
         ball.rotation.y+=dt*.3;disco.rotation.y=Math.sin(s.t*.18)*.12;
         for(let i=0;i<dancers.length;i++){const p=dancers[i],beatPhase=s.t/CLUB_BEAT*Math.PI*p.speed+p.phase,pose=!party?'talk':p.motion<.045?'cheer':p.motion<.2?'wave':p.motion<.65?'walk':p.motion<.93?'talk':'phone',groove=party&&pose==='walk',values={x:p.x+Math.sin(beatPhase)*.035,y:floor+(groove?Math.max(0,Math.sin(beatPhase))*.035:0),z:p.z+Math.cos(beatPhase*.7)*.025,yaw:p.yaw+Math.sin(beatPhase*.5)*.12,phase:groove?beatPhase:p.phase,amp:groove ? .48 : 0,pose,scale:p.scale,prop:p.motion>.93?'phone':null};indoor.set(i,values);previewCrowd.set(i,values);}
         if(!room.visible)return;

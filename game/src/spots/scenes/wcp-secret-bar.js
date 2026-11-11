@@ -127,6 +127,11 @@ function buildRoom(ctx, B) {
     // Romanian supporters (owner, note 79): a "TRICOLORII" banner in blue-yellow-red over the screen wall
     { const [x, z] = P(0, depth - 0.12); for (let k = 0; k < 3; k++) { const [bx, bz] = P((k - 1) * 0.9, depth - 0.12); b.box(bx, y + 3.15, bz, 0.9, 0.6, 0.02, ['#002b7f', '#fcd116', '#ce1126'][k], 'fabric', 0); } void x; void z;
       const bs = signAtlas([{ x: P(0, depth - 0.16)[0], y: y + 3.45, z: P(0, depth - 0.16)[1], yaw: Math.PI, w: 2.4, h: 0.36, text: 'HAI ROMÂNIA! · TRICOLORII', bg: '#fcd116', fg: '#002b7f', border: false, font: (q) => `800 ${q}px Helvetica, Arial, sans-serif` }], { name: 'wcp-banner', night: 0.6 }); if (bs) ctx.add(bs); }
+    // (owner, 2026-11-11: "there's no exit door shown in the bar") The way back is the front wall's centre: a door there,
+    // with a lit EXIT sign over it, where "Return to the bookshop" is.
+    { const [dx, dz] = P(0, 0.33); b.box(dx, y, dz, 0.06, 2.2, 1.1, '#2f352c', 'wood', yaw); const [hx, hz] = P(0.38, 0.37); b.box(hx, y + 1.0, hz, 0.08, 0.05, 0.05, '#b69a60', 'chrome', yaw); // (box: depth along v, length along the wall)
+      const [ex, ez] = P(0, 0.34); b.box(ex, y + 2.32, ez, 0.04, 0.2, 0.62, '#2bd46b', 'glow', yaw);
+      const es = signAtlas([{ x: P(0, 0.37)[0], y: y + 2.42, z: P(0, 0.37)[1], yaw: Math.atan2(vx, vz), w: 0.58, h: 0.17, text: 'IEȘIRE · EXIT', bg: '#1f9e52', fg: '#ffffff', border: false, font: (q) => `700 ${q}px system-ui, sans-serif` }], { name: 'wcp-exit-sign', night: .9 }); if (es) ctx.add(es); }
     ctx.add(b.build('wcp-bar', { castShadow: false }));
     for (const v of [D * 0.3, D * 0.7]) { const [x, z] = P(0, v); ctx.lampPoints.push({ x, z, h: H - 0.9 + (y - g.heightAt(x, z)), noPost: true }); }
     ctx.sound('crowd', door.mx + vx * depth / 2, door.mz + vz * depth / 2, 14, 1.0);
@@ -136,7 +141,7 @@ function buildRoom(ctx, B) {
     ctx.room.addEventListener('removed', () => { pages.forEach(t => t.dispose()); tvTex.dispose(); tvs.forEach(m => m.onBeforeRender = () => {}); });
     return { door, hint, groups: [
         ...[[-half * 0.22, 2.7], [half * 0.22, Math.min(4.9, cv - 2.2)], [0, Math.min(6.4, cv - 1.4)]].map(([u, v]) => { const [gx, gz] = P(u, v); return { x: gx, z: gz, r: 0.55, n: 3, act: 'watch', look: [tvx, tvz], fixedYaw: true, y, personas: ['fan_ro'] }; }), // three groups round the high tables, all facing the screen over the bar
-        ...[-1, 1].map((k) => { const [qx, qz] = P(k * door.L * 0.13, cv - 0.75); return { x: qx, z: qz, r: 0.01, n: 1, act: 'sit', yaw: yaw + Math.PI / 2 * 0 + Math.atan2(vx, vz) - yaw, y, fixedYaw: true, personas: ['fan_ro'] }; }),
+        ...[-1, 1].map((k) => { const [qx, qz] = P(k * door.L * 0.13, cv - 0.75); return { x: qx, z: qz, r: 0.01, n: 1, act: 'sit', yaw: yaw + Math.PI / 2 * 0 + Math.atan2(vx, vz) - yaw, y: y + 0.81 - 0.45, fixedYaw: true, personas: ['fan_ro'] }; }), // (on a bar stool: its seat is 0.81 m up, the sitting pose puts the hips 0.45 m above the feet)
         { x: door.mx + vx * 0.9 + ux * (half - 0.4), z: door.mz + vz * 0.9 + uz * (half - 0.4), r: 0.6, n: 2, act: 'talk', y, personas: ['fan_ro'] },
     ] };
 }
@@ -180,7 +185,7 @@ export function buildSecretWcpBar(ctx, carusel) {
         if (!mapUpdate && s.map) { mapUpdate = s.map.update; s.map.update = function(dt,p) { return mapUpdate.call(this,dt,room.visible ? {...entry,heading:p.heading} : p); }; }
         s.ctl.enter(x,z+1.1,Math.PI,y); s.returnFocus();
     }});
-    ctx.interactables.push({ hidden:true, x,z:z+.6,y,r:1.2,label:'Return to the bookshop',cond:()=>room.visible,use:leave });
+    ctx.interactables.push({ x,z:z+.6,y,r:1.4,label:'Exit · return to the bookshop',cond:()=>room.visible,use:leave });
     let hinted=false;
     ctx.onUpdate((dt,s)=>{ lastSession=s;
         if(!hinted&&!room.visible&&Math.hypot(s.position.x-f.x,s.position.z-f.z)<13&&s.ctl.active){hinted=true;s.ui.toast('A little Carusel secret','Walk through the central bookshop doorway. On the ground floor, look for the unmarked dark side door.');}

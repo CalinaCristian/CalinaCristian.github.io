@@ -116,7 +116,35 @@ export function createVenueActivities(ctx) {
         const intro = smooth(1 - r.intro / .4); p.root.position.y = -.3 * (1 - intro);
         r.progress.value = r.step + (r.animating ? u : 0);
     }
+    // (owner, 2026-11-11) Shots add up: the view sways and blurs more with each one, and the effect wears off over a few
+    // minutes. Five shots in a row and the night ends Romanian style: a blackout, waking up outside on the street, and a
+    // hidden goal. Only a screen effect: nothing about the walker's controls changes.
+    const tipsy = { level: 0, t: 0, blackout: 0, woke: false, overlay: null };
+    function tipsyUpdate(dt, s) {
+        tipsy.level = Math.max(0, tipsy.level - dt / 150); tipsy.t += dt;
+        const k = Math.min(1, tipsy.level / 5), canvas = window.game?.r3d?.renderer?.domElement || s.renderer?.domElement || document.querySelector('canvas');
+        if (s.camera) { s.camera.rotation.z = k ? Math.sin(tipsy.t * 1.3) * .07 * k + Math.sin(tipsy.t * .47) * .04 * k : 0; s.camera.rotation.x = k ? Math.sin(tipsy.t * .9) * .025 * k : 0; }
+        if (canvas) canvas.style.filter = k > .25 && !tipsy.blackout ? `blur(${(k * 2.2).toFixed(2)}px) saturate(${(1 + k * .4).toFixed(2)})` : '';
+        if (tipsy.blackout > 0) {
+            tipsy.blackout -= dt; const o = tipsy.overlay;
+            if (o) o.style.opacity = String(tipsy.blackout > 3.5 ? Math.min(1, (6 - tipsy.blackout) / 1.2) : tipsy.blackout > 1.5 ? 1 : Math.max(0, tipsy.blackout / 1.5));
+            if (tipsy.blackout <= 3.5 && !tipsy.woke) { tipsy.woke = true; tipsy.level = 1.2; const sp = s.spot?.spawns?.['old-town-lipscani'] || s.spot?.spawn; if (sp) s.ctl.enter(sp.x, sp.z, sp.heading ?? 0); s.returnFocus?.();
+                bucActivity(s, 'old-town-lipscani', 'romanian-style', '🥃 Romanian style', 'Five shots in a row. You woke up on the street with no memory of the last hour: noroc!'); }
+            if (tipsy.blackout <= 0) { tipsy.blackout = 0; o?.remove(); tipsy.overlay = null; }
+        }
+    }
+    function drank(s) {
+        tipsy.level += 1; const n = Math.round(tipsy.level * 10) / 10;
+        if (tipsy.level >= 5 && !tipsy.blackout) {
+            tipsy.blackout = 6; tipsy.woke = false;
+            const o = document.createElement('div'); o.style.cssText = 'position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:50;display:grid;place-items:center;color:#d9d2c3;font:600 18px Georgia,serif;letter-spacing:.04em';
+            o.textContent = '…'; document.body.appendChild(o); tipsy.overlay = o; return true;
+        }
+        if (n >= 3) s.ui.toast('The room is spinning', 'That one went straight to your head. Maybe a glass of water?');
+        return false;
+    }
     function update(dt, s) {
+        tipsyUpdate(dt, s);
         if (!run) return;
         if (blocked(s) || s !== run.s || s.spot.id !== run.spot || Math.hypot(s.position.x - run.x, s.position.z - run.z) > 3) { cancel('mode-or-distance'); return; }
         s.input?.takeLook?.(); s.input?.take?.('Space'); // discard look/jump queued while the activity owns the walker
@@ -130,6 +158,7 @@ export function createVenueActivities(ctx) {
                 note('step');
                 if (run.step === 3) {
                     const { kind, venue, tourStop } = run; restore();
+                    if (kind === 'shot' && drank(s)) { s.completeTourActivity?.(tourStop); return; } // (the fifth: lights out)
                     bucActivity(s, 'old-town-lipscani', venue.activity || (kind === 'shaorma' ? 'dristor-shaorma' : 'shoteria-shot'), kind === 'shaorma' ? '🥙 Poftă bună!' : '🥂 Noroc!', kind === 'shaorma' ? 'Shaorma finished at Dristor Kebap, Strada Franceză 17.' : `Poured, raised and finished a virtual shot at ${venue.name}, ${venue.address}.`);
                     s.completeTourActivity?.(tourStop);
                     return;

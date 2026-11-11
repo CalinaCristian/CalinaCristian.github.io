@@ -541,12 +541,15 @@ export default {
                 party.push({x,z,r:0,n:1,act:'talk',party:true,fixedYaw:true,personas:['local_young','tourist_uk','tourist_it','tourist_us']});}}
         ctx.crowdCfg = {
             spots: ['old-town-lipscani', 'stavropoleos-cec'],
-            personas: { local_young: 4, tourist_uk: 2.5, tourist_it: 1.8, tourist_us: 1.8, tourist_de: 1.5, tourist_fr: 1.2, local_elder: 1, local_parent: 0.8, kid: 0.4 },
+            personas: { local_young: 4, tourist_uk: 2.5, tourist_it: 1.8, tourist_us: 1.8, tourist_de: 1.5, tourist_fr: 1.2, local_elder: 1, local_parent: 2.2, kid: 1.6 }, // (families walking: more parents and children)
             walkers: 92, paths, groups:groups.filter(q=>q.wcpFan||focused(q.x??q.line?.[0]?.[0],q.z??q.line?.[0]?.[1])).concat(party),
         };
         let partyPeople=null;
         ctx.onUpdate((dt,s)=>{if(!partyPeople&&s.spot.crowd?.cr)partyPeople=s.spot.crowd.peds.map((p,i)=>({p,i})).filter(({p})=>p.group?.party);
-            if(!partyPeople||!nightlifeHours(s.spot.crowd.cond?.hour??12).party)return;
+            const night=nightlifeHours(s.spot.crowd.cond?.hour??12).party;
+            // the 64 people standing out in the lanes are the club night's crowd: by day they are not there
+            if(partyPeople)for(const {p} of partyPeople)p.hidden=!night;
+            if(!partyPeople||!night)return;
             for(const {p,i} of partyPeople){const phase=s.t*Math.PI*2.1+p.phase;s.spot.crowd.cr.set(i,{x:p.x,y:p.y+Math.max(0,Math.sin(phase))*.035,z:p.z,yaw:p.yaw+Math.sin(phase*.5)*.16,phase,scale:p.look.scale,amp:.45,pose:i%3?'talk':'cheer',prop:null});}});
         ctx.interactables=ctx.interactables.filter(it=>it.hidden||focused(it.x,it.z)||it.x>7000);
         // ambience

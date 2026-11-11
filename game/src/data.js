@@ -387,6 +387,7 @@ export const ACHIEVEMENTS = [
     { id: 'tours-sea', cat: 'landmarks', live: true, icon: '🧭', title: 'Seattle & Bellevue, guided', desc: 'Finished the guided tour of every available Seattle and Bellevue tourist spot.', target: 14 },
     { id: 'landmarks-all', cat: 'landmarks', icon: '🏅', title: 'Done it all', desc: 'Did every landmark activity in the game.' },
     // ---- Secrets (hidden)
+    { id: 'romanian-style', cat: 'secret', hidden: true, activity: 'old-town-lipscani:romanian-style', live: true, icon: '🥃', title: 'Romanian style', desc: 'Five shots in a row in the Old Town, and the night ended in a blackout. Noroc!' },
     { id: 'wcp-bar', cat: 'secret', hidden: true, activity: 'old-town-lipscani:wcp-bar', live: true, icon: '⚽', title: 'Hidden project', desc: 'Found the hidden football room and browsed World Cup Predictions, a project by Cristian.' },
     { id: 'dinamo-drone-goal', cat: 'secret', hidden: true, icon: '⚽', title: 'Air striker', desc: 'Scored at Stadionul Dinamo by nudging the football into a goal with the drone.' },
     { id: 'rosetti-basket', cat: 'secret', hidden: true, icon: '🏀', title: 'After-school hoops', desc: 'Picked up the basketball and made a basket at C.A. Rosetti in Floreasca.' },

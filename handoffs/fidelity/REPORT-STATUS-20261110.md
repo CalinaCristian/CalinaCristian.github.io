@@ -1,16 +1,16 @@
 # Full owner-report delivery status · 10 November 2026
 
-**Delivered and closed from this 71-report batch: 10 / 71. Basarab white ground, both SkyTower reports, Otopeni reports53/54, Romană roof-window report49 and Pipera facade reports41/42 and Floreasca reports4/5 are live; the other61reports remain open.**
+**Delivered and closed from this 71-report batch: 11 / 71. Basarab white ground, both SkyTower reports, Otopeni reports53/54, Romană roof-window report49 and Pipera facade reports41/42 and Floreasca reports4/5 and GTS report24 are live; the other60reports remain open.**
 
 This is a delivery ledger. A staged candidate is code awaiting acceptance; it is not a completed fix. All original reports and supplied poses remain in [the exact register](owner-reports-20261110.json).
 
-Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integration.** [Current ownership](WORK-PACK-OWNERSHIP-20261110.md). Codex has resumed packC with immutable native reproductions at the reported Romană/Otopeni cameras. Reports49/53 have since passed targeted review and live delivery. Pipera facade repairs are now live. Floreasca ground-window/balcony fixes are live. GTS host clearance and night lighting remain under review.
+Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integration.** [Current ownership](WORK-PACK-OWNERSHIP-20261110.md). Codex has resumed packC with immutable native reproductions at the reported Romană/Otopeni cameras. Reports49/53 have since passed targeted review and live delivery. Pipera facade repairs are now live. Floreasca ground-window/balcony fixes are live. GTS host clearance is live; night lighting remains under review.
 
 | Current implementation state | Reports |
 | --- | ---: |
-| Delivered — verified live | 10 |
+| Delivered — verified live | 11 |
 | Open — no verified fix | 48 |
-| Staged candidate | 3 |
+| Staged candidate | 2 |
 | Shared fix in progress | 8 |
 | In progress | 1 |
 | Unfinished | 1 |
@@ -40,7 +40,7 @@ Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integrat
 | 21 | Unirii | Large pale protruding structure and holes in crowns | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 22 | Unirii | Multiple buildings occupying driven road | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 23 | Unirii | Tree crown intersects building facade | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 24 | General / interiors | Manager body intersects desk and monitor. Screenshot only; no exact camera supplied. | **Staged candidate** | Candidatee83e9bf1 clears desk; original native before/after, collider/three station positions, desktop E and corrected390px pause/resume pass. Foot/a0H0M1LOW. Public evidence/release pending; not closed. |
+| 24 | General / interiors | Manager body intersects desk and monitor. Screenshot only; no exact camera supplied. | **Delivered — verified live** | Host body, collider and3conversation stations clear rear desk. Native before/after, E and390px visible pause/resume reviewed; foot/a0H0M1LOWsoftwareFPS. Masterc45ccae6/sourceb480d9f0/releasegame-70c1e8a47a0ec0ff; Pages42929132998success;332live-file checks pass. Controlled room setup, not ordinary street journey or authentic-room acceptance. |
 | 25 | Unirii | Facade overlap/flicker near ground floor | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 26 | Unirii | Malformed/overlapping junction road and markings | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 27 | Unirii | Shop fascias overlap each other | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |

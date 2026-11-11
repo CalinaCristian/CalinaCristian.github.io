@@ -1475,12 +1475,14 @@
     {
       "id": "gts-manager-desk",
       "ownerNote": "Manager body intersects desk and monitor. Screenshot only; no exact camera supplied.",
-      "status": "reported-not-yet-accepted",
+      "status": "verified-live",
       "scene": "gts",
       "image": "Owner screenshot in conversation.",
       "work": {
-        "deliveryStatus": "Staged candidate",
-        "deliveryNote": "Candidatee83e9bf1 clears desk; original native before/after, collider/three station positions, desktop E and corrected390px pause/resume pass. Foot/a0H0M1LOW. Public evidence/release pending; not closed."
+        "deliveryStatus": "Delivered — verified live",
+        "deliveryNote": "Host body, collider and3conversation stations clear rear desk. Native before/after, E and390px visible pause/resume reviewed; foot/a0H0M1LOWsoftwareFPS. Masterc45ccae6/sourceb480d9f0/releasegame-70c1e8a47a0ec0ff; Pages42929132998success;332live-file checks pass. Controlled room setup, not ordinary street journey or authentic-room acceptance.",
+        "candidate": "e83e9bf12b6f9b1a73508282fcbdc7be9d4b4269",
+        "evidence": "https://cristiancalina.com/game/overview/#gts-host-fix"
       }
     },
     {

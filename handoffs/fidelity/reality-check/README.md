@@ -40,5 +40,5 @@ Rules:
 
 | District | Viewpoints | Review |
 | --- | ---: | --- |
-| Grozăvești | 18 | [REVIEW-grozavesti.md](REVIEW-grozavesti.md) |
+| Grozăvești | 19 | [REVIEW-grozavesti.md](REVIEW-grozavesti.md) |
 | Unirii, Romană, Pipera, Floreasca, Otopeni, SeaTac, Bellevue | 0 | to add: landmarks, CV stops, bridges, squares, owner reports |

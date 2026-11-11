@@ -406,12 +406,11 @@ function patchCrowns(mat, U) {
                     // (render switches bare broadleaf crowns to blended; instances are drawn far → near): densest where the crown faces the
                     // viewer, thinning to a fuzzy outline; the branches inside are real geometry (trees.js branchSkeleton)
                     vec3 cp = vCrownL * (0.9 + 0.2 * h) + h * 11.0;
-                    float leaf = crN(cp * 0.7 + 5.3) * 0.75 + crN(cp * 2.1 + 1.7) * 0.25;
-                    float gone = smoothstep(leaf - 0.035, leaf + 0.035, b * 1.15 - 0.05); // 0 = leaves still on (crisp clumps: soft edges read as smoke)
-                    // (owner, 2026-11-11, Bellevue Downtown Park: dark flakes floating at eye level) near the end of the fall the
-                    // remaining clumps are patches of the crown shells, thin dark slivers when seen edge-on; a mostly bare crown keeps
-                    // only its twig haze.
-                    gone = max(gone, smoothstep(0.45, 0.62, b));
+                    // (owner, 2026-11-11, "they look awful": the clump mask punched sky-blue holes through half-bare crowns,
+                    // which read as missing polygons; before that, dark flakes in Bellevue Downtown Park) the fall goes tree by
+                    // tree instead: a crown is either fully leafed or fully bare (twig haze + real branches). b already varies
+                    // per tree (h), so the street thins out gradually while no single crown shows holes.
+                    float gone = step(0.5, b);
                     // the leaves left thin out with the fall too: no opaque clumps floating in an empty crown
                     float leafA = 1.0; // (opaque leaves: translucent ones read as smoky blobs, after round 6)
                     if (gone > 0.0 || leafA < 1.0) {

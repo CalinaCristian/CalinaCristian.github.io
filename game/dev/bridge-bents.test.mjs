@@ -59,7 +59,8 @@ test('no column on blocked ground: a frame straddles a road under the deck, a wi
 test('a crosshead never fouls what passes below; a low deck gets a wall pier only on free ground', () => {
     const edges = straight(0, 0, 120);
     const lowRoad = plan(edges, { top: 6.5, lower: (x) => x > 40 && x < 50 ? { y: 0 } : null });
-    assert.ok(lowRoad.bents.every(b => b.x < 40 || b.x > 50)); assert.equal(lowRoad.report.lowClearance, 1);
+    // the station over the low road is not lost: it moves along the deck to the nearest spot clear of the road
+    assert.ok(lowRoad.bents.every(b => b.x < 40 || b.x > 50)); assert.equal(lowRoad.report.lowClearance || 0, 0); assert.equal(lowRoad.report.shifted, 1);
     const rail = plan(edges, { top: 7.4, lower: () => ({ y: 0, rail: true }) }); // soffit 5.0 < 5.2 m over rails
     assert.equal(rail.bents.length, 0);
     const ramp = plan(edges, { heights: (e, x) => x * .08 });

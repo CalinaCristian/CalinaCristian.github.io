@@ -82,11 +82,9 @@ export function planBridgeBents({ edges, halfWidth, topAt, soffitAt, eachEdge, e
     for (const chain of [...chains].sort((a, b) => b.length - a.length || a.id - b.id)) {
         if (chain.length < M.minChainM) { report.shortChains++; continue; }
         const count = Math.max(1, Math.round(chain.length / M.spacingM)), step = chain.length / count;
-        for (let i = 0; i < count; i++) {
-            const s = (i + .5) * step; report.stations++;
-            if (chain.covered.some(c => Math.abs(c - s) < M.spacingM * .5)) { report.coveredBySibling++; continue; }
+        const attempt = (s) => {
             const p = chainPoint(chain, s);
-            if (carried?.(p.x, p.z)) { report.carriedBySuperstructure++; continue; } // stays or an arch carry this stretch
+            if (carried?.(p.x, p.z)) return 'carriedBySuperstructure'; // stays or an arch carry this stretch
             const nx = -p.tz, nz = p.tx; // n = left of travel… sign is irrelevant, offsets are signed along n
             const top0 = topAt(p.e, p.x, p.z);
             // every deck measures its own two sides explicitly (edges may run either way, with unequal sides)
@@ -125,7 +123,7 @@ export function planBridgeBents({ edges, halfWidth, topAt, soffitAt, eachEdge, e
             const lo = Math.min(...group.map(m => m.lo)), hi = Math.max(...group.map(m => m.hi));
             const seat = Math.min(...group.map(m => m.soffit));
             const mark = () => { for (const m of group) if (m.e && m.e !== p.e) { const it = owner.get(m.e), c = chains[it.chain]; c.covered.push(it.s0 + (it.forward ? m.u : m.e.len - m.u)); } chain.covered.push(s); };
-            if (seat < M.minWallTopM) { report.tooLow++; continue; }
+            if (seat < M.minWallTopM) return 'tooLow';
             const at = o => [p.x + nx * o, p.z + nz * o];
             const wall = seat - M.beamDepthM < M.minBeamSoffitM, soffit = wall ? 0 : seat - M.beamDepthM;
             // what passes below: nothing under a wall pier; a crosshead must clear it
@@ -136,12 +134,12 @@ export function planBridgeBents({ edges, halfWidth, topAt, soffitAt, eachEdge, e
                 }
                 return true;
             };
-            if (!clear(lo, hi)) { report.lowClearance++; continue; }
+            if (!clear(lo, hi)) return 'lowClearance';
             const columns = []; let beamLo = lo, beamHi = hi;
             if (wall) {
                 // a wall pier needs its whole footprint on free ground
                 let free = true; for (let o = lo + .5; o <= hi - .5 + 1e-9 && free; o += 1) { const [x, z] = at(o); free = columnFree(x, z, M.beamWidthM * .5, seat - 1.5); }
-                if (!free) { report.noColumn++; continue; }
+                if (!free) return 'noColumn';
             } else {
                 // free column sites under the decks, and up to straddleM outside them (a portal frame over a lower road)
                 const free = [], step = M.columnSearchStepM, inside = o => o >= lo + M.columnM * .5 && o <= hi - M.columnM * .5;
@@ -155,9 +153,9 @@ export function planBridgeBents({ edges, halfWidth, topAt, soffitAt, eachEdge, e
                     if (last >= hi - Math.min(M.maxCantileverM, pitch / 2 + step)) break;
                     last = nearest(last + pitch, last + Math.min(pitch, 4), last + M.maxSpanM);
                 }
-                if (!columns.length || hi - columns[columns.length - 1].o > M.maxCantileverM) { report.noColumn++; continue; }
+                if (!columns.length || hi - columns[columns.length - 1].o > M.maxCantileverM) return 'noColumn';
                 beamLo = Math.min(lo, columns[0].o - M.columnM * .5 - .2); beamHi = Math.max(hi, columns[columns.length - 1].o + M.columnM * .5 + .2);
-                if ((beamLo < lo && !clear(beamLo, lo + .8)) || (beamHi > hi && !clear(hi - .8, beamHi))) { report.lowClearance++; continue; }
+                if ((beamLo < lo && !clear(beamLo, lo + .8)) || (beamHi > hi && !clear(hi - .8, beamHi))) return 'lowClearance';
                 if (beamLo < lo || beamHi > hi) report.straddles = (report.straddles || 0) + 1;
             }
             const width = beamHi - beamLo;
@@ -167,6 +165,22 @@ export function planBridgeBents({ edges, halfWidth, topAt, soffitAt, eachEdge, e
             bents.push({ kind: wall ? 'wall' : 'crosshead', x: cx, z: cz, angle: Math.atan2(p.tx, p.tz), tx: p.tx, tz: p.tz, nx, nz, lo: beamLo, hi: beamHi, deckLo: lo, deckHi: hi, width, seat, soffit, columns, pedestals,
                 members: group.map(m => ({ lo: m.lo, hi: m.hi, top: m.top, soffit: m.soffit, rail: !!(m.rail || m.e?.railDeck) })), chain: chain.id, s });
             report[wall ? 'walls' : 'bents']++;
+            return 'ok';
+        };
+        for (let i = 0; i < count; i++) {
+            const s0 = (i + .5) * step; report.stations++;
+            if (chain.covered.some(c => Math.abs(c - s0) < M.spacingM * .5)) { report.coveredBySibling++; continue; }
+            // (owner, 2026-11-11, Basarab: "needs more supports properly positioned, it looks like it's floating") a station
+            // where no pier can stand (a road or rail line below, too little clearance) used to be skipped, leaving a span of
+            // 60 m or more. It now tries the nearest positions along the deck (up to 12 m either way) before giving up.
+            let result = null;
+            for (const d of [0, 4, -4, 8, -8, 12, -12]) {
+                const s = s0 + d; if (s < 2 || s > chain.length - 2 || (d && chain.covered.some(c => Math.abs(c - s) < M.spacingM * .4))) continue;
+                const r = attempt(s); if (r === 'ok') { result = r; if (d) report.shifted = (report.shifted || 0) + 1; break; }
+                if (r === 'carriedBySuperstructure') { result = r; break; }
+                if (!result) result = r;
+            }
+            if (result && result !== 'ok') report[result]++;
         }
     }
     return { bents, report, chains: chains.map(c => ({ id: c.id, length: c.length, edges: c.items.length })) };

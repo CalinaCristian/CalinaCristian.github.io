@@ -883,6 +883,40 @@ export async function buildWorld(city, renderer, opts = {}) {
             e[near] = nw; e.laneW = (e.wL + e.wR) / Math.max(1, e.lanesF + e.lanesB); e.halfW = Math.max(e.wL, e.wR); e.tramClearShift = true; e.tram = false; tramShifted++; void far; void total;
         }
         if (tramShifted) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + 0.5; sccInfo.tramClearShift = tramShifted; }
+        // (owner register #50 Romana: "building intersects street", #22 / #35 Unirii, L8) the default width of a street can be wider than
+        // the space between real OSM footprints (Strada Caderea Bastiliei: 1.3 m into a building). The footprint is the source; a
+        // street side that runs into ground-level footprints along more than a quarter of its length narrows to 0.3 m off the wall,
+        // never below 2.6 m per lane on that side. Bridges, tunnels and edges without a building beside them are unchanged.
+        {
+            const BO = (data.version || 1) >= 2 ? 9 : 6, fps = [], fg = new BoxGrid(24);
+            for (const [i, b] of (data.buildings || []).entries()) {
+                const minH = data.buildingDimensions?.[i]?.[1] ?? b[2] / 10; if (minH > 2.5) continue; // (an overhang or a passage over the street)
+                const ring = data.buildingFootprints?.[i] || undelta(b, BO); if (!ring || ring.length < 3) continue;
+                const xs = ring.map(q => q[0]), zs = ring.map(q => q[1]); fg.insert(Math.min(...xs), Math.min(...zs), Math.max(...xs), Math.max(...zs), ring); fps.push(ring);
+            }
+            const inFp = (x, z) => { let hit = false; fg.each(x, z, x, z, r => { if (!hit && pointInPolygon(x, z, r)) hit = true; }); return hit; };
+            let narrowed = 0;
+            for (const e of edges) {
+                if (e.virtual || e.bridge || e.tunnel || e.len < 4) continue;
+                const lanesSide = sd => e.oneway ? Math.max(1, e.lanesF + e.lanesB) : Math.max(1, sd > 0 ? e.lanesF : e.lanesB); let changed = false;
+                for (const sd of [1, -1]) {
+                    const key = sd > 0 ? 'wR' : 'wL', w = e[key]; let n = 0, hits = 0, need = w;
+                    for (let st = 1; st < e.len - 1; st += 1.5) {
+                        n++; const x0 = e.a.x + e.dirx * st, z0 = e.a.z + e.dirz * st;
+                        if (!inFp(x0 + e.nx * sd * w, z0 + e.nz * sd * w)) continue;
+                        if (inFp(x0, z0)) continue; // (the centre line itself inside a footprint there: a covered way, not a width question)
+                        hits++; let lo = 0, hi = w; for (let k = 0; k < 7; k++) { const m = (lo + hi) / 2; if (inFp(x0 + e.nx * sd * m, z0 + e.nz * sd * m)) hi = m; else lo = m; }
+                        need = Math.min(need, lo);
+                    }
+                    if (hits < 0 || !n || (hits / n < .25 && hits * 1.5 < 3)) continue; // (a quarter of the side, or 3 m of it)
+                    const other = sd > 0 ? e.wL : e.wR, minSide = e.oneway ? Math.max(1.3, 2.6 * lanesSide(sd) - other) : 2.6 * lanesSide(sd); // (one-way lanes span both sides)
+                    const nw = Math.max(minSide, need - .3);
+                    if (nw < w - .15) { e[key] = nw; narrowed++; changed = true; }
+                }
+                if (changed) { e.laneW = Math.min(e.laneW, (e.wL + e.wR) / Math.max(1, e.lanesF + e.lanesB)); e.halfW = Math.max(e.wL, e.wR); e.footprintNarrowed = true; }
+            }
+            if (narrowed) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + 0.5; sccInfo.footprintNarrowed = narrowed; }
+        }
     }
 
     // ---- vertical profile. Only real grade separations are lifted / lowered:

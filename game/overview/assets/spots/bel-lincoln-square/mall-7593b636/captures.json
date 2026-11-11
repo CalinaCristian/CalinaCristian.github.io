@@ -1,0 +1,440 @@
+{
+  "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+  "scope": "Current static native appearance. Original physical-route proof retains its earlier source.",
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Current arrival appearance \u00b7 fixed camera",
+      "image": "assets/spots/bel-lincoln-square/mall-7593b636/arrival.png",
+      "sha256": "f868296e629ca6af5e9e1dd5fef01fcfe06992e4d5fbd59acf9cc6125ce43c4e",
+      "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "capturedAt": "2026-11-11T03:04:20.123Z",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "pose": {
+        "eye": [
+          -3,
+          1.7129868004471063,
+          -3
+        ],
+        "bearing": 135,
+        "pitch": 0,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-07-15T19:00:00.000Z",
+        "timeZone": "America/Los_Angeles",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T03:04:08.696Z",
+        "release": "game-dc1b7ab415b7eb7a",
+        "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
+        "city": "seattle",
+        "district": null,
+        "visit": "bel-lincoln-square",
+        "scene": "bel-lincoln-square",
+        "office": null,
+        "mode": "spot",
+        "drone": false,
+        "geographic": {
+          "lat": 47.617577,
+          "lon": -122.2019899
+        },
+        "position": {
+          "x": -3,
+          "y": 0.063,
+          "z": -3
+        },
+        "camera": {
+          "eye": [
+            -3,
+            1.713,
+            -3
+          ],
+          "bearing": 135,
+          "pitch": 0,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-07-15T19:00:00.000Z",
+          "timeZone": "America/Los_Angeles",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "performance": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 336,
+          "triangles": 377054,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": null
+        },
+        "url": "http://127.0.0.1:45003/game/?inspect=1"
+      },
+      "bodyClear": true,
+      "controllerExercised": false,
+      "limitations": [
+        "Fixed supported native viewpoint. No new traversed route, activity completion, touch gesture or architectural-parity acceptance."
+      ]
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Current camera-challenge approach \u00b7 fixed camera",
+      "image": "assets/spots/bel-lincoln-square/mall-7593b636/approach.png",
+      "sha256": "f94b962d3b3b694f1f0cbe8a2e508913de369199959423193b562e8f34b340e7",
+      "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "capturedAt": "2026-11-11T03:04:25.167Z",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "pose": {
+        "eye": [
+          -2.049824776823238,
+          1.6397789971756227,
+          1.7508761158838115
+        ],
+        "bearing": 168.69006752597977,
+        "pitch": 0,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-07-15T19:00:00.000Z",
+        "timeZone": "America/Los_Angeles",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T03:04:20.164Z",
+        "release": "game-dc1b7ab415b7eb7a",
+        "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
+        "city": "seattle",
+        "district": null,
+        "visit": "bel-lincoln-square",
+        "scene": "bel-lincoln-square",
+        "office": null,
+        "mode": "spot",
+        "drone": false,
+        "geographic": {
+          "lat": 47.6175343,
+          "lon": -122.2019773
+        },
+        "position": {
+          "x": -2.05,
+          "y": -0.01,
+          "z": 1.751
+        },
+        "camera": {
+          "eye": [
+            -2.05,
+            1.64,
+            1.751
+          ],
+          "bearing": 168.69,
+          "pitch": 0,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-07-15T19:00:00.000Z",
+          "timeZone": "America/Los_Angeles",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "performance": {
+          "fps": 0.15,
+          "frameMs": 6624.2,
+          "drawCalls": 206,
+          "triangles": 363817,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": null
+        },
+        "url": "http://127.0.0.1:45003/game/?inspect=1"
+      },
+      "bodyClear": true,
+      "controllerExercised": false,
+      "limitations": [
+        "Fixed supported native viewpoint. No new traversed route, activity completion, touch gesture or architectural-parity acceptance."
+      ]
+    },
+    {
+      "kind": "phone",
+      "label": "Current portrait appearance \u00b7 native UI and inspection panel",
+      "image": "assets/spots/bel-lincoln-square/mall-7593b636/phone.png",
+      "sha256": "854b15ba1a6b81fba7a8e59d85845a9b7fb0bb1d6d27038aefc4a6d2e29b539c",
+      "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "capturedAt": "2026-11-11T03:04:15.242Z",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "pose": {
+        "eye": [
+          -2.017062295168123,
+          1.637658676756468,
+          1.9146885241593865
+        ],
+        "bearing": 168.69006752597977,
+        "pitch": 0,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-07-15T19:00:00.000Z",
+        "timeZone": "America/Los_Angeles",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T03:04:09.352Z",
+        "release": "game-dc1b7ab415b7eb7a",
+        "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
+        "city": "seattle",
+        "district": null,
+        "visit": "bel-lincoln-square",
+        "scene": "bel-lincoln-square",
+        "office": null,
+        "mode": "spot",
+        "drone": false,
+        "geographic": {
+          "lat": 47.6175328,
+          "lon": -122.2019768
+        },
+        "position": {
+          "x": -2.017,
+          "y": -0.012,
+          "z": 1.915
+        },
+        "camera": {
+          "eye": [
+            -2.017,
+            1.638,
+            1.915
+          ],
+          "bearing": 168.69,
+          "pitch": 0,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-07-15T19:00:00.000Z",
+          "timeZone": "America/Los_Angeles",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "performance": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 294,
+          "triangles": 343508,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": null
+        },
+        "url": "http://127.0.0.1:39185/game/?inspect=1"
+      },
+      "bodyClear": true,
+      "controllerExercised": false,
+      "limitations": [
+        "Fixed supported native viewpoint. No new traversed route, activity completion, touch gesture or architectural-parity acceptance."
+      ]
+    },
+    {
+      "kind": "scene",
+      "label": "Lincoln Square tower and street frontage",
+      "image": "assets/spots/bel-lincoln-square/mall-7593b636/visitor.png",
+      "sha256": "1d7f2f5ce9418a43fb36389605725bed54dc3b5d6b48daf81ab3b1df4af9d2fb",
+      "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "capturedAt": "2026-11-11T03:04:30.231Z",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "pose": {
+        "eye": [
+          -2,
+          1.6365544401109218,
+          2
+        ],
+        "bearing": 145,
+        "pitch": 18,
+        "fov": 60
+      },
+      "conditions": {
+        "date": "2026-07-15T19:00:00.000Z",
+        "timeZone": "America/Los_Angeles",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T03:04:25.189Z",
+        "release": "game-dc1b7ab415b7eb7a",
+        "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
+        "city": "seattle",
+        "district": null,
+        "visit": "bel-lincoln-square",
+        "scene": "bel-lincoln-square",
+        "office": null,
+        "mode": "spot",
+        "drone": false,
+        "geographic": {
+          "lat": 47.617532,
+          "lon": -122.2019766
+        },
+        "position": {
+          "x": -2,
+          "y": -0.013,
+          "z": 2
+        },
+        "camera": {
+          "eye": [
+            -2,
+            1.637,
+            2
+          ],
+          "bearing": 145,
+          "pitch": 18,
+          "fov": 60
+        },
+        "conditions": {
+          "date": "2026-07-15T19:00:00.000Z",
+          "timeZone": "America/Los_Angeles",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "performance": {
+          "fps": 0.59,
+          "frameMs": 4999.4,
+          "drawCalls": 213,
+          "triangles": 360974,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": null
+        },
+        "url": "http://127.0.0.1:45003/game/?inspect=1"
+      },
+      "bodyClear": true,
+      "controllerExercised": false,
+      "limitations": [
+        "Fixed supported native viewpoint. No new traversed route, activity completion, touch gesture or architectural-parity acceptance."
+      ],
+      "fullPageHUD": false,
+      "purpose": "Current native viewpoint after the shared mall repair; fixed setup, no new route or gesture acceptance."
+    },
+    {
+      "kind": "phone-ui-touch",
+      "label": "Portrait scene and native touch interface \u00b7 static setup",
+      "image": "assets/spots/bel-lincoln-square/mall-7593b636/visitor-phone.png",
+      "sha256": "9c23749129de376aca2fa6e78f0b97b64f4e7637e45de80228356de3274536ec",
+      "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "capturedAt": "2026-11-11T03:04:19.632Z",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "pose": {
+        "eye": [
+          -2,
+          1.6365544401109218,
+          2
+        ],
+        "bearing": 145,
+        "pitch": 18,
+        "fov": 60
+      },
+      "conditions": {
+        "date": "2026-07-15T19:00:00.000Z",
+        "timeZone": "America/Los_Angeles",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T03:04:15.267Z",
+        "release": "game-dc1b7ab415b7eb7a",
+        "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
+        "city": "seattle",
+        "district": null,
+        "visit": "bel-lincoln-square",
+        "scene": "bel-lincoln-square",
+        "office": null,
+        "mode": "spot",
+        "drone": false,
+        "geographic": {
+          "lat": 47.617532,
+          "lon": -122.2019766
+        },
+        "position": {
+          "x": -2,
+          "y": -0.013,
+          "z": 2
+        },
+        "camera": {
+          "eye": [
+            -2,
+            1.637,
+            2
+          ],
+          "bearing": 145,
+          "pitch": 18,
+          "fov": 60
+        },
+        "conditions": {
+          "date": "2026-07-15T19:00:00.000Z",
+          "timeZone": "America/Los_Angeles",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "performance": {
+          "fps": 0.3,
+          "frameMs": 3321.9,
+          "drawCalls": 155,
+          "triangles": 347874,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": null
+        },
+        "url": "http://127.0.0.1:39185/game/?inspect=1"
+      },
+      "bodyClear": true,
+      "controllerExercised": false,
+      "limitations": [
+        "Fixed supported native viewpoint. No new traversed route, activity completion, touch gesture or architectural-parity acceptance."
+      ],
+      "fullPageHUD": true,
+      "purpose": "Current native viewpoint after the shared mall repair; fixed setup, no new route or gesture acceptance."
+    }
+  ]
+}

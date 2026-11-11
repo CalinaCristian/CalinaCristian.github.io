@@ -1,3 +1,6 @@
+import { fitFacadeSign, facadeSignBoard } from './facade-sign-layout.js';
+import { sourceWaterTreeConflicts } from './source-water-tree-conflicts.js';
+import { nonShopWindowBands } from './facade-window-bands.js';
 import { sourceTransitShelterDecision } from './source-transit-shelter.js';
 import { projectCoveredWater, prepareFinalWaterGeometry, prepareSmallWaterGroups, consumePreparedSmallWater, waterOwnerSurface, landmarkWaterSurfaces, combineUnderpassWaterOwners } from './final-water-topology.js';
 import { buildUnderpassOwnerIndex } from './underpass-ground-owner.js';
@@ -3466,6 +3469,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     if (distCfg) LANDMARKS = LANDMARKS.filter(l => (distCfg.landmarks ? distCfg.landmarks.includes(l.id) : true) && (l.backdrop || inDistrictLL(l.lat, l.lon, distCfg.landmarks ? 0.022 : 0.004)));
     const landmarks = [], landmarkSourceReplacements = [];
     const landmarkFences = []; // (2026-11-08) fences of landmark grounds, drawn off the streets (below)
+    const landmarkWaterFootprints = [];
     const lmGrounds = []; // (2026-11-08) a landmark's own surfaces (sports grounds): no measured / generated trees on them
     const collisionBoxes = [];
     const lmGroup = new THREE.Group(); lmGroup.name = 'landmarks'; group.add(lmGroup);
@@ -3563,6 +3567,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 } else collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk, hw: cb.hw * lk, hd: cb.hd * lk, angle: cb.angle || 0, r: Math.hypot(cb.hw, cb.hd) * lk, ...bands, poly: null, landmark: lm.id });
             }
             const toW = ([x, z]) => [p.x + x * lk, p.z + z * lk];
+            for (const a of res.waterFootprints || []) landmarkWaterFootprints.push({ ...a, ring: a.ring.map(toW) });
             for (const f of res.fences || []) landmarkFences.push({ ...f, ring: f.ring.map(toW), inside: f.inside ? f.inside.map(toW) : (f.closed ? f.ring.map(toW) : null), gates: (f.gates || []).map(g => ({ ...g, x: p.x + g.x * lk, z: p.z + g.z * lk, w: (g.w || 4) * lk })) });
             for (const g of res.grounds || []) { const q = g.map(toW); lmGrounds.push({ p: q, x0: Math.min(...q.map(v => v[0])), x1: Math.max(...q.map(v => v[0])), z0: Math.min(...q.map(v => v[1])), z1: Math.max(...q.map(v => v[1])) }); }
             for (const g of res.coverPolys || []) { // every OSM building centred inside (a stadium's own stands / boxes)
@@ -3889,6 +3894,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     catch (err) { console.warn('[arch] archetypes unavailable', err); ARCH = null; }
     const palette = PALETTES[country], roofCols = ROOF_COL[country];
     const collision = [];
+    const facadeBoards = [], fasciaLayoutAudit = [];
     const propColl = []; // small circles for street furniture (trees, posts, shelters…)
     propColl.push(...tramDecks, ...bridgeJunctionDecks);
     // -----------------------------------------------------------------------
@@ -4235,7 +4241,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                         if(split>face.y0)mb.wall(a[0],a[1],p[0],p[1],face.y0,split,nx,nz,distId?mixRgb(wallCol,[255,255,255],.45):rgb('#ffffff'),(perim+L*face.t0)/16,(perim+L*face.t1)/16,(face.y0-y0)/(yShop-y0),(split-y0)/(yShop-y0),TILE.shop+(b.i%2)*8);
                         const lower=Math.max(face.y0,yShop);
                         if(face.y1>lower)mb.wall(a[0],a[1],p[0],p[1],lower,face.y1,nx,nz,wallCol,u0+(u1-u0)*face.t0,u0+(u1-u0)*face.t1,(lower-yShop)/(floorH*gr),(face.y1-yShop)/(floorH*gr),tile);
-                    } else mb.wall(a[0], a[1], p[0], p[1], face.y0, face.y1, nx, nz, wallCol, u0 + (u1 - u0) * face.t0, u0 + (u1 - u0) * face.t1, (face.y0 - (b.sourceSurface&&!b.assembly&&shop?yShop:y0)) / (floorH * gr), (face.y1 - (b.sourceSurface&&!b.assembly&&shop?yShop:y0)) / (floorH * gr), tile);
+                    } else if (b.sourceSurface && !b.assembly && shop) {
+                        for (const band of nonShopWindowBands(face.y0,face.y1,y0,yShop,floorH,gr))
+                            mb.wall(a[0],a[1],p[0],p[1],band.y0,band.y1,nx,nz,wallCol,u0+(u1-u0)*face.t0,u0+(u1-u0)*face.t1,band.v0,band.v1,tile);
+                    } else mb.wall(a[0],a[1],p[0],p[1],face.y0,face.y1,nx,nz,wallCol,u0+(u1-u0)*face.t0,u0+(u1-u0)*face.t1,(face.y0-y0)/(floorH*gr),(face.y1-y0)/(floorH*gr),tile);
                 }
                 if(b.sourceSurface&&!b.assembly)perim += L;
                 continue;
@@ -4263,7 +4272,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                         }
                     }
                 }
-            } else mb.wall(ax, az, bx, bz, y0, wallTop, nx, nz, wallCol, u0, u1, shop ? (y0 - yShop) / (floorH * gr) : 0, (wallTop - (shop ? yShop : y0)) / (floorH * gr), tile);
+            } else if (shop) {
+                for (const band of nonShopWindowBands(y0,wallTop,y0,yShop,floorH,gr))
+                    mb.wall(ax,az,bx,bz,band.y0,band.y1,nx,nz,wallCol,u0,u1,band.v0,band.v1,tile);
+            } else mb.wall(ax,az,bx,bz,y0,wallTop,nx,nz,wallCol,u0,u1,0,(wallTop-y0)/(floorH*gr),tile);
             if (!shop && L > 2 && b.style !== 'glass' && b.style !== 'house' && wallTop > 6) mb.wall(ax + nx * 0.04, az + nz * 0.04, bx + nx * 0.04, bz + nz * 0.04, y0, y0 + 0.9, nx, nz, shadeRgb(wallCol, 0.68)); // darker plinth
             wallTris += shop ? 4 : 2;
             perim += L;
@@ -4536,6 +4548,13 @@ export async function buildWorld(city, renderer, opts = {}) {
                             if (h <= 40) { // taller blocks retain the existing far silhouette in addDetail
                                 emitFacadeSlab(db, { ax, az, ux, uz, nx, nz, length:L }, s2, yb - 0.1, bayW * 0.9, 0.12, 1.1, neutral); // floor incl. soffit / side edges
                                 emitFacadeSlab(db, { ax, az, ux, uz, nx, nz, length:L }, s2, yb + 0.02, bayW * 0.9, 0.95, 1.1, front, { back: 1.02, soffit: false }); // thin parapet plate
+                                // Balcony guards return to the facade at both ends;
+                                // capping only the thin front plate left these sides open.
+                                const left=Math.max(0,s2-bayW*.45),right=Math.min(L,s2+bayW*.45);
+                                if(right-left>.16)for(const end of [left+.04,right-.04]) {
+                                    emitFacadeSlab(db,{ax,az,ux,uz,nx,nz,length:L},end,yb+.02,.08,.95,1.02,front,{soffit:false});
+                                    if(t!=='open')emitFacadeSlab(db,{ax,az,ux,uz,nx,nz,length:L},end,yb+.97,.08,floorH-1.15,1.02,t==='glazed'?rgb('#71879a'):shadeRgb(front,.92),{soffit:false});
+                                }
                                 if (t === 'glazed') slab(s2, yb + 0.97, bayW * 0.88, floorH - 1.15, 1.02, rgb('#71879a'));     // glazed upper part
                                 else if (t === 'clad') slab(s2, yb + 0.97, bayW * 0.88, floorH - 1.15, 1.04, shadeRgb(front, 0.92));
                             }
@@ -4681,10 +4700,16 @@ export async function buildWorld(city, renderer, opts = {}) {
         const s = signs.get(((bs[3] || text).replace(/\s*\([^)]*\)/g, '').trim() || text).slice(0, 24), bs[0], bs[1], bs[2]); if (!s) return; // (data.brands[k][3] = logo text)
         const { ax, az, bx, bz, L, nx, nz } = best, tx = (bx - ax) / L, tz = (bz - az) / L;
         let w = Math.min(6.5, L - 0.8), hh = Math.min(0.7, w / s.aspect); w = Math.min(w, hh * s.aspect);
-        const tc = clamp(best.t * L, w / 2 + 0.4, L - w / 2 - 0.4), mx = ax + tx * tc + nx * 0.14, mz = az + tz * tc + nz * 0.14;
+        let tc = clamp(best.t * L, w / 2 + 0.4, L - w / 2 - 0.4), mx = ax + tx * tc + nx * 0.14, mz = az + tz * tc + nz * 0.14;
         const shop = (b.flags & 1) && b.h > 6; let y = b.signY != null ? b.signY - hh / 2 : shop ? (b.gfh || 4.2) - hh - 0.1 : Math.min(3.0, b.h - hh - 0.3); // (archetypes: their fascia height)
         y = clearPortal(b, mx, mz, w, y);
-        if (signedHits(mx, mz, y)) return; // (one sign per unit: another business already signed this spot)
+        const fitted = fitFacadeSign(best, { centre: tc, width: w, minWidth: Math.min(w, s.aspect * 0.3), y0: y - 0.1, y1: y + hh + 0.1 }, facadeBoards);
+        if (!fitted) { fasciaLayoutAudit.push({ text, building: b.i, status: 'no-clear-inferred-fascia-span', x, z }); return; }
+        const original = { x: mx, z: mz, width: w };
+        tc = fitted.centre; w = fitted.width; hh = Math.min(hh, w / s.aspect);
+        mx = ax + tx * tc + nx * 0.14; mz = az + tz * tc + nz * 0.14;
+        fasciaLayoutAudit.push({ text, building: b.i, status: 'placed', original, x: mx, z: mz, width: w, height: hh, y });
+        facadeBoards.push(facadeSignBoard(mx, mz, tx, tz, w + 0.5, y - 0.1, y + hh + 0.1, text));
         const cc = cellOf(mx, mz), white = [255, 255, 255], mbS = signMB(cc, s.page);
         const lx = mx - tx * w / 2, lz = mz - tz * w / 2, rx = mx + tx * w / 2, rz = mz + tz * w / 2;
         // viewer outside looks along -n; their right-hand vector is (nz, -nx) = +t when the ring is ccw-out
@@ -4703,7 +4728,6 @@ export async function buildWorld(city, renderer, opts = {}) {
         signedSpots.push([mx, mz, y]); unitSigns++;
     }
     const signedSpots = [];
-    const signedHits = (x, z, y) => signedSpots.some(([a, b2, c]) => Math.hypot(a - x, b2 - z) < 3.5 && Math.abs(c - y) < 1);
     /** (2026-11-08, owner: "still broken sign there") a sign whose span [mx ± w/2] crosses a service portal of its building
      *  sits above the portal's lintel instead of behind it */
     function clearPortal(b, mx, mz, w, y) {
@@ -4755,6 +4779,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const sb = cellOf(b.c[0], b.c[1]).solid, bg = rgb(st[0]), pad = 0.12, tx = -nz, tz = nx; // tx/tz: along the wall
             const cx0 = (ax + bx) / 2 + nx * 0.06, cz0 = (az + bz) / 2 + nz * 0.06, bw2 = Math.min(L * 0.96, w + 0.8);
             sb.box(cx0, y - pad, cz0, 0.1, hh + pad * 2, bw2, Math.atan2(tx, tz), bg);
+            facadeBoards.push(facadeSignBoard(cx0, cz0, tx, tz, bw2, y - pad, y + hh + pad, b.name));
             if (L > bw2 + 2 && shop) { // (2026-11-08, owner: "still broken signs") shopfronts only, and the bracket only with its blade
                 const ex = (ax + bx) / 2 + tx * (bw2 / 2 + 0.6) + nx * 0.55, ez = (az + bz) / 2 + tz * (bw2 / 2 + 0.6) + nz * 0.55;
                 const bh = 0.75, by = y + hh + 0.35;
@@ -4998,7 +5023,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     setProgress('Planting trees…'); await tick();
     // every tree / lamp / prop below is checked against the carriageway ribbons (onRibbon) before it is placed
     const maxTrees = city.id === 'bucharest' ? 32000 : 28000;
-    const treeList = [],treeSourceMetadata=new WeakMap();
+    const treeList = [], treeBodies = new WeakMap(), treeSourceMetadata = new WeakMap();
     const treeSeen = new Set();
     const exactTreeCentres = new Set();
     const dtSea = US ? city.proj(47.6062, -122.3321) : null, dtBel = US ? city.proj(47.6150, -122.2000) : null;
@@ -5083,6 +5108,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         exactTreeCentres.add(`${x},${z}`);
         addPropColl(x, z, collR, 'tree');
         if(basarabStructure.report.active&&Number.isInteger(opt.sourceIndex))treeSourceMetadata.set(treeList.at(-1),{sourceIndex:opt.sourceIndex,crownRadiusM:opt.crownRadiusM||0,collider:propColl.at(-1)});
+        treeBodies.set(treeList.at(-1), propColl.at(-1));
         return true;
     };
     // OSM natural=tree / tree_row (real positions, leaf type where tagged)
@@ -5124,18 +5150,21 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     const coveredCanopies=coveredPlatformCanopies(treeList,BASARAB_PLATFORMS.filter(p=>basarabStructure.report.sourcePlatforms.includes(p.sourceId)),treeSourceMetadata);
     basarabStructure.report.treeSourceConflicts={excludedMeasured:coveredCanopies.conflicts,retainedMapped:coveredCanopies.unresolved};
-    const treeCount = treeList.length-coveredCanopies.excluded.size;
+    const waterTreeConflicts = sourceWaterTreeConflicts(treeList, landmarkWaterFootprints, t => treeBodies.get(t));
+    const excludedTrees = new Set([...coveredCanopies.excluded, ...waterTreeConflicts.excluded]);
+    const treeCount = treeList.length - excludedTrees.size;
     // instanced trees in district 250 m / legacy 500 m chunks; crowns keep a per-instance colour (instanceColor)
     // so the season / weather code can tint each tree (world.vegetation)
     const vegetation = { treeCrownMeshes: [], treeTrunkMeshes: [], deciduousMask: null, grassMaterials: [], groundMaterials: [], roofMaterials: [], trees: treeList };
     {
         // (2026-11-08) district worlds carry the measured canopy (thousands of real trees): fewer full-detail near trees
-        const T = buildSpeciesTrees(treeList, { rng, cull: distId ? 480 : 550, chunk: distId ? 250 : 500, near: distId ? 60 : 95, maxNear: distId ? 110 : 240, farLayer: 2, exclude: coveredCanopies.excluded }); // Source-covered-platform conflicts are recorded separately from LOD/culling.
-        if(coveredCanopies.excluded.size){
-            const props=new Set([...coveredCanopies.excluded].map(t=>treeSourceMetadata.get(t).collider));
-            let at=0;for(const t of treeList)if(!coveredCanopies.excluded.has(t))treeList[at++]=t;treeList.length=at;
-            at=0;for(const p of propColl)if(!props.has(p))propColl[at++]=p;propColl.length=at;
-            treesOSM-=coveredCanopies.excluded.size;
+        const T = buildSpeciesTrees(treeList, { rng, cull: distId ? 480 : 550, chunk: distId ? 250 : 500, near: distId ? 60 : 95, maxNear: distId ? 110 : 240, farLayer: 2, exclude: excludedTrees }); // Covered-platform and water-basin source conflicts are recorded separately from LOD/culling; smaller district chunks cull off-screen trees precisely; no trees or LOD geometry are removed
+        // Generate every instance first so unaffected colours, rotations and RNG stay identical.
+        if (excludedTrees.size) {
+            const bodies = new Set([...excludedTrees].map(t => treeBodies.get(t)));
+            treesOSM -= [...excludedTrees].filter(t => t.kind === 'osm').length;
+            let at = 0; for (const t of treeList) if (!excludedTrees.has(t)) treeList[at++] = t; treeList.length = at;
+            at = 0; for (const p of propColl) if (!bodies.has(p)) propColl[at++] = p; propColl.length = at;
         }
         vegetation.treeCrownMeshes.push(...T.crownMeshes); vegetation.treeTrunkMeshes.push(...T.trunkMeshes);
         vegetation.update = T.update;
@@ -6352,7 +6381,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     graph.edges = driv;
 
     setProgress(''); const phases = PHASES.splice(0);
-    const stats = { parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, bridgeBents: bridgeBents.report, treeDeckClearance, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, backdropSourceOwnership, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
+    const stats = { fasciaLayout: { records: fasciaLayoutAudit, boards: facadeBoards, scope: 'Inferred coplanar fascia boards on existing source walls; source POIs and names unchanged' }, sourceWaterTreeConflicts: { records: waterTreeConflicts.records, sourceRecordsRetained: true, marginM: 0, scope: 'Physical trunk bodies intersect detailed basins and their rendered granite rims; not canopy thinning or road/traffic change' }, parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, bridgeBents: bridgeBents.report, treeDeckClearance, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, backdropSourceOwnership, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, inferredBuildingDetails: inferredDetailAudit, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     stats.scenerySource = scenerySourceAudit;
     stats.fallbackGround=fallback.report;

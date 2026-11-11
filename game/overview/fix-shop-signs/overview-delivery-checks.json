@@ -1,0 +1,1016 @@
+{
+  "passed": true,
+  "finished": "2026-11-11T02:18:29.197Z",
+  "browserErrors": [],
+  "viewportWidths": [
+    1440,
+    390
+  ],
+  "conditionSelectionChecks": 48,
+  "decodedHashedImages": 167,
+  "assets": [
+    {
+      "path": "/game/overview/comparison-data/bellevue/retakes/signs-8add95f3/atlas/aerial-r03-c04.png",
+      "sha256": "76d557e77f61fee6827cfca0a86439be87bc71077c9aab2ab97eeda38ff8f256",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/retakes/signs-8add95f3/atlas/aerial-r03-c05.png",
+      "sha256": "ea384ea24252a5577932c6a6544618b35ac5a708d46acd3e9a3397bcb3b5d867",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/retakes/signs-8add95f3/atlas/aerial-r04-c04.png",
+      "sha256": "952faa56301ef1c9a081065b1e3afb02e64552802764e7b4343203df7db2f69f",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/retakes/signs-8add95f3/atlas/aerial-r04-c05.png",
+      "sha256": "5d512c81c6448565d3a48f14182707a566d0e7505461fb2c6ad5fdaefef316d0",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/context/ground-signs-8add95f3/summer-day/street-approach-65fbbc5f5224.jpg",
+      "sha256": "65fbbc5f52243795f927cc800b2a2af63bc640f6ba08b356727e37c8af70e58f",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/context/ground-signs-8add95f3/summer-day/frontage-lincoln-5ea412ddd635.jpg",
+      "sha256": "5ea412ddd635ef87d085476a9dc8ca689f0fb767b021bfbf5e7ce84ed37cb0f2",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/context/ground-signs-8add95f3/summer-day/frontage-onelincoln.jpg",
+      "sha256": "f7c939f6150c4c44f415bdcf41c3ec73107cb974c895929fbc56e766bfbd809a",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/context/ground-signs-8add95f3/summer-day/junction-detail.jpg",
+      "sha256": "86ca6cef4dc9ec88ca393ad48ae3e98156912b2fb5f8df67df6493a2a4aa22c6",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/context/ground-signs-8add95f3/summer-night/street-approach-6de32b1d4a6b.jpg",
+      "sha256": "6de32b1d4a6ba03c11c5e066c7f7d094c418e7f10a87308a15e4e519bcc821cb",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/context/ground-signs-8add95f3/summer-night/frontage-lincoln-8af13a59d790.jpg",
+      "sha256": "8af13a59d790f0e4754cccd1a0e5331acad032a99390686413db971b2a9a006a",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/context/ground-signs-8add95f3/summer-night/frontage-onelincoln.jpg",
+      "sha256": "5cf2914031e651e991474f07e22707e86422e89af3feb3d209968990bd117446",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/context/ground-signs-8add95f3/summer-night/junction-detail.jpg",
+      "sha256": "a813c5ce7c3492223a414fc5a1121713c356b3dd9955670a1e6ec52f9f2d3648",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/context/ground-signs-8add95f3/winter-day/street-approach-f2e05c4a4b34.jpg",
+      "sha256": "f2e05c4a4b34f822e12b73e8c0234e32506aa392ca3d3e387e0eacf0e36edfee",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/context/ground-signs-8add95f3/winter-day/frontage-lincoln-fb7a5c6995c7.jpg",
+      "sha256": "fb7a5c6995c7c4d40727bbe45dc442a63d8803f91b317d11e9bf726778ec0dfd",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/context/ground-signs-8add95f3/winter-day/frontage-onelincoln.jpg",
+      "sha256": "465c327ffc3d860f7c0074f1a72497f80e2248400d6b44afd430259f3e9905df",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/context/ground-signs-8add95f3/winter-day/junction-detail.jpg",
+      "sha256": "b14415279d806603f84a20f7b0b14008c2e40c840ff98c9f22f7bd562afca0c7",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/context/ground-signs-8add95f3/winter-night/street-approach-17418ab38ae5.jpg",
+      "sha256": "17418ab38ae5cfb382ef3887e17ffcb5dc508fed91e67a572257adbd9c02ef4d",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/context/ground-signs-8add95f3/winter-night/frontage-lincoln-97240a09cd0a.jpg",
+      "sha256": "97240a09cd0ad1a609e320ddc640638ea94737dea5e66bbbb65214a1ae6efad4",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/context/ground-signs-8add95f3/winter-night/frontage-onelincoln.jpg",
+      "sha256": "da29750403837c82ec0490f04ca340851eca657f1c8dd5e1903160051e0684c3",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/bellevue/context/ground-signs-8add95f3/winter-night/junction-detail.jpg",
+      "sha256": "86ccf9ff0b79bc956f06336b4c019d0ecf5752c444ab7a8c5b0159ce2687da29",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/retakes/signs-8add95f3/atlas/aerial-r07-c03.png",
+      "sha256": "258544eb014f9b6c95e809b2e74e9d3b55ad41399552436d2e7b85b8b009e913",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/retakes/signs-8add95f3/atlas/aerial-r07-c04.png",
+      "sha256": "e20f1e292322d03ce73ea333ae6f633099c8e83229d0e370d0185afb18c6bef9",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/retakes/signs-8add95f3/atlas/aerial-r08-c03.png",
+      "sha256": "18fe85d3bf95666f7d5240de076abaf74f7956e39df1401abfbf2db6f2f3e0be",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/retakes/signs-8add95f3/atlas/aerial-r08-c04.png",
+      "sha256": "4ad91dc949612b5eaa676c9a09a475c142cc8c2267003b416d5cf5e216fdde28",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/ground-signs-8add95f3/summer-day/street-approach-41dbc66d9606.jpg",
+      "sha256": "41dbc66d9606ec03d822070c0cdd3d494ea839b911e393ac4f1e2564954b3cc2",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/ground-signs-8add95f3/summer-day/frontage-rosetti-da3e621a6fbe.jpg",
+      "sha256": "da3e621a6fbe28a2336bacbad6b6eb40731b89f8723d9708b0e193169a9cbf7d",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/ground-signs-8add95f3/summer-day/frontage-dinamo.jpg",
+      "sha256": "0ef0123bf9104ac66714f5b176325e8bff78b8b490a677bfe05922de3660fcb4",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/ground-signs-8add95f3/summer-day/junction-detail.jpg",
+      "sha256": "c1a56253df5e6bbba31d59059667d14ef4570c42d6f4a9c981148b4f13485b89",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/ground-signs-8add95f3/summer-night/street-approach-1e99b1c14c52.jpg",
+      "sha256": "1e99b1c14c526f4c339078ef7bf1bc6a8d690b27b63ce73855ddc7c3214fb8b3",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/ground-signs-8add95f3/summer-night/frontage-rosetti-8cdabb9c3911.jpg",
+      "sha256": "8cdabb9c391159c7abda8a52252ec365ed1fa383959ec58598653b7d24e79c83",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/ground-signs-8add95f3/summer-night/frontage-dinamo.jpg",
+      "sha256": "d4320c1e0f05cfafd2a4253c3d061244da539601876da9d3a53ae33c294c2e29",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/ground-signs-8add95f3/summer-night/junction-detail.jpg",
+      "sha256": "b6885180ead10c0b02a6d1ef141b164c359621689473ced1420be0a9f4aac172",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/ground-signs-8add95f3/winter-day/street-approach-069cd7d89817.jpg",
+      "sha256": "069cd7d89817b22498901934d31fddd296703bce6fdb0b7147e8f9735554b0b4",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/ground-signs-8add95f3/winter-day/frontage-rosetti-00525601ae6a.jpg",
+      "sha256": "00525601ae6aa6c437a6d62b37c611e30fd92bad8c5677e8e393ded1f6770c7b",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/ground-signs-8add95f3/winter-day/frontage-dinamo.jpg",
+      "sha256": "787c01f06e1065156aaaace4390887df8bc64f687c10ce1569c4008a81e0baff",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/ground-signs-8add95f3/winter-day/junction-detail.jpg",
+      "sha256": "4989f2b28a5524bbf62e6d40fbe507abd4b762abd52ee8a0ff24d36f0f9bf535",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/ground-signs-8add95f3/winter-night/street-approach-7d682d7775b9.jpg",
+      "sha256": "7d682d7775b9213da758588281bbd9fd711fa2f6c05cc9b271e5fbfd71c04f0d",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/ground-signs-8add95f3/winter-night/frontage-rosetti-8dd97b1a3e10.jpg",
+      "sha256": "8dd97b1a3e1057ab71351861a0d9bfb3e0e94e40bd6c7201b3669e5c9e0bb732",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/ground-signs-8add95f3/winter-night/frontage-dinamo.jpg",
+      "sha256": "6d84096300f3854bc171fe4a3cc2c099c12aee346c1a8e10fa01bea4d52e2132",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/ground-signs-8add95f3/winter-night/junction-detail.jpg",
+      "sha256": "0e24b96bb2ffd271b1b62219fda65d7bf37dd3c9cb584468344d1883e6bdc61b",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/summer-clear-night/signs-8add95f3/chapter-rosetti-street.png",
+      "sha256": "02abc4d8b993bc09deb7455b7d9e1f554f9721f980a639e834fdb52c55abe258",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/summer-clear-day/signs-8add95f3/skytower-opposite.png",
+      "sha256": "5e0ede9b8f093389b24c203d091e7d420a3ef61eed40d8564f32eb212e218ee6",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/summer-clear-day/signs-8add95f3/dinamo-context.png",
+      "sha256": "3b1db8afbeb5e0913b9b00d1e098edcf17137a65bfbe9df32915318fe56375de",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/summer-clear-day/signs-8add95f3/globalworth-opposite.png",
+      "sha256": "0c54d1a0f4fb52ee738fcaaf04b727994d51863242f9c7768a217c3b9e339d29",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/summer-clear-day/signs-8add95f3/signal-2.png",
+      "sha256": "d227e8c6f3df38afa194c8d5598de3c32c3871a3146ba678d40a2fe4280f4527",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/summer-clear-day/signs-8add95f3/signal-3.png",
+      "sha256": "7073eff9e0211cc302d4a31363e9d3825b8fee097b23f3cfd7aa63569088f4f4",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/summer-clear-day/signs-8add95f3/chapter-rosetti-street.png",
+      "sha256": "a1c097353a32f21143389341c4e04e8f5613ce518665632565c9045c845e4f60",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/floreasca/context/winter-snow-day/signs-8add95f3/chapter-rosetti-street.png",
+      "sha256": "08f1e5c7fa9457603839f1113ebdb744c3a7ff62849e038f54e3ba5436796fcd",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/retakes/signs-8add95f3/atlas/aerial-r05-c07.png",
+      "sha256": "28a30c6827d1525fe88dd112a52795417ada82d12979241c8650643d8336e3c3",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/retakes/signs-8add95f3/atlas/aerial-r05-c08.png",
+      "sha256": "2c12381b7a348f3b186367e181bbb84ce1b346f6596a902b398a06b6b50a8e66",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/retakes/signs-8add95f3/atlas/aerial-r06-c07.png",
+      "sha256": "70b2021850a4eb69245fbd910fa6a3cbcbc6db9ce07d4355f708195db46641f5",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/retakes/signs-8add95f3/atlas/aerial-r06-c08.png",
+      "sha256": "663c11bd8ad83d6c6320be2866a83155677b9728b0dc7fec318d0c715d4e4989",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/retakes/signs-8add95f3/atlas/aerial-r06-c09.png",
+      "sha256": "f595122b70e8f29c700eff6bb97bfc8c9ff7a7ec8434b9e36fa44a6428cd7944",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/retakes/signs-8add95f3/atlas/aerial-r07-c07.png",
+      "sha256": "ce002e0edfbbb8e0cdaa564d0035f104532a151dd0d69db9086075c3c67a94e8",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/retakes/signs-8add95f3/atlas/aerial-r07-c08.png",
+      "sha256": "7ae06f2396b49ec66e32887ceaea8a2028a74edf1f3f5bc2614ee4e127b17ec6",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/ground-signs-8add95f3/summer-day/street-approach-fedc87241cff.jpg",
+      "sha256": "fedc87241cffc646189cf376b821ba6fe02e593daa86f650c82464954f45a07e",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/ground-signs-8add95f3/summer-day/frontage-politehnica.jpg",
+      "sha256": "3f227ac799e61fefd28055662030afad73d5384beed23b2cfcd8055b2ead4f61",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/ground-signs-8add95f3/summer-day/junction-detail.jpg",
+      "sha256": "afa4fcdd521595b58b8989fcd1d176f1cfd0093d8b89c48d116a8e4d7d99c1c1",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/ground-signs-8add95f3/summer-day/street-detail-3.jpg",
+      "sha256": "f0fb91ecb835216c4ca011403a75e13800a630189c3e80b67ac26b5c77866e47",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/ground-signs-8add95f3/summer-night/street-approach-43f07262fa5e.jpg",
+      "sha256": "43f07262fa5e840fedd316d40db460c98aee282f859b8014555f0e58966f38ba",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/ground-signs-8add95f3/summer-night/frontage-politehnica.jpg",
+      "sha256": "13aa498da1d9001f2a4a0fb9744b489004daad36cc97918aba8f07c0da653eb4",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/ground-signs-8add95f3/summer-night/junction-detail.jpg",
+      "sha256": "b4bab7c8b337d3e40658296a72dfa5aa3a8c3fba91dad6f37f0359248d0e4931",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/ground-signs-8add95f3/summer-night/street-detail-3.jpg",
+      "sha256": "d1d7e5daffa21516ae2edd7413f8915535f0193b28a32057109400fc4d53a1c9",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/ground-signs-8add95f3/winter-day/street-approach-07d8f8c8683a.jpg",
+      "sha256": "07d8f8c8683affe19eb4c13aa970e4220a3b101f021fec78d2be428a721b1ee5",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/ground-signs-8add95f3/winter-day/frontage-politehnica.jpg",
+      "sha256": "67cee64099c0f7935884e0bfede57f1e52d1da58437c3f439de124df4c0f628a",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/ground-signs-8add95f3/winter-day/junction-detail.jpg",
+      "sha256": "a7d65d1670edb2afad229e73a4709dcd3a69fcb177d61f2dbcd6d0ab3dc9a26e",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/ground-signs-8add95f3/winter-day/street-detail-3.jpg",
+      "sha256": "00831b749050a0ecab6c0e2f0d6e102785c1aeeea3e854214e2465331c355429",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/ground-signs-8add95f3/winter-night/street-approach-409c739f3c8a.jpg",
+      "sha256": "409c739f3c8a28a816fc091121262380f67abe1a83fb5f6013d25c5a4b98a259",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/ground-signs-8add95f3/winter-night/frontage-politehnica.jpg",
+      "sha256": "cb9228d6347c8f04aebda07d0fd67f3a40465e0a3d660460eb40742f4757dffc",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/ground-signs-8add95f3/winter-night/junction-detail.jpg",
+      "sha256": "672a1351538345eb2868275fcdcd0c9cab9165a3b724896f733b2a3312131ffa",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/ground-signs-8add95f3/winter-night/street-detail-3.jpg",
+      "sha256": "9686acb5de752de1ab7236ab1dda2f5a3dba4bc9527f7c11a6090d23137ea368",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/summer-clear-day/signs-8add95f3/cathedral-context.png",
+      "sha256": "e3ad86628b687da95d477c9471a9801605a4f8bd73da9620ca93c26465b62b30",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/summer-clear-day/signs-8add95f3/signal-3.png",
+      "sha256": "2d205fa641c79b69af0d44efb8527b6ae17ff35e867542d0a9579f0b67686070",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/summer-clear-day/signs-8add95f3/parking-2.png",
+      "sha256": "0c8d36a822496c55d289cc848969cbc3893090f36839642dc45b80944bd4f34d",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/summer-clear-day/signs-8add95f3/chapter-upb-street.png",
+      "sha256": "11f88c4e669a1acdfc4dfc45f62035416807bce5b5b136f7fb46ce22179393ec",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/summer-clear-night/signs-8add95f3/chapter-upb-street.png",
+      "sha256": "53e7d6e5a424dee9fe64c0046ac506d366bd2eceedb949d60dc645071901631d",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/grozavesti/context/winter-snow-day/signs-8add95f3/chapter-upb-street.png",
+      "sha256": "2190e05b2850267c16a22a45409cff8949e4d8066d6ce51f0f237b4a48bc0414",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/retakes/signs-8add95f3/atlas/aerial-r04-c11.png",
+      "sha256": "070d393351769b707a82a72ec78d5248ecb9b3b728c0cfb05de19406d673a8ec",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/retakes/signs-8add95f3/atlas/aerial-r05-c04.png",
+      "sha256": "2022ebd17fc945056b5226aced416c3ff6b413e99b6cb3cc828220ae65a60b65",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/context/ground-signs-8add95f3/summer-day/street-approach-e2c0ad9a0db2.jpg",
+      "sha256": "e2c0ad9a0db2a13a29d2d78647e76f7c35bfdc3e6c128b5f1616648dd0062981",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/context/ground-signs-8add95f3/summer-day/frontage-hermes-5e842063f0ea.jpg",
+      "sha256": "5e842063f0ea38f97b484c96b4cce1df90719a8687c1525cef89f9d7e2ab297d",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/context/ground-signs-8add95f3/summer-day/frontage-bob-02c5cbcc0b6a.jpg",
+      "sha256": "02c5cbcc0b6aa19463fb2c8a6659f76e4386d61b95b783aed25096b4b118370d",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/context/ground-signs-8add95f3/summer-day/junction-detail-f73a7ad1f37a.jpg",
+      "sha256": "f73a7ad1f37a215b2d8387c8f46c727b265f7189dba0644d50dac550098cb1d9",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/context/ground-signs-8add95f3/summer-night/street-approach-e26c6823f553.jpg",
+      "sha256": "e26c6823f553f3f79349cda680f213b537e73d01fa940af8af6fb80144e8359f",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/context/ground-signs-8add95f3/summer-night/frontage-hermes-fc878b988d58.jpg",
+      "sha256": "fc878b988d5821cecac4a59e31a314ae6d1df338fa911b54d7288eb817acad92",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/context/ground-signs-8add95f3/summer-night/frontage-bob-0eb804685662.jpg",
+      "sha256": "0eb804685662c334e6784ad47cef4ba6b0b2525eb7d0cbbb6b341b768f5b0e94",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/context/ground-signs-8add95f3/summer-night/junction-detail-34fe477a146f.jpg",
+      "sha256": "34fe477a146f670f0b322f988575ba2c0b32e3b808c6a4a4d75f62cf98c147a1",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/context/ground-signs-8add95f3/winter-day/street-approach-c4112bad65b1.jpg",
+      "sha256": "c4112bad65b1471688342f862b0c3eeb127921d9347122f332ed61958448e340",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/context/ground-signs-8add95f3/winter-day/frontage-hermes-86619347e7c2.jpg",
+      "sha256": "86619347e7c264cd9a5745492305fe3dc72413c776665123dc56e7477e6530da",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/context/ground-signs-8add95f3/winter-day/frontage-bob-e57c21546262.jpg",
+      "sha256": "e57c21546262221f501db9f705405502f6d47435d56599a5eb3a78d28dd7c309",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/context/ground-signs-8add95f3/winter-day/junction-detail-79ebb8dea250.jpg",
+      "sha256": "79ebb8dea2501b211b50098d010b8dfcb0ae7bf8504f9b7683ae6bea0a6c3636",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/context/ground-signs-8add95f3/winter-night/street-approach-311dce3eb1e7.jpg",
+      "sha256": "311dce3eb1e7a508f4a1a3401566d307862c7cc455d376af1144377bff4bdcb7",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/context/ground-signs-8add95f3/winter-night/frontage-hermes-44b3eee04a9c.jpg",
+      "sha256": "44b3eee04a9ceee97037aac177f608f314f9d43559881d243fe734ba34fb2032",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/context/ground-signs-8add95f3/winter-night/frontage-bob-05016b761371.jpg",
+      "sha256": "05016b7613712563cfe90f3df72c2422b68846feaec8e690489f7ef2f2040da6",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/pipera/context/ground-signs-8add95f3/winter-night/junction-detail-6fe5f9d03284.jpg",
+      "sha256": "6fe5f9d03284774647eb3bb75054d016b7410549bf6d46e0079fc5b677f8a7fe",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/retakes/signs-8add95f3/atlas/aerial-r08-c08.png",
+      "sha256": "116421c931feaf4a582444cf9bd360fd3eee1876f1eaa7b3daf7a3f41750c0ad",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/retakes/signs-8add95f3/atlas/aerial-r08-c09.png",
+      "sha256": "dd876a5717f69cf0590f34bcb733c5e7e4a8abbe1d8bfa4c11c3dee2162fa2cc",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/retakes/signs-8add95f3/atlas/aerial-r09-c08.png",
+      "sha256": "b66b71866424bf8c4727bd00352a3cf58f32a21cb25c40d0ce137397cab34d70",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/retakes/signs-8add95f3/atlas/aerial-r09-c09.png",
+      "sha256": "3439a3d04c582cfed02609001286d38ae6fff2b3919fab3788c180eedbedff3e",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/retakes/signs-8add95f3/atlas/aerial-r10-c08.png",
+      "sha256": "3946071df22537ff395c3d347e89fe2d5f9a8dce2efd42f288199155c781e4b9",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/retakes/signs-8add95f3/atlas/aerial-r10-c09.png",
+      "sha256": "f24233d7fc2ae9c404d592cac3c9204ef56390b559af45ba21dd22a5d136bb20",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/retakes/signs-8add95f3/atlas/aerial-r11-c09.png",
+      "sha256": "44d113a2b512d78493a0cce51d52a522928af234cf7bdae559500476b6b747ef",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/ground-signs-8add95f3/summer-day/street-approach-16dfaf6f38c9.jpg",
+      "sha256": "16dfaf6f38c9139064e292dbc441195b869c83b5c61c691ae2eb18d627d01929",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/ground-signs-8add95f3/summer-day/frontage-europehouse-526719c99de4.jpg",
+      "sha256": "526719c99de4dea6d090a235c3453cff8da085f6fb585a95829cd7ba485b1692",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/ground-signs-8add95f3/summer-day/frontage-ase.jpg",
+      "sha256": "18ccb0381289b41b8e94a09a5c63d0bbd1d0d9d568955e5164042b450fba81c6",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/ground-signs-8add95f3/summer-day/junction-detail-73da218dd697.jpg",
+      "sha256": "73da218dd697021444b239efd38d2c76e98cc20b54704b1c7357444daef45479",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/ground-signs-8add95f3/summer-night/street-approach-2eb431774838.jpg",
+      "sha256": "2eb4317748389d6f28ea0f16b36d4ab6dd4d67574c1482d7125ee7e6c8a2e792",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/ground-signs-8add95f3/summer-night/frontage-europehouse-82721e97d386.jpg",
+      "sha256": "82721e97d38613bfb566abc32d3a9d6b00beb917b05dfcd23c03a9077ac45285",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/ground-signs-8add95f3/summer-night/frontage-ase.jpg",
+      "sha256": "a47ddd09a5c46cc0fc2322f93169590a7f07f8c4facc302fa71b6e451666bb34",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/ground-signs-8add95f3/summer-night/junction-detail-38706b82de0e.jpg",
+      "sha256": "38706b82de0e3aae7e97d9beea5adddd96474907ba7bfaa4b03716348bf1231f",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/ground-signs-8add95f3/winter-day/street-approach-bc0a94bb9bf2.jpg",
+      "sha256": "bc0a94bb9bf2de97741621c9037c7095b35278a1f4fc98ca8f3419109e6f5c33",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/ground-signs-8add95f3/winter-day/frontage-europehouse-574a69b13545.jpg",
+      "sha256": "574a69b135453631918b414209bc57866e0c4d192136aac09d3ec574e995df07",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/ground-signs-8add95f3/winter-day/frontage-ase.jpg",
+      "sha256": "b9dc05212a16c16564041ca3ee8888b72d5cec0b5d7ae632291b2eeb5b673d45",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/ground-signs-8add95f3/winter-day/junction-detail-6cf948856122.jpg",
+      "sha256": "6cf9488561225398505fdbe0da6c354717b6f6121136bc8e225e80016f9d652c",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/ground-signs-8add95f3/winter-night/street-approach-c2b20f1bb70f.jpg",
+      "sha256": "c2b20f1bb70f1dd6c186c582ed5a3c5014b489ea45eef836e3e97c5449b71cc0",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/ground-signs-8add95f3/winter-night/frontage-europehouse-522df7cc2a22.jpg",
+      "sha256": "522df7cc2a22cc3125c5389542790c71ff3d3eae3e2a113d8399826c7921dca5",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/ground-signs-8add95f3/winter-night/frontage-ase.jpg",
+      "sha256": "fc417081b8b9a56feaaf23dc6fe6f37a03f33514ff8c6fb6f4eee1171b0de259",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/ground-signs-8add95f3/winter-night/junction-detail-916b7f6ab41f.jpg",
+      "sha256": "916b7f6ab41f6b0f9927638c64eda375cea87df8b8265fb22bb565cc1d3c4ccd",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-night/signs-8add95f3/ambasador-street.png",
+      "sha256": "7ed6740f693d5da4f8a4e4f233f9d70ac9e637c5f52eca69ff8f531c3710201d",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-night/signs-8add95f3/chapter-arnia-street.png",
+      "sha256": "62ff6880cb528eedc07cec8ed00a7e12a19b2e0922acd35ab577f0c1f2fd028c",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-night/signs-8add95f3/chapter-uipath-buc-street.png",
+      "sha256": "4d5013b80fe3c419c99d905a4fe048ca5c34ae1e357b396f1c102211e51a130f",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/winter-snow-day/signs-8add95f3/ambasador-street.png",
+      "sha256": "3235ace5d0e3a0ea41ef1ca7ee8e3e81f9aaf27e71f65de2c41b7db7c102ec89",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/winter-snow-day/signs-8add95f3/chapter-arnia-street.png",
+      "sha256": "20637689270a3bb4197c45869d899148c314c66aba8614162e82865fe9dbdd15",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/winter-snow-day/signs-8add95f3/chapter-uipath-buc-street.png",
+      "sha256": "3513ae37f3d5af247ea2e0d3953f5174a859b3d369ff5b0911488ee915c11702",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/tnb-context.png",
+      "sha256": "686b0a3e23cd9b80a82cb9566d428dd7919df40b34bb86c786e6393056f49259",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/ateneu-context.png",
+      "sha256": "9e4112c6fa9f0d8ff1d3db564fe915db1140b4c781f0742280ced3274842a9f8",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/ateneu-opposite.png",
+      "sha256": "365709d430dd3a3bee1864f95744d900b5626d499dba20086541cfb11386b209",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/regal-context.png",
+      "sha256": "b8cd2ad4eca9b53899502559185c43cfaa6e9fe95abc654593b1bc7953306541",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/regal-opposite.png",
+      "sha256": "5ae60a15cd26715d73517e14449a854c88103adfdf633284e0e91a20d6b77b7c",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/victoria-opposite.png",
+      "sha256": "3a1108a42ab8c1a4ac1dac8fc31cdb583cb8f7b5057799ccb5353ad4023180a7",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/skytower-opposite.png",
+      "sha256": "43ba1eafc6da072e03bb9fde65d808239b64168bcfd47e6ae96a289582a6f9e8",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/ase-context.png",
+      "sha256": "4631d15236ba836fe7461eacc25c3d450bb83625da8a185c5ba93f99ee3f9402",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/ase-opposite.png",
+      "sha256": "06d6df197daca65ff26870eb87d3332bc0522ca8193b89acce6c72d3d9519c99",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/ambasador-context.png",
+      "sha256": "b929ad2556afba4e28a7b7b90070c6cb6a18219d345cc275f0af720c76c3e241",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/ambasador-opposite.png",
+      "sha256": "c308733e43e745e9267152cfcb58821fbafa1e17a510b4d94438321c3665ac30",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/ambasador-street.png",
+      "sha256": "cc8288ed229db8e4e4bc5dfc4c9d24c2a66b784624dc1b7c83577b3c24ef8126",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/thelandmark-opposite.png",
+      "sha256": "9634b97f29735380a25a5a5e6204153aa054d3fa354fc93fff180e5918756697",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/europehouse-opposite.png",
+      "sha256": "398997ccac5cb90d8bc8df0b93a2c9817a5e73ad7f1578175b067990bc951681",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/signal-1.png",
+      "sha256": "7a7600b7b156d55afa688ffdd445298bd281347f1101b83bd7b9fb14f6bd1194",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/chapter-arnia-street.png",
+      "sha256": "009370e5a7103750066c51858563138e27435443a90498f6ae1f83630bf031d2",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/context/summer-clear-day/signs-8add95f3/chapter-uipath-buc-street.png",
+      "sha256": "af64785dd52e68f1f73a38290094e7261e24bedca3bce1272ae6254f616b422b",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/retakes/signs-8add95f3/atlas/aerial-r04-c04.png",
+      "sha256": "79caaa1dbba54b968099c569be07bcd3584de5efe4888922c7b30be6823b9de4",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/retakes/signs-8add95f3/atlas/aerial-r04-c05.png",
+      "sha256": "3a846df26537530c7396509bd3670c621d8fafbe112404709611f2fb46040e25",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/retakes/signs-8add95f3/atlas/aerial-r04-c07.png",
+      "sha256": "dcf9c6a8203da60d4ff629fa16e2b270c1362a6845908b40b1a57b39cee687d4",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/retakes/signs-8add95f3/atlas/aerial-r04-c09.png",
+      "sha256": "a05f7ef91e6c79a496715988eb07bf11b92a9530a44750ca5aa8f164dfd83f4b",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/retakes/signs-8add95f3/atlas/aerial-r05-c05.png",
+      "sha256": "d9d70ad28a07efd04b9b1abbde4c1733179c7fbae389f74ff49cb7a31b982797",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/retakes/signs-8add95f3/atlas/aerial-r05-c06.png",
+      "sha256": "cc31d30db3f7b5ba71aad2ef2b256520aa3b96b80b17cc258ca5d622187c9e92",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/retakes/signs-8add95f3/atlas/aerial-r06-c04.png",
+      "sha256": "2ae082958b8084e58b07724fb3f6a64c4d7fcc109d701510a4976dca7ad34f54",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/retakes/signs-8add95f3/atlas/aerial-r06-c05.png",
+      "sha256": "874190b97e7fb00730a733c45861dc1a66c4d94d1745fc816be9a1c1db09ed75",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/retakes/signs-8add95f3/atlas/aerial-r06-c06.png",
+      "sha256": "dd49e132686799d9980b90d0f2df8877e915d1a31bfd45cac1a648cc4b1437d8",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/retakes/signs-8add95f3/atlas/aerial-r07-c04.png",
+      "sha256": "d0c3e6f7a4f47078c9eded754488d554789cf5d3aa6c3ae81ed3b445dc2394d9",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/context/ground-signs-8add95f3/summer-day/street-approach.jpg",
+      "sha256": "dd12925daeaf08ad0ecbf7e9dd1bc15c4439bd351169ecb02d36bf258fe048d3",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/context/ground-signs-8add95f3/summer-day/frontage-gts-1e0912cfcd9e.jpg",
+      "sha256": "1e0912cfcd9e40470576f0403e8bd84dc7746bf1c42cacc1e289feb9a788cf97",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/context/ground-signs-8add95f3/summer-day/frontage-unirea-e7889b4bc0b0.jpg",
+      "sha256": "e7889b4bc0b0ece51d96d085de60beb2b7e4db0ad746ff9c7a6ec7ca7cf1bb5f",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/context/ground-signs-8add95f3/summer-day/junction-detail.jpg",
+      "sha256": "71756434186f8d6a247ba3b8366c48b6288d9bca80cb53d0f1c76d45f4584be4",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/context/ground-signs-8add95f3/summer-night/street-approach.jpg",
+      "sha256": "18216d93e2e590d93be9a17f7014506ab14e5a744268d53ed17e36a3978b7cfc",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/context/ground-signs-8add95f3/summer-night/frontage-gts-cc7dbb7a57fe.jpg",
+      "sha256": "cc7dbb7a57fe7bf7b14152a56cfd2d19be7cfac58d89fd3ef68d9d5ff9bd92b1",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/context/ground-signs-8add95f3/summer-night/frontage-unirea-5f871d77385a.jpg",
+      "sha256": "5f871d77385a1f8f435bedc1c2832674769e1b3c9e83a6db8cd14d16b3eb5196",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/context/ground-signs-8add95f3/summer-night/junction-detail.jpg",
+      "sha256": "be0fa5c7d1836fce1812ca1a43ac7c90508a7272db5b3d6a3e8510687284053e",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/context/ground-signs-8add95f3/winter-day/street-approach.jpg",
+      "sha256": "83e6d25e7e392091f5293a70a94910f70a0220d8885ae715367fac5db08e7acb",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/context/ground-signs-8add95f3/winter-day/frontage-gts-041953e271a5.jpg",
+      "sha256": "041953e271a556aff111693d903827ce3a503ae0add1ecac0af312b9c941f664",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/context/ground-signs-8add95f3/winter-day/frontage-unirea-716e9b97e8d2.jpg",
+      "sha256": "716e9b97e8d24430266103b18e5087776f6e852ea6fc9206bd67ff55fefdff97",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/context/ground-signs-8add95f3/winter-day/junction-detail.jpg",
+      "sha256": "7e6e3e6c949bd10501ed6daaf1d83b918fe3c5f44e1acbf72e9bdd68a3ae2e52",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/context/ground-signs-8add95f3/winter-night/street-approach.jpg",
+      "sha256": "6e317568543873fef415e65d49a8391e1a4d340d19277b6e8d075f6825c6f696",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/context/ground-signs-8add95f3/winter-night/frontage-gts-a104a294fa54.jpg",
+      "sha256": "a104a294fa545d2dcfd65710bbf01f15d0bc961adf8966edd0f85d07a695c896",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/context/ground-signs-8add95f3/winter-night/frontage-unirea-f03063c8f0e4.jpg",
+      "sha256": "f03063c8f0e440878c6b878850a9ed2260d1ff318710d6309978f34148f67ae4",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "path": "/game/overview/comparison-data/unirii/context/ground-signs-8add95f3/winter-night/junction-detail.jpg",
+      "sha256": "d6f67b46e9432b0f7bd7b41a9f37ae26afe73a10f1113649f92fe5a02cc0d0ab",
+      "width": 1280,
+      "height": 800
+    }
+  ],
+  "scope": "Desktop/phone layout, changed card, six district selectors and four conditions each; complete image decode/hash validation. Reference aerial parity is separate."
+}

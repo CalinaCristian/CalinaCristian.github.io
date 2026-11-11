@@ -1,0 +1,71 @@
+{
+  "at": "2026-11-11T03:02:12.291435+00:00",
+  "source": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+  "fullSizeReviewed": {
+    "atlas": [
+      "aerial-r04-c03",
+      "aerial-r04-c04",
+      "aerial-r04-c05",
+      "aerial-r05-c03",
+      "aerial-r05-c04",
+      "aerial-r05-c05",
+      "aerial-r06-c03",
+      "aerial-r06-c04",
+      "aerial-r06-c05"
+    ],
+    "ground": [
+      "street-approach:summer-day",
+      "frontage-lincoln:summer-day",
+      "frontage-onelincoln:summer-day",
+      "junction-detail:summer-day",
+      "street-approach:summer-night",
+      "frontage-lincoln:summer-night",
+      "frontage-onelincoln:summer-night",
+      "junction-detail:summer-night",
+      "street-approach:winter-day",
+      "frontage-lincoln:winter-day",
+      "frontage-onelincoln:winter-day",
+      "junction-detail:winter-day",
+      "street-approach:winter-night",
+      "frontage-lincoln:winter-night",
+      "frontage-onelincoln:winter-night",
+      "junction-detail:winter-night"
+    ],
+    "candidateRefined": [
+      "71-bellevue-square-assembly",
+      "entrance-ground",
+      "entrance-front",
+      "mall-roof"
+    ],
+    "modelStudies": [
+      "front",
+      "top",
+      "oblique"
+    ],
+    "baseline": [
+      "71-bellevue-square-assembly"
+    ],
+    "phone": [
+      "phone-7593/entrance-phone.png"
+    ],
+    "sharedTourist": [
+      "visit-7593/arrival.png",
+      "visit-7593/approach.png",
+      "visit-7593/visitor.png",
+      "visit-phone-7593/phone.png",
+      "visit-phone-7593/visitor-phone.png"
+    ],
+    "overview": [
+      "overview-qa/card-1440.png",
+      "overview-qa/card-390.png"
+    ]
+  },
+  "findings": [
+    "Source mall outline remains visible with no tower at Macy part.9technicalatlas frames refreshed.",
+    "Ground cameras render correct summer/winter/day/night appearances, with existing geometry and lamp/road-lighting limitations retained. No district-wide fidelity or traffic acceptance.",
+    "Native reported-camera thin-frame breakup in initialcandidate8020b56d rejected; refined7593b636 lines continuous.",
+    "Isolated front is a whole365m mall elevation: its low height produces a thin silhouette, not an entrance detail; original-camera and close phone evidence are separate.",
+    "Desktop and portrait cards show matching original camera before/after plus supplemental phone close-up; complete lettering visible but grid-letter typography remains approximate. Shared scene captures are static appearance checks, not new route or gesture acceptance."
+  ],
+  "updatedAt": "2026-11-11T03:09:32.452037+00:00"
+}

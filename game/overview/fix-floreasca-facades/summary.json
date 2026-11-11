@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "reports": [
+    4,
+    5
+  ],
+  "status": "Native High/Ultra and regression checks passed; publication tracked separately",
+  "captures": [
+    {
+      "file": "windows-before.png",
+      "source": "54ab3d3effbaf6251510fa0b54d13de68291f4ff",
+      "capturedAt": "2026-11-10T23:52:56.445Z",
+      "sha256": "4be92ffecb4bd411a125c043c1dffaf369b4cfd2b6ec8d2e8c7152049fb73a09",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "cameraBeforeCapture": {
+        "eye": [
+          -239.925,
+          4.859,
+          -41.668
+        ],
+        "bearing": 255.02,
+        "pitch": -25.303,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:49.301Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "quality": "high",
+      "scope": "Reported-eye controlled native frames; camera setup recorded before two capture frames, small native sway retained. Not an ordinary journey or hardware FPS result."
+    },
+    {
+      "file": "windows-after.png",
+      "source": "a5c7ca16f2dae72a5c37480e475c108a9786607d",
+      "capturedAt": "2026-11-10T23:55:42.787Z",
+      "sha256": "0fec6a521018ef8913a8d3fdfc306810dcbf4dfec4dee0b1736cea69f4d28538",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "cameraBeforeCapture": {
+        "eye": [
+          -239.925,
+          4.859,
+          -41.668
+        ],
+        "bearing": 255.023,
+        "pitch": -25.278,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:30:33.683Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "quality": "high",
+      "scope": "Reported-eye controlled native frames; camera setup recorded before two capture frames, small native sway retained. Not an ordinary journey or hardware FPS result."
+    },
+    {
+      "file": "balconies-before.png",
+      "source": "54ab3d3effbaf6251510fa0b54d13de68291f4ff",
+      "capturedAt": "2026-11-10T23:53:23.933Z",
+      "sha256": "6eacd8d504df3ac1be7c4e47b9d8bf7c5f259b919b38422b8e8ae8fea071d3f7",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "cameraBeforeCapture": {
+        "eye": [
+          -281.814,
+          7.859,
+          166.543
+        ],
+        "bearing": 208.256,
+        "pitch": -5.203,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:32:13.756Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "quality": "high",
+      "scope": "Reported-eye controlled native frames; camera setup recorded before two capture frames, small native sway retained. Not an ordinary journey or hardware FPS result."
+    },
+    {
+      "file": "balconies-after.png",
+      "source": "a5c7ca16f2dae72a5c37480e475c108a9786607d",
+      "capturedAt": "2026-11-10T23:56:23.272Z",
+      "sha256": "3063fd4cdf55d98a39a7a988c4eee996279286a7436608b4aa2bd8e42ab8f67c",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "cameraBeforeCapture": {
+        "eye": [
+          -281.814,
+          7.859,
+          166.543
+        ],
+        "bearing": 208.292,
+        "pitch": -5.144,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:06.924Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "quality": "high",
+      "scope": "Reported-eye controlled native frames; camera setup recorded before two capture frames, small native sway retained. Not an ordinary journey or hardware FPS result."
+    }
+  ],
+  "validation": {
+    "windowBandControls": 3,
+    "footA": {
+      "high": 0,
+      "medium": 0,
+      "low": 2,
+      "notes": [
+        "Software-GL FPS informational",
+        "Traffic update averaged9.9ms against8ms budget; retained, traffic CPU work remains open"
+      ]
+    },
+    "pairedDistrict": {
+      "coverage": "6/6 both",
+      "identicalIssueArrays": true,
+      "existingFindings": 36,
+      "peakDrawCalls": 250,
+      "baselinePeakTriangles": 858219,
+      "candidatePeakTriangles": 863641,
+      "quality": "medium"
+    },
+    "reportedHigh": {
+      "groundWindows": {
+        "drawCalls": 158,
+        "triangles": 563703
+      },
+      "balconies": {
+        "drawCalls": 201,
+        "triangles": 712479
+      },
+      "cameraOffsetsM": [
+        -0.15,
+        0.15
+      ],
+      "browserErrors": []
+    },
+    "limitations": [
+      "Controlled native reported-eye captures, not continuous gameplay or hardware FPS acceptance.",
+      "Other Floreasca building, road, tree and traffic defects remain open."
+    ],
+    "reportedUltra": {
+      "groundWindows": {
+        "drawCalls": 158,
+        "triangles": 563703
+      },
+      "balconies": {
+        "drawCalls": 368,
+        "triangles": 1350381
+      },
+      "browserErrors": [],
+      "scope": "Original reported poses with native Ultra/full+AO; both full-size captures inspected."
+    }
+  }
+}

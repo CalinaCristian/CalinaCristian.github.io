@@ -1,0 +1,333 @@
+{
+  "scope": "Superseded records, original pixels retained.",
+  "items": [
+    {
+      "id": "chapter-upb-street",
+      "chapterId": "upb",
+      "label": "upb actual chapter start street view",
+      "kind": "street",
+      "x": 492.77024538696793,
+      "z": -810.1522799997306,
+      "y": 1.7,
+      "target": [
+        448.62286574402157,
+        1.7,
+        -786.678701860436
+      ],
+      "fov": 80,
+      "cameraY": 2.07,
+      "groundY": 0.37,
+      "heading": 242,
+      "pitch": -0.42398102944275934,
+      "aspect": 1.5,
+      "pose": {
+        "x": 492.77024538696793,
+        "y": 2.07,
+        "z": -810.1522799997306,
+        "heading": 242,
+        "pitch": -0.42398102944275934,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.001905601746215678,
+          0.8571614336128192,
+          0.003171453887758071,
+          0.5150345496071496
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "night",
+        "rendererClockOverride": "night",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "🌙",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794179851707,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": -28
+      },
+      "perf": {
+        "fps": 12,
+        "frameMs": 0,
+        "drawCalls": 226,
+        "triangles": 867660,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": 493.11810085670425,
+          "z": -766.4304235538713,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 458.6697715454387,
+          "z": -769.6749816739361,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 453.287142914493,
+          "z": -777.0619999047791,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 491.7251736903816,
+          "z": -767.4180112976361,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 459.41094032008976,
+          "z": -770.292437148667,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 454.731148234672,
+          "z": -777.0247027282476,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 491.83655663676666,
+          "z": -766.8284404034642,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 456.1210652015042,
+          "z": -771.1591893461496,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 454.46252954751145,
+          "z": -779.7488310539748,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 455.4031440724081,
+          "z": -800.9349759420436,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 489.0632631044914,
+          "z": -783.0914627141385,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 497.72660427159553,
+          "z": -788.4227610038351,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 446.7441056051873,
+          "z": -784.6381658628469,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 460.4482777345632,
+          "z": -765.1453745117792,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 507.82324332076837,
+          "z": -829.901934495,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 526.829208623681,
+          "z": -806.332094344779,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 524.4689779661636,
+          "z": -792.9030004973224,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 511.71342934430265,
+          "z": -797.0300564052391,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 440.9120065142964,
+          "z": -781.4764136741439,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 460.16738878212203,
+          "z": -765.6419083304127,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 478.3701685405761,
+          "z": -801.7835833442135,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 520.8452370377413,
+          "z": -802.6496424054682,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 512.2949082130124,
+          "z": -797.3878903215597,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 498.4635844252206,
+          "z": -812.6775128298922,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 517.3221437870204,
+          "z": -823.6236464534795,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 476.5446907700782,
+          "z": -812.3964292716565,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 498.04501431840094,
+          "z": -776.642064966209,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 437.1338031135244,
+          "z": -791.0306296916291,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 462.65939197221655,
+          "z": -793.2663099873841,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 538.4144961257957,
+          "z": -835.8756707645331,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 531.6919769785845,
+          "z": -843.7666898505236,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        }
+      ],
+      "vehiclesWithin60m": 3,
+      "lat": 44.44849,
+      "lon": 26.0654,
+      "image": "images/chapter-upb-street.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:20:20.094Z",
+      "sha256": "bd8d3c7fd7445073e2c9898329fd398dca7078642e2e64fa3b7173203439a74a",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "night",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      },
+      "thumbnail": "thumbs/chapter-upb-street.jpg",
+      "thumb": "thumbs/chapter-upb-street.jpg",
+      "thumbnailSha256": "96fcf09139ad6ff36890bec6230e6dd93ea5f832347afca9837824f9b9d751d5",
+      "reviewNote": "Actual renderer readback is summer/clear/night. Politehnica public-perimeter view remains obscured by mapped trees; the campus building is not clearly visible. Four outward views retain sparse generic distant buildings/rail yards and unmeasured night lighting. The actual UPB chapter-start street beneath the bridge is visible. Static cameras do not exercise controls or certify source/clearance parity."
+    }
+  ]
+}

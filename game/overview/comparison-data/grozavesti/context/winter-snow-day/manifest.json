@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "captureType": "game-perspective-context",
   "comparisonCompatible": false,
-  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "gameSourceCommit": "mixed",
   "captureTool": {
     "name": "capture-context.cjs",
     "sha256": "921986afbd9d1554cc1ca68bd39168efaba1f08ddf151057b736cb7e7c6e4684"
@@ -28,7 +28,7 @@
   "items": [
     {
       "id": "politehnica-street",
-      "label": "Politehnica public perimeter in selected snow \u00b7 trees limit campus view",
+      "label": "Politehnica public perimeter in selected snow · trees limit campus view",
       "kind": "street",
       "landmark": "politehnica",
       "sourceEdge": 71,
@@ -80,7 +80,7 @@
           "code": 73,
           "kind": "snow",
           "label": "Snow",
-          "icon": "\ud83c\udf28\ufe0f",
+          "icon": "🌨️",
           "tempC": -2,
           "precipMm": 0.8,
           "snowCm": 12,
@@ -330,7 +330,7 @@
           "code": 73,
           "kind": "snow",
           "label": "Snow",
-          "icon": "\ud83c\udf28\ufe0f",
+          "icon": "🌨️",
           "tempC": -2,
           "precipMm": 0.8,
           "snowCm": 12,
@@ -444,7 +444,7 @@
           "code": 73,
           "kind": "snow",
           "label": "Snow",
-          "icon": "\ud83c\udf28\ufe0f",
+          "icon": "🌨️",
           "tempC": -2,
           "precipMm": 0.8,
           "snowCm": 12,
@@ -558,7 +558,7 @@
           "code": 73,
           "kind": "snow",
           "label": "Snow",
-          "icon": "\ud83c\udf28\ufe0f",
+          "icon": "🌨️",
           "tempC": -2,
           "precipMm": 0.8,
           "snowCm": 12,
@@ -672,7 +672,7 @@
           "code": 73,
           "kind": "snow",
           "label": "Snow",
-          "icon": "\ud83c\udf28\ufe0f",
+          "icon": "🌨️",
           "tempC": -2,
           "precipMm": 0.8,
           "snowCm": 12,
@@ -771,16 +771,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "winter",
-        "weatherOverride": "snow",
+        "season": "winter",
         "weather": {
           "source": "override",
           "code": 73,
           "kind": "snow",
           "label": "Snow",
-          "icon": "\ud83c\udf28\ufe0f",
+          "icon": "🌨️",
           "tempC": -2,
           "precipMm": 0.8,
           "snowCm": 12,
@@ -790,25 +787,18 @@
           "visibilityM": 1600,
           "cloud": 1,
           "season": "winter",
-          "updatedAt": 1794180470477,
+          "updatedAt": 1794362933601,
           "climate": null
         },
-        "season": {
-          "season": "winter",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 1,
-          "brown": 0.75,
-          "fresh": 0,
-          "doy": 20
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 13,
-        "frameMs": 0,
-        "drawCalls": 245,
-        "triangles": 1077208,
+        "fps": 0.24,
+        "frameMs": 18.3,
+        "drawCalls": 265,
+        "triangles": 837404,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -819,234 +809,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [
-        {
-          "x": 493.11810085670425,
-          "z": -766.4304235538713,
-          "state": "stand",
-          "onRoad": false,
-          "sourceRoadId": null
-        },
-        {
-          "x": 458.6697715454387,
-          "z": -769.6749816739361,
-          "state": "stand",
-          "onRoad": false,
-          "sourceRoadId": null
-        },
-        {
-          "x": 453.287142914493,
-          "z": -777.0619999047791,
-          "state": "stand",
-          "onRoad": false,
-          "sourceRoadId": null
-        },
-        {
-          "x": 491.7251736903816,
-          "z": -767.4180112976361,
-          "state": "stand",
-          "onRoad": false,
-          "sourceRoadId": null
-        },
-        {
-          "x": 459.41094032008976,
-          "z": -770.292437148667,
-          "state": "stand",
-          "onRoad": false,
-          "sourceRoadId": null
-        },
-        {
-          "x": 454.731148234672,
-          "z": -777.0247027282476,
-          "state": "stand",
-          "onRoad": false,
-          "sourceRoadId": null
-        },
-        {
-          "x": 491.83655663676666,
-          "z": -766.8284404034642,
-          "state": "stand",
-          "onRoad": false,
-          "sourceRoadId": null
-        },
-        {
-          "x": 456.1210652015042,
-          "z": -771.1591893461496,
-          "state": "stand",
-          "onRoad": false,
-          "sourceRoadId": null
-        },
-        {
-          "x": 454.46252954751145,
-          "z": -779.7488310539748,
-          "state": "stand",
-          "onRoad": false,
-          "sourceRoadId": null
-        },
-        {
-          "x": 455.4031440724081,
-          "z": -800.9349759420436,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w139788054"
-        },
-        {
-          "x": 489.11825864628673,
-          "z": -783.1253061969542,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w106797419"
-        },
-        {
-          "x": 497.72660427159553,
-          "z": -788.4227610038351,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w106797419"
-        },
-        {
-          "x": 446.7441056051873,
-          "z": -784.6381658628469,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w139788054"
-        },
-        {
-          "x": 460.51543003936285,
-          "z": -765.0362684160548,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w106797419"
-        },
-        {
-          "x": 507.82324332076837,
-          "z": -829.901934495,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w139788054"
-        },
-        {
-          "x": 526.829208623681,
-          "z": -806.332094344779,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w106797419"
-        },
-        {
-          "x": 524.4689779661636,
-          "z": -792.9030004973224,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w106797419"
-        },
-        {
-          "x": 511.4658329794235,
-          "z": -797.0919051927717,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w106797419"
-        },
-        {
-          "x": 440.9120065142964,
-          "z": -781.4764136741439,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w139788054"
-        },
-        {
-          "x": 460.10023647732237,
-          "z": -765.7510144261371,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w106797419"
-        },
-        {
-          "x": 478.3701685405761,
-          "z": -801.7835833442135,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w139788054"
-        },
-        {
-          "x": 520.8452370377413,
-          "z": -802.6496424054682,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w106797419"
-        },
-        {
-          "x": 512.5425045778916,
-          "z": -797.326041534027,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w106797419"
-        },
-        {
-          "x": 498.4633611393094,
-          "z": -812.6779202437752,
-          "state": "legs",
-          "onRoad": false,
-          "sourceRoadId": "w139788054"
-        },
-        {
-          "x": 517.3221437870204,
-          "z": -823.6236464534795,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w139788054"
-        },
-        {
-          "x": 476.5446907700782,
-          "z": -812.3964292716565,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w139788054"
-        },
-        {
-          "x": 498.04501431840094,
-          "z": -776.642064966209,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w106797419"
-        },
-        {
-          "x": 437.1338031135244,
-          "z": -791.0306296916291,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w139788054"
-        },
-        {
-          "x": 462.65939197221655,
-          "z": -793.2663099873841,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w139788054"
-        },
-        {
-          "x": 538.4144961257957,
-          "z": -835.8756707645331,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w139788054"
-        },
-        {
-          "x": 531.6919769785845,
-          "z": -843.7666898505236,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w139788054"
-        }
-      ],
-      "vehiclesWithin60m": 6,
       "lat": 44.44849,
       "lon": 26.0654,
-      "image": "images/chapter-upb-street.jpg",
+      "image": "signs-8add95f3/chapter-upb-street.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:29:26.322Z",
-      "sha256": "224aca4ce9f515d24e2aea0b8da13e329e461f28352cfccb64e5b66f222dba84",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:09:00.906Z",
+      "sha256": "2190e05b2850267c16a22a45409cff8949e4d8066d6ce51f0f237b4a48bc0414",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -1059,82 +829,105 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/chapter-upb-street.jpg",
-      "thumb": "thumbs/chapter-upb-street.jpg",
-      "thumbnailSha256": "0357a17edd6a3cd70e68bbba7e44b3a41504b0fc26e628a39af93ea1d1a7c5b1",
-      "reviewNote": "Actual renderer readback is winter/snow/day. The public-perimeter campus view is partly obscured by leafless source trees. Four outward views show source rail/street corridors, generic buildings and sparse distant detail under selected snow/fog. The actual UPB chapter-start street beneath the bridge is visible. Architectural/canopy/winter appearance is unmeasured; static cameras do not exercise controls or certify full source clearance."
+      "thumbnail": "signs-8add95f3/chapter-upb-street.png",
+      "thumb": "signs-8add95f3/chapter-upb-street.png",
+      "thumbnailSha256": "2190e05b2850267c16a22a45409cff8949e4d8066d6ce51f0f237b4a48bc0414",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 0.41999999999999993,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "2190e05b2850267c16a22a45409cff8949e4d8066d6ce51f0f237b4a48bc0414"
     }
   ],
-  "review": {
-    "district": "grozavesti",
-    "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-    "imagesReviewed": 6,
-    "status": "All6 actual GAME winter perspective views reviewed with explicit source/visibility gaps. Capture coverage complete; real-world parity remains incomplete.",
-    "captureCoverageAccepted": true,
-    "realWorldParityAccepted": false,
-    "comparisonScope": "GAME-only static perspectives; paired north-up atlas separate. Actual renderer winter/snow/day retained per frame.",
-    "rawSourceContactHits": 59,
-    "sourceContactNote": "Raw source-road/building queries remain unresolved diagnostics, not an all-scene clearance pass.",
-    "entries": [
-      {
-        "id": "politehnica-street",
-        "sha256": "37369df93c050da99e39b1d765bdefb30e7f2fbb33e4c6b870fde83f68842398",
-        "reviewedAt": "2026-11-08T23:32:11.645867+00:00",
-        "reviewSheetSha256": "f8127b03d818defc6ec8434f66ee98fcdb4cf1a6a3a626d55391f40f907aad70",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is winter/snow/day. The public-perimeter campus view is partly obscured by leafless source trees. Four outward views show source rail/street corridors, generic buildings and sparse distant detail under selected snow/fog. The actual UPB chapter-start street beneath the bridge is visible. Architectural/canopy/winter appearance is unmeasured; static cameras do not exercise controls or certify full source clearance.",
-        "displayLabel": "Politehnica public perimeter in selected snow \u00b7 trees limit campus view"
+  "historicalMetadata": [
+    {
+      "review": {
+        "district": "grozavesti",
+        "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+        "imagesReviewed": 6,
+        "status": "All6 actual GAME winter perspective views reviewed with explicit source/visibility gaps. Capture coverage complete; real-world parity remains incomplete.",
+        "captureCoverageAccepted": true,
+        "realWorldParityAccepted": false,
+        "comparisonScope": "GAME-only static perspectives; paired north-up atlas separate. Actual renderer winter/snow/day retained per frame.",
+        "rawSourceContactHits": 59,
+        "sourceContactNote": "Raw source-road/building queries remain unresolved diagnostics, not an all-scene clearance pass.",
+        "entries": [
+          {
+            "id": "politehnica-street",
+            "sha256": "37369df93c050da99e39b1d765bdefb30e7f2fbb33e4c6b870fde83f68842398",
+            "reviewedAt": "2026-11-08T23:32:11.645867+00:00",
+            "reviewSheetSha256": "f8127b03d818defc6ec8434f66ee98fcdb4cf1a6a3a626d55391f40f907aad70",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is winter/snow/day. The public-perimeter campus view is partly obscured by leafless source trees. Four outward views show source rail/street corridors, generic buildings and sparse distant detail under selected snow/fog. The actual UPB chapter-start street beneath the bridge is visible. Architectural/canopy/winter appearance is unmeasured; static cameras do not exercise controls or certify full source clearance.",
+            "displayLabel": "Politehnica public perimeter in selected snow · trees limit campus view"
+          },
+          {
+            "id": "drone-edge-west",
+            "sha256": "e0f2bb2adf50e3639aee596aa74f0b2256ab6cc43db0b4d791d8e2c1942af77d",
+            "reviewedAt": "2026-11-08T23:32:11.645885+00:00",
+            "reviewSheetSha256": "f8127b03d818defc6ec8434f66ee98fcdb4cf1a6a3a626d55391f40f907aad70",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is winter/snow/day. The public-perimeter campus view is partly obscured by leafless source trees. Four outward views show source rail/street corridors, generic buildings and sparse distant detail under selected snow/fog. The actual UPB chapter-start street beneath the bridge is visible. Architectural/canopy/winter appearance is unmeasured; static cameras do not exercise controls or certify full source clearance."
+          },
+          {
+            "id": "drone-edge-east",
+            "sha256": "6c97a7e4e90166a9e3190818634f359275330d2d105e04104f228905b14f95fd",
+            "reviewedAt": "2026-11-08T23:32:11.645888+00:00",
+            "reviewSheetSha256": "f8127b03d818defc6ec8434f66ee98fcdb4cf1a6a3a626d55391f40f907aad70",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is winter/snow/day. The public-perimeter campus view is partly obscured by leafless source trees. Four outward views show source rail/street corridors, generic buildings and sparse distant detail under selected snow/fog. The actual UPB chapter-start street beneath the bridge is visible. Architectural/canopy/winter appearance is unmeasured; static cameras do not exercise controls or certify full source clearance."
+          },
+          {
+            "id": "drone-edge-north",
+            "sha256": "5cb6681eaae5be709c97bcaf7dc6cfeb6ee55a0442659831c76a6689f28df292",
+            "reviewedAt": "2026-11-08T23:32:11.645890+00:00",
+            "reviewSheetSha256": "f8127b03d818defc6ec8434f66ee98fcdb4cf1a6a3a626d55391f40f907aad70",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is winter/snow/day. The public-perimeter campus view is partly obscured by leafless source trees. Four outward views show source rail/street corridors, generic buildings and sparse distant detail under selected snow/fog. The actual UPB chapter-start street beneath the bridge is visible. Architectural/canopy/winter appearance is unmeasured; static cameras do not exercise controls or certify full source clearance."
+          },
+          {
+            "id": "drone-edge-south",
+            "sha256": "451aab000822505c9fd71081e488055a0d203c0ec9571a60710163fd701c2d37",
+            "reviewedAt": "2026-11-08T23:32:11.645891+00:00",
+            "reviewSheetSha256": "f8127b03d818defc6ec8434f66ee98fcdb4cf1a6a3a626d55391f40f907aad70",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is winter/snow/day. The public-perimeter campus view is partly obscured by leafless source trees. Four outward views show source rail/street corridors, generic buildings and sparse distant detail under selected snow/fog. The actual UPB chapter-start street beneath the bridge is visible. Architectural/canopy/winter appearance is unmeasured; static cameras do not exercise controls or certify full source clearance."
+          },
+          {
+            "id": "chapter-upb-street",
+            "sha256": "224aca4ce9f515d24e2aea0b8da13e329e461f28352cfccb64e5b66f222dba84",
+            "reviewedAt": "2026-11-08T23:32:11.645893+00:00",
+            "reviewSheetSha256": "f8127b03d818defc6ec8434f66ee98fcdb4cf1a6a3a626d55391f40f907aad70",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is winter/snow/day. The public-perimeter campus view is partly obscured by leafless source trees. Four outward views show source rail/street corridors, generic buildings and sparse distant detail under selected snow/fog. The actual UPB chapter-start street beneath the bridge is visible. Architectural/canopy/winter appearance is unmeasured; static cameras do not exercise controls or certify full source clearance."
+          }
+        ]
       },
-      {
-        "id": "drone-edge-west",
-        "sha256": "e0f2bb2adf50e3639aee596aa74f0b2256ab6cc43db0b4d791d8e2c1942af77d",
-        "reviewedAt": "2026-11-08T23:32:11.645885+00:00",
-        "reviewSheetSha256": "f8127b03d818defc6ec8434f66ee98fcdb4cf1a6a3a626d55391f40f907aad70",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is winter/snow/day. The public-perimeter campus view is partly obscured by leafless source trees. Four outward views show source rail/street corridors, generic buildings and sparse distant detail under selected snow/fog. The actual UPB chapter-start street beneath the bridge is visible. Architectural/canopy/winter appearance is unmeasured; static cameras do not exercise controls or certify full source clearance."
+      "generatedAt": "2026-11-08T23:29:26.322Z",
+      "sourceCaptureManifest": "capture-manifest.json",
+      "sourceProvenance": {
+        "manifest": "source-provenance.json",
+        "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429",
+        "filesVerified": 1647
       },
-      {
-        "id": "drone-edge-east",
-        "sha256": "6c97a7e4e90166a9e3190818634f359275330d2d105e04104f228905b14f95fd",
-        "reviewedAt": "2026-11-08T23:32:11.645888+00:00",
-        "reviewSheetSha256": "f8127b03d818defc6ec8434f66ee98fcdb4cf1a6a3a626d55391f40f907aad70",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is winter/snow/day. The public-perimeter campus view is partly obscured by leafless source trees. Four outward views show source rail/street corridors, generic buildings and sparse distant detail under selected snow/fog. The actual UPB chapter-start street beneath the bridge is visible. Architectural/canopy/winter appearance is unmeasured; static cameras do not exercise controls or certify full source clearance."
-      },
-      {
-        "id": "drone-edge-north",
-        "sha256": "5cb6681eaae5be709c97bcaf7dc6cfeb6ee55a0442659831c76a6689f28df292",
-        "reviewedAt": "2026-11-08T23:32:11.645890+00:00",
-        "reviewSheetSha256": "f8127b03d818defc6ec8434f66ee98fcdb4cf1a6a3a626d55391f40f907aad70",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is winter/snow/day. The public-perimeter campus view is partly obscured by leafless source trees. Four outward views show source rail/street corridors, generic buildings and sparse distant detail under selected snow/fog. The actual UPB chapter-start street beneath the bridge is visible. Architectural/canopy/winter appearance is unmeasured; static cameras do not exercise controls or certify full source clearance."
-      },
-      {
-        "id": "drone-edge-south",
-        "sha256": "451aab000822505c9fd71081e488055a0d203c0ec9571a60710163fd701c2d37",
-        "reviewedAt": "2026-11-08T23:32:11.645891+00:00",
-        "reviewSheetSha256": "f8127b03d818defc6ec8434f66ee98fcdb4cf1a6a3a626d55391f40f907aad70",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is winter/snow/day. The public-perimeter campus view is partly obscured by leafless source trees. Four outward views show source rail/street corridors, generic buildings and sparse distant detail under selected snow/fog. The actual UPB chapter-start street beneath the bridge is visible. Architectural/canopy/winter appearance is unmeasured; static cameras do not exercise controls or certify full source clearance."
-      },
-      {
-        "id": "chapter-upb-street",
-        "sha256": "224aca4ce9f515d24e2aea0b8da13e329e461f28352cfccb64e5b66f222dba84",
-        "reviewedAt": "2026-11-08T23:32:11.645893+00:00",
-        "reviewSheetSha256": "f8127b03d818defc6ec8434f66ee98fcdb4cf1a6a3a626d55391f40f907aad70",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is winter/snow/day. The public-perimeter campus view is partly obscured by leafless source trees. Four outward views show source rail/street corridors, generic buildings and sparse distant detail under selected snow/fog. The actual UPB chapter-start street beneath the bridge is visible. Architectural/canopy/winter appearance is unmeasured; static cameras do not exercise controls or certify full source clearance."
-      }
-    ]
+      "captureValidation": "capture-validation.json",
+      "runtimeIntegrity": "runtime-integrity.json",
+      "sourceContactProbe": "source-contact-probe.json"
+    }
+  ],
+  "sourceCounts": {
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 1
   },
-  "generatedAt": "2026-11-08T23:29:26.322Z",
-  "sourceCaptureManifest": "capture-manifest.json",
-  "sourceProvenance": {
-    "manifest": "source-provenance.json",
-    "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429",
-    "filesVerified": 1647
-  },
-  "captureValidation": "capture-validation.json",
-  "runtimeIntegrity": "runtime-integrity.json",
-  "sourceContactProbe": "source-contact-probe.json"
+  "latestRefresh": {
+    "sourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+    "ids": [
+      "chapter-upb-street"
+    ],
+    "scope": "Only affected static views replaced; historical fields below retain their earlier scope. Individual current camera/date/condition/hash fields are authoritative."
+  }
 }

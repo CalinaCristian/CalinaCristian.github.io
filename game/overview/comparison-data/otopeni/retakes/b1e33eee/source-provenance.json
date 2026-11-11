@@ -1,0 +1,20 @@
+{
+  "source": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+  "baseline": "28e54da02114b04cb72fc500fb88a71ab256e224",
+  "changedFiles": [
+    "README.md",
+    "game/src/landmark-otp-pier.js",
+    "game/src/landmark-otp-source.js",
+    "game/src/landmark-source-identities.js",
+    "game/src/landmarks.js",
+    "specs/12-buildings-streetscape.md",
+    "tools/fidelity/test-otp-pier.mjs"
+  ],
+  "unchangedInputHashes": {
+    "game/data/bucharest-otopeni.json": "eea0a6023fd5053b3564f4d5da8a6de96b8f420038ff91cfc9c8d749e5501229",
+    "game/src/world.js": "96d4e7943c74c7dff22b381f7df315f689acf71d7cbbe8a6b9267d8db078c23c",
+    "game/src/traffic.js": "2032708ea9d15a416312c33b32c452cc5265020018c07708c00a53bbfe81c695"
+  },
+  "claudeScopeTouched": false,
+  "signCandidateIncluded": false
+}

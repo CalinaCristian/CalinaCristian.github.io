@@ -1,3 +1,5 @@
+import { buildBellevueSquare, BELLEVUE_MACYS_SOURCE } from './landmark-bellevue-square.js';
+import { buildOTPPier } from './landmark-otp-pier.js';
 import { facadePanels, facadePiers } from './facade-panels.js';
 import * as THREE from '../vendor/three.module.min.js';
 import { makeWaterMaterial } from './water.js';
@@ -1470,7 +1472,9 @@ const FOUNTAIN_RINGS = [
     [558.8,36.02,557.96,35.92,557.13,36.04,556.62,36.28,556.06,36.65,555.84,37.12,555.76,38.07,556.02,38.67,556.4,39.2,557.02,39.46,557.6,39.67,558.41,39.73,558.94,40.9,560.96,41.05,561.26,40.82,561.87,40.33,562.67,40.14,563.91,40.24,564.47,40.4,565.71,40.75,567.14,41.29,568.46,41.55,569.96,41.69,571.41,41.47,572.92,41.24,573.85,40.92,574.84,40.9,576.08,41.13,576.64,41.5,577.22,41.97,580.4,42.21,580.94,41.51,581.52,41.43,582.22,41.22,582.95,40.8,583.37,40.16,583.5,39.53,583.48,39.34,583.34,38.71,583.13,38.31,582.69,37.83,582.15,37.63,581.16,37.62,580.54,36.77,577.92,36.46,577.52,36.9,576.77,37.28,575.94,37.42,574.99,37.36,574.13,37.14,572.91,36.58,571.76,36.08,570.46,35.77,569.29,35.77,567.49,35.87,566.01,36.26,564.86,36.48,563.64,36.36,563.05,36.12,562.19,35.73,561.72,35.26,559.25,35.06], // w1177038219
     [206.12,-9.16,205.64,-9.88,205.4,-10.72,205.42,-11.6,205.71,-12.42,206.24,-13.12,206.94,-13.64,207.78,-13.9,208.65,-13.91,209.49,-13.66,210.21,-13.17,210.77,-12.44,211.08,-11.57,211.08,-10.66,210.8,-9.78,210.26,-9.04,209.5,-8.5,208.63,-8.23,207.71,-8.27,206.84,-8.58], // w413969309
 ];
+const FOUNTAIN_SOURCE_IDS = ["w1177217423", "w1177217420", "w1177026766", "w1177217417", "w1177026763", "w1177042949", "w1177026760", "w1177042946", "w1177023237", "w1177042943", "w1177023234", "w1177038230", "w1177023231", "w1177038227", "w1177023228", "w1177038224", "w1177023225", "w1176581103", "w1177667553", "w1128204284", "w1128204285", "w1176591248", "w1176969066", "w1128204292", "w1128204286", "w1128204287", "w1128204293", "w1176969064", "w1176632036", "w1128204288", "w1128204289", "w1176632037", "w1176969065", "w1177026767", "w1177038207", "w1177026770", "w1177038210", "w1177038202", "w1177038213", "w1177026776", "w1177038216", "w1177026773", "w1177038219", "w413969309"];
 function bFountains(b) {
+    b.waterFootprints = [];
     const P = [], N = [], U = [], CO = [], J = [], I = [];
     const spray = rgb('#eef6fb');
     const add = (g, x, y, z, kind, seed, h) => {               // append a THREE geometry (local) to the jet buffers
@@ -1483,7 +1487,7 @@ function bFountains(b) {
     let n = 0;
     const sa = (q) => { let A = 0; for (let i = 0; i < q.length; i++) { const [x1, z1] = q[i], [x2, z2] = q[(i + 1) % q.length]; A += x1 * z2 - x2 * z1; } return A; };
     const wind = Math.sign(sa(ellipse(0, 0, 2, 1, 8)));
-    for (const flat of FOUNTAIN_RINGS) {
+    for (const [basinIndex, flat] of FOUNTAIN_RINGS.entries()) {
         const ring = []; for (let i = 0; i < flat.length; i += 2) ring.push([flat[i], flat[i + 1]]);
         if (Math.sign(sa(ring)) !== wind) ring.reverse();
         // principal axis + size of the real basin (OSM outline)
@@ -1493,6 +1497,7 @@ function bFountains(b) {
         let lmin = 1e9, lmax = -1e9, wmax = 0; for (const [x, z] of ring) { const l = (x - cx) * ux + (z - cz) * uz, w = Math.abs(-(x - cx) * uz + (z - cz) * ux); lmin = Math.min(lmin, l); lmax = Math.max(lmax, l); wmax = Math.max(wmax, w); }
         const L = lmax - lmin, Wd = wmax * 2, plaza = Math.abs(cx) < 100 && Wd > 12;
         const outer = offset(ring, 0.35), inner = offset(ring, -0.35);
+        b.waterFootprints.push({ sourceId: FOUNTAIN_SOURCE_IDS[basinIndex], ring: outer.map(p => [...p]) });
         b.ring(outer, 0, 0.6, '#a5a29b'); b.ring(inner, 0.35, 0.6, '#a5a29b', { inward: true }); b.lip(inner, outer, 0.6, '#b4b1a9', 1);   // granite kerb on the real outline
         b.ring(inner, 0.12, 0.35, '#8fb9bf', { inward: true });
         b.cap(inner, 0.12, '#6f8f93', [], 1);
@@ -1772,7 +1777,7 @@ function bBaneasaTerm(b) {
 // (OSM 771096082). Control cab: OSM way 794617342 aeroway=tower, 20-25 m (no official height published;
 // a 1969 "Tehnica" article describes a 7-level tower on the terminal). Note the world squashes this model 0.35 N-S.
 // Src: https://ro.wikipedia.org/wiki/Aeroportul_Internațional_Henri_Coandă ; OSM ways 771096081/82/83, 794617342
-function bOTP(b) {
+function bOTP(b, ctx = {}) {
     const [dep, arr, pier] = P.otp.map(pts), GL = '#4f7690', WH = '#eef0f1', CON = '#d9d6cf';
     // Independent aerial roof zones, partitioned inside the complete source ring.
     // No overlay faces, missing strips, new source heights or changed colliders.
@@ -1837,20 +1842,15 @@ function bOTP(b) {
     b.prism(control,20,25,'#33505f',{mat:'g',topCol:WH});
     b.colPolygon(control,{y0:20,y1:25});
     b.cyl(63,25,162,0.2,0.2,5,'#d33',6); // aerial mast height remains estimated
-    // "Vioara" pier: dark membranes, light roof ribs and a light perimeter fascia.
-    b.prism(pier, 0, 13, '#6f91a8', { mat: 'g', topCol: '#e3e6e8' });
-    b.pilasters(pier, 0, 13, 8, 0.25, 0.3, '#d6dde2', {});
-    b.prism(offset(pier, 1.2), 13, 14.6, WH, { top: false, bottom: true });
-    b.cap(offset(pier, 1.2), 14.6, WH, [pier]);
-    roofZones(pier, 14.6, OTP_ROOF_ZONES.pier);
-    b.prism(BUCHAREST_SOURCE_MASSES.otp.spine,14.6,20,'#e6e9ea',{top:false}); // actual OSM w1321861231 spine
-    roofZones(BUCHAREST_SOURCE_MASSES.otp.spine, 20, OTP_ROOF_ZONES.spine);
-    const bb = bbox([pier]), px = bb.x1 + 30;
-    for (const z of [-170, -150, -110, -90, -45, -25]) { b.box(bb.x1 + 9, 4, z, 18, 3, 3, '#c9ced2'); b.box(bb.x1 + 18.5, 0, z, 1, 4, 1, '#7a8187'); }
+    // Source part heights and bridge clearance own their complete mapped footprints.
+    // The prior undivided pier extruded those elevated bridges down to the apron.
+    const pierOutline = ctx.sourceBuildings?.w771096083?.[0]?.ring || pier;
+    buildOTPPier(b, pierOutline, ctx.sourceBuildings, roofZones, OTP_ROOF_ZONES);
+    const bb = bbox([pierOutline]), px = bb.x1 + 30;
     airliner(b, px, -150, Math.PI, { tail: '#1d3f8f', stripe: '#1d3f8f' });        // TAROM
     airliner(b, px, -45, Math.PI, { tail: '#c6007e', belly: '#2b0f5c' });           // Wizz Air
     airliner(b, bb.x0 - 26, -120, 0, { tail: '#0b4ea2', stripe: '#0b4ea2' });       // Blue Air
-    b.colPolygon(dep, { y1: 21 }); b.colPolygon(arr, { y1: 14 }); b.colPolygon(pier, { y1: 20 });
+    b.colPolygon(dep, { y1: 21 }); b.colPolygon(arr, { y1: 14 });
 }
 
 // ASE — Ion N. Angelescu: source rings r2274298 (2026-11-08), including its mapped rounded corner and four courts.
@@ -2400,21 +2400,11 @@ function bBellevueTowers(b) {
 // Bellevue Square (1946, rebuilt as an enclosed mall 1981) — 3-level regional mall (OSM way 29234887),
 // skylit malls, main glazed entrance + lettering on Bellevue Way NE (east, model -z).
 // Src: https://en.wikipedia.org/wiki/Bellevue_Square ; OSM way 29234887
-function bBellevueSq(b) {
-    const p = U.w29234887;
-    // round 6 note 29: one shopfront band at street level and blank cream cladding above (the old full-height glass
-    // stripes read as striped boxes), the skylit spines kept on the roof inside the footprint, the lettering on the
-    // entrance pavilion's face (it floated above the canopy, cut off)
-    b.prism(p, 0, 15, '#e3dccf', { topCol: '#cbc4b7' }); b.bands(p, 0, 5, 5, '#3f5666', { frac: 0.78, mat: 'g', start: 0.4 });
-    b.bands(p, 13.2, 15, 1.8, '#d2cabb', { frac: 0.5, start: 0.3 });             // cornice line
-    b.box(15, 15, 0, 230, 1.6, 10, '#cbd6dc', { mat: 'g' });                  // skylit mall spines (low glazed ridges)
-    b.box(-20, 15, 0, 10, 1.6, 190, '#cbd6dc', { mat: 'g' });
-    // main entrance on Bellevue Way NE (model -z = east): glazed pavilion, canopy and the name on its face
-    const ze = zAt([p], 0)?.[0] ?? -126;
-    b.box(0, 0, ze - 4, 30, 13, 8, '#6f8ea2', { mat: 'g' }); b.box(0, 13, ze - 4.5, 34, 1.4, 10, '#efe9df');
-    b.box(0, 9.6, ze - 8.25, 24, 2.6, 0.3, '#efe9df');                            // sign fascia
-    b.text('BELLEVUE SQUARE', 0, 10.15, ze - 8.45, Math.PI, 1.5, '#2e3b46');
-    b.colPolygon(p, { y1: 15 });
+function bBellevueSq(b, ctx = {}) {
+    // Exact OSM outline and the contained, undimensioned Macy's part share the
+    // sourced low mall envelope. The old random 57.6m glass estimate is not a tower.
+    buildBellevueSquare(b, ctx.sourceBuildings?.w29234887?.[0]?.ring || U.w29234887,
+        ctx.sourceBuildings?.w497739259?.[0]?.ring || BELLEVUE_MACYS_SOURCE);
 }
 
 // Mount Rainier — 4,392 m stratovolcano, summit 46.8529 N 121.7604 W (~90 km SE of downtown).
@@ -3519,7 +3509,7 @@ export const LANDMARKS = [
     L('seagarage', 'seattle', 'Sea-Tac parking garage + skybridges', ['Sea-Tac Parking Garage', 'Seattle-Tacoma International Airport Parking Garage'], 80, bSeaGarage, { sourceIds: ['r15763840','w37017724','w37017725','w37017726','w37017727','w37017728','w37017729'] }),
     L('sealink', 'seattle', 'SeaTac/Airport Link station', ['SeaTac/Airport'], 30, bSeaLink, { sourceIds: ['w54139654'] }),
     L('bellevuetowers', 'seattle', 'Bellevue Towers', ['Bellevue Towers', 'North Tower', 'South Tower'], 55, bBellevueTowers, { sourceIds: ['w118119171','w370237986','w370239409'] }),
-    L('bellevuesq', 'seattle', 'Bellevue Square', ['Bellevue Square Mall'], 190, bBellevueSq, { sourceIds: ['w29234887'] }),
+    L('bellevuesq', 'seattle', 'Bellevue Square', ['Bellevue Square Mall'], 190, bBellevueSq, { sourceIds: ['w29234887','w497739259'] }),
     L('rainier', 'seattle', 'Mount Rainier', [], 0, bRainier, {  backdrop: true, realDistanceKm: 87, sourceIds: [] }),
     L('olympics', 'seattle', 'Olympic Mountains', [], 0, bOlympics, {  backdrop: true, realDistanceKm: 60, sourceIds: [] }),
 ];
@@ -3564,5 +3554,6 @@ export function buildLandmark(lm, ctx = {}) {
         gates: (f.gates || []).map(g => ({ ...g, x: g.x * hs * c + g.z * hs * s, z: -g.x * hs * s + g.z * hs * c })) }));
     const covers = lm.backdrop ? [] : b.covers.map(rot), grounds = lm.backdrop ? [] : b.grounds.map(g => g.map(rot)); // grounds: surfaces kept clear of trees
     const coverPolys = lm.backdrop ? [] : b.coverPolys.map(g => g.map(rot)); // polygons: every OSM building centred inside is the model's own
-    return { mesh: group, clear: hs === 1 ? lm.radiusM : lm.footprintRadius, clearM: lm.radiusM, collision, triangles: tris, authoredScale: hs, fences, covers, grounds, coverPolys };
+    const waterFootprints = lm.backdrop ? [] : (b.waterFootprints || []).map(a => ({ ...a, ring: a.ring.map(rot) }));
+    return { waterFootprints, mesh: group, clear: hs === 1 ? lm.radiusM : lm.footprintRadius, clearM: lm.radiusM, collision, triangles: tris, authoredScale: hs, fences, covers, grounds, coverPolys };
 }

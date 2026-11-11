@@ -1,4 +1,4 @@
-import {mountConditionGallery} from './condition-gallery.js';
+import {mountConditionGallery} from './condition-gallery.js?v=20261111-shop-signs';
 // Street/drone context is game-only evidence. It must never inherit the aerial
 // viewer's north-up, equal-ground-square or matched-reference labels.
 export function perspectiveTitle(item) {

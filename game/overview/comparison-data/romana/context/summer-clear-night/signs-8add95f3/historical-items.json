@@ -1,0 +1,389 @@
+{
+  "scope": "Superseded records, original pixels retained.",
+  "items": [
+    {
+      "id": "ambasador-street",
+      "label": "ambasador · close partial facade from mapped public street",
+      "kind": "street",
+      "landmark": "ambasador",
+      "sourceEdge": 50,
+      "sourceRoadId": "w119241030",
+      "x": 642.16745536412,
+      "z": 711.2888480978056,
+      "y": 1.7,
+      "absoluteY": 1.94,
+      "target": [
+        662.3639904547023,
+        9,
+        704.2570829842916
+      ],
+      "fov": 85,
+      "cameraBodyValidation": {
+        "method": "Production collideBuildings at actual public source-road centre and its exact native roadHeight, before capture; no offset toward or through the source facade",
+        "radiusM": 0.25,
+        "footY": 0.29,
+        "heightM": 1.7,
+        "clear": true
+      },
+      "cameraY": 1.94,
+      "groundY": 0.24,
+      "heading": 70.80357389711827,
+      "pitch": 18.26950396383729,
+      "aspect": 1.5,
+      "pose": {
+        "x": 642.16745536412,
+        "y": 1.94,
+        "z": 711.2888480978056,
+        "heading": 70.80357389711827,
+        "pitch": 18.26950396383729,
+        "fov": 85,
+        "aspect": 1.5,
+        "quaternion": [
+          0.12940432680847486,
+          -0.5719596523205417,
+          0.09196894261944104,
+          0.8047722596573967
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "night",
+        "rendererClockOverride": "night",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "🌙",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794179480774,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": -28
+      },
+      "perf": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 125,
+        "triangles": 579059,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": 653.002668844464,
+          "z": 766.2329702549368,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w1561134314"
+        },
+        {
+          "x": 646.5199028311812,
+          "z": 697.6347832893657,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w119241030"
+        },
+        {
+          "x": 628.254008832354,
+          "z": 696.8031247468854,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w119241030"
+        }
+      ],
+      "vehiclesWithin60m": 1,
+      "lat": 44.44189960364164,
+      "lon": 26.0992806870794,
+      "image": "images/ambasador-street.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:13:21.087Z",
+      "sha256": "0bb1bbad2d1d7d1a9bc8cfb9bcbd4d74f734b7b4f64b847ebf89f075e0bd96e4",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "night",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      },
+      "thumbnail": "thumbs/ambasador-street.jpg",
+      "thumb": "thumbs/ambasador-street.jpg",
+      "thumbnailSha256": "733688d9d453bea857953ec3012c388821cf0b7da9165d98d8dd3a248895b2b1",
+      "reviewNote": "Actual renderer readback is summer/clear/night. ASE, Ambasador and Europe House are close partial-facade crops from body-clear public source-road positions; they do not show complete landmarks. Window/facade detail and night-lighting accuracy remain estimates. Outward views show the coarse distant transition explicitly."
+    },
+    {
+      "id": "chapter-arnia-street",
+      "chapterId": "arnia",
+      "label": "arnia actual chapter start street view",
+      "kind": "street",
+      "x": 603.9675355340652,
+      "z": 722.3580000002905,
+      "y": 1.7,
+      "target": [
+        603.9675355340652,
+        1.7,
+        672.3580000002905
+      ],
+      "fov": 80,
+      "cameraY": 1.94,
+      "groundY": 0.24,
+      "heading": 0,
+      "pitch": -0.2750176295403771,
+      "aspect": 1.5,
+      "pose": {
+        "x": 603.9675355340652,
+        "y": 1.94,
+        "z": 722.3580000002905,
+        "heading": 0,
+        "pitch": -0.2750176295403771,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.0023999792643085464,
+          0,
+          0,
+          0.9999971200456182
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "night",
+        "rendererClockOverride": "night",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "🌙",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794179480774,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": -28
+      },
+      "perf": {
+        "fps": 12,
+        "frameMs": 0,
+        "drawCalls": 223,
+        "triangles": 974569,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": 650.7723462609758,
+          "z": 759.6643364141318,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w1561134314"
+        },
+        {
+          "x": 643.5333297740999,
+          "z": 689.0567909113203,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w119241030"
+        },
+        {
+          "x": 625.5626266494415,
+          "z": 689.3475419503247,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w119241030"
+        }
+      ],
+      "vehiclesWithin60m": 2,
+      "lat": 44.4418,
+      "lon": 26.0988,
+      "image": "images/chapter-arnia-street.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:15:40.394Z",
+      "sha256": "bec263bb3db334efbca6d84f68de92827e025ff9c16311cc9a09d5dc68703d2f",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "night",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      },
+      "thumbnail": "thumbs/chapter-arnia-street.jpg",
+      "thumb": "thumbs/chapter-arnia-street.jpg",
+      "thumbnailSha256": "cbba9085d142c5ddb4a99af6c6ffd441ddab8e15ccee11ab8aed5fe09fe2458b",
+      "reviewNote": "Actual night outward south and chapter-start views are retained. The UiPath chapter-start pose looks through park trees, so it does not establish a clear office/street-front comparison. Sparse distant blocks, canopy and night lighting remain incomplete. Static cameras do not exercise controls or establish driving/mirror budgets."
+    },
+    {
+      "id": "chapter-uipath-buc-street",
+      "chapterId": "uipath-buc",
+      "label": "UiPath chapter-start pose · park trees limit the view",
+      "kind": "street",
+      "x": -556.2858879920136,
+      "z": -855.7163999999798,
+      "y": 1.7,
+      "target": [
+        -539.1848808257301,
+        1.7,
+        -808.7317689606843
+      ],
+      "fov": 80,
+      "cameraY": 1.94,
+      "groundY": 0.24,
+      "heading": 160,
+      "pitch": -0.27501762954037706,
+      "aspect": 1.5,
+      "pose": {
+        "x": -556.2858879920136,
+        "y": 1.94,
+        "z": -855.7163999999798,
+        "heading": 160,
+        "pitch": -0.27501762954037706,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          0.00041675202568559953,
+          0.9848049168108046,
+          0.00236351818655959,
+          -0.17364767756810043
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "night",
+        "rendererClockOverride": "night",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "🌙",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794179480774,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": -28
+      },
+      "perf": {
+        "fps": 12,
+        "frameMs": 0,
+        "drawCalls": 253,
+        "triangles": 1073799,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.456,
+      "lon": 26.0842,
+      "image": "images/chapter-uipath-buc-street.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:16:15.994Z",
+      "sha256": "61d1235ff75b4e0e7a2eb156fa0a552ac1d6e73aa6afaaf8fe849447f5826e83",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "night",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      },
+      "thumbnail": "thumbs/chapter-uipath-buc-street.jpg",
+      "thumb": "thumbs/chapter-uipath-buc-street.jpg",
+      "thumbnailSha256": "554178e16ce43bbd749b83fb1306488a7c4fc70da7af7876a9ebd012e105964a",
+      "reviewNote": "Actual night outward south and chapter-start views are retained. The UiPath chapter-start pose looks through park trees, so it does not establish a clear office/street-front comparison. Sparse distant blocks, canopy and night lighting remain incomplete. Static cameras do not exercise controls or establish driving/mirror budgets."
+    }
+  ]
+}

@@ -1,0 +1,258 @@
+{
+  "sourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+  "scope": "Technical north-up current retakes; full changed building radius plus30m for unplaced records, otherwise old/new sign positions plus30m. All other records retain actual sources/dates.",
+  "items": [
+    {
+      "id": "aerial-r07-c03",
+      "label": "Row 7 · Column 3",
+      "row": 7,
+      "column": 3,
+      "lat": 44.46102563438073,
+      "lon": 26.099079902097788,
+      "x": -374.9999999999033,
+      "z": 375.00000000021555,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -110.43849645614276,
+      "boundsXZ": [
+        -500,
+        250,
+        -250,
+        500
+      ],
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 94,
+        "triangles": 426106
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-11T01:51:34.112Z",
+      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r07-c03.png",
+      "image": "retakes/signs-8add95f3/atlas/aerial-r07-c03.png",
+      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r07-c03.png",
+      "sha256": "258544eb014f9b6c95e809b2e74e9d3b55ad41399552436d2e7b85b8b009e913",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 10967,
+      "dataset": "atlas",
+      "thumbnailSha256": "258544eb014f9b6c95e809b2e74e9d3b55ad41399552436d2e7b85b8b009e913",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.45990084584098,
+        26.097506536130382,
+        44.46215042292049,
+        26.10065326806519
+      ],
+      "district": "floreasca",
+      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
+      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json"
+    },
+    {
+      "id": "aerial-r07-c04",
+      "label": "Row 7 · Column 4",
+      "row": 7,
+      "column": 4,
+      "lat": 44.46102563438073,
+      "lon": 26.102226634032597,
+      "x": -124.9999999998737,
+      "z": 375.00000000021555,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        -250,
+        250,
+        0,
+        500
+      ],
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 99,
+        "triangles": 476353
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-11T01:51:38.302Z",
+      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r07-c04.png",
+      "image": "retakes/signs-8add95f3/atlas/aerial-r07-c04.png",
+      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r07-c04.png",
+      "sha256": "e20f1e292322d03ce73ea333ae6f633099c8e83229d0e370d0185afb18c6bef9",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 9602,
+      "dataset": "atlas",
+      "thumbnailSha256": "e20f1e292322d03ce73ea333ae6f633099c8e83229d0e370d0185afb18c6bef9",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.45990084584098,
+        26.10065326806519,
+        44.46215042292049,
+        26.1038
+      ],
+      "district": "floreasca",
+      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
+      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json"
+    },
+    {
+      "id": "aerial-r08-c03",
+      "label": "Row 8 · Column 3",
+      "row": 8,
+      "column": 3,
+      "lat": 44.45877605730122,
+      "lon": 26.099079902097788,
+      "x": -374.9999999999033,
+      "z": 625.0000000003593,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        -500,
+        500,
+        -250,
+        750
+      ],
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 102,
+        "triangles": 489682
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-11T01:51:43.093Z",
+      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r08-c03.png",
+      "image": "retakes/signs-8add95f3/atlas/aerial-r08-c03.png",
+      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r08-c03.png",
+      "sha256": "18fe85d3bf95666f7d5240de076abaf74f7956e39df1401abfbf2db6f2f3e0be",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 7525,
+      "dataset": "atlas",
+      "thumbnailSha256": "18fe85d3bf95666f7d5240de076abaf74f7956e39df1401abfbf2db6f2f3e0be",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.457651268761474,
+        26.097506536130382,
+        44.45990084584098,
+        26.10065326806519
+      ],
+      "district": "floreasca",
+      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
+      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json"
+    },
+    {
+      "id": "aerial-r08-c04",
+      "label": "Row 8 · Column 4",
+      "row": 8,
+      "column": 4,
+      "lat": 44.45877605730122,
+      "lon": 26.102226634032597,
+      "x": -124.9999999998737,
+      "z": 625.0000000003593,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        -250,
+        500,
+        0,
+        750
+      ],
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 108,
+        "triangles": 464407
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-11T01:51:47.033Z",
+      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r08-c04.png",
+      "image": "retakes/signs-8add95f3/atlas/aerial-r08-c04.png",
+      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r08-c04.png",
+      "sha256": "4ad91dc949612b5eaa676c9a09a475c142cc8c2267003b416d5cf5e216fdde28",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 7050,
+      "dataset": "atlas",
+      "thumbnailSha256": "4ad91dc949612b5eaa676c9a09a475c142cc8c2267003b416d5cf5e216fdde28",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.457651268761474,
+        26.10065326806519,
+        44.45990084584098,
+        26.1038
+      ],
+      "district": "floreasca",
+      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
+      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json"
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "scope": "Superseded records; original pixels remain available at original paths.",
+  "items": [
+    {
+      "id": "aerial-r04-c11",
+      "label": "Row 4 · Column 11",
+      "row": 4,
+      "column": 11,
+      "lat": 44.48112478853975,
+      "lon": 26.117721359756654,
+      "x": 375.00000000001313,
+      "z": -125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -92.67996165848612,
+      "boundsXZ": [
+        250,
+        -250,
+        500,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 111,
+        "triangles": 388343,
+        "renderMs": 14,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 306
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-08T23:05:08.873Z",
+      "gamePath": "images/aerial-r04-c11.jpg",
+      "image": "images/aerial-r04-c11.jpg",
+      "thumbnail": "thumbs/aerial-r04-c11.jpg",
+      "sha256": "72c03ec9386fff923a6b506a6bc767350ad7e9ded202b467ea71bbae70c4767a",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 8221,
+      "dataset": "atlas",
+      "thumbnailSha256": "e55f1fe0bf664fe1d107e188e7d9e7973ad62cda04bc7bb0575e4bff2dfbabf4",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.48,
+        26.1161475731711,
+        44.48224957707951,
+        26.119295146342207
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
+    },
+    {
+      "id": "aerial-r05-c04",
+      "label": "Row 5 · Column 4",
+      "row": 5,
+      "column": 4,
+      "lat": 44.47887521146024,
+      "lon": 26.095688347558934,
+      "x": -1374.999999999954,
+      "z": 125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        -1500,
+        0,
+        -1250,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 106,
+        "triangles": 450030,
+        "renderMs": 7.600000001490116,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 306
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-08T23:06:24.773Z",
+      "gamePath": "images/aerial-r05-c04.jpg",
+      "image": "images/aerial-r05-c04.jpg",
+      "thumbnail": "thumbs/aerial-r05-c04.jpg",
+      "sha256": "4a0f50f2f904e8cbccdbfe566cf4cde91940c8aed30d7a84df7245e81d9638b6",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 10232,
+      "dataset": "atlas",
+      "thumbnailSha256": "b607648614d6e011a92f9cbc73b4efb7cc858c09037e67790363f03f1360eb04",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.47775042292049,
+        26.09411456097338,
+        44.48,
+        26.097262134144483
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
+    }
+  ]
+}

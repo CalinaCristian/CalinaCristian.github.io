@@ -380,3 +380,29 @@ Horn audio uses shaped 400/500 Hz harmonics, a 45 ms attack and 90 ms release, l
 Church facade windows now fit whole rows between the base and eaves, avoiding partial windows cut by the roof while retaining the mapped building and roof dimensions.
 
 Hermes and BOB facade cladding now partitions each wall into glazing, spandrels and structural strips. Glass no longer overlaps the fins or white corner panels; source footprints, heights, courtyards and collision volumes are retained. Original reported-view High/Ultra captures, small camera offsets, four geometry controls and foot/a pass. The paired Pipera sweep retains the same 92 existing findings. The overview includes the before/after facade comparison and refreshed three-view studies.
+
+Balcony parapets now return to the facade at both ends; enclosed balcony sides also continue above the guard. Reported High/Ultra views and small camera offsets pass; the original before/after comparison is in the overview.
+
+Residential sides of shopfront buildings use one complete ground-storey window row below the shop datum, preserving the upper-storey alignment and source dimensions. This prevents negative UV repetition from drawing partial windows at ground level; reported native High/Ultra checks pass.
+
+Floreasca reports4/5 pass foot/a with0high/0medium; two low performance findings remain recorded. Paired visual coverage6/6 keeps identical36existing findings, with250peakdrawcalls and863641triangles. This does not complete the other district defects.
+
+The GTS team lead stands in the clear central aisle beside the rear desk, instead of intersecting its tabletop and monitor. Native interaction and visual checks are pending.
+
+GTS desk-overlap repair: the overview includes original before/after room views and desktop/390px native conversation checks from sourcee83e9bf1. The actual room layout remains an interpretation; this narrow fix does not certify the full office story route.
+
+Unirii fountain basins now share their detailed source outlines with tree conflict detection. A trunk body intersecting a rendered basin or its granite rim is excluded with its matching collider and an audit record; original source detections remain intact. Trees clear of the physical basin keep their locations, shapes, colours, rotations and random stream. The check uses the existing trunk collider, without an extra bank buffer.
+
+The fountain comparison is published in [the overview](https://cristiancalina.com/game/overview/#fountain-tree-fix), with the original High/Ultra report camera and nine refreshed aerial squares. District-wide road, office and frame-budget findings remain separately open.
+
+The fountain release also refreshes all 16 Unirii walking-height gallery images (four unchanged poses × summer/winter day/night) from exact source `0a60128f`. Original capture times, conditions and checksums remain in `game/overview/comparison-data/unirii/context/ground-0a60128f/manifest.json`; earlier images retain their historical source. All 16 images were inspected. These fixed appearance views do not establish route completion or hardware FPS.
+
+Otopeni’s terminal pier now uses all 32 mapped parts with their exact footprints and height/minimum bands. Their faces and roofs replace the overlapping generic house-style buildings. Narrow gaps in the outline retain their footprints and follow the adjoining part’s height and underside, keeping the elevated connectors clear. Glazing, framing and bridgehead finishes remain documented appearance estimates.
+
+Ground-floor business fascias reserve their full opaque board spans, including the building-name board. Inferred unit signs fit the remaining space on the same source wall instead of relying on a fixed distance between sign centres. Source business names and POIs remain unchanged; locations without a clear inferred fascia span remain explicit in the layout audit.
+
+The sign correction includes before/after evidence for reports27/36 and refreshed affected aerial, walking-height and context galleries. Mixed-source condition sets link each actual revision; unchanged captures keep their original dates and sources. Column, balcony and tree occlusion remains a separate placement limitation.
+
+The Politehnica interior’s CV placard sits on the clear ground-hall wall below the gallery, in front of the brick finish. It remains an authored game exhibit, not a claim about signage in the real Rectorat.
+
+Bellevue Square’s entrance follows its mapped recess and photo-led glass/gabled frontage. The contained Macy’s department-store part shares the three-level mall model instead of an unsupported estimated glass tower; metre heights and facade details remain estimates. See `game/research/landmarks-bellevue-square.json`.

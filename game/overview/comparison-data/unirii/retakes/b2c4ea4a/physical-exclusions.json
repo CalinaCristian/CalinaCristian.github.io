@@ -1,0 +1,162 @@
+[
+  {
+    "x": -92.7,
+    "z": 349.1,
+    "kind": "osm",
+    "radiusM": 0.43253731343283586,
+    "sourceIds": [
+      "w1177026776"
+    ],
+    "reason": "trunk-body-intersects-rendered-source-basin"
+  },
+  {
+    "x": -147.3,
+    "z": 348.2,
+    "kind": "osm",
+    "radiusM": 0.3291044776119402,
+    "sourceIds": [
+      "w1177038213"
+    ],
+    "reason": "trunk-body-intersects-rendered-source-basin"
+  },
+  {
+    "x": -218.1,
+    "z": 342.3,
+    "kind": "osm",
+    "radiusM": 0.38238805970149253,
+    "sourceIds": [
+      "w1177038210"
+    ],
+    "reason": "trunk-body-intersects-rendered-source-basin"
+  },
+  {
+    "x": -331.5,
+    "z": 336.3,
+    "kind": "osm",
+    "radiusM": 0.6299999999999999,
+    "sourceIds": [
+      "w1177038207"
+    ],
+    "reason": "trunk-body-intersects-rendered-source-basin"
+  },
+  {
+    "x": -580.5,
+    "z": 323.5,
+    "kind": "osm",
+    "radiusM": 0.285,
+    "sourceIds": [
+      "w1176969066"
+    ],
+    "reason": "trunk-body-intersects-rendered-source-basin"
+  },
+  {
+    "x": -764.7,
+    "z": 306.5,
+    "kind": "osm",
+    "radiusM": 0.3291044776119402,
+    "sourceIds": [
+      "w1177023228"
+    ],
+    "reason": "trunk-body-intersects-rendered-source-basin"
+  },
+  {
+    "x": -742.6,
+    "z": 306.5,
+    "kind": "osm",
+    "radiusM": 0.6299999999999999,
+    "sourceIds": [
+      "w1177038224"
+    ],
+    "reason": "trunk-body-intersects-rendered-source-basin"
+  },
+  {
+    "x": -794.6,
+    "z": 303.9,
+    "kind": "osm",
+    "radiusM": 0.36044776119402977,
+    "sourceIds": [
+      "w1177038227"
+    ],
+    "reason": "trunk-body-intersects-rendered-source-basin"
+  },
+  {
+    "x": -845.8,
+    "z": 300.5,
+    "kind": "osm",
+    "radiusM": 0.5175,
+    "sourceIds": [
+      "w1177023231"
+    ],
+    "reason": "trunk-body-intersects-rendered-source-basin"
+  },
+  {
+    "x": -868,
+    "z": 299.7,
+    "kind": "osm",
+    "radiusM": 0.5175,
+    "sourceIds": [
+      "w1177038230"
+    ],
+    "reason": "trunk-body-intersects-rendered-source-basin"
+  },
+  {
+    "x": -992.5,
+    "z": 291.2,
+    "kind": "osm",
+    "radiusM": 0.36,
+    "sourceIds": [
+      "w1177023237"
+    ],
+    "reason": "trunk-body-intersects-rendered-source-basin"
+  },
+  {
+    "x": -1082,
+    "z": 286.1,
+    "kind": "osm",
+    "radiusM": 0.30089552238805967,
+    "sourceIds": [
+      "w1177042949"
+    ],
+    "reason": "trunk-body-intersects-rendered-source-basin"
+  },
+  {
+    "x": -1107.6,
+    "z": 284.4,
+    "kind": "osm",
+    "radiusM": 0.345,
+    "sourceIds": [
+      "w1177042949"
+    ],
+    "reason": "trunk-body-intersects-rendered-source-basin"
+  },
+  {
+    "x": -1135.7,
+    "z": 283.5,
+    "kind": "osm",
+    "radiusM": 0.43875,
+    "sourceIds": [
+      "w1177026763"
+    ],
+    "reason": "trunk-body-intersects-rendered-source-basin"
+  },
+  {
+    "x": -1167.3,
+    "z": 279.3,
+    "kind": "osm",
+    "radiusM": 0.61125,
+    "sourceIds": [
+      "w1177217417"
+    ],
+    "reason": "trunk-body-intersects-rendered-source-basin"
+  },
+  {
+    "x": -1291.9,
+    "z": 271.6,
+    "kind": "osm",
+    "radiusM": 0.43253731343283586,
+    "sourceIds": [
+      "w1177217423"
+    ],
+    "reason": "trunk-body-intersects-rendered-source-basin"
+  }
+]

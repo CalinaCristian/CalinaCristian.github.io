@@ -1,0 +1,265 @@
+{
+  "reviewedAt": "2026-11-11T02:16:37.643623+00:00",
+  "scope": "Individual originals reviewed full size; no traversed route or whole-district fidelity claim.",
+  "items": [
+    {
+      "file": "floreasca/summer-clear-night/chapter-rosetti-street.png",
+      "sha256": "02abc4d8b993bc09deb7455b7d9e1f554f9721f980a639e834fdb52c55abe258",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "floreasca/summer-clear-day/skytower-opposite.png",
+      "sha256": "5e0ede9b8f093389b24c203d091e7d420a3ef61eed40d8564f32eb212e218ee6",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "floreasca/summer-clear-day/dinamo-context.png",
+      "sha256": "3b1db8afbeb5e0913b9b00d1e098edcf17137a65bfbe9df32915318fe56375de",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "floreasca/summer-clear-day/globalworth-opposite.png",
+      "sha256": "0c54d1a0f4fb52ee738fcaaf04b727994d51863242f9c7768a217c3b9e339d29",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "floreasca/summer-clear-day/signal-2.png",
+      "sha256": "d227e8c6f3df38afa194c8d5598de3c32c3871a3146ba678d40a2fe4280f4527",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "floreasca/summer-clear-day/signal-3.png",
+      "sha256": "1eabd1033e828360a960f4f204b8cc90d59d89040660710b5cee10354416f36a",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": false,
+      "note": "Rejected foreground obstruction; replacement separately recorded."
+    },
+    {
+      "file": "floreasca/summer-clear-day/chapter-rosetti-street.png",
+      "sha256": "a1c097353a32f21143389341c4e04e8f5613ce518665632565c9045c845e4f60",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "floreasca/winter-snow-day/chapter-rosetti-street.png",
+      "sha256": "08f1e5c7fa9457603839f1113ebdb744c3a7ff62849e038f54e3ba5436796fcd",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "grozavesti/summer-clear-day/cathedral-context.png",
+      "sha256": "e3ad86628b687da95d477c9471a9801605a4f8bd73da9620ca93c26465b62b30",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "grozavesti/summer-clear-day/signal-3.png",
+      "sha256": "2d205fa641c79b69af0d44efb8527b6ae17ff35e867542d0a9579f0b67686070",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "grozavesti/summer-clear-day/parking-2.png",
+      "sha256": "0c8d36a822496c55d289cc848969cbc3893090f36839642dc45b80944bd4f34d",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "grozavesti/summer-clear-day/chapter-upb-street.png",
+      "sha256": "11f88c4e669a1acdfc4dfc45f62035416807bce5b5b136f7fb46ce22179393ec",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "grozavesti/summer-clear-night/chapter-upb-street.png",
+      "sha256": "53e7d6e5a424dee9fe64c0046ac506d366bd2eceedb949d60dc645071901631d",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "grozavesti/winter-snow-day/chapter-upb-street.png",
+      "sha256": "2190e05b2850267c16a22a45409cff8949e4d8066d6ce51f0f237b4a48bc0414",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-night/ambasador-street.png",
+      "sha256": "7ed6740f693d5da4f8a4e4f233f9d70ac9e637c5f52eca69ff8f531c3710201d",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-night/chapter-arnia-street.png",
+      "sha256": "62ff6880cb528eedc07cec8ed00a7e12a19b2e0922acd35ab577f0c1f2fd028c",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-night/chapter-uipath-buc-street.png",
+      "sha256": "4d5013b80fe3c419c99d905a4fe048ca5c34ae1e357b396f1c102211e51a130f",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/winter-snow-day/ambasador-street.png",
+      "sha256": "3235ace5d0e3a0ea41ef1ca7ee8e3e81f9aaf27e71f65de2c41b7db7c102ec89",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/winter-snow-day/chapter-arnia-street.png",
+      "sha256": "20637689270a3bb4197c45869d899148c314c66aba8614162e82865fe9dbdd15",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/winter-snow-day/chapter-uipath-buc-street.png",
+      "sha256": "3513ae37f3d5af247ea2e0d3953f5174a859b3d369ff5b0911488ee915c11702",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/tnb-context.png",
+      "sha256": "ba47eaf9843fd922abebdfda90824712d746740799bd75f552e88a51a709d4b9",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": false,
+      "note": "Rejected foreground obstruction; replacement separately recorded."
+    },
+    {
+      "file": "romana/summer-clear-day/ateneu-context.png",
+      "sha256": "9e4112c6fa9f0d8ff1d3db564fe915db1140b4c781f0742280ced3274842a9f8",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/ateneu-opposite.png",
+      "sha256": "365709d430dd3a3bee1864f95744d900b5626d499dba20086541cfb11386b209",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/regal-context.png",
+      "sha256": "b8cd2ad4eca9b53899502559185c43cfaa6e9fe95abc654593b1bc7953306541",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/regal-opposite.png",
+      "sha256": "71a083d8f65bca540b9775841d5689c4fd60c80552bbb7dff0bcfaf28731a1ef",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": false,
+      "note": "Rejected foreground obstruction; replacement separately recorded."
+    },
+    {
+      "file": "romana/summer-clear-day/victoria-opposite.png",
+      "sha256": "3a1108a42ab8c1a4ac1dac8fc31cdb583cb8f7b5057799ccb5353ad4023180a7",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/skytower-opposite.png",
+      "sha256": "43ba1eafc6da072e03bb9fde65d808239b64168bcfd47e6ae96a289582a6f9e8",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/ase-context.png",
+      "sha256": "4631d15236ba836fe7461eacc25c3d450bb83625da8a185c5ba93f99ee3f9402",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/ase-opposite.png",
+      "sha256": "06d6df197daca65ff26870eb87d3332bc0522ca8193b89acce6c72d3d9519c99",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/ambasador-context.png",
+      "sha256": "b929ad2556afba4e28a7b7b90070c6cb6a18219d345cc275f0af720c76c3e241",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/ambasador-opposite.png",
+      "sha256": "c308733e43e745e9267152cfcb58821fbafa1e17a510b4d94438321c3665ac30",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/ambasador-street.png",
+      "sha256": "cc8288ed229db8e4e4bc5dfc4c9d24c2a66b784624dc1b7c83577b3c24ef8126",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/thelandmark-opposite.png",
+      "sha256": "9634b97f29735380a25a5a5e6204153aa054d3fa354fc93fff180e5918756697",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/europehouse-opposite.png",
+      "sha256": "398997ccac5cb90d8bc8df0b93a2c9817a5e73ad7f1578175b067990bc951681",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/signal-1.png",
+      "sha256": "7a7600b7b156d55afa688ffdd445298bd281347f1101b83bd7b9fb14f6bd1194",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/chapter-arnia-street.png",
+      "sha256": "009370e5a7103750066c51858563138e27435443a90498f6ae1f83630bf031d2",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/chapter-uipath-buc-street.png",
+      "sha256": "af64785dd52e68f1f73a38290094e7261e24bedca3bce1272ae6254f616b422b",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "baseline": "02189875a388d10538f319d0760ca43f6397f1b4",
+  "candidate": "8add95f35681eddaf01a136ff1f5769a5329b102",
+  "unchangedDirectories": [
+    "game/data",
+    "game/research"
+  ],
+  "unchangedFiles": [
+    "game/src/traffic.js",
+    "game/src/pedestrians.js",
+    "game/src/landmarks.js"
+  ],
+  "diffPaths": [],
+  "scope": "No source-data, landmark model or Claude-owned traffic/pedestrian edit in this release; source POIs, names and building footprints preserved."
+}

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "captureType": "game-perspective-context",
   "comparisonCompatible": false,
-  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "gameSourceCommit": "mixed",
   "captureTool": {
     "name": "capture-context.cjs",
     "sha256": "921986afbd9d1554cc1ca68bd39168efaba1f08ddf151057b736cb7e7c6e4684"
@@ -28,7 +28,7 @@
   "items": [
     {
       "id": "ase-street",
-      "label": "ase \u00b7 close partial facade in selected snow conditions",
+      "label": "ase · close partial facade in selected snow conditions",
       "kind": "street",
       "landmark": "ase",
       "sourceEdge": 695,
@@ -80,7 +80,7 @@
           "code": 73,
           "kind": "snow",
           "label": "Snow",
-          "icon": "\ud83c\udf28\ufe0f",
+          "icon": "🌨️",
           "tempC": -2,
           "precipMm": 0.8,
           "snowCm": 12,
@@ -148,7 +148,7 @@
     },
     {
       "id": "ambasador-street",
-      "label": "ambasador \u00b7 close partial facade in selected snow conditions",
+      "label": "ambasador · close partial facade in selected snow conditions",
       "kind": "street",
       "landmark": "ambasador",
       "sourceEdge": 50,
@@ -164,11 +164,11 @@
       ],
       "fov": 85,
       "cameraBodyValidation": {
-        "method": "Production collideBuildings at actual public source-road centre and its exact native roadHeight, before capture; no offset toward or through the source facade",
         "radiusM": 0.25,
         "footY": 0.29,
         "heightM": 1.7,
-        "clear": true
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
       },
       "cameraY": 1.94,
       "groundY": 0.24,
@@ -191,16 +191,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "winter",
-        "weatherOverride": "snow",
+        "season": "winter",
         "weather": {
           "source": "override",
           "code": 73,
           "kind": "snow",
           "label": "Snow",
-          "icon": "\ud83c\udf28\ufe0f",
+          "icon": "🌨️",
           "tempC": -2,
           "precipMm": 0.8,
           "snowCm": 12,
@@ -210,25 +207,18 @@
           "visibilityM": 1600,
           "cloud": 1,
           "season": "winter",
-          "updatedAt": 1794180309893,
+          "updatedAt": 1794362989842,
           "climate": null
         },
-        "season": {
-          "season": "winter",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 1,
-          "brown": 0.75,
-          "fresh": 0,
-          "doy": 20
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 0,
-        "frameMs": 0,
-        "drawCalls": 140,
-        "triangles": 737507,
+        "fps": 0.61,
+        "frameMs": 11.3,
+        "drawCalls": 142,
+        "triangles": 462003,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -239,38 +229,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [
-        {
-          "x": 653.002668844464,
-          "z": 766.2329702549368,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w1561134314"
-        },
-        {
-          "x": 646.5199028311812,
-          "z": 697.6347832893657,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w119241030"
-        },
-        {
-          "x": 628.254008832354,
-          "z": 696.8031247468854,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w119241030"
-        }
-      ],
-      "vehiclesWithin60m": 10,
       "lat": 44.44189960364164,
       "lon": 26.0992806870794,
-      "image": "images/ambasador-street.jpg",
+      "image": "signs-8add95f3/ambasador-street.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:26:06.063Z",
-      "sha256": "8ef7d0af6326be6243cb4306f123c4dafea8e2da08021ed3c84b21e6cf8b949b",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:10:01.855Z",
+      "sha256": "3235ace5d0e3a0ea41ef1ca7ee8e3e81f9aaf27e71f65de2c41b7db7c102ec89",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -283,14 +249,15 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/ambasador-street.jpg",
-      "thumb": "thumbs/ambasador-street.jpg",
-      "thumbnailSha256": "9ae86e7089eae16bf42fad47e2c4d2a379d266cd5b405105d58838e5a936a358",
-      "reviewNote": "Actual renderer readback is winter/snow/day. Close ASE/Ambasador/Europe House facade crops and leafless crowns are visible. These partial facades do not show complete landmarks; snow/fog, architectural detail and canopy appearance are not a matched winter reference. Outward views retain sparse generic context beneath the weather."
+      "thumbnail": "signs-8add95f3/ambasador-street.png",
+      "thumb": "signs-8add95f3/ambasador-street.png",
+      "thumbnailSha256": "3235ace5d0e3a0ea41ef1ca7ee8e3e81f9aaf27e71f65de2c41b7db7c102ec89",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "imageSha256": "3235ace5d0e3a0ea41ef1ca7ee8e3e81f9aaf27e71f65de2c41b7db7c102ec89"
     },
     {
       "id": "europehouse-street",
-      "label": "europehouse \u00b7 close partial facade in selected snow conditions",
+      "label": "europehouse · close partial facade in selected snow conditions",
       "kind": "street",
       "landmark": "europehouse",
       "sourceEdge": 606,
@@ -342,7 +309,7 @@
           "code": 73,
           "kind": "snow",
           "label": "Snow",
-          "icon": "\ud83c\udf28\ufe0f",
+          "icon": "🌨️",
           "tempC": -2,
           "precipMm": 0.8,
           "snowCm": 12,
@@ -458,7 +425,7 @@
           "code": 73,
           "kind": "snow",
           "label": "Snow",
-          "icon": "\ud83c\udf28\ufe0f",
+          "icon": "🌨️",
           "tempC": -2,
           "precipMm": 0.8,
           "snowCm": 12,
@@ -572,7 +539,7 @@
           "code": 73,
           "kind": "snow",
           "label": "Snow",
-          "icon": "\ud83c\udf28\ufe0f",
+          "icon": "🌨️",
           "tempC": -2,
           "precipMm": 0.8,
           "snowCm": 12,
@@ -686,7 +653,7 @@
           "code": 73,
           "kind": "snow",
           "label": "Snow",
-          "icon": "\ud83c\udf28\ufe0f",
+          "icon": "🌨️",
           "tempC": -2,
           "precipMm": 0.8,
           "snowCm": 12,
@@ -800,7 +767,7 @@
           "code": 73,
           "kind": "snow",
           "label": "Snow",
-          "icon": "\ud83c\udf28\ufe0f",
+          "icon": "🌨️",
           "tempC": -2,
           "precipMm": 0.8,
           "snowCm": 12,
@@ -899,16 +866,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "winter",
-        "weatherOverride": "snow",
+        "season": "winter",
         "weather": {
           "source": "override",
           "code": 73,
           "kind": "snow",
           "label": "Snow",
-          "icon": "\ud83c\udf28\ufe0f",
+          "icon": "🌨️",
           "tempC": -2,
           "precipMm": 0.8,
           "snowCm": 12,
@@ -918,25 +882,18 @@
           "visibilityM": 1600,
           "cloud": 1,
           "season": "winter",
-          "updatedAt": 1794180309893,
+          "updatedAt": 1794362989842,
           "climate": null
         },
-        "season": {
-          "season": "winter",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 1,
-          "brown": 0.75,
-          "fresh": 0,
-          "doy": 20
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 16,
-        "frameMs": 0,
-        "drawCalls": 247,
-        "triangles": 1108504,
+        "fps": 0.19,
+        "frameMs": 23.2,
+        "drawCalls": 246,
+        "triangles": 857614,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -947,38 +904,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [
-        {
-          "x": 650.7723462609758,
-          "z": 759.6643364141318,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w1561134314"
-        },
-        {
-          "x": 643.5333297740999,
-          "z": 689.0567909113203,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w119241030"
-        },
-        {
-          "x": 625.5626266494415,
-          "z": 689.3475419503247,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w119241030"
-        }
-      ],
-      "vehiclesWithin60m": 14,
       "lat": 44.4418,
       "lon": 26.0988,
-      "image": "images/chapter-arnia-street.jpg",
+      "image": "signs-8add95f3/chapter-arnia-street.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:27:05.257Z",
-      "sha256": "867189ed2e6ec802f2b8fbb690572ce4032a249e2d2504647c21a707f22f5d79",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:10:07.381Z",
+      "sha256": "20637689270a3bb4197c45869d899148c314c66aba8614162e82865fe9dbdd15",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -991,15 +924,23 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/chapter-arnia-street.jpg",
-      "thumb": "thumbs/chapter-arnia-street.jpg",
-      "thumbnailSha256": "63fc3d4bb6d0b7c5b3b21255fd99a60a9035f634d77b07e26690b95a2db8d639",
-      "reviewNote": "Actual winter outward south and chapter-start poses are retained. UiPath chapter-start looks through park trees, not a clear office frontage. The selected snow/fog limits distance visibility naturally; all frames preserve full source content and actual poses. No controller or all-scene clearance pass is claimed."
+      "thumbnail": "signs-8add95f3/chapter-arnia-street.png",
+      "thumb": "signs-8add95f3/chapter-arnia-street.png",
+      "thumbnailSha256": "20637689270a3bb4197c45869d899148c314c66aba8614162e82865fe9dbdd15",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 0.29000000000000004,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "20637689270a3bb4197c45869d899148c314c66aba8614162e82865fe9dbdd15"
     },
     {
       "id": "chapter-uipath-buc-street",
       "chapterId": "uipath-buc",
-      "label": "UiPath winter chapter-start pose \u00b7 park trees limit the view",
+      "label": "Park-side district context near UiPath; office frontage is not visible",
       "kind": "street",
       "x": -556.2858879920136,
       "z": -855.7163999999798,
@@ -1031,16 +972,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "winter",
-        "weatherOverride": "snow",
+        "season": "winter",
         "weather": {
           "source": "override",
           "code": 73,
           "kind": "snow",
           "label": "Snow",
-          "icon": "\ud83c\udf28\ufe0f",
+          "icon": "🌨️",
           "tempC": -2,
           "precipMm": 0.8,
           "snowCm": 12,
@@ -1050,25 +988,18 @@
           "visibilityM": 1600,
           "cloud": 1,
           "season": "winter",
-          "updatedAt": 1794180309893,
+          "updatedAt": 1794362989842,
           "climate": null
         },
-        "season": {
-          "season": "winter",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 1,
-          "brown": 0.75,
-          "fresh": 0,
-          "doy": 20
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 16,
-        "frameMs": 0,
-        "drawCalls": 253,
-        "triangles": 1181563,
+        "fps": 0.36,
+        "frameMs": 9.2,
+        "drawCalls": 252,
+        "triangles": 971186,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -1079,16 +1010,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 3,
       "lat": 44.456,
       "lon": 26.0842,
-      "image": "images/chapter-uipath-buc-street.jpg",
+      "image": "signs-8add95f3/chapter-uipath-buc-street.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:27:20.519Z",
-      "sha256": "019fff86799f2eb029708b27834f5a605177ca4031ea5e8f2c4512272cccdd95",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:10:13.379Z",
+      "sha256": "3513ae37f3d5af247ea2e0d3953f5174a859b3d369ff5b0911488ee915c11702",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -1101,109 +1030,134 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/chapter-uipath-buc-street.jpg",
-      "thumb": "thumbs/chapter-uipath-buc-street.jpg",
-      "thumbnailSha256": "92e21c84e6923d91131e1e2673cb83850125127d136d0de3a330b593400a6704",
-      "reviewNote": "Actual winter outward south and chapter-start poses are retained. UiPath chapter-start looks through park trees, not a clear office frontage. The selected snow/fog limits distance visibility naturally; all frames preserve full source content and actual poses. No controller or all-scene clearance pass is claimed."
+      "thumbnail": "signs-8add95f3/chapter-uipath-buc-street.png",
+      "thumb": "signs-8add95f3/chapter-uipath-buc-street.png",
+      "thumbnailSha256": "3513ae37f3d5af247ea2e0d3953f5174a859b3d369ff5b0911488ee915c11702",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance. This inherited camera shows trees and surrounding blocks, not office architecture.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 0.29000000000000004,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "3513ae37f3d5af247ea2e0d3953f5174a859b3d369ff5b0911488ee915c11702"
     }
   ],
-  "review": {
-    "district": "romana",
-    "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-    "imagesReviewed": 9,
-    "status": "All9 actual GAME winter perspective views reviewed with explicit visibility/source gaps. Capture coverage complete; real-world parity remains incomplete.",
-    "captureCoverageAccepted": true,
-    "realWorldParityAccepted": false,
-    "comparisonScope": "GAME-only static perspectives; paired north-up atlas separate. Actual renderer winter/snow/day retained per frame.",
-    "rawSourceContactHits": 168,
-    "sourceContactNote": "Raw source-road/building queries remain unresolved diagnostics, not an all-scene clearance pass.",
-    "entries": [
-      {
-        "id": "ase-street",
-        "sha256": "b4d66fff82b56c4b397872351ee0002aea56238b6425bbd48aa2789cdc501647",
-        "reviewedAt": "2026-11-08T23:28:28.296031+00:00",
-        "reviewSheetSha256": "f25d678ebdbf011f6b7db8bbcd8b66bdd457ef26ec50f804bbf1db85541317fc",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is winter/snow/day. Close ASE/Ambasador/Europe House facade crops and leafless crowns are visible. These partial facades do not show complete landmarks; snow/fog, architectural detail and canopy appearance are not a matched winter reference. Outward views retain sparse generic context beneath the weather.",
-        "displayLabel": "ase \u00b7 close partial facade in selected snow conditions"
+  "historicalMetadata": [
+    {
+      "review": {
+        "district": "romana",
+        "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+        "imagesReviewed": 9,
+        "status": "All9 actual GAME winter perspective views reviewed with explicit visibility/source gaps. Capture coverage complete; real-world parity remains incomplete.",
+        "captureCoverageAccepted": true,
+        "realWorldParityAccepted": false,
+        "comparisonScope": "GAME-only static perspectives; paired north-up atlas separate. Actual renderer winter/snow/day retained per frame.",
+        "rawSourceContactHits": 168,
+        "sourceContactNote": "Raw source-road/building queries remain unresolved diagnostics, not an all-scene clearance pass.",
+        "entries": [
+          {
+            "id": "ase-street",
+            "sha256": "b4d66fff82b56c4b397872351ee0002aea56238b6425bbd48aa2789cdc501647",
+            "reviewedAt": "2026-11-08T23:28:28.296031+00:00",
+            "reviewSheetSha256": "f25d678ebdbf011f6b7db8bbcd8b66bdd457ef26ec50f804bbf1db85541317fc",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is winter/snow/day. Close ASE/Ambasador/Europe House facade crops and leafless crowns are visible. These partial facades do not show complete landmarks; snow/fog, architectural detail and canopy appearance are not a matched winter reference. Outward views retain sparse generic context beneath the weather.",
+            "displayLabel": "ase · close partial facade in selected snow conditions"
+          },
+          {
+            "id": "ambasador-street",
+            "sha256": "8ef7d0af6326be6243cb4306f123c4dafea8e2da08021ed3c84b21e6cf8b949b",
+            "reviewedAt": "2026-11-08T23:28:28.296761+00:00",
+            "reviewSheetSha256": "f25d678ebdbf011f6b7db8bbcd8b66bdd457ef26ec50f804bbf1db85541317fc",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is winter/snow/day. Close ASE/Ambasador/Europe House facade crops and leafless crowns are visible. These partial facades do not show complete landmarks; snow/fog, architectural detail and canopy appearance are not a matched winter reference. Outward views retain sparse generic context beneath the weather.",
+            "displayLabel": "ambasador · close partial facade in selected snow conditions"
+          },
+          {
+            "id": "europehouse-street",
+            "sha256": "9abb09ab7ff700cdaeb54d0b5de157a1e391761c25507e343c541b6f297fcb22",
+            "reviewedAt": "2026-11-08T23:28:28.297153+00:00",
+            "reviewSheetSha256": "f25d678ebdbf011f6b7db8bbcd8b66bdd457ef26ec50f804bbf1db85541317fc",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is winter/snow/day. Close ASE/Ambasador/Europe House facade crops and leafless crowns are visible. These partial facades do not show complete landmarks; snow/fog, architectural detail and canopy appearance are not a matched winter reference. Outward views retain sparse generic context beneath the weather.",
+            "displayLabel": "europehouse · close partial facade in selected snow conditions"
+          },
+          {
+            "id": "drone-edge-west",
+            "sha256": "5df700a56d72fb71a7e23d8f1a81919a9271ae32e2ca8b346501434da04a9584",
+            "reviewedAt": "2026-11-08T23:28:28.297392+00:00",
+            "reviewSheetSha256": "f25d678ebdbf011f6b7db8bbcd8b66bdd457ef26ec50f804bbf1db85541317fc",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is winter/snow/day. Close ASE/Ambasador/Europe House facade crops and leafless crowns are visible. These partial facades do not show complete landmarks; snow/fog, architectural detail and canopy appearance are not a matched winter reference. Outward views retain sparse generic context beneath the weather."
+          },
+          {
+            "id": "drone-edge-east",
+            "sha256": "af5c9007bde5969e0a32aa8017e2dcd020f3698afbe92961bfb8d3e3a4c44ff6",
+            "reviewedAt": "2026-11-08T23:28:28.297614+00:00",
+            "reviewSheetSha256": "f25d678ebdbf011f6b7db8bbcd8b66bdd457ef26ec50f804bbf1db85541317fc",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is winter/snow/day. Close ASE/Ambasador/Europe House facade crops and leafless crowns are visible. These partial facades do not show complete landmarks; snow/fog, architectural detail and canopy appearance are not a matched winter reference. Outward views retain sparse generic context beneath the weather."
+          },
+          {
+            "id": "drone-edge-north",
+            "sha256": "65fd321ede451f1020eb60af7000dbde38e3fc8387183bb7b7403fababf488cc",
+            "reviewedAt": "2026-11-08T23:28:28.298039+00:00",
+            "reviewSheetSha256": "f25d678ebdbf011f6b7db8bbcd8b66bdd457ef26ec50f804bbf1db85541317fc",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual renderer readback is winter/snow/day. Close ASE/Ambasador/Europe House facade crops and leafless crowns are visible. These partial facades do not show complete landmarks; snow/fog, architectural detail and canopy appearance are not a matched winter reference. Outward views retain sparse generic context beneath the weather."
+          },
+          {
+            "id": "drone-edge-south",
+            "sha256": "6113ea0045eedfedc9e00433522da251aaff8adc3ad6b6a25df0041a9798971a",
+            "reviewedAt": "2026-11-08T23:28:28.298449+00:00",
+            "reviewSheetSha256": "6d97b989b50dc54faf1db3296358f6abc1e3e9f60c33b9e98d7844e5b715ef18",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual winter outward south and chapter-start poses are retained. UiPath chapter-start looks through park trees, not a clear office frontage. The selected snow/fog limits distance visibility naturally; all frames preserve full source content and actual poses. No controller or all-scene clearance pass is claimed."
+          },
+          {
+            "id": "chapter-arnia-street",
+            "sha256": "867189ed2e6ec802f2b8fbb690572ce4032a249e2d2504647c21a707f22f5d79",
+            "reviewedAt": "2026-11-08T23:28:28.298676+00:00",
+            "reviewSheetSha256": "6d97b989b50dc54faf1db3296358f6abc1e3e9f60c33b9e98d7844e5b715ef18",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual winter outward south and chapter-start poses are retained. UiPath chapter-start looks through park trees, not a clear office frontage. The selected snow/fog limits distance visibility naturally; all frames preserve full source content and actual poses. No controller or all-scene clearance pass is claimed."
+          },
+          {
+            "id": "chapter-uipath-buc-street",
+            "sha256": "019fff86799f2eb029708b27834f5a605177ca4031ea5e8f2c4512272cccdd95",
+            "reviewedAt": "2026-11-08T23:28:28.298812+00:00",
+            "reviewSheetSha256": "6d97b989b50dc54faf1db3296358f6abc1e3e9f60c33b9e98d7844e5b715ef18",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual winter outward south and chapter-start poses are retained. UiPath chapter-start looks through park trees, not a clear office frontage. The selected snow/fog limits distance visibility naturally; all frames preserve full source content and actual poses. No controller or all-scene clearance pass is claimed.",
+            "displayLabel": "UiPath winter chapter-start pose · park trees limit the view"
+          }
+        ]
       },
-      {
-        "id": "ambasador-street",
-        "sha256": "8ef7d0af6326be6243cb4306f123c4dafea8e2da08021ed3c84b21e6cf8b949b",
-        "reviewedAt": "2026-11-08T23:28:28.296761+00:00",
-        "reviewSheetSha256": "f25d678ebdbf011f6b7db8bbcd8b66bdd457ef26ec50f804bbf1db85541317fc",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is winter/snow/day. Close ASE/Ambasador/Europe House facade crops and leafless crowns are visible. These partial facades do not show complete landmarks; snow/fog, architectural detail and canopy appearance are not a matched winter reference. Outward views retain sparse generic context beneath the weather.",
-        "displayLabel": "ambasador \u00b7 close partial facade in selected snow conditions"
+      "generatedAt": "2026-11-08T23:27:20.519Z",
+      "sourceCaptureManifest": "capture-manifest.json",
+      "sourceProvenance": {
+        "manifest": "source-provenance.json",
+        "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429",
+        "filesVerified": 1647
       },
-      {
-        "id": "europehouse-street",
-        "sha256": "9abb09ab7ff700cdaeb54d0b5de157a1e391761c25507e343c541b6f297fcb22",
-        "reviewedAt": "2026-11-08T23:28:28.297153+00:00",
-        "reviewSheetSha256": "f25d678ebdbf011f6b7db8bbcd8b66bdd457ef26ec50f804bbf1db85541317fc",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is winter/snow/day. Close ASE/Ambasador/Europe House facade crops and leafless crowns are visible. These partial facades do not show complete landmarks; snow/fog, architectural detail and canopy appearance are not a matched winter reference. Outward views retain sparse generic context beneath the weather.",
-        "displayLabel": "europehouse \u00b7 close partial facade in selected snow conditions"
-      },
-      {
-        "id": "drone-edge-west",
-        "sha256": "5df700a56d72fb71a7e23d8f1a81919a9271ae32e2ca8b346501434da04a9584",
-        "reviewedAt": "2026-11-08T23:28:28.297392+00:00",
-        "reviewSheetSha256": "f25d678ebdbf011f6b7db8bbcd8b66bdd457ef26ec50f804bbf1db85541317fc",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is winter/snow/day. Close ASE/Ambasador/Europe House facade crops and leafless crowns are visible. These partial facades do not show complete landmarks; snow/fog, architectural detail and canopy appearance are not a matched winter reference. Outward views retain sparse generic context beneath the weather."
-      },
-      {
-        "id": "drone-edge-east",
-        "sha256": "af5c9007bde5969e0a32aa8017e2dcd020f3698afbe92961bfb8d3e3a4c44ff6",
-        "reviewedAt": "2026-11-08T23:28:28.297614+00:00",
-        "reviewSheetSha256": "f25d678ebdbf011f6b7db8bbcd8b66bdd457ef26ec50f804bbf1db85541317fc",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is winter/snow/day. Close ASE/Ambasador/Europe House facade crops and leafless crowns are visible. These partial facades do not show complete landmarks; snow/fog, architectural detail and canopy appearance are not a matched winter reference. Outward views retain sparse generic context beneath the weather."
-      },
-      {
-        "id": "drone-edge-north",
-        "sha256": "65fd321ede451f1020eb60af7000dbde38e3fc8387183bb7b7403fababf488cc",
-        "reviewedAt": "2026-11-08T23:28:28.298039+00:00",
-        "reviewSheetSha256": "f25d678ebdbf011f6b7db8bbcd8b66bdd457ef26ec50f804bbf1db85541317fc",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual renderer readback is winter/snow/day. Close ASE/Ambasador/Europe House facade crops and leafless crowns are visible. These partial facades do not show complete landmarks; snow/fog, architectural detail and canopy appearance are not a matched winter reference. Outward views retain sparse generic context beneath the weather."
-      },
-      {
-        "id": "drone-edge-south",
-        "sha256": "6113ea0045eedfedc9e00433522da251aaff8adc3ad6b6a25df0041a9798971a",
-        "reviewedAt": "2026-11-08T23:28:28.298449+00:00",
-        "reviewSheetSha256": "6d97b989b50dc54faf1db3296358f6abc1e3e9f60c33b9e98d7844e5b715ef18",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual winter outward south and chapter-start poses are retained. UiPath chapter-start looks through park trees, not a clear office frontage. The selected snow/fog limits distance visibility naturally; all frames preserve full source content and actual poses. No controller or all-scene clearance pass is claimed."
-      },
-      {
-        "id": "chapter-arnia-street",
-        "sha256": "867189ed2e6ec802f2b8fbb690572ce4032a249e2d2504647c21a707f22f5d79",
-        "reviewedAt": "2026-11-08T23:28:28.298676+00:00",
-        "reviewSheetSha256": "6d97b989b50dc54faf1db3296358f6abc1e3e9f60c33b9e98d7844e5b715ef18",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual winter outward south and chapter-start poses are retained. UiPath chapter-start looks through park trees, not a clear office frontage. The selected snow/fog limits distance visibility naturally; all frames preserve full source content and actual poses. No controller or all-scene clearance pass is claimed."
-      },
-      {
-        "id": "chapter-uipath-buc-street",
-        "sha256": "019fff86799f2eb029708b27834f5a605177ca4031ea5e8f2c4512272cccdd95",
-        "reviewedAt": "2026-11-08T23:28:28.298812+00:00",
-        "reviewSheetSha256": "6d97b989b50dc54faf1db3296358f6abc1e3e9f60c33b9e98d7844e5b715ef18",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual winter outward south and chapter-start poses are retained. UiPath chapter-start looks through park trees, not a clear office frontage. The selected snow/fog limits distance visibility naturally; all frames preserve full source content and actual poses. No controller or all-scene clearance pass is claimed.",
-        "displayLabel": "UiPath winter chapter-start pose \u00b7 park trees limit the view"
-      }
-    ]
+      "captureValidation": "capture-validation.json",
+      "runtimeIntegrity": "runtime-integrity.json",
+      "sourceContactProbe": "source-contact-probe.json"
+    }
+  ],
+  "sourceCounts": {
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 6,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 3
   },
-  "generatedAt": "2026-11-08T23:27:20.519Z",
-  "sourceCaptureManifest": "capture-manifest.json",
-  "sourceProvenance": {
-    "manifest": "source-provenance.json",
-    "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429",
-    "filesVerified": 1647
-  },
-  "captureValidation": "capture-validation.json",
-  "runtimeIntegrity": "runtime-integrity.json",
-  "sourceContactProbe": "source-contact-probe.json"
+  "latestRefresh": {
+    "sourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+    "ids": [
+      "ambasador-street",
+      "chapter-arnia-street",
+      "chapter-uipath-buc-street"
+    ],
+    "scope": "Only affected static views replaced; historical fields below retain their earlier scope. Individual current camera/date/condition/hash fields are authoritative."
+  }
 }

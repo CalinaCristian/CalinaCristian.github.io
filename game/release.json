@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-a240db509dc002f1",
-  "sourceCommit": "d708f38fe255491e30aa49d14cc6d8938dfb9e70",
-  "fingerprint": "a240db509dc002f170120d8829c96a25ac5a434f8010af4246c0dcd8b3fb4008",
+  "releaseId": "game-3421a339bab2cbfa",
+  "sourceCommit": "6c4b122fa7564aa5cb1519b76534bf4ab125d063",
+  "fingerprint": "3421a339bab2cbfa5fd476ca635d17ec892fd1b8eb820e0e8d654a6b7c49e99d",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -305,6 +305,14 @@
       "sha256": "5a732e72373eb3375992bbbaccbfc3bc7245ef5263f9477c194333498b031bde"
     },
     {
+      "path": "game/src/facade-sign-layout.js",
+      "sha256": "82517212e9e0534ad90412247ff087592c92de09131d906f09e590708cf4f72c"
+    },
+    {
+      "path": "game/src/facade-window-bands.js",
+      "sha256": "0a405be3707eb1c151ec593e46c8a6c2c58e3dbff242f8682af227da861eb65f"
+    },
+    {
       "path": "game/src/fallback-ground.js",
       "sha256": "de71ecc3bbbd1b7e15b4ef9140bbc6212c4b66f5bde07d143e82050930759084"
     },
@@ -381,12 +389,24 @@
       "sha256": "b28578073b825692dbf98f1e1efa4d05fff98252e2be27e130f579adfff46cf6"
     },
     {
+      "path": "game/src/landmark-bellevue-square.js",
+      "sha256": "6dc123febbb43293548bd52b2ca76641620ae4539f7eb6ff18ff37b7f9173bb8"
+    },
+    {
       "path": "game/src/landmark-cec-source.js",
       "sha256": "4891822203ad126ab75511e2196965848db37cfdfabadef54b13cea4ffbe4356"
     },
     {
+      "path": "game/src/landmark-otp-pier.js",
+      "sha256": "a83edb0c9e51fd01644b1e2a7f48ee3f3550f62c69697fdb2ffb43a7907b6e36"
+    },
+    {
       "path": "game/src/landmark-otp-roofs.js",
       "sha256": "f071c4b256efe77dae8eaf64e0d4c2a04af9f01b4447686bd2cd91f77950b8a6"
+    },
+    {
+      "path": "game/src/landmark-otp-source.js",
+      "sha256": "360f553df971200d2fe9ff67c60937d07d650e98d6c5dbb60ed4a8442685e3cd"
     },
     {
       "path": "game/src/landmark-pitch-paint-coverage.js",
@@ -406,7 +426,7 @@
     },
     {
       "path": "game/src/landmark-source-identities.js",
-      "sha256": "4f93c8853d3f1ae65badd1940f4f7286bc6538353defb94a0268f7fed699adfc"
+      "sha256": "03bc7c88e8cbe6e9aa8db4bba660a3e868a54b2b12e5d1a80522bd14858e244c"
     },
     {
       "path": "game/src/landmark-source-masses.js",
@@ -426,7 +446,7 @@
     },
     {
       "path": "game/src/landmarks.js",
-      "sha256": "019dcced08e799b6bd580046172399956586743418d5da65c6586012900b72ce"
+      "sha256": "ef6b97d423d32c74c2f1c990a4f41ff0c7b4c2cd9c02340b771be6f29f3493e3"
     },
     {
       "path": "game/src/main.js",
@@ -494,7 +514,7 @@
     },
     {
       "path": "game/src/office.js",
-      "sha256": "499796b6147367ada9b0ba33ec1a8b1099ec1bdb96ece747ee98b1321c683ab6"
+      "sha256": "5998d93648732e2ec7dcd14ed3f35a7362377a31ef8862f58f47ab1388d8d5df"
     },
     {
       "path": "game/src/onfoot.js",
@@ -627,6 +647,10 @@
     {
       "path": "game/src/source-vehicle-dimensions.js",
       "sha256": "cb47316096169b91a2031c64b1066c89dcd8eff3c118e6a615754b5c2b4a2413"
+    },
+    {
+      "path": "game/src/source-water-tree-conflicts.js",
+      "sha256": "158a72f60f883de08b0eceeb539136795d6805598a6bbff8e3d631120fa9202a"
     },
     {
       "path": "game/src/spot-availability.js",
@@ -962,7 +986,7 @@
     },
     {
       "path": "game/src/trees.js",
-      "sha256": "9ffa650f45cf498f1acfd244d4cc0c9f9c1621b9f8b6a10fd8db6164e83fb70c"
+      "sha256": "968891c47e5ceb7d57989a7ce1e1915fb589fbc771aa61bccb0ead66f5f8a620"
     },
     {
       "path": "game/src/turn-lanes.js",
@@ -1010,7 +1034,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "0c028a09c03ce98ff74db3d177186a873a3e7995211d7c5341f3bc474810250b"
+      "sha256": "177ad6e264230712bde789a05abac61316ccdf5a45a17cfb8334c2dcbe2575ba"
     },
     {
       "path": "game/src/worldmap.js",

@@ -181,10 +181,9 @@ export function buildSpeciesTrees(trees, opts = {}) {
         const centre = sh.geo.boundingSphere.center.clone().applyMatrix4(nc);
         return { t, centre, shape: sp.shape, con: !!sh.conifer, nc, fc, nt, ft, c: col.clone(), chunk: Math.floor(t.x / CH) + ',' + Math.floor(t.z / CH), fi: -1, near: false };
     });
-    // Source conflicts are resolved after deterministic instance generation:
-    // excluded survey detections must not shift retained rotations/colours or
-    // the caller's RNG stream. No rendering-budget exclusion uses this hook.
-    if(opts.exclude?.size)T=T.filter(r=>!opts.exclude.has(r.t));
+    // Physical source conflicts are removed after RNG-consuming instance generation.
+    // Retained trees keep their exact rotations/colours and the caller keeps its stream.
+    if (opts.exclude?.size) T = T.filter(r => !opts.exclude.has(r.t));
     // far chunk meshes
     const chunks = new Map();
     for (const r of T) { let c = chunks.get(r.chunk); if (!c) chunks.set(r.chunk, c = { dec: [], con: [] }); (r.con ? c.con : c.dec).push(r); }

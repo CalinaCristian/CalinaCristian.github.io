@@ -1,0 +1,37 @@
+{
+  "source": "8add95f35681eddaf01a136ff1f5769a5329b102",
+  "reviewedAt": "2026-11-11T02:06:07.121151+00:00",
+  "inspectedOriginalFiles": [
+    "bellevue/aerial-r04-c04.png",
+    "bellevue/aerial-r04-c05.png",
+    "floreasca/aerial-r07-c03.png",
+    "floreasca/aerial-r07-c04.png",
+    "floreasca/aerial-r08-c03.png",
+    "floreasca/aerial-r08-c04.png",
+    "grozavesti/aerial-r06-c07.png",
+    "grozavesti/aerial-r06-c08.png",
+    "pipera/aerial-r04-c11.png",
+    "pipera/aerial-r05-c04.png",
+    "romana/aerial-r08-c08.png",
+    "romana/aerial-r08-c09.png",
+    "romana/aerial-r09-c08.png",
+    "romana/aerial-r09-c09.png",
+    "romana/aerial-r10-c08.png",
+    "romana/aerial-r10-c09.png",
+    "romana/aerial-r11-c09.png",
+    "unirii/aerial-r04-c04.png",
+    "unirii/aerial-r04-c05.png",
+    "unirii/aerial-r04-c07.png",
+    "unirii/aerial-r04-c09.png",
+    "unirii/aerial-r05-c05.png",
+    "unirii/aerial-r05-c06.png",
+    "unirii/aerial-r06-c04.png",
+    "unirii/aerial-r06-c05.png",
+    "unirii/aerial-r06-c06.png",
+    "unirii/aerial-r07-c04.png"
+  ],
+  "scope": "All 27 original 640x640 current atlas images viewed at full size. Native north-up coverage and successful rendering checked. Not photographic parity, road acceptance, or sign legibility at this altitude.",
+  "findings": [
+    "Existing road, parking, building and terrain fidelity issues remain outside this sign correction."
+  ]
+}

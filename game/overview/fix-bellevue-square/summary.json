@@ -1,0 +1,1117 @@
+{
+  "schemaVersion": 1,
+  "report": 71,
+  "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+  "scope": "Bellevue Square entrance and Macy\u2019s overlapping undimensioned part. Exact district parent/part source footprints retained. No complete mall, road, traffic or architectural-parity acceptance.",
+  "captures": [
+    {
+      "file": "before.png",
+      "caption": "Before \u00b7 reported camera \u00b7 unsupported Macy\u2019s tower blocks the entrance",
+      "sourceCommit": "4d7efa7b969e0951fce2234a90e670dcd65a9e66",
+      "capturedAt": "2026-11-11T02:51:22.826Z",
+      "sha256": "e05dca1cfdf23abd1ab3ae848704d6d25a7be44630cd927669ad73019f5ce120",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "eye": [
+          -486.4,
+          15.563,
+          -117.197
+        ],
+        "bearing": 283.413,
+        "pitch": -4.075,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T20:31:11.052Z",
+        "timeZone": "America/Los_Angeles",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T02:51:11.053Z",
+        "release": "game-dc1b7ab415b7eb7a",
+        "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
+        "city": "seattle",
+        "district": "bellevue",
+        "visit": null,
+        "scene": "bellevue",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 47.6155546,
+          "lon": -122.2014817
+        },
+        "position": {
+          "x": -486.4,
+          "y": 15.563,
+          "z": -117.197
+        },
+        "camera": {
+          "eye": [
+            -486.4,
+            15.563,
+            -117.197
+          ],
+          "bearing": 283.413,
+          "pitch": -4.075,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T20:31:11.052Z",
+          "timeZone": "America/Los_Angeles",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "performance": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 272,
+          "triangles": 310731,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 10.33,
+          "vehicles": 149,
+          "pedestrians": 180
+        },
+        "url": "http://127.0.0.1:36567/game/?inspect=1"
+      },
+      "scope": "Production game and native UI in a desktop browser. Paused automatic RAF, explicit native frames and setup poses; no physical-phone or normal-route claim."
+    },
+    {
+      "file": "after.png",
+      "caption": "After \u00b7 same camera \u00b7 low mall envelope and recessed entrance",
+      "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "capturedAt": "2026-11-11T02:53:43.001Z",
+      "sha256": "02fb0613570a1998fcd4fe2a1b599aa0420dde2c49d376d8172d1103471a1ee5",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "eye": [
+          -486.4,
+          15.563,
+          -117.197
+        ],
+        "bearing": 283.413,
+        "pitch": -4.075,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T20:30:34.306Z",
+        "timeZone": "America/Los_Angeles",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T02:53:34.306Z",
+        "release": "game-dc1b7ab415b7eb7a",
+        "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
+        "city": "seattle",
+        "district": "bellevue",
+        "visit": null,
+        "scene": "bellevue",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 47.6155546,
+          "lon": -122.2014817
+        },
+        "position": {
+          "x": -486.4,
+          "y": 15.563,
+          "z": -117.197
+        },
+        "camera": {
+          "eye": [
+            -486.4,
+            15.563,
+            -117.197
+          ],
+          "bearing": 283.413,
+          "pitch": -4.075,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T20:30:34.306Z",
+          "timeZone": "America/Los_Angeles",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "performance": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 272,
+          "triangles": 310567,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 10.98,
+          "vehicles": 149,
+          "pedestrians": 180
+        },
+        "url": "http://127.0.0.1:45401/game/?inspect=1"
+      },
+      "scope": "Production game and native UI in a desktop browser. Paused automatic RAF, explicit native frames and setup poses; no physical-phone or normal-route claim."
+    },
+    {
+      "file": "phone.png",
+      "caption": "After \u00b7 supplemental close view \u00b7 390 \u00d7 844 touch browser",
+      "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "capturedAt": "2026-11-11T03:03:10.829Z",
+      "sha256": "31cf661723b12be6f887cfff666a7ec775d98f04bb79de6f6193b925dca27510",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "camera": {
+        "eye": [
+          -510,
+          1.7,
+          -122
+        ],
+        "bearing": 269.945,
+        "pitch": 28.068,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T20:31:03.732Z",
+        "timeZone": "America/Los_Angeles",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T03:03:03.733Z",
+        "release": "game-dc1b7ab415b7eb7a",
+        "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
+        "city": "seattle",
+        "district": "bellevue",
+        "visit": null,
+        "scene": "bellevue",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 47.6155978,
+          "lon": -122.2017961
+        },
+        "position": {
+          "x": -510,
+          "y": 1.7,
+          "z": -122
+        },
+        "camera": {
+          "eye": [
+            -510,
+            1.7,
+            -122
+          ],
+          "bearing": 269.945,
+          "pitch": 28.068,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T20:31:03.732Z",
+          "timeZone": "America/Los_Angeles",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "performance": {
+          "fps": 0.24,
+          "frameMs": 8163.3,
+          "drawCalls": 218,
+          "triangles": 300599,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 16.262,
+          "vehicles": 96,
+          "pedestrians": 90
+        },
+        "url": "http://127.0.0.1:45247/game/?inspect=1"
+      },
+      "scope": "Production game and native UI in a touch-enabled portrait browser. Paused automatic RAF, explicit native frames and setup poses; no physical-phone or normal-route claim."
+    }
+  ],
+  "sources": {
+    "schemaVersion": 1,
+    "report": 71,
+    "sourcePolicy": "Preserve exact mall and Macy\u2019s source footprints. One low mall envelope owns their overlap. No dimensioned building is deleted or moved.",
+    "sourceIds": [
+      "w29234887",
+      "w497739259"
+    ],
+    "sourceEntrance": {
+      "id": "n5752777692",
+      "lat": 47.6156362,
+      "lon": -122.202091,
+      "tags": {
+        "entrance": "yes",
+        "level": "0"
+      }
+    },
+    "references": [
+      {
+        "url": "https://www.openstreetmap.org/way/497739259",
+        "checkedAt": "2026-11-11T02:46:22.820187+00:00",
+        "tags": {
+          "brand": "Macy's",
+          "brand:wikidata": "Q629269",
+          "building:part": "yes",
+          "name": "Macy's",
+          "shop": "department_store",
+          "website": "https://www.macys.com/stores/wa/bellevue/bellevue-square_368.html",
+          "wheelchair": "yes"
+        },
+        "facts": "building:part=yes, shop=department_store; no height or building:levels.",
+        "sha256": "e085ddedbc21e4be103d63bb80c6a3811b146ed68da8c94e78580e2b1ae1c24a"
+      },
+      {
+        "url": "https://www.openstreetmap.org/way/29234887",
+        "facts": "Containing mall has building:levels=3; exact source entrance recess retained.",
+        "sha256": "4764abed23cf24cba540e46460c9bbedde047694e18fd85a44f75b6ccd1ac8ee"
+      },
+      {
+        "url": "https://www.macys.com/stores/wa/bellevue/bellevue-square_368.html",
+        "checkedAt": "2026-11-11T02:46:22.820368+00:00",
+        "facts": "Official department lists Lower Level, Floor 1, Floor 2; B Building Floor 1 separately. This establishes store use/levels, not a surveyed building elevation.",
+        "sha256": "f84b48d665a13d4e4f64341f897cab28a7eef720e6ddb8959362360f327231ef"
+      },
+      {
+        "url": "https://commons.wikimedia.org/wiki/File:Bellevue_Square_Entrance,_April_2023.png",
+        "author": "Spicypepper999",
+        "license": "CC0",
+        "date": "2023-04-28",
+        "facts": "Front entrance: recessed gridded glass, brick upper flanks, raised concrete gable with open shoulders, stacked Bellevue Square lettering. Reference kept private; no photograph textures.",
+        "referenceImageSha256": "2f2fbb864cc598a2b8db64ade84f543cea93363facf8aa406a5e8550250b042d"
+      }
+    ],
+    "modelEstimates": {
+      "bodyHeightM": 15,
+      "gableSpringM": 18.4,
+      "gablePeakM": 21,
+      "gableHalfWidthM": 5.2,
+      "note": "Existing 15m mall envelope retained as a three-level model estimate. Actual metre height, floor datums, facade bay spacing, colours and gable dimensions remain unsurveyed."
+    },
+    "removedUnsupportedGeometry": "The 30m-wide box and canopy crossed the source recess wings. Replaced by glazing on the source wall and a roof-supported gable. Two unverified rectangular roof spines were omitted; no mapped source roof removed.",
+    "partModel": {
+      "sourceId": "w497739259",
+      "ring": [
+        [
+          -50.5779,
+          -58.4861
+        ],
+        [
+          -50.119,
+          -83.7367
+        ],
+        [
+          -49.5809,
+          -126.8627
+        ],
+        [
+          -5.3145,
+          -126.4812
+        ],
+        [
+          -5.6997,
+          -109.7128
+        ],
+        [
+          1.5136,
+          -109.6111
+        ],
+        [
+          1.5995,
+          -111.4327
+        ],
+        [
+          5.7561,
+          -111.3702
+        ],
+        [
+          16.358,
+          -111.1803
+        ],
+        [
+          16.2948,
+          -109.6883
+        ],
+        [
+          22.9279,
+          -109.5318
+        ],
+        [
+          23.2,
+          -119.5539
+        ],
+        [
+          23.373,
+          -126.1029
+        ],
+        [
+          31.2643,
+          -125.9926
+        ],
+        [
+          53.3218,
+          -125.5454
+        ],
+        [
+          51.9621,
+          -59.2013
+        ],
+        [
+          47.0499,
+          -59.2827
+        ],
+        [
+          4.8481,
+          -59.8775
+        ],
+        [
+          -35.1496,
+          -60.538
+        ],
+        [
+          -35.2921,
+          -57.4119
+        ],
+        [
+          -43.7927,
+          -57.5885
+        ],
+        [
+          -43.7595,
+          -58.5409
+        ]
+      ],
+      "rendering": "Entire contained plan shares the mall\u2019s physical envelope, replacing an unsupported generic57.6mglass estimate. Source record in district data remains unchanged."
+    }
+  },
+  "validation": {
+    "geometry": {
+      "passed": true,
+      "parentVertices": 85,
+      "partVertices": 22,
+      "sourcePartOutsideM2": 0,
+      "collisionPieces": 56,
+      "triangles": 1467,
+      "signApproachProbes": [
+        {
+          "word": "BELLEVUE",
+          "dx": -3,
+          "clear": true
+        },
+        {
+          "word": "BELLEVUE",
+          "dx": 0,
+          "clear": true
+        },
+        {
+          "word": "BELLEVUE",
+          "dx": 3,
+          "clear": true
+        },
+        {
+          "word": "SQUARE",
+          "dx": -3,
+          "clear": true
+        },
+        {
+          "word": "SQUARE",
+          "dx": 0,
+          "clear": true
+        },
+        {
+          "word": "SQUARE",
+          "dx": 3,
+          "clear": true
+        }
+      ],
+      "modelHeightM": 21.22360610961914,
+      "scope": "Source preservation, full outline collision and sign approach. Heights remain model estimates; native original-camera review still required."
+    },
+    "logic": {
+      "args": {
+        "scenario": "foot,a",
+        "city": "bucharest",
+        "audit": false,
+        "headed": false,
+        "verbose": false,
+        "port": 8175,
+        "width": 640,
+        "height": 360,
+        "traffic": "full",
+        "dt": 0.03333333333333333,
+        "shots": 30,
+        "timeout": 240
+      },
+      "durationSec": 130,
+      "summary": {
+        "dynamic": {
+          "high": 0,
+          "medium": 0,
+          "low": 1,
+          "byType": {
+            "perf-fps": 1
+          }
+        },
+        "audit": {}
+      },
+      "issues": [
+        {
+          "type": "perf-fps",
+          "severity": "low",
+          "msg": "0.5 fps (1915 ms/frame, 108 draw calls, 312676 tris) at quality low 640\u00d7360 in software GL \u2014 not representative of real GPUs",
+          "scenario": "end",
+          "city": "bucharest",
+          "count": 1
+        }
+      ]
+    },
+    "visualComparison": {
+      "visual-baseline-4d7e": {
+        "coverage": {
+          "complete": true,
+          "status": "complete",
+          "requiredSamples": 67,
+          "capturedSamples": 67,
+          "missingSamples": 0,
+          "errors": [],
+          "routes": [
+            {
+              "city": "seattle",
+              "group": "seattle-bellevue",
+              "route": "uipath-bel",
+              "required": 43,
+              "captured": 43,
+              "missing": 0,
+              "missingIndices": []
+            },
+            {
+              "city": "seattle",
+              "group": "seattle-bellevue",
+              "route": "sweep-112th-avenue-northeast",
+              "required": 6,
+              "captured": 6,
+              "missing": 0,
+              "missingIndices": []
+            },
+            {
+              "city": "seattle",
+              "group": "seattle-bellevue",
+              "route": "sweep-112th-avenue-northeast-run-2",
+              "required": 6,
+              "captured": 6,
+              "missing": 0,
+              "missingIndices": []
+            },
+            {
+              "city": "seattle",
+              "group": "seattle-bellevue",
+              "route": "sweep-106th-avenue-northeast",
+              "required": 6,
+              "captured": 6,
+              "missing": 0,
+              "missingIndices": []
+            },
+            {
+              "city": "seattle",
+              "group": "seattle-bellevue",
+              "route": "sweep-106th-avenue-northeast-run-2",
+              "required": 6,
+              "captured": 6,
+              "missing": 0,
+              "missingIndices": []
+            }
+          ]
+        },
+        "findings": 149,
+        "byType": {
+          "ribbon-zfight": 55,
+          "pad-overlap": 56,
+          "ribbon-stacked": 10,
+          "road-hole": 2,
+          "marking-buried": 4,
+          "building-over-road": 21,
+          "road-sky-hole": 1
+        },
+        "bySeverity": {
+          "high": 34,
+          "medium": 13,
+          "low": 102
+        },
+        "maxDrawCalls": 227,
+        "maxTriangles": 532322
+      },
+      "visual-7593-r2": {
+        "coverage": {
+          "complete": true,
+          "status": "complete",
+          "requiredSamples": 67,
+          "capturedSamples": 67,
+          "missingSamples": 0,
+          "errors": [],
+          "routes": [
+            {
+              "city": "seattle",
+              "group": "seattle-bellevue",
+              "route": "uipath-bel",
+              "required": 43,
+              "captured": 43,
+              "missing": 0,
+              "missingIndices": []
+            },
+            {
+              "city": "seattle",
+              "group": "seattle-bellevue",
+              "route": "sweep-112th-avenue-northeast",
+              "required": 6,
+              "captured": 6,
+              "missing": 0,
+              "missingIndices": []
+            },
+            {
+              "city": "seattle",
+              "group": "seattle-bellevue",
+              "route": "sweep-112th-avenue-northeast-run-2",
+              "required": 6,
+              "captured": 6,
+              "missing": 0,
+              "missingIndices": []
+            },
+            {
+              "city": "seattle",
+              "group": "seattle-bellevue",
+              "route": "sweep-106th-avenue-northeast",
+              "required": 6,
+              "captured": 6,
+              "missing": 0,
+              "missingIndices": []
+            },
+            {
+              "city": "seattle",
+              "group": "seattle-bellevue",
+              "route": "sweep-106th-avenue-northeast-run-2",
+              "required": 6,
+              "captured": 6,
+              "missing": 0,
+              "missingIndices": []
+            }
+          ]
+        },
+        "findings": 149,
+        "byType": {
+          "ribbon-zfight": 55,
+          "pad-overlap": 56,
+          "ribbon-stacked": 10,
+          "road-hole": 2,
+          "marking-buried": 4,
+          "building-over-road": 21,
+          "road-sky-hole": 1
+        },
+        "bySeverity": {
+          "high": 34,
+          "medium": 13,
+          "low": 102
+        },
+        "maxDrawCalls": 227,
+        "maxTriangles": 532460
+      },
+      "scope": "67native visual survey samples per source; raw149 existing findings retained. No new detector counts; not a district-wide road/collision/traffic-fidelity pass. Software GL timing is not hardware FPS."
+    },
+    "overviewRefresh": {
+      "atlas": 9,
+      "groundConditionViews": 16,
+      "modelStudies": 3,
+      "sharedTouristViews": 5
+    }
+  },
+  "limits": [
+    "The 15m mall height,21m gable, glazing bays, materials and lettering are model estimates informed by the mapped three-level parent and a CC0 entrance photo.",
+    "Other mall entrances, roof plant, loading frontage and fine architectural details remain incomplete.",
+    "The district and isolated model studies use their respective source/native and fallback model rings. They are explicitly different capture contexts.",
+    "All reported-camera and phone captures use fixed setup poses, not normal traversal or physical-phone performance.",
+    "Raw inspection source/release stamps are inherited; immutable server sourceCommit fields identify the actual tested code.",
+    "The first thin-mullion candidate8020b56d was rejected for visible subpixel frame breakup. No-shadow, near-plane and unlit controls are retained privately.",
+    "Visual survey has149 existing raw road/marking findings in both baseline and candidate; these remain open. Street lighting and traffic are not accepted by this repair."
+  ],
+  "sharedTouristCaptures": [
+    {
+      "kind": "arrival",
+      "label": "Current arrival appearance \u00b7 fixed camera",
+      "image": "assets/spots/bel-lincoln-square/mall-7593b636/arrival.png",
+      "sha256": "f868296e629ca6af5e9e1dd5fef01fcfe06992e4d5fbd59acf9cc6125ce43c4e",
+      "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "capturedAt": "2026-11-11T03:04:20.123Z",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "pose": {
+        "eye": [
+          -3,
+          1.7129868004471063,
+          -3
+        ],
+        "bearing": 135,
+        "pitch": 0,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-07-15T19:00:00.000Z",
+        "timeZone": "America/Los_Angeles",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T03:04:08.696Z",
+        "release": "game-dc1b7ab415b7eb7a",
+        "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
+        "city": "seattle",
+        "district": null,
+        "visit": "bel-lincoln-square",
+        "scene": "bel-lincoln-square",
+        "office": null,
+        "mode": "spot",
+        "drone": false,
+        "geographic": {
+          "lat": 47.617577,
+          "lon": -122.2019899
+        },
+        "position": {
+          "x": -3,
+          "y": 0.063,
+          "z": -3
+        },
+        "camera": {
+          "eye": [
+            -3,
+            1.713,
+            -3
+          ],
+          "bearing": 135,
+          "pitch": 0,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-07-15T19:00:00.000Z",
+          "timeZone": "America/Los_Angeles",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "performance": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 336,
+          "triangles": 377054,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": null
+        },
+        "url": "http://127.0.0.1:45003/game/?inspect=1"
+      },
+      "bodyClear": true,
+      "controllerExercised": false,
+      "limitations": [
+        "Fixed supported native viewpoint. No new traversed route, activity completion, touch gesture or architectural-parity acceptance."
+      ]
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Current camera-challenge approach \u00b7 fixed camera",
+      "image": "assets/spots/bel-lincoln-square/mall-7593b636/approach.png",
+      "sha256": "f94b962d3b3b694f1f0cbe8a2e508913de369199959423193b562e8f34b340e7",
+      "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "capturedAt": "2026-11-11T03:04:25.167Z",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "pose": {
+        "eye": [
+          -2.049824776823238,
+          1.6397789971756227,
+          1.7508761158838115
+        ],
+        "bearing": 168.69006752597977,
+        "pitch": 0,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-07-15T19:00:00.000Z",
+        "timeZone": "America/Los_Angeles",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T03:04:20.164Z",
+        "release": "game-dc1b7ab415b7eb7a",
+        "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
+        "city": "seattle",
+        "district": null,
+        "visit": "bel-lincoln-square",
+        "scene": "bel-lincoln-square",
+        "office": null,
+        "mode": "spot",
+        "drone": false,
+        "geographic": {
+          "lat": 47.6175343,
+          "lon": -122.2019773
+        },
+        "position": {
+          "x": -2.05,
+          "y": -0.01,
+          "z": 1.751
+        },
+        "camera": {
+          "eye": [
+            -2.05,
+            1.64,
+            1.751
+          ],
+          "bearing": 168.69,
+          "pitch": 0,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-07-15T19:00:00.000Z",
+          "timeZone": "America/Los_Angeles",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "performance": {
+          "fps": 0.15,
+          "frameMs": 6624.2,
+          "drawCalls": 206,
+          "triangles": 363817,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": null
+        },
+        "url": "http://127.0.0.1:45003/game/?inspect=1"
+      },
+      "bodyClear": true,
+      "controllerExercised": false,
+      "limitations": [
+        "Fixed supported native viewpoint. No new traversed route, activity completion, touch gesture or architectural-parity acceptance."
+      ]
+    },
+    {
+      "kind": "phone",
+      "label": "Current portrait appearance \u00b7 native UI and inspection panel",
+      "image": "assets/spots/bel-lincoln-square/mall-7593b636/phone.png",
+      "sha256": "854b15ba1a6b81fba7a8e59d85845a9b7fb0bb1d6d27038aefc4a6d2e29b539c",
+      "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "capturedAt": "2026-11-11T03:04:15.242Z",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "pose": {
+        "eye": [
+          -2.017062295168123,
+          1.637658676756468,
+          1.9146885241593865
+        ],
+        "bearing": 168.69006752597977,
+        "pitch": 0,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-07-15T19:00:00.000Z",
+        "timeZone": "America/Los_Angeles",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T03:04:09.352Z",
+        "release": "game-dc1b7ab415b7eb7a",
+        "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
+        "city": "seattle",
+        "district": null,
+        "visit": "bel-lincoln-square",
+        "scene": "bel-lincoln-square",
+        "office": null,
+        "mode": "spot",
+        "drone": false,
+        "geographic": {
+          "lat": 47.6175328,
+          "lon": -122.2019768
+        },
+        "position": {
+          "x": -2.017,
+          "y": -0.012,
+          "z": 1.915
+        },
+        "camera": {
+          "eye": [
+            -2.017,
+            1.638,
+            1.915
+          ],
+          "bearing": 168.69,
+          "pitch": 0,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-07-15T19:00:00.000Z",
+          "timeZone": "America/Los_Angeles",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "performance": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 294,
+          "triangles": 343508,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": null
+        },
+        "url": "http://127.0.0.1:39185/game/?inspect=1"
+      },
+      "bodyClear": true,
+      "controllerExercised": false,
+      "limitations": [
+        "Fixed supported native viewpoint. No new traversed route, activity completion, touch gesture or architectural-parity acceptance."
+      ]
+    },
+    {
+      "kind": "scene",
+      "label": "Lincoln Square tower and street frontage",
+      "image": "assets/spots/bel-lincoln-square/mall-7593b636/visitor.png",
+      "sha256": "1d7f2f5ce9418a43fb36389605725bed54dc3b5d6b48daf81ab3b1df4af9d2fb",
+      "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "capturedAt": "2026-11-11T03:04:30.231Z",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "pose": {
+        "eye": [
+          -2,
+          1.6365544401109218,
+          2
+        ],
+        "bearing": 145,
+        "pitch": 18,
+        "fov": 60
+      },
+      "conditions": {
+        "date": "2026-07-15T19:00:00.000Z",
+        "timeZone": "America/Los_Angeles",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T03:04:25.189Z",
+        "release": "game-dc1b7ab415b7eb7a",
+        "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
+        "city": "seattle",
+        "district": null,
+        "visit": "bel-lincoln-square",
+        "scene": "bel-lincoln-square",
+        "office": null,
+        "mode": "spot",
+        "drone": false,
+        "geographic": {
+          "lat": 47.617532,
+          "lon": -122.2019766
+        },
+        "position": {
+          "x": -2,
+          "y": -0.013,
+          "z": 2
+        },
+        "camera": {
+          "eye": [
+            -2,
+            1.637,
+            2
+          ],
+          "bearing": 145,
+          "pitch": 18,
+          "fov": 60
+        },
+        "conditions": {
+          "date": "2026-07-15T19:00:00.000Z",
+          "timeZone": "America/Los_Angeles",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "performance": {
+          "fps": 0.59,
+          "frameMs": 4999.4,
+          "drawCalls": 213,
+          "triangles": 360974,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": null
+        },
+        "url": "http://127.0.0.1:45003/game/?inspect=1"
+      },
+      "bodyClear": true,
+      "controllerExercised": false,
+      "limitations": [
+        "Fixed supported native viewpoint. No new traversed route, activity completion, touch gesture or architectural-parity acceptance."
+      ],
+      "fullPageHUD": false,
+      "purpose": "Current native viewpoint after the shared mall repair; fixed setup, no new route or gesture acceptance."
+    },
+    {
+      "kind": "phone-ui-touch",
+      "label": "Portrait scene and native touch interface \u00b7 static setup",
+      "image": "assets/spots/bel-lincoln-square/mall-7593b636/visitor-phone.png",
+      "sha256": "9c23749129de376aca2fa6e78f0b97b64f4e7637e45de80228356de3274536ec",
+      "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "capturedAt": "2026-11-11T03:04:19.632Z",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "pose": {
+        "eye": [
+          -2,
+          1.6365544401109218,
+          2
+        ],
+        "bearing": 145,
+        "pitch": 18,
+        "fov": 60
+      },
+      "conditions": {
+        "date": "2026-07-15T19:00:00.000Z",
+        "timeZone": "America/Los_Angeles",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T03:04:15.267Z",
+        "release": "game-dc1b7ab415b7eb7a",
+        "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
+        "city": "seattle",
+        "district": null,
+        "visit": "bel-lincoln-square",
+        "scene": "bel-lincoln-square",
+        "office": null,
+        "mode": "spot",
+        "drone": false,
+        "geographic": {
+          "lat": 47.617532,
+          "lon": -122.2019766
+        },
+        "position": {
+          "x": -2,
+          "y": -0.013,
+          "z": 2
+        },
+        "camera": {
+          "eye": [
+            -2,
+            1.637,
+            2
+          ],
+          "bearing": 145,
+          "pitch": 18,
+          "fov": 60
+        },
+        "conditions": {
+          "date": "2026-07-15T19:00:00.000Z",
+          "timeZone": "America/Los_Angeles",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "performance": {
+          "fps": 0.3,
+          "frameMs": 3321.9,
+          "drawCalls": 155,
+          "triangles": 347874,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": null
+        },
+        "url": "http://127.0.0.1:39185/game/?inspect=1"
+      },
+      "bodyClear": true,
+      "controllerExercised": false,
+      "limitations": [
+        "Fixed supported native viewpoint. No new traversed route, activity completion, touch gesture or architectural-parity acceptance."
+      ],
+      "fullPageHUD": true,
+      "purpose": "Current native viewpoint after the shared mall repair; fixed setup, no new route or gesture acceptance."
+    }
+  ],
+  "overviewValidation": {
+    "card": {
+      "views": 4,
+      "desktopWidth": 1440,
+      "phoneWidth": 390,
+      "reloadChecked": true,
+      "hashesAndDimensionsMatched": true
+    },
+    "galleries": {
+      "checks": 20,
+      "aerialTilesSelected": 9,
+      "groundTabs": 4,
+      "groundImages": 16,
+      "modelStudies": 3,
+      "sharedSceneAssets": 5,
+      "reloadSelection": true,
+      "pageErrors": 0
+    },
+    "scope": "Native desktop/phone overview with real images; linked imagery and source metadata verified. Tourist scene remains unavailable in the public selector."
+  }
+}

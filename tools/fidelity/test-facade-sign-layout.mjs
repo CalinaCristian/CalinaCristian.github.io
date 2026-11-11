@@ -1,0 +1,12 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';
+const file=new URL('../../game/src/facade-sign-layout.js',import.meta.url);const {fitFacadeSign,facadeSignBoard}=await import('data:text/javascript;base64,'+fs.readFileSync(file).toString('base64'));
+const wall={ax:0,az:0,bx:20,bz:0},wanted={centre:10,width:6.5,y0:2,y1:3};
+const a=fitFacadeSign(wall,wanted,[]);assert.equal(a.width,6.5);assert.equal(a.centre,10);
+const blocker=facadeSignBoard(7,0.12,1,0,7,2,3,'named building');const b=fitFacadeSign(wall,wanted,[blocker]);assert.ok(b.centre-b.width/2-.25>=10.5+.08-1e-10);assert.equal(b.width,6.5);
+assert.deepEqual(fitFacadeSign(wall,wanted,[{...blocker,y0:5,y1:6}]),a);
+assert.deepEqual(fitFacadeSign(wall,wanted,[{...blocker,az:2,bz:2}]),a);
+assert.equal(fitFacadeSign(wall,wanted,[facadeSignBoard(10,0,1,0,20,2,3,'full')]),null);
+const reverse=fitFacadeSign({ax:20,az:0,bx:0,bz:0},wanted,[blocker]);assert.ok(20-reverse.centre-reverse.width/2-.25>=10.58-1e-10);
+const short=fitFacadeSign({ax:0,az:0,bx:4,bz:0},{...wanted,centre:2},[]);assert.ok(short.width<=3.2&&short.width>0);
+const boards=[];let count=0;for(const c of [2,5.7,9.4,13.1,16.8]){const p=fitFacadeSign(wall,{...wanted,centre:c,width:5,minWidth:1},boards);if(!p)continue;const next=facadeSignBoard(p.centre,0,1,0,p.width+.5,2,3,'unit'+count);for(const r of boards)assert.ok(next.bx<=r.ax-.079999||next.ax>=r.bx+.079999);boards.push(next);count++}assert.ok(count>=3);
+console.log('Eight facade span and overlap controls passed.');

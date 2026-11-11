@@ -1,0 +1,79 @@
+// The outline is an envelope, not a second solid through every mapped terminal part.
+import { footprintCells, bakeSourceSolidSurface, ringArea } from './building-parts.js';
+import { OTP_PIER_PARTS } from './landmark-otp-source.js';
+
+export function otpPierVolumes(outline, sourceBuildings = {}) {
+    const parts = OTP_PIER_PARTS.map((fallback, i) => {
+        const source = sourceBuildings[fallback.sourceId]?.[0] || fallback;
+        return { ...fallback, ring: source.ring, holes: source.holes || [], h: source.h, minH: source.minH, i };
+    });
+    const masks = parts.flatMap(p => [p.ring, ...p.holes]);
+    const ranges = []; let next = 0;
+    for (const p of parts) { ranges.push({ outer: next++, holes: p.holes.map(() => next++) }); }
+    const residuals = footprintCells(outline, masks).filter(cell => !ranges.some(p => cell.covered.includes(p.outer) && !p.holes.some(h => cell.covered.includes(h)))).map((cell, i) => {
+        // Small differences between the outline and literal part polygons are
+        // retained, but do not become a separate fourteen-metre wall on a jet bridge.
+        // Only these untagged infill strips inherit their nearest part's band.
+        const centre = cell.ring.reduce((p, q) => [p[0] + q[0] / cell.ring.length, p[1] + q[1] / cell.ring.length], [0, 0]);
+        let nearest = null, distance = Infinity;
+        for (const part of parts) for (let j = 0; j < part.ring.length; j++) {
+            const a = part.ring[j], z = part.ring[(j + 1) % part.ring.length];
+            const dx = z[0] - a[0], dz = z[1] - a[1], len2 = dx * dx + dz * dz;
+            const t = len2 ? Math.max(0, Math.min(1, ((centre[0] - a[0]) * dx + (centre[1] - a[1]) * dz) / len2)) : 0;
+            const d = Math.hypot(centre[0] - a[0] - t * dx, centre[1] - a[1] - t * dz);
+            if (d < distance) { distance = d; nearest = part; }
+        }
+        return { sourceId: 'w771096083:residual', ring: cell.ring, holes: [], minH: nearest.minH, h: nearest.h, kind: nearest.kind, i: parts.length + i,
+            adjoiningSourceId: nearest.sourceId, adjoiningDistanceM: distance,
+            heightSource: 'Estimated untagged outline infill follows nearest literal part height/minimum; source part geometry unchanged' };
+    });
+    return [...parts, ...residuals];
+}
+
+export function buildOTPPier(b, outline, sourceBuildings, roofZones, profiles) {
+    const volumes = otpPierVolumes(outline, sourceBuildings);
+    for (const volume of volumes) {
+        const surface = bakeSourceSolidSurface(volume, volumes), bridge = volume.kind === 'bridge';
+        const wallColour = bridge ? '#c9ced2' : '#6f91a8', mat = bridge ? 'm' : 'g';
+        function walls(ring, bands, hole = false) {
+            const sign = Math.sign(ringArea(ring)) * (hole ? -1 : 1);
+            ring.forEach((a, i) => {
+                const end = ring[(i + 1) % ring.length], dx = end[0] - a[0], dz = end[1] - a[1];
+                const at = (t, y) => [a[0] + dx * t, y, a[1] + dz * t];
+                for (const band of bands[i]) {
+                    const length = Math.hypot(dx, dz), lo = band.t0 * length, hi = band.t1 * length;
+                    // Retain the previous estimated eight-metre facade cadence, clipped
+                    // into the owned face itself. Frames never sit on top of glass faces.
+                    const xs = [lo, hi], ys = [band.y0, band.y1];
+                    const cut = (list, value, low, high) => { if (value > low + 1e-7 && value < high - 1e-7) list.push(value); };
+                    if (!bridge) {
+                        for (let x = Math.floor(lo / 8) * 8; x <= hi; x += 8) for (const edge of [x, x + .18]) cut(xs, edge, lo, hi);
+                        for (let y = Math.floor(band.y0 / 4) * 4; y <= band.y1; y += 4) for (const edge of [y, y + .16]) cut(ys, edge, band.y0, band.y1);
+                        cut(ys, volume.h - .3, band.y0, band.y1);
+                    } else if (volume.minH > 0) {
+                        cut(ys, volume.minH + .8, band.y0, band.y1);
+                        cut(ys, volume.h - .6, band.y0, band.y1);
+                    }
+                    xs.sort((a, b) => a - b); ys.sort((a, b) => a - b);
+                    for (let x = 1; x < xs.length; x++) for (let y = 1; y < ys.length; y++) {
+                        const midX = (xs[x - 1] + xs[x]) / 2, midY = (ys[y - 1] + ys[y]) / 2;
+                        const frame = !bridge && (midX % 8 < .18 || midY % 4 < .16 || midY >= volume.h - .3);
+                        const bridgeGlass = bridge && volume.minH > 0 && midY > volume.minH + .8 && midY < volume.h - .6;
+                        const col = frame ? '#d6dde2' : bridgeGlass ? '#4f7690' : wallColour;
+                        const surfaceMat = frame ? 'm' : bridgeGlass ? 'g' : mat;
+                        b.quad(at(xs[x - 1] / length, ys[y - 1]), at(xs[x] / length, ys[y - 1]), at(xs[x] / length, ys[y]), at(xs[x - 1] / length, ys[y]), col, surfaceMat, [sign * dz, 0, -sign * dx]);
+                    }
+                }
+            });
+        }
+        walls(volume.ring, surface.walls);
+        volume.holes.forEach((ring, i) => walls(ring, surface.holeWalls[i], true));
+        for (const ring of surface.roof) {
+            if (bridge) b.cap(ring, volume.h, '#e3e6e8');
+            else roofZones(ring, volume.h, volume.sourceId === 'w1321861231' ? profiles.spine : profiles.pier);
+        }
+        for (const ring of surface.underside) b.cap(ring, volume.minH, '#c9ced2', [], -1);
+        b.colPolygon(volume.ring, { holes: volume.holes, y0: volume.minH, y1: volume.h });
+    }
+    b.sourceMassAudit = { ...(b.sourceMassAudit || {}), otpPier: { literalParts: OTP_PIER_PARTS.length, residuals: volumes.length - OTP_PIER_PARTS.length, sourceIds: OTP_PIER_PARTS.map(p => p.sourceId), policy: 'Exact source part footprints and height/minimum bands; estimated outline only fills residual plan area. Exposed union faces share ownership.' } };
+}

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "captureType": "game-perspective-context",
   "comparisonCompatible": false,
-  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "gameSourceCommit": "mixed",
   "captureTool": {
     "name": "capture-context.cjs",
     "sha256": "921986afbd9d1554cc1ca68bd39168efaba1f08ddf151057b736cb7e7c6e4684"
@@ -28,7 +28,7 @@
   "items": [
     {
       "id": "tnb-context",
-      "label": "Teatrul Na\u021bional Bucure\u0219ti in district context",
+      "label": "Teatrul Național București in district context",
       "kind": "landmark-context",
       "landmark": "tnb",
       "x": 1159.0327466965964,
@@ -47,30 +47,27 @@
       "aspect": 1.5,
       "pose": {
         "x": 1159.0327466965964,
-        "y": 42.1,
+        "y": 77.1,
         "z": 1544.9965495575666,
         "heading": 325.7842978675626,
-        "pitch": -4.453522857075915,
+        "pitch": -10.193269509285287,
         "fov": 70,
         "aspect": 1.5,
         "quaternion": [
-          -0.03713532791364353,
-          0.2939491564945908,
-          0.011429888947602846,
-          0.9550310039237
+          -0.08490505184935704,
+          0.2930082223890462,
+          0.026132940470738837,
+          0.9519739404023737
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -80,25 +77,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363316714,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 0,
-        "frameMs": 0,
-        "drawCalls": 243,
-        "triangles": 925783,
+        "fps": 0.17,
+        "frameMs": 6022.2,
+        "drawCalls": 244,
+        "triangles": 916718,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -109,16 +99,14 @@
       "inPlayable": false,
       "inFlightEnvelope": false,
       "distanceFromFlightDomainM": 697.0557983853406,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 0,
       "lat": 44.43439764469678,
       "lon": 26.105784639664623,
-      "image": "images/tnb-context.jpg",
+      "image": "signs-8add95f3/tnb-context.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:37:21.826Z",
-      "sha256": "951eee535547eb2b729892d4b5d6619c76eba20184e968665c59a2154c1da91d",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:15:29.926Z",
+      "sha256": "686b0a3e23cd9b80a82cb9566d428dd7919df40b34bb86c786e6393056f49259",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -131,14 +119,23 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/tnb-context.jpg",
-      "thumb": "thumbs/tnb-context.jpg",
-      "thumbnailSha256": "cd8678db3d7e1c6b2aa4810e88164b8c21bc7c9ecc920bf48fbb9324305237bc",
-      "reviewNote": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
+      "thumbnail": "signs-8add95f3/tnb-context.png",
+      "thumb": "signs-8add95f3/tnb-context.png",
+      "thumbnailSha256": "686b0a3e23cd9b80a82cb9566d428dd7919df40b34bb86c786e6393056f49259",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 75.44999999999999,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "cameraRevision": "Camera reframed to clear foreground obstruction; actual pose recorded. Floreasca signal3 shifts1.25m east; Romană TNB/Regal cameras rise35m.",
+      "imageSha256": "686b0a3e23cd9b80a82cb9566d428dd7919df40b34bb86c786e6393056f49259"
     },
     {
       "id": "tnb-opposite",
-      "label": "Teatrul Na\u021bional Bucure\u0219ti in district context",
+      "label": "Teatrul Național București in district context",
       "kind": "landmark-context",
       "landmark": "tnb",
       "x": 772.8367749269456,
@@ -180,7 +177,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -248,7 +245,7 @@
     },
     {
       "id": "ateneu-context",
-      "label": "Ateneul Rom\u00e2n in district context",
+      "label": "Ateneul Român in district context",
       "kind": "landmark-context",
       "landmark": "ateneu",
       "x": 561.9524476695636,
@@ -281,16 +278,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -300,25 +294,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363013390,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 12,
-        "frameMs": 0,
-        "drawCalls": 245,
-        "triangles": 1167236,
+        "fps": 0.24,
+        "frameMs": 14.1,
+        "drawCalls": 251,
+        "triangles": 999021,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -329,31 +316,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [
-        {
-          "x": 619.7644887622207,
-          "z": 864.3797491819392,
-          "state": "stand",
-          "onRoad": false,
-          "sourceRoadId": null
-        },
-        {
-          "x": 618.4682620776371,
-          "z": 864.6628536134805,
-          "state": "stand",
-          "onRoad": false,
-          "sourceRoadId": null
-        }
-      ],
-      "vehiclesWithin60m": 4,
       "lat": 44.44038445829659,
       "lon": 26.098271304914615,
-      "image": "images/ateneu-context.jpg",
+      "image": "signs-8add95f3/ateneu-context.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:38:04.698Z",
-      "sha256": "5607740885df3041c0e0924143951c0ab0a6c1a3861f38db2fba323a9aafd884",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:10:32.537Z",
+      "sha256": "9e4112c6fa9f0d8ff1d3db564fe915db1140b4c781f0742280ced3274842a9f8",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -366,14 +336,22 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/ateneu-context.jpg",
-      "thumb": "thumbs/ateneu-context.jpg",
-      "thumbnailSha256": "c882db6fbb18479040511a1acbe6b6bddf441a0a595d823242e228672aadb914",
-      "reviewNote": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
+      "thumbnail": "signs-8add95f3/ateneu-context.png",
+      "thumb": "signs-8add95f3/ateneu-context.png",
+      "thumbnailSha256": "9e4112c6fa9f0d8ff1d3db564fe915db1140b4c781f0742280ced3274842a9f8",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 45.00000000000001,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "9e4112c6fa9f0d8ff1d3db564fe915db1140b4c781f0742280ced3274842a9f8"
     },
     {
       "id": "ateneu-opposite",
-      "label": "Ateneul Rom\u00e2n in district context",
+      "label": "Ateneul Român in district context",
       "kind": "landmark-context",
       "landmark": "ateneu",
       "x": 417.47384193806664,
@@ -406,16 +384,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -425,25 +400,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363013390,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 12,
-        "frameMs": 0,
+        "fps": 0.3,
+        "frameMs": 31.5,
         "drawCalls": 149,
-        "triangles": 699949,
+        "triangles": 536952,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -454,16 +422,14 @@
       "inPlayable": false,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 42.52615806193336,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 0,
       "lat": 44.442296315707964,
       "lon": 26.09645326447542,
-      "image": "images/ateneu-opposite.jpg",
+      "image": "signs-8add95f3/ateneu-opposite.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:38:25.966Z",
-      "sha256": "c7505e04bc3c9e83513073e0bba49d8ceba481c50c9da847c0dea9173f450281",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:10:38.324Z",
+      "sha256": "365709d430dd3a3bee1864f95744d900b5626d499dba20086541cfb11386b209",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -476,10 +442,18 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/ateneu-opposite.jpg",
-      "thumb": "thumbs/ateneu-opposite.jpg",
-      "thumbnailSha256": "e62973371a19d3d1b54b9bd1c4081d44b1cf22edced679aebe1f6709894272e0",
-      "reviewNote": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
+      "thumbnail": "signs-8add95f3/ateneu-opposite.png",
+      "thumb": "signs-8add95f3/ateneu-opposite.png",
+      "thumbnailSha256": "365709d430dd3a3bee1864f95744d900b5626d499dba20086541cfb11386b209",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 45.00000000000001,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "365709d430dd3a3bee1864f95744d900b5626d499dba20086541cfb11386b209"
     },
     {
       "id": "regal-context",
@@ -516,16 +490,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -535,25 +506,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363013390,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 12,
-        "frameMs": 0,
-        "drawCalls": 254,
-        "triangles": 1151226,
+        "fps": 0.35,
+        "frameMs": 23.5,
+        "drawCalls": 256,
+        "triangles": 1039713,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -564,16 +528,14 @@
       "inPlayable": false,
       "inFlightEnvelope": false,
       "distanceFromFlightDomainM": 329.77460666547614,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 0,
       "lat": 44.43651570079543,
       "lon": 26.09887174182567,
-      "image": "images/regal-context.jpg",
+      "image": "signs-8add95f3/regal-context.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:38:46.798Z",
-      "sha256": "e685b80cbd3eb0071ab6711c705b6f6e3dc516193eee51f59f76d6e546dd0b14",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:10:46.008Z",
+      "sha256": "b8cd2ad4eca9b53899502559185c43cfaa6e9fe95abc654593b1bc7953306541",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -586,10 +548,18 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/regal-context.jpg",
-      "thumb": "thumbs/regal-context.jpg",
-      "thumbnailSha256": "4a9addebfbb06e3fba61e3d58e61456a30bb108d55eb8ba15495105b5a1e325e",
-      "reviewNote": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
+      "thumbnail": "signs-8add95f3/regal-context.png",
+      "thumb": "signs-8add95f3/regal-context.png",
+      "thumbnailSha256": "b8cd2ad4eca9b53899502559185c43cfaa6e9fe95abc654593b1bc7953306541",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 30.050000000000004,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "b8cd2ad4eca9b53899502559185c43cfaa6e9fe95abc654593b1bc7953306541"
     },
     {
       "id": "regal-opposite",
@@ -612,30 +582,27 @@
       "aspect": 1.5,
       "pose": {
         "x": 162.67774951499706,
-        "y": 31.700000000000003,
+        "y": 66.7,
         "z": 652.2729351406567,
         "heading": 145.7842978675626,
-        "pitch": -3.3903104078745234,
+        "pitch": -8.37943924637056,
         "fov": 70,
         "aspect": 1.5,
         "quaternion": [
-          0.008702093833703347,
-          0.9553344435868839,
-          0.028272812582106805,
-          -0.2940425522405649
+          0.0214919343620043,
+          0.9531985627691784,
+          0.06982657781630663,
+          -0.2933851491173594
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -645,25 +612,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363316714,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 12,
-        "frameMs": 0,
-        "drawCalls": 150,
-        "triangles": 695027,
+        "fps": 0.2,
+        "frameMs": 20.6,
+        "drawCalls": 147,
+        "triangles": 529389,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -674,16 +634,14 @@
       "inPlayable": false,
       "inFlightEnvelope": false,
       "distanceFromFlightDomainM": 271.6946446766864,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 0,
       "lat": 44.4424306470221,
       "lon": 26.09324704859711,
-      "image": "images/regal-opposite.jpg",
+      "image": "signs-8add95f3/regal-opposite.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:39:00.635Z",
-      "sha256": "8acc1a2a179a2cbaab292e6e93e8599fe288c0ddacec40c2cfacfe3a93ca8f91",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:15:33.327Z",
+      "sha256": "5ae60a15cd26715d73517e14449a854c88103adfdf633284e0e91a20d6b77b7c",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -696,10 +654,19 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/regal-opposite.jpg",
-      "thumb": "thumbs/regal-opposite.jpg",
-      "thumbnailSha256": "bb931e905455fcb8c7a4e49af6eafa7011b5048238ae481497499c620ca2ddde",
-      "reviewNote": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
+      "thumbnail": "signs-8add95f3/regal-opposite.png",
+      "thumb": "signs-8add95f3/regal-opposite.png",
+      "thumbnailSha256": "5ae60a15cd26715d73517e14449a854c88103adfdf633284e0e91a20d6b77b7c",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 65.05,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "cameraRevision": "Camera reframed to clear foreground obstruction; actual pose recorded. Floreasca signal3 shifts1.25m east; Romană TNB/Regal cameras rise35m.",
+      "imageSha256": "5ae60a15cd26715d73517e14449a854c88103adfdf633284e0e91a20d6b77b7c"
     },
     {
       "id": "victoria-context",
@@ -745,7 +712,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -917,16 +884,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -936,25 +900,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363013390,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 16,
-        "frameMs": 0,
-        "drawCalls": 260,
-        "triangles": 1197206,
+        "fps": 0.32,
+        "frameMs": 24.5,
+        "drawCalls": 259,
+        "triangles": 1016137,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -965,31 +922,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [
-        {
-          "x": -394.89535499110787,
-          "z": -616.1082554802983,
-          "state": "stand",
-          "onRoad": false,
-          "sourceRoadId": null
-        },
-        {
-          "x": -420.67501181328527,
-          "z": -624.336522991976,
-          "state": "walk",
-          "onRoad": false,
-          "sourceRoadId": "w1307769364"
-        }
-      ],
-      "vehiclesWithin60m": 7,
       "lat": 44.4539666206856,
       "lon": 26.086287816432417,
-      "image": "images/victoria-opposite.jpg",
+      "image": "signs-8add95f3/victoria-opposite.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:39:40.683Z",
-      "sha256": "85b4d2f61030081c9483a392e1f77ecd27d1223cdf8f7a71d3aadaa44ac76b07",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:10:58.847Z",
+      "sha256": "3a1108a42ab8c1a4ac1dac8fc31cdb583cb8f7b5057799ccb5353ad4023180a7",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -1002,10 +942,18 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/victoria-opposite.jpg",
-      "thumb": "thumbs/victoria-opposite.jpg",
-      "thumbnailSha256": "55cd1a11e489b8699c314937d8962e03dee04af74c7b752ddb23cde29108707d",
-      "reviewNote": "Victoria, SkyTower and ASE context remain visible. SkyTower outside-detail surroundings/roof are generic and sparse. ASE corner/dome context is retained; source detail and architectural estimates remain explicit."
+      "thumbnail": "signs-8add95f3/victoria-opposite.png",
+      "thumb": "signs-8add95f3/victoria-opposite.png",
+      "thumbnailSha256": "3a1108a42ab8c1a4ac1dac8fc31cdb583cb8f7b5057799ccb5353ad4023180a7",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 43.7,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "3a1108a42ab8c1a4ac1dac8fc31cdb583cb8f7b5057799ccb5353ad4023180a7"
     },
     {
       "id": "skytower-context",
@@ -1051,7 +999,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1152,16 +1100,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1171,25 +1116,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363013390,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 16,
-        "frameMs": 0,
-        "drawCalls": 65,
-        "triangles": 193708,
+        "fps": 0.3,
+        "frameMs": 5.3,
+        "drawCalls": 67,
+        "triangles": 184029,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -1200,16 +1138,14 @@
       "inPlayable": false,
       "inFlightEnvelope": false,
       "distanceFromFlightDomainM": 2866.3073082828864,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 0,
       "lat": 44.47949606030912,
       "lon": 26.103274162147887,
-      "image": "images/skytower-opposite.jpg",
+      "image": "signs-8add95f3/skytower-opposite.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:39:51.396Z",
-      "sha256": "4820d1776e947c2979181b22b9bc6dbdc4ebd89e194ab3174dfeafd11aef12af",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:11:01.527Z",
+      "sha256": "43ba1eafc6da072e03bb9fde65d808239b64168bcfd47e6ae96a289582a6f9e8",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -1222,14 +1158,22 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/skytower-opposite.jpg",
-      "thumb": "thumbs/skytower-opposite.jpg",
-      "thumbnailSha256": "00cc85a101b03af4c0559e9395796a6e6ecedddec3a820ebb80c645be9bbe054",
-      "reviewNote": "Victoria, SkyTower and ASE context remain visible. SkyTower outside-detail surroundings/roof are generic and sparse. ASE corner/dome context is retained; source detail and architectural estimates remain explicit."
+      "thumbnail": "signs-8add95f3/skytower-opposite.png",
+      "thumb": "signs-8add95f3/skytower-opposite.png",
+      "thumbnailSha256": "43ba1eafc6da072e03bb9fde65d808239b64168bcfd47e6ae96a289582a6f9e8",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 107.39999999999999,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "43ba1eafc6da072e03bb9fde65d808239b64168bcfd47e6ae96a289582a6f9e8"
     },
     {
       "id": "ase-context",
-      "label": "ASE \u2014 Palatul Ion N. Angelescu in district context",
+      "label": "ASE — Palatul Ion N. Angelescu in district context",
       "kind": "landmark-context",
       "landmark": "ase",
       "x": 573.1285861673973,
@@ -1262,16 +1206,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1281,25 +1222,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363013390,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 16,
-        "frameMs": 0,
-        "drawCalls": 234,
-        "triangles": 1057078,
+        "fps": 0.75,
+        "frameMs": 27.3,
+        "drawCalls": 242,
+        "triangles": 841495,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -1310,16 +1244,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 2,
       "lat": 44.44658714306658,
       "lon": 26.098411939381844,
-      "image": "images/ase-context.jpg",
+      "image": "signs-8add95f3/ase-context.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:40:07.770Z",
-      "sha256": "16dc09a6ef13d2e5bb179bf9a7fd1d81dacf6d921da9b3262d437ce42894a4ff",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:11:08.395Z",
+      "sha256": "4631d15236ba836fe7461eacc25c3d450bb83625da8a185c5ba93f99ee3f9402",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -1332,14 +1264,22 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/ase-context.jpg",
-      "thumb": "thumbs/ase-context.jpg",
-      "thumbnailSha256": "47192491e5c6bae5145df27ddf81b0abc9eeb29d9b1d08bec7b87b699c7a3271",
-      "reviewNote": "Victoria, SkyTower and ASE context remain visible. SkyTower outside-detail surroundings/roof are generic and sparse. ASE corner/dome context is retained; source detail and architectural estimates remain explicit."
+      "thumbnail": "signs-8add95f3/ase-context.png",
+      "thumb": "signs-8add95f3/ase-context.png",
+      "thumbnailSha256": "4631d15236ba836fe7461eacc25c3d450bb83625da8a185c5ba93f99ee3f9402",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 43.2125,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "4631d15236ba836fe7461eacc25c3d450bb83625da8a185c5ba93f99ee3f9402"
     },
     {
       "id": "ase-opposite",
-      "label": "ASE \u2014 Palatul Ion N. Angelescu in district context",
+      "label": "ASE — Palatul Ion N. Angelescu in district context",
       "kind": "landmark-context",
       "landmark": "ase",
       "x": 390.68482663065424,
@@ -1372,16 +1312,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1391,25 +1328,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363013390,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 16,
-        "frameMs": 0,
-        "drawCalls": 192,
-        "triangles": 964692,
+        "fps": 0.29,
+        "frameMs": 15.9,
+        "drawCalls": 199,
+        "triangles": 750682,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -1420,16 +1350,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 0,
       "lat": 44.44900138600631,
       "lon": 26.09611616603162,
-      "image": "images/ase-opposite.jpg",
+      "image": "signs-8add95f3/ase-opposite.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:40:27.637Z",
-      "sha256": "2d97d75c4cfd361507fe3dd9a817c4a7001286de1938b49d163ead3f10b3c33d",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:11:15.524Z",
+      "sha256": "06d6df197daca65ff26870eb87d3332bc0522ca8193b89acce6c72d3d9519c99",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -1442,14 +1370,22 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/ase-opposite.jpg",
-      "thumb": "thumbs/ase-opposite.jpg",
-      "thumbnailSha256": "784b6a319391b25fab50587b9489b11936081f9b11f4024ebc2f7a766f7b7345",
-      "reviewNote": "Victoria, SkyTower and ASE context remain visible. SkyTower outside-detail surroundings/roof are generic and sparse. ASE corner/dome context is retained; source detail and architectural estimates remain explicit."
+      "thumbnail": "signs-8add95f3/ase-opposite.png",
+      "thumb": "signs-8add95f3/ase-opposite.png",
+      "thumbnailSha256": "06d6df197daca65ff26870eb87d3332bc0522ca8193b89acce6c72d3d9519c99",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 43.2125,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "06d6df197daca65ff26870eb87d3332bc0522ca8193b89acce6c72d3d9519c99"
     },
     {
       "id": "ase-street",
-      "label": "ase \u00b7 close partial facade from mapped public street",
+      "label": "ase · close partial facade from mapped public street",
       "kind": "street",
       "landmark": "ase",
       "sourceEdge": 695,
@@ -1501,7 +1437,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1602,16 +1538,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1621,25 +1554,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363013390,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 16,
-        "frameMs": 0,
-        "drawCalls": 248,
-        "triangles": 1111169,
+        "fps": 0.28,
+        "frameMs": 13.5,
+        "drawCalls": 260,
+        "triangles": 919228,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -1650,16 +1576,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 6,
       "lat": 44.44138163494078,
       "lon": 26.100087549791795,
-      "image": "images/ambasador-context.jpg",
+      "image": "signs-8add95f3/ambasador-context.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:41:09.071Z",
-      "sha256": "6e18537df5b5ef3145acee2c86d772efb210f168bff95cc6c3e334a016245f9f",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:11:22.350Z",
+      "sha256": "b929ad2556afba4e28a7b7b90070c6cb6a18219d345cc275f0af720c76c3e241",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -1672,10 +1596,18 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/ambasador-context.jpg",
-      "thumb": "thumbs/ambasador-context.jpg",
-      "thumbnailSha256": "2d8c180e19e75f3634e482872cc6a485ded4405d36e77cdc6c3d407623aae2e5",
-      "reviewNote": "ASE and Ambasador close public-street crops pass the production camera-body query but do not show full facades. Ambasador tiers and adjacent source roofs are visible in the elevated context; estimated facade detail remains a gap."
+      "thumbnail": "signs-8add95f3/ambasador-context.png",
+      "thumb": "signs-8add95f3/ambasador-context.png",
+      "thumbnailSha256": "b929ad2556afba4e28a7b7b90070c6cb6a18219d345cc275f0af720c76c3e241",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 48.47749900817872,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "b929ad2556afba4e28a7b7b90070c6cb6a18219d345cc275f0af720c76c3e241"
     },
     {
       "id": "ambasador-opposite",
@@ -1712,16 +1644,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1731,25 +1660,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363013390,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 12,
-        "frameMs": 0,
-        "drawCalls": 148,
-        "triangles": 752045,
+        "fps": 0.29,
+        "frameMs": 14.5,
+        "drawCalls": 153,
+        "triangles": 538956,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -1760,16 +1682,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 8,
       "lat": 44.44254412032352,
       "lon": 26.098982108861314,
-      "image": "images/ambasador-opposite.jpg",
+      "image": "signs-8add95f3/ambasador-opposite.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:41:24.065Z",
-      "sha256": "19adb30e1dd45bd06131ced6afb087c91163aeab9b2dec6f02aa9207834f4110",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:11:28.298Z",
+      "sha256": "c308733e43e745e9267152cfcb58821fbafa1e17a510b4d94438321c3665ac30",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -1782,14 +1702,22 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/ambasador-opposite.jpg",
-      "thumb": "thumbs/ambasador-opposite.jpg",
-      "thumbnailSha256": "3caa60685dda86e756d11f646e769cbae552ef892f4ae701dcdaf0f8fca1f08b",
-      "reviewNote": "ASE and Ambasador close public-street crops pass the production camera-body query but do not show full facades. Ambasador tiers and adjacent source roofs are visible in the elevated context; estimated facade detail remains a gap."
+      "thumbnail": "signs-8add95f3/ambasador-opposite.png",
+      "thumb": "signs-8add95f3/ambasador-opposite.png",
+      "thumbnailSha256": "c308733e43e745e9267152cfcb58821fbafa1e17a510b4d94438321c3665ac30",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 48.47749900817872,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "c308733e43e745e9267152cfcb58821fbafa1e17a510b4d94438321c3665ac30"
     },
     {
       "id": "ambasador-street",
-      "label": "ambasador \u00b7 close partial facade from mapped public street",
+      "label": "ambasador · close partial facade from mapped public street",
       "kind": "street",
       "landmark": "ambasador",
       "sourceEdge": 50,
@@ -1805,11 +1733,11 @@
       ],
       "fov": 85,
       "cameraBodyValidation": {
-        "method": "Production collideBuildings at actual public source-road centre and its exact native roadHeight, before capture; no offset toward or through the source facade",
         "radiusM": 0.25,
         "footY": 0.29,
         "heightM": 1.7,
-        "clear": true
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
       },
       "cameraY": 1.94,
       "groundY": 0.24,
@@ -1832,16 +1760,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -1851,25 +1776,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363013390,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 12,
-        "frameMs": 0,
-        "drawCalls": 139,
-        "triangles": 746604,
+        "fps": 0.34,
+        "frameMs": 8.1,
+        "drawCalls": 145,
+        "triangles": 465817,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -1880,16 +1798,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 3,
       "lat": 44.44189960364164,
       "lon": 26.0992806870794,
-      "image": "images/ambasador-street.jpg",
+      "image": "signs-8add95f3/ambasador-street.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:41:41.700Z",
-      "sha256": "66bf27fea47fb30e33a35c152130ecccb28b8b803d3896e7a4c3a25288924dad",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:11:32.939Z",
+      "sha256": "cc8288ed229db8e4e4bc5dfc4c9d24c2a66b784624dc1b7c83577b3c24ef8126",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -1902,10 +1818,11 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/ambasador-street.jpg",
-      "thumb": "thumbs/ambasador-street.jpg",
-      "thumbnailSha256": "f175131c7630743b29023be5a3c6040601384289e2c01923b1878f99712c04fa",
-      "reviewNote": "ASE and Ambasador close public-street crops pass the production camera-body query but do not show full facades. Ambasador tiers and adjacent source roofs are visible in the elevated context; estimated facade detail remains a gap."
+      "thumbnail": "signs-8add95f3/ambasador-street.png",
+      "thumb": "signs-8add95f3/ambasador-street.png",
+      "thumbnailSha256": "cc8288ed229db8e4e4bc5dfc4c9d24c2a66b784624dc1b7c83577b3c24ef8126",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "imageSha256": "cc8288ed229db8e4e4bc5dfc4c9d24c2a66b784624dc1b7c83577b3c24ef8126"
     },
     {
       "id": "thelandmark-context",
@@ -1951,7 +1868,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -2052,16 +1969,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -2071,25 +1985,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363013390,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 14,
-        "frameMs": 0,
-        "drawCalls": 214,
-        "triangles": 1110012,
+        "fps": 0.43,
+        "frameMs": 16.1,
+        "drawCalls": 218,
+        "triangles": 887349,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -2100,16 +2007,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 0,
       "lat": 44.45049594665812,
       "lon": 26.094130244754133,
-      "image": "images/thelandmark-opposite.jpg",
+      "image": "signs-8add95f3/thelandmark-opposite.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:42:19.017Z",
-      "sha256": "4172c11c54a875efadacead0768a162d7aa228d8b634a664e2090d413d53db5f",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:11:40.807Z",
+      "sha256": "9634b97f29735380a25a5a5e6204153aa054d3fa354fc93fff180e5918756697",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -2122,10 +2027,18 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/thelandmark-opposite.jpg",
-      "thumb": "thumbs/thelandmark-opposite.jpg",
-      "thumbnailSha256": "0ba50d7bc2f192f44c8a4550abf5a986120b2b9829a4535df87262e6232c0145",
-      "reviewNote": "ASE and Ambasador close public-street crops pass the production camera-body query but do not show full facades. Ambasador tiers and adjacent source roofs are visible in the elevated context; estimated facade detail remains a gap."
+      "thumbnail": "signs-8add95f3/thelandmark-opposite.png",
+      "thumb": "signs-8add95f3/thelandmark-opposite.png",
+      "thumbnailSha256": "9634b97f29735380a25a5a5e6204153aa054d3fa354fc93fff180e5918756697",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 37.45999975204468,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "9634b97f29735380a25a5a5e6204153aa054d3fa354fc93fff180e5918756697"
     },
     {
       "id": "europehouse-context",
@@ -2171,7 +2084,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -2272,16 +2185,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -2291,25 +2201,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363013390,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 14,
-        "frameMs": 0,
-        "drawCalls": 243,
-        "triangles": 1108136,
+        "fps": 0.25,
+        "frameMs": 57.4,
+        "drawCalls": 246,
+        "triangles": 950658,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -2320,16 +2223,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 18,
       "lat": 44.45197954434288,
       "lon": 26.086909747058552,
-      "image": "images/europehouse-opposite.jpg",
+      "image": "signs-8add95f3/europehouse-opposite.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:43:01.614Z",
-      "sha256": "b647857cb1033759b5bcb11a03f764683e71dd04a76bbd2a8d9d10889301837b",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:11:49.728Z",
+      "sha256": "398997ccac5cb90d8bc8df0b93a2c9817a5e73ad7f1578175b067990bc951681",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -2342,14 +2243,22 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/europehouse-opposite.jpg",
-      "thumb": "thumbs/europehouse-opposite.jpg",
-      "thumbnailSha256": "694906f4e7f76d0804f52cbd9b27b95ac0e06902e6f99c37515402dbd35f7214",
-      "reviewNote": "Europe House and the four source-building targets are visible. Close facade crops and nearby crowns limit detail coverage. The paired north-up atlas is separate; these are GAME-only perspective views."
+      "thumbnail": "signs-8add95f3/europehouse-opposite.png",
+      "thumb": "signs-8add95f3/europehouse-opposite.png",
+      "thumbnailSha256": "398997ccac5cb90d8bc8df0b93a2c9817a5e73ad7f1578175b067990bc951681",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 54.75,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "398997ccac5cb90d8bc8df0b93a2c9817a5e73ad7f1578175b067990bc951681"
     },
     {
       "id": "europehouse-street",
-      "label": "europehouse \u00b7 close partial facade from mapped public street",
+      "label": "europehouse · close partial facade from mapped public street",
       "kind": "street",
       "landmark": "europehouse",
       "sourceEdge": 606,
@@ -2401,7 +2310,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -2511,7 +2420,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -2685,7 +2594,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -2859,7 +2768,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -2969,7 +2878,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -3072,16 +2981,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -3091,25 +2997,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363013390,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 14,
-        "frameMs": 0,
-        "drawCalls": 262,
-        "triangles": 1151991,
+        "fps": 0.22,
+        "frameMs": 33.6,
+        "drawCalls": 266,
+        "triangles": 1068461,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -3120,16 +3019,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 17,
       "lat": 44.45235012447775,
       "lon": 26.086502309153268,
-      "image": "images/signal-1.jpg",
+      "image": "signs-8add95f3/signal-1.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:44:19.072Z",
-      "sha256": "fc33ff37f84f662d6f5f07402b33ea6de02f39579bf1e041bc6f0ee3d930b4c1",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:11:59.517Z",
+      "sha256": "7a7600b7b156d55afa688ffdd445298bd281347f1101b83bd7b9fb14f6bd1194",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -3142,10 +3039,18 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/signal-1.jpg",
-      "thumb": "thumbs/signal-1.jpg",
-      "thumbnailSha256": "8a248ed1fd2cdef8b1722c0570dba777a89b2d0a6e7d654a305194fb7fab7821",
-      "reviewNote": "Source facade, signals, pedestrians/traffic and parking context are visible. Parking occupancy and small facade details remain estimates; no whole-scene source/collision parity is established."
+      "thumbnail": "signs-8add95f3/signal-1.png",
+      "thumb": "signs-8add95f3/signal-1.png",
+      "thumbnailSha256": "7a7600b7b156d55afa688ffdd445298bd281347f1101b83bd7b9fb14f6bd1194",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 0.050000000000000044,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "7a7600b7b156d55afa688ffdd445298bd281347f1101b83bd7b9fb14f6bd1194"
     },
     {
       "id": "signal-2",
@@ -3193,7 +3098,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -3305,7 +3210,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -3416,7 +3321,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -3556,7 +3461,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -3667,7 +3572,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -3903,7 +3808,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -4017,7 +3922,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -4131,7 +4036,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -4245,7 +4150,7 @@
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -4344,16 +4249,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -4363,25 +4265,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363013390,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 11,
-        "frameMs": 0,
-        "drawCalls": 243,
-        "triangles": 1157418,
+        "fps": 0.2,
+        "frameMs": 31.6,
+        "drawCalls": 255,
+        "triangles": 941949,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -4392,16 +4287,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 4,
       "lat": 44.4418,
       "lon": 26.0988,
-      "image": "images/chapter-arnia-street.jpg",
+      "image": "signs-8add95f3/chapter-arnia-street.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:46:28.065Z",
-      "sha256": "55a517a99cd1397fdda0c20d030489ce968499d66263ec504b5d6146b1e5e534",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:12:08.282Z",
+      "sha256": "009370e5a7103750066c51858563138e27435443a90498f6ae1f83630bf031d2",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -4414,15 +4307,23 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/chapter-arnia-street.jpg",
-      "thumb": "thumbs/chapter-arnia-street.jpg",
-      "thumbnailSha256": "e2f5cd4023d7f588dcb83836d3af0ee796075a5d7da6613d0ad51427bb865924",
-      "reviewNote": "Parking3/outward views retain actual source context and sparse generic distant scenery. UiPath/Arnia chapter starts are static recorded poses; no controller or driving/mirror pass is claimed."
+      "thumbnail": "signs-8add95f3/chapter-arnia-street.png",
+      "thumb": "signs-8add95f3/chapter-arnia-street.png",
+      "thumbnailSha256": "009370e5a7103750066c51858563138e27435443a90498f6ae1f83630bf031d2",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 0.29000000000000004,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "009370e5a7103750066c51858563138e27435443a90498f6ae1f83630bf031d2"
     },
     {
       "id": "chapter-uipath-buc-street",
       "chapterId": "uipath-buc",
-      "label": "UiPath chapter-start pose \u00b7 park trees limit the view",
+      "label": "Park-side district context near UiPath; office frontage is not visible",
       "kind": "street",
       "x": -556.2858879920136,
       "z": -855.7163999999798,
@@ -4454,16 +4355,13 @@
         ]
       },
       "observedConditions": {
-        "gameClockOverride": "day",
-        "rendererClockOverride": "day",
-        "seasonOverride": "summer",
-        "weatherOverride": "clear",
+        "season": "summer",
         "weather": {
           "source": "override",
           "code": 0,
           "kind": "clear",
           "label": "Clear sky",
-          "icon": "\u2600\ufe0f",
+          "icon": "☀️",
           "tempC": 22,
           "precipMm": 0,
           "snowCm": 0,
@@ -4473,25 +4371,18 @@
           "visibilityM": 19500,
           "cloud": 0.1,
           "season": "summer",
-          "updatedAt": 1794181002579,
+          "updatedAt": 1794363013390,
           "climate": null
         },
-        "season": {
-          "season": "summer",
-          "blossom": 0,
-          "autumn": 0,
-          "bare": 0,
-          "brown": 0,
-          "fresh": 0,
-          "doy": 195
-        },
-        "sunElevation": 48
+        "clockOverride": "day",
+        "sunElevation": 48,
+        "nightLights": false
       },
       "perf": {
-        "fps": 11,
-        "frameMs": 0,
-        "drawCalls": 270,
-        "triangles": 1227806,
+        "fps": 0.23,
+        "frameMs": 37.1,
+        "drawCalls": 274,
+        "triangles": 1075252,
         "pixelRatio": 1,
         "shadows": 4096,
         "post": "full",
@@ -4502,16 +4393,14 @@
       "inPlayable": true,
       "inFlightEnvelope": true,
       "distanceFromFlightDomainM": 0,
-      "pedestriansWithin60m": [],
-      "vehiclesWithin60m": 0,
       "lat": 44.456,
       "lon": 26.0842,
-      "image": "images/chapter-uipath-buc-street.jpg",
+      "image": "signs-8add95f3/chapter-uipath-buc-street.png",
       "width": 960,
       "height": 640,
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "capturedAt": "2026-11-08T23:46:47.439Z",
-      "sha256": "dce0ed15edf83eb593f0ba6d8086190c4730f44e378bc2bfbc609a2119655c53",
+      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "capturedAt": "2026-11-11T02:12:17.923Z",
+      "sha256": "af64785dd52e68f1f73a38290094e7261e24bedca3bce1272ae6254f616b422b",
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "staticCamera": true,
@@ -4524,333 +4413,372 @@
         "traffic": true,
         "mirror": false
       },
-      "thumbnail": "thumbs/chapter-uipath-buc-street.jpg",
-      "thumb": "thumbs/chapter-uipath-buc-street.jpg",
-      "thumbnailSha256": "19da7c100dbc0c2e9505cebf7324dda202e0caa3c8c301f3dbde4d922f90b9ba",
-      "reviewNote": "UiPath chapter-start pose looks through park trees and does not establish a clear office/street frontage. Source pose and all original content remain retained."
+      "thumbnail": "signs-8add95f3/chapter-uipath-buc-street.png",
+      "thumb": "signs-8add95f3/chapter-uipath-buc-street.png",
+      "thumbnailSha256": "af64785dd52e68f1f73a38290094e7261e24bedca3bce1272ae6254f616b422b",
+      "reviewNote": "Current exact-source static frame inspected full size; no traversal, full fidelity, traffic or evolving mirror-budget acceptance. This inherited camera shows trees and surrounding blocks, not office architecture.",
+      "cameraBodyValidation": {
+        "radiusM": 0.25,
+        "footY": 0.29000000000000004,
+        "heightM": 1.7,
+        "clear": true,
+        "scope": "Static actual body query; no journey claim"
+      },
+      "imageSha256": "af64785dd52e68f1f73a38290094e7261e24bedca3bce1272ae6254f616b422b"
     }
   ],
-  "review": {
-    "district": "romana",
-    "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-    "imagesReviewed": 37,
-    "status": "All37 corrected unique-ID daylight GAME perspective views reviewed with explicit source/visibility gaps. Capture coverage complete; real-world parity remains incomplete.",
-    "captureCoverageAccepted": true,
-    "realWorldParityAccepted": false,
-    "comparisonScope": "GAME-only static perspectives; paired north-up atlas separate. Original failed37-frame pose attempt retained outside current collection.",
-    "rawSourceContactHits": 168,
-    "sourceContactNote": "Raw source-road/building queries remain unresolved diagnostics, not an all-scene clearance pass.",
-    "entries": [
-      {
-        "id": "tnb-context",
-        "sha256": "951eee535547eb2b729892d4b5d6619c76eba20184e968665c59a2154c1da91d",
-        "reviewedAt": "2026-11-08T23:56:37.706539+00:00",
-        "reviewSheetSha256": "e709ef06d23b031fc03a4108f5376bba35082d47cc59e670cd4825b2a5910e87",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
+  "historicalMetadata": [
+    {
+      "review": {
+        "district": "romana",
+        "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+        "imagesReviewed": 37,
+        "status": "All37 corrected unique-ID daylight GAME perspective views reviewed with explicit source/visibility gaps. Capture coverage complete; real-world parity remains incomplete.",
+        "captureCoverageAccepted": true,
+        "realWorldParityAccepted": false,
+        "comparisonScope": "GAME-only static perspectives; paired north-up atlas separate. Original failed37-frame pose attempt retained outside current collection.",
+        "rawSourceContactHits": 168,
+        "sourceContactNote": "Raw source-road/building queries remain unresolved diagnostics, not an all-scene clearance pass.",
+        "entries": [
+          {
+            "id": "tnb-context",
+            "sha256": "951eee535547eb2b729892d4b5d6619c76eba20184e968665c59a2154c1da91d",
+            "reviewedAt": "2026-11-08T23:56:37.706539+00:00",
+            "reviewSheetSha256": "e709ef06d23b031fc03a4108f5376bba35082d47cc59e670cd4825b2a5910e87",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
+          },
+          {
+            "id": "tnb-opposite",
+            "sha256": "4986a85dd97808c5f0bb0f0aec682cfb92560094d8e6e273f4242f46e0aa0586",
+            "reviewedAt": "2026-11-08T23:56:37.708715+00:00",
+            "reviewSheetSha256": "e709ef06d23b031fc03a4108f5376bba35082d47cc59e670cd4825b2a5910e87",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
+          },
+          {
+            "id": "ateneu-context",
+            "sha256": "5607740885df3041c0e0924143951c0ab0a6c1a3861f38db2fba323a9aafd884",
+            "reviewedAt": "2026-11-08T23:56:37.709190+00:00",
+            "reviewSheetSha256": "e709ef06d23b031fc03a4108f5376bba35082d47cc59e670cd4825b2a5910e87",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
+          },
+          {
+            "id": "ateneu-opposite",
+            "sha256": "c7505e04bc3c9e83513073e0bba49d8ceba481c50c9da847c0dea9173f450281",
+            "reviewedAt": "2026-11-08T23:56:37.709474+00:00",
+            "reviewSheetSha256": "e709ef06d23b031fc03a4108f5376bba35082d47cc59e670cd4825b2a5910e87",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
+          },
+          {
+            "id": "regal-context",
+            "sha256": "e685b80cbd3eb0071ab6711c705b6f6e3dc516193eee51f59f76d6e546dd0b14",
+            "reviewedAt": "2026-11-08T23:56:37.709737+00:00",
+            "reviewSheetSha256": "e709ef06d23b031fc03a4108f5376bba35082d47cc59e670cd4825b2a5910e87",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
+          },
+          {
+            "id": "regal-opposite",
+            "sha256": "8acc1a2a179a2cbaab292e6e93e8599fe288c0ddacec40c2cfacfe3a93ca8f91",
+            "reviewedAt": "2026-11-08T23:56:37.710014+00:00",
+            "reviewSheetSha256": "e709ef06d23b031fc03a4108f5376bba35082d47cc59e670cd4825b2a5910e87",
+            "status": "reviewed_with_gaps",
+            "observations": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
+          },
+          {
+            "id": "victoria-context",
+            "sha256": "9d014d4aeb69f1715974203be6225aeaecd2df6a7b03ca614541551e78d4cc78",
+            "reviewedAt": "2026-11-08T23:56:37.711403+00:00",
+            "reviewSheetSha256": "98690d379832ac4e1cc7273608f6a15cd152d04bebb64c93c0248b61b88db5d4",
+            "status": "reviewed_with_gaps",
+            "observations": "Victoria, SkyTower and ASE context remain visible. SkyTower outside-detail surroundings/roof are generic and sparse. ASE corner/dome context is retained; source detail and architectural estimates remain explicit."
+          },
+          {
+            "id": "victoria-opposite",
+            "sha256": "85b4d2f61030081c9483a392e1f77ecd27d1223cdf8f7a71d3aadaa44ac76b07",
+            "reviewedAt": "2026-11-08T23:56:37.712261+00:00",
+            "reviewSheetSha256": "98690d379832ac4e1cc7273608f6a15cd152d04bebb64c93c0248b61b88db5d4",
+            "status": "reviewed_with_gaps",
+            "observations": "Victoria, SkyTower and ASE context remain visible. SkyTower outside-detail surroundings/roof are generic and sparse. ASE corner/dome context is retained; source detail and architectural estimates remain explicit."
+          },
+          {
+            "id": "skytower-context",
+            "sha256": "ee6390cb4fec2c760f403521405f3778d2a176ae18ab296f394e43b364fb958d",
+            "reviewedAt": "2026-11-08T23:56:37.712539+00:00",
+            "reviewSheetSha256": "98690d379832ac4e1cc7273608f6a15cd152d04bebb64c93c0248b61b88db5d4",
+            "status": "reviewed_with_gaps",
+            "observations": "Victoria, SkyTower and ASE context remain visible. SkyTower outside-detail surroundings/roof are generic and sparse. ASE corner/dome context is retained; source detail and architectural estimates remain explicit."
+          },
+          {
+            "id": "skytower-opposite",
+            "sha256": "4820d1776e947c2979181b22b9bc6dbdc4ebd89e194ab3174dfeafd11aef12af",
+            "reviewedAt": "2026-11-08T23:56:37.712789+00:00",
+            "reviewSheetSha256": "98690d379832ac4e1cc7273608f6a15cd152d04bebb64c93c0248b61b88db5d4",
+            "status": "reviewed_with_gaps",
+            "observations": "Victoria, SkyTower and ASE context remain visible. SkyTower outside-detail surroundings/roof are generic and sparse. ASE corner/dome context is retained; source detail and architectural estimates remain explicit."
+          },
+          {
+            "id": "ase-context",
+            "sha256": "16dc09a6ef13d2e5bb179bf9a7fd1d81dacf6d921da9b3262d437ce42894a4ff",
+            "reviewedAt": "2026-11-08T23:56:37.713060+00:00",
+            "reviewSheetSha256": "98690d379832ac4e1cc7273608f6a15cd152d04bebb64c93c0248b61b88db5d4",
+            "status": "reviewed_with_gaps",
+            "observations": "Victoria, SkyTower and ASE context remain visible. SkyTower outside-detail surroundings/roof are generic and sparse. ASE corner/dome context is retained; source detail and architectural estimates remain explicit."
+          },
+          {
+            "id": "ase-opposite",
+            "sha256": "2d97d75c4cfd361507fe3dd9a817c4a7001286de1938b49d163ead3f10b3c33d",
+            "reviewedAt": "2026-11-08T23:56:37.713319+00:00",
+            "reviewSheetSha256": "98690d379832ac4e1cc7273608f6a15cd152d04bebb64c93c0248b61b88db5d4",
+            "status": "reviewed_with_gaps",
+            "observations": "Victoria, SkyTower and ASE context remain visible. SkyTower outside-detail surroundings/roof are generic and sparse. ASE corner/dome context is retained; source detail and architectural estimates remain explicit."
+          },
+          {
+            "id": "ase-street",
+            "sha256": "1202452d65e28cd02d7d27520cb12c00c56c13171471bb0f882d252c57cb86c5",
+            "reviewedAt": "2026-11-08T23:56:37.718413+00:00",
+            "reviewSheetSha256": "9847684669afa4e28101f61967ed54467841133d517c7c386a7e48e4fb1aafc8",
+            "status": "reviewed_with_gaps",
+            "observations": "ASE and Ambasador close public-street crops pass the production camera-body query but do not show full facades. Ambasador tiers and adjacent source roofs are visible in the elevated context; estimated facade detail remains a gap.",
+            "displayLabel": "ase · close partial facade from mapped public street"
+          },
+          {
+            "id": "ambasador-context",
+            "sha256": "6e18537df5b5ef3145acee2c86d772efb210f168bff95cc6c3e334a016245f9f",
+            "reviewedAt": "2026-11-08T23:56:37.719374+00:00",
+            "reviewSheetSha256": "9847684669afa4e28101f61967ed54467841133d517c7c386a7e48e4fb1aafc8",
+            "status": "reviewed_with_gaps",
+            "observations": "ASE and Ambasador close public-street crops pass the production camera-body query but do not show full facades. Ambasador tiers and adjacent source roofs are visible in the elevated context; estimated facade detail remains a gap."
+          },
+          {
+            "id": "ambasador-opposite",
+            "sha256": "19adb30e1dd45bd06131ced6afb087c91163aeab9b2dec6f02aa9207834f4110",
+            "reviewedAt": "2026-11-08T23:56:37.719676+00:00",
+            "reviewSheetSha256": "9847684669afa4e28101f61967ed54467841133d517c7c386a7e48e4fb1aafc8",
+            "status": "reviewed_with_gaps",
+            "observations": "ASE and Ambasador close public-street crops pass the production camera-body query but do not show full facades. Ambasador tiers and adjacent source roofs are visible in the elevated context; estimated facade detail remains a gap."
+          },
+          {
+            "id": "ambasador-street",
+            "sha256": "66bf27fea47fb30e33a35c152130ecccb28b8b803d3896e7a4c3a25288924dad",
+            "reviewedAt": "2026-11-08T23:56:37.719948+00:00",
+            "reviewSheetSha256": "9847684669afa4e28101f61967ed54467841133d517c7c386a7e48e4fb1aafc8",
+            "status": "reviewed_with_gaps",
+            "observations": "ASE and Ambasador close public-street crops pass the production camera-body query but do not show full facades. Ambasador tiers and adjacent source roofs are visible in the elevated context; estimated facade detail remains a gap.",
+            "displayLabel": "ambasador · close partial facade from mapped public street"
+          },
+          {
+            "id": "thelandmark-context",
+            "sha256": "2a6550ef93b0d3764e1fa8ac105054d034dbb569748533428c7004eab04ae060",
+            "reviewedAt": "2026-11-08T23:56:37.720243+00:00",
+            "reviewSheetSha256": "9847684669afa4e28101f61967ed54467841133d517c7c386a7e48e4fb1aafc8",
+            "status": "reviewed_with_gaps",
+            "observations": "ASE and Ambasador close public-street crops pass the production camera-body query but do not show full facades. Ambasador tiers and adjacent source roofs are visible in the elevated context; estimated facade detail remains a gap."
+          },
+          {
+            "id": "thelandmark-opposite",
+            "sha256": "4172c11c54a875efadacead0768a162d7aa228d8b634a664e2090d413d53db5f",
+            "reviewedAt": "2026-11-08T23:56:37.720519+00:00",
+            "reviewSheetSha256": "9847684669afa4e28101f61967ed54467841133d517c7c386a7e48e4fb1aafc8",
+            "status": "reviewed_with_gaps",
+            "observations": "ASE and Ambasador close public-street crops pass the production camera-body query but do not show full facades. Ambasador tiers and adjacent source roofs are visible in the elevated context; estimated facade detail remains a gap."
+          },
+          {
+            "id": "europehouse-context",
+            "sha256": "5209336cd445a3753fa8dfb7ead30a03469723c4b0313874e01220f693f21a53",
+            "reviewedAt": "2026-11-08T23:56:37.720790+00:00",
+            "reviewSheetSha256": "fbae1348d378b5e40a5855faf82e7b9be7ffe8f525add5fbcd892e93de5ba034",
+            "status": "reviewed_with_gaps",
+            "observations": "Europe House and the four source-building targets are visible. Close facade crops and nearby crowns limit detail coverage. The paired north-up atlas is separate; these are GAME-only perspective views."
+          },
+          {
+            "id": "europehouse-opposite",
+            "sha256": "b647857cb1033759b5bcb11a03f764683e71dd04a76bbd2a8d9d10889301837b",
+            "reviewedAt": "2026-11-08T23:56:37.721714+00:00",
+            "reviewSheetSha256": "fbae1348d378b5e40a5855faf82e7b9be7ffe8f525add5fbcd892e93de5ba034",
+            "status": "reviewed_with_gaps",
+            "observations": "Europe House and the four source-building targets are visible. Close facade crops and nearby crowns limit detail coverage. The paired north-up atlas is separate; these are GAME-only perspective views."
+          },
+          {
+            "id": "europehouse-street",
+            "sha256": "f0dd71dd13f002822b59a7a2994e34edabdfe5e869a1ce029b415522d22811cd",
+            "reviewedAt": "2026-11-08T23:56:37.722037+00:00",
+            "reviewSheetSha256": "fbae1348d378b5e40a5855faf82e7b9be7ffe8f525add5fbcd892e93de5ba034",
+            "status": "reviewed_with_gaps",
+            "observations": "Europe House and the four source-building targets are visible. Close facade crops and nearby crowns limit detail coverage. The paired north-up atlas is separate; these are GAME-only perspective views.",
+            "displayLabel": "europehouse · close partial facade from mapped public street"
+          },
+          {
+            "id": "w236091148-facade",
+            "sha256": "c0873ea3c7fe1616a8fc1e57e644e5383b5fb605e1bc302874814f816c553c44",
+            "reviewedAt": "2026-11-08T23:56:37.725159+00:00",
+            "reviewSheetSha256": "fbae1348d378b5e40a5855faf82e7b9be7ffe8f525add5fbcd892e93de5ba034",
+            "status": "reviewed_with_gaps",
+            "observations": "Europe House and the four source-building targets are visible. Close facade crops and nearby crowns limit detail coverage. The paired north-up atlas is separate; these are GAME-only perspective views."
+          },
+          {
+            "id": "w236091150-facade",
+            "sha256": "5cccbc708100ed9f573b9204eb1505b96e5b2b258cbeefc4159a35d359ccb9ad",
+            "reviewedAt": "2026-11-08T23:56:37.725924+00:00",
+            "reviewSheetSha256": "fbae1348d378b5e40a5855faf82e7b9be7ffe8f525add5fbcd892e93de5ba034",
+            "status": "reviewed_with_gaps",
+            "observations": "Europe House and the four source-building targets are visible. Close facade crops and nearby crowns limit detail coverage. The paired north-up atlas is separate; these are GAME-only perspective views."
+          },
+          {
+            "id": "w1527213313-facade",
+            "sha256": "cf89dd543082ee40139e328fc7ace2f9741cd30e30238b4c83b6c3a8e960ad2e",
+            "reviewedAt": "2026-11-08T23:56:37.726476+00:00",
+            "reviewSheetSha256": "fbae1348d378b5e40a5855faf82e7b9be7ffe8f525add5fbcd892e93de5ba034",
+            "status": "reviewed_with_gaps",
+            "observations": "Europe House and the four source-building targets are visible. Close facade crops and nearby crowns limit detail coverage. The paired north-up atlas is separate; these are GAME-only perspective views."
+          },
+          {
+            "id": "w182932596-facade",
+            "sha256": "309357024af936c9cff82110f388fdd8a53bfd2e0dd82b0e34aa47c1a1f9b18d",
+            "reviewedAt": "2026-11-08T23:56:37.726787+00:00",
+            "reviewSheetSha256": "508db5dc58571a4b85b11a4bac719bc41653b7d9f0f84a62d76d3f80752f9ba8",
+            "status": "reviewed_with_gaps",
+            "observations": "Source facade, signals, pedestrians/traffic and parking context are visible. Parking occupancy and small facade details remain estimates; no whole-scene source/collision parity is established."
+          },
+          {
+            "id": "signal-1",
+            "sha256": "fc33ff37f84f662d6f5f07402b33ea6de02f39579bf1e041bc6f0ee3d930b4c1",
+            "reviewedAt": "2026-11-08T23:56:37.727672+00:00",
+            "reviewSheetSha256": "508db5dc58571a4b85b11a4bac719bc41653b7d9f0f84a62d76d3f80752f9ba8",
+            "status": "reviewed_with_gaps",
+            "observations": "Source facade, signals, pedestrians/traffic and parking context are visible. Parking occupancy and small facade details remain estimates; no whole-scene source/collision parity is established."
+          },
+          {
+            "id": "signal-2",
+            "sha256": "7010418a7a06a2aa80f2645b42b1c312e101f7c09f1d999e7f76333e6ec1727a",
+            "reviewedAt": "2026-11-08T23:56:37.728066+00:00",
+            "reviewSheetSha256": "508db5dc58571a4b85b11a4bac719bc41653b7d9f0f84a62d76d3f80752f9ba8",
+            "status": "reviewed_with_gaps",
+            "observations": "Source facade, signals, pedestrians/traffic and parking context are visible. Parking occupancy and small facade details remain estimates; no whole-scene source/collision parity is established."
+          },
+          {
+            "id": "signal-3",
+            "sha256": "df4c4adf20f83cc56a104a8e57287a11ee31f0629373171702e4eb724cee1df1",
+            "reviewedAt": "2026-11-08T23:56:37.728363+00:00",
+            "reviewSheetSha256": "508db5dc58571a4b85b11a4bac719bc41653b7d9f0f84a62d76d3f80752f9ba8",
+            "status": "reviewed_with_gaps",
+            "observations": "Source facade, signals, pedestrians/traffic and parking context are visible. Parking occupancy and small facade details remain estimates; no whole-scene source/collision parity is established."
+          },
+          {
+            "id": "parking-1",
+            "sha256": "a6edbb3423c3a01fd0bdfa81f98f3fafb7e18a115b50770b9fd8907372d86eae",
+            "reviewedAt": "2026-11-08T23:56:37.728636+00:00",
+            "reviewSheetSha256": "508db5dc58571a4b85b11a4bac719bc41653b7d9f0f84a62d76d3f80752f9ba8",
+            "status": "reviewed_with_gaps",
+            "observations": "Source facade, signals, pedestrians/traffic and parking context are visible. Parking occupancy and small facade details remain estimates; no whole-scene source/collision parity is established."
+          },
+          {
+            "id": "parking-2",
+            "sha256": "486cfe40d337b58b44f65c20f76d9b3a826e47a5fa7aa2ba094373a0b09e7b29",
+            "reviewedAt": "2026-11-08T23:56:37.728903+00:00",
+            "reviewSheetSha256": "508db5dc58571a4b85b11a4bac719bc41653b7d9f0f84a62d76d3f80752f9ba8",
+            "status": "reviewed_with_gaps",
+            "observations": "Source facade, signals, pedestrians/traffic and parking context are visible. Parking occupancy and small facade details remain estimates; no whole-scene source/collision parity is established."
+          },
+          {
+            "id": "parking-3",
+            "sha256": "3f9662cfb0c5f3767f83e8dc0c2fca41fa6467a14c3bdd408ccd27995bf061e3",
+            "reviewedAt": "2026-11-08T23:56:37.729211+00:00",
+            "reviewSheetSha256": "eda2f3b8f524df9123dc861b67219f0efa9971d36f1972e287c5f6590edc13db",
+            "status": "reviewed_with_gaps",
+            "observations": "Parking3/outward views retain actual source context and sparse generic distant scenery. UiPath/Arnia chapter starts are static recorded poses; no controller or driving/mirror pass is claimed."
+          },
+          {
+            "id": "drone-edge-west",
+            "sha256": "65921d0f5f4bbcf0f580a5d80c1f29b496c1501c28396423a075189dbb50bb38",
+            "reviewedAt": "2026-11-08T23:56:37.730063+00:00",
+            "reviewSheetSha256": "eda2f3b8f524df9123dc861b67219f0efa9971d36f1972e287c5f6590edc13db",
+            "status": "reviewed_with_gaps",
+            "observations": "Parking3/outward views retain actual source context and sparse generic distant scenery. UiPath/Arnia chapter starts are static recorded poses; no controller or driving/mirror pass is claimed."
+          },
+          {
+            "id": "drone-edge-east",
+            "sha256": "53006122f641701f17f33323f4bd9ac17fc1a55cf2feeb6966e684e0088d24f0",
+            "reviewedAt": "2026-11-08T23:56:37.770740+00:00",
+            "reviewSheetSha256": "eda2f3b8f524df9123dc861b67219f0efa9971d36f1972e287c5f6590edc13db",
+            "status": "reviewed_with_gaps",
+            "observations": "Parking3/outward views retain actual source context and sparse generic distant scenery. UiPath/Arnia chapter starts are static recorded poses; no controller or driving/mirror pass is claimed."
+          },
+          {
+            "id": "drone-edge-north",
+            "sha256": "d8a501616e41d86bd591e38b529d677070f46e8b6d1ea42ff36bb6f3b79e959f",
+            "reviewedAt": "2026-11-08T23:56:37.771266+00:00",
+            "reviewSheetSha256": "eda2f3b8f524df9123dc861b67219f0efa9971d36f1972e287c5f6590edc13db",
+            "status": "reviewed_with_gaps",
+            "observations": "Parking3/outward views retain actual source context and sparse generic distant scenery. UiPath/Arnia chapter starts are static recorded poses; no controller or driving/mirror pass is claimed."
+          },
+          {
+            "id": "drone-edge-south",
+            "sha256": "12a050821f567c32e2ce3f67d84346da8fcf8b65988dd04c61d7d6e92335133c",
+            "reviewedAt": "2026-11-08T23:56:37.771706+00:00",
+            "reviewSheetSha256": "eda2f3b8f524df9123dc861b67219f0efa9971d36f1972e287c5f6590edc13db",
+            "status": "reviewed_with_gaps",
+            "observations": "Parking3/outward views retain actual source context and sparse generic distant scenery. UiPath/Arnia chapter starts are static recorded poses; no controller or driving/mirror pass is claimed."
+          },
+          {
+            "id": "chapter-arnia-street",
+            "sha256": "55a517a99cd1397fdda0c20d030489ce968499d66263ec504b5d6146b1e5e534",
+            "reviewedAt": "2026-11-08T23:56:37.772166+00:00",
+            "reviewSheetSha256": "eda2f3b8f524df9123dc861b67219f0efa9971d36f1972e287c5f6590edc13db",
+            "status": "reviewed_with_gaps",
+            "observations": "Parking3/outward views retain actual source context and sparse generic distant scenery. UiPath/Arnia chapter starts are static recorded poses; no controller or driving/mirror pass is claimed."
+          },
+          {
+            "id": "chapter-uipath-buc-street",
+            "sha256": "dce0ed15edf83eb593f0ba6d8086190c4730f44e378bc2bfbc609a2119655c53",
+            "reviewedAt": "2026-11-08T23:56:37.772521+00:00",
+            "reviewSheetSha256": "963c1029d8549d82f346d35f88a8cdfd6dcf83d19b84604d59ad2262855cf404",
+            "status": "reviewed_with_gaps",
+            "observations": "UiPath chapter-start pose looks through park trees and does not establish a clear office/street frontage. Source pose and all original content remain retained.",
+            "displayLabel": "UiPath chapter-start pose · park trees limit the view"
+          }
+        ]
       },
-      {
-        "id": "tnb-opposite",
-        "sha256": "4986a85dd97808c5f0bb0f0aec682cfb92560094d8e6e273f4242f46e0aa0586",
-        "reviewedAt": "2026-11-08T23:56:37.708715+00:00",
-        "reviewSheetSha256": "e709ef06d23b031fc03a4108f5376bba35082d47cc59e670cd4825b2a5910e87",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
+      "generatedAt": "2026-11-08T23:46:47.439Z",
+      "sourceCaptureManifest": "capture-manifest.json",
+      "sourceProvenance": {
+        "manifest": "source-provenance.json",
+        "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429",
+        "filesVerified": 1647
       },
-      {
-        "id": "ateneu-context",
-        "sha256": "5607740885df3041c0e0924143951c0ab0a6c1a3861f38db2fba323a9aafd884",
-        "reviewedAt": "2026-11-08T23:56:37.709190+00:00",
-        "reviewSheetSha256": "e709ef06d23b031fc03a4108f5376bba35082d47cc59e670cd4825b2a5910e87",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
-      },
-      {
-        "id": "ateneu-opposite",
-        "sha256": "c7505e04bc3c9e83513073e0bba49d8ceba481c50c9da847c0dea9173f450281",
-        "reviewedAt": "2026-11-08T23:56:37.709474+00:00",
-        "reviewSheetSha256": "e709ef06d23b031fc03a4108f5376bba35082d47cc59e670cd4825b2a5910e87",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
-      },
-      {
-        "id": "regal-context",
-        "sha256": "e685b80cbd3eb0071ab6711c705b6f6e3dc516193eee51f59f76d6e546dd0b14",
-        "reviewedAt": "2026-11-08T23:56:37.709737+00:00",
-        "reviewSheetSha256": "e709ef06d23b031fc03a4108f5376bba35082d47cc59e670cd4825b2a5910e87",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
-      },
-      {
-        "id": "regal-opposite",
-        "sha256": "8acc1a2a179a2cbaab292e6e93e8599fe288c0ddacec40c2cfacfe3a93ca8f91",
-        "reviewedAt": "2026-11-08T23:56:37.710014+00:00",
-        "reviewSheetSha256": "e709ef06d23b031fc03a4108f5376bba35082d47cc59e670cd4825b2a5910e87",
-        "status": "reviewed_with_gaps",
-        "observations": "Actual source0775 landmark context shows TNB, Athenaeum and Regal. TNB roof and contextual architecture remain simplified; source courtyards and masses remain visible. These static views do not establish measured facade or roof fidelity."
-      },
-      {
-        "id": "victoria-context",
-        "sha256": "9d014d4aeb69f1715974203be6225aeaecd2df6a7b03ca614541551e78d4cc78",
-        "reviewedAt": "2026-11-08T23:56:37.711403+00:00",
-        "reviewSheetSha256": "98690d379832ac4e1cc7273608f6a15cd152d04bebb64c93c0248b61b88db5d4",
-        "status": "reviewed_with_gaps",
-        "observations": "Victoria, SkyTower and ASE context remain visible. SkyTower outside-detail surroundings/roof are generic and sparse. ASE corner/dome context is retained; source detail and architectural estimates remain explicit."
-      },
-      {
-        "id": "victoria-opposite",
-        "sha256": "85b4d2f61030081c9483a392e1f77ecd27d1223cdf8f7a71d3aadaa44ac76b07",
-        "reviewedAt": "2026-11-08T23:56:37.712261+00:00",
-        "reviewSheetSha256": "98690d379832ac4e1cc7273608f6a15cd152d04bebb64c93c0248b61b88db5d4",
-        "status": "reviewed_with_gaps",
-        "observations": "Victoria, SkyTower and ASE context remain visible. SkyTower outside-detail surroundings/roof are generic and sparse. ASE corner/dome context is retained; source detail and architectural estimates remain explicit."
-      },
-      {
-        "id": "skytower-context",
-        "sha256": "ee6390cb4fec2c760f403521405f3778d2a176ae18ab296f394e43b364fb958d",
-        "reviewedAt": "2026-11-08T23:56:37.712539+00:00",
-        "reviewSheetSha256": "98690d379832ac4e1cc7273608f6a15cd152d04bebb64c93c0248b61b88db5d4",
-        "status": "reviewed_with_gaps",
-        "observations": "Victoria, SkyTower and ASE context remain visible. SkyTower outside-detail surroundings/roof are generic and sparse. ASE corner/dome context is retained; source detail and architectural estimates remain explicit."
-      },
-      {
-        "id": "skytower-opposite",
-        "sha256": "4820d1776e947c2979181b22b9bc6dbdc4ebd89e194ab3174dfeafd11aef12af",
-        "reviewedAt": "2026-11-08T23:56:37.712789+00:00",
-        "reviewSheetSha256": "98690d379832ac4e1cc7273608f6a15cd152d04bebb64c93c0248b61b88db5d4",
-        "status": "reviewed_with_gaps",
-        "observations": "Victoria, SkyTower and ASE context remain visible. SkyTower outside-detail surroundings/roof are generic and sparse. ASE corner/dome context is retained; source detail and architectural estimates remain explicit."
-      },
-      {
-        "id": "ase-context",
-        "sha256": "16dc09a6ef13d2e5bb179bf9a7fd1d81dacf6d921da9b3262d437ce42894a4ff",
-        "reviewedAt": "2026-11-08T23:56:37.713060+00:00",
-        "reviewSheetSha256": "98690d379832ac4e1cc7273608f6a15cd152d04bebb64c93c0248b61b88db5d4",
-        "status": "reviewed_with_gaps",
-        "observations": "Victoria, SkyTower and ASE context remain visible. SkyTower outside-detail surroundings/roof are generic and sparse. ASE corner/dome context is retained; source detail and architectural estimates remain explicit."
-      },
-      {
-        "id": "ase-opposite",
-        "sha256": "2d97d75c4cfd361507fe3dd9a817c4a7001286de1938b49d163ead3f10b3c33d",
-        "reviewedAt": "2026-11-08T23:56:37.713319+00:00",
-        "reviewSheetSha256": "98690d379832ac4e1cc7273608f6a15cd152d04bebb64c93c0248b61b88db5d4",
-        "status": "reviewed_with_gaps",
-        "observations": "Victoria, SkyTower and ASE context remain visible. SkyTower outside-detail surroundings/roof are generic and sparse. ASE corner/dome context is retained; source detail and architectural estimates remain explicit."
-      },
-      {
-        "id": "ase-street",
-        "sha256": "1202452d65e28cd02d7d27520cb12c00c56c13171471bb0f882d252c57cb86c5",
-        "reviewedAt": "2026-11-08T23:56:37.718413+00:00",
-        "reviewSheetSha256": "9847684669afa4e28101f61967ed54467841133d517c7c386a7e48e4fb1aafc8",
-        "status": "reviewed_with_gaps",
-        "observations": "ASE and Ambasador close public-street crops pass the production camera-body query but do not show full facades. Ambasador tiers and adjacent source roofs are visible in the elevated context; estimated facade detail remains a gap.",
-        "displayLabel": "ase \u00b7 close partial facade from mapped public street"
-      },
-      {
-        "id": "ambasador-context",
-        "sha256": "6e18537df5b5ef3145acee2c86d772efb210f168bff95cc6c3e334a016245f9f",
-        "reviewedAt": "2026-11-08T23:56:37.719374+00:00",
-        "reviewSheetSha256": "9847684669afa4e28101f61967ed54467841133d517c7c386a7e48e4fb1aafc8",
-        "status": "reviewed_with_gaps",
-        "observations": "ASE and Ambasador close public-street crops pass the production camera-body query but do not show full facades. Ambasador tiers and adjacent source roofs are visible in the elevated context; estimated facade detail remains a gap."
-      },
-      {
-        "id": "ambasador-opposite",
-        "sha256": "19adb30e1dd45bd06131ced6afb087c91163aeab9b2dec6f02aa9207834f4110",
-        "reviewedAt": "2026-11-08T23:56:37.719676+00:00",
-        "reviewSheetSha256": "9847684669afa4e28101f61967ed54467841133d517c7c386a7e48e4fb1aafc8",
-        "status": "reviewed_with_gaps",
-        "observations": "ASE and Ambasador close public-street crops pass the production camera-body query but do not show full facades. Ambasador tiers and adjacent source roofs are visible in the elevated context; estimated facade detail remains a gap."
-      },
-      {
-        "id": "ambasador-street",
-        "sha256": "66bf27fea47fb30e33a35c152130ecccb28b8b803d3896e7a4c3a25288924dad",
-        "reviewedAt": "2026-11-08T23:56:37.719948+00:00",
-        "reviewSheetSha256": "9847684669afa4e28101f61967ed54467841133d517c7c386a7e48e4fb1aafc8",
-        "status": "reviewed_with_gaps",
-        "observations": "ASE and Ambasador close public-street crops pass the production camera-body query but do not show full facades. Ambasador tiers and adjacent source roofs are visible in the elevated context; estimated facade detail remains a gap.",
-        "displayLabel": "ambasador \u00b7 close partial facade from mapped public street"
-      },
-      {
-        "id": "thelandmark-context",
-        "sha256": "2a6550ef93b0d3764e1fa8ac105054d034dbb569748533428c7004eab04ae060",
-        "reviewedAt": "2026-11-08T23:56:37.720243+00:00",
-        "reviewSheetSha256": "9847684669afa4e28101f61967ed54467841133d517c7c386a7e48e4fb1aafc8",
-        "status": "reviewed_with_gaps",
-        "observations": "ASE and Ambasador close public-street crops pass the production camera-body query but do not show full facades. Ambasador tiers and adjacent source roofs are visible in the elevated context; estimated facade detail remains a gap."
-      },
-      {
-        "id": "thelandmark-opposite",
-        "sha256": "4172c11c54a875efadacead0768a162d7aa228d8b634a664e2090d413d53db5f",
-        "reviewedAt": "2026-11-08T23:56:37.720519+00:00",
-        "reviewSheetSha256": "9847684669afa4e28101f61967ed54467841133d517c7c386a7e48e4fb1aafc8",
-        "status": "reviewed_with_gaps",
-        "observations": "ASE and Ambasador close public-street crops pass the production camera-body query but do not show full facades. Ambasador tiers and adjacent source roofs are visible in the elevated context; estimated facade detail remains a gap."
-      },
-      {
-        "id": "europehouse-context",
-        "sha256": "5209336cd445a3753fa8dfb7ead30a03469723c4b0313874e01220f693f21a53",
-        "reviewedAt": "2026-11-08T23:56:37.720790+00:00",
-        "reviewSheetSha256": "fbae1348d378b5e40a5855faf82e7b9be7ffe8f525add5fbcd892e93de5ba034",
-        "status": "reviewed_with_gaps",
-        "observations": "Europe House and the four source-building targets are visible. Close facade crops and nearby crowns limit detail coverage. The paired north-up atlas is separate; these are GAME-only perspective views."
-      },
-      {
-        "id": "europehouse-opposite",
-        "sha256": "b647857cb1033759b5bcb11a03f764683e71dd04a76bbd2a8d9d10889301837b",
-        "reviewedAt": "2026-11-08T23:56:37.721714+00:00",
-        "reviewSheetSha256": "fbae1348d378b5e40a5855faf82e7b9be7ffe8f525add5fbcd892e93de5ba034",
-        "status": "reviewed_with_gaps",
-        "observations": "Europe House and the four source-building targets are visible. Close facade crops and nearby crowns limit detail coverage. The paired north-up atlas is separate; these are GAME-only perspective views."
-      },
-      {
-        "id": "europehouse-street",
-        "sha256": "f0dd71dd13f002822b59a7a2994e34edabdfe5e869a1ce029b415522d22811cd",
-        "reviewedAt": "2026-11-08T23:56:37.722037+00:00",
-        "reviewSheetSha256": "fbae1348d378b5e40a5855faf82e7b9be7ffe8f525add5fbcd892e93de5ba034",
-        "status": "reviewed_with_gaps",
-        "observations": "Europe House and the four source-building targets are visible. Close facade crops and nearby crowns limit detail coverage. The paired north-up atlas is separate; these are GAME-only perspective views.",
-        "displayLabel": "europehouse \u00b7 close partial facade from mapped public street"
-      },
-      {
-        "id": "w236091148-facade",
-        "sha256": "c0873ea3c7fe1616a8fc1e57e644e5383b5fb605e1bc302874814f816c553c44",
-        "reviewedAt": "2026-11-08T23:56:37.725159+00:00",
-        "reviewSheetSha256": "fbae1348d378b5e40a5855faf82e7b9be7ffe8f525add5fbcd892e93de5ba034",
-        "status": "reviewed_with_gaps",
-        "observations": "Europe House and the four source-building targets are visible. Close facade crops and nearby crowns limit detail coverage. The paired north-up atlas is separate; these are GAME-only perspective views."
-      },
-      {
-        "id": "w236091150-facade",
-        "sha256": "5cccbc708100ed9f573b9204eb1505b96e5b2b258cbeefc4159a35d359ccb9ad",
-        "reviewedAt": "2026-11-08T23:56:37.725924+00:00",
-        "reviewSheetSha256": "fbae1348d378b5e40a5855faf82e7b9be7ffe8f525add5fbcd892e93de5ba034",
-        "status": "reviewed_with_gaps",
-        "observations": "Europe House and the four source-building targets are visible. Close facade crops and nearby crowns limit detail coverage. The paired north-up atlas is separate; these are GAME-only perspective views."
-      },
-      {
-        "id": "w1527213313-facade",
-        "sha256": "cf89dd543082ee40139e328fc7ace2f9741cd30e30238b4c83b6c3a8e960ad2e",
-        "reviewedAt": "2026-11-08T23:56:37.726476+00:00",
-        "reviewSheetSha256": "fbae1348d378b5e40a5855faf82e7b9be7ffe8f525add5fbcd892e93de5ba034",
-        "status": "reviewed_with_gaps",
-        "observations": "Europe House and the four source-building targets are visible. Close facade crops and nearby crowns limit detail coverage. The paired north-up atlas is separate; these are GAME-only perspective views."
-      },
-      {
-        "id": "w182932596-facade",
-        "sha256": "309357024af936c9cff82110f388fdd8a53bfd2e0dd82b0e34aa47c1a1f9b18d",
-        "reviewedAt": "2026-11-08T23:56:37.726787+00:00",
-        "reviewSheetSha256": "508db5dc58571a4b85b11a4bac719bc41653b7d9f0f84a62d76d3f80752f9ba8",
-        "status": "reviewed_with_gaps",
-        "observations": "Source facade, signals, pedestrians/traffic and parking context are visible. Parking occupancy and small facade details remain estimates; no whole-scene source/collision parity is established."
-      },
-      {
-        "id": "signal-1",
-        "sha256": "fc33ff37f84f662d6f5f07402b33ea6de02f39579bf1e041bc6f0ee3d930b4c1",
-        "reviewedAt": "2026-11-08T23:56:37.727672+00:00",
-        "reviewSheetSha256": "508db5dc58571a4b85b11a4bac719bc41653b7d9f0f84a62d76d3f80752f9ba8",
-        "status": "reviewed_with_gaps",
-        "observations": "Source facade, signals, pedestrians/traffic and parking context are visible. Parking occupancy and small facade details remain estimates; no whole-scene source/collision parity is established."
-      },
-      {
-        "id": "signal-2",
-        "sha256": "7010418a7a06a2aa80f2645b42b1c312e101f7c09f1d999e7f76333e6ec1727a",
-        "reviewedAt": "2026-11-08T23:56:37.728066+00:00",
-        "reviewSheetSha256": "508db5dc58571a4b85b11a4bac719bc41653b7d9f0f84a62d76d3f80752f9ba8",
-        "status": "reviewed_with_gaps",
-        "observations": "Source facade, signals, pedestrians/traffic and parking context are visible. Parking occupancy and small facade details remain estimates; no whole-scene source/collision parity is established."
-      },
-      {
-        "id": "signal-3",
-        "sha256": "df4c4adf20f83cc56a104a8e57287a11ee31f0629373171702e4eb724cee1df1",
-        "reviewedAt": "2026-11-08T23:56:37.728363+00:00",
-        "reviewSheetSha256": "508db5dc58571a4b85b11a4bac719bc41653b7d9f0f84a62d76d3f80752f9ba8",
-        "status": "reviewed_with_gaps",
-        "observations": "Source facade, signals, pedestrians/traffic and parking context are visible. Parking occupancy and small facade details remain estimates; no whole-scene source/collision parity is established."
-      },
-      {
-        "id": "parking-1",
-        "sha256": "a6edbb3423c3a01fd0bdfa81f98f3fafb7e18a115b50770b9fd8907372d86eae",
-        "reviewedAt": "2026-11-08T23:56:37.728636+00:00",
-        "reviewSheetSha256": "508db5dc58571a4b85b11a4bac719bc41653b7d9f0f84a62d76d3f80752f9ba8",
-        "status": "reviewed_with_gaps",
-        "observations": "Source facade, signals, pedestrians/traffic and parking context are visible. Parking occupancy and small facade details remain estimates; no whole-scene source/collision parity is established."
-      },
-      {
-        "id": "parking-2",
-        "sha256": "486cfe40d337b58b44f65c20f76d9b3a826e47a5fa7aa2ba094373a0b09e7b29",
-        "reviewedAt": "2026-11-08T23:56:37.728903+00:00",
-        "reviewSheetSha256": "508db5dc58571a4b85b11a4bac719bc41653b7d9f0f84a62d76d3f80752f9ba8",
-        "status": "reviewed_with_gaps",
-        "observations": "Source facade, signals, pedestrians/traffic and parking context are visible. Parking occupancy and small facade details remain estimates; no whole-scene source/collision parity is established."
-      },
-      {
-        "id": "parking-3",
-        "sha256": "3f9662cfb0c5f3767f83e8dc0c2fca41fa6467a14c3bdd408ccd27995bf061e3",
-        "reviewedAt": "2026-11-08T23:56:37.729211+00:00",
-        "reviewSheetSha256": "eda2f3b8f524df9123dc861b67219f0efa9971d36f1972e287c5f6590edc13db",
-        "status": "reviewed_with_gaps",
-        "observations": "Parking3/outward views retain actual source context and sparse generic distant scenery. UiPath/Arnia chapter starts are static recorded poses; no controller or driving/mirror pass is claimed."
-      },
-      {
-        "id": "drone-edge-west",
-        "sha256": "65921d0f5f4bbcf0f580a5d80c1f29b496c1501c28396423a075189dbb50bb38",
-        "reviewedAt": "2026-11-08T23:56:37.730063+00:00",
-        "reviewSheetSha256": "eda2f3b8f524df9123dc861b67219f0efa9971d36f1972e287c5f6590edc13db",
-        "status": "reviewed_with_gaps",
-        "observations": "Parking3/outward views retain actual source context and sparse generic distant scenery. UiPath/Arnia chapter starts are static recorded poses; no controller or driving/mirror pass is claimed."
-      },
-      {
-        "id": "drone-edge-east",
-        "sha256": "53006122f641701f17f33323f4bd9ac17fc1a55cf2feeb6966e684e0088d24f0",
-        "reviewedAt": "2026-11-08T23:56:37.770740+00:00",
-        "reviewSheetSha256": "eda2f3b8f524df9123dc861b67219f0efa9971d36f1972e287c5f6590edc13db",
-        "status": "reviewed_with_gaps",
-        "observations": "Parking3/outward views retain actual source context and sparse generic distant scenery. UiPath/Arnia chapter starts are static recorded poses; no controller or driving/mirror pass is claimed."
-      },
-      {
-        "id": "drone-edge-north",
-        "sha256": "d8a501616e41d86bd591e38b529d677070f46e8b6d1ea42ff36bb6f3b79e959f",
-        "reviewedAt": "2026-11-08T23:56:37.771266+00:00",
-        "reviewSheetSha256": "eda2f3b8f524df9123dc861b67219f0efa9971d36f1972e287c5f6590edc13db",
-        "status": "reviewed_with_gaps",
-        "observations": "Parking3/outward views retain actual source context and sparse generic distant scenery. UiPath/Arnia chapter starts are static recorded poses; no controller or driving/mirror pass is claimed."
-      },
-      {
-        "id": "drone-edge-south",
-        "sha256": "12a050821f567c32e2ce3f67d84346da8fcf8b65988dd04c61d7d6e92335133c",
-        "reviewedAt": "2026-11-08T23:56:37.771706+00:00",
-        "reviewSheetSha256": "eda2f3b8f524df9123dc861b67219f0efa9971d36f1972e287c5f6590edc13db",
-        "status": "reviewed_with_gaps",
-        "observations": "Parking3/outward views retain actual source context and sparse generic distant scenery. UiPath/Arnia chapter starts are static recorded poses; no controller or driving/mirror pass is claimed."
-      },
-      {
-        "id": "chapter-arnia-street",
-        "sha256": "55a517a99cd1397fdda0c20d030489ce968499d66263ec504b5d6146b1e5e534",
-        "reviewedAt": "2026-11-08T23:56:37.772166+00:00",
-        "reviewSheetSha256": "eda2f3b8f524df9123dc861b67219f0efa9971d36f1972e287c5f6590edc13db",
-        "status": "reviewed_with_gaps",
-        "observations": "Parking3/outward views retain actual source context and sparse generic distant scenery. UiPath/Arnia chapter starts are static recorded poses; no controller or driving/mirror pass is claimed."
-      },
-      {
-        "id": "chapter-uipath-buc-street",
-        "sha256": "dce0ed15edf83eb593f0ba6d8086190c4730f44e378bc2bfbc609a2119655c53",
-        "reviewedAt": "2026-11-08T23:56:37.772521+00:00",
-        "reviewSheetSha256": "963c1029d8549d82f346d35f88a8cdfd6dcf83d19b84604d59ad2262855cf404",
-        "status": "reviewed_with_gaps",
-        "observations": "UiPath chapter-start pose looks through park trees and does not establish a clear office/street frontage. Source pose and all original content remain retained.",
-        "displayLabel": "UiPath chapter-start pose \u00b7 park trees limit the view"
-      }
-    ]
+      "captureValidation": "capture-validation.json",
+      "runtimeIntegrity": "runtime-integrity.json",
+      "sourceContactProbe": "source-contact-probe.json"
+    }
+  ],
+  "sourceCounts": {
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 17,
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 20
   },
-  "generatedAt": "2026-11-08T23:46:47.439Z",
-  "sourceCaptureManifest": "capture-manifest.json",
-  "sourceProvenance": {
-    "manifest": "source-provenance.json",
-    "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429",
-    "filesVerified": 1647
-  },
-  "captureValidation": "capture-validation.json",
-  "runtimeIntegrity": "runtime-integrity.json",
-  "sourceContactProbe": "source-contact-probe.json"
+  "latestRefresh": {
+    "sourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+    "ids": [
+      "tnb-context",
+      "ateneu-context",
+      "ateneu-opposite",
+      "regal-context",
+      "regal-opposite",
+      "victoria-opposite",
+      "skytower-opposite",
+      "ase-context",
+      "ase-opposite",
+      "ambasador-context",
+      "ambasador-opposite",
+      "ambasador-street",
+      "thelandmark-opposite",
+      "europehouse-opposite",
+      "signal-1",
+      "chapter-arnia-street",
+      "chapter-uipath-buc-street"
+    ],
+    "scope": "Only affected static views replaced; historical fields below retain their earlier scope. Individual current camera/date/condition/hash fields are authoritative."
+  }
 }

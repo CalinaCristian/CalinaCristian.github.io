@@ -1,0 +1,27 @@
+{
+  "reviewedAt": "2026-11-11T02:16:37.644501+00:00",
+  "scope": "Individual originals reviewed full size; no traversed route or whole-district fidelity claim.",
+  "items": [
+    {
+      "file": "floreasca/summer-clear-day/signal-3.png",
+      "sha256": "7073eff9e0211cc302d4a31363e9d3825b8fee097b23f3cfd7aa63569088f4f4",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/tnb-context.png",
+      "sha256": "686b0a3e23cd9b80a82cb9566d428dd7919df40b34bb86c786e6393056f49259",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "romana/summer-clear-day/regal-opposite.png",
+      "sha256": "5ae60a15cd26715d73517e14449a854c88103adfdf633284e0e91a20d6b77b7c",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    }
+  ]
+}

@@ -1,0 +1,847 @@
+{
+  "schemaVersion": 1,
+  "report": 20,
+  "sourceCommit": "7f070ee07c26e7ea04ae0f358425ea97bec193c0",
+  "scope": "Politehnica authored CV placard placement only. Exterior architecture, actual Rectorat signage and full interior fidelity are not accepted by this repair.",
+  "captures": [
+    {
+      "file": "before.png",
+      "caption": "Before \u00b7 gallery rail obscures placard \u00b7 Ultra",
+      "sourceCommit": "760ab635ef53d1f58b93818d00fce14e0f4e705b",
+      "capturedAt": "2026-11-11T02:26:11.747Z",
+      "sha256": "a8937aa0d9b12ed60e1d69ead85a6bac4d168cb05a7da7afa0cc92dee406e38e",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "eye": [
+          0,
+          1.62,
+          0
+        ],
+        "bearing": 0,
+        "pitch": 13.751,
+        "fov": 70.73575888234288
+      },
+      "conditions": {
+        "date": "2026-11-11T10:32:01.904Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "quality": "ultra",
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T02:26:01.905Z",
+        "release": "game-8ffd9e016f7f2def",
+        "source": "6ad7b5f3322acc3c27fa01b428bc9f2aa2b7266c",
+        "city": "bucharest",
+        "district": "grozavesti",
+        "visit": null,
+        "scene": "grozavesti",
+        "office": "upb",
+        "mode": "office",
+        "drone": false,
+        "geographic": {
+          "lat": 44.4484846,
+          "lon": 26.0653108
+        },
+        "position": {
+          "x": 485.679,
+          "y": 0.24,
+          "z": -809.557
+        },
+        "camera": {
+          "eye": [
+            0,
+            1.62,
+            0
+          ],
+          "bearing": 0,
+          "pitch": 13.751,
+          "fov": 70.73575888234288
+        },
+        "conditions": {
+          "date": "2026-11-11T10:32:01.904Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 0.5,
+          "frameMs": 6199.5,
+          "drawCalls": 264,
+          "triangles": 797511,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 38.493,
+          "vehicles": 311,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:46249/game/?inspect=1"
+      },
+      "nativeRoomPose": null,
+      "scope": "Production game and native UI in a desktop browser. Paused automatic RAF, explicit native frames and setup poses; no physical-phone or normal-route claim."
+    },
+    {
+      "file": "after.png",
+      "caption": "After \u00b7 same frontal camera \u00b7 Ultra",
+      "sourceCommit": "7f070ee07c26e7ea04ae0f358425ea97bec193c0",
+      "capturedAt": "2026-11-11T02:26:48.009Z",
+      "sha256": "fb97a4002f82fec91a3a25cef319ba77de7371e30b4d9cf5859488b7dc2a7cf4",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "eye": [
+          0,
+          1.62,
+          0
+        ],
+        "bearing": 0,
+        "pitch": 13.751,
+        "fov": 70.73575888234288
+      },
+      "conditions": {
+        "date": "2026-11-11T10:30:42.478Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "quality": "ultra",
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T02:26:42.480Z",
+        "release": "game-8ffd9e016f7f2def",
+        "source": "6ad7b5f3322acc3c27fa01b428bc9f2aa2b7266c",
+        "city": "bucharest",
+        "district": "grozavesti",
+        "visit": null,
+        "scene": "grozavesti",
+        "office": "upb",
+        "mode": "office",
+        "drone": false,
+        "geographic": {
+          "lat": 44.4484846,
+          "lon": 26.0653108
+        },
+        "position": {
+          "x": 485.679,
+          "y": 0.24,
+          "z": -809.557
+        },
+        "camera": {
+          "eye": [
+            0,
+            1.62,
+            0
+          ],
+          "bearing": 0,
+          "pitch": 13.751,
+          "fov": 70.73575888234288
+        },
+        "conditions": {
+          "date": "2026-11-11T10:30:42.478Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 0.9,
+          "frameMs": 3116.4,
+          "drawCalls": 264,
+          "triangles": 797511,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 22.969,
+          "vehicles": 311,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:39249/game/?inspect=1"
+      },
+      "nativeRoomPose": null,
+      "scope": "Production game and native UI in a desktop browser. Paused automatic RAF, explicit native frames and setup poses; no physical-phone or normal-route claim."
+    },
+    {
+      "file": "phone.png",
+      "caption": "After \u00b7 390 \u00d7 844 touch browser \u00b7 High",
+      "sourceCommit": "7f070ee07c26e7ea04ae0f358425ea97bec193c0",
+      "capturedAt": "2026-11-11T02:32:59.391Z",
+      "sha256": "92c2b110f28af6d0395ba59cc02d9df64bb09ef1c87bc6ceab93849174a02d04",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "camera": {
+        "eye": [
+          0,
+          1.62,
+          -1
+        ],
+        "bearing": 0,
+        "pitch": 0,
+        "fov": 72.37839139964646
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:55.730Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "quality": "high",
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T02:32:55.731Z",
+        "release": "game-8ffd9e016f7f2def",
+        "source": "6ad7b5f3322acc3c27fa01b428bc9f2aa2b7266c",
+        "city": "bucharest",
+        "district": "grozavesti",
+        "visit": null,
+        "scene": "grozavesti",
+        "office": "upb",
+        "mode": "office",
+        "drone": false,
+        "geographic": {
+          "lat": 44.4484846,
+          "lon": 26.0653108
+        },
+        "position": {
+          "x": 485.679,
+          "y": 0.24,
+          "z": -809.557
+        },
+        "camera": {
+          "eye": [
+            0,
+            1.62,
+            -1
+          ],
+          "bearing": 0,
+          "pitch": 0,
+          "fov": 72.37839139964646
+        },
+        "conditions": {
+          "date": "2026-11-11T10:31:55.730Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "performance": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 145,
+          "triangles": 49785,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": 21.95,
+          "vehicles": 112,
+          "pedestrians": 260
+        },
+        "url": "http://127.0.0.1:34545/game/?inspect=1"
+      },
+      "nativeRoomPose": {
+        "x": 0,
+        "z": -1,
+        "heading": 0,
+        "pitch": 0
+      },
+      "scope": "Production game and native UI in a touch-enabled portrait browser. Paused automatic RAF, explicit native frames and setup poses; no physical-phone or normal-route claim."
+    },
+    {
+      "file": "window.png",
+      "caption": "Current room outlook \u00b7 High \u00b7 estimated facade placement",
+      "sourceCommit": "7f070ee07c26e7ea04ae0f358425ea97bec193c0",
+      "capturedAt": "2026-11-11T02:30:12.614Z",
+      "sha256": "11fba2b3e68d5f01f3a19ab7a23ce2918553d6c26b71a5f90138db9dc4791b26",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "eye": [
+          0,
+          1.62,
+          0
+        ],
+        "bearing": 90,
+        "pitch": 0,
+        "fov": 70.09957413673571
+      },
+      "conditions": {
+        "date": "2026-11-11T10:32:03.377Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "quality": "high",
+      "inspection": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T02:30:03.381Z",
+        "release": "game-8ffd9e016f7f2def",
+        "source": "6ad7b5f3322acc3c27fa01b428bc9f2aa2b7266c",
+        "city": "bucharest",
+        "district": "grozavesti",
+        "visit": null,
+        "scene": "grozavesti",
+        "office": "upb",
+        "mode": "office",
+        "drone": false,
+        "geographic": {
+          "lat": 44.4484846,
+          "lon": 26.0653108
+        },
+        "position": {
+          "x": 485.679,
+          "y": 0.24,
+          "z": -809.557
+        },
+        "camera": {
+          "eye": [
+            0,
+            1.62,
+            0
+          ],
+          "bearing": 90,
+          "pitch": 0,
+          "fov": 70.09957413673571
+        },
+        "conditions": {
+          "date": "2026-11-11T10:32:03.377Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "performance": {
+          "fps": 2.3,
+          "frameMs": 836.8,
+          "drawCalls": 269,
+          "triangles": 802157,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": 53.7,
+          "vehicles": 311,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:43917/game/?inspect=1"
+      },
+      "nativeRoomPose": {
+        "x": 0,
+        "z": 0,
+        "heading": -1.5707963267948966,
+        "pitch": 0
+      },
+      "scope": "Production game and native UI in a desktop browser. Paused automatic RAF, explicit native frames and setup poses; no physical-phone or normal-route claim."
+    }
+  ],
+  "sourceNote": "Immutable Git server sourceCommit above is authoritative. Raw inspection release/source fields retain the inherited release stamp; they are preserved, not relabelled.",
+  "validation": {
+    "logic": {
+      "durationSec": 162,
+      "args": {
+        "scenario": "foot,a",
+        "city": "bucharest",
+        "audit": false,
+        "headed": false,
+        "verbose": false,
+        "port": 8172,
+        "width": 640,
+        "height": 360,
+        "traffic": "full",
+        "dt": 0.03333333333333333,
+        "shots": 30,
+        "timeout": 240
+      },
+      "summary": {
+        "dynamic": {
+          "high": 0,
+          "medium": 0,
+          "low": 1,
+          "byType": {
+            "perf-fps": 1
+          }
+        },
+        "audit": {}
+      },
+      "issues": [
+        {
+          "type": "perf-fps",
+          "severity": "low",
+          "msg": "0.4 fps (2377 ms/frame, 107 draw calls, 309228 tris) at quality low 640\u00d7360 in software GL \u2014 not representative of real GPUs",
+          "scenario": "end",
+          "city": "bucharest",
+          "count": 1
+        }
+      ]
+    },
+    "nativeErrors": {
+      "baseline-office": [],
+      "candidate": [],
+      "native-phone": [],
+      "native-validation": []
+    },
+    "visibility": {
+      "rows": [
+        {
+          "eye": [
+            -4,
+            1.62,
+            -3
+          ],
+          "target": [
+            -2.52,
+            0.9400000000000001,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 7.9878157214597785
+        },
+        {
+          "eye": [
+            -4,
+            1.62,
+            -3
+          ],
+          "target": [
+            -2.52,
+            1.5,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 7.95972361329211
+        },
+        {
+          "eye": [
+            -4,
+            1.62,
+            -3
+          ],
+          "target": [
+            -2.52,
+            2.06,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 7.970972337174431
+        },
+        {
+          "eye": [
+            -4,
+            1.62,
+            -3
+          ],
+          "target": [
+            0,
+            0.9400000000000001,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 8.809926219895374
+        },
+        {
+          "eye": [
+            -4,
+            1.62,
+            -3
+          ],
+          "target": [
+            0,
+            1.5,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 8.784463557895837
+        },
+        {
+          "eye": [
+            -4,
+            1.62,
+            -3
+          ],
+          "target": [
+            0,
+            2.06,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 8.794657469168428
+        },
+        {
+          "eye": [
+            -4,
+            1.62,
+            -3
+          ],
+          "target": [
+            2.52,
+            0.9400000000000001,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 10.204175615893721
+        },
+        {
+          "eye": [
+            -4,
+            1.62,
+            -3
+          ],
+          "target": [
+            2.52,
+            1.5,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 10.182200155172751
+        },
+        {
+          "eye": [
+            -4,
+            1.62,
+            -3
+          ],
+          "target": [
+            2.52,
+            2.06,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 10.190996025904436
+        },
+        {
+          "eye": [
+            0,
+            1.62,
+            -3
+          ],
+          "target": [
+            -2.52,
+            0.9400000000000001,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 8.244100921264854
+        },
+        {
+          "eye": [
+            0,
+            1.62,
+            -3
+          ],
+          "target": [
+            -2.52,
+            1.5,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 8.216885054569037
+        },
+        {
+          "eye": [
+            0,
+            1.62,
+            -3
+          ],
+          "target": [
+            -2.52,
+            2.06,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 8.227782204215181
+        },
+        {
+          "eye": [
+            0,
+            1.62,
+            -3
+          ],
+          "target": [
+            0,
+            0.9400000000000001,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 7.849509538818333
+        },
+        {
+          "eye": [
+            0,
+            1.62,
+            -3
+          ],
+          "target": [
+            0,
+            1.5,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 7.820920661916985
+        },
+        {
+          "eye": [
+            0,
+            1.62,
+            -3
+          ],
+          "target": [
+            0,
+            2.06,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 7.8323687349358115
+        },
+        {
+          "eye": [
+            0,
+            1.62,
+            -3
+          ],
+          "target": [
+            2.52,
+            0.9400000000000001,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 8.244100921264854
+        },
+        {
+          "eye": [
+            0,
+            1.62,
+            -3
+          ],
+          "target": [
+            2.52,
+            1.5,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 8.216885054569037
+        },
+        {
+          "eye": [
+            0,
+            1.62,
+            -3
+          ],
+          "target": [
+            2.52,
+            2.06,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 8.227782204215181
+        },
+        {
+          "eye": [
+            4,
+            1.62,
+            -3
+          ],
+          "target": [
+            -2.52,
+            0.9400000000000001,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 10.204175615893721
+        },
+        {
+          "eye": [
+            4,
+            1.62,
+            -3
+          ],
+          "target": [
+            -2.52,
+            1.5,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 10.182200155172751
+        },
+        {
+          "eye": [
+            4,
+            1.62,
+            -3
+          ],
+          "target": [
+            -2.52,
+            2.06,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 10.190996025904436
+        },
+        {
+          "eye": [
+            4,
+            1.62,
+            -3
+          ],
+          "target": [
+            0,
+            0.9400000000000001,
+            -10.82
+          ],
+          "signFirst": false,
+          "first": "crowd-near",
+          "distance": 3.154853184998296
+        },
+        {
+          "eye": [
+            4,
+            1.62,
+            -3
+          ],
+          "target": [
+            0,
+            1.5,
+            -10.82
+          ],
+          "signFirst": false,
+          "first": "crowd-near",
+          "distance": 3.2854281259874214
+        },
+        {
+          "eye": [
+            4,
+            1.62,
+            -3
+          ],
+          "target": [
+            0,
+            2.06,
+            -10.82
+          ],
+          "signFirst": false,
+          "first": "crowd-near",
+          "distance": 3.2806753614577335
+        },
+        {
+          "eye": [
+            4,
+            1.62,
+            -3
+          ],
+          "target": [
+            2.52,
+            0.9400000000000001,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 7.9878157214597785
+        },
+        {
+          "eye": [
+            4,
+            1.62,
+            -3
+          ],
+          "target": [
+            2.52,
+            1.5,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 7.95972361329211
+        },
+        {
+          "eye": [
+            4,
+            1.62,
+            -3
+          ],
+          "target": [
+            2.52,
+            2.06,
+            -10.82
+          ],
+          "signFirst": true,
+          "first": "Mesh",
+          "distance": 7.970972337174431
+        }
+      ],
+      "passed": false,
+      "signTop": 2.2,
+      "galleryUnderside": 2.73,
+      "brickFaceZ": null,
+      "signZ": -10.82,
+      "scope": "27 native scene raycasts from three room positions to nine board points; opaque visible meshes only. Not a walked route."
+    },
+    "placement": {
+      "boardBoundsY": [
+        0.8,
+        2.2
+      ],
+      "galleryUndersideY": 2.73,
+      "boardZ": -10.82,
+      "brickFaceZ": -10.855,
+      "forwardClearanceM": 0.035
+    },
+    "overview": {
+      "passed": true,
+      "views": 4,
+      "viewports": [
+        1440,
+        390
+      ],
+      "checks": "Four images decode and match recorded SHA256, all card links HTTP200, no horizontal overflow, no script errors; repeat after reload. Full card screenshots reviewed."
+    }
+  },
+  "limits": [
+    "The supplied report bearing faces the left wall and does not show the placard; before/after use a matched supplemental frontal camera. Original report camera captures are retained privately.",
+    "24 of 27 native scene rays hit the placard first. Three rays from the right side hit the professor; do not interpret this as visibility through people. The raw ray diagnostic has a null brickFaceZ because room D is not exposed; placement numbers above use the authored 22 m room.",
+    "Phone is a touch-enabled Chromium viewport, not a physical phone. Fixed setup poses and paused RAF are not a completed walking route or real-device performance test.",
+    "An initial resized-phone frame was black and rejected. The accepted phone image comes from a fresh browser started at 390 \u00d7 844.",
+    "Conversation state and pause controls responded, but captured dialogue was not visibly readable. Conversation UI acceptance remains open; no conversation screenshot is presented as a pass.",
+    "Window photograph is a current appearance check only. Source room position, opening bearing and metre floor height remain estimates."
+  ]
+}

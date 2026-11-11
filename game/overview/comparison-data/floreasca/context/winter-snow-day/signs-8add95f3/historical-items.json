@@ -1,0 +1,115 @@
+{
+  "scope": "Superseded records, original pixels retained.",
+  "items": [
+    {
+      "id": "chapter-rosetti-street",
+      "chapterId": "rosetti",
+      "label": "rosetti actual chapter start street view",
+      "kind": "street",
+      "x": -245.49278934593488,
+      "z": 977.9616000000897,
+      "y": 1.7,
+      "target": [
+        -247.23776418105993,
+        1.7,
+        927.9920586491348
+      ],
+      "fov": 80,
+      "cameraY": 1.94,
+      "groundY": 0.24,
+      "heading": 358,
+      "pitch": -0.27501762954037684,
+      "aspect": 1.5,
+      "pose": {
+        "x": -245.49278934593488,
+        "y": 1.94,
+        "z": 977.9616000000897,
+        "heading": 358,
+        "pitch": -0.27501762954037684,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.0023996137358420293,
+          0.017452356175149113,
+          4.188541356176535e-05,
+          0.9998448156406404
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "winter",
+        "weatherOverride": "snow",
+        "weather": {
+          "source": "override",
+          "code": 73,
+          "kind": "snow",
+          "label": "Snow",
+          "icon": "🌨️",
+          "tempC": -2,
+          "precipMm": 0.8,
+          "snowCm": 12,
+          "snowfallCm": 0.6,
+          "windKmh": 12,
+          "windDir": 330,
+          "visibilityM": 1600,
+          "cloud": 1,
+          "season": "winter",
+          "updatedAt": 1794180075043,
+          "climate": null
+        },
+        "season": {
+          "season": "winter",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 1,
+          "brown": 0.75,
+          "fresh": 0,
+          "doy": 20
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 12,
+        "frameMs": 0,
+        "drawCalls": 221,
+        "triangles": 913194,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 5,
+      "lat": 44.4556,
+      "lon": 26.10071,
+      "image": "images/chapter-rosetti-street.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:24:40.175Z",
+      "sha256": "3cd29c6eae756c065289620631969647fa525e686f777e0a7437a7b7a427256a",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "winter",
+        "weather": "snow",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      },
+      "thumbnail": "thumbs/chapter-rosetti-street.jpg",
+      "thumb": "thumbs/chapter-rosetti-street.jpg",
+      "thumbnailSha256": "186a84da7efe36f714e4cc3696d17891331bdfe1ec627d74762a90164b3a5658",
+      "reviewNote": "Actual outward winter views and chapter-start street are present. Selected snow/fog and leafless source crowns are visible; distant detail remains sparse/generic. These static cameras do not exercise the drone controller, sports gameplay or driving/mirror budgets."
+    }
+  ]
+}

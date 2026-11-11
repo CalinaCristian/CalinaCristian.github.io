@@ -1,0 +1,34 @@
+{
+  "reviewedAt": "2026-11-11T02:16:37.646632+00:00",
+  "scope": "Individual originals reviewed full size; no traversed route or whole-district fidelity claim.",
+  "items": [
+    {
+      "file": "district/pipera/summer-day/frontage-bob-02c5cbcc0b6a.jpg",
+      "sha256": "02c5cbcc0b6aa19463fb2c8a6659f76e4386d61b95b783aed25096b4b118370d",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "district/pipera/summer-night/frontage-bob-0eb804685662.jpg",
+      "sha256": "0eb804685662c334e6784ad47cef4ba6b0b2525eb7d0cbbb6b341b768f5b0e94",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "district/pipera/winter-day/frontage-bob-e57c21546262.jpg",
+      "sha256": "e57c21546262221f501db9f705405502f6d47435d56599a5eb3a78d28dd7c309",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    },
+    {
+      "file": "district/pipera/winter-night/frontage-bob-05016b761371.jpg",
+      "sha256": "05016b7613712563cfe90f3df72c2422b68846feaec8e690489f7ef2f2040da6",
+      "reviewedFullSize": true,
+      "acceptedCurrentStaticFrame": true,
+      "note": "Visible current context; architecture, traffic and district fidelity gaps remain open. UiPath view shows park trees, not the office frontage."
+    }
+  ]
+}

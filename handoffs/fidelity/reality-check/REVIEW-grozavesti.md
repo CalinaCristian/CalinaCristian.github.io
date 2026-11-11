@@ -18,4 +18,9 @@ What Street View established on 2026-11-11 (and the game now follows):
 | --- | --- |
 | grz-pasaj-west-overpass, arch over the Dâmbovița | the deck height over the river (the shared model holds 11 m; the panorama suggests lower, not measured) |
 | tall curved twin-arm lamps on the west ramp median | the median now carries the ordinary lamps of the carriageways |
-| all viewpoints not listed in the backlog | not reviewed |
+| grz-deck-west-span | matches (Șos. Orhideelor beside the viaduct on single piers, parking beneath); the capture tool puts the `top` eye on the ground here because the panorama point lies beside the deck, not on it |
+
+All 19 viewpoints rendered 2026-11-11 (`capture.cjs --district=grozavesti`). Compared with the panorama: grz-pasaj-west-cet,
+grz-pasaj-west-start (matches: two lanes, grass median, parallel road, bollards, ramp rising ahead), grz-pasaj-west-overpass,
+grz-titulescu-92, grz-deck-west-span. The other 14 sit at owner report poses and were re-captured when those reports were fixed
+(BACKLOG, "Fixed on branch").

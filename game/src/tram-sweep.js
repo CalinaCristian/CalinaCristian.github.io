@@ -149,8 +149,9 @@ export function districtTramSweep(data, { resolveGrade, makeVehicle, city, insid
     if (!(data?.trams || []).length || typeof makeVehicle !== 'function') return null;
     const network = buildTramNetwork(data, { resolveGrade }), bodies = tramBodyProfiles(makeVehicle, city);
     if (!network.edges.length || !bodies.length) return null;
-    // The guard refuses a body that is not wholly inside the district. A pose with its centre and both ends outside can
-    // never be taken, so nothing has to make room for it.
-    const keep = inside ? p => [0, 1, -1].some(k => inside(p.x + p.fx * k * p.body.lengthM / 2, p.z + p.fz * k * p.body.lengthM / 2)) : null;
+    // The guard refuses a body that is not wholly inside the district, and a tram plans its stop before that (Traffic.
+    // railDistrictLimit). A pose whose centre or either end is outside is never taken: nothing has to make room for it.
+    // (Keeping poses with one point inside cut the road-closed barriers at the district edge down to half a road.)
+    const keep = inside ? p => [0, 1, -1].every(k => inside(p.x + p.fx * k * p.body.lengthM / 2, p.z + p.fz * k * p.body.lengthM / 2)) : null;
     return buildTramSweep(network, bodies, TRAM_SWEEP_MODEL, { keep });
 }

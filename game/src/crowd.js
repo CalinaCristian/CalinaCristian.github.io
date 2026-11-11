@@ -321,7 +321,7 @@ export function makeCrowd({ max = 256, city = 'bucharest', season = seasonOf(), 
         const at = {};
         for (const [k, n] of [['aTop', 3], ['aBottom', 3], ['aSkin', 3], ['aHair', 3], ['aAcc', 3], ['aAnim', 4]]) { at[k] = new THREE.InstancedBufferAttribute(new Float32Array(N * n), n); at[k].setUsage(THREE.DynamicDrawUsage); g.setAttribute(k, at[k]); }
         const mesh = new THREE.InstancedMesh(g, mat, N); mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage); mesh.customDepthMaterial = crowdDepthMaterial();
-        mesh.frustumCulled = false; mesh.castShadow = cast; mesh.receiveShadow = true; mesh.count = 0; mesh.userData.shared = true;
+        mesh.frustumCulled = false; mesh.castShadow = cast; mesh.receiveShadow = true; mesh.count = 0; mesh.userData.shared = true; mesh.userData.skipNormalPrepass = true; // (its shape is in its vertex shader: see the ambient-occlusion prepass in render.js)
         object.add(mesh);
         return { mesh, at };
     };

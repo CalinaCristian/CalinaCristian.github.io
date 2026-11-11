@@ -294,12 +294,27 @@ export class Traffic {
                 if (!C || !F || !R) continue; // the path ends or forks unresolved here: the leaf rule owns that stop
                 const hx = F.x - R.x, hz = F.z - R.z; if (hx * hx + hz * hz < 1e-9) continue;
                 body.x = C.x; body.z = C.z; body.heading = Math.atan2(-hx, -hz);
-                if (!this.railBodyInside(body)) next[i] = i; // the guard's own domain test; a track may run right along the edge
+                if (!this.railBodyInside(body) || this.railBodyAtClosure(body)) next[i] = i; // the guard's own domain test; a track may run right along the edge
             }
             cache.set(key, next);
         }
         const bad = next[Math.min(next.length - 1, Math.max(0, Math.ceil(from / .5 - 1e-9)))];
         return bad < 0 ? Infinity : Math.max(from, bad * .5 - 1);
+    }
+
+    /** The body's cover touches a "road closed" barrier of the district edge: the line ends there for a tram as well. */
+    railBodyAtClosure(body) {
+        const B = this.world.buildings; if (!B?.query) return false;
+        let hit = false;
+        for (const p of initialBodyCover(body)) {
+            B.query(p.x, p.z, p.radius + .3, c => {
+                if (hit || c.kind !== 'closure') return;
+                if (c.wall) { const dx = c.bx - c.ax, dz = c.bz - c.az, t = clamp(((p.x - c.ax) * dx + (p.z - c.az) * dz) / (dx * dx + dz * dz || 1), 0, 1); if (Math.hypot(p.x - c.ax - dx * t, p.z - c.az - dz * t) < p.radius + .3) hit = true; }
+                else if (Math.hypot(p.x - c.x, p.z - c.z) < p.radius + (c.r || 0) + .3) hit = true;
+            });
+            if (hit) return true;
+        }
+        return false;
     }
 
     bindSourceTrams() {

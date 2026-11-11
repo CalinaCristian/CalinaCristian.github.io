@@ -1327,6 +1327,14 @@ export class Renderer3D {
             if (!this.gtaoPass) this._gtaoLoading ??= import('../vendor/addons/GTAOPass.js').then(({ GTAOPass }) => {
                 if (!this.tier.ao || !this.scene || !this.camera) return;
                 this.gtaoPass = new GTAOPass(this.scene, this.camera, w, h);
+                // The pass draws the scene's normals with one override material. A mesh whose shape lives in its own vertex
+                // shader is drawn there in its rest shape: the walkers' hidden outfit parts (an umbrella canopy, a backpack, a
+                // coat skirt on everyone) and unposed limbs became faint boxes and stray dark patches around people at Ultra
+                // (owner: "shadows for pedestrians, invisible boxes"). Such meshes (userData.skipNormalPrepass) sit that
+                // prepass out; they are still drawn, lit and shadowed as before.
+                { const pass = this.gtaoPass, hide = pass.overrideVisibility.bind(pass), show = pass.restoreVisibility.bind(pass), parked = [];
+                  pass.overrideVisibility = () => { hide(); pass.scene?.traverse(o => { if (o.userData?.skipNormalPrepass && o.visible) { o.visible = false; parked.push(o); } }); };
+                  pass.restoreVisibility = () => { for (const o of parked) o.visible = true; parked.length = 0; show(); }; }
                 this.gtaoPass.updateGtaoMaterial({ radius: 0.6, distanceExponent: 1.5, thickness: 1, scale: 1 });
                 this.gtaoPass.blendIntensity = 0.85;
                 if (this.tier.ao) this._buildPasses();

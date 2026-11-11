@@ -120,10 +120,12 @@ export function buildBasarabStructure(data,grades,cellOf,group,edges=[],{roadReg
 
 /** Surviving physical rail intervals own the visible Basarab edge treatment.
  * White open steel rails and a blue fascia follow builder photographs. */
-export function drawBasarabGuard(w,cellOf){
+/** `lit` (optional MeshBuilder): the blue band along the deck edge is repeated in it, for the night lighting. */
+export function drawBasarabGuard(w,cellOf,lit=null){
  const L=Math.hypot(w.bx-w.ax,w.bz-w.az),n=Math.max(1,Math.ceil(L/2.4)),at=(t,h)=>[w.ax+(w.bx-w.ax)*t,w.y1a+(w.y1b-w.y1a)*t-1.1+h,w.az+(w.bz-w.az)*t];
  for(const h of [.48,.97])bridgeBeam(cellOf,at(0,h),at(1,h),.1,'#e4e8e7');
  bridgeBeam(cellOf,at(0,.1),at(1,.1),.18,'#456e9a');
+ if(lit)bridgeBeam(()=>({solid:lit}),at(0,.1),at(1,.1),.215,'#456e9a');
  for(let i=0;i<=n;i++)bridgeBeam(cellOf,at(i/n,.15),at(i/n,1.08),.085,'#dce2e2');
 }
 
@@ -175,6 +177,11 @@ function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPa
  // carriageways. Its14m leg-centre spacing is an explicit photo-informed
  // estimate; using the wider station roof as its span put both legs in lanes.
  const towerS=s0-30,legOffset=7;
+ // Night lighting, from photographs of the bridge after dark (the owner's reference, 2026-11-11): the white pylon and its
+ // stays are floodlit warm white and a blue light band runs along the deck edge. The floodlit members are repeated in one
+ // mesh, a few centimetres proud of the day geometry and the same colour by day; its material glows at night
+ // (userData.nightEmissive, the renderer's night-material contract). ESTIMATE of colour and strength.
+ const lit=new MeshBuilder(),litCell=()=>({solid:lit}),litCol='#d8d8d0';
  report.pylonLegCentreSpacingM=legOffset*2;
  // The completed main span crosses the railway southwest of the pylon. The
  // station/northeast arm is the shorter backspan.132m is inferred from the
@@ -186,6 +193,7 @@ function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPa
  { const A=at(towerS-mainSpanSW,nc,0),B=at(towerS+backspanNE,nc,0); report.carriedSpans=[{kind:'cable-stayed',a:[A[0],A[2]],b:[B[0],B[2]],halfWidthM:34}]; }
  for(const sign of [-1,1]){
   const c=at(towerS,nc+sign*legOffset,.2);cellOf(c[0],c[2]).solid.box(c[0],.2,c[2],3,79.8,3,Math.atan2(u[0],u[1]),rgb('#d8d8d0'));
+  lit.box(c[0],12.5,c[2],3.06,67.6,3.06,Math.atan2(u[0],u[1]),rgb(litCol)); // (from the deck up)
   const poly=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([v,w])=>[c[0]+u[0]*v*1.5+n[0]*w*1.5,c[2]+u[1]*v*1.5+n[1]*w*1.5]);
   colliders.push({x:c[0],z:c[2],r:Math.SQRT2*1.5,poly,holes:[],h:80,y0:.2,y1:80,prop:true,kind:'basarab-pylon',estimated:true});
   for(const dir of [-1,1])for(let i=0;i<15;i++){
@@ -212,10 +220,12 @@ function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPa
    }
    if(!chosen){report.anchorUnresolved.push({sign,direction:dir,index:i,plannedS,reason:lastFailure});continue;}
    anchorStations.set(sign+','+dir,chosen.anchorS);
-   bridgeBeam(cellOf,tower,chosen.anchor,.11,'#b4c3c9',colliders,'basarab-stay');report.emittedStays++;report.anchors.push({sign,direction:dir,index:i,...chosen});
+   bridgeBeam(cellOf,tower,chosen.anchor,.11,'#b4c3c9',colliders,'basarab-stay');bridgeBeam(litCell,tower,chosen.anchor,.14,'#b4c3c9');report.emittedStays++;report.anchors.push({sign,direction:dir,index:i,...chosen});
   }
  }
  for(const y of [58,67,76])bridgeBeam(cellOf,at(towerS,nc-legOffset,y),at(towerS,nc+legOffset,y),1,'#d7d9d3',colliders);
+ for(const y of [58,67,76])bridgeBeam(litCell,at(towerS,nc-legOffset,y),at(towerS,nc+legOffset,y),1.05,'#d7d9d3');
+ if(group&&lit.ic>0){const mesh=new THREE.Mesh(lit.build(),new THREE.MeshStandardMaterial({vertexColors:true,emissive:'#ffdcae',emissiveIntensity:0,roughness:.7}));mesh.material.userData.nightEmissive=.8;mesh.name='Basarab night floodlighting: pylon and stays (estimate)';mesh.castShadow=false;mesh.receiveShadow=false;group.add(mesh);report.nightLitMembers=lit.ic/3;}
  // River crossing: the mapped lower Grozavesti bridge constrains its position;
  // the upper main rail pair supplies the local Basarab direction and level.
  const river=riverLine&&riverPair?nearest(riverLine,[115,-222]):null;

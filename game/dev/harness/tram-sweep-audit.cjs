@@ -58,7 +58,11 @@ const server = http.createServer((req, res) => {
             return { city, district, stepM, railLegs: rails.length, bodyLengthsM: protos.map(p => p.length), poses, bodyOutsideDistrict: outside, noPose: unresolved, refused, sweep: W.stats.tramSweep, obstacles: list };
         }, { city, district, stepM });
         // what the world builder generates on its own: none of it may stand in a tram's way
-        const generated = o => o.inferred || /^(bollard|tlight|pier|closure|rail-roadside-cap|furniture|busstop|basarab-|bridge-|lamp|tree)/.test(o.kind);
+        // A road-closed barrier at the district edge ends the line for a tram as well: it plans its stop in front of it
+        // (Traffic.railDistrictLimit), so poses at and beyond one are never taken. Counted apart, not as conflicts.
+        const lineEnds = report.obstacles.filter(o => o.kind === 'closure'); report.obstacles = report.obstacles.filter(o => o.kind !== 'closure'); report.posesBeyondClosures = lineEnds.reduce((n, o) => n + o.poses, 0); report.refused -= report.posesBeyondClosures;
+        // (a rail-kind wall is a bridge guard: generated too, unless it is a source barrier, which carries its source id)
+        const generated = o => o.inferred || (o.kind === 'rail' && !o.sourceId) || /^(bollard|tlight|pier|rail-roadside-cap|furniture|busstop|basarab-|bridge-|lamp|tree)/.test(o.kind);
         const own = report.obstacles.filter(generated), others = report.obstacles.filter(o => !generated(o)), byKind = {};
         for (const o of report.obstacles) { const k = byKind[o.kind] || (byKind[o.kind] = { obstacles: 0, poses: 0 }); k.obstacles++; k.poses += o.poses; }
         fs.writeFileSync(path.join(out, `${city}-${district}.json`), JSON.stringify({ root, method: 'Built district world; game pose and rail guard at every station; RAF disabled; no visual or journey claim.', ...report, byKind, errors }, null, 2));

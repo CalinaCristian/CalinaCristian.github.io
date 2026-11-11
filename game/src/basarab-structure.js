@@ -84,7 +84,7 @@ export function basarabEdge(data,e){return data.city==='bucharest'&&data.distric
 /** Real literal platform outlines and a bounded centre support gap. The same
  * source height field already carries the two tracks. No invented broad deck
  * polygon, coordinate snapping, lane edits or source-record deletion. */
-export function buildBasarabStructure(data,grades,cellOf,group,edges=[],{roadRegions=[],tramEnvelope=null,supportAt=null}={}){
+export function buildBasarabStructure(data,grades,cellOf,group,edges=[],{roadRegions=[],tramEnvelope=null,supportAt=null,tramSweep=null}={}){
  const report={active:false,sourcePlatforms:[],gapPieces:0,unresolved:[],estimated:true},pieces=[],colliders=[];
  if(data.city!=='bucharest'||data.district?.id!=='grozavesti')return{report,pieces,colliders};
  const [line,paired]=railIds.map(id=>sourceLine(data,id,grades));if(!line||!paired)return{report,pieces,colliders};report.active=true;
@@ -112,7 +112,7 @@ export function buildBasarabStructure(data,grades,cellOf,group,edges=[],{roadReg
   tramRegions.push({id:c.sourceId,poly,minY:Math.min(...hs)-guard+tramEnvelope.tiltedMinY,maxY:Math.max(...hs)+guard+tramEnvelope.tiltedMaxY,x0:Math.min(...poly.map(p=>p[0])),x1:Math.max(...poly.map(p=>p[0])),z0:Math.min(...poly.map(p=>p[1])),z1:Math.max(...poly.map(p=>p[1]))});
  }
  const deckSupportAt=(x,z,base)=>{let top=supportAt?.(x,z,base)??null;for(const p of pieces){const h=p.roofHeightAt(x,z);if(h!==null&&Math.abs(h-base)<.3&&(top===null||Math.abs(h-base)<Math.abs(top-base)))top=h;}return top;};
- const structure=drawSuperstructure(BASARAB_PLATFORMS,line,paired,cellOf,group,roadLine(data,'w458458361',edges),roadLine(data,'w1552024280',edges),roadRegions,tramRegions,tramEnvelope?.halfWidthM,deckSupportAt);
+ const structure=drawSuperstructure(BASARAB_PLATFORMS,line,paired,cellOf,group,roadLine(data,'w458458361',edges),roadLine(data,'w1552024280',edges),roadRegions,tramRegions,tramEnvelope?.halfWidthM,deckSupportAt,tramSweep);
  colliders.push(...structure.colliders);report.superstructure=structure.report;
  report.unresolved.push(...structure.report.anchorUnresolved);
  return {report,pieces,colliders};
@@ -130,7 +130,13 @@ export function drawBasarabGuard(w,cellOf){
 /** Completed bridge form from the builder's description/photos. Untagged
  * placement and member sections are estimates, listed in the source ledger.
  * The 2006 proposal's different span sizes are deliberately not used. */
-function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPair,roads,trams,tramHalfWidth,supportAt){
+/** A finite cable against the swept cover of the rigid tram bodies, in 1 m pieces with the member's own height there. */
+function cableInTramSweep(sweep,a,b,radius=.2){
+ const n=Math.max(1,Math.ceil(Math.hypot(b[0]-a[0],b[1]-a[1],b[2]-a[2])));
+ for(let i=0;i<n;i++){const p=[0,1,2].map(k=>a[k]+(b[k]-a[k])*i/n),q=[0,1,2].map(k=>a[k]+(b[k]-a[k])*(i+1)/n);if(sweep.segment([p[0],p[2]],[q[0],q[2]],radius,Math.min(p[1],q[1])-radius,Math.max(p[1],q[1])+radius))return true;}
+ return false;
+}
+function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPair,roads,trams,tramHalfWidth,supportAt,tramSweep=null){
  const pts=platforms.flatMap(p=>p.points),a=platforms[0].points[0],b=platforms[0].points[4],L=distance(a,b),u=[(b[0]-a[0])/L,(b[1]-a[1])/L],n=[-u[1],u[0]],ss=p=>(p[0]-a[0])*u[0]+(p[1]-a[1])*u[1],ns=p=>(p[0]-a[0])*n[0]+(p[1]-a[1])*n[1];
  const s0=Math.min(...pts.map(ss)),s1=Math.max(...pts.map(ss)),n0=Math.min(...pts.map(ns)),n1=Math.max(...pts.map(ns)),nc=(n0+n1)/2,half=(n1-n0)/2+.25;
  const at=(s,t,y)=>[a[0]+u[0]*s+n[0]*t,y,a[1]+u[1]*s+n[1]*t];
@@ -182,7 +188,9 @@ function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPa
      const x=centre[0]+normal[0]*offset,z=centre[1]+normal[1]*offset,ground=supportAt(x,z,base);
      if(ground===null){lastFailure={kind:'native-deck-support-missing',x,z,base,offset};continue;}
      const anchor=[x,ground+.4,z],clearance=cableClearance(tower,anchor,roads,trams);
-     if(!clearance.clear){lastFailure=clearance;continue;}chosen={anchor,anchorS,plannedS,offset,range};break;
+     if(!clearance.clear){lastFailure=clearance;continue;}
+     // The straight corridor test above uses the literal body width; the rail guard covers a rigid body (tram-sweep.js).
+     if(tramSweep&&cableInTramSweep(tramSweep,tower,anchor)){lastFailure={clear:false,kind:'tram-sweep'};continue;}chosen={anchor,anchorS,plannedS,offset,range};break;
     }if(chosen)break;}
     if(chosen)break;
    }

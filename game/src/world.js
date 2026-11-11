@@ -50,6 +50,7 @@ import { coveredPlatformCanopies } from './covered-platform-canopies.js';
 import { BASARAB_PLATFORMS } from './basarab-source.js';
 import { raisedRoadTriangles } from './basarab-anchor-clearance.js';
 import { buildRailRoadsideClearance } from './rail-roadside.js';
+import { districtTramSweep } from './tram-sweep.js';
 import { buildCoveredRoadModels } from './covered-road-models.js';
 import { roadMiter, needsRoadBevelPad } from './road-joins.js';
 import { markingArea, clipMarkingHalfPlane, clipMarkingConvex, subtractMarkingConvex, clipAffineMarkingRange, buildMarkingStations, markingDashIntervals } from './road-markings.js';
@@ -1646,6 +1647,12 @@ export async function buildWorld(city, renderer, opts = {}) {
     const bounds = { minX: bx0 - pad, maxX: bx1 + pad, minZ: bz0 - pad, maxZ: bz1 + pad };
     // district inside-mask (20 m cells, RLE rows): where the player may drive; boundary walls follow its outline
     let dmask = decodeDistrictMask(data.district?.mask);
+    // A tram body is one rigid 27 m / 36 m box and the rail guard covers it with discs, so on a bend it reaches outside
+    // the straight literal corridor. Whatever this builder adds itself stays out of that sweep (tram-sweep.js); mapped
+    // trees found inside it are recorded as source conflicts. No rail, actor or guard rule is changed.
+    const tramSweep = districtTramSweep(data, { resolveGrade: tramGrades.resolveGrade, makeVehicle, city: city.id, inside: dmask ? (x, z) => !!dmask.at(x, z) : null });
+    const tramSweepConflicts = { droppedGenerated: {}, wallPiecesCut: {}, closures: [], trees: [], pierTopsLowered: 0 };
+    const sweptOut = (kind, hit) => { if (hit) tramSweepConflicts.droppedGenerated[kind] = (tramSweepConflicts.droppedGenerated[kind] || 0) + 1; return !!hit; };
     if (dmask) Object.assign(bounds, { minX: dmask.x0 - pad, minZ: dmask.z0 - pad, maxX: dmask.x0 + dmask.w * dmask.cell + pad, maxZ: dmask.z0 + dmask.h * dmask.cell + pad });
 
     // -----------------------------------------------------------------------
@@ -3061,7 +3068,8 @@ export async function buildWorld(city, renderer, opts = {}) {
             const conflict = (a, b, f0, f1) => tramGrades.excludesInferredObstacle(a, b, { inferred: true, bodyEnvelope: tramPropEnvelope, radiusM: .15,
                 y0a: w.y0a + (w.y0b - w.y0a) * f0, y1a: w.y1a + (w.y1b - w.y1a) * f0 + .45,
                 y0b: w.y0a + (w.y0b - w.y0a) * f1, y1b: w.y1a + (w.y1b - w.y1a) * f1 + .45,
-                kind: 'inferred-separation-barrier', sourceId: data.roadSourceGeometry?.[w.edge?.road]?.sourceId });
+                kind: 'inferred-separation-barrier', sourceId: data.roadSourceGeometry?.[w.edge?.road]?.sourceId })
+                || !!tramSweep?.segment(a, b, .15, Math.min(w.y0a + (w.y0b - w.y0a) * f0, w.y0a + (w.y0b - w.y0a) * f1) - .3, Math.max(w.y1a + (w.y1b - w.y1a) * f0, w.y1a + (w.y1b - w.y1a) * f1));
             if (w.kind !== 'barrier' || w.inferred !== true || !tramPropEnvelope || !conflict([w.ax, w.az], [w.bx, w.bz], 0, 1)) { railClearWalls.push(w); continue; }
             const count = Math.max(1, Math.ceil(Math.hypot(w.bx - w.ax, w.bz - w.az))); let run = null;
             const emit = () => {
@@ -3099,7 +3107,16 @@ export async function buildWorld(city, renderer, opts = {}) {
             emitOwnedSeparationQuad(c.solid,[[w.ax + px, ya + 0.9, w.az + pz], [w.bx + px, yb + 0.9, w.bz + pz], [w.bx - px, yb + 0.9, w.bz - pz], [w.ax - px, ya + 0.9, w.az - pz]],shadeRgb(barrierCol,1.08),[0,1,0],metadata,parapetOwnership);
         }
     }
-    walls.push(...railRoadsideCaps); // exact render-matched new fascia; no invented barrier thickness
+    for (const w of railRoadsideCaps) { // exact render-matched new fascia; no invented barrier thickness
+        // The slab is cut at the literal body width; the guard's cover reaches 0.18 m further and a rigid body more on a
+        // bend. Collider pieces of this inferred face inside that sweep are left out. The drawn face is unchanged.
+        const runs = tramSweep ? tramSweep.freeRuns([w.ax, w.az], [w.bx, w.bz], { r: .02, y0a: w.y0a - .3, y1a: w.y1a, y0b: w.y0b - .3, y1b: w.y1b, pieceM: .25 }) : [[0, 1]];
+        if (runs.length === 1 && runs[0][0] === 0 && runs[0][1] === 1) { walls.push(w); continue; }
+        const lerp = (a, b, t) => a + (b - a) * t, len = Math.hypot(w.bx - w.ax, w.bz - w.az), kept = runs.reduce((n, q) => n + q[1] - q[0], 0);
+        tramSweepConflicts.wallPiecesCut['rail-roadside-cap'] = (tramSweepConflicts.wallPiecesCut['rail-roadside-cap'] || 0) + len * (1 - kept);
+        for (const [f0, f1] of runs) { const ax = lerp(w.ax, w.bx, f0), az = lerp(w.az, w.bz, f0), bx = lerp(w.ax, w.bx, f1), bz = lerp(w.az, w.bz, f1);
+            walls.push({ ...w, ax, az, bx, bz, y0a: lerp(w.y0a, w.y0b, f0), y0b: lerp(w.y0a, w.y0b, f1), y1a: lerp(w.y1a, w.y1b, f0), y1b: lerp(w.y1a, w.y1b, f1), x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 }); }
+    }
     // The builder retains whole source bridge chains beyond its original core.
     // Their actual road/pad support and the cockpit's complete body must share
     // the same finite mask, bounds, inside query and synthetic wall outline.
@@ -3146,6 +3163,15 @@ export async function buildWorld(city, renderer, opts = {}) {
             candidates.push({ x: cx, z: cz, node: n, edge: e, ix, iz, px, pz, half: (wN + wP) / 2, y, barrierHeight: US ? 1.51 : 1.36, kind, heading: Math.atan2(ix, iz), l0: -wN, l1: wP });
         }
         mapEnds.push(...normalizeSourceMapEnds(candidates, boundarySupport));
+        if (tramSweep) for (let k = 0; k < mapEnds.length; k++) {
+            // The barrier across a cut road is this builder's own. Where a tram's swept body crosses its span the span
+            // ends there: the longest part clear of the sweep is kept, wall and decoration alike.
+            const m = mapEnds[k], runs = tramSweep.freeRuns([m.x + m.px * m.l0, m.z + m.pz * m.l0], [m.x + m.px * m.l1, m.z + m.pz * m.l1], { r: .35, y0a: m.y - .3, y1a: m.y + m.barrierHeight, pieceM: .25 });
+            if (runs.length === 1 && runs[0][0] === 0 && runs[0][1] === 1) continue;
+            const best = runs.reduce((a, b) => (b[1] - b[0] > a[1] - a[0] ? b : a), [0, 0]), span = m.l1 - m.l0, l0 = m.l0 + span * best[0], l1 = m.l0 + span * best[1];
+            tramSweepConflicts.closures.push({ sourceId: data.roadSourceGeometry?.[m.edge?.road]?.sourceId ?? null, edgeId: m.edge?.id ?? null, x: m.x, z: m.z, spanBeforeM: [m.l0, m.l1], spanAfterM: [l0, l1], removedM: span - (l1 - l0) });
+            mapEnds[k] = Object.freeze({ ...m, l0, l1, half: (l1 - l0) / 2, tramSweepTrimmed: true });
+        }
         for (const m of mapEnds) {
             const { x, z, px, pz, y, ix, iz, l0, l1, edge, node } = m,
                 ax = x + px * l0, az = z + pz * l0, bx = x + px * l1, bz = z + pz * l1;
@@ -3937,6 +3963,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (sourceTreeNear(x, z, r + 1.6)) return false;
             if (ring(x, z, r + .6).some(([px, pz]) => isWater(px, pz) || buildingAt(px, pz))) return false;
             if (lowerRibbon(x, z, r + .3, belowY) || lowerEdge(x, z, r + .3, belowY, true) || railNear(x, z, 1.7 + r + .4, belowY)) return false;
+            if (tramSweep?.circle(x, z, r + .1, -1, belowY + 1.5, p => p.y < belowY + 1)) return false; // the swept rigid body of a tram passing below or beside
             { let built = false; for (const [px, pz] of ring(x, z, r + .3)) surfacesAt(px, pz, h => { if (h < belowY) built = true; }); if (built) return false; } // any walked / driven surface
             let deck = false; sceneryDeckGrid.each(x - r, z - r, x + r, z + r, d => { if (!deck && d.h < belowY && ring(x, z, r).some(([px, pz]) => pointInPolygon(px, pz, d.poly))) deck = true; });
             return !deck;
@@ -4008,7 +4035,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         //      centre support, station roof, H-frame, stays and river arch. The slot infill above is real deck for its stay
         //      anchors; the stretches its stays and arch carry get no pier below.
         const basarabRoadRegions = basarabDistrict ? raisedRoadTriangles(cells.values()) : [];
-        basarabStructure = buildBasarabStructure(data, tramGrades, cellOf, group, edges, { roadRegions: basarabRoadRegions, tramEnvelope: tramPropEnvelope, supportAt: (x, z, base) => { let top = null; surfacesAt(x, z, h => { if (Math.abs(h - base) < .3 && (top === null || Math.abs(h - base) < Math.abs(top - base))) top = h; }); return top; } });
+        basarabStructure = buildBasarabStructure(data, tramGrades, cellOf, group, edges, { roadRegions: basarabRoadRegions, tramEnvelope: tramPropEnvelope, tramSweep, supportAt: (x, z, base) => { let top = null; surfacesAt(x, z, h => { if (Math.abs(h - base) < .3 && (top === null || Math.abs(h - base) < Math.abs(top - base))) top = h; }); return top; } });
         const carriedSpans = basarabStructure.report.superstructure?.carriedSpans || [];
         const carried = (x, z) => carriedSpans.some(sp => { const dx = sp.b[0] - sp.a[0], dz = sp.b[1] - sp.a[1], L = Math.hypot(dx, dz) || 1, t = ((x - sp.a[0]) * dx + (z - sp.a[1]) * dz) / L; return t > 6 && t < L - 6 && Math.abs((x - sp.a[0]) * -dz + (z - sp.a[1]) * dx) / L < sp.halfWidthM; });
         bridgeBents = planBridgeBents({
@@ -4020,12 +4047,16 @@ export async function buildWorld(city, renderer, opts = {}) {
             columnFree, lowerSurface, carried,
         });
         const conc = rgb('#a9a69e'), base = -.4;
+        // The guard takes one height interval for a whole pitched tram body: on a ramp its low end reads below the deck
+        // under its high end. A pier is under the slab that carries that tram, so its collider ends below that reading;
+        // the drawn pier is unchanged and nothing but the tram above could reach the difference.
+        const pierTop = (x, z, r, seat) => { const under = tramSweep ? tramSweep.undersideOver(x, z, r, p => p.y >= seat - .5) : Infinity; if (under - .05 < seat - .5) tramSweepConflicts.pierTopsLowered++; return Math.min(seat - .5, under - .05); };
         for (const b of bridgeBents.bents) {
             const sb = cellOf(b.x, b.z).solid;
             if (b.kind === 'wall') {
                 const w = Math.max(1, b.width - .4);
                 sb.box(b.x, base, b.z, w, b.seat - base, .9, b.angle, conc);
-                pierColl.push({ x: b.x, z: b.z, hw: w / 2, hd: .45, angle: b.angle, r: Math.hypot(w / 2, .45), poly: null, h: b.seat, prop: true, kind: 'pier', yMax: b.seat - .5 });
+                pierColl.push({ x: b.x, z: b.z, hw: w / 2, hd: .45, angle: b.angle, r: Math.hypot(w / 2, .45), poly: null, h: b.seat, prop: true, kind: 'pier', yMax: pierTop(b.x, b.z, Math.hypot(w / 2, .45), b.seat) });
                 continue;
             }
             sb.box(b.x, b.soffit, b.z, b.width + .6, BENT_MODEL.beamDepthM, BENT_MODEL.beamWidthM, b.angle, conc);
@@ -4033,7 +4064,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (const c of b.columns) {
                 const m = BENT_MODEL.columnM;
                 sb.box(c.x, base, c.z, m, b.soffit - base, m, b.angle, conc);
-                pierColl.push({ x: c.x, z: c.z, hw: m / 2, hd: m / 2, angle: b.angle, r: m * .75, poly: null, h: b.soffit, prop: true, kind: 'pier', yMax: b.seat - .5 });
+                pierColl.push({ x: c.x, z: c.z, hw: m / 2, hd: m / 2, angle: b.angle, r: m * .75, poly: null, h: b.soffit, prop: true, kind: 'pier', yMax: pierTop(c.x, c.z, m * .75, b.seat) });
             }
         }
         bridgeBents.report.slotInfill = { quads: infill.quads, areaM2: Math.round(infill.areaM2), maxGapM: +infill.maxGapM.toFixed(2) };
@@ -5151,7 +5182,16 @@ export async function buildWorld(city, renderer, opts = {}) {
     const coveredCanopies=coveredPlatformCanopies(treeList,BASARAB_PLATFORMS.filter(p=>basarabStructure.report.sourcePlatforms.includes(p.sourceId)),treeSourceMetadata);
     basarabStructure.report.treeSourceConflicts={excludedMeasured:coveredCanopies.conflicts,retainedMapped:coveredCanopies.unresolved};
     const waterTreeConflicts = sourceWaterTreeConflicts(treeList, landmarkWaterFootprints, t => treeBodies.get(t));
-    const excludedTrees = new Set([...coveredCanopies.excluded, ...waterTreeConflicts.excluded]);
+    // A trunk inside the swept cover of the tram bodies cannot stand where the source puts it (the source positions of a
+    // rail and of a tree are each good to about a metre). It is listed and left out after generation, as the basin
+    // conflicts are: retained trees keep their rotation, colour and random stream.
+    const tramTreeConflicts = new Set();
+    if (tramSweep) for (const t of treeList) {
+        const body = treeBodies.get(t), hit = body && tramSweep.circle(t.x, t.z, body.r, 0, body.h ?? 3); if (!hit) continue;
+        const dx = t.x - hit.x, dz = t.z - hit.z;
+        tramTreeConflicts.add(t); tramSweepConflicts.trees.push({ x: t.x, z: t.z, kind: t.kind, species: t.species ?? null, trunkRadiusM: body.r, acrossBodyAxisM: Math.abs(dz * hit.fx - dx * hit.fz), bodyHalfWidthM: hit.body.widthM / 2, bodyLengthM: hit.body.lengthM });
+    }
+    const excludedTrees = new Set([...coveredCanopies.excluded, ...waterTreeConflicts.excluded, ...tramTreeConflicts]);
     const treeCount = treeList.length - excludedTrees.size;
     // instanced trees in district 250 m / legacy 500 m chunks; crowns keep a per-instance colour (instanceColor)
     // so the season / weather code can tint each tree (world.vegetation)
@@ -5180,6 +5220,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const standY = (x, z, y) => { const rt = raisedTop(x, z, 0.2); if (rt !== null) return rt; let best = 0.15, bd = Math.abs(y - 0.15); surfacesAt(x, z, (h, raised) => { const v = raised ? h : h - Y.road + 0.15, d = Math.abs(v - y); if (d < bd) { bd = d; best = v; } }); return best; }; // (a raised sidewalk wins)
     const addLamp = (l) => { if (nearWater(l.x, l.z, 1.5)) { lampsWet++; return; } l.y = standY(l.x, l.z, l.y);
         if (l.osm === false && tramPropEnvelope && tramGrades.excludesInferredObstacle([l.x, l.z], [l.x, l.z], { inferred: true, bodyEnvelope: tramPropEnvelope, radiusM: .18, y0a: l.y, y1a: l.y + l.h, kind: 'inferred-street-lamp' })) return;
+        if (l.osm === false && sweptOut('street-lamp', tramSweep?.circle(l.x, l.z, .18, 0, 3))) return; // (its collider spans 0-3 m)
         lamps.push(l); lampGrid.insert(l.x, l.z, l.x, l.z, l); addPropColl(l.x, l.z, 0.18, 'lamp'); Object.assign(propColl.at(-1), { mapped: l.osm === true, inferred: l.osm === false }); };
     const osmLamps = data.lamps || [];
     let lampsWet = 0;
@@ -5288,7 +5329,8 @@ export async function buildWorld(city, renderer, opts = {}) {
                 let lower = Infinity, upper = -Infinity;
                 for (let i = ii; i < mb.ic; i++) { const yy = mb.p[mb.i[i] * 3 + 1]; lower = Math.min(lower, yy); upper = Math.max(upper, yy); }
                 const clear = boundarySupport.clearMeshRange(mb, ii, clipOptions) &&
-                    boundarySupport.clearCircle(x, z, radius, { ownerEdges: m.ownerEdges, y0: lower - .3, y1: upper });
+                    boundarySupport.clearCircle(x, z, radius, { ownerEdges: m.ownerEdges, y0: lower - .3, y1: upper }) &&
+                    !sweptOut('closure-prop', tramSweep?.circle(x, z, radius, lower - .3, upper));
                 if (!clear) { mb.vc = vi; mb.ic = ii; boundarySupport.report.rejectedDiscreteProps++; return false; }
                 if (collidable) {
                     if (!sourceScene) addPropColl(x, z, radius, 'closure');
@@ -5638,8 +5680,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             const w = (atA ? e.wL : e.wR) + shoulderOf(e) + 0.9;
             const r = retract(e, n) + 1.2;
             let px = n.x + dx * r + rx * w, pz = n.z + dz * r + rz * w;
-            for (let k = 0; k < 5 && onRibbon(px, pz, 0.3); k++) { px += rx * 0.7; pz += rz * 0.7; } // never in another approach's carriageway
-            const noPole = !!onRibbon(px, pz, 0.3); // no room for a pole: the approach keeps its phase, no pole is drawn
+            const poleBlocked = () => onRibbon(px, pz, 0.3) || !!tramSweep?.circle(px, pz, 0.2, 0, 3);
+            for (let k = 0; k < 5 && poleBlocked(); k++) { px += rx * 0.7; pz += rz * 0.7; } // never in another approach's carriageway or in a tram's swept body
+            const noPole = !!poleBlocked(); // no room for a pole: the approach keeps its phase, no pole is drawn
             const c = cellOf(px, pz);
             const rot = Math.atan2(-dz, dx); // housing local +x faces along +d (toward incoming cars)
             const tly = 0.15 + n.y + (raisedTop(px, pz, 0.3) !== null ? DY_SIDE : 0); // (on a raised corner)
@@ -5870,6 +5913,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     if (sAl > gapAt) { sAl += 4; gapAt = sAl + 25 + ((e.id * 7 + Math.round(sAl)) % 25); continue; } // (a driveway / gate)
                     const x = e.a.x + e.dirx * sAl + e.nx * o * sd, z = e.a.z + e.dirz * sAl + e.nz * o * sd;
                     if (onRibbon(x, z, 0.15) || buildingAt(x, z)) continue;
+                    if (sweptOut('bollard', tramSweep?.circle(x, z, .1, 0, 3))) continue; // (a generated row; its collider spans 0-3 m)
                     const c = cellOf(x, z), v0d = c.detail.vc; c.detail.box(x, Y.side, z, 0.11, 0.85, 0.11, 0, bc); c.detail.box(x, Y.side + 0.85, z, 0.13, 0.05, 0.13, 0, cap); bollards++;
                     liftOnSide(c, c.solid.vc, v0d, x, z);
                     addPropColl(x, z, 0.1, 'bollard'); // (owner: "I can drive through this") solid, like the OSM bollards
@@ -6395,6 +6439,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.bridgeJunctions = bridgeJunctionAudit;
     stats.tramTrench = tramTrench.report;
     stats.tramPropEnvelope = tramPropEnvelope;
+    stats.tramSweep = tramSweep ? { ...tramSweep.report, conflicts: tramSweepConflicts } : null;
     stats.coveredRoadModels = coveredRoadModels.report;
     stats.underpassRoofs = { estimated: true, ownerIndex: underpassOwners.report, roofTriangles: underpassCover.ic / 3, colliders: underpassColl.length,
         models: underpassRoofAudit.map(({ edge, ...record }) => ({ ...record, edgeId: edge.id })) };

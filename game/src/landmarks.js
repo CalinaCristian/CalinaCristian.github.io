@@ -1,3 +1,4 @@
+import { buildOTPPier } from './landmark-otp-pier.js';
 import { facadePanels, facadePiers } from './facade-panels.js';
 import * as THREE from '../vendor/three.module.min.js';
 import { makeWaterMaterial } from './water.js';
@@ -1775,7 +1776,7 @@ function bBaneasaTerm(b) {
 // (OSM 771096082). Control cab: OSM way 794617342 aeroway=tower, 20-25 m (no official height published;
 // a 1969 "Tehnica" article describes a 7-level tower on the terminal). Note the world squashes this model 0.35 N-S.
 // Src: https://ro.wikipedia.org/wiki/Aeroportul_Internațional_Henri_Coandă ; OSM ways 771096081/82/83, 794617342
-function bOTP(b) {
+function bOTP(b, ctx = {}) {
     const [dep, arr, pier] = P.otp.map(pts), GL = '#4f7690', WH = '#eef0f1', CON = '#d9d6cf';
     // Independent aerial roof zones, partitioned inside the complete source ring.
     // No overlay faces, missing strips, new source heights or changed colliders.
@@ -1840,20 +1841,15 @@ function bOTP(b) {
     b.prism(control,20,25,'#33505f',{mat:'g',topCol:WH});
     b.colPolygon(control,{y0:20,y1:25});
     b.cyl(63,25,162,0.2,0.2,5,'#d33',6); // aerial mast height remains estimated
-    // "Vioara" pier: dark membranes, light roof ribs and a light perimeter fascia.
-    b.prism(pier, 0, 13, '#6f91a8', { mat: 'g', topCol: '#e3e6e8' });
-    b.pilasters(pier, 0, 13, 8, 0.25, 0.3, '#d6dde2', {});
-    b.prism(offset(pier, 1.2), 13, 14.6, WH, { top: false, bottom: true });
-    b.cap(offset(pier, 1.2), 14.6, WH, [pier]);
-    roofZones(pier, 14.6, OTP_ROOF_ZONES.pier);
-    b.prism(BUCHAREST_SOURCE_MASSES.otp.spine,14.6,20,'#e6e9ea',{top:false}); // actual OSM w1321861231 spine
-    roofZones(BUCHAREST_SOURCE_MASSES.otp.spine, 20, OTP_ROOF_ZONES.spine);
-    const bb = bbox([pier]), px = bb.x1 + 30;
-    for (const z of [-170, -150, -110, -90, -45, -25]) { b.box(bb.x1 + 9, 4, z, 18, 3, 3, '#c9ced2'); b.box(bb.x1 + 18.5, 0, z, 1, 4, 1, '#7a8187'); }
+    // Source part heights and bridge clearance own their complete mapped footprints.
+    // The prior undivided pier extruded those elevated bridges down to the apron.
+    const pierOutline = ctx.sourceBuildings?.w771096083?.[0]?.ring || pier;
+    buildOTPPier(b, pierOutline, ctx.sourceBuildings, roofZones, OTP_ROOF_ZONES);
+    const bb = bbox([pierOutline]), px = bb.x1 + 30;
     airliner(b, px, -150, Math.PI, { tail: '#1d3f8f', stripe: '#1d3f8f' });        // TAROM
     airliner(b, px, -45, Math.PI, { tail: '#c6007e', belly: '#2b0f5c' });           // Wizz Air
     airliner(b, bb.x0 - 26, -120, 0, { tail: '#0b4ea2', stripe: '#0b4ea2' });       // Blue Air
-    b.colPolygon(dep, { y1: 21 }); b.colPolygon(arr, { y1: 14 }); b.colPolygon(pier, { y1: 20 });
+    b.colPolygon(dep, { y1: 21 }); b.colPolygon(arr, { y1: 14 });
 }
 
 // ASE — Ion N. Angelescu: source rings r2274298 (2026-11-08), including its mapped rounded corner and four courts.

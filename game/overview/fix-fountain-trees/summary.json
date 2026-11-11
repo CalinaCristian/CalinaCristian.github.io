@@ -1,0 +1,830 @@
+{
+  "schemaVersion": 1,
+  "runtimeSource": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+  "baselineSource": "c45ccae6ab5197495ccc8fc07fa706d472655124",
+  "report": 29,
+  "scope": "Physical trunk conflicts with detailed fountain basins and their rendered granite rims. Original report camera and controlled native frames, High and Ultra; no ordinary travel or hardware-FPS claim. Fountain road clearance and seasonal operation are separate open reports.",
+  "captures": [
+    {
+      "name": "unirii-tree-fountain",
+      "file": "before.png",
+      "capturedAt": "2026-11-11T00:24:36.206Z",
+      "sha256": "6230166810ec09c9ac58946f41b8ce530cee059946e2b7e76fff56aa59d9433d",
+      "mode": "foot",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "pause-btn",
+          "text": "⏸",
+          "title": "Pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "🌍",
+          "title": "World map",
+          "rect": {
+            "x": 618,
+            "y": 716,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "explore-bar"
+        },
+        {
+          "id": "",
+          "text": "Copy location · F8",
+          "title": "",
+          "rect": {
+            "x": 25,
+            "y": 667,
+            "width": 116.734375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Places",
+          "title": "",
+          "rect": {
+            "x": 147.734375,
+            "y": 667,
+            "width": 53.375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Drone · G",
+          "title": "",
+          "rect": {
+            "x": 207.109375,
+            "y": 667,
+            "width": 71.125,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        }
+      ],
+      "source": "c45ccae6ab5197495ccc8fc07fa706d472655124",
+      "native": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T00:24:36.222Z",
+        "release": "game-70c1e8a47a0ec0ff",
+        "source": "b480d9f039468597e45de673bc61eaefe1adc8ce",
+        "city": "bucharest",
+        "district": "unirii",
+        "visit": null,
+        "scene": "unirii",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 44.4269629,
+          "lon": 26.0992139
+        },
+        "position": {
+          "x": -777.945,
+          "y": 6.916,
+          "z": 304.177
+        },
+        "camera": {
+          "eye": [
+            -777.945,
+            6.916,
+            304.177
+          ],
+          "bearing": 274.695,
+          "pitch": -22.328,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T10:31:36.219Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 0.06,
+          "frameMs": 104.7,
+          "drawCalls": 161,
+          "triangles": 753030,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": 78.993,
+          "vehicles": 306,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:41161/game/?inspect=1"
+      }
+    },
+    {
+      "name": "unirii-tree-fountain",
+      "file": "after.png",
+      "capturedAt": "2026-11-11T00:29:23.107Z",
+      "sha256": "ad10739bd5fc820e8b84fcd478e322db0e50dd9d2282e44d350e255179f8868c",
+      "mode": "foot",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "pause-btn",
+          "text": "⏸",
+          "title": "Pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "🌍",
+          "title": "World map",
+          "rect": {
+            "x": 618,
+            "y": 716,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "explore-bar"
+        },
+        {
+          "id": "",
+          "text": "Copy location · F8",
+          "title": "",
+          "rect": {
+            "x": 25,
+            "y": 667,
+            "width": 116.734375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Places",
+          "title": "",
+          "rect": {
+            "x": 147.734375,
+            "y": 667,
+            "width": 53.375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Drone · G",
+          "title": "",
+          "rect": {
+            "x": 207.109375,
+            "y": 667,
+            "width": 71.125,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        }
+      ],
+      "source": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "native": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T00:29:23.125Z",
+        "release": "game-70c1e8a47a0ec0ff",
+        "source": "b480d9f039468597e45de673bc61eaefe1adc8ce",
+        "city": "bucharest",
+        "district": "unirii",
+        "visit": null,
+        "scene": "unirii",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 44.4269629,
+          "lon": 26.0992139
+        },
+        "position": {
+          "x": -777.945,
+          "y": 6.916,
+          "z": 304.177
+        },
+        "camera": {
+          "eye": [
+            -777.945,
+            6.916,
+            304.177
+          ],
+          "bearing": 274.678,
+          "pitch": -22.285,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T10:31:23.124Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 0.07,
+          "frameMs": 84,
+          "drawCalls": 161,
+          "triangles": 748814,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": 31.524,
+          "vehicles": 306,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:33617/game/?inspect=1"
+      }
+    },
+    {
+      "name": "unirii-tree-fountain-ultra",
+      "file": "ultra.png",
+      "capturedAt": "2026-11-11T00:29:45.919Z",
+      "sha256": "7bee889f56a010576fcaca4df0e3a478e454c362934146248cfa083c31b98d3b",
+      "mode": "foot",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "pause-btn",
+          "text": "⏸",
+          "title": "Pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "🌍",
+          "title": "World map",
+          "rect": {
+            "x": 618,
+            "y": 716,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "explore-bar"
+        },
+        {
+          "id": "",
+          "text": "Copy location · F8",
+          "title": "",
+          "rect": {
+            "x": 25,
+            "y": 667,
+            "width": 116.734375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Places",
+          "title": "",
+          "rect": {
+            "x": 147.734375,
+            "y": 667,
+            "width": 53.375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Drone · G",
+          "title": "",
+          "rect": {
+            "x": 207.109375,
+            "y": 667,
+            "width": 71.125,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        }
+      ],
+      "source": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "native": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T00:29:46.051Z",
+        "release": "game-70c1e8a47a0ec0ff",
+        "source": "b480d9f039468597e45de673bc61eaefe1adc8ce",
+        "city": "bucharest",
+        "district": "unirii",
+        "visit": null,
+        "scene": "unirii",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 44.4269629,
+          "lon": 26.0992139
+        },
+        "position": {
+          "x": -777.945,
+          "y": 6.916,
+          "z": 304.177
+        },
+        "camera": {
+          "eye": [
+            -777.945,
+            6.916,
+            304.177
+          ],
+          "bearing": 274.744,
+          "pitch": -22.389,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T10:31:46.050Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 0.1,
+          "frameMs": 90.5,
+          "drawCalls": 161,
+          "triangles": 748898,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full+ao",
+          "quality": "ultra",
+          "auto": false,
+          "level": 0,
+          "trafficUpdateMs": 48.317,
+          "vehicles": 306,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:33617/game/?inspect=1"
+      }
+    },
+    {
+      "name": "unirii-fountains-off",
+      "file": "plaza.png",
+      "capturedAt": "2026-11-11T00:29:58.409Z",
+      "sha256": "812ca6e757b6a4118cdc9ec46d1dbb9dc85f556cfb39947a201475c03d7777cf",
+      "mode": "foot",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "overflow": false,
+      "buttons": [
+        {
+          "id": "pause-btn",
+          "text": "⏸",
+          "title": "Pause (Esc)",
+          "rect": {
+            "x": 968,
+            "y": 20,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "pause-btn"
+        },
+        {
+          "id": "",
+          "text": "🌍",
+          "title": "World map",
+          "rect": {
+            "x": 618,
+            "y": 716,
+            "width": 44,
+            "height": 44
+          },
+          "centerHit": true,
+          "hit": "explore-bar"
+        },
+        {
+          "id": "",
+          "text": "Copy location · F8",
+          "title": "",
+          "rect": {
+            "x": 25,
+            "y": 667,
+            "width": 116.734375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Places",
+          "title": "",
+          "rect": {
+            "x": 147.734375,
+            "y": 667,
+            "width": 53.375,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        },
+        {
+          "id": "",
+          "text": "Drone · G",
+          "title": "",
+          "rect": {
+            "x": 207.109375,
+            "y": 667,
+            "width": 71.125,
+            "height": 36
+          },
+          "centerHit": true,
+          "hit": "inspection-tools"
+        }
+      ],
+      "source": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "native": {
+        "schemaVersion": 1,
+        "inspection": true,
+        "reportedAt": "2026-11-11T00:29:58.754Z",
+        "release": "game-70c1e8a47a0ec0ff",
+        "source": "b480d9f039468597e45de673bc61eaefe1adc8ce",
+        "city": "bucharest",
+        "district": "unirii",
+        "visit": null,
+        "scene": "unirii",
+        "office": null,
+        "mode": "foot",
+        "drone": true,
+        "geographic": {
+          "lat": 44.4270479,
+          "lon": 26.1024933
+        },
+        "position": {
+          "x": -517.25,
+          "y": 11.812,
+          "z": 294.737
+        },
+        "camera": {
+          "eye": [
+            -517.25,
+            11.812,
+            294.737
+          ],
+          "bearing": 261.219,
+          "pitch": -25.382,
+          "fov": 70
+        },
+        "conditions": {
+          "date": "2026-11-11T10:31:58.754Z",
+          "timeZone": "Europe/Bucharest",
+          "weather": "partly",
+          "season": "autumn"
+        },
+        "performance": {
+          "fps": 0.91,
+          "frameMs": 111.2,
+          "drawCalls": 194,
+          "triangles": 821407,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1,
+          "trafficUpdateMs": 57.664,
+          "vehicles": 306,
+          "pedestrians": 560
+        },
+        "url": "http://127.0.0.1:33617/game/?inspect=1"
+      }
+    }
+  ],
+  "controls": {
+    "ok": true,
+    "reportedRimConflict": [
+      {
+        "x": -794.6,
+        "z": 303.9,
+        "kind": "osm",
+        "radiusM": 0.36,
+        "sourceIds": [
+          "w1177038227"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      }
+    ],
+    "wholeTrunkPositiveAndNegative": true,
+    "sourceRingCount": 44,
+    "actualBadTree": [
+      {
+        "x": -764.7,
+        "z": 306.5,
+        "kind": "osm",
+        "radiusM": 0,
+        "sourceIds": [
+          "w1177023228"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      }
+    ],
+    "retainedShoreTree": {
+      "x": -764.7,
+      "z": 292.8,
+      "kind": "osm"
+    },
+    "sourceGeometryUnchanged": true,
+    "sourceRecordsUnchanged": true,
+    "retainedFarRecords": 72,
+    "retainedNearRecords": 72,
+    "nextRngValuesEqual": 128,
+    "emptyExclusionParity": true
+  },
+  "nativeParity": {
+    "pass": true,
+    "baseline": "c45ccae6",
+    "candidate": "b2c4ea4a",
+    "excluded": [
+      {
+        "x": -92.7,
+        "z": 349.1,
+        "kind": "osm",
+        "radiusM": 0.43253731343283586,
+        "sourceIds": [
+          "w1177026776"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      },
+      {
+        "x": -147.3,
+        "z": 348.2,
+        "kind": "osm",
+        "radiusM": 0.3291044776119402,
+        "sourceIds": [
+          "w1177038213"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      },
+      {
+        "x": -218.1,
+        "z": 342.3,
+        "kind": "osm",
+        "radiusM": 0.38238805970149253,
+        "sourceIds": [
+          "w1177038210"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      },
+      {
+        "x": -331.5,
+        "z": 336.3,
+        "kind": "osm",
+        "radiusM": 0.6299999999999999,
+        "sourceIds": [
+          "w1177038207"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      },
+      {
+        "x": -580.5,
+        "z": 323.5,
+        "kind": "osm",
+        "radiusM": 0.285,
+        "sourceIds": [
+          "w1176969066"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      },
+      {
+        "x": -764.7,
+        "z": 306.5,
+        "kind": "osm",
+        "radiusM": 0.3291044776119402,
+        "sourceIds": [
+          "w1177023228"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      },
+      {
+        "x": -742.6,
+        "z": 306.5,
+        "kind": "osm",
+        "radiusM": 0.6299999999999999,
+        "sourceIds": [
+          "w1177038224"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      },
+      {
+        "x": -794.6,
+        "z": 303.9,
+        "kind": "osm",
+        "radiusM": 0.36044776119402977,
+        "sourceIds": [
+          "w1177038227"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      },
+      {
+        "x": -845.8,
+        "z": 300.5,
+        "kind": "osm",
+        "radiusM": 0.5175,
+        "sourceIds": [
+          "w1177023231"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      },
+      {
+        "x": -868,
+        "z": 299.7,
+        "kind": "osm",
+        "radiusM": 0.5175,
+        "sourceIds": [
+          "w1177038230"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      },
+      {
+        "x": -992.5,
+        "z": 291.2,
+        "kind": "osm",
+        "radiusM": 0.36,
+        "sourceIds": [
+          "w1177023237"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      },
+      {
+        "x": -1082,
+        "z": 286.1,
+        "kind": "osm",
+        "radiusM": 0.30089552238805967,
+        "sourceIds": [
+          "w1177042949"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      },
+      {
+        "x": -1107.6,
+        "z": 284.4,
+        "kind": "osm",
+        "radiusM": 0.345,
+        "sourceIds": [
+          "w1177042949"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      },
+      {
+        "x": -1135.7,
+        "z": 283.5,
+        "kind": "osm",
+        "radiusM": 0.43875,
+        "sourceIds": [
+          "w1177026763"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      },
+      {
+        "x": -1167.3,
+        "z": 279.3,
+        "kind": "osm",
+        "radiusM": 0.61125,
+        "sourceIds": [
+          "w1177217417"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      },
+      {
+        "x": -1291.9,
+        "z": 271.6,
+        "kind": "osm",
+        "radiusM": 0.43253731343283586,
+        "sourceIds": [
+          "w1177217423"
+        ],
+        "reason": "trunk-body-intersects-rendered-source-basin"
+      }
+    ],
+    "retainedTreesAndBodiesExact": 18590,
+    "sourceDataSHA256": "94261960b86da7f04555829a16cb30a4062c2a6df0eddea0eabb148569eea3a9",
+    "fountainGeometrySHA256": "1b001c0396909fa2d48a12ed14fa59fe6d01c6c166d3b5ad2284d0be6e8b4957",
+    "kerbParked": 162
+  },
+  "rejectedTrial": {
+    "status": "not accepted",
+    "reason": "Original west-facing report29 view still shows rim trunk(-794.6,303.9). Centre-only first candidate removes3other genuine basin conflicts but does not fix this rim intersection. Candidate source f48 preserved. Follow-up uses actual outer granite ring and existing trunk collider."
+  },
+  "regression": {
+    "footA": "0 high / 0 medium / 1 low software-GL FPS; two legacy chapter scenarios,0 vehicles250pedestrians;151wallseconds.",
+    "visual": {
+      "baselineSource": "c45ccae6ab5197495ccc8fc07fa706d472655124",
+      "candidateSource": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "requiredSamples": 155,
+      "capturedEach": 155,
+      "captureAndRuntimeErrors": 0,
+      "newDetectorFindings": 0,
+      "baselineRawFindings": 229,
+      "candidateRawFindings": 228,
+      "baselineSeverity": {
+        "high": 36,
+        "medium": 39,
+        "low": 154
+      },
+      "candidateSeverity": {
+        "high": 36,
+        "medium": 38,
+        "low": 154
+      },
+      "baselineMaxTriangles": 1508314,
+      "candidateMaxTriangles": 1507390,
+      "maxDrawCalls": 279,
+      "matchedSampleMaximumTriangleIncrease": 0,
+      "matchedSampleMaximumCallIncrease": 0,
+      "remainingOverBudget": [
+        {
+          "route": "sweep-pasajul-unirii-run-4",
+          "sample": "worstCalls",
+          "idx": 134,
+          "s": 82,
+          "street": "Pasajul Unirii",
+          "x": -386.5,
+          "z": 720.9,
+          "calls": 279,
+          "tris": 1504678,
+          "quality": "medium"
+        },
+        {
+          "route": "sweep-pasajul-unirii-run-4",
+          "sample": "worstTris",
+          "idx": 135,
+          "s": 122,
+          "street": "Pasajul Unirii",
+          "x": -386.3,
+          "z": 680.9,
+          "calls": 275,
+          "tris": 1507390,
+          "quality": "medium"
+        }
+      ],
+      "scope": "Controlled Medium-quality district sweep plus geometry and office checks. Original reported High/Ultra views are separate. The complete district is not visually or performance accepted: inherited road/building/office findings and two over-budget Pasaj views remain open. This physical-tree correction adds no measured frame cost or findings."
+    }
+  },
+  "acceptance": "Scoped report29 physical basin/rim conflict fixed; district-wide fidelity and inherited frame-budget failures remain open.",
+  "groundGalleryRefresh": {
+    "sourceCommit": "0a60128ffe26b5ebacf1d865f8c53440d15131ec",
+    "manifest": "../comparison-data/unirii/context/ground-0a60128f/manifest.json",
+    "captures": 16,
+    "viewpoints": 4,
+    "conditions": 4,
+    "errors": 0,
+    "servedHashesUnchanged": true,
+    "scope": "Original matched walking-height appearance fixtures, all sixteen viewed at native size. No continuous route, hardware FPS or district-wide fidelity acceptance."
+  }
+}

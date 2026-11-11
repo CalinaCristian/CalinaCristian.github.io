@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "Unirii aerial comparisons",
-  "generatedDate": "2026-11-09",
-  "generatedAt": "2026-11-09T02:04:57.176Z",
+  "generatedDate": "2026-11-11",
+  "generatedAt": "2026-11-11T00:31:25.092Z",
   "defaultTile": "aerial-r07-c04",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -26,6 +26,14 @@
         "sourceProvenance": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/source-provenance.json",
         "sourceProvenanceSha256": "2dbf8cccf115f2480bceb9900813fc92bff9e09747d189106613557df19422c3",
         "frames": 1
+      },
+      {
+        "gameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+        "manifest": "retakes/b2c4ea4a/capture-report.json",
+        "manifestSha256": "65be80bd26d58d9f3c3507bade417185b34a7e075a5167814907beef50e83ea2",
+        "sourceProvenance": "retakes/b2c4ea4a/source-provenance.json",
+        "sourceProvenanceSha256": "5fc36125eb97077da2e4b8a6b681673a75d5ccc868e3d8553fb7a1225157b04c",
+        "frames": 9
       }
     ],
     "sourceCaptureManifests": [
@@ -55,6 +63,12 @@
         "sha256": "59b2f9f28e88cef042e91dad2bcc190f987a72aa754442ea5b4b0f8c57dbc9b0",
         "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
         "frames": 1
+      },
+      {
+        "path": "retakes/b2c4ea4a/capture-report.json",
+        "gameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+        "sha256": "65be80bd26d58d9f3c3507bade417185b34a7e075a5167814907beef50e83ea2",
+        "frames": 9
       }
     ],
     "pageErrors": [],
@@ -67,48 +81,20 @@
     "season": "summer",
     "time": "day",
     "latestRetakeCapture": {
-      "startedAt": "2026-11-09T02:04:37.487Z",
-      "endedAt": "2026-11-09T02:04:57.176Z",
-      "elapsedSeconds": 19.689,
-      "source": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
-      "captureToolSha256": "82a44ab184afd4f5d9c032642d3d513a594993c3c7301af8029c6976dd26458b",
-      "sourceDatasetSha256": "9797d9f5b1a4f2593528ce6c8c4ad04ec38fb953c9770bf32f6d7d5c7c54f26c",
+      "source": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "scope": "Nine affected existing technical north-up atlas views; conservative50m tree/shadow margin. Static world, no traffic/mirror, fog removed for map comparison. Not ordinary play or hardware FPS.",
+      "startedAt": "2026-11-11T00:30:16.681Z",
+      "errors": [],
       "loaded": {
         "key": "bucharest-unirii",
         "city": "bucharest",
         "district": "unirii",
-        "ms": 9295,
-        "edges": 1054,
-        "ribbons": 1263
+        "ms": 33820,
+        "edges": 1274,
+        "ribbons": 1574
       },
-      "pageErrors": [],
-      "consoleErrors": [],
-      "failedRequests": [],
-      "traffic": false,
-      "quality": "high",
-      "weather": "clear",
-      "season": "summer",
-      "time": "day",
-      "mirror": false,
-      "captureMethod": "Native WebGL canvas copied after two settled frames; actual source RGB pixel equivalence controls retained.",
-      "frameCounts": 1,
-      "coverageClaim": "Exact original-pose technical aerial subset selected conservatively from changed structural model and rendered generated-separator bounds. This is capture coverage, not a photographic-parity claim.",
-      "scopeCounts": {
-        "core-touches": 1
-      },
-      "validation": {
-        "framesVerified": 1,
-        "sourceFilesVerified": 9318,
-        "pageErrors": 0,
-        "consoleErrors": 0,
-        "failedRequests": 0,
-        "failures": []
-      },
-      "perfMaxima": {
-        "triangles": 570043,
-        "drawCalls": 132,
-        "note": "World-only high-quality top-down captures, moving traffic hidden, mirror excluded. Separate maxima need not occur in one frame; not a driving frame-budget acceptance test."
-      }
+      "finishedAt": "2026-11-11T00:31:25.092Z",
+      "frameCounts": 9
     },
     "note": "Current per-frame source/date is authoritative; prior and fresh raw capture reports remain separate. Technical aerials remove fog/extend depth; native perspective/controller acceptance is separate.",
     "perfMaxima": {
@@ -3418,19 +3404,16 @@
         -1250,
         250
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 87,
-        "triangles": 530829,
-        "renderMs": 13.100000001490116,
-        "quality": "high"
+        "drawCalls": 88,
+        "triangles": 268196
       },
       "traffic": {
         "enabled": false,
-        "visible": false,
-        "vehicleCount": 305
+        "visible": false
       },
       "renderer": {
         "width": 640,
@@ -3440,16 +3423,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:14:37.923Z",
-      "gamePath": "images/aerial-r06-c01.jpg",
-      "image": "images/aerial-r06-c01.jpg",
-      "thumbnail": "thumbs/aerial-r06-c01.jpg",
-      "sha256": "d0bc813d6235dcebaebcf61b7e1efc8deaafd1b1ca43ecd89996d066f4154263",
+      "capturedAt": "2026-11-11T00:31:00.402Z",
+      "gamePath": "retakes/b2c4ea4a/aerial-r06-c01.png",
+      "image": "retakes/b2c4ea4a/aerial-r06-c01.png",
+      "thumbnail": "retakes/b2c4ea4a/aerial-r06-c01.png",
+      "sha256": "a86c9fcdaf63d6c2ceb1520e739d1562d70e81a81becb8321645e3178ba786ba",
       "width": 640,
       "height": 640,
       "captureWallMs": 8396,
       "dataset": "atlas",
-      "thumbnailSha256": "e4beb5fb0e8104d44f852f1db822f5b289e699a2077068ae4bf09d89301c5ca8",
+      "thumbnailSha256": "a86c9fcdaf63d6c2ceb1520e739d1562d70e81a81becb8321645e3178ba786ba",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.42745042292049,
@@ -3460,8 +3443,8 @@
       "coverageType": "ring-touches",
       "orientation": "north-up",
       "places": [],
-      "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
+      "sourceNote": "Current native recapture after physical fountain-tree conflict correction.",
+      "sourceCaptureManifest": "retakes/b2c4ea4a/capture-report.json"
     },
     {
       "id": "aerial-r06-c02",
@@ -3486,19 +3469,16 @@
         -1000,
         250
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 107,
-        "triangles": 452391,
-        "renderMs": 3.2999999970197678,
-        "quality": "high"
+        "drawCalls": 109,
+        "triangles": 415973
       },
       "traffic": {
         "enabled": false,
-        "visible": false,
-        "vehicleCount": 305
+        "visible": false
       },
       "renderer": {
         "width": 640,
@@ -3508,16 +3488,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:36:12.623Z",
-      "gamePath": "images/aerial-r06-c02.jpg",
-      "image": "images/aerial-r06-c02.jpg",
-      "thumbnail": "thumbs/aerial-r06-c02.jpg",
-      "sha256": "38f6481c00bf7c478a10b8d56d3f64d816a745d341f3cecb4457dc233e727d97",
+      "capturedAt": "2026-11-11T00:31:03.375Z",
+      "gamePath": "retakes/b2c4ea4a/aerial-r06-c02.png",
+      "image": "retakes/b2c4ea4a/aerial-r06-c02.png",
+      "thumbnail": "retakes/b2c4ea4a/aerial-r06-c02.png",
+      "sha256": "8f6fdeaa0952991323c665ce896491bbfc6ffdf068ed8fda606bf486c8bdcdb3",
       "width": 640,
       "height": 640,
       "captureWallMs": 3936,
       "dataset": "atlas",
-      "thumbnailSha256": "420825032a9ddbbe18610f532ad08e080914fa923ef92604d18f6360a31f7948",
+      "thumbnailSha256": "8f6fdeaa0952991323c665ce896491bbfc6ffdf068ed8fda606bf486c8bdcdb3",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         44.42745042292049,
@@ -3529,8 +3509,8 @@
       "orientation": "north-up",
       "places": [],
       "posePlanSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "sourceNote": "Targeted water retake bbaffc0d. Original full 0775fda atlas is archived separately.",
-      "sourceCaptureManifest": "retakes/bbaffc0d/manifest.json"
+      "sourceNote": "Current native recapture after physical fountain-tree conflict correction.",
+      "sourceCaptureManifest": "retakes/b2c4ea4a/capture-report.json"
     },
     {
       "id": "aerial-r06-c03",
@@ -3555,19 +3535,16 @@
         -750,
         250
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 113,
-        "triangles": 596366,
-        "renderMs": 9.900000005960464,
-        "quality": "high"
+        "drawCalls": 116,
+        "triangles": 565384
       },
       "traffic": {
         "enabled": false,
-        "visible": false,
-        "vehicleCount": 305
+        "visible": false
       },
       "renderer": {
         "width": 640,
@@ -3577,16 +3554,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:36:16.560Z",
-      "gamePath": "images/aerial-r06-c03.jpg",
-      "image": "images/aerial-r06-c03.jpg",
-      "thumbnail": "thumbs/aerial-r06-c03.jpg",
-      "sha256": "d03712f5d0579ccf6c00a21af6acab47406285c9d21cbfe20d5a1022e03e841c",
+      "capturedAt": "2026-11-11T00:31:07.485Z",
+      "gamePath": "retakes/b2c4ea4a/aerial-r06-c03.png",
+      "image": "retakes/b2c4ea4a/aerial-r06-c03.png",
+      "thumbnail": "retakes/b2c4ea4a/aerial-r06-c03.png",
+      "sha256": "b345071dc17d387e32020d493a100d7b2a978cde574f5b45d740b1627e338798",
       "width": 640,
       "height": 640,
       "captureWallMs": 3669,
       "dataset": "atlas",
-      "thumbnailSha256": "a113165118d6f145e21217bf527874c7eac247dcef5640f4b5611b078891eaa0",
+      "thumbnailSha256": "b345071dc17d387e32020d493a100d7b2a978cde574f5b45d740b1627e338798",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         44.42745042292049,
@@ -3598,8 +3575,8 @@
       "orientation": "north-up",
       "places": [],
       "posePlanSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "sourceNote": "Targeted water retake bbaffc0d. Original full 0775fda atlas is archived separately.",
-      "sourceCaptureManifest": "retakes/bbaffc0d/manifest.json"
+      "sourceNote": "Current native recapture after physical fountain-tree conflict correction.",
+      "sourceCaptureManifest": "retakes/b2c4ea4a/capture-report.json"
     },
     {
       "id": "aerial-r06-c04",
@@ -4238,19 +4215,16 @@
         -1250,
         500
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 82,
-        "triangles": 446579,
-        "renderMs": 35.69999999925494,
-        "quality": "high"
+        "drawCalls": 81,
+        "triangles": 285954
       },
       "traffic": {
         "enabled": false,
-        "visible": false,
-        "vehicleCount": 305
+        "visible": false
       },
       "renderer": {
         "width": 640,
@@ -4260,16 +4234,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:17:06.803Z",
-      "gamePath": "images/aerial-r07-c01.jpg",
-      "image": "images/aerial-r07-c01.jpg",
-      "thumbnail": "thumbs/aerial-r07-c01.jpg",
-      "sha256": "2cda0fc16bc7c2f7d2b75787148f29b511b36de7788015f82afc9ab3efc69fe7",
+      "capturedAt": "2026-11-11T00:31:09.409Z",
+      "gamePath": "retakes/b2c4ea4a/aerial-r07-c01.png",
+      "image": "retakes/b2c4ea4a/aerial-r07-c01.png",
+      "thumbnail": "retakes/b2c4ea4a/aerial-r07-c01.png",
+      "sha256": "d0bb1b9b81a8be2bce212a2ffa38b4c4a50436910132724d4926e7d4cc18ac63",
       "width": 640,
       "height": 640,
       "captureWallMs": 10693,
       "dataset": "atlas",
-      "thumbnailSha256": "297faf4e548885faf1aa0a70d2d372b9cf140d0f1b7a3e66b323a0d49293800c",
+      "thumbnailSha256": "d0bb1b9b81a8be2bce212a2ffa38b4c4a50436910132724d4926e7d4cc18ac63",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.425200845840976,
@@ -4280,8 +4254,8 @@
       "coverageType": "ring-touches",
       "orientation": "north-up",
       "places": [],
-      "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
+      "sourceNote": "Current native recapture after physical fountain-tree conflict correction.",
+      "sourceCaptureManifest": "retakes/b2c4ea4a/capture-report.json"
     },
     {
       "id": "aerial-r07-c02",
@@ -4306,19 +4280,16 @@
         -1000,
         500
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 102,
-        "triangles": 715411,
-        "renderMs": 11.800000000745058,
-        "quality": "high"
+        "drawCalls": 101,
+        "triangles": 443176
       },
       "traffic": {
         "enabled": false,
-        "visible": false,
-        "vehicleCount": 305
+        "visible": false
       },
       "renderer": {
         "width": 640,
@@ -4328,16 +4299,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:17:17.498Z",
-      "gamePath": "images/aerial-r07-c02.jpg",
-      "image": "images/aerial-r07-c02.jpg",
-      "thumbnail": "thumbs/aerial-r07-c02.jpg",
-      "sha256": "741090f6cbb57486ec246df497e6debb661d1cc697b0a274565c6598747b0cf5",
+      "capturedAt": "2026-11-11T00:31:12.405Z",
+      "gamePath": "retakes/b2c4ea4a/aerial-r07-c02.png",
+      "image": "retakes/b2c4ea4a/aerial-r07-c02.png",
+      "thumbnail": "retakes/b2c4ea4a/aerial-r07-c02.png",
+      "sha256": "4273eedba666105af93255f1be0d6dd1dd91f6414a52ad9b41e079b39c9c8347",
       "width": 640,
       "height": 640,
       "captureWallMs": 12549,
       "dataset": "atlas",
-      "thumbnailSha256": "baec9806b7593af482d27b92d114fcfae414f6360592c436c0147f0e0cf23d90",
+      "thumbnailSha256": "4273eedba666105af93255f1be0d6dd1dd91f6414a52ad9b41e079b39c9c8347",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.425200845840976,
@@ -4348,8 +4319,8 @@
       "coverageType": "ring-touches",
       "orientation": "north-up",
       "places": [],
-      "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
+      "sourceNote": "Current native recapture after physical fountain-tree conflict correction.",
+      "sourceCaptureManifest": "retakes/b2c4ea4a/capture-report.json"
     },
     {
       "id": "aerial-r07-c03",
@@ -4374,19 +4345,16 @@
         -750,
         500
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 110,
-        "triangles": 837413,
-        "renderMs": 26.5,
-        "quality": "high"
+        "drawCalls": 111,
+        "triangles": 583326
       },
       "traffic": {
         "enabled": false,
-        "visible": false,
-        "vehicleCount": 305
+        "visible": false
       },
       "renderer": {
         "width": 640,
@@ -4396,16 +4364,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:17:30.074Z",
-      "gamePath": "images/aerial-r07-c03.jpg",
-      "image": "images/aerial-r07-c03.jpg",
-      "thumbnail": "thumbs/aerial-r07-c03.jpg",
-      "sha256": "c287157418c9d91d647b1f0f4aa44fe5ab7e3155db3dc1034e4f436d7d97177f",
+      "capturedAt": "2026-11-11T00:31:15.960Z",
+      "gamePath": "retakes/b2c4ea4a/aerial-r07-c03.png",
+      "image": "retakes/b2c4ea4a/aerial-r07-c03.png",
+      "thumbnail": "retakes/b2c4ea4a/aerial-r07-c03.png",
+      "sha256": "5014398499128065c6ad3d25f97884a9e0815ec0f9f2fb2ab4bcd8d320c2e57c",
       "width": 640,
       "height": 640,
       "captureWallMs": 16243,
       "dataset": "atlas",
-      "thumbnailSha256": "804582eba68c7064a2fd62c1ebf0d77cdc14b9f44b4cca4a8fcb53b4b808ab42",
+      "thumbnailSha256": "5014398499128065c6ad3d25f97884a9e0815ec0f9f2fb2ab4bcd8d320c2e57c",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.425200845840976,
@@ -4416,8 +4384,8 @@
       "coverageType": "core-touches",
       "orientation": "north-up",
       "places": [],
-      "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
+      "sourceNote": "Current native recapture after physical fountain-tree conflict correction.",
+      "sourceCaptureManifest": "retakes/b2c4ea4a/capture-report.json"
     },
     {
       "id": "aerial-r07-c04",
@@ -4442,19 +4410,16 @@
         -500,
         500
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 122,
-        "triangles": 748833,
-        "renderMs": 81.20000000298023,
-        "quality": "high"
+        "drawCalls": 121,
+        "triangles": 689947
       },
       "traffic": {
         "enabled": false,
-        "visible": false,
-        "vehicleCount": 305
+        "visible": false
       },
       "renderer": {
         "width": 640,
@@ -4464,16 +4429,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:36:37.610Z",
-      "gamePath": "images/aerial-r07-c04.jpg",
-      "image": "images/aerial-r07-c04.jpg",
-      "thumbnail": "thumbs/aerial-r07-c04.jpg",
-      "sha256": "ead3767d4ee647e8067865db5bb5217ea635619f4f85fb8f4a39f18b3d185046",
+      "capturedAt": "2026-11-11T00:31:19.163Z",
+      "gamePath": "retakes/b2c4ea4a/aerial-r07-c04.png",
+      "image": "retakes/b2c4ea4a/aerial-r07-c04.png",
+      "thumbnail": "retakes/b2c4ea4a/aerial-r07-c04.png",
+      "sha256": "05c46f805a3c957128ead8067ccb9ccc94ec924d65271973b35c924e8891606e",
       "width": 640,
       "height": 640,
       "captureWallMs": 13387,
       "dataset": "atlas",
-      "thumbnailSha256": "a48ed6e7aac2bd938b4dbaf41878b7e3cad6d73ebaee362076e8650d5048c6bf",
+      "thumbnailSha256": "05c46f805a3c957128ead8067ccb9ccc94ec924d65271973b35c924e8891606e",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         44.425200845840976,
@@ -4485,8 +4450,8 @@
       "orientation": "north-up",
       "places": [],
       "posePlanSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "sourceNote": "Targeted water retake bbaffc0d. Original full 0775fda atlas is archived separately.",
-      "sourceCaptureManifest": "retakes/bbaffc0d/manifest.json"
+      "sourceNote": "Current native recapture after physical fountain-tree conflict correction.",
+      "sourceCaptureManifest": "retakes/b2c4ea4a/capture-report.json"
     },
     {
       "id": "aerial-r07-c05",
@@ -4511,19 +4476,16 @@
         -250,
         500
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 131,
-        "triangles": 747710,
-        "renderMs": 4.4000000059604645,
-        "quality": "high"
+        "drawCalls": 130,
+        "triangles": 665361
       },
       "traffic": {
         "enabled": false,
-        "visible": false,
-        "vehicleCount": 305
+        "visible": false
       },
       "renderer": {
         "width": 640,
@@ -4533,16 +4495,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:36:50.998Z",
-      "gamePath": "images/aerial-r07-c05.jpg",
-      "image": "images/aerial-r07-c05.jpg",
-      "thumbnail": "thumbs/aerial-r07-c05.jpg",
-      "sha256": "1d08716e9f591a63a08b6c69dea880b9c220641d06c178a26459bfdd2715aa3f",
+      "capturedAt": "2026-11-11T00:31:22.808Z",
+      "gamePath": "retakes/b2c4ea4a/aerial-r07-c05.png",
+      "image": "retakes/b2c4ea4a/aerial-r07-c05.png",
+      "thumbnail": "retakes/b2c4ea4a/aerial-r07-c05.png",
+      "sha256": "563b27dc42249d3df338ba9d4bceeaa071f019bcf4544670e09d30a605e8561c",
       "width": 640,
       "height": 640,
       "captureWallMs": 8483,
       "dataset": "atlas",
-      "thumbnailSha256": "e5d2e269193483a48d3b2e97eeec392cd7f01de48e1eef0e0fa645d283236f4d",
+      "thumbnailSha256": "563b27dc42249d3df338ba9d4bceeaa071f019bcf4544670e09d30a605e8561c",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         44.425200845840976,
@@ -4554,8 +4516,8 @@
       "orientation": "north-up",
       "places": [],
       "posePlanSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "sourceNote": "Targeted water retake bbaffc0d. Original full 0775fda atlas is archived separately.",
-      "sourceCaptureManifest": "retakes/bbaffc0d/manifest.json"
+      "sourceNote": "Current native recapture after physical fountain-tree conflict correction.",
+      "sourceCaptureManifest": "retakes/b2c4ea4a/capture-report.json"
     },
     {
       "id": "aerial-r07-c06",
@@ -4580,19 +4542,16 @@
         0,
         500
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 113,
-        "triangles": 601234,
-        "renderMs": 39,
-        "quality": "high"
+        "drawCalls": 117,
+        "triangles": 520257
       },
       "traffic": {
         "enabled": false,
-        "visible": false,
-        "vehicleCount": 305
+        "visible": false
       },
       "renderer": {
         "width": 640,
@@ -4602,16 +4561,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:36:59.481Z",
-      "gamePath": "images/aerial-r07-c06.jpg",
-      "image": "images/aerial-r07-c06.jpg",
-      "thumbnail": "thumbs/aerial-r07-c06.jpg",
-      "sha256": "e0d8b21988ebc4b51a95bacf0b621718a6eaafe78c7159c75c54b4c694d9ff6b",
+      "capturedAt": "2026-11-11T00:31:25.091Z",
+      "gamePath": "retakes/b2c4ea4a/aerial-r07-c06.png",
+      "image": "retakes/b2c4ea4a/aerial-r07-c06.png",
+      "thumbnail": "retakes/b2c4ea4a/aerial-r07-c06.png",
+      "sha256": "dbeeae642ffc4bff9968353aa4f66d562a3da4a140804d23f79a42a02851048b",
       "width": 640,
       "height": 640,
       "captureWallMs": 4389,
       "dataset": "atlas",
-      "thumbnailSha256": "2ad33b62aaea65589631790e028a646db837596680ed8cb9c1cb9d3fe0312bb9",
+      "thumbnailSha256": "dbeeae642ffc4bff9968353aa4f66d562a3da4a140804d23f79a42a02851048b",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         44.425200845840976,
@@ -4623,8 +4582,8 @@
       "orientation": "north-up",
       "places": [],
       "posePlanSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "sourceNote": "Targeted water retake bbaffc0d. Original full 0775fda atlas is archived separately.",
-      "sourceCaptureManifest": "retakes/bbaffc0d/manifest.json"
+      "sourceNote": "Current native recapture after physical fountain-tree conflict correction.",
+      "sourceCaptureManifest": "retakes/b2c4ea4a/capture-report.json"
     },
     {
       "id": "aerial-r07-c07",
@@ -6880,16 +6839,17 @@
   ],
   "locationId": "unirii",
   "captureType": "mixed-source-survey",
-  "description": "Corrected game source 0775fda, captured 2026-11-08. High quality, summer, clear daylight; moving traffic and mirrors disabled.",
+  "description": "Mixed-source technical atlas. Nine fountain/tree-affected squares recaptured11November2026 atb2c4ea4a; each remaining frame retains its original source and date. High quality, summer, clear daylight; moving traffic and mirrors disabled.",
   "coverageNote": "98 captured 250 m squares: 26 touch the playable mask, 66 additional squares touch its exact 600 m ring and 6 are optional distant context. Boundary squares also include land beyond the ring.",
-  "reviewNote": "Complete retained earlier review coverage plus 1 fresh exact-pose structural/separator pairs inspected; genuine source-height, materials, context and imagery-date limits remain.",
+  "reviewNote": "Nine affected original-pose game frames inspected at full size after physical fountain/rim tree correction. Earlier comparison reviews remain historical; no new photographic-parity claim.",
   "collectionNotes": {
-    "atlas": "Current complete mixed-source atlas: 80 frames on 0775fdaf, 17 frames on bbaffc0d, 1 frames on 07cc3d6b. Actual per-frame source/date retained; only the conservative structure/separator subset is fresh 07cc3d6b. Full prior current collection archived. Technical aerial settings and separate native limitations remain."
+    "atlas": "Current mixed-source atlas: 76 frames from0775fdaf,12 frombbaffc0d,1 from07cc3d6b and9 fountain/tree retakes fromb2c4ea4a. Each frame retains its actual capture date and source. The nine affected squares were refreshed11November2026; earlier frames are unchanged. Capture coverage is not a fidelity or photographic-parity score."
   },
   "atlasSourceCounts": {
-    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 80,
-    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 17,
-    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 76,
+    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 12,
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
+    "b2c4ea4a1ff792c53e4c052f258bd61942cf5195": 9
   },
   "sourceCaptureManifest": {
     "path": "capture-manifest.json",
@@ -6904,7 +6864,7 @@
     "extent": "250 m ground square at the listed WGS84 centre; EPSG:3857 with latitude scale correction."
   },
   "review": {
-    "status": "Complete retained earlier review coverage plus 1 fresh exact-pose structural/separator pairs inspected; genuine source-height, materials, context and imagery-date limits remain.",
+    "status": "Nine affected original-pose game frames inspected at full size after physical fountain/rim tree correction. Earlier comparison reviews remain historical; no new photographic-parity claim.",
     "purpose": "Source-led inspection and complete capture evidence; no exact visual-parity claim.",
     "framesInspected": 98,
     "pairedFramesInspected": 98,
@@ -6916,11 +6876,12 @@
       "North-up square perspective game cameras and off-nadir reference imagery displace elevated roofs differently. Reference acquisition dates remain unknown; the comparison is not a pixel registration score.",
       "Literal OSM heights, minima, footprints and courtyard rings stay authoritative over an apparent imagery conflict. Untagged heights, roof rises, facade materials, cornices and detailed roof forms remain estimates or native approximations.",
       "Historic blocks and the Unirea roof retain simplified roof detail; broad source mass and courtyard coverage do not establish exact architectural parity. Canopy crown form and density still differ visibly from the aerial imagery.",
-      "The dataset retains 15758 mapped/measured tree entries. This capture places 15723; 35 geometric exclusions remain explicit: 31 road checks, three mapped centres inside source buildings, one measured centre inside mapped water. No tree cap is reached.",
+      "Historical earlier review: The dataset retains 15758 mapped/measured tree entries. This capture places 15723; 35 geometric exclusions remain explicit: 31 road checks, three mapped centres inside source buildings, one measured centre inside mapped water. No tree cap is reached.",
       "Only 23 independently reviewed non-crown detections were removed from the raw Unirii survey. Raw candidate evidence and all other source trees remain preserved; this is not an individual validation of every automated crown candidate.",
       "Five contradictory literal source height/minimum profiles remain preserved and rejected by native roof compilation; four dependent roof caches use complete-source fallback.",
       "All optional distant squares lie outside the required 600 m ring and retain coarse contextual treatment. The Cathedral reference shows an older construction state.",
-      "These world-only top-down captures disable moving traffic and mirrors. Full public-road Street View, public movement, grade/bridge clearance, drone-controller coverage and evolving traffic/mirror budgets remain separate gates."
+      "These world-only top-down captures disable moving traffic and mirrors. Full public-road Street View, public movement, grade/bridge clearance, drone-controller coverage and evolving traffic/mirror budgets remain separate gates.",
+      "Current b2c4ea4a district retains18,590tree instances after16explicit basin/rim conflicts; source tree arrays are unchanged. Full source/native parity is recorded in fix-fountain-trees/summary.json. Unrelated roofs, street markings, water boundaries and estimated scenery remain under review."
     ],
     "atlasSourceCommit": [
       "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
@@ -6950,13 +6911,16 @@
     },
     "realWorldParityAccepted": false,
     "priorTargetedRetakeReview": "retakes/bbaffc0d/paired-review.json",
-    "structureRetakeReviewedAt": "2026-11-09T02:11:54.821237+00:00"
+    "structureRetakeReviewedAt": "2026-11-09T02:11:54.821237+00:00",
+    "latestGameFramesInspected": 9,
+    "latestGameFrameSource": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195"
   },
   "comparisonSourceCommits": {
     "atlas": [
       "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
       "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-      "07cc3d6bcefe90967c5bde3af2237dab4b972705"
+      "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "b2c4ea4a1ff792c53e4c052f258bd61942cf5195"
     ]
   },
   "sourceCaptureManifests": [
@@ -6986,9 +6950,15 @@
       "sha256": "59b2f9f28e88cef042e91dad2bcc190f987a72aa754442ea5b4b0f8c57dbc9b0",
       "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
       "frames": 1
+    },
+    {
+      "path": "retakes/b2c4ea4a/capture-report.json",
+      "gameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "sha256": "65be80bd26d58d9f3c3507bade417185b34a7e075a5167814907beef50e83ea2",
+      "frames": 9
     }
   ],
-  "visualAcceptance": "All17actual before/current/private-Esri pairs inspected. Exact source water polygons remain; overlapping estimated fallback ribbons are clipped. Capture completeness is not photographic parity.",
+  "visualAcceptance": "Nine current game frames visually inspected. Earlier paired source/aerial comparisons retain their actual dates and scope. Current capture completeness is not photographic parity.",
   "sourceSnapshots": [
     {
       "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
@@ -6998,17 +6968,35 @@
       "sourceProvenance": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/source-provenance.json",
       "sourceProvenanceSha256": "2dbf8cccf115f2480bceb9900813fc92bff9e09747d189106613557df19422c3",
       "frames": 1
+    },
+    {
+      "gameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "manifest": "retakes/b2c4ea4a/capture-report.json",
+      "manifestSha256": "65be80bd26d58d9f3c3507bade417185b34a7e075a5167814907beef50e83ea2",
+      "sourceProvenance": "retakes/b2c4ea4a/source-provenance.json",
+      "sourceProvenanceSha256": "5fc36125eb97077da2e4b8a6b681673a75d5ccc868e3d8553fb7a1225157b04c",
+      "frames": 9
     }
   ],
   "sourceCompatibility": {
-    "method": "Only the conservative changed rendered-structure/separator mask is replaced. All other current items, source/date/pose metadata and pixels are unchanged. Moving traffic/mirrors are hidden in technical atlas captures. This does not relabel evidence as a later release or assert photographic parity.",
-    "mask": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/recapture-mask.json",
-    "maskSha256": "76452a133fce352a1051e7e18c4cd3c0f1df9add16c1f76b36afaccca4e0fb49",
-    "unchangedDistrictDataSha256": "9797d9f5b1a4f2593528ce6c8c4ad04ec38fb953c9770bf32f6d7d5c7c54f26c"
+    "method": "Replaced every atlas square within50m of the16excluded physical trunk bodies, preserving all original poses. All other frames retain original pixels/source/date. Basin geometry and source data hashes unchanged; no canopy-budget thinning.",
+    "physicalExclusions": "retakes/b2c4ea4a/physical-exclusions.json",
+    "recapturedFrames": [
+      "aerial-r06-c01",
+      "aerial-r06-c02",
+      "aerial-r06-c03",
+      "aerial-r07-c01",
+      "aerial-r07-c02",
+      "aerial-r07-c03",
+      "aerial-r07-c04",
+      "aerial-r07-c05",
+      "aerial-r07-c06"
+    ],
+    "sourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195"
   },
   "groundConditions": {
-    "manifest": "context/ground-dc93023f/manifest.json",
-    "gameSourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+    "manifest": "context/ground-0a60128f/manifest.json",
+    "gameSourceCommit": "0a60128ffe26b5ebacf1d865f8c53440d15131ec",
     "conditionCount": 4,
     "viewpointCount": 4
   }

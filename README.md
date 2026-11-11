@@ -386,4 +386,10 @@ GTS desk-overlap repair: the overview includes original before/after room views 
 
 Unirii fountain basins now share their detailed source outlines with tree conflict detection. A trunk body intersecting a rendered basin or its granite rim is excluded with its matching collider and an audit record; original source detections remain intact. Trees clear of the physical basin keep their locations, shapes, colours, rotations and random stream. The check uses the existing trunk collider, without an extra bank buffer.
 
+The fountain comparison is published in [the overview](https://cristiancalina.com/game/overview/#fountain-tree-fix), with the original High/Ultra report camera and nine refreshed aerial squares. District-wide road, office and frame-budget findings remain separately open.
+
+The fountain release also refreshes all 16 Unirii walking-height gallery images (four unchanged poses × summer/winter day/night) from exact source `0a60128f`. Original capture times, conditions and checksums remain in `game/overview/comparison-data/unirii/context/ground-0a60128f/manifest.json`; earlier images retain their historical source. All 16 images were inspected. These fixed appearance views do not establish route completion or hardware FPS.
+
+Otopeni’s terminal pier now uses all 32 mapped parts with their exact footprints and height/minimum bands. Their faces and roofs replace the overlapping generic house-style buildings. Narrow gaps in the outline retain their footprints and follow the adjoining part’s height and underside, keeping the elevated connectors clear. Glazing, framing and bridgehead finishes remain documented appearance estimates.
+
 Ground-floor business fascias reserve their full opaque board spans, including the building-name board. Inferred unit signs fit the remaining space on the same source wall instead of relying on a fixed distance between sign centres. Source business names and POIs remain unchanged; locations without a clear inferred fascia span remain explicit in the layout audit.

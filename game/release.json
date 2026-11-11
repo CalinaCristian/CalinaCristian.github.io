@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-70c1e8a47a0ec0ff",
-  "sourceCommit": "b480d9f039468597e45de673bc61eaefe1adc8ce",
-  "fingerprint": "70c1e8a47a0ec0ffdbfa79f193648198fa024a03646a52170dcf21717480f3e6",
+  "releaseId": "game-ea2d06c2566f8551",
+  "sourceCommit": "e1449965dbdcbdba09ed4814ec8231370c04d31e",
+  "fingerprint": "ea2d06c2566f855187d516687f764770b9994549ee160ab7481a5c8ac4de61c2",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -389,8 +389,16 @@
       "sha256": "4891822203ad126ab75511e2196965848db37cfdfabadef54b13cea4ffbe4356"
     },
     {
+      "path": "game/src/landmark-otp-pier.js",
+      "sha256": "a83edb0c9e51fd01644b1e2a7f48ee3f3550f62c69697fdb2ffb43a7907b6e36"
+    },
+    {
       "path": "game/src/landmark-otp-roofs.js",
       "sha256": "f071c4b256efe77dae8eaf64e0d4c2a04af9f01b4447686bd2cd91f77950b8a6"
+    },
+    {
+      "path": "game/src/landmark-otp-source.js",
+      "sha256": "360f553df971200d2fe9ff67c60937d07d650e98d6c5dbb60ed4a8442685e3cd"
     },
     {
       "path": "game/src/landmark-pitch-paint-coverage.js",
@@ -410,7 +418,7 @@
     },
     {
       "path": "game/src/landmark-source-identities.js",
-      "sha256": "4f93c8853d3f1ae65badd1940f4f7286bc6538353defb94a0268f7fed699adfc"
+      "sha256": "03bc7c88e8cbe6e9aa8db4bba660a3e868a54b2b12e5d1a80522bd14858e244c"
     },
     {
       "path": "game/src/landmark-source-masses.js",
@@ -430,7 +438,7 @@
     },
     {
       "path": "game/src/landmarks.js",
-      "sha256": "019dcced08e799b6bd580046172399956586743418d5da65c6586012900b72ce"
+      "sha256": "b313127abdcf664af91fa38768ce64450e20d7f13b010511cb90a82748dffd6a"
     },
     {
       "path": "game/src/main.js",
@@ -631,6 +639,10 @@
     {
       "path": "game/src/source-vehicle-dimensions.js",
       "sha256": "cb47316096169b91a2031c64b1066c89dcd8eff3c118e6a615754b5c2b4a2413"
+    },
+    {
+      "path": "game/src/source-water-tree-conflicts.js",
+      "sha256": "158a72f60f883de08b0eceeb539136795d6805598a6bbff8e3d631120fa9202a"
     },
     {
       "path": "game/src/spot-availability.js",
@@ -966,7 +978,7 @@
     },
     {
       "path": "game/src/trees.js",
-      "sha256": "9ffa650f45cf498f1acfd244d4cc0c9f9c1621b9f8b6a10fd8db6164e83fb70c"
+      "sha256": "968891c47e5ceb7d57989a7ce1e1915fb589fbc771aa61bccb0ead66f5f8a620"
     },
     {
       "path": "game/src/turn-lanes.js",
@@ -1014,7 +1026,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "ecba2f7342ca144b9e755846c94ee9c3f41d8f30669b0f53f8c62f576925b139"
+      "sha256": "96d4e7943c74c7dff22b381f7df315f689acf71d7cbbe8a6b9267d8db078c23c"
     },
     {
       "path": "game/src/worldmap.js",

@@ -336,6 +336,37 @@ geometry and scale.
 on the owner's hardware needs the whole step near 8 ms: that takes updating distant vehicles and walkers less often, which
 has not been started. The fork hold of the estimated tram ramp was met in this round's 180 s check (tram 491).
 
+### Simulation cost on Grozavesti halved · 2026-11-11 (owner: "performance is very bad in grozavesti")
+
+Reproduced the owner's report: morning peak (581 vehicles, 560 walkers), player at (713, -982), fixed 1/30 s steps in
+headless Chromium on the owner's desktop. Only 96 of the 581 vehicles were within 300 m; a district world simulated every
+actor at full rate. Measured back to back, committed tree then this change, twice: **traffic step 25.5-28.8 ms -> 13.4-13.5
+ms** (vehicles 18.8-21.3 -> 8.2 ms, walkers 6.7-7.6 -> 5.2-5.3 ms). Absolute times move with whatever else the machine
+does (the same tree read 21 ms on a quiet run); the ratio held in both rounds.
+
+- **Far actors step every other frame with twice the time step** (`DISTRICT_LOD_VEHICLE_M` 250 m, `DISTRICT_LOD_WALKER_M`
+  160 m), measured from the player, the walker on foot and the active camera, so a drone keeps its own surroundings at
+  full rate. The large legacy maps always did this for vehicles; districts did not. About 500 vehicles and 380 walkers
+  were on the half rate in that run. Nothing is removed; nothing within those distances changes. Alternating it on and off
+  inside one run: 35.0 -> 26.1 ms.
+- **Shared bridge profile lookup** (`sourceFrames().locate`): every height query scanned all cells; a tram beside the
+  shared Basarab decks asked thousands of times per step (a quarter of the step in that profile). It now looks only at the
+  cells of one grid square, in their original order. Same results: `game/dev/bridge-profile-locate.test.mjs` compares it
+  with the full scan on about 40,000 points, including cell boundaries, vertices and grid lines.
+- **Route validation** was repeated on every step for every vehicle (up to 24 turn-rule lookups each). Its verdict depends
+  only on the vehicle's edge, direction, lane and the route's own legs; while those are unchanged the last result stands.
+  State hashes with and without it are identical over 60 s at the morning peak.
+- **Collider query**: a fresh Set per query to report each body once, twice per walker per step; a query mark on the body
+  does the same (a nested query keeps the Set).
+- **Walker recycling**: with sidewalks at their walking fill, up to ten far walkers a step each scanned every sidewalk
+  within 420 m and tried fifty placements. Now one attempt a step, eight placements, and a walker that found no room waits
+  15 s; recycling pauses 3 s when no sidewalk in range has room.
+
+The half-rate stepping is the one change that alters the simulation (far actors take larger steps). With it: the tram
+progress check passes on Grozavesti and Romana, foot/a stays at 0 high / 0 medium, and 371 vehicles were moving at the end
+of the run against 334 before. Not done: 13 ms is still above what 60 fps needs for the whole frame; no frame rate was
+measured on the owner's hardware; the pedestrian side is now 40 % of the step.
+
 ### Reviewed finite source bridge descents
 
 `compileSourceBridgeDescents(data, { coreEdges, lanePolygon, padLanePolygon })` is a pure, registry-driven association. It retains literal source geometry, direction and tags; it requires the reviewed incoming/outgoing at-grade source joins and complete source-node metric coverage. Numeric elevations or inclines, changed context, missing native joins or infeasible grades return an explicit unresolved report. A MODEL ground datum is not a surveyed elevation.

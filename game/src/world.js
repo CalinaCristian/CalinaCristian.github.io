@@ -6571,7 +6571,16 @@ export async function buildWorld(city, renderer, opts = {}) {
     // Index the actual footprint. A long thin wall's bounding-circle square
     // formerly occupied whole city blocks and was visited by every walker.
     for (const b of allColl) { const box=collisionBounds(b);collisionQueryBounds.set(b,box);collGrid.insert(...box,b); }
-    Object.defineProperty(allColl, 'query', { value: (x, z, r, cb) => { const seen = new Set(); collGrid.each(x - r, z - r, x + r, z + r, (b) => { const box=collisionQueryBounds.get(b);if (!seen.has(b) && box[2]>=x-r && box[0]<=x+r && box[3]>=z-r && box[1]<=z+r) { seen.add(b); cb(b); } }); }, enumerable: false });
+    // A body spans several grid cells: each is reported once per query. A fresh Set per query was 6 % of the traffic step
+    // (every walker asks twice a step). A query mark on the body does the same; a query started inside another one's
+    // callback keeps the Set, so the outer marks are never disturbed.
+    let collQueryMark = 0, collQueryDepth = 0; const collQueryMarkable = allColl.every(b => Object.isExtensible(b)); // (a frozen body cannot carry the mark)
+    Object.defineProperty(allColl, 'query', { value: (x, z, r, cb) => {
+        if (collQueryDepth > 0 || !collQueryMarkable) { const seen = new Set(); collGrid.each(x - r, z - r, x + r, z + r, (b) => { const box=collisionQueryBounds.get(b);if (!seen.has(b) && box[2]>=x-r && box[0]<=x+r && box[3]>=z-r && box[1]<=z+r) { seen.add(b); cb(b); } }); return; }
+        const mark = ++collQueryMark; collQueryDepth++;
+        try { collGrid.each(x - r, z - r, x + r, z + r, (b) => { if (b._collQuery === mark) return; const box=collisionQueryBounds.get(b); if (box[2]>=x-r && box[0]<=x+r && box[3]>=z-r && box[1]<=z+r) { b._collQuery = mark; cb(b); } }); }
+        finally { collQueryDepth--; }
+    }, enumerable: false });
 
     // ---- districts / labels
     const districts = data.places.map(([n, x, z, rank]) => ({ name: str(n), x: x / 10, z: z / 10, rank }));

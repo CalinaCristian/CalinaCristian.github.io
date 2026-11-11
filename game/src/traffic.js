@@ -981,6 +981,12 @@ export class Traffic {
         return e.list;
     }
     /** Automatic recycling must keep both the old and new body out of view. */
+    /** No viewer (player, walker, active camera: see update) within `far` metres of the point. */
+    farFromViewers(x, z, far) {
+        const F = this._viewers; if (!F || !F.length) return false;
+        for (let i = 0; i < F.length; i += 2) { const dx = x - F[i], dz = z - F[i + 1]; if (dx * dx + dz * dz < far * far) return false; }
+        return true;
+    }
     inView(v) {
         const P = this.walker?.active ? this.walker : this.player; if (!P) return false;
         const dx = v.x - P.x, dz = v.z - P.z, d = Math.hypot(dx, dz);
@@ -1151,10 +1157,23 @@ export class Traffic {
     ensureRoute(v) {
         const R = v.route;
         let lane = v.lane, from = v.edge, dir = v.dir;
-        for (let i = 0; i < R.length; i++) {
-            const next = R[i];
-            if (!this.turnLaneAllows(from, dir, lane, next, v)) { R.length = i; break; }
-            lane = this.laneOnNext(v, lane, next.e, next.dir); from = next.e; dir = next.dir;
+        // The planned route was validated again on every step (up to 24 turn-rule lookups per vehicle). The verdict depends
+        // only on the vehicle's edge, direction and lane and on the route's own legs: while those are what they were at the
+        // last validation, its result stands.
+        const C = v._routeChecked;
+        let same = !!C && C.edge === from && C.dir === dir && C.lane === lane && C.n === R.length;
+        if (same) for (let i = 0; i < R.length; i++) if (C.item[i] !== R[i] || C.e[i] !== R[i].e || C.d[i] !== R[i].dir) { same = false; break; }
+        if (same) lane = C.endLane;
+        else {
+            for (let i = 0; i < R.length; i++) {
+                const next = R[i];
+                if (!this.turnLaneAllows(from, dir, lane, next, v)) { R.length = i; break; }
+                lane = this.laneOnNext(v, lane, next.e, next.dir); from = next.e; dir = next.dir;
+            }
+            const K = C || (v._routeChecked = { item: [], e: [], d: [] });
+            K.edge = v.edge; K.dir = v.dir; K.lane = v.lane; K.n = R.length; K.endLane = lane;
+            for (let i = 0; i < R.length; i++) { K.item[i] = R[i]; K.e[i] = R[i].e; K.d[i] = R[i].dir; }
+            K.item.length = K.e.length = K.d.length = R.length;
         }
         let dist = v.edge.len - v.s;
         for (const r of R) dist += r.e.len;
@@ -1248,6 +1267,13 @@ export class Traffic {
         this.peds.buildGrid();
         this._frame = (this._frame || 0) + 1;
         const P = this.player, lod = this.large && P;
+        // who is looking: the player, the walker on foot, and the active camera (a drone or an office window is elsewhere)
+        const viewers = this._viewers || (this._viewers = []); viewers.length = 0;
+        if (P) viewers.push(P.x, P.z);
+        if (this.walker?.active) viewers.push(this.walker.x, this.walker.z);
+        { const camera = this.observerCamera || (globalThis.game?.traffic === this ? globalThis.game.camera : null), m = camera?.matrixWorld?.elements; if (m && Number.isFinite(m[12]) && Number.isFinite(m[14])) viewers.push(m[12], m[14]); }
+        const lodDistrict = !this.large && viewers.length > 0 && this.districtLod !== false;
+        this.stats.lodVehicles = 0;
         if (P) P.stillT = Math.abs(P.speed) < 0.5 ? (P.stillT || 0) + dt : 0; // (mutual waits with a stopped player, stepVehicle)
         for (let i = 0; i < all.length; i++) {
             const v = all[i];
@@ -1257,6 +1283,7 @@ export class Traffic {
                 const dx = v.x - P.x, dz = v.z - P.z;
                 if (dx * dx + dz * dz > 90000) { if (((this._frame + v.id) & 1) === 0) continue; this.stepVehicle(v, Math.min(dt * 2, 0.08)); continue; }
             }
+            else if (lodDistrict && this.farFromViewers(v.x, v.z, DISTRICT_LOD_VEHICLE_M)) { this.stats.lodVehicles++; if (((this._frame + v.id) & 1) === 0) continue; this.stepVehicle(v, Math.min(dt * 2, 0.08)); continue; }
             this.stepVehicle(v, dt);
         }
         this.overlapGuard();
@@ -2556,6 +2583,11 @@ const SKIN = ['#f1c7a5', '#e0ac85', '#c68863', '#8d5a3b', '#f5d6bd'];
 const CLOTHES_B = ['#1f2937', '#374151', '#7f1d1d', '#1e3a8a', '#4b5563', '#0f172a', '#78350f', '#6b21a8', '#9ca3af', '#065f46'];
 const CLOTHES_S = ['#1f2937', '#334155', '#0f766e', '#1d4ed8', '#4b5563', '#7c2d12', '#facc15', '#111827'];
 
+/** District level of detail. A district world (about 1 km²) simulated every vehicle and walker at full rate wherever the
+ * player was: at the morning peak 485 of 581 vehicles were more than 300 m away. An actor farther than this from the
+ * player, the walker and the active camera steps every other frame with twice the time step, as far vehicles on the
+ * large legacy maps always have. Nothing is removed and nothing nearer than this changes. */
+const DISTRICT_LOD_VEHICLE_M = 250, DISTRICT_LOD_WALKER_M = 160;
 /** Share of a sidewalk's standing cells that relocation may fill with walkers (see Pedestrians.relocate). */
 const WALK_FILL = 0.35;
 export class Pedestrians {
@@ -2638,7 +2670,7 @@ export class Pedestrians {
         p.x = x; p.z = z; p.state = 'legs'; p.onRoad = cross;
     }
     /** big worlds: put a pedestrian on a sidewalk / bus stop rMin..rMax from the player */
-    relocate(p, rMin, rMax, hidden) {
+    relocate(p, rMin, rMax, hidden, maxTries = 50) {
         const T = this.t, P = T.player; if (!P) return;
         if (hidden && this.inView(p)) return;
         const peers=relocationPeerQuery(this.list,p,o=>this.reach(o));
@@ -2677,7 +2709,7 @@ export class Pedestrians {
                 cands.push({ e, side, space, total });
             }
         }
-        for (let tries = 0; total > 0 && tries < 50; tries++) {
+        for (let tries = 0; total > 0 && tries < maxTries; tries++) {
             const n = this.rng() * total, c = cands.find(q => q.total >= n);
             const cell = c.space.cells[Math.floor(this.rng() * c.space.cells.length)];
             p.e = c.e; p.side = c.side; p.dir = this.rng() < 0.5 ? 1 : -1; p.s = cell.s;
@@ -2688,18 +2720,27 @@ export class Pedestrians {
             p.animX = p.x; p.animZ = p.z; p.animVX = p.animVZ = 0; p.progressX = p.x; p.progressZ = p.z; p.progressT = 0;
             p.relocating = false; return;
         }
+        if (!(total > 0)) this.noWalkRoomUntil = (T.time || 0) + 3; // every sidewalk in range is at its walking fill: nobody else fits either
         Object.assign(p, saved);
         if (!p.e) p.state = 'stand'; // nowhere to walk: just stand where we are
     }
     relocateAll() { for (const p of this.list) this.relocate(p, 0, 420, false); this.buildGrid(); this.writeMatrices(); }
     recycle() {
         const P = this.t.player; if (!P || !this.list.length) return;
+        if (this.noWalkRoomUntil > this.t.time) return; // (see relocate: no free walking room near the player a moment ago)
         for (let k = 0; k < 10; k++) {
             this._rr = ((this._rr || 0) + 1) % this.list.length;
             const p = this.list[this._rr];
             // districts (~1 km²): keep the walkers around the player (a busy street at noon), big legacy maps as before
             const far = this.t.large ? 480 : 230;
-            if (p.state !== 'down' && Math.hypot(p.x - P.x, p.z - P.z) > far) this.relocate(p, this.t.large ? 120 : 45, this.t.large ? 420 : 200, true);
+            if (p.state !== 'down' && Math.hypot(p.x - P.x, p.z - P.z) > far && !(p.recycleAfter > this.t.time)) {
+                // One attempt per step, a few placements each, and a walker that found no room waits before asking again:
+                // with sidewalks at their walking fill every attempt scanned all sidewalks within 420 m and the whole crowd,
+                // up to ten walkers a step and fifty placements each (8 % of the traffic step).
+                const x = p.x, z = p.z; this.relocate(p, this.t.large ? 120 : 45, this.t.large ? 420 : 200, true, this.t.large ? 50 : 8);
+                if (p.x === x && p.z === z) p.recycleAfter = this.t.time + 15;
+                if (!this.t.large) break;
+            }
         }
     }
     width(e, side, fallback = 3) { return sidewalkWidthOf(this.t.world, e, side, fallback); }
@@ -3329,13 +3370,21 @@ export class Pedestrians {
         return true;
     }
 
-    update(dt) {
+    update(frameDt) {
         this.crossCount.clear();
-        const T = this.t;
+        const T = this.t, dt = frameDt;
         this._stepDt = dt;
         this._fr = (this._fr || 0) + 1;
+        // district level of detail (see DISTRICT_LOD_WALKER_M): a far walker takes every other frame, with twice the step
+        const lod = !T.large && typeof T.farFromViewers === 'function' && T.districtLod !== false, parity = this._fr & 1;
+        const skipped = p => lod && ((p.i ^ parity) & 1) === 1 && T.farFromViewers(p.x, p.z, DISTRICT_LOD_WALKER_M);
+        this.stats.lodWalkers = 0;
         this.ensurePeerGrid(true);
         for (const p of this.list) {
+            const far = lod && T.farFromViewers(p.x, p.z, DISTRICT_LOD_WALKER_M);
+            if (far) { this.stats.lodWalkers++; if (((p.i ^ parity) & 1) === 1) continue; }
+            const dt = far ? Math.min(frameDt * 2, 0.08) : frameDt; // (shadows the frame step for this walker's whole move)
+            this._stepDt = dt;
             this.ensurePeerGrid();
             const frameX = p.x, frameZ = p.z;
             try {
@@ -3502,11 +3551,13 @@ export class Pedestrians {
             }
             } finally { this.guardPeerStep(p, frameX, frameZ, dt); }
         }
+        this._stepDt = dt;
         this.ensurePeerGrid(true);
         this.separate(dt);
         // Crowd separation also changes the physical pose. A sidestep must not
         // finish inside a pole/car that was cleared earlier in this update.
         for (const p of this.list) if (p.state !== 'down') {
+            if (skipped(p)) continue;
             this.ensurePeerGrid(); const x = p.x, z = p.z;
             this.avoidVehicles(p, p.x, p.z, false); this.clearObstacles(p); this.guardPeerStep(p, x, z, dt);
         }

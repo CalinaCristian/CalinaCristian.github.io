@@ -77,9 +77,16 @@ export function sourceFrames(points, halfWidth = 25) {
     }
     const bary = (p, poly) => { const [a,b,c]=poly, v=[b[0]-a[0],b[1]-a[1]], w=[c[0]-a[0],c[1]-a[1]], r=[p[0]-a[0],p[1]-a[1]], den=cross(v,w); if(Math.abs(den)<1e-12)return null; const u=cross(r,w)/den,vv=cross(v,r)/den; return [1-u-vv,u,vv]; };
     for(const cell of cells){const q0=bary([0,0],cell.poly),qx=bary([1,0],cell.poly),qz=bary([0,1],cell.poly); const val=q=>q.reduce((v,w,i)=>v+w*cell.stations[i],0), c=val(q0);cell.stationCoefficients=[val(qx)-c,val(qz)-c,c];}
+    // Every height query on the shared profile ends here. It used to test all cells; a tram beside the shared decks asked
+    // thousands of times per step (a quarter of the whole traffic step). The grid only skips cells whose bounding box,
+    // padded far beyond the barycentric tolerance, cannot hold the point; candidates keep their original order, so the
+    // result is the same.
+    const GRID=12, PAD=.05, lookup=new Map();
+    cells.forEach((cell,n)=>{const xs=cell.poly.map(p=>p[0]),zs=cell.poly.map(p=>p[1]);
+        for(let i=Math.floor((Math.min(...xs)-PAD)/GRID);i<=Math.floor((Math.max(...xs)+PAD)/GRID);i++)for(let j=Math.floor((Math.min(...zs)-PAD)/GRID);j<=Math.floor((Math.max(...zs)+PAD)/GRID);j++){const k=i+','+j;let list=lookup.get(k);if(!list)lookup.set(k,list=[]);list.push(n);}});
     const locate = point => {
-        const hits=[];
-        for(const cell of cells){const q=bary(point,cell.poly); if(!q || q.some(v=>v < -EPS || v > 1+EPS))continue; const s=q.reduce((sum,v,i)=>sum+v*cell.stations[i],0), segment=cell.segment,t=(s-cumulative[segment])/(cumulative[segment+1]-cumulative[segment]); if(!hits.some(h=>Math.abs(h.s-s)<1e-5))hits.push({s,segment,t});}
+        const hits=[], list=lookup.get(Math.floor(point[0]/GRID)+','+Math.floor(point[1]/GRID)); if(!list)return null;
+        for(const n of list){const cell=cells[n],q=bary(point,cell.poly); if(!q || q.some(v=>v < -EPS || v > 1+EPS))continue; const s=q.reduce((sum,v,i)=>sum+v*cell.stations[i],0), segment=cell.segment,t=(s-cumulative[segment])/(cumulative[segment+1]-cumulative[segment]); if(!hits.some(h=>Math.abs(h.s-s)<1e-5))hits.push({s,segment,t});}
         return hits.length===1?hits[0]:null;
     };
     const breaksForSegment = (a,b,stations=[]) => {

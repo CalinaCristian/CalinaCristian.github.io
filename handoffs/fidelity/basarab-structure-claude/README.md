@@ -21,6 +21,17 @@ not available (see "Not available"), publication and live verification by the in
 To keep master linear, cherry-pick `c82b1fa5`, `dda67f21`, `d538aaad` and `576adda5` in that order; the merge commits
 (`6c07fd94`, `02562dea`) carry no change of their own.
 
+## Update 5 · simulation cost (2026-11-11)
+
+Owner: "performance is very bad in grozavesti" (F8 report: traffic step 25 of a 27 ms frame, 586 vehicles).
+Reproduced and measured back to back at the reported spot and hour: **traffic step 25.5-28.8 ms -> 13.4-13.5 ms**.
+Far vehicles and walkers step every other frame (camera-aware), the shared bridge profile lookup is indexed, route
+validation and the collider query are cached, walker recycling is throttled. Details and what each change is checked by:
+`specs/13-traffic.md`. Shared files: `traffic.js`, `world.js` (collider query only), `bridge-profile-geometry.js`
+(**integration owner: the lookup index is in your module; results are identical, test added**).
+Checks: 69 unit tests, foot/a 0 high / 0 medium, tram progress check passes on Grozăvești and Romana, tram sweep audit and
+built-world bridge check pass. Not measured: frame rate on the owner's hardware.
+
 ## Update 4 · owner feedback on the structure, crowd at (713, -982), performance (2026-11-11)
 
 The owner inspected this branch on the local preview and sent screenshots and one F8 report.

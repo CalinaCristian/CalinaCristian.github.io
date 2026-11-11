@@ -13,7 +13,8 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, hash2, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, distPolyline, canvas, canvasTexture, fitDraw, obb, polyArea } from '../kit.js';
 import { bucBackdrop, classicFacade, classicWalls, balustradeMaterial, palisade, osmPoly, cityFiller, placeLandmark, signAtlas, oldTownTerraces, facadeToward, floodlight, shopfrontFacade, bucActivity } from '../buc.js';
-import { wallGeometry, sourceFacadeFrame } from '../osm.js';
+import { wallGeometry } from '../osm.js';
+import { sourceFacadeFrame } from '../source-facade.js';
 import { buildSecretWcpBar } from './wcp-secret-bar.js';
 import { createVenueActivities } from '../venue-activities.js';
 import { collide } from '../walker.js';

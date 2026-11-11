@@ -32,13 +32,14 @@ export function buildBellevueSquare(b, outline, macys) {
         if (recess) {
             for (const [lo, hi] of [[.4, 3.5], [4.1, 8.9], [9.5, 14.4]]) {
                 b.quad(at(0, lo, .055), at(1, lo, .055), at(1, hi, .055), at(0, hi, .055), glass, 'g', [nx, 0, nz]);
+                // Estimated 14cm mullions remain legible at the reported drone distance.
                 const n = Math.max(1, Math.round(L / 1.25));
                 for (let j = 0; j <= n; j++) {
-                    const t = j / n, half = Math.min(.035 / L, .2), t0 = Math.max(0, t - half), t1 = Math.min(1, t + half);
+                    const t = j / n, half = Math.min(.07 / L, .2), t0 = Math.max(0, t - half), t1 = Math.min(1, t + half);
                     b.quad(at(t0, lo, .075), at(t1, lo, .075), at(t1, hi, .075), at(t0, hi, .075), frame, 'm', [nx, 0, nz]);
                 }
-                for (let y = lo + 1.2; y < hi; y += 1.2)
-                    b.quad(at(0, y, .075), at(1, y, .075), at(1, y + .055, .075), at(0, y + .055, .075), frame, 'm', [nx, 0, nz]);
+                for (let y = lo + 1.2; y + .14 <= hi; y += 1.2)
+                    b.quad(at(0, y, .075), at(1, y, .075), at(1, y + .14, .075), at(0, y + .14, .075), frame, 'm', [nx, 0, nz]);
             }
         } else if (L > 2) {
             // Existing shop-level glazing, bounded by each real wall segment.
@@ -54,10 +55,10 @@ export function buildBellevueSquare(b, outline, macys) {
     b.strut([x - hw, y, z + .16], [x, p.gablePeakM, z + .16], .36, .5, stone);
     b.strut([x, p.gablePeakM, z + .16], [x + hw, y, z + .16], .36, .5, stone);
     b.box(x, H, z + .13, 7.6, 3.65, .22, glass, { mat: 'g' });
-    for (let u = -3.8; u <= 3.801; u += .95) b.box(x + u, H, z - .005, .055, 3.65, .045, frame);
-    for (let v = H; v < H + 3.66; v += .73) b.box(x, v, z - .005, 7.6, .055, .045, frame);
-    b.text('BELLEVUE', x, 16.65, z - .07, Math.PI, 1.0, '#e0e2de', { d: .025 });
-    b.text('SQUARE', x, 15.45, z - .07, Math.PI, 1.0, '#e0e2de', { d: .025 });
+    for (let u = -3.8; u <= 3.801; u += .95) b.box(x + u, H, z - .005, .10, 3.65, .045, frame);
+    for (let v = H; v < H + 3.66; v += .73) b.box(x, v, z - .005, 7.6, .10, .045, frame);
+    b.text('BELLEVUE', x, 16.75, z - .07, Math.PI, 1.1, '#e0e2de', { d: .025 });
+    b.text('SQUARE', x, 15.35, z - .07, Math.PI, 1.1, '#e0e2de', { d: .025 });
     // Roof feature is physically solid where the visible frame and glazing stand.
     b.colPolygon([[x-3.8,z+.02],[x+3.8,z+.02],[x+3.8,z+.24],[x-3.8,z+.24]], { y0:H, y1:H+3.65 });
     b.cols.at(-1).minH=H; delete b.cols.at(-1).y0;

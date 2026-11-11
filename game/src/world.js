@@ -6538,6 +6538,11 @@ export async function buildWorld(city, renderer, opts = {}) {
     let backdropCount = 0;
     const backdropSourceOwnership = [];
     const builtLandmarks = new Set(landmarks.map(lm => lm.id));
+    // (owner register #31 / L25, Unirii: blank blocks in front of the Palace of the Parliament, "buildings inside distant
+    // landmarks") backdrop and horizon masses are anonymous filler: none stands inside the grounds of a built landmark
+    const landmarkDiscs = landmarks.filter(l => l.radius > 0 && !LANDMARKS.find(m => m.id === l.id)?.backdrop).map(l => ({ x: l.x, z: l.z, r: l.radius }));
+    const inLandmarkGrounds = (x, z, w, d) => landmarkDiscs.some(L => Math.hypot(x - L.x, z - L.z) < L.r + Math.hypot(w, d) / 2);
+    let backdropInLandmark = 0;
     const backdropBindings = LANDMARKS.filter(lm => builtLandmarks.has(lm.id)).flatMap(lm =>
         (lm.backdropSources?.[distId] || []).map(record => ({...record, landmark:lm.id, declaredSourceIds:lm.sourceIds || []})));
     const ringGeometry = data.district?.geometry || (distCfg?.bands ? {
@@ -6594,6 +6599,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const x = bd[i] / 10, z = bd[i + 1] / 10, w = bd[i + 2] / 10, d = bd[i + 3] / 10, h = bd[i + 4] / 10, rot = -bd[i + 5] * Math.PI / 180;
             const box = { x, z, hw: w / 2, hd: d / 2, angle: rot, r: Math.hypot(w, d) / 2, poly: null, h, kind: 'backdrop' };
             if (touchesDetailedRing(x, z, w, d)) continue;
+            if (inLandmarkGrounds(x, z, w, d)) { backdropInLandmark++; continue; }
             if (polyOnRibbon(obbPoly({ ...box, hw: w / 2 + 2, hd: d / 2 + 2 }))) continue;
             const st = h > 30 ? 'glass' : h > 14 ? 'bloc' : US ? 'house' : 'bloc';
             const colr = shadeRgb(rgb(rng.pick(pal[st])), 0.9);
@@ -6624,6 +6630,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const col = trees ? hr.pick(woods) : shadeRgb(rgb(hr.pick(pal[h > 20 ? 'bloc' : US ? 'house' : 'plain'] || pal.plain)), 0.85);
                 const rotation = a + hr.range(-0.4, 0.4);
                 if (touchesDetailedRing(x, z, w, d)) continue;
+                if (inLandmarkGrounds(x, z, w, d)) { backdropInLandmark++; continue; }
                 horizon.box(x, -0.2, z, w, h, d, rotation, col);
             }
         }
@@ -7003,6 +7010,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const stats = { fasciaLayout: { records: fasciaLayoutAudit, boards: facadeBoards, scope: 'Inferred coplanar fascia boards on existing source walls; source POIs and names unchanged' }, sourceWaterTreeConflicts: { records: waterTreeConflicts.records, sourceRecordsRetained: true, marginM: 0, scope: 'Physical trunk bodies intersect detailed basins and their rendered granite rims; not canopy thinning or road/traffic change' }, parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, bridgeBents: bridgeBents.report, treeDeckClearance, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, backdropSourceOwnership, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, inferredBuildingDetails: inferredDetailAudit, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     stats.scenerySource = scenerySourceAudit;
+    stats.backdropInLandmark = backdropInLandmark;
     stats.floatingSupport = { parts: floatingSupport.parts, columns: floatingSupport.columns, grounded: floatingSupport.grounded || 0 };
     stats.medianFill = { quads: medianFill.quads, areaM2: medianFill.areaM2, grass: medianFill.decks.filter(d => d.medianKind === 'grass').length, concrete: medianFill.decks.filter(d => d.medianKind === 'concrete').length, asphalt: medianFill.decks.filter(d => d.medianKind === 'asphalt').length };
     stats.fallbackGround=fallback.report;

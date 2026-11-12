@@ -2,8 +2,8 @@
 //  Fremont Troll (Steve Badanes, Will Martin, Donna Walter, Ross Whitehead, 1990)
 //  — the owner's favourite. Modelled in 3-D from the research description and
 //  dimensions (R15.7: no photo textures; artists credited on the plaque):
-//  head, shoulders and two hands emerging from the ground under the concrete
-//  arches of the Aurora Bridge's north approach, the viewer-left hand splayed
+//  head, shoulders and two hands emerging from the ground under the haunched
+//  concrete girders of the Aurora Bridge's north end, the viewer-left hand splayed
 //  flat, the viewer-right hand clamping a (grey-painted) VW Beetle, one hubcap
 //  eye, the other hidden under the hair; stairs on the right, boulders around.
 //  Climbable (hand, Beetle, shoulders, head via the slope behind).
@@ -16,13 +16,26 @@ import { addTraffic } from '../cars.js';
 import { bench } from '../osm.js';
 import { seaActivity } from './sea-common.js';
 import { activityFlow } from '../participation.js';
+import { applyFineDem } from './fine-dem.js';
+import TROLL_DEM from './fine-dem-fremont-troll.js';
 
 // ---------------------------------------------------------------------------- site constants (local metres)
-const TX = -3.0, TZ = -50.0, TY = 4.0;           // troll base centre (OSM node n2485251324 ≈ (−1.1, −49.8); centred in its arch bay)
+// troll base centre (OSM node n2485251324 ≈ (−1.1, −49.8); centred in its arch bay). Base level from the USGS 1 m DEM:
+// 2.7–2.9 m at the Troll, 0.4 m above N 36th St (2.4 m)
+const TX = -3.0, TZ = -50.0, TY = 2.8;
 const COLS = [-19.5, -8.75, 2.75];               // bridge column lines (x): west bay + the troll's bay
 const DECK = { x0: -20.6, x1: 3.9 };             // deck edges (Aurora Bridge 21.3 m + sidewalks)
-const BENTS = []; for (let z = -88; z <= 190; z += 15) BENTS.push(z); // transverse bents; −43 frames the Troll
-const UNDER = (z) => 13.5 + 0.025 * (z + 43);    // deck underside height (rises south toward the canal)
+// The bridge ends at its north abutment, z = −66.5 (OSM man_made=bridge w370645739 / bridge way w378090317); north
+// of it Aurora Ave N runs at grade on the embankment (USGS 1 m DEM: roadway 10.3–10.5 m above the origin). The deck
+// climbs from that level to 51 m above the Ship Canal (lake level 5 m NAVD88 → 22.9 m here) at mid-span.
+const ABUT_Z = -66.5, ROAD_N = 10.4, DECK_T = 1.15;
+const BENTS = []; for (let z = -58; z <= 190; z += 15) BENTS.push(z); // transverse bents; −58 and −43 frame the Troll
+const UNDER = (z) => Math.min(22.9, ROAD_N + 0.0206 * (z - ABUT_Z)) - DECK_T; // deck underside height (rises south toward the canal)
+// Street View (N 36th St, 2025 pano east of the bridge): a concrete girder bridge on rectangular columns with capitals;
+// the girders are haunched, so each span reads as a very shallow arch (≈ 1 m rise), not as an arcade; deck underside
+// ≈ 7 m above N 36th St
+const HAUNCH = 1.1, GIRDER = 1.3, CROSS = 1.0;
+const STAIRS = [[5.2, -54.5, -74], [-22.0, -53.5, -75]]; // [x, z bottom, z top]
 const N36 = [[-102, -61], [-93, -59], [-57, -50], [-23, -42], [-16, -41], [-4, -38.4], [4, -36.4], [40, -29], [82, -20], [180, 1]];
 
 // ============================================================================
@@ -228,12 +241,12 @@ function buildBridge(ctx) {
     };
     const archGeo = (x0, x1, ys, crown, top, depth) => { const geo = new THREE.ExtrudeGeometry(archShape(x0, x1, ys, crown, top), { depth, bevelEnabled: false, curveSegments: 4 }); return geo; };
     for (const zb of BENTS) {
-        const und = UNDER(zb), crown = und - 0.35, ys = crown - 3.9;
+        const und = UNDER(zb), crown = und - CROSS, ys = crown - 0.8;
         // columns with base + capital
         for (const cx of COLS) {
-            const gy = g.heightAt(cx, zb) - 0.4;
+            const gy = Math.min(g.heightAt(cx, zb) - 0.4, ys - 1.2);
             b.box(cx, gy, zb, 1.5, ys - gy, 1.5, concrete, 'concrete');
-            b.box(cx, gy, zb, 1.9, 0.9, 1.9, concrete, 'concrete');
+            if (ys - gy > 2.4) b.box(cx, gy, zb, 1.9, 0.9, 1.9, concrete, 'concrete');
             b.box(cx, ys - 0.55, zb, 1.95, 0.6, 1.95, concrete, 'concrete');
             b.box(cx, ys - 0.75, zb, 1.7, 0.2, 1.7, concrete, 'concrete');
             ctx.box(cx, zb, 0.95, 0.95, 0, { bridgePier: true });
@@ -248,7 +261,7 @@ function buildBridge(ctx) {
     }
     // longitudinal arches along each column line between bents
     for (let k = 0; k < BENTS.length - 1; k++) {
-        const z0 = BENTS[k], z1 = BENTS[k + 1], zm = (z0 + z1) / 2, und = UNDER(zm), crown = und - 0.3, ys = crown - 3.6;
+        const z0 = BENTS[k], z1 = BENTS[k + 1], zm = (z0 + z1) / 2, und = UNDER(zm), crown = und - GIRDER, ys = crown - HAUNCH;
         for (const cx of COLS) {
             const shape = archShape(z0 + 0.75, z1 - 0.75, ys, crown, Math.max(UNDER(z0), UNDER(z1)) + 0.02);
             const geo = new THREE.ExtrudeGeometry(shape, { depth: 1.0, bevelEnabled: false, curveSegments: 4 });
@@ -257,7 +270,7 @@ function buildBridge(ctx) {
         }
     }
     // deck slab (stepped per bay, rising south) + longitudinal girders + parapets + suicide-prevention fence
-    const zN = BENTS[0] - 7, zS = 640;
+    const zN = ABUT_Z, zS = 640;
     for (let z = zN; z < zS; z += 15) {
         const z1 = Math.min(zS, z + 15), u0 = UNDER(z), u1 = UNDER(z1);
         // slab as a sloped box: quads top/bottom
@@ -265,6 +278,11 @@ function buildBridge(ctx) {
         const pos = geo.attributes.position; for (let i = 0; i < pos.count; i++) { const zz = pos.getZ(i) > 0 ? 1 : 0; pos.setY(i, pos.getY(i) + (zz ? u1 : u0) + 0.575); }
         geo.computeVertexNormals();
         b.add(geo, 'concrete', M((DECK.x0 + DECK.x1) / 2, 0, (z + z1) / 2), concrete); geo.dispose();
+        { // the carriageway on top (OSM w378090317: 6 lanes, asphalt) between the two sidewalks
+            const ag = new THREE.BoxGeometry(DECK.x1 - DECK.x0 - 4.4, 0.06, z1 - z), ap = ag.attributes.position;
+            for (let i = 0; i < ap.count; i++) ap.setY(i, ap.getY(i) + (ap.getZ(i) > 0 ? u1 : u0) + DECK_T + 0.03);
+            ag.computeVertexNormals(); b.add(ag, 'asphalt', M((DECK.x0 + DECK.x1) / 2, 0, (z + z1) / 2), '#4b4c50'); ag.dispose();
+        }
         for (const gx of [-16, -11.5, -6, -1.5]) { const gg = new THREE.BoxGeometry(0.55, 0.9, z1 - z); const p = gg.attributes.position; for (let i = 0; i < p.count; i++) p.setY(i, p.getY(i) + (p.getZ(i) > 0 ? u1 : u0) - 0.45); gg.computeVertexNormals(); b.add(gg, 'concrete', M(gx, 0, (z + z1) / 2), concrete); gg.dispose(); }
         for (const ex of [DECK.x0 + 0.2, DECK.x1 - 0.2]) {
             const pg = new THREE.BoxGeometry(0.35, 1.0, z1 - z); const p = pg.attributes.position; for (let i = 0; i < p.count; i++) p.setY(i, p.getY(i) + (p.getZ(i) > 0 ? u1 : u0) + 1.65); pg.computeVertexNormals(); b.add(pg, 'concrete', M(ex, 0, (z + z1) / 2), concrete); pg.dispose();
@@ -272,9 +290,12 @@ function buildBridge(ctx) {
             b.box(ex, UNDER(z + 7.5) + 4.45, z + 7.5, 0.06, 0.06, z1 - z, '#3d4246', 'metal');
         }
     }
-    // north abutment wall where the deck meets the embankment
-    const zA = zN;
-    b.box((DECK.x0 + DECK.x1) / 2, g.heightAt(-8, zA) - 1, zA, DECK.x1 - DECK.x0 + 1, UNDER(zA) - g.heightAt(-8, zA) + 2.4, 1.5, concrete, 'concrete');
+    // north abutment where the deck meets the embankment: a wall across the full width, from below the bank to the
+    // roadway, with short wing walls holding the fill on both sides
+    const zA = zN, yA = Math.min(g.heightAt(DECK.x0, zA + 1), g.heightAt(-8, zA + 1), g.heightAt(DECK.x1, zA + 1)) - 2;
+    b.box((DECK.x0 + DECK.x1) / 2, yA, zA - 0.75, DECK.x1 - DECK.x0 + 1, UNDER(zA) + DECK_T - yA, 1.5, concrete, 'concrete');
+    for (const wx of [DECK.x0 - 0.3, DECK.x1 + 0.3]) b.box(wx, yA, zA - 4.5, 0.6, UNDER(zA) + DECK_T + 0.9 - yA, 9, concrete, 'concrete');
+    ctx.box((DECK.x0 + DECK.x1) / 2, zA - 0.75, (DECK.x1 - DECK.x0) / 2 + 0.5, 0.75, 0, { y0: yA, y1: UNDER(zA) });
     // the main span far south: two tall piers + cantilever truss silhouette over the ship canal
     for (const pz of [470, 615]) { const gy = -30; for (const sx of [-15, -1]) b.box(sx, gy, pz, 3.2, UNDER(pz) - gy, 4, '#9a978f', 'concrete'); }
     for (let z = 470; z < 760; z += 9) { const top = UNDER(z) + 1.2 + 9 * Math.sin(Math.PI * clamp((z - 470) / 290, 0, 1)); for (const sx of [DECK.x0 + 0.6, DECK.x1 - 0.6]) { b.rod([sx, UNDER(z) + 1.2, z], [sx, top, z + 4.5], 0.18, '#5e6b6e', 'steel', 5); b.rod([sx, top, z + 4.5], [sx, UNDER(z + 9) + 1.2, z + 9], 0.18, '#5e6b6e', 'steel', 5); } }
@@ -318,15 +339,14 @@ function buildBays(ctx) {
         ctx.collider({ wall: true, ax: x0, az: z0, bx: x1, bz: z1, y0a: y0 - 1, y1a: y0 + h, y0b: y0 - 1, y1b: y0 + h, nx: 0, nz: 1 });
     };
     // behind the Troll (next bent north), both bays; west bay along Troll Ave north of N 36th
-    fence(COLS[0] + 0.8, -58, COLS[1] - 0.8, -58); fence(COLS[1] + 0.8, -60.5, COLS[2] - 0.8, -60.5, 2.6);
-    fence(COLS[0] + 0.8, -73, COLS[1] - 0.8, -73); fence(COLS[1] + 0.8, -73, COLS[2] - 0.8, -73);
-    // graffiti on the spandrel walls / abutment seen through the fences
-    for (const [x0, x1, z, s] of [[COLS[0] + 0.8, COLS[1] - 0.8, -73.65, 3], [COLS[1] + 0.8, COLS[2] - 0.8, -73.65, 5], [COLS[0] + 0.8, COLS[1] - 0.8, -88.6, 8]]) {
-        const y0 = g.heightAt((x0 + x1) / 2, z), w = x1 - x0, h = Math.min(4, UNDER(z) - 4.5 - y0);
-        const m = new THREE.Mesh(new THREE.PlaneGeometry(w, Math.max(1.5, h)), new THREE.MeshStandardMaterial({ map: graffitiTexture(s), roughness: 0.95 }));
-        m.position.set((x0 + x1) / 2, y0 + Math.max(1.5, h) / 2 + 0.1, z); grp.add(m);
-        const wall = new THREE.Mesh(new THREE.BoxGeometry(w, Math.max(1.5, h) + 0.3, 0.6), mat('concrete')); wall.position.set((x0 + x1) / 2, y0 + Math.max(1.5, h) / 2, z - 0.32); grp.add(wall);
-        ctx.box((x0 + x1) / 2, z - 0.3, w / 2, 0.4);
+    // (the bays end at the abutment, z = −66.5: the fences and graffiti walls that stood north of it are gone)
+    fence(COLS[0] + 0.8, -58, COLS[1] - 0.8, -58, 2.4); fence(COLS[1] + 0.8, -60.5, COLS[2] - 0.8, -60.5, 2.2);
+    // graffiti on the abutment face seen through the fences, in the narrow band between the bank and the deck
+    for (const [x0, x1, s] of [[COLS[0] + 0.8, COLS[1] - 0.8, 3], [COLS[1] + 0.8, COLS[2] - 0.8, 5]]) {
+        const z = ABUT_Z + 0.03, y0 = g.heightAt((x0 + x1) / 2, z), w = x1 - x0, h = UNDER(z) - 0.2 - y0;
+        if (h < 0.6) continue;
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: graffitiTexture(s), roughness: 0.95 }));
+        m.position.set((x0 + x1) / 2, y0 + h / 2, z); grp.add(m);
     }
     ctx.add(grp);
 }
@@ -334,26 +354,24 @@ function buildBays(ctx) {
 // ---------------------------------------------------------------------------- stairs (rebuilt Sept 2023), boulders, ledge, Moss Turtle
 function buildSurrounds(ctx) {
     const b = new GeoBatch(), g = ctx.ground, r = rng(42);
-    // stairs: east of the Beetle (OSM steps w50612754, x≈4), climbing north from the plaza to the slope behind
-    const sx = TX + 6.6, z0 = TZ - 0.5, steps = 26, run = 0.62, rise = 0.205;
-    for (let i = 0; i < steps; i++) {
-        const z = z0 - i * run, y0 = TY + i * rise;
-        b.box(sx, y0 - 0.6, z - run / 2, 2.0, 0.6 + rise, run + 0.02, i % 2 ? '#c4c1ba' : '#c0bdb5', 'concrete');
-        g.addBox(sx, z - run / 2, 1.0, run / 2 + 0.01, 0, y0 - 0.6, y0 + rise);
+    // stairs on both sides of the bridge, from N 36th St up the embankment to the Aurora Ave sidewalks at the bridge
+    // end (OSM steps w50612754 east, (5, −54) → (4, −74), rebuilt 2023; w50612756 west, (−20, −53) → (−20, −75)).
+    // They stand just outside the deck edge; the levels are the embankment's (USGS 1 m DEM: 3.2 m → 10.4 m).
+    let stairTop = TY;
+    for (const [sx, zb, zt] of STAIRS) {
+        const yb = g.heightAt(sx, zb), yt = g.heightAt(sx, zt), run = 0.6, steps = Math.round((zb - zt) / run), rise = (yt - yb) / steps;
+        for (let i = 0; i < steps; i++) {
+            const z = zb - i * run, y0 = yb + i * rise;
+            b.box(sx, y0 - 0.8, z - run / 2, 2.0, 0.8 + rise, run + 0.02, i % 2 ? '#c4c1ba' : '#c0bdb5', 'concrete');
+            g.addBox(sx, z - run / 2, 1.0, run / 2 + 0.01, 0, y0 - 0.8, y0 + rise);
+        }
+        // landing at the top joining the sidewalk
+        b.box(sx, yt - 0.6, zt - 1.2, 2.6, 0.6, 2.4, '#bcb9b1', 'concrete');
+        g.addBox(sx, zt - 1.2, 1.3, 1.2, 0, yt - 0.6, yt);
+        // pipe handrails
+        for (const s of [-1, 1]) b.tube([[sx + s * 1.05, yb + 0.95, zb], [sx + s * 1.05, yt + 0.95, zt]], 0.03, '#5d6266', 'steel', 6);
+        stairTop = Math.max(stairTop, yt);
     }
-    const stairTop = TY + steps * rise;
-    // landing at the top joining the slope
-    b.box(sx, stairTop - 0.6, z0 - steps * run - 1.2, 2.6, 0.6, 2.4, '#bcb9b1', 'concrete');
-    g.addBox(sx, z0 - steps * run - 1.2, 1.3, 1.2, 0, stairTop - 0.6, stairTop);
-    // pipe handrail
-    for (const s of [-1, 1]) b.tube([[sx + s * 1.05, TY + 0.95, z0], [sx + s * 1.05, stairTop + 0.95, z0 - steps * run]], 0.03, '#5d6266', 'steel', 6);
-    // raise the slope behind the Troll to meet the landing (dirt bank)
-    g.mod((x, z, h) => {
-        if (x < TX - 9 || x > TX + 10 || z > TZ - 3 || z < TZ - 40) return h;
-        const t = smooth(TZ - 3, TZ - 17, z), want = TY + 0.4 + t * (stairTop - TY - 0.4);
-        const edge = smooth(TX + 10, TX + 8, x) * smooth(TX - 9, TX - 7, x);
-        return Math.max(h, h + (want - h) * edge * (z < TZ - 3 ? 1 : 0));
-    });
     // concrete ledge on the right behind the Troll (abutment step)
     b.box(TX + 4.2, TY, TZ - 4.6, 3.6, 2.5, 2.2, '#b3b0a8', 'concrete'); g.addBox(TX + 4.2, TZ - 4.6, 1.8, 1.1, 0, TY - 1, TY + 2.5);
     // boulders: displaced icosahedra
@@ -367,7 +385,7 @@ function buildSurrounds(ctx) {
         ctx.circle(x, z, s * 0.85, s * sy * 0.9);
         g.addBox(x, z, s * 0.6, s * 0.6, 0, y - 1, y + s * sy * 0.9);
     };
-    rock(TX - 6.6, TZ + 2.3, 1.15); rock(TX - 7.6, TZ - 0.5, 1.4, 0.8); rock(TX - 5.4, TZ + 5.0, 0.7); rock(TX + 6.6, TZ + 5.8, 0.8); rock(TX + 8.6, TZ - 2.5, 1.3);
+    rock(TX - 6.6, TZ + 2.3, 1.15); rock(TX - 7.6, TZ - 0.5, 1.4, 0.8); rock(TX - 5.4, TZ + 5.0, 0.7); rock(TX + 5.6, TZ + 5.8, 0.8); rock(TX + 11.4, TZ - 2.5, 1.3);
     rock(TX + 6.1, TZ - 6.0, 0.6); rock(TX - 6.2, TZ - 4.0, 0.9); rock(TX + 4.9, TZ + 5.6, 0.55, 0.6); rock(TX - 8.8, TZ + 4.0, 0.8);
     for (let i = 0; i < 14; i++) rock(TX + (r() - 0.5) * 20, TZ - 2 - r() * 10, 0.25 + r() * 0.35, 0.6); // gravel stones
     // Moss Turtle (Michiko Tanaka, 2020) by the park path
@@ -426,6 +444,8 @@ export default {
     env: { fogFar: 2600 },
     async build(ctx) {
         const g = ctx.ground, d = ctx.data, sp = ctx.spot('fremont-troll');
+        // ---- real levels round the Troll and the bridge end (the 20 m research grid smeared the embankment)
+        applyFineDem(g, TROLL_DEM, { fade: 8 });
         // ---- ground shaping: Troll plaza, Troll Ave + N 36th St carriageways keep their slope but are smooth across
         g.corridor([[-8.2 + 4.0, 160], [-8.2 + 4.0, 60], [-4.1, 0], [-4.1, -36]], 12, 6);
         g.corridor(N36, 9, 5);
@@ -436,7 +456,7 @@ export default {
         ctx.exclude.push([[DECK.x0 - 1, -100], [DECK.x1 + 1, -100], [DECK.x1 + 1, 200], [DECK.x0 - 1, 200]]); // no OSM buildings/trees under the deck
         // knoll + embankments (ivy, ferns, blackberry, dry soil under the bridge)
         P.poly([[-50, -147], [-50, -58], [39, -38], [39, -161]], '#55703a', 'grass');
-        P.poly([[DECK.x0, -100], [DECK.x1, -100], [DECK.x1, -42], [DECK.x0, -45]], '#6f6a60', 'dirt');
+        P.poly([[DECK.x0, ABUT_Z], [DECK.x1, ABUT_Z], [DECK.x1, -42], [DECK.x0, -45]], '#6f6a60', 'dirt');
         P.poly([[DECK.x0 - 4, -42], [DECK.x0, -42], [DECK.x0, 160], [DECK.x0 - 4, 160]], '#3f5a2e', 'grass');
         ctx.osmBackdrop({ paint: { sidewalks: true }, streetTreeOpts: { spacing: 13, prob: 0.6 }, areaTreeOpts: { conifer: 0.55 } });
         // Troll's Knoll + embankments: trees, ivy / blackberry / fern shrubs (none under the deck)
@@ -525,7 +545,8 @@ export default {
                 [[1.6, 150], [1.6, 60], [1.6, 10], [1.4, -31]], [[-17.2, 140], [-17.2, 40], [-17.2, -34]],
                 N36.slice(4).map(([x, z]) => [x, z + 6]), N36.slice(0, 6).map(([x, z]) => [x, z - 6]),
                 [[1.4, -31], [0.6, -38], [TX + 3.8, TZ + 7.8], [TX - 4, TZ + 8.2], [-14, -45]],
-                [[TX + 6.6, TZ + 1], [TX + 6.6, TZ - 16.6], [TX + 6.6, TZ - 19], [19, -55], [26, -63], [27, -74], [18, -93]],
+                [[STAIRS[0][0], TZ + 2], [STAIRS[0][0], STAIRS[0][1]], [STAIRS[0][0], STAIRS[0][2] - 1.5]], [[STAIRS[0][0], STAIRS[0][1]], [19, -55], [26, -63], [27, -74], [18, -93]],
+                [[STAIRS[1][0], -50], [STAIRS[1][0], STAIRS[1][1]], [STAIRS[1][0], STAIRS[1][2] - 1.5]],
             ],
             groups: [
                 { x: TX - 4.7, z: TZ + .8, r: 0.1, n: 1, act: 'pose', look: [TX - 3, TZ + 14], y: hmTop, personas: ['tourist_us', 'kid', 'tourist_es'] },
@@ -534,7 +555,7 @@ export default {
                 { x: TX + 3.5, z: TZ + 10.5, r: 2.2, n: 5, act: 'watch', look: [TX, TZ + 1], personas: ['tourist_cn', 'tourist_jp', 'tourist_de', 'tourist_es', 'tourist_ca'] },
                 { x: TX + 5.6, z: TZ + 12.5, r: 0.3, n: 1, act: 'guide', look: [TX + 3, TZ + 10], personas: ['guide'], prop: 'flag' },
                 { x: TX - 7.2, z: TZ + 8.8, r: 1, n: 2, act: 'talk', personas: ['local', 'tourist_us'] },
-                { x: TX + 6.6, z: TZ - 9.5, r: 0.2, n: 1, act: 'watch', look: [TX, TZ], y: (x, z) => g.groundAt(x, z, 10), personas: ['kid', 'tourist_us'] },
+                { x: STAIRS[0][0], z: TZ - 9.5, r: 0.2, n: 1, act: 'watch', look: [TX, TZ], y: (x, z) => g.groundAt(x, z, 10), personas: ['kid', 'tourist_us'] },
                 { x: 9, z: -37.5, r: 0.5, n: 1, act: 'watch', look: [TX, TZ], personas: ['local'] },
             ],
         };

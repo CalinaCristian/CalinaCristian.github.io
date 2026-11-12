@@ -551,3 +551,90 @@ Live OpenStreetMap (API 0.6 map call, 2026-11-12) against the spot extracts of 2
 - West of Western Ave, live OSM: coastline way 1464900126 (seawall, Colman Dock and Pier 48 as land), Alaskan Way as two roadways (ways 223785010 + 835645674, 1321962096 + 1321962090), Washington State Ferries Terminal (way 1154870285, 2 levels, start_date 2023-08-03), Water Taxi / Fast Ferries Terminal (way 226321140, 1 level). Drawn from these; the Pioneer Building could not be seen in a panorama and is built from this dossier's description.
 - Pike Place, Western Ave below the market (47.60878,-122.34155): north-west = the market's west side as a cream multi-storey block with red-framed industrial windows, a green steel footbridge over Western Ave, the garage (plain tan concrete) on the west side; south-east = the same cream / red-frame block, brick opposite. The game has the block and the bridge in place; the red frames, the bridge's green steel and the plain garage wall are not matched.
 - Seattle Center, 5th Ave N at MoPOP (47.62138,-122.34768) looking 240: bronze-gold metal skin, curved, down to the ground behind street trees. Broad St (47.61991,-122.34862) looking 320: the Needle behind large trees, a lawn with a dark sculpture.
+
+## 8. Fidelity pass 2026-11-12 — Fremont Troll, Kerry Park, Ballard Locks, Gas Works
+
+Sources: live OSM (API 0.6 map call, 2026-11-12; Overpass was saturated), the USGS 3DEP 1 m DEM through EPQS sampled on
+4–5 m grids (10 m at Gas Works) — stored as `game/src/spots/scenes/fine-dem-<scene>.js` — and Google Street View as a
+look reference only (nothing stored, traced or measured from it beyond the proportions noted below). The 20 m research
+terrain grid is too coarse wherever a level changes within a few metres (a lock wall, a bridge abutment, a viewpoint
+platform on a shore); the fine grids replace it there (`scenes/fine-dem.js`).
+
+### Fremont Troll
+- **Bridge end.** OSM `man_made=bridge` w370645739 and bridge way w378090317 end at 47.65120 N (z = −66.5 in the scene):
+  north of it Aurora Ave N is at grade. DEM: roadway there 43.4–43.6 m NAVD88, N 36th St under the bridge 35.5 m, the
+  ground at the Troll 35.8–36.0 m, and a bank climbing 7 m in 20 m from behind the Troll to the abutment. So the deck
+  soffit is about 7 m above N 36th St and the Troll (5.5 m) sits just under it. The scene had the deck 3.7 m too high,
+  30 m too long (an invented piece of viaduct with two extra bents, fences and graffiti walls over what is the
+  embankment) and the Troll's base 1.2 m too high.
+- **Structure type** (Street View, 2025 pano on N 36th St east of the bridge, id s2nejgAfrxEcFPqUbBfauA; 2013
+  photosphere at the junction): a concrete girder bridge on rectangular columns with capitals; the girders are haunched,
+  so each span reads as a very shallow arch — not a tall arcade. Column lines across the deck could not be counted
+  reliably (two are visible flanking the Troll); the scene keeps its three lines — unverified.
+- **Stairs.** OSM maps steps on both sides of the bridge: w50612754 east and w50612756 west, from N 36th St to the
+  Aurora sidewalks at the bridge end. The west flight was missing.
+- Not checked on imagery: the fences behind the Troll, the knoll's planting (Street View shows the east bank wooded,
+  the scene has lawn with scattered trees), the Troll Eye Apartments sign.
+
+### Kerry Park
+- **Changing Form.** OSM n693337510 (city art inventory GCK74.048): "a square frame with a circle cut out of the middle
+  stacked on a triangular frame with circles cut out of each side", Cor-ten, 16'6" × 6'3" × 4'5". Street View (2025
+  pano on W Highland Dr, id pmkM273v38BcX2jtOhHfww): two stacked frames of equal width, a full round opening in each,
+  dark brown-black, on a round three-step plinth in a brick plaza; the upper opening faces the street / the bay. The
+  scene had two curved half-slabs forming one ring, turned towards the Needle, on a small base in the lawn.
+- **Edge.** OSM: railing w240890465 (west, 1.2 m), wall w240890467 (middle, 1 m, with a small bay), railing w240890466
+  (east, 1.2 m); coin binoculars n2485862631 at the railing; guidepost "Kerry Park Sign" n2485862643 at the west end.
+- **Levels.** DEM: the terrace falls gently from +1.2 m (west) to +0.3 m (east) relative to the origin and is level
+  with W Highland Dr; the scene keeps it flat at +0.15 m (sub-metre, left as is). Bayview-Kinnear's play terrace is
+  flat at −17.5 m.
+- **Postcard.** Needle bearing 141°, Rainier 152.4° and ≈ 2.1° above the horizon: the scene's backdrop matches both.
+  Rainier itself reads as a dark slab with a small snow cap (shared `landmark-us-terrain.js`, not changed here).
+
+### Ballard Locks
+- **Layout from OSM** (scene metres, x east / z south of 47.6664 N 122.3970 W): lock gates w293079629 (west),
+  w293079656 (intermediate), w1305545916 (east) of the large lock, w1305545915 / w293079859 of the small lock; lock and
+  guide walls are the `man_made=breakwater` polygons w159935907 (the 355 m wall between the locks), w51818718 (south
+  wall of the small lock and its guide wall), w51818719, w1305542077; the spillway is `waterway=dam` w32823954, running
+  70 m from the small lock's south wall SSW to the south bank; the public crossing is the chain of footways
+  w472179838 – w285286403 – w472179843 – w1475183519 – w1475183520 (west gate, middle wall, small-lock gate, south
+  wall, dam) plus w472179834 over the intermediate gate; the fish ladder (w764035003, w285286401) and its viewing room
+  (n3413278212, tunnel footway w285281016) are on the south bank. The scene had the spillway as a block parallel to
+  the locks in open water, no guide walls, no intermediate gate and no way across.
+- **Levels from the DEM** (hydro-flattened): lake 4.98 m NAVD88, tidewater −0.36 m (a low-tide surface), coping and
+  north bank 7.0 m. The scene's coping stood 2.1 m higher. The DEM carries no walls (they are flattened into the
+  water), so their tops are taken at the north bank's coping level.
+- **Spillway look** (Street View, Sep 2022 pano on the walkway, id Y0Yw3Wz4h2RpdyuvBvYE7w): stained concrete piers, an
+  arched concrete service bridge with pipe railings above the dark ribbed gate leaves, the public footbridge along the
+  downstream face about 2.4 m below it with galvanised railings and lamp posts; the gate tops stand a little above the
+  footbridge deck, so the deck is close to lake level. Footbridge and service-bridge levels are read off that pano,
+  not surveyed. The red hoist boxes the scene had are not there.
+- **Buildings.** Street View (Administration Building front): grey concrete with arched openings, not buff. Roofs
+  red tile (seen from the dam). The window pattern is still the generic one.
+- **Salmon Bay Bridge.** OSM man_made=bridge w859885667 (BNSF bridge 6.3, bascule) with the movable span on
+  w34680546 / w53826213 at 122.4021 W; Street View from W Commodore Way: a rust-brown camelback through truss, lowered,
+  counterweight tower at the north end. Added as a silhouette.
+- Not checked on imagery: the fish ladder's own look and the viewing room entrance, the garden's planting, the
+  visitor centre, "Salmon Waves" (n3211770269, not modelled), the Control Tower's shape, businesses on NW 54th St /
+  Market St at the edge of the extract (Lockspot Cafe, Pagliacci Pizza, 7-Eleven carry OSM names in the data).
+
+### Gas Works Park
+- **Levels from the DEM**: lake 4.98 m NAVD88; Kite Hill summit 20.4 m (OSM `ele=20`); the Prow / "Lake View Point"
+  (n3667766956) 10.8 m, i.e. 5.9 m above the lake, with the shore path at 6.1–6.2 m. The scene had the lake surface
+  1.3 m too high, the Prow and the amphitheatre under water (the 20 m grid misses the platform) and a synthetic mound
+  2.3 m too tall for Kite Hill.
+- **Sundial.** OSM n31096103: 27'9" across. The mosaic was painted, then covered by the OSM pedestrian disc
+  w191328703 ("Kite Hill") drawn over it as plain slabs.
+- **Play Barn.** The mapped sheds are w52137309 (south) and w52137316 (north), 40 m east of where the scene had an
+  invented shed. Street View (Oct 2012 pano on the path at their west end, id 8m6r8xCsZ1nuwWZ4N4U8sw): the south shed
+  is the Play Barn — open sides, white posts with white wedge braces, low grey corrugated roof, red / orange / pink
+  machinery inside, tall blue and white vessels at its corner; the north shed is taller and grey (the picnic shelter).
+- **Lawn relics.** The `building=industrial` footprints w406480498–w406480503 west of the barn are slender rust-brown
+  towers 15–20 m tall with fat sweeping pipes, a row of three low vessels (w406480503) and a small grey shed — not
+  painted machines. `tourism=artwork` w405794428 "Concrete Train Trestles" is a row of concrete bents.
+- **Generator towers.** Inside fence w4835090 OSM maps six round tanks of 6–7 m, one rectangular block, two chimneys
+  (`man_made=chimney`, 1.5 m) and nine small vessels; the scene chose tank or stack by list position.
+- **High bridges.** Aurora Bridge (w370645739, 870 m west) and the I-5 Ship Canal Bridge (bridge ways w4644173 /
+  w474077561 along 122.3225 W, 1 km east) close the lake view on both sides; neither was in the scene. Added as
+  silhouettes at their mapped positions.
+- Not checked on imagery: the sundial's actual design (the scene's is a stylised pattern), the amphitheatre steps,
+  the car park and the entrance sign, the Burke-Gilman trail edge, the towers' individual shapes.

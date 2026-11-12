@@ -37,13 +37,24 @@ export function clipInferredBuildingDetail(faces, owner, neighbours, { inferred 
     // visibleRoofMesh tests every face against every occluder face; an occluder face whose box lies more than SEPARATE
     // (≫ its EPS of 1e-8 m) away from a face's box leaves every piece of that face unchanged, so each face is passed only
     // the occluder faces near it, in their original order: the same pieces, without the quadratic scan.
-    const boxes = occluders.map(o => o.mesh.faces.map(faceBox)), clipped = [];
+    // occluder faces in a 4 m grid by their box (grown by SEPARATE); a face's candidates are the faces listed in the
+    // cells under its box, deduplicated and put back in their original (occluder, face) order before the exact test
+    const flat = [], grid = new Map(), G = 4, key = (i, j) => i * 1048576 + j;
+    occluders.forEach((o, k) => o.mesh.faces.forEach((f, j) => {
+        const b = faceBox(f), n = flat.length; flat.push({ k, f, b });
+        for (let i = Math.floor((b[0] - SEPARATE) / G); i <= Math.floor((b[1] + SEPARATE) / G); i++) for (let m = Math.floor((b[2] - SEPARATE) / G); m <= Math.floor((b[3] + SEPARATE) / G); m++) { const c = key(i, m); let l = grid.get(c); if (!l) grid.set(c, l = []); l.push(n); }
+    }));
+    const clipped = [];
     for (const face of input) {
-        const [x0, x1, z0, z1] = faceBox(face), near = [];
-        occluders.forEach((o, k) => {
-            const keep = o.mesh.faces.filter((f, j) => { const b = boxes[k][j]; return !(b[1] < x0 - SEPARATE || b[0] > x1 + SEPARATE || b[3] < z0 - SEPARATE || b[2] > z1 + SEPARATE); });
-            if (keep.length) near.push({ i: o.i, minH: o.minH, mesh: { faces: keep } });
-        });
+        const [x0, x1, z0, z1] = faceBox(face), ids = new Set();
+        for (let i = Math.floor(x0 / G); i <= Math.floor(x1 / G); i++) for (let m = Math.floor(z0 / G); m <= Math.floor(z1 / G); m++) for (const n of grid.get(key(i, m)) || []) ids.add(n);
+        const near = [];
+        for (const n of [...ids].sort((p, q) => p - q)) {
+            const { k, f, b } = flat[n];
+            if (b[1] < x0 - SEPARATE || b[0] > x1 + SEPARATE || b[3] < z0 - SEPARATE || b[2] > z1 + SEPARATE) continue;
+            const last = near[near.length - 1];
+            if (last && last.k === k) last.mesh.faces.push(f); else near.push({ k, i: occluders[k].i, minH: occluders[k].minH, mesh: { faces: [f] } });
+        }
         clipped.push(...visibleRoofMesh({ faces: [face], walls: [] }, { i: Infinity }, near).faces);
     }
     const before = input.reduce((s, f) => s + area(f), 0), after = clipped.reduce((s, f) => s + area(f), 0);

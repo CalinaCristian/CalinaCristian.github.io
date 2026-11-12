@@ -30,6 +30,23 @@ function clipHalf(subject, keep) {
     return out;
 }
 
+/** clipHalf(subject, p => -keep(p)) and clipHalf(subject, keep) in one pass, keep evaluated once per point. Exact: the
+ *  negated values give the same tests and t = (−fp) / ((−fp) − (−fq)) = fp / (fp − fq) bit for bit. */
+function clipBoth(subject, keep) {
+    const n = subject.length, f = new Array(n), neg = [], pos = [];
+    for (let i = 0; i < n; i++) f[i] = keep(subject[i]);
+    for (let i = 0; i < n; i++) {
+        const j = (i + 1) % n, p = subject[i], q = subject[j], fp = f[i], fq = f[j];
+        // outside part: −fp ≥ 0
+        const op = -fp, oq = -fq;
+        if (op >= 0) neg.push(p);
+        if ((op >= 0) !== (oq >= 0)) { const t = op / (op - oq); neg.push([p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t]); }
+        if (fp >= 0) pos.push(p);
+        if ((fp >= 0) !== (fq >= 0)) { const t = fp / (fp - fq); pos.push([p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t]); }
+    }
+    return [neg, pos];
+}
+
 /** subject minus a convex polygon, as a list of polygons (one per edge of the convex one that the subject crosses).
  *  Piece k is the subject inside the first k-1 edge half-planes and outside the k-th: the pieces do not overlap and
  *  their union is exactly the difference. A non-convex subject is clipped correctly by convex regions (Sutherland-
@@ -40,7 +57,7 @@ export function subtractConvex(subject, convex) {
     for (let i = 0; i < convex.length && rest.length >= 3; i++) {
         const a = convex[i], b = convex[(i + 1) % convex.length];
         const inside = p => s * ((b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0]));
-        const outsidePart = clipHalf(rest, p => -inside(p)), insidePart = clipHalf(rest, inside);
+        const [outsidePart, insidePart] = clipBoth(rest, inside);
         if (outsidePart.length >= 3 && Math.abs(area(outsidePart)) > 1e-6) pieces.push(outsidePart);
         rest = insidePart;
     }

@@ -10,14 +10,18 @@ export function buildUnderpassOwnerIndex(surfaces, { fallbackM, size = 64, regio
     const cells = new Map(); let triangles = 0, malformed = 0;
     for (const { mesh, id, water = false } of surfaces) {
         if (!mesh || !Number.isFinite(mesh.ic) || !mesh.p || !mesh.i) { malformed++; continue; }
+        const P = mesh.p, I = mesh.i;
         for (let k = 0; k < mesh.ic; k += 3) {
-            const vertices = [0, 1, 2].map(j => Array.from(mesh.p.subarray(mesh.i[k + j] * 3, mesh.i[k + j] * 3 + 3)));
-            if (!vertices.flat().every(Number.isFinite)) { malformed++; continue; }
-            const [a, b, c] = vertices, den = (b[0] - a[0]) * (c[2] - a[2]) - (b[2] - a[2]) * (c[0] - a[0]);
+            // the tests first, on the buffer values themselves; arrays are made only for the triangles kept
+            const ia = I[k] * 3, ib = I[k + 1] * 3, ic = I[k + 2] * 3;
+            const ax = P[ia], ay = P[ia + 1], az = P[ia + 2], bx = P[ib], by = P[ib + 1], bz = P[ib + 2], cx = P[ic], cy = P[ic + 1], cz = P[ic + 2];
+            if (!(Number.isFinite(ax) && Number.isFinite(ay) && Number.isFinite(az) && Number.isFinite(bx) && Number.isFinite(by) && Number.isFinite(bz) && Number.isFinite(cx) && Number.isFinite(cy) && Number.isFinite(cz))) { malformed++; continue; }
+            const den = (bx - ax) * (cz - az) - (bz - az) * (cx - ax);
             // Only upward-facing native skins supply an overhead ground band.
             if (den >= -EPS) continue;
-            const poly = vertices.map(p => [p[0], p[2]]), box = bounds(poly);
+            const box = { x0: Math.min(ax, bx, cx), x1: Math.max(ax, bx, cx), z0: Math.min(az, bz, cz), z1: Math.max(az, bz, cz) };
             if (regions && !regions.some(r => overlaps(box, r))) continue;
+            const a = [ax, ay, az], b = [bx, by, bz], c = [cx, cy, cz], vertices = [a, b, c], poly = vertices.map(p => [p[0], p[2]]);
             const row = { id: `${id}:${k / 3}`, vertices, poly, box, water,
                 heightAt: (x, z) => { const u = ((x - a[0]) * (c[2] - a[2]) - (z - a[2]) * (c[0] - a[0])) / den,
                     v = ((b[0] - a[0]) * (z - a[2]) - (b[2] - a[2]) * (x - a[0])) / den;

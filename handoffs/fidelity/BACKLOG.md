@@ -11,6 +11,7 @@ Publishing: the owner asked (2026-11-11) for fixes to go straight to `master`, n
 
 | Where | Report | State / diagnosis |
 | --- | --- | --- |
+| — | none | every owner report so far is fixed on `master` and re-checked live; new reports go here |
 
 ## Waiting for the owner's walk-through: Space Needle rebuild (2026-11-11 / 12)
 

@@ -2,7 +2,7 @@ import { fitFacadeSign, facadeSignBoard } from './facade-sign-layout.js';
 import { sourceWaterTreeConflicts } from './source-water-tree-conflicts.js';
 import { nonShopWindowBands } from './facade-window-bands.js';
 import { sourceTransitShelterDecision } from './source-transit-shelter.js';
-import { projectCoveredWater, prepareFinalWaterGeometry, prepareSmallWaterGroups, consumePreparedSmallWater, waterOwnerSurface, landmarkWaterSurfaces, combineUnderpassWaterOwners } from './final-water-topology.js';
+import { projectCoveredWater, coveredWaterHulls, prepareFinalWaterGeometry, prepareSmallWaterGroups, consumePreparedSmallWater, waterOwnerSurface, landmarkWaterSurfaces, combineUnderpassWaterOwners } from './final-water-topology.js';
 import { buildUnderpassOwnerIndex } from './underpass-ground-owner.js';
 import { underpassRoofModel, underpassRoofFaces, underpassRoofCollider, UNDERPASS_COVER_POLICY } from './underpass-roof.js';
 import { sharedBridgePadSurface } from './bridge-pad-profile.js';
@@ -1787,14 +1787,53 @@ export async function buildWorld(city, renderer, opts = {}) {
         const xs = q.map(v => v[0]), zs = q.map(v => v[1]);
         trenchQuads.push({ q, x0: Math.min(...xs), x1: Math.max(...xs), z0: Math.min(...zs), z1: Math.max(...zs) });
     }
+    // (owner, 2026-11-12, Grozăvești (102, -229): "i can randomly see water through the ground") A sunken water channel is
+    // an opening of the same kind: its water lies 4.4 m below the street, under every flat ground layer. Flat water is
+    // the top ground layer and shows through whatever is mapped across it; the sunken river did not, so a park or
+    // landuse polygon mapped across it, and above all the aerial green raster (which reads the algae-green river as
+    // lawn), covered the water and left it showing only through the raster's gaps. The channel decision is taken here,
+    // before the layers are built, and the channel's own water triangles are cut out of them like the trenches.
+    // Not where the river is covered (the Unirii slab: its water is dropped from the final mesh by triangle centre, so
+    // the ground stays whole to 4 m past the covered line, the reach of a 6 m water triangle whose centre is inside).
+    const convexApart = (p, q) => { // a separating axis among the edge normals of two convex polygons
+        for (const poly of [p, q]) for (let i = 0; i < poly.length; i++) {
+            const a = poly[i], b = poly[(i + 1) % poly.length], nx = b[1] - a[1], nz = a[0] - b[0];
+            let p0 = Infinity, p1 = -Infinity, q0 = Infinity, q1 = -Infinity;
+            for (const v of p) { const d = v[0] * nx + v[1] * nz; if (d < p0) p0 = d; if (d > p1) p1 = d; }
+            for (const v of q) { const d = v[0] * nx + v[1] * nz; if (d < q0) q0 = d; if (d > q1) q1 = d; }
+            if (p1 <= q0 + 1e-9 || q1 <= p0 + 1e-9) return true;
+        }
+        return false;
+    };
+    const coveredWater = projectCoveredWater(city, { us: US }), coveredHulls = coveredWaterHulls(coveredWater, 4);
+    const waterTris = new Map(), channelCuts = [];
+    for (const a of areas) {
+        if (a.kind !== 'water') continue;
+        // Literal mapped water type precedes the legacy estimated channel classification.
+        a.channelDecision = waterChannelDecision(a, { us: US, tags: data.areaSourceTags?.[a.sourceId] || {} });
+        if (!a.channelDecision.channel) continue;
+        const t = triangulate(a.outer, a.holes); waterTris.set(a, t);
+        for (const tri of t.tris) {
+            let open = [tri.map(k => t.pts[k])];
+            for (const hull of coveredHulls) open = open.flatMap(q => convexApart(q, hull) ? [q] : subtractConvex(q, hull));
+            for (const q of open) {
+                const xs = q.map(v => v[0]), zs = q.map(v => v[1]);
+                if (Math.abs(signedArea(q)) < 1e-6) continue;
+                channelCuts.push({ q, x0: Math.min(...xs), x1: Math.max(...xs), z0: Math.min(...zs), z1: Math.max(...zs) });
+            }
+        }
+    }
+    const groundCuts = trenchQuads.concat(channelCuts);
+    // (a river polygon's triangles are long slivers with large boxes: the exact test keeps the ground beside them whole)
+    const groundCutsAt = (poly, x0, z0, x1, z1) => groundCuts.filter(h => h.x1 > x0 && h.x0 < x1 && h.z1 > z0 && h.z0 < z1 && !convexApart(poly, h.q));
     let trenchCutTris = 0;
     const cutTrenches = (pts, tris) => { // pts [[x, z]], tris [[i, j, k]] (flatPoly orients each triangle up itself)
-        if (!trenchQuads.length) return { pts, tris };
+        if (!groundCuts.length) return { pts, tris };
         const P = pts.slice(), T = [];
         for (const t of tris) {
             const tri = t.map(k => P[k]);
             const x0 = Math.min(tri[0][0], tri[1][0], tri[2][0]), x1 = Math.max(tri[0][0], tri[1][0], tri[2][0]), z0 = Math.min(tri[0][1], tri[1][1], tri[2][1]), z1 = Math.max(tri[0][1], tri[1][1], tri[2][1]);
-            const hits = trenchQuads.filter(h => h.x1 > x0 && h.x0 < x1 && h.z1 > z0 && h.z0 < z1);
+            const hits = groundCutsAt(tri, x0, z0, x1, z1);
             if (!hits.length) { T.push(t); continue; }
             let pieces = [tri];
             for (const h of hits) { pieces = pieces.flatMap(pc => subtractConvex(pc, h.q)); if (!pieces.length) break; }
@@ -1804,15 +1843,14 @@ export async function buildWorld(city, renderer, opts = {}) {
         return { pts: P, tris: T };
     };
     for (const a of areas) {
-        let { pts, tris } = triangulate(a.outer, a.holes);
+        let { pts, tris } = waterTris.get(a) || triangulate(a.outer, a.holes);
         if (a.kind !== 'water' && tris.length) ({ pts, tris } = cutTrenches(pts, tris));
         if (!tris.length) continue;
         const y = AREA_Y[a.kind] ?? Y.landuse;
         const col = rgb(areaColors[a.kind] || env.ground);
         if (a.kind === 'water') {
             const target = (a.x1 - a.x0 > CELL * 2 || a.z1 - a.z0 > CELL * 2) ? bigWater : cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2).water;
-            // Literal mapped water type precedes the legacy estimated channel classification.
-            const channel = waterChannelDecision(a, { us: US, tags: data.areaSourceTags?.[a.sourceId] || {} }), chan = channel.channel;
+            const channel = a.channelDecision, chan = channel.channel;
             waterChannelAudit.push({ sourceId: a.sourceId, name: a.name, ...channel, surfaceM: chan ? CHAN.water : y, surfaceSource: 'model estimate' });
             const v0 = target.vc; target.flatPoly(pts, tris, chan ? CHAN.water : y, chan ? rgb('#3c4a42') : col, 0.02); a.waterMesh = { mb: target, v0, v1: target.vc };
             if (chan) { a.channel = true; channelAreas.push(a); }
@@ -2018,8 +2056,10 @@ export async function buildWorld(city, renderer, opts = {}) {
             const x0 = G.x0 + o.c * G.cx, x1 = G.x0 + (o.c + o.n) * G.cx, z0 = G.z0 + o.r0 * G.cz, z1 = G.z0 + r1 * G.cz;
             const k = 0.9 + gr() * 0.16, col = [Math.round(base[0] * k), Math.round(base[1] * (k + 0.02)), Math.round(base[2] * k)];
             const gq = cellOf((x0 + x1) / 2, (z0 + z1) / 2).grass;
-            // (the aerial green raster also sees grass on the banks of open trenches: cut it out of them like the areas)
-            if (trenchQuads.some(h => h.x1 > x0 && h.x0 < x1 && h.z1 > z0 && h.z0 < z1)) { const cut = cutTrenches([[x0, z0], [x1, z0], [x1, z1], [x0, z1]], [[0, 1, 2], [0, 2, 3]]); if (cut.tris.length) gq.flatPoly(cut.pts, cut.tris, Y.grass + 0.004, col, 0.1); }
+            // (the aerial green raster also sees grass on the banks of open trenches, and lawn in the green water of a
+            // sunken river channel: cut it out of them like the areas)
+            const quad = [[x0, z0], [x1, z0], [x1, z1], [x0, z1]];
+            if (groundCutsAt(quad, x0, z0, x1, z1).length) { const cut = cutTrenches(quad, [[0, 1, 2], [0, 2, 3]]); if (cut.tris.length) gq.flatPoly(cut.pts, cut.tris, Y.grass + 0.004, col, 0.1); }
             else gq.flatQuad(x0, z0, x1, z0, x1, z1, x0, z1, Y.grass + 0.004, col, 0.1);
             greenQuads++;
         };
@@ -2803,7 +2843,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     ] : [], underpassOwnerOptions);
     let underpassOwners = combineUnderpassWaterOwners(underpassGroundOwners, buildUnderpassOwnerIndex(underpassRegions.length ?
         [...cells].map(([key, c]) => ({ mesh: c.water, id: 'water:' + key, water: true })) : [], underpassOwnerOptions));
-    const deferredUnderpassDown = [], coveredWater = projectCoveredWater(city, { us: US });
+    const deferredUnderpassDown = [];
     // (owner register #59, SeaTac: "barrier pieces read broken") where two sunken ramps part, each one's trench wall and
     // rim parapet ran on through the other's carriageway (an X of walls at the gore). A trench wall stops where its line
     // lies on another road's carriageway — not the same road's own continuation (that is the wall going on).
@@ -7468,7 +7508,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.tramSweep = tramSweep ? { ...tramSweep.report, conflicts: tramSweepConflicts } : null;
     stats.tramRailings = tramRailings;
     stats.landmarkWaterFootprints = landmarkWaterFootprints;
-    stats.trenchGroundCuts = { corridors: trenchQuads.length, triangles: trenchCutTris }; // (ground layers cut out of open trenches)
+    stats.trenchGroundCuts = { corridors: trenchQuads.length, channelWaterTriangles: channelCuts.length, triangles: trenchCutTris }; // (ground layers cut out of open trenches and sunken water channels)
     stats.trenchGoreCuts = trenchGoreCuts; // (#59: trench wall sides stopped at another sunken ramp)
     stats.buildingOverlapCuts = overlapCuts; // (world-space basin outlines: audits of what stands in or over them)
     stats.bridgeGuardCompletion = guardCompletion;

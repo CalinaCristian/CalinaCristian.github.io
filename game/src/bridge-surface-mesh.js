@@ -19,10 +19,18 @@ export function displaceBridgeSurface(mesh, fromVertex, fromIndex, heightAtWorld
         // Longest-edge bisection bounds both horizontal dimensions, including
         // long thin fascia faces; the deeper finite budget is numerical only.
         if(!knownH)tri=tri.map(snap);
-        const H=knownH?knownH.map((h,i)=>h===undefined?at(tri[i]):h):tri.map(at),E=[];let error=0,longest=-1,split=0;
-        for(let i=0;i<3;i++){const a=tri[i],b=tri[(i+1)%3],d=Math.hypot(b.p[0]-a.p[0],b.p[2]-a.p[2]);if(d>longest){longest=d;split=i;}const e=knownE?.[i]??edgeError(a,b,H[i],H[(i+1)%3]);E.push(e);error=Math.max(error,e);}
-        const p0=tri[0].p,p1=tri[1].p,p2=tri[2].p;error=Math.max(error,Math.abs(heightAtWorld((p0[0]+p1[0]+p2[0])/3,(p0[2]+p1[2]+p2[2])/3,(p0[1]+p1[1]+p2[1])/3)-(H[0]+H[1]+H[2])/3));
-        if(error>maxErrorM&&depth<maxDepth&&longest>1e-5){const j=(split+1)%3,k=(split+2)%3,m=snap(mix(tri[split],tri[j],.5)),hm=at(m);recurse([tri[split],m,tri[k]],depth+1,[H[split],hm,H[k]],[undefined,undefined,E[k]]);recurse([m,tri[j],tri[k]],depth+1,[hm,H[j],H[k]],[undefined,E[j],undefined]);return;}
+        const H=knownH?knownH.map((h,i)=>h===undefined?at(tri[i]):h):tri.map(at),E=[undefined,undefined,undefined];let error=0,longest=-1,split=0;
+        for(let i=0;i<3;i++){const a=tri[i],b=tri[(i+1)%3],d=Math.hypot(b.p[0]-a.p[0],b.p[2]-a.p[2]);if(d>longest){longest=d;split=i;}}
+        const edge=i=>E[i]??(E[i]=knownE?.[i]??edgeError(tri[i],tri[(i+1)%3],H[i],H[(i+1)%3]));
+        const p0=tri[0].p,p1=tri[1].p,p2=tri[2].p,centre=()=>Math.abs(heightAtWorld((p0[0]+p1[0]+p2[0])/3,(p0[2]+p1[2]+p2[2])/3,(p0[1]+p1[1]+p2[1])/3)-(H[0]+H[1]+H[2])/3);
+        const j=(split+1)%3,k=(split+2)%3,canSplit=depth<maxDepth&&longest>1e-5;
+        // The node splits when the largest control error exceeds the tolerance. When it can split, the controls are tested
+        // in an order (the edges its children keep first) and the test stops at the first one over the tolerance: the
+        // decision is the same, and a split node records nothing; a child recomputes a kept edge's error identically
+        // (same vertices, same direction, same heights). A leaf always evaluates every control.
+        for(const i of canSplit?[k,j,split]:[0,1,2]){error=Math.max(error,edge(i));if(canSplit&&error>maxErrorM)break;}
+        if(!(canSplit&&error>maxErrorM))error=Math.max(error,centre());
+        if(error>maxErrorM&&canSplit){const m=snap(mix(tri[split],tri[j],.5)),hm=at(m);recurse([tri[split],m,tri[k]],depth+1,[H[split],hm,H[k]],[undefined,undefined,E[k]]);recurse([m,tri[j],tri[k]],depth+1,[hm,H[j],H[k]],[undefined,E[j],undefined]);return;}
         const witness=()=>({depth,errorM:error,vertices:tri.map((v,i)=>({position:v.p,heightDisplacement:H[i],color:v.c,materialTag:v.t}))});
         if(error>maxErrorM){stats.depthLimit++;if(stats.limitSamples.length<16)stats.limitSamples.push(witness());}if(error>stats.maxLeafControlErrorM)stats.worstControl=witness();stats.maxLeafControlErrorM=Math.max(stats.maxLeafControlErrorM,error);
         // (the same arithmetic as before, on scalars: P = corner + its displacement, normal = (P1 − P0) × (P2 − P0) / |…|)

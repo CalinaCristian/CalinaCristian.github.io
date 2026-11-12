@@ -96,7 +96,7 @@ export default {
         if (pool.length) waterPoly(ctx, pool, POOL_Y, { deep: '#1f3a3b', shallow: '#3f5c55', cell: 2, ripple: 0.4, wave: 0.2, envIntensity: 1.4, foam: 0, name: 'reflecting-pool' });
         // granite coping both sides of the canal + around the pools
         const COP = '#b8a197';
-        for (let i = 0; i < 360; i++) { const a = i / 360 * TAU, lv = level(a); if (lv === null) continue; const y = bankY(a); for (const rr of [R - HW - 0.35, R + HW + 0.35]) wb.box(C.x + Math.cos(a) * rr, y - 0.35, C.z + Math.sin(a) * rr, 0.7, 0.38, rr * TAU / 360 + 0.04, COP, 'stone', -a); }
+        for (let i = 0; i < 360; i++) { const a = i / 360 * TAU, lv = level(a); if (lv === null) continue; const y = bankY(a); for (const rr of [R - HW - 0.35, R + HW + 0.35]) wb.box(C.x + Math.cos(a) * rr, y - 0.35 - (i % 2) * 0.006, C.z + Math.sin(a) * rr, 0.7, 0.38, rr * TAU / 360 + 0.04, COP, 'stone', -a); } // (alternate blocks 6 mm lower: no coplanar overlap where they lap)
         for (const poly of [pool, upper]) for (let i = 0; i < poly.length; i++) { const [ax, az] = poly[i], [qx, qz] = poly[(i + 1) % poly.length], Lq = Math.hypot(qx - ax, qz - az); if (Lq < 0.5) continue; const yy = poly === pool ? POOL_Y + 0.35 : UPPER_Y + 0.35; wb.box((ax + qx) / 2, yy - 0.3, (az + qz) / 2, 0.6, 0.38, Lq + 0.3, COP, 'stone', Math.atan2(qx - ax, qz - az)); }
         // walls: no walking into the water (canal edges, pools)
         for (let i = 0; i < 180; i++) { const a0 = i / 180 * TAU, a1 = (i + 1) / 180 * TAU; if (level((a0 + a1) / 2) === null) continue; for (const rr of [R - HW, R + HW]) ctx.collider({ wall: true, ax: C.x + Math.cos(a0) * rr, az: C.z + Math.sin(a0) * rr, bx: C.x + Math.cos(a1) * rr, bz: C.z + Math.sin(a1) * rr, y0a: -9, y1a: bankY(a0) + 0.3, y0b: -9, y1b: bankY(a1) + 0.3, nx: 0, nz: 1, intended: true }); } // canal edge (granite coping, water below)
@@ -197,6 +197,14 @@ export default {
         // holiday lights wrapped round the gateway trees in season (Bellevue Magic Season)
         { const pts = []; for (let i = 0; i < 6; i++) { const a = A_N + 0.6 + i * 0.05, x = C.x + Math.cos(a) * (R + 14.5), z = C.z + Math.sin(a) * (R + 14.5); pts.push(...treeLightPoints(x, g.heightAt(x, z), z, { seed: i, n: 70 })); } let on = false; seasonal(ctx, [11, 21], [1, 6], (v) => { on = v; }); fairyLights(ctx, pts, { on: () => on, name: 'holiday-tree-lights' }); }
         // ---------------------------------------------------------------- backdrop: OSM streets / blocks, Lincoln Square + Bellevue skyline behind
+        // fountains (OSM amenity=fountain: w655090567 at the north gateway, w842753014 at the south end): a granite-coped basin
+        // holding water instead of flat paint (jets are not modelled: nothing maps them)
+        for (const id of ['w655090567', 'w842753014']) { const p = area(id); if (!p) continue; ctx.skipAreas.add(id); const y = Math.min(...p.map(([x, z]) => g.heightAt(x, z)));
+            for (let i = 0; i < p.length; i++) { const [ax, az] = p[i], [qx, qz] = p[(i + 1) % p.length], Lq = Math.hypot(qx - ax, qz - az); if (Lq < 0.3) continue; wb.box((ax + qx) / 2, y - 0.1, (az + qz) / 2, 0.35, 0.55, Lq + 0.2, COP, 'stone', Math.atan2(qx - ax, qz - az)); }
+            waterPoly(ctx, p, y + 0.3, { deep: '#2a4744', shallow: '#4d6a62', cell: 0.8, foam: 0, name: 'fountain-' + id }); ctx.poly(p, { h: 0.6, intended: true }); }
+        // the canal stonework batch (granite coping, weir sills, footbridge slabs, the waterfall wall and foam band) was filled
+        // but never added to the scene: the canal had no coping and the mapped footbridges were invisible floors
+        ctx.add(wb.build('canal-stonework'));
         for (const id of ['w1326469169', 'w1326469177', 'w1326469168', 'w842753013']) ctx.skipAreas.add(id);
         ctx.terrainOpts = { bg: '#5d8a3e', innerPx: 2048 };
         ctx.exclude.push(Array.from({ length: 48 }, (_, i) => [C.x + Math.cos(i / 48 * TAU) * (R + 8), C.z + Math.sin(i / 48 * TAU) * (R + 8)]));

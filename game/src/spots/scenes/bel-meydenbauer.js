@@ -317,6 +317,7 @@ export default {
         }
         // ---------------------------------------------------------------- OSM backdrop (houses, condos, lawns, paths), trees, lamps
         ctx.terrainOpts = { bg: '#55703a', innerPx: 2048, skirtY: LAKE_Y - 7, skirtColor: '#2a3a3a' };
+        { const deck = way('w687934817'); if (deck) ctx.exclude.push(deck); } // mapped pier benches were dropped onto the lake bed under the deck (generic furniture uses terrain height); the pier has its own
         ctx.osmBackdrop({ paint: {}, urban: false, areaTreeOpts: { conifer: 0.7, density: 1 / 45 }, style: (bd) => (/detached|house/.test(bd.k || '') || (Math.abs(polyArea(bd.poly)) < 260 && (+bd.lv || +bd.levels || 1) <= 2) ? 'house' : undefined) });
         for (const a of d.areas) if (a.landuse === 'shrubs') { const B = polyBox(a.poly); for (let i = 0; i < Math.min(14, Math.abs((B.x1 - B.x0) * (B.z1 - B.z0)) / 12); i++) { const x = B.x0 + r() * (B.x1 - B.x0), z = B.z0 + r() * (B.z1 - B.z0); if (inPoly(x, z, a.poly)) ctx.trees.push({ x, z, kind: 'shrub', s: 0.45 + r() * 0.35, c: ['#56703a', '#6b4a3a', '#4c6a3c', '#7a6a3a'][i % 4] }); } }
         // Douglas firs + cedars on the ravine slopes behind the beach (the wooded edge in every photo)

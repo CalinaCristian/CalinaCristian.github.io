@@ -65,6 +65,42 @@ export default {
         ctx.painter.poly([[-22, -22], [4.5, -22], [4.5, -1.5], [-22, -1.5]], '#a8a49a', 'slab'); // NW corner paving (no residential-lawn paint showing through)
         shopfrontSigns(ctx, { skip: (p) => lmPolys.some((q) => inPoly(p.x, p.z, q)) });
         const b = new GeoBatch();
+        // ---- Bellevue Square NE block (w33106348) street faces, from Street View (official panos at the NE 8th corner and on
+        // Bellevue Way by the skybridge, 2026-11-12): a white, fully glazed two-storey Crate & Barrel on the corner; south of it
+        // a brick-and-stucco restaurant row with dark canopies and ivy. Laid 6-9 cm over the generic shopfront walls of the OSM
+        // volume, 6-13 cm proud (it keeps its footprint, collider and mapped signs). Bay rhythm and the 8.6 m height are estimates.
+        { const bq = d.buildings.find((x) => x.id === 'w33106348');
+            if (bq) { const P = bq.poly, H = 8.6;
+                for (let i = 0; i < P.length; i++) { const [ax, az] = P[i], [qx, qz] = P[(i + 1) % P.length], Le = Math.hypot(qx - ax, qz - az); if (Le < 2.5) continue;
+                    let nx = -(qz - az) / Le, nz = (qx - ax) / Le, p0 = [ax, az], p1 = [qx, qz]; const mx = (ax + qx) / 2, mz = (az + qz) / 2;
+                    if (inPoly(mx + nx * 0.5, mz + nz * 0.5, P)) { nx = -nx; nz = -nz; p0 = [qx, qz]; p1 = [ax, az]; }
+                    if (!((nx > 0.7 && mx > -2) || (nz < -0.7 && mz < 32))) continue;                          // the Bellevue Way and NE 8th faces
+                    const crate = mz < 62 && mx > -55, ux = (p1[0] - p0[0]) / Le, uz = (p1[1] - p0[1]) / Le, ga = g.heightAt(p0[0] + nx, p0[1] + nz), gb = g.heightAt(p1[0] + nx, p1[1] + nz), y0 = Math.min(ga, gb) - 0.3, yb = Math.max(ga, gb), yT = yb + H;
+                    const Q = (t0, t1, ya, yc, off, col, key) => { const a = [p0[0] + ux * t0 + nx * off, p0[1] + uz * t0 + nz * off], c = [p0[0] + ux * t1 + nx * off, p0[1] + uz * t1 + nz * off]; b.quad([a[0], ya, a[1]], [c[0], ya, c[1]], [c[0], yc, c[1]], [a[0], yc, a[1]], col, key); };
+                    Q(0, Le, y0, yT, 0.06, crate ? '#f1f0ec' : '#d8ccb5', 'paint');
+                    if (!crate) Q(0, Le, y0, yb + 4.1, 0.09, '#8f4f3e', 'paint');                                 // brick base
+                    const bay = crate ? 3.2 : 4.6, n = Math.max(1, Math.floor((Le - 0.8) / bay)), m0 = (Le - n * bay) / 2;
+                    for (let k = 0; k < n; k++) { const t0 = m0 + k * bay + 0.15, t1 = m0 + (k + 1) * bay - 0.15;
+                        if (!crate && r() < 0.3) { Q(t0 - 0.15, t1 + 0.15, yb, yT - 0.4, 0.13, '#3f6b35', 'plant'); continue; }  // ivy-covered bay
+                        Q(t0, t1, yb + 0.35, yb + 3.5, 0.12, '#2c3b45', 'darkglass'); Q(t0, t1, yb + (crate ? 4.6 : 5.2), yb + (crate ? 8.0 : 7.4), 0.12, '#31424d', 'darkglass'); }
+                    if (!crate) b.box(mx + nx * 0.75, yb + 3.55, mz + nz * 0.75, 1.4, 0.12, Le - 0.6, '#2b2d2f', 'metal', Math.atan2(ux, uz));
+                }
+                const cs = glowText('Crate&Barrel', 7, 1.0, { fg: '#1a1a1a', bg: '#f1f0ec', night: 0.6 }); cs.position.set(-8, g.heightAt(-8, 24) + 7.3, Math.min(...P.filter((q) => q[0] > -20 && q[1] < 40).map((q) => q[1])) - 0.16); cs.rotation.y = Math.PI; ctx.add(cs);
+            } }
+        // ---- street-level tenants of the Lincoln Square podiums (OSM POIs inside the landmark footprints; the landmark models
+        // carry no tenant signs): a plate on the nearest podium street wall. Cinemark's large parapet sign over Bellevue Way is
+        // as seen in Street View (OSM: amenity=cinema "Cinemark Lincoln Square").
+        { const hosts = d.buildings.filter((bd) => ['w161929514', 'w1326151868', 'w328017119'].includes(bd.id)), seen = new Set(); let n = 0;
+            const streetNear = (x, z) => d.ways.some((w) => /^(primary|secondary|tertiary|residential|service|pedestrian)$/.test(w.k) && w.pts.length > 1 && distPolyline(x, z, w.pts).d < 12);
+            for (const p of d.pois || []) { if (!p.name || seen.has(p.name) || !(p.shop || /^(cafe|restaurant|fast_food|bar|pub|bank)$/.test(p.amenity || '')) || (p.level && !/^0(;|$)/.test(String(p.level)))) continue;
+                let best = null; for (const h of hosts) for (let i = 0; i < h.poly.length; i++) { const A = h.poly[i], B = h.poly[(i + 1) % h.poly.length], q = distPolyline(p.x, p.z, [A, B]); if (q.d < 9 && (!best || q.d < best.d)) best = { d: q.d, A, B, cx: q.cx, cz: q.cz, h }; }
+                if (!best) continue; const Le = Math.hypot(best.B[0] - best.A[0], best.B[1] - best.A[1]); if (Le < 5) continue;
+                let nx = -(best.B[1] - best.A[1]) / Le, nz = (best.B[0] - best.A[0]) / Le; if (inPoly(best.cx + nx, best.cz + nz, best.h.poly)) { nx = -nx; nz = -nz; }
+                if (!streetNear(best.cx + nx * 6, best.cz + nz * 6)) continue;
+                seen.add(p.name); const w = Math.min(4.2, 0.9 + p.name.length * 0.17), sb = signBoard(p.name, w, 0.55, { bg: n % 2 ? '#2b2b2b' : '#14213d', fg: '#f5f1e6', font: (q) => `700 ${q}px Georgia, serif`, night: 1.1, depth: 0.06 });
+                sb.position.set(best.cx + nx * 0.4, g.heightAt(best.cx + nx * 1.5, best.cz + nz * 1.5) + 3.3, best.cz + nz * 0.4); sb.rotation.y = Math.atan2(nx, nz); ctx.add(sb); n++; }
+            const pod = hosts.find((h) => h.id === 'w161929514');
+            if (pod && (d.pois || []).some((p) => /^Cinemark Lincoln Square$/.test(p.name || ''))) { const wx = Math.min(...pod.poly.filter((q) => Math.abs(q[1] - 112) < 40).map((q) => q[0])), cm = glowText('CINEMARK', 9, 1.5, { fg: '#c8102e', bg: '#f3f2ee', night: 1.2 }); cm.position.set(wx - 0.45, g.heightAt(wx - 2, 112) + 11.5, 112); cm.rotation.y = -Math.PI / 2; ctx.add(cm); } }
         const glassMat = new THREE.MeshStandardMaterial({ color: '#8fb0c2', transparent: true, opacity: 0.45, roughness: 0.05, metalness: 0.5, depthWrite: false });
         for (const id of ['w1222676052', 'w29234890', 'w497738385']) { const w = d.ways.find((x) => x.id === id); if (w) skybridge(ctx, b, w.pts, glassMat); }
         // ---------------------------------------------------------------- streetscape: trees in grated pits along Bellevue Way + NE 8th, holiday lights

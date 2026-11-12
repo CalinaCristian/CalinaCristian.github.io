@@ -229,7 +229,11 @@ export function encodeDistrictPack(value) {
 export const isDistrictPack = (u8) => !!u8 && u8.length >= 12 && String.fromCharCode(...u8.subarray(0, 8)) === MAGIC;
 export const isGzip = (u8) => !!u8 && u8.length > 2 && u8[0] === 31 && u8[1] === 139;
 /** decode pack bytes (not gzipped) back into the JSON value */
-export function decodeDistrictPack(u8) {
+export const decodeDistrictPack = (u8) => parseDistrictPackText(decodeDistrictPackText(u8));
+/** JSON.parse of decodeDistrictPackText's text, with the derived parts rebuilt: the district object */
+export const parseDistrictPackText = (text) => deriveIn(JSON.parse(text));
+/** pack bytes (not gzipped) → the JSON text JSON.parse turns into the district object (a worker can do this part) */
+export function decodeDistrictPackText(u8) {
     if (!isDistrictPack(u8)) throw new Error('not a district pack');
     const dv = new DataView(u8.buffer, u8.byteOffset, u8.byteLength), count = dv.getUint32(8, true);
     if (count !== SECTIONS) throw new Error('district pack: unknown section count ' + count);
@@ -333,7 +337,7 @@ export function decodeDistrictPack(u8) {
     };
     const text = read(0, false);
     if (tp !== sec[2][1] || up !== sec[3][1] || ip !== sec[4][1] || fi !== nf || rp !== sec[7][1]) throw new Error('district pack: trailing data');
-    return deriveIn(JSON.parse(text));
+    return text;
 }
 
 /** gunzip with the platform's DecompressionStream (browsers, Node 18+); bytes that are not gzipped pass through */
@@ -344,6 +348,11 @@ export async function inflate(u8) {
 /** district data file name for a city / district: '<city>-<district>.bin.gz' (the legacy corridor maps stay JSON) */
 export const districtFile = (cityId, districtId) => districtId ? `${cityId}-${districtId}.bin.gz` : `${cityId}.json`;
 /** fetch and decode a district pack (served gzipped as is, or inflated by a server that sent Content-Encoding) */
+export async function fetchDistrictPackText(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`district data HTTP ${res.status}: ${url}`);
+    return decodeDistrictPackText(await inflate(new Uint8Array(await res.arrayBuffer())));
+}
 export async function fetchDistrictPack(url) {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`district data HTTP ${res.status}: ${url}`);

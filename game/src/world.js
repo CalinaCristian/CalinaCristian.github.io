@@ -17,9 +17,11 @@ import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landma
 import { makeTextures, emitFacadeSlab } from './buildings.js';
 import { footprintCells, insetFootprint, assemblySignature, geometryRing, geometrySurface } from './building-parts.js';
 import { validRoofProfile, roofMesh, roofSignature } from './building-roofs.js';
-import { districtFile, fetchDistrictPack, signatureMatches } from './district-pack.js';
+import { districtFile, fetchDistrictPack, parseDistrictPackText, signatureMatches } from './district-pack.js';
+import { sharedBuildPool } from './build-pool.js';
 import { sourceSurfaceEligible, validateSourceSurface } from './building-surface-cache.js';
 import { clipBuildingDetailRange } from './building-detail-range.js';
+import { clipInferredBuildingDetail } from './building-detail-visibility.js';
 import { sourceTreeCentrePolicy, treeCentreDuplicate, treeCentreWater } from './source-tree-centres.js';
 import { canopyGeometry } from './building-canopies.js';
 import { makeVehicle, CAR_COLORS, makeParkedCars, vehicleSize } from './vehicles.js';
@@ -35,7 +37,7 @@ import { scenerySourceProfile } from './scenery-source.js';
 import { sceneryBridgeProfiles, sceneryDeckBand } from './scenery-bridges.js';
 import { batchWaterChunks } from './water-batch.js';
 import { cullMergedCells } from './cell-frustum.js';
-import {fallbackGroundApertures,buildFallbackGround} from './fallback-ground.js';
+import {fallbackGroundApertures,buildFallbackGround,buildFallbackGroundParallel} from './fallback-ground.js';
 import {backdropSourceOwner} from './backdrop-source-owner.js';
 import { waterChannelDecision } from './water-channel.js';
 import { uncoveredWaterLine } from './water-lines.js';
@@ -53,7 +55,7 @@ import { BASARAB_PLATFORMS } from './basarab-source.js';
 import { raisedRoadTriangles } from './basarab-anchor-clearance.js';
 import { buildRailRoadsideClearance } from './rail-roadside.js';
 import { districtTramSweep } from './tram-sweep.js';
-import { planOverlapCuts } from './building-overlap.js';
+import { planOverlapCuts, planOverlapCutsParallel } from './building-overlap.js';
 import { buildCoveredRoadModels } from './covered-road-models.js';
 import { roadMiter, needsRoadBevelPad } from './road-joins.js';
 import { markingArea, clipMarkingHalfPlane, clipMarkingConvex, subtractMarkingConvex, clipAffineMarkingRange, buildMarkingStations, markingDashIntervals } from './road-markings.js';
@@ -63,6 +65,8 @@ import { subtractConvex } from './building-overlap.js';
 import { emitSeatacGuideway } from './seatac-guideway.js';
 import { buildElevatedSources, planElevatedSources } from './elevated-sources.js';
 import { openRuns, weldEnds } from './deck-outline.js';
+// (spec 10 load budget) start the build workers now, so they are loaded before the first district is built
+try { if (typeof window !== 'undefined') sharedBuildPool(); } catch (e) { /* no workers: buildWorld runs everything here */ }
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -619,7 +623,13 @@ export async function buildWorld(city, renderer, opts = {}) {
     const inDistrictLL = (lat, lon, m = 0.0015) => !distCfg || (lat >= distCfg.bbox[0] - m && lat <= distCfg.bbox[2] + m && lon >= distCfg.bbox[1] - m * 1.4 && lon <= distCfg.bbox[3] + m * 1.4);
     // districts: a lossless binary pack (game/src/district-pack.js, spec 10 size / load budget); legacy maps: JSON
     const url = new URL(`../data/${districtFile(city.id, distId)}`, import.meta.url).href;
-    const data = distId ? await fetchDistrictPack(url) : await (await fetch(url)).json();
+    // (spec 10 load budget) workers for the pure passes (districts); null without module workers: then all runs here.
+    // A worker fetches the pack and writes its JSON text; JSON.parse here gives the same object as fetchDistrictPack.
+    const buildPool = distId ? sharedBuildPool() : null;
+    buildPool?.reset();
+    let data = null;
+    if (buildPool) try { data = parseDistrictPackText(await buildPool.packText(url)); } catch (e) { console.warn('[world] pack worker failed, decoding here', e); }
+    if (!data) data = distId ? await fetchDistrictPack(url) : await (await fetch(url)).json();
     const realPass = !!data.scenery; // (2026-11-08) a district rebuilt by the reality pass (scenery ring, aerial roofs / trees / green): street-level dressing on
     // field research (spec 20): street-tree notes per street, baked by tools/osm into data.streetTrees
     // ({street name: [species keys]}, [] = researched as treeless) — no runtime fetch of the research dossier
@@ -2989,6 +2999,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // structures under / beside elevated and sunken roads
     const pierSpots = [], pierColl = [], underpassColl = [], underpassCollEdges = [], underpassRoofAudit = [], underpassCover = new MeshBuilder();
     for (const e of edges) e.lidded = !!e.tunnel && !e.coveredRoadModel && !e.virtual && Math.max(e.ya, e.yb) < -4.5;
+    const districtCutNodes = new Set((data.district?.ends || []).map(i => nodeArr[i]).filter(Boolean)); // (R24 tunnel end walls)
     const underpassRegions = edges.filter(e => e.tunnel && !e.virtual && !e.coveredRoadModel && Math.min(e.ya, e.yb) < -4.2).map(e => {
         const width = (f, side) => widthSide(f, side) + .3, points = [1, -1].flatMap(side => [e.a, e.b].map(n => corner(e, n, side, width(e, side), width)));
         return { x0: Math.min(...points.map(p => p[0])), x1: Math.max(...points.map(p => p[0])), z0: Math.min(...points.map(p => p[1])), z1: Math.max(...points.map(p => p[1])) };
@@ -3159,6 +3170,14 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const out = n === e.a ? -1 : 1;
                     sb.face4(P(s2, wr + 0.5, yc), P(s2, -wl - 0.5, yc), P(s2, -wl - 0.5, 1.2), P(s2, wr + 0.5, 1.2), rgb('#6b6862'), [e.dirx * out, 0, e.dirz * out]);
                 }
+            }
+            // (R24, Pipera (-762, 178): the Promenada Mall garage aisle cut by the district edge ran out into daylight) a lidded
+            // tunnel that dead-ends is closed by a concrete end wall, floor to ceiling, 1 m in (the district edge clips what
+            // stands on it). Only at the district boundary cut: some source tunnels (SeaTac Air Cargo Road) are unjoined pieces.
+            if (e.lidded) for (const n of [e.a, e.b]) if (districtCutNodes.has(n) && n.edges.every(f => f === e || f.virtual)) {
+                const atA = n === e.a, d = Math.min(1, e.len / 2), t = atA ? d / e.len : 1 - d / e.len, s2 = t * e.len,
+                    yf = yA + (yB - yA) * t, yc = closedRoof ? roof.ceilingAt(t) : yf + 5.2, out = atA ? -1 : 1;
+                sb.face4(P(s2, -wl, yf - 0.1), P(s2, wr, yf - 0.1), P(s2, wr, yc), P(s2, -wl, yc), conc, [-e.dirx * out, 0, -e.dirz * out]);
             }
             };
             const sourceTunnel = data.roadSourceGeometry?.[e.road]?.tags?.tunnel;
@@ -4262,7 +4281,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // ---- overlapping source buildings (building-overlap.js): a lower building is cut to stop at a taller one's walls
     const overlapCuts = { pairs: 0, cut: 0, removedM2: 0, skipped: {}, samples: [] };
     {
-        const plan = planOverlapCuts(bRecs);
+        const plan = buildPool ? await planOverlapCutsParallel(bRecs, buildPool) : planOverlapCuts(bRecs);
         for (const q of plan.skipped) overlapCuts.skipped[q.reason] = (overlapCuts.skipped[q.reason] || 0) + 1;
         for (const cut of plan.cuts) {
             const L = cut.lower; overlapCuts.pairs += cut.tallers.length; overlapCuts.removedM2 += cut.removedM2;
@@ -4490,21 +4509,41 @@ export async function buildWorld(city, renderer, opts = {}) {
         physicalUnionAudit.push({ source: data.buildingIds?.[b.derivedFrom ?? b.i] || b.i, neighbours: spec.neighbours.length });
     }
     const inferredDetailAudit = { ranges: 0, clippedAreaM2: 0, issues: [] }, detailRoofs = new Map();
+    // roofMesh is pure and its result is only read: a building's roof (the building loop) and the same building as a
+    // detail-clipping neighbour share one computation while its ring, holes and profile are the same objects
+    const roofMeshMemo = new Map();
+    function roofMeshOf(b) {
+        const m = roofMeshMemo.get(b);
+        if (m && m.ring === b.ring && m.holes === b.holes && m.profile === b.roofProfile) return m.mesh;
+        const mesh = roofMesh(b.ring, b.holes, b.roofProfile, triangulate);
+        roofMeshMemo.set(b, { ring: b.ring, holes: b.holes, profile: b.roofProfile, mesh }); return mesh;
+    }
     function completeDetailRoof(b) {
         if (detailRoofs.has(b.i)) return detailRoofs.get(b.i);
         let mesh = null;
         if (sourceSurfaceEligible(b)) {
-            if (b.roofProfile) mesh = roofMesh(b.ring, b.holes, b.roofProfile, triangulate);
+            if (b.roofProfile) mesh = roofMeshOf(b);
             else if (b.roof === 'flat') { const { pts, tris } = triangulate(b.ring, b.holes); mesh = { faces: tris.map(t => t.map(i => [pts[i][0], b.h, pts[i][1]])) }; }
         }
         const result = mesh ? { i: b.i, sourceId: b.sourceId, minH: b.minH, mesh } : null;
         detailRoofs.set(b.i, result); return result;
     }
-    function clipBuildingDetails(builder, start, owner) {
-        if (data.buildingGeometryPolicy !== 'source' || builder.ic === start.ic) return;
-        const result = clipBuildingDetailRange(builder, start, owner, faces => {
+    // (spec 10 load budget) With the build workers, a range's clipping is computed there: its faces stay in the builder
+    // for now and finishDetailClips(), right after the building loop and before anything else reads those builders,
+    // splices each clipped result in, in call order, shifting the vertex indices of the triangles appended after it.
+    // That yields the arrays the in-place clip (clipBuildingDetailRange) produces, and the same audit, in the same order.
+    const pendingDetailClips = [], roofFlat = new WeakMap();
+    const flatRoof = mesh => {
+        if (roofFlat.has(mesh)) return roofFlat.get(mesh);
+        const faces = mesh?.faces; let out = null;
+        if (Array.isArray(faces) && faces.every(f => Array.isArray(f) && f.length === 3 && f.every(q => Array.isArray(q) && q.length === 3))) { out = new Float64Array(faces.length * 9); let k = 0; for (const f of faces) for (const q of f) { out[k++] = q[0]; out[k++] = q[1]; out[k++] = q[2]; } }
+        roofFlat.set(mesh, out); return out;
+    };
+    const unflatFaces = (flat, size) => { const faces = []; for (let k = 0; k < flat.length; k += 3 * size) { const f = []; for (let j = 0; j < 3; j++) f.push(Array.from(flat.subarray(k + j * size, k + (j + 1) * size))); faces.push(f); } return faces; };
+    function detailNeighbours(owner, faces, flat = null) {
             let x0=Infinity,z0=Infinity,x1=-Infinity,z1=-Infinity;
-            for(const f of faces)for(const p of f){x0=Math.min(x0,p[0]);z0=Math.min(z0,p[2]);x1=Math.max(x1,p[0]);z1=Math.max(z1,p[2]);}
+            if(flat)for(let k=0;k<flat.length;k+=12){x0=Math.min(x0,flat[k]);z0=Math.min(z0,flat[k+2]);x1=Math.max(x1,flat[k]);z1=Math.max(z1,flat[k+2]);}
+            else for(const f of faces)for(const p of f){x0=Math.min(x0,p[0]);z0=Math.min(z0,p[2]);x1=Math.max(x1,p[0]);z1=Math.max(z1,p[2]);}
             const neighbours=[],seen=new Set();
             bGrid.each(x0,z0,x1,z1,b=>{
                 if(seen.has(b.i))return;seen.add(b.i);
@@ -4515,9 +4554,65 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if(roof)neighbours.push(roof);else neighbours.push({i:b.i,sourceId:b.sourceId,minH:b.minH});
             });
             return neighbours;
-        });
+    }
+    function clipBuildingDetails(builder, start, owner) {
+        if (data.buildingGeometryPolicy !== 'source' || builder.ic === start.ic) return;
+        if (buildPool) {
+            // the faces exactly as clipBuildingDetailRange reads them (12 attributes per point)
+            const P = builder.p, N = builder.n, U = builder.u, C = builder.c, Tl = builder.t, I = builder.i, nf = (builder.ic - start.ic) / 3, flat = new Float64Array(nf * 36);
+            let k = 0;
+            for (let q = start.ic; q < builder.ic; q++) { const v = I[q]; flat[k++] = P[v * 3]; flat[k++] = P[v * 3 + 1]; flat[k++] = P[v * 3 + 2]; flat[k++] = N[v * 3]; flat[k++] = N[v * 3 + 1]; flat[k++] = N[v * 3 + 2]; flat[k++] = U[v * 2]; flat[k++] = U[v * 2 + 1]; flat[k++] = C[v * 3]; flat[k++] = C[v * 3 + 1]; flat[k++] = C[v * 3 + 2]; flat[k++] = Tl ? Tl[v] : -1; }
+            const neighbours = detailNeighbours(owner, null, flat), roofs = neighbours.map(n => n.mesh ? flatRoof(n.mesh) : null);
+            const job = { builder, sv: start.vc, ev: builder.vc, si: start.ic, ei: builder.ic, owner, flat, neighbours };
+            // a neighbour roof that is not plain triangles of [x, y, z] points is clipped here, as before
+            if (neighbours.every((n, j) => !n.mesh || roofs[j])) job.promise = buildPool.clip(flat, { i: owner.i, sourceId: owner.sourceId }, neighbours.map((n, j) => ({ i: n.i, sourceId: n.sourceId, minH: n.minH, roof: roofs[j] })));
+            pendingDetailClips.push(job);
+            return;
+        }
+        const result = clipBuildingDetailRange(builder, start, owner, faces => detailNeighbours(owner, faces));
         inferredDetailAudit.ranges++; inferredDetailAudit.clippedAreaM2 += result.clippedAreaM2;
         for(const issue of result.issues)if(inferredDetailAudit.issues.length<100)inferredDetailAudit.issues.push({owner:owner.sourceId,...issue});
+    }
+    async function finishDetailClips() {
+        if (!pendingDetailClips.length) return;
+        const results = await Promise.all(pendingDetailClips.map(j => j.promise ? j.promise.catch(e => (console.warn('[world] build worker failed, clipping here', e), null)) : null));
+        const byBuilder = new Map();
+        pendingDetailClips.forEach((j, n) => {
+            let r = results[n], replace = null;
+            if (r) replace = r.faces;
+            else { // no worker result (unsupported roof data or a failed worker): the same function, here
+                r = clipInferredBuildingDetail(unflatFaces(j.flat, 12), j.owner, j.neighbours, { inferred: true });
+                if (r.clippedAreaM2 > 1e-10) { replace = new Float64Array(r.faces.length * 36); let k = 0; for (const f of r.faces) { if (f.length !== 3) throw new Error('detail clip: non-triangle face'); for (const p of f) { if (p.length !== 12) throw new Error('detail clip: point attributes'); replace.set(p, k); k += 12; } } }
+            }
+            inferredDetailAudit.ranges++; inferredDetailAudit.clippedAreaM2 += r.clippedAreaM2;
+            for (const issue of r.issues) if (inferredDetailAudit.issues.length < 100) inferredDetailAudit.issues.push({ owner: j.owner.sourceId, ...issue });
+            if (r.clippedAreaM2 > 1e-10) { let l = byBuilder.get(j.builder); if (!l) byBuilder.set(j.builder, l = []); l.push({ ...j, replace }); }
+        });
+        pendingDetailClips.length = 0;
+        for (const [B, items] of byBuilder) spliceDetailRanges(B, items);
+    }
+    /** replace the vertex / index ranges of `items` (in builder order) by their clipped faces, as builder.v / builder.tri
+     *  would have emitted them at that point, and shift the indices of everything after */
+    function spliceDetailRanges(B, items) {
+        let nv = B.vc, ni = B.ic;
+        for (const it of items) { const n = it.replace.length / 36; nv += 3 * n - (it.ev - it.sv); ni += 3 * n - (it.ei - it.si); }
+        const p = new Float32Array(Math.max(1, nv) * 3), nn = new Float32Array(Math.max(1, nv) * 3), u = new Float32Array(Math.max(1, nv) * 2), c = new Uint8Array(Math.max(1, nv) * 3), t = B.t ? new Float32Array(Math.max(1, nv)) : null, ix = new Uint32Array(Math.max(1, ni));
+        // old vertex → new: shifted by the size change of every replaced range before it; a reference into a replaced range is an error
+        const ends = [], deltas = []; let d = 0;
+        for (const it of items) { d += 3 * (it.replace.length / 36) - (it.ev - it.sv); ends.push(it.ev); deltas.push(d); }
+        const map = x => { let lo = 0, hi = items.length; while (lo < hi) { const m = (lo + hi) >> 1; if (ends[m] <= x) lo = m + 1; else hi = m; } if (lo < items.length && x >= items[lo].sv) throw new Error('detail splice: index into a clipped range'); return x + (lo ? deltas[lo - 1] : 0); };
+        const copyV = (from, to, at) => { p.set(B.p.subarray(from * 3, to * 3), at * 3); nn.set(B.n.subarray(from * 3, to * 3), at * 3); u.set(B.u.subarray(from * 2, to * 2), at * 2); c.set(B.c.subarray(from * 3, to * 3), at * 3); if (t) t.set(B.t.subarray(from, to), at); };
+        const copyI = (from, to, at) => { for (let q = from; q < to; q++) ix[at++] = map(B.i[q]); return at; };
+        let ov = 0, oi = 0, av = 0, ai = 0;
+        for (const it of items) {
+            copyV(ov, it.sv, av); av += it.sv - ov; ai = copyI(oi, it.si, ai);
+            const f = it.replace, n = f.length / 12;
+            for (let q = 0; q < n; q++) { const k = q * 12, a3 = av * 3; p[a3] = f[k]; p[a3 + 1] = f[k + 1]; p[a3 + 2] = f[k + 2]; nn[a3] = f[k + 3]; nn[a3 + 1] = f[k + 4]; nn[a3 + 2] = f[k + 5]; u[av * 2] = f[k + 6]; u[av * 2 + 1] = f[k + 7]; c[a3] = f[k + 8]; c[a3 + 1] = f[k + 9]; c[a3 + 2] = f[k + 10]; if (t) t[av] = f[k + 11]; ix[ai++] = av++; }
+            ov = it.ev; oi = it.ei;
+        }
+        copyV(ov, B.vc, av); av += B.vc - ov; ai = copyI(oi, B.ic, ai);
+        if (av !== nv || ai !== ni) throw new Error('detail splice: size mismatch');
+        B.p = p; B.n = nn; B.u = u; B.c = c; if (t) B.t = t; B.i = ix; B.vc = nv; B.ic = ni;
     }
     // landmarks that model their own water (the Unirii fountains: basins drained Nov–Apr by landmarks.js's
     // fountainSchedule) replace the OSM water polygons inside them: those are collapsed (no doubled / always-full basins)
@@ -5803,7 +5898,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const { pts, tris } = triangulate(underside);
             for (const tri of tris) mb.face3(...tri.map(i => [pts[i][0], b.minH, pts[i][1]]), shadeRgb(wallCol, 0.75), [0, -1, 0]);
         }
-        const sourceRoof = b.roofProfile ? roofMesh(ring, b.holes, b.roofProfile, triangulate) : null;
+        const sourceRoof = b.roofProfile ? (ring === b.ring ? roofMeshOf(b) : roofMesh(ring, b.holes, b.roofProfile, triangulate)) : null;
         if (sourceRoof) {
             const cached = data.buildingRoofSurfaces?.[b.i], valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && signatureMatches(s.signature, roofSignature(source)); });
             if (cached) { if (valid) roofProfileAudit.surfacesApplied++; else roofProfileAudit.surfacesRejected.push(data.buildingIds?.[b.i] || b.i); }
@@ -5934,6 +6029,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         // (fidelity pass: the Unirea car park was signed "Spălătorie Unirea Etaj 7") a business named for an upper floor is not the building's street sign
         if ((b.flags & 2) && b.name && (b.cvSign || b.area < 20000) && !AR?.signed && b.poiSign == null && str(data.buildingInfo?.[b.i * 5] ?? -1) !== 'construction' && !/\betaj(ul)?\s*[1-9]/i.test(b.name)) addFacadeSign(b, h, shop, wallCol);
     }
+    await finishDetailClips();
     {
         const sourceBodies=bRecs.filter(b=>!b.skip&&b.passages?.length),unique=new Map();
         for(const b of sourceBodies)for(const p of b.passages)unique.set(p.key,p);
@@ -6898,6 +6994,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                 boundarySupport.report.rejectedDiscreteProps++; return false;
             };
             const closureSign = (...args) => wholePrimitive(() => sign(...args));
+            // (R24) an end inside a lidded tunnel (a garage aisle cut by the district edge) keeps its stop wall and turn-around
+            // prompt; it ends at the tunnel's concrete end wall, without street roadworks, signs or a crew
+            if (e.lidded) { closures.push({ x: m.x, z: m.z, y, top: y + m.barrierHeight, heading: m.heading, edge: e, node: m.node, kind, leadsTo: null,
+                l0: m.l0, l1: m.l1, half: m.half, bundleId: m.bundleId, bundlePrimary: m.bundlePrimary, worker: false, underground: true }); return; }
             // Immutable spans are shared by the physical wall and every visible
             // barrier; source scenery supplies the real continuation beyond it.
             const half = (m.l1 - m.l0) / 2, lc = (m.l0 + m.l1) / 2;
@@ -7906,7 +8006,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const W = bounds.maxX - bounds.minX, H = bounds.maxZ - bounds.minZ;
     // (the plane reaches 30 km past the map: its edge was visible at ~3 km on clear days with render's 15–20 km visibility)
     const GPAD = 60000;
-    const fallback=buildFallbackGround(fallbackApertures,{x0:bounds.minX-GPAD/2,x1:bounds.maxX+GPAD/2,z0:bounds.minZ-GPAD/2,z1:bounds.maxZ+GPAD/2});
+    const fallbackOpts={x0:bounds.minX-GPAD/2,x1:bounds.maxX+GPAD/2,z0:bounds.minZ-GPAD/2,z1:bounds.maxZ+GPAD/2},fallback=buildPool?await buildFallbackGroundParallel(fallbackApertures,fallbackOpts,buildPool):buildFallbackGround(fallbackApertures,fallbackOpts);
     fallbackApertures.cuts.length=0;
     let groundGeo=fallback.geometry;
     if(!groundGeo){

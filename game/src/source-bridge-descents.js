@@ -42,7 +42,9 @@ export function compileSourceBridgeDescents(data,{coreEdges=[],lanePolygon,padLa
    const incidentGroundReserveM=flatReserveM;
    if(model.modelRampFinishSourceNode!=null){const end=path.stations.get(model.modelRampFinishSourceNode);if(!Number.isFinite(end))return fail('reviewed-model-ramp-finish-vertex-absent');flatReserveM=Math.max(flatReserveM,path.length-end);}
    // (2026-11-11) a crown hold keeps the crown height up to a named vertex (a station platform on the deck), the ramp starts there
-   const holdM=model.crownHoldSourceNode!=null?path.stations.get(model.crownHoldSourceNode):0;if(!Number.isFinite(holdM))return fail('reviewed-crown-hold-vertex-absent');
+   // (2026-11-12) crownHoldExtraM: further metres of hold beyond that vertex, where the carriageway beside it starts its own descent between two source vertices
+   const holdNodeM=model.crownHoldSourceNode!=null?path.stations.get(model.crownHoldSourceNode):0;if(!Number.isFinite(holdNodeM))return fail('reviewed-crown-hold-vertex-absent');
+   const holdM=holdNodeM+(model.crownHoldExtraM||0);
    const length=path.length-flatReserveM-holdM,rise=model.crownHeightM-model.groundHeightM,ramp=smoothTramRamp(length,rise,{maxGrade:model.maxGrade,easeM:model.preferredEaseM});
    if(!ramp)return fail('finite-source-descent-c1-grade-infeasible',{pathLengthM:path.length,flatReserveM,length,rise});
    const atStation=s=>model.crownHeightM-ramp.at(s-holdM);

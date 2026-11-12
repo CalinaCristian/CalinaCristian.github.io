@@ -127,11 +127,22 @@ function crossings(poly, z) {
  * @returns { cuts: [{ lower, taller, overlapM2, pieces }], skipped: [{ lower, taller, reason }] } and, for each cut,
  *          `replace(lower) -> rings` to apply. The caller turns the rings into records.
  */
-export function planOverlapCuts(recs, { minOverlapM2 = 2, minPieceM2 = 4, heightMarginM = 1 } = {}) {
-    const cell = 32, grid = new Map(), live = recs.filter(b => !b.skip && b.ring?.length >= 3);
+export function planOverlapCuts(recs, opts = {}) {
+    const live = recs.filter(b => !b.skip && b.ring?.length >= 3);
+    const { cutters, skipped } = overlapCandidates(live, 0, live.length, opts);
+    return { cuts: overlapPieces(cutters, opts), skipped };
+}
+/** the lower buildings live[from…to) with the taller ones they run into (any of live), in order; sets lower.holeParts.
+ *  Each lower is independent of the others, so ranges can be planned apart and joined in order (build workers). */
+export function overlapGrid(live) {
+    const cell = 32, grid = new Map();
     for (const b of live) for (let i = Math.floor(b.x0 / cell); i <= Math.floor(b.x1 / cell); i++) for (let j = Math.floor(b.z0 / cell); j <= Math.floor(b.z1 / cell); j++) { const k = i + ',' + j; let l = grid.get(k); if (!l) grid.set(k, l = []); l.push(b); }
-    const cutters = new Map(), skipped = [], seen = new Set();
-    for (const lower of live) {
+    return grid;
+}
+export function overlapCandidates(live, from, to, { minOverlapM2 = 2, heightMarginM = 1 } = {}, grid = overlapGrid(live)) {
+    const cell = 32, cutters = new Map(), skipped = [], seen = new Set();
+    for (let n = from; n < to; n++) {
+        const lower = live[n];
         for (let i = Math.floor(lower.x0 / cell); i <= Math.floor(lower.x1 / cell); i++) for (let j = Math.floor(lower.z0 / cell); j <= Math.floor(lower.z1 / cell); j++) for (const taller of grid.get(i + ',' + j) || []) {
             if (taller === lower) continue;
             const key = lower.i + '|' + taller.i; if (seen.has(key)) continue; seen.add(key);
@@ -155,6 +166,9 @@ export function planOverlapCuts(recs, { minOverlapM2 = 2, minPieceM2 = 4, height
             let list = cutters.get(lower); if (!list) cutters.set(lower, list = []); list.push({ taller, ov, parts, courtyards });
         }
     }
+    return { cutters, skipped };
+}
+export function overlapPieces(cutters, { minPieceM2 = 4 } = {}) {
     const cuts = [];
     for (const [lower, list] of cutters) {
         let pieces = [lower.ring];
@@ -167,6 +181,71 @@ export function planOverlapCuts(recs, { minOverlapM2 = 2, minPieceM2 = 4, height
         if (lower.holeParts) for (const hole of lower.holeParts) pieces = pieces.flatMap(p => subtractConvex(p, hole));
         pieces = pieces.filter(p => Math.abs(area(p)) >= minPieceM2);
         cuts.push({ lower, tallers: list.map(q => q.taller), overlapM2: list.reduce((n, q) => n + q.ov, 0), pieces, removedM2: Math.abs(area(lower.ring)) - (lower.holes || []).reduce((n, h) => n + Math.abs(area(h)), 0) - pieces.reduce((n, p) => n + Math.abs(area(p)), 0) });
+    }
+    return cuts;
+}
+
+// ---------------------------------------------------------------- build workers (spec 10 load budget)
+const ringOk = r => Array.isArray(r) && r.every(p => Array.isArray(p) && p.length === 2 && typeof p[0] === 'number' && typeof p[1] === 'number');
+const numOrNone = v => v === undefined || typeof v === 'number';
+/** live records as transferable arrays, or null when a record has a shape the flat form does not keep exactly */
+export function packOverlapRecords(live) {
+    const ids = new Set(), index = new Map(live.map((b, k) => [b, k]));
+    let points = 0, holes = 0;
+    for (const b of live) {
+        if (!Number.isInteger(b.i) || ids.has(b.i) || b.holeParts || typeof b.area !== 'number' || !['h', 'minH', 'x0', 'z0', 'x1', 'z1'].every(k => numOrNone(b[k])) || !ringOk(b.ring) || !(b.holes === undefined || (Array.isArray(b.holes) && b.holes.every(ringOk))) || (b.assembly && !Array.isArray(b.assembly))) return null;
+        ids.add(b.i); points += b.ring.length; for (const h of b.holes || []) { points += h.length; holes++; }
+    }
+    const nums = new Float64Array(live.length * 8), coords = new Float64Array(points * 2), meta = [];
+    let c = 0;
+    const put = r => { meta.push(r.length); for (const p of r) { coords[c++] = p[0]; coords[c++] = p[1]; } };
+    live.forEach((b, k) => {
+        nums.set([b.i, b.h ?? NaN, b.minH ?? NaN, b.area, b.x0 ?? NaN, b.z0 ?? NaN, b.x1 ?? NaN, b.z1 ?? NaN], k * 8);
+        // per record: ring, hole count (−1: holes undefined), holes, assembly member count (−1: none), members (−1: not live)
+        put(b.ring); meta.push(b.holes === undefined ? -1 : b.holes.length); for (const h of b.holes || []) put(h);
+        meta.push(b.assembly ? b.assembly.length : -1); for (const m of b.assembly || []) meta.push(index.has(m) ? index.get(m) : -1);
+    });
+    return { nums, coords, meta: Int32Array.from(meta) };
+}
+export function unpackOverlapRecords({ nums, coords, meta }) {
+    const live = []; let c = 0, m = 0;
+    const take = () => { const n = meta[m++], r = []; for (let q = 0; q < n; q++) { r.push([coords[c], coords[c + 1]]); c += 2; } return r; };
+    const members = [];
+    for (let k = 0; k < nums.length / 8; k++) {
+        const o = k * 8, b = { i: nums[o], ring: null, holes: undefined, h: nums[o + 1], minH: nums[o + 2], area: nums[o + 3], x0: nums[o + 4], z0: nums[o + 5], x1: nums[o + 6], z1: nums[o + 7] };
+        b.ring = take(); const nh = meta[m++]; if (nh >= 0) { b.holes = []; for (let q = 0; q < nh; q++) b.holes.push(take()); }
+        const na = meta[m++]; members.push(na < 0 ? null : Array.from(meta.subarray(m, m + na))); if (na > 0) m += na;
+        live.push(b);
+    }
+    // a member outside the live list only has to differ from every live record
+    live.forEach((b, k) => { if (members[k]) b.assembly = members[k].map(j => (j >= 0 ? live[j] : {})); });
+    return live;
+}
+
+/** planOverlapCuts with ranges of lower buildings planned in the build workers and joined in order. Pieces keep their
+ *  references to the lower building's own ring points, as the subtraction leaves them. Without the pool, for a record
+ *  shape the flat form does not keep, or on a worker failure: planOverlapCuts here. */
+export async function planOverlapCutsParallel(recs, pool, opts = {}) {
+    const live = recs.filter(b => !b.skip && b.ring?.length >= 3), packed = pool && live.length > 1 ? packOverlapRecords(live) : null;
+    if (!packed) return planOverlapCuts(recs, opts);
+    pool.overlapRecords(packed);
+    const step = Math.ceil(live.length / (pool.size * 4)), jobs = [];
+    for (let a = 0; a < live.length; a += step) jobs.push(pool.overlap(a, Math.min(live.length, a + step), opts));
+    let results;
+    try { results = await Promise.all(jobs); } catch (e) { console.warn('[overlap cuts] worker failed, planning here', e); return planOverlapCuts(recs, opts); }
+    const cuts = [], skipped = [];
+    for (const r of results) {
+        for (const [k, hp] of r.holeParts) live[k].holeParts = hp;
+        skipped.push(...r.skipped);
+        for (const c of r.cuts) {
+            // points that are the lower ring's own become its original point objects; computed points become fresh arrays
+            // (one per cloned object, so shared points stay shared): arrays made by structured clone are read through
+            // slower paths by everything that later tests these rings (collision, the crowd)
+            const L = live[c.lower], same = new Map(c.lowerRing.map((p, q) => [p, L.ring[q]]));
+            const point = p => { let q = same.get(p); if (!q) same.set(p, q = [p[0], p[1]]); return q; };
+            const pieces = c.pieces.map(piece => (piece === c.lowerRing ? L.ring : piece.map(point)));
+            cuts.push({ lower: L, tallers: c.tallers.map(t => live[t]), overlapM2: c.overlapM2, pieces, removedM2: c.removedM2 });
+        }
     }
     return { cuts, skipped };
 }

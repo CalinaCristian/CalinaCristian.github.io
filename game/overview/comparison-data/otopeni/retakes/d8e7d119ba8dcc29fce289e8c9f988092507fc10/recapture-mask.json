@@ -1,0 +1,15 @@
+{
+  "district": "otopeni",
+  "sourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+  "tiles": [
+    {
+      "id": "aerial-r04-c06"
+    },
+    {
+      "id": "aerial-r05-c06"
+    }
+  ],
+  "reason": "station service drive at street level",
+  "originalManifestSha256": "969673022a0dcb1c2c10c95cd1bf5d07310a6d3458754e272115f93858670e92",
+  "totalFrames": 107
+}

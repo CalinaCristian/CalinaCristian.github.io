@@ -19,7 +19,7 @@ export function rgb(c) {
 export const shadeRgb = (c, k) => [Math.min(255, Math.round(c[0] * k)), Math.min(255, Math.round(c[1] * k)), Math.min(255, Math.round(c[2] * k))];
 
 export class MeshBuilder {
-    constructor(withTile = false, cap = 1024) {
+    constructor(withTile = false, cap = 64) { // (spec 10 load budget: most cell builders stay small; they grow by doubling)
         this.withTile = withTile;
         this.p = new Float32Array(cap * 3); this.n = new Float32Array(cap * 3); this.u = new Float32Array(cap * 2);
         this.c = new Uint8Array(cap * 3); this.t = withTile ? new Float32Array(cap) : null;

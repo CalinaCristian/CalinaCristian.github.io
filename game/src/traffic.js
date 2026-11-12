@@ -11,7 +11,7 @@ import { collideBuildings } from './world.js';
 import { SharedLaneGate } from './shared-lanes.js';
 import { ambientTrafficAccess } from './road-access.js';
 import { admitInitialTraffic, previewInitialTrafficPose, initialTrafficStaticClearance, initialBodyCover } from './initial-traffic-admission.js';
-import { buildTramNetwork, canTravelTram, tramContinuations, sampleTramPath, tramSpan, tramPathPolyline, nearestTramSource, projectTramStations } from './tram-path.js';
+import { buildTramNetwork, canTravelTram, tramContinuations, sampleTramPath, tramSpan, tramPathPolyline, nearestTramSource, projectTramStations, tramSectionPoses } from './tram-path.js';
 import { buildTurnLaneRules, laneTurnAllowed, preservesTurnLane } from './turn-lanes.js';
 import { buildMotorTurnRestrictions, motorTurnAllowed, motorRestrictionMode } from './motor-turn-restrictions.js';
 import {sourceRoadClearance} from './source-road-clearance.js';
@@ -957,6 +957,7 @@ export class Traffic {
             v.mesh.position.set(v.x, v.y, v.z);
         }
         v.mesh.rotation.set(pitch, v.heading, 0, 'YXZ');
+        if (e.rail) this.poseTramSections(v);
     }
 
     /** big (OSM) worlds: keep the simulation in a bubble around the player */
@@ -1036,6 +1037,19 @@ export class Traffic {
     }
     restorePose(v, pose) {
         const { rotation, ...state } = pose; Object.assign(v, state); v.mesh.position.set(v.x, v.y, v.z); v.mesh.rotation.copy(rotation);
+        if (v.edge?.rail) this.poseTramSections(v);
+    }
+    /** an articulated tram's section meshes, each on the rail at its own heading, in the body's frame (the body's pitch
+     *  carries them up a ramp); rigid layout when the path does not resolve */
+    poseTramSections(v) {
+        const u = v.mesh?.userData, G = u?._sectionGroups; if (!G) return;
+        const P = tramSectionPoses(v, u.sections, v.width), h = v.heading, c = Math.cos(h), s = Math.sin(h);
+        for (let i = 0; i < G.length; i++) {
+            const g = G[i];
+            if (!P) { g.position.set(0, 0, -u.sections[i].along); g.rotation.set(0, 0, 0); continue; }
+            const dx = P[i].x - v.x, dz = P[i].z - v.z;
+            g.position.set(dx * c - dz * s, 0, dx * s + dz * c); g.rotation.set(0, Math.atan2(Math.sin(P[i].heading - h), Math.cos(P[i].heading - h)), 0);
+        }
     }
     /** move vehicle v onto a random edge whose midpoint is rMin..rMax from the player. returns success */
     relocate(v, rMin, rMax, hidden) {

@@ -42,6 +42,7 @@ import {backdropSourceOwner} from './backdrop-source-owner.js';
 import { waterChannelDecision } from './water-channel.js';
 import { uncoveredWaterLine } from './water-lines.js';
 import { buildTramGrades, tramGradeRenderPieces, tramSupportPieceId } from './tram-grade.js';
+import { TRAM_BRIDGE_MODELS } from './tram-grade-models.js';
 import { buildTramTunnelGrades } from './tram-tunnel-grade.js';
 import { buildTramTrenchCutter, uncoveredTramTrenchWall } from './tram-trench.js';
 import { sourceSidewalkSides, sidewalkWidth } from './sidewalk-source.js';
@@ -918,14 +919,24 @@ export async function buildWorld(city, renderer, opts = {}) {
         // The mapped line and the far edge stay; on a bridge carriageway the tram-facing side is narrowed to keep 2.2 m clear
         // of the track (at least 1.75 m) and the lanes share the narrower width (widening the far side pushed the deck into
         // neighbouring ramps).
+        // (owner, 2026-11-12, Grozavesti: "fences are not continuous on the bridge still in many places") the nearest tram line
+        // can be a street tram crossing below: at the Grozăvești end (335..386, -708..-739) one 0-1 m from the deck's centre
+        // line hid the deck tram 3.6-4.5 m beside it, so the wrong side was narrowed or none, the asphalt reached over the deck
+        // track and 60 m of railing between them was left out. Where an elevated tram line (a reviewed elevated way of
+        // TRAM_BRIDGE_MODELS with its ramps, or one tagged bridge / layer > 0) runs beside the deck, it decides the side
+        // (the narrower width when both agree); elsewhere the nearest line, as before.
+        const elevatedWays = new Set(TRAM_BRIDGE_MODELS.flatMap(m => [...(m.bridgeWays || []), ...(m.paths || []).flatMap(p => p.ways.map(w => w[0]))]));
+        const tgUp = new BoxGrid(40);
+        trams.forEach((pl, i) => { const src = data.tramSources?.[i], t = src?.tags || {}; if (!src || (!elevatedWays.has(src.sourceId) && !(t.bridge && t.bridge !== 'no') && !(+t.layer > 0))) return; for (let k = 0; k < pl.length - 1; k++) { const a = pl[k], b = pl[k + 1]; tgUp.insert(Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[0], b[0]), Math.max(a[1], b[1]), [a, b]); } });
         let tramShifted = 0;
         for (const e of edges) {
             if (e.virtual || !e.bridge || !e.oneway) continue;
-            let d = Infinity, sgn = 0;
-            for (const f of [0.1, 0.5, 0.9]) { const x = e.a.x + (e.b.x - e.a.x) * f, z = e.a.z + (e.b.z - e.a.z) * f;
-                tg.each(x - 10, z - 10, x + 10, z + 10, ([a, b]) => { const q = distPointSeg(x, z, a[0], a[1], b[0], b[1]); if (q.d < d) { d = q.d; sgn = Math.sign((q.cx - x) * e.nx + (q.cz - z) * e.nz) || 1; } }); }
-            if (!(d < e.halfW + 2.2) || d < 1.2) continue;
-            const near = sgn > 0 ? 'wR' : 'wL', far = sgn > 0 ? 'wL' : 'wR', total = e.wL + e.wR, nw = Math.max(1.75, d - 2.2);
+            const nearestOf = grid => { let d = Infinity, sgn = 0; for (const f of [0.1, 0.5, 0.9]) { const x = e.a.x + (e.b.x - e.a.x) * f, z = e.a.z + (e.b.z - e.a.z) * f;
+                grid.each(x - 10, z - 10, x + 10, z + 10, ([a, b]) => { const q = distPointSeg(x, z, a[0], a[1], b[0], b[1]); if (q.d < d) { d = q.d; sgn = Math.sign((q.cx - x) * e.nx + (q.cz - z) * e.nz) || 1; } }); } return { d, sgn }; };
+            const want = ({ d, sgn }) => !(d < e.halfW + 2.2) || d < 1.2 ? null : { near: sgn > 0 ? 'wR' : 'wL', nw: Math.max(1.75, d - 2.2) };
+            const up = want(nearestOf(tgUp)), any = want(nearestOf(tg)), pick = up ? (any && any.near === up.near ? { near: up.near, nw: Math.min(up.nw, any.nw) } : up) : any;
+            if (!pick) continue;
+            const { near, nw } = pick, far = near === 'wR' ? 'wL' : 'wR', total = e.wL + e.wR;
             if (nw >= e[near] - 0.05) continue;
             e[near] = nw; e.laneW = (e.wL + e.wR) / Math.max(1, e.lanesF + e.lanesB); if (!e.roadWidthSource) e.median = -2 * e.wL; e.halfW = Math.max(e.wL, e.wR); e.tramClearShift = true; // (owner, 2026-11-12, Grozavesti (931, -1147), (603, -877): the lanes kept starting at the old left edge, so the outer lane ran onto the tram slab / into the railing; one-way lanes start at the narrowed edge) e.tram = false; tramShifted++; void far; void total;
         }

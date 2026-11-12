@@ -5,8 +5,10 @@
 // chord between the path points 0.36 L ahead and behind, so on a bend its ends swing outside the straight rail corridor.
 // Generated objects were kept out of the straight corridor only; a bollard row 2.4 m from the centreline still held a tram
 // for good. This module reproduces those poses and that cover so that whatever the builder itself adds can stay out of
-// them. It reads the source rail network and the emitted tram meshes; it moves no rail, no actor and no source object.
-import { buildTramNetwork } from './tram-path.js';
+// them. A tram with sections (vehicles.js) is articulated: each section is posed and covered on its own, so on a bend
+// the cover follows the rail (2026-11-12: one rigid 36 m box swung 1.3 m over the Basarab deck's railing line).
+// It reads the source rail network and the emitted tram meshes; it moves no rail, no actor and no source object.
+import { buildTramNetwork, sampleTramPath, tramContinuations, canTravelTram } from './tram-path.js';
 
 export const TRAM_SWEEP_MODEL = {
     basis: 'MODEL: rigid tram body poses along the source rail (centre on the path, heading along the 0.36 L chord), covered as the rail guard covers them',
@@ -58,7 +60,7 @@ export function tramBodyProfiles(makeVehicle, city = 'bucharest', kinds = ['tram
         const slices = new Map();
         for (const [y, z] of yz) { const k = Math.round(z * 4), s = slices.get(k); if (!s) slices.set(k, [y, y, z, z]); else { if (y < s[0]) { s[0] = y; s[2] = z; } if (y > s[1]) { s[1] = y; s[3] = z; } } }
         const outline = []; for (const s of slices.values()) outline.push([s[0], s[2]], [s[1], s[3]]);
-        return { kind, lengthM: group.userData.length, widthM: group.userData.width, outline };
+        return { kind, lengthM: group.userData.length, widthM: group.userData.width, outline, sections: group.userData.sections || null };
     }).filter(b => b.lengthM > 0 && b.widthM > 0 && b.outline.length);
 }
 
@@ -86,12 +88,48 @@ export function buildTramSweep(network, bodies, model = TRAM_SWEEP_MODEL, { keep
         }
         poses.push(p);
     };
+    // an articulated body (vehicles.js sections): every section posed as the guard poses it (tram-path.js
+    // tramSectionPoses: centre on the rail, heading along 0.36 of its own length), along each concrete route a tram can
+    // be on through a fork, never one branch ahead mixed with another behind
+    const sectionBodies = new Map(bodies.filter(b => b.sections?.length).map(b => [b, b.sections.map(q => {
+        const z0 = -q.along - q.length / 2 - .3, z1 = -q.along + q.length / 2 + .3, outline = b.outline.filter(([, z]) => z >= z0 && z <= z1).map(([y, z]) => [y, z + q.along]);
+        return { q, body: { kind: b.kind, lengthM: q.length, widthM: b.widthM, outline: outline.length ? outline : b.outline, section: true } };
+    })]));
+    const reachOf = Math.max(0, ...[...sectionBodies.values()].flat().map(({ q }) => Math.abs(q.along) + q.length * .36)) + 1;
+    const routes = (edge, dir, need, depth = 0) => { // forward choices past the end of (edge, dir), as Traffic route entries
+        if (need <= 0 || depth > 12) return [[]];
+        const out = [], ch = tramContinuations(edge, dir); if (!ch.length) return [[]];
+        for (const c of ch) for (const r of routes(c.e, c.dir, need - c.e.len, depth + 1)) { out.push([c, ...r]); if (out.length >= 16) return out; }
+        return out;
+    };
+    const hists = (edge, dir, need, depth = 0) => { // backward legs before the start of (edge, dir), last = the one right behind
+        if (need <= 0 || depth > 12) return [[]];
+        const start = dir > 0 ? edge.a : edge.b, out = [];
+        const ch = start.edges.filter(e => e !== edge).map(e => ({ e, dir: e.b === start ? 1 : -1 })).filter(r => canTravelTram(r.e, r.dir)); if (!ch.length) return [[]];
+        for (const c of ch) for (const h of hists(c.e, c.dir, need - c.e.len, depth + 1)) { out.push([...h, c]); if (out.length >= 16) return out; }
+        return out;
+    };
     for (const edge of network?.edges || []) {
         if (edge.usable !== true) continue; report.legs++;
         for (const dir of [1, -1]) {
             if (!travels(edge, dir)) continue;
             const count = Math.max(1, Math.ceil(edge.len / M.stationM));
+            const combos = sectionBodies.size ? routes(edge, dir, reachOf).flatMap(route => hists(edge, dir, reachOf).map(hist => ({ route, hist }))) : [];
             for (const body of bodies) {
+                const parts = sectionBodies.get(body);
+                if (parts) {
+                    for (const { q, body: sb } of parts) {
+                        const reach = coverReach(q.length, body.widthM, M.coverCellM), d = q.length * M.axleFraction;
+                        for (let i = 0; i <= count; i++) for (const { route, hist } of combos) {
+                            const probe = { edge, dir, s: edge.len * i / count, route, hist };
+                            let C, F, R; try { C = sampleTramPath(probe, q.along); F = sampleTramPath(probe, q.along + d); R = sampleTramPath(probe, q.along - d); } catch { C = null; }
+                            if (!C || !F || !R) { report.openEnded++; continue; }
+                            add(sb, reach, C, F, R);
+                        }
+                    }
+                    report.articulated = true;
+                    continue;
+                }
                 const reach = coverReach(body.lengthM, body.widthM, M.coverCellM), d = body.lengthM * M.axleFraction;
                 for (let i = 0; i <= count; i++) {
                     const s = edge.len * i / count, C = tramPathPoints(edge, dir, s)[0], Fs = tramPathPoints(edge, dir, s + d), Rs = tramPathPoints(edge, dir, s - d);

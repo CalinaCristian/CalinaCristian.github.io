@@ -9,7 +9,7 @@ and the F8 JSON the owner pastes.
 
 | Where | Report | State / diagnosis |
 | --- | --- | --- |
-| Grozavesti, whole Basarab | "fences are not continuous on the bridge still in many places", "random 1 off fences that are alone" | fixed in the builder (one railing network; 100 railing ends in the air before, 16 after). Still open: 60 m of road-deck railing at (335..386, -708..-739) and 36 m of tram-slab railing at (859..947, -1084..-1162) are left out (`stats.railingDrops`), 95 m is drawn without a wall (`visualOnlyM`). Cause (measured 2026-11-12): a tram is one rigid 27 / 36 m box (`tram-sweep.js`); where the deck track bends about 5° its ends swing about 1.3 m sideways, over the railing line, while the outer car lane already reaches the asphalt edge. Setting the railing back 2.4 m puts it in that lane (389 car contacts against 40). Needs articulated tram bodies (vehicle model, traffic placement, rail guard, sweep). |
+| (none open) | | |
 
 ## Other open work
 
@@ -17,7 +17,6 @@ and the F8 JSON the owner pastes.
 | --- | --- | --- | --- |
 | R10 | District data size and load-time targets (3 MB gzip per district, 4 s load) | 10 | in progress: size met (binary packs 0.40–2.90 MiB, on `master` since 2026-11-12); < 4 s desktop load met by 6 of 8 (Romana 3.9 s after the build workers); still open for Unirii 4.9 s and Grozăvești 6.8 s (same machine: master 5.6 / 7.0 s). The rest is spread over many main-thread passes; Grozăvești's deck pass alone is ~1.9 s (exact 2 mm refinement) |
 | R22 | Code cleanup after the district migration (corridor era, split `world.js`, dead code) | 22 | todo, after R10 |
-| R21 | Landing background choice | 21 | blocked: owner decision |
 | fp-rebuild | District fidelity pass 2026-11-12, builder work shared by every district: keep POIs / stops / metro entrances on visible frontages just outside the playable edge; add `poiKind()` classes (nightclub, gallery, fitness centre, gaming centre, craft, kindergarten, marina, healthcare, office kinds); read POIs from multipolygon relations; keep `amenity=fountain` ways; export own `name` / `tourism` / `man_made` / `sport` tags for way buildings and areas; then rebuild the eight districts | 12 | todo |
 | fp-classes | District fidelity pass 2026-11-12, runtime classes still generic everywhere: statues / memorials (POI marker only), multi-storey car parks (windowed or blank blocks), elevated rail without a sourced height (Bellevue 2 Line), solid concrete bridge parapets where reality has steel railings, fuel stations without pumps / pylons | 12 | todo |
 | fp-streetview | District fidelity pass 2026-11-12: Street View was not compared for Pike Place, most of Seattle Center, Meydenbauer, the Botanical Garden, the inside of Downtown Park, the Old Town heroes outside the walk polygon, the Otopeni airport side and large parts of Romană (only photospheres or no panorama resolve there); see each lane's rows and dossier section | 12 | todo |

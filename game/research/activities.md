@@ -155,6 +155,32 @@ Research pass 2026-11-07. Machine-readable: `activities.json` (one entry per pla
   - In game: Sit at a courtyard table (time skip to the evening, string lights on).
   - Achievement: `lm-manuc-terrace` "A table at Manuc"
   - Sources (high): https://en.wikipedia.org/wiki/Manuc%27s_Inn, https://ro.wikipedia.org/wiki/Hanul_lui_Manuc
+- **A coffee at Gregory's**: Gregory's, a Greek coffee chain, at Strada Lipscani 27: people take a coffee and sit outside watching the street.
+  - When: Mon–Fri 07:30–16:00, Sat–Sun 07:30–18:00 (Google Maps listing, 2026-11-11). In game 08:00–16:00.
+  - In game: A cup on its saucer in your hand: blow on it, sip, finish.
+  - Achievement: `lm-lipscani-coffee` "O cafea, vă rog"
+  - Sources (medium): https://www.romania-insider.com/press-release-gregorys-expands-bucharests-old-city-and-baneasa-shopping-city
+- **Papanași at Jack's Pub**: Jack's Pub, Strada Lipscani 45: terrace eating and people-watching by day; reviews mention ribs and papanași.
+  - When: Sun–Thu 10:00–02:00, Fri–Sat 10:00–05:00 (jackspub.ro, 2026-11-11). In game 10:00–02:00.
+  - In game: Two papanași on a plate in your hand: three forkfuls.
+  - Achievement: `lm-jacks-papanasi` "Papanași, always in pairs"
+  - Sources (medium): https://jackspub.ro
+- **A coin for the busker**: Street musicians play on Lipscani (a singer filmed by Coldplay in June 2024; a 2005 'free zone' weekend for street musicians).
+  - When: Not documented; in game 10:00–24:00 (estimate).
+  - In game: Toss a coin into the busker's open guitar case.
+  - Achievement: `lm-lipscani-busker` "Mulțumesc!"
+  - Sources (medium): https://www.antena3.ro/timp-liber/muzica/coldplay-a-ajuns-romania-11-iunie-2024-trupa-rock-impresionata-barbat-canta-bucuresti-712337.html, https://adevarul.ro/stil-de-viata/cultura/ploua-cu-bani-pe-lipscani-zona-libera-a-1339908.html
+- **Photo walk: Old Town details**: Wandering the pedestrian lanes with a camera is what visitors do by day (In Your Pocket, Rough Guides).
+  - When: Any time.
+  - In game: Frame Freddo's glazed front, the Carusel arch and the string lights over Lipscani.
+  - Achievement: `lm-lipscani-photo-walk` "Three frames of Lipscani"
+  - Sources (medium): https://www.inyourpocket.com/romania/bucharest/articles/best-attractions-in-bucharests-old-town, https://www.roughguides.com/romania/bucharest/
+- **Karaoke at Mojo Music Club**: Mojo Music Club, Strada Lipscani 69: karaoke upstairs every night, above the ground-floor pub; live music and comedy in the cellar.
+  - When: Karaoke from 21:00 every night (In Your Pocket, undated); venue to 03:00, 05:00 Fri–Sat (Google Maps, 2026-11-11). In game 21:00–03:00.
+  - In game: Hold your voice on an original eight-bar tune; 60 % in tune passes.
+  - Achievement: `lm-mojo-karaoke` "Bis! Bis!"
+  - Sources (medium): https://www.inyourpocket.com/romania/bucharest/venues/mojo, https://mojomusic.ro/regulament
+  (Research pass 2026-11-11: `old-town-daylife.md` has the hours, what is estimated and the places left out.)
 
 ## Stavropoleos, Caru' cu Bere and the CEC Palace (bucharest, spot `stavropoleos-cec`)
 - **Stavropoleos courtyard and chant**: A 1724 Brâncovenesc church of a convent of nuns. The courtyard is lined with old stone crosses and tombstones; the choir sings neo-Byzantine chant; the library holds over 8,000 books.

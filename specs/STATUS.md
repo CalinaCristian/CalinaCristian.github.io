@@ -1,6 +1,6 @@
 # STATUS — task board
 
-Open owner reports, their diagnosis and fixes waiting for publication: [`handoffs/fidelity/BACKLOG.md`](../handoffs/fidelity/BACKLOG.md)
+Open owner reports and their diagnosis: [`handoffs/fidelity/BACKLOG.md`](../handoffs/fidelity/BACKLOG.md)
 (the single tracker). Only work that is not an owner report is listed here; finished rows are removed (git history).
 
 | ID | Item | Spec | Status |

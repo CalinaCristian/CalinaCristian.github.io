@@ -1,6 +1,6 @@
 # Drive My CV: specs (spec-driven development)
 
-This folder says what we are building and who owns what. Open owner reports and fixes waiting for publication live in
+This folder says what we are building and who owns what. Open owner reports live in
 one place: [`handoffs/fidelity/BACKLOG.md`](../handoffs/fidelity/BACKLOG.md). Progress history is git history.
 
 | File | What |

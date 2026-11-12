@@ -2142,34 +2142,59 @@ function bARO(b) {
 //  so footprints match the half-scale world while heights stay real.
 // ===========================================================================
 
-// Space Needle (1962) — 184 m (605 ft), three pairs of curved legs pinched at the waist, top house
-// Ø ~42 m: restaurant level 152 m, observation 156 m, roof/halo ~158-161 m, spire to 184 m.
-// OSM way 12903132 + building:parts 394254329..37 (heights above).
+// Space Needle (1962) — 184 m (605 ft). The same sources and proportions as the walk-in model (spots/space-needle.js):
+// OSM way 12903132 and its building parts (core, 100 ft level = a truncated triangle with three 16.4 x 7.8 m wings,
+// 200 ft ring, fin ring r 16.7 m, glazed rings r 15.5 m at 152.4 m and r 13.7 m at 158.1 m, roof parts to 170.3 m,
+// base footprint r 18.9 m); Street View from Space Needle Loop (Aug 2025) for the twin-beam legs that merge at the
+// waist and fork under the top house, the open core and the halo. Beam sections and rung spacing are estimates.
 // Src: https://en.wikipedia.org/wiki/Space_Needle (605 ft / 184 m; observation 520 ft; top house Ø 138 ft) ; OSM way 12903132
 function bSpaceNeedle(b) {
-    // OSM parts 394254329–337, 484–488 and 394956342–344; official 605 ft beacon.
-    // A continuous 1:1 top-house profile replaces the shallow stacked discs.
-    const W = '#f3f3ef', GL = '#71899a';
-    for (let k = 0; k < 3; k++) {
-        const a = k / 3 * Math.PI * 2 + Math.PI / 2, ca = Math.cos(a), sa = Math.sin(a);
+    const W = '#f3f3ef', GL = '#71899a', CREAM = '#e7dfc8', D = Math.PI / 180, legs = [90, 210, 330].map(d => d * D), lifts = [30, 150, 270].map(d => d * D);
+    const at = (r, a, y) => [Math.cos(a) * r, y, Math.sin(a) * r];
+    const pose = (y) => {
+        if (y <= 113) { const u = 1 - y / 113, R = 4.4 + 9.8 * u ** 1.45, d = 0.6 + 1.15 * u ** 1.2; return { r: Math.hypot(R, d), phi: Math.atan2(d, R), R }; }
+        const t = Math.min(1, (y - 113) / 33.7), r0 = Math.hypot(4.4, 0.6), p0 = Math.atan2(0.6, 4.4), r = r0 + (9.9 - r0) * t ** 1.55, phi = p0 + (30 * D - p0) * t ** 1.3;
+        return { r, phi, R: r * Math.cos(phi) };
+    };
+    for (const a of legs) {
         for (const side of [-1, 1]) {
-            const line = [];
-            for (let i = 0; i <= 20; i++) { const y = i / 20 * 144, r = y < 113 ? 5.2 + 12.6 * Math.pow(1-y/113,1.55) : 5.2 + Math.pow((y-113)/31,1.35)*7.6, gap = (y < 113 ? 0.95+2.3*Math.pow(1-y/113,1.3) : 0.95+(y-113)/31*1.9)*side; line.push([ca*r-sa*gap,y,sa*r+ca*gap]); }
-            b.tube(line,0.78,W,{seg:24,radial:6});
-            b.col(ca*17.8-sa*3.25*side,sa*17.8+ca*3.25*side,1,1,0,{y0:0,y1:8});
+            const line = []; for (let i = 0; i <= 24; i++) { const y = i / 24 * 146.7, p = pose(y); line.push(at(p.r, a + side * p.phi, y)); }
+            b.tube(line, 0.62, W, { seg: 30, radial: 4 });
+            const p0 = pose(0), f = at(p0.r, a + side * p0.phi, 0); b.col(f[0], f[2], 1, 1, 0, { y0: 0, y1: 8 }); b.box(f[0], -0.3, f[2], 2.4, 1.1, 2.4, '#cfcfca');
         }
-        b.box(ca*17.8,0,sa*17.8,7,0.8,7,'#cfcfca');
-        for (const y of [30.48,60.96,92]) b.strut([ca*10,y,sa*10],[ca*4,y,sa*4],0.5,0.5,W);
+        for (const y of [8.5, 17, 25.5, 44, 52.5, 70.5, 79, 87.5, 95]) { const p = pose(y); b.strut(at(p.r, a - p.phi, y), at(p.r, a + p.phi, y), 0.7, 1.5, W); }
+        for (let y = 104; y <= 122; y += 3) { const p = pose(y); b.strut(at(p.r, a - p.phi, y), at(p.r, a + p.phi, y), 0.3, 3.05, W); } // the plate through the waist
+        b.strut(at(3.1, a, 62.5), at(pose(62).R + 0.5, a, 62.5), 4.6, 3.0, W); // 200 ft platform
     }
-    b.cyl(0,0,0,4,4,141,'#d9d9d4',16);
-    const base=U.w394254333; b.prism(base,0,6.096,GL,{mat:'g'}); b.cornice(base,6.096,0.35,0.2,W);
-    b.colPolygon(base,{y1:6.45});
-    b.cyl(0,29.9,0,11.6,11.6,0.58,W,24); b.cyl(0,30.48,0,11.4,11.4,6.096,GL,24,{mat:'g'}); b.cyl(0,36.576,0,11.6,11.6,0.35,W,24);
-    b.cyl(0,60.96,0,6.4,6.4,3.048,W,24);
-    const profile=[[3.9,138.2],[6.5,141.2],[11.5,145.6],[16.8,149.2],[20.4,149.962],[21.15,152.4],[20.3,152.4],[20.3,156.058],[21.2,156.058],[21.2,157.7],[21.9,158.115],[17,158.115],[17,161.163],[22.45,162.8],[22.45,163.5],[19.2,165.6],[13,168.1],[7.2,169.8],[3.3,170.307]];
-    for(let i=0;i<profile.length-1;i++){const [r0,y0]=profile[i],[r1,y1]=profile[i+1];if(y1===y0){b.cap(ellipse(0,0,Math.max(r0,r1),Math.max(r0,r1),32),y0,W);continue;} b.cyl(0,y0,0,r1,r0,y1-y0,(i===6||i===11)?GL:W,32,{mat:(i===6||i===11)?'g':'m',open:true});}
-    for(let i=0;i<36;i++){const a=i/36*Math.PI*2,c=Math.cos(a),sn=Math.sin(a);b.strut([c*20.4,152.4,sn*20.4],[c*20.4,156.058,sn*20.4],0.1,0.1,W);}
-    b.cone(0,170.307,0,3.2,10.82,W,16); b.cyl(0,181.1274,0,0.16,0.16,2.8726,'#cfcfcf',6);
+    // open hexagonal core round the glazed stair, ring beams every 20 ft; three gold elevator cars
+    for (let k = 0; k < 6; k++) { const v = at(3.3, k * 60 * D, 0); b.box(v[0], 0, v[2], 0.4, 148.6, 0.4, '#e4e6e1'); }
+    for (let y = 6.1; y < 148; y += 6.1) for (let k = 0; k < 6; k++) b.strut(at(3.3, k * 60 * D, y), at(3.3, (k + 1) * 60 * D, y), 0.22, 0.3, '#e4e6e1');
+    b.cyl(0, 0, 0, 2.5, 2.5, 148.6, '#566067', 6);
+    lifts.forEach((e, k) => { const c = at(4.25, e, 0); b.box(c[0], [22, 74, 128][k], c[2], 2.0, 3.4, 2.0, '#d6ad52'); });
+    // base pavilion: storefront ring on the mapped footprint, a taller glazed drum round the core
+    const foot = ellipse(0, 0, 18.9, 18.9, 32); b.prism(foot, 0, 4.6, '#3f5f5b', { mat: 'g' }); b.cornice(foot, 4.6, 0.5, 0.5, '#cfd2d0'); b.colPolygon(foot, { y1: 5.2 });
+    b.cyl(0, 5.1, 0, 8.35, 9.4, 5.5, GL, 24, { mat: 'g', open: true }); b.cyl(0, 10.6, 0, 8.6, 8.6, 0.55, W, 24);
+    // 100 ft level: truncated triangle + a wing over each elevator side (window band under a white roof, stepped hull)
+    const hex = [], P = (e, u, v) => [Math.cos(e) * v - Math.sin(e) * u, Math.sin(e) * v + Math.cos(e) * u];
+    for (const e of lifts) hex.push(P(e, -8.2, 6.6), P(e, 8.2, 6.6));
+    b.prism(hex, 30.48, 33.9, W); b.prism(hex, 33.9, 36.1, GL, { mat: 'g' }); b.prism(hex, 36.1, 36.576, W);
+    for (const e of lifts) {
+        const q = (v0, v1, g = 0) => [P(e, -8.2 - g, v0), P(e, 8.2 + g, v0), P(e, 8.2 + g, v1 + g), P(e, -8.2 - g, v1 + g)];
+        b.prism(q(6.6, 9.2), 30.6, 31.3, CREAM); b.prism(q(6.6, 11.8), 31.3, 32.0, CREAM); b.prism(q(6.6, 14.4), 32.0, 33.9, W);
+        b.prism(q(6.6, 14.4), 33.9, 36.1, GL, { mat: 'g' }); b.prism(q(6.7, 14.4, 0.35), 36.1, 36.576, W);
+    }
+    // top house: ring beam and drum, 24 fins under the glass floor, the two glazed rings, halo, roof, spire
+    b.cyl(0, 146.0, 0, 10.45, 10.45, 1.4, W, 32, { open: true }); b.cyl(0, 147.4, 0, 10.0, 10.0, 4.8, W, 32, { open: true }); b.cyl(0, 147.4, 0, 5.6, 9.35, 2.1, '#2b3034', 24, { open: true });
+    for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; b.strut(at(10.0, a, 149.9), at(16.7, a, 151.6), 0.2, 1.5, W); }
+    b.cyl(0, 152.0, 0, 16.7, 10.0, 0.12, '#33444f', 32); b.cyl(0, 152.15, 0, 16.7, 16.7, 0.25, W, 32, { open: true });
+    b.cyl(0, 152.4, 0, 15.95, 15.5, 3.5, GL, 32, { mat: 'g', open: true });
+    b.cyl(0, 155.9, 0, 16.7, 15.95, 0.4, W, 32, { open: true }); b.cyl(0, 156.3, 0, 16.7, 16.7, 2.2, W, 32);
+    b.cyl(0, 157.32, 0, 20.9, 20.9, 0.07, '#f4f5f1', 40); b.cyl(0, 157.15, 0, 21, 21, 0.42, '#e0dccb', 40, { open: true });
+    b.cyl(0, 158.5, 0, 13.7, 13.7, 2.8, GL, 32, { mat: 'g', open: true });
+    b.cyl(0, 161.3, 0, 15.36, 15.3, 0.42, W, 32); b.cyl(0, 161.72, 0, 10.2, 15.36, 2.48, W, 32, { open: true }); b.cyl(0, 164.2, 0, 7.75, 10.2, 2.3, W, 32, { open: true });
+    b.cyl(0, 166.5, 0, 7.75, 7.75, 0.9, GL, 24, { mat: 'g', open: true }); b.cyl(0, 167.4, 0, 7.95, 7.95, 0.18, W, 24);
+    b.cyl(0, 167.58, 0, 5.4, 7.95, 0.87, W, 24, { open: true }); b.cyl(0, 168.45, 0, 2.7, 5.4, 0.5, W, 24, { open: true }); b.cyl(0, 168.95, 0, 1.9, 1.9, 1.35, W, 12); b.cyl(0, 170.3, 0, 2.45, 2.45, 0.12, W, 12);
+    b.cone(0, 170.42, 0, 0.95, 10.6, W, 12); b.cyl(0, 181, 0, 0.09, 0.09, 3.4, '#cfcfcf', 6);
 }
 
 // Columbia Center (Chester Lindsey, 1985) — 937 ft / 286 m, 76 floors (en.wikipedia "Columbia Center"),
@@ -3586,7 +3611,7 @@ export const LANDMARKS = [
     L('globalworth', 'bucharest', 'Globalworth Tower', ['Globalworth Tower'], 12, bGlobalworth),
     L('thebridge1', 'bucharest', 'The Bridge 1 (BCR)', ['The Bridge 1'], 45, bTheBridge1, { sourceIds: ['w661134293'] }),
     // ---- Seattle / Bellevue (radius given in real metres, halved by L()) ----
-    L('spaceneedle', 'seattle', 'Space Needle', ['Space Needle'], 30, bSpaceNeedle, { sourceIds: ['w12903132','w394254329','w394254330','w394254331','w394254332','w394254333','w394254334','w394254335','w394254336','w394254337','w394254484','w394254485','w394254486','w394254487','w394254488','w394956342','w394956343','w394956344'] }),
+    L('spaceneedle', 'seattle', 'Space Needle', ['Space Needle'], 30, bSpaceNeedle, { floodlit: true, sourceIds: ['w12903132','w394254329','w394254330','w394254331','w394254332','w394254333','w394254334','w394254335','w394254336','w394254337','w394254484','w394254485','w394254486','w394254487','w394254488','w394956342','w394956343','w394956344'] }),
     L('columbia', 'seattle', 'Columbia Center', ['Columbia Center'], 50, bColumbia, { sourceIds: ['r4648083','w107124288','w331293871','w418132520','w418132515','w418132517','w418132525'] }),
     L('smith', 'seattle', 'Smith Tower', ['Smith Tower'], 28, bSmith, { sourceIds: ['w52781661','w418140384','w418140385','w418140386'] }),
     L('lumen', 'seattle', 'Lumen Field', ['Lumen Field'], 140, bLumen, { sourceIds: ['w458208102','w458208103','w458208104','w458208105','w458208106','w458208107','w458208112'] }),

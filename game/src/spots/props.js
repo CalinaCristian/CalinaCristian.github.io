@@ -6,6 +6,7 @@
 // ============================================================================
 import * as THREE from '../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, canvas, canvasTexture, fitDraw, alongPolyline, polylineLength, offsetPolyline, clamp, inPoly, distPolyline } from './kit.js';
+import { spaceNeedleModel } from './space-needle.js';
 
 // ---------------------------------------------------------------------------- signs
 /**
@@ -181,53 +182,10 @@ export function greatWheel(x, y, z, yaw, { spin = true } = {}) {
     return { group: grp, update, hub, radius: R, rotor: rot };
 }
 
-// ---------------------------------------------------------------------------- Space Needle (1962): 184 m (see seattle-center for the plaza)
-/**
- * Six legs in three pairs (pinched waist at ~110 m), SkyLine ring 30.5–36.6 m, saucer house 152.4–170 m (Ø 42 m), glass bands,
- * Loupe floor, white roof + pyramid spire to 184 m, exterior glass elevators. Built at full detail (≈ 40 k tris).
- */
-export function spaceNeedle(x, y, z, { detail = 1, roof = '#f1f1ec' } = {}) {
-    const b = new GeoBatch(), white = '#eef0ee', steel = '#d9dcdc', grey = '#9aa0a3';
-    const N = detail > 0.5 ? 24 : 12;
-    // legs: 3 pairs; each leg a curved tube from the base (r≈18 m) in to the waist (r≈4.5 m at 113 m) out to the saucer underside (r≈13 m at 150 m)
-    const legPt = (t, ang) => {
-        const yy = t * 152, rr = yy < 113 ? 4.6 + 13.8 * Math.pow(1 - yy / 113, 1.6) : 4.6 + (yy - 113) / 39 * 9.5;
-        return [Math.cos(ang) * rr, yy, Math.sin(ang) * rr];
-    };
-    for (let k = 0; k < 3; k++) for (const off of [-0.17, 0.17]) {
-        const ang = k * Math.PI * 2 / 3 + off + Math.PI / 6; const pts = [];
-        for (let i = 0; i <= 16; i++) pts.push(legPt(i / 16, ang + (i / 16 > 0.74 ? (i / 16 - 0.74) * off * -1.5 : 0)));
-        b.tube(pts, 0.85, white, 'paint', 8);
-        for (let i = 2; i < 15; i += 3) { const a = legPt(i / 16, ang), c = legPt(i / 16, ang + (off > 0 ? -0.34 : 0.34)); b.rod(a, c, 0.35, white, 'paint', 6); } // cross ties
-    }
-    // core (elevator shaft) + exterior glass elevators
-    b.cyl(0, 0, 0, 1.7, 152, '#e2e4e2', 'paint', 12);
-    for (let k = 0; k < 3; k++) { const a = k * Math.PI * 2 / 3 - Math.PI / 6; for (const s of [-0.5, 0.5]) b.box(Math.cos(a) * 2.6 - Math.sin(a) * s, 0, Math.sin(a) * 2.6 + Math.cos(a) * s, 0.18, 152, 0.18, '#f0f1ef', 'paint', -a); b.box(Math.cos(a) * 2.8, 30 + k * 41, Math.sin(a) * 2.8, 1.5, 2.6, 1.4, '#e9c76a', 'metal', -a); } // elevator rails + gold cabins
-    b.add(new THREE.CylinderGeometry(2.2, 3.4, 9, N, 1, true), 'paint', M(0, 155, 0), steel); // spiral stair housing top
-    // SkyLine ring (100 ft) + mid ring
-    b.add(new THREE.CylinderGeometry(9.5, 9.5, 6.1, N * 2, 1), 'paint', M(0, 30.5 + 3.05, 0), white);
-    b.add(new THREE.CylinderGeometry(8.8, 8.8, 6.0, N * 2, 1), 'glass', M(0, 33.5, 0), '#4f6573');
-    b.add(new THREE.CylinderGeometry(5.2, 5.2, 3, N, 1), 'paint', M(0, 62.5, 0), white);
-    // saucer house: underside cone, glass bands, Loupe, roof halo + spire
-    b.add(new THREE.CylinderGeometry(20.5, 9, 6, N * 2, 1), 'paint', M(0, 149.4, 0), white);
-    b.add(new THREE.CylinderGeometry(21, 20.5, 3.7, N * 2, 1), 'glass', M(0, 154.3, 0), '#40525d');
-    b.add(new THREE.CylinderGeometry(21.05, 21.05, 0.6, N * 2, 1), 'paint', M(0, 156.4, 0), white);
-    b.add(new THREE.CylinderGeometry(21.05, 21.05, 1.4, N * 2, 1), 'paint', M(0, 157.4, 0), grey);
-    b.add(new THREE.CylinderGeometry(21.6, 21.0, 3.2, N * 2, 1), 'glass', M(0, 159.7, 0), '#3d4f5a'); // observation deck glass (open-air barrier)
-    b.add(new THREE.CylinderGeometry(21.6, 21.6, 0.5, N * 2, 1), 'paint', M(0, 161.5, 0), white);
-    for (let i = 0; i < 48; i++) { const a = i / 48 * Math.PI * 2; b.rod([Math.cos(a) * 21.6, 158, Math.sin(a) * 21.6], [Math.cos(a) * 21.6, 161.4, Math.sin(a) * 21.6], 0.06, steel, 'steel', 4); }
-    b.add(new THREE.CylinderGeometry(17.5, 21.2, 5.5, N * 2, 1), 'roofs', M(0, 164.6, 0), roof);
-    b.add(new THREE.CylinderGeometry(8.5, 17.5, 2.6, N * 2, 1), 'roofs', M(0, 168.6, 0), roof);
-    b.add(new THREE.CylinderGeometry(3.4, 8.5, 1.7, N, 1), 'roofs', M(0, 170.7, 0), roof);
-    b.add(new THREE.ConeGeometry(3.1, 9.5, 6), 'paint', M(0, 176.3, 0), white);
-    b.rod([0, 181, 0], [0, 184.4, 0], 0.18, steel, 'steel', 6);
-    // halo struts from the waist to the saucer (the "crown" arms)
-    for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2; b.rod([Math.cos(a) * 9, 146.5, Math.sin(a) * 9], [Math.cos(a) * 20.4, 152.2, Math.sin(a) * 20.4], 0.35, white, 'paint', 5); }
-    const g = b.build('space-needle'); g.position.set(x, y, z);
-    // aircraft warning beacon + top light (night)
-    const beacon = new THREE.Mesh(new THREE.SphereGeometry(0.5, 8, 6), new THREE.MeshBasicMaterial({ color: '#ff3020', toneMapped: false })); beacon.position.y = 184.6; g.add(beacon);
-    const haloLight = new THREE.Mesh(new THREE.TorusGeometry(21.7, 0.25, 6, 96), new THREE.MeshBasicMaterial({ color: '#ffe6b0', toneMapped: false })); haloLight.rotation.x = Math.PI / 2; haloLight.position.y = 157.9; haloLight.visible = false; g.add(haloLight);
-    g.userData.night = (k) => { haloLight.visible = k > 0.3; beacon.visible = k > 0.1 || true; };
+// ---------------------------------------------------------------------------- Space Needle (1962): 184 m
+/** The tower from ./space-needle.js (OSM parts + Street View) placed at (x, y, z); detail < 1 = the distant model. */
+export function spaceNeedle(x, y, z, { detail = 1 } = {}) {
+    const g = spaceNeedleModel({ detail, cabs: detail >= 1 }); g.position.set(x, y, z);
     return g;
 }
 

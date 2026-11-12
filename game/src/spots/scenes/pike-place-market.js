@@ -11,7 +11,7 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, polyArea, inPoly } from '../kit.js';
 import { triangulate } from '../../building-overlap.js';
-import { neonSign, latticeFrame } from '../props.js';
+import { neonSign, latticeFrame, stall } from '../props.js';
 import { wallGeometry, facadeMaterial, facadeStyle } from '../osm.js';
 
 // OSM footprint → height of the eave above the street (Street View estimates) and roof colour
@@ -75,7 +75,25 @@ export function buildHalls(ctx, street) {
         latticeFrame(b, cx - nx * 0.3, y, cz - nz * 0.3, 12.5, 9.2, yaw, { cols: 4, r: 0.07 });
         for (const [text, up, w] of [['PUBLIC', 6.3, 8.4], ['MARKET', 3.5, 10.4]]) { const s = neonSign([{ text }], w, 2.5, { color: '#d7262b', glow: '#ff2d24', day: 0.3, night: 3.5, font: (q) => `900 ${q}px "Arial Black", "Helvetica Neue", Arial, sans-serif`, stroke: 3 }); s.position.set(cx + nx * 0.15, y + up + 1.25, cz + nz * 0.15); s.rotation.y = yaw; grp.add(s); }
     }
+    // what stands in the street by the halls (Street View): farmers' pop-up tents with their tables along the North Arcade
+    // (no cars: Pike Place is car-free here) and the yellow bollards at the Main Arcade's doors
+    {
+        const pts = street.line, seg = (s) => { let acc = 0; for (let i = 1; i < pts.length; i++) { const L = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); if (s <= acc + L || i === pts.length - 1) { const t = (s - acc) / L, tx = (pts[i][0] - pts[i - 1][0]) / L, tz = (pts[i][1] - pts[i - 1][1]) / L; return { x: pts[i - 1][0] + (pts[i][0] - pts[i - 1][0]) * t, z: pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * t, tx, tz }; } acc += L; } };
+        const west = (s, off) => { const p = seg(s); return { x: p.x + p.tz * off, z: p.z - p.tx * off, yaw: Math.atan2(-p.tz, p.tx), tx: p.tx, tz: p.tz }; }; // off m toward the halls
+        let n = 0;
+        for (let s = 152; s < 226; s += 9.5, n++) {
+            const c = west(s, 4.9), y = street.at(c.x, c.z).y, col = n % 3 === 1 ? '#c8302a' : '#f4f2ec', half = 1.5, top = y + 2.25, apex = y + 3.05;
+            const corner = (i, j) => [c.x + c.tx * i * half + c.tz * j * half, c.z + c.tz * i * half - c.tx * j * half];
+            const C = [corner(-1, -1), corner(1, -1), corner(1, 1), corner(-1, 1)];
+            for (const [x, z] of C) { b.cyl(x, y, z, 0.022, top - y, '#c9ccce', 'metal', 6); ctx.circle(x, z, 0.06, 2.2, { y }); }
+            for (let k = 0; k < 4; k++) { const [ax, az] = C[k], [bx, bz] = C[(k + 1) % 4]; b.quad([ax, top, az], [bx, top, bz], [c.x, apex, c.z], [c.x, apex, c.z], col, 'fabric'); b.quad([bx, top, bz], [ax, top, az], [c.x, apex, c.z], [c.x, apex, c.z], col, 'fabric');
+                b.quad([ax, top - 0.26, az], [bx, top - 0.26, bz], [bx, top, bz], [ax, top, az], col, 'fabric'); b.quad([bx, top - 0.26, bz], [ax, top - 0.26, az], [ax, top, az], [bx, top, bz], col, 'fabric'); }
+            stall(b, c.x, y, c.z, c.yaw + Math.PI, { w: 2.5, kind: ['produce', 'flowers', 'produce'][n % 3], seed: 70 + n }); ctx.box(c.x, c.z, 1.3, 0.6, c.yaw, { prop: true, h: 0.85 });
+        }
+        for (const s of [33, 36.2, 47.5, 50.7, 61.5, 64.7]) { const q = west(s, 6.1), y = street.at(q.x, q.z).y; b.cyl(q.x, y, q.z, 0.07, 0.95, '#e8c21c', 'paint', 10); ctx.circle(q.x, q.z, 0.1, 0.95, { y }); }
+        ctx.extras.marketHalls = { tents: n };
+    }
     grp.add(b.build('market-halls', { matOverrides: { 'f-apartment': facadeMaterial('apartment') } }));
     ctx.add(grp);
-    ctx.extras.marketHalls = { bays };
+    ctx.extras.marketHalls = { ...ctx.extras.marketHalls, bays };
 }

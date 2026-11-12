@@ -109,7 +109,7 @@ fs.copyFileSync(__filename, `${out}/runner.cjs`);
         };
 
         if (process.env.ELEVATOR === '1') {
-            await enter('space-needle', 'needleElevator', 'Ride the elevator to The Loupe (41 s)');
+            await enter('space-needle', 'needleElevator', 'Ride the elevator to the observation level (41 s)');
             const elevator = result.elevator = { cancels: [] }, origin = await page.evaluate(() => ({ ...game.spot.position }));
             for (const mode of ['leave', 'escape', 'pause', 'conditions', 'photo', 'map', 'hidden']) {
                 elevator.controls = await start(); await page.evaluate(() => step(40));

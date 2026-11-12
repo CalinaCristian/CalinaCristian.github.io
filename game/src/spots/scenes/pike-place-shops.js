@@ -45,6 +45,23 @@ export function businesses(data) {
 }
 
 const PAL = { food: [['#5a1e1e', '#f6efe0'], ['#f2e8cf', '#5a1e1e'], ['#2b2b2b', '#f5e6b0'], ['#7a2e1d', '#ffe9c4']], cafe: [['#3b2a20', '#f1e3c8'], ['#f1e7d2', '#3b2a20']], shop: [['#1f3d2b', '#f2e9d0'], ['#14213d', '#fca311'], ['#2b2b2b', '#f5f5f5'], ['#f2e8cf', '#3a2a1a'], ['#0b4f6c', '#f5f5f5'], ['#4a2545', '#f4e9f2']], stay: [['#1d2a2a', '#f3efe2'], ['#22303f', '#e9d8a6']] };
+// Sign boards are not all alike: lettering style by a hash of the name, and for the best-known names colours close to the
+// real boards (from Street View and memory of the place; colours only, no logo is drawn)
+const FONTS = [[(q) => `700 ${q}px Georgia, serif`, false], [(q) => `800 ${q}px "Helvetica Neue", Arial, sans-serif`, true], [(q) => `italic 700 ${q}px Georgia, "Times New Roman", serif`, false],
+    [(q) => `700 ${q}px "Arial Narrow", "Helvetica Neue", Arial, sans-serif`, true], [(q) => `600 ${q}px "Trebuchet MS", Verdana, sans-serif`, false], [(q) => `900 ${q}px Impact, "Arial Black", sans-serif`, true]];
+const BRANDS = [
+    [/^Le Panier/, '#23407a', '#f4efe2', 2], [/^Piroshky/, '#f4f1e8', '#c1272d', 1], [/^Pike Place Chowder/, '#1b4f8f', '#ffffff', 1], [/^Rachel's Ginger Beer/, '#f6f1ea', '#e2578d', 4],
+    [/^Sur La Table/, '#f5f1e8', '#7a1c2e', 0], [/^Three Girls Bakery/, '#f6f2e6', '#b3202a', 0], [/^DeLaurenti/, '#1f4d2b', '#f5e9c8', 0], [/^Metsker Maps/, '#12305a', '#f2c230', 3],
+    [/^Left Bank Book/, '#b3202a', '#141414', 5], [/^Totem Smokehouse/, '#3a1f14', '#f1c27d', 0], [/^Mee Sum Pastry/, '#b3202a', '#ffe89a', 1], [/^Jack's Fish Spot/, '#0f5fa8', '#ffffff', 5],
+    [/^Pure Food Fish/, '#f4f1e8', '#1d4f91', 1], [/^Mr\. D's/, '#16243f', '#d9b24c', 3], [/^Cinnamon Works/, '#5a2d16', '#f3dfb9', 2], [/^The Crumpet Shop/, '#f1e7cf', '#5a3a22', 0],
+    [/^Hellenika/, '#f7f4ec', '#1b6a7a', 4], [/^Emmett Watson/, '#1f2f4a', '#f1e6c9', 0], [/^Kells/, '#0f4a2c', '#e7c558', 0], [/^The Pink Door/, '#e99ab6', '#ffffff', 2], [/^Storyville/, '#2a2420', '#e9dcc3', 3],
+    [/^Cupcake Royale/, '#e85a8f', '#ffffff', 4], [/^Starbucks/, '#00704a', '#ffffff', 1], [/^Target/, '#cc0000', '#ffffff', 1], [/^CVS/, '#cc0000', '#ffffff', 1], [/^Market Theater/, '#1b1b1d', '#f4f1e6', 3],
+    [/^Lowell's/, '#1c3f6e', '#f4e7c3', 2], [/^The Athenian/, '#7a1f1f', '#f3e3b8', 0], [/^Pike Place Bar/, '#7a2e1d', '#ffe9c4', 0], [/^Matt's in the Market/, '#f3efe4', '#2b2b2b', 4], [/^Maximilien/, '#1d2d50', '#f0e2b6', 2],
+    [/^Beecher/, '#ece4cf', '#2b2b2b', 0], [/^Ma[ií]z/, '#f2e8cf', '#2f2a26', 5], [/^Old Stove/, '#1e1e1e', '#f29b38', 5], [/^Inn at the Market/, '#22303f', '#e9d8a6', 0], [/^Zig Zag/, '#141414', '#e7c558', 2],
+];
+const signStyle = (biz, pal) => { const hit = BRANDS.find(([re]) => re.test(biz.name)), k = Math.floor(hash2(biz.x * 3.1 + biz.name.length, biz.z * 1.7) * 997) % FONTS.length, [font, caps] = FONTS[hit ? hit[3] : k];
+    let text = biz.name.replace(/\s+-\s+.*$/, ''); if (caps) text = text.toUpperCase();
+    return { text, font, bg: hit ? hit[1] : pal[0], fg: hit ? hit[2] : pal[1], h: hit ? 0.56 : 0.44 + 0.04 * (k % 4) }; };
 const palette = (b) => { const set = b.kind === 'cafe' ? PAL.cafe : FOOD.test(b.kind) ? PAL.food : STAY.test(b.kind) ? PAL.stay : PAL.shop; return set[Math.floor(hash2(b.x, b.z) * set.length) % set.length]; };
 
 /**
@@ -90,7 +107,8 @@ export function buildShopSigns(ctx, o = {}) {
             its.forEach((it, i) => {
                 const x = W.ax + W.ux * c[i] + W.nx * 0.16, z = W.az + W.uz * c[i] + W.nz * 0.16, gy = yAt(x + W.nx * 1.4, z + W.nz * 1.4);
                 const y = gy + (W.lv > 0 ? 3.9 * W.lv + 2.3 : 3.2) + row * 0.62, [bg, fg] = palette(it.biz);
-                items.push({ text: it.biz.name, w: ws[i], h: 0.5, x, y, z, yaw: Math.atan2(W.nx, W.nz), bg, fg });
+                const st = signStyle(it.biz, [bg, fg]);
+                items.push({ text: st.text, w: ws[i], h: W.lv > 0 ? 0.42 : st.h, x, y, z, yaw: Math.atan2(W.nx, W.nz), bg: st.bg, fg: st.fg, font: st.font });
                 const kind = W.lv === 0 && row === 0 ? o.awning?.(W) : null;
                 if (kind) { const n = Math.max(1, Math.round((ws[i] + 0.5) / 0.55)), w = (ws[i] + 0.5) / n; // a canvas awning under the sign, in stripes
                     for (let q = 0; q < n; q++) { const u = c[i] - (ws[i] + 0.5) / 2 + q * w, ax = W.ax + W.ux * u, az = W.az + W.uz * u, bx = ax + W.ux * w, bz = az + W.uz * w, col = kind === 'stripe' ? (q % 2 ? '#f3efe2' : '#2f6b48') : kind;

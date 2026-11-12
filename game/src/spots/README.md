@@ -62,6 +62,7 @@ Progress (postcards, coins, gum…) is kept in `localStorage['dmcv.spots.v1']`.
 | `kit.js` | `GeoBatch` (merged vertex-coloured meshes per material), shared materials, canvas text / textures, polygon + polyline maths |
 | `sdf.js` | SDF primitives + surface-nets mesher + top-surface heightmaps (sculptures: Troll, Rachel, MoPOP, Piloti…) |
 | `props.js` | neon / painted signs, lattice frames, clock faces, canopies, market stalls, fish, Great Wheel, Space Needle, skyline, mountains, totem poles, railings, `SEATTLE_TOWERS` |
+| `space-needle.js` | The Space Needle at 1:1 from the OSM parts and Street View: `spaceNeedleModel({ detail, cabs, interior })` (legs, open core, 100 ft wings, fins, halo, both glazed levels, roof, three elevator cars; `interior` fits out The Loupe and the 520 ft level; night floodlighting baked per vertex), `needlePavilion()` (base pavilion), `NEEDLE` (levels, radii and interior layout the visit scene uses for floors and colliders). Estimates are listed in its header |
 | `backdrop.js` | Seattle far backdrop: Needle at its real position, downtown towers, city filler, Elliott Bay, Rainier / Olympics (weather-dependent visibility) |
 | `people.js` | `Crowd`: instanced personas, path network walkers, group acts (watch / photo / pose / queue / sit / talk / perform / guide / throw), reactions + chat bubbles |
 | `ui.js` | `SpotUI` (title card, prompt, plaque reader, toasts, challenge line, crosshair) + `BubbleLayer` + `plaqueMesh` |
@@ -154,8 +155,15 @@ Entrance history is read one fact at a time outdoors; it does not claim an acces
 
 Seattle Center's Glasshouse, Loupe and passing Monorail exercises require manual looking and an explicit shutter;
 short steady-frame gates prevent a button press or idle timer from awarding the view. Each belongs to its active shared
-entry. The animated Needle elevator uses the shared Leave/mode cancellation flow. The unmodelled stair transfer and
-instant open-air-deck visit award are retired. Kerry Park's city-lights activity requires an actual dusk/night capture.
+entry. The animated Needle elevator uses the shared Leave/mode cancellation flow; it runs from the base pavilion to the
+520 ft observation level and back down from either public level. The two levels are walkable (floors seen only from
+within 1.6 m below their underside, walls with height bands) and joined by a walkable stair; the Loupe's glass floor
+carries the walker at its real rate. Ground-level footprints under them (the pavilion) carry a height band so that they
+do not act on the rooms above. Eating and drinking at the three counters (The Loupe Lounge, Atmos Cafe, Atmos Wine Bar)
+are held-item sequences on the shared flow: order, then sips / bites that advance only after their animation; leaving
+early awards nothing. Their menu prices are the game's guess (no sourced menu); the $35-39 ticket in the running total
+is the mapped `charge`. The instant open-air-deck visit award stays retired. Kerry Park's city-lights activity
+requires an actual dusk/night capture.
 Palace pacing counts continuous walking along its public-frontage game course; its endpoints are UI waypoints without
 invented marker posts. Botanical Garden trail notes are explicitly virtual at mapped rooms and add no physical plant-label
 hardware or reading-count award; its suspension-bridge award requires continuous walking on the existing bridge deck.

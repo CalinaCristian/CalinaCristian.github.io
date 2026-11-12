@@ -4028,7 +4028,24 @@
   ],
   "atmAsBank": 0,
   "brandTable": [],
-  "closed": [],
+  "closed": [
+   {
+    "name": "Bibito Cafe",
+    "category": "cafe",
+    "lat": 47.45631,
+    "lon": -122.29304,
+    "osm": "way/374790723",
+    "reason": "live OSM 2026-11-12: the cafe node is deleted and the building carries no name / amenity; street-level imagery shows a small eatery whose name could not be read"
+   },
+   {
+    "name": "Olympia Coffee",
+    "category": "cafe",
+    "lat": 47.44483,
+    "lon": -122.30353,
+    "osm": null,
+    "reason": "live OSM 2026-11-12: no longer mapped (airside, Concourse C)"
+   }
+  ],
   "skipped": {
    "atms": 2,
    "parcelLockers": 0,

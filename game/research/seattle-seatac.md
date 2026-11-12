@@ -97,3 +97,46 @@ Landside along the route: hotels on International Blvd (Hilton Seattle Airport, 
 
 ## 8. Sources
 OpenStreetMap (ODbL) <https://www.openstreetmap.org> · [Seattle–Tacoma International Airport](https://en.wikipedia.org/wiki/Seattle%E2%80%93Tacoma_International_Airport) · [SeaTac/Airport station](https://en.wikipedia.org/wiki/SeaTac/Airport_station) · [SR 518](https://en.wikipedia.org/wiki/Washington_State_Route_518) · [Port of Seattle travel tips](https://www.portseattle.org/node/1435) · [WSDOT I-405 dashboard](https://wsdot.wa.gov/about/data/Multimodal-mobility-dashboard/dashboard/central-puget-sound/interstate405-cps/severe-congestion.htm) · WSDOT Standard Plans & MUTCD (see Bellevue dossier) · Commons photos in [refs/seatac/LICENSES.md](refs/seatac/LICENSES.md).
+
+## 9. Fidelity pass 2026-11-12 (live OSM + street-level review)
+
+Method: live OSM extract of the district bbox (Overpass, 2026-11-12) diffed against `game/data/seattle-seatac.json`; game renders at the
+viewpoints in `game/dev/reality/viewpoints.json` (`district: seatac`, 25 poses) compared by eye with street-level panoramas at the same
+position (reference only; nothing stored). Trees render bare because the capture runs in the current season.
+
+**Established**
+- **Link aerial guideway**: both main tracks, the pocket-track sidings and the crossovers are `railway=light_rail`, `bridge=yes`, `layer=3`
+  (w34746781, w260383054, w164665648, w260383057, w911020383/5/6/7, w916372227) from south of the district to 47.45198, −122.3002; north of
+  that the tracks (w165240080 / w165240081) carry no bridge tag. Reality: a concrete box girder on single columns beside the Airport
+  Expressway. The generic railway pass left these ways unresolved, so the district had no guideway at all. Now drawn by
+  `game/src/seatac-guideway.js` at the station's sourced rail level (platform 18 m), coming down to grade over the last 358 m. Girder depth,
+  deck width, pier section and pier spacing (34 m) are estimates; piers are placed only clear of carriageways and buildings.
+  The bridge ways north-east of the district (w165240082 / w165240083, towards SR-518) have no sourced height and stay unresolved.
+- **SeaTac/Airport station footbridge over International Blvd** (footway w54139652, outline w469766790 `bridge:structure=beam`): an open white
+  steel truss around a glazed walkway with a thin flat roof, landing east of the road on a dark steel open stair tower with a glazed lift
+  shaft (building w469766788). It was a closed blue box ending at a generic pitched-roof "house"; both are now authored in `bSeaLink`.
+- **Hotels**: the data build signed a building with its first POI and styled untagged US footprints as windowless sheds or shop rows.
+  Reality: Hilton (r5186200, white 3–4-storey wings behind trees), Radisson (w314940617, 7 storeys), Ramada (w374790721), Red Roof Inn
+  (w246328444, 4 storeys), Skybridge hotel (w246328436, 12-storey concrete tower), Motel 6 (w374790724, 2-storey motel). A world rule now
+  gives the hotel its own name as the sign and a windowed block facade (see world.js "principal occupant").
+- **Fuel**: 76 (w433205179, mapped canopy) carried the kiosk's name; it now carries a 76 board on its fascias. Shell (n824050627, checked
+  2024-06-16) is a node only: reality has a yellow / red Shell canopy in front of the Food Mart (w647569318), but no canopy footprint is
+  mapped, so none is drawn.
+- **Airport Expressway over S 170th St** (w23609851, w1165458667, w6429448; outlines w598629034, w1165460002, w598629039 beam): concrete girder
+  bridges on column bents with the street passing at grade — matches.
+- **Departures / Arrivals drives**: upper deck against the garage with a concrete barrier, lower drive under the deck between round columns
+  and the garage wall — matches in type; terminal curb canopy and signage remain approximations.
+- **17262 International Blvd** (east side, south of Denny's): a fenced cleared lot — matches (bare ground in the game).
+- **Office towers at S 180th** (w294862715, w294862744, 13 Coins): two dark-glass towers — match.
+- **Business inventory**: 172 named businesses / amenities in live OSM inside the bbox (about 140 of them airside or inside the terminal);
+  all but the Hilton's hotel record and the non-commercial desks are present as POIs.
+
+**Documented exceptions / stale**
+- Panoramas on the airport access road at S 182nd St predate the 2022 International Arrivals Facility; OSM (w734002404) is kept.
+- Bibito Cafe (building w374790723) and Olympia Coffee (Concourse C) are no longer in live OSM; both are listed under `closed` in
+  `businesses-gamediff.json` for the next data build. The game still shows them until then.
+
+**Open** (also in the backlog rows of this pass): Shell canopy unmapped; MasterPark garage (w433205175, `parking=multi-storey`) is a blank
+box; Red Lion (w364221560), Rodeway Inn (w647567422), SureStay (w314940622) have no `building:levels` and render one storey; International
+Blvd lies below a retaining wall and planted bank under the expressway and station (the game is flat); Hilton wing skybridge (w1035290130 /
+w1035290131) absent; expressway sign gantries absent; Bow Lake (w37023588) is not visible from any public road and was not compared.

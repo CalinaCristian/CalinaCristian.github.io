@@ -2877,7 +2877,39 @@ function bSeaLink(b) {
     { const r = Math.atan2(7, 148); b.text('SEATAC/AIRPORT', 6 + 70.05 * Math.sin(r), yP + 3, 70.05 * Math.cos(r), r, 1.1, '#ffffff'); }
     // bridges at concourse level (9 m): east over the Airport Expressway (OSM w54139652), west to the garage (approx.)
     const br = (a, c) => { b.strut([a[0], 10.6, a[1]], [c[0], 10.6, c[1]], 5.5, 3.6, '#8aa5b5', 'g'); b.strut([a[0], 8.5, a[1]], [c[0], 8.5, c[1]], 6, 0.7, CON); b.strut([a[0], 12.7, a[1]], [c[0], 12.7, c[1]], 6.4, 0.5, WH); };
-    br([13, -55], [73.4, -58.3]);
+    // East bridge over International Blvd (OSM footway bridge w54139652, outline w469766790 `bridge:structure=beam`): a glazed
+    // walkway inside an open white steel truss (verticals + alternating diagonals, thin flat roof), not a closed box. It lands
+    // on the stair / lift tower OSM w469766788 (dark steel frame, open stair flights, flat roof, glazed lift shaft under the
+    // bridge end, one round column). Character checked against street-level imagery 2026-11-12 (reference only).
+    {
+        const a = [13, -55], c = [73.4, -58.3], dx = c[0] - a[0], dz = c[1] - a[1], Lb = Math.hypot(dx, dz), nx = -dz / Lb, nz = dx / Lb;
+        const yD = 8.5, yR = 12.6, hw = 2.6, N = 9, ST = '#3d4247';
+        b.strut([a[0], yD, a[1]], [c[0], yD, c[1]], 5.6, 0.6, CON);                                  // deck
+        b.strut([a[0], yR + 0.15, a[1]], [c[0], yR + 0.15, c[1]], 6.2, 0.3, WH);                     // flat roof
+        b.strut([a[0], yD + 2.2, a[1]], [c[0], yD + 2.2, c[1]], 4.6, 3.3, '#a9bcc6', 'g');           // glazing behind the truss
+        for (const s of [-1, 1]) {
+            const Q = (t, y) => [a[0] + dx * t + nx * hw * s, y, a[1] + dz * t + nz * hw * s], y0 = yD + 0.45, y1 = yR - 0.2;
+            b.strut(Q(0, y0), Q(1, y0), 0.3, 0.35, WH); b.strut(Q(0, y1), Q(1, y1), 0.3, 0.35, WH);  // chords
+            for (let i = 0; i <= N; i++) b.strut(Q(i / N, y0), Q(i / N, y1), 0.26, 0.26, WH);        // verticals
+            for (let i = 0; i < N; i++) b.strut(Q((i + (i & 1)) / N, y0), Q((i + 1 - (i & 1)) / N, y1), 0.2, 0.2, WH); // diagonals
+        }
+        b.cyl(68.6, 0, -58, 0.55, 0.55, yD - 0.3, CON, 10); b.col(68.6, -58, 0.6, 0.6, 0);         // round column at the east end
+        // lift shaft + landing under the bridge end (south leg of w469766788)
+        b.box(72.4, 0, -57.4, 5.6, 3.0, 8.8, CON); b.box(72.4, 3.0, -57.4, 5.2, yR - 3.0, 8.4, '#52626c', { mat: 'g' }); b.box(72.4, yR, -57.4, 6.2, 0.3, 9.4, ST);
+        b.col(72.4, -57.4, 2.9, 4.5, 0);
+        // open stair tower (north leg of w469766788): steel posts, landings, flights, flat roof
+        const sx0 = 71.4, sx1 = 86.6, sz0 = -68.1, sz1 = -62.2, yT = 14.6;
+        for (const x of [sx0, (sx0 + sx1) / 2, sx1]) for (const z of [sz0, sz1]) b.box(x, 0, z, 0.35, yT, 0.35, ST);
+        b.box((sx0 + sx1) / 2, yT, (sz0 + sz1) / 2, sx1 - sx0 + 1.6, 0.35, sz1 - sz0 + 1.6, ST);
+        b.box((sx0 + sx1) / 2, 0, (sz0 + sz1) / 2, sx1 - sx0, 1.1, sz1 - sz0, CON);                  // base wall
+        for (let k = 0; k < 4; k++) {                                                                // flights between end landings
+            const yA = 1.1 + k * 2.47, yB = yA + 2.47, fwd = k % 2 === 0, zf = fwd ? sz0 + 1.4 : sz1 - 1.4;
+            b.strut([fwd ? sx0 + 2.4 : sx1 - 2.4, yA, zf], [fwd ? sx1 - 2.4 : sx0 + 2.4, yB, zf], 2.2, 0.28, ST);
+            b.box(fwd ? sx1 - 1.2 : sx0 + 1.2, yB - 0.14, (sz0 + sz1) / 2, 2.4, 0.28, sz1 - sz0, ST);
+        }
+        for (const y of [yD + 1.1, yD + 4.2]) for (const z of [sz0, sz1]) b.strut([sx0, y, z], [sx1, y, z], 0.12, 0.12, ST); // ties
+        b.col((sx0 + sx1) / 2, (sz0 + sz1) / 2, (sx1 - sx0) / 2, (sz1 - sz0) / 2, 0);
+    }
     // (owner register #57 / #58: "skybridge / connector connected to nothing") the approximate west bridge stopped 30.6 m short of
     // the garage, over a 5.8 m building: it now runs on to the garage's level-4 edge (OSM r15763840 outline, measured in the
     // district world), on two columns
@@ -3643,7 +3675,7 @@ export const LANDMARKS = [
     L('murroww', 'seattle', 'Murrow Bridge — west high-rise arches', [], 0, bMurrow, {  districtOnly: true, sourceIds: [] }),
     L('murrowe', 'seattle', 'Murrow Bridge — east high-rise arches', [], 0, bMurrow, {  districtOnly: true, sourceIds: [] }),
     L('seagarage', 'seattle', 'Sea-Tac parking garage + skybridges', ['Sea-Tac Parking Garage', 'Seattle-Tacoma International Airport Parking Garage'], 80, bSeaGarage, { sourceIds: ['r15763840','w37017724','w37017725','w37017726','w37017727','w37017728','w37017729'] }),
-    L('sealink', 'seattle', 'SeaTac/Airport Link station', ['SeaTac/Airport'], 30, bSeaLink, { sourceIds: ['w54139654'] }),
+    L('sealink', 'seattle', 'SeaTac/Airport Link station', ['SeaTac/Airport'], 30, bSeaLink, { sourceIds: ['w54139654', 'w469766788'] }),   // w469766788: the bridge's stair / lift tower east of International Blvd (was drawn as a generic pitched-roof house)
     L('bellevuetowers', 'seattle', 'Bellevue Towers', ['Bellevue Towers', 'North Tower', 'South Tower'], 55, bBellevueTowers, { sourceIds: ['w118119171','w370237986','w370239409'] }),
     L('bellevuesq', 'seattle', 'Bellevue Square', ['Bellevue Square Mall'], 190, bBellevueSq, { sourceIds: ['w29234887','w497739259'] }),
     L('rainier', 'seattle', 'Mount Rainier', [], 0, bRainier, {  backdrop: true, realDistanceKm: 87, sourceIds: [] }),

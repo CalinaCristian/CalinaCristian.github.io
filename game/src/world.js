@@ -58,6 +58,7 @@ import { markingArea, clipMarkingHalfPlane, clipMarkingConvex, subtractMarkingCo
 import { decodeDistrictMask, buildSourceBoundarySupport, normalizeSourceMapEnds, districtMaskSegments } from './district-boundary.js';
 import { FACADE_DETAIL_GLSL } from './facade-detail.js';
 import { subtractConvex } from './building-overlap.js';
+import { emitSeatacGuideway } from './seatac-guideway.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -3752,6 +3753,30 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         if (restyled) console.info('[world] facade styles from buildingInfo:', restyled);
     }
+    // ---- principal occupant (2026-11-12 fidelity pass, SeaTac): the data build signs a building with the first POI attached to
+    //      it, so hotels carried a tenant's name (Hilton = "Spencer's", Radisson = "RBG Bar & Grill", Ramada = "Ginger Palace")
+    //      and a fuel canopy its kiosk's ("Food Mart" on the 76). A hotel / motel (a hotel POI on the building, one named like it
+    //      beside it, or tourism=* on the building's own source tags) or a fuel station names its building; and a US hotel is a
+    //      windowed block, not the windowless 'plain' shed / glass 'shop' row the US style fallback gives untagged footprints.
+    {
+        const kindOf = (p) => data.poiKinds?.[p[0]], q = data.q || 10, lodging = new Map(), fuel = new Map();
+        const norm = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        for (const p of data.pois || []) {
+            const k = kindOf(p); if (k !== 'hotel' && k !== 'fuel') continue;
+            const brand = str(p[4]), name = str(p[3]); let i = p[6];
+            if (i < 0 && k === 'hotel') { // not attached by the build: the building beside it that already carries its name
+                let best = 60; for (const b of bRecs) { const n = norm(b.name); if (!n || (n !== norm(brand) && n !== norm(name))) continue; const d = Math.hypot(b.c[0] - p[1] / q, b.c[1] - p[2] / q); if (d < best) { best = d; i = b.i; } }
+            }
+            if (i >= 0 && !(k === 'hotel' ? lodging : fuel).has(i)) (k === 'hotel' ? lodging : fuel).set(i, { text: brand || name, brand: !!brand });
+        }
+        for (const b of bRecs) { const t = data.buildingSourceTags?.[b.sourceId]; if (t && /^(hotel|motel|hostel|guest_house)$/.test(t.tourism || '') && !lodging.has(b.i)) lodging.set(b.i, { text: t.brand || t.name || '', brand: !!t.brand }); }
+        for (const [i, s] of fuel) { const b = bRecs[i]; if (b && s.text && !lodging.has(i)) { b.name = s.text; b.flags |= 2 | (s.brand ? 8 : 0); } }
+        for (const [i, s] of lodging) {
+            const b = bRecs[i]; if (!b) continue;
+            if (s.text) { b.name = s.text; b.flags |= 2 | (s.brand ? 8 : 0); }
+            if (US && (b.style === 'plain' || b.style === 'shop')) { b.style = 'bloc'; b.flags &= ~1; }
+        }
+    }
     // ---- height sanity (2026-11-07, world-visual): the data build gives every untagged large footprint outside the old
     //      centre 8–10 storeys (23–30 m 'bloc'), so museums, villas and institutions on Kiseleff / Dorobanți became grey
     //      slabs. Buildings without building:levels whose height is exactly such a default are re-estimated here from
@@ -5773,6 +5798,19 @@ export async function buildWorld(city, renderer, opts = {}) {
                 // The source roof was already emitted at its real footprint. Do not add a guessed 10x16m canopy/pumps.
                 poi.h = sourceCanopy.h; poi.w = sourceCanopy.x1 - sourceCanopy.x0; poi.d = sourceCanopy.z1 - sourceCanopy.z0;
                 fuelLog.push({ name: brand || name, x: Math.round(x), z: Math.round(z), canopy: true, source: data.buildingIds?.[sourceCanopy.i], sourceFootprint: true, topM: sourceCanopy.h, clearanceM: sourceCanopy.minH, topSource: sourceCanopy.canopy.topSource, clearanceSource: sourceCanopy.canopy.clearanceSource, supports: sourceCanopy.canopySupports || 0, supportSource: sourceCanopy.canopy.supportSource });
+                { // (2026-11-12) the mapped canopy carries the station's brand board on its (up to four) main fascias (brand from the
+                  // source POI, colours from the brand table); pumps / pylon stay unknown and are not drawn
+                    const bsC = brandStyle(brand || name), fsC = bsC && (brand || name) ? signs.get((brand || name).slice(0, 18), bsC[0], bsC[1], bsC[2]) : null, R = sourceCanopy.ring;
+                    if (fsC && R?.length >= 3) {
+                        const edges = R.map((a, k) => { const b2 = R[(k + 1) % R.length]; return { a, b: b2, L: Math.hypot(b2[0] - a[0], b2[1] - a[1]) }; }).sort((p, q) => q.L - p.L).slice(0, 4);
+                        for (const ed of edges) {
+                            if (ed.L < 4) continue;
+                            const mx = (ed.a[0] + ed.b[0]) / 2, mz = (ed.a[1] + ed.b[1]) / 2; let nx = (ed.b[1] - ed.a[1]) / ed.L, nz = -(ed.b[0] - ed.a[0]) / ed.L;
+                            if ((mx - sourceCanopy.c[0]) * nx + (mz - sourceCanopy.c[1]) * nz < 0) { nx = -nx; nz = -nz; }
+                            addSignQuad(cellOf(mx, mz), mx, mz, Math.atan2(nx, nz), 1, Math.min(ed.L * 0.6, 1.0 * fsC.aspect), 1.0, sourceCanopy.h - 0.2, fsC, 0.04);
+                        }
+                    }
+                }
                 continue;
             }
             if (data.buildingGeometryPolicy === 'source') {
@@ -6956,9 +6994,14 @@ export async function buildWorld(city, renderer, opts = {}) {
     };
     // Optional source railway scenery. Ground assumptions are explicit; no layer-to-metre conversion or trains.
     const railStats = { sourceWays: data.railways?.length || 0, renderedWays: 0, renderedMetres: 0, ties: 0, unresolved: [] };
+    // SeaTac: the Link aerial guideway has a sourced rail level (station platform 18 m), see seatac-guideway.js.
+    const seatacGuideway = distId === 'seatac' ? emitSeatacGuideway({ railways: data.railways, undelta, cellOf, rgb, onRibbon, buildingAt, addPropColl,
+        keep: (x, z, len) => !(ringGeometry && sceneryMargin(x, z) > (distCfg?.outerRing ?? 600) + len / 2), stationCentre: bRecs.find(b => b.sourceId === 'w54139654')?.c || null }) : null;
+    if (seatacGuideway) railStats.guideway = { ways: [...seatacGuideway.ways], metres: seatacGuideway.metres, piers: seatacGuideway.piers, piersOmitted: seatacGuideway.piersOmitted };
     for (const r of data.railways || []) {
         const t = r.tags || {}, gaugeMM = Number(t.gauge), layer = t.layer == null ? 0 : Number(t.layer);
         if (t.railway === 'abandoned') continue; // OSM abandoned tracks have had their rails removed.
+        if (seatacGuideway?.ways.has(r.id)) { railStats.renderedWays++; continue; }
         if (!(gaugeMM > 0) || !Number.isFinite(layer) || layer !== 0 || (t.bridge && t.bridge !== 'no') || (t.tunnel && t.tunnel !== 'no')) { railStats.unresolved.push({ source: r.id, reason: 'unknown-gauge-or-vertical-placement' }); continue; }
         const pts = undelta(r.points, 0), gauge = gaugeMM / 1000, bedHalf = gauge / 2 + 0.8; let travelled = 0, emitted = false;
         for (let i = 1; i < pts.length; i++) {

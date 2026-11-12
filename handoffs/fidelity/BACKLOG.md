@@ -11,8 +11,7 @@ Publishing: the owner asked (2026-11-11) for fixes to go straight to `master`, n
 
 | Where | Report | State / diagnosis |
 | --- | --- | --- |
-| Grozăvești (314, -697) | small seam | where the carriageway's guard steps 1.5 m sideways at a width change the diagonal piece meets the next guard with a short gap seen from low angles |
-| people at night | "shadows for people (texture like they are just standing that are transparent)" | not shadows: at night the moon shadow is off and lamps / headlights cast none; not reproduced in a visible Ultra window at night among walkers (the AO pass already skips the crowd, lamps cast no shadows); needs an F8 report where they appear |
+| people at night (owner close-up 2026-11-12: light, see-through figures in a standing pose overlapping walkers' legs and arms) | "shadows for people (texture like they are just standing that are transparent)" | not reproduced in visible windows at Ultra and High, night, fog, 2-10 m from walkers (Unirii, Grozăvești). Ruled out: shadows (moon shadow off at night, lamps and headlights cast none), the AO prepass (crowd excluded since edd7f16f), temporal blending (none), another mesh at the walkers' positions (none), the far model drawn together with the near one (each person is in one or the other). Needs an F8 report with the ghosts on screen |
 
 ## Waiting for the owner's walk-through: Space Needle rebuild (2026-11-11 / 12)
 

@@ -4741,13 +4741,13 @@ export async function buildWorld(city, renderer, opts = {}) {
             let joins = 0;
             for (const a of ends) {
                 if (a.used) continue; let best = null;
-                eg.each(a.x - 3, a.z - 3, a.x + 3, a.z + 3, b => {
+                eg.each(a.x - 4, a.z - 4, a.x + 4, a.z + 4, b => {
                     if (b === a || b.w === a.w || b.used) return; const dx = b.x - a.x, dz = b.z - a.z, d = Math.hypot(dx, dz);
-                    if (d < .05 || d > 3 || (best && d >= best.d) || Math.abs(a.top - b.top) > .4) return;
+                    if (d < .05 || d > 4 || (best && d >= best.d) || Math.abs(a.top - b.top) > .4) return; // (owner, 2026-11-12, (314, -697): a 3.2 m seam stayed open; collinear runs join up to 4 m)
                     const cont = a.ux * -b.ux + a.uz * -b.uz; // (1: the runs continue each other; a deck corner turns them)
                     // (owner, 2026-11-12, Grozavesti (434, -693): "broken, too many fences") two ends side by side joined across, so
                     // two parallel runs became a zigzag; only runs that continue each other are joined (a deck corner up to ~70 deg)
-                    if (cont < (d <= 1.3 ? .35 : d <= 2 ? .7 : .95) || (dx * a.ux + dz * a.uz) < -.2 || (-dx * b.ux - dz * b.uz) < -.2) return; // (the gap lies ahead of both)
+                    if (cont < (d <= 1.3 ? .35 : d <= 2 ? .7 : d <= 3 ? .95 : .985) || (dx * a.ux + dz * a.uz) < -.2 || (-dx * b.ux - dz * b.uz) < -.2) return; // (the gap lies ahead of both)
                     best = { b, d };
                 });
                 if (!best) continue;

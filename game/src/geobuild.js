@@ -28,14 +28,14 @@ export class MeshBuilder {
     get empty() { return this.ic === 0; }
     _growV(need) {
         let cap = this.p.length / 3; if (this.vc + need <= cap) return;
-        while (cap < this.vc + need) cap *= 2;
+        while (cap < this.vc + need) cap *= cap >= 1 << 15 ? 4 : 2; // (large builders grow ×4: fewer copies; build() keeps exact sizes)
         const g = (a, k, T) => { const b = new T(cap * k); b.set(a.subarray(0, this.vc * k)); return b; };
         this.p = g(this.p, 3, Float32Array); this.n = g(this.n, 3, Float32Array); this.u = g(this.u, 2, Float32Array); this.c = g(this.c, 3, Uint8Array);
         if (this.t) this.t = g(this.t, 1, Float32Array);
     }
     _growI(need) {
         let cap = this.i.length; if (this.ic + need <= cap) return;
-        while (cap < this.ic + need) cap *= 2;
+        while (cap < this.ic + need) cap *= cap >= 1 << 16 ? 4 : 2;
         const b = new Uint32Array(cap); b.set(this.i.subarray(0, this.ic)); this.i = b;
     }
     /** add a vertex, returns its index */

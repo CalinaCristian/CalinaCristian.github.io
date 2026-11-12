@@ -354,7 +354,7 @@ function nightAtlas(atlas) {
     return { night: tex(N.c, false), win: rect };
 }
 
-function solidMaterial(atlas) {
+function solidMaterial(atlas, preparedNight = null) {
     // (2026-11-07, world-visual) PBR so glass curtain walls pick up the sky probe / environment (tiles 4 / 12: metalness
     // 0.55, roughness 0.16; everything else matte), and lit windows at night: render.js eases emissiveIntensity from 0
     // by day to userData.nightEmissive at night (contract 01 → Render); ~42 % of windows lit, warm 2700–4000 K, a few
@@ -362,7 +362,7 @@ function solidMaterial(atlas) {
     const m = new THREE.MeshStandardMaterial({ vertexColors: true, map: atlas, roughness: 0.92, metalness: 0, emissive: new THREE.Color(1, 1, 1), emissiveIntensity: 0 });
     m.userData.nightEmissive = 1.2;
     m.userData.uClosed = { value: 0 }; // share of shops closed (shutters down), set by world from the local hour
-    let night = null, win = null; try { ({ night, win } = nightAtlas(atlas)); } catch (e) { console.warn('[world] night atlas', e); }
+    let night = null, win = null; try { ({ night, win } = preparedNight || nightAtlas(atlas)); } catch (e) { console.warn('[world] night atlas', e); }
     m.userData.ownedTextures = [night, win].filter(Boolean); // shader-closure textures belong to this district material
     m.onBeforeCompile = (sh) => {
         sh.uniforms.winTexel = { value: 4 / atlas.image.width }; sh.uniforms.nightMap = { value: night }; sh.uniforms.winMap = { value: win }; sh.uniforms.uClosed = m.userData.uClosed;
@@ -636,7 +636,11 @@ export async function buildWorld(city, renderer, opts = {}) {
     const buildPool = distId ? sharedBuildPool() : null;
     buildPool?.reset();
     let data = null;
-    if (buildPool) try { data = parseDistrictPackText(await buildPool.packText(url)); } catch (e) { console.warn('[world] pack worker failed, decoding here', e); }
+    const packText = buildPool ? buildPool.packText(url) : null;
+    // (spec 10 load budget) the facade atlas and its night data do not depend on the place: they are painted while the
+    // worker decodes the pack (canvas textures only; the materials are made where they were)
+    const earlyAtlas = (() => { try { const atlas = makeAtlas(); let night = null; try { night = nightAtlas(atlas); } catch (e) { /* solidMaterial reports it */ } return { atlas, night }; } catch (e) { return null; } })();
+    if (packText) try { data = parseDistrictPackText(await packText); } catch (e) { console.warn('[world] pack worker failed, decoding here', e); }
     if (!data) data = distId ? await fetchDistrictPack(url) : await (await fetch(url)).json();
     const realPass = !!data.scenery; // (2026-11-08) a district rebuilt by the reality pass (scenery ring, aerial roofs / trees / green): street-level dressing on
     // field research (spec 20): street-tree notes per street, baked by tools/osm into data.streetTrees
@@ -7401,8 +7405,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     //  MESHES
     // -----------------------------------------------------------------------
     setProgress('Finishing…'); await tick();
-    const atlas = makeAtlas();
-    const solidMat = solidMaterial(atlas);
+    const atlas = earlyAtlas ? earlyAtlas.atlas : makeAtlas();
+    const solidMat = solidMaterial(atlas, earlyAtlas?.night);
     // shop light spill: additive, black diffuse + warm emissive with a falloff away from the window; render eases
     // emissiveIntensity 0 → nightEmissive at dusk (0 by day: adds nothing); dimmed as shops close (uClosed)
     const spillMat = (() => {

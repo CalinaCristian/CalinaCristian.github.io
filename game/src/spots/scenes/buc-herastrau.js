@@ -15,7 +15,7 @@ import { bucBackdrop, osmPoly, placeLandmark, palisade, signAtlas, bucActivity, 
 import { railing } from '../props.js';
 import { addBikeRental } from '../bike.js';
 import { dryLanding, shortWaterRoute } from '../water-route.js';
-import { parkWoods, businessSigns, thinTrees } from './buc-green.js';
+import { parkWoods, businessSigns, thinTrees, farCanopy, dropDegenerateTriangles } from './buc-green.js';
 
 function grow(poly, d) { const cw = polyArea(poly) > 0; const o = offsetPolyline([...poly, poly[0], poly[1]], cw ? -d : d); return o.slice(1, poly.length + 1); }
 const NORTH = /Maramureș|Maramures|Bistrița|Hunedoara|Harghita|Suceava|Neamț|Neamt|Alba|Cluj|Sălaj|Mureș|Brașov|Sibiu|Covasna|Bihor|Satu Mare|Bucovina/;
@@ -254,7 +254,7 @@ export default {
         ctx.extras.herastrauContext={removedUnverifiedCityFiller:true};
         // Casa Presei Libere (OSM relation 15922160, 104 m) closes the north-west skyline over the lake: the canonical
         // landmark model at its real position, 1.3 km out; view only, no collider.
-        { const cp = placeLandmark(ctx, 'casapresei', { y: level + 2.5, collide: false }); if (cp) ctx.extras.herastrauSkyline = [{ id: 'casapresei', x: cp.x, z: cp.z }]; }
+        { const cp = placeLandmark(ctx, 'casapresei', { y: level + 2.5, collide: false }); if (cp) ctx.extras.herastrauSkyline = [{ id: 'casapresei', x: cp.x, z: cp.z, degenerateTrianglesDropped: dropDegenerateTriangles(cp.mesh) }]; }
         ctx.extras.herastrauBusinessSigns = businessSigns(ctx, { name: 'herastrau-business-signs' });
         // plaques
         const PH = spH.plaques, PV = spV.plaques;
@@ -306,5 +306,7 @@ export default {
         const bikeDock=d.pois.find(p=>p.id==='n2858053385');
         if(bikeDock){ctx.extras.bikeRental=addBikeRental(ctx,{x:bikeDock.x,z:bikeDock.z,heading:headingFromBearing(80),n:6,name:bikeDock.name||"I'Velo",colour:'#2f8f46'});ctx.extras.bikeRentalSource={id:bikeDock.id,x:bikeDock.x,z:bikeDock.z,capacity:Number(bikeDock.capacity),displayedBikes:6,estimatedLayout:true};}
         ctx.spawns['village-museum'] = { x: spV.spawn.x, z: spV.spawn.z, heading: headingFromBearing(40) };
+        // Frame cost: only the 850 trees nearest the two walkable extents stay in the stock builder (about its original budget).
+        ctx.extras.herastrauFarCanopy = farCanopy(ctx, { near: 850 });
     },
 };

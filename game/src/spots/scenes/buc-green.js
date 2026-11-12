@@ -8,9 +8,11 @@
 //     way, pitch, playground, fountain and water body.
 //   - dropMedianTrees: generated street trees that land between the two
 //     carriageways of a mapped dual road or on a mapped traffic island.
+//   - farCanopy: every tree beyond the original near budget as a cheap, chunked, frustum-culled far tree.
 //   - businessSigns: a plain name board for every mapped, named business /
 //     embassy / museum (no invented names; colours are procedural).
 // ============================================================================
+import * as THREE from '../../../vendor/three.module.min.js';
 import { rng, inPoly, polyBox, centroid, hash2 } from '../kit.js';
 import { roadWidth, isMotorRoad } from '../osm.js';
 import { signAtlas } from '../buc.js';
@@ -157,4 +159,87 @@ export function businessSigns(ctx, { inside = null, skip = new Set(), name = 'bu
     for (const p of d.pois) { const kind = p.name && SIGN_KIND(p); if (kind) put(p.id, p.name, kind, p.x, p.z); }
     const mesh = signAtlas(signs, { name, night: 0.5 }); if (mesh) ctx.add(mesh);
     return placed;
+}
+
+// ---------------------------------------------------------------------------- cheap far canopy
+const FAR_BROAD = ['#4f8a3c', '#5d9440', '#679c48', '#4a7f39', '#5a8f3e', '#6f9e4a', '#55893f'], FAR_CON = ['#2f5d3a', '#356640', '#2b5434', '#3a6a45'];
+let FAR_GEO = null;
+function farGeos() {
+    if (FAR_GEO) return FAR_GEO;
+    // two lumpy icosahedra like the stock far crown (40 triangles), vertices nudged by a fixed hash so it does not read as a gem
+    const lump = (sx, sy, sz, x, y, z) => { const g = new THREE.IcosahedronGeometry(1, 0).toNonIndexed(), p = g.attributes.position; for (let i = 0; i < p.count; i++) { const k = 1 + (hash2(p.getX(i) * 3.1 + sx, p.getY(i) * 2.7 + p.getZ(i) * 1.9) - 0.5) * 0.3; p.setXYZ(i, p.getX(i) * k * sx + x, p.getY(i) * k * sy + y, p.getZ(i) * k * sz + z); } return g; };
+    const crown = (() => { const a = lump(3.1, 2.7, 3.1, 0, 5.6, 0), b = lump(2.1, 1.8, 2.1, 0.5, 7.3, 0.2), g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute([...a.attributes.position.array, ...b.attributes.position.array], 3)); a.dispose(); b.dispose(); return g; })();
+    const cone = new THREE.ConeGeometry(2.6, 9.6, 5, 1, true); cone.translate(0, 6.6, 0);                                   // 5 triangles
+    const trunk = new THREE.CylinderGeometry(0.14, 0.24, 4.6, 3, 1, true); trunk.translate(0, 2.3, 0);                      // 6 triangles
+    // crown + trunk in one geometry (one draw call per chunk): white crown vertices take the instance colour; the trunk's
+    // vertex colour turns the instance green into bark brown
+    const join = (a, b) => { const out = new THREE.BufferGeometry(), pos = [], nor = [], col = []; for (const [g0, c] of [[a, [1, 1, 1]], [b, [1.35, 0.42, 0.7]]]) { const g = g0.toNonIndexed(); g.computeVertexNormals(); pos.push(...g.attributes.position.array); nor.push(...g.attributes.normal.array); for (let i = 0; i < g.attributes.position.count; i++) col.push(...c); g.dispose(); }
+        out.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); out.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3)); out.setAttribute('color', new THREE.Float32BufferAttribute(col, 3)); out.computeBoundingSphere(); return out; };
+    FAR_GEO = { broad: join(crown, trunk), con: join(cone, trunk) }; for (const g of [crown, cone, trunk]) g.dispose();
+    return FAR_GEO;
+}
+/**
+ * The stock tree builder draws every tree every frame (its LOD meshes are not frustum-culled) at about 100 triangles
+ * plus the shadow pass. Keep only the `near` trees closest to the walkable extents there (the original budget) and
+ * draw all the others as cheap far canopy: one 40-triangle crown (5 for a conifer) + a 6-triangle trunk, in one mesh, instanced per
+ * `cell`-metre chunk so that whole chunks frustum-cull, no shadow casting. Crowns are named `treeCrowns…`, so the
+ * renderer gives them the same season / weather treatment. Trunk colliders are kept. Call it last in the scene build.
+ * Returns { near, far, chunks }.
+ */
+export function farCanopy(ctx, { near = 1400, cell = 224, keep = () => false, size = 1.45 } = {}) {
+    const boxes = Object.values(ctx.data.spots).map((s) => polyBox(s.extent?.polygon?.length ? s.extent.polygon : [[-150, -150], [150, 150]]));
+    const dist = (t) => Math.min(...boxes.map((b) => Math.hypot(Math.max(0, b.x0 - t.x, t.x - b.x1), Math.max(0, b.z0 - t.z, t.z - b.z1))));
+    const plain = (t) => !keep(t) && !t.c && !t.sy && (!t.kind || t.kind === 'broad' || t.kind === 'con');
+    // inside the extents (distance 0) the trees round the spawns and postcard poses stay in the stock builder first
+    const focus = [...Object.values(ctx.spawns), ...ctx.challenges].filter((p) => Number.isFinite(p?.x) && Number.isFinite(p?.z));
+    const pull = (t) => (focus.length ? Math.min(...focus.map((p) => Math.hypot(p.x - t.x, p.z - t.z))) * 0.3 : 0);
+    const order = ctx.trees.filter(plain).map((t) => [dist(t) + pull(t), t]).sort((a, b) => a[0] - b[0]);
+    const fixed = ctx.trees.length - order.length, far = new Set(order.slice(Math.max(0, near - fixed)).map((e) => e[1]));
+    if (!far.size) return { near: ctx.trees.length, far: 0, chunks: 0 };
+    ctx.trees = ctx.trees.filter((t) => !far.has(t));
+    const G = farGeos(), grp = new THREE.Group(); grp.name = 'far-canopy';
+    const mats = { broad: new THREE.MeshLambertMaterial({ color: '#ffffff', vertexColors: true }), con: new THREE.MeshLambertMaterial({ color: '#ffffff', vertexColors: true }) };
+    mats.broad.name = mats.con.name = 'treeCrowns';
+    const cells = new Map();
+    for (const t of far) {
+        if (ctx.onRoad(t.x, t.z, 0.2)) continue;
+        const k = Math.floor(t.x / cell) + ':' + Math.floor(t.z / cell) + ':' + (t.kind === 'con' ? 'con' : 'broad'); let L = cells.get(k); if (!L) cells.set(k, L = []); L.push(t);
+    }
+    const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), up = new THREE.Vector3(0, 1, 0), col = new THREE.Color(); let n = 0;
+    for (const [k, L] of cells) {
+        const con = k.endsWith(':con'), crown = new THREE.InstancedMesh(con ? G.con : G.broad, con ? mats.con : mats.broad, L.length);
+        crown.name = 'treeCrowns far ' + (con ? 'conifer' : 'broad'); crown.userData.conifer = con;
+        L.forEach((t, i) => {
+            const h = hash2(t.x, t.z), s = con ? (t.s || 1) : size * (0.86 + h * 0.26), y = ctx.ground.heightAt(t.x, t.z) - 0.05;
+            m4.compose(new THREE.Vector3(t.x, y, t.z), q.setFromAxisAngle(up, h * 6.28), new THREE.Vector3(s * (0.9 + hash2(t.z, t.x) * 0.25), s, s));
+            crown.setMatrixAt(i, m4); crown.setColorAt(i, col.set((con ? FAR_CON : FAR_BROAD)[Math.floor(h * 97) % (con ? FAR_CON : FAR_BROAD).length]));
+            ctx.circle(t.x, t.z, 0.3 * s, 6);
+        });
+        for (const m of [crown]) { m.instanceMatrix.needsUpdate = true; if (m.instanceColor) m.instanceColor.needsUpdate = true; m.computeBoundingSphere(); m.computeBoundingBox(); m.castShadow = false; m.receiveShadow = false; m.frustumCulled = true; grp.add(m); }
+        n += L.length;
+    }
+    ctx.add(grp);
+    return { near: ctx.trees.length, far: n, chunks: cells.size };
+}
+
+/**
+ * drop zero-area triangles (and repair zero-length normals) in every mesh under `root`: the canonical Casa Presei
+ * landmark model carries 4 degenerate triangles that the spot audit reports as bad geometry. Returns the count removed.
+ */
+export function dropDegenerateTriangles(root) {
+    let removed = 0;
+    root.traverse((o) => {
+        if (!o.isMesh || !o.geometry?.attributes?.position) return;
+        const src = o.geometry.index ? o.geometry.toNonIndexed() : o.geometry, P = src.attributes.position, keep = [];
+        const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3(), n = new THREE.Vector3(), faceN = [];
+        for (let i = 0; i < P.count; i += 3) { a.fromBufferAttribute(P, i); b.fromBufferAttribute(P, i + 1); c.fromBufferAttribute(P, i + 2); n.crossVectors(b.sub(a), c.sub(a)); if (n.length() > 1e-9) { keep.push(i); faceN.push(n.clone().normalize()); } }
+        const N = src.attributes.normal; let zero = false;
+        if (N) for (let i = 0; i < N.count && !zero; i++) if (Math.hypot(N.getX(i), N.getY(i), N.getZ(i)) < 1e-6) zero = true;
+        if (keep.length * 3 === P.count && !zero) { if (src !== o.geometry) src.dispose(); return; }
+        const g = new THREE.BufferGeometry();
+        for (const [name, at] of Object.entries(src.attributes)) { const sz = at.itemSize, arr = new at.array.constructor(keep.length * 3 * sz); keep.forEach((i, k) => { for (let v = 0; v < 3; v++) for (let q = 0; q < sz; q++) arr[(k * 3 + v) * sz + q] = at.array[(i + v) * sz + q]; }); g.setAttribute(name, new THREE.BufferAttribute(arr, sz, at.normalized)); }
+        const GN = g.attributes.normal; if (GN) for (let i = 0; i < GN.count; i++) if (Math.hypot(GN.getX(i), GN.getY(i), GN.getZ(i)) < 1e-6) { const f = faceN[Math.floor(i / 3)]; GN.setXYZ(i, f.x, f.y, f.z); }
+        removed += P.count / 3 - keep.length; if (src !== o.geometry) src.dispose(); o.geometry.dispose(); o.geometry = g;
+    });
+    return removed;
 }

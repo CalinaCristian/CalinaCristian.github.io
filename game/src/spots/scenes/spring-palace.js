@@ -10,7 +10,7 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, obb, polyArea, offsetPolyline } from '../kit.js';
 import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, palisade, osmPoly, flagpole, bucActivity } from '../buc.js';
-import { parkWoods, greenClearance, businessSigns } from './buc-green.js';
+import { parkWoods, greenClearance, businessSigns, farCanopy } from './buc-green.js';
 import { photoHunt } from '../photo-hunt.js';
 import { addTraffic } from '../cars.js';
 
@@ -153,6 +153,8 @@ export default {
         ctx.onUpdate((dt, s) => { s._peacockT = (s._peacockT ?? 8) - dt; if (s._peacockT < 0) { s._peacockT = 12 + Math.random() * 14; const q = birds[Math.floor(Math.random() * birds.length)]; if (q && Math.hypot(q.x - s.position.x, q.z - s.position.z) < 60) s.sound.play('calls', 0.35); } });
         // spawn: on the boulevard outside the gate, looking in
         { const sx = gmx - (centroid(grounds)[0] - gmx) * 0.35, sz = gmz - (centroid(grounds)[1] - gmz) * 0.35; ctx.trees = ctx.trees.filter((t) => Math.hypot(t.x - sx, t.z - sz) > 4.5); }
+        // Frame cost: only the 1100 trees nearest the walkable extent stay in the stock builder (about its original budget).
+        ctx.extras.springFarCanopy = farCanopy(ctx, { near: 1100 });
         ctx.spawns['spring-palace'] = { x: gmx - (centroid(grounds)[0] - gmx) * 0.35, z: gmz - (centroid(grounds)[1] - gmz) * 0.35, heading: headingFromBearing((Math.atan2(centroid(grounds)[0] - gmx, -(centroid(grounds)[1] - gmz)) * 180 / Math.PI + 360) % 360) };
     },
 };

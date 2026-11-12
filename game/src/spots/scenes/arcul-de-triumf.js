@@ -9,7 +9,7 @@ import { ARC_SOURCE_PARTS } from '../../landmark-arcul-source.js';
 import { collideBuildings } from '../../world.js';
 import { arcRaceCourse, arcRoundabout, arcActiveCarriageway, arcPlaquePlacements } from './arcul-layout.js';
 import { createArcActivities } from './arcul-activities.js';
-import { parkWoods, dropMedianTrees, businessSigns, thinTrees } from './buc-green.js';
+import { parkWoods, dropMedianTrees, businessSigns, thinTrees, farCanopy } from './buc-green.js';
 
 const INSCRIPTIONS = [
     { face: 'south', ro: 'FERDINAND I · DOMN ȘI REGE AL ROMÂNILOR', en: 'Ferdinand I, Prince and King of the Romanians — the 1918 union completed under his reign.' },
@@ -89,6 +89,8 @@ export default {
             onDone:s=>s.ui.toast('The Arc memorial','You framed the opening and both sculpted piers. The race and baguette catch are separate activities.')});
         createArcActivities(ctx,course,{floor,arch:AR});
         ctx.extras.arcBusinessSigns=businessSigns(ctx,{name:'arc-business-signs'});
+        // Frame cost: only the 900 trees nearest the walkable extent stay in the stock builder (about its original budget).
+        ctx.extras.arcFarCanopy=farCanopy(ctx,{near:900,keep:t=>sourceTrees.has(Math.round(t.x*10)+','+Math.round(t.z*10))});
         // Actual north-apron path arrival. Both activities are reachable without
         // crossing the roundabout. The optional pitch is a normal entry pose.
         const start=course.at(course.length-1.2),dx=AR.x-start.x,dz=AR.z-start.z;

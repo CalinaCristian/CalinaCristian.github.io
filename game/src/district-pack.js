@@ -291,53 +291,77 @@ export function decodeDistrictPackText(u8) {
     };
     // The decoder writes the JSON text and JSON.parse builds the objects: the same objects, and in the same V8
     // representation, as the JSON file gave (arrays built here were boxed / holey and objects had other hidden classes,
-    // which made the builder's and the traffic's geometry tests up to 3× slower).
-    const jstr = new Array(strings.length), J = (id) => jstr[id] ?? (jstr[id] = JSON.stringify(strings[id]));
-    const shapeKeys = shapes.map((keys) => keys.map((k) => JSON.stringify(k) + ':'));
+    // which made the builder's and the traffic's geometry tests up to 3× slower). The text is written as UTF-8 bytes into
+    // one buffer and decoded once (string concatenation of the whole tree spent most of the decode in the collector).
+    let buf = new Uint8Array(Math.max(1 << 16, u8.length * 4)), bp = 0;
+    const room = (n) => { if (bp + n > buf.length) { let c = buf.length * 2; while (c < bp + n) c *= 2; const b = new Uint8Array(c); b.set(buf.subarray(0, bp)); buf = b; } };
+    const ascii = (s) => { room(s.length); for (let i = 0; i < s.length; i++) buf[bp++] = s.charCodeAt(i); }; // number text, punctuation
+    const enc = new TextEncoder(), jstr = new Array(strings.length), J = (id) => jstr[id] ?? (jstr[id] = enc.encode(JSON.stringify(strings[id])));
+    const put = (b) => { room(b.length); buf.set(b, bp); bp += b.length; };
+    const shapeKeys = shapes.map((keys) => keys.map((k) => enc.encode(JSON.stringify(k) + ':')));
     const fmt = (v) => (v === 0 && 1 / v < 0 ? '-0' : '' + v);
+    // fmt(v) as bytes; a small non-negative integer is written digit by digit (the same digits '' + v gives)
+    const DIG = new Uint8Array(16);
+    const putNum = (v) => {
+        if (v >= 0 && v <= 0x7fffffff && (v | 0) === v && !(v === 0 && 1 / v < 0)) { let n = 0, k = v; do { const q = (k / 10) | 0; DIG[n++] = 48 + k - q * 10; k = q; } while (k); room(n); while (n) buf[bp++] = DIG[--n]; }
+        else ascii(fmt(v));
+    };
     // a scaled decimal k / 10^p as text: the integer's digits with the point put in. JSON.parse of that decimal gives
     // the correctly rounded double, which is k / 10^p (also correctly rounded), and integer formatting is much faster
     const decText = (k, p) => { const neg = k < 0; let d = '' + (neg ? -k : k); if (d.length <= p) d = '0'.repeat(p - d.length + 1) + d; return (neg ? '-' : '') + d.slice(0, d.length - p) + '.' + d.slice(d.length - p); };
-    const numText = (t, v) => (t === T.INT || t === T.F64 ? fmt(v) : decText(lastK, t - T.INT));
-    const read = (field, inArray) => {
+    // decText(k, p) as bytes, digit by digit for |k| < 2^31: sign, the digits before the point (at least '0'), the point,
+    // p digits after it (zero padded)
+    const putDec = (k, p) => {
+        const neg = k < 0, a = neg ? -k : k;
+        if (!(a <= 0x7fffffff && (a | 0) === a)) { ascii(decText(k, p)); return; }
+        let n = 0, m = a; do { const q = (m / 10) | 0; DIG[n++] = 48 + m - q * 10; m = q; } while (m);
+        room(n + p + 3);
+        if (neg) buf[bp++] = 45;
+        if (n <= p) { buf[bp++] = 48; buf[bp++] = 46; for (let z = n; z < p; z++) buf[bp++] = 48; while (n) buf[bp++] = DIG[--n]; }
+        else { while (n > p) buf[bp++] = DIG[--n]; buf[bp++] = 46; while (n) buf[bp++] = DIG[--n]; }
+    };
+    const putNumText = (t, v) => { if (t === T.INT || t === T.F64) putNum(v); else putDec(lastK, t - T.INT); };
+    const B = (c) => { room(1); buf[bp++] = c; }, Q = 34, COMMA = 44;
+    const write = (field, inArray) => {
         const t = u8[tp++];
-        if (t >= T.INT && t <= T.F64) return numText(t, num(t, field * CLASSES, -1, 0));
+        if (t >= T.INT && t <= T.F64) { putNumText(t, num(t, field * CLASSES, -1, 0)); return; }
         switch (t) {
-            case T.NULL: return 'null';
-            case T.FALSE: return 'false';
-            case T.TRUE: return 'true';
-            case T.STR: return J(uv());
-            case T.OSM: case T.OSM + 1: case T.OSM + 2: return '"' + OSM_PREFIX[t - T.OSM] + num(T.INT, field * CLASSES, -1, 0) + '"';
+            case T.NULL: ascii('null'); return;
+            case T.FALSE: ascii('false'); return;
+            case T.TRUE: ascii('true'); return;
+            case T.STR: put(J(uv())); return;
+            case T.OSM: case T.OSM + 1: case T.OSM + 2: B(Q); B(OSM_PREFIX.charCodeAt(t - T.OSM)); { const k = num(T.INT, field * CLASSES, -1, 0); putNum(k === 0 ? 0 : k); } B(Q); return; // (as String(k): -0 → 0)
             case T.OBJ: {
                 const sh = uv(), keys = shapes[sh], sk = shapeKeys[sh], kf = fields.keys(field, sh, keys);
-                let out = '{';
-                for (let i = 0; i < keys.length; i++) out += (i ? ',' : '') + sk[i] + read(kf[i], false);
-                return out + '}';
+                B(123);
+                for (let i = 0; i < keys.length; i++) { if (i) B(COMMA); put(sk[i]); write(kf[i], false); }
+                B(125); return;
             }
-            case T.ROWREF: { const r = rowList[target()]; if (!r || !inArray) throw new Error('district pack: bad row reference'); return '[' + r.map(fmt).join(',') + ']'; }
-            case T.ROWXZ: { const r = rowList[target()]; if (!r || r.length !== 3 || !inArray) throw new Error('district pack: bad row reference'); return '[' + fmt(r[0]) + ',' + fmt(r[2]) + ']'; }
+            case T.ROWREF: { const r = rowList[target()]; if (!r || !inArray) throw new Error('district pack: bad row reference'); B(91); for (let i = 0; i < r.length; i++) { if (i) B(COMMA); putNum(r[i]); } B(93); return; }
+            case T.ROWXZ: { const r = rowList[target()]; if (!r || r.length !== 3 || !inArray) throw new Error('district pack: bad row reference'); B(91); putNum(r[0]); B(COMMA); putNum(r[2]); B(93); return; }
             case T.ARR: {
                 const n = uv(), d = ++depth;
                 if (d >= MAXD) throw new Error('district pack: nesting too deep');
                 const g = ++gen, ab = d * NT, el = fields.element(field), base = el * CLASSES;
-                let numeric = inArray && n >= 2 && n <= ROW_MAX, out = '[';
+                let numeric = inArray && n >= 2 && n <= ROW_MAX;
                 const nums = numeric ? [] : null;
+                B(91);
                 for (let j = 0; j < n; j++) {
                     const x = u8[tp];
-                    if (j) out += ',';
-                    if (x >= T.INT && x <= T.F64) { tp++; const v = num(x, base + (j < CLASSES ? j : CLASSES - 1), ab, g); if (nums) nums.push(v); out += numText(x, v); }
-                    else { out += read(el, true); numeric = false; }
+                    if (j) B(COMMA);
+                    if (x >= T.INT && x <= T.F64) { tp++; const v = num(x, base + (j < CLASSES ? j : CLASSES - 1), ab, g); if (nums) nums.push(v); putNumText(x, v); }
+                    else { write(el, true); numeric = false; }
                 }
                 depth--;
                 if (numeric) rowList.push(nums);
-                return out + ']';
+                B(93); return;
             }
             default: throw new Error('district pack: bad tag ' + t + ' at ' + (tp - 1));
         }
     };
-    const text = read(0, false);
+    write(0, false);
     if (tp !== sec[2][1] || up !== sec[3][1] || ip !== sec[4][1] || fi !== nf || rp !== sec[7][1]) throw new Error('district pack: trailing data');
-    return text;
+    return dec.decode(buf.subarray(0, bp));
 }
 
 /** gunzip with the platform's DecompressionStream (browsers, Node 18+); bytes that are not gzipped pass through */

@@ -67,6 +67,10 @@ import { buildElevatedSources, planElevatedSources } from './elevated-sources.js
 import { openRuns, weldEnds } from './deck-outline.js';
 // (spec 10 load budget) start the build workers now, so they are loaded before the first district is built
 try { if (typeof window !== 'undefined') sharedBuildPool(); } catch (e) { /* no workers: buildWorld runs everything here */ }
+// (spec 10 load budget) the modules buildWorld imports on demand are fetched and compiled while the page is idle; a build
+// awaits the same import (a failed prefetch is retried there, as before)
+const lazyModule = (load) => { let p = null; if (typeof window !== 'undefined') { p = load(); p.catch(() => {}); } return () => (p ? p.catch(load) : load()); };
+const landmarksModule = lazyModule(() => import('./landmarks.js')), archetypesModule = lazyModule(() => import('./archetypes.js'));
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -4314,7 +4318,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // landmarks (another module; optional)
     let LANDMARKS = [], buildLandmarkFn = null, landmarkSurfaceMats = [];
     let SEA_SCALE = 0.5;
-    try { const mod = await import('./landmarks.js'); landmarkSurfaceMats = mod.landmarkSurfaceMaterials?.() || []; LANDMARKS = (mod.LANDMARKS || []).filter(l => l.city === city.id); buildLandmarkFn = mod.buildLandmark || null; SEA_SCALE = mod.SEA_SCALE || 0.5; } catch (err) { LANDMARKS = []; }
+    try { const mod = await landmarksModule(); landmarkSurfaceMats = mod.landmarkSurfaceMaterials?.() || []; LANDMARKS = (mod.LANDMARKS || []).filter(l => l.city === city.id); buildLandmarkFn = mod.buildLandmark || null; SEA_SCALE = mod.SEA_SCALE || 0.5; } catch (err) { LANDMARKS = []; }
     // a district only builds its own landmarks (+ distant backdrops such as Rainier)
     // (a landmark the district lists explicitly may stand outside it, up to ~2.5 km: skyline landmarks seen down an
     //  avenue, e.g. the Parliament / People's Salvation Cathedral at the west end of Bd. Unirii seen from Piața Unirii)
@@ -4894,7 +4898,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // (round 5, note 77) non-residential archetypes from the research building specs: game/src/archetypes.js
     let ARCH = null;
     const archetypeData = coveredOutlines.length && data.buildingSpec ? { ...data, buildingSpec: data.buildingSpec.map(row => row.length === 17 ? [buildingIndex(row[0]), ...row.slice(1)] : row) } : data;
-    try { ARCH = (await import('./archetypes.js')).createArchetypes({ city, distId, data: archetypeData, US, CELL, proj: (la, lo) => city.proj(la, lo), bGrid, buildingAt, nearestEdge, onRibbon, signs, addSignQuad, brandStyle, triangulate, pointInPolygon, signedArea, TILE, TILE_GRID }); ARCH.match(bRecs); }
+    try { ARCH = (await archetypesModule()).createArchetypes({ city, distId, data: archetypeData, US, CELL, proj: (la, lo) => city.proj(la, lo), bGrid, buildingAt, nearestEdge, onRibbon, signs, addSignQuad, brandStyle, triangulate, pointInPolygon, signedArea, TILE, TILE_GRID }); ARCH.match(bRecs); }
     catch (err) { console.warn('[arch] archetypes unavailable', err); ARCH = null; }
     const palette = PALETTES[country], roofCols = ROOF_COL[country];
     const collision = [];
@@ -6043,7 +6047,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         // (fidelity pass: the Unirea car park was signed "Spălătorie Unirea Etaj 7") a business named for an upper floor is not the building's street sign
         if ((b.flags & 2) && b.name && (b.cvSign || b.area < 20000) && !AR?.signed && b.poiSign == null && str(data.buildingInfo?.[b.i * 5] ?? -1) !== 'construction' && !/\betaj(ul)?\s*[1-9]/i.test(b.name)) addFacadeSign(b, h, shop, wallCol);
     }
-    await finishDetailClips();
+    // (spec 10 load budget) the clipped detail ranges are spliced in just before the map-end closure, the first pass that
+    // reads those builders' contents: until then (passages, shops, trees) the builders are only appended to, and the
+    // splice shifts what was appended after each range, as it did here
     {
         const sourceBodies=bRecs.filter(b=>!b.skip&&b.passages?.length),unique=new Map();
         for(const b of sourceBodies)for(const p of b.passages)unique.set(p.key,p);
@@ -6969,6 +6975,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     //      barriers, cones, jersey barriers, arrow boards, an excavator or a Poliția Rutieră car; US: ROAD CLOSED type III
     //      barricades, drums, DETOUR / LOCAL TRAFFIC ONLY, a flagger, ramp closed for bridge maintenance)
     const closures = [];
+    await finishDetailClips();
     if (mapEnds.length) {
         const P = props();
         const coneG = P._cone || (P._cone = mergeProps([bakeProp(new THREE.ConeGeometry(0.18, 0.7, 8), { y: 0.35, color: '#ff6a13' }), bakeProp(new THREE.CylinderGeometry(0.115, 0.13, 0.12, 8), { y: 0.42, color: '#f4f4f4' }), bakeProp(new THREE.BoxGeometry(0.42, 0.04, 0.42), { y: 0.02, color: '#222222' })]));
@@ -8020,22 +8027,32 @@ export async function buildWorld(city, renderer, opts = {}) {
     const W = bounds.maxX - bounds.minX, H = bounds.maxZ - bounds.minZ;
     // (the plane reaches 30 km past the map: its edge was visible at ~3 km on clear days with render's 15–20 km visibility)
     const GPAD = 60000;
-    const fallbackOpts={x0:bounds.minX-GPAD/2,x1:bounds.maxX+GPAD/2,z0:bounds.minZ-GPAD/2,z1:bounds.maxZ+GPAD/2},fallback=buildPool?await buildFallbackGroundParallel(fallbackApertures,fallbackOpts,buildPool):buildFallbackGround(fallbackApertures,fallbackOpts);
-    fallbackApertures.cuts.length=0;
-    let groundGeo=fallback.geometry;
-    if(!groundGeo){
-        groundGeo=new THREE.PlaneGeometry(W+GPAD,H+GPAD,1,1);groundGeo.rotateX(-Math.PI/2);
-        const uv=groundGeo.attributes.uv;for(let i=0;i<uv.count;i++)uv.setXY(i,uv.getX(i)*(W+GPAD)/12,uv.getY(i)*(H+GPAD)/12);
-    }
-    const groundPlaneMat = new THREE.MeshLambertMaterial({ color: new THREE.Color(env.ground).multiplyScalar(0.72), map: noise, depthWrite: fallback.report.known }); groundPlaneMat.name = 'groundPlane';
-    const ground = new THREE.Mesh(groundGeo, groundPlaneMat);
+    const fallbackOpts={x0:bounds.minX-GPAD/2,x1:bounds.maxX+GPAD/2,z0:bounds.minZ-GPAD/2,z1:bounds.maxZ+GPAD/2};
+    // (spec 10 load budget) with the build workers the fallback ground is walked there while the rest of the build and the
+    // caller's setup go on: the plane's mesh and material are made here, in their place, and get the geometry, depth write,
+    // culling and report when the walk is done (world.ready; buildWorld waits for it unless opts.deferGround).
+    const fallbackJob=buildPool?buildFallbackGroundParallel(fallbackApertures,fallbackOpts,buildPool):null;
+    const groundPlaneMat = new THREE.MeshLambertMaterial({ color: new THREE.Color(env.ground).multiplyScalar(0.72), map: noise }); groundPlaneMat.name = 'groundPlane';
+    const ground = new THREE.Mesh(new THREE.BufferGeometry(), groundPlaneMat);
     vegetation.grassMaterials.push(grassMat);
     vegetation.groundMaterials.push(groundPlaneMat, areaMat, paveMat);
     vegetation.roofMaterials.push(roofMat);
     vegetation.sportMaterials = [sportMat, ...landmarkSurfaceMats];
-    if(!fallback.report.known)ground.position.set((bounds.minX + bounds.maxX) / 2, -0.3, (bounds.minZ + bounds.maxZ) / 2);
-    else cullMergedCells(ground,fallback.parts,{blockTriangles:64});
-    ground.userData.fallbackGround=fallback.report;
+    const placeGround=fallback=>{
+        fallbackApertures.cuts.length=0;
+        let groundGeo=fallback.geometry;
+        if(!groundGeo){
+            groundGeo=new THREE.PlaneGeometry(W+GPAD,H+GPAD,1,1);groundGeo.rotateX(-Math.PI/2);
+            const uv=groundGeo.attributes.uv;for(let i=0;i<uv.count;i++)uv.setXY(i,uv.getX(i)*(W+GPAD)/12,uv.getY(i)*(H+GPAD)/12);
+        }
+        groundPlaneMat.depthWrite=fallback.report.known;
+        ground.geometry.dispose(); ground.geometry=groundGeo;
+        if(!fallback.report.known)ground.position.set((bounds.minX + bounds.maxX) / 2, -0.3, (bounds.minZ + bounds.maxZ) / 2);
+        else cullMergedCells(ground,fallback.parts,{blockTriangles:64});
+        ground.userData.fallbackGround=fallback.report;
+        return fallback;
+    };
+    const fallbackReady=fallbackJob?fallbackJob.then(placeGround):Promise.resolve(placeGround(buildFallbackGround(fallbackApertures,fallbackOpts)));
     ground.renderOrder = -20; // far horizon filler only; the city's ground is per cell
     ground.receiveShadow = true; ground.name = 'ground';
     group.add(ground);
@@ -8159,7 +8176,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.treeBuildingClearance = treeBuildingClearance;
     stats.floatingSupport = { parts: floatingSupport.parts, columns: floatingSupport.columns, grounded: floatingSupport.grounded || 0 };
     stats.medianFill = { quads: medianFill.quads, areaM2: medianFill.areaM2, grass: medianFill.decks.filter(d => d.medianKind === 'grass').length, concrete: medianFill.decks.filter(d => d.medianKind === 'concrete').length, asphalt: medianFill.decks.filter(d => d.medianKind === 'asphalt').length };
-    stats.fallbackGround=fallback.report;
+    stats.fallbackGround=null; // (set when the fallback ground is placed: world.ready)
     stats.districtBoundary = boundarySupport.report;
     stats.transitShelters = { schema: 1, records: transitShelterAudit, withheldUnknown: transitShelterAudit.filter(r => r.status === 'unknown-shelter-geometry').length, literalNo: transitShelterAudit.filter(r => r.status === 'literal-no-shelter').length, legacyUnreviewed: transitShelterAudit.filter(r => r.status === 'legacy-unreviewed').length, limits: 'Inferred generic-unit decisions only; no real shelter absence, mapped geometry removal or constructor/route clearance acceptance.' };
     stats.waterShore = waterShoreAudit;
@@ -8400,6 +8417,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         },
     };
     void renderer;
+    world.ready = fallbackReady.then(fallback => { stats.fallbackGround = fallback.report; });
+    if (!opts.deferGround) await world.ready;
     return world;
 }
 

@@ -398,7 +398,9 @@ class Game {
         // lighting, sky, fog and weather are owned by Renderer3D (set up after the world exists)
         // world (buildWorld may be async)
         try { VEHICLES.setFleetCity?.(id); } catch { /* older vehicles.js */ } // plates / police livery of parked props + the player's exterior car
-        const world = this.world = await buildWorld(city, this.renderer, district ? { district, start } : {});
+        // (spec 10 load budget) deferGround: the build workers finish the fallback ground while traffic and the player are
+        // set up below; world.ready is awaited before the renderer is attached (the first frame)
+        const world = this.world = await buildWorld(city, this.renderer, district ? { district, start, deferGround: true } : { deferGround: true });
         scene.add(world.group);
         this.football = createDinamoFootball(this);
         this.basketball = createRosettiBasketball(this);
@@ -441,6 +443,7 @@ class Game {
         this.traffic.setPlayer(this.player);
         this.traffic.clearForPlayer?.(this.player) ?? this.traffic.clearAround(this.player.x, this.player.z, 14);
         // renderer: scene, lighting, real-time sun, street lamps, weather
+        await world.ready;
         this.attachWorldRender();
         this.r3d.onNightLights = (on) => { this.nightLights = on; this.traffic?.setNightLights(on || !!this._fogLights); };
         this.r3d.onNightLights(this.r3d.nightLights);

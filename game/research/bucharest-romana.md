@@ -779,3 +779,44 @@ Culture notes:
 | ref_romana9 | https://commons.wikimedia.org/wiki/File:9_Pia%C8%9Ba_Roman%C4%83,_Bucharest_(05).jpg |
 | ref_lascar4 | https://commons.wikimedia.org/wiki/File:4_Bulevardul_Lasc%C4%83r_Catargiu,_Bucharest_(03).jpg |
 | ref_magheru14 | https://commons.wikimedia.org/wiki/File:14_Bulevardul_Gheorghe_Magheru,_Bucharest_(04).jpg |
+
+## Fidelity pass 2026-11-12 (live OSM + Street View review)
+
+Sources: OSM API 0.6 `map` tiles for 44.4385,26.0803 – 44.4584,26.1031 fetched 2026-11-12 (48 672 nodes, 6 390 ways,
+287 relations); Street View looked at only for comparison (no imagery stored). Game views: `game/dev/reality/viewpoints.json`
+(40 `rom-*` viewpoints). Playable area = the 130 m bands and circles of `cities.js`.
+
+What the review established
+
+- **Businesses.** 320 mapped businesses (shop / food / bank / hotel / office / craft / leisure / healthcare) lie inside the
+  playable area, 316 of them named. 292 are in `data.pois` with the same name within 45 m; no game POI lacks a live OSM
+  object (nothing stale). The 24 missing ones are kinds the builder's `poiKind()` does not keep: nightclub (Club XS
+  n3118882252), `craft` (Miva Foto n2615818199), `leisure=adult_gaming_centre` (Win Boss n11618371471),
+  `leisure=fitness_centre` (Sky Fitness Romana n9947523117), `tourism=gallery` (OB'ART n2872402339, FormART n12318228499,
+  Galeria SIMEZA n12318285854, Galeria Romană n6513765648), kindergartens (n2558783253, w1059582478), offices of kinds
+  outside the kept list (Electrica w180563617, notary n13120820695, travel agent n5526244073, lawyer n12318280957,
+  accountant n2665235676, consulting n9714060730, association n2457790509, political party n12044737494, research
+  n9913919522), physiotherapist n2839154414, apartment n12906263752, pub Sexy Smash n11795229276 (on the area edge), plus
+  two that exist under another record (hospital w23611366 is present 45 m from the way centroid; Sala de Sport ASE
+  w783025569 is the building's own sign).
+- **Pasajul Victoria** (OSM w241374324 / w241374325 / w669751868 / w669751870 / w669751871, tram w241374326 / w920117619,
+  busway w1358411333, tram stop nodes n8544117694 / n8544117695 on level −1). In reality it is one hall: an outer wall on the
+  outside of each carriageway and, on the tram side, a row of large rectangular piers with fences between them; the tram
+  tracks and the underground tram stop are in the middle; sodium lighting. The east ramp trench on Bd. Iancu de Hunedoara has
+  a stone-pier and iron-panel balustrade. The game draws three separate walled and roofed tubes (road, tram, road) with a
+  plain concrete parapet: levels, ramps and portals agree, the pier rows, tram platforms and balustrade do not.
+- **Antipa museum** (w23610985) has no OSM height or levels and was drawn 5.8 m tall; it is two tall storeys with a raised,
+  pedimented central pavilion and an engaged-column porch on the Kiseleff front. Now a landmark model (`antipa`).
+- **Statue of Lascăr Catargiu** (w800350070) and **Fântâna Arteziană Arthur Verona** (w1183885625, a low round basin) were
+  absent; both are now landmark models (`catargiu`, `veronafountain`). The statue's proportions are estimates; it was not
+  seen in Street View (only user photospheres with unreliable headings exist at that spot).
+- **Blocul ARO / Patria** (w163622261): about eight ribbon-window storeys, a taller slim tower at the north end, shops under
+  a canopy. The existing `aro` landmark model has the bands but no shopfronts and drops the ground-floor business signs, so
+  it stays out of the district list; the generic building keeps the signs.
+- Not modelled although mapped and visible: Monumentul Infanteriei Române (n987467409), George Enescu statue (w1171605516),
+  Nobil Dac (w1170480716), the Urseanu observatory dome (w79139872, drawn as a flat 6.4 m house), Muzeul Țăranului Român
+  (r2552618: generic block with a shopfront ground floor, signed "Cinema Muzeul Țăranului"), Muzeul Național Geologic
+  (w23611090), Casa Filipescu-Cesianu (w131269864), the three covered ASE footbridges (w783025570, w783025571, w942676266).
+- Agree with OSM: the four building passages on the service ways (w672096997, w1458318537, w1575956753, w229193339), the
+  service tunnel w1516934660, the Kiseleff fountains n7894980887 / n4405655095 and pond w1092796819, Piscina Lido
+  (w810540711), the tartan pitch w916708228, the metro entrance POIs.

@@ -3569,6 +3569,59 @@ function bDinamo(b) {
     b.grounds.push(out); b.coverPolys.push(offset(out, -3)); // no trees in the bowl; OSM buildings inside the outline are the model's own
 }
 
+// ---- Romană & Victoriei lane (district fidelity pass, 2026-11-12) ----
+// Muzeul Național de Istorie Naturală „Grigore Antipa" (1903-08, Grigore Cerkez), Șos. Kiseleff 1.
+// Footprint: OSM way 23610985 (live 2026-11-12), anchor = its bbox centre, x east / z south, metres. The generic building
+// was 5.8 m tall (no OSM height / levels); the Street View look from Șos. Kiseleff shows two tall storeys under a cornice,
+// a raised central pavilion with a pediment and an engaged-column porch on the Kiseleff (east) front. Heights (13.5 m
+// cornice, 18.5 m pavilion), bay spacing and the porch order are estimates; colour #E3D6B8 from research/bucharest-romana.md.
+const ANTIPA_RING = [[-26.7,-29.5],[-1.7,-40.2],[5.4,-23.5],[3.9,-22.8],[7.3,-14.8],[9,-15.5],[10.7,-11.6],[11.3,-11.9],[11.5,-11.6],[13.7,-12.6],[14.1,-11.6],[17.7,-3.6],[18.1,-2.6],[15.9,-1.6],[16.1,-1.1],[15.3,-0.7],[17.1,3.4],[15.4,4.1],[18.9,12.4],[19.6,12.1],[26.7,28.8],[-0.2,40.2],[-7.3,23.4],[8.8,16.6],[6.8,12],[-2.5,15.9],[-4.3,11.6],[-12.3,14.9],[-11.6,16.4],[-17.1,18.7],[-26,-2.1],[-20.5,-4.4],[-19.8,-2.8],[-8.4,-7.6],[-10.5,-12.7],[-4.7,-15.1],[-6.1,-18.5],[-19.5,-12.9]];
+function bAntipa(b) {
+    const p = ANTIPA_RING, S = '#e3d6b8', T = '#cfc3a6', BASE = '#b9ae96', ROOF = '#8d9093', GL = '#474c52';
+    b.wall = S;
+    // front line on Kiseleff: origin at the north end of the main front, u along the facade (north → south), n outward (east)
+    const F = [5.4, -23.5], u = [0.371, 0.929], n = [0.929, -0.371];
+    const at = (s, d) => [F[0] + u[0] * s + n[0] * d, F[1] + u[1] * s + n[1] * d];
+    b.prism(p, 0, 1.3, BASE, { top: false });
+    b.prism(p, 1.3, 13.5, S, { topCol: ROOF });
+    b.windows(p, 1.5, 13.2, 5.8, GL, { bay: 4, wf: 0.42, hf: 0.62, minL: 3.2, mat: 'g' });
+    b.cornice(p, 6.9, 0.3, 0.18, T); b.cornice(p, 13.5, 0.7, 0.45, T);
+    // raised central pavilion behind the porch (the porch itself is the mapped 10 m projection of the footprint)
+    const pav = [at(10.2, 0.35), at(26, 0.35), at(26, -9), at(10.2, -9)];
+    b.prism(pav, 13.5, 18.5, S, { topCol: ROOF }); b.cornice(pav, 18.5, 0.6, 0.4, T);
+    b.windows(pav, 14.1, 18.2, 4, GL, { bay: 3.9, wf: 0.4, hf: 0.55, minL: 8, mat: 'g' });
+    const ry = Math.atan2(-u[1], u[0]), c = at(18.1, -1.6);
+    b.pediment(c[0], 19.1, c[1], 16.6, 3, 4.6, T, ry);
+    for (const s of [14, 16.7, 19.5, 22.2]) { const q = at(s, 3.85); b.cyl(q[0], 1.3, q[1], 0.42, 0.5, 10.6, '#efe6cf', 8); }
+    const e0 = at(13.2, 3.95), e1 = at(23.05, 3.95), e2 = at(23.05, 3.2), e3 = at(13.2, 3.2);
+    b.prism([e0, e1, e2, e3], 11.9, 13.5, T);
+    for (const s of [15.4, 18.1, 20.8]) { const q = at(s, 3.72); b.box(q[0], 1.3, q[1], 1.5, 3.6, 0.12, '#4a3a2b', { ry }); } // the three porch doors
+    b.colPolygon(p, { y1: 13.5 });
+}
+
+// Statue of Lascăr Catargiu (Antonin Mercié, bronze, 1907; reinstalled 2011) on Bd. Lascăr Catargiu.
+// Position and plinth outline: OSM way 800350070 (tourism=artwork, artwork_type=statue, material=bronze). Form from
+// research/bucharest-romana.md ("bronze standing figure on a stone pedestal"); all heights are estimates.
+function bCatargiu(b) {
+    const base = [[-0.6,-4],[-3.9,0.9],[0.5,4],[3.9,-0.9]], k = (f) => base.map(([x, z]) => [x * f, z * f]);
+    const ST = '#bdb5a6', ST2 = '#cbc3b4', BR = '#4b4a3d';
+    b.prism(k(1), 0, 0.45, ST); b.prism(k(0.78), 0.45, 0.9, ST); b.prism(k(0.5), 0.9, 1.5, ST2);
+    b.prism(k(0.4), 1.5, 5.2, ST2); b.cornice(k(0.4), 5.2, 0.3, 0.2, ST);
+    b.cyl(0, 5.5, 0, 0.36, 0.52, 2.3, BR, 8); b.box(0, 7.55, 0, 1.0, 0.5, 0.55, BR, { ry: 0.6 }); b.sphere(0, 8.4, 0, 0.3, BR, { detail: 0 });
+    b.colPolygon(k(0.8), { y1: 5 }); b.grounds.push(k(1.7)); // no tree crown through the figure
+}
+
+// Fântâna Arteziană Arthur Verona (Str. Pictor Arthur Verona, beside Bd. Magheru): decorative round basin.
+// Outline: OSM way 1183885625 (amenity=fountain, fountain=decorative), missing from the district data (built before it was
+// mapped). Street View shows a low round stone rim at pavement level; rim height and the nozzle block are estimates.
+function bVeronaFountain(b) {
+    const o = [[-3.3,-3.3],[-4.1,-2.1],[-4.6,-0.7],[-4.6,0.9],[-4,2.3],[-3.1,3.4],[-1.8,4.2],[-0.4,4.6],[1.1,4.5],[2.5,3.8],[3.6,2.8],[4.4,1.4],[4.6,-0.1],[4.3,-1.6],[3.5,-2.9],[2.4,-4],[0.9,-4.5],[-0.6,-4.6],[-2,-4.2]];
+    const i = o.map(([x, z]) => [x * 0.88, z * 0.88]), ST = '#b9b2a4';
+    b.ring(o, 0, 0.5, ST); b.ring(i, 0.3, 0.5, ST, { inward: true }); b.cap(o, 0.5, '#c6bfb1', [i]);
+    b.cap(i, 0.34, '#5f93aa', [], 1, 'w'); b.cyl(0, 0.3, 0, 0.22, 0.3, 0.5, ST, 8);
+    b.colPolygon(o, { y1: 0.6 }); b.grounds.push(o);
+}
+
 const A = {
     parliament: [44.4275038, 26.0874035, -0.0698], cathedral: [44.4259297, 26.0822981, -0.0873], arcul: [44.4671902, 26.078127, -2.7925],
     casapresei: [44.4815236, 26.0709515, -1.2217], grandhotel: [44.4372925, 26.1022881, -2.7751], univ: [44.4355639, 26.1007589, -2.7925],
@@ -3580,6 +3633,7 @@ const A = {
     hermes: [44.4810862, 26.1140757, -1.1519], baneasaterm: [44.4962356, 26.0814666, -2.7751], otp: [44.5708154, 26.0795884, -1.4661],
     ase: [44.447807, 26.0971572, 0], ambasador: [44.441963, 26.099535, -1.501], aro: [44.4424337, 26.0992711, -3.0543],
     fountains: [44.4268, 26.1025, 0], aviatorilor: [44.4597696, 26.0860782, 0],
+    antipa: [44.4530955, 26.0846273, 0], catargiu: [44.4491223, 26.0929099, 0], veronafountain: [44.4427623, 26.0980117, 0], // (Romană lane 2026-11-12) OSM w23610985 / w800350070 / w1183885625 bbox centres
     spaceneedle: [47.6205063, -122.3493043, -0.1571], columbia: [47.6045425, -122.3307183, -1.0123], smith: [47.6019654, -122.331729, -2.6005],
     tmobile: [47.5913642, -122.3324281, 0], spheres: [47.6156773, -122.3394897, -0.7505], seatac: [47.4423743, -122.3012208, -1.4137],
     seatower: [47.4557242, -122.3013712, -0.2618], bellevuetowers: [47.6143271, -122.1981129, 0],
@@ -3648,6 +3702,9 @@ export const LANDMARKS = [
     L('aro', 'bucharest', 'Blocul ARO / Patria', ['Bl. ARO/Patria', 'Hanul Elias - Patria'], 32, bARO),
     L('thelandmark', 'bucharest', 'The Landmark (UiPath HQ)', ['The Landmark Corp B'], 25, bTheLandmark, { cvStop: 'uipath-buc', ownSign: true }),
     L('europehouse', 'bucharest', 'Europe House', ['Europe House'], 24, bEuropeHouse, { cvStop: 'arnia', ownSign: true }),
+    L('antipa', 'bucharest', 'Muzeul Antipa', ['Muzeul Național de Istorie Naturală "Grigore Antipa"', 'Muzeul Antipa'], 46, bAntipa, { floodlit: true, masonry: true, sourceIds: ['w23610985'] }),
+    L('catargiu', 'bucharest', 'Statuia Lascăr Catargiu', [], 5, bCatargiu, { sourceIds: [] }),
+    L('veronafountain', 'bucharest', 'Fântâna Arthur Verona', [], 5, bVeronaFountain, { sourceIds: [] }),
     L('gts', 'bucharest', 'Calea Călărașilor 101 (GTS Global Intelligence)', [], 9.5, bGTS, { cvStop: 'gts', ownSign: true, floodlit: true }),
     L('dinamo', 'bucharest', 'Stadionul Dinamo', ['Stadionul Dinamo', 'Peluza Catalin Hildan', 'Peluza Cătălin Hildan'], 95, bDinamo, { floodlit: true }),
     L('rosetti', 'bucharest', 'Liceul Teoretic C.A. Rosetti', ['Liceul Teoretic C.A. Rosetti', 'Liceul Teoretic „C.A. Rosetti”', 'Liceul C.A. Rosetti'], 26, bRosetti, { cvStop: 'rosetti', ownSign: true, floodlit: true }),

@@ -18,6 +18,12 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Grozăvești (194, -453) | "why is it like that?" | the unnamed ramp beside Șos. Orhideelor is an embankment 5.2 m high at this point (not a bridge in OSM); Street View shows it still low there, rising later: its grade needs checking |
 | people at night | "shadows for people (texture like they are just standing that are transparent)" | not reproduced in a visible Ultra window at night among walkers (the AO pass already skips the crowd, lamps cast no shadows); needs an F8 report where they appear |
 
+## Fixed on branch `worktree-old-town-flicker` (not published)
+
+| Report | Fix |
+| --- | --- |
+| Old Town spot, lawn behind Lipscani near (25, 62) "old town flickers like crazy" | reproduced at the pose: shopfront bays on walls seen at an angle were a per-pixel stipple of two shop designs that crawled with the camera. The shader picked a bay's design from a hash of the interpolated vertex colour, which differs by a rounding step between pixels; it now reads the colour through a flat varying (one value per wall). Checked at the pose and along three other streets |
+
 ## Fixed on master 2026-11-12 (owner reports of 2026-11-12, re-check live at the poses)
 
 | Report | Fix |

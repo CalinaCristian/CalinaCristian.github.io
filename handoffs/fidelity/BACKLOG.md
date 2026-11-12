@@ -13,10 +13,9 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | --- | --- | --- |
 | Grozăvești (712, -965), (815, -1042) | "huge issue", "broken fence" | the carriageway's right half narrows from 3.5 m to 1.8 m at one node (OSM widths), so its railing steps sideways at the node; the step is now joined, but the railing still turns a corner instead of tapering |
 | Grozăvești (931, -1147), (603, -877) | "lane too short, cars are driving in the fence", "car drives on the tram station" | the carriageway's mapped width overlaps the tram slab beside it, so its outer lane runs into the railing / onto the slab; needs the carriageway narrowed where it meets the tram deck |
-| Grozăvești (1118, -1284) | "right is shorter than left" | the tram ramp's right railing ends earlier than the left one |
+| Grozăvești (1118, -1284) | "right is shorter than left" | the right track's railing stops at x 1094: the descending Basarab road ramp beside it is within 0.35 m of the slab there, so the edge counts as level; needs a rule for a railing between two descending ramps |
 | Grozăvești (968, -1179), (826, -1050) | "why border there", "what's going on here" | railings at the station end: a guard along the road beside the tram deck and doubled rails with offsets |
 | Grozăvești (194, -453) | "why is it like that?" | the unnamed ramp beside Șos. Orhideelor is an embankment 5.2 m high at this point (not a bridge in OSM); Street View shows it still low there, rising later: its grade needs checking |
-| Grozăvești (591, -854) piers | "huge spots where there's no support" | 14 piers restored (below); the 170 m south-west main span of the cable-stayed bridge stays pier-free by design (source: 302 m structure, 170 m main span; press sources give 340-360 m overall, no span figure); still 60-90 m between piers along Orhideelor where the tram passes below |
 | people at night | "shadows for people (texture like they are just standing that are transparent)" | not reproduced in a visible Ultra window at night among walkers (the AO pass already skips the crowd, lamps cast no shadows); needs an F8 report where they appear |
 
 ## Fixed on master 2026-11-12 (owner reports of 2026-11-12, re-check live at the poses)
@@ -81,6 +80,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Report | Evidence |
 | --- | --- |
 | #62 / #63 / #65 SeaTac frontage objects, ramp edge pieces, crossings | reported on release `game-471508886`; rendered at the report poses on published `master` (a5f80d75) and on this branch: no poles in the terminal road, ramp barriers and crossings whole in both, so already fixed and published |
+| Grozăvești (591, -854) "pillars ... huge spots where there's no support" | the pier-free stretch is the cable-stayed main span: Street View on the deck at 44.44893, 26.06688 shows the last stays anchoring right there with the pylon ahead, so no piers stand between that point and the pylon; the game's 170 m span ends at the same place. The other long gaps were fixed in 07ce18b7. Full walk of the bridge 2026-11-12 (33 stations every 45 m, deck / aerial / underside): railings, blue band, stays, canopy, undersides and piers consistent end to end |
 | L22 Unirii junction markings (67, -189) | checked against live OSM and Street View / satellite on Bd. Corneliu Coposu: zebras stand at the mapped signalised crossings, the two crossings mapped `crossing=unmarked` have none, the junction interior is unmarked in reality, and the tram rails are mapped `railway=construction` (the line is being rebuilt), so no tracks are drawn; published master and this branch render the junction identically |
 
 ## Checks before every push

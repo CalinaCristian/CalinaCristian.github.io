@@ -3,7 +3,7 @@
 import { visibleRoofMesh } from './building-roofs.js';
 const finite = Number.isFinite;
 const validFace = face => Array.isArray(face) && face.length === 3 && face.every(p => Array.isArray(p) && p.length >= 3 && p.every(finite));
-const emitted = face => face.map(p => p.map((v, i) => i < 3 ? Math.fround(v) : v));
+const emitted = face => face.map(p => { const q = p.slice(); q[0] = Math.fround(q[0]); q[1] = Math.fround(q[1]); q[2] = Math.fround(q[2]); return q; });
 // the emitted faces of a neighbour's complete roof, once per roof mesh (the same neighbour is met by many owners)
 const emittedCache = new WeakMap(), emittedFaces = mesh => { let f = emittedCache.get(mesh); if (!f) emittedCache.set(mesh, f = mesh.faces.map(emitted)); return f; };
 const SEPARATE = 1e-6, faceBox = face => { let x0 = Infinity, x1 = -Infinity, z0 = Infinity, z1 = -Infinity; for (const p of face) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); z0 = Math.min(z0, p[2]); z1 = Math.max(z1, p[2]); } return [x0, x1, z0, z1]; };

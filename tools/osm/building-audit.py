@@ -9,7 +9,8 @@ roof survey (game/research/roofs-<city>-<district>.json):
   * roof       game roof shape vs the aerial class (confident measurements only)
 Writes <out>.json (every building) and prints a summary + the worst cases with lat/lon.
 
-  python3 -I tools/osm/building-audit.py --data game/data/bucharest-floreasca.json --osm /tmp/tiles/buc_44.45* /tmp/tiles/buc_44.46* \
+  node tools/osm/pack-district.mjs --unpack game/data/bucharest-floreasca.bin.gz /tmp/floreasca.json   # districts ship packed
+  python3 -I tools/osm/building-audit.py --data /tmp/floreasca.json --osm /tmp/tiles/buc_44.45* /tmp/tiles/buc_44.46* \
       --roofs game/research/roofs-bucharest-floreasca.json --out /tmp/flo-audit
 """
 import argparse, glob, json, math, os, sys

@@ -80,8 +80,29 @@ const pointIn = (x, z, poly) => { let c = false; for (let i = 0, j = poly.length
 export function overlapArea(a, b, boxA, boxB) {
     const x0 = Math.max(boxA[0], boxB[0]), z0 = Math.max(boxA[1], boxB[1]), x1 = Math.min(boxA[2], boxB[2]), z1 = Math.min(boxA[3], boxB[3]);
     if (x1 - x0 < .5 || z1 - z0 < .5) return 0;
-    let n = 0; for (let x = x0 + .25; x < x1; x += .5) for (let z = z0 + .25; z < z1; z += .5) if (pointIn(x, z, a) && pointIn(x, z, b)) n++;
+    // Scanline form of counting the samples with pointIn(x, z, a) && pointIn(x, z, b): per sample row z, the crossings are
+    // computed with pointIn's own expression and a sample is inside when an odd number of them lie beyond it (x < c),
+    // which is pointIn's parity. Same samples (same accumulated coordinates), same count, without testing every edge
+    // for every sample.
+    const xs = []; for (let x = x0 + .25; x < x1; x += .5) xs.push(x);
+    let n = 0;
+    for (let z = z0 + .25; z < z1; z += .5) {
+        const ca = crossings(a, z), cb = crossings(b, z);
+        if (!ca.length || !cb.length) continue;
+        let ia = 0, ib = 0;
+        for (const x of xs) {
+            while (ia < ca.length && !(x < ca[ia])) ia++;
+            while (ib < cb.length && !(x < cb[ib])) ib++;
+            if ((ca.length - ia) & (cb.length - ib) & 1) n++;
+        }
+    }
     return n * .25;
+}
+// x of every edge of poly crossing the row z, as pointIn computes them, ascending
+function crossings(poly, z) {
+    const out = [];
+    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const [xi, zi] = poly[i], [xj, zj] = poly[j]; if ((zi > z) !== (zj > z)) out.push((xj - xi) * (z - zi) / (zj - zi) + xi); }
+    return out.sort((p, q) => p - q);
 }
 
 /**

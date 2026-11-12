@@ -62,8 +62,10 @@ export function buildFallbackGround(apertures,{x0,x1,z0,z1,leafSize=64,maxNodes=
             for(const child of children)visit(child,nearby.filter(c=>overlaps(child,c)));return;
         }
         let fragments=[polygon];
+        // a fragment's box is the same for every cut tested against it: computed once (Math.min / max as bounds() does)
+        const boxes=new WeakMap(),boxOf=p=>{let b=boxes.get(p);if(!b){let ax=Infinity,bx=-Infinity,az=Infinity,bz=-Infinity;for(const v of p){ax=Math.min(ax,v[0]);bx=Math.max(bx,v[0]);az=Math.min(az,v[2]);bz=Math.max(bz,v[2]);}b={x0:ax,x1:bx,z0:az,z1:bz};boxes.set(p,b);}return b;};
         for(const cut of nearby){
-            fragments=fragments.flatMap(p=>{const b=bounds(p.map(v=>[v[0],v[2]]));return overlaps(b,cut)?subtractTramTrench(p,cut.poly):[p];});
+            fragments=fragments.flatMap(p=>overlaps(boxOf(p),cut)?subtractTramTrench(p,cut.poly):[p]);
             if(fragments.length>maxFragments){report.known=false;report.reason='fallback-subtraction-limit';return;}
             if(!fragments.length)break;
         }

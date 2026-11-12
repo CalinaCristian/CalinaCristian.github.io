@@ -6,6 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { resolveResearchSource } from './research-source.mjs';
+import { readDistrictData } from './district-data.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const way = { tags: { height: '13.6' } }, relation = { tags: {} };
 const ways = new Map([[4547843, way]]), relations = new Map([[4547843, relation]]);
@@ -30,7 +31,7 @@ try {
         { osm: 'r4547843', osmType: 'way', research: { height_m: 888 } },
     ] }));
     execFileSync(process.execPath, [path.join(tmp, 'tools/osm/build-data.mjs'), '--tiles', path.join(tmp, 'tiles'), '--city', 'seattle', '--district', 'bellevue'], { stdio: 'pipe' });
-    const d = JSON.parse(fs.readFileSync(path.join(tmp, 'game/data/seattle-bellevue.json')));
+    const d = readDistrictData(path.join(tmp, 'game/data/seattle-bellevue.json'));
     const profile = id => { const i = d.buildingIds.indexOf(id); assert.ok(i >= 0, id + ' retained'); return d.buildingRoofProfiles[i]; };
     const rp = profile('r4547843'); assert.equal(rp.raw['building:levels'], '25'); assert.equal(rp.heightSource, 'research storeys estimate'); assert.equal(rp.originalOSM['building:levels'], undefined);
     const wp = profile('w4547843'); assert.equal(wp.totalM, 13.6); assert.equal(wp.raw.min_height, '1.2'); assert.equal(d.buildings[d.buildingIds.indexOf('w4547843')][2] / 10, 1.2); assert.equal(wp.raw['building:levels'], '4'); assert.equal(wp.heightSource, 'OSM height');

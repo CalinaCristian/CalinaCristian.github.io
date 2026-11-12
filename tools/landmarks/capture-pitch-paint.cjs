@@ -72,7 +72,7 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
     write('source-contact-probe.json',{gameSourceCommit:commit,district,...contacts});
     console.log('source contact probe',contacts.edges,'edges',contacts.points,'points',contacts.hits.length,'raw source hits');
     let views=await page.evaluate(async district=>{
-      const THREE=await import('./vendor/three.module.min.js'), {collideBuildings}=await import('./src/world.js'), g=game, data=await(await fetch('./data/bucharest-'+district+'.json')).json();
+      const THREE=await import('./vendor/three.module.min.js'), {collideBuildings}=await import('./src/world.js'), g=game, data=await(await import('./src/district-pack.js')).fetchDistrictPack('./data/bucharest-'+district+'.bin.gz');
       const {createFlightBoundary}=await import('./src/drone-boundary.js');
       window.contextFlightBoundary=createFlightBoundary(g.world.district.flightBoundary);window.contextProjection=data.proj;
       const views=[];

@@ -16,6 +16,7 @@ import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landma
 import { makeTextures, emitFacadeSlab } from './buildings.js';
 import { footprintCells, insetFootprint, assemblySignature, geometryRing, geometrySurface } from './building-parts.js';
 import { validRoofProfile, roofMesh, roofSignature } from './building-roofs.js';
+import { districtFile, fetchDistrictPack, signatureMatches } from './district-pack.js';
 import { sourceSurfaceEligible, validateSourceSurface } from './building-surface-cache.js';
 import { clipBuildingDetailRange } from './building-detail-range.js';
 import { sourceTreeCentrePolicy, treeCentreDuplicate, treeCentreWater } from './source-tree-centres.js';
@@ -612,8 +613,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         distCfg = distId ? (city.districts || {})[distId] : null;
     if (distId && !distCfg) throw new Error(`unknown district ${city.id}:${distId}`);
     const inDistrictLL = (lat, lon, m = 0.0015) => !distCfg || (lat >= distCfg.bbox[0] - m && lat <= distCfg.bbox[2] + m && lon >= distCfg.bbox[1] - m * 1.4 && lon <= distCfg.bbox[3] + m * 1.4);
-    const url = new URL(`../data/${distId ? city.id + '-' + distId : city.id}.json`, import.meta.url).href;
-    const data = await (await fetch(url)).json();
+    // districts: a lossless binary pack (game/src/district-pack.js, spec 10 size / load budget); legacy maps: JSON
+    const url = new URL(`../data/${districtFile(city.id, distId)}`, import.meta.url).href;
+    const data = distId ? await fetchDistrictPack(url) : await (await fetch(url)).json();
     const realPass = !!data.scenery; // (2026-11-08) a district rebuilt by the reality pass (scenery ring, aerial roofs / trees / green): street-level dressing on
     // field research (spec 20): street-tree notes per street, baked by tools/osm into data.streetTrees
     // ({street name: [species keys]}, [] = researched as treeless) — no runtime fetch of the research dossier
@@ -1572,14 +1574,16 @@ export async function buildWorld(city, renderer, opts = {}) {
                 linked.set(e, s); return s;
             };
             let fixes = 0, rounds = 0, pairs = 0;
-            for (; rounds < 20; rounds++) {
-                const caps = new Map(), cap = (n, v) => { if (v < n.y - 0.01 && v < (caps.get(n) ?? Infinity)) caps.set(n, v); };
-                pairs = 0;
+            // The sample points, the neighbouring edges and their footprints do not change between rounds (only node heights
+            // do): the scan is done once and kept as [e, tt, f, ft] quadruples; every round tests the heights only.
+            let gore = null;
+            const goreScanPairs = () => {
+                const out = [];
                 for (const e of edges) {
                     if (e.virtual || e.len < 0.5) continue;
                     const step = Math.max(0.02, 1.5 / e.len);
                     for (let t = 0; t <= 1 + 1e-6; t += step) {
-                        const tt = Math.min(t, 1), he = e.a.y + (e.b.y - e.a.y) * tt;
+                        const tt = Math.min(t, 1);
                         // (inside its asphalt edge: overlapping ribbons; just beyond it: the audit's cliff sample)
                         for (const [s, off] of [[1, wA(e, 1) - 0.5], [-1, wA(e, -1) - 0.5], [1, (e.bridge ? wA(e, 1) + 0.3 : wS(e, 1)) + 0.6], [-1, (e.bridge ? wA(e, -1) + 0.3 : wS(e, -1)) + 0.6]]) {
                             const x = e.a.x + e.dirx * e.len * tt + e.nx * off * s, z = e.a.z + e.dirz * e.len * tt + e.nz * off * s;
@@ -1587,14 +1591,25 @@ export async function buildWorld(city, renderer, opts = {}) {
                                 if (f === e || f.virtual || Math.abs(e.dirx * f.dirx + e.dirz * f.dirz) < 0.85) return;
                                 const q = distPointSeg(x, z, f.a.x, f.a.z, f.b.x, f.b.z); if (q.t <= 0 || q.t >= 1) return;
                                 const sf = ((x - q.cx) * f.nx + (z - q.cz) * f.nz) >= 0 ? 1 : -1; if (q.d > wS(f, sf)) return;
-                                const hf = f.a.y + (f.b.y - f.a.y) * q.t, dh = he - hf;
-                                if (Math.abs(dh) <= 0.04 || Math.abs(dh) > 6 || Math.min(he, hf) < -0.5 || !linkSet(e).has(f)) return;
-                                pairs++;
-                                const [h, th, lo] = dh > 0 ? [e, tt, hf] : [f, q.t, he]; // (one surface: the visual QA flags 0.05–2.5 m as a stacked road)
-                                cap(h.a, lo); cap(h.b, lo); // (both ends: a linear piece is only ≤ lo at th if both are; pieces are ≤ 10 m)
+                                if (!linkSet(e).has(f)) return;
+                                out.push(e, tt, f, q.t);
                             });
                         }
                     }
+                }
+                return out;
+            };
+            for (; rounds < 20; rounds++) {
+                const caps = new Map(), cap = (n, v) => { if (v < n.y - 0.01 && v < (caps.get(n) ?? Infinity)) caps.set(n, v); };
+                pairs = 0;
+                gore ||= goreScanPairs();
+                for (let i = 0; i < gore.length; i += 4) {
+                    const e = gore[i], tt = gore[i + 1], f = gore[i + 2], ft = gore[i + 3];
+                    const he = e.a.y + (e.b.y - e.a.y) * tt, hf = f.a.y + (f.b.y - f.a.y) * ft, dh = he - hf;
+                    if (Math.abs(dh) <= 0.04 || Math.abs(dh) > 6 || Math.min(he, hf) < -0.5) continue;
+                    pairs++;
+                    const [h, th, lo] = dh > 0 ? [e, tt, hf] : [f, ft, he]; // (one surface: the visual QA flags 0.05–2.5 m as a stacked road)
+                    cap(h.a, lo); cap(h.b, lo); // (both ends: a linear piece is only ≤ lo at th if both are; pieces are ≤ 10 m)
                 }
                 if (!caps.size) break;
                 // y = min(y, max(capCone, floorCone)): lowering only, grade-limited, never under a floor
@@ -3868,7 +3883,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const invalid = !base || base.skip ? 'missing-or-inactive-outline' : base.holes.length ? 'unsupported-courtyard-outline' : !parts.length ? 'empty-parts' : new Set(indices).size !== indices.length ? 'duplicate-part' : parts.some((p, n) => !p || p.skip || p === base || claimedParts.get(indices[n]) !== 1) ? 'missing-inactive-or-ambiguous-part' : parts.some(p => p.holes.length) ? 'unsupported-part-courtyard' : null;
         if (invalid) { assemblyRejected.push({ outline: data.buildingIds?.[Number(key)] || Number(key), reason: invalid }); continue; }
         const cached = spec.geometry, keepOutline = spec.mode === 'union';
-        if (!cached || !Array.isArray(cached.residuals) || !Array.isArray(cached.surfaces) || cached.signature !== assemblySignature(base, parts) || cached.surfaces.length !== parts.length + cached.residuals.length + (keepOutline ? 1 : 0)) {
+        if (!cached || !Array.isArray(cached.residuals) || !Array.isArray(cached.surfaces) || !signatureMatches(cached.signature, assemblySignature(base, parts)) || cached.surfaces.length !== parts.length + cached.residuals.length + (keepOutline ? 1 : 0)) {
             assemblyRejected.push({ outline: data.buildingIds?.[base.i] || base.i, reason: 'prepared-geometry-mismatch' }); continue;
         }
         const residualH = spec.residualHeightM ?? spec.residualHeightDm / 10;
@@ -5023,7 +5038,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const canopyAudit = roofProfileAudit.canopies ||= { native: [], legacyFlat: [] };
             canopyAudit[sourceRoof ? 'native' : 'legacyFlat'].push({ sourceId: data.buildingIds?.[b.i] || b.i, shape: sourceRoof ? b.roofProfile.shape : 'flat', totalM: b.h, eavesM: canopy.eavesM, minimumM: b.minH });
             const cached = sourceRoof && data.buildingRoofSurfaces?.[b.i];
-            const valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && s.signature === roofSignature(source); });
+            const valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && signatureMatches(s.signature, roofSignature(source)); });
             if (cached) { if (valid) roofProfileAudit.surfacesApplied++; else roofProfileAudit.surfacesRejected.push(data.buildingIds?.[b.i] || b.i); }
             const unpack = face => data.buildingRoofGeometryPoints ? face.map(i => data.buildingRoofGeometryPoints[i]) : face;
             if (sourceRoof) for (const face of valid ? cached.faces.map(unpack) : canopy.roofFaces) c.roof.face3(...face, roofCol, [0, 1, 0]);
@@ -5202,7 +5217,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         const sourceRoof = b.roofProfile ? roofMesh(ring, b.holes, b.roofProfile, triangulate) : null;
         if (sourceRoof) {
-            const cached = data.buildingRoofSurfaces?.[b.i], valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && s.signature === roofSignature(source); });
+            const cached = data.buildingRoofSurfaces?.[b.i], valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && signatureMatches(s.signature, roofSignature(source)); });
             if (cached) { if (valid) roofProfileAudit.surfacesApplied++; else roofProfileAudit.surfacesRejected.push(data.buildingIds?.[b.i] || b.i); }
             const unpack = face => data.buildingRoofGeometryPoints ? face.map(i => data.buildingRoofGeometryPoints[i]) : face;
             const visibleFaces = valid ? cached.faces.map(unpack) : sourceRoof.faces;

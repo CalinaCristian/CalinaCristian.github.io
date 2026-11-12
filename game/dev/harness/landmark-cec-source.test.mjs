@@ -4,8 +4,9 @@ import { CEC_SOURCE_MASSES as source } from '../../src/landmark-cec-source.js';
 import { LANDMARKS, buildLandmark } from '../../src/landmarks.js';
 import { parseMeasure } from '../../src/building-roofs.js';
 import { Box3 } from '../../vendor/three.module.min.js';
+import { readDistrictData } from '../../../tools/osm/district-data.mjs';
 
-const bytes=fs.readFileSync(new URL('../../data/bucharest-unirii.json',import.meta.url)),data=JSON.parse(bytes);
+const data=readDistrictData(new URL('../../data/bucharest-unirii.bin.gz',import.meta.url));
 // The recorded dataset SHA identifies the source snapshot used to bake the model.
 // Unrelated district trees/roads can change later; compare the actual CEC source
 // records below so a source-volume edit still fails without rebaking the model.

@@ -5,6 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
+import { readDistrictData } from './district-data.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),tmp=fs.mkdtempSync(path.join(os.tmpdir(),'roof-colour-fixture-'));
 try{
  for(const dir of ['tools','game','tiles','game/research'])fs.mkdirSync(path.join(tmp,dir),{recursive:true});
@@ -22,7 +23,7 @@ try{
  const colourMeasurements={'9100':{hex:'#8d939a',confidence:.85},'9101':{hex:'#557755',confidence:.1},'9102':{hex:'#8d939a',confidence:.85},'9103':{hex:'#8d939a',confidence:.85}};
  fs.writeFileSync(path.join(tmp,'game/research/roofs-seattle-seatac.json'),JSON.stringify({roofs,colourMeasurements}));
  execFileSync(process.execPath,[path.join(tmp,'tools/osm/build-data.mjs'),'--tiles',path.join(tmp,'tiles'),'--districts','--city','seattle','--district','seatac'],{stdio:'pipe'});
- const d=JSON.parse(fs.readFileSync(path.join(tmp,'game/data/seattle-seatac.json'))),colour=id=>{const i=d.buildingIds.indexOf('w'+id);assert.ok(i>=0);return d.strings[d.buildings[i][8]]||null;};
+ const d=readDistrictData(path.join(tmp,'game/data/seattle-seatac.json')),colour=id=>{const i=d.buildingIds.indexOf('w'+id);assert.ok(i>=0);return d.strings[d.buildings[i][8]]||null;};
  assert.equal(colour(9100),'#8d939a','uncertain gray pitched roof can retain reliable independent colour');
  assert.equal(colour(9101),null,'tree/shadow sample never forces colour');
  assert.equal(colour(9102),'#123456','OSM colour overrides measurement');assert.equal(colour(9103),'#6f9a86','OSM copper material overrides measurement');

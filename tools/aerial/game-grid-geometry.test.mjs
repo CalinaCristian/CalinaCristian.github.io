@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { projectDistrictGeometry, geometryBounds, rectangleMargin } from './game-grid-geometry.mjs';
+import { readDistrictData } from '../osm/district-data.mjs';
 
 const box={pieces:[],circles:[],polys:[[[0,0],[1000,0],[1000,2000],[0,2000]]]};
 assert.equal(rectangleMargin([400,900,650,1150],box),0,'interior capture cells intersect an enclosing polygon');
@@ -18,7 +19,7 @@ const cityBytes=fs.readFileSync(new URL('../../game/src/cities.js',import.meta.u
 const {CITIES}=await import('data:text/javascript;base64,'+cityBytes.toString('base64'));
 const totals={};
 for(const [city,C] of Object.entries(CITIES))for(const [id,cfg]of Object.entries(C.districts)){
-  const data=JSON.parse(fs.readFileSync(new URL(`../../game/data/${city}-${id}.json`,import.meta.url)));
+  const data=readDistrictData(new URL(`../../game/data/${city}-${id}.bin.gz`,import.meta.url));
   const p=data.proj, project=(lat,lon)=>[(lon-p.lon0)*p.mPerLon,-(lat-p.lat0)*p.mPerLat];
   const geometry=projectDistrictGeometry(cfg,data,project),bounds=geometryBounds(geometry),step=250;
   let core=0,ring=0;

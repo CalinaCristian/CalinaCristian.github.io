@@ -3,9 +3,10 @@ import fs from 'node:fs';
 import crypto from 'node:crypto';
 import { buildTramTunnelGrades, ROMANA_TRAM_TUNNEL_MODEL, smoothTunnelRamp } from '../../game/src/tram-tunnel-grade.js';
 import { buildTramNetwork, flatTramGrade } from '../../game/src/tram-path.js';
+import { parseDistrictBytes } from './district-data.mjs';
 
-const input = process.argv[2] || new URL('../../game/data/bucharest-romana.json', import.meta.url);
-const bytes = fs.readFileSync(input), parsed = JSON.parse(bytes), data = parsed.data || parsed, coreEdges = parsed.allEdges || [];
+const input = process.argv[2] || new URL('../../game/data/bucharest-romana.bin.gz', import.meta.url);
+const bytes = fs.readFileSync(input), parsed = parseDistrictBytes(bytes), data = parsed.data || parsed, coreEdges = parsed.allEdges || [];
 const before = JSON.stringify(data), nativeBefore = JSON.stringify(coreEdges), output = buildTramTunnelGrades(data, { coreEdges });
 assert.deepEqual(output.report.unresolved, []); assert.equal(output.report.models.length, 1); assert.equal(output.grades.size, 30);
 const resolveGrade = (way, leg) => output.grades.get(way.sourceId + ':' + leg.index) || flatTramGrade(way);

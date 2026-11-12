@@ -2045,13 +2045,50 @@ export async function buildWorld(city, renderer, opts = {}) {
             greenQuads++;
         };
         let r = 0, c = 0, cur = 0; let rowRuns = [];
+        // (owner, 2026-11-12, Unirii: "random green patches on the water") from the air a river is as green as a lawn, and
+        // the raster marks cells on the Dâmbovița. No green cell is drawn on mapped water: the columns of a row that a
+        // water polygon touches (on the cell row's top, middle or bottom line) are taken out of its runs.
+        const waterAreas = areas.filter(a => a.kind === 'water');
+        let rowWater = null;
+        const waterCols = () => { // sorted, merged [c0, c1) column spans of row r on water
+            const spans = [];
+            for (const f of [0.02, 0.5, 0.98]) {
+                const z = G.z0 + (r + f) * G.cz;
+                for (const a of waterAreas) {
+                    if (z < a.z0 || z > a.z1) continue;
+                    const xs = [];
+                    for (const ring of a.rings) for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+                        const [xi, zi] = ring[i], [xj, zj] = ring[j];
+                        if ((zi > z) !== (zj > z)) xs.push(xi + (xj - xi) * (z - zi) / (zj - zi));
+                    }
+                    xs.sort((p, q) => p - q);
+                    for (let k = 0; k + 1 < xs.length; k += 2) spans.push([Math.floor((xs[k] - G.x0) / G.cx), Math.floor((xs[k + 1] - G.x0) / G.cx) + 1]);
+                }
+            }
+            spans.sort((p, q) => p[0] - q[0]);
+            const merged = [];
+            for (const s of spans) { const last = merged[merged.length - 1]; if (last && s[0] <= last[1]) last[1] = Math.max(last[1], s[1]); else merged.push([s[0], s[1]]); }
+            return merged;
+        };
+        const pushRun = (c0, n) => {
+            if (waterAreas.length) {
+                rowWater ??= waterCols();
+                let a = c0; const end = c0 + n;
+                for (const [w0, w1] of rowWater) {
+                    if (w1 <= a) continue; if (w0 >= end) break;
+                    if (w0 > a) rowRuns.push([a, w0 - a]);
+                    a = Math.max(a, w1); if (a >= end) return;
+                }
+                if (a < end) rowRuns.push([a, end - a]);
+            } else rowRuns.push([c0, n]);
+        };
         const endRow = () => {
             const seen = new Set();
             for (const [c2, n2] of rowRuns) { const key = c2 + ':' + n2; seen.add(key); if (!open.has(key)) open.set(key, { c: c2, n: n2, r0: r }); }
             for (const [key, o] of open) if (!seen.has(key)) { flush(o, r); open.delete(key); }
-            rowRuns = []; r++; c = 0; cur = 0;
+            rowRuns = []; rowWater = null; r++; c = 0; cur = 0;
         };
-        for (const v of G.rle) { if (v < 0) { endRow(); continue; } if (cur && v > 0) rowRuns.push([c, v]); c += v; cur ^= 1; }
+        for (const v of G.rle) { if (v < 0) { endRow(); continue; } if (cur && v > 0) pushRun(c, v); c += v; cur ^= 1; }
         for (const o of open.values()) flush(o, r);
     }
     // Exact mapped water banks take precedence over fallback centreline widths.
@@ -3918,6 +3955,35 @@ export async function buildWorld(city, renderer, opts = {}) {
         bRecs.push(...residuals);
         assemblyAudit.push({ mode: spec.mode, outline: data.buildingIds?.[base.i] || base.i, parts: indices.map(i => data.buildingIds?.[i] || i), residualArea: residuals.reduce((sum, p) => sum + p.area, 0), residualHeight: residualH, residualHeightSource: spec.residualHeightSource, residualHeights: [...new Set(residuals.map(p => p.h))].sort((a, b) => a - b), cells: residuals.length });
     }
+    // ---- unpaired 3-D outlines (owner, 2026-11-12, Unirii bus stop: "WAT are those") OSM maps a detailed building as an
+    // outline plus building:part volumes; the outline is then only an envelope. Where the prepared data did not pair them
+    // (a part vertex 16 mm outside the outline), the outline was drawn at its style-estimated height and the overlap cut
+    // below removed the measured parts inside it: two 3 m bus shelters stood as 7.2 m houses. An outline whose height is
+    // only a style estimate, and whose footprint is covered by buildings with tagged heights standing inside it (at least
+    // one of them from the ground), is not drawn: the tagged volumes are.
+    const outlineParts = { outlines: 0, samples: [] };
+    {
+        const tagged = new BoxGrid(32);
+        for (const p of bRecs) if (!p.skip && !p.assembly && p.ring?.length >= 3 && !p.holes.length && /^OSM /.test(p.roofProfile?.heightSource || '')) tagged.insert(p.x0, p.z0, p.x1, p.z1, p);
+        const within = (x, z, ring, tol) => { if (pointInPolygon(x, z, ring)) return true; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) if (distPointSeg(x, z, ring[j][0], ring[j][1], ring[i][0], ring[i][1]).d <= tol) return true; return false; };
+        for (const o of bRecs) {
+            if (o.skip || o.assembly || o.assemblyParts || !(o.ring?.length >= 3) || o.holes.length || o.minH > 0 || o.roofProfile?.heightSource !== 'style estimate') continue;
+            const inside = new Set();
+            tagged.each(o.x0, o.z0, o.x1, o.z1, p => { if (p !== o && !p.skip && p.x0 >= o.x0 - .3 && p.x1 <= o.x1 + .3 && p.z0 >= o.z0 - .3 && p.z1 <= o.z1 + .3 && p.ring.every(([x, z]) => within(x, z, o.ring, .3))) inside.add(p); });
+            const ground = [...inside].filter(p => !(p.minH > 0)); if (!ground.length) continue;
+            const step = Math.max(.2, Math.min(o.x1 - o.x0, o.z1 - o.z0) / 16); let n = 0, covered = 0;
+            for (let x = o.x0 + step / 2; x < o.x1; x += step) for (let z = o.z0 + step / 2; z < o.z1; z += step) {
+                if (!pointInPolygon(x, z, o.ring)) continue; n++;
+                for (const p of inside) if (pointInPolygon(x, z, p.ring)) { covered++; break; }
+            }
+            if (!n || covered < n * .9) continue;
+            o.skip = true; o.replacedByParts = [...inside].map(p => p.i);
+            const primary = ground.reduce((a, b) => a.area > b.area ? a : b);
+            if (o.name && !primary.name) { primary.name = o.name; primary.flags |= o.flags & (1 | 2 | 8); }
+            for (const p of inside) if (!p.type || p.type === 'yes') p.type = o.type;
+            outlineParts.outlines++; if (outlineParts.samples.length < 40) outlineParts.samples.push({ outline: data.buildingIds?.[o.i] || o.i, parts: [...inside].map(p => data.buildingIds?.[p.i] || p.i), coverage: +(covered / n).toFixed(3), estimatedH: o.h });
+        }
+    }
     // ---- overlapping source buildings (building-overlap.js): a lower building is cut to stop at a taller one's walls
     const overlapCuts = { pairs: 0, cut: 0, removedM2: 0, skipped: {}, samples: [] };
     {
@@ -3998,6 +4064,28 @@ export async function buildWorld(city, renderer, opts = {}) {
         const sourceId = data.buildingIds?.[b.i];
         if (sourceId) { const list = sourceBuildingRecs.get(sourceId) || []; list.push(b); sourceBuildingRecs.set(sourceId, list); }
     }
+    // (owner, 2026-11-12, Bd. Unirii: "fountains ... towards street or on street") the carriageway edges as built, drivable
+    // ribbons and scenery streets alike, for a model that stands between two carriageways (ctx.kerbAlong below)
+    let kerbGrid = null;
+    const kerbSegments = () => {
+        if (kerbGrid) return kerbGrid;
+        kerbGrid = new BoxGrid(64);
+        const add = (ax, az, bx, bz) => kerbGrid.insert(Math.min(ax, bx), Math.min(az, bz), Math.max(ax, bx), Math.max(az, bz), [ax, az, bx, bz]);
+        for (const e of edges) {
+            if (e.virtual || e.tunnel || e.bridge || e.layer) continue;
+            for (const o of [-e.wL, e.wR]) add(e.a.x + e.nx * o, e.a.z + e.nz * o, e.b.x + e.nx * o, e.b.z + e.nz * o);
+        }
+        for (const [ri, r] of (data.scenery || []).entries()) {
+            if ((r[3] & 1) && data.roadGeometryPolicy !== 'source') continue;
+            const profile = scenerySourceProfile(data, ri, undelta(r, 4)), pts = profile.points;
+            for (let i = 0; i + 1 < pts.length; i++) {
+                const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az); if (L < 0.2) continue;
+                const nx = -(bz - az) / L, nz = (bx - ax) / L;
+                for (const o of [-profile.leftM, profile.rightM]) add(ax + nx * o, az + nz * o, bx + nx * o, bz + nz * o);
+            }
+        }
+        return kerbGrid;
+    };
     for (const lm of LANDMARKS) {
         try {
             let p = city.proj(lm.lat, lm.lon);
@@ -4007,6 +4095,17 @@ export async function buildWorld(city, renderer, opts = {}) {
               // a point of its own (local, unrotated) frame within a height band, to leave an opening there
               const c0 = Math.cos(lm.rotation || 0), s0 = Math.sin(lm.rotation || 0), sc = data.proj.scale;
               ctx.roadAt = (lx, lz, y0, y1) => { const wx = p.x + (lx * c0 + lz * s0) * sc, wz = p.z + (-lx * s0 + lz * c0) * sc; let hit = false; surfacesAt(wx, wz, h => { if (h > y0 - .4 && h < y1 + 2.2) hit = true; }, null, true); return hit; };
+              // distance (m, model frame) from a point of the model along a unit direction to the nearest carriageway edge, or null
+              ctx.kerbAlong = (lx, lz, dx, dz, maxM = 14) => {
+                  const wx = p.x + (lx * c0 + lz * s0) * sc, wz = p.z + (-lx * s0 + lz * c0) * sc, ux = dx * c0 + dz * s0, uz = -dx * s0 + dz * c0, R = maxM * sc;
+                  let best = Infinity;
+                  kerbSegments().each(Math.min(wx, wx + ux * R), Math.min(wz, wz + uz * R), Math.max(wx, wx + ux * R), Math.max(wz, wz + uz * R), ([ax, az, bx, bz]) => {
+                      const ex = bx - ax, ez = bz - az, den = ux * ez - uz * ex; if (Math.abs(den) < 1e-9) return;
+                      const t = ((ax - wx) * ez - (az - wz) * ex) / den, s = ((ax - wx) * uz - (az - wz) * ux) / den;
+                      if (t > 0 && t <= R && s >= 0 && s <= 1 && t < best) best = t;
+                  });
+                  return best < Infinity ? best / sc : null;
+              };
             }
             if (data.buildingGeometryPolicy === 'source') {
                 const c = Math.cos(lm.rotation || 0), s = Math.sin(lm.rotation || 0), scale = data.proj.scale;
@@ -6908,7 +7007,13 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (profile.issue) scenerySourceAudit.issues.push({ piece: ri, sourceId: profile.sourceId, reason: profile.issue });
             strip(pts, -profile.leftM, profile.rightM, bridge ? Y.road : yA, asp, heights, bridge?.coveredSegments);
             const sideM = sw > 0.5 && !/service|motorway/.test(cls) ? Math.max(1.2, sw) : 0;
-            if (sideM) { strip(pts, profile.rightM, profile.rightM + sideM, bridge ? Y.road : yS, side, heights, bridge?.coveredSegments); strip(pts, -profile.leftM - sideM, -profile.leftM, bridge ? Y.road : yS, side, heights, bridge?.coveredSegments); }
+            // (owner, 2026-11-12, Bd. Unirii east: the fountain median was a slab of paving) one carriageway of a divided street
+            // has its pavement on the outer side only (OSM oneway=yes + sidewalk=right|left): the median side gets none, so the
+            // median shows its mapped grass instead of two pavements meeting in the middle
+            const swTags = data.scenerySourceGeometry?.[ri]?.tags, divided = swTags?.oneway === 'yes' && /^(left|right)$/.test(swTags.sidewalk || '');
+            const sideL = divided && swTags.sidewalk === 'right' ? 0 : sideM, sideR = divided && swTags.sidewalk === 'left' ? 0 : sideM;
+            if (sideR) strip(pts, profile.rightM, profile.rightM + sideR, bridge ? Y.road : yS, side, heights, bridge?.coveredSegments);
+            if (sideL) strip(pts, -profile.leftM - sideL, -profile.leftM, bridge ? Y.road : yS, side, heights, bridge?.coveredSegments);
             if (/primary|secondary|tertiary/.test(cls) && wC > 6) { // dashed centre line
                 for (let i = 0; i < pts.length - 1; i++) { if (bridge?.coveredSegments[i]) continue; const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az); for (let d = 1; d + 3 < L; d += 9) { const f0 = d / L, f1 = (d + 3) / L; strip([[ax + (bx - ax) * f0, az + (bz - az) * f0], [ax + (bx - ax) * f1, az + (bz - az) * f1]], profile.lineOffsetM - 0.07, profile.lineOffsetM + 0.07, (bridge ? Y.road : yA) + 0.005, dash, heights ? [heights[i] + (heights[i + 1] - heights[i]) * f0, heights[i] + (heights[i + 1] - heights[i]) * f1] : null); } }
             }
@@ -6916,7 +7021,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (bridge.coveredSegments[i - 1]) continue;
                 const a = pts[i - 1], b = pts[i], len = Math.hypot(b[0] - a[0], b[1] - a[1]); if (len < 1e-6) continue;
                 const nrm = k => { const p = pts[Math.max(0, k - 1)], q = pts[Math.min(pts.length - 1, k + 1)], L = Math.hypot(q[0] - p[0], q[1] - p[1]) || 1; return [-(q[1] - p[1]) / L, (q[0] - p[0]) / L]; };
-                const n0 = nrm(i - 1), n1 = nrm(i), left = profile.leftM + sideM, right = profile.rightM + sideM;
+                const n0 = nrm(i - 1), n1 = nrm(i), left = profile.leftM + sideL, right = profile.rightM + sideR;
                 const poly = [[a[0] - n0[0] * left, a[1] - n0[1] * left], [b[0] - n1[0] * left, b[1] - n1[1] * left], [b[0] + n1[0] * right, b[1] + n1[1] * right], [a[0] + n0[0] * right, a[1] + n0[1] * right]];
                 const band = sceneryDeckBand(a, b, heights[i - 1], heights[i], bridge.thicknessM), x = (a[0] + b[0]) / 2, z = (a[1] + b[1]) / 2;
                 const top = [band(...a).top, band(...b).top], bottom = top.map(h => h - bridge.thicknessM), c = cellOf(x, z);
@@ -7428,6 +7533,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.trenchGroundCuts = { corridors: trenchQuads.length, triangles: trenchCutTris }; // (ground layers cut out of open trenches)
     stats.trenchGoreCuts = trenchGoreCuts; // (#59: trench wall sides stopped at another sunken ramp)
     stats.buildingOverlapCuts = overlapCuts; // (world-space basin outlines: audits of what stands in or over them)
+    stats.buildingOutlineParts = outlineParts; // (style-estimated outlines left undrawn in favour of the tagged volumes inside them)
     stats.bridgeGuardCompletion = guardCompletion;
     stats.basarabLamps = basarabLamps;
     stats.barrierJoins = walls.barrierJoins || null;

@@ -12,7 +12,7 @@
 //  level is an exact floor (Ground.addFloor) cut out of the terrain, with its own paving and walls.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
-import { GeoBatch, rng, canvas, canvasTexture, clamp, lerp, smooth, inPoly } from '../kit.js';
+import { GeoBatch, rng, canvas, canvasTexture, clamp, lerp, smooth, inPoly, distSeg } from '../kit.js';
 import { triangulate } from '../../building-overlap.js';
 import { neonSign, signBoard, railing } from '../props.js';
 import { wallGeometry, facadeMaterial, facadeStyle } from '../osm.js';
@@ -35,6 +35,9 @@ const EDGES = [
     ['east3', 'east2', 'gum'], ['east2', 'east1', 'gum'], ['east1', 'east0', 'gum'], ['east0', 'econ', 'under'], ['econ', 'e0', 'econ'], ['e0', 'r0', 'open'],
 ];
 export const TRENCH = EDGES.map(([a]) => P[a]);
+/** what stands along the lower level at (x, z), if a wall of it runs there: 'gum' / 'alley' / 'alleyGum' (the brick and gum linings
+ *  of Post Alley), 'econ' (the Economy Market along the ramp), 'retain', 'under'… or null */
+export function lowerWallKind(x, z) { let best = null, bd = 1.2; for (const [a, b, kind] of EDGES) { const d = distSeg(x, z, P[a][0], P[a][1], P[b][0], P[b][1]).d; if (d < bd) { bd = d; best = kind; } } return best; }
 const COVER = [P.rDeck, P.rTurn, P.nookN, P.nookS, P.west0, P.west1, P.west2, P.west3, P.east3, P.east2, P.east1, P.east0, P.econ]; // under the market (OSM roof w1275882967 + passage building w1275882966)
 const DECK = [P.rDeck, P.rTurn, P.nookN, P.nookS, P.west0, P.west1, P.east0, P.econ];                                              // … of which the market-level walkway
 const BRIDGE = [[-38.7, 70.2], [-36.2, 68.9], [-33.9, 67.5], [-34.5, 66.5], [-43.8, 51.6], [-45.5, 48.8], [-48.4, 50.6], [-50.3, 51.7], [-39.3, 69.1]]; // OSM w1275882966, the building over the alley

@@ -258,7 +258,7 @@ export function decodeDistrictPack(u8) {
     const nslot = fieldCount * CLASSES * NT, fval = new Float64Array(nslot), fval2 = new Float64Array(nslot), fset2 = new Uint8Array(nslot), flo = new Uint32Array(nslot), fhi = new Uint32Array(nslot), fset = new Uint8Array(nslot);
     const MAXD = 256, aval = new Float64Array(MAXD * NT), alo = new Uint32Array(MAXD * NT), ahi = new Uint32Array(MAXD * NT), agen = new Int32Array(MAXD * NT);
     const fmax = new Float64Array(fieldCount), fmaxSet = new Uint8Array(fieldCount);
-    let depth = 0, gen = 0;
+    let depth = 0, gen = 0, lastK = 0;
     const fields = new Fields(), rowList = [];
     // t: tag; fc: field * CLASSES + class; ab: array slot base for this tag (−1: held by an object key); g: array generation
     const num = (t, fc, ab, g) => {
@@ -282,6 +282,7 @@ export function decodeDistrictPack(u8) {
         if (ab >= 0) { aval[as] = k; agen[as] = g; }
         if (fset[fs]) { fval2[fs] = fval[fs]; fset2[fs] = 1; }
         fval[fs] = k; fset[fs] = 1;
+        lastK = k;
         return t === T.INT ? k : k / POW[ti];
     };
     // The decoder writes the JSON text and JSON.parse builds the objects: the same objects, and in the same V8
@@ -290,9 +291,13 @@ export function decodeDistrictPack(u8) {
     const jstr = new Array(strings.length), J = (id) => jstr[id] ?? (jstr[id] = JSON.stringify(strings[id]));
     const shapeKeys = shapes.map((keys) => keys.map((k) => JSON.stringify(k) + ':'));
     const fmt = (v) => (v === 0 && 1 / v < 0 ? '-0' : '' + v);
+    // a scaled decimal k / 10^p as text: the integer's digits with the point put in. JSON.parse of that decimal gives
+    // the correctly rounded double, which is k / 10^p (also correctly rounded), and integer formatting is much faster
+    const decText = (k, p) => { const neg = k < 0; let d = '' + (neg ? -k : k); if (d.length <= p) d = '0'.repeat(p - d.length + 1) + d; return (neg ? '-' : '') + d.slice(0, d.length - p) + '.' + d.slice(d.length - p); };
+    const numText = (t, v) => (t === T.INT || t === T.F64 ? fmt(v) : decText(lastK, t - T.INT));
     const read = (field, inArray) => {
         const t = u8[tp++];
-        if (t >= T.INT && t <= T.F64) return fmt(num(t, field * CLASSES, -1, 0));
+        if (t >= T.INT && t <= T.F64) return numText(t, num(t, field * CLASSES, -1, 0));
         switch (t) {
             case T.NULL: return 'null';
             case T.FALSE: return 'false';
@@ -316,7 +321,7 @@ export function decodeDistrictPack(u8) {
                 for (let j = 0; j < n; j++) {
                     const x = u8[tp];
                     if (j) out += ',';
-                    if (x >= T.INT && x <= T.F64) { tp++; const v = num(x, base + (j < CLASSES ? j : CLASSES - 1), ab, g); if (nums) nums.push(v); out += fmt(v); }
+                    if (x >= T.INT && x <= T.F64) { tp++; const v = num(x, base + (j < CLASSES ? j : CLASSES - 1), ab, g); if (nums) nums.push(v); out += numText(x, v); }
                     else { out += read(el, true); numeric = false; }
                 }
                 depth--;

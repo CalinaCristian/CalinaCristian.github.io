@@ -31,6 +31,7 @@ export class Ground {
         this.mods = [];      // (x, z, h) => h
         this.waterY = null;  // set by scenes with open water: the walker can't wade in
         this.surfaces = [];  // walkable solids: { box?, poly?, hm?, top(x,z), bottom, wallAbove? }
+        this.floors = [];    // exact floors: { poly, bb, y(x,z) } (see addFloor)
         this._cache = new Map();
     }
     /**
@@ -171,10 +172,17 @@ export class Ground {
     }
     /** is (x, z) on the conformed street network (carriageway, sidewalk, footway, plaza)? */
     onStreet(x, z) { const c = this.c; if (!c) return false; const i = Math.round((x - c.x0) / c.d), j = Math.round((z - c.z0) / c.d); return i >= 0 && j >= 0 && i < c.nx && j < c.nz && c.streets[j * c.nx + i] === 1; }
+    /**
+     * An exact floor: inside `poly` the walking surface is y(x, z) with a sharp edge (a sunken ramp below a retaining
+     * wall, an alley under a building), which the 2 m terrain grid cannot draw. heightAt() keeps the ground around it
+     * (the top of its walls); the scene cuts the same ring out of the terrain (terrainOpts.cutouts) and draws the floor.
+     */
+    addFloor(poly, y) { this.floors.push({ poly, bb: polyBox(poly), y: typeof y === 'function' ? y : () => y }); }
+    floorAt(x, z) { for (const f of this.floors) { const b = f.bb; if (x >= b.x0 && x <= b.x1 && z >= b.z0 && z <= b.z1 && inPoly(x, z, f.poly)) return f.y(x, z); } return null; }
     /** terrain + modifiers (the visible ground) */
     heightAt(x, z) { let h = this.base(x, z); for (const m of this.mods) h = m(x, z, h); return h; }
     /** Physical floor: use the emitted terrain triangles once buildTerrain exists. */
-    terrainHeightAt(x, z) { return this.renderedHeightAt?.(x, z) ?? this.sourceTerrain?.renderedHeightAt?.(x,z) ?? this.heightAt(x, z); }
+    terrainHeightAt(x, z) { if (this.floors.length) { const f = this.floorAt(x, z); if (f !== null) return f; } return this.renderedHeightAt?.(x, z) ?? this.sourceTerrain?.renderedHeightAt?.(x,z) ?? this.heightAt(x, z); }
     waterHeightAt(x,z) { return this.sourceTerrain?.waterAt ? this.sourceTerrain.waterAt(x,z) : this.waterY; }
     /** add a modifier (x,z,h)=>h */
     mod(fn) { this.mods.push(fn); return this; }

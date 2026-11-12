@@ -25,6 +25,7 @@ import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, offset
 import { clockFace } from '../props.js';
 import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, flagpole, palisade, hedge, osmPoly, cityFiller, placeLandmark, bucActivity } from '../buc.js';
 import { addTraffic } from '../cars.js';
+import { mappedTreeSizes, alleyHedges } from '../buc-streetscape.js';
 
 const CREAM = '#d9ccb2', CREAM2 = '#e3d8c2', ROOF = '#bdb6a7';
 /** x of a roughly N–S polyline at z (null outside its z range) */
@@ -38,14 +39,21 @@ function palaceGround(ctx) {
     const front = wall.filter(([x, z]) => x > -30 && Math.abs(z) < 300);
     const ret = (id, fb) => d.ways.find((w) => w.id === id)?.pts || [[fb, -300], [fb, 300]];
     const w89 = ret('w1444650053', -89), w49 = ret('w1444650060', -49), w13 = ret('w1444650056', -13);
-    const YP = 6.2; // palace platform above the square
+    // (fidelity pass 2026-11-12) The palace stands on Dealul Arsenalului, well above the square: from Bd. Libertății the
+    // lawns climb behind a tall first retaining wall and the building's base sits over the fence (Street View, May 2025).
+    // The scene DEM is smeared by the building, so the levels are estimates fitted to the raw EU-DEM v1.1 transect across
+    // the lawns (about +8 m at 40 m and +15 m at 60–80 m behind the fence) at the three mapped retaining walls:
+    // platform 16 m (was 6.2 m), sloping lawns 5.5→8 m, 10.5→12.5 m and 15→16 m between the walls.
+    const YP = 16; // palace platform above the square
     const at = (pts, z, fb) => xAtZ(pts, z) ?? fb;
+    const ramp = (x, xa, xb, ya, yb) => ya + (yb - ya) * Math.max(0, Math.min(1, (xa - x) / Math.max(1, xa - xb)));
     // note 20: the esplanade outside the fence is flat paved ground at the level of Piața Constituției (no DEM dip
     // between the fence plinth and the square); the first lawn terrace behind the low plinth sits just above it
     const SQY = (x) => 0.2 - Math.max(0, x - 28) * 0.004;
     const terrace = (x, z) => {
         const xf = at(front, z, 20); if (x > xf) return null;
-        if (x > at(w13, z, -13)) return 0.8; if (x > at(w49, z, -49)) return 2.9; if (x > at(w89, z, -89)) return 4.5; return YP;
+        const x13 = at(w13, z, -13), x49 = at(w49, z, -49), x89 = at(w89, z, -89);
+        if (x > x13) return 0.8; if (x > x49) return ramp(x, x13, x49, 5.5, 8); if (x > x89) return ramp(x, x49, x89, 10.5, 12.5); return ramp(x, x89, x89 - 12, 15, YP);
     };
     g.mod((x, z, h) => {
         if (z < -330 || z > 300 || x < -470 || x > 40) return h;
@@ -163,8 +171,8 @@ function buildGardens(ctx, G, P) {
     const d = ctx.data, g = ctx.ground, b = new GeoBatch();
     for (const [pts, hi] of [[G.w89, 6.3], [G.w49, 4.6], [G.w13, 3.0]]) for (let i = 1; i < pts.length; i++) {
         const [ax, az] = pts[i - 1], [bx, bz] = pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 0.3) continue;
-        const cx = (ax + bx) / 2, cz = (az + bz) / 2, a = Math.atan2(bx - ax, bz - az), yt = g.heightAt(cx - 1.2, cz);
-        b.box(cx, yt - 3.2, cz, 0.7, 3.2 + 0.55, L + 0.15, '#d6ccb9', 'stone', a); void hi;
+        const cx = (ax + bx) / 2, cz = (az + bz) / 2, a = Math.atan2(bx - ax, bz - az), yt = g.heightAt(cx - 1.2, cz), yl = Math.min(yt - 1, g.heightAt(cx + 1.6, cz)) - 0.5;
+        b.box(cx, yl, cz, 0.8, yt + 0.55 - yl, L + 0.15, '#d6ccb9', 'stone', a); b.box(cx, yt + 0.55, cz, 1.0, 0.16, L + 0.2, '#e2dac9', 'stone', a); void hi;
     }
     // forecourt drive loop (asphalt) + parterre in its centre
     const loop = d.ways.find((w) => w.id === 'w178305821')?.pts;
@@ -190,9 +198,27 @@ function buildGardens(ctx, G, P) {
     for (const w of d.ways) if (w.barrier === 'hedge' || w.k === 'hedge') { if (w.pts.some(([x, z]) => x > -200 && x < 40 && Math.abs(z) < 300)) hedge(ctx, b, w.pts, { h: 1.0, w: 0.8, colour: '#3a5a2c' }); }
     // three flags on the lawn facing the boulevard (EU · RO · NATO)
     const flags = [];
-    for (const [z, k] of [[-31, 'eu'], [-10.5, 'ro'], [10, 'nato']]) { const x = -24, f = flagpole(x, g.heightAt(x, z), z, 26, k, { yaw: Math.PI * 0.85 }); ctx.add(f.group); flags.push(f); ctx.circle(x, z, 0.3, 26); }
-    // the grounds' wall: stone plinth + iron palisade along Bd. Libertății (and around the park)
-    const mats = palisade(ctx, b, G.wall, { h: 1.9, plinth: 0.6, post: 4.5 });
+    // (fidelity pass 2026-11-12: Street View shows the three flags on masts right in front of the portico, about as tall as
+    // its columns, not 26 m masts on the lawn by the fence; mast height is an estimate)
+    for (const [z, k] of [[-17.5, 'eu'], [-10.5, 'ro'], [-3.5, 'nato']]) { const x = P.portico.x + 12, f = flagpole(x, g.heightAt(x, z), z, 14, k, { yaw: Math.PI * 0.85 }); ctx.add(f.group); flags.push(f); ctx.circle(x, z, 0.3, 14); }
+    // the grounds' wall. Along Bd. Libertății (Street View, May 2025): a solid pale stone wall about 2.2 m high on a base
+    // course, square stone piers with caps about every 8 m and a short wrought-iron grille between them; elsewhere the
+    // earlier plinth + palisade stays (not reviewed). Sizes are estimates.
+    const isFront = ([x, z]) => x > -30 && Math.abs(z) < 300, runs = []; let cur = null;
+    for (let i = 1; i < G.wall.length; i++) { const A = G.wall[i - 1], B = G.wall[i], f = isFront(A) && isFront(B); if (cur && cur.f === f) cur.pts.push(B); else runs.push(cur = { f, pts: [A, B] }); }
+    let mats = {};
+    for (const run of runs) {
+        if (!run.f) { mats = palisade(ctx, b, run.pts, { h: 1.9, plinth: 0.6, post: 4.5 }); continue; }
+        mats = palisade(ctx, b, run.pts, { h: 0.85, plinth: 2.2, post: 1e6, plinthCol: '#d8cfbc' });
+        let carry = 0;
+        for (let i = 1; i < run.pts.length; i++) {
+            const [ax, az] = run.pts[i - 1], [bx, bz] = run.pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 0.2) continue; const a = Math.atan2(bx - ax, bz - az), cx = (ax + bx) / 2, cz = (az + bz) / 2, yb = Math.min(g.heightAt(ax, az), g.heightAt(bx, bz));
+            b.box(cx, yb - 0.3, cz, 0.72, 0.85, L + 0.3, '#cfc5b1', 'stone', a); b.box(cx, yb + 2.2, cz, 0.6, 0.12, L + 0.3, '#e4dccb', 'stone', a); // base course, coping
+            let u = carry;
+            for (; u <= L; u += 8) { const x = ax + (bx - ax) * u / L, z = az + (bz - az) * u / L, y = g.heightAt(x, z); b.box(x, y - 0.3, z, 0.95, 3.5, 0.95, '#ddd4c2', 'stone', a); b.box(x, y + 3.2, z, 1.15, 0.2, 1.15, '#e8e0cf', 'stone', a); b.box(x, y + 3.4, z, 0.7, 0.22, 0.7, '#ddd4c2', 'stone', a); }
+            carry = u - L;
+        }
+    }
     ctx.add(b.build('palace-gardens', { matOverrides: { ...mats } }));
     return { flags };
 }
@@ -395,7 +421,21 @@ export default {
         // trees: species-specific shapes (clipped thuja cones on the palace slopes, firs), no trees on the square
         ctx.trees = ctx.trees.filter((t) => !(sq && inPoly(t.x, t.z, sq)) && !inPoly(t.x, t.z, P.outer));
         // the view down the axis from the clock / Bd. Unirii head to the palace stays open (median gardens: low planting only)
-        ctx.trees = ctx.trees.filter((t) => !(t.x > -20 && t.x < 290 && Math.abs(t.z + 8) < 26));
+        // (fidelity pass 2026-11-12) That strip was 52 m wide round z = -8 all the way to x = 290, but the boulevard's axis
+        // runs at z ≈ +13 there: it removed the whole mapped north tree row (107 trees) and kept the south one. Now: the
+        // square's axis up to the boulevard head, then only the median between the two mapped carriageways.
+        const zEB = (x) => 20 + Math.max(0, x - 172) * 0.077, zWB = (x) => 4 + Math.max(0, x - 171) * 0.06;
+        ctx.trees = ctx.trees.filter((t) => !(t.x > -20 && t.x < 150 && Math.abs(t.z + 8) < 26) && !(t.x >= 150 && t.x < 320 && t.z > zWB(t.x) - 1 && t.z < zEB(t.x) + 1));
+        // mapped trees at their surveyed heights (the young limes and chestnuts on Calea 13 Septembrie are 5–12 m, not one
+        // nominal crown that hid the cathedral); no generated street trees where the survey covers the street
+        ctx.extras.mappedTrees = mappedTreeSizes(ctx);
+        // clipped hedges along the mapped promenade alleys of Bd. Unirii (Street View, May 2025: both sides of the brick
+        // alleys run between shoulder-high hedges under the trees). Not mapped in OSM: offsets and height are estimates.
+        { const hb = new GeoBatch(), foot = d.ways.filter((w) => ['footway', 'path', 'pedestrian', 'cycleway', 'service', 'residential', 'primary', 'secondary', 'tertiary'].includes(w.k));
+            for (const id of ['w1532236230', 'w1522615963', 'w1532236231']) { const w = d.ways.find((q) => q.id === id); if (!w) continue;
+                const pts = w.pts.filter(([x]) => x < 430); if (pts.length < 2) continue;
+                alleyHedges(ctx, hb, pts, { off: 2.4, h: 1.25, open: (x, z) => x < 172 || foot.some((q) => q !== w && distPolyline(x, z, q.pts).d < (q.k === 'footway' || q.k === 'path' ? 2.6 : 5.5)) || d.buildings.some((bd) => !bd.part && inPoly(x, z, bd.poly)) }); }
+            ctx.add(hb.build('unirii-alley-hedges')); }
         for (const [x, z, , sp] of d.trees) { if (!/Thuja|Juniperus|Taxus|Abies|Picea|Pinus/.test(sp)) continue; const t = ctx.trees.find((q) => Math.abs(q.x - x) < 0.01 && Math.abs(q.z - z) < 0.01); if (!t) continue; t.kind = 'con'; if (/Thuja|Juniperus|Taxus/.test(sp)) { t.s = 0.42 + ((x * 7 + z * 3) % 1 + 1) % 1 * 0.12; t.sy = 1.35; t.c = '#2f5233'; } }
         // parked cars on the square (rows, most of the year it is a car park)
         const parked = [], r = rng(31);

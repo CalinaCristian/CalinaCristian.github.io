@@ -14,6 +14,7 @@ import { clockFace, railing } from '../props.js';
 import { shortWaterRoute, dryLanding } from '../water-route.js';
 import { backgammonGame } from '../backgammon-game.js';
 import { addBikeRental } from '../bike.js';
+import { bust, standingFigure } from '../buc-streetscape.js';
 
 // Signed distance to a ring (m; > 0 outside, < 0 inside), sampled on a grid round it and read back bilinearly. Beyond the
 // grid, `far` (positive: outside). Rows use a scanline for inside/outside.
@@ -46,7 +47,7 @@ function ringOffset(ring, d) {
         const k = d / Math.max(0.5, mx * n1x + mz * n1z); return [px + mx * k, pz + mz * k]; });
 }
 
-const WRITERS = ['Mihai Eminescu', 'Ion Creangă', 'Ion Luca Caragiale', 'Vasile Alecsandri', 'George Coșbuc', 'Alexandru Vlahuță', 'Barbu Ștefănescu Delavrancea', 'Duiliu Zamfirescu', 'Titu Maiorescu', 'Nicolae Bălcescu', 'Alexandru Odobescu', 'Ștefan Octavian Iosif'];
+const WRITERS = ['Mihai Eminescu', 'Ion Creangă', 'Ion Luca Caragiale', 'Vasile Alecsandri', 'George Coșbuc', 'Alexandru Vlahuță', 'Bogdan Petriceicu Hasdeu', 'Duiliu Zamfirescu', 'Titu Maiorescu', 'Nicolae Bălcescu', 'Alexandru Odobescu', 'Ștefan Octavian Iosif'];
 
 export default {
     env: { fogFar: 2600, ambientCity: 0.2, groundAlbedo: 0.1 },
@@ -163,9 +164,15 @@ export default {
         if (rink) { const yy = g.heightAt(...centroid(rink)), ice = new GeoBatch(); ice.flat(rink, yy + .08, '#dfe9ee', 'glass'); const rinkMesh = ice.build('winter-rink'); rinkMesh.visible = false; ctx.add(rinkMesh); ctx.onUpdate((dt,s) => { rinkMesh.visible = winterSeason(s); }); }
         // the Writers' Rotunda: 12 busts on plinths round a paved circle
         const rot = d.pois.find((p) => p.id === 'n473428600') || { x: -162.6, z: 27.1 };
-        { const y = g.heightAt(rot.x, rot.z); ctx.painter.custom((x, T, k) => { const [px, py] = T(rot.x, rot.z); x.fillStyle = '#b8b0a2'; x.beginPath(); x.arc(px, py, 13 * k, 0, 7); x.fill(); x.fillStyle = '#6c8a44'; x.beginPath(); x.arc(px, py, 5 * k, 0, 7); x.fill(); });
-            WRITERS.forEach((nm, i) => { const a = i / 12 * Math.PI * 2, x = rot.x + Math.cos(a) * 10.5, z = rot.z + Math.sin(a) * 10.5, yaw = Math.atan2(rot.x - x, rot.z - z); b.box(x, y, z, 0.7, 1.75, 0.7, '#d8d4cb', 'stone', yaw); b.box(x, y + 1.75, z, 0.82, 0.1, 0.82, '#e4e0d7', 'stone', yaw); b.sphere(x, y + 2.02, z, 0.42, 0.2, 0.24, '#f1efe9', 'stone', 10, 6); b.cyl(x, y + 2.1, z, 0.08, 0.16, '#f1efe9', 'stone', 8); b.sphere(x, y + 2.42, z, 0.15, 0.19, 0.17, '#f1efe9', 'stone', 10, 8); ctx.circle(x, z, 0.5, 2.8); signs.push({ x: x + Math.sin(yaw) * 0.42, y: y + 1.05, z: z + Math.cos(yaw) * 0.42, yaw, w: 0.78, h: 0.24, text: nm.toUpperCase(), bg: '#d8d4cb', fg: '#2a2a2a', border: false }); });
-            for (let i = 0; i < 12; i++) { const a = (i + 0.5) / 12 * Math.PI * 2; bench(b, rot.x + Math.cos(a) * 12.6, y, rot.z + Math.sin(a) * 12.6, Math.atan2(rot.x - (rot.x + Math.cos(a)), rot.z - (rot.z + Math.sin(a))), '#6e5a42', '#2e3236'); } }
+        // (fidelity pass 2026-11-12) OSM maps the twelve busts one by one (nodes 10877381995–10877399406): they stand on a ring
+        // of about 21 m radius, not 10.5 m, and the twelfth writer is B. P. Hasdeu (the scene had Delavrancea). Each bust now
+        // stands on its mapped node under its mapped name; ring paving and bench places are estimates.
+        const rotBusts = (() => { const m = d.pois.filter((q) => q.artwork_type === 'bust' && q.name && Math.hypot(q.x - rot.x, q.z - rot.z) < 34); return m.length === 12 ? m.map((q) => ({ name: q.name, x: q.x, z: q.z })) : WRITERS.map((name, i) => { const a = i / 12 * Math.PI * 2; return { name, x: rot.x + Math.cos(a) * 21, z: rot.z + Math.sin(a) * 21 }; }); })();
+        const rotR = rotBusts.reduce((t, q) => t + Math.hypot(q.x - rot.x, q.z - rot.z), 0) / 12;
+        { const y = g.heightAt(rot.x, rot.z); ctx.painter.custom((x, T, k) => { const [px, py] = T(rot.x, rot.z); x.fillStyle = '#b8b0a2'; x.beginPath(); x.arc(px, py, (rotR + 3) * k, 0, 7); x.fill(); x.fillStyle = '#6c8a44'; x.beginPath(); x.arc(px, py, (rotR - 4.5) * k, 0, 7); x.fill(); });
+            rotBusts.forEach(({ name: nm, x, z }) => { const yaw = Math.atan2(rot.x - x, rot.z - z); b.box(x, y, z, 0.7, 1.75, 0.7, '#d8d4cb', 'stone', yaw); b.box(x, y + 1.75, z, 0.82, 0.1, 0.82, '#e4e0d7', 'stone', yaw); b.sphere(x, y + 2.02, z, 0.42, 0.2, 0.24, '#f1efe9', 'stone', 10, 6); b.cyl(x, y + 2.1, z, 0.08, 0.16, '#f1efe9', 'stone', 8); b.sphere(x, y + 2.42, z, 0.15, 0.19, 0.17, '#f1efe9', 'stone', 10, 8); ctx.circle(x, z, 0.5, 2.8); signs.push({ x: x + Math.sin(yaw) * 0.42, y: y + 1.05, z: z + Math.cos(yaw) * 0.42, yaw, w: 0.78, h: 0.24, text: nm.toUpperCase(), bg: '#d8d4cb', fg: '#2a2a2a', border: false }); });
+            const angs = rotBusts.map((q) => Math.atan2(q.z - rot.z, q.x - rot.x)).sort((m, n) => m - n);
+            for (let i = 0; i < 12; i++) { const a0 = angs[i], a1 = i < 11 ? angs[i + 1] : angs[0] + Math.PI * 2; if (a1 - a0 < 0.3) continue; const a = (a0 + a1) / 2; bench(b, rot.x + Math.cos(a) * (rotR + 0.6), y, rot.z + Math.sin(a) * (rotR + 0.6), Math.atan2(-Math.cos(a), -Math.sin(a)), '#6e5a42', '#2e3236'); } }
         // "La Șahiști": concrete chess tables, players, onlookers
         const ch = d.pois.find((p) => p.id === 'n473428599') || { x: -134.5, z: 78.6 };
         const chessTables = [];
@@ -184,6 +191,16 @@ export default {
         // French Heroes monument, Sissi Stefanidi spring, the pole clock at the Regina Elisabeta gate
         const fh = d.pois.find((p) => p.id === 'n473428601'); if (fh) { const y = g.heightAt(fh.x, fh.z); b.box(fh.x, y, fh.z, 3.2, 1.0, 3.2, '#bdb6a8', 'stone'); b.box(fh.x, y + 1, fh.z, 2.2, 3.2, 1.6, '#d6cfc0', 'stone'); b.sphere(fh.x, y + 4.8, fh.z, 0.55, 0.9, 0.5, '#3f4a3c', 'bronze', 10, 8); ctx.box(fh.x, fh.z, 1.6, 1.6, 0, { y0: y - 1, y1: y + 6 }); }
         const ck = d.pois.find((p) => p.id === 'n10864971740'); if (ck) { const y = g.heightAt(ck.x, ck.z); b.cyl(ck.x, y, ck.z, 0.12, 4.2, '#25332c', 'metal', 8); b.box(ck.x, y + 4.2, ck.z, 0.9, 0.9, 0.9, '#25332c', 'metal'); for (let i = 0; i < 4; i++) { const a = i * Math.PI / 2, c = clockFace(0.78, { timeZone: 'Europe/Bucharest', ink: '#1d1d1d', ring: '#1d1d1d' }); c.position.set(ck.x + Math.sin(a) * 0.46, y + 4.65, ck.z + Math.cos(a) * 0.46); c.rotation.y = a; ctx.add(c); } signs.push({ x: ck.x, y: y + 5.45, z: ck.z + 0.46, yaw: 0, w: 1.2, h: 0.28, text: 'CIȘMIGIU', bg: '#25332c', fg: '#e8d9a8', border: false }); ctx.circle(ck.x, ck.z, 0.2, 5); }
+        // (fidelity pass 2026-11-12) the other mapped busts, statues and memorials of the garden, each at its OSM node with a
+        // name plate (stylised volumes; makers are not credited: no sourced text). Each faces the nearest alley.
+        { const alleys = d.ways.filter((w) => ['footway', 'path', 'pedestrian'].includes(w.k)), face = (q) => { let m = null; for (const w of alleys) { const c = distPolyline(q.x, q.z, w.pts); if (!m || c.d < m.d) m = c; } return m ? Math.atan2(m.cx - q.x, m.cz - q.z) : 0; };
+            const plate = (q, yaw, hy, w = 0.9) => signs.push({ x: q.x + Math.sin(yaw) * 0.36, y: g.heightAt(q.x, q.z) + hy, z: q.z + Math.cos(yaw) * 0.36, yaw, w, h: 0.22, text: q.name.toUpperCase(), bg: '#d8d4cb', fg: '#2a2a2a', border: false });
+            for (const q of d.pois) { if (!q.name || rotBusts.some((m) => Math.hypot(m.x - q.x, m.z - q.z) < 0.5) || q.id === 'n473428601') continue; const yaw = face(q);
+                if (q.artwork_type === 'bust') { bust(b, ctx, q.x, q.z, yaw, { plinth: 1.8 }); plate(q, yaw, 1.05, 0.6); }
+                else if (q.artwork_type === 'statue' || (q.historic === 'memorial' && q.memorial === 'statue')) { standingFigure(b, ctx, q.x, q.z, yaw, q.historic ? { h: 3.4, plinth: 2.6, pw: 1.8 } : { h: 1.9, plinth: 0.8, pw: 1.0, metal: '#e9e6dd', mat: 'stone' }); }
+                else if (q.historic === 'memorial' && ['stele', 'war_memorial'].includes(q.memorial)) { const y = g.heightAt(q.x, q.z); b.box(q.x, y, q.z, 1.6, 0.3, 1.0, '#bdb6a8', 'stone', yaw); b.box(q.x, y + 0.3, q.z, 1.1, 2.3, 0.5, '#d6cfc0', 'stone', yaw); ctx.box(q.x, q.z, 0.8, 0.5, yaw, { y0: y - 1, y1: y + 2.8 }); plate({ ...q, x: q.x - Math.sin(yaw) * 0.1, z: q.z - Math.cos(yaw) * 0.1 }, yaw, 1.5, 0.9); }
+                else if (q.amenity === 'fountain') { const y = g.heightAt(q.x, q.z); b.box(q.x, y, q.z, 1.8, 0.5, 1.2, '#bdb6a8', 'stone', yaw); b.box(q.x - Math.sin(yaw) * 0.35, y + 0.5, q.z - Math.cos(yaw) * 0.35, 1.5, 1.5, 0.45, '#d6cfc0', 'stone', yaw); b.box(q.x + Math.sin(yaw) * 0.2, y + 0.5, q.z + Math.cos(yaw) * 0.2, 1.0, 0.06, 0.5, '#4d6a70', 'water', yaw); ctx.box(q.x, q.z, 0.9, 0.6, yaw, { y0: y - 1, y1: y + 2 }); plate(q, yaw, 1.7, 1.2); } }
+        }
         ctx.add(b.build('cismigiu'));
         const SA = signAtlas(signs, { name: 'cismigiu-signs', night: 0.3 }); if (SA) ctx.add(SA);
         // ground, dense old trees, lamps, benches (OSM benches + rows along the lake)
@@ -224,7 +241,7 @@ export default {
                     flush(); } }
             if (hoopM) { ctx.add(hb.build('cismigiu-hoop-borders', { castShadow: false, matOverrides: { hoop: hoopMat } })); ctx.extras.hoopBordersM = Math.round(hoopM); }
         }
-        if (park) { for (const w of d.ways) { if (!['footway', 'path'].includes(w.k) || !w.pts.some(([x, z]) => inPoly(x, z, park))) continue; for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 1) continue; const nx = -(bz - az) / L, nz = (bx - ax) / L; for (let t = r() * 10; t < L; t += 9 + r() * 5) for (const sd of [-1, 1]) { if (r() < 0.35) continue; const x = ax + (bx - ax) * t / L + nx * sd * (3.6 + r() * 2), z = az + (bz - az) * t / L + nz * sd * (3.6 + r() * 2); if (lake && (inPoly(x, z, lake) || distPolyline(x, z, [...lake, lake[0]]).d < 2.5)) continue; if (Math.hypot(x - rot.x, z - rot.z) < 15 || Math.hypot(x - ch.x, z - ch.z) < 7) continue; ctx.trees.push({ x, z, kind: r() < 0.08 ? 'con' : 'broad', s: 1.2 + r() * 0.6 }); } } } }
+        if (park) { for (const w of d.ways) { if (!['footway', 'path'].includes(w.k) || !w.pts.some(([x, z]) => inPoly(x, z, park))) continue; for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 1) continue; const nx = -(bz - az) / L, nz = (bx - ax) / L; for (let t = r() * 10; t < L; t += 9 + r() * 5) for (const sd of [-1, 1]) { if (r() < 0.35) continue; const x = ax + (bx - ax) * t / L + nx * sd * (3.6 + r() * 2), z = az + (bz - az) * t / L + nz * sd * (3.6 + r() * 2); if (lake && (inPoly(x, z, lake) || distPolyline(x, z, [...lake, lake[0]]).d < 2.5)) continue; if (Math.hypot(x - rot.x, z - rot.z) < rotR + 4 || Math.hypot(x - ch.x, z - ch.z) < 7) continue; ctx.trees.push({ x, z, kind: r() < 0.08 ? 'con' : 'broad', s: 1.2 + r() * 0.6 }); } } } }
         ctx.trees = ctx.trees.filter((t) => !(lake && inPoly(t.x, t.z, lake)));
         // keep the alleys clear (no trunks on the paths) and the postcard view along the lake open
         const paths = d.ways.filter((w) => ['footway', 'path', 'pedestrian', 'cycleway', 'service'].includes(w.k));
@@ -243,7 +260,7 @@ export default {
         if (ck) ctx.plaque(PL[0], ck.x + 3, ck.z - 3, Math.PI, { style: 'park', credit: 'Laid out by Wilhelm Mayer (from 1847), completed by Franz Harrer.' });
         ctx.plaque(PL[1], -110.4 + 2.5, -11.4 + 1.5, 0, { style: 'park' });
         if (rink) { const [rx, rz] = centroid(rink); ctx.plaque(PL[2], rx - 18, rz, -Math.PI / 2, { style: 'park' }); }
-        ctx.plaque(PL[3], rot.x + 14.5, rot.z + 2, Math.PI / 2, { style: 'bronze', credit: 'Writers\' Rotunda (1943); busts by several sculptors.' });
+        ctx.plaque(PL[3], rot.x + rotR + 4.5, rot.z + 2, Math.PI / 2, { style: 'bronze', credit: 'Writers\' Rotunda (1943); busts by several sculptors.' });
         ctx.plaque(PL[4], -40, 40, Math.PI / 2, { style: 'park' });
         { const [x,z]=chessTables[2];backgammonGame(ctx,{x,z,y:g.heightAt(ch.x,ch.z)+.8,source:ch.id,onDone:s=>bucActivity(s,'cismigiu','backgammon','🎲 A match at La Șahiști','You bore off all fifteen checkers and beat Doru, a park regular.')}); }
         if (bikeDock) { ctx.extras.bikeRental = addBikeRental(ctx, { x: bikeDock.x, z: bikeDock.z, heading: bikeDock.heading, n: bikeDock.n, name: 'Cișmigiu bike stand', colour: '#2f8f46' }); ctx.extras.bikeRentalSource = { sourced: false, estimatedLayout: true, x: bikeDock.x, z: bikeDock.z, displayedBikes: bikeDock.n }; }
@@ -264,7 +281,7 @@ export default {
             }
         }
         // the Writers' Rotunda: read all twelve names (walk past each bust)
-        { const seen = new Set(); ctx.onUpdate((dt, s) => { const p = s.position; if (Math.hypot(p.x - rot.x, p.z - rot.z) > 14 || seen.size >= 12) return; WRITERS.forEach((nm, i) => { const a = i / 12 * Math.PI * 2; if (Math.hypot(p.x - (rot.x + Math.cos(a) * 9.2), p.z - (rot.z + Math.sin(a) * 9.2)) < 1.6 && !seen.has(nm)) { seen.add(nm); if (seen.size === 12) bucActivity(s, 'cismigiu', 'rotunda', '📖 Twelve writers', 'You stood before every bust in the Rotunda — Eminescu to Iosif.'); } }); }); }
+        { const seen = new Set(); ctx.onUpdate((dt, s) => { const p = s.position; if (Math.hypot(p.x - rot.x, p.z - rot.z) > rotR + 6 || seen.size >= 12) return; rotBusts.forEach(({ name: nm, x: bx, z: bz }) => { const k = 1 - 1.5 / rotR; if (Math.hypot(p.x - (rot.x + (bx - rot.x) * k), p.z - (rot.z + (bz - rot.z) * k)) < 1.9 && !seen.has(nm)) { seen.add(nm); if (seen.size === 12) bucActivity(s, 'cismigiu', 'rotunda', '📖 Twelve writers', 'You stood before every bust in the Rotunda — Eminescu to Iosif.'); } }); }); }
         ctx.challenge('cismigiu', { x: ctx.extras.shore.x, z: ctx.extras.shore.z, r: 12, tol: 30 });
         // crowd
         ctx.crowdCfg = {

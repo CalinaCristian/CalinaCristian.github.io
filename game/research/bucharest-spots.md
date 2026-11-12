@@ -421,3 +421,67 @@ Persona library (`dialogue_general.persona_library`): local_elder, local_young, 
 - Colours are measured from photos under varying light; *_hex values are judged albedos - validate in the render pass.
 - Exact paving patterns (fan setts at Stavropoleos, cobbles in Lipscani) are photo-derived, not surveyed.
 - KartaView/Mapillary street imagery not used (Mapillary needs a token).
+
+## 5. Fidelity review 2026-11-12 (Parliament, Old Town, Cișmigiu, Athenaeum scenes)
+
+Method: OSM decides where things are (scene extracts of 2026-11-07; live Overpass re-read for the Parliament and Old Town
+boxes, single objects through the OSM API); Google Street View panoramas were looked at next to game renders from the same
+position and bearing, as a visual reference only (nothing stored, traced or measured from them). What a panorama showed and
+OSM does not map is listed here as an estimate.
+
+### Palace of the Parliament / Piața Constituției
+- **Hill.** From Bd. Libertății (official panorama, May 2025, about 44.42744, 26.09073) the lawns climb behind a tall first
+  retaining wall and the palace base stands above the fence line. The scene DEM is smeared by the building; the raw EU-DEM
+  v1.1 transect on the axis reads about +8 m at 40 m and +15 m at 60–80 m behind the fence. Scene levels (estimates):
+  platform +16 m over the square (was +6.2 m), lawns 5.5→8 m, 10.5→12.5 m, 15→16 m between the three mapped retaining walls
+  (OSM ways 1444650056 / 1444650060 / 1444650053).
+- **Perimeter wall on Bd. Libertății**: a solid pale stone wall about 2.2 m high on a base course, square stone piers with
+  caps about every 8 m, a short wrought-iron grille between the piers (it was a 0.6 m plinth with a 1.9 m see-through
+  palisade). Sizes estimated. The wall on the other three sides was not reviewed.
+- **Flags**: three masts stand right in front of the portico, about as tall as its columns (they were 26 m masts on the lawn
+  by the fence).
+- **Piața Constituției** is a car park most of the year (panorama of July 2019 on the square): matches.
+- **Bd. Unirii head**: both promenades have mapped tree rows (OSM natural=tree with heights; 107 trees north, 145 south
+  between x 150 and 330 m of the scene) and brick alleys between shoulder-high clipped hedges (panoramas May 2025 on both
+  alleys). The scene removed the whole north row (its "open axis" strip was centred 20 m north of the boulevard's real
+  axis). Hedges are not mapped: their offset (2.4 m from the alley centre line) and height (1.25 m) are estimates.
+- **Fountains**: the two mapped basins (ways 1177217420 / 1177217423) sit in the median between the two carriageways: match.
+- **Mapped tree heights**: the OSM tree survey gives each tree a height (5–36 m). Crowns are now sized by it; generated
+  street trees are dropped within 16 m of a mapped tree. On Calea 13 Septembrie the limes and chestnuts are 5–12 m, so the
+  cathedral is seen from the street as in the May 2025 panoramas (it was hidden behind a wall of full-size crowns).
+- Not reviewed against a panorama: the cathedral precinct from inside (no official panorama on the piazza), Izvor park
+  edge, the palace's north / south / west sides, the Senate gardens (Uranus memorial, relation 19749443).
+
+### Old Town (walk: Lipscani 28–71 and upper Smârdan)
+- Live OSM in the walk polygon: 84 named businesses, 16 tourist items, 2 passages (Hanul cu Tei way 658009190, Pasajul
+  Gabroveni way 304275386), 5 disused venues (not shown, correct). The scene data matches it; node 1731040985 is still
+  "Mojo Music Club" on the OSM API (one Overpass mirror returned an older "Mao Pub").
+- 37 of the 90 named venues had no sign (clubs, hotels, hostels, banks, museums, galleries, theatres, and names dropped
+  where another sign held the wall). They now get one (second row where the wall is taken). The five strip clubs / massage
+  parlours are left unnamed on purpose; shops inside the Hanul cu Tei passage have no street front and stay unsigned.
+- Panoramas of May 2025 on Lipscani and Smârdan: continuous terraces with awnings, cobbles, lanterns, festoons: the
+  character matches; individual awning colours and terrace sizes remain estimates.
+
+### Cișmigiu
+- **Rotonda Scriitorilor**: OSM maps the twelve busts one by one (nodes 10877381995–10877382004, 10877399405,
+  10877399406) on a ring of about 21 m radius: Bălcescu, Coșbuc, Odobescu, Vlahuță, Alecsandri, Hasdeu, Eminescu,
+  Maiorescu, Caragiale, Iosif, Creangă, Zamfirescu. The scene had a 10.5 m ring and Delavrancea instead of Hasdeu.
+- Other mapped monuments now shown at their nodes: busts of Gheorghe Panu, Theodor Șerbănescu, Traian Demetrescu, Maica
+  Smara, Iosif Sava; statues Nimfa and Avântul Țării; Monumentul Sturdza (stele), Monumentul Eroilor Americani; Izvorul
+  Sissi Stefanidi. Shapes are stylised.
+- The only official panoramas inside the garden date from August 2012 (too old to judge kiosks, benches or planting).
+  Live Overpass did not answer for this box on the review day: the inventory is the 2026-11-07 extract.
+
+### Athenaeum / Piața Revoluției
+- **Royal Palace (MNAR)**: beige limestone, rusticated ground floor with arched windows, two upper storeys between paired
+  pilasters, attic balustrade, lawn and trees in the court (panoramas September 2024). The landmark model used in the scene
+  is a mass model in the mapped colour name, almost windowless, and read as an olive block; the scene now draws the palace
+  front on the mapped outline (way 232472401), 17.5 m high after the mapped parts (15.7–18 m).
+- **Athenaeum garden** (way 23556716): closed by a white stone balustrade on a low wall, tall old trees with many
+  conifers (panoramas August 2023). Eminescu (node 1911337561) is a standing bronze figure on a low base.
+- **Central University Library**: dark slate mansard and corner domes behind the cornice.
+- **Kretzulescu church** (way 1476760553): red brick with two towers; it was drawn as a plastered house.
+- Mapped statues added: Corneliu Coposu, Avram Iancu, Alexander Dubček (busts), the three sculptures in the palace court
+  (nodes 11068954269–71), the Iuliu Maniu memorial (way 1454535798).
+- Name signs for 80 mapped venues and the named hotels / theatres on their own buildings.
+- Live Overpass did not answer for this box on the review day: the inventory is the 2026-11-07 extract.

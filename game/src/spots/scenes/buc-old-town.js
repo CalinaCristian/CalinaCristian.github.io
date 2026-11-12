@@ -27,6 +27,7 @@ import { walkBoundary, markVisitExits } from '../walk-boundary.js';
 import {freddoFrontagePlan,oldTownGlazing} from './freddo-look.js';
 import {buildCaruselInterior} from './carusel-interior.js';
 import { buildOldTownDaylife } from './old-town-daylife.js';
+import { poiSigns } from '../buc-streetscape.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
 const simplifyRing = (p, tol) => { const s2 = simplify([...p, p[0]], tol); s2.pop(); return s2.length >= 3 ? s2 : p; };
@@ -481,6 +482,14 @@ export default {
         }
         const BUSKER = { x: 60, z: -66, crowd: [62, -62] };
         const signs = [...TR.signs];
+        // (fidelity pass 2026-11-12) 37 of the 90 named venues mapped in the walk had no sign: the terrace pass only names
+        // shops and places to eat, and drops a name when another sign already holds that stretch of wall. The clubs, hotels,
+        // hostels, banks, museums, galleries and theatres of Lipscani / Smârdan now carry theirs too (second row where the
+        // wall is taken). The five strip clubs / massage parlours stay unnamed on purpose; Freddo keeps its own front.
+        { const have = new Set(TR.signs.map((s) => s.source));
+            const X = poiSigns(ctx, { inside: focused, taken: TR.signs, max: 40, seed: 5, streets: d.ways.filter((w) => ['pedestrian', 'living_street'].includes(w.k) && !w.tunnel),
+                accept: (p) => !have.has(p.id) && p.id !== 'n1416523788' && p.amenity !== 'stripclub' && (!!p.shop || ['restaurant', 'bar', 'cafe', 'pub', 'fast_food', 'ice_cream', 'nightclub', 'bank', 'theatre', 'arts_centre'].includes(p.amenity) || ['hotel', 'hostel', 'museum', 'gallery'].includes(p.tourism)) });
+            signs.push(...X.signs); ctx.extras.extraVenueSigns = { signs: X.signs.map((s) => ({ source: s.source, text: s.text })), skipped: X.skipped }; }
         if (caruB) signs.push({ x: -111, y: g.heightAt(-111, -71.5) + 5.4, z: -71.4, yaw: 0, w: 6.2, h: 1.0, text: "CARU' CU BERE", bg: '#2a1d14', fg: '#e8c870', font: (q) => `700 ${q}px "Times New Roman", serif` });
         // Hanul cu Tei (Lipscani 63–65 → Blănari 14, 1833): the arched gateways of the inn's passage, painted lettering over the arch
         { const blds = d.buildings.filter((x) => !x.part).map((x) => ({ p: x.poly, bb: polyBox(x.poly) })), hb = new GeoBatch();
@@ -494,7 +503,7 @@ export default {
             ctx.lampPoints.push({ x: cxm, z: zf, h: 3.0, noPost: true });
           }
           ctx.add(hb.build('hanul-cu-tei')); }
-        const SA = signAtlas(signs.slice(0, 96), { name: 'shop-signs' }); if (SA) ctx.add(SA);
+        const SA = signAtlas(signs.slice(0, 128), { name: 'shop-signs' }); if (SA) ctx.add(SA);
         // festoon string lights strung between façade brackets (note 25: replaces the loose overhead cables)
         const FEST = festoons(ctx, OT.ways);
         // by day and beyond the club: a coffee, papanași, karaoke, the busker's case, a photo walk (old-town-daylife.js)

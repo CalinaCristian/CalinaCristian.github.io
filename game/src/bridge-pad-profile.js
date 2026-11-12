@@ -13,7 +13,11 @@ export function sharedBridgePadSurface(node,poly,edges,heightFor,{baseM=.24}={})
  const inside=(()=>{let sign=0;for(let i=0;i<P.length;i++){const a=P[i],b=P[(i+1)%P.length],v=(b[0]-a[0])*(node.z-a[1])-(b[1]-a[1])*(node.x-a[0]);if(Math.abs(v)<1e-9)continue;if(sign&&Math.sign(v)!==sign)return false;sign=Math.sign(v);}return true;})(),center=inside?[node.x,node.z]:[P.reduce((v,p)=>v+p[0],0)/P.length,P.reduce((v,p)=>v+p[1],0)/P.length];
  const C=[Math.fround(center[0]),Math.fround(baseM+(inside?node.y:nearest(center))),Math.fround(center[1])],boundary=rows.map(r=>[Math.fround(r.p[0]),Math.fround(baseM+(r.edge?heightFor(r.edge,r.p):nearest(r.p))),Math.fround(r.p[1])]),triangles=boundary.map((p,i)=>[C,p,boundary[(i+1)%boundary.length]]);
  const heightAtWorld=(x,z)=>{for(const [a,b,c]of triangles){const den=(b[2]-c[2])*(a[0]-c[0])+(c[0]-b[0])*(a[2]-c[2]);if(Math.abs(den)<1e-12)continue;const u=((b[2]-c[2])*(x-c[0])+(c[0]-b[0])*(z-c[2]))/den,v=((c[2]-a[2])*(x-c[0])+(a[0]-c[0])*(z-c[2]))/den;if(u>=-1e-5&&v>=-1e-5&&u+v<=1+1e-5)return u*a[1]+v*b[1]+(1-u-v)*c[1]-baseM;}return null;};
+ // (spec 10 load budget) bounds of the hull and the fan: a point more than bandM + 1 m outside them is outside every
+ // fan triangle (its tolerance is 1e-5 of a triangle) and at least bandM from the hull, so its answer is raw
+ let bx0=Infinity,bz0=Infinity,bx1=-Infinity,bz1=-Infinity;for(const p of [...P,...triangles.flat().map(q=>[q[0],q[2]])]){bx0=Math.min(bx0,p[0]);bz0=Math.min(bz0,p[1]);bx1=Math.max(bx1,p[0]);bz1=Math.max(bz1,p[1]);}
  const blendHeight=(x,z,raw,bandM=2)=>{
+  if(x<bx0-bandM-1||x>bx1+bandM+1||z<bz0-bandM-1||z>bz1+bandM+1)return raw;
   const inside=heightAtWorld(x,z);if(inside!==null)return inside;
   let nearest=Infinity;for(let i=0;i<P.length;i++){const a=P[i],b=P[(i+1)%P.length],dx=b[0]-a[0],dz=b[1]-a[1],t=Math.max(0,Math.min(1,((x-a[0])*dx+(z-a[1])*dz)/(dx*dx+dz*dz)));nearest=Math.min(nearest,Math.hypot(x-a[0]-dx*t,z-a[1]-dz*t));}
   if(nearest>=bandM)return raw;

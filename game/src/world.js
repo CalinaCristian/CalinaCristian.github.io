@@ -168,9 +168,13 @@ const brandStyle = (name) => {
     if (!name) return null;
     const k = name.toLowerCase();
     if (RESEARCH_BRANDS[k]) return RESEARCH_BRANDS[k];
-    for (const b in BRANDS) if (new RegExp('(^|[^\\p{L}\\p{N}])' + b.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '($|[^\\p{L}\\p{N}])', 'u').test(k)) return BRANDS[b]; // whole-word match (research Request: 'Mega' ≠ 'Megaron')
-    return null;
+    // whole-word match (research Request: 'Mega' ≠ 'Megaron'); BRANDS is fixed, so its patterns and answers are kept
+    if (BRAND_HITS.has(k)) return BRAND_HITS.get(k);
+    BRAND_RES ||= Object.keys(BRANDS).map(b => [new RegExp('(^|[^\\p{L}\\p{N}])' + b.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '($|[^\\p{L}\\p{N}])', 'u'), BRANDS[b]]);
+    let hit = null; for (const [re, style] of BRAND_RES) if (re.test(k)) { hit = style; break; }
+    BRAND_HITS.set(k, hit); return hit;
 };
+let BRAND_RES = null; const BRAND_HITS = new Map();
 
 const shoulderOf = (e) => (e.roadWidthSource && (e.roadWidthSource.source === 'OSM width' || e.roadWidthSource.review)) ? 0 : (/motorway|trunk/.test(e.type) ? (e.type.endsWith('_link') ? 0.6 : 1.2) : 0.15);
 const AWNING = ['#b91c1c', '#1f4e79', '#14532d', '#7c2d12', '#374151', '#6b21a8', '#0f766e', '#a16207'].map(rgb);
@@ -2904,7 +2908,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         if (elevated) { const f = (x, z) => yAlong(e, x, z);
             // the sidewalk rides with the ramp; on an embankment ramp the verge beyond it stays on the ground, under the skirt
-            const fg = e.bridge || e.tunnel ? f : (x, z) => { const lat = (x - e.a.x) * e.nx + (z - e.a.z) * e.nz; return Math.abs(lat) <= widthSide(e, lat >= 0 ? 1 : -1) + 0.05 ? f(x, z) : Math.min(0, f(x, z)); };
+            const wPos = widthSide(e, 1), wNeg = widthSide(e, -1); // (the edge does not change while it is displaced)
+            const fg = e.bridge || e.tunnel ? f : (x, z) => { const lat = (x - e.a.x) * e.nx + (z - e.a.z) * e.nz; return Math.abs(lat) <= (lat >= 0 ? wPos : wNeg) + 0.05 ? f(x, z) : Math.min(0, f(x, z)); };
             displace(c.ground, v0g, fg, e, i0g);
             // (owner, 2026-11-11, Grozavesti (68.5, 203): "looks odd", "not smooth", "let's simulate real life") the verge of a
             // raised ramp ended in a stepped cliff above the grass (each segment's strip ends square-on). Street-level reference

@@ -31,7 +31,11 @@ self.onmessage = (ev) => {
             self.postMessage({ id: m.id, clippedAreaM2: r.clippedAreaM2, issues: r.issues, faces: out }, out ? [out.buffer] : []);
             return;
         }
-        if (m.type === 'fallbackCuts') { cuts = m.cuts.map((c) => { const poly = []; for (let k = 0; k < c.poly.length; k += 2) poly.push([c.poly[k], c.poly[k + 1]]); return { poly, x0: c.x0, x1: c.x1, z0: c.z0, z1: c.z1 }; }); return; }
+        if (m.type === 'fallbackCuts') {
+            const { lens, boxes, coords } = m; let k = 0; cuts = [];
+            for (let i = 0; i < lens.length; i++) { const poly = []; for (let q = 0; q < lens[i]; q++) { poly.push([coords[k], coords[k + 1]]); k += 2; } cuts.push({ poly, x0: boxes[4 * i], x1: boxes[4 * i + 1], z0: boxes[4 * i + 2], z1: boxes[4 * i + 3] }); }
+            return;
+        }
         if (m.type === 'fallback') {
             const st = fallbackVisit(m.box, Array.from(m.nearby, (i) => cuts[i]), fallbackState({ report: { known: true, reason: null, nodes: 0, leaves: 0 }, ...m.params }));
             const out = { positions: Float64Array.from(st.positions), normals: Float64Array.from(st.normals), uv: Float64Array.from(st.uv), indices: Float64Array.from(st.indices) };

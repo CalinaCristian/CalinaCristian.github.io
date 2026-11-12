@@ -33,7 +33,12 @@ export function createBuildPool(size = Math.max(1, Math.min(6, ((typeof navigato
         },
         /** the fallback ground's source openings ({poly: [[x, z]…], x0, x1, z0, z1}), to every worker */
         fallbackCuts(cuts) {
-            const msg = { type: 'fallbackCuts', cuts: cuts.map((c) => { const poly = new Float64Array(c.poly.length * 2); c.poly.forEach((q, k) => { poly[2 * k] = q[0]; poly[2 * k + 1] = q[1]; }); return { poly, x0: c.x0, x1: c.x1, z0: c.z0, z1: c.z1 }; }) };
+            // three flat arrays (copied by memcpy) instead of an object per opening: the same numbers
+            let n = 0; for (const c of cuts) n += c.poly.length;
+            const lens = new Int32Array(cuts.length), boxes = new Float64Array(cuts.length * 4), coords = new Float64Array(n * 2);
+            let k = 0;
+            cuts.forEach((c, i) => { lens[i] = c.poly.length; boxes[4 * i] = c.x0; boxes[4 * i + 1] = c.x1; boxes[4 * i + 2] = c.z0; boxes[4 * i + 3] = c.z1; for (const q of c.poly) { coords[k++] = q[0]; coords[k++] = q[1]; } });
+            const msg = { type: 'fallbackCuts', lens, boxes, coords };
             for (const s of state) s.w.postMessage(msg);
         },
         /** walk one fallback-ground subtree (fallbackVisit) → Promise<{report, parts, positions, normals, uv, indices}> */

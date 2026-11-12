@@ -21,12 +21,15 @@ export function displaceBridgeSurface(mesh, fromVertex, fromIndex, heightAtWorld
         if(!knownH)tri=tri.map(snap);
         const H=knownH?knownH.map((h,i)=>h===undefined?at(tri[i]):h):tri.map(at),E=[];let error=0,longest=-1,split=0;
         for(let i=0;i<3;i++){const a=tri[i],b=tri[(i+1)%3],d=Math.hypot(b.p[0]-a.p[0],b.p[2]-a.p[2]);if(d>longest){longest=d;split=i;}const e=knownE?.[i]??edgeError(a,b,H[i],H[(i+1)%3]);E.push(e);error=Math.max(error,e);}
-        const C={p:tri[0].p.map((v,k)=>(v+tri[1].p[k]+tri[2].p[k])/3)};error=Math.max(error,Math.abs(at(C)-(H[0]+H[1]+H[2])/3));
+        const p0=tri[0].p,p1=tri[1].p,p2=tri[2].p;error=Math.max(error,Math.abs(heightAtWorld((p0[0]+p1[0]+p2[0])/3,(p0[2]+p1[2]+p2[2])/3,(p0[1]+p1[1]+p2[1])/3)-(H[0]+H[1]+H[2])/3));
         if(error>maxErrorM&&depth<maxDepth&&longest>1e-5){const j=(split+1)%3,k=(split+2)%3,m=snap(mix(tri[split],tri[j],.5)),hm=at(m);recurse([tri[split],m,tri[k]],depth+1,[H[split],hm,H[k]],[undefined,undefined,E[k]]);recurse([m,tri[j],tri[k]],depth+1,[hm,H[j],H[k]],[undefined,E[j],undefined]);return;}
         const witness=()=>({depth,errorM:error,vertices:tri.map((v,i)=>({position:v.p,heightDisplacement:H[i],color:v.c,materialTag:v.t}))});
         if(error>maxErrorM){stats.depthLimit++;if(stats.limitSamples.length<16)stats.limitSamples.push(witness());}if(error>stats.maxLeafControlErrorM)stats.worstControl=witness();stats.maxLeafControlErrorM=Math.max(stats.maxLeafControlErrorM,error);
-        const P=tri.map((v,i)=>[v.p[0],v.p[1]+H[i],v.p[2]]),a=P[1].map((v,k)=>v-P[0][k]),b=P[2].map((v,k)=>v-P[0][k]),normal=[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],L=Math.hypot(...normal)||1,n=normal.map(v=>v/L),ids=[];
-        for(let i=0;i<3;i++){const v=tri[i];ids.push(mesh.v(...P[i],...n,...v.u,v.c,v.t));}mesh.tri(...ids);stats.outputTriangles++;
+        // (the same arithmetic as before, on scalars: P = corner + its displacement, normal = (P1 − P0) × (P2 − P0) / |…|)
+        const x0=p0[0],y0=p0[1]+H[0],z0=p0[2],x1=p1[0],y1=p1[1]+H[1],z1=p1[2],x2=p2[0],y2=p2[1]+H[2],z2=p2[2];
+        const a0=x1-x0,a1=y1-y0,a2=z1-z0,b0=x2-x0,b1=y2-y0,b2=z2-z0,c0=a1*b2-a2*b1,c1=a2*b0-a0*b2,c2=a0*b1-a1*b0,L=Math.hypot(c0,c1,c2)||1,n0=c0/L,n1=c1/L,n2=c2/L;
+        const u0=tri[0].u,u1=tri[1].u,u2=tri[2].u;
+        mesh.tri(mesh.v(x0,y0,z0,n0,n1,n2,u0[0],u0[1],tri[0].c,tri[0].t),mesh.v(x1,y1,z1,n0,n1,n2,u1[0],u1[1],tri[1].c,tri[1].t),mesh.v(x2,y2,z2,n0,n1,n2,u2[0],u2[1],tri[2].c,tri[2].t));stats.outputTriangles++;
     };
     for(const tri of rows)recurse(tri,0,null,null);
     return stats;

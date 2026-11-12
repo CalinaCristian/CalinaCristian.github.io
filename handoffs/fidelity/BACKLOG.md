@@ -12,6 +12,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Where | Report | State / diagnosis |
 | --- | --- | --- |
 | Grozăvești (826, -1050), (314, -697) | "what's going on here", "missing" | where the road guard and the tram-slab railing converge they still cross over a few metres, and one road-side gap remains by (314, -697) |
+| Grozăvești (194, -453) | ramp wall in the street | the Orhideelor entry ramp is mapped 6.3 m from Șos. Orhideelor's centre line; with both at 3.5 m half width plus the ramp's 0.8 m walkway its retaining wall stands about 1.5 m inside Orhideelor's left lane (Street View: the ramp barrier is at the street's edge) |
 | people at night | "shadows for people (texture like they are just standing that are transparent)" | not reproduced in a visible Ultra window at night among walkers (the AO pass already skips the crowd, lamps cast no shadows); needs an F8 report where they appear |
 
 ## Fixed on master 2026-11-12 (owner reports of 2026-11-12, re-check live at the poses)

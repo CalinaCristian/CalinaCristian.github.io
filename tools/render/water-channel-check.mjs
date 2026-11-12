@@ -25,4 +25,6 @@ for (const type of ['lake', 'pond', 'reservoir']) assert.equal(waterChannelDecis
 assert.equal(waterChannelDecision({ ...box, name: 'Dâmbovița' }).channel, true);
 assert.equal(waterChannelDecision(box, { us: true }).channel, false);
 assert.equal(waterChannelDecision(box, { tags: { waterway: 'riverbank' } }).channel, true);
-console.log(JSON.stringify({ pureControls: 7, ledger }, null, 2));
+assert.equal(waterChannelDecision(box, { tags: { natural: 'water' } }).channel, false);
+assert.equal(waterChannelDecision(box, { tags: { natural: 'water', water: 'river' } }).channel, true);
+console.log(JSON.stringify({ pureControls: 9, ledger }, null, 2));

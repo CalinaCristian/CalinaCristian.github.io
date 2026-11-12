@@ -12,7 +12,6 @@ and the F8 JSON the owner pastes.
 | Grozavesti, whole Basarab | "fences are not continuous on the bridge still in many places", "random 1 off fences that are alone" | fixed in the builder (one railing network: joins, pruning, then drawing; 100 railing ends in the air before, 16 after). Still open: (a) 60 m of road-deck railing and 36 m of tram-slab railing are left out where a tram's body itself crosses the line (the tram junction around (340..380, -710..-735) and the track crossings), listed in `stats.railingDrops`; (b) 95 m of railing beside the tram is drawn without a collision wall (`visualOnlyM`): it lies inside the 0.2 m cover the tram guard keeps free, so a wall there would stop the trams. A real fix needs the carriageway and track centre lines further apart there. The 16 remaining ends are in `stats.railingNetwork.openEnds`. |
 | Grozavesti (376, -727), (352, -726) | "area looks broken" | fences and strips fixed; still open: six forks on reviewed descent profiles keep two overlapping carriageways at different levels (the Orhideelor ramp r268 rising beside r179 from the node at (363, -730)). Same fix as the Grivitei slip ramps: a `crownHoldSourceNode` per model, each to be reviewed. |
 | Grozavesti (983, -1179) | "cars go in fence" | fixed (the tram railing no longer stands in the lane); the slab edge beside Titulescu's carriageway now has no railing where the slab overlaps that lane (slab 0.5-1.2 m above it). |
-| Grozavesti (410, 450) | (found while fixing the river) | the Gradina Botanica pond (way 133955992) shows as a 4.4 m deep concrete basin: `water-channel.js` classes it as a channel; it is a pond at grade. |
 
 ## Other open work
 
@@ -21,7 +20,6 @@ and the F8 JSON the owner pastes.
 | R10 | District data size and load-time targets (3 MB gzip per district, 4 s load) | 10 | in progress: size met (binary packs 0.40–2.90 MiB, on `master` since 2026-11-12); < 4 s desktop load still open for Grozăvești 9.6 s, Unirii 7.5 s, Romana 5.1 s |
 | R22 | Code cleanup after the district migration (corridor era, split `world.js`, dead code) | 22 | todo, after R10 |
 | R23 | Overview atlas recapture after the 2026-11-12 underpass fixes: Romana top-down tiles over Piața Victoriei (tram tunnel now roofed, playable strip west along Șos. Titulescu) and Otopeni tiles at the station (service road now at street level) still show the earlier revision they are pinned to | overview | todo |
-| R24 | Pipera (-762, 178): the Promenada Mall underground parking aisle (OSM w467560480) is cut by the district edge inside the garage, so a road-closed barrier stands 6 m underground. Found by the 2026-11-12 sweep of every district for sunken road ends; the other three (Bellevue w652027891 / w652027892, SeaTac w964279964) are real garage entrances | — | todo |
 
 ## Rules
 

@@ -4687,8 +4687,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     {
         for (let i = walls.length - 1; i >= 0; i--) { const w = walls[i]; if (w.kind === 'barrier' && w.inferred === true && w.edge && w.y0a > .5 && basarabDeck(w.edge)) { walls.splice(i, 1); guardCompletion.padRimBarriersReplaced++; } }
         const wg = new BoxGrid(16); for (const w of walls) if (w.wall && w.kind !== 'boundary') wg.insert(Math.min(w.ax, w.bx) - 1.6, Math.min(w.az, w.bz) - 1.6, Math.max(w.ax, w.bx) + 1.6, Math.max(w.az, w.bz) + 1.6, w);
-        const wallEndNear = (x, z) => { let hit = false; wg.each(x, z, x, z, w => { if (!hit && (w.kind === 'rail' || w.kind === 'guard' || w.kind === 'barrier' || w.kind === 'embank') && (Math.hypot(w.ax - x, w.az - z) < 1.5 || Math.hypot(w.bx - x, w.bz - z) < 1.5)) hit = true; }); return hit; };
-        const guarded = (x, z, y) => { let hit = false; wg.each(x, z, x, z, w => { if (hit) return; const dx = w.bx - w.ax, dz = w.bz - w.az, t = clamp(((x - w.ax) * dx + (z - w.az) * dz) / (dx * dx + dz * dz || 1), 0, 1); if (Math.hypot(x - w.ax - dx * t, z - w.az - dz * t) > 1.6) return; if (w.y1a + (w.y1b - w.y1a) * t > y + .4 && w.y0a + (w.y0b - w.y0a) * t < y + .6) hit = true; }); return hit; };
+        const wallEndNear = (x, z) => { let hit = false; wg.each(x - 2, z - 2, x + 2, z + 2, w => { if (!hit && (w.kind === 'rail' || w.kind === 'guard' || w.kind === 'barrier' || w.kind === 'embank') && (Math.hypot(w.ax - x, w.az - z) < 3.5 || Math.hypot(w.bx - x, w.bz - z) < 3.5)) hit = true; }); return hit; };
+        const guarded = (x, z, y) => { let hit = false; wg.each(x, z, x, z, w => { if (hit) return; const dx = w.bx - w.ax, dz = w.bz - w.az, t = clamp(((x - w.ax) * dx + (z - w.az) * dz) / (dx * dx + dz * dz || 1), 0, 1); if (Math.hypot(x - w.ax - dx * t, z - w.az - dz * t) > 1.6) return; const top = w.y1a + (w.y1b - w.y1a) * t; if (Math.abs(top - (y + 1.1)) < .6 && w.y0a + (w.y0b - w.y0a) * t < y + .6) hit = true; }); return hit; }; // (owner, 2026-11-12, (314, -697) "missing": the guard of a deck 3 m higher, whose band hangs below it, counted as guarding this edge)
         // (owner, 2026-11-12, Grozavesti (982, -1190), (836, -1060), (814, -1000): "not connected") only a carriageway or a filled
         // median continuing at the deck level opens the edge. A tram slab beside it (or the slot infill joining the two) left
         // the railing between the road and the tracks in short disconnected pieces, and the blue band with it.
@@ -4721,7 +4721,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     // (owner, 2026-11-12, Grozavesti (452, -760): "on the road fences") where a merging carriageway overlaps this edge,
                     // the guard line itself lies on that road's asphalt: no guard there
                     const [rx, rz] = at(s, off);
-                    if (level(ox, oz, y) || guarded(ex, ez, y) || coveredByOther(rx, rz, e, y - Y.road, .2, false, .6)) { flush(); continue; }
+                            if (level(ox, oz, y) || guarded(ex, ez, y) || coveredByOther(rx, rz, e, y - Y.road, .2, false, .6)) { flush(); continue; }
                     if (run) run[1] = Math.min(e.len, s + 1); else run = [Math.max(0, s - 1), Math.min(e.len, s + 1)];
                 }
                 flush();
@@ -4753,6 +4753,9 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (!best) continue;
                 const b = best.b, mx = (a.x + b.x) / 2, mz = (a.z + b.z) / 2, n = [a.w.nx, a.w.nz], yDeck = (a.top + b.top) / 2 - 1.1;
                 if (level(mx - n[0] * 1.2, mz - n[1] * 1.2, yDeck)) continue;
+                // (a gap already covered by another piece of railing on the same line, from the neighbouring edge, needs no join:
+                // the joins doubled long stretches of rail)
+                { let covered = false; wg.each(mx, mz, mx, mz, w => { if (covered || w === a.w || w === b.w || w.kind !== 'rail' || w.tramDeckRailing) return; const dx = w.bx - w.ax, dz = w.bz - w.az, t = clamp(((mx - w.ax) * dx + (mz - w.az) * dz) / (dx * dx + dz * dz || 1), 0, 1); if (t > .01 && t < .99 && Math.hypot(mx - w.ax - dx * t, mz - w.az - dz * t) < .2) covered = true; }); if (covered) { guardCompletion.joinsCovered = (guardCompletion.joinsCovered || 0) + 1; continue; } }
                 const w = { wall: true, completed: true, ax: a.x, az: a.z, bx: b.x, bz: b.z, y0a: a.top - 1.1 - (a.w.y1a - a.w.y0a - 1.1), y1a: a.top, y0b: b.top - 1.1 - (b.w.y1b - b.w.y0b - 1.1), y1b: b.top, yr: undefined, nx: a.w.nx, nz: a.w.nz, kind: 'rail', edge: a.w.edge, x: mx, z: mz, r: best.d / 2 + .3, hw: 0, hd: 0, angle: 0, poly: null, h: 1, gapJoin: true };
                 if (tramSweep && tramSweep.segment([w.ax, w.az], [w.bx, w.bz], .05, Math.min(w.y0a, w.y0b), Math.max(w.y1a, w.y1b))) continue;
                 walls.push(w); a.used = b.used = true; joins++;
@@ -4790,6 +4793,15 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (let k = walls.length - 1; k >= 0; k--) { const w = walls[k]; if (!w.gapJoin) continue; const at = (x, z) => taperEnds.some(([px, pz]) => Math.hypot(px - x, pz - z) < .1); if (at(w.ax, w.az) && at(w.bx, w.bz)) walls.splice(k, 1); }
             guardCompletion.tapers = tapers;
         }
+        // (owner, 2026-11-12, Grozavesti (826, -1050) "what's going on here", (314, -697) "missing") where two carriageways converge
+        // (a merge, a gore) the guard of one ran on across the other's asphalt and crossed its guard; a guard piece whose middle
+        // lies on another carriageway at its level is left out, so the merge stays open as one road
+        for (let k = walls.length - 1; k >= 0; k--) {
+            const w = walls[k]; if (w.kind !== 'rail' || w.tramDeckRailing || !w.edge || !basarabDeck(w.edge)) continue;
+            const L = Math.hypot(w.bx - w.ax, w.bz - w.az); if (L < .05) continue;
+            const on = f => { const x = w.ax + (w.bx - w.ax) * f, z = w.az + (w.bz - w.az) * f, y = w.y1a + (w.y1b - w.y1a) * f - 1.1 - Y.road; return coveredByOther(x, z, w.edge, y, .1, false, .6); };
+            if (on(.5) && (L < 1.5 || on(.15) || on(.85))) { walls.splice(k, 1); guardCompletion.onOtherRoad = (guardCompletion.onOtherRoad || 0) + 1; }
+        }
         for (const w of walls) if (w.kind === 'rail' && !w.tramDeckRailing && w.edge && basarabDeck(w.edge)) drawBasarabGuard(w, cellOf, basarabBlue);
     }
     // ---- railings of the tram-only decks. The estimated tram viaduct had none: an open slab edge 6-11 m up. A railing runs
@@ -4811,9 +4823,29 @@ export async function buildWorld(city, renderer, opts = {}) {
         // street beside it. Only a surface within 0.35 m (the other track's slab, a platform) is level now.
         const level = (x, z, y) => { let found = false; surfacesAt(x, z, h => { if (Math.abs(h - y) < .35) found = true; }); return found; };
         const guardGrid = new BoxGrid(16); for (const w of walls) if (w.wall && (w.kind === 'rail' || w.kind === 'barrier')) guardGrid.insert(Math.min(w.ax, w.bx) - 1.4, Math.min(w.az, w.bz) - 1.4, Math.max(w.ax, w.bx) + 1.4, Math.max(w.az, w.bz) + 1.4, w);
-        const guardBeside = (x, z, y, reach = 1.4) => { let hit = false; guardGrid.each(x, z, x, z, w => { if (hit) return; const dx = w.bx - w.ax, dz = w.bz - w.az, t = clamp(((x - w.ax) * dx + (z - w.az) * dz) / (dx * dx + dz * dz || 1), 0, 1); if (Math.hypot(x - w.ax - dx * t, z - w.az - dz * t) < reach && w.y1a + (w.y1b - w.y1a) * t >= y + .6 && w.y0a + (w.y0b - w.y0a) * t <= y + .3) hit = true; }); return hit; };
-        const emit = (a, b, ux, uz, out) => {
+        // (with a direction tx, tz only a guard converging at an angle counts: a parallel one 1 m off is the road's own barrier,
+        // Street View on Pasajul Basarab shows both)
+        const guardBeside = (x, z, y, reach = 1.4, tx = null, tz = null) => { let hit = false; guardGrid.each(x, z, x, z, w => { if (hit) return; const dx = w.bx - w.ax, dz = w.bz - w.az, t = clamp(((x - w.ax) * dx + (z - w.az) * dz) / (dx * dx + dz * dz || 1), 0, 1); if (tx !== null && Math.abs(dx * tx + dz * tz) / (Math.hypot(dx, dz) || 1) > .985) return; if (Math.hypot(x - w.ax - dx * t, z - w.az - dz * t) < reach && w.y1a + (w.y1b - w.y1a) * t >= y + .6 && w.y0a + (w.y0b - w.y0a) * t <= y + .3) hit = true; }); return hit; };
+        const emit = (a, b, ux, uz, out, split = true) => {
             const o = out - .1, A = [a[0] + ux * o, a[1], a[2] + uz * o], B = [b[0] + ux * o, b[1], b[2] + uz * o], len = Math.hypot(B[0] - A[0], B[2] - A[2]); if (len < .6) return;
+            // (owner, 2026-11-12, Grozavesti (826, -1050) "what's going on here") the railing as finally placed (outboard) is checked
+            // against the road guards: where one stands within 0.7 m, or converges at an angle within 1.6 m, that part is left
+            // out (the two crossed); the rest is emitted in pieces
+            if (split) {
+                const tx = (B[0] - A[0]) / len, tz = (B[2] - A[2]) / len, n = Math.max(1, Math.ceil(len / .5)), runs = []; let run = null;
+                for (let i = 0; i < n; i++) {
+                    const f = (i + .5) / n, x = A[0] + (B[0] - A[0]) * f, z = A[2] + (B[2] - A[2]) * f, y = A[1] + (B[1] - A[1]) * f;
+                    const blocked = guardBeside(x, z, y, .7) || guardBeside(x, z, y, 1.6, tx, tz);
+                    if (blocked) { if (run) { runs.push(run); run = null; } } else if (run) run[1] = (i + 1) / n; else run = [i / n, (i + 1) / n];
+                }
+                if (run) runs.push(run);
+                if (!(runs.length === 1 && runs[0][0] === 0 && runs[0][1] === 1)) {
+                    const at = f => [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f];
+                    tramRailings.besideGuardM += len * (1 - runs.reduce((m, r) => m + r[1] - r[0], 0));
+                    for (const [f0, f1] of runs) emit(at(f0), at(f1), ux, uz, out, false);
+                    return;
+                }
+            }
             const w = { wall: true, estimated: true, tramDeckRailing: true, ax: A[0], az: A[2], bx: B[0], bz: B[2], y0a: A[1] - .2, y1a: A[1] + 1.1, y0b: B[1] - .2, y1b: B[1] + 1.1, nx: -ux, nz: -uz, kind: 'rail', edge: null,
                 x: (A[0] + B[0]) / 2, z: (A[2] + B[2]) / 2, r: len / 2 + .3, hw: 0, hd: 0, angle: 0, poly: null, h: 1.1 };
             drawBasarabGuard(w, cellOf, basarabBlue); walls.push(w); tramRailings.runs++; tramRailings.lengthM += len; if (out > 0) tramRailings.outboardM += len;
@@ -4831,7 +4863,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 // fence? check streetview"; Street View on Pasajul Basarab at 44.44503, 26.06120: the carriageway has a low concrete
                 // barrier and the tram slab its own blue steel railing, both unbroken) a road guard beside the slab no longer
                 // replaces the tram railing: where the road guard was cut, the slab was left open in chunks.
-                if (guardBeside(mx + ux * .3, mz + uz * .3, my, .7)) { tramRailings.besideGuardM += len; return null; } // (owner, 2026-11-12, (826, -1050) "what's going on here": only a guard within 0.7 m duplicates it; they crossed where they converged)
+                if (guardBeside(mx + ux * .3, mz + uz * .3, my, .7) || [[mx, mz], [A[0], A[2]], [B[0], B[2]]].some(([px, pz]) => guardBeside(px + ux * .3, pz + uz * .3, my, 1.6, (B[0] - A[0]) / (len || 1), (B[2] - A[2]) / (len || 1)))) { tramRailings.besideGuardM += len; return null; } // (owner, 2026-11-12, (826, -1050): where they converge the two crossed; the road guard alone stands there) // (owner, 2026-11-12, (826, -1050) "what's going on here": only a guard within 0.7 m duplicates it; they crossed where they converged)
                 for (const out of [0, .25, .5, .75, 1, 1.25, 1.5]) { const k = out - .1; if (!tramSweep?.segment([A[0] + ux * k, A[2] + uz * k], [B[0] + ux * k, B[2] + uz * k], .1, Math.min(A[1], B[1]) - .5, Math.max(A[1], B[1]) + 1.1)) return { A, B, ux, uz, out, len, mx, mz }; } // (up to 1.5 m outboard on a curve where a tram's body overhangs the slab)
                 tramRailings.sweptEdgeM += len; return null;
             });

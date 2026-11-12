@@ -13,6 +13,7 @@ import { bench } from '../osm.js';
 import { clockFace, railing } from '../props.js';
 import { shortWaterRoute, dryLanding } from '../water-route.js';
 import { backgammonGame } from '../backgammon-game.js';
+import { addBikeRental } from '../bike.js';
 
 // Signed distance to a ring (m; > 0 outside, < 0 inside), sampled on a grid round it and read back bilinearly. Beyond the
 // grid, `far` (positive: outside). Rows use a scanline for inside/outside.
@@ -74,6 +75,16 @@ export default {
             w.geometry.dispose(); w.geometry = wg; w.position.set(0, level, 0);
         }
         const b = new GeoBatch(), signs = [];
+        // (owner, 2026-11-11: "the bike functionality that was in Herăstrău added back for Cișmigiu") A docking station on a
+        // paved pad beside the arrival alley (OSM way 39305680), on the side away from the lake. No station is mapped here:
+        // its place, size and name are estimates.
+        const bikeDock = (() => {
+            const w = d.ways.find((w) => w.id === 'w39305680'); if (!w) return null;
+            const X = -7.6, Z = -78.4, q = distPolyline(X, Z, w.pts), [ax, az] = w.pts[q.i], [bx, bz] = w.pts[q.i + 1], L = Math.hypot(bx - ax, bz - az) || 1, tx = (bx - ax) / L, tz = (bz - az) / L;
+            let nx = -tz, nz = tx; if ((X - q.cx) * nx + (Z - q.cz) * nz < 0) { nx = -nx; nz = -nz; } // (n: from the alley to the dock)
+            const x = q.cx + nx * 3.3, z = q.cz + nz * 3.3, P = (u, v) => [q.cx + tx * u + nx * v, q.cz + tz * u + nz * v];
+            return { x, z, heading: Math.atan2(nx, nz), n: 6, pad: [P(-3.6, 1.4), P(3.6, 1.4), P(3.6, 4.7), P(-3.6, 4.7)] };
+        })();
         // footbridges over the lake (OSM bridge ways), note 35: smooth arched decks (walkable surface follows the arch), white
         // stone fascia girders, continuous cast-iron railings; the lakeside railing opens where a bridge or a path meets the shore
         const bridges = lake ? d.ways.filter((w) => w.bridge && w.bridge !== 'no' && ['footway', 'path', 'pedestrian'].includes(w.k) && w.pts.some(([x, z]) => inPoly(x, z, lake) || distPolyline(x, z, [...lake, lake[0]]).d < 8)) : [];
@@ -192,6 +203,7 @@ export default {
             const look = (w) => w.surface === 'sett' ? { W: 2.4, c: '#8a847a', m: 'cobble' } : /paving|concrete/.test(w.surface || '') ? { W: 2.6, c: '#aaa497', m: 'slab' } : w.surface === 'dirt' ? { W: 1.6, c: '#9c8a6c', m: 'dirt' } : { W: 3.0, c: '#5d5d58', m: 'asphalt' };
             for (const w of parkWays) { const L2 = look(w); ctx.painter.line(w.pts, L2.W + 0.36, '#bdb7aa', 'slab'); }
             for (const w of parkWays) { const L2 = look(w); ctx.painter.line(w.pts, L2.W, L2.c, L2.m); }
+            if (bikeDock) ctx.painter.poly(bikeDock.pad, '#aaa497', 'slab');
             // hoop borders: a strip of overlapping low hoops (alpha-tested), 0.45 m off the kerb, broken where another alley,
             // a bridge or the lake comes close
             const hoopTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 64; const x = c.getContext('2d'); x.clearRect(0, 0, 256, 64); x.strokeStyle = '#ffffff'; x.lineWidth = 3.2;
@@ -207,7 +219,7 @@ export default {
                 for (const sd of [-1, 1]) { const line = offsetPolyline(w.pts, sd * off); let run = [];
                     const flush = () => { for (let i = 1; i < run.length; i++) { const [ax, az] = run[i - 1], [bx, bz] = run[i], l = Math.hypot(bx - ax, bz - az), ya = g.heightAt(ax, az), yb = g.heightAt(bx, bz); hoopM += l; hb.quad([ax, ya, az], [bx, yb, bz], [bx, yb + 0.32, bz], [ax, ya + 0.32, az], '#ffffff', 'hoop', [0, 0, l / 0.5, 0, l / 0.5, 1, 0, 1]); } run = []; };
                     for (let i = 1; i < line.length; i++) { const [ax, az] = line[i - 1], [bx, bz] = line[i], l = Math.hypot(bx - ax, bz - az), n = Math.max(1, Math.ceil(l / 1)); for (let q = (i === 1 ? 0 : 1); q <= n; q++) { const x = ax + (bx - ax) * q / n, z = az + (bz - az) * q / n;
-                        const ok = inPoly(x, z, park) && clearOf(x, z, w) && !(lakeD && lakeD(x, z) < 1.5) && !bridges.some((bw) => distPolyline(x, z, bw.pts).d < 4);
+                        const ok = inPoly(x, z, park) && clearOf(x, z, w) && !(lakeD && lakeD(x, z) < 1.5) && !bridges.some((bw) => distPolyline(x, z, bw.pts).d < 4) && !(bikeDock && Math.hypot(x - bikeDock.x, z - bikeDock.z) < 4.6);
                         if (ok) run.push([x, z]); else flush(); } }
                     flush(); } }
             if (hoopM) { ctx.add(hb.build('cismigiu-hoop-borders', { castShadow: false, matOverrides: { hoop: hoopMat } })); ctx.extras.hoopBordersM = Math.round(hoopM); }
@@ -217,6 +229,7 @@ export default {
         // keep the alleys clear (no trunks on the paths) and the postcard view along the lake open
         const paths = d.ways.filter((w) => ['footway', 'path', 'pedestrian', 'cycleway', 'service'].includes(w.k));
         ctx.trees = ctx.trees.filter((t) => !paths.some((w) => distPolyline(t.x, t.z, w.pts).d < 2.6));
+        if (bikeDock) ctx.trees = ctx.trees.filter((t) => Math.hypot(t.x - bikeDock.x, t.z - bikeDock.z) > 4.5);
         const ic = sp.photo.iconic; let shore = { x: ic.x, z: ic.z };
         if (lake) { const q = distPolyline(ic.x, ic.z, [...lake, lake[0]]), [lx, lz] = centroid(lake), inside = inPoly(ic.x, ic.z, lake); const ox = q.cx - lx, oz = q.cz - lz, L = Math.hypot(ox, oz) || 1; shore = { x: q.cx + ox / L * 3.2, z: q.cz + oz / L * 3.2 }; void inside; }
         const view = (t) => { const a = (320 * Math.PI) / 180, fx = Math.sin(a), fz = -Math.cos(a), u = (t.x - shore.x) * fx + (t.z - shore.z) * fz; if (u < -3 || u > 120) return true; const v = Math.abs((t.x - shore.x) * fz - (t.z - shore.z) * fx); return v > 3 + u * 0.18; };
@@ -233,6 +246,7 @@ export default {
         ctx.plaque(PL[3], rot.x + 14.5, rot.z + 2, Math.PI / 2, { style: 'bronze', credit: 'Writers\' Rotunda (1943); busts by several sculptors.' });
         ctx.plaque(PL[4], -40, 40, Math.PI / 2, { style: 'park' });
         { const [x,z]=chessTables[2];backgammonGame(ctx,{x,z,y:g.heightAt(ch.x,ch.z)+.8,source:ch.id,onDone:s=>bucActivity(s,'cismigiu','backgammon','🎲 A match at La Șahiști','You bore off all fifteen checkers and beat Doru, a park regular.')}); }
+        if (bikeDock) { ctx.extras.bikeRental = addBikeRental(ctx, { x: bikeDock.x, z: bikeDock.z, heading: bikeDock.heading, n: bikeDock.n, name: 'Cișmigiu bike stand', colour: '#2f8f46' }); ctx.extras.bikeRentalSource = { sourced: false, estimatedLayout: true, x: bikeDock.x, z: bikeDock.z, displayedBikes: bikeDock.n }; }
         // activity (note 57): row round the lake from the landing (boats April–October; the rink replaces them in winter)
         if (lake) {
             const loop = landing && shortWaterRoute(lake, landing, { avoid: (x, z) => bridges.some(w => distPolyline(x, z, w.pts).d < 4) });

@@ -238,8 +238,12 @@ export async function planOverlapCutsParallel(recs, pool, opts = {}) {
         for (const [k, hp] of r.holeParts) live[k].holeParts = hp;
         skipped.push(...r.skipped);
         for (const c of r.cuts) {
+            // points that are the lower ring's own become its original point objects; computed points become fresh arrays
+            // (one per cloned object, so shared points stay shared): arrays made by structured clone are read through
+            // slower paths by everything that later tests these rings (collision, the crowd)
             const L = live[c.lower], same = new Map(c.lowerRing.map((p, q) => [p, L.ring[q]]));
-            const pieces = c.pieces.map(piece => (piece === c.lowerRing ? L.ring : piece.map(p => same.get(p) || p)));
+            const point = p => { let q = same.get(p); if (!q) same.set(p, q = [p[0], p[1]]); return q; };
+            const pieces = c.pieces.map(piece => (piece === c.lowerRing ? L.ring : piece.map(point)));
             cuts.push({ lower: L, tallers: c.tallers.map(t => live[t]), overlapM2: c.overlapM2, pieces, removedM2: c.removedM2 });
         }
     }

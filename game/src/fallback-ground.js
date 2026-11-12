@@ -81,7 +81,7 @@ export async function buildFallbackGroundParallel(apertures,opts,pool,{depth=Inf
         const vOff=positions.length/3,iOff=indices.length;
         for(const v of c.positions)positions.push(v);for(const v of c.normals)normals.push(v);for(const v of c.uv)uv.push(v);
         for(const v of c.indices)indices.push(v+vOff);
-        for(const q of c.parts)outParts.push({start:q.start+iOff,count:q.count,bounds:q.bounds});
+        for(const q of c.parts){const b=q.bounds;outParts.push({start:q.start+iOff,count:q.count,bounds:[b[0],b[1],b[2],b[3],b[4],b[5]]});}
     }
     report.nodes=nodes;report.leaves=leaves;
     return finishGround(positions,normals,uv,indices,outParts,report);

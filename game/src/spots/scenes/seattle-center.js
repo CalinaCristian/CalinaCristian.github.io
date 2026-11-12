@@ -107,6 +107,8 @@ function buildNeedle(ctx) {
     });
     // soft pools of light under the entrance canopy (the rooms upstairs are lit by their own fittings)
     for (const [dx, dz] of [[-4, 22.5], [4, 22.5], [0, 26]]) ctx.lampPoints.push({ x: X + dx, z: Z + dz, h: 4, noPost: true });
+    // ceiling light for the people upstairs at night (staff, guests): over the opaque floors only, clear of the glass floor
+    for (let i = 0; i < 8; i++) { const a = (i + 0.5) / 8 * TAU; for (const [r, yy, h] of [[8.2, LOUPE_Y, 3.2], [9.6, DECK_Y, 2.7]]) { const [px, pz] = at(r, a); ctx.lampPoints.push({ x: px, z: pz, y: yy, h, noPost: true }); } }
     // ---- the ride (note 57): the gold car climbs the core to the observation level in 41 s; you stand in it and can look round.
     // OSM way 1136496123: the public approach meets the pavilion at (-0.7, 18.9), its south doorway.
     const door = { x: X - 0.7, z: Z + L.pavR + 0.9 };

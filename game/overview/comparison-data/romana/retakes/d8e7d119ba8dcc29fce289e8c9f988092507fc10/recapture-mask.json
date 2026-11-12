@@ -1,0 +1,18 @@
+{
+  "district": "romana",
+  "sourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+  "tiles": [
+    {
+      "id": "aerial-r06-c03"
+    },
+    {
+      "id": "aerial-r06-c04"
+    },
+    {
+      "id": "aerial-r06-c05"
+    }
+  ],
+  "reason": "Victoriei tram tunnel roofed, Pasajul Victoria strip on Titulescu",
+  "originalManifestSha256": "87d87183e23ee833986637863885fa67019a96fbe4912efaf4c8a3ee7c239d01",
+  "totalFrames": 116
+}

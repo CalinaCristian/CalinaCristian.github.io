@@ -1,0 +1,22 @@
+{
+  "sourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r04-c06",
+    "aerial-r05-c06"
+  ],
+  "method": "Old and new game captures compared side by side at the same pose; the changed structure is visible in each replaced tile.",
+  "items": [
+    {
+      "id": "aerial-r04-c06",
+      "originalGameSha256": "27e3ab0c108ce03e7ccc64fa1fa43f0ddb3b86355d2c8283fbf439e58d62090b",
+      "retakeGameSha256": "30d661d5c01bb949ac034e112b3a591fc7cc13a9bd00985e8c69becc70ca94cf"
+    },
+    {
+      "id": "aerial-r05-c06",
+      "originalGameSha256": "bd9ea5b435e6876f887e043cacc8568fde95aa2e3be858d24ab8b6c79dd13163",
+      "retakeGameSha256": "8af8eec73964175d392be3d375ff1e1b66136dae35e442a8a217a2817d33e2f7"
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "Romana aerial comparisons",
-  "generatedDate": "2026-11-11",
-  "generatedAt": "2026-11-11T01:53:58.590Z",
+  "generatedDate": "2026-11-12",
+  "generatedAt": "2026-11-12T15:57:27.819Z",
   "defaultTile": "aerial-r10-c09",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -2718,15 +2718,15 @@
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 94,
-        "triangles": 454088,
-        "renderMs": 13.100000001490116,
+        "drawCalls": 96,
+        "triangles": 348381,
+        "renderMs": 1.5999999940395355,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 312
+        "vehicleCount": 306
       },
       "renderer": {
         "width": 640,
@@ -2736,23 +2736,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:43:05.171Z",
-      "gamePath": "images/aerial-r06-c03.jpg",
-      "image": "images/aerial-r06-c03.jpg",
-      "thumbnail": "thumbs/aerial-r06-c03.jpg",
-      "sha256": "09813688eae5c4f44e0a88eb13e07b48e09abc99847d22d01f2db45b825d1c36",
+      "capturedAt": "2026-11-12T15:57:25.240Z",
+      "gamePath": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/images/aerial-r06-c03.jpg",
+      "image": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/images/aerial-r06-c03.jpg",
+      "thumbnail": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/thumbs/aerial-r06-c03.jpg",
+      "sha256": "52ee9c94bbfb62840e123f6f2793b7012f3ffe941c0e94971aa582c964c36a7c",
       "width": 640,
       "height": 640,
-      "captureWallMs": 6139,
+      "captureWallMs": 405,
       "dataset": "atlas",
-      "thumbnailSha256": "7538274b151b65f10777915110a743ce37b69230a6e14f9efef11f77a5b23c8d",
+      "thumbnailSha256": "5173ef5a32b09e8e7d79e879e4d2d97ba39fe00aa714dd31caddc7ddce1093ae",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.450549577079514,
         26.078616542193316,
         44.452799154159024,
         26.081762406644987
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/manifest.json",
+      "sourceNote": "Exact-pose scoped retake (Victoriei tram tunnel roofed, Pasajul Victoria strip on Titulescu); prior collection archived."
     },
     {
       "id": "aerial-r06-c04",
@@ -2781,15 +2783,15 @@
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 104,
-        "triangles": 604430,
-        "renderMs": 2.600000001490116,
+        "drawCalls": 102,
+        "triangles": 416405,
+        "renderMs": 1.5,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 312
+        "vehicleCount": 306
       },
       "renderer": {
         "width": 640,
@@ -2799,23 +2801,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:43:11.311Z",
-      "gamePath": "images/aerial-r06-c04.jpg",
-      "image": "images/aerial-r06-c04.jpg",
-      "thumbnail": "thumbs/aerial-r06-c04.jpg",
-      "sha256": "af7cbaf3085a6c529a91c1f6631dd9402bb2888d598a2465d6abfef737bd9b4a",
+      "capturedAt": "2026-11-12T15:57:25.645Z",
+      "gamePath": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/images/aerial-r06-c04.jpg",
+      "image": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/images/aerial-r06-c04.jpg",
+      "thumbnail": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/thumbs/aerial-r06-c04.jpg",
+      "sha256": "85bb6cd731d04426384892af64e1843b6236abfe271d99aaa669f57651ce932f",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8133,
+      "captureWallMs": 450,
       "dataset": "atlas",
-      "thumbnailSha256": "65dca2e3c56cb32bdced7270c5c913593f472d292aeb0af7ce26588aad31ecd1",
+      "thumbnailSha256": "f518ae7ab90dd762da9af1638db6718550e6d3efdcbca954b547a91afce37323",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.450549577079514,
         26.081762406644987,
         44.452799154159024,
         26.08490827109666
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/manifest.json",
+      "sourceNote": "Exact-pose scoped retake (Victoriei tram tunnel roofed, Pasajul Victoria strip on Titulescu); prior collection archived."
     },
     {
       "id": "aerial-r06-c05",
@@ -2844,15 +2848,15 @@
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 118,
-        "triangles": 720363,
-        "renderMs": 20.5,
+        "drawCalls": 117,
+        "triangles": 511262,
+        "renderMs": 2,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 312
+        "vehicleCount": 306
       },
       "renderer": {
         "width": 640,
@@ -2862,23 +2866,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:43:19.445Z",
-      "gamePath": "images/aerial-r06-c05.jpg",
-      "image": "images/aerial-r06-c05.jpg",
-      "thumbnail": "thumbs/aerial-r06-c05.jpg",
-      "sha256": "9572dff572cdef4646f2e9086854acf3f98b725ed0645a1079035a205fd4662a",
+      "capturedAt": "2026-11-12T15:57:26.095Z",
+      "gamePath": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/images/aerial-r06-c05.jpg",
+      "image": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/images/aerial-r06-c05.jpg",
+      "thumbnail": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/thumbs/aerial-r06-c05.jpg",
+      "sha256": "a01bb57659f33f6b1f55078596cd5556b7f477106eb403776d27dd920ac247a7",
       "width": 640,
       "height": 640,
-      "captureWallMs": 9059,
+      "captureWallMs": 583,
       "dataset": "atlas",
-      "thumbnailSha256": "5e17bab000d0aec1c707ffa44309a063e76056cb8dab772f1e22c69d3a348b01",
+      "thumbnailSha256": "b9c1497e3367120b7059a5ee83ccc56d505e300d6928109205cbb33aeb56d6c7",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.450549577079514,
         26.08490827109666,
         44.452799154159024,
         26.08805413554833
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/manifest.json",
+      "sourceNote": "Exact-pose scoped retake (Victoriei tram tunnel roofed, Pasajul Victoria strip on Titulescu); prior collection archived."
     },
     {
       "id": "aerial-r06-c06",
@@ -7500,6 +7506,14 @@
       "manifest": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
       "manifestSha256": "32dd981b0621737209218e149e8fdff23560ed730919814d5cddc9a46083d126",
       "frames": 13
+    },
+    {
+      "gameSourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+      "treeSha256": "867ba0818f649beb59c96eac77e5f1c474f9019f14135f83ab7df77076b505bc",
+      "manifest": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/manifest.json",
+      "manifestSha256": "748ec2ebbfee9fc5f4a5305ba2423481269f69535ca514dd864be481f60921ec",
+      "sourceProvenance": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/source-provenance.json",
+      "frames": 3
     }
   ],
   "sourceCompatibility": {
@@ -7525,8 +7539,9 @@
     "district": "romana",
     "gameSourceCommit": null,
     "sourceCounts": {
-      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 103,
-      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 13
+      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 96,
+      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 13,
+      "8add95f35681eddaf01a136ff1f5769a5329b102": 7
     },
     "framesReviewed": 116,
     "status": "All116 actual game/reference pairs reviewed with explicit source/visual gaps;13 current water retakes plus103 unchanged original image bytes. Capture coverage complete; real-world parity remains incomplete.",
@@ -8305,8 +8320,8 @@
       },
       {
         "id": "aerial-r06-c03",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "09813688eae5c4f44e0a88eb13e07b48e09abc99847d22d01f2db45b825d1c36",
+        "gameSourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+        "gameSha256": "52ee9c94bbfb62840e123f6f2793b7012f3ffe941c0e94971aa582c964c36a7c",
         "boundsWgs84": [
           44.450549577079514,
           26.078616542193316,
@@ -8314,18 +8329,17 @@
           26.081762406644987
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r06-c03.jpg",
-        "pairSha256": "77d7ac3d4d4c58e7cf8dbc6370dbc93ee260974a9879fbd526aaec6f57f02490",
         "reviewSheet": "comparison-07.jpg",
         "reviewSheetSha256": "be58fbc0fb5b2c7fe7c25f100d1057e137dc1f33d9e35765951a2d337833eea1",
         "reviewedAt": "2026-11-08T22:34:01.471662+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Iancu de Hunedoara corridor: source frontages and dual carriageway are visible; Dinamo exterior and distant stand mass remain approximate in Romană. Roof/facade/canopy detail differs from reference."
+        "observations": "Iancu de Hunedoara corridor: source frontages and dual carriageway are visible; Dinamo exterior and distant stand mass remain approximate in Romană. Roof/facade/canopy detail differs from reference.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r06-c04",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "af7cbaf3085a6c529a91c1f6631dd9402bb2888d598a2465d6abfef737bd9b4a",
+        "gameSourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+        "gameSha256": "85bb6cd731d04426384892af64e1843b6236abfe271d99aaa669f57651ce932f",
         "boundsWgs84": [
           44.450549577079514,
           26.081762406644987,
@@ -8333,18 +8347,17 @@
           26.08490827109666
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r06-c04.jpg",
-        "pairSha256": "2456e9233bd3fe7d5837635bb1ab9db3b8a2e83452e075848c2377c52b8b93c3",
         "reviewSheet": "comparison-07.jpg",
         "reviewSheetSha256": "be58fbc0fb5b2c7fe7c25f100d1057e137dc1f33d9e35765951a2d337833eea1",
         "reviewedAt": "2026-11-08T22:34:01.474091+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Iancu de Hunedoara corridor: source frontages and dual carriageway are visible; Dinamo exterior and distant stand mass remain approximate in Romană. Roof/facade/canopy detail differs from reference."
+        "observations": "Iancu de Hunedoara corridor: source frontages and dual carriageway are visible; Dinamo exterior and distant stand mass remain approximate in Romană. Roof/facade/canopy detail differs from reference.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r06-c05",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "9572dff572cdef4646f2e9086854acf3f98b725ed0645a1079035a205fd4662a",
+        "gameSourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+        "gameSha256": "a01bb57659f33f6b1f55078596cd5556b7f477106eb403776d27dd920ac247a7",
         "boundsWgs84": [
           44.450549577079514,
           26.08490827109666,
@@ -8352,13 +8365,12 @@
           26.08805413554833
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r06-c05.jpg",
-        "pairSha256": "eaa1db6100aa1c3f0e05aa09b9de1aeeecfbfda342009d6b09ebebd32bab6535",
         "reviewSheet": "comparison-08.jpg",
         "reviewSheetSha256": "1f8d74c28c17d7e1ce6b6f97c44e553f7a6e1768e6a7273b2e30b69ab59d482c",
         "reviewedAt": "2026-11-08T22:34:01.483257+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Victoriei and mixed residential blocks: main source road/roof layout is retained. Reference has denser parked cars and mature canopy; exact current occupancy and reference date are unknown."
+        "observations": "Victoriei and mixed residential blocks: main source road/roof layout is retained. Reference has denser parked cars and mature canopy; exact current occupancy and reference date are unknown.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r06-c06",
@@ -9747,7 +9759,8 @@
         "status": "reviewed_with_gaps",
         "observations": "Southeast and SkyTower context: generic outside-detail blocks and a plain cylindrical SkyTower roof lack surrounding detailed podium/tower treatment. Explicit distant-context fidelity gap, not an upgraded landmark claim."
       }
-    ]
+    ],
+    "targetedRetakeReview": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/paired-review.json"
   },
   "collectionNotes": {
     "atlas": "Mixed-source technical atlas: 7 sign-affected poses refreshed at 8add95f3; all other images retain their recorded sources and dates."
@@ -9820,5 +9833,20 @@
       "aerial-r11-c09"
     ],
     "scope": "Conservative camera-frustum sphere intersections, 30m sign/shadow margin. Unplaced sign includes whole source building. No occlusion or distance culling assumed. Every condition of affected walking viewpoints included. Isolated model studies and standalone tourist scenes do not use district unit fascias."
-  }
+  },
+  "historicalCollections": [
+    {
+      "manifest": "historical/mixed-before-d8e7d119-87d87183/manifest.json",
+      "label": "Atlas before the d8e7d11 retake (Victoriei tram tunnel roofed, Pasajul Victoria strip on Titulescu)",
+      "frames": 116,
+      "generatedAt": "2026-11-11T01:53:58.590Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 96,
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 13,
+        "8add95f35681eddaf01a136ff1f5769a5329b102": 7
+      },
+      "captureType": "mixed-source-survey"
+    }
+  ]
 }

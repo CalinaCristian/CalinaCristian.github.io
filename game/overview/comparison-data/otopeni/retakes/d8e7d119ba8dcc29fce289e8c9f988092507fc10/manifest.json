@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "title": "otopeni aerial comparisons",
+  "generatedDate": "2026-11-12",
+  "generatedAt": "2026-11-12T15:57:39.285Z",
+  "defaultTile": "aerial-r11-c04",
+  "tileMetres": 250,
+  "orientation": "north-up",
+  "atlasScopeCounts": {
+    "ring-touches": 77,
+    "core-touches": 26,
+    "outside-ring": 4
+  },
+  "publishedBaseline": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+  "gameSourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+  "capture": {
+    "startedAt": "2026-11-12T15:57:34.037Z",
+    "endedAt": "2026-11-12T15:57:39.285Z",
+    "elapsedSeconds": 5.248,
+    "source": "867ba0818f649beb59c96eac77e5f1c474f9019f14135f83ab7df77076b505bc",
+    "loaded": {
+      "key": "bucharest-otopeni",
+      "city": "bucharest",
+      "district": "otopeni",
+      "ms": 1891,
+      "edges": 365,
+      "ribbons": 929
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "frameCounts": 2,
+    "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+    "scopeCounts": {
+      "ring-touches": 77,
+      "core-touches": 26,
+      "outside-ring": 4
+    }
+  },
+  "locations": [
+    {
+      "id": "otopeni-start",
+      "label": "Otopeni chapter start on DN1",
+      "lat": 44.555701,
+      "lon": 26.069266,
+      "source": "game/src/cities.js:CHAPTERS.otopeni.start",
+      "kind": "chapter-start",
+      "tileId": "aerial-r11-c04"
+    },
+    {
+      "id": "otopeni",
+      "label": "Henri Coandă Airport terminal",
+      "lat": 44.5708154,
+      "lon": 26.0795884,
+      "source": "game/src/landmarks.js:ANCHOR.otp; OSM r16476195 and five declared building parts",
+      "osm": "relation/16476195",
+      "kind": "cv-stop",
+      "tileId": "aerial-r04-c07"
+    },
+    {
+      "id": "airport-train-station",
+      "label": "Aeroport Henri Coandă train station",
+      "lat": 44.5690573,
+      "lon": 26.0754927,
+      "source": "OSM w813193384; source retained independently of terminal replacement; mean of distinct closing-ring vertices",
+      "osm": "way/813193384",
+      "kind": "landmark",
+      "tileId": "aerial-r05-c06"
+    },
+    {
+      "id": "source-parking-deck",
+      "label": "Mapped 5–6m parking deck band",
+      "lat": 44.5691737,
+      "lon": 26.077014,
+      "source": "OSM w1215048760 literal height6/min_height5",
+      "osm": "way/1215048760",
+      "kind": "source-check",
+      "tileId": "aerial-r05-c07"
+    }
+  ],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "boundarySource": "boundary-source.json",
+  "items": [
+    {
+      "id": "aerial-r04-c06",
+      "label": "Row 4 · Column 6",
+      "row": 4,
+      "column": 6,
+      "lat": 44.570623942698774,
+      "lon": 26.075423915573115,
+      "x": -125.00000000012622,
+      "z": -625.0000000003593,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -184.1379055756878,
+      "boundsXZ": [
+        -250,
+        -750,
+        0,
+        -500
+      ],
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 111,
+        "triangles": 274467,
+        "renderMs": 9.699999988079071,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 144
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-12T15:57:36.766Z",
+      "gamePath": "images/aerial-r04-c06.jpg",
+      "image": "images/aerial-r04-c06.jpg",
+      "thumbnail": "thumbs/aerial-r04-c06.jpg",
+      "sha256": "30d661d5c01bb949ac034e112b3a591fc7cc13a9bd00985e8c69becc70ca94cf",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 1970,
+      "dataset": "atlas"
+    },
+    {
+      "id": "aerial-r05-c06",
+      "label": "Row 5 · Column 6",
+      "row": 5,
+      "column": 6,
+      "lat": 44.56837436561926,
+      "lon": 26.075423915573115,
+      "x": -125.00000000012622,
+      "z": -375.00000000021555,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -182.75675199912388,
+      "boundsXZ": [
+        -250,
+        -500,
+        0,
+        -250
+      ],
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 102,
+        "triangles": 300989,
+        "renderMs": 1.5999999940395355,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 144
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-12T15:57:38.736Z",
+      "gamePath": "images/aerial-r05-c06.jpg",
+      "image": "images/aerial-r05-c06.jpg",
+      "thumbnail": "thumbs/aerial-r05-c06.jpg",
+      "sha256": "8af8eec73964175d392be3d375ff1e1b66136dae35e442a8a217a2817d33e2f7",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 549,
+      "dataset": "atlas"
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "Otopeni aerial comparisons",
-  "generatedDate": "2026-11-11",
-  "generatedAt": "2026-11-11T01:33:38.276Z",
+  "generatedDate": "2026-11-12",
+  "generatedAt": "2026-11-12T15:57:39.285Z",
   "defaultTile": "aerial-r11-c04",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -12,7 +12,7 @@
     "outside-ring": 4
   },
   "publishedBaseline": null,
-  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "gameSourceCommit": null,
   "capture": {
     "startedAt": "2026-11-08T22:25:03.107Z",
     "endedAt": "2026-11-08T22:43:05.379Z",
@@ -1769,16 +1769,19 @@
         0,
         -500
       ],
-      "gameSourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 112,
-        "triangles": 269528
+        "drawCalls": 111,
+        "triangles": 274467,
+        "renderMs": 9.699999988079071,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 144
       },
       "renderer": {
         "width": 640,
@@ -1788,16 +1791,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T01:33:18.702Z",
-      "gamePath": "retakes/b1e33eee/aerial-r04-c06.png",
-      "image": "retakes/b1e33eee/aerial-r04-c06.png",
-      "thumbnail": "retakes/b1e33eee/aerial-r04-c06.png",
-      "sha256": "27e3ab0c108ce03e7ccc64fa1fa43f0ddb3b86355d2c8283fbf439e58d62090b",
+      "capturedAt": "2026-11-12T15:57:36.766Z",
+      "gamePath": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/images/aerial-r04-c06.jpg",
+      "image": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/images/aerial-r04-c06.jpg",
+      "thumbnail": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/thumbs/aerial-r04-c06.jpg",
+      "sha256": "30d661d5c01bb949ac034e112b3a591fc7cc13a9bd00985e8c69becc70ca94cf",
       "width": 640,
       "height": 640,
-      "captureWallMs": 19124,
+      "captureWallMs": 1970,
       "dataset": "atlas",
-      "thumbnailSha256": "27e3ab0c108ce03e7ccc64fa1fa43f0ddb3b86355d2c8283fbf439e58d62090b",
+      "thumbnailSha256": "b88e0abe0a2aa44052cd54a11692af018334f959f832b97ac4d4c08d0c1e4f54",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.56949915415902,
@@ -1805,11 +1808,8 @@
         44.57174873123852,
         26.077
       ],
-      "coverageType": "core-touches",
-      "orientation": "north-up",
-      "places": [],
-      "sourceNote": "Current native recapture after source-part terminal correction.",
-      "sourceCaptureManifest": "retakes/b1e33eee/capture-report.json"
+      "sourceCaptureManifest": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/manifest.json",
+      "sourceNote": "Exact-pose scoped retake (station service drive at street level); prior collection archived."
     },
     {
       "id": "aerial-r04-c07",
@@ -2425,16 +2425,19 @@
         0,
         -250
       ],
-      "gameSourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 103,
-        "triangles": 297408
+        "drawCalls": 102,
+        "triangles": 300989,
+        "renderMs": 1.5999999940395355,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 144
       },
       "renderer": {
         "width": 640,
@@ -2444,16 +2447,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T01:33:33.536Z",
-      "gamePath": "retakes/b1e33eee/aerial-r05-c06.png",
-      "image": "retakes/b1e33eee/aerial-r05-c06.png",
-      "thumbnail": "retakes/b1e33eee/aerial-r05-c06.png",
-      "sha256": "bd9ea5b435e6876f887e043cacc8568fde95aa2e3be858d24ab8b6c79dd13163",
+      "capturedAt": "2026-11-12T15:57:38.736Z",
+      "gamePath": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/images/aerial-r05-c06.jpg",
+      "image": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/images/aerial-r05-c06.jpg",
+      "thumbnail": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/thumbs/aerial-r05-c06.jpg",
+      "sha256": "8af8eec73964175d392be3d375ff1e1b66136dae35e442a8a217a2817d33e2f7",
       "width": 640,
       "height": 640,
-      "captureWallMs": 12937,
+      "captureWallMs": 549,
       "dataset": "atlas",
-      "thumbnailSha256": "bd9ea5b435e6876f887e043cacc8568fde95aa2e3be858d24ab8b6c79dd13163",
+      "thumbnailSha256": "85b4c8e0224c35cd37d1668024e012598543e7fab5373b2aea7e20db4b31fb7a",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.56724957707951,
@@ -2461,11 +2464,8 @@
         44.56949915415902,
         26.077
       ],
-      "coverageType": "core-touches",
-      "orientation": "north-up",
-      "places": [],
-      "sourceNote": "Current native recapture after source-part terminal correction.",
-      "sourceCaptureManifest": "retakes/b1e33eee/capture-report.json"
+      "sourceCaptureManifest": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/manifest.json",
+      "sourceNote": "Exact-pose scoped retake (station service drive at street level); prior collection archived."
     },
     {
       "id": "aerial-r05-c07",
@@ -7160,8 +7160,8 @@
     "atlas": "Mixed-source technical atlas: 12 terminal-affected original poses recaptured 11 November 2026 at b1e33eee. Other frames retain their recorded source and date."
   },
   "atlasSourceCounts": {
-    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 95,
-    "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 12
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 97,
+    "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10
   },
   "sourceCaptureManifest": {
     "path": "capture-manifest.json",
@@ -7198,7 +7198,14 @@
       "These world-only top-down captures disable moving traffic and mirrors. Full public-road Street View, native walking/driving, grade and bridge clearance, drone-controller coverage, street/night/winter context and evolving traffic/mirror budgets remain separate acceptance gates."
     ],
     "latestGameFramesInspected": 12,
-    "latestGameFrameSource": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48"
+    "latestGameFrameSource": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+    "gameSourceCommit": null,
+    "sourceCounts": {
+      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 97,
+      "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10
+    },
+    "framesReviewed": 107,
+    "targetedRetakeReview": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/paired-review.json"
   },
   "groundConditions": {
     "manifest": "context/ground-b1e33eee/manifest.json",
@@ -7230,6 +7237,30 @@
       "gameSourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
       "frames": 12,
       "sha256": "19386d48e13241832b5f10a40d9f295293d296f8d456534f0083b5b88eaad7d4"
+    }
+  ],
+  "sourceSnapshots": [
+    {
+      "gameSourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+      "treeSha256": "867ba0818f649beb59c96eac77e5f1c474f9019f14135f83ab7df77076b505bc",
+      "manifest": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/manifest.json",
+      "manifestSha256": "61ad693705baa928ff4409d7fbdbd0dc8d9deadb62d4d897852337cec333332c",
+      "sourceProvenance": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/source-provenance.json",
+      "frames": 2
+    }
+  ],
+  "historicalCollections": [
+    {
+      "manifest": "historical/mixed-before-d8e7d119-96967302/manifest.json",
+      "label": "Atlas before the d8e7d11 retake (station service drive at street level)",
+      "frames": 107,
+      "generatedAt": "2026-11-11T01:33:38.276Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 95,
+        "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 12
+      },
+      "captureType": "mixed-source-survey"
     }
   ]
 }

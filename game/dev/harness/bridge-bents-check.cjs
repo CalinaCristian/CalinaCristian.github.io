@@ -56,7 +56,7 @@ const server = http.createServer((req, res) => {
             const piers = W.stats.piers, expectedPiers = bents.reduce((n, b) => n + (b.kind === 'wall' ? 1 : b.vee ? 3 : b.columns.length), 0), vees = bents.filter(b => b.vee);
             // a V pier: two legs from one footing, each leg clear of what passes under it and inside the crosshead
             for (const [i, b] of bents.entries()) if (b.vee) { for (const top of b.vee.tops) { const reach = Math.hypot(top[0] - b.vee.foot[0], top[2] - b.vee.foot[2]); if (!(reach >= 1.2 && reach <= b.width / 2) || Math.abs(top[1] - b.soffit - .15) > 1e-6) failures.push({ i, type: 'vee-leg-geometry', reach }); for (const t of [.25, .5, .75, 1]) { const x = b.vee.foot[0] + (top[0] - b.vee.foot[0]) * t, y = b.vee.foot[1] + (top[1] - b.vee.foot[1]) * t, z = b.vee.foot[2] + (top[2] - b.vee.foot[2]) * t; for (const h of lowerAt(x, z, y - .2)) if (y - .7 - h < M.roadClearanceM - .05 && Math.hypot(x - b.vee.foot[0], z - b.vee.foot[2]) > 1.3) failures.push({ i, type: 'vee-leg-clearance', x, z, y, lower: h }); } } }
-            return { city, district, model: M.basis, veePiers: vees.length, basarab, planner: W.stats.bridgeBents, medianFill: W.stats.medianFill, guardCompletion: W.stats.bridgeGuardCompletion, tramRailings: W.stats.tramRailings, trees: W.stats.treeDeckClearance, bents: bents.length, columns, piers, expectedPiers,
+            return { city, district, model: M.basis, veePiers: vees.length, basarab, planner: W.stats.bridgeBents, medianFill: W.stats.medianFill, guardCompletion: W.stats.bridgeGuardCompletion, railingNetwork: W.stats.railingNetwork, tramRailings: W.stats.tramRailings, trees: W.stats.treeDeckClearance, bents: bents.length, columns, piers, expectedPiers,
                 maxColumnSpanM: maxSpan, minCrossheadClearanceM: Number.isFinite(minClearance) ? minClearance : null, failures };
         }, { city, district });
         fs.writeFileSync(path.join(out, `${city}-${district}.json`), JSON.stringify({ root, method: 'Built district world facts; RAF disabled; no visual, journey or performance claim.', ...report, errors }, null, 2));
@@ -65,6 +65,8 @@ const server = http.createServer((req, res) => {
         if (district === 'grozavesti') {
             assert.ok(report.bents >= 60, 'bents ' + report.bents); assert.ok(report.planner.slotInfill.quads + (report.medianFill?.quads || 0) >= 60, 'slot infill + median fill'); // (2026-11-11: carriageway pairs moved to the median fill, built before the guards)
             assert.ok(report.planner.carriedBySuperstructure >= 30, 'stations left to the stays and the arch');
+            // (owner, 2026-11-12: "fences are not continuous", "random 1 off fences") railing ends left in the air: 100 before the railings were joined into one network, 16 after (merge points and tram crossings)
+            { const open = report.railingNetwork.openEnds.filter(o => o[2] > 1).length; assert.ok(open <= 18, 'railing ends left in the air: ' + open); }
             assert.ok(report.basarab, 'Basarab superstructure active'); assert.equal(report.basarab.stays, 60); assert.equal(report.basarab.anchorUnresolved, 0); assert.equal(report.basarab.unresolved, 0);
             assert.deepEqual(report.basarab.platforms, ['w620826242', 'w620826243']); assert.deepEqual(report.basarab.carriedSpans, ['cable-stayed', 'river-arch']);
         } else assert.equal(report.basarab, null);

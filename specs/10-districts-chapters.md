@@ -40,11 +40,11 @@ R10.7 Progress UI shows chapters (n/10) and the year; finale after uipath-bel as
 R10.8 Congestion hotspots per district in `CITIES[city].districts[id].congestion` (see spec 13).
 
 ## Acceptance
-- [x] All 8 district data files build; each ≤ 3 MB.
-- [ ] Each district loads in < 4 s (desktop) / < 12 s (software GL).
-- [ ] Every chapter route 1.5–2.5 km (bellevue: ≤ 3 min drive), routable, no detours via service roads.
-- [ ] Full story playable in ≈ 20–30 min; logic harness `c`/`f` pass per chapter.
-- [ ] Visual QA review of each chapter route: 0 defects of severity ≥ medium.
+- All 8 district data files build; each ≤ 3 MB.
+- Each district loads in < 4 s (desktop) / < 12 s (software GL).
+- Every chapter route 1.5–2.5 km (bellevue: ≤ 3 min drive), routable, no detours via service roads.
+- Full story playable in ≈ 20–30 min; logic harness `c`/`f` pass per chapter.
+- Visual QA review of each chapter route: 0 defects of severity ≥ medium.
 
 ## Owner decisions
 - 2026-11-07: Deutsche Bank (2017–2018) was at BOB Tower, Bd. Dimitrie Pompeiu 6A, Pipera (44.4797, 26.1146) → chapter `db` moves to `pipera`. Luxoft confirmed at Hermes Business Campus, Bd. Dimitrie Pompeiu 5-7 (44.4805, 26.1139). Bellevue finale shortened to ≤ 3 min of driving (start near downtown Bellevue; the floating bridge moves into the montage).
@@ -58,6 +58,6 @@ R10.8 Congestion hotspots per district in `CITIES[city].districts[id].congestion
 - 2026-11-07 (round 5, notes 9/18): a landmark is shown / offered only where it is reachable; the others stay visible as `scenery` (no marker / label / route) and live in the tourist spots.
 - 2026-11-07 (round 5, note 81): map readability — outside the story area is a calm flat dim (no heavy hatch); the legend is an opaque, compact, collapsible panel whose rows are the category filters (shops and transit off by default); by default the big map shows CV stops, reachable landmarks, spots and fuel with clear labels (shops only as small dots when zoomed in, one transit marker per station, one label size per rank with a halo and no overlaps); the minimap shows the CV stop, the next objective and fuel only.
 
-## Current linear office story · 10 November 2026
+## Office visits (owner, 2026-11-10)
 
-The owner supersedes the earlier A–D conversation design: E starts/resumes the teacher/professor/manager’s fixed CV sequence; Enter, Space or a single Continue button advances it. Follow-up lines are included in order. Esc or the close button pauses; leaving early does not complete a chapter. The final Continue finishes the visit and advances the story. CV completion uses fully presented sections and preserves the existing stop/topic achievement keys and previous earned progress. Dated progress logs above describe their original historical implementations.
+The owner supersedes the earlier A–D conversation design: E starts/resumes the teacher/professor/manager’s fixed CV sequence; Enter, Space or a single Continue button advances it. Follow-up lines are included in order. Esc or the close button pauses; leaving early does not complete a chapter. The final Continue finishes the visit and advances the story. CV completion uses fully presented sections and preserves the existing stop/topic achievement keys and previous earned progress.

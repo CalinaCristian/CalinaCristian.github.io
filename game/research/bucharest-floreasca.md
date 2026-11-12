@@ -600,6 +600,18 @@ Seen at 16 poses; the game render at the same pose is in brackets.
   King, Genin / Mumbai, Shop&Go, Hotel Johann Strauss, the disused units at 44.46589, 26.10271 / 44.46140, 26.10021 /
   44.46004, 26.09999.
 
+## Field notes (aerial + reality pass, 2026-11-08)
+
+- Core around 44.4645, 26.1045: long 4-storey (P+3) flat-roofed 1950s–60s blocks with dark bitumen roofs, plain balconies; red-
+  tile villas (1–3 storeys) scattered between them, denser on the composer streets west of Calea Floreasca; newer 4–6-storey
+  flat-roofed blocks with light membrane roofs. Gardens, fences and dense tree canopy almost everywhere; cars parked on both
+  kerbs (on the sidewalk) of the residential streets; bollards along the west side of Calea Floreasca; its bus lane is a
+  contraflow lane on the west side, plain asphalt with BUS lettering (game still models the road as one-way 3 lanes — open).
+- Piața Floreasca market hall (6275 m²) is on the route; Parcul Cinema Floreasca is a wooded park; the Dinamo complex has the
+  stadium, velodrome (concrete track round a rugby pitch), clay tennis courts, pitches, outdoor pool, Sala Polivalentă.
+- Open: facade colours are per-type palettes (no measurement source without Street View data); untagged heights are rule-based
+  (a shadow-length height estimate calibrated on OSM-tagged buildings is the obvious next step); contraflow bus lane topology.
+
 ## Reference images (`refs/floreasca/`, 7 files, licences in LICENSES.md)
 
 | file | taken | near | licence | facade-texture candidate |

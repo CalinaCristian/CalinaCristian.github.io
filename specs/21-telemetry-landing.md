@@ -2,7 +2,7 @@
 
 Owner role: **orchestrator**.
 
-## Telemetry (shipped)
+## Telemetry
 
 Dashboards cover visit funnels and successful loads/FPS. The starter retention chart is not reliable with memory-only
 anonymous identities.

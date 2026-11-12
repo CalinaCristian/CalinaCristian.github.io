@@ -608,6 +608,103 @@ Culture notes:
 - Rooftop advertising brands around Piața Unirii not verified
 - Current (Nov 2026) state of the Planșeul Unirii works
 
+## Fidelity pass 2026-11-12 — live OSM re-validation (lane `unirii`)
+
+Source: OpenStreetMap API 0.6 map calls of 2026-11-12 over 44.4198,26.0976 – 44.4356,26.1210 (© OpenStreetMap contributors,
+ODbL), compared with `game/data/bucharest-unirii.json` (generated 2026-11-09) and with game renders at the `unr-*` viewpoints
+in `game/dev/reality/viewpoints.json`. "Inside" = inside the exact playable geometry (`district.geometry`).
+**Street View was not available to this pass** (the shared browser pane was at its tab limit for the whole session), so
+every verdict below is an OSM / plan / render verdict; what a place *looks like* (materials, parapets, signage) is not
+re-checked here and stays open in `handoffs/fidelity/BACKLOG.md` (row `unirii-SV`).
+
+### Structures (bridges, underpasses, passages)
+
+| OSM | what | game | verdict |
+|---|---|---|---|
+| w241368617, w241368618, w1383050305 | Pasajul Unirii, `tunnel=yes layer=-1 maxheight=3.5`, 2 lanes each way, 44.42962,26.10357 → 44.42481,26.10405 | three tunnel roads at layer −1, open ramps in a walled trench at both ends, a covered box under the square | match (levels, extent); interior finish not checked |
+| w43898061 | Dâmbovița under the square, `tunnel=yes layer=-3`, 44.42881,26.10107 → 44.42608,26.10438 | not visible: the square is continuous over it; the open channel starts / ends at the mapped tunnel ends | match |
+| w79870041, w826403112, w1478497247 | covered forecourt lanes of the Coposu fuel station (`covered=yes maxheight=4.25`) | reviewed covered road under the canopy | match |
+| w231671712 | footbridge `bridge=yes layer=1`, 13 m, between the Unirea car park (w184169515) and the Carrefour building (w405564542), 44.42873,26.10576 → 44.42867,26.10562 | absent | **missing** (its form is unknown without a street-level look: not built) |
+| w533137833, w533137834, w737802918, w740314410, w776448464, w1518548736…39, w1519547524/26, w1520124741/49/53, w1520220670, w1520593143, w737802926, w1476540742 | pedestrian subways and stairs of the Piața Unirii 1 / 2 metro stations (`tunnel=yes layer=-1/-2`) | not modelled (entrances are POIs) | by design: the game has no pedestrian underground |
+| w237628815, w304275386, w658176196, w658009188/90, w658267308, w1574342598, w733578958, w1106897137, w658258526 | Old Town foot passages (Pasajul Latin, Gabroveni, Hanul cu Tei, Sf. Gheorghe Nou) and two building passages on footways | not modelled (footways are not in the data) | open, low visibility from the carriageways |
+| w241369341, w241369588, w241369345, w899314658 | Pasajul Mărășești (road + tram underpass), 44.4237,26.1124 — 600 m outside the playable area | scenery street at grade | not checked (scenery ring) |
+
+### Water
+
+- **Dâmbovița, open sections** (polygons w174990751 west of the square, w174991904 east): drawn as the sunken concrete channel
+  (water ≈ 4.4 m below the quays, battered wall, service bank, parapet + railing). Defect found and fixed in this pass: the
+  aerial green raster painted grass cells over the channel (crowns overhanging the water were measured as green ground), which
+  floated as green slabs above the river on both sides of the square. `world.js` now skips green cells whose centre is in a
+  mapped water polygon (all districts). Verified on `unr-top-river-east`, `unr-top-river-west`, `unr-river-east`, `unr-river-west`.
+- **Weirs** w1434558024 (44.42606,26.10458, at the outfall east of the square) and w1434558023 (44.42366,26.10951): not drawn.
+- **Fountain field**: all 31 basin polygons of the square and the Bd. Unirii median inside / beside the playable area are
+  present with their OSM outlines, plus the two relations of the round centre (r19943684, r19943685, "Fântâna lui Bucur",
+  n1423222582, monument w1176896690). Not in the data: the six ≈ 0.6 m wide jet slits between basins (w1176128444,
+  w1176142645, w1176576623, w1176581104, w1176591246, w1176632035).
+- **Fountains mapped only as `amenity=fountain` ways** (no `natural=water`) are dropped by the builder and missing:
+  w413969309 (Ø 6 m, 44.42690,26.10512, north sidewalk of Bd. Unirii by Unirea), w608657873 (Ø 8 m, 44.43414,26.11631, Piața
+  Sfântul Ștefan), w1474406316 (44.43491,26.10395, Colțea). The three Colțea park basins w1180500523, w1180500524, w1180503225
+  (`natural=water`, 44.4341–44.4345, 26.1034–26.1037) are also missing from the data.
+- **Planșeul Unirii works (documented exception)**: live OSM has Bd. Unirii through the square as `highway=construction
+  access=no` (w153967343, w228997261, checked 2026-05-28) and the north half of the park as `landuse=construction`
+  (w1408424765 "Zona de lucrări consolidare Planșeu Unirii"); the game keeps the working fountain field and lawn of the
+  2015 chapter (see "Fountains" above) and has no carriageway through the fountain field.
+
+### Sports and play
+
+Pitches w412096075 (artificial turf, 44.43047,26.11164) and w787971672 (44.42998,26.11096) by the school on Str. Matei Basarab
+are present with markings (`unr-top-pitches`); w411424158 and w788040235 further east are present in the scenery ring. The
+block of courts at 44.4255,26.1165 (w1188316462, w1431737648…53: three tennis, basketball, two volleyball) is 500 m outside
+the playable area and is not in the data. Playgrounds n7958996084 (44.42468,26.10324) and n5766022623 (44.43433,26.11637) are
+nodes and are not drawn.
+
+### Tourist features
+
+39 mapped inside the playable area: 28 are POIs, 5 exist as their building only, 6 are not in the data — wayside crosses
+n2079451985 "Troița Mântuirii Neamului" (44.42795,26.10300) and n9411250345 "Cruce de piatră" (44.42586,26.10053), plaques
+n13197997354 and n7128900791, an unnamed artwork n7849534785 (44.42298,26.10365).
+
+- **Hanul lui Manuc** (r19803024, `building:colour=white`, `roof:shape=hipped`, `roof:colour=brown`, 2 levels, courtyard):
+  the tagged white came out ochre because pale tagged colours were mixed 85 % towards the style palette. A literal
+  `building:colour` in the retained source tags now wins (`world.js`); render `unr-manuc`: white walls, brown hipped roof,
+  open courtyard (`unr-top-manuc`). The wooden galleries of the courtyard are not modelled.
+- **Unirea Shopping Center** (w23492027): the landmark model replaced the source building and with it every tenant fascia.
+  The landmark now keeps the unit signs of the nine businesses OSM maps in it (McDonald's, Chopstix, Luca, Megapan, Sephora,
+  Douglas, Mega Image, First Bank, a bubble-tea counter); renders `unr-unirea-nw`, `unr-unirea-mid`. H&M (n1814949000) stays a
+  vacant unit; "Koton" (n6323283871) is `shop=vacant` in OSM and is not shown.
+- **Unirea car park** (w184169515, OSM `amenity=parking parking=multi-storey`, 10 levels, name "Parcare Unirea"): drawn as a
+  windowed block signed "Spălătorie Unirea Etaj 7" (the car wash on its 7th floor, n1439628129, has no `level` tag). Wrong
+  type and wrong sign; needs a builder rule (multi-storey car parks; a business named for an upper floor is not a street sign).
+- **Hala Traian** (w35147215) is the landmark model; it and its shops stand 13–45 m outside the playable edge, so Mega Image
+  (n1890565824), Superbet (n8628418067), Farmacia Dona (n10539907931), Tezaur (n13456671086), myGOLD (n13456671089), Megapan
+  (n3144454751), Fortuna (n10539907930), 5 to go (n13456671090), Pharma Plant (n3873157367) and the tram stop "Hala Traian"
+  (n11360886995) are not in the data.
+- **Dealul Mitropoliei**: the game world is flat; the hill (≈ 15 m) is not modelled.
+
+### Businesses
+
+238 named OSM businesses inside the playable area: 223 have a game POI of the same name / brand within 40 m; the other 15 are
+in categories the builder does not draw (craft, healthcare, generic offices, holiday apartments, `shop=vacant`, the Piața
+Traian marketplace polygon). No game business POI is absent from live OSM except four ATMs drawn as bank markers (Euronet
+×3, "Bitcoin ATM - Shitcoins.club"). 120 more businesses stand within 60 m outside the playable edge, on frontages that are
+visible from the playable streets, and are not in the data because the builder keeps POIs only inside the edge; the largest
+clusters are Hala Traian (above), the north side of Str. Halelor / Hanul lui Manuc (5 to go n12269022954, Kiss Tea
+n12269022955, Starbucks n3578133327, restaurant Hanu' lui Manuc n2486324769), the west side of the square at Splaiul
+Independenței (Catena n6939504485, Luca n4073525677, Vodafone n9159258050, MEI n2455062365, Carrefour Express n10690413105),
+and the Old Town streets off Bd. I.C. Brătianu. Full list with distances: `businesses-gamediff.json` → `bucharest-unirii.missing`
+(`edgeM`). Five more disused units inside the playable area were added to `closed` (Subway n5157603013, Uncle John
+n9410330827, a pharmacy n6262384181, two unnamed shops n3875095826, n5686059121).
+
+### Transit
+
+Every bus / tram stop and metro entrance mapped inside the playable area is in the data (7 entrances of Piața Unirii 1 / 2).
+Just outside the edge and missing: metro entrances "Piața Unirii 1 B" n5172764451 (5 m out, 44.42815,26.10101) and
+n5172764450 (30 m), bus stop "Piața Unirii" n1668620625 (4 m), "Hristo Botev" n5235082193 (1 m).
+Tram: live OSM has running track (`railway=tram`) only at the Piața Unirii terminus, Sf. Gheorghe and Bd. Cantemir; the track
+on Bd. Corneliu Coposu is `railway=disused` and the Calea Călărașilor line is `railway=construction` ("lot 1", progress 1 %
+on 2026-10-03, opening 2029) while its stops are still mapped as `railway=tram_stop`. The game matches: disused rails in the
+Coposu carriageway, no track on Călărașilor, stops shown.
+
 ## Reference images (`refs/unirii/`, 40 files, licences in LICENSES.md)
 
 | file | taken | near | licence | facade-texture candidate |

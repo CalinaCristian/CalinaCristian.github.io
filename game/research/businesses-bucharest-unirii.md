@@ -108,6 +108,16 @@ Mapped signs / cameras within 150 m: node/6242940774 maxspeed@60 113 m; node/622
 
 Schools / kindergartens within 150 m of a route: Liceul Tehnologic Unirea (way/83488919, 121 m).
 
+## Re-check against live OSM, 2026-11-12
+
+The counts above describe the 2026-11-07 pass against the older data file. Re-checked against live OSM and the data
+generated 2026-11-09: 238 named businesses inside the playable area, 223 present in the game, 15 not drawn by category
+(craft, healthcare, generic offices, holiday apartments, vacant). The chain brands listed above as missing on the route
+(Sephora, Douglas, Superbet, Telekom, DHL, MoneyGram, Stanleybet, Maxbet) are now in the data. 120 businesses within 60 m
+outside the playable edge are still missing (the builder keeps POIs only inside the edge); `businesses-gamediff.json` →
+`bucharest-unirii.missing` now holds that live list with `edgeM` (metres outside the edge), `recheck` the counts, and
+`closed` five more disused units. Details: `bucharest-unirii.md` → "Fidelity pass 2026-11-12".
+
 ## Sources
 
 - OpenStreetMap API 0.6 tiles fetched 2026-11-06 (`/api/0.6/map`), © OpenStreetMap contributors, ODbL — element ids in every entry.

@@ -2025,7 +2025,18 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (const [key, o] of open) if (!seen.has(key)) { flush(o, r); open.delete(key); }
             rowRuns = []; r++; c = 0; cur = 0;
         };
-        for (const v of G.rle) { if (v < 0) { endRow(); continue; } if (cur && v > 0) rowRuns.push([c, v]); c += v; cur ^= 1; }
+        // (fidelity pass, Unirii: green slabs floated over the Dâmbovița channel) the aerial raster also sees crowns that
+        // overhang mapped water: a green cell whose centre lies in a mapped water polygon is not ground, so runs are split there.
+        const greenOverWater = areas.some(a => a.kind === 'water');
+        const pushGreenRun = (c0, n) => {
+            if (!greenOverWater) { rowRuns.push([c0, n]); return; }
+            const gz = G.z0 + (r + 0.5) * G.cz; let s = -1;
+            for (let i = 0; i <= n; i++) {
+                const wet = i === n || isWater(G.x0 + (c0 + i + 0.5) * G.cx, gz);
+                if (!wet && s < 0) s = i; else if (wet && s >= 0) { rowRuns.push([c0 + s, i - s]); s = -1; }
+            }
+        };
+        for (const v of G.rle) { if (v < 0) { endRow(); continue; } if (cur && v > 0) pushGreenRun(c, v); c += v; cur ^= 1; }
         for (const o of open.values()) flush(o, r);
     }
     // Exact mapped water banks take precedence over fallback centreline widths.
@@ -4025,7 +4036,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (sourcePolicy) {
                 for (const b of bRecs) if (replacementIds.has(data.buildingIds?.[b.derivedFrom ?? b.i])) {
                     b.skip = true;
-                    b.landmarkReplacement = lm.id;
+                    b.landmarkReplacement = lm.id; b.landmarkUnitSigns = !!lm.unitSigns; // (unitSigns: a mall model keeps its mapped tenants' fascias)
                     replacedSources.add(data.buildingIds[b.derivedFrom ?? b.i]);
                 }
                 landmarkSourceReplacements.push({ landmark: lm.id, declared: [...replacementIds], replaced: [...replacedSources], unmatched: [...replacementIds].filter(id => !replacedSources.has(id)) });
@@ -5068,7 +5079,10 @@ export async function buildWorld(city, renderer, opts = {}) {
         let wallCol = palPick;
         if (b.colour && b.style !== 'glass') {
             const tc = rgb(b.colour), mx = Math.max(...tc), mn = Math.min(...tc), sat = mx ? (mx - mn) / mx : 0;
-            wallCol = sat > 0.3 || mx < 120 ? tc : mixRgb(tc, palPick, 0.85); // (research estimates: tone only)
+            // (fidelity pass, Hanul lui Manuc: OSM building:colour=white came out ochre) a literal source colour tag is not a
+            // research estimate: it wins outright wherever the raw source tags are retained (data.buildingSourceTags)
+            const literalColour = !!data.buildingSourceTags?.[data.buildingIds?.[b.derivedFrom ?? b.i]]?.['building:colour'];
+            wallCol = literalColour || sat > 0.3 || mx < 120 ? tc : mixRgb(tc, palPick, 0.85); // (research estimates: tone only)
         }
         { // per-building hue / value jitter
             const j = 0.9 + brng() * 0.16, w = (brng() - 0.5) * 0.08;
@@ -5565,7 +5579,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     let unitSigns = 0, vacantUnits = 0;
     const normName = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
     function addUnitSign(b, x, z, text, kind) {
-        if (b.skip || b.cv || (b.minH || 0) > 0.5 || b.h < 3) return;
+        if ((b.skip && !b.landmarkUnitSigns) || b.cv || (b.minH || 0) > 0.5 || b.h < 3) return;
         // (2026-11-08, owner: "Poke House duplicated") the building's own name sign already names this business
         if ((b.flags & 2) && b.name) { const a = normName(b.name), c2 = normName(text); if (a && c2 && (a.includes(c2) || c2.includes(a) || a.split(' ')[0] === c2.split(' ')[0])) return; }
         const ring = b.ring, ccw = signedArea(ring) > 0;

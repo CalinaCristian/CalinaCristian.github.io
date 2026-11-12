@@ -3595,7 +3595,7 @@ export const LANDMARKS = [
     L('cec', 'bucharest', 'Palatul CEC', ['Palatul Casei de Economii şi Consemnaţiuni', 'Palatul CEC'], 36, bCEC, { floodlit: true, masonry: true }),
     L('mnir', 'bucharest', 'Muzeul Național de Istorie a României', ['Palatul Poștelor', 'Muzeul Național de Istorie a României'], 70, bMNIR, { floodlit: true, masonry: true }),
     L('marriott', 'bucharest', 'JW Marriott Grand Hotel', ['JW Marriott', 'JW Marriott Bucharest Grand Hotel'], 75, bMarriott),
-    L('unirea', 'bucharest', 'Unirea Shopping Center', ['Unirea Shopping Center'], 115, bUnirea),
+    L('unirea', 'bucharest', 'Unirea Shopping Center', ['Unirea Shopping Center'], 115, bUnirea, { unitSigns: true }), // (fidelity pass: OSM tenants on the ground floor)
     L('fountains', 'bucharest', 'Fântânile din Piața Unirii', [], 0, bFountains),
     L('skytower', 'bucharest', 'Sky Tower', ['Sky Tower'], 28, bSkyTower, { sourceIds: ['w219622660'],
         // Reproduced from the retained w219622660 source centroid, 137m height,

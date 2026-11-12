@@ -1,6 +1,6 @@
 # Backlog · open owner reports (single list)
 
-Updated 2026-11-11. The one place for what is still open. Report poses: [owner-reports-20261110.json](owner-reports-20261110.json)
+Updated 2026-11-12. The one place for what is still open. Report poses: [owner-reports-20261110.json](owner-reports-20261110.json)
 (register #1–#71, camera eye / bearing / pitch per record). Reality checks against Street View:
 [reality-check/](reality-check/README.md).
 
@@ -11,7 +11,24 @@ the original pose. Until then a fix stays under "Fixed on branch".
 
 | Where | Report | State / diagnosis |
 | --- | --- | --- |
-| — | none | every reported finding is fixed on the branch or closed below; new reports go here |
+| Grozăvești (712, -965), (815, -1042) | "huge issue", "broken fence" | the carriageway's right half narrows from 3.5 m to 1.8 m at one node (OSM widths), so its railing steps sideways at the node; the step is now joined, but the railing still turns a corner instead of tapering |
+| people at night | "shadows for people (texture like they are just standing that are transparent)" | not reproduced in a visible Ultra window at night among walkers (the AO pass already skips the crowd, lamps cast no shadows); needs an F8 report where they appear |
+
+## Fixed on master 2026-11-12 (owner reports of 2026-11-12, re-check live at the poses)
+
+| Report | Fix |
+| --- | --- |
+| Grozăvești (354, -718), (329, -703), (330, -716), (387, -745), (435, -756), (878, -1118), (869, -1076), (837, -1061) "see through" | junction pads up on the Basarab deck (bends, pads shared by two carriageways) had a top skin only; each now has the decks' underside, 0.3 m wider so it meets the mitred decks, and a fascia where no deck continues |
+| Grozăvești (259, -645) "what is this gray spot" | a slot infill quad (tram slab to carriageway) passed under a carriageway at the same level and fought its asphalt; a slot never covers a carriageway now (13 quads kept off) |
+| Grozăvești (249, -617) "this looks random" | consecutive slot infill quads along a bend met at one side only and the ground showed through a wedge; each overlaps the next by 0.3 m |
+| Grozăvești (770, -1001) "random thing", (763, -1020) "missing pieces" | the Bretea slip ramps kept grey pad-rim barrier pieces (one stood in the carriageway); every raised bridge edge connected to the Basarab deck is now one structure with the continuous white guard and blue band |
+| Grozăvești (982, -1190), (836, -1060), (814, -1000) "not connected"; blue band patches missing | a tram slab or slot infill beside a carriageway counted as road continuing at its level and left the road railing in pieces; only a carriageway or filled median opens it now. Tram-deck railing ends up to 1.5 m apart are joined |
+| Grozăvești (1086, -1266) "should the fence not go all the way?" | the tram ramp's railing stopped where a street within 1.2 m counted as level; only a surface within 0.35 m does now |
+| Grozăvești (933, -1180) "see through" | ramps up to 4.5 m (was 3.5) stand on retaining walls, and a pad between two such ramps reaches the ground |
+| Grozăvești (423, -745) "lines look wrong", (898, -1136) "lines seem odd" | where a ramp merges with a carriageway at one level, its edge line ran on across the other road's lanes; edge lines are laid in 1 m pieces and a piece inside another level carriageway is left out |
+| chat bubble too high | a walker's bubble sits 0.25 m above the head (scaled with the walker), was a fixed 2.4 m |
+| office windows break up close | the live window view renders at up to 4096 px (4 MP) on Ultra / High, was 2048 px (1 MP) |
+| #67 Bellevue walkers frozen (live: 65 of 114 moved under 1 m in 60 s) | a walker stuck 2.5 s on a crossing turns back, and if stuck again relocates; a walker in recovery mode stuck 3 s leaves the road or resumes its route (the earlier 55ca854d rule never fired for walkers in recovery) |
 
 ## Published (master 264ef5f3, 2026-11-11) and re-checked live at the report poses on cristiancalina.com
 
@@ -22,7 +39,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | 66e39be4 | L17 Basarab tram ramp fork: the climbing track now stays at grade until it is 3 m from the flat branch (about 25 m past the fork, measured on the source rails), then climbs to the 6.1 m bridge entry at up to 9 % (MODEL estimate; 8 % on the deck), so the climbing slab no longer covers the flat branch's track; Street View shows the trams on a grassed bed at grade there. The tram sweep now refuses no pose at all: a V-leg is checked along its whole length, and the Pasajul west ramp's embankment collision wall steps up to 1 m toward its carriageway where a tram runs beside it |
 | 945898a9 | L8 colliding buildings, the rest: a lower courtyard building is now cut at a taller neighbour with its courtyard kept open (Unirii 787 → 798 cuts), and a ground-level member of a prepared assembly running into a taller building outside its assembly is cut too (Romană 104 → 117); parts of one assembly still stack by design (476 pairs in Romană). #59 / #60 SeaTac: drop barriers beside the sunken ramps join across up to 3 m and stay on while the drop is over 0.25 m (they started at 0.45 m and switched off at once); with 74136408 and 58a8908a the ramps, gores and walls are done — the remaining barrier pieces stand where the neighbouring ramp lies at another level |
 | 1afadcde | #52 Luxoft: an upper office floor (floor 3, an estimate for the owner to confirm, 10.8 m) with open-plan desks, a meeting room and a live window onto Pipera from the Hermes facade; the window binding resolves and the view is active everywhere in the room. It was a ground-floor lobby with an opaque window band |
-| 55ca854d | #67 / L15 Bellevue pedestrian pileups at closures: walkers blocked head-on by peers on a crossing step through after 1.5 s; walkers boxed in by a closure both ways leave the road |
+| 55ca854d | L15 Bellevue pedestrian pileups at closures: walkers blocked head-on by peers on a crossing step through after 1.5 s; walkers boxed in by a closure both ways leave the road (#67 itself: see 2026-11-12 above) |
 | ceccfdd8 | Pasajul west deck over the Dâmbovița: it crosses right above Podul Grozăvești (OSM layer 2 over layer 1, no `maxheight` mapped). Street View from Podul Grozăvești shows a deep steel-blue box girder whose underside passes about two storeys up; the arch span now carries 2.45 m edge girders and cross girders in that blue (estimated), underside 8.5 m up instead of a thin slab at 9.9 m; road heights unchanged |
 | f63b6aa4 | L41 sky through the Basarab deck west of the station: Street View under the station shows one continuous underside; an elevated tram deck now joins a carriageway up to 12 m away (only the Basarab viaduct has tram decks that high: slot infill 2,476 → 7,944 m²), and the gore partners leaving one split node are paired for the median fill. A hairline gap remains under the deck near (600, -880) |
 | 2e751d33 | #66 night drone road lighting: street-lamp pools and real lights followed the player on the ground while the drone flew elsewhere; a camera away from the player is now the centre (its ground point plus a look-ahead growing with height) and the lit reach widens with height (capture 300 m from the player: 13 lights / 47 pools under the drone, before 7 / 21 by the player) |

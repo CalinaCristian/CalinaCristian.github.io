@@ -31,7 +31,7 @@ export class TrafficDialogue {
   relation??=event.kind==='greeting'?'conversant':event.kind==='collision'&&(id===event.sourceId||id===event.targetId)?'participant':id===event.sourceId?'source':event.targetId===id?'recipient':'witness';
   const now=performance.now(),offer=this.governor.offer({nowMs:now,event,speaker:{id,role,relation,eligible:true},context:currentDialogueContext(this.host,this.places,actor)});
   if(!offer)return false;let accepted=false;
-  const anchor={get x(){return actor.x;},get z(){return actor.z;},get y(){return dialogueActorY(actor,role,t.world)??y;},get bubbleY(){return(dialogueActorY(actor,role,t.world)??y)+2.4;}};
+  const anchor={get x(){return actor.x;},get z(){return actor.z;},get y(){return dialogueActorY(actor,role,t.world)??y;},get bubbleY(){return(dialogueActorY(actor,role,t.world)??y)+(role==='pedestrian'?.25+1.75*(actor.scale||1):2.4);}}; // (owner 2026-11-11: "chat bubble shows up too high": a pedestrian's bubble sits just above the head, not 2.4 m over the feet)
   try{accepted=t.say(anchor,offer.line,offer.cls,priority??offer.priority,{actual:true})===true;return accepted;}
   finally{this.governor.settle(offer.token,accepted,performance.now());}
  }

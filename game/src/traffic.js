@@ -2634,7 +2634,7 @@ export class Pedestrians {
         this.group = this.crowd.object; // (visual harness hides peds via .group)
         const clothes = traffic.buc ? CLOTHES_B : CLOTHES_S;
         for (let i = 0; i < count; i++) {
-            const p = { i, x: 0, z: 0, heading: 0, speed: this.rng.range(1.05, 1.6), state: 'walk', legs: [], waitT: 0, phase: this.rng() * 6, downT: 0, onRoad: false, scale: this.rng.range(0.92, 1.1), get bubbleY() { return 0.2 + 1.95 * this.scale; } }; // (bubbleY: chat bubbles sit just above the head, not at the 2.6 m driver height)
+            const p = { i, x: 0, z: 0, heading: 0, speed: this.rng.range(1.05, 1.6), state: 'walk', legs: [], waitT: 0, phase: this.rng() * 6, downT: 0, onRoad: false, scale: this.rng.range(0.92, 1.1), get bubbleY() { return (Number.isFinite(this._fy) ? this._fy : 0) + 0.25 + 1.75 * this.scale; } }; // (just above the head, from the drawn feet) // (bubbleY: chat bubbles sit just above the head, not at the 2.6 m driver height)
             if (stops.length && i < Math.min(count * 0.1, stops.length * 3)) { // (≤ 3 per stop at the start: they piled up)
                 const st = stops[i % stops.length]; const sx = st.x ?? st.doorX, sz = st.z ?? st.doorZ;
                 const a = this.rng() * 6.28, r = this.rng.range(0.4, 2.2);
@@ -3440,7 +3440,19 @@ export class Pedestrians {
                 if (d > 0.001) { p.x += dx / d * step; p.z += dz / d * step; p.heading = Math.atan2(-dx, -dz); }
                 this.guardPeerStep(p, ox, oz, dt, true);
                 this.clearObstacles(p); this.avoidVehicles(p, ox, oz, true);
-                if (p.recovery === q && Math.hypot(q.x - p.x, q.z - p.z) < 0.08) { p.state = q.state; p.onRoad = q.onRoad; p.legs = q.legs; p.recovery = null; if (p.state === 'walk' && p.e) this.syncWalkPose(p); }
+                if (p.recovery === q && Math.hypot(q.x - p.x, q.z - p.z) < 0.08) { p.state = q.state; p.onRoad = q.onRoad; p.legs = q.legs; p.recovery = null; p.recBest = undefined; if (p.state === 'walk' && p.e) this.syncWalkPose(p); }
+                // (owner register #67, Bellevue, checked live 2026-11-11: walkers walking back to a recovery point blocked by
+                // stopped cars and other walkers stood there for minutes, and the cars waited for them) no headway for 3 s: on
+                // the road they leave it, elsewhere they take up the recovered pose
+                else if (p.recovery === q) {
+                    const left = Math.hypot(q.x - p.x, q.z - p.z);
+                    if (p.recBest === undefined || left < p.recBest - 0.15) { p.recBest = left; p.recStall = 0; } else p.recStall = (p.recStall || 0) + dt;
+                    if (p.recStall > 3) {
+                        p.recBest = undefined; p.recStall = 0; this.stats.recoveryStallResolved = (this.stats.recoveryStallResolved || 0) + 1;
+                        if (p.onRoad || this.roadAt(p.x, p.z)) { p.recovery = null; p.onRoad = false; p.state = 'walk'; p.legs = []; if (T.large) this.relocate(p, 120, 420, true); else this.relocate(p, 30, 200, true); }
+                        else { p.state = q.state; p.onRoad = q.onRoad; p.legs = q.legs; p.recovery = null; if (p.state === 'walk' && p.e) this.syncWalkPose(p); }
+                    }
+                }
                 continue;
             }
             if (p.state === 'down') {
@@ -3521,7 +3533,15 @@ export class Pedestrians {
                 if (leg.cross) this.crossCount.set(leg.node, (this.crossCount.get(leg.node) || 0) + 1);
                 // (2026-11-08, owner: "stuck people randomly") a turning point that cannot be reached (the kerb clamp / an
                 // obstacle pushes the walker back every frame: walking on the spot in a clump): no headway for 2.5 s → skip it
-                if (!leg.cross) { if (p.legBest === undefined || d < p.legBest - 0.15) { p.legBest = d; p.legStall = 0; } else p.legStall = (p.legStall || 0) + dt; }
+                if (p.legBest === undefined || d < p.legBest - 0.15) { p.legBest = d; p.legStall = 0; } else p.legStall = (p.legStall || 0) + dt;
+                // (owner register #67, Bellevue, checked live 2026-11-11: 36 walkers stood mid-crossing for a minute beside cars
+                // still for over two minutes; the cars waited for them and they could not pass the cars) a crossing without
+                // headway for 2.5 s turns back to the kerb it came from; one stuck on the way back as well leaves the road
+                if (leg.cross && p.legStall > 2.5 && leg.sx !== undefined) {
+                    p.legBest = undefined; p.legStall = 0;
+                    if (!leg.back) { leg.x = leg.sx; leg.z = leg.sz; leg.back = true; p.legs.length = 1; if (p.next) p.next.dir = -p.next.dir; this.stats.crossStallTurned = (this.stats.crossStallTurned || 0) + 1; }
+                    else { p.onRoad = false; p.state = 'walk'; p.legs.length = 0; this.stats.crossStallRelocated = (this.stats.crossStallRelocated || 0) + 1; if (T.large) this.relocate(p, 120, 420, true); else this.relocate(p, 30, 200, true); continue; }
+                }
                 const stalled = !leg.cross && p.legStall > 2.5;
                 if (d < sp * dt + 0.05 || stalled) {
                     let reached = true;

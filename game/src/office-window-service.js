@@ -182,15 +182,20 @@ export function createOfficeWindowService({
       const pixels = projectedOfficeAperture(office.windowPane, office.camera, size.x, size.y);
       if (!pixels) return false;
       try {
+        // (owner 2026-11-11: "when getting close to the windows in offices the graphics break") up close the window fills
+        // the screen (2560 x 1440 = 3.7 MP) and the 1 MP cap stretched the view about 2x into blocks; High / Ultra now
+        // render it at screen resolution (up to 4.19 MP), lower tiers keep 1 MP
+        const big = /^(ultra|high)/.test(r3d.tier?.name || ''), limits = big ? { maxPixels: 4194304, maxDimension: 4096 } : { maxPixels: 1000000, maxDimension: 2048 };
+        if (target && target.limitsBig !== big) { target.dispose?.(); target = null; capacity = null; }
         target ||= createOfficeWindowTarget({
           renderer,
-          maxPixels: 1000000,
-          maxDimension: 2048,
+          ...limits,
           type: THREE.HalfFloatType,
           colorSpace: THREE.LinearSRGBColorSpace,
           linearHDR: true
         });
-        capacity = retainedOfficeWindowCapacity(pixels.width, pixels.height, capacity);
+        target.limitsBig = big;
+        capacity = retainedOfficeWindowCapacity(pixels.width, pixels.height, capacity, limits);
         target.resize(capacity.width, capacity.height, 1);
         if (r3d.sun?.shadow) r3d.sun.shadow.needsUpdate = true;
         target.capture(camera, (c) => renderer.render(scene, c));

@@ -133,6 +133,7 @@ class Game {
         // Renderer3D owns the WebGLRenderer, lighting, sky, weather, post-processing and adaptive quality
         this.r3d = this.renderer3d = new Renderer3D(this.canvas, { quality: 'auto' });
         this.renderer = this.r3d.renderer; // still used directly for the mirror pass and the office scene
+        setTimeout(() => { try { this.r3d.prewarmEnvBake?.(); } catch (e) { /* only a warm-up */ } }, 0); // (spec 10: first place's env bake)
         this.camera = new THREE.PerspectiveCamera(72, 1, 0.2, 5000); // near 0.2: the door trim is 0.47 m from the eye (R17.4)
         this.input = new Input();
         this.audio = new Audio();

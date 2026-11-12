@@ -30,7 +30,7 @@ export function createBuildPool(size = Math.max(1, Math.min(6, ((typeof navigato
             const id = next++;
             for (const n of neighbours) if (n.roof) batchRoofs.set(n.i, n.roof);
             const promise = new Promise((resolve, reject) => pending.set(id, { resolve, reject }));
-            batch.push({ id, faces, owner, neighbours: neighbours.map((n) => ({ i: n.i, sourceId: n.sourceId, minH: n.minH, roof: !!n.roof })) });
+            batch.push({ id, faces, owner, neighbours });
             if (batch.length >= CLIP_BATCH) this.flush();
             return promise;
         },
@@ -42,7 +42,17 @@ export function createBuildPool(size = Math.max(1, Math.min(6, ((typeof navigato
             for (const [i, roof] of batchRoofs) if (!s.roofs.has(i)) { s.roofs.add(i); roofs.push([i, roof]); }
             if (roofs.length) s.w.postMessage({ type: 'roofs', roofs });
             s.busy += batch.length;
-            s.w.postMessage({ type: 'clips', jobs: batch });
+            // the batch as flat columns (few objects to clone): per job its id, owner, face range and neighbour range
+            let nf = 0, nn = 0; for (const j of batch) { nf += j.faces.length; nn += j.neighbours.length; }
+            const ids = new Float64Array(batch.length), ownerI = new Float64Array(batch.length), ownerSid = new Array(batch.length), faceEnd = new Int32Array(batch.length), nEnd = new Int32Array(batch.length);
+            const faces = new Float64Array(nf), nI = new Float64Array(nn), nMinH = new Float64Array(nn), nRoof = new Uint8Array(nn), nSid = new Array(nn);
+            let f = 0, q = 0;
+            batch.forEach((j, k) => {
+                ids[k] = j.id; ownerI[k] = j.owner.i; ownerSid[k] = j.owner.sourceId; faces.set(j.faces, f); f += j.faces.length; faceEnd[k] = f;
+                for (const n of j.neighbours) { nI[q] = n.i; nMinH[q] = n.minH; nRoof[q] = n.roof ? 1 : 0; nSid[q] = n.sourceId; q++; }
+                nEnd[k] = q;
+            });
+            s.w.postMessage({ type: 'clips', ids, ownerI, ownerSid, faceEnd, nEnd, faces, nI, nMinH, nRoof, nSid }, [faces.buffer]);
             batch = []; batchRoofs = new Map();
         },
         /** the fallback ground's source openings ({poly: [[x, z]…], x0, x1, z0, z1}), to every worker */

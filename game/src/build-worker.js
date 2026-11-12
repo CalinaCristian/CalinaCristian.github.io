@@ -33,7 +33,15 @@ self.onmessage = (ev) => {
         if (m.type === 'roofs') { for (const [i, flat] of m.roofs) roofs.set(i, unpack(flat, 3)); return; }
         if (m.type === 'clip') { const r = clipJob(m); self.postMessage(r, r.faces ? [r.faces.buffer] : []); return; }
         if (m.type === 'clips') {
-            const batch = m.jobs.map((j) => { try { return clipJob(j); } catch (e) { return { id: j.id, error: String(e && e.stack || e) }; } });
+            // flat columns (build-pool.js flush): neighbour minH travels as a double (undefined → NaN: both fail the finite test)
+            const batch = [];
+            for (let k = 0, f = 0, q = 0; k < m.ids.length; k++) {
+                const neighbours = [];
+                for (; q < m.nEnd[k]; q++) neighbours.push({ i: m.nI[q], sourceId: m.nSid[q], minH: m.nMinH[q], roof: m.nRoof[q] === 1 });
+                const job = { id: m.ids[k], faces: m.faces.subarray(f, m.faceEnd[k]), owner: { i: m.ownerI[k], sourceId: m.ownerSid[k] }, neighbours };
+                f = m.faceEnd[k];
+                try { batch.push(clipJob(job)); } catch (e) { batch.push({ id: job.id, error: String(e && e.stack || e) }); }
+            }
             self.postMessage({ batch }, batch.flatMap((r) => (r.faces ? [r.faces.buffer] : [])));
             return;
         }

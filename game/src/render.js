@@ -1247,6 +1247,19 @@ export class Renderer3D {
         this._disposeEnvScene(job);
         this._finishEnvMap(rt, water, immediate);
     }
+    /** (spec 10 load budget) compile the environment bake's programs (sky dome, flat colour, PMREM passes) while the page
+     *  is idle, so the first place's bake does not stop for them; nothing of this bake is kept */
+    prewarmEnvBake() {
+        const envScene = new THREE.Scene(), dome = new THREE.Mesh(this.sky.geometry, this.sky.material.clone()), flat = new THREE.MeshBasicMaterial({ color: '#808080' });
+        const disc = new THREE.CircleGeometry(90, 24), box = new THREE.BoxGeometry(14, 6, 14);
+        try {
+            const ground = new THREE.Mesh(disc, flat); ground.rotation.x = -Math.PI / 2; ground.position.y = -2;
+            const block = new THREE.Mesh(box, flat); block.position.set(60, 0, 0);
+            envScene.add(dome, ground, block);
+            this._pmrem.fromScene(envScene, 0, 0.5, 300).dispose();
+        } catch (e) { /* only a warm-up */ }
+        finally { dome.material.dispose(); flat.dispose(); disc.dispose(); box.dispose(); }
+    }
     _prepareWaterEnv(job) {
         for (const o of [...job.scene.children]) if (o !== job.dome && o !== job.ground) { job.scene.remove(o); o.geometry.dispose(); }
         job.ground.material.color.copy(job.waterColor); job.ground.position.y = -6;

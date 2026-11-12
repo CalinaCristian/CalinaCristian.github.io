@@ -12,6 +12,11 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Where | Report | State / diagnosis |
 | --- | --- | --- |
 | Grozăvești (712, -965), (815, -1042) | "huge issue", "broken fence" | the carriageway's right half narrows from 3.5 m to 1.8 m at one node (OSM widths), so its railing steps sideways at the node; the step is now joined, but the railing still turns a corner instead of tapering |
+| Grozăvești (931, -1147), (603, -877) | "lane too short, cars are driving in the fence", "car drives on the tram station" | the carriageway's mapped width overlaps the tram slab beside it, so its outer lane runs into the railing / onto the slab; needs the carriageway narrowed where it meets the tram deck |
+| Grozăvești (1118, -1284) | "right is shorter than left" | the tram ramp's right railing ends earlier than the left one |
+| Grozăvești (968, -1179), (826, -1050) | "why border there", "what's going on here" | railings at the station end: a guard along the road beside the tram deck and doubled rails with offsets |
+| Grozăvești (194, -453) | "why is it like that?" | the unnamed ramp beside Șos. Orhideelor is an embankment 5.2 m high at this point (not a bridge in OSM); Street View shows it still low there, rising later: its grade needs checking |
+| Grozăvești (591, -854) piers | "huge spots where there's no support" | 14 piers restored (below); the 170 m south-west main span of the cable-stayed bridge stays pier-free by design (source: 302 m structure, 170 m main span; press sources give 340-360 m overall, no span figure); still 60-90 m between piers along Orhideelor where the tram passes below |
 | people at night | "shadows for people (texture like they are just standing that are transparent)" | not reproduced in a visible Ultra window at night among walkers (the AO pass already skips the crowd, lamps cast no shadows); needs an F8 report where they appear |
 
 ## Fixed on master 2026-11-12 (owner reports of 2026-11-12, re-check live at the poses)
@@ -26,6 +31,10 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Grozăvești (1086, -1266) "should the fence not go all the way?" | the tram ramp's railing stopped where a street within 1.2 m counted as level; only a surface within 0.35 m does now |
 | Grozăvești (933, -1180) "see through" | ramps up to 4.5 m (was 3.5) stand on retaining walls, and a pad between two such ramps reaches the ground |
 | Grozăvești (423, -745) "lines look wrong", (898, -1136) "lines seem odd" | where a ramp merges with a carriageway at one level, its edge line ran on across the other road's lanes; edge lines are laid in 1 m pieces and a piece inside another level carriageway is left out |
+| Grozăvești (107, -234), (77, 112), (87, 30), (78, -76) "random fence", grey block | guard runs under 6 m that meet no other railing are left out (65 strays); grey barrier pieces on Basarab ramps above 1.5 m are replaced by the guard (was 2.5 m); no tram railing on an inner slab edge of the river bridge |
+| Grozăvești (135, -325), (159, -426) "missing fence chunks ... check streetview" | Street View on Pasajul Basarab (44.44503, 26.06120): a low concrete barrier at the carriageway and an unbroken blue steel railing on the tram slab; the tram railing is no longer dropped where a road guard stands beside it, and moves up to 1.5 m outboard (was 0.75 m) where a tram's body overhangs the slab on a curve |
+| Grozăvești (434, -693) "too many fences", (452, -760) "on the road fences" | railing ends side by side are no longer joined across (zigzags); no guard where its line lies on a merging carriageway |
+| Grozăvești (591, -854) "pillars ... no support" | 44 single-column piers were dropped near the trams: a tram riding on the slab a pier carries counted (the test reached 0.1 m above the pier), and a beam end reaching into a tram beside was fatal; the test now stops at the pier top and such beams are trimmed (14 piers back: 94 → 108) |
 | chat bubble too high | a walker's bubble sits 0.25 m above the head (scaled with the walker), was a fixed 2.4 m |
 | office windows break up close | the live window view renders at up to 4096 px (4 MP) on Ultra / High, was 2048 px (1 MP) |
 | #67 Bellevue walkers frozen (live: 65 of 114 moved under 1 m in 60 s) | a walker stuck 2.5 s on a crossing turns back, and if stuck again relocates; a walker in recovery mode stuck 3 s leaves the road or resumes its route (the earlier 55ca854d rule never fired for walkers in recovery) |

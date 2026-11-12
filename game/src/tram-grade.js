@@ -158,21 +158,27 @@ export function buildTramGrades(data, { coreEdges = [], models = TRAM_BRIDGE_MOD
             // until this track is clear of the flat branch (centre spacing ≥ southClearSpacingM: deck half width + a tram's half
             // width + margin), measured on the source geometry; then it rises to the bridge entry
             const holdM = model.southClearSpacingM && branch?.xy ? clearOfBranch(path, south, lo, branch.xy, model.southClearSpacingM) : 0;
-            const entry = model.bridgeEntryHeightM ?? height, ramp = smoothTramRamp(lo - south - holdM, entry, holdM > 0 && model.southMaxGrade ? { ...model, maxGrade: model.southMaxGrade } : model), down = smoothTramRamp(north - hi, height, model);
+            // (owner, 2026-11-12, Grozavesti (1118, -1284) "right is shorter than left"; Street View on Sos. Nicolae Titulescu at
+            // 44.45172, 26.07131 and 44.45225, 26.07211: where the source rail bridge ends the trams ride beside the road ramp on its
+            // embankment, about 1.5 m up, and further on they run at street level) with northDescentM the descent ends at the
+            // end of the source bridge ways, spread over that length like the road ramp beside it; the at-grade ways stay at grade
+            const downEnd = model.northDescentM ? hi : north, downStart = model.northDescentM ? hi - model.northDescentM : hi;
+            const entry = model.bridgeEntryHeightM ?? height, ramp = smoothTramRamp(lo - south - holdM, entry, holdM > 0 && model.southMaxGrade ? { ...model, maxGrade: model.southMaxGrade } : model), down = smoothTramRamp(downEnd - downStart, height, model);
             const up = ramp && (holdM > 0 ? { ...ramp, length: ramp.length + holdM, holdM, at: s => s <= holdM ? 0 : ramp.at(s - holdM), breaks: [0, ...ramp.breaks.map(s => s + holdM)] } : ramp);
             const rise = smoothTramRamp(Math.min(model.bridgeRiseLengthM ?? station - lo, station - lo), height - entry, { ...model, maxGrade: model.maxDeckGrade ?? model.maxGrade });
             const deckPeak = rise?.peakGrade;
-            if (anchors.some(a => !a) || !up || !down || !rise || !(south < lo && lo < station && station < hi && hi < north)) { invalid = true; break; }
+            if (anchors.some(a => !a) || !up || !down || !rise || !(south < lo && lo < station && station < hi && hi < north) || !(downStart > station)) { invalid = true; break; }
             const at = s => {
                 if (s < lo) return up.at(s - south);
-                if (s > hi) return height - down.at(s - hi);
+                if (s >= downEnd) return 0;
+                if (s > downStart) return height - down.at(s - downStart);
                 return entry + rise.at(s - lo);
             };
-            prepared.push({ path, at, anchors, up, down, rise, lo, hi, south, north, station, entry, deckPeak });
+            prepared.push({ path, at, anchors, up, down, rise, lo, hi, south, north, station, entry, deckPeak, downStart });
         }
         if (invalid) { fail('source-ground-anchor-or-smooth-grade-cap-unresolved'); continue; }
         for (const p of prepared) for (const leg of p.path.legs) {
-            const breaks = [p.south, p.lo, p.station, p.hi, p.north, ...p.up.breaks.map(s => p.south + s), ...p.rise.breaks.map(s => p.lo + s), ...p.down.breaks.map(s => p.hi + s)].map(s => (s - leg.s0) / (leg.s1 - leg.s0)).filter(t => t > 0 && t < 1);
+            const breaks = [p.south, p.lo, p.station, p.hi, p.north, p.downStart, ...p.up.breaks.map(s => p.south + s), ...p.rise.breaks.map(s => p.lo + s), ...p.down.breaks.map(s => p.downStart + s)].map(s => (s - leg.s0) / (leg.s1 - leg.s0)).filter(t => t > 0 && t < 1);
             addLeg(model, ways.get(leg.sourceId), leg.index, t => p.at(leg.s0 + (leg.s1 - leg.s0) * t), breaks,
                 { sourceAnchorIds: p.anchors.map(a => a.nodeId).concat(model.stationNodes), provenance: model.evidence,
                     maxGrade: model.maxGrade, pathStationAt: t => leg.s0 + (leg.s1 - leg.s0) * t,

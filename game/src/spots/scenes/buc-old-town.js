@@ -26,6 +26,7 @@ import { buildOldTownNightlife, OLD_TOWN_FOCUS, nightlifeHours } from './old-tow
 import { walkBoundary, markVisitExits } from '../walk-boundary.js';
 import {freddoFrontagePlan,oldTownGlazing} from './freddo-look.js';
 import {buildCaruselInterior} from './carusel-interior.js';
+import { buildOldTownDaylife } from './old-town-daylife.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
 const simplifyRing = (p, tol) => { const s2 = simplify([...p, p[0]], tol); s2.pop(); return s2.length >= 3 ? s2 : p; };
@@ -478,6 +479,7 @@ export default {
                 cond: s => !VA.active && s.spot.id === 'old-town-lipscani',
                 use: s => VA.start(s, kind, { name: poi.name, address }) });
         }
+        const BUSKER = { x: 60, z: -66, crowd: [62, -62] };
         const signs = [...TR.signs];
         if (caruB) signs.push({ x: -111, y: g.heightAt(-111, -71.5) + 5.4, z: -71.4, yaw: 0, w: 6.2, h: 1.0, text: "CARU' CU BERE", bg: '#2a1d14', fg: '#e8c870', font: (q) => `700 ${q}px "Times New Roman", serif` });
         // Hanul cu Tei (Lipscani 63–65 → Blănari 14, 1833): the arched gateways of the inn's passage, painted lettering over the arch
@@ -494,7 +496,9 @@ export default {
           ctx.add(hb.build('hanul-cu-tei')); }
         const SA = signAtlas(signs.slice(0, 96), { name: 'shop-signs' }); if (SA) ctx.add(SA);
         // festoon string lights strung between façade brackets (note 25: replaces the loose overhead cables)
-        festoons(ctx, OT.ways);
+        const FEST = festoons(ctx, OT.ways);
+        // by day and beyond the club: a coffee, papanași, karaoke, the busker's case, a photo walk (old-town-daylife.js)
+        buildOldTownDaylife(ctx, { focused, carusel: CA, busker: BUSKER, festoons: FEST, photoStart: NIGHTLIFE ? { x: NIGHTLIFE.entry.x + 5.5, z: NIGHTLIFE.entry.z + 4.5 } : null });
         cityFiller(ctx, { ring: 600 });
         // plaques
         const PL = spL.plaques, PS = spS.plaques, gy = (x, z) => g.heightAt(x, z);
@@ -536,7 +540,7 @@ export default {
         if (caruB) groups.push({ line: [[-111, -70.2], [-105, -69.6], [-99, -69.2], [-93, -68.8]], n: 9, act: 'queue', personas: ['tourist_de', 'tourist_us', 'local_young', 'tourist_fr', 'tourist_uk'] });
         if (CA) groups.push({ x: CA.front.x + CA.front.nx * 4, z: CA.front.z + CA.front.nz * 4, r: 2.5, n: 5, act: 'photo', look: [CA.front.x, CA.front.z], personas: ['tourist_it', 'tourist_us', 'local_young'] }, { x: CA.ecx, z: CA.ecz, r: 3, n: 5, act: 'watch', personas: ['local_young', 'tourist_uk', 'tourist_fr'] });
         groups.push({ x: CV.bust.x - 3, z: CV.bust.z - 3.5, r: 0.3, n: 1, act: 'watch', personas: ['vendor'] }, { x: CV.bust.x + 2, z: CV.bust.z - 4, r: 2, n: 4, act: 'photo', look: [CV.bust.x, CV.bust.z], personas: ['tourist_uk', 'tourist_it', 'tourist_us'] });
-        groups.push({ x: 60, z: -66, r: 0.3, n: 1, act: 'perform', personas: ['busker'], prop: 'guitar' }, { x: 62, z: -62, r: 2.5, n: 4, act: 'watch', look: [60, -66], personas: ['local_young', 'tourist_uk'] });
+        groups.push({ x: BUSKER.x, z: BUSKER.z, r: 0.3, n: 1, act: 'perform', personas: ['busker'], prop: 'guitar' }, { x: BUSKER.crowd[0], z: BUSKER.crowd[1], r: 2.5, n: 4, act: 'watch', look: [BUSKER.x, BUSKER.z], personas: ['local_young', 'tourist_uk'] });
         if (MA) groups.push({ x: MA.gate.x + MA.gn.x * 2.5 + MA.gn.z * 2.6, z: MA.gate.z + MA.gn.z * 2.5 - MA.gn.x * 2.6, r: 0.3, n: 1, act: 'watch', yaw: Math.atan2(MA.gn.x, MA.gn.z), personas: ['waiter'] });
         // Keep the native street crowd concentrated on the selected source ways.
         // Path points are unscaled source points; splitting the walking itinerary

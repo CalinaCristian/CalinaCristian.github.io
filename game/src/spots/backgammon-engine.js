@@ -1,16 +1,20 @@
-// Pure backgammon rules. +1 moves 24→1, -1 moves 1→24. Points are zero-based;
+// Pure rules of "table", backgammon as played in Romania. +1 moves 24→1, -1 moves 1→24. Points are zero-based;
 // positive/negative counts belong to the two players. Every public transition
 // returns a new frozen position. Dice are supplied by the activity, never here.
+// Romanian practice (game/research/table-cismigiu.md): no doubling cube; each player throws one die to open, a tie
+// is thrown again and the winner then throws both dice for the first move (`opening: 'reroll'`, the default;
+// 'use' plays the two opening dice as in international rules); a win is a "linie" (1), a "marț" (2) when the loser
+// has borne off nothing, a "marț tehnic" (3) when the loser also still has a checker on the bar or in the winner's home.
 const side = player => player === 1 ? 0 : 1;
 const clone = s => ({...s,points:[...s.points],bar:[...s.bar],off:[...s.off],dice:[...s.dice],remaining:[...s.remaining],openingDice:[...s.openingDice]});
 const freeze = s => {for(const k of ['points','bar','off','dice','remaining','openingDice'])Object.freeze(s[k]);return Object.freeze(s);};
 const key = m => `${m.from}:${m.to}:${m.die}`;
 const validDie = d => Number.isInteger(d) && d >= 1 && d <= 6;
 
-export function createGame() {
+export function createGame({opening='reroll'}={}) {
     const points=Array(24).fill(0);
     for(const [i,n] of [[23,2],[12,5],[7,3],[5,5],[0,-2],[11,-5],[16,-3],[18,-5]])points[i]=n;
-    return freeze({points,bar:[0,0],off:[0,0],turn:1,phase:'opening',dice:[],remaining:[],openingDice:[],winner:0,turnNumber:0});
+    return freeze({points,bar:[0,0],off:[0,0],turn:1,phase:'opening',dice:[],remaining:[],openingDice:[],winner:0,turnNumber:0,opening:opening==='use'?'use':'reroll'});
 }
 
 export function validatePosition(s) {
@@ -39,7 +43,9 @@ export function rollDice(s,a,b) {
         n.openingDice=[a,b];
         if(a===b)return freeze(n); // one die each, tied opening rerolls
         n.turn=a>b?1:-1;
+        if(s.opening!=='use'){n.phase='roll';return freeze(n);} // the winner throws both dice for the first move
     }
+    else n.openingDice=[];
     n.dice=[a,b];n.remaining=a===b?[a,a,a,a]:[a,b];n.phase='move';
     return freeze(n);
 }
@@ -129,7 +135,41 @@ export function gameResult(s) {
     const p=s.winner,loser=-p,i=side(loser);
     const trapped=s.bar[i]>0||s.points.some((n,j)=>n*loser>0&&(p===1?j<=5:j>=18));
     const points=s.off[i]>0?1:trapped?3:2;
-    return {winner:p,points,kind:points===3?'backgammon':points===2?'gammon':'single'};
+    return {winner:p,points,kind:points===3?'backgammon':points===2?'gammon':'single',name:points===3?'marț tehnic':points===2?'marț':'linie'};
+}
+
+/** Where the checker on `from` can go this turn: every destination reachable by playing one or more of the remaining
+ * dice with that same checker, as the start of a legal turn. → [{to, moves:[…], hit}] (one route per destination: the
+ * fewest dice, then a route that hits nothing on the way). */
+export function checkerRoutes(s,from) {
+    const best=new Map();
+    for(const turn of legalTurns(s)){
+        if(!turn.length||turn[0].from!==from)continue;
+        for(let k=1;k<=turn.length;k++){
+            if(k>1&&turn[k-1].from!==turn[k-2].to)break;
+            const moves=turn.slice(0,k),to=moves[k-1].to,passing=moves.slice(0,-1).filter(m=>m.hit).length,old=best.get(to);
+            if(!old||k<old.moves.length||(k===old.moves.length&&passing<old.passing))best.set(to,{to,moves:moves.map(m=>({...m})),hit:moves[k-1].hit,passing});
+            if(to==='off')break;
+        }
+    }
+    return [...best.values()].map(({passing,...r})=>r);
+}
+
+/** How good the roll just thrown is for the player on move, against all 36 throws from the same position: the best
+ * position each throw can reach, scored by the opponent heuristic. → {value, mean, sd, pct} (pct 0 … 1: the share of
+ * throws that are worse; 0.5 = an average roll). `s` is the position right after rollDice. */
+export function rollLuck(s) {
+    validatePosition(s);
+    if(s.phase!=='move'||s.dice.length!==2)return null;
+    const p=s.turn,best=(a,b)=>{
+        const n=clone(s);n.dice=[a,b];n.remaining=a===b?[a,a,a,a]:[a,b];
+        let top=-Infinity;for(const turn of legalTurns(freeze(n))){let q=n;for(const m of turn)q=moveUnchecked(q,m);const v=evaluate(q,p);if(v>top)top=v;}
+        return top;
+    };
+    const mine=best(s.dice[0],s.dice[1]);let sum=0,sq=0,worse=0,same=0;
+    for(let a=1;a<=6;a++)for(let b=1;b<=6;b++){const v=b<a?null:best(a,b),w=a===b?1:2;if(v===null)continue;const c=Math.min(v,1e6);sum+=c*w;sq+=c*c*w;if(v<mine-1e-9)worse+=w;else if(Math.abs(v-mine)<=1e-9)same+=w;}
+    const mean=sum/36,sd=Math.sqrt(Math.max(0,sq/36-mean*mean));
+    return {value:Math.min(mine,1e6),mean,sd,pct:(worse+same/2)/36};
 }
 
 function evaluate(s,p) {

@@ -23,6 +23,9 @@ export const TRAM_BRIDGE_MODELS = [
         // (owner L17). The entry stays at 6.1 m (a tram passes under the bridge entry, 6.03 m tall with its pantograph), so the shorter south approach climbs at up
         // to 9 % (southMaxGrade); the deck rise keeps 8 %. MODEL estimates, not surveyed
         bridgeEntryHeightM: 6.1, bridgeRiseLengthM: 100, maxDeckGrade: .08, southClearSpacingM: 3, southMaxGrade: .09,
+        // northDescentM: the trams come down beside the road ramp and reach street level where the source rail bridge ends
+        // (Street View on Sos. Nicolae Titulescu, 2026-11-12); 190 m like the road ramp. MODEL estimate, not surveyed
+        northDescentM: 190,
         maxGrade: .08, easeM: 20, deckHalfWidthM: 1.7, thicknessM: .4,
     },
 ];

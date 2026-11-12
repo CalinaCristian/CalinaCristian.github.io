@@ -385,6 +385,10 @@ function patchCrowns(mat, U) {
                 #endif`);
         sh.fragmentShader = sh.fragmentShader.replace('#include <common>', `#include <common>
             uniform float uBare, uAutumn, uBlossom, uFresh, uSnow, uEver; varying vec3 vCrownL; varying float vTreeH;
+            float crGone = 0.0; // (willows) 1 where the leaves are gone: bare shoots carry no snow cap
+            #ifdef WILLOW_CROWN
+                varying float vWillowU; // (spots/willow.js) 0 on the top of the crown, rising to 1 at the tip of a hanging shoot
+            #endif
             float crH(vec3 p){ return fract(sin(dot(p, vec3(12.9898, 78.233, 37.719))) * 43758.5453); }
             float crN(vec3 p){ vec3 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
                 return mix(mix(mix(crH(i), crH(i + vec3(1, 0, 0)), f.x), mix(crH(i + vec3(0, 1, 0)), crH(i + vec3(1, 1, 0)), f.x), f.y),
@@ -395,9 +399,16 @@ function patchCrowns(mat, U) {
                 vec3 g = diffuseColor.rgb; float l = dot(g, vec3(0.3, 0.59, 0.11));
                 g = mix(g, g * vec3(1.1, 1.2, 0.72), uFresh * dec);
                 vec3 aut = h < 0.3 ? vec3(0.95, 0.7, 0.12) : h < 0.6 ? vec3(0.92, 0.42, 0.08) : h < 0.85 ? vec3(0.55, 0.33, 0.12) : vec3(0.78, 0.17, 0.07);
+                #ifdef WILLOW_CROWN
+                    aut = mix(vec3(0.98, 0.78, 0.14), vec3(0.86, 0.7, 0.2), h); // (spots/willow.js) weeping willows turn gold, never orange or red
+                #endif
                 g = mix(g, aut * (l * 1.2 + 0.16), clamp(uAutumn * 1.6 - h * 0.45, 0.0, 1.0) * dec);
                 vec3 bc = h > 0.82 ? vec3(1.0, 0.74, 0.84) : vec3(0.96, 0.95, 0.9);
-                g = mix(g, bc * 0.8, uBlossom * dec * step(0.55, h) * 0.85);
+                #ifdef WILLOW_CROWN
+                    g = mix(g, g * vec3(1.12, 1.14, 0.62), uBlossom * dec); // (no white or pink blossom: yellow-green catkins and young leaves)
+                #else
+                    g = mix(g, bc * 0.8, uBlossom * dec * step(0.55, h) * 0.85);
+                #endif
                 float b = clamp(uBare * 1.25 - h * 0.25, 0.0, 1.0) * dec;
                 if (b > 0.0) {
                     // leaves fall in clumps: a coarse 3-D mask keeps solid, fully leafed patches where the mask is above
@@ -420,16 +431,30 @@ function patchCrowns(mat, U) {
                         vec3 hzN = normalize(cross(dFdx(vViewPosition), dFdy(vViewPosition)));
                         float facing = abs(dot(hzN, normalize(vViewPosition)));
                         float haze = (0.02 + 0.1 * smoothstep(0.15, 0.8, facing)) * (0.3 + 1.2 * tw * tw) * (1.0 - 0.7 * smoothstep(0.02, 0.12, length(fwidth(vCrownL))));
+                        #ifdef WILLOW_CROWN
+                            // (spots/willow.js) a bare weeping willow keeps its curtain of thin yellow shoots: crisp lines that run
+                            // down the hanging tresses (lines of constant bearing round the stem, about 160 a turn, a third left
+                            // out), nothing on the top of the crown (haze there read as smoke); far away the lines merge
+                            float wAz = atan(vCrownL.z, vCrownL.x) * 25.5, wId = floor(wAz), wW = fwidth(wAz);
+                            float wHalf = min(0.09, 0.02 * wW / max(1e-5, length(fwidth(vCrownL)))); // (a shoot stays about 3 cm wide on faces that run along the lines too)
+                            float wLine = (1.0 - smoothstep(wHalf, wHalf + wW, abs(fract(wAz) - 0.5 - 0.25 * (crH(vec3(wId, 7.0, 1.0)) - 0.5)))) * step(0.33, crH(vec3(wId, 3.0, floor(h * 9.0))));
+                            haze = mix(wLine * 0.95, 0.14, smoothstep(0.25, 0.7, wW)) * smoothstep(0.02, 0.12, vWillowU);
+                            crGone = gone;
+                        #endif
                         float a = mix(leafA, haze, gone);
                         if (a < 0.02) discard;
                         diffuseColor.a *= a;
-                        g = mix(g, vec3(0.24, 0.205, 0.175) * (0.85 + 0.3 * h), gone); // grey-brown twigs
+                        #ifdef WILLOW_CROWN
+                            g = mix(g, vec3(0.56, 0.41, 0.1) * (0.85 + 0.3 * h), gone); // golden-yellow shoots
+                        #else
+                            g = mix(g, vec3(0.24, 0.205, 0.175) * (0.85 + 0.3 * h), gone); // grey-brown twigs
+                        #endif
                     }
                 }
                 diffuseColor.rgb = g;
             }`)
             .replace('#include <normal_fragment_maps>', `#include <normal_fragment_maps>
-            if (uSnow > 0.0) diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.88, 0.9, 0.94), uSnow * smoothstep(0.35, 0.85, dot(normal, ${UP_VIEW})) * (0.45 + 0.4 * uEver));`);
+            if (uSnow > 0.0) diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.88, 0.9, 0.94), uSnow * (1.0 - crGone) * smoothstep(0.35, 0.85, dot(normal, ${UP_VIEW})) * (0.45 + 0.4 * uEver));`);
     });
 }
 

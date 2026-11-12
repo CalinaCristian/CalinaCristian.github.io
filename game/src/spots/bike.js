@@ -1,8 +1,9 @@
 // ============================================================================
-//  Rentable bikes at a sourced docking station (Herăstrău / King Michael I Park,
-//  ride the park paths). A docking station with bikes; E rents one: the walker is parked and the camera rides a
+//  Rentable bikes at a docking station (Cișmigiu Gardens; first built for Herăstrău / King Michael I Park):
+//  ride the park paths. A docking station with bikes; E rents one: the walker is parked and the camera rides a
 //  city bike (W/S or ↑/↓ pedal / brake, A/D steer, Shift faster, mouse looks around); E again (anywhere walkable)
-//  gets off at the actual last dry pose. Ride 30 m and dismount to complete the activity. Collides with the scene, never rides into water.
+//  gets off at the actual last dry pose, and the bike stays standing there: E beside it gets back on (renting again at the
+//  station brings it back). Ride 30 m and dismount to complete the activity. Collides with the scene, never rides into water.
 //
 //  Scene use:   import { addBikeRental } from '../bike.js';
 //               addBikeRental(ctx, { x, z, heading, n: 6, name: 'I\'Velo', colour: '#d7262e' });
@@ -45,15 +46,19 @@ export function addBikeRental(ctx, { x, z, heading = 0, n = 6, name = 'Bike rent
     const wheels = [-.52,.52].map(z => { const b = new GeoBatch(); b.rod([0,-.3,0],[0,.3,0],.006,'#aaa','steel',4); b.rod([0,0,-.3],[0,0,.3],.006,'#aaa','steel',4); const m=b.build('bike-wheel-spokes');m.position.set(0,.34,z);ride.add(m);return m; });
     const pb=new GeoBatch();pb.rod([-.16,0,0],[.16,0,0],.018,'#777','steel',5);for(const side of [-1,1]){pb.rod([side*.13,0,0],[side*.13,side*.14,0],.016,'#777','steel',5);pb.boxC(side*.18,side*.14,0,.12,.025,.08,'#222','rubber');}const pedals=pb.build('bike-pedals');pedals.position.set(0,.32,.02);ride.add(pedals);
     const flow = activityFlow(ctx);
-    let st = null, rides = 0;
+    let st = null, rides = 0, parked = null; // parked: where the bike was left ({ x, z, y, yaw }), until it is ridden again
     const stationIt = { kind: 'bike', x: x + fx * 1.4, z: z + fz * 1.4, r: 2.4, label: (s) => (st ? 'Dismount' : `Rent a bike — ${name}`), use: (s) => (st ? flow.cancel('station-return') : start(s)) };
     ctx.interactables.push(stationIt);
-    const start = (s) => flow.begin(s, {
+    // (owner, 2026-11-11: "the bike is lost when I dismount it, it should stay where I left it")
+    const parkedIt = { kind: 'bike', noTour: true, x: 1e9, z: 1e9, r: 2.2, label: () => (parked && !st ? 'Get back on your bike' : ''), cond: () => !!parked && !st, use: (s) => start(s, true) };
+    ctx.interactables.push(parkedIt);
+    const start = (s, fromParked = false) => flow.begin(s, {
         title: 'Ride the park paths', action: 'Dismount', cameraRide: true,
         help: 'Pedal with W / ↑ or the touch stick; steer with A / D or the stick. Pedal and Brake buttons also work. Ride 30 m, then Dismount / E to finish; Leave or Esc cancels.',
         started(s,r) {
-        const p = s.ctl.position;
-        st = { x: p.x, z: p.z, y: p.y, yaw: s.ctl.heading, v: 0, look: 0, pitch: -0.12, lean: 0, distance: 0, pedalSeconds: 0, push: 0, brake: 0 };
+        const p = fromParked && parked ? { x: parked.x, z: parked.z, y: parked.y } : s.ctl.position, yaw0 = fromParked && parked ? parked.yaw : s.ctl.heading;
+        parked = null; parkedIt.x = parkedIt.z = 1e9;
+        st = { x: p.x, z: p.z, y: p.y, yaw: yaw0, v: 0, look: 0, pitch: -0.12, lean: 0, distance: 0, pedalSeconds: 0, push: 0, brake: 0 };
         s.riding = true; ride.visible = true; ride.position.set(p.x,p.y,p.z); ride.rotation.y=st.yaw; rides++;
         for(const[label,pressed]of[['Pedal',()=>{st.push=1.8;st.brake=0;}],['Brake',()=>{st.brake=1.2;st.push=0;}]]){const button=document.createElement('button');button.type='button';button.textContent=label;button.dataset.bike=label.toLowerCase();button.onclick=pressed;r.ui.querySelector('nav').append(button);}
         },
@@ -63,7 +68,12 @@ export function addBikeRental(ctx, { x, z, heading = 0, n = 6, name = 'Bike rent
         update(dt,s,r){update(dt,s,r);},
     });
     const stop = (s) => {
-        if (!st) return; ride.visible = false; s.riding = false;
+        if (!st) return; s.riding = false;
+        // the bike stands where the rider got off, half a metre to their right (or left; on the spot when both sides are
+        // blocked or the ground falls away, as at the lake kerb)
+        { const rx = Math.cos(st.yaw), rz = -Math.sin(st.yaw); let bx = st.x, bz = st.z, by = st.y;
+            for (const k of [0.55, -0.55]) { const x2 = st.x + rx * k, z2 = st.z + rz * k, y2 = g.groundAt(x2, z2, st.y + 0.5); if (Number.isFinite(y2) && Math.abs(y2 - st.y) < 0.1 && !(g.waterY != null && y2 < g.waterY - 0.3) && !collide(s.spot.colliders || [], x2, z2, 0.3, y2 + 0.3)) { bx = x2; bz = z2; by = y2; break; } }
+            parked = { x: bx, z: bz, y: by, yaw: st.yaw }; ride.visible = true; ride.position.set(bx, by, bz); ride.rotation.set(0, st.yaw, 0.09, 'YXZ'); parkedIt.x = bx; parkedIt.z = bz; }
         // The rider has actually travelled here. Dismount/cancel keeps that
         // last dry pose; returning to a distant dock would be a teleport.
         const c=s.ctl;c.x=st.x;c.z=st.z;c.y=st.y;c.heading=st.yaw;c.pitch=st.pitch;c.vx=c.vz=0;c.vel=0;c.active=true;c.place?.();st=null;
@@ -98,5 +108,5 @@ export function addBikeRental(ctx, { x, z, heading = 0, n = 6, name = 'Bike rent
         const bob = Math.sin(s.t * 7) * 0.012 * Math.min(1, st.v / 3);
         if (c.rig) { c.rig.position.set(st.x - dfx * 0.12, st.y + 1.62 + bob, st.z - dfz * 0.12); c.rig.rotation.set(st.pitch, st.yaw + st.look, st.lean * 0.5, 'YXZ'); }
     };
-    return { station: dock, rides: () => rides, riding: () => !!st, slots, debug: () => st && ({x:st.x,y:st.y,z:st.z,distance:st.distance,pedalSeconds:st.pedalSeconds,speed:st.v,wheelAngle:wheels[0].rotation.x,pedalAngle:pedals.rotation.x}) };
+    return { station: dock, rides: () => rides, riding: () => !!st, parked: () => parked && { ...parked }, slots, debug: () => st && ({x:st.x,y:st.y,z:st.z,distance:st.distance,pedalSeconds:st.pedalSeconds,speed:st.v,wheelAngle:wheels[0].rotation.x,pedalAngle:pedals.rotation.x}) };
 }

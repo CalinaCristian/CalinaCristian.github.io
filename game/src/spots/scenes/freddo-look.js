@@ -90,19 +90,27 @@ export function oldTownGlazing(ctx,plan){
     const mat=new THREE.MeshStandardMaterial({map,vertexColors:true,emissiveMap:em,emissive:new THREE.Color('#ffe0b0'),emissiveIntensity:0,roughness:.55});
     mat.name='old-town-shopfront-atlas';mat.userData.nightEmissive=.42;
     mat.customProgramCacheKey=()=>'old-town-shopfront-atlas';
+    // (owner, 2026-11-11: "old town flickers like crazy") The bay's design is a hash of the building colour. Read from the
+    // interpolated vColor, that colour differs by a rounding step from pixel to pixel on a wall seen at an angle, and the hash
+    // turns the step into another design: the shopfront was a per-pixel stipple of two designs that crawled with the camera.
+    // The hash now reads the colour through a flat varying: the vertex value itself, the same for every pixel of the wall.
     mat.onBeforeCompile=sh=>{
+        sh.vertexShader=sh.vertexShader.replace('#include <color_pars_vertex>',`#include <color_pars_vertex>
+            flat varying vec3 vOtColor;`).replace('#include <color_vertex>',`#include <color_vertex>
+            #ifdef USE_COLOR
+                vOtColor = color.rgb;
+            #else
+                vOtColor = vec3(0.5);
+            #endif`);
         const pick=`
             vec2 otU = vMapUv * 4.0; float otBay = floor(otU.x);
-            #ifdef USE_COLOR
-                vec3 otC = vColor.rgb;
-            #else
-                vec3 otC = vec3(0.5);
-            #endif
+            vec3 otC = vOtColor;
             float otH = fract(sin(dot(vec3(otBay, otC.r * 61.0 + otC.g * 17.0, otC.b * 43.0), vec3(12.9898, 78.233, 37.719))) * 43758.5453);
             float otK = floor(otH * 15.999);
             vec2 otUV = (vec2(mod(otK, 4.0), floor(otK / 4.0)) + vec2(fract(otU.x), clamp(fract(otU.y), 0.002, 0.998))) / 4.0;
             vec2 otDX = dFdx(vMapUv), otDY = dFdy(vMapUv);`;
-        sh.fragmentShader=sh.fragmentShader.replace('#include <map_fragment>',`${pick}
+        sh.fragmentShader=sh.fragmentShader.replace('#include <color_pars_fragment>',`#include <color_pars_fragment>
+            flat varying vec3 vOtColor;`).replace('#include <map_fragment>',`${pick}
             vec4 sampledDiffuseColor = textureGrad(map, otUV, otDX, otDY); diffuseColor *= sampledDiffuseColor;`)
             .replace('#include <emissivemap_fragment>',`
             vec4 emissiveColor = textureGrad(emissiveMap, otUV, otDX, otDY); totalEmissiveRadiance *= emissiveColor.rgb;`);

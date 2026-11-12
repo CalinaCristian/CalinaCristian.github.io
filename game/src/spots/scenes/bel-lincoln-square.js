@@ -18,7 +18,7 @@ import { GeoBatch, rng, headingFromBearing, polyBox, inPoly, distPolyline } from
 import { signBoard, shopfrontSigns } from '../props.js';
 import { seattleBackdrop } from '../backdrop.js';
 import { addTraffic } from '../cars.js';
-import { emitActivity, seasonal, placeLitLandmark, skipNearLandmark, fairyLights, treeLightPoints, glowText, nightLit } from './bel-common.js';
+import { emitActivity, seasonal, placeLitLandmark, skipNearLandmark, fairyLights, treeLightPoints, glowText, nightLit, parkPavilions } from './bel-common.js';
 
 const SKY_Y = 6.2; // skybridge floor above the roadway (landmarks.js uses the same)
 
@@ -43,7 +43,9 @@ export default {
         for (const id of ['lincoln', 'onelincoln', 'lincolnsouth']) skipNearLandmark(ctx, id);
         for (const a of d.areas) if ((a.landuse === 'grass' || a.leisure === 'garden') && a.poly.length < 16 && Math.hypot(a.poly[0][0], a.poly[0][1]) < 40) { ctx.skipAreas.add(a.id); ctx.painter.poly(a.poly, '#4a3b2c', 'dirt'); } // corner planters: bark mulch, not a flat lawn slab // no painted grass slab on the corner paving (QA R2 #5)
         for (const id of ['w604028609', 'w604028611', 'w328017119', 'w161929514', 'w1474737770', 'w1364249504', 'w604028603', 'w1326151866', 'w1326151868', 'w1391221517',
-            'w29234887', 'w33106348', 'w497738386', 'w497739259']) ctx.skipBuildings.add(id);
+            'w29234887', 'w497738386', 'w497739259']) ctx.skipBuildings.add(id);
+        // (w33106348 — the Crate & Barrel corner and the Bellevue Way restaurant row wrapping the NE garage — is NOT part
+        // of the `bellevuesq` landmark (its source rings are w29234887 + w497739259): it stays an OSM building.)
         const LMS = {};
         for (const id of ['lincoln', 'onelincoln', 'lincolnsouth', 'bellevuesq']) LMS[id] = placeLitLandmark(ctx, id, { seed: id.length * 3, frac: id === 'bellevuesq' ? 0.9 : 0.5, collide: false });
         // collisions from the real OSM footprints the models are built from (the landmark collision boxes are coarse bounds)
@@ -51,8 +53,13 @@ export default {
         // skybridges: the landmark models carry Bellevue Way / NE 8th / NE 6th; the others are built here (not painted on the ground)
         const skyIds = ['w43872832', 'w43872826', 'w1222676052', 'w29234890', 'w497738385', 'w516915099'];
         for (const id of skyIds) ctx.skipWays.add(id);
+        // Bellevue Place (NE corner, OSM w366831926 + parts, w33613428): Street View (official pano at the corner, 2026-11-12)
+        // shows tan / rose precast with rectangular punched windows — not the generic red-brick style with arched windows.
+        const BPLACE = new Set(['w366831926', 'w366831918', 'w366831921', 'w366831924', 'w366831929', 'w366831931', 'w33613428']);
+        for (const bd of d.buildings) if (BPLACE.has(bd.id) && !bd.c) bd.c = '#cdb09c';
+        parkPavilions(ctx); // bus shelters / park restrooms in the surroundings: open roofs / low blocks, not shop blocks
         ctx.osmBackdrop({ paint: {}, streetTrees: false, lampOpts: { kinds: ['primary', 'secondary', 'tertiary'], spacing: 30 },
-            style: (bd) => ((bd.h || 0) > 40 ? 'office' : /Square|Mall|Nordstrom|Macy/.test(bd.name || '') ? 'mall' : undefined) });
+            style: (bd) => ((bd.h || 0) > 40 ? 'office' : /Square|Mall|Nordstrom|Macy/.test(bd.name || '') ? 'mall' : BPLACE.has(bd.id) ? 'concrete' : undefined) });
         // street shop fascias (shared helper), none inside the landmark blocks (their podium storefronts are part of the models)
         const lmPolys = d.buildings.filter((bd) => ctx.skipBuildings.has(bd.id)).map((bd) => bd.poly);
         ctx.painter.poly([[-22, -22], [4.5, -22], [4.5, -1.5], [-22, -1.5]], '#a8a49a', 'slab'); // NW corner paving (no residential-lawn paint showing through)

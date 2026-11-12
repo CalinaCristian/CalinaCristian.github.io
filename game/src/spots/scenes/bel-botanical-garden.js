@@ -14,7 +14,7 @@ import { GeoBatch, M, rng, headingFromBearing, alongPolyline, polylineLength, le
 import { signBoard } from '../props.js';
 import { activityBlocked, onActivityCancel } from '../participation.js';
 import { makeWaterMaterial } from '../../water.js';
-import { emitActivity, seasonal, waterPoly, fairyLights, gableRoof, glowText, nightLit } from './bel-common.js';
+import { emitActivity, seasonal, waterPoly, fairyLights, gableRoof, glowText, nightLit, parkPavilions, pitchMarkings } from './bel-common.js';
 
 function suspensionBridge(ctx, pts) {
     const g = ctx.ground, L = polylineLength(pts), A = alongPolyline(pts, 0), B = alongPolyline(pts, L);
@@ -27,7 +27,7 @@ function suspensionBridge(ctx, pts) {
     const N = 40;
     for (let i = 0; i < N; i++) {
         const t = (i + 0.5) / N, x = lerp(A.x, B.x, t), z = lerp(A.z, B.z, t);
-        const plank = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.08, L / N - 0.05), new THREE.MeshStandardMaterial({ color: i % 2 ? '#7a5a3c' : '#6f5236', roughness: 0.85 }));
+        const plank = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.08, L / N - 0.05), new THREE.MeshStandardMaterial({ color: i % 2 ? '#8d9498' : '#858c90', roughness: 0.5, metalness: 0.6 })); // OSM w210457899 surface=metal (grating), not timber planks
         plank.position.set(x, yAt(t), z); plank.rotation.y = yaw; plank.castShadow = true; plank.userData.t = t; deck.add(plank);
         ctx.ground.addBox(x, z, 0.8, L / N / 2 + 0.02, yaw, yAt(t) - 1, yAt(t) + 0.04);
     }
@@ -74,12 +74,25 @@ export default {
         for (const id of ['r19675678', 'r19659543', 'w32121769']) ctx.skipBuildings.add(id);
         for (const id of ['w453135450', 'w133513232', 'w480055239']) ctx.skipAreas.add(id);
         ctx.terrainOpts = { bg: '#4f6a34', innerPx: 2048 };
+        // Wilburton Hill Park sports ground (OSM pitch w32025468 soccer / artificial turf, track w403375045, basketball
+        // w1332124896, bleachers): open ground, no forest on it
+        const sports = d.areas.filter((a) => a.leisure === 'pitch' || a.leisure === 'track' || a.leisure === 'bleachers');
+        for (const a of sports) ctx.exclude.push(a.poly);
+        parkPavilions(ctx); // the shelter by Shorts House (w1433659397): an open roof, not a shop block
         ctx.osmBackdrop({ paint: {}, urban: false, areaTreeOpts: { conifer: 0.7, density: 1 / 45 }, streetTreeOpts: { spacing: 12, prob: 0.6 } });
+        { const trk = area('w403375045'), sp1 = area('w32025468'), bk = area('w1332124896'), sq = new GeoBatch();
+            if (trk) ctx.painter.line([...trk, trk[0]], 3, '#7c7d80', 'asphalt');                               // paved running loop round the field
+            if (sp1) { ctx.painter.poly(sp1, '#4e7a3c', 'grass'); pitchMarkings(ctx, sp1, 'soccer'); }
+            if (bk) { ctx.painter.poly(bk, '#6f747a', 'asphalt'); pitchMarkings(ctx, bk, 'basketball'); }
+            for (const a of sports) if (a.leisure === 'bleachers') { const bb = polyBox(a.poly), y = g.heightAt((bb.x0 + bb.x1) / 2, (bb.z0 + bb.z1) / 2), dz = (bb.z1 - bb.z0) / 3; for (let i = 0; i < 3; i++) sq.box((bb.x0 + bb.x1) / 2, y, bb.z0 + dz * (i + 0.5), bb.x1 - bb.x0, 0.45 + (2 - i) * 0.4, dz, '#b9bdc0', 'metal'); ctx.poly(a.poly, { h: 1.3 }); } // aluminium bleachers, rising away from the field
+            // floodlight masts (live OSM man_made=mast nodes n13182416639…652, 2026-11-12; 18 m is an estimate)
+            if (sp1) for (const [x, z] of [[270.2, 119.9], [218.4, 120.9], [218.4, 44.3], [244.1, 40.1], [269.7, 44.0], [244.4, 123.3]]) { const y = g.heightAt(x, z); sq.cyl(x, y, z, 0.16, 18, '#9a9fa3', 'steel', 8, 0.5); sq.box(x, y + 17.6, z, 2.2, 0.9, 0.25, '#c9cdd0', 'steel', z < 80 ? 0 : Math.PI); ctx.circle(x, z, 0.25, 18); }
+            ctx.add(sq.build('wilburton-sports')); }
         const r = rng(33), b = new GeoBatch();
         // ponds (OSM) on the shared water material
         for (const id of ['w453135450', 'w133513232', 'w480055239']) { const p = area(id); if (!p) continue; const y = Math.min(...p.map(([x, z]) => g.heightAt(x, z))) - 0.25; g.mod((x, z, h) => (inPoly(x, z, p) ? Math.min(h, y - 0.6) : h)); waterPoly(ctx, p, y, { deep: '#26382c', shallow: '#4a5a3c', cell: 1.2, name: 'pond-' + id }); ctx.poly(p, { h: 0.5, intended: true }); }
         // forest (Douglas fir, western red cedar, bigleaf maple) outside the garden rooms
-        const rooms = d.areas.filter((a) => a.leisure === 'garden' || a.landuse === 'flowerbed' || a.landuse === 'grass' || a.natural === 'water' || a.landuse === 'meadow').map((a) => ({ p: a.poly, b: polyBox(a.poly) }));
+        const rooms = d.areas.filter((a) => a.leisure === 'garden' || a.landuse === 'flowerbed' || a.landuse === 'grass' || a.natural === 'water' || a.landuse === 'meadow' || a.leisure === 'pitch' || a.leisure === 'track' || a.leisure === 'bleachers' || a.leisure === 'playground' || a.amenity === 'parking').map((a) => ({ p: a.poly, b: polyBox(a.poly) }));
         const inRoom = (x, z) => rooms.some((q) => x > q.b.x0 && x < q.b.x1 && z > q.b.z0 && z < q.b.z1 && inPoly(x, z, q.p));
         for (let i = 0; i < 1800; i++) { const x = -190 + r() * 420, z = -200 + r() * 500; if (inRoom(x, z)) continue; if (d.ways.some((w) => w.k !== 'service' && w.pts.length > 1 && distPolyline(x, z, w.pts).d < 3)) continue; if (d.buildings.some((q) => inPoly(x, z, q.poly))) continue; ctx.trees.push({ x, z, kind: r() < 0.62 ? 'con' : r() < 0.6 ? 'broad' : 'shrub', s: r() < 0.62 ? 1.1 + r() * 0.7 : 0.6 + r() * 0.6 }); }
         // flower colour in every named bed (Perennial Border densest) + shrubs
@@ -91,7 +104,10 @@ export default {
         const ygp = area('w32121704'), yg = ygp ? cen(ygp) : { x: 104, z: 18 };
         ctx.painter.custom((x, T, k, isMask) => { const [cx, cy] = T(yg.x - 14, yg.z - 4); x.fillStyle = isMask ? 'rgb(0,120,0)' : '#cfc9bb'; x.beginPath(); x.ellipse(cx, cy, 9 * k, 6 * k, 0.3, 0, 7); x.fill(); if (!isMask) { x.strokeStyle = 'rgba(120,112,98,0.6)'; x.lineWidth = Math.max(1, 0.06 * k); for (let i = 1; i < 8; i++) { x.beginPath(); x.ellipse(cx, cy, i * 1.1 * k, i * 0.7 * k, 0.3, 0, 7); x.stroke(); } } });
         const lanterns = [];
-        for (const [dx, dz] of [[-10, -6], [8, 10], [-4, 14], [-18, 2]]) { const x = yg.x + dx, z = yg.z + dz, y = g.heightAt(x, z); b.cyl(x, y, z, 0.25, 0.9, '#8a867c', 'stone', 6); b.box(x, y + 0.9, z, 0.7, 0.45, 0.7, '#8a867c', 'stone'); b.cyl(x, y + 1.35, z, 0.55, 0.3, '#7a766c', 'stone', 4, 0.2); ctx.circle(x, z, 0.4, 1.6); lanterns.push([x, y + 1.1, z]); }
+        // the stone lanterns stand where OSM maps them (Kasuga n13176039734, Miyoshi n13176039735, Stone Lantern n13179881929)
+        const lpos = (d.pois || []).filter((p) => p.tourism === 'artwork' && /Lantern/.test(p.name || '')).map((p) => [p.x - yg.x, p.z - yg.z]);
+        { const wb2 = (d.pois || []).find((p) => p.name === 'Kyoto Stone Water Basin'); if (wb2) { const y = g.heightAt(wb2.x, wb2.z); b.cyl(wb2.x, y, wb2.z, 0.38, 0.42, '#7f7b72', 'stone', 10, 1.15); b.cyl(wb2.x, y + 0.4, wb2.z, 0.3, 0.03, '#2c3a36', 'darkglass', 10); ctx.circle(wb2.x, wb2.z, 0.45, 0.5); } } // tsukubai (n13176039736)
+        for (const [dx, dz] of (lpos.length ? lpos : [[-10, -6], [8, 10], [-4, 14], [-18, 2]])) { const x = yg.x + dx, z = yg.z + dz, y = g.heightAt(x, z); b.cyl(x, y, z, 0.25, 0.9, '#8a867c', 'stone', 6); b.box(x, y + 0.9, z, 0.7, 0.45, 0.7, '#8a867c', 'stone'); b.cyl(x, y + 1.35, z, 0.55, 0.3, '#7a766c', 'stone', 4, 0.2); ctx.circle(x, z, 0.4, 1.6); lanterns.push([x, y + 1.1, z]); }
         for (let i = 0; i < 9; i++) ctx.trees.push({ x: yg.x + (r() - 0.5) * 30, z: yg.z + (r() - 0.5) * 22, kind: 'broad', s: 0.5 + r() * 0.2, c: ['#b8302a', '#c94a1f', '#8e2a2a'][i % 3] });
         const gate = bld('r19659543'); if (gate) { const c = cen(gate), y = g.heightAt(c.x, c.z), yaw = Math.atan2(gate[1][0] - gate[0][0], gate[1][1] - gate[0][1]); for (const s2 of [-1, 1]) { const px = c.x + Math.cos(yaw) * 1.4 * s2, pz = c.z - Math.sin(yaw) * 1.4 * s2; b.cyl(px, y, pz, 0.14, 2.6, '#5b3a26', 'wood', 8); ctx.circle(px, pz, 0.2, 2.6); } b.box(c.x, y + 2.3, c.z, 3.6, 0.18, 0.3, '#4a2f1f', 'wood', yaw + Math.PI / 2); gableRoof(b, c.x, y + 2.6, c.z, yaw + Math.PI / 2, 4.2, 1.6, 0.7, '#3d3a36', { over: 0.25 }); }
         // Tateuchi Viewing Pavilion (cedar, shingled hip roof) over the pond
@@ -153,6 +169,8 @@ export default {
             ],
         };
         ctx.sound('birds', 0, 120, 300, 1.4); ctx.sound('wind', 150, 240, 140, 0.8); ctx.sound('water', yg.x, yg.z + 20, 30, 0.5);
+        // no tree may stand in a mapped pond (a scattered fir stood in the Yao koi pond)
+        { const ponds = ['w453135450', 'w133513232', 'w480055239'].map(area).filter(Boolean); for (let i = ctx.trees.length - 1; i >= 0; i--) if (ponds.some((p) => inPoly(ctx.trees[i].x, ctx.trees[i].z, p))) ctx.trees.splice(i, 1); }
         ctx.spawns['bel-botanical-garden'] = { x: sp.spawn.x, z: sp.spawn.z + 3, heading: headingFromBearing(sp.spawn.heading_deg) };
         void M; void glowText;
     },

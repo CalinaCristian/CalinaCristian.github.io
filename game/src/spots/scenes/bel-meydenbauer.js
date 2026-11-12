@@ -2,8 +2,8 @@
 //  Meydenbauer Bay Park, Bellevue (reopened March 2019) — rebuilt round 5
 //  (owner note 69) from the OSM survey + reference photos (Commons: aerial
 //  April 2023, Mark Yasuda Dec 2019): the 420-ft floating crescent pier
-//  (concrete deck, galvanised mesh railings, pipe piles, benches, the clock
-//  post at the round tip), the grey-sand swimming beach with the buoy line and
+//  (concrete deck, galvanised mesh railings, pipe piles, benches, the sundial
+//  at the round tip), the grey-sand swimming beach with the buoy line and
 //  summer swim float, the wide concrete promenade lined with granite boulders
 //  and tall LED poles, terraced lawns behind boulder rockeries, the playground,
 //  the dark-roofed pavilion, the historic whaling building on piles, the red
@@ -21,7 +21,7 @@ import { bench } from '../osm.js';
 import { boatRide } from '../buc.js';
 import { dryLanding, shortWaterRoute } from '../water-route.js';
 import { stoneSkipping } from '../stone-skipping.js';
-import { emitActivity, localMD, inWindow, seasonal, shoreField, waterGrid, boulderWall, nightLit, glowText, gableRoof } from './bel-common.js';
+import { emitActivity, localMD, inWindow, seasonal, shoreField, waterGrid, boulderWall, nightLit, glowText, gableRoof, tri } from './bel-common.js';
 
 const LAKE_Y = -0.55; // Lake Washington ≈ 5.1–5.7 m NAVD88 (regulated); scene datum 5.7 m
 const DECK = LAKE_Y + 0.62; // floating pier deck above the water
@@ -173,11 +173,12 @@ export default {
         { const m = new THREE.Mesh(stripGeo(lo(ring), ring.map((p) => [p[0], p[1] - 0.06, p[2]]), 1.6), meshM); ctx.add(m); }
         for (let i = 0; i < ring.length - 1; i++) { if (i % 4 === 0) b.rod([ring[i][0], DECK, ring[i][2]], ring[i], 0.035, '#aeb4b8', 'steel', 6); const a = ring[i], c = ring[i + 1]; ctx.collider({ wall: true, ax: a[0], az: a[2], bx: c[0], bz: c[2], y0a: DECK - 3, y1a: DECK + 1.1, y0b: DECK - 3, y1b: DECK + 1.1, nx: 0, nz: 1, y: DECK, intended: true }); }
         for (const a of [ang0 + 1.6, ang0 + Math.PI, ang0 + 4.7]) bench(b, TC.x + Math.cos(a) * (TR - 1.3), DECK, TC.z + Math.sin(a) * (TR - 1.3), -a + Math.PI / 2, '#6b5038', '#2b2f33');
-        b.cyl(TC.x, DECK, TC.z, 0.28, 4.2, '#e6e8e8', 'paint', 16); b.box(TC.x, DECK + 4.2, TC.z, 0.75, 0.75, 0.75, '#e6e8e8', 'paint'); ctx.circle(TC.x, TC.z, 0.4, 4.6, { y: DECK });
-        b.box(TC.x - 0.05, DECK + 4.95, TC.z, 0.08, 0.9, 1.6, '#cfd3d4', 'steel', 0.4, 0, 0.5);    // heron-like wind vane / sculpture fin (stylised)
+        // OSM n6455415841 at the tip: amenity=clock, display=sundial (+ tourism=viewpoint) — a sundial, not a clock tower.
+        // (A four-faced clock post with a vane stood here: neither is mapped.) Low plinth, bronze dial, gnomon: form estimated.
+        b.cyl(TC.x, DECK, TC.z, 0.8, 0.5, '#b5b3ac', 'concrete', 24); b.cyl(TC.x, DECK + 0.5, TC.z, 0.72, 0.03, '#8a6a3c', 'metal', 24); ctx.circle(TC.x, TC.z, 0.85, 0.9, { y: DECK });
+        tri(b, [TC.x, DECK + 0.53, TC.z + 0.55], [TC.x, DECK + 0.53, TC.z - 0.5], [TC.x, DECK + 1.02, TC.z - 0.5], '#6f5530', 'metal'); tri(b, [TC.x, DECK + 0.53, TC.z - 0.5], [TC.x, DECK + 0.53, TC.z + 0.55], [TC.x, DECK + 1.02, TC.z - 0.5], '#6f5530', 'metal'); // gnomon rising to the north
         ctx.add(b.build('crescent-pier'));
-        // the clock faces on the tip post
-        for (let k = 0; k < 4; k++) { const a = k * Math.PI / 2, f = glowText('·', 0.62, 0.62, { bg: '#f7f5ee', fg: '#222', night: 0.8 }); f.position.set(TC.x + Math.sin(a) * 0.38, DECK + 4.575, TC.z + Math.cos(a) * 0.38); f.rotation.y = a; ctx.add(f); const hands = new THREE.Mesh(new THREE.PlaneGeometry(0.04, 0.24), new THREE.MeshBasicMaterial({ color: '#1b1b1b' })); hands.position.set(TC.x + Math.sin(a) * 0.39, DECK + 4.63, TC.z + Math.cos(a) * 0.39); hands.rotation.set(0, a, 0.9); ctx.add(hands); }
+
         // ---------------------------------------------------------------- pavilion (restrooms / viewing terrace), whaling building, REI boathouse
         const pb = new GeoBatch(), pv = bld('w688203355');
         for (const id of ['w688203355', 'w819159071', 'w698374975', 'w819159076']) ctx.skipBuildings.add(id);
@@ -218,6 +219,11 @@ export default {
             const s = glowText('BOATHOUSE · KAYAKS · SUP', 4.4, 0.45, { fg: '#ffffff', bg: '#2f2f2f', night: 1 }); s.position.set(e0[0] + (e1[0] - e0[0]) * 0.5 - Math.cos(yaw) * (Wb / 2 + 0.05) * 0, base + 2.9, e0[1] + (e1[1] - e0[1]) * 0.5); s.rotation.y = yaw - Math.PI / 2; ctx.add(s);
             ctx.poly(rei);
         }
+        // covered moorage (OSM w819159076 building=roof, layer 1): an open shed roof on posts over the slips. It was skipped
+        // and left undrawn. Eaves 4.4 m above the lake and the post spacing are estimates.
+        const moor = bld('w819159076');
+        if (moor) { const ry = LAKE_Y + 4.4; pb.prism(moor, ry, ry + 0.28, '#7d8387', 'metal', { bottom: true });
+            for (let i = 0; i < moor.length; i++) { const [ax, az] = moor[i], [qx, qz] = moor[(i + 1) % moor.length], Le = Math.hypot(qx - ax, qz - az), n = Math.max(1, Math.round(Le / 6)); for (let j = 0; j < n; j++) pb.cyl(ax + (qx - ax) * j / n, LAKE_Y - 1.5, az + (qz - az) * j / n, 0.14, ry - LAKE_Y + 1.5, '#5a534b', 'wood', 8); } }
         // marina docks (OSM w819169611) + moored boats in the slips
         const dock = area('w819169611'), boats = new GeoBatch(), anchorLights = [], mooredBodies=[];
         if (dock) {
@@ -235,7 +241,7 @@ export default {
                     if (inPoly(x, z, dock) || sdf(x, z) < 3 || placed.some((p) => Math.hypot(p[0] - x, p[1] - z) < 7.5)) continue;
                     let clear = true; for (let q = -4; q <= 4; q += 2) { const px = x + tx * q, pz = z + tz * q; if (inPoly(px, pz, dock)) { clear = false; break; } } if (!clear) continue;
                     if (r() < 0.18) continue;
-                    placed.push([x, z]); const res = boat(boats, x, LAKE_Y, z, Math.atan2(tx, tz) + (r() < 0.5 ? Math.PI : 0), r() < 0.55 ? 'sail' : 'motor', r); anchorLights.push(res.light);mooredBodies.push(res.body);
+                    placed.push([x, z]); const res = boat(boats, x, LAKE_Y, z, Math.atan2(tx, tz) + (r() < 0.5 ? Math.PI : 0), r() < 0.55 && !(moor && inPoly(x, z, moor)) ? 'sail' : 'motor', r); // no masts under the covered moorage anchorLights.push(res.light);mooredBodies.push(res.body);
                     ctx.box(x,z,res.body.hw,res.body.hd,res.body.angle,{prop:true,y:LAKE_Y,h:3});
                 }
             }

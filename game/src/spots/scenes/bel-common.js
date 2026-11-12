@@ -8,7 +8,7 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { LANDMARKS, buildLandmark } from '../../landmarks.js';
 import { makeWaterMaterial } from '../../water.js';
-import { inPoly, polyBox, distSeg, rng, hash2, canvas, canvasTexture } from '../kit.js';
+import { GeoBatch, inPoly, polyBox, distSeg, rng, hash2, canvas, canvasTexture } from '../kit.js';
 
 // ---------------------------------------------------------------------------- activities (01 *Activities*)
 /** report a completed activity once per session + toast; ids follow the Landmarks catalogue (spec 15 Requests) */
@@ -287,4 +287,61 @@ export function skipNearLandmark(ctx, id, r = null) {
     for (const b of ctx.data.buildings) if(sourceIds.has(b.id)){ctx.skipBuildings.add(b.id);out.push(b.id);}
     void r; // legacy callers may pass a radius; source membership is authoritative.
     return out;
+}
+
+// ---------------------------------------------------------------------------- park shelters / restrooms, pitch markings
+/**
+ * Small park structures that OSM maps as plain footprints: amenity=shelter (an open roof on posts) and public toilets
+ * (one low block). The generic extruder turns `building=yes` + amenity into a multi-storey block with a shopfront, so
+ * these are taken out of it (call BEFORE ctx.osmBackdrop) and built here on the mapped outline. Heights are estimates
+ * (2.6 m eaves, 2.9 m walls); no tag gives them. Returns the ids handled.
+ */
+export function parkPavilions(ctx, { roofCol = '#4b4f52', postCol = '#6a5a48', wallCol = '#a39c90' } = {}) {
+    const g = ctx.ground, b = new GeoBatch(), done = [];
+    for (const bd of ctx.data.buildings) {
+        if (bd.part || ctx.skipBuildings.has(bd.id) || !bd.poly || bd.poly.length < 3) continue;
+        const shelter = bd.amenity === 'shelter', wc = bd.amenity === 'toilets' || bd.k === 'toilets';
+        if (!shelter && !wc) continue;
+        const bb = polyBox(bd.poly); if ((bb.x1 - bb.x0) * (bb.z1 - bb.z0) > 900) continue; // a large building that merely contains toilets
+        ctx.skipBuildings.add(bd.id); done.push(bd.id);
+        const cx = (bb.x0 + bb.x1) / 2, cz = (bb.z0 + bb.z1) / 2, hs = bd.poly.map(([x, z]) => g.heightAt(x, z)), y = Math.max(...hs), y0 = Math.min(...hs) - 0.4;
+        const grow = (k) => bd.poly.map(([x, z]) => [cx + (x - cx) * k, cz + (z - cz) * k]);
+        if (shelter) {
+            const posts = [];
+            for (const [x, z] of grow(0.9)) { if (posts.some((p) => Math.hypot(x - p[0], z - p[1]) < 2.4)) continue; posts.push([x, z]); b.cyl(x, y0, z, 0.09, y + 2.6 - y0, postCol, 'wood', 8); ctx.circle(x, z, 0.14, 2.6); }
+            b.prism(grow(1.06), y + 2.6, y + 2.82, roofCol, 'metal', { bottom: true });
+        } else {
+            b.prism(bd.poly, y0, y + 2.9, wallCol, 'concrete'); b.prism(grow(1.1), y + 2.9, y + 3.12, roofCol, 'metal', { bottom: true }); ctx.poly(bd.poly);
+        }
+    }
+    if (done.length) ctx.add(b.build('park-pavilions'));
+    return done;
+}
+/**
+ * White line markings on a mapped pitch (a painter op: call AFTER ctx.osmBackdrop, which paints the surface): outline,
+ * halfway line, centre circle and the goal / key boxes in the polygon's own long-axis frame. Standard proportions
+ * scaled to the mapped surface — OSM gives the pitch and its sport, not the paint.
+ */
+export function pitchMarkings(ctx, poly, sport = 'soccer') {
+    let best = 0, ux = 1, uz = 0;
+    for (let i = 0; i < poly.length; i++) { const [ax, az] = poly[i], [bx, bz] = poly[(i + 1) % poly.length], L = Math.hypot(bx - ax, bz - az); if (L > best) { best = L; ux = (bx - ax) / L; uz = (bz - az) / L; } }
+    const vx = -uz, vz = ux; let u0 = 1e9, u1 = -1e9, v0 = 1e9, v1 = -1e9;
+    for (const [x, z] of poly) { const u = x * ux + z * uz, v = x * vx + z * vz; u0 = Math.min(u0, u); u1 = Math.max(u1, u); v0 = Math.min(v0, v); v1 = Math.max(v1, v); }
+    const m = sport === 'soccer' ? 2.5 : 0.6; u0 += m; u1 -= m; v0 += m; v1 -= m; // run-off inside the mapped surface
+    const W = (u, v) => [u * ux + v * vx, u * uz + v * vz], uc = (u0 + u1) / 2, vc = (v0 + v1) / 2, Lv = v1 - v0;
+    ctx.painter.custom((x, T, k, isMask) => {
+        if (isMask) return;
+        x.save(); x.strokeStyle = 'rgba(244,244,238,0.92)'; x.lineWidth = Math.max(1.2, 0.12 * k); x.lineJoin = 'miter'; x.setLineDash([]);
+        const path = (pts, close = false) => { x.beginPath(); pts.forEach(([u, v], i) => { const [px, py] = T(...W(u, v)); if (i) x.lineTo(px, py); else x.moveTo(px, py); }); if (close) x.closePath(); x.stroke(); };
+        const arc = (u, v, r, a0 = 0, a1 = Math.PI * 2) => path(Array.from({ length: 33 }, (_, i) => { const a = a0 + (a1 - a0) * i / 32; return [u + Math.cos(a) * r, v + Math.sin(a) * r]; }));
+        path([[u0, v0], [u1, v0], [u1, v1], [u0, v1]], true); path([[uc, v0], [uc, v1]]);
+        if (sport === 'soccer') {
+            const s = Math.min(1, Lv / 64); arc(uc, vc, 9.15 * s);
+            for (const [ue, d] of [[u0, 1], [u1, -1]]) for (const [dep, half] of [[16.5, 20.15], [5.5, 9.16]]) path([[ue, vc - half * s], [ue + d * dep * s, vc - half * s], [ue + d * dep * s, vc + half * s], [ue, vc + half * s]]);
+        } else {
+            arc(uc, vc, 1.8);
+            for (const [ue, d] of [[u0, 1], [u1, -1]]) { path([[ue, vc - 2.45], [ue + d * 5.8, vc - 2.45], [ue + d * 5.8, vc + 2.45], [ue, vc + 2.45]]); const r = Math.min(6.75, Lv / 2 - 0.3), a = d > 0 ? -Math.PI / 2 : Math.PI / 2; arc(ue + d * 1.6, vc, r, a, a + Math.PI); }
+        }
+        x.restore();
+    });
 }

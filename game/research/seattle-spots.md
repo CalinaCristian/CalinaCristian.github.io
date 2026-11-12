@@ -480,3 +480,47 @@ General pedestrian set (`dialogue_general.lines`, 49 lines) works in the Seattle
 - Reference photos for Ballard Locks, Gas Works, part of Pioneer Square and the 4 Bellevue spots are vetted (licence + URL in each LICENSES.md and `refs_candidates[]`) but not downloaded: upload.wikimedia.org returned HTTP 429 with a 10-minute Retry-After that kept renewing (shared egress). Lincoln Square photos exist in refs/bellevue/ (sibling).
 - No Commons photos of Rachel the pig, the Chihuly Glasshouse interior (copyright) or the UiPath office; Troll has one full photo.
 - Tripadvisor live ranking not fetchable (403); Stacker's 2024 copy used. Lonely Planet fetched via curl.
+
+## 6. Bellevue spots — fidelity pass 2026-11-12 (live OSM)
+
+Method: whole-area live OSM (`api.openstreetmap.org/api/0.6/map`, 2026-11-12; Overpass was unreachable) for the four scene
+extents, diffed against `game/data/spots/bel-*.json` and the scene modules, then game renders at fixed poses before / after
+each change. **Street View was available for one official panorama only** (NW corner of NE 8th St × Bellevue Way, late in the
+pass; the shared browser pane was at its tab limit before, and park photospheres did not load), so apart from the two
+Lincoln Square notes marked (SV) nothing below is a statement about look — only about what exists, where, and of which
+type. Sizes marked "estimate" have no tag.
+
+Established (and changed in the scenes):
+
+- **Lincoln Square.** OSM w33106348 ("Bellevue Square Mall", the L-shaped building at the SW corner of NE 8th St × Bellevue
+  Way that wraps the NE parking garage: Crate & Barrel on the corner, then Pressed Juicery, Starbucks, Cactus, Farzi Café,
+  Tavern Hall, Castilla, Shake Shack along Bellevue Way) is not one of the `bellevuesq` landmark's source rings (w29234887 +
+  w497739259). The scene skipped it as if it were: the corner was an empty paved plot with an invisible collider. It is an
+  OSM building again and carries the mapped ground-level shop signs. No `building:levels` is mapped (default height).
+  (SV) The corner building is a white two-storey glazed Crate & Barrel store: present in reality, as mapped; the game's
+  generic dark shopfront does not yet look like it. (SV) Bellevue Place across NE 8th (w366831926 + parts, w33613428) is
+  tan / rose precast with rectangular punched windows: it now uses the plain `concrete` facade in that colour instead of
+  red brick with arched windows.
+- **Downtown Park.** The four playground shelters (w842810342, w842810343, w1389888659, w1389888660, `amenity=shelter`) and
+  the restrooms (w503657595, w479656681, w505219712, `amenity=toilets`) are open roofs on posts / one low block, not
+  multi-storey blocks with shopfronts. Inspiration Playground equipment stands at its mapped nodes (2 structures, climbing
+  frame, 4 slides, swing, 2 basket swings, spinner bowl, spinning circle, trampoline, bannister bars, water table) and the
+  splash pad (w1389888661) is painted; shapes are stand-ins for the mapped type. "Lest We Forget" (n5657152449) is mapped
+  `memorial=obelisk`: an obelisk on a plinth (2.9 m, estimate) replaces the low slab; the plate carries the mapped name only.
+- **Botanical Garden.** The Ravine Experience bridge (w210457899) is `bridge:structure=suspension`, `surface=metal`,
+  `width=1.5`: the deck is metal, not timber planks. Wilburton Hill Park's sports ground east of the garden (soccer pitch
+  w32025468 `artificial_turf`, paved running loop w403375045, bleachers w1434241117/8, six `man_made=mast` floodlights,
+  basketball court w1332124896) was covered by the scene's scattered forest: it is open, marked (standard proportions,
+  estimate) and lit by masts (18 m, estimate). The Yao Garden stone lanterns stand at their mapped artwork nodes (Kasuga
+  n13176039734, Miyoshi n13176039735, Stone Lantern n13179881929) and the Kyoto stone water basin (n13176039736) is added;
+  no tree stands in a mapped pond. The shelter by Shorts House (w1433659397) is an open roof.
+- **Meydenbauer Bay Park.** The node at the pier tip (n6455415841) is `amenity=clock`, `display=sundial`,
+  `tourism=viewpoint`: a low sundial (form estimated) replaces the four-faced clock post with a vane, which is not mapped.
+  The marina's covered moorage (w819159076, `building=roof`, layer 1) was skipped and undrawn: it is an open shed roof on
+  posts (eaves 4.4 m above the lake, estimate) with motor boats only beneath it.
+
+Checked and left as is (matches live OSM): skybridge ways w43872832, w43872826, w516915099, w1222676052, w29234890,
+w497738385; the canal weirs, upper pool, reflecting pool and waterfall line of Downtown Park; the crescent pier
+(w688415225 / w687934817), beach, swimming area, pavilion (`building=toilets`), Whaling Building (w819159071), boathouse
+(w698374975), Lake Washington Blvd bridge (w243441596); the garden's ponds, Yao Gate (r19659543), Tateuchi pavilion.
+Open items are listed in the backlog rows of this pass.

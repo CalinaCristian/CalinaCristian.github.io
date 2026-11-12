@@ -21,7 +21,7 @@ import { meshSDF, sdCapsule, sdEllipsoid, smin, smax, noise3 } from '../sdf.js';
 import { seattleBackdrop } from '../backdrop.js';
 import { addTraffic } from '../cars.js';
 import { makeWaterMaterial } from '../../water.js';
-import { emitActivity, seasonal, waterPoly, nightLit, glowText, placeLitLandmark, skipNearLandmark, fairyLights, treeLightPoints, gableRoof } from './bel-common.js';
+import { emitActivity, seasonal, waterPoly, nightLit, glowText, placeLitLandmark, skipNearLandmark, fairyLights, treeLightPoints, gableRoof, parkPavilions } from './bel-common.js';
 
 const C = { x: -61.3, z: 89.2 }, R = 99.15, HW = 2.3; // canal centre circle (fitted to the 45 OSM weirs), half-width
 const TOP = 0.55, STEP = 0.105;                       // canal water level at the north gateway, drop per weir
@@ -144,7 +144,9 @@ export default {
         // WWI memorial elms (1926) + "Lest We Forget" marker in the meadow
         const mem = sp.structures.find((s) => s.id === 'memorial') || { x: -47, z: 61 };
         for (let i = 0; i < 7; i++) { const a = i / 7 * TAU + 0.3; ctx.trees.push({ x: mem.x + Math.cos(a) * 9, z: mem.z + Math.sin(a) * 9, kind: 'broad', s: 1.5 + r() * 0.2, species: 'elm' }); }
-        { const mb = new GeoBatch(), y = g.heightAt(mem.x, mem.z); mb.box(mem.x, y, mem.z, 1.4, 0.9, 0.6, '#8d8a84', 'stone', 0.2); ctx.add(mb.build('memorial-stone')); ctx.box(mem.x, mem.z, 0.7, 0.3, -0.2, { prop: true, h: 0.9 }); const t = glowText('LEST WE FORGET · 1926', 1.2, 0.22, { fg: '#2a2a28', bg: '#9a968e', font: (s) => `700 ${s}px Georgia, serif`, night: 0 }); t.position.set(mem.x - Math.sin(0.2) * 0.31, y + 0.62, mem.z - Math.cos(0.2) * 0.31); t.rotation.y = Math.PI + 0.2; ctx.add(t); }
+        // OSM n5657152449 historic=memorial, memorial=obelisk, name "Lest We Forget": a granite obelisk on a plinth (it was a
+        // low slab; the height, 2.9 m, is an estimate — no tag gives it; the plate carries the mapped name only)
+        { const mb = new GeoBatch(), y = g.heightAt(mem.x, mem.z); mb.box(mem.x, y, mem.z, 1.1, 0.5, 1.1, '#8d8a84', 'stone', 0.2); mb.cyl(mem.x, y + 0.5, mem.z, 0.42, 2.2, '#96928a', 'stone', 4, 0.55, 0, 0.2 + Math.PI / 4); mb.cyl(mem.x, y + 2.7, mem.z, 0.231, 0.22, '#96928a', 'stone', 4, 0.05, 0, 0.2 + Math.PI / 4); ctx.add(mb.build('memorial-obelisk')); ctx.box(mem.x, mem.z, 0.55, 0.55, -0.2, { prop: true, h: 2.9 }); const t = glowText('LEST WE FORGET', 0.9, 0.2, { fg: '#2a2a28', bg: '#9a968e', font: (s) => `700 ${s}px Georgia, serif`, night: 0 }); t.position.set(mem.x - Math.sin(0.2) * 0.56, y + 0.27, mem.z - Math.cos(0.2) * 0.56); t.rotation.y = Math.PI + 0.2; ctx.add(t); }
         // ---------------------------------------------------------------- NE gateway: Piloti + DOWNTOWN PARK sign
         const pl = sp.structures.find((s) => s.id === 'piloti') || { x: 70, z: -31 };
         // L34: the shell covers its mapped footprint (OSM w1326469154, building=roof, about 19 × 17 m) and replaces it — the
@@ -153,11 +155,27 @@ export default {
             if (fp) { ctx.skipBuildings.add(fp.id); const xs = fp.poly.map((p) => p[0]), zs = fp.poly.map((p) => p[1]); sx = (Math.max(...xs) - Math.min(...xs)) / 2 / 3.6 * 0.95; sz = (Math.max(...zs) - Math.min(...zs)) / 2 / 3.2 * 0.95; }
             piloti(ctx, pl.x, g.heightAt(pl.x, pl.z), pl.z, sx, sz); }
         { const s = glowText('DOWNTOWN PARK', 3.4, 0.5, { fg: '#f1ece0', bg: '#2f4a36', font: (q) => `700 ${q}px Georgia, serif`, night: 0.9 }); const sx = pl.x - 12, sz = pl.z + 10, y = g.heightAt(sx, sz); s.position.set(sx, y + 1.1, sz); s.rotation.y = Math.PI * 0.75; ctx.add(s); const sb = new GeoBatch(); sb.box(sx, y, sz, 3.8, 0.85, 0.35, '#a78d84', 'stone', Math.PI * 0.75); ctx.add(sb.build('gateway-sign')); ctx.box(sx, sz, 1.9, 0.2, -Math.PI * 0.75, { prop: true, h: 1.4 }); }
-        // ---------------------------------------------------------------- Inspiration Playground (SW): towers, nets, slides (simplified)
+        // ---------------------------------------------------------------- Inspiration Playground (SW): equipment at its mapped places
+        // Live OSM 2026-11-12 (the spot extract has only the outline): playground=* nodes + the splash pad way w1389888661.
+        // Each piece stands where it is mapped; the shapes are plain stand-ins for their mapped type, sizes are estimates.
         const pgp = area('w503657594');
-        if (pgp) { const pc = polyBox(pgp), x = (pc.x0 + pc.x1) / 2, z = (pc.z0 + pc.z1) / 2, y = g.heightAt(x, z), q = new GeoBatch();
-            for (const [dx, dz, h, c] of [[-8, -4, 4.2, '#3b7bb5'], [6, 3, 3.4, '#e2a23a'], [-2, 9, 2.6, '#6aa84f']]) { for (const [ox, oz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) q.cyl(x + dx + ox, y, z + dz + oz, 0.09, h, '#f1f1ec', 'paint', 8); q.box(x + dx, y + h * 0.55, z + dz, 2.3, 0.12, 2.3, c, 'plastic'); q.cyl(x + dx, y + h, z + dz, 1.7, 0.9, c, 'fabric', 4, 0.05, 0, Math.PI / 4); ctx.box(x + dx, z + dz, 1.2, 1.2, 0, { prop: true, h }); }
-            q.box(x - 4, y + 1.2, z - 4, 0.9, 0.08, 4.5, '#d9d9d4', 'chrome', 0, 0.45); q.rod([x + 6, y + 3.4, z + 3], [x - 2, y + 2.6, z + 9], 0.3, '#3a6e9e', 'plastic', 8);
+        if (pgp) { const q = new GeoBatch();
+            const PG = [['structure', -172.8, 169.7], ['structure', -213.6, 156.1], ['climbingframe', -228.1, 165.2], ['slide', -169.6, 171.7], ['slide', -209.3, 153.0], ['slide', -211.4, 155.3], ['slide', -233.8, 160.3],
+                ['swing', -174.2, 179.1], ['basketswing', -236.9, 169.7], ['basketswing', -238.8, 166.6], ['spinner_bowl', -184.3, 161.5], ['spinning_circle', -223.4, 174.8], ['trampoline', -222.5, 169.1], ['bannister_bars', -183.3, 175.2], ['water_table', -198.7, 174.2]];
+            const towers = PG.filter((e) => e[0] === 'structure'), cols = ['#3b7bb5', '#e2a23a', '#6aa84f'];
+            PG.forEach(([kind, x, z], i) => { const y = g.heightAt(x, z), c = cols[i % 3];
+                if (kind === 'structure') { for (const [ox, oz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) q.cyl(x + ox * 1.1, y, z + oz * 1.1, 0.09, 3.6, '#f1f1ec', 'paint', 8); q.box(x, y + 1.7, z, 2.5, 0.12, 2.5, c, 'plastic'); q.cyl(x, y + 3.6, z, 1.8, 0.9, c, 'fabric', 4, 0.05, 0, Math.PI / 4); ctx.box(x, z, 1.25, 1.25, 0, { prop: true, h: 3.6 }); }
+                else if (kind === 'climbingframe') { q.cyl(x, y, z, 0.08, 4, '#d9d9d4', 'chrome', 8); for (let k = 0; k < 6; k++) { const a = k / 6 * TAU; q.rod([x + Math.cos(a) * 2.6, y, z + Math.sin(a) * 2.6], [x, y + 4, z], 0.025, '#c8452e', 'fabric', 4); } ctx.circle(x, z, 0.3, 4); }
+                else if (kind === 'slide') { const t = towers.slice().sort((a, b) => Math.hypot(a[1] - x, a[2] - z) - Math.hypot(b[1] - x, b[2] - z))[0], dx = x - t[1], dz = z - t[2], L = Math.hypot(dx, dz) || 1; q.rod([x - dx / L * 1.4, y + 1.6, z - dz / L * 1.4], [x + dx / L * 1.6, y + 0.2, z + dz / L * 1.6], 0.32, '#d9d9d4', 'chrome', 8); ctx.circle(x, z, 0.5, 1.2); }
+                else if (kind === 'swing' || kind === 'basketswing') { for (const s of [-1.5, 1.5]) for (const o of [-0.9, 0.9]) q.rod([x + s, y, z + o], [x + s, y + 2.4, z], 0.05, '#2f6f8f', 'paint', 6); q.rod([x - 1.5, y + 2.4, z], [x + 1.5, y + 2.4, z], 0.05, '#2f6f8f', 'paint', 6);
+                    if (kind === 'swing') for (const s of [-0.6, 0.6]) { q.rod([x + s, y + 2.4, z], [x + s, y + 0.5, z], 0.012, '#555', 'steel', 4); q.box(x + s, y + 0.46, z, 0.45, 0.04, 0.2, '#222', 'rubber'); } else { q.rod([x, y + 2.4, z], [x, y + 0.6, z], 0.015, '#555', 'steel', 4); q.cyl(x, y + 0.5, z, 0.55, 0.1, '#222', 'rubber', 14); }
+                    for (const s of [-1.5, 1.5]) ctx.circle(x + s, z, 0.25, 2.4); }
+                else if (kind === 'spinner_bowl') { q.cyl(x, y + 0.25, z, 0.5, 0.35, c, 'plastic', 14, 0.55, 0.25); q.cyl(x, y, z, 0.06, 0.3, '#888', 'steel', 6); ctx.circle(x, z, 0.5, 0.6); }
+                else if (kind === 'spinning_circle') { q.cyl(x, y + 0.18, z, 1.2, 0.08, c, 'plastic', 20); q.cyl(x, y, z, 0.08, 0.9, '#d9d9d4', 'chrome', 8); ctx.circle(x, z, 0.2, 0.9); }
+                else if (kind === 'trampoline') q.box(x, y + 0.02, z, 1.6, 0.03, 1.6, '#23262a', 'rubber');
+                else if (kind === 'bannister_bars') for (const s of [-0.25, 0.25]) q.rod([x - 1.2, y + 1.5, z + s], [x + 1.2, y + 0.3, z + s], 0.03, '#d9d9d4', 'chrome', 6);
+                else if (kind === 'water_table') { q.box(x, y + 0.55, z, 1.6, 0.14, 0.7, '#9fb0b8', 'steel'); for (const s of [-0.7, 0.7]) q.cyl(x + s, y, z, 0.04, 0.55, '#888', 'steel', 6); ctx.box(x, z, 0.8, 0.35, 0, { prop: true, h: 0.7 }); }
+            });
             ctx.add(q.build('inspiration-playground')); }
         // ---------------------------------------------------------------- lower plaza: seasonal ice rink tent (Bellevue Downtown Ice Rink, OSM w1451219368)
         const tent = d.buildings.find((b) => b.id === 'w1451219368'); if (tent) ctx.skipBuildings.add(tent.id);
@@ -183,7 +201,9 @@ export default {
         ctx.terrainOpts = { bg: '#5d8a3e', innerPx: 2048 };
         ctx.exclude.push(Array.from({ length: 48 }, (_, i) => [C.x + Math.cos(i / 48 * TAU) * (R + 8), C.z + Math.sin(i / 48 * TAU) * (R + 8)]));
         for (const id of ['lincoln', 'onelincoln', 'lincolnsouth']) skipNearLandmark(ctx, id);
+        parkPavilions(ctx); // picnic shelters + restrooms (OSM amenity=shelter / toilets): open roofs / low blocks, not shop blocks
         ctx.osmBackdrop({ paint: {}, trees: true, areaTreeOpts: { conifer: 0.25 }, streetTreeOpts: { spacing: 10, prob: 0.8 }, style: (bd) => ((bd.h || 0) > 40 ? 'office' : undefined) });
+        ctx.painter.poly([[-214.1, 177.4], [-210.0, 173.2], [-205.9, 174.8], [-202.2, 173.9], [-199.5, 170.9], [-196.6, 169.2], [-194.7, 170.9], [-193.5, 173.1], [-193.9, 178.2], [-195.3, 180.4], [-198.2, 181.6], [-206.0, 182.1], [-211.3, 180.5]], '#8fa9b4', 'slab'); // splash pad (live OSM w1389888661 playground=splash_pad)
         for (const id of ['lincoln', 'onelincoln', 'lincolnsouth']) placeLitLandmark(ctx, id, { collide: false, seed: id.length });
         seattleBackdrop(ctx, { clear: 2000, hazeK: 0.4 });
         addTraffic(ctx, { lanes: [{ pts: [[134, 300], [138, 120], [140, 20], [142, -150]], n: 4, speed: 9 }, { pts: [[-300, -60], [-140, -60], [-30, -58], [120, -58]], n: 3, speed: 8 }] });

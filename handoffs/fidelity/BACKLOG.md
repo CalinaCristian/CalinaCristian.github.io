@@ -15,6 +15,12 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Grozăvești (194, -453) | ramp wall in the street | the Orhideelor entry ramp is mapped 6.3 m from Șos. Orhideelor's centre line; with both at 3.5 m half width plus the ramp's 0.8 m walkway its retaining wall stands about 1.5 m inside Orhideelor's left lane (Street View: the ramp barrier is at the street's edge) |
 | people at night | "shadows for people (texture like they are just standing that are transparent)" | not reproduced in a visible Ultra window at night among walkers (the AO pass already skips the crowd, lamps cast no shadows); needs an F8 report where they appear |
 
+## Done on branch `worktree-old-town-flicker` (not published)
+
+| Request | Done |
+| --- | --- |
+| Old Town "figure out activities for daytime too and more activities in general for that area" | by day the visit had the Carusel stair only. Five activities added, each at a real place web research found open (2026-11-11; `game/research/old-town-daylife.md`): a coffee at Gregory's (08:00–16:00), papanași at Jack's Pub (10:00–02:00), a coin for the busker, a three-frame photo walk, karaoke at Mojo (21:00–03:00). Each ran start to finish in a local preview (karaoke: fail and retry, then pass), hours checked at 13:00 / 22:00 / 03:00, five achievements unlock. Not done: playing them by hand with sound, a phone playthrough (karaoke layout seen at 375 px), the harness. Found on the way: four OSM cafés there have closed (Coffee & Travel, Ted's, CLATeatARIE, Uau Gelato) but keep their shop signs; the Hanul cu Tei gateways are not built (the group is empty) |
+
 ## Fixed on master 2026-11-12 (owner reports of 2026-11-12, re-check live at the poses)
 
 | Report | Fix |

@@ -507,6 +507,79 @@
       "id": "lm-curtea-veche",
       "title": "At Vlad's court"
      }
+    },
+    {
+     "name": "A coffee at Gregory's",
+     "real": "Gregory's, a Greek coffee chain, at Strada Lipscani 27: people take a coffee and sit outside watching the street.",
+     "when": "Mon–Fri 07:30–16:00, Sat–Sun 07:30–18:00 (Google Maps listing, 2026-11-11). In game 08:00–16:00.",
+     "sources": [
+      "https://www.romania-insider.com/press-release-gregorys-expands-bucharests-old-city-and-baneasa-shopping-city"
+     ],
+     "confidence": "medium",
+     "interaction": "A cup on its saucer in your hand: blow on it, sip, finish.",
+     "achievement": {
+      "id": "lm-lipscani-coffee",
+      "title": "O cafea, vă rog"
+     }
+    },
+    {
+     "name": "Papanași at Jack's Pub",
+     "real": "Jack's Pub, Strada Lipscani 45: terrace eating and people-watching by day; reviews mention ribs and papanași.",
+     "when": "Sun–Thu 10:00–02:00, Fri–Sat 10:00–05:00 (jackspub.ro, 2026-11-11). In game 10:00–02:00.",
+     "sources": [
+      "https://jackspub.ro"
+     ],
+     "confidence": "medium",
+     "interaction": "Two papanași on a plate in your hand: three forkfuls.",
+     "achievement": {
+      "id": "lm-jacks-papanasi",
+      "title": "Papanași, always in pairs"
+     }
+    },
+    {
+     "name": "A coin for the busker",
+     "real": "Street musicians play on Lipscani (a singer filmed by Coldplay in June 2024; a 2005 'free zone' weekend for street musicians).",
+     "when": "Not documented; in game 10:00–24:00 (estimate).",
+     "sources": [
+      "https://www.antena3.ro/timp-liber/muzica/coldplay-a-ajuns-romania-11-iunie-2024-trupa-rock-impresionata-barbat-canta-bucuresti-712337.html",
+      "https://adevarul.ro/stil-de-viata/cultura/ploua-cu-bani-pe-lipscani-zona-libera-a-1339908.html"
+     ],
+     "confidence": "medium",
+     "interaction": "Toss a coin into the busker's open guitar case.",
+     "achievement": {
+      "id": "lm-lipscani-busker",
+      "title": "Mulțumesc!"
+     }
+    },
+    {
+     "name": "Photo walk: Old Town details",
+     "real": "Wandering the pedestrian lanes with a camera is what visitors do by day (In Your Pocket, Rough Guides).",
+     "when": "Any time.",
+     "sources": [
+      "https://www.inyourpocket.com/romania/bucharest/articles/best-attractions-in-bucharests-old-town",
+      "https://www.roughguides.com/romania/bucharest/"
+     ],
+     "confidence": "medium",
+     "interaction": "Frame Freddo's glazed front, the Carusel arch and the string lights over Lipscani.",
+     "achievement": {
+      "id": "lm-lipscani-photo-walk",
+      "title": "Three frames of Lipscani"
+     }
+    },
+    {
+     "name": "Karaoke at Mojo Music Club",
+     "real": "Mojo Music Club, Strada Lipscani 69: karaoke upstairs every night, above the ground-floor pub; live music and comedy in the cellar.",
+     "when": "Karaoke from 21:00 every night (In Your Pocket, undated); venue to 03:00, 05:00 Fri–Sat (Google Maps, 2026-11-11). In game 21:00–03:00.",
+     "sources": [
+      "https://www.inyourpocket.com/romania/bucharest/venues/mojo",
+      "https://mojomusic.ro/regulament"
+     ],
+     "confidence": "medium",
+     "interaction": "Hold your voice on an original eight-bar tune; 60 % in tune passes.",
+     "achievement": {
+      "id": "lm-mojo-karaoke",
+      "title": "Bis! Bis!"
+     }
     }
    ]
   },

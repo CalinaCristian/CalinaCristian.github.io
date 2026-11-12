@@ -9,7 +9,8 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, obb, polyArea, offsetPolyline } from '../kit.js';
-import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, palisade, osmPoly, cityFiller, flagpole, bucActivity } from '../buc.js';
+import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, palisade, osmPoly, flagpole, bucActivity } from '../buc.js';
+import { parkWoods, greenClearance, businessSigns } from './buc-green.js';
 import { photoHunt } from '../photo-hunt.js';
 import { addTraffic } from '../cars.js';
 
@@ -90,18 +91,32 @@ export default {
         // garden: lawn, gravel paths, rose beds, conifers + lindens
         ctx.add(b.build('spring-palace', { matOverrides: { [fMain.key]: fMain.mat, balustrade: balustradeMaterial(), ...mats } }));
         ctx.terrainOpts = { bg: '#6b8545', bgMask: 'grass', innerPx: 2048, innerStep: 3, outerStep: 16, outerPad: 600 };
-        bucBackdrop(ctx, { lampStyle: 'lantern', lampColor: '#1c1f22', lampH: 4.4, lampPad: 30, treeLod: { cap: 1400, max: 380 }, treeScale: 1.3, lampOpts: { spacing: 28, kinds: ['tertiary', 'residential'] }, streetTreeOpts: { spacing: 9, prob: 0.85, kinds: ['tertiary', 'residential'] } });
+        // a villa / embassy quarter: no generated ground-floor shopfronts (Street View 2026-11-12); mapped businesses get name boards
+        bucBackdrop(ctx, { urban: false, lampStyle: 'lantern', lampColor: '#1c1f22', lampH: 4.4, lampPad: 30, treeLod: { cap: 3000, max: 380 }, treeScale: 1.3, lampOpts: { spacing: 28, kinds: ['tertiary', 'residential'] }, streetTreeOpts: { spacing: 9, prob: 0.85, kinds: ['tertiary', 'residential'] } });
         ctx.painter.poly(grounds, '#5f8040', 'grass');
         const r = rng(5), gb = polyBox(grounds);
         ctx.painter.custom((x, T, k, isMask) => { if (isMask) return; for (let i = 0; i < 14; i++) { const px = gb.x0 + r() * (gb.x1 - gb.x0), pz = gb.z0 + r() * (gb.z1 - gb.z0); if (!inPoly(px, pz, grounds) || [main, pool].some((q) => q && inPoly(px, pz, grow(q.poly, 3)))) continue; const [a, c] = T(px, pz); x.fillStyle = '#6b3a2a'; x.beginPath(); x.ellipse(a, c, 2.2 * k, 1.2 * k, 0.6, 0, 7); x.fill(); for (let q = 0; q < 30; q++) { x.fillStyle = r.pick(['#c8323a', '#e86a8a', '#f2e6e0', '#d94a5a']); x.fillRect(a + (r() - 0.5) * 3.6 * k, c + (r() - 0.5) * 2 * k, Math.max(1, 0.25 * k), Math.max(1, 0.25 * k)); } } });
         for (let i = 0; i < 24; i++) { const x = gb.x0 + r() * (gb.x1 - gb.x0), z = gb.z0 + r() * (gb.z1 - gb.z0); if (!inPoly(x, z, grow(grounds, -3)) || [main, pool].some((q) => q && inPoly(x, z, grow(q.poly, 7)))) continue; ctx.trees.push({ x, z, kind: r() < 0.45 ? 'con' : 'broad', s: 1.0 + r() * 0.6 }); }
-        cityFiller(ctx, { ring: 600 });
+        // From the boulevard the residence is screened by a dense belt of spruces, willows and broadleaves right behind its
+        // wall, and every villa garden of the quarter is planted (Street View 2026-11-12). OSM maps none of these trees:
+        // the belt (within 9 m of the grounds' boundary) and the garden trees between the mapped buildings are estimates,
+        // clear of every mapped building and way.
+        { const free = greenClearance(d), tight = greenClearance(d, { buildingPad: 1.2, roadPad: 1.4 }), edge = (x, z) => { let m = 1e9; for (let i = 0; i < grounds.length; i++) { const [ax, az] = grounds[i], [bx, bz] = grounds[(i + 1) % grounds.length], dx = bx - ax, dz = bz - az, t = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / (dx * dx + dz * dz || 1))); m = Math.min(m, Math.hypot(x - ax - dx * t, z - az - dz * t)); } return m; };
+            const [qx, qz] = centroid(grounds), gate = (x, z) => Math.hypot(x - gmx, z - gmz) < 9;
+            const belt = parkWoods(ctx, [grounds], { seed: 29, clear: tight, min: 3.4, conifer: 0.45, scale: [1.0, 1.55], density: (x, z) => (edge(x, z) < 9 ? 1 / 13 : 0), inside: (x, z) => edge(x, z) > 1.1 && !gate(x, z) });
+            const yard = [[qx - 330, qz - 330], [qx + 330, qz - 330], [qx + 330, qz + 330], [qx - 330, qz + 330]];
+            const gardens = parkWoods(ctx, [yard], { seed: 31, clear: free, min: 6, conifer: 0.28, scale: [0.95, 1.55], density: () => 1 / 210, inside: (x, z) => !inPoly(x, z, grounds) && !ctx.trees.some((t) => Math.abs(t.x - x) < 4.5 && Math.abs(t.z - z) < 4.5) });
+            ctx.trees.push(...belt, ...gardens); ctx.extras.springGreen = { wallBelt: belt.length, villaGardens: gardens.length, estimatedPositions: true }; }
+        // No random far blocks: north and east of the extract are Lake Floreasca and Herăstrău park, where the old filler
+        // put invented 8-22 storey slabs on the skyline. Coverage beyond the extract stays an explicit gap.
+        ctx.extras.springContext = { removedUnverifiedCityFiller: true };
         // peacocks on the lawn
         const lawn = grow(grounds, -4);
         const birds = peacocks(ctx, lawn, 4);
         // plaques by the gate (inside), traffic on the boulevard
         const PL = sp.plaques; const ix = gmx + (centroid(grounds)[0] - gmx) * 0.18, iz = gmz + (centroid(grounds)[1] - gmz) * 0.18;
         PL.forEach((pl, i) => ctx.plaque(pl, ix + gux * (i - 1.5) * 2.2, iz + guz * (i - 1.5) * 2.2, Math.atan2(gmx - ix, gmz - iz), { style: 'city' }));
+        ctx.extras.springBusinessSigns = businessSigns(ctx, { name: 'spring-business-signs' });
         const way = (id) => d.ways.find((w) => w.id === id)?.pts || [];
         addTraffic(ctx, { lanes: [{ pts: way('w429253035'), n: 2, speed: 8 }, { pts: way('w429253035').slice().reverse().map(([x, z]) => [x + 3, z + 2]), n: 2, speed: 8 }], parked: [] });
         // flags on the embassies nearby (Lithuania, Korea) — Romanian flag at the museum gate

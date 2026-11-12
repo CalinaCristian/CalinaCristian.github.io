@@ -15,6 +15,7 @@ import { bucBackdrop, osmPoly, placeLandmark, palisade, signAtlas, bucActivity, 
 import { railing } from '../props.js';
 import { addBikeRental } from '../bike.js';
 import { dryLanding, shortWaterRoute } from '../water-route.js';
+import { parkWoods, businessSigns, thinTrees } from './buc-green.js';
 
 function grow(poly, d) { const cw = polyArea(poly) > 0; const o = offsetPolyline([...poly, poly[0], poly[1]], cw ? -d : d); return o.slice(1, poly.length + 1); }
 const NORTH = /Maramureș|Maramures|Bistrița|Hunedoara|Harghita|Suceava|Neamț|Neamt|Alba|Cluj|Sălaj|Mureș|Brașov|Sibiu|Covasna|Bihor|Satu Mare|Bucovina/;
@@ -78,23 +79,6 @@ function peasantHouse(b, ctx, bd, r) {
     { const [kx, kz] = P(0, (v0 + hw) / 2); ctx.box(kx, kz, o.len / 2, (hw - v0) / 2, -o.angle, { y0: y - 1, y1: y + wallH + roofH }); }
     return { o, y, north, porch, P };
 }
-/** Dobrogea wooden windmill (Village Museum): octagonal plank tower, conical cap turned to the wind, six lattice sails */
-function windmill(b, ctx, x, z, yaw) {
-    const y = ctx.ground.heightAt(x, z) - 0.1;
-    b.cyl(x, y, z, 2.0, 0.6, '#9a8e7c', 'stone', 8);
-    b.cyl(x, y + 0.6, z, 1.8, 6.4, '#7a6650', 'wood', 8, 0.75);
-    for (let k = 1; k < 6; k++) b.cyl(x, y + 0.6 + k * 1.1, z, 1.82 - k * 0.08, 0.06, '#5e4b38', 'wood', 8);
-    b.add(new THREE.ConeGeometry(1.75, 2.0, 10), 'roofs', M(x, y + 8.0, z), '#5c4a38');
-    const fx = Math.sin(yaw), fz = Math.cos(yaw), hx = x + fx * 1.6, hz = z + fz * 1.6, hy = y + 6.8;
-    b.rod([x, hy, z], [hx, hy, hz], 0.14, '#4a3a2a', 'wood', 6);
-    for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2 + 0.3, sx = Math.cos(yaw) * Math.cos(a), sz = -Math.sin(yaw) * Math.cos(a), sy = Math.sin(a), L = 5.6;
-        b.rod([hx, hy, hz], [hx + sx * L, hy + sy * L, hz + sz * L], 0.06, '#5a4632', 'wood', 4);
-        for (const t of [0.35, 0.6, 0.85]) { const px = hx + sx * L * t, py = hy + sy * L * t, pz = hz + sz * L * t; b.boxC(px, py, pz, 0.04, 0.9, 0.04, '#5a4632', 'wood', yaw, 0, -a); }
-        b.boxC(hx + sx * L * 0.62, hy + sy * L * 0.62, hz + sz * L * 0.62, 0.02, 3.4, 0.8, '#d8cdb5', 'fabric', yaw, 0, Math.PI / 2 - a); }
-    b.box(x + fx * 1.75, y + 0.6, z + fz * 1.75, 0.9, 1.9, 0.08, '#4a3626', 'wood', yaw + Math.PI / 2);
-    ctx.circle(x, z, 2.0, 9);
-}
-
 /** the wooden church from Dragomirești (1722): log nave, double shingle roof, west tower with an open belfry and a needle spire */
 function woodenChurch(b, ctx, bd) {
     const g = ctx.ground, o = obb(bd.poly), y = Math.min(...bd.poly.map(([x, z]) => g.heightAt(x, z))) - 0.1;
@@ -117,12 +101,28 @@ function woodenChurch(b, ctx, bd) {
     return { x: o.cx, z: o.cz, tx, tz, y };
 }
 /** stone/bronze bust on a plinth with a name plate (returns the sign entry) */
-function bust(b, ctx, p, r) {
-    const y = ctx.ground.heightAt(p.x, p.z), stone = r() < 0.6, col = stone ? '#d6d1c6' : '#3f4a3c', a = r() * 6.28;
+function bust(b, ctx, p, r, face = null) {
+    const tagged = /bronze|stone|marble|granite|concrete/.test(p.material || ''), pick = r() < 0.6, turn = r() * 6.28;
+    const y = ctx.ground.heightAt(p.x, p.z), stone = tagged ? !/bronze/.test(p.material) : pick, col = stone ? (/marble/.test(p.material || '') ? '#ecebe6' : '#d6d1c6') : '#3f4a3c', a = face ?? turn;
+    if (p.artwork_type === 'statue') return statue(b, ctx, p, y, a, col, stone ? 'stone' : 'bronze');
     b.box(p.x, y, p.z, 0.9, 1.7, 0.9, '#bdb6a8', 'stone', a); b.box(p.x, y + 1.7, p.z, 1.0, 0.12, 1.0, '#cfc8ba', 'stone', a);
     b.sphere(p.x, y + 1.95, p.z, 0.44, 0.2, 0.25, col, stone ? 'stone' : 'bronze', 10, 6); b.cyl(p.x, y + 2.03, p.z, 0.08, 0.16, col, stone ? 'stone' : 'bronze', 8); b.sphere(p.x, y + 2.35, p.z, 0.15, 0.19, 0.17, col, stone ? 'stone' : 'bronze', 10, 8);
     ctx.circle(p.x, p.z, 0.55, 2.9);
     return { x: p.x + Math.sin(a) * 0.47, y: y + 1.1, z: p.z + Math.cos(a) * 0.47, yaw: a, w: 0.85, h: 0.26, text: (p.name || '').replace(/ (bust|statue)$/i, ''), bg: '#d8d2c4', fg: '#2a2a2a', border: false };
+}
+
+/** a mapped statue (OSM artwork_type=statue): a plain standing figure on a plinth, or a small animal bronze; the real
+ *  sculptures are not reproduced (no freedom of panorama) — size class and material only */
+function statue(b, ctx, p, y, a, col, mat) {
+    const name = p.name || '', animal = /Curcan|Căprioar|Gâscan/.test(name), big = /Charles de Gaulle/.test(name), k = big ? 2.4 : 1, ph = animal ? 0.7 : big ? 0.5 : 1.3, pw = animal ? 0.9 : big ? 2.6 : 1.1;
+    b.box(p.x, y, p.z, pw, ph, pw, '#bdb6a8', 'stone', a); const Y = y + ph;
+    if (animal) { b.sphere(p.x, Y + 0.38, p.z, 0.2, 0.26, 0.42, col, mat, 10, 8); b.sphere(p.x + Math.sin(a) * 0.42, Y + 0.62, p.z + Math.cos(a) * 0.42, 0.1, 0.12, 0.12, col, mat, 8, 6); for (const s of [-1, 1]) b.cyl(p.x + Math.cos(a) * s * 0.1, Y, p.z - Math.sin(a) * s * 0.1, 0.035, 0.22, col, mat, 6); }
+    else { for (const s of [-1, 1]) b.cyl(p.x + Math.cos(a) * s * 0.11 * k, Y, p.z - Math.sin(a) * s * 0.11 * k, 0.085 * k, 0.86 * k, col, mat, 8);
+        b.cyl(p.x, Y + 0.84 * k, p.z, 0.2 * k, 0.62 * k, col, mat, 10, 0.82); b.sphere(p.x, Y + 1.5 * k, p.z, 0.24 * k, 0.1 * k, 0.15 * k, col, mat, 10, 6);
+        b.cyl(p.x, Y + 1.5 * k, p.z, 0.06 * k, 0.12 * k, col, mat, 8); b.sphere(p.x, Y + 1.72 * k, p.z, 0.11 * k, 0.13 * k, 0.12 * k, col, mat, 10, 8);
+        for (const s of [-1, 1]) b.rod([p.x + Math.cos(a) * s * 0.25 * k, Y + 1.46 * k, p.z - Math.sin(a) * s * 0.25 * k], [p.x + Math.cos(a) * s * 0.29 * k, Y + 0.86 * k, p.z - Math.sin(a) * s * 0.29 * k], 0.055 * k, col, mat, 6); }
+    ctx.circle(p.x, p.z, pw * 0.62, ph + (animal ? 0.8 : 1.9 * k));
+    return { x: p.x + Math.sin(a) * (pw / 2 + 0.02), y: y + Math.min(0.9, ph * 0.6), z: p.z + Math.cos(a) * (pw / 2 + 0.02), yaw: a, w: Math.min(pw * 0.92, 1.6), h: 0.24, text: name, bg: '#d8d2c4', fg: '#2a2a2a', border: false };
 }
 
 export default {
@@ -174,7 +174,9 @@ export default {
                 for (let k = 0; k <= n; k++) { const t = (k + 0.5) / n, ok = k < n && fenceFree(ax + (bx - ax) * t, az + (bz - az) * t, o); if (ok && run < 0) run = k; else if (!ok && run >= 0) { put(run, k); run = -1; } } }
             if (r() < 0.3) { const wx = o.cx + o.uz * (fd - 1.8), wz = o.cz - o.ux * (fd - 1.8), wy = g.heightAt(wx, wz); b.cyl(wx, wy, wz, 0.55, 0.8, '#6b5a44', 'wood', 8); b.box(wx + 1.6, wy, wz, 0.2, 3.6, 0.2, '#5a4632', 'wood'); b.rod([wx - 2.2, wy + 4.6, wz], [wx + 3.6, wy + 2.4, wz], 0.07, '#5a4632', 'wood', 5); b.rod([wx - 2.2, wy + 4.6, wz], [wx - 2.2, wy + 1.2, wz], 0.02, '#3a2a1e', 'metal', 3); ctx.circle(wx, wz, 0.6, 1); }
         }
-        if (mus) { const wr = rng(5), bbm = polyBox(mus); let placed = 0; for (let k = 0; k < 400 && placed < 3; k++) { const x = bbm.x0 + wr() * (bbm.x1 - bbm.x0), z = bbm.z0 + wr() * (bbm.z1 - bbm.z0); if (!inPoly(x, z, grow(mus, -15)) || houses.some((h) => Math.hypot(h.o.cx - x, h.o.cz - z) < 16) || (church && Math.hypot(church.x - x, church.z - z) < 30) || d.ways.some((w) => ['footway', 'path', 'service'].includes(w.k) && distPolyline(x, z, w.pts).d < 5)) continue; windmill(b, ctx, x, z, 0.6 + placed); placed++; ctx.trees = ctx.trees.filter((t) => Math.hypot(t.x - x, t.z - z) > 7); } }
+        // The museum's windmills are not mapped in OSM and the dossier has no position for them: the three that were
+        // scattered at random spots are gone (open item in the dossier) rather than standing where none exists.
+        ctx.extras.villageWindmills = { placed: 0, reason: 'no mapped position' };
         // activity (note 57, research `lm-village-passport`): a village passport — step onto the porch of five households from
         // different regions (E at the door: a stamp + what the house is); the fifth stamp completes "village-museum:farmhouse"
         { const named = houses.filter((h) => h.porch && h.bd.name), pick = [], regions = new Set();
@@ -191,7 +193,13 @@ export default {
             function palisadeRun(run) { const mats = palisade(ctx, b, run, { h: 1.8, post: 4, plinth: 0.3 }); ctx.extras.palMats = mats; }
         }
         // ---- park: busts and statues along the alleys (OSM artworks), the Sleeping Nymph, Japanese garden
-        for (const p of d.pois) { if (p.tourism !== 'artwork' || !/bust|statue/.test(p.artwork_type || '') || !p.name) continue; if (mus && inPoly(p.x, p.z, mus)) continue; if (Math.abs(p.x) > 520 || p.z < -320 || p.z > 420 || p.id === 'n1342884103') continue; signs.push(bust(b, ctx, p, r)); }
+        // every mapped bust / statue of the park, the Charles de Gaulle bronze at the south-east entrance included (it was
+        // cut off by the old z < 420 limit); each faces the nearest mapped path
+        const artPaths = d.ways.filter((w) => /footway|path|pedestrian|cycleway/.test(w.k || '') && w.pts.length > 1).map((w) => w.pts), artworks = [];
+        for (const p of d.pois) { if (p.tourism !== 'artwork' || !/bust|statue/.test(p.artwork_type || '') || !p.name) continue; if (mus && inPoly(p.x, p.z, mus)) continue; if (Math.abs(p.x) > 560 || p.z < -320 || p.z > 520 || p.id === 'n1342884103') continue;
+            let near = null; for (const pts of artPaths) { const q = distPolyline(p.x, p.z, pts); if (q.d > 0.3 && (!near || q.d < near.d)) near = q; }
+            signs.push(bust(b, ctx, p, r, near && near.d < 30 ? Math.atan2(near.cx - p.x, near.cz - p.z) : null)); artworks.push(p); }
+        ctx.extras.herastrauArtworks = artworks.map((p) => ({ id: p.id, name: p.name, type: p.artwork_type, material: p.material || null }));
         const nymph = d.pois.find((p) => p.id === 'n1342884103') || { x: 236.3, z: 109.8 };
         { // the Sleeping Nymph: a reclining marble figure on a low plinth (smooth volumes: torso, hip, legs, arm under the head)
             const y = g.heightAt(nymph.x, nymph.z), yaw = 0.4, c = Math.cos(yaw), sn = Math.sin(yaw), P = (u, v) => [nymph.x + u * c + v * sn, nymph.z - u * sn + v * c], W = '#ecebe6';
@@ -219,19 +227,35 @@ export default {
             for (const p of lake.poly) { if (p[0] > -60 && p[0] < 520 && p[1] > -420 && p[1] < 60 && !(mus && inPoly(p[0], p[1], mus))) run.push(p); else flush(); } flush(); ctx.add(rb.build('lake-railing')); }
         // ---- ground, park trees (dense old parkland), lamps
         ctx.terrainOpts = { bg: '#6a8444', bgMask: 'grass', innerPx: 2048, innerStep: 4, outerStep: 16, outerPad: 800 };
-        bucBackdrop(ctx, { lampStyle: 'lantern', lampColor: '#24282a', lampH: 4.2, lampPad: 10, treeLod: { cap: 1400, max: 240 }, lampOpts: { spacing: 58, kinds: ['footway', 'path', 'pedestrian', 'cycleway'] }, streetTreeOpts: { kinds: ['primary', 'secondary'], prob: 0.8 }, areaTreeOpts: { kinds: ['wood', 'forest', 'park'], density: 1 / 260, conifer: 0.15, exclude: [...(jg ? [jg] : [])] } });
+        bucBackdrop(ctx, { urban: false, lampStyle: 'lantern', lampColor: '#24282a', lampH: 4.2, lampPad: 10, treeLod: { cap: 3400, max: 240 }, lampOpts: { spacing: 58, kinds: ['footway', 'path', 'pedestrian', 'cycleway'] }, streetTreeOpts: { kinds: ['primary', 'secondary'], prob: 0.8 }, areaTreeOpts: { kinds: ['wood', 'forest', 'park'], density: 1 / 260, conifer: 0.15, exclude: [...(jg ? [jg] : [])] } });
         // the museum: dense canopy along the alleys, clearings round the houses
         if (mus) { const bb = polyBox(mus); for (let i = 0; i < 700; i++) { const x = bb.x0 + r() * (bb.x1 - bb.x0), z = bb.z0 + r() * (bb.z1 - bb.z0); if (!inPoly(x, z, mus) || g.heightAt(x, z) < level + 0.3 || houses.some((h) => Math.hypot(h.o.cx - x, h.o.cz - z) < h.o.len / 2 + 6) || (church && Math.hypot(church.x - x, church.z - z) < 16)) continue; ctx.trees.push({ x, z, kind: r() < 0.12 ? 'con' : 'broad', s: 0.9 + r() * 0.7 }); } }
         if (church) ctx.trees.push({ x: church.tx + 7, z: church.tz - 5, kind: 'con', s: 1.6, sy: 1.3 }); // the tall spruce next to the church
         // old parkland: lindens / chestnuts / planes lining the alleys (OSM maps few trees here)
         { const box = Object.values(d.spots).map((q) => polyBox(q.extent.polygon)); const inside = (x, z) => box.some((q) => x > q.x0 - 80 && x < q.x1 + 80 && z > q.z0 - 80 && z < q.z1 + 80);
             for (const w of d.ways) { if (!['footway', 'path', 'cycleway', 'pedestrian'].includes(w.k)) continue; for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 1) continue; const nx = -(bz - az) / L, nz = (bx - ax) / L; for (let t = r() * 9; t < L; t += 8 + r() * 4) for (const sd of [-1, 1]) { if (r() < 0.25) continue; const x = ax + (bx - ax) * t / L + nx * sd * (4 + r() * 2), z = az + (bz - az) * t / L + nz * sd * (4 + r() * 2); if (!inside(x, z) || (jg && inPoly(x, z, jg)) || Math.hypot(x - nymph.x, z - nymph.z) < 16) continue; ctx.trees.push({ x, z, kind: r() < 0.08 ? 'con' : 'broad', s: 1.25 + r() * 0.6 }); } } } }
+        // The whole mapped park (and its island) is mature woodland, not only the alleys inside the two spot extents: fill the
+        // park polygons at an estimated density, clear of every mapped way, building, playground, fountain, statue and the lake.
+        { const parks = d.areas.filter((a) => a.leisure === 'park').map((a) => a.poly), T = d.terrain, ext = Object.values(d.spots).map((q) => polyBox(q.extent.polygon)), art = d.pois.filter((p) => p.tourism === 'artwork' || p.historic === 'memorial');
+            const core = (x, z) => ext.some((q) => x > q.x0 - 120 && x < q.x1 + 120 && z > q.z0 - 120 && z < q.z1 + 120);
+            const woods = parkWoods(ctx, parks, { seed: 73, conifer: 0.07, bounds: { x0: T.x0, z0: T.z0, x1: T.x0 + (T.nx - 1) * T.d, z1: T.z0 + (T.nz - 1) * T.d }, density: (x, z) => (core(x, z) ? 1 / 110 : 1 / 170),
+                inside: (x, z) => !(mus && inPoly(x, z, mus)) && !(jg && inPoly(x, z, jg)) && !ctx.extras.inLake?.(x, z) && Math.hypot(x - nymph.x, z - nymph.z) > 16 && !art.some((p) => Math.hypot(p.x - x, p.z - z) < 4.5) && !ctx.trees.some((t) => Math.abs(t.x - x) < 5 && Math.abs(t.z - z) < 5) });
+            ctx.extras.herastrauParkWoods = { otherTrees: ctx.trees.length, trees: woods.length, sourcePolygons: parks.length, estimatedPositions: true }; ctx.trees.push(...woods); }
         ctx.trees = ctx.trees.filter((t) => g.heightAt(t.x, t.z) > level + 0.4);
         { const ic = spV.photo.iconic; if (church && ic) { const dx = church.x - ic.x, dz = church.z - ic.z, L = Math.hypot(dx, dz); ctx.trees = ctx.trees.filter((t) => { const u = ((t.x - ic.x) * dx + (t.z - ic.z) * dz) / L; if (u < -2 || u > L + 4) return true; const v = Math.abs((t.x - ic.x) * dz - (t.z - ic.z) * dx) / L; return v > 4 + u * 0.35; }); } }
+        // One tree budget for the whole park. The loader's cap keeps the nearest trees and drops the rest, which left a
+        // hard-edged wood round the two extents and bare lawns beyond (Charles de Gaulle entrance, the south meadows):
+        // thin evenly instead, a little lighter outside the walkable extents. Special trees (church spruce, cherries) stay.
+        { const ext = Object.values(d.spots).map((q) => polyBox(q.extent.polygon));
+            ctx.extras.herastrauTreeBudget = thinTrees(ctx, { budget: 3250, far: 0.6, keep: (t) => !!t.c || !!t.sy, core: (x, z) => ext.some((q) => x > q.x0 - 40 && x < q.x1 + 40 && z > q.z0 - 40 && z < q.z1 + 40) }); }
         // Unlocated random towers beyond the extract produced a false skyline
         // across the lake. Preserve every mapped building; source coverage
         // beyond this extract remains an explicit gap instead of invented blocks.
         ctx.extras.herastrauContext={removedUnverifiedCityFiller:true};
+        // Casa Presei Libere (OSM relation 15922160, 104 m) closes the north-west skyline over the lake: the canonical
+        // landmark model at its real position, 1.3 km out; view only, no collider.
+        { const cp = placeLandmark(ctx, 'casapresei', { y: level + 2.5, collide: false }); if (cp) ctx.extras.herastrauSkyline = [{ id: 'casapresei', x: cp.x, z: cp.z }]; }
+        ctx.extras.herastrauBusinessSigns = businessSigns(ctx, { name: 'herastrau-business-signs' });
         // plaques
         const PH = spH.plaques, PV = spV.plaques;
         PH.forEach((pl, i) => ctx.plaque(pl, nymph.x - 14 + i * 7, nymph.z + 10, Math.PI, { style: 'park' }));

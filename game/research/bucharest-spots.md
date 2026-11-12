@@ -322,6 +322,61 @@ Source key: wv = https://en.wikivoyage.org/wiki/Bucharest#See; vb24 = https://vi
   - Cream stucco villa with arched ground-floor windows and a balustraded terrace.
   - Peacocks in the garden.
 
+### Fidelity review 2026-11-12: Arcul de Triumf, Herăstrău / Village Museum, Spring Palace (spots 5-8)
+
+Live OSM (API 0.6 map call, bbox 44.4625,26.0715 - 44.4770,26.0980, 2026-11-12) against the three scene data files, and
+Street View / photospheres as a look reference only (no imagery kept). Coverage inside the spot extents + 150 m:
+
+| Scene | businesses | bridges / tunnels / covered | water | sports | tourist features |
+| --- | --- | --- | --- | --- | --- |
+| `arcul-de-triumf` | 18 mapped, 18 in the data | 2 / 2 (arch roof `w1191615181`, passage `w1191738378`) | 0 | 9 / 9 | 10 / 10 |
+| `buc-herastrau` | 32 / 32 | 12 / 12 (4 footbridges + 2 stair bridges, 2 covered walks) | 6 / 6 fountains + lake `r1130828` | 45 of 46 | 71 of 73 |
+| `spring-palace` | 16 of 17 | 1 / 1 | 1 / 1 | 2 of 3 | 3 / 3 |
+
+Not in the data (needs a data rebuild, the builder drops these classes): playground nodes `n2791579390` (44.47012, 26.08067)
+and `n6401707601` (44.47133, 26.09117); viewpoints `n2791530781` (44.47263, 26.08081) and `n2791530802` (44.47358, 26.07944)
+on Insula Trandafirilor; the Kuwait embassy grounds `w781162166` (44.46929, 26.09302, next to the Spring Palace; the data only
+has the older node `n5470974719` 350 m west). Two fence ways (`w29701978_b`, `w229442741_b`, `w1057184934_b`) are builder
+artefacts of mapped `barrier=fence` areas, not stale objects.
+
+What the review established (Street View panoramas at 44.46641,26.07847 and 44.46790,26.07779 on Kiseleff, 44.46881,26.09142
+on Bd. Primăverii; photospheres inside the Village Museum, positions unreliable):
+
+- **No shopfronts in these three scenes.** The shared building pass gave every `building=yes` taller than 7 m a ground-floor
+  shop (coloured fascia, display windows). Around the arch, in the park and on Bd. Primăverii these are villas, embassies,
+  museum and park buildings behind walls and trees. The three scenes now build with `urban: false`; the mapped, named
+  businesses / embassies / museums get a plain name board on the façade facing the nearest mapped way
+  (`scenes/buc-green.js` `businessSigns`; board colours are procedural, the names are the OSM names).
+- **Canopy.** Both sides of Kiseleff at the arch, the whole of Herăstrău park and the villa gardens are closed mature
+  woodland; OSM maps the park polygons but almost no trees. The scenes fill the mapped `leisure=park|garden`,
+  `landuse=forest`, `natural=wood` polygons (and, at a lower density, the garden land between mapped buildings) with an
+  estimated scatter that stays clear of every mapped way, building, pitch, stadium, playground, fountain, statue and the
+  lake. Counts and positions are estimates, not surveyed trees. One even tree budget per scene replaces the loader's
+  nearest-first cap, which left a hard-edged wood round the extents and bare lawns beyond.
+- **Arcul de Triumf approaches.** The splitter islands and the strips between the carriageways of the four approaches are
+  open (signals, paving, low grass). Generated street trees there hid the arch from the classic Kiseleff views; they are
+  removed (trees between two mapped one-way carriageways, on mapped `area_highway=traffic_island`, or ringed by carriageway).
+  The five mapped trees on the east side stay. Street lamps are dark double-arm columns in reality; the game keeps the
+  single cobra head (colour corrected only).
+- **Herăstrău.** The Charles de Gaulle bronze (`n530686317`, 44.46697, 26.08570, Mircea Corneliu Spătaru) was cut off by a
+  scene limit and is now present at the south-east entrance. Mapped `artwork_type=statue` objects are standing figures or,
+  for the three animal bronzes (Curcan, Căprioară, Gâscanul), small animal forms, no longer generic busts; bust / statue
+  material follows the OSM `material` tag and each faces the nearest mapped path. The sculptures themselves are not
+  reproduced (no freedom of panorama): size class and material only. Casa Presei Libere (`r15922160`) stands at its real
+  position 1.3 km north-west as a view-only landmark; in the default summer haze it is faint from the south shore.
+- **Village Museum windmills.** Not mapped in OSM and without a position in this dossier: the three windmills that were
+  placed at random are removed. Open item: map / source the Dobrogea windmills, then model them at their positions.
+- **Spring Palace.** From the boulevard the residence is screened by the trees right behind its wall; the grounds polygon
+  `w38236017` (4 nodes) is much smaller than the real 14,830 m² plot, so the belt is thin. Bd. Primăverii has a planted
+  grass median (kept). The random far "city filler" blocks are removed: north and east of the extract are Lake Floreasca
+  and the park.
+
+Still different from reality (not fixed in this pass): the UN House (white modernist block with rounded balconies) and the
+villas are generic façades; property walls / gate posts along Kiseleff and Bd. Primăverii are not modelled outside the
+palace; the Japanese garden's pond and bridge sit at the polygon centroid (OSM maps no water there); the lake shore has
+no paved promenade edge; the museum's own houses are generic regional types on the real footprints; the arch's inscription
+texts in the scene (`INSCRIPTIONS`) and on the landmark model were not checked against a primary source.
+
 ### 9. Cișmigiu Gardens (`cismigiu`)
 
 *Grădina Cișmigiu* - Bucharest's oldest public garden (1847-1854): rowing boats on a winding lake, chess players and the Writers' Rotunda.

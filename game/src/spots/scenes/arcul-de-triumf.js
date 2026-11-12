@@ -9,6 +9,7 @@ import { ARC_SOURCE_PARTS } from '../../landmark-arcul-source.js';
 import { collideBuildings } from '../../world.js';
 import { arcRaceCourse, arcRoundabout, arcActiveCarriageway, arcPlaquePlacements } from './arcul-layout.js';
 import { createArcActivities } from './arcul-activities.js';
+import { parkWoods, dropMedianTrees, businessSigns, thinTrees } from './buc-green.js';
 
 const INSCRIPTIONS = [
     { face: 'south', ro: 'FERDINAND I · DOMN ȘI REGE AL ROMÂNILOR', en: 'Ferdinand I, Prince and King of the Romanians — the 1918 union completed under his reign.' },
@@ -35,15 +36,33 @@ export default {
         // 2.2m-wide line would widen them and paint across the gravel petals.
         for(const id of ['w1479986588','w1479986589','w1479986590'])ctx.skipWays.add(id);
         ctx.terrainOpts={bg:'#707c54',bgMask:'grass',innerPx:2048,innerStep:3,outerStep:16,outerPad:700};
-        bucBackdrop(ctx,{species:{plane:.55,linden:.3,chestnut:.15},doubleCentre:true,lampStyle:'cobra',lampColor:'#5c6066',lampH:10,lampPad:30,
-            treeLod:{cap:1500,max:420},lampOpts:{spacing:34,kinds:['primary','secondary']},streetTreeOpts:{spacing:8.5,prob:.92,kinds:['primary','secondary','tertiary']}});
+        // No generated ground-floor shopfronts here: the square is villas, embassies,
+        // sports grounds and the park (Street View 2026-11-12); mapped businesses get name boards below.
+        bucBackdrop(ctx,{urban:false,species:{plane:.55,linden:.3,chestnut:.15},doubleCentre:true,lampStyle:'cobra',lampColor:'#2b2e31',lampH:10,lampPad:30,
+            treeLod:{cap:3200,max:420},lampOpts:{spacing:34,kinds:['primary','secondary']},streetTreeOpts:{spacing:8.5,prob:.92,kinds:['primary','secondary','tertiary']}});
         for(const id of ['w1191615184','w1191615185','w1191624784','w1191624785']){const a=d.areas.find(a=>a.id===id);if(a)ctx.painter.poly(a.poly,'#b6b5ad','dirt');}
         for(const id of ['w1191615188','w1458987299']){const a=d.areas.find(a=>a.id===id);if(a)ctx.painter.poly(a.poly,'#b9b7ad','slab');}
         ctx.painter.poly(arch.poly,'#b9b5aa','slab');
+        // The mapped park / garden / forest polygons are a closed mature wood on
+        // both sides of Kiseleff (Street View); OSM maps the polygons, not the
+        // trees, so their count and positions are an estimate kept clear of
+        // every mapped way, building, pitch and playground.
+        {const green=d.areas.filter(a=>a.leisure==='park'||a.leisure==='garden'||a.landuse==='forest'||a.natural==='wood').map(a=>a.poly),T=d.terrain;
+            const woods=parkWoods(ctx,green,{seed:61,bounds:{x0:T.x0,z0:T.z0,x1:T.x0+(T.nx-1)*T.d,z1:T.z0+(T.nz-1)*T.d},density:(x,z)=>Math.hypot(x-AR.x,z-AR.z)<420?1/62:1/170});
+            // Outside the park the villa gardens and the green wedge between Kiseleff and Bd. Prezan are just as
+            // planted (Street View): a lighter estimated scatter between the mapped buildings, never on a pitch or stadium.
+            const yard=[[AR.x-400,AR.z-400],[AR.x+400,AR.z-400],[AR.x+400,AR.z+400],[AR.x-400,AR.z+400]];
+            const gardens=parkWoods(ctx,[yard],{seed:67,min:6.5,conifer:.14,scale:[1,1.6],density:()=>1/170,inside:(x,z)=>!green.some(p=>inPoly(x,z,p))});
+            ctx.trees.push(...woods,...gardens);ctx.extras.arcParkWoods={trees:woods.length,gardenTrees:gardens.length,sourcePolygons:green.length,estimatedPositions:true};}
         // Preserve every literal tree; remove only generated trees on actual
         // roads/the public island. There is no invented far tower filler here.
         const sourceTrees=new Set(d.trees.map(t=>Math.round(t[0]*10)+','+Math.round(t[1]*10))),onRoad=arcActiveCarriageway(d);
         ctx.trees=ctx.trees.filter(t=>sourceTrees.has(Math.round(t.x*10)+','+Math.round(t.z*10))||(!onRoad(t.x,t.z,.2)&&Math.hypot(t.x-AR.x,t.z-AR.z)>27));
+        // Generated street trees between the two carriageways of the approaches and on
+        // the mapped splitter islands hid the arch from Kiseleff; those are open in reality.
+        ctx.extras.arcMedianTreesRemoved=dropMedianTrees(ctx,{keep:t=>sourceTrees.has(Math.round(t.x*10)+','+Math.round(t.z*10))});
+        // One even tree budget: the loader cap alone keeps the nearest trees and leaves a hard-edged wood.
+        ctx.extras.arcTreeBudget=thinTrees(ctx,{budget:3050,far:.6,keep:t=>sourceTrees.has(Math.round(t.x*10)+','+Math.round(t.z*10)),core:(x,z)=>Math.hypot(x-AR.x,z-AR.z)<300});
         const edge=new GeoBatch();for(let i=1;i<island.length;i++)edge.rod([island[i-1][0],floor+.07,island[i-1][1]],[island[i][0],floor+.07,island[i][1]],.08,'#bbb7ad','stone',4);
         ctx.add(edge.build('source-roundabout-inner-kerb'));
         // The mapped mast belongs to the monument roof: literal source node
@@ -69,6 +88,7 @@ export default {
             {label:'The central arch opening',x:AR.x,y:AR.y+10,z:AR.z,radius:2},{label:'The western sculpted pier',...left,y:AR.y+15,radius:1.8},{label:'The eastern sculpted pier',...right,y:AR.y+15,radius:1.8}],
             onDone:s=>s.ui.toast('The Arc memorial','You framed the opening and both sculpted piers. The race and baguette catch are separate activities.')});
         createArcActivities(ctx,course,{floor,arch:AR});
+        ctx.extras.arcBusinessSigns=businessSigns(ctx,{name:'arc-business-signs'});
         // Actual north-apron path arrival. Both activities are reachable without
         // crossing the roundabout. The optional pitch is a normal entry pose.
         const start=course.at(course.length-1.2),dx=AR.x-start.x,dz=AR.z-start.z;

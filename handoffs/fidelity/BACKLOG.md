@@ -9,7 +9,7 @@ and the F8 JSON the owner pastes.
 
 | Where | Report | State / diagnosis |
 | --- | --- | --- |
-| Grozavesti, whole Basarab | "fences are not continuous on the bridge still in many places", "random 1 off fences that are alone" | fixed in the builder (one railing network: joins, pruning, then drawing; 100 railing ends in the air before, 16 after). Still open: (a) 60 m of road-deck railing and 36 m of tram-slab railing are left out where a tram's body itself crosses the line (the tram junction around (340..380, -710..-735) and the track crossings), listed in `stats.railingDrops`; (b) 95 m of railing beside the tram is drawn without a collision wall (`visualOnlyM`): it lies inside the 0.2 m cover the tram guard keeps free, so a wall there would stop the trams. A real fix needs the carriageway and track centre lines further apart there. The 16 remaining ends are in `stats.railingNetwork.openEnds`. |
+| Grozavesti, whole Basarab | "fences are not continuous on the bridge still in many places", "random 1 off fences that are alone" | fixed in the builder (one railing network; 100 railing ends in the air before, 16 after). Still open: 60 m of road-deck railing at (335..386, -708..-739) and 36 m of tram-slab railing at (859..947, -1084..-1162) are left out (`stats.railingDrops`), 95 m is drawn without a wall (`visualOnlyM`). Cause (measured 2026-11-12): a tram is one rigid 27 / 36 m box (`tram-sweep.js`); where the deck track bends about 5° its ends swing about 1.3 m sideways, over the railing line, while the outer car lane already reaches the asphalt edge. Setting the railing back 2.4 m puts it in that lane (389 car contacts against 40). Needs articulated tram bodies (vehicle model, traffic placement, rail guard, sweep). |
 
 ## Other open work
 

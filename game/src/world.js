@@ -4507,8 +4507,9 @@ export async function buildWorld(city, renderer, opts = {}) {
     // source assembly membership or suppressing legitimate exterior details.
     const physicalUnionAudit = [], physicalUnionRejected = [];
     const unionSources = new Map((data.buildingUnions?.sources || []).map(s => [s.i, s]));
+    const unionChecks = new Map(); // (this loop only sets b.sourceSurface, which no check reads)
     for (const spec of data.buildingUnions?.surfaces || []) {
-        const b = bRecs[spec.i], reason = validateSourceSurface(spec, unionSources, bRecs, { requireAuthority: data.buildingUnions.version >= 2, points: data.buildingGeometryPoints });
+        const b = bRecs[spec.i], reason = validateSourceSurface(spec, unionSources, bRecs, { requireAuthority: data.buildingUnions.version >= 2, points: data.buildingGeometryPoints, memo: unionChecks });
         if (reason) { physicalUnionRejected.push({ source: data.buildingIds?.[b?.derivedFrom ?? spec.i] || spec.i, reason }); continue; }
         b.sourceSurface = geometrySurface(spec.surface, data.buildingGeometryPoints);
         physicalUnionAudit.push({ source: data.buildingIds?.[b.derivedFrom ?? b.i] || b.i, neighbours: spec.neighbours.length });
@@ -4522,6 +4523,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (m && m.ring === b.ring && m.holes === b.holes && m.profile === b.roofProfile) return m.mesh;
         const mesh = roofMesh(b.ring, b.holes, b.roofProfile, triangulate);
         roofMeshMemo.set(b, { ring: b.ring, holes: b.holes, profile: b.roofProfile, mesh }); return mesh;
+    }
+    /** () => the roof mesh of b over `ring` with b's current holes and profile, computed on the first call */
+    function lazyRoofMesh(b, ring) {
+        const holes = b.holes, profile = b.roofProfile; let mesh = null;
+        return () => mesh || (mesh = ring === b.ring && holes === b.holes && profile === b.roofProfile ? roofMeshOf(b) : roofMesh(ring, holes, profile, triangulate));
     }
     function completeDetailRoof(b) {
         if (detailRoofs.has(b.i)) return detailRoofs.get(b.i);
@@ -5903,9 +5909,12 @@ export async function buildWorld(city, renderer, opts = {}) {
             const { pts, tris } = triangulate(underside);
             for (const tri of tris) mb.face3(...tri.map(i => [pts[i][0], b.minH, pts[i][1]]), shadeRgb(wallCol, 0.75), [0, -1, 0]);
         }
-        const sourceRoof = b.roofProfile ? (ring === b.ring ? roofMeshOf(b) : roofMesh(ring, b.holes, b.roofProfile, triangulate)) : null;
+        // (spec 10 load budget) a valid prepared roof surface is drawn from the pack; the roof mesh is then only read by the
+        // collider's roofHeightAt, so it is computed on its first use there (from the same ring, holes and profile)
+        const roofLazy = b.roofProfile ? lazyRoofMesh(b, ring) : null;
+        const cached = b.roofProfile ? data.buildingRoofSurfaces?.[b.i] : undefined, valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && signatureMatches(s.signature, roofSignature(source)); });
+        const sourceRoof = b.roofProfile ? (valid ? { heightAt: (...a) => roofLazy().heightAt(...a) } : roofLazy()) : null;
         if (sourceRoof) {
-            const cached = data.buildingRoofSurfaces?.[b.i], valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && signatureMatches(s.signature, roofSignature(source)); });
             if (cached) { if (valid) roofProfileAudit.surfacesApplied++; else roofProfileAudit.surfacesRejected.push(data.buildingIds?.[b.i] || b.i); }
             const unpack = face => data.buildingRoofGeometryPoints ? face.map(i => data.buildingRoofGeometryPoints[i]) : face;
             const visibleFaces = valid ? cached.faces.map(unpack) : sourceRoof.faces;

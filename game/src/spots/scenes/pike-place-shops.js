@@ -65,7 +65,7 @@ const signStyle = (biz, pal) => { const hit = BRANDS.find(([re]) => re.test(biz.
 const palette = (b) => { const set = b.kind === 'cafe' ? PAL.cafe : FOOD.test(b.kind) ? PAL.food : STAY.test(b.kind) ? PAL.stay : PAL.shop; return set[Math.floor(hash2(b.x, b.z) * set.length) % set.length]; };
 
 /**
- * @param {{ skip?: (b)=>boolean, groundAt?: (x,z)=>number, awning?: (wall)=>string|null }} o  skip: businesses a scene builds itself
+ * @param {{ list?: {id,name,x,z,kind,level}[], skip?: (b)=>boolean, groundAt?: (x,z)=>number, awning?: (wall)=>string|null }} o  skip: businesses a scene builds itself
  *   (a hero storefront); awning: 'stripe', a colour or null for the canvas awning under a ground-floor sign on that wall
  * @returns {{ total, signs, rows }} rows: every business with the wall and level it went to (ctx.extras.shops)
  */
@@ -73,7 +73,7 @@ export function buildShopSigns(ctx, o = {}) {
     const d = ctx.data, g = ctx.ground, bldgs = d.buildings.filter((b) => b.k !== 'roof' && !b.part && b.poly?.length > 2), walls = new Map(), rows = [];
     const inAny = (x, z, not) => bldgs.some((b) => b !== not && inPoly(x, z, b.poly)) || inPoly(x, z, not.poly);
     const yAt = o.groundAt || ((x, z) => g.floorAt?.(x, z) ?? g.heightAt(x, z));
-    for (const biz of businesses(d)) {
+    for (const biz of o.list || businesses(d)) { // o.list: another scene's own businesses (waterfront, pioneer-square)
         if (o.skip?.(biz)) { rows.push({ name: biz.name, hero: true }); continue; }
         let host = bldgs.find((b) => inPoly(biz.x, biz.z, b.poly));
         if (!host) { let best = 10; for (const b of bldgs) for (let i = 0; i < b.poly.length; i++) { const q = b.poly[i], w = b.poly[(i + 1) % b.poly.length], dd = distSeg(biz.x, biz.z, q[0], q[1], w[0], w[1]).d; if (dd < best) { best = dd; host = b; } } }

@@ -8,7 +8,8 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly } from '../kit.js';
-import { signBoard } from '../props.js';
+import { signBoard, totemPole } from '../props.js';
+import { buildShopSigns } from './pike-place-shops.js';
 import { photoHunt } from '../photo-hunt.js';
 import { meshSDF, sdEllipsoid, sdCapsule, sdSphere, sdBox, smin, smax, fbm3 } from '../sdf.js';
 import { seaBackdrop, seaActivity } from './sea-common.js';
@@ -130,6 +131,34 @@ function buildSmithTower(ctx) {
     return {cx:p.x,cz:p.z,y0,surface:{source:st.id,poly:st.poly,holes:st.holes||[],bottom:y0,top:y0+st.h}};
 }
 
+// ---------------------------------------------------------------------------- businesses (OpenStreetMap)
+// The extract of 2026-11-06 checked against the live database on 2026-11-12: seven are now mapped as closed
+// (`disused:*`) and get no sign; three are new. Each sign goes on the wall of its own building nearest to its mapped point.
+const CLOSED = new Set(['n2351695509', 'n2351695585', 'n2351695606', 'n2351695730', 'n2351700811', 'n2354406522', 'n4626879391']); // Woven Art, Luigi's, The Underground Gallery, Revolution Books, Flame Catering Cafe, Tobacco Patch, Comedy Underground
+const LIVE = [['Sam Day Studio & Gallery', -78.3, 191.7, 'shop'], ["Cookie's Country Chicken", 213.2, 239.2, 'restaurant'], ['Good Bar', 215, 166.6, 'bar']];
+function pioneerBusinesses(d) {
+    const FOOD = /^(restaurant|cafe|fast_food|bar|pub|ice_cream|nightclub)$/, out = [];
+    const kindOf = (p) => (p.shop ? 'shop' : FOOD.test(p.amenity || '') ? (p.amenity === 'nightclub' ? 'bar' : p.amenity) : p.craft ? 'shop' : /^(hotel|gallery|guest_house)$/.test(p.tourism || '') ? p.tourism : p.leisure === 'fitness_centre' ? 'shop' : /Underground Tour|Beneath the Streets/.test(p.name || '') ? 'shop' : null);
+    for (const p of d.pois || []) { const k = p.name && !CLOSED.has(p.id) && kindOf(p), lv = parseFloat(p.level) || 0; if (k && lv < 5) out.push({ id: p.id, name: p.name, x: p.x, z: p.z, kind: k, level: lv }); }
+    for (const b of d.buildings || []) { const k = b.name && !b.part && kindOf(b); if (k) { const [x, z] = centroid(b.poly); out.push({ id: b.id, name: b.name, x, z, kind: k, level: 0 }); } }
+    LIVE.forEach(([name, x, z, kind], i) => out.push({ id: 'live' + i, name, x, z, kind, level: 0 }));
+    return out;
+}
+// Occidental Square (OSM nodes 3211770100–103 and 2998927033): Duane Pasco's four cedar carvings at their mapped places and
+// tagged heights (35 ft, 12 ft, 13 ft, 13 ft), and Hai Ying Wu's Fallen Fire Fighters' Memorial (four bronze firefighters).
+// Stylised from the tags' descriptions (carved, painted cedar; no photo, no copied design).
+function occidentalArt(ctx) {
+    const d = ctx.data, g = ctx.ground, b = new GeoBatch(), node = (id) => d.pois.find((p) => p.id === id);
+    for (const [id, h, seed] of [['n3211770100', 10.7, 3], ['n3211770101', 3.7, 5], ['n3211770102', 4.0, 7], ['n3211770103', 4.0, 9]]) { const p = node(id); if (!p) continue; totemPole(b, p.x, g.heightAt(p.x, p.z), p.z, h, Math.PI, { seed }); ctx.circle(p.x, p.z, 0.5, h); }
+    const m = node('n2998927033');
+    if (m) { const y = g.heightAt(m.x, m.z), BR = '#4a3a26';
+        for (let i = 0; i < 4; i++) { const x = m.x + [-1.6, -0.5, 0.7, 1.7][i], z = m.z + [0.4, -0.5, 0.3, -0.4][i], lean = [0.25, 0.1, -0.15, 0.3][i];
+            b.cyl(x, y, z, 0.24, 1.25, BR, 'bronze', 8, 0.8, lean); b.sphere(x, y + 1.45, z + lean * 0.5, 0.15, 0.17, 0.15, BR, 'bronze', 8, 6); b.cyl(x, y + 1.5, z + lean * 0.5, 0.2, 0.12, BR, 'bronze', 8, 0.5); }
+        for (const [dx, dz, w] of [[-2.6, 1.6, 1.8], [2.4, 1.4, 1.5], [0.2, -2.0, 2.2]]) b.box(m.x + dx, y, m.z + dz, w, 0.45, 0.8, '#77736b', 'stone', 0.3);
+        ctx.circle(m.x, m.z, 2.4, 1.8); }
+    ctx.add(b.build('occidental-art'));
+}
+
 export default {
     env: { fogFar: 4000 },
     async build(ctx) {
@@ -146,8 +175,11 @@ export default {
         // purple vault lights (amethyst glass prisms) in the 1st Ave / Yesler sidewalks
         ctx.painter.custom((x, T, k, isMask) => { if (isMask) return; const r = rng(3); for (const [x0, z0, x1, z1] of [[8, -60, 12, -20], [-12, -40, -8, -12], [14, 2, 18, 40]]) for (let px = x0; px < x1; px += 0.45) for (let pz = z0; pz < z1; pz += 0.45) { if (r() < 0.25) continue; const [a, b] = T(px, pz); x.fillStyle = r() < 0.7 ? '#7d5aa6' : '#9b7cc4'; x.fillRect(a, b, Math.max(1, 0.3 * k), Math.max(1, 0.3 * k)); } });
         ctx.exclude.push([[per.cx - 32, per.cz - 40], [per.cx + 32, per.cz - 40], [per.cx + 32, per.cz + 30], [per.cx - 32, per.cz + 30]].map(([x, z]) => [x, z])); // keep Pioneer Place open (no street trees)
-        ctx.osmBackdrop({ paint: {}, style: (bd) => ((bd.h || 0) > 60 ? 'office' : 'brick'), lampOpts: { kinds: ['primary', 'secondary', 'tertiary', 'residential'] }, streetTreeOpts: { spacing: 14, prob: 0.45 } });
+        ctx.osmBackdrop({ paint: {}, style: (bd) => (bd.amenity === 'parking' || bd.k === 'parking' ? 'parking' : (bd.h || 0) > 60 ? 'office' : 'brick'), // the Sinking Ship and the other garages are open concrete decks, not brick blocks
+            lampOpts: { kinds: ['primary', 'secondary', 'tertiary', 'residential'] }, streetTreeOpts: { spacing: 14, prob: 0.45 } });
         ctx.lampOpts = { style: 'acorn', color: '#1c2a24', h: 4.6 };
+        ctx.extras.shops = buildShopSigns(ctx, { list: pioneerBusinesses(d), skip: (b) => /Smith Tower/.test(b.name) });
+        occidentalArt(ctx);
         // Occidental Square: big London plane trees on the brick square
         { const sq = d.areas.find((a) => a.id === 'w174692555'); if (sq) { const bb = polyBox(sq.poly), r = rng(6); for (let i = 0; i < 26; i++) { const x = bb.x0 + 5 + r() * (bb.x1 - bb.x0 - 10), z = bb.z0 + 5 + r() * (bb.z1 - bb.z0 - 10); ctx.trees.push({ x, z, kind: 'broad', s: 1.25 + r() * 0.35 }); } ctx.painter.poly(sq.poly, '#9a5a44', 'brick'); } }
         ctx.extras.seaBackdrop = seaBackdrop(ctx, { clear: 330, rainier: false, olympics: false, bay: false, ferries: false, cranes: false, midrise: 500, midClear: 420, midBox: [47.596, -122.34, 47.612, -122.318] });

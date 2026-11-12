@@ -524,3 +524,24 @@ w497738385; the canal weirs, upper pool, reflecting pool and waterfall line of D
 (w688415225 / w687934817), beach, swimming area, pavilion (`building=toilets`), Whaling Building (w819159071), boathouse
 (w698374975), Lake Washington Blvd bridge (w243441596); the garden's ponds, Yao Gate (r19659543), Tateuchi pavilion.
 Open items are listed in the backlog rows of this pass.
+
+## 7. Fidelity pass 2026-11-12 (Pike Place, Waterfront, Pioneer Square, Seattle Center)
+
+Live OpenStreetMap (API 0.6 map call, 2026-11-12) against the spot extracts of 2026-11-06; Google Street View panoramas viewed for reference only (nothing stored or copied); USGS 3DEP 1 m DEM point queries.
+
+**Waterfront**
+- Shoreline: the `natural=coastline` ways (members of relation 13316235) are unchanged in the live database. They run Pier 62 → Pier 54 around every pier; `natural=water` way 1417461574 is the cove between the rebuilt Pier 58 (way 1155067802, `start_date=2025-07-25`) and the seawall, way 776848804 the basin between Piers 59 and 60. The scene now takes its land / water edge from these (`waterfront-shore.js`), not from the 20 m elevation grid.
+- Panoramas along the rebuilt Alaskan Way (47.60520,-122.33931 dated Sep 2025; 47.60665,-122.34064; 47.60742,-122.34135; 47.60793,-122.34190; 47.60832,-122.34237): no viaduct; planted beds and a two-way cycle track between road and promenade; Pier 55 red-brown with a dark hipped roof (Starbucks), Pier 56 dark green gabled with white trim, Pier 57 red with MINERS LANDING in gold letters and yellow awnings, Pier 59 grey-green with SEATTLE AQUARIUM on the street front and a dark vaulted building behind on Pier 60, Ocean Pavilion charcoal ribbed metal with a planted roof and an outside stair tower, the Overlook Walk a thick pale concrete deck over Alaskan Way on round columns, the Pike Place Market garage east of it. The panorama Google returns at 47.60625,-122.34070 is from the construction years (old road line, barrels): not used.
+- Documented exception (OSM incomplete): "Elliott's Oyster House" has no OSM object; its sign is on the Pier 56 street gable in the Sep 2025 panorama. The game shows that name on the Pier 56 gable only.
+- Levels: USGS 1 m DEM 4.99 m at the Ocean Pavilion (47.608159,-122.342797), 7.5–7.9 m on Alaskan Way under the Overlook Walk, 15.1–17.1 m on the slope at 47.60919–47.60937,-122.34306–-122.34313, 23.83 m at MarketFront (47.609508,-122.342930). Overlook Walk deck in the game: 15.5 m over the road (pavilion ground 5 m + OSM height 10.9 m) rising to 24 m at MarketFront; a straight ramp is an estimate (the real walk has terraces and stairs).
+- Businesses in the live database and not in the extract (now signed): Mark's Ark, Pirates Plunder, Sports Den, The Sourdough Bakery (Pier 57); The Seattle Shop at Pier 56, WingDome (Pier 56); Starbucks, Seattle Shirt Company, Burgundy Viscosi Gallery (Pier 55); Ivar's Acres of Clams, Ye Olde Curiosity Shop, Simply Seattle, Ivar's Fish Bar, Great State Burger, Premier Meat Pies, Harley-Davidson Motorcycles (Pier 54); Copperworks Tasting Room & Distillery. Mapped closed (`disused:*`), not signed: Frankly Sweets, Salt District (Pier 55).
+
+**Pioneer Square**
+- 130 of the 133 live businesses inside the terrain box were already in the extract; new: Sam Day Studio & Gallery, Cookie's Country Chicken, Good Bar. Now mapped closed and no longer signed: Woven Art (n2351695509), Luigi's (n2351695585), The Underground Gallery (n2351695606), Revolution Books (n2351695730), Flame Catering Cafe (n2351700811), Tobacco Patch (n2354406522), Comedy Underground (n4626879391).
+- Occidental Square: Duane Pasco's four carvings (nodes 3211770100–103: Sun and Raven 35 ft, Killer Whale 12 ft, Tsonqua 13 ft, Bear 13 ft) and the Fallen Fire Fighters' Memorial (node 2998927033, Hai Ying Wu) are at their mapped places; table tennis (n14005376908), chess (n14005378203) and the playground (w1155308011) are mapped and not built.
+- Sinking Ship Garage (way 52781697) is `amenity=parking`: drawn as an open parking deck, not a brick block.
+
+**Seattle Center**
+- All 35 live businesses and 25 tourism / artwork objects inside the terrain box are in the extract. MoPOP's outline (way 161587742, `building:material=steel`) and the Sky Church (way 1092469435) carry no colour tag; the seven lobes do (maroon, silver, #6495ED, red, gold).
+
+**Pike Place** — re-checked: no business of the extract changed since the 2026-11-12 Street View pass; nothing edited.

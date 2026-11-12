@@ -5,8 +5,8 @@
 //   node game/dev/reality/capture.cjs --district=grozavesti [--only=id,id] [--out=<dir>] [--cdp=http://127.0.0.1:9333]
 //
 // The panorama is only linked, never downloaded or stored: it is a visual reference for a person (or Claude) reviewing the
-// sheet, and its imagery must not be copied into the game or the repository. Findings go, as text, into
-// handoffs/fidelity/reality-check/REVIEW-<district>.md. Default output is a temp folder (not committed).
+// sheet, and its imagery must not be copied into the game or the repository. Open findings go, as text, into
+// handoffs/fidelity/BACKLOG.md; what a review establishes goes into game/research/<city>-<district>.md. Default output is a temp folder (not committed).
 // --cdp attaches to a running Chromium (real GPU) instead of launching one; otherwise Chromium is launched with ANGLE/D3D11.
 const fs = require('fs'), path = require('path'), http = require('http'), os = require('os');
 const { chromium } = require('playwright');
@@ -65,7 +65,7 @@ fs.mkdirSync(out, { recursive: true });
     const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
     const html = `<!doctype html><meta charset="utf-8"><title>Reality check · ${esc(district)}</title>
 <style>body{font:14px system-ui;margin:16px;background:#f4f2ee;color:#222}figure{margin:0 0 28px;background:#fff;padding:12px;border-radius:8px}img{width:100%;max-width:960px;display:block}h2{font-size:16px;margin:0 0 6px}p{margin:4px 0}</style>
-<h1>Reality check · ${esc(district)}</h1><p>Game views at each reference viewpoint. Open the panorama link beside each one and compare by eye; write findings in handoffs/fidelity/reality-check/REVIEW-${esc(district)}.md. Do not save or copy the panorama imagery.</p>
+<h1>Reality check · ${esc(district)}</h1><p>Game views at each reference viewpoint. Open the panorama link beside each one and compare by eye; write findings in handoffs/fidelity/BACKLOG.md. Do not save or copy the panorama imagery.</p>
 ${rows.map(v => `<figure><h2>${esc(v.id)} · ${esc(v.name)}</h2><p>${v.lat}, ${v.lon} · heading ${v.heading}° · pitch ${v.pitch || 0}° · game (${v.game.x}, ${v.game.y}, ${v.game.z}) · ${esc(v.source)}</p><p><a href="${panoUrl(v)}" target="_blank" rel="noopener">Open the street-level panorama</a></p><img src="${esc(v.id)}.jpg" alt="game view"></figure>`).join('\n')}`;
     fs.writeFileSync(path.join(out, 'review.html'), html);
     console.log(`review sheet: ${path.join(out, 'review.html')}`);

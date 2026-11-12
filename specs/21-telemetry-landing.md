@@ -4,10 +4,8 @@ Owner role: **orchestrator**.
 
 ## Telemetry (shipped)
 
-Read-only dashboard/event review (2026-11-08): `handoffs/fidelity/TELEMETRY-REVIEW.md` (removed 2026-11-11, in git history).
-Existing dashboards are useful for visit funnels and successful loads/FPS; the review proposes interrupted-load recovery, release identity,
-mode-aware performance/resource growth and interaction-outcome diagnostics. The starter retention
-chart is not reliable with memory-only anonymous identities. No PostHog configuration was changed by this review.
+Dashboards cover visit funnels and successful loads/FPS. The starter retention chart is not reliable with memory-only
+anonymous identities.
 
 ## Health observer v2 (staged, release gate pending)
 

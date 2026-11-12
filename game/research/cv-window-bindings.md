@@ -1,8 +1,8 @@
-# CV room live-window binding candidates · 9 November 2026
+# CV room windows: source buildings and floors
 
-This ledger maps all eight retained CV room IDs to the actual retained district source buildings. It does **not** identify their actual room windows. Every current room's numbered floor, floor elevation, geographic window bearing and source aperture remain `null`. Registry anchors locate authored landmark models, not office rooms. Prepared room dimensions and district-cache heights cannot establish office elevations.
-
-The matching JSON retains the exact input Git blobs/SHA256 at `79e1e4fd602f1434aa5aa4d10fa8a234bce298dc`, all 15 source parts, their precise district-space outer/hole rings, and all 163 nonzero outer edges and four courtyard edges. Edge bearings are geometric candidates only. None is selected. Projection remains full source metres (x east/z south); the ledger creates no city panorama, world, simulation or environment.
+Each of the eight CV rooms mapped to its retained district source building (research 2026-11-09). The matching JSON keeps
+the 15 source parts with their outer / hole rings and facade edges; edge bearings are candidates, none is selected.
+Metre elevations and window bearings stay unknown; floors come from the owner (below).
 
 | Room | Retained district/source exterior | Supported building-storey evidence | Actual room/view gap |
 | --- | --- | --- | --- |
@@ -15,20 +15,17 @@ The matching JSON retains the exact input Git blobs/SHA256 at `79e1e4fd602f1434a
 | DB | Pipera BOB Tower `w55450549` | Older Globalworth GF+6; retained raw OSM has no height/level tag | DB/current event entry supports6A Pompeiu Entrance A. Estimated roomH 3.8m and prepared buildingH 28m are not floor evidence. Entrance A is not a numbered floor. |
 | UiPath Bellevue | Lincoln Square North office tower `w604028609`; podium `w161929514`; bridge `w1364249504` | Primary OSM tower 126m / 28; retail podium 3; bridge not office floor | Official Suite 2000 does not prove floor 20. GeekWire confirms two floors without numbers. JPC's explicitly fourth-floor ImmersionLab belongs to **historical Plaza Center** `w33725899`, not current Lincoln. |
 
-## Source/fallback contract
+## Rules
 
-Primary source URLs, response dates and SHA256 are retained in the JSON, alongside exact retained source-catalog tags and fresh read-only OSM checks. Private reference imagery remains private; no provider pixels or measured-floorplan claims are shipped. Interior visual selection is documented separately in `cv-interiors.*`. Older source prose is retained as historical evidence; conflicts here prevent promotion to a current-room fact.
-
-Root selects any fallback. A defensible candidate is a visibly declared **estimated ground-facade live district view**, after checking the source identity and actual emitted facade geometry. Suggested visitor label: “Live district view · room floor/viewpoint not verified”. It must not be presented as the actual office window. All unknown fields remain null. The known UiPathA/B identity mismatch needs resolution before a current-office binding; any illustrative district view must be separately labelled as such.
-
-The root window adapter must read the real `Office.windowPane` aperture geometry and derive world-space exterior facade corners/eye from the one existing district. It must obtain vertical coordinates from actual current source geometry/ground, not room height, baked generic height or suite digits. It should clip the near plane just outside the **actual outer source facade plane**; off-axis math cannot remove retained solid geometry or justify moving the plane beyond a building. No source actors/buildings/windows are removed, relocated or replaced to improve the view. Weather/time/season and traffic remain those of the one existing world.
-
-Clarification sufficient to improve binding would identify building/block, approximate era, numbered floor and which side/landmark the window faced. A floor number alone does not establish a facade bearing.
+Source URLs, response dates and SHA256 are in the matching JSON. Private reference imagery stays private; no provider
+pixels or measured-floorplan claims ship. A window view comes from the one existing district world (its weather, time,
+season and traffic); no source building, window or actor is removed, moved or replaced to improve a view. A floor number
+alone does not establish a facade bearing.
 
 ## Owner floor assignments · 10 November 2026
 
-GTS: floor2. Arnia: assumed floor6. Deutsche Bank: assumed floor6. UiPath: floor6, applied to both chapters. Politehnica: floor1. Rosetti: assumed floor2. Luxoft: floor 3 is an estimate (2026-11-11, register #52), for the owner to confirm. These owner instructions supersede earlier unknown-floor/ground-view descriptions, while dated historical proof retains its original source. Metre elevations, window bearings, source-building identity conflicts and complete-aperture compatibility still require evidence; a numbered floor does not authorize relocating a real building or clipping unrelated geometry.
+GTS: floor2. Arnia: assumed floor6. Deutsche Bank: assumed floor6. UiPath: floor6, applied to both chapters. Politehnica: floor1. Rosetti: assumed floor2. Luxoft: floor 3 is an estimate (2026-11-11, register #52), for the owner to confirm. Metre elevations, window bearings, source-building identity conflicts and complete-aperture compatibility still require evidence; a numbered floor does not authorize relocating a real building or clipping unrelated geometry.
 
 ### Estimated outlook contract · 10 November 2026
 
-Owner-assigned floors now select an estimated outlook from the retained source building even when the room’s wide virtual pane does not match one modeled wall opening. The complete room/pane projection must fit the source polygon and holes; the pane must lie within the emitted owner height. Only that owner’s exterior skin may supply the near plane, bounded to 1.2 m, with unrelated volumes rejected. Raw facade coverage remains recorded and `architecturalApertureVerified` is false. No source meshes or actors are altered. Building A/B identity conflicts and missing floor data remain unavailable. This supersedes earlier ground-floor-only integration notes, not their dated research evidence.
+Owner-assigned floors now select an estimated outlook from the retained source building even when the room’s wide virtual pane does not match one modeled wall opening. The complete room/pane projection must fit the source polygon and holes; the pane must lie within the emitted owner height. Only that owner’s exterior skin may supply the near plane, bounded to 1.2 m, with unrelated volumes rejected. Raw facade coverage remains recorded and `architecturalApertureVerified` is false. No source meshes or actors are altered. Building A/B identity conflicts and missing floor data remain unavailable.

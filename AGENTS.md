@@ -4,13 +4,13 @@
 the next agent needs, add it here (short, imperative) or in the relevant spec, and link it from here.
 
 ## The repo in one minute
-- Fidelity work: `handoffs/fidelity/README.md` (rules) and `handoffs/fidelity/BACKLOG.md` (the single list of open owner reports); update the backlog in the same commit as a fix. Environment handovers can end agent sessions while Node/Chromium jobs survive; Node may have process name `MainThread`. Check saved progress and argv/PIDs before starting duplicate browsers. A surviving PID can also be a zombie: check its state and the report's terminal fields.
+- Open work: `handoffs/fidelity/BACKLOG.md` is the single list (owner reports, other open items, rules, checks); update it in the same commit as a fix. Environment handovers can end agent sessions while Node/Chromium jobs survive; Node may have process name `MainThread`. Check saved progress and argv/PIDs before starting duplicate browsers. A surviving PID can also be a zombie: check its state and the report's terminal fields.
 - Static CV site (`index.html`) + **Drive My CV**, a first-person 3D game in `game/` (Three.js, vanilla ES modules, **no build
   step**). Deployed by **GitHub Pages from `master`** → https://cristiancalina.com/game/. Work on your feature branch; nothing is
   live until it is merged into master, and merging is the owner's call (ask, never merge on your own).
 - The owner also pushes to master (e.g. telemetry fixes): `git fetch origin master` and merge it into your branch before each push.
 - Specs-driven: `specs/README.md` (process), `specs/00-vision.md`, `specs/01-architecture.md` (file ownership + contracts),
-  `specs/STATUS.md`, one spec per area. Read the ones that touch your work before editing.
+  one spec per area. Read the ones that touch your work before editing.
 - World data: OSM → `tools/osm/build-data.mjs` → `game/data/<city>-<district>.json` (schema: `game/data/README.md`), rendered by
   `game/src/world.js`; landmarks `game/src/landmarks.js`; districts `game/src/cities.js`. Research / measured inputs live in
   `game/research/`.

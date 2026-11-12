@@ -139,6 +139,20 @@ Add new streets for `b` to `STREETS`. Add the scenario id to `FULL` in `run.js` 
 - The autopilot is a reasonable driver, not a perfect one: `traffic-blockage`, `autopilot-no-progress` and
   some `drive-failed` results can be the harness's fault — check the screenshot before filing a game bug.
 
+## Settings, conditions and Continue (`conditions-check.cjs`)
+
+```sh
+node game/dev/harness/conditions-check.cjs --controls --out=/tmp/dmcv-conditions-check
+```
+
+Needs Playwright and its Chromium. It starts its own static server, mutes audio, fixes the clock at 2026-11-08 10:00 UTC,
+fails Open-Meteo requests on purpose (climate fallback) and isolates each fixture in a fresh browser context; it exits
+nonzero on any failed assertion and writes `report.json` plus screenshots. It covers the title-screen Settings panel
+(time / weather / season, the Live button, touch layouts at 390×844 and 844×390), conditions kept across district and
+city changes, Resume story and Continue after a reload (fuel included: zero survives, negative / NaN are ignored).
+`--controls` adds the cockpit mirror and driving / on-foot L (headlights vs nothing); `--only-controls` and
+`--only-access` run subsets. It is a functional check, not a frame-rate or weather-transition visual test.
+
 ## Reality comparison: viewpoints and the Street View street walk (`viewpoints.js`, 2026-11-08)
 
 Renders a district world from real poses next to Google Street View (same spot, heading, camera height, fov) or, for

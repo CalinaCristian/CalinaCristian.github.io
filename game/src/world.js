@@ -2699,7 +2699,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             displace(c.ground, v0g, fg, e, i0g);
             // (owner, 2026-11-11, Grozavesti (68.5, 203): "looks odd", "not smooth", "let's simulate real life") the verge of a
             // raised ramp ended in a stepped cliff above the grass (each segment's strip ends square-on). Street-level reference
-            // (handoffs/fidelity/reality-check/REVIEW-grozavesti.md): the Basarab and Pasajul ramps stand on vertical concrete
+            // (game/research/bucharest-grozavesti.md, Pasajul Basarab): the Basarab and Pasajul ramps stand on vertical concrete
             // retaining walls beside the streets. Each side of an embankment ramp (not a bridge) is one continuous wall from the
             // mitred sidewalk edge straight down to the ground (a 2 % batter), weathered concrete with the ground's texture.
             if ((!e.bridge || retainedDeck(e)) && !e.tunnel && Math.max(e.ya, e.yb) > 0.25) for (const sd of [1, -1]) {

@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "purpose": "Real-life reference viewpoints. Each one is rendered from the game (capture.cjs) and compared by eye with the street-level panorama at the same place (link only). No third-party imagery is stored or committed; findings are written as text in handoffs/fidelity/reality-check/.",
+  "purpose": "Real-life reference viewpoints. Each one is rendered from the game (capture.cjs) and compared by eye with the street-level panorama at the same place (link only). No third-party imagery is stored or committed; findings are written as text in handoffs/fidelity/BACKLOG.md and game/research/.",
   "fields": {
     "lat/lon": "WGS84 position of the viewer",
     "heading": "compass bearing of the view, degrees (0 = north)",

@@ -4,10 +4,8 @@ Owner role: **orchestrator**.
 
 ## Telemetry (shipped)
 
-Read-only dashboard/event review (2026-11-08): `handoffs/fidelity/TELEMETRY-REVIEW.md` (removed 2026-11-11, in git history).
-Existing dashboards are useful for visit funnels and successful loads/FPS; the review proposes interrupted-load recovery, release identity,
-mode-aware performance/resource growth and interaction-outcome diagnostics. The starter retention
-chart is not reliable with memory-only anonymous identities. No PostHog configuration was changed by this review.
+Dashboards cover visit funnels and successful loads/FPS. The starter retention chart is not reliable with memory-only
+anonymous identities.
 
 ## Health observer v2 (staged, release gate pending)
 
@@ -59,4 +57,4 @@ Implementation notes: spots/* and photo.js call `cvTelemetry.track` themselves (
 `world_loaded` (2026-11-08): sent after every completed `game.loadCity` (each city or district load, not only a city change), on the next tick in drive / foot so it still follows `game_start`. `load_ms` is the duration of `loadCity` itself; `first` is true for the first load of the page visit (includes shader compilation and cold caches). Before this change `load_ms` was measured from leaving the menu (story start: ~0 ms, because the state stays `menu` while loading) or from takeoff (Explore map browsing / flight cutscene included, up to minutes), so events without `first` have unusable `load_ms`.
 
 ## Landing page
-Opt-in "🎮 Play my CV — discover my career interactively" CTA (pill + card footer); lightweight background (owner's choice still pending: plain dark gradient / tech texture / light theme / own photo; keep or drop the bouncing balls).
+Opt-in "🎮 Play my CV — discover my career interactively" CTA (pill + card footer); lightweight background (since 2026-11-08): `public/background.svg`, a dark navy gradient with soft blue / orange glows, a faint grid and road curves, with small drifting city lights (`canvas.js`) in place of the old grey bubbles.

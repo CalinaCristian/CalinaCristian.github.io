@@ -26,7 +26,7 @@ collect(task.acceptanceProfile);
 console.log([
     `Fresh-context task ${task.id}: ${task.title}.`,
     `Use only worktree ${worktree}, branch ${task.branch}, frozen base ${base}. Root creates the isolated worktree/branch; do not switch another worker's directory.`,
-    `Read AGENTS.md, specs/STATUS.md, ${specs} and handoffs/fidelity/FIDELITY-GOAL.md. Your selected manifest records are summarized below; do not read the whole inventory into context.`,
+    `Read AGENTS.md, handoffs/fidelity/BACKLOG.md and ${specs}. Your selected manifest records are summarized below; do not read the whole inventory into context.`,
     `Before editing, root must confirm dependencies integrated: ${task.dependsOn.join(', ') || 'none'}. Current reserved owners are in manifest.reservedTasks.`,
     `Edit boundary: ${task.ownedFiles.join('; ') || 'root integration only'}.`,
     task.ownedFunctions ? `Owned builder functions: ${task.ownedFunctions.join(', ')}. Associated anchor/footprint/registry rows only; no whole-file formatting or shared helper edits.` : '',

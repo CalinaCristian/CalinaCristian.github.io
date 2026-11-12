@@ -115,6 +115,19 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 - OSM: 14 ways, 2612 m in district, classes primary; lanes values ['1', '2']; one-way segments 14/14; maxspeed []; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: central reservation, shared carriageway (rails in road).
 - Transit lines (OSM route relations): bus 1929, tram 1, tram 10, tram 11, tram 44.
 - Fronting buildings: 3; businesses: 2.
+- Street View (viewed 2026-11-11/12, reference only; the game follows it):
+  - West ramp (Pasajul): both carriageways at street level at 44.44005 (z ≈ 128), then one embankment on retaining walls
+    with a grass median as they climb; a kerbed concrete median with the arch hangers on the river arch; no railing
+    between the carriageways.
+  - Ramps by Șos. Nicolae Titulescu: the climbing carriageway (with the tram) is at street level at 92 Titulescu, about
+    2.5 m up at 87 Titulescu on a solid retaining wall with a low parapet, and an open viaduct about 6 m up with parking
+    beneath at 44.45084, where Titulescu stays at street level. The trams reach street level where the rail bridge ends
+    on Titulescu (44.45172, 26.07131).
+  - Viaducts stand on single hammerhead piers about every 30–40 m. The cable-stayed main span carries the deck with no
+    piers from the last stay anchor (44.44893, 26.06688) to the pylon.
+  - The tram slab has its own blue steel railing beside the carriageway's concrete barrier.
+  - The Orhideelor entry ramp passes under the viaduct about 1 m up, its barrier at the street's edge (44.44529, 26.06167).
+  - Calea Griviței at the south-west link ramp foot is at street level.
 
 ### Bulevardul Iuliu Maniu
 
@@ -389,7 +402,7 @@ Culture notes:
 
 ## Gaps / to verify
 
-- Rectorat construction year/architect not found (look confirmed from photos)
+- Rectorat construction year/architect not found (look confirmed from photos). Facade review 2026-11-08 (measurements in `landmark-politehnica-measurements.json`): Mister rf's 2024 Commons photos (CC BY-SA 4.0) show pale vertical concrete fins, red main-floor panels, a brick lower facade, a recessed glazed top floor, a wide roof slab and a blue-lit dome rim at night. OSM gives 5 levels, no metre height; the dome is roof part `w1217715300` (`min_level=6`), about 40 ± 4 m across on aerial imagery. Floor heights, fin depths and bay widths are estimates
 - Canal/embankment details from photos pending
 - Campus internal road layout only from OSM
 

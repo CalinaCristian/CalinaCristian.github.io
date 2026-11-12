@@ -1,13 +1,12 @@
 # Drive My CV: specs (spec-driven development)
 
-This folder says what we are building and who owns what. Open owner reports live in
-one place: [`handoffs/fidelity/BACKLOG.md`](../handoffs/fidelity/BACKLOG.md). Progress history is git history.
+This folder says what we are building and who owns what. Open work (owner reports and
+everything else) lives in one place: [`handoffs/fidelity/BACKLOG.md`](../handoffs/fidelity/BACKLOG.md). Progress history is git history.
 
 | File | What |
 |---|---|
 | [00-vision.md](00-vision.md) | Product vision, the owner's requirements (verbatim), quality bar, non-goals |
 | [01-architecture.md](01-architecture.md) | Modules, file ownership, contracts/APIs between modules |
-| [STATUS.md](STATUS.md) | Short task board for work that is not an owner report |
 | [10-districts-chapters.md](10-districts-chapters.md) | Story as chapters in ~1 km² real-scale districts; transitions; chapter flow |
 | [11-roads-junctions-markings.md](11-roads-junctions-markings.md) | Road surfaces, junctions, markings, vertical profile, walls |
 | [12-buildings-streetscape.md](12-buildings-streetscape.md) | Buildings, shopfronts/brands, rooftop signs, street furniture, trees, landmarks in districts |

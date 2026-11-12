@@ -51,6 +51,7 @@ Washington) are completed with `/api/0.6/relation/<id>/full`, cached in `tools/o
 | `geom.mjs` | polygon / polyline helpers (Douglas–Peucker, ring assembly, spatial grid) |
 | `corridors.mjs` | the story corridors: shortest travel-time routes between the CV stops + loops, buffered into a 10 m margin raster |
 | `build-data.mjs` | the converter; the JSON schema is documented at the top of the file and in `game/data/README.md` |
+| `graft-roads.cjs` | `node tools/osm/graft-roads.cjs <committed.json> <fresh-build.json> <out.json>` (on unpacked JSON: `pack-district.mjs --unpack` / pack again): after a district's boundary changes, takes only the re-cut and new road rows, their nodes, the boundary and the scenery streets they replace from a fresh build, and leaves every other field of the committed file as it is. A full rebuild renumbers buildings and strings, which reshuffles index-seeded details (shop names, sign colours) across the district and drops fields added after the build (`roadRestrictions`). Used for the Romana west strip (2026-11-12) |
 
 ## What the converter does
 

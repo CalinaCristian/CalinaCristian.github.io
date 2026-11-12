@@ -239,7 +239,7 @@ Generated road signs use their source side's pavement width and check the comple
   rebounds, resets and invalid approaches).
 - `node game/dev/harness/courtyard-check.mjs` — mapped courtyard openings and inner/outer wall collision checks.
 - `node game/dev/harness/conditions-check.cjs` — Settings, conditions across travel/Continue, and mirror/headlight controls
-  (`game/dev/harness/conditions-check.md`).
+  (`game/dev/harness/README.md`).
 - `node game/dev/harness/office-touch-check.cjs` — native phone taps across every office's dialogue, including closing
   Achievements first; detects invisible menu controls intercepting answer buttons.
 - `node game/dev/harness/drone-boundary-check.cjs` and `drone-flight-check.cjs` — buffered flight limits and actual-controller returns.

@@ -108,7 +108,7 @@ const fsub = (lo, hi, r) => {
     return [((dlo << 1) ^ sign) >>> 0, (((dhi << 1) | (dlo >>> 31)) ^ sign) >>> 0];
 };
 const fLen = ([lo, hi]) => (hi ? 4 + Math.ceil((32 - Math.clz32(hi)) / 8) : lo ? Math.ceil((32 - Math.clz32(lo)) / 8) : 0) + 0.5;
-const DERIVED = ' derived', LEGACY_HEAD = 9;
+const DERIVED = '\u0000derived', LEGACY_HEAD = 9;
 const legacyRing = (ring) => { const out = []; let px = 0, pz = 0; for (const p of ring) { const x = Math.round(p[0] * 10), z = Math.round(p[1] * 10); out.push(x - px, z - pz); px = x; pz = z; } return out; };
 // returns a shallow copy without the derivable parts and a DERIVED record (the input is not changed)
 function deriveOut(value) {
@@ -127,7 +127,7 @@ function deriveOut(value) {
 function deriveIn(value) {
     if (!value || typeof value !== 'object' || !(DERIVED in value)) return value;
     const d = value[DERIVED]; delete value[DERIVED];
-    for (const i of d.legacyRings || []) { const row = value.buildings[i], ring = value.buildingFootprints[i]; if (!row || row.length !== LEGACY_HEAD || !ring) throw new Error('district pack: bad derived ring ' + i); row.push(...legacyRing(ring)); }
+    for (const i of d.legacyRings || []) { const row = value.buildings[i], ring = value.buildingFootprints[i]; if (!row || row.length !== LEGACY_HEAD || !ring) throw new Error('district pack: bad derived ring ' + i); for (const v of legacyRing(ring)) row.push(v | 0); }
     return value;
 }
 /** encode a JSON value (as JSON.parse returns it) into the pack bytes (not gzipped) */
@@ -284,38 +284,51 @@ export function decodeDistrictPack(u8) {
         fval[fs] = k; fset[fs] = 1;
         return t === T.INT ? k : k / POW[ti];
     };
+    // The decoder writes the JSON text and JSON.parse builds the objects: the same objects, and in the same V8
+    // representation, as the JSON file gave (arrays built here were boxed / holey and objects had other hidden classes,
+    // which made the builder's and the traffic's geometry tests up to 3× slower).
+    const jstr = new Array(strings.length), J = (id) => jstr[id] ?? (jstr[id] = JSON.stringify(strings[id]));
+    const shapeKeys = shapes.map((keys) => keys.map((k) => JSON.stringify(k) + ':'));
+    const fmt = (v) => (v === 0 && 1 / v < 0 ? '-0' : '' + v);
     const read = (field, inArray) => {
         const t = u8[tp++];
-        if (t >= T.INT && t <= T.F64) return num(t, field * CLASSES, -1, 0);
+        if (t >= T.INT && t <= T.F64) return fmt(num(t, field * CLASSES, -1, 0));
         switch (t) {
-            case T.NULL: return null;
-            case T.FALSE: return false;
-            case T.TRUE: return true;
-            case T.STR: return strings[uv()];
-            case T.OSM: case T.OSM + 1: case T.OSM + 2: return OSM_PREFIX[t - T.OSM] + num(T.INT, field * CLASSES, -1, 0);
-            case T.OBJ: { const s = uv(), keys = shapes[s], kf = fields.keys(field, s, keys), o = {}; for (let i = 0; i < keys.length; i++) o[keys[i]] = read(kf[i], false); return o; }
-            case T.ROWREF: { const r = rowList[target()]; if (!r || !inArray) throw new Error('district pack: bad row reference'); return r.slice(); }
-            case T.ROWXZ: { const r = rowList[target()]; if (!r || r.length !== 3 || !inArray) throw new Error('district pack: bad row reference'); return [r[0], r[2]]; }
+            case T.NULL: return 'null';
+            case T.FALSE: return 'false';
+            case T.TRUE: return 'true';
+            case T.STR: return J(uv());
+            case T.OSM: case T.OSM + 1: case T.OSM + 2: return '"' + OSM_PREFIX[t - T.OSM] + num(T.INT, field * CLASSES, -1, 0) + '"';
+            case T.OBJ: {
+                const sh = uv(), keys = shapes[sh], sk = shapeKeys[sh], kf = fields.keys(field, sh, keys);
+                let out = '{';
+                for (let i = 0; i < keys.length; i++) out += (i ? ',' : '') + sk[i] + read(kf[i], false);
+                return out + '}';
+            }
+            case T.ROWREF: { const r = rowList[target()]; if (!r || !inArray) throw new Error('district pack: bad row reference'); return '[' + r.map(fmt).join(',') + ']'; }
+            case T.ROWXZ: { const r = rowList[target()]; if (!r || r.length !== 3 || !inArray) throw new Error('district pack: bad row reference'); return '[' + fmt(r[0]) + ',' + fmt(r[2]) + ']'; }
             case T.ARR: {
-                const n = uv(), a = new Array(n), d = ++depth;
+                const n = uv(), d = ++depth;
                 if (d >= MAXD) throw new Error('district pack: nesting too deep');
                 const g = ++gen, ab = d * NT, el = fields.element(field), base = el * CLASSES;
-                let numeric = inArray && n >= 2 && n <= ROW_MAX;
+                let numeric = inArray && n >= 2 && n <= ROW_MAX, out = '[';
+                const nums = numeric ? [] : null;
                 for (let j = 0; j < n; j++) {
                     const x = u8[tp];
-                    if (x >= T.INT && x <= T.F64) { tp++; a[j] = num(x, base + (j < CLASSES ? j : CLASSES - 1), ab, g); }
-                    else { a[j] = read(el, true); numeric = false; }
+                    if (j) out += ',';
+                    if (x >= T.INT && x <= T.F64) { tp++; const v = num(x, base + (j < CLASSES ? j : CLASSES - 1), ab, g); if (nums) nums.push(v); out += fmt(v); }
+                    else { out += read(el, true); numeric = false; }
                 }
                 depth--;
-                if (numeric) rowList.push(a);
-                return a;
+                if (numeric) rowList.push(nums);
+                return out + ']';
             }
             default: throw new Error('district pack: bad tag ' + t + ' at ' + (tp - 1));
         }
     };
-    const value = read(0, false);
+    const text = read(0, false);
     if (tp !== sec[2][1] || up !== sec[3][1] || ip !== sec[4][1] || fi !== nf || rp !== sec[7][1]) throw new Error('district pack: trailing data');
-    return deriveIn(value);
+    return deriveIn(JSON.parse(text));
 }
 
 /** gunzip with the platform's DecompressionStream (browsers, Node 18+); bytes that are not gzipped pass through */

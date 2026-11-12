@@ -84,7 +84,7 @@ const persist = () => { fs.writeFileSync(path.join(out, 'profile.next.json'), JS
     report.expectedPopulation = { people: 560, vehicles: native.counts.active, basis: 'Unmodified final-source native maxVehicles/high-quality admission and hour-8 target; no population cuts or forced placements.' };
     if (native.counts.moving !== native.target.moving || native.counts.parked !== native.target.parked) throw new Error('Native population did not reach its configured moving/parked target; see pool/base/target breakdown');
     report.setup = await page.evaluate(() => ({ draws: __integrationSoak.draws, accumulated: { ...game.renderer.info.render } }));
-    for (const file of ['game/src/render.js', 'game/src/progressive-pmrem.js', 'game/src/main.js', 'game/src/world.js', 'game/src/traffic.js', 'game/src/vehicles.js', 'game/data/bucharest-romana.json']) report.source[file] = crypto.createHash('sha256').update(fs.readFileSync(path.join(root, file))).digest('hex');
+    for (const file of ['game/src/render.js', 'game/src/progressive-pmrem.js', 'game/src/main.js', 'game/src/world.js', 'game/src/traffic.js', 'game/src/vehicles.js', 'game/data/bucharest-romana.bin.gz']) report.source[file] = crypto.createHash('sha256').update(fs.readFileSync(path.join(root, file))).digest('hex');
     async function frame(label, captureName = null) {
         const row = await page.evaluate(label => {
             const S = __integrationSoak, r = game.r3d; S.draws = [];

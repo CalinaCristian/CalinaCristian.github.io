@@ -4,6 +4,7 @@ import { sceneryBridgeProfiles, sceneryDeckBand } from '../../game/src/scenery-b
 import { scenerySourceProfile } from '../../game/src/scenery-source.js';
 import { collideBuildings, buildingBlocksRoad } from '../../game/src/world.js';
 import { pointInCollider, colliderDist } from '../../game/dev/harness/page/util.js';
+import { readDistrictData } from './district-data.mjs';
 
 let checks = 0;
 const fixture = (rows, core = []) => {
@@ -152,8 +153,8 @@ const building = { ...deck, roadDeck: false, roofHeightAt: undefined, minHeightA
 assert.equal(buildingBlocksRoad(building, 50, 0, .24), true); assert.ok(collideBuildings([building], 50, 0, .2, .24, 2)); checks += 2;
 
 const districts = [];
-for (const file of fs.readdirSync('game/data').filter(f => f.endsWith('.json'))) {
-    const d = JSON.parse(fs.readFileSync('game/data/' + file)); if (d.roadGeometryPolicy !== 'source') continue;
+for (const file of fs.readdirSync('game/data').filter(f => /^[a-z]+(-[a-z]+)?\.(json|bin\.gz)$/.test(f))) {
+    const d = readDistrictData('game/data/' + file); if (d.roadGeometryPolicy !== 'source') continue;
     const sourceBefore = JSON.stringify([d.scenery, d.sceneryAccess, d.scenerySourceGeometry]);
     const profiles = d.scenery.map((r, i) => scenerySourceProfile(d, i, []));
     const result = sceneryBridgeProfiles(d, profiles, []), expected = d.scenery.filter(r => r[3] & 1).length;

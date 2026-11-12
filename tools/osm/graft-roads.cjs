@@ -1,4 +1,6 @@
 // node graft.cjs <old.json> <band.json> <out.json>
+// Districts ship packed (game/data/<city>-<district>.bin.gz): unpack the committed one first with
+// `node tools/osm/pack-district.mjs --unpack FILE OLD.json`, and pack <out.json> again with `node tools/osm/pack-district.mjs OUT.json`.
 // Road-only graft: the committed district file keeps every building, POI, tree, area and string index; only the road
 // rows that the wider boundary changes (re-cut or new) are taken from the fresh build, together with the district
 // boundary and the scenery streets those rows replace.

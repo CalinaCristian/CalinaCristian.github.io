@@ -80,6 +80,7 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { parseFiles, parseInto } from './parse-osm.mjs';
+import { writeDistrictData } from './district-data.mjs';
 import { snapshotTramSources, tramMetadataFromRuns, snapshotTramCrossingSources, extractTramCrossingMetadata } from './tram-sources.mjs';
 import { footprintCoverage, simpleFootprint, uncrossFootprint, bakeAssembly, bakeSurface, touchingSolids, assemblySignature } from '../../game/src/building-parts.js';
 import { sourceRing } from './source-footprints.mjs';
@@ -2021,16 +2022,17 @@ function buildCity(cityId, did = null) {
     }
     const outDir = path.join(REPO, 'game', 'data');
     fs.mkdirSync(outDir, { recursive: true });
-    const file = path.join(outDir, did ? `${cityId}-${did}.json` : `${cityId}.json`);
-    const json = JSON.stringify(doc);
-    fs.writeFileSync(file, json);
+    // chapter districts ship as the lossless binary pack the game loads (spec 10: ≤ 3 MiB); `node tools/osm/pack-district.mjs
+    // --unpack` gives the JSON back. The legacy corridor maps stay JSON.
+    const file = path.join(outDir, did ? `${cityId}-${did}.bin.gz` : `${cityId}.json`);
+    const json = { length: writeDistrictData(doc, file) };
     log(`wrote ${file}  ${(json.length / 1e6).toFixed(2)} MB  roads=${outRoads.length} segments=${segCount} buildings=${outB.length} pois=${outP.length} areas=${outA.length} lamps=${lamps.length / 3} trees=${outTrees.length / 3} furniture=${outFurn.length / 3} backdrop=${backdrop.length / 6}`);
 }
 
 function ROOF_FOR_HOUSE(area, nverts) { return nverts <= 6 && area < 400 ? 2 : area < 300 ? 1 : 0; }
 
 // node build-data.mjs --tiles DIR [--city bucharest|seattle]               the old corridor maps (game/data/<city>.json)
-// node build-data.mjs --tiles DIR --districts [--city c] [--district id]    the 1:1 chapter districts (game/data/<city>-<id>.json)
+// node build-data.mjs --tiles DIR --districts [--city c] [--district id]    the 1:1 chapter districts (game/data/<city>-<id>.bin.gz)
 const which = args.city ? [args.city] : Object.keys(CITIES);
 if (args.districts || args.district) {
     for (const c of which) for (const d of Object.keys(GAME_CITIES[c].districts || {})) if (!args.district || args.district === true || args.district.split(',').includes(d)) buildCity(c, d);

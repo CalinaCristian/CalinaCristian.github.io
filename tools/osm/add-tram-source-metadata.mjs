@@ -10,6 +10,7 @@ import { extractTramMetadata, appendTramMetadata, extractTramCrossingMetadata, a
 const sha = data => crypto.createHash('sha256').update(data).digest('hex');
 
 export function addTramSourceMetadata({ dataFile, osmDir, write = false, reportFile, crossingsOnly = false }) {
+    if (String(dataFile).endsWith('.bin.gz')) throw Error('Append-only JSON tool: unpack the district first (node tools/osm/pack-district.mjs --unpack FILE), run on the JSON, then pack it again');
     const original = fs.readFileSync(dataFile, 'utf8'), doc = JSON.parse(original);
     const files = fs.readdirSync(osmDir).filter(f => f.endsWith('.xml')).sort().map(f => path.join(osmDir, f));
     if (!files.length) throw Error('No cached OSM XML; network is never invoked by this extractor');

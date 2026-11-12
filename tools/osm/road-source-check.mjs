@@ -7,6 +7,7 @@ import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {CITIES} from '../../game/src/cities.js';
 import {Navigator,canTravel} from '../../game/src/nav.js';
+import { readDistrictData } from './district-data.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),tmp=fs.mkdtempSync(path.join(os.tmpdir(),'source-roads-fixture-')),reports=[];
 try{
  fs.mkdirSync(path.join(tmp,'tools'),{recursive:true});fs.mkdirSync(path.join(tmp,'game'),{recursive:true});fs.mkdirSync(path.join(tmp,'tiles'));
@@ -22,7 +23,7 @@ try{
   const xml='<osm version="0.6">'+pts.map(([lat,lon],i)=>`<node id="${i+1}" lat="${lat}" lon="${lon}"/>`).join('')+ways.map(([id,ns,tags])=>`<way id="${id}">${ns.map(n=>`<nd ref="${n}"/>`).join('')}${Object.entries(tags).map(([k,v])=>`<tag k="${k}" v="${v}"/>`).join('')}</way>`).join('')+'</osm>';
   const source=path.join(tmp,'tiles',city==='seattle'?'sea_fixture.xml':'buc_fixture.xml');fs.writeFileSync(source,xml);
   execFileSync(process.execPath,[path.join(tmp,'tools/osm/build-data.mjs'),'--tiles',path.join(tmp,'tiles'),'--districts','--city',city,'--district',did],{stdio:'pipe'});
-  const dataPath=path.join(tmp,'game/data',`${city}-${did}.json`),data=JSON.parse(fs.readFileSync(dataPath));
+  const dataPath=path.join(tmp,'game/data',`${city}-${did}.json`),data=readDistrictData(dataPath);
   const audit=JSON.parse(execFileSync(process.execPath,[path.join(root,'tools/osm/road-source-audit.mjs'),'--data',dataPath,'--osm',source],{encoding:'utf8'}));
   assert.equal(audit.expectedWhole,5);assert.equal(audit.missingWhole,0);assert.equal(audit.issues.length,0);assert.ok(audit.shortSourceStubs>=1);assert.equal(audit.privatePhysical,2);
   assert.ok(data.roadNodeIds.every(n=>n>0),'no inferred joins, densification, cuts or stub deletion in whole-core fixtures');

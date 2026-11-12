@@ -7,6 +7,7 @@ import {LANDMARKS,buildLandmark} from '../../game/src/landmarks.js';
 import {US_FOOTPRINTS as U} from '../../game/src/landmark-us-source.js';
 import {collideBuildings} from '../../game/src/world.js';
 import {DEPARTURES_CURB,GARAGE_STRUCTURE,SKYBRIDGE_STRUCTURE} from '../../game/src/landmark-seatac-structure.js';
+import { readDistrictData } from '../osm/district-data.mjs';
 const hash=x=>createHash('sha256').update(JSON.stringify(x)).digest('hex');
 const garageLm=LANDMARKS.find(x=>x.id==='seagarage'),terminalLm=LANDMARKS.find(x=>x.id==='seatac');
 const garage=buildLandmark(garageLm,{realScale:true}),terminal=buildLandmark(terminalLm,{realScale:true});
@@ -16,7 +17,7 @@ const decks=garage.collision.filter(c=>c.structureKind==='garage-deck');assert.e
 const outer=U.r15763840.find(x=>x.role==='outer').poly,holes=U.r15763840.filter(x=>x.role==='inner').map(x=>x.poly);
 for(const c of decks){assert.deepEqual(c.poly,outer);assert.deepEqual(c.holes,holes);assert(c.minH>=0);assert(c.y1>c.minH);assert.equal(c.y0,undefined);}
 close(decks.at(-1).y1,21.4,'Existing roof level retained');
-const source=JSON.parse(fs.readFileSync(new URL('../../game/data/seattle-seatac.json',import.meta.url))),baseline=JSON.parse(fs.readFileSync(new URL('../../handoffs/fidelity/us-districts/native-c78a5f4/seatac-block-classification/report.json',import.meta.url)));
+const source=readDistrictData(new URL('../../game/data/seattle-seatac.bin.gz',import.meta.url)),baseline=JSON.parse(fs.readFileSync(new URL('../../handoffs/fidelity/us-districts/native-c78a5f4/seatac-block-classification/report.json',import.meta.url)));
 const proj=source.proj,toLocal=(lm,x,z)=>{const dx=x-(lm.lon-proj.lon0)*proj.mPerLon,dz=z+(lm.lat-proj.lat0)*proj.mPerLat;return[dx,dz];};
 const rawGarage=baseline.classification.findings.filter(x=>x.sourceRoadId!=='w37017723');
 const pointResults=rawGarage.map(x=>{const [a,b]=toLocal(garageLm,x.exactReproducedPoint.x,x.exactReproducedPoint.z);return{id:x.rawId,blocked:!!collideBuildings(garage.collision,a,b,.05,x.exactReproducedPoint.expectedSourceEdgeFootY-.12,2)};});

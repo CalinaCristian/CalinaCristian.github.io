@@ -27,7 +27,7 @@ assert source['gameSourceCommit'] == new_sha
 for f in source['files']:
     assert digest(Path(source['sourceRoot'])/f['path']) == f['sha256'], f['path']
 city = new['capture']['loaded']['city']
-for f in [f'game/data/{city}-{district}.json','game/src/world.js','game/src/water-lines.js']:
+for f in [f'game/data/{city}-{district}.bin.gz','game/src/world.js','game/src/water-lines.js']:
     p=Path(source['sourceRoot'])/f
     if p.exists():
         exact=subprocess.check_output(['git','show',new_sha+':'+f],cwd=repo)

@@ -49,7 +49,7 @@ const sdk = `(() => {
                 const row = { index: report.consoleErrors.length, fixture: contexts.indexOf(context) + 1, text: message.text(), location: message.location() };
                 report.consoleErrors.push(row);
                 const intended503 = injectedDestinationFailure && context === failureContext && (
-                    (row.text.startsWith('Failed to load resource:') && /status of 503/.test(row.text) && row.location.url === 'https://cristiancalina.com/game/data/bucharest-grozavesti.json') ||
+                    (row.text.startsWith('Failed to load resource:') && /status of 503/.test(row.text) && row.location.url === 'https://cristiancalina.com/game/data/bucharest-grozavesti.bin.gz') ||
                     (row.text.startsWith('[world] district load failed') && /JSON|SyntaxError/.test(row.text) && /intentional|Unexpected token.*i/i.test(row.text)));
                 if (intended503) report.expectedConsoleErrors.push({ ...row, reason: 'Explicit HTTP503/non-JSON Grozavesti destination fixture' });
             }
@@ -82,7 +82,7 @@ const sdk = `(() => {
         check('performance summaries isolate pause and driving with sampled frame tails', ['drive', 'pause'].every(mode => events.some(e => e.event === 'perf_summary' && e.props.game_mode === mode && e.props.frame_p95_ms > 0 && e.props.frames_observed >= e.props.samples)), events.filter(e => e.event === 'perf_summary'));
         await page.evaluate(async () => { game.fuel = 0; await game.save.saveSession('diagnostic-fixture'); });
         failureContext = main.context; injectedDestinationFailure = true;
-        await page.route('**/game/data/bucharest-grozavesti.json', route => route.fulfill({ status: 503, body: 'intentional diagnostic fixture' }));
+        await page.route('**/game/data/bucharest-grozavesti.bin.gz', route => route.fulfill({ status: 503, body: 'intentional diagnostic fixture' }));
         await page.evaluate(() => game.startFreeRoam('grozavesti'));
         events = await page.evaluate(() => __healthEvents);
         const failure = events.find(e => e.event === 'load_failed');

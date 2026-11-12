@@ -1,7 +1,13 @@
 # game/data
 
-**Chapter districts (real 1:1 scale)**: `<city>-<district>.json` — `bucharest-{floreasca,grozavesti,unirii,pipera,romana,otopeni}.json`,
-`seattle-{seatac,bellevue}.json` — built by `node tools/osm/build-data.mjs --tiles DIR --districts` from the districts in
+**Chapter districts (real 1:1 scale)**: `<city>-<district>.bin.gz` — `bucharest-{floreasca,grozavesti,unirii,pipera,romana,otopeni}`,
+`seattle-{seatac,bellevue}` — a lossless binary pack of the district JSON described below (spec 10: ≤ 3 MiB per district).
+`game/src/district-pack.js` decodes it to exactly the object `JSON.parse` gave for the JSON (same keys and order, same
+strings, bit-identical numbers); the only change is that cache-validation `signature` / `authoritySignature` strings of 64
+characters or more are stored as a 53-bit hash (`h1:…`) and compared through `signatureMatches`. Read it from Node with
+`readDistrictData` (`tools/osm/district-data.mjs`), write it with `writeDistrictData`, convert with
+`node tools/osm/pack-district.mjs FILE.json [--replace]` / `--unpack FILE.bin.gz [OUT.json]`; tools that edit the JSON
+text append-only (`add-tram-source-metadata.mjs`) work on an unpacked copy. Built by `node tools/osm/build-data.mjs --tiles DIR --districts` from the districts in
 `game/src/cities.js` (`CITIES[city].districts`) and loaded by `buildWorld(city, renderer, { district })`. Same schema as below
 plus `district: {id, name, bbox, areaKm2, polys, ends: [node index of every road cut at the boundary], mask: {x0, z0, cell, w, h,
 rle}}` (inside-mask, 20 m cells, run lengths alternating outside/inside starting with outside) and optional `brands`

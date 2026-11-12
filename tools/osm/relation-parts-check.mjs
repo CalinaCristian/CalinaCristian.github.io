@@ -6,6 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { parseFiles } from './parse-osm.mjs';
+import { readDistrictData } from './district-data.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'), tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'source-relation-parts-'));
 try {
     fs.mkdirSync(path.join(tmp, 'tiles'), { recursive: true }); fs.mkdirSync(path.join(tmp, 'game/research'), { recursive: true });
@@ -19,7 +20,7 @@ try {
     xml = xml.replace('</osm>', extras + '<node id="999000001" lat="47.617" lon="-122.197"/><node id="999000002" lat="47.617" lon="-122.193"/><way id="999000003"><nd ref="999000001"/><nd ref="999000002"/><tag k="highway" v="residential"/></way></osm>');
     const fixture = path.join(tmp, 'tiles/sea_fixture.xml'); fs.writeFileSync(fixture, xml);
     execFileSync(process.execPath, [path.join(tmp, 'tools/osm/build-data.mjs'), '--tiles', path.join(tmp, 'tiles'), '--city', 'seattle', '--district', 'bellevue'], { stdio: 'pipe' });
-    const dataPath = path.join(tmp, 'game/data/seattle-bellevue.json'), d = JSON.parse(fs.readFileSync(dataPath));
+    const dataPath = path.join(tmp, 'game/data/seattle-bellevue.json'), d = readDistrictData(dataPath);
     execFileSync('python3', ['-I', path.join(root, 'tools/osm/building-audit.py'), '--data', dataPath, '--osm', fixture, '--out', path.join(tmp, 'audit')], { stdio: 'pipe' });
     const rows = JSON.parse(fs.readFileSync(path.join(tmp, 'audit.json')));
     const actualParts = [...original.rels].filter(([, r]) => r.tags['building:part'] && !r.tags.building);

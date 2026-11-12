@@ -30,6 +30,23 @@ function clipHalf(subject, keep) {
     return out;
 }
 
+/** clipHalf(subject, p => -keep(p)) and clipHalf(subject, keep) in one pass, keep evaluated once per point. Exact: the
+ *  negated values give the same tests and t = (−fp) / ((−fp) − (−fq)) = fp / (fp − fq) bit for bit. */
+function clipBoth(subject, keep) {
+    const n = subject.length, f = new Array(n), neg = [], pos = [];
+    for (let i = 0; i < n; i++) f[i] = keep(subject[i]);
+    for (let i = 0; i < n; i++) {
+        const j = (i + 1) % n, p = subject[i], q = subject[j], fp = f[i], fq = f[j];
+        // outside part: −fp ≥ 0
+        const op = -fp, oq = -fq;
+        if (op >= 0) neg.push(p);
+        if ((op >= 0) !== (oq >= 0)) { const t = op / (op - oq); neg.push([p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t]); }
+        if (fp >= 0) pos.push(p);
+        if ((fp >= 0) !== (fq >= 0)) { const t = fp / (fp - fq); pos.push([p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t]); }
+    }
+    return [neg, pos];
+}
+
 /** subject minus a convex polygon, as a list of polygons (one per edge of the convex one that the subject crosses).
  *  Piece k is the subject inside the first k-1 edge half-planes and outside the k-th: the pieces do not overlap and
  *  their union is exactly the difference. A non-convex subject is clipped correctly by convex regions (Sutherland-
@@ -40,7 +57,7 @@ export function subtractConvex(subject, convex) {
     for (let i = 0; i < convex.length && rest.length >= 3; i++) {
         const a = convex[i], b = convex[(i + 1) % convex.length];
         const inside = p => s * ((b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0]));
-        const outsidePart = clipHalf(rest, p => -inside(p)), insidePart = clipHalf(rest, inside);
+        const [outsidePart, insidePart] = clipBoth(rest, inside);
         if (outsidePart.length >= 3 && Math.abs(area(outsidePart)) > 1e-6) pieces.push(outsidePart);
         rest = insidePart;
     }
@@ -80,8 +97,29 @@ const pointIn = (x, z, poly) => { let c = false; for (let i = 0, j = poly.length
 export function overlapArea(a, b, boxA, boxB) {
     const x0 = Math.max(boxA[0], boxB[0]), z0 = Math.max(boxA[1], boxB[1]), x1 = Math.min(boxA[2], boxB[2]), z1 = Math.min(boxA[3], boxB[3]);
     if (x1 - x0 < .5 || z1 - z0 < .5) return 0;
-    let n = 0; for (let x = x0 + .25; x < x1; x += .5) for (let z = z0 + .25; z < z1; z += .5) if (pointIn(x, z, a) && pointIn(x, z, b)) n++;
+    // Scanline form of counting the samples with pointIn(x, z, a) && pointIn(x, z, b): per sample row z, the crossings are
+    // computed with pointIn's own expression and a sample is inside when an odd number of them lie beyond it (x < c),
+    // which is pointIn's parity. Same samples (same accumulated coordinates), same count, without testing every edge
+    // for every sample.
+    const xs = []; for (let x = x0 + .25; x < x1; x += .5) xs.push(x);
+    let n = 0;
+    for (let z = z0 + .25; z < z1; z += .5) {
+        const ca = crossings(a, z), cb = crossings(b, z);
+        if (!ca.length || !cb.length) continue;
+        let ia = 0, ib = 0;
+        for (const x of xs) {
+            while (ia < ca.length && !(x < ca[ia])) ia++;
+            while (ib < cb.length && !(x < cb[ib])) ib++;
+            if ((ca.length - ia) & (cb.length - ib) & 1) n++;
+        }
+    }
     return n * .25;
+}
+// x of every edge of poly crossing the row z, as pointIn computes them, ascending
+function crossings(poly, z) {
+    const out = [];
+    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const [xi, zi] = poly[i], [xj, zj] = poly[j]; if ((zi > z) !== (zj > z)) out.push((xj - xi) * (z - zi) / (zj - zi) + xi); }
+    return out.sort((p, q) => p - q);
 }
 
 /**

@@ -10,13 +10,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validRoadWidthReview, resolveRoadWidth } from '../../game/src/road-widths.js';
+import { readDistrictData, writeDistrictData } from './district-data.mjs';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const id = process.argv[2], check = process.argv.includes('--check');
 if (!/^[a-z]+-[a-z]+$/.test(id || '')) { console.error('usage: apply-road-width-reviews.mjs <city>-<district> [--check]'); process.exit(2); }
-const dataFile = path.join(REPO, 'game', 'data', id + '.json'), researchFile = path.join(REPO, 'game', 'research', id + '.json');
-const raw = fs.readFileSync(dataFile, 'utf8'), data = JSON.parse(raw);
-if (JSON.stringify(data) + '\n' !== raw) throw new Error('prepared data is not in the build\'s serialisation; refusing to rewrite it');
+const dataFile = path.join(REPO, 'game', 'data', id + '.bin.gz'), researchFile = path.join(REPO, 'game', 'research', id + '.json');
+const data = readDistrictData(dataFile); // the district pack (game/data/README.md)
 const reviews = JSON.parse(fs.readFileSync(researchFile, 'utf8')).road_widths || [];
 const seen = new Set(), applied = [];
 data.roadWidths ||= {};
@@ -38,4 +38,4 @@ for (const review of reviews) {
     }
 }
 console.log(JSON.stringify({ district: id, reviews: reviews.length, applied, written: !check && applied.some(a => a.changed) }, null, 1));
-if (!check && applied.some(a => a.changed)) fs.writeFileSync(dataFile, JSON.stringify(data) + '\n');
+if (!check && applied.some(a => a.changed)) writeDistrictData(data, dataFile);

@@ -3,11 +3,12 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { fileURLToPath } from 'node:url';
 import { isDambovita, waterChannelDecision } from '../../game/src/water-channel.js';
+import { readDistrictData } from '../osm/district-data.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const undelta = a => { let x = 0, z = 0; const p = []; for (let i = 0; i < a.length; i += 2) { x += a[i]; z += a[i + 1]; p.push([x / 10, z / 10]); } return p; };
 const names = ['bucharest-floreasca', 'bucharest-romana', 'bucharest-grozavesti', 'bucharest-pipera', 'bucharest-unirii', 'bucharest-otopeni', 'seattle-bellevue', 'seattle-seatac'];
 const ledger = names.map(district => {
-    const data = JSON.parse(fs.readFileSync(path.join(root, 'game/data/' + district + '.json'))), str = i => i >= 0 ? data.strings[i] : '';
+    const data = readDistrictData(path.join(root, 'game/data/' + district + '.json')), str = i => i >= 0 ? data.strings[i] : '';
     const lines = data.lines.flatMap((l, i) => /^(river|stream|canal)$/.test(data.lineKinds[l[0]]) && isDambovita(str(l[2])) ? [{ index: i, name: str(l[2]), points: undelta(l[3]) }] : []);
     const areas = data.areas.flatMap((a, i) => {
         if (data.areaKinds[a[0]] !== 'water') return [];

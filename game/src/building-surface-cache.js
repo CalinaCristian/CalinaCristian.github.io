@@ -1,6 +1,7 @@
 // Offline source-solid visibility cache; no source records or collision change.
 import { assemblySignature, bakeSourceSolidSurface, simpleFootprint, touchingSolids } from './building-parts.js';
 import { parseMeasure } from './building-roofs.js';
+import { signatureMatches } from './district-pack.js';
 
 export function sourceSurfaceAuthority(b) {
     const raw = b.roofProfile?.originalOSM || b.roofProfile?.raw || {};
@@ -42,8 +43,8 @@ export function validateSourceSurface(spec, cache, records, { eligible = sourceS
     for (const i of indices) {
         const b = records[i], source = sources.get(i);
         if (!b || !eligible(b)) return 'inactive-or-unsupported-source';
-        if (!source || source.signature !== assemblySignature(b, [])) return 'prepared-geometry-mismatch';
-        if ((requireAuthority || source.authoritySignature !== undefined) && source.authoritySignature !== sourceSurfaceAuthority(b).signature) return 'prepared-authority-mismatch';
+        if (!source || !signatureMatches(source.signature, assemblySignature(b, []))) return 'prepared-geometry-mismatch';
+        if ((requireAuthority || source.authoritySignature !== undefined) && !signatureMatches(source.authoritySignature, sourceSurfaceAuthority(b).signature)) return 'prepared-authority-mismatch';
     }
     if (spec.surface?.walls?.length !== owner.ring.length || owner.holes.length && (spec.surface?.holeWalls?.length !== owner.holes.length || spec.surface.holeWalls.some((walls, i) => walls.length !== owner.holes[i].length))) return 'prepared-face-mismatch';
     const bandValid = f => f && [f.t0,f.t1,f.y0,f.y1].every(Number.isFinite) && f.t0 >= 0 && f.t1 <= 1 && f.t1 > f.t0 && f.y0 >= (owner.minH > 0 ? owner.minH : Math.min(.18, owner.h)) - 1e-7 && f.y1 <= (owner.roofProfile?.eavesM ?? owner.h) + 1e-7 && f.y1 > f.y0;

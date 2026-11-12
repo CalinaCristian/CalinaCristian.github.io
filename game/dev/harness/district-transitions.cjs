@@ -87,7 +87,7 @@ async function run(){
   const expected={persistentGeo:0,persistentMat:0,base:0,ownedGeo:1,ownedMat:1,ownedTex:1,hiddenTex:1,wrapper:1,fleet:1,tree:1};
   for(const [k,v] of Object.entries(expected))if(result.resourceOwnership[k]!==v)throw Error('Resource ownership check failed: '+k);
   if(!result.resourceOwnership.retainedDetached||!result.resourceOwnership.sceneEmpty||!result.resourceOwnership.wrapperOwnedOnly)throw Error('Resource detachment check failed');
-  const asset='**/data/bucharest-grozavesti.json';let failedFetches=0;
+  const asset='**/data/bucharest-grozavesti.bin.gz';let failedFetches=0;
   await page.route(asset,r=>{failedFetches++;return r.fulfill({status:200,contentType:'application/json',body:'{ invalid JSON'});});
   result.failedTravel=await page.evaluate(async()=>{
    const g=game;g.fuel=0;const before=g.save.capture();const ok=await g.startFreeRoam('grozavesti');

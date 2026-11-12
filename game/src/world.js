@@ -5054,7 +5054,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     const addPropColl = (x, z, r, kind = 'prop') => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h: 3, prop: true, kind });
     propColl.push(...sportsColl); // (pitch / court fences, dugouts, goal and hoop posts)
     // (fidelity pass 2026-11-12, Pipera: Strada Petricani over the Colentina) railings on street-level bridges with water on both sides
-    const waterBridgeRailings = emitStreetLevelWaterBridgeRailings({ edges, isWater, widthSide, cellOf, addCollider: (x, z, r) => addPropColl(x, z, r, 'bridge-railing'),
+    //   (district worlds only: on the legacy corridor map it put railings under the Pasajul Basarab deck — harness finding)
+    const waterBridgeRailings = !distId ? { runs: [], pieces: 0, lengthM: 0 } : emitStreetLevelWaterBridgeRailings({ edges, isWater, widthSide, cellOf, addCollider: (x, z, r) => addPropColl(x, z, r, 'bridge-railing'),
         topAt: (x, z, e) => raisedTop(x, z, 0.3) ?? (Y.road + yAlong(e, x, z)), colour: rgb('#8d949b'), postColour: rgb('#7b838b') });
     // ---- landmark ground fences (2026-11-08, owner: "the Rosetti fence is on the street"): the model's fence line follows the
     //      OSM grounds, which the game's wider road + sidewalk ribbons overlap (Rosetti: OSM draws the grounds' east edge on

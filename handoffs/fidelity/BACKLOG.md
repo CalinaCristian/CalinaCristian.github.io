@@ -11,9 +11,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 
 | Where | Report | State / diagnosis |
 | --- | --- | --- |
-| Grozăvești (1118, -1284) | "right is shorter than left" | Street View at 44.45272, 26.07322 (the report point) looking south-west shows the tram at grade on Șos. Nicolae Titulescu with road on both sides as far as the view reaches; the game's tram ramp already climbs to 5 m within 60 m of there. The ramp's start (tram grade model) needs moving; the short right railing (the road ramp beside is level with the slab there) follows from it |
 | Grozăvești (826, -1050), (314, -697) | "what's going on here", "missing" | where the road guard and the tram-slab railing converge they still cross over a few metres, and one road-side gap remains by (314, -697) |
-| Grozăvești (194, -453) | "why is it like that?" | the unnamed ramp beside Șos. Orhideelor is an embankment 5.2 m high at this point (not a bridge in OSM); Street View shows it still low there, rising later: its grade needs checking |
 | people at night | "shadows for people (texture like they are just standing that are transparent)" | not reproduced in a visible Ultra window at night among walkers (the AO pass already skips the crowd, lamps cast no shadows); needs an F8 report where they appear |
 
 ## Fixed on master 2026-11-12 (owner reports of 2026-11-12, re-check live at the poses)
@@ -36,6 +34,8 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Grozăvești (931, -1147) "cars are driving in the fence", (603, -877) "car drives on the tram station" | a one-way carriageway narrowed on its tram side (wL 1.75-3.1 m) kept its lanes starting at the old 3.5 m edge, so the outer lane ran 0.45 m off the asphalt; the lanes now start at the narrowed edge (also for carriageways narrowed at building footprints) |
 | Grozăvești (712, -965) "huge issue", (815, -1042), (81, -32) "fence ... too much into the street" | where a carriageway's side narrows at a node, the wide side's guard stops early and a 1:6 diagonal leads to the narrow one (49 tapers) instead of a sideways corner; the Basarab guards are drawn after all joins |
 | Grozăvești (135, -325), (826, -1050) | the tram-slab railing is dropped only where a road guard stands within 0.7 m (a true duplicate) |
+| Grozăvești (1118, -1284) "right is shorter than left" | Street View on Șos. Nicolae Titulescu (44.45172, 26.07131 and 44.45225, 26.07211): the trams ride beside the road ramp's embankment about 1.5 m up where the rail bridge ways end, then at street level. The tram descent now ends where the source rail bridge ends (190 m, like the road ramp beside it) instead of 130 m further on the at-grade track, so both tracks are at street level along Titulescu with no ramp or railing there |
+| Grozăvești (194, -453) "why is it like that?" | Street View at 44.44529, 26.06167: the Orhideelor entry ramp passes under the Basarab viaduct about 1 m above the street behind a concrete barrier and climbs after it. An approach under another deck is now held at most 1 m up there (was the deck's clearance, 5.2 m on a sloped bank); the ramp passes at about 2 m on its retaining wall and climbs at up to 8 % |
 | chat bubble too high | a walker's bubble sits 0.25 m above the head (scaled with the walker), was a fixed 2.4 m |
 | office windows break up close | the live window view renders at up to 4096 px (4 MP) on Ultra / High, was 2048 px (1 MP) |
 | #67 Bellevue walkers frozen (live: 65 of 114 moved under 1 m in 60 s) | a walker stuck 2.5 s on a crossing turns back, and if stuck again relocates; a walker in recovery mode stuck 3 s leaves the road or resumes its route (the earlier 55ca854d rule never fired for walkers in recovery) |

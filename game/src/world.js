@@ -1408,7 +1408,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             // An approach can run below another deck before its own bridge starts. Extending its climb must preserve
             // that overhead clearance too (the unnamed Basarab entry runs beside / below the through viaduct).
             // Carry the cap back and forward at the same grade as the ground cone, rather than adding a local step.
-            const overhead = new Map();
+            const overhead = new Map(), UNDER_DECK_MAX_M = 1;
             for (const e of elig) {
                 const steps = Math.max(1, Math.ceil(e.len / 2));
                 for (let i = 0; i <= steps; i++) for (const off of [0, e.wR + shoulderOf(e), -e.wL - shoulderOf(e)]) {
@@ -1419,7 +1419,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                         if (q.t <= 0.01 || q.t >= 0.99 || q.d > (side > 0 ? f.wR : f.wL) + shoulderOf(f) + 0.25) return;
                         const he = e.a.y + (e.b.y - e.a.y) * t, hf = f.a.y + (f.b.y - f.a.y) * q.t;
                         if (hf < CLEAR_MIN || he >= hf || he <= hf - CLEAR_MIN) return;
-                        for (const n of [e.a, e.b]) overhead.set(n, Math.min(overhead.get(n) ?? Infinity, hf - CLEAR_MIN));
+                        // (owner, 2026-11-12, Grozavesti (194, -453) "why is it like that?"; Street View at 44.44529, 26.06167: the Orhideelor
+                        // entry ramp passes under the Basarab viaduct about 1 m above the street, behind a concrete barrier, and climbs
+                        // after it) an approach under another deck stays low there (at most 1 m), not just below its clearance
+                        for (const n of [e.a, e.b]) overhead.set(n, Math.min(overhead.get(n) ?? Infinity, hf - CLEAR_MIN, UNDER_DECK_MAX_M));
                     });
                 }
             }

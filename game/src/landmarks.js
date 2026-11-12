@@ -3618,10 +3618,10 @@ function bAntipa(b) {
 function bCatargiu(b) {
     const base = [[-0.6,-4],[-3.9,0.9],[0.5,4],[3.9,-0.9]], k = (f) => base.map(([x, z]) => [x * f, z * f]);
     const ST = '#bdb5a6', ST2 = '#cbc3b4', BR = '#4b4a3d';
-    b.prism(k(1), 0, 0.45, ST); b.prism(k(0.78), 0.45, 0.9, ST); b.prism(k(0.5), 0.9, 1.5, ST2);
-    b.prism(k(0.4), 1.5, 5.2, ST2); b.cornice(k(0.4), 5.2, 0.3, 0.2, ST);
+    b.prism(k(1), 0, 0.45, ST); b.prism(k(0.78), 0.45, 0.9, ST); b.prism(k(0.36), 0.9, 1.5, ST2);
+    b.prism(k(0.28), 1.5, 5.2, ST2); b.cornice(k(0.28), 5.2, 0.3, 0.18, ST); // slim shaft: Street View from Bd. Lascăr Catargiu 22 (2026-11-12)
     b.cyl(0, 5.5, 0, 0.36, 0.52, 2.3, BR, 8); b.box(0, 7.55, 0, 1.0, 0.5, 0.55, BR, { ry: 0.6 }); b.sphere(0, 8.4, 0, 0.3, BR, { detail: 0 });
-    b.colPolygon(k(0.8), { y1: 5 }); b.grounds.push(k(1.7)); // no tree crown through the figure
+    b.colPolygon(k(0.8), { y1: 5 }); b.grounds.push(k(2.3)); // the open traffic island (Street View): no tree crown through the figure
 }
 
 // Fântâna Arteziană Arthur Verona (Str. Pictor Arthur Verona, beside Bd. Magheru): decorative round basin.

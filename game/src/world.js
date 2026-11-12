@@ -2811,6 +2811,15 @@ export async function buildWorld(city, renderer, opts = {}) {
     let underpassOwners = combineUnderpassWaterOwners(underpassGroundOwners, buildUnderpassOwnerIndex(underpassRegions.length ?
         [...cells].map(([key, c]) => ({ mesh: c.water, id: 'water:' + key, water: true })) : [], underpassOwnerOptions));
     const deferredUnderpassDown = [], coveredWater = projectCoveredWater(city, { us: US });
+    // shared underpass hall (2026-11-12 fidelity pass): roofed tram-station pieces and the deep covered carriageways beside them
+    const tramHallPieces = []; let hallRoads = null;
+    const sharedHallTram = (x, z, ox, oz) => { let best = null;
+        for (const p of tramHallPieces) { const dx = p.b[0] - p.a[0], dz = p.b[1] - p.a[1], L2 = dx * dx + dz * dz || 1, t = ((x - p.a[0]) * dx + (z - p.a[1]) * dz) / L2; if (t < -.1 || t > 1.1) continue;
+            const d = (p.a[0] + dx * t - x) * ox + (p.a[1] + dz * t - z) * oz; if (d > .5 && d < 12 && (!best || d - p.half < best.gap)) best = { gap: d - p.half }; }
+        return best; };
+    const sharedHallRoad = (x, z, ox, oz) => { hallRoads = hallRoads || edges.filter(e => e.tunnel && !e.virtual && !e.coveredRoadModel && Math.min(e.ya, e.yb) < -4.2);
+        return hallRoads.some(e => { const t = (x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz; if (t < -1 || t > e.len + 1) return false;
+            const d = (e.a.x + e.dirx * t - x) * ox + (e.a.z + e.dirz * t - z) * oz; return d > .5 && d < 12 && e.ya + (e.yb - e.ya) * clamp(t / e.len, 0, 1) < -4.2; }); };
     // (owner register #59, SeaTac: "barrier pieces read broken") where two sunken ramps part, each one's trench wall and
     // rim parapet ran on through the other's carriageway (an X of walls at the gore). A trench wall stops where its line
     // lies on another road's carriageway — not the same road's own continuation (that is the wall going on).
@@ -2892,7 +2901,27 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const a = wallStations[k - 1], b = wallStations[k], mid = (a + b) / 2;
                 const covered = closedRoof && mid >= roof.span[0] && mid <= roof.span[1];
                 const top = t => covered ? roof.ceilingAt(t) : .4;
-                for (const [o, sgn] of [[wr, -1], [-wl, 1]]) for (const [a2, b2] of sideRuns ? clipRuns(sideRuns.get(o), a, b) : [[a, b]]) sb.face4(roofPoint(a2, o, Math.min(yA + (yB - yA) * a2, 0)), roofPoint(b2, o, Math.min(yA + (yB - yA) * b2, 0)), roofPoint(b2, o, top(b2)), roofPoint(a2, o, top(a2)), conc, [e.nx * sgn, 0, e.nz * sgn]);
+                for (const [o, sgn] of [[wr, -1], [-wl, 1]]) for (const [a2, b2] of sideRuns ? clipRuns(sideRuns.get(o), a, b) : [[a, b]]) {
+                    const yf = t => Math.min(yA + (yB - yA) * t, 0), pm = roofPoint((a2 + b2) / 2, o, 0);
+                    const hall = covered ? sharedHallTram(pm[0], pm[2], -e.nx * sgn, -e.nz * sgn) : null;
+                    if (!hall) { sb.face4(roofPoint(a2, o, yf(a2)), roofPoint(b2, o, yf(b2)), roofPoint(b2, o, top(b2)), roofPoint(a2, o, top(a2)), conc, [e.nx * sgn, 0, e.nz * sgn]); continue; }
+                    // shared hall (2026-11-12 fidelity pass, Pasajul Victoria): a covered carriageway beside the roofed tram
+                    // station is one hall in reality — a raised platform strip and a pier row instead of a wall (estimated sizes)
+                    const so = Math.sign(o), o2 = o + so * Math.max(0, hall.gap), pf = .25, up = [0, 1, 0], inn = [e.nx * sgn, 0, e.nz * sgn];
+                    sb.face4(roofPoint(a2, o, yf(a2)), roofPoint(b2, o, yf(b2)), roofPoint(b2, o, yf(b2) + pf), roofPoint(a2, o, yf(a2) + pf), conc, inn);
+                    sb.face4(roofPoint(a2, o, yf(a2) + pf), roofPoint(b2, o, yf(b2) + pf), roofPoint(b2, o2, yf(b2) + pf), roofPoint(a2, o2, yf(a2) + pf), conc, up);
+                    sb.face4(roofPoint(a2, o, top(a2)), roofPoint(b2, o, top(b2)), roofPoint(b2, o2, top(b2)), roofPoint(a2, o2, top(a2)), dark, [0, -1, 0]);
+                    for (const nrm of [[-inn[0], 0, -inn[2]], inn]) sb.face4(roofPoint(a2, o2, top(a2)), roofPoint(b2, o2, top(b2)), roofPoint(b2, o2, -.02), roofPoint(a2, o2, -.02), dark, nrm); // soffit step up to the tram roof
+                    if (a2 <= .5 && b2 >= .5 && hall.gap > .9) {
+                        const dt = Math.min(1.3, e.len * .3) / e.len, t0 = .5 - dt, t1 = .5 + dt, p0 = o + so * .25, p1 = o + so * Math.min(hall.gap, 1.45), red = rgb('#c23a2e');
+                        const q = (t, off, y) => roofPoint(t, off, y), along = [e.dirx, 0, e.dirz], back = [-e.dirx, 0, -e.dirz], out = [-inn[0], 0, -inn[2]];
+                        sb.face4(q(t0, p0, yf(t0) + pf), q(t1, p0, yf(t1) + pf), q(t1, p0, top(t1)), q(t0, p0, top(t0)), conc, inn);
+                        sb.face4(q(t0, p1, yf(t0) + pf), q(t1, p1, yf(t1) + pf), q(t1, p1, top(t1)), q(t0, p1, top(t0)), conc, out);
+                        sb.face4(q(t0, p0, yf(t0) + pf), q(t0, p1, yf(t0) + pf), q(t0, p1, top(t0)), q(t0, p0, top(t0)), conc, back);
+                        sb.face4(q(t1, p0, yf(t1) + pf), q(t1, p1, yf(t1) + pf), q(t1, p1, top(t1)), q(t1, p0, top(t1)), conc, along);
+                        const pb = o + so * .22; sb.face4(q(t0, pb, yf(t0) + pf + .35), q(t1, pb, yf(t1) + pf + .35), q(t1, pb, yf(t1) + pf + .8), q(t0, pb, yf(t0) + pf + .8), red, inn); // warning band on the pier foot
+                    }
+                }
             }
             // parapet on the trench rim where the collision wall stands above street level (to 1.0 m; play-test note 46: the
             // 1 m trench wall beside Bd. Iancu de Hunedoara was invisible from the street side) — open / uncovered part only
@@ -3694,12 +3723,14 @@ export async function buildWorld(city, renderer, opts = {}) {
                     if (Math.min(y0, y1) < -1e-6) {
                         // Estimated retaining sides follow the actual source
                         // centreline; only the closed station section is roofed.
+                        if (piece.roof) tramHallPieces.push({ a, b, half: grade.deckHalfWidthM });
                         const upper = piece.roof ? piece.roof.bottomM : 0, sides = quad(grade.deckHalfWidthM, Math.max(Y.ballast + y0, upper), Math.max(Y.ballast + y1, upper));
                         for (const [n, k, sign] of [[0, 1, -1], [2, 3, 1]]) {
                           for (const [lo, hi] of uncoveredTramTrenchWall(top[n], top[k], [-nx * sign, -nz * sign], tramGrades.support, grade.modelId)) {
                             const interpolate = (p, q, t) => p.map((v, j) => v + (q[j] - v) * t), A = interpolate(top[n], top[k], lo), B = interpolate(top[n], top[k], hi), U = interpolate(sides[n], sides[k], lo), V = interpolate(sides[n], sides[k], hi);
-                            c.solid.face4(A, B, V, U, rgb('#888982'), [nx * sign, 0, nz * sign]);
                             const mx = (A[0] + B[0]) / 2, mz = (A[2] + B[2]) / 2;
+                            // (shared hall: beside a deep covered carriageway the roofed station has a pier row, not a wall; the collision wall stays)
+                            if (!(piece.roof && (sharedHallRoad(mx, mz, nx, nz) || sharedHallRoad(mx, mz, -nx, -nz)))) c.solid.face4(A, B, V, U, rgb('#888982'), [nx * sign, 0, nz * sign]);
                             walls.push({ wall: true, ax: A[0], az: A[2], bx: B[0], bz: B[2], y0a: A[1], y0b: B[1], y1a: U[1], y1b: V[1],
                                 nx: nx * sign, nz: nz * sign, kind: 'source-tram-trench', edge: null, sourceId: data.tramSources[run].sourceId,
                                 sourceSegment: grade.sourceSegment, modelId: grade.modelId, estimated: true, elevationSource: grade.basis,
@@ -3807,10 +3838,15 @@ export async function buildWorld(city, renderer, opts = {}) {
     //      beside it, or tourism=* on the building's own source tags) or a fuel station names its building; and a US hotel is a
     //      windowed block, not the windowless 'plain' shed / glass 'shop' row the US style fallback gives untagged footprints.
     {
-        const kindOf = (p) => data.poiKinds?.[p[0]], q = data.q || 10, lodging = new Map(), fuel = new Map();
+        const kindOf = (p) => data.poiKinds?.[p[0]], q = data.q || 10, lodging = new Map(), fuel = new Map(), museums = new Map();
         const norm = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
         for (const p of data.pois || []) {
-            const k = kindOf(p); if (k !== 'hotel' && k !== 'fuel') continue;
+            const k = kindOf(p); if (k !== 'hotel' && k !== 'fuel') {
+                // (Romană: Muzeul Țăranului Român was signed "Cinema Muzeul Țăranului") a museum POI attached to a building that is
+                // signed with another POI's name names it; a building without a POI sign keeps its own name
+                if (k === 'landmark' && str(p[5]) === 'museum' && p[6] >= 0 && str(p[3]) && !museums.has(p[6])) museums.set(p[6], str(p[3]));
+                continue;
+            }
             const brand = str(p[4]), name = str(p[3]); let i = p[6];
             if (i < 0 && k === 'hotel') { // not attached by the build: the building beside it that already carries its name
                 let best = 60; for (const b of bRecs) { const n = norm(b.name); if (!n || (n !== norm(brand) && n !== norm(name))) continue; const d = Math.hypot(b.c[0] - p[1] / q, b.c[1] - p[2] / q); if (d < best) { best = d; i = b.i; } }
@@ -3819,6 +3855,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         for (const b of bRecs) { const t = data.buildingSourceTags?.[b.sourceId]; if (t && /^(hotel|motel|hostel|guest_house)$/.test(t.tourism || '') && !lodging.has(b.i)) lodging.set(b.i, { text: t.brand || t.name || '', brand: !!t.brand }); }
         for (const [i, s] of fuel) { const b = bRecs[i]; if (b && s.text && !lodging.has(i)) { b.name = s.text; b.flags |= 2 | (s.brand ? 8 : 0); } }
+        for (const [i, text] of museums) { const b = bRecs[i]; if (b && (b.flags & 2) && !lodging.has(i) && !fuel.has(i)) { b.name = text; b.flags &= ~8; } }
         for (const [i, s] of lodging) {
             const b = bRecs[i]; if (!b) continue;
             if (s.text) { b.name = s.text; b.flags |= 2 | (s.brand ? 8 : 0); }

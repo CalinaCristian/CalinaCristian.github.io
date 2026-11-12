@@ -162,6 +162,7 @@ const BUC_DISTRICTS = {
         ],
         circles: [{ lat: 44.569560, lon: 26.077200, r: 200, name: 'otopeni door' }, { lat: 44.556000, lon: 26.070000, r: 110, name: 'otopeni start' }, { lat: 44.569600, lon: 26.077000, r: 120, name: 'otopeni building' }],
         landmarks: ['otp'],
+        dualCarriagewayBarrier: true, // DN1: one concrete barrier between the two carriageways (reference checked 2026-11-12 at 44.5595 / 44.5672 / 44.5687; world.js walls)
         scenery: [], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
         congestion: [ // from game/research/bucharest-otopeni.json traffic.hotspots
             { lat: 44.56200, lon: 26.06970, radius: 400, hours: [[7,  10],  [16.5,  20]], level: 0.65, note: 'DN1 southbound towards Băneasa (Otopeni)' },

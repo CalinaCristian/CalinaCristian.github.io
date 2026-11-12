@@ -59,6 +59,7 @@ import { decodeDistrictMask, buildSourceBoundarySupport, normalizeSourceMapEnds,
 import { FACADE_DETAIL_GLSL } from './facade-detail.js';
 import { subtractConvex } from './building-overlap.js';
 import { emitSeatacGuideway } from './seatac-guideway.js';
+import { buildElevatedSources, planElevatedSources } from './elevated-sources.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -3219,17 +3220,19 @@ export async function buildWorld(city, renderer, opts = {}) {
             const hs = [];
             medianGrid.each(x, z, x, z, d => { if (pointInPolygon(x, z, d.poly)) { const h = d.roofHeightAt(x, z) - Y.road; hs.push(h); (hs.items || (hs.items = [])).push([h, false]); } }); // (a filled median: no guard along it)
             ribGrid.each(x, z, x, z, (rb) => { if (rb.e === own || (rb.e && (rb.e.a === own.a || rb.e.b === own.b || rb.e.a === own.b || rb.e.b === own.a)) || (rb.node && (rb.node === own.a || rb.node === own.b))) return; if (x < rb.x0 || x > rb.x1 || z < rb.z0 || z > rb.z1 || !pointInPolygon(x, z, rb.poly)) return; const h = rb.e ? yAlong(rb.e,x,z) : padHeightAt(rb.node, x, z); hs.push(h); hs.tol = Math.max(hs.tol || 0, rb.e && Math.abs(rb.e.dirx * own.dirx + rb.e.dirz * own.dirz) > 0.85 ? 0 : 1); (hs.items || (hs.items = [])).push([h, rb.e && Math.abs(rb.e.dirx * own.dirx + rb.e.dirz * own.dirz) > 0.85]); }); return hs; };
-        const add = (e, s, off, kind, tFrom, tTo) => {
+        const add = (e, s, offset, kind, tFrom, tTo, force = false) => {
             // sub-divide into ~6 m pieces so the wall can be cut where it would cross another carriageway (junction mouths)
-            const yAtT = (t) => Y.road + yAlong(e,e.a.x+e.dirx*e.len*t+e.nx*off*s,e.a.z+e.dirz*e.len*t+e.nz*off*s);
+            const offAt = typeof offset === 'function' ? offset : () => offset; // (a lateral offset may vary along the edge: the line between two carriageways)
+            const yAtT = (t) => { const off = offAt(t); return Y.road + yAlong(e,e.a.x+e.dirx*e.len*t+e.nx*off*s,e.a.z+e.dirz*e.len*t+e.nz*off*s); };
             // trench walls reach street level (cars up there must not fall in) — except under a tunnel's roof
             const range = (y) => kind === 'rail' ? [y > 2.6 ? y - 2.2 : -1.5, y + 1.1] : kind === 'embank' ? [-1.5, y + 1.1] : kind === 'trench' ? [y - 1.5, (e.lidded || (e.tunnel && y < -4.2)) ? Math.min(1.0, y + 4.6) : 1.0] : [y - 1.0, y + 0.85];
             const n = Math.max(1, Math.ceil((tTo - tFrom) * e.len / (e.sourceBridgeGrade?.known?1.5:3)));
             let last = null;
             for (let k = 0; k < n; k++) {
                 const t0 = tFrom + (tTo - tFrom) * k / n, t1 = tFrom + (tTo - tFrom) * (k + 1) / n;
-                let ax = e.a.x + e.dirx * e.len * t0 + e.nx * off * s, az = e.a.z + e.dirz * e.len * t0 + e.nz * off * s;
-                let bx = e.a.x + e.dirx * e.len * t1 + e.nx * off * s, bz = e.a.z + e.dirz * e.len * t1 + e.nz * off * s;
+                const offA = offAt(t0), offB = offAt(t1);
+                let ax = e.a.x + e.dirx * e.len * t0 + e.nx * offA * s, az = e.a.z + e.dirz * e.len * t0 + e.nz * offA * s;
+                let bx = e.a.x + e.dirx * e.len * t1 + e.nx * offB * s, bz = e.a.z + e.dirz * e.len * t1 + e.nz * offB * s;
                 const mx = (ax + bx) / 2, mz = (az + bz) / 2, ym = yAtT((t0 + t1) / 2) - Y.road;
                 // another road continues the surface just beyond the wall at the same level (junction mouth, merging
                 // ramp, the adjacent carriageway): leave it open. A road at a different level (a ramp diving next to a
@@ -3239,7 +3242,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const px = ax + (bx - ax) * f + e.nx * s * o, pz = az + (bz - az) * f + e.nz * s * o;
                     const yy = yAtT(t0 + (t1 - t0) * f) - Y.road; open = (surfaceAt(px, pz, e).items || []).some(([h, par]) => Math.abs(h - yy) < (par ? 0.3 : 0.45));
                 }
-                if (open || (kind === 'trench' && (onOtherCarriageway(e, mx, mz) || sharedTrenchSide(e, mx, mz, e.nx * s, e.nz * s, ym)))) { last = null; continue; } // (#59: no trench wall across the other ramp at a gore; one shared wall between two sunken ramps)
+                if ((open && !force) || (kind === 'trench' && (onOtherCarriageway(e, mx, mz) || sharedTrenchSide(e, mx, mz, e.nx * s, e.nz * s, ym)))) { last = null; continue; } // (#59: no trench wall across the other ramp at a gore; one shared wall between two sunken ramps)
                 const ra = range(yAtT(t0)), rbb = range(yAtT(t1));
                 if (kind === 'rail' && tramGrades.excludesInferredObstacle([ax, az], [bx, bz], { inferred: true, y0a: ra[0], y1a: ra[1], y0b: rbb[0], y1b: rbb[1], kind: 'bridge-guard-collision', sourceId: data.roadSourceGeometry?.[e.road]?.sourceId })) { last = null; continue; }
                 let skirtRaised = false;
@@ -3300,6 +3303,32 @@ export async function buildWorld(city, renderer, opts = {}) {
                 add(e, 1, e.laneCenterShiftM || 0, 'guard', t0, t1);
                 for (let i = first; i < walls.length; i++) walls[i].generatedMedian = true;
             }
+            // (fidelity pass 2026-11-12, Otopeni: DN1 was six lanes of open asphalt) a dual carriageway mapped as two one-way
+            // trunk / motorway ways whose ribbons meet has no reservation for the rule above, and the side guards take the
+            // other carriageway for a road that continues the surface. One concrete barrier stands on the line between the
+            // two (reference checked on DN1 at 44.5595 / 44.5672 / 44.5687: a continuous New Jersey barrier). A district
+            // opts in (cities.js `dualCarriagewayBarrier`); only the carriageway heading north / east emits it, and junction
+            // mouths or median openings are cut by the lane rule below like any other guard.
+            if (distCfg?.dualCarriagewayBarrier && /^(motorway|trunk)$/.test(e.type) && e.oneway && !e.bridge && !e.tunnel && e.dirx * 0.001 - e.dirz > 0 && Math.abs(yA) < 0.35 && Math.abs(yB) < 0.35) {
+                const n = Math.max(1, Math.ceil(e.len / 15)), wE = widthAsphalt(e, -1), offs = [];
+                for (let k = 0; k <= n; k++) {
+                    const tm = k / n, px = e.a.x + e.dirx * e.len * tm, pz = e.a.z + e.dirz * e.len * tm; let off = null;
+                    edgeGrid.each(px - 30, pz - 30, px + 30, pz + 30, (f) => {
+                        if (f === e || f.virtual || !f.oneway || f.bridge || f.tunnel || !/^(motorway|trunk)$/.test(f.type) || e.dirx * f.dirx + e.dirz * f.dirz > -0.9) return;
+                        const q = distPointSeg(px, pz, f.a.x, f.a.z, f.b.x, f.b.z), wF = widthAsphalt(f, -1);
+                        if (Math.abs((q.cx - px) * e.dirx + (q.cz - pz) * e.dirz) > 2 || (q.cx - px) * e.nx + (q.cz - pz) * e.nz >= 0) return; // (abreast of this point, on its left)
+                        if (q.d - wE - wF < 0.7) { const v = q.d * wE / (wE + wF); if (off === null || v < off) off = v; }
+                    });
+                    offs.push(off);
+                }
+                const offAt = (t) => { const u = clamp(t * n, 0, n), k = Math.min(n - 1, Math.floor(u)), a = offs[k], b = offs[k + 1]; return a + (b - a) * (u - k); };
+                for (let k = 0; k < n; k++) {
+                    if (offs[k] === null) continue; let m = k; while (m < n && offs[m + 1] !== null) m++; if (m === k) continue; // a run of sampled stations with the other carriageway abreast
+                    const first = walls.length; add(e, -1, offAt, 'guard', k / n, m / n, true);
+                    for (let i = first; i < walls.length; i++) walls[i].generatedMedian = walls[i].dualMedian = true;
+                    k = m;
+                }
+            }
         }
         // final rule: no wall piece may stand on another carriageway / junction pad at its own height band (junction
         // mouths, merging ramps, overlapping ribbons stay open). Walls are cut into 1.5 m pieces and re-joined.
@@ -3308,6 +3337,13 @@ export async function buildWorld(city, renderer, opts = {}) {
             let hit = false;
             ribGrid.each(x - 0.6, z - 0.6, x + 0.6, z + 0.6, (rb) => {
                 if (hit || (w.edge && rb.e === w.edge)) return;
+                if (w.dualMedian) { // the barrier between two carriageways: their shoulders lap its line; only a road that crosses the median opens it
+                    if (rb.e && rb.e.oneway && /^(motorway|trunk)$/.test(rb.e.type) && Math.abs(w.edge.dirx * rb.e.dirx + w.edge.dirz * rb.e.dirz) > 0.9) return;
+                    if (rb.node) {
+                        const sg = rb.node === w.edge.a || rb.node === w.edge.b ? -1 : 1; // (own junction: a branch to the left; the other carriageway's: a branch towards this one)
+                        if (!(rb.node.allEdges || rb.node.edges).some(g => { if (g.virtual) return false; const o = g.a === rb.node ? g.b : g.a, vx = o.x - rb.node.x, vz = o.z - rb.node.z; return sg * (vx * w.edge.nx + vz * w.edge.nz) / (Math.hypot(vx, vz) || 1) > 0.35; })) return;
+                    }
+                }
                 if (!w.edge) {
                     // Source rail compartments have no fabricated motor edge.
                     // Audit their actual vertical band against the road body.
@@ -6025,7 +6061,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         return best;
     };
     const treeBuildingClearance = { narrowed: 0, skipped: 0, mapped: 0 };
+    const elevatedDataset = `${city.id}-${distId}`, elevatedPlan = planElevatedSources(data, undelta, elevatedDataset); // rail viaduct / footbridge decks: no tree or inferred lamp grows through them
     const placeTree = (x, z, s, kind, con = null, dec = null, opt = {}) => {
+        if (elevatedPlan.decks && elevatedPlan.under(x, z, 1.5)) { elevatedPlan.skipped.trees++; return false; }
         // Mapped/measured crowns arrive first as 'osm'. Where a canopy survey
         // actually covers the ground, do not fill its lawns/gaps with invented trees.
         if (kind !== 'osm' && measuredCanopyAt(x, z)) return false;
@@ -6171,6 +6209,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // the height of its parent edge's profile while standing beside it (the floating / sunk lamps of review #19b)
     const standY = (x, z, y) => { const rt = raisedTop(x, z, 0.2); if (rt !== null) return rt; let best = 0.15, bd = Math.abs(y - 0.15); surfacesAt(x, z, (h, raised) => { const v = raised ? h : h - Y.road + 0.15, d = Math.abs(v - y); if (d < bd) { bd = d; best = v; } }); return best; }; // (a raised sidewalk wins)
     const addLamp = (l) => { if (nearWater(l.x, l.z, 1.5)) { lampsWet++; return; } l.y = standY(l.x, l.z, l.y);
+        if (l.osm === false && elevatedPlan.decks && elevatedPlan.under(l.x, l.z, 2.2)) { elevatedPlan.skipped.lamps++; return; } // (the 8 m mast and its arm would stand through the deck)
         if (l.osm === false && tramPropEnvelope && tramGrades.excludesInferredObstacle([l.x, l.z], [l.x, l.z], { inferred: true, bodyEnvelope: tramPropEnvelope, radiusM: .18, y0a: l.y, y1a: l.y + l.h, kind: 'inferred-street-lamp' })) return;
         if (l.osm === false && sweptOut('street-lamp', tramSweep?.circle(l.x, l.z, .18, 0, 3))) return; // (its collider spans 0-3 m)
         lamps.push(l); lampGrid.insert(l.x, l.z, l.x, l.z, l); addPropColl(l.x, l.z, 0.18, 'lamp'); Object.assign(propColl.at(-1), { mapped: l.osm === true, inferred: l.osm === false }); };
@@ -7055,6 +7094,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (emitted) railStats.renderedWays++;
     }
     railStats.renderedMetres = Math.round(railStats.renderedMetres);
+    // Elevated source structures the road builder does not own: rail viaducts (bridge-tagged data.railways) and footbridges
+    // (footbridge-sources.js). Geometry, estimates and the rule for supports: elevated-sources.js.
+    const elevatedSources = buildElevatedSources(data, { cellOf, undelta, surfacesAt, addPropColl, roadY: Y.road, tramSweep, plan: elevatedPlan, dataset: elevatedDataset,
+        visible: (x, z, len) => !ringGeometry || sceneryMargin(x, z) <= (distCfg?.outerRing ?? 600) + len / 2,
+        overTrunk: (x, z) => { const q = nearestEdge(x, z, e => /^(motorway|trunk)$/.test(e.type) && !e.virtual, 40); return !!q && q.d < q.edge.halfW + 1.5; } });
     const touchesDetailedRing = (x, z, w, d) => realPass && ringGeometry && sceneryMargin(x, z) <= (distCfg?.outerRing ?? 600) + Math.hypot(w, d) / 2;
     {
         const bd = data.backdrop || [], pal = PALETTES[country];
@@ -7495,6 +7539,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.trenchGoreCuts = trenchGoreCuts; // (#59: trench wall sides stopped at another sunken ramp)
     stats.buildingOverlapCuts = overlapCuts; // (world-space basin outlines: audits of what stands in or over them)
     stats.bridgeGuardCompletion = guardCompletion;
+    stats.elevatedSources = elevatedSources.report;
     stats.basarabLamps = basarabLamps;
     stats.barrierJoins = walls.barrierJoins || null;
     stats.coveredRoadModels = coveredRoadModels.report;

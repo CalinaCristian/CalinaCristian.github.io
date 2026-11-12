@@ -310,6 +310,30 @@ Culture notes:
 29. Wizz Air pink/purple tails dominate the apron.
 30. Gloria Jean's, Fornetti, Carrefour Express inside the terminal.
 
+## Fidelity pass 2026-11-12 (live OSM + street-level review)
+
+Live OSM (Overpass, 2026-11-12, bbox 44.5524,26.0645 – 44.5729,26.0820) decides position and kind; the street-level panoramas were looked at for appearance only (nothing stored or traced). Game views: `game/dev/reality/viewpoints.json` (`otp-*`).
+
+Structures
+
+- **CFR airport railway viaduct** (w681892716 bridge / layer 1, w681892717 / w681892718 / w1474519622 / w1474519623 layer 2; all `height=5`, `min_height=5`). Crosses DN1 at about 44.5678, 26.0698, curves north-east and then runs above the airport access road to the station. Reference at 44.56716, 26.06980 (looking north) and 44.56877, 26.07244 (under it): a steel trough girder with vertical stiffeners and a railing on top, on concrete wall piers; the span over DN1 is painted green, the girders along the access road are light grey; the deck is directly above the access road for a long stretch, its piers beside the carriageway. The game drew nothing here. Now built from `data.railways` (`game/src/elevated-sources.js`): soffit = OSM `min_height`; deck width 6.5 m, girder depth 2.2 m and pier spacing 24 m are estimates; piers never stand on a carriageway (a portal or an offset column carries a crosshead where the road runs under the deck).
+- **Footbridges over DN1**: w1051337378 (44.55417, 26.06919; steps w1051337377 / w1051337379), w433374768 at the ICSITMUA bus stops (44.56023, 26.06939; steps w433374755 / w433374760, `surface=metal`), w319077395 by Casa Românească (44.56941, 26.06987; steps w319077386 / w319077400, `step_count=16`). Reference at 44.55949, 26.06944 and 44.56865, 26.06990: steel truss footbridges, a stair flight at each end, both sides of the span covered by advertising banners. The game had none. Now built from `game/src/footbridge-sources.js` (written by `tools/osm/add-footbridges.mjs` from the OSM ways); 5.5 m clearance, 2.6 m deck and 2.4 m truss are estimates; the side panels are blank (no advertising text is invented). The decks are scenery: they cannot be walked.
+- **DN1 central barrier**: reference at 44.5595, 44.5672 and 44.5687: one continuous concrete New Jersey barrier between the two carriageways, three lanes each way (OSM `lanes=3`), no guard rail on the kerb side in town. The game had six lanes of open asphalt wherever a side street joins. Now one barrier on the line between the two carriageways (`dualCarriagewayBarrier` in `cities.js`, rule in `world.js`).
+- **DN1 flyover at the airport junction** (w39728276 / w313002848, bridge, layer 1, 44.5703 – 44.5717): outside the playable area (the closure stands at about 44.5694); seen only from a distance, not compared at its own pose.
+- **Departures ramp** (w180054678, bridge, layer 1): present as an elevated road with the terminal landmark. No official panorama exists on the ramp (only user photospheres), so its parapets and the canopy were not compared.
+- **Covered roads and service tunnels** by the station and terminal (w885163907 / w885163908 covered, w1395443535 / w406482207 tunnel layer −1, w406482205 layer −2): present as roads; not compared (no panorama).
+- **M6 metro works** (w1564835985 … w1564835992, `highway/railway=construction`, tunnel): under construction, nothing visible above ground except the hoardings; not built.
+
+Businesses (DN1 corridor, both sides, south to north; all present in the game on the right building unless noted)
+
+- East: Romstal (w219767593), Mega Image (w312547018), Ferremo Trendy (w259171763), Gazprom + shop (w918040928 / w918040927), Ramada (w259171710), Rompetrol + hei (w312547071 / w918040920), Ibis Styles (w918040921), Parking Autopeni (w936804565), OMV + Viva (w244429098 / w244429094).
+- West: Cris Garden Plaza (w259171686), Rompetrol + hei (w918040922 / w918040923), Speli-Singur.ro car wash (w1244020417), RIN Airport Hotel (w336933042), Hotel Otopeni (w413830137), Novomatic Romania (w303678264), Frescia Store / Zoe Auto Rent / Urban Automobile (n12238896056 / n12238896058 / n12238896057), Vienna House Easy (w303678262), Casa Românească hotel and restaurant (w303678255 / w495066823).
+- Differences seen: Ferremo is a three-storey glass and panel showroom (game: five-storey beige block, height 17.7 m is a builder estimate); the Rompetrol stations have an orange and white canopy with the red logo (game: white canopy with blue, because `data.brands.rompetrol` from the business research is `#FFFFFF / #003F8F`; the built-in table in `world.js` has the orange); Vienna House is a white four-storey hotel (game: blue block); Casa Românească is a white villa-style building with a red tile roof (game: grey two-storey block); the forecourts and fields along DN1 are open grass with few trees (game: dense measured / inferred trees).
+- Terminal interior (level 1 / 2 units of the Plecări hall north of 44.5714: Gloria Jean's w1360387415, Buongiorno w1360387418, Relay w1360387425, Aelia w1360387422, ticket desks Qatar / Austrian / HiSky / Menzies / El Al / Wizz / Air Serbia / Etihad / Aer Kraft, Brioche Dorée n4836902823, Left Bank n4836899632, Press One n4836899630) and the Vioara pier units: in OSM, not in the game's POIs (cut at the playable edge); none has a street front.
+- Carrefour Express (n4892173053, 44.56854, 26.07787) is still in live OSM (not in the chain's locator, see the business dossier): not shown.
+
+Sports / water: no water body or fountain inside the district; pitch w1244012657, tennis w1244012659 and the Water Park Otopeni pools (r3149817, w233941336, w233941343) are 190 – 390 m outside the playable area and present as areas; the Ramada pool w1322339467 (44.55956, 26.07210, 80 m outside) is not in the data; the Allianz Țiriac Arena ice rink (w703060988) is present as a building.
+
 ## Gaps / to verify
 
 - Terminal facade details pending licensed photos

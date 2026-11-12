@@ -41,7 +41,7 @@ const server = http.createServer((req, res) => {
                         const lower = lowerAt(c.x, c.z, b.seat - 1.5); if (lower.length) failures.push({ i, type: 'column-on-lower-surface', x: c.x, z: c.z, lower });
                         if (k) maxSpan = Math.max(maxSpan, c.o - b.columns[k - 1].o);
                     }
-                    if (b.columns.length && (b.columns[0].o - b.deckLo > M.maxCantileverM + 1e-6 || b.deckHi - b.columns[b.columns.length - 1].o > M.maxCantileverM + 1e-6)) failures.push({ i, type: 'cantilever' });
+                    { const cant = W.stats.bridgeBents.wideFrame?.maxCantileverM ?? M.maxCantileverM; if (b.columns.length && (b.columns[0].o - b.deckLo > cant + 1e-6 || b.deckHi - b.columns[b.columns.length - 1].o > cant + 1e-6)) failures.push({ i, type: 'cantilever' }); } // (a district may allow a wider frame where the plain one cannot stand: planner.wideFrame)
                     for (let o = b.lo + .4; o <= b.hi - .4; o += 1) { const [x, z] = at(o); for (const h of lowerAt(x, z, b.seat - 1.5)) { minClearance = Math.min(minClearance, b.soffit - h); if (b.soffit - h < M.roadClearanceM - .3) failures.push({ i, type: 'crosshead-clearance', x, z, clearance: b.soffit - h }); } }
                 } else {
                     for (let o = b.lo + .5; o <= b.hi - .5; o += 1) { const [x, z] = at(o); if (W.isWater(x, z) || lowerAt(x, z, b.seat - 1.5).length) failures.push({ i, type: 'wall-on-surface', x, z }); }
@@ -61,7 +61,7 @@ const server = http.createServer((req, res) => {
         }, { city, district });
         fs.writeFileSync(path.join(out, `${city}-${district}.json`), JSON.stringify({ root, method: 'Built district world facts; RAF disabled; no visual, journey or performance claim.', ...report, errors }, null, 2));
         assert.deepEqual(errors, []); assert.deepEqual(report.failures, []);
-        assert.equal(report.piers, report.expectedPiers); assert.ok(report.maxColumnSpanM <= 26 + 1e-6);
+        assert.equal(report.piers, report.expectedPiers); assert.ok(report.maxColumnSpanM <= (report.planner.wideFrame?.maxSpanM ?? 26) + 1e-6);
         if (district === 'grozavesti') {
             assert.ok(report.bents >= 60, 'bents ' + report.bents); assert.ok(report.planner.slotInfill.quads + (report.medianFill?.quads || 0) >= 60, 'slot infill + median fill'); // (2026-11-11: carriageway pairs moved to the median fill, built before the guards)
             assert.ok(report.planner.carriedBySuperstructure >= 30, 'stations left to the stays and the arch');

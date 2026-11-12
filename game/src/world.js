@@ -4681,7 +4681,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             soffitAt: (e, x, z) => { if (e.railDeck) return e.railDeck.minHeightAt(x, z); const y = yAlong(e, x, z); return y + Y.road - Math.min(1.1, Math.max(.05, y)); },
             eachEdge: (x0, z0, x1, z1, cb) => { edgeGrid.each(x0, z0, x1, z1, cb); railEdgeGrid.each(x0, z0, x1, z1, cb); },
             columnFree, lowerSurface, carried,
-            model: basarabDistrict ? { ...BENT_MODEL, wideFrame: { maxCantileverM: 16, straddleM: 9, maxSpanM: 32 } } : BENT_MODEL, // (Basarab only: the other districts keep the frames they were reviewed with)
+            model: basarabDistrict ? { ...BENT_MODEL, wideFrame: { maxCantileverM: 12, straddleM: 9, maxSpanM: 32 } } : BENT_MODEL, // (Basarab only: the other districts keep the frames they were reviewed with)
         });
         // a single-deck fallback pier (hammerhead) must keep out of a tram's swept body like every generated structure.
         // (owner, 2026-11-12, Grozavesti (591, -854): "some pillars need to be added ... huge spots where there's no support";
@@ -4931,7 +4931,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const guardBeside = (x, z, y, reach = 1.4, tx = null, tz = null) => { let hit = false; guardGrid.each(x, z, x, z, w => { if (hit) return; const dx = w.bx - w.ax, dz = w.bz - w.az, t = clamp(((x - w.ax) * dx + (z - w.az) * dz) / (dx * dx + dz * dz || 1), 0, 1); if (tx !== null && Math.abs(dx * tx + dz * tz) / (Math.hypot(dx, dz) || 1) > .985) return; if (Math.hypot(x - w.ax - dx * t, z - w.az - dz * t) < reach && w.y1a + (w.y1b - w.y1a) * t >= y + .6 && w.y0a + (w.y0b - w.y0a) * t <= y + .3) hit = true; }); return hit; };
         // is the railing line of slab side A -> B, k m outboard, on a carriageway beside the slab (one from 6 m below its top to 1.5 m above)
         const onRoadLine = (A, B, ux, uz, k) => [0, .5, 1].some(f => { const x = A[0] + (B[0] - A[0]) * f + ux * k, z = A[2] + (B[2] - A[2]) * f + uz * k, y = A[1] + (B[1] - A[1]) * f - Y.road; let hit = false;
-            surfGrid.each(x - .3, z - .3, x + .3, z + .3, o => { if (hit || x < o.x0 - .3 || x > o.x1 + .3 || z < o.z0 - .3 || z > o.z1 + .3) return; const dy = o.h(x, z) - y; if (dy > -6 && dy < 1.5 && (pointInPolygon(x, z, o.poly) || polyDist(x, z, o.poly) < .25)) hit = true; }); return hit; });
+            surfGrid.each(x - .3, z - .3, x + .3, z + .3, o => { if (hit || x < o.x0 - .3 || x > o.x1 + .3 || z < o.z0 - .3 || z > o.z1 + .3) return; const dy = o.h(x, z) - y; if (dy <= -6 || dy >= 1.5) return; const inside = pointInPolygon(x, z, o.poly), d = polyDist(x, z, o.poly); if (inside ? d > .05 && !(k <= 0 && dy < -1.2) : dy > .3 && d < .25) hit = true; }); return hit; }); // (in its lane, unless it stays on the slab edge well above that lane; or right at the edge of a carriageway higher than the slab, where the railing would sink into it)
         const emit = (a, b, ux, uz, out, split = true) => {
             const o = out - .1, A = [a[0] + ux * o, a[1], a[2] + uz * o], B = [b[0] + ux * o, b[1], b[2] + uz * o], len = Math.hypot(B[0] - A[0], B[2] - A[2]); if (len < .6) return;
             // (owner, 2026-11-12, Grozavesti (826, -1050) "what's going on here") the railing as finally placed (outboard) is checked
@@ -4985,7 +4985,12 @@ export async function buildWorld(city, renderer, opts = {}) {
                 for (let k = i; k <= j; k++) {
                     const q = need[k];
                     // the stretch's outboard distance can put this piece in the sweep of a neighbouring track: no railing here
-                    if (sweptAt(q)) { tramRailings.sweptEdgeM += q.len; if (start !== q && k > i) emit(start.A, need[k - 1].B, q.ux, q.uz, out); start = need[k + 1]; continue; }
+                    if (sweptAt(q)) {
+                        if (start !== q && k > i) emit(start.A, need[k - 1].B, q.ux, q.uz, out);
+                        // (a piece the stretch's distance does not suit keeps its own place on the slab edge, when it has one)
+                        if (q.out <= 0 && q.out !== out) emit(q.A, q.B, q.ux, q.uz, q.out); else tramRailings.sweptEdgeM += q.len;
+                        start = need[k + 1]; continue;
+                    }
                     if (!start) start = q;
                     if (out > 0) { // the walkway strip under an outboard railing
                         const mb = cellOf(q.mx, q.mz).solid, A1 = [q.A[0] + q.ux * out, q.A[1], q.A[2] + q.uz * out], B1 = [q.B[0] + q.ux * out, q.B[1], q.B[2] + q.uz * out], dn = v => [v[0], v[1] - .14, v[2]], grate = rgb('#8b8f8e');

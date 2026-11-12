@@ -78,7 +78,7 @@ export function planBridgeBents({ edges, halfWidth, topAt, soffitAt, eachEdge, e
     const M = model, chains = deckChains(edges), owner = new Map();
     for (const c of chains) for (const it of c.items) owner.set(it.e, it);
     const all = (x0, z0, x1, z1, cb) => { for (const e of edges) cb(e); };
-    const near = eachEdge || all, bents = [], report = { chains: chains.length, stations: 0, bents: 0, walls: 0, coveredBySibling: 0, carriedBySuperstructure: 0, noColumn: 0, lowClearance: 0, tooLow: 0, shortChains: 0 };
+    const near = eachEdge || all, bents = [], report = { chains: chains.length, stations: 0, bents: 0, walls: 0, coveredBySibling: 0, carriedBySuperstructure: 0, noColumn: 0, lowClearance: 0, tooLow: 0, shortChains: 0, wideFrame: M.wideFrame || null };
     for (const chain of [...chains].sort((a, b) => b.length - a.length || a.id - b.id)) {
         if (chain.length < M.minChainM) { report.shortChains++; continue; }
         const count = Math.max(1, Math.round(chain.length / M.spacingM)), step = chain.length / count;

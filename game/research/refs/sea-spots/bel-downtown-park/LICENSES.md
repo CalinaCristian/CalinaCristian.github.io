@@ -8,7 +8,7 @@ Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded
 
 ## Vetted candidates not yet fetched
 
-upload.wikimedia.org answered HTTP 429 (Retry-After 600 s, shared egress) — fetch later with `tools/dlrefs.py` logic: download the 1280px thumb, re-encode JPEG ≤400 KB, add a row above.
+upload.wikimedia.org answered HTTP 429 (Retry-After 600 s, shared egress) — to fetch later: download the 1280px thumb, re-encode JPEG ≤400 KB, add a row above.
 
 | Target file | Author | Licence | Commons page | Thumb |
 |---|---|---|---|---|

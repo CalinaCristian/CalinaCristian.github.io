@@ -24,7 +24,7 @@ R11.8 GTS door reachable on Calea Călărașilor; Lukoil Barbu Văcărescu reach
 
 ## Source-rail roadside clearance (2026-11-09)
 
-The inferred roadside compiler preserves each complete mitred lane footprint and all literal/reviewed widths. Only generated outside-lane shoulder, sidewalk-underlay and structural-margin geometry can yield to a known flat source rail's emitted fleet corridor at compatible model heights. It closes newly cut bridge margins and shares those caps with collision. Inferred raised crossing paving is lowered to the shared ground surface, retaining paving and matching walking/surface queries. Separately mapped footways/areas/props, source XY/directions and motor/rail grades remain unchanged. Non-convex protected lanes and mapped dimensions stay unresolved/retained instead of being clipped. See the architecture contract and `game/dev/rail-roadside.test.mjs`; a contact replay is not a native visual or full-path pass.
+The inferred roadside compiler preserves each complete mitred lane footprint and all literal/reviewed widths. Only generated outside-lane shoulder, sidewalk-underlay and structural-margin geometry can yield to a known flat source rail's emitted fleet corridor at compatible model heights. It closes newly cut bridge margins and shares those caps with collision. Inferred raised crossing paving is lowered to the shared ground surface, retaining paving and matching walking/surface queries. Separately mapped footways/areas/props, source XY/directions and motor/rail grades remain unchanged. Non-convex protected lanes and mapped dimensions stay unresolved/retained instead of being clipped. See the architecture contract; a contact replay is not a native visual or full-path pass.
 
 ## Structural bridge pads (2026-11-09)
 

@@ -173,10 +173,25 @@ export function buildSourceBoundarySupport(supports,{bodyRadiusM=SOURCE_DOMAIN_B
         }
         return maskObject({x0,z0,cell:cs,w,h,bits,rle:rle(bits)});
     };
-    const vertex=(mesh,i)=>[...mesh.p.subarray(i*3,i*3+3),...mesh.n.subarray(i*3,i*3+3),...mesh.u.subarray(i*2,i*2+2),...mesh.c.subarray(i*3,i*3+3),mesh.t?.[i]??-1];
+    const vertex=(mesh,i)=>{const p=mesh.p,n=mesh.n,u=mesh.u,c=mesh.c,i3=i*3,i2=i*2;return [p[i3],p[i3+1],p[i3+2],n[i3],n[i3+1],n[i3+2],u[i2],u[i2+1],c[i3],c[i3+1],c[i3+2],mesh.t?.[i]??-1];};
     const triangleOptions=(poly,options)=>options.floorY===undefined?options:{...options,y0:options.floorY-.3,y1:Math.max(options.floorY,...poly.map(v=>v[1]))};
+    // (spec 10 load budget) true when clipPolygon would return mesh triangle a, b, c unchanged because no support
+    // triangle of another owner overlaps its box (the same box, interval and owner test, without building the polygon);
+    // an invalid interval returns false so that clipPolygon raises its error as before
+    const untouched=(mesh,a,b,c,options)=>{
+        const P=mesh.p,ay=P[a*3+1],by=P[b*3+1],cy=P[c*3+1];
+        const y0=options.floorY===undefined?options.y0:options.floorY-.3,y1=options.floorY===undefined?options.y1:Math.max(options.floorY,ay,by,cy);
+        if(!Number.isFinite(y0)||!Number.isFinite(y1)||y1<y0)return false;
+        const owners=options.ownerEdges===undefined?[]:options.ownerEdges,ax=P[a*3],bx=P[b*3],cx=P[c*3],az=P[a*3+2],bz=P[b*3+2],cz=P[c*3+2];
+        const x0=Math.min(ax,bx,cx),x1=Math.max(ax,bx,cx),z0=Math.min(az,bz,cz),z1=Math.max(az,bz,cz);
+        for(let x=Math.floor(x0/CELL);x<=Math.floor(x1/CELL);x++)for(let z=Math.floor(z0/CELL);z<=Math.floor(z1/CELL);z++){
+            const list=grid.get(x+','+z);if(list)for(const t of list)if(t.x0<=x1&&t.x1>=x0&&t.z0<=z1&&t.z1>=z0&&other(t,owners))return false;
+        }
+        return true;
+    };
     const clearMeshRange=(mesh,start,options)=>{
         for(let i=start;i<mesh.ic;i+=3){
+            if(untouched(mesh,mesh.i[i],mesh.i[i+1],mesh.i[i+2],options))continue;
             const poly=[0,1,2].map(j=>vertex(mesh,mesh.i[i+j])),parts=clipPolygon(poly,triangleOptions(poly,options),false);
             if(parts.length!==1||parts[0]!==poly)return false;
         }
@@ -185,7 +200,9 @@ export function buildSourceBoundarySupport(supports,{bodyRadiusM=SOURCE_DOMAIN_B
     const applyMesh=(mesh,start,options)=>{
         const original=Array.from(mesh.i.subarray(start,mesh.ic)),result=[];let changed=false;
         for(let i=0;i<original.length;i+=3){
-            const ids=original.slice(i,i+3),poly=ids.map(id=>vertex(mesh,id)),parts=clipPolygon(poly,triangleOptions(poly,options));
+            const ids=original.slice(i,i+3);
+            if(untouched(mesh,ids[0],ids[1],ids[2],options)){result.push({ids});continue;}
+            const poly=ids.map(id=>vertex(mesh,id)),parts=clipPolygon(poly,triangleOptions(poly,options));
             if(parts.length===1&&parts[0]===poly)result.push({ids});else{changed=true;result.push(...parts.map(poly=>({poly})));}
         }
         if(!changed)return false;

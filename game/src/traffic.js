@@ -3360,10 +3360,16 @@ export class Pedestrians {
     scare(x, z, r) { for (const p of this.near(x, z, r)) if (p.state === 'wait') p.waitT += 2; }
     /** the carriageway (ground level) the point is deepest inside → { e, d, cx, cz, hw } or null (every nearby edge, not just the nearest) */
     roadAt(x, z, margin = 0.4) {
-        const list = this.t.index.near(x, z, 30, this._near || (this._near = []));
+        const list = this.t.index.near(x, z, 30, this._near || (this._near = [])), boxes = this._roadBox || (this._roadBox = new Map());
         let best = null, bp = 0;
         for (const e of list) {
             if (e.tunnel || (e.ya ?? 0) > 1.5 || (e.yb ?? 0) > 1.5) continue;
+            // (spec 10 load budget) the nearest point lies in the edge's bounding box: an axis gap past the wider half width
+            // plus the margin (and 1 µm) cannot be a hit, so that edge is skipped (the static graph's boxes are kept here)
+            let bb = boxes.get(e);
+            if (bb === undefined) { const dist = this.t.world.district, wR = (dist ? e.wR : null) ?? e.halfW ?? 6, wL = (dist ? e.wL : null) ?? e.halfW ?? 6; bb = [Math.min(e.a.x, e.b.x), Math.max(e.a.x, e.b.x), Math.min(e.a.z, e.b.z), Math.max(e.a.z, e.b.z), Math.max(wR, wL)]; boxes.set(e, bb); }
+            const lim = bb[4] + margin + 1e-6;
+            if (bb[0] - x > lim || x - bb[1] > lim || bb[2] - z > lim || z - bb[3] > lim) continue;
             const dx = e.b.x - e.a.x, dz = e.b.z - e.a.z, L2 = dx * dx + dz * dz || 1;
             const t = clamp(((x - e.a.x) * dx + (z - e.a.z) * dz) / L2, 0, 1);
             const cx = e.a.x + dx * t, cz = e.a.z + dz * t, d = Math.hypot(x - cx, z - cz);

@@ -8304,7 +8304,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         /** (realPass districts) top of the raised sidewalk at (x, z) or null — where walkers' feet go (traffic crowd) */
         // Exact-coordinate bounded cache, populated only after construction.
         // Static sidewalk geometry has no time/weather dependence.
-        walkTop: (()=>{const cache=new Map(),keys=new Array(4096);let next=0;return(x,z)=>{const key=x+','+z,cached=cache.get(key);if(cached!==undefined)return cached;const top=raisedTop(x,z);if(keys[next]!==undefined)cache.delete(keys[next]);keys[next]=key;next=(next+1)&4095;cache.set(key,top);return top;};})(),
+        // (cached by x, then z: Map keys compare as the former 'x,z' string keys did; the last 4096 points are kept)
+        walkTop: (()=>{const cache=new Map(),kx=new Float64Array(4096),kz=new Float64Array(4096),used=new Uint8Array(4096);let next=0;return(x,z)=>{let row=cache.get(x);if(row!==undefined){const cached=row.get(z);if(cached!==undefined)return cached;}const top=raisedTop(x,z);if(used[next]){const r=cache.get(kx[next]);if(r!==undefined){r.delete(kz[next]);if(!r.size)cache.delete(kx[next]);}}kx[next]=x;kz[next]=z;used[next]=1;next=(next+1)&4095;row=cache.get(x);if(row===undefined)cache.set(x,row=new Map());row.set(z,top);return top;};})(),
         roadHeight(x, z, opts = null) {
             if (opts && opts.a && opts.b && opts.len) return Y.road + yAlong(opts, x, z); // legacy (edge)
             const y = opts && typeof opts.y === 'number' ? opts.y : null;

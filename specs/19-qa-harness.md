@@ -19,7 +19,7 @@ The driving caller must sense the actual asymmetric player body as well as the p
 
 For combined root acceptance, `handoffs/fidelity/root-acceptance-archive/prepare-root-acceptance.py` prepares exact committed runtime, current game Node tests and their reviewed dependencies without copying comparison galleries. Keep the native foot/a runner in its archived path because its server root derives from `__dirname`; use the recorded external output directory. Verify the complete archive's file set, Git blobs and SHA hashes before and after tests. Archive preparation controls never count as executed game tests or browser acceptance.
 
-1. Acceptance criteria met, evidence in the spec's progress log.
+1. Acceptance criteria met, evidence in the commit message.
 2. Logic harness: 0 high; no new medium issues in the area touched.
 3. Visual QA: detectors clean in the area touched; review.md has no medium+ defect in the area touched.
 4. The checks in `handoffs/fidelity/BACKLOG.md` pass; the owner publishes and re-checks live.
@@ -27,7 +27,3 @@ For combined root acceptance, `handoffs/fidelity/root-acceptance-archive/prepare
 ## Published overview upkeep
 
 Any change affecting the published overview must update its affected prose, inventory, controls, source/evidence records, links, captions, comparisons and pictures in the same change. This includes district/landmark/tourist images, thumbnails, street/aerial frames, activities and phone captures. Recapture from the exact changed source with real dates, camera/conditions and scope; retain old material as labelled history or validation, never relabel old pixels as new. Inspect full-size images and desktop/mobile delivery, verify affected selectors/decoding/links/cache behavior, and check the live page/images after publication. The shared AGENTS.md rule and CLAUDE.md reminder make this part of completion. External Street View imagery remains comparison-only.
-
-
-
-

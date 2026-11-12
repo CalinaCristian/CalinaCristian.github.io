@@ -17,10 +17,10 @@ R11.7 Sidewalks with real widths, kerbs, paving colours (research); driveways/cu
 R11.8 GTS door reachable on Calea Călărașilor; Lukoil Barbu Văcărescu reachable or dropped; all `world.audit()` counts 0.
 
 ## Acceptance
-- [ ] `npm run harness -- --audit`: 0 high, 0 medium in every district.
-- [ ] Visual QA detectors: 0 z-fighting / stacked ribbons / markings-outside-ribbon / black-patch findings on all chapter routes.
-- [ ] Visual review (human-style, spec 19): roads/markings/junctions category empty.
-- [ ] Owner spot-check: spawn → Rosetti and SeaTac → Bellevue look right.
+- `npm run harness -- --audit`: 0 high, 0 medium in every district.
+- Visual QA detectors: 0 z-fighting / stacked ribbons / markings-outside-ribbon / black-patch findings on all chapter routes.
+- Visual review (human-style, spec 19): roads/markings/junctions category empty.
+- Owner spot-check: spawn → Rosetti and SeaTac → Bellevue look right.
 
 ## Source-rail roadside clearance (2026-11-09)
 
@@ -29,4 +29,3 @@ The inferred roadside compiler preserves each complete mitred lane footprint and
 ## Structural bridge pads (2026-11-09)
 
 Bridge-edge retraction at a source fork leaves a real junction pad whose existing road pavement must have a continuous underside. Reuse its complete serialized road-pad skin/XY tessellation and modeled adjacent depth; close only the exterior boundary after removing connected structural road-mouth intervals. Share the exact derived slab triangles with passive collision/height queries. Do not create cross-lane cap walls or alter source/grade/route data to hide gaps. The first patch excludes speculative outer sidewalk slab width. Its low current deck over source rail w660927514 remains a recorded profile/headroom blocker until the separate profile model and fresh native checks resolve it.
-

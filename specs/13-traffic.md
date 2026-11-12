@@ -27,6 +27,6 @@ R13.19 Apply existing whole-body crossing-pad margins to both directions at veri
 R13.20 Preserve signalized `railway=tram_crossing` pedestrian semantics separately from tram-vehicle phases when no tram-vehicle head is mapped. Missing motor control at such a literal pedestrian crossing is not a tram-binding failure. Keep explicit vehicle-head/missing-context guards, known source-road phase associations and all physical pedestrian yielding/obstacle checks. Do not infer vehicle priority, actual timing or signal-head positions/rendering.
 
 ## Acceptance
-- [ ] Harness: vehicle-overlap ≤ 5, ped-in-vehicle 0, vehicle-overlaps-player 0, scenario i passes.
-- [ ] Rush-hour run in `romana` at 08:00: average speed in the Piața Victoriei hotspot < 2 m/s, outside > 6 m/s; player crosses it in < 4 min.
-- [ ] Night run: light traffic.
+- Harness: vehicle-overlap ≤ 5, ped-in-vehicle 0, vehicle-overlaps-player 0, scenario i passes.
+- Rush-hour run in `romana` at 08:00: average speed in the Piața Victoriei hotspot < 2 m/s, outside > 6 m/s; player crosses it in < 4 min.
+- Night run: light traffic.

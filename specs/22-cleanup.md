@@ -15,6 +15,6 @@ R22.6 Document the final module map in `01-architecture.md` and a short `game/RE
 R22.7 Before effort-branch cleanup, retain all local/fetched-remote tips, detached worktree HEADs and recorded source commits in an immutable evidence archive. Expose missing objects/provenance, preserve the exact accepted source tree and original capture dates, verify the remote archive, and preserve dirty-file backups. Never rewrite existing master history.
 
 ## Acceptance
-- [ ] Logic harness and visual QA results before vs after: no new issues, no new review defects (attach both summaries).
-- [ ] Total game JS size and per-district load time logged before/after (target: −30 % JS, no slower loads).
-- [ ] No file in `game/src/` > 60 KB except vendored code; no unused exports (simple script check).
+- Logic harness and visual QA results before vs after: no new issues, no new review defects (attach both summaries).
+- Total game JS size and per-district load time logged before/after (target: −30 % JS, no slower loads).
+- No file in `game/src/` > 60 KB except vendored code; no unused exports (simple script check).

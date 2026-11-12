@@ -13,5 +13,5 @@ R16.5 In-session gallery of the last 12 shots; tourist-spot postcard challenges 
 R16.6 Telemetry `photo_taken {city, place, filter}`.
 
 ## Acceptance
-- [x] JPEG blob > 50 KB produced in Playwright; saved via download on desktop; share sheet path on mobile emulation. (182 KB desktop download; share called with the file on mobile emulation)
-- [x] Viewfinder layout correct at 16:9, 21:9, phone landscape/portrait. (screenshots in the log; awaiting main.js hook for in-game QA)
+- JPEG blob > 50 KB produced in Playwright; saved via download on desktop; share sheet path on mobile emulation.
+- Viewfinder layout correct at 16:9, 21:9, phone landscape/portrait.

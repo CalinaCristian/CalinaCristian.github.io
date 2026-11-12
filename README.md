@@ -142,7 +142,7 @@ that chapter of the CV.
   snow and fog, weather-driven visibility (snow settles on streets, roofs, lawns, sports grounds and the landmarks
   alike — pitches and courts get a dusting their lines still show through), and seasons (autumn colours, bare winter
   trees, the Unirii fountains drained in winter).
-- **Landmarks and buildings.** 61 hand-modelled landmarks (e.g. every CV-stop building — the GTS house on Calea
+- **Landmarks and buildings.** 67 hand-modelled landmarks (e.g. every CV-stop building — the GTS house on Calea
   Călărașilor, Liceul C.A. Rosetti with its sports hall, sports ground and fenced yard, the Politehnica rectorate, Hermes Business Campus, BOB Tower, Europe House, The
   Landmark, Lincoln Square — plus Hala Traian, the Parliament, Victoria Palace, Sky Tower, Stadionul Dinamo with its
   track, terraces, covered main stand and floodlight masts, the SeaTac garage and tower);
@@ -188,6 +188,33 @@ that chapter of the CV.
   Civic buildings keep their identity, apartment blocks retain their upper floors, and the Louis Blanc office uses its
   published eight above-ground storeys. The full district has local Street View and aerial comparison reports. Complex
   roofs, detailed historic facades, canopy shape and covered footbridges still need further modelling.
+- **District fidelity pass (2026-11-12).** Every driving district and every tourist scene was checked against
+  OpenStreetMap and, where a panorama was available, compared by eye with Street View (comparison only; nothing is
+  taken from it). It is a partial pass, not a claim of parity: what was not compared, what is estimated and what is
+  still wrong is listed in `handoffs/fidelity/BACKLOG.md` (rows tagged `fp-…`) and per district in `game/research/`.
+  - *Bridges and underpasses.* SeaTac has the elevated Link light-rail guideway and the station footbridge with its
+    stair tower; Otopeni has the airport rail viaduct, three footbridges over DN1 and the DN1 central barrier; Pasajul
+    Victoria is one hall with piers; Pasajul Unirii has its wall finishes; the Unirea car-park footbridge and the
+    Petricani bridge railings (Pipera) are built; Lincoln Square's skybridges are white trusses.
+  - *Water.* The Dâmbovița is open water in Grozăvești and Unirii, with an iron balustrade on the Unirii quays.
+  - *Businesses.* A hotel, fuel station or museum names its own building instead of a tenant; signs sit on street
+    fronts; Unirea Shopping Center, Promenada and the Lincoln Square podium carry mapped tenant signs; a building under
+    construction gets no shop fascia. Signs still come only from OSM, POIs and research.
+  - *New landmarks.* Muzeul Antipa, the Lascăr Catargiu statue and the Arthur Verona fountain (Romană & Victoriei);
+    the CET Grozăvești cooling towers and stacks and the Carrefour Orhideea sign (Grozăvești scenery). Dinamo's
+    velodrome has its infield.
+  - *Tourist scenes.* Ballard Locks is laid out from OSM with separate lake and sea levels and can be walked bank to
+    bank; Gas Works has the corrected lake level, the barn and the relics; the Seattle waterfront follows the mapped
+    shoreline with its piers and the Overlook Walk on columns; the Aurora Bridge ends at its abutment above the Fremont
+    Troll; Pioneer Square, the waterfront, the Athenaeum area and Old Town have mapped business signs; the Parliament
+    stands on its hill behind its wall; Cișmigiu's Rotonda busts are at their mapped positions; the Arc is visible
+    from Kiseleff under the park canopy; Downtown Park's canal has its coping and footbridges. Invented shopfronts
+    were removed from the Arcul, Herăstrău and Spring Palace scenes.
+  - *Known gaps.* Street View was not compared for Pike Place, most of Seattle Center, Meydenbauer, the Botanical
+    Garden, the Otopeni airport side and large parts of Romană. Businesses just outside a district's playable edge and
+    some classes (nightclubs, galleries, fitness, kindergartens, offices) need a builder change and a rebuild. Statues,
+    multi-storey car parks, bridge parapets and fuel pumps are still generic. Many new heights and pier spacings are
+    estimates.
 - **Performance.** Ultra’s normal-only ambient-occlusion pass uses a finite face-normal fallback with its own declared view-position varying, so smooth normal materials compile without the previous missing-varying shader error. This is a shader correctness fix, not a hardware FPS claim. Adaptive quality tiers, instanced traffic/crowds/parked cars and view-range culling target at most
   1.5 million triangles / 400 draw calls per district frame including traffic and the mirror. The overview records
   measured checks and remaining limits; software-rendered test timing is not phone performance.
@@ -317,7 +344,7 @@ The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, o
 
 ## Technical overview and comparisons
 
-Browse [the game overview](https://cristiancalina.com/game/overview/) for the architecture, simulation, controls and spec-driven AI development, plus inline comparisons for eight districts, 61 landmark entries and 24 tourist destinations. This guide previews the ongoing fidelity work; each capture retains its actual source and date. The game update is still being tested.
+Browse [the game overview](https://cristiancalina.com/game/overview/) for the architecture, simulation, controls and spec-driven AI development, plus inline comparisons for eight districts, 67 landmark entries and 24 tourist destinations. This guide previews the ongoing fidelity work; each capture retains its actual source and date. The game update is still being tested.
 
 For release evidence, `tools/fidelity/archive-evidence.py` retains all local branch tips, fetched remote-tracking tips and worktree HEADs, plus recorded capture, implementation and prior-source links. Its JSON plan records provenance and missing objects. Dry runs are read-only; explicit `--write-tag` creates a new immutable annotated archive with the selected source tree and evidence dates unchanged. Fetch every remote branch head before final archival and verify the pushed archive before branch cleanup.
 

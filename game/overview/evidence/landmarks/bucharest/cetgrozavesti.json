@@ -1,0 +1,324 @@
+{
+  "schemaVersion": 1,
+  "id": "cetgrozavesti",
+  "city": "bucharest",
+  "name": "CET Grozăvești (cooling towers)",
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.440165,
+    "lon": 26.062861
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/188102855",
+      "label": "OSM w188102855 · man_made=tower, tower:type=cooling, material=concrete, height=50",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/188102865",
+      "label": "OSM w188102865 · man_made=tower, tower:type=cooling, material=concrete, height=50",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/188102870",
+      "label": "OSM w188102870 · man_made=tower, tower:type=cooling, material=concrete, height=50",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/188102882",
+      "label": "OSM w188102882 · man_made=tower, tower:type=cooling, material=concrete, height=50",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/905217275",
+      "label": "OSM w905217275 · man_made=chimney, material=metal, height=50",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/905217276",
+      "label": "OSM w905217276 · man_made=chimney, material=metal, height=50",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/905217277",
+      "label": "OSM w905217277 · man_made=chimney, material=metal, height=50",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/905217281",
+      "label": "OSM w905217281 · man_made=chimney, material=metal, height=50",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/905217307",
+      "label": "OSM w905217307 · man_made=chimney, material=metal, height=50",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/905217308",
+      "label": "OSM w905217308 · man_made=chimney, material=metal, height=50",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/905217309",
+      "label": "OSM w905217309 · man_made=chimney, material=metal, height=50",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/902058419",
+      "label": "OSM w902058419 · waterway=weir on the Dambovita west of Podul Grozavesti",
+      "type": "osm"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/52d6227a121c31d320a39ae222ab97e7107e85b6",
+      "label": "CET cooling towers, stacks and weir (52d6227)",
+      "type": "implementation"
+    }
+  ],
+  "sourceIds": [
+    "w188102855",
+    "w188102865",
+    "w188102870",
+    "w188102882"
+  ],
+  "reviewedAt": "2026-11-12",
+  "improvements": [
+    "The four natural-draught cooling towers are waisted concrete shells 50 m tall with a darker rim, at their mapped centres and radii (15.9–17.2 m); they were drawn as round apartment blocks with windows.",
+    "Seven 50 m steel stacks and the low concrete weir across the Dambovita were added from their OSM ways."
+  ],
+  "remainingGaps": [
+    "The hyperboloid profile is a model estimate (seven rings); shell thickness, the open base lattice and any markings are not modelled. Stack radius (2.4 m at the base) follows the source comment.",
+    "These studies are centred on the four towers: three stacks and the weir (up to 450 m from the anchor) are outside the frames.",
+    "District-only scenery in Grozavesti; no in-world capture from Sos. Grozavesti or the quays was made for this record."
+  ],
+  "checks": [
+    {
+      "label": "Registry identity",
+      "passed": true,
+      "details": "id, name, anchor and sourceIds are read from game/src/landmarks.js at 346f798."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run at 346f798 on 2026-11-12: passed, 2133 checks over 67 models; this model 2596 triangles, 11 collision volumes."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-12; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "Matched Street View / aerial comparison",
+      "passed": false,
+      "details": "No matched reference comparison was made for this record. The source comments name a street-level look as viewed reference only; no reference imagery is stored or published."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study · cooling towers from the north-west, 230 m",
+      "kind": "front",
+      "image": "assets/landmarks/cetgrozavesti/source-346f7986/front.webp",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "sha256": "943dac493fc4fb7cc46d278e0229a1cfec37d731144a30703cc3d4062439310c",
+      "bytes": 12768,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-12T19:48:32.612Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=cetgrozavesti&clean=1&fountains=on&view=street&az=-135&tx=0&tz=0&d=230",
+        "anchor": {
+          "lat": 44.440165,
+          "lon": 26.062861,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            -162.63455967290594,
+            1.3,
+            -162.6345596729059
+          ],
+          "quaternion": [
+            -0.019340480950722928,
+            0.9226988907157204,
+            -0.04669205141405379,
+            -0.3821943945210617
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 5340.835876464844,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -284.58123779296875,
+            -4.75,
+            -372.18359375
+          ],
+          "max": [
+            99.68253326416016,
+            50,
+            159.89999389648438
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "North-up orthographic model study · 200 m square on the towers",
+      "kind": "top",
+      "image": "assets/landmarks/cetgrozavesti/source-346f7986/top.webp",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "sha256": "058f49599253b136382b5b29b0011ea2dfb5692306ec7e45c0c413b8993f4e7c",
+      "bytes": 29378,
+      "width": 720,
+      "height": 720,
+      "capturedAt": "2026-11-12T19:48:33.714Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=cetgrozavesti&clean=1&fountains=on&view=top&az=0&tx=0&tz=0&span=200",
+        "anchor": {
+          "lat": 44.440165,
+          "lon": 26.062861,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "orthographic",
+          "position": [
+            0,
+            254.75,
+            0
+          ],
+          "quaternion": [
+            -0.7071067811865474,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "fov": 45,
+          "near": 0.5095,
+          "far": 5340.835876464844,
+          "viewport": [
+            720,
+            720
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -100,
+          "right": 100,
+          "top": 100,
+          "bottom": -100,
+          "zoom": 1,
+          "groundSquareM": 200,
+          "groundWidthM": 200,
+          "groundDepthM": 200,
+          "orientation": "north-up"
+        },
+        "bounds": {
+          "min": [
+            -284.58123779296875,
+            -4.75,
+            -372.18359375
+          ],
+          "max": [
+            99.68253326416016,
+            50,
+            159.89999389648438
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study · cooling towers and nearest stacks",
+      "kind": "oblique",
+      "image": "assets/landmarks/cetgrozavesti/source-346f7986/oblique.webp",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "sha256": "57db55eb079508efc0dcf77cba98baf4982a8180b67c4bc3800079b4ba5997c7",
+      "bytes": 19580,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-12T19:48:33.159Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=cetgrozavesti&clean=1&fountains=on&view=oblique&az=-100&el=28&tx=0&tz=0&d=330",
+        "anchor": {
+          "lat": 44.440165,
+          "lon": 26.062861,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            -286.9460995338095,
+            176.82561571934397,
+            -50.59633935686728
+          ],
+          "quaternion": [
+            -0.15550439700334692,
+            -0.7432896492958201,
+            -0.185322923792935,
+            0.6236940705820124
+          ],
+          "fov": 45,
+          "near": 0.66,
+          "far": 6600,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -284.58123779296875,
+            -4.75,
+            -372.18359375
+          ],
+          "max": [
+            99.68253326416016,
+            50,
+            159.89999389648438
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 2598,
+    "drawCalls": 2,
+    "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
+  },
+  "sourceVerification": {
+    "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
+    "checkedAt": "2026-11-12T20:03:08.417Z"
+  },
+  "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
+}

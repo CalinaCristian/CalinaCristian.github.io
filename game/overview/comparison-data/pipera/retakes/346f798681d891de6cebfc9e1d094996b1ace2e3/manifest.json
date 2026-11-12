@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "title": "pipera aerial comparisons",
+  "generatedDate": "2026-11-12",
+  "generatedAt": "2026-11-12T19:51:55.293Z",
+  "defaultTile": "aerial-r03-c10",
+  "tileMetres": 250,
+  "orientation": "north-up",
+  "atlasScopeCounts": {
+    "ring-touches": 91,
+    "core-touches": 38,
+    "outside-ring": 4
+  },
+  "publishedBaseline": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "capture": {
+    "startedAt": "2026-11-12T19:50:52.827Z",
+    "endedAt": "2026-11-12T19:51:55.293Z",
+    "elapsedSeconds": 62.466,
+    "source": "deec28ca0450626951551fd3ef8430ddd963c659206d1fa313c5e2e0c6e7ddf0",
+    "loaded": {
+      "key": "bucharest-pipera",
+      "city": "bucharest",
+      "district": "pipera",
+      "ms": 3749,
+      "edges": 1260,
+      "ribbons": 1733
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "frameCounts": 2,
+    "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+    "scopeCounts": {
+      "ring-touches": 91,
+      "core-touches": 38,
+      "outside-ring": 4
+    },
+    "candidateFramesCaptured": 133,
+    "note": "One capture run over every atlas pose of the district; only the reviewed changed tiles are kept here. Tool: tools/aerial/capture-game-grid.cjs (unmodified, sha256 329f0d5e83d2581771f0f3d40975a0352cfa5c13b2d61189597f69026429cefd)."
+  },
+  "locations": [],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "boundarySource": "boundary-source.json",
+  "items": [
+    {
+      "id": "aerial-r05-c06",
+      "label": "Row 5 · Column 6",
+      "row": 5,
+      "column": 6,
+      "lat": 44.47887521146024,
+      "lon": 26.101983493901137,
+      "x": -875.0000000001247,
+      "z": 125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        -1000,
+        0,
+        -750,
+        250
+      ],
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 127,
+        "triangles": 330396,
+        "renderMs": 3,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 303
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-12T19:51:24.545Z",
+      "gamePath": "images/aerial-r05-c06.jpg",
+      "image": "images/aerial-r05-c06.jpg",
+      "thumbnail": "thumbs/aerial-r05-c06.jpg",
+      "sha256": "5ddba3af19cf8d173f28899b219d3c2978ae5b26691a63062a25100c3bd1db13",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 498,
+      "dataset": "atlas",
+      "thumbnailSha256": "3ab9ef066e395976f4903670bc847dbe5dc7181acd16865a9b669b83f0c8a60a",
+      "retakeReason": "Promenada west front carries the tenant fascia band (thin at this scale); the earlier tile also predates junction changes made before the range"
+    },
+    {
+      "id": "aerial-r07-c08",
+      "label": "Row 7 · Column 8",
+      "row": 7,
+      "column": 8,
+      "lat": 44.47437605730122,
+      "lon": 26.108278640243345,
+      "x": -375.00000000001313,
+      "z": 625.0000000003593,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "ring-touches",
+      "sourceRingMinDistanceM": 181.4788639151011,
+      "boundsXZ": [
+        -500,
+        500,
+        -250,
+        750
+      ],
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 92,
+        "triangles": 255509,
+        "renderMs": 1.0999999940395355,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 303
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-12T19:51:39.085Z",
+      "gamePath": "images/aerial-r07-c08.jpg",
+      "image": "images/aerial-r07-c08.jpg",
+      "thumbnail": "thumbs/aerial-r07-c08.jpg",
+      "sha256": "33d54b4e3608b09edc9dcd7901378aebb6914b92a7a50c8888b07202e55decab",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 386,
+      "dataset": "atlas",
+      "thumbnailSha256": "0debb8004611c3a8203c0a5027c80a84b44b9d591e43527d3bfac44beb0f49d8",
+      "retakeReason": "Petricani bridge: separate decks with water between them and railings"
+    }
+  ]
+}

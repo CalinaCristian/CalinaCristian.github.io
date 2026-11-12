@@ -1,0 +1,499 @@
+{
+  "scope": "Seven street-level before/after pairs for the district fidelity pass of 2026-11-12. Each frame was rendered from immutable git objects of the named commit, at the same reference viewpoint (game/dev/reality/viewpoints.json at the after commit), fov 70, 1280x800, day and clear overrides. They show that the named structure now exists in the game; they are not a comparison with reality and do not certify the rest of the pass, performance or any other view. Traffic and pedestrians are as loaded and differ between frames.",
+  "baselineSource": "332ae4237d93fbbe23f08e3ae8c8f1b94c1e8642",
+  "runtimeSource": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "captures": [
+    {
+      "id": "sea-guideway-north",
+      "district": "seatac",
+      "name": "International Blvd at 17262, looking west at the Link guideway and Airport Expressway",
+      "file": "sea-guideway-north-before.png",
+      "role": "before",
+      "source": "332ae4237d93fbbe23f08e3ae8c8f1b94c1e8642",
+      "capturedAt": "2026-11-12T19:44:14.412Z",
+      "sha256": "62ea27ff92c4385285cd515e749e23ede9e8c7b2f9d4ef77e707ef7e01de62d4",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 47.4480168,
+        "lon": -122.2963435,
+        "eye": [
+          -853.92,
+          2.74,
+          220.4
+        ],
+        "bearing": 285,
+        "pitch": 8,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "sea-guideway-north",
+      "district": "seatac",
+      "name": "International Blvd at 17262, looking west at the Link guideway and Airport Expressway",
+      "file": "sea-guideway-north-after.png",
+      "role": "after",
+      "source": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "capturedAt": "2026-11-12T19:45:52.348Z",
+      "sha256": "3137c798cc7106fe1cee6a91b86940ef85c2e34db31afe62d5a68552cf07c06e",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 47.4480168,
+        "lon": -122.2963435,
+        "eye": [
+          -853.92,
+          2.74,
+          220.4
+        ],
+        "bearing": 285,
+        "pitch": 8,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "otp-rail-viaduct-dn1",
+      "district": "otopeni",
+      "name": "DN1 northbound under the CFR airport railway viaduct, airport exit ahead",
+      "file": "otp-rail-viaduct-dn1-before.png",
+      "role": "before",
+      "source": "332ae4237d93fbbe23f08e3ae8c8f1b94c1e8642",
+      "capturedAt": "2026-11-12T19:44:20.083Z",
+      "sha256": "b705b91bd72bd4a682ff9c0f0f1b770d4302199b33904390eacd8adcbd76cd55",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.5672,
+        "lon": 26.0698,
+        "eye": [
+          -571.04,
+          2.74,
+          -244.49
+        ],
+        "bearing": 5,
+        "pitch": 5,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "otp-rail-viaduct-dn1",
+      "district": "otopeni",
+      "name": "DN1 northbound under the CFR airport railway viaduct, airport exit ahead",
+      "file": "otp-rail-viaduct-dn1-after.png",
+      "role": "after",
+      "source": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "capturedAt": "2026-11-12T19:45:55.776Z",
+      "sha256": "c0b9f3cae764f58537ee1619467d30c5139357c14be3150dd8313e774715ed11",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.5672,
+        "lon": 26.0698,
+        "eye": [
+          -571.04,
+          2.74,
+          -244.49
+        ],
+        "bearing": 5,
+        "pitch": 5,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "grz-cet-chimneys",
+      "district": "grozavesti",
+      "name": "CET Grozăvești chimneys and cooling towers from Șoseaua Grozăvești",
+      "file": "grz-cet-chimneys-before.png",
+      "role": "before",
+      "source": "332ae4237d93fbbe23f08e3ae8c8f1b94c1e8642",
+      "capturedAt": "2026-11-12T19:44:50.117Z",
+      "sha256": "6a18f703d4c7a7e8d4cb83f988df2a70f25e8bc5e87925e02174dd6e30d07c38",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.4398422,
+        "lon": 26.0599335,
+        "eye": [
+          58.3,
+          2.74,
+          150.9
+        ],
+        "bearing": 109.1,
+        "pitch": 0,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "grz-cet-chimneys",
+      "district": "grozavesti",
+      "name": "CET Grozăvești chimneys and cooling towers from Șoseaua Grozăvești",
+      "file": "grz-cet-chimneys-after.png",
+      "role": "after",
+      "source": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "capturedAt": "2026-11-12T19:46:09.954Z",
+      "sha256": "700521d4959b3627a11f8969ce4bb6b5e5c0c987f30d24d06803974e9859b348",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.4398422,
+        "lon": 26.0599335,
+        "eye": [
+          58.3,
+          2.74,
+          150.9
+        ],
+        "bearing": 109.1,
+        "pitch": 0,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "rom-kiseleff-antipa",
+      "district": "romana",
+      "name": "Șos. Kiseleff, looking south-west at the Antipa museum front",
+      "file": "rom-kiseleff-antipa-before.png",
+      "role": "before",
+      "source": "332ae4237d93fbbe23f08e3ae8c8f1b94c1e8642",
+      "capturedAt": "2026-11-12T19:45:02.251Z",
+      "sha256": "bdfbb2e494cc97a397ee95312bbf11ca640b2b899942e7e699370bc5c3e3dfba",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.4533,
+        "lon": 26.08545,
+        "eye": [
+          -456.95,
+          2.74,
+          -555.66
+        ],
+        "bearing": 251.5,
+        "pitch": 6,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "rom-kiseleff-antipa",
+      "district": "romana",
+      "name": "Șos. Kiseleff, looking south-west at the Antipa museum front",
+      "file": "rom-kiseleff-antipa-after.png",
+      "role": "after",
+      "source": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "capturedAt": "2026-11-12T19:46:17.983Z",
+      "sha256": "fe171173f6d5ce208a55c04728596a365ebb253e749aba83c5900d21b2e660d2",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.4533,
+        "lon": 26.08545,
+        "eye": [
+          -456.95,
+          2.74,
+          -555.66
+        ],
+        "bearing": 251.5,
+        "pitch": 6,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "bel-ne8-skybridge-e",
+      "district": "bellevue",
+      "name": "NE 8th St at Bellevue Way, looking east at the diagonal skybridge",
+      "file": "bel-ne8-skybridge-e-before.png",
+      "role": "before",
+      "source": "332ae4237d93fbbe23f08e3ae8c8f1b94c1e8642",
+      "capturedAt": "2026-11-12T19:45:21.590Z",
+      "sha256": "3325442e1ade05d13542573639557b2394f6c0f8861d1e5ec938755f0c040403",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 47.61752,
+        "lon": -122.2014,
+        "eye": [
+          -480.27,
+          2.74,
+          -335.62
+        ],
+        "bearing": 90,
+        "pitch": 5,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "bel-ne8-skybridge-e",
+      "district": "bellevue",
+      "name": "NE 8th St at Bellevue Way, looking east at the diagonal skybridge",
+      "file": "bel-ne8-skybridge-e-after.png",
+      "role": "after",
+      "source": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "capturedAt": "2026-11-12T19:46:32.762Z",
+      "sha256": "139427f5ef9fe43d544c514ffd1cbdbf1043785160738d4b69c3511951fc9528",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 47.61752,
+        "lon": -122.2014,
+        "eye": [
+          -480.27,
+          2.74,
+          -335.62
+        ],
+        "bearing": 90,
+        "pitch": 5,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "pip-petricani-deck-w",
+      "district": "pipera",
+      "name": "Petricani bridge, west over Lacul Tei",
+      "file": "pip-petricani-deck-w-before.png",
+      "role": "before",
+      "source": "332ae4237d93fbbe23f08e3ae8c8f1b94c1e8642",
+      "capturedAt": "2026-11-12T19:45:26.033Z",
+      "sha256": "10f1a6e91fddc2c2041028def281df6e3df7ef706dbd6ce7d980e7618f351511",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.474365,
+        "lon": 26.123994,
+        "eye": [
+          873.21,
+          2.74,
+          626.23
+        ],
+        "bearing": 262,
+        "pitch": -5,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "top"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "pip-petricani-deck-w",
+      "district": "pipera",
+      "name": "Petricani bridge, west over Lacul Tei",
+      "file": "pip-petricani-deck-w-after.png",
+      "role": "after",
+      "source": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "capturedAt": "2026-11-12T19:46:37.396Z",
+      "sha256": "dc5e0e7c028702f1bc4880a1b1082a005eaaf8662792794f352b38c8f144fcec",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.474365,
+        "lon": 26.123994,
+        "eye": [
+          873.21,
+          2.74,
+          626.23
+        ],
+        "bearing": 262,
+        "pitch": -5,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "top"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "sea-76",
+      "district": "seatac",
+      "name": "International Blvd at the 76 station",
+      "file": "sea-76-before.png",
+      "role": "before",
+      "source": "332ae4237d93fbbe23f08e3ae8c8f1b94c1e8642",
+      "capturedAt": "2026-11-12T19:44:14.524Z",
+      "sha256": "ae339d496de59640498a25c0a51861555d7c1255810fccc1c5ab13ba8b0978a0",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 47.45098,
+        "lon": -122.29575,
+        "eye": [
+          -809.24,
+          2.74,
+          -108.91
+        ],
+        "bearing": 80,
+        "pitch": 0,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "sea-76",
+      "district": "seatac",
+      "name": "International Blvd at the 76 station",
+      "file": "sea-76-after.png",
+      "role": "after",
+      "source": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "capturedAt": "2026-11-12T19:45:52.496Z",
+      "sha256": "05032b72cd19ac1b34774cf642ec3c59affac6e9d9fbd91c953412de85c8ab05",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 47.45098,
+        "lon": -122.29575,
+        "eye": [
+          -809.24,
+          2.74,
+          -108.91
+        ],
+        "bearing": 80,
+        "pitch": 0,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    }
+  ],
+  "visualReview": "All fourteen 1280x800 images were inspected at full size. An eighth pair (Unirii quay) was rejected because a tree trunk stands in the middle of the frame.",
+  "openWork": "handoffs/fidelity/BACKLOG.md, rows tagged fp-…"
+}

@@ -1,0 +1,29 @@
+{
+  "district": "pipera",
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "tiles": [
+    {
+      "id": "aerial-r05-c06",
+      "reason": "Promenada west front carries the tenant fascia band (thin at this scale); the earlier tile also predates junction changes made before the range"
+    },
+    {
+      "id": "aerial-r07-c08",
+      "reason": "Petricani bridge: separate decks with water between them and railings"
+    }
+  ],
+  "reason": "Petricani water-bridge decks and railings; Promenada tenant front",
+  "originalManifestSha256": "1410987d8e09bedbbe875fb826b551e3ea9da51acc2284d75c2b07f3dc2c0c7a",
+  "totalFrames": 133,
+  "method": "Every atlas pose of the district was rendered at the retake commit and, for diagnosis only, at the range start 332ae423 (game images only, same tool and conditions). Poses were ranked by pixels that changed between those two renders and also differ from the published tile; each ranked pose was then compared by eye (published | 332ae423 render | retake, same pixels). A retake is kept only where a structure, water body, landmark or building model visibly changed. Not counted as a change: parked-car and tree-crown layouts, single-building roof tints, and re-surfaced central reservations (all differ between source revisions without a geometry change). Two renders of the same commit are structurally identical (no blurred difference at the 30/255 level in five districts checked).",
+  "baselineCommit": "332ae4237d93fbbe23f08e3ae8c8f1b94c1e8642",
+  "candidatesCaptured": 133,
+  "rejected": [
+    {
+      "ids": [
+        "aerial-r08-c08"
+      ],
+      "reason": "only the central reservation surface differs"
+    }
+  ],
+  "notRetaken": "Every other pose: no visible change between the 332ae423 and 346f7986 renders at the same pose, or only the differences listed under rejected."
+}

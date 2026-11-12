@@ -36,18 +36,25 @@
       "label": "Continuous bridge crossing and cancellation",
       "type": "Native GAME proof; scope recorded separately",
       "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/continuous-walking/walking-ea89e2c-desktop/results.json"
+    },
+    {
+      "label": "District fidelity pass scene change (91f5bf7)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/91f5bf79e37c294e2f453bded42e4efe2e409523"
     }
   ],
   "improvements": [
     "Current native scene retains 81 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
     "Physical 311.612 m bridge approach plus separate 47.044 m continuous bridge traversal, cancellation/persistence",
-    "The selected primary activity approach is accepted separately from full-scene comparison."
+    "The selected primary activity approach is accepted separately from full-scene comparison.",
+    "District fidelity pass, 91f5bf7 (range 332ae423..346f7986): The Bellevue scenes pass touched this scene (Wilburton pitch and shared Bellevue context)."
   ],
   "remainingGaps": [
     "Full touch-thumbstick crossing and actual garden/bridge-grade comparison remain unverified; virtual facts grant no reading-count award",
     "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
     "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
-    "Garden-room information is explicitly virtual. Unverified physical label posts and the five-reading achievement are removed."
+    "Garden-room information is explicitly virtual. Unverified physical label posts and the five-reading achievement are removed.",
+    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 93b0d86 or earlier, before the district fidelity pass, and were not re-run at 346f798."
   ],
   "checks": [
     {
@@ -79,6 +86,16 @@
       "label": "Current exhaustive physical audit",
       "passed": null,
       "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
+    },
+    {
+      "label": "Visitor views recaptured after the district fidelity pass",
+      "passed": true,
+      "details": "346f798: scene view and complete phone page recaptured (scene, phone-ui-touch); peak 632,104 triangles / 67 draw calls in these frames. Every picture was inspected after capture. Appearance only; no route, activity or reference-match claim."
+    },
+    {
+      "label": "Validation frames and native proofs re-run at 346f798",
+      "passed": false,
+      "details": "Not re-run. The validation captures and proofs above keep their original source and date and describe the scene before the pass."
     }
   ],
   "captures": [
@@ -295,7 +312,7 @@
     "counts": {},
     "collection": "previous-context-gallery"
   },
-  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical 311.612 m bridge approach plus separate 47.044 m continuous bridge traversal, cancellation/persistence Full touch-thumbstick crossing and actual garden/bridge-grade comparison remain unverified; virtual facts grant no reading-count award Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical 311.612 m bridge approach plus separate 47.044 m continuous bridge traversal, cancellation/persistence Full touch-thumbstick crossing and actual garden/bridge-grade comparison remain unverified; virtual facts grant no reading-count award Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates.",
   "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
   "menuAvailable": true,
   "captureSourceCommits": [
@@ -331,13 +348,12 @@
   ],
   "visitorGallery": {
     "id": "bel-botanical-garden",
-    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
     "captures": [
       {
         "kind": "scene",
-        "image": "assets/spots/bel-botanical-garden/visit-aabd/scene.webp",
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "capturedAt": "2026-11-09T08:20:05.397Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "capturedAt": "2026-11-12T19:49:58.583Z",
         "viewport": {
           "width": 1280,
           "height": 720
@@ -345,13 +361,13 @@
         "position": {
           "x": 200.080744013379,
           "z": 229.410791060295,
-          "y": -20.50424937027438,
+          "y": -20.499696811298485,
           "heading": 2.1504
         },
         "pose": {
           "position": [
             200.080744013379,
-            -18.85424937027438,
+            -18.849696811298486,
             229.410791060295
           ],
           "bearing": 236.79115573506778,
@@ -362,8 +378,8 @@
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-09T08:20:04.024Z",
-        "triangles": 638112,
+        "simulationDate": "2026-11-12T19:49:57.978Z",
+        "triangles": 632104,
         "drawCalls": 67,
         "cameraParent": "onfoot",
         "ui": {
@@ -371,16 +387,34 @@
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "a2cdfaeb7519340e479297a0c07412d9a8d0a477586f9ed8b654c726e14ddf8f",
-        "bytes": 36864,
+        "sha256": "fc4ea2939c677f36718c9cccf3b32945ec2d4a88be2cac3b065ffcb32b6b889e",
+        "bytes": 37340,
         "fullPageHUD": false,
-        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "image": "assets/spots/bel-botanical-garden/visit-346f7986/scene.webp",
+        "captureRecord": "assets/spots/bel-botanical-garden/visit-346f7986/capture.json",
         "setup": {
           "arrival": {
             "x": 0,
             "z": 3,
-            "y": -0.18721023569814868,
+            "y": -0.18803394958376884,
             "heading": -3.141592653589793
+          },
+          "authoredViewpoint": {
+            "view": [
+              157.3,
+              259.7
+            ],
+            "id": "bel-botanical-garden",
+            "x": 200.080744013379,
+            "z": 229.410791060295,
+            "bearing": 234.70111176729984,
+            "pitch": -6,
+            "fov": 60,
+            "text": "The Ravine Experience suspension bridge disappearing into ferns and firs",
+            "r": 10,
+            "tol": 35,
+            "targets": [],
+            "condHint": null
           },
           "viewpoint": {
             "view": [
@@ -397,13 +431,12 @@
             "r": 10,
             "tol": 35,
             "targets": [],
-            "cond": null,
             "condHint": null
           },
           "position": {
             "x": 200.080744013379,
             "z": 229.410791060295,
-            "y": -20.50424937027438,
+            "y": -20.499696811298485,
             "heading": 0
           },
           "walker": "OnFootController",
@@ -423,9 +456,8 @@
       },
       {
         "kind": "phone-ui-touch",
-        "image": "assets/spots/bel-botanical-garden/visit-aabd/phone-ui-touch.jpg",
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "capturedAt": "2026-11-09T08:25:27.409Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "capturedAt": "2026-11-12T19:49:58.811Z",
         "viewport": {
           "width": 390,
           "height": 844
@@ -433,13 +465,13 @@
         "position": {
           "x": 200.080744013379,
           "z": 229.410791060295,
-          "y": -20.50424937027438,
+          "y": -20.499696811298485,
           "heading": 2.1868781835937496
         },
         "pose": {
           "position": [
             200.080744013379,
-            -18.85424937027438,
+            -18.849696811298486,
             229.410791060295
           ],
           "bearing": 234.70110977084255,
@@ -450,25 +482,43 @@
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-09T08:25:26.079Z",
-        "triangles": 650143,
-        "drawCalls": 160,
+        "simulationDate": "2026-11-12T19:49:58.206Z",
+        "triangles": 631462,
+        "drawCalls": 63,
         "cameraParent": "onfoot",
         "ui": {
           "touch": true,
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "450f315bc45b753bbc7289deaaaa6b5070140af06eef4c19eaae96a8ed3b99af",
-        "bytes": 44923,
+        "sha256": "3fc523cc4f0937817446a136961409fb4afe3237855ec65274a0b185a3467bf8",
+        "bytes": 42612,
         "fullPageHUD": true,
-        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "image": "assets/spots/bel-botanical-garden/visit-346f7986/phone-ui-touch.jpg",
+        "captureRecord": "assets/spots/bel-botanical-garden/visit-346f7986/capture.json",
         "setup": {
           "arrival": {
             "x": 0,
             "z": 3,
-            "y": -0.18721023569814868,
+            "y": -0.18803394958376884,
             "heading": -3.141592653589793
+          },
+          "authoredViewpoint": {
+            "view": [
+              157.3,
+              259.7
+            ],
+            "id": "bel-botanical-garden",
+            "x": 200.080744013379,
+            "z": 229.410791060295,
+            "bearing": 234.70111176729984,
+            "pitch": -6,
+            "fov": 60,
+            "text": "The Ravine Experience suspension bridge disappearing into ferns and firs",
+            "r": 10,
+            "tol": 35,
+            "targets": [],
+            "condHint": null
           },
           "viewpoint": {
             "view": [
@@ -485,13 +535,12 @@
             "r": 10,
             "tol": 35,
             "targets": [],
-            "cond": null,
             "condHint": null
           },
           "position": {
             "x": 200.080744013379,
             "z": 229.410791060295,
-            "y": -20.50424937027438,
+            "y": -20.499696811298485,
             "heading": 0
           },
           "walker": "OnFootController",
@@ -512,24 +561,243 @@
     ],
     "limitations": [
       "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
-      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
     ],
     "reports": [
       {
-        "label": "Initial 23-destination scene and portrait capture",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
-        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
-      },
-      {
-        "label": "Actual portrait touch-look capture",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
-        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+        "label": "Scene and portrait capture record, 346f798",
+        "report": "assets/spots/bel-botanical-garden/visit-346f7986/capture.json",
+        "sha256": "edcf3c74e3a4d26031d1aace6853b590741ed78efea1ffcd2eca3f5d73c74609"
       }
     ],
-    "updatedAt": "2026-11-09T08:25:27.409Z",
-    "notice": "These views come from the staged game under test; the live game can differ.",
-    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
-    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
-    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+    "updatedAt": "2026-11-12T19:49:58.811Z",
+    "notice": "Recaptured from game source 346f798 after the district fidelity pass. The earlier aabd17a views are kept in this record as historical.",
+    "setup": "Explicit production on-foot viewpoints with native touch look, at 1280 × 720 and as the complete 390 × 844 phone page. The scene-authored postcard pose is used unless a limitation below says otherwise. No route, reference match or release acceptance is implied."
+  },
+  "historicalCollections": [
+    {
+      "id": "visitor-gallery-aabd17ad",
+      "label": "Visitor views before the district fidelity pass",
+      "status": "historical",
+      "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+      "supersededBy": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededAt": "2026-11-12T20:03:08.418Z",
+      "reason": "The scene changed in 332ae423..346f7986; these pictures show the earlier scene and are kept with their original source, dates and capture records.",
+      "notice": "These views come from the staged game under test; the live game can differ.",
+      "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+      "limitations": [
+        "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+        "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+      ],
+      "updatedAt": "2026-11-09T08:25:27.409Z",
+      "reports": [
+        {
+          "label": "Initial 23-destination scene and portrait capture",
+          "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+          "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+        },
+        {
+          "label": "Actual portrait touch-look capture",
+          "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+          "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+        },
+        {
+          "label": "Visitor capture manifest",
+          "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+          "sha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+        }
+      ],
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/bel-botanical-garden/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:20:05.397Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 200.080744013379,
+            "z": 229.410791060295,
+            "y": -20.50424937027438,
+            "heading": 2.1504
+          },
+          "pose": {
+            "position": [
+              200.080744013379,
+              -18.85424937027438,
+              229.410791060295
+            ],
+            "bearing": 236.79115573506778,
+            "pitch": -6.000002840028045
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:20:04.024Z",
+          "triangles": 638112,
+          "drawCalls": 67,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "a2cdfaeb7519340e479297a0c07412d9a8d0a477586f9ed8b654c726e14ddf8f",
+          "bytes": 36864,
+          "fullPageHUD": false,
+          "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+          "setup": {
+            "arrival": {
+              "x": 0,
+              "z": 3,
+              "y": -0.18721023569814868,
+              "heading": -3.141592653589793
+            },
+            "viewpoint": {
+              "view": [
+                157.3,
+                259.7
+              ],
+              "id": "bel-botanical-garden",
+              "x": 200.080744013379,
+              "z": 229.410791060295,
+              "bearing": 234.70111176729984,
+              "pitch": -6,
+              "fov": 60,
+              "text": "The Ravine Experience suspension bridge disappearing into ferns and firs",
+              "r": 10,
+              "tol": 35,
+              "targets": [],
+              "cond": null,
+              "condHint": null
+            },
+            "position": {
+              "x": 200.080744013379,
+              "z": 229.410791060295,
+              "y": -20.50424937027438,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "bel-botanical-garden",
+            "origin": {
+              "lat": 47.6088,
+              "lon": -122.1793,
+              "elev": 69.3
+            },
+            "projection": {
+              "mLat": 111182.71,
+              "mLon": 75187.81
+            }
+          },
+          "label": "The ravine suspension bridge",
+          "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+        },
+        {
+          "kind": "phone-ui-touch",
+          "image": "assets/spots/bel-botanical-garden/visit-aabd/phone-ui-touch.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:25:27.409Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 200.080744013379,
+            "z": 229.410791060295,
+            "y": -20.50424937027438,
+            "heading": 2.1868781835937496
+          },
+          "pose": {
+            "position": [
+              200.080744013379,
+              -18.85424937027438,
+              229.410791060295
+            ],
+            "bearing": 234.70110977084255,
+            "pitch": -6.000002840028045
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:25:26.079Z",
+          "triangles": 650143,
+          "drawCalls": 160,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "450f315bc45b753bbc7289deaaaa6b5070140af06eef4c19eaae96a8ed3b99af",
+          "bytes": 44923,
+          "fullPageHUD": true,
+          "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+          "setup": {
+            "arrival": {
+              "x": 0,
+              "z": 3,
+              "y": -0.18721023569814868,
+              "heading": -3.141592653589793
+            },
+            "viewpoint": {
+              "view": [
+                157.3,
+                259.7
+              ],
+              "id": "bel-botanical-garden",
+              "x": 200.080744013379,
+              "z": 229.410791060295,
+              "bearing": 234.70111176729984,
+              "pitch": -6,
+              "fov": 60,
+              "text": "The Ravine Experience suspension bridge disappearing into ferns and firs",
+              "r": 10,
+              "tol": 35,
+              "targets": [],
+              "cond": null,
+              "condHint": null
+            },
+            "position": {
+              "x": 200.080744013379,
+              "z": 229.410791060295,
+              "y": -20.50424937027438,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "bel-botanical-garden",
+            "origin": {
+              "lat": 47.6088,
+              "lon": -122.1793,
+              "elev": 69.3
+            },
+            "projection": {
+              "mLat": 111182.71,
+              "mLon": 75187.81
+            }
+          },
+          "label": "Phone view with the native touch interface",
+          "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+        }
+      ]
+    }
+  ],
+  "visitorGalleryRecapture": {
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "assembledAt": "2026-11-12T20:03:08.418Z",
+    "passRange": "332ae423..346f7986",
+    "sceneCommits": [
+      "91f5bf79e37c294e2f453bded42e4efe2e409523"
+    ],
+    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes.",
+    "sourceVerification": {
+      "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
+      "checkedAt": "2026-11-12T20:03:08.417Z"
+    }
   }
 }

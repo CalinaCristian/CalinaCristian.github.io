@@ -1,0 +1,35 @@
+{
+  "district": "seatac",
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "frames": 139,
+  "retakesInstalled": 14,
+  "retakenIds": [
+    "aerial-r03-c07",
+    "aerial-r05-c07",
+    "aerial-r06-c05",
+    "aerial-r07-c06",
+    "aerial-r08-c06",
+    "aerial-r09-c06",
+    "aerial-r09-c07",
+    "aerial-r10-c06",
+    "aerial-r11-c06",
+    "aerial-r12-c06",
+    "aerial-r12-c07",
+    "aerial-r13-c06",
+    "aerial-r13-c07",
+    "aerial-r14-c06"
+  ],
+  "untouchedItemsAndBytesPreserved": 125,
+  "archivedManifest": "historical/mixed-before-346f7986-b7da813f/manifest.json",
+  "archivedManifestSha256": "b7da813fb0d4ee65a4e9ded977b9bef14fdf251adb343019bd79533f44dc159f",
+  "archivedItemsResolved": 139,
+  "sourceFilesVerifiedAgainstCommit": 488,
+  "atlasSourceCounts": {
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 110,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 14,
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 15
+  },
+  "allGroundPosesPreserved": true,
+  "sourceRevisionCorrections": [],
+  "failures": []
+}

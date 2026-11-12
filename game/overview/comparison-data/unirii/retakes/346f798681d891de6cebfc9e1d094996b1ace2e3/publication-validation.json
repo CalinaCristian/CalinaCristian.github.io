@@ -1,0 +1,30 @@
+{
+  "district": "unirii",
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "frames": 98,
+  "retakesInstalled": 6,
+  "retakenIds": [
+    "aerial-r04-c05",
+    "aerial-r06-c03",
+    "aerial-r06-c04",
+    "aerial-r07-c05",
+    "aerial-r07-c06",
+    "aerial-r08-c02"
+  ],
+  "untouchedItemsAndBytesPreserved": 92,
+  "archivedManifest": "historical/mixed-before-346f7986-5f5ce7fd/manifest.json",
+  "archivedManifestSha256": "5f5ce7fd696cec04cf101e7a266761c049ff7b5dbd6b1e06cc859d6cf471834f",
+  "archivedItemsResolved": 98,
+  "sourceFilesVerifiedAgainstCommit": 488,
+  "atlasSourceCounts": {
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 68,
+    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 10,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 8,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 6,
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
+    "b2c4ea4a1ff792c53e4c052f258bd61942cf5195": 5
+  },
+  "allGroundPosesPreserved": true,
+  "sourceRevisionCorrections": [],
+  "failures": []
+}

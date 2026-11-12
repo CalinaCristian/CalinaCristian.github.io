@@ -1,0 +1,31 @@
+{
+  "district": "grozavesti",
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "frames": 100,
+  "retakesInstalled": 8,
+  "retakenIds": [
+    "aerial-r05-c11",
+    "aerial-r06-c07",
+    "aerial-r07-c07",
+    "aerial-r07-c08",
+    "aerial-r08-c07",
+    "aerial-r08-c08",
+    "aerial-r09-c08",
+    "aerial-r10-c08"
+  ],
+  "untouchedItemsAndBytesPreserved": 92,
+  "archivedManifest": "historical/mixed-before-346f7986-0c4492a3/manifest.json",
+  "archivedManifestSha256": "0c4492a32c804648c7943a5ea16a0f632c119efa0330006b7a60e0a8bb57c8a6",
+  "archivedItemsResolved": 100,
+  "sourceFilesVerifiedAgainstCommit": 488,
+  "atlasSourceCounts": {
+    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 65,
+    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 19,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 4,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 8,
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 4
+  },
+  "allGroundPosesPreserved": true,
+  "sourceRevisionCorrections": [],
+  "failures": []
+}

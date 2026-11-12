@@ -74,7 +74,7 @@ const landmarkSource = read('game/src/landmarks.js');
 const anchors = Object.fromEntries([...landmarkSource.split('const A = {')[1].split('\n};')[0].matchAll(/(\w+): \[(-?[\d.]+),\s*(-?[\d.]+),/g)].map(m=>[m[1],{lat:+m[2],lon:+m[3]}]));
 const landmarks = [...landmarkSource.matchAll(/^\s+L\('([^']+)', '([^']+)', '((?:\\.|[^'])+)', .*?, (b\w+)(?:, \{|\))/gm)].map(m => ({id:m[1],city:m[2],name:m[3].replace(/\\'/g,"'"),builder:m[4],...anchors[m[1]]}));
 // Each L() call remains on one line. Avoid requiring a WebGL/browser module during generation.
-if (landmarks.length !== 61) throw new Error(`Review catalogue extraction: expected 61 landmarks, found ${landmarks.length}`);
+if (landmarks.length !== 67) throw new Error(`Review catalogue extraction: expected 67 landmarks, found ${landmarks.length}`);
 const strictEvidence = process.argv.includes('--require-complete-evidence');
 for (const lm of landmarks) {
     const path = `evidence/landmarks/${lm.city}/${lm.id}.json`, full = resolve(root, 'game/overview', path);
@@ -134,7 +134,7 @@ for (const source of sources) {
     if(createHash('sha256').update(committed).digest('hex') !== source.sha256) throw new Error(`Source ${source.path} differs from ${sourceSha}. Commit game/docs changes before pinning provenance.`);
 }
 const comparisonLocations = JSON.parse(read('game/overview/comparison-data/catalog.json')).locations.map(place=>place.id);
-const data = {comparisonLocations,sourceSha,reviewedOn:'2026-11-10',repository:'https://github.com/CalinaCristian/CalinaCristian.github.io',counts:{districts:districts.length,chapters:CHAPTERS.length,landmarks:landmarks.length,landmarkBuilders:new Set(landmarks.map(x=>x.builder)).size,landmarkEvidence:landmarks.filter(lm=>lm.evidence).length,spots:spots.length,spotEvidence:spots.filter(s=>s.evidence).length,scenes:new Set(spots.map(s=>s.scene)).size,historicalReady:ready.length,menuAvailable:MENU_AVAILABLE.size,...visitorTotals(),achievements:[...read('game/src/data.js').split('export const ACHIEVEMENTS = [')[1].split('\n];')[0].matchAll(/\{ id: '/g)].length},districts,landmarks,spots,sources};
+const data = {comparisonLocations,sourceSha,reviewedOn:'2026-11-12',repository:'https://github.com/CalinaCristian/CalinaCristian.github.io',counts:{districts:districts.length,chapters:CHAPTERS.length,landmarks:landmarks.length,landmarkBuilders:new Set(landmarks.map(x=>x.builder)).size,landmarkEvidence:landmarks.filter(lm=>lm.evidence).length,spots:spots.length,spotEvidence:spots.filter(s=>s.evidence).length,scenes:new Set(spots.map(s=>s.scene)).size,historicalReady:ready.length,menuAvailable:MENU_AVAILABLE.size,...visitorTotals(),achievements:[...read('game/src/data.js').split('export const ACHIEVEMENTS = [')[1].split('\n];')[0].matchAll(/\{ id: '/g)].length},districts,landmarks,spots,sources};
 const priorInventory=JSON.parse(read('game/overview/inventory.json'));
 if(priorInventory.stagingEvidence)data.stagingEvidence=priorInventory.stagingEvidence;
 // Keep intended staging range evidence at its original source. This runtime

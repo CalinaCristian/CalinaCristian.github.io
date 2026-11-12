@@ -1,0 +1,19 @@
+{
+  "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "city": "bucharest",
+  "district": "pipera",
+  "grid": {
+    "x0": -2250,
+    "z0": -1000,
+    "columns": 16,
+    "rows": 11,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "ring-touches": 91,
+    "core-touches": 38,
+    "outside-ring": 4
+  },
+  "locations": [],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score."
+}

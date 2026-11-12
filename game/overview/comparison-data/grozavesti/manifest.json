@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "Grozavesti aerial comparisons",
-  "generatedDate": "2026-11-11",
-  "generatedAt": "2026-11-11T02:09:26.556Z",
+  "generatedDate": "2026-11-12",
+  "generatedAt": "2026-11-12T19:48:10.868Z",
   "defaultTile": "aerial-r04-c08",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -2337,19 +2337,19 @@
         1250,
         -500
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 82,
-        "triangles": 330341,
-        "renderMs": 4.600000001490116,
+        "drawCalls": 92,
+        "triangles": 377303,
+        "renderMs": 1.5999999940395355,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -2359,23 +2359,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:59:13.687Z",
-      "gamePath": "images/aerial-r05-c11.jpg",
-      "image": "images/aerial-r05-c11.jpg",
-      "thumbnail": "thumbs/aerial-r05-c11.jpg",
-      "sha256": "9fe0e13c1f70987fe2b753e9e1ea00e99638c2b14665f5e47735947852fa42a7",
+      "capturedAt": "2026-11-12T19:47:41.821Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r05-c11.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r05-c11.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r05-c11.jpg",
+      "sha256": "ae422088e731d7a2d990ff88c117e27d2842fa90799c08068a68a95c7c2fb000",
       "width": 640,
       "height": 640,
-      "captureWallMs": 4109,
+      "captureWallMs": 399,
       "dataset": "atlas",
-      "thumbnailSha256": "739974a39ae2a7a7e160d77c9905ed33469e8c8c4ff0d6a4aa3c035c51a68a10",
+      "thumbnailSha256": "26a7761d6d731d54826920644f875466d030b6f2ae51dbb2d918899354a147d9",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.44569915415902,
         26.071781928511392,
         44.447948731238526,
         26.07492741063924
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Basarab north-east by the rail yard: building and deck-edge geometry redrawn (glazed link, roof outlines)); prior collection archived."
     },
     {
       "id": "aerial-r06-c02",
@@ -2725,16 +2727,19 @@
         250,
         -250
       ],
-      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 112,
-        "triangles": 453132
+        "drawCalls": 121,
+        "triangles": 676935,
+        "renderMs": 2.0999999940395355,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -2744,16 +2749,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T01:52:32.508Z",
-      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r06-c07.png",
-      "image": "retakes/signs-8add95f3/atlas/aerial-r06-c07.png",
-      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r06-c07.png",
-      "sha256": "70b2021850a4eb69245fbd910fa6a3cbcbc6db9ce07d4355f708195db46641f5",
+      "capturedAt": "2026-11-12T19:47:44.504Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c07.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c07.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r06-c07.jpg",
+      "sha256": "127abd33106ed26520bb9a2759648fa155548bee3f6c09d37b4b1ed8d7ebae06",
       "width": 640,
       "height": 640,
-      "captureWallMs": 10038,
+      "captureWallMs": 646,
       "dataset": "atlas",
-      "thumbnailSha256": "70b2021850a4eb69245fbd910fa6a3cbcbc6db9ce07d4355f708195db46641f5",
+      "thumbnailSha256": "f3aa73238ca09e2893624ec34cf02fedb08fea7354ebe853f853c3e41bf39127",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.44344957707951,
@@ -2761,9 +2766,9 @@
         44.44569915415902,
         26.06234548212785
       ],
-      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json",
-      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
-      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "reviewSourceManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Dâmbovița shows as open water at the south-west corner under the Grozăvești bridges); prior collection archived.",
       "district": "grozavesti"
     },
     {
@@ -3429,16 +3434,19 @@
         250,
         0
       ],
-      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 115,
-        "triangles": 426638
+        "drawCalls": 121,
+        "triangles": 622953,
+        "renderMs": 2.4000000059604645,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -3448,16 +3456,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T02:09:22.695Z",
-      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r07-c07.png",
-      "image": "retakes/signs-8add95f3/atlas/aerial-r07-c07.png",
-      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r07-c07.png",
-      "sha256": "ce002e0edfbbb8e0cdaa564d0035f104532a151dd0d69db9086075c3c67a94e8",
+      "capturedAt": "2026-11-12T19:47:49.461Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c07.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c07.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r07-c07.jpg",
+      "sha256": "9dd8dffb3a2f674a00e2dbee52c6cd062a8b876a27766b99aecaf2a76312617c",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5330,
+      "captureWallMs": 486,
       "dataset": "atlas",
-      "thumbnailSha256": "ce002e0edfbbb8e0cdaa564d0035f104532a151dd0d69db9086075c3c67a94e8",
+      "thumbnailSha256": "d8264b615e07bca1164f61206a28cbbfdebe40515c4153ddb01e871574cd0c0b",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.4412,
@@ -3465,8 +3473,8 @@
         44.44344957707951,
         26.06234548212785
       ],
-      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json",
-      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Dâmbovița channel is open water instead of grass); prior collection archived.",
       "district": "grozavesti"
     },
     {
@@ -3492,16 +3500,19 @@
         500,
         0
       ],
-      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 96,
-        "triangles": 362962
+        "drawCalls": 102,
+        "triangles": 512416,
+        "renderMs": 1.300000011920929,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -3511,16 +3522,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T02:09:26.556Z",
-      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r07-c08.png",
-      "image": "retakes/signs-8add95f3/atlas/aerial-r07-c08.png",
-      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r07-c08.png",
-      "sha256": "7ae06f2396b49ec66e32887ceaea8a2028a74edf1f3f5bc2614ee4e127b17ec6",
+      "capturedAt": "2026-11-12T19:47:49.947Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c08.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c08.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r07-c08.jpg",
+      "sha256": "123f2483af5f4dabb72ffd9f948c973122f512b0d9dc708725337f6916fa2f10",
       "width": 640,
       "height": 640,
-      "captureWallMs": 3477,
+      "captureWallMs": 489,
       "dataset": "atlas",
-      "thumbnailSha256": "7ae06f2396b49ec66e32887ceaea8a2028a74edf1f3f5bc2614ee4e127b17ec6",
+      "thumbnailSha256": "b849d660f5591be50ba20e3045944166ef8f15e1aeb9e7a5c8a94dc5fb8a2309",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.4412,
@@ -3528,8 +3539,8 @@
         44.44344957707951,
         26.065490964255698
       ],
-      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json",
-      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Dâmbovița channel is open water instead of grass); prior collection archived.",
       "district": "grozavesti"
     },
     {
@@ -4063,19 +4074,19 @@
         250,
         250
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 110,
-        "triangles": 512665,
-        "renderMs": 5.300000004470348,
+        "drawCalls": 115,
+        "triangles": 556608,
+        "renderMs": 1.8999999910593033,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -4085,16 +4096,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:39:02.892Z",
-      "gamePath": "images/aerial-r08-c07.jpg",
-      "image": "images/aerial-r08-c07.jpg",
-      "thumbnail": "thumbs/aerial-r08-c07.jpg",
-      "sha256": "5ee0a0e40a0c871873bb1b1a232751a66a2b9c56eea1c7361b41130faf940ec8",
+      "capturedAt": "2026-11-12T19:47:54.238Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r08-c07.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r08-c07.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r08-c07.jpg",
+      "sha256": "c516f6bf02c48fbb853ac56f3d2373dc7a551178293584d29cfd829991c00b8d",
       "width": 640,
       "height": 640,
-      "captureWallMs": 3090,
+      "captureWallMs": 473,
       "dataset": "atlas",
-      "thumbnailSha256": "2d51c580c1f49a1b5b69e4c15c20d5a25d7e0dd7a6d3b0eba72d2c6665cb3c0d",
+      "thumbnailSha256": "7dfbf2db14ed3d401a9613258313a2fcd2f2e9ded145460d8c879d0509fa0620",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.43895042292049,
@@ -4102,8 +4113,8 @@
         44.4412,
         26.06234548212785
       ],
-      "sourceCaptureManifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
-      "sourceNote": "Exact-pose scoped retake; full prior mixed atlas archived byte-identically."
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (CET Grozăvești cooling towers rebuilt (west pair); road layout beside them redrawn); prior collection archived."
     },
     {
       "id": "aerial-r08-c08",
@@ -4128,19 +4139,19 @@
         500,
         250
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 91,
-        "triangles": 413962,
-        "renderMs": 8.600000001490116,
+        "drawCalls": 100,
+        "triangles": 430744,
+        "renderMs": 1.3999999910593033,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -4150,16 +4161,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:39:05.982Z",
-      "gamePath": "images/aerial-r08-c08.jpg",
-      "image": "images/aerial-r08-c08.jpg",
-      "thumbnail": "thumbs/aerial-r08-c08.jpg",
-      "sha256": "bfe4db7bb5d8f9950db567f3a984594513aedcae6818b8f156513232a88881c3",
+      "capturedAt": "2026-11-12T19:47:54.711Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r08-c08.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r08-c08.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r08-c08.jpg",
+      "sha256": "2703701f680c22da92e3358da49385d3bf5da78fa7c1203b4b33799949ed0270",
       "width": 640,
       "height": 640,
-      "captureWallMs": 3055,
+      "captureWallMs": 471,
       "dataset": "atlas",
-      "thumbnailSha256": "73055528a6cb85a22fe48ffbb3c66e1b26c490267a50de938ee4a87e8e8c97e2",
+      "thumbnailSha256": "50653e6a8ed2c32cd585cbab0c1ec518a436e1ffa4a46d92455cbc41c45c20e6",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.43895042292049,
@@ -4167,8 +4178,8 @@
         44.4412,
         26.065490964255698
       ],
-      "sourceCaptureManifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
-      "sourceNote": "Exact-pose scoped retake; full prior mixed atlas archived byte-identically."
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (CET Grozăvești cooling towers and stacks); prior collection archived."
     },
     {
       "id": "aerial-r08-c09",
@@ -4766,19 +4777,19 @@
         500,
         500
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 85,
-        "triangles": 390505,
-        "renderMs": 2.5,
+        "drawCalls": 97,
+        "triangles": 433191,
+        "renderMs": 1.4000000059604645,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -4788,16 +4799,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:39:22.534Z",
-      "gamePath": "images/aerial-r09-c08.jpg",
-      "image": "images/aerial-r09-c08.jpg",
-      "thumbnail": "thumbs/aerial-r09-c08.jpg",
-      "sha256": "dfb12e7a9e9fd32104f71c2197242685b87373bd5e5f424463eb7ae04448e14e",
+      "capturedAt": "2026-11-12T19:47:59.316Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r09-c08.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r09-c08.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r09-c08.jpg",
+      "sha256": "4b8c9518aeb48aa4ba105b84a4594c24b6422d16419266f04cc3c96b7a6ca3fd",
       "width": 640,
       "height": 640,
-      "captureWallMs": 4656,
+      "captureWallMs": 467,
       "dataset": "atlas",
-      "thumbnailSha256": "3aaf4d4b44a0f8640ecc24fb26407d48d99e892e93fe5470a4f59eece8a8f3cb",
+      "thumbnailSha256": "b9aa50aaba7dc868f14d1713cfddc0d2d54904b3c95f2e9777ba8c0f651e1fc7",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.43670084584098,
@@ -4805,8 +4816,8 @@
         44.43895042292049,
         26.065490964255698
       ],
-      "sourceCaptureManifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
-      "sourceNote": "Exact-pose scoped retake; full prior mixed atlas archived byte-identically."
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Botanica pond lies at grade without the raised rim); prior collection archived."
     },
     {
       "id": "aerial-r09-c09",
@@ -5337,19 +5348,19 @@
         500,
         750
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 76,
-        "triangles": 435618,
-        "renderMs": 44.899999998509884,
+        "drawCalls": 88,
+        "triangles": 388331,
+        "renderMs": 1.5999999940395355,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -5359,23 +5370,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:45:23.495Z",
-      "gamePath": "images/aerial-r10-c08.jpg",
-      "image": "images/aerial-r10-c08.jpg",
-      "thumbnail": "thumbs/aerial-r10-c08.jpg",
-      "sha256": "b7cc297c9ada63388982a17447fb1f5ebe3a3790ec559a310991585c02a8e4ad",
+      "capturedAt": "2026-11-12T19:48:03.272Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r10-c08.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r10-c08.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r10-c08.jpg",
+      "sha256": "c1b08abc9411a279b4d18f74d523b84e8d523a95706ce0eca48a5544ab067217",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7225,
+      "captureWallMs": 434,
       "dataset": "atlas",
-      "thumbnailSha256": "1a541f1d601cbc81d613cb7e41e74465a293552d3f4ce17197c8c075f17c4319",
+      "thumbnailSha256": "6571c7c99adc0852a09b70796d7554b85fea90ce3e3663b574af631771f7db7a",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.43445126876148,
         26.06234548212785,
         44.43670084584098,
         26.065490964255698
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (south end of the Botanica pond at grade); prior collection archived."
     },
     {
       "id": "aerial-r10-c09",
@@ -6514,10 +6527,11 @@
     }
   ],
   "atlasSourceCounts": {
-    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 66,
-    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 22,
-    "8add95f35681eddaf01a136ff1f5769a5329b102": 7,
-    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
+    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 65,
+    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 19,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 4,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 8,
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 4
   },
   "sourceSnapshots": [
     {
@@ -6551,6 +6565,15 @@
       "sourceProvenance": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/source-provenance.json",
       "sourceProvenanceSha256": "2dbf8cccf115f2480bceb9900813fc92bff9e09747d189106613557df19422c3",
       "frames": 1
+    },
+    {
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "treeSha256": "deec28ca0450626951551fd3ef8430ddd963c659206d1fa313c5e2e0c6e7ddf0",
+      "manifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "manifestSha256": "9ccca3c166ab98423acf8654ca5466cc1b741f3bf6ebd1357d397804ceae65f8",
+      "sourceProvenance": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/source-provenance.json",
+      "sourceProvenanceSha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47",
+      "frames": 8
     }
   ],
   "sourceCompatibility": {
@@ -6573,17 +6596,18 @@
     "delivery": "Live image request; no aerial reference imagery is stored in this repository.",
     "extent": "250 m ground square centred at each listed WGS84 coordinate; EPSG:3857 with latitude scale correction."
   },
-  "description": "Mixed-source technical atlas: 7 sign-affected poses refreshed at 8add95f3; all other images retain their recorded sources and dates.",
+  "description": "Mixed-source technical atlas: 8 poses retaken on 2026-11-12 at 346f7986 (Dâmbovița channel uncovered, CET Grozăvești cooling towers, Botanica pond at grade, Basarab north-east); all other images retain their recorded sources and dates.",
   "coverageNote": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score. Boundary cells also contain land outside the ring.",
   "reviewNote": "Sign-affected current game captures inspected at full size; source/aerial comparisons retain their historical scope. No district fidelity acceptance.",
   "review": {
     "district": "grozavesti",
     "gameSourceCommit": null,
     "sourceCounts": {
-      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 69,
-      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 25,
-      "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
-      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
+      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 65,
+      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 19,
+      "8add95f35681eddaf01a136ff1f5769a5329b102": 4,
+      "346f798681d891de6cebfc9e1d094996b1ace2e3": 8,
+      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 4
     },
     "framesReviewed": 100,
     "status": "Complete retained earlier review coverage plus 1 fresh exact-pose structural/separator pairs inspected; genuine source-height, materials, context and imagery-date limits remain.",
@@ -7229,8 +7253,8 @@
       },
       {
         "id": "aerial-r05-c11",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "9fe0e13c1f70987fe2b753e9e1ea00e99638c2b14665f5e47735947852fa42a7",
+        "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "gameSha256": "ae422088e731d7a2d990ff88c117e27d2842fa90799c08068a68a95c7c2fb000",
         "boundsWgs84": [
           44.44569915415902,
           26.071781928511392,
@@ -7238,13 +7262,12 @@
           26.07492741063924
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r05-c11.jpg",
-        "pairSha256": "64791a83b0eba5b3413ccd264599f716c6acc23004f5c57cc8f578182dc7e30c",
         "reviewSheet": "comparison-06.jpg",
         "reviewSheetSha256": "4273537c1162e9a4618b70cb65bcc68c468eccf58ee0d599dc3e6f7aa114a91f",
         "reviewedAt": "2026-11-08T22:48:45.641101+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Commercial parking and residential blocks: parking occupancy/detail and modern roof/podium forms differ; outside-detail square remains sparse."
+        "observations": "Commercial parking and residential blocks: parking occupancy/detail and modern roof/podium forms differ; outside-detail square remains sparse.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r06-c02",
@@ -7320,8 +7343,8 @@
         "id": "aerial-r06-c07",
         "originalGameSha256": "595b3dcf5a4a0da65add4e365d92f9ded2154be6edc07069f05954a334b14cf7",
         "retakeGameSha256": "3fb6eb7a1846857f16ac07bdd50f4d24fd3f6eee67b62b157ba9e95dea9c8621",
-        "gameSha256": "3fb6eb7a1846857f16ac07bdd50f4d24fd3f6eee67b62b157ba9e95dea9c8621",
-        "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+        "gameSha256": "127abd33106ed26520bb9a2759648fa155548bee3f6c09d37b4b1ed8d7ebae06",
+        "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "originalSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
         "referenceCropSha256": "ad49aa551e9217868b0d4140523036d9a98b5c9722b6f0b20e40dfb7ec708474",
         "referenceCoverageFraction": 1.0,
@@ -7332,7 +7355,8 @@
         "reviewSheetSha256": "a652466695f65ff83fb15baf8ad1cd2335499dd17ce63cc32367804ea6eae574",
         "reviewedAt": "2026-11-09T02:11:54.818451+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Exact existing technical aerial pose recaptured from the integrated structural/separator source. Conservative changed-bound coverage does not mean every change is visible from above; roofs/occlusion can conceal ground separators and under-deck structure. Native body/route clearance is separate recorded evidence, not inferred from this picture. The generated separator/flyover context is retained at its original source coordinates. Roof projection, coarse building materials/roof equipment, canopy appearance and parking occupancy remain gaps. "
+        "observations": "Exact existing technical aerial pose recaptured from the integrated structural/separator source. Conservative changed-bound coverage does not mean every change is visible from above; roofs/occlusion can conceal ground separators and under-deck structure. Native body/route clearance is separate recorded evidence, not inferred from this picture. The generated separator/flyover context is retained at its original source coordinates. Roof projection, coarse building materials/roof equipment, canopy appearance and parking occupancy remain gaps. ",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r06-c08",
@@ -7503,29 +7527,29 @@
         "id": "aerial-r07-c07",
         "originalGameSha256": "e6f7b3d9976e3164cc3fd8a365ef8dde90cc92a333358c3339ea0f73b4658113",
         "retakeGameSha256": "30ba29e19a7f8ba124d849def7affd6f2b20af59386bef47008f68bf984d494a",
-        "gameSha256": "30ba29e19a7f8ba124d849def7affd6f2b20af59386bef47008f68bf984d494a",
-        "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-        "pairSha256": "56f0263c6145764e056e532f5a2ab76b57614b029203ee0f990a32d8ce4ceb03",
+        "gameSha256": "9dd8dffb3a2f674a00e2dbee52c6cd062a8b876a27766b99aecaf2a76312617c",
+        "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "reviewSheet": "comparison-03.jpg",
         "reviewSheetSha256": "a7b99b0dda885960a0f0c92934a98c963f4a330411c05a0397e8d7feda93cd37",
         "referenceCoverageFraction": 1.0,
         "reviewedAt": "2026-11-09T00:40:32.264107+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Conservative source-water mask tile reviewed against the actual aerial. Visible river retains the source polygon shoreline without the broad overlapping estimated line ribbon on the bank/road. Model-blue water differs from the green unknown-date reference; no date-matched optical parity is claimed. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate."
+        "observations": "Conservative source-water mask tile reviewed against the actual aerial. Visible river retains the source polygon shoreline without the broad overlapping estimated line ribbon on the bank/road. Model-blue water differs from the green unknown-date reference; no date-matched optical parity is claimed. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r07-c08",
         "originalGameSha256": "eadd6095cc49ea3936366a8f6d917bf47b830fae27e1ad7ecf85f5c8bd3d06cb",
         "retakeGameSha256": "4d53ddbf64a4419f439fddd770ebbac0939b760b880d1e90657ff8787895d9da",
-        "gameSha256": "4d53ddbf64a4419f439fddd770ebbac0939b760b880d1e90657ff8787895d9da",
-        "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-        "pairSha256": "362b5b9c396f7e3d45ede78599a0ae5e4fece290b1369eba1a2ec3e7bbfe4b8b",
+        "gameSha256": "123f2483af5f4dabb72ffd9f948c973122f512b0d9dc708725337f6916fa2f10",
+        "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "reviewSheet": "comparison-03.jpg",
         "reviewSheetSha256": "a7b99b0dda885960a0f0c92934a98c963f4a330411c05a0397e8d7feda93cd37",
         "referenceCoverageFraction": 1.0,
         "reviewedAt": "2026-11-09T00:40:32.265303+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Conservative source-water mask tile reviewed against the actual aerial. Visible river retains the source polygon shoreline without the broad overlapping estimated line ribbon on the bank/road. Model-blue water differs from the green unknown-date reference; no date-matched optical parity is claimed. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate."
+        "observations": "Conservative source-water mask tile reviewed against the actual aerial. Visible river retains the source polygon shoreline without the broad overlapping estimated line ribbon on the bank/road. Model-blue water differs from the green unknown-date reference; no date-matched optical parity is claimed. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r07-c09",
@@ -7673,29 +7697,29 @@
         "id": "aerial-r08-c07",
         "originalGameSha256": "1f6a41a783de7ae5a162b0857e64c4dcfe3958bc422a557e96f0a483cc4befd7",
         "retakeGameSha256": "5ee0a0e40a0c871873bb1b1a232751a66a2b9c56eea1c7361b41130faf940ec8",
-        "gameSha256": "5ee0a0e40a0c871873bb1b1a232751a66a2b9c56eea1c7361b41130faf940ec8",
-        "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-        "pairSha256": "dec69c8215bdd1bdbe616f02ea548a78b33bb33ebae960a69eb2b759203df0b6",
+        "gameSha256": "c516f6bf02c48fbb853ac56f3d2373dc7a551178293584d29cfd829991c00b8d",
+        "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "reviewSheet": "comparison-04.jpg",
         "reviewSheetSha256": "73b8281ace59e10226c7874dcc50df02eff38889320c27a04472f36cb1cfa66e",
         "referenceCoverageFraction": 1.0,
         "reviewedAt": "2026-11-09T00:40:32.271996+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Conservative source-water mask tile reviewed against the actual aerial. This masked tile chiefly shows surrounding district context; it does not itself establish a visible ribbon correction. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate."
+        "observations": "Conservative source-water mask tile reviewed against the actual aerial. This masked tile chiefly shows surrounding district context; it does not itself establish a visible ribbon correction. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r08-c08",
         "originalGameSha256": "ae5415045d2637d1644e16a326b78b21b8f98e743b19c64f2efd466a1f293bbb",
         "retakeGameSha256": "bfe4db7bb5d8f9950db567f3a984594513aedcae6818b8f156513232a88881c3",
-        "gameSha256": "bfe4db7bb5d8f9950db567f3a984594513aedcae6818b8f156513232a88881c3",
-        "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-        "pairSha256": "1114df6130ca429e29ea8b9b9bfa16c666c06c5ec850f7470c22d940631f65ad",
+        "gameSha256": "2703701f680c22da92e3358da49385d3bf5da78fa7c1203b4b33799949ed0270",
+        "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "reviewSheet": "comparison-04.jpg",
         "reviewSheetSha256": "73b8281ace59e10226c7874dcc50df02eff38889320c27a04472f36cb1cfa66e",
         "referenceCoverageFraction": 1.0,
         "reviewedAt": "2026-11-09T00:40:32.273422+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Conservative source-water mask tile reviewed against the actual aerial. Visible river retains the source polygon shoreline without the broad overlapping estimated line ribbon on the bank/road. Model-blue water differs from the green unknown-date reference; no date-matched optical parity is claimed. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate. Industrial/campus roof ridges, plant equipment and cooling-tower profiles remain simplified; they are not claimed corrected."
+        "observations": "Conservative source-water mask tile reviewed against the actual aerial. Visible river retains the source polygon shoreline without the broad overlapping estimated line ribbon on the bank/road. Model-blue water differs from the green unknown-date reference; no date-matched optical parity is claimed. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate. Industrial/campus roof ridges, plant equipment and cooling-tower profiles remain simplified; they are not claimed corrected.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r08-c09",
@@ -7857,15 +7881,15 @@
         "id": "aerial-r09-c08",
         "originalGameSha256": "98dcc64b3bf8bc9b5c766bf022ffc3fdea7f351aeefe49f8a9b1bfbda46c78e1",
         "retakeGameSha256": "dfb12e7a9e9fd32104f71c2197242685b87373bd5e5f424463eb7ae04448e14e",
-        "gameSha256": "dfb12e7a9e9fd32104f71c2197242685b87373bd5e5f424463eb7ae04448e14e",
-        "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-        "pairSha256": "9668efaea1a9ac2a4e00b40b4f9cceab334ac8804403d7f5c2b92e69778f99ac",
+        "gameSha256": "4b8c9518aeb48aa4ba105b84a4594c24b6422d16419266f04cc3c96b7a6ca3fd",
+        "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "reviewSheet": "comparison-05.jpg",
         "reviewSheetSha256": "2646905cda2e1d310ec64c60adeb9cf48641cf06d034adea898dd4ba4f5599b8",
         "referenceCoverageFraction": 1.0,
         "reviewedAt": "2026-11-09T00:40:32.280867+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Conservative source-water mask tile reviewed against the actual aerial. This masked tile chiefly shows surrounding district context; it does not itself establish a visible ribbon correction. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate."
+        "observations": "Conservative source-water mask tile reviewed against the actual aerial. This masked tile chiefly shows surrounding district context; it does not itself establish a visible ribbon correction. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r09-c09",
@@ -8016,8 +8040,8 @@
       },
       {
         "id": "aerial-r10-c08",
-        "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-        "gameSha256": "b7cc297c9ada63388982a17447fb1f5ebe3a3790ec559a310991585c02a8e4ad",
+        "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "gameSha256": "c1b08abc9411a279b4d18f74d523b84e8d523a95706ce0eca48a5544ab067217",
         "boundsWgs84": [
           44.43445126876148,
           26.06234548212785,
@@ -8025,13 +8049,12 @@
           26.065490964255698
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r10-c08.jpg",
-        "pairSha256": "f52eca51c0851bb889d4b39f56a287f4448b891c01518382fa47f3d958a1a3e9",
         "reviewSheet": "comparison-03.jpg",
         "reviewSheetSha256": "62d3db1ecc140e57499c28204081fffe52bbcf3f87fa76b4c9fdbd5493074869",
         "reviewedAt": "2026-11-08T22:50:31.447280+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Current0775 campus/pond squares: restrained shore band, blue model ponds versus green/brown reference. Lawn/canopy coverage, roof forms and actual parking differ; detailed real-world parity remains incomplete."
+        "observations": "Current0775 campus/pond squares: restrained shore band, blue model ponds versus green/brown reference. Lawn/canopy coverage, roof forms and actual parking differ; detailed real-world parity remains incomplete.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r10-c09",
@@ -8376,15 +8399,16 @@
         "observations": "Four distant context frames: generic blocks and cathedral surroundings remain visibly incomplete. Cathedral placement is retained but this does not establish contextual parity."
       }
     ],
-    "targetedRetakeReview": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+    "targetedRetakeReview": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
     "structureRetakeReview": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
     "structureRetakeSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
     "structureRetakesReviewed": 1,
     "currentAtlasSourceCounts": {
-      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 69,
-      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 25,
-      "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
-      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
+      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 65,
+      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 19,
+      "8add95f35681eddaf01a136ff1f5769a5329b102": 4,
+      "346f798681d891de6cebfc9e1d094996b1ace2e3": 8,
+      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 4
     },
     "priorCompleteReview": {
       "manifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/manifest.json",
@@ -8392,10 +8416,13 @@
       "note": "Every earlier review/source-specific finding is preserved verbatim in the complete prior collection."
     },
     "priorTargetedRetakeReview": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/paired-review.json",
-    "structureRetakeReviewedAt": "2026-11-09T02:11:54.818451+00:00"
+    "structureRetakeReviewedAt": "2026-11-09T02:11:54.818451+00:00",
+    "earlierTargetedRetakeReviews": [
+      "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json"
+    ]
   },
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 7 sign-affected poses refreshed at 8add95f3; all other images retain their recorded sources and dates."
+    "atlas": "Mixed-source technical atlas: 8 poses retaken on 2026-11-12 at 346f7986 (Dâmbovița channel uncovered, CET Grozăvești cooling towers, Botanica pond at grade, Basarab north-east); all other images retain their recorded sources and dates."
   },
   "perspectiveCollections": [
     {
@@ -8482,5 +8509,21 @@
       "aerial-r07-c08"
     ],
     "scope": "Conservative camera-frustum sphere intersections, 30m sign/shadow margin. Unplaced sign includes whole source building. No occlusion or distance culling assumed. Every condition of affected walking viewpoints included. Isolated model studies and standalone tourist scenes do not use district unit fascias."
-  }
+  },
+  "historicalCollections": [
+    {
+      "manifest": "historical/mixed-before-346f7986-0c4492a3/manifest.json",
+      "label": "Atlas before the 346f798 retake (Dâmbovița channel uncovered, CET Grozăvești cooling towers, Botanica pond at grade, Basarab north-east)",
+      "frames": 100,
+      "generatedAt": "2026-11-11T02:09:26.556Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 66,
+        "bbaffc0d6cdccb6246edeb9478c58590852980d9": 22,
+        "8add95f35681eddaf01a136ff1f5769a5329b102": 7,
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
+      },
+      "captureType": "mixed-source-survey"
+    }
+  ]
 }

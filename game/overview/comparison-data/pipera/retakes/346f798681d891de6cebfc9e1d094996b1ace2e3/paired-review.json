@@ -1,0 +1,27 @@
+{
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r05-c06",
+    "aerial-r07-c08"
+  ],
+  "reviewedAt": "2026-11-12T20:43:19.171Z",
+  "method": "Published game capture, a 332ae423 render and the 346f7986 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r05-c06",
+      "originalGameSha256": "f80a26d53491f87c32cbdeef2412be96532a4efaa920483b362f41e8c12d3414",
+      "originalGameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "retakeGameSha256": "5ddba3af19cf8d173f28899b219d3c2978ae5b26691a63062a25100c3bd1db13",
+      "observation": "Promenada west front carries the tenant fascia band (thin at this scale); the earlier tile also predates junction changes made before the range"
+    },
+    {
+      "id": "aerial-r07-c08",
+      "originalGameSha256": "96fb14cfd4aa4fdcf6552faa6cc0601a1611ee4ea93420fc001d93e378c51b58",
+      "originalGameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
+      "retakeGameSha256": "33d54b4e3608b09edc9dcd7901378aebb6914b92a7a50c8888b07202e55decab",
+      "observation": "Petricani bridge: separate decks with water between them and railings"
+    }
+  ]
+}

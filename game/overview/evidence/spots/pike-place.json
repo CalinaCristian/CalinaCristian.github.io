@@ -276,18 +276,25 @@
       "label": "Native phone fish/gum inputs",
       "type": "Native GAME proof; scope recorded separately",
       "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/market-shore-final/input-fixed-f056/results.json"
+    },
+    {
+      "label": "District fidelity pass scene change (0446b77)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/0446b773eafd3b53e353c997fdb26dc4e920c2b3"
     }
   ],
   "improvements": [
     "Current native scene retains 148 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
     "Physical Rachel approach, animated coin controls; actual phone timed fish catch/early rejection/immediate pause; native aimed gum ray",
-    "The selected primary activity approach is accepted separately from full-scene comparison."
+    "The selected primary activity approach is accepted separately from full-scene comparison.",
+    "District fidelity pass, 0446b77 (range 332ae423..346f7986): Only the shared shop-sign helper gained an optional business list for other scenes; no intended visual change to Pike Place in the pass. The scene had changed between dc93023f and the pass (walking levels at the old camera points differ), which these views now show."
   ],
   "remainingGaps": [
     "Fresh ground correction is scoped: the complete Gum Wall approach still stops before its final route goal; generic market facades/canopy supports and current Seattle context remain open.",
     "Whole-market frontage/artwork accuracy and full fish trajectory framing remain open",
     "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
-    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
+    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at f056a5e or earlier, before the district fidelity pass, and were not re-run at 346f798."
   ],
   "checks": [
     {
@@ -319,6 +326,16 @@
       "label": "Current exhaustive physical audit",
       "passed": null,
       "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
+    },
+    {
+      "label": "Visitor views recaptured after the district fidelity pass",
+      "passed": true,
+      "details": "346f798: 4 viewpoints × 4 conditions recaptured (market-sign, fish-counter, rachel, gum-wall). Changed viewpoints: rachel: At this source a canopy post stands between the dc93023f camera point [-56.95,37.57] and the pig; the camera stands 2.1 m south-west of that point and looks east at Rachel. gum-wall: A visitor stands directly in front of the dc93023f camera point [-43,60] at this source; the camera stands 1.9 m further west in Post Alley, same look. Every picture was inspected after capture. Appearance only; no route, activity or reference-match claim."
+    },
+    {
+      "label": "Validation frames and native proofs re-run at 346f798",
+      "passed": false,
+      "details": "Not re-run. The validation captures and proofs above keep their original source and date and describe the scene before the pass."
     }
   ],
   "captures": [
@@ -588,7 +605,7 @@
     },
     "collection": "previous-context-gallery"
   },
-  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical Rachel approach, animated coin controls; actual phone timed fish catch/early rejection/immediate pause; native aimed gum ray Whole-market frontage/artwork accuracy and full fish trajectory framing remain open Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical Rachel approach, animated coin controls; actual phone timed fish catch/early rejection/immediate pause; native aimed gum ray Whole-market frontage/artwork accuracy and full fish trajectory framing remain open Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates.",
   "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
   "menuAvailable": true,
   "captureSourceCommits": [
@@ -663,12 +680,15 @@
   ],
   "visitorGallery": {
     "schemaVersion": 1,
-    "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
-    "notice": "4 matched walking-height viewpoints in each of four conditions, captured from the recorded production game source. Open any picture at its original size.",
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "notice": "4 matched walking-height viewpoints in each of four conditions, recaptured from game source 346f798 after the district fidelity pass. Open any picture at its original size.",
     "setup": "Production app, scene, actors, lighting and renderer at High quality, 1280 × 800. Automatic animation was paused and explicit frames rendered at fixed on-foot cameras 1.65 m above their supporting surfaces. Local simulation dates and weather were controlled; capturedAt records the real capture time.",
     "limitations": [
       "Fixed on-foot appearance fixtures; cameras were positioned for inspection. These pictures do not establish a traversed route, activity completion, physical-phone behavior or hardware FPS.",
-      "The market facades, windows and awnings remain coarse; these captures expose the remaining fidelity work. The Gum Wall overhang does not currently occlude every snow particle."
+      "The market facades, windows and awnings remain coarse. The Gum Wall overhang does not occlude every snow particle.",
+      "Viewpoints that differ from the dc93023f gallery — rachel: At this source a canopy post stands between the dc93023f camera point [-56.95,37.57] and the pig; the camera stands 2.1 m south-west of that point and looks east at Rachel. gum-wall: A visitor stands directly in front of the dc93023f camera point [-43,60] at this source; the camera stands 1.9 m further west in Post Alley, same look.",
+      "The captured High-quality frames reach 1,568,202 triangles / 430 draw calls; that is above the 1.5 M triangle / 400 draw-call frame budget, so scene performance remains open.",
+      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
     ],
     "conditionSets": [
       {
@@ -685,8 +705,8 @@
             "place": "pike-place",
             "label": "Pike Street · Public Market sign and arcade",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:32:09.054Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:50.781Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -712,7 +732,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794303067357,
+                "updatedAt": 1794513168572,
                 "climate": null
               },
               "date": "2026-07-15T19:00:00.000Z",
@@ -721,15 +741,15 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "bf7db1c3c8b0dfd075bcce9bcaeb2326bc5224b92242a1688cef8a1d5177053a",
-            "bytes": 174720,
+            "sha256": "9f4322739d1d9b9316cc7779badc9334032ab119b327bd9224259ac68f4342e5",
+            "bytes": 194770,
             "pose": {
               "x": -16.5,
               "z": 17,
-              "floor": -1.7089763879776,
+              "floor": -0.48693040758371353,
               "eye": [
                 -16.5,
-                -0.058976387977600186,
+                1.1630695924162864,
                 17
               ],
               "heightAboveSupport": 1.65,
@@ -739,10 +759,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.02,
-              "frameMs": 44481.8,
-              "drawCalls": 297,
-              "triangles": 769613,
+              "fps": 0.46,
+              "frameMs": 2169.7,
+              "drawCalls": 410,
+              "triangles": 1265500,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -750,7 +770,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/pike-place/ground-dc93023f/summer-day/market-sign.jpg"
+            "image": "assets/spots/pike-place/ground-346f7986/summer-day/market-sign.jpg"
           },
           {
             "id": "fish-counter",
@@ -758,8 +778,8 @@
             "place": "pike-place",
             "label": "Fish Market · counter and fishmongers",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:50:24.131Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:50.896Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -785,7 +805,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794300602943,
+                "updatedAt": 1794513168572,
                 "climate": null
               },
               "date": "2026-07-15T19:00:00.000Z",
@@ -794,28 +814,28 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "cadd6ecba75580c47cfd190af2a29a7a07e81a98da8230533e3147d041c352d2",
-            "bytes": 233854,
+            "sha256": "acde636785ea30eda8bbbe517820a67ab96f5ff0e043467cbff8a1925347f0b5",
+            "bytes": 225915,
             "pose": {
               "x": -53.5,
               "z": 26.5,
-              "floor": -6.332464933395386,
+              "floor": -1.231507420539856,
               "eye": [
                 -53.5,
-                -4.682464933395385,
+                0.41849257946014395,
                 26.5
               ],
-              "heightAboveSupport": 1.6500000000000004,
+              "heightAboveSupport": 1.65,
               "bearing": 258.23171106797935,
-              "pitch": -10.599461204715872,
+              "pitch": -10.599461204715874,
               "fov": 74
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.19,
-              "frameMs": 5237.6,
-              "drawCalls": 265,
-              "triangles": 868293,
+              "fps": 0.46,
+              "frameMs": 47.3,
+              "drawCalls": 364,
+              "triangles": 1357243,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -823,7 +843,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/pike-place/ground-dc93023f/summer-day/fish-counter.jpg"
+            "image": "assets/spots/pike-place/ground-346f7986/summer-day/fish-counter.jpg"
           },
           {
             "id": "rachel",
@@ -831,8 +851,8 @@
             "place": "pike-place",
             "label": "Rachel · bronze pig and donation activity",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:50:29.098Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:57:23.604Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -858,7 +878,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794300602943,
+                "updatedAt": 1794513438827,
                 "climate": null
               },
               "date": "2026-07-15T19:00:00.000Z",
@@ -867,28 +887,28 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "193783cb7e3f9731483d0c5782f127202ca3c3d881409ea4024bad0e7fe3dc5b",
-            "bytes": 189584,
+            "sha256": "865d8371f36f8b30699a90c21f3bc2020eccd549719057cbb7f18c6f52d49334",
+            "bytes": 197643,
             "pose": {
-              "x": -56.95,
-              "z": 37.57,
-              "floor": -6.400000095367432,
+              "x": -57.42,
+              "z": 35.56,
+              "floor": -1.226911004781723,
               "eye": [
-                -56.95,
-                -4.750000095367431,
-                37.57
+                -57.42,
+                0.4230889952182768,
+                35.56
               ],
-              "heightAboveSupport": 1.6500000000000004,
-              "bearing": 64.06339652079043,
-              "pitch": -25.177155875723628,
+              "heightAboveSupport": 1.65,
+              "bearing": 104,
+              "pitch": -20,
               "fov": 66
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.21,
-              "frameMs": 4732.5,
-              "drawCalls": 361,
-              "triangles": 1134612,
+              "fps": 0.25,
+              "frameMs": 4075.8,
+              "drawCalls": 430,
+              "triangles": 1568202,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -896,7 +916,8 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/pike-place/ground-dc93023f/summer-day/rachel.jpg"
+            "image": "assets/spots/pike-place/ground-346f7986/summer-day/rachel.jpg",
+            "viewpointChange": "At this source a canopy post stands between the dc93023f camera point [-56.95,37.57] and the pig; the camera stands 2.1 m south-west of that point and looks east at Rachel."
           },
           {
             "id": "gum-wall",
@@ -904,8 +925,8 @@
             "place": "pike-place",
             "label": "Post Alley · Gum Wall detail",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:50:34.064Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:57:23.687Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -931,7 +952,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794300602943,
+                "updatedAt": 1794513438827,
                 "climate": null
               },
               "date": "2026-07-15T19:00:00.000Z",
@@ -940,16 +961,16 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "9962d45b0b02b19155159d3860a2d2e92b1232293cd8ab5f3e40d7817f387055",
-            "bytes": 303984,
+            "sha256": "acefcebcc2520a76ad2f895001de71c17afe38f719faacb47bf65147a9f06232",
+            "bytes": 313488,
             "pose": {
-              "x": -43,
-              "z": 60,
-              "floor": -8.390912055969238,
+              "x": -44.92,
+              "z": 59.63,
+              "floor": -6.990305446358992,
               "eye": [
-                -43,
-                -6.740912055969238,
-                60
+                -44.92,
+                -5.340305446358991,
+                59.63
               ],
               "heightAboveSupport": 1.6500000000000004,
               "bearing": 98.13010235415601,
@@ -958,10 +979,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.2,
-              "frameMs": 4952.3,
-              "drawCalls": 304,
-              "triangles": 882466,
+              "fps": 1.4,
+              "frameMs": 713.7,
+              "drawCalls": 384,
+              "triangles": 1394803,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -969,7 +990,8 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/pike-place/ground-dc93023f/summer-day/gum-wall.jpg"
+            "image": "assets/spots/pike-place/ground-346f7986/summer-day/gum-wall.jpg",
+            "viewpointChange": "A visitor stands directly in front of the dc93023f camera point [-43,60] at this source; the camera stands 1.9 m further west in Post Alley, same look."
           }
         ]
       },
@@ -987,8 +1009,8 @@
             "place": "pike-place",
             "label": "Pike Street · Public Market sign and arcade",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:32:24.932Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:54.532Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1014,7 +1036,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794303129089,
+                "updatedAt": 1794513171173,
                 "climate": null
               },
               "date": "2026-07-16T06:00:00.000Z",
@@ -1023,15 +1045,15 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "cd68a96ed45913b728ada7db631ac68458b69b45673ce8164277ac2a64a31641",
-            "bytes": 186201,
+            "sha256": "3ab558475ec7c520720a4386cf1464300dd6f7b36a4ec922c3b70bde7b4742e5",
+            "bytes": 204384,
             "pose": {
               "x": -16.5,
               "z": 17,
-              "floor": -1.7089763879776,
+              "floor": -0.48693040758371353,
               "eye": [
                 -16.5,
-                -0.058976387977600186,
+                1.1630695924162864,
                 17
               ],
               "heightAboveSupport": 1.65,
@@ -1041,10 +1063,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.16,
-              "frameMs": 6161.9,
-              "drawCalls": 211,
-              "triangles": 523846,
+              "fps": 1.5,
+              "frameMs": 3003.3,
+              "drawCalls": 260,
+              "triangles": 773341,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1052,7 +1074,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/pike-place/ground-dc93023f/summer-night/market-sign.jpg"
+            "image": "assets/spots/pike-place/ground-346f7986/summer-night/market-sign.jpg"
           },
           {
             "id": "fish-counter",
@@ -1060,8 +1082,8 @@
             "place": "pike-place",
             "label": "Fish Market · counter and fishmongers",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:55:11.842Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:54.567Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1087,7 +1109,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794300895892,
+                "updatedAt": 1794513171173,
                 "climate": null
               },
               "date": "2026-07-16T06:00:00.000Z",
@@ -1096,28 +1118,28 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "e6e503a17dba71bfac87640f7b72c54fee1ca1352eb021b82a50c4a487d7c624",
-            "bytes": 228691,
+            "sha256": "c720773fbcb4214ec8615c20aa0f581c47b163cf129a7bcb5dbf569d3421861a",
+            "bytes": 219722,
             "pose": {
               "x": -53.5,
               "z": 26.5,
-              "floor": -6.332464933395386,
+              "floor": -1.231507420539856,
               "eye": [
                 -53.5,
-                -4.682464933395385,
+                0.41849257946014395,
                 26.5
               ],
-              "heightAboveSupport": 1.6500000000000004,
+              "heightAboveSupport": 1.65,
               "bearing": 258.23171106797935,
-              "pitch": -10.599461204715872,
+              "pitch": -10.599461204715874,
               "fov": 74
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.09,
-              "frameMs": 10881.6,
-              "drawCalls": 167,
-              "triangles": 645799,
+              "fps": 1.5,
+              "frameMs": 364,
+              "drawCalls": 200,
+              "triangles": 888608,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1125,7 +1147,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/pike-place/ground-dc93023f/summer-night/fish-counter.jpg"
+            "image": "assets/spots/pike-place/ground-346f7986/summer-night/fish-counter.jpg"
           },
           {
             "id": "rachel",
@@ -1133,8 +1155,8 @@
             "place": "pike-place",
             "label": "Rachel · bronze pig and donation activity",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:55:16.117Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:57:30.137Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1160,7 +1182,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794300895892,
+                "updatedAt": 1794513443724,
                 "climate": null
               },
               "date": "2026-07-16T06:00:00.000Z",
@@ -1169,28 +1191,28 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "b8374a4be3268affe46c4b4c3f5d83447343e80f5e983e72b9c25823d9541c0e",
-            "bytes": 183097,
+            "sha256": "d69500b37ff3512f9611e3f3a49c9bbec15873c1c340d3a1bfdabcefa1c8ad93",
+            "bytes": 215278,
             "pose": {
-              "x": -56.95,
-              "z": 37.57,
-              "floor": -6.400000095367432,
+              "x": -57.42,
+              "z": 35.56,
+              "floor": -1.226911004781723,
               "eye": [
-                -56.95,
-                -4.750000095367431,
-                37.57
+                -57.42,
+                0.4230889952182768,
+                35.56
               ],
-              "heightAboveSupport": 1.6500000000000004,
-              "bearing": 64.06339652079043,
-              "pitch": -25.177155875723628,
+              "heightAboveSupport": 1.65,
+              "bearing": 104,
+              "pitch": -20,
               "fov": 66
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.27,
-              "frameMs": 3675.4,
-              "drawCalls": 265,
-              "triangles": 885727,
+              "fps": 0.31,
+              "frameMs": 6347.3,
+              "drawCalls": 277,
+              "triangles": 1052573,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1198,7 +1220,8 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/pike-place/ground-dc93023f/summer-night/rachel.jpg"
+            "image": "assets/spots/pike-place/ground-346f7986/summer-night/rachel.jpg",
+            "viewpointChange": "At this source a canopy post stands between the dc93023f camera point [-56.95,37.57] and the pig; the camera stands 2.1 m south-west of that point and looks east at Rachel."
           },
           {
             "id": "gum-wall",
@@ -1206,8 +1229,8 @@
             "place": "pike-place",
             "label": "Post Alley · Gum Wall detail",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:55:21.786Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:57:30.175Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1233,7 +1256,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794300895892,
+                "updatedAt": 1794513443724,
                 "climate": null
               },
               "date": "2026-07-16T06:00:00.000Z",
@@ -1242,16 +1265,16 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "a08dbbeea83f35126577f76fc20539b54b827cb65b04db0c8fa41283f8d733f3",
-            "bytes": 296294,
+            "sha256": "a2707a4990a307817b701b19f0b17c05aacdc1ca8f28664cc084a69529eeb5d9",
+            "bytes": 338490,
             "pose": {
-              "x": -43,
-              "z": 60,
-              "floor": -8.390912055969238,
+              "x": -44.92,
+              "z": 59.63,
+              "floor": -6.990305446358992,
               "eye": [
-                -43,
-                -6.740912055969238,
-                60
+                -44.92,
+                -5.340305446358991,
+                59.63
               ],
               "heightAboveSupport": 1.6500000000000004,
               "bearing": 98.13010235415601,
@@ -1260,10 +1283,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.23,
-              "frameMs": 4302,
-              "drawCalls": 210,
-              "triangles": 677691,
+              "fps": 0.31,
+              "frameMs": 74.6,
+              "drawCalls": 228,
+              "triangles": 940910,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1271,7 +1294,8 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/pike-place/ground-dc93023f/summer-night/gum-wall.jpg"
+            "image": "assets/spots/pike-place/ground-346f7986/summer-night/gum-wall.jpg",
+            "viewpointChange": "A visitor stands directly in front of the dc93023f camera point [-43,60] at this source; the camera stands 1.9 m further west in Post Alley, same look."
           }
         ]
       },
@@ -1289,8 +1313,8 @@
             "place": "pike-place",
             "label": "Pike Street · Public Market sign and arcade",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:32:32.504Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:54.728Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1316,7 +1340,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794303144994,
+                "updatedAt": 1794513174646,
                 "climate": null
               },
               "date": "2026-01-15T20:00:00.000Z",
@@ -1325,15 +1349,15 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "7decb788fc2825a4abf3d8fa4082ffdbc03e7c0d78fa68574a3d75e567fee9d8",
-            "bytes": 141591,
+            "sha256": "5ff04074004979eaf550570decd8f8db0ebcc98d2110293504143cf41b87f82e",
+            "bytes": 153258,
             "pose": {
               "x": -16.5,
               "z": 17,
-              "floor": -1.7089763879776,
+              "floor": -0.48693040758371353,
               "eye": [
                 -16.5,
-                -0.058976387977600186,
+                1.1630695924162864,
                 17
               ],
               "heightAboveSupport": 1.65,
@@ -1343,10 +1367,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.1,
-              "frameMs": 391.5,
-              "drawCalls": 280,
-              "triangles": 752167,
+              "fps": 9.5,
+              "frameMs": 58,
+              "drawCalls": 407,
+              "triangles": 1257284,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1354,7 +1378,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/pike-place/ground-dc93023f/winter-day/market-sign.jpg"
+            "image": "assets/spots/pike-place/ground-346f7986/winter-day/market-sign.jpg"
           },
           {
             "id": "fish-counter",
@@ -1362,8 +1386,8 @@
             "place": "pike-place",
             "label": "Fish Market · counter and fishmongers",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:55:34.016Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:54.749Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1389,7 +1413,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794300921825,
+                "updatedAt": 1794513174646,
                 "climate": null
               },
               "date": "2026-01-15T20:00:00.000Z",
@@ -1398,28 +1422,28 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "4a6a7e61a04f852681fd013fb8ef9b8fe6662511b4fbe1e337dcbca96e62bc73",
-            "bytes": 168941,
+            "sha256": "98a94ab11d70ecfdf1e027d644e1f718dfcdbfbc9bdc7d46d7c42527bbc069bc",
+            "bytes": 161705,
             "pose": {
               "x": -53.5,
               "z": 26.5,
-              "floor": -6.332464933395386,
+              "floor": -1.231507420539856,
               "eye": [
                 -53.5,
-                -4.682464933395385,
+                0.41849257946014395,
                 26.5
               ],
-              "heightAboveSupport": 1.6500000000000004,
+              "heightAboveSupport": 1.65,
               "bearing": 258.23171106797935,
-              "pitch": -10.599461204715872,
+              "pitch": -10.599461204715874,
               "fov": 74
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.23,
-              "frameMs": 8420.2,
-              "drawCalls": 259,
-              "triangles": 867381,
+              "fps": 9.5,
+              "frameMs": 31,
+              "drawCalls": 365,
+              "triangles": 1354979,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1427,7 +1451,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/pike-place/ground-dc93023f/winter-day/fish-counter.jpg"
+            "image": "assets/spots/pike-place/ground-346f7986/winter-day/fish-counter.jpg"
           },
           {
             "id": "rachel",
@@ -1435,8 +1459,8 @@
             "place": "pike-place",
             "label": "Rachel · bronze pig and donation activity",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:55:37.667Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:57:30.352Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1462,7 +1486,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794300921825,
+                "updatedAt": 1794513450182,
                 "climate": null
               },
               "date": "2026-01-15T20:00:00.000Z",
@@ -1471,28 +1495,28 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "bec76301d2cb6215a127ed4fcdfe9642a3ecd82de2b6bcd3847d8f251da71b3b",
-            "bytes": 135862,
+            "sha256": "c5fc0bb32333f7bb97a693711cec759489b8bc14ad94d1203f8a587d077160bb",
+            "bytes": 148706,
             "pose": {
-              "x": -56.95,
-              "z": 37.57,
-              "floor": -6.400000095367432,
+              "x": -57.42,
+              "z": 35.56,
+              "floor": -1.226911004781723,
               "eye": [
-                -56.95,
-                -4.750000095367431,
-                37.57
+                -57.42,
+                0.4230889952182768,
+                35.56
               ],
-              "heightAboveSupport": 1.6500000000000004,
-              "bearing": 64.06339652079043,
-              "pitch": -25.177155875723628,
+              "heightAboveSupport": 1.65,
+              "bearing": 104,
+              "pitch": -20,
               "fov": 66
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.28,
-              "frameMs": 3585.3,
-              "drawCalls": 335,
-              "triangles": 1093862,
+              "fps": 0.31,
+              "frameMs": 138,
+              "drawCalls": 427,
+              "triangles": 1552876,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1500,7 +1524,8 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/pike-place/ground-dc93023f/winter-day/rachel.jpg"
+            "image": "assets/spots/pike-place/ground-346f7986/winter-day/rachel.jpg",
+            "viewpointChange": "At this source a canopy post stands between the dc93023f camera point [-56.95,37.57] and the pig; the camera stands 2.1 m south-west of that point and looks east at Rachel."
           },
           {
             "id": "gum-wall",
@@ -1508,8 +1533,8 @@
             "place": "pike-place",
             "label": "Post Alley · Gum Wall detail",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:55:42.271Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:57:30.375Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1535,7 +1560,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794300921825,
+                "updatedAt": 1794513450182,
                 "climate": null
               },
               "date": "2026-01-15T20:00:00.000Z",
@@ -1544,16 +1569,16 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "9adab5f5e609cd6555815497a0e5d83f3e95553a7da432a4564e0ce6afa68022",
-            "bytes": 273607,
+            "sha256": "fc9c268bdb07a01c256b4c93831ae3cae9db58c1ff298f2ff37272319087c761",
+            "bytes": 304452,
             "pose": {
-              "x": -43,
-              "z": 60,
-              "floor": -8.390912055969238,
+              "x": -44.92,
+              "z": 59.63,
+              "floor": -6.990305446358992,
               "eye": [
-                -43,
-                -6.740912055969238,
-                60
+                -44.92,
+                -5.340305446358991,
+                59.63
               ],
               "heightAboveSupport": 1.6500000000000004,
               "bearing": 98.13010235415601,
@@ -1562,10 +1587,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.27,
-              "frameMs": 3649.8,
-              "drawCalls": 306,
-              "triangles": 868904,
+              "fps": 0.31,
+              "frameMs": 38.3,
+              "drawCalls": 380,
+              "triangles": 1381025,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1573,7 +1598,8 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/pike-place/ground-dc93023f/winter-day/gum-wall.jpg"
+            "image": "assets/spots/pike-place/ground-346f7986/winter-day/gum-wall.jpg",
+            "viewpointChange": "A visitor stands directly in front of the dc93023f camera point [-43,60] at this source; the camera stands 1.9 m further west in Post Alley, same look."
           }
         ]
       },
@@ -1591,8 +1617,8 @@
             "place": "pike-place",
             "label": "Pike Street · Public Market sign and arcade",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:32:39.696Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:54.852Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1618,7 +1644,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794303152512,
+                "updatedAt": 1794513174805,
                 "climate": null
               },
               "date": "2026-01-16T07:00:00.000Z",
@@ -1627,15 +1653,15 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "9b1d8104bce0072e719d233190c6f347a5550f92c86b50f454717262e5c47c63",
-            "bytes": 192252,
+            "sha256": "00a94fee25bdb619ed62c91fd42be4ef0c82371044f3a9e4494031b5b2a95d98",
+            "bytes": 200044,
             "pose": {
               "x": -16.5,
               "z": 17,
-              "floor": -1.7089763879776,
+              "floor": -0.48693040758371353,
               "eye": [
                 -16.5,
-                -0.058976387977600186,
+                1.1630695924162864,
                 17
               ],
               "heightAboveSupport": 1.65,
@@ -1645,10 +1671,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.34,
-              "frameMs": 2952.3,
-              "drawCalls": 184,
-              "triangles": 511801,
+              "fps": 9.5,
+              "frameMs": 30.9,
+              "drawCalls": 239,
+              "triangles": 764949,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1656,7 +1682,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/pike-place/ground-dc93023f/winter-night/market-sign.jpg"
+            "image": "assets/spots/pike-place/ground-346f7986/winter-night/market-sign.jpg"
           },
           {
             "id": "fish-counter",
@@ -1664,8 +1690,8 @@
             "place": "pike-place",
             "label": "Fish Market · counter and fishmongers",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:55:56.372Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:54.880Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1691,7 +1717,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794300942318,
+                "updatedAt": 1794513174805,
                 "climate": null
               },
               "date": "2026-01-16T07:00:00.000Z",
@@ -1700,28 +1726,28 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "81a8ec6fa3fcdea7ff4ccaadd00fe2788e7d4b23e362cd5d8bf765b1baac9d40",
-            "bytes": 195138,
+            "sha256": "d50d21bdd4c0e05fdbeb7498841b743ffb718dd8f2e0cf3ee098b23be32a343d",
+            "bytes": 186004,
             "pose": {
               "x": -53.5,
               "z": 26.5,
-              "floor": -6.332464933395386,
+              "floor": -1.231507420539856,
               "eye": [
                 -53.5,
-                -4.682464933395385,
+                0.41849257946014395,
                 26.5
               ],
-              "heightAboveSupport": 1.6500000000000004,
+              "heightAboveSupport": 1.65,
               "bearing": 258.23171106797935,
-              "pitch": -10.599461204715872,
+              "pitch": -10.599461204715874,
               "fov": 74
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.22,
-              "frameMs": 4444.5,
-              "drawCalls": 161,
-              "triangles": 638773,
+              "fps": 9.5,
+              "frameMs": 22.8,
+              "drawCalls": 194,
+              "triangles": 881456,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1729,7 +1755,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/pike-place/ground-dc93023f/winter-night/fish-counter.jpg"
+            "image": "assets/spots/pike-place/ground-346f7986/winter-night/fish-counter.jpg"
           },
           {
             "id": "rachel",
@@ -1737,8 +1763,8 @@
             "place": "pike-place",
             "label": "Rachel · bronze pig and donation activity",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:56:00.554Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:57:30.550Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1764,7 +1790,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794300942318,
+                "updatedAt": 1794513450380,
                 "climate": null
               },
               "date": "2026-01-16T07:00:00.000Z",
@@ -1773,28 +1799,28 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "23c240dc2134df3107b69b01fb8ef985909d59bf7e39b35f9cb392223b0b4605",
-            "bytes": 151077,
+            "sha256": "43e1e330a9d753f7a7dc030e17a746b69346ce33acdc38e1b6d2f32135620195",
+            "bytes": 184498,
             "pose": {
-              "x": -56.95,
-              "z": 37.57,
-              "floor": -6.400000095367432,
+              "x": -57.42,
+              "z": 35.56,
+              "floor": -1.226911004781723,
               "eye": [
-                -56.95,
-                -4.750000095367431,
-                37.57
+                -57.42,
+                0.4230889952182768,
+                35.56
               ],
-              "heightAboveSupport": 1.6500000000000004,
-              "bearing": 64.06339652079043,
-              "pitch": -25.177155875723628,
+              "heightAboveSupport": 1.65,
+              "bearing": 104,
+              "pitch": -20,
               "fov": 66
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.22,
-              "frameMs": 4486.8,
-              "drawCalls": 239,
-              "triangles": 843983,
+              "fps": 0.31,
+              "frameMs": 151.3,
+              "drawCalls": 273,
+              "triangles": 1044567,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1802,7 +1828,8 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/pike-place/ground-dc93023f/winter-night/rachel.jpg"
+            "image": "assets/spots/pike-place/ground-346f7986/winter-night/rachel.jpg",
+            "viewpointChange": "At this source a canopy post stands between the dc93023f camera point [-56.95,37.57] and the pig; the camera stands 2.1 m south-west of that point and looks east at Rachel."
           },
           {
             "id": "gum-wall",
@@ -1810,8 +1837,8 @@
             "place": "pike-place",
             "label": "Post Alley · Gum Wall detail",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:56:06.284Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:57:30.576Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1837,7 +1864,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794300942318,
+                "updatedAt": 1794513450380,
                 "climate": null
               },
               "date": "2026-01-16T07:00:00.000Z",
@@ -1846,16 +1873,16 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "7190c8d88167f7b46159f8f5a766384ab022e80b937a1255c73687347a9e4f08",
-            "bytes": 270200,
+            "sha256": "4d3bd52fae4f4ca2780e5a1b1dd69f8a68ebb00c421d82ed536218c512d865c3",
+            "bytes": 340827,
             "pose": {
-              "x": -43,
-              "z": 60,
-              "floor": -8.390912055969238,
+              "x": -44.92,
+              "z": 59.63,
+              "floor": -6.990305446358992,
               "eye": [
-                -43,
-                -6.740912055969238,
-                60
+                -44.92,
+                -5.340305446358991,
+                59.63
               ],
               "heightAboveSupport": 1.6500000000000004,
               "bearing": 98.13010235415601,
@@ -1864,10 +1891,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.24,
-              "frameMs": 4186.4,
-              "drawCalls": 210,
-              "triangles": 669832,
+              "fps": 0.31,
+              "frameMs": 25.6,
+              "drawCalls": 229,
+              "triangles": 939340,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1875,7 +1902,8 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/pike-place/ground-dc93023f/winter-night/gum-wall.jpg"
+            "image": "assets/spots/pike-place/ground-346f7986/winter-night/gum-wall.jpg",
+            "viewpointChange": "A visitor stands directly in front of the dc93023f camera point [-43,60] at this source; the camera stands 1.9 m further west in Post Alley, same look."
           }
         ]
       }
@@ -1887,8 +1915,8 @@
         "place": "pike-place",
         "label": "Pike Street · Public Market sign and arcade",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T09:32:09.054Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:52:50.781Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -1914,7 +1942,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794303067357,
+            "updatedAt": 1794513168572,
             "climate": null
           },
           "date": "2026-07-15T19:00:00.000Z",
@@ -1923,15 +1951,15 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "bf7db1c3c8b0dfd075bcce9bcaeb2326bc5224b92242a1688cef8a1d5177053a",
-        "bytes": 174720,
+        "sha256": "9f4322739d1d9b9316cc7779badc9334032ab119b327bd9224259ac68f4342e5",
+        "bytes": 194770,
         "pose": {
           "x": -16.5,
           "z": 17,
-          "floor": -1.7089763879776,
+          "floor": -0.48693040758371353,
           "eye": [
             -16.5,
-            -0.058976387977600186,
+            1.1630695924162864,
             17
           ],
           "heightAboveSupport": 1.65,
@@ -1941,10 +1969,10 @@
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.02,
-          "frameMs": 44481.8,
-          "drawCalls": 297,
-          "triangles": 769613,
+          "fps": 0.46,
+          "frameMs": 2169.7,
+          "drawCalls": 410,
+          "triangles": 1265500,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -1952,7 +1980,7 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/pike-place/ground-dc93023f/summer-day/market-sign.jpg"
+        "image": "assets/spots/pike-place/ground-346f7986/summer-day/market-sign.jpg"
       },
       {
         "id": "fish-counter",
@@ -1960,8 +1988,8 @@
         "place": "pike-place",
         "label": "Fish Market · counter and fishmongers",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T08:50:24.131Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:52:50.896Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -1987,7 +2015,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794300602943,
+            "updatedAt": 1794513168572,
             "climate": null
           },
           "date": "2026-07-15T19:00:00.000Z",
@@ -1996,28 +2024,28 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "cadd6ecba75580c47cfd190af2a29a7a07e81a98da8230533e3147d041c352d2",
-        "bytes": 233854,
+        "sha256": "acde636785ea30eda8bbbe517820a67ab96f5ff0e043467cbff8a1925347f0b5",
+        "bytes": 225915,
         "pose": {
           "x": -53.5,
           "z": 26.5,
-          "floor": -6.332464933395386,
+          "floor": -1.231507420539856,
           "eye": [
             -53.5,
-            -4.682464933395385,
+            0.41849257946014395,
             26.5
           ],
-          "heightAboveSupport": 1.6500000000000004,
+          "heightAboveSupport": 1.65,
           "bearing": 258.23171106797935,
-          "pitch": -10.599461204715872,
+          "pitch": -10.599461204715874,
           "fov": 74
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.19,
-          "frameMs": 5237.6,
-          "drawCalls": 265,
-          "triangles": 868293,
+          "fps": 0.46,
+          "frameMs": 47.3,
+          "drawCalls": 364,
+          "triangles": 1357243,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -2025,7 +2053,7 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/pike-place/ground-dc93023f/summer-day/fish-counter.jpg"
+        "image": "assets/spots/pike-place/ground-346f7986/summer-day/fish-counter.jpg"
       },
       {
         "id": "rachel",
@@ -2033,8 +2061,8 @@
         "place": "pike-place",
         "label": "Rachel · bronze pig and donation activity",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T08:50:29.098Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:57:23.604Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -2060,7 +2088,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794300602943,
+            "updatedAt": 1794513438827,
             "climate": null
           },
           "date": "2026-07-15T19:00:00.000Z",
@@ -2069,28 +2097,28 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "193783cb7e3f9731483d0c5782f127202ca3c3d881409ea4024bad0e7fe3dc5b",
-        "bytes": 189584,
+        "sha256": "865d8371f36f8b30699a90c21f3bc2020eccd549719057cbb7f18c6f52d49334",
+        "bytes": 197643,
         "pose": {
-          "x": -56.95,
-          "z": 37.57,
-          "floor": -6.400000095367432,
+          "x": -57.42,
+          "z": 35.56,
+          "floor": -1.226911004781723,
           "eye": [
-            -56.95,
-            -4.750000095367431,
-            37.57
+            -57.42,
+            0.4230889952182768,
+            35.56
           ],
-          "heightAboveSupport": 1.6500000000000004,
-          "bearing": 64.06339652079043,
-          "pitch": -25.177155875723628,
+          "heightAboveSupport": 1.65,
+          "bearing": 104,
+          "pitch": -20,
           "fov": 66
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.21,
-          "frameMs": 4732.5,
-          "drawCalls": 361,
-          "triangles": 1134612,
+          "fps": 0.25,
+          "frameMs": 4075.8,
+          "drawCalls": 430,
+          "triangles": 1568202,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -2098,7 +2126,8 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/pike-place/ground-dc93023f/summer-day/rachel.jpg"
+        "image": "assets/spots/pike-place/ground-346f7986/summer-day/rachel.jpg",
+        "viewpointChange": "At this source a canopy post stands between the dc93023f camera point [-56.95,37.57] and the pig; the camera stands 2.1 m south-west of that point and looks east at Rachel."
       },
       {
         "id": "gum-wall",
@@ -2106,8 +2135,8 @@
         "place": "pike-place",
         "label": "Post Alley · Gum Wall detail",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T08:50:34.064Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:57:23.687Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -2133,7 +2162,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794300602943,
+            "updatedAt": 1794513438827,
             "climate": null
           },
           "date": "2026-07-15T19:00:00.000Z",
@@ -2142,16 +2171,16 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "9962d45b0b02b19155159d3860a2d2e92b1232293cd8ab5f3e40d7817f387055",
-        "bytes": 303984,
+        "sha256": "acefcebcc2520a76ad2f895001de71c17afe38f719faacb47bf65147a9f06232",
+        "bytes": 313488,
         "pose": {
-          "x": -43,
-          "z": 60,
-          "floor": -8.390912055969238,
+          "x": -44.92,
+          "z": 59.63,
+          "floor": -6.990305446358992,
           "eye": [
-            -43,
-            -6.740912055969238,
-            60
+            -44.92,
+            -5.340305446358991,
+            59.63
           ],
           "heightAboveSupport": 1.6500000000000004,
           "bearing": 98.13010235415601,
@@ -2160,10 +2189,10 @@
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.2,
-          "frameMs": 4952.3,
-          "drawCalls": 304,
-          "triangles": 882466,
+          "fps": 1.4,
+          "frameMs": 713.7,
+          "drawCalls": 384,
+          "triangles": 1394803,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -2171,11 +2200,1231 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/pike-place/ground-dc93023f/summer-day/gum-wall.jpg"
+        "image": "assets/spots/pike-place/ground-346f7986/summer-day/gum-wall.jpg",
+        "viewpointChange": "A visitor stands directly in front of the dc93023f camera point [-43,60] at this source; the camera stands 1.9 m further west in Post Alley, same look."
       }
     ],
-    "report": "assets/spots/pike-place/ground-dc93023f/manifest.json",
-    "reportSha256": "48ce536753f1fb4a211953df65137662b26e440bcc05f8c27297cb75a9501e2c"
+    "report": "assets/spots/pike-place/ground-346f7986/manifest.json",
+    "reportSha256": "f30bef3a63e13277b0a3a22582e208a40d135be3ee4a3609c6ac826a0efdd88c"
   },
-  "implementationNotesUpdatedAt": "2026-11-09T11:56:18.007Z"
+  "implementationNotesUpdatedAt": "2026-11-09T11:56:18.007Z",
+  "historicalCollections": [
+    {
+      "id": "visitor-gallery-dc93023f",
+      "label": "Four-condition walking gallery before the district fidelity pass",
+      "status": "historical",
+      "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+      "supersededBy": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededAt": "2026-11-12T20:03:08.418Z",
+      "reason": "The scene changed after dc93023 (district fidelity pass 332ae423..346f7986 and earlier scene work); these pictures show the earlier scene and keep their original source, dates and manifest.",
+      "notice": "4 matched walking-height viewpoints in each of four conditions, captured from the recorded production game source. Open any picture at its original size.",
+      "setup": "Production app, scene, actors, lighting and renderer at High quality, 1280 × 800. Automatic animation was paused and explicit frames rendered at fixed on-foot cameras 1.65 m above their supporting surfaces. Local simulation dates and weather were controlled; capturedAt records the real capture time.",
+      "limitations": [
+        "Fixed on-foot appearance fixtures; cameras were positioned for inspection. These pictures do not establish a traversed route, activity completion, physical-phone behavior or hardware FPS.",
+        "The market facades, windows and awnings remain coarse; these captures expose the remaining fidelity work. The Gum Wall overhang does not currently occlude every snow particle."
+      ],
+      "conditionIds": [
+        "summer-day",
+        "summer-night",
+        "winter-day",
+        "winter-night"
+      ],
+      "viewpointIds": [
+        "market-sign",
+        "fish-counter",
+        "rachel",
+        "gum-wall"
+      ],
+      "reports": [
+        {
+          "label": "Original capture manifest",
+          "report": "assets/spots/pike-place/ground-dc93023f/manifest.json",
+          "sha256": "48ce536753f1fb4a211953df65137662b26e440bcc05f8c27297cb75a9501e2c"
+        }
+      ],
+      "captures": [
+        {
+          "id": "market-sign",
+          "kind": "visit",
+          "place": "pike-place",
+          "label": "Pike Street · Public Market sign and arcade",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:32:09.054Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794303067357,
+              "climate": null
+            },
+            "date": "2026-07-15T19:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 59.73619581658774,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "bf7db1c3c8b0dfd075bcce9bcaeb2326bc5224b92242a1688cef8a1d5177053a",
+          "bytes": 174720,
+          "pose": {
+            "x": -16.5,
+            "z": 17,
+            "floor": -1.7089763879776,
+            "eye": [
+              -16.5,
+              -0.058976387977600186,
+              17
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 229.99999999999997,
+            "pitch": 12,
+            "fov": 64
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.02,
+            "frameMs": 44481.8,
+            "drawCalls": 297,
+            "triangles": 769613,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/pike-place/ground-dc93023f/summer-day/market-sign.jpg"
+        },
+        {
+          "id": "fish-counter",
+          "kind": "visit",
+          "place": "pike-place",
+          "label": "Fish Market · counter and fishmongers",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:50:24.131Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794300602943,
+              "climate": null
+            },
+            "date": "2026-07-15T19:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 59.73619581658774,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "cadd6ecba75580c47cfd190af2a29a7a07e81a98da8230533e3147d041c352d2",
+          "bytes": 233854,
+          "pose": {
+            "x": -53.5,
+            "z": 26.5,
+            "floor": -6.332464933395386,
+            "eye": [
+              -53.5,
+              -4.682464933395385,
+              26.5
+            ],
+            "heightAboveSupport": 1.6500000000000004,
+            "bearing": 258.23171106797935,
+            "pitch": -10.599461204715872,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.19,
+            "frameMs": 5237.6,
+            "drawCalls": 265,
+            "triangles": 868293,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/pike-place/ground-dc93023f/summer-day/fish-counter.jpg"
+        },
+        {
+          "id": "rachel",
+          "kind": "visit",
+          "place": "pike-place",
+          "label": "Rachel · bronze pig and donation activity",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:50:29.098Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794300602943,
+              "climate": null
+            },
+            "date": "2026-07-15T19:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 59.73619581658774,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "193783cb7e3f9731483d0c5782f127202ca3c3d881409ea4024bad0e7fe3dc5b",
+          "bytes": 189584,
+          "pose": {
+            "x": -56.95,
+            "z": 37.57,
+            "floor": -6.400000095367432,
+            "eye": [
+              -56.95,
+              -4.750000095367431,
+              37.57
+            ],
+            "heightAboveSupport": 1.6500000000000004,
+            "bearing": 64.06339652079043,
+            "pitch": -25.177155875723628,
+            "fov": 66
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.21,
+            "frameMs": 4732.5,
+            "drawCalls": 361,
+            "triangles": 1134612,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/pike-place/ground-dc93023f/summer-day/rachel.jpg"
+        },
+        {
+          "id": "gum-wall",
+          "kind": "visit",
+          "place": "pike-place",
+          "label": "Post Alley · Gum Wall detail",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:50:34.064Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794300602943,
+              "climate": null
+            },
+            "date": "2026-07-15T19:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 59.73619581658774,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "9962d45b0b02b19155159d3860a2d2e92b1232293cd8ab5f3e40d7817f387055",
+          "bytes": 303984,
+          "pose": {
+            "x": -43,
+            "z": 60,
+            "floor": -8.390912055969238,
+            "eye": [
+              -43,
+              -6.740912055969238,
+              60
+            ],
+            "heightAboveSupport": 1.6500000000000004,
+            "bearing": 98.13010235415601,
+            "pitch": -2.576392605950203,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.2,
+            "frameMs": 4952.3,
+            "drawCalls": 304,
+            "triangles": 882466,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/pike-place/ground-dc93023f/summer-day/gum-wall.jpg"
+        },
+        {
+          "id": "market-sign",
+          "kind": "visit",
+          "place": "pike-place",
+          "label": "Pike Street · Public Market sign and arcade",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:32:24.932Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794303129089,
+              "climate": null
+            },
+            "date": "2026-07-16T06:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -14.628561925659763,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "cd68a96ed45913b728ada7db631ac68458b69b45673ce8164277ac2a64a31641",
+          "bytes": 186201,
+          "pose": {
+            "x": -16.5,
+            "z": 17,
+            "floor": -1.7089763879776,
+            "eye": [
+              -16.5,
+              -0.058976387977600186,
+              17
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 229.99999999999997,
+            "pitch": 12,
+            "fov": 64
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.16,
+            "frameMs": 6161.9,
+            "drawCalls": 211,
+            "triangles": 523846,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/pike-place/ground-dc93023f/summer-night/market-sign.jpg"
+        },
+        {
+          "id": "fish-counter",
+          "kind": "visit",
+          "place": "pike-place",
+          "label": "Fish Market · counter and fishmongers",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:55:11.842Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794300895892,
+              "climate": null
+            },
+            "date": "2026-07-16T06:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -14.628561925659763,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "e6e503a17dba71bfac87640f7b72c54fee1ca1352eb021b82a50c4a487d7c624",
+          "bytes": 228691,
+          "pose": {
+            "x": -53.5,
+            "z": 26.5,
+            "floor": -6.332464933395386,
+            "eye": [
+              -53.5,
+              -4.682464933395385,
+              26.5
+            ],
+            "heightAboveSupport": 1.6500000000000004,
+            "bearing": 258.23171106797935,
+            "pitch": -10.599461204715872,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.09,
+            "frameMs": 10881.6,
+            "drawCalls": 167,
+            "triangles": 645799,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/pike-place/ground-dc93023f/summer-night/fish-counter.jpg"
+        },
+        {
+          "id": "rachel",
+          "kind": "visit",
+          "place": "pike-place",
+          "label": "Rachel · bronze pig and donation activity",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:55:16.117Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794300895892,
+              "climate": null
+            },
+            "date": "2026-07-16T06:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -14.628561925659763,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "b8374a4be3268affe46c4b4c3f5d83447343e80f5e983e72b9c25823d9541c0e",
+          "bytes": 183097,
+          "pose": {
+            "x": -56.95,
+            "z": 37.57,
+            "floor": -6.400000095367432,
+            "eye": [
+              -56.95,
+              -4.750000095367431,
+              37.57
+            ],
+            "heightAboveSupport": 1.6500000000000004,
+            "bearing": 64.06339652079043,
+            "pitch": -25.177155875723628,
+            "fov": 66
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.27,
+            "frameMs": 3675.4,
+            "drawCalls": 265,
+            "triangles": 885727,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/pike-place/ground-dc93023f/summer-night/rachel.jpg"
+        },
+        {
+          "id": "gum-wall",
+          "kind": "visit",
+          "place": "pike-place",
+          "label": "Post Alley · Gum Wall detail",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:55:21.786Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794300895892,
+              "climate": null
+            },
+            "date": "2026-07-16T06:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -14.628561925659763,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "a08dbbeea83f35126577f76fc20539b54b827cb65b04db0c8fa41283f8d733f3",
+          "bytes": 296294,
+          "pose": {
+            "x": -43,
+            "z": 60,
+            "floor": -8.390912055969238,
+            "eye": [
+              -43,
+              -6.740912055969238,
+              60
+            ],
+            "heightAboveSupport": 1.6500000000000004,
+            "bearing": 98.13010235415601,
+            "pitch": -2.576392605950203,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.23,
+            "frameMs": 4302,
+            "drawCalls": 210,
+            "triangles": 677691,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/pike-place/ground-dc93023f/summer-night/gum-wall.jpg"
+        },
+        {
+          "id": "market-sign",
+          "kind": "visit",
+          "place": "pike-place",
+          "label": "Pike Street · Public Market sign and arcade",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:32:32.504Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794303144994,
+              "climate": null
+            },
+            "date": "2026-01-15T20:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 21.256205874261955,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "7decb788fc2825a4abf3d8fa4082ffdbc03e7c0d78fa68574a3d75e567fee9d8",
+          "bytes": 141591,
+          "pose": {
+            "x": -16.5,
+            "z": 17,
+            "floor": -1.7089763879776,
+            "eye": [
+              -16.5,
+              -0.058976387977600186,
+              17
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 229.99999999999997,
+            "pitch": 12,
+            "fov": 64
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.1,
+            "frameMs": 391.5,
+            "drawCalls": 280,
+            "triangles": 752167,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/pike-place/ground-dc93023f/winter-day/market-sign.jpg"
+        },
+        {
+          "id": "fish-counter",
+          "kind": "visit",
+          "place": "pike-place",
+          "label": "Fish Market · counter and fishmongers",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:55:34.016Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794300921825,
+              "climate": null
+            },
+            "date": "2026-01-15T20:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 21.256205874261955,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "4a6a7e61a04f852681fd013fb8ef9b8fe6662511b4fbe1e337dcbca96e62bc73",
+          "bytes": 168941,
+          "pose": {
+            "x": -53.5,
+            "z": 26.5,
+            "floor": -6.332464933395386,
+            "eye": [
+              -53.5,
+              -4.682464933395385,
+              26.5
+            ],
+            "heightAboveSupport": 1.6500000000000004,
+            "bearing": 258.23171106797935,
+            "pitch": -10.599461204715872,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.23,
+            "frameMs": 8420.2,
+            "drawCalls": 259,
+            "triangles": 867381,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/pike-place/ground-dc93023f/winter-day/fish-counter.jpg"
+        },
+        {
+          "id": "rachel",
+          "kind": "visit",
+          "place": "pike-place",
+          "label": "Rachel · bronze pig and donation activity",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:55:37.667Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794300921825,
+              "climate": null
+            },
+            "date": "2026-01-15T20:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 21.256205874261955,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "bec76301d2cb6215a127ed4fcdfe9642a3ecd82de2b6bcd3847d8f251da71b3b",
+          "bytes": 135862,
+          "pose": {
+            "x": -56.95,
+            "z": 37.57,
+            "floor": -6.400000095367432,
+            "eye": [
+              -56.95,
+              -4.750000095367431,
+              37.57
+            ],
+            "heightAboveSupport": 1.6500000000000004,
+            "bearing": 64.06339652079043,
+            "pitch": -25.177155875723628,
+            "fov": 66
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.28,
+            "frameMs": 3585.3,
+            "drawCalls": 335,
+            "triangles": 1093862,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/pike-place/ground-dc93023f/winter-day/rachel.jpg"
+        },
+        {
+          "id": "gum-wall",
+          "kind": "visit",
+          "place": "pike-place",
+          "label": "Post Alley · Gum Wall detail",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:55:42.271Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794300921825,
+              "climate": null
+            },
+            "date": "2026-01-15T20:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 21.256205874261955,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "9adab5f5e609cd6555815497a0e5d83f3e95553a7da432a4564e0ce6afa68022",
+          "bytes": 273607,
+          "pose": {
+            "x": -43,
+            "z": 60,
+            "floor": -8.390912055969238,
+            "eye": [
+              -43,
+              -6.740912055969238,
+              60
+            ],
+            "heightAboveSupport": 1.6500000000000004,
+            "bearing": 98.13010235415601,
+            "pitch": -2.576392605950203,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.27,
+            "frameMs": 3649.8,
+            "drawCalls": 306,
+            "triangles": 868904,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/pike-place/ground-dc93023f/winter-day/gum-wall.jpg"
+        },
+        {
+          "id": "market-sign",
+          "kind": "visit",
+          "place": "pike-place",
+          "label": "Pike Street · Public Market sign and arcade",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:32:39.696Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794303152512,
+              "climate": null
+            },
+            "date": "2026-01-16T07:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -58.90986906664716,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "9b1d8104bce0072e719d233190c6f347a5550f92c86b50f454717262e5c47c63",
+          "bytes": 192252,
+          "pose": {
+            "x": -16.5,
+            "z": 17,
+            "floor": -1.7089763879776,
+            "eye": [
+              -16.5,
+              -0.058976387977600186,
+              17
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 229.99999999999997,
+            "pitch": 12,
+            "fov": 64
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.34,
+            "frameMs": 2952.3,
+            "drawCalls": 184,
+            "triangles": 511801,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/pike-place/ground-dc93023f/winter-night/market-sign.jpg"
+        },
+        {
+          "id": "fish-counter",
+          "kind": "visit",
+          "place": "pike-place",
+          "label": "Fish Market · counter and fishmongers",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:55:56.372Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794300942318,
+              "climate": null
+            },
+            "date": "2026-01-16T07:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -58.90986906664716,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "81a8ec6fa3fcdea7ff4ccaadd00fe2788e7d4b23e362cd5d8bf765b1baac9d40",
+          "bytes": 195138,
+          "pose": {
+            "x": -53.5,
+            "z": 26.5,
+            "floor": -6.332464933395386,
+            "eye": [
+              -53.5,
+              -4.682464933395385,
+              26.5
+            ],
+            "heightAboveSupport": 1.6500000000000004,
+            "bearing": 258.23171106797935,
+            "pitch": -10.599461204715872,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.22,
+            "frameMs": 4444.5,
+            "drawCalls": 161,
+            "triangles": 638773,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/pike-place/ground-dc93023f/winter-night/fish-counter.jpg"
+        },
+        {
+          "id": "rachel",
+          "kind": "visit",
+          "place": "pike-place",
+          "label": "Rachel · bronze pig and donation activity",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:56:00.554Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794300942318,
+              "climate": null
+            },
+            "date": "2026-01-16T07:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -58.90986906664716,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "23c240dc2134df3107b69b01fb8ef985909d59bf7e39b35f9cb392223b0b4605",
+          "bytes": 151077,
+          "pose": {
+            "x": -56.95,
+            "z": 37.57,
+            "floor": -6.400000095367432,
+            "eye": [
+              -56.95,
+              -4.750000095367431,
+              37.57
+            ],
+            "heightAboveSupport": 1.6500000000000004,
+            "bearing": 64.06339652079043,
+            "pitch": -25.177155875723628,
+            "fov": 66
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.22,
+            "frameMs": 4486.8,
+            "drawCalls": 239,
+            "triangles": 843983,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/pike-place/ground-dc93023f/winter-night/rachel.jpg"
+        },
+        {
+          "id": "gum-wall",
+          "kind": "visit",
+          "place": "pike-place",
+          "label": "Post Alley · Gum Wall detail",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:56:06.284Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794300942318,
+              "climate": null
+            },
+            "date": "2026-01-16T07:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -58.90986906664716,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "7190c8d88167f7b46159f8f5a766384ab022e80b937a1255c73687347a9e4f08",
+          "bytes": 270200,
+          "pose": {
+            "x": -43,
+            "z": 60,
+            "floor": -8.390912055969238,
+            "eye": [
+              -43,
+              -6.740912055969238,
+              60
+            ],
+            "heightAboveSupport": 1.6500000000000004,
+            "bearing": 98.13010235415601,
+            "pitch": -2.576392605950203,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.24,
+            "frameMs": 4186.4,
+            "drawCalls": 210,
+            "triangles": 669832,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/pike-place/ground-dc93023f/winter-night/gum-wall.jpg"
+        }
+      ]
+    }
+  ],
+  "visitorGalleryRecapture": {
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "assembledAt": "2026-11-12T20:03:08.418Z",
+    "passRange": "332ae423..346f7986",
+    "sceneCommits": [
+      "0446b773eafd3b53e353c997fdb26dc4e920c2b3"
+    ],
+    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes.",
+    "sourceVerification": {
+      "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
+      "checkedAt": "2026-11-12T20:03:08.417Z"
+    }
+  }
 }

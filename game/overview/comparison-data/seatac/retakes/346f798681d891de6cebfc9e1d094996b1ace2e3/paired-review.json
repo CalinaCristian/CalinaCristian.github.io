@@ -1,0 +1,123 @@
+{
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r03-c07",
+    "aerial-r05-c07",
+    "aerial-r06-c05",
+    "aerial-r07-c06",
+    "aerial-r08-c06",
+    "aerial-r09-c06",
+    "aerial-r09-c07",
+    "aerial-r10-c06",
+    "aerial-r11-c06",
+    "aerial-r12-c06",
+    "aerial-r12-c07",
+    "aerial-r13-c06",
+    "aerial-r13-c07",
+    "aerial-r14-c06"
+  ],
+  "reviewedAt": "2026-11-12T20:43:15.426Z",
+  "method": "Published game capture, a 332ae423 render and the 346f7986 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r03-c07",
+      "originalGameSha256": "8c2a824df9d61d1622eb039d379263401087cbfeed850a1b24889730ff884c6c",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "eade84476b323d99344214e276dde3711c5f4c39b4c9a4ea04415db091a4266f",
+      "observation": "north end of the Link line on International Blvd: track bed redrawn where the guideway comes down, old platform boxes gone"
+    },
+    {
+      "id": "aerial-r05-c07",
+      "originalGameSha256": "0ac4809ed39a4134837569142a9df1774a5a81d4f594b2c8198256af696c49fa",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "310596783d175b0e517c0ad59fff37b82d54c16128ec6a7c267a11c51169b889",
+      "observation": "hotel block shows its windowed front; pre-pass strip structure at the junction is gone"
+    },
+    {
+      "id": "aerial-r06-c05",
+      "originalGameSha256": "4a56078b2de5705a415b13fde788c28d3ca450cf219eb31e1548ecbc7c1c32a1",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "a0ed1b4cbff9852d69c138649127be28d0ccb7ce1322c1bce7dbab96e847bd22",
+      "observation": "Link aerial guideway now crosses the tile"
+    },
+    {
+      "id": "aerial-r07-c06",
+      "originalGameSha256": "969a86248adf48e96c5fab8e411f725e690b46b81a334597ae8cfccd1b501a8f",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "a43276860e7f8aa9c2ce01607a0d27005e01fda400c66116b0db00bb1c23102d",
+      "observation": "Link aerial guideway now runs along International Blvd"
+    },
+    {
+      "id": "aerial-r08-c06",
+      "originalGameSha256": "52d68505b25dd48577aa1aa1b58d6b79c03958db3d713e674d2ee372e454ab49",
+      "originalGameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "retakeGameSha256": "122ac600784b586ab4468c1a1f81667b39e8d1fc6b57a9f6f50fae6389fc94a6",
+      "observation": "Link aerial guideway now runs along International Blvd"
+    },
+    {
+      "id": "aerial-r09-c06",
+      "originalGameSha256": "d6299945e97f931603181a414c7947231c88078c87bad6b101b58e3b5b470436",
+      "originalGameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "retakeGameSha256": "66c01ec8543262dd222e79272d8f9f62ef19614b7ef8144ed4d3388dc1112ea7",
+      "observation": "Link aerial guideway, SeaTac/Airport station footbridge and stair tower"
+    },
+    {
+      "id": "aerial-r09-c07",
+      "originalGameSha256": "f2787389a010ad9eb43e670234256fd1b5ac8929800e5a3b68a69da83e1b467e",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "7d67204fb65ee901105686c2153d66395f871cc487df2f137ddb7dae7a380cb0",
+      "observation": "hotel beside the station shows its windowed fronts"
+    },
+    {
+      "id": "aerial-r10-c06",
+      "originalGameSha256": "c13d4f42cf45cf393299541f52332e44698dac2dca0da5e7521318add2a8764d",
+      "originalGameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "retakeGameSha256": "8df52a17e62cb7bf28c63ee05f22b320067e7f3f6c40b046f9f0c11acefe2213",
+      "observation": "Link aerial guideway south of the station"
+    },
+    {
+      "id": "aerial-r11-c06",
+      "originalGameSha256": "6c4c43c46acb4126d0a49d430ea518557ca39b6dd59761ac39ae27fe05906770",
+      "originalGameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "retakeGameSha256": "066440307ab9fd22437980c87c935c13f9c39c0aa8fd707610354f8399b173a9",
+      "observation": "Link aerial guideway now runs along International Blvd"
+    },
+    {
+      "id": "aerial-r12-c06",
+      "originalGameSha256": "aa5bc3c3e270f24c59244e348336a9b36b87e101cbc8b5a892177262c165a016",
+      "originalGameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "retakeGameSha256": "0d77fc744455715c54a20affb56beedebfe22c0e6025ae363b3cb66c7e698884",
+      "observation": "Link aerial guideway now runs along International Blvd"
+    },
+    {
+      "id": "aerial-r12-c07",
+      "originalGameSha256": "1e622bd54567cb941b2d271f324d83fe96d15e76ecfcc75fea6c7eeb496bbbac",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "359479a7631bfbe583288eeebd513c7aff623267c54072f1d0bd9865a535ef6d",
+      "observation": "lakeside hotel shows windowed fronts instead of plain walls"
+    },
+    {
+      "id": "aerial-r13-c06",
+      "originalGameSha256": "c087947530d5583baeb02c21ba2f585a8727f42b388891d0b508f0d11d76b6d3",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "22c44947bf4b48f935422da7eefeec0935d5e2e000f6c84f54a5041d9624d43d",
+      "observation": "Link aerial guideway now runs along International Blvd"
+    },
+    {
+      "id": "aerial-r13-c07",
+      "originalGameSha256": "3da0d744b7458d2ec5710aaeada2b0b06d40e66d55dd1ae6a337849a1ee87a48",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "8654ee5dc75dcb69438e5fb7141909d37159335c30f06c26d1d26e49506d5ed3",
+      "observation": "hotel blocks show windowed fronts instead of plain walls"
+    },
+    {
+      "id": "aerial-r14-c06",
+      "originalGameSha256": "9f14f8d022b352c353231570e2ad459270445ba375f24442357f862b702b1817",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "6b82b535e663ceff76bff2201f0dde5487b53c465913a80ff511bd59a94d7e23",
+      "observation": "Link aerial guideway reaches the south edge"
+    }
+  ]
+}

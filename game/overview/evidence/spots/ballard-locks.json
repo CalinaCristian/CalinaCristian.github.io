@@ -101,17 +101,24 @@
       "label": "Historical native touch action controls",
       "type": "Native GAME proof; scope recorded separately",
       "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/actions-production-touch.json"
+    },
+    {
+      "label": "District fidelity pass scene change (2392e7f)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/2392e7fea9dacfc70c322448b3a7f15d8c386c73"
     }
   ],
   "improvements": [
     "Current native scene retains 107 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
     "Native lock-phase observation controls; final load/cache/phone/budget checks",
-    "Current phone conditions and scene budgets pass; the selected primary activity entry remains unverified."
+    "Current phone conditions and scene budgets pass; the selected primary activity entry remains unverified.",
+    "District fidelity pass, 2392e7f (range 332ae423..346f7986): The scene was rewritten: lock and guide walls, the five miter gates, the spillway dam and the public crossing are laid out from the OSM objects and the USGS 1 m DEM levels, walkable bank to bank. Wall and gate depths below water, spillway pier / gate / hoist sizes, deck thicknesses and colours remain estimates stated in the scene source."
   ],
   "remainingGaps": [
     "Integrated entry-to-lock-observation route returned no planner path; it remains unverified",
     "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
-    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
+    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 93b0d86 or earlier, before the district fidelity pass, and were not re-run at 346f798."
   ],
   "checks": [
     {
@@ -143,6 +150,16 @@
       "label": "Current exhaustive physical audit",
       "passed": null,
       "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
+    },
+    {
+      "label": "Visitor views recaptured after the district fidelity pass",
+      "passed": true,
+      "details": "346f798: scene view and complete phone page recaptured (scene-context, phone-context); peak 576,392 triangles / 76 draw calls in these frames. Every picture was inspected after capture. Appearance only; no route, activity or reference-match claim."
+    },
+    {
+      "label": "Validation frames and native proofs re-run at 346f798",
+      "passed": false,
+      "details": "Not re-run. The validation captures and proofs above keep their original source and date and describe the scene before the pass."
     }
   ],
   "captures": [
@@ -306,7 +323,7 @@
     },
     "collection": "previous-context-gallery"
   },
-  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Native lock-phase observation controls; final load/cache/phone/budget checks Integrated entry-to-lock-observation route returned no planner path; it remains unverified Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Native lock-phase observation controls; final load/cache/phone/budget checks Integrated entry-to-lock-observation route returned no planner path; it remains unverified Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates.",
   "publicPathProof": {
     "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
     "priorSourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
@@ -363,13 +380,12 @@
   ],
   "visitorGallery": {
     "id": "ballard-locks",
-    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
     "captures": [
       {
         "kind": "scene-context",
-        "image": "assets/spots/ballard-locks/visit-aabd/scene-context.webp",
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "capturedAt": "2026-11-09T08:29:12.819Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "capturedAt": "2026-11-12T19:53:20.093Z",
         "viewport": {
           "width": 1280,
           "height": 720
@@ -377,13 +393,13 @@
         "position": {
           "x": 91.97229627058839,
           "z": 100.50567922767456,
-          "y": 0.6,
+          "y": -1.5,
           "heading": 1.8815999999999997
         },
         "pose": {
           "position": [
             91.97229627058839,
-            2.25,
+            0.1499999999999999,
             100.50567922767456
           ],
           "bearing": 252.19226126818432,
@@ -394,31 +410,32 @@
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-09T08:29:10.810Z",
-        "triangles": 462371,
-        "drawCalls": 80,
+        "simulationDate": "2026-11-12T19:53:19.480Z",
+        "triangles": 576392,
+        "drawCalls": 76,
         "cameraParent": "onfoot",
         "ui": {
           "touch": true,
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "a3a65d1524f9235375fbe1ba568c9119745b8682678a19befddd93464775122e",
-        "bytes": 36284,
+        "sha256": "ad70dfc5dca169acad19617af50e00b82fc7b35e46718606df03df95328ca651",
+        "bytes": 36830,
         "fullPageHUD": false,
-        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/context-results.json",
+        "image": "assets/spots/ballard-locks/visit-346f7986/scene-context.webp",
+        "captureRecord": "assets/spots/ballard-locks/visit-346f7986/capture.json",
         "setup": {
           "arrival": {
             "x": 0,
             "z": 0,
-            "y": 0.2098590035364024,
+            "y": 0.22802500426769257,
             "heading": -3.141592653589793
           },
-          "originalViewpoint": {
+          "authoredViewpoint": {
             "view": null,
             "id": "ballard-locks",
-            "x": 91.97229627058839,
-            "z": 100.50567922767456,
+            "x": 92.8806906386185,
+            "z": 98.06953069523013,
             "bearing": 290,
             "pitch": -10,
             "fov": 60,
@@ -426,7 +443,6 @@
             "r": 16,
             "tol": 35,
             "targets": [],
-            "cond": null,
             "condHint": null
           },
           "viewpoint": {
@@ -437,17 +453,17 @@
             "bearing": 250,
             "pitch": -20,
             "fov": 60,
-            "text": "At the authored north-bank viewpoint, turn toward the large lock chamber.",
+            "text": "On the north wall of the large lock, 1.3 m from the chamber edge beside the authored postcard point, turned toward the chamber (same position and look as the aabd17ad capture).",
             "r": 16,
             "tol": 35,
             "targets": [],
-            "cond": null,
-            "condHint": null
+            "condHint": null,
+            "authoredOverride": true
           },
           "position": {
             "x": 91.97229627058839,
             "z": 100.50567922767456,
-            "y": 0.6,
+            "y": -1.5,
             "heading": 0
           },
           "walker": "OnFootController",
@@ -462,14 +478,13 @@
             "mLon": 75105.22
           }
         },
-        "label": "The large lock beside the north-bank walkway",
+        "label": "The large lock from its north wall",
         "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
       },
       {
         "kind": "phone-context",
-        "image": "assets/spots/ballard-locks/visit-aabd/phone-context.jpg",
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "capturedAt": "2026-11-09T08:29:18.386Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "capturedAt": "2026-11-12T19:53:20.287Z",
         "viewport": {
           "width": 390,
           "height": 844
@@ -477,13 +492,13 @@
         "position": {
           "x": 91.97229627058839,
           "z": 100.50567922767456,
-          "y": 0.6,
+          "y": -1.5,
           "heading": 1.9198621874999997
         },
         "pose": {
           "position": [
             91.97229627058839,
-            2.25,
+            0.1499999999999999,
             100.50567922767456
           ],
           "bearing": 249.99999940949613,
@@ -494,31 +509,32 @@
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-09T08:29:16.376Z",
-        "triangles": 458341,
-        "drawCalls": 43,
+        "simulationDate": "2026-11-12T19:53:19.674Z",
+        "triangles": 570762,
+        "drawCalls": 37,
         "cameraParent": "onfoot",
         "ui": {
           "touch": true,
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "0b8f93139c263733f3e11f6e7bee498f6a9c3c494224d3d436556fe649f984a8",
-        "bytes": 41649,
+        "sha256": "be28e3b16270120046979e4254b7bf5d76f6711dc48a5e9b6cbafc52a92851db",
+        "bytes": 37706,
         "fullPageHUD": true,
-        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/context-results.json",
+        "image": "assets/spots/ballard-locks/visit-346f7986/phone-context.jpg",
+        "captureRecord": "assets/spots/ballard-locks/visit-346f7986/capture.json",
         "setup": {
           "arrival": {
             "x": 0,
             "z": 0,
-            "y": 0.2098590035364024,
+            "y": 0.22802500426769257,
             "heading": -3.141592653589793
           },
-          "originalViewpoint": {
+          "authoredViewpoint": {
             "view": null,
             "id": "ballard-locks",
-            "x": 91.97229627058839,
-            "z": 100.50567922767456,
+            "x": 92.8806906386185,
+            "z": 98.06953069523013,
             "bearing": 290,
             "pitch": -10,
             "fov": 60,
@@ -526,7 +542,6 @@
             "r": 16,
             "tol": 35,
             "targets": [],
-            "cond": null,
             "condHint": null
           },
           "viewpoint": {
@@ -537,17 +552,17 @@
             "bearing": 250,
             "pitch": -20,
             "fov": 60,
-            "text": "At the authored north-bank viewpoint, turn toward the large lock chamber.",
+            "text": "On the north wall of the large lock, 1.3 m from the chamber edge beside the authored postcard point, turned toward the chamber (same position and look as the aabd17ad capture).",
             "r": 16,
             "tol": 35,
             "targets": [],
-            "cond": null,
-            "condHint": null
+            "condHint": null,
+            "authoredOverride": true
           },
           "position": {
             "x": 91.97229627058839,
             "z": 100.50567922767456,
-            "y": 0.6,
+            "y": -1.5,
             "heading": 0
           },
           "walker": "OnFootController",
@@ -568,30 +583,274 @@
     ],
     "limitations": [
       "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
-      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged.",
-      "The actual large-lock view has a broad grey far-wall surface and a partly obscured chamber. Geometry and the unverified entry route remain unchanged; this image does not resolve that source/model review."
+      "Same standing point and look as the aabd17ad capture, beside the scene-authored postcard point, which looks along the wall and shows little of the chamber. Boats are simple hulls; water depth and gate details are estimates.",
+      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
     ],
     "reports": [
       {
-        "label": "Initial 23-destination scene and portrait capture",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
-        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
-      },
-      {
-        "label": "Actual portrait touch-look capture",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
-        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
-      },
-      {
-        "label": "Ballard and cathedral context views",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/context-results.json",
-        "sha256": "e46dc323e5bf403e8eb9abe0eee73f21a1a621a7499e2d5b43d98e2fd3dd0222"
+        "label": "Scene and portrait capture record, 346f798",
+        "report": "assets/spots/ballard-locks/visit-346f7986/capture.json",
+        "sha256": "b51cdc6674f6522ab1dc1630252798c4eb117b3ac3458fee35ae888e33fb4f93"
       }
     ],
-    "updatedAt": "2026-11-09T08:29:18.386Z",
-    "notice": "These views come from the staged game under test; the live game can differ.",
-    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
-    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
-    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+    "updatedAt": "2026-11-12T19:53:20.287Z",
+    "notice": "Recaptured from game source 346f798 after the district fidelity pass. The earlier aabd17a views are kept in this record as historical.",
+    "setup": "Explicit production on-foot viewpoints with native touch look, at 1280 × 720 and as the complete 390 × 844 phone page. The scene-authored postcard pose is used unless a limitation below says otherwise. No route, reference match or release acceptance is implied."
+  },
+  "historicalCollections": [
+    {
+      "id": "visitor-gallery-aabd17ad",
+      "label": "Visitor views before the district fidelity pass",
+      "status": "historical",
+      "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+      "supersededBy": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededAt": "2026-11-12T20:03:08.418Z",
+      "reason": "The scene changed in 332ae423..346f7986; these pictures show the earlier scene and are kept with their original source, dates and capture records.",
+      "notice": "These views come from the staged game under test; the live game can differ.",
+      "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+      "limitations": [
+        "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+        "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged.",
+        "The actual large-lock view has a broad grey far-wall surface and a partly obscured chamber. Geometry and the unverified entry route remain unchanged; this image does not resolve that source/model review."
+      ],
+      "updatedAt": "2026-11-09T08:29:18.386Z",
+      "reports": [
+        {
+          "label": "Initial 23-destination scene and portrait capture",
+          "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+          "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+        },
+        {
+          "label": "Actual portrait touch-look capture",
+          "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+          "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+        },
+        {
+          "label": "Ballard and cathedral context views",
+          "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/context-results.json",
+          "sha256": "e46dc323e5bf403e8eb9abe0eee73f21a1a621a7499e2d5b43d98e2fd3dd0222"
+        },
+        {
+          "label": "Visitor capture manifest",
+          "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+          "sha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+        }
+      ],
+      "captures": [
+        {
+          "kind": "scene-context",
+          "image": "assets/spots/ballard-locks/visit-aabd/scene-context.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:29:12.819Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 91.97229627058839,
+            "z": 100.50567922767456,
+            "y": 0.6,
+            "heading": 1.8815999999999997
+          },
+          "pose": {
+            "position": [
+              91.97229627058839,
+              2.25,
+              100.50567922767456
+            ],
+            "bearing": 252.19226126818432,
+            "pitch": -19.999998276178218
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:29:10.810Z",
+          "triangles": 462371,
+          "drawCalls": 80,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "a3a65d1524f9235375fbe1ba568c9119745b8682678a19befddd93464775122e",
+          "bytes": 36284,
+          "fullPageHUD": false,
+          "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/context-results.json",
+          "setup": {
+            "arrival": {
+              "x": 0,
+              "z": 0,
+              "y": 0.2098590035364024,
+              "heading": -3.141592653589793
+            },
+            "originalViewpoint": {
+              "view": null,
+              "id": "ballard-locks",
+              "x": 91.97229627058839,
+              "z": 100.50567922767456,
+              "bearing": 290,
+              "pitch": -10,
+              "fov": 60,
+              "text": "Large lock full of boats from the north wall with the gates and control tower",
+              "r": 16,
+              "tol": 35,
+              "targets": [],
+              "cond": null,
+              "condHint": null
+            },
+            "viewpoint": {
+              "view": null,
+              "id": "ballard-locks",
+              "x": 91.97229627058839,
+              "z": 100.50567922767456,
+              "bearing": 250,
+              "pitch": -20,
+              "fov": 60,
+              "text": "At the authored north-bank viewpoint, turn toward the large lock chamber.",
+              "r": 16,
+              "tol": 35,
+              "targets": [],
+              "cond": null,
+              "condHint": null
+            },
+            "position": {
+              "x": 91.97229627058839,
+              "z": 100.50567922767456,
+              "y": 0.6,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "ballard-locks",
+            "origin": {
+              "lat": 47.6664,
+              "lon": -122.397,
+              "elev": 8.5
+            },
+            "projection": {
+              "mLat": 111183.83,
+              "mLon": 75105.22
+            }
+          },
+          "label": "The large lock beside the north-bank walkway",
+          "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+        },
+        {
+          "kind": "phone-context",
+          "image": "assets/spots/ballard-locks/visit-aabd/phone-context.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:29:18.386Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 91.97229627058839,
+            "z": 100.50567922767456,
+            "y": 0.6,
+            "heading": 1.9198621874999997
+          },
+          "pose": {
+            "position": [
+              91.97229627058839,
+              2.25,
+              100.50567922767456
+            ],
+            "bearing": 249.99999940949613,
+            "pitch": -19.99999827617822
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:29:16.376Z",
+          "triangles": 458341,
+          "drawCalls": 43,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "0b8f93139c263733f3e11f6e7bee498f6a9c3c494224d3d436556fe649f984a8",
+          "bytes": 41649,
+          "fullPageHUD": true,
+          "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/context-results.json",
+          "setup": {
+            "arrival": {
+              "x": 0,
+              "z": 0,
+              "y": 0.2098590035364024,
+              "heading": -3.141592653589793
+            },
+            "originalViewpoint": {
+              "view": null,
+              "id": "ballard-locks",
+              "x": 91.97229627058839,
+              "z": 100.50567922767456,
+              "bearing": 290,
+              "pitch": -10,
+              "fov": 60,
+              "text": "Large lock full of boats from the north wall with the gates and control tower",
+              "r": 16,
+              "tol": 35,
+              "targets": [],
+              "cond": null,
+              "condHint": null
+            },
+            "viewpoint": {
+              "view": null,
+              "id": "ballard-locks",
+              "x": 91.97229627058839,
+              "z": 100.50567922767456,
+              "bearing": 250,
+              "pitch": -20,
+              "fov": 60,
+              "text": "At the authored north-bank viewpoint, turn toward the large lock chamber.",
+              "r": 16,
+              "tol": 35,
+              "targets": [],
+              "cond": null,
+              "condHint": null
+            },
+            "position": {
+              "x": 91.97229627058839,
+              "z": 100.50567922767456,
+              "y": 0.6,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "ballard-locks",
+            "origin": {
+              "lat": 47.6664,
+              "lon": -122.397,
+              "elev": 8.5
+            },
+            "projection": {
+              "mLat": 111183.83,
+              "mLon": 75105.22
+            }
+          },
+          "label": "Phone view with the native touch interface",
+          "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+        }
+      ]
+    }
+  ],
+  "visitorGalleryRecapture": {
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "assembledAt": "2026-11-12T20:03:08.418Z",
+    "passRange": "332ae423..346f7986",
+    "sceneCommits": [
+      "2392e7fea9dacfc70c322448b3a7f15d8c386c73"
+    ],
+    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes.",
+    "sourceVerification": {
+      "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
+      "checkedAt": "2026-11-12T20:03:08.417Z"
+    }
   }
 }

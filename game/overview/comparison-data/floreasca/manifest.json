@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "Floreasca aerial comparisons",
-  "generatedDate": "2026-11-11",
-  "generatedAt": "2026-11-11T01:51:47.033Z",
+  "generatedDate": "2026-11-12",
+  "generatedAt": "2026-11-12T19:50:52.084Z",
   "defaultTile": "aerial-r09-c04",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -278,19 +278,19 @@
         500,
         -1000
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 77,
-        "triangles": 150103,
-        "renderMs": 5.600000001490116,
+        "triangles": 124499,
+        "renderMs": 3,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 194
+        "vehicleCount": 193
       },
       "renderer": {
         "width": 640,
@@ -300,16 +300,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:35:23.142Z",
-      "gamePath": "images/aerial-r01-c06.jpg",
-      "image": "images/aerial-r01-c06.jpg",
-      "thumbnail": "thumbs/aerial-r01-c06.jpg",
-      "sha256": "ad145435435bf66f8becd21f5586d4d35e660bc7afcd31d1b3014f84d7e3d57e",
+      "capturedAt": "2026-11-12T19:50:11.482Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r01-c06.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r01-c06.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r01-c06.jpg",
+      "sha256": "9be821f751a62943ea0ad203c57260dbcb0e3a3c2467d14977476059c443525e",
       "width": 640,
       "height": 640,
-      "captureWallMs": 2526,
+      "captureWallMs": 337,
       "dataset": "atlas",
-      "thumbnailSha256": "51a2d147af19e18592eda333e8e00c63e8e6eb749e9ff2dbc89a164dfb093e60",
+      "thumbnailSha256": "e02b6b5b7250e728e1d5921a0a3916ba2dcc4b747b597e84cfa2bf0d7e6effce",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.47339830831803,
@@ -317,8 +317,8 @@
         44.47564788539754,
         26.110093463869617
       ],
-      "sourceCaptureManifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
-      "sourceNote": "Exact-pose scoped retake; full prior mixed atlas archived byte-identically."
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (lake bridge: the two carriageway decks are separate with water between them and edge railings); prior collection archived."
     },
     {
       "id": "aerial-r01-c07",
@@ -3586,16 +3586,19 @@
         0,
         750
       ],
-      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 108,
-        "triangles": 464407
+        "triangles": 466597,
+        "renderMs": 1.4000000059604645,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 193
       },
       "renderer": {
         "width": 640,
@@ -3605,16 +3608,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T01:51:47.033Z",
-      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r08-c04.png",
-      "image": "retakes/signs-8add95f3/atlas/aerial-r08-c04.png",
-      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r08-c04.png",
-      "sha256": "4ad91dc949612b5eaa676c9a09a475c142cc8c2267003b416d5cf5e216fdde28",
+      "capturedAt": "2026-11-12T19:50:36.625Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r08-c04.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r08-c04.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r08-c04.jpg",
+      "sha256": "360f8995b0b1e14c2d79d394d3deeba686638a57c3ffc4772c22152657453608",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7050,
+      "captureWallMs": 511,
       "dataset": "atlas",
-      "thumbnailSha256": "4ad91dc949612b5eaa676c9a09a475c142cc8c2267003b416d5cf5e216fdde28",
+      "thumbnailSha256": "e530ca9f93aac2f9f253b801c4cf5fb1afc87473c5ee396bb72463eea298f102",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.457651268761474,
@@ -3623,8 +3626,8 @@
         26.1038
       ],
       "district": "floreasca",
-      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
-      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json"
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Dinamo velodrome: oval infield and track instead of a rectangular pitch); prior collection archived.",
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json"
     },
     {
       "id": "aerial-r08-c05",
@@ -5844,9 +5847,10 @@
   ],
   "atlasSourceCounts": {
     "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 6,
-    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 21,
+    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 20,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
     "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 59,
-    "8add95f35681eddaf01a136ff1f5769a5329b102": 4
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 3
   },
   "sourceSnapshots": [
     {
@@ -5871,6 +5875,15 @@
       "sourceProvenance": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/source-provenance.json",
       "sourceProvenanceSha256": "f05664c4657ca87bf793d3d9ff188af55049ec4cb6790cf10c6b45efb39b5bc1",
       "frames": 21
+    },
+    {
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "treeSha256": "deec28ca0450626951551fd3ef8430ddd963c659206d1fa313c5e2e0c6e7ddf0",
+      "manifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "manifestSha256": "82a2827d2d7d936f927ee3fa26d7ec8ef0a9cc376fb8f88979b0d611252fdeef",
+      "sourceProvenance": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/source-provenance.json",
+      "sourceProvenanceSha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47",
+      "frames": 2
     }
   ],
   "sourceCompatibility": {
@@ -5890,7 +5903,7 @@
     "delivery": "Live image request; no aerial imagery is stored in this repository.",
     "extent": "250 m ground square centred at each listed WGS84 coordinate; EPSG:3857 with latitude scale correction."
   },
-  "description": "Mixed-source technical atlas: 4 sign-affected poses refreshed at 8add95f3; all other images retain their recorded sources and dates.",
+  "description": "Mixed-source technical atlas: 2 poses retaken on 2026-11-12 at 346f7986 (Dinamo velodrome infield; lake bridge decks); all other images retain their recorded sources and dates.",
   "coverageNote": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score. Boundary cells also contain land outside the ring.",
   "reviewNote": "Sign-affected current game captures inspected at full size; source/aerial comparisons retain their historical scope. No district fidelity acceptance.",
   "review": {
@@ -5898,8 +5911,10 @@
     "gameSourceCommit": null,
     "sourceCounts": {
       "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 6,
-      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 21,
-      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 63
+      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 20,
+      "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
+      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 59,
+      "8add95f35681eddaf01a136ff1f5769a5329b102": 3
     },
     "framesReviewed": 90,
     "status": "Complete prior review retained with 21 fresh exact-pose water/paint pairs inspected; all geometry, source-height, facade, canopy, occupancy and unknown-date limits remain.",
@@ -5943,15 +5958,15 @@
         "id": "aerial-r01-c06",
         "originalGameSha256": "d5abdc56a196d7c8102bcc224f1eb8469bf02f8746d550f7c7638b5774286621",
         "retakeGameSha256": "ad145435435bf66f8becd21f5586d4d35e660bc7afcd31d1b3014f84d7e3d57e",
-        "gameSha256": "ad145435435bf66f8becd21f5586d4d35e660bc7afcd31d1b3014f84d7e3d57e",
-        "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-        "pairSha256": "c1217c86f186ebf91c9fa0b9da6ccf4aead128e72513e52ea92919349d371ef3",
+        "gameSha256": "9be821f751a62943ea0ad203c57260dbcb0e3a3c2467d14977476059c443525e",
+        "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "reviewSheet": "comparison-01.jpg",
         "reviewSheetSha256": "4647dce7d17f385423b282e431b001f1228e8725c005e4c22f60332214aaf6ae",
         "referenceCoverageFraction": 1.0,
         "reviewedAt": "2026-11-09T00:38:25.892683+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Source lake shoreline remains visible without the broad estimated line ribbon overlaid on it. Model-blue water differs from the dark-green unknown-date aerial; bank detail, canopy appearance, roof/facade detail and occupancy remain approximate."
+        "observations": "Source lake shoreline remains visible without the broad estimated line ribbon overlaid on it. Model-blue water differs from the dark-green unknown-date aerial; bank detail, canopy appearance, roof/facade detail and occupancy remain approximate.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r01-c07",
@@ -6561,14 +6576,14 @@
       },
       {
         "id": "aerial-r08-c04",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "0a013bae325c3fe8a0aa370513766df86f72170a670e6d7494facaa4904e0b3d",
-        "pairSha256": "926edd24789e59a39cc1cfa32e2173632a76533e87e527bdde082f1076141c9d",
+        "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "gameSha256": "360f8995b0b1e14c2d79d394d3deeba686638a57c3ffc4772c22152657453608",
         "reviewSheet": "comparison-10.jpg",
         "reviewSheetSha256": "92c8c774eca87bb3f39acc0b5b36afeebf887fb7d7aed5aba2836ddda080f9f2",
         "reviewedAt": "2026-11-08T22:04:16.668088+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "All six pairs viewed. r08c04 secondary athletics ground appears rectangular rather than reference oval track, retained as sports-shape gap pending raw area tags. r08c07 broad green/dark source-estimated ground differs from reference vegetated railway/tree belt. Dense residential roof classes broadly present; raw source and measurement provenance still required for exact material claims."
+        "observations": "All six pairs viewed. r08c04 secondary athletics ground appears rectangular rather than reference oval track, retained as sports-shape gap pending raw area tags. r08c07 broad green/dark source-estimated ground differs from reference vegetated railway/tree belt. Dense residential roof classes broadly present; raw source and measurement provenance still required for exact material claims.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r08-c05",
@@ -6968,10 +6983,13 @@
         "observations": "All six contextual 250m north-up ground-square pairs viewed. Northwest/northeast show the angular lake band plus sparse outside-detail masses. Southwest/southeast show isolated generic skyline masses and grey ground versus dense reference buildings/canopy. context-skytower and context-globalworth are approximate outside-detail backdrop masses, not upgraded detailed tower/podium context; explicit source/visual gap retained. They are square north-up atlas items, not perspective model studies."
       }
     ],
-    "targetedRetakeReview": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/paired-review.json"
+    "targetedRetakeReview": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+    "earlierTargetedRetakeReviews": [
+      "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/paired-review.json"
+    ]
   },
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 4 sign-affected poses refreshed at 8add95f3; all other images retain their recorded sources and dates."
+    "atlas": "Mixed-source technical atlas: 2 poses retaken on 2026-11-12 at 346f7986 (Dinamo velodrome infield; lake bridge decks); all other images retain their recorded sources and dates."
   },
   "perspectiveCollections": [
     {
@@ -7040,5 +7058,21 @@
       "aerial-r08-c04"
     ],
     "scope": "Conservative camera-frustum sphere intersections, 30m sign/shadow margin. Unplaced sign includes whole source building. No occlusion or distance culling assumed. Every condition of affected walking viewpoints included. Isolated model studies and standalone tourist scenes do not use district unit fascias."
-  }
+  },
+  "historicalCollections": [
+    {
+      "manifest": "historical/mixed-before-346f7986-8425cb2c/manifest.json",
+      "label": "Atlas before the 346f798 retake (Dinamo velodrome infield; lake bridge decks)",
+      "frames": 90,
+      "generatedAt": "2026-11-11T01:51:47.033Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 6,
+        "bbaffc0d6cdccb6246edeb9478c58590852980d9": 21,
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 59,
+        "8add95f35681eddaf01a136ff1f5769a5329b102": 4
+      },
+      "captureType": "mixed-source-survey"
+    }
+  ]
 }

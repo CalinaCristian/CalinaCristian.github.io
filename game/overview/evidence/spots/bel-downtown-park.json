@@ -46,17 +46,34 @@
       "label": "Native desktop coin arc and mapped-pool ripple",
       "type": "Native GAME proof; scope recorded separately",
       "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/coin-5508fc3-desktop/results.json"
+    },
+    {
+      "label": "District fidelity pass scene change (91f5bf7)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/91f5bf79e37c294e2f453bded42e4efe2e409523"
+    },
+    {
+      "label": "District fidelity pass scene change (b498520)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/b498520f0935dfeab8d55cd65eb1cc43c460f427"
+    },
+    {
+      "label": "District fidelity pass scene change (16a0c8f)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/16a0c8fe2e124a10323ad11657fef2156bf1db52"
     }
   ],
   "improvements": [
     "Current native scene retains 100 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
     "Physical 340.223 m coin approach; native animated finite coin landing/ripple in source pool",
-    "The selected primary activity approach is accepted separately from full-scene comparison."
+    "The selected primary activity approach is accepted separately from full-scene comparison.",
+    "District fidelity pass, 91f5bf7 / b498520 / 16a0c8f (range 332ae423..346f7986): Canal stonework and fountain basins, park shelters and playground; footbridge slabs rest on the canal coping and the south fountain basin is at ground level."
   ],
   "remainingGaps": [
     "Continuous full promenade-loop completion/reload and phone coin flow remain unverified",
     "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
-    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
+    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 93b0d86 or earlier, before the district fidelity pass, and were not re-run at 346f798."
   ],
   "checks": [
     {
@@ -88,6 +105,16 @@
       "label": "Current exhaustive physical audit",
       "passed": null,
       "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
+    },
+    {
+      "label": "Visitor views recaptured after the district fidelity pass",
+      "passed": true,
+      "details": "346f798: 4 viewpoints × 4 conditions recaptured (waterfall, promenade-loop, piloti, reflecting-pool). Every picture was inspected after capture. Appearance only; no route, activity or reference-match claim."
+    },
+    {
+      "label": "Validation frames and native proofs re-run at 346f798",
+      "passed": false,
+      "details": "Not re-run. The validation captures and proofs above keep their original source and date and describe the scene before the pass."
     }
   ],
   "captures": [
@@ -307,7 +334,7 @@
     },
     "collection": "previous-context-gallery"
   },
-  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical 340.223 m coin approach; native animated finite coin landing/ripple in source pool Continuous full promenade-loop completion/reload and phone coin flow remain unverified Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical 340.223 m coin approach; native animated finite coin landing/ripple in source pool Continuous full promenade-loop completion/reload and phone coin flow remain unverified Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates.",
   "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
   "menuAvailable": true,
   "captureSourceCommits": [
@@ -343,12 +370,15 @@
   ],
   "visitorGallery": {
     "schemaVersion": 1,
-    "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
-    "notice": "4 matched walking-height viewpoints in each of four conditions, captured from the recorded production game source. Open any picture at its original size.",
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "notice": "4 matched walking-height viewpoints in each of four conditions, recaptured from game source 346f798 after the district fidelity pass. Open any picture at its original size.",
     "setup": "Production app, scene, actors, lighting and renderer at High quality, 1280 × 800. Automatic animation was paused and explicit frames rendered at fixed on-foot cameras 1.65 m above their supporting surfaces. Local simulation dates and weather were controlled; capturedAt records the real capture time.",
     "limitations": [
       "Fixed on-foot appearance fixtures; cameras were positioned for inspection. These pictures do not establish a traversed route, activity completion, physical-phone behavior or hardware FPS.",
-      "The waterfall remains a simplified sheet and foam strip; a source-led cascade rebuild is requested. Fixed pictures do not verify loop timing or coin-throw completion."
+      "The waterfall remains a simplified sheet. Fixed pictures do not verify loop timing or coin-throw completion.",
+      "Viewpoint ids, positions, look and field of view are those of the dc93023f gallery.",
+      "The captured High-quality frames reach 1,035,069 triangles / 171 draw calls.",
+      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
     ],
     "conditionSets": [
       {
@@ -365,8 +395,8 @@
             "place": "bel-downtown-park",
             "label": "Downtown Park · waterfall and reflecting pool",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:09:58.068Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:10.437Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -392,7 +422,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794301786580,
+                "updatedAt": 1794513128747,
                 "climate": null
               },
               "date": "2026-07-15T19:00:00.000Z",
@@ -401,8 +431,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "b9922854bc7002bcde3096fa970c260a7272e32632d3417c41fe507438ec0b4b",
-            "bytes": 144816,
+            "sha256": "702f56350b7eac2b4ddb540f2f1588270c1ded80311ba9a742d442427fd87615",
+            "bytes": 147007,
             "pose": {
               "x": -93,
               "z": 131,
@@ -419,10 +449,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.37,
-              "frameMs": 2714.9,
-              "drawCalls": 95,
-              "triangles": 916741,
+              "fps": 0.62,
+              "frameMs": 1611,
+              "drawCalls": 109,
+              "triangles": 934927,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -430,7 +460,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-day/waterfall.jpg"
+            "image": "assets/spots/bel-downtown-park/ground-346f7986/summer-day/waterfall.jpg"
           },
           {
             "id": "promenade-loop",
@@ -438,8 +468,8 @@
             "place": "bel-downtown-park",
             "label": "Promenade · canal, lawn and half-mile loop",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:10:01.436Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:10.512Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -465,7 +495,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794301786580,
+                "updatedAt": 1794513128747,
                 "climate": null
               },
               "date": "2026-07-15T19:00:00.000Z",
@@ -474,8 +504,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "8e6577f476273a4de4a8fc0d846d76be98cfad148247616f96ad61ac8d1acdd6",
-            "bytes": 122865,
+            "sha256": "534f8fee71b60a6069e72ccf379c86f91ebd1d8a0aaf675bdc2624f492ddfa11",
+            "bytes": 132042,
             "pose": {
               "x": -26.2885543,
               "z": -12.06856,
@@ -492,10 +522,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.11,
-              "frameMs": 8847,
-              "drawCalls": 159,
-              "triangles": 917249,
+              "fps": 0.62,
+              "frameMs": 83.7,
+              "drawCalls": 171,
+              "triangles": 934131,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -503,7 +533,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-day/promenade-loop.jpg"
+            "image": "assets/spots/bel-downtown-park/ground-346f7986/summer-day/promenade-loop.jpg"
           },
           {
             "id": "piloti",
@@ -511,8 +541,8 @@
             "place": "bel-downtown-park",
             "label": "Piloti · full sculpture and park setting",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:25:20.774Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:10.682Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -538,7 +568,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794302712796,
+                "updatedAt": 1794513128747,
                 "climate": null
               },
               "date": "2026-07-15T19:00:00.000Z",
@@ -547,8 +577,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "61cb8f51e53a672968c2a3b0a6c0710b963b002bf598f2f64e5d48ee3cf0b0ab",
-            "bytes": 147545,
+            "sha256": "06b073232a8c82dac135b53a788aeb1c99f212d0fd1f7a2365741c87f5824302",
+            "bytes": 144194,
             "pose": {
               "x": 92,
               "z": -18,
@@ -560,15 +590,15 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 300.579226872489,
-              "pitch": 4.188014688138655,
+              "pitch": 4.188014688138656,
               "fov": 74
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0,
-              "frameMs": 150.4,
-              "drawCalls": 138,
-              "triangles": 1018129,
+              "fps": 0.62,
+              "frameMs": 75.8,
+              "drawCalls": 150,
+              "triangles": 1035069,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -576,7 +606,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-day/piloti.jpg"
+            "image": "assets/spots/bel-downtown-park/ground-346f7986/summer-day/piloti.jpg"
           },
           {
             "id": "reflecting-pool",
@@ -584,8 +614,8 @@
             "place": "bel-downtown-park",
             "label": "Reflecting pool · edge and coin-practice area",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:10:07.906Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:11.119Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -611,7 +641,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794301786580,
+                "updatedAt": 1794513128747,
                 "climate": null
               },
               "date": "2026-07-15T19:00:00.000Z",
@@ -620,8 +650,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "cf5eb3e9e984a5e59def7b1f55cf22c050213ac6682e517e7170304d20ebb806",
-            "bytes": 129639,
+            "sha256": "0afd141656ec1edf2b85ef075d3de37eb2a56fc8473fcc5b5d026870962cfdac",
+            "bytes": 134506,
             "pose": {
               "x": -117,
               "z": 179,
@@ -638,10 +668,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.26,
-              "frameMs": 3852.8,
-              "drawCalls": 113,
-              "triangles": 925795,
+              "fps": 0.62,
+              "frameMs": 169.1,
+              "drawCalls": 131,
+              "triangles": 943891,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -649,7 +679,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-day/reflecting-pool.jpg"
+            "image": "assets/spots/bel-downtown-park/ground-346f7986/summer-day/reflecting-pool.jpg"
           }
         ]
       },
@@ -667,8 +697,8 @@
             "place": "bel-downtown-park",
             "label": "Downtown Park · waterfall and reflecting pool",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:25:28.869Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:15.330Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -694,7 +724,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794302720880,
+                "updatedAt": 1794513131124,
                 "climate": null
               },
               "date": "2026-07-16T06:00:00.000Z",
@@ -703,8 +733,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "63d8774bf80116cb50d74196872fd60a99cf62b4bc4d8ad887cdc06891042d84",
-            "bytes": 156350,
+            "sha256": "ab52a8af8e819a54db6aac9a43770e20cc0dfede9aa21cd233a7a7d1b26de672",
+            "bytes": 154612,
             "pose": {
               "x": -93,
               "z": 131,
@@ -721,10 +751,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.34,
-              "frameMs": 2974.6,
-              "drawCalls": 64,
-              "triangles": 551173,
+              "fps": 0.24,
+              "frameMs": 4134,
+              "drawCalls": 71,
+              "triangles": 560266,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -732,7 +762,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-night/waterfall.jpg"
+            "image": "assets/spots/bel-downtown-park/ground-346f7986/summer-night/waterfall.jpg"
           },
           {
             "id": "promenade-loop",
@@ -740,8 +770,8 @@
             "place": "bel-downtown-park",
             "label": "Promenade · canal, lawn and half-mile loop",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:25:30.889Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:15.737Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -767,7 +797,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794302720880,
+                "updatedAt": 1794513131124,
                 "climate": null
               },
               "date": "2026-07-16T06:00:00.000Z",
@@ -776,8 +806,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "3e012bb617074a39c28200b9be3cab216dc5f61950359357ab06f9e46c8deef2",
-            "bytes": 143385,
+            "sha256": "48406f96c5c927f79108da7bf9272039069e13b34956a26566a96d2924d165cf",
+            "bytes": 147940,
             "pose": {
               "x": -26.2885543,
               "z": -12.06856,
@@ -794,10 +824,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.2,
-              "frameMs": 5048,
-              "drawCalls": 120,
-              "triangles": 551853,
+              "fps": 0.24,
+              "frameMs": 77.8,
+              "drawCalls": 131,
+              "triangles": 561602,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -805,7 +835,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-night/promenade-loop.jpg"
+            "image": "assets/spots/bel-downtown-park/ground-346f7986/summer-night/promenade-loop.jpg"
           },
           {
             "id": "piloti",
@@ -813,8 +843,8 @@
             "place": "bel-downtown-park",
             "label": "Piloti · full sculpture and park setting",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:25:33.173Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:15.762Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -840,7 +870,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794302720880,
+                "updatedAt": 1794513131124,
                 "climate": null
               },
               "date": "2026-07-16T06:00:00.000Z",
@@ -849,8 +879,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "7e9ee9a53c24829433b7d2c924bfa8f37f510faf8305f466b7778cc4a428ad11",
-            "bytes": 149698,
+            "sha256": "eec18f5215871a71315204422bebc5d0bcb4254bfa6455d5f2814cda3c116c12",
+            "bytes": 150758,
             "pose": {
               "x": 92,
               "z": -18,
@@ -862,15 +892,15 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 300.579226872489,
-              "pitch": 4.188014688138655,
+              "pitch": 4.188014688138656,
               "fov": 74
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.46,
-              "frameMs": 2192.6,
-              "drawCalls": 112,
-              "triangles": 601311,
+              "fps": 0.24,
+              "frameMs": 406.9,
+              "drawCalls": 114,
+              "triangles": 607382,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -878,7 +908,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-night/piloti.jpg"
+            "image": "assets/spots/bel-downtown-park/ground-346f7986/summer-night/piloti.jpg"
           },
           {
             "id": "reflecting-pool",
@@ -886,8 +916,8 @@
             "place": "bel-downtown-park",
             "label": "Reflecting pool · edge and coin-practice area",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:25:35.223Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:15.803Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -913,7 +943,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794302720880,
+                "updatedAt": 1794513131124,
                 "climate": null
               },
               "date": "2026-07-16T06:00:00.000Z",
@@ -922,8 +952,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "b61d38fa0f5dfc26737d2dedb39686700d1b72d421c825e8cc0c1d69cefb99f1",
-            "bytes": 153165,
+            "sha256": "79a035c52131b8de08bfca60b7b9c8ede7e41d1da74e58e572077441f9070501",
+            "bytes": 155240,
             "pose": {
               "x": -117,
               "z": 179,
@@ -940,10 +970,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.47,
-              "frameMs": 2129.1,
-              "drawCalls": 91,
-              "triangles": 565307,
+              "fps": 5.9,
+              "frameMs": 24.5,
+              "drawCalls": 99,
+              "triangles": 572642,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -951,7 +981,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-night/reflecting-pool.jpg"
+            "image": "assets/spots/bel-downtown-park/ground-346f7986/summer-night/reflecting-pool.jpg"
           }
         ]
       },
@@ -969,8 +999,8 @@
             "place": "bel-downtown-park",
             "label": "Downtown Park · waterfall and reflecting pool",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:25:39.455Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:15.860Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -996,7 +1026,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794302735272,
+                "updatedAt": 1794513135808,
                 "climate": null
               },
               "date": "2026-01-15T20:00:00.000Z",
@@ -1005,8 +1035,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "b042548495a830892d6077db80166bdad04f1e5e8a9b03570da391011659e5d5",
-            "bytes": 111288,
+            "sha256": "489aa091c4b324d45a5e63677d183e0f1a7e894019afb9d19188511b3aa83a08",
+            "bytes": 114883,
             "pose": {
               "x": -93,
               "z": 131,
@@ -1023,10 +1053,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.49,
-              "frameMs": 92.3,
-              "drawCalls": 90,
-              "triangles": 707617,
+              "fps": 5.9,
+              "frameMs": 33.9,
+              "drawCalls": 105,
+              "triangles": 727415,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1034,7 +1064,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/bel-downtown-park/ground-dc93023f/winter-day/waterfall.jpg"
+            "image": "assets/spots/bel-downtown-park/ground-346f7986/winter-day/waterfall.jpg"
           },
           {
             "id": "promenade-loop",
@@ -1042,8 +1072,8 @@
             "place": "bel-downtown-park",
             "label": "Promenade · canal, lawn and half-mile loop",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:25:41.131Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:15.885Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1069,7 +1099,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794302735272,
+                "updatedAt": 1794513135808,
                 "climate": null
               },
               "date": "2026-01-15T20:00:00.000Z",
@@ -1078,8 +1108,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "02c0f8f00b6c9c1f61da31a3a42b557f2cd84aebe2864d3f98e03d2ae021608a",
-            "bytes": 99510,
+            "sha256": "1f091b84fb00f83fdca3b03e1b841efe77e9bbecd0abf593ae289e0f8aeb5c9e",
+            "bytes": 109029,
             "pose": {
               "x": -26.2885543,
               "z": -12.06856,
@@ -1096,10 +1126,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.47,
-              "frameMs": 4137.1,
-              "drawCalls": 129,
-              "triangles": 706661,
+              "fps": 5.9,
+              "frameMs": 23,
+              "drawCalls": 145,
+              "triangles": 726403,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1107,7 +1137,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/bel-downtown-park/ground-dc93023f/winter-day/promenade-loop.jpg"
+            "image": "assets/spots/bel-downtown-park/ground-346f7986/winter-day/promenade-loop.jpg"
           },
           {
             "id": "piloti",
@@ -1115,8 +1145,8 @@
             "place": "bel-downtown-park",
             "label": "Piloti · full sculpture and park setting",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:25:42.685Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:15.911Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1142,7 +1172,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794302735272,
+                "updatedAt": 1794513135808,
                 "climate": null
               },
               "date": "2026-01-15T20:00:00.000Z",
@@ -1151,8 +1181,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "ab8e49c070c1ffb4bc73b87be14fcce2b46de5c6bcb105b0b228d4979374d70e",
-            "bytes": 110447,
+            "sha256": "114d505126948a8ac972cd4f2251623aa20547cc0bad274f756d6a464c3d4c66",
+            "bytes": 109053,
             "pose": {
               "x": 92,
               "z": -18,
@@ -1164,15 +1194,15 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 300.579226872489,
-              "pitch": 4.188014688138655,
+              "pitch": 4.188014688138656,
               "fov": 74
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.6,
-              "frameMs": 1668.9,
-              "drawCalls": 117,
-              "triangles": 817489,
+              "fps": 5.9,
+              "frameMs": 25.6,
+              "drawCalls": 124,
+              "triangles": 835057,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1180,7 +1210,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/bel-downtown-park/ground-dc93023f/winter-day/piloti.jpg"
+            "image": "assets/spots/bel-downtown-park/ground-346f7986/winter-day/piloti.jpg"
           },
           {
             "id": "reflecting-pool",
@@ -1188,8 +1218,8 @@
             "place": "bel-downtown-park",
             "label": "Reflecting pool · edge and coin-practice area",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:25:44.253Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:15.936Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1215,7 +1245,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794302735272,
+                "updatedAt": 1794513135808,
                 "climate": null
               },
               "date": "2026-01-15T20:00:00.000Z",
@@ -1224,8 +1254,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "b69af2dbf0cfa328f390f4e6c92ba04d6775082ca1e90e0b00ea7073c0019c3f",
-            "bytes": 102090,
+            "sha256": "a1cd1b78609fcd02fd16157c2a3d67ce737533e5b14e63db23ccd4a83455ca32",
+            "bytes": 106531,
             "pose": {
               "x": -117,
               "z": 179,
@@ -1242,10 +1272,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.64,
-              "frameMs": 1567.8,
-              "drawCalls": 104,
-              "triangles": 708047,
+              "fps": 5.9,
+              "frameMs": 26.5,
+              "drawCalls": 118,
+              "triangles": 726873,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1253,7 +1283,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/bel-downtown-park/ground-dc93023f/winter-day/reflecting-pool.jpg"
+            "image": "assets/spots/bel-downtown-park/ground-346f7986/winter-day/reflecting-pool.jpg"
           }
         ]
       },
@@ -1271,8 +1301,8 @@
             "place": "bel-downtown-park",
             "label": "Downtown Park · waterfall and reflecting pool",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:25:47.934Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:15.986Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1298,7 +1328,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794302744308,
+                "updatedAt": 1794513135941,
                 "climate": null
               },
               "date": "2026-01-16T07:00:00.000Z",
@@ -1307,8 +1337,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "1fde01030ee1abde774f5a3e35fd55ad88ce04b839ccfd7e2c14a96c4f86b48d",
-            "bytes": 165134,
+            "sha256": "2896ce44c1e9ba67dad88f7284eb53d10266465b120ee88f4c478d7f7b03ecc6",
+            "bytes": 172860,
             "pose": {
               "x": -93,
               "z": 131,
@@ -1325,10 +1355,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.64,
-              "frameMs": 29.3,
-              "drawCalls": 64,
-              "triangles": 551161,
+              "fps": 5.9,
+              "frameMs": 25.2,
+              "drawCalls": 71,
+              "triangles": 560254,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1336,7 +1366,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/bel-downtown-park/ground-dc93023f/winter-night/waterfall.jpg"
+            "image": "assets/spots/bel-downtown-park/ground-346f7986/winter-night/waterfall.jpg"
           },
           {
             "id": "promenade-loop",
@@ -1344,8 +1374,8 @@
             "place": "bel-downtown-park",
             "label": "Promenade · canal, lawn and half-mile loop",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:25:49.950Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:16.007Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1371,7 +1401,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794302744308,
+                "updatedAt": 1794513135941,
                 "climate": null
               },
               "date": "2026-01-16T07:00:00.000Z",
@@ -1380,8 +1410,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "0ee75e6e27fd5ca4169e3b898383fa41324be42e8099dd1547a476ab698705bc",
-            "bytes": 160893,
+            "sha256": "ae9a484ca2327dbd907013991811e4cec3bee164c88afc579d9b8cc37b3d32ff",
+            "bytes": 170595,
             "pose": {
               "x": -26.2885543,
               "z": -12.06856,
@@ -1398,10 +1428,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.54,
-              "frameMs": 3662.7,
-              "drawCalls": 99,
-              "triangles": 551590,
+              "fps": 5.9,
+              "frameMs": 23.8,
+              "drawCalls": 109,
+              "triangles": 561338,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1409,7 +1439,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/bel-downtown-park/ground-dc93023f/winter-night/promenade-loop.jpg"
+            "image": "assets/spots/bel-downtown-park/ground-346f7986/winter-night/promenade-loop.jpg"
           },
           {
             "id": "piloti",
@@ -1417,8 +1447,8 @@
             "place": "bel-downtown-park",
             "label": "Piloti · full sculpture and park setting",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:25:51.970Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:16.028Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1444,7 +1474,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794302744308,
+                "updatedAt": 1794513135941,
                 "climate": null
               },
               "date": "2026-01-16T07:00:00.000Z",
@@ -1453,8 +1483,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "6fa43d1e069646c54ad5a5114a868bbabe77a6514e7edad6b1b815c55cb2ad23",
-            "bytes": 158559,
+            "sha256": "55be332dc47b1c48b4bb8875b5caac5660fe12a075936a7a4c0fbb28828cbfdb",
+            "bytes": 159710,
             "pose": {
               "x": 92,
               "z": -18,
@@ -1466,15 +1496,15 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 300.579226872489,
-              "pitch": 4.188014688138655,
+              "pitch": 4.188014688138656,
               "fov": 74
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.49,
-              "frameMs": 2051.7,
-              "drawCalls": 93,
-              "triangles": 601072,
+              "fps": 5.9,
+              "frameMs": 22.5,
+              "drawCalls": 89,
+              "triangles": 607082,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1482,7 +1512,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/bel-downtown-park/ground-dc93023f/winter-night/piloti.jpg"
+            "image": "assets/spots/bel-downtown-park/ground-346f7986/winter-night/piloti.jpg"
           },
           {
             "id": "reflecting-pool",
@@ -1490,8 +1520,8 @@
             "place": "bel-downtown-park",
             "label": "Reflecting pool · edge and coin-practice area",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T09:25:55.490Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:16.062Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1517,7 +1547,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794302744308,
+                "updatedAt": 1794513135941,
                 "climate": null
               },
               "date": "2026-01-16T07:00:00.000Z",
@@ -1526,8 +1556,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "7692969263a21f3fe3fef4f389c5964379342f47ac997b2124c5d9bf5dce3d97",
-            "bytes": 156785,
+            "sha256": "0cd5bbab8993e2e765755752019a52c689fb576d194034abc405de127ce0ee46",
+            "bytes": 165276,
             "pose": {
               "x": -117,
               "z": 179,
@@ -1544,10 +1574,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.5,
-              "frameMs": 1995.3,
-              "drawCalls": 90,
-              "triangles": 554607,
+              "fps": 5.9,
+              "frameMs": 21.3,
+              "drawCalls": 91,
+              "triangles": 562657,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1555,7 +1585,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/bel-downtown-park/ground-dc93023f/winter-night/reflecting-pool.jpg"
+            "image": "assets/spots/bel-downtown-park/ground-346f7986/winter-night/reflecting-pool.jpg"
           }
         ]
       }
@@ -1567,8 +1597,8 @@
         "place": "bel-downtown-park",
         "label": "Downtown Park · waterfall and reflecting pool",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T09:09:58.068Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:52:10.437Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -1594,7 +1624,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794301786580,
+            "updatedAt": 1794513128747,
             "climate": null
           },
           "date": "2026-07-15T19:00:00.000Z",
@@ -1603,8 +1633,8 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "b9922854bc7002bcde3096fa970c260a7272e32632d3417c41fe507438ec0b4b",
-        "bytes": 144816,
+        "sha256": "702f56350b7eac2b4ddb540f2f1588270c1ded80311ba9a742d442427fd87615",
+        "bytes": 147007,
         "pose": {
           "x": -93,
           "z": 131,
@@ -1621,10 +1651,10 @@
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.37,
-          "frameMs": 2714.9,
-          "drawCalls": 95,
-          "triangles": 916741,
+          "fps": 0.62,
+          "frameMs": 1611,
+          "drawCalls": 109,
+          "triangles": 934927,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -1632,7 +1662,7 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-day/waterfall.jpg"
+        "image": "assets/spots/bel-downtown-park/ground-346f7986/summer-day/waterfall.jpg"
       },
       {
         "id": "promenade-loop",
@@ -1640,8 +1670,8 @@
         "place": "bel-downtown-park",
         "label": "Promenade · canal, lawn and half-mile loop",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T09:10:01.436Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:52:10.512Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -1667,7 +1697,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794301786580,
+            "updatedAt": 1794513128747,
             "climate": null
           },
           "date": "2026-07-15T19:00:00.000Z",
@@ -1676,8 +1706,8 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "8e6577f476273a4de4a8fc0d846d76be98cfad148247616f96ad61ac8d1acdd6",
-        "bytes": 122865,
+        "sha256": "534f8fee71b60a6069e72ccf379c86f91ebd1d8a0aaf675bdc2624f492ddfa11",
+        "bytes": 132042,
         "pose": {
           "x": -26.2885543,
           "z": -12.06856,
@@ -1694,10 +1724,10 @@
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.11,
-          "frameMs": 8847,
-          "drawCalls": 159,
-          "triangles": 917249,
+          "fps": 0.62,
+          "frameMs": 83.7,
+          "drawCalls": 171,
+          "triangles": 934131,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -1705,7 +1735,7 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-day/promenade-loop.jpg"
+        "image": "assets/spots/bel-downtown-park/ground-346f7986/summer-day/promenade-loop.jpg"
       },
       {
         "id": "piloti",
@@ -1713,8 +1743,8 @@
         "place": "bel-downtown-park",
         "label": "Piloti · full sculpture and park setting",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T09:25:20.774Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:52:10.682Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -1740,7 +1770,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794302712796,
+            "updatedAt": 1794513128747,
             "climate": null
           },
           "date": "2026-07-15T19:00:00.000Z",
@@ -1749,8 +1779,8 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "61cb8f51e53a672968c2a3b0a6c0710b963b002bf598f2f64e5d48ee3cf0b0ab",
-        "bytes": 147545,
+        "sha256": "06b073232a8c82dac135b53a788aeb1c99f212d0fd1f7a2365741c87f5824302",
+        "bytes": 144194,
         "pose": {
           "x": 92,
           "z": -18,
@@ -1762,15 +1792,15 @@
           ],
           "heightAboveSupport": 1.65,
           "bearing": 300.579226872489,
-          "pitch": 4.188014688138655,
+          "pitch": 4.188014688138656,
           "fov": 74
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0,
-          "frameMs": 150.4,
-          "drawCalls": 138,
-          "triangles": 1018129,
+          "fps": 0.62,
+          "frameMs": 75.8,
+          "drawCalls": 150,
+          "triangles": 1035069,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -1778,7 +1808,7 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-day/piloti.jpg"
+        "image": "assets/spots/bel-downtown-park/ground-346f7986/summer-day/piloti.jpg"
       },
       {
         "id": "reflecting-pool",
@@ -1786,8 +1816,8 @@
         "place": "bel-downtown-park",
         "label": "Reflecting pool · edge and coin-practice area",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T09:10:07.906Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:52:11.119Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -1813,7 +1843,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794301786580,
+            "updatedAt": 1794513128747,
             "climate": null
           },
           "date": "2026-07-15T19:00:00.000Z",
@@ -1822,8 +1852,8 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "cf5eb3e9e984a5e59def7b1f55cf22c050213ac6682e517e7170304d20ebb806",
-        "bytes": 129639,
+        "sha256": "0afd141656ec1edf2b85ef075d3de37eb2a56fc8473fcc5b5d026870962cfdac",
+        "bytes": 134506,
         "pose": {
           "x": -117,
           "z": 179,
@@ -1840,10 +1870,10 @@
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.26,
-          "frameMs": 3852.8,
-          "drawCalls": 113,
-          "triangles": 925795,
+          "fps": 0.62,
+          "frameMs": 169.1,
+          "drawCalls": 131,
+          "triangles": 943891,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -1851,10 +1881,1231 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-day/reflecting-pool.jpg"
+        "image": "assets/spots/bel-downtown-park/ground-346f7986/summer-day/reflecting-pool.jpg"
       }
     ],
-    "report": "assets/spots/bel-downtown-park/ground-dc93023f/manifest.json",
-    "reportSha256": "02db2f9c6c4ba3d11de94a364692da7c4aa0cccbd878645db7bd97422bfc0270"
+    "report": "assets/spots/bel-downtown-park/ground-346f7986/manifest.json",
+    "reportSha256": "1a4da54002e450f3af17f3019cc49bea581a84fd198eeeecf083623277d0893d"
+  },
+  "historicalCollections": [
+    {
+      "id": "visitor-gallery-dc93023f",
+      "label": "Four-condition walking gallery before the district fidelity pass",
+      "status": "historical",
+      "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+      "supersededBy": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededAt": "2026-11-12T20:03:08.418Z",
+      "reason": "The scene changed after dc93023 (district fidelity pass 332ae423..346f7986 and earlier scene work); these pictures show the earlier scene and keep their original source, dates and manifest.",
+      "notice": "4 matched walking-height viewpoints in each of four conditions, captured from the recorded production game source. Open any picture at its original size.",
+      "setup": "Production app, scene, actors, lighting and renderer at High quality, 1280 × 800. Automatic animation was paused and explicit frames rendered at fixed on-foot cameras 1.65 m above their supporting surfaces. Local simulation dates and weather were controlled; capturedAt records the real capture time.",
+      "limitations": [
+        "Fixed on-foot appearance fixtures; cameras were positioned for inspection. These pictures do not establish a traversed route, activity completion, physical-phone behavior or hardware FPS.",
+        "The waterfall remains a simplified sheet and foam strip; a source-led cascade rebuild is requested. Fixed pictures do not verify loop timing or coin-throw completion."
+      ],
+      "conditionIds": [
+        "summer-day",
+        "summer-night",
+        "winter-day",
+        "winter-night"
+      ],
+      "viewpointIds": [
+        "waterfall",
+        "promenade-loop",
+        "piloti",
+        "reflecting-pool"
+      ],
+      "reports": [
+        {
+          "label": "Original capture manifest",
+          "report": "assets/spots/bel-downtown-park/ground-dc93023f/manifest.json",
+          "sha256": "02db2f9c6c4ba3d11de94a364692da7c4aa0cccbd878645db7bd97422bfc0270"
+        }
+      ],
+      "captures": [
+        {
+          "id": "waterfall",
+          "kind": "visit",
+          "place": "bel-downtown-park",
+          "label": "Downtown Park · waterfall and reflecting pool",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:09:58.068Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794301786580,
+              "climate": null
+            },
+            "date": "2026-07-15T19:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 59.78747064193817,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "b9922854bc7002bcde3096fa970c260a7272e32632d3417c41fe507438ec0b4b",
+          "bytes": 144816,
+          "pose": {
+            "x": -93,
+            "z": 131,
+            "floor": -3.9000000953674316,
+            "eye": [
+              -93,
+              -2.2500000953674317,
+              131
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 279.4623,
+            "pitch": 1,
+            "fov": 68
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.37,
+            "frameMs": 2714.9,
+            "drawCalls": 95,
+            "triangles": 916741,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-day/waterfall.jpg"
+        },
+        {
+          "id": "promenade-loop",
+          "kind": "visit",
+          "place": "bel-downtown-park",
+          "label": "Promenade · canal, lawn and half-mile loop",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:10:01.436Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794301786580,
+              "climate": null
+            },
+            "date": "2026-07-15T19:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 59.78747064193817,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "8e6577f476273a4de4a8fc0d846d76be98cfad148247616f96ad61ac8d1acdd6",
+          "bytes": 122865,
+          "pose": {
+            "x": -26.2885543,
+            "z": -12.06856,
+            "floor": 0.7063428773757965,
+            "eye": [
+              -26.2885543,
+              2.3563428773757966,
+              -12.06856
+            ],
+            "heightAboveSupport": 1.6500000000000001,
+            "bearing": 216.47916639749053,
+            "pitch": -0.5119119050846936,
+            "fov": 78
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.11,
+            "frameMs": 8847,
+            "drawCalls": 159,
+            "triangles": 917249,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-day/promenade-loop.jpg"
+        },
+        {
+          "id": "piloti",
+          "kind": "visit",
+          "place": "bel-downtown-park",
+          "label": "Piloti · full sculpture and park setting",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:25:20.774Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794302712796,
+              "climate": null
+            },
+            "date": "2026-07-15T19:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 59.78747064193817,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "61cb8f51e53a672968c2a3b0a6c0710b963b002bf598f2f64e5d48ee3cf0b0ab",
+          "bytes": 147545,
+          "pose": {
+            "x": 92,
+            "z": -18,
+            "floor": 0.6788156628608704,
+            "eye": [
+              92,
+              2.3288156628608703,
+              -18
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 300.579226872489,
+            "pitch": 4.188014688138655,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0,
+            "frameMs": 150.4,
+            "drawCalls": 138,
+            "triangles": 1018129,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-day/piloti.jpg"
+        },
+        {
+          "id": "reflecting-pool",
+          "kind": "visit",
+          "place": "bel-downtown-park",
+          "label": "Reflecting pool · edge and coin-practice area",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:10:07.906Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794301786580,
+              "climate": null
+            },
+            "date": "2026-07-15T19:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 59.78747064193817,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "cf5eb3e9e984a5e59def7b1f55cf22c050213ac6682e517e7170304d20ebb806",
+          "bytes": 129639,
+          "pose": {
+            "x": -117,
+            "z": 179,
+            "floor": -3.8674758672714233,
+            "eye": [
+              -117,
+              -2.2174758672714234,
+              179
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 321.84277341263095,
+            "pitch": -5.398417809927596,
+            "fov": 76
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.26,
+            "frameMs": 3852.8,
+            "drawCalls": 113,
+            "triangles": 925795,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-day/reflecting-pool.jpg"
+        },
+        {
+          "id": "waterfall",
+          "kind": "visit",
+          "place": "bel-downtown-park",
+          "label": "Downtown Park · waterfall and reflecting pool",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:25:28.869Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794302720880,
+              "climate": null
+            },
+            "date": "2026-07-16T06:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -14.674165489049551,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "63d8774bf80116cb50d74196872fd60a99cf62b4bc4d8ad887cdc06891042d84",
+          "bytes": 156350,
+          "pose": {
+            "x": -93,
+            "z": 131,
+            "floor": -3.9000000953674316,
+            "eye": [
+              -93,
+              -2.2500000953674317,
+              131
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 279.4623,
+            "pitch": 1,
+            "fov": 68
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.34,
+            "frameMs": 2974.6,
+            "drawCalls": 64,
+            "triangles": 551173,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-night/waterfall.jpg"
+        },
+        {
+          "id": "promenade-loop",
+          "kind": "visit",
+          "place": "bel-downtown-park",
+          "label": "Promenade · canal, lawn and half-mile loop",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:25:30.889Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794302720880,
+              "climate": null
+            },
+            "date": "2026-07-16T06:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -14.674165489049551,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "3e012bb617074a39c28200b9be3cab216dc5f61950359357ab06f9e46c8deef2",
+          "bytes": 143385,
+          "pose": {
+            "x": -26.2885543,
+            "z": -12.06856,
+            "floor": 0.7063428773757965,
+            "eye": [
+              -26.2885543,
+              2.3563428773757966,
+              -12.06856
+            ],
+            "heightAboveSupport": 1.6500000000000001,
+            "bearing": 216.47916639749053,
+            "pitch": -0.5119119050846936,
+            "fov": 78
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.2,
+            "frameMs": 5048,
+            "drawCalls": 120,
+            "triangles": 551853,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-night/promenade-loop.jpg"
+        },
+        {
+          "id": "piloti",
+          "kind": "visit",
+          "place": "bel-downtown-park",
+          "label": "Piloti · full sculpture and park setting",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:25:33.173Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794302720880,
+              "climate": null
+            },
+            "date": "2026-07-16T06:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -14.674165489049551,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "7e9ee9a53c24829433b7d2c924bfa8f37f510faf8305f466b7778cc4a428ad11",
+          "bytes": 149698,
+          "pose": {
+            "x": 92,
+            "z": -18,
+            "floor": 0.6788156628608704,
+            "eye": [
+              92,
+              2.3288156628608703,
+              -18
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 300.579226872489,
+            "pitch": 4.188014688138655,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.46,
+            "frameMs": 2192.6,
+            "drawCalls": 112,
+            "triangles": 601311,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-night/piloti.jpg"
+        },
+        {
+          "id": "reflecting-pool",
+          "kind": "visit",
+          "place": "bel-downtown-park",
+          "label": "Reflecting pool · edge and coin-practice area",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:25:35.223Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794302720880,
+              "climate": null
+            },
+            "date": "2026-07-16T06:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -14.674165489049551,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "b61d38fa0f5dfc26737d2dedb39686700d1b72d421c825e8cc0c1d69cefb99f1",
+          "bytes": 153165,
+          "pose": {
+            "x": -117,
+            "z": 179,
+            "floor": -3.8674758672714233,
+            "eye": [
+              -117,
+              -2.2174758672714234,
+              179
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 321.84277341263095,
+            "pitch": -5.398417809927596,
+            "fov": 76
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.47,
+            "frameMs": 2129.1,
+            "drawCalls": 91,
+            "triangles": 565307,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/bel-downtown-park/ground-dc93023f/summer-night/reflecting-pool.jpg"
+        },
+        {
+          "id": "waterfall",
+          "kind": "visit",
+          "place": "bel-downtown-park",
+          "label": "Downtown Park · waterfall and reflecting pool",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:25:39.455Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794302735272,
+              "climate": null
+            },
+            "date": "2026-01-15T20:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 21.259362719152293,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "b042548495a830892d6077db80166bdad04f1e5e8a9b03570da391011659e5d5",
+          "bytes": 111288,
+          "pose": {
+            "x": -93,
+            "z": 131,
+            "floor": -3.9000000953674316,
+            "eye": [
+              -93,
+              -2.2500000953674317,
+              131
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 279.4623,
+            "pitch": 1,
+            "fov": 68
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.49,
+            "frameMs": 92.3,
+            "drawCalls": 90,
+            "triangles": 707617,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/bel-downtown-park/ground-dc93023f/winter-day/waterfall.jpg"
+        },
+        {
+          "id": "promenade-loop",
+          "kind": "visit",
+          "place": "bel-downtown-park",
+          "label": "Promenade · canal, lawn and half-mile loop",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:25:41.131Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794302735272,
+              "climate": null
+            },
+            "date": "2026-01-15T20:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 21.259362719152293,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "02c0f8f00b6c9c1f61da31a3a42b557f2cd84aebe2864d3f98e03d2ae021608a",
+          "bytes": 99510,
+          "pose": {
+            "x": -26.2885543,
+            "z": -12.06856,
+            "floor": 0.7063428773757965,
+            "eye": [
+              -26.2885543,
+              2.3563428773757966,
+              -12.06856
+            ],
+            "heightAboveSupport": 1.6500000000000001,
+            "bearing": 216.47916639749053,
+            "pitch": -0.5119119050846936,
+            "fov": 78
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.47,
+            "frameMs": 4137.1,
+            "drawCalls": 129,
+            "triangles": 706661,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/bel-downtown-park/ground-dc93023f/winter-day/promenade-loop.jpg"
+        },
+        {
+          "id": "piloti",
+          "kind": "visit",
+          "place": "bel-downtown-park",
+          "label": "Piloti · full sculpture and park setting",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:25:42.685Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794302735272,
+              "climate": null
+            },
+            "date": "2026-01-15T20:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 21.259362719152293,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "ab8e49c070c1ffb4bc73b87be14fcce2b46de5c6bcb105b0b228d4979374d70e",
+          "bytes": 110447,
+          "pose": {
+            "x": 92,
+            "z": -18,
+            "floor": 0.6788156628608704,
+            "eye": [
+              92,
+              2.3288156628608703,
+              -18
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 300.579226872489,
+            "pitch": 4.188014688138655,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.6,
+            "frameMs": 1668.9,
+            "drawCalls": 117,
+            "triangles": 817489,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/bel-downtown-park/ground-dc93023f/winter-day/piloti.jpg"
+        },
+        {
+          "id": "reflecting-pool",
+          "kind": "visit",
+          "place": "bel-downtown-park",
+          "label": "Reflecting pool · edge and coin-practice area",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:25:44.253Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794302735272,
+              "climate": null
+            },
+            "date": "2026-01-15T20:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 21.259362719152293,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "b69af2dbf0cfa328f390f4e6c92ba04d6775082ca1e90e0b00ea7073c0019c3f",
+          "bytes": 102090,
+          "pose": {
+            "x": -117,
+            "z": 179,
+            "floor": -3.8674758672714233,
+            "eye": [
+              -117,
+              -2.2174758672714234,
+              179
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 321.84277341263095,
+            "pitch": -5.398417809927596,
+            "fov": 76
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.64,
+            "frameMs": 1567.8,
+            "drawCalls": 104,
+            "triangles": 708047,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/bel-downtown-park/ground-dc93023f/winter-day/reflecting-pool.jpg"
+        },
+        {
+          "id": "waterfall",
+          "kind": "visit",
+          "place": "bel-downtown-park",
+          "label": "Downtown Park · waterfall and reflecting pool",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:25:47.934Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794302744308,
+              "climate": null
+            },
+            "date": "2026-01-16T07:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -58.96255474453339,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "1fde01030ee1abde774f5a3e35fd55ad88ce04b839ccfd7e2c14a96c4f86b48d",
+          "bytes": 165134,
+          "pose": {
+            "x": -93,
+            "z": 131,
+            "floor": -3.9000000953674316,
+            "eye": [
+              -93,
+              -2.2500000953674317,
+              131
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 279.4623,
+            "pitch": 1,
+            "fov": 68
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.64,
+            "frameMs": 29.3,
+            "drawCalls": 64,
+            "triangles": 551161,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/bel-downtown-park/ground-dc93023f/winter-night/waterfall.jpg"
+        },
+        {
+          "id": "promenade-loop",
+          "kind": "visit",
+          "place": "bel-downtown-park",
+          "label": "Promenade · canal, lawn and half-mile loop",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:25:49.950Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794302744308,
+              "climate": null
+            },
+            "date": "2026-01-16T07:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -58.96255474453339,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "0ee75e6e27fd5ca4169e3b898383fa41324be42e8099dd1547a476ab698705bc",
+          "bytes": 160893,
+          "pose": {
+            "x": -26.2885543,
+            "z": -12.06856,
+            "floor": 0.7063428773757965,
+            "eye": [
+              -26.2885543,
+              2.3563428773757966,
+              -12.06856
+            ],
+            "heightAboveSupport": 1.6500000000000001,
+            "bearing": 216.47916639749053,
+            "pitch": -0.5119119050846936,
+            "fov": 78
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.54,
+            "frameMs": 3662.7,
+            "drawCalls": 99,
+            "triangles": 551590,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/bel-downtown-park/ground-dc93023f/winter-night/promenade-loop.jpg"
+        },
+        {
+          "id": "piloti",
+          "kind": "visit",
+          "place": "bel-downtown-park",
+          "label": "Piloti · full sculpture and park setting",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:25:51.970Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794302744308,
+              "climate": null
+            },
+            "date": "2026-01-16T07:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -58.96255474453339,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "6fa43d1e069646c54ad5a5114a868bbabe77a6514e7edad6b1b815c55cb2ad23",
+          "bytes": 158559,
+          "pose": {
+            "x": 92,
+            "z": -18,
+            "floor": 0.6788156628608704,
+            "eye": [
+              92,
+              2.3288156628608703,
+              -18
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 300.579226872489,
+            "pitch": 4.188014688138655,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.49,
+            "frameMs": 2051.7,
+            "drawCalls": 93,
+            "triangles": 601072,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/bel-downtown-park/ground-dc93023f/winter-night/piloti.jpg"
+        },
+        {
+          "id": "reflecting-pool",
+          "kind": "visit",
+          "place": "bel-downtown-park",
+          "label": "Reflecting pool · edge and coin-practice area",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T09:25:55.490Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794302744308,
+              "climate": null
+            },
+            "date": "2026-01-16T07:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -58.96255474453339,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "7692969263a21f3fe3fef4f389c5964379342f47ac997b2124c5d9bf5dce3d97",
+          "bytes": 156785,
+          "pose": {
+            "x": -117,
+            "z": 179,
+            "floor": -3.8674758672714233,
+            "eye": [
+              -117,
+              -2.2174758672714234,
+              179
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 321.84277341263095,
+            "pitch": -5.398417809927596,
+            "fov": 76
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.5,
+            "frameMs": 1995.3,
+            "drawCalls": 90,
+            "triangles": 554607,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/bel-downtown-park/ground-dc93023f/winter-night/reflecting-pool.jpg"
+        }
+      ]
+    }
+  ],
+  "visitorGalleryRecapture": {
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "assembledAt": "2026-11-12T20:03:08.418Z",
+    "passRange": "332ae423..346f7986",
+    "sceneCommits": [
+      "91f5bf79e37c294e2f453bded42e4efe2e409523",
+      "b498520f0935dfeab8d55cd65eb1cc43c460f427",
+      "16a0c8fe2e124a10323ad11657fef2156bf1db52"
+    ],
+    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes.",
+    "sourceVerification": {
+      "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
+      "checkedAt": "2026-11-12T20:03:08.417Z"
+    }
   }
 }

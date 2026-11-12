@@ -36,17 +36,29 @@
       "label": "Current native scene, phone conditions and selected activity approach",
       "type": "Native GAME proof; scope recorded separately",
       "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json"
+    },
+    {
+      "label": "District fidelity pass scene change (451c5f9)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/451c5f9e91f993c3a30ecf80f855d6565f1cfdcd"
+    },
+    {
+      "label": "District fidelity pass scene change (6f67c9a)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/6f67c9a9d914b578367fe88ad639cce9926dbd06"
     }
   ],
   "improvements": [
     "Current native scene retains 411 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
     "Five distinct mapped-household virtual passport implementation; final scene/cache/phone checks",
-    "Current phone conditions and scene budgets pass; the selected primary activity entry remains unverified."
+    "Current phone conditions and scene budgets pass; the selected primary activity entry remains unverified.",
+    "District fidelity pass, 451c5f9 / 6f67c9a (range 332ae423..346f7986): The shared Herastrau scene gained park canopy, standing statues and mapped name boards; far park trees are chunked low-poly instances."
   ],
   "remainingGaps": [
     "Full five-household actual entry walk and completion/persistence remain unverified; no farmhouse interior claim",
     "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
-    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
+    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 93b0d86 or earlier, before the district fidelity pass, and were not re-run at 346f798."
   ],
   "checks": [
     {
@@ -78,6 +90,16 @@
       "label": "Current exhaustive physical audit",
       "passed": null,
       "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
+    },
+    {
+      "label": "Visitor views recaptured after the district fidelity pass",
+      "passed": true,
+      "details": "346f798: scene view and complete phone page recaptured (scene, phone-ui-touch); peak 642,643 triangles / 90 draw calls in these frames. Every picture was inspected after capture. Appearance only; no route, activity or reference-match claim."
+    },
+    {
+      "label": "Validation frames and native proofs re-run at 346f798",
+      "passed": false,
+      "details": "Not re-run. The validation captures and proofs above keep their original source and date and describe the scene before the pass."
     }
   ],
   "captures": [
@@ -365,7 +387,7 @@
     },
     "collection": "previous-context-gallery"
   },
-  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Five distinct mapped-household virtual passport implementation; final scene/cache/phone checks Full five-household actual entry walk and completion/persistence remain unverified; no farmhouse interior claim Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Five distinct mapped-household virtual passport implementation; final scene/cache/phone checks Full five-household actual entry walk and completion/persistence remain unverified; no farmhouse interior claim Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates.",
   "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
   "menuAvailable": false,
   "captureSourceCommits": [
@@ -390,13 +412,12 @@
   ],
   "visitorGallery": {
     "id": "village-museum",
-    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
     "captures": [
       {
         "kind": "scene",
-        "image": "assets/spots/village-museum/visit-aabd/scene.webp",
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "capturedAt": "2026-11-09T08:24:15.636Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "capturedAt": "2026-11-12T19:50:27.752Z",
         "viewport": {
           "width": 1280,
           "height": 720
@@ -404,13 +425,13 @@
         "position": {
           "x": -90.26053515493962,
           "z": -38.69041483703681,
-          "y": -1.0727372870291327,
+          "y": -1.0672443571457098,
           "heading": -0.88282125
         },
         "pose": {
           "position": [
             -90.26053515493962,
-            0.5772627129708672,
+            0.5827556428542902,
             -38.69041483703681
           ],
           "bearing": 50.581931689463715,
@@ -421,25 +442,43 @@
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-09T08:24:13.430Z",
-        "triangles": 637751,
-        "drawCalls": 49,
+        "simulationDate": "2026-11-12T19:50:26.121Z",
+        "triangles": 642643,
+        "drawCalls": 90,
         "cameraParent": "onfoot",
         "ui": {
           "touch": true,
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "10a2a7a084bf04d962da940fd8f892ed34072924f43e2bcc25f21b47b9d47f6c",
-        "bytes": 27578,
+        "sha256": "bde409616cf9d8e81a125fb27b49cc967cbf3c1e1c3efac1a1716c3b0c67fd84",
+        "bytes": 30836,
         "fullPageHUD": false,
-        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "image": "assets/spots/village-museum/visit-346f7986/scene.webp",
+        "captureRecord": "assets/spots/village-museum/visit-346f7986/capture.json",
         "setup": {
           "arrival": {
             "x": -159.1,
             "z": 16.7,
-            "y": 5.292971316446889,
+            "y": 5.2808990478515625,
             "heading": -0.6981317007977318
+          },
+          "authoredViewpoint": {
+            "view": [
+              -77.89999999999999,
+              -48.85000000000001
+            ],
+            "id": "village-museum",
+            "x": -90.26053515493962,
+            "z": -38.69041483703681,
+            "bearing": 50.58193848683749,
+            "pitch": 32,
+            "fov": 55,
+            "text": "From the lawn ~40 m south-west of the wooden church (OSM way/277782593 at 44.47145,26.07900) looking NE up at the west tower spire with the graveyard crosses in the foreground.",
+            "r": 10,
+            "tol": 28,
+            "targets": [],
+            "condHint": null
           },
           "viewpoint": {
             "view": [
@@ -456,13 +495,12 @@
             "r": 10,
             "tol": 28,
             "targets": [],
-            "cond": null,
             "condHint": null
           },
           "position": {
             "x": -90.26053515493962,
             "z": -38.69041483703681,
-            "y": -1.0727372870291327,
+            "y": -1.0672443571457098,
             "heading": 0
           },
           "walker": "OnFootController",
@@ -482,9 +520,8 @@
       },
       {
         "kind": "phone-ui-touch",
-        "image": "assets/spots/village-museum/visit-aabd/phone-ui-touch.jpg",
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "capturedAt": "2026-11-09T08:27:56.513Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "capturedAt": "2026-11-12T19:50:27.995Z",
         "viewport": {
           "width": 390,
           "height": 844
@@ -492,13 +529,13 @@
         "position": {
           "x": -90.26053515493962,
           "z": -38.69041483703681,
-          "y": -1.0727372870291327,
-          "heading": -0.8828213671874999
+          "y": -1.0672443571457098,
+          "heading": -0.8828213671875
         },
         "pose": {
           "position": [
             -90.26053515493962,
-            0.5772627129708672,
+            0.5827556428542902,
             -38.69041483703681
           ],
           "bearing": 50.5819384038129,
@@ -509,25 +546,43 @@
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-09T08:27:54.616Z",
-        "triangles": 647287,
-        "drawCalls": 145,
+        "simulationDate": "2026-11-12T19:50:26.364Z",
+        "triangles": 616539,
+        "drawCalls": 61,
         "cameraParent": "onfoot",
         "ui": {
           "touch": true,
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "e0544ad842963ef8315d899f8ae82248c0f786540de305d37d65ce16a46c84c3",
-        "bytes": 40799,
+        "sha256": "f81d0961d71530e01e7a441885194fab46cd74dd93878e6fe4b1d8e372341c60",
+        "bytes": 37375,
         "fullPageHUD": true,
-        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "image": "assets/spots/village-museum/visit-346f7986/phone-ui-touch.jpg",
+        "captureRecord": "assets/spots/village-museum/visit-346f7986/capture.json",
         "setup": {
           "arrival": {
             "x": -159.1,
             "z": 16.7,
-            "y": 5.292971316446889,
+            "y": 5.2808990478515625,
             "heading": -0.6981317007977318
+          },
+          "authoredViewpoint": {
+            "view": [
+              -77.89999999999999,
+              -48.85000000000001
+            ],
+            "id": "village-museum",
+            "x": -90.26053515493962,
+            "z": -38.69041483703681,
+            "bearing": 50.58193848683749,
+            "pitch": 32,
+            "fov": 55,
+            "text": "From the lawn ~40 m south-west of the wooden church (OSM way/277782593 at 44.47145,26.07900) looking NE up at the west tower spire with the graveyard crosses in the foreground.",
+            "r": 10,
+            "tol": 28,
+            "targets": [],
+            "condHint": null
           },
           "viewpoint": {
             "view": [
@@ -544,13 +599,12 @@
             "r": 10,
             "tol": 28,
             "targets": [],
-            "cond": null,
             "condHint": null
           },
           "position": {
             "x": -90.26053515493962,
             "z": -38.69041483703681,
-            "y": -1.0727372870291327,
+            "y": -1.0672443571457098,
             "heading": 0
           },
           "walker": "OnFootController",
@@ -571,24 +625,245 @@
     ],
     "limitations": [
       "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
-      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+      "The authored viewpoint stands close under the eaves, so the roof fills the lower frame, as in the earlier capture.",
+      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
     ],
     "reports": [
       {
-        "label": "Initial 23-destination scene and portrait capture",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
-        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
-      },
-      {
-        "label": "Actual portrait touch-look capture",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
-        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+        "label": "Scene and portrait capture record, 346f798",
+        "report": "assets/spots/village-museum/visit-346f7986/capture.json",
+        "sha256": "8463a99816c00a6ed7420b9c13091987d4c837a4b21f46fccc302847a4226fec"
       }
     ],
-    "updatedAt": "2026-11-09T08:27:56.513Z",
-    "notice": "These views come from the staged game under test; the live game can differ.",
-    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
-    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
-    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+    "updatedAt": "2026-11-12T19:50:27.995Z",
+    "notice": "Recaptured from game source 346f798 after the district fidelity pass. The earlier aabd17a views are kept in this record as historical.",
+    "setup": "Explicit production on-foot viewpoints with native touch look, at 1280 × 720 and as the complete 390 × 844 phone page. The scene-authored postcard pose is used unless a limitation below says otherwise. No route, reference match or release acceptance is implied."
+  },
+  "historicalCollections": [
+    {
+      "id": "visitor-gallery-aabd17ad",
+      "label": "Visitor views before the district fidelity pass",
+      "status": "historical",
+      "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+      "supersededBy": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededAt": "2026-11-12T20:03:08.418Z",
+      "reason": "The scene changed in 332ae423..346f7986; these pictures show the earlier scene and are kept with their original source, dates and capture records.",
+      "notice": "These views come from the staged game under test; the live game can differ.",
+      "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+      "limitations": [
+        "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+        "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+      ],
+      "updatedAt": "2026-11-09T08:27:56.513Z",
+      "reports": [
+        {
+          "label": "Initial 23-destination scene and portrait capture",
+          "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+          "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+        },
+        {
+          "label": "Actual portrait touch-look capture",
+          "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+          "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+        },
+        {
+          "label": "Visitor capture manifest",
+          "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+          "sha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+        }
+      ],
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/village-museum/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:24:15.636Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -90.26053515493962,
+            "z": -38.69041483703681,
+            "y": -1.0727372870291327,
+            "heading": -0.88282125
+          },
+          "pose": {
+            "position": [
+              -90.26053515493962,
+              0.5772627129708672,
+              -38.69041483703681
+            ],
+            "bearing": 50.581931689463715,
+            "pitch": 31.999997241885147
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:24:13.430Z",
+          "triangles": 637751,
+          "drawCalls": 49,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "10a2a7a084bf04d962da940fd8f892ed34072924f43e2bcc25f21b47b9d47f6c",
+          "bytes": 27578,
+          "fullPageHUD": false,
+          "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+          "setup": {
+            "arrival": {
+              "x": -159.1,
+              "z": 16.7,
+              "y": 5.292971316446889,
+              "heading": -0.6981317007977318
+            },
+            "viewpoint": {
+              "view": [
+                -77.89999999999999,
+                -48.85000000000001
+              ],
+              "id": "village-museum",
+              "x": -90.26053515493962,
+              "z": -38.69041483703681,
+              "bearing": 50.58193848683749,
+              "pitch": 32,
+              "fov": 55,
+              "text": "From the lawn ~40 m south-west of the wooden church (OSM way/277782593 at 44.47145,26.07900) looking NE up at the west tower spire with the graveyard crosses in the foreground.",
+              "r": 10,
+              "tol": 28,
+              "targets": [],
+              "cond": null,
+              "condHint": null
+            },
+            "position": {
+              "x": -90.26053515493962,
+              "z": -38.69041483703681,
+              "y": -1.0727372870291327,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "buc-herastrau",
+            "origin": {
+              "lat": 44.471,
+              "lon": 26.08,
+              "elev": 84.2
+            },
+            "projection": {
+              "mLat": 111121.44,
+              "mLon": 79569.03
+            }
+          },
+          "label": "The wooden church tower",
+          "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+        },
+        {
+          "kind": "phone-ui-touch",
+          "image": "assets/spots/village-museum/visit-aabd/phone-ui-touch.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:27:56.513Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -90.26053515493962,
+            "z": -38.69041483703681,
+            "y": -1.0727372870291327,
+            "heading": -0.8828213671874999
+          },
+          "pose": {
+            "position": [
+              -90.26053515493962,
+              0.5772627129708672,
+              -38.69041483703681
+            ],
+            "bearing": 50.5819384038129,
+            "pitch": 31.999997241885136
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:27:54.616Z",
+          "triangles": 647287,
+          "drawCalls": 145,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "e0544ad842963ef8315d899f8ae82248c0f786540de305d37d65ce16a46c84c3",
+          "bytes": 40799,
+          "fullPageHUD": true,
+          "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+          "setup": {
+            "arrival": {
+              "x": -159.1,
+              "z": 16.7,
+              "y": 5.292971316446889,
+              "heading": -0.6981317007977318
+            },
+            "viewpoint": {
+              "view": [
+                -77.89999999999999,
+                -48.85000000000001
+              ],
+              "id": "village-museum",
+              "x": -90.26053515493962,
+              "z": -38.69041483703681,
+              "bearing": 50.58193848683749,
+              "pitch": 32,
+              "fov": 55,
+              "text": "From the lawn ~40 m south-west of the wooden church (OSM way/277782593 at 44.47145,26.07900) looking NE up at the west tower spire with the graveyard crosses in the foreground.",
+              "r": 10,
+              "tol": 28,
+              "targets": [],
+              "cond": null,
+              "condHint": null
+            },
+            "position": {
+              "x": -90.26053515493962,
+              "z": -38.69041483703681,
+              "y": -1.0727372870291327,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "buc-herastrau",
+            "origin": {
+              "lat": 44.471,
+              "lon": 26.08,
+              "elev": 84.2
+            },
+            "projection": {
+              "mLat": 111121.44,
+              "mLon": 79569.03
+            }
+          },
+          "label": "Phone view with the native touch interface",
+          "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+        }
+      ]
+    }
+  ],
+  "visitorGalleryRecapture": {
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "assembledAt": "2026-11-12T20:03:08.418Z",
+    "passRange": "332ae423..346f7986",
+    "sceneCommits": [
+      "451c5f9e91f993c3a30ecf80f855d6565f1cfdcd",
+      "6f67c9a9d914b578367fe88ad639cce9926dbd06"
+    ],
+    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes.",
+    "sourceVerification": {
+      "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
+      "checkedAt": "2026-11-12T20:03:08.417Z"
+    }
   }
 }

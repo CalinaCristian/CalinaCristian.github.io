@@ -91,17 +91,24 @@
       "label": "Native touch continuous estimated Carusel stair",
       "type": "Native GAME proof; scope recorded separately",
       "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/carusel-stairs/touch.json"
+    },
+    {
+      "label": "District fidelity pass scene change (f9787fa)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/f9787fa85ddbe6d4e9dd6b5eb9fedbb1fa436440"
     }
   ],
   "improvements": [
     "Current native scene retains 1818 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
     "Physical 61.575 m street-to-first-tread approach; earlier desktop/touch 39-tread climb and persistence; Court aimed shutters; existing animated venue proof",
-    "The selected primary activity approach is accepted separately from full-scene comparison."
+    "The selected primary activity approach is accepted separately from full-scene comparison.",
+    "District fidelity pass, f9787fa (range 332ae423..346f7986): Mapped venues without a sign (clubs, hotels, hostels, banks, museums, galleries, theatres) carry their names; the sign atlas grew from 96 to 128 entries."
   ],
   "remainingGaps": [
     "These are separate compatible runs, not one observed entry-to-top ascent; interior/stair geometry remains estimated",
     "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
-    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
+    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 93b0d86 or earlier, before the district fidelity pass, and were not re-run at 346f798."
   ],
   "checks": [
     {
@@ -133,6 +140,16 @@
       "label": "Current exhaustive physical audit",
       "passed": null,
       "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
+    },
+    {
+      "label": "Visitor views recaptured after the district fidelity pass",
+      "passed": true,
+      "details": "346f798: 5 viewpoints × 4 conditions recaptured (carusel-entrance, carusel-atrium, carusel-gallery, smardan-frontage, sports-room). Dropped: freddo-interior (see gallery limitations). Every picture was inspected after capture. Appearance only; no route, activity or reference-match claim."
+    },
+    {
+      "label": "Validation frames and native proofs re-run at 346f798",
+      "passed": false,
+      "details": "Not re-run. The validation captures and proofs above keep their original source and date and describe the scene before the pass."
     }
   ],
   "captures": [
@@ -518,7 +535,7 @@
     },
     "collection": "previous-context-gallery"
   },
-  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical 61.575 m street-to-first-tread approach; earlier desktop/touch 39-tread climb and persistence; Court aimed shutters; existing animated venue proof These are separate compatible runs, not one observed entry-to-top ascent; interior/stair geometry remains estimated Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical 61.575 m street-to-first-tread approach; earlier desktop/touch 39-tread climb and persistence; Court aimed shutters; existing animated venue proof These are separate compatible runs, not one observed entry-to-top ascent; interior/stair geometry remains estimated Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates.",
   "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
   "menuAvailable": true,
   "captureSourceCommits": [
@@ -587,12 +604,16 @@
   ],
   "visitorGallery": {
     "schemaVersion": 1,
-    "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
-    "notice": "6 matched walking-height viewpoints in each of four conditions, captured from the recorded production game source. Open any picture at its original size.",
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "notice": "5 matched walking-height viewpoints in each of four conditions, recaptured from game source 346f798 after the district fidelity pass. Open any picture at its original size.",
     "setup": "Production app, scene, actors, lighting and renderer at High quality, 1280 × 800. Automatic animation was paused and explicit frames rendered at fixed on-foot cameras 1.65 m above their supporting surfaces. Local simulation dates and weather were controlled; capturedAt records the real capture time.",
     "limitations": [
       "Fixed on-foot appearance fixtures; cameras were positioned for inspection. These pictures do not establish a traversed route, activity completion, physical-phone behavior or hardware FPS.",
-      "The shipped renderer currently draws some snow particles inside the bookshop and bars. This remains a rendering defect. The Hagi screen here is its idle game surface; video playback is not demonstrated."
+      "The renderer still draws some snow particles inside the bookshop and the sports room. The screen in the sports room is its idle game surface; video playback is not demonstrated.",
+      "The Freddo interior is no longer one of the matched viewpoints: at this source the club is closed until 22:00, so the two day conditions cannot enter it. The dc93023f interior pictures are kept as historical.",
+      "Viewpoint ids, positions, look and field of view are those of the dc93023f gallery.",
+      "The captured High-quality frames reach 1,092,331 triangles / 209 draw calls.",
+      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
     ],
     "conditionSets": [
       {
@@ -609,8 +630,8 @@
             "place": "old-town-lipscani",
             "label": "Cărturești Carusel · entrance and glazed frontage",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:31:00.185Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:38.132Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -636,7 +657,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299371633,
+                "updatedAt": 1794513153925,
                 "climate": null
               },
               "date": "2026-07-15T09:00:00.000Z",
@@ -645,8 +666,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "2acf44b021a9afe0b2a350138b1d06bb12730d9dbf876b92a26a6843d87cd002",
-            "bytes": 189072,
+            "sha256": "504bb7bea9b3a273d9af979df5249e7443e8c4d1699952ccb56d10012c399e1b",
+            "bytes": 188559,
             "pose": {
               "x": 162.8933278145785,
               "z": -56.47882132340767,
@@ -663,10 +684,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.02,
-              "frameMs": 63956.6,
-              "drawCalls": 153,
-              "triangles": 966262,
+              "fps": 0.27,
+              "frameMs": 3728.2,
+              "drawCalls": 158,
+              "triangles": 979840,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -674,7 +695,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/carusel-entrance.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/summer-day/carusel-entrance.jpg"
           },
           {
             "id": "carusel-atrium",
@@ -682,8 +703,8 @@
             "place": "old-town-lipscani",
             "label": "Cărturești Carusel · atrium and shelves",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:31:06.294Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:38.152Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -709,7 +730,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299371633,
+                "updatedAt": 1794513153925,
                 "climate": null
               },
               "date": "2026-07-15T09:00:00.000Z",
@@ -718,8 +739,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "33b9900b728fe088a703c3e177ff0af81af898fa55591eec75ec93ae0f2ddcfe",
-            "bytes": 246772,
+            "sha256": "51b5cc18891a465be17b63fe2ba1b3bdabdd0c256776db83ee576bf0548dcaba",
+            "bytes": 245419,
             "pose": {
               "x": 163.7099645030426,
               "z": -63.02307302231236,
@@ -731,15 +752,15 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 7.764999999999986,
-              "pitch": 19.999999999999993,
+              "pitch": 19.99999999999999,
               "fov": 75
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.04,
-              "frameMs": 24633.1,
-              "drawCalls": 151,
-              "triangles": 948344,
+              "fps": 0.27,
+              "frameMs": 484.4,
+              "drawCalls": 156,
+              "triangles": 959322,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -747,7 +768,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/carusel-atrium.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/summer-day/carusel-atrium.jpg"
           },
           {
             "id": "carusel-gallery",
@@ -755,8 +776,8 @@
             "place": "old-town-lipscani",
             "label": "Cărturești Carusel · first gallery, rails and stair",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:31:13.183Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:38.213Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -782,7 +803,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299371633,
+                "updatedAt": 1794513153925,
                 "climate": null
               },
               "date": "2026-07-15T09:00:00.000Z",
@@ -791,8 +812,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "a07de5f96eac48b3a666bd595950a3d037df80b808ee06ee2374c445724b9f88",
-            "bytes": 246673,
+            "sha256": "407d3455eac80397d6759031a30c2e842bea89670f2dfce635f40d87f7955466",
+            "bytes": 245688,
             "pose": {
               "x": 166.71121646897035,
               "z": -85.03225410578104,
@@ -804,15 +825,15 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 193.8680654494141,
-              "pitch": -6.463993318393509,
+              "pitch": -6.4639933183935065,
               "fov": 72
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.16,
-              "frameMs": 6127.9,
-              "drawCalls": 205,
-              "triangles": 1084683,
+              "fps": 4,
+              "frameMs": 20.5,
+              "drawCalls": 209,
+              "triangles": 1092331,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -820,7 +841,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/carusel-gallery.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/summer-day/carusel-gallery.jpg"
           },
           {
             "id": "smardan-frontage",
@@ -828,8 +849,8 @@
             "place": "old-town-lipscani",
             "label": "Smârdan · Freddo frontage and terraces",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:31:18.498Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:38.234Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -855,7 +876,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299371633,
+                "updatedAt": 1794513153925,
                 "climate": null
               },
               "date": "2026-07-15T09:00:00.000Z",
@@ -864,8 +885,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "04ce09a256675117d93af460a2f0d35a1a52e2ee971aaa92d184efe03f19063d",
-            "bytes": 233027,
+            "sha256": "82c9a39095f6e3b95e3ea2e9a5199367b30ccb9993913f8c1704800799450de8",
+            "bytes": 224283,
             "pose": {
               "x": 28,
               "z": 50,
@@ -882,10 +903,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.15,
-              "frameMs": 6888.7,
-              "drawCalls": 131,
-              "triangles": 1036792,
+              "fps": 4,
+              "frameMs": 60.7,
+              "drawCalls": 135,
+              "triangles": 926356,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -893,80 +914,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/smardan-frontage.jpg"
-          },
-          {
-            "id": "freddo-interior",
-            "kind": "visit",
-            "place": "old-town-lipscani",
-            "label": "Freddo · dance floor and bar",
-            "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:31:24.959Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
-            "viewport": {
-              "width": 1280,
-              "height": 800
-            },
-            "condition": {
-              "id": "summer-day",
-              "label": "Summer · day",
-              "season": "summer",
-              "period": "day",
-              "hour": 12,
-              "weather": {
-                "source": "override",
-                "code": 0,
-                "kind": "clear",
-                "label": "Clear sky",
-                "icon": "☀️",
-                "tempC": 22,
-                "precipMm": 0,
-                "snowCm": 0,
-                "snowfallCm": 0,
-                "windKmh": 8,
-                "windDir": 270,
-                "visibilityM": 19500,
-                "cloud": 0.1,
-                "season": "summer",
-                "updatedAt": 1794299371633,
-                "climate": null
-              },
-              "date": "2026-07-15T09:00:00.000Z",
-              "timeZone": "Europe/Bucharest",
-              "sunElevation": 61.55034474124167,
-              "nightLights": false,
-              "quality": "high"
-            },
-            "sha256": "7b13951d61108774efebc75e849ac9fa0ac6d3c2711faadaaa754137e3e08873",
-            "bytes": 189679,
-            "pose": {
-              "x": 10010.5,
-              "z": 8000.1,
-              "floor": -0.6631688702189622,
-              "eye": [
-                10010.5,
-                0.9868311297810377,
-                8000.1
-              ],
-              "heightAboveSupport": 1.65,
-              "bearing": 251.1615664420214,
-              "pitch": 0.08401207859384018,
-              "fov": 80
-            },
-            "cameraBodyClear": true,
-            "stats": {
-              "fps": 0.19,
-              "frameMs": 5314.4,
-              "drawCalls": 54,
-              "triangles": 342521,
-              "pixelRatio": 1,
-              "shadows": 4096,
-              "post": "full",
-              "quality": "high",
-              "auto": false,
-              "level": 1
-            },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/freddo-interior.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/summer-day/smardan-frontage.jpg"
           },
           {
             "id": "sports-room",
@@ -974,8 +922,8 @@
             "place": "old-town-lipscani",
             "label": "Sports room · bar seating and Hagi screen",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:31:29.046Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:57:09.621Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1001,7 +949,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299371633,
+                "updatedAt": 1794513420989,
                 "climate": null
               },
               "date": "2026-07-15T09:00:00.000Z",
@@ -1010,8 +958,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "7f512e3fecb6ef1bf0e918740ace67e82e305d3a874c4feeb71646719bc3171f",
-            "bytes": 180003,
+            "sha256": "bf273236d1033077284572fa43bcbda97a54ffd5e4698fdb1e5fcad13836045d",
+            "bytes": 180028,
             "pose": {
               "x": 8000,
               "z": 8001.5,
@@ -1028,10 +976,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.15,
-              "frameMs": 6460.7,
-              "drawCalls": 50,
-              "triangles": 275246,
+              "fps": 0.14,
+              "frameMs": 7042.5,
+              "drawCalls": 60,
+              "triangles": 294462,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1039,7 +987,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/sports-room.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/summer-day/sports-room.jpg"
           }
         ]
       },
@@ -1057,8 +1005,8 @@
             "place": "old-town-lipscani",
             "label": "Cărturești Carusel · entrance and glazed frontage",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:31:50.458Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:43.587Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1084,7 +1032,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299489066,
+                "updatedAt": 1794513158270,
                 "climate": null
               },
               "date": "2026-07-15T20:00:00.000Z",
@@ -1093,8 +1041,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "893262291be154085615c82d153b48a7aaf05981f96e646f6df5e9d89cbbc7ba",
-            "bytes": 193620,
+            "sha256": "ca75e8881ce08d010f9ef45b134c080df6bc73a93a9a394d0aa052102d36b306",
+            "bytes": 193399,
             "pose": {
               "x": 162.8933278145785,
               "z": -56.47882132340767,
@@ -1111,10 +1059,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.57,
-              "frameMs": 1765.5,
-              "drawCalls": 93,
-              "triangles": 672362,
+              "fps": 5.3,
+              "frameMs": 839.2,
+              "drawCalls": 96,
+              "triangles": 679190,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1122,7 +1070,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-night/carusel-entrance.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/summer-night/carusel-entrance.jpg"
           },
           {
             "id": "carusel-atrium",
@@ -1130,8 +1078,8 @@
             "place": "old-town-lipscani",
             "label": "Cărturești Carusel · atrium and shelves",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:31:58.811Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:43.611Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1157,7 +1105,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299489066,
+                "updatedAt": 1794513158270,
                 "climate": null
               },
               "date": "2026-07-15T20:00:00.000Z",
@@ -1166,8 +1114,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "55c49f5f57d5a66113725d6df2b8d2b543f0de978ed1234c211420c7cf6b7548",
-            "bytes": 253666,
+            "sha256": "bb181dd7e5503362dccacb4e39a2c5b7a12baf0224554da708bfbf63b58c84e2",
+            "bytes": 253199,
             "pose": {
               "x": 163.7099645030426,
               "z": -63.02307302231236,
@@ -1179,15 +1127,15 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 7.764999999999986,
-              "pitch": 19.999999999999993,
+              "pitch": 19.99999999999999,
               "fov": 75
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.05,
-              "frameMs": 19688.3,
-              "drawCalls": 89,
-              "triangles": 664315,
+              "fps": 0.22,
+              "frameMs": 4483.6,
+              "drawCalls": 92,
+              "triangles": 669843,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1195,7 +1143,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-night/carusel-atrium.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/summer-night/carusel-atrium.jpg"
           },
           {
             "id": "carusel-gallery",
@@ -1203,8 +1151,8 @@
             "place": "old-town-lipscani",
             "label": "Cărturești Carusel · first gallery, rails and stair",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:32:07.957Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:43.907Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1230,7 +1178,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299489066,
+                "updatedAt": 1794513158270,
                 "climate": null
               },
               "date": "2026-07-15T20:00:00.000Z",
@@ -1239,8 +1187,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "e7157b437711e11f57a1bd4aaaf2cf7ecb00dc255b0808fa8873c0d083287497",
-            "bytes": 251734,
+            "sha256": "4d3243b133aed9da328ff83360f2e2f76067ce931dd49b1932ea19c69ffe5046",
+            "bytes": 250385,
             "pose": {
               "x": 166.71121646897035,
               "z": -85.03225410578104,
@@ -1252,15 +1200,15 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 193.8680654494141,
-              "pitch": -6.463993318393509,
+              "pitch": -6.4639933183935065,
               "fov": 72
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.12,
-              "frameMs": 8317.8,
-              "drawCalls": 139,
-              "triangles": 760397,
+              "fps": 0.22,
+              "frameMs": 24.6,
+              "drawCalls": 141,
+              "triangles": 769274,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1268,7 +1216,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-night/carusel-gallery.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/summer-night/carusel-gallery.jpg"
           },
           {
             "id": "smardan-frontage",
@@ -1276,8 +1224,8 @@
             "place": "old-town-lipscani",
             "label": "Smârdan · Freddo frontage and terraces",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:32:14.539Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:44.197Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1303,7 +1251,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299489066,
+                "updatedAt": 1794513158270,
                 "climate": null
               },
               "date": "2026-07-15T20:00:00.000Z",
@@ -1312,8 +1260,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "fa2acf99264d597716124a25c4d033f96bb158193ed81fdb965c12c5ca21cb5b",
-            "bytes": 238311,
+            "sha256": "b88c4974f4f50fb4c5598db12d606facf803c3b878c60d89990f892cc0b374e5",
+            "bytes": 247238,
             "pose": {
               "x": 28,
               "z": 50,
@@ -1330,10 +1278,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.11,
-              "frameMs": 9146.7,
-              "drawCalls": 96,
-              "triangles": 721733,
+              "fps": 0.22,
+              "frameMs": 295.7,
+              "drawCalls": 98,
+              "triangles": 741422,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1341,80 +1289,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-night/smardan-frontage.jpg"
-          },
-          {
-            "id": "freddo-interior",
-            "kind": "visit",
-            "place": "old-town-lipscani",
-            "label": "Freddo · dance floor and bar",
-            "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:32:23.241Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
-            "viewport": {
-              "width": 1280,
-              "height": 800
-            },
-            "condition": {
-              "id": "summer-night",
-              "label": "Summer · night",
-              "season": "summer",
-              "period": "night",
-              "hour": 23,
-              "weather": {
-                "source": "override",
-                "code": 0,
-                "kind": "clear",
-                "label": "Clear sky",
-                "icon": "🌙",
-                "tempC": 22,
-                "precipMm": 0,
-                "snowCm": 0,
-                "snowfallCm": 0,
-                "windKmh": 8,
-                "windDir": 270,
-                "visibilityM": 19500,
-                "cloud": 0.1,
-                "season": "summer",
-                "updatedAt": 1794299489066,
-                "climate": null
-              },
-              "date": "2026-07-15T20:00:00.000Z",
-              "timeZone": "Europe/Bucharest",
-              "sunElevation": -16.629214606164325,
-              "nightLights": true,
-              "quality": "high"
-            },
-            "sha256": "0bdf58fd47513eb61497d881997574efc1e95836d460a50257d01e0205e6c9c9",
-            "bytes": 185920,
-            "pose": {
-              "x": 10010.5,
-              "z": 8000.1,
-              "floor": -0.6631688702189622,
-              "eye": [
-                10010.5,
-                0.9868311297810377,
-                8000.1
-              ],
-              "heightAboveSupport": 1.65,
-              "bearing": 251.1615664420214,
-              "pitch": 0.08401207859384018,
-              "fov": 80
-            },
-            "cameraBodyClear": true,
-            "stats": {
-              "fps": 0.15,
-              "frameMs": 6580.7,
-              "drawCalls": 49,
-              "triangles": 231633,
-              "pixelRatio": 1,
-              "shadows": 4096,
-              "post": "full",
-              "quality": "high",
-              "auto": false,
-              "level": 1
-            },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-night/freddo-interior.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/summer-night/smardan-frontage.jpg"
           },
           {
             "id": "sports-room",
@@ -1422,8 +1297,8 @@
             "place": "old-town-lipscani",
             "label": "Sports room · bar seating and Hagi screen",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:32:26.030Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:57:11.640Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1449,7 +1324,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299489066,
+                "updatedAt": 1794513429630,
                 "climate": null
               },
               "date": "2026-07-15T20:00:00.000Z",
@@ -1458,8 +1333,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "157677eef029540e98f154132c383e61c81624df18fb8a3bde9a319055f8e357",
-            "bytes": 184037,
+            "sha256": "71c181dbbe3888f69b9e230e2c130383919ddbbce7a523605b329a3dd95e2ea0",
+            "bytes": 186017,
             "pose": {
               "x": 8000,
               "z": 8001.5,
@@ -1476,10 +1351,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.11,
-              "frameMs": 8735.5,
-              "drawCalls": 44,
-              "triangles": 140159,
+              "fps": 0.5,
+              "frameMs": 1982.4,
+              "drawCalls": 52,
+              "triangles": 150781,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1487,7 +1362,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-night/sports-room.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/summer-night/sports-room.jpg"
           }
         ]
       },
@@ -1505,8 +1380,8 @@
             "place": "old-town-lipscani",
             "label": "Cărturești Carusel · entrance and glazed frontage",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:32:41.129Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:44.480Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1532,7 +1407,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794299546058,
+                "updatedAt": 1794513164232,
                 "climate": null
               },
               "date": "2026-01-15T10:00:00.000Z",
@@ -1541,8 +1416,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "767572e7def574e8595d187b99f9fc67165ec9cefc9cdb6e56500c60b47cdf87",
-            "bytes": 178477,
+            "sha256": "b55e2cac0f4c4929a906cf1974fcd89a0be21cc5a18dff0b2544e8560963e7f3",
+            "bytes": 178315,
             "pose": {
               "x": 162.8933278145785,
               "z": -56.47882132340767,
@@ -1559,10 +1434,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.36,
-              "frameMs": 385,
-              "drawCalls": 151,
-              "triangles": 927993,
+              "fps": 4.9,
+              "frameMs": 225,
+              "drawCalls": 155,
+              "triangles": 936423,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1570,7 +1445,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-day/carusel-entrance.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/winter-day/carusel-entrance.jpg"
           },
           {
             "id": "carusel-atrium",
@@ -1578,8 +1453,8 @@
             "place": "old-town-lipscani",
             "label": "Cărturești Carusel · atrium and shelves",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:33:09.704Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:44.522Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1605,7 +1480,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794299546058,
+                "updatedAt": 1794513164232,
                 "climate": null
               },
               "date": "2026-01-15T10:00:00.000Z",
@@ -1614,8 +1489,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "9e25056c5b0703ea877faf30793e3a627030c85160292f44a477c1588ec7d694",
-            "bytes": 257137,
+            "sha256": "1b1537a4d8a8ce926f1e5755417ba5272bf49de26442591b3aa7a36a99e88bef",
+            "bytes": 254492,
             "pose": {
               "x": 163.7099645030426,
               "z": -63.02307302231236,
@@ -1627,15 +1502,15 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 7.764999999999986,
-              "pitch": 19.999999999999993,
+              "pitch": 19.99999999999999,
               "fov": 75
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.13,
-              "frameMs": 15080.5,
-              "drawCalls": 148,
-              "triangles": 910063,
+              "fps": 4.9,
+              "frameMs": 28.3,
+              "drawCalls": 152,
+              "triangles": 915893,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1643,7 +1518,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-day/carusel-atrium.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/winter-day/carusel-atrium.jpg"
           },
           {
             "id": "carusel-gallery",
@@ -1651,8 +1526,8 @@
             "place": "old-town-lipscani",
             "label": "Cărturești Carusel · first gallery, rails and stair",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:33:22.692Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:44.545Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1678,7 +1553,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794299546058,
+                "updatedAt": 1794513164232,
                 "climate": null
               },
               "date": "2026-01-15T10:00:00.000Z",
@@ -1687,8 +1562,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "b197abefaf164bbf8845390005b289754112c74b06af8568cc094ba852c6a7ed",
-            "bytes": 249758,
+            "sha256": "21e2ae3a77808d8ed1420c58c4a3b4e1d76bf942faed45aa5a74281d0592d6ce",
+            "bytes": 245683,
             "pose": {
               "x": 166.71121646897035,
               "z": -85.03225410578104,
@@ -1700,15 +1575,15 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 193.8680654494141,
-              "pitch": -6.463993318393509,
+              "pitch": -6.4639933183935065,
               "fov": 72
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.04,
-              "frameMs": 28223.5,
-              "drawCalls": 195,
-              "triangles": 1042440,
+              "fps": 4.9,
+              "frameMs": 42.8,
+              "drawCalls": 198,
+              "triangles": 1044724,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1716,7 +1591,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-day/carusel-gallery.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/winter-day/carusel-gallery.jpg"
           },
           {
             "id": "smardan-frontage",
@@ -1724,8 +1599,8 @@
             "place": "old-town-lipscani",
             "label": "Smârdan · Freddo frontage and terraces",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:33:32.361Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:44.570Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1751,7 +1626,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794299546058,
+                "updatedAt": 1794513164232,
                 "climate": null
               },
               "date": "2026-01-15T10:00:00.000Z",
@@ -1760,8 +1635,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "71c2005162ecebaaab678a5cb2d286c7d4efe6c30a8071717af312dd3623d047",
-            "bytes": 225406,
+            "sha256": "d1a4faf8f14b72a9795986bab2b533b265b3a03df0c4acb49f09ff0e00c09b5b",
+            "bytes": 210955,
             "pose": {
               "x": 28,
               "z": 50,
@@ -1778,10 +1653,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.08,
-              "frameMs": 12986.1,
-              "drawCalls": 137,
-              "triangles": 1000674,
+              "fps": 4.9,
+              "frameMs": 24.7,
+              "drawCalls": 140,
+              "triangles": 881966,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1789,80 +1664,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-day/smardan-frontage.jpg"
-          },
-          {
-            "id": "freddo-interior",
-            "kind": "visit",
-            "place": "old-town-lipscani",
-            "label": "Freddo · dance floor and bar",
-            "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:33:50.625Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
-            "viewport": {
-              "width": 1280,
-              "height": 800
-            },
-            "condition": {
-              "id": "winter-day",
-              "label": "Winter · day",
-              "season": "winter",
-              "period": "day",
-              "hour": 12,
-              "weather": {
-                "source": "override",
-                "code": 73,
-                "kind": "snow",
-                "label": "Snow",
-                "icon": "🌨️",
-                "tempC": -2,
-                "precipMm": 0.8,
-                "snowCm": 12,
-                "snowfallCm": 0.6,
-                "windKmh": 12,
-                "windDir": 330,
-                "visibilityM": 1600,
-                "cloud": 1,
-                "season": "winter",
-                "updatedAt": 1794299546058,
-                "climate": null
-              },
-              "date": "2026-01-15T10:00:00.000Z",
-              "timeZone": "Europe/Bucharest",
-              "sunElevation": 24.238019454042256,
-              "nightLights": false,
-              "quality": "high"
-            },
-            "sha256": "9231eff0d9b1df7b5e4719074b0c9392b99c0662c77480e04e2b5df612e001f8",
-            "bytes": 183813,
-            "pose": {
-              "x": 10010.5,
-              "z": 8000.1,
-              "floor": -0.6631688702189622,
-              "eye": [
-                10010.5,
-                0.9868311297810377,
-                8000.1
-              ],
-              "heightAboveSupport": 1.65,
-              "bearing": 251.1615664420214,
-              "pitch": 0.08401207859384018,
-              "fov": 80
-            },
-            "cameraBodyClear": true,
-            "stats": {
-              "fps": 0.1,
-              "frameMs": 10073.2,
-              "drawCalls": 56,
-              "triangles": 286696,
-              "pixelRatio": 1,
-              "shadows": 4096,
-              "post": "full",
-              "quality": "high",
-              "auto": false,
-              "level": 1
-            },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-day/freddo-interior.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/winter-day/smardan-frontage.jpg"
           },
           {
             "id": "sports-room",
@@ -1870,8 +1672,8 @@
             "place": "old-town-lipscani",
             "label": "Sports room · bar seating and Hagi screen",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:33:54.624Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:57:12.155Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1897,7 +1699,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794299546058,
+                "updatedAt": 1794513431647,
                 "climate": null
               },
               "date": "2026-01-15T10:00:00.000Z",
@@ -1906,8 +1708,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "feec34989d5c3b4f01b1f2efa9c7ffd0de499942e58d41777099ae6c5ea7b95f",
-            "bytes": 176392,
+            "sha256": "63e2fe39c6232ae42df2b0564ed18786c93b2e92f3e93b360ea74cbd7e46903a",
+            "bytes": 177930,
             "pose": {
               "x": 8000,
               "z": 8001.5,
@@ -1924,10 +1726,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.06,
-              "frameMs": 17888.7,
-              "drawCalls": 59,
-              "triangles": 234458,
+              "fps": 4,
+              "frameMs": 469.9,
+              "drawCalls": 51,
+              "triangles": 244572,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1935,7 +1737,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-day/sports-room.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/winter-day/sports-room.jpg"
           }
         ]
       },
@@ -1953,8 +1755,8 @@
             "place": "old-town-lipscani",
             "label": "Cărturești Carusel · entrance and glazed frontage",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:34:06.018Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:44.912Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1980,7 +1782,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794299634651,
+                "updatedAt": 1794513164623,
                 "climate": null
               },
               "date": "2026-01-15T21:00:00.000Z",
@@ -1989,8 +1791,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "cef9c7065113a7d06df14c59fe53f6ffdeee081a7dd94a902a2beb2abf85a049",
-            "bytes": 190896,
+            "sha256": "1a843115cce794d0d504731b54c81fe079cc30f50ce32cc4568746a8c518d2c0",
+            "bytes": 190684,
             "pose": {
               "x": 162.8933278145785,
               "z": -56.47882132340767,
@@ -2007,10 +1809,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.25,
-              "frameMs": 279.2,
-              "drawCalls": 99,
-              "triangles": 673382,
+              "fps": 14,
+              "frameMs": 272.3,
+              "drawCalls": 102,
+              "triangles": 680210,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -2018,7 +1820,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-night/carusel-entrance.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/winter-night/carusel-entrance.jpg"
           },
           {
             "id": "carusel-atrium",
@@ -2026,8 +1828,8 @@
             "place": "old-town-lipscani",
             "label": "Cărturești Carusel · atrium and shelves",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:34:14.910Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:44.933Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -2053,7 +1855,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794299634651,
+                "updatedAt": 1794513164623,
                 "climate": null
               },
               "date": "2026-01-15T21:00:00.000Z",
@@ -2062,8 +1864,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "487a87f7c65ed3c9a85c0745b028b733eb98a4e285d84ef797f8441b2d9d67c6",
-            "bytes": 262168,
+            "sha256": "ce0ea494f3cb16032be3a39b38743d6fd5882e953e9ec6f563a87080fbad875b",
+            "bytes": 262619,
             "pose": {
               "x": 163.7099645030426,
               "z": -63.02307302231236,
@@ -2075,15 +1877,15 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 7.764999999999986,
-              "pitch": 19.999999999999993,
+              "pitch": 19.99999999999999,
               "fov": 75
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.18,
-              "frameMs": 11114.3,
-              "drawCalls": 91,
-              "triangles": 663367,
+              "fps": 14,
+              "frameMs": 24.2,
+              "drawCalls": 94,
+              "triangles": 668895,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -2091,7 +1893,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-night/carusel-atrium.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/winter-night/carusel-atrium.jpg"
           },
           {
             "id": "carusel-gallery",
@@ -2099,8 +1901,8 @@
             "place": "old-town-lipscani",
             "label": "Cărturești Carusel · first gallery, rails and stair",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:34:24.007Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:44.954Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -2126,7 +1928,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794299634651,
+                "updatedAt": 1794513164623,
                 "climate": null
               },
               "date": "2026-01-15T21:00:00.000Z",
@@ -2135,8 +1937,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "4959a192f46069d3f7f6c8670985154e76b0da1c818954e0ceabedc805c9f596",
-            "bytes": 262259,
+            "sha256": "40151e7e042def947ea4a995a6a0d2249e1b6442282aeeb84fe8baa59d9cfd6a",
+            "bytes": 260620,
             "pose": {
               "x": 166.71121646897035,
               "z": -85.03225410578104,
@@ -2148,15 +1950,15 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 193.8680654494141,
-              "pitch": -6.463993318393509,
+              "pitch": -6.4639933183935065,
               "fov": 72
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.11,
-              "frameMs": 8991,
-              "drawCalls": 138,
-              "triangles": 758453,
+              "fps": 14,
+              "frameMs": 19.7,
+              "drawCalls": 140,
+              "triangles": 767330,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -2164,7 +1966,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-night/carusel-gallery.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/winter-night/carusel-gallery.jpg"
           },
           {
             "id": "smardan-frontage",
@@ -2172,8 +1974,8 @@
             "place": "old-town-lipscani",
             "label": "Smârdan · Freddo frontage and terraces",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:34:29.439Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:52:44.979Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -2199,7 +2001,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794299634651,
+                "updatedAt": 1794513164623,
                 "climate": null
               },
               "date": "2026-01-15T21:00:00.000Z",
@@ -2208,8 +2010,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "eebcfc75c766488bbf7fe8b603e2eef4332b8edbf225bfdb45f73f9870e9a1a4",
-            "bytes": 240671,
+            "sha256": "dd3cfc515fe1f016e497e07fb4485c6ef06c6d4ade14cdcb6d9c9e72de061924",
+            "bytes": 243655,
             "pose": {
               "x": 28,
               "z": 50,
@@ -2226,10 +2028,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.11,
-              "frameMs": 9032.1,
-              "drawCalls": 95,
-              "triangles": 721576,
+              "fps": 14,
+              "frameMs": 21.5,
+              "drawCalls": 97,
+              "triangles": 741525,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -2237,80 +2039,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-night/smardan-frontage.jpg"
-          },
-          {
-            "id": "freddo-interior",
-            "kind": "visit",
-            "place": "old-town-lipscani",
-            "label": "Freddo · dance floor and bar",
-            "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:34:32.773Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
-            "viewport": {
-              "width": 1280,
-              "height": 800
-            },
-            "condition": {
-              "id": "winter-night",
-              "label": "Winter · night",
-              "season": "winter",
-              "period": "night",
-              "hour": 23,
-              "weather": {
-                "source": "override",
-                "code": 73,
-                "kind": "snow",
-                "label": "Snow",
-                "icon": "🌨️",
-                "tempC": -2,
-                "precipMm": 0.8,
-                "snowCm": 12,
-                "snowfallCm": 0.6,
-                "windKmh": 12,
-                "windDir": 330,
-                "visibilityM": 1600,
-                "cloud": 1,
-                "season": "winter",
-                "updatedAt": 1794299634651,
-                "climate": null
-              },
-              "date": "2026-01-15T21:00:00.000Z",
-              "timeZone": "Europe/Bucharest",
-              "sunElevation": -60.69654878545264,
-              "nightLights": true,
-              "quality": "high"
-            },
-            "sha256": "7e91c03ea683b40d32823182cfe792f04e83ede48de0510b0fe5241ac9f4656a",
-            "bytes": 188963,
-            "pose": {
-              "x": 10010.5,
-              "z": 8000.1,
-              "floor": -0.6631688702189622,
-              "eye": [
-                10010.5,
-                0.9868311297810377,
-                8000.1
-              ],
-              "heightAboveSupport": 1.65,
-              "bearing": 251.1615664420214,
-              "pitch": 0.08401207859384018,
-              "fov": 80
-            },
-            "cameraBodyClear": true,
-            "stats": {
-              "fps": 0.18,
-              "frameMs": 5410.6,
-              "drawCalls": 45,
-              "triangles": 215671,
-              "pixelRatio": 1,
-              "shadows": 4096,
-              "post": "full",
-              "quality": "high",
-              "auto": false,
-              "level": 1
-            },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-night/freddo-interior.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/winter-night/smardan-frontage.jpg"
           },
           {
             "id": "sports-room",
@@ -2318,8 +2047,8 @@
             "place": "old-town-lipscani",
             "label": "Sports room · bar seating and Hagi screen",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:34:36.130Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:57:12.720Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -2345,7 +2074,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794299634651,
+                "updatedAt": 1794513432162,
                 "climate": null
               },
               "date": "2026-01-15T21:00:00.000Z",
@@ -2354,8 +2083,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "73547058932e2634555825d69c5762a58ba6b99b1bd4fe50da0193dae76b0077",
-            "bytes": 182574,
+            "sha256": "8d8e71c242b33d1ab5a6b03767b2b846b82dde214716b40b658334c0f83f2cc5",
+            "bytes": 187151,
             "pose": {
               "x": 8000,
               "z": 8001.5,
@@ -2372,10 +2101,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.3,
-              "frameMs": 3326.5,
-              "drawCalls": 43,
-              "triangles": 140135,
+              "fps": 3.6,
+              "frameMs": 505.5,
+              "drawCalls": 47,
+              "triangles": 148789,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -2383,7 +2112,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-night/sports-room.jpg"
+            "image": "assets/spots/old-town-lipscani/ground-346f7986/winter-night/sports-room.jpg"
           }
         ]
       }
@@ -2395,8 +2124,8 @@
         "place": "old-town-lipscani",
         "label": "Cărturești Carusel · entrance and glazed frontage",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T08:31:00.185Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:52:38.132Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -2422,7 +2151,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794299371633,
+            "updatedAt": 1794513153925,
             "climate": null
           },
           "date": "2026-07-15T09:00:00.000Z",
@@ -2431,8 +2160,8 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "2acf44b021a9afe0b2a350138b1d06bb12730d9dbf876b92a26a6843d87cd002",
-        "bytes": 189072,
+        "sha256": "504bb7bea9b3a273d9af979df5249e7443e8c4d1699952ccb56d10012c399e1b",
+        "bytes": 188559,
         "pose": {
           "x": 162.8933278145785,
           "z": -56.47882132340767,
@@ -2449,10 +2178,10 @@
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.02,
-          "frameMs": 63956.6,
-          "drawCalls": 153,
-          "triangles": 966262,
+          "fps": 0.27,
+          "frameMs": 3728.2,
+          "drawCalls": 158,
+          "triangles": 979840,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -2460,7 +2189,7 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/carusel-entrance.jpg"
+        "image": "assets/spots/old-town-lipscani/ground-346f7986/summer-day/carusel-entrance.jpg"
       },
       {
         "id": "carusel-atrium",
@@ -2468,8 +2197,8 @@
         "place": "old-town-lipscani",
         "label": "Cărturești Carusel · atrium and shelves",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T08:31:06.294Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:52:38.152Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -2495,7 +2224,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794299371633,
+            "updatedAt": 1794513153925,
             "climate": null
           },
           "date": "2026-07-15T09:00:00.000Z",
@@ -2504,8 +2233,8 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "33b9900b728fe088a703c3e177ff0af81af898fa55591eec75ec93ae0f2ddcfe",
-        "bytes": 246772,
+        "sha256": "51b5cc18891a465be17b63fe2ba1b3bdabdd0c256776db83ee576bf0548dcaba",
+        "bytes": 245419,
         "pose": {
           "x": 163.7099645030426,
           "z": -63.02307302231236,
@@ -2517,15 +2246,15 @@
           ],
           "heightAboveSupport": 1.65,
           "bearing": 7.764999999999986,
-          "pitch": 19.999999999999993,
+          "pitch": 19.99999999999999,
           "fov": 75
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.04,
-          "frameMs": 24633.1,
-          "drawCalls": 151,
-          "triangles": 948344,
+          "fps": 0.27,
+          "frameMs": 484.4,
+          "drawCalls": 156,
+          "triangles": 959322,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -2533,7 +2262,7 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/carusel-atrium.jpg"
+        "image": "assets/spots/old-town-lipscani/ground-346f7986/summer-day/carusel-atrium.jpg"
       },
       {
         "id": "carusel-gallery",
@@ -2541,8 +2270,8 @@
         "place": "old-town-lipscani",
         "label": "Cărturești Carusel · first gallery, rails and stair",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T08:31:13.183Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:52:38.213Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -2568,7 +2297,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794299371633,
+            "updatedAt": 1794513153925,
             "climate": null
           },
           "date": "2026-07-15T09:00:00.000Z",
@@ -2577,8 +2306,8 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "a07de5f96eac48b3a666bd595950a3d037df80b808ee06ee2374c445724b9f88",
-        "bytes": 246673,
+        "sha256": "407d3455eac80397d6759031a30c2e842bea89670f2dfce635f40d87f7955466",
+        "bytes": 245688,
         "pose": {
           "x": 166.71121646897035,
           "z": -85.03225410578104,
@@ -2590,15 +2319,15 @@
           ],
           "heightAboveSupport": 1.65,
           "bearing": 193.8680654494141,
-          "pitch": -6.463993318393509,
+          "pitch": -6.4639933183935065,
           "fov": 72
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.16,
-          "frameMs": 6127.9,
-          "drawCalls": 205,
-          "triangles": 1084683,
+          "fps": 4,
+          "frameMs": 20.5,
+          "drawCalls": 209,
+          "triangles": 1092331,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -2606,7 +2335,7 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/carusel-gallery.jpg"
+        "image": "assets/spots/old-town-lipscani/ground-346f7986/summer-day/carusel-gallery.jpg"
       },
       {
         "id": "smardan-frontage",
@@ -2614,8 +2343,8 @@
         "place": "old-town-lipscani",
         "label": "Smârdan · Freddo frontage and terraces",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T08:31:18.498Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:52:38.234Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -2641,7 +2370,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794299371633,
+            "updatedAt": 1794513153925,
             "climate": null
           },
           "date": "2026-07-15T09:00:00.000Z",
@@ -2650,8 +2379,8 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "04ce09a256675117d93af460a2f0d35a1a52e2ee971aaa92d184efe03f19063d",
-        "bytes": 233027,
+        "sha256": "82c9a39095f6e3b95e3ea2e9a5199367b30ccb9993913f8c1704800799450de8",
+        "bytes": 224283,
         "pose": {
           "x": 28,
           "z": 50,
@@ -2668,10 +2397,10 @@
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.15,
-          "frameMs": 6888.7,
-          "drawCalls": 131,
-          "triangles": 1036792,
+          "fps": 4,
+          "frameMs": 60.7,
+          "drawCalls": 135,
+          "triangles": 926356,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -2679,80 +2408,7 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/smardan-frontage.jpg"
-      },
-      {
-        "id": "freddo-interior",
-        "kind": "visit",
-        "place": "old-town-lipscani",
-        "label": "Freddo · dance floor and bar",
-        "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T08:31:24.959Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
-        "viewport": {
-          "width": 1280,
-          "height": 800
-        },
-        "condition": {
-          "id": "summer-day",
-          "label": "Summer · day",
-          "season": "summer",
-          "period": "day",
-          "hour": 12,
-          "weather": {
-            "source": "override",
-            "code": 0,
-            "kind": "clear",
-            "label": "Clear sky",
-            "icon": "☀️",
-            "tempC": 22,
-            "precipMm": 0,
-            "snowCm": 0,
-            "snowfallCm": 0,
-            "windKmh": 8,
-            "windDir": 270,
-            "visibilityM": 19500,
-            "cloud": 0.1,
-            "season": "summer",
-            "updatedAt": 1794299371633,
-            "climate": null
-          },
-          "date": "2026-07-15T09:00:00.000Z",
-          "timeZone": "Europe/Bucharest",
-          "sunElevation": 61.55034474124167,
-          "nightLights": false,
-          "quality": "high"
-        },
-        "sha256": "7b13951d61108774efebc75e849ac9fa0ac6d3c2711faadaaa754137e3e08873",
-        "bytes": 189679,
-        "pose": {
-          "x": 10010.5,
-          "z": 8000.1,
-          "floor": -0.6631688702189622,
-          "eye": [
-            10010.5,
-            0.9868311297810377,
-            8000.1
-          ],
-          "heightAboveSupport": 1.65,
-          "bearing": 251.1615664420214,
-          "pitch": 0.08401207859384018,
-          "fov": 80
-        },
-        "cameraBodyClear": true,
-        "stats": {
-          "fps": 0.19,
-          "frameMs": 5314.4,
-          "drawCalls": 54,
-          "triangles": 342521,
-          "pixelRatio": 1,
-          "shadows": 4096,
-          "post": "full",
-          "quality": "high",
-          "auto": false,
-          "level": 1
-        },
-        "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/freddo-interior.jpg"
+        "image": "assets/spots/old-town-lipscani/ground-346f7986/summer-day/smardan-frontage.jpg"
       },
       {
         "id": "sports-room",
@@ -2760,8 +2416,8 @@
         "place": "old-town-lipscani",
         "label": "Sports room · bar seating and Hagi screen",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T08:31:29.046Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:57:09.621Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -2787,7 +2443,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794299371633,
+            "updatedAt": 1794513420989,
             "climate": null
           },
           "date": "2026-07-15T09:00:00.000Z",
@@ -2796,8 +2452,8 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "7f512e3fecb6ef1bf0e918740ace67e82e305d3a874c4feeb71646719bc3171f",
-        "bytes": 180003,
+        "sha256": "bf273236d1033077284572fa43bcbda97a54ffd5e4698fdb1e5fcad13836045d",
+        "bytes": 180028,
         "pose": {
           "x": 8000,
           "z": 8001.5,
@@ -2814,10 +2470,10 @@
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.15,
-          "frameMs": 6460.7,
-          "drawCalls": 50,
-          "triangles": 275246,
+          "fps": 0.14,
+          "frameMs": 7042.5,
+          "drawCalls": 60,
+          "triangles": 294462,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -2825,10 +2481,1815 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/sports-room.jpg"
+        "image": "assets/spots/old-town-lipscani/ground-346f7986/summer-day/sports-room.jpg"
       }
     ],
-    "report": "assets/spots/old-town-lipscani/ground-dc93023f/manifest.json",
-    "reportSha256": "87f52f8d24f66d68f06d0bc6079962274a3396bf9daab130b4c0c3f09580734d"
+    "report": "assets/spots/old-town-lipscani/ground-346f7986/manifest.json",
+    "reportSha256": "2f129be1273833d10db9382faa2b122d45bc3c6c99bc82a032e60f8df21657ad"
+  },
+  "historicalCollections": [
+    {
+      "id": "visitor-gallery-dc93023f",
+      "label": "Four-condition walking gallery before the district fidelity pass",
+      "status": "historical",
+      "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+      "supersededBy": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededAt": "2026-11-12T20:03:08.418Z",
+      "reason": "The scene changed after dc93023 (district fidelity pass 332ae423..346f7986 and earlier scene work); these pictures show the earlier scene and keep their original source, dates and manifest.",
+      "notice": "6 matched walking-height viewpoints in each of four conditions, captured from the recorded production game source. Open any picture at its original size.",
+      "setup": "Production app, scene, actors, lighting and renderer at High quality, 1280 × 800. Automatic animation was paused and explicit frames rendered at fixed on-foot cameras 1.65 m above their supporting surfaces. Local simulation dates and weather were controlled; capturedAt records the real capture time.",
+      "limitations": [
+        "Fixed on-foot appearance fixtures; cameras were positioned for inspection. These pictures do not establish a traversed route, activity completion, physical-phone behavior or hardware FPS.",
+        "The shipped renderer currently draws some snow particles inside the bookshop and bars. This remains a rendering defect. The Hagi screen here is its idle game surface; video playback is not demonstrated."
+      ],
+      "conditionIds": [
+        "summer-day",
+        "summer-night",
+        "winter-day",
+        "winter-night"
+      ],
+      "viewpointIds": [
+        "carusel-entrance",
+        "carusel-atrium",
+        "carusel-gallery",
+        "smardan-frontage",
+        "freddo-interior",
+        "sports-room"
+      ],
+      "reports": [
+        {
+          "label": "Original capture manifest",
+          "report": "assets/spots/old-town-lipscani/ground-dc93023f/manifest.json",
+          "sha256": "87f52f8d24f66d68f06d0bc6079962274a3396bf9daab130b4c0c3f09580734d"
+        }
+      ],
+      "captures": [
+        {
+          "id": "carusel-entrance",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Cărturești Carusel · entrance and glazed frontage",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:31:00.185Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299371633,
+              "climate": null
+            },
+            "date": "2026-07-15T09:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 61.55034474124167,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "2acf44b021a9afe0b2a350138b1d06bb12730d9dbf876b92a26a6843d87cd002",
+          "bytes": 189072,
+          "pose": {
+            "x": 162.8933278145785,
+            "z": -56.47882132340767,
+            "floor": -0.2543347755536144,
+            "eye": [
+              162.8933278145785,
+              1.3956652244463856,
+              -56.47882132340767
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 6.745999999999981,
+            "pitch": 0,
+            "fov": 72
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.02,
+            "frameMs": 63956.6,
+            "drawCalls": 153,
+            "triangles": 966262,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/carusel-entrance.jpg"
+        },
+        {
+          "id": "carusel-atrium",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Cărturești Carusel · atrium and shelves",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:31:06.294Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299371633,
+              "climate": null
+            },
+            "date": "2026-07-15T09:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 61.55034474124167,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "33b9900b728fe088a703c3e177ff0af81af898fa55591eec75ec93ae0f2ddcfe",
+          "bytes": 246772,
+          "pose": {
+            "x": 163.7099645030426,
+            "z": -63.02307302231236,
+            "floor": 0.0042770521342754345,
+            "eye": [
+              163.7099645030426,
+              1.6542770521342753,
+              -63.02307302231236
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 7.764999999999986,
+            "pitch": 19.999999999999993,
+            "fov": 75
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.04,
+            "frameMs": 24633.1,
+            "drawCalls": 151,
+            "triangles": 948344,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/carusel-atrium.jpg"
+        },
+        {
+          "id": "carusel-gallery",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Cărturești Carusel · first gallery, rails and stair",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:31:13.183Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299371633,
+              "climate": null
+            },
+            "date": "2026-07-15T09:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 61.55034474124167,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "a07de5f96eac48b3a666bd595950a3d037df80b808ee06ee2374c445724b9f88",
+          "bytes": 246673,
+          "pose": {
+            "x": 166.71121646897035,
+            "z": -85.03225410578104,
+            "floor": 3.1042770521342757,
+            "eye": [
+              166.71121646897035,
+              4.754277052134276,
+              -85.03225410578104
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 193.8680654494141,
+            "pitch": -6.463993318393509,
+            "fov": 72
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.16,
+            "frameMs": 6127.9,
+            "drawCalls": 205,
+            "triangles": 1084683,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/carusel-gallery.jpg"
+        },
+        {
+          "id": "smardan-frontage",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Smârdan · Freddo frontage and terraces",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:31:18.498Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299371633,
+              "climate": null
+            },
+            "date": "2026-07-15T09:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 61.55034474124167,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "04ce09a256675117d93af460a2f0d35a1a52e2ee971aaa92d184efe03f19063d",
+          "bytes": 233027,
+          "pose": {
+            "x": 28,
+            "z": 50,
+            "floor": -0.720448120244102,
+            "eye": [
+              28,
+              0.9295518797558979,
+              50
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 243.552599128848,
+            "pitch": 19.940646660618597,
+            "fov": 75
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.15,
+            "frameMs": 6888.7,
+            "drawCalls": 131,
+            "triangles": 1036792,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/smardan-frontage.jpg"
+        },
+        {
+          "id": "freddo-interior",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Freddo · dance floor and bar",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:31:24.959Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299371633,
+              "climate": null
+            },
+            "date": "2026-07-15T09:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 61.55034474124167,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "7b13951d61108774efebc75e849ac9fa0ac6d3c2711faadaaa754137e3e08873",
+          "bytes": 189679,
+          "pose": {
+            "x": 10010.5,
+            "z": 8000.1,
+            "floor": -0.6631688702189622,
+            "eye": [
+              10010.5,
+              0.9868311297810377,
+              8000.1
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 251.1615664420214,
+            "pitch": 0.08401207859384018,
+            "fov": 80
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.19,
+            "frameMs": 5314.4,
+            "drawCalls": 54,
+            "triangles": 342521,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/freddo-interior.jpg"
+        },
+        {
+          "id": "sports-room",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Sports room · bar seating and Hagi screen",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:31:29.046Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299371633,
+              "climate": null
+            },
+            "date": "2026-07-15T09:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 61.55034474124167,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "7f512e3fecb6ef1bf0e918740ace67e82e305d3a874c4feeb71646719bc3171f",
+          "bytes": 180003,
+          "pose": {
+            "x": 8000,
+            "z": 8001.5,
+            "floor": -3.848814578300426,
+            "eye": [
+              8000,
+              -2.1988145783004263,
+              8001.5
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 180,
+            "pitch": 6.510223856795009,
+            "fov": 76
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.15,
+            "frameMs": 6460.7,
+            "drawCalls": 50,
+            "triangles": 275246,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-day/sports-room.jpg"
+        },
+        {
+          "id": "carusel-entrance",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Cărturești Carusel · entrance and glazed frontage",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:31:50.458Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299489066,
+              "climate": null
+            },
+            "date": "2026-07-15T20:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -16.629214606164325,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "893262291be154085615c82d153b48a7aaf05981f96e646f6df5e9d89cbbc7ba",
+          "bytes": 193620,
+          "pose": {
+            "x": 162.8933278145785,
+            "z": -56.47882132340767,
+            "floor": -0.2543347755536144,
+            "eye": [
+              162.8933278145785,
+              1.3956652244463856,
+              -56.47882132340767
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 6.745999999999981,
+            "pitch": 0,
+            "fov": 72
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.57,
+            "frameMs": 1765.5,
+            "drawCalls": 93,
+            "triangles": 672362,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-night/carusel-entrance.jpg"
+        },
+        {
+          "id": "carusel-atrium",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Cărturești Carusel · atrium and shelves",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:31:58.811Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299489066,
+              "climate": null
+            },
+            "date": "2026-07-15T20:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -16.629214606164325,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "55c49f5f57d5a66113725d6df2b8d2b543f0de978ed1234c211420c7cf6b7548",
+          "bytes": 253666,
+          "pose": {
+            "x": 163.7099645030426,
+            "z": -63.02307302231236,
+            "floor": 0.0042770521342754345,
+            "eye": [
+              163.7099645030426,
+              1.6542770521342753,
+              -63.02307302231236
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 7.764999999999986,
+            "pitch": 19.999999999999993,
+            "fov": 75
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.05,
+            "frameMs": 19688.3,
+            "drawCalls": 89,
+            "triangles": 664315,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-night/carusel-atrium.jpg"
+        },
+        {
+          "id": "carusel-gallery",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Cărturești Carusel · first gallery, rails and stair",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:32:07.957Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299489066,
+              "climate": null
+            },
+            "date": "2026-07-15T20:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -16.629214606164325,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "e7157b437711e11f57a1bd4aaaf2cf7ecb00dc255b0808fa8873c0d083287497",
+          "bytes": 251734,
+          "pose": {
+            "x": 166.71121646897035,
+            "z": -85.03225410578104,
+            "floor": 3.1042770521342757,
+            "eye": [
+              166.71121646897035,
+              4.754277052134276,
+              -85.03225410578104
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 193.8680654494141,
+            "pitch": -6.463993318393509,
+            "fov": 72
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.12,
+            "frameMs": 8317.8,
+            "drawCalls": 139,
+            "triangles": 760397,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-night/carusel-gallery.jpg"
+        },
+        {
+          "id": "smardan-frontage",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Smârdan · Freddo frontage and terraces",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:32:14.539Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299489066,
+              "climate": null
+            },
+            "date": "2026-07-15T20:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -16.629214606164325,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "fa2acf99264d597716124a25c4d033f96bb158193ed81fdb965c12c5ca21cb5b",
+          "bytes": 238311,
+          "pose": {
+            "x": 28,
+            "z": 50,
+            "floor": -0.720448120244102,
+            "eye": [
+              28,
+              0.9295518797558979,
+              50
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 243.552599128848,
+            "pitch": 19.940646660618597,
+            "fov": 75
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.11,
+            "frameMs": 9146.7,
+            "drawCalls": 96,
+            "triangles": 721733,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-night/smardan-frontage.jpg"
+        },
+        {
+          "id": "freddo-interior",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Freddo · dance floor and bar",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:32:23.241Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299489066,
+              "climate": null
+            },
+            "date": "2026-07-15T20:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -16.629214606164325,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "0bdf58fd47513eb61497d881997574efc1e95836d460a50257d01e0205e6c9c9",
+          "bytes": 185920,
+          "pose": {
+            "x": 10010.5,
+            "z": 8000.1,
+            "floor": -0.6631688702189622,
+            "eye": [
+              10010.5,
+              0.9868311297810377,
+              8000.1
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 251.1615664420214,
+            "pitch": 0.08401207859384018,
+            "fov": 80
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.15,
+            "frameMs": 6580.7,
+            "drawCalls": 49,
+            "triangles": 231633,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-night/freddo-interior.jpg"
+        },
+        {
+          "id": "sports-room",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Sports room · bar seating and Hagi screen",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:32:26.030Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299489066,
+              "climate": null
+            },
+            "date": "2026-07-15T20:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -16.629214606164325,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "157677eef029540e98f154132c383e61c81624df18fb8a3bde9a319055f8e357",
+          "bytes": 184037,
+          "pose": {
+            "x": 8000,
+            "z": 8001.5,
+            "floor": -3.848814578300426,
+            "eye": [
+              8000,
+              -2.1988145783004263,
+              8001.5
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 180,
+            "pitch": 6.510223856795009,
+            "fov": 76
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.11,
+            "frameMs": 8735.5,
+            "drawCalls": 44,
+            "triangles": 140159,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/summer-night/sports-room.jpg"
+        },
+        {
+          "id": "carusel-entrance",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Cărturești Carusel · entrance and glazed frontage",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:32:41.129Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794299546058,
+              "climate": null
+            },
+            "date": "2026-01-15T10:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 24.238019454042256,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "767572e7def574e8595d187b99f9fc67165ec9cefc9cdb6e56500c60b47cdf87",
+          "bytes": 178477,
+          "pose": {
+            "x": 162.8933278145785,
+            "z": -56.47882132340767,
+            "floor": -0.2543347755536144,
+            "eye": [
+              162.8933278145785,
+              1.3956652244463856,
+              -56.47882132340767
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 6.745999999999981,
+            "pitch": 0,
+            "fov": 72
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.36,
+            "frameMs": 385,
+            "drawCalls": 151,
+            "triangles": 927993,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-day/carusel-entrance.jpg"
+        },
+        {
+          "id": "carusel-atrium",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Cărturești Carusel · atrium and shelves",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:33:09.704Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794299546058,
+              "climate": null
+            },
+            "date": "2026-01-15T10:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 24.238019454042256,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "9e25056c5b0703ea877faf30793e3a627030c85160292f44a477c1588ec7d694",
+          "bytes": 257137,
+          "pose": {
+            "x": 163.7099645030426,
+            "z": -63.02307302231236,
+            "floor": 0.0042770521342754345,
+            "eye": [
+              163.7099645030426,
+              1.6542770521342753,
+              -63.02307302231236
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 7.764999999999986,
+            "pitch": 19.999999999999993,
+            "fov": 75
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.13,
+            "frameMs": 15080.5,
+            "drawCalls": 148,
+            "triangles": 910063,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-day/carusel-atrium.jpg"
+        },
+        {
+          "id": "carusel-gallery",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Cărturești Carusel · first gallery, rails and stair",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:33:22.692Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794299546058,
+              "climate": null
+            },
+            "date": "2026-01-15T10:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 24.238019454042256,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "b197abefaf164bbf8845390005b289754112c74b06af8568cc094ba852c6a7ed",
+          "bytes": 249758,
+          "pose": {
+            "x": 166.71121646897035,
+            "z": -85.03225410578104,
+            "floor": 3.1042770521342757,
+            "eye": [
+              166.71121646897035,
+              4.754277052134276,
+              -85.03225410578104
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 193.8680654494141,
+            "pitch": -6.463993318393509,
+            "fov": 72
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.04,
+            "frameMs": 28223.5,
+            "drawCalls": 195,
+            "triangles": 1042440,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-day/carusel-gallery.jpg"
+        },
+        {
+          "id": "smardan-frontage",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Smârdan · Freddo frontage and terraces",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:33:32.361Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794299546058,
+              "climate": null
+            },
+            "date": "2026-01-15T10:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 24.238019454042256,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "71c2005162ecebaaab678a5cb2d286c7d4efe6c30a8071717af312dd3623d047",
+          "bytes": 225406,
+          "pose": {
+            "x": 28,
+            "z": 50,
+            "floor": -0.720448120244102,
+            "eye": [
+              28,
+              0.9295518797558979,
+              50
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 243.552599128848,
+            "pitch": 19.940646660618597,
+            "fov": 75
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.08,
+            "frameMs": 12986.1,
+            "drawCalls": 137,
+            "triangles": 1000674,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-day/smardan-frontage.jpg"
+        },
+        {
+          "id": "freddo-interior",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Freddo · dance floor and bar",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:33:50.625Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794299546058,
+              "climate": null
+            },
+            "date": "2026-01-15T10:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 24.238019454042256,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "9231eff0d9b1df7b5e4719074b0c9392b99c0662c77480e04e2b5df612e001f8",
+          "bytes": 183813,
+          "pose": {
+            "x": 10010.5,
+            "z": 8000.1,
+            "floor": -0.6631688702189622,
+            "eye": [
+              10010.5,
+              0.9868311297810377,
+              8000.1
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 251.1615664420214,
+            "pitch": 0.08401207859384018,
+            "fov": 80
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.1,
+            "frameMs": 10073.2,
+            "drawCalls": 56,
+            "triangles": 286696,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-day/freddo-interior.jpg"
+        },
+        {
+          "id": "sports-room",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Sports room · bar seating and Hagi screen",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:33:54.624Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794299546058,
+              "climate": null
+            },
+            "date": "2026-01-15T10:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 24.238019454042256,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "feec34989d5c3b4f01b1f2efa9c7ffd0de499942e58d41777099ae6c5ea7b95f",
+          "bytes": 176392,
+          "pose": {
+            "x": 8000,
+            "z": 8001.5,
+            "floor": -3.848814578300426,
+            "eye": [
+              8000,
+              -2.1988145783004263,
+              8001.5
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 180,
+            "pitch": 6.510223856795009,
+            "fov": 76
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.06,
+            "frameMs": 17888.7,
+            "drawCalls": 59,
+            "triangles": 234458,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-day/sports-room.jpg"
+        },
+        {
+          "id": "carusel-entrance",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Cărturești Carusel · entrance and glazed frontage",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:34:06.018Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794299634651,
+              "climate": null
+            },
+            "date": "2026-01-15T21:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -60.69654878545264,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "cef9c7065113a7d06df14c59fe53f6ffdeee081a7dd94a902a2beb2abf85a049",
+          "bytes": 190896,
+          "pose": {
+            "x": 162.8933278145785,
+            "z": -56.47882132340767,
+            "floor": -0.2543347755536144,
+            "eye": [
+              162.8933278145785,
+              1.3956652244463856,
+              -56.47882132340767
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 6.745999999999981,
+            "pitch": 0,
+            "fov": 72
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.25,
+            "frameMs": 279.2,
+            "drawCalls": 99,
+            "triangles": 673382,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-night/carusel-entrance.jpg"
+        },
+        {
+          "id": "carusel-atrium",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Cărturești Carusel · atrium and shelves",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:34:14.910Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794299634651,
+              "climate": null
+            },
+            "date": "2026-01-15T21:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -60.69654878545264,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "487a87f7c65ed3c9a85c0745b028b733eb98a4e285d84ef797f8441b2d9d67c6",
+          "bytes": 262168,
+          "pose": {
+            "x": 163.7099645030426,
+            "z": -63.02307302231236,
+            "floor": 0.0042770521342754345,
+            "eye": [
+              163.7099645030426,
+              1.6542770521342753,
+              -63.02307302231236
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 7.764999999999986,
+            "pitch": 19.999999999999993,
+            "fov": 75
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.18,
+            "frameMs": 11114.3,
+            "drawCalls": 91,
+            "triangles": 663367,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-night/carusel-atrium.jpg"
+        },
+        {
+          "id": "carusel-gallery",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Cărturești Carusel · first gallery, rails and stair",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:34:24.007Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794299634651,
+              "climate": null
+            },
+            "date": "2026-01-15T21:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -60.69654878545264,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "4959a192f46069d3f7f6c8670985154e76b0da1c818954e0ceabedc805c9f596",
+          "bytes": 262259,
+          "pose": {
+            "x": 166.71121646897035,
+            "z": -85.03225410578104,
+            "floor": 3.1042770521342757,
+            "eye": [
+              166.71121646897035,
+              4.754277052134276,
+              -85.03225410578104
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 193.8680654494141,
+            "pitch": -6.463993318393509,
+            "fov": 72
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.11,
+            "frameMs": 8991,
+            "drawCalls": 138,
+            "triangles": 758453,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-night/carusel-gallery.jpg"
+        },
+        {
+          "id": "smardan-frontage",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Smârdan · Freddo frontage and terraces",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:34:29.439Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794299634651,
+              "climate": null
+            },
+            "date": "2026-01-15T21:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -60.69654878545264,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "eebcfc75c766488bbf7fe8b603e2eef4332b8edbf225bfdb45f73f9870e9a1a4",
+          "bytes": 240671,
+          "pose": {
+            "x": 28,
+            "z": 50,
+            "floor": -0.720448120244102,
+            "eye": [
+              28,
+              0.9295518797558979,
+              50
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 243.552599128848,
+            "pitch": 19.940646660618597,
+            "fov": 75
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.11,
+            "frameMs": 9032.1,
+            "drawCalls": 95,
+            "triangles": 721576,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-night/smardan-frontage.jpg"
+        },
+        {
+          "id": "freddo-interior",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Freddo · dance floor and bar",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:34:32.773Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794299634651,
+              "climate": null
+            },
+            "date": "2026-01-15T21:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -60.69654878545264,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "7e91c03ea683b40d32823182cfe792f04e83ede48de0510b0fe5241ac9f4656a",
+          "bytes": 188963,
+          "pose": {
+            "x": 10010.5,
+            "z": 8000.1,
+            "floor": -0.6631688702189622,
+            "eye": [
+              10010.5,
+              0.9868311297810377,
+              8000.1
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 251.1615664420214,
+            "pitch": 0.08401207859384018,
+            "fov": 80
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.18,
+            "frameMs": 5410.6,
+            "drawCalls": 45,
+            "triangles": 215671,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-night/freddo-interior.jpg"
+        },
+        {
+          "id": "sports-room",
+          "kind": "visit",
+          "place": "old-town-lipscani",
+          "label": "Sports room · bar seating and Hagi screen",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:34:36.130Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794299634651,
+              "climate": null
+            },
+            "date": "2026-01-15T21:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -60.69654878545264,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "73547058932e2634555825d69c5762a58ba6b99b1bd4fe50da0193dae76b0077",
+          "bytes": 182574,
+          "pose": {
+            "x": 8000,
+            "z": 8001.5,
+            "floor": -3.848814578300426,
+            "eye": [
+              8000,
+              -2.1988145783004263,
+              8001.5
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 180,
+            "pitch": 6.510223856795009,
+            "fov": 76
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.3,
+            "frameMs": 3326.5,
+            "drawCalls": 43,
+            "triangles": 140135,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/old-town-lipscani/ground-dc93023f/winter-night/sports-room.jpg"
+        }
+      ]
+    }
+  ],
+  "visitorGalleryRecapture": {
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "assembledAt": "2026-11-12T20:03:08.418Z",
+    "passRange": "332ae423..346f7986",
+    "sceneCommits": [
+      "f9787fa85ddbe6d4e9dd6b5eb9fedbb1fa436440"
+    ],
+    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes.",
+    "sourceVerification": {
+      "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
+      "checkedAt": "2026-11-12T20:03:08.417Z"
+    }
   }
 }

@@ -1,0 +1,59 @@
+{
+  "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "city": "bucharest",
+  "district": "otopeni",
+  "grid": {
+    "x0": -1500,
+    "z0": -1500,
+    "columns": 10,
+    "rows": 14,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "ring-touches": 77,
+    "core-touches": 26,
+    "outside-ring": 4
+  },
+  "locations": [
+    {
+      "id": "otopeni-start",
+      "label": "Otopeni chapter start on DN1",
+      "lat": 44.555701,
+      "lon": 26.069266,
+      "source": "game/src/cities.js:CHAPTERS.otopeni.start",
+      "kind": "chapter-start",
+      "tileId": "aerial-r11-c04"
+    },
+    {
+      "id": "otopeni",
+      "label": "Henri Coandă Airport terminal",
+      "lat": 44.5708154,
+      "lon": 26.0795884,
+      "source": "game/src/landmarks.js:ANCHOR.otp; OSM r16476195 and five declared building parts",
+      "osm": "relation/16476195",
+      "kind": "cv-stop",
+      "tileId": "aerial-r04-c07"
+    },
+    {
+      "id": "airport-train-station",
+      "label": "Aeroport Henri Coandă train station",
+      "lat": 44.5690573,
+      "lon": 26.0754927,
+      "source": "OSM w813193384; source retained independently of terminal replacement; mean of distinct closing-ring vertices",
+      "osm": "way/813193384",
+      "kind": "landmark",
+      "tileId": "aerial-r05-c06"
+    },
+    {
+      "id": "source-parking-deck",
+      "label": "Mapped 5–6m parking deck band",
+      "lat": 44.5691737,
+      "lon": 26.077014,
+      "source": "OSM w1215048760 literal height6/min_height5",
+      "osm": "way/1215048760",
+      "kind": "source-check",
+      "tileId": "aerial-r05-c07"
+    }
+  ],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score."
+}

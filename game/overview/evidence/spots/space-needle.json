@@ -141,18 +141,30 @@
       "label": "Native phone elevator cancellation",
       "type": "Native GAME proof; scope recorded separately",
       "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-side-approach-touch/results.json"
+    },
+    {
+      "label": "District fidelity pass scene change (6ccf348)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/6ccf3480235682cd5fe4f9c756b65f07165ad9a8"
+    },
+    {
+      "label": "District fidelity pass scene change (0446b77)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/0446b773eafd3b53e353c997fdb26dc4e920c2b3"
     }
   ],
   "improvements": [
     "Current native scene retains 114 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
     "Physical elevator entrance; retained animated ascent, seven phone mode cancellations, manually aimed Loupe shutter and phone persistence",
-    "The selected primary activity approach is accepted separately from full-scene comparison."
+    "The selected primary activity approach is accepted separately from full-scene comparison.",
+    "District fidelity pass, 6ccf348 / 0446b77 (range 332ae423..346f7986): In the shared Seattle Center scene the MoPOP lobes reach the ground in steel (the outline volume w161587742 and the duplicate Sky Church room w1092469435 are no longer drawn as plain walls). The Needle itself was not changed by the pass."
   ],
   "remainingGaps": [
     "Unsupported stair/deck teleport and lm-needle-360 are retired; full tower/skyline comparison remains separate",
     "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
     "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
-    "Unmodelled stair/deck teleport and lm-needle-360 are retired. The animated elevator and manually aimed Loupe remain; no actual stair access is asserted."
+    "Unmodelled stair/deck teleport and lm-needle-360 are retired. The animated elevator and manually aimed Loupe remain; no actual stair access is asserted.",
+    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 93b0d86 or earlier, before the district fidelity pass, and were not re-run at 346f798."
   ],
   "checks": [
     {
@@ -184,6 +196,16 @@
       "label": "Current exhaustive physical audit",
       "passed": null,
       "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
+    },
+    {
+      "label": "Visitor views recaptured after the district fidelity pass",
+      "passed": true,
+      "details": "346f798: 5 viewpoints × 4 conditions recaptured (needle-plaza, elevator-entry, glasshouse-front, glasshouse-interior, loupe-floor). Changed viewpoints: loupe-floor: The rebuilt Needle (7b3bb8b6) ends the Loupe floor before the dc93023f point [0.3,18.9]; the camera stands 4.9 m further in on the same level, same look. Every picture was inspected after capture. Appearance only; no route, activity or reference-match claim."
+    },
+    {
+      "label": "Validation frames and native proofs re-run at 346f798",
+      "passed": false,
+      "details": "Not re-run. The validation captures and proofs above keep their original source and date and describe the scene before the pass."
     }
   ],
   "captures": [
@@ -423,7 +445,7 @@
     },
     "collection": "previous-context-gallery"
   },
-  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical elevator entrance; retained animated ascent, seven phone mode cancellations, manually aimed Loupe shutter and phone persistence Unsupported stair/deck teleport and lm-needle-360 are retired; full tower/skyline comparison remains separate Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical elevator entrance; retained animated ascent, seven phone mode cancellations, manually aimed Loupe shutter and phone persistence Unsupported stair/deck teleport and lm-needle-360 are retired; full tower/skyline comparison remains separate Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates.",
   "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
   "menuAvailable": true,
   "captureSourceCommits": [
@@ -470,12 +492,15 @@
   ],
   "visitorGallery": {
     "schemaVersion": 1,
-    "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
-    "notice": "5 matched walking-height viewpoints in each of four conditions, captured from the recorded production game source. Open any picture at its original size.",
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "notice": "5 matched walking-height viewpoints in each of four conditions, recaptured from game source 346f798 after the district fidelity pass. Open any picture at its original size.",
     "setup": "Production app, scene, actors, lighting and renderer at High quality, 1280 × 800. Automatic animation was paused and explicit frames rendered at fixed on-foot cameras 1.65 m above their supporting surfaces. Local simulation dates and weather were controlled; capturedAt records the real capture time.",
     "limitations": [
       "Fixed on-foot appearance fixtures; cameras were positioned for inspection. These pictures do not establish a traversed route, activity completion, physical-phone behavior or hardware FPS.",
-      "The Loupe picture is taken on its modeled supporting floor, not a drone. It does not establish a completed elevator ride or an accurate distant Seattle skyline. Snow particles currently appear inside the modeled Glasshouse; indoor weather occlusion needs work. The captured High-quality submitted workload reaches 1,532,282 triangles / 473 draw calls; full-scene performance remains open."
+      "Snow particles still appear inside the modeled Glasshouse. The Loupe picture is taken on its modeled supporting floor, not from a drone; it does not establish a completed elevator ride or an accurate distant skyline.",
+      "Viewpoints that differ from the dc93023f gallery — loupe-floor: The rebuilt Needle (7b3bb8b6) ends the Loupe floor before the dc93023f point [0.3,18.9]; the camera stands 4.9 m further in on the same level, same look.",
+      "The captured High-quality frames reach 1,528,941 triangles / 509 draw calls; that is above the 1.5 M triangle / 400 draw-call frame budget, so scene performance remains open.",
+      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
     ],
     "conditionSets": [
       {
@@ -492,8 +517,8 @@
             "place": "space-needle",
             "label": "Space Needle · plaza and full tower",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:37:32.516Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:53:00.452Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -519,7 +544,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299801435,
+                "updatedAt": 1794513178342,
                 "climate": null
               },
               "date": "2026-07-15T19:00:00.000Z",
@@ -528,8 +553,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "6b17dd43022fef5ae72dc4d953ecdc55c9ac18a9b22006d4930055fda82942b8",
-            "bytes": 150953,
+            "sha256": "3f8ce24750b995567bb91b9d3e04b65d32da6d6f23df1aaa1fd19b37eb3e8b21",
+            "bytes": 152404,
             "pose": {
               "x": 4,
               "z": 105,
@@ -546,10 +571,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.02,
-              "frameMs": 43812.9,
-              "drawCalls": 466,
-              "triangles": 1409941,
+              "fps": 0.52,
+              "frameMs": 1930.8,
+              "drawCalls": 499,
+              "triangles": 1489938,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -557,7 +582,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/summer-day/needle-plaza.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/summer-day/needle-plaza.jpg"
           },
           {
             "id": "elevator-entry",
@@ -565,8 +590,8 @@
             "place": "space-needle",
             "label": "Space Needle · elevator entrance and plaza detail",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:37:45.694Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:53:00.525Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -592,7 +617,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299801435,
+                "updatedAt": 1794513178342,
                 "climate": null
               },
               "date": "2026-07-15T19:00:00.000Z",
@@ -601,8 +626,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "66334b9c5bfbc8fa73f12340873d122a40ef39cbb28291096a41c1c6b38db993",
-            "bytes": 151025,
+            "sha256": "4388f9790433e51ffbcae99298ed6e06347dbe77c062c0eac6805f34b46d54f0",
+            "bytes": 172732,
             "pose": {
               "x": -11,
               "z": 25,
@@ -619,10 +644,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.13,
-              "frameMs": 7417.6,
-              "drawCalls": 428,
-              "triangles": 1318023,
+              "fps": 0.52,
+              "frameMs": 183.4,
+              "drawCalls": 425,
+              "triangles": 1338595,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -630,7 +655,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/summer-day/elevator-entry.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/summer-day/elevator-entry.jpg"
           },
           {
             "id": "glasshouse-front",
@@ -638,8 +663,8 @@
             "place": "space-needle",
             "label": "Chihuly · Glasshouse exterior and garden",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:37:51.865Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:53:00.544Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -665,7 +690,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299801435,
+                "updatedAt": 1794513178342,
                 "climate": null
               },
               "date": "2026-07-15T19:00:00.000Z",
@@ -674,8 +699,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "cdbaea0f74e0327ca02afd47c36e23fcd0fe88501a5f67726a95a4de2a888611",
-            "bytes": 165514,
+            "sha256": "5b69c2916b7dcade4a3dc64869e25ee8554e8c92ca69e50912772abeea98038e",
+            "bytes": 163113,
             "pose": {
               "x": -52,
               "z": 18,
@@ -687,15 +712,15 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 356.78965824042854,
-              "pitch": 4.58605311444405,
+              "pitch": 4.586053114444052,
               "fov": 78
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.18,
-              "frameMs": 5694.2,
-              "drawCalls": 374,
-              "triangles": 1532282,
+              "fps": 0.52,
+              "frameMs": 73.1,
+              "drawCalls": 372,
+              "triangles": 1528941,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -703,7 +728,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/summer-day/glasshouse-front.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/summer-day/glasshouse-front.jpg"
           },
           {
             "id": "glasshouse-interior",
@@ -711,8 +736,8 @@
             "place": "space-needle",
             "label": "Chihuly · suspended sculpture and glass roof",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:38:00.453Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:53:00.563Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -738,7 +763,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299801435,
+                "updatedAt": 1794513178342,
                 "climate": null
               },
               "date": "2026-07-15T19:00:00.000Z",
@@ -747,8 +772,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "ea5f14e82fd20cafd4b858cdfd102b5964011ac6e519bd1b1b4cc510cba7b34f",
-            "bytes": 218744,
+            "sha256": "b183e8e57904b3610774ba14640b9b9082ab88bdcd4199a5a1e401764680f30c",
+            "bytes": 218125,
             "pose": {
               "x": -52,
               "z": -5,
@@ -765,10 +790,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.16,
-              "frameMs": 6189.7,
-              "drawCalls": 338,
-              "triangles": 1439348,
+              "fps": 0.52,
+              "frameMs": 18,
+              "drawCalls": 331,
+              "triangles": 1441221,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -776,7 +801,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/summer-day/glasshouse-interior.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/summer-day/glasshouse-interior.jpg"
           },
           {
             "id": "loupe-floor",
@@ -784,8 +809,8 @@
             "place": "space-needle",
             "label": "The Loupe · supported glass floor and district view",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:38:06.818Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:54:23.704Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -811,7 +836,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299801435,
+                "updatedAt": 1794513258106,
                 "climate": null
               },
               "date": "2026-07-15T19:00:00.000Z",
@@ -820,16 +845,16 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "9ebe50c67b182f3946488bd78730f0b1d9c23f1f69e76d7eabee9d25c0d4c78e",
-            "bytes": 153326,
+            "sha256": "321e5b1288eeda46a5ac7b34788f54e75d863470eac2bcb473407bde74577072",
+            "bytes": 121782,
             "pose": {
-              "x": 0.3,
-              "z": 18.9,
-              "floor": 154.1,
+              "x": 0,
+              "z": 14,
+              "floor": 153.92000000000002,
               "eye": [
-                0.3,
-                155.75,
-                18.9
+                0,
+                155.57000000000002,
+                14
               ],
               "heightAboveSupport": 1.6500000000000057,
               "bearing": 170,
@@ -838,10 +863,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.12,
-              "frameMs": 8562.7,
-              "drawCalls": 335,
-              "triangles": 748925,
+              "fps": 0.2,
+              "frameMs": 5076.6,
+              "drawCalls": 345,
+              "triangles": 808999,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -849,7 +874,8 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/summer-day/loupe-floor.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/summer-day/loupe-floor.jpg",
+            "viewpointChange": "The rebuilt Needle (7b3bb8b6) ends the Loupe floor before the dc93023f point [0.3,18.9]; the camera stands 4.9 m further in on the same level, same look."
           }
         ]
       },
@@ -867,8 +893,8 @@
             "place": "space-needle",
             "label": "Space Needle · plaza and full tower",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:38:25.318Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:53:02.769Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -894,7 +920,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299886866,
+                "updatedAt": 1794513180570,
                 "climate": null
               },
               "date": "2026-07-16T06:00:00.000Z",
@@ -903,8 +929,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "955dc28591f5514bed6e314d7c4d32bcdecc371ad1097bc74ce13c457c3fa13b",
-            "bytes": 166122,
+            "sha256": "77fe2162ace3105c9a5ac2617f1ea6cd6d0fc6b299a1b7df31419dfabbcdb3fd",
+            "bytes": 171720,
             "pose": {
               "x": 4,
               "z": 105,
@@ -921,10 +947,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.37,
-              "frameMs": 2669.6,
-              "drawCalls": 360,
-              "triangles": 1321673,
+              "fps": 4,
+              "frameMs": 952.7,
+              "drawCalls": 400,
+              "triangles": 1390418,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -932,7 +958,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/summer-night/needle-plaza.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/summer-night/needle-plaza.jpg"
           },
           {
             "id": "elevator-entry",
@@ -940,8 +966,8 @@
             "place": "space-needle",
             "label": "Space Needle · elevator entrance and plaza detail",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:38:53.725Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:53:02.789Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -967,7 +993,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299886866,
+                "updatedAt": 1794513180570,
                 "climate": null
               },
               "date": "2026-07-16T06:00:00.000Z",
@@ -976,8 +1002,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "c68cf8969c8e6df021bf8d60c1ea3f56614df5b604c868b7f6ceb63aad5a6a22",
-            "bytes": 158130,
+            "sha256": "3315dce143de9f7c0fa8149e764c016288fd530f864564d9449504d9a96147d3",
+            "bytes": 186373,
             "pose": {
               "x": -11,
               "z": 25,
@@ -994,10 +1020,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.07,
-              "frameMs": 13792,
-              "drawCalls": 327,
-              "triangles": 1166022,
+              "fps": 0.8,
+              "frameMs": 1250.1,
+              "drawCalls": 331,
+              "triangles": 1177578,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1005,7 +1031,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/summer-night/elevator-entry.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/summer-night/elevator-entry.jpg"
           },
           {
             "id": "glasshouse-front",
@@ -1013,8 +1039,8 @@
             "place": "space-needle",
             "label": "Chihuly · Glasshouse exterior and garden",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:39:34.537Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:53:02.807Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1040,7 +1066,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299886866,
+                "updatedAt": 1794513180570,
                 "climate": null
               },
               "date": "2026-07-16T06:00:00.000Z",
@@ -1049,8 +1075,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "07b99132be37ddb53dba7f9f0aec241072f2bf325044d7419565fcacb78fad27",
-            "bytes": 170209,
+            "sha256": "668f4eadfa387722704c19eeac87fd988485413d518010fb9cf133a69707bf5e",
+            "bytes": 170064,
             "pose": {
               "x": -52,
               "z": 18,
@@ -1062,15 +1088,15 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 356.78965824042854,
-              "pitch": 4.58605311444405,
+              "pitch": 4.586053114444052,
               "fov": 78
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.07,
-              "frameMs": 14579.9,
+              "fps": 0.8,
+              "frameMs": 19.6,
               "drawCalls": 262,
-              "triangles": 1355060,
+              "triangles": 1350556,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1078,7 +1104,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/summer-night/glasshouse-front.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/summer-night/glasshouse-front.jpg"
           },
           {
             "id": "glasshouse-interior",
@@ -1086,8 +1112,8 @@
             "place": "space-needle",
             "label": "Chihuly · suspended sculpture and glass roof",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:39:52.722Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:53:02.828Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1113,7 +1139,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299886866,
+                "updatedAt": 1794513180570,
                 "climate": null
               },
               "date": "2026-07-16T06:00:00.000Z",
@@ -1122,8 +1148,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "ef558fd07e586a0be991a8aac9dbcbbe597ec306cfcbc8a956ac9cb970131bc5",
-            "bytes": 199191,
+            "sha256": "427519e78bde80e6ffb7ec92c3ebfa43ba2fcd4d7b78d24978eb9d7f1d6eec35",
+            "bytes": 202127,
             "pose": {
               "x": -52,
               "z": -5,
@@ -1140,10 +1166,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.02,
-              "frameMs": 40970.3,
+              "fps": 0.8,
+              "frameMs": 18.5,
               "drawCalls": 240,
-              "triangles": 1267248,
+              "triangles": 1267160,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1151,7 +1177,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/summer-night/glasshouse-interior.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/summer-night/glasshouse-interior.jpg"
           },
           {
             "id": "loupe-floor",
@@ -1159,8 +1185,8 @@
             "place": "space-needle",
             "label": "The Loupe · supported glass floor and district view",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:40:01.993Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:54:29.937Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1186,7 +1212,7 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794299886866,
+                "updatedAt": 1794513263709,
                 "climate": null
               },
               "date": "2026-07-16T06:00:00.000Z",
@@ -1195,16 +1221,16 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "1360889677b32e73600b6b7296c74da6555a1a01e94298430bb8bd196d52b35c",
-            "bytes": 280017,
+            "sha256": "25bb7c1ef2cc17c4cd6cb457d8f17259bd888b438977cd3b50bd7d93aeddbb39",
+            "bytes": 237159,
             "pose": {
-              "x": 0.3,
-              "z": 18.9,
-              "floor": 154.1,
+              "x": 0,
+              "z": 14,
+              "floor": 153.92000000000002,
               "eye": [
-                0.3,
-                155.75,
-                18.9
+                0,
+                155.57000000000002,
+                14
               ],
               "heightAboveSupport": 1.6500000000000057,
               "bearing": 170,
@@ -1213,10 +1239,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.06,
-              "frameMs": 18146.9,
-              "drawCalls": 235,
-              "triangles": 684786,
+              "fps": 0.16,
+              "frameMs": 6160.3,
+              "drawCalls": 252,
+              "triangles": 737089,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1224,7 +1250,8 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/summer-night/loupe-floor.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/summer-night/loupe-floor.jpg",
+            "viewpointChange": "The rebuilt Needle (7b3bb8b6) ends the Loupe floor before the dc93023f point [0.3,18.9]; the camera stands 4.9 m further in on the same level, same look."
           }
         ]
       },
@@ -1242,8 +1269,8 @@
             "place": "space-needle",
             "label": "Space Needle · plaza and full tower",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:40:13.349Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:53:02.883Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1269,7 +1296,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794300002086,
+                "updatedAt": 1794513182834,
                 "climate": null
               },
               "date": "2026-01-15T20:00:00.000Z",
@@ -1278,8 +1305,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "596de942644d97528ecc08a1106da5e290816f72f2f4dcf204e6d896c1ba1e2f",
-            "bytes": 125882,
+            "sha256": "b06c199f31258cd62b88da8d2d51418340b4baf20a461cfcbeed536ec4d761d1",
+            "bytes": 129437,
             "pose": {
               "x": 4,
               "z": 105,
@@ -1296,10 +1323,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.26,
-              "frameMs": 3826.5,
-              "drawCalls": 473,
-              "triangles": 1379705,
+              "fps": 0.8,
+              "frameMs": 33,
+              "drawCalls": 509,
+              "triangles": 1460865,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1307,7 +1334,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/winter-day/needle-plaza.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/winter-day/needle-plaza.jpg"
           },
           {
             "id": "elevator-entry",
@@ -1315,8 +1342,8 @@
             "place": "space-needle",
             "label": "Space Needle · elevator entrance and plaza detail",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:40:32.107Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:53:02.902Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1342,7 +1369,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794300002086,
+                "updatedAt": 1794513182834,
                 "climate": null
               },
               "date": "2026-01-15T20:00:00.000Z",
@@ -1351,8 +1378,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "add82bfeb36f3b9be99393651901cd1221cef93db4affb52b0646a9143d95826",
-            "bytes": 139634,
+            "sha256": "c5fc3286d1db76a136cd2e224ed6637176ca5707a1c661fb82c78e04af4aa988",
+            "bytes": 163775,
             "pose": {
               "x": -11,
               "z": 25,
@@ -1369,10 +1396,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.16,
-              "frameMs": 6341.8,
-              "drawCalls": 369,
-              "triangles": 1207231,
+              "fps": 0.8,
+              "frameMs": 19.9,
+              "drawCalls": 371,
+              "triangles": 1231321,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1380,7 +1407,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/winter-day/elevator-entry.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/winter-day/elevator-entry.jpg"
           },
           {
             "id": "glasshouse-front",
@@ -1388,8 +1415,8 @@
             "place": "space-needle",
             "label": "Chihuly · Glasshouse exterior and garden",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:40:38.305Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:53:02.921Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1415,7 +1442,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794300002086,
+                "updatedAt": 1794513182834,
                 "climate": null
               },
               "date": "2026-01-15T20:00:00.000Z",
@@ -1424,8 +1451,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "513ee63817e33affdedb8ff0dcc0b73d3a621d3d429804fafbf1b845108044df",
-            "bytes": 144939,
+            "sha256": "429f069eaa6956d52af4750109bcf34286c9bb41d99a2d0b43691c4fd27e830d",
+            "bytes": 137231,
             "pose": {
               "x": -52,
               "z": 18,
@@ -1437,15 +1464,15 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 356.78965824042854,
-              "pitch": 4.58605311444405,
+              "pitch": 4.586053114444052,
               "fov": 78
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.08,
-              "frameMs": 12435.6,
-              "drawCalls": 338,
-              "triangles": 1422070,
+              "fps": 0.8,
+              "frameMs": 19.4,
+              "drawCalls": 334,
+              "triangles": 1419836,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1453,7 +1480,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/winter-day/glasshouse-front.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/winter-day/glasshouse-front.jpg"
           },
           {
             "id": "glasshouse-interior",
@@ -1461,8 +1488,8 @@
             "place": "space-needle",
             "label": "Chihuly · suspended sculpture and glass roof",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:40:45.558Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:53:02.939Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1488,7 +1515,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794300002086,
+                "updatedAt": 1794513182834,
                 "climate": null
               },
               "date": "2026-01-15T20:00:00.000Z",
@@ -1497,8 +1524,8 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "3acfaa9bb550f5f8a3e320cca262c6eb931a607f23a123ae629bb09b8302ac5e",
-            "bytes": 192298,
+            "sha256": "ab1114d224a176b1ffad95ff3df8d02f312970faa8166cc7b2442ae3986f3cd1",
+            "bytes": 192278,
             "pose": {
               "x": -52,
               "z": -5,
@@ -1515,10 +1542,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.16,
-              "frameMs": 6221.2,
-              "drawCalls": 335,
-              "triangles": 1337962,
+              "fps": 0.8,
+              "frameMs": 18.2,
+              "drawCalls": 327,
+              "triangles": 1341320,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1526,7 +1553,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/winter-day/glasshouse-interior.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/winter-day/glasshouse-interior.jpg"
           },
           {
             "id": "loupe-floor",
@@ -1534,8 +1561,8 @@
             "place": "space-needle",
             "label": "The Loupe · supported glass floor and district view",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:40:50.093Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:54:30.203Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1561,7 +1588,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794300002086,
+                "updatedAt": 1794513269943,
                 "climate": null
               },
               "date": "2026-01-15T20:00:00.000Z",
@@ -1570,16 +1597,16 @@
               "nightLights": false,
               "quality": "high"
             },
-            "sha256": "d411e87978173f80c917db105bd2718c7494faa568b039c5ff021e9f6c3523c9",
-            "bytes": 120718,
+            "sha256": "b7c96303a4ecc7611fc46cae6baca569e7715e1f2fa95873c4a7ae8de3653758",
+            "bytes": 110281,
             "pose": {
-              "x": 0.3,
-              "z": 18.9,
-              "floor": 154.1,
+              "x": 0,
+              "z": 14,
+              "floor": 153.92000000000002,
               "eye": [
-                0.3,
-                155.75,
-                18.9
+                0,
+                155.57000000000002,
+                14
               ],
               "heightAboveSupport": 1.6500000000000057,
               "bearing": 170,
@@ -1588,10 +1615,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.14,
-              "frameMs": 7292,
-              "drawCalls": 289,
-              "triangles": 705019,
+              "fps": 0.16,
+              "frameMs": 230.5,
+              "drawCalls": 290,
+              "triangles": 762522,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1599,7 +1626,8 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/winter-day/loupe-floor.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/winter-day/loupe-floor.jpg",
+            "viewpointChange": "The rebuilt Needle (7b3bb8b6) ends the Loupe floor before the dc93023f point [0.3,18.9]; the camera stands 4.9 m further in on the same level, same look."
           }
         ]
       },
@@ -1617,8 +1645,8 @@
             "place": "space-needle",
             "label": "Space Needle · plaza and full tower",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:41:02.723Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:53:02.982Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1644,7 +1672,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794300050188,
+                "updatedAt": 1794513182946,
                 "climate": null
               },
               "date": "2026-01-16T07:00:00.000Z",
@@ -1653,8 +1681,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "85552a3f10d6c57697ba0f537cb7efa3ce48c78cf78ddd93977773c9766475af",
-            "bytes": 194771,
+            "sha256": "fac95d280eaa008ee627e4ca89dc0eefcc187b61c9bddbfb14cdc57d4f9305d7",
+            "bytes": 204782,
             "pose": {
               "x": 4,
               "z": 105,
@@ -1671,10 +1699,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.25,
-              "frameMs": 3958,
-              "drawCalls": 370,
-              "triangles": 1319937,
+              "fps": 0.8,
+              "frameMs": 19.9,
+              "drawCalls": 404,
+              "triangles": 1386690,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1682,7 +1710,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/winter-night/needle-plaza.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/winter-night/needle-plaza.jpg"
           },
           {
             "id": "elevator-entry",
@@ -1690,8 +1718,8 @@
             "place": "space-needle",
             "label": "Space Needle · elevator entrance and plaza detail",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:41:14.698Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:53:03.000Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1717,7 +1745,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794300050188,
+                "updatedAt": 1794513182946,
                 "climate": null
               },
               "date": "2026-01-16T07:00:00.000Z",
@@ -1726,8 +1754,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "420c28282cb5889ff831bcf492fefeec937165ade8de47381d5d0f1af100afba",
-            "bytes": 170462,
+            "sha256": "4639c553d12527f2b18d4603e4d0af409695ad2a5765a39d65192ac9409a443f",
+            "bytes": 191590,
             "pose": {
               "x": -11,
               "z": 25,
@@ -1744,10 +1772,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.14,
-              "frameMs": 7102.8,
-              "drawCalls": 282,
-              "triangles": 1100982,
+              "fps": 0.8,
+              "frameMs": 20,
+              "drawCalls": 285,
+              "triangles": 1114398,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1755,7 +1783,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/winter-night/elevator-entry.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/winter-night/elevator-entry.jpg"
           },
           {
             "id": "glasshouse-front",
@@ -1763,8 +1791,8 @@
             "place": "space-needle",
             "label": "Chihuly · Glasshouse exterior and garden",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:41:21.063Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:53:03.020Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1790,7 +1818,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794300050188,
+                "updatedAt": 1794513182946,
                 "climate": null
               },
               "date": "2026-01-16T07:00:00.000Z",
@@ -1799,8 +1827,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "63308a717076d8dbca31d8f471fccbc5c998f2c19516f7403fee8954a7572661",
-            "bytes": 174751,
+            "sha256": "1b8c18ad9abc80c338fede2146dbf0c0b3d0a018a4613139fef7861913c17d06",
+            "bytes": 170254,
             "pose": {
               "x": -52,
               "z": 18,
@@ -1812,15 +1840,15 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 356.78965824042854,
-              "pitch": 4.58605311444405,
+              "pitch": 4.586053114444052,
               "fov": 78
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.2,
-              "frameMs": 4926,
-              "drawCalls": 230,
-              "triangles": 1304337,
+              "fps": 0.8,
+              "frameMs": 18.9,
+              "drawCalls": 232,
+              "triangles": 1303312,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1828,7 +1856,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/winter-night/glasshouse-front.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/winter-night/glasshouse-front.jpg"
           },
           {
             "id": "glasshouse-interior",
@@ -1836,8 +1864,8 @@
             "place": "space-needle",
             "label": "Chihuly · suspended sculpture and glass roof",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:41:30.017Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:53:03.044Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1863,7 +1891,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794300050188,
+                "updatedAt": 1794513182946,
                 "climate": null
               },
               "date": "2026-01-16T07:00:00.000Z",
@@ -1872,8 +1900,8 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "ca26e1db86435cbd9998a4cf97881803d53c08732578a5794c20f057936de6ac",
-            "bytes": 179638,
+            "sha256": "02e08b0ffab8d4be6e12425e233c89aa049ec6fd0f3d0f856645700b472cb11d",
+            "bytes": 190151,
             "pose": {
               "x": -52,
               "z": -5,
@@ -1890,10 +1918,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.16,
-              "frameMs": 6292.2,
-              "drawCalls": 219,
-              "triangles": 1226785,
+              "fps": 0.8,
+              "frameMs": 19.5,
+              "drawCalls": 227,
+              "triangles": 1228828,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1901,7 +1929,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/winter-night/glasshouse-interior.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/winter-night/glasshouse-interior.jpg"
           },
           {
             "id": "loupe-floor",
@@ -1909,8 +1937,8 @@
             "place": "space-needle",
             "label": "The Loupe · supported glass floor and district view",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-10T08:41:35.496Z",
-            "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+            "capturedAt": "2026-11-12T19:54:30.510Z",
+            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1936,7 +1964,7 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794300050188,
+                "updatedAt": 1794513270210,
                 "climate": null
               },
               "date": "2026-01-16T07:00:00.000Z",
@@ -1945,16 +1973,16 @@
               "nightLights": true,
               "quality": "high"
             },
-            "sha256": "950520ede5a4928917e270b4e59c3c917a1cc0d0dcc332a4afbfd82f7ae83e8c",
-            "bytes": 256000,
+            "sha256": "1e5ca9d69acb923a1b50d27adfbc23a43723f88be23c8bb0547c66cb3619be83",
+            "bytes": 221907,
             "pose": {
-              "x": 0.3,
-              "z": 18.9,
-              "floor": 154.1,
+              "x": 0,
+              "z": 14,
+              "floor": 153.92000000000002,
               "eye": [
-                0.3,
-                155.75,
-                18.9
+                0,
+                155.57000000000002,
+                14
               ],
               "heightAboveSupport": 1.6500000000000057,
               "bearing": 170,
@@ -1963,10 +1991,10 @@
             },
             "cameraBodyClear": true,
             "stats": {
-              "fps": 0.11,
-              "frameMs": 9011.5,
-              "drawCalls": 185,
-              "triangles": 651614,
+              "fps": 6.7,
+              "frameMs": 256.1,
+              "drawCalls": 196,
+              "triangles": 701799,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1974,7 +2002,8 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/space-needle/ground-dc93023f/winter-night/loupe-floor.jpg"
+            "image": "assets/spots/space-needle/ground-346f7986/winter-night/loupe-floor.jpg",
+            "viewpointChange": "The rebuilt Needle (7b3bb8b6) ends the Loupe floor before the dc93023f point [0.3,18.9]; the camera stands 4.9 m further in on the same level, same look."
           }
         ]
       }
@@ -1986,8 +2015,8 @@
         "place": "space-needle",
         "label": "Space Needle · plaza and full tower",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T08:37:32.516Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:53:00.452Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -2013,7 +2042,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794299801435,
+            "updatedAt": 1794513178342,
             "climate": null
           },
           "date": "2026-07-15T19:00:00.000Z",
@@ -2022,8 +2051,8 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "6b17dd43022fef5ae72dc4d953ecdc55c9ac18a9b22006d4930055fda82942b8",
-        "bytes": 150953,
+        "sha256": "3f8ce24750b995567bb91b9d3e04b65d32da6d6f23df1aaa1fd19b37eb3e8b21",
+        "bytes": 152404,
         "pose": {
           "x": 4,
           "z": 105,
@@ -2040,10 +2069,10 @@
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.02,
-          "frameMs": 43812.9,
-          "drawCalls": 466,
-          "triangles": 1409941,
+          "fps": 0.52,
+          "frameMs": 1930.8,
+          "drawCalls": 499,
+          "triangles": 1489938,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -2051,7 +2080,7 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/space-needle/ground-dc93023f/summer-day/needle-plaza.jpg"
+        "image": "assets/spots/space-needle/ground-346f7986/summer-day/needle-plaza.jpg"
       },
       {
         "id": "elevator-entry",
@@ -2059,8 +2088,8 @@
         "place": "space-needle",
         "label": "Space Needle · elevator entrance and plaza detail",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T08:37:45.694Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:53:00.525Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -2086,7 +2115,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794299801435,
+            "updatedAt": 1794513178342,
             "climate": null
           },
           "date": "2026-07-15T19:00:00.000Z",
@@ -2095,8 +2124,8 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "66334b9c5bfbc8fa73f12340873d122a40ef39cbb28291096a41c1c6b38db993",
-        "bytes": 151025,
+        "sha256": "4388f9790433e51ffbcae99298ed6e06347dbe77c062c0eac6805f34b46d54f0",
+        "bytes": 172732,
         "pose": {
           "x": -11,
           "z": 25,
@@ -2113,10 +2142,10 @@
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.13,
-          "frameMs": 7417.6,
-          "drawCalls": 428,
-          "triangles": 1318023,
+          "fps": 0.52,
+          "frameMs": 183.4,
+          "drawCalls": 425,
+          "triangles": 1338595,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -2124,7 +2153,7 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/space-needle/ground-dc93023f/summer-day/elevator-entry.jpg"
+        "image": "assets/spots/space-needle/ground-346f7986/summer-day/elevator-entry.jpg"
       },
       {
         "id": "glasshouse-front",
@@ -2132,8 +2161,8 @@
         "place": "space-needle",
         "label": "Chihuly · Glasshouse exterior and garden",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T08:37:51.865Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:53:00.544Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -2159,7 +2188,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794299801435,
+            "updatedAt": 1794513178342,
             "climate": null
           },
           "date": "2026-07-15T19:00:00.000Z",
@@ -2168,8 +2197,8 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "cdbaea0f74e0327ca02afd47c36e23fcd0fe88501a5f67726a95a4de2a888611",
-        "bytes": 165514,
+        "sha256": "5b69c2916b7dcade4a3dc64869e25ee8554e8c92ca69e50912772abeea98038e",
+        "bytes": 163113,
         "pose": {
           "x": -52,
           "z": 18,
@@ -2181,15 +2210,15 @@
           ],
           "heightAboveSupport": 1.65,
           "bearing": 356.78965824042854,
-          "pitch": 4.58605311444405,
+          "pitch": 4.586053114444052,
           "fov": 78
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.18,
-          "frameMs": 5694.2,
-          "drawCalls": 374,
-          "triangles": 1532282,
+          "fps": 0.52,
+          "frameMs": 73.1,
+          "drawCalls": 372,
+          "triangles": 1528941,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -2197,7 +2226,7 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/space-needle/ground-dc93023f/summer-day/glasshouse-front.jpg"
+        "image": "assets/spots/space-needle/ground-346f7986/summer-day/glasshouse-front.jpg"
       },
       {
         "id": "glasshouse-interior",
@@ -2205,8 +2234,8 @@
         "place": "space-needle",
         "label": "Chihuly · suspended sculpture and glass roof",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T08:38:00.453Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:53:00.563Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -2232,7 +2261,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794299801435,
+            "updatedAt": 1794513178342,
             "climate": null
           },
           "date": "2026-07-15T19:00:00.000Z",
@@ -2241,8 +2270,8 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "ea5f14e82fd20cafd4b858cdfd102b5964011ac6e519bd1b1b4cc510cba7b34f",
-        "bytes": 218744,
+        "sha256": "b183e8e57904b3610774ba14640b9b9082ab88bdcd4199a5a1e401764680f30c",
+        "bytes": 218125,
         "pose": {
           "x": -52,
           "z": -5,
@@ -2259,10 +2288,10 @@
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.16,
-          "frameMs": 6189.7,
-          "drawCalls": 338,
-          "triangles": 1439348,
+          "fps": 0.52,
+          "frameMs": 18,
+          "drawCalls": 331,
+          "triangles": 1441221,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -2270,7 +2299,7 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/space-needle/ground-dc93023f/summer-day/glasshouse-interior.jpg"
+        "image": "assets/spots/space-needle/ground-346f7986/summer-day/glasshouse-interior.jpg"
       },
       {
         "id": "loupe-floor",
@@ -2278,8 +2307,8 @@
         "place": "space-needle",
         "label": "The Loupe · supported glass floor and district view",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-10T08:38:06.818Z",
-        "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+        "capturedAt": "2026-11-12T19:54:23.704Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -2305,7 +2334,7 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794299801435,
+            "updatedAt": 1794513258106,
             "climate": null
           },
           "date": "2026-07-15T19:00:00.000Z",
@@ -2314,16 +2343,16 @@
           "nightLights": false,
           "quality": "high"
         },
-        "sha256": "9ebe50c67b182f3946488bd78730f0b1d9c23f1f69e76d7eabee9d25c0d4c78e",
-        "bytes": 153326,
+        "sha256": "321e5b1288eeda46a5ac7b34788f54e75d863470eac2bcb473407bde74577072",
+        "bytes": 121782,
         "pose": {
-          "x": 0.3,
-          "z": 18.9,
-          "floor": 154.1,
+          "x": 0,
+          "z": 14,
+          "floor": 153.92000000000002,
           "eye": [
-            0.3,
-            155.75,
-            18.9
+            0,
+            155.57000000000002,
+            14
           ],
           "heightAboveSupport": 1.6500000000000057,
           "bearing": 170,
@@ -2332,10 +2361,10 @@
         },
         "cameraBodyClear": true,
         "stats": {
-          "fps": 0.12,
-          "frameMs": 8562.7,
-          "drawCalls": 335,
-          "triangles": 748925,
+          "fps": 0.2,
+          "frameMs": 5076.6,
+          "drawCalls": 345,
+          "triangles": 808999,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -2343,10 +2372,1524 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/space-needle/ground-dc93023f/summer-day/loupe-floor.jpg"
+        "image": "assets/spots/space-needle/ground-346f7986/summer-day/loupe-floor.jpg",
+        "viewpointChange": "The rebuilt Needle (7b3bb8b6) ends the Loupe floor before the dc93023f point [0.3,18.9]; the camera stands 4.9 m further in on the same level, same look."
       }
     ],
-    "report": "assets/spots/space-needle/ground-dc93023f/manifest.json",
-    "reportSha256": "0832a2e9f3654e07e0aeee566b8f367167066e5cfcbff8def7cf541c83584b9a"
+    "report": "assets/spots/space-needle/ground-346f7986/manifest.json",
+    "reportSha256": "df2c17951bc97272a1355035be7531954319754ec8444e6eb9ff8b9c75f1913d"
+  },
+  "historicalCollections": [
+    {
+      "id": "visitor-gallery-dc93023f",
+      "label": "Four-condition walking gallery before the district fidelity pass",
+      "status": "historical",
+      "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+      "supersededBy": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededAt": "2026-11-12T20:03:08.418Z",
+      "reason": "The scene changed after dc93023 (district fidelity pass 332ae423..346f7986 and earlier scene work); these pictures show the earlier scene and keep their original source, dates and manifest.",
+      "notice": "5 matched walking-height viewpoints in each of four conditions, captured from the recorded production game source. Open any picture at its original size.",
+      "setup": "Production app, scene, actors, lighting and renderer at High quality, 1280 × 800. Automatic animation was paused and explicit frames rendered at fixed on-foot cameras 1.65 m above their supporting surfaces. Local simulation dates and weather were controlled; capturedAt records the real capture time.",
+      "limitations": [
+        "Fixed on-foot appearance fixtures; cameras were positioned for inspection. These pictures do not establish a traversed route, activity completion, physical-phone behavior or hardware FPS.",
+        "The Loupe picture is taken on its modeled supporting floor, not a drone. It does not establish a completed elevator ride or an accurate distant Seattle skyline. Snow particles currently appear inside the modeled Glasshouse; indoor weather occlusion needs work. The captured High-quality submitted workload reaches 1,532,282 triangles / 473 draw calls; full-scene performance remains open."
+      ],
+      "conditionIds": [
+        "summer-day",
+        "summer-night",
+        "winter-day",
+        "winter-night"
+      ],
+      "viewpointIds": [
+        "needle-plaza",
+        "elevator-entry",
+        "glasshouse-front",
+        "glasshouse-interior",
+        "loupe-floor"
+      ],
+      "reports": [
+        {
+          "label": "Original capture manifest",
+          "report": "assets/spots/space-needle/ground-dc93023f/manifest.json",
+          "sha256": "0832a2e9f3654e07e0aeee566b8f367167066e5cfcbff8def7cf541c83584b9a"
+        }
+      ],
+      "captures": [
+        {
+          "id": "needle-plaza",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "Space Needle · plaza and full tower",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:37:32.516Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299801435,
+              "climate": null
+            },
+            "date": "2026-07-15T19:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 59.723571651270156,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "6b17dd43022fef5ae72dc4d953ecdc55c9ac18a9b22006d4930055fda82942b8",
+          "bytes": 150953,
+          "pose": {
+            "x": 4,
+            "z": 105,
+            "floor": 0.14062870293855667,
+            "eye": [
+              4,
+              1.7906287029385566,
+              105
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 357.9565622667792,
+            "pitch": 36.294862557178256,
+            "fov": 82
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.02,
+            "frameMs": 43812.9,
+            "drawCalls": 466,
+            "triangles": 1409941,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/summer-day/needle-plaza.jpg"
+        },
+        {
+          "id": "elevator-entry",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "Space Needle · elevator entrance and plaza detail",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:37:45.694Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299801435,
+              "climate": null
+            },
+            "date": "2026-07-15T19:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 59.723571651270156,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "66334b9c5bfbc8fa73f12340873d122a40ef39cbb28291096a41c1c6b38db993",
+          "bytes": 151025,
+          "pose": {
+            "x": -11,
+            "z": 25,
+            "floor": 1.5,
+            "eye": [
+              -11,
+              3.15,
+              25
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 59.364582449697195,
+            "pitch": 8.785147317862608,
+            "fov": 75
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.13,
+            "frameMs": 7417.6,
+            "drawCalls": 428,
+            "triangles": 1318023,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/summer-day/elevator-entry.jpg"
+        },
+        {
+          "id": "glasshouse-front",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "Chihuly · Glasshouse exterior and garden",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:37:51.865Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299801435,
+              "climate": null
+            },
+            "date": "2026-07-15T19:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 59.723571651270156,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "cdbaea0f74e0327ca02afd47c36e23fcd0fe88501a5f67726a95a4de2a888611",
+          "bytes": 165514,
+          "pose": {
+            "x": -52,
+            "z": 18,
+            "floor": 1.8434176445007324,
+            "eye": [
+              -52,
+              3.4934176445007323,
+              18
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 356.78965824042854,
+            "pitch": 4.58605311444405,
+            "fov": 78
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.18,
+            "frameMs": 5694.2,
+            "drawCalls": 374,
+            "triangles": 1532282,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/summer-day/glasshouse-front.jpg"
+        },
+        {
+          "id": "glasshouse-interior",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "Chihuly · suspended sculpture and glass roof",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:38:00.453Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299801435,
+              "climate": null
+            },
+            "date": "2026-07-15T19:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 59.723571651270156,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "ea5f14e82fd20cafd4b858cdfd102b5964011ac6e519bd1b1b4cc510cba7b34f",
+          "bytes": 218744,
+          "pose": {
+            "x": -52,
+            "z": -5,
+            "floor": 1.7756664156913757,
+            "eye": [
+              -52,
+              3.4256664156913756,
+              -5
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 351.25383773744477,
+            "pitch": 15.203071374818755,
+            "fov": 78
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.16,
+            "frameMs": 6189.7,
+            "drawCalls": 338,
+            "triangles": 1439348,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/summer-day/glasshouse-interior.jpg"
+        },
+        {
+          "id": "loupe-floor",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "The Loupe · supported glass floor and district view",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:38:06.818Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299801435,
+              "climate": null
+            },
+            "date": "2026-07-15T19:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 59.723571651270156,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "9ebe50c67b182f3946488bd78730f0b1d9c23f1f69e76d7eabee9d25c0d4c78e",
+          "bytes": 153326,
+          "pose": {
+            "x": 0.3,
+            "z": 18.9,
+            "floor": 154.1,
+            "eye": [
+              0.3,
+              155.75,
+              18.9
+            ],
+            "heightAboveSupport": 1.6500000000000057,
+            "bearing": 170,
+            "pitch": -22.000000000000004,
+            "fov": 78
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.12,
+            "frameMs": 8562.7,
+            "drawCalls": 335,
+            "triangles": 748925,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/summer-day/loupe-floor.jpg"
+        },
+        {
+          "id": "needle-plaza",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "Space Needle · plaza and full tower",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:38:25.318Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299886866,
+              "climate": null
+            },
+            "date": "2026-07-16T06:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -14.615867258765666,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "955dc28591f5514bed6e314d7c4d32bcdecc371ad1097bc74ce13c457c3fa13b",
+          "bytes": 166122,
+          "pose": {
+            "x": 4,
+            "z": 105,
+            "floor": 0.14062870293855667,
+            "eye": [
+              4,
+              1.7906287029385566,
+              105
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 357.9565622667792,
+            "pitch": 36.294862557178256,
+            "fov": 82
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.37,
+            "frameMs": 2669.6,
+            "drawCalls": 360,
+            "triangles": 1321673,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/summer-night/needle-plaza.jpg"
+        },
+        {
+          "id": "elevator-entry",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "Space Needle · elevator entrance and plaza detail",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:38:53.725Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299886866,
+              "climate": null
+            },
+            "date": "2026-07-16T06:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -14.615867258765666,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "c68cf8969c8e6df021bf8d60c1ea3f56614df5b604c868b7f6ceb63aad5a6a22",
+          "bytes": 158130,
+          "pose": {
+            "x": -11,
+            "z": 25,
+            "floor": 1.5,
+            "eye": [
+              -11,
+              3.15,
+              25
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 59.364582449697195,
+            "pitch": 8.785147317862608,
+            "fov": 75
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.07,
+            "frameMs": 13792,
+            "drawCalls": 327,
+            "triangles": 1166022,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/summer-night/elevator-entry.jpg"
+        },
+        {
+          "id": "glasshouse-front",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "Chihuly · Glasshouse exterior and garden",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:39:34.537Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299886866,
+              "climate": null
+            },
+            "date": "2026-07-16T06:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -14.615867258765666,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "07b99132be37ddb53dba7f9f0aec241072f2bf325044d7419565fcacb78fad27",
+          "bytes": 170209,
+          "pose": {
+            "x": -52,
+            "z": 18,
+            "floor": 1.8434176445007324,
+            "eye": [
+              -52,
+              3.4934176445007323,
+              18
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 356.78965824042854,
+            "pitch": 4.58605311444405,
+            "fov": 78
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.07,
+            "frameMs": 14579.9,
+            "drawCalls": 262,
+            "triangles": 1355060,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/summer-night/glasshouse-front.jpg"
+        },
+        {
+          "id": "glasshouse-interior",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "Chihuly · suspended sculpture and glass roof",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:39:52.722Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299886866,
+              "climate": null
+            },
+            "date": "2026-07-16T06:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -14.615867258765666,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "ef558fd07e586a0be991a8aac9dbcbbe597ec306cfcbc8a956ac9cb970131bc5",
+          "bytes": 199191,
+          "pose": {
+            "x": -52,
+            "z": -5,
+            "floor": 1.7756664156913757,
+            "eye": [
+              -52,
+              3.4256664156913756,
+              -5
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 351.25383773744477,
+            "pitch": 15.203071374818755,
+            "fov": 78
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.02,
+            "frameMs": 40970.3,
+            "drawCalls": 240,
+            "triangles": 1267248,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/summer-night/glasshouse-interior.jpg"
+        },
+        {
+          "id": "loupe-floor",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "The Loupe · supported glass floor and district view",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:40:01.993Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794299886866,
+              "climate": null
+            },
+            "date": "2026-07-16T06:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -14.615867258765666,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "1360889677b32e73600b6b7296c74da6555a1a01e94298430bb8bd196d52b35c",
+          "bytes": 280017,
+          "pose": {
+            "x": 0.3,
+            "z": 18.9,
+            "floor": 154.1,
+            "eye": [
+              0.3,
+              155.75,
+              18.9
+            ],
+            "heightAboveSupport": 1.6500000000000057,
+            "bearing": 170,
+            "pitch": -22.000000000000004,
+            "fov": 78
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.06,
+            "frameMs": 18146.9,
+            "drawCalls": 235,
+            "triangles": 684786,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/summer-night/loupe-floor.jpg"
+        },
+        {
+          "id": "needle-plaza",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "Space Needle · plaza and full tower",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:40:13.349Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794300002086,
+              "climate": null
+            },
+            "date": "2026-01-15T20:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 21.244736141095565,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "596de942644d97528ecc08a1106da5e290816f72f2f4dcf204e6d896c1ba1e2f",
+          "bytes": 125882,
+          "pose": {
+            "x": 4,
+            "z": 105,
+            "floor": 0.14062870293855667,
+            "eye": [
+              4,
+              1.7906287029385566,
+              105
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 357.9565622667792,
+            "pitch": 36.294862557178256,
+            "fov": 82
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.26,
+            "frameMs": 3826.5,
+            "drawCalls": 473,
+            "triangles": 1379705,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/winter-day/needle-plaza.jpg"
+        },
+        {
+          "id": "elevator-entry",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "Space Needle · elevator entrance and plaza detail",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:40:32.107Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794300002086,
+              "climate": null
+            },
+            "date": "2026-01-15T20:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 21.244736141095565,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "add82bfeb36f3b9be99393651901cd1221cef93db4affb52b0646a9143d95826",
+          "bytes": 139634,
+          "pose": {
+            "x": -11,
+            "z": 25,
+            "floor": 1.5,
+            "eye": [
+              -11,
+              3.15,
+              25
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 59.364582449697195,
+            "pitch": 8.785147317862608,
+            "fov": 75
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.16,
+            "frameMs": 6341.8,
+            "drawCalls": 369,
+            "triangles": 1207231,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/winter-day/elevator-entry.jpg"
+        },
+        {
+          "id": "glasshouse-front",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "Chihuly · Glasshouse exterior and garden",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:40:38.305Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794300002086,
+              "climate": null
+            },
+            "date": "2026-01-15T20:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 21.244736141095565,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "513ee63817e33affdedb8ff0dcc0b73d3a621d3d429804fafbf1b845108044df",
+          "bytes": 144939,
+          "pose": {
+            "x": -52,
+            "z": 18,
+            "floor": 1.8434176445007324,
+            "eye": [
+              -52,
+              3.4934176445007323,
+              18
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 356.78965824042854,
+            "pitch": 4.58605311444405,
+            "fov": 78
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.08,
+            "frameMs": 12435.6,
+            "drawCalls": 338,
+            "triangles": 1422070,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/winter-day/glasshouse-front.jpg"
+        },
+        {
+          "id": "glasshouse-interior",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "Chihuly · suspended sculpture and glass roof",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:40:45.558Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794300002086,
+              "climate": null
+            },
+            "date": "2026-01-15T20:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 21.244736141095565,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "3acfaa9bb550f5f8a3e320cca262c6eb931a607f23a123ae629bb09b8302ac5e",
+          "bytes": 192298,
+          "pose": {
+            "x": -52,
+            "z": -5,
+            "floor": 1.7756664156913757,
+            "eye": [
+              -52,
+              3.4256664156913756,
+              -5
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 351.25383773744477,
+            "pitch": 15.203071374818755,
+            "fov": 78
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.16,
+            "frameMs": 6221.2,
+            "drawCalls": 335,
+            "triangles": 1337962,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/winter-day/glasshouse-interior.jpg"
+        },
+        {
+          "id": "loupe-floor",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "The Loupe · supported glass floor and district view",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:40:50.093Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794300002086,
+              "climate": null
+            },
+            "date": "2026-01-15T20:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": 21.244736141095565,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "d411e87978173f80c917db105bd2718c7494faa568b039c5ff021e9f6c3523c9",
+          "bytes": 120718,
+          "pose": {
+            "x": 0.3,
+            "z": 18.9,
+            "floor": 154.1,
+            "eye": [
+              0.3,
+              155.75,
+              18.9
+            ],
+            "heightAboveSupport": 1.6500000000000057,
+            "bearing": 170,
+            "pitch": -22.000000000000004,
+            "fov": 78
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.14,
+            "frameMs": 7292,
+            "drawCalls": 289,
+            "triangles": 705019,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/winter-day/loupe-floor.jpg"
+        },
+        {
+          "id": "needle-plaza",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "Space Needle · plaza and full tower",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:41:02.723Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794300050188,
+              "climate": null
+            },
+            "date": "2026-01-16T07:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -58.89727342811913,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "85552a3f10d6c57697ba0f537cb7efa3ce48c78cf78ddd93977773c9766475af",
+          "bytes": 194771,
+          "pose": {
+            "x": 4,
+            "z": 105,
+            "floor": 0.14062870293855667,
+            "eye": [
+              4,
+              1.7906287029385566,
+              105
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 357.9565622667792,
+            "pitch": 36.294862557178256,
+            "fov": 82
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.25,
+            "frameMs": 3958,
+            "drawCalls": 370,
+            "triangles": 1319937,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/winter-night/needle-plaza.jpg"
+        },
+        {
+          "id": "elevator-entry",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "Space Needle · elevator entrance and plaza detail",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:41:14.698Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794300050188,
+              "climate": null
+            },
+            "date": "2026-01-16T07:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -58.89727342811913,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "420c28282cb5889ff831bcf492fefeec937165ade8de47381d5d0f1af100afba",
+          "bytes": 170462,
+          "pose": {
+            "x": -11,
+            "z": 25,
+            "floor": 1.5,
+            "eye": [
+              -11,
+              3.15,
+              25
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 59.364582449697195,
+            "pitch": 8.785147317862608,
+            "fov": 75
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.14,
+            "frameMs": 7102.8,
+            "drawCalls": 282,
+            "triangles": 1100982,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/winter-night/elevator-entry.jpg"
+        },
+        {
+          "id": "glasshouse-front",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "Chihuly · Glasshouse exterior and garden",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:41:21.063Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794300050188,
+              "climate": null
+            },
+            "date": "2026-01-16T07:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -58.89727342811913,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "63308a717076d8dbca31d8f471fccbc5c998f2c19516f7403fee8954a7572661",
+          "bytes": 174751,
+          "pose": {
+            "x": -52,
+            "z": 18,
+            "floor": 1.8434176445007324,
+            "eye": [
+              -52,
+              3.4934176445007323,
+              18
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 356.78965824042854,
+            "pitch": 4.58605311444405,
+            "fov": 78
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.2,
+            "frameMs": 4926,
+            "drawCalls": 230,
+            "triangles": 1304337,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/winter-night/glasshouse-front.jpg"
+        },
+        {
+          "id": "glasshouse-interior",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "Chihuly · suspended sculpture and glass roof",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:41:30.017Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794300050188,
+              "climate": null
+            },
+            "date": "2026-01-16T07:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -58.89727342811913,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "ca26e1db86435cbd9998a4cf97881803d53c08732578a5794c20f057936de6ac",
+          "bytes": 179638,
+          "pose": {
+            "x": -52,
+            "z": -5,
+            "floor": 1.7756664156913757,
+            "eye": [
+              -52,
+              3.4256664156913756,
+              -5
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 351.25383773744477,
+            "pitch": 15.203071374818755,
+            "fov": 78
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.16,
+            "frameMs": 6292.2,
+            "drawCalls": 219,
+            "triangles": 1226785,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/winter-night/glasshouse-interior.jpg"
+        },
+        {
+          "id": "loupe-floor",
+          "kind": "visit",
+          "place": "space-needle",
+          "label": "The Loupe · supported glass floor and district view",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-10T08:41:35.496Z",
+          "sourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794300050188,
+              "climate": null
+            },
+            "date": "2026-01-16T07:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "sunElevation": -58.89727342811913,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "950520ede5a4928917e270b4e59c3c917a1cc0d0dcc332a4afbfd82f7ae83e8c",
+          "bytes": 256000,
+          "pose": {
+            "x": 0.3,
+            "z": 18.9,
+            "floor": 154.1,
+            "eye": [
+              0.3,
+              155.75,
+              18.9
+            ],
+            "heightAboveSupport": 1.6500000000000057,
+            "bearing": 170,
+            "pitch": -22.000000000000004,
+            "fov": 78
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.11,
+            "frameMs": 9011.5,
+            "drawCalls": 185,
+            "triangles": 651614,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/space-needle/ground-dc93023f/winter-night/loupe-floor.jpg"
+        }
+      ]
+    }
+  ],
+  "visitorGalleryRecapture": {
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "assembledAt": "2026-11-12T20:03:08.418Z",
+    "passRange": "332ae423..346f7986",
+    "sceneCommits": [
+      "6ccf3480235682cd5fe4f9c756b65f07165ad9a8",
+      "0446b773eafd3b53e353c997fdb26dc4e920c2b3"
+    ],
+    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes.",
+    "sourceVerification": {
+      "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
+      "checkedAt": "2026-11-12T20:03:08.417Z"
+    }
   }
 }

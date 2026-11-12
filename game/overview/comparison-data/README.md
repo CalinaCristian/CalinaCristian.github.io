@@ -42,6 +42,15 @@ ledger (and its validation hash); `manifest.json` adds embedded UI and provider
 metadata without changing game imagery. All 90 captures were reviewed; coarse distant
 masses and procedural simplifications remain visible.
 
+After the district fidelity pass of 2026-11-12, 47 tiles in seven districts were retaken at their original poses from
+346f798681d891de6cebfc9e1d094996b1ace2e3 (SeaTac 14, Otopeni 12, Grozăvești 8, Unirii 6, Romană 3, Floreasca 2,
+Pipera 2; Bellevue none: its changes do not read at tile scale). Each district's `retakes/346f7986…/` holds the new
+images, the mask with the reason per tile and the tiles tried and rejected, and the review; the previous collection is
+kept as a manifest under `historical/mixed-before-346f7986-…/` that resolves to the unchanged original files. Every
+other tile keeps its earlier revision, and many Unirii and Grozăvești tiles predate later data changes. At 346f7986
+Romană's far background west of Piața Victoriei rendered as bare ground (fixed in the following commit); the roughly
+20 tiles showing it were not published.
+
 The default collection shows tiles touching the playable area. The scenery ring
 is an optional, approximately 600 m area around it; distant background is a
 separate optional filter. Tile intersection does not make a whole square

@@ -1,0 +1,75 @@
+{
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r05-c11",
+    "aerial-r06-c07",
+    "aerial-r07-c07",
+    "aerial-r07-c08",
+    "aerial-r08-c07",
+    "aerial-r08-c08",
+    "aerial-r09-c08",
+    "aerial-r10-c08"
+  ],
+  "reviewedAt": "2026-11-12T20:43:16.799Z",
+  "method": "Published game capture, a 332ae423 render and the 346f7986 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r05-c11",
+      "originalGameSha256": "9fe0e13c1f70987fe2b753e9e1ea00e99638c2b14665f5e47735947852fa42a7",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "ae422088e731d7a2d990ff88c117e27d2842fa90799c08068a68a95c7c2fb000",
+      "observation": "Basarab north-east by the rail yard: building and deck-edge geometry redrawn (glazed link, roof outlines)"
+    },
+    {
+      "id": "aerial-r06-c07",
+      "originalGameSha256": "70b2021850a4eb69245fbd910fa6a3cbcbc6db9ce07d4355f708195db46641f5",
+      "originalGameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "retakeGameSha256": "127abd33106ed26520bb9a2759648fa155548bee3f6c09d37b4b1ed8d7ebae06",
+      "observation": "Dâmbovița shows as open water at the south-west corner under the Grozăvești bridges"
+    },
+    {
+      "id": "aerial-r07-c07",
+      "originalGameSha256": "ce002e0edfbbb8e0cdaa564d0035f104532a151dd0d69db9086075c3c67a94e8",
+      "originalGameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "retakeGameSha256": "9dd8dffb3a2f674a00e2dbee52c6cd062a8b876a27766b99aecaf2a76312617c",
+      "observation": "Dâmbovița channel is open water instead of grass"
+    },
+    {
+      "id": "aerial-r07-c08",
+      "originalGameSha256": "7ae06f2396b49ec66e32887ceaea8a2028a74edf1f3f5bc2614ee4e127b17ec6",
+      "originalGameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "retakeGameSha256": "123f2483af5f4dabb72ffd9f948c973122f512b0d9dc708725337f6916fa2f10",
+      "observation": "Dâmbovița channel is open water instead of grass"
+    },
+    {
+      "id": "aerial-r08-c07",
+      "originalGameSha256": "5ee0a0e40a0c871873bb1b1a232751a66a2b9c56eea1c7361b41130faf940ec8",
+      "originalGameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "retakeGameSha256": "c516f6bf02c48fbb853ac56f3d2373dc7a551178293584d29cfd829991c00b8d",
+      "observation": "CET Grozăvești cooling towers rebuilt (west pair); road layout beside them redrawn"
+    },
+    {
+      "id": "aerial-r08-c08",
+      "originalGameSha256": "bfe4db7bb5d8f9950db567f3a984594513aedcae6818b8f156513232a88881c3",
+      "originalGameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "retakeGameSha256": "2703701f680c22da92e3358da49385d3bf5da78fa7c1203b4b33799949ed0270",
+      "observation": "CET Grozăvești cooling towers and stacks"
+    },
+    {
+      "id": "aerial-r09-c08",
+      "originalGameSha256": "dfb12e7a9e9fd32104f71c2197242685b87373bd5e5f424463eb7ae04448e14e",
+      "originalGameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "retakeGameSha256": "4b8c9518aeb48aa4ba105b84a4594c24b6422d16419266f04cc3c96b7a6ca3fd",
+      "observation": "Botanica pond lies at grade without the raised rim"
+    },
+    {
+      "id": "aerial-r10-c08",
+      "originalGameSha256": "b7cc297c9ada63388982a17447fb1f5ebe3a3790ec559a310991585c02a8e4ad",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "c1b08abc9411a279b4d18f74d523b84e8d523a95706ce0eca48a5544ab067217",
+      "observation": "south end of the Botanica pond at grade"
+    }
+  ]
+}

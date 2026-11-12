@@ -2,13 +2,18 @@
 
 Updated 2026-11-12. Only what is still open. A finished item is removed once its fix is on `master` and re-checked live
 (owner reports: at the report pose); its record is the git history. Report poses:
-[owner-reports-20261110.json](owner-reports-20261110.json) and the F8 JSON the owner pastes.
+[owner-reports-20261110.json](owner-reports-20261110.json), [owner-reports-20261112.json](owner-reports-20261112.json)
+and the F8 JSON the owner pastes.
 
 ## Owner reports
 
 | Where | Report | State / diagnosis |
 | --- | --- | --- |
-| — | none | every owner report so far is fixed on `master` and re-checked live; new reports go here |
+| Grozavesti (69, 19) | "the road looks wrong here -- lane collapse suddenly" | open. Soseaua Grozavesti is `lanes=2` with `turn:lanes=merge_to_right` up to the node at (63.5, 43.9), then `lanes=1`: the 7 m ribbon steps to 3.5 m at the node. A ribbon has one width per edge; a merge needs tapered widths (ribbon, markings and lane geometry). |
+| Grozavesti (163, -410) | "same" (tram fence in pieces) | open in part. The railing on the tram ramp slab has an 8 m gap at (149, -410): the street-level track beside the slab is 3.2 m away and its tram sweep covers the slab edge, so no railing can stand there without a tram running through it. Needs the two tracks' real spacing (Street View) or a narrower railing rule. |
+| Grozavesti (376, -727), (352, -726) | "area looks broken" | fences and strips fixed; still open: six forks on reviewed descent profiles keep two overlapping carriageways at different levels (the Orhideelor ramp r268 rising beside r179 from the node at (363, -730)). Same fix as the Grivitei slip ramps: a `crownHoldSourceNode` per model, each to be reviewed. |
+| Grozavesti (983, -1179) | "cars go in fence" | fixed (the tram railing no longer stands in the lane); the slab edge beside Titulescu's carriageway now has no railing where the slab overlaps that lane (slab 0.5-1.2 m above it). |
+| Grozavesti (410, 450) | (found while fixing the river) | the Gradina Botanica pond (way 133955992) shows as a 4.4 m deep concrete basin: `water-channel.js` classes it as a channel; it is a pond at grade. |
 
 ## Other open work
 

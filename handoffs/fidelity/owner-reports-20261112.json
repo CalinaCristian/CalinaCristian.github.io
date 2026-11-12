@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "note": "Owner reports of 2026-11-12 along Pasajul Basarab (bucharest / grozavesti), release game-3421a339bab2cbfa. Pose: camera eye [x, y, z], bearing and pitch in degrees, fov 70. status: fixed = fixed on master; open = see BACKLOG.md.",
+  "records": [
+    { "id": "r01-ramp-lane-tiny", "ownerNote": "Looks broken -- lane gets tiny", "status": "fixed", "eye": [769.915, 23.01, -1015.756], "bearing": 187.297, "pitch": -27.28 },
+    { "id": "r02-fence-underground", "ownerNote": "fence is not continuous and goes underground", "status": "fixed", "eye": [981.47, 9.75, -1186.419], "bearing": 288.629, "pitch": -26.649 },
+    { "id": "r03-cars-in-fence", "ownerNote": "cars go in fence", "status": "fixed", "eye": [983.117, 14.958, -1178.955], "bearing": 267.295, "pitch": -56.573 },
+    { "id": "r04-slab-over-fence", "ownerNote": "goes over fence", "status": "fixed", "eye": [816.536, 16.202, -999.74], "bearing": 274.123, "pitch": -26.719 },
+    { "id": "r05-missing-fence", "ownerNote": "missing fence", "status": "fixed", "eye": [588.271, 15.701, -861.094], "bearing": 9.065, "pitch": -19.412 },
+    { "id": "r06-missing-fence", "ownerNote": "same here", "status": "fixed", "eye": [498.38, 17.557, -796.875], "bearing": 297.812, "pitch": -38.122 },
+    { "id": "r07-gore-no-fence", "ownerNote": "same", "status": "fixed", "eye": [425.915, 11.96, -749.54], "bearing": 175.954, "pitch": -28.434 },
+    { "id": "r08-flicker-no-fence", "ownerNote": "flicker and no fence?", "status": "fixed", "eye": [387.144, 19.095, -719.61], "bearing": 32.527, "pitch": -31.082 },
+    { "id": "r09-area-broken", "ownerNote": "area looks broken", "status": "fixed", "eye": [375.708, 21.844, -727.144], "bearing": 283.253, "pitch": -41.932 },
+    { "id": "r10-area-broken", "ownerNote": "same", "status": "fixed", "eye": [352.188, 23.953, -726.03], "bearing": 210.836, "pitch": -42.742 },
+    { "id": "r11-fence-to-the-end", "ownerNote": "why border and why not fence till the end", "status": "fixed", "eye": [133.75, 11.375, -474.678], "bearing": 118.251, "pitch": -34.089 },
+    { "id": "r12-tram-fence-pieces", "ownerNote": "same", "status": "open", "eye": [162.847, 18.21, -409.994], "bearing": 235.361, "pitch": -29.675 },
+    { "id": "r13-support-one-side", "ownerNote": "why only one side has support", "status": "fixed", "eye": [100.579, 5.075, -181.595], "bearing": 123.64, "pitch": -57.946 },
+    { "id": "r14-ramp-fences", "ownerNote": "same", "status": "fixed", "eye": [0.351, 13.308, 15.528], "bearing": 195.699, "pitch": -25.402 },
+    { "id": "r15-fence-sticks-out", "ownerNote": "fence sticks out", "status": "fixed", "eye": [92.89, 9.845, 71.545], "bearing": 232.441, "pitch": -34.828 },
+    { "id": "r16-random-piece", "ownerNote": "random piece", "status": "fixed", "eye": [80.403, 17.192, -89.612], "bearing": 109.396, "pitch": -38.397 },
+    { "id": "r17-water-through-ground", "ownerNote": "i can randomly see water through the ground -- is that supposed to be water or ground? check street view", "status": "fixed", "eye": [102.383, 26.618, -228.601], "bearing": 233.282, "pitch": -48.803 },
+    { "id": "r18-lane-collapse", "ownerNote": "the road looks wrong here -- lane collapse suddenly", "status": "open", "eye": [68.709, 35.998, 19.358], "bearing": 189.932, "pitch": -50.841 }
+  ]
+}

@@ -13,7 +13,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | --- | --- | --- |
 | — | none | every reported finding is fixed on the branch or closed below; new reports go here |
 
-## Fixed on branch `fidelity/basarab-structure-claude` (awaiting publication and a live re-check)
+## Published (master 264ef5f3, 2026-11-11) and re-checked live at the report poses on cristiancalina.com
 
 | Commit | Reports |
 | --- | --- |

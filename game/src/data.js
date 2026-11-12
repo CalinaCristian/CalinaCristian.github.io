@@ -343,6 +343,10 @@ export const ACHIEVEMENTS = [
     // game/research/activities.json (achievement ids / titles) and the scene toasts.
     { id: 'lm-needle-up', cat: 'landmarks', activity: 'space-needle:elevator', live: true, icon: '🛗', title: '520 feet in 41 seconds', desc: 'Rode the Space Needle elevator up to the observation level.' },
     { id: 'lm-needle-loupe', cat: 'landmarks', activity: 'space-needle:loupe', live: true, icon: '🗼', title: 'Stand on the Loupe', desc: 'Stood on the Loupe, the revolving glass floor of the Space Needle (2018).' },
+    { id: 'lm-needle-cocktail', cat: 'landmarks', activity: 'space-needle:cocktail', live: true, icon: '🍸', title: 'Sky-high bar tab', desc: 'Drank a $24 cocktail at The Loupe Lounge, 500 ft up. The view is the garnish.' },
+    { id: 'lm-needle-coffee', cat: 'landmarks', activity: 'space-needle:coffee', live: true, icon: '☕', title: 'Altitude surcharge', desc: 'Paid $14 for a latte and a croissant at Atmos Cafe. At 520 ft, even the foam costs extra.' },
+    { id: 'lm-needle-wine', cat: 'landmarks', activity: 'space-needle:wine', live: true, icon: '🍷', title: 'Priced by the foot', desc: 'Sipped a $19 glass of Washington red at Atmos Wine Bar: under four cents per foot of altitude.' },
+    { id: 'lm-needle-bill', cat: 'landmarks', activity: 'space-needle:bill', live: true, icon: '💸', title: 'The view is not free', desc: 'Ticket, cocktail, coffee, croissant and wine: about $94 for one Space Needle visit, before tax and tip. (Menu prices are the game\'s guess; the $35-39 ticket is real.)' },
     { id: 'lm-pike-fish', cat: 'landmarks', activity: 'pike-place:fish', live: true, icon: '🐟', title: 'Catch!', desc: 'Caught a fish thrown at Pike Place Fish Market.' },
     { id: 'lm-gum-wall', cat: 'landmarks', activity: 'pike-place:gum-wall', live: true, icon: '🍬', title: 'Part of the wall', desc: 'Added your gum to the Gum Wall in Post Alley.' },
     { id: 'lm-pike-rachel', cat: 'landmarks', activity: 'pike-place:rachel', live: true, icon: '🐷', title: 'Fed Rachel', desc: 'Dropped a coin in Rachel, the bronze piggy bank whose donations fund the Market\'s social services.' },

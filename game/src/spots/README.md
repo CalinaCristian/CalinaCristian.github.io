@@ -159,7 +159,10 @@ entry. The animated Needle elevator uses the shared Leave/mode cancellation flow
 520 ft observation level and back down from either public level. The two levels are walkable (floors seen only from
 within 1.6 m below their underside, walls with height bands) and joined by a walkable stair; the Loupe's glass floor
 carries the walker at its real rate. Ground-level footprints under them (the pavilion) carry a height band so that they
-do not act on the rooms above. The instant open-air-deck visit award stays retired. Kerry Park's city-lights activity
+do not act on the rooms above. Eating and drinking at the three counters (The Loupe Lounge, Atmos Cafe, Atmos Wine Bar)
+are held-item sequences on the shared flow: order, then sips / bites that advance only after their animation; leaving
+early awards nothing. Their menu prices are the game's guess (no sourced menu); the $35-39 ticket in the running total
+is the mapped `charge`. The instant open-air-deck visit award stays retired. Kerry Park's city-lights activity
 requires an actual dusk/night capture.
 Palace pacing counts continuous walking along its public-frontage game course; its endpoints are UI waypoints without
 invented marker posts. Botanical Garden trail notes are explicitly virtual at mapped rooms and add no physical plant-label

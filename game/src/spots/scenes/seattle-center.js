@@ -107,6 +107,8 @@ function buildNeedle(ctx) {
     });
     // soft pools of light under the entrance canopy (the rooms upstairs are lit by their own fittings)
     for (const [dx, dz] of [[-4, 22.5], [4, 22.5], [0, 26]]) ctx.lampPoints.push({ x: X + dx, z: Z + dz, h: 4, noPost: true });
+    // ceiling light for the people upstairs at night (staff, guests): over the opaque floors only, clear of the glass floor
+    for (let i = 0; i < 8; i++) { const a = (i + 0.5) / 8 * TAU; for (const [r, yy, h] of [[8.2, LOUPE_Y, 3.2], [9.6, DECK_Y, 2.7]]) { const [px, pz] = at(r, a); ctx.lampPoints.push({ x: px, z: pz, y: yy, h, noPost: true }); } }
     // ---- the ride (note 57): the gold car climbs the core to the observation level in 41 s; you stand in it and can look round.
     // OSM way 1136496123: the public approach meets the pavilion at (-0.7, 18.9), its south doorway.
     const door = { x: X - 0.7, z: Z + L.pavR + 0.9 };
@@ -150,6 +152,70 @@ function buildNeedle(ctx) {
             unavailable: 'The floor below you rotates at its real slow speed.',
             targets: [{ label: 'The view beneath the revolving glass', x: tx, z: tz, y: LOUPE_Y - .04, radius: .18, minDistance: .6, maxDistance: 5, surfaceTolerance: .15, holdSeconds: .75 }],
             onDone: s => done(s, 'lm-needle-loupe', '👀 Through The Loupe', 'You aimed down through the revolving glass and captured the view. The floor turns once every 45 minutes.') }); }
+    // ---- eat and drink at the three counters (owner, 2026-11-12). Each order is a short held-item sequence: order, then
+    // sips / bites that only advance when their animation has played. The $35-39 ticket is the mapped price (OSM way
+    // 12903132, `charge`); the menu prices are the game's own guess, not a sourced menu.
+    {
+        const TICKET = 37, MENU = {
+            cocktail: { lm: 'lm-needle-cocktail', level: LOUPE_Y, c: L.bar, out: 1.2, da: 0, price: 24, title: 'The Loupe Lounge', label: 'Order a cocktail at The Loupe Lounge',
+                steps: ['Order an Old Fashioned ($24)', 'Take a sip', 'Another sip', 'Finish the glass'], say: ['The bartender stirs it over one large ice cube…', 'Smoky. The city turns slowly under your feet.', 'Each sip is about six dollars.', 'Gone. So are $24.'],
+                toast: ['🍸 $24, view included', 'One cocktail at The Loupe Lounge, 500 ft up.'] },
+            coffee: { lm: 'lm-needle-coffee', level: DECK_Y, c: L.cafe, out: 1.0, da: 0.32, price: 14, title: 'Atmos Cafe', label: 'Buy a coffee and a croissant at Atmos Cafe',
+                steps: ['Order a latte and a croissant ($14)', 'Sip the latte', 'Bite the croissant', 'Finish both'], say: ['One latte, one croissant, warmed up…', 'Hot. And 520 ft closer to the clouds.', 'Flaky, buttery, $6.50.', 'Crumbs only. That was $14.'],
+                toast: ['☕ $14 for coffee and a croissant', 'Atmos Cafe: breakfast with an altitude surcharge.'] },
+            wine: { lm: 'lm-needle-wine', level: DECK_Y, c: L.wine, out: 1.25, da: 0, price: 19, title: 'Atmos Wine Bar', label: 'Taste a Washington red at Atmos Wine Bar',
+                steps: ['Order a glass of Washington red ($19)', 'Swirl and sip', 'Another sip', 'Finish the glass'], say: ['A Columbia Valley red, poured to the line…', 'Dark fruit, and the Olympics on the horizon.', 'Under four cents per foot of altitude.', 'Empty. $19 well spent?'],
+                toast: ['🍷 $19 a glass', 'Atmos Wine Bar: priced by the foot.'] },
+        };
+        // what you hold: a glass or a cup with its drink, a croissant in the other hand
+        const hold = new THREE.Group(); hold.name = 'needle-held-order'; hold.visible = false;
+        const HM = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.5, emissive: new THREE.Color(color), emissiveIntensity: 0.22, ...o });
+        const part = (geo, mat, x, y, z) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.frustumCulled = false; m.castShadow = false; return m; };
+        const clear = HM('#dcecf0', { transparent: true, opacity: 0.32, roughness: 0.08, side: THREE.DoubleSide, depthWrite: false });
+        const vessel = new THREE.Group(), drink = new THREE.Group(), pastry = new THREE.Group(); hold.add(vessel, pastry); vessel.add(drink);
+        const shapes = {
+            cocktail: () => { vessel.add(part(new THREE.CylinderGeometry(0.038, 0.034, 0.085, 16, 1, true), clear, 0, 0.043, 0), part(new THREE.CylinderGeometry(0.034, 0.034, 0.008, 16), clear, 0, 0.004, 0)); drink.add(part(new THREE.CylinderGeometry(0.034, 0.031, 0.05, 16), HM('#b9651f'), 0, 0.03, 0), part(new THREE.BoxGeometry(0.03, 0.03, 0.03), HM('#eaf4f6', { transparent: true, opacity: 0.7 }), 0.004, 0.05, 0)); },
+            wine: () => { vessel.add(part(new THREE.SphereGeometry(0.04, 16, 10, 0, Math.PI * 2, Math.PI * 0.32, Math.PI * 0.68), clear, 0, 0.14, 0), part(new THREE.CylinderGeometry(0.004, 0.004, 0.09, 6), clear, 0, 0.055, 0), part(new THREE.CylinderGeometry(0.03, 0.03, 0.004, 14), clear, 0, 0.008, 0)); drink.position.y = 0.104; drink.add(part(new THREE.SphereGeometry(0.036, 14, 8, 0, Math.PI * 2, Math.PI * 0.55, Math.PI * 0.45), HM('#5c1220', { side: THREE.DoubleSide }), 0, 0.036, 0), part(new THREE.CircleGeometry(0.0355, 16).rotateX(-Math.PI / 2), HM('#6d1626'), 0, 0.0305, 0)); },
+            coffee: () => { vessel.add(part(new THREE.CylinderGeometry(0.04, 0.03, 0.095, 16), HM('#f4f2ec'), 0, 0.048, 0), part(new THREE.CylinderGeometry(0.042, 0.042, 0.012, 16), HM('#2b2b2b'), 0, 0.1, 0)); pastry.add(part(new THREE.TorusGeometry(0.045, 0.022, 8, 14, Math.PI * 1.25), HM('#c98d4b'), 0, 0, 0)); },
+        };
+        let kind = null, step = 0, anim = 0;
+        const dress = (k) => { for (const g of [vessel, drink, pastry]) for (const m of [...g.children]) if (m !== drink) { g.remove(m); m.geometry.dispose(); } kind = k; drink.position.y = 0; shapes[k](); };
+        const pose = (s) => {
+            const u = anim, lift = Math.sin(Math.min(1, u) * Math.PI), side = s.camera.aspect < 0.75 ? 0.07 : 0.17, eat = kind === 'coffee' && step === 2, sip = step > 0 && !eat;
+            // (the walker's camera clips nearer than 0.25 m: the hands stay beyond 0.45 m and the items are drawn a third larger)
+            vessel.scale.setScalar(1.35); pastry.scale.setScalar(1.35);
+            vessel.position.set(side * 1.35 - (sip ? 0.14 * lift : 0), -0.3 + (sip ? 0.2 * lift : 0), -0.64 + (sip ? 0.17 * lift : 0)); vessel.rotation.set(sip ? 0.8 * lift : 0, 0, kind === 'wine' && step === 1 ? Math.sin(u * 14) * 0.12 * (1 - lift) : 0);
+            pastry.position.set(-side * 1.35 + (eat ? 0.14 * lift : 0), -0.25 + (eat ? 0.17 * lift : 0), -0.62 + (eat ? 0.15 * lift : 0)); pastry.rotation.set(1.2, 0.4, 0);
+            const n = MENU[kind].steps.length, left = step === 0 ? 1 : kind === 'coffee' ? (step === 1 ? 1 - 0.5 * u : step === 2 ? 0.5 : 0.5 - 0.5 * u) : Math.max(0, 1 - (step - 1 + u) / (n - 1));
+            drink.visible = left > 0.02; drink.scale.set(1, Math.max(0.05, left), 1); pastry.visible = kind === 'coffee' && step > 0 && !(step === 3 && u > 0.5); vessel.visible = step > 0;
+        };
+        const put = () => { hold.visible = false; hold.parent?.remove(hold); };
+        const spent = (s) => TICKET + Object.values(MENU).reduce((t, m) => t + (s.progress.activities?.['space-needle:' + m.lm.slice(10)] ? m.price : 0), 0);
+        const order = (s, k) => {
+            const m = MENU[k];
+            flow.begin(s, { title: m.title, action: m.steps[0], focus: m.focus,
+                help: `Your visit so far: $${spent(s)} with the ticket. Menu prices are the game's guess; the $35-39 ticket is the mapped one.`,
+                started(s) { dress(k); step = 0; anim = 0; s.camera.add(hold); hold.visible = true; pose(s); },
+                actioned(s, r) { if (anim > 0) return; anim = 1e-4; r.busy = true; r.status.textContent = m.say[step]; if (step === 0) s.sound?.play?.('coin'); },
+                update(dt, s, r) {
+                    if (anim > 0) { anim += dt / (step === 0 ? 2.2 : 1.7); if (anim >= 1) { anim = 0; step++; r.busy = false; if (step >= m.steps.length) { flow.complete(); return; } r.button.textContent = m.steps[step]; } }
+                    pose(s); r.progress.value = (step + Math.min(1, anim)) / m.steps.length;
+                },
+                cancel() { put(); },
+                complete(s) {
+                    put(); done(s, m.lm, m.toast[0], m.toast[1]);
+                    if (Object.values(MENU).every((q) => s.progress.activities?.['space-needle:' + q.lm.slice(10)]) && !s.progress.activities['space-needle:bill']) done(s, 'lm-needle-bill', '💸 The view is not free', `Ticket, cocktail, coffee, croissant and wine: about $${spent(s)} for one visit, before tax and tip.`);
+                },
+            });
+        };
+        ctx.extras.needleMenu = { order, debug: () => ({ kind, step, anim, held: hold.visible && !!hold.parent }) };
+        (ctx.extras.sceneCleanups ||= []).push(() => { put(); hold.traverse((o) => { o.geometry?.dispose?.(); o.material?.dispose?.(); }); });
+        for (const [k, m] of Object.entries(MENU)) {
+            const mid = (m.c.a0 + m.c.a1) / 2 + m.da, [ix, iz] = at(m.c.r1 + m.out, mid), [fx, fz] = at(m.c.r0 - 0.4, mid);
+            m.focus = { x: fx, z: fz, y: m.level + 1.35 };
+            ctx.interactables.push({ kind: 'activity', x: ix, z: iz, y: m.level, r: 1.9, label: m.label, cond: s => s.spot.entry.id === 'space-needle' && !ride && onLevel(s, m.level), use: s => order(s, k) });
+        }
+    }
     // ---- people upstairs (fixed heights: the crowd's floor search is for the ground)
     const face = (a, inward) => Math.atan2((inward ? -1 : 1) * Math.cos(a), (inward ? -1 : 1) * Math.sin(a));
     const G = [], one = (r, a, yy, act, personas, o = {}) => { const [px, pz] = at(r, a), [lx, lz] = at(o.lookR ?? 60, a); G.push({ x: px, z: pz, r: 0.01, n: 1, act, look: [lx, lz], y: yy, personas, ...o }); };

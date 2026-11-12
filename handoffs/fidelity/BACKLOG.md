@@ -20,6 +20,7 @@ the original pose. Until then a fix stays under "Fixed on branch".
 
 | Report | Fix |
 | --- | --- |
+| Old Town spot, lawn behind Lipscani near (25, 62) "old town flickers like crazy" | reproduced at the pose: shopfront bays on walls seen at an angle were a per-pixel stipple of two shop designs that crawled with the camera. The shader picked a bay's design from a hash of the interpolated vertex colour, which differs by a rounding step between pixels; it now reads the colour through a flat varying (one value per wall). Checked at the pose and along three other streets |
 | Grozăvești (354, -718), (329, -703), (330, -716), (387, -745), (435, -756), (878, -1118), (869, -1076), (837, -1061) "see through" | junction pads up on the Basarab deck (bends, pads shared by two carriageways) had a top skin only; each now has the decks' underside, 0.3 m wider so it meets the mitred decks, and a fascia where no deck continues |
 | Grozăvești (259, -645) "what is this gray spot" | a slot infill quad (tram slab to carriageway) passed under a carriageway at the same level and fought its asphalt; a slot never covers a carriageway now (13 quads kept off) |
 | Grozăvești (249, -617) "this looks random" | consecutive slot infill quads along a bend met at one side only and the ground showed through a wedge; each overlaps the next by 0.3 m |

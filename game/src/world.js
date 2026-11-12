@@ -18,6 +18,7 @@ import { makeTextures, emitFacadeSlab } from './buildings.js';
 import { footprintCells, insetFootprint, assemblySignature, geometryRing, geometrySurface } from './building-parts.js';
 import { validRoofProfile, roofMesh, roofSignature } from './building-roofs.js';
 import { districtFile, fetchDistrictPack, parseDistrictPackText, signatureMatches } from './district-pack.js';
+import { triangulate } from './triangulate.js';
 import { sharedBuildPool } from './build-pool.js';
 import { sourceSurfaceEligible, validateSourceSurface } from './building-surface-cache.js';
 import { clipBuildingDetailRange } from './building-detail-range.js';
@@ -227,11 +228,6 @@ function polysCross(A, B) {
         }
     }
     return false;
-}
-function triangulate(outer, holes = []) {
-    const contour = outer.map(([x, z]) => new THREE.Vector2(x, z));
-    const hs = holes.map(h => h.map(([x, z]) => new THREE.Vector2(x, z)));
-    try { return { pts: outer.concat(...holes), tris: THREE.ShapeUtils.triangulateShape(contour, hs) }; } catch (e) { return { pts: outer, tris: [] }; }
 }
 
 /** Uniform grid keyed by cell → array of items (items inserted by bbox). */
@@ -4551,15 +4547,20 @@ export async function buildWorld(city, renderer, opts = {}) {
     // for now and finishDetailClips(), right after the building loop and before anything else reads those builders,
     // splices each clipped result in, in call order, shifting the vertex indices of the triangles appended after it.
     // That yields the arrays the in-place clip (clipBuildingDetailRange) produces, and the same audit, in the same order.
-    const pendingDetailClips = [], roofFlat = new WeakMap();
-    const flatRoof = mesh => {
-        if (roofFlat.has(mesh)) return roofFlat.get(mesh);
-        const faces = mesh?.faces; let out = null;
-        if (Array.isArray(faces) && faces.every(f => Array.isArray(f) && f.length === 3 && f.every(q => Array.isArray(q) && q.length === 3))) { out = new Float64Array(faces.length * 9); let k = 0; for (const f of faces) for (const q of f) { out[k++] = q[0]; out[k++] = q[1]; out[k++] = q[2]; } }
-        roofFlat.set(mesh, out); return out;
-    };
+    const pendingDetailClips = [];
     const unflatFaces = (flat, size) => { const faces = []; for (let k = 0; k < flat.length; k += 3 * size) { const f = []; for (let j = 0; j < 3; j++) f.push(Array.from(flat.subarray(k + j * size, k + (j + 1) * size))); faces.push(f); } return faces; };
-    function detailNeighbours(owner, faces, flat = null) {
+    // (spec 10 load budget) with the build workers a neighbour's complete roof is made there, from its ring, holes, profile
+    // and height as they are at its first use here (completeDetailRoof keeps a neighbour's first roof in the same way)
+    const detailSpecs = new Map();
+    function detailSpec(b) {
+        if (detailSpecs.has(b.i)) return detailSpecs.get(b.i);
+        const kind = sourceSurfaceEligible(b) ? (b.roofProfile ? 1 : b.roof === 'flat' ? 2 : 0) : 0;
+        const spec = kind ? { i: b.i, sourceId: b.sourceId, minH: b.minH, kind, ring: b.ring, holes: b.holes, profile: b.roofProfile, h: b.h } : null;
+        detailSpecs.set(b.i, spec); return spec;
+    }
+    /** the complete roof faces of a spec, as completeDetailRoof makes them (build-worker.js makes the same) */
+    const specFaces = spec => { if (spec.kind === 1) return roofMesh(spec.ring, spec.holes, spec.profile, triangulate).faces; const { pts, tris } = triangulate(spec.ring, spec.holes); return tris.map(t => t.map(i => [pts[i][0], spec.h, pts[i][1]])); };
+    function detailNeighbours(owner, faces, flat = null, spec = false) {
             let x0=Infinity,z0=Infinity,x1=-Infinity,z1=-Infinity;
             if(flat)for(let k=0;k<flat.length;k+=12){x0=Math.min(x0,flat[k]);z0=Math.min(z0,flat[k+2]);x1=Math.max(x1,flat[k]);z1=Math.max(z1,flat[k+2]);}
             else for(const f of faces)for(const p of f){x0=Math.min(x0,p[0]);z0=Math.min(z0,p[2]);x1=Math.max(x1,p[0]);z1=Math.max(z1,p[2]);}
@@ -4569,6 +4570,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 // BoxGrid visits each occupied cell. Query each actual source
                 // once, and reject disjoint bounds in the emitted Float32 frame.
                 if(b===owner||b.skip||Math.min(b.x0,Math.fround(b.x0))>x1||Math.max(b.x1,Math.fround(b.x1))<x0||Math.min(b.z0,Math.fround(b.z0))>z1||Math.max(b.z1,Math.fround(b.z1))<z0)return;
+                if(spec){const s=detailSpec(b);neighbours.push(s?{i:s.i,sourceId:s.sourceId,minH:s.minH,spec:s}:{i:b.i,sourceId:b.sourceId,minH:b.minH,spec:null});return;}
                 const roof=completeDetailRoof(b);
                 if(roof)neighbours.push(roof);else neighbours.push({i:b.i,sourceId:b.sourceId,minH:b.minH});
             });
@@ -4581,10 +4583,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             const P = builder.p, N = builder.n, U = builder.u, C = builder.c, Tl = builder.t, I = builder.i, nf = (builder.ic - start.ic) / 3, flat = new Float64Array(nf * 36);
             let k = 0;
             for (let q = start.ic; q < builder.ic; q++) { const v = I[q]; flat[k++] = P[v * 3]; flat[k++] = P[v * 3 + 1]; flat[k++] = P[v * 3 + 2]; flat[k++] = N[v * 3]; flat[k++] = N[v * 3 + 1]; flat[k++] = N[v * 3 + 2]; flat[k++] = U[v * 2]; flat[k++] = U[v * 2 + 1]; flat[k++] = C[v * 3]; flat[k++] = C[v * 3 + 1]; flat[k++] = C[v * 3 + 2]; flat[k++] = Tl ? Tl[v] : -1; }
-            const neighbours = detailNeighbours(owner, null, flat), roofs = neighbours.map(n => n.mesh ? flatRoof(n.mesh) : null);
+            const neighbours = detailNeighbours(owner, null, flat, true);
             const job = { builder, sv: start.vc, ev: builder.vc, si: start.ic, ei: builder.ic, owner, flat, neighbours };
-            // a neighbour roof that is not plain triangles of [x, y, z] points is clipped here, as before
-            if (neighbours.every((n, j) => !n.mesh || roofs[j])) job.promise = buildPool.clip(flat, { i: owner.i, sourceId: owner.sourceId }, neighbours.map((n, j) => ({ i: n.i, sourceId: n.sourceId, minH: n.minH, roof: roofs[j] })));
+            job.promise = buildPool.clip(flat, { i: owner.i, sourceId: owner.sourceId }, neighbours);
             pendingDetailClips.push(job);
             return;
         }
@@ -4601,7 +4602,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             let r = results[n], replace = null;
             if (r) replace = r.faces;
             else { // no worker result (unsupported roof data or a failed worker): the same function, here
-                r = clipInferredBuildingDetail(unflatFaces(j.flat, 12), j.owner, j.neighbours, { inferred: true });
+                r = clipInferredBuildingDetail(unflatFaces(j.flat, 12), j.owner, j.neighbours.map(n => (n.spec ? { i: n.i, sourceId: n.sourceId, minH: n.minH, mesh: { faces: specFaces(n.spec) } } : { i: n.i, sourceId: n.sourceId, minH: n.minH })), { inferred: true });
                 if (r.clippedAreaM2 > 1e-10) { replace = new Float64Array(r.faces.length * 36); let k = 0; for (const f of r.faces) { if (f.length !== 3) throw new Error('detail clip: non-triangle face'); for (const p of f) { if (p.length !== 12) throw new Error('detail clip: point attributes'); replace.set(p, k); k += 12; } } }
             }
             inferredDetailAudit.ranges++; inferredDetailAudit.clippedAreaM2 += r.clippedAreaM2;

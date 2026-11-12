@@ -5,10 +5,21 @@ import { clipInferredBuildingDetail } from './building-detail-visibility.js';
 import { fallbackVisit, fallbackState } from './fallback-partition.js';
 import { overlapCandidates, overlapPieces, unpackOverlapRecords, overlapGrid } from './building-overlap.js';
 import { fetchDistrictPackText } from './district-pack.js';
+import { roofMesh } from './building-roofs.js';
+import { triangulate } from './triangulate.js';
 
 let overlapLive = [], overlapIndex = new Map(), overlapCells = null; // the live building records of this build (overlap cuts)
 let cuts = []; // fallback ground source openings of this build, sent once per worker
-const roofs = new Map(); // building index → complete roof faces ([[x, y, z] × 3] …), sent once per worker
+const specs = new Map(), roofs = new Map(); // building index → roof spec (sent once per worker) / its complete roof faces
+// a neighbour's complete roof, as world.js completeDetailRoof makes it (1: roofMesh of its profile, 2: flat at its height)
+const roofFaces = (i) => {
+    let f = roofs.get(i); if (f) return f;
+    const sp = specs.get(i);
+    if (sp.kind === 1) f = roofMesh(sp.ring, sp.holes, sp.profile, triangulate).faces;
+    else { const { pts, tris } = triangulate(sp.ring, sp.holes); f = tris.map((t) => t.map((k) => [pts[k][0], sp.h, pts[k][1]])); }
+    roofs.set(i, f); return f;
+};
+const ring = (a) => { const r = []; for (let k = 0; k < a.length; k += 2) r.push([a[k], a[k + 1]]); return r; };
 const unpack = (flat, size) => { const faces = []; for (let k = 0; k < flat.length; k += 3 * size) { const f = []; for (let j = 0; j < 3; j++) f.push(Array.from(flat.subarray(k + j * size, k + (j + 1) * size))); faces.push(f); } return faces; };
 
 function fallbackLeaf(box, nearby, params) {
@@ -18,7 +29,7 @@ function fallbackLeaf(box, nearby, params) {
 const fallbackBuffers = (r) => [r.positions.buffer, r.normals.buffer, r.uv.buffer, r.indices.buffer];
 function clipJob(m) {
     const faces = unpack(m.faces, 12);
-    const neighbours = m.neighbours.map((n) => (n.roof ? { i: n.i, sourceId: n.sourceId, minH: n.minH, mesh: { faces: roofs.get(n.i) } } : { i: n.i, sourceId: n.sourceId, minH: n.minH }));
+    const neighbours = m.neighbours.map((n) => (n.roof ? { i: n.i, sourceId: n.sourceId, minH: n.minH, mesh: { faces: roofFaces(n.i) } } : { i: n.i, sourceId: n.sourceId, minH: n.minH }));
     const r = clipInferredBuildingDetail(faces, m.owner, neighbours, { inferred: true });
     // the faces only matter when the range is replaced (clippedAreaM2 > 1e-10); points keep their 12 attributes
     let out = null;
@@ -34,8 +45,8 @@ self.onmessage = (ev) => {
     const m = ev.data;
     if (m.type === 'pack') { fetchDistrictPackText(m.url).then((text) => self.postMessage({ id: m.id, text }), (e) => self.postMessage({ id: m.id, error: String(e && e.stack || e) })); return; }
     try {
-        if (m.type === 'reset') { roofs.clear(); cuts = []; overlapLive = []; overlapIndex = new Map(); overlapCells = null; return; }
-        if (m.type === 'roofs') { for (const [i, flat] of m.roofs) roofs.set(i, unpack(flat, 3)); return; }
+        if (m.type === 'reset') { roofs.clear(); specs.clear(); cuts = []; overlapLive = []; overlapIndex = new Map(); overlapCells = null; return; }
+        if (m.type === 'roofSpecs') { for (const sp of m.specs) specs.set(sp.i, { kind: sp.kind, ring: ring(sp.ring), holes: sp.holes.map(ring), profile: sp.profile, h: sp.h }); return; }
         if (m.type === 'clip') { const r = clipJob(m); self.postMessage(r, r.faces ? [r.faces.buffer] : []); return; }
         if (m.type === 'clips') {
             // flat columns (build-pool.js flush): neighbour minH travels as a double (undefined → NaN: both fail the finite test)

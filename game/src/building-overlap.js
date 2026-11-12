@@ -134,10 +134,13 @@ export function planOverlapCuts(recs, opts = {}) {
 }
 /** the lower buildings live[from…to) with the taller ones they run into (any of live), in order; sets lower.holeParts.
  *  Each lower is independent of the others, so ranges can be planned apart and joined in order (build workers). */
-export function overlapCandidates(live, from, to, { minOverlapM2 = 2, heightMarginM = 1 } = {}) {
+export function overlapGrid(live) {
     const cell = 32, grid = new Map();
     for (const b of live) for (let i = Math.floor(b.x0 / cell); i <= Math.floor(b.x1 / cell); i++) for (let j = Math.floor(b.z0 / cell); j <= Math.floor(b.z1 / cell); j++) { const k = i + ',' + j; let l = grid.get(k); if (!l) grid.set(k, l = []); l.push(b); }
-    const cutters = new Map(), skipped = [], seen = new Set();
+    return grid;
+}
+export function overlapCandidates(live, from, to, { minOverlapM2 = 2, heightMarginM = 1 } = {}, grid = overlapGrid(live)) {
+    const cell = 32, cutters = new Map(), skipped = [], seen = new Set();
     for (let n = from; n < to; n++) {
         const lower = live[n];
         for (let i = Math.floor(lower.x0 / cell); i <= Math.floor(lower.x1 / cell); i++) for (let j = Math.floor(lower.z0 / cell); j <= Math.floor(lower.z1 / cell); j++) for (const taller of grid.get(i + ',' + j) || []) {

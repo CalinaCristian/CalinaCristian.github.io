@@ -1,6 +1,9 @@
 // A small pool of module workers (build-worker.js) for buildWorld's pure passes (spec 10: district loads < 4 s).
 // createBuildPool() returns null where module workers are unavailable; callers then compute on the main thread.
 // Jobs go to the least busy worker; a worker answers in order, so data it needs (roofs) is sent to it first.
+let shared;
+/** one pool for the page, created on first use (world.js asks at import, so the workers are ready by the first build) */
+export const sharedBuildPool = () => (shared === undefined ? (shared = createBuildPool()) : shared);
 export function createBuildPool(size = Math.max(1, Math.min(6, ((typeof navigator !== 'undefined' && navigator.hardwareConcurrency) || 4) - 1))) {
     if (typeof Worker === 'undefined') return null;
     let workers;
@@ -39,11 +42,15 @@ export function createBuildPool(size = Math.max(1, Math.min(6, ((typeof navigato
         overlapRecords(packed) { for (const s of state) s.w.postMessage({ type: 'overlapRecs', packed }); },
         /** plan the overlap cuts of live[from…to) → Promise<{cuts, skipped, holeParts}> */
         overlap(from, to, opts) { return this.job({ type: 'overlap', from, to, opts }); },
+        /** fetch a district pack and decode it to its JSON text (district-pack.js) → Promise<string> */
+        packText(url) { return this.job({ type: 'pack', url }).then((r) => r.text); },
         job(msg) {
             if (failed) return Promise.reject(failed);
             const s = pick(), id = next++; s.busy++;
             return new Promise((resolve, reject) => { pending.set(id, { resolve, reject }); s.w.postMessage({ ...msg, id }); });
         },
+        /** forget the previous build's data (roofs, cuts, records) before a new build */
+        reset() { for (const s of state) { s.roofs.clear(); s.w.postMessage({ type: 'reset' }); } },
         close() { for (const s of state) s.w.terminate(); },
     };
 }

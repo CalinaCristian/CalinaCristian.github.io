@@ -16,8 +16,8 @@ import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landma
 import { makeTextures, emitFacadeSlab } from './buildings.js';
 import { footprintCells, insetFootprint, assemblySignature, geometryRing, geometrySurface } from './building-parts.js';
 import { validRoofProfile, roofMesh, roofSignature } from './building-roofs.js';
-import { districtFile, fetchDistrictPack, signatureMatches } from './district-pack.js';
-import { createBuildPool } from './build-pool.js';
+import { districtFile, fetchDistrictPack, parseDistrictPackText, signatureMatches } from './district-pack.js';
+import { sharedBuildPool } from './build-pool.js';
 import { sourceSurfaceEligible, validateSourceSurface } from './building-surface-cache.js';
 import { clipBuildingDetailRange } from './building-detail-range.js';
 import { clipInferredBuildingDetail } from './building-detail-visibility.js';
@@ -62,6 +62,8 @@ import { decodeDistrictMask, buildSourceBoundarySupport, normalizeSourceMapEnds,
 import { FACADE_DETAIL_GLSL } from './facade-detail.js';
 import { subtractConvex } from './building-overlap.js';
 import { openRuns, weldEnds } from './deck-outline.js';
+// (spec 10 load budget) start the build workers now, so they are loaded before the first district is built
+try { if (typeof window !== 'undefined') sharedBuildPool(); } catch (e) { /* no workers: buildWorld runs everything here */ }
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -618,9 +620,13 @@ export async function buildWorld(city, renderer, opts = {}) {
     const inDistrictLL = (lat, lon, m = 0.0015) => !distCfg || (lat >= distCfg.bbox[0] - m && lat <= distCfg.bbox[2] + m && lon >= distCfg.bbox[1] - m * 1.4 && lon <= distCfg.bbox[3] + m * 1.4);
     // districts: a lossless binary pack (game/src/district-pack.js, spec 10 size / load budget); legacy maps: JSON
     const url = new URL(`../data/${districtFile(city.id, distId)}`, import.meta.url).href;
-    const data = distId ? await fetchDistrictPack(url) : await (await fetch(url)).json();
-    // (spec 10 load budget) workers for the pure passes; null without module workers (then all runs here, as before)
-    const buildPool = data.buildingGeometryPolicy === 'source' ? createBuildPool() : null;
+    // (spec 10 load budget) workers for the pure passes (districts); null without module workers: then all runs here.
+    // A worker fetches the pack and writes its JSON text; JSON.parse here gives the same object as fetchDistrictPack.
+    const buildPool = distId ? sharedBuildPool() : null;
+    buildPool?.reset();
+    let data = null;
+    if (buildPool) try { data = parseDistrictPackText(await buildPool.packText(url)); } catch (e) { console.warn('[world] pack worker failed, decoding here', e); }
+    if (!data) data = distId ? await fetchDistrictPack(url) : await (await fetch(url)).json();
     const realPass = !!data.scenery; // (2026-11-08) a district rebuilt by the reality pass (scenery ring, aerial roofs / trees / green): street-level dressing on
     // field research (spec 20): street-tree notes per street, baked by tools/osm into data.streetTrees
     // ({street name: [species keys]}, [] = researched as treeless) — no runtime fetch of the research dossier
@@ -8165,7 +8171,6 @@ export async function buildWorld(city, renderer, opts = {}) {
         },
     };
     void renderer;
-    buildPool?.close();
     return world;
 }
 

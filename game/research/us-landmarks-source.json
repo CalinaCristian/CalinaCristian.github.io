@@ -1792,9 +1792,19 @@
         "lon": -122.2969786
       },
       "sourceIds": [
-        "w54139654"
+        "w54139654",
+        "w469766788"
       ],
       "sources": [
+        {
+          "id": "w469766788",
+          "version": 1,
+          "timestamp": "2017-01-28T19:47:43Z",
+          "tags": {
+            "building": "yes"
+          },
+          "url": "https://www.openstreetmap.org/way/469766788"
+        },
         {
           "id": "w54139654",
           "version": 18,

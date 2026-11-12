@@ -16,7 +16,6 @@ Updated 2026-11-12. Only what is still open. A finished item is removed once its
 | --- | --- | --- | --- |
 | R10 | District data size and load-time targets (3 MB gzip per district, 4 s load) | 10 | in progress (own session) |
 | R22 | Code cleanup after the district migration (corridor era, split `world.js`, dead code) | 22 | todo, after R10 |
-| R21 | Landing background choice | 21 | blocked: owner decision |
 
 ## Rules
 

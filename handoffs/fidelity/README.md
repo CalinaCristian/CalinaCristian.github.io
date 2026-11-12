@@ -1,6 +1,6 @@
 # Fidelity handoffs
 
-- [BACKLOG.md](BACKLOG.md): every open owner report and what waits for the owner. The only tracker.
+- [BACKLOG.md](BACKLOG.md): every open owner report. The only tracker.
 - [owner-reports-20261110.json](owner-reports-20261110.json): the 71 owner inspection reports (poses, notes).
 - [reality-check/](reality-check/README.md): OSM decides positions, Street View panoramas validate looks (reference only,
   never stored); one review sheet per district.

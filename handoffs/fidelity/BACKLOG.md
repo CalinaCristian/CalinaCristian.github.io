@@ -16,7 +16,7 @@ and the F8 JSON the owner pastes.
 
 | ID | Item | Spec | State |
 | --- | --- | --- | --- |
-| R10 | District data size and load-time targets (3 MB gzip per district, 4 s load) | 10 | in progress: size met (binary packs 0.40–2.90 MiB, on `master` since 2026-11-12); < 4 s desktop load still open for Grozăvești 9.6 s, Unirii 7.5 s, Romana 5.1 s |
+| R10 | District data size and load-time targets (3 MB gzip per district, 4 s load) | 10 | in progress: size met (binary packs 0.40–2.90 MiB, on `master` since 2026-11-12); < 4 s desktop load met by 6 of 8 (Romana 3.9 s after the build workers); still open for Unirii 4.9 s and Grozăvești 6.8 s (same machine: master 5.6 / 7.0 s). The rest is spread over many main-thread passes; Grozăvești's deck pass alone is ~1.9 s (exact 2 mm refinement) |
 | R22 | Code cleanup after the district migration (corridor era, split `world.js`, dead code) | 22 | todo, after R10 |
 
 ## Rules

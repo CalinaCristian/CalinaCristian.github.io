@@ -5,7 +5,7 @@ const { chromium } = require('playwright');
 const out = process.env.OUT || '/tmp/tourist-final-sweep'; fs.mkdirSync(out, { recursive: true }); fs.copyFileSync(__filename, `${out}/runner.cjs`);
 const targets = [
     ['fremont-troll', 'climb'], ['peoples-salvation-cathedral', 'candle'], ['old-town-lipscani', 'stairs'], ['stavropoleos-cec', 'candle'],
-    ['pike-place', 'coin'], ['chihuly', 'photo-hunt'], ['space-needle', 'Ride the elevator to The Loupe'], ['mopop', 'photo-hunt'],
+    ['pike-place', 'coin'], ['chihuly', 'photo-hunt'], ['space-needle', 'Ride the elevator to the observation level'], ['mopop', 'photo-hunt'],
     ['kerry-park', 'photo-hunt'], ['waterfront', 'ride'], ['pioneer-square', 'Frame the seven pole figures'], ['ballard-locks', 'lockage'], ['gas-works', 'kite'],
     ['bel-lincoln-square', 'photo-hunt'], ['athenaeum-revolution', 'photo-hunt'], ['arcul-de-triumf', 'photo-hunt'], ['spring-palace', 'photo-hunt'], ['palace-parliament', 'photo-hunt'],
     ['cismigiu', 'Row a boat from Debarcader'], ['herastrau-park', 'rowboat'], ['village-museum', 'Record a virtual passport visit:'],

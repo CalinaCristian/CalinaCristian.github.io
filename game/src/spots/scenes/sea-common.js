@@ -30,6 +30,7 @@ import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, clamp, smooth, lerp, inPoly, canvas, canvasTexture, fitDraw } from '../kit.js';
 import { LANDMARKS, buildLandmark } from '../../landmarks.js';
 import { sourceMountain } from '../source-landmark.js';
+import { spaceNeedleModel } from '../space-needle.js';
 
 export const NEEDLE_LL = [47.6205063, -122.3493043, 40.5];
 export const RAINIER_LL = [46.8529, -121.7604, 4392];
@@ -544,130 +545,14 @@ export function crane(boomUp = false) {
 
 // ============================================================================ Space Needle (1962)
 /**
- * The Space Needle at 1:1 (y = base): 184.4 m; SkyLine level 30.5–36.6 m; restaurant / Loupe level 152.4 m with its
- * rotating glass floor; open-air observation deck 158.5 m (tilted glass barriers); roof halo; spire 181 m + mast.
- * No coplanar surfaces: the top house is ONE lathe profile; glass bands are recessed open cylinders; slabs never
- * share a plane with another face. Returns a Group with userData { night(k), elevators[], update(dt), levels }.
+ * The Space Needle at 1:1 (y = base), built by ../space-needle.js from the OSM parts and Street View: 184.4 m; 100 ft
+ * level 30.5-36.6 m; The Loupe (revolving glass floor) 152.4 m; observation level and open-air deck 158.5 m; halo;
+ * roof, spire and beacon. `visitorGlass` fits out the two public levels behind clear glazing (the visit scene); the
+ * distant backdrops keep closed, lit glazing. Returns a Group with userData { night(k), elevators[], update(dt),
+ * levels, layout, loupe }.
  */
 export function seaNeedle({ detail = 1, cabs = true, visitorGlass = false } = {}) {
-    const N = detail >= 1 ? 48 : 24, grp = new THREE.Group(); grp.name = 'space-needle';
-    const white = new THREE.MeshStandardMaterial({ color: '#eef0ec', roughness: 0.5, metalness: 0.05, emissive: new THREE.Color('#fff4e2'), emissiveIntensity: 0 });
-    white.userData.nightEmissive = 0.22; white.name = 'needle-white';
-    const steel = new THREE.MeshStandardMaterial({ color: '#c9cdcf', roughness: 0.4, metalness: 0.6 }); steel.name = 'needle-steel';
-    const glass = new THREE.MeshStandardMaterial({ color: '#33454f', roughness: 0.06, metalness: 0.75, emissive: new THREE.Color('#ffd9a0'), emissiveIntensity: 0, side: THREE.DoubleSide });
-    // The hero is visited from inside. Backdrop needles retain their old distant
-    // treatment; the visitor version must show the city through the real glazing.
-    if (visitorGlass) { glass.color.set('#b8d5e0'); glass.metalness = 0.12; glass.transparent = true; glass.opacity = 0.18; glass.depthWrite = false; }
-    // Clear visitor glazing transmits light; it is not a luminous panel or an
-    // opaque shadow caster. Keep structural members casting their real shadows.
-    glass.userData.nightEmissive = visitorGlass ? 0 : 0.55; glass.name = 'needle-glass';
-    const barrier = new THREE.MeshStandardMaterial({ color: '#9fb6c2', roughness: 0.04, metalness: 0.2, transparent: true, opacity: 0.28, side: THREE.DoubleSide, depthWrite: false }); barrier.name = 'needle-barrier'; barrier.forceSinglePass = true;
-    const add = (geo, m, name) => { const me = new THREE.Mesh(geo, m); me.name = name; me.castShadow = detail >= 1 && !(visitorGlass && m.transparent); me.receiveShadow = detail >= 1; grp.add(me); return me; };
-    const b = new GeoBatch();
-    // ---- legs: three pairs; leg centre radius r(y) and pair half-gap d(y)
-    const R = (y) => (y < 113 ? 5.2 + 12.6 * Math.pow(1 - y / 113, 1.55) : 5.2 + Math.pow((y - 113) / 31, 1.35) * 7.6);
-    const D = (y) => (y < 113 ? 0.95 + 2.3 * Math.pow(1 - y / 113, 1.3) : 0.95 + (y - 113) / 31 * 1.9);
-    const legTop = 144;
-    for (let k = 0; k < 3; k++) {
-        const a = k * 2 * Math.PI / 3 + Math.PI / 2, ca = Math.cos(a), sa = Math.sin(a);
-        for (const s of [-1, 1]) {
-            const pts = []; for (let i = 0; i <= 24; i++) { const y = i / 24 * legTop, r = R(y), d = D(y) * s; pts.push([ca * r - sa * d, y, sa * r + ca * d]); }
-            b.tube(pts, 0.78, '#eef0ec', 'paint', 10);
-        }
-        for (let y = 6; y < legTop - 2; y += 7.5) { const r = R(y), d = D(y); b.rod([ca * r - sa * d, y, sa * r + ca * d], [ca * r + sa * d, y + 3.2, sa * r - ca * d], 0.22, '#e4e6e2', 'paint', 5); b.rod([ca * r + sa * d, y, sa * r - ca * d], [ca * r - sa * d, y + 3.2, sa * r + ca * d], 0.22, '#e4e6e2', 'paint', 5); }
-        // feet on the foundation
-        b.box(ca * R(0), -0.5, sa * R(0), 7, 1.4, 7, '#c9c6bd', 'concrete', -a);
-        // ties pair → core at the SkyLine level and the 200-ft ring
-        for (const y of [30.5, 61, 92]) b.rod([ca * R(y), y, sa * R(y)], [ca * 4.2, y, sa * 4.2], 0.32, '#e8eae6', 'paint', 6);
-    }
-    // core (stairs + elevator shafts)
-    b.cyl(0, 0, 0, 4.0, 141, '#dfe1dd', 'paint', 24);
-    // elevator rails (between the leg pairs)
-    for (let k = 0; k < 3; k++) { const a = k * 2 * Math.PI / 3 + Math.PI / 6; for (const s of [-0.9, 0.9]) b.rod([Math.cos(a) * 4.5 - Math.sin(a) * s, 0, Math.sin(a) * 4.5 + Math.cos(a) * s], [Math.cos(a) * 4.5 - Math.sin(a) * s, 142, Math.sin(a) * 4.5 + Math.cos(a) * s], 0.12, '#bfc3c5', 'steel', 5); }
-    // ---- SkyLine level (100 ft): slab, recessed glass band, roof slab
-    b.cyl(0, 29.9, 0, 11.6, 0.7, '#eef0ec', 'paint', N);
-    b.cyl(0, 36.6, 0, 11.6, 0.8, '#eef0ec', 'paint', N);
-    b.cyl(0, 61, 0, 6.4, 1.2, '#eef0ec', 'paint', N);                      // the 200-ft ring
-    // ---- underside radial beams (the "sunburst" seen from the plaza), just below the lathe soffit
-    for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2, c = Math.cos(a), s2 = Math.sin(a); b.rod([c * 5.6, 139.4, s2 * 5.6], [c * 20.2, 150.9, s2 * 20.2], 0.32, '#f2f3ef', 'paint', 5); }
-    // tilted glass barrier posts on the open deck + bench line
-    for (let i = 0; i < 64; i++) { const a = i / 64 * Math.PI * 2, c = Math.cos(a), s2 = Math.sin(a); b.rod([c * 21.0, 158.6, s2 * 21.0], [c * 21.5, 161.6, s2 * 21.5], 0.045, '#d0d4d6', 'steel', 4); }
-    // Loupe floor rim seams + mullions on the glass bands
-    for (let i = 0; i < 72; i++) { const a = i / 72 * Math.PI * 2, c = Math.cos(a), s2 = Math.sin(a); b.rod([c * 20.45, 152.6, s2 * 20.45], [c * 20.45, 156.0, s2 * 20.45], 0.06, '#e6e8e4', 'paint', 4); b.rod([c * 17.25, 158.6, s2 * 17.25], [c * 17.25, 162.4, s2 * 17.25], 0.05, '#e6e8e4', 'paint', 4); }
-    // spire + mast
-    b.add(new THREE.CylinderGeometry(0.55, 3.2, 10.6, 12, 1, true), 'paint', M(0, 175.6, 0), '#eef0ec');
-    b.rod([0, 180.8, 0], [0, 184.4, 0], 0.16, '#c9cdcf', 'steel', 6);
-    const legs = b.build('needle-structure', { matOverrides: { paint: white, steel } });
-    grp.add(legs);
-    // ---- top house: one lathe (outer skin) from the soffit up to the spire base
-    const prof = [[3.9, 138.2], [6.5, 141.2], [11.5, 145.6], [16.8, 149.2], [20.4, 151.6], [21.15, 152.25], [21.15, 152.55], // soffit → rim
-        [20.3, 152.6], [20.3, 156.1],                                    // (recess for the Loupe glass band: hidden behind the glass)
-        [21.2, 156.15], [21.2, 157.7], [21.9, 158.2], [21.9, 158.45],    // white band + deck slab edge
-        [17.0, 158.45], [17.0, 162.4],                                   // deck floor in to the indoor glass wall (recess)
-        [22.45, 162.8], [22.45, 163.5],                                  // the roof halo (eave)
-        [19.2, 165.6], [13.0, 168.1], [7.2, 169.8], [3.3, 170.6], [3.2, 170.61]];
-    const lathe = new THREE.LatheGeometry(prof.map(([r, y]) => new THREE.Vector2(r, y)), N);
-    if (visitorGlass) {
-        // These two profile strips were opaque cylinders directly behind the window
-        // bands. They are duplicate fill, not real walls in the glazed visitor rings.
-        const p = lathe.attributes.position, keep = [], indices = lathe.index.array;
-        for (let i = 0; i < indices.length; i += 3) {
-            const tri = [indices[i], indices[i + 1], indices[i + 2]], ys = tri.map((k) => p.getY(k)), lo = Math.min(...ys), hi = Math.max(...ys);
-            if (hi - lo > 1 && ((lo >= 152.59 && hi <= 156.11) || (lo >= 158.44 && hi <= 162.41))) continue;
-            keep.push(...tri);
-        }
-        lathe.setIndex(keep);
-    }
-    add(lathe, white, 'needle-tophouse');
-    // glass bands (recessed by 0.1 m behind the rims, never coplanar)
-    const gb1 = new THREE.CylinderGeometry(20.42, 20.42, 3.45, N, 1, true); gb1.translate(0, 154.35, 0); add(gb1, glass, 'needle-loupe-glass');
-    const gb2 = new THREE.CylinderGeometry(17.12, 17.12, 3.85, N, 1, true); gb2.translate(0, 160.45, 0); add(gb2, glass, 'needle-deck-glass');
-    const core2 = new THREE.CylinderGeometry(14.75, 14.75, 3.4, N, 1, true); core2.translate(0, 154.3, 0); add(core2, white, 'needle-loupe-core'); // the Loupe's inner wall (kitchen / lifts core)
-    const gb3 = new THREE.CylinderGeometry(11.75, 11.75, 5.9, N, 1, true); gb3.translate(0, 33.6, 0); add(gb3, glass, 'needle-skyline-glass');
-    // open-deck barrier glass (tilted outward) — transparent, double-sided
-    const bar = new THREE.CylinderGeometry(21.5, 21.0, 3.0, N, 1, true); bar.translate(0, 160.1, 0); add(bar, barrier, 'needle-deck-barrier');
-    // the Loupe's rotating glass floor (seen from inside / from right below) and the deck walking surface
-    const floorMat = new THREE.MeshStandardMaterial({ color: '#8fa7b4', roughness: 0.05, metalness: 0.1, transparent: true, opacity: 0.35, depthWrite: false }); floorMat.name = 'loupe-floor';
-    const loupe = new THREE.Mesh(new THREE.RingGeometry(14.5, 20.2, N, 1), floorMat); loupe.rotation.x = -Math.PI / 2; loupe.position.y = 152.62; loupe.name = 'loupe-floor'; grp.add(loupe);
-    const deckMat = new THREE.MeshStandardMaterial({ color: '#b9b8b2', roughness: 0.8 }); deckMat.name = 'needle-deck';
-    const deck = new THREE.Mesh(new THREE.RingGeometry(17.1, 21.85, N, 1), deckMat); deck.rotation.x = -Math.PI / 2; deck.position.y = 158.5; deck.name = 'needle-deck-floor'; grp.add(deck);
-    // ---- elevator cabs (gold-tinted glass, white frame), interior light at night
-    const elevators = [];
-    if (cabs) {
-        const cabMat = new THREE.MeshStandardMaterial({ color: '#c99b3c', roughness: 0.25, metalness: 0.8, emissive: new THREE.Color('#ffd28a'), emissiveIntensity: 0 }); cabMat.userData.nightEmissive = 0.9; cabMat.name = 'needle-cab';
-        const cabGlass = new THREE.MeshStandardMaterial({ color: '#d8b56a', roughness: 0.05, metalness: 0.6, transparent: true, opacity: 0.55 }); cabGlass.name = 'needle-cab-glass';
-        for (let k = 0; k < 3; k++) {
-            const a = k * 2 * Math.PI / 3 + Math.PI / 6, cab = new THREE.Group(); cab.name = 'needle-elevator-' + k; // between the leg pairs (90° / 210° / 330°)
-            const frame = new GeoBatch();
-            frame.box(0, 0, 0, 3.0, 0.35, 2.4, '#c99b3c', 'metal'); frame.box(0, 3.1, 0, 3.0, 0.35, 2.4, '#c99b3c', 'metal');
-            for (const [x, z] of [[-1.45, 1.15], [1.45, 1.15], [-1.45, -1.15], [1.45, -1.15]]) frame.box(x, 0, z, 0.12, 3.4, 0.12, '#f0efe9', 'paint');
-            const fr = frame.build('cab-frame', { matOverrides: { metal: cabMat } }); cab.add(fr);
-            const gl = new THREE.Mesh(new THREE.BoxGeometry(2.9, 2.75, 2.3), cabGlass); gl.position.y = 1.72; cab.add(gl);
-            cab.position.set(Math.cos(a) * 5.7, 2 + k * 41, Math.sin(a) * 5.7); cab.rotation.y = -a + Math.PI / 2;
-            grp.add(cab); elevators.push({ cab, a, y: 2 + k * 41, dir: k % 2 ? -1 : 1, hold: 0 });
-        }
-    }
-    // night: halo floodlight ring, beacon, top light
-    const ringM = new THREE.MeshBasicMaterial({ color: '#fff1d6', toneMapped: false });
-    const halo = new THREE.Mesh(new THREE.TorusGeometry(22.2, 0.18, 6, N * 2), ringM); halo.rotation.x = Math.PI / 2; halo.position.y = 162.75; halo.visible = false; halo.name = 'needle-halo-lights'; grp.add(halo);
-    const beacon = new THREE.Mesh(new THREE.SphereGeometry(0.45, 8, 6), new THREE.MeshBasicMaterial({ color: '#ff2a1a', toneMapped: false })); beacon.position.y = 184.6; grp.add(beacon);
-    let nightK = 0, t = 0;
-    grp.userData = {
-        levels: { skyline: 30.5, loupe: 152.6, deck: 158.5, top: 184.4, deckR0: 17.2, deckR1: 21.0, loupeR0: 14.6, loupeR1: 20.1 },
-        elevators, loupe, deck,
-        night: (k) => { nightK = k; halo.visible = k > 0.3; },
-        /** elevators run 158 m in ≈ 41 s (3.9 m/s), wait 20 s at each end; `ride` pins one cab for the activity */
-        update(dt) {
-            t += dt; beacon.visible = nightK < 0.2 || Math.floor(t * 0.7) % 2 === 0;
-            for (const e of elevators) {
-                if (e.pinned) { e.cab.position.y = e.y; continue; }
-                if (e.hold > 0) { e.hold -= dt; continue; }
-                e.y += e.dir * 3.9 * dt; if (e.y > 141) { e.y = 141; e.dir = -1; e.hold = 20; } else if (e.y < 0.6) { e.y = 0.6; e.dir = 1; e.hold = 20; }
-                e.cab.position.y = e.y;
-            }
-        },
-    };
-    return grp;
+    return spaceNeedleModel({ detail, cabs, interior: visitorGlass });
 }
 
 // ============================================================================ Seattle Great Wheel (2012)

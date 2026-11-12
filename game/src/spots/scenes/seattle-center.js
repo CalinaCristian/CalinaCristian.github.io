@@ -1,6 +1,7 @@
 // ============================================================================
 //  Seattle Center — one combined visit (spec 15 R15.7): the Space Needle
-//  (1962; walk its base, ride up to the 158 m deck), Chihuly Garden and Glass
+//  (1962; walk its base, ride up to the 520 ft observation level, the open-air
+//  deck and The Loupe's turning glass floor), Chihuly Garden and Glass
 //  (Glasshouse with the 30 m red/orange/yellow suspended sculpture; glass in
 //  the garden beds — Dale Chihuly credited), actual mapped museum context, the 1962
 //  ALWEG monorail with a train looping to the station, the Wright fountain.
@@ -11,6 +12,7 @@ import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, canvas, canvasTexture, inPoly, clamp, lerp, smooth, headingFromBearing, polyBox, alongPolyline, polylineLength, centroid, offsetPolyline, compactTriangles, capsuleGeometry } from '../kit.js';
 import { signBoard, railing } from '../props.js';
 import { seaNeedle, seaBackdrop, seaActivity } from './sea-common.js';
+import { NEEDLE as NL, needlePavilion } from '../space-needle.js';
 import { addTraffic } from '../cars.js';
 import { photoHunt } from '../photo-hunt.js';
 import { activityFlow } from '../participation.js';
@@ -43,57 +45,73 @@ function mopopMetalMaterial() {
     return mat;
 }
 
-// ---------------------------------------------------------------------------- Space Needle + base pavilion + elevator ride to the deck
+// ---------------------------------------------------------------------------- Space Needle: tower, base pavilion, both public levels, elevator
+/**
+ * The tower and its rooms come from ../space-needle.js (OSM parts + Street View). This function places them, makes the
+ * two public levels walkable (500 ft: The Loupe with its turning glass floor and the lounge; 520 ft: the observation
+ * room with the cafe, the wine bar and the open-air deck; the stair between them) and runs the elevator ride.
+ */
 function buildNeedle(ctx) {
-    const g = ctx.ground, y = NEEDLE.y;
+    const y = NEEDLE.y, X = NEEDLE.x, Z = NEEDLE.z, L = NL, TAU = Math.PI * 2;
     ctx.skipBuildings.add('w12903132');
-    // round-5 model (sea-common): one lathe top house, recessed glass bands, radial underside beams, 3 gold elevator
-    // cabs running on the core, Loupe glass floor, open-air deck with tilted glass barriers (note 55)
-    const n = seaNeedle({ detail: 1, visitorGlass: true }); n.position.set(NEEDLE.x, y, NEEDLE.z); ctx.add(n);
-    const N = n.userData, LV = N.levels;
-    ctx.onNight((k) => N.night(k)); ctx.onUpdate((dt) => N.update(dt));
-    // base pavilion: low curved glass pavilion between the legs + gift shop roof
-    const b = new GeoBatch();
-    b.add(new THREE.CylinderGeometry(13.5, 13.5, 5.2, 48, 1, true), 'glass', M(NEEDLE.x, y + 2.6, NEEDLE.z), '#9fb6c2');
-    b.add(new THREE.CylinderGeometry(14.2, 14.2, 0.6, 48), 'paint', M(NEEDLE.x, y + 5.5, NEEDLE.z), '#e9ebe8');
-    for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; b.rod([NEEDLE.x + Math.cos(a) * 13.5, y, NEEDLE.z + Math.sin(a) * 13.5], [NEEDLE.x + Math.cos(a) * 13.5, y + 5.2, NEEDLE.z + Math.sin(a) * 13.5], 0.06, '#d4d8da', 'steel', 5); }
-    const ramp = []; for (let i = 0; i <= 40; i++) { const a = -0.6 + i / 40 * 2.6, r = 16.2; ramp.push([NEEDLE.x + Math.cos(a) * r, y + 0.3 + i / 40 * 2.6, NEEDLE.z + Math.sin(a) * r]); }
-    b.tube(ramp, 0.05, '#c9cdd0', 'steel', 5);
-    ctx.add(b.build('needle-base'));
-    const sign = signBoard('SPACE NEEDLE', 5.2, 0.8, { bg: '#f2f2ee', fg: '#1f3b57', font: (s) => `700 ${s}px "Futura", "Century Gothic", sans-serif` });
-    sign.position.set(NEEDLE.x, y + 4.2, NEEDLE.z + 13.9); ctx.add(sign);
-    // colliders: pavilion ring, the six leg feet (pairs at 90° / 210° / 330°, half-gap ≈ 3.2 m at r 17.8)
-    const ring = []; for (let i = 0; i < 32; i++) { const a = i / 32 * Math.PI * 2; ring.push([NEEDLE.x + Math.cos(a) * 13.6, NEEDLE.z + Math.sin(a) * 13.6]); }
-    ctx.poly(ring);
-    for (let k = 0; k < 3; k++) { const a = k * 2 * Math.PI / 3 + Math.PI / 2, ca = Math.cos(a), sa = Math.sin(a); for (const sd of [-1, 1]) ctx.circle(NEEDLE.x + ca * 17.8 - sa * 3.25 * sd, NEEDLE.z + sa * 17.8 + ca * 3.25 * sd, 1.0, 20); }
-    // walkable rings: the Loupe (rotating glass floor, 152.6 m) and the open-air deck (158.5 m)
-    const ringPoly = (r) => { const p = []; for (let i = 0; i < 48; i++) { const a = i / 48 * Math.PI * 2; p.push([NEEDLE.x + Math.cos(a) * r, NEEDLE.z + Math.sin(a) * r]); } return p; };
-    const walkRing = (yy, r0, r1, h) => {
-        const outer = ringPoly(r1), inner = ringPoly(r0);
-        ctx.ground.addPoly(outer, (px, pz) => (Math.hypot(px - NEEDLE.x, pz - NEEDLE.z) > r0 - 0.1 ? yy : NaN), yy - 1);
-        for (let i = 0; i < 48; i++) {
-            const [ax, az] = outer[i], [bx, bz] = outer[(i + 1) % 48], [cx, cz] = inner[i], [dx, dz] = inner[(i + 1) % 48];
-            // Both collision consumers need the height: on-foot uses endpoint heights;
-            // the local walker / strict tour planner use the enclosing y0/y1 interval.
-            ctx.collider({ wall: true, ax, az, bx, bz, y0: yy - 1, y1: yy + h, y0a: yy - 1, y1a: yy + h, y0b: yy - 1, y1b: yy + h, nx: 0, nz: 1, intended: true }); // glass wall / barrier
-            ctx.collider({ wall: true, ax: cx, az: cz, bx: dx, bz: dz, y0: yy - 1, y1: yy + h, y0a: yy - 1, y1a: yy + h, y0b: yy - 1, y1b: yy + h, nx: 0, nz: 1, intended: true });
+    const n = seaNeedle({ detail: 1, visitorGlass: true }); n.position.set(X, y, Z); ctx.add(n);
+    const pav = needlePavilion(); pav.position.set(X, y, Z); ctx.add(pav);
+    const N = n.userData;
+    ctx.onNight((k) => { N.night(k); pav.userData.night(k); }); ctx.onUpdate((dt) => N.update(dt));
+    const at = (r, a) => [X + Math.cos(a) * r, Z + Math.sin(a) * r];
+    const ringPoly = (r, k = 48) => Array.from({ length: k }, (_, i) => at(r, i / k * TAU));
+    const azOf = (px, pz) => Math.atan2(pz - Z, px - X), radOf = (px, pz) => Math.hypot(px - X, pz - Z);
+    const past = (a, a0) => ((a - a0) % TAU + TAU) % TAU; // angle travelled from a0 to a, 0..2π
+    // the pavilion's footprint (OSM way 12903132); the legs stand inside it
+    ctx.poly(ringPoly(L.pavR + 0.15), { y0: y - 3, y1: y + L.drumTop + 1, roofHeightAt: () => y + L.drumTop + 1 }); // ground level only: the rooms 150 m above stand over it
+    // ---- walls with a height band (both collision consumers read the band: on foot the end heights, the local walker y0 / y1)
+    const wall = (a, b, y0, y1) => ctx.collider({ wall: true, ax: a[0], az: a[1], bx: b[0], bz: b[1], y0, y1, y0a: y0, y1a: y1, y0b: y0, y1b: y1, nx: 0, nz: 1, intended: true });
+    const arcWall = (r, a0, a1, y0, y1) => { const k = Math.max(1, Math.ceil(Math.abs(a1 - a0) * r / 1.1)); for (let i = 0; i < k; i++) wall(at(r, a0 + (a1 - a0) * i / k), at(r, a0 + (a1 - a0) * (i + 1) / k), y0, y1); };
+    const radWall = (a, r0, r1, y0, y1) => wall(at(r0, a), at(r1, a), y0, y1);
+    const block = (r0, r1, a0, a1, y0, y1) => { arcWall(r0, a0, a1, y0, y1); arcWall(r1, a0, a1, y0, y1); radWall(a0, r0, r1, y0, y1); radWall(a1, r0, r1, y0, y1); };
+    const LOUPE_Y = y + L.loupeY, DECK_Y = y + L.deckY, St = L.stair, lo = [LOUPE_Y - 0.5, LOUPE_Y + 2.6], hi = [DECK_Y - 0.5, DECK_Y + 2.6];
+    // ---- walkable floors. A floor is only seen from within 1.6 m below its underside, so the levels do not lift each other.
+    ctx.ground.addPoly(ringPoly(L.loupeWallR - 0.08), (px, pz) => { const r = radOf(px, pz); return r < L.coreR - 0.05 ? NaN : r >= L.turnR0 && r <= L.turnR1 ? LOUPE_Y + 0.02 : LOUPE_Y; }, LOUPE_Y - 1);
+    const inStairWell = (px, pz) => { const r = radOf(px, pz); return r < St.r1 + 0.05 && past(azOf(px, pz), St.a0) <= St.a1 - St.a0; };
+    ctx.ground.addPoly(ringPoly(L.deckOutR + 0.1), (px, pz) => (radOf(px, pz) < L.coreR - 0.05 || inStairWell(px, pz) ? NaN : DECK_Y), DECK_Y - 1);
+    // the stair: 34 risers on an arc against the core; cut in pieces so that the upper flight is not seen from the floor below it
+    { const rise = (L.deckY - L.loupeY) / St.steps, da = (St.a1 - St.a0) / St.steps, PIECES = 12;
+        const treadY = (px, pz) => LOUPE_Y + rise * (clamp(Math.floor(past(azOf(px, pz), St.a0) / da), 0, St.steps - 1) + 1);
+        for (let k = 0; k < PIECES; k++) {
+            const b0 = St.a0 + (St.a1 - St.a0) * k / PIECES, b1 = St.a0 + (St.a1 - St.a0) * (k + 1) / PIECES, poly = [];
+            for (let i = 0; i <= 3; i++) poly.push(at(St.r0 - 0.04, b0 + (b1 - b0) * i / 3)); for (let i = 3; i >= 0; i--) poly.push(at(St.r1 + 0.04, b0 + (b1 - b0) * i / 3));
+            ctx.ground.addPoly(poly, treadY, LOUPE_Y + rise * (Math.round((b0 - St.a0) / da) + 1) - 0.9);
         }
-    };
-    const LOUPE_Y = y + LV.loupe, DECK_Y = y + LV.deck;
-    walkRing(LOUPE_Y, 14.9, 20.1, 3.2); walkRing(DECK_Y, 17.5, 20.8, 2.6);
-    // the Loupe turns once every 45 min: stand on it and it carries you round (real speed)
-    const LOUPE_W = Math.PI * 2 / 2700;
+        arcWall(St.r1 + 0.12, St.a0, St.a1, lo[0], DECK_Y + 1.1);            // stringer / balustrade on the open side, floor to rail
+        radWall(St.a1, L.coreR, St.r1 + 0.12, lo[0], DECK_Y - 0.5);          // closed under the head of the flight
+        radWall(St.a0, L.coreR, St.r1 + 0.12, DECK_Y - 0.5, DECK_Y + 1.1);   // balustrade over the foot, upstairs
+    }
+    // ---- 500 ft: core, glazing, the lounge counter with its stools, the banquette
+    arcWall(L.coreR + 0.05, 0, TAU, ...lo); arcWall(L.loupeWallR - 0.14, 0, TAU, ...lo);
+    { const B = L.bar; block(B.r0 - 0.05, B.r1 + 0.78, B.a0 - 0.02, B.a1 + 0.02, ...lo); for (const a of [B.a0 - 0.02, B.a1 + 0.02]) radWall(a, L.coreR, B.r0, ...lo); }
+    { const S = L.sofa; arcWall(S.r1 + 0.06, S.a0, S.a1, ...lo); for (const a of [S.a0, S.a1]) radWall(a, L.coreR, S.r1 + 0.06, ...lo); for (let i = 0; i < 4; i++) { const a = S.a0 + 0.1 + (S.a1 - S.a0 - 0.2) * i / 3; block(S.r1 + 0.45, S.r1 + 1.05, a - 0.04, a + 0.04, ...lo); } }
+    // ---- 520 ft: core, glazed wall with its four doorways, the barrier, cafe, wine bar, tables, the glass benches
+    arcWall(L.coreR + 0.05, 0, TAU, ...hi); arcWall(L.deckOutR - 0.08, 0, TAU, ...hi);
+    { const gap = (L.doorHalf - 0.12) / L.deckInR, D = [...L.doorAz].sort((a, b) => a - b); D.forEach((d, i) => { const next = D[(i + 1) % D.length] + (i + 1 === D.length ? TAU : 0); arcWall(L.deckInR, d + gap, next - gap, ...hi); }); }
+    { const C = L.cafe; block(C.r0 - 0.05, C.r1 + 0.12, C.a0 - 0.02, C.a1 + 0.02, ...hi); for (const a of [C.a0 - 0.02, C.a1 + 0.02]) radWall(a, L.coreR, C.r0, ...hi); }
+    { const W = L.wine; block(W.r0 - 0.05, W.r1 + 0.76, W.a0 - 0.02, W.a1 + 0.02, ...hi); for (const a of [W.a0 - 0.02, W.a1 + 0.02]) radWall(a, L.coreR, W.r0, ...hi); }
+    for (const t of L.deckTables) block(t.r - 0.45, t.r + 0.45, t.az - 0.09, t.az + 0.09, ...hi);
+    for (let i = 0; i < L.benches; i++) { const a = (i + 0.5) / L.benches * TAU, hw = 0.9 / 15.9; arcWall(15.42, a - hw, a + hw, ...hi); for (const e of [a - hw, a + hw]) radWall(e, 15.42, L.deckOutR - 0.08, ...hi); }
+    // the Loupe turns once every 45 min and carries whoever stands on it (real speed)
+    const LOUPE_W = TAU / 2700;
     ctx.onUpdate((dt, s) => {
-        N.loupe.rotation.z += LOUPE_W * dt;
+        N.loupe.rotation.y += LOUPE_W * dt;
         const p = s.ctl?.position; if (!p || ride || Math.abs(p.y - LOUPE_Y) > 0.6) return;
-        const dx = p.x - NEEDLE.x, dz = p.z - NEEDLE.z, r = Math.hypot(dx, dz); if (r < 14.9 || r > 20.1) return;
-        const a = Math.atan2(dz, dx) - LOUPE_W * dt; s.ctl.x = NEEDLE.x + Math.cos(a) * r; s.ctl.z = NEEDLE.z + Math.sin(a) * r;
+        const r = radOf(p.x, p.z); if (r < L.turnR0 || r > L.turnR1) return;
+        const a = azOf(p.x, p.z) - LOUPE_W * dt; s.ctl.x = X + Math.cos(a) * r; s.ctl.z = Z + Math.sin(a) * r;
     });
-    // ---- activity (note 57): elevator ride → The Loupe → open-air deck. The cab rises along the core in 41 s; you ride inside it.
-    // OSM w1136496123: the public approach ends at (-0.7, 18.9),
-    // between the south leg pair, outside the pavilion's actual footprint.
-    const door = { x: -0.7, z: 18.9 };
-    const cab = N.elevators[0], flow = activityFlow(ctx);
+    // soft pools of light under the entrance canopy (the rooms upstairs are lit by their own fittings)
+    for (const [dx, dz] of [[-4, 22.5], [4, 22.5], [0, 26]]) ctx.lampPoints.push({ x: X + dx, z: Z + dz, h: 4, noPost: true });
+    // ---- the ride (note 57): the gold car climbs the core to the observation level in 41 s; you stand in it and can look round.
+    // OSM way 1136496123: the public approach meets the pavilion at (-0.7, 18.9), its south doorway.
+    const door = { x: X - 0.7, z: Z + L.pavR + 0.9 };
+    const cab = N.elevators[0], flow = activityFlow(ctx), ca = Math.cos(cab.a), sa = Math.sin(cab.a);
+    const lobby = (yy) => ({ x: X + ca * (L.coreR + 1.4), z: Z + sa * (L.coreR + 1.4), yy });
     let ride = null;
     ctx.extras.needleElevator = { debug: () => ride && { t: ride.t, speed: ride.speed, y0: ride.y0, y1: ride.y1 } };
     const done = (s, id, title, text) => seaActivity(s, id, 'space-needle', title, text);
@@ -102,38 +120,68 @@ function buildNeedle(ctx) {
         ride.t += dt * ride.speed;
         const k = clamp(ride.t / 41, 0, 1), e = k * k * (3 - 2 * k), yy = lerp(ride.y0, ride.y1, e);
         cab.pinned = true; cab.y = yy - y; cab.cab.position.y = cab.y;
-        const ca = Math.cos(cab.a), sa = Math.sin(cab.a), px = NEEDLE.x + ca * 6.6, pz = NEEDLE.z + sa * 6.6;
+        const px = X + ca * (L.cabR + 0.1), pz = Z + sa * (L.cabR + 0.1);
         const lk = s.input?.takeLook?.() || { dx: 0, dy: 0 }; ride.heading -= lk.dx * 0.0024; ride.pitch = clamp(ride.pitch - lk.dy * 0.0024, -1.3, 1.2);
-        s.ctl.rig?.position.set(px, yy + 1.62, pz); s.ctl.rig?.rotation.set(ride.pitch, ride.heading, 0, 'YXZ');
+        s.ctl.rig?.position.set(px, yy + 1.66, pz); s.ctl.rig?.rotation.set(ride.pitch, ride.heading, 0, 'YXZ');
         if (flow.run) { flow.run.progress.value = k; flow.run.status.textContent = `${Math.round(k * 100)}% · ${ride.speed > 1 ? 'Accelerated game ride' : 'Elevator moving'}`; }
         if (k >= 1) flow.complete();
     });
     const startRide = (s, up) => {
-        const origin = { ...s.position, heading: s.ctl.heading, pitch: s.ctl.pitch }, ca = Math.cos(cab.a), sa = Math.sin(cab.a);
-        flow.begin(s, { title: up ? 'Ride to The Loupe' : 'Return to the plaza', action: 'Hurry the game ride (×4)', cameraRide: true,
-            help: 'Look around while the gold cab moves. Leave returns you to your starting floor without completing the ride.',
-            started(s) { ride = { t: 0, speed: 1, y0: up ? y + 1.2 : LOUPE_Y - 1.4, y1: up ? LOUPE_Y - 1.4 : y + 1.2, heading: Math.atan2(Math.cos(cab.a), Math.sin(cab.a)) + Math.PI, pitch: up ? -.05 : .1 }; s.sound.play('whoosh'); },
+        const origin = { ...s.position, heading: s.ctl.heading, pitch: s.ctl.pitch }, from = up ? y + L.cabBaseY : Math.abs(s.ctl.position.y - LOUPE_Y) < 1.2 ? LOUPE_Y : DECK_Y;
+        flow.begin(s, { title: up ? 'Ride to the observation level' : 'Return to the plaza', action: 'Hurry the game ride (×4)', cameraRide: true,
+            help: 'Look around while the gold car moves: the doors are behind you. Leave returns you to your starting floor without completing the ride.',
+            started(s) { ride = { t: 0, speed: 1, y0: from, y1: up ? DECK_Y : y + L.cabBaseY, heading: Math.atan2(ca, sa) + Math.PI, pitch: up ? -.05 : .1 }; s.sound.play('whoosh'); },
             actioned(s, r) { if (ride) ride.speed = 4; r.busy = true; r.button.textContent = 'Enjoy the view'; },
             cancel(s) { ride = null; cab.pinned = false; s.ctl.enter(origin.x, origin.z, origin.heading, origin.y); s.ctl.pitch = origin.pitch; s.ctl.place?.(); },
             complete(s) {
                 ride = null; cab.pinned = false;
-                if (up) { s.ctl.y = LOUPE_Y; s.ctl.teleport(NEEDLE.x + ca * 17.4, NEEDLE.z + sa * 17.4, Math.atan2(-ca, -sa)); s.ctl.place?.(); done(s, 'lm-needle-up', '🛗 The Loupe, 500 ft up', 'You are on The Loupe. Look down through the revolving glass floor.'); }
-                else { s.ctl.y = y; s.ctl.teleport(door.x, door.z + 1.6, 0); s.ctl.place?.(); }
+                if (up) { const p = lobby(DECK_Y); s.ctl.y = DECK_Y; s.ctl.teleport(p.x, p.z, Math.atan2(ca, sa) + Math.PI); s.ctl.place?.(); done(s, 'lm-needle-up', '🛗 520 ft up', 'You are on the observation level. Walk out to the open-air deck, or take the stairs down to The Loupe and its glass floor.'); }
+                else { s.ctl.y = y; s.ctl.teleport(door.x, door.z + 1.2, 0); s.ctl.place?.(); }
             },
         });
     };
-    ctx.interactables.push({ kind: 'activity', x: door.x, z: door.z, y, r: 3, label: 'Ride the elevator to The Loupe (41 s)', cond: s => s.spot.entry.id === 'space-needle' && !ride && Math.abs(s.ctl.position.y - y) < 1.2, use: s => startRide(s, true) });
-    // On the Loupe, manually frame the downward view through the glass.
     const onLevel = (s, yy) => Math.abs(s.ctl.position.y - yy) < 1.2;
-    ctx.extras.loupeLook = photoHunt(ctx, { x: NEEDLE.x, z: NEEDLE.z + 17.6, y: LOUPE_Y, r: 3.2, spot: 'space-needle',
-        cond: s => !ride && onLevel(s, LOUPE_Y), title: 'Look down through the glass floor',
-        unavailable: 'The floor below you rotates at its real slow speed.',
-        targets: [{ label: 'The view beneath the revolving glass', x: NEEDLE.x + 1, z: NEEDLE.z + 18.1, y: LOUPE_Y - .04, radius: .18, minDistance: .6, maxDistance: 5, surfaceTolerance: .15, holdSeconds: .75 }],
-        onDone: s => done(s, 'lm-needle-loupe', '👀 Through The Loupe', 'You aimed down through the revolving glass and captured the view. The floor turns once every 45 minutes.') });
-    // No stair access is advertised: the retained model has no walkable stairs
-    // between these levels. The former instant deck-visit award is retired.
-    ctx.interactables.push({ kind: 'ride', x: NEEDLE.x + Math.cos(cab.a) * 16.4, z: NEEDLE.z + Math.sin(cab.a) * 16.4, y: LOUPE_Y, r: 3, label: 'Ride the elevator back down', cond: s => s.spot.entry.id === 'space-needle' && !ride && onLevel(s, LOUPE_Y), use: s => startRide(s, false) });
-    return { DECK_Y, LOUPE_Y };
+    ctx.interactables.push({ kind: 'activity', x: door.x, z: door.z, y, r: 3, label: 'Ride the elevator to the observation level (41 s)', cond: s => s.spot.entry.id === 'space-needle' && !ride && Math.abs(s.ctl.position.y - y) < 1.2, use: s => startRide(s, true) });
+    for (const yy of [DECK_Y, LOUPE_Y]) { const p = lobby(yy); ctx.interactables.push({ kind: 'ride', x: p.x, z: p.z, y: yy, r: 2.4, label: 'Ride the elevator back down', cond: s => s.spot.entry.id === 'space-needle' && !ride && onLevel(s, yy), use: s => startRide(s, false) }); }
+    // On the Loupe, manually frame the downward view through the glass.
+    { const [hx, hz] = at(L.loupeTableR, Math.PI / 2 + 0.26), [tx, tz] = at(L.loupeTableR + 0.5, Math.PI / 2 + 0.34);
+        ctx.extras.loupeLook = photoHunt(ctx, { x: hx, z: hz, y: LOUPE_Y, r: 3.2, spot: 'space-needle',
+            cond: s => !ride && onLevel(s, LOUPE_Y), title: 'Look down through the glass floor',
+            unavailable: 'The floor below you rotates at its real slow speed.',
+            targets: [{ label: 'The view beneath the revolving glass', x: tx, z: tz, y: LOUPE_Y - .04, radius: .18, minDistance: .6, maxDistance: 5, surfaceTolerance: .15, holdSeconds: .75 }],
+            onDone: s => done(s, 'lm-needle-loupe', '👀 Through The Loupe', 'You aimed down through the revolving glass and captured the view. The floor turns once every 45 minutes.') }); }
+    // ---- people upstairs (fixed heights: the crowd's floor search is for the ground)
+    const face = (a, inward) => Math.atan2((inward ? -1 : 1) * Math.cos(a), (inward ? -1 : 1) * Math.sin(a));
+    const G = [], one = (r, a, yy, act, personas, o = {}) => { const [px, pz] = at(r, a), [lx, lz] = at(o.lookR ?? 60, a); G.push({ x: px, z: pz, r: 0.01, n: 1, act, look: [lx, lz], y: yy, personas, ...o }); };
+    { const B = L.bar; one((L.coreR + B.r0) / 2 + 0.15, (B.a0 + B.a1) / 2, LOUPE_Y, 'watch', ['staff']);
+        for (const i of [1, 2, 5, 7]) { const a = B.a0 + 0.06 + (B.a1 - B.a0 - 0.12) * i / (B.stools - 1); one(B.r1 + 0.52, a, LOUPE_Y + 0.76 - 0.45, 'sit', ['tourist_us', 'local', 'tech', 'tourist_de'], { yaw: face(a, true), fixedYaw: true, lookR: 0 }); } }
+    for (const [a, p] of [[0.5, ['tourist_jp', 'photographer']], [2.3, ['tourist_us', 'kid']], [4.3, ['tourist_kr', 'tourist_cn']], [5.2, ['local', 'tourist_in']]]) one(L.loupeWallR - 0.62, a, LOUPE_Y + 0.012, 'watch', p);
+    one(9.3, 1.25, LOUPE_Y, 'photo', ['tourist_es', 'tourist_ca'], { lookR: 12.4 });
+    { const C = L.cafe, W = L.wine; one((L.coreR + C.r0) / 2 + 0.25, (C.a0 + C.a1) / 2 + 0.2, DECK_Y, 'watch', ['staff']); one((L.coreR + W.r0) / 2 + 0.2, (W.a0 + W.a1) / 2, DECK_Y, 'watch', ['staff']);
+        for (const [i, a] of [C.a0 + 0.5, C.a0 + 0.62, C.a0 + 0.74].entries()) one(C.r1 + 0.75 + i * 0.05, a, DECK_Y, 'watch', ['tourist_us', 'tourist_cn', 'kid', 'tourist_in'], { lookR: 0 });
+        for (const i of [1, 3]) { const a = W.a0 + 0.07 + (W.a1 - W.a0 - 0.14) * i / (W.stools - 1); one(W.r1 + 0.5, a, DECK_Y + 0.76 - 0.45, 'sit', ['tourist_de', 'local', 'tourist_ca'], { yaw: face(a, true), fixedYaw: true, lookR: 0 }); } }
+    for (const [a, p] of [[0.38, ['tourist_us', 'photographer']], [1.75, ['tourist_cn', 'tourist_kr']], [3.3, ['tourist_jp', 'kid']], [4.75, ['tourist_es', 'tourist_us']], [5.85, ['tech', 'local']]]) one(L.deckInR + 1.0, a, DECK_Y, a > 3 ? 'photo' : 'watch', p);
+    for (const [a, p] of [[1.05, ['tourist_in', 'tourist_ca']], [2.9, ['tourist_us', 'tourist_de']], [4.1, ['kid', 'local']]]) one(L.deckInR - 0.75, a, DECK_Y, 'watch', p);
+    return { DECK_Y, LOUPE_Y, groups: G, door };
+}
+
+/** Howard S. Wright Memorial Fountain (OSM way 241876412, kerb 394259983): a ring kerb, shallow water and a cluster of
+ *  upright jets, as on Street View. Jet heights and their rhythm are estimates. */
+function buildFountain(ctx) {
+    const d = ctx.data, g = ctx.ground, fw = d.areas.find((a) => a.id === 'w241876412'); if (!fw) return;
+    const c = centroid(fw.poly), y0 = g.heightAt(c[0], c[1]), b = new GeoBatch(), R = 5.1;
+    b.add(new THREE.CylinderGeometry(R, R, 0.42, 48, 1, true), 'stone', M(c[0], y0 + 0.21, c[1]), '#9b9891');
+    b.add(new THREE.RingGeometry(R - 0.38, R, 48).rotateX(-Math.PI / 2), 'stone', M(c[0], y0 + 0.42, c[1]), '#aaa7a0');
+    b.add(new THREE.CylinderGeometry(R - 0.38, R - 0.38, 0.2, 48, 1, true).scale(-1, 1, 1), 'stone', M(c[0], y0 + 0.32, c[1]), '#8d8a84');
+    ctx.add(b.build('wright-fountain'));
+    const water = new THREE.Mesh(new THREE.CircleGeometry(R - 0.38, 48), new THREE.MeshStandardMaterial({ color: '#3d6f80', roughness: 0.05, metalness: 0.3, emissive: new THREE.Color('#7fd0ff'), emissiveIntensity: 0 }));
+    water.material.userData.nightEmissive = 0.25; water.rotation.x = -Math.PI / 2; water.position.set(c[0], y0 + 0.24, c[1]); water.name = 'wright-fountain-water'; ctx.add(water);
+    const jm = new THREE.MeshStandardMaterial({ color: '#eef6fa', roughness: 0.3, transparent: true, opacity: 0.72, depthWrite: false, emissive: new THREE.Color('#dff3ff'), emissiveIntensity: 0.15 }); jm.userData.nightEmissive = 0.9; jm.name = 'wright-fountain-jets';
+    const jg = new THREE.CylinderGeometry(0.035, 0.085, 1, 7, 1, true); jg.translate(0, 0.5, 0);
+    const jets = []; for (let i = 0; i < 9; i++) { const a = i / 8 * Math.PI * 2, r = i === 8 ? 0 : 2.2, j = new THREE.Mesh(jg, jm); j.position.set(c[0] + Math.cos(a) * r, y0 + 0.24, c[1] + Math.sin(a) * r); j.castShadow = false; j.name = 'wright-fountain-jet'; ctx.add(j); jets.push(j); }
+    let t = 0; ctx.onUpdate((dt) => { t += dt; jets.forEach((j, i) => { j.scale.y = (i === 8 ? 3.1 : 2.1) + Math.sin(t * 1.3 + i * 0.8) * 0.45 + Math.sin(t * 7 + i) * 0.06; }); });
+    ctx.poly(Array.from({ length: 20 }, (_, i) => [c[0] + Math.cos(i / 20 * Math.PI * 2) * R, c[1] + Math.sin(i / 20 * Math.PI * 2) * R]), { y0: y0 - 3, y1: y0 + 1, roofHeightAt: () => y0 + 1 });
+    ctx.lampPoints.push({ x: c[0], z: c[1], h: 3, noPost: true });
 }
 
 // ---------------------------------------------------------------------------- Chihuly Glasshouse + suspended sculpture + garden glass
@@ -291,7 +339,7 @@ function glassCanopy(ctx, id) {
     const bd = ctx.data.buildings.find(b => b.id === id); if (!bd?.poly || bd.k !== 'roof' || !/glass/.test(bd.mat || '')) return null;
     ctx.skipBuildings.add(id);
     const r = sourceRecord(bd, 0, ctx.ground), y = r.datum + r.height, ring = bd.poly, b = new GeoBatch();
-    const glass = new THREE.MeshStandardMaterial({ color: '#d7e7ec', transparent: true, opacity: 0.22, roughness: 0.08, metalness: 0.1, side: THREE.DoubleSide, depthWrite: false });
+    const glass = new THREE.MeshStandardMaterial({ color: '#d7e7ec', transparent: true, opacity: 0.14, roughness: 0.08, metalness: 0.1, side: THREE.DoubleSide, depthWrite: false });
     b.flat(ring, y, '#ffffff', 'canopyGlass');
     for (let i = 0; i < ring.length; i++) { const [ax, az] = ring[i], [bx, bz] = ring[(i + 1) % ring.length], L = Math.hypot(bx - ax, bz - az); b.rod([ax, y, az], [bx, y, bz], 0.07, '#c9ccc9', 'metal', 6);
         for (let t = 0; t < L; t += 7) { const x = ax + (bx - ax) * t / L, z = az + (bz - az) * t / L, g0 = ctx.ground.heightAt(x, z); if (y - g0 > 1.8) { b.cyl(x, g0, z, 0.09, y - g0, '#c9ccc9', 'metal', 8); ctx.circle?.(x, z, 0.15, y - g0); } } }
@@ -310,17 +358,17 @@ export default {
         ctx.terrainOpts = { bg: '#8f8b82', bgMask: 'slab', innerPx: 2048, outerPad: 0, skirt: 0 };
         ctx.treeLod = { cap: Infinity, near: 90, max: 700, force: true };
         { const c = []; for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; c.push([NEEDLE.x + Math.cos(a) * 26, NEEDLE.z + Math.sin(a) * 26]); } ctx.exclude.push(c); } // the Needle's OSM parts → hero model
+        { const fw = d.areas.find((a) => a.id === 'w241876412'); if (fw) { const c = centroid(fw.poly); ctx.exclude.push(Array.from({ length: 16 }, (_, i) => [c[0] + Math.cos(i / 16 * Math.PI * 2) * 6.2, c[1] + Math.sin(i / 16 * Math.PI * 2) * 6.2])); } } // no generated tree in the fountain
         const needle = buildNeedle(ctx);
-        glassCanopy(ctx, 'w241876407');
+        for (const id of ['w241876407', 'w394260006', 'w394260012']) glassCanopy(ctx, id); // the entrance canopies (all three mapped as glass roofs)
         const chi = buildChihuly(ctx);
         buildMonorail(ctx);
         mopopMetalMaterial(); // literal source solids remain ordinary museum context
         ctx.osmBackdrop({ paint: {}, style: (b) => MOPOP_PARTS.has(b.id) ? MOPOP_METAL : undefined,
             streetTreeOpts: { spacing: 12, prob: 0.7 }, areaTreeOpts: { conifer: 0.4 } });
         const P = ctx.painter;
-        P.circle(NEEDLE.x, NEEDLE.z, 30, '#b4afa6', 'slab'); P.circle(NEEDLE.x, NEEDLE.z, 13.6, '#8d8a84', 'slab');
-        // Howard S. Wright Memorial Fountain: shallow pool south of the base
-        { const fw = d.areas.find((a) => a.id === 'w241876412'); if (fw) { const c = centroid(fw.poly), w = new THREE.Mesh(new THREE.CircleGeometry(4.2, 32), new THREE.MeshStandardMaterial({ color: '#3d6f80', roughness: 0.05, metalness: 0.3 })); w.rotation.x = -Math.PI / 2; w.position.set(c[0], g.heightAt(c[0], c[1]) + 0.06, c[1]); ctx.add(w); } }
+        P.circle(NEEDLE.x, NEEDLE.z, 30, '#b4afa6', 'slab'); P.circle(NEEDLE.x, NEEDLE.z, NL.pavR + 0.4, '#8d8a84', 'slab');
+        buildFountain(ctx);
         // the city around the grounds (seen from the deck: 360°) — real towers, blocks, ground, Elliott Bay + ferries, mountains
         addSourceContext(ctx);
         ctx.extras.seaBackdrop = seaBackdrop(ctx, { needle: false, towers: false, bay: false, clear: 380, eyeY: 1.6 });
@@ -345,13 +393,12 @@ export default {
         // the fountain/photo arrival remains freely reachable to the south.
         ctx.spawns['space-needle'] = { x: 0.2, z: 27.2, heading: 0 };
         // ---- crowd
-        const q = []; for (let i = 0; i < 10; i++) q.push([NEEDLE.x - 4 + i * 0.85, NEEDLE.z + 17 + (i % 2) * 0.4]);
         ctx.crowdCfg = {
             personas: { tourist_us: 5, local: 2, tech: 1.5, tourist_cn: 2, tourist_kr: 1.5, tourist_jp: 1.5, tourist_de: 1, tourist_es: 1, tourist_ca: 1.5, tourist_in: 1.5, kid: 2, photographer: 1 },
             walkers: 40,
             paths: d.ways.filter((w) => (w.k === 'pedestrian' || w.k === 'footway') && w.pts.length > 1 && !w.layer && w.indoor !== 'yes').map((w) => w.pts),
             groups: [
-                { line: [[NEEDLE.x - 6, NEEDLE.z + 16.5], [NEEDLE.x + 6, NEEDLE.z + 16.5], [NEEDLE.x + 9, NEEDLE.z + 20]], n: 12, act: 'queue', personas: ['tourist_us', 'tourist_cn', 'tourist_in', 'tourist_kr', 'kid', 'tourist_es'] },
+                { line: [[NEEDLE.x + 1.6, NEEDLE.z + 20.6], [NEEDLE.x + 6.5, NEEDLE.z + 21.6], [NEEDLE.x + 10.5, NEEDLE.z + 24.6]], n: 10, act: 'queue', personas: ['tourist_us', 'tourist_cn', 'tourist_in', 'tourist_kr', 'kid', 'tourist_es'] },
                 { x: NEEDLE.x - 2, z: NEEDLE.z + 34, r: 3, n: 7, act: 'photo', look: [NEEDLE.x, NEEDLE.z], personas: ['tourist_us', 'tourist_cn', 'tourist_jp', 'photographer'] },
                 { x: NEEDLE.x + 8, z: NEEDLE.z + 44, r: 4, n: 5, act: 'watch', look: [NEEDLE.x, NEEDLE.z], personas: ['tourist_de', 'tourist_ca', 'local'] },
                 { x: NEEDLE.x - 12, z: NEEDLE.z + 40, r: 0.5, n: 1, act: 'perform', look: [NEEDLE.x, NEEDLE.z + 34], personas: ['busker'], prop: 'guitar' },
@@ -360,6 +407,7 @@ export default {
                 { x: chi.bb.x1 + 4, z: chi.cz + 12, r: 0.3, n: 1, act: 'watch', look: [chi.bb.x1 + 10, chi.cz + 12], personas: ['staff'] },
                 { x: 111.3, z: -73.5, r: 1.2, n: 3, act: 'watch', look: [111.3, -76], personas: ['local', 'tourist_us'] },
                 { x: -20, z: -78, r: 3, n: 6, act: 'watch', look: [-40, -86], personas: ['tourist_us', 'local', 'tech', 'kid'] },
+                ...needle.groups,
             ],
         };
         // ---- sounds

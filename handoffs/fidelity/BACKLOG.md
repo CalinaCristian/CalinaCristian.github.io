@@ -18,6 +18,12 @@ the original pose. Until then a fix stays under "Fixed on branch".
 | Grozăvești (194, -453) | "why is it like that?" | the unnamed ramp beside Șos. Orhideelor is an embankment 5.2 m high at this point (not a bridge in OSM); Street View shows it still low there, rising later: its grade needs checking |
 | people at night | "shadows for people (texture like they are just standing that are transparent)" | not reproduced in a visible Ultra window at night among walkers (the AO pass already skips the crowd, lamps cast no shadows); needs an F8 report where they appear |
 
+## Space Needle rebuild (owner request of 2026-11-11, for the owner to walk through)
+
+| Request | What was built |
+| --- | --- |
+| "fix space needle area ... rebuilt based on street view, osm ... realistic ... proper night lighting ... the upstairs floor ... glass ... bar, restaurants ... the elevator back to be visible" | One tower model (`spots/space-needle.js`) from the OSM parts of way 12903132 and Street View (Space Needle Loop, Aug 2025): twin-beam legs merging at the waist and forking under the top house, open lattice core, three-winged 100 ft level, 48 fins under the glass floor, halo, both glazed rings at the mapped radii (15.5 m and 13.7 m; the old model drew them at 20.4 m and 17.1 m), roof, spire. Visit scene: base pavilion on the mapped footprint, The Loupe (turning glass floor, The Loupe Lounge) and the 520 ft level (Atmos Cafe, Atmos Wine Bar, open-air deck with the leaning glass barrier and glass benches) are fitted out and walkable, joined by a walkable stair; the elevator goes to 520 ft, the car has its doors and back wall; fountain jets; all three entrance canopies are glass. Night: floodlighting baked per vertex, rooms lit by their fittings, halo ring, beacon. The same tower is used by every far backdrop (Kerry Park, Gas Works, Pike Place, Bellevue) and the driving-world landmark follows the same proportions. Estimates (interior layout, furniture, member sizes, light strengths) are listed in the module header. Not modelled: the pavilion interior (seen through the glass only), the 510 ft mezzanine, the glass "Oculus" at the stair foot, the 100 ft level's interior, the holiday sky beam. |
+
 ## Fixed on master 2026-11-12 (owner reports of 2026-11-12, re-check live at the poses)
 
 | Report | Fix |

@@ -563,6 +563,43 @@ OSM position / type against the game data and game renders (`game/dev/reality/vi
   `historic=building`, 1938) is `building=construction` in live OSM (conversion into One Floreasca City); the game
   draws a two-storey hall carrying its name as a fascia.
 
+### Street-level comparison, round 2 (2026-11-12; panoramas dated May 2024, viewed only, nothing stored)
+
+Seen at 16 poses; the game render at the same pose is in brackets.
+- **Dinamo from Calea Floreasca 33 (east) and no. 20**: a car park, a guard booth, a floodlight mast, and at the far end
+  only a low dark-green wall; at no. 20 a low balustrade wall with orange mesh gates and two-storey white club buildings.
+  No stand rises above the street: the stadium is sunk in its pit. [The game's bowl stands 10–14 m above the street as a
+  grey wall with a cantilever roof: wrong level.] The Ștefan cel Mare gate (user photosphere): a single-storey gatehouse
+  with red DINAMO letters on its roof, a slim tower, brick-paved forecourt, a statue plinth. [Not modelled.]
+- **Velodrome, tennis courts, pools**: not visible from any street with a panorama (Calea Floreasca 85 shows two-storey
+  villas and trees). Not compared.
+- **Agora / Piața Floreasca, Calea Floreasca front**: two-storey glass curtain wall, AGORA letters on the roof edge,
+  clipped hedges and terraces under large trees. [Game: a dark slatted box with a row of small navy fascias, lawn: the
+  facade character is wrong.] South end (Bălănescu Rosetti): mauve upper storey with a dark louvred panel, the drive-through
+  passage in the middle, Dona pharmacy (teal panels) right of the portal. [Passage and Dona position match; colours do not.]
+  Banul Antonache side: single-storey dark-grey front, white MEGA IMAGE letters with the red logo, perpendicular parking
+  bays in front. [Game: same place and name; orange board, lawn instead of the parking bays, hall too tall there.]
+- **Automatica Ford (Calea Floreasca 151–159)**: wrapped in scaffold mesh behind a navy "#ONEGALLERY" site hoarding, tower
+  cranes, glass towers behind: a building site, as OSM `building=construction` says. Fixed: the game no longer puts an
+  "Automatica Ford" fascia on it. [Still drawn as a finished white two-storey hall, no hoarding.]
+- **Calea Floreasca 106 (Nusco, iMZA / Farmaplus corner)**: a multi-storey glass office building with a black
+  "restaurant & lounge" fascia. [Game: a grey four-storey block with balconies.] **No. 131B (Souk)**: a low white
+  two-storey building beside the park. [Game: a four-storey blue block.] **No. 118 (Il Calcio)**: block with a glazed
+  ground-floor terrace: matches. **No. 88 (moft)**: cream block with French balconies, dark shopfront: matches in form
+  [game block is green]. **No. 70–72 (Chez Toni side)**: brick-and-cream modern block, yellow villa beside it; no
+  "for rent" board seen at the disused café point. **West side opposite (Cannoleria)**: the 2024 panorama shows
+  "Nadasan" and "Chicineta" there; Cannoleria (node/13869497589) is newer than the panorama, OSM kept.
+  **No. 43–44**: a blue single-storey "Automecanica" auto-parts shop was trading in May 2024 where OSM (edit 2025-04)
+  has `disused:shop=motorcycle_repair` and the game hangs a DE ÎNCHIRIAT board: unresolved, OSM is the later source.
+- **Str. Ceaikovski 9**: Roll Master, Burgerati, Chocoloco side by side in that order, terraces in front: the game's three
+  fascias match in name and order (real boards are black / black / beige with a striped awning; game boards are navy).
+- **Rosetti stop from Str. Garibaldi 28**: yellow-topped hall with a grey centre panel, low pink annex, mesh fence, lawn:
+  the game matches.
+- **Spitalul Euroclinic (Calea Floreasca 11)**: grey panels and a blue glass curtain wall. [Game: beige eclectic facade.]
+- Not looked at in this round: Banul Antonache 40–44 (Yoshi, CAU), Madison, Graffiti Hotel / My Maya, Komodo, Schnitzel
+  King, Genin / Mumbai, Shop&Go, Hotel Johann Strauss, the disused units at 44.46589, 26.10271 / 44.46140, 26.10021 /
+  44.46004, 26.09999.
+
 ## Reference images (`refs/floreasca/`, 7 files, licences in LICENSES.md)
 
 | file | taken | near | licence | facade-texture candidate |

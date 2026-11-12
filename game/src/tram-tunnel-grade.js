@@ -2,7 +2,7 @@ import { decodeTramPoints } from './tram-path.js';
 
 // Reviewed source topology, with explicit MODEL dimensions. Neither layer nor
 // level supplies metres. The source tunnel endpoints do not define plateaus or
-// surveyed portal locations; only the conservative station section is roofed.
+// surveyed portal locations; the roof spans the source tunnel=yes ways.
 export const ROMANA_TRAM_TUNNEL_MODEL = {
     id: 'victoria-tram-underpass', depthM: 7.6, maxGrade: .08, easeM: 20,
     stationHalfPlateauM: 30, tunnelRampInsetM: 15, deckHalfWidthM: 2.8, thicknessM: .35,
@@ -114,8 +114,11 @@ export function buildTramTunnelGrades(data, { coreEdges = [] } = {}) {
     for (const p of prepared) for (const leg of p.path.legs) {
         const w = ways.get(leg.sourceId), ds = leg.s1 - leg.s0, local = s => (s - leg.s0) / ds;
         const breaks = [p.lo, p.hi, ...p.down.breaks.map(s => p.west + s), ...p.up.breaks.map(s => p.floorHi + s)].map(local).filter(t => t > 0 && t < 1).sort((a, b) => a - b);
-        const start = Math.max(p.lo, Math.min(leg.s0, leg.s1)), end = Math.min(p.hi, Math.max(leg.s0, leg.s1));
-        const intervals = yes(w.tags.tunnel) && end > start ? [[Math.min(local(start), local(end)), Math.max(local(start), local(end))]] : [];
+        // (owner, 2026-11-12, Romana (-545, -430) "I can still see underground from the top") the roof covers the whole way
+        // OSM tags tunnel=yes, portal to portal (the same extent as the two Pasajul Victoria carriageways beside it, already
+        // roofed from their own tunnel tags). Roofing only 30 m either side of the stop left 240 m of open slot across the
+        // square. The floor is at least 7.3 m down over that whole length, so the roof clears the tram everywhere.
+        const intervals = yes(w.tags.tunnel) ? [[0, 1]] : [];
         const heightAt = t => p.at(leg.s0 + ds * Math.max(0, Math.min(1, t)));
         grades.set(leg.sourceId + ':' + leg.index, { known: true, ya: heightAt(0), yb: heightAt(1), heightAt, estimated: true, basis: model.basis, modelId: model.id,
             sourceDeckIds: [leg.sourceId], sourceAnchorIds: p.anchors.map(a => a.nodeId).concat(p.definition.stationNode), provenance: ['OpenStreetMap source ways/nodes/tags retained in district data; explicit unsurveyed model'],
@@ -123,10 +126,10 @@ export function buildTramTunnelGrades(data, { coreEdges = [] } = {}) {
             tunnel: yes(w.tags.tunnel), sourceTunnel: yes(w.tags.tunnel), pathStationAt: t => leg.s0 + ds * t,
             aOffset: p.path.offsets.get(w.nodeIds[leg.index]).map(v => v * Math.sign(ds)), bOffset: p.path.offsets.get(w.nodeIds[leg.index + 1]).map(v => v * Math.sign(ds)),
             roof: { known: true, bottomM: model.roofBottomM, topM: model.roofTopM, intervals, estimated: true,
-                basis: 'MODEL closed station section only; source tunnel covered extent and portal positions remain unsurveyed' } });
+                basis: 'source tunnel=yes extent, portal to portal; roof level and thickness are MODEL estimates' } });
     }
     report.models.push({ id: model.id, basis: model.basis, depthM: model.depthM, maxGradeCap: model.maxGrade, deckHalfWidthM: model.deckHalfWidthM, thicknessM: model.thicknessM,
-        roof: { bottomM: model.roofBottomM, topM: model.roofTopM, coveredMPerTrack: model.stationHalfPlateauM * 2, estimated: true, policy: 'only flat station section; no claim that all source-tagged tunnel length is covered' },
+        roof: { bottomM: model.roofBottomM, topM: model.roofTopM, coveredMPerTrack: prepared.map(p => { const legs = p.path.legs.filter(l => l.sourceId === p.definition.tunnelWay); return Math.max(...legs.flatMap(l => [l.s0, l.s1])) - Math.min(...legs.flatMap(l => [l.s0, l.s1])); }), estimated: true, policy: 'the whole source-tagged tunnel way is covered' },
         paths: prepared.map(p => ({ sourceWays: p.definition.ways, anchors: p.anchors, stationNode: p.definition.stationNode, stationM: p.station, stationPlateauM: [p.lo, p.hi], floorPlateauM: [p.floorLo, p.floorHi], floorCoreTransitionInsetM: model.tunnelRampInsetM, groundIntervalM: [p.west, p.east],
             westApproachM: p.down.length, eastApproachM: p.up.length, westEaseM: p.down.easeM, eastEaseM: p.up.easeM, peakGrade: Math.max(p.down.peakGrade, p.up.peakGrade) })) });
     return { grades, report };

@@ -943,6 +943,32 @@ export async function buildWorld(city, renderer, opts = {}) {
     // w1284446130, pulled Soseaua Pipera and the Calea Floreasca junction 1.2-4 m down under Podul Barbu Vacarescu, where Street
     // View at 44.47973, 26.10135 shows them at street level): a covered way at street level.
     for (const e of edges) { const t = data.roadSourceGeometry?.[e.road]?.tags; if (e.tunnel && t && (/^(passage|building_passage)$/.test(t.tunnel) ? !(Number(t.layer) < 0) : t.layer !== undefined && Number(t.layer) === 0)) { e.tunnel = false; e.sourcePassage = true; } }
+    // (owner, 2026-11-12, Otopeni (-89, -499) "underpass leads to a dead end"; OSM w1395443535: a service way tagged tunnel=yes
+    // layer=-1 whose two ends are nodes of the airport station building w813193384, building on layer 1 with min_height=5,
+    // between two untagged ground-level service ways) a tunnel way that lies wholly under one building raised at least 4 m
+    // off the ground is the street-level passage under that building, not a dug tunnel: anchored 6 m down it sank the whole
+    // service road into a pit with no way out.
+    {
+        const BO = (data.version || 1) >= 2 ? 9 : 6, rg = new BoxGrid(48); let any = false;
+        for (const [i, b] of (data.buildings || []).entries()) {
+            const minH = data.buildingDimensions?.[i]?.[1] ?? b[2] / 10; if (!(minH >= 4)) continue;
+            const ring = data.buildingFootprints?.[i] || undelta(b, BO); if (!ring || ring.length < 3) continue;
+            const xs = ring.map(q => q[0]), zs = ring.map(q => q[1]); rg.insert(Math.min(...xs), Math.min(...zs), Math.max(...xs), Math.max(...zs), ring); any = true;
+        }
+        if (any) {
+            const byRoad = new Map();
+            for (const e of edges) if (e.tunnel && !e.virtual && !e.coveredRoadModel) { if (!byRoad.has(e.road)) byRoad.set(e.road, []); byRoad.get(e.road).push(e); }
+            for (const es of byRoad.values()) {
+                let common = null; // the raised footprints that cover every sample of the way
+                for (const e of es) for (const t of [.15, .5, .85]) {
+                    const x = e.a.x + (e.b.x - e.a.x) * t, z = e.a.z + (e.b.z - e.a.z) * t, here = new Set();
+                    rg.each(x, z, x, z, r => { if (pointInPolygon(x, z, r)) here.add(r); });
+                    common = common ? new Set([...common].filter(r => here.has(r))) : here;
+                }
+                if (common?.size) for (const e of es) { e.tunnel = false; e.sourcePassage = true; }
+            }
+        }
+    }
     const crossings = []; // {u (upper), f (lower), x, z}
     let profileStats = null, profileStats0 = null, wallCut = 0, blocksLane = null;
     {
@@ -3633,7 +3659,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     }
                     if (Math.min(y0, y1) < -1e-6) {
                         // Estimated retaining sides follow the actual source
-                        // centreline; only the closed station section is roofed.
+                        // centreline; the source tunnel=yes length is roofed.
                         const upper = piece.roof ? piece.roof.bottomM : 0, sides = quad(grade.deckHalfWidthM, Math.max(Y.ballast + y0, upper), Math.max(Y.ballast + y1, upper));
                         for (const [n, k, sign] of [[0, 1, -1], [2, 3, 1]]) {
                           for (const [lo, hi] of uncoveredTramTrenchWall(top[n], top[k], [-nx * sign, -nz * sign], tramGrades.support, grade.modelId)) {

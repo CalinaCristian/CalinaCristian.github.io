@@ -1,5 +1,5 @@
 {
-  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "gameSourceCommit": null,
   "city": "bucharest",
   "district": "otopeni",
   "grid": {
@@ -55,5 +55,9 @@
       "tileId": "aerial-r05-c07"
     }
   ],
-  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score."
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "sourceCounts": {
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 97,
+    "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10
+  }
 }

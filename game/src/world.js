@@ -2989,6 +2989,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // structures under / beside elevated and sunken roads
     const pierSpots = [], pierColl = [], underpassColl = [], underpassCollEdges = [], underpassRoofAudit = [], underpassCover = new MeshBuilder();
     for (const e of edges) e.lidded = !!e.tunnel && !e.coveredRoadModel && !e.virtual && Math.max(e.ya, e.yb) < -4.5;
+    const districtCutNodes = new Set((data.district?.ends || []).map(i => nodeArr[i]).filter(Boolean)); // (R24 tunnel end walls)
     const underpassRegions = edges.filter(e => e.tunnel && !e.virtual && !e.coveredRoadModel && Math.min(e.ya, e.yb) < -4.2).map(e => {
         const width = (f, side) => widthSide(f, side) + .3, points = [1, -1].flatMap(side => [e.a, e.b].map(n => corner(e, n, side, width(e, side), width)));
         return { x0: Math.min(...points.map(p => p[0])), x1: Math.max(...points.map(p => p[0])), z0: Math.min(...points.map(p => p[1])), z1: Math.max(...points.map(p => p[1])) };
@@ -3122,6 +3123,14 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const out = n === e.a ? -1 : 1;
                     sb.face4(P(s2, wr + 0.5, yc), P(s2, -wl - 0.5, yc), P(s2, -wl - 0.5, 1.2), P(s2, wr + 0.5, 1.2), rgb('#6b6862'), [e.dirx * out, 0, e.dirz * out]);
                 }
+            }
+            // (R24, Pipera (-762, 178): the Promenada Mall garage aisle cut by the district edge ran out into daylight) a lidded
+            // tunnel that dead-ends is closed by a concrete end wall, floor to ceiling, 1 m in (the district edge clips what
+            // stands on it). Only at the district boundary cut: some source tunnels (SeaTac Air Cargo Road) are unjoined pieces.
+            if (e.lidded) for (const n of [e.a, e.b]) if (districtCutNodes.has(n) && n.edges.every(f => f === e || f.virtual)) {
+                const atA = n === e.a, d = Math.min(1, e.len / 2), t = atA ? d / e.len : 1 - d / e.len, s2 = t * e.len,
+                    yf = yA + (yB - yA) * t, yc = closedRoof ? roof.ceilingAt(t) : yf + 5.2, out = atA ? -1 : 1;
+                sb.face4(P(s2, -wl, yf - 0.1), P(s2, wr, yf - 0.1), P(s2, wr, yc), P(s2, -wl, yc), conc, [-e.dirx * out, 0, -e.dirz * out]);
             }
             };
             const sourceTunnel = data.roadSourceGeometry?.[e.road]?.tags?.tunnel;
@@ -6794,6 +6803,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                 boundarySupport.report.rejectedDiscreteProps++; return false;
             };
             const closureSign = (...args) => wholePrimitive(() => sign(...args));
+            // (R24) an end inside a lidded tunnel (a garage aisle cut by the district edge) keeps its stop wall and turn-around
+            // prompt; it ends at the tunnel's concrete end wall, without street roadworks, signs or a crew
+            if (e.lidded) { closures.push({ x: m.x, z: m.z, y, top: y + m.barrierHeight, heading: m.heading, edge: e, node: m.node, kind, leadsTo: null,
+                l0: m.l0, l1: m.l1, half: m.half, bundleId: m.bundleId, bundlePrimary: m.bundlePrimary, worker: false, underground: true }); return; }
             // Immutable spans are shared by the physical wall and every visible
             // barrier; source scenery supplies the real continuation beyond it.
             const half = (m.l1 - m.l0) / 2, lc = (m.l0 + m.l1) / 2;

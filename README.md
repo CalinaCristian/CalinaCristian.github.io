@@ -293,7 +293,9 @@ The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, o
 
 ## Data, credits and privacy
 - Map data © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL); built offline by
-  `tools/osm/` into `game/data/*.json`.
+  `tools/osm/` into `game/data/`: the eight chapter districts as lossless binary packs `<city>-<district>.bin.gz`
+  (≤ 3 MiB each, spec 10; `node tools/osm/pack-district.mjs --unpack FILE` gives the JSON back), the legacy corridor
+  maps as JSON.
 - Aerial roof, tree-crown and vegetation measurements: Esri World Imagery (Esri, Maxar, Earthstar Geographics and the GIS
   User Community). Only measurements are stored in the game; reference imagery stays in local research output. Google
   Street View is used only for visual comparison, never as a source for game data or committed imagery.

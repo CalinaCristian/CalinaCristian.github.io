@@ -10,6 +10,20 @@ export function projectCoveredWater(city, { us = false } = {}) {
 export function coveredWaterAt(x, z, covered) {
     return covered.some(c => { for (let i = 1; i < c.pts.length; i++) { const [ax, az] = c.pts[i - 1], [bx, bz] = c.pts[i], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1, t = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / L2)); if (Math.hypot(x - ax - dx * t, z - az - dz * t) < c.r) return true; } return false; });
 }
+/** Convex pieces (a rectangle per span, a 16-gon per vertex) containing every point within r + pad of a covered line. */
+export function coveredWaterHulls(covered, pad = 0) {
+    const hulls = [];
+    for (const c of covered) {
+        const r = c.r + pad, R = r / Math.cos(Math.PI / 16);
+        for (const [x, z] of c.pts) hulls.push(Array.from({ length: 16 }, (_, k) => [x + R * Math.cos(k * Math.PI / 8), z + R * Math.sin(k * Math.PI / 8)]));
+        for (let i = 1; i < c.pts.length; i++) {
+            const [ax, az] = c.pts[i - 1], [bx, bz] = c.pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 1e-6) continue;
+            const nx = -(bz - az) / L * r, nz = (bx - ax) / L * r;
+            hulls.push([[ax + nx, az + nz], [bx + nx, bz + nz], [bx - nx, bz - nz], [ax - nx, az - nz]]);
+        }
+    }
+    return hulls;
+}
 export function dropCoveredWater(g, covered) {
     if (!covered.length) return g; const P = g.attributes.position; if (g.index || P.count % 3) return g;
     const keep = []; for (let i = 0; i < P.count; i += 3) { const x = (P.getX(i) + P.getX(i + 1) + P.getX(i + 2)) / 3, z = (P.getZ(i) + P.getZ(i + 1) + P.getZ(i + 2)) / 3; if (!coveredWaterAt(x, z, covered)) keep.push(i); }

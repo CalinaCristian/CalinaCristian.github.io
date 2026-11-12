@@ -274,10 +274,13 @@ export default {
                 // near this landing is used; all of the lake remains scenery.
                 rb.position.set(loop[0][0], level + .02, loop[0][1]); ctx.add(rb);
                 const ride = boatRide(ctx, rb, loop, level + .02, { speed: 1.5, title: 'Row on Lake Cișmigiu', onDone: s => bucActivity(s, 'cismigiu', 'rowboat', '🚣 Rowed in Cișmigiu', 'You rowed the short course and returned to Debarcader. Rowing on the lake is a warm-season activity.') });
-                const inSeason = s => { const date = s.r3d?.simDate || s.host.date || new Date(), m = new Intl.DateTimeFormat('en', { timeZone: 'Europe/Bucharest', month: 'numeric' }).format(date); return +m >= 4 && +m <= 10 && s.r3d?.weather?.season !== 'winter'; };
+                // (owner, 2026-11-12: "row a boat seems to never work") The gate used to need a calendar month of April to
+                // October as well, so from November to March the landing only ever answered "Boats are seasonal". Like the
+                // Herăstrău and Meydenbauer courses it now follows the season the game shows: closed only in winter.
+                const inSeason = s => s.r3d?.weather?.season !== 'winter';
                 const approach = dryLanding(lake, landing);
                 ctx.extras.rowboat = { ride, path: loop, source: landing.id, landing, approach };
-                ctx.interactables.push({ x: approach.x, z: approach.z, source: landing.id, r: 3, label: 'Row a boat from Debarcader (warm season)', tourAvailable: inSeason, cond: () => !ride.active(), use: s => { if (!inSeason(s)) { s.ui.toast('🚣 Boats are seasonal', 'Rowing is a warm-season activity. Current rental hours are not confirmed.'); return; } ride.start(s); } });
+                ctx.interactables.push({ x: approach.x, z: approach.z, source: landing.id, r: 3, label: 'Row a boat from Debarcader (warm season)', tourAvailable: inSeason, cond: () => !ride.active(), use: s => { if (!inSeason(s)) { s.ui.toast('🚣 No boats in winter', 'The boats are put away for the winter. Choose another season to row.'); return; } ride.start(s); } });
             }
         }
         // the Writers' Rotunda: read all twelve names (walk past each bust)

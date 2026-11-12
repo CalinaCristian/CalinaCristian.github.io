@@ -5,7 +5,8 @@ import { clipInferredBuildingDetail } from './building-detail-visibility.js';
 // Earlier source faces and other buildings' index/attribute prefixes stay exact.
 export function clipBuildingDetailRange(builder, start, owner, neighbours) {
     if (builder.ic === start.ic) return { clippedAreaM2: 0, issues: [], triangles: 0 };
-    const read = k => [...builder.p.subarray(k * 3, k * 3 + 3), ...builder.n.subarray(k * 3, k * 3 + 3), ...builder.u.subarray(k * 2, k * 2 + 2), ...builder.c.subarray(k * 3, k * 3 + 3), builder.t ? builder.t[k] : -1];
+    const P = builder.p, N = builder.n, U = builder.u, C = builder.c;
+    const read = k => [P[k * 3], P[k * 3 + 1], P[k * 3 + 2], N[k * 3], N[k * 3 + 1], N[k * 3 + 2], U[k * 2], U[k * 2 + 1], C[k * 3], C[k * 3 + 1], C[k * 3 + 2], builder.t ? builder.t[k] : -1];
     const faces = [];
     for (let i = start.ic; i < builder.ic; i += 3) faces.push([read(builder.i[i]), read(builder.i[i + 1]), read(builder.i[i + 2])]);
     const others = typeof neighbours === 'function' ? neighbours(faces) : neighbours;

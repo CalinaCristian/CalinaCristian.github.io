@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const walk = dir => !existsSync(resolve(root, dir)) ? [] : readdirSync(resolve(root, dir), { withFileTypes: true }).flatMap(e => e.isDirectory() ? walk(`${dir}/${e.name}`) : /\.(?:js|json|css|html|bin|png|jpg|jpeg|webp|svg|webm|mp3|ogg|woff2?)$/i.test(e.name) ? [`${dir}/${e.name}`] : []);
+const walk = dir => !existsSync(resolve(root, dir)) ? [] : readdirSync(resolve(root, dir), { withFileTypes: true }).flatMap(e => e.isDirectory() ? walk(`${dir}/${e.name}`) : /\.(?:js|json|css|html|bin|gz|png|jpg|jpeg|webp|svg|webm|mp3|ogg|woff2?)$/i.test(e.name) ? [`${dir}/${e.name}`] : []);
 const paths = [...new Set(['index.html', 'index.css', 'index.js', 'canvas.js', 'public/telemetry.js', 'game/index.html', 'game/style.css', ...walk('game/src'), ...walk('game/vendor'), ...walk('game/data'), ...walk('game/assets')])].filter(p => existsSync(resolve(root, p))).sort();
 const canonical = (path, bytes) => path.endsWith('.html') ? Buffer.from(bytes.toString().replace(/^[\t ]*<meta name="game-(?:release|source)" content="[^"]*">\r?\n?/gm, '')) : bytes;
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');

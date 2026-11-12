@@ -665,7 +665,7 @@ Culture notes:
 1. Lascăr Catargiu is a DUAL carriageway, 3+3 lanes, with trolleybus wires — not a single 2-way road.
 2. Vasile Alecsandri is a narrow ONE-WAY street southbound; UiPath's door is on its east side (The Landmark, no. 4) with Ted's Coffee + Friddi on the ground floor.
 3. Europe House is a 2001–02 blue-green glass tower on the SW side near Piața Victoriei, with an Orange shop at the base.
-4. Piața Victoriei is a huge oval gyratory with 6 arms, central lawns and an underpass (Pasajul Victoria) beneath.
+4. Piața Victoriei is a huge oval gyratory with 6 arms, central lawns and an underpass (Pasajul Victoria) beneath. OSM (2026-11-12): two one-way road tunnels (w669751868 / w241374325 westbound, w669751870 / w669751871 / w241374324 eastbound) with the two tram tracks between them (w241374326, w920117619), all tagged tunnel=yes over the same extent, portal to portal; the west ramps (w241374320 up, w27008418 down) reach Șos. Nicolae Titulescu about 190 m west of the west portal. The driveway under Palatul Victoria (w1516934660, tunnel=yes layer=-1) runs under a building part with min_height=7: a street-level passage, not a dug tunnel.
 5. Palatul Victoria = long pale travertine stripped-classical facade with arcade/colonnade, Romanian + EU flags.
 6. The Antipa museum portico (columns + pediment) at the Kiseleff corner.
 7. Trams (lines 1, 10) cross Piața Victoriei E–W along Iancu de Hunedoara in a central reservation.

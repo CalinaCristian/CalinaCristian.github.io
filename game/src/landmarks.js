@@ -1543,7 +1543,32 @@ const FOUNTAIN_RINGS = [
     [206.12,-9.16,205.64,-9.88,205.4,-10.72,205.42,-11.6,205.71,-12.42,206.24,-13.12,206.94,-13.64,207.78,-13.9,208.65,-13.91,209.49,-13.66,210.21,-13.17,210.77,-12.44,211.08,-11.57,211.08,-10.66,210.8,-9.78,210.26,-9.04,209.5,-8.5,208.63,-8.23,207.71,-8.27,206.84,-8.58], // w413969309
 ];
 const FOUNTAIN_SOURCE_IDS = ["w1177217423", "w1177217420", "w1177026766", "w1177217417", "w1177026763", "w1177042949", "w1177026760", "w1177042946", "w1177023237", "w1177042943", "w1177023234", "w1177038230", "w1177023231", "w1177038227", "w1177023228", "w1177038224", "w1177023225", "w1176581103", "w1177667553", "w1128204284", "w1128204285", "w1176591248", "w1176969066", "w1128204292", "w1128204286", "w1128204287", "w1128204293", "w1176969064", "w1176632036", "w1128204288", "w1128204289", "w1176632037", "w1176969065", "w1177026767", "w1177038207", "w1177026770", "w1177038210", "w1177038202", "w1177038213", "w1177026776", "w1177038216", "w1177026773", "w1177038219", "w413969309"];
-function bFountains(b) {
+// (owner, 2026-11-12, Bd. Unirii: "ALL of the fountains need to be aligned on the center of that middle place ... lots of
+// them are towards street or on street") The basins are OSM outlines at their mapped positions. OSM maps the median itself
+// (grass strips w1177070488/9, kerbs in the square at ±14.3 m, tree rows at ±14–16 m): the boulevard is symmetric about the
+// basins, which stand in the middle of an 8.9 m grass median (Street View, Bd. Unirii 30, agrees). The carriageway
+// centrelines are drawn less exactly (up to 1.2 m off that axis) and the game builds each carriageway 10.5 m wide on
+// them, so the built median was narrower and lopsided and a basin reached 0.6 m onto the asphalt. A basin that stands
+// between two carriageways is moved sideways to the middle of the median as built (never more than 2.5 m).
+function centreOnMedian(ring, ctx) {
+    if (!ctx?.kerbAlong) return ring;
+    let cx = 0, cz = 0; for (const [x, z] of ring) { cx += x; cz += z; } cx /= ring.length; cz /= ring.length;
+    let sxx = 0, szz = 0, sxz = 0; for (const [x, z] of ring) { sxx += (x - cx) ** 2; szz += (z - cz) ** 2; sxz += (x - cx) * (z - cz); }
+    const ang = 0.5 * Math.atan2(2 * sxz, sxx - szz), ux = Math.cos(ang), uz = Math.sin(ang), nx = -uz, nz = ux;
+    let l0 = Infinity, l1 = -Infinity, w0 = Infinity, w1 = -Infinity;
+    for (const [x, z] of ring) { const l = (x - cx) * ux + (z - cz) * uz, w = (x - cx) * nx + (z - cz) * nz; l0 = Math.min(l0, l); l1 = Math.max(l1, l); w0 = Math.min(w0, w); w1 = Math.max(w1, w); }
+    const half = (w1 - w0) / 2, L = l1 - l0; if (half > 4.5) return ring;       // the big plaza basins stand in the square, not on a median
+    const ax = cx + ux * (l0 + l1) / 2 + nx * (w0 + w1) / 2, az = cz + uz * (l0 + l1) / 2 + nz * (w0 + w1) / 2;
+    let dP = Infinity, dM = Infinity;
+    for (const s of [-L / 3, 0, L / 3]) {
+        const p = ctx.kerbAlong(ax + ux * s, az + uz * s, nx, nz, half + 6), m = ctx.kerbAlong(ax + ux * s, az + uz * s, -nx, -nz, half + 6);
+        if (p === null || m === null) return ring;                             // no carriageway on one side: not a median
+        dP = Math.min(dP, p); dM = Math.min(dM, m);
+    }
+    const shift = (dP - dM) / 2; if (Math.abs(shift) < 0.02 || Math.abs(shift) > 2.5) return ring;
+    return ring.map(([x, z]) => [x + nx * shift, z + nz * shift]);
+}
+function bFountains(b, ctx) {
     b.waterFootprints = [];
     const P = [], N = [], U = [], CO = [], J = [], I = [];
     const spray = rgb('#eef6fb');
@@ -1558,8 +1583,9 @@ function bFountains(b) {
     const sa = (q) => { let A = 0; for (let i = 0; i < q.length; i++) { const [x1, z1] = q[i], [x2, z2] = q[(i + 1) % q.length]; A += x1 * z2 - x2 * z1; } return A; };
     const wind = Math.sign(sa(ellipse(0, 0, 2, 1, 8)));
     for (const [basinIndex, flat] of FOUNTAIN_RINGS.entries()) {
-        const ring = []; for (let i = 0; i < flat.length; i += 2) ring.push([flat[i], flat[i + 1]]);
+        let ring = []; for (let i = 0; i < flat.length; i += 2) ring.push([flat[i], flat[i + 1]]);
         if (Math.sign(sa(ring)) !== wind) ring.reverse();
+        ring = centreOnMedian(ring, ctx);
         // principal axis + size of the real basin (OSM outline)
         let cx = 0, cz = 0; for (const [x, z] of ring) { cx += x; cz += z; } cx /= ring.length; cz /= ring.length;
         let sxx = 0, szz = 0, sxz = 0; for (const [x, z] of ring) { sxx += (x - cx) ** 2; szz += (z - cz) ** 2; sxz += (x - cx) * (z - cz); }

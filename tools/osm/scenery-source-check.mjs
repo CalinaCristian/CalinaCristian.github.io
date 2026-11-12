@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { scenerySourceProfile } from '../../game/src/scenery-source.js';
 import { parseMeasure } from '../../game/src/building-roofs.js';
+import { readDistrictData } from './district-data.mjs';
 
 const row = [null, 20, 0, 0, 10, 20, 100, 101];
 const precise = [[1.023, 2.009], [10.987, 12.091]], legacy = [[1, 2], [11, 12.1]];
@@ -35,8 +36,8 @@ result = resolve(fixture({}, { widthM: 3.6, review: { ...review, evidence: [] } 
 
 const dataRoot = process.argv.find(s => s.startsWith('--data-root='))?.slice(12) || 'game/data';
 const districts = [];
-for (const file of fs.readdirSync(dataRoot).filter(f => f.endsWith('.json'))) {
-    const data = JSON.parse(fs.readFileSync(path.join(dataRoot, file)));
+for (const file of fs.readdirSync(dataRoot).filter(f => /^[a-z]+(-[a-z]+)?\.(json|bin\.gz)$/.test(f))) {
+    const data = readDistrictData(path.join(dataRoot, file));
     if (data.roadGeometryPolicy !== 'source' || !data.scenerySourceGeometry) continue;
     let pieces = 0, literalWidths = 0, nullPackedWidths = 0;
     for (const [i, row] of data.scenery.entries()) {

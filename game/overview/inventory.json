@@ -50,7 +50,7 @@
           "year": 2013
         }
       ],
-      "data": "game/data/bucharest-grozavesti.json"
+      "data": "game/data/bucharest-grozavesti.bin.gz"
     },
     {
       "id": "unirii",
@@ -76,7 +76,7 @@
           "year": 2015
         }
       ],
-      "data": "game/data/bucharest-unirii.json"
+      "data": "game/data/bucharest-unirii.bin.gz"
     },
     {
       "id": "romana",
@@ -112,7 +112,7 @@
           "year": 2020
         }
       ],
-      "data": "game/data/bucharest-romana.json"
+      "data": "game/data/bucharest-romana.bin.gz"
     },
     {
       "id": "floreasca",
@@ -136,7 +136,7 @@
           "year": 2009
         }
       ],
-      "data": "game/data/bucharest-floreasca.json"
+      "data": "game/data/bucharest-floreasca.bin.gz"
     },
     {
       "id": "pipera",
@@ -163,7 +163,7 @@
           "year": 2017
         }
       ],
-      "data": "game/data/bucharest-pipera.json"
+      "data": "game/data/bucharest-pipera.bin.gz"
     },
     {
       "id": "otopeni",
@@ -181,7 +181,7 @@
           "year": 2022
         }
       ],
-      "data": "game/data/bucharest-otopeni.json"
+      "data": "game/data/bucharest-otopeni.bin.gz"
     },
     {
       "id": "seatac",
@@ -211,7 +211,7 @@
           "year": 2022
         }
       ],
-      "data": "game/data/seattle-seatac.json"
+      "data": "game/data/seattle-seatac.bin.gz"
     },
     {
       "id": "bellevue",
@@ -244,7 +244,7 @@
           "year": 2022
         }
       ],
-      "data": "game/data/seattle-bellevue.json"
+      "data": "game/data/seattle-bellevue.bin.gz"
     }
   ],
   "landmarks": [

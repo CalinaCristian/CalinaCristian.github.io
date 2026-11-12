@@ -106,6 +106,10 @@ const BUC_DISTRICTS = {
         bands: [
             { r: 130, chapter: 'arnia', line: [[44.440838, 26.099802], [44.446562, 26.097044], [44.446999, 26.096764], [44.452215, 26.086566], [44.452423, 26.086032], [44.452459, 26.085643], [44.451904, 26.086143], [44.451774, 26.087021], [44.451507, 26.087592], [44.451180, 26.087950]] },
             { r: 130, chapter: 'uipath-buc', line: [[44.456072, 26.083680], [44.453471, 26.085201], [44.452535, 26.085595], [44.451904, 26.086143], [44.451921, 26.087215], [44.452318, 26.090390], [44.451142, 26.090449], [44.451624, 26.094327], [44.449900, 26.094400]] },
+            // (owner, 2026-11-12: "the underpass Pasajul Victoriei leads to a dead end") the 130 m edge fell on the west portal
+            // (x = -570), 5 m underground. This strip follows Sos. Nicolae Titulescu until both ramps (OSM w241374320 and its
+            // twin) are back at street level and merged, so the closure stands on the street, not inside the tunnel.
+            { r: 60, line: [[44.452100, 26.084300], [44.452100, 26.081500]] },
         ],
         circles: [{ lat: 44.451180, lon: 26.087950, r: 200, name: 'arnia door' }, { lat: 44.441800, lon: 26.098800, r: 110, name: 'arnia start' }, { lat: 44.451180, lon: 26.087950, r: 120, name: 'arnia building' }, { lat: 44.449900, lon: 26.094400, r: 200, name: 'uipath-buc door' }, { lat: 44.456000, lon: 26.084200, r: 110, name: 'uipath-buc start' }, { lat: 44.449900, lon: 26.094400, r: 120, name: 'uipath-buc building' }],
         landmarks: ['victoria', 'ase', 'ambasador', 'thelandmark', 'europehouse', 'antipa', 'catargiu', 'veronafountain', 'skytower', 'ateneu', 'regal', 'tnb'],

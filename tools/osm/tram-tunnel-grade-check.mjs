@@ -3,9 +3,10 @@ import fs from 'node:fs';
 import crypto from 'node:crypto';
 import { buildTramTunnelGrades, ROMANA_TRAM_TUNNEL_MODEL, smoothTunnelRamp } from '../../game/src/tram-tunnel-grade.js';
 import { buildTramNetwork, flatTramGrade } from '../../game/src/tram-path.js';
+import { parseDistrictBytes } from './district-data.mjs';
 
-const input = process.argv[2] || new URL('../../game/data/bucharest-romana.json', import.meta.url);
-const bytes = fs.readFileSync(input), parsed = JSON.parse(bytes), data = parsed.data || parsed, coreEdges = parsed.allEdges || [];
+const input = process.argv[2] || new URL('../../game/data/bucharest-romana.bin.gz', import.meta.url);
+const bytes = fs.readFileSync(input), parsed = parseDistrictBytes(bytes), data = parsed.data || parsed, coreEdges = parsed.allEdges || [];
 const before = JSON.stringify(data), nativeBefore = JSON.stringify(coreEdges), output = buildTramTunnelGrades(data, { coreEdges });
 assert.deepEqual(output.report.unresolved, []); assert.equal(output.report.models.length, 1); assert.equal(output.grades.size, 30);
 const resolveGrade = (way, leg) => output.grades.get(way.sourceId + ':' + leg.index) || flatTramGrade(way);
@@ -34,13 +35,14 @@ for (const edge of network.allEdges) {
     }
     for (const [t0, t1] of grade.roof.intervals) {
         assert.ok(edge.tunnel); assert.ok(t0 >= 0 && t1 <= 1 && t1 > t0);
-        for (const t of [t0, (t0 + t1) / 2, t1]) assert.ok(Math.abs(grade.heightAt(t) + 7.6) < 1e-8);
-        // This is a flat-section dimensional control, not actual posed-body QA.
-        assert.ok(grade.roof.bottomM - (.24 - 7.6 + 5.789999961853027) > 1.26);
+        // The roof spans the whole source tunnel way: its floor may still be on the last metres of the ramp there.
+        for (let i = 0; i <= 50; i++) { const h = grade.heightAt(t0 + (t1 - t0) * i / 50); assert.ok(h <= -7.3 && h >= -7.6 - 1e-9);
+            // A dimensional control against the tram body's top, not actual posed-body QA.
+            assert.ok(grade.roof.bottomM - (.24 + h + 5.789999961853027) > .95); }
         roofLength += (t1 - t0) * edge.len;
     }
 }
-assert.ok(maxSlope < .05); assert.ok(Math.abs(roofLength - 120) < 1e-7);
+assert.ok(maxSlope < .05); assert.ok(Math.abs(roofLength - network.allEdges.filter(e => e.tunnel && output.grades.has(e.sourceId + ':' + e.sourceSegment)).reduce((s, e) => s + e.len, 0)) < 1e-7 && roofLength > 590, 'both tracks are roofed portal to portal');
 assert.ok(network.edges.filter(e => e.tunnel).some(e => Math.abs(e.ya - e.yb) > .1), 'source tunnel endpoint is not forced onto a flat deck');
 assert.equal(network.bySourceNode.get('296077845').y, 0); assert.equal(network.bySourceNode.get('8544117714').y, 0);
 assert.equal(smoothTunnelRamp(90, 7.6), null, 'literal short source lengths must fail the cap');

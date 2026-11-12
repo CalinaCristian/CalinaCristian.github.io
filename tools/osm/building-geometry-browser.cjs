@@ -27,7 +27,7 @@ fs.mkdirSync(out, { recursive: true });
         const result = await page.evaluate(async ({ quick, selected, angles, checksOnly }) => {
             const THREE = await import('./src/../vendor/three.module.min.js');
             const { zfightDiff } = await import('./dev/harness/visual/page/pixels.js');
-            const data = await (await fetch('./data/bucharest-romana.json')).json(), g = game, renderer = g.renderer;
+            const data = await (await import('./src/district-pack.js')).fetchDistrictPack('./data/bucharest-romana.bin.gz'), g = game, renderer = g.renderer;
             const read = () => { const c = document.createElement('canvas'); c.width = renderer.domElement.width; c.height = renderer.domElement.height; c.getContext('2d').drawImage(renderer.domElement, 0, 0); return c; };
             const save = (name, canvas) => checksOnly ? Promise.resolve() : geometrySave(name, (canvas || read()).toDataURL('image/png'));
             const ring = i => { let x = 0, z = 0; const r = []; const b = data.buildings[i]; for (let j = 9; j < b.length; j += 2) { x += b[j]; z += b[j + 1]; r.push([x / 10, z / 10]); } return r; };

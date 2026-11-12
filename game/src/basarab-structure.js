@@ -4,6 +4,7 @@ import { decodeTramPoints } from './tram-path.js';
 import { BASARAB_PLATFORMS } from './basarab-source.js';
 import { convexHull } from './bridge-profile-geometry.js';
 import { cableClearance,anchorFreeIntervals,deckSectionCentre } from './basarab-anchor-clearance.js';
+import { subtractConvex } from './building-overlap.js';
 
 const railIds=['w118416425','w205971103'];
 const mix=(a,b,t)=>a.map((x,i)=>x+(b[i]-x)*t);
@@ -33,6 +34,7 @@ function nearest(line,p){
 function height(q,p=q.p){const g=q?.grade;return g?.known? (g.baseY??.2)+(g.heightAtWorld?g.heightAtWorld(...p):g.heightAt(q.t)):null;}
 /** Closed support pieces expose their actual serialized top triangles to both
  * rendering and physical height readers; they never alter rail/motor routing. */
+const pointIn=(p,P)=>{let c=false;for(let i=0,j=P.length-1;i<P.length;j=i++){const a=P[i],b=P[j];if((a[1]>p[1])!==(b[1]>p[1])&&p[0]<(b[0]-a[0])*(p[1]-a[1])/(b[1]-a[1])+a[0])c=!c;}return c;};
 function support(poly,ys,depth,sourceId,kind){
  const top=poly.map((p,i)=>[Math.fround(p[0]),Math.fround(ys[i]),Math.fround(p[1])]);
  const indices=THREE.ShapeUtils.triangulateShape(top.map(p=>new THREE.Vector2(p[0],p[2])),[]);
@@ -85,7 +87,7 @@ export function basarabEdge(data,e){return data.city==='bucharest'&&data.distric
 /** Real literal platform outlines and a bounded centre support gap. The same
  * source height field already carries the two tracks. No invented broad deck
  * polygon, coordinate snapping, lane edits or source-record deletion. */
-export function buildBasarabStructure(data,grades,cellOf,group,edges=[],{roadRegions=[],tramEnvelope=null,supportAt=null,tramSweep=null}={}){
+export function buildBasarabStructure(data,grades,cellOf,group,edges=[],{roadRegions=[],tramEnvelope=null,supportAt=null,tramSweep=null,roadFootprints=[]}={}){
  const report={active:false,sourcePlatforms:[],gapPieces:0,unresolved:[],estimated:true},pieces=[],colliders=[];
  if(data.city!=='bucharest'||data.district?.id!=='grozavesti')return{report,pieces,colliders};
  const [line,paired]=railIds.map(id=>sourceLine(data,id,grades));if(!line||!paired)return{report,pieces,colliders};report.active=true;
@@ -105,7 +107,15 @@ export function buildBasarabStructure(data,grades,cellOf,group,edges=[],{roadReg
  }
  for(const platform of BASARAB_PLATFORMS){
   const hs=platform.points.map(p=>height(nearest(line,p)));if(hs.some(h=>h===null)||Math.max(...hs)-Math.min(...hs)>.5){report.unresolved.push({sourceId:platform.sourceId,reason:'platform-compatible-source-grade-missing'});continue;}
-  const piece=support(platform.points,hs.map(h=>h+.18),.35,platform.sourceId,'basarab-platform');drawSupport(piece,cellOf);pieces.push(piece);report.sourcePlatforms.push(platform.sourceId);
+  // (owner, 2026-11-12, (816, -1000) "goes over fence") the mapped platform outline is up to 0.6 m wider than the room the
+  // modelled carriageway beside it leaves: its slab lay over the carriageway's railing, and hung over it where the road
+  // descends. EXCEPTION to the literal outline: the slab is cut back to the railing line of every carriageway footprint.
+  let parts=[platform.points];
+  for(const quad of roadFootprints){const x0=Math.min(...quad.map(q=>q[0])),x1=Math.max(...quad.map(q=>q[0])),z0=Math.min(...quad.map(q=>q[1])),z1=Math.max(...quad.map(q=>q[1]));parts=parts.flatMap(P=>P.some(q=>q[0]>=x0&&q[0]<=x1&&q[1]>=z0&&q[1]<=z1)||quad.some(q=>pointIn(q,P))?subtractConvex(P,quad):[P]);}
+  report.platformCuts=(report.platformCuts||0)+(parts.length===1&&parts[0]===platform.points?0:1);
+  let drawn=0;
+  for(const P of parts){const A=Math.abs(P.reduce((n,q,i)=>{const r=P[(i+1)%P.length];return n+q[0]*r[1]-r[0]*q[1];},0))/2;if(A<.5)continue;const ph=P.map(q=>height(nearest(line,q)));if(ph.some(h=>h===null))continue;const piece=support(P,ph.map(h=>h+.18),.35,platform.sourceId,'basarab-platform');drawSupport(piece,cellOf);pieces.push(piece);drawn++;}
+  if(drawn)report.sourcePlatforms.push(platform.sourceId);
  }
  const tramRegions=[];
  if(tramEnvelope)for(const c of grades.corridors){
@@ -122,12 +132,14 @@ export function buildBasarabStructure(data,grades,cellOf,group,edges=[],{roadReg
 /** Surviving physical rail intervals own the visible Basarab edge treatment.
  * White open steel rails and a blue fascia follow builder photographs. */
 /** `lit` (optional MeshBuilder): the blue band along the deck edge is repeated in it, for the night lighting. */
-export function drawBasarabGuard(w,cellOf,lit=null){
+/** `posts` (optional): the fractions along the piece where a post stands; by default one every 2.4 m and at both ends
+ * (a run drawn piece by piece passes its own, so two pieces meeting at a point share one post). */
+export function drawBasarabGuard(w,cellOf,lit=null,posts=null){
  const L=Math.hypot(w.bx-w.ax,w.bz-w.az),n=Math.max(1,Math.ceil(L/2.4)),at=(t,h)=>[w.ax+(w.bx-w.ax)*t,w.y1a+(w.y1b-w.y1a)*t-1.1+h,w.az+(w.bz-w.az)*t];
  for(const h of [.48,.97])bridgeBeam(cellOf,at(0,h),at(1,h),.1,'#e4e8e7');
  bridgeBeam(cellOf,at(0,.1),at(1,.1),.18,'#456e9a');
  if(lit)bridgeBeam(()=>({solid:lit}),at(0,.1),at(1,.1),.215,'#456e9a');
- for(let i=0;i<=n;i++)bridgeBeam(cellOf,at(i/n,.15),at(i/n,1.08),.085,'#dce2e2');
+ for(const t of posts||Array.from({length:n+1},(_,i)=>i/n))bridgeBeam(cellOf,at(t,.15),at(t,1.08),.085,'#dce2e2');
 }
 
 /** Completed bridge form from the builder's description/photos. Untagged

@@ -7,10 +7,11 @@ import { assignSignalPhases, signalState } from '../../game/src/signals.js';
 import { Traffic } from '../../game/src/traffic.js';
 import { makeRng } from '../../game/src/util.js';
 import { SharedLaneGate } from '../../game/src/shared-lanes.js';
+import { readDistrictData } from './district-data.mjs';
 
 const results = [], test = (name, fn) => { const details = fn(); results.push({ name, details }); console.log('PASS ' + name); };
 const input = JSON.parse(fs.readFileSync('handoffs/fidelity/source-controlled-crossing/groz-motor98-input.json'));
-const fullData = JSON.parse(fs.readFileSync('game/data/bucharest-grozavesti.json'));
+const fullData = readDistrictData('game/data/bucharest-grozavesti.bin.gz');
 const worldSource = fs.readFileSync('game/src/world.js', 'utf8'), lightBody = worldSource.match(/lightState\(nodeId, edge, time, cycle\) \{([\s\S]*?)\n        \},/)[1];
 function fixture() {
     const nodes = new Map(), edges = structuredClone(input.edges).map(e => {

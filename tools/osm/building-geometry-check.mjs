@@ -13,6 +13,7 @@ import { collideBuildings, buildingBlocksRoad as worldBuildingBlocksRoad } from 
 import { buildingBlocksRoad as harnessBuildingBlocksRoad } from '../../game/dev/harness/visual/page/geometry.js';
 import { sourceRing } from './source-footprints.mjs';
 import { parseMeasure } from '../../game/src/building-roofs.js';
+import { readDistrictData } from './district-data.mjs';
 const close = (a, b, label) => assert.ok(Math.abs(a - b) < Math.max(1e-5, Math.abs(b) * 1e-8), `${label}: ${a} != ${b}`);
 // A contradictory literal source band is retained as evidence, but is never
 // accepted as a valid physical solid. Flags alone cannot excuse prepared errors.
@@ -74,8 +75,8 @@ for (const check of [worldBuildingBlocksRoad, harnessBuildingBlocksRoad]) {
 const raised = { x: 5, z: 5, r: 8, poly: square, minH: 9, h: 20 };
 assert.equal(collideBuildings([raised], 5, 5, 0.4, 0.24), null, 'a sourced elevated passage is traversable');
 assert.ok(collideBuildings([raised], 5, 5, 0.4, 9), 'the upper source volume collides');
-const file = process.argv.find(a => a.startsWith('--data='))?.slice(7) || 'game/data/bucharest-romana.json';
-const data = JSON.parse(fs.readFileSync(file));
+const file = process.argv.find(a => a.startsWith('--data='))?.slice(7) || 'game/data/bucharest-romana.bin.gz';
+const data = readDistrictData(file);
 const osmDir = process.argv.find(a => a.startsWith('--osm='))?.slice(6);
 const osm = osmDir ? parseFiles(fs.readdirSync(osmDir).filter(f => f.endsWith('.xml')).sort().map(f => path.join(osmDir, f))) : null;
 const source = id => osm && (id?.[0] === 'w' ? osm.ways : osm.rels).get(+id?.slice(1));

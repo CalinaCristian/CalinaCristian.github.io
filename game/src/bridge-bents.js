@@ -78,7 +78,7 @@ export function planBridgeBents({ edges, halfWidth, topAt, soffitAt, eachEdge, e
     const M = model, chains = deckChains(edges), owner = new Map();
     for (const c of chains) for (const it of c.items) owner.set(it.e, it);
     const all = (x0, z0, x1, z1, cb) => { for (const e of edges) cb(e); };
-    const near = eachEdge || all, bents = [], report = { chains: chains.length, stations: 0, bents: 0, walls: 0, coveredBySibling: 0, carriedBySuperstructure: 0, noColumn: 0, lowClearance: 0, tooLow: 0, shortChains: 0 };
+    const near = eachEdge || all, bents = [], report = { chains: chains.length, stations: 0, bents: 0, walls: 0, coveredBySibling: 0, carriedBySuperstructure: 0, noColumn: 0, lowClearance: 0, tooLow: 0, shortChains: 0, wideFrame: M.wideFrame || null };
     for (const chain of [...chains].sort((a, b) => b.length - a.length || a.id - b.id)) {
         if (chain.length < M.minChainM) { report.shortChains++; continue; }
         const count = Math.max(1, Math.round(chain.length / M.spacingM)), step = chain.length / count;
@@ -123,7 +123,7 @@ export function planBridgeBents({ edges, halfWidth, topAt, soffitAt, eachEdge, e
             // (owner, 2026-11-11: "we need those supports across the bridge otherwise it looks like it's floating -- LIKE THE
             // REAL THING"; Street View at 44.44516, 26.06153: single hammerhead piers stand in the strips between the roads and
             // tracks below) a frame under the whole group of parallel decks often cannot stand; each deck then tries its own pier
-            const build = (group, single = false) => {
+            const build = (group, single = false, lim = M) => {
                 const lo = Math.min(...group.map(m => m.lo)), hi = Math.max(...group.map(m => m.hi));
                 const seat = Math.min(...group.map(m => m.soffit));
                 const mark = () => { for (const m of group) if (m.e && m.e !== p.e) { const it = owner.get(m.e), c = chains[it.chain]; c.covered.push(it.s0 + (it.forward ? m.u : m.e.len - m.u)); } chain.covered.push(s); };
@@ -147,17 +147,17 @@ export function planBridgeBents({ edges, halfWidth, topAt, soffitAt, eachEdge, e
                 } else {
                     // free column sites under the decks, and up to straddleM outside them (a portal frame over a lower road)
                     const free = [], step = M.columnSearchStepM, inside = o => o >= lo + M.columnM * .5 && o <= hi - M.columnM * .5;
-                    for (let o = lo - M.straddleM; o <= hi + M.straddleM + 1e-9; o += step) { const [x, z] = at(o); if (columnFree(x, z, M.columnM * .5 + .5, seat - 1.5)) free.push(o); }
+                    for (let o = lo - lim.straddleM; o <= hi + lim.straddleM + 1e-9; o += step) { const [x, z] = at(o); if (columnFree(x, z, M.columnM * .5 + .5, seat - 1.5)) free.push(o); }
                     // prefer sites under the deck; an outside site costs its distance again
                     const nearest = (target, from, to) => { let found = null, cost = Infinity; for (const o of free) { if (o < from || o > to) continue; const c = Math.abs(o - target) + (inside(o) ? 0 : Math.min(Math.abs(o - lo), Math.abs(o - hi)) + 2); if (c < cost) { cost = c; found = o; } } return found; };
                     const width0 = hi - lo, bays = Math.max(1, Math.round(width0 / M.columnPitchM)), pitch = width0 / bays;
-                    let last = nearest(lo + pitch / 2, lo - M.straddleM, lo + M.maxCantileverM);
+                    let last = nearest(lo + pitch / 2, lo - lim.straddleM, lo + lim.maxCantileverM);
                     while (last !== null) {
                         columns.push({ o: last, x: at(last)[0], z: at(last)[1] });
-                        if (last >= hi - Math.min(M.maxCantileverM, pitch / 2 + step)) break;
-                        last = nearest(last + pitch, last + Math.min(pitch, 4), last + M.maxSpanM);
+                        if (last >= hi - Math.min(lim.maxCantileverM, pitch / 2 + step)) break;
+                        last = nearest(last + pitch, last + Math.min(pitch, 4), last + lim.maxSpanM);
                     }
-                    if (!columns.length || hi - columns[columns.length - 1].o > M.maxCantileverM) return 'noColumn';
+                    if (!columns.length || hi - columns[columns.length - 1].o > lim.maxCantileverM) return 'noColumn';
                     beamLo = Math.min(lo, columns[0].o - M.columnM * .5 - .2); beamHi = Math.max(hi, columns[columns.length - 1].o + M.columnM * .5 + .2);
                     if ((beamLo < lo && !clear(beamLo, lo + .8)) || (beamHi > hi && !clear(hi - .8, beamHi))) return 'lowClearance';
                     if (beamLo < lo || beamHi > hi) report.straddles = (report.straddles || 0) + 1;
@@ -172,6 +172,11 @@ export function planBridgeBents({ edges, halfWidth, topAt, soffitAt, eachEdge, e
                 return 'ok';
             };
             const r0 = build(group); if (r0 === 'ok' || group.length < 2) return r0;
+            // (owner, 2026-11-12, Grozavesti (101, -182): "why only one side has support") where the frame under the whole group
+            // cannot stand, each deck tried its own pier and the ones over a road got none: half the structure hung free.
+            // With model.wideFrame the whole group is tried once more with a longer cantilever and a wider portal first, so
+            // the piers that can stand carry a crosshead under every deck of the group.
+            if (M.wideFrame) { const r1 = build(group, false, { ...M, ...M.wideFrame }); if (r1 === 'ok') { report.wideFrames = (report.wideFrames || 0) + 1; return r1; } }
             let any = false; for (const m of group) if (!m.rail && build([m], true) === 'ok') any = true;
             if (any) { report.hammerheads = (report.hammerheads || 0) + 1; return 'ok'; }
             return r0;

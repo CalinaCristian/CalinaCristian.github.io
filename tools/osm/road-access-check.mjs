@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { resolveRoadAccess, ambientTrafficAccess } from '../../game/src/road-access.js';
 import { Navigator, canTravel } from '../../game/src/nav.js';
+import { readDistrictData } from './district-data.mjs';
 
 const cases=[
  [{highway:'trunk',access:'private'},false,false,'access'],
@@ -56,7 +57,7 @@ try{
  const xml='<osm version="0.6">'+pts.map(([lat,lon],i)=>`<node id="${i+1}" lat="${lat}" lon="${lon}"/>`).join('')+ways.map(([id,ns,tags])=>`<way id="${id}">${ns.map(n=>`<nd ref="${n}"/>`).join('')}${Object.entries(tags).map(([k,v])=>`<tag k="${k}" v="${v}"/>`).join('')}</way>`).join('')+'</osm>';
  fs.writeFileSync(path.join(tmp,'tiles/sea_fixture.xml'),xml);
  execFileSync(process.execPath,[path.join(tmp,'tools/osm/build-data.mjs'),'--tiles',path.join(tmp,'tiles'),'--districts','--district','seatac'],{stdio:'pipe'});
- const data=JSON.parse(fs.readFileSync(path.join(tmp,'game/data/seattle-seatac.json'))),rows=Object.entries(data.roadAccess),lookup=id=>rows.find(([,r])=>r.sourceId==='w'+id);
+ const data=readDistrictData(path.join(tmp,'game/data/seattle-seatac.json')),rows=Object.entries(data.roadAccess),lookup=id=>rows.find(([,r])=>r.sourceId==='w'+id);
  for(const id of [9001,9002,9003,9004,9005])assert.ok(lookup(id),'whole mapped physical road retained: w'+id);
  assert.equal(lookup(9002)[1].publicDrive,false);assert.equal(lookup(9002)[1].tags.layer,'2');
  assert.ok(data.roads[+lookup(9002)[0]][8]&2,'restricted bridge retains its elevated road flag');

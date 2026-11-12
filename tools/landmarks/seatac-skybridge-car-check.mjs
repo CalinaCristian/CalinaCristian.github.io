@@ -4,13 +4,14 @@ import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
+import { readDistrictData } from '../osm/district-data.mjs';
 const arg=(k,d)=>process.argv.find(x=>x.startsWith('--'+k+'='))?.slice(k.length+3)??d;
 const root=path.resolve(arg('root','.')),sha=arg('source-commit',''),tracePath=arg('trace',''),output=arg('out',''),expected=arg('expect','clear');
 if(!/^[0-9a-f]{40}$/.test(sha)||!tracePath||!output)throw Error('Exact source, trace and output required');
 const hash=b=>createHash('sha256').update(b).digest('hex'),inputs={};
-for(const f of ['game/src/landmarks.js','game/src/landmark-seatac-structure.js','game/src/landmark-us-source.js','game/src/vehicles.js','game/src/world.js','game/data/seattle-seatac.json']){const b=fs.readFileSync(path.join(root,f));if(!b.equals(execFileSync('git',['show',sha+':'+f],{maxBuffer:32*1024*1024})))throw Error('Source mismatch '+f);inputs[f]=hash(b);}
+for(const f of ['game/src/landmarks.js','game/src/landmark-seatac-structure.js','game/src/landmark-us-source.js','game/src/vehicles.js','game/src/world.js','game/data/seattle-seatac.bin.gz']){const b=fs.readFileSync(path.join(root,f));if(!b.equals(execFileSync('git',['show',sha+':'+f],{maxBuffer:32*1024*1024})))throw Error('Source mismatch '+f);inputs[f]=hash(b);}
 const THREE=await import(pathToFileURL(root+'/game/vendor/three.module.min.js')),{LANDMARKS,buildLandmark}=await import(pathToFileURL(root+'/game/src/landmarks.js'));
-const report=JSON.parse(fs.readFileSync(tracePath)),data=JSON.parse(fs.readFileSync(root+'/game/data/seattle-seatac.json')),lm=LANDMARKS.find(l=>l.id==='seagarage'),model=buildLandmark(lm,{realScale:true}),p=data.proj;
+const report=JSON.parse(fs.readFileSync(tracePath)),data=readDistrictData(root+'/game/data/seattle-seatac.bin.gz'),lm=LANDMARKS.find(l=>l.id==='seagarage'),model=buildLandmark(lm,{realScale:true}),p=data.proj;
 model.mesh.position.set((lm.lon-p.lon0)*p.mPerLon,.12,-(lm.lat-p.lat0)*p.mPerLat);model.mesh.updateMatrixWorld(true);
 const extent=fs.readFileSync(root+'/game/src/vehicles.js','utf8').match(/g\.userData\.extent\s*=\s*\{\s*front:\s*([\d.]+),\s*rear:\s*([\d.]+),\s*half:\s*([\d.]+)/);
 if(!extent)throw Error('Native cockpit extent missing');const [front,rear,half]=extent.slice(1).map(Number),height=2;

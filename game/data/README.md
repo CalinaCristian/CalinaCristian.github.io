@@ -1,7 +1,13 @@
 # game/data
 
-**Chapter districts (real 1:1 scale)**: `<city>-<district>.json` — `bucharest-{floreasca,grozavesti,unirii,pipera,romana,otopeni}.json`,
-`seattle-{seatac,bellevue}.json` — built by `node tools/osm/build-data.mjs --tiles DIR --districts` from the districts in
+**Chapter districts (real 1:1 scale)**: `<city>-<district>.bin.gz` — `bucharest-{floreasca,grozavesti,unirii,pipera,romana,otopeni}`,
+`seattle-{seatac,bellevue}` — a lossless binary pack of the district JSON described below (spec 10: ≤ 3 MiB per district).
+`game/src/district-pack.js` decodes it to exactly the object `JSON.parse` gave for the JSON (same keys and order, same
+strings, bit-identical numbers); the only change is that cache-validation `signature` / `authoritySignature` strings of 64
+characters or more are stored as a 53-bit hash (`h1:…`) and compared through `signatureMatches`. Read it from Node with
+`readDistrictData` (`tools/osm/district-data.mjs`), write it with `writeDistrictData`, convert with
+`node tools/osm/pack-district.mjs FILE.json [--replace]` / `--unpack FILE.bin.gz [OUT.json]`; tools that edit the JSON
+text append-only (`add-tram-source-metadata.mjs`) work on an unpacked copy. Built by `node tools/osm/build-data.mjs --tiles DIR --districts` from the districts in
 `game/src/cities.js` (`CITIES[city].districts`) and loaded by `buildWorld(city, renderer, { district })`. Same schema as below
 plus `district: {id, name, bbox, areaKm2, polys, ends: [node index of every road cut at the boundary], mask: {x0, z0, cell, w, h,
 rle}}` (inside-mask, 20 m cells, run lengths alternating outside/inside starting with outside) and optional `brands`
@@ -135,6 +141,8 @@ For a source district, a fuel POI establishes a real station anchor and identity
 An individually reviewed research `building_passages` entry may declare a single source through-access without adding an OSM tunnel tag. It requires exact `buildingId` / `sourceRoadId`, both road endpoints as `sharedWallNodeIds` on the building, `classificationSource: "reviewed source shared-wall-node topology"`, HTTPS evidence and a finite positive estimated `clearanceM`. The opening is restricted to that building identity. Raw road tags remain literal. Opening strips preserve lossless `sourceCentreline` positions and lateral width; `longitudinalSeamOverlapM:0.0001` only closes the numerical seam against four-decimal building coordinates at a shared wall node. It does not move the source road or alter the building footprint.
 
 Source districts may emit `roadWidths[roadIndex] = {sourceId,widthM,medianM,laneWidthM,source,widthSource,rawWidth?,review?,issues?,definition}`. `widthM` is the precise total road width, including any inferred median; runtime uses these metre values instead of the decimetre row's rounded lane width. Positive OSM `width` has priority, followed by an individually reviewed research `road_widths` record `{sourceRoadId,widthM,source,uncertaintyM,evidence,measurement?,note?}`. `source` is `independent aerial measurement` or `geometry-constrained estimate`; the full review and raw source tags are retained. Legal lane counts and source node positions remain unchanged. An unsupported inferred median is omitted when it cannot fit within the source total width, and this assumption is recorded in `issues`. A source width too narrow for its tagged lane count remains an explicit contradiction.
+
+A review may also give `leftM` / `rightM` (extents either side of the unchanged source centreline, summing to `widthM`, with `measurement.scope: "travel carriageway excluding parking and sidewalks"`): the carriageway is then placed sideways and its lanes follow (`laneCenterShiftM`). `node tools/osm/apply-road-width-reviews.mjs <city>-<district> [--check]` applies the district's `road_widths` reviews to the prepared data without a rebuild from tiles, for plain one-way carriageways only (anything else is refused). Bd. Unirii's four carriageways beside the fountain basins carry such reviews (2026-11-12), so that the median between them has its mapped width.
 
 An inferred `physicalSingleLane:true` review additionally requires independent aerial calipers (`measurement.metresPerPixel` and `calipers:[{a:[px,py],b:[px,py]}]`) and the complete absence of raw width and lane-count fields. This keeps a legal two-way graph with one physical lane and uses the existing shared-lane traffic contract. A tagged two-lane road is never reclassified by a review. Invalid/unmatched/duplicate review inputs remain in `roadWidthIssues`; legacy datasets without these optional fields keep their prior road sizing.
 

@@ -109,7 +109,9 @@ const BUC_DISTRICTS = {
             // (owner, 2026-11-12: "the underpass Pasajul Victoriei leads to a dead end") the 130 m edge fell on the west portal
             // (x = -570), 5 m underground. This strip follows Sos. Nicolae Titulescu until both ramps (OSM w241374320 and its
             // twin) are back at street level and merged, so the closure stands on the street, not inside the tunnel.
-            { r: 60, line: [[44.452100, 26.084300], [44.452100, 26.081500]] },
+            // sceneryRing: false — the district data was built before this strip, so its 600 m ring of real footprints does
+            // not reach round it: the far backdrop boxes there stay (without the flag a whole block west of it was bare ground).
+            { r: 60, sceneryRing: false, line: [[44.452100, 26.084300], [44.452100, 26.081500]] },
         ],
         circles: [{ lat: 44.451180, lon: 26.087950, r: 200, name: 'arnia door' }, { lat: 44.441800, lon: 26.098800, r: 110, name: 'arnia start' }, { lat: 44.451180, lon: 26.087950, r: 120, name: 'arnia building' }, { lat: 44.449900, lon: 26.094400, r: 200, name: 'uipath-buc door' }, { lat: 44.456000, lon: 26.084200, r: 110, name: 'uipath-buc start' }, { lat: 44.449900, lon: 26.094400, r: 120, name: 'uipath-buc building' }],
         landmarks: ['victoria', 'ase', 'ambasador', 'thelandmark', 'europehouse', 'antipa', 'catargiu', 'veronafountain', 'skytower', 'ateneu', 'regal', 'tnb'],

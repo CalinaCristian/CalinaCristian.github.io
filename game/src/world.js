@@ -7667,13 +7667,19 @@ export async function buildWorld(city, renderer, opts = {}) {
     const backdropBindings = LANDMARKS.filter(lm => builtLandmarks.has(lm.id)).flatMap(lm =>
         (lm.backdropSources?.[distId] || []).map(record => ({...record, landmark:lm.id, declaredSourceIds:lm.sourceIds || []})));
     const ringGeometry = data.district?.geometry || (distCfg?.bands ? {
-        pieces: distCfg.bands.map(b => ({ r: b.r, pts: b.line.map(([lat, lon]) => { const p = city.proj(lat, lon); return [p.x, p.z]; }) })),
+        pieces: distCfg.bands.map(b => ({ r: b.r, ring: b.sceneryRing !== false, pts: b.line.map(([lat, lon]) => { const p = city.proj(lat, lon); return [p.x, p.z]; }) })),
         circles: (distCfg.circles || []).map(c => ({ ...city.proj(c.lat, c.lon), r: c.r })), polys: [],
     } : null);
-    const sceneryMargin = (x, z) => {
+    // detailOnly: skip playable strips added after the district data was built (cities.js `sceneryRing: false`): the data has
+    // no real footprints round them, so the far backdrop must not be cleared there.
+    // The compiled district geometry carries no flags: find the pieces of the `sceneryRing: false` strips by radius and end points.
+    const lateStrips = (distCfg?.bands || []).filter(b => b.sceneryRing === false).map(b => ({ r: b.r, pts: b.line.map(([lat, lon]) => { const p = city.proj(lat, lon); return [p.x, p.z]; }) }));
+    const sameEnd = (p, q) => Math.hypot(p[0] - q[0], p[1] - q[1]) < 2;
+    for (const p of ringGeometry?.pieces || []) if (p.pts?.length && lateStrips.some(b => b.r === p.r && ((sameEnd(b.pts[0], p.pts[0]) && sameEnd(b.pts.at(-1), p.pts.at(-1))) || (sameEnd(b.pts[0], p.pts.at(-1)) && sameEnd(b.pts.at(-1), p.pts[0]))))) p.ring = false;
+    const sceneryMargin = (x, z, detailOnly = false) => {
         let margin = Infinity;
         for (const c of ringGeometry?.circles || []) margin = Math.min(margin, Math.hypot(x - c.x, z - c.z) - c.r);
-        for (const p of ringGeometry?.pieces || []) for (let i = 1; i < p.pts.length; i++) {
+        for (const p of ringGeometry?.pieces || []) if (!(detailOnly && p.ring === false)) for (let i = 1; i < p.pts.length; i++) {
             const a = p.pts[i - 1], b = p.pts[i];
             margin = Math.min(margin, distPointSeg(x, z, a[0], a[1], b[0], b[1]).d - p.r);
         }
@@ -7723,7 +7729,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const elevatedSources = buildElevatedSources(data, { cellOf, undelta, surfacesAt, addPropColl, roadY: Y.road, tramSweep, plan: elevatedPlan, dataset: elevatedDataset,
         visible: (x, z, len) => !ringGeometry || sceneryMargin(x, z) <= (distCfg?.outerRing ?? 600) + len / 2,
         overTrunk: (x, z) => { const q = nearestEdge(x, z, e => /^(motorway|trunk)$/.test(e.type) && !e.virtual, 40); return !!q && q.d < q.edge.halfW + 1.5; } });
-    const touchesDetailedRing = (x, z, w, d) => realPass && ringGeometry && sceneryMargin(x, z) <= (distCfg?.outerRing ?? 600) + Math.hypot(w, d) / 2;
+    const touchesDetailedRing = (x, z, w, d) => realPass && ringGeometry && sceneryMargin(x, z, true) <= (distCfg?.outerRing ?? 600) + Math.hypot(w, d) / 2;
     {
         const bd = data.backdrop || [], pal = PALETTES[country];
         for (let i = 0; i + 5 < bd.length; i += 6) {

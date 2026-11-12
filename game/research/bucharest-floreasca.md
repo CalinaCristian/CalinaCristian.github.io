@@ -523,6 +523,46 @@ Culture notes:
 - School-run congestion is an assumption, not sourced
 - Villa-by-villa facades on Garibaldi not individually researched
 
+## Fidelity pass 2026-11-12 (live OSM against the game; no street-level comparison)
+
+Source: OSM API 0.6 `map` of 44.4506,26.0942 – 44.4714,26.1129 fetched 2026-11-12 (© OpenStreetMap contributors, ODbL).
+The street-level panorama comparison could NOT be done in this pass (no browser tab was available): every verdict below is
+OSM position / type against the game data and game renders (`game/dev/reality/viewpoints.json`, 37 `flo-*` views), not appearance.
+
+- **Bridges / underpasses / tunnels**: none on the playable network. The only structure is the service way through the
+  market hall (way/1322035262, `tunnel=building_passage`, 107 m, N–S through Piața Floreasca way/34832556): in the game
+  as road 87 with its passage through building 1142. Pedestrian subways and passages at Șos. Ștefan cel Mare
+  (ways 910363909–12, 229833216/7, 1205054012, 246119130, 229829897) are 120–220 m outside the playable edge and not modelled.
+- **Water**: no river, canal, lake or fountain inside the playable area or within 250 m (Lacul Floreasca is 600 m north,
+  in the scenery ring). Two outdoor pools: Dinamo (way/23611448) and Grădina Floreasca (way/903986055), both drawn.
+- **Sports (Dinamo complex)**: stadium + running track + Peluza Cătălin Hîldan (landmark `dinamo`), three football pitches
+  (ways 143759799 / 143759804 grass, 143759807 artificial turf), six clay tennis courts (ways 859431639–44), Velodromul
+  Dinamo (way/37899329, concrete cycling track) with the rugby pitch inside it (way/362465818), Sala Polivalentă
+  (way/28246357), Bazinul Tolea Grințescu (way/38757552), the grandstand way/859972644: all present, right place and kind.
+  Fixed: the velodrome infield was dressed on its bounding rectangle and covered the track's curves; the marked pitch now
+  stays inside the mapped oval. Open: the track is flat (the real one is banked), the infield has football markings and
+  goals although OSM says `sport=rugby_league` (the data carries no `sport` tag).
+- **Businesses**: 93 named OSM businesses within 40 m of the playable area. Every one the builder's `poiKind()` accepts
+  inside the mask is in the game with the same name on the same building; Chez Toni (node/14289829501), Poke House
+  (node/14295309652) and Shop&Go (node/14316864304) are confirmed by live OSM. Fantasy Massage (node/2526169532) lost
+  its shop tags on 2026-08-30 and is correctly absent. Fixed in `world.js`: (1) a building signed with the name of a
+  business mapped inside it put that sign on the wall nearest the footprint centre, often a rear service lane (Il Calcio,
+  Komodo Lounge, Chez Toni, Maxbet, Roll Master, Yoshi, Senvis, Shop&Go, Submarine, Dr. Leahu were 11–21 m from their
+  OSM point, off their street); the sign now sits over the unit's street front at the OSM point; (2) unbranded
+  businesses whose OSM point lies outside a footprint (moft, iMZA Fine Cuisine, Cozofino, Farine patisserie, Pizzeria Due
+  Amici) had no sign at all; (3) names were cut at 24 characters ("Trattoria Il Calcio Flor").
+  Not drawn by design or position: Mondayz Coffee (node/5053344722, no building within 16 m), Golf Room and Beat45 inside
+  Agora (arcade / fitness, not `poiKind` classes), Paradisul Copiilor kindergarten, ONE Estate office; 5–34 m outside the
+  mask: Luxury Aesthetics, Two Minute, Rawdia, Kanpai, Expert Implant, Hotel Diesel (its restaurant building is signed).
+  Disused units in OSM not shown as vacant: node/5053344622 (44.46589, 26.10271), node/7038762287 (44.46140, 26.10021),
+  node/6968373504 (44.46004, 26.09999): no evidence of a "for rent" board.
+- **Tourist features**: Muzeul Memorial George Călinescu (node/2634651941) is a POI on its house. The Dinamo statues on
+  Șos. Ștefan cel Mare (nodes 8013556514–18: Atletul, Discobolul, Alergătorul, Cătălin Hîldan, Ivan Patzaichin; new
+  node/14180087101 "Statuie poloist") and the statue in Parcul Cinema Floreasca (way/1171561661) have no geometry in the
+  game (three are map POIs only); all are 60–180 m outside the playable edge. Automatica Ford (way/39348916,
+  `historic=building`, 1938) is `building=construction` in live OSM (conversion into One Floreasca City); the game
+  draws a two-storey hall carrying its name as a fascia.
+
 ## Reference images (`refs/floreasca/`, 7 files, licences in LICENSES.md)
 
 | file | taken | near | licence | facade-texture candidate |

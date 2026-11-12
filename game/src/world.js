@@ -1847,6 +1847,13 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (landmarks.some(l => l.radius > 0 && Math.hypot(l.x - (a.x0 + a.x1) / 2, l.z - (a.z0 + a.z1) / 2) < l.radius)) continue;
             if (a.kind !== 'pool' && holdsOthers(a)) continue;
             const R = minRect(a.outer); if (!R || a.size / R.A < 0.8) continue;
+            // (fidelity pass 2026-11-12, Velodromul Dinamo, OSM way/362465818 inside track way/37899329) a rounded outline —
+            // the infield of a velodrome / running track is a capsule — is not its bounding rectangle: the marked pitch is
+            // shortened until its corners lie inside the mapped outline (its stripes covered the track's curves)
+            if ((a.kind === 'pitch' || a.kind === 'turf') && a.size / R.A < 0.97) {
+                const cornersIn = (h) => [[h, R.hw * 0.97], [h, -R.hw * 0.97], [-h, R.hw * 0.97], [-h, -R.hw * 0.97]].every(([u, v]) => pointInPolygon(R.cx + R.ux * u - R.uz * v, R.cz + R.uz * u + R.ux * v, a.outer));
+                if (!cornersIn(R.hl)) { let lo = R.hw, hi = R.hl; for (let k = 0; k < 10; k++) { const mid = (lo + hi) / 2; if (cornersIn(mid)) lo = mid; else hi = mid; } R.hl = lo; }
+            }
             const { cx, cz, ux, uz, hl, hw } = R, vx = -uz, vz = ux;
             const P = (u, v) => [cx + ux * u + vx * v, cz + uz * u + vz * v];
             const c = cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2), base = AREA_Y[a.kind] ?? Y.pitch, yL = base + 0.016; // (lines 1.2 cm over the mowing stripes: 3 mm z-fought them away at a distance) // (same cell = same mesh as the area polygon: the lines draw after it)
@@ -5033,6 +5040,18 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     for (const [x, z] of lmSignColl) addPropColl(x, z, 1.4, 'sign');
+    // (fidelity pass 2026-11-12, Floreasca) a building whose sign text is the name of a business mapped inside it: the sign
+    // belongs over that unit's street front (the OSM point), not on the wall nearest to the footprint centre, which was
+    // often a rear service lane (Il Calcio, Komodo, Chez Toni, Roll Master had no sign on their street). The first such
+    // POI owns the sign: addFacadeSign is skipped and addUnitSign places it in the POI pass.
+    if (realPass) for (const [poiIndex, r] of data.pois.entries()) {
+        if (!['food', 'shop', 'bank', 'pharmacy', 'hotel'].includes(data.poiKinds[r[0]]) || str(r[5]) === 'atm') continue;
+        const pb = bRecs[buildingIndex(r[6], r[1] / 10, r[2] / 10)], text = str(r[4]) || str(r[3]);
+        if (!pb || pb.poiSign != null || !(pb.flags & 2) || !pb.name || !text || pb.cv) continue;
+        const nrm = (t) => String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+        const a = nrm(pb.name), c2 = nrm(text);
+        if (a && c2 && (a.includes(c2) || c2.includes(a) || a.split(' ')[0] === c2.split(' ')[0])) pb.poiSign = poiIndex;
+    }
     let wallTris = 0;
     for (const b of bRecs) {
         if (b.skip) continue;
@@ -5370,7 +5389,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         // collision
         collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(([x, z]) => Math.hypot(x - b.c[0], z - b.c[1]))), poly: ring, holes: b.holes, passageSolids: b.passageSolids, sourceId: data.buildingIds?.[b.derivedFrom ?? b.i], derived: b.derivedFrom !== undefined, minH: b.minH, angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, h: sourceRoof ? b.h : h, ...(sourceRoof ? { y0: b.minH, y1: b.h, roofHeightAt: sourceRoof.heightAt } : {}), poi: b.cv || undefined });
         // facade sign
-        if ((b.flags & 2) && b.name && (b.cvSign || b.area < 20000) && !AR?.signed) addFacadeSign(b, h, shop, wallCol);
+        if ((b.flags & 2) && b.name && (b.cvSign || b.area < 20000) && !AR?.signed && b.poiSign == null) addFacadeSign(b, h, shop, wallCol);
     }
     {
         const sourceBodies=bRecs.filter(b=>!b.skip&&b.passages?.length),unique=new Map();
@@ -5603,10 +5622,11 @@ export async function buildWorld(city, renderer, opts = {}) {
      *  unit, on the street wall nearest to the mapped point, + a projecting blade sign; lit at night with the signs */
     let unitSigns = 0, vacantUnits = 0;
     const normName = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
-    function addUnitSign(b, x, z, text, kind) {
+    function addUnitSign(b, x, z, text, kind, poiIndex = -1) {
         if ((b.skip && !b.landmarkUnitSigns) || b.cv || (b.minH || 0) > 0.5 || b.h < 3) return;
         // (2026-11-08, owner: "Poke House duplicated") the building's own name sign already names this business
-        if ((b.flags & 2) && b.name) { const a = normName(b.name), c2 = normName(text); if (a && c2 && (a.includes(c2) || c2.includes(a) || a.split(' ')[0] === c2.split(' ')[0])) return; }
+        // (2026-11-12: unless this POI owns that sign — b.poiSign — and places it here, over its own street front)
+        if ((b.flags & 2) && b.name && !(poiIndex >= 0 && b.poiSign === poiIndex)) { const a = normName(b.name), c2 = normName(text); if (a && c2 && (a.includes(c2) || c2.includes(a) || a.split(' ')[0] === c2.split(' ')[0])) return; }
         const ring = b.ring, ccw = signedArea(ring) > 0;
         let best = null, bd = Infinity;
         for (let k = 0; k < ring.length; k++) {
@@ -5618,7 +5638,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         if (!best) return;
         const bs = (kind === 'vacant' ? ['#f2f2ef', '#b91c1c', null] : null) || brandStyle(text) || (kind === 'pharmacy' ? ['#15803d', '#ffffff', null] : kind === 'bank' ? ['#1e3a8a', '#ffffff', null] : ['#1f2937', '#f5f5f4', null]);
-        const s = signs.get(((bs[3] || text).replace(/\s*\([^)]*\)/g, '').trim() || text).slice(0, 24), bs[0], bs[1], bs[2]); if (!s) return; // (data.brands[k][3] = logo text)
+        const s = signs.get(((bs[3] || text).replace(/\s*\([^)]*\)/g, '').trim() || text).slice(0, 32), bs[0], bs[1], bs[2]); if (!s) return; // (data.brands[k][3] = logo text; 32: "Trattoria Il Calcio Floreasca", "Mega Image Maison des Chefs" were cut mid-word at 24)
         const { ax, az, bx, bz, L, nx, nz } = best, tx = (bx - ax) / L, tz = (bz - az) / L;
         let w = Math.min(6.5, L - 0.8), hh = Math.min(0.7, w / s.aspect); w = Math.min(w, hh * s.aspect);
         let tc = clamp(best.t * L, w / 2 + 0.4, L - w / 2 - 0.4), mx = ax + tx * tc + nx * 0.14, mz = az + tz * tc + nz * 0.14;
@@ -5786,7 +5806,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
         }
         const c = cellOf(x, z);
-        if (['food', 'shop', 'bank', 'pharmacy', 'hotel'].includes(kind) && bIdx >= 0 && bRecs[bIdx] && (brand || name) && sub !== 'atm') addUnitSign(bRecs[bIdx], x, z, (brand || name), kind); // (ATMs do not name a unit — world-data Request)
+        if (['food', 'shop', 'bank', 'pharmacy', 'hotel'].includes(kind) && bIdx >= 0 && bRecs[bIdx] && (brand || name) && sub !== 'atm') addUnitSign(bRecs[bIdx], x, z, (brand || name), kind, poiIndex); // (ATMs do not name a unit — world-data Request)
         let ne = nearestEdge(x, z);
         if (!ne) continue;
         let e = ne.edge;
@@ -5909,6 +5929,15 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         // businesses without a building of their own (or in a building already signed) → small pylon / board
         if (['food', 'shop', 'bank', 'pharmacy', 'hotel'].includes(kind) && bIdx < 0 && (brand || name)) {
+            // (fidelity pass 2026-11-12) reality-pass districts: every mapped business names its unit, branded or not (moft,
+            // Mondayz Coffee, iMZA, Cozofino, Pizzeria Due Amici were dropped as "unbranded clutter" before the fascia rule
+            // below was reached, and a pylon spot inside a building dropped others): the fascia goes on the nearest building
+            if (realPass && sub !== 'atm') {
+                let nb = null, nd = brand || brandStyle(name) || kind === 'pharmacy' ? 30 : 16; // (unbranded: only a building at the point; a kiosk 20 m from any wall gets no fascia)
+                bGrid.each(x - 30, z - 30, x + 30, z + 30, (o) => { if (o.skip || o.cv || o.h < 3 || (o.minH || 0) > 0.5) return; const d = pointInPolygon(x, z, o.ring) ? 0 : polyDist(x, z, o.ring); if (d < nd) { nd = d; nb = o; } });
+                if (nb) addUnitSign(nb, x, z, brand || name, kind);
+                continue;
+            }
             const bs = brandStyle(brand || name);
             if (!bs && kind !== 'pharmacy' && !brand) continue; // unbranded tiny places: skip the clutter
             const st = bs || [ks.bg, ks.fg, null];

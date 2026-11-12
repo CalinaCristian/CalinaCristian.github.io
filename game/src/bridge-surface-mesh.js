@@ -1,6 +1,47 @@
+// (spec 10 load budget) heightAtWorld is a pure function of its arguments; neighbouring triangles ask it again at the same
+// points (shared corners, the samples of a shared edge): close to half the questions on a deck. Answers are kept per
+// call, keyed by the exact bits of (x, z, y), in one open-addressing table reused across calls (a generation marks the
+// entries of the current call). Only numbers are kept; anything else is asked again.
+const KEY = new Float64Array(3), KEYW = new Uint32Array(KEY.buffer);
+let memoCap = 1 << 14, memoW = new Uint32Array(memoCap * 6), memoV = new Float64Array(memoCap), memoG = new Uint32Array(memoCap), memoGen = 0;
+function memoHeights(fn) {
+    if (++memoGen > 0xfffffff0) { memoG.fill(0); memoGen = 1; }
+    const gen = memoGen; let count = 0;
+    const slot = (w0, w1, w2, w3, w4, w5, mask) => {
+        let h = Math.imul(w0 ^ Math.imul(w1, 0x9e3779b1), 0x85ebca6b) ^ Math.imul(w2 ^ Math.imul(w3, 0xc2b2ae35), 0x27d4eb2f) ^ Math.imul(w4 ^ Math.imul(w5, 0x165667b1), 0x9e3779b1);
+        h ^= h >>> 15; h = Math.imul(h, 0x2c1b3c6d); h ^= h >>> 12;
+        return h & mask;
+    };
+    const grow = () => {
+        const oldW = memoW, oldV = memoV, oldG = memoG, oldCap = memoCap;
+        memoCap *= 2; memoW = new Uint32Array(memoCap * 6); memoV = new Float64Array(memoCap); memoG = new Uint32Array(memoCap);
+        const mask = memoCap - 1;
+        for (let i = 0; i < oldCap; i++) if (oldG[i] === gen) {
+            const o = i * 6; let h = slot(oldW[o], oldW[o + 1], oldW[o + 2], oldW[o + 3], oldW[o + 4], oldW[o + 5], mask);
+            while (memoG[h] === gen) h = (h + 1) & mask;
+            memoW.set(oldW.subarray(o, o + 6), h * 6); memoV[h] = oldV[i]; memoG[h] = gen;
+        }
+    };
+    return (x, z, y) => {
+        KEY[0] = x; KEY[1] = z; KEY[2] = y;
+        const w0 = KEYW[0], w1 = KEYW[1], w2 = KEYW[2], w3 = KEYW[3], w4 = KEYW[4], w5 = KEYW[5], mask = memoCap - 1;
+        let h = slot(w0, w1, w2, w3, w4, w5, mask);
+        while (memoG[h] === gen) {
+            const o = h * 6;
+            if (memoW[o] === w0 && memoW[o + 1] === w1 && memoW[o + 2] === w2 && memoW[o + 3] === w3 && memoW[o + 4] === w4 && memoW[o + 5] === w5) return memoV[h];
+            h = (h + 1) & mask;
+        }
+        const v = fn(x, z, y);
+        if (typeof v !== 'number') return v;
+        const o = h * 6; memoW[o] = w0; memoW[o + 1] = w1; memoW[o + 2] = w2; memoW[o + 3] = w3; memoW[o + 4] = w4; memoW[o + 5] = w5; memoV[h] = v; memoG[h] = gen;
+        if (++count * 2 > memoCap) grow();
+        return v;
+    };
+}
 /** Mesh-only adaptive displacement. Keeps source graph vertices/edges and
  * material attributes; records sampled chord error instead of changing grade. */
-export function displaceBridgeSurface(mesh, fromVertex, fromIndex, heightAtWorld, { maxErrorM=.002, maxDepth=18 }={}) {
+export function displaceBridgeSurface(mesh, fromVertex, fromIndex, heightAtWorldFn, { maxErrorM=.002, maxDepth=18 }={}) {
+    const heightAtWorld = memoHeights(heightAtWorldFn);
     const rows=[];
     for(let k=fromIndex;k<mesh.ic;k+=3)rows.push([0,1,2].map(j=>{const i=mesh.i[k+j];return{p:Array.from(mesh.p.subarray(i*3,i*3+3)),n:Array.from(mesh.n.subarray(i*3,i*3+3)),u:Array.from(mesh.u.subarray(i*2,i*2+2)),c:Array.from(mesh.c.subarray(i*3,i*3+3)),t:mesh.t?.[i]??-1};}));
     mesh.vc=fromVertex;mesh.ic=fromIndex;

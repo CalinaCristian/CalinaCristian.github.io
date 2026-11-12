@@ -2799,7 +2799,7 @@ export class Pedestrians {
         const rows = Math.max(1, Math.floor((hi - lo) / gap)), cols = Math.floor((sw - 0.2) / widthGap), cells = [];
         if (hi - lo >= 2 * PED_R && cols > 0) for (let i = 0; i < rows; i++) for (let j = 0; j < cols; j++) {
             const s = lo + (i + 0.5) * (hi - lo) / rows, u = w + (j + 0.5) * sw / cols;
-            const x = e.a.x + e.dirx * s + e.nx * u * side, z = e.a.z + e.dirz * s + e.nz * u * side;
+            const ut = u + this.taper(e, side, s), x = e.a.x + e.dirx * s + e.nx * ut * side, z = e.a.z + e.dirz * s + e.nz * ut * side; // (u stays relative to the nominal kerb: placeWalk adds the taper)
             if (this.freeWalkPoint(x, z, PED_R + 0.1)) cells.push({ x, z, s, u });
         }
         const space = { cells, w, sw, lo, hi }; sides.set(side, space); return space;
@@ -3142,8 +3142,10 @@ export class Pedestrians {
     syncWalkPose(p) {
         const e = p.e, dx = p.x - e.a.x, dz = p.z - e.a.z;
         p.s = clamp(dx * e.dirx + dz * e.dirz, 0, e.len);
-        p.walkOff = (dx * e.nx + dz * e.nz) * p.side - this.off(e, p.side) - (p.dodge || 0);
+        p.walkOff = (dx * e.nx + dz * e.nz) * p.side - this.off(e, p.side) - (p.dodge || 0) - this.taper(e, p.side, p.s);
     }
+    /** A lane-drop taper moves the sidewalk out with the kerb (world.sideExtra): the walking line follows it. */
+    taper(e, side, s) { return e.taperR ? this.t.world?.sideExtra?.(e, side, s) || 0 : 0; }
     placeWalk(p) {
         const ox = p.x, oz = p.z;
         if (this.width(p.e, p.side) <= 0 && this.width(p.e, -p.side) > 0) { p.side = -p.side; p.walkOff = 0; p.dodge = 0; p.dodgeEdge = null; }
@@ -3152,7 +3154,7 @@ export class Pedestrians {
         if (p.dodge === undefined || p.dodgeEdge !== e) p.dodge = target;
         else if (p.dodgeFrame !== this._fr) p.dodge += clamp(target - p.dodge, -2 * (this._stepDt || 1 / 30), 2 * (this._stepDt || 1 / 30));
         p.dodgeFrame = this._fr; p.dodgeEdge = e;
-        const dg = p.dodge, o = (this.off(e, p.side) + (p.walkOff || 0) + dg) * p.side;
+        const dg = p.dodge, o = (this.off(e, p.side) + (p.walkOff || 0) + dg + this.taper(e, p.side, p.s)) * p.side;
         p.onDodge = dg < -0.05; // (stepping round a parked car on the road side: not "lost in a carriageway")
         p.x = e.a.x + e.dirx * p.s + e.nx * o; p.z = e.a.z + e.dirz * p.s + e.nz * o;
         p.heading = Math.atan2(-e.dirx * p.dir, -e.dirz * p.dir);
@@ -3160,7 +3162,7 @@ export class Pedestrians {
     }
     /** sidewalk point on edge g at distance d from node, on side `side` */
     sidePoint(g, node, d, side) {
-        const fromA = g.a === node; const s = fromA ? d : g.len - d; const o = this.off(g, side) * side;
+        const fromA = g.a === node; const s = fromA ? d : g.len - d; const o = (this.off(g, side) + this.taper(g, side, s)) * side;
         return { x: g.a.x + g.dirx * s + g.nx * o, z: g.a.z + g.dirz * s + g.nz * o, s };
     }
     buildGrid() { this.grid.build(this.list); this._peerGridDirty = false; }

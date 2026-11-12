@@ -852,6 +852,37 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         if (aligned) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + 0.5; sccInfo.laneAligned = aligned; }
     }
+    // (owner, 2026-11-12, Grozavesti (69, 19): "the road looks wrong here -- lane collapse suddenly"; OSM w665896755 lanes=2,
+    // turn:lanes=merge_to_right|, then w665896756 lanes=1; Street View at 44.44100, 26.06002: two lanes, a merge arrow in the
+    // lane that ends, then a taper of some 30-40 m into one lane) where a one-way street drops a lane at a plain node, the
+    // carriageway stepped from two lanes to one there: half the step on the last edge before the node, half on the first
+    // after it, with the edge line and the sidewalk left on the nominal line. A MAPPED merge (turn:lanes merge_to_*) now
+    // keeps its full width to the node, where the lane line ends, and the outer edge closes in evenly over the edges that
+    // follow, up to the first node at least 25 m on. e.taperR = [extra right-side width at a, at b]; corner() carries it
+    // into every strip built from corners (asphalt, kerb, sidewalk). EXCEPTION to the source: the game keeps the left
+    // kerb and ends the right-hand lane whichever lane the tag names (lanes are counted from the left).
+    const laneTapers = [], sideExtra = (e, side, along) => side > 0 && e.taperR ? e.taperR[0] + (e.taperR[1] - e.taperR[0]) * clamp(along / e.len, 0, 1) : 0;
+    if (distId) {
+        const tl = data.turnLanes || [], merges = new Set(); for (let i = 0; i + 2 < tl.length; i += 3) if (/merge_to_/.test(str(tl[i + 1]))) merges.add(tl[i]);
+        const plain = e => e.oneway && !e.virtual && !e.bridge && !e.tunnel && !e.madeTwoWay && !e.roadWidthSource;
+        for (const e of edges) {
+            if (!plain(e) || !merges.has(e.road)) continue;
+            const N = e.b, out = N.edges.filter(f => !f.virtual); if (out.length !== 2) continue;
+            const f = out.find(g => g !== e); if (!f || f.a !== N || !plain(f) || f.lanesF !== e.lanesF - 1 || Math.abs(f.wL - e.wL) > .05) continue;
+            const D = e.wR - f.wR; if (!(D > 1.5 && D < 5)) continue;
+            const chain = []; let cur = f, total = 0;
+            for (;;) {
+                chain.push(cur); total += cur.len; if (total >= 25) break;
+                const next = cur.b.edges.filter(g => !g.virtual); if (next.length !== 2) break;
+                const g = next.find(h => h !== cur); if (!g || g.a !== cur.b || !plain(g) || g.lanesF !== f.lanesF || Math.abs(g.wR - f.wR) > .05 || Math.abs(g.wL - f.wL) > .05) break;
+                cur = g;
+            }
+            if (total < 12 || total > 90) continue; // (too short to read as a taper; or one long edge with nowhere to end it)
+            let at = 0; for (const g of chain) { g.taperR = [D * (1 - at / total), D * (1 - (at + g.len) / total)]; at += g.len; }
+            laneTapers.push({ from: e, node: N, lengthM: total, widthM: D, edges: chain.length });
+        }
+        if (laneTapers.length) sccInfo.laneTapers = laneTapers.map(t => ({ at: [Math.round(t.node.x), Math.round(t.node.z)], lengthM: Math.round(t.lengthM), widthM: t.widthM, edges: t.edges, sourceId: data.roadSourceGeometry?.[t.from.road]?.sourceId }));
+    }
 
     // refine tram flag per edge using the actual tram geometry
     const trams = data.trams.map(t => undelta(t, 0));
@@ -2216,7 +2247,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const [e1, e2] = n.edges;
         const d1x = e1.b === n ? e1.dirx : -e1.dirx, d1z = e1.b === n ? e1.dirz : -e1.dirz; // e1 travelling into n
         const d2x = e2.a === n ? e2.dirx : -e2.dirx, d2z = e2.a === n ? e2.dirz : -e2.dirz; // e2 leaving n
-        return d1x * d2x + d1z * d2z < 0.35 || needsRoadBevelPad(e1, e2, n, (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e)); // sharp turn / infeasible width transition → bevel pad
+        return d1x * d2x + d1z * d2z < 0.35 || needsRoadBevelPad(e1, e2, n, (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + sideExtra(e, s, e.a === n ? 0 : e.len)); // sharp turn / infeasible width transition → bevel pad
     }
     for (const n of nodeArr) n.pad = n.edges.length ? isPadNode(n) : false;
     function retract(e, n) { return ((n.pad ?? isPadNode(n)) && (n.allEdges || n.edges).length >= 2 ? Math.min(n.radius, e.len * 0.45) : 0); }
@@ -2226,6 +2257,7 @@ export async function buildWorld(city, renderer, opts = {}) {
      */
     // Hoisted: the profile clearance floor and rendered pavement use the same mitred footprint.
     function corner(e, n, s, w, wOtherFn) {
+        w += sideExtra(e, s, e.a === n ? 0 : e.len); // (a lane-drop taper: see laneTapers)
         const out = e.a === n ? 1 : -1;
         const r = retract(e, n);
         const bx = n.x + e.dirx * out * r, bz = n.z + e.dirz * out * r;
@@ -2234,7 +2266,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const f = n.edges[0] === e ? n.edges[1] : n.edges[0];
         const same = (e.b === n && f.a === n) || (e.a === n && f.b === n);
         const sf = same ? s : -s;
-        const wf = wOtherFn(f, sf);
+        const wf = wOtherFn(f, sf) + sideExtra(f, sf, f.a === n ? 0 : f.len);
         const qx = n.x + f.nx * sf * wf, qz = n.z + f.nz * sf * wf;
         const join = roadMiter(e, f, n, [px, pz], [qx, qz], Math.max(w, wf));
         // Asphalt infeasibility is handled by the shared pad above, retaining
@@ -2676,7 +2708,8 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (!minor) {
                 const edgeM = { flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, ...rest) { const cx = (x0 + x1 + x2 + x3) / 4, cz = (z0 + z1 + z2 + z3) / 4; if (coveredByOther(cx, cz, e, yAlong(e, cx, cz), .3, false, .15)) return; longM.flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, ...rest); } };
                 if (s1 - s0 > .2) {
-                    dashLine(edgeM, e, s0, s1, e.wR - 0.15, yM, white, Math.min(1, s1 - s0), 0, 0.08);
+                    if (e.taperR) { const n = Math.max(1, Math.ceil(s1 - s0)); for (let i = 0; i < n; i++) { const sa = s0 + (s1 - s0) * i / n, sb = s0 + (s1 - s0) * (i + 1) / n, oa = e.wR - 0.15 + sideExtra(e, 1, sa), ob = e.wR - 0.15 + sideExtra(e, 1, sb), P = (q, o) => [e.a.x + e.dirx * q + e.nx * o, e.a.z + e.dirz * q + e.nz * o], A = P(sa, oa - 0.08), B = P(sb, ob - 0.08), C = P(sb, ob + 0.08), D = P(sa, oa + 0.08); edgeM.flatQuad(A[0], A[1], B[0], B[1], C[0], C[1], D[0], D[1], yM, white, 0); } } // (a lane-drop taper: the line closes in with the kerb)
+                    else dashLine(edgeM, e, s0, s1, e.wR - 0.15, yM, white, Math.min(1, s1 - s0), 0, 0.08);
                     dashLine(edgeM, e, s0, s1, -(e.wL - 0.15), yM, (US && e.oneway && /motorway|trunk/.test(e.type)) ? yellow : white, Math.min(1, s1 - s0), 0, 0.08);
                 }
             }
@@ -2892,6 +2925,22 @@ export async function buildWorld(city, renderer, opts = {}) {
                 quad(P2(-2.55, sd * 0.85), P2(-2.05, sd * 1.4), P2(-2.05, sd * 1.4), P2(-1.55, sd * 0.85)); // head
             }
         };
+        // a merge arrow in the lane that ends, 10 m and 30 m before the lane line stops (Street View at 44.44100, 26.06002: one large arrow)
+        for (const t of laneTapers) {
+            const e = t.from, lane = e.lanesF - 1;
+            for (const want of [10, 30]) {
+                let g = e, d = want; // walk back along the same road while the edge is too short
+                for (let k = 0; k < 4 && d > g.len - 2; k++) { const prev = g.a.edges.filter(h => !h.virtual && h.b === g.a && h.road === g.road && h.lanesF === g.lanesF); if (prev.length !== 1) { g = null; break; } d -= g.len; g = prev[0]; }
+                if (!g || d > g.len - 2 || d < 0) continue;
+                const s = g.len - d, lat = (g.laneCenterShiftM || 0) + g.median / 2 + g.laneW * (lane + 0.5), c = cellOf(g.a.x + g.dirx * s, g.a.z + g.dirz * s), mb = markProxy(c.marks, g), v0 = c.marks.vc, y = Y.road + Y.mark + 0.003;
+                const P2 = (a, b) => [g.a.x + g.dirx * (s + a) + g.nx * (lat + b), g.a.z + g.dirz * (s + a) + g.nz * (lat + b)], quad = (p, q, r2, u) => mb.flatQuad(p[0], p[1], q[0], q[1], r2[0], r2[1], u[0], u[1], y, white, 0);
+                // (a along travel, b to the right) the stem slants toward the lane that goes on, on the left
+                const A = [-4.6, 0.75], B = [-1.5, -0.35], L = Math.hypot(B[0] - A[0], B[1] - A[1]), dx = (B[0] - A[0]) / L, dz = (B[1] - A[1]) / L, px = -dz, pz = dx, T = [B[0] + dx * 1.5, B[1] + dz * 1.5];
+                quad(P2(A[0] + px * .09, A[1] + pz * .09), P2(B[0] + px * .09, B[1] + pz * .09), P2(B[0] - px * .09, B[1] - pz * .09), P2(A[0] - px * .09, A[1] - pz * .09));
+                quad(P2(B[0] + px * .42, B[1] + pz * .42), P2(T[0], T[1]), P2(T[0], T[1]), P2(B[0] - px * .42, B[1] - pz * .42));
+                if (Math.abs(g.ya) > 0.01 || Math.abs(g.yb) > 0.01) displace(c.marks, v0, (x, z) => yAlong(g, x, z), g);
+            }
+        }
         const roadEdges = new Map(); for (const e of edges) if (!e.virtual) { let l = roadEdges.get(e.road); if (!l) roadEdges.set(e.road, l = []); l.push(e); }
         for (let i = 0; i + 2 < tl.length; i += 3) {
             const ri = tl[i], fw = str(tl[i + 1]).split('|'), bw = str(tl[i + 2]).split('|'), rd = roads[ri], es = roadEdges.get(ri); if (!rd || !es) continue;
@@ -3235,7 +3284,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (top === null) edgeGrid.each(x - 2, z - 2, x + 2, z + 2, (e) => {
             if (top !== null || !raisedEdge(e)) return;
             const q = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z); if (q.t <= 0 || q.t >= 1) return;
-            const side = ((x - q.cx) * e.nx + (z - q.cz) * e.nz) >= 0 ? 1 : -1, wa = widthAsphalt(e, side);
+            const side = ((x - q.cx) * e.nx + (z - q.cz) * e.nz) >= 0 ? 1 : -1, wa = widthAsphalt(e, side) + sideExtra(e, side, q.t * e.len);
             if (!raisedEdge(e, side) || q.d < wa + 0.02 || q.d > wa + sidewalkWidth(e, side) + SIDE_BACK + tol) return;
             top = railRoadside.surface(e, x, z, Y.road + Y.kerb + yAlong(e,x,z));
         });
@@ -3252,7 +3301,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const obbPoly = (b) => { const c = Math.cos(b.angle || 0), s = Math.sin(b.angle || 0); return [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(([u, v]) => { const lx = u * b.hw, lz = v * b.hd; return [b.x + lx * c + lz * s, b.z - lx * s + lz * c]; }); };
     /** outer edge of the sidewalk on side s of edge e at distance `along` from e.a (where lamps / signs / trees go) */
     const kerbSpot = (e, along, s, inset = 0.45) => {
-        const w = (s > 0 ? e.wR : e.wL) + shoulderOf(e);
+        const w = (s > 0 ? e.wR : e.wL) + shoulderOf(e) + sideExtra(e, s, along);
         const o = e.sidewalk >= 1.2 ? w + Math.max(0.55, e.sidewalk - inset) : w + 0.7;
         return { x: e.a.x + e.dirx * along + e.nx * o * s, z: e.a.z + e.dirz * along + e.nz * o * s, o };
     };
@@ -7837,6 +7886,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         group, graph, buildings: allColl, pois, lights, nodeLight, bounds, nearestEdge, edgesInBox, isWater, isPark, waterMesh, sky,
         districts, areas, landmarks, trams, stats, data, spawn, city, allEdges,
         tramGrade: tramGrades.resolveGrade, tramDecks, tramDeckSupportAt, bridgeBents: bridgeBents.bents, basarabStructure: basarabStructure.report, sidewalkWidth, sourceBridgeProfile:sharedBridgeProfile.report, sourceBridgeMeshAudit:sharedBridgeMeshAudit,
+        sideExtra, // extra right-side carriageway width at a distance along an edge (lane-drop tapers): the sidewalk lies that much further out
         generatedParapetOwnership:{report:parapetOwnership.report,caps:parapetOwnership.pieces.map(({id,top,heightM,owner,box})=>({id,top,heightM,owner,box}))},
         /** placed trees {x, z, species, con, kind} (read-only; QA detectors) */
         treeSpots: treeList,

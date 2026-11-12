@@ -19,6 +19,6 @@
     { "id": "r15-fence-sticks-out", "ownerNote": "fence sticks out", "status": "fixed", "eye": [92.89, 9.845, 71.545], "bearing": 232.441, "pitch": -34.828 },
     { "id": "r16-random-piece", "ownerNote": "random piece", "status": "fixed", "eye": [80.403, 17.192, -89.612], "bearing": 109.396, "pitch": -38.397 },
     { "id": "r17-water-through-ground", "ownerNote": "i can randomly see water through the ground -- is that supposed to be water or ground? check street view", "status": "fixed", "eye": [102.383, 26.618, -228.601], "bearing": 233.282, "pitch": -48.803 },
-    { "id": "r18-lane-collapse", "ownerNote": "the road looks wrong here -- lane collapse suddenly", "status": "open", "eye": [68.709, 35.998, 19.358], "bearing": 189.932, "pitch": -50.841 }
+    { "id": "r18-lane-collapse", "ownerNote": "the road looks wrong here -- lane collapse suddenly", "status": "fixed", "eye": [68.709, 35.998, 19.358], "bearing": 189.932, "pitch": -50.841 }
   ]
 }

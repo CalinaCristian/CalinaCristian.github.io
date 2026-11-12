@@ -2143,6 +2143,38 @@ export async function buildWorld(city, renderer, opts = {}) {
         e.sidewalkSource = sourceSidewalkSides(data, e);
         e.sidewalkRightM = e.sidewalkSource.rightM; e.sidewalkLeftM = e.sidewalkSource.leftM;
     }
+    // (owner, 2026-11-12, Grozavesti (194, -453): the Orhideelor entry ramp's retaining wall stood 1.5 m inside the street's
+    // lane; Street View at 44.44529, 26.06167: the ramp's barrier stands at the street's edge, no walkway on that side) a
+    // raised carriageway running parallel beside a street at grade, closer than their two widths, loses the walkway on that
+    // side and narrows that side (lanes down to 2.6 m) so its wall stands at the street's edge
+    {
+        let narrowed = 0;
+        for (const e of edges) {
+            if (e.virtual || e.tunnel || !(Math.max(e.ya, e.yb) > .3) || (e.ya + e.yb) / 2 > 4.5 || e.roadWidthSource) continue; // (low enough to stand on its walls: a higher deck passes over the street)
+            for (const sd of [1, -1]) {
+                let gap = Infinity;
+                for (const t of [.2, .5, .8]) {
+                    const x = e.a.x + (e.b.x - e.a.x) * t, z = e.a.z + (e.b.z - e.a.z) * t;
+                    edgesInBox(x - 12, z - 12, x + 12, z + 12, f => {
+                        if (f === e || f.virtual || f.tunnel || f.bridge || Math.max(Math.abs(f.ya), Math.abs(f.yb)) > .3 || Math.abs(f.dirx * e.dirx + f.dirz * e.dirz) < .9) return;
+                        if (f.a === e.a || f.a === e.b || f.b === e.a || f.b === e.b) return;
+                        const q = distPointSeg(x, z, f.a.x, f.a.z, f.b.x, f.b.z); if (q.t <= .02 || q.t >= .98) return;
+                        if (((q.cx - x) * e.nx + (q.cz - z) * e.nz) * sd <= 0) return; // (on this side)
+                        const fSide = ((x - q.cx) * f.nx + (z - q.cz) * f.nz) > 0 ? f.wR : f.wL;
+                        gap = Math.min(gap, q.d - fSide - shoulderOf(f));
+                    });
+                }
+                const key = sd > 0 ? 'wR' : 'wL', have = e[key] + shoulderOf(e) + sidewalkWidth(e, sd);
+                if (!(gap < have - .05)) continue;
+                if (sd > 0) e.sidewalkRightM = 0; else e.sidewalkLeftM = 0;
+                const lanes = Math.max(1, e.lanesF + e.lanesB), other = sd > 0 ? e.wL : e.wR, minSide = Math.max(1.3, 2.6 * lanes - other);
+                const nw = Math.max(minSide, gap - shoulderOf(e));
+                if (nw < e[key] - .05) { e[key] = nw; e.laneW = Math.min(e.laneW, (e.wL + e.wR) / lanes); if (e.oneway) e.median = -2 * e.wL; e.halfW = Math.max(e.wL, e.wR); }
+                narrowed++;
+            }
+        }
+        if (narrowed) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + .5; sccInfo.raisedBesideStreet = narrowed; }
+    }
     const widthAsphalt = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e);
     const widthSide = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + sidewalkWidth(e, s);
     const widthKerb = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + 0.28;

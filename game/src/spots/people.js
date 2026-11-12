@@ -161,6 +161,7 @@ export class Crowd {
     }
     /** walkable height at (x, z): terrain or a walkable solid (steps, plinth, terrace, deck) within reach of `y` (null: from the terrain up to +4 m) */
     _floor(x, z, y) {
+        { const f = this.ground.floorAt?.(x, z); if (f != null && (y == null || y < f + 2.2)) return f; } // an exact floor below the terrain (a sunken ramp, an alley under a building)
         const h = this.ground.heightAt(x, z), probe = y ?? Math.max(h + 4, (this.ground.waterY ?? -1e9) + 3), g = this.ground.groundAt?.(x, z, probe); // (over a lake: reach the pier deck, not the lakebed)
         return Number.isFinite(g) && g < probe + 0.6 && g >= h - 0.01 ? g : h;
     }

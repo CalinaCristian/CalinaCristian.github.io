@@ -35,7 +35,9 @@ function clipBox(poly, b) {
     const cut = (pts, inside, hit) => { const out = []; for (let i = 0; i < pts.length; i++) { const a = pts[i], c = pts[(i + 1) % pts.length], ia = inside(a), ic = inside(c); if (ia) out.push(a); if (ia !== ic) out.push(hit(a, c)); } return out; };
     const atX = (x) => (a, c) => [x, a[1] + (c[1] - a[1]) * (x - a[0]) / (c[0] - a[0])], atZ = (z) => (a, c) => [a[0] + (c[0] - a[0]) * (z - a[1]) / (c[1] - a[1]), z];
     let q = cut(poly, (a) => a[0] >= b.x0, atX(b.x0)); q = cut(q, (a) => a[0] <= b.x1, atX(b.x1)); q = cut(q, (a) => a[1] >= b.z0, atZ(b.z0)); q = cut(q, (a) => a[1] <= b.z1, atZ(b.z1));
-    return q.filter((a, i, l) => !same(a, l[(i + 1) % l.length]));
+    q = q.filter((a, i, l) => !same(a, l[(i + 1) % l.length]));
+    // drop points that lie on the straight line between their neighbours (clipping leaves them along the box edge)
+    return q.filter((a, i, l) => { const p = l[(i + l.length - 1) % l.length], n = l[(i + 1) % l.length]; return Math.abs((a[0] - p[0]) * (n[1] - p[1]) - (a[1] - p[1]) * (n[0] - p[0])) > 1e-3; });
 }
 
 /**

@@ -430,9 +430,10 @@ export default {
         const chi = buildChihuly(ctx);
         buildMonorail(ctx);
         mopopMetalMaterial(); // literal source solids remain ordinary museum context
-        // MoPOP's outline and the Sky Church carry no colour tag (the seven lobes do: maroon, silver, #6495ED, red, gold) and took a
-        // random apartment tan; OSM maps the building as steel (building:material / roof:material = steel): bare-steel silver
-        for (const b of d.buildings) if ((b.id === 'w161587742' || b.id === 'w1092469435') && !b.c) { b.c = '#b9bdc2'; b.rc = b.rc || '#aeb2b7'; }
+        // MoPOP: the outline (way 161587742, 14.2 m, no colour) was drawn as a volume of its own and wrapped the seven coloured lobes
+        // (ways 1534908988–94, 18–22 m) in a plain wall up to 14 m; the Sky Church room (way 1092469435) has the same footprint as
+        // the maroon lobe. Street View (5th Ave N, 47.62138,-122.34768 looking 240°) shows the coloured metal down to the ground.
+        ctx.skipBuildings.add('w161587742'); ctx.skipBuildings.add('w1092469435');
         ctx.osmBackdrop({ paint: {}, style: (b) => MOPOP_PARTS.has(b.id) ? MOPOP_METAL : undefined,
             streetTreeOpts: { spacing: 12, prob: 0.7 }, areaTreeOpts: { conifer: 0.4 } });
         const P = ctx.painter;

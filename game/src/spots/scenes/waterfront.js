@@ -117,7 +117,12 @@ export default {
         { const road = [[113, 96], [89, 59], [69, 27], [41, -19], [14, -59], [-25, -112], [-62, -159], [-80, -178]];
           for (let i = 1; i < road.length; i++) { const [ax, az] = road[i - 1], [bx, bz] = road[i], L = Math.hypot(bx - ax, bz - az), ux = (bx - ax) / L, uz = (bz - az) / L;
             for (let t = 0; t < L; t += 22) for (const sd of [-1, 1]) { const x = ax + ux * t - uz * sd * 13, z = az + uz * t + ux * sd * 13; if (x < ax + ux * t && !isWater(x, z)) ctx.lampPoints.push({ x, z, rot: Math.atan2(-uz * sd, ux * sd) }); } } }
-        addTraffic(ctx, { lanes: [{ pts: [[113, 96], [89, 59], [69, 27], [41, -19], [14, -59], [-25, -112], [-62, -159], [-80, -178]], n: 4, speed: 10 }, { pts: [[-80, -178], [-62, -159], [-25, -112], [14, -59], [41, -19], [69, 27], [89, 59], [113, 96]].map(([x, z]) => [x + 6, z - 3]), n: 4, speed: 10 }] });
+        // traffic follows the mapped carriageways: one two-way road south of Union St (ways 519441949, 1166041039), two one-way
+        // roadways north of it (southbound way 1020457467; northbound ways 1167554010 + 1321962100). The old hand-drawn line ran
+        // straight on and put cars on the promenade near Pine St.
+        { const way = (id) => d.ways.find((w) => w.id === id)?.pts || [], off = (pts, k) => pts.map(([x, z]) => [x + 2.6 * k, z - 1.6 * k]);
+          const main = [...way('w519441949'), ...way('w1166041039').slice(1)], nb = [...way('w1167554010'), ...way('w1321962100').slice(1)], sb = way('w1020457467');
+          if (main.length > 3 && nb.length > 3 && sb.length > 3) addTraffic(ctx, { lanes: [{ pts: [...off(main, 1), ...nb.slice(1)], n: 4, speed: 10 }, { pts: [...sb, ...off([...main].reverse(), -1).slice(1)], n: 4, speed: 10 }] }); }
         // plaques
         const PL = sp.plaques;
         ctx.plaque(PL[0], bx + 6, bz - 6, Math.PI * 0.8, { credit: 'Seattle Great Wheel (2012): 53.3 m, 42 gondolas.' });

@@ -102,11 +102,10 @@ function shed(ctx, b, bld, S, y0, isWater) {
         const cnt = Math.max(1, Math.floor((L - 2) / 4.4));
         for (let k = 0; k < cnt; k++) { const t = (k + 0.5) / cnt * L, x = ax + dx * t, z = az + dz * t;
             for (const [wy, wh] of S.eave >= 7 ? [[y0 + 1.15, 1.5], [y0 + 4.7, 1.35]] : [[y0 + 1.15, 1.5]]) { b.box(x + nx * 0.03, wy - 0.12, z + nz * 0.03, 1.9, wh + 0.24, 0.1, S.trim, 'paint', ry); b.box(x + nx * 0.07, wy, z + nz * 0.07, 1.62, wh, 0.1, '#1e2a33', 'darkglass', ry); } }
-        if (S.side && Math.abs(dx * ux + dz * uz) > 0.9 && L > 40 && nz < 0) { // the name again along the side that faces Pier 58
-            const sg = signBoard(S.side, 12, 1.3, { bg: S.wall, fg: S.signs[0][4], font: SERIF, frame: S.wall, depth: 0.1 }), t = L - 14 > 0 && (bx - ax) * ux + (bz - az) * uz > 0 ? L - 12 : 12;
-            sg.position.set(ax + dx * t + nx * 0.1, e - 1.1, az + dz * t + nz * 0.1); sg.rotation.y = ry; ctx.add(sg);
-        }
     }
+    if (S.side) for (const sd of [-1, 1]) if (sd * vz < 0) { // the name again along the long side that faces north (Pier 58 and the spawn)
+        const sg = signBoard(S.side, 12, 1.3, { bg: S.wall, fg: S.signs[0][4], font: SERIF, frame: S.wall, depth: 0.1 }), p = P(hl - 16, sd * (hw + 0.12), e - 1.2);
+        sg.position.set(p[0], p[1], p[2]); sg.rotation.y = Math.atan2(sd * vx, sd * vz); ctx.add(sg); }
     // names on the street gable
     let sy = y0 + Math.min(S.eave - 0.9, 6.4);
     for (const [text, w, h, bg, fg, font] of S.signs) { const sg = signBoard(text, Math.min(w, hw * 1.7), h, { bg, fg, font, frame: bg === S.wall ? S.wall : '#1d1f20', depth: 0.1 }); const p = P(hl + 0.12, 0, sy); sg.position.set(p[0], p[1], p[2]); sg.rotation.y = Math.atan2(ux, uz); ctx.add(sg); sy += h + 1.5; }

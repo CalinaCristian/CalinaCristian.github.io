@@ -3701,7 +3701,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         const c = centroid(ring);
         const sourceHeight = data.buildingDimensions?.[i]?.[0] ?? b[1] / 10, minimum = data.buildingDimensions?.[i]?.[1] ?? b[2] / 10;
         const roofProfile = validRoofProfile(data.buildingRoofProfiles?.[i], sourceHeight, minimum) ? data.buildingRoofProfiles[i] : null;
-        return { i, sourceId: data.buildingIds?.[i], heightSourceCode: data.buildingInfo?.[i * 5 + 4], style: data.styles[b[0]], h: data.buildingDimensions?.[i]?.[0] ?? b[1] / 10, minH: data.buildingDimensions?.[i]?.[1] ?? b[2] / 10, roof: data.roofs[b[3]], name: str(b[4]), flags: b[5], ring, holes, c, x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false,
+        // A building whose own source tags (kept for multipolygon relations) say it is a hotel shows the hotel's sign: the builder
+        // reads POIs from nodes and ways only, so a tenant inside it had taken the sign (Courtyard, Bellevue, OSM r8064670).
+        const ownTags = data.buildingSourceTags?.[data.buildingIds?.[i]];
+        const ownSign = ownTags && /^(hotel|hostel|motel)$/.test(ownTags.tourism || '') ? (ownTags.brand || ownTags.name || '') : '';
+        return { i, sourceId: data.buildingIds?.[i], heightSourceCode: data.buildingInfo?.[i * 5 + 4], style: data.styles[b[0]], h: data.buildingDimensions?.[i]?.[0] ?? b[1] / 10, minH: data.buildingDimensions?.[i]?.[1] ?? b[2] / 10, roof: data.roofs[b[3]], name: ownSign || str(b[4]), flags: ownSign ? (b[5] | 2 | (ownTags.brand ? 8 : 0)) : b[5], signStreet: ownSign ? ownTags['addr:street'] || '' : '', ring, holes, c, x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false,
             roofProfile, canopy: data.buildingCanopies?.[i] || null, levels: B_OFF === 9 ? b[6] : 0, colour: B_OFF === 9 ? str(b[7]) : '', roofColour: B_OFF === 9 ? str(b[8]) : '' };
     });
     for (const b of bRecs) b.aircraft = data.buildingAircraft?.[b.i] || null;
@@ -5613,7 +5617,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         return y;
     }
     function addFacadeSign(b, h, shop, wallCol) {
-        const ne = nearestEdge(b.c[0], b.c[1]);
+        // a hotel's own sign faces its address street (OSM addr:street) when that street is beside it, not a service lane behind it
+        const addressEdge = b.signStreet ? nearestEdge(b.c[0], b.c[1], (e) => e.name === b.signStreet, 120) : null;
+        const ne = addressEdge && addressEdge.d <= 90 ? addressEdge : nearestEdge(b.c[0], b.c[1]);
         if (!ne || ne.d > 90) return;
         // wall whose outward normal faces the road and is closest to it
         const ring = b.ring; const ccw = signedArea(ring) > 0;

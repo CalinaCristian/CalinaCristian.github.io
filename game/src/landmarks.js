@@ -2598,8 +2598,10 @@ function bLincolnN(b) {
     // so that the suppression radius covers the tower, the podium and the uipath-bel door point but not the Paccar building.
     b.shift(10, 40);
     const [lsn,pod,br8]=['w604028609','w161929514','w1364249504'].map(id=>U[id]);
-    const BRICK = '#b57f52', STONE = '#d8cbb2', SHOP = '#33414b', DK = '#2b3034', GLOW = '#f2dcae';
-    // --- retail podium (3 levels, ~16 m): storefronts at grade, brick-toned masonry + stone bands above
+    // Podium walls are cream / tan stone panels over a grey storefront base (street-level review 2026-11-12, both street faces
+    // and the curved corner); red brick is only an accent bay at the NE 8th skybridge landing, so it is not the wall colour.
+    const BRICK = '#d9cba6', STONE = '#e6dcc3', SHOP = '#33414b', DK = '#2b3034', GLOW = '#f2dcae';
+    // --- retail podium (3 levels, ~16 m): storefronts at grade, cream stone + lighter stone bands above
     b.wall = BRICK;
     b.prism(pod, 0, 16, BRICK, { topCol: '#8e8a84' });
     b.prism(offset(pod, 0.15), 0, 5.2, SHOP, { mat: 'g', top: false });                    // storefront glazing
@@ -2611,7 +2613,7 @@ function bLincolnN(b) {
         const mx = (a[0] + c[0]) / 2 + n[0] * 1.4, mz = (a[1] + c[1]) / 2 + n[1] * 1.4;
         b.box(mx, 4.3, mz, L * 0.8, 0.35, 2.8, '#4a4f53', { ry: -Math.atan2(c[1] - a[1], c[0] - a[0]) });
     }
-    b.text('LINCOLN SQUARE', -31, 10.2, -87.85, Math.PI, 1.4, '#f3efe6');                       // NE 8th St face (north)
+    b.text('LINCOLN SQUARE', -31, 10.2, -87.85, Math.PI, 1.4, '#3a342c');                       // NE 8th St face (north); dark letters on the cream stone
     // --- Lincoln Square North tower (UiPath): 126 m = lobby + 27 office floors (3.95 m) + recessed top + louvred crown
     curtainTower(b, lsn, 0, 112, { glass: '#7f97ad', spandrel: '#c8ced3', mullion: '#9aa1a6', pitch: 3.1, fh: 3.95, start: 9, frac: 0.6 });
     const lt = offset(lsn, -1.2);
@@ -2644,17 +2646,28 @@ function bLincolnN(b) {
     skybridge(b, [-45.4, -28.1], [-76.1, -20.8], 6.2);                                                // over Bellevue Way to Bellevue Square
     // The landing remains the real Bellevue Square source footprint; do not invent
     // a detached retail block to meet this bridge.
-    b.prism(br8, 6.6, 11, '#8fb0c2', { mat: 'g', bottom: true, topCol: '#d9dcdd' });         // diagonal NE 8th St bridge (w1364249504)
-    b.cornice(br8, 6.6, 0.5, 0.25, '#d9dcdd'); b.cornice(br8, 10.8, 0.5, 0.3, '#d9dcdd');
+    b.prism(br8, 6.6, 11, '#b4cfd9', { mat: 'g', bottom: true, topCol: '#eef0f0' });         // diagonal NE 8th St bridge (w1364249504)
+    b.cornice(br8, 6.6, 0.5, 0.25, '#eef0f0'); b.cornice(br8, 10.8, 0.5, 0.3, '#eef0f0');
+    // Its sides are an open white steel truss (street-level review 2026-11-12), drawn on the two long source edges.
+    for (let i = 0; i < br8.length; i++) { const p = br8[i], q = br8[(i + 1) % br8.length]; if (Math.hypot(q[0] - p[0], q[1] - p[1]) > 12) trussSide(b, p, q, 6.85, 10.8); }   // long edges only (the two ends are the landings)
     b.colPolygon(pod, { y1: 16 });                                                                   // (skybridge spans have no collision)
 }
 /** glazed skybridge box on a light steel frame between two plan points at floor height y */
 function skybridge(b, a, c, y, w = 5, h = 4.2) {
-    b.strut([a[0], y + h / 2, a[1]], [c[0], y + h / 2, c[1]], w, h, '#8fb0c2', 'g');
-    b.strut([a[0], y - 0.35, a[1]], [c[0], y - 0.35, c[1]], w + 0.5, 0.7, '#d9dcdd');
-    b.strut([a[0], y + h + 0.25, a[1]], [c[0], y + h + 0.25, c[1]], w + 0.6, 0.5, '#d9dcdd');
-    const L = Math.hypot(c[0] - a[0], c[1] - a[1]), n = Math.max(2, Math.round(L / 4));
-    for (let k = 0; k <= n; k++) { const t = k / n, x = a[0] + (c[0] - a[0]) * t, z = a[1] + (c[1] - a[1]) * t; for (const s of [-1, 1]) { const ux = -(c[1] - a[1]) / L * s * (w / 2 + 0.05), uz = (c[0] - a[0]) / L * s * (w / 2 + 0.05); b.strut([x + ux, y, z + uz], [x + ux, y + h, z + uz], 0.18, 0.18, '#e6e8e9'); } }
+    b.strut([a[0], y + h / 2, a[1]], [c[0], y + h / 2, c[1]], w, h, '#b4cfd9', 'g');
+    b.strut([a[0], y - 0.35, a[1]], [c[0], y - 0.35, c[1]], w + 0.5, 0.7, '#eef0f0');
+    b.strut([a[0], y + h + 0.25, a[1]], [c[0], y + h + 0.25, c[1]], w + 0.6, 0.5, '#eef0f0');
+    const L = Math.hypot(c[0] - a[0], c[1] - a[1]);
+    for (const s of [-1, 1]) { const ux = -(c[1] - a[1]) / L * s * (w / 2 + 0.08), uz = (c[0] - a[0]) / L * s * (w / 2 + 0.08); trussSide(b, [a[0] + ux, a[1] + uz], [c[0] + ux, c[1] + uz], y, y + h); }
+}
+/** one side of a skybridge: white steel posts every ~4 m with alternating diagonals between the bottom (y0) and top (y1) chords.
+ *  The Lincoln Square skybridges are open steel trusses with glazing behind (street-level review 2026-11-12). */
+function trussSide(b, a, c, y0, y1, col = '#eef0f0') {
+    const L = Math.hypot(c[0] - a[0], c[1] - a[1]), n = Math.max(2, Math.round(L / 4)), at = (k) => [a[0] + (c[0] - a[0]) * k / n, a[1] + (c[1] - a[1]) * k / n];
+    for (let k = 0; k <= n; k++) {
+        const p = at(k); b.strut([p[0], y0, p[1]], [p[0], y1, p[1]], 0.2, 0.2, col);
+        if (k < n) { const q = at(k + 1), up = k % 2 === 0; b.strut([p[0], up ? y0 : y1, p[1]], [q[0], up ? y1 : y0, q[1]], 0.16, 0.16, col); }
+    }
 }
 
 // One Lincoln Tower + Westin Bellevue (Lincoln Square, 2005) — 137 m / 42 floors: Westin hotel floors 4-~10, condos above;

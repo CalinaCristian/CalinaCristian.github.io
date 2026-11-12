@@ -18,7 +18,7 @@ and the F8 JSON the owner pastes.
 
 | ID | Item | Spec | State |
 | --- | --- | --- | --- |
-| R10 | District data size and load-time targets (3 MB gzip per district, 4 s load) | 10 | in progress (own session) |
+| R10 | District data size and load-time targets (3 MB gzip per district, 4 s load) | 10 | in progress: size met (binary packs 0.40–2.90 MiB, on `master` since 2026-11-12); < 4 s desktop load still open for Grozăvești 9.6 s, Unirii 7.5 s, Romana 5.1 s |
 | R22 | Code cleanup after the district migration (corridor era, split `world.js`, dead code) | 22 | todo, after R10 |
 | R23 | Overview atlas recapture after the 2026-11-12 underpass fixes: Romana top-down tiles over Piața Victoriei (tram tunnel now roofed, playable strip west along Șos. Titulescu) and Otopeni tiles at the station (service road now at street level) still show the earlier revision they are pinned to | overview | todo |
 | R24 | Pipera (-762, 178): the Promenada Mall underground parking aisle (OSM w467560480) is cut by the district edge inside the garage, so a road-closed barrier stands 6 m underground. Found by the 2026-11-12 sweep of every district for sunken road ends; the other three (Bellevue w652027891 / w652027892, SeaTac w964279964) are real garage entrances | — | todo |

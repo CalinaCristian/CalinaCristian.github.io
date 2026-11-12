@@ -81,13 +81,27 @@ export function sourceFrames(points, halfWidth = 25) {
     // thousands of times per step (a quarter of the whole traffic step). The grid only skips cells whose bounding box,
     // padded far beyond the barycentric tolerance, cannot hold the point; candidates keep their original order, so the
     // result is the same.
-    const GRID=12, PAD=.05, lookup=new Map();
-    cells.forEach((cell,n)=>{const xs=cell.poly.map(p=>p[0]),zs=cell.poly.map(p=>p[1]);
-        for(let i=Math.floor((Math.min(...xs)-PAD)/GRID);i<=Math.floor((Math.max(...xs)+PAD)/GRID);i++)for(let j=Math.floor((Math.min(...zs)-PAD)/GRID);j<=Math.floor((Math.max(...zs)+PAD)/GRID);j++){const k=i+','+j;let list=lookup.get(k);if(!list)lookup.set(k,list=[]);list.push(n);}});
+    // (numeric cell keys: |i|, |j| < 2^19 cells of 12 m, far beyond any district)
+    const GRID=12, PAD=.05, lookup=new Map(), key=(i,j)=>i*1048576+j;
+    // per cell its box padded by PAD: a point the barycentric test accepts lies within EPS × the cell's size of it
+    const box=new Float64Array(cells.length*4);
+    cells.forEach((cell,n)=>{const xs=cell.poly.map(p=>p[0]),zs=cell.poly.map(p=>p[1]);box[4*n]=Math.min(...xs)-PAD;box[4*n+1]=Math.max(...xs)+PAD;box[4*n+2]=Math.min(...zs)-PAD;box[4*n+3]=Math.max(...zs)+PAD;
+        for(let i=Math.floor((Math.min(...xs)-PAD)/GRID);i<=Math.floor((Math.max(...xs)+PAD)/GRID);i++)for(let j=Math.floor((Math.min(...zs)-PAD)/GRID);j<=Math.floor((Math.max(...zs)+PAD)/GRID);j++){const k=key(i,j);let list=lookup.get(k);if(!list)lookup.set(k,list=[]);list.push(n);}});
+    // bary() and the station sum inlined with the same arithmetic; a second distinct hit already makes the answer null
     const locate = point => {
-        const hits=[], list=lookup.get(Math.floor(point[0]/GRID)+','+Math.floor(point[1]/GRID)); if(!list)return null;
-        for(const n of list){const cell=cells[n],q=bary(point,cell.poly); if(!q || q.some(v=>v < -EPS || v > 1+EPS))continue; const s=q.reduce((sum,v,i)=>sum+v*cell.stations[i],0), segment=cell.segment,t=(s-cumulative[segment])/(cumulative[segment+1]-cumulative[segment]); if(!hits.some(h=>Math.abs(h.s-s)<1e-5))hits.push({s,segment,t});}
-        return hits.length===1?hits[0]:null;
+        const px=point[0], pz=point[1], list=lookup.get(key(Math.floor(px/GRID),Math.floor(pz/GRID))); if(!list)return null;
+        let hit=null;
+        for(let k=0;k<list.length;k++){
+            const n=list[k];if(px<box[4*n]||px>box[4*n+1]||pz<box[4*n+2]||pz>box[4*n+3])continue;
+            const cell=cells[n],[a,b,c]=cell.poly,v0=b[0]-a[0],v1=b[1]-a[1],w0=c[0]-a[0],w1=c[1]-a[1],r0=px-a[0],r1=pz-a[1],den=v0*w1-v1*w0;
+            if(Math.abs(den)<1e-12)continue;
+            const u=(r0*w1-r1*w0)/den,vv=(v0*r1-v1*r0)/den,q0=1-u-vv;
+            if(q0 < -EPS || q0 > 1+EPS || u < -EPS || u > 1+EPS || vv < -EPS || vv > 1+EPS)continue;
+            const st=cell.stations,s=0+q0*st[0]+u*st[1]+vv*st[2];
+            if(hit){if(Math.abs(hit.s-s)<1e-5)continue;return null;}
+            const segment=cell.segment;hit={s,segment,t:(s-cumulative[segment])/(cumulative[segment+1]-cumulative[segment])};
+        }
+        return hit;
     };
     const breaksForSegment = (a,b,stations=[]) => {
         const fractions=new Set([0,1]), v=[b[0]-a[0],b[1]-a[1]];

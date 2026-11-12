@@ -40,7 +40,8 @@ R10.7 Progress UI shows chapters (n/10) and the year; finale after uipath-bel as
 R10.8 Congestion hotspots per district in `CITIES[city].districts[id].congestion` (see spec 13).
 
 ## Acceptance
-- [ ] All 8 district JSONs build; each ≤ 3 MB; each loads in < 4 s (desktop) / < 12 s (software GL).
+- [x] All 8 district data files build; each ≤ 3 MB.
+- [ ] Each district loads in < 4 s (desktop) / < 12 s (software GL).
 - [ ] Every chapter route 1.5–2.5 km (bellevue: ≤ 3 min drive), routable, no detours via service roads.
 - [ ] Full story playable in ≈ 20–30 min; logic harness `c`/`f` pass per chapter.
 - [ ] Visual QA review of each chapter route: 0 defects of severity ≥ medium.

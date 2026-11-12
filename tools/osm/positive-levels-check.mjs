@@ -5,6 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
+import { readDistrictData } from './district-data.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),tmp=fs.mkdtempSync(path.join(os.tmpdir(),'positive-level-fixture-'));
 try{
  for(const dir of ['tools','game','tiles','game/research'])fs.mkdirSync(path.join(tmp,dir),{recursive:true});
@@ -20,7 +21,7 @@ try{
  nodes.push('<node id="99999991" lat="47.444" lon="-122.296"/><node id="99999992" lat="47.452" lon="-122.296"/>');ways.push('<way id="9999999"><nd ref="99999991"/><nd ref="99999992"/><tag k="highway" v="residential"/></way>');
  fs.writeFileSync(path.join(tmp,'tiles/sea_fixture.xml'),'<osm version="0.6">'+nodes.join('')+ways.join('')+'</osm>');
  execFileSync(process.execPath,[path.join(tmp,'tools/osm/build-data.mjs'),'--tiles',path.join(tmp,'tiles'),'--districts','--city','seattle','--district','seatac'],{stdio:'pipe'});
- const d=JSON.parse(fs.readFileSync(path.join(tmp,'game/data/seattle-seatac.json'))),record=id=>{const i=d.buildingIds.indexOf('w'+id);assert.ok(i>=0,'source identity retained w'+id);return {b:d.buildings[i],h:d.buildingDimensions?.[i]?.[0]??d.buildings[i][1]/10,p:d.buildingRoofProfiles[i]};};
+ const d=readDistrictData(path.join(tmp,'game/data/seattle-seatac.json')),record=id=>{const i=d.buildingIds.indexOf('w'+id);assert.ok(i>=0,'source identity retained w'+id);return {b:d.buildings[i],h:d.buildingDimensions?.[i]?.[0]??d.buildings[i][1]/10,p:d.buildingRoofProfiles[i]};};
  for(const [id,levels]of [[314940617,7],[314940620,5],[23772636,2]]){const r=record(id);assert.equal(r.b[6],levels);assert.ok(Math.abs(r.h-levels*3.2)<1e-8,'source levels reach normal estimated storey spacing');assert.equal(r.p.heightSource,'OSM building:levels estimate');}
  const literal=record(99000);assert.ok(Math.abs(literal.h-10.668)<1e-8,'literal imperial height wins over levels');assert.equal(literal.p.heightSource,'OSM height');
  assert.ok(record(99001).h>0,'untagged source still receives an explicit estimate');assert.equal(record(99001).p.heightSource,'style estimate');

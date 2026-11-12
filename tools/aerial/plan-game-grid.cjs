@@ -13,7 +13,7 @@ const read = f => fs.readFileSync(path.join(root, f));
 const write = (f, obj) => fs.writeFileSync(path.join(out, f), JSON.stringify(obj, null, 2) + '\n');
 (async()=>{
   fs.mkdirSync(out,{recursive:true});
-  const cityBytes=read('game/src/cities.js'), dataBytes=read(`game/data/${city}-${district}.json`);
+  const cityBytes=read('game/src/cities.js'), dataBytes=read(`game/data/${city}-${district}.bin.gz`);
   const mod=await import('data:text/javascript;base64,'+cityBytes.toString('base64'));
   const cfg=mod.CITIES[city].districts[district],data=JSON.parse(dataBytes),p=data.proj;
   const {projectDistrictGeometry,geometryBounds,rectangleMargin}=await import('./game-grid-geometry.mjs');
@@ -50,7 +50,7 @@ const write = (f, obj) => fs.writeFileSync(path.join(out, f), JSON.stringify(obj
   const counts=poses.reduce((a,p)=>(a[p.scope]=(a[p.scope]||0)+1,a),{});
   // Preserve every occupied drive cell as exact Polygon geometry, avoiding interpolated outlines.
   const driveGeoJSON={type:'Feature',properties:{source:'data.district.mask',cellMetres:mask.cell,coordinateSystem:'WGS84 longitude/latitude, inverse of source game projection'},geometry:{type:'MultiPolygon',coordinates:cells.map(b=>[[[b[0],b[1]],[b[2],b[1]],[b[2],b[3]],[b[0],b[3]],[b[0],b[1]]].map(q=>{const p=inverse(...q);return [p.lon,p.lat];})])}};
-  const boundary={gameSourceCommit:sha,city,district,bbox:cfg.bbox,projection:p,sourceIdentity:{citiesPath:'game/src/cities.js',citiesSha256:hash(cityBytes),dataPath:`game/data/${city}-${district}.json`,dataSha256:hash(dataBytes),dataGenerated:data.generated},analyticCore:{pieces,circles,polys},runtimeMask:mask,runtimeDriveCells:driveGeoJSON,ringMetres:ring,classification:'core-touches: positive-area square intersection with exact runtime drive cells. ring-touches: no drive cell intersection, but square minimum distance to source analytic bands/circles/polygons <= 600 m. outside-ring: optional distant context.',coverage:'Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.'};
+  const boundary={gameSourceCommit:sha,city,district,bbox:cfg.bbox,projection:p,sourceIdentity:{citiesPath:'game/src/cities.js',citiesSha256:hash(cityBytes),dataPath:`game/data/${city}-${district}.bin.gz`,dataSha256:hash(dataBytes),dataGenerated:data.generated},analyticCore:{pieces,circles,polys},runtimeMask:mask,runtimeDriveCells:driveGeoJSON,ringMetres:ring,classification:'core-touches: positive-area square intersection with exact runtime drive cells. ring-touches: no drive cell intersection, but square minimum distance to source analytic bands/circles/polygons <= 600 m. outside-ring: optional distant context.',coverage:'Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.'};
   write('boundary-source.json',boundary);write('poses.json',poses);
   write('grid-plan.json',{gameSourceCommit:sha,city,district,grid:{x0,z0,columns:nx,rows:nz,sizeMetres:size},counts,locations,coverage:boundary.coverage});
   console.log(JSON.stringify({count:poses.length,counts,grid:{x0,z0,nx,nz},locations},null,2));

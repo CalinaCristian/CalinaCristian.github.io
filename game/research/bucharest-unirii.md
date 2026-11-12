@@ -613,9 +613,8 @@ Culture notes:
 Source: OpenStreetMap API 0.6 map calls of 2026-11-12 over 44.4198,26.0976 – 44.4356,26.1210 (© OpenStreetMap contributors,
 ODbL), compared with `game/data/bucharest-unirii.json` (generated 2026-11-09) and with game renders at the `unr-*` viewpoints
 in `game/dev/reality/viewpoints.json`. "Inside" = inside the exact playable geometry (`district.geometry`).
-**Street View was not available to this pass** (the shared browser pane was at its tab limit for the whole session), so
-every verdict below is an OSM / plan / render verdict; what a place *looks like* (materials, parapets, signage) is not
-re-checked here and stays open in `handoffs/fidelity/BACKLOG.md` (row `unirii-SV`).
+The first round had no street-level imagery (verdicts from OSM, plans and renders); the street-level comparison done in
+round 2 is at the end of this section.
 
 ### Structures (bridges, underpasses, passages)
 
@@ -704,6 +703,44 @@ Tram: live OSM has running track (`railway=tram`) only at the Piața Unirii term
 on Bd. Corneliu Coposu is `railway=disused` and the Calea Călărașilor line is `railway=construction` ("lot 1", progress 1 %
 on 2026-10-03, opening 2029) while its stops are still mapped as `railway=tram_stop`. The game matches: disused rails in the
 Coposu carriageway, no track on Călărașilor, stops shown.
+
+### Street-level comparison, round 2 (2026-11-12)
+
+Panoramas were looked at in the browser only (nothing saved); dates as shown by the provider. Seen:
+
+- **Pasajul Unirii** (south ramp from Bd. Cantemir, May 2024; north ramp; interior): both carriageways run in one walled
+  trench with a row of concrete planters between them; the ramp walls are clad in dark grey perforated metal with green leaf,
+  flower and butterfly motifs and rise well above street level as a screen; a "PASAJUL UNIRII" header over the portal; inside,
+  pale mesh wall panels with yellow accent panels, a continuous light line along the wall head, a dark mesh ceiling and a
+  raised kerb walkway. Game after this round: dark ramp walls, pale interior walls with yellow panels and a light line
+  (`unr-pasaj-south`, `unr-pasaj-inside`). Still different: no motifs, no portal lettering, no planter median, 1 m parapet
+  instead of the tall screen.
+- **Dâmbovița quays** (Splaiul Unirii east of the square; Splaiul Independenței west): open channel, water roughly 2.5–3 m
+  below the quay, no solid parapet — an iron balustrade on a low stone kerb (dark ornamental panels east, plain green railing
+  west), grass strip and plane trees on the quay, sloped concrete far bank with graffiti. Game after this round: low kerb and
+  dark-green three-rail iron balustrade in this district (`unr-river-east`, `unr-river-west`); the water is still 4.4 m down.
+- **Footbridge w231671712**: an enclosed glazed walkway one storey up across the brick-paved Aleea Alexandru
+  Brătescu-Voinești, "Carrefour" lettering and logo on its side; the car-park side wall is plain grey with louvres and a
+  "LIFT ACCES PARCARE" sign, the Carrefour side is a banded glass front. Built in the Unirea landmark model (`unr-skybridge`);
+  deck height 6 m and section 3.2 × 3 m are estimates.
+- **Unirea Shopping Center**: the long west front is dark grey mesh over a dark ground floor, largely covered by a full-height
+  advertising banner in 2026; at the north-west corner McDonald's (with McCafé) and "Noodle Pack" signs, and unlit "KOTON"
+  letters left on the fascia (matches OSM `shop=vacant`); the south-west rotunda is clad in white panels (H&M logo in 2024,
+  disused in OSM since) with a bronze louvred bay beside it. Game: uniform grey ribbed skin; McDonald's fascia present.
+  Still different: white rotunda, bronze bay, advertising banners, Noodle Pack (not in OSM under that name).
+- **Fountain field** (2024): jets running; a carriageway of Bd. Unirii crossed the square beside the basins (now
+  `highway=construction` in OSM and absent in the game); tall dark candelabra lamps with globe clusters, an advertising
+  column and billboards at the corners, sphere bollards. Game: basins match in place and rim; plain modern lamps.
+- **Bd. Unirii east median**: lobed stone basins in lawn, large conifers and linden rows — matches in kind.
+- **Hanul lui Manuc** (Str. Halelor front): two storeys, white walls, long dark-brown hipped roof, shops and terraces on the
+  ground floor — matches after the colour fix; terraces not drawn.
+- **Hala Traian east side**: "Farmacia Pharma Plant" (alphega) fascia confirmed (OSM n3873157367, outside the playable edge).
+  Calea Călărașilor still showed two embedded tram tracks in the panorama; OSM (2026-11) has the line as `railway=construction`.
+- **Dealul Mitropoliei** foot (Str. Bibescu Vodă): parking and trees, steps rising to the hill — the game is flat there.
+- **Bd. Mircea Vodă**, a Călărași merchant house: nothing structural to correct.
+
+Not seen at street level: Hala Traian main front, Sf. Spiridon Nou, the school pitches, Piața Sf. Ștefan fountain, the park
+interior of Piața Unirii, the tenant fronts along the middle of the Unirea west side.
 
 ## Reference images (`refs/unirii/`, 40 files, licences in LICENSES.md)
 

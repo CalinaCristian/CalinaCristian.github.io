@@ -1378,6 +1378,24 @@ function bUnirea(b) {
     // vertex of it lies inside the footprint and no two of its edges cross; otherwise a smaller one, or none.
     const top = safeInset(p, [12, 9, 6]); if (top) b.prism(top,24,28.5,'#c9c4b9',{topCol:'#aaa69e'});
     b.colPolygon(p,{y1:24});
+    // Footbridge from the Unirea car park to the Carrefour building: OSM w231671712 (highway=footway bridge=yes layer=1),
+    // 44.4287328,26.1057608 → 44.4286687,26.105621, 13 m across the paved alley. Street-level look (2026): an enclosed
+    // glazed walkway one storey up with the Carrefour name on both sides. Deck height / section are estimates (no OSM metres).
+    {
+        const [la0, lo0, rot] = A.unirea, c = Math.cos(rot), s = Math.sin(rot);
+        const loc = (la, lo) => { const dx = (lo - lo0) * 111132 * Math.cos(la0 * Math.PI / 180), dz = -(la - la0) * 111132; return [dx * c - dz * s, dx * s + dz * c]; };
+        const [x0, z0] = loc(44.4287328, 26.1057608), [x1, z1] = loc(44.4286687, 26.105621), L = Math.hypot(x1 - x0, z1 - z0);
+        const ux = (x1 - x0) / L, uz = (z1 - z0) / L, Y0 = 6, H = 3, W = 3.2, mx = (x0 + x1) / 2, mz = (z0 + z1) / 2, ry = Math.atan2(-uz, ux);
+        b.strut([x0, Y0 + 0.15, z0], [x1, Y0 + 0.15, z1], W + 0.3, 0.3, '#8d9296');               // deck
+        b.strut([x0, Y0 + H / 2 + 0.3, z0], [x1, Y0 + H / 2 + 0.3, z1], W, H - 0.3, '#5f7f93', 'g'); // glazing
+        b.strut([x0, Y0 + H + 0.15, z0], [x1, Y0 + H + 0.15, z1], W + 0.3, 0.3, '#c9ccce');       // roof
+        for (const sd of [1, -1]) {
+            const ox = -uz * sd * (W / 2 + 0.06), oz = ux * sd * (W / 2 + 0.06);
+            b.strut([x0 + ox, Y0 + 0.75, z0 + oz], [x1 + ox, Y0 + 0.75, z1 + oz], 0.08, 0.9, '#f4f5f6'); // white name band
+            for (let t = 0; t <= L + 0.01; t += L / 6) b.strut([x0 + ux * t + ox, Y0 + 0.3, z0 + uz * t + oz], [x0 + ux * t + ox, Y0 + H, z0 + uz * t + oz], 0.1, 0.1, '#d9dcde'); // mullions
+            b.text('Carrefour', mx + ox * 1.05, Y0 + 0.5, mz + oz * 1.05, sd > 0 ? ry : ry + Math.PI, 0.5, '#1e4fa3');
+        }
+    }
 }
 
 // Fântânile din Piața Unirii & Bd. Unirii — basins from OSM natural=water ways (round Ø ~14 m and

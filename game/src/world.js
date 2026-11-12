@@ -2901,10 +2901,13 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const a = wallStations[k - 1], b = wallStations[k], mid = (a + b) / 2;
                 const covered = closedRoof && mid >= roof.span[0] && mid <= roof.span[1];
                 const top = t => covered ? roof.ceilingAt(t) : .4;
+                // (fidelity pass, street-level look 2024) Pasajul Unirii: dark perforated-metal cladding on the open ramps, pale
+                // mesh panels inside the covered box; every other underpass keeps the plain concrete
+                const wallCol = source?.tags?.name === 'Pasajul Unirii' ? rgb(covered ? '#c3c5c1' : '#4d5154') : conc;
                 for (const [o, sgn] of [[wr, -1], [-wl, 1]]) for (const [a2, b2] of sideRuns ? clipRuns(sideRuns.get(o), a, b) : [[a, b]]) {
                     const yf = t => Math.min(yA + (yB - yA) * t, 0), pm = roofPoint((a2 + b2) / 2, o, 0);
                     const hall = covered ? sharedHallTram(pm[0], pm[2], -e.nx * sgn, -e.nz * sgn) : null;
-                    if (!hall) { sb.face4(roofPoint(a2, o, yf(a2)), roofPoint(b2, o, yf(b2)), roofPoint(b2, o, top(b2)), roofPoint(a2, o, top(a2)), conc, [e.nx * sgn, 0, e.nz * sgn]); continue; }
+                    if (!hall) { sb.face4(roofPoint(a2, o, yf(a2)), roofPoint(b2, o, yf(b2)), roofPoint(b2, o, top(b2)), roofPoint(a2, o, top(a2)), wallCol, [e.nx * sgn, 0, e.nz * sgn]); continue; }
                     // shared hall (2026-11-12 fidelity pass, Pasajul Victoria): a covered carriageway beside the roofed tram
                     // station is one hall in reality — a raised platform strip and a pier row instead of a wall (estimated sizes)
                     const so = Math.sign(o), o2 = o + so * Math.max(0, hall.gap), pf = .25, up = [0, 1, 0], inn = [e.nx * sgn, 0, e.nz * sgn];
@@ -2921,6 +2924,11 @@ export async function buildWorld(city, renderer, opts = {}) {
                         sb.face4(q(t1, p0, yf(t1) + pf), q(t1, p1, yf(t1) + pf), q(t1, p1, top(t1)), q(t1, p0, top(t1)), conc, along);
                         const pb = o + so * .22; sb.face4(q(t0, pb, yf(t0) + pf + .35), q(t1, pb, yf(t1) + pf + .35), q(t1, pb, yf(t1) + pf + .8), q(t0, pb, yf(t0) + pf + .8), red, inn); // warning band on the pier foot
                     }
+                }
+                if (covered && wallCol !== conc) for (const [o, sgn] of [[wr, -1], [-wl, 1]]) { // yellow accent panels ≈ every 14 m and the light line along the wall head
+                    const oi = o + sgn * 0.03, fl = t => Math.min(yA + (yB - yA) * t, 0), n = [e.nx * sgn, 0, e.nz * sgn];
+                    sb.face4(roofPoint(a, oi, top(a) - 0.4), roofPoint(b, oi, top(b) - 0.4), roofPoint(b, oi, top(b) - 0.22), roofPoint(a, oi, top(a) - 0.22), rgb('#f7f6ea'), n);
+                    for (let s = Math.ceil(a * e.len / 14) * 14; s + 3 < b * e.len; s += 14) { const p = s / e.len, q = (s + 3) / e.len; sb.face4(roofPoint(p, oi, fl(p) + 0.5), roofPoint(q, oi, fl(q) + 0.5), roofPoint(q, oi, top(q) - 0.6), roofPoint(p, oi, top(p) - 0.6), rgb('#e3bd1c'), n); }
                 }
             }
             // parapet on the trench rim where the collision wall stands above street level (to 1.0 m; play-test note 46: the
@@ -5484,7 +5492,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(([x, z]) => Math.hypot(x - b.c[0], z - b.c[1]))), poly: ring, holes: b.holes, passageSolids: b.passageSolids, sourceId: data.buildingIds?.[b.derivedFrom ?? b.i], derived: b.derivedFrom !== undefined, minH: b.minH, angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, h: sourceRoof ? b.h : h, ...(sourceRoof ? { y0: b.minH, y1: b.h, roofHeightAt: sourceRoof.heightAt } : {}), poi: b.cv || undefined });
         // facade sign
         // (2026-11-12: none on OSM building=construction — Automatica Ford, way/39348916, is a wrapped building site, its historic name is not a sign)
-        if ((b.flags & 2) && b.name && (b.cvSign || b.area < 20000) && !AR?.signed && b.poiSign == null && str(data.buildingInfo?.[b.i * 5] ?? -1) !== 'construction') addFacadeSign(b, h, shop, wallCol);
+        // (fidelity pass: the Unirea car park was signed "Spălătorie Unirea Etaj 7") a business named for an upper floor is not the building's street sign
+        if ((b.flags & 2) && b.name && (b.cvSign || b.area < 20000) && !AR?.signed && b.poiSign == null && str(data.buildingInfo?.[b.i * 5] ?? -1) !== 'construction' && !/\betaj(ul)?\s*[1-9]/i.test(b.name)) addFacadeSign(b, h, shop, wallCol);
     }
     {
         const sourceBodies=bRecs.filter(b=>!b.skip&&b.passages?.length),unique=new Map();
@@ -6384,13 +6393,24 @@ export async function buildWorld(city, renderer, opts = {}) {
                 sb.face4(P(t0, 0, 0.02), P(t1, 0, 0.02), P(t1, o1, CHAN.bank), P(t0, o1, CHAN.bank), conc, toW);            // quay wall (battered)
                 sb.face4(P(t0, o1, CHAN.bank), P(t1, o1, CHAN.bank), P(t1, o2, CHAN.bank), P(t0, o2, CHAN.bank), bankC, [0, 1, 0]); // service bank
                 sb.face4(P(t0, o2, CHAN.bank), P(t1, o2, CHAN.bank), P(t1, o2, CHAN.water - 0.4), P(t0, o2, CHAN.water - 0.4), wet, [nx, 0, nz]); // lower wall, wet
+                const ang = Math.atan2(ux, uz), [rx, , rz] = P((t0 + t1) / 2, -0.15, 0);
+                if (distId === 'unirii') {
+                    // (fidelity pass, street-level look 2024: Splaiul Unirii / Splaiul Independenței at Piața Unirii) no solid
+                    // parapet: a low stone kerb and a dark-green iron balustrade (posts ≈ 2 m apart, three rails, top at 1.05 m)
+                    const iron = rgb('#27402f'), KH = 0.22;
+                    sb.face4(P(t0, 0, 0), P(t1, 0, 0), P(t1, 0, KH), P(t0, 0, KH), capC, [nx, 0, nz]);
+                    sb.face4(P(t1, -0.3, 0), P(t0, -0.3, 0), P(t0, -0.3, KH), P(t1, -0.3, KH), capC, [-nx, 0, -nz]);
+                    sb.face4(P(t0, -0.3, KH), P(t1, -0.3, KH), P(t1, 0, KH), P(t0, 0, KH), conc, [0, 1, 0]);
+                    for (const [ry, rh] of [[1.0, 0.06], [0.66, 0.035], [0.34, 0.035]]) sb.box(rx, ry, rz, 0.05, rh, t1 - t0, ang, iron);
+                    for (let t = t0 + 1; t < t1; t += 2) { const [px, , pz] = P(t, -0.15, 0); sb.box(px, KH, pz, 0.08, 0.86, 0.08, ang, iron); }
+                } else {
                 // parapet (0.75 m, 0.3 m thick) on the quay edge + a steel railing on top (posts every 2.5 m, top rail at 1.15 m)
                 sb.face4(P(t0, 0, 0), P(t1, 0, 0), P(t1, 0, 0.75), P(t0, 0, 0.75), capC, [nx, 0, nz]);
                 sb.face4(P(t1, -0.3, 0), P(t0, -0.3, 0), P(t0, -0.3, 0.75), P(t1, -0.3, 0.75), capC, [-nx, 0, -nz]);
                 sb.face4(P(t0, -0.3, 0.75), P(t1, -0.3, 0.75), P(t1, 0, 0.75), P(t0, 0, 0.75), conc, [0, 1, 0]);
-                const ang = Math.atan2(ux, uz), [rx, , rz] = P((t0 + t1) / 2, -0.15, 0);
                 sb.box(rx, 1.1, rz, 0.05, 0.06, t1 - t0, ang, rail); sb.box(rx, 0.9, rz, 0.03, 0.03, t1 - t0, ang, rail);
                 for (let t = t0 + 1.25; t < t1; t += 2.5) { const [px, , pz] = P(t, -0.15, 0); sb.box(px, 0.75, pz, 0.05, 0.4, 0.05, ang, rail); }
+                }
                 channelM += t1 - t0;
             }
         }

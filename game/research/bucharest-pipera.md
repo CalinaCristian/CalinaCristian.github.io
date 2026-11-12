@@ -527,3 +527,40 @@ The Aviation Museum's23 mapped `historic=aircraft` outlines describe aircraft ex
 Landmark evidence uses the [Sky Tower owner](https://www.skytower.ro/), [Hermes owner](https://adventum.eu/asset/hermes-business-campus/), [Globalworth BOB owner particulars](https://www.globalworth.com/wp-content/uploads/2021/01/BOB-particulars.pdf), the mapped building identities, and independent aerial plans. Sky Tower's tagged137m/37levels/flat roof and colour have priority. Hermes A and B+C each have9 OSM levels, and B+C's courtyard remains open at every tier. BOB has independently published GF+6 floors; its metre height remains an estimate. Ground-floor/site entrance details retain the existing source chapter approach.
 
 Google Street View is used only for private side-by-side comparison. No geometry, height or colour is extracted from it, and no reference imagery is committed or published.
+
+## Fidelity pass against live OSM and street-level reference — 2026-11-12
+
+Scope: the playable area of `cities.js` (130 m either side of the two chapter routes, bbox 44.4704,26.0918 – 44.4830,26.1289) and what is seen from it. Live OSM: API 0.6 `map` call of 2026-11-12 for the bbox (19 803 nodes, 2 850 ways, 192 relations). Street-level panoramas were looked at only, at the poses in `game/dev/reality/viewpoints.json` (`pip-*`); nothing was stored or measured from them. Text findings only.
+
+### Structures
+
+| OSM | What | Game before | Verdict |
+|---|---|---|---|
+| w119926495 Podul Barbu Văcărescu (bridge, layer 1, 4 lanes) | overpass from Șos. Pipera over Str. Șerbănescu / the tram loop, side roads at grade on both sides | elevated deck, side roads at grade, Șerbănescu passes under | position / level match. Open: the real deck has a low kerb with a steel railing, transparent noise screens on the north side and lamp posts; the game draws a solid 1.1 m concrete parapet and no lamps |
+| w8208289 Strada Petricani bridge over the Colentina (layer 1), outline w902027552, cycle bridge w902027549, tram bridges w23583767 / w902027550 (`railway=construction`, opening 2027) | level road bridge between Lacul Tei and Lacul Plumbuita; steel picket railing behind the east sidewalk, guard rail + tram reserve + concrete parapet on the west; water some metres below, a weir on the east side | drawn as an ordinary street, open water at both sidewalks, no railing | fixed: railing on the outer edge of both sidewalks (`water-bridge-railings.js`). Open: water is drawn at street level (real surface lies metres lower, weir w1507038443 not drawn); west side has no guard rail / tram reserve; the lake polygon w117140691 is a 2006 CORINE import and the aerial-measured crowns stand inside it (in reality the north tip of Lacul Tei is overgrown, no open water is visible from the bridge's west side) |
+| w739789922-4 (Aurel Vlaicu), w739791318/9 (Pipera): pedestrian tunnels, layer −1 | metro access passages | not drawn (metro entrances are POIs / kiosks) | not modelled; record only |
+| w764616770/1, w467560865, w467560480/1, w467560867 Promenada car-park tunnels (layer −1) | ramps into the underground car park | service roads flagged tunnel at layer −1 | present in data; not compared at street level |
+| w668515452 (Petrom), w668523278 (Lukoil) covered lanes; w1284446130 | forecourt lanes under the canopies | present (reviewed covered roads) | match |
+| w1566299306/09/12/15/19, w48272349, w1339943929 `tunnel=building_passage` | passages through the blocks on Șos. Fabrica de Glucoză etc. | present in `buildingPassages` | match in data; not compared at street level |
+| railway w1221367953 … (CFR line 800) | at grade under Podul Barbu Văcărescu | in `railways` | present |
+
+### Water and sports
+
+- Lacul Tei w117140691 and Lacul Plumbuita r11546654: both present as water areas at the Petricani bridge (see above for the open points). Pond w1423621338: present.
+- Clubul Sportiv Năstase & Marica w23731450: clay courts w885503360 / 61 / 71 / 73 / 74 / 62, pool w1284446111 and the stadium pitch w885503357 / w47422913 are present at the OSM positions (top-down render checked). Not compared at street level (no public panorama inside the club).
+
+### Tourist features
+
+- Muzeul Național al Aviației Române w392466489: the 23 mapped aircraft are present as exhibits at their OSM planforms (top-down render checked).
+- Monumentul Soldatului Sovietic n1174026151: a map POI only; no statue is modelled. From Șoseaua Pipera the monument is hidden by the park's trees behind a low brick wall (two poses tried); the park w23731459 is present.
+- Promenada Mall w240694437: the Calea Floreasca front now carries what the real front shows: a black tenant band at the north end (Douglas, Hervis, Zara, C&A, H&M: all OSM shop nodes inside the mall), Starbucks under it (n4833254421, level 0), the glazed entrance hall south of it (it was drawn at the middle of the front), the mall's name and its colour bars. Positions along the wall are estimated to a few metres from the look of the front; the curved roof edge and the hedge / jersey-barrier median of Calea Floreasca are not modelled.
+- Sky Tower w219622660: present, reads correctly behind Promenada.
+
+### Fuel
+
+- Petrom w241976323 and Lukoil w547396767: the mapped canopies were bare grey concrete. They now have the brand's fascia colour (yellow / red, as at the stations) and the brand name on the two longest faces. Pumps, shop fronts and price pylons are still not drawn (positions unknown). `GPL Lukoil Aviației` n2437135667 is a POI without a canopy.
+
+### Businesses (playable area + 150 m: 349 OSM objects with a business tag, 193 matched to a game POI by name within 90 m)
+
+Missing from `data.pois`, at street level on or beside the routes (needs a POI rebuild / append; the builder's `poiKind()` has no rule for several of these classes): Starbucks n4107002593 (Fabrica de Glucoză 9B), Starbucks n6155859303 and Stradale n9226903343 (Pompeiu 4-6), Vista Bank n10113539341, World Class n4161831405 (`leisure=fitness_centre`), CEC Bank n4833254521 and French Revolution n9574755539 (Calea Floreasca 169A), Auchan Go n11958088007, Eggs Cup n9226929866, P44 n11096775776, Afina pharmacy n1143427037, Alpha Bank n304720869, Carrefour Market n412366230, Flora Studio n728736339, Toma's Optik n11222883620 (`craft`), Adecco n3717196110, DB Schenker n6866017228 and the office tenants (HP, Allianz, Amazon, Deloitte, Dell, Uber: `office=yes/company` nodes). About 60 more are shops inside Promenada on levels −1 / 1 / 2 (no street sign in reality either, apart from the tenant band).
+Stale / to check in the game: `Pasta Bar` n5868977715 is `shop=vacant` in OSM (not in the game: correct). `Express Green Court` (Carrefour Express) and `McDonald's Promenada Mall` come from the brand locators, not OSM. Kaufland's POI is 63 m from the centroid of its OSM building w1198250017.

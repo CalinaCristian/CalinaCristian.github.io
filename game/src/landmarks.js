@@ -1630,10 +1630,23 @@ function bPromenada(b) {
     // Aerial-measured garden coverage replaces the invented all-green stepped roof.
     b.cap([[-42.6,24.28],[-42.02,8.16],[-31.66,-6.48],[-15.88,-10.02],[5.15,-9.44],[29.17,-7.67],[54.79,-3.76],[63.67,12.22],[61.98,29.87],[46.78,38.1],[25.83,38.55],[3.43,36.43],[-17.49,29.47]],18.025,'#b8ae96');
     b.cap([[5.32,13.41],[4.33,3.6],[10.74,-1.24],[25.91,-2.05],[35.93,4.97],[39.98,14.54],[33.98,24.5],[26.2,30.28],[13.85,30.24],[7.84,21.86]],18.05,'#547f43');
-    const zf=zAt([p],0)?.[1]??50;
-    b.box(0,0,zf+0.12,13,16.5,0.18,'#303d49',{mat:'g'});
-    for(let y=2;y<16;y+=2) b.box(0,y,zf+0.24,13,0.07,0.07,'#6d7980');
-    b.text('PROMENADA',16,10,zf+0.17,0,0.85,'#28568a');
+    // Calea Floreasca front (local +z; north end = -x), fidelity pass 2026-11-12. Tenants are the mall's OSM shop nodes
+    // (Douglas n4866286221, Hervis n2484107176, Zara n4866294922, C&A n2484089640, H&M n2484107172, Starbucks n4833254421);
+    // their arrangement on the front (black tenant band at the north end, Starbucks under it, the glazed entrance hall
+    // south of it, then the mall's name with its colour bars) is what the front looks like from the street (viewed only),
+    // positions along the wall estimated to a few metres.
+    const zf=(zAt([p],-45)?.[1]??50)+0.12;
+    b.box(-45,0,zf,20,16.5,0.18,'#27333f',{mat:'g'});
+    for(let y=2;y<16;y+=2) b.box(-45,y,zf+0.12,20,0.07,0.07,'#6d7980');
+    for(let x=-55;x<=-35;x+=5) b.box(x,0,zf+0.12,0.09,16.5,0.09,'#6d7980');
+    b.box(-70.5,9.4,zf,23,2.7,0.14,'#15171a');
+    b.box(-72.6,9.75,zf+0.08,3.6,2.0,0.05,'#c8102e');
+    for(const [t,x,h,col] of [['DOUGLAS',-78.6,0.5,'#f4f4f4'],['HERVIS',-72.6,0.62,'#ffffff'],['ZARA',-68.1,0.85,'#f4f4f4'],['C&A',-64.4,0.85,'#f4f4f4'],['H&M',-61.2,1.0,'#e50010']])
+        b.text(t,x,10.75-h/2,zf+0.1,0,h,col,{d:0.03});
+    b.box(-71,0.3,zf,13,3.4,0.12,'#2b3138',{mat:'g'});
+    b.text('STARBUCKS COFFEE',-71,4.1,zf-0.06,0,0.5,'#1e3932');
+    b.text('PROMENADA',-25,8.4,zf-0.06,0,0.8,'#28568a');
+    [['#2f6eb5'],['#f39200'],['#d6336c'],['#7ab800'],['#f2c300'],['#00a0c6'],['#8e44ad'],['#e03c31']].forEach(([col],i)=>b.box(-16.5,3.2+i*1.15,zf-0.06,3.4,0.85,0.12,col));
     b.colPolygon(p,{y1:18});
 }
 

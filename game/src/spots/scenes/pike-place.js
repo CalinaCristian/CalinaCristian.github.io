@@ -22,6 +22,7 @@ import { SURVEY, profile, gradeStreets } from './pike-place-streets.js';
 import { prepareLower, buildLower, GUM } from './pike-place-lower.js';
 import { prepareHalls, buildHalls, HALLS } from './pike-place-market.js';
 import { buildShopSigns } from './pike-place-shops.js';
+import { prepareFacades, buildFacades, FACADE_IDS } from './pike-place-facades.js';
 
 // ---------------------------------------------------------------------------- street profile (OSM centrelines; levels surveyed: pike-place-streets.js)
 const PIKE_PLACE = [[-50, 33], [-60, 25], [-76, 10], [-91, -3], [-95, -6], [-103, -14], [-126, -34], [-141, -48], [-148, -53], [-151, -56], [-172, -75], [-179, -81], [-263, -155], [-270, -161]];
@@ -198,23 +199,13 @@ function buildStarbucks(ctx) {
     const x = d.cx + ux / ul * face, z = d.cz + uz / ul * face, y = ctx.ground.heightAt(x - ux / ul * 1.2, z - uz / ul * 1.2);
     // storefront: dark brown wood frame, big windows, transom; 2-storey building above it is the OSM extrusion
     const b = new GeoBatch(), rx = Math.cos(yaw), rz = -Math.sin(yaw);
-    b.box(x, y, z, 6.2, 3.6, 0.3, '#4a2c1e', 'wood', yaw);
-    for (const u of [-1.9, 1.9]) b.box(x + rx * u + fx * 0.16, y + 0.6, z + rz * u + fz * 0.16, 1.9, 2.3, 0.05, '#20313a', 'glass', yaw);
+    b.box(x, y, z, 6.2, 3.25, 0.3, '#4a2c1e', 'wood', yaw);
+    for (const u of [-1.9, 1.9]) b.box(x + rx * u + fx * 0.16, y + 0.6, z + rz * u + fz * 0.16, 1.9, 2.3, 0.05, '#20313a', 'darkglass', yaw);
     b.box(x + fx * 0.16, y, z + fz * 0.16, 1.3, 2.4, 0.06, '#2b1a12', 'wood', yaw);
     grp.add(b.build('starbucks-front'));
-    // round logo sign (text ring; stylised twin-tailed siren silhouette, not a copy of the artwork)
-    const c = canvas(512, 512), cx = c.getContext('2d');
-    cx.fillStyle = '#5a3825'; cx.beginPath(); cx.arc(256, 256, 250, 0, 7); cx.fill();
-    cx.strokeStyle = '#f3ede0'; cx.lineWidth = 8; cx.beginPath(); cx.arc(256, 256, 236, 0, 7); cx.stroke(); cx.beginPath(); cx.arc(256, 256, 150, 0, 7); cx.stroke();
-    cx.fillStyle = '#f3ede0'; cx.font = '700 52px Georgia, serif'; cx.textAlign = 'center'; cx.textBaseline = 'middle';
-    const ring = (text, a0, a1, rr, flip = false) => { const n = text.length; for (let i = 0; i < n; i++) { const a = a0 + (a1 - a0) * (i + 0.5) / n; cx.save(); cx.translate(256 + Math.cos(a) * rr, 256 + Math.sin(a) * rr); cx.rotate(a + (flip ? -Math.PI / 2 : Math.PI / 2)); cx.fillText(text[i], 0, 0); cx.restore(); } };
-    ring('STARBUCKS', -Math.PI * 0.82, -Math.PI * 0.18, 193); ring('SPICES • TEA • COFFEE', Math.PI * 0.12, Math.PI * 0.88, 193, true);
-    cx.beginPath(); cx.arc(256, 215, 34, 0, 7); cx.fill(); cx.fillRect(236, 245, 40, 70);
-    for (const s of [-1, 1]) { cx.beginPath(); cx.moveTo(256, 300); cx.quadraticCurveTo(256 + s * 120, 330, 256 + s * 95, 220); cx.lineWidth = 18; cx.strokeStyle = '#f3ede0'; cx.stroke(); }
-    const logo = new THREE.Mesh(new THREE.CircleGeometry(0.75, 40), new THREE.MeshStandardMaterial({ map: canvasTexture(c), roughness: 0.5 }));
-    logo.position.set(x + fx * 0.2, y + 3.0, z + fz * 0.2); logo.rotation.y = yaw; grp.add(logo);
-    const word = signBoard('STARBUCKS COFFEE', 4.6, 0.45, { bg: '#4a2c1e', fg: '#f3ede0', font: (s) => `700 ${s}px Georgia, serif`, glow: 0.05, night: 1.0 });
-    word.position.set(x + fx * 0.2, y + 3.9, z + fz * 0.2); word.rotation.y = yaw; grp.add(word);
+    // Street View: a pale band along the canopy's edge over the front with the name in plain dark capitals
+    const word = signBoard('S T A R B U C K S', 5.6, 0.6, { bg: '#f1ede2', fg: '#2a2a2a', depth: 0.06, font: (s) => `800 ${s}px "Helvetica Neue", Arial, sans-serif`, glow: 0.05, night: 0.9 });
+    word.position.set(x + fx * 2.45, y + 3.42, z + fz * 2.45); word.rotation.y = yaw; grp.add(word);
     ctx.add(grp);
     // queue along the sidewalk (front = door), going south-east down Pike Place
     const t = alongPolyline(PIKE_PLACE, 0); void t;
@@ -248,7 +239,7 @@ export default {
         ctx.treeLod = { cap: Infinity, near: 90, max: 700, force: true };
         ctx.skipBuildings = new Set(['w231357660', 'w1271653801', 'w1271653800', 'w1275882970', 'w1275882966']); // + the covered stretch of Post Alley (open alley here) // hero arcade replaces these footprints
         ctx.exclude.push([...offsetPolyline(PIKE_ST, -11), ...offsetPolyline(PIKE_ST, 11).reverse()]); // no street trees on lower Pike St (open view to the sign)
-        prepareLower(ctx); prepareHalls(ctx);
+        prepareLower(ctx); prepareHalls(ctx); prepareFacades(ctx);
         ctx.osmBackdrop({ paint: {}, shopStyle: 'bucshop', streetTreeOpts: { spacing: 14, prob: 0.5, kinds: ['primary', 'secondary', 'tertiary'] }, lampOpts: { kinds: ['primary', 'secondary', 'tertiary'] }, style: (b) => (/hotel|apartments/.test(b.k) && (b.h || 0) < 25 ? 'brick' : buildingStyle(b, true)) });
         const P = ctx.painter;
         P.line(PIKE_PLACE, 17, '#a39e93', 'slab'); P.line(PIKE_PLACE, 9.2, '#8c4b39', 'brick');
@@ -263,7 +254,7 @@ export default {
             for (const m of mains) {
                 let top = -1e9; for (const [x, z] of m.poly) top = Math.max(top, ppAt(x, z).y);
                 const hotel = m.id === 'w1271653800', hh = hotel ? 13.4 : 5.6, bottom = Math.min(...m.poly.map(([x, z]) => g.base(x, z))) - 2;
-                if (hotel) { const up = wallGeometry(m.poly, top + 3.9, top + hh, facadeStyle('apartment'), top + 3.9, '#efe6cf'); bb.add(up, 'f-apartment', null, up.userData.col); ctx.extras.lelandRoof = top + hh; }
+                if (hotel) ctx.extras.lelandRoof = top + hh; // (its upper storeys: pike-place-facades.js)
                 else bb.prism(m.poly, top + 3.9, top + hh, '#e9dfc6', 'paint', { noTop: true }); // the corner is one storey: the sign stands on its roof
                 if (top - 0.15 > bottom) { const low = wallGeometry(m.poly, bottom, top - 0.15, facadeStyle('apartment'), bottom, '#c9bfa6'); bb.add(low, 'f-apartment', null, low.userData.col); }
                 // the market-floor storey is enclosed except on the Pike Place / Pike St fronts (no see-through to the bay, note 49)
@@ -280,11 +271,12 @@ export default {
             ctx.add(bb.build('main-arcade', { matOverrides: { 'f-brick': facadeMaterial('brick'), 'f-apartment': facadeMaterial('apartment') } }));
         }
         buildHalls(ctx, { line: PIKE_PLACE, at: ppAt });
+        buildFacades(ctx, { at: ppAt }, { low: HALL_IDS }); // each market building's own front
         buildArcade(ctx);
         // every mapped business at its own frontage; the hero storefronts below carry their own signs
         buildShopSigns(ctx, { skip: (p) => (/starbucks/i.test(p.name) && Math.hypot(p.x - STARBUCKS.x, p.z - STARBUCKS.z) < 12) || /^(Pike Place Fish Market|Market Theater|Ghost Alley Espresso)$/.test(p.name),
             // awnings along Pike Place and Pike St (Street View: green-and-white stripes on the Corner Market and the Sanitary Market)
-            awning: (W) => { const mx = (W.ax + W.bx) / 2, mz = (W.az + W.bz) / 2; if (HALL_IDS.has(W.host.id) || Math.min(distPolyline(mx, mz, PIKE_PLACE).d, distPolyline(mx, mz, PIKE_ST).d) > 17) return null;
+            awning: (W) => { const mx = (W.ax + W.bx) / 2, mz = (W.az + W.bz) / 2; if (HALL_IDS.has(W.host.id) || (FACADE_IDS.has(W.host.id) && !/^(w206858876|w206858888)$/.test(W.host.id)) || /^(w1190291980|w231360587)$/.test(W.host.id) || Math.min(distPolyline(mx, mz, PIKE_PLACE).d, distPolyline(mx, mz, PIKE_ST).d) > 17) return null;
                 return /^(w206858876|w206858888)$/.test(W.host.id) ? 'stripe' : ['#2f5a44', '#7a2e1d', '#1f3a52', '#3b3b3b'][Math.abs(Math.round(mx * 7 + mz * 3)) % 4]; } });
         buildSigns(ctx, ctx.extras.signRoof ?? profileY(0) + 10.8);
         buildRachel(ctx);

@@ -473,3 +473,37 @@ Culture notes:
 The earlier tables above describe the historical research rectangle. The current pass follows `cities.js`'s actual Grozăvești analytic band/circles and their complete 600 m scenery ring, at scale 1:1. Sixteen fresh OSM API tiles cover latitude 44.425–44.465, longitude 26.029–26.093, including a western extension missing from the standard tile prefix. Source hashes and the independent imagery measurement ledger are in `handoffs/fidelity/d-grozavesti/source-ledger.json`. The local z18 aerial mosaic covers 44.428,26.038–44.458,26.079 at approximately 0.426 m/px; acquisition date is unknown. Only derived measurements are committed.
 
 Heights: OSM `height` / `building:levels` where mapped; otherwise default estimates. The earlier unsupported Rectorat 24 m override was removed. Build counts and capture status from that pass are in the git history.
+
+## Fidelity pass — 2026-11-12 (live OSM + street-level reference)
+
+Sources: OSM API 0.6 map tiles fetched 2026-11-12 for 44.4335–44.4540, 26.0470–26.0750 (the playable geometry and its
+surroundings). Street-level panoramas were looked at as a visual reference only; nothing is stored. Game views:
+`node game/dev/reality/capture.cjs --district=grozavesti` (26 viewpoints added for the bridge, canal, sports grounds,
+businesses and landmarks).
+
+- **Dâmbovița** (OSM w170930341 `water=river`, r6213935): a concrete channel with sloped slab banks, green water, a black
+  steel railing with posts on the quay sidewalk and a tree row between the sidewalk and the railing, on both banks. The
+  aerial green raster classified the river surface as lawn (3,975 cells, about 46,000 m²), which covered the sunken channel
+  with grass; green cells that touch a channel area are no longer drawn. A weir crosses the river about 100 m west of
+  Podul Grozăvești (OSM w902058419); it is drawn as a low sill (its height is a model estimate).
+- **Podul Grozăvești / Basarab arch** (OSM w902056192 `bridge:structure=arch`, w128304847, w128304855, trams w128304859,
+  w660918286): street-level decks with a grey steel picket railing between concrete posts; the Basarab viaduct crosses
+  above on blue steel girders hung from a pale grey arch. The game's arch, blue deck and street-level decks agree. All 31
+  road bridge ways of live OSM match the game's bridge flag and layer; no road tunnel exists in the area.
+- **CET Grozăvești**: four waisted concrete cooling towers (OSM w188102855, w188102865, w188102870, w188102882, height 50)
+  and seven steel stacks (OSM w905217275–7, w905217281, w905217307–9, height 50) behind two large grey fuel tanks on
+  Șoseaua Grozăvești. The towers were round blocks with windows and the stacks were missing; they are now the
+  `cetgrozavesti` landmark (profile estimated).
+- **Centrul Comercial Orhideea** (OSM w23557062) with **Carrefour** (OSM w925593033): pale façade with a red band, large
+  blue "Carrefour" lettering above the west façade, an orange curved entrance canopy at the south-west rotunda. The sign
+  and band are added (`orhideeasign`); the canopy and the façade colour are not modelled.
+- **Businesses**: 116 named businesses of live OSM lie inside the playable geometry; 108 are in the game at their mapped
+  place. Not in the game (categories the builder does not keep): Columbia Fitness (n6793227019), Domestina România
+  (n13710547706), Manpower (n11508840180), WorkAsia.ro (n11998746459), Germag (n5862008006), Bioclinica (n14013820311),
+  Debarcaderul Regie (w1429973848, marina), Grădinița nr. 168 (w1331454041, drawn as grounds without a name sign).
+  Mall units beyond the playable edge are not signed by design. No game business is closed in live OSM.
+- **Still different from the street** (see the backlog rows): Grozăvești metro entrance pavilion (glazed canopy at the
+  south-west bridge head) is not built; the footbridge over the river by Regie (OSM w799487638) is missing; OMV and
+  Lukoil have no brand dressing (Lukoil's `building=roof` is a solid slab); the Brico Dépôt / Altex box (OSM w247015071)
+  is red and orange with an ALTEX sign, the game draws glass; the pedestrian passages (OSM w737986560/1, w277315766,
+  Politehnica and Basarab subways) and the Basarab station footbridges (OSM w738281332–345) are not modelled.

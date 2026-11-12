@@ -2035,16 +2035,20 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (const [key, o] of open) if (!seen.has(key)) { flush(o, r); open.delete(key); }
             rowRuns = []; r++; c = 0; cur = 0;
         };
-        // (fidelity pass, Unirii: green slabs floated over the Dâmbovița channel) the aerial raster also sees crowns that
-        // overhang mapped water: a green cell whose centre lies in a mapped water polygon is not ground, so runs are split there.
+        // (fidelity pass 2026-11-12, Unirii + Grozăvești) the aerial raster reads crowns over mapped water and the green river
+        // water itself as lawn: grass slabs floated over the Dâmbovița (46,000 m² in Grozăvești, water at −4.4 m). A green cell
+        // whose centre lies in mapped water, or that touches a sunken channel area, is not ground: runs are split there.
         const greenOverWater = areas.some(a => a.kind === 'water');
+        const inChan = (x, z) => channelAreas.some(a => inArea(a, x, z));
+        const wetCell = (cc, rr) => {
+            const xa = G.x0 + cc * G.cx, za = G.z0 + rr * G.cz;
+            if (greenOverWater && isWater(xa + G.cx / 2, za + G.cz / 2)) return true;
+            return channelAreas.length > 0 && (inChan(xa + G.cx / 2, za + G.cz / 2) || inChan(xa, za) || inChan(xa + G.cx, za) || inChan(xa, za + G.cz) || inChan(xa + G.cx, za + G.cz));
+        };
         const pushGreenRun = (c0, n) => {
-            if (!greenOverWater) { rowRuns.push([c0, n]); return; }
-            const gz = G.z0 + (r + 0.5) * G.cz; let s = -1;
-            for (let i = 0; i <= n; i++) {
-                const wet = i === n || isWater(G.x0 + (c0 + i + 0.5) * G.cx, gz);
-                if (!wet && s < 0) s = i; else if (wet && s >= 0) { rowRuns.push([c0 + s, i - s]); s = -1; }
-            }
+            if (!greenOverWater && !channelAreas.length) { rowRuns.push([c0, n]); return; }
+            let s = -1;
+            for (let k = c0; k <= c0 + n; k++) { const dry = k < c0 + n && !wetCell(k, r); if (dry) { if (s < 0) s = k; } else if (s >= 0) { rowRuns.push([s, k - s]); s = -1; } }
         };
         for (const v of G.rle) { if (v < 0) { endRow(); continue; } if (cur && v > 0) pushGreenRun(c, v); c += v; cur ^= 1; }
         for (const o of open.values()) flush(o, r);

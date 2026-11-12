@@ -3635,6 +3635,35 @@ function bVeronaFountain(b) {
     b.colPolygon(o, { y1: 0.6 }); b.grounds.push(o);
 }
 
+// CET Grozăvești (fidelity pass 2026-11-12): the four natural-draught cooling towers and the steel stacks of the power
+// station, seen from Șoseaua Grozăvești / Pasajul Basarab / the Dâmbovița quays. OSM: w188102855, w188102865, w188102870,
+// w188102882 (man_made=tower, tower:type=cooling, material=concrete, height=50; mean radii 15.9–17.2 m) and w905217275/6/7,
+// w905217281, w905217307/8/9 (man_made=chimney, material=metal, height=50, r 2.4 m). They were drawn as round apartment
+// blocks with windows; the stacks were missing. The hyperboloid profile is a model estimate (street-level reference:
+// waisted grey concrete shells with a darker rim). Also the weir across the Dâmbovița west of Podul Grozăvești
+// (OSM w902058419, waterway=weir): a low concrete sill at the model's channel water level.
+function bCetGrozavesti(b) {
+    const CON = '#a8a297', RIM = '#7f796f', ST = '#8d9297', H = 50;
+    const prof = [[0, 1], [.14, .9], [.32, .78], [.52, .69], [.72, .64], [.9, .64], [1, .67]];
+    for (const [x, z, r] of [[-23.8, 0, 16.2], [28.8, 6.8, 17.2], [3.2, 39.8, 15.9], [-7.3, -47.6, 16.9]]) {
+        for (let i = 0; i + 1 < prof.length; i++) { const [t0, k0] = prof[i], [t1, k1] = prof[i + 1]; b.cyl(x, t0 * H, z, r * k1, r * k0, (t1 - t0) * H, i === prof.length - 2 ? RIM : CON, 24); }
+        b.col(x, z, r, r, 0, { y0: 0, y1: H });
+    }
+    for (const [x, z] of [[45.5, 61.3], [52.2, 53], [59.1, 44.1], [66.7, 35.3], [-190.9, 157.5], [-187.7, 139], [97.4, -33]]) { b.cyl(x, 0, z, 1.9, 2.4, H, ST, 10); b.col(x, z, 2.4, 2.4, 0, { y0: 0, y1: H }); }
+    b.box(-280.1, -4.75, -357.4, 30.1, .7, 1.6, '#b3afa4', { ry: 1.322 });
+}
+
+// Centrul Comercial Orhideea (OSM w23557062) with the Carrefour hypermarket inside (OSM w925593033, brand=Carrefour): the
+// blue roof-edge lettering and the red fascia band of the façade towards Șoseaua Orhideelor (street-level reference
+// 2026-11-12). The building itself stays the source footprint; only its sign and band are added, on the mapped west wall
+// (230.5, −320.9) → (256.6, −437.9) in district metres.
+function bOrhideeaSign(b) {
+    const ry = -1.7906, nx = -.976, nz = -.218;
+    b.box(nx * .2, 6.6, nz * .2, 112, 1.1, .3, '#c8102e', { ry });
+    b.box(nx * .25, 8, nz * .25, 27, 4, .25, '#f4f4f1', { ry });
+    b.text('Carrefour', nx * .42, 8.6, nz * .42, ry, 2.8, '#1e4fa3', { d: .04 });
+}
+
 const A = {
     parliament: [44.4275038, 26.0874035, -0.0698], cathedral: [44.4259297, 26.0822981, -0.0873], arcul: [44.4671902, 26.078127, -2.7925],
     casapresei: [44.4815236, 26.0709515, -1.2217], grandhotel: [44.4372925, 26.1022881, -2.7751], univ: [44.4355639, 26.1007589, -2.7925],
@@ -3662,6 +3691,7 @@ const A = {
     murroww: [47.5898848, -122.28406, -0.0326], murrowe: [47.5892424, -122.25540, -0.0433],
     seagarage: [47.4432823, -122.2992416, 0], sealink: [47.4452089, -122.2969786, 0],
     gts: [44.433369, 26.1176015, 0], rosetti: [44.4671565, 26.106133, 0], dinamo: [44.4551306, 26.1023192, 0], bob: [44.479608, 26.1147802, 0], thelandmark: [44.450012, 26.0946079, 0], europehouse: [44.4511557, 26.087697, 0], halatraian: [44.4333566, 26.120567, 0], globalworth: [44.4792401, 26.1024141, 0], thebridge1: [44.44481317, 26.06011122, 0],
+    cetgrozavesti: [44.440165, 26.062861, 0], orhideeasign: [44.444574, 26.062252, 0],
 };
 
 function L(id, city, name, osmNames, radius, fn, extra = {}) {
@@ -3725,6 +3755,8 @@ export const LANDMARKS = [
     L('halatraian', 'bucharest', 'Hala Traian', ['Hala Traian'], 12, bHalaTraian),
     L('globalworth', 'bucharest', 'Globalworth Tower', ['Globalworth Tower'], 12, bGlobalworth),
     L('thebridge1', 'bucharest', 'The Bridge 1 (BCR)', ['The Bridge 1'], 45, bTheBridge1, { sourceIds: ['w661134293'] }),
+    L('cetgrozavesti', 'bucharest', 'CET Grozăvești (cooling towers)', [], 60, bCetGrozavesti, { districtOnly: true, sourceIds: ['w188102855', 'w188102865', 'w188102870', 'w188102882'] }),
+    L('orhideeasign', 'bucharest', 'Carrefour Orhideea', [], 0, bOrhideeaSign, { districtOnly: true, sourceIds: [] }),
     // ---- Seattle / Bellevue (radius given in real metres, halved by L()) ----
     L('spaceneedle', 'seattle', 'Space Needle', ['Space Needle'], 30, bSpaceNeedle, { floodlit: true, sourceIds: ['w12903132','w394254329','w394254330','w394254331','w394254332','w394254333','w394254334','w394254335','w394254336','w394254337','w394254484','w394254485','w394254486','w394254487','w394254488','w394956342','w394956343','w394956344'] }),
     L('columbia', 'seattle', 'Columbia Center', ['Columbia Center'], 50, bColumbia, { sourceIds: ['r4648083','w107124288','w331293871','w418132520','w418132515','w418132517','w418132525'] }),

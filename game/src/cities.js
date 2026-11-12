@@ -73,8 +73,8 @@ const BUC_DISTRICTS = {
             { r: 130, chapter: 'upb', line: [[44.448553, 26.065443], [44.447432, 26.062617], [44.446923, 26.060540], [44.446793, 26.060264], [44.446586, 26.060205], [44.444227, 26.060704], [44.443543, 26.060555], [44.441596, 26.059892], [44.440701, 26.058795], [44.440322, 26.058441], [44.438050, 26.055450]] },
         ],
         circles: [{ lat: 44.438050, lon: 26.055450, r: 200, name: 'upb door' }, { lat: 44.448490, lon: 26.065400, r: 110, name: 'upb start' }, { lat: 44.438500, lon: 26.051500, r: 120, name: 'upb building' }],
-        landmarks: ['politehnica', 'cathedral', 'thebridge1'],
-        scenery: ['cathedral', 'thebridge1'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
+        landmarks: ['politehnica', 'cathedral', 'thebridge1', 'cetgrozavesti', 'orhideeasign'],
+        scenery: ['cathedral', 'thebridge1', 'cetgrozavesti', 'orhideeasign'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
         congestion: [ // from game/research/bucharest-grozavesti.json traffic.hotspots
             { lat: 44.44370, lon: 26.06120, radius: 180, hours: [[7.5,  10],  [16.5,  19.5]], level: 0.65, note: 'Podul Grozăvești / Orhideelor' },
             { lat: 44.43460, lon: 26.05450, radius: 160, hours: [[7.5,  9.5],  [16,  19]], level: 0.60, note: 'Iuliu Maniu × Doina Cornea (Politehnica)' },

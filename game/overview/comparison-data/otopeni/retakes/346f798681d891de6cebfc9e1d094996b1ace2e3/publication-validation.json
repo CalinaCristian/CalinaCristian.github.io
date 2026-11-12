@@ -1,0 +1,47 @@
+{
+  "district": "otopeni",
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "frames": 107,
+  "retakesInstalled": 12,
+  "retakenIds": [
+    "aerial-r04-c04",
+    "aerial-r05-c04",
+    "aerial-r05-c05",
+    "aerial-r06-c01",
+    "aerial-r06-c02",
+    "aerial-r06-c03",
+    "aerial-r06-c04",
+    "aerial-r07-c04",
+    "aerial-r08-c04",
+    "aerial-r09-c04",
+    "aerial-r10-c04",
+    "aerial-r11-c04"
+  ],
+  "untouchedItemsAndBytesPreserved": 95,
+  "archivedManifest": "historical/mixed-before-346f7986-70c1df8a/manifest.json",
+  "archivedManifestSha256": "70c1df8a996be8a9c23ba49cf6f2041a24c19699c0664e0c54aef6e1693fdf86",
+  "archivedItemsResolved": 107,
+  "sourceFilesVerifiedAgainstCommit": 488,
+  "atlasSourceCounts": {
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 83,
+    "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 12,
+    "d8e7d119ba8dcc29fce289e8c9f988092507fc10": 2
+  },
+  "allGroundPosesPreserved": true,
+  "sourceRevisionCorrections": [
+    {
+      "id": "aerial-r04-c06",
+      "from": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "to": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+      "why": "Item pointed at the d8e7d119 retake image but still carried the superseded capture revision."
+    },
+    {
+      "id": "aerial-r05-c06",
+      "from": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "to": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+      "why": "Item pointed at the d8e7d119 retake image but still carried the superseded capture revision."
+    }
+  ],
+  "failures": []
+}

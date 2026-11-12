@@ -1,0 +1,39 @@
+{
+  "district": "floreasca",
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "tiles": [
+    {
+      "id": "aerial-r01-c06",
+      "reason": "lake bridge: the two carriageway decks are separate with water between them and edge railings"
+    },
+    {
+      "id": "aerial-r08-c04",
+      "reason": "Dinamo velodrome: oval infield and track instead of a rectangular pitch"
+    }
+  ],
+  "reason": "Dinamo velodrome infield; lake bridge decks",
+  "originalManifestSha256": "8425cb2cb48923612054d5fd3b2fb95599c5739e50b24d93ca1a036a9d4b0046",
+  "totalFrames": 90,
+  "method": "Every atlas pose of the district was rendered at the retake commit and, for diagnosis only, at the range start 332ae423 (game images only, same tool and conditions). Poses were ranked by pixels that changed between those two renders and also differ from the published tile; each ranked pose was then compared by eye (published | 332ae423 render | retake, same pixels). A retake is kept only where a structure, water body, landmark or building model visibly changed. Not counted as a change: parked-car and tree-crown layouts, single-building roof tints, and re-surfaced central reservations (all differ between source revisions without a geometry change). Two renders of the same commit are structurally identical (no blurred difference at the 30/255 level in five districts checked).",
+  "baselineCommit": "332ae4237d93fbbe23f08e3ae8c8f1b94c1e8642",
+  "candidatesCaptured": 90,
+  "rejected": [
+    {
+      "ids": [
+        "aerial-r03-c06",
+        "aerial-r04-c06",
+        "aerial-r05-c06",
+        "aerial-r06-c06",
+        "aerial-r10-c05"
+      ],
+      "reason": "only the central reservation surface / parked cars differ"
+    },
+    {
+      "ids": [
+        "aerial-r10-c04"
+      ],
+      "reason": "parked cars only"
+    }
+  ],
+  "notRetaken": "Every other pose: no visible change between the 332ae423 and 346f7986 renders at the same pose, or only the differences listed under rejected."
+}

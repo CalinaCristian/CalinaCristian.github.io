@@ -1,0 +1,59 @@
+{
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r04-c05",
+    "aerial-r06-c03",
+    "aerial-r06-c04",
+    "aerial-r07-c05",
+    "aerial-r07-c06",
+    "aerial-r08-c02"
+  ],
+  "reviewedAt": "2026-11-12T20:43:17.408Z",
+  "method": "Published game capture, a 332ae423 render and the 346f7986 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r04-c05",
+      "originalGameSha256": "3a846df26537530c7396509bd3670c621d8fafbe112404709611f2fb46040e25",
+      "originalGameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "retakeGameSha256": "cd025edf70bf931214646444115a611c77f15b69859afdd7500e2e31c6b3c4de",
+      "observation": "church in the park redrawn with its towers and domes (was a plain pitched roof)"
+    },
+    {
+      "id": "aerial-r06-c03",
+      "originalGameSha256": "b345071dc17d387e32020d493a100d7b2a978cde574f5b45d740b1627e338798",
+      "originalGameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "retakeGameSha256": "49ccfd89a5c0fabda6b314bb79991064d86067848982f8ddf58437fc8c1265f8",
+      "observation": "Dâmbovița is open water; the grass patches over the channel are gone"
+    },
+    {
+      "id": "aerial-r06-c04",
+      "originalGameSha256": "2ae082958b8084e58b07724fb3f6a64c4d7fcc109d701510a4976dca7ad34f54",
+      "originalGameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "retakeGameSha256": "c6f0082c3e324690e741d4f451cc756cbbdc1d6c216e050e3b512a046ea7bb20",
+      "observation": "Dâmbovița is open water up to the covered section; grass patches gone"
+    },
+    {
+      "id": "aerial-r07-c05",
+      "originalGameSha256": "563b27dc42249d3df338ba9d4bceeaa071f019bcf4544670e09d30a605e8561c",
+      "originalGameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "retakeGameSha256": "8b2668e6528f365ebbc4353cd1c68caab2784296019c4a661f6d6cd8d9d86f40",
+      "observation": "Dâmbovița basin without grass patches"
+    },
+    {
+      "id": "aerial-r07-c06",
+      "originalGameSha256": "dbeeae642ffc4bff9968353aa4f66d562a3da4a140804d23f79a42a02851048b",
+      "originalGameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "retakeGameSha256": "9b8b300464e97ae616db454e2c98ca5ed6454ed4eac86a3aa5d9bd11d2e43790",
+      "observation": "Dâmbovița without grass patches along both quays"
+    },
+    {
+      "id": "aerial-r08-c02",
+      "originalGameSha256": "00edd8d7d1dd1de4d584ba64a1f66a9171e3f8774e9fbc3f159590a36d08ed8b",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "9a668ad8553be6c815f0f3cdd1d5d7dc77b478d25e958cd8f44e1bfbc06eecb6",
+      "observation": "church redrawn with nave, towers and porch (was a plain red roof)"
+    }
+  ]
+}

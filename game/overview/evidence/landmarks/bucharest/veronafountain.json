@@ -1,0 +1,261 @@
+{
+  "schemaVersion": 1,
+  "id": "veronafountain",
+  "city": "bucharest",
+  "name": "Fântâna Arthur Verona",
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4427623,
+    "lon": 26.0980117
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/1183885625",
+      "label": "OSM w1183885625 · amenity=fountain, fountain=decorative: basin outline",
+      "type": "osm"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/92828915d2c35ad97bc9926a19496c5086005744",
+      "label": "Arthur Verona fountain added as a landmark (9282891)",
+      "type": "implementation"
+    }
+  ],
+  "sourceIds": [],
+  "reviewedAt": "2026-11-12",
+  "improvements": [
+    "The Arthur Verona fountain is built from its mapped outline as a low round stone rim with a water surface and a central nozzle block; it was missing from the district data."
+  ],
+  "remainingGaps": [
+    "Rim height (0.5 m), rim width and the nozzle block are estimates; no jets or water animation are shown. The registry declares no replacement source id."
+  ],
+  "checks": [
+    {
+      "label": "Registry identity",
+      "passed": true,
+      "details": "id, name, anchor and sourceIds are read from game/src/landmarks.js at 346f798."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run at 346f798 on 2026-11-12: passed, 2133 checks over 67 models; this model 163 triangles, 1 collision volumes."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-12; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "Matched Street View / aerial comparison",
+      "passed": false,
+      "details": "No matched reference comparison was made for this record. The source comments name a street-level look as viewed reference only; no reference imagery is stored or published."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study · 16 m away",
+      "kind": "front",
+      "image": "assets/landmarks/veronafountain/source-346f7986/front.webp",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "sha256": "b31196e3ce4a112a63ce318b6913849ce28f731ebec3e4d21e55664d45c252d5",
+      "bytes": 2204,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-12T19:48:32.029Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=veronafountain&clean=1&fountains=on&view=street&az=0&d=16",
+        "anchor": {
+          "lat": 44.4427623,
+          "lon": 26.0980117,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            0,
+            1.3,
+            16
+          ],
+          "quaternion": [
+            -0.02933706324905407,
+            0,
+            0,
+            0.9995695757274333
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 320,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -4.599999904632568,
+            0,
+            -4.599999904632568
+          ],
+          "max": [
+            4.599999904632568,
+            0.800000011920929,
+            4.599999904632568
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "North-up orthographic model study",
+      "kind": "top",
+      "image": "assets/landmarks/veronafountain/source-346f7986/top.webp",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "sha256": "8e83f46321cea7a031e2c1a0144af2847d25957c7452858fb092a686a3a5e063",
+      "bytes": 12254,
+      "width": 720,
+      "height": 720,
+      "capturedAt": "2026-11-12T19:45:21.674Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=veronafountain&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4427623,
+          "lon": 26.0980117,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "orthographic",
+          "position": [
+            0,
+            100,
+            0
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 2000,
+          "viewport": [
+            720,
+            720
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -7.335999889373779,
+          "right": 7.335999889373779,
+          "top": 7.335999889373779,
+          "bottom": -7.335999889373779,
+          "zoom": 1,
+          "groundSquareM": 14.671999778747558,
+          "groundWidthM": 14.671999778747558,
+          "groundDepthM": 14.671999778747558,
+          "orientation": "north-up"
+        },
+        "bounds": {
+          "min": [
+            -4.599999904632568,
+            0,
+            -4.599999904632568
+          ],
+          "max": [
+            4.599999904632568,
+            0.800000011920929,
+            4.599999904632568
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/veronafountain/source-346f7986/oblique.webp",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "sha256": "21ef45c6b207bd61521cc84452574f07d333229e9f08925fd8347b47b98ba5ba",
+      "bytes": 8048,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-12T19:45:22.182Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=veronafountain&clean=1&fountains=on&view=oblique&az=35&el=28",
+        "anchor": {
+          "lat": 44.4427623,
+          "lon": 26.0980117,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            8.558545152155222,
+            8.25383216783934,
+            12.222869199662869
+          ],
+          "quaternion": [
+            -0.230725012590546,
+            0.2917735521254029,
+            0.07274731703388736,
+            0.9253874813879795
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 337.98989297629964,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -4.599999904632568,
+            0,
+            -4.599999904632568
+          ],
+          "max": [
+            4.599999904632568,
+            0.800000011920929,
+            4.599999904632568
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 165,
+    "drawCalls": 3,
+    "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
+  },
+  "sourceVerification": {
+    "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
+    "checkedAt": "2026-11-12T20:03:08.417Z"
+  },
+  "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
+}

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "Romana aerial comparisons",
   "generatedDate": "2026-11-12",
-  "generatedAt": "2026-11-12T15:57:27.819Z",
+  "generatedAt": "2026-11-12T19:50:03.244Z",
   "defaultTile": "aerial-r10-c09",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -2210,19 +2210,19 @@
         -500,
         -500
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 106,
-        "triangles": 614674,
-        "renderMs": 15.800000000745058,
+        "drawCalls": 109,
+        "triangles": 401873,
+        "renderMs": 1.0999999940395355,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 312
+        "vehicleCount": 306
       },
       "renderer": {
         "width": 640,
@@ -2232,23 +2232,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:41:51.796Z",
-      "gamePath": "images/aerial-r05-c04.jpg",
-      "image": "images/aerial-r05-c04.jpg",
-      "thumbnail": "thumbs/aerial-r05-c04.jpg",
-      "sha256": "f9e83b49bd0a08a5dfa1196a320808eeca68fb767f175c1453fc86f4564f2483",
+      "capturedAt": "2026-11-12T19:49:27.738Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r05-c04.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r05-c04.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r05-c04.jpg",
+      "sha256": "ef1c5119f75125c25115c261b2099257c4ab89c2f601ba6742a5b1b6086eaf28",
       "width": 640,
       "height": 640,
-      "captureWallMs": 12935,
+      "captureWallMs": 653,
       "dataset": "atlas",
-      "thumbnailSha256": "ee2a1ef31b10d6a4bd96cf337d96131ca1344356d0671c7f605a26fc42bc4133",
+      "thumbnailSha256": "9ac0c55e992eadc13c83c4e9373176aac86c385b307c0e018e061496f7cada49",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.452799154159024,
         26.081762406644987,
         44.45504873123853,
         26.08490827109666
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Muzeul Antipa landmark model on Șos. Kiseleff); prior collection archived."
     },
     {
       "id": "aerial-r05-c05",
@@ -2714,7 +2716,7 @@
         -750,
         -250
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
@@ -2779,7 +2781,7 @@
         -500,
         -250
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
@@ -2844,7 +2846,7 @@
         -250,
         -250
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
@@ -3602,19 +3604,19 @@
         250,
         0
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 125,
-        "triangles": 823047,
-        "renderMs": 8.099999997764826,
+        "drawCalls": 126,
+        "triangles": 521010,
+        "renderMs": 1.9000000059604645,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 312
+        "vehicleCount": 306
       },
       "renderer": {
         "width": 640,
@@ -3624,23 +3626,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:45:06.126Z",
-      "gamePath": "images/aerial-r07-c07.jpg",
-      "image": "images/aerial-r07-c07.jpg",
-      "thumbnail": "thumbs/aerial-r07-c07.jpg",
-      "sha256": "aaca8e8585010a0e6af012714e6a085a1d3fcfb39d4f9e89ae53b33cb5ed41e6",
+      "capturedAt": "2026-11-12T19:49:38.028Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c07.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c07.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r07-c07.jpg",
+      "sha256": "8e4bd65cf7f909e63d5e38112f243637d169de2f2c0541a3cb48ea7219aee536",
       "width": 640,
       "height": 640,
-      "captureWallMs": 10047,
+      "captureWallMs": 547,
       "dataset": "atlas",
-      "thumbnailSha256": "a294debb0099676ade0ff8ae48199abc74dea18d1dfb8d704ecc93511d3e2b8a",
+      "thumbnailSha256": "8442d840f3ea07b0b851c8c8b4c16dacffd1b055c27d14b351eddbdd5c3143e9",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.4483,
         26.0912,
         44.450549577079514,
         26.09434586445167
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Lascăr Catargiu statue on its square); prior collection archived."
     },
     {
       "id": "aerial-r07-c08",
@@ -5492,16 +5496,19 @@
         750,
         750
       ],
-      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 110,
-        "triangles": 399790
+        "drawCalls": 114,
+        "triangles": 405371,
+        "renderMs": 1.4000000059604645,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 306
       },
       "renderer": {
         "width": 640,
@@ -5511,16 +5518,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T01:53:54.735Z",
-      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r10-c09.png",
-      "image": "retakes/signs-8add95f3/atlas/aerial-r10-c09.png",
-      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r10-c09.png",
-      "sha256": "f24233d7fc2ae9c404d592cac3c9204ef56390b559af45ba21dd22a5d136bb20",
+      "capturedAt": "2026-11-12T19:49:50.643Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r10-c09.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r10-c09.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r10-c09.jpg",
+      "sha256": "2ccd699f5848ff26323fb9fa8ad0569f398c4c37d074c6844c387f44d1296ed1",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7743,
+      "captureWallMs": 612,
       "dataset": "atlas",
-      "thumbnailSha256": "f24233d7fc2ae9c404d592cac3c9204ef56390b559af45ba21dd22a5d136bb20",
+      "thumbnailSha256": "0d75640e36c5c3e0b5b01661752203ef2f6009f0b83436ee08015b4bb9a0c9ca",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.44155126876148,
@@ -5529,8 +5536,8 @@
         26.100637593355014
       ],
       "district": "romana",
-      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
-      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json"
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Arthur Verona fountain basin); prior collection archived.",
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json"
     },
     {
       "id": "aerial-r10-c10",
@@ -7488,9 +7495,11 @@
     }
   ],
   "atlasSourceCounts": {
-    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 96,
+    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 91,
     "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 13,
-    "8add95f35681eddaf01a136ff1f5769a5329b102": 7
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 3,
+    "d8e7d119ba8dcc29fce289e8c9f988092507fc10": 3,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 6
   },
   "sourceSnapshots": [
     {
@@ -7514,6 +7523,15 @@
       "manifestSha256": "748ec2ebbfee9fc5f4a5305ba2423481269f69535ca514dd864be481f60921ec",
       "sourceProvenance": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/source-provenance.json",
       "frames": 3
+    },
+    {
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "treeSha256": "deec28ca0450626951551fd3ef8430ddd963c659206d1fa313c5e2e0c6e7ddf0",
+      "manifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "manifestSha256": "89161bb947feb923c2722de823951ba637f822086e06fe6e53b5113cf11eba0f",
+      "sourceProvenance": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/source-provenance.json",
+      "sourceProvenanceSha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47",
+      "frames": 3
     }
   ],
   "sourceCompatibility": {
@@ -7532,16 +7550,18 @@
     "delivery": "Live image request; no aerial imagery is stored in this repository.",
     "extent": "250 m ground square centred at each listed WGS84 coordinate; EPSG:3857 with latitude scale correction."
   },
-  "description": "Mixed-source technical atlas: 7 sign-affected poses refreshed at 8add95f3; all other images retain their recorded sources and dates.",
+  "description": "Mixed-source technical atlas: 3 poses retaken on 2026-11-12 at 346f7986 (Antipa museum, Lascăr Catargiu statue, Arthur Verona fountain); all other images retain their recorded sources and dates.",
   "coverageNote": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score. Boundary cells also contain land outside the ring.",
   "reviewNote": "Sign-affected current game captures inspected at full size; source/aerial comparisons retain their historical scope. No district fidelity acceptance.",
   "review": {
     "district": "romana",
     "gameSourceCommit": null,
     "sourceCounts": {
-      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 96,
+      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 91,
       "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 13,
-      "8add95f35681eddaf01a136ff1f5769a5329b102": 7
+      "346f798681d891de6cebfc9e1d094996b1ace2e3": 3,
+      "d8e7d119ba8dcc29fce289e8c9f988092507fc10": 3,
+      "8add95f35681eddaf01a136ff1f5769a5329b102": 6
     },
     "framesReviewed": 116,
     "status": "All116 actual game/reference pairs reviewed with explicit source/visual gaps;13 current water retakes plus103 unchanged original image bytes. Capture coverage complete; real-world parity remains incomplete.",
@@ -8168,8 +8188,8 @@
       },
       {
         "id": "aerial-r05-c04",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "f9e83b49bd0a08a5dfa1196a320808eeca68fb767f175c1453fc86f4564f2483",
+        "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "gameSha256": "ef1c5119f75125c25115c261b2099257c4ab89c2f601ba6742a5b1b6086eaf28",
         "boundsWgs84": [
           44.452799154159024,
           26.081762406644987,
@@ -8177,13 +8197,12 @@
           26.08490827109666
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r05-c04.jpg",
-        "pairSha256": "f5f9e8e52e81e8f6822f483c381af618fd474df6d02065f51ff5a3fcdca31286",
         "reviewSheet": "comparison-06.jpg",
         "reviewSheetSha256": "469be4ac5cb4e350eeba8b77666d183ad4a6c11484e71859d0f047d9468dfbb9",
         "reviewedAt": "2026-11-08T22:34:01.397079+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Courtyard, plaza and depot surroundings: source courtyard openings and street alignment remain, but canopy, parked-car occupancy and unmodelled construction/rail-yard dressing differ from unknown-date imagery."
+        "observations": "Courtyard, plaza and depot surroundings: source courtyard openings and street alignment remain, but canopy, parked-car occupancy and unmodelled construction/rail-yard dressing differ from unknown-date imagery.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r05-c05",
@@ -8583,8 +8602,8 @@
       },
       {
         "id": "aerial-r07-c07",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "aaca8e8585010a0e6af012714e6a085a1d3fcfb39d4f9e89ae53b33cb5ed41e6",
+        "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "gameSha256": "8e4bd65cf7f909e63d5e38112f243637d169de2f2c0541a3cb48ea7219aee536",
         "boundsWgs84": [
           44.4483,
           26.0912,
@@ -8592,13 +8611,12 @@
           26.09434586445167
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r07-c07.jpg",
-        "pairSha256": "38f4ddf2c7c33b4cb96be5b490edf9d36f0c345f82b6ee1f1d56acacacac7a39",
         "reviewSheet": "comparison-10.jpg",
         "reviewSheetSha256": "300620ed0f91516026af21af4bfb706627f366799cb58c58186fe444c9699a1e",
         "reviewedAt": "2026-11-08T22:34:01.587376+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Source courtyards and roof forms remain open/varied in the detailed area. East/west outside-detail strips show sparse generic masses and grey ground against dense reference blocks."
+        "observations": "Source courtyards and roof forms remain open/varied in the detailed area. East/west outside-detail strips show sparse generic masses and grey ground against dense reference blocks.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r07-c08",
@@ -9153,8 +9171,8 @@
       },
       {
         "id": "aerial-r10-c09",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "e4e657aed2b23ddb2fc5f31f7b6144ad91a4f477a918554739f603fe958fd8b4",
+        "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "gameSha256": "2ccd699f5848ff26323fb9fa8ad0569f398c4c37d074c6844c387f44d1296ed1",
         "boundsWgs84": [
           44.44155126876148,
           26.097491728903343,
@@ -9162,13 +9180,12 @@
           26.100637593355014
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r10-c09.jpg",
-        "pairSha256": "bccb92742209e048c4a39bacba41f7ffca07418de0e442845cf115a3c2ab45fb",
         "reviewSheet": "comparison-15.jpg",
         "reviewSheetSha256": "4cb26d62be4b0ef4f48735f9f85e212b2e55db52c2d648abe1e6c8b2ef6a6f4d",
         "reviewedAt": "2026-11-08T22:34:01.801226+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Dense southern blocks: source footprints/roads remain visible; rear courtyards, roof materials and canopy differ. The outside-detail area stays simplified, rather than claiming complete urban context."
+        "observations": "Dense southern blocks: source footprints/roads remain visible; rear courtyards, roof materials and canopy differ. The outside-detail area stays simplified, rather than claiming complete urban context.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r10-c10",
@@ -9760,10 +9777,13 @@
         "observations": "Southeast and SkyTower context: generic outside-detail blocks and a plain cylindrical SkyTower roof lack surrounding detailed podium/tower treatment. Explicit distant-context fidelity gap, not an upgraded landmark claim."
       }
     ],
-    "targetedRetakeReview": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/paired-review.json"
+    "targetedRetakeReview": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+    "earlierTargetedRetakeReviews": [
+      "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/paired-review.json"
+    ]
   },
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 7 sign-affected poses refreshed at 8add95f3; all other images retain their recorded sources and dates."
+    "atlas": "Mixed-source technical atlas: 3 poses retaken on 2026-11-12 at 346f7986 (Antipa museum, Lascăr Catargiu statue, Arthur Verona fountain); all other images retain their recorded sources and dates."
   },
   "perspectiveCollections": [
     {
@@ -9840,6 +9860,19 @@
       "label": "Atlas before the d8e7d11 retake (Victoriei tram tunnel roofed, Pasajul Victoria strip on Titulescu)",
       "frames": 116,
       "generatedAt": "2026-11-11T01:53:58.590Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 96,
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 13,
+        "8add95f35681eddaf01a136ff1f5769a5329b102": 7
+      },
+      "captureType": "mixed-source-survey"
+    },
+    {
+      "manifest": "historical/mixed-before-346f7986-45d48fde/manifest.json",
+      "label": "Atlas before the 346f798 retake (Antipa museum, Lascăr Catargiu statue, Arthur Verona fountain)",
+      "frames": 116,
+      "generatedAt": "2026-11-12T15:57:27.819Z",
       "gameSourceCommit": null,
       "sourceCounts": {
         "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 96,

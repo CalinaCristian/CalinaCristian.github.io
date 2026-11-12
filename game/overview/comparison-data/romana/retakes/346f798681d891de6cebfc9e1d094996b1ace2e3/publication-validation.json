@@ -1,0 +1,45 @@
+{
+  "district": "romana",
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "frames": 116,
+  "retakesInstalled": 3,
+  "retakenIds": [
+    "aerial-r05-c04",
+    "aerial-r07-c07",
+    "aerial-r10-c09"
+  ],
+  "untouchedItemsAndBytesPreserved": 113,
+  "archivedManifest": "historical/mixed-before-346f7986-45d48fde/manifest.json",
+  "archivedManifestSha256": "45d48fde2e9de1883b7e9187593f8a22e0ef75da5736579af68c5d3ab8931dbe",
+  "archivedItemsResolved": 116,
+  "sourceFilesVerifiedAgainstCommit": 488,
+  "atlasSourceCounts": {
+    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 91,
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 13,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 3,
+    "d8e7d119ba8dcc29fce289e8c9f988092507fc10": 3,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 6
+  },
+  "allGroundPosesPreserved": true,
+  "sourceRevisionCorrections": [
+    {
+      "id": "aerial-r06-c03",
+      "from": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "to": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+      "why": "Item pointed at the d8e7d119 retake image but still carried the superseded capture revision."
+    },
+    {
+      "id": "aerial-r06-c04",
+      "from": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "to": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+      "why": "Item pointed at the d8e7d119 retake image but still carried the superseded capture revision."
+    },
+    {
+      "id": "aerial-r06-c05",
+      "from": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "to": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+      "why": "Item pointed at the d8e7d119 retake image but still carried the superseded capture revision."
+    }
+  ],
+  "failures": []
+}

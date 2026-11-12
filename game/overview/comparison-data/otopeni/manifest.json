@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "Otopeni aerial comparisons",
   "generatedDate": "2026-11-12",
-  "generatedAt": "2026-11-12T15:57:39.285Z",
+  "generatedAt": "2026-11-12T19:47:15.670Z",
   "defaultTile": "aerial-r11-c04",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -1637,13 +1637,13 @@
         -500,
         -500
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 87,
-        "triangles": 383165,
-        "renderMs": 3.899999998509884,
+        "triangles": 280284,
+        "renderMs": 2,
         "quality": "high"
       },
       "traffic": {
@@ -1659,16 +1659,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:29:18.973Z",
-      "gamePath": "images/aerial-r04-c04.jpg",
-      "image": "images/aerial-r04-c04.jpg",
-      "thumbnail": "thumbs/aerial-r04-c04.jpg",
-      "sha256": "09b33a0a3ca60e545b82ec6d821472aedca8d84c0bdf289aec0c9a86884b0672",
+      "capturedAt": "2026-11-12T19:46:45.559Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r04-c04.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r04-c04.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r04-c04.jpg",
+      "sha256": "d72300be4f4993742b77c33af049ccf001f006673c60e0341de9401fab6a14c2",
       "width": 640,
       "height": 640,
-      "captureWallMs": 15167,
+      "captureWallMs": 730,
       "dataset": "atlas",
-      "thumbnailSha256": "161050963e55fecb16aef308bf5f416d56d3c78a7a49f0f13bb9d46b417fdcd6",
+      "thumbnailSha256": "e5d2bb209406fe77feaba39aff08399de6a25540eaa1bd5c2c9346d4cbfc5223",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.56949915415902,
@@ -1678,7 +1678,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (DN1 central barrier; footbridge stair foot at the south edge replaces the old crossed beams); prior collection archived."
     },
     {
       "id": "aerial-r04-c05",
@@ -1769,7 +1771,7 @@
         0,
         -500
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
@@ -2293,13 +2295,13 @@
         -500,
         -250
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 89,
-        "triangles": 390964,
-        "renderMs": 43,
+        "drawCalls": 90,
+        "triangles": 301357,
+        "renderMs": 0.800000011920929,
         "quality": "high"
       },
       "traffic": {
@@ -2315,16 +2317,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:31:00.702Z",
-      "gamePath": "images/aerial-r05-c04.jpg",
-      "image": "images/aerial-r05-c04.jpg",
-      "thumbnail": "thumbs/aerial-r05-c04.jpg",
-      "sha256": "0f451c90706fe7d84b34126e5f7a7415468e150e7f764a63a68f96fed0ed8d1f",
+      "capturedAt": "2026-11-12T19:46:49.464Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r05-c04.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r05-c04.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r05-c04.jpg",
+      "sha256": "f2856254767aba0f975297bfa26be1542f6cb810939e61355d7e81c0a25eaf76",
       "width": 640,
       "height": 640,
-      "captureWallMs": 14430,
+      "captureWallMs": 468,
       "dataset": "atlas",
-      "thumbnailSha256": "db82bfac11ec35f6ae74781a834010608d7b2761520123065565b50920b0a01e",
+      "thumbnailSha256": "dbf24e5c0ab5e7f77435b4b112e07965ccfdcb9241657b4d19250a18f8cd96d7",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.56724957707951,
@@ -2334,7 +2336,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (airport rail viaduct over DN1, DN1 footbridge at the north edge, DN1 central barrier); prior collection archived."
     },
     {
       "id": "aerial-r05-c05",
@@ -2359,13 +2363,13 @@
         -250,
         -250
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 90,
-        "triangles": 391908,
-        "renderMs": 52.69999999925494,
+        "drawCalls": 89,
+        "triangles": 286031,
+        "renderMs": 1,
         "quality": "high"
       },
       "traffic": {
@@ -2381,16 +2385,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:31:15.137Z",
-      "gamePath": "images/aerial-r05-c05.jpg",
-      "image": "images/aerial-r05-c05.jpg",
-      "thumbnail": "thumbs/aerial-r05-c05.jpg",
-      "sha256": "bdf4cadad91c230e3e85c89ce143d42ec37a492dc8a79ca8815b1aa19f70b8ad",
+      "capturedAt": "2026-11-12T19:46:49.932Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r05-c05.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r05-c05.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r05-c05.jpg",
+      "sha256": "6d8a6ad96477448c1dffcd79b0cb14dc222156c2d145a115f5761c2f2383be59",
       "width": 640,
       "height": 640,
-      "captureWallMs": 11142,
+      "captureWallMs": 372,
       "dataset": "atlas",
-      "thumbnailSha256": "11c6f33dcdf7de95daa18244324a0c9306c4e8d5712ca1144cd0fbdc675bee31",
+      "thumbnailSha256": "2ed54867345c4b629b46fb8ec36e95384e6391424aa96199ef3e3299a74d59a6",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.56724957707951,
@@ -2400,7 +2404,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (airport rail viaduct curves across the tile); prior collection archived."
     },
     {
       "id": "aerial-r05-c06",
@@ -2425,7 +2431,7 @@
         0,
         -250
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
@@ -2751,13 +2757,13 @@
         -1250,
         0
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 59,
-        "triangles": 104197,
-        "renderMs": 53.80000000074506,
+        "drawCalls": 61,
+        "triangles": 78520,
+        "renderMs": 0.800000011920929,
         "quality": "high"
       },
       "traffic": {
@@ -2773,16 +2779,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:32:04.716Z",
-      "gamePath": "images/aerial-r06-c01.jpg",
-      "image": "images/aerial-r06-c01.jpg",
-      "thumbnail": "thumbs/aerial-r06-c01.jpg",
-      "sha256": "e0ca2ffe7dfb217dc167d45c231828cfd9662cc06aec0a844daab08f8520ae85",
+      "capturedAt": "2026-11-12T19:46:51.835Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c01.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c01.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r06-c01.jpg",
+      "sha256": "b282d96c99adf4cbf6075fd916bf5779505996cb97eeecf066bcfecb7c45b852",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5867,
+      "captureWallMs": 323,
       "dataset": "atlas",
-      "thumbnailSha256": "4af7df4bb21862739fb56cf08b85b6639db5ce08678411eb3e74a29c57352771",
+      "thumbnailSha256": "66975f3edc1affdcfa4f754c73fc5589d40e1fee5c4811122c355b2591a60a6b",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.565,
@@ -2792,7 +2798,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (west end of the airport rail viaduct); prior collection archived."
     },
     {
       "id": "aerial-r06-c02",
@@ -2817,13 +2825,13 @@
         -1000,
         0
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 72,
-        "triangles": 199392,
-        "renderMs": 3.5,
+        "drawCalls": 76,
+        "triangles": 123553,
+        "renderMs": 0.6000000089406967,
         "quality": "high"
       },
       "traffic": {
@@ -2839,16 +2847,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:32:10.586Z",
-      "gamePath": "images/aerial-r06-c02.jpg",
-      "image": "images/aerial-r06-c02.jpg",
-      "thumbnail": "thumbs/aerial-r06-c02.jpg",
-      "sha256": "1813be2c25707a40dbcb2ce76186d5005a97fe4d406972cf789a4c0283abacd2",
+      "capturedAt": "2026-11-12T19:46:52.159Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c02.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c02.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r06-c02.jpg",
+      "sha256": "4b486236f4536d6439609abd96820f5fe26c5719da46e511fdc4e9b720859c72",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7113,
+      "captureWallMs": 288,
       "dataset": "atlas",
-      "thumbnailSha256": "8e13cf084bc19b7cd3ddf488910213b1b981d4400d70bef0cc041d87036a0c3c",
+      "thumbnailSha256": "80cb05b48d9055c2fa398eefee3d78329d95f981e6bbaa8bd8ab7a04732af30d",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.565,
@@ -2858,7 +2866,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (airport rail viaduct on piers); prior collection archived."
     },
     {
       "id": "aerial-r06-c03",
@@ -2883,13 +2893,13 @@
         -750,
         0
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 87,
-        "triangles": 268761,
-        "renderMs": 2,
+        "triangles": 186340,
+        "renderMs": 1.199999988079071,
         "quality": "high"
       },
       "traffic": {
@@ -2905,16 +2915,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:32:17.702Z",
-      "gamePath": "images/aerial-r06-c03.jpg",
-      "image": "images/aerial-r06-c03.jpg",
-      "thumbnail": "thumbs/aerial-r06-c03.jpg",
-      "sha256": "619b8707c38c0e6b109ea8f028df0d9a9242bb874f1852332d13cd519a5e0dfb",
+      "capturedAt": "2026-11-12T19:46:52.448Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c03.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c03.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r06-c03.jpg",
+      "sha256": "591a9beda4d2eacf868a930cf4897a28fa0791f02278208f571f9cf78a96903a",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8508,
+      "captureWallMs": 326,
       "dataset": "atlas",
-      "thumbnailSha256": "8cb15f6ab6e768cdc962b7c72b28b833e52b38b2ce01eae1a1ccba73de74b6f8",
+      "thumbnailSha256": "e2189a37c479c6251a14dd074c4d5df4ce520a3373d18f6177e4a8399b9fb4df",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.565,
@@ -2924,7 +2934,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (airport rail viaduct on piers); prior collection archived."
     },
     {
       "id": "aerial-r06-c04",
@@ -2949,13 +2961,13 @@
         -500,
         0
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 94,
-        "triangles": 279440,
-        "renderMs": 9,
+        "drawCalls": 96,
+        "triangles": 192706,
+        "renderMs": 1.199999988079071,
         "quality": "high"
       },
       "traffic": {
@@ -2971,16 +2983,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:32:26.210Z",
-      "gamePath": "images/aerial-r06-c04.jpg",
-      "image": "images/aerial-r06-c04.jpg",
-      "thumbnail": "thumbs/aerial-r06-c04.jpg",
-      "sha256": "de831ec4ffa69adeea27830e2736fa5237ecf62069d4f0dbf4cb14758c1f0637",
+      "capturedAt": "2026-11-12T19:46:52.774Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c04.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c04.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r06-c04.jpg",
+      "sha256": "907c9512167700d8cfd8e6f4c9500015ee4de65122b2901f12593a1e4d407c1a",
       "width": 640,
       "height": 640,
-      "captureWallMs": 9727,
+      "captureWallMs": 385,
       "dataset": "atlas",
-      "thumbnailSha256": "57660327ff7f02c40c00726e3b98af1cc5156c629eb2c4e8d55ec16057533abe",
+      "thumbnailSha256": "60ce1c8cfb64b9bbde94c1ba6aa1641ada4bc32a4816fce57ad7fe4473706d1e",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.565,
@@ -2990,7 +3002,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (DN1 central barrier between the carriageways); prior collection archived."
     },
     {
       "id": "aerial-r06-c05",
@@ -3609,13 +3623,13 @@
         -500,
         250
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 91,
-        "triangles": 321467,
-        "renderMs": 2.2999999970197678,
+        "triangles": 223626,
+        "renderMs": 1,
         "quality": "high"
       },
       "traffic": {
@@ -3631,16 +3645,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:33:21.193Z",
-      "gamePath": "images/aerial-r07-c04.jpg",
-      "image": "images/aerial-r07-c04.jpg",
-      "thumbnail": "thumbs/aerial-r07-c04.jpg",
-      "sha256": "2b1c734a4586650554bb21464dc63db934d59b070252bc4d153a1c691cb3e3c8",
+      "capturedAt": "2026-11-12T19:46:55.775Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c04.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c04.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r07-c04.jpg",
+      "sha256": "acdc2e4d936e96132c2b137fd05596d8a91b9332100a4c29b7db1a0554ff130c",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5447,
+      "captureWallMs": 374,
       "dataset": "atlas",
-      "thumbnailSha256": "0f165d1ef919daf7e45370bf1fa8f9148d384de60faf8b535788751daac23ba2",
+      "thumbnailSha256": "9620f113864362c81de20ce92f5d8181519fe3c88592ffb4cf0a1015642614a6",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.56275042292049,
@@ -3650,7 +3664,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (DN1 central barrier between the carriageways); prior collection archived."
     },
     {
       "id": "aerial-r07-c05",
@@ -4203,13 +4219,13 @@
         -500,
         500
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 102,
-        "triangles": 359563,
-        "renderMs": 14,
+        "triangles": 275739,
+        "renderMs": 1.5,
         "quality": "high"
       },
       "traffic": {
@@ -4225,16 +4241,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:33:58.223Z",
-      "gamePath": "images/aerial-r08-c04.jpg",
-      "image": "images/aerial-r08-c04.jpg",
-      "thumbnail": "thumbs/aerial-r08-c04.jpg",
-      "sha256": "394c9aae16f1d3ffbf97e48d7eb9047e098dd10068732d274ddea0ac75eb6728",
+      "capturedAt": "2026-11-12T19:46:58.761Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r08-c04.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r08-c04.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r08-c04.jpg",
+      "sha256": "2a99d2e913ef801a9e2d1453d38d2cfdbe2664c6f7c08000802a433702436b7a",
       "width": 640,
       "height": 640,
-      "captureWallMs": 6116,
+      "captureWallMs": 409,
       "dataset": "atlas",
-      "thumbnailSha256": "ee3ed19923c226ac52342cdb73e631c6dde26b1589b0e6706986d39d7403b553",
+      "thumbnailSha256": "bef702db8aa75289be324d8c7a18cfb7d31c9f768927c9961dc47de5b9865335",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.56050084584098,
@@ -4244,7 +4260,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (DN1 central barrier between the carriageways); prior collection archived."
     },
     {
       "id": "aerial-r08-c05",
@@ -4731,13 +4749,13 @@
         -500,
         750
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 98,
-        "triangles": 432080,
-        "renderMs": 9.699999999254942,
+        "drawCalls": 99,
+        "triangles": 346874,
+        "renderMs": 1.2000000029802322,
         "quality": "high"
       },
       "traffic": {
@@ -4753,16 +4771,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:34:58.307Z",
-      "gamePath": "images/aerial-r09-c04.jpg",
-      "image": "images/aerial-r09-c04.jpg",
-      "thumbnail": "thumbs/aerial-r09-c04.jpg",
-      "sha256": "af1d617ebce6913bc7ba8d38d64fa40fd260e204c1db88b5cc54173e8be7f619",
+      "capturedAt": "2026-11-12T19:47:01.511Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r09-c04.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r09-c04.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r09-c04.jpg",
+      "sha256": "c604d18c7d3d24dc17a41db69352eba53b1dc036f60fa26df199ba3449d2f8a8",
       "width": 640,
       "height": 640,
-      "captureWallMs": 9479,
+      "captureWallMs": 480,
       "dataset": "atlas",
-      "thumbnailSha256": "b25a467c4ca1649d2dddda6f0f43c886fb42aa514003516353365b1d9d378270",
+      "thumbnailSha256": "93e98b523536fc521a9c7ce92b884e6b1f337d2c7054b4cdad5764aeef34f941",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.558251268761474,
@@ -4772,7 +4790,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (DN1 footbridge and central barrier); prior collection archived."
     },
     {
       "id": "aerial-r09-c05",
@@ -5193,13 +5213,13 @@
         -500,
         1000
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 102,
-        "triangles": 471207,
-        "renderMs": 22.699999999254942,
+        "drawCalls": 103,
+        "triangles": 384254,
+        "renderMs": 1.4000000059604645,
         "quality": "high"
       },
       "traffic": {
@@ -5215,16 +5235,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:36:06.221Z",
-      "gamePath": "images/aerial-r10-c04.jpg",
-      "image": "images/aerial-r10-c04.jpg",
-      "thumbnail": "thumbs/aerial-r10-c04.jpg",
-      "sha256": "bcfee1dcef2442f5b57d46d4260a72a8b70623d3ee678fec6d9f28f2daa664bd",
+      "capturedAt": "2026-11-12T19:47:04.572Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r10-c04.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r10-c04.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r10-c04.jpg",
+      "sha256": "70ccd2c2553970efdb8394a59e10face82a682e93fff2f2fe993350401a7ab19",
       "width": 640,
       "height": 640,
-      "captureWallMs": 12178,
+      "captureWallMs": 417,
       "dataset": "atlas",
-      "thumbnailSha256": "b8b2ede64320475ec66f5c8528c68cb01250adf1b82ec139b26d998c50b24acd",
+      "thumbnailSha256": "5f0c33d60fce72998a04eacd8d6f3cab7a54d3b205be598045d0efe9453db658",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.55600169168196,
@@ -5234,7 +5254,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (DN1 central barrier between the carriageways); prior collection archived."
     },
     {
       "id": "aerial-r10-c05",
@@ -5655,13 +5677,13 @@
         -500,
         1250
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 100,
-        "triangles": 467258,
-        "renderMs": 51.70000000298023,
+        "triangles": 372633,
+        "renderMs": 0.7999999970197678,
         "quality": "high"
       },
       "traffic": {
@@ -5677,16 +5699,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:37:18.967Z",
-      "gamePath": "images/aerial-r11-c04.jpg",
-      "image": "images/aerial-r11-c04.jpg",
-      "thumbnail": "thumbs/aerial-r11-c04.jpg",
-      "sha256": "445f2996c277323da36c49e560418388347210312d4702457ff0879eda9c5eb1",
+      "capturedAt": "2026-11-12T19:47:07.232Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r11-c04.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r11-c04.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r11-c04.jpg",
+      "sha256": "3df944b990de498b92b947e3b5f9f24b9fa3753663a92d744a59bcecbc9f4b69",
       "width": 640,
       "height": 640,
-      "captureWallMs": 17957,
+      "captureWallMs": 438,
       "dataset": "atlas",
-      "thumbnailSha256": "a699273b68bf288622a4ebf9461542c5f7d8a0b6e2f410407cdcc294c8aa65e6",
+      "thumbnailSha256": "853c7dce000f0133184bc107684c27033ba76dd86038c0cdcdf589cf84ebf3b7",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.55375211460245,
@@ -5696,7 +5718,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (DN1 footbridge and central barrier); prior collection archived."
     },
     {
       "id": "aerial-r11-c05",
@@ -7153,15 +7177,17 @@
   ],
   "locationId": "otopeni",
   "captureType": "immutable-source-snapshot",
-  "description": "Mixed-source technical atlas: 12 terminal-affected original poses recaptured 11 November 2026 at b1e33eee. Other frames retain their recorded source and date.",
+  "description": "Mixed-source technical atlas: 12 poses retaken on 2026-11-12 at 346f7986 (airport rail viaduct, three DN1 footbridges, DN1 central barrier); all other images retain their recorded sources and dates.",
   "coverageNote": "107 captured 250 m squares: 26 touch the playable mask, 77 additional squares touch its exact 600 m ring and 4 are optional distant context. Boundary squares also include land beyond the ring.",
   "reviewNote": "Twelve affected current game frames inspected at full size. Source/aerial comparisons retain their historical review scope; no photographic parity claim.",
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 12 terminal-affected original poses recaptured 11 November 2026 at b1e33eee. Other frames retain their recorded source and date."
+    "atlas": "Mixed-source technical atlas: 12 poses retaken on 2026-11-12 at 346f7986 (airport rail viaduct, three DN1 footbridges, DN1 central barrier); all other images retain their recorded sources and dates."
   },
   "atlasSourceCounts": {
-    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 97,
-    "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 83,
+    "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 12,
+    "d8e7d119ba8dcc29fce289e8c9f988092507fc10": 2
   },
   "sourceCaptureManifest": {
     "path": "capture-manifest.json",
@@ -7201,11 +7227,16 @@
     "latestGameFrameSource": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
     "gameSourceCommit": null,
     "sourceCounts": {
-      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 97,
-      "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10
+      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 83,
+      "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10,
+      "346f798681d891de6cebfc9e1d094996b1ace2e3": 12,
+      "d8e7d119ba8dcc29fce289e8c9f988092507fc10": 2
     },
     "framesReviewed": 107,
-    "targetedRetakeReview": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/paired-review.json"
+    "targetedRetakeReview": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+    "earlierTargetedRetakeReviews": [
+      "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/paired-review.json"
+    ]
   },
   "groundConditions": {
     "manifest": "context/ground-b1e33eee/manifest.json",
@@ -7247,6 +7278,15 @@
       "manifestSha256": "61ad693705baa928ff4409d7fbdbd0dc8d9deadb62d4d897852337cec333332c",
       "sourceProvenance": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/source-provenance.json",
       "frames": 2
+    },
+    {
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "treeSha256": "deec28ca0450626951551fd3ef8430ddd963c659206d1fa313c5e2e0c6e7ddf0",
+      "manifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "manifestSha256": "229abe5b77a67a4d92a0f7460a95f7d60eb9c52015fb8a64c9f134a75f1a54c6",
+      "sourceProvenance": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/source-provenance.json",
+      "sourceProvenanceSha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47",
+      "frames": 12
     }
   ],
   "historicalCollections": [
@@ -7259,6 +7299,18 @@
       "sourceCounts": {
         "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 95,
         "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 12
+      },
+      "captureType": "mixed-source-survey"
+    },
+    {
+      "manifest": "historical/mixed-before-346f7986-70c1df8a/manifest.json",
+      "label": "Atlas before the 346f798 retake (airport rail viaduct, three DN1 footbridges, DN1 central barrier)",
+      "frames": 107,
+      "generatedAt": "2026-11-12T15:57:39.285Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 97,
+        "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10
       },
       "captureType": "mixed-source-survey"
     }

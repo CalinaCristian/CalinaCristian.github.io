@@ -1,0 +1,107 @@
+{
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r04-c04",
+    "aerial-r05-c04",
+    "aerial-r05-c05",
+    "aerial-r06-c01",
+    "aerial-r06-c02",
+    "aerial-r06-c03",
+    "aerial-r06-c04",
+    "aerial-r07-c04",
+    "aerial-r08-c04",
+    "aerial-r09-c04",
+    "aerial-r10-c04",
+    "aerial-r11-c04"
+  ],
+  "reviewedAt": "2026-11-12T20:43:16.079Z",
+  "method": "Published game capture, a 332ae423 render and the 346f7986 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r04-c04",
+      "originalGameSha256": "09b33a0a3ca60e545b82ec6d821472aedca8d84c0bdf289aec0c9a86884b0672",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "d72300be4f4993742b77c33af049ccf001f006673c60e0341de9401fab6a14c2",
+      "observation": "DN1 central barrier; footbridge stair foot at the south edge replaces the old crossed beams"
+    },
+    {
+      "id": "aerial-r05-c04",
+      "originalGameSha256": "0f451c90706fe7d84b34126e5f7a7415468e150e7f764a63a68f96fed0ed8d1f",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "f2856254767aba0f975297bfa26be1542f6cb810939e61355d7e81c0a25eaf76",
+      "observation": "airport rail viaduct over DN1, DN1 footbridge at the north edge, DN1 central barrier"
+    },
+    {
+      "id": "aerial-r05-c05",
+      "originalGameSha256": "bdf4cadad91c230e3e85c89ce143d42ec37a492dc8a79ca8815b1aa19f70b8ad",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "6d8a6ad96477448c1dffcd79b0cb14dc222156c2d145a115f5761c2f2383be59",
+      "observation": "airport rail viaduct curves across the tile"
+    },
+    {
+      "id": "aerial-r06-c01",
+      "originalGameSha256": "e0ca2ffe7dfb217dc167d45c231828cfd9662cc06aec0a844daab08f8520ae85",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "b282d96c99adf4cbf6075fd916bf5779505996cb97eeecf066bcfecb7c45b852",
+      "observation": "west end of the airport rail viaduct"
+    },
+    {
+      "id": "aerial-r06-c02",
+      "originalGameSha256": "1813be2c25707a40dbcb2ce76186d5005a97fe4d406972cf789a4c0283abacd2",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "4b486236f4536d6439609abd96820f5fe26c5719da46e511fdc4e9b720859c72",
+      "observation": "airport rail viaduct on piers"
+    },
+    {
+      "id": "aerial-r06-c03",
+      "originalGameSha256": "619b8707c38c0e6b109ea8f028df0d9a9242bb874f1852332d13cd519a5e0dfb",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "591a9beda4d2eacf868a930cf4897a28fa0791f02278208f571f9cf78a96903a",
+      "observation": "airport rail viaduct on piers"
+    },
+    {
+      "id": "aerial-r06-c04",
+      "originalGameSha256": "de831ec4ffa69adeea27830e2736fa5237ecf62069d4f0dbf4cb14758c1f0637",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "907c9512167700d8cfd8e6f4c9500015ee4de65122b2901f12593a1e4d407c1a",
+      "observation": "DN1 central barrier between the carriageways"
+    },
+    {
+      "id": "aerial-r07-c04",
+      "originalGameSha256": "2b1c734a4586650554bb21464dc63db934d59b070252bc4d153a1c691cb3e3c8",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "acdc2e4d936e96132c2b137fd05596d8a91b9332100a4c29b7db1a0554ff130c",
+      "observation": "DN1 central barrier between the carriageways"
+    },
+    {
+      "id": "aerial-r08-c04",
+      "originalGameSha256": "394c9aae16f1d3ffbf97e48d7eb9047e098dd10068732d274ddea0ac75eb6728",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "2a99d2e913ef801a9e2d1453d38d2cfdbe2664c6f7c08000802a433702436b7a",
+      "observation": "DN1 central barrier between the carriageways"
+    },
+    {
+      "id": "aerial-r09-c04",
+      "originalGameSha256": "af1d617ebce6913bc7ba8d38d64fa40fd260e204c1db88b5cc54173e8be7f619",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "c604d18c7d3d24dc17a41db69352eba53b1dc036f60fa26df199ba3449d2f8a8",
+      "observation": "DN1 footbridge and central barrier"
+    },
+    {
+      "id": "aerial-r10-c04",
+      "originalGameSha256": "bcfee1dcef2442f5b57d46d4260a72a8b70623d3ee678fec6d9f28f2daa664bd",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "70ccd2c2553970efdb8394a59e10face82a682e93fff2f2fe993350401a7ab19",
+      "observation": "DN1 central barrier between the carriageways"
+    },
+    {
+      "id": "aerial-r11-c04",
+      "originalGameSha256": "445f2996c277323da36c49e560418388347210312d4702457ff0879eda9c5eb1",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "3df944b990de498b92b947e3b5f9f24b9fa3753663a92d744a59bcecbc9f4b69",
+      "observation": "DN1 footbridge and central barrier"
+    }
+  ]
+}

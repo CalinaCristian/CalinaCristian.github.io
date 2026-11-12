@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "Unirii aerial comparisons",
-  "generatedDate": "2026-11-11",
-  "generatedAt": "2026-11-11T01:55:23.025Z",
+  "generatedDate": "2026-11-12",
+  "generatedAt": "2026-11-12T19:49:05.374Z",
   "defaultTile": "aerial-r07-c04",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -2038,16 +2038,19 @@
         -250,
         -250
       ],
-      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 108,
-        "triangles": 606289
+        "triangles": 568332,
+        "renderMs": 1.5,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 306
       },
       "renderer": {
         "width": 640,
@@ -2057,16 +2060,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T01:54:55.124Z",
-      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r04-c05.png",
-      "image": "retakes/signs-8add95f3/atlas/aerial-r04-c05.png",
-      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r04-c05.png",
-      "sha256": "3a846df26537530c7396509bd3670c621d8fafbe112404709611f2fb46040e25",
+      "capturedAt": "2026-11-12T19:48:34.020Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r04-c05.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r04-c05.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r04-c05.jpg",
+      "sha256": "cd025edf70bf931214646444115a611c77f15b69859afdd7500e2e31c6b3c4de",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7860,
+      "captureWallMs": 637,
       "dataset": "atlas",
-      "thumbnailSha256": "3a846df26537530c7396509bd3670c621d8fafbe112404709611f2fb46040e25",
+      "thumbnailSha256": "e0deb72985d4a53e83889a3bbf93fb4681124f3d4ad735afb807ed09d458fac7",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.43194957707951,
@@ -2077,8 +2080,8 @@
       "coverageType": "ring-touches",
       "orientation": "north-up",
       "places": [],
-      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
-      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (church in the park redrawn with its towers and domes (was a plain pitched roof)); prior collection archived.",
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
       "district": "unirii"
     },
     {
@@ -3523,16 +3526,19 @@
         -750,
         250
       ],
-      "gameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 116,
-        "triangles": 565384
+        "drawCalls": 114,
+        "triangles": 550733,
+        "renderMs": 1,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 306
       },
       "renderer": {
         "width": 640,
@@ -3542,16 +3548,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T00:31:07.485Z",
-      "gamePath": "retakes/b2c4ea4a/aerial-r06-c03.png",
-      "image": "retakes/b2c4ea4a/aerial-r06-c03.png",
-      "thumbnail": "retakes/b2c4ea4a/aerial-r06-c03.png",
-      "sha256": "b345071dc17d387e32020d493a100d7b2a978cde574f5b45d740b1627e338798",
+      "capturedAt": "2026-11-12T19:48:43.849Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c03.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c03.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r06-c03.jpg",
+      "sha256": "49ccfd89a5c0fabda6b314bb79991064d86067848982f8ddf58437fc8c1265f8",
       "width": 640,
       "height": 640,
-      "captureWallMs": 3669,
+      "captureWallMs": 417,
       "dataset": "atlas",
-      "thumbnailSha256": "b345071dc17d387e32020d493a100d7b2a978cde574f5b45d740b1627e338798",
+      "thumbnailSha256": "6611e71dceab198bad1eb03a2d68a52f27930c1421a679646f67a0ce35405d55",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         44.42745042292049,
@@ -3563,8 +3569,8 @@
       "orientation": "north-up",
       "places": [],
       "posePlanSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "sourceNote": "Current native recapture after physical fountain-tree conflict correction.",
-      "sourceCaptureManifest": "retakes/b2c4ea4a/capture-report.json"
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Dâmbovița is open water; the grass patches over the channel are gone); prior collection archived.",
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json"
     },
     {
       "id": "aerial-r06-c04",
@@ -3589,16 +3595,19 @@
         -500,
         250
       ],
-      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 121,
-        "triangles": 568100
+        "drawCalls": 122,
+        "triangles": 571095,
+        "renderMs": 1.6000000089406967,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 306
       },
       "renderer": {
         "width": 640,
@@ -3608,16 +3617,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T01:55:11.461Z",
-      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r06-c04.png",
-      "image": "retakes/signs-8add95f3/atlas/aerial-r06-c04.png",
-      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r06-c04.png",
-      "sha256": "2ae082958b8084e58b07724fb3f6a64c4d7fcc109d701510a4976dca7ad34f54",
+      "capturedAt": "2026-11-12T19:48:44.266Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c04.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c04.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r06-c04.jpg",
+      "sha256": "c6f0082c3e324690e741d4f451cc756cbbdc1d6c216e050e3b512a046ea7bb20",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8367,
+      "captureWallMs": 469,
       "dataset": "atlas",
-      "thumbnailSha256": "2ae082958b8084e58b07724fb3f6a64c4d7fcc109d701510a4976dca7ad34f54",
+      "thumbnailSha256": "38302be2bdfd443b95766248531689398bdf7c6e58bd7798534cb4f7402d5991",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         44.42745042292049,
@@ -3629,8 +3638,8 @@
       "orientation": "north-up",
       "places": [],
       "posePlanSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
-      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Dâmbovița is open water up to the covered section; grass patches gone); prior collection archived.",
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
       "district": "unirii"
     },
     {
@@ -4459,16 +4468,19 @@
         -250,
         500
       ],
-      "gameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 130,
-        "triangles": 665361
+        "drawCalls": 132,
+        "triangles": 692774,
+        "renderMs": 1.0999999940395355,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 306
       },
       "renderer": {
         "width": 640,
@@ -4478,16 +4490,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T00:31:22.808Z",
-      "gamePath": "retakes/b2c4ea4a/aerial-r07-c05.png",
-      "image": "retakes/b2c4ea4a/aerial-r07-c05.png",
-      "thumbnail": "retakes/b2c4ea4a/aerial-r07-c05.png",
-      "sha256": "563b27dc42249d3df338ba9d4bceeaa071f019bcf4544670e09d30a605e8561c",
+      "capturedAt": "2026-11-12T19:48:49.894Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c05.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c05.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r07-c05.jpg",
+      "sha256": "8b2668e6528f365ebbc4353cd1c68caab2784296019c4a661f6d6cd8d9d86f40",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8483,
+      "captureWallMs": 512,
       "dataset": "atlas",
-      "thumbnailSha256": "563b27dc42249d3df338ba9d4bceeaa071f019bcf4544670e09d30a605e8561c",
+      "thumbnailSha256": "7f50726603aafd0ed9276c0728bb7ab6575f7c11a31b2059f01326939d3721ef",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         44.425200845840976,
@@ -4499,8 +4511,8 @@
       "orientation": "north-up",
       "places": [],
       "posePlanSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "sourceNote": "Current native recapture after physical fountain-tree conflict correction.",
-      "sourceCaptureManifest": "retakes/b2c4ea4a/capture-report.json"
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Dâmbovița basin without grass patches); prior collection archived.",
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json"
     },
     {
       "id": "aerial-r07-c06",
@@ -4525,16 +4537,19 @@
         0,
         500
       ],
-      "gameSourceCommit": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 117,
-        "triangles": 520257
+        "triangles": 524274,
+        "renderMs": 2,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 306
       },
       "renderer": {
         "width": 640,
@@ -4544,16 +4559,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T00:31:25.091Z",
-      "gamePath": "retakes/b2c4ea4a/aerial-r07-c06.png",
-      "image": "retakes/b2c4ea4a/aerial-r07-c06.png",
-      "thumbnail": "retakes/b2c4ea4a/aerial-r07-c06.png",
-      "sha256": "dbeeae642ffc4bff9968353aa4f66d562a3da4a140804d23f79a42a02851048b",
+      "capturedAt": "2026-11-12T19:48:50.406Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c06.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c06.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r07-c06.jpg",
+      "sha256": "9b8b300464e97ae616db454e2c98ca5ed6454ed4eac86a3aa5d9bd11d2e43790",
       "width": 640,
       "height": 640,
-      "captureWallMs": 4389,
+      "captureWallMs": 448,
       "dataset": "atlas",
-      "thumbnailSha256": "dbeeae642ffc4bff9968353aa4f66d562a3da4a140804d23f79a42a02851048b",
+      "thumbnailSha256": "c59340fecd84b471321f746328ff25425bde03d6d1b44fc9c44b021755fa3bda",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         44.425200845840976,
@@ -4565,8 +4580,8 @@
       "orientation": "north-up",
       "places": [],
       "posePlanSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-      "sourceNote": "Current native recapture after physical fountain-tree conflict correction.",
-      "sourceCaptureManifest": "retakes/b2c4ea4a/capture-report.json"
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Dâmbovița without grass patches along both quays); prior collection archived.",
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json"
     },
     {
       "id": "aerial-r07-c07",
@@ -5000,19 +5015,19 @@
         -1000,
         750
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 94,
-        "triangles": 636326,
-        "renderMs": 1.9000000022351742,
+        "triangles": 431740,
+        "renderMs": 1.2999999970197678,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 305
+        "vehicleCount": 306
       },
       "renderer": {
         "width": 640,
@@ -5022,16 +5037,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:19:51.618Z",
-      "gamePath": "images/aerial-r08-c02.jpg",
-      "image": "images/aerial-r08-c02.jpg",
-      "thumbnail": "thumbs/aerial-r08-c02.jpg",
-      "sha256": "00edd8d7d1dd1de4d584ba64a1f66a9171e3f8774e9fbc3f159590a36d08ed8b",
+      "capturedAt": "2026-11-12T19:48:53.184Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r08-c02.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r08-c02.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r08-c02.jpg",
+      "sha256": "9a668ad8553be6c815f0f3cdd1d5d7dc77b478d25e958cd8f44e1bfbc06eecb6",
       "width": 640,
       "height": 640,
-      "captureWallMs": 18306,
+      "captureWallMs": 692,
       "dataset": "atlas",
-      "thumbnailSha256": "b31e8d9b8a38018d73f0a6b577bf5b4398918b769054f2694d7c643b12e3964a",
+      "thumbnailSha256": "1efcb6c02029cc989e03c8a660531c2a823f23eff7bfd579c50249eaa457d030",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.42295126876147,
@@ -5042,8 +5057,8 @@
       "coverageType": "ring-touches",
       "orientation": "north-up",
       "places": [],
-      "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (church redrawn with nave, towers and porch (was a plain red roof)); prior collection archived.",
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json"
     },
     {
       "id": "aerial-r08-c03",
@@ -6822,18 +6837,19 @@
   ],
   "locationId": "unirii",
   "captureType": "mixed-source-survey",
-  "description": "Mixed-source technical atlas: 10 sign-affected poses refreshed at 8add95f3; all other images retain their recorded sources and dates.",
+  "description": "Mixed-source technical atlas: 6 poses retaken on 2026-11-12 at 346f7986 (Dâmbovița free of grass with quay edges; two church models redrawn); all other images retain their recorded sources and dates.",
   "coverageNote": "98 captured 250 m squares: 26 touch the playable mask, 66 additional squares touch its exact 600 m ring and 6 are optional distant context. Boundary squares also include land beyond the ring.",
   "reviewNote": "Sign-affected current game captures inspected at full size; source/aerial comparisons retain their historical scope. No district fidelity acceptance.",
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 10 sign-affected poses refreshed at 8add95f3; all other images retain their recorded sources and dates."
+    "atlas": "Mixed-source technical atlas: 6 poses retaken on 2026-11-12 at 346f7986 (Dâmbovița free of grass with quay edges; two church models redrawn); all other images retain their recorded sources and dates."
   },
   "atlasSourceCounts": {
-    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 69,
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 68,
     "bbaffc0d6cdccb6246edeb9478c58590852980d9": 10,
-    "8add95f35681eddaf01a136ff1f5769a5329b102": 10,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 8,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 6,
     "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
-    "b2c4ea4a1ff792c53e4c052f258bd61942cf5195": 8
+    "b2c4ea4a1ff792c53e4c052f258bd61942cf5195": 5
   },
   "sourceCaptureManifest": {
     "path": "capture-manifest.json",
@@ -6872,7 +6888,7 @@
       "bbaffc0d6cdccb6246edeb9478c58590852980d9",
       "07cc3d6bcefe90967c5bde3af2237dab4b972705"
     ],
-    "targetedRetakeReview": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+    "targetedRetakeReview": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
     "atlasSourceNote": "Current source counts: 80 on 0775fdaf, 17 on bbaffc0d, 1 on 07cc3d6b. Earlier source-specific review blocks remain historical to their recorded revisions; the new structural subset has its own linked review.",
     "visualAcceptance": "All17actual before/current/private-Esri pairs inspected. Exact source water polygons remain; overlapping estimated fallback ribbons are clipped. Capture completeness is not photographic parity.",
     "targetedRemainingGaps": [
@@ -6884,9 +6900,12 @@
     "structureRetakeSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
     "structureRetakesReviewed": 1,
     "currentAtlasSourceCounts": {
-      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 80,
-      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 17,
-      "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1
+      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 68,
+      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 10,
+      "8add95f35681eddaf01a136ff1f5769a5329b102": 8,
+      "346f798681d891de6cebfc9e1d094996b1ace2e3": 6,
+      "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
+      "b2c4ea4a1ff792c53e4c052f258bd61942cf5195": 5
     },
     "priorCompleteReview": {
       "manifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/manifest.json",
@@ -6897,12 +6916,17 @@
     "priorTargetedRetakeReview": "retakes/bbaffc0d/paired-review.json",
     "structureRetakeReviewedAt": "2026-11-09T02:11:54.821237+00:00",
     "latestGameFramesInspected": 9,
-    "latestGameFrameSource": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195"
+    "latestGameFrameSource": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+    "earlierTargetedRetakeReviews": [
+      "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json"
+    ]
   },
   "comparisonSourceCommits": {
     "atlas": [
       "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
       "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "07cc3d6bcefe90967c5bde3af2237dab4b972705",
       "b2c4ea4a1ff792c53e4c052f258bd61942cf5195"
     ]
@@ -6966,6 +6990,15 @@
       "sourceProvenance": "retakes/b2c4ea4a/source-provenance.json",
       "sourceProvenanceSha256": "5fc36125eb97077da2e4b8a6b681673a75d5ccc868e3d8553fb7a1225157b04c",
       "frames": 9
+    },
+    {
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "treeSha256": "deec28ca0450626951551fd3ef8430ddd963c659206d1fa313c5e2e0c6e7ddf0",
+      "manifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "manifestSha256": "6d9e6ad62df10a2257673a3d625b82985308bf66ba9ed4e8c94472ba31bd5831",
+      "sourceProvenance": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/source-provenance.json",
+      "sourceProvenanceSha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47",
+      "frames": 6
     }
   ],
   "sourceCompatibility": {
@@ -7009,5 +7042,22 @@
       "aerial-r07-c04"
     ],
     "scope": "Conservative camera-frustum sphere intersections, 30m sign/shadow margin. Unplaced sign includes whole source building. No occlusion or distance culling assumed. Every condition of affected walking viewpoints included. Isolated model studies and standalone tourist scenes do not use district unit fascias."
-  }
+  },
+  "historicalCollections": [
+    {
+      "manifest": "historical/mixed-before-346f7986-5f5ce7fd/manifest.json",
+      "label": "Atlas before the 346f798 retake (Dâmbovița free of grass with quay edges; two church models redrawn)",
+      "frames": 98,
+      "generatedAt": "2026-11-11T01:55:23.025Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 69,
+        "bbaffc0d6cdccb6246edeb9478c58590852980d9": 10,
+        "8add95f35681eddaf01a136ff1f5769a5329b102": 10,
+        "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
+        "b2c4ea4a1ff792c53e4c052f258bd61942cf5195": 8
+      },
+      "captureType": "mixed-source-survey"
+    }
+  ]
 }

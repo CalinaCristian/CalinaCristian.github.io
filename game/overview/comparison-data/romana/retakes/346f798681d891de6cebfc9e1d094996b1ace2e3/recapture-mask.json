@@ -1,0 +1,68 @@
+{
+  "district": "romana",
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "tiles": [
+    {
+      "id": "aerial-r05-c04",
+      "reason": "Muzeul Antipa landmark model on Șos. Kiseleff"
+    },
+    {
+      "id": "aerial-r07-c07",
+      "reason": "Lascăr Catargiu statue on its square"
+    },
+    {
+      "id": "aerial-r10-c09",
+      "reason": "Arthur Verona fountain basin"
+    }
+  ],
+  "reason": "Antipa museum, Lascăr Catargiu statue, Arthur Verona fountain",
+  "originalManifestSha256": "45d48fde2e9de1883b7e9187593f8a22e0ef75da5736579af68c5d3ab8931dbe",
+  "totalFrames": 116,
+  "method": "Every atlas pose of the district was rendered at the retake commit and, for diagnosis only, at the range start 332ae423 (game images only, same tool and conditions). Poses were ranked by pixels that changed between those two renders and also differ from the published tile; each ranked pose was then compared by eye (published | 332ae423 render | retake, same pixels). A retake is kept only where a structure, water body, landmark or building model visibly changed. Not counted as a change: parked-car and tree-crown layouts, single-building roof tints, and re-surfaced central reservations (all differ between source revisions without a geometry change). Two renders of the same commit are structurally identical (no blurred difference at the 30/255 level in five districts checked).",
+  "baselineCommit": "332ae4237d93fbbe23f08e3ae8c8f1b94c1e8642",
+  "candidatesCaptured": 116,
+  "rejected": [
+    {
+      "ids": [
+        "aerial-r06-c03",
+        "aerial-r06-c04",
+        "aerial-r06-c05"
+      ],
+      "reason": "Pasajul Victoria / Victoriei: no visible change against the d8e7d119 retakes already published"
+    },
+    {
+      "ids": [
+        "aerial-r05-c05",
+        "aerial-r07-c04",
+        "aerial-r07-c05"
+      ],
+      "reason": "parked cars / roof tints only"
+    },
+    {
+      "ids": [
+        "aerial-r01-c03",
+        "aerial-r01-c04",
+        "aerial-r01-c05",
+        "aerial-r02-c02",
+        "aerial-r03-c01",
+        "aerial-r04-c01",
+        "aerial-r05-c01",
+        "aerial-r06-c02",
+        "aerial-r07-c02",
+        "aerial-r08-c02",
+        "aerial-r08-c03",
+        "aerial-r11-c12",
+        "aerial-r12-c12",
+        "aerial-r13-c09",
+        "aerial-r13-c10",
+        "aerial-r13-c11",
+        "aerial-r14-c08",
+        "aerial-r14-c09",
+        "aerial-r14-c10",
+        "context-northwest"
+      ],
+      "reason": "far backdrop blocks beyond the scenery ring differ at the retake commit (world.stats backdrop 4463 -> 4371; whole blocks are bare ground in r07-c02). Not one of the listed pass changes and partly an emptied frame, so it is reported to the owner instead of being published"
+    }
+  ],
+  "notRetaken": "Every other pose: no visible change between the 332ae423 and 346f7986 renders at the same pose, or only the differences listed under rejected."
+}

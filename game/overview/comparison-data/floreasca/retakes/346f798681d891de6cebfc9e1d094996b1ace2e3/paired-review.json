@@ -1,0 +1,27 @@
+{
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r01-c06",
+    "aerial-r08-c04"
+  ],
+  "reviewedAt": "2026-11-12T20:43:18.559Z",
+  "method": "Published game capture, a 332ae423 render and the 346f7986 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r01-c06",
+      "originalGameSha256": "ad145435435bf66f8becd21f5586d4d35e660bc7afcd31d1b3014f84d7e3d57e",
+      "originalGameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "retakeGameSha256": "9be821f751a62943ea0ad203c57260dbcb0e3a3c2467d14977476059c443525e",
+      "observation": "lake bridge: the two carriageway decks are separate with water between them and edge railings"
+    },
+    {
+      "id": "aerial-r08-c04",
+      "originalGameSha256": "4ad91dc949612b5eaa676c9a09a475c142cc8c2267003b416d5cf5e216fdde28",
+      "originalGameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "retakeGameSha256": "360f8995b0b1e14c2d79d394d3deeba686638a57c3ffc4772c22152657453608",
+      "observation": "Dinamo velodrome: oval infield and track instead of a rectangular pitch"
+    }
+  ]
+}

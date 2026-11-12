@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "SeaTac aerial comparisons",
-  "generatedDate": "2026-11-09",
-  "generatedAt": "2026-11-09T02:03:19.439Z",
+  "generatedDate": "2026-11-12",
+  "generatedAt": "2026-11-12T19:46:31.381Z",
   "defaultTile": "aerial-r09-c05",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -1888,13 +1888,13 @@
         -500,
         -750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 92,
-        "triangles": 255184,
-        "renderMs": 8.399999998509884,
+        "drawCalls": 89,
+        "triangles": 211720,
+        "renderMs": 1.699999988079071,
         "quality": "high"
       },
       "traffic": {
@@ -1910,16 +1910,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:02:47.320Z",
-      "gamePath": "images/aerial-r03-c07.jpg",
-      "image": "images/aerial-r03-c07.jpg",
-      "thumbnail": "thumbs/aerial-r03-c07.jpg",
-      "sha256": "8c2a824df9d61d1622eb039d379263401087cbfeed850a1b24889730ff884c6c",
+      "capturedAt": "2026-11-12T19:45:46.107Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r03-c07.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r03-c07.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r03-c07.jpg",
+      "sha256": "eade84476b323d99344214e276dde3711c5f4c39b4c9a4ea04415db091a4266f",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5255,
+      "captureWallMs": 431,
       "dataset": "atlas",
-      "thumbnailSha256": "176b06480bb6f27daa11fd87e1e41615002feab70273cd5a51de75416ea109f2",
+      "thumbnailSha256": "e42635f716ae93d507b694831a7446a1baacbea08febed205c567cc4e7f940b1",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.45674873123853,
@@ -1929,7 +1929,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (north end of the Link line on International Blvd: track bed redrawn where the guideway comes down, old platform boxes gone); prior collection archived."
     },
     {
       "id": "aerial-r03-c08",
@@ -3212,13 +3214,13 @@
         -500,
         -250
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 93,
-        "triangles": 356942,
-        "renderMs": 6.600000001490116,
+        "triangles": 288148,
+        "renderMs": 1.2999999970197678,
         "quality": "high"
       },
       "traffic": {
@@ -3234,16 +3236,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:05:05.198Z",
-      "gamePath": "images/aerial-r05-c07.jpg",
-      "image": "images/aerial-r05-c07.jpg",
-      "thumbnail": "thumbs/aerial-r05-c07.jpg",
-      "sha256": "0ac4809ed39a4134837569142a9df1774a5a81d4f594b2c8198256af696c49fa",
+      "capturedAt": "2026-11-12T19:45:53.641Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r05-c07.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r05-c07.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r05-c07.jpg",
+      "sha256": "310596783d175b0e517c0ad59fff37b82d54c16128ec6a7c267a11c51169b889",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8300,
+      "captureWallMs": 484,
       "dataset": "atlas",
-      "thumbnailSha256": "7df1fab3ea286b25279920c4883cdec322f09d3385f730eb089d2ed41400a914",
+      "thumbnailSha256": "1b602cb7c5856831fdf9e07443f5603ee3e846f775731f2cd4e3000ecc9b2b84",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.45224957707951,
@@ -3253,7 +3255,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (hotel block shows its windowed front; pre-pass strip structure at the junction is gone); prior collection archived."
     },
     {
       "id": "aerial-r05-c08",
@@ -3740,13 +3744,13 @@
         -1000,
         0
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 105,
-        "triangles": 268891,
-        "renderMs": 24.600000001490116,
+        "triangles": 162830,
+        "renderMs": 1.7000000029802322,
         "quality": "high"
       },
       "traffic": {
@@ -3762,16 +3766,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:05:55.690Z",
-      "gamePath": "images/aerial-r06-c05.jpg",
-      "image": "images/aerial-r06-c05.jpg",
-      "thumbnail": "thumbs/aerial-r06-c05.jpg",
-      "sha256": "4a56078b2de5705a415b13fde788c28d3ca450cf219eb31e1548ecbc7c1c32a1",
+      "capturedAt": "2026-11-12T19:45:56.527Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c05.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c05.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r06-c05.jpg",
+      "sha256": "a0ed1b4cbff9852d69c138649127be28d0ccb7ce1322c1bce7dbab96e847bd22",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8021,
+      "captureWallMs": 785,
       "dataset": "atlas",
-      "thumbnailSha256": "86168ed067acc4ec0f9f066d6e6e50adb25ad80a632568cc6f7dc4a613756279",
+      "thumbnailSha256": "93d791dc0780e14bbe9b541180aff42d4158814f42426adedd8dc9df7d04ede9",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.45,
@@ -3781,7 +3785,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Link aerial guideway now crosses the tile); prior collection archived."
     },
     {
       "id": "aerial-r06-c06",
@@ -4466,13 +4472,13 @@
         -750,
         250
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 108,
-        "triangles": 324184,
-        "renderMs": 2.800000000745058,
+        "drawCalls": 107,
+        "triangles": 242851,
+        "renderMs": 1.7000000029802322,
         "quality": "high"
       },
       "traffic": {
@@ -4488,16 +4494,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:07:07.084Z",
-      "gamePath": "images/aerial-r07-c06.jpg",
-      "image": "images/aerial-r07-c06.jpg",
-      "thumbnail": "thumbs/aerial-r07-c06.jpg",
-      "sha256": "969a86248adf48e96c5fab8e411f725e690b46b81a334597ae8cfccd1b501a8f",
+      "capturedAt": "2026-11-12T19:46:01.049Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c06.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c06.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r07-c06.jpg",
+      "sha256": "a43276860e7f8aa9c2ce01607a0d27005e01fda400c66116b0db00bb1c23102d",
       "width": 640,
       "height": 640,
-      "captureWallMs": 6936,
+      "captureWallMs": 558,
       "dataset": "atlas",
-      "thumbnailSha256": "47259c7d0e1a643d413d3e7d59ba8731e0f5101be31aee718c3adc055a94ebab",
+      "thumbnailSha256": "25c5ab79d1a47447a758a18d43c303530adf4fdc76bf4bc4a4563b06002600e6",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.44775042292049,
@@ -4507,7 +4513,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Link aerial guideway now runs along International Blvd); prior collection archived."
     },
     {
       "id": "aerial-r07-c07",
@@ -5138,13 +5146,13 @@
       "coverageType": "core-touches",
       "orientation": "north-up",
       "places": [],
-      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 105,
-        "triangles": 289229,
-        "renderMs": 10.299999997019768,
+        "drawCalls": 108,
+        "triangles": 352375,
+        "renderMs": 1.5,
         "quality": "high"
       },
       "traffic": {
@@ -5160,16 +5168,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T02:02:37.063Z",
-      "gamePath": "images/aerial-r08-c06.jpg",
-      "image": "images/aerial-r08-c06.jpg",
-      "thumbnail": "thumbs/aerial-r08-c06.jpg",
-      "sha256": "52d68505b25dd48577aa1aa1b58d6b79c03958db3d713e674d2ee372e454ab49",
+      "capturedAt": "2026-11-12T19:46:05.439Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r08-c06.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r08-c06.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r08-c06.jpg",
+      "sha256": "122ac600784b586ab4468c1a1f81667b39e8d1fc6b57a9f6f50fae6389fc94a6",
       "width": 640,
       "height": 640,
-      "captureWallMs": 3340,
+      "captureWallMs": 461,
       "dataset": "atlas",
-      "thumbnailSha256": "a8a9d12bef91ef4a4db982991f1ba277adf6b799d01307385e0e03f205e059ba",
+      "thumbnailSha256": "b06c9eccb8047e36b704cb5e0fc797b56ee0782357539529643045bc48d96d37",
       "captureType": "game-topdown",
       "boundsWgs84": [
         47.44550084584098,
@@ -5177,9 +5185,9 @@
         47.44775042292049,
         -122.29496303103195
       ],
-      "sourceCaptureManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
-      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
-      "sourceNote": "Exact original-pose structural/separator retake; original complete prior collection is archived byte-identically. Capture source is 07cc3d6b and capturedAt is the actual retake time; this frame is not relabelled as a later release."
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "reviewSourceManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Link aerial guideway now runs along International Blvd); prior collection archived."
     },
     {
       "id": "aerial-r08-c07",
@@ -5815,13 +5823,13 @@
       "places": [
         "sealink-source-anchor"
       ],
-      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 115,
-        "triangles": 332302,
-        "renderMs": 8.700000002980232,
+        "drawCalls": 116,
+        "triangles": 393691,
+        "renderMs": 2,
         "quality": "high"
       },
       "traffic": {
@@ -5837,16 +5845,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T02:02:54.723Z",
-      "gamePath": "images/aerial-r09-c06.jpg",
-      "image": "images/aerial-r09-c06.jpg",
-      "thumbnail": "thumbs/aerial-r09-c06.jpg",
-      "sha256": "d6299945e97f931603181a414c7947231c88078c87bad6b101b58e3b5b470436",
+      "capturedAt": "2026-11-12T19:46:10.073Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r09-c06.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r09-c06.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r09-c06.jpg",
+      "sha256": "66c01ec8543262dd222e79272d8f9f62ef19614b7ef8144ed4d3388dc1112ea7",
       "width": 640,
       "height": 640,
-      "captureWallMs": 1917,
+      "captureWallMs": 496,
       "dataset": "atlas",
-      "thumbnailSha256": "86b46f0e9b9bf6e2719a58246712630160f47f8e82961a24afe46722b10f8bf3",
+      "thumbnailSha256": "d49ef9f329789347542ab89422a1dcb345217b57e27e5e2c3879aa89a28c8553",
       "captureType": "game-topdown",
       "boundsWgs84": [
         47.44325126876148,
@@ -5854,9 +5862,9 @@
         47.44550084584098,
         -122.29496303103195
       ],
-      "sourceCaptureManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
-      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
-      "sourceNote": "Exact original-pose structural/separator retake; original complete prior collection is archived byte-identically. Capture source is 07cc3d6b and capturedAt is the actual retake time; this frame is not relabelled as a later release."
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "reviewSourceManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Link aerial guideway, SeaTac/Airport station footbridge and stair tower); prior collection archived."
     },
     {
       "id": "aerial-r09-c07",
@@ -5881,13 +5889,13 @@
         -500,
         750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 106,
-        "triangles": 393692,
-        "renderMs": 4.5,
+        "drawCalls": 104,
+        "triangles": 325787,
+        "renderMs": 1.3999999910593033,
         "quality": "high"
       },
       "traffic": {
@@ -5903,16 +5911,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:09:36.112Z",
-      "gamePath": "images/aerial-r09-c07.jpg",
-      "image": "images/aerial-r09-c07.jpg",
-      "thumbnail": "thumbs/aerial-r09-c07.jpg",
-      "sha256": "f2787389a010ad9eb43e670234256fd1b5ac8929800e5a3b68a69da83e1b467e",
+      "capturedAt": "2026-11-12T19:46:10.569Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r09-c07.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r09-c07.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r09-c07.jpg",
+      "sha256": "7d67204fb65ee901105686c2153d66395f871cc487df2f137ddb7dae7a380cb0",
       "width": 640,
       "height": 640,
-      "captureWallMs": 9074,
+      "captureWallMs": 420,
       "dataset": "atlas",
-      "thumbnailSha256": "f80e259c32bf01cba07354cea52ffd718b8e6f8815dace27d98326270ebc300d",
+      "thumbnailSha256": "ffe7eea1880d42c14fc7214f09aa7a8ac4a3abd769ec0d18a00c6bce610108c2",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.44325126876148,
@@ -5922,7 +5930,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (hotel beside the station shows its windowed fronts); prior collection archived."
     },
     {
       "id": "aerial-r09-c08",
@@ -6489,13 +6499,13 @@
       "coverageType": "core-touches",
       "orientation": "north-up",
       "places": [],
-      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 110,
-        "triangles": 387161,
-        "renderMs": 2.8000000044703484,
+        "drawCalls": 111,
+        "triangles": 429843,
+        "renderMs": 1.5,
         "quality": "high"
       },
       "traffic": {
@@ -6511,16 +6521,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T02:03:04.484Z",
-      "gamePath": "images/aerial-r10-c06.jpg",
-      "image": "images/aerial-r10-c06.jpg",
-      "thumbnail": "thumbs/aerial-r10-c06.jpg",
-      "sha256": "c13d4f42cf45cf393299541f52332e44698dac2dca0da5e7521318add2a8764d",
+      "capturedAt": "2026-11-12T19:46:14.559Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r10-c06.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r10-c06.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r10-c06.jpg",
+      "sha256": "8df52a17e62cb7bf28c63ee05f22b320067e7f3f6c40b046f9f0c11acefe2213",
       "width": 640,
       "height": 640,
-      "captureWallMs": 2603,
+      "captureWallMs": 618,
       "dataset": "atlas",
-      "thumbnailSha256": "bc25df9771b3a2d689c6c5e133ec2468a7fc489be439c2fe749d16c25dd4bcf9",
+      "thumbnailSha256": "a5f1277bd6753cfbdfba5d837f979fde445d1e6e02ceabf3fa84c6ad5ad45986",
       "captureType": "game-topdown",
       "boundsWgs84": [
         47.44100169168197,
@@ -6528,9 +6538,9 @@
         47.44325126876148,
         -122.29496303103195
       ],
-      "sourceCaptureManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
-      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
-      "sourceNote": "Exact original-pose structural/separator retake; original complete prior collection is archived byte-identically. Capture source is 07cc3d6b and capturedAt is the actual retake time; this frame is not relabelled as a later release."
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "reviewSourceManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Link aerial guideway south of the station); prior collection archived."
     },
     {
       "id": "aerial-r10-c07",
@@ -7161,13 +7171,13 @@
       "coverageType": "core-touches",
       "orientation": "north-up",
       "places": [],
-      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 106,
-        "triangles": 308195,
-        "renderMs": 3.7999999970197678,
+        "triangles": 342159,
+        "renderMs": 1.2999999970197678,
         "quality": "high"
       },
       "traffic": {
@@ -7183,16 +7193,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T02:03:13.036Z",
-      "gamePath": "images/aerial-r11-c06.jpg",
-      "image": "images/aerial-r11-c06.jpg",
-      "thumbnail": "thumbs/aerial-r11-c06.jpg",
-      "sha256": "6c4c43c46acb4126d0a49d430ea518557ca39b6dd59761ac39ae27fe05906770",
+      "capturedAt": "2026-11-12T19:46:18.429Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r11-c06.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r11-c06.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r11-c06.jpg",
+      "sha256": "066440307ab9fd22437980c87c935c13f9c39c0aa8fd707610354f8399b173a9",
       "width": 640,
       "height": 640,
-      "captureWallMs": 1894,
+      "captureWallMs": 437,
       "dataset": "atlas",
-      "thumbnailSha256": "36e6aa293b045c3dc43c534aabcb08fb0b51e3e3032ecf27b08dfc2ff9a04598",
+      "thumbnailSha256": "e8a43a4181aa8ea9c9bdfd963ef34f6f1eed706c9b3befa7f6948df145fec0f8",
       "captureType": "game-topdown",
       "boundsWgs84": [
         47.43875211460246,
@@ -7200,9 +7210,9 @@
         47.44100169168197,
         -122.29496303103195
       ],
-      "sourceCaptureManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
-      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
-      "sourceNote": "Exact original-pose structural/separator retake; original complete prior collection is archived byte-identically. Capture source is 07cc3d6b and capturedAt is the actual retake time; this frame is not relabelled as a later release."
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "reviewSourceManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Link aerial guideway now runs along International Blvd); prior collection archived."
     },
     {
       "id": "aerial-r11-c07",
@@ -7833,13 +7843,13 @@
       "coverageType": "core-touches",
       "orientation": "north-up",
       "places": [],
-      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 93,
-        "triangles": 314593,
-        "renderMs": 2.2000000029802322,
+        "triangles": 317544,
+        "renderMs": 2.5999999940395355,
         "quality": "high"
       },
       "traffic": {
@@ -7855,16 +7865,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T02:03:18.162Z",
-      "gamePath": "images/aerial-r12-c06.jpg",
-      "image": "images/aerial-r12-c06.jpg",
-      "thumbnail": "thumbs/aerial-r12-c06.jpg",
-      "sha256": "aa5bc3c3e270f24c59244e348336a9b36b87e101cbc8b5a892177262c165a016",
+      "capturedAt": "2026-11-12T19:46:22.289Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r12-c06.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r12-c06.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r12-c06.jpg",
+      "sha256": "0d77fc744455715c54a20affb56beedebfe22c0e6025ae363b3cb66c7e698884",
       "width": 640,
       "height": 640,
-      "captureWallMs": 1274,
+      "captureWallMs": 452,
       "dataset": "atlas",
-      "thumbnailSha256": "f73cc3b28a5539661f0ee978751eb3a56088ef679f5516acaf57e8def7b16229",
+      "thumbnailSha256": "0bd63cdadd625fbba11520ee298254e41cabeafadeef4e15210608a8b829d7e7",
       "captureType": "game-topdown",
       "boundsWgs84": [
         47.43650253752295,
@@ -7872,9 +7882,9 @@
         47.43875211460246,
         -122.29496303103195
       ],
-      "sourceCaptureManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
-      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
-      "sourceNote": "Exact original-pose structural/separator retake; original complete prior collection is archived byte-identically. Capture source is 07cc3d6b and capturedAt is the actual retake time; this frame is not relabelled as a later release."
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "reviewSourceManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Link aerial guideway now runs along International Blvd); prior collection archived."
     },
     {
       "id": "aerial-r12-c07",
@@ -7899,13 +7909,13 @@
         -500,
         1500
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 96,
-        "triangles": 313076,
-        "renderMs": 2.5,
+        "drawCalls": 94,
+        "triangles": 301900,
+        "renderMs": 1.300000011920929,
         "quality": "high"
       },
       "traffic": {
@@ -7921,16 +7931,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:12:57.008Z",
-      "gamePath": "images/aerial-r12-c07.jpg",
-      "image": "images/aerial-r12-c07.jpg",
-      "thumbnail": "thumbs/aerial-r12-c07.jpg",
-      "sha256": "1e622bd54567cb941b2d271f324d83fe96d15e76ecfcc75fea6c7eeb496bbbac",
+      "capturedAt": "2026-11-12T19:46:22.741Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r12-c07.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r12-c07.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r12-c07.jpg",
+      "sha256": "359479a7631bfbe583288eeebd513c7aff623267c54072f1d0bd9865a535ef6d",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7415,
+      "captureWallMs": 481,
       "dataset": "atlas",
-      "thumbnailSha256": "d681b4dd4815e8525ad505b17ca8d7da69f46283e88c6da5198001973d1ed123",
+      "thumbnailSha256": "46b9e3242bd3c9b11028a20335aaf6445a340ee553f5a890a5a31f145407e016",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.43650253752295,
@@ -7940,7 +7950,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (lakeside hotel shows windowed fronts instead of plain walls); prior collection archived."
     },
     {
       "id": "aerial-r12-c08",
@@ -8493,13 +8505,13 @@
         -750,
         1750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 84,
-        "triangles": 231908,
-        "renderMs": 2.399999998509884,
+        "triangles": 216415,
+        "renderMs": 1.4000000059604645,
         "quality": "high"
       },
       "traffic": {
@@ -8515,16 +8527,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:13:51.469Z",
-      "gamePath": "images/aerial-r13-c06.jpg",
-      "image": "images/aerial-r13-c06.jpg",
-      "thumbnail": "thumbs/aerial-r13-c06.jpg",
-      "sha256": "c087947530d5583baeb02c21ba2f585a8727f42b388891d0b508f0d11d76b6d3",
+      "capturedAt": "2026-11-12T19:46:26.172Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r13-c06.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r13-c06.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r13-c06.jpg",
+      "sha256": "22c44947bf4b48f935422da7eefeec0935d5e2e000f6c84f54a5041d9624d43d",
       "width": 640,
       "height": 640,
-      "captureWallMs": 10358,
+      "captureWallMs": 402,
       "dataset": "atlas",
-      "thumbnailSha256": "326d6758e28357da009c7225783c80ac49c4780cddbf662db5ca26374d582465",
+      "thumbnailSha256": "8d403fe3f5a8eec980c466c351a4c1a73dab3c29c727aa159aa14b4997efadca",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.43425296044344,
@@ -8534,7 +8546,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Link aerial guideway now runs along International Blvd); prior collection archived."
     },
     {
       "id": "aerial-r13-c07",
@@ -8559,13 +8573,13 @@
         -500,
         1750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 86,
-        "triangles": 277943,
-        "renderMs": 23.799999997019768,
+        "triangles": 252161,
+        "renderMs": 1.2999999970197678,
         "quality": "high"
       },
       "traffic": {
@@ -8581,16 +8595,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:14:01.828Z",
-      "gamePath": "images/aerial-r13-c07.jpg",
-      "image": "images/aerial-r13-c07.jpg",
-      "thumbnail": "thumbs/aerial-r13-c07.jpg",
-      "sha256": "3da0d744b7458d2ec5710aaeada2b0b06d40e66d55dd1ae6a337849a1ee87a48",
+      "capturedAt": "2026-11-12T19:46:26.574Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r13-c07.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r13-c07.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r13-c07.jpg",
+      "sha256": "8654ee5dc75dcb69438e5fb7141909d37159335c30f06c26d1d26e49506d5ed3",
       "width": 640,
       "height": 640,
-      "captureWallMs": 12657,
+      "captureWallMs": 428,
       "dataset": "atlas",
-      "thumbnailSha256": "c9f8e20904ea6d153c3dbdd0347cdfc92117f14cc8ab5be53d0665b1a826349e",
+      "thumbnailSha256": "8c1dfabf90e084cb8222fc05e1dc59801d8df57b6be43a5fedf341758e24e47e",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.43425296044344,
@@ -8600,7 +8614,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (hotel blocks show windowed fronts instead of plain walls); prior collection archived."
     },
     {
       "id": "aerial-r13-c08",
@@ -9021,13 +9037,13 @@
         -750,
         2000
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 68,
-        "triangles": 147832,
-        "renderMs": 6.100000001490116,
+        "triangles": 138731,
+        "renderMs": 0.7999999970197678,
         "quality": "high"
       },
       "traffic": {
@@ -9043,16 +9059,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:14:59.269Z",
-      "gamePath": "images/aerial-r14-c06.jpg",
-      "image": "images/aerial-r14-c06.jpg",
-      "thumbnail": "thumbs/aerial-r14-c06.jpg",
-      "sha256": "9f14f8d022b352c353231570e2ad459270445ba375f24442357f862b702b1817",
+      "capturedAt": "2026-11-12T19:46:29.055Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r14-c06.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r14-c06.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r14-c06.jpg",
+      "sha256": "6b82b535e663ceff76bff2201f0dde5487b53c465913a80ff511bd59a94d7e23",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7033,
+      "captureWallMs": 385,
       "dataset": "atlas",
-      "thumbnailSha256": "de2cbdeace839d20158b17297756a5a7c8a295628a293304d998a2eaf59af197",
+      "thumbnailSha256": "b0ee32eaa0e28a61ddc6e3061225c712caf88a6f349f257d674be652f5ea6e70",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.43200338336393,
@@ -9062,7 +9078,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Link aerial guideway reaches the south edge); prior collection archived."
     },
     {
       "id": "aerial-r14-c07",
@@ -11778,8 +11796,9 @@
     "structureRetakeSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
     "structureRetakesReviewed": 20,
     "currentAtlasSourceCounts": {
-      "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 119,
-      "07cc3d6bcefe90967c5bde3af2237dab4b972705": 20
+      "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 110,
+      "346f798681d891de6cebfc9e1d094996b1ace2e3": 14,
+      "07cc3d6bcefe90967c5bde3af2237dab4b972705": 15
     },
     "priorCompleteReview": {
       "manifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/seatac/historical/full-before-07cc3d6b-2215e3c4/manifest.json",
@@ -11788,18 +11807,20 @@
     },
     "status": "Complete retained earlier review coverage plus 20 fresh exact-pose structural/separator pairs inspected; genuine source-height, materials, context and imagery-date limits remain.",
     "realWorldParityAccepted": false,
-    "structureRetakeReviewedAt": "2026-11-09T02:11:54.813785+00:00"
+    "structureRetakeReviewedAt": "2026-11-09T02:11:54.813785+00:00",
+    "targetedRetakeReview": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json"
   },
   "reviewNote": "Complete retained earlier review coverage plus 20 fresh exact-pose structural/separator pairs inspected; genuine source-height, materials, context and imagery-date limits remain.",
   "comparisonSourceCommits": {
     "atlas": [
       "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "07cc3d6bcefe90967c5bde3af2237dab4b972705"
     ],
     "streetWalk": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a"
   },
   "collectionNotes": {
-    "atlas": "Current complete mixed-source atlas: 119 frames on c78a5f4c, 20 frames on 07cc3d6b. Actual per-frame source/date retained; only the conservative structure/separator subset is fresh 07cc3d6b. Full prior current collection archived. Technical aerial settings and separate native limitations remain.",
+    "atlas": "Mixed-source technical atlas: 14 poses retaken on 2026-11-12 at 346f7986 (Link aerial guideway and SeaTac/Airport station footbridge; windowed hotel fronts); all other images retain their recorded sources and dates.",
     "streetWalk": "Immutable source 4378317. Every available comparison pose, game image only. Reference imagery remains outside git; official reference URLs and dates are retained. Camera season follows reference metadata month. These762 GAME frames are historical BEFORE evidence from4378317. They predate independently measured airside aircraft and integrated source-grade/performance changes. Current aerial/aircraft/native evidence has its own c78a5f4 revision; the earlier walk is not relabelled as current."
   },
   "aerial": {
@@ -11811,8 +11832,9 @@
     "extent": "250 m ground-plane square, north-up; elevated roofs project larger under the perspective camera."
   },
   "atlasSourceCounts": {
-    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 119,
-    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 20
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 110,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 14,
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 15
   },
   "sourceCaptureManifest": {
     "path": "capture-manifest.json",
@@ -11837,6 +11859,15 @@
       "sourceProvenance": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/source-provenance.json",
       "sourceProvenanceSha256": "2dbf8cccf115f2480bceb9900813fc92bff9e09747d189106613557df19422c3",
       "frames": 20
+    },
+    {
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "treeSha256": "deec28ca0450626951551fd3ef8430ddd963c659206d1fa313c5e2e0c6e7ddf0",
+      "manifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "manifestSha256": "9cd49578c9e997281c59140a683976643b8a80cf5c8f9b211f8b572f82e04d46",
+      "sourceProvenance": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/source-provenance.json",
+      "sourceProvenanceSha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47",
+      "frames": 14
     }
   ],
   "sourceCaptureManifests": [
@@ -11878,5 +11909,19 @@
     "gameSourceCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
     "conditionCount": 4,
     "viewpointCount": 4
-  }
+  },
+  "historicalCollections": [
+    {
+      "manifest": "historical/mixed-before-346f7986-b7da813f/manifest.json",
+      "label": "Atlas before the 346f798 retake (Link aerial guideway and SeaTac/Airport station footbridge; windowed hotel fronts)",
+      "frames": 139,
+      "generatedAt": "2026-11-09T02:03:19.439Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 119,
+        "07cc3d6bcefe90967c5bde3af2237dab4b972705": 20
+      },
+      "captureType": "mixed-source-survey"
+    }
+  ]
 }

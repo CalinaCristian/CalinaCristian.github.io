@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "Pipera aerial comparisons",
-  "generatedDate": "2026-11-11",
-  "generatedAt": "2026-11-11T01:53:05.160Z",
+  "generatedDate": "2026-11-12",
+  "generatedAt": "2026-11-12T19:51:55.293Z",
   "defaultTile": "aerial-r08-c13",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -3971,19 +3971,19 @@
         -750,
         250
       ],
-      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 126,
-        "triangles": 361030,
-        "renderMs": 8.399999998509884,
+        "drawCalls": 127,
+        "triangles": 330396,
+        "renderMs": 3,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 306
+        "vehicleCount": 303
       },
       "renderer": {
         "width": 640,
@@ -3993,16 +3993,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T02:04:34.500Z",
-      "gamePath": "images/aerial-r05-c06.jpg",
-      "image": "images/aerial-r05-c06.jpg",
-      "thumbnail": "thumbs/aerial-r05-c06.jpg",
-      "sha256": "f80a26d53491f87c32cbdeef2412be96532a4efaa920483b362f41e8c12d3414",
+      "capturedAt": "2026-11-12T19:51:24.545Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r05-c06.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r05-c06.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r05-c06.jpg",
+      "sha256": "5ddba3af19cf8d173f28899b219d3c2978ae5b26691a63062a25100c3bd1db13",
       "width": 640,
       "height": 640,
-      "captureWallMs": 2712,
+      "captureWallMs": 498,
       "dataset": "atlas",
-      "thumbnailSha256": "eabaf23189bd6d0a7c26ce7ee3e12228d8937b0c22da1c7458759f25686b0012",
+      "thumbnailSha256": "3ab9ef066e395976f4903670bc847dbe5dc7181acd16865a9b669b83f0c8a60a",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.47775042292049,
@@ -4010,9 +4010,9 @@
         44.48,
         26.10355728048669
       ],
-      "sourceCaptureManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
-      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
-      "sourceNote": "Exact original-pose structural/separator retake; original complete prior collection is archived byte-identically. Capture source is 07cc3d6b and capturedAt is the actual retake time; this frame is not relabelled as a later release."
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "reviewSourceManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Promenada west front carries the tenant fascia band (thin at this scale); the earlier tile also predates junction changes made before the range); prior collection archived."
     },
     {
       "id": "aerial-r05-c07",
@@ -6215,19 +6215,19 @@
         -250,
         750
       ],
-      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 93,
-        "triangles": 268540,
-        "renderMs": 7.100000001490116,
+        "drawCalls": 92,
+        "triangles": 255509,
+        "renderMs": 1.0999999940395355,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 306
+        "vehicleCount": 303
       },
       "renderer": {
         "width": 640,
@@ -6237,16 +6237,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:43:41.011Z",
-      "gamePath": "images/aerial-r07-c08.jpg",
-      "image": "images/aerial-r07-c08.jpg",
-      "thumbnail": "thumbs/aerial-r07-c08.jpg",
-      "sha256": "96fb14cfd4aa4fdcf6552faa6cc0601a1611ee4ea93420fc001d93e378c51b58",
+      "capturedAt": "2026-11-12T19:51:39.085Z",
+      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c08.jpg",
+      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c08.jpg",
+      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r07-c08.jpg",
+      "sha256": "33d54b4e3608b09edc9dcd7901378aebb6914b92a7a50c8888b07202e55decab",
       "width": 640,
       "height": 640,
-      "captureWallMs": 1960,
+      "captureWallMs": 386,
       "dataset": "atlas",
-      "thumbnailSha256": "d76849b2c9f5dcd95647d70dc0c54971d219b0469dc19e873ffa27759cb24c64",
+      "thumbnailSha256": "0debb8004611c3a8203c0a5027c80a84b44b9d591e43527d3bfac44beb0f49d8",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47325126876147,
@@ -6254,9 +6254,9 @@
         44.475500845840976,
         26.109852426828898
       ],
-      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
-      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
-      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
+      "sourceNote": "Exact-pose scoped retake at 346f7986 (Petricani bridge: separate decks with water between them and railings); prior collection archived.",
+      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "reviewSourceManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json"
     },
     {
       "id": "aerial-r07-c09",
@@ -8978,7 +8978,7 @@
     "acquisitionDate": null,
     "delivery": "Live image request; no reference imagery is stored in this repository."
   },
-  "description": "Mixed-source technical atlas: 2 sign-affected poses refreshed at 8add95f3; all other images retain their recorded sources and dates.",
+  "description": "Mixed-source technical atlas: 2 poses retaken on 2026-11-12 at 346f7986 (Petricani water-bridge decks and railings; Promenada tenant front); all other images retain their recorded sources and dates.",
   "coverageNote": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score. Boundary cells also contain land outside the source ring.",
   "reviewNote": "Sign-affected current game captures inspected at full size; source/aerial comparisons retain their historical scope. No district fidelity acceptance.",
   "review": {
@@ -9006,7 +9006,7 @@
       "framesInOriginalReview": 133,
       "framesRetainedHere": 96
     },
-    "targetedRetakeReview": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+    "targetedRetakeReview": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
     "findings": [
       {
         "ids": [
@@ -9263,9 +9263,11 @@
     "structureRetakeSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
     "structureRetakesReviewed": 2,
     "currentAtlasSourceCounts": {
-      "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 96,
-      "07cc3d6bcefe90967c5bde3af2237dab4b972705": 2,
-      "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 35
+      "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 94,
+      "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
+      "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
+      "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
+      "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 34
     },
     "priorCompleteReview": {
       "manifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/manifest.json",
@@ -9274,21 +9276,27 @@
     },
     "realWorldParityAccepted": false,
     "priorTargetedRetakeReview": "retakes/bc9a3ff3/paired-review.json",
-    "structureRetakeReviewedAt": "2026-11-09T02:11:54.820077+00:00"
+    "structureRetakeReviewedAt": "2026-11-09T02:11:54.820077+00:00",
+    "earlierTargetedRetakeReviews": [
+      "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json"
+    ]
   },
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 2 sign-affected poses refreshed at 8add95f3; all other images retain their recorded sources and dates."
+    "atlas": "Mixed-source technical atlas: 2 poses retaken on 2026-11-12 at 346f7986 (Petricani water-bridge decks and railings; Promenada tenant front); all other images retain their recorded sources and dates."
   },
   "atlasSourceCounts": {
     "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 94,
-    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 2,
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
     "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
-    "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 35
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
+    "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 34
   },
   "comparisonSourceCommits": {
     "atlas": [
       "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
       "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58"
     ]
   },
@@ -9337,6 +9345,15 @@
       "sourceProvenance": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/source-provenance.json",
       "sourceProvenanceSha256": "2dbf8cccf115f2480bceb9900813fc92bff9e09747d189106613557df19422c3",
       "frames": 2
+    },
+    {
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "treeSha256": "deec28ca0450626951551fd3ef8430ddd963c659206d1fa313c5e2e0c6e7ddf0",
+      "manifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "manifestSha256": "f44bf382c923bbdbf72600c61c9555302e81002ca22a05790b8fa870b4abdf76",
+      "sourceProvenance": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/source-provenance.json",
+      "sourceProvenanceSha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47",
+      "frames": 2
     }
   ],
   "sourceCompatibility": {
@@ -9361,5 +9378,21 @@
       "aerial-r05-c04"
     ],
     "scope": "Conservative camera-frustum sphere intersections, 30m sign/shadow margin. Unplaced sign includes whole source building. No occlusion or distance culling assumed. Every condition of affected walking viewpoints included. Isolated model studies and standalone tourist scenes do not use district unit fascias."
-  }
+  },
+  "historicalCollections": [
+    {
+      "manifest": "historical/mixed-before-346f7986-1410987d/manifest.json",
+      "label": "Atlas before the 346f798 retake (Petricani water-bridge decks and railings; Promenada tenant front)",
+      "frames": 133,
+      "generatedAt": "2026-11-11T01:53:05.160Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 94,
+        "07cc3d6bcefe90967c5bde3af2237dab4b972705": 2,
+        "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
+        "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 35
+      },
+      "captureType": "mixed-source-survey"
+    }
+  ]
 }

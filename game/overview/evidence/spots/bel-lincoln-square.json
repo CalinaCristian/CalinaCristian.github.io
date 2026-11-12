@@ -38,7 +38,7 @@
       "url": "https://en.wikipedia.org/wiki/Bellevue_Arts_Museum"
     },
     {
-      "label": "Lincoln Square North office tower (2005), 700 Bellevue Way NE \u2014 UiPath Bellevue, Suite 2000",
+      "label": "Lincoln Square North office tower (2005), 700 Bellevue Way NE — UiPath Bellevue, Suite 2000",
       "type": "OSM source",
       "url": "https://www.openstreetmap.org/way/604028609"
     },
@@ -138,7 +138,7 @@
       "url": "https://www.openstreetmap.org/way/516915099"
     },
     {
-      "label": "Bellevue Arts Museum building (2001, Steven Holl) \u2014 sale to KidsQuest Children's Museum announced Oct 2025",
+      "label": "Bellevue Arts Museum building (2001, Steven Holl) — sale to KidsQuest Children's Museum announced Oct 2025",
       "type": "OSM source",
       "url": "https://www.openstreetmap.org/way/33613449"
     },
@@ -156,17 +156,34 @@
       "label": "Native desktop source-facade shutters",
       "type": "Native GAME proof; scope recorded separately",
       "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/lincoln-front-desktop/results.json"
+    },
+    {
+      "label": "District fidelity pass scene change (91f5bf7)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/91f5bf79e37c294e2f453bded42e4efe2e409523"
+    },
+    {
+      "label": "District fidelity pass scene change (b498520)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/b498520f0935dfeab8d55cd65eb1cc43c460f427"
+    },
+    {
+      "label": "District fidelity pass scene change (9d86fd8)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9d86fd88dd72ef83d785982e70ac9b89bcbba146"
     }
   ],
   "improvements": [
     "Current native scene retains 97 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
     "Physical entry approach; three source-facade shutters; actual touch walk 2.106 m around the retained obstructing visitor, same opaque gate, persistence",
-    "The selected primary activity approach is accepted separately from full-scene comparison."
+    "The selected primary activity approach is accepted separately from full-scene comparison.",
+    "District fidelity pass, 91f5bf7 / b498520 / 9d86fd8 (range 332ae423..346f7986): Glazed Crate & Barrel corner and restaurant row, Bellevue Place precast, Cinemark and podium tenant signs; the Lincoln Square podium is cream stone with open steel-truss skybridges."
   ],
   "remainingGaps": [
     "No private office visit; complete architecture comparison remains open",
     "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
-    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
+    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 7593b63 or earlier, before the district fidelity pass, and were not re-run at 346f798."
   ],
   "checks": [
     {
@@ -177,7 +194,7 @@
     {
       "label": "Native phone condition controls",
       "passed": true,
-      "details": "Actual390\u00d7844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
+      "details": "Actual390×844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
     },
     {
       "label": "Selected primary activity entry",
@@ -198,12 +215,22 @@
       "label": "Current exhaustive physical audit",
       "passed": null,
       "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
+    },
+    {
+      "label": "Visitor views recaptured after the district fidelity pass",
+      "passed": true,
+      "details": "346f798: scene view and complete phone page recaptured (scene, phone-ui-touch); peak 285,805 triangles / 220 draw calls in these frames. Every picture was inspected after capture. Appearance only; no route, activity or reference-match claim."
+    },
+    {
+      "label": "Validation frames and native proofs re-run at 346f798",
+      "passed": false,
+      "details": "Not re-run. The validation captures and proofs above keep their original source and date and describe the scene before the pass."
     }
   ],
   "captures": [
     {
       "kind": "arrival",
-      "label": "Current arrival appearance \u00b7 fixed camera",
+      "label": "Current arrival appearance · fixed camera",
       "image": "assets/spots/bel-lincoln-square/mall-7593b636/arrival.png",
       "sha256": "f868296e629ca6af5e9e1dd5fef01fcfe06992e4d5fbd59acf9cc6125ce43c4e",
       "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
@@ -289,7 +316,7 @@
     },
     {
       "kind": "activity-approach",
-      "label": "Current camera-challenge approach \u00b7 fixed camera",
+      "label": "Current camera-challenge approach · fixed camera",
       "image": "assets/spots/bel-lincoln-square/mall-7593b636/approach.png",
       "sha256": "f94b962d3b3b694f1f0cbe8a2e508913de369199959423193b562e8f34b340e7",
       "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
@@ -375,7 +402,7 @@
     },
     {
       "kind": "phone",
-      "label": "Current portrait appearance \u00b7 native UI and inspection panel",
+      "label": "Current portrait appearance · native UI and inspection panel",
       "image": "assets/spots/bel-lincoln-square/mall-7593b636/phone.png",
       "sha256": "854b15ba1a6b81fba7a8e59d85845a9b7fb0bb1d6d27038aefc4a6d2e29b539c",
       "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
@@ -544,7 +571,7 @@
     },
     "collection": "previous-context-gallery"
   },
-  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical entry approach; three source-facade shutters; actual touch walk 2.106 m around the retained obstructing visitor, same opaque gate, persistence No private office visit; complete architecture comparison remains open Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical entry approach; three source-facade shutters; actual touch walk 2.106 m around the retained obstructing visitor, same opaque gate, persistence No private office visit; complete architecture comparison remains open Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates.",
   "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
   "menuAvailable": false,
   "captureSourceCommits": [
@@ -591,198 +618,219 @@
   ],
   "visitorGallery": {
     "id": "bel-lincoln-square",
-    "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
     "captures": [
       {
         "kind": "scene",
-        "label": "Lincoln Square tower and street frontage",
-        "image": "assets/spots/bel-lincoln-square/mall-7593b636/visitor.png",
-        "sha256": "1d7f2f5ce9418a43fb36389605725bed54dc3b5d6b48daf81ab3b1df4af9d2fb",
-        "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
-        "capturedAt": "2026-11-11T03:04:30.231Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "capturedAt": "2026-11-12T19:49:55.982Z",
         "viewport": {
           "width": 1280,
-          "height": 800
+          "height": 720
+        },
+        "position": {
+          "x": -2,
+          "z": 2,
+          "y": -0.01344555988907814,
+          "heading": -2.53072734375
         },
         "pose": {
-          "eye": [
+          "position": [
             -2,
             1.6365544401109218,
             2
           ],
-          "bearing": 145,
-          "pitch": 18,
-          "fov": 60
+          "bearing": 144.9999958952285,
+          "pitch": 18.000001805734975
         },
         "conditions": {
-          "date": "2026-07-15T19:00:00.000Z",
-          "timeZone": "America/Los_Angeles",
+          "tod": "day",
           "weather": "clear",
           "season": "summer"
         },
-        "inspection": {
-          "schemaVersion": 1,
-          "inspection": true,
-          "reportedAt": "2026-11-11T03:04:25.189Z",
-          "release": "game-dc1b7ab415b7eb7a",
-          "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
-          "city": "seattle",
-          "district": null,
-          "visit": "bel-lincoln-square",
-          "scene": "bel-lincoln-square",
-          "office": null,
-          "mode": "spot",
-          "drone": false,
-          "geographic": {
-            "lat": 47.617532,
-            "lon": -122.2019766
+        "simulationDate": "2026-11-12T19:49:55.268Z",
+        "triangles": 285805,
+        "drawCalls": 220,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "31ceeb4d7617af406c58ef983b17c61f879a83bd485235936319aa1a6501b51d",
+        "bytes": 70066,
+        "fullPageHUD": false,
+        "image": "assets/spots/bel-lincoln-square/visit-346f7986/scene.webp",
+        "captureRecord": "assets/spots/bel-lincoln-square/visit-346f7986/capture.json",
+        "setup": {
+          "arrival": {
+            "x": -3,
+            "z": -3,
+            "y": 0.06298680044710636,
+            "heading": -2.356194490192345
+          },
+          "authoredViewpoint": {
+            "view": null,
+            "id": "bel-lincoln-square",
+            "x": -2,
+            "z": 2,
+            "bearing": 145,
+            "pitch": 18,
+            "fov": 60,
+            "text": "Lincoln Square North (UiPath) and One Lincoln Tower over Bellevue Way",
+            "r": 12,
+            "tol": 35,
+            "targets": [],
+            "condHint": null
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "bel-lincoln-square",
+            "x": -2,
+            "z": 2,
+            "bearing": 145,
+            "pitch": 18,
+            "fov": 60,
+            "text": "Lincoln Square North (UiPath) and One Lincoln Tower over Bellevue Way",
+            "r": 12,
+            "tol": 35,
+            "targets": [],
+            "condHint": null
           },
           "position": {
             "x": -2,
-            "y": -0.013,
-            "z": 2
+            "z": 2,
+            "y": -0.01344555988907814,
+            "heading": 0
           },
-          "camera": {
-            "eye": [
-              -2,
-              1.637,
-              2
-            ],
-            "bearing": 145,
-            "pitch": 18,
-            "fov": 60
+          "walker": "OnFootController",
+          "sceneId": "bel-lincoln-square",
+          "origin": {
+            "lat": 47.61755,
+            "lon": -122.20195,
+            "elev": 49.5
           },
-          "conditions": {
-            "date": "2026-07-15T19:00:00.000Z",
-            "timeZone": "America/Los_Angeles",
-            "weather": "clear",
-            "season": "summer"
-          },
-          "performance": {
-            "fps": 0.59,
-            "frameMs": 4999.4,
-            "drawCalls": 213,
-            "triangles": 360974,
-            "pixelRatio": 1,
-            "shadows": 4096,
-            "post": "full",
-            "quality": "high",
-            "auto": false,
-            "level": 1,
-            "trafficUpdateMs": null
-          },
-          "url": "http://127.0.0.1:45003/game/?inspect=1"
+          "projection": {
+            "mLat": 111182.88,
+            "mLon": 75175.27
+          }
         },
-        "bodyClear": true,
-        "controllerExercised": false,
-        "limitations": [
-          "Fixed supported native viewpoint. No new traversed route, activity completion, touch gesture or architectural-parity acceptance."
-        ],
-        "fullPageHUD": false,
+        "label": "Lincoln Square tower and street frontage",
         "purpose": "Current native viewpoint after the shared mall repair; fixed setup, no new route or gesture acceptance."
       },
       {
         "kind": "phone-ui-touch",
-        "label": "Portrait scene and native touch interface \u00b7 static setup",
-        "image": "assets/spots/bel-lincoln-square/mall-7593b636/visitor-phone.png",
-        "sha256": "9c23749129de376aca2fa6e78f0b97b64f4e7637e45de80228356de3274536ec",
-        "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
-        "capturedAt": "2026-11-11T03:04:19.632Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "capturedAt": "2026-11-12T19:49:56.212Z",
         "viewport": {
           "width": 390,
           "height": 844
         },
+        "position": {
+          "x": -2,
+          "z": 2,
+          "y": -0.01344555988907814,
+          "heading": -2.53072740234375
+        },
         "pose": {
-          "eye": [
+          "position": [
             -2,
             1.6365544401109218,
             2
           ],
-          "bearing": 145,
-          "pitch": 18,
-          "fov": 60
+          "bearing": 144.9999992524031,
+          "pitch": 18.000001805734975
         },
         "conditions": {
-          "date": "2026-07-15T19:00:00.000Z",
-          "timeZone": "America/Los_Angeles",
+          "tod": "day",
           "weather": "clear",
           "season": "summer"
         },
-        "inspection": {
-          "schemaVersion": 1,
-          "inspection": true,
-          "reportedAt": "2026-11-11T03:04:15.267Z",
-          "release": "game-dc1b7ab415b7eb7a",
-          "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
-          "city": "seattle",
-          "district": null,
-          "visit": "bel-lincoln-square",
-          "scene": "bel-lincoln-square",
-          "office": null,
-          "mode": "spot",
-          "drone": false,
-          "geographic": {
-            "lat": 47.617532,
-            "lon": -122.2019766
+        "simulationDate": "2026-11-12T19:49:55.497Z",
+        "triangles": 269443,
+        "drawCalls": 72,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "24357d64ef3db617998510f336d6a52bed555166398e228721244d0d246505b3",
+        "bytes": 79409,
+        "fullPageHUD": true,
+        "image": "assets/spots/bel-lincoln-square/visit-346f7986/phone-ui-touch.jpg",
+        "captureRecord": "assets/spots/bel-lincoln-square/visit-346f7986/capture.json",
+        "setup": {
+          "arrival": {
+            "x": -3,
+            "z": -3,
+            "y": 0.06298680044710636,
+            "heading": -2.356194490192345
+          },
+          "authoredViewpoint": {
+            "view": null,
+            "id": "bel-lincoln-square",
+            "x": -2,
+            "z": 2,
+            "bearing": 145,
+            "pitch": 18,
+            "fov": 60,
+            "text": "Lincoln Square North (UiPath) and One Lincoln Tower over Bellevue Way",
+            "r": 12,
+            "tol": 35,
+            "targets": [],
+            "condHint": null
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "bel-lincoln-square",
+            "x": -2,
+            "z": 2,
+            "bearing": 145,
+            "pitch": 18,
+            "fov": 60,
+            "text": "Lincoln Square North (UiPath) and One Lincoln Tower over Bellevue Way",
+            "r": 12,
+            "tol": 35,
+            "targets": [],
+            "condHint": null
           },
           "position": {
             "x": -2,
-            "y": -0.013,
-            "z": 2
+            "z": 2,
+            "y": -0.01344555988907814,
+            "heading": 0
           },
-          "camera": {
-            "eye": [
-              -2,
-              1.637,
-              2
-            ],
-            "bearing": 145,
-            "pitch": 18,
-            "fov": 60
+          "walker": "OnFootController",
+          "sceneId": "bel-lincoln-square",
+          "origin": {
+            "lat": 47.61755,
+            "lon": -122.20195,
+            "elev": 49.5
           },
-          "conditions": {
-            "date": "2026-07-15T19:00:00.000Z",
-            "timeZone": "America/Los_Angeles",
-            "weather": "clear",
-            "season": "summer"
-          },
-          "performance": {
-            "fps": 0.3,
-            "frameMs": 3321.9,
-            "drawCalls": 155,
-            "triangles": 347874,
-            "pixelRatio": 1,
-            "shadows": 4096,
-            "post": "full",
-            "quality": "high",
-            "auto": false,
-            "level": 1,
-            "trafficUpdateMs": null
-          },
-          "url": "http://127.0.0.1:39185/game/?inspect=1"
+          "projection": {
+            "mLat": 111182.88,
+            "mLon": 75175.27
+          }
         },
-        "bodyClear": true,
-        "controllerExercised": false,
-        "limitations": [
-          "Fixed supported native viewpoint. No new traversed route, activity completion, touch gesture or architectural-parity acceptance."
-        ],
-        "fullPageHUD": true,
+        "label": "Portrait scene and native touch interface · static setup",
         "purpose": "Current native viewpoint after the shared mall repair; fixed setup, no new route or gesture acceptance."
       }
     ],
     "limitations": [
-      "Current static appearance only; prior physical route/touch evidence remains historical.",
-      "The source mall model is shared with the Bellevue district; this refresh does not accept the overall scene architecture."
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
     ],
-    "updatedAt": "2026-11-11T03:04:30.231Z",
-    "notice": "Current appearance after the Bellevue mall overlap repair. Other scene fidelity and access work remains open.",
-    "setup": "Fixed native on-foot poses with supported floor/body queries; no route or new gesture claim.",
     "reports": [
       {
-        "label": "Mall repair and current scene capture provenance",
-        "report": "assets/spots/bel-lincoln-square/mall-7593b636/captures.json"
+        "label": "Scene and portrait capture record, 346f798",
+        "report": "assets/spots/bel-lincoln-square/visit-346f7986/capture.json",
+        "sha256": "bb58615a6b4411a40db2e3061c68b6a2573dc3019a2c55f2c9ac0d12e7881200"
       }
-    ]
+    ],
+    "updatedAt": "2026-11-12T19:49:56.212Z",
+    "notice": "Recaptured from game source 346f798 after the district fidelity pass. The earlier 7593b63 views are kept in this record as historical.",
+    "setup": "Explicit production on-foot viewpoints with native touch look, at 1280 × 720 and as the complete 390 × 844 phone page. The scene-authored postcard pose is used unless a limitation below says otherwise. No route, reference match or release acceptance is implied."
   },
   "historicalCaptures": [
     {
@@ -1102,7 +1150,7 @@
             }
           },
           "label": "Phone view with the native touch interface",
-          "purpose": "Entire 390 \u00d7 844 game page; native portrait look gestures and HUD."
+          "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
         }
       ],
       "limitations": [
@@ -1127,5 +1175,222 @@
       "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
       "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
     }
-  ]
+  ],
+  "historicalCollections": [
+    {
+      "id": "visitor-gallery-7593b636",
+      "label": "Visitor views before the district fidelity pass",
+      "status": "historical",
+      "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "supersededBy": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededAt": "2026-11-12T20:03:08.418Z",
+      "reason": "The scene changed in 332ae423..346f7986; these pictures show the earlier scene and are kept with their original source, dates and capture records.",
+      "notice": "Current appearance after the Bellevue mall overlap repair. Other scene fidelity and access work remains open.",
+      "setup": "Fixed native on-foot poses with supported floor/body queries; no route or new gesture claim.",
+      "limitations": [
+        "Current static appearance only; prior physical route/touch evidence remains historical.",
+        "The source mall model is shared with the Bellevue district; this refresh does not accept the overall scene architecture."
+      ],
+      "updatedAt": "2026-11-11T03:04:30.231Z",
+      "reports": [
+        {
+          "label": "Mall repair and current scene capture provenance",
+          "report": "assets/spots/bel-lincoln-square/mall-7593b636/captures.json"
+        }
+      ],
+      "captures": [
+        {
+          "kind": "scene",
+          "label": "Lincoln Square tower and street frontage",
+          "image": "assets/spots/bel-lincoln-square/mall-7593b636/visitor.png",
+          "sha256": "1d7f2f5ce9418a43fb36389605725bed54dc3b5d6b48daf81ab3b1df4af9d2fb",
+          "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+          "capturedAt": "2026-11-11T03:04:30.231Z",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "pose": {
+            "eye": [
+              -2,
+              1.6365544401109218,
+              2
+            ],
+            "bearing": 145,
+            "pitch": 18,
+            "fov": 60
+          },
+          "conditions": {
+            "date": "2026-07-15T19:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "inspection": {
+            "schemaVersion": 1,
+            "inspection": true,
+            "reportedAt": "2026-11-11T03:04:25.189Z",
+            "release": "game-dc1b7ab415b7eb7a",
+            "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
+            "city": "seattle",
+            "district": null,
+            "visit": "bel-lincoln-square",
+            "scene": "bel-lincoln-square",
+            "office": null,
+            "mode": "spot",
+            "drone": false,
+            "geographic": {
+              "lat": 47.617532,
+              "lon": -122.2019766
+            },
+            "position": {
+              "x": -2,
+              "y": -0.013,
+              "z": 2
+            },
+            "camera": {
+              "eye": [
+                -2,
+                1.637,
+                2
+              ],
+              "bearing": 145,
+              "pitch": 18,
+              "fov": 60
+            },
+            "conditions": {
+              "date": "2026-07-15T19:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "weather": "clear",
+              "season": "summer"
+            },
+            "performance": {
+              "fps": 0.59,
+              "frameMs": 4999.4,
+              "drawCalls": 213,
+              "triangles": 360974,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1,
+              "trafficUpdateMs": null
+            },
+            "url": "http://127.0.0.1:45003/game/?inspect=1"
+          },
+          "bodyClear": true,
+          "controllerExercised": false,
+          "limitations": [
+            "Fixed supported native viewpoint. No new traversed route, activity completion, touch gesture or architectural-parity acceptance."
+          ],
+          "fullPageHUD": false,
+          "purpose": "Current native viewpoint after the shared mall repair; fixed setup, no new route or gesture acceptance."
+        },
+        {
+          "kind": "phone-ui-touch",
+          "label": "Portrait scene and native touch interface · static setup",
+          "image": "assets/spots/bel-lincoln-square/mall-7593b636/visitor-phone.png",
+          "sha256": "9c23749129de376aca2fa6e78f0b97b64f4e7637e45de80228356de3274536ec",
+          "sourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+          "capturedAt": "2026-11-11T03:04:19.632Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "pose": {
+            "eye": [
+              -2,
+              1.6365544401109218,
+              2
+            ],
+            "bearing": 145,
+            "pitch": 18,
+            "fov": 60
+          },
+          "conditions": {
+            "date": "2026-07-15T19:00:00.000Z",
+            "timeZone": "America/Los_Angeles",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "inspection": {
+            "schemaVersion": 1,
+            "inspection": true,
+            "reportedAt": "2026-11-11T03:04:15.267Z",
+            "release": "game-dc1b7ab415b7eb7a",
+            "source": "99856bfde0fb51b44f4abffad70018d8e18c7d74",
+            "city": "seattle",
+            "district": null,
+            "visit": "bel-lincoln-square",
+            "scene": "bel-lincoln-square",
+            "office": null,
+            "mode": "spot",
+            "drone": false,
+            "geographic": {
+              "lat": 47.617532,
+              "lon": -122.2019766
+            },
+            "position": {
+              "x": -2,
+              "y": -0.013,
+              "z": 2
+            },
+            "camera": {
+              "eye": [
+                -2,
+                1.637,
+                2
+              ],
+              "bearing": 145,
+              "pitch": 18,
+              "fov": 60
+            },
+            "conditions": {
+              "date": "2026-07-15T19:00:00.000Z",
+              "timeZone": "America/Los_Angeles",
+              "weather": "clear",
+              "season": "summer"
+            },
+            "performance": {
+              "fps": 0.3,
+              "frameMs": 3321.9,
+              "drawCalls": 155,
+              "triangles": 347874,
+              "pixelRatio": 1,
+              "shadows": 4096,
+              "post": "full",
+              "quality": "high",
+              "auto": false,
+              "level": 1,
+              "trafficUpdateMs": null
+            },
+            "url": "http://127.0.0.1:39185/game/?inspect=1"
+          },
+          "bodyClear": true,
+          "controllerExercised": false,
+          "limitations": [
+            "Fixed supported native viewpoint. No new traversed route, activity completion, touch gesture or architectural-parity acceptance."
+          ],
+          "fullPageHUD": true,
+          "purpose": "Current native viewpoint after the shared mall repair; fixed setup, no new route or gesture acceptance."
+        }
+      ]
+    }
+  ],
+  "visitorGalleryRecapture": {
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "assembledAt": "2026-11-12T20:03:08.418Z",
+    "passRange": "332ae423..346f7986",
+    "sceneCommits": [
+      "91f5bf79e37c294e2f453bded42e4efe2e409523",
+      "b498520f0935dfeab8d55cd65eb1cc43c460f427",
+      "9d86fd88dd72ef83d785982e70ac9b89bcbba146"
+    ],
+    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes.",
+    "sourceVerification": {
+      "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
+      "checkedAt": "2026-11-12T20:03:08.417Z"
+    }
+  }
 }

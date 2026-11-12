@@ -672,7 +672,10 @@ function stbTram(kind = 'v3a') {
     b.add(BOX, M(0, 5.77, pz + 0.3, 1.5, 0.04, 0.08), '#3a3b3e', { r: 0.4, m: 0.5 });
     const farSegs = secs.map(([a, c]) => [a, c]);
     const far = farBox(L, W, H, { winY: [imperio ? 1.05 : 1.45, H - 0.45], segs: farSegs });
-    return { geo: b.build(), length: L, width: W, height: H, paint: imperio ? '#f4c300' : '#f2c230', far, transit: 'tram' };
+    // (owner, 2026-11-12, Grozavesti Basarab: "fences are not continuous on the bridge") the body is articulated: each section
+    // rides the rail on its own (traffic.js poses them, tram-sweep.js and the rail guard cover them), so on a bend it follows
+    // the track instead of one rigid 27 / 36 m box swinging its ends 1.3 m out over the deck's railing line
+    return { geo: b.build(), length: L, width: W, height: H, paint: imperio ? '#f4c300' : '#f2c230', far, transit: 'tram', sections: secs.map(([z0, z1]) => ({ z0, z1 })) };
 }
 
 function mergeGeos(a, b) {
@@ -759,10 +762,38 @@ function vehicleModel(kind, city) {
         m = cache[key] = BUILDERS[kind](c);
         m.key = key; m.kind = kind;
         m.geo.computeBoundingSphere(); m.radius = Math.hypot(m.length / 2, m.width / 2, (m.height || 2) / 2);
+        if (m.sections) m.sectionModels = sectionModels(m);
         // split into painted body + parts for the classic (non-instanced) meshes
         m.split = null;
     }
     return m;
+}
+/** the triangles of g whose centroid z lies in [lo, hi), moved by dz along z (one tram section, centred on its own origin) */
+function sliceZ(g, lo, hi, dz) {
+    const p = g.attributes.position, n = g.attributes.normal, c = g.attributes.color, a = g.attributes.aMat, idx = g.index, out = new Batch(), map = new Map();
+    for (let i = 0; i < idx.count; i += 3) {
+        const tri = [idx.getX(i), idx.getX(i + 1), idx.getX(i + 2)], cz = (p.getZ(tri[0]) + p.getZ(tri[1]) + p.getZ(tri[2])) / 3;
+        if (cz < lo || cz >= hi) continue;
+        for (const v of tri) {
+            let j = map.get(v);
+            if (j === undefined) {
+                j = out.n++; map.set(v, j);
+                out.pos.push(p.getX(v), p.getY(v), p.getZ(v) + dz); out.nor.push(n.getX(v), n.getY(v), n.getZ(v));
+                out.col.push(c.getX(v), c.getY(v), c.getZ(v)); out.mat.push(a ? a.getX(v) : 0, a ? a.getY(v) : 0, a ? a.getZ(v) : 0, a ? a.getW(v) : 0);
+            }
+            out.idx.push(j);
+        }
+    }
+    return out.build(!!a);
+}
+/** articulated models: one instanced model per section (cut half way across each joint gap), centred on the section */
+function sectionModels(m) {
+    const S = m.sections, last = S.length - 1;
+    return S.map((q, i) => {
+        const lo = i ? (S[i - 1].z1 + q.z0) / 2 : -Infinity, hi = i < last ? (q.z1 + S[i + 1].z0) / 2 : Infinity, centerZ = (q.z0 + q.z1) / 2, length = q.z1 - q.z0;
+        const geo = sliceZ(m.geo, lo, hi, -centerZ), far = sliceZ(m.far, lo, hi, -centerZ);
+        return { key: m.key + '#' + i, kind: m.kind, geo, far, length, width: m.width, height: m.height, transit: m.transit, centerZ, radius: Math.hypot(length / 2 + .5, m.width / 2, (m.height || 2) / 2) };
+    });
 }
 function splitModel(m, lod = 'near') {
     if (lod === 'parked') return m.splitParked || (m.splitParked = splitGeo(m.parked || m.far));
@@ -1098,6 +1129,8 @@ export function makeVehicle(kind, color, opts = {}) {
     const grp = new THREE.Group();
     const u = grp.userData;
     u.length = m.length; u.width = m.width; u.height = m.height; u.kind = m.kind; u.city = HOME[m.kind] || city; u.transit = m.transit || null;
+    // (articulated body: each section's centre, forward of the body centre, and its length)
+    if (m.sections) u.sections = m.sections.map(q => ({ along: -(q.z0 + q.z1) / 2, length: q.z1 - q.z0 }));
     const extras = [];
     if (m.taxiSign) {
         const s = getTaxiSign();
@@ -1113,6 +1146,15 @@ export function makeVehicle(kind, color, opts = {}) {
         u.setLights = (on) => { u._lights = !!on; };
         u.setBrake = (on) => { u._brake = on == null ? null : (on ? 1 : 0); };
         u.setColor = (c) => { u._paint.set(c); };
+        if (m.sectionModels) { // one instanced child per section; the owner (traffic.js) poses them along the rail
+            u._sectionGroups = m.sectionModels.map(sm => {
+                const c = new THREE.Group(), cu = c.userData; c.position.z = sm.centerZ;
+                cu._model = sm; cu._paint = u._paint; cu._brakeK = 0; cu._autoBrake = true; cu.instanced = true; cu.section = true; cu._extras = null;
+                Object.defineProperty(cu, '_lights', { get: () => u._lights }); Object.defineProperty(cu, '_brake', { get: () => u._brake });
+                grp.add(c); LIVE.add(new WeakRef(c)); return c;
+            });
+            return grp;
+        }
         LIVE.add(new WeakRef(grp));
         return grp;
     }

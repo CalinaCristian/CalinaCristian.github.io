@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "id": "antipa",
+  "city": "bucharest",
+  "name": "Muzeul Antipa",
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4530955,
+    "lon": 26.0846273
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/23610985",
+      "label": "OSM w23610985 · museum footprint (live 2026-11-12 per the source comment); no height or levels tagged",
+      "type": "osm"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/346f798681d891de6cebfc9e1d094996b1ace2e3/game/research/bucharest-romana.md",
+      "label": "District dossier: facade colour #E3D6B8",
+      "type": "research"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/92828915d2c35ad97bc9926a19496c5086005744",
+      "label": "Antipa museum added as a landmark (9282891)",
+      "type": "implementation"
+    }
+  ],
+  "sourceIds": [
+    "w23610985"
+  ],
+  "reviewedAt": "2026-11-12",
+  "improvements": [
+    "The Grigore Antipa museum is a landmark on its mapped footprint: two tall storeys under a cornice, a raised central pavilion with a pediment and an engaged-column porch on the Sos. Kiseleff (east) front. It replaces a generic 5.8 m building."
+  ],
+  "remainingGaps": [
+    "Cornice height (13.5 m), pavilion height (18.5 m), bay spacing, window sizes and the porch order are estimates: OSM gives no height or levels. The look comes from a street-level view used as reference only.",
+    "Roof form is a flat grey cap; the real roofscape was not surveyed.",
+    "Isolated model studies; placement, floodlighting at night and neighbours in the Romana district were not captured for this record."
+  ],
+  "checks": [
+    {
+      "label": "Registry identity",
+      "passed": true,
+      "details": "id, name, anchor and sourceIds are read from game/src/landmarks.js at 346f798."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run at 346f798 on 2026-11-12: passed, 2133 checks over 67 models; this model 1172 triangles, 1 collision volumes."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-12; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "Matched Street View / aerial comparison",
+      "passed": false,
+      "details": "No matched reference comparison was made for this record. The source comments name a street-level look as viewed reference only; no reference imagery is stored or published."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/antipa/source-346f7986/front.webp",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "sha256": "332fc5ac4bd061a29a2a499ed8e7bdb68e234e1dcca8a96138e52d4b7d79309f",
+      "bytes": 17536,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-12T19:45:17.838Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=antipa&clean=1&fountains=on&view=street&az=111.8",
+        "anchor": {
+          "lat": 44.4530955,
+          "lon": 26.0846273,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            83.80861077380384,
+            1.3,
+            -33.5220769656055
+          ],
+          "quaternion": [
+            0.026755384188469056,
+            0.82711684907286,
+            -0.039517537308150844,
+            0.5600002068230064
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 1805.300537109375,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -27.292770385742188,
+            0,
+            -40.79119110107422
+          ],
+          "max": [
+            27.290395736694336,
+            22.100000381469727,
+            40.79009246826172
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "North-up orthographic model study",
+      "kind": "top",
+      "image": "assets/landmarks/antipa/source-346f7986/top.webp",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "sha256": "ed44cfe3bd792b2f43f9705c6b34293b5176857bd8a782e3e4ffb8b1a1ea07f0",
+      "bytes": 13844,
+      "width": 720,
+      "height": 720,
+      "capturedAt": "2026-11-12T19:45:18.406Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=antipa&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4530955,
+          "lon": 26.0846273,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "orthographic",
+          "position": [
+            -0.0011873245239257812,
+            120.73428932189941,
+            -0.00054931640625
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 2414.685786437988,
+          "viewport": [
+            720,
+            720
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -49.31714447021484,
+          "right": 49.31714447021484,
+          "top": 49.31714447021484,
+          "bottom": -49.31714447021484,
+          "zoom": 1,
+          "groundSquareM": 98.63428894042968,
+          "groundWidthM": 98.63428894042968,
+          "groundDepthM": 98.63428894042968,
+          "orientation": "north-up"
+        },
+        "bounds": {
+          "min": [
+            -27.292770385742188,
+            0,
+            -40.79119110107422
+          ],
+          "max": [
+            27.290395736694336,
+            22.100000381469727,
+            40.79009246826172
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/antipa/source-346f7986/oblique.webp",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "sha256": "102bf9063d2ff69180bff4bb179db098793590e624f6bc132cb4381f7c5d6174",
+      "bytes": 27260,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-12T19:45:18.995Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=antipa&clean=1&fountains=on&view=oblique&az=146.8&el=28",
+        "anchor": {
+          "lat": 44.4530955,
+          "lon": 26.0846273,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            60.97130356396357,
+            68.04713292991084,
+            -93.1762818880116
+          ],
+          "quaternion": [
+            -0.06911427139338557,
+            0.9298562983973292,
+            0.23183921381055883,
+            0.27720220193981254
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 2522.2883544205297,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -27.292770385742188,
+            0,
+            -40.79119110107422
+          ],
+          "max": [
+            27.290395736694336,
+            22.100000381469727,
+            40.79009246826172
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 1174,
+    "drawCalls": 3,
+    "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
+  },
+  "sourceVerification": {
+    "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
+    "checkedAt": "2026-11-12T20:03:08.417Z"
+  },
+  "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
+}

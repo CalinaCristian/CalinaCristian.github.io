@@ -3,14 +3,15 @@
   "id": "sealink",
   "city": "seattle",
   "name": "SeaTac/Airport Link station",
-  "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
   "status": "in-progress",
   "coordinates": {
     "lat": 47.4452089,
     "lon": -122.2969786
   },
   "sourceIds": [
-    "w54139654"
+    "w54139654",
+    "w469766788"
   ],
   "replacementScope": "Only the explicit source IDs represent authored replacement. Empty scope means context geometry only; never remove neighbours by radius, name or centroid.",
   "sources": [
@@ -38,19 +39,57 @@
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13",
       "label": "Accepted production explicit-ID source replacement; implementation scope only (2c73f3d9)",
       "type": "implementation"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/469766788",
+      "label": "OSM w469766788 · stair / lift tower east of International Blvd (now part of this model)",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/469766790",
+      "label": "OSM w469766790 · east footbridge outline, bridge:structure=beam",
+      "type": "osm"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/56d62e1f130bd8a72ea2db3fa8f1c8363ed61e4a",
+      "label": "Truss station footbridge and stair tower (56d62e1)",
+      "type": "implementation"
     }
   ],
   "improvements": [
     "Retained the mapped station/guideway alignment and changed the elevated platform from 15 m to the published approximately 60 ft / 18 m.",
-    "Declared only the actual station building w54139654 for replacement; platform and public pedestrian links remain separate source context."
+    "Declared only the actual station building w54139654 for replacement; platform and public pedestrian links remain separate source context.",
+    "The east footbridge over International Blvd (footway bridge w54139652, outline w469766790) is a glazed walkway inside an open white steel truss with a thin flat roof instead of a closed box.",
+    "Its landing is the stair / lift tower w469766788 (dark steel frame, open stair flights, flat roof, glazed lift shaft, one round column), which replaces the generic pitched-roof house previously drawn there; w469766788 is now a declared replacement id."
   ],
   "remainingGaps": [
     "Canopy profile, truss sections, concourse height, platform width and approximate west bridge are not newly surveyed.",
     "Exact platform edge/rail alignment and all pedestrian walkable height transitions require integrated game review.",
     "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
-    "The shared explicit-ID source-replacement implementation is integrated in production (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). These studies retain their actual capture-era source and do not establish current district placement, road/body clearance, traffic/mirror budgets or seasonal parity. Registry entries outside a district list and context-only models with no replacement IDs do not replace neighbouring buildings."
+    "The shared explicit-ID source-replacement implementation is integrated in production (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). These studies retain their actual capture-era source and do not establish current district placement, road/body clearance, traffic/mirror budgets or seasonal parity. Registry entries outside a district list and context-only models with no replacement IDs do not replace neighbouring buildings.",
+    "Bridge deck and roof heights (8.5 m / 12.6 m), truss panel count, stair tower height (14.6 m), flight geometry and the lift shaft size are estimates; character was checked against street-level imagery as viewed reference only."
   ],
   "checks": [
+    {
+      "label": "Model studies recaptured at 346f798",
+      "passed": true,
+      "details": "Front, top and oblique studies recaptured from the unmodified worktree after the district fidelity pass. The front study uses a 300 m camera distance (d=300) so the new stair tower is inside the frame; the earlier front study stood closer. Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run at 346f798 on 2026-11-12: passed, 2133 checks over 67 models; this model 2440 triangles, 13 collision volumes."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-12; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "Earlier checks below",
+      "passed": null,
+      "details": "The checks that follow were recorded for source 7273204 or earlier and were not re-run for this recapture."
+    },
     {
       "label": "Historical Bucharest foot,a regression",
       "passed": true,
@@ -86,16 +125,21 @@
     {
       "id": "front",
       "label": "Isolated model study · front elevation",
-      "image": "assets/landmarks/sealink/front.webp",
       "kind": "front",
-      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
-      "sha256": "2170e775f6d792a34074a9667f7cc4edaa0088dac599f04e2b0c1be12a202c4f",
-      "capturedAt": "2026-11-08T17:08:41.570Z",
+      "image": "assets/landmarks/sealink/source-346f7986/front.webp",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "sha256": "982b5c55c6f2ad2a35662d7803e35c6bc00bc83fa56b7a6342159539c28d5729",
+      "bytes": 6498,
+      "width": 640,
+      "height": 640,
+      "capturedAt": "2026-11-12T19:48:29.686Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "position": [
-          240.60089122682282,
+          309.7600326538086,
           11.85999984741211,
-          1.3926535931994378e-14
+          1.8369701987210297e-14
         ],
         "up": [
           0,
@@ -111,25 +155,35 @@
         "projection": "perspective",
         "fov": 45,
         "target": [
-          13.163299560546875,
+          9.760032653808594,
           11.85999984741211,
           0
         ],
-        "frame": "isolated landmark model, +x east / +z south, metres"
+        "frame": "isolated landmark model, +x east / +z south, metres",
+        "viewerRoute": "/game/dev/landmarks.html?id=sealink&view=34&clean=1&az=90&el=0&d=300",
+        "viewport": [
+          640,
+          640
+        ]
       }
     },
     {
       "id": "top",
       "label": "Isolated model study · orthographic north-up plan",
-      "image": "assets/landmarks/sealink/top.webp",
       "kind": "top",
-      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
-      "sha256": "e4dd0d8908bf14a4fd3358259ac864d13edd0216e9f063efad4bdac2aacc2db7",
-      "capturedAt": "2026-11-08T17:08:43.778Z",
+      "image": "assets/landmarks/sealink/source-346f7986/top.webp",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "sha256": "9508d9a67336bcade7313a9f88ab6c9610741af1166c3bb8f1df281964c7babf",
+      "bytes": 19710,
+      "width": 640,
+      "height": 640,
+      "capturedAt": "2026-11-12T19:45:13.488Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "position": [
-          13.163299560546875,
-          206.17955589294434,
+          9.760032653808594,
+          213.77472740173337,
           0
         ],
         "up": [
@@ -138,35 +192,45 @@
           -1
         ],
         "quaternion": [
-          -0.7071067811865475,
+          -0.7071067811865474,
           0,
           0,
           0.7071067811865476
         ],
         "projection": "orthographic",
-        "groundSquareM": 176.52955627441406,
+        "groundSquareM": 184.1247277832031,
         "orientation": "north-up",
         "target": [
-          13.163299560546875,
+          9.760032653808594,
           0,
           0
         ],
-        "frame": "isolated landmark model, +x east / +z south, metres"
+        "frame": "isolated landmark model, +x east / +z south, metres",
+        "viewerRoute": "/game/dev/landmarks.html?id=sealink&view=top&clean=1&az=35&el=26",
+        "viewport": [
+          640,
+          640
+        ]
       }
     },
     {
       "id": "oblique",
       "label": "Isolated model study · oblique overview",
-      "image": "assets/landmarks/sealink/oblique.webp",
       "kind": "oblique",
-      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
-      "sha256": "d830615c5806f18cabc84974dea92f95ec5e52c459096b8488bf85398d6d2047",
-      "capturedAt": "2026-11-08T17:08:46.288Z",
+      "image": "assets/landmarks/sealink/source-346f7986/oblique.webp",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "sha256": "63afb736b73a57c0dea9d8b83ee98f8beeba80a853235e5f60324190b005fe72",
+      "bytes": 22372,
+      "width": 640,
+      "height": 640,
+      "capturedAt": "2026-11-12T19:45:14.018Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "position": [
-          130.41353845954694,
-          111.56207772910341,
-          167.45069497364366
+          132.10342530658062,
+          115.89296879585358,
+          174.72447235512422
         ],
         "up": [
           0,
@@ -175,26 +239,160 @@
         ],
         "quaternion": [
           -0.21453963361642958,
-          0.29299872934427457,
-          0.06764408664580113,
+          0.2929987293442745,
+          0.0676440866458011,
           0.929273247087327
         ],
         "projection": "perspective",
         "fov": 45,
         "target": [
-          13.163299560546875,
+          9.760032653808594,
           11.85999984741211,
           0
         ],
-        "frame": "isolated landmark model, +x east / +z south, metres"
+        "frame": "isolated landmark model, +x east / +z south, metres",
+        "viewerRoute": "/game/dev/landmarks.html?id=sealink&view=34&clean=1&az=35&el=26",
+        "viewport": [
+          640,
+          640
+        ]
       }
     }
   ],
   "perf": {
-    "triangles": 1572,
+    "triangles": 2442,
     "drawCalls": 3,
-    "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+    "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
   },
   "implementationNotesUpdatedAt": "2026-11-09",
-  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance.",
+  "historicalCollections": [
+    {
+      "id": "model-studies-72732045",
+      "label": "Model studies before the district fidelity pass",
+      "status": "historical",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "supersededBy": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededAt": "2026-11-12T20:03:08.418Z",
+      "reason": "The model changed in 332ae423..346f7986; these studies show the earlier model and keep their original source, dates and files.",
+      "perf": {
+        "triangles": 1572,
+        "drawCalls": 3,
+        "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+      },
+      "captures": [
+        {
+          "id": "front",
+          "label": "Isolated model study · front elevation",
+          "image": "assets/landmarks/sealink/front.webp",
+          "kind": "front",
+          "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+          "sha256": "2170e775f6d792a34074a9667f7cc4edaa0088dac599f04e2b0c1be12a202c4f",
+          "capturedAt": "2026-11-08T17:08:41.570Z",
+          "pose": {
+            "position": [
+              240.60089122682282,
+              11.85999984741211,
+              1.3926535931994378e-14
+            ],
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "quaternion": [
+              0,
+              0.7071067811865475,
+              0,
+              0.7071067811865476
+            ],
+            "projection": "perspective",
+            "fov": 45,
+            "target": [
+              13.163299560546875,
+              11.85999984741211,
+              0
+            ],
+            "frame": "isolated landmark model, +x east / +z south, metres"
+          }
+        },
+        {
+          "id": "top",
+          "label": "Isolated model study · orthographic north-up plan",
+          "image": "assets/landmarks/sealink/top.webp",
+          "kind": "top",
+          "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+          "sha256": "e4dd0d8908bf14a4fd3358259ac864d13edd0216e9f063efad4bdac2aacc2db7",
+          "capturedAt": "2026-11-08T17:08:43.778Z",
+          "pose": {
+            "position": [
+              13.163299560546875,
+              206.17955589294434,
+              0
+            ],
+            "up": [
+              0,
+              0,
+              -1
+            ],
+            "quaternion": [
+              -0.7071067811865475,
+              0,
+              0,
+              0.7071067811865476
+            ],
+            "projection": "orthographic",
+            "groundSquareM": 176.52955627441406,
+            "orientation": "north-up",
+            "target": [
+              13.163299560546875,
+              0,
+              0
+            ],
+            "frame": "isolated landmark model, +x east / +z south, metres"
+          }
+        },
+        {
+          "id": "oblique",
+          "label": "Isolated model study · oblique overview",
+          "image": "assets/landmarks/sealink/oblique.webp",
+          "kind": "oblique",
+          "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+          "sha256": "d830615c5806f18cabc84974dea92f95ec5e52c459096b8488bf85398d6d2047",
+          "capturedAt": "2026-11-08T17:08:46.288Z",
+          "pose": {
+            "position": [
+              130.41353845954694,
+              111.56207772910341,
+              167.45069497364366
+            ],
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "quaternion": [
+              -0.21453963361642958,
+              0.29299872934427457,
+              0.06764408664580113,
+              0.929273247087327
+            ],
+            "projection": "perspective",
+            "fov": 45,
+            "target": [
+              13.163299560546875,
+              11.85999984741211,
+              0
+            ],
+            "frame": "isolated landmark model, +x east / +z south, metres"
+          }
+        }
+      ]
+    }
+  ],
+  "recapturedAt": "2026-11-12T20:03:08.418Z",
+  "sourceVerification": {
+    "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
+    "checkedAt": "2026-11-12T20:03:08.417Z"
+  }
 }

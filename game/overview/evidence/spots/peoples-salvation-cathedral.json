@@ -46,17 +46,24 @@
       "label": "Native touch forecourt candle",
       "type": "Native GAME proof; scope recorded separately",
       "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/touch/results.json"
+    },
+    {
+      "label": "District fidelity pass scene change (f9787fa)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/f9787fa85ddbe6d4e9dd6b5eb9fedbb1fa436440"
     }
   ],
   "improvements": [
     "Current native scene retains 828 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
     "Physical forecourt entry; native desktop/touch two-stage virtual candle, host cancellation and reload",
-    "The selected primary activity approach is accepted separately from full-scene comparison."
+    "The selected primary activity approach is accepted separately from full-scene comparison.",
+    "District fidelity pass, f9787fa (range 332ae423..346f7986): The shared scene gained the Parliament hill and perimeter wall."
   ],
   "remainingGaps": [
     "Full current silhouette/facade/interior comparison remains open",
     "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
-    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
+    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 93b0d86 or earlier, before the district fidelity pass, and were not re-run at 346f798."
   ],
   "checks": [
     {
@@ -88,6 +95,16 @@
       "label": "Current exhaustive physical audit",
       "passed": null,
       "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
+    },
+    {
+      "label": "Visitor views recaptured after the district fidelity pass",
+      "passed": true,
+      "details": "346f798: scene view and complete phone page recaptured (scene-east-footway, phone-east-footway); peak 543,322 triangles / 85 draw calls in these frames. Every picture was inspected after capture. Appearance only; no route, activity or reference-match claim."
+    },
+    {
+      "label": "Validation frames and native proofs re-run at 346f798",
+      "passed": false,
+      "details": "Not re-run. The validation captures and proofs above keep their original source and date and describe the scene before the pass."
     }
   ],
   "captures": [
@@ -333,7 +350,7 @@
     },
     "collection": "previous-context-gallery"
   },
-  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical forecourt entry; native desktop/touch two-stage virtual candle, host cancellation and reload Full current silhouette/facade/interior comparison remains open Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical forecourt entry; native desktop/touch two-stage virtual candle, host cancellation and reload Full current silhouette/facade/interior comparison remains open Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates.",
   "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
   "menuAvailable": true,
   "captureSourceCommits": [
@@ -380,13 +397,12 @@
   ],
   "visitorGallery": {
     "id": "peoples-salvation-cathedral",
-    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
     "captures": [
       {
         "kind": "scene-east-footway",
-        "image": "assets/spots/peoples-salvation-cathedral/visit-aabd/scene-east-footway.webp",
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "capturedAt": "2026-11-09T08:32:10.030Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "capturedAt": "2026-11-12T19:50:33.734Z",
         "viewport": {
           "width": 1280,
           "height": 720
@@ -394,13 +410,13 @@
         "position": {
           "x": -641.2,
           "z": 287.9,
-          "y": 18.292510930333016,
+          "y": 18.285553631025607,
           "heading": 0.08726648437500001
         },
         "pose": {
           "position": [
             -641.2,
-            19.942510930333015,
+            19.935553631025606,
             287.9
           ],
           "bearing": 354.9999987523681,
@@ -411,27 +427,28 @@
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-09T08:32:05.065Z",
-        "triangles": 582572,
-        "drawCalls": 83,
+        "simulationDate": "2026-11-12T19:50:31.925Z",
+        "triangles": 543322,
+        "drawCalls": 85,
         "cameraParent": "onfoot",
         "ui": {
           "touch": true,
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "d8c03d4fd26fdbe9898c6b4c6189ab92b3f6c7919e0ca352d42de88047c050d3",
-        "bytes": 51528,
+        "sha256": "3edf1cbfccdc512cf988cae062fc4cc76ad820413b3c167865803b6f938ea596",
+        "bytes": 49920,
         "fullPageHUD": false,
-        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/cathedral-footway-results.json",
+        "image": "assets/spots/peoples-salvation-cathedral/visit-346f7986/scene-east-footway.webp",
+        "captureRecord": "assets/spots/peoples-salvation-cathedral/visit-346f7986/capture.json",
         "setup": {
           "arrival": {
             "x": -732,
             "z": 169,
-            "y": 14,
+            "y": 14.000000000000002,
             "heading": -1.4835298641951802
           },
-          "originalViewpoint": {
+          "authoredViewpoint": {
             "view": [
               -653.1034357889633,
               157.82457397694287
@@ -446,7 +463,6 @@
             "r": 6,
             "tol": 28,
             "targets": [],
-            "cond": null,
             "condHint": null
           },
           "viewpoint": {
@@ -464,13 +480,13 @@
             "r": 6,
             "tol": 28,
             "targets": [],
-            "cond": null,
-            "condHint": null
+            "condHint": null,
+            "authoredOverride": true
           },
           "position": {
             "x": -641.2,
             "z": 287.9,
-            "y": 18.292510930333016,
+            "y": 18.285553631025607,
             "heading": 0
           },
           "walker": "OnFootController",
@@ -490,9 +506,8 @@
       },
       {
         "kind": "phone-east-footway",
-        "image": "assets/spots/peoples-salvation-cathedral/visit-aabd/phone-east-footway.jpg",
-        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
-        "capturedAt": "2026-11-09T08:32:14.728Z",
+        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "capturedAt": "2026-11-12T19:50:33.978Z",
         "viewport": {
           "width": 390,
           "height": 844
@@ -500,13 +515,13 @@
         "position": {
           "x": -641.2,
           "z": 287.9,
-          "y": 18.292510930333016,
+          "y": 18.285553631025607,
           "heading": 0.08726648437500001
         },
         "pose": {
           "position": [
             -641.2,
-            19.942510930333015,
+            19.935553631025606,
             287.9
           ],
           "bearing": 354.9999987523681,
@@ -517,27 +532,28 @@
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-09T08:32:09.761Z",
-        "triangles": 393832,
-        "drawCalls": 37,
+        "simulationDate": "2026-11-12T19:50:32.168Z",
+        "triangles": 364806,
+        "drawCalls": 41,
         "cameraParent": "onfoot",
         "ui": {
           "touch": true,
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "73aeb6ce77044a529e9f3d039812c38265fd0e6225b7c3ec38dcd61587b5da92",
-        "bytes": 55742,
+        "sha256": "041cc10b62aecf69f88ee34c2abdc16fafb3fd31654e8820f905ab33092f1df3",
+        "bytes": 58144,
         "fullPageHUD": true,
-        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/cathedral-footway-results.json",
+        "image": "assets/spots/peoples-salvation-cathedral/visit-346f7986/phone-east-footway.jpg",
+        "captureRecord": "assets/spots/peoples-salvation-cathedral/visit-346f7986/capture.json",
         "setup": {
           "arrival": {
             "x": -732,
             "z": 169,
-            "y": 14,
+            "y": 14.000000000000002,
             "heading": -1.4835298641951802
           },
-          "originalViewpoint": {
+          "authoredViewpoint": {
             "view": [
               -653.1034357889633,
               157.82457397694287
@@ -552,7 +568,6 @@
             "r": 6,
             "tol": 28,
             "targets": [],
-            "cond": null,
             "condHint": null
           },
           "viewpoint": {
@@ -570,13 +585,13 @@
             "r": 6,
             "tol": 28,
             "targets": [],
-            "cond": null,
-            "condHint": null
+            "condHint": null,
+            "authoredOverride": true
           },
           "position": {
             "x": -641.2,
             "z": 287.9,
-            "y": 18.292510930333016,
+            "y": 18.285553631025607,
             "heading": 0
           },
           "walker": "OnFootController",
@@ -597,35 +612,291 @@
     ],
     "limitations": [
       "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
-      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged.",
-      "The authored west-porch postcard is a close-up of columns. Southern footway views retain real foreground tree/crowd occlusion; the full silhouette and facade comparison remain open."
+      "Southern footway view from the mapped footway point used before; foreground trees still cover the lower facade.",
+      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
     ],
     "reports": [
       {
-        "label": "Initial 23-destination scene and portrait capture",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
-        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
-      },
-      {
-        "label": "Actual portrait touch-look capture",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
-        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
-      },
-      {
-        "label": "Ballard and cathedral context views",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/context-results.json",
-        "sha256": "e46dc323e5bf403e8eb9abe0eee73f21a1a621a7499e2d5b43d98e2fd3dd0222"
-      },
-      {
-        "label": "Cathedral mapped-footway view",
-        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/cathedral-footway-results.json",
-        "sha256": "dd5ed03529037b4bf2e68ca1cfa2e7de73c7bad9d98d23a3b06a06b698ea3cf9"
+        "label": "Scene and portrait capture record, 346f798",
+        "report": "assets/spots/peoples-salvation-cathedral/visit-346f7986/capture.json",
+        "sha256": "88cd5c918828a3887464a8f806f80c341a65bc54ee6233868061c24c13d7bd79"
       }
     ],
-    "updatedAt": "2026-11-09T08:32:14.728Z",
-    "notice": "These views come from the staged game under test; the live game can differ.",
-    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
-    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
-    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+    "updatedAt": "2026-11-12T19:50:33.978Z",
+    "notice": "Recaptured from game source 346f798 after the district fidelity pass. The earlier aabd17a views are kept in this record as historical.",
+    "setup": "Explicit production on-foot viewpoints with native touch look, at 1280 × 720 and as the complete 390 × 844 phone page. The scene-authored postcard pose is used unless a limitation below says otherwise. No route, reference match or release acceptance is implied."
+  },
+  "historicalCollections": [
+    {
+      "id": "visitor-gallery-aabd17ad",
+      "label": "Visitor views before the district fidelity pass",
+      "status": "historical",
+      "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+      "supersededBy": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededAt": "2026-11-12T20:03:08.418Z",
+      "reason": "The scene changed in 332ae423..346f7986; these pictures show the earlier scene and are kept with their original source, dates and capture records.",
+      "notice": "These views come from the staged game under test; the live game can differ.",
+      "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+      "limitations": [
+        "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+        "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged.",
+        "The authored west-porch postcard is a close-up of columns. Southern footway views retain real foreground tree/crowd occlusion; the full silhouette and facade comparison remain open."
+      ],
+      "updatedAt": "2026-11-09T08:32:14.728Z",
+      "reports": [
+        {
+          "label": "Initial 23-destination scene and portrait capture",
+          "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+          "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+        },
+        {
+          "label": "Actual portrait touch-look capture",
+          "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+          "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+        },
+        {
+          "label": "Ballard and cathedral context views",
+          "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/context-results.json",
+          "sha256": "e46dc323e5bf403e8eb9abe0eee73f21a1a621a7499e2d5b43d98e2fd3dd0222"
+        },
+        {
+          "label": "Cathedral mapped-footway view",
+          "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/cathedral-footway-results.json",
+          "sha256": "dd5ed03529037b4bf2e68ca1cfa2e7de73c7bad9d98d23a3b06a06b698ea3cf9"
+        },
+        {
+          "label": "Visitor capture manifest",
+          "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+          "sha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+        }
+      ],
+      "captures": [
+        {
+          "kind": "scene-east-footway",
+          "image": "assets/spots/peoples-salvation-cathedral/visit-aabd/scene-east-footway.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:32:10.030Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -641.2,
+            "z": 287.9,
+            "y": 18.292510930333016,
+            "heading": 0.08726648437500001
+          },
+          "pose": {
+            "position": [
+              -641.2,
+              19.942510930333015,
+              287.9
+            ],
+            "bearing": 354.9999987523681,
+            "pitch": 24.999999523810065
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:32:05.065Z",
+          "triangles": 582572,
+          "drawCalls": 83,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "d8c03d4fd26fdbe9898c6b4c6189ab92b3f6c7919e0ca352d42de88047c050d3",
+          "bytes": 51528,
+          "fullPageHUD": false,
+          "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/cathedral-footway-results.json",
+          "setup": {
+            "arrival": {
+              "x": -732,
+              "z": 169,
+              "y": 14,
+              "heading": -1.4835298641951802
+            },
+            "originalViewpoint": {
+              "view": [
+                -653.1034357889633,
+                157.82457397694287
+              ],
+              "id": "peoples-salvation-cathedral",
+              "x": -731,
+              "z": 165,
+              "bearing": 85,
+              "pitch": 28,
+              "fov": 70,
+              "text": "From the mapped west forecourt, outside the church inner ring and the western source building, looking toward the main portal and bell tower.",
+              "r": 6,
+              "tol": 28,
+              "targets": [],
+              "cond": null,
+              "condHint": null
+            },
+            "viewpoint": {
+              "view": [
+                -653.1034357889633,
+                157.82457397694287
+              ],
+              "id": "peoples-salvation-cathedral",
+              "x": -641.2,
+              "z": 287.9,
+              "bearing": 355,
+              "pitch": 25,
+              "fov": 70,
+              "text": "South facade from exact mapped footway w1364230357 point [-641.2,287.9]. Explicit native on-foot setup, not a walked route.",
+              "r": 6,
+              "tol": 28,
+              "targets": [],
+              "cond": null,
+              "condHint": null
+            },
+            "position": {
+              "x": -641.2,
+              "z": 287.9,
+              "y": 18.292510930333016,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "buc-parliament",
+            "origin": {
+              "lat": 44.42735,
+              "lon": 26.0905,
+              "elev": 70.8
+            },
+            "projection": {
+              "mLat": 111120.59,
+              "mLon": 79628.31
+            }
+          },
+          "label": "The cathedral from the southern footway",
+          "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+        },
+        {
+          "kind": "phone-east-footway",
+          "image": "assets/spots/peoples-salvation-cathedral/visit-aabd/phone-east-footway.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:32:14.728Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -641.2,
+            "z": 287.9,
+            "y": 18.292510930333016,
+            "heading": 0.08726648437500001
+          },
+          "pose": {
+            "position": [
+              -641.2,
+              19.942510930333015,
+              287.9
+            ],
+            "bearing": 354.9999987523681,
+            "pitch": 24.999999523810065
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:32:09.761Z",
+          "triangles": 393832,
+          "drawCalls": 37,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "73aeb6ce77044a529e9f3d039812c38265fd0e6225b7c3ec38dcd61587b5da92",
+          "bytes": 55742,
+          "fullPageHUD": true,
+          "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/cathedral-footway-results.json",
+          "setup": {
+            "arrival": {
+              "x": -732,
+              "z": 169,
+              "y": 14,
+              "heading": -1.4835298641951802
+            },
+            "originalViewpoint": {
+              "view": [
+                -653.1034357889633,
+                157.82457397694287
+              ],
+              "id": "peoples-salvation-cathedral",
+              "x": -731,
+              "z": 165,
+              "bearing": 85,
+              "pitch": 28,
+              "fov": 70,
+              "text": "From the mapped west forecourt, outside the church inner ring and the western source building, looking toward the main portal and bell tower.",
+              "r": 6,
+              "tol": 28,
+              "targets": [],
+              "cond": null,
+              "condHint": null
+            },
+            "viewpoint": {
+              "view": [
+                -653.1034357889633,
+                157.82457397694287
+              ],
+              "id": "peoples-salvation-cathedral",
+              "x": -641.2,
+              "z": 287.9,
+              "bearing": 355,
+              "pitch": 25,
+              "fov": 70,
+              "text": "South facade from exact mapped footway w1364230357 point [-641.2,287.9]. Explicit native on-foot setup, not a walked route.",
+              "r": 6,
+              "tol": 28,
+              "targets": [],
+              "cond": null,
+              "condHint": null
+            },
+            "position": {
+              "x": -641.2,
+              "z": 287.9,
+              "y": 18.292510930333016,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "buc-parliament",
+            "origin": {
+              "lat": 44.42735,
+              "lon": 26.0905,
+              "elev": 70.8
+            },
+            "projection": {
+              "mLat": 111120.59,
+              "mLon": 79628.31
+            }
+          },
+          "label": "Phone view with the native touch interface",
+          "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+        }
+      ]
+    }
+  ],
+  "visitorGalleryRecapture": {
+    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "assembledAt": "2026-11-12T20:03:08.418Z",
+    "passRange": "332ae423..346f7986",
+    "sceneCommits": [
+      "f9787fa85ddbe6d4e9dd6b5eb9fedbb1fa436440"
+    ],
+    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes.",
+    "sourceVerification": {
+      "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
+      "checkedAt": "2026-11-12T20:03:08.417Z"
+    }
   }
 }

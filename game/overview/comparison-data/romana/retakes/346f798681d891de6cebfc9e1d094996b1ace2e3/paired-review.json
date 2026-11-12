@@ -1,0 +1,35 @@
+{
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r05-c04",
+    "aerial-r07-c07",
+    "aerial-r10-c09"
+  ],
+  "reviewedAt": "2026-11-12T20:43:17.969Z",
+  "method": "Published game capture, a 332ae423 render and the 346f7986 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r05-c04",
+      "originalGameSha256": "f9e83b49bd0a08a5dfa1196a320808eeca68fb767f175c1453fc86f4564f2483",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "ef1c5119f75125c25115c261b2099257c4ab89c2f601ba6742a5b1b6086eaf28",
+      "observation": "Muzeul Antipa landmark model on Șos. Kiseleff"
+    },
+    {
+      "id": "aerial-r07-c07",
+      "originalGameSha256": "aaca8e8585010a0e6af012714e6a085a1d3fcfb39d4f9e89ae53b33cb5ed41e6",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "8e4bd65cf7f909e63d5e38112f243637d169de2f2c0541a3cb48ea7219aee536",
+      "observation": "Lascăr Catargiu statue on its square"
+    },
+    {
+      "id": "aerial-r10-c09",
+      "originalGameSha256": "f24233d7fc2ae9c404d592cac3c9204ef56390b559af45ba21dd22a5d136bb20",
+      "originalGameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "retakeGameSha256": "2ccd699f5848ff26323fb9fa8ad0569f398c4c37d074c6844c387f44d1296ed1",
+      "observation": "Arthur Verona fountain basin"
+    }
+  ]
+}

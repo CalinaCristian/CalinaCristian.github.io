@@ -5,7 +5,7 @@ import { ambientTrafficAccess } from './road-access.js';
 import { collideBuildings } from './world.js';
 import {sourceRoadClearance} from './source-road-clearance.js';
 import { planInitialVehicleAdmission, ordinaryVehicleStations, vehicleVerticalInterval, vehicleVerticalIntervalAlong, initialVehicleConflict } from './initial-vehicle-admission.js';
-import { canTravelTram } from './tram-path.js';
+import { canTravelTram, tramSectionPoses } from './tram-path.js';
 import { validateTramSupportCertificate } from './tram-body-support.js';
 import { ordinarySourceSpan, ordinarySourceBodyPlacement } from './initial-ordinary-source-span.js';
 
@@ -47,6 +47,13 @@ export function* nativeInitialTrafficCandidates(T, v, { spacingM = 0.25, endMarg
  */
 export function* initialBodyCover(v, cellM = 0.75) {
     if (!(cellM > 0) || !(v.length > 0) || !(v.width > 0)) throw new Error('Invalid full-body cover');
+    // an articulated tram on its rail: each section's own rectangle (vehicles.js sections, tram-path.js poses); `along`
+    // stays in the body's frame (section centre + offset in the section) for the pitched vertical test
+    const spec = v.edge?.rail ? (v.mesh?.userData?.sections || v.sections) : null, parts = spec ? tramSectionPoses(v, spec, v.width) : null;
+    if (parts) {
+        for (const q of parts) for (const d of initialBodyCover({ x: q.x, z: q.z, heading: q.heading, length: q.length, width: q.width }, cellM)) yield { ...d, along: q.along + d.along };
+        return;
+    }
     const nL = Math.max(1, Math.ceil(v.length / cellM)), nW = Math.max(1, Math.ceil(v.width / cellM));
     const dl = v.length / nL, dw = v.width / nW, radius = Math.hypot(dl / 2, dw / 2) + 1e-7;
     const fx = -Math.sin(v.heading), fz = -Math.cos(v.heading), rx = -fz, rz = fx;

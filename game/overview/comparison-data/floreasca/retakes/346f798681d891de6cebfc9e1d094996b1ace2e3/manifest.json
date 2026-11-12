@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "title": "floreasca aerial comparisons",
+  "generatedDate": "2026-11-12",
+  "generatedAt": "2026-11-12T19:50:52.084Z",
+  "defaultTile": "aerial-r09-c04",
+  "tileMetres": 250,
+  "orientation": "north-up",
+  "atlasScopeCounts": {
+    "ring-touches": 62,
+    "core-touches": 22,
+    "outside-ring": 6
+  },
+  "publishedBaseline": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "capture": {
+    "startedAt": "2026-11-12T19:50:04.079Z",
+    "endedAt": "2026-11-12T19:50:52.084Z",
+    "elapsedSeconds": 48.005,
+    "source": "deec28ca0450626951551fd3ef8430ddd963c659206d1fa313c5e2e0c6e7ddf0",
+    "loaded": {
+      "key": "bucharest-floreasca",
+      "city": "bucharest",
+      "district": "floreasca",
+      "ms": 3073,
+      "edges": 384,
+      "ribbons": 528
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "frameCounts": 2,
+    "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+    "scopeCounts": {
+      "ring-touches": 62,
+      "core-touches": 22,
+      "outside-ring": 6
+    },
+    "candidateFramesCaptured": 90,
+    "note": "One capture run over every atlas pose of the district; only the reviewed changed tiles are kept here. Tool: tools/aerial/capture-game-grid.cjs (unmodified, sha256 329f0d5e83d2581771f0f3d40975a0352cfa5c13b2d61189597f69026429cefd)."
+  },
+  "locations": [
+    {
+      "id": "rosetti-start",
+      "label": "rosetti chapter start",
+      "kind": "chapter-start",
+      "lat": 44.4556,
+      "lon": 26.10071,
+      "tileId": "aerial-r09-c04"
+    },
+    {
+      "id": "rosetti",
+      "label": "Liceul Teoretic C.A. Rosetti",
+      "kind": "landmark",
+      "lat": 44.4671565,
+      "lon": 26.106133,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r04-c05"
+    },
+    {
+      "id": "dinamo",
+      "label": "Stadionul Dinamo",
+      "kind": "landmark",
+      "lat": 44.4551306,
+      "lon": 26.1023192,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r10-c04"
+    },
+    {
+      "id": "skytower",
+      "label": "Sky Tower",
+      "kind": "skyline",
+      "lat": 44.4779551,
+      "lon": 26.1047395,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "context-skytower"
+    },
+    {
+      "id": "globalworth",
+      "label": "Globalworth Tower",
+      "kind": "skyline",
+      "lat": 44.4792401,
+      "lon": 26.1024141,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "context-globalworth"
+    }
+  ],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "boundarySource": "boundary-source.json",
+  "items": [
+    {
+      "id": "aerial-r01-c06",
+      "label": "Row 1 · Column 6",
+      "row": 1,
+      "column": 6,
+      "lat": 44.47452309685779,
+      "lon": 26.10852009790221,
+      "x": 374.9999999999033,
+      "z": -1124.999999999857,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "ring-touches",
+      "sourceRingMinDistanceM": 502.93529753088706,
+      "boundsXZ": [
+        250,
+        -1250,
+        500,
+        -1000
+      ],
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 77,
+        "triangles": 124499,
+        "renderMs": 3,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 193
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-12T19:50:11.482Z",
+      "gamePath": "images/aerial-r01-c06.jpg",
+      "image": "images/aerial-r01-c06.jpg",
+      "thumbnail": "thumbs/aerial-r01-c06.jpg",
+      "sha256": "9be821f751a62943ea0ad203c57260dbcb0e3a3c2467d14977476059c443525e",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 337,
+      "dataset": "atlas",
+      "thumbnailSha256": "e02b6b5b7250e728e1d5921a0a3916ba2dcc4b747b597e84cfa2bf0d7e6effce",
+      "retakeReason": "lake bridge: the two carriageway decks are separate with water between them and edge railings"
+    },
+    {
+      "id": "aerial-r08-c04",
+      "label": "Row 8 · Column 4",
+      "row": 8,
+      "column": 4,
+      "lat": 44.45877605730122,
+      "lon": 26.102226634032597,
+      "x": -124.9999999998737,
+      "z": 625.0000000003593,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        -250,
+        500,
+        0,
+        750
+      ],
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 108,
+        "triangles": 466597,
+        "renderMs": 1.4000000059604645,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 193
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-12T19:50:36.625Z",
+      "gamePath": "images/aerial-r08-c04.jpg",
+      "image": "images/aerial-r08-c04.jpg",
+      "thumbnail": "thumbs/aerial-r08-c04.jpg",
+      "sha256": "360f8995b0b1e14c2d79d394d3deeba686638a57c3ffc4772c22152657453608",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 511,
+      "dataset": "atlas",
+      "thumbnailSha256": "e530ca9f93aac2f9f253b801c4cf5fb1afc87473c5ee396bb72463eea298f102",
+      "retakeReason": "Dinamo velodrome: oval infield and track instead of a rectangular pitch"
+    }
+  ]
+}

@@ -29,10 +29,6 @@ R23.7 **Tests**: harness scenario that unlocks a sample via test hooks, checks c
 R23.8 **Dinamo drone football secret** (owner, 2026-11-08): a football starts on the centre spot at Stadionul Dinamo; physically nudge it with the drone and score in either rendered goal to unlock hidden `dinamo-drone-goal` ("Air striker"). The whole ball must cross from the pitch side between the posts and below the crossbar after a real drone touch; placement, high flyovers, side/back entry, and misses do not count. Keep the ball in the district triangle budget; reset a scored/out-of-play ball and dispose it on district changes.
 
 ## Acceptance
-- [ ] Every achievement is reachable in the current game (no orphan ids; a table in the progress log maps id → trigger).
-- [ ] Completion % reaches exactly 100 when everything is done (harness check with all unlocked).
-- [ ] Panel and menu ring look right on phone and desktop (screenshots).
-
-## Current linear office story · 10 November 2026
-
-The owner supersedes the earlier A–D conversation design: E starts/resumes the teacher/professor/manager’s fixed CV sequence; Enter, Space or a single Continue button advances it. Follow-up lines are included in order. Esc or the close button pauses; leaving early does not complete a chapter. The final Continue finishes the visit and advances the story. CV completion uses fully presented sections and preserves the existing stop/topic achievement keys and previous earned progress. Dated progress logs above describe their original historical implementations.
+- Every achievement is reachable in the current game (no orphan ids; a test maps every id to its trigger).
+- Completion % reaches exactly 100 when everything is done (harness check with all unlocked).
+- Panel and menu ring look right on phone and desktop (screenshots).

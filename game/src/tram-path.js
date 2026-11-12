@@ -207,6 +207,21 @@ export function sampleTramPath(vehicle, off = 0) {
     return null;
 }
 
+/** Poses of an articulated body's sections: each centre on the rail `along` metres ahead of the body centre, heading along
+ *  the chord 0.36 of its own length ahead and behind (the rule a rigid body uses for its whole length). null when the
+ *  path does not resolve for every section (callers fall back to the rigid body). */
+export function tramSectionPoses(vehicle, sections, width) {
+    if (!sections?.length) return null;
+    const out = [];
+    for (const q of sections) {
+        const d = q.length * .36, C = sampleTramPath(vehicle, q.along), F = sampleTramPath(vehicle, q.along + d), R = sampleTramPath(vehicle, q.along - d);
+        if (!C || !F || !R) return null;
+        const hx = F.x - R.x, hz = F.z - R.z; if (hx * hx + hz * hz < 1e-12) return null;
+        out.push({ x: C.x, z: C.z, y: C.y, heading: Math.atan2(-hx, -hz), length: q.length, width, along: q.along });
+    }
+    return out;
+}
+
 export function tramSpan(edge, dir, length) {
     if (!canTravelTram(edge, dir) || !(length > 0)) return null;
     const distance = forward => {

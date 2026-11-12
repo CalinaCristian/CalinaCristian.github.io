@@ -1,0 +1,218 @@
+{
+  "schemaVersion": 1,
+  "id": "thebridge1",
+  "city": "bucharest",
+  "name": "The Bridge 1 (BCR)",
+  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.44481317,
+    "lon": 26.06011122
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/661134293",
+      "label": "OSM w661134293 · building=office, 11 levels, height 52, 2017: literal footprint and height",
+      "type": "osm"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/346f798681d891de6cebfc9e1d094996b1ace2e3/game/research/bucharest-grozavesti.md",
+      "label": "District dossier: The Bridge 1, Sos. Orhideelor 15D",
+      "type": "research"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/767271f813c3d2fd3415cfe0ddb64c7ad4d88ade",
+      "label": "The Bridge 1 on its OSM footprint (767271f)",
+      "type": "implementation"
+    }
+  ],
+  "sourceIds": [
+    "w661134293"
+  ],
+  "reviewedAt": "2026-11-12",
+  "improvements": [
+    "The Bridge 1 (BCR headquarters) is a glass office box on the literal OSM footprint and 52 m height: recessed ground floor behind a row of dark columns, ten glazed storeys behind a dark mullion grid with floor bands, a flat roof edge with a plant screen, a blue BCR band at the top corner and a blue entrance canopy on the Orhideelor side."
+  ],
+  "remainingGaps": [
+    "Storey height, bay width, mullion sizes, the plant screen and the sign sizes are estimates; the look comes from a street-level view used as reference only.",
+    "The model is built from the district source footprint, so it cannot be shown in the isolated viewer; the published views are in-world captures in Grozavesti, where it is background scenery (no marker, label or route).",
+    "Added on master on 2026-11-11, before the district fidelity pass; this is its first evidence record."
+  ],
+  "checks": [
+    {
+      "label": "Registry identity",
+      "passed": true,
+      "details": "id, name, anchor and sourceIds are read from game/src/landmarks.js at 346f798."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run at 346f798 on 2026-11-12: passed, 2133 checks over 67 models; this model 0 triangles, 0 collision volumes (the standalone build is empty by design: the model needs the district source footprint)."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-12; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "In-world frame workload",
+      "passed": null,
+      "details": "front: 972,327 triangles / 247 draw calls; oblique: 712,304 triangles / 166 draw calls; top: 564,539 triangles / 121 draw calls. Recorded, not a budget acceptance."
+    },
+    {
+      "label": "Matched Street View / aerial comparison",
+      "passed": false,
+      "details": "No matched reference comparison was made for this record. The source comments name a street-level look as viewed reference only; no reference imagery is stored or published."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "In-world view from Sos. Orhideelor (44.4452, 26.0608)",
+      "kind": "front",
+      "image": "assets/landmarks/thebridge1/source-346f7986/front.webp",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "sha256": "c69c88f3bdb71dcf55b958a3e1d2ea976e0e608935f6c0332a1c24538f535a89",
+      "bytes": 131134,
+      "width": 1280,
+      "height": 720,
+      "capturedAt": "2026-11-12T19:48:00.472Z",
+      "encoding": "WebP quality 0.9 of the game canvas",
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "auto",
+        "clockOverride": "day",
+        "weatherOverride": "clear",
+        "note": "Season is the game default for the capture date (autumn foliage)."
+      },
+      "metrics": {
+        "triangles": 972327,
+        "drawCalls": 247,
+        "quality": "auto (high)"
+      },
+      "pose": {
+        "lat": 44.4452,
+        "lon": 26.0608,
+        "heading": 232,
+        "pitch": 22,
+        "cameraY": 1.89,
+        "cameraBaseY": 0.24,
+        "eyeAboveSurfaceM": 1.65,
+        "fov": 70,
+        "viewport": [
+          1280,
+          720
+        ],
+        "district": "grozavesti",
+        "worldXZ": [
+          127.16651493856325,
+          -444.52799999975366
+        ],
+        "frame": "Production district world (game/?inspect=1), free camera at a geographic pose as in game/dev/reality/capture.cjs; no simulation between shots, player rig hidden"
+      }
+    },
+    {
+      "id": "top",
+      "label": "In-world view straight down, north up",
+      "kind": "top",
+      "image": "assets/landmarks/thebridge1/source-346f7986/top.webp",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "sha256": "c47ccef21a913efce68f9d640c71768eebdc7b47449225c3fdfbbe97fe7d8944",
+      "bytes": 169510,
+      "width": 1280,
+      "height": 720,
+      "capturedAt": "2026-11-12T19:48:01.004Z",
+      "encoding": "WebP quality 0.9 of the game canvas",
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "auto",
+        "clockOverride": "day",
+        "weatherOverride": "clear",
+        "note": "Season is the game default for the capture date (autumn foliage)."
+      },
+      "metrics": {
+        "triangles": 564539,
+        "drawCalls": 121,
+        "quality": "auto (high)"
+      },
+      "pose": {
+        "lat": 44.44481317,
+        "lon": 26.06011122,
+        "heading": 0,
+        "pitch": -90,
+        "cameraY": 260.24,
+        "cameraBaseY": 0.24,
+        "eyeAboveSurfaceM": 260,
+        "fov": 40,
+        "viewport": [
+          1280,
+          720
+        ],
+        "district": "grozavesti",
+        "worldXZ": [
+          72.4229198388763,
+          -401.5388084401418
+        ],
+        "frame": "Production district world (game/?inspect=1), free camera at a geographic pose as in game/dev/reality/capture.cjs; no simulation between shots, player rig hidden"
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "In-world elevated oblique view",
+      "kind": "oblique",
+      "image": "assets/landmarks/thebridge1/source-346f7986/oblique.webp",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "sha256": "395aea0da3f9e2fef9ee404b4976f04e5cde5e8d2f6c2b8e6508c4854a4a9164",
+      "bytes": 226692,
+      "width": 1280,
+      "height": 720,
+      "capturedAt": "2026-11-12T19:48:00.763Z",
+      "encoding": "WebP quality 0.9 of the game canvas",
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "auto",
+        "clockOverride": "day",
+        "weatherOverride": "clear",
+        "note": "Season is the game default for the capture date (autumn foliage)."
+      },
+      "metrics": {
+        "triangles": 712304,
+        "drawCalls": 166,
+        "quality": "auto (high)"
+      },
+      "pose": {
+        "lat": 44.44405,
+        "lon": 26.06175,
+        "heading": 303,
+        "pitch": -24,
+        "cameraY": 105.24,
+        "cameraBaseY": 0.24,
+        "eyeAboveSurfaceM": 105,
+        "fov": 55,
+        "viewport": [
+          1280,
+          720
+        ],
+        "district": "grozavesti",
+        "worldXZ": [
+          202.67163318330873,
+          -316.72619999945925
+        ],
+        "frame": "Production district world (game/?inspect=1), free camera at a geographic pose as in game/dev/reality/capture.cjs; no simulation between shots, player rig hidden"
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 972327,
+    "drawCalls": 247,
+    "note": "Peak of the three in-world frames (whole Grozavesti district in view, quality auto/high); not a traffic or mirror budget run and not hardware FPS."
+  },
+  "sourceVerification": {
+    "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
+    "checkedAt": "2026-11-12T20:03:08.417Z"
+  },
+  "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
+}

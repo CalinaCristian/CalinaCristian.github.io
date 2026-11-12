@@ -1,0 +1,322 @@
+{
+  "schemaVersion": 1,
+  "title": "romana aerial comparisons",
+  "generatedDate": "2026-11-12",
+  "generatedAt": "2026-11-12T19:50:03.244Z",
+  "defaultTile": "aerial-r10-c09",
+  "tileMetres": 250,
+  "orientation": "north-up",
+  "atlasScopeCounts": {
+    "ring-touches": 81,
+    "core-touches": 30,
+    "outside-ring": 5
+  },
+  "publishedBaseline": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "capture": {
+    "startedAt": "2026-11-12T19:49:06.076Z",
+    "endedAt": "2026-11-12T19:50:03.244Z",
+    "elapsedSeconds": 57.168,
+    "source": "deec28ca0450626951551fd3ef8430ddd963c659206d1fa313c5e2e0c6e7ddf0",
+    "loaded": {
+      "key": "bucharest-romana",
+      "city": "bucharest",
+      "district": "romana",
+      "ms": 5753,
+      "edges": 1066,
+      "ribbons": 1423
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "frameCounts": 3,
+    "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+    "scopeCounts": {
+      "ring-touches": 81,
+      "core-touches": 30,
+      "outside-ring": 5
+    },
+    "candidateFramesCaptured": 116,
+    "note": "One capture run over every atlas pose of the district; only the reviewed changed tiles are kept here. Tool: tools/aerial/capture-game-grid.cjs (unmodified, sha256 329f0d5e83d2581771f0f3d40975a0352cfa5c13b2d61189597f69026429cefd)."
+  },
+  "locations": [
+    {
+      "id": "arnia-start",
+      "label": "arnia chapter start",
+      "kind": "chapter-start",
+      "lat": 44.4418,
+      "lon": 26.0988,
+      "tileId": "aerial-r10-c09"
+    },
+    {
+      "id": "uipath-buc-start",
+      "label": "uipath-buc chapter start",
+      "kind": "chapter-start",
+      "lat": 44.456,
+      "lon": 26.0842,
+      "tileId": "aerial-r04-c04"
+    },
+    {
+      "id": "victoria",
+      "label": "Palatul Victoria",
+      "kind": "landmark",
+      "lat": 44.4528232,
+      "lon": 26.0874287,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r05-c05"
+    },
+    {
+      "id": "ase",
+      "label": "ASE — Palatul Ion N. Angelescu",
+      "kind": "landmark",
+      "lat": 44.447807,
+      "lon": 26.0971572,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r08-c08"
+    },
+    {
+      "id": "ambasador",
+      "label": "Hotel Ambasador",
+      "kind": "landmark",
+      "lat": 44.441963,
+      "lon": 26.099535,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r10-c09"
+    },
+    {
+      "id": "thelandmark",
+      "label": "The Landmark (UiPath HQ)",
+      "kind": "landmark",
+      "lat": 44.450012,
+      "lon": 26.0946079,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r07-c08"
+    },
+    {
+      "id": "europehouse",
+      "label": "Europe House",
+      "kind": "landmark",
+      "lat": 44.4511557,
+      "lon": 26.087697,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r06-c05"
+    },
+    {
+      "id": "skytower",
+      "label": "Sky Tower",
+      "kind": "skyline",
+      "lat": 44.4779551,
+      "lon": 26.1047395,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "context-skytower"
+    },
+    {
+      "id": "ateneu",
+      "label": "Ateneul Român",
+      "kind": "landmark",
+      "lat": 44.441344,
+      "lon": 26.0973695,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r11-c08"
+    },
+    {
+      "id": "regal",
+      "label": "Palatul Regal (MNAR)",
+      "kind": "landmark",
+      "lat": 44.4394699,
+      "lon": 26.0960493,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r11-c08"
+    },
+    {
+      "id": "tnb",
+      "label": "Teatrul Național București",
+      "kind": "landmark",
+      "lat": 44.4370273,
+      "lon": 26.1036159,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r13-c10"
+    }
+  ],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "boundarySource": "boundary-source.json",
+  "items": [
+    {
+      "id": "aerial-r05-c04",
+      "label": "Row 5 · Column 4",
+      "row": 5,
+      "column": 4,
+      "lat": 44.45392394269878,
+      "lon": 26.08333533887082,
+      "x": -625.0000000001403,
+      "z": -625.0000000003593,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        -750,
+        -750,
+        -500,
+        -500
+      ],
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 109,
+        "triangles": 401873,
+        "renderMs": 1.0999999940395355,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 306
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-12T19:49:27.738Z",
+      "gamePath": "images/aerial-r05-c04.jpg",
+      "image": "images/aerial-r05-c04.jpg",
+      "thumbnail": "thumbs/aerial-r05-c04.jpg",
+      "sha256": "ef1c5119f75125c25115c261b2099257c4ab89c2f601ba6742a5b1b6086eaf28",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 653,
+      "dataset": "atlas",
+      "thumbnailSha256": "9ac0c55e992eadc13c83c4e9373176aac86c385b307c0e018e061496f7cada49",
+      "retakeReason": "Muzeul Antipa landmark model on Șos. Kiseleff"
+    },
+    {
+      "id": "aerial-r07-c07",
+      "label": "Row 7 · Column 7",
+      "row": 7,
+      "column": 7,
+      "lat": 44.44942478853976,
+      "lon": 26.092772932225838,
+      "x": 125.000000000141,
+      "z": -125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -195.69787977516015,
+      "boundsXZ": [
+        0,
+        -250,
+        250,
+        0
+      ],
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 126,
+        "triangles": 521010,
+        "renderMs": 1.9000000059604645,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 306
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-12T19:49:38.028Z",
+      "gamePath": "images/aerial-r07-c07.jpg",
+      "image": "images/aerial-r07-c07.jpg",
+      "thumbnail": "thumbs/aerial-r07-c07.jpg",
+      "sha256": "8e4bd65cf7f909e63d5e38112f243637d169de2f2c0541a3cb48ea7219aee536",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 547,
+      "dataset": "atlas",
+      "thumbnailSha256": "8442d840f3ea07b0b851c8c8b4c16dacffd1b055c27d14b351eddbdd5c3143e9",
+      "retakeReason": "Lascăr Catargiu statue on its square"
+    },
+    {
+      "id": "aerial-r10-c09",
+      "label": "Row 10 · Column 9",
+      "row": 10,
+      "column": 9,
+      "lat": 44.44267605730123,
+      "lon": 26.09906466112918,
+      "x": 625.0000000001403,
+      "z": 625.0000000003593,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        500,
+        500,
+        750,
+        750
+      ],
+      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 114,
+        "triangles": 405371,
+        "renderMs": 1.4000000059604645,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 306
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-12T19:49:50.643Z",
+      "gamePath": "images/aerial-r10-c09.jpg",
+      "image": "images/aerial-r10-c09.jpg",
+      "thumbnail": "thumbs/aerial-r10-c09.jpg",
+      "sha256": "2ccd699f5848ff26323fb9fa8ad0569f398c4c37d074c6844c387f44d1296ed1",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 612,
+      "dataset": "atlas",
+      "thumbnailSha256": "0d75640e36c5c3e0b5b01661752203ef2f6009f0b83436ee08015b4bb9a0c9ca",
+      "retakeReason": "Arthur Verona fountain basin"
+    }
+  ]
+}

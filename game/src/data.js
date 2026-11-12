@@ -376,7 +376,7 @@ export const ACHIEVEMENTS = [
     { id: 'lm-spring-tour', cat: 'landmarks', activity: 'spring-palace:residence-tour', live: true, icon: '📷', title: 'Spring Palace entrance', desc: 'Framed the gate, flag and residence from the public approach.' },
     { id: 'lm-cismigiu-boat', cat: 'landmarks', activity: 'cismigiu:rowboat', live: true, icon: '🚣', title: 'Rowed in Cișmigiu', desc: 'Rowed round the lake in Bucharest\'s oldest public garden.' },
     { id: 'lm-cismigiu-chess', cat: 'landmarks', activity: 'cismigiu:chess', live: true, icon: '♟️', title: 'Opening moves', desc: 'Played the legal e4, e5, Nf3 opening at a Cișmigiu chess table.' },
-    { id: 'lm-cismigiu-backgammon', cat: 'landmarks', activity: 'cismigiu:backgammon', live: true, icon: '🎲', title: 'A match at La Șahiști', desc: 'Bore off all fifteen checkers and beat Doru, a Cișmigiu park regular.' },
+    { id: 'lm-cismigiu-backgammon', cat: 'landmarks', activity: 'cismigiu:backgammon', live: true, icon: '🎲', title: 'A match at La Șahiști', desc: 'Sat down for a game of table, bore off all fifteen checkers and beat Doru, a Cișmigiu park regular.' },
     { id: 'lm-cismigiu-rotunda', cat: 'landmarks', activity: 'cismigiu:rotunda', live: true, icon: '📖', title: 'Twelve writers', desc: 'Stood before every bust in the Writers\' Rotunda.' },
     { id: 'lm-arc-terrace', cat: 'landmarks', activity: 'arcul-de-triumf:terrace', live: true, icon: '🏛️', title: 'The Arc memorial', desc: 'Framed the arch opening and both sculpted piers from the public island.' },
     { id: 'lm-arc-race', cat: 'landmarks', activity: 'arcul-de-triumf:arcul-race', live: true, icon: '🏁', title: 'First around the Arc', desc: 'Beat both island runners over a complete lap of the public walking course.' },

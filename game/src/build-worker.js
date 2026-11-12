@@ -11,24 +11,30 @@ let cuts = []; // fallback ground source openings of this build, sent once per w
 const roofs = new Map(); // building index → complete roof faces ([[x, y, z] × 3] …), sent once per worker
 const unpack = (flat, size) => { const faces = []; for (let k = 0; k < flat.length; k += 3 * size) { const f = []; for (let j = 0; j < 3; j++) f.push(Array.from(flat.subarray(k + j * size, k + (j + 1) * size))); faces.push(f); } return faces; };
 
+function clipJob(m) {
+    const faces = unpack(m.faces, 12);
+    const neighbours = m.neighbours.map((n) => (n.roof ? { i: n.i, sourceId: n.sourceId, minH: n.minH, mesh: { faces: roofs.get(n.i) } } : { i: n.i, sourceId: n.sourceId, minH: n.minH }));
+    const r = clipInferredBuildingDetail(faces, m.owner, neighbours, { inferred: true });
+    // the faces only matter when the range is replaced (clippedAreaM2 > 1e-10); points keep their 12 attributes
+    let out = null;
+    if (r.clippedAreaM2 > 1e-10) {
+        out = new Float64Array(r.faces.length * 36);
+        let k = 0;
+        for (const f of r.faces) { if (f.length !== 3) throw new Error('clip: non-triangle face'); for (const p of f) { if (p.length !== 12) throw new Error('clip: point with ' + p.length + ' attributes'); out.set(p, k); k += 12; } }
+    }
+    return { id: m.id, clippedAreaM2: r.clippedAreaM2, issues: r.issues, faces: out };
+}
+
 self.onmessage = (ev) => {
     const m = ev.data;
     if (m.type === 'pack') { fetchDistrictPackText(m.url).then((text) => self.postMessage({ id: m.id, text }), (e) => self.postMessage({ id: m.id, error: String(e && e.stack || e) })); return; }
     try {
         if (m.type === 'reset') { roofs.clear(); cuts = []; overlapLive = []; overlapIndex = new Map(); overlapCells = null; return; }
         if (m.type === 'roofs') { for (const [i, flat] of m.roofs) roofs.set(i, unpack(flat, 3)); return; }
-        if (m.type === 'clip') {
-            const faces = unpack(m.faces, 12);
-            const neighbours = m.neighbours.map((n) => (n.roof ? { i: n.i, sourceId: n.sourceId, minH: n.minH, mesh: { faces: roofs.get(n.i) } } : { i: n.i, sourceId: n.sourceId, minH: n.minH }));
-            const r = clipInferredBuildingDetail(faces, m.owner, neighbours, { inferred: true });
-            // the faces only matter when the range is replaced (clippedAreaM2 > 1e-10); points keep their 12 attributes
-            let out = null;
-            if (r.clippedAreaM2 > 1e-10) {
-                out = new Float64Array(r.faces.length * 36);
-                let k = 0;
-                for (const f of r.faces) { if (f.length !== 3) throw new Error('clip: non-triangle face'); for (const p of f) { if (p.length !== 12) throw new Error('clip: point with ' + p.length + ' attributes'); out.set(p, k); k += 12; } }
-            }
-            self.postMessage({ id: m.id, clippedAreaM2: r.clippedAreaM2, issues: r.issues, faces: out }, out ? [out.buffer] : []);
+        if (m.type === 'clip') { const r = clipJob(m); self.postMessage(r, r.faces ? [r.faces.buffer] : []); return; }
+        if (m.type === 'clips') {
+            const batch = m.jobs.map((j) => { try { return clipJob(j); } catch (e) { return { id: j.id, error: String(e && e.stack || e) }; } });
+            self.postMessage({ batch }, batch.flatMap((r) => (r.faces ? [r.faces.buffer] : [])));
             return;
         }
         if (m.type === 'fallbackCuts') {

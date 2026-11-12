@@ -12,24 +12,38 @@ export function createBuildPool(size = Math.max(1, Math.min(6, ((typeof navigato
     const state = workers.map((w) => ({ w, busy: 0, roofs: new Set() })), pending = new Map();
     let next = 0, failed = null;
     for (const s of state) {
-        s.w.onmessage = (ev) => { const r = ev.data, p = pending.get(r.id); if (!p) return; pending.delete(r.id); s.busy--; if (r.error) p.reject(new Error(r.error)); else p.resolve(r); };
+        const settle = (r) => { const p = pending.get(r.id); if (!p) return; pending.delete(r.id); s.busy--; if (r.error) p.reject(new Error(r.error)); else p.resolve(r); };
+        s.w.onmessage = (ev) => { const r = ev.data; if (r.batch) for (const x of r.batch) settle(x); else settle(r); };
         s.w.onerror = (ev) => { failed = new Error('build worker failed: ' + (ev.message || 'error')); for (const [, p] of pending) p.reject(failed); pending.clear(); };
     }
     const pick = () => state.reduce((a, b) => (b.busy < a.busy ? b : a));
+    // clip jobs travel in batches (one message per CLIP_BATCH jobs, and one answer per batch): a message per job cost more
+    // on this thread than the clipping it handed over. flush() sends a partial batch.
+    const CLIP_BATCH = 24;
+    let batch = [], batchRoofs = new Map();
     return {
         size,
         /** inferred-detail clip job: faces Float64Array (36 per face), owner {i, sourceId}, neighbours [{i, sourceId, minH,
          *  roof: Float64Array (9 per face) | null}] → Promise<{clippedAreaM2, issues, faces: Float64Array | null}> */
         clip(faces, owner, neighbours) {
             if (failed) return Promise.reject(failed);
-            const s = pick(), id = next++, roofs = [];
-            for (const n of neighbours) if (n.roof && !s.roofs.has(n.i)) { s.roofs.add(n.i); roofs.push([n.i, n.roof]); }
+            const id = next++;
+            for (const n of neighbours) if (n.roof) batchRoofs.set(n.i, n.roof);
+            const promise = new Promise((resolve, reject) => pending.set(id, { resolve, reject }));
+            batch.push({ id, faces, owner, neighbours: neighbours.map((n) => ({ i: n.i, sourceId: n.sourceId, minH: n.minH, roof: !!n.roof })) });
+            if (batch.length >= CLIP_BATCH) this.flush();
+            return promise;
+        },
+        /** send the clip jobs gathered so far */
+        flush() {
+            if (!batch.length) return;
+            if (failed) { for (const j of batch) { const p = pending.get(j.id); pending.delete(j.id); p?.reject(failed); } batch = []; batchRoofs = new Map(); return; }
+            const s = pick(), roofs = [];
+            for (const [i, roof] of batchRoofs) if (!s.roofs.has(i)) { s.roofs.add(i); roofs.push([i, roof]); }
             if (roofs.length) s.w.postMessage({ type: 'roofs', roofs });
-            s.busy++;
-            return new Promise((resolve, reject) => {
-                pending.set(id, { resolve, reject });
-                s.w.postMessage({ type: 'clip', id, faces, owner, neighbours: neighbours.map((n) => ({ i: n.i, sourceId: n.sourceId, minH: n.minH, roof: !!n.roof })) });
-            });
+            s.busy += batch.length;
+            s.w.postMessage({ type: 'clips', jobs: batch });
+            batch = []; batchRoofs = new Map();
         },
         /** the fallback ground's source openings ({poly: [[x, z]…], x0, x1, z0, z1}), to every worker */
         fallbackCuts(cuts) {
@@ -55,7 +69,7 @@ export function createBuildPool(size = Math.max(1, Math.min(6, ((typeof navigato
             return new Promise((resolve, reject) => { pending.set(id, { resolve, reject }); s.w.postMessage({ ...msg, id }); });
         },
         /** forget the previous build's data (roofs, cuts, records) before a new build */
-        reset() { for (const s of state) { s.roofs.clear(); s.w.postMessage({ type: 'reset' }); } },
+        reset() { batch = []; batchRoofs = new Map(); for (const s of state) { s.roofs.clear(); s.w.postMessage({ type: 'reset' }); } },
         close() { for (const s of state) s.w.terminate(); },
     };
 }

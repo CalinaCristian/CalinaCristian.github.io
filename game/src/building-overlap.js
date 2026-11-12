@@ -229,10 +229,15 @@ export async function planOverlapCutsParallel(recs, pool, opts = {}) {
     const live = recs.filter(b => !b.skip && b.ring?.length >= 3), packed = pool && live.length > 1 ? packOverlapRecords(live) : null;
     if (!packed) return planOverlapCuts(recs, opts);
     pool.overlapRecords(packed);
-    const step = Math.ceil(live.length / (pool.size * 4)), jobs = [];
-    for (let a = 0; a < live.length; a += step) jobs.push(pool.overlap(a, Math.min(live.length, a + step), opts));
+    // the workers plan the first ranges; the last share is planned here meanwhile (on the records themselves, as
+    // planOverlapCuts does), and joined last, so the order is the same
+    const mainFrom = live.length - Math.floor(live.length / (pool.size + 2));
+    const step = Math.ceil(mainFrom / (pool.size * 4)), jobs = [];
+    for (let a = 0; a < mainFrom; a += step) jobs.push(pool.overlap(a, Math.min(mainFrom, a + step), opts));
+    let here = null;
+    if (mainFrom < live.length) { const { cutters, skipped } = overlapCandidates(live, mainFrom, live.length, opts); here = { cuts: overlapPieces(cutters, opts), skipped }; }
     let results;
-    try { results = await Promise.all(jobs); } catch (e) { console.warn('[overlap cuts] worker failed, planning here', e); return planOverlapCuts(recs, opts); }
+    try { results = await Promise.all(jobs); } catch (e) { console.warn('[overlap cuts] worker failed, planning here', e); for (let k = mainFrom; k < live.length; k++) delete live[k].holeParts; return planOverlapCuts(recs, opts); }
     const cuts = [], skipped = [];
     for (const r of results) {
         for (const [k, hp] of r.holeParts) live[k].holeParts = hp;
@@ -247,5 +252,6 @@ export async function planOverlapCutsParallel(recs, pool, opts = {}) {
             cuts.push({ lower: L, tallers: c.tallers.map(t => live[t]), overlapM2: c.overlapM2, pieces, removedM2: c.removedM2 });
         }
     }
+    if (here) { skipped.push(...here.skipped); cuts.push(...here.cuts); }
     return { cuts, skipped };
 }

@@ -4589,6 +4589,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         for(const issue of result.issues)if(inferredDetailAudit.issues.length<100)inferredDetailAudit.issues.push({owner:owner.sourceId,...issue});
     }
     async function finishDetailClips() {
+        buildPool?.flush();
         if (!pendingDetailClips.length) return;
         const results = await Promise.all(pendingDetailClips.map(j => j.promise ? j.promise.catch(e => (console.warn('[world] build worker failed, clipping here', e), null)) : null));
         const byBuilder = new Map();
@@ -6047,6 +6048,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         // (fidelity pass: the Unirea car park was signed "Spălătorie Unirea Etaj 7") a business named for an upper floor is not the building's street sign
         if ((b.flags & 2) && b.name && (b.cvSign || b.area < 20000) && !AR?.signed && b.poiSign == null && str(data.buildingInfo?.[b.i * 5] ?? -1) !== 'construction' && !/\betaj(ul)?\s*[1-9]/i.test(b.name)) addFacadeSign(b, h, shop, wallCol);
     }
+    buildPool?.flush(); // (the last clip jobs of the loop go out now; their results are spliced in below)
     // (spec 10 load budget) the clipped detail ranges are spliced in just before the map-end closure, the first pass that
     // reads those builders' contents: until then (passages, shops, trees) the builders are only appended to, and the
     // splice shifts what was appended after each range, as it did here

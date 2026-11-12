@@ -5204,7 +5204,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 for (const q of ends) {
                     const mates = new Set(); grid.each(q.x - TOUCH, q.z - TOUCH, q.x + TOUCH, q.z + TOUCH, f => { if (f !== q && f.w !== q.w && Math.hypot(f.x - q.x, f.z - q.z) <= TOUCH && Math.abs(f.top - q.top) < .5) mates.add(f); });
                     q.mates = [...mates]; q.onBody = false;
-                    if (!q.mates.length) bodies.each(q.x - TOUCH, q.z - TOUCH, q.x + TOUCH, q.z + TOUCH, w => { if (q.onBody || w === q.w) return; const p = nearestOn(w, q.x, q.z); if (p.d < TOUCH && Math.abs(p.top - q.top) < .5) q.onBody = true; });
+                    if (!q.mates.length) bodies.each(q.x - TOUCH, q.z - TOUCH, q.x + TOUCH, q.z + TOUCH, w => { if (q.onBody || w === q.w) return; const p = nearestOn(w, q.x, q.z); if (p.d < TOUCH && Math.abs(p.top - q.top) < .5) { q.onBody = true; q.bodyW = w; } });
                     q.open = !q.mates.length && !q.onBody && q.top - 1.1 > .8; // (an end at street level is where the deck meets the ground)
                     q.ground = !q.mates.length && !q.onBody && !q.open;
                 }
@@ -5270,6 +5270,21 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (!kill.size) break;
                 for (let i = walls.length - 1; i >= 0; i--) if (kill.has(walls[i])) walls.splice(i, 1);
                 for (let i = ghostRails.length - 1; i >= 0; i--) if (kill.has(ghostRails[i])) ghostRails.splice(i, 1);
+            }
+            // a small group that is closed on itself has no open end to start from (a 6 m ring on a gore nose, owner's pose
+            // (426, -750)): every connected group under 16 m that does not reach the ground goes too
+            {
+                const N = analyse(), parent = new Map(N.rails.map(w => [w, w])), find = w => { let r = w; while (parent.get(r) !== r) r = parent.get(r); parent.set(w, r); return r; };
+                for (const q of N.ends) { for (const f of q.mates) parent.set(find(q.w), find(f.w)); if (q.bodyW) parent.set(find(q.w), find(q.bodyW)); }
+                const total = new Map(), grounded = new Set();
+                for (const w of N.rails) total.set(find(w), (total.get(find(w)) || 0) + len(w));
+                for (const q of N.ends) if (q.ground) grounded.add(find(q.w));
+                const kill = new Set(N.rails.filter(w => total.get(find(w)) < 16 && !grounded.has(find(w))));
+                if (kill.size) {
+                    const groups = new Set([...kill].map(find)); railingNetwork.prunedGroups = groups.size; for (const g of groups) { railingNetwork.prunedM += total.get(g); DROP((g.ax + g.bx) / 2, (g.az + g.bz) / 2, 'pruned-group'); }
+                    for (let i = walls.length - 1; i >= 0; i--) if (kill.has(walls[i])) walls.splice(i, 1);
+                    for (let i = ghostRails.length - 1; i >= 0; i--) if (kill.has(ghostRails[i])) ghostRails.splice(i, 1);
+                }
             }
             railingNetwork.prunedM = Math.round(railingNetwork.prunedM);
             { const N = analyse(); railingNetwork.rails = N.rails.length; railingNetwork.lengthM = Math.round(N.rails.reduce((n, w) => n + len(w), 0)); for (const q of N.ends) if (q.open) railingNetwork.openEnds.push([Math.round(q.x * 10) / 10, Math.round(q.z * 10) / 10, Math.round((q.top - 1.1) * 10) / 10]); }

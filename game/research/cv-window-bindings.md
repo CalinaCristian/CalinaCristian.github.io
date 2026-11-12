@@ -25,20 +25,6 @@ The root window adapter must read the real `Office.windowPane` aperture geometry
 
 Clarification sufficient to improve binding would identify building/block, approximate era, numbered floor and which side/landmark the window faced. A floor number alone does not establish a facade bearing.
 
-## CPU preparation
-
-`office-window-math.js` configures a dedicated unparented capture camera from world-space rectangular source corners. `office-window-target.js` owns one pixel-bounded render target and synchronously invokes the root's existing-world render callback, restoring renderer target/cubeface/mipmap, viewport, scissor/test, autoClear and XR state. Its texture is marked externally owned so Office disposal does not adopt it. Neither helper creates a scene/world/environment/simulation/timer or chooses a geographic fallback.
-
-The unique handoff contains reproducible matrix, parallax, near-clipping, invalid-input, exact pixel-cap, exception/restoration, disposal and source-ledger controls. Native GPU/portal visual/resource checks and verified actual room floor/view remain pending.
-
-
-## Staged retained-world adapter
-
-The runtime candidate now validates the complete unchanged unit-scale room eye envelope and full pane against the current source polygon/holes, independently certifying a same-owner emitted thin facade envelope. Actual floors, bearings and source windows in this research ledger remain unknown. CPU replay of the unchanged builders supports Rosetti, Arnia and DB. GTS has a slightly oblique authored wall versus its literal source edges; the conservative plane certificate is unresolved, not proof of an actual opening. Lincoln ground/podium projections, UPB fins/recesses and Hermes’ floor transition remain incompatible with the tested full apertures. The UiPath Bucharest A/B identity conflict remains held. No room, source mass or window has been resized or removed to pass. See `handoffs/fidelity/live-office-windows/README.md` for exact candidate scope and outstanding native checks.
-
-
-The separate structural-plane follow-up certifies GTS against its actual unchanged main-prism triangles, rather than averaging the wall into a parallel source-edge plane. Its full structural aperture projects onto the literal edge and the eye envelope fits both source and emitted contours. Exterior mailbox, gate and trim remain visible ahead of the wall plane and do not choose its clipping offset. This is a fourth CPU-compatible estimated view, with the actual GTS office floor/window still unknown. Native pixels and the other four room bindings remain open; the earlier three-room reports retain their original source/checkpoint.
-
 ## Owner floor assignments · 10 November 2026
 
 GTS: floor2. Arnia: assumed floor6. Deutsche Bank: assumed floor6. UiPath: floor6, applied to both chapters. Politehnica: floor1. Rosetti: assumed floor2. Luxoft: floor 3 is an estimate (2026-11-11, register #52), for the owner to confirm. These owner instructions supersede earlier unknown-floor/ground-view descriptions, while dated historical proof retains its original source. Metre elevations, window bearings, source-building identity conflicts and complete-aperture compatibility still require evidence; a numbered floor does not authorize relocating a real building or clipping unrelated geometry.

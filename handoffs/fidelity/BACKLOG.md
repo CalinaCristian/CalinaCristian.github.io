@@ -11,7 +11,6 @@ Publishing: the owner asked (2026-11-11) for fixes to go straight to `master`, n
 
 | Where | Report | State / diagnosis |
 | --- | --- | --- |
-| people at night (owner close-up 2026-11-12: light, see-through figures in a standing pose overlapping walkers' legs and arms) | "shadows for people (texture like they are just standing that are transparent)" | not reproduced in visible windows at Ultra and High, night, fog, 2-10 m from walkers (Unirii, Grozăvești). Ruled out: shadows (moon shadow off at night, lamps and headlights cast none), the AO prepass (crowd excluded since edd7f16f), temporal blending (none), another mesh at the walkers' positions (none), the far model drawn together with the near one (each person is in one or the other). Needs an F8 report with the ghosts on screen |
 
 ## Waiting for the owner's walk-through: Space Needle rebuild (2026-11-11 / 12)
 

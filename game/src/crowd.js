@@ -391,7 +391,10 @@ export function makeCrowd({ max = 256, city = 'bucharest', season = seasonOf(), 
             if (d < OPTS.near) write(near, nn++, i); else write(far, nf++, i);
         }
         for (const [x, n] of [[near, nn], [far, nf]]) {
-            x.mesh.count = n; x.mesh.visible = n > 0;
+            // (owner, 2026-11-12: "shadows for people (texture like they are just standing that are transparent)") this hook also
+            // runs inside the ambient-occlusion prepass, which parks the crowd (its override material cannot pose it); turning
+            // the mesh visible again there drew everyone in the rest pose into that pass: light standing silhouettes in the AO
+            x.mesh.count = n; x.mesh.visible = n > 0 && !x.mesh.userData.prepassParked;
             if (n) { x.mesh.instanceMatrix.needsUpdate = true; for (const k in x.at) x.at[k].needsUpdate = true; }
         }
         crowd.stats = { near: nn, far: nf, culled: nc, ms: Math.round((performance.now() - t0) * 100) / 100 };

@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "be55eefd4f27c10faaf6338c72ce4ffff8f83e29",
+  "sourceSha": "293e02f0769ad178b408d6a09cb329347843e0e3",
   "reviewedOn": "2026-11-12",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -3531,23 +3531,23 @@
     },
     {
       "path": "specs/12-buildings-streetscape.md",
-      "sha256": "5ab04238ec56ded93c49ba3bee2150b2eac143b4e7845c22e3708d74ce042bdf"
+      "sha256": "ba78f033965ad1f2160ad6f6db238d6ad353f02e9bd98239d16c9c2ca628ece2"
     },
     {
       "path": "specs/13-traffic.md",
-      "sha256": "e7392d8a42230dbf3a9992d22e094106febb9ca3a573918dd7bcf6507947e4c9"
+      "sha256": "af03efba0ef85b3de783b660706ebaf547e154cb7580b517adb7df18e885d683"
     },
     {
       "path": "specs/15-tourist-spots.md",
-      "sha256": "51ba79dd2fcac04723def1b9cdb4bbc9b72e54f0330fc13a7d71de9ba951eac8"
+      "sha256": "30639511aa0036f7053cfe0b6bcde246faa45ecc3fcf2a4b915cc526554580ac"
     },
     {
       "path": "specs/18-weather-lighting.md",
-      "sha256": "9090bf5f767e6034f4ce2071746525d967bb5bc90f6e0b68b21bee3821ea3b66"
+      "sha256": "375691bb31ec82ad7d88a344022b4c67142faf816415add88708b1c6df8a0d5b"
     },
     {
       "path": "specs/19-qa-harness.md",
-      "sha256": "ef0cd8675d495a0388e1ecde3f38650993bce3b376a875b106e3bd785f3c2ad3"
+      "sha256": "915ce2ca0fdf1e415a8bf7d63611918ea61e556a88ffc2070ccacda1c436217c"
     },
     {
       "path": "game/index.html",
@@ -3571,7 +3571,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "b6ef707ac2b0d6111c195a4ffcb814127fcb5c439b17d760874b76ac38be4844"
+      "sha256": "eea0049f9006422bf92c4d55d180d0014a2d24dddce61f69c33023e834c015bc"
     },
     {
       "path": "game/src/cities.js",
@@ -3603,7 +3603,7 @@
     },
     {
       "path": "game/src/traffic.js",
-      "sha256": "7c76b456142167c692d6cb445e01f05b559eb6793acbdbd28673dc9de15a3c2d"
+      "sha256": "080668b346c5f309bf9122ee2f05f0b29c449288d4c0a2581852327b2e21a96a"
     },
     {
       "path": "game/src/signals.js",
@@ -3615,7 +3615,7 @@
     },
     {
       "path": "game/src/vehicles.js",
-      "sha256": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df"
+      "sha256": "ada6d37103978ac5e7efc430a81f4cde830bed371056c5696c68bc5f5d0f5f0a"
     },
     {
       "path": "game/src/onfoot.js",
@@ -3915,7 +3915,7 @@
     },
     {
       "path": "game/src/initial-traffic-admission.js",
-      "sha256": "c4d46adfae2898898946172b55d4ba4997e3717a413df5c736df049709aa75e4"
+      "sha256": "b88ba4b3fa4c8a3a5252b684f98c52040146341f98edc015f46c6d067995f160"
     },
     {
       "path": "game/src/initial-vehicle-admission.js",
@@ -4539,7 +4539,7 @@
     },
     {
       "path": "game/src/tram-path.js",
-      "sha256": "f296931a093085aa8e2d9409e462192316c6f09e7ac649dda207405385851ca4"
+      "sha256": "c0f11a4ec9ae7ce07c271662ca2e02d1c840960b4b841f70102ab35ee6aeb0d8"
     },
     {
       "path": "game/src/tram-source-signals.js",
@@ -4547,7 +4547,7 @@
     },
     {
       "path": "game/src/tram-sweep.js",
-      "sha256": "eafccaf60cdb3c062ed4c237b2ba9f2fe7feaaf5779c3a60a22c28b70c72c508"
+      "sha256": "6c9ed08b44e13c3740cc1b0127b5fc37e1fd9d2aa22d569c16e057602adeb349"
     },
     {
       "path": "game/src/tram-trench.js",

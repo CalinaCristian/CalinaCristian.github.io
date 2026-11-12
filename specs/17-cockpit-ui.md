@@ -17,7 +17,7 @@ R17.6 Instrument and navigation/media displays remain sharp on Low, Medium and A
 Native source1e640089 controls cover12 desktop/landscape/portrait tier captures, up to339calls/1,115,483triangles in forced-full-mirror stress. Low's forced mirror is a budget control, not normal availability; a separate normal Low drive preserves its hidden mirror and sharp instruments/nav. Pixel controls show zero changes outside the three source plane projections (one output-pixel raster allowance), with actual near occlusion, picking, mirror bytes, camera/fleet callbacks and off-car/layer hiding retained. Cold touchAuto4-toggle/9-condition controls and two resource cycles pass. These focused checks do not replace the final combined-tree phone/transition/performance gates.
 
 ## Acceptance
-- [x] Visual QA cockpit detectors: screen fully in frustum and unoccluded at all four viewports; 0 canvas text overflows; 0 HUD overlaps. (raycast + DOM-rect checks in the log; HUD-overlap re-run pending after the last CSS tweak for Seattle/touch)
+- [x] Visual QA cockpit detectors: screen fully in frustum and unoccluded at all four viewports; 0 canvas text overflows; 0 HUD overlaps. (raycast + DOM-rect checks in the log)
 - [x] Screenshots per viewport in the log.
 
 ## Current linear office story · 10 November 2026

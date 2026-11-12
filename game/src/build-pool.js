@@ -35,6 +35,10 @@ export function createBuildPool(size = Math.max(1, Math.min(6, ((typeof navigato
         },
         /** walk one fallback-ground subtree (fallbackVisit) → Promise<{report, parts, positions, normals, uv, indices}> */
         fallback(box, nearby, params) { return this.job({ type: 'fallback', box, nearby, params }); },
+        /** the live building records for the overlap cuts (packOverlapRecords), to every worker */
+        overlapRecords(packed) { for (const s of state) s.w.postMessage({ type: 'overlapRecs', packed }); },
+        /** plan the overlap cuts of live[from…to) → Promise<{cuts, skipped, holeParts}> */
+        overlap(from, to, opts) { return this.job({ type: 'overlap', from, to, opts }); },
         job(msg) {
             if (failed) return Promise.reject(failed);
             const s = pick(), id = next++; s.busy++;

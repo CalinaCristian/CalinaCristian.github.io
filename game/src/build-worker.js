@@ -3,7 +3,9 @@
 // Numbers travel as Float64Array (exact). Messages: see build-pool.js.
 import { clipInferredBuildingDetail } from './building-detail-visibility.js';
 import { fallbackVisit, fallbackState } from './fallback-partition.js';
+import { overlapCandidates, overlapPieces, unpackOverlapRecords } from './building-overlap.js';
 
+let overlapLive = [], overlapIndex = new Map(); // the live building records of this build (overlap cuts)
 let cuts = []; // fallback ground source openings of this build, sent once per worker
 const roofs = new Map(); // building index → complete roof faces ([[x, y, z] × 3] …), sent once per worker
 const unpack = (flat, size) => { const faces = []; for (let k = 0; k < flat.length; k += 3 * size) { const f = []; for (let j = 0; j < 3; j++) f.push(Array.from(flat.subarray(k + j * size, k + (j + 1) * size))); faces.push(f); } return faces; };
@@ -31,6 +33,14 @@ self.onmessage = (ev) => {
             const st = fallbackVisit(m.box, Array.from(m.nearby, (i) => cuts[i]), fallbackState({ report: { known: true, reason: null, nodes: 0, leaves: 0 }, ...m.params }));
             const out = { positions: Float64Array.from(st.positions), normals: Float64Array.from(st.normals), uv: Float64Array.from(st.uv), indices: Float64Array.from(st.indices) };
             self.postMessage({ id: m.id, report: st.report, parts: st.parts, ...out }, [out.positions.buffer, out.normals.buffer, out.uv.buffer, out.indices.buffer]);
+            return;
+        }
+        if (m.type === 'overlapRecs') { overlapLive = unpackOverlapRecords(m.packed); overlapIndex = new Map(overlapLive.map((b, k) => [b, k])); return; }
+        if (m.type === 'overlap') {
+            const { cutters, skipped } = overlapCandidates(overlapLive, m.from, m.to, m.opts), cuts = overlapPieces(cutters, m.opts), holeParts = [];
+            for (let k = m.from; k < m.to; k++) if (overlapLive[k].holeParts) holeParts.push([k, overlapLive[k].holeParts]);
+            // lowerRing travels in the same message as the pieces, so shared point objects stay recognisable
+            self.postMessage({ id: m.id, skipped, holeParts, cuts: cuts.map((c) => ({ lower: overlapIndex.get(c.lower), lowerRing: c.lower.ring, tallers: c.tallers.map((t) => overlapIndex.get(t)), overlapM2: c.overlapM2, pieces: c.pieces, removedM2: c.removedM2 })) });
             return;
         }
         throw new Error('build worker: unknown message ' + m.type);

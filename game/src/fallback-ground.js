@@ -55,7 +55,7 @@ function finishGround(positions,normals,uv,indices,parts,report){
  *  top levels split here exactly as fallbackVisit does; every subtree is walked by fallbackVisit (in a worker when it has
  *  cuts) and the outputs are joined in depth-first order with their indices offset: the same arrays as one walk. Should a
  *  subtree stop at a limit, or the node total pass maxNodes, the whole ground is built here by buildFallbackGround. */
-export async function buildFallbackGroundParallel(apertures,opts,pool,{depth=6}={}){
+export async function buildFallbackGroundParallel(apertures,opts,pool,{depth=Infinity}={}){
     const {x0,x1,z0,z1,leafSize=64,maxNodes=100000,maxFragments=2048}=opts||{};
     const report={...apertures.report,leafSize,nodes:0,leaves:0,triangles:0};
     if(!pool||!report.known||![x0,x1,z0,z1,leafSize].every(Number.isFinite)||x1<=x0||z1<=z0||leafSize<1)return buildFallbackGround(apertures,opts);

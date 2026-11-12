@@ -54,7 +54,7 @@ import { BASARAB_PLATFORMS } from './basarab-source.js';
 import { raisedRoadTriangles } from './basarab-anchor-clearance.js';
 import { buildRailRoadsideClearance } from './rail-roadside.js';
 import { districtTramSweep } from './tram-sweep.js';
-import { planOverlapCuts } from './building-overlap.js';
+import { planOverlapCuts, planOverlapCutsParallel } from './building-overlap.js';
 import { buildCoveredRoadModels } from './covered-road-models.js';
 import { roadMiter, needsRoadBevelPad } from './road-joins.js';
 import { markingArea, clipMarkingHalfPlane, clipMarkingConvex, subtractMarkingConvex, clipAffineMarkingRange, buildMarkingStations, markingDashIntervals } from './road-markings.js';
@@ -4148,7 +4148,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // ---- overlapping source buildings (building-overlap.js): a lower building is cut to stop at a taller one's walls
     const overlapCuts = { pairs: 0, cut: 0, removedM2: 0, skipped: {}, samples: [] };
     {
-        const plan = planOverlapCuts(bRecs);
+        const plan = buildPool ? await planOverlapCutsParallel(bRecs, buildPool) : planOverlapCuts(bRecs);
         for (const q of plan.skipped) overlapCuts.skipped[q.reason] = (overlapCuts.skipped[q.reason] || 0) + 1;
         for (const cut of plan.cuts) {
             const L = cut.lower; overlapCuts.pairs += cut.tallers.length; overlapCuts.removedM2 += cut.removedM2;
@@ -4376,11 +4376,20 @@ export async function buildWorld(city, renderer, opts = {}) {
         physicalUnionAudit.push({ source: data.buildingIds?.[b.derivedFrom ?? b.i] || b.i, neighbours: spec.neighbours.length });
     }
     const inferredDetailAudit = { ranges: 0, clippedAreaM2: 0, issues: [] }, detailRoofs = new Map();
+    // roofMesh is pure and its result is only read: a building's roof (the building loop) and the same building as a
+    // detail-clipping neighbour share one computation while its ring, holes and profile are the same objects
+    const roofMeshMemo = new Map();
+    function roofMeshOf(b) {
+        const m = roofMeshMemo.get(b);
+        if (m && m.ring === b.ring && m.holes === b.holes && m.profile === b.roofProfile) return m.mesh;
+        const mesh = roofMesh(b.ring, b.holes, b.roofProfile, triangulate);
+        roofMeshMemo.set(b, { ring: b.ring, holes: b.holes, profile: b.roofProfile, mesh }); return mesh;
+    }
     function completeDetailRoof(b) {
         if (detailRoofs.has(b.i)) return detailRoofs.get(b.i);
         let mesh = null;
         if (sourceSurfaceEligible(b)) {
-            if (b.roofProfile) mesh = roofMesh(b.ring, b.holes, b.roofProfile, triangulate);
+            if (b.roofProfile) mesh = roofMeshOf(b);
             else if (b.roof === 'flat') { const { pts, tris } = triangulate(b.ring, b.holes); mesh = { faces: tris.map(t => t.map(i => [pts[i][0], b.h, pts[i][1]])) }; }
         }
         const result = mesh ? { i: b.i, sourceId: b.sourceId, minH: b.minH, mesh } : null;
@@ -5724,7 +5733,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const { pts, tris } = triangulate(underside);
             for (const tri of tris) mb.face3(...tri.map(i => [pts[i][0], b.minH, pts[i][1]]), shadeRgb(wallCol, 0.75), [0, -1, 0]);
         }
-        const sourceRoof = b.roofProfile ? roofMesh(ring, b.holes, b.roofProfile, triangulate) : null;
+        const sourceRoof = b.roofProfile ? (ring === b.ring ? roofMeshOf(b) : roofMesh(ring, b.holes, b.roofProfile, triangulate)) : null;
         if (sourceRoof) {
             const cached = data.buildingRoofSurfaces?.[b.i], valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && signatureMatches(s.signature, roofSignature(source)); });
             if (cached) { if (valid) roofProfileAudit.surfacesApplied++; else roofProfileAudit.surfacesRejected.push(data.buildingIds?.[b.i] || b.i); }

@@ -11,6 +11,11 @@ let cuts = []; // fallback ground source openings of this build, sent once per w
 const roofs = new Map(); // building index → complete roof faces ([[x, y, z] × 3] …), sent once per worker
 const unpack = (flat, size) => { const faces = []; for (let k = 0; k < flat.length; k += 3 * size) { const f = []; for (let j = 0; j < 3; j++) f.push(Array.from(flat.subarray(k + j * size, k + (j + 1) * size))); faces.push(f); } return faces; };
 
+function fallbackLeaf(box, nearby, params) {
+    const st = fallbackVisit(box, Array.from(nearby, (i) => cuts[i]), fallbackState({ report: { known: true, reason: null, nodes: 0, leaves: 0 }, ...params }));
+    return { report: st.report, parts: st.parts, positions: Float64Array.from(st.positions), normals: Float64Array.from(st.normals), uv: Float64Array.from(st.uv), indices: Float64Array.from(st.indices) };
+}
+const fallbackBuffers = (r) => [r.positions.buffer, r.normals.buffer, r.uv.buffer, r.indices.buffer];
 function clipJob(m) {
     const faces = unpack(m.faces, 12);
     const neighbours = m.neighbours.map((n) => (n.roof ? { i: n.i, sourceId: n.sourceId, minH: n.minH, mesh: { faces: roofs.get(n.i) } } : { i: n.i, sourceId: n.sourceId, minH: n.minH }));
@@ -50,12 +55,8 @@ self.onmessage = (ev) => {
             for (let i = 0; i < lens.length; i++) { const poly = []; for (let q = 0; q < lens[i]; q++) { poly.push([coords[k], coords[k + 1]]); k += 2; } cuts.push({ poly, x0: boxes[4 * i], x1: boxes[4 * i + 1], z0: boxes[4 * i + 2], z1: boxes[4 * i + 3] }); }
             return;
         }
-        if (m.type === 'fallback') {
-            const st = fallbackVisit(m.box, Array.from(m.nearby, (i) => cuts[i]), fallbackState({ report: { known: true, reason: null, nodes: 0, leaves: 0 }, ...m.params }));
-            const out = { positions: Float64Array.from(st.positions), normals: Float64Array.from(st.normals), uv: Float64Array.from(st.uv), indices: Float64Array.from(st.indices) };
-            self.postMessage({ id: m.id, report: st.report, parts: st.parts, ...out }, [out.positions.buffer, out.normals.buffer, out.uv.buffer, out.indices.buffer]);
-            return;
-        }
+        if (m.type === 'fallback') { const r = fallbackLeaf(m.box, m.nearby, m.params); self.postMessage({ id: m.id, ...r }, fallbackBuffers(r)); return; }
+        if (m.type === 'fallbackBatch') { const results = m.leaves.map((l) => fallbackLeaf(l.box, l.nearby, m.params)); self.postMessage({ id: m.id, results }, results.flatMap(fallbackBuffers)); return; }
         if (m.type === 'overlapRecs') { overlapLive = unpackOverlapRecords(m.packed); overlapIndex = new Map(overlapLive.map((b, k) => [b, k])); overlapCells = overlapGrid(overlapLive); return; }
         if (m.type === 'overlap') {
             const { cutters, skipped } = overlapCandidates(overlapLive, m.from, m.to, m.opts, overlapCells), cuts = overlapPieces(cutters, m.opts), holeParts = [];

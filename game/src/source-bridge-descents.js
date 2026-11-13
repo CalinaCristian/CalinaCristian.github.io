@@ -1,13 +1,14 @@
 import { SOURCE_BRIDGE_DESCENTS } from './source-bridge-descent-models.js';
 import { sourcePath, sourceFrames, pathStation, clipConvex, clipAffine, polygonArea } from './bridge-profile-geometry.js';
 import { smoothTramRamp } from './tram-grade.js';
+import { descentHeight } from './bridge-height-models.js';
 const sort=v=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.keys(v).sort().map(k=>[k,sort(v[k])])):Array.isArray(v)?v.map(sort):v;
 const equal=(a,b)=>JSON.stringify(sort(a))===JSON.stringify(sort(b));
 const point=n=>[n.x,n.z];
 /** Pure reviewed associations. Original data, nodes and legacy profiles are inputs,
  * never modified here. Application and native physical acceptance remain separate. */
 export function compileSourceBridgeDescents(data,{coreEdges=[],lanePolygon,padLanePolygon,structuralPolygon=lanePolygon,models=SOURCE_BRIDGE_DESCENTS}={}){
- const lookup=new Map(),roadGrades=new Map(),padFields=new Map(),reports=[];
+ const lookup=new Map(),roadGrades=new Map(),padFields=new Map(),reports=[],workerSpecs=new Map();
  for(const field of ['roadSourceGeometry','scenerySourceGeometry'])for(const w of Object.values(data[field]||{}))if(w?.sourceId){const old=lookup.get(w.sourceId);if(old&&!['nodeIds','projected','tags'].every(k=>equal(old[k],w[k])))return{known:false,roadGrades,report:{known:false,unresolved:[{reason:'duplicate-original-source-context-disagrees',sourceId:w.sourceId}]}};lookup.set(w.sourceId,w);}
  for(const model of models){
   const report={modelId:model.id,estimated:true,basis:model.basis,active:model.ways.some(([id])=>lookup.has(id)),known:false,unresolved:[],oldProfiles:[]};reports.push(report);if(!report.active)continue;
@@ -47,9 +48,10 @@ export function compileSourceBridgeDescents(data,{coreEdges=[],lanePolygon,padLa
    const holdM=holdNodeM+(model.crownHoldExtraM||0);
    const length=path.length-flatReserveM-holdM,rise=model.crownHeightM-model.groundHeightM,ramp=smoothTramRamp(length,rise,{maxGrade:model.maxGrade,easeM:model.preferredEaseM});
    if(!ramp)return fail('finite-source-descent-c1-grade-infeasible',{pathLengthM:path.length,flatReserveM,length,rise});
-   const atStation=s=>model.crownHeightM-ramp.at(s-holdM);
-   const station=p=>{const q=frames.locate(p);if(q)return q.s;for(const[start,at]of [[true,0],[false,path.length]]){const i=start?0:path.points.length-1,a=path.points[i],b=path.points[start?1:i-1],dx=a[0]-b[0],dz=a[1]-b[1];if((p[0]-a[0])*dx+(p[1]-a[1])*dz>=0)return at;}throw Error('Source descent height query outside certified source-section bounds: '+model.id);};
-   const atWorld=(x,z)=>atStation(station([x,z]));
+   // (spec 10 load budget) bridge-height-models.js makes the height functions; workerSpec holds their numbers and source
+   // points, from which the build workers make the same functions
+   const {atStation,station,atWorld}=descentHeight({frames,points:path.points,length:path.length,crownHeightM:model.crownHeightM,ramp,holdM,modelId:model.id});
+   const workerSpec={modelId:model.id,points:path.points,length:path.length,rampLength:length,rampRise:rise,holdM};
    const profileBreaks=[...ramp.breaks.map(b=>b+holdM),holdM,path.length].filter((v,i,a)=>a.indexOf(v)===i).sort((a,b)=>a-b);
    const surfaceRegions=poly=>{
     const result=[];
@@ -59,11 +61,11 @@ export function compileSourceBridgeDescents(data,{coreEdges=[],lanePolygon,padLa
    };
    const pending=[];
    for(const e of affected){const s0=pathStation(path,lookup,e,point(e.a)),s1=pathStation(path,lookup,e,point(e.b));if(![s0,s1].every(Number.isFinite))return fail('native-edge-not-on-literal-source-chain',{edgeId:e.id,sourceId:e.sourceId});for(const p of lanePolygon(e.nativeEdge))try{station(p);}catch{return fail('native-lane-outside-bounded-source-field',{edgeId:e.id,point:p});}
-    const grade={known:true,modelId:model.id,estimated:true,basis:model.basis,sourceId:e.sourceId,role:'source-descent',ya:atStation(s0),yb:atStation(s1),heightAt:t=>atStation(s0+(s1-s0)*Math.max(0,Math.min(1,t))),heightAtWorld:atWorld,surfaceRegions,oldYa:e.ya,oldYb:e.yb};pending.push([e.id,grade]);report.oldProfiles.push({edgeId:e.id,sourceId:e.sourceId,ya:e.ya,yb:e.yb,newYa:grade.ya,newYb:grade.yb});
+    const grade={known:true,modelId:model.id,estimated:true,basis:model.basis,sourceId:e.sourceId,role:'source-descent',ya:atStation(s0),yb:atStation(s1),heightAt:t=>atStation(s0+(s1-s0)*Math.max(0,Math.min(1,t))),heightAtWorld:atWorld,surfaceRegions,oldYa:e.ya,oldYb:e.yb};Object.defineProperty(grade,'workerSpec',{value:{kind:'descent',modelId:model.id}});pending.push([e.id,grade]);report.oldProfiles.push({edgeId:e.id,sourceId:e.sourceId,ya:e.ya,yb:e.yb,newYa:grade.ya,newYb:grade.yb});
    }
    for(const[edgeId]of pending)if(roadGrades.has(edgeId))return fail('source-descent-model-ownership-overlap',{edgeId});for(const[edgeId,grade]of pending)roadGrades.set(edgeId,grade);
-   report.known=true;report.crown={sourceNodeId:model.crownNode,heightM:model.crownHeightM};report.ground={sourceNodeId:model.groundNode,heightM:model.groundHeightM,oldHeightM:ground.y,sourceJoins:model.groundJoinSources};report.groundJoinProfiles=join.map(e=>({edgeId:e.id,sourceId:e.sourceId,oldYa:e.ya,oldYb:e.yb,newYa:e.a===ground?model.groundHeightM:e.a.y,newYb:e.b===ground?model.groundHeightM:e.b.y}));report.pathLengthM=path.length;report.incidentGroundReserveM=incidentGroundReserveM;report.flatGroundReserveM=flatReserveM;report.rampLengthM=length;report.modelRampFinishSourceNode=model.modelRampFinishSourceNode;report.rampFinishBasis=model.rampFinishBasis;report.peakGrade=ramp.peakGrade;report.easeM=ramp.easeM;report.groundLaneOverlaps=overlaps;report.earlierGradeSeparatedFootprints=earlierCrossings;report.nativePhysicalGatePending=true;return true;
+   workerSpecs.set(model.id,workerSpec);report.known=true;report.crown={sourceNodeId:model.crownNode,heightM:model.crownHeightM};report.ground={sourceNodeId:model.groundNode,heightM:model.groundHeightM,oldHeightM:ground.y,sourceJoins:model.groundJoinSources};report.groundJoinProfiles=join.map(e=>({edgeId:e.id,sourceId:e.sourceId,oldYa:e.ya,oldYb:e.yb,newYa:e.a===ground?model.groundHeightM:e.a.y,newYb:e.b===ground?model.groundHeightM:e.b.y}));report.pathLengthM=path.length;report.incidentGroundReserveM=incidentGroundReserveM;report.flatGroundReserveM=flatReserveM;report.rampLengthM=length;report.modelRampFinishSourceNode=model.modelRampFinishSourceNode;report.rampFinishBasis=model.rampFinishBasis;report.peakGrade=ramp.peakGrade;report.easeM=ramp.easeM;report.groundLaneOverlaps=overlaps;report.earlierGradeSeparatedFootprints=earlierCrossings;report.nativePhysicalGatePending=true;return true;
   };run();
  }
- return{known:reports.some(r=>r.known),roadGrades,report:{known:reports.some(r=>r.known),models:reports},bindPadSurface:(n,p)=>padFields.set(n.id,p),padHeightAt:(n,x,z)=>padFields.get(n.id)?.heightAtWorld(x,z)??null};
+ return{known:reports.some(r=>r.known),roadGrades,workerSpecs,report:{known:reports.some(r=>r.known),models:reports},bindPadSurface:(n,p)=>padFields.set(n.id,p),padHeightAt:(n,x,z)=>padFields.get(n.id)?.heightAtWorld(x,z)??null};
 }

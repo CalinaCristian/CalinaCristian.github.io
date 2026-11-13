@@ -12,6 +12,13 @@ export function sharedBridgePadSurface(node,poly,edges,heightFor,{baseM=.24}={})
  const nearest=p=>{let best=Infinity,y;for(const e of edges){const t=Math.max(0,Math.min(1,((p[0]-e.a.x)*e.dirx+(p[1]-e.a.z)*e.dirz)/e.len)),d=Math.hypot(p[0]-e.a.x-e.dirx*e.len*t,p[1]-e.a.z-e.dirz*e.len*t);if(d<best){best=d;y=heightFor(e,p);}}return y;};
  const inside=(()=>{let sign=0;for(let i=0;i<P.length;i++){const a=P[i],b=P[(i+1)%P.length],v=(b[0]-a[0])*(node.z-a[1])-(b[1]-a[1])*(node.x-a[0]);if(Math.abs(v)<1e-9)continue;if(sign&&Math.sign(v)!==sign)return false;sign=Math.sign(v);}return true;})(),center=inside?[node.x,node.z]:[P.reduce((v,p)=>v+p[0],0)/P.length,P.reduce((v,p)=>v+p[1],0)/P.length];
  const C=[Math.fround(center[0]),Math.fround(baseM+(inside?node.y:nearest(center))),Math.fround(center[1])],boundary=rows.map(r=>[Math.fround(r.p[0]),Math.fround(baseM+(r.edge?heightFor(r.edge,r.p):nearest(r.p))),Math.fround(r.p[1])]),triangles=boundary.map((p,i)=>[C,p,boundary[(i+1)%boundary.length]]);
+ const {heightAtWorld,blendHeight}=padFieldFunctions(P,triangles,baseM);
+ return Object.defineProperty({topTriangles:triangles,sourceNodeId:node.sourceId,sourceNodeInside:inside,poly:P,heightAtWorld,blendHeight,transitionBandM:2,contains:p=>heightAtWorld(...p)!==null,basis:'MODEL shared source-junction fan; exact original road hull and node; Float32 triangle/query agreement'},'baseM',{value:baseM}); // (baseM: not enumerable, so the record is as before)
+}
+
+/** A pad's height queries from its hull P and fan triangles (sharedBridgePadSurface; the build workers make them from the
+ *  same numbers): heightAtWorld(x, z) inside the fan, else null; blendHeight(x, z, raw) eases a road height into it. */
+export function padFieldFunctions(P,triangles,baseM){
  const heightAtWorld=(x,z)=>{for(const [a,b,c]of triangles){const den=(b[2]-c[2])*(a[0]-c[0])+(c[0]-b[0])*(a[2]-c[2]);if(Math.abs(den)<1e-12)continue;const u=((b[2]-c[2])*(x-c[0])+(c[0]-b[0])*(z-c[2]))/den,v=((c[2]-a[2])*(x-c[0])+(a[0]-c[0])*(z-c[2]))/den;if(u>=-1e-5&&v>=-1e-5&&u+v<=1+1e-5)return u*a[1]+v*b[1]+(1-u-v)*c[1]-baseM;}return null;};
  // (spec 10 load budget) bounds of the hull and the fan: a point more than bandM + 1 m outside them is outside every
  // fan triangle (its tolerance is 1e-5 of a triangle) and at least bandM from the hull, so its answer is raw
@@ -27,5 +34,5 @@ export function sharedBridgePadSurface(node,poly,edges,heightFor,{baseM=.24}={})
   }
   return raw;
  };
- return{topTriangles:triangles,sourceNodeId:node.sourceId,sourceNodeInside:inside,poly:P,heightAtWorld,blendHeight,transitionBandM:2,contains:p=>heightAtWorld(...p)!==null,basis:'MODEL shared source-junction fan; exact original road hull and node; Float32 triangle/query agreement'};
+ return{heightAtWorld,blendHeight};
 }

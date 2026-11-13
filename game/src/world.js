@@ -6114,7 +6114,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             // Dimension/support provenance stays in data.buildingCanopies; estimates are not OSM clearance tags.
             const ring = b.ring, roofCol = rgb(b.roofColour || '#a7a8a2');
             // (r3) a fuel canopy's brand: the source POI on it, else the canopy review row's OSM brand; look per station (fuel-look.js)
-            const fuelPoi = data.pois.find(r => r[6] === b.i && data.poiKinds[r[0]] === 'fuel' && (str(r[4]) || str(r[3]))), fuelText = fuelPoi ? (str(fuelPoi[4]) || str(fuelPoi[3])) : (b.canopy.brand || '');
+            const fuelPoi = data.pois.find(r => r[6] === b.i && data.poiKinds[r[0]] === 'fuel' && (str(r[4]) || str(r[3]))), fuelText = fuelPoi ? (str(fuelPoi[4]) || str(fuelPoi[3])) : (b.canopy.brand || (distId && fuelStationRow(city.id + '-' + distId, data.buildingIds?.[b.i])?.brand) || ''); // (r3-look-3: a reviewed canopy row names the brand of an untagged canopy)
             const fuelLk = fuelText ? fuelLookFor(fuelText, fuelStationRow(city.id + '-' + distId, data.buildingIds?.[b.i])) : null;
             const sideCol = rgb(fuelLk?.soffit || '#d6d5ce');
             const canopy = canopyGeometry(b, triangulate), sourceRoof = canopy.native;
@@ -6993,7 +6993,12 @@ export async function buildWorld(city, renderer, opts = {}) {
         let side = ((x - ne.cx) * e.nx + (z - ne.cz) * e.nz) >= 0 ? 1 : -1;
         let roadAng = Math.atan2(e.dirx, e.dirz); // rotation about Y that maps local +z onto the edge direction
         if (kind === 'fuel') { // sourced stations keep their anchor; only clear footprints get forecourt decoration
-            const sourceCanopy = bIdx >= 0 ? bRecs[bIdx] : null;
+            let sourceCanopy = bIdx >= 0 ? bRecs[bIdx] : null;
+            if (!sourceCanopy?.canopy && distId) { // (r3-look-3) a station node whose canopies OSM maps as separate untagged roofs: fuel-look.js row canopies, nearest first
+                const ids = fuelStationRow(city.id + '-' + distId, null, brand || name, x, z, city.proj)?.canopies || [];
+                const recs = ids.map(id => bRecs.find(o => !o.skip && o.canopy && data.buildingIds?.[o.i] === id)).filter(Boolean);
+                if (recs.length) { sourceCanopy = recs[0]; for (const extra of recs.slice(1)) fuelForecourt(x, z, brand || name, extra); }
+            }
             if (sourceCanopy?.canopy && !sourceCanopy.skip) {
                 // The source roof was already emitted at its real footprint. Do not add a guessed 10x16m canopy/pumps.
                 poi.h = sourceCanopy.h; poi.w = sourceCanopy.x1 - sourceCanopy.x0; poi.d = sourceCanopy.z1 - sourceCanopy.z0;

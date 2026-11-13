@@ -84,9 +84,14 @@ export const FUEL_STATION_REVIEW = {
             evidence: [P('NDGwi1S_sXzOjXEXu_Xs8w', 44.566864, 26.070119, 16), P('iNwZVPNKq8h9KgXzPzc8YA', 44.567234, 26.070075, 152)] },
     },
     'seattle-seatac': {
-        'poi:shell@47.450517,-122.295791': { brand: 'Shell', pylon: { lat: 47.450584, lon: -122.295732 },
-            seen: 'white canopies with a yellow / red fascia stripe over the pumps in front of the Food Mart (no canopy footprint in OSM: not drawn); slim white pylon with the Shell sign at the corner of International Blvd / S 170th',
-            evidence: [P('fmPpufJiQj3Z0heB49Z9MQ', 47.450512, -122.295971, 87)] },
+        // (r3-look-3) OSM maps the station as a node (n824050627) but its two canopies as untagged building=roof, layer=1 ways
+        // w647569414 / w647566814 (covered service ways under them, maxheight 13'0''); the pack already carries both as open canopies.
+        // canopies ties them to the node: pumps under each, the brand look on both, the pylon by the nearer one (w647569414)
+        'poi:shell@47.450517,-122.295791': { brand: 'Shell', pylon: { lat: 47.450584, lon: -122.295732 }, canopies: ['w647569414', 'w647566814'],
+            seen: 'white canopies with a yellow / red fascia stripe over the pumps in front of the Food Mart; slim white pylon with the Shell sign at the corner of International Blvd / S 170th',
+            evidence: [P('fmPpufJiQj3Z0heB49Z9MQ', 47.450512, -122.295971, 87), 'OSM w647569414 / w647566814 building=roof layer=1'] },
+        w647569414: { brand: 'Shell', pylon: { lat: 47.450584, lon: -122.295732 }, seen: 'Shell canopy by the pylon (see the station row above)', evidence: [P('fmPpufJiQj3Z0heB49Z9MQ', 47.450512, -122.295971, 87)] },
+        w647566814: { brand: 'Shell', pylon: 'none', seen: 'second Shell canopy, north-west of the first (see the station row above)', evidence: [P('fmPpufJiQj3Z0heB49Z9MQ', 47.450512, -122.295971, 87)] },
         w433205179: { brand: '76', pylon: 'none',
             seen: 'light grey fascia with a thin orange top line, kiosk under the canopy; no pylon on the International Blvd frontage (an older panorama shows a red fascia: rebranded since)',
             evidence: [P('bpGv_kTfou2TMftytaQqEQ', 47.451014, -122.295834, 98), P('MPSenMWz4D9YPpME0MO0DA', 47.450952, -122.295066, 275)] },

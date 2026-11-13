@@ -13,7 +13,7 @@ export const BELLEVUE_SQUARE_PROFILE = Object.freeze({
 
 export function buildBellevueSquare(b, outline, macys) {
     const p = BELLEVUE_SQUARE_PROFILE, H = p.bodyHeightM;
-    const stone = '#aaa69c', brick = '#876351', glass = '#425465', frame = '#c3c5c1';
+    const stone = '#aaa69c', glass = '#425465', frame = '#c3c5c1', redBrick = '#94503f', brickCol = '#86473a';
     const sign = Math.sign(ringArea(outline));
     // One physical envelope owns the outline and its completely contained part.
     // No generic copy of Macy's is drawn through it. Keep the entire mapped plan.
@@ -28,7 +28,10 @@ export function buildBellevueSquare(b, outline, macys) {
         const recess = a[0] >= -6 && a[0] <= 24 && c[0] >= -6 && c[0] <= 24 &&
             a[1] >= -120 && a[1] <= -108 && c[1] >= -120 && c[1] <= -108;
         const macysFront = Math.min(a[1], c[1]) < -108 && Math.max(a[0], c[0]) < 54 && Math.min(a[0], c[0]) > -51;
-        wall(0, 9.4, stone); wall(9.4, H, macysFront && !recess ? brick : stone);
+        // (r2-landmarks-b-2, round 2b panorama 47.615603, -122.201778 h 272) the Bellevue Way (east) face is red brick with tall
+        // glazed bays between brick columns (it was grey stone with one blue shop band). Bay rhythm and heights are estimates.
+        const east = macysFront && !recess;
+        if (east) wall(0, H, redBrick); else { wall(0, 9.4, stone); wall(9.4, H, stone); }
         if (recess) {
             for (const [lo, hi] of [[.4, 3.5], [4.1, 8.9], [9.5, 14.4]]) {
                 b.quad(at(0, lo, .055), at(1, lo, .055), at(1, hi, .055), at(0, hi, .055), glass, 'g', [nx, 0, nz]);
@@ -40,6 +43,19 @@ export function buildBellevueSquare(b, outline, macys) {
                 }
                 for (let y = lo + 1.2; y + .14 <= hi; y += 1.2)
                     b.quad(at(0, y, .075), at(1, y, .075), at(1, y + .14, .075), at(0, y + .14, .075), frame, 'm', [nx, 0, nz]);
+            }
+        } else if (east && L > 5) {
+            const n = Math.max(1, Math.round(L / 7.5)), pw = .45 / L; // bays of about 7.5 m between 0.9 m brick columns
+            for (let j = 0; j < n; j++) {
+                const t0 = j / n + pw, t1 = (j + 1) / n - pw;
+                for (const [lo, hi] of [[.4, 4.3], [4.6, 8.8]]) b.quad(at(t0, lo, .055), at(t1, lo, .055), at(t1, hi, .055), at(t0, hi, .055), glass, 'g', [nx, 0, nz]);
+                b.quad(at(t0, 4.3, .06), at(t1, 4.3, .06), at(t1, 4.6, .06), at(t0, 4.6, .06), frame, 'm', [nx, 0, nz]);
+            }
+            for (let j = 0; j <= n; j++) { // proud brick columns at the bay joints
+                const t = j / n, h0 = Math.max(0, t - pw), h1 = Math.min(1, t + pw), top = H - .4;
+                b.quad(at(h0, 0, .28), at(h1, 0, .28), at(h1, top, .28), at(h0, top, .28), brickCol, 'm', [nx, 0, nz]);
+                b.quad(at(h0, 0, 0), at(h0, 0, .28), at(h0, top, .28), at(h0, top, 0), brickCol, 'm', [-dx / L, 0, -dz / L]);
+                b.quad(at(h1, 0, .28), at(h1, 0, 0), at(h1, top, 0), at(h1, top, .28), brickCol, 'm', [dx / L, 0, dz / L]);
             }
         } else if (L > 2) {
             // Existing shop-level glazing, bounded by each real wall segment.

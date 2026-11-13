@@ -564,3 +564,8 @@ legible at this resolution).
 - **Road-sky hole at Bellevue Way / NE 7th St** (r3-look-15): visual QA on 2026-11-13 (route uipath-bel, sample #33 at
   47.616117, -122.200589, the covered drive under Lincoln Square) flags no `road-sky-hole`; the pale band at the horizon is the road
   surface in daylight. Not reproduced, so closed.
+- **Bravern 2** (r3-look-10): the street face is the 22-storey part w1474780191; `facade-bands.js` now draws a cream stone base band
+  round it (0.15 - 8.4 m, two retail storeys: estimate) with shop-window bays, the glass curtain wall above unchanged.
+- **Landmark colours** (r2-landmarks-b-2): Bellevue Square's Bellevue Way face is red brick with two-storey glazed bays between proud
+  brick columns (was grey stone with one blue shop band; bay rhythm 7.5 m and heights are estimates); the Bellevue Towers podium
+  stone is darker grey (#9c978e).

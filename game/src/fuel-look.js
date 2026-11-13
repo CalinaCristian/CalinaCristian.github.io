@@ -15,7 +15,8 @@
 //  (`pylon: { lat, lon }`: an estimate from the panorama bearing and apparent distance, ±10 m; the emitter puts the pylon
 //  on the nearest free ground there), or that none was seen (`pylon: 'none'`), and the panoramas it rests on.
 //  No price, fuel grade or shop name is drawn; a station that a panorama shows under another brand than OSM's keeps its
-//  OSM identity in the data, and its row records the documented exception (`seenBrand`).
+//  OSM identity in the data, and its row records the documented exception (`seenBrand`); its canopy, pylon, building name
+//  and map label (world.js) follow the row's `text`.
 // ============================================================================
 
 export const FUEL_LOOK = {
@@ -79,7 +80,7 @@ export const FUEL_STATION_REVIEW = {
             seen: 'white fascia with the orange band and the rompetrol logo, orange columns; slim white pylon beside the flag masts on the DN1 frontage',
             evidence: [P('S-NLftUc9aS5ox2xY6-tLA', 44.561153, 26.06884, 19), P('7DPejJPO8OrQJAdWxso_3A', 44.56146, 26.069094, 225)] },
         w244429098: { brand: 'OMV', seenBrand: 'mol', text: 'MOL', pylon: { lat: 44.5668, lon: 26.07006 },
-            seen: 'a MOL station: green fascia with white MOL letters, white columns, green MOL pylon at the south end by DN1. OSM still says brand=OMV (its own brand:wikipedia tag already reads en:MOL (company)): documented exception, drawn as seen; the POI keeps the OSM name',
+            seen: 'a MOL station: green fascia with white MOL letters, white columns, green MOL pylon at the south end by DN1. OSM still says brand=OMV (its own brand:wikipedia tag already reads en:MOL (company)): documented exception, drawn and labelled on the map as seen (r3-look-2); the data keeps the OSM brand',
             evidence: [P('NDGwi1S_sXzOjXEXu_Xs8w', 44.566864, 26.070119, 16), P('iNwZVPNKq8h9KgXzPzc8YA', 44.567234, 26.070075, 152)] },
     },
     'seattle-seatac': {

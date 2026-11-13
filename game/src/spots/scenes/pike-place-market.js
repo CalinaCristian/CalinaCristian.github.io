@@ -13,6 +13,7 @@ import { GeoBatch, polyArea, inPoly } from '../kit.js';
 import { triangulate } from '../../building-overlap.js';
 import { neonSign, latticeFrame, stall } from '../props.js';
 import { wallGeometry, facadeMaterial, facadeStyle } from '../osm.js';
+import { marketWestMaterial } from './pike-place-westface.js';
 
 // OSM footprint → height of the eave above the street (Street View estimates) and roof colour
 export const HALLS = {
@@ -45,7 +46,7 @@ export function buildHalls(ctx, street) {
             if (!onStreet) {
                 if (others.some((o) => o !== m && inPoly((A[0] + B[0]) / 2 + nx * 0.6, (A[1] + B[1]) / 2 + nz * 0.6, o.poly))) continue; // a party wall: the neighbour stands against it
                 const top = Math.min(ya, yb) + H.h;
-                if (top - bottom > 9 && L > 6) { const w = wallGeometry([A, B], bottom, top, facadeStyle('apartment'), top - 3.4 * Math.ceil((top - bottom) / 3.4), '#ddd3ba'); b.add(w, 'f-apartment', null, w.userData.col); }
+                if (top - bottom > 9 && L > 6) { const w = wallGeometry([A, B], bottom, top, facadeStyle('apartment'), top - 3.4 * Math.ceil((top - bottom) / 3.4), '#f6f4ee'); b.add(w, 'f-apartment', null, w.userData.col); }
                 else b.quad([B[0], bottom, B[1]], [A[0], bottom, A[1]], [A[0], ya + H.h, A[1]], [B[0], yb + H.h, B[1]], '#d8ceb5', 'concrete');
                 continue;
             }
@@ -106,7 +107,7 @@ export function buildHalls(ctx, street) {
         for (const s of [33, 36.2, 47.5, 50.7, 61.5, 64.7]) { const q = west(s, 6.1), y = street.at(q.x, q.z).y; b.cyl(q.x, y, q.z, 0.07, 0.95, '#e8c21c', 'paint', 10); ctx.circle(q.x, q.z, 0.1, 0.95, { y }); }
         ctx.extras.marketHalls = { tents: n };
     }
-    grp.add(b.build('market-halls', { matOverrides: { 'f-apartment': facadeMaterial('apartment') } }));
+    grp.add(b.build('market-halls', { matOverrides: { 'f-apartment': marketWestMaterial() } })); // round 3: white walls, red steel sash (pike-place-westface.js)
     ctx.add(grp);
     ctx.extras.marketHalls = { ...ctx.extras.marketHalls, bays };
 }

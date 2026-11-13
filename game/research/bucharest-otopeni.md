@@ -467,3 +467,41 @@ deck now drawn on the mapped footprint (rise 4.6 m estimate); stair / lift tower
 lighting masts (man_made=tower, tower:type=lighting) drawn at their nodes; heights from OSM where tagged (20 - 40 m), else
 25 m estimate; n4089486527 banded orange / white as seen. The roundabout flag masts are not in OSM and are not drawn.
 Departures flyover w180054678: a steel post-and-rail railing (seen from the forecourt only).
+
+## Round 3, lane builder (2026-11-13)
+
+Sources: live OSM (API 0.6 / Overpass, 2026-11-12/13; the round-2 map.json tiles of each district for the cached-source
+tools), official Street View panoramas looked at for appearance only (nothing stored, nothing extracted into data).
+
+Maxigel w303678268 (pano XiEkrn45SiO9mH88qzVfbA, Calea Bucureștilor): red-panel showroom of about three storeys with a
+curved glazed corner tower and "maxigel" lettering; drawn 17.7 m (estimate), now a plain window grid instead of an
+apartment block. Salonul Oficial w771096084: two storeys from OSM min_level=0 / max_level=1 (was a 17.7 m default).
+Ramada outdoor pool w1322339467 (21 m²) and pool w706499892 added (no panorama shows them).
+
+## Round 3 (2026-11-13), lane structures
+
+Official Street View panoramas were looked at only (ids from coverage metadata); nothing was saved, traced or measured from them.
+
+DN1 at 44.568650, 26.069899 (h2 / h182): concrete median barrier, kerb + sidewalk + bollards + grass on
+the outer edges, no guard. Plain trunk edges with a mapped sidewalk of 1.2 m or more no longer get the generated concrete guard
+(world.js; only DN1 qualifies in the 8 districts). Departures flyover w180054678: no official panorama within 110 m of the deck
+(class kept, weak evidence). Roundabout flag masts / sculpture: no OSM object (live query 2026-11-13), not drawn; the nearby
+Monumentul Eroilor Jandarmi (w565845891, historic=memorial) exists in OSM.
+
+## Round 3 street-level review, lane look (2026-11-13)
+
+- **Rompetrol** (otopeni-1): both stations on DN1 have white fascia boards with an orange lower band, orange columns and the red /
+  orange drop logo on white (w312547071: rwBEQtyul8wwideP-uqqYQ h81, ugmV2tKj3xdC4nMf5Vme5Q h130; w918040922: S-NLftUc9aS5ox2xY6-tLA
+  h19, 7DPejJPO8OrQJAdWxso_3A h225). The research palette in the pack (`data.brands.rompetrol` = white / blue / orange) drew blue
+  letters; brand-review.js now gives the district white / orange / red without a rebuild. Each station has a slim white pylon on the
+  DN1 frontage (rough places in fuel-look.js).
+- **"OMV" w244429098 (Calea Bucureștilor 224D) is a MOL station**: green canopy with white MOL letters, white columns, green MOL
+  pylon at the south end by DN1 (NDGwi1S_sXzOjXEXu_Xs8w h16, iNwZVPNKq8h9KgXzPzc8YA h152). OSM still tags brand=OMV, but its own
+  `brand:wikipedia` reads en:MOL (company). Documented exception: drawn as seen (MOL look and canopy / pylon lettering), the POI keeps
+  the OSM name. Worth an OSM correction upstream.
+- **Gazprom** w918040928: dark blue fascia with a light blue band, blue columns, flag masts on the frontage; white pylon with the blue
+  logo at the south end (ruj2lFmYlbzU5U31pcteyQ h87, 7c-Lsllq2RjtY7Wyb3ITGg h120).
+- **Trees on the open ground along DN1** (otopeni-4): the crowns there are measured (aerial survey trees-bucharest-otopeni.json:
+  307 crowns in 44.563-44.568 × 26.0705-26.078, radius median 3.1 m, quartiles 2.2 / 4.9 m), not inferred, so the coverage rule does
+  not apply; the 2026-11-08 aerial review only covered airside / yellow-marking candidates. Removing any of them needs a bounded crop
+  review on the aerial mosaic (tools/aerial), never thinning.

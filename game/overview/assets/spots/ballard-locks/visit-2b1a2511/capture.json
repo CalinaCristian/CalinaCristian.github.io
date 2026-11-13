@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "purpose": "Visitor scene illustrations after fidelity pass round 3; not public-route proof or a matched reference comparison.",
+  "tool": "visit-capture.cjs: the procedure of handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/capture.cjs and capture-portrait.cjs (native destination entry, production on-foot controller placed at the viewpoint, look acquired with CDP touch drags, no free camera), run on Windows with hardware GL",
+  "toolSHA256": "2de67318f278fff069fbd6d561c93a6e6b23c84f1baba215a5d3e8a2a04ac49e",
+  "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted).",
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 2b1a2511d6b8b521b409d55415b2eca9906cc305: `git archive 2b1a2511d6b8b521b409d55415b2eca9906cc305 game` extracted to a scratch directory and served by a no-store static server; key runtime and data files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T10:01:51.995Z"
+  },
+  "record": {
+    "id": "ballard-locks",
+    "captures": [
+      {
+        "kind": "scene-context",
+        "file": "ballard-locks/scene-context.webp",
+        "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+        "capturedAt": "2026-11-13T09:58:51.894Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": 91.97229627058839,
+          "z": 100.50567922767456,
+          "y": -1.5,
+          "heading": 1.8815999999999997
+        },
+        "pose": {
+          "position": [
+            91.97229627058839,
+            0.1499999999999999,
+            100.50567922767456
+          ],
+          "bearing": 252.19226126818432,
+          "pitch": -19.999998276178218
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-13T09:58:51.334Z",
+        "triangles": 578679,
+        "drawCalls": 68,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "179e92f81682b855637dc653e4af67d0341f348352933cca6def49416e948e2a",
+        "bytes": 36814,
+        "fullPageHUD": false
+      },
+      {
+        "kind": "phone-context",
+        "file": "ballard-locks/phone-context.jpg",
+        "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+        "capturedAt": "2026-11-13T09:58:52.103Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 91.97229627058839,
+          "z": 100.50567922767456,
+          "y": -1.5,
+          "heading": 1.9198621874999997
+        },
+        "pose": {
+          "position": [
+            91.97229627058839,
+            0.1499999999999999,
+            100.50567922767456
+          ],
+          "bearing": 249.99999940949613,
+          "pitch": -19.99999827617822
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-13T09:58:51.543Z",
+        "triangles": 573175,
+        "drawCalls": 45,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "6624d9b5af4f4c6f83bd51ceca15312857f9e16dd8529eb76547a1a330a58ac3",
+        "bytes": 37699,
+        "fullPageHUD": true
+      }
+    ],
+    "startedAt": "2026-11-13T09:58:49.835Z",
+    "probe": {
+      "sceneId": "ballard-locks",
+      "spawn": {
+        "x": 0,
+        "z": 0,
+        "heading": -3.141592653589793,
+        "y": 0.22802500426769257
+      },
+      "challenges": [
+        {
+          "view": null,
+          "id": "ballard-locks",
+          "x": 92.8806906386185,
+          "z": 98.06953069523013,
+          "bearing": 290,
+          "pitch": -10,
+          "fov": 60,
+          "text": "Large lock full of boats from the north wall with the gates and control tower",
+          "r": 16,
+          "tol": 35,
+          "targets": [],
+          "condHint": null
+        }
+      ],
+      "interactables": [
+        {
+          "x": 2.6248532322724225,
+          "z": 62.883880936712785,
+          "label": "Watch a lock cycle from the public walkway"
+        },
+        {
+          "x": -61.40659894680601,
+          "z": 39.57814438593367,
+          "label": "Read: Busiest lock in the US"
+        },
+        {
+          "x": -33.297192803216426,
+          "z": 50.05961786320435,
+          "label": "Read: Lakes lowered"
+        },
+        {
+          "x": -5.187786659626863,
+          "z": 60.541091340475035,
+          "label": "Read: Two locks"
+        },
+        {
+          "x": 23.888097379189087,
+          "z": 67.63989218445339,
+          "label": "Read: Fish ladder"
+        },
+        {
+          "x": 4.000000000000001,
+          "z": 3.9999999999999996,
+          "label": "Join the short guided tour"
+        },
+        {
+          "x": 1000000000,
+          "z": 1000000000,
+          "label": ""
+        }
+      ]
+    },
+    "setup": {
+      "arrival": {
+        "x": 0,
+        "z": 0,
+        "y": 0.22802500426769257,
+        "heading": -3.141592653589793
+      },
+      "authoredViewpoint": {
+        "view": null,
+        "id": "ballard-locks",
+        "x": 92.8806906386185,
+        "z": 98.06953069523013,
+        "bearing": 290,
+        "pitch": -10,
+        "fov": 60,
+        "text": "Large lock full of boats from the north wall with the gates and control tower",
+        "r": 16,
+        "tol": 35,
+        "targets": [],
+        "condHint": null
+      },
+      "viewpoint": {
+        "view": null,
+        "id": "ballard-locks",
+        "x": 91.97229627058839,
+        "z": 100.50567922767456,
+        "bearing": 250,
+        "pitch": -20,
+        "fov": 60,
+        "text": "On the north wall of the large lock, beside the authored postcard point, turned toward the chamber (same position and look as the earlier captures).",
+        "r": 16,
+        "tol": 35,
+        "targets": [],
+        "condHint": null,
+        "authoredOverride": true
+      },
+      "position": {
+        "x": 91.97229627058839,
+        "z": 100.50567922767456,
+        "y": -1.5,
+        "heading": 0
+      },
+      "walker": "OnFootController",
+      "sceneId": "ballard-locks",
+      "origin": {
+        "lat": 47.6664,
+        "lon": -122.397,
+        "elev": 8.5
+      },
+      "projection": {
+        "mLat": 111183.83,
+        "mLon": 75105.22
+      }
+    },
+    "look": {
+      "drags": 7,
+      "residualInputPixels": {
+        "x": -15.942573830734682,
+        "y": 0.00001253598576796596
+      }
+    },
+    "lookBefore": {
+      "heading": 1.8815999999999997,
+      "pitch": -0.34906582031250005
+    },
+    "lookAfterInitialTouch": {
+      "heading": 1.7087999999999997,
+      "pitch": -0.34906582031250005
+    },
+    "phoneLook": {
+      "drags": 1,
+      "residualInputPixels": {
+        "x": 0.000004294265683787065,
+        "y": 0.00001253598576796596
+      }
+    },
+    "passed": true,
+    "endedAt": "2026-11-13T09:58:52.158Z"
+  }
+}

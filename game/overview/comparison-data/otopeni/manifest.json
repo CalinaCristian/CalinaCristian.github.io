@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "Otopeni aerial comparisons",
   "generatedDate": "2026-11-13",
-  "generatedAt": "2026-11-13T05:27:11.015Z",
+  "generatedAt": "2026-11-13T09:46:07.750Z",
   "defaultTile": "aerial-r11-c04",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -1836,16 +1836,19 @@
         250,
         -500
       ],
-      "gameSourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 98,
-        "triangles": 194586
+        "drawCalls": 99,
+        "triangles": 206768,
+        "renderMs": 1.5999999940395355,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 144
       },
       "renderer": {
         "width": 640,
@@ -1855,16 +1858,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T01:33:22.747Z",
-      "gamePath": "retakes/b1e33eee/aerial-r04-c07.png",
-      "image": "retakes/b1e33eee/aerial-r04-c07.png",
-      "thumbnail": "retakes/b1e33eee/aerial-r04-c07.png",
-      "sha256": "4928af2c9d57275c7be530e1e26b6bb24d1c46acf36383487683556763a19a26",
+      "capturedAt": "2026-11-13T09:45:35.752Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r04-c07.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r04-c07.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r04-c07.jpg",
+      "sha256": "94446875c381eeb8081f5f6324128917839d4c1041a412090ac15844eec8667e",
       "width": 640,
       "height": 640,
-      "captureWallMs": 9814,
+      "captureWallMs": 446,
       "dataset": "atlas",
-      "thumbnailSha256": "4928af2c9d57275c7be530e1e26b6bb24d1c46acf36383487683556763a19a26",
+      "thumbnailSha256": "5d25d07195ee1e41d7f5d3b1568d0ea67b4c2f189b823f87106c91f6fe50720d",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.56949915415902,
@@ -1875,8 +1878,8 @@
       "coverageType": "core-touches",
       "orientation": "north-up",
       "places": [],
-      "sourceNote": "Current native recapture after source-part terminal correction.",
-      "sourceCaptureManifest": "retakes/b1e33eee/capture-report.json"
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (Salonul Oficial drawn as a two-storey block with a light roof (was a dark generic slab)); prior collection archived.",
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json"
     },
     {
       "id": "aerial-r04-c08",
@@ -2496,16 +2499,19 @@
         250,
         -250
       ],
-      "gameSourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 89,
-        "triangles": 180785
+        "drawCalls": 90,
+        "triangles": 194743,
+        "renderMs": 1.7999999821186066,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 144
       },
       "renderer": {
         "width": 640,
@@ -2515,16 +2521,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T01:33:35.443Z",
-      "gamePath": "retakes/b1e33eee/aerial-r05-c07.png",
-      "image": "retakes/b1e33eee/aerial-r05-c07.png",
-      "thumbnail": "retakes/b1e33eee/aerial-r05-c07.png",
-      "sha256": "7ecc067041286188a283c9bdc99a73b5b317222254b34531b2612031f28f3e6e",
+      "capturedAt": "2026-11-13T09:45:39.815Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r05-c07.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r05-c07.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r05-c07.jpg",
+      "sha256": "2945fad70e3fdc80a3c3406682cf432d4e242adbc215eadd1d876f34c47484db",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8226,
+      "captureWallMs": 370,
       "dataset": "atlas",
-      "thumbnailSha256": "7ecc067041286188a283c9bdc99a73b5b317222254b34531b2612031f28f3e6e",
+      "thumbnailSha256": "327183dff166b40beae07944a2e0c5cedd0494aced1ccf16f1d3dd835352498b",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.56724957707951,
@@ -2535,8 +2541,8 @@
       "coverageType": "core-touches",
       "orientation": "north-up",
       "places": [],
-      "sourceNote": "Current native recapture after source-part terminal correction.",
-      "sourceCaptureManifest": "retakes/b1e33eee/capture-report.json"
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (named commercial footprint drawn with its window-grid walls and light roof); prior collection archived.",
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json"
     },
     {
       "id": "aerial-r05-c08",
@@ -7179,17 +7185,18 @@
   ],
   "locationId": "otopeni",
   "captureType": "immutable-source-snapshot",
-  "description": "Mixed-source technical atlas: 3 poses retaken on 2026-11-13 at 9824fd56 (CFR airport station glazed vault, Plecări canopies, car park cladding); all other images retain their recorded sources and dates.",
+  "description": "Mixed-source technical atlas: 2 poses retaken on 2026-11-13 at 2b1a2511 (named commercial footprints drawn with their own roof and height); all other images retain their recorded sources and dates.",
   "coverageNote": "107 captured 250 m squares: 26 touch the playable mask, 77 additional squares touch its exact 600 m ring and 4 are optional distant context. Boundary squares also include land beyond the ring.",
   "reviewNote": "Twelve affected current game frames inspected at full size. Source/aerial comparisons retain their historical review scope; no photographic parity claim.",
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 3 poses retaken on 2026-11-13 at 9824fd56 (CFR airport station glazed vault, Plecări canopies, car park cladding); all other images retain their recorded sources and dates."
+    "atlas": "Mixed-source technical atlas: 2 poses retaken on 2026-11-13 at 2b1a2511 (named commercial footprints drawn with their own roof and height); all other images retain their recorded sources and dates."
   },
   "atlasSourceCounts": {
     "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 82,
-    "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10,
+    "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 8,
     "346f798681d891de6cebfc9e1d094996b1ace2e3": 12,
-    "9824fd56de3f0e420821e871436906186a80e493": 3
+    "9824fd56de3f0e420821e871436906186a80e493": 3,
+    "2b1a2511d6b8b521b409d55415b2eca9906cc305": 2
   },
   "sourceCaptureManifest": {
     "path": "capture-manifest.json",
@@ -7230,15 +7237,17 @@
     "gameSourceCommit": null,
     "sourceCounts": {
       "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 82,
-      "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10,
+      "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 8,
       "346f798681d891de6cebfc9e1d094996b1ace2e3": 12,
-      "9824fd56de3f0e420821e871436906186a80e493": 3
+      "9824fd56de3f0e420821e871436906186a80e493": 3,
+      "2b1a2511d6b8b521b409d55415b2eca9906cc305": 2
     },
     "framesReviewed": 107,
-    "targetedRetakeReview": "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
+    "targetedRetakeReview": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/paired-review.json",
     "earlierTargetedRetakeReviews": [
       "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/paired-review.json",
-      "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json"
+      "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+      "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json"
     ]
   },
   "groundConditions": {
@@ -7299,6 +7308,15 @@
       "sourceProvenance": "retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
       "sourceProvenanceSha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b",
       "frames": 3
+    },
+    {
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "treeSha256": "e0f6d269e2f5186247021c2a0b9f3286489f749e48235e8a55bdaa73ade1f636",
+      "manifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "manifestSha256": "eda8fae484dbcbdeb15f61e5cc298b943114c685068c12ae1d8b7fe108640c22",
+      "sourceProvenance": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/source-provenance.json",
+      "sourceProvenanceSha256": "ded825b46df601ef23bcabc110f65d2116d77929dc3a461a1434d4e738117ab6",
+      "frames": 2
     }
   ],
   "historicalCollections": [
@@ -7337,6 +7355,20 @@
         "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10,
         "346f798681d891de6cebfc9e1d094996b1ace2e3": 12,
         "d8e7d119ba8dcc29fce289e8c9f988092507fc10": 2
+      },
+      "captureType": "mixed-source-survey"
+    },
+    {
+      "manifest": "historical/mixed-before-2b1a2511-e76e076b/manifest.json",
+      "label": "Atlas before the 2b1a251 retake (named commercial footprints drawn with their own roof and height)",
+      "frames": 107,
+      "generatedAt": "2026-11-13T05:27:11.015Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 82,
+        "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10,
+        "346f798681d891de6cebfc9e1d094996b1ace2e3": 12,
+        "9824fd56de3f0e420821e871436906186a80e493": 3
       },
       "captureType": "mixed-source-survey"
     }

@@ -29,6 +29,7 @@ import {buildCaruselInterior} from './carusel-interior.js';
 import { buildOldTownDaylife } from './old-town-daylife.js';
 import { poiSigns } from '../buc-streetscape.js';
 import { declareInterior } from '../precip-shelter.js';
+import { caleaVictoriei, bnrLipscani, maccaPortal, withoutShopfront, courtyardSigns } from './ot-fronts.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
 const simplifyRing = (p, tol) => { const s2 = simplify([...p, p[0]], tol); s2.pop(); return s2.length >= 3 ? s2 : p; };
@@ -445,6 +446,9 @@ export default {
         const T0 = g.heightAt(0, 0); g.mod((x, z, h) => T0 + (h - T0) * 0.35);
         // most old-town buildings have no height in OSM: 2–5 storeys (uneven skyline), lantern-lit ground floors
         for (const bd of d.buildings) if (!bd.part && !bd.h && !bd.lv && bd.k !== 'church' && bd.k !== 'roof') { const hsh = Math.abs(Math.sin(bd.poly[0][0] * 12.9898 + bd.poly[0][1] * 78.233) * 43758.5453) % 1; bd.estimatedLevels = 2 + Math.floor(hsh * 4); }
+        // (r3) the Macca-Vilacrosse block (r19924112, no height in OSM): three storeys over the Eugeniu Carada portal
+        // (Street View 2022-10); an estimate like the rest, but no longer a random one that could cut the portal
+        { const pb = d.buildings.find((x) => x.id === 'r19924112'); if (pb && !pb.h && !pb.lv) pb.estimatedLevels = 3; }
         // (fidelity pass r2, 2026-11-12) The National Bank block. Both palaces are pale limestone (Street View, Lipscani and
         // Doamnei); OSM gives them no colour and no height, so they were drawn as hash-coloured modern blocks 2-5 storeys
         // high. Colour and storey count here are estimates from the street views; every mapped part keeps its own height.
@@ -452,7 +456,7 @@ export default {
         for (const [id, col, lv] of [['w1210146218', '#e2d8c2', 4], ['w1210147193', '#e6e0d2', 6]]) {
             const own = d.buildings.find((x) => x.id === id); if (!own) continue;
             own.estimatedLevels = lv;
-            for (const bd of d.buildings) { if (bd !== own && !bd.part) continue; const [cx, cz] = centroid(bd.poly); if (bd === own || inPoly(cx, cz, own.poly)) { if (!bd.c && bd.mat !== 'brick') bd.c = col; HERO_STONE.add(bd); } }
+            for (const bd of d.buildings) { if (bd !== own && !bd.part) continue; const [cx, cz] = centroid(bd.poly); if (bd === own || inPoly(cx, cz, own.poly)) { if (!bd.c && bd.mat !== 'brick') bd.c = col; HERO_STONE.add(bd.id); } }
         }
         // Ruinele Hanului Serban Voda (OSM node 6164079116, part way 658220780, no height): the excavated cellars lie under a
         // walk-on glass cover in the Lipscani paving in front of the bank; the bare part was extruded as a red three-storey box.
@@ -484,7 +488,14 @@ export default {
         const FRONT=freddoFrontagePlan(ctx);ctx.extras.freddoFrontage=FRONT;
         // ground: shared-surface grey granite setts over every pedestrian street (no kerbs), slab bands
         ctx.terrainOpts = { bg: '#8f8b84', bgMask: 'cobble', innerPx: 2048, innerStep: 3, outerStep: 16, outerPad: 700 };
-        bucBackdrop(ctx, { wallOpenings:FRONT?[FRONT.opening]:[],lampStyle: 'lantern', lampColor: '#191b1c', lampH: 4.4, lampPad: 15, treeLod: { cap: 1600, max: 400 }, lampOpts: { spacing: 24, kinds: ['pedestrian', 'living_street'] }, streetTreeOpts: { kinds: ['primary', 'secondary', 'tertiary'], prob: 0.5 }, style: (bd) => (OT.decoratedIds.has(bd.id) || bd.k === 'church' || HERO_STONE.has(bd) ? 'eclectic' : bucStyle(bd)) });
+        // (r3) shopEvidence: false — every Old Town street front is a shop, bar or restaurant (Lipscani & co.): the
+        // shopfront-needs-a-mapped-business rule of the other Bucharest scenes does not apply here.
+        // (r3) The Old National Bank (w1210146218) has no shop floor: Street View 2022-10 from Lipscani shows a rusticated
+        // ground floor with arched windows and the entrance stair (the every-front shop rule glazed it).
+        withoutShopfront(ctx, ['w1210146218'], () => bucBackdrop(ctx, { shopEvidence: false, wallOpenings:FRONT?[FRONT.opening]:[],lampStyle: 'lantern', lampColor: '#191b1c', lampH: 4.4, lampPad: 15, treeLod: { cap: 1600, max: 400 }, lampOpts: { spacing: 24, kinds: ['pedestrian', 'living_street'] }, streetTreeOpts: { kinds: ['primary', 'secondary', 'tertiary'], prob: 0.5 }, style: (bd) => (OT.decoratedIds.has(bd.id) || bd.k === 'church' || HERO_STONE.has(bd.id) ? 'eclectic' : bucStyle(bd)) }));
+        // (r3) Calea Victoriei at CEC / the History Museum, the Bank's Lipscani front, the Macca-Vilacrosse portal (ot-fronts.js)
+        caleaVictoriei(ctx); bnrLipscani(ctx);
+        { const pb = d.buildings.find((x) => x.id === 'r19924112'); if (pb) { const rec = sourceRecord(pb, 0, g); maccaPortal(ctx, { sourceTop: rec.datum + rec.height }); } }
         CA?.finishInterior();
         const WB = buildSecretWcpBar(ctx, CA);
         oldTownGlazing(ctx,FRONT);
@@ -555,6 +566,11 @@ export default {
         { const have = new Set(signs.map((q) => q.source)), outer = (x, z) => !focused(x, z) && x > -135 && x < 300 && z > -112 && z < 245;
           const O = poiSigns(ctx, { inside: outer, taken: signs, max: 110, seed: 9, streets: d.ways.filter((w) => ['pedestrian', 'living_street', 'residential', 'tertiary'].includes(w.k) && !w.tunnel && w.pts.length > 1),
               accept: (q) => !have.has(q.id) && q.amenity !== 'stripclub' && q.shop !== 'massage' && q.shop !== 'erotic' && (!!q.shop || ['restaurant', 'bar', 'cafe', 'pub', 'fast_food', 'ice_cream', 'nightclub', 'bank', 'theatre', 'arts_centre', 'pharmacy'].includes(q.amenity) || ['hotel', 'hostel', 'museum', 'gallery', 'guest_house'].includes(q.tourism)) });
+          // (r3) Hanul cu Tei (r19931391): the passage is the inn's courtyard (a hole of the multipolygon), so the outer-wall
+          // sign pass skipped the two mapped shops seen up the passage from Lipscani: Mom Art (n10775260927) and Cele Trei
+          // Grații (n10775962190) now get their boards on the courtyard walls
+          { const had = new Set([...have, ...O.signs.map((q) => q.source)]), ids = ['n10775260927', 'n10775962190'].filter((id) => !had.has(id));
+            const CS = courtyardSigns(ctx, 'r19931391', ids, [...signs, ...O.signs]); O.signs.push(...CS); O.skipped.push(...ids.filter((id) => !CS.some((q) => q.source === id))); }
           const OA = signAtlas(O.signs, { name: 'shop-signs-outer' }); if (OA) ctx.add(OA);
           ctx.extras.outerVenueSigns = { signs: O.signs.map((q) => ({ source: q.source, text: q.text, x: q.x, z: q.z, yaw: q.yaw })), skipped: O.skipped }; }
         // festoon string lights strung between façade brackets (note 25: replaces the loose overhead cables)

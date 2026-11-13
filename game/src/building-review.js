@@ -1,6 +1,7 @@
 // ============================================================================
 //  BUILDING REVIEW — per-building appearance corrections from the street-level review of named businesses
-//  (fidelity pass round 2, 2026-11-12; records in game/research/bucharest-otopeni.md / bucharest-romana.md).
+//  (fidelity pass round 2, 2026-11-12; records in game/research/bucharest-otopeni.md / bucharest-romana.md; round 3 rows
+//  for Floreasca, Grozăvești, Romană and SeaTac, 2026-11-13).
 //
 //  The district data gives a named building without OSM height / levels a default (e.g. 17.7 m, five storeys, apartment
 //  'bloc' style) and estimated facade colours. Where the review found the real building visibly different (a one-storey
@@ -19,6 +20,10 @@
 //           'interwar' (plain plaster window grid), 'eclectic', 'glass' (curtain wall), 'shop' (glazed shop hall), 'plain' (windowless panels), 'house'.
 // ============================================================================
 
+import { LOOK_REVIEW } from './building-review-look.js'; // (r3: church / downtown Bellevue colour rows of lane `look`)
+// rows of both tables per OSM id; this file's own row wins field by field; null when neither has the district
+const mergeLook = (own, look) => { if (!own && !look) return null; const t = { ...(look || {}) }; for (const [id, r] of Object.entries(own || {})) t[id] = { ...(t[id] || {}), ...r }; return t; };
+
 export const BUILDING_REVIEW = {
     'bucharest-otopeni': {
         w219767593: { h: 8.5, levels: 2, style: 'plain', roof: 'flat', colour: '#2F6DB5', note: 'Romstal: blue panel showroom hall, two low storeys (data: 24.2 m block)' },
@@ -35,6 +40,27 @@ export const BUILDING_REVIEW = {
         r2552618: { colour: '#A65A44', shopfront: false, note: 'Muzeul Național al Țăranului Român: red-brick neo-Romanian museum behind trees, no shop windows on Șos. Kiseleff (drawn beige with a glazed shop ground floor)' },
         w231445058: { style: 'eclectic', colour: '#E6D08A', note: 'Colecția Severeanu (Str. Henri Coandă 26): yellow one-storey eclectic house with white window surrounds (drawn tan)' },
         w29819032: { name: 'Sheraton', note: 'Sheraton Bucharest Hotel (OSM w29819032 name / brand): the building was signed with its ground-floor tenant Pizza Hut' },
+        // (round 3, 2026-11-13) official panoramas 44.448503, 26.093125 heading 275 and 44.450278, 26.087635 heading 262
+        w79139872: { h: 13, levels: 3, style: 'eclectic', colour: '#EFE7D6', note: 'Observatorul Urseanu (Bd. Lascăr Catargiu 21): cream three-storey villa with rounded corner bays and iron balconies (drawn as a 6.4 m two-storey box); the round east tower w1220336122 and its dome are the landmark urseanudome' },
+        w131269864: { style: 'eclectic', colour: '#E8DCC4', roofColour: '#4B5057', note: 'Casa Filipescu-Cesianu (Calea Victoriei 151): cream two-storey eclectic palace under a dark slate mansard with oval dormers (OSM roof:shape=quadruple_saltbox and building:levels=2 kept; drawn plain with a light roof)' },
+    },
+    // (round 3, 2026-11-13) official panoramas on Calea Floreasca: 44.460443, 26.101023 h 240; 44.461341, 26.101235 h 262;
+    // 44.462811, 26.101521 h 265; 44.454184, 26.100804 h 40
+    'bucharest-floreasca': {
+        w34832556: { h: 9, levels: 2, style: 'glass', note: 'Piața Floreasca / Agora (Calea Floreasca 111-113): two-storey light glass curtain-wall front with hedges and terraces (drawn as a dark slatted 7.4 m shop box); the lower single-storey Banul Antonache side is part of the same footprint and is not split' },
+        w245407579: { h: 27.5, levels: 8, style: 'glass', note: 'Nusco Floreasca 1 (Calea Floreasca 131-137, OSM building=office): blue-grey reflective glass tower, about six glazed storeys over a tall dark ground floor and a set-back top storey (drawn as an 11.6 m four-storey block); storey count from the street' },
+        w39348919: { h: 7.5, levels: 2, style: 'interwar', colour: '#F1EFEA', note: 'Souk (Calea Floreasca 131B): low white two-storey building with a red band and a dark roof edge (drawn as a 12.6 m four-storey block)' },
+        w245345976: { style: 'glass', note: 'Spitalul Euroclinic (Calea Floreasca 14A): modern glass and pale grey panel block, seen only from about 40 m (drawn as a beige eclectic house; OSM building:levels=7 kept)' },
+    },
+    // (round 3, 2026-11-13) official panoramas on Calea Giulești 44.447216, 26.061955 heading 0 and 44.448422, 26.062576 heading 270
+    'bucharest-grozavesti': {
+        w247015071: { style: 'plain', colour: '#E2E3E0', note: 'Brico Dépôt / Altex (Calea Giulești 1-3): long light-grey ribbed panel box with a red fascia band and a red Altex front at the south-east corner (drawn as a dark glass hall; OSM height=15 kept)' },
+        w23557062: { style: 'plain', colour: '#ECEBE6', note: 'Centrul Comercial Orhideea: pale panel façade with red bands, no continuous shop glazing (drawn with dark shopfront glazing round the hall; OSM height=8 kept). The red entrance canopy is not drawn' },
+    },
+    // (round 3, 2026-11-13) official panoramas 47.447515, -122.293784 heading 265 and 47.439912, -122.294810 heading 185
+    'seattle-seatac': {
+        w647567422: { h: 6.5, levels: 2, style: 'interwar', colour: '#D7642F', note: 'Rodeway Inn (S 176th St): two-storey orange motel with blue trim and a blue entrance canopy (drawn as a 4.2 m one-storey shop)' },
+        w364221560: { h: 13, levels: 4, style: 'interwar', colour: '#D8CDB2', note: 'Red Lion Inn (International Blvd 18220): beige multi-storey wing with a brick-red end, three window rows visible above a 4 m hedge; the fourth (ground) storey is an estimate (drawn as a 4.2 m one-storey shop)' },
     },
 };
 
@@ -46,7 +72,7 @@ export const BUILDING_REVIEW = {
  * Returns { applied: [ids], missing: [ids not in this district's data], osmKept: [ids whose OSM-tagged height stayed] }.
  */
 export function applyBuildingReview({ key, bRecs }) {
-    const table = BUILDING_REVIEW[key], audit = { applied: [], missing: [], osmKept: [] };
+    const table = mergeLook(BUILDING_REVIEW[key], LOOK_REVIEW[key]), audit = { applied: [], missing: [], osmKept: [] };
     if (!table) return audit;
     const byId = new Map(); for (const b of bRecs) if (b.sourceId && !byId.has(b.sourceId)) byId.set(b.sourceId, b);
     for (const [id, r] of Object.entries(table)) {

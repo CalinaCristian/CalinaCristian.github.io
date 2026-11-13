@@ -518,3 +518,36 @@ NE 8th St over I-405 (w30615115, w55481043, w428073537, w513238699, w1058885032)
 with a dark steel picket fence: drawn so. 2 Line guideway: single-column hammerhead piers and box deck match the class at
 47.61504, -122.188416 and 47.616547, -122.184279; the I-405 span's girders are sage green in reality (grey in the game).
 Monuments (Gandhi, Guan Yin, Double Inquiry and 8 others) and the car parks were render-checked (generic class forms).
+
+## 21. Round 3 (2026-11-13), lane structures
+
+Official Street View panoramas were looked at only (ids from coverage metadata); nothing was saved, traced or measured from them.
+
+Exit → Renton w623055163 shares the NE 8th St north deck edge: concrete parapet with the dark picket
+fence (47.617466, -122.189428 h110). The same view shows an overhead sign gantry over the bridge (not drawn: its sign text was not
+legible at this resolution).
+
+## 22. Round 3 street-level review, lane look (2026-11-13)
+
+- **Pedestrians down the middle of NE 8th St east of I-405** (bellevue-3): cause found in the data. NE 8th St is a dual carriageway
+  whose halves are tagged `sidewalk:left=no` / `sidewalk:right=separate`; between them run two untagged left-turn lanes,
+  `primary_link` w1548748925 (47.61732 → 47.61729, -122.18699 → -122.18568) and its connector w1548748924. Untagged ways get the
+  inferred fallback walkway (2.5 m) on both sides, so these links carried the only "sidewalks" in reach and the crowd walked them in a
+  column (probe at the report pose: 30 walkers on the two links). sidewalk-overlap.js now removes the inferred walkway of an at-grade
+  `*_link` whose connecting roads are all tagged without walkways, or whose walkway band lies on / beside a parallel carriageway. After
+  the change: no walker on either link (same probe), none visible at the report pose.
+- **Arco** w425947102 (building=roof, amenity=fuel): blue fascia over two pump islands (ZPhc55a5IH684ZTmf463zw h83); the pack has no
+  canopy record for it (POI only). No pylon identified (a small sign on a pole only): none drawn.
+- **Downtown colours** (bellevue-6, rows in building-review-look.js): Bellevue Place w33613428 pink-beige precast with a red-brick arched
+  base (kxosxD8k3pWuWhUSIn2npQ h15); Courtyard r8064670 grey panel / stucco walls (sTPVjoz6jM0aI-f3NYYzng h187). Bravern 2 w38224225:
+  cream stone at street level (8BgiFdoVWhfWK7YqNBAXgw h184), but the street face is its 22-storey OSM part w1474780191 (glass above),
+  so no single-colour row; left as glass.
+- **Street trees** (bellevue-5): the aerial survey (trees-seattle-bellevue.json) has 1 crown within 16 m of Bellevue Way's centre line
+  between 47.6140 and 47.6195 and 7 along NE 8th St (-122.2045 to -122.1960); live OSM has 3 + 1 `natural=tree` there and no tree_row.
+  The panorama north of NE 4th (iLkRrRQ1F0GfQpsOWl9O7Q h0) shows medium street trees on both sides north of NE 6th. The survey area
+  covers these streets, so inferred street trees are suppressed there by rule; positions cannot come from panoramas. Needs a
+  re-measurement of small crowns on the aerial mosaic (tools/aerial) along these two streets.
+- **Garage w450055216** (47.6134, -122.1843): the official panoramas there were taken on its roof: an open rooftop deck with planters
+  and trellises over the REI store podium (WQYAZP9zih6YvbMOma73mw, MXEGRAuCD3pdurAoVdtLNA); from the street to the south
+  (FjAPRHBV5IcENxea32KJiw h7) the deck edge is one storey up behind a glass railing. Levels below not visible. The game draws nothing
+  at that pose (outside the drawn area).

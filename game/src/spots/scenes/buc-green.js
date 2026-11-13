@@ -8,7 +8,8 @@
 //     way, pitch, playground, fountain and water body.
 //   - dropMedianTrees: generated street trees that land between the two
 //     carriageways of a mapped dual road or on a mapped traffic island.
-//   - farCanopy: every tree beyond the original near budget as a cheap, chunked, frustum-culled far tree.
+//   - farCanopy: every tree beyond the original near budget as a cheap, chunked, frustum-culled far tree
+//     (opt-in `lean`: a one-lump 26-triangle far tree beyond a given distance, round 3).
 //   - businessSigns: a plain name board for every mapped, named business /
 //     embassy / museum (no invented names; colours are procedural).
 // ============================================================================
@@ -163,8 +164,9 @@ export function businessSigns(ctx, { inside = null, skip = new Set(), name = 'bu
 
 // ---------------------------------------------------------------------------- cheap far canopy
 const FAR_BROAD = ['#4f8a3c', '#5d9440', '#679c48', '#4a7f39', '#5a8f3e', '#6f9e4a', '#55893f'], FAR_CON = ['#2f5d3a', '#356640', '#2b5434', '#3a6a45'];
-let FAR_GEO = null;
-function farGeos() {
+let FAR_GEO = null, FAR_LEAN = null;
+function farGeos(lean = false) {
+    if (lean) return FAR_LEAN || (FAR_LEAN = leanGeos());
     if (FAR_GEO) return FAR_GEO;
     // two lumpy icosahedra like the stock far crown (40 triangles), vertices nudged by a fixed hash so it does not read as a gem
     const lump = (sx, sy, sz, x, y, z) => { const g = new THREE.IcosahedronGeometry(1, 0).toNonIndexed(), p = g.attributes.position; for (let i = 0; i < p.count; i++) { const k = 1 + (hash2(p.getX(i) * 3.1 + sx, p.getY(i) * 2.7 + p.getZ(i) * 1.9) - 0.5) * 0.3; p.setXYZ(i, p.getX(i) * k * sx + x, p.getY(i) * k * sy + y, p.getZ(i) * k * sz + z); } return g; };
@@ -178,6 +180,17 @@ function farGeos() {
     FAR_GEO = { broad: join(crown, trunk), con: join(cone, trunk) }; for (const g of [crown, cone, trunk]) g.dispose();
     return FAR_GEO;
 }
+// opt-in lean far crown (round 3): ONE lumpy icosahedron sized over the two-lump outline (20 + 6 triangles instead of
+// 40 + 6), so a scene can keep its whole estimated park density beyond the near trees at about the old frame cost
+function leanGeos() {
+    const base = farGeos(false), g0 = new THREE.IcosahedronGeometry(1, 0).toNonIndexed(), p = g0.attributes.position;
+    for (let i = 0; i < p.count; i++) { const k = 1 + (hash2(p.getX(i) * 3.1 + 3.3, p.getY(i) * 2.7 + p.getZ(i) * 1.9) - 0.5) * 0.3; p.setXYZ(i, p.getX(i) * k * 3.3, p.getY(i) * k * 3.2 + 6.1, p.getZ(i) * k * 3.3); }
+    const trunk = new THREE.CylinderGeometry(0.14, 0.24, 4.6, 3, 1, true); trunk.translate(0, 2.3, 0);
+    const out = new THREE.BufferGeometry(), pos = [], nor = [], col = [];
+    for (const [g1, c] of [[g0, [1, 1, 1]], [trunk.toNonIndexed(), [1.35, 0.42, 0.7]]]) { g1.computeVertexNormals(); pos.push(...g1.attributes.position.array); nor.push(...g1.attributes.normal.array); for (let i = 0; i < g1.attributes.position.count; i++) col.push(...c); g1.dispose(); }
+    trunk.dispose(); out.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); out.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3)); out.setAttribute('color', new THREE.Float32BufferAttribute(col, 3)); out.computeBoundingSphere();
+    return { broad: out, con: base.con };
+}
 /**
  * The stock tree builder draws every tree every frame (its LOD meshes are not frustum-culled) at about 100 triangles
  * plus the shadow pass. Keep only the `near` trees closest to the walkable extents there (the original budget) and
@@ -186,7 +199,7 @@ function farGeos() {
  * renderer gives them the same season / weather treatment. Trunk colliders are kept. Call it last in the scene build.
  * Returns { near, far, chunks }.
  */
-export function farCanopy(ctx, { near = 1400, cell = 224, keep = () => false, size = 1.45 } = {}) {
+export function farCanopy(ctx, { near = 1400, cell = 224, keep = () => false, size = 1.45, lean = false } = {}) {
     const boxes = Object.values(ctx.data.spots).map((s) => polyBox(s.extent?.polygon?.length ? s.extent.polygon : [[-150, -150], [150, 150]]));
     const dist = (t) => Math.min(...boxes.map((b) => Math.hypot(Math.max(0, b.x0 - t.x, t.x - b.x1), Math.max(0, b.z0 - t.z, t.z - b.z1))));
     const plain = (t) => !keep(t) && !t.c && !t.sy && (!t.kind || t.kind === 'broad' || t.kind === 'con');
@@ -197,17 +210,20 @@ export function farCanopy(ctx, { near = 1400, cell = 224, keep = () => false, si
     const fixed = ctx.trees.length - order.length, far = new Set(order.slice(Math.max(0, near - fixed)).map((e) => e[1]));
     if (!far.size) return { near: ctx.trees.length, far: 0, chunks: 0 };
     ctx.trees = ctx.trees.filter((t) => !far.has(t));
-    const G = farGeos(), grp = new THREE.Group(); grp.name = 'far-canopy';
+    // lean: false | true (every far tree) | metres beyond the walkable extents from which the one-lump crown is used
+    const G = farGeos(false), GL = lean === false ? null : farGeos(true), leanFrom = lean === true ? 0 : +lean, grp = new THREE.Group(); grp.name = 'far-canopy';
+    let nLean = 0;
     const mats = { broad: new THREE.MeshLambertMaterial({ color: '#ffffff', vertexColors: true }), con: new THREE.MeshLambertMaterial({ color: '#ffffff', vertexColors: true }) };
     mats.broad.name = mats.con.name = 'treeCrowns';
     const cells = new Map();
     for (const t of far) {
         if (ctx.onRoad(t.x, t.z, 0.2)) continue;
-        const k = Math.floor(t.x / cell) + ':' + Math.floor(t.z / cell) + ':' + (t.kind === 'con' ? 'con' : 'broad'); let L = cells.get(k); if (!L) cells.set(k, L = []); L.push(t);
+        const thin = GL && t.kind !== 'con' && dist(t) >= leanFrom; if (thin) nLean++;
+        const k = Math.floor(t.x / cell) + ':' + Math.floor(t.z / cell) + ':' + (t.kind === 'con' ? 'con' : thin ? 'lean' : 'broad'); let L = cells.get(k); if (!L) cells.set(k, L = []); L.push(t);
     }
     const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), up = new THREE.Vector3(0, 1, 0), col = new THREE.Color(); let n = 0;
     for (const [k, L] of cells) {
-        const con = k.endsWith(':con'), crown = new THREE.InstancedMesh(con ? G.con : G.broad, con ? mats.con : mats.broad, L.length);
+        const con = k.endsWith(':con'), crown = new THREE.InstancedMesh(con ? G.con : k.endsWith(':lean') ? GL.broad : G.broad, con ? mats.con : mats.broad, L.length);
         crown.name = 'treeCrowns far ' + (con ? 'conifer' : 'broad'); crown.userData.conifer = con;
         L.forEach((t, i) => {
             const h = hash2(t.x, t.z), s = con ? (t.s || 1) : size * (0.86 + h * 0.26), y = ctx.ground.heightAt(t.x, t.z) - 0.05;
@@ -219,7 +235,7 @@ export function farCanopy(ctx, { near = 1400, cell = 224, keep = () => false, si
         n += L.length;
     }
     ctx.add(grp);
-    return { near: ctx.trees.length, far: n, chunks: cells.size };
+    return { near: ctx.trees.length, far: n, chunks: cells.size, ...(GL ? { lean: nLean, leanFrom } : {}) };
 }
 
 /**

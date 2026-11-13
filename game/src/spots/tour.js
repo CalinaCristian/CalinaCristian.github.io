@@ -48,14 +48,23 @@ export function walkSegment(ground, colliders, a, b) {
 }
 export function pathLength(path) { return path.slice(1).reduce((n, p, i) => n + Math.hypot(p[0] - path[i][0], p[1] - path[i][1]), 0); }
 
-/** A* with a strict interaction radius. Never substitutes a distant point or an untested straight line. */
-export function findWalkPath(ground, colliders, ax, az, bx, bz, { radius = 1.5, maxLength = 180 } = {}) {
-    const start = [ax, az], goal = [bx, bz], C = 1.5, margin = Math.min(90, maxLength / 2);
+/** A* with a strict interaction radius. Never substitutes a distant point or an untested straight line.
+ * The 1.5 m grid is tried first; a narrow public walkway (a 2 m lock-gate deck between railings leaves a 1.3 m band
+ * for a 0.34 m walker) can fall between its cell centres, so a failed search is repeated once on a 0.75 m grid. */
+export function findWalkPath(ground, colliders, ax, az, bx, bz, { radius = 1.5, maxLength = 180, cell = null } = {}) {
     if (Math.hypot(bx - ax, bz - az) > maxLength + radius || !Number.isFinite(walkHeight(ground, colliders, ax, az))) return null;
-    if (walkSegment(ground, colliders, start, goal)) return Math.hypot(bx - ax, bz - az) <= maxLength ? [start, goal] : null;
+    if (walkSegment(ground, colliders, [ax, az], [bx, bz])) return Math.hypot(bx - ax, bz - az) <= maxLength ? [[ax, az], [bx, bz]] : null;
+    for (const C of cell ? [cell] : [1.5, 0.75]) {
+        const path = gridWalkPath(ground, colliders, ax, az, bx, bz, radius, maxLength, C);
+        if (path) return path;
+    }
+    return null;
+}
+function gridWalkPath(ground, colliders, ax, az, bx, bz, radius, maxLength, C) {
+    const start = [ax, az], goal = [bx, bz], margin = Math.min(90, maxLength / 2);
     const x0 = Math.min(ax, bx) - margin, z0 = Math.min(az, bz) - margin;
     const nx = Math.ceil((Math.abs(ax - bx) + margin * 2) / C), nz = Math.ceil((Math.abs(az - bz) + margin * 2) / C);
-    if (nx * nz > 260000) return null;
+    if (nx * nz > 260000 * (1.5 / C) ** 2) return null;
     const point = (k) => [x0 + (Math.floor(k / nz) + 0.5) * C, z0 + (k % nz + 0.5) * C];
     const heights = new Map(), at = (k) => { if (!heights.has(k)) heights.set(k, walkHeight(ground, colliders, ...point(k))); return heights.get(k); };
     const prev = new Map(), costs = new Map(), done = new Set(), heap = [];
@@ -69,7 +78,8 @@ export function findWalkPath(ground, colliders, ax, az, bx, bz, { radius = 1.5, 
         if (Number.isFinite(at(k)) && walkSegment(ground, colliders, start, p)) { costs.set(k, d); push([d + Math.hypot(p[0] - bx, p[1] - bz), k]); }
     }
     let end = null, count = 0;
-    while (heap.length && count++ < 50000) {
+    const budget = Math.round(50000 * (1.5 / C) ** 2);
+    while (heap.length && count++ < budget) {
         const [, k] = pop(); if (done.has(k)) continue; done.add(k);
         const p = point(k), cost = costs.get(k), dist = Math.hypot(p[0] - bx, p[1] - bz);
         if (dist <= radius) { end = k; break; }

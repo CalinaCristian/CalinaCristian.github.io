@@ -30,7 +30,13 @@ export const CAR_PARK_SOURCES = {
     w34040306: { district: 'bellevue', name: 'Southeast Parking Garage', levels: 2, tags: 'amenity=parking, parking=multi-storey, building=yes, building:levels=2' },
     w104581576: { district: 'bellevue', name: '', levels: 4, tags: 'amenity=parking, parking=multi-storey, building=yes, building:levels=4' },
     w161929522: { district: 'bellevue', name: 'Northeast Parking Garage', levels: 6, tags: 'building=parking, amenity=parking, parking=multi-storey, building:levels=6' },
+    // (r3, 2026-11-13) w450055216: panoramas WQYAZP9zih6YvbMOma73mw / MXEGRAuCD3pdurAoVdtLNA (47.6134, -122.1843) were taken ON
+    // its roof: an open rooftop deck with planters and trellises over the REI store podium (FjAPRHBV5IcENxea32KJiw, 47.613084,
+    // -122.184367 heading 7: the deck edge one storey up behind a glass railing). Level count below the roof not visible; no change
     w450055216: { district: 'bellevue', name: '', levels: 0, tags: 'building=parking, amenity=parking, parking=multi-storey' },
+    // (r3) Parcare Cocor w658281398 (building:part inside the Cocor store): the street side is a dark grey panelled wall with a
+    // vehicle entrance (panorama ky8lvOleKFvuiFVszKDv7Q, 44.430274, 26.104834, heading 240); the pack draws the store volume
+    // there (glass), the part is not a building record of its own: not changed (backlog)
 };
 
 /** the car-park record of a source building id (listed, or recognised from retained source tags), else null */

@@ -1,0 +1,99 @@
+{
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r06-c05",
+    "aerial-r07-c07",
+    "aerial-r05-c07",
+    "aerial-r04-c08",
+    "aerial-r05-c08",
+    "aerial-r08-c04",
+    "aerial-r06-c08",
+    "aerial-r06-c11",
+    "aerial-r04-c07",
+    "aerial-r06-c07",
+    "aerial-r07-c06"
+  ],
+  "reviewedAt": "2026-11-13T10:11:47.271Z",
+  "method": "Published game capture, a 03aec30a render and the 2b1a2511 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r06-c05",
+      "originalGameSha256": "d43d5d53375d37c2975af5c46f83db8f99b62a8fb82f440175c693f3eccdc875",
+      "originalGameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "retakeGameSha256": "2bed0c83760abd4e74d2c75a89fc5a2463ef705a4e4fdcc1e51e51f508ddc1ce",
+      "observation": "Regie pedestrian bridge over the Dâmbovița"
+    },
+    {
+      "id": "aerial-r07-c07",
+      "originalGameSha256": "7da91e063324bfd5c64a7dd970fb86ea1e833082dd54d1d4bf039387f56a21e9",
+      "originalGameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "retakeGameSha256": "beeeffb00e6994a9a22de2387840ff4cfa00bf01a9cda759214b78e1ab30d4e8",
+      "observation": "Grozăvești metro west entrance pavilion"
+    },
+    {
+      "id": "aerial-r05-c07",
+      "originalGameSha256": "28a30c6827d1525fe88dd112a52795417ada82d12979241c8650643d8336e3c3",
+      "originalGameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "retakeGameSha256": "1b3d12d1c693f5156aedf009433bd2129d8a4c58c0349b3bba9c3a06ab10d688",
+      "observation": "Belvedere water tower; neighbouring block lost the glass colour estimate (orange window walls)"
+    },
+    {
+      "id": "aerial-r04-c08",
+      "originalGameSha256": "c47ed8e1a2158bf134d63075a13d3a5b162286c62752da737b18bcffcb7f071e",
+      "originalGameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "retakeGameSha256": "a7efacb6b66a7443a339d95b2e87ddfc4c8cff19df9ebeafe4f6c8ca76c398bb",
+      "observation": "Pasajul Basarab deck railings drawn blue along the ramps"
+    },
+    {
+      "id": "aerial-r05-c08",
+      "originalGameSha256": "2c12381b7a348f3b186367e181bbb84ce1b346f6596a902b398a06b6b50a8e66",
+      "originalGameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "retakeGameSha256": "9ca87e1f56d659708292b9aded070ba5b95322717c45e4dbcf7ac1d8683f5bf5",
+      "observation": "Pasajul Basarab deck railings drawn blue along the ramps"
+    },
+    {
+      "id": "aerial-r08-c04",
+      "originalGameSha256": "612fd765a77d6bbf5897583401103e39dd1f833146fa1c11234f618d52559994",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "d646da9490dd748ae8844edad7e12bb5b9d287932f048af81016096da53446a5",
+      "observation": "fountain basin drawn as water"
+    },
+    {
+      "id": "aerial-r06-c08",
+      "originalGameSha256": "663c11bd8ad83d6c6320be2866a83155677b9728b0dc7fec318d0c715d4e4989",
+      "originalGameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "retakeGameSha256": "781c6fd69721a1644749095dae44b93f97adc3e4545bf869c0c6b0c6309af58f",
+      "observation": "Brico Dépôt / Altex box drawn light grey with its own walls"
+    },
+    {
+      "id": "aerial-r06-c11",
+      "originalGameSha256": "d1bd58ee393e38cc3efe67849494e663f3e99d4ebbb3b62c9ec939b5e7a1cbca",
+      "originalGameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "retakeGameSha256": "41c80cce97cc6adcda00efd55df1c2a5975861c5a3811cb8035ee153246ec491",
+      "observation": "building drawn on a footprint that was empty ground"
+    },
+    {
+      "id": "aerial-r04-c07",
+      "originalGameSha256": "1a65735b6633c676461b7fc7c91fa3392cc828af15c060039e1f3d0ba1a3d2ea",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "c0046859fdfaedfb6b53d09aaab865b97a0fe951c3c34a630c72dff70d4e1eb6",
+      "observation": "block lost the glass colour estimate: walls drawn as masonry instead of blue glass"
+    },
+    {
+      "id": "aerial-r06-c07",
+      "originalGameSha256": "e4836d1493b7436e41270147822849ef656a14443afb5077d6c1a9e5ac53e8fb",
+      "originalGameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "retakeGameSha256": "de721f14edc988259220570feaf9300561d269ed903ab9f6aeb18e484e0d39e5",
+      "observation": "block lost the glass colour estimate: walls drawn as masonry instead of blue glass"
+    },
+    {
+      "id": "aerial-r07-c06",
+      "originalGameSha256": "a626daa31a040ce76baaa7958b1f2b058d2e3b5e693989c1400b7cd811e1fa59",
+      "originalGameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "retakeGameSha256": "7af6a5b5267fa1b921ce211a7b7d555b95c2ba5b0f94422939712d78d7f07e5f",
+      "observation": "block lost the glass colour estimate: walls drawn as masonry instead of blue glass"
+    }
+  ]
+}

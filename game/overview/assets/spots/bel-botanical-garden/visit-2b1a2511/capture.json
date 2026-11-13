@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "purpose": "Visitor scene illustrations after fidelity pass round 3; not public-route proof or a matched reference comparison.",
+  "tool": "visit-capture.cjs: the procedure of handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/capture.cjs and capture-portrait.cjs (native destination entry, production on-foot controller placed at the viewpoint, look acquired with CDP touch drags, no free camera), run on Windows with hardware GL",
+  "toolSHA256": "2de67318f278fff069fbd6d561c93a6e6b23c84f1baba215a5d3e8a2a04ac49e",
+  "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted).",
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 2b1a2511d6b8b521b409d55415b2eca9906cc305: `git archive 2b1a2511d6b8b521b409d55415b2eca9906cc305 game` extracted to a scratch directory and served by a no-store static server; key runtime and data files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T10:01:51.995Z"
+  },
+  "record": {
+    "id": "bel-botanical-garden",
+    "captures": [
+      {
+        "kind": "scene",
+        "file": "bel-botanical-garden/scene.webp",
+        "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+        "capturedAt": "2026-11-13T09:58:39.722Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": -62,
+          "z": 26,
+          "y": -3.430636167526245,
+          "heading": 0.24497859375
+        },
+        "pose": {
+          "position": [
+            -62,
+            -1.7806361675262452,
+            26
+          ],
+          "bearing": 345.96376050707505,
+          "pitch": -3.9999996552356434
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-13T09:58:39.038Z",
+        "triangles": 424059,
+        "drawCalls": 40,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "862a098c3fa5591e527a1088697c333f49b68f4dde845eb0cbd2b1ecfcdc09a6",
+        "bytes": 44694,
+        "fullPageHUD": false
+      },
+      {
+        "kind": "phone-ui-touch",
+        "file": "bel-botanical-garden/phone-ui-touch.jpg",
+        "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+        "capturedAt": "2026-11-13T09:58:39.937Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -62,
+          "z": 26,
+          "y": -3.430636167526245,
+          "heading": 0.2449787109375
+        },
+        "pose": {
+          "position": [
+            -62,
+            -1.7806361675262452,
+            26
+          ],
+          "bearing": 345.96375379272587,
+          "pitch": -3.9999996552356434
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-13T09:58:39.253Z",
+        "triangles": 420390,
+        "drawCalls": 29,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "72efb1c91a2649077dd0cd0d12ceadc57db95930f0fb8853accb389d42bc033d",
+        "bytes": 43138,
+        "fullPageHUD": true
+      }
+    ],
+    "startedAt": "2026-11-13T09:58:37.765Z",
+    "probe": {
+      "sceneId": "bel-botanical-garden",
+      "spawn": {
+        "x": 0,
+        "z": 3,
+        "heading": -3.141592653589793,
+        "y": -0.18803394958376884
+      },
+      "challenges": [
+        {
+          "view": [
+            -70,
+            -6
+          ],
+          "id": "bel-botanical-garden",
+          "x": -62,
+          "z": 26,
+          "bearing": 345.96375653207355,
+          "pitch": -4,
+          "fov": 60,
+          "text": "Down the Perennial Border, the Northwest Perennial Alliance’s long mixed border",
+          "r": 10,
+          "tol": 35,
+          "targets": [],
+          "condHint": null
+        }
+      ],
+      "interactables": [
+        {
+          "x": 196,
+          "z": 232.3,
+          "label": "Cross the ravine suspension bridge"
+        },
+        {
+          "x": -70.3,
+          "z": -19.6,
+          "label": "Virtual garden trail note: Perennial Border"
+        },
+        {
+          "x": 114.7,
+          "z": 23.1,
+          "label": "Virtual garden trail note: Yao Garden"
+        },
+        {
+          "x": -22.6,
+          "z": -7.6,
+          "label": "Virtual garden trail note: Fuchsia Garden"
+        },
+        {
+          "x": 59,
+          "z": 7.4,
+          "label": "Virtual garden trail note: Rhododendron Glen"
+        },
+        {
+          "x": 25.099999999999998,
+          "z": 101.4,
+          "label": "Virtual garden trail note: Native Discovery Garden"
+        },
+        {
+          "x": -23.7,
+          "z": -69.1,
+          "label": "Virtual garden trail note: Waterwise Garden"
+        },
+        {
+          "x": 15.5,
+          "z": -60.3,
+          "label": "Virtual garden trail note: Rock Garden"
+        },
+        {
+          "x": 1.2000000000000002,
+          "z": -21.900000000000002,
+          "label": "Read: From a gift"
+        },
+        {
+          "x": -52.28846532615307,
+          "z": -27.313151204797688,
+          "label": "Read: Perennial Border"
+        },
+        {
+          "x": 86.95,
+          "z": 21.099999999999998,
+          "label": "Read: Yao Garden"
+        },
+        {
+          "x": -5.8,
+          "z": -21.900000000000002,
+          "label": "Read: Free"
+        },
+        {
+          "x": 4.000000000000001,
+          "z": 6.999999999999999,
+          "label": "Join the short guided tour"
+        },
+        {
+          "x": 1000000000,
+          "z": 1000000000,
+          "label": ""
+        }
+      ]
+    },
+    "setup": {
+      "arrival": {
+        "x": 0,
+        "z": 3,
+        "y": -0.18803394958376884,
+        "heading": -3.141592653589793
+      },
+      "authoredViewpoint": {
+        "view": [
+          -70,
+          -6
+        ],
+        "id": "bel-botanical-garden",
+        "x": -62,
+        "z": 26,
+        "bearing": 345.96375653207355,
+        "pitch": -4,
+        "fov": 60,
+        "text": "Down the Perennial Border, the Northwest Perennial Alliance’s long mixed border",
+        "r": 10,
+        "tol": 35,
+        "targets": [],
+        "condHint": null
+      },
+      "viewpoint": {
+        "view": [
+          -70,
+          -6
+        ],
+        "id": "bel-botanical-garden",
+        "x": -62,
+        "z": 26,
+        "bearing": 345.96375653207355,
+        "pitch": -4,
+        "fov": 60,
+        "text": "Down the Perennial Border, the Northwest Perennial Alliance’s long mixed border",
+        "r": 10,
+        "tol": 35,
+        "targets": [],
+        "condHint": null
+      },
+      "position": {
+        "x": -62,
+        "z": 26,
+        "y": -3.430636167526245,
+        "heading": 0
+      },
+      "walker": "OnFootController",
+      "sceneId": "bel-botanical-garden",
+      "origin": {
+        "lat": 47.6088,
+        "lon": -122.1793,
+        "elev": 69.3
+      },
+      "projection": {
+        "mLat": 111182.71,
+        "mLon": 75187.81
+      }
+    },
+    "look": {
+      "drags": 1,
+      "residualInputPixels": {
+        "x": -0.000028907026402199186,
+        "y": 0.0000025071971582191215
+      }
+    },
+    "lookBefore": {
+      "heading": 0.24497859375,
+      "pitch": -0.0698131640625
+    },
+    "lookAfterInitialTouch": {
+      "heading": 0.07217859375000002,
+      "pitch": -0.0698131640625
+    },
+    "phoneLook": {
+      "drags": 1,
+      "residualInputPixels": {
+        "x": 0.000019921098104447313,
+        "y": 0.0000025071971582191215
+      }
+    },
+    "passed": true,
+    "endedAt": "2026-11-13T09:58:40.008Z"
+  }
+}

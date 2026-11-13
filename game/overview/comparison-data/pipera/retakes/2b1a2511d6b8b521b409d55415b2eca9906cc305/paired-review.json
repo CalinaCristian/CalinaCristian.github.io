@@ -1,0 +1,19 @@
+{
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r05-c05"
+  ],
+  "reviewedAt": "2026-11-13T10:11:49.752Z",
+  "method": "Published game capture, a 03aec30a render and the 2b1a2511 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r05-c05",
+      "originalGameSha256": "01ed9e92bc86e96e40c9da27c6f7edee558320a69b1cc2be83d82ead08e1624e",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "205179687c9da249dce53f06279e36a15844a1bb546dbc65af3bba3d6d879eca",
+      "observation": "pool drawn as water"
+    }
+  ]
+}

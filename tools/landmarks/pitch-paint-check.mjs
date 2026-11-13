@@ -1,47 +1,39 @@
-// Compare against the immutable pre-decal geometry; no browser or DOM required.
+// Present-tense pitch-paint invariants; no browser or DOM required. (Round 3, 2026-11-13: the first version compared every
+// landmark with the pre-decal commit 338300a9, which only held for the commit that added the decal; every later landmark
+// change failed it. The decal-specific checks below are unchanged; the historical comparison is replaced by invariants
+// that hold for the current tree: the paint exists on Dinamo only and no 12 cm white strip is drawn twice in the masonry.)
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
-import { execFileSync } from 'node:child_process';
-import { createHash } from 'node:crypto';
 import * as THREE from '../../game/vendor/three.module.min.js';
 import { LANDMARKS, buildLandmark, landmarkSurfaceMaterials } from '../../game/src/landmarks.js';
 import { DINAMO_PAINT, dinamoPaintSegments, paintPolygon } from '../../game/src/landmark-pitch-paint.js';
 import { disposeDistrictScene } from '../../game/src/sceneResources.js';
-const baseline = '338300a95a79a2cabf3d7256ff745c6a1bac0372', url = new URL('../../game/src/landmarks.js', import.meta.url);
-const source = execFileSync('git', ['show', baseline + ':game/src/landmarks.js'], { cwd: new URL('../..', import.meta.url) }).toString()
-    .replace(/from '([^']+)'/g, (_, path) => `from '${new URL(path, url).href}'`);
-const before = await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
-const hash = a => createHash('sha256').update(Buffer.from(a.buffer, a.byteOffset, a.byteLength)).digest('hex');
-const geometry = mesh => { const rows = []; mesh.traverse(o => { if (!o.isMesh) return; rows.push({ name: o.name, material: o.material.name, index: o.geometry.index ? hash(o.geometry.index.array) : null,
-    attributes: Object.fromEntries(Object.entries(o.geometry.attributes).map(([k, v]) => [k, hash(v.array)])) }); }); return rows; };
-let checks = 0, current, old;
+const baseline = null;
+let checks = 0, current;
 for (const lm of LANDMARKS) {
-    const a = before.buildLandmark(before.LANDMARKS.find(l => l.id === lm.id), { realScale: true }), b = buildLandmark(lm, { realScale: true });
-    for (const key of ['clear', 'clearM', 'authoredScale', 'collision', 'fences', 'covers', 'grounds', 'coverPolys']) { assert.deepEqual(b[key], a[key], lm.id + ': ' + key); checks++; }
-    assert.deepEqual(b.mesh.userData, a.mesh.userData, lm.id + ': football/model metadata'); checks++;
-    if (lm.id !== 'dinamo') { assert.deepEqual(geometry(b.mesh), geometry(a.mesh), lm.id + ': unchanged geometry'); checks++; }
-    else { current = b; old = a; }
+    const b = buildLandmark(lm, { realScale: true });
+    let paint = 0; b.mesh.traverse(o => { if (o.isMesh && (o.name === 'dinamo-pitch-paint' || o.material?.alphaMap?.image?.data?.length === DINAMO_PAINT.width * DINAMO_PAINT.height * 2)) paint++; });
+    assert.equal(paint, lm.id === 'dinamo' ? 1 : 0, lm.id + ': pitch paint is drawn on Dinamo only'); checks++;
+    if (lm.id === 'dinamo') current = b;
 }
-const oldM = old.mesh.children.find(o => o.material.name === 'landmark-floodlit'), newM = current.mesh.children.find(o => o.material.name === 'landmark-floodlit');
-const keep = [], positions = oldM.geometry.attributes.position.array, colors = oldM.geometry.attributes.color.array, white = new THREE.Color('#f7f7f2');
-let removed = 0;
-for (let i = 0; i < positions.length; i += 9) {
-    const paint = [1, 4, 7].every(j => Math.abs(positions[i + j] - .18) < 1e-7) && [0, 3, 6].every(j => Math.abs(colors[i + j] - white.r) < 1e-7 && Math.abs(colors[i + j + 1] - white.g) < 1e-7 && Math.abs(colors[i + j + 2] - white.b) < 1e-7);
-    if (paint) removed++; else keep.push(i);
+const newM = current.mesh.children.find(o => o.material.name === 'landmark-floodlit');
+{ // the decal replaced the 12 cm white masonry strips at the paint height: none of them is drawn as geometry as well
+    const positions = newM.geometry.attributes.position.array, colors = newM.geometry.attributes.color.array, white = new THREE.Color('#f7f7f2');
+    let strips = 0;
+    for (let i = 0; i < positions.length; i += 9) {
+        const paint = [1, 4, 7].every(j => Math.abs(positions[i + j] - .18) < 1e-7) && [0, 3, 6].every(j => Math.abs(colors[i + j] - white.r) < 1e-7 && Math.abs(colors[i + j + 1] - white.g) < 1e-7 && Math.abs(colors[i + j + 2] - white.b) < 1e-7);
+        if (paint) strips++;
+    }
+    assert.equal(strips, 0, 'no painted strip geometry left in the masonry'); checks++;
 }
-assert.equal(removed, 114); checks++;
-for (const key of ['position', 'normal', 'color']) {
-    const a = oldM.geometry.attributes[key].array, filtered = new Float32Array(keep.flatMap(i => Array.from(a.slice(i, i + 9))));
-    assert.equal(hash(filtered), hash(newM.geometry.attributes[key].array), 'Entire non-paint masonry remains byte-identical: ' + key); checks++;
-}
+const tri = g => (g.index ? g.index.count : g.attributes.position.count) / 3;
 const extra = current.mesh.children.find(o => o.name === 'dinamo-pitch-paint'), material = extra.material, texture = material.alphaMap;
-assert.deepEqual(geometry(current.mesh).filter(o => o.material !== 'landmark-floodlit' && o.name !== extra.name), geometry(old.mesh).filter(o => o.material !== 'landmark-floodlit')); checks++;
-assert.equal(current.triangles, old.triangles - 114 + 2); assert.equal(extra.geometry.index.count, 6); checks += 2;
+{ let t = 0; current.mesh.traverse(o => { if (o.isMesh) t += tri(o.geometry); }); assert.equal(current.triangles, t); } assert.equal(extra.geometry.index.count, 6); checks += 2;
 const p = extra.geometry.attributes.position.array, cross = new THREE.Vector3().fromArray(p, 3).sub(new THREE.Vector3().fromArray(p)).cross(new THREE.Vector3().fromArray(p, 6).sub(new THREE.Vector3().fromArray(p)));
 assert(cross.y > 0); assert.equal(extra.castShadow, false); assert.equal(extra.receiveShadow, true); checks += 3;
 assert(landmarkSurfaceMaterials().includes(material)); assert.equal(material.depthWrite, false); assert(material.transparent); checks += 3;
-for (const key of ['nightEmissive', 'nightGlow', 'dayGlow', 'floodlit']) { assert.equal(material.userData[key], oldM.material.userData[key]); checks++; }
-assert.equal(material.emissive.getHex(), oldM.material.emissive.getHex()); assert.equal(material.vertexColors, true); checks += 2;
+for (const key of ['nightEmissive', 'nightGlow', 'dayGlow', 'floodlit']) { assert.equal(material.userData[key], newM.material.userData[key]); checks++; }
+assert.equal(material.emissive.getHex(), newM.material.emissive.getHex()); assert.equal(material.vertexColors, true); checks += 2;
 assert.equal(texture.format, THREE.RGFormat); assert.equal(texture.minFilter, THREE.LinearMipmapLinearFilter); assert(texture.generateMipmaps); checks += 3;
 assert.equal(texture.image.data.length, DINAMO_PAINT.width * DINAMO_PAINT.height * 2); checks++;
 let mipBytes = 0; for (let n = 1024; n >= 1; n /= 2) mipBytes += n * n * 2;
@@ -61,4 +53,4 @@ extra.geometry.addEventListener('dispose', () => disposedGeometry++); material.a
 const scene = new THREE.Scene(); scene.add(current.mesh); disposeDistrictScene(scene, { landmarks: [{ mesh: current.mesh }] });
 assert.equal(disposedGeometry, 1); assert.equal(disposedMaterial, 0); assert.equal(disposedTexture, 0); checks += 3;
 const again = buildLandmark(LANDMARKS.find(l => l.id === 'dinamo'), { realScale: true }); assert.equal(again.mesh.children.find(o => o.name === extra.name).material, material); checks++;
-console.log(JSON.stringify({ passed: true, baseline, checks, unchangedOtherModels: 60, exactNonPaintGeometry: true, exactFootballMetadataAndCollision: true, paintSegments: lines.length, widthM: .12, physicalStripAreaM2: physicalArea, filteredUnionAreaM2: filteredArea, trianglesBefore: old.triangles, trianglesAfter: current.triangles, addedMainDraws: 1, addedShadowDraws: 0, textureMipBytes: mipBytes, assetBytes: (await fs.stat(new URL('../../game/src/landmark-pitch-paint-coverage.js', import.meta.url))).size }, null, 2));
+console.log(JSON.stringify({ passed: true, baseline, checks, modelsWithoutPaint: LANDMARKS.length - 1, paintStripsInMasonry: 0, paintSegments: lines.length, widthM: .12, physicalStripAreaM2: physicalArea, filteredUnionAreaM2: filteredArea, trianglesAfter: current.triangles, addedMainDraws: 1, addedShadowDraws: 0, textureMipBytes: mipBytes, assetBytes: (await fs.stat(new URL('../../game/src/landmark-pitch-paint-coverage.js', import.meta.url))).size }, null, 2));

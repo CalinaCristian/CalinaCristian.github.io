@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "purpose": "Visitor scene illustrations after fidelity pass round 3; not public-route proof or a matched reference comparison.",
+  "tool": "visit-capture.cjs: the procedure of handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/capture.cjs and capture-portrait.cjs (native destination entry, production on-foot controller placed at the viewpoint, look acquired with CDP touch drags, no free camera), run on Windows with hardware GL",
+  "toolSHA256": "2de67318f278fff069fbd6d561c93a6e6b23c84f1baba215a5d3e8a2a04ac49e",
+  "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted).",
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 2b1a2511d6b8b521b409d55415b2eca9906cc305: `git archive 2b1a2511d6b8b521b409d55415b2eca9906cc305 game` extracted to a scratch directory and served by a no-store static server; key runtime and data files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T10:01:51.995Z"
+  },
+  "record": {
+    "id": "gas-works",
+    "captures": [
+      {
+        "kind": "scene",
+        "file": "gas-works/scene.webp",
+        "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+        "capturedAt": "2026-11-13T09:58:45.464Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": 82.6,
+          "z": 100.1,
+          "y": -0.18095999956130976,
+          "heading": 0.5235989062499999
+        },
+        "pose": {
+          "position": [
+            82.6,
+            1.46904000043869,
+            100.1
+          ],
+          "bearing": 329.99999251420894,
+          "pitch": 11.99999896570693
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-13T09:58:44.772Z",
+        "triangles": 657710,
+        "drawCalls": 55,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "bffae0f2ffe1f87da6336d13a1c3df92370dd03025b688205953cc0a5cf003c2",
+        "bytes": 50122,
+        "fullPageHUD": false
+      },
+      {
+        "kind": "phone-ui-touch",
+        "file": "gas-works/phone-ui-touch.jpg",
+        "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+        "capturedAt": "2026-11-13T09:58:45.686Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 82.6,
+          "z": 100.1,
+          "y": -0.18095999956130976,
+          "heading": 0.5235987890625
+        },
+        "pose": {
+          "position": [
+            82.6,
+            1.46904000043869,
+            100.1
+          ],
+          "bearing": 329.99999922855807,
+          "pitch": 11.999998965706927
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-13T09:58:44.993Z",
+        "triangles": 646155,
+        "drawCalls": 41,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "9d7d8f39383f6952c7a8b0d50cd24c044a5c54e26bc0cc19df41c14b65e0b21b",
+        "bytes": 48781,
+        "fullPageHUD": true
+      }
+    ],
+    "startedAt": "2026-11-13T09:58:43.068Z",
+    "probe": {
+      "sceneId": "gas-works",
+      "spawn": {
+        "x": 0,
+        "z": 0,
+        "heading": -2.792526803190927,
+        "y": -1.0299999713897705
+      },
+      "challenges": [
+        {
+          "view": null,
+          "id": "gas-works",
+          "x": 82.6,
+          "z": 100.1,
+          "bearing": 330,
+          "pitch": 12,
+          "fov": 55,
+          "text": "Rusty towers against the sky",
+          "r": 14,
+          "tol": 35,
+          "targets": [],
+          "condHint": null
+        }
+      ],
+      "interactables": [
+        {
+          "x": 36.8,
+          "z": 2,
+          "label": "Read: Last gasworks"
+        },
+        {
+          "x": -39.54828602128397,
+          "z": 56.660268491927745,
+          "label": "Read: Richard Haag"
+        },
+        {
+          "x": 92,
+          "z": 99.2,
+          "label": "Read: Strangest park"
+        },
+        {
+          "x": -58,
+          "z": 31,
+          "label": "Fly a kite on Kite Hill"
+        },
+        {
+          "x": 5.126851056446309,
+          "z": 2.3906899098409577,
+          "label": "Join the short guided tour"
+        },
+        {
+          "x": 1000000000,
+          "z": 1000000000,
+          "label": ""
+        }
+      ]
+    },
+    "setup": {
+      "arrival": {
+        "x": 0,
+        "z": 0,
+        "y": -1.0299999713897705,
+        "heading": -2.792526803190927
+      },
+      "authoredViewpoint": {
+        "view": null,
+        "id": "gas-works",
+        "x": 82.6,
+        "z": 100.1,
+        "bearing": 330,
+        "pitch": 12,
+        "fov": 55,
+        "text": "Rusty towers against the sky",
+        "r": 14,
+        "tol": 35,
+        "targets": [],
+        "condHint": null
+      },
+      "viewpoint": {
+        "view": null,
+        "id": "gas-works",
+        "x": 82.6,
+        "z": 100.1,
+        "bearing": 330,
+        "pitch": 12,
+        "fov": 55,
+        "text": "Rusty towers against the sky",
+        "r": 14,
+        "tol": 35,
+        "targets": [],
+        "condHint": null
+      },
+      "position": {
+        "x": 82.6,
+        "z": 100.1,
+        "y": -0.18095999956130976,
+        "heading": 0
+      },
+      "walker": "OnFootController",
+      "sceneId": "gas-works",
+      "origin": {
+        "lat": 47.6456,
+        "lon": -122.3356,
+        "elev": 10.9
+      },
+      "projection": {
+        "mLat": 111183.42,
+        "mLon": 75135.05
+      }
+    },
+    "look": {
+      "drags": 2,
+      "residualInputPixels": {
+        "x": 0.000054438208755650905,
+        "y": -0.000007521591474657364
+      }
+    },
+    "lookBefore": {
+      "heading": 0.5235989062499999,
+      "pitch": 0.2094394921875
+    },
+    "lookAfterInitialTouch": {
+      "heading": 0.35079890625,
+      "pitch": 0.2094394921875
+    },
+    "phoneLook": {
+      "drags": 1,
+      "residualInputPixels": {
+        "x": 0.000005610083508855724,
+        "y": -0.000007521591474657364
+      }
+    },
+    "passed": true,
+    "endedAt": "2026-11-13T09:58:45.757Z"
+  }
+}

@@ -61,19 +61,25 @@
       "label": "District fidelity pass scene change (2392e7f)",
       "type": "Game source change",
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/2392e7fea9dacfc70c322448b3a7f15d8c386c73"
+    },
+    {
+      "label": "Fidelity pass round 3 scene change (2b1a251)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/2b1a2511d6b8b521b409d55415b2eca9906cc305"
     }
   ],
   "improvements": [
     "Current native scene retains 57 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
     "Physical approach; native launch/steady/reel kite participation",
     "The selected primary activity approach is accepted separately from full-scene comparison.",
-    "District fidelity pass, 2392e7f (range 332ae423..346f7986): Gas Works levels from the fine DEM, the play barn and the industrial relics were reworked."
+    "District fidelity pass, 2392e7f (range 332ae423..346f7986): Gas Works levels from the fine DEM, the play barn and the industrial relics were reworked.",
+    "Fidelity pass round 3, 2b1a251 (range 9824fd56..2b1a2511): The Prow and the south shore on a 5 m DEM grid; park outline repairs."
   ],
   "remainingGaps": [
     "Full industrial/park reference comparison remains open",
     "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
     "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
-    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 93b0d86 or earlier, before the district fidelity pass, and were not re-run at 346f798."
+    "Validation frames, native proofs, source-geometry counts and performance figures in this record predate 2b1a251 and were not re-run for round 3."
   ],
   "checks": [
     {
@@ -115,6 +121,16 @@
       "label": "Validation frames and native proofs re-run at 346f798",
       "passed": false,
       "details": "Not re-run. The validation captures and proofs above keep their original source and date and describe the scene before the pass."
+    },
+    {
+      "label": "Visitor views recaptured at 2b1a251 (round 3)",
+      "passed": true,
+      "details": "scene view and complete phone page recaptured (scene, phone-ui-touch); peak 657,710 triangles / 55 draw calls in these frames. Every picture was inspected after capture. Appearance only; no route, activity or reference-match claim."
+    },
+    {
+      "label": "Validation frames and native proofs re-run at 2b1a251",
+      "passed": false,
+      "details": "Not re-run. The validation captures and proofs keep their original source and date."
     }
   ],
   "captures": [
@@ -353,7 +369,7 @@
     },
     "collection": "previous-context-gallery"
   },
-  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical approach; native launch/steady/reel kite participation Full industrial/park reference comparison remains open Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates.",
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical approach; native launch/steady/reel kite participation Full industrial/park reference comparison remains open Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates. Round-3 visitor views recaptured 2026-11-13 from 2b1a251; the earlier views are kept in historicalCollections.",
   "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
   "menuAvailable": true,
   "captureSourceCommits": [
@@ -402,12 +418,12 @@
   ],
   "visitorGallery": {
     "id": "gas-works",
-    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
     "captures": [
       {
         "kind": "scene",
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-        "capturedAt": "2026-11-12T19:49:35.652Z",
+        "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+        "capturedAt": "2026-11-13T09:58:45.464Z",
         "viewport": {
           "width": 1280,
           "height": 720
@@ -415,13 +431,13 @@
         "position": {
           "x": 82.6,
           "z": 100.1,
-          "y": -0.16997999846935274,
+          "y": -0.18095999956130976,
           "heading": 0.5235989062499999
         },
         "pose": {
           "position": [
             82.6,
-            1.4800200015306473,
+            1.46904000043869,
             100.1
           ],
           "bearing": 329.99999251420894,
@@ -432,20 +448,20 @@
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-12T19:49:34.789Z",
-        "triangles": 658118,
-        "drawCalls": 63,
+        "simulationDate": "2026-11-13T09:58:44.772Z",
+        "triangles": 657710,
+        "drawCalls": 55,
         "cameraParent": "onfoot",
         "ui": {
           "touch": true,
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "87cf4289e86eaea48b776174d59a68185ee60d17af65a688ef03c643f90bec6b",
-        "bytes": 49744,
+        "sha256": "bffae0f2ffe1f87da6336d13a1c3df92370dd03025b688205953cc0a5cf003c2",
+        "bytes": 50122,
         "fullPageHUD": false,
-        "image": "assets/spots/gas-works/visit-346f7986/scene.webp",
-        "captureRecord": "assets/spots/gas-works/visit-346f7986/capture.json",
+        "image": "assets/spots/gas-works/visit-2b1a2511/scene.webp",
+        "captureRecord": "assets/spots/gas-works/visit-2b1a2511/capture.json",
         "setup": {
           "arrival": {
             "x": 0,
@@ -484,7 +500,7 @@
           "position": {
             "x": 82.6,
             "z": 100.1,
-            "y": -0.16997999846935274,
+            "y": -0.18095999956130976,
             "heading": 0
           },
           "walker": "OnFootController",
@@ -504,8 +520,8 @@
       },
       {
         "kind": "phone-ui-touch",
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-        "capturedAt": "2026-11-12T19:49:35.917Z",
+        "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+        "capturedAt": "2026-11-13T09:58:45.686Z",
         "viewport": {
           "width": 390,
           "height": 844
@@ -513,13 +529,13 @@
         "position": {
           "x": 82.6,
           "z": 100.1,
-          "y": -0.16997999846935274,
+          "y": -0.18095999956130976,
           "heading": 0.5235987890625
         },
         "pose": {
           "position": [
             82.6,
-            1.4800200015306473,
+            1.46904000043869,
             100.1
           ],
           "bearing": 329.99999922855807,
@@ -530,20 +546,20 @@
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-12T19:49:35.055Z",
-        "triangles": 646563,
-        "drawCalls": 45,
+        "simulationDate": "2026-11-13T09:58:44.993Z",
+        "triangles": 646155,
+        "drawCalls": 41,
         "cameraParent": "onfoot",
         "ui": {
           "touch": true,
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "33e4e3230b000639d2f4fa603515e2ac9de8007dc460757a26994bc714b69c6f",
-        "bytes": 48810,
+        "sha256": "9d7d8f39383f6952c7a8b0d50cd24c044a5c54e26bc0cc19df41c14b65e0b21b",
+        "bytes": 48781,
         "fullPageHUD": true,
-        "image": "assets/spots/gas-works/visit-346f7986/phone-ui-touch.jpg",
-        "captureRecord": "assets/spots/gas-works/visit-346f7986/capture.json",
+        "image": "assets/spots/gas-works/visit-2b1a2511/phone-ui-touch.jpg",
+        "captureRecord": "assets/spots/gas-works/visit-2b1a2511/capture.json",
         "setup": {
           "arrival": {
             "x": 0,
@@ -582,7 +598,7 @@
           "position": {
             "x": 82.6,
             "z": 100.1,
-            "y": -0.16997999846935274,
+            "y": -0.18095999956130976,
             "heading": 0
           },
           "walker": "OnFootController",
@@ -603,17 +619,17 @@
     ],
     "limitations": [
       "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
-      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
+      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
     ],
     "reports": [
       {
-        "label": "Scene and portrait capture record, 346f798",
-        "report": "assets/spots/gas-works/visit-346f7986/capture.json",
-        "sha256": "203c9f0750ba9cf942d4d0d634ca53e1bde85fee694ad00c589b7ecdedda01f1"
+        "label": "Scene and portrait capture record, 2b1a251",
+        "report": "assets/spots/gas-works/visit-2b1a2511/capture.json",
+        "sha256": "4f6e10e7e87c46d5deafe8673686f8779149826eb959f361815478fa69180d90"
       }
     ],
-    "updatedAt": "2026-11-12T19:49:35.917Z",
-    "notice": "Recaptured from game source 346f798 after the district fidelity pass. The earlier aabd17a views are kept in this record as historical.",
+    "updatedAt": "2026-11-13T09:58:45.686Z",
+    "notice": "Recaptured from game source 2b1a251 after fidelity pass round 3. Earlier views are kept in this record as historical.",
     "setup": "Explicit production on-foot viewpoints with native touch look, at 1280 × 720 and as the complete 390 × 844 phone page. The scene-authored postcard pose is used unless a limitation below says otherwise. No route, reference match or release acceptance is implied."
   },
   "historicalCollections": [
@@ -821,19 +837,237 @@
           "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
         }
       ]
+    },
+    {
+      "id": "visitor-gallery-346f7986",
+      "label": "Visitor views before fidelity pass round 3",
+      "status": "historical",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededBy": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "supersededAt": "2026-11-13T10:01:51.995Z",
+      "reason": "The scene changed after 346f798 (round 3: 9824fd56..2b1a2511); these pictures show the earlier scene and keep their original source, dates and capture records.",
+      "notice": "Recaptured from game source 346f798 after the district fidelity pass. The earlier aabd17a views are kept in this record as historical.",
+      "setup": "Explicit production on-foot viewpoints with native touch look, at 1280 × 720 and as the complete 390 × 844 phone page. The scene-authored postcard pose is used unless a limitation below says otherwise. No route, reference match or release acceptance is implied.",
+      "limitations": [
+        "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+        "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
+      ],
+      "updatedAt": "2026-11-12T19:49:35.917Z",
+      "reports": [
+        {
+          "label": "Scene and portrait capture record, 346f798",
+          "report": "assets/spots/gas-works/visit-346f7986/capture.json",
+          "sha256": "203c9f0750ba9cf942d4d0d634ca53e1bde85fee694ad00c589b7ecdedda01f1"
+        }
+      ],
+      "captures": [
+        {
+          "kind": "scene",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "capturedAt": "2026-11-12T19:49:35.652Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 82.6,
+            "z": 100.1,
+            "y": -0.16997999846935274,
+            "heading": 0.5235989062499999
+          },
+          "pose": {
+            "position": [
+              82.6,
+              1.4800200015306473,
+              100.1
+            ],
+            "bearing": 329.99999251420894,
+            "pitch": 11.99999896570693
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-12T19:49:34.789Z",
+          "triangles": 658118,
+          "drawCalls": 63,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "87cf4289e86eaea48b776174d59a68185ee60d17af65a688ef03c643f90bec6b",
+          "bytes": 49744,
+          "fullPageHUD": false,
+          "image": "assets/spots/gas-works/visit-346f7986/scene.webp",
+          "captureRecord": "assets/spots/gas-works/visit-346f7986/capture.json",
+          "setup": {
+            "arrival": {
+              "x": 0,
+              "z": 0,
+              "y": -1.0299999713897705,
+              "heading": -2.792526803190927
+            },
+            "authoredViewpoint": {
+              "view": null,
+              "id": "gas-works",
+              "x": 82.6,
+              "z": 100.1,
+              "bearing": 330,
+              "pitch": 12,
+              "fov": 55,
+              "text": "Rusty towers against the sky",
+              "r": 14,
+              "tol": 35,
+              "targets": [],
+              "condHint": null
+            },
+            "viewpoint": {
+              "view": null,
+              "id": "gas-works",
+              "x": 82.6,
+              "z": 100.1,
+              "bearing": 330,
+              "pitch": 12,
+              "fov": 55,
+              "text": "Rusty towers against the sky",
+              "r": 14,
+              "tol": 35,
+              "targets": [],
+              "condHint": null
+            },
+            "position": {
+              "x": 82.6,
+              "z": 100.1,
+              "y": -0.16997999846935274,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "gas-works",
+            "origin": {
+              "lat": 47.6456,
+              "lon": -122.3356,
+              "elev": 10.9
+            },
+            "projection": {
+              "mLat": 111183.42,
+              "mLon": 75135.05
+            }
+          },
+          "label": "The preserved industrial towers",
+          "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+        },
+        {
+          "kind": "phone-ui-touch",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "capturedAt": "2026-11-12T19:49:35.917Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 82.6,
+            "z": 100.1,
+            "y": -0.16997999846935274,
+            "heading": 0.5235987890625
+          },
+          "pose": {
+            "position": [
+              82.6,
+              1.4800200015306473,
+              100.1
+            ],
+            "bearing": 329.99999922855807,
+            "pitch": 11.999998965706927
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-12T19:49:35.055Z",
+          "triangles": 646563,
+          "drawCalls": 45,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "33e4e3230b000639d2f4fa603515e2ac9de8007dc460757a26994bc714b69c6f",
+          "bytes": 48810,
+          "fullPageHUD": true,
+          "image": "assets/spots/gas-works/visit-346f7986/phone-ui-touch.jpg",
+          "captureRecord": "assets/spots/gas-works/visit-346f7986/capture.json",
+          "setup": {
+            "arrival": {
+              "x": 0,
+              "z": 0,
+              "y": -1.0299999713897705,
+              "heading": -2.792526803190927
+            },
+            "authoredViewpoint": {
+              "view": null,
+              "id": "gas-works",
+              "x": 82.6,
+              "z": 100.1,
+              "bearing": 330,
+              "pitch": 12,
+              "fov": 55,
+              "text": "Rusty towers against the sky",
+              "r": 14,
+              "tol": 35,
+              "targets": [],
+              "condHint": null
+            },
+            "viewpoint": {
+              "view": null,
+              "id": "gas-works",
+              "x": 82.6,
+              "z": 100.1,
+              "bearing": 330,
+              "pitch": 12,
+              "fov": 55,
+              "text": "Rusty towers against the sky",
+              "r": 14,
+              "tol": 35,
+              "targets": [],
+              "condHint": null
+            },
+            "position": {
+              "x": 82.6,
+              "z": 100.1,
+              "y": -0.16997999846935274,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "gas-works",
+            "origin": {
+              "lat": 47.6456,
+              "lon": -122.3356,
+              "elev": 10.9
+            },
+            "projection": {
+              "mLat": 111183.42,
+              "mLon": 75135.05
+            }
+          },
+          "label": "Phone view with the native touch interface",
+          "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+        }
+      ]
     }
   ],
   "visitorGalleryRecapture": {
-    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-    "assembledAt": "2026-11-12T20:03:08.418Z",
-    "passRange": "332ae423..346f7986",
-    "sceneCommits": [
-      "2392e7fea9dacfc70c322448b3a7f15d8c386c73"
-    ],
-    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes.",
+    "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+    "assembledAt": "2026-11-13T10:01:51.995Z",
+    "passRange": "9824fd56..2b1a2511",
+    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted).",
     "sourceVerification": {
-      "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
-      "checkedAt": "2026-11-12T20:03:08.417Z"
+      "method": "Captured from a snapshot of 2b1a2511d6b8b521b409d55415b2eca9906cc305: `git archive 2b1a2511d6b8b521b409d55415b2eca9906cc305 game` extracted to a scratch directory and served by a no-store static server; key runtime and data files were re-hashed against `git show` at assembly",
+      "checkedAt": "2026-11-13T10:01:51.995Z"
     }
   }
 }

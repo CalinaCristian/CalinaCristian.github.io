@@ -74,7 +74,7 @@ const landmarkSource = read('game/src/landmarks.js');
 const anchors = Object.fromEntries([...landmarkSource.split('const A = {')[1].split('\n};')[0].matchAll(/(\w+): \[(-?[\d.]+),\s*(-?[\d.]+),/g)].map(m=>[m[1],{lat:+m[2],lon:+m[3]}]));
 const landmarks = [...landmarkSource.matchAll(/^\s+L\('([^']+)', '([^']+)', '((?:\\.|[^'])+)', .*?, (b\w+)(?:, \{|\))/gm)].map(m => ({id:m[1],city:m[2],name:m[3].replace(/\\'/g,"'"),builder:m[4],...anchors[m[1]]}));
 // Each L() call remains on one line. Avoid requiring a WebGL/browser module during generation.
-if (landmarks.length !== 70) throw new Error(`Review catalogue extraction: expected 70 landmarks, found ${landmarks.length}`);
+if (landmarks.length !== 74) throw new Error(`Review catalogue extraction: expected 74 landmarks, found ${landmarks.length}`);
 const strictEvidence = process.argv.includes('--require-complete-evidence');
 for (const lm of landmarks) {
     const path = `evidence/landmarks/${lm.city}/${lm.id}.json`, full = resolve(root, 'game/overview', path);

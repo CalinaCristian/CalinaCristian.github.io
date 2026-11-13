@@ -284,7 +284,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         ctx.crowdCfg.groups = ctx.crowdCfg.groups || [];
         for (const sp of Object.values(spawns)) {
             const fx = -Math.sin(sp.heading), fz = -Math.cos(sp.heading);
-            search: for (const f of [8, 11, 6, 14]) for (const sd of [6, -6, 4.5, -4.5]) { const x = sp.x + fx * f - fz * sd, z = sp.z + fz * f + fx * sd; if (collide(colliders, x, z, 0.6, ctx.ground.heightAt(x, z) + 0.2) || ctx.ground.nearestDry(x, z).x !== x) continue; ctx.crowdCfg.groups.push({ x, z, r: 1.2, n: 3, act: 'talk' }); break search; }
+            search: for (const f of [8, 11, 6, 14]) for (const sd of [6, -6, 4.5, -4.5]) { const x = sp.x + fx * f - fz * sd, z = sp.z + fz * f + fx * sd; if (collide(colliders, x, z, 0.6, ctx.ground.heightAt(x, z) + 0.2, true) || ctx.ground.nearestDry(x, z).x !== x) continue; ctx.crowdCfg.groups.push({ x, z, r: 1.2, n: 3, act: 'talk' }); break search; }
         }
     }
     if (ctx.crowdCfg) {
@@ -498,8 +498,11 @@ export class SpotSession {
         try { window.dispatchEvent(new CustomEvent('dmcv:activity', { detail: { spot: this.spot.id, id: 'talk', n: this._talks } })); } catch { /* no host */ }
     }
     /** Strict walkable route; optional radius stays within the actual interaction's reach. */
-    _navColliders(ax,az,bx,bz,range=200) {
-        const bodies=[...(this.spot.crowd?.obstacles((ax+bx)/2,(az+bz)/2,range)||[]),...(this.spot.ctx.extras.obstacles?.()||[])];
+    /** `clearOf` [x, z]: leave out the moving bodies whose clearance already holds that point (a guide pressed against a
+     * walker would otherwise plan from inside the walker and find no start); movement still checks every step. */
+    _navColliders(ax,az,bx,bz,range=200,clearOf=null) {
+        let bodies=[...(this.spot.crowd?.obstacles((ax+bx)/2,(az+bz)/2,range)||[]),...(this.spot.ctx.extras.obstacles?.()||[])];
+        if(clearOf)bodies=bodies.filter(o=>!(Math.hypot(o.x-clearOf[0],o.z-clearOf[1])<Math.hypot(o.width||0,o.length||0)/2+.9));
         return withMovingBodies(this.spot.colliders,bodies,this.guide);
     }
     _navigationGround(x = this.ctl?.x, z = this.ctl?.z, y = this.ctl?.y) {
@@ -513,7 +516,7 @@ export class SpotSession {
             const endY = ground.groundAt(bx, bz, ground.heightAt(bx, bz) + 1.2);
             if (!Number.isFinite(endY) || Math.abs(endY - opts.targetY) > .55) return null;
         }
-        return findWalkPath(ground, this._navColliders(ax,az,bx,bz), ax, az, bx, bz, opts);
+        return findWalkPath(ground, this._navColliders(ax,az,bx,bz,200,opts.clearOf), ax, az, bx, bz, opts);
     }
     setWaypoint(target) {
         if(!Number.isFinite(target?.x)||!Number.isFinite(target?.z))return{message:'Choose a point on the map.'};
@@ -661,7 +664,9 @@ export class SpotSession {
                 if (wp) while (st.wi < wp.length - 1 && Math.hypot(wp[st.wi][0] - G.x, wp[st.wi][1] - G.z) < 0.35) st.wi++;
                 const tgx = wp ? wp[st.wi][0] : st.tx, tgz = wp ? wp[st.wi][1] : st.tz, dT = Math.hypot(tgx - G.x, tgz - G.z) || 1;
                 let dx = (tgx - G.x) / dT, dz = (tgz - G.z) / dT; const step = Math.min(v * dt, dT);
-                const cols = this._navColliders(G.x,G.z,G.x,G.z,12), ground = this._navigationGround(G.x,G.z,G.y); let nx = G.x, nz = G.z, moved = false;
+                const ground = this._navigationGround(G.x,G.z,G.y); let cols = this._navColliders(G.x,G.z,G.x,G.z,12), nx = G.x, nz = G.z, moved = false;
+                // a walker pressed against the guide must not pin it: step out of that body's clearance (others still block)
+                if (!Number.isFinite(walkHeight(ground, cols, G.x, G.z))) cols = this._navColliders(G.x,G.z,G.x,G.z,12,[G.x,G.z]);
                 for (const turn of [0, 0.7, -0.7, 1.4, -1.4]) {
                     const c = Math.cos(turn), s2 = Math.sin(turn), ex = dx * c - dz * s2, ez = dx * s2 + dz * c, tx = G.x + ex * step, tz = G.z + ez * step;
                     if (walkSegment(ground, cols, [G.x, G.z], [tx, tz])) { nx = tx; nz = tz; dx = ex; dz = ez; moved = true; break; }
@@ -670,13 +675,16 @@ export class SpotSession {
                 G.x = nx; G.z = nz; if (moved) G.y = walkHeight(ground, cols, nx, nz);
                 const remaining = Math.hypot(tgx - nx, tgz - nz);
                 if (st.progressWaypoint !== st.wi || remaining < (st.bestRemaining ?? Infinity) - 0.05) {
-                    st.progressWaypoint = st.wi; st.bestRemaining = remaining; st.blockedFor = 0;
-                } else st.blockedFor = (st.blockedFor || 0) + dt;
+                    st.progressWaypoint = st.wi; st.bestRemaining = remaining; st.blockedFor = 0; st.stuckFor = 0;
+                } else { st.blockedFor = (st.blockedFor || 0) + dt; st.stuckFor = (st.stuckFor || 0) + dt; }
                 if(T.travelled>TOUR_WALK_LIMIT_M){T.state='blocked';T.narr='This short walk has reached its distance budget. You can end the tour and keep exploring freely.';G.speed=0;this._tourUI();this._routeLine();return;}
                 if(st.blockedFor>1){
-                    const replanned=this._navPath(G.x,G.z,st.x,st.z,{radius:st.radius,maxLength:TOUR_WALK_LIMIT_M-T.travelled,startY:G.y,targetY:st.floorY});st.blockedFor=0;
-                    if(replanned){st.path=replanned;st.wi=1;st.progressWaypoint=null;st.bestRemaining=Infinity;[st.tx,st.tz]=replanned.at(-1);this._routeLine();}
-                    else{T.state='blocked';T.narr='The public route is currently blocked. You can skip this stop or end the tour.';G.speed=0;this._tourUI();this._routeLine();return;}
+                    // replan around the static world and the other bodies, never from inside the walker that holds the
+                    // guide up; with no route, wait for the crowd to move (a few tries) before calling the leg blocked
+                    const replanned=this._navPath(G.x,G.z,st.x,st.z,{radius:st.radius,maxLength:TOUR_WALK_LIMIT_M-T.travelled,startY:G.y,targetY:st.floorY,clearOf:[G.x,G.z]});st.blockedFor=0;
+                    // (progress is then measured against the new first waypoint; a replan alone never counts as progress)
+                    if(replanned){st.path=replanned;st.wi=1;st.progressWaypoint=1;st.bestRemaining=Math.hypot(replanned[1][0]-G.x,replanned[1][1]-G.z);[st.tx,st.tz]=replanned.at(-1);this._routeLine();}
+                    if(st.stuckFor>6){T.state='blocked';T.narr='The public route is currently blocked. You can skip this stop or end the tour.';G.speed=0;this._tourUI();this._routeLine();return;}
                 }
                 G.speed = moved ? v : 0; G.phase += moved ? dt * v * 4.6 : 0; G.yaw = Math.atan2(dx, dz); G.tyaw = G.yaw;
                 if ((T.t % 1) < dt) this._routeLine();
@@ -941,7 +949,8 @@ export function auditSpot(spot, { maxSamples = 6 } = {}) {
     const tris = [], boxes = [], geoSeen = new Set(), v = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()], m4 = new THREE.Matrix4(), bb = new THREE.Box3();
     scene.traverse((o) => {
         if (!o.isMesh || !visible(o) || o.userData.noAudit) return;
-        const g = o.geometry, pos = g?.attributes?.position; if (!pos) return;
+        // (a packed dynamic-index mesh, frame-budget.js, is audited on its whole source geometry, as the multi-draw is)
+        const g = o.userData.auditGeometry || o.geometry, pos = g?.attributes?.position; if (!pos) return;
         if (!geoSeen.has(g)) { geoSeen.add(g); // geometry sanity once per geometry
             const nrm = g.attributes.normal, idx = g.index;
             for (let i = 0; i < pos.count; i++) if (!Number.isFinite(pos.getX(i) + pos.getY(i) + pos.getZ(i))) { add('badGeometry', { mesh: o.name, kind: 'NaN position' }); break; }
@@ -976,6 +985,7 @@ export function auditSpot(spot, { maxSamples = 6 } = {}) {
         const pr = all.map(proj);
         for (let i = 0; i < b.length; i++) for (let j = i + 1; j < all.length; j++) {
             const A = pr[i], B = pr[j], ta = all[i], tb = all[j]; if (Math.abs(ta.d - tb.d) > 0.02) continue;
+            { const q = tb.p, off = ta.n[0] * (q[0] + q[3] + q[6]) / 3 + ta.n[1] * (q[1] + q[4] + q[7]) / 3 + ta.n[2] * (q[2] + q[5] + q[8]) / 3 - ta.d; if (Math.abs(off) > 0.02) continue; } // nearly parallel planes far from the origin share d without touching (patch from lane buc-spots)
             const ca = [(A[0][0] + A[1][0] + A[2][0]) / 3, (A[0][1] + A[1][1] + A[2][1]) / 3], cb = [(B[0][0] + B[1][0] + B[2][0]) / 3, (B[0][1] + B[1][1] + B[2][1]) / 3];
             if (!(inTri(ca, B) || inTri(cb, A))) continue;
             zpairs++; const key = `${Math.round(ta.p[0] / 4)},${Math.round(ta.p[2] / 4)}`; if (zseen.has(key)) continue; zseen.add(key);
@@ -1001,7 +1011,7 @@ export function auditSpot(spot, { maxSamples = 6 } = {}) {
     for (const p of spot.crowd?.peds || []) {
         if (p.act === 'sit' || p.hidden) continue;
         { const t = fp.above(p.x, p.z, p.y, 0.15, 1.2); if (t !== null) add('pedSunk', { x: +p.x.toFixed(1), z: +p.z.toFixed(1), y: +p.y.toFixed(2), floor: +t.toFixed(2), act: p.act }); }
-        if (spot.colliders.length && collide(spot.colliders, p.x, p.z, 0.2, p.y + 0.3)) add('pedCollider', { x: +p.x.toFixed(1), z: +p.z.toFixed(1), act: p.act });
+        if (spot.colliders.length && collide(spot.colliders, p.x, p.z, 0.2, p.y + 0.3, true)) add('pedCollider', { x: +p.x.toFixed(1), z: +p.z.toFixed(1), act: p.act });
         const gy = G.groundAt(p.x, p.z, p.y + 1.2); if (Number.isFinite(gy) && gy < p.y + 30 && p.y < gy - 0.15) add('pedBelow', { x: +p.x.toFixed(1), z: +p.z.toFixed(1), y: +p.y.toFixed(2), floor: +gy.toFixed(2) });
     }
     // ---- lamps / cars on carriageways

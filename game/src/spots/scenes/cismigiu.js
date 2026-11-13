@@ -47,6 +47,8 @@ function ringOffset(ring, d) {
         const k = d / Math.max(0.5, mx * n1x + mz * n1z); return [px + mx * k, pz + mz * k]; });
 }
 
+// `bridge:structure` of the garden's mapped bridge outlines (live OSM 2026-11-12; the spot extract drops the tag)
+const BRIDGE_STRUCTURE = { w1447243273: 'arch', w1478446295: 'beam' };
 const WRITERS = ['Mihai Eminescu', 'Ion Creangă', 'Ion Luca Caragiale', 'Vasile Alecsandri', 'George Coșbuc', 'Alexandru Vlahuță', 'Bogdan Petriceicu Hasdeu', 'Duiliu Zamfirescu', 'Titu Maiorescu', 'Nicolae Bălcescu', 'Alexandru Odobescu', 'Ștefan Octavian Iosif'];
 
 export default {
@@ -75,6 +77,34 @@ export default {
             wg.setAttribute('position', new THREE.Float32BufferAttribute(wp, 3)); wg.setIndex(idx); wg.computeVertexNormals();
             w.geometry.dispose(); w.geometry = wg; w.position.set(0, level, 0);
         }
+        // (round 3, 2026-11-13) Lacul Lebedelor (OSM relation 12837108, natural=water, with two mapped islets as inner rings)
+        // was only a faint blue paint on the lawn with trees standing in it. It is now water: the terrain is cut inside the
+        // outer ring (the islets stay land), a water sheet is triangulated with the islets as holes, and a stone kerb edges
+        // the outer ring and both islets like the main lake. Shore height and kerb build are estimates (no current panorama).
+        const swan = d.areas.find((a) => a.id === 'r12837108'), swanWater = (x, z) => !!swan && inPoly(x, z, swan.poly) && !(swan.holes || []).some((h) => inPoly(x, z, h));
+        let swanInfo = null;
+        if (swan) {
+            ctx.skipAreas.add(swan.id);
+            const outside = ringOffset(swan.poly, 2.5); let s = 0; for (const [x, z] of outside) s += g.heightAt(x, z);
+            const sy = s / outside.length, lv = sy - 0.42, bed = Math.min(lv, level) - 1.4, bb = polyBox(swan.poly);
+            g.mod((x, z, h) => (x < bb.x0 || x > bb.x1 || z < bb.z0 || z > bb.z1 || !swanWater(x, z) ? h : bed));
+            const wg = new THREE.BufferGeometry(), V2 = (r2) => r2.map(([x, z]) => new THREE.Vector2(x, z)), rings = [swan.poly, ...(swan.holes || [])];
+            const tris = THREE.ShapeUtils.triangulateShape(V2(swan.poly), (swan.holes || []).map(V2)), all = rings.flat(), wp = [], idx = [];
+            for (const [x, z] of all) wp.push(x, 0, z);
+            for (const [a, b2, c] of tris) { const A = all[a], B = all[b2], C = all[c], up = (B[0] - A[0]) * (C[1] - A[1]) - (B[1] - A[1]) * (C[0] - A[0]); idx.push(...(up < 0 ? [a, b2, c] : [a, c, b2])); }
+            wg.setAttribute('position', new THREE.Float32BufferAttribute(wp, 3)); wg.setIndex(idx); wg.computeVertexNormals();
+            const main = ctx.extras.water, wm = new THREE.Mesh(wg, main?.material || new THREE.MeshStandardMaterial({ color: '#3d5a50', roughness: 0.15 })); wm.name = 'water-lebedelor'; wm.position.set(0, lv, 0); wm.receiveShadow = true; ctx.add(wm);
+            const kb = new GeoBatch(), yTop = sy + 0.07, V = ([x, z], y) => [x, y, z];
+            for (const [ri, ring] of rings.entries()) { const O = ringOffset(ring, ri ? -0.45 : 0.45), n = ring.length; // islets: the kerb lies on the island side
+                for (let i = 0; i < n; i++) { const P0 = ring[i], P1 = ring[(i + 1) % n], O0 = O[i], O1 = O[(i + 1) % n];
+                    kb.quad(V(P0, yTop), V(P1, yTop), V(O1, yTop), V(O0, yTop), '#bdb6a8', 'stone'); kb.quad(V(O0, yTop), V(O1, yTop), V(P1, yTop), V(P0, yTop), '#bdb6a8', 'stone');
+                    for (const [ya, yb2, c] of [[yTop, lv + 0.1, '#a9a294'], [lv + 0.1, bed + 0.15, '#4c4b40']]) { kb.quad(V(P0, ya), V(P1, ya), V(P1, yb2), V(P0, yb2), c, 'stone'); kb.quad(V(P0, yb2), V(P1, yb2), V(P1, ya), V(P0, ya), c, 'stone'); } } }
+            ctx.add(kb.build('lebedelor-kerb', { castShadow: false }));
+            // the mapped fountain in the lake (OSM w843007163, amenity=fountain): a single white jet at its centre (height estimated)
+            const fq = osmPoly(d, 'w843007163'); if (fq && swanWater(...centroid(fq))) { const [fx, fz] = centroid(fq); ctx.skipAreas.add('w843007163'); const jg = new THREE.CylinderGeometry(0.05, 0.22, 3.2, 8, 1, true); jg.translate(0, 1.6, 0); const jm = new THREE.Mesh(jg, new THREE.MeshStandardMaterial({ color: '#e9f4f7', transparent: true, opacity: 0.55, roughness: 0.1, depthWrite: false })); jm.name = 'fountain-jet-lebedelor'; jm.position.set(fx, lv, fz); ctx.add(jm); }
+            swanInfo = { source: swan.id, level: +lv.toFixed(2), shoreY: +sy.toFixed(2), islets: (swan.holes || []).length };
+            ctx.extras.swanLake = swanInfo;
+        }
         const b = new GeoBatch(), signs = [];
         // (owner, 2026-11-11: "the bike functionality that was in Herăstrău added back for Cișmigiu") A docking station on a
         // paved pad beside the arrival alley (OSM way 39305680), on the side away from the lake. No station is mapped here:
@@ -88,11 +118,18 @@ export default {
         })();
         // footbridges over the lake (OSM bridge ways), note 35: smooth arched decks (walkable surface follows the arch), white
         // stone fascia girders, continuous cast-iron railings; the lakeside railing opens where a bridge or a path meets the shore
-        const bridges = lake ? d.ways.filter((w) => w.bridge && w.bridge !== 'no' && ['footway', 'path', 'pedestrian'].includes(w.k) && w.pts.some(([x, z]) => inPoly(x, z, lake) || distPolyline(x, z, [...lake, lake[0]]).d < 8)) : [];
+        const bridges = lake ? d.ways.filter((w) => w.bridge && w.bridge !== 'no' && ['footway', 'path', 'pedestrian'].includes(w.k) && w.pts.some(([x, z]) => inPoly(x, z, lake) || distPolyline(x, z, [...lake, lake[0]]).d < 8 || swanWater(x, z))) : [];
         const shorePaths = d.ways.filter((w) => ['footway', 'path', 'pedestrian', 'steps'].includes(w.k) && !(w.bridge && w.bridge !== 'no'));
+        // (round 3, 2026-11-13) a deck is as wide as its mapped man_made=bridge outline where one holds it (Podul Mare
+        // w1447243273: 5 m, not 2.8 m), and keeps the outline's structure tag: `bridge:structure=beam` (Podul de Nuc,
+        // w1478446295) is a flat beam deck, `arch` (Podul Mare) or untagged keeps the arched deck. Rise is an estimate.
+        const outlines = d.areas.filter((a) => a.man_made === 'bridge' && a.poly?.length > 2), bridgeInfo = [];
         for (const w of bridges) {
             const pts = w.pts, Ltot = (() => { let L = 0; for (let k = 1; k < pts.length; k++) L += Math.hypot(pts[k][0] - pts[k - 1][0], pts[k][1] - pts[k - 1][1]); return L; })(); if (Ltot < 2) continue;
-            const ya = g.heightAt(...pts[0]), yb = g.heightAt(...pts[pts.length - 1]), rise = Math.min(1.6, 0.5 + Ltot * 0.06), W = 2.8;
+            const mid = pts[Math.floor(pts.length / 2)], ol = outlines.find((a) => inPoly(mid[0], mid[1], a.poly) || inPoly((pts[0][0] + pts[pts.length - 1][0]) / 2, (pts[0][1] + pts[pts.length - 1][1]) / 2, a.poly));
+            const olW = ol ? Math.abs(polyArea(ol.poly)) / Math.max(1, Ltot) : null, beam = (ol?.['bridge:structure'] || BRIDGE_STRUCTURE[ol?.id]) === 'beam';
+            const ya = g.heightAt(...pts[0]), yb = g.heightAt(...pts[pts.length - 1]), rise = beam ? 0.3 : Math.min(1.6, 0.5 + Ltot * 0.06), W = olW ? Math.max(2.2, Math.min(7, olW)) : 2.8;
+            bridgeInfo.push({ way: w.id, outline: ol?.id || null, name: ol?.name || null, W: +W.toFixed(2), beam });
             const samp = []; { let acc = 0; for (let k = 1; k < pts.length; k++) { const [ax, az] = pts[k - 1], [bx, bz] = pts[k], L = Math.hypot(bx - ax, bz - az); const n = Math.max(1, Math.ceil(L / 0.6)); for (let q = (k === 1 ? 0 : 1); q <= n; q++) { const t = q / n; samp.push({ x: ax + (bx - ax) * t, z: az + (bz - az) * t, s: acc + L * t }); } acc += L; } }
             const yAtS = (sv) => { const t = Math.max(0, Math.min(1, sv / Ltot)); return ya + (yb - ya) * t + Math.sin(t * Math.PI) * rise + 0.06; };
             samp.forEach((q, k) => { const a = samp[Math.max(0, k - 1)], c = samp[Math.min(samp.length - 1, k + 1)], dx = c.x - a.x, dz = c.z - a.z, L = Math.hypot(dx, dz) || 1; q.nx = -dz / L; q.nz = dx / L; q.y = yAtS(q.s); });
@@ -114,6 +151,7 @@ export default {
             g.addPoly(deck, (x, z) => { let bi = 0, bd = 1e9; samp.forEach((q, k) => { const dd = (q.x - x) ** 2 + (q.z - z) ** 2; if (dd < bd) { bd = dd; bi = k; } }); return samp[bi].y; }, level - 2);
             w._samp = samp;
         }
+        ctx.extras.bridges = bridgeInfo;
         // lake edge: a granite kerb (0.45 m coping, a vertical face down into the water, darker below the waterline) on a dark
         // lake bed; a low cast-iron railing on the coping, open at the landing, the bridge heads and paths reaching the shore;
         // weeping willows on the banks, leaning over the water
@@ -253,7 +291,7 @@ export default {
             if (hoopM) { ctx.add(hb.build('cismigiu-hoop-borders', { castShadow: false, matOverrides: { hoop: hoopMat } })); ctx.extras.hoopBordersM = Math.round(hoopM); }
         }
         if (park) { for (const w of d.ways) { if (!['footway', 'path'].includes(w.k) || !w.pts.some(([x, z]) => inPoly(x, z, park))) continue; for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 1) continue; const nx = -(bz - az) / L, nz = (bx - ax) / L; for (let t = r() * 10; t < L; t += 9 + r() * 5) for (const sd of [-1, 1]) { if (r() < 0.35) continue; const x = ax + (bx - ax) * t / L + nx * sd * (3.6 + r() * 2), z = az + (bz - az) * t / L + nz * sd * (3.6 + r() * 2); if (lake && (inPoly(x, z, lake) || distPolyline(x, z, [...lake, lake[0]]).d < 2.5)) continue; if (Math.hypot(x - rot.x, z - rot.z) < rotR + 4 || Math.hypot(x - ch.x, z - ch.z) < 7) continue; ctx.trees.push({ x, z, kind: r() < 0.08 ? 'con' : 'broad', s: 1.2 + r() * 0.6 }); } } } }
-        ctx.trees = ctx.trees.filter((t) => !(lake && inPoly(t.x, t.z, lake)));
+        ctx.trees = ctx.trees.filter((t) => !(lake && inPoly(t.x, t.z, lake)) && !swanWater(t.x, t.z));
         // keep the alleys clear (no trunks on the paths) and the postcard view along the lake open
         const paths = d.ways.filter((w) => ['footway', 'path', 'pedestrian', 'cycleway', 'service'].includes(w.k));
         ctx.trees = ctx.trees.filter((t) => !paths.some((w) => distPolyline(t.x, t.z, w.pts).d < 2.6));
@@ -270,7 +308,12 @@ export default {
         const PL = sp.plaques;
         if (ck) ctx.plaque(PL[0], ck.x + 3, ck.z - 3, Math.PI, { style: 'park', credit: 'Laid out by Wilhelm Mayer (from 1847), completed by Franz Harrer.' });
         ctx.plaque(PL[1], -110.4 + 2.5, -11.4 + 1.5, 0, { style: 'park' });
-        if (rink) { const [rx, rz] = centroid(rink); ctx.plaque(PL[2], rx - 18, rz, -Math.PI / 2, { style: 'park' }); }
+        // (round 3, 2026-11-13) the rink (OSM w1508293151) is laid on the lake itself: 18 m west of its centre the plaque
+        // stood in the water (terrain −1.97 m, no walk surface). It now stands on the nearest mapped lakeside alley,
+        // off the kerb, facing the rink.
+        if (rink) { const [rx, rz] = centroid(rink); let best = null;
+            for (const w of shorePaths) { if (!['footway', 'path', 'pedestrian'].includes(w.k) || w.layer) continue; for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], L = Math.hypot(bx - ax, bz - az); for (let t = 0; t <= L; t += 1) { const x = ax + (bx - ax) * t / L, z = az + (bz - az) * t / L; if (lakeD && lakeD(x, z) < 3.5) continue; const dd = Math.hypot(x - rx, z - rz); if (!best || dd < best.d) best = { d: dd, x, z }; } } }
+            const px = best ? best.x : rx - 18, pz = best ? best.z : rz; ctx.plaque(PL[2], px, pz, Math.atan2(rx - px, rz - pz) + Math.PI, { style: 'park' }); ctx.extras.rinkPlaque = { x: +px.toFixed(1), z: +pz.toFixed(1), onAlley: !!best }; }
         ctx.plaque(PL[3], rot.x + rotR + 4.5, rot.z + 2, Math.PI / 2, { style: 'bronze', credit: 'Writers\' Rotunda (1943); busts by several sculptors.' });
         ctx.plaque(PL[4], -40, 40, Math.PI / 2, { style: 'park' });
         { const [x,z]=chessTables[2];backgammonGame(ctx,{x,z,y:g.heightAt(ch.x,ch.z)+.8,source:ch.id,onDone:s=>bucActivity(s,'cismigiu','backgammon','🎲 A match at La Șahiști','You bore off all fifteen checkers and beat Doru, a park regular.')}); }

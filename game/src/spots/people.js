@@ -169,7 +169,7 @@ export class Crowd {
     /** a free spot (no collider at body height) at or near the ped's position, searched in rings up to 6 m */
     _blocked(x, z, y, r = 0.28) {
         const wy = this.ground.waterY; if (wy != null && y < wy + 0.03) return true; // standing in the lake (round 6 note 34)
-        return !!(this.colliders && collide(this.colliders, x, z, r, y + 0.25));
+        return !!(this.colliders && collide(this.colliders, x, z, r, y + 0.25, true));
     }
     _settle(p) {
         if (!this.colliders && this.ground.waterY == null) return true;
@@ -313,7 +313,7 @@ export class Crowd {
         p.speed += (v - p.speed) * Math.min(1, dt * 3);
         let nx = p.x + dx * p.speed * dt, nz = p.z + dz * p.speed * dt, ny = this._floor(nx, nz, p.y + 0.45);
         if (this.colliders && p.speed > 0.05) { // walkers keep 0.4 m off walls: slide along a façade, turn back at a real obstacle
-            const h = collide(this.colliders, nx, nz, 0.4, ny + 0.25);
+            const h = collide(this.colliders, nx, nz, 0.4, ny + 0.25, true);
             if (h && Math.hypot(h.px, h.pz) < 0.2) { nx += h.px; nz += h.pz; ny = this._floor(nx, nz, p.y + 0.45); if (this._blocked(nx, nz, ny)) { p.dir = -p.dir; p.i = clamp(p.i + p.dir, 0, line.pts.length - 1); p.speed = 0; return; } } // the slid point must be free, else turn back
             else if (h && !this._blocked(p.x, p.z, p.y)) { p.dir = -p.dir; p.i = clamp(p.i + p.dir, 0, line.pts.length - 1); p.speed = 0; return; }
         }

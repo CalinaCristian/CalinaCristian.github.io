@@ -3,7 +3,7 @@
   "id": "europehouse",
   "city": "bucharest",
   "name": "Europe House",
-  "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.4511557,
@@ -32,6 +32,11 @@
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/b203c38abf3651dd3d472c491238ad36089a633a/handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json",
       "label": "Existing recorded source-book/topology result; not a new execution",
       "type": "validation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "label": "Fidelity pass round 3 (2b1a251), not yet published when captured",
+      "type": "implementation"
     }
   ],
   "sourceIds": [
@@ -41,14 +46,41 @@
   "reviewedAt": "2026-11-08",
   "improvements": [
     "Refreshed the full slab outline at centimetre precision.",
-    "Source polygon collision now preserves its angled end geometry."
+    "Source polygon collision now preserves its angled end geometry.",
+    "Lighter blue glass (#56778f), and the south-east end is now grey bands between ribbon windows (still square-ended), from the official panorama at 44.450804, 26.088191 heading 315."
   ],
   "remainingGaps": [
     "The source maps 14 levels but no height; the 56 m wedge and 44/46 m body/plant levels remain prior estimates.",
     "End assignment, tenant sign placement and detailed glazing grid need further independent confirmation.",
-    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity.",
+    "Glass colour and band proportions are estimates; panorama viewed as reference only; not stored or published."
   ],
   "checks": [
+    {
+      "label": "Pictures recaptured at 2b1a251 (round 3)",
+      "passed": true,
+      "details": "Same isolated viewer routes as the 5b925476 studies, plus an in-world street view in Romana at the pose of the reference panorama (44.450804, 26.088191, heading 315; panorama not stored). Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 2b1a251 (game/src clean) on 2026-11-13: passed, 2158 checks over 74 models; this model 2479 triangles, 1 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 4 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "In-world district view",
+      "passed": null,
+      "details": "In-world view from the street, Romana (pose of the reference panorama): 693,939 triangles / 190 draw calls in the romana district world. Recorded, not a budget acceptance."
+    },
+    {
+      "label": "Earlier checks below",
+      "passed": null,
+      "details": "The checks that follow were recorded for source 5b92547 or earlier and were not re-run for this recapture."
+    },
     {
       "label": "Historical source boundary and replacement-identity checks",
       "passed": true,
@@ -85,10 +117,15 @@
       "id": "front",
       "label": "Street-height model study",
       "kind": "front",
-      "image": "assets/landmarks/europehouse/front.webp",
-      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
-      "sha256": "d3a60dfe14707b73d20ad9eb6186256c20e4319b483e5aa9a106bfe094a91f29",
-      "capturedAt": "2026-11-08T16:50:33.687176Z",
+      "image": "assets/landmarks/europehouse/source-2b1a2511/front.webp",
+      "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "sha256": "52e68aff258f6daeff38fdc8485922979ce451dec00918ea6e8eb2544bfff267",
+      "bytes": 34420,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T09:44:50.812Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=europehouse&clean=1&fountains=on&view=street&az=90",
         "anchor": {
@@ -97,23 +134,29 @@
           "rotation": 0
         },
         "camera": {
+          "projection": "perspective",
           "position": [
-            84.1279483795166,
+            101.76825151062012,
             1.3,
-            0.6342859268188528
+            0.6762723922729554
           ],
           "quaternion": [
-            0.09768947789776862,
-            0.7003261853651207,
-            -0.09768947789776862,
-            0.7003261853651207
+            0.0814697914077459,
+            0.7023978025933583,
+            -0.0814697914077459,
+            0.7023978025933584
           ],
           "fov": 62,
           "near": 0.3,
-          "far": 1680.0288696289062,
+          "far": 2032.8349322509766,
           "viewport": [
             960,
             720
+          ],
+          "up": [
+            0,
+            1,
+            0
           ]
         },
         "bounds": {
@@ -125,21 +168,26 @@
           "max": [
             37.00240707397461,
             56,
-            32.905181884765625
+            32.98915481567383
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
       }
     },
     {
       "id": "top",
-      "label": "Top model study (perspective)",
+      "label": "North-up orthographic model study",
       "kind": "top",
-      "image": "assets/landmarks/europehouse/top.webp",
-      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
-      "sha256": "cb7f96f91e66b9768ea43a0ebaee89238e649f11cf11a6603d10b6f559a0d499",
-      "capturedAt": "2026-11-08T16:50:38.771115Z",
+      "image": "assets/landmarks/europehouse/source-2b1a2511/top.webp",
+      "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "sha256": "64e1a69de1e76d6716f6fa1f7ff04db71379026e62b691751bb086fe429bc2bb",
+      "bytes": 14036,
+      "width": 720,
+      "height": 720,
+      "capturedAt": "2026-11-13T09:44:51.525Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=europehouse&clean=1&fountains=on&view=top&az=0",
         "anchor": {
@@ -148,24 +196,39 @@
           "rotation": 0
         },
         "camera": {
+          "projection": "orthographic",
           "position": [
             0.12650489807128906,
-            158.41329951992157,
-            0.7926992791432157
+            145.55209304809568,
+            0.6762723922729492
           ],
           "quaternion": [
-            -0.7067531394223399,
+            -0.7071067811865475,
             0,
             0,
-            0.7074602461740636
+            0.7071067811865476
           ],
           "fov": 45,
           "near": 0.5,
-          "far": 3168.2675745320867,
+          "far": 2911.0418609619137,
           "viewport": [
-            960,
+            720,
             720
-          ]
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -44.77604652404785,
+          "right": 44.77604652404785,
+          "top": 44.77604652404785,
+          "bottom": -44.77604652404785,
+          "zoom": 1,
+          "groundSquareM": 89.5520930480957,
+          "groundWidthM": 89.5520930480957,
+          "groundDepthM": 89.5520930480957,
+          "orientation": "north-up"
         },
         "bounds": {
           "min": [
@@ -176,21 +239,26 @@
           "max": [
             37.00240707397461,
             56,
-            32.905181884765625
+            32.98915481567383
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
       }
     },
     {
       "id": "oblique",
       "label": "Oblique model study",
       "kind": "oblique",
-      "image": "assets/landmarks/europehouse/oblique.webp",
-      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
-      "sha256": "dc13ba44a2a03d2cf29b928f0b4c3569ecf2fadc37a658304f5464d28f8ec843",
-      "capturedAt": "2026-11-08T16:50:48.874997Z",
+      "image": "assets/landmarks/europehouse/source-2b1a2511/oblique.webp",
+      "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "sha256": "ffe19d602e89beb09c6d26a8a9bcf097d1b9b51bf64497b85176a09a09c72494",
+      "bytes": 58346,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T09:44:52.186Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=europehouse&clean=1&fountains=on&view=oblique&az=125&el=28",
         "anchor": {
@@ -199,10 +267,11 @@
           "rotation": 0
         },
         "camera": {
+          "projection": "perspective",
           "position": [
             82.79654168366442,
             76.06090285821678,
-            -57.25189701452748
+            -57.20991054907338
           ],
           "quaternion": [
             -0.11170709980433721,
@@ -216,6 +285,11 @@
           "viewport": [
             960,
             720
+          ],
+          "up": [
+            0,
+            1,
+            0
           ]
         },
         "bounds": {
@@ -227,19 +301,247 @@
           "max": [
             37.00240707397461,
             56,
-            32.905181884765625
+            32.98915481567383
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "district",
+      "label": "In-world view from the street, Romana (pose of the reference panorama)",
+      "kind": "district",
+      "image": "assets/landmarks/europehouse/source-2b1a2511/district.webp",
+      "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "sha256": "f44e1ba74d0c604f0e22ce75156897a64788a050cdea8e44d4d5c7b40520625b",
+      "bytes": 136124,
+      "width": 1280,
+      "height": 720,
+      "capturedAt": "2026-11-13T09:45:30.462Z",
+      "encoding": "WebP quality 0.9 of the game canvas",
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "auto",
+        "clockOverride": "day",
+        "weatherOverride": "clear",
+        "note": "Season is the game default for the capture date (autumn foliage)."
+      },
+      "metrics": {
+        "triangles": 693939,
+        "drawCalls": 190,
+        "quality": "auto (high)"
+      },
+      "pose": {
+        "lat": 44.450804,
+        "lon": 26.088191,
+        "heading": 315,
+        "pitch": 10,
+        "cameraY": 1.89,
+        "cameraBaseY": 0.24,
+        "eyeAboveSurfaceM": 1.65,
+        "fov": 70,
+        "viewport": [
+          1280,
+          720
+        ],
+        "district": "romana",
+        "worldXZ": [
+          -239.12346242412565,
+          -278.27452799941466
+        ],
+        "frame": "Production district world (game/?inspect=1), free camera at a geographic pose as in game/dev/reality/capture.cjs; no simulation between shots, player rig hidden",
+        "eye": [
+          -239.12346242412565,
+          1.89,
+          -278.27452799941466
+        ],
+        "bearing": 315
       }
     }
   ],
   "perf": {
-    "triangles": 2347,
+    "triangles": 2481,
     "drawCalls": 4,
-    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+    "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS. In-world frame counts are recorded on the district view."
   },
   "implementationNotesUpdatedAt": "2026-11-09",
-  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance.",
+  "historicalCollections": [
+    {
+      "id": "captures-5b925476",
+      "label": "Pictures before fidelity pass round 3",
+      "status": "historical",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "supersededBy": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "supersededAt": "2026-11-13T10:01:51.995Z",
+      "reason": "The model changed in 9824fd56..2b1a2511 or earlier; these pictures keep their original source, dates and files.",
+      "perf": {
+        "triangles": 2347,
+        "drawCalls": 4,
+        "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+      },
+      "captures": [
+        {
+          "id": "front",
+          "label": "Street-height model study",
+          "kind": "front",
+          "image": "assets/landmarks/europehouse/front.webp",
+          "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+          "sha256": "d3a60dfe14707b73d20ad9eb6186256c20e4319b483e5aa9a106bfe094a91f29",
+          "capturedAt": "2026-11-08T16:50:33.687176Z",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=europehouse&clean=1&fountains=on&view=street&az=90",
+            "anchor": {
+              "lat": 44.4511557,
+              "lon": 26.087697,
+              "rotation": 0
+            },
+            "camera": {
+              "position": [
+                84.1279483795166,
+                1.3,
+                0.6342859268188528
+              ],
+              "quaternion": [
+                0.09768947789776862,
+                0.7003261853651207,
+                -0.09768947789776862,
+                0.7003261853651207
+              ],
+              "fov": 62,
+              "near": 0.3,
+              "far": 1680.0288696289062,
+              "viewport": [
+                960,
+                720
+              ]
+            },
+            "bounds": {
+              "min": [
+                -36.74939727783203,
+                0,
+                -31.63661003112793
+              ],
+              "max": [
+                37.00240707397461,
+                56,
+                32.905181884765625
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+          }
+        },
+        {
+          "id": "top",
+          "label": "Top model study (perspective)",
+          "kind": "top",
+          "image": "assets/landmarks/europehouse/top.webp",
+          "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+          "sha256": "cb7f96f91e66b9768ea43a0ebaee89238e649f11cf11a6603d10b6f559a0d499",
+          "capturedAt": "2026-11-08T16:50:38.771115Z",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=europehouse&clean=1&fountains=on&view=top&az=0",
+            "anchor": {
+              "lat": 44.4511557,
+              "lon": 26.087697,
+              "rotation": 0
+            },
+            "camera": {
+              "position": [
+                0.12650489807128906,
+                158.41329951992157,
+                0.7926992791432157
+              ],
+              "quaternion": [
+                -0.7067531394223399,
+                0,
+                0,
+                0.7074602461740636
+              ],
+              "fov": 45,
+              "near": 0.5,
+              "far": 3168.2675745320867,
+              "viewport": [
+                960,
+                720
+              ]
+            },
+            "bounds": {
+              "min": [
+                -36.74939727783203,
+                0,
+                -31.63661003112793
+              ],
+              "max": [
+                37.00240707397461,
+                56,
+                32.905181884765625
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+          }
+        },
+        {
+          "id": "oblique",
+          "label": "Oblique model study",
+          "kind": "oblique",
+          "image": "assets/landmarks/europehouse/oblique.webp",
+          "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+          "sha256": "dc13ba44a2a03d2cf29b928f0b4c3569ecf2fadc37a658304f5464d28f8ec843",
+          "capturedAt": "2026-11-08T16:50:48.874997Z",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=europehouse&clean=1&fountains=on&view=oblique&az=125&el=28",
+            "anchor": {
+              "lat": 44.4511557,
+              "lon": 26.087697,
+              "rotation": 0
+            },
+            "camera": {
+              "position": [
+                82.79654168366442,
+                76.06090285821678,
+                -57.25189701452748
+              ],
+              "quaternion": [
+                -0.11170709980433721,
+                0.8606628205933394,
+                0.214587342179916,
+                0.4480327060358214
+              ],
+              "fov": 45,
+              "near": 0.5,
+              "far": 2286.0129180045606,
+              "viewport": [
+                960,
+                720
+              ]
+            },
+            "bounds": {
+              "min": [
+                -36.74939727783203,
+                0,
+                -31.63661003112793
+              ],
+              "max": [
+                37.00240707397461,
+                56,
+                32.905181884765625
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+          }
+        }
+      ]
+    }
+  ],
+  "recapturedAt": "2026-11-13T10:01:51.995Z",
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 2b1a2511d6b8b521b409d55415b2eca9906cc305: `git archive 2b1a2511d6b8b521b409d55415b2eca9906cc305 game` extracted to a scratch directory and served by a no-store static server; key runtime and data files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T10:01:51.995Z"
+  }
 }

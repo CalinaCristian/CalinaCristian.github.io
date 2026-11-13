@@ -177,7 +177,9 @@ export default {
         }
         // The museum's windmills are not mapped in OSM and the dossier has no position for them: the three that were
         // scattered at random spots are gone (open item in the dossier) rather than standing where none exists.
-        ctx.extras.villageWindmills = { placed: 0, reason: 'no mapped position' };
+        // (r3) Re-checked: the live OSM extract of 2026-11-12 has no man_made=windmill inside w29701978, and no official
+        // Street View panorama reaches inside the museum (nearest: Kiseleff gate). Positions stay unsourced.
+        ctx.extras.villageWindmills = { placed: 0, reason: 'no mapped position (live OSM 2026-11-12), no official panorama inside the museum' };
         // activity (note 57, research `lm-village-passport`): a village passport — step onto the porch of five households from
         // different regions (E at the door: a stamp + what the house is); the fifth stamp completes "village-museum:farmhouse"
         { const named = houses.filter((h) => h.porch && h.bd.name), pick = [], regions = new Set();
@@ -212,14 +214,16 @@ export default {
             ctx.box(nymph.x, nymph.z, 1.8, 0.85, yaw, { prop: true, h: 1.6 }); }
         const jg = osmPoly(d, 'w28342074');
         if (jg) { const [jx, jz] = centroid(jg), y = g.heightAt(jx, jz);
-            // red arched bridge over a pond, stone lanterns, cherries
-            const pond = []; for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; pond.push([jx + Math.cos(a) * 14, jz + Math.sin(a) * 8]); }
-            g.mod((x, z, h) => (inPoly(x, z, pond) ? Math.min(h, y - 1.2) : h)); b.flat(pond, y - 0.45, '#3d5a5e', 'water');
-            for (let i = 0; i <= 12; i++) { const t = i / 12, x = jx - 4 + 8 * t, yy = y + Math.sin(t * Math.PI) * 1.1; b.box(x, yy, jz, 0.7, 0.14, 2.0, '#8a3a2a', 'wood'); if (i % 2 === 0) for (const s of [-1, 1]) b.box(x, yy, jz + s, 0.08, 0.9, 0.08, '#9a3a2a', 'paint'); }
-            g.addPoly([[jx - 4.2, jz - 1.1], [jx + 4.2, jz - 1.1], [jx + 4.2, jz + 1.1], [jx - 4.2, jz + 1.1]], (x) => y + Math.sin(Math.max(0, Math.min(1, (x - jx + 4) / 8)) * Math.PI) * 1.1 + 0.07, y - 2);
-            for (let i = 0; i < 7; i++) { const a = i / 7 * Math.PI * 2, x = jx + Math.cos(a) * 18, z = jz + Math.sin(a) * 12, yy = g.heightAt(x, z); b.box(x, yy, z, 0.6, 0.6, 0.6, '#9a958a', 'stone'); b.box(x, yy + 0.6, z, 0.25, 0.7, 0.25, '#9a958a', 'stone'); b.box(x, yy + 1.3, z, 0.6, 0.45, 0.6, '#a8a396', 'stone'); b.add(new THREE.ConeGeometry(0.6, 0.4, 4), 'stone', M(x, yy + 1.95, z, 0, Math.PI / 4), '#8c877c'); ctx.circle(x, z, 0.35, 2); }
-            for (let i = 0; i < 12; i++) { const a = r() * 6.28, rr = 16 + r() * 18, x = jx + Math.cos(a) * rr, z = jz + Math.sin(a) * rr * 0.7; if (inPoly(x, z, jg)) ctx.trees.push({ x, z, kind: 'broad', s: 0.55 + r() * 0.2, c: r.pick(['#e9b7c6', '#f0c8d4', '#d98fa6']) }); }
-            ctx.extras.jg = { x: jx, z: jz, y };
+            // (r3, 2026-11-13) Live OSM maps no water and no bridge inside Grădina Japoneză (w28342074: only a dog park
+            // w274448991 and footway w339802841), so the pond and the red arched bridge that stood at the polygon centroid
+            // are gone; no official panorama reaches the garden. The stone lanterns (dossier description) keep estimated
+            // positions, now clear of the mapped dog park and footways; the ornamental cherries stay an estimated scatter.
+            const dog = osmPoly(d, 'w274448991'), jgPaths = d.ways.filter((w) => /footway|path|pedestrian|cycleway|steps/.test(w.k || '') && w.pts.length > 1 && w.pts.some(([x, z]) => inPoly(x, z, jg))).map((w) => w.pts);
+            const clearJg = (x, z, m = 2) => inPoly(x, z, jg) && !(dog && inPoly(x, z, dog)) && !jgPaths.some((pts) => distPolyline(x, z, pts).d < m);
+            let lanterns = 0;
+            for (let i = 0; i < 7; i++) { const a = i / 7 * Math.PI * 2, x = jx + Math.cos(a) * 18, z = jz + Math.sin(a) * 12; if (!clearJg(x, z)) continue; const yy = g.heightAt(x, z); lanterns++; b.box(x, yy, z, 0.6, 0.6, 0.6, '#9a958a', 'stone'); b.box(x, yy + 0.6, z, 0.25, 0.7, 0.25, '#9a958a', 'stone'); b.box(x, yy + 1.3, z, 0.6, 0.45, 0.6, '#a8a396', 'stone'); b.add(new THREE.ConeGeometry(0.6, 0.4, 4), 'stone', M(x, yy + 1.95, z, 0, Math.PI / 4), '#8c877c'); ctx.circle(x, z, 0.35, 2); }
+            for (let i = 0; i < 12; i++) { const a = r() * 6.28, rr = 16 + r() * 18, x = jx + Math.cos(a) * rr, z = jz + Math.sin(a) * rr * 0.7; if (!inPoly(x, z, jg)) continue; const t = { x, z, kind: 'broad', s: 0.55 + r() * 0.2, c: r.pick(['#e9b7c6', '#f0c8d4', '#d98fa6']) }; if (clearJg(x, z, 1.5)) ctx.trees.push(t); } // same random stream as before
+            ctx.extras.jg = { x: jx, z: jz, y, mappedWater: false, lanterns, estimatedLanterns: true };
         }
         ctx.add(b.build('herastrau', { matOverrides: { ...(ctx.extras.palMats || {}) } }));
         const SA = signAtlas(signs, { name: 'bust-names', night: 0.2 }); if (SA) ctx.add(SA);
@@ -248,7 +252,10 @@ export default {
         // hard-edged wood round the two extents and bare lawns beyond (Charles de Gaulle entrance, the south meadows):
         // thin evenly instead, a little lighter outside the walkable extents. Special trees (church spruce, cherries) stay.
         { const ext = Object.values(d.spots).map((q) => polyBox(q.extent.polygon));
-            ctx.extras.herastrauTreeBudget = thinTrees(ctx, { budget: 3250, far: 0.6, keep: (t) => !!t.c || !!t.sy, core: (x, z) => ext.some((q) => x > q.x0 - 40 && x < q.x1 + 40 && z > q.z0 - 40 && z < q.z1 + 40) }); }
+            // (r3) The far canopy below draws every tree beyond the 850 nearest as a cheap, chunk-culled instance (about
+            // 46 triangles, no shadow): the even thinning keeps the whole estimated park density now (budget above the
+            // 6.7 k generated trees); measured frame cost in the round-3 dossier.
+            ctx.extras.herastrauTreeBudget = thinTrees(ctx, { budget: 7200, far: 0.6, keep: (t) => !!t.c || !!t.sy, core: (x, z) => ext.some((q) => x > q.x0 - 40 && x < q.x1 + 40 && z > q.z0 - 40 && z < q.z1 + 40) }); }
         // Unlocated random towers beyond the extract produced a false skyline
         // across the lake. Preserve every mapped building; source coverage
         // beyond this extract remains an explicit gap instead of invented blocks.
@@ -315,6 +322,6 @@ export default {
         if(bikeDock){ctx.extras.bikeRental=addBikeRental(ctx,{x:bikeDock.x,z:bikeDock.z,heading:headingFromBearing(80),n:6,name:bikeDock.name||"I'Velo",colour:'#2f8f46'});ctx.extras.bikeRentalSource={id:bikeDock.id,x:bikeDock.x,z:bikeDock.z,capacity:Number(bikeDock.capacity),displayedBikes:6,estimatedLayout:true};}
         ctx.spawns['village-museum'] = { x: spV.spawn.x, z: spV.spawn.z, heading: headingFromBearing(40) };
         // Frame cost: only the 850 trees nearest the two walkable extents stay in the stock builder (about its original budget).
-        ctx.extras.herastrauFarCanopy = farCanopy(ctx, { near: 850 });
+        ctx.extras.herastrauFarCanopy = farCanopy(ctx, { near: 850, lean: 150 });
     },
 };

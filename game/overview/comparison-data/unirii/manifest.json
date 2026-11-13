@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "Unirii aerial comparisons",
   "generatedDate": "2026-11-13",
-  "generatedAt": "2026-11-13T05:29:01.895Z",
+  "generatedAt": "2026-11-13T09:47:51.318Z",
   "defaultTile": "aerial-r07-c04",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -882,19 +882,19 @@
         750,
         -750
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 86,
-        "triangles": 444466,
-        "renderMs": 44.899999998509884,
+        "drawCalls": 88,
+        "triangles": 323821,
+        "renderMs": 2,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 305
+        "vehicleCount": 306
       },
       "renderer": {
         "width": 640,
@@ -904,16 +904,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:09:14.386Z",
-      "gamePath": "images/aerial-r02-c09.jpg",
-      "image": "images/aerial-r02-c09.jpg",
-      "thumbnail": "thumbs/aerial-r02-c09.jpg",
-      "sha256": "f57da9a14602189ba3ab85e3914dd613077738a06955ad96148f8a298ac30e11",
+      "capturedAt": "2026-11-13T09:47:15.056Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r02-c09.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r02-c09.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r02-c09.jpg",
+      "sha256": "260c93f875e4027c5958a5d9ed2d65b53557bf6ee9c3128983c1d1f846e5c2a5",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8885,
+      "captureWallMs": 380,
       "dataset": "atlas",
-      "thumbnailSha256": "e7309024da2e5cac5085abcb0701ced75241f0505f2531943082c0e6a7675eb2",
+      "thumbnailSha256": "9b28906c4ad8b61a3c9a87d77e27bfecae7ffeadade2177b1b92c82be79b6b01",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.43644873123852,
@@ -924,8 +924,8 @@
       "coverageType": "ring-touches",
       "orientation": "north-up",
       "places": [],
-      "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (fountain basin in the roundabout garden); prior collection archived.",
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json"
     },
     {
       "id": "aerial-r02-c10",
@@ -1290,19 +1290,19 @@
         -250,
         -500
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 87,
-        "triangles": 562717,
-        "renderMs": 4.099999997764826,
+        "drawCalls": 97,
+        "triangles": 443356,
+        "renderMs": 1.300000011920929,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 305
+        "vehicleCount": 306
       },
       "renderer": {
         "width": 640,
@@ -1312,16 +1312,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:09:55.085Z",
-      "gamePath": "images/aerial-r03-c05.jpg",
-      "image": "images/aerial-r03-c05.jpg",
-      "thumbnail": "thumbs/aerial-r03-c05.jpg",
-      "sha256": "8f920c0e080f461675a8560f9a05a12edc4818fb296316ca0895286710828bac",
+      "capturedAt": "2026-11-13T09:47:17.481Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r03-c05.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r03-c05.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r03-c05.jpg",
+      "sha256": "9104865de854425b9e5c8f2747c63c43db88fb5fcd28ca50d0b1243d89a4d61c",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7436,
+      "captureWallMs": 389,
       "dataset": "atlas",
-      "thumbnailSha256": "7bc0cef7a0be3a7648377a27d47b7722530e21e8af53ac62dbc2107b3574c6b0",
+      "thumbnailSha256": "f7e5480b43f071d366eceb19b0e3793a83ffe2e556fb05022059683390122356",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.43419915415902,
@@ -1332,8 +1332,8 @@
       "coverageType": "ring-touches",
       "orientation": "north-up",
       "places": [],
-      "sourceNote": "Original 0775fda frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/0775fda/capture-manifest.json"
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (courtyard / garden fountain basins drawn as water); prior collection archived.",
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json"
     },
     {
       "id": "aerial-r03-c06",
@@ -2038,13 +2038,13 @@
         -250,
         -250
       ],
-      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 108,
-        "triangles": 568332,
-        "renderMs": 1.5,
+        "drawCalls": 109,
+        "triangles": 577024,
+        "renderMs": 2.5,
         "quality": "high"
       },
       "traffic": {
@@ -2060,16 +2060,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-12T19:48:34.020Z",
-      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r04-c05.jpg",
-      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r04-c05.jpg",
-      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r04-c05.jpg",
-      "sha256": "cd025edf70bf931214646444115a611c77f15b69859afdd7500e2e31c6b3c4de",
+      "capturedAt": "2026-11-13T09:47:22.356Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r04-c05.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r04-c05.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r04-c05.jpg",
+      "sha256": "203e115ff15a2faebf0e7dcb15762c99d7da6f1cae646e3354624b00780f9f73",
       "width": 640,
       "height": 640,
-      "captureWallMs": 637,
+      "captureWallMs": 653,
       "dataset": "atlas",
-      "thumbnailSha256": "e0deb72985d4a53e83889a3bbf93fb4681124f3d4ad735afb807ed09d458fac7",
+      "thumbnailSha256": "81aa37950c61e49030bd7b5ad65bfbd7728676ad6c7784bd103d6b01e4db41d2",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.43194957707951,
@@ -2080,8 +2080,8 @@
       "coverageType": "ring-touches",
       "orientation": "north-up",
       "places": [],
-      "sourceNote": "Exact-pose scoped retake at 346f7986 (church in the park redrawn with its towers and domes (was a plain pitched roof)); prior collection archived.",
-      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (courtyard / garden fountain basins drawn as water); prior collection archived.",
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
       "district": "unirii"
     },
     {
@@ -6840,20 +6840,21 @@
   ],
   "locationId": "unirii",
   "captureType": "mixed-source-survey",
-  "description": "Mixed-source technical atlas: 32 poses retaken on 2026-11-13 at 9824fd56 (Dâmbovița water levels and banks, Unirea skin; stale tiles refreshed); all other images retain their recorded sources and dates.",
+  "description": "Mixed-source technical atlas: 3 poses retaken on 2026-11-13 at 2b1a2511 (fountains and basins drawn as water); all other images retain their recorded sources and dates.",
   "coverageNote": "98 captured 250 m squares: 26 touch the playable mask, 66 additional squares touch its exact 600 m ring and 6 are optional distant context. Boundary squares also include land beyond the ring.",
   "reviewNote": "Sign-affected current game captures inspected at full size; source/aerial comparisons retain their historical scope. No district fidelity acceptance.",
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 32 poses retaken on 2026-11-13 at 9824fd56 (Dâmbovița water levels and banks, Unirea skin; stale tiles refreshed); all other images retain their recorded sources and dates."
+    "atlas": "Mixed-source technical atlas: 3 poses retaken on 2026-11-13 at 2b1a2511 (fountains and basins drawn as water); all other images retain their recorded sources and dates."
   },
   "atlasSourceCounts": {
     "9824fd56de3f0e420821e871436906186a80e493": 32,
-    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 47,
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 45,
+    "2b1a2511d6b8b521b409d55415b2eca9906cc305": 3,
     "bbaffc0d6cdccb6246edeb9478c58590852980d9": 4,
     "8add95f35681eddaf01a136ff1f5769a5329b102": 7,
-    "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
     "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
-    "b2c4ea4a1ff792c53e4c052f258bd61942cf5195": 5
+    "b2c4ea4a1ff792c53e4c052f258bd61942cf5195": 5,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 1
   },
   "sourceCaptureManifest": {
     "path": "capture-manifest.json",
@@ -6892,7 +6893,7 @@
       "bbaffc0d6cdccb6246edeb9478c58590852980d9",
       "07cc3d6bcefe90967c5bde3af2237dab4b972705"
     ],
-    "targetedRetakeReview": "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
+    "targetedRetakeReview": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/paired-review.json",
     "atlasSourceNote": "Current source counts: 80 on 0775fdaf, 17 on bbaffc0d, 1 on 07cc3d6b. Earlier source-specific review blocks remain historical to their recorded revisions; the new structural subset has its own linked review.",
     "visualAcceptance": "All17actual before/current/private-Esri pairs inspected. Exact source water polygons remain; overlapping estimated fallback ribbons are clipped. Capture completeness is not photographic parity.",
     "targetedRemainingGaps": [
@@ -6905,12 +6906,13 @@
     "structureRetakesReviewed": 1,
     "currentAtlasSourceCounts": {
       "9824fd56de3f0e420821e871436906186a80e493": 32,
-      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 47,
+      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 45,
+      "2b1a2511d6b8b521b409d55415b2eca9906cc305": 3,
       "bbaffc0d6cdccb6246edeb9478c58590852980d9": 4,
       "8add95f35681eddaf01a136ff1f5769a5329b102": 7,
-      "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
       "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
-      "b2c4ea4a1ff792c53e4c052f258bd61942cf5195": 5
+      "b2c4ea4a1ff792c53e4c052f258bd61942cf5195": 5,
+      "346f798681d891de6cebfc9e1d094996b1ace2e3": 1
     },
     "priorCompleteReview": {
       "manifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/manifest.json",
@@ -6924,18 +6926,20 @@
     "latestGameFrameSource": "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
     "earlierTargetedRetakeReviews": [
       "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
-      "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json"
+      "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+      "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json"
     ]
   },
   "comparisonSourceCommits": {
     "atlas": [
       "9824fd56de3f0e420821e871436906186a80e493",
       "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "bbaffc0d6cdccb6246edeb9478c58590852980d9",
       "8add95f35681eddaf01a136ff1f5769a5329b102",
-      "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "07cc3d6bcefe90967c5bde3af2237dab4b972705",
-      "b2c4ea4a1ff792c53e4c052f258bd61942cf5195"
+      "b2c4ea4a1ff792c53e4c052f258bd61942cf5195",
+      "346f798681d891de6cebfc9e1d094996b1ace2e3"
     ]
   },
   "sourceCaptureManifests": [
@@ -7015,6 +7019,15 @@
       "sourceProvenance": "retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
       "sourceProvenanceSha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b",
       "frames": 32
+    },
+    {
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "treeSha256": "e0f6d269e2f5186247021c2a0b9f3286489f749e48235e8a55bdaa73ade1f636",
+      "manifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "manifestSha256": "43f34aeaec29384626abb103ef25e7d3e5bc7a57305e12895858790862ce02ef",
+      "sourceProvenance": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/source-provenance.json",
+      "sourceProvenanceSha256": "ded825b46df601ef23bcabc110f65d2116d77929dc3a461a1434d4e738117ab6",
+      "frames": 3
     }
   ],
   "sourceCompatibility": {
@@ -7086,6 +7099,23 @@
         "bbaffc0d6cdccb6246edeb9478c58590852980d9": 10,
         "8add95f35681eddaf01a136ff1f5769a5329b102": 8,
         "346f798681d891de6cebfc9e1d094996b1ace2e3": 6,
+        "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
+        "b2c4ea4a1ff792c53e4c052f258bd61942cf5195": 5
+      },
+      "captureType": "mixed-source-survey"
+    },
+    {
+      "manifest": "historical/mixed-before-2b1a2511-5d11351e/manifest.json",
+      "label": "Atlas before the 2b1a251 retake (fountains and basins drawn as water)",
+      "frames": 98,
+      "generatedAt": "2026-11-13T05:29:01.895Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "9824fd56de3f0e420821e871436906186a80e493": 32,
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 47,
+        "bbaffc0d6cdccb6246edeb9478c58590852980d9": 4,
+        "8add95f35681eddaf01a136ff1f5769a5329b102": 7,
+        "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
         "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
         "b2c4ea4a1ff792c53e4c052f258bd61942cf5195": 5
       },

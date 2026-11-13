@@ -115,11 +115,11 @@
   ],
   "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
   "sourceCounts": {
-    "9824fd56de3f0e420821e871436906186a80e493": 16,
+    "9824fd56de3f0e420821e871436906186a80e493": 15,
     "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 79,
     "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 13,
     "d8e7d119ba8dcc29fce289e8c9f988092507fc10": 2,
-    "346f798681d891de6cebfc9e1d094996b1ace2e3": 1,
-    "8add95f35681eddaf01a136ff1f5769a5329b102": 5
+    "2b1a2511d6b8b521b409d55415b2eca9906cc305": 3,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 4
   }
 }

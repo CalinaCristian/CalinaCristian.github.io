@@ -14,11 +14,13 @@ export const FUEL_CANOPY_REVIEW = {
     'bucharest-grozavesti': {
         w256806132: { ...EST, topM: 3, clearanceM: 2.6, topSource: 'OSM height', classificationSource: 'r2 street-level review', evidence: ['OSM w256806132 building=roof, amenity=fuel (Lukoil), height=3', 'panorama hGqephV5yIK6jWNVMdcHBw (44.446305, 26.060395) heading 70: open canopy on white columns, red fascia'] },
         w237830689: { ...EST, topM: 5.4, clearanceM: 4.6, classificationSource: 'r2 street-level review', evidence: ['OSM w237830689 building=roof (Petrom)', 'panorama dEYcD3j7N8Vy0WbKBbGDtA (44.451717, 26.073637) heading 40: canopy on round blue columns over the shop front'] },
+        // (r3, 2026-11-13) MOL Bd. Dinicu Golescu 29: the pack has no fuel POI on it, so the brand comes from the way's own
+        // OSM tags (brand=MOL, amenity=fuel); no pumps or pylon are drawn without the POI
+        w326062450: { ...EST, topM: 5.4, clearanceM: 4.6, brand: 'MOL', classificationSource: 'r3 street-level review', evidence: ['OSM w326062450 building=roof, amenity=fuel, brand=MOL, layer=1', 'panorama PXJbcAsSr6l3B5-zQqqutA (44.445115, 26.074413) heading 124: open canopy on columns with a green MOL fascia over the pumps, small kiosk'] },
     },
     'bucharest-floreasca': {
         w235639134: { ...EST, topM: 5.4, clearanceM: 4.6, classificationSource: 'r2 street-level review', evidence: ['OSM w235639134 building=roof (MOL)', 'panorama -b_uOZJ5oACAjuUjodA6nQ (44.465747, 26.108980) headings 110 / 290: white canopy on a row of round columns over the islands'] },
     },
-    // w326062450 (MOL, Grozăvești): not reviewed — no panorama found that shows it; stays as the pack has it
 };
 
 /** bRecs: the district's building records (world.js). Returns the list applied. */

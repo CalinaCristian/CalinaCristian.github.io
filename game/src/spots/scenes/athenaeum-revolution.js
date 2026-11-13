@@ -17,6 +17,7 @@ import { photoHunt } from '../photo-hunt.js';
 import { bench } from '../osm.js';
 import { addTraffic } from '../cars.js';
 import { mappedTreeSizes, poiSigns, bust, standingFigure } from '../buc-streetscape.js';
+import { aisleParking } from './ctr-parking.js';
 
 function grow(poly, d) { const cw = polyArea(poly) > 0; const o = offsetPolyline([...poly, poly[0], poly[1]], cw ? -d : d); return o.slice(1, poly.length + 1); }
 const local = (lm, x, z) => { const c = Math.cos(lm.lm.rotation), s = Math.sin(lm.lm.rotation); return { x: lm.x + x * c + z * s, z: lm.z - x * s + z * c }; };
@@ -101,15 +102,34 @@ export default {
         const cc = d.buildings.find((x) => x.id === 'w224624034');
         const fCC = classicFacade('cc-building', [{ t: 'rect', w: 0.34, rustic: true }, { t: 'rect', w: 0.3, pil: true }, { t: 'rect', w: 0.3, pil: true }, { t: 'rect', w: 0.28, pil: true, dentils: true }], { bay: 3.6, floor: 3.8, lit: 0.4 });
         let balcony = null;
-        if (cc) { ctx.skipBuildings.add(cc.id); const y = Math.min(...cc.poly.map(([x, z]) => g.heightAt(x, z))) - 0.2, H = 26; classicWalls(b, fCC, cc.poly, y, y + H, '#d9d0bc', y); b.prism(grow(cc.poly, 0.9), y + H - 0.8, y + H, '#e4dccb', 'stone', { noTop: true }); b.flat(cc.poly, y + H, '#8a8784', 'roofs'); ctx.poly(cc.poly, { y0: y - 1, y1: y + 30 });
+        if (cc) { ctx.skipBuildings.add(cc.id); const y = Math.min(...cc.poly.map(([x, z]) => g.heightAt(x, z))) - 0.2, H = 26; classicWalls(b, fCC, cc.poly, y, y + H, '#e8e4da', y); b.prism(grow(cc.poly, 0.9), y + H - 0.8, y + H, '#efebe3', 'stone', { noTop: true }); b.flat(cc.poly, y + H, '#8a8784', 'roofs'); ctx.poly(cc.poly, { y0: y - 1, y1: y + 30 });
             // balcony on the west front (facing the square) above the entrance portico
-            let best = null; for (let i = 0; i < cc.poly.length; i++) { const [ax, az] = cc.poly[i], [bx2, bz2] = cc.poly[(i + 1) % cc.poly.length], L = Math.hypot(bx2 - ax, bz2 - az); if (L < 20) continue; const mx = (ax + bx2) / 2, mz = (az + bz2) / 2; if (!best || mx < best.mx) best = { mx, mz, ux: (bx2 - ax) / L, uz: (bz2 - az) / L, L }; }
-            if (best) { let nx = best.uz, nz = -best.ux; if (nx > 0) { nx = -nx; nz = -nz; } const a = Math.atan2(best.ux, best.uz); const bx3 = best.mx + nx * 1.4, bz3 = best.mz + nz * 1.4; b.box(bx3, y + 7.6, bz3, 2.8, 0.45, 10, '#e2dbc9', 'stone', a); balustrade(b, [[bx3 + nx * 1.3 - best.ux * 5, bz3 + nz * 1.3 - best.uz * 5], [bx3 + nx * 1.3 + best.ux * 5, bz3 + nz * 1.3 + best.uz * 5]], y + 8.05, 1.1); for (const s of [-1, -0.33, 0.33, 1]) { const q = [best.mx + nx * 2.6 + best.ux * s * 4.6, best.mz + nz * 2.6 + best.uz * s * 4.6]; b.cyl(q[0], y, q[1], 0.42, 7.6, '#ece6d8', 'stone', 12); ctx.circle(q[0], q[1], 0.45, 8); } balcony = { x: best.mx + nx * 14, z: best.mz + nz * 14 }; void a; }
+            // (round 3, 2026-11-13; Street View 2024 from the car park, 44.43879, 26.09780) The front on the square is white
+            // stone: two projecting wings and a recessed centre, each with giant engaged columns through four storeys over a
+            // rusticated ground floor with arched openings, two attic storeys above the cornice (7 levels as mapped). The
+            // 1989 balcony runs across the recessed centre above its three arched doors; it stood on the north wing.
+            // Column rhythm and heights are estimates.
+            const west = []; for (let i = 0; i < cc.poly.length; i++) { const [ax, az] = cc.poly[i], [bx2, bz2] = cc.poly[(i + 1) % cc.poly.length], L = Math.hypot(bx2 - ax, bz2 - az); if (L < 20) continue; let nx = (bz2 - az) / L, nz = -(bx2 - ax) / L; const mx = (ax + bx2) / 2, mz = (az + bz2) / 2; if (inPoly(mx + nx * 0.6, mz + nz * 0.6, cc.poly)) { nx = -nx; nz = -nz; } if (nx > -0.9) continue; west.push({ mx, mz, ux: (bx2 - ax) / L, uz: (bz2 - az) / L, L, ax, az, nx, nz }); }
+            { const x0 = Math.min(...west.map((e) => e.mx)); for (let i = west.length - 1; i >= 0; i--) if (west[i].mx > x0 + 30) west.splice(i, 1); } // the square front, not courtyard walls
+            west.sort((p, q) => p.mz - q.mz); const best = west.length ? west[Math.floor(west.length / 2)] : null;
+            for (const e of west) { const n = Math.max(2, Math.round(e.L / 3.6)); for (let k = 0; k <= n; k++) { const u = (k / n) * e.L, cx2 = e.ax + e.ux * u + e.nx * 0.55, cz2 = e.az + e.uz * u + e.nz * 0.55; b.cyl(cx2, y + 5.2, cz2, 0.5, 14.6, '#f1eee7', 'stone', 10); b.box(cx2, y + 19.8, cz2, 1.3, 0.5, 1.3, '#efebe3', 'stone', Math.atan2(e.ux, e.uz)); }
+                b.box(e.mx + e.nx * 0.6, y + 4.8, e.mz + e.nz * 0.6, 1.4, 0.4, e.L, '#e2ddd2', 'stone', Math.atan2(e.ux, e.uz)); b.box(e.mx + e.nx * 0.6, y + 20.3, e.mz + e.nz * 0.6, 1.5, 0.7, e.L, '#e2ddd2', 'stone', Math.atan2(e.ux, e.uz)); }
+            ctx.extras.ccFront = { faces: west.length, balconyFace: best ? [+best.mx.toFixed(1), +best.mz.toFixed(1)] : null };
+            if (best) { const nx = best.nx, nz = best.nz, a = Math.atan2(best.ux, best.uz); const bx3 = best.mx + nx * 1.4, bz3 = best.mz + nz * 1.4; b.box(bx3, y + 7.6, bz3, 2.8, 0.45, 10, '#e2dbc9', 'stone', a); balustrade(b, [[bx3 + nx * 1.3 - best.ux * 5, bz3 + nz * 1.3 - best.uz * 5], [bx3 + nx * 1.3 + best.ux * 5, bz3 + nz * 1.3 + best.uz * 5]], y + 8.05, 1.1); for (const s of [-1, -0.33, 0.33, 1]) { const q = [best.mx + nx * 2.6 + best.ux * s * 4.6, best.mz + nz * 2.6 + best.uz * s * 4.6]; b.cyl(q[0], y, q[1], 0.42, 7.6, '#ece6d8', 'stone', 12); ctx.circle(q[0], q[1], 0.45, 8); } balcony = { x: best.mx + nx * 14, z: best.mz + nz * 14 }; void a; }
             for (const [z0, k] of [[-6, 'ro'], [6, 'eu']]) { if (!best) break; const f = flagpole(best.mx - 0.8 + best.ux * z0, y + 12, best.mz + best.uz * z0, 4, k, { yaw: Math.PI }); f.group.rotation.z = 0.5; ctx.add(f.group); }
         }
         const mem = d.pois.find((p) => p.id === 'n1393030628') || { x: -15.6, z: 217.9 };
         for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (Math.hypot(cx - mem.x, cz - mem.z) < 14) ctx.skipBuildings.add(x.id); }
         const MEM = memorial(b, ctx, mem.x, mem.z);
+        // (round 3, 2026-11-13) Zidul amintirii, the Wall of Remembrance (OSM ways 1454592908 / 1454592909, barrier=wall,
+        // description "Zidul amintirii"): two curved stone walls on the memorial plaza, open on the axis between them, at
+        // their mapped polylines. Height and thickness are not mapped: estimates.
+        { const WH = 1.6, WT = 0.45; ctx.extras.rememberWall = [];
+            for (const id of ['w1454592908', 'w1454592909']) { const w = d.ways.find((q) => q.id === id || q.id === id + '_b'); if (!w || w.pts.length < 2) continue; ctx.skipWays?.add?.(w.id); ctx.extras.rememberWall.push(id);
+                for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 0.05) continue; const cx = (ax + bx) / 2, cz = (az + bz) / 2, yw = Math.min(g.heightAt(ax, az), g.heightAt(bx, bz)), a = Math.atan2(bx - ax, bz - az);
+                    const k = (i % 2) * 0.03; // (neighbouring overlapping pieces never share a plane)
+                    b.box(cx, yw - 0.35 - k, cz, WT, WH + 0.32 + 2 * k, L + WT * 0.6, '#d3cdc2', 'stone', a); b.box(cx, yw + WH + k, cz, WT + 0.12, 0.1, L + WT * 0.6 + 0.06, '#e2ddd3', 'stone', a);
+                    ctx.collider({ wall: true, ax, az, bx, bz, y0a: yw - 1, y1a: yw + WH, y0b: yw - 1, y1b: yw + WH, x: cx, z: cz, r: L / 2 + 0.5 }); } } }
         ctx.painter.custom((x, T, k) => { const [px, py] = T(mem.x, mem.z); x.fillStyle = '#a39c94'; x.beginPath(); x.arc(px, py, 22 * k, 0, 7); x.fill(); });
         const carol = d.pois.find((p) => p.id === 'n1883108499') || { x: -51.1, z: 133.4 };
         // (round 2) OSM node 1883108499 gives height=13 for the monument; it was about 9.7 m. Plinth and bronze share
@@ -118,9 +138,33 @@ export default {
         // Memorial Revoluție (OSM way 996044652: historic=memorial, memorial=sculpture, material=marble, a 6 m × 6 m
         // outline in front of the former Central Committee building; not in the scene extract of 2026-11-07). Its form
         // could not be seen from the street panoramas (trees): a plain low marble block stands on the mapped outline.
-        { const q = ctx.ll(44.438593, 26.098249), yq = g.heightAt(q.x, q.z); b.box(q.x, yq - 0.2, q.z, 5.6, 0.5, 5.6, '#cfcac0', 'stone', 0.35); b.box(q.x, yq + 0.3, q.z, 2.4, 1.5, 1.2, '#eceae4', 'stone', 0.35); ctx.box(q.x, q.z, 2.8, 2.8, 0.35, { y0: yq - 1, y1: yq + 1.8 }); ctx.extras.revolutionMemorial = { source: 'w996044652', x: q.x, z: q.z, formEstimated: true }; }
+        // (round 3, 2026-11-13; Street View 2024 from the car park, 44.43851, 26.09789) It is a white marble wedge lying on
+        // the lawn before the central doors: a slab rising from the grass at its south end to about 1.4 m at its north
+        // end. Size, rise and orientation are estimates on the mapped 6 m outline.
+        { const q = ctx.ll(44.438593, 26.098249), yq = g.heightAt(q.x, q.z), L = 5.6, W = 2.6, Hh = 1.4, ws = new THREE.BufferGeometry();
+            const V = [[-W / 2, 0, -L / 2], [W / 2, 0, -L / 2], [W / 2, 0, L / 2], [-W / 2, 0, L / 2], [-W / 2, Hh, -L / 2], [W / 2, Hh, -L / 2]];
+            ws.setAttribute('position', new THREE.Float32BufferAttribute(V.flat(), 3)); ws.setIndex([0, 1, 2, 0, 2, 3, 4, 3, 2, 4, 2, 5, 0, 4, 5, 0, 5, 1, 0, 3, 4, 1, 5, 2]); const wg = ws.toNonIndexed(); ws.dispose(); wg.computeVertexNormals();
+            b.add(wg, 'stone', M(q.x, yq - 0.05, q.z, 0, 0.35, 0), '#f2f0ea'); wg.dispose(); ctx.box(q.x, q.z, W / 2, L / 2, 0.35, { y0: yq - 1, y1: yq + Hh }); ctx.extras.revolutionMemorial = { source: 'w996044652', x: q.x, z: q.z, formEstimated: true, form: 'wedge' }; }
+        // (round 3, 2026-11-13) the long pool south of Calea Victoriei 68–70 (OSM w175449008, natural=water) with its row of
+        // seven jets (OSM nodes 2468477097–2468477123, amenity=fountain) was a flat blue paint on the paving. Now a low stone
+        // basin on the mapped outline, the water just under its coping, a jet at each mapped node. Rim and jet heights are
+        // estimates.
+        const pool = osmPoly(d, 'w175449008'), poolJets = ['n2468477097', 'n2468477098', 'n2468477099', 'n2468477103', 'n2468477121', 'n2468477122', 'n2468477123'].map(node => d.pois.find((p) => p.id === node)).filter(Boolean);
+        if (pool) { ctx.skipAreas.add('w175449008'); const yq = Math.min(...pool.map(([x, z]) => g.heightAt(x, z))), rim = grow(pool, 0.35);
+            b.prism(rim, yq - 0.2, yq + 0.45, '#cfc8ba', 'stone', { noTop: true }); b.prism(pool, yq - 0.2, yq + 0.45, '#b9b2a4', 'stone', { noTop: true });
+            const n = pool.length, R = (i) => rim[(i + n - 1) % n]; // (grow() returns the ring starting at the second vertex)
+            for (let i = 0; i < n; i++) { const A = pool[i], B = pool[(i + 1) % n], C = R(i + 1), E = R(i); b.quad([A[0], yq + 0.45, A[1]], [B[0], yq + 0.45, B[1]], [C[0], yq + 0.45, C[1]], [E[0], yq + 0.45, E[1]], '#ddd6c8', 'stone'); b.quad([E[0], yq + 0.45, E[1]], [C[0], yq + 0.45, C[1]], [B[0], yq + 0.45, B[1]], [A[0], yq + 0.45, A[1]], '#ddd6c8', 'stone'); }
+            b.flat(pool, yq + 0.3, '#3d6470', 'water'); ctx.poly(rim, { y0: yq - 1, y1: yq + 0.45, prop: true });
+            if (poolJets.length) { const jg = new THREE.CylinderGeometry(0.04, 0.16, 1.0, 6, 1, true); // (about a metre high in Street View 2024)
+                const jm = new THREE.InstancedMesh(jg, new THREE.MeshStandardMaterial({ color: '#e9f4f7', transparent: true, opacity: 0.55, roughness: 0.1, depthWrite: false }), poolJets.length); jm.name = 'fountain-jets-revolution'; const m4 = new THREE.Matrix4(); poolJets.forEach((p, i) => { m4.makeTranslation(p.x, yq + 0.3 + 0.5, p.z); jm.setMatrixAt(i, m4); }); ctx.add(jm); }
+            ctx.extras.revolutionPool = { source: 'w175449008', jets: poolJets.map((p) => p.id) }; }
+        // (round 3, 2026-11-13) OSM building:part w1476833908 (31–31.5 m, no parent relation, no footprint under it) reaches
+        // 20 m south of Bl. 8 over the garden behind Kretzulescu church: it stood as a floating roof slab. Street View
+        // (2024, from Calea Victoriei 47 at bearing 230, and from the garden path under it) shows open sky there. Not drawn;
+        // kept in the record as an unresolved source contradiction (builder findings).
+        ctx.skipBuildings.add('w1476833908'); ctx.extras.sourceContradictions = [{ id: 'w1476833908', why: 'elevated part without base; open sky in Street View 2024' }];
         // ---- (fidelity pass 2026-11-12) what OSM maps on the square and the scene did not show
-        // Kretzulescu church (OSM w1476760553, 1722): bare red brick with pale bands, two towers with dark conical roofs.
+        // Kretzulescu church (OSM w1476760553, 1722): bare red brick with pale bands, two towers with dark domes.
         // Modelled on the mapped outline (it was a generic plastered house); heights are estimates.
         const kr = d.buildings.find((x) => x.id === 'w1476760553');
         if (kr) { ctx.skipBuildings.add(kr.id); for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, grow(kr.poly, 1))) ctx.skipBuildings.add(x.id); } const p = kr.poly, y = Math.min(...p.map(([x, z]) => g.heightAt(x, z))) - 0.2, o = obb(p);
@@ -128,7 +172,7 @@ export default {
             classicWalls(b, fK, p, y, y + 9.4, '#ffffff', y); b.prism(grow(p, 0.5), y + 9.2, y + 9.6, '#b2603f', 'stone', { noTop: true });
             b.add(new THREE.CylinderGeometry(Math.SQRT1_2 * 0.3, Math.SQRT1_2, 1, 4).rotateY(Math.PI / 4), 'metal', M(o.cx, y + 10.8, o.cz, 0, -o.angle, 0, o.len + 1, 2.4, o.wid + 1), '#4f5456');
             for (const [k, r0, h0] of [[-0.24, 2.6, 8.5], [0.16, 3.1, 7.5]]) { const tx = o.cx + o.ux * o.len * k, tz = o.cz + o.uz * o.len * k, oct = []; for (let i = 0; i < 8; i++) { const a = (i + 0.5) / 8 * Math.PI * 2; oct.push([tx + Math.cos(a) * r0, tz + Math.sin(a) * r0]); }
-                classicWalls(b, fK, oct, y + 10.2, y + 10.2 + h0, '#ffffff', y + 10.2); b.add(new THREE.ConeGeometry(r0 * 1.12, 4.6, 8), 'metal', M(tx, y + 10.2 + h0 + 2.3, tz), '#4f5456'); b.box(tx, y + 14.8 + h0, tz, 0.12, 1.5, 0.12, '#c9a24e', 'bronze'); b.box(tx, y + 15.8 + h0, tz, 0.8, 0.1, 0.1, '#c9a24e', 'bronze'); }
+                classicWalls(b, fK, oct, y + 10.2, y + 10.2 + h0, '#ffffff', y + 10.2); b.add(new THREE.SphereGeometry(r0 * 1.06, 12, 6, 0, Math.PI * 2, 0, Math.PI / 2), 'metal', M(tx, y + 10.2 + h0, tz, 0, 0, 0, 1, 1.25, 1), '#4f5456'); /* (round 3: OSM parts w1476760555/556 roof:shape=dome; round domes in Street View 2024, they were cones) */ b.box(tx, y + 10.2 + h0 + r0 * 1.32, tz, 0.12, 1.5, 0.12, '#c9a24e', 'bronze'); b.box(tx, y + 11.2 + h0 + r0 * 1.32, tz, 0.8, 0.1, 0.1, '#c9a24e', 'bronze'); }
             ctx.poly(p, { y0: y - 1, y1: y + 24 }); matX[fK.key] = fK.mat; }
         // busts and statues at their mapped nodes (stylised bronze volumes; no sculptor is credited: no plaque text is sourced)
         const node = (id) => d.pois.find((p) => p.id === id);
@@ -163,7 +207,15 @@ export default {
         ctx.extras.mappedTrees = mappedTreeSizes(ctx);
         cityFiller(ctx, { ring: 600 });
         const way = (id) => d.ways.find((w) => w.id === id)?.pts || [];
-        addTraffic(ctx, { lanes: [{ pts: [...way('w180685587').slice().reverse(), ...way('w668989981').slice().reverse(), ...way('w668989983').slice().reverse(), ...way('w244668685').slice().reverse(), ...way('w186554856').slice().reverse(), ...way('w139713885').slice().reverse()], n: 5, speed: 9 }], parked: [] });
+        // (round 3, 2026-11-13) Piața George Enescu (OSM w241119386) and Parcare Piața Revoluției (w239206890) are full
+        // surface car parks in Street View (2023/2024); the scene showed empty asphalt. Cars stand only inside the mapped
+        // amenity=parking outlines (w23556789, w197638563, w703498155, w239206890, w1155809062, and w23556698: the lot before
+        // the former Central Committee building, packed in Street View 2024), along their mapped parking aisles; the bay
+        // layout is not mapped (perpendicular bays are an estimate). The Memorial Revoluție lawn stays clear.
+        const memQ = ctx.ll(44.438593, 26.098249);
+        const parked = aisleParking(ctx, ['w23556789', 'w197638563', 'w703498155', 'w239206890', 'w1155809062', 'w23556698'], { clear: (x, z) => Math.hypot(x - memQ.x, z - memQ.z) < 7 });
+        ctx.extras.parkedCars = parked.length; ctx.extras.parkedList = parked;
+        addTraffic(ctx, { merge: true, parked, lanes: [{ pts: [...way('w180685587').slice().reverse(), ...way('w668989981').slice().reverse(), ...way('w668989983').slice().reverse(), ...way('w244668685').slice().reverse(), ...way('w186554856').slice().reverse(), ...way('w139713885').slice().reverse()], n: 5, speed: 9 }] });
         // plaques
         const PL = sp.plaques;
         if (AT) { const p0 = local(AT, 33, -17), p1 = local(AT, 33, 17); const yaw = AT.lm.rotation + Math.PI / 2; ctx.plaque(PL[0], p0.x, p0.z, yaw, { style: 'bronze', credit: 'Architect Albert Galleron (1886–88).' }); ctx.plaque(PL[1], p1.x, p1.z, yaw, { style: 'bronze', credit: 'Fresco by Costin Petrescu (1933–38).' }); }

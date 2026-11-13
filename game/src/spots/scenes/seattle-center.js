@@ -21,10 +21,28 @@ import { facadeMaterial } from '../osm.js';
 import {prepareSourceContext,addSourceContext} from '../source-context.js';
 import { batchSourceContext, horizonCuller, solidShells, onRenderCamera, distanceHide } from '../frame-budget.js';
 import { sourceRecord } from '../source-buildings.js';
+import { internationalFountain } from './seattle-center-fountain.js';
+import { seattleCenterHeroes, ARENA, arenaParts } from './seattle-center-heroes.js';
 
 const NEEDLE = { x: 0.3, z: 0.7, y: 1.5 };
 const MONO = [[-46, -86], [-23, -87], [-8, -87], [10, -88], [37, -89], [49, -88], [56, -87], [64, -86], [71, -83], [78, -80], [96, -62], [102, -54], [105, -50], [109, -43], [115, -39], [124, -30], [129, -10], [129, 60], [126, 160], [126, 300]];
 const MONO_Y = 7.6; // guideway top above the plaza (≈ 2nd-floor level at MoPOP)
+// Seattle Center station (OSM w161609433, building=train_station, layer 3): an elevated deck, not a building. The two station
+// tracks are OSM w394955906 + w4755065 (north) and w394955955 + w161609432 (south), which diverge round the island platform;
+// west of MoPOP the guideways follow them (east of x = 56 they keep the MONO offsets, the splice is inside MoPOP).
+// Platforms w333355315 (south), w333355314 (island), w333355317 (north); concourse w637649471 (highway=pedestrian, at grade
+// with the Center grounds south of it). Deck level: USGS 3DEP 1 m DEM at the concourse (47.62111, −122.34999) = 42.56 m,
+// spot origin 40.5 m → +2.05; official panorama 1_C7cgJZv-E44e8HIqd5tg (on the concourse) @170 shows the plaza level with
+// it and a ramp down to the east, @330 the platforms level with the concourse, a drop to trees behind the railings.
+const TRK_N = [[-45.9, -86.4], [-23.4, -86.9], [-7.6, -87.3], [9.5, -87.8], [37, -88.8], [43.2, -88.8], [49.1, -88.4]];
+const TRK_S = [[-45.2, -76.5], [-22.5, -78.8], [-7.3, -80.3], [10.1, -82], [30.6, -84.3], [36.1, -84.7], [43.1, -85], [49.4, -84.6]];
+const STATION_DECK = 2.05, STATION_RAIL = STATION_DECK - 0.5; // platform at the car floor, ≈ 0.5 m over the beam top (estimate)
+function monoS(x, z) { // arc length of the nearest point on the MONO centre line
+    let best = 1e9, bs = 0, acc = 0;
+    for (let i = 1; i < MONO.length; i++) { const [ax, az] = MONO[i - 1], [bx, bz] = MONO[i], dx = bx - ax, dz = bz - az, L = Math.hypot(dx, dz), t = clamp(((x - ax) * dx + (z - az) * dz) / (L * L), 0, 1), d = Math.hypot(ax + dx * t - x, az + dz * t - z);
+        if (d < best) { best = d; bs = acc + t * L; } acc += L; }
+    return bs;
+}
 // Museum parent/parts remain context, without an invented replacement mass.
 // Their metal skins are not apartment façades or additional hero replacements.
 const MOPOP_PARTS = new Set(['w161587742', 'w1092469435', 'w1534908988', 'w1534908989', 'w1534908990', 'w1534908991', 'w1534908992', 'w1534908993', 'w1534908994']);
@@ -354,8 +372,13 @@ function buildChihuly(ctx) {
 // ---------------------------------------------------------------------------- monorail: twin guideways on T-columns + a 4-car train looping through MoPOP
 function buildMonorail(ctx) {
     const g = ctx.ground, b = new GeoBatch(), L = polylineLength(MONO);
-    const yAt = (x, z) => Math.max(g.heightAt(x, z), -6) + MONO_Y;
-    const lines = [offsetPolyline(MONO, -2.0), offsetPolyline(MONO, 2.0)];
+    // beam top: the station level (STATION_RAIL) up to the platforms' east end, then an even grade to the 5th Ave N corner,
+    // where the old rule (MONO_Y above the ground) takes over. The USGS DEM gives the concourse at 42.6 m and 5th Ave at
+    // 34.2 m: a near-level beam, not one that follows the ground 7.6 m up through the station.
+    const S_A = monoS(2, -87.6), S_B = monoS(124, -30), Y_B = Math.max(g.heightAt(124, -30), -6) + MONO_Y;
+    const yAt = (x, z) => { const s = monoS(x, z); if (s <= S_A) return STATION_RAIL; if (s >= S_B) return Math.max(g.heightAt(x, z), -6) + MONO_Y; return STATION_RAIL + (Y_B - STATION_RAIL) * (s - S_A) / (S_B - S_A); };
+    const splice = (trk, off) => [...trk, ...offsetPolyline(MONO, off).filter(([x]) => x > 56)];
+    const lines = [splice(TRK_N, -2.0), splice(TRK_S, 2.0)];
     for (const line of lines) {
         const Ll = polylineLength(line);
         for (let s = 0; s < Ll; s += 3) {
@@ -369,8 +392,14 @@ function buildMonorail(ctx) {
             b.quad([c.x - ncx * 0.45, yc - 1.4, c.z - ncz * 0.45], [a.x - nx * 0.45, ya - 1.4, a.z - nz * 0.45], [a.x - nx * 0.45, ya, a.z - nz * 0.45], [c.x - ncx * 0.45, yc, c.z - ncz * 0.45], '#a8a49a', 'concrete');
         }
     }
-    for (let s = 6; s < L; s += 21) { // T-columns between the beams (not inside MoPOP)
-        const p = alongPolyline(MONO, s); if (p.x > 44 && p.x < 116 && p.z > -165 && p.z < -56) continue;
+    for (const line of lines) { // west of MoPOP the two beams run apart (round the island platform): one column under each
+        const Ll = polylineLength(line);
+        for (let s = 4; s < Ll; s += 10.5) { const p = alongPolyline(line, s); if (p.x > 44) break;
+            const gy = g.heightAt(p.x, p.z), top = yAt(p.x, p.z) - 1.4; if (top - gy < 0.3) continue;
+            b.box(p.x, gy, p.z, 0.9, top - gy, 1.1, '#b9b5ab', 'concrete', Math.atan2(p.tx, p.tz)); ctx.circle(p.x, p.z, 0.6, top); }
+    }
+    for (let s = 6; s < L; s += 21) { // T-columns between the beams (not inside MoPOP, not west of it: see above)
+        const p = alongPolyline(MONO, s); if (p.x <= 44 || (p.x > 44 && p.x < 116 && p.z > -165 && p.z < -56)) continue;
         const gy = g.heightAt(p.x, p.z), top = yAt(p.x, p.z) - 1.4;
         b.box(p.x, gy, p.z, 1.3, top - gy, 1.3, '#b9b5ab', 'concrete', Math.atan2(p.tx, p.tz));
         b.box(p.x, top - 0.8, p.z, 5.6, 0.8, 1.4, '#b9b5ab', 'concrete', Math.atan2(-p.tz, p.tx));
@@ -389,15 +418,50 @@ function buildMonorail(ctx) {
     }
     ctx.add(train);
     const line = lines[0], LL = polylineLength(line);
+    // s = the train's west end; the cars keep their order when it reverses (it used to jump a train length at each end) and it
+    // stops alongside the platforms (west end 3 m from the track end) instead of 26 m out, beside the empty concourse
+    const SPAN = 3 * 11.6, S0 = 3, S1 = LL - 30 - SPAN;
     let s = 40, dir = 1, wait = 0;
     ctx.onUpdate((dt, session) => {
-        if (wait > 0) wait -= dt; else { s += dir * 12 * dt; if (s > LL - 30) { s = LL - 30; dir = -1; wait = 6; } if (s < 26) { s = 26; dir = 1; wait = 12; } }
-        cars.forEach((c, i) => { const p = alongPolyline(line, s - i * 11.6 * dir), q = alongPolyline(line, s - i * 11.6 * dir + 0.5); c.position.set(p.x, yAt(p.x, p.z) + 1.55, p.z); c.rotation.y = Math.atan2(-(q.z - p.z), q.x - p.x); });
-        session.spot.ctx.extras.trainPos = cars[0].position;
+        if (wait > 0) wait -= dt; else { s += dir * 12 * dt; if (s > S1) { s = S1; dir = -1; wait = 6; } if (s < S0) { s = S0; dir = 1; wait = 12; } }
+        cars.forEach((c, i) => { const p = alongPolyline(line, s + i * 11.6), q = alongPolyline(line, s + i * 11.6 + 0.5); c.position.set(p.x, yAt(p.x, p.z) + 1.55, p.z); c.rotation.y = Math.atan2(-(q.z - p.z), q.x - p.x); });
+        session.spot.ctx.extras.trainPos = (dir > 0 ? cars[3] : cars[0]).position;
     });
-    // station (west end) roof
-    const st = new GeoBatch(); st.box(-40, yAt(-40, -86) + 3.5, -86, 34, 0.5, 12, '#d8dcdc', 'paint'); for (const x of [-55, -40, -25]) for (const z of [-91, -81]) st.cyl(x, g.heightAt(x, z), z, 0.25, yAt(x, z) + 3.5 - g.heightAt(x, z), '#c9cdd0', 'steel', 8);
-    ctx.add(st.build('monorail-station'));
+    // station (west end). Round 3 (r2-sea-spots-b-2): official panorama 1_C7cgJZv-E44e8HIqd5tg (47.62111,-122.34999, the
+    // concourse) looking 330° shows a curved translucent canopy (frosted panels on arched ribs) over the platforms on dark
+    // steel columns, a black fascia over the entrance (drawn plain: see below). Extent: the three mapped platforms
+    // (w333355314/5/7, x −47…+2) and the concourse (w637649471, x −59…−46) it also covers. Rise, rib spacing and column rows are estimates.
+    // Round 3 review: the station outline w161609433 (building=train_station, layer 3) was drawn as a 3-storey windowed block
+    // under the canopy. It is the elevated station: the platforms are decks at STATION_DECK on columns (OSM outlines, slab
+    // depth and column spacing estimated), white railings on the outer and east edges (the panorama), walkable (floor) with
+    // edge walls; the concourse is the ground raised to the deck (it is at grade with the plaza south of it).
+    ctx.skipBuildings.add('w161609433');
+    { const dk = new GeoBatch(), way = (id) => ctx.data.ways.find((w) => w.id === id)?.pts, DY = STATION_DECK, SLAB = 0.45;
+      const rails = [['w333355315', [[1.5, -79.2], [1.7, -77.7], [1.9, -75.5], [0.1, -75.4], [-7.1, -74.7], [-45.8, -70.9]]],
+                     ['w333355314', [[0.6, -83.1], [0.5, -84.6], [0.3, -86.2]]],
+                     ['w333355317', [[-47.4, -91.9], [0.6, -93.3], [0.7, -91.4], [0.7, -89.6]]]];
+      for (const [id, edge] of rails) {
+          const poly = way(id); if (!poly) continue; const ring = poly.slice(0, poly.length - 1);
+          dk.prism(ring, DY - SLAB, DY, '#b3afa5', 'concrete'); g.addPoly(ring, DY, DY - SLAB, { name: 'monorail-platform-' + id });
+          for (let i = 0; i < ring.length; i++) { const [ax, az] = ring[i], [bx, bz] = ring[(i + 1) % ring.length], Le = Math.hypot(bx - ax, bz - az);
+              for (let t = 1.5; t < Le - 1; t += 7.5) { const x = ax + (bx - ax) * t / Le, z = az + (bz - az) * t / Le, gy = g.heightAt(x, z); if (DY - SLAB - gy < 0.4) continue; dk.cyl(x, gy, z, 0.22, DY - SLAB - gy, '#9d998f', 'concrete', 8); ctx.circle(x, z, 0.3, DY - SLAB - gy); } }
+          railing(dk, edge, () => DY, { color: '#e9e9e4', post: 1.8 });
+          for (let i = 1; i < edge.length; i++) { const [ax, az] = edge[i - 1], [bx, bz] = edge[i]; ctx.collider({ wall: true, ax, az, bx, bz, y0a: DY - 0.3, y1a: DY + 1.2, y0b: DY - 0.3, y1b: DY + 1.2, x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + 0.5 }); }
+      }
+      ctx.add(dk.build('monorail-platforms')); }
+    { const st = new GeoBatch(), z0 = -94, z1 = -69.5, x0 = -60, x1 = 3, yb = STATION_DECK + 3.0, rise = 2.4, N = 10, ribs = [];
+      const arcY = (t) => yb + rise * Math.sin(Math.PI * t), arcZ = (t) => z0 + (z1 - z0) * t;
+      const pos = []; for (let i = 0; i < N; i++) { const ta = i / N, tb = (i + 1) / N; pos.push(x0, arcY(ta), arcZ(ta), x1, arcY(ta), arcZ(ta), x1, arcY(tb), arcZ(tb), x0, arcY(ta), arcZ(ta), x1, arcY(tb), arcZ(tb), x0, arcY(tb), arcZ(tb)); }
+      const cg = new THREE.BufferGeometry(); cg.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); cg.computeVertexNormals();
+      const cm = new THREE.MeshStandardMaterial({ color: '#eef1ef', roughness: 0.55, transparent: true, opacity: 0.62, side: THREE.DoubleSide, depthWrite: false }); cm.name = 'monorail-canopy';
+      const canopy = new THREE.Mesh(cg, cm); canopy.name = 'monorail-station-canopy'; canopy.renderOrder = 2; ctx.add(canopy);
+      for (let x = x0; x <= x1 + 0.01; x += 5.5) { for (let i = 0; i < N; i++) st.rod([x, arcY(i / N), arcZ(i / N)], [x, arcY((i + 1) / N), arcZ((i + 1) / N)], 0.09, '#2a2d30', 'steel', 6); ribs.push(x); }
+      for (let x = x0 + 2; x <= x1; x += 11) for (const z of [z0 + 0.4, z1 - 0.4]) { const gy = g.heightAt(x, z); st.cyl(x, gy, z, 0.22, yb - gy, '#2a2d30', 'steel', 8); ctx.circle(x, z, 0.25, yb - gy); }
+      st.box(-50, yb - 0.15, z1 + 0.3, 20, 2.0, 0.4, '#151617', 'paint'); // the black fascia over the concourse entrance (south side, west end)
+      ctx.add(st.build('monorail-station'));
+      // (no lettering on the fascia: its text was read off the panorama, which is comparison-only; OSM names the station
+      // only "Seattle Center" and no other source for the sign's wording was found)
+      ctx.extras.monorailStation = { canopy: [x0, z0, x1, z1], ribs: ribs.length, source: 'panorama 1_C7cgJZv-E44e8HIqd5tg @330' }; }
     return { cars };
 }
 
@@ -424,6 +488,7 @@ export default {
         // plaza level around the Needle base (flat), gentle elsewhere
         const plaza = []; for (let i = 0; i < 40; i++) { const a = i / 40 * Math.PI * 2; plaza.push([NEEDLE.x + Math.cos(a) * 34, NEEDLE.z + Math.sin(a) * 34]); }
         g.flatten(plaza, NEEDLE.y, 10);
+        { const cc = d.ways.find((w) => w.id === 'w637649471'); if (cc) g.flatten(cc.pts.slice(0, -1), STATION_DECK, 6); } // the monorail concourse, at the deck level (see STATION_DECK)
         ctx.terrainOpts = { bg: '#8f8b82', bgMask: 'slab', innerPx: 2048, outerPad: 0, skirt: 0 };
         ctx.treeLod = { cap: Infinity, near: 90, max: 700, force: true };
         { const c = []; for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; c.push([NEEDLE.x + Math.cos(a) * 26, NEEDLE.z + Math.sin(a) * 26]); } ctx.exclude.push(c); } // the Needle's OSM parts → hero model
@@ -437,11 +502,17 @@ export default {
         // (ways 1534908988–94, 18–22 m) in a plain wall up to 14 m; the Sky Church room (way 1092469435) has the same footprint as
         // the maroon lobe. Street View (5th Ave N, 47.62138,-122.34768 looking 240°) shows the coloured metal down to the ground.
         ctx.skipBuildings.add('w161587742'); ctx.skipBuildings.add('w1092469435');
-        ctx.osmBackdrop({ paint: {}, style: (b) => MOPOP_PARTS.has(b.id) ? MOPOP_METAL : undefined,
+        ctx.skipBuildings.add('w394955907'); // the International Fountain's dome (roof:shape=dome): drawn by seattle-center-fountain.js
+        ctx.skipBuildings.add(ARENA); // Climate Pledge Arena: its parts + the glass wall and fascia by seattle-center-heroes.js (round 3)
+        const arenaP = arenaParts(d); // drawn by seattle-center-heroes.js with the arena (round 3)
+        ctx.osmBackdrop({ paint: {}, filter: (b) => !arenaP.has(b.id), style: (b) => MOPOP_PARTS.has(b.id) ? MOPOP_METAL : undefined,
             streetTreeOpts: { spacing: 12, prob: 0.7 }, areaTreeOpts: { conifer: 0.4 } });
         const P = ctx.painter;
         P.circle(NEEDLE.x, NEEDLE.z, 30, '#b4afa6', 'slab'); P.circle(NEEDLE.x, NEEDLE.z, NL.pavR + 0.4, '#8d8a84', 'slab');
         buildFountain(ctx);
+        // the International Fountain (OSM w35352476), west of the spot extract: the native ground grows to take it
+        const intl = internationalFountain(ctx);
+        const heroes = seattleCenterHeroes(ctx);
         // the city around the grounds (seen from the deck: 360°) — real towers, blocks, ground, Elliott Bay + ferries, mountains
         addSourceContext(ctx);
         // frame budget (frame-budget.js): the city as one multi-draw per material, culled per 120 m cell by the frustum and by
@@ -488,6 +559,10 @@ export default {
                 { x: 111.3, z: -73.5, r: 1.2, n: 3, act: 'watch', look: [111.3, -76], personas: ['local', 'tourist_us'] },
                 { x: -20, z: -78, r: 3, n: 6, act: 'watch', look: [-40, -86], personas: ['tourist_us', 'local', 'tech', 'kid'] },
                 ...needle.groups,
+                // people down in the fountain's bowl and on its rim (as on any dry day)
+                { x: intl.cx + 9, z: intl.cz + 4, r: 6, n: 6, act: 'watch', look: [intl.cx, intl.cz], personas: ['kid', 'tourist_us', 'local', 'kid'] },
+                { x: intl.cx - 14, z: intl.cz - 15, r: 4, n: 4, act: 'photo', look: [intl.cx, intl.cz], personas: ['tourist_jp', 'tourist_us', 'photographer'] },
+                ...(heroes.groups || []),
             ],
         };
         // ---- sounds

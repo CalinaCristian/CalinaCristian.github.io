@@ -14,6 +14,7 @@ import { parkWoods, greenClearance, businessSigns, farCanopy } from './buc-green
 import { photoHunt } from '../photo-hunt.js';
 import { stoneWall } from './buc-walls.js';
 import { addTraffic } from '../cars.js';
+import { unHouse } from './nth-un-house.js';
 
 function grow(poly, d) { const cw = polyArea(poly) > 0; const o = offsetPolyline([...poly, poly[0], poly[1]], cw ? -d : d); return o.slice(1, poly.length + 1); }
 function hipRoof(b, poly, y, h, col, over = 1.0) { const o = obb(poly); if (!o) return; const g = new THREE.CylinderGeometry(Math.SQRT1_2 * 0.3, Math.SQRT1_2, 1, 4).rotateY(Math.PI / 4); b.add(g, 'roofs', M(o.cx, y + h / 2, o.cz, 0, -o.angle, 0, o.len + over * 2, h, o.wid + over * 2), col); g.dispose(); }
@@ -97,6 +98,9 @@ export default {
         for (const [x, z] of [gateA, gateB]) { b.box(x, yG - 0.3, z, 0.8, 3.0, 0.8, '#8a8580', 'stone'); b.sphere(x, yG + 2.9, z, 0.3, 0.3, 0.3, '#14171a', 'metal', 8, 6); }
         // garden: lawn, gravel paths, rose beds, conifers + lindens
         ctx.add(b.build('spring-palace', { matOverrides: { [fMain.key]: fMain.mat, balustrade: balustradeMaterial(), ...mats } }));
+        // (r3) the UN House (w216674220 / n12857652820) as seen from Bd. Primăverii: white block, rounded balconies,
+        // gold name letters, its pavement wall with gates (estimated sizes; see nth-un-house.js)
+        ctx.extras.unHouse = unHouse(ctx);
         ctx.terrainOpts = { bg: '#6b8545', bgMask: 'grass', innerPx: 2048, innerStep: 3, outerStep: 16, outerPad: 600 };
         // a villa / embassy quarter: no generated ground-floor shopfronts (Street View 2026-11-12); mapped businesses get name boards
         bucBackdrop(ctx, { urban: false, lampStyle: 'lantern', lampColor: '#1c1f22', lampH: 4.4, lampPad: 30, treeLod: { cap: 3000, max: 380 }, treeScale: 1.3, lampOpts: { spacing: 28, kinds: ['tertiary', 'residential'] }, streetTreeOpts: { spacing: 9, prob: 0.85, kinds: ['tertiary', 'residential'] } });

@@ -23,9 +23,9 @@ import { photoHunt } from '../photo-hunt.js';
 import { activityBlocked, onActivityCancel } from '../participation.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, distPolyline, canvas, canvasTexture, fitDraw, obb } from '../kit.js';
 import { clockFace } from '../props.js';
-import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, flagpole, palisade, hedge, osmPoly, cityFiller, placeLandmark, bucActivity } from '../buc.js';
+import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, flagpole, palisade, hedge, osmPoly, cityFiller, placeLandmark, bucActivity, signAtlas } from '../buc.js';
 import { addTraffic } from '../cars.js';
-import { mappedTreeSizes, alleyHedges } from '../buc-streetscape.js';
+import { mappedTreeSizes, alleyHedges, poiSigns } from '../buc-streetscape.js';
 import { stoneWall } from './buc-walls.js';
 import { farCanopy } from './buc-green.js';
 
@@ -464,6 +464,16 @@ export default {
         // mapped trees at their surveyed heights (the young limes and chestnuts on Calea 13 Septembrie are 5–12 m, not one
         // nominal crown that hid the cathedral); no generated street trees where the survey covers the street
         ctx.extras.mappedTrees = mappedTreeSizes(ctx);
+        // (round 3, 2026-11-13) name signs of the mapped venues facing the two walks: Bd. Unirii 1–8 at the head of the
+        // boulevard (Stadio, Mega Image, The Coffee Shop, La Rosta, Haute Pepper …) and Calea 13 Septembrie 69–87 across
+        // from the cathedral (Help Net, Drogheria Vector, Froo, Mega Image, Twin Dent, Allucinante …). Names, positions and
+        // kinds from the OSM nodes (live OSM 2026-11-12: none tagged disused); one sign per venue on its own building's
+        // street face. Lettering colours are the brands' public colours where known, else a neutral estimate.
+        { const boxes = [spP, spC].map((s) => polyBox(s.extent.polygon)), near = (x, z) => boxes.some((e) => x > e.x0 - 130 && x < e.x1 + 130 && z > e.z0 - 60 && z < e.z1 + 60); // the street fronts seen from the walks
+            const closed = (p) => Object.keys(p).some((k) => /^(disused|abandoned|was)(:|$)/.test(k));
+            const S = poiSigns(ctx, { inside: near, max: 60, accept: (p) => !closed(p) && (!!(p.shop && p.shop !== 'vacant') || ['restaurant', 'cafe', 'bar', 'pub', 'fast_food', 'ice_cream', 'bank', 'pharmacy', 'dentist', 'clinic', 'money_transfer', 'bicycle_rental'].includes(p.amenity) || p.tourism === 'hotel') });
+            ctx.extras.venueSigns = { signs: S.signs.map((q) => ({ source: q.source, text: q.text })), skipped: S.skipped };
+            const SA = signAtlas(S.signs, { name: 'venue-signs', night: 0.7 }); if (SA) ctx.add(SA); }
         // clipped hedges along the mapped promenade alleys of Bd. Unirii (Street View, May 2025: both sides of the brick
         // alleys run between shoulder-high hedges under the trees). Not mapped in OSM: offsets and height are estimates.
         { const hb = new GeoBatch(), foot = d.ways.filter((w) => ['footway', 'path', 'pedestrian', 'cycleway', 'service', 'residential', 'primary', 'secondary', 'tertiary'].includes(w.k));

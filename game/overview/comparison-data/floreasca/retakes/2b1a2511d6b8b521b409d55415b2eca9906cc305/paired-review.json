@@ -1,0 +1,43 @@
+{
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r06-c04",
+    "aerial-r05-c04",
+    "aerial-r07-c04",
+    "aerial-r10-c04"
+  ],
+  "reviewedAt": "2026-11-13T10:11:49.157Z",
+  "method": "Published game capture, a 03aec30a render and the 2b1a2511 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r06-c04",
+      "originalGameSha256": "15f12aba649dc5ddab76d33a59aa2709b774aa25c088646fc7ff98ade63fa9d2",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "d77bfdeacd36617976f4eada1ad6584576ee192bd0ce0690b056f0a14ac107f7",
+      "observation": "Automatica Ford building site: netting and scaffold over the outline (light roof, dark edges)"
+    },
+    {
+      "id": "aerial-r05-c04",
+      "originalGameSha256": "9682c311502747533d4b310fa25d8b0a93207366c045b16688dd643691d3c448",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "80f724dbc9c7dfbc39d4debd338adc1c51e92d8cd6938c0e06a11aef5d9de34c",
+      "observation": "block drawn with a light roof and glass sides"
+    },
+    {
+      "id": "aerial-r07-c04",
+      "originalGameSha256": "e20f1e292322d03ce73ea333ae6f633099c8e83229d0e370d0185afb18c6bef9",
+      "originalGameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "retakeGameSha256": "27866152f213f822e07be1a8739d6838bdec0b95c1635eb45a13dae65a399540",
+      "observation": "buildings drawn with blue glass fronts"
+    },
+    {
+      "id": "aerial-r10-c04",
+      "originalGameSha256": "a429585155e30a0831c9b8ac447437b99dabdd6267e06ce938ea9540f96ae770",
+      "originalGameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "retakeGameSha256": "0ea16334b5faf1993dd522923e4a6b9bfcdba59dbcfd1adf92f6926f45c94d1e",
+      "observation": "buildings drawn with blue glass fronts"
+    }
+  ]
+}

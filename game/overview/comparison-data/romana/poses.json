@@ -1372,7 +1372,7 @@
       250,
       0
     ],
-    "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3"
+    "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305"
   },
   {
     "id": "aerial-r07-c08",
@@ -1672,7 +1672,7 @@
       750,
       250
     ],
-    "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a"
+    "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305"
   },
   {
     "id": "aerial-r08-c10",
@@ -2297,7 +2297,7 @@
       750,
       1000
     ],
-    "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493"
+    "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305"
   },
   {
     "id": "aerial-r11-c10",

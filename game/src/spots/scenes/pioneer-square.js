@@ -15,6 +15,8 @@ import { meshSDF, sdEllipsoid, sdCapsule, sdSphere, sdBox, smin, smax, fbm3 } fr
 import { seaBackdrop, seaActivity } from './sea-common.js';
 import { addTraffic } from '../cars.js';
 import { LANDMARKS, buildLandmark } from '../../landmarks.js';
+import { FRONTS, buildFronts, OCC_CANOPY, occidentalSquareProps } from './pioneer-square-fronts.js';
+import { westEndStreets } from './pioneer-square-westend.js';
 
 // ---------------------------------------------------------------------------- the Chief-of-All-Women pole (1940 replica)
 /**
@@ -175,9 +177,14 @@ function buildWestEnd(ctx) {
     const wet = (x, z) => x < -185 && !inPoly(x, z, land);
     g.mod((x, z, h) => (wet(x, z) ? SEA - 4 : x < -185 ? Math.min(h, SEA + 3.4) : h)); // the dock and the seawall top stand about 3.4 m over the water
     return { wet, finish() {
-        for (const pts of ALASKAN) { ctx.painter.line(pts, 11, '#55585b', 'asphalt'); ctx.painter.line(pts, 0.3, '#d8c24a', 'asphalt', { dash: [3, 6] }); }
+        // round 3: the streets, crossings, beds, trees and signals from live OSM (pioneer-square-westend.js) replace the two
+        // approximate Alaskan Way bands (ALASKAN, kept above for reference)
+        ctx.extras.westEnd = westEndStreets(ctx);
+        // the terminals (panorama 96BnTtZETD_9PxJd3_oy9w looking 250°: the 2023 WSF terminal is a glazed ground floor under a
+        // timber-slatted upper storey and a dark flat roof; the Water Taxi terminal a low grey shed). Level splits estimated.
         const b = new GeoBatch();
-        for (const [poly, h, col] of [[WSF, 9, '#7f8a8c'], [TAXI, 5, '#8d9294']]) { const y = Math.min(...poly.map(([x, z]) => g.heightAt(x, z))); b.prism(poly, y - 0.5, y + h, col, 'metal'); ctx.poly(poly); }
+        { const y = Math.min(...WSF.map(([x, z]) => g.heightAt(x, z))); b.prism(WSF, y - 0.5, y + 4.2, '#2f3b44', 'darkglass', { noTop: true }); b.prism(WSF, y + 4.2, y + 8.4, '#a8835c', 'wood', { noTop: true }); b.prism(WSF, y + 8.4, y + 9, '#3a3d40', 'metal'); ctx.poly(WSF); }
+        { const y = Math.min(...TAXI.map(([x, z]) => g.heightAt(x, z))); b.prism(TAXI, y - 0.5, y + 5, '#8d9294', 'metal'); ctx.poly(TAXI); }
         ctx.add(b.build('colman-dock'));
     } };
 }
@@ -185,9 +192,9 @@ function buildWestEnd(ctx) {
 // ---------------------------------------------------------------------------- Pioneer Building (1892, Elmer Fisher)
 // OSM way 52782046 (height 28 m, 6 levels) on its mapped footprint. Character from the research dossier and published
 // descriptions (Romanesque Revival: grey rusticated stone ground floor with round-arched openings, dark red brick above,
-// stone belt courses, brick piers, round-arched top windows, a tall arched entrance on Pioneer Place). It could not be
-// compared with Street View: the only panoramas at 1st Ave x Yesler Way are user photospheres and the plane trees hide the
-// front. Estimates: bay width, floor heights, opening sizes, colours.
+// stone belt courses, brick piers, round-arched top windows, a tall arched entrance on Pioneer Place). Compared (round 3)
+// with the official panorama kJVn9dVw2rWKgTf-rsYWzw on 1st Ave (47.60198,-122.33415) looking 75–100°: red brick wings,
+// a central sandstone tower bay with oriels (added below). Estimates: bay width, floor heights, opening sizes, colours.
 function buildPioneerBuilding(ctx) {
     const bd = ctx.data.buildings.find((q) => q.id === 'w52782046'); if (!bd) return null;
     ctx.skipBuildings.add(bd.id);
@@ -196,21 +203,33 @@ function buildPioneerBuilding(ctx) {
     b.prism(poly, y0, y0 + BASE, STONE, 'stone', { noTop: true }); b.prism(poly, y0 + BASE, y0 + H - TOP, BRICK, 'brick', { noTop: true }); b.prism(poly, y0 + H - TOP, y0 + H, TRIM, 'stone');
     let longest = null;
     const edges = poly.map((a, i) => { const c = poly[(i + 1) % poly.length], L = Math.hypot(c[0] - a[0], c[1] - a[1]); return { a, c, L }; }).filter((e) => e.L > 8);
-    for (const e of edges) { const dx = (e.c[0] - e.a[0]) / e.L, dz = (e.c[1] - e.a[1]) / e.L; let nx = dz, nz = -dx; const mx = (e.a[0] + e.c[0]) / 2, mz = (e.a[1] + e.c[1]) / 2; if (inPoly(mx + nx * 0.5, mz + nz * 0.5, poly)) { nx = -nx; nz = -nz; } Object.assign(e, { dx, dz, nx, nz, mx, mz, ry: Math.atan2(nx, nz) }); if (nx < 0 && (!longest || e.L > longest.L)) longest = e; }
     const others = ctx.data.buildings.filter((q) => q.id !== bd.id && q.k !== 'roof' && q.poly?.length > 2);
+    for (const e of edges) { const dx = (e.c[0] - e.a[0]) / e.L, dz = (e.c[1] - e.a[1]) / e.L; let nx = dz, nz = -dx; const mx = (e.a[0] + e.c[0]) / 2, mz = (e.a[1] + e.c[1]) / 2; if (inPoly(mx + nx * 0.5, mz + nz * 0.5, poly)) { nx = -nx; nz = -nz; } Object.assign(e, { dx, dz, nx, nz, mx, mz, ry: Math.atan2(nx, nz) });
+        e.party = others.some((q) => inPoly(mx + nx * 1.2, mz + nz * 1.2, q.poly)); if (!e.party && nx < 0 && (!longest || e.L > longest.L)) longest = e; } // the entrance front: the longest street face towards Pioneer Place (round 3: was the party wall)
     for (const e of edges) {
-        if (others.some((q) => inPoly(e.mx + e.nx * 1.2, e.mz + e.nz * 1.2, q.poly))) continue; // a party wall: the neighbour stands against it
+        if (e.party) continue; // a party wall: the neighbour stands against it
         const { a, L, dx, dz, nx, nz, mx, mz, ry } = e, n = Math.max(2, Math.round(L / 3.7)), w = L / n, at = (t, o) => [a[0] + dx * t + nx * o, a[1] + dz * t + nz * o];
         const disc = (t, y, r, col, key) => { const p = at(t, 0.02), q = at(t, 0.12); b.rod([p[0], y, p[1]], [q[0], y, q[1]], r, col, key, 16); };
         for (const y of [BASE - 0.3, BASE + 2 * F - 0.2, BASE + 4 * F - 0.2]) b.box(mx + nx * 0.17, y0 + y, mz + nz * 0.17, L, 0.4, 0.3, TRIM, 'stone', ry); // belt courses
         for (let k = 0; k <= n; k += 3) { const p = at(Math.min(L - 0.35, Math.max(0.35, k * w)), 0.12); b.box(p[0], y0 + BASE, p[1], 0.7, H - TOP - BASE, 0.3, BRICK, 'brick', ry); }             // brick piers
         const door = e === longest ? Math.floor(n / 2) : -1;
         for (let k = 0; k < n; k++) { const t = (k + 0.5) * w, p = at(t, 0.07);
-            if (k === door) { disc(t, y0 + 4.6, 2.3, TRIM, 'stone'); const q = at(t, 0.1); b.box(q[0], y0, q[1], 3.6, 4.6, 0.2, GLASS, 'darkglass', ry); const r2 = at(t, 0.09), r3 = at(t, 0.2); b.rod([r2[0], y0 + 4.6, r2[1]], [r3[0], y0 + 4.6, r3[1]], 1.8, GLASS, 'darkglass', 16); }
+            if (k === door) { /* the entrance arch; every face at its own depth from the wall (no coplanar pairs): stone surround 0.05-0.10, glass 0.13-0.18, glazed tympanum 0.21-0.26 */ const d0 = at(t, 0.05), d1 = at(t, 0.10); b.rod([d0[0], y0 + 4.6, d0[1]], [d1[0], y0 + 4.6, d1[1]], 2.3, TRIM, 'stone', 16); const q = at(t, 0.155); b.box(q[0], y0, q[1], 3.6, 4.6, 0.05, GLASS, 'darkglass', ry); const r2 = at(t, 0.21), r3 = at(t, 0.26); b.rod([r2[0], y0 + 4.6, r2[1]], [r3[0], y0 + 4.6, r3[1]], 1.8, GLASS, 'darkglass', 16); }
             else { disc(t, y0 + 3.3, 1.2, GLASS, 'darkglass'); b.box(p[0], y0 + 0.5, p[1], 2.4, 2.8, 0.12, GLASS, 'darkglass', ry); }   // round-arched ground-floor openings in the stone base
             for (let i = 0; i < 5; i++) { const y = y0 + BASE + i * F + 0.85, h = F - 1.75;
                 b.box(p[0], y - 0.18, p[1], 1.8, 0.18, 0.2, TRIM, 'stone', ry); b.box(p[0], y, p[1], 1.45, h, 0.12, GLASS, 'darkglass', ry);
                 if (i >= 3) disc(t, y + h, 0.725, GLASS, 'darkglass'); else b.box(p[0], y + h, p[1], 1.8, 0.22, 0.2, TRIM, 'stone', ry); } }
+    }
+    // the central bay on Pioneer Place (official panorama kJVn9dVw2rWKgTf-rsYWzw looking 75–100°): a full-height tower of
+    // rough-faced grey-brown sandstone round the arched entrance, two stacked oriel bays of dark blue-grey metal and glass
+    // over floors 2–5, round-arched windows at the top. Width, depths and oriel sizes are estimates.
+    if (longest) { const e = longest, T = 7.6, o = 0.18, p = [e.mx + e.nx * (o + 0.16), e.mz + e.nz * (o + 0.16)]; // (o: clear of the wall's own window boxes)
+        b.box(p[0], y0 + 7.0, p[1], T, H - TOP - 7.05, 0.32, '#857b6c', 'stone', e.ry); // (starts over the entrance arch)
+        for (const s of [-1, 1]) b.box(e.mx + e.dx * s * (T / 2 - 0.6) + e.nx * (o + 0.2), y0, e.mz + e.dz * s * (T / 2 - 0.6) + e.nz * (o + 0.2), 1.3, 7.25, 0.3, '#857b6c', 'stone', e.ry); // flanking piers (into the tower)
+        for (let y = 7.3; y < H - TOP; y += 0.62) b.box(e.mx + e.nx * (o + 0.335), y0 + y, e.mz + e.nz * (o + 0.335), T - 0.02, 0.06, 0.03, '#5f574c', 'stone', e.ry); // coursing
+        for (const s of [-1.55, 1.55]) { const q = [e.mx + e.dx * s + e.nx * (o + 0.78), e.mz + e.dz * s + e.nz * (o + 0.78)];
+            b.box(q[0], y0 + BASE + F + 0.55, q[1], 2.3, 3 * F - 0.2, 0.9, '#4d5965', 'metal', e.ry); // oriel
+            for (let i = 1; i < 4; i++) b.box(e.mx + e.dx * s + e.nx * (o + 1.25), y0 + BASE + i * F + 0.95, e.mz + e.dz * s + e.nz * (o + 1.25), 1.9, F - 1.25, 0.04, GLASS, 'darkglass', e.ry); }
     }
     ctx.add(b.build('pioneer-building')); ctx.poly(poly);
     return { tris: b.tris };
@@ -220,7 +239,9 @@ export default {
     env: { fogFar: 4000 },
     async build(ctx) {
         const g = ctx.ground, d = ctx.data, sp = ctx.spot('pioneer-square');
-        ctx.terrainOpts = { bg: '#8c8578', bgMask: 'slab', innerPx: 2048 };
+        // round 3: the fine (2 m) terrain reaches west over Alaskan Way and Colman Dock (was 8 m outer steps there)
+        ctx.treeLod = { cap: Infinity, near: 90, max: 700, force: true }; // round 3: every tree kept; the far ones (the west end's street trees) draw the low crown
+        ctx.terrainOpts = { bg: '#8c8578', bgMask: 'slab', innerPx: 2560, inner: { x0: -336, z0: -184, x1: 288, z1: 264 } }; // (+43 k terrain triangles; the default box starts at x = −144)
         const west = buildWestEnd(ctx);
         const per = buildPergola(ctx);
         ctx.extras.pioneerBuilding = buildPioneerBuilding(ctx);
@@ -234,8 +255,10 @@ export default {
         // purple vault lights (amethyst glass prisms) in the 1st Ave / Yesler sidewalks
         ctx.painter.custom((x, T, k, isMask) => { if (isMask) return; const r = rng(3); for (const [x0, z0, x1, z1] of [[8, -60, 12, -20], [-12, -40, -8, -12], [14, 2, 18, 40]]) for (let px = x0; px < x1; px += 0.45) for (let pz = z0; pz < z1; pz += 0.45) { if (r() < 0.25) continue; const [a, b] = T(px, pz); x.fillStyle = r() < 0.7 ? '#7d5aa6' : '#9b7cc4'; x.fillRect(a, b, Math.max(1, 0.3 * k), Math.max(1, 0.3 * k)); } });
         ctx.exclude.push([[per.cx - 32, per.cz - 40], [per.cx + 32, per.cz - 40], [per.cx + 32, per.cz + 30], [per.cx - 32, per.cz + 30]].map(([x, z]) => [x, z])); // keep Pioneer Place open (no street trees)
-        ctx.osmBackdrop({ paint: {}, style: (bd) => (bd.amenity === 'parking' || bd.k === 'parking' ? 'parking' : (bd.h || 0) > 60 ? 'office' : 'brick'), // the Sinking Ship and the other garages are open concrete decks, not brick blocks
+        ctx.skipBuildings.add(OCC_CANOPY); ctx.extras.occidentalSquare = occidentalSquareProps(ctx); // the open canopy over the square's kiosk (round 3)
+        ctx.osmBackdrop({ paint: {}, filter: (bd) => !FRONTS[bd.id], style: (bd) => (bd.amenity === 'parking' || bd.k === 'parking' ? 'parking' : (bd.h || 0) > 60 ? 'office' : 'brick'), // the Sinking Ship and the other garages are open concrete decks, not brick blocks
             lampOpts: { kinds: ['primary', 'secondary', 'tertiary', 'residential'] }, streetTreeOpts: { spacing: 14, prob: 0.45 } });
+        ctx.extras.pioneerFronts = buildFronts(ctx); // the mapped fronts, each with its panorama-checked facade
         ctx.lampOpts = { style: 'acorn', color: '#1c2a24', h: 4.6 };
         // Pioneer Place is under big trees (Street View): the nine mapped maples there (OSM natural=tree, genus Acer) stand; only
         // generated street trees stay out of the square
@@ -244,7 +267,7 @@ export default {
         ctx.extras.shops = buildShopSigns(ctx, { list: pioneerBusinesses(d), skip: (b) => /Smith Tower/.test(b.name) });
         occidentalArt(ctx);
         // Occidental Square: big London plane trees on the brick square
-        { const sq = d.areas.find((a) => a.id === 'w174692555'); if (sq) { const bb = polyBox(sq.poly), r = rng(6); for (let i = 0; i < 26; i++) { const x = bb.x0 + 5 + r() * (bb.x1 - bb.x0 - 10), z = bb.z0 + 5 + r() * (bb.z1 - bb.z0 - 10); ctx.trees.push({ x, z, kind: 'broad', s: 1.25 + r() * 0.35 }); } ctx.painter.poly(sq.poly, '#9a5a44', 'brick'); } }
+        { const sq = d.areas.find((a) => a.id === 'w174692555'); if (sq) { const bb = polyBox(sq.poly), r = rng(6); const can = d.buildings.find((q) => q.id === OCC_CANOPY)?.poly; for (let i = 0; i < 26; i++) { const x = bb.x0 + 5 + r() * (bb.x1 - bb.x0 - 10), z = bb.z0 + 5 + r() * (bb.z1 - bb.z0 - 10); if (can && inPoly(x, z, polyBox(can) && [[polyBox(can).x0 - 3, polyBox(can).z0 - 3], [polyBox(can).x1 + 3, polyBox(can).z0 - 3], [polyBox(can).x1 + 3, polyBox(can).z1 + 3], [polyBox(can).x0 - 3, polyBox(can).z1 + 3]])) continue; ctx.trees.push({ x, z, kind: 'broad', s: 1.25 + r() * 0.35 }); } ctx.painter.poly(sq.poly, '#9a5a44', 'brick'); } }
         ctx.extras.seaBackdrop = seaBackdrop(ctx, { clear: 330, rainier: false, olympics: true, bay: true, ferries: true, cranes: true, midrise: 500, midClear: 420, midBox: [47.596, -122.34, 47.612, -122.318] });
         addTraffic(ctx, { lanes: [{ pts: [[6, 272], [5, 179], [5, 85], [5, 30], [6, -8], [5, -84], [0, -94], [-12, -106], [-56, -178]], n: 3, speed: 8 }, { pts: [[-56, -178], [-12, -106], [-2, -84], [-2, -8], [-3, 85], [-4, 178], [-3, 248]].map(([x, z]) => [x - 1, z]), n: 3, speed: 8 }, { pts: [[-97, -9], [-2, -8], [45, -8], [151, -8], [247, -7]], n: 2, speed: 8 }] });
         // plaques around Pioneer Place

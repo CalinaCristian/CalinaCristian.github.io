@@ -1,0 +1,30 @@
+{
+  "district": "bellevue",
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "frames": 82,
+  "retakesInstalled": 5,
+  "retakenIds": [
+    "aerial-r04-c05",
+    "aerial-r03-c05",
+    "aerial-r07-c04",
+    "aerial-r05-c05",
+    "aerial-r06-c06"
+  ],
+  "untouchedItemsAndBytesPreserved": 77,
+  "archivedManifest": "historical/mixed-before-2b1a2511-255ba510/manifest.json",
+  "archivedManifestSha256": "255ba510ac413e50d94c06b86fd3cd6e892dc169598eba15d7daaa01ff3593ad",
+  "archivedItemsResolved": 82,
+  "sourceFilesVerifiedAgainstCommit": 540,
+  "atlasSourceCounts": {
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 59,
+    "9824fd56de3f0e420821e871436906186a80e493": 13,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 1,
+    "2b1a2511d6b8b521b409d55415b2eca9906cc305": 5,
+    "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d": 2,
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
+    "338300a95a79a2cabf3d7256ff745c6a1bac0372": 1
+  },
+  "allGroundPosesPreserved": true,
+  "sourceRevisionCorrections": [],
+  "failures": []
+}

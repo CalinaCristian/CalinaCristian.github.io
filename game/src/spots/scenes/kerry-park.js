@@ -13,7 +13,7 @@
 //  shader, the city ground + Queen Anne / Uptown blocks + trees, the bay.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
-import { GeoBatch, smooth, lerp, headingFromBearing } from '../kit.js';
+import { GeoBatch, smooth, lerp, headingFromBearing, inPoly, distSeg } from '../kit.js';
 import { railing, signBoard } from '../props.js';
 import { bench } from '../osm.js';
 import { addTraffic } from '../cars.js';
@@ -63,14 +63,23 @@ export default {
             const out = Math.max(gx0 - x, x - gx1, gz0 - z, z - gz1); if (out < -30) return h;
             const [la, lo] = llOf(x, z); return lerp(h, seaHeight(la, lo) - E, smooth(-30, 25, out));
         });
-        g.flatten([[-30, -3], [61, -3], [62, 7], [60, 11], [54, 12.4], [22, 12.4], [17, 12.4], [15, 13.6], [11, 13.6], [9, 12.4], [4, 12.4], [-23, 11.4], [-25.5, 11.4], [-28.4, 9.6], [-30, 9.6]], 0.15, 1.2); // (the terrace runs level right up to the parapet)
+        // The terrace is level across (it runs right up to the parapet) and falls gently from west to east with W Highland Dr:
+        // USGS 3DEP 1 m DEM (EPQS, 2026-11-13) on the terrace at z = 5: +1.18 (x −28), +1.28 (−15), +1.00 (0), +0.58 (25),
+        // +0.43 (40), +0.29 (55) m relative to the scene origin; on the street at z = −8: +1.10, +0.78 (0), +0.45 (25), +0.18 (55).
+        const TERRACE = [[-30, 1.2], [-15, 1.25], [5, 1.05], [25, 0.6], [40, 0.43], [62, 0.27]], STREET = [[-35, 1.1], [0, 0.78], [25, 0.45], [60, 0.18]];
+        const profile = (P, x) => { if (x <= P[0][0]) return P[0][1]; for (let i = 1; i < P.length; i++) if (x <= P[i][0]) return lerp(P[i - 1][1], P[i][1], (x - P[i - 1][0]) / (P[i][0] - P[i - 1][0])); return P[P.length - 1][1]; };
+        const tY = (x) => profile(TERRACE, x), sY = (x) => profile(STREET, x);
+        { const poly = [[-30, -3], [61, -3], [62, 7], [60, 11], [54, 12.4], [22, 12.4], [17, 12.4], [15, 13.6], [11, 13.6], [9, 12.4], [4, 12.4], [-23, 11.4], [-25.5, 11.4], [-28.4, 9.6], [-30, 9.6]], EDGE = 1.2;
+          g.mod((x, z, h) => { if (x < -31.2 || x > 63.2 || z < -4.2 || z > 14.8) return h; if (inPoly(x, z, poly)) return tY(x);
+              let dd = 1e9; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) dd = Math.min(dd, distSeg(x, z, poly[j][0], poly[j][1], poly[i][0], poly[i][1]).d);
+              if (dd >= EDGE) return h; const k = dd / EDGE; return tY(x) + (h - tY(x)) * k * k * (3 - 2 * k); }); }
         // W Highland Dr is level with the terrace (round 6 note 30: on the raw DEM the street stood ~2 m above the
         // sidewalk like a wall): the street corridor (sidewalks included) is graded to the terrace in front of the park
         // and eases back to the DEM over ~45 m along the street and ~10 m into the gardens north of it
         g.mod((x, z, h) => {
             if (z > -2.9 || z < -28) return h;
             const kx = 1 - smooth(0, 45, Math.max(-35 - x, x - 66, 0)), kz = 1 - smooth(-17, -28, z);
-            return lerp(h, 0.15, kx * kz);
+            return lerp(h, sY(x), kx * kz);
         });
         const OUTER = 360;
         ctx.terrainOpts = { bg: '#5f6a52', innerPx: 2048, outerPad: OUTER, skirtY: -112, skirtColor: '#1f333c' };
@@ -90,13 +99,14 @@ export default {
         // OSM: railing w240890465 (west, height 1.2), wall w240890467 (middle, height 1, with a small bay), railing
         // w240890466 (east, height 1.2). Under all three the retaining wall runs down the hillside.
         const RAIL_W = [[-27, 8.4], [-25, 10], [-23, 10], [4, 11]], WALL = [[4, 11], [10, 11], [12, 12], [14, 12], [16, 11], [22, 11]], RAIL_E = [[22, 11], [54, 11], [58, 10], [59, 7]];
-        const T0 = 0.15, KERB = 0.25;
-        for (const [L, top] of [[RAIL_W, T0 + KERB], [WALL, T0 + 1.0], [RAIL_E, T0 + KERB]]) {
-            for (let i = 1; i < L.length; i++) { const [ax, az] = L[i - 1], [bx, bz] = L[i], len = Math.hypot(bx - ax, bz - az);
+        const KERB = 0.25;
+        for (const [L, up] of [[RAIL_W, KERB], [WALL, 1.0], [RAIL_E, KERB]]) {
+            for (let i = 1; i < L.length; i++) { const [ax, az] = L[i - 1], [bx, bz] = L[i], len = Math.hypot(bx - ax, bz - az), top = Math.max(tY(ax), tY(bx)) + up;
                 b.box((ax + bx) / 2, -9, (az + bz) / 2, len + 0.36, 9 + top, 0.36, '#bdb8ad', 'stone', Math.atan2(-(bz - az), bx - ax));
-                ctx.collider({ wall: true, ax, az, bx, bz, y0a: -5, y1a: 1.5, y0b: -5, y1b: 1.5, nx: 0, nz: -1 }); }
-            if (L !== WALL) railing(b, L, () => top, { h: 1.2 - KERB, color: '#2a2e31' });
+                ctx.collider({ wall: true, ax, az, bx, bz, y0a: -5, y1a: tY(ax) + 1.5, y0b: -5, y1b: tY(bx) + 1.5, nx: 0, nz: -1 }); }
+            if (L !== WALL) railing(b, L, (x) => Math.max(tY(x), tY(x)) + up + 0.02, { h: 1.2 - KERB, color: '#2a2e31' });
         }
+        const T0 = tY(5.2); // (binoculars)
         // coin-operated binoculars at the railing (OSM n2485862631, amenity=binoculars)
         { const [bx, bz] = [5.2, 9.7]; b.cyl(bx, T0, bz, 0.07, 1.25, '#8f969b', 'metal', 10); b.box(bx, T0 + 1.25, bz, 0.26, 0.3, 0.42, '#aeb4b8', 'metal'); b.cyl(bx - 0.07, T0 + 1.4, bz + 0.27, 0.035, 0.12, '#30363a', 'metal', 8, 1, Math.PI / 2); b.cyl(bx + 0.07, T0 + 1.4, bz + 0.27, 0.035, 0.12, '#30363a', 'metal', 8, 1, Math.PI / 2); ctx.circle(bx, bz, 0.2, 1.6); }
         for (const [x, z] of d.furniture.bench || []) { bench(b, x, y0(x, z), z, Math.PI); ctx.box(x, z, 0.9, 0.3, Math.PI, { prop: true, h: 0.45 }); }
@@ -105,7 +115,7 @@ export default {
         const cf = sp.structures.find((s) => s.id === 'changing-form');
         // the square frame faces the street and the bay (Street View from W Highland Dr: the opening reads as a full circle looking ≈ 180°)
         const yawView = 0;
-        ctx.add(changingForm(cf.x, 0.15, cf.z, yawView)); ctx.circle(cf.x, cf.z, 1.0, CF.H + CF.plinth); g.addBox(cf.x, cf.z, 2.6, 2.6, 0, -1, 0.15 + CF.plinth * 2 / 3);
+        const cfY = tY(cf.x); ctx.add(changingForm(cf.x, cfY, cf.z, yawView)); ctx.circle(cf.x, cf.z, 1.0, cfY + CF.H + CF.plinth); g.addBox(cf.x, cf.z, 2.6, 2.6, 0, -1, cfY + CF.plinth * 2 / 3);
         ctx.interactables.push({ kind: 'frame', x: cf.x - 0.4, z: cf.z - 4.4, r: 2, label: 'Frame the skyline through Changing Form', use: s => s.ui.toast('📷 Find your own frame', 'Stand on the street side of Changing Form, look through its round opening towards the bay, then use your camera.') });
         // ---- the view: real city around the scene (the scene's own terrain box is a hole in the city ground)
         const W = d.spots['kerry-park'].extent.polygon, xs = W.map((p) => p[0]), zs = W.map((p) => p[1]), m8 = (v) => Math.round(v / 8) * 8;

@@ -1,0 +1,382 @@
+{
+  "schemaVersion": 1,
+  "title": "seatac aerial comparisons",
+  "generatedDate": "2026-11-13",
+  "generatedAt": "2026-11-13T09:45:17.084Z",
+  "defaultTile": "aerial-r09-c05",
+  "tileMetres": 250,
+  "orientation": "north-up",
+  "atlasScopeCounts": {
+    "ring-touches": 86,
+    "core-touches": 50,
+    "outside-ring": 3
+  },
+  "publishedBaseline": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "capture": {
+    "startedAt": "2026-11-13T09:44:10.485Z",
+    "endedAt": "2026-11-13T09:45:17.084Z",
+    "elapsedSeconds": 66.599,
+    "source": "e0f6d269e2f5186247021c2a0b9f3286489f749e48235e8a55bdaa73ade1f636",
+    "loaded": {
+      "key": "seattle-seatac",
+      "city": "seattle",
+      "district": "seatac",
+      "ms": 6252,
+      "edges": 2428,
+      "ribbons": 4468
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "frameCounts": 4,
+    "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+    "scopeCounts": {
+      "ring-touches": 86,
+      "core-touches": 50,
+      "outside-ring": 3
+    },
+    "candidateFramesCaptured": 139,
+    "note": "One capture run over every atlas pose of the district; only the reviewed changed tiles are kept here. Tool: tools/aerial/capture-game-grid.cjs (unmodified, sha256 329f0d5e83d2581771f0f3d40975a0352cfa5c13b2d61189597f69026429cefd)."
+  },
+  "locations": [
+    {
+      "id": "seatac-chapter-start",
+      "label": "Arrivals Drive chapter start",
+      "lat": 47.4435,
+      "lon": -122.3003,
+      "kind": "chapter-start",
+      "source": "game/src/cities.js CHAPTERS; original configured position before public-lane snapping",
+      "tileId": "aerial-r09-c05"
+    },
+    {
+      "id": "seatac-source-anchor",
+      "label": "SeaTac terminal",
+      "lat": 47.4423743,
+      "lon": -122.3012208,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w23772634",
+        "w23772637",
+        "w734002404",
+        "w869951038"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/23772634",
+        "https://www.openstreetmap.org/way/23772637",
+        "https://www.openstreetmap.org/way/734002404",
+        "https://www.openstreetmap.org/way/869951038"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r10-c05"
+    },
+    {
+      "id": "seatower-source-anchor",
+      "label": "Airport control tower",
+      "lat": 47.4557242,
+      "lon": -122.3013712,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w53199557",
+        "w1199936806",
+        "w1199936807"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/53199557",
+        "https://www.openstreetmap.org/way/1199936806",
+        "https://www.openstreetmap.org/way/1199936807"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r04-c05"
+    },
+    {
+      "id": "seagarage-source-anchor",
+      "label": "SeaTac parking garage",
+      "lat": 47.4432823,
+      "lon": -122.2992416,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "r15763840",
+        "w37017724",
+        "w37017725",
+        "w37017726",
+        "w37017727",
+        "w37017728",
+        "w37017729"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/relation/15763840",
+        "https://www.openstreetmap.org/way/37017724",
+        "https://www.openstreetmap.org/way/37017725",
+        "https://www.openstreetmap.org/way/37017726",
+        "https://www.openstreetmap.org/way/37017727",
+        "https://www.openstreetmap.org/way/37017728",
+        "https://www.openstreetmap.org/way/37017729"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r09-c05"
+    },
+    {
+      "id": "sealink-source-anchor",
+      "label": "Airport Link station",
+      "lat": 47.4452089,
+      "lon": -122.2969786,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w54139654"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/54139654"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r09-c06"
+    },
+    {
+      "id": "seatac-expressway-waypoint",
+      "label": "Airport Expressway chapter objective",
+      "lat": 47.454,
+      "lon": -122.30023,
+      "kind": "chapter-end",
+      "source": "game/src/cities.js CHAPTERS waypoint",
+      "tileId": "aerial-r05-c05"
+    }
+  ],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "boundarySource": "boundary-source.json",
+  "items": [
+    {
+      "id": "aerial-r09-c07",
+      "label": "Row 9 · Column 7",
+      "row": 9,
+      "column": 7,
+      "lat": 47.44437605730123,
+      "lon": -122.29330252585996,
+      "x": -624.9999999998607,
+      "z": 625.0000000003593,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": 0,
+      "boundsXZ": [
+        -750,
+        500,
+        -500,
+        750
+      ],
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 105,
+        "triangles": 325725,
+        "renderMs": 2.9000000059604645,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 149
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T09:44:55.781Z",
+      "gamePath": "images/aerial-r09-c07.jpg",
+      "image": "images/aerial-r09-c07.jpg",
+      "thumbnail": "thumbs/aerial-r09-c07.jpg",
+      "sha256": "8dde0305f2315c76afcf84efe8a6fdb127df6caa6eb8a22603d2b0162ee44ad0",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 496,
+      "dataset": "atlas",
+      "thumbnailSha256": "4cd5cd269f99b66263f67eb60fa05eac5bd0f533cd36967fd084d689d98f0b96",
+      "retakeReason": "Hilton wing skybridge drawn over the drive; hotel pool redrawn"
+    },
+    {
+      "id": "aerial-r08-c07",
+      "label": "Row 8 · Column 7",
+      "row": 8,
+      "column": 7,
+      "lat": 47.44662563438074,
+      "lon": -122.29330252585996,
+      "x": -624.9999999998607,
+      "z": 375.00000000021555,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": 0,
+      "boundsXZ": [
+        -750,
+        250,
+        -500,
+        500
+      ],
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 103,
+        "triangles": 329964,
+        "renderMs": 2.100000023841858,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 149
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T09:44:50.673Z",
+      "gamePath": "images/aerial-r08-c07.jpg",
+      "image": "images/aerial-r08-c07.jpg",
+      "thumbnail": "thumbs/aerial-r08-c07.jpg",
+      "sha256": "185a78149cb2af4f4fdb2d0e8de092dff53ff00319941a1ad9a1f32022bd56d6",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 485,
+      "dataset": "atlas",
+      "thumbnailSha256": "328aea15b475121a2930980879d033cfc09653c226296ba887941e7985093638",
+      "retakeReason": "Red Lion / Rodeway blocks with their storey count: red facade bands visible round the roof"
+    },
+    {
+      "id": "aerial-r11-c06",
+      "label": "Row 11 · Column 6",
+      "row": 11,
+      "column": 6,
+      "lat": 47.43987690314221,
+      "lon": -122.29662353620394,
+      "x": -874.9999999995911,
+      "z": 1124.999999999857,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": 0,
+      "boundsXZ": [
+        -1000,
+        1000,
+        -750,
+        1250
+      ],
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 108,
+        "triangles": 338854,
+        "renderMs": 1.300000011920929,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 149
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T09:45:03.907Z",
+      "gamePath": "images/aerial-r11-c06.jpg",
+      "image": "images/aerial-r11-c06.jpg",
+      "thumbnail": "thumbs/aerial-r11-c06.jpg",
+      "sha256": "f7ed7422b8ae5c7fc216514ab63f70a9e0bae8de5707eb0eb8af0fa8729e0eb8",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 450,
+      "dataset": "atlas",
+      "thumbnailSha256": "5299b9e2bd3b4184cdf26d842d84f55b2cecf72fd5d31df22e8e562966b8e7e1",
+      "retakeReason": "hotel blocks drawn with windowed fronts instead of plain walls"
+    },
+    {
+      "id": "aerial-r11-c07",
+      "label": "Row 11 · Column 7",
+      "row": 11,
+      "column": 7,
+      "lat": 47.43987690314221,
+      "lon": -122.29330252585996,
+      "x": -624.9999999998607,
+      "z": 1124.999999999857,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": 0,
+      "boundsXZ": [
+        -750,
+        1000,
+        -500,
+        1250
+      ],
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 106,
+        "triangles": 301783,
+        "renderMs": 1.0999999940395355,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 149
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T09:45:04.358Z",
+      "gamePath": "images/aerial-r11-c07.jpg",
+      "image": "images/aerial-r11-c07.jpg",
+      "thumbnail": "thumbs/aerial-r11-c07.jpg",
+      "sha256": "2831717fd9e63864a8797ccd7015590d59af9f45e51b2e1f45c28cdf0c4de20c",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 438,
+      "dataset": "atlas",
+      "thumbnailSha256": "425fcb8b48f3ae09f1dd2b8361e6d77816a2eb5a5a8e922413111d8e3054ca53",
+      "retakeReason": "hotel blocks drawn with windowed fronts instead of plain walls"
+    }
+  ]
+}

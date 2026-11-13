@@ -70,6 +70,28 @@ details and the Grozăvești embankment-ramp ground do not read at tile scale. E
 records the mask with a reason per tile and the tiles tried and rejected. The prior collection is kept under
 `historical/mixed-before-9824fd56-…/`.
 
+Round 3 (third fidelity round, captured 2026-11-13 UTC): 33 tiles were retaken at their original poses from
+2b1a2511d6b8b521b409d55415b2eca9906cc305 (Grozăvești 11, Bellevue 5, SeaTac 4, Floreasca 4, Unirii 3, Romană 3,
+Otopeni 2, Pipera 1). The range 9824fd56..2b1a2511 also contains a master merge of load-time commits described as
+identical output; every pose rendered before and after that merge showed no structural difference, so no tile was
+retaken for it. The changes that show from above are:
+- Grozăvești: the Regie footbridge over the Dâmbovița, the metro pavilion, the Belvedere water tower, the blue Pasajul
+  Basarab railings, a fountain basin, the light-grey Brico Dépôt / Altex box, and blocks that lost their glass colour
+  estimate.
+- Romană: the Urseanu dome and the ASE covered footbridge.
+- Floreasca: the Automatica building site and glass fronts.
+- SeaTac: the Hilton wing skybridge and hotel storeys and fronts.
+- Otopeni: named commercial footprints with their own height and roof.
+- Bellevue: the covered skybridges to the West Parking Garage, Bellevue Place's brick base and fountain basins.
+- Unirii and Pipera: fountains and a pool drawn as water.
+
+Tiles that differ only in parked cars, tree crowns, median surfaces or the re-rolled colour of procedural or background
+boxes were not retaken. Generic monuments, fuel canopy colours and pump islands, planters and railings on
+Podul Grozăvești and the Bellevue median do not read at tile scale. Each district's `retakes/2b1a2511…/` records the
+mask with a reason per tile and the tiles tried and rejected. The prior collection is kept under
+`historical/mixed-before-2b1a2511-…/`. The site deploy excludes `historical/` folders, so these archives are only
+available in the repository.
+
 The default collection shows tiles touching the playable area. The scenery ring
 is an optional, approximately 600 m area around it; distant background is a
 separate optional filter. Tile intersection does not make a whole square

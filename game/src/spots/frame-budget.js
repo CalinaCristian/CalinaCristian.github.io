@@ -71,14 +71,15 @@ export function batchSourceContext(ctx, { cellM = 120 } = {}) {
         const bm = new THREE.BatchedMesh(cells.size, 1, 1, material);
         // the batch keeps the cache's vertex arrays (no copy): its geometry table is filled directly — each item is an index range
         bm.geometry.dispose(); bm.geometry = geo; bm._geometryInitialized = true; bm._maxVertexCount = vcount; bm._maxIndexCount = total;
-        let at = 0;
+        let at = 0; const cellList = [];
         for (const ranges of cells.values()) { const start = at, box = new THREE.Box3();
             for (const r of ranges) { index.set(batch.index.subarray(r.start, r.start + r.count), at); at += r.count; }
             for (let i = start; i < at; i++) { const k = index[i] * 3; box.expandByPoint(v.set(pos[k], pos[k + 1], pos[k + 2])); }
             const sphere = box.getBoundingSphere(new THREE.Sphere());
             bm._geometryInfo.push({ vertexStart: 0, vertexCount: vcount, reservedVertexCount: vcount, indexStart: start, indexCount: at - start, reservedIndexCount: at - start, start, count: at - start, boundingBox: box, boundingSphere: sphere, active: true });
             const id = bm.addInstance(bm._geometryCount++);
-            items.push({ mesh: bm, id, box: box.clone().applyMatrix4(group.matrixWorld), set(vis) { bm.setVisibleAt(id, vis); } }); }
+            const it = { mesh: bm, id, box: box.clone().applyMatrix4(group.matrixWorld), set(vis) { bm.setVisibleAt(id, vis); } }; items.push(it); cellList.push({ start, count: at - start, it }); }
+        bm.userData.cells = cellList;
         bm._nextIndexStart = total; bm._nextVertexStart = vcount;
         bm.sortObjects = false; bm.castShadow = false; bm.receiveShadow = false; bm.name = 'source-context:' + batch.key;
         bm.userData.sourceContext = true; bm.userData.sourceTriangleCount = total / 3; triangles += total / 3;
@@ -90,10 +91,40 @@ export function batchSourceContext(ctx, { cellM = 120 } = {}) {
     state.meshChunks = meshes.length; state.batched = { cellM, items: items.length, triangles };
     let checked = false;
     ctx.onUpdate((dt, s) => { if (checked) return; const r = s?.r3d?.renderer; if (!r) return; checked = true;
-        if (r.extensions.has('WEBGL_multi_draw')) { for (const m of old) m.geometry.dispose(); return; }
-        for (const m of meshes) group.remove(m); for (const m of old) group.add(m); for (const it of items) it.set = () => {}; state.batched.fallback = 'no WEBGL_multi_draw: 800 m chunk meshes'; state.meshChunks = old.length; });
+        for (const m of old) m.geometry.dispose();
+        if (r.extensions.has('WEBGL_multi_draw')) return;
+        // no WEBGL_multi_draw (Firefox): one plain mesh per material whose index holds only the cells in view (frustum +
+        // skyline), rewritten when that set changes — the same culling and draw calls as the multi-draw, at the cost of
+        // an index upload while the view turns (r2-sea-spots-b-4; the 800 m chunk meshes walked at 1.71 M / 470)
+        const plain = meshes.map((bm) => dynamicIndexMesh(bm, bm.userData.cells));
+        for (const m of meshes) group.remove(m); for (const m of plain) group.add(m); for (const it of items) it.set = () => {};
+        state.batched.fallback = 'no WEBGL_multi_draw: one dynamic-index mesh per material'; state.meshChunks = plain.length; });
     (ctx.extras.sceneCleanups ||= []).push(() => { for (const m of meshes) m.dispose(); });
     return { items, meshes };
+}
+/**
+ * A plain mesh over a batch's vertex arrays whose index buffer holds only the cells that pass the render camera's frustum
+ * and the skyline culler (`it.vis`), packed from the front and drawn with a draw range: one draw call per material.
+ * The packed index is rebuilt (and only its used range uploaded) when the visible set changes.
+ */
+export function dynamicIndexMesh(bm, cells) {
+    const src = bm.geometry.index.array, dyn = new src.constructor(src.length), geo = new THREE.BufferGeometry();
+    for (const [k, a] of Object.entries(bm.geometry.attributes)) geo.setAttribute(k, a);
+    const ia = new THREE.BufferAttribute(dyn, 1); ia.setUsage(THREE.DynamicDrawUsage); geo.setIndex(ia); geo.setDrawRange(0, 0);
+    const m = new THREE.Mesh(geo, bm.material); m.name = bm.name; m.frustumCulled = false; m.castShadow = false; m.receiveShadow = false;
+    m.userData.sourceContext = true; m.userData.sourceTriangleCount = bm.userData.sourceTriangleCount;
+    const fr = new THREE.Frustum(), pm = new THREE.Matrix4(), on = new Uint8Array(cells.length), stats = { rebuilds: 0, cells: cells.length, drawn: 0 };
+    let built = false;
+    m.onBeforeRender = (renderer, scene, camera) => {
+        pm.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse); fr.setFromProjectionMatrix(pm);
+        let changed = !built;
+        for (let i = 0; i < cells.length; i++) { const c = cells[i], v = c.it.vis !== false && fr.intersectsBox(c.it.box) ? 1 : 0; if (on[i] !== v) { on[i] = v; changed = true; } }
+        if (!changed) return;
+        let at = 0, n = 0; for (let i = 0; i < cells.length; i++) if (on[i]) { const c = cells[i]; dyn.set(src.subarray(c.start, c.start + c.count), at); at += c.count; n++; }
+        geo.setDrawRange(0, at); ia.clearUpdateRanges(); if (at) ia.addUpdateRange(0, at); ia.needsUpdate = true; built = true; stats.rebuilds++; stats.drawn = n;
+    };
+    m.userData.dynamicIndex = stats; m.userData.auditGeometry = bm.geometry; // (the audit reads every cell, not the packed view)
+    return m;
 }
 /** the BatchedMesh records batchSourceContext() fills by hand exist with the r170 shape (probed on a throw-away batch) */
 export function batchedInternals() {
@@ -189,7 +220,8 @@ export function batchUnits(groups, name, { castShadow = null } = {}) {
         for (const m of list) { const g = m.geometry;
             if (uv && !g.attributes.uv) g.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(g.attributes.position.count * 2), 2));
             g.computeBoundingBox(); g.computeBoundingSphere();
-            const id = bm.addInstance(bm.addGeometry(g)); items.push({ box: g.boundingBox.clone(), set(v) { bm.setVisibleAt(id, v); } }); g.dispose(); }
+            const gid = bm.addGeometry(g), id = bm.addInstance(gid), it = { box: g.boundingBox.clone(), set(v) { bm.setVisibleAt(id, v); } }, info = bm._geometryInfo?.[gid];
+            items.push(it); if (info) (bm.userData.cells ||= []).push({ start: info.indexStart, count: info.indexCount, it }); g.dispose(); }
         bm.computeBoundingBox(); bm.computeBoundingSphere(); out.add(bm); meshes.push(bm);
     }
     return { group: out, items, meshes };
@@ -198,7 +230,10 @@ export function batchUnits(groups, name, { castShadow = null } = {}) {
 export function multiDrawGuard(ctx, batch) {
     let checked = false;
     ctx.onUpdate((dt, s) => { if (checked) return; const r = s?.r3d?.renderer; if (!r) return; checked = true; if (r.extensions.has('WEBGL_multi_draw')) return;
-        for (const bm of batch.meshes) { const m = new THREE.Mesh(bm.geometry, bm.material); m.name = bm.name; m.castShadow = bm.castShadow; m.receiveShadow = bm.receiveShadow; bm.geometry.computeBoundingSphere(); bm.parent?.add(m); bm.parent?.remove(bm); }
+        for (const bm of batch.meshes) {
+            // per-unit culling kept through a packed dynamic index (dynamicIndexMesh) when the unit ranges are known
+            const cells = bm.userData.cells, m = cells?.length === bm._geometryCount ? dynamicIndexMesh(bm, cells) : new THREE.Mesh(bm.geometry, bm.material);
+            m.name = bm.name; m.castShadow = bm.castShadow; m.receiveShadow = bm.receiveShadow; bm.geometry.computeBoundingSphere(); bm.parent?.add(m); bm.parent?.remove(bm); }
         for (const it of batch.items) it.set = () => {}; });
     (ctx.extras.sceneCleanups ||= []).push(() => { for (const m of batch.meshes) m.dispose(); });
 }
@@ -210,6 +245,19 @@ export function castProxy(batch, name) {
         const g = m.geometry; m.onBeforeRender = () => g.setDrawRange(0, 0); m.onBeforeShadow = () => g.setDrawRange(0, Infinity); });
     grp.userData.noFloor = true;
     return grp;
+}
+/**
+ * Small decorative parts merged into large meshes (flower baskets, planters: centimetre-to-metre pieces spread over a whole
+ * market) are not submitted when EVERY part of the mesh is farther than `d` m from the rendering camera: the distance is
+ * to the mesh's world bounding box, so a walker anywhere near (or inside) the box always gets the full mesh; only a high
+ * view (the drone) loses them, where each piece is a few pixels. Static meshes only. (r2-sea-spots-b-5)
+ */
+export function boxDistanceHide(meshes, d) {
+    const eye = new THREE.Vector3(), list = meshes.map((m) => { const g = m.geometry; if (!g.boundingBox) g.computeBoundingBox(); m.updateMatrixWorld(true); return { m, mask: m.layers.mask, box: (m.boundingBox || g.boundingBox).clone().applyMatrix4(m.matrixWorld), hidden: false }; });
+    const stats = { meshes: list.length, hidden: 0, d };
+    return { stats, update(camera) { camera.getWorldPosition(eye); let n = 0;
+        for (const it of list) { const far = !stats.off && it.box.distanceToPoint(eye) > d; if (far) n++; if (far !== it.hidden) { it.hidden = far; it.m.layers.mask = far ? 0 : it.mask; } }
+        stats.hidden = n; } };
 }
 /** meshes (with a bounding sphere, static) that are not submitted when farther than `d` m from the rendering camera */
 export function distanceHide(meshes, d) {

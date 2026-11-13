@@ -53,8 +53,27 @@ Washington) are completed with `/api/0.6/relation/<id>/full`, cached in `tools/o
 | `build-data.mjs` | the converter; the JSON schema is documented at the top of the file and in `game/data/README.md` |
 | `graft-roads.cjs` | `node tools/osm/graft-roads.cjs <committed.json> <fresh-build.json> <out.json>` (on unpacked JSON: `pack-district.mjs --unpack` / pack again): after a district's boundary changes, takes only the re-cut and new road rows, their nodes, the boundary and the scenery streets they replace from a fresh build, and leaves every other field of the committed file as it is. A full rebuild renumbers buildings and strings, which reshuffles index-seeded details (shop names, sign colours) across the district and drops fields added after the build (`roadRestrictions`). Used for the Romana west strip (2026-11-12) |
 | `add-pois.mjs` | cached-source POI append (below): adds the OSM businesses / public places / stops a district dataset lost, without a rebuild |
-| `poi-kinds.mjs` | OSM tags → POI kind: `basePoiKind` (the build's classifier, verbatim), `extraPoiKind` (classes the build drops), lifecycle and street-level tests, sign text. A future rebuild should import `poiKind` from here |
+| `poi-kinds.mjs` | OSM tags → POI kind and the POI / sign rules shared by `build-data.mjs` and `add-pois.mjs` (round 3): `basePoiKind` (the first builds' classifier), `extraPoiKind` (classes those builds dropped, + named `shop=yes`), `POI_EDGE_M` (100 m frontage strip), lifecycle and street-level tests, sign text, `ownBuildingSign`, `levelsFromLevelTags`. `poi-rules.test.mjs` proves on a synthetic fixture build that a rebuild keeps the round-2 additions |
+| `add-areas.mjs` | cached-source water / pool area append (round 3): fountain basins mapped as outlines (`amenity=fountain`), missing `natural=water` basins and outdoor pools of 4 m² and more, as `areas` + `areaSourceIds` + `areaSourceTags`; a furniture fountain inside an added fountain outline is removed; `--exclude` for water a landmark models or a reviewed stale object |
+| `fix-pois.mjs` | cached-source POI corrections (round 3): a node POI drawn just outside its footprint is linked to it (one footprint within 5 m, the next 2.5 m further); `poiSignAnchors` = where OSM says the sign is (an `entrance` node of the building, else the face on the POI's own `addr:street`) |
+| `fix-buildings.mjs` | cached-source building estimates (round 3): storeys from `min_level` / `max_level`, the "glass curtain wall" palette estimate cleared on non-glass buildings, named office / commercial / transportation footprints with estimated storeys styled as a window grid instead of an apartment block |
 | `places.mjs` | `game/data/places.json` (reachable places per district) from the district packs, `cities.js`, `landmarks.js`, the spots index and `places-navfix.json`; run it after a build, a POI append or a landmark change (`--repo`, `--data-dir`, `--out` for a dry run elsewhere) |
+
+## Round 3 (2026-11-13): the build adopts the append rules; areas, links, sign anchors and estimates without a rebuild
+
+`build-data.mjs` now imports its classifier and POI rules from `poi-kinds.mjs`: district builds keep POIs up to
+`POI_EDGE_M` (100 m) past the edge, the classes the first builds dropped, POIs mapped as relations, mark interior units of
+multi-tenant halls (no sign), skip closed objects, write `poiSources` for every row and `buildingOwnTags`; a hotel, then a
+fuel station, names its building before other tenants (the SeaTac "principal occupant" rule, so far only in world.js);
+fountain outlines (≥ 4 m², not splash pads) are water areas with `amenity=fountain` kept in `areaSourceTags`, smaller ones
+furniture fountains; water / pool areas need 4 m² (was 30); storeys come from `min_level` / `max_level` when
+`building:levels` is missing; the "glass curtain wall" palette estimate is dropped on buildings the build does not draw as
+glass; named office / commercial / transportation footprints are not styled as apartment blocks. Proof without a tile
+cache: `node --test tools/osm/poi-rules.test.mjs` (a synthetic Bellevue fixture build).
+
+For the shipped packs the same changes are appended by `add-areas.mjs`, `add-pois.mjs` (re-run, named `shop=yes`),
+`fix-buildings.mjs` and `fix-pois.mjs`, each with `--osm <tiles> [--report F] [--write]` like `add-pois.mjs`, in that order.
+Every pack change is checked with a decoded before/after comparison (every other section deep-equal).
 
 ## POIs without a rebuild (`add-pois.mjs`, 2026-11-12)
 

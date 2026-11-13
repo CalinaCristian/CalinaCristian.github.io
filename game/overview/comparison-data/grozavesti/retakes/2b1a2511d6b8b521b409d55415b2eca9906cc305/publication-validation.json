@@ -1,0 +1,36 @@
+{
+  "district": "grozavesti",
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "frames": 100,
+  "retakesInstalled": 11,
+  "retakenIds": [
+    "aerial-r06-c05",
+    "aerial-r07-c07",
+    "aerial-r05-c07",
+    "aerial-r04-c08",
+    "aerial-r05-c08",
+    "aerial-r08-c04",
+    "aerial-r06-c08",
+    "aerial-r06-c11",
+    "aerial-r04-c07",
+    "aerial-r06-c07",
+    "aerial-r07-c06"
+  ],
+  "untouchedItemsAndBytesPreserved": 89,
+  "archivedManifest": "historical/mixed-before-2b1a2511-6d9158ad/manifest.json",
+  "archivedManifestSha256": "6d9158ad76a5824353e7f76f966af4812e71c9fce9bdc188225158c8ae04f298",
+  "archivedItemsResolved": 100,
+  "sourceFilesVerifiedAgainstCommit": 540,
+  "atlasSourceCounts": {
+    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 37,
+    "9824fd56de3f0e420821e871436906186a80e493": 31,
+    "2b1a2511d6b8b521b409d55415b2eca9906cc305": 11,
+    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 11,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 6,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 1,
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 3
+  },
+  "allGroundPosesPreserved": true,
+  "sourceRevisionCorrections": [],
+  "failures": []
+}

@@ -33,14 +33,18 @@ const A_N = ang(-63, -10), A_W_END = ang(-158, 112), A_E_END = ang(-82, 186); //
 // (sx, sz: horizontal scale to the mapped footprint; the shell is modelled 7.2 × 6.4 m)
 function piloti(ctx, x, y, z, sx = 1, sz = 1) {
     const sdf = (px, py, pz) => {
-        let d = sdEllipsoid(px, py, pz, 0, 6.0, 0, 3.6, 1.3, 3.2);
-        d = smax(d, -sdEllipsoid(px, py, pz, 0, 5.3, 0, 3.3, 1.1, 2.9), 0.15);
+        // (round 3, r2-bel-spots-4) the canopy's rim is not a flat oval: it undulates in vaults that rise between the columns
+        // and dip to them (Marc Fornes' Piloti, as described and in Street View from NE 4th St). The shell is lifted towards its
+        // rim between the columns: six vaults, 0.9 m rise — count and rise are estimates.
+        const th = Math.atan2(pz, px), wv = 0.9 * (0.5 - 0.5 * Math.cos(6 * (th - 0.4))) * smooth(0.45, 1.0, Math.hypot(px / 3.6, pz / 3.2)), qy = py - wv;
+        let d = sdEllipsoid(px, qy, pz, 0, 6.0, 0, 3.6, 1.3, 3.2);
+        d = smax(d, -sdEllipsoid(px, qy, pz, 0, 5.3, 0, 3.3, 1.1, 2.9), 0.15);
         // Street View from NE 4th St (2026-11-12): a cluster of slender white columns that flare into the canopy, not three
         // thick legs. Seven columns (the count and their places under the shell are estimates).
         for (const [a, rr] of PILOTI_LEGS) d = smin(d, sdCapsule(px, py, pz, Math.cos(a) * rr, 0, Math.sin(a) * rr * 0.9, Math.cos(a) * rr * 0.8, 5.5, Math.sin(a) * rr * 0.72, 0.17, 0.3), 0.6);
         return d + 0.03 * noise3(px * 3, py * 3, pz * 3);
     };
-    const geo = meshSDF(sdf, { min: [-4.4, -0.2, -4], max: [4.4, 7.6, 4], cell: 0.1, ao: 0.4,
+    const geo = meshSDF(sdf, { min: [-4.4, -0.2, -4], max: [4.4, 8.6, 4], cell: 0.1, ao: 0.4,
         color: (px, py, pz, nx, ny, nz, ao, o) => { const hex = Math.abs(Math.sin(px * 6.0) * Math.sin(pz * 6.0 + py * 4.0)); o.set(hex > 0.92 ? '#c9ced2' : '#f4f5f6'); return o.multiplyScalar(0.75 + 0.25 * ao); } });
     const m = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.45, metalness: 0.3, side: THREE.DoubleSide }));
     m.position.set(x, y, z); m.scale.set(sx, 1, sz); m.castShadow = true; m.name = 'piloti'; ctx.add(m);
@@ -227,11 +231,33 @@ export default {
             { const x = -46.0, z = -43.3, y = g.heightAt(x, z), H = 10.5; nb.cyl(x, y, z, 0.075, H, '#c9cdd0', 'steel', 8, 0.6); nb.sphere(x, y + H + 0.08, z, 0.1, 0.1, 0.1, '#d9c27a', 'metal', 8, 6); ctx.circle(x, z, 0.12, H);
                 const c = canvas(190, 100), q = c.getContext('2d'); for (let i = 0; i < 13; i++) { q.fillStyle = i % 2 ? '#f4f2ec' : '#b22234'; q.fillRect(0, i * 100 / 13, 190, 100 / 13 + 0.6); } q.fillStyle = '#3c3b6e'; q.fillRect(0, 0, 76, 100 * 7 / 13); q.fillStyle = '#f4f2ec'; for (let j = 0; j < 5; j++) for (let i = 0; i < 6; i++) q.fillRect(6 + i * 12, 5 + j * 10, 2.4, 2.4);
                 const flag = new THREE.Mesh(new THREE.PlaneGeometry(1.9, 1.0), new THREE.MeshStandardMaterial({ map: canvasTexture(c), side: THREE.DoubleSide, roughness: 0.8 })); flag.name = 'us-flag'; flag.position.set(x + 0.98, y + H - 0.62, z); flag.userData.noAudit = true; ctx.add(flag); }
+            // (round 3, r2-bel-spots-4) the ten forecourt benches (OSM n7861958149–158, amenity=bench backrest=yes, five each side
+            // of the fountain) are white in Street View from NE 4th St, not the generic brown timber: drawn here at their
+            // mapped points (the generic ones are excluded there), facing the fountain bowl. Size and the facing are estimates.
+            { const fb = polyBox(area('w655090567') || [[-64.2, -34.3], [-64.2, -34.3]]), fx = (fb.x0 + fb.x1) / 2, fz = (fb.z0 + fb.z1) / 2;
+                for (const [x, z] of (d.furniture.bench || []).filter(([x, z]) => x > -90 && x < -30 && z > -60 && z < -20 && (!northPlaza || inPoly(x, z, northPlaza) || distPolyline(x, z, [...northPlaza, northPlaza[0]]).d < 3))) {
+                    ctx.exclude.push([[x - 1.2, z - 1.2], [x + 1.2, z - 1.2], [x + 1.2, z + 1.2], [x - 1.2, z + 1.2]]);
+                    const y = g.heightAt(x, z), a = Math.atan2(fx - x, fz - z), s = Math.sin(a), c = Math.cos(a); // a: facing the fountain (local +z)
+                    nb.box(x, y + 0.42, z, 1.8, 0.07, 0.48, '#eeeeea', 'paint', a); nb.box(x - s * 0.23, y + 0.49, z - c * 0.23, 1.8, 0.42, 0.06, '#eeeeea', 'paint', a);
+                    for (const o of [-0.75, 0.75]) nb.box(x + c * o, y, z - s * o, 0.07, 0.42, 0.44, '#d9d9d4', 'paint', a);
+                    ctx.box(x, z, 0.9, 0.3, -a, { prop: true, h: 0.5 }); } }
             ctx.add(nb.build('north-plaza')); }
         for (const id of ['w842753014']) { const p = area(id); if (!p) continue; ctx.skipAreas.add(id); ctx.exclude.push(p); for (let i = ctx.trees.length - 1; i >= 0; i--) if (inPoly(ctx.trees[i].x, ctx.trees[i].z, p)) ctx.trees.splice(i, 1); /* no promenade tree in the basin */
             const y = Math.max(...p.map(([x, z]) => g.heightAt(x, z))) - 0.15; /* rim level from the highest bank point: the lowest one buried the south basin 2.6 m under the lawn */
             for (let i = 0; i < p.length; i++) { const [ax, az] = p[i], [qx, qz] = p[(i + 1) % p.length], Lq = Math.hypot(qx - ax, qz - az); if (Lq < 0.3) continue; const base = Math.min(g.heightAt(ax, az), g.heightAt(qx, qz)) - 0.25; wb.box((ax + qx) / 2, base, (az + qz) / 2, 0.35, y + 0.45 - base, Lq + 0.2, COP, 'stone', Math.atan2(qx - ax, qz - az)); } /* the rim wall reaches the ground on a sloping site (south basin: OSM barrier=wall) */
             waterPoly(ctx, p, y + 0.3, { deep: '#2a4744', shallow: '#4d6a62', cell: 0.8, foam: 0, name: 'fountain-' + id }); ctx.poly(p, { h: 0.6, intended: true }); }
+        // (round 3, r2-bel-spots-4) mapped walls that were paths only. OSM w810574801–803 and w842753004–006 (barrier=retaining_wall,
+        // no height): the lower plaza's terrace walls, drawn as granite walls between the two ground levels they part (top 0.45 m
+        // above the higher side, a seat-height kerb: estimate), with a collider. OSM w810575032 (barrier=retaining_wall,
+        // height=0.2) traces the old school's outline in the meadow: a 0.2 m concrete kerb, 0.3 m wide, no collider (one steps
+        // over it). Materials / colours are estimates: no official panorama reaches the inside of the park.
+        { const tw = new GeoBatch();
+            const along = (pts, fn) => { for (let i = 1; i < pts.length; i++) { const [ax, az] = pts[i - 1], [bx, bz] = pts[i], L = Math.hypot(bx - ax, bz - az), n = Math.max(1, Math.ceil(L / 2)); for (let k = 0; k < n; k++) fn(ax + (bx - ax) * (k + 0.5) / n, az + (bz - az) * (k + 0.5) / n, L / n, Math.atan2(bx - ax, bz - az), (bz - az) / L, -(bx - ax) / L); } };
+            for (const id of ['w810574801', 'w810574802', 'w810574803', 'w842753004', 'w842753005', 'w842753006']) { const p = area(id) || way(id); if (!p) continue;
+                along(p, (x, z, L, ya, nx, nz) => { const h1 = g.heightAt(x + nx * 0.9, z + nz * 0.9), h2 = g.heightAt(x - nx * 0.9, z - nz * 0.9), lo = Math.min(h1, h2) - 0.3, top = Math.max(h1, h2) + 0.45; tw.box(x, lo, z, 0.4, top - lo, L + 0.02, '#b3a39b', 'stone', ya); });
+                for (let i = 1; i < p.length; i++) { const [ax, az] = p[i - 1], [bx, bz] = p[i], ta = g.heightAt(ax, az), tb = g.heightAt(bx, bz); ctx.collider({ wall: true, ax, az, bx, bz, y0a: ta - 1, y1a: ta + 0.6, y0b: tb - 1, y1b: tb + 0.6, nx: 0, nz: 1, intended: true }); } }
+            { const p = area('w810575032') || way('w810575032'); if (p) { along(p, (x, z, L, ya) => { const y = g.heightAt(x, z); tw.box(x, y - 0.25, z, 0.3, 0.45, L + 0.02, '#c9c4b8', 'concrete', ya); }); for (const [x, z] of p.slice(1, -1)) tw.box(x, g.heightAt(x, z) - 0.25, z, 0.38, 0.49, 0.38, '#c9c4b8', 'concrete'); } } // corner blocks 4 cm proud (no coplanar laps)
+            ctx.add(tw.build('plaza-terrace-walls')); }
         // the canal stonework batch (granite coping, weir sills, footbridge slabs, the waterfall wall and foam band) was filled
         // but never added to the scene: the canal had no coping and the mapped footbridges were invisible floors
         ctx.add(wb.build('canal-stonework'));

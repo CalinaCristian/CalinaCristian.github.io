@@ -29,6 +29,7 @@ import { activityFlow } from '../participation.js';
 import { applyFineDem } from './fine-dem.js';
 import LOCKS_DEM from './fine-dem-ballard-locks.js';
 import SOUTH_DEM from './fine-dem-ballard-locks-south.js';
+import { salmonWaves, southPlaza } from './ballard-locks-art.js';
 
 // lock axis from the west (sea) gate to the east (lake) gate — OSM lock_gate ways
 const A = [-105, 42], B = [131, 130];
@@ -256,6 +257,7 @@ export default {
             ctx.extras.spillway = { walkY, topY, bays: n };
         }
         buildSalmonBayBridge(ctx);
+        salmonWaves(ctx, southPlaza(ctx)); // "Salmon Waves" on the south-bank plaza (OSM n3211770269; ballard-locks-art.js)
         // ---- fish ladder on the south bank (OSM waterway=fish_pass w764035003 + w285286401): 21 weirs of 0.3 m
         // climbing from tidewater at its west end to lake level beside the dam
         {

@@ -73,8 +73,8 @@ const BUC_DISTRICTS = {
             { r: 130, chapter: 'upb', line: [[44.448553, 26.065443], [44.447432, 26.062617], [44.446923, 26.060540], [44.446793, 26.060264], [44.446586, 26.060205], [44.444227, 26.060704], [44.443543, 26.060555], [44.441596, 26.059892], [44.440701, 26.058795], [44.440322, 26.058441], [44.438050, 26.055450]] },
         ],
         circles: [{ lat: 44.438050, lon: 26.055450, r: 200, name: 'upb door' }, { lat: 44.448490, lon: 26.065400, r: 110, name: 'upb start' }, { lat: 44.438500, lon: 26.051500, r: 120, name: 'upb building' }],
-        landmarks: ['politehnica', 'cathedral', 'thebridge1', 'cetgrozavesti', 'orhideeasign'],
-        scenery: ['cathedral', 'thebridge1', 'cetgrozavesti', 'orhideeasign'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
+        landmarks: ['politehnica', 'cathedral', 'thebridge1', 'cetgrozavesti', 'orhideeasign', 'turnulapa', 'grozmetro'],
+        scenery: ['cathedral', 'thebridge1', 'cetgrozavesti', 'orhideeasign', 'turnulapa', 'grozmetro'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
         congestion: [ // from game/research/bucharest-grozavesti.json traffic.hotspots
             { lat: 44.44370, lon: 26.06120, radius: 180, hours: [[7.5,  10],  [16.5,  19.5]], level: 0.65, note: 'Podul Grozăvești / Orhideelor' },
             { lat: 44.43460, lon: 26.05450, radius: 160, hours: [[7.5,  9.5],  [16,  19]], level: 0.60, note: 'Iuliu Maniu × Doina Cornea (Politehnica)' },
@@ -114,8 +114,8 @@ const BUC_DISTRICTS = {
             { r: 60, sceneryRing: false, line: [[44.452100, 26.084300], [44.452100, 26.081500]] },
         ],
         circles: [{ lat: 44.451180, lon: 26.087950, r: 200, name: 'arnia door' }, { lat: 44.441800, lon: 26.098800, r: 110, name: 'arnia start' }, { lat: 44.451180, lon: 26.087950, r: 120, name: 'arnia building' }, { lat: 44.449900, lon: 26.094400, r: 200, name: 'uipath-buc door' }, { lat: 44.456000, lon: 26.084200, r: 110, name: 'uipath-buc start' }, { lat: 44.449900, lon: 26.094400, r: 120, name: 'uipath-buc building' }],
-        landmarks: ['victoria', 'ase', 'ambasador', 'aro', 'thelandmark', 'europehouse', 'antipa', 'catargiu', 'veronafountain', 'nobildac', 'enescu', 'skytower', 'ateneu', 'regal', 'tnb'],
-        scenery: ['skytower', 'ateneu', 'regal', 'tnb', 'aro', 'nobildac', 'enescu'], // real skyline/600 m ring landmarks; no unreachable marker, label or route
+        landmarks: ['victoria', 'ase', 'ambasador', 'aro', 'thelandmark', 'europehouse', 'antipa', 'catargiu', 'veronafountain', 'nobildac', 'enescu', 'urseanudome', 'skytower', 'ateneu', 'regal', 'tnb'],
+        scenery: ['skytower', 'ateneu', 'regal', 'tnb', 'aro', 'nobildac', 'enescu', 'urseanudome'], // real skyline/600 m ring landmarks; no unreachable marker, label or route
         congestion: [ // from game/research/bucharest-romana.json traffic.hotspots
             { lat: 44.45260, lon: 26.08580, radius: 220, hours: [[7.5,  10],  [16,  19.5]], level: 0.90, note: 'Piața Victoriei' },
             { lat: 44.44680, lon: 26.09700, radius: 160, hours: [[7.5,  10],  [16,  19.5]], level: 0.85, note: 'Piața Romană' },
@@ -132,8 +132,8 @@ const BUC_DISTRICTS = {
             { r: 130, chapter: 'rosetti', line: [[44.454951, 26.100726], [44.458072, 26.100564], [44.465921, 26.102013], [44.465668, 26.104509], [44.465449, 26.106037], [44.467042, 26.106528], [44.467090, 26.106300]] },
         ],
         circles: [{ lat: 44.467090, lon: 26.106300, r: 200, name: 'rosetti door' }, { lat: 44.455600, lon: 26.100710, r: 110, name: 'rosetti start' }, { lat: 44.467090, lon: 26.106300, r: 120, name: 'rosetti building' }],
-        landmarks: ['rosetti', 'dinamo', 'skytower', 'globalworth'],
-        scenery: ['skytower', 'globalworth'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
+        landmarks: ['rosetti', 'dinamo', 'skytower', 'globalworth', 'automatica'],
+        scenery: ['skytower', 'globalworth', 'automatica'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
         congestion: [ // from game/research/bucharest-floreasca.json traffic.hotspots
             { lat: 44.47100, lon: 26.10350, radius: 200, hours: [[8,  10],  [17,  19.5]], level: 0.70, note: 'Calea Floreasca N (towards Barbu Văcărescu / Sky Tower)' },
             { lat: 44.46650, lon: 26.10550, radius: 140, hours: [[7.5,  8.25],  [13,  14.5]], level: 0.45, note: 'Rosetti school run (Garibaldi/Ceaikovski)' },

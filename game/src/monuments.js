@@ -1,4 +1,4 @@
-// Free-standing monuments of the chapter districts: statues, busts, obelisks, crosses, memorial steles, sculptures.
+// Free-standing monuments of the chapter districts: statues, busts, obelisks, crosses, wayside crosses, memorial steles, sculptures.
 //
 // Before this pass a mapped monument was a map marker and nothing stood on the ground. Position, name, class (`form`),
 // material and tagged height come from OpenStreetMap (monument-sources.js; the district pack's own landmark POIs give
@@ -14,8 +14,8 @@ export const MONUMENT_LANDMARK_OWNED = ['lascăr catargiu', 'monumentul eroilor 
 
 export const MONUMENT_MODEL = {
     estimates: 'all dimensions except a tagged OSM height',
-    totalM: { statue: 4.4, bust: 2.5, obelisk: 6, cross: 3.2, sculpture: 2.6, installation: 2.6, stele: 2.6, monument: 4.2 },
-    colliderM: { statue: 0.95, bust: 0.6, obelisk: 1.1, cross: 0.7, sculpture: 0.85, installation: 0.85, stele: 1.0, monument: 1.5 },
+    totalM: { statue: 4.4, bust: 2.5, obelisk: 6, cross: 3.2, wayside: 1.5, sculpture: 2.6, installation: 2.6, stele: 2.6, monument: 4.2, marker: 0.9 },
+    colliderM: { statue: 0.95, bust: 0.6, obelisk: 1.1, cross: 0.7, wayside: 0.45, sculpture: 0.85, installation: 0.85, stele: 1.0, monument: 1.5, marker: 0.75 },
 };
 const MATERIAL = { bronze: '#565b4c', copper: '#5f7f6c', coper: '#5f7f6c', metal: '#7b8186', steel: '#8a9096', 'stainless steel': '#a9aeb2', marble: '#e2dfd6', granite: '#8c8884', stone: '#b7b0a1', wood: '#7a5a3c', glass: '#9cc0cc', concrete: '#b4b1a9' };
 const materialColour = (m, fallback) => { for (const part of String(m || '').toLowerCase().split(/[;,]/)) { const k = part.trim(); if (MATERIAL[k]) return MATERIAL[k]; } return fallback; };
@@ -79,10 +79,15 @@ function build(env, m, total) {
     } else if (m.form === 'cross') {
         box(0, 1.1, 0.3, 1.1, stoneD); box(0.3, 0.7, 0.35, 0.7, stone);
         box(0.65, 0.24, total - 0.65, 0.2, fig); box(0.65 + (total - 0.65) * 0.62, Math.min(1.3, total * 0.4), 0.24, 0.2, fig);
+    } else if (m.form === 'wayside') { // (r3) a small stone wayside cross (troiță) on a low base: OSM historic=wayside_cross / man_made=cross
+        const ws = env.rgb(materialColour(m.material, '#b7b0a1'));
+        box(0, 0.6, 0.18, 0.42, stoneD); box(0.18, 0.2, total - 0.18, 0.14, ws); box(0.18 + (total - 0.18) * 0.66, Math.min(0.75, total * 0.5), 0.17, 0.14, ws);
     } else if (m.form === 'stele') {
         box(0, 2.0, 0.28, 0.9, stoneD); box(0.28, 1.35, total - 0.28, 0.32, fig);
     } else if (m.form === 'monument') {
         box(0, 3.0, 0.3, 3.0, stoneD); box(0.3, 2.3, 0.3, 2.3, stone); box(0.6, 1.2, total - 0.85, 1.2, fig); box(total - 0.25, 1.4, 0.25, 1.4, stoneD);
+    } else if (m.form === 'marker') { // (r3) an artwork whose OSM tags do not describe its form: a plain low stone marker, nothing more
+        box(0, 1.3, 0.2, 1.3, stoneD); box(0.2, 0.9, total - 0.2, 0.9, stone);
     } else { // sculpture / installation: a low plinth and one plain abstract block, turned 45 degrees
         const k = total / 2.6;
         box(0, 1.5 * k, 0.45 * k, 1.5 * k, stone); box(0.45 * k, 0.72 * k, 2.15 * k, 0.72 * k, fig, ang + Math.PI / 4);

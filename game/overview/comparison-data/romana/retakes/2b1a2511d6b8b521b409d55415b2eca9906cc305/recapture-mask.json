@@ -1,0 +1,64 @@
+{
+  "district": "romana",
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "tiles": [
+    {
+      "id": "aerial-r07-c07",
+      "reason": "Urseanu observatory tower with its dome"
+    },
+    {
+      "id": "aerial-r08-c09",
+      "reason": "ASE covered pedestrian bridge over the street"
+    },
+    {
+      "id": "aerial-r11-c09",
+      "reason": "hotel / office blocks drawn with windowed fronts instead of the blue glass estimate"
+    }
+  ],
+  "reason": "Urseanu dome, ASE footbridge, hotel fronts",
+  "originalManifestSha256": "7f9f5523a0565b14c2e3641f0f877ca73c44a234f7d44d5d99bdc70c6e474011",
+  "totalFrames": 116,
+  "method": "Round 3 (range 9824fd56..2b1a2511). Every atlas pose was rendered at 9824fd56, at 03aec30a (the master merge of load-time commits, before the round-3 work) and at 2b1a2511, with the same tool and conditions (game images only). The merge was checked first: 9824fd56 vs 03aec30a has no structural change in any of the 865 poses of the eight districts (no blurred difference at the 30/255 level survives a 5 px erosion; single-pixel maxima equal run-to-run JPEG noise), so the identical-output claim holds from above. Round-3 changes were ranked between the 03aec30a and 2b1a2511 renders (vegetation masked) and every ranked pose was compared by eye (published | 03aec30a | 2b1a2511, same pixels). Kept: new or changed structures, water areas, building heights and material class (glass vs masonry). Not counted: parked cars, tree crowns, median surfaces and re-rolled colours of procedural or background boxes. Every kept image was inspected at full size.",
+  "baselineCommit": "03aec30a0388aeebea711ec55353165399647883",
+  "candidatesCaptured": 116,
+  "rejected": [
+    {
+      "ids": [
+        "context-northwest",
+        "aerial-r03-c08",
+        "aerial-r05-c01",
+        "aerial-r14-c08",
+        "aerial-r14-c09",
+        "aerial-r14-c10",
+        "aerial-r13-c07"
+      ],
+      "reason": "only a roof / facade colour of a procedural or background box differs (re-rolled tint), no geometry or material-class change"
+    },
+    {
+      "ids": [
+        "aerial-r07-c05",
+        "aerial-r07-c04",
+        "aerial-r08-c03",
+        "aerial-r12-c10",
+        "aerial-r06-c05",
+        "aerial-r12-c09",
+        "aerial-r11-c08",
+        "aerial-r07-c06",
+        "aerial-r11-c07",
+        "aerial-r13-c11",
+        "aerial-r09-c06",
+        "aerial-r13-c10",
+        "aerial-r09-c10",
+        "aerial-r06-c04",
+        "aerial-r06-c03",
+        "aerial-r05-c07",
+        "aerial-r04-c08",
+        "aerial-r06-c02",
+        "aerial-r13-c08",
+        "aerial-r13-c09"
+      ],
+      "reason": "only parked cars, tree crowns or a median surface differ (or nothing visible)"
+    }
+  ],
+  "notRetaken": "Every other pose: no visible change between the 03aec30a and 2b1a2511 renders at the same pose, or only the differences listed under rejected."
+}

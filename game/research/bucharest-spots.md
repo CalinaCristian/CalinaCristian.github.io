@@ -645,3 +645,109 @@ Old Town walk scene (spot `old-town-lipscani`, served with lane buc-spots' overl
 44.4319, 26.097074 heading 286 the CEC central dome and a corner dome show above the cornice as in the panorama; the
 CEC limestone reads grey-white where the real stone is warm cream. History Museum (mnir): from 44.4319, 26.097074
 heading 150 the real view shows the south pavilion dome above the colonnade; the game frame shows no dome (open).
+
+## 10. North scenes, round 3 (2026-11-13): Herăstrău, Village Museum, Arcul de Triumf, Spring Palace
+
+Official Street View panoramas found with the coverage metadata lookup (photometa z17 tiles), looked at next to game renders
+from the same position and bearing (reference only; nothing stored, traced or measured from them): Bd. Primăverii by the
+UN House (44.468815, 26.091417), the arch from the south (44.466984, 26.078359), north (44.467656, 26.077879), east
+(44.467132, 26.078782), Kiseleff south of the arch (44.466061, 26.078638), Charles de Gaulle entrance (44.466759,
+26.085790), Kiseleff at the Village Museum (44.471548, 26.076127; 44.472284, 26.075721), Kiseleff on the Casa Presei axis
+(44.475032, 26.074000). No official coverage within 230 m of the Herăstrău south shore, the Japanese garden or inside the
+Village Museum. Live OSM: the OSM API extract of 2026-11-12 (`r2/buc-spots-b/live`).
+
+| Feature | Result |
+| --- | --- |
+| Arcul de Triumf inscriptions | Texts from Romanian Wikipedia, "Arcul de Triumf din București", section "Arhitectura monumentului" (accessed 2026-11-13; no footnote there): south "DUPĂ SECOLE DE SUFERINȚE … CU AJUTORUL ÎNTREGII NAȚIUNI ȘI GÂNDUL REGINEI MARIA", north "LIBERATOR DE NEAM … DUPĂ ÎNCORONAREA LA ALBA-IULIA", east "GLORIE CELOR CE PRIN LUMINA MINTEI ȘI PUTEREA SUFLETULUI AU PREGĂTIT UNITATEA NAȚIONALĂ", west "GLORIE CELOR CE PRIN VITEJIA ȘI PRIN JERTFA LOR DE SÂNGE AU ÎNFĂPTUIT UNITATEA NAȚIONALĂ" (full wording in `arcul-de-triumf.js` and findings for landmarks). The scene quotes them at its four read-points (the old scene texts were unsourced; east / west read-points were swapped and are fixed). Street View was only looked at (long bands of small capitals on the long faces); no text was taken from it. Line breaks of the carved bands are unsourced |
+| Arcul lamps | Kiseleff: light grey poles with one curved arm and a disc head; the roundabout has tall multi-head masts. The "dark double-arm columns" of the round-1 note were not seen. Single-arm style kept, colour corrected to light grey; the masts are not modelled |
+| Japanese garden (w28342074) | Live OSM maps only a dog park (w274448991) and a footway (w339802841) inside: no water, no bridge. The invented centroid pond and red arched bridge are removed; the stone lanterns (dossier description) stay at estimated positions clear of the dog park and the footway; the cherries stay an estimated scatter |
+| Herăstrău shore | The south shore is the mapped asphalt promenade w370524819 (painted); the water edge's real look is unseen (no panorama) |
+| Charles de Gaulle entrance | Panorama: wide asphalt forecourt, the bronze on a lawn island with a paved path and flower beds, closed woods behind. The game matches layout and position; flower beds not modelled; the park beyond is thinner than the real closed wood |
+| Kiseleff at the Village Museum | Panorama: plane-tree row on the verge, cycle track, dense wood; the museum gate is not visible from the mapped coverage. Game matches the class |
+| Casa Presei axis | The tower closes the Kiseleff axis in the panorama and in the game render (position confirmed; fainter in the game haze) |
+| Village Museum windmills | No `man_made=windmill` in OSM, no panorama inside: still not placed |
+| Park tree density | Herăstrău now keeps all 6,723 estimated trees (was thinned to 3,317) and Arcul all 3,221 (was 2,478); beyond the near 850 / 900 they are chunk-culled far trees, with an opt-in one-lump 26-triangle crown beyond 150 m from the walkable extents (`buc-green.js` `farCanopy({ lean })`). Positions stay labelled estimates |
+| UN House (w216674220, n12857652820) | Panorama: white modernist block, ground floor + three storeys + a set-back top floor with a railing, stacked rounded balconies on the corner toward the palace, gold "UN HOUSE" letters with an emblem over the ground floor, and on the pavement a grey stone base wall with dark green bar panels and green gates (the neighbouring lot has the same). New `scenes/nth-un-house.js`: footprint from OSM, letters from the OSM name; storey heights (3.8 + 3 × 3.1 + 3.0 m), balcony radius 2.5 m, the wall line (kerb + 3 m pavement) and gate positions are estimates. Rendered at the panorama pose: composition, balconies, letters and gates match; windows are drawn as continuous bands (reality: separate windows) |
+| Spring Palace grounds / villas | w38236017 is still the 4-node outline in live OSM; four mapped gate nodes in the extent are not in the spot data (builder); other villas / embassies stay generic |
+
+Budgets (spawn, four headings + an overview, max; quality high in the capture harness): Herăstrău 1,214k / 204 calls →
+1,357k / 214 (scene 668k → 769k unique); Village Museum 1,145k → 1,298k; Arcul 488k / 179 → 480k / 182 (scene 287k →
+288k); Spring Palace 554k / 188 → 559k / 195 (scene 291k → 294k). Spot audit z-fight pairs unchanged (109 / 112 / 0).
+
+## 11. Shopfront evidence rule, round 3 (2026-11-13; row buc-spots-b-7)
+
+`spots/osm.js` (hash-locked for Seattle) gives every urban building=yes over 7 m a glazed ground floor round its whole ring.
+`bucBackdrop` (`buc.js`) now passes the backdrop call copies in which a building=yes without evidence has a neutral kind
+(`shopfrontKinds`): evidence is a mapped front business (shop, craft, or a street-front amenity) inside or within 3 m of the
+outline, or an outline within 22 m of a trunk / primary / secondary centre line. The 22 m main-road part is a labelled rule of
+thumb from official panoramas: Calea 13 Septembrie blocks (7vLdZnH1rb0pRqmlF8cOTQ, HruNm9PDoDAxhtpKreQ8hw, 2024) have
+commercial ground floors that OSM does not map; the palace behind the Memorial of Rebirth (25.6 m from Calea Victoriei) and
+the rusticated stone building on Piața Revoluției 1 (0sGmssKDFO598LkYM63_-A) have none and are now plain. Blocks of flats are
+not promoted even where shops are mapped inside (Bd. Unirii 1–11): osm.js would glaze courtyard sides too, which the
+C. A. Rosetti courtyard gate panorama (5w_5zWZgygTjGfGECTsz-g) shows is wrong. Plain counts: Parliament 463, Athenaeum 168,
+Cișmigiu 255 building=yes outlines; Old Town opts out (`shopEvidence: false`).
+
+## 12. Old Town, Athenaeum, Parliament, Cișmigiu, round 3 (2026-11-13)
+
+Official panoramas (coverage lookup; dates from the metadata): Calea Victoriei at CEC / museum 2023-08 (44.43181, 26.09704;
+44.43137, 26.09688; 44.43238, 26.09701), Old Town 2022-10 (Lipscani at the BNR 44.43216, 26.09936 / 26.09985; Eugeniu Carada
+44.43299, 26.09897; Str. Franceză at Curtea Veche), Revolution Square / Calea Victoriei 47 / Piața George Enescu 2024–25.
+No official coverage within 90 m inside Cișmigiu (only 2012) or within 217 m of Parcul Catedralei.
+
+| Feature | Result |
+| --- | --- |
+| CEC / museum frontage | invented street trees removed on this stretch (OSM trees kept); landuse grass in front of both palaces now paved; CEC garden boundary w657976539 / w657976540 a turquoise railing on a stone kerb with the mapped gates; the museum's 10 OSM flagpoles. Railing / kerb heights estimated |
+| National Bank (w1210146218) | Lipscani front: no shopfront, 7-step stair, planted beds behind a spear-top railing (panorama 2022-10); façade style and the Doamnei colonnade still open |
+| Pasajul Macca–Vilacrosse | Eugeniu Carada portal (arch, iron-and-glass fanlight, stone surround); block r19924112 3 storeys per panorama; glass roof has no source part; Calea Victoriei ends mapped open but covered in 2023-08 |
+| Curtea Veche | 2022-10: ruins under a temporary roof behind site fencing; the game shows open ruins (owner decision) |
+| Hanul cu Tei | passage names Mom Art (n10775260927) and Cele Trei Grații (n10775962190) on boards; 2 storeys with iron-shuttered shops in the panorama vs OSM levels=4 (OSM kept) |
+| Indoor weather | fog cleared while the camera is inside a declared interior (`precip-shelter.js`); interior floors never took the snow tint |
+| Kretzulescu slab | building:part w1476833908 (31–31.5 m, no base): open sky in 2024 panoramas; not drawn, listed in `extras.sourceContradictions`; towers domed per OSM parts |
+| Car parks | 190 parked cars on the mapped aisles of w241119386, w239206890, w23556698 and neighbours (`scenes/ctr-parking.js`); bay layout estimated |
+| Revolution Square | Wall of Remembrance on w1454592908/909 (1.6 m, estimate); CC building white stone with giant columns, balcony at the recessed centre; fountain basin on w175449008 with jets at the 7 mapped nodes; Memorial Revoluție w996044652 a white marble wedge (size / orientation estimated); bronze group not in OSM |
+| Parliament venues | 25 name signs from live OSM names on Bd. Unirii / Calea 13 Septembrie (none tagged closed) |
+| Parliament hill | EU-DEM / SRTM / ASTER are surface models (palace and trees mask the ground): platform and lawns stay estimates |
+| Cișmigiu | Lacul Lebedelor r12837108 water with two islets and a stone edge, jet at w843007163; bridge deck widths from OSM outlines (Podul Mare 5.06 m), Podul de Nuc a flat beam deck (live OSM tag); the rink plaque moved from the lake onto the lakeside alley (84.3, 93.8) |
+
+Budgets (spawn, four headings + an overview, max frame; quality high): Athenaeum 712k / 145 calls → 1,228k / 151 (scene 380k →
+637k: the parked cars, ~1,360 triangles each plus their shadow pass); Parliament 1,169k → 1,157k; Cișmigiu 1,378k → 1,376k;
+Old Town 1,148k / 199 → 1,153k / 221; Stavropoleos-CEC 1,136k / 219 → 1,142k / 227. Z-fight entries / pairs unchanged
+(Parliament 71 / 397, Cișmigiu 7 / 37, Old Town 112 / 789) except Athenaeum 6 / 19 → 15 / 35: the 9 new entries are faces
+inside parked-car bodies 0.6 m apart that the audit's plane test matches by offset (`patches/index.js.patch`); with that fix
+the Athenaeum counts are 4 / 16 before and after.
+
+## 13. Spot data append, 2026-11-13 (round 3, lane builder)
+
+Tool: `tools/spots/append-osm-features.mjs` (no rebuild). Input: OSM API 0.6 element replies fetched 2026-11-12/13 (raw files
+not committed; SHA-256 digests in each scene's `osmAppend.runs[].inputs`). Rule for which scene gets an element: the scene's
+own Overpass extract box (`fetch-buc.mjs` `bboxOf`: research footprint + 260 m). Schema: `fetch-buc.mjs` `convert()` and the
+`build-data.mjs` per-feature mapping, so the rows are what a rebuild would write. Every other key and every pre-existing
+feature are unchanged (decoded comparison, `verify.cjs`).
+
+| scene | added (POIs) | removed | note |
+|---|---|---|---|
+| buc-old-town | n14360710671 Gelateria La Romania dal 1947, n14360710672 Pizza al taglio, n14360710673 Class shoes | n10775260921 Dunk Shop (OSM: deleted, HTTP 410) | w1471936597 Casa de Balet and w1472212055 Teatrul Zurli were already in the data as areas |
+| athenaeum-revolution | n14363552618 Crocante (fast_food) | – | outside the scene's sign area: no board |
+| cismigiu | waterfalls n8807086588 (artificial), n12065694916; viewpoints n2723650896, n8809102213 | – | unnamed: no scene draws them yet |
+| buc-herastrau | Village Museum houses n6815285188 "Casa Mastaacăn Neamț" (OSM spelling), n6815289695 "Casa Naruja, Vrancea" (named `building=house` nodes); playground n2791579390; viewpoints n2791530781, n2791530802 | – | data only |
+| arcul-de-triumf | playground n2791579390 | – | inside this scene's extract box too |
+| spring-palace | playground n6401707601; Kuwait embassy w781162166 (Bd. Primăverii 52, POI at its outline centroid) | – | board rendered on the villa at the grounds' centre |
+| buc-parliament | – | – | Senate gardens r19749443 already present as r19749443_0 / _1 |
+
+Kuwait: live OSM has two embassy objects, n5470974719 "Ambasada Kuweit" at Bd. Aviatorilor 94-96 (v4, 2022-01-09) and
+w781162166 "Ambasada Statului Kuwait" at Bd. Primăverii 52 (v4, 2022-09-21). Both stay (OSM decides; we do not delete a live
+object); which one is current is an OSM question.
+Street View: not compared this round (the shared browser pane stayed at its tab cap for the whole session). Official panoramas
+found for the comparison poses: Lipscani 76 `5US26vfoz6vYXxqBYx39Fg`, Crocante `f0oOqJVr3wubNTMbXgzffA`, Bd. Primăverii at the
+Kuwait embassy `SX8mIxs3UE94qbTFIlKK4g` (31 m).
+
+## 14. Round 3, lane builder (2026-11-13): spot tag enrichment
+
+Sources: live OSM (API 0.6 / Overpass, 2026-11-12/13; the round-2 map.json tiles of each district for the cached-source
+tools), official Street View panoramas looked at for appearance only (nothing stored, nothing extracted into data).
+
+Spot tag enrichment from live OSM (`tools/spots/enrich-osm-tags.mjs`): Spring Palace gates (11 `barrier=gate` nodes as
+`furniture.gate`), Cișmigiu bridges' bridge:structure / bridge:support / start_date (Podul de Nuc w1478446295: beam,
+abutment, 1859), Old Town min_height / description / start_date on 138 features, Athenaeum descriptions (Zidul amintirii).
+CEC garden trees (all Prunus persica 5 m in OSM vs mature 12–18 m trees in the 2023 pano) and w1476833908 (a part without a
+base) are OSM questions: unchanged.

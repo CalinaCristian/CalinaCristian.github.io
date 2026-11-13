@@ -1,0 +1,29 @@
+{
+  "district": "floreasca",
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "frames": 90,
+  "retakesInstalled": 4,
+  "retakenIds": [
+    "aerial-r06-c04",
+    "aerial-r05-c04",
+    "aerial-r07-c04",
+    "aerial-r10-c04"
+  ],
+  "untouchedItemsAndBytesPreserved": 86,
+  "archivedManifest": "historical/mixed-before-2b1a2511-f018ed93/manifest.json",
+  "archivedManifestSha256": "f018ed938f2acdc28ab0bae7218efcd83b88108d4085bd25518c935b961f615a",
+  "archivedItemsResolved": 90,
+  "sourceFilesVerifiedAgainstCommit": 540,
+  "atlasSourceCounts": {
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 6,
+    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 18,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
+    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 57,
+    "2b1a2511d6b8b521b409d55415b2eca9906cc305": 4,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
+    "9824fd56de3f0e420821e871436906186a80e493": 1
+  },
+  "allGroundPosesPreserved": true,
+  "sourceRevisionCorrections": [],
+  "failures": []
+}

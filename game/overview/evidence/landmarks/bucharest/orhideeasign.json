@@ -3,7 +3,7 @@
   "id": "orhideeasign",
   "city": "bucharest",
   "name": "Carrefour Orhideea",
-  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.444574,
@@ -29,13 +29,19 @@
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493",
       "label": "Fidelity pass round 2 (9824fd5), not yet published when captured",
       "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "label": "Fidelity pass round 3 (2b1a251), not yet published when captured",
+      "type": "implementation"
     }
   ],
   "sourceIds": [],
   "reviewedAt": "2026-11-12",
   "improvements": [
     "The west wall of Centrul Comercial Orhideea towards Sos. Orhideelor carries a red fascia band and a white panel with blue Carrefour lettering at the roof edge. The building stays its source footprint; only the band and the sign are this landmark.",
-    "Under the sign the west wall is a white panel wall with a broad red band, not a dark windowed front (panorama 44.444372, 26.061485, heading 70)."
+    "Under the sign the west wall is a white panel wall with a broad red band, not a dark windowed front (panorama 44.444372, 26.061485, heading 70).",
+    "The Orhideea building the sign sits on (w23557062) is now pale panels instead of dark shop glazing (round 3, district data), so the sign and band read against a light wall."
   ],
   "remainingGaps": [
     "Band height (6.6 m), panel size (27 × 4 m) and letter height are estimates from a street-level reference (viewed only); the real sign uses the brand logo, which is not reproduced.",
@@ -43,6 +49,31 @@
     "Band heights are estimates."
   ],
   "checks": [
+    {
+      "label": "Pictures recaptured at 2b1a251 (round 3)",
+      "passed": true,
+      "details": "Same in-world poses in Grozavesti as the 346f7986 and 9824fd56 pictures; the model is unchanged, its surroundings changed. Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 2b1a251 (game/src clean) on 2026-11-13: passed, 2158 checks over 74 models; this model 240 triangles, 0 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "In-world frame workload",
+      "passed": null,
+      "details": "front: 812,904 triangles / 179 draw calls; top: 367,973 triangles / 120 draw calls; oblique: 652,407 triangles / 180 draw calls. Recorded, not a budget acceptance."
+    },
+    {
+      "label": "Earlier checks below",
+      "passed": null,
+      "details": "The checks that follow were recorded for source 9824fd5 or earlier and were not re-run for this recapture."
+    },
     {
       "label": "Pictures recaptured at 9824fd5 (round 2)",
       "passed": true,
@@ -99,13 +130,13 @@
       "id": "front",
       "label": "In-world view from the car park, facing the west wall",
       "kind": "front",
-      "image": "assets/landmarks/orhideeasign/source-9824fd56/front.webp",
-      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
-      "sha256": "2e9f17750cafb435f51851c8499c81e2362ccf74803c294b95b23463e51b1a2a",
-      "bytes": 76088,
+      "image": "assets/landmarks/orhideeasign/source-2b1a2511/front.webp",
+      "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "sha256": "70fc8c3fa82640f6488ec5644ec46c3a66a5733aad278404ed99b30a23136add",
+      "bytes": 75508,
       "width": 1280,
       "height": 720,
-      "capturedAt": "2026-11-13T05:30:12.507Z",
+      "capturedAt": "2026-11-13T09:45:16.118Z",
       "encoding": "WebP quality 0.9 of the game canvas",
       "conditions": {
         "tod": "day",
@@ -116,7 +147,7 @@
         "note": "Season is the game default for the capture date (autumn foliage)."
       },
       "metrics": {
-        "triangles": 812973,
+        "triangles": 812904,
         "drawCalls": 179,
         "quality": "auto (high)"
       },
@@ -145,13 +176,13 @@
       "id": "top",
       "label": "In-world view straight down, north up",
       "kind": "top",
-      "image": "assets/landmarks/orhideeasign/source-9824fd56/top.webp",
-      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
-      "sha256": "1957bcd3a57957364b12c61f688d093b92a6032e9bba3702e2c216692a51e425",
-      "bytes": 129476,
+      "image": "assets/landmarks/orhideeasign/source-2b1a2511/top.webp",
+      "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "sha256": "fcc754e533ea26c7d9748acd137b47ad5c26b0fba8548d72dabe6d38d0fd68b7",
+      "bytes": 131646,
       "width": 1280,
       "height": 720,
-      "capturedAt": "2026-11-13T05:30:12.936Z",
+      "capturedAt": "2026-11-13T09:45:16.715Z",
       "encoding": "WebP quality 0.9 of the game canvas",
       "conditions": {
         "tod": "day",
@@ -162,7 +193,7 @@
         "note": "Season is the game default for the capture date (autumn foliage)."
       },
       "metrics": {
-        "triangles": 368083,
+        "triangles": 367973,
         "drawCalls": 120,
         "quality": "auto (high)"
       },
@@ -191,13 +222,13 @@
       "id": "oblique",
       "label": "In-world elevated view over the car park",
       "kind": "oblique",
-      "image": "assets/landmarks/orhideeasign/source-9824fd56/oblique.webp",
-      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
-      "sha256": "234418a2c8fdf0649b74144a71cb3dda539a37f73af317b8582577a00eadb144",
-      "bytes": 165854,
+      "image": "assets/landmarks/orhideeasign/source-2b1a2511/oblique.webp",
+      "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "sha256": "2a959fd3547c34fb1b87b01a3b25a1806ebc8a8633022967868eb6a13cb01938",
+      "bytes": 164632,
       "width": 1280,
       "height": 720,
-      "capturedAt": "2026-11-13T05:30:12.733Z",
+      "capturedAt": "2026-11-13T09:45:16.429Z",
       "encoding": "WebP quality 0.9 of the game canvas",
       "conditions": {
         "tod": "day",
@@ -208,7 +239,7 @@
         "note": "Season is the game default for the capture date (autumn foliage)."
       },
       "metrics": {
-        "triangles": 652964,
+        "triangles": 652407,
         "drawCalls": 180,
         "quality": "auto (high)"
       },
@@ -235,13 +266,13 @@
     }
   ],
   "perf": {
-    "triangles": 812973,
+    "triangles": 812904,
     "drawCalls": 180,
     "note": "Peak of the three in-world frames (whole district in view, quality auto/high); not a traffic or mirror budget run and not hardware FPS."
   },
   "sourceVerification": {
-    "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
-    "checkedAt": "2026-11-13T05:41:38.367Z"
+    "method": "Captured from a snapshot of 2b1a2511d6b8b521b409d55415b2eca9906cc305: `git archive 2b1a2511d6b8b521b409d55415b2eca9906cc305 game` extracted to a scratch directory and served by a no-store static server; key runtime and data files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T10:01:51.995Z"
   },
   "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes.",
   "historicalCollections": [
@@ -398,7 +429,161 @@
           }
         }
       ]
+    },
+    {
+      "id": "captures-9824fd56",
+      "label": "Pictures before fidelity pass round 3",
+      "status": "historical",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededBy": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "supersededAt": "2026-11-13T10:01:51.995Z",
+      "reason": "The model's surroundings changed in 9824fd56..2b1a2511 or earlier; these pictures keep their original source, dates and files.",
+      "perf": {
+        "triangles": 812973,
+        "drawCalls": 180,
+        "note": "Peak of the three in-world frames (whole district in view, quality auto/high); not a traffic or mirror budget run and not hardware FPS."
+      },
+      "captures": [
+        {
+          "id": "front",
+          "label": "In-world view from the car park, facing the west wall",
+          "kind": "front",
+          "image": "assets/landmarks/orhideeasign/source-9824fd56/front.webp",
+          "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+          "sha256": "2e9f17750cafb435f51851c8499c81e2362ccf74803c294b95b23463e51b1a2a",
+          "bytes": 76088,
+          "width": 1280,
+          "height": 720,
+          "capturedAt": "2026-11-13T05:30:12.507Z",
+          "encoding": "WebP quality 0.9 of the game canvas",
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "auto",
+            "clockOverride": "day",
+            "weatherOverride": "clear",
+            "note": "Season is the game default for the capture date (autumn foliage)."
+          },
+          "metrics": {
+            "triangles": 812973,
+            "drawCalls": 179,
+            "quality": "auto (high)"
+          },
+          "pose": {
+            "lat": 44.444662,
+            "lon": 26.061699,
+            "heading": 102.6,
+            "pitch": 8,
+            "cameraY": 1.89,
+            "cameraBaseY": 0.24,
+            "eyeAboveSurfaceM": 1.65,
+            "fov": 70,
+            "viewport": [
+              1280,
+              720
+            ],
+            "district": "grozavesti",
+            "worldXZ": [
+              198.6182005197103,
+              -384.7389839998851
+            ],
+            "frame": "Production district world (game/?inspect=1), free camera at a geographic pose as in game/dev/reality/capture.cjs; no simulation between shots, player rig hidden"
+          }
+        },
+        {
+          "id": "top",
+          "label": "In-world view straight down, north up",
+          "kind": "top",
+          "image": "assets/landmarks/orhideeasign/source-9824fd56/top.webp",
+          "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+          "sha256": "1957bcd3a57957364b12c61f688d093b92a6032e9bba3702e2c216692a51e425",
+          "bytes": 129476,
+          "width": 1280,
+          "height": 720,
+          "capturedAt": "2026-11-13T05:30:12.936Z",
+          "encoding": "WebP quality 0.9 of the game canvas",
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "auto",
+            "clockOverride": "day",
+            "weatherOverride": "clear",
+            "note": "Season is the game default for the capture date (autumn foliage)."
+          },
+          "metrics": {
+            "triangles": 368083,
+            "drawCalls": 120,
+            "quality": "auto (high)"
+          },
+          "pose": {
+            "lat": 44.444574,
+            "lon": 26.062252,
+            "heading": 0,
+            "pitch": -90,
+            "cameraY": 220.24,
+            "cameraBaseY": 0.24,
+            "eyeAboveSurfaceM": 220,
+            "fov": 40,
+            "viewport": [
+              1280,
+              720
+            ],
+            "district": "grozavesti",
+            "worldXZ": [
+              242.57012724535812,
+              -374.95936800009736
+            ],
+            "frame": "Production district world (game/?inspect=1), free camera at a geographic pose as in game/dev/reality/capture.cjs; no simulation between shots, player rig hidden"
+          }
+        },
+        {
+          "id": "oblique",
+          "label": "In-world elevated view over the car park",
+          "kind": "oblique",
+          "image": "assets/landmarks/orhideeasign/source-9824fd56/oblique.webp",
+          "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+          "sha256": "234418a2c8fdf0649b74144a71cb3dda539a37f73af317b8582577a00eadb144",
+          "bytes": 165854,
+          "width": 1280,
+          "height": 720,
+          "capturedAt": "2026-11-13T05:30:12.733Z",
+          "encoding": "WebP quality 0.9 of the game canvas",
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "auto",
+            "clockOverride": "day",
+            "weatherOverride": "clear",
+            "note": "Season is the game default for the capture date (autumn foliage)."
+          },
+          "metrics": {
+            "triangles": 652964,
+            "drawCalls": 180,
+            "quality": "auto (high)"
+          },
+          "pose": {
+            "lat": 44.44505,
+            "lon": 26.06105,
+            "heading": 119,
+            "pitch": -20,
+            "cameraY": 55.24,
+            "cameraBaseY": 0.24,
+            "eyeAboveSurfaceM": 55,
+            "fov": 55,
+            "viewport": [
+              1280,
+              720
+            ],
+            "district": "grozavesti",
+            "worldXZ": [
+              147.03628289781082,
+              -427.8581999999899
+            ],
+            "frame": "Production district world (game/?inspect=1), free camera at a geographic pose as in game/dev/reality/capture.cjs; no simulation between shots, player rig hidden"
+          }
+        }
+      ]
     }
   ],
-  "recapturedAt": "2026-11-13T05:41:38.367Z"
+  "recapturedAt": "2026-11-13T10:01:51.995Z"
 }

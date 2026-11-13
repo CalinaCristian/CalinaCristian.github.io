@@ -101,3 +101,11 @@ Street View comparison (reference only, nothing stored), same position and beari
 - Pipera, 169 Calea Floreasca (Floreasca Tower) and Grozăvești, 6 Bd. Iuliu Maniu (The Light One): glass office towers; no tenant name dominates the facade at street level.
 
 Not compared: every other appended POI (881 of 894, all eight districts).
+
+## Round 3, lane builder (2026-11-13)
+
+Sources: live OSM (API 0.6 / Overpass, 2026-11-12/13; the round-2 map.json tiles of each district for the cached-source
+tools), official Street View panoramas looked at for appearance only (nothing stored, nothing extracted into data).
+
+Germag n5862008006 (`shop=yes`, named): appended (named `shop=yes` is now a shop class); pano wEy2ri9fhmOq0iOEkX5jIg shows
+the GERMAG shop front on that block at Bd. Banu Manta 2.

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "Bellevue aerial comparisons",
   "generatedDate": "2026-11-13",
-  "generatedAt": "2026-11-13T05:32:38.637Z",
+  "generatedAt": "2026-11-13T09:59:23.121Z",
   "defaultTile": "aerial-r04-c09",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -1807,16 +1807,19 @@
       "coverageType": "core-touches",
       "orientation": "north-up",
       "places": [],
-      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 90,
-        "triangles": 191548
+        "drawCalls": 91,
+        "triangles": 198467,
+        "renderMs": 1.3000000000465661,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 149
       },
       "renderer": {
         "width": 640,
@@ -1826,16 +1829,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T02:08:38.399Z",
-      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r03-c05.png",
-      "image": "retakes/signs-8add95f3/atlas/aerial-r03-c05.png",
-      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r03-c05.png",
-      "sha256": "ea384ea24252a5577932c6a6544618b35ac5a708d46acd3e9a3397bcb3b5d867",
+      "capturedAt": "2026-11-13T09:59:02.805Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r03-c05.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r03-c05.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r03-c05.jpg",
+      "sha256": "65bdbf378b4520249ff5f69ca6f5a998f967a1f3f40fdc989acbe454e7f6b951",
       "width": 640,
       "height": 640,
-      "captureWallMs": 2138,
+      "captureWallMs": 347,
       "dataset": "atlas",
-      "thumbnailSha256": "ea384ea24252a5577932c6a6544618b35ac5a708d46acd3e9a3397bcb3b5d867",
+      "thumbnailSha256": "6f37d254cec77417e4956cc52beba21d6a05d6ea1e28ebca6ab66ba5c5acaaf7",
       "captureType": "game-topdown",
       "boundsWgs84": [
         47.61899915415902,
@@ -1843,9 +1846,9 @@
         47.62124873123852,
         -122.19833144393485
       ],
-      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json",
-      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
-      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "reviewSourceManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/paired-review.json",
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (Bellevue Place base drawn as brick with windows (was dark glass)); prior collection archived.",
       "district": "bellevue"
     },
     {
@@ -2623,16 +2626,19 @@
       "places": [
         "lincoln-source-anchor"
       ],
-      "gameSourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 102,
-        "triangles": 170531
+        "drawCalls": 103,
+        "triangles": 181469,
+        "renderMs": 2.3999999999068677,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 149
       },
       "renderer": {
         "width": 640,
@@ -2642,15 +2648,15 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T02:57:08.002Z",
-      "gamePath": "retakes/mall-7593b636/atlas/aerial-r04-c05.png",
-      "image": "retakes/mall-7593b636/atlas/aerial-r04-c05.png",
-      "thumbnail": "retakes/mall-7593b636/atlas/aerial-r04-c05.png",
-      "sha256": "acad8db5256138cfc6db7682a4453aa002b55b586d368dce84c0770b2d3df608",
+      "capturedAt": "2026-11-13T09:59:07.383Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r04-c05.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r04-c05.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r04-c05.jpg",
+      "sha256": "aab61c61b4759099734fc6b3d1d9c2373a10c2eb2a2c122b1802a2e288605dc9",
       "width": 640,
       "height": 640,
       "dataset": "atlas",
-      "thumbnailSha256": "acad8db5256138cfc6db7682a4453aa002b55b586d368dce84c0770b2d3df608",
+      "thumbnailSha256": "88a39fc5b4f542c933a5b8a5935e7a06d0baf3bee898f708acb5d4db3297fe4a",
       "captureType": "game-topdown",
       "boundsWgs84": [
         47.61674957707951,
@@ -2658,10 +2664,11 @@
         47.61899915415902,
         -122.19833144393485
       ],
-      "sourceCaptureManifest": "retakes/mall-7593b636/atlas-capture.json",
-      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
-      "sourceNote": "Current native recapture after source mall envelope and entrance correction.",
-      "district": "bellevue"
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "reviewSourceManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/paired-review.json",
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (covered skybridges to the West Parking Garage); prior collection archived.",
+      "district": "bellevue",
+      "captureWallMs": 463
     },
     {
       "id": "aerial-r04-c06",
@@ -3443,16 +3450,19 @@
         -250,
         0
       ],
-      "gameSourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 99,
-        "triangles": 131952
+        "drawCalls": 100,
+        "triangles": 140734,
+        "renderMs": 0.8000000000465661,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 149
       },
       "renderer": {
         "width": 640,
@@ -3462,15 +3472,15 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T02:57:15.853Z",
-      "gamePath": "retakes/mall-7593b636/atlas/aerial-r05-c05.png",
-      "image": "retakes/mall-7593b636/atlas/aerial-r05-c05.png",
-      "thumbnail": "retakes/mall-7593b636/atlas/aerial-r05-c05.png",
-      "sha256": "6a88c089349aaa9d582cb385335df8b71775e2a4be30793728d07cf7163cdf47",
+      "capturedAt": "2026-11-13T09:59:11.548Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r05-c05.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r05-c05.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r05-c05.jpg",
+      "sha256": "e7c9621e7a963a5c92ae3866916fdb0fb87ca41650e227e6940d4bdea377f76a",
       "width": 640,
       "height": 640,
       "dataset": "atlas",
-      "thumbnailSha256": "6a88c089349aaa9d582cb385335df8b71775e2a4be30793728d07cf7163cdf47",
+      "thumbnailSha256": "e93e9a0a61d8187d5535bb7b9aeab45f32509eb35e89293d36ffa754835fbb90",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.6145,
@@ -3484,9 +3494,10 @@
         "onelincoln-source-anchor",
         "lincolnsouth-source-anchor"
       ],
-      "sourceNote": "Current native recapture after source mall envelope and entrance correction.",
-      "sourceCaptureManifest": "retakes/mall-7593b636/atlas-capture.json",
-      "district": "bellevue"
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (fountain basin drawn as water); prior collection archived.",
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "district": "bellevue",
+      "captureWallMs": 410
     },
     {
       "id": "aerial-r05-c06",
@@ -4264,13 +4275,13 @@
         0,
         250
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 102,
-        "triangles": 211979,
-        "renderMs": 5.800000004470348,
+        "drawCalls": 104,
+        "triangles": 148629,
+        "renderMs": 1.099999999976717,
         "quality": "high"
       },
       "traffic": {
@@ -4286,16 +4297,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:23:35.899Z",
-      "gamePath": "images/aerial-r06-c06.jpg",
-      "image": "images/aerial-r06-c06.jpg",
-      "thumbnail": "thumbs/aerial-r06-c06.jpg",
-      "sha256": "0e51d47f995b286340406ae824b5c8177945f0e5204876e12a92553940d9e117",
+      "capturedAt": "2026-11-13T09:59:15.935Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r06-c06.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r06-c06.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r06-c06.jpg",
+      "sha256": "24bfc4a64606c11020980ffaa40db2bbd2e3729b3e13837841258e29217fbe56",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5402,
+      "captureWallMs": 343,
       "dataset": "atlas",
-      "thumbnailSha256": "9728c89f0a739101276711a5773b9dcf135d621b3660dd4f5928f4101067c78a",
+      "thumbnailSha256": "1b0a70702c33da8c4de0c73c0f99ddf13e3065a49d8813e37683250d9c5b5164",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.61225042292049,
@@ -4308,8 +4319,8 @@
       "places": [
         "bellevuetowers-source-anchor"
       ],
-      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/c78a5f4/capture-manifest.json"
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (fountain basin drawn as water); prior collection archived.",
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json"
     },
     {
       "id": "aerial-r06-c07",
@@ -4811,13 +4822,13 @@
         -500,
         500
       ],
-      "gameSourceCommit": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 90,
-        "triangles": 180429,
-        "renderMs": 59.80000000447035,
+        "drawCalls": 91,
+        "triangles": 163308,
+        "renderMs": 1.5,
         "quality": "high"
       },
       "traffic": {
@@ -4833,16 +4844,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:58:48.293Z",
-      "gamePath": "images/aerial-r07-c04.jpg",
-      "image": "images/aerial-r07-c04.jpg",
-      "thumbnail": "thumbs/aerial-r07-c04.jpg",
-      "sha256": "cc16388b452edad67d248b496e985118543d16a805688da5e44a3de369612a56",
+      "capturedAt": "2026-11-13T09:59:18.373Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r07-c04.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r07-c04.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r07-c04.jpg",
+      "sha256": "8e20c80660ebe7545f8422b54ac74ca540152c5eca0bb347bbefef305cb2e3ca",
       "width": 640,
       "height": 640,
-      "captureWallMs": 6783,
+      "captureWallMs": 305,
       "dataset": "atlas",
-      "thumbnailSha256": "8d7b8b68f4b689fd6f2ece8f3ed2654ff13022e32f90e90828e47e9f1d675941",
+      "thumbnailSha256": "3f409f8be60836c5023c4c286f1e4d8255a3383ead4440fc5a6c6255a24b00c6",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.61000084584098,
@@ -4854,8 +4865,8 @@
       "orientation": "north-up",
       "places": [],
       "posePlanSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
-      "sourceNote": "Targeted canal retake 338300a9. Original full c78a5f4 atlas is archived separately.",
-      "sourceCaptureManifest": "retakes/338300a9/manifest.json"
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (fountain basin drawn as water); prior collection archived.",
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json"
     },
     {
       "id": "aerial-r07-c05",
@@ -5880,7 +5891,7 @@
   ],
   "locationId": "bellevue",
   "captureType": "mixed-source-survey",
-  "description": "Mixed-source technical atlas: 13 poses retaken on 2026-11-13 at 9824fd56 (Link 2 Line elevated guideway over I-405; car parks as clad/louvred decks); all other images retain their recorded sources and dates.",
+  "description": "Mixed-source technical atlas: 5 poses retaken on 2026-11-13 at 2b1a2511 (skybridges, Bellevue Place base, fountain basins); all other images retain their recorded sources and dates.",
   "coverageNote": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
   "review": {
     "atlasFramesReviewed": 82,
@@ -6539,17 +6550,18 @@
       }
     ],
     "acceptanceNote": "Complete capture/review coverage with the targeted canal correction. Source height, roof, terrain, facade, occupancy, date and sparse outer-detail limits remain. Native control evidence is separate.",
-    "targetedRetakeReview": "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
+    "targetedRetakeReview": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/paired-review.json",
     "structureRetakeReview": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
     "structureRetakeSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
     "structureRetakesReviewed": 5,
     "currentAtlasSourceCounts": {
-      "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 60,
+      "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 59,
       "9824fd56de3f0e420821e871436906186a80e493": 13,
-      "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
-      "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d": 4,
+      "8add95f35681eddaf01a136ff1f5769a5329b102": 1,
+      "2b1a2511d6b8b521b409d55415b2eca9906cc305": 5,
+      "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d": 2,
       "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
-      "338300a95a79a2cabf3d7256ff745c6a1bac0372": 2
+      "338300a95a79a2cabf3d7256ff745c6a1bac0372": 1
     },
     "priorCompleteReview": {
       "manifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/manifest.json",
@@ -6561,7 +6573,8 @@
     "priorTargetedRetakeReview": "retakes/338300a9/paired-review.json",
     "structureRetakeReviewedAt": "2026-11-09T02:11:54.817511+00:00",
     "earlierTargetedRetakeReviews": [
-      "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json"
+      "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+      "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json"
     ]
   },
   "reviewNote": "Sign-affected current game captures inspected at full size; source/aerial comparisons retain their historical scope. No district fidelity acceptance.",
@@ -6570,6 +6583,7 @@
       "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
       "9824fd56de3f0e420821e871436906186a80e493",
       "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
       "07cc3d6bcefe90967c5bde3af2237dab4b972705",
       "338300a95a79a2cabf3d7256ff745c6a1bac0372"
@@ -6577,7 +6591,7 @@
     "streetWalk": "4198996ab142e3496c9224478eb8cd1aced676fb"
   },
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 13 poses retaken on 2026-11-13 at 9824fd56 (Link 2 Line elevated guideway over I-405; car parks as clad/louvred decks); all other images retain their recorded sources and dates.",
+    "atlas": "Mixed-source technical atlas: 5 poses retaken on 2026-11-13 at 2b1a2511 (skybridges, Bellevue Place base, fountain basins); all other images retain their recorded sources and dates.",
     "streetWalk": "Immutable source 4198996. Every available comparison pose, game image only. Reference imagery remains outside git; official reference URLs and dates are retained. Camera season follows reference metadata month. These426 GAME frames are completed historical4198996 evidence, with22unresolved camera altitude comparisons. They are retained separately from the currentc78a5f4 aerial/native source and never relabelled as that newer runtime."
   },
   "aerial": {
@@ -6589,12 +6603,13 @@
     "extent": "250 m ground-plane square, north-up; elevated roofs project larger under the perspective camera."
   },
   "atlasSourceCounts": {
-    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 60,
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 59,
     "9824fd56de3f0e420821e871436906186a80e493": 13,
-    "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
-    "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d": 4,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 1,
+    "2b1a2511d6b8b521b409d55415b2eca9906cc305": 5,
+    "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d": 2,
     "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
-    "338300a95a79a2cabf3d7256ff745c6a1bac0372": 2
+    "338300a95a79a2cabf3d7256ff745c6a1bac0372": 1
   },
   "sourceCaptureManifest": {
     "path": "capture-manifest.json",
@@ -6723,6 +6738,15 @@
       "sourceProvenance": "retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
       "sourceProvenanceSha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b",
       "frames": 13
+    },
+    {
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "treeSha256": "e0f6d269e2f5186247021c2a0b9f3286489f749e48235e8a55bdaa73ade1f636",
+      "manifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "manifestSha256": "05a3c1bb66388c0bbfbd16ac19bd2e59ea909cb2e2cf34ac1bf44f4f9be91030",
+      "sourceProvenance": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/source-provenance.json",
+      "sourceProvenanceSha256": "ded825b46df601ef23bcabc110f65d2116d77929dc3a461a1434d4e738117ab6",
+      "frames": 5
     }
   ],
   "sourceCompatibility": {
@@ -6776,6 +6800,22 @@
         "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 68,
         "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
         "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d": 9,
+        "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
+        "338300a95a79a2cabf3d7256ff745c6a1bac0372": 2
+      },
+      "captureType": "mixed-source-survey"
+    },
+    {
+      "manifest": "historical/mixed-before-2b1a2511-255ba510/manifest.json",
+      "label": "Atlas before the 2b1a251 retake (skybridges, Bellevue Place base, fountain basins)",
+      "frames": 82,
+      "generatedAt": "2026-11-13T05:32:38.637Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 60,
+        "9824fd56de3f0e420821e871436906186a80e493": 13,
+        "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
+        "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d": 4,
         "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
         "338300a95a79a2cabf3d7256ff745c6a1bac0372": 2
       },

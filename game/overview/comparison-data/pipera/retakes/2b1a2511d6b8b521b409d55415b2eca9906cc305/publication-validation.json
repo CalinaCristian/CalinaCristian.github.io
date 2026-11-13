@@ -1,0 +1,26 @@
+{
+  "district": "pipera",
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "frames": 133,
+  "retakesInstalled": 1,
+  "retakenIds": [
+    "aerial-r05-c05"
+  ],
+  "untouchedItemsAndBytesPreserved": 132,
+  "archivedManifest": "historical/mixed-before-2b1a2511-b07a53ac/manifest.json",
+  "archivedManifestSha256": "b07a53acd7a85f20e38b1db72f418a86cc502c1dc684a0600608d91012da1974",
+  "archivedItemsResolved": 133,
+  "sourceFilesVerifiedAgainstCommit": 540,
+  "atlasSourceCounts": {
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 91,
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
+    "2b1a2511d6b8b521b409d55415b2eca9906cc305": 1,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
+    "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 34,
+    "9824fd56de3f0e420821e871436906186a80e493": 2
+  },
+  "allGroundPosesPreserved": true,
+  "sourceRevisionCorrections": [],
+  "failures": []
+}

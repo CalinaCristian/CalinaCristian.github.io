@@ -1,0 +1,291 @@
+{
+  "schemaVersion": 1,
+  "title": "unirii aerial comparisons",
+  "generatedDate": "2026-11-13",
+  "generatedAt": "2026-11-13T09:47:51.318Z",
+  "defaultTile": "aerial-r07-c04",
+  "tileMetres": 250,
+  "orientation": "north-up",
+  "atlasScopeCounts": {
+    "ring-touches": 66,
+    "core-touches": 26,
+    "outside-ring": 6
+  },
+  "publishedBaseline": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "capture": {
+    "startedAt": "2026-11-13T09:47:03.514Z",
+    "endedAt": "2026-11-13T09:47:51.318Z",
+    "elapsedSeconds": 47.804,
+    "source": "e0f6d269e2f5186247021c2a0b9f3286489f749e48235e8a55bdaa73ade1f636",
+    "loaded": {
+      "key": "bucharest-unirii",
+      "city": "bucharest",
+      "district": "unirii",
+      "ms": 4879,
+      "edges": 1274,
+      "ribbons": 1597
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "frameCounts": 3,
+    "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+    "scopeCounts": {
+      "ring-touches": 66,
+      "core-touches": 26,
+      "outside-ring": 6
+    },
+    "candidateFramesCaptured": 98,
+    "note": "One capture run over every atlas pose of the district; only the reviewed changed tiles are kept here. Tool: tools/aerial/capture-game-grid.cjs (unmodified, sha256 329f0d5e83d2581771f0f3d40975a0352cfa5c13b2d61189597f69026429cefd)."
+  },
+  "locations": [
+    {
+      "id": "unirii-start",
+      "label": "Unirii chapter start",
+      "lat": 44.426927,
+      "lon": 26.100981,
+      "source": "game/src/cities.js:CHAPTERS.gts.start",
+      "kind": "chapter-start",
+      "tileId": "aerial-r07-c04"
+    },
+    {
+      "id": "fountains",
+      "label": "Piața Unirii fountains",
+      "lat": 44.4268,
+      "lon": 26.1025,
+      "source": "game/src/landmarks.js:ANCHOR.fountains; mapped water and fountain records",
+      "kind": "landmark",
+      "tileId": "aerial-r07-c04"
+    },
+    {
+      "id": "unirea",
+      "label": "Unirea Shopping Center",
+      "lat": 44.4280154,
+      "lon": 26.1048886,
+      "source": "game/src/landmarks.js:ANCHOR.unirea; OSM w23492027",
+      "osm": "way/23492027",
+      "kind": "landmark",
+      "tileId": "aerial-r06-c05"
+    },
+    {
+      "id": "gts",
+      "label": "GTS chapter destination",
+      "lat": 44.433369,
+      "lon": 26.1176015,
+      "source": "game/src/landmarks.js:ANCHOR.gts; OSM w245117704",
+      "osm": "way/245117704",
+      "kind": "cv-stop",
+      "tileId": "aerial-r04-c09"
+    },
+    {
+      "id": "halatraian",
+      "label": "Hala Traian",
+      "lat": 44.4333566,
+      "lon": 26.120567,
+      "source": "game/src/landmarks.js:ANCHOR.halatraian; OSM w35147215",
+      "osm": "way/35147215",
+      "kind": "landmark",
+      "tileId": "aerial-r04-c10"
+    },
+    {
+      "id": "parliament",
+      "label": "Palace of Parliament context",
+      "lat": 44.4275038,
+      "lon": 26.0874035,
+      "source": "game/src/landmarks.js:ANCHOR.parliament; OSM r2230391/w232360843/w283976783",
+      "kind": "skyline",
+      "tileId": "context-parliament"
+    },
+    {
+      "id": "cathedral",
+      "label": "National Cathedral distant context",
+      "lat": 44.4259297,
+      "lon": 26.0822981,
+      "source": "game/src/landmarks.js:ANCHOR.cathedral; exact declared source identities in landmark-source-identities.js",
+      "kind": "skyline",
+      "tileId": "context-cathedral"
+    }
+  ],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "boundarySource": "boundary-source.json",
+  "items": [
+    {
+      "id": "aerial-r02-c09",
+      "label": "Row 2 · Column 9",
+      "row": 2,
+      "column": 9,
+      "lat": 44.437573519778276,
+      "lon": 26.116862157926278,
+      "x": 625.000000000091,
+      "z": -874.9999999997133,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "ring-touches",
+      "sourceRingMinDistanceM": 149.92479999935313,
+      "boundsXZ": [
+        500,
+        -1000,
+        750,
+        -750
+      ],
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 88,
+        "triangles": 323821,
+        "renderMs": 2,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 306
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T09:47:15.056Z",
+      "gamePath": "images/aerial-r02-c09.jpg",
+      "image": "images/aerial-r02-c09.jpg",
+      "thumbnail": "thumbs/aerial-r02-c09.jpg",
+      "sha256": "260c93f875e4027c5958a5d9ed2d65b53557bf6ee9c3128983c1d1f846e5c2a5",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 380,
+      "dataset": "atlas",
+      "thumbnailSha256": "9b28906c4ad8b61a3c9a87d77e27bfecae7ffeadade2177b1b92c82be79b6b01",
+      "retakeReason": "fountain basin in the roundabout garden"
+    },
+    {
+      "id": "aerial-r03-c05",
+      "label": "Row 3 · Column 5",
+      "row": 3,
+      "column": 5,
+      "lat": 44.43532394269877,
+      "lon": 26.104282705244238,
+      "x": -374.99999999994156,
+      "z": -625.0000000003593,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "ring-touches",
+      "sourceRingMinDistanceM": 307.88422796416864,
+      "boundsXZ": [
+        -500,
+        -750,
+        -250,
+        -500
+      ],
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 97,
+        "triangles": 443356,
+        "renderMs": 1.300000011920929,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 306
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T09:47:17.481Z",
+      "gamePath": "images/aerial-r03-c05.jpg",
+      "image": "images/aerial-r03-c05.jpg",
+      "thumbnail": "thumbs/aerial-r03-c05.jpg",
+      "sha256": "9104865de854425b9e5c8f2747c63c43db88fb5fcd28ca50d0b1243d89a4d61c",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 389,
+      "dataset": "atlas",
+      "thumbnailSha256": "f7e5480b43f071d366eceb19b0e3793a83ffe2e556fb05022059683390122356",
+      "retakeReason": "courtyard / garden fountain basins drawn as water"
+    },
+    {
+      "id": "aerial-r04-c05",
+      "label": "Row 4 · Column 5",
+      "row": 4,
+      "column": 5,
+      "lat": 44.43307436561926,
+      "lon": 26.104282705244238,
+      "x": -374.99999999994156,
+      "z": -375.00000000021555,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "ring-touches",
+      "sourceRingMinDistanceM": 98.62455780380662,
+      "boundsXZ": [
+        -500,
+        -500,
+        -250,
+        -250
+      ],
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 109,
+        "triangles": 577024,
+        "renderMs": 2.5,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 306
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T09:47:22.356Z",
+      "gamePath": "images/aerial-r04-c05.jpg",
+      "image": "images/aerial-r04-c05.jpg",
+      "thumbnail": "thumbs/aerial-r04-c05.jpg",
+      "sha256": "203e115ff15a2faebf0e7dcb15762c99d7da6f1cae646e3354624b00780f9f73",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 653,
+      "dataset": "atlas",
+      "thumbnailSha256": "81aa37950c61e49030bd7b5ad65bfbd7728676ad6c7784bd103d6b01e4db41d2",
+      "retakeReason": "courtyard / garden fountain basins drawn as water"
+    }
+  ]
+}

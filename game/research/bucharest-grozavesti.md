@@ -638,3 +638,14 @@ Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
     the platforms (Basarab structures are not changed here).
   - Covered platforms w620826242 / w620826243 (Pasajul Basarab tram station): rendered from above the deck (770, 25, -930):
     the glazed barrel canopy stands over both platforms.
+
+## Backlog clearing (2026-11-13)
+
+- **Brico Dépôt / Altex** (w247015071, backlog r3-landmarks-2): `game/src/facade-bands.js` draws the red fascia band round
+  the top of the box (1.5 m deep, 0.4 m under the eaves) and the red Altex front on the south-east corner (the ring corner
+  nearest the Altex POI 44.448203, 26.062284), 16 m along each of its two walls, from the top of the drawn shopfront glazing
+  (4.2 m) to the eaves. Estimates: band depth, front width and the glazing line; colours and placement from the panoramas
+  44.447216, 26.061955 h 0 and 44.448422, 26.062576 h 270.
+- **Centrul Comercial Orhideea entrance canopy** (w23557062, backlog r3-landmarks-2). Estimate, not drawn: the red canopy at
+  the north-west end (pano 44.444372, 26.061485 h 25) has no OSM outline or height, and its size cannot be measured from a
+  panorama without tracing it.

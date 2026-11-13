@@ -23,6 +23,12 @@ export const BRAND_REVIEW = {
         // the pack had red / white / green
         dona: { colours: ['#1B9AA0', '#FFFFFF', '#FFFFFF', 'Farmacia DONA'], evidence: 'panorama NWuTtHcsu_MBJEKTpucUsA (44.459775, 26.100274) heading 1' },
         'farmacia dona': { colours: ['#1B9AA0', '#FFFFFF', '#FFFFFF'], evidence: 'same store as `dona`' },
+        // floreasca-11: Str. Ceaikovski 9, three unbranded fascias side by side (round 2 street-level comparison, panoramas of
+        // May 2024, bucharest-floreasca.md): black / black / beige boards where the game drew its generic dark slate; letter
+        // colours are estimates (white on black, dark brown on beige)
+        'roll master': { colours: ['#151515', '#FFFFFF', '#FFFFFF'], add: true, evidence: 'round 2 comparison, Str. Ceaikovski 9 (May 2024 panorama)' },
+        burgerati: { colours: ['#151515', '#FFFFFF', '#FFFFFF'], add: true, evidence: 'round 2 comparison, Str. Ceaikovski 9 (May 2024 panorama)' },
+        chocoloco: { colours: ['#E3D3B4', '#3B2A1E', '#3B2A1E'], add: true, evidence: 'round 2 comparison, Str. Ceaikovski 9 (May 2024 panorama), striped awning not drawn' },
     },
 };
 

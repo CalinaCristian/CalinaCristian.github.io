@@ -58,7 +58,7 @@ export const BUILDING_REVIEW = {
     // (round 3, 2026-11-13) official panoramas on Calea Floreasca: 44.460443, 26.101023 h 240; 44.461341, 26.101235 h 262;
     // 44.462811, 26.101521 h 265; 44.454184, 26.100804 h 40
     'bucharest-floreasca': {
-        w34832556: { h: 9, levels: 2, style: 'glass', note: 'Piața Floreasca / Agora (Calea Floreasca 111-113): two-storey light glass curtain-wall front with hedges and terraces (drawn as a dark slatted 7.4 m shop box); the lower single-storey Banul Antonache side is part of the same footprint and is not split' },
+        w34832556: { h: 9, levels: 2, style: 'glass', colour: '#c5cacc', note: 'Piața Floreasca / Agora (Calea Floreasca 111-113): two-storey light glass curtain-wall front with hedges and terraces (drawn as a dark slatted 7.4 m shop box); the lower single-storey Banul Antonache side is part of the same footprint and is not split' },
         w245407579: { h: 27.5, levels: 8, style: 'glass', note: 'Nusco Floreasca 1 (Calea Floreasca 131-137, OSM building=office): blue-grey reflective glass tower, about six glazed storeys over a tall dark ground floor and a set-back top storey (drawn as an 11.6 m four-storey block); storey count from the street' },
         w39348919: { h: 7.5, levels: 2, style: 'interwar', colour: '#F1EFEA', note: 'Souk (Calea Floreasca 131B): low white two-storey building with a red band and a dark roof edge (drawn as a 12.6 m four-storey block)' },
         w245345976: { style: 'glass', note: 'Spitalul Euroclinic (Calea Floreasca 14A): modern glass and pale grey panel block, seen only from about 40 m (drawn as a beige eclectic house; OSM building:levels=7 kept)' },

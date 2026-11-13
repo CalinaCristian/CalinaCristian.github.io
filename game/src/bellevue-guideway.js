@@ -29,7 +29,12 @@ export const BELLEVUE_GUIDEWAY = {
     // [metres along w669516620, USGS 3DEP ground elevation m]; the first two are along the station tracks west of the bridge
     GROUND_M: [[-100, 41.2], [-50, 39.4], [0, 35.6], [50, 33.2], [100, 30.5], [150, 30.2], [200, 30.4], [250, 28.3], [300, 28.4], [350, 29.2], [400, 31.1], [450, 34.1], [500, 36.9], [550, 38.5], [600, 42.6], [650, 44.25],
         [700, 44.3], [750, 44.8], [800, 45.1], [850, 45.0], [900, 43.4], [950, 44.2], [1000, 43.6], [1050, 43.8], [1100, 44.9], [1144, 46.5]],
-    endTopM: 0.45, girderM: 2.2, outerHalfM: 2.6, pierEveryM: 34, pierMinTopM: 5.0,
+    endTopM: 0.45, girderM: 2.2, outerHalfM: 2.6, pierEveryM: 34, sharedM: 14, pierMinTopM: 5.0,
+    // (r2-world-b-guideway-colour) the span over I-405 has steel girders painted sage green (official panoramas 47.61504, -122.188416
+    // h60 and 47.616547, -122.184279 h180, round 2b); the rest of the structure is grey concrete. Metres along w669516620: OSM puts
+    // I-405 and its ramps between 141 and 221 m; the span ends are the nearest piers the game places outside them (estimate: the real
+    // pier positions are not mapped). The parapets stay concrete.
+    steelSpanM: [129, 232], steelCol: '#7f9a83',
 };
 
 const lerpTable = (T, s) => { if (s <= T[0][0]) return T[0][1]; for (let i = 1; i < T.length; i++) if (s <= T[i][0]) { const a = T[i - 1], b = T[i]; return a[1] + (b[1] - a[1]) * (s - a[0]) / (b[0] - a[0] || 1); } return T[T.length - 1][1]; };
@@ -68,10 +73,10 @@ const cumOf = (pts) => { const c = [0]; for (let i = 1; i < pts.length; i++) c.p
  * Returns { ways: Set of handled way ids, metres, piers, piersOmitted, maxTopM } (an audit record for world stats).
  */
 export function emitBellevueGuideway(env) {
-    const CON = env.rgb('#c4c1ba'), PIER = env.rgb('#bcb9b2'), RAIL = env.rgb('#6d7174'), WALL = env.rgb('#a9a6a0');
+    const CON = env.rgb('#c4c1ba'), PIER = env.rgb('#bcb9b2'), RAIL = env.rgb('#6d7174'), WALL = env.rgb('#a9a6a0'), STEEL = env.rgb(BELLEVUE_GUIDEWAY.steelCol);
     const G = BELLEVUE_GUIDEWAY, byId = new Map((env.railways || []).map(r => [r.id, r]));
     const line = (id) => { const r = byId.get(id); return r ? env.undelta(r.points, 0) : null; };
-    const mains = G.mains.map(line), out = { ways: new Set(), metres: 0, piers: 0, piersOmitted: 0, maxTopM: 0, railLevel: 'estimate (clearances over 112th Ave NE and NE 8th St + USGS 3DEP ground)' };
+    const mains = G.mains.map(line), out = { ways: new Set(), metres: 0, piers: 0, piersOmitted: 0, pierS: [], steelMetres: 0, maxTopM: 0, railLevel: 'estimate (clearances over 112th Ave NE and NE 8th St + USGS 3DEP ground)' };
     if (!mains[0] || !mains[1]) return out;
     const cum0 = cumOf(mains[0]), start = mains[0][0];
     // metres along the first main; west of its start (the station tracks) the distance from the start counts negative
@@ -90,13 +95,20 @@ export function emitBellevueGuideway(env) {
     };
     const emit = (id, pts, other, piers) => {
         const st = resample(pts, 8), N = st.length; if (N < 2) return;
+        // (r2-perf-3, visual QA flicker under the SeaTac guideway) the two mains share one deck while they are less than sharedM
+        // apart: round the station and the pocket track OSM spreads them 9.4 - 12 m, and with the old 9 m limit they had separate
+        // decks with inner parapets whose faces stood a few cm from the decks of the sidings / crossovers between them. Decks that
+        // overlap are not coplanar: the second main's inner edge overlaps the first by 4 cm and the sidings / crossovers lie on
+        // the mains' deck, so their top sits slightly lower and their soffit slightly higher and the first main's faces win.
+        const lift = id === G.mains[0] ? [0, 0] : id === G.mains[1] ? [-0.015, 0.04] : [-0.03, 0.08];
         const otherCum = other ? cumOf(other) : null;
         const S = st.map((p, i) => {
             const a = st[Math.max(0, i - 1)], b = st[Math.min(N - 1, i + 1)], L = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1, ux = (b[0] - a[0]) / L, uz = (b[1] - a[1]) / L, nx = uz, nz = -ux;
             let wl = G.outerHalfM, wr = wl, side = 0, half = 0;
-            if (other) { const q = nearestOn(other, otherCum, p[0], p[1]); if (q.d < 9) { side = (q.x - p[0]) * nx + (q.z - p[1]) * nz >= 0 ? 1 : -1; half = q.d / 2; if (side > 0) wl = half + 0.02; else wr = half + 0.02; } }
+            if (other) { const q = nearestOn(other, otherCum, p[0], p[1]); if (q.d < G.sharedM) { side = (q.x - p[0]) * nx + (q.z - p[1]) * nz >= 0 ? 1 : -1; half = q.d / 2; if (side > 0) wl = half + 0.02; else wr = half + 0.02; } }
             const top = bellevueRailTop(along(p[0], p[1]));
-            return { x: p[0], z: p[1], ux, uz, nx, nz, wl, wr, side, half, top, depth: top < G.pierMinTopM ? top - 0.02 : G.girderM };
+            const depth = top < G.pierMinTopM ? top - 0.02 : G.girderM;
+            return { x: p[0], z: p[1], ux, uz, nx, nz, wl, wr, side, half, top: top + lift[0], depth: depth + lift[0] - lift[1] };
         });
         let run = 0, nextPier = G.pierEveryM / 2;
         for (let i = 1; i < N; i++) {
@@ -104,14 +116,16 @@ export function emitBellevueGuideway(env) {
             run += L;
             if (!env.keep(mx, mz, L)) continue;
             const m = env.cellOf(mx, mz).solid, P = (s, w, y) => [s.x + s.nx * w, y, s.z + s.nz * w];
-            const fill = a.top < G.pierMinTopM, col = fill ? WALL : CON;
+            const fill = a.top < G.pierMinTopM, sMid = along(mx, mz), steel = !fill && sMid >= G.steelSpanM[0] && sMid <= G.steelSpanM[1], col = fill ? WALL : steel ? STEEL : CON;
+            if (steel) out.steelMetres += L;
             out.maxTopM = Math.max(out.maxTopM, a.top);
             quad(m, [P(a, a.wl, a.top), P(b, b.wl, b.top), P(b, -b.wr, b.top), P(a, -a.wr, a.top)], [0, 1, 0], CON);
-            if (!fill) quad(m, [P(a, a.wl, a.top - a.depth), P(b, b.wl, b.top - b.depth), P(b, -b.wr, b.top - b.depth), P(a, -a.wr, a.top - a.depth)], [0, -1, 0], CON);
+            if (!fill) quad(m, [P(a, a.wl, a.top - a.depth), P(b, b.wl, b.top - b.depth), P(b, -b.wr, b.top - b.depth), P(a, -a.wr, a.top - a.depth)], [0, -1, 0], steel ? STEEL : CON);
             for (const sgn of [1, -1]) {
                 if (a.side === sgn && b.side === sgn) continue; // the face toward the other track is inside the shared deck
                 const wa = sgn > 0 ? a.wl : -a.wr, wb = sgn > 0 ? b.wl : -b.wr, n = [a.nx * sgn, 0, a.nz * sgn];
-                quad(m, [P(a, wa, a.top + 0.9), P(b, wb, b.top + 0.9), P(b, wb, b.top - b.depth), P(a, wa, a.top - a.depth)], n, col);
+                if (steel) { quad(m, [P(a, wa, a.top + 0.9), P(b, wb, b.top + 0.9), P(b, wb, b.top), P(a, wa, a.top)], n, CON); quad(m, [P(a, wa, a.top), P(b, wb, b.top), P(b, wb, b.top - b.depth), P(a, wa, a.top - a.depth)], n, col); } // (the parapet above the deck stays concrete)
+                else quad(m, [P(a, wa, a.top + 0.9), P(b, wb, b.top + 0.9), P(b, wb, b.top - b.depth), P(a, wa, a.top - a.depth)], n, col);
                 const ia = wa - 0.25 * sgn, ib = wb - 0.25 * sgn; // parapet: inner face + cap
                 quad(m, [P(a, ia, a.top + 0.9), P(b, ib, b.top + 0.9), P(b, ib, b.top), P(a, ia, a.top)], [-n[0], 0, -n[2]], CON);
                 quad(m, [P(a, wa, a.top + 0.9), P(b, wb, b.top + 0.9), P(b, ib, b.top + 0.9), P(a, ia, a.top + 0.9)], [0, 1, 0], CON);
@@ -129,7 +143,7 @@ export function emitBellevueGuideway(env) {
                 const cell = env.cellOf(px, pz).solid, ang = Math.atan2(s.ux, s.uz), soffit = s.top - G.girderM;
                 cell.box(px, 0.1, pz, 2.0, soffit - 1.3, 2.2, ang, PIER);
                 cell.box(px, soffit - 1.3, pz, 6.4, 1.3, 2.4, ang, PIER);
-                env.addPropColl(px, pz, 1.4, 'guideway'); out.piers++; placed = true; break;
+                env.addPropColl(px, pz, 1.4, 'guideway'); out.piers++; out.pierS.push(Math.round(along(px, pz))); placed = true; break;
             }
             if (!placed) out.piersOmitted++;
         }

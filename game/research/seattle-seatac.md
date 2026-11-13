@@ -241,3 +241,8 @@ outline w1035290130, 47.444099, -122.293207 h330): a low white enclosed corridor
   round 3 (`car-parks.js`). Estimate: 3 levels from the pack's 9 m height. OSM has no `height` / `building:levels` and the only
   official panorama (KauyPKtqD_ylEozRWpdOXg) cuts the upper levels; no other source found.
 - **SureStay** w314940622 (r3-landmarks-5): storey count still not established (see section 16); the 9 m default is an estimate.
+
+## Backlog clearing (2026-11-13)
+
+- **Not seen from any street panorama** (backlog r2-districts-view-15): the hotel pool at 47.444558, −122.294232 and the
+  garage rideshare ramps at 47.4430, −122.2982. Drawn from OSM; their look is the class estimate.

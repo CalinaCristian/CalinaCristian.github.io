@@ -382,7 +382,9 @@ class Builder {
             const t = Math.min(1, distance / inset), rise = mansard ? (t < 0.45 ? t / 0.45 * 0.8 : 0.8 + (t - 0.45) / 0.55 * 0.2) : t;
             return [x, y + h * rise, z];
         };
-        for (const f of faces) this.tri(...f.map(i => vertex(points[i])), col, 'm', [0, 1, 0]);
+        // (spec 10 load budget) a point shared by several faces is lifted once (vertex is a pure function of the point; tri copies it)
+        const lifted = new Array(points.length), at = i => lifted[i] || (lifted[i] = vertex(points[i]));
+        for (const f of faces) this.tri(...f.map(at), col, 'm', [0, 1, 0]);
     }
 
     // ---- THREE geometry based primitives (respect the frame stack) ----

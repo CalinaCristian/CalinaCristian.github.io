@@ -100,10 +100,24 @@ export function buildRailRoadsideClearance(grades, envelope) {
             for (const cut of s.cuts) if (!(x0 > cut.x1 + 1e-3 || x1 < cut.x0 - 1e-3 || z0 > cut.z1 + 1e-3 || z1 < cut.z0 - 1e-3)) return false;
             return true;
         };
+        // and one that every cut near it leaves alone is kept as well: all three corners beyond one of the cut's planes by
+        // more than 1e-3 (its pieces are mixes of the corners: none reaches the clip's 1e-9 tolerance), or the corners' heights
+        // past the cut's band, so fragments finds no inside part and returns it unchanged
+        const untouched = (a, b, c) => {
+            const A = [P[a * 3], P[a * 3 + 1], P[a * 3 + 2]], B = [P[b * 3], P[b * 3 + 1], P[b * 3 + 2]], C = [P[c * 3], P[c * 3 + 1], P[c * 3 + 2]];
+            const x0 = Math.min(A[0], B[0], C[0]), x1 = Math.max(A[0], B[0], C[0]), z0 = Math.min(A[2], B[2], C[2]), z1 = Math.max(A[2], B[2], C[2]), y0 = Math.min(A[1], B[1], C[1]), y1 = Math.max(A[1], B[1], C[1]);
+            for (const cut of s.cuts) {
+                if (x0 > cut.x1 + 1e-3 || x1 < cut.x0 - 1e-3 || z0 > cut.z1 + 1e-3 || z1 < cut.z0 - 1e-3) continue;
+                if (y1 < cut.lower - 1e-6 || y0 > cut.upper + 1e-6) continue;
+                if (cut.planes.some(pl => pl(A) < -1e-3 && pl(B) < -1e-3 && pl(C) < -1e-3)) continue;
+                return false;
+            }
+            return true;
+        };
         let changed = false;
         for (let i = 0; i < indices.length; i += 3) {
             const ids = indices.slice(i, i + 3);
-            if (clear(ids[0], ids[1], ids[2])) { result.push({ ids }); continue; }
+            if (clear(ids[0], ids[1], ids[2]) || untouched(ids[0], ids[1], ids[2])) { result.push({ ids }); continue; }
             const tri = ids.map(vertex), fs = fragments(tri, e, null, true);
             if (fs.length === 1 && fs[0] === tri) result.push({ ids });
             else { changed = true; result.push(...fs.map(poly => ({ poly }))); }

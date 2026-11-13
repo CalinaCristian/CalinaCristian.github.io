@@ -29,7 +29,7 @@ import { clipBuildingDetailRange } from './building-detail-range.js';
 import { clipInferredBuildingDetail } from './building-detail-visibility.js';
 import { sourceTreeCentrePolicy, treeCentreDuplicate, treeCentreWater } from './source-tree-centres.js';
 import { canopyGeometry } from './building-canopies.js';
-import { makeVehicle, CAR_COLORS, makeParkedCars, vehicleSize } from './vehicles.js';
+import { makeVehicle, CAR_COLORS, makeParkedCars, vehicleSize, VEHICLE_KINDS } from './vehicles.js';
 import { projector, CHAPTERS } from './cities.js';
 import { STOPS } from './data.js';
 import { MeshBuilder, rgb, shadeRgb, prep, mergeProps, bakeProp, UNIT_BOX } from './geobuild.js';
@@ -679,6 +679,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     // (spec 10 load budget) the facade atlas and its night data do not depend on the place: they are painted while the
     // worker decodes the pack (canvas textures only; the materials are made where they were)
     const earlyAtlas = (() => { try { const atlas = makeAtlas(); let night = null; try { night = nightAtlas(atlas); } catch (e) { /* solidMaterial reports it */ } return { atlas, night }; } catch (e) { return null; } })();
+    // and the traffic's vehicle models (vehicles.js keeps one per kind and city, built the same whenever it is asked first)
+    if (packText) try { for (const kind of VEHICLE_KINDS) vehicleSize(kind, city.id); } catch (e) { /* made where they were */ }
     if (packText) try { data = parseDistrictPackText(await packText); } catch (e) { console.warn('[world] pack worker failed, decoding here', e); }
     if (!data) data = distId ? await fetchDistrictPack(url) : await (await fetch(url)).json();
     const realPass = !!data.scenery; // (2026-11-08) a district rebuilt by the reality pass (scenery ring, aerial roofs / trees / green): street-level dressing on
@@ -816,7 +818,18 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         return best ? { edge: best, d: bd, t: bt, cx: bcx, cz: bcz } : null;
     };
-    const edgesInBox = (x0, z0, x1, z1, cb) => { const seen = new Set(); edgeGrid.each(x0, z0, x1, z1, (e) => { if (!seen.has(e)) { seen.add(e); cb(e); } }); };
+    // (spec 10 load budget) a box within one grid cell whose list holds no edge twice (an edge is listed twice in a cell only
+    // when two of its cells share a hash key) visits that list as it is: the duplicate check could drop nothing there
+    const cellListRepeats = new Map();
+    const edgesInBox = (x0, z0, x1, z1, cb) => {
+        const i0 = Math.floor(x0 / EG), j0 = Math.floor(z0 / EG);
+        if (i0 === Math.floor(x1 / EG) && j0 === Math.floor(z1 / EG)) {
+            const key = edgeGrid.k(i0, j0), list = edgeGrid.map.get(key); if (!list) return;
+            let repeats = cellListRepeats.get(key); if (repeats === undefined) cellListRepeats.set(key, repeats = new Set(list).size !== list.length);
+            if (!repeats) { for (const e of list) cb(e); return; }
+        }
+        const seen = new Set(); edgeGrid.each(x0, z0, x1, z1, (e) => { if (!seen.has(e)) { seen.add(e); cb(e); } });
+    };
 
     // ---- dual carriageways cut by the map border (or by a mapping gap) end in a one-way "sink" next to a
     //      one-way "source" going the other way: join them with an invisible U-turn so they stay routable
@@ -1189,7 +1202,11 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (e.virtual) continue;
                 for (let s = Math.min(1, e.len / 2); s <= e.len - Math.min(1, e.len / 2); s += Math.min(3, Math.max(0.5, e.len - 2) / 2)) {
                     const x = e.a.x + e.dirx * s, z = e.a.z + e.dirz * s;
+                    const reachE = Math.min(e.halfW, 6) * 0.7;
                     edgesInBox(x - 14, z - 14, x + 14, z + 14, (f) => {
+                        // (spec 10 load budget) q.d below is at least the gap to f's box, and the limit at most the wider width
+                        // + the largest shoulder (1.2) + reachE: past that every test below returns too
+                        if (Math.max(Math.min(f.a.x, f.b.x) - x, x - Math.max(f.a.x, f.b.x), Math.min(f.a.z, f.b.z) - z, z - Math.max(f.a.z, f.b.z)) > Math.max(f.wR, f.wL) + 1.2 + reachE + 1e-6) return;
                         if (f === e || f.virtual || f.id < e.id || shares(e, f) || ((crossed.has(e.id + ':' + f.id) || crossed.has(f.id + ':' + e.id)) && Math.abs(e.dirx * f.dirx + e.dirz * f.dirz) < 0.8)) return; // (a near-parallel 'crossing' — a ramp running over the street — stays an overlap)
                         const q = distPointSeg(x, z, f.a.x, f.a.z, f.b.x, f.b.z);
                         if (q.t <= 0.01 || q.t >= 0.99) return;
@@ -1718,12 +1735,16 @@ export async function buildWorld(city, renderer, opts = {}) {
                 for (const e of edges) {
                     if (e.virtual || e.len < 0.5) continue;
                     const step = Math.max(0.02, 1.5 / e.len);
+                    // (inside its asphalt edge: overlapping ribbons; just beyond it: the audit's cliff sample; the same for every t)
+                    const offsets = [[1, wA(e, 1) - 0.5], [-1, wA(e, -1) - 0.5], [1, (e.bridge ? wA(e, 1) + 0.3 : wS(e, 1)) + 0.6], [-1, (e.bridge ? wA(e, -1) + 0.3 : wS(e, -1)) + 0.6]];
                     for (let t = 0; t <= 1 + 1e-6; t += step) {
                         const tt = Math.min(t, 1);
-                        // (inside its asphalt edge: overlapping ribbons; just beyond it: the audit's cliff sample)
-                        for (const [s, off] of [[1, wA(e, 1) - 0.5], [-1, wA(e, -1) - 0.5], [1, (e.bridge ? wA(e, 1) + 0.3 : wS(e, 1)) + 0.6], [-1, (e.bridge ? wA(e, -1) + 0.3 : wS(e, -1)) + 0.6]]) {
+                        for (const [s, off] of offsets) {
                             const x = e.a.x + e.dirx * e.len * tt + e.nx * off * s, z = e.a.z + e.dirz * e.len * tt + e.nz * off * s;
                             edgesInBox(x - 1, z - 1, x + 1, z + 1, (f) => {
+                                // (spec 10 load budget) q.d is at least the gap to f's box; wS(f, ·) is at most the wider width + the
+                                // largest shoulder (1.2) + its sidewalk: past that the test below returns too
+                                if (Math.max(Math.min(f.a.x, f.b.x) - x, x - Math.max(f.a.x, f.b.x), Math.min(f.a.z, f.b.z) - z, z - Math.max(f.a.z, f.b.z)) > Math.max(f.wR, f.wL) + 1.2 + f.sidewalk + 1e-6) return;
                                 if (f === e || f.virtual || Math.abs(e.dirx * f.dirx + e.dirz * f.dirz) < 0.85) return;
                                 const q = distPointSeg(x, z, f.a.x, f.a.z, f.b.x, f.b.z); if (q.t <= 0 || q.t >= 1) return;
                                 const sf = ((x - q.cx) * f.nx + (z - q.cz) * f.nz) >= 0 ? 1 : -1; if (q.d > wS(f, sf)) return;
@@ -2668,15 +2689,17 @@ export async function buildWorld(city, renderer, opts = {}) {
         },
         flatPolygon(input,y,col,uvS) {
             const own=ribPoly.get(e), area=markingArea(input);
-            const kept=own?clipMarkingConvex(input,own):input, ownedArea=markingArea(kept), blockers=[], seen=new Set();
+            const kept=own?clipMarkingConvex(input,own):input, ownedArea=markingArea(kept), blockers=[]; let seen=null;
             if(kept.length){
                 const xs=kept.map(p=>p[0]),zs=kept.map(p=>p[1]);let unsupported=false;
                 const kx0=Math.min(...xs),kz0=Math.min(...zs),kx1=Math.max(...xs),kz1=Math.max(...zs);
                 surfGrid.each(kx0,kz0,kx1,kz1,o=>{
-                    if(o.e===e||seen.has(o))return;seen.add(o);
+                    if(o.e===e)return;
                     // (spec 10 load budget) the clip keeps only points within its tolerance of every edge of o.poly (shrunk by
-                    // the inset): bounds farther apart than that tolerance leave no region, as clipMarkingConvex finds
+                    // the inset): bounds farther apart than that tolerance leave no region, as clipMarkingConvex finds. A pure
+                    // test of o, so it comes before the duplicate check (the Set is made for the first surface that passes)
                     const m=surfMargin(o);if(kx0>o.x1+m||kx1<o.x0-m||kz0>o.z1+m||kz1<o.z0-m)return;
+                    if(!seen)seen=new Set();else if(seen.has(o))return;seen.add(o);
                     const region=clipMarkingConvex(kept,o.poly,o.e ? .15 : 0);if(!region.length)return;
                     const low=o.e?(markWins(e,o.e) ? .01 : -.01):-1;
                     const blocked=clipAffineMarkingRange(region,p=>o.h(p[0],p[1])-yAlong(e,p[0],p[1]),low,1);
@@ -4240,10 +4263,14 @@ export async function buildWorld(city, renderer, opts = {}) {
     //      in Floreasca / Romană they are interwar villas (plaster, low hipped roof), and a lone house among office towers
     //      (Pipera, Bd. Dimitrie Pompeiu) reads as a low commercial block. Seattle keeps its wooden houses.
     if (!US) {
-        const tall = bRecs.filter(b => b.h > 20);
+        // (spec 10 load budget) the tall buildings by 70 m cell (each in the cell of its centre): a house reads the 3 × 3
+        // cells round its own; the same distances, so the same count of those nearer than 70 m (up to 3)
+        const tallCells = new Map(), tallKey = (i, j) => i * 100003 + j;
+        for (const t of bRecs) if (t.h > 20) { const k = tallKey(Math.floor(t.c[0] / 70), Math.floor(t.c[1] / 70)); let l = tallCells.get(k); if (!l) tallCells.set(k, l = []); l.push(t); }
         for (const b of bRecs) {
             if (b.style !== 'house') continue;
-            let n = 0; for (const t of tall) if (Math.hypot(t.c[0] - b.c[0], t.c[1] - b.c[1]) < 70 && ++n >= 3) break;
+            let n = 0; const bi = Math.floor(b.c[0] / 70), bj = Math.floor(b.c[1] / 70);
+            near: for (let i = bi - 1; i <= bi + 1; i++) for (let j = bj - 1; j <= bj + 1; j++) for (const t of tallCells.get(tallKey(i, j)) || []) if (Math.hypot(t.c[0] - b.c[0], t.c[1] - b.c[1]) < 70 && ++n >= 3) break near;
             if (n >= 3 && !(b.flags & 16) && !b.roofProfile) { b.style = 'plain'; b.roof = 'flat'; }
             else { b.style = 'interwar'; b.villa = true; if (!b.roofProfile && !(b.flags & 16) && (b.roof === 'gabled' || b.roof === 'pitched')) b.roof = 'hipped'; } // (flags 16: roof shape measured — OSM / aerial survey — kept)
         }
@@ -4363,7 +4390,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         let hit = false;
         edgesInBox(x0 - 12, z0 - 12, x1 + 12, z1 + 12, (e) => {
             if (hit || e.virtual || e.tunnel || e.layer < 0 || (noService && e.type === 'service') || (b && (b.minH > Math.max(e.ya, e.yb) + Y.road + 3 || Math.min(e.ya, e.yb) > b.h + 1))) return;
-            for (let t = 0.03; t < 0.98 && !hit; t += Math.min(0.05, 1 / e.len)) for (const o of [0, e.wR * 0.45, e.wR * 0.85, -e.wL * 0.45, -e.wL * 0.85]) {
+            // (spec 10 load budget) every sample lies within the widest offset of the edge's box (|n| = 1): an edge whose box so
+            // widened misses the footprint's box (by more than 1 µm) has no sample inside it
+            const offs = [0, e.wR * 0.45, e.wR * 0.85, -e.wL * 0.45, -e.wL * 0.85], reach = Math.max(Math.abs(e.wR * 0.85), Math.abs(e.wL * 0.85)) + 1e-6;
+            if (Math.min(e.a.x, e.b.x) - reach > x1 || Math.max(e.a.x, e.b.x) + reach < x0 || Math.min(e.a.z, e.b.z) - reach > z1 || Math.max(e.a.z, e.b.z) + reach < z0) return;
+            for (let t = 0.03; t < 0.98 && !hit; t += Math.min(0.05, 1 / e.len)) for (const o of offs) {
                 const x = e.a.x + (e.b.x - e.a.x) * t + e.nx * o, z = e.a.z + (e.b.z - e.a.z) * t + e.nz * o;
                 if (x >= x0 && x <= x1 && z >= z0 && z <= z1 && pointInPolygon(x, z, ring) && !b?.holes.some(h => pointInPolygon(x, z, h))) { hit = true; break; }
             }
@@ -7108,6 +7139,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         return best;
     };
     const treeBuildingClearance = { narrowed: 0, skipped: 0, mapped: 0 };
+    // the 12 probe directions of a crown's wall test (cos / sin of k·π/6, the same numbers each time)
+    const WALL_PROBE_COS = Array.from({ length: 12 }, (_, k) => Math.cos(k * Math.PI / 6)), WALL_PROBE_SIN = Array.from({ length: 12 }, (_, k) => Math.sin(k * Math.PI / 6));
     const elevatedDataset = `${city.id}-${distId}`, elevatedPlan = planElevatedSources(data, undelta, elevatedDataset); // rail viaduct / footbridge decks: no tree or inferred lamp grows through them
     const poolAreas = areas.filter(a => a.kind === 'pool');
     const poolNear = (x, z, m) => poolAreas.some(a => x > a.x0 - m && x < a.x1 + m && z > a.z0 - m && z < a.z1 + m && (inArea(a, x, z) || polyDist(x, z, a.outer) < m));
@@ -7171,7 +7204,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const Rc = shape.rx * sz * sh, near = [], reach = Rc + 1e-6;
             bGrid.each(x - reach, z - reach, x + reach, z + reach, (b) => { if (!b.skip && b.x1 >= x - reach && b.x0 <= x + reach && b.z1 >= z - reach && b.z0 <= z + reach && !near.includes(b)) near.push(b); });
             const inBuilding = (px, pz) => { for (const b of near) if (px >= b.x0 && px <= b.x1 && pz >= b.z0 && pz <= b.z1 && pointInPolygon(px, pz, b.ring) && !b.holes.some(h => pointInPolygon(px, pz, h))) return true; return false; };
-            const wallAt = r => { for (let k = 0; k < 12; k++) { const a = k * Math.PI / 6; if (inBuilding(x + Math.cos(a) * r, z + Math.sin(a) * r)) return true; } return false; };
+            const wallAt = r => { for (let k = 0; k < 12; k++) if (inBuilding(x + WALL_PROBE_COS[k] * r, z + WALL_PROBE_SIN[k] * r)) return true; return false; };
             if (wallAt(Rc)) {
                 let lo = 0, hi = Rc; for (let it = 0; it < 6; it++) { const m = (lo + hi) / 2; if (wallAt(m)) hi = m; else lo = m; }
                 const fit = (lo - .3) / (shape.rx * sz);
@@ -7426,7 +7459,10 @@ export async function buildWorld(city, renderer, opts = {}) {
         const closureBuilders = () => { if (cbEpoch !== builderEpoch) { cbList = [...cells.values()].flatMap(c => [...Object.values(c), ...(c.signs || [])]).filter(mb => mb && typeof mb.ic === 'number' && typeof mb.v === 'function'); cbIndex = new Map(cbList.map((mb, k) => [mb, k])); cbEpoch = builderEpoch; } return cbList; };
         mapEnds.forEach((m, k) => {
             const { ix, iz, px, pz, y, kind, edge: e } = m, c = cellOf(m.x, m.z), ang = Math.atan2(px, pz), face = Math.atan2(ix, iz); // signs face the driver coming toward the edge
-            const starts = new Map(closureBuilders().map(mb => [mb, mb.ic])), sourceScene = data.roadGeometryPolicy === 'source';
+            // each builder's index count now, by its place in the list as it is now (as wholePrimitive below; a Map of every
+            // builder per map end cost more than the closure): one made since starts from 0
+            const startList = closureBuilders(), startIndex = cbIndex, startIc = new Int32Array(startList.length), sourceScene = data.roadGeometryPolicy === 'source';
+            for (let k = 0; k < startList.length; k++) startIc[k] = startList[k].ic;
             const clipOptions = { ownerEdges: m.ownerEdges, floorY: y };
             const discrete = (mb, emit, x, z, radius, collidable = true) => {
                 const vi = mb.vc, ii = mb.ic; emit();
@@ -7594,8 +7630,8 @@ export async function buildWorld(city, renderer, opts = {}) {
             const worker = m.bundlePrimary && boundarySupport.clearCircle(wx, wz, .6, { ownerEdges: m.ownerEdges, y0: y - .3, y1: y + 2 }) ? { x: wx, z: wz, y, yaw: Math.atan2(ix, iz) } : false;
             closures.push({ x: m.x, z: m.z, y, top: y + m.barrierHeight, heading: m.heading, edge: e, node: m.node, kind, leadsTo,
                 l0: m.l0, l1: m.l1, half: m.half, bundleId: m.bundleId, bundlePrimary: m.bundlePrimary, worker });
-            for (const mb of closureBuilders()) if (mb.ic > (starts.get(mb) || 0))
-                boundarySupport.applyMesh(mb, starts.get(mb) || 0, clipOptions);
+            const now = closureBuilders(), startOf = (mb, k) => (now === startList ? startIc[k] : (k = startIndex.get(mb)) === undefined ? 0 : startIc[k]);
+            for (let k = 0; k < now.length; k++) { const mb = now[k], s0 = startOf(mb, k); if (mb.ic > s0) boundarySupport.applyMesh(mb, s0, clipOptions); }
         });
     }
     // road signs: speed limits where the limit changes, one-way at one-way entries, no-entry at one-way exits

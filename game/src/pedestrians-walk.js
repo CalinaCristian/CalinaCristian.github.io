@@ -1,11 +1,11 @@
-// Pedestrians methods (split from traffic.js, spec 22): initial admission (walk / stand slots), walk planning and
-// replanning, static obstacles, side offsets and the peer-spacing guards.
+// Pedestrians methods (split from traffic.js, spec 22; mixed into Pedestrians by mixin.js): initial admission (walk /
+// stand slots), walk planning and replanning, static obstacles, side offsets and the peer-spacing guards.
 import { clamp } from './util.js';
 import { roadSideWidth } from './nav.js';
 import { collideBuildings } from './world-collide.js';
 import { Grid, PED_R, pointInPoly, streetLevel } from './traffic-shared.js';
 
-export const pedestrianWalkMethods = {
+export class PedestriansWalk {
     /** The free sidewalk slots of `edges` (each on p's side, then the other) nearest p first: the order of a stable sort
      * of every slot by distance (ties: edge, side, slot order). (spec 10 load budget) An edge side's slots are only
      * computed (walkSpace) once its lower bound could come before the next slot: its slots lie in a rectangle of the
@@ -27,14 +27,14 @@ export const pedestrianWalkMethods = {
             if (pi >= pool.length) return;
             yield pool[pi++];
         }
-    },
+    }
     /** slotsByDistance by sorting every slot (the plain form) */
     *slotsBySort(p, edges) {
         const candidates = [];
         for (const e of edges) for (const side of [p.side, -p.side]) for (const slot of this.walkSpace(e, side).cells) candidates.push({ e, side, slot, distance: Math.hypot(slot.x - p.x, slot.z - p.z) });
         candidates.sort((a, b) => a.distance - b.distance);
         yield* candidates;
-    },
+    }
     /** a lower bound (with 1 µm to spare) of the distance from (x, z) to any slot of walkSpace(e, side), or 0 */
     slotBound(e, side, x, z) {
         const sides = this._walkSpace.get(e); if (sides?.has(side)) return 0; // (known: costs nothing to list)
@@ -47,7 +47,7 @@ export const pedestrianWalkMethods = {
         const px = x - e.a.x, pz = z - e.a.z, along = px * dx + pz * dz, out = (px * nx + pz * nz) * side;
         const da = Math.max(0, lo - along, along - hi), dl = Math.max(0, w + tmin - out, out - (w + sw + tmax)), d = Math.hypot(da, dl) - 1e-6;
         return Number.isFinite(d) && d > 0 ? d : 0;
-    },
+    }
     /** A source sidewalk line can end inside a crossing street's carriageway.
      * Pick a clear existing sidewalk slot before first visibility, without
      * drawing another random number or changing a live person's physical pose. */
@@ -71,7 +71,7 @@ export const pedestrianWalkMethods = {
         // genuinely exhausted; keep that exceptional admission observable.
         this.stats.initialWalkUnresolved = (this.stats.initialWalkUnresolved || 0) + 1;
         return false;
-    },
+    }
     /** Keep waiting groups at their source stop, repairing only real initial
      * body/prop contacts. This runs before any standing actor becomes visible. */
     admitInitialStand(p) {
@@ -128,7 +128,7 @@ export const pedestrianWalkMethods = {
         }
         this.stats.initialStandUnresolved = (this.stats.initialStandUnresolved || 0) + 1;
         return false;
-    },
+    }
     /** A blocked recovery must not keep aiming through a pole or a crowd.
      * Change its route from its physical pose; normal walking supplies every step. */
     freeVehiclePoint(x, z, r = PED_R + 0.4) {
@@ -140,16 +140,16 @@ export const pedestrianWalkMethods = {
             if (Math.abs(dx * fx + dz * fz) < v.length / 2 + r + 0.05 && Math.abs(-dx * fz + dz * fx) < v.width / 2 + r + 0.05) clear = false;
         });
         return clear;
-    },
+    }
     clearWalkStep(x, z, escaping) {
         const W = this.t.world;
         return (escaping || !this.roadAt(x, z, PED_R)) && !this.inWater(x, z) && !collideBuildings(W.buildings || [], x, z, PED_R, (W.walkTop?.(x, z) ?? 0.2) + 0.01) && this.freeVehiclePoint(x, z);
-    },
+    }
     clearWalkSegment(a, b, escaping) {
         const n = Math.max(1, Math.ceil(Math.hypot(b.x - a.x, b.z - a.z) / 0.3));
         for (let k = 1; k <= n; k++) if (!this.clearWalkStep(a.x + (b.x - a.x) * k / n, a.z + (b.z - a.z) * k / n, escaping)) return false;
         return true;
-    },
+    }
     /** A local walking detour for a blocked recovery, including the corners of
      * parked cars. Every segment uses the same vehicle clearance as walking. */
     escapeRoute(p, goals, escaping) {
@@ -177,7 +177,7 @@ export const pedestrianWalkMethods = {
             }
         }
         return null;
-    },
+    }
     replanWalk(p) {
         if ((p.onRoad && !p.recovery && !p.legs?.[0]?.escape) || p.agent || p.react || p.talkT > 0) return false;
         const escaping = !!(p.onRoad || this.roadAt(p.x, p.z)), goals = [];
@@ -210,7 +210,7 @@ export const pedestrianWalkMethods = {
         }
         this.stats.replans = (this.stats.replans || 0) + 1;
         return true;
-    },
+    }
 
     // ------------------------------------------------------------------ static obstacles on the sidewalks (note 38)
     /** trees, lamps, poles, bins, signs, shelters, benches, lot cars …: the world's prop colliders (read-only), in a fixed grid */
@@ -225,7 +225,7 @@ export const pedestrianWalkMethods = {
         this.obsGrid = new Grid(4, 15, true); this.obsGrid.build(obs);
         this._side = new Map(); this._walkSpace = new Map();
         this.t.stats.pedObstacles = obs.length;
-    },
+    }
     /** push-out of a pedestrian disc (radius R) from obstacle o → [nx, nz, depth] or null */
     obsPush(o, x, z, R) {
         const dx = x - o.x, dz = z - o.z;
@@ -236,13 +236,13 @@ export const pedestrianWalkMethods = {
         if (d > 1e-4) { if (d >= R) return null; ex /= d; ez /= d; pen = R - d; }
         else { const ox = o.hw - Math.abs(lx), oz = o.hd - Math.abs(lz); if (ox < oz) { ex = Math.sign(lx) || 1; ez = 0; pen = R + ox; } else { ex = 0; ez = Math.sign(lz) || 1; pen = R + oz; } }
         return [ex * o.c + ez * o.s, -ex * o.s + ez * o.c, pen];
-    },
+    }
     /** deepest overlap of a pedestrian disc at (x, z) with any obstacle (0 = clear) */
     obsDepth(x, z, R = PED_R) {
         let m = 0; if (!this.obsGrid) return 0;
         this.obsGrid.query(x, z, R + 3, (o) => { const q = this.obsPush(o, x, z, R); if (q && q[2] > m) m = q[2]; });
         return m;
-    },
+    }
     /** move a point / pedestrian out of every obstacle (a few relaxation passes); returns the total push [dx, dz] */
     obsClamp(q, R = PED_R) {
         let tx = 0, tz = 0; if (!this.obsGrid) return null;
@@ -252,7 +252,7 @@ export const pedestrianWalkMethods = {
             if (!any) break;
         }
         return tx || tz ? [tx, tz] : null;
-    },
+    }
     /** a pedestrian ends every step outside every obstacle; walkers shift their sidewalk line instead of being dragged back */
     clearObstacles(p) {
         if(p._obsClearX===p.x&&p._obsClearZ===p.z)return false;
@@ -277,7 +277,7 @@ export const pedestrianWalkMethods = {
         if (p.state === 'walk' && p.e) this.syncWalkPose(p);
         this.stats.obsPush = (this.stats.obsPush || 0) + 1;
         return true;
-    },
+    }
     /**
      * Obstacles along the sidewalk line of (e, side), in the edge frame: s along a→b, u = lateral distance from the
      * centreline on that side, half extents hs / hu, and whether the walker may pass on the road side (okIn: stays
@@ -312,7 +312,7 @@ export const pedestrianWalkMethods = {
         }
         out.sort((a, b) => a.s - b.s);
         return (m[k] = out);
-    },
+    }
     /** lateral detour (m, + = away from the road) of a walker at its sidewalk position: full clearance beside an
      *  obstacle, ramped in / out over ~1.7 m before and after it (continuous in s, so the walk stays smooth) */
     dodgeAt(p) {
@@ -332,7 +332,7 @@ export const pedestrianWalkMethods = {
             const sh = (tgt - base) * w; if (Math.abs(sh) > Math.abs(best)) best = sh;
         }
         return best;
-    },
+    }
     /** harness counter (note 38): pedestrians overlapping a static obstacle by > 5 cm right now (target 0) */
     countObstacleOverlaps() {
         let n = 0, worst = 0, at = null;
@@ -342,7 +342,7 @@ export const pedestrianWalkMethods = {
         }
         const S = this.t.stats; S.pedObstacleOverlaps = n; S.pedObstacleMax = Math.max(S.pedObstacleMax || 0, n); S.pedObstacleWorst = at ? { depth: Math.round(worst * 100) / 100, ...at } : null;
         return n;
-    },
+    }
     /** (2026-11-08, owner: "they teleport") back on a sidewalk line, but still where they stand: the gap to the line goes
      *  into s / walkOff (which drifts back at a walking pace) instead of a jump onto it */
     adoptLine(p, x, z) {
@@ -352,16 +352,16 @@ export const pedestrianWalkMethods = {
         p.walkOff = clamp((p.walkOff || 0) + (dx * e.nx + dz * e.nz) * p.side, -0.6, 3);
         this.placeWalk(p);
         this.recoverPose(p, x, z);
-    },
+    }
     /** A collision correction changes both along-lane and lateral coordinates.
      * Keep that actual pose, including the active detour, on the next walking step. */
     syncWalkPose(p) {
         const e = p.e, dx = p.x - e.a.x, dz = p.z - e.a.z;
         p.s = clamp(dx * e.dirx + dz * e.dirz, 0, e.len);
         p.walkOff = (dx * e.nx + dz * e.nz) * p.side - this.off(e, p.side) - (p.dodge || 0) - this.taper(e, p.side, p.s);
-    },
+    }
     /** A lane-drop taper moves the sidewalk out with the kerb (world.sideExtra): the walking line follows it. */
-    taper(e, side, s) { return e.taperR ? this.t.world?.sideExtra?.(e, side, s) || 0 : 0; },
+    taper(e, side, s) { return e.taperR ? this.t.world?.sideExtra?.(e, side, s) || 0 : 0; }
     placeWalk(p) {
         const ox = p.x, oz = p.z;
         if (this.width(p.e, p.side) <= 0 && this.width(p.e, -p.side) > 0) { p.side = -p.side; p.walkOff = 0; p.dodge = 0; p.dodgeEdge = null; }
@@ -375,20 +375,20 @@ export const pedestrianWalkMethods = {
         p.x = e.a.x + e.dirx * p.s + e.nx * o; p.z = e.a.z + e.dirz * p.s + e.nz * o;
         p.heading = Math.atan2(-e.dirx * p.dir, -e.dirz * p.dir);
         if (Math.hypot(p.x - ox, p.z - oz) > 0.25) this.recoverPose(p, ox, oz);
-    },
+    }
     /** sidewalk point on edge g at distance d from node, on side `side` */
     sidePoint(g, node, d, side) {
         const fromA = g.a === node; const s = fromA ? d : g.len - d; const o = (this.off(g, side) + this.taper(g, side, s)) * side;
         return { x: g.a.x + g.dirx * s + g.nx * o, z: g.a.z + g.dirz * s + g.nz * o, s };
-    },
-    buildGrid() { this.grid.build(this.list); this._peerGridDirty = false; },
+    }
+    buildGrid() { this.grid.build(this.list); this._peerGridDirty = false; }
     ensurePeerGrid(force = false) {
         if (force || this._peerGridDirty) { this.grid.build?.(this.list); this._peerGridDirty = false; }
-    },
+    }
     notePeerMove(p, oldX, oldZ) {
         const c = this.grid.cell;
         if (c && (Math.floor(p.x / c) !== Math.floor(oldX / c) || Math.floor(p.z / c) !== Math.floor(oldZ / c))) this._peerGridDirty = true;
-    },
+    }
     /** Normal movement and corrections may not enter another person's body.
      * An existing contact may still take a small, monotonically outward step. */
     peerClearStep(p, x, z, oldX, oldZ) {
@@ -408,7 +408,7 @@ export const pedestrianWalkMethods = {
         if (this._peerGridDirty || !this.grid.items) { for (const q of this.list) check(q); }
         else this.grid.query(x, z, 2 * PED_R + 0.2, check);
         return clear;
-    },
+    }
     staticWalkClear(p,x,z,oldX,oldZ) {
         const W=this.t.world,B=W.buildings||[],free=p._emptyStatic;
         if(free&&Math.hypot(x-free.x,z-free.z)<=.24)return true;
@@ -419,7 +419,7 @@ export const pedestrianWalkMethods = {
         if(!hit)return true;
         const before=collideBuildings(B,oldX,oldZ,PED_R,height(oldX,oldZ));
         return !!before&&Math.hypot(hit.px,hit.pz)<=Math.hypot(before.px,before.pz)+1e-6;
-    },
+    }
     /** Refuse a prospective body incursion before admitting the step. A
      * source-clear sidestep supplies bounded passing motion instead of a snap. */
     guardPeerStep(p, oldX, oldZ, dt = this._stepDt || 1 / 30, sidestep = false, correction = false) {
@@ -460,7 +460,7 @@ export const pedestrianWalkMethods = {
         this.notePeerMove(p, oldX, oldZ);
         this.stats.peerBlocked = (this.stats.peerBlocked || 0) + 1;
         return false;
-    },
+    }
     /** A separating correction may not trade a peer contact for a solid body. */
     peerCorrectionClear(p, x, z, oldX, oldZ) {
         const W = this.t.world, height = (a, b) => { const h = W.walkTop?.(a, b); return h == null ? 0.2 : h + 0.01; };
@@ -476,7 +476,7 @@ export const pedestrianWalkMethods = {
             const after = pen(x, z); if (after > 0 && after > pen(oldX, oldZ) + 1e-6) clear = false;
         });
         return clear;
-    },
-    crossingAt(node) { return (this.crossCount.get(node) || 0) > 0; },
-    near(x, z, r) { const out = []; this.grid.query(x, z, r, (p) => { if (Math.hypot(p.x - x, p.z - z) < r) out.push(p); }); return out; },
-};
+    }
+    crossingAt(node) { return (this.crossCount.get(node) || 0) > 0; }
+    near(x, z, r) { const out = []; this.grid.query(x, z, r, (p) => { if (Math.hypot(p.x - x, p.z - z) < r) out.push(p); }); return out; }
+}

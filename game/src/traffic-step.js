@@ -1,12 +1,12 @@
-// Traffic methods (split from traffic.js, spec 22): the per-vehicle step (car following, signals, junction boxes,
-// lane drops), vehicle separation, overlap / pedestrian guards, bypasses and nudges.
+// Traffic methods (split from traffic.js, spec 22; mixed into Traffic by mixin.js): the per-vehicle step (car following,
+// signals, junction boxes, lane drops), vehicle separation, overlap / pedestrian guards, bypasses and nudges.
 import { clamp } from './util.js';
 import { edgeSpeed, lanesDir, roadSideWidth, turnAngle } from './nav.js';
 import { initialTrafficStaticClearance } from './initial-traffic-admission.js';
 import { tramPathPolyline } from './tram-path.js';
 import { KNOT_HOLD_S, KNOT_OPEN_GAP, KNOT_YIELD_GAP, KNOT_YIELD_S, SAME_CONTROLLER_M, laneOffset, medianOf, noseInto, pedestrianPen, playerExtent, segDist, streetLevel, tramOffset, vpPen, vvClearance, vvPen } from './traffic-shared.js';
 
-export const trafficStepMethods = {
+export class TrafficStep {
 
     stepVehicle(v, dt) {
         // snapshot for the vehicle↔vehicle overlap guard (Traffic.update)
@@ -346,7 +346,7 @@ export const trafficStepMethods = {
             }
         }
         if (v.latBlend && v.s > 12) v.latBlend = 0;
-    },
+    }
 
     /** Steering needs forward travel: a pending lane/bypass never slides a stopped car.
      * Both offsets share the same lateral-distance budget (also for long bodies). */
@@ -357,7 +357,7 @@ export const trafficStepMethods = {
         const lateral = Math.abs(lane * (v.edge.laneW ?? 3.3)) + Math.abs(extra);
         const scale = lateral > 0 ? Math.min(1, 0.45 * travel / lateral) : 0;
         v.laneCur += lane * scale; v.latExtraCur += extra * scale;
-    },
+    }
 
     /** Plan across literal short source segments, so a long body starts its
      * merge before the last metre of a lane exists. No graph record is joined. */
@@ -370,13 +370,13 @@ export const trafficStepMethods = {
             distance += next.e.len; e = next.e; dir = next.dir;
         }
         return maxLane;
-    },
+    }
     /** Once its body has passed the stop line it must clear the intersection;
      * travel supplies the remaining smooth lateral merge, never a stopped slide. */
     laneDropStop(v, nextLanes, distance, radius, laneCur = v.laneCur) {
         const stop = distance - radius - 1.5;
         return laneCur > nextLanes - 1 + 0.25 && distance - radius < 6 && stop > -0.5 ? stop : Infinity;
-    },
+    }
 
     /** path across the junction pad for v going (curE,curDir) → nxt: entry lane point → exit lane point */
     boxPath(v, curE, curDir, nxt, rad) {
@@ -396,7 +396,7 @@ export const trafficStepMethods = {
         const p0x = st.x + fx * sIn + curE.nx * curDir * latIn - fx * v.length * 0.5, p0z = st.z + fz * sIn + curE.nz * curDir * latIn - fz * v.length * 0.5;
         const p1x = st2.x + gx * sOut + nxt.e.nx * nxt.dir * latOut + gx * v.length * 0.5, p1z = st2.z + gz * sOut + nxt.e.nz * nxt.dir * latOut + gz * v.length * 0.5;
         return { p0x, p0z, p1x, p1z, inE: curE, outE: nxt.e, outDir: nxt.dir, lane, laneIn };
-    },
+    }
     /** 'wait' when the path conflicts with a reservation of another car still in / entering the box, else the path */
     boxCheck(v, curE, curDir, nxt, node, rad) {
         const path = this.reservationPath(v, curE, curDir, nxt, node, rad);
@@ -413,14 +413,14 @@ export const trafficStepMethods = {
             }
         }
         return path;
-    },
+    }
     boxClaim(v, node, path) {
         const key = this.boxController(node);
         let list = this.boxes.get(key); if (!list) this.boxes.set(key, list = []);
         if (!path.segments) path = this.reservationPath(v, v.edge, v.dir, v.route[0], node, node.radius ?? 6);
         for (const r of list) if (r.v === v) { if (!r.entered) { const t0 = r.t0; Object.assign(r, path); r.t0 = t0; } r.t = this.time; return; }
         path.v = v; path.t = this.time; path.t0 = this.time; list.push(path);
-    },
+    }
     /** Reserve every pad and connecting lane through this controller, including turns. */
     reservationPath(v, curE, curDir, nxt, node, rad) {
         const path = this.boxPath(v, curE, curDir, nxt, rad);
@@ -440,7 +440,7 @@ export const trafficStepMethods = {
         path.clearEdges = new Set(v.route.slice(exitIndex).map(r => r.e));
         path.clearOdo = (v.odo || 0) + curE.len - v.s + v.route.slice(0, exitIndex).reduce((d, r) => d + r.e.len, 0) + path.exitRad + v.length * 0.5 + 1;
         return path;
-    },
+    }
     /** a reservation holds until the car's rear has left the pad (or it went elsewhere / timed out) */
     inBox(r, node) {
         const o = r.v;
@@ -454,7 +454,7 @@ export const trafficStepMethods = {
         // A short shape segment can end while a bus's rear still occupies the pad.
         if (r.entered && r.clearEdges.has(o.edge) && o.odo < r.clearOdo) return true;
         return false;
-    },
+    }
     syncSignalOccupancy() {
         for (const l of this.world.lights || []) l.node.lightCluster.occupiedPhases = [];
         for (const [key, list] of this.boxes) for (const r of list) {
@@ -463,13 +463,13 @@ export const trafficStepMethods = {
             r.v.sigCtl = key; r.v.sigCtlOdo = r.v.odo || 0;
             if (Number.isInteger(r.phase) && key.occupiedPhases && !key.occupiedPhases.includes(r.phase)) key.occupiedPhases.push(r.phase);
         }
-    },
+    }
     pruneBoxes() {
         for (const [node, list] of this.boxes) {
             for (let i = list.length - 1; i >= 0; i--) if (!this.inBox(list[i], node)) list.splice(i, 1);
             if (!list.length) this.boxes.delete(node);
         }
-    },
+    }
     /** undo this frame's step of v (incl. edge changes); false when it cannot (respawned / not stepped) */
     revert(v) {
         if (v._f !== this._frame || v._resp) return false;
@@ -483,13 +483,13 @@ export const trafficStepMethods = {
         v.mesh.position.set(v.x, v.y, v.z); v.mesh.rotation.y = v.heading;
         this.refreshVehicleCell(v, x, z);
         return true;
-    },
+    }
 
     /** Later guards must still find a body that a correction moved across a hash boundary. */
     refreshVehicleCell(v, oldX, oldZ) {
         const c = this.grid.cell;
         if (c && (Math.floor(v.x / c) !== Math.floor(oldX / c) || Math.floor(v.z / c) !== Math.floor(oldZ / c))) this.grid.build(this.vehicles);
-    },
+    }
 
     /** A recovery translation must actually separate the drawn bodies. The
      * source path alone cannot tell which way is outward at a short bend. */
@@ -520,7 +520,7 @@ export const trafficStepMethods = {
         v.mesh.position.set(v.x, v.y, v.z);
         this.refreshVehicleCell(v, oldX, oldZ);
         return true;
-    },
+    }
 
     /**
      * Vehicles never drive into each other: a vehicle whose step this frame made it overlap another one more than
@@ -644,7 +644,7 @@ export const trafficStepMethods = {
             v.s += d; v.odo += d; v.x += hx * d; v.z += hz * d; v.speed = 0; v.mesh.position.set(v.x, v.y, v.z);
             this.refreshVehicleCell(v, oldX, oldZ);
         }
-    },
+    }
 
     /** The drawn body may sweep over a sidewalk in a turn. Yield to every
      * pedestrian there as well as crossing people, before a sideways push is needed. */
@@ -659,7 +659,7 @@ export const trafficStepMethods = {
             });
             if (worse && this.revert(v)) { v.speed = 0; v.zeroWhy = 'pedGuard'; this.stats.pedGuard = (this.stats.pedGuard || 0) + 1; }
         }
-    },
+    }
 
     /** squeeze past a double-parked car or a stopped player (left if possible, else right), checking oncoming traffic */
     tryBypass(v, o, isP) {
@@ -691,7 +691,7 @@ export const trafficStepMethods = {
         v.bypass = o; v.bypassT = isP ? 12 : 7; v.lateralExtra = v.latExtraCur + best;
         if (this.chaos > 0.5 && this.rng.chance(0.3)) this.honk(v, 'lanechange');
         return true;
-    },
+    }
     /** no oncoming vehicle within `dist` ahead around lateral offset `off` */
     oncomingClear(v, off, dist) {
         const e = v.edge; const curOff = laneOffset(e, v.laneCur, v.dir) + v.latExtraCur;
@@ -704,7 +704,7 @@ export const trafficStepMethods = {
             if (f > -4 && f < dist && Math.abs(l - (off - curOff)) < (v.width + o.width) * 0.5 + 0.8) ok = false;
         });
         return ok;
-    },
+    }
     /** true when v overlaps another vehicle */
     overlapsAny(v) {
         let hit = false;
@@ -714,7 +714,7 @@ export const trafficStepMethods = {
             if (Math.abs(f) < (v.length + o.length) * 0.5 + 0.3 && Math.abs(l) < (v.width + o.width) * 0.5 + 0.1) hit = true;
         });
         return hit;
-    },
+    }
     /** a vehicle has been touching the player for a while: back it off a few metres, or move it out of view */
     nudge(v) {
         if (v.edge.rail) return this.nudgeRail(v);
@@ -742,7 +742,7 @@ export const trafficStepMethods = {
         }
         v.nudges = 0;
         if (!(this.large && this.relocate(v, 250, this.bubble, true))) this.respawn(v);
-    },
+    }
     /** A recovery on rails still samples the source path; it cannot translate
      * along a turning body's chord and leave the track. Existing pace and
      * visibility limits remain, and every accepted pose must separate. */
@@ -758,5 +758,5 @@ export const trafficStepMethods = {
         if (vpPen(v, P) >= beforePen || this.overlapsAny(v) || !this.railBodyInside(v) || !initialTrafficStaticClearance(this.world, v).valid) { this.restorePose(v, saved); if (!visible) this.respawn(v); return; }
         v.odo += distance; v.speed = 0; v.touchT = 3.01;
         this.refreshVehicleCell(v, saved.x, saved.z);
-    },
-};
+    }
+}

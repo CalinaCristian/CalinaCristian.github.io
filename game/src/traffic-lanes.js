@@ -1,5 +1,6 @@
-// Traffic methods (split from traffic.js, spec 22): transit setup, spawning and placement on lanes, lane geometry and
-// route choice (turn lanes, motor turn restrictions), lane-free / bus-stop look-ahead and the deadlock watchdogs.
+// Traffic methods (split from traffic.js, spec 22; mixed into Traffic by mixin.js): transit setup, spawning and
+// placement on lanes, lane geometry and route choice (turn lanes, motor turn restrictions), lane-free / bus-stop
+// look-ahead and the deadlock watchdogs.
 import * as THREE from '../vendor/three.module.min.js';
 import * as VEH from './vehicles.js';
 import { CAR_COLORS, makeVehicle } from './vehicles.js';
@@ -17,7 +18,7 @@ import { fitTramBodySupport } from './tram-body-support.js';
 import { LONG_BODY, LONG_LEN, actorCanTravel, closedEdge, junctionDist, laneOffset, layerOf, padOf, pedestrianPen, playerExtent, streetLevel, trafficMulOf, tramOffset, vvPen } from './traffic-shared.js';
 import { Pedestrians } from './pedestrians.js';
 
-export const trafficLaneMethods = {
+export class TrafficLanes {
 
     // ------------------------------------------------------------------ transit (R13.3)
     /** transit streets (research: trolley wires, STB bus / tram routes; Seattle: KCM arterials), the vehicle kinds
@@ -56,7 +57,7 @@ export const trafficLaneMethods = {
         fleet = Array.isArray(fleet) ? fleet.map(f => Array.isArray(f) ? f : [f.kind, f.weight ?? f.w ?? 1]).filter(([k, w]) => w > 0 && (!K.size || K.has(k))) : null;
         if (fleet?.length) { const tot = fleet.reduce((a, f) => a + f[1], 0); this.fleet = fleet.map(([k, w]) => [k, w / tot]); } else this.fleet = null;
         this.transit = { district: did, trolleyEdges: nT, busEdges: nB, kinds: this.transitKinds, fleet: !!this.fleet };
-    },
+    }
     /** a car kind from the fleet mix (vehicles.js FLEET) or the built-in table */
     carKind(e = null) {
         const kinds = this.fleet || (this.buc ? [['hatch', 0.4], ['sedan', 0.22], ['suv', 0.1], ['taxi', 0.12], ['van', 0.1], ['truck', 0.03], ['pickup', 0.03]] : [['suv', 0.36], ['pickup', 0.19], ['sedan', 0.26], ['hatch', 0.06], ['van', 0.07], ['truck', 0.04], ['taxi', 0.02]]);
@@ -64,9 +65,9 @@ export const trafficLaneMethods = {
         for (const [kk, p] of kinds) { r -= p; if (r <= 0) { k = kk; break; } }
         if (e && isMotorway(e) && /bus|tram/.test(k)) k = this.buc ? 'sedan' : 'suv';
         return k;
-    },
+    }
     /** the highest lane index a non-bus may use on (e, dir): the outermost lane is a bus lane where the edge has one */
-    carLaneMax(e, dir, v = null) { const n = lanesDir(e, dir) || 1; return e.busLane && n > 1 && !isMotorway(e) && !v?.busLaneOk ? n - 2 : n - 1; },
+    carLaneMax(e, dir, v = null) { const n = lanesDir(e, dir) || 1; return e.busLane && n > 1 && !isMotorway(e) && !v?.busLaneOk ? n - 2 : n - 1; }
 
     // ------------------------------------------------------------------ bus stops
     buildBusStops() {
@@ -98,7 +99,7 @@ export const trafficLaneMethods = {
                 for (const side of [1, -1]) if (canTravel(e, side) && r.chance(0.6)) add(e, e.len * r.range(0.35, 0.65), side);
             }
         }
-    },
+    }
 
     // ------------------------------------------------------------------ spawning
     spawnAll() {
@@ -199,7 +200,7 @@ export const trafficLaneMethods = {
                 }
             }
         }
-    },
+    }
 
     spawn({ edge, dir, lane, s, kind }) {
         const isTaxi = kind === 'taxi';
@@ -235,11 +236,11 @@ export const trafficLaneMethods = {
         this.placeOnLane(v, true, 0);
         this.vehicles.push(v);
         return v;
-    },
+    }
 
     /** real model length of a kind (vehicles.js vehicleSize), for spawn spacing of 12–36 m transit */
-    kindLength(k) { try { const L = VEH.vehicleSize?.(k, this.city.id)?.length; if (L > 0) return L; } catch { /* ignore */ } return /tram/.test(k) ? 27 : /artic/.test(k) ? 18.3 : 12.5; },
-    isBusKind(k) { return /bus|artic/.test(k || ''); }, // bus, stb-bus, kcm-bus, kcm-artic, trolleybus…
+    kindLength(k) { try { const L = VEH.vehicleSize?.(k, this.city.id)?.length; if (L > 0) return L; } catch { /* ignore */ } return /tram/.test(k) ? 27 : /artic/.test(k) ? 18.3 : 12.5; }
+    isBusKind(k) { return /bus|artic/.test(k || ''); } // bus, stb-bus, kcm-bus, kcm-artic, trolleybus…
 
     addLightbar(v) {
         if (v.mesh.userData.flash) { v.flash = v.mesh.userData.flash; return; }
@@ -255,12 +256,12 @@ export const trafficLaneMethods = {
             bar.userData.red = red; bar.userData.blue = blue;
         }
         v.lightbar = bar;
-    },
+    }
 
     /** double-parking is allowed only on roads with ≥2 lanes in that direction (never motorways / roundabouts / trams) */
     parkOk(e, dir) {
         return lanesDir(e, dir) >= 2 && !isMotorway(e) && e.type !== 'dn' && !e.roundabout && !e.tram && !e.tunnel && !e.bridge && e.len >= 40;
-    },
+    }
     /** a freshly placed vehicle must not be on top of / just in front of the player, nor overlap another vehicle */
     spawnClear(v) {
         if (v.edge.rail && (!this.railBodyInside(v) || !initialTrafficStaticClearance(this.world, v).valid)) return false;
@@ -287,8 +288,8 @@ export const trafficLaneMethods = {
         // vehicles moved this frame are hashed at their old cell: check the few recently relocated ones too
         if (ok && this._recent) for (const o of this._recent) check(o);
         return ok;
-    },
-    noteRelocated(v) { if (v.edge.rail) { v.servedRailStop = null; v.servedRailStopOdo = null; v.dwell = 0; } v.sigCtl = null; v._moveGeneration = (v._moveGeneration || 0) + 1; if (this._bulk) { this._bulk.push(v); return; } const r = this._recent || (this._recent = []); r.push(v); if (r.length > 32) r.shift(); },
+    }
+    noteRelocated(v) { if (v.edge.rail) { v.servedRailStop = null; v.servedRailStopOdo = null; v.dwell = 0; } v.sigCtl = null; v._moveGeneration = (v._moveGeneration || 0) + 1; if (this._bulk) { this._bulk.push(v); return; } const r = this._recent || (this._recent = []); r.push(v); if (r.length > 32) r.shift(); }
 
     /** world position for a vehicle's lane state */
     laneTarget(v, out) {
@@ -305,26 +306,26 @@ export const trafficLaneMethods = {
         out.x = start.x + fx * v.s + rx * lat; out.z = start.z + fz * v.s + rz * lat;
         out.fx = fx; out.fz = fz; out.rx = rx; out.rz = rz;
         return out;
-    },
+    }
 
     /** lateral offset of v's lane on edge e (dir): the current edge as laneTarget, others at the same lane index */
     latOn(v, e, dir, laneCur) {
         if (v.tram) return tramOffset(e, dir);
         if (e === v.edge) return laneOffset(e, v.laneCur, dir) + v.latExtraCur + (v.latBlend || 0) * Math.max(0, 1 - v.s / 12);
         return laneOffset(e, laneCur ?? clamp(v.laneCur, 0, (lanesDir(e, dir) || 1) - 1), dir) + v.latExtraCur;
-    },
+    }
     /** the edge v drove before (e, dir): its history, else the only other edge at a 2-way node (null: unknown) */
     prevLink(v, e, dir, hi) {
         const st = dir > 0 ? e.a : e.b, H = v.hist;
         if (H && hi >= 0 && hi < H.length) { const h = H[hi]; if (h.e !== e && (h.dir > 0 ? h.e.b : h.e.a) === st) return { e: h.e, dir: h.dir, lat: h.lat, hi: hi - 1 }; }
         if (st.edges.length === 2) { const g = st.edges[0] === e ? st.edges[1] : st.edges[0]; if (g && g !== e) return { e: g, dir: g.b === st ? 1 : -1, hi: -1 }; }
         return null;
-    },
+    }
     lanePt(v, c, s, out) {
         const e = c.e, st = c.dir > 0 ? e.a : e.b, lat = c.lat ?? this.latOn(v, e, c.dir, c.laneCur);
         out.x = st.x + e.dirx * c.dir * s + e.nx * c.dir * lat; out.z = st.z + e.dirz * c.dir * s + e.nz * c.dir * lat;
         return out;
-    },
+    }
     /**
      * Point of v's lane path at signed distance `off` from its centre: the planned route ahead (never through a
      * U-turn), the edges it came from behind; across every node the path is the straight chord from the entry lane
@@ -352,7 +353,7 @@ export const trafficLaneMethods = {
         if (i + 1 < seq.length && pad(c, seq[i + 1])) return out;
         if (i > 0 && pad(seq[i - 1], c)) return out;
         return this.lanePt(v, c, S - c.s0, out);
-    },
+    }
     /** centre positions [lo, hi] a vehicle of length L may take on (e, dir) when placed: long ones keep the whole body
      *  off the junction pads (no bus / tram spawned across a junction mouth); null = the edge is too short for it */
     sSpan(e, dir, L, long) {
@@ -361,7 +362,7 @@ export const trafficLaneMethods = {
         const a = dir > 0 ? e.a : e.b, b = dir > 0 ? e.b : e.a;
         const lo = Math.max(0.5, L / 2 - this.runTo(a, e, L)), hi = Math.min(e.len - 0.5, e.len - L / 2 + this.runTo(b, e, L));
         return hi > lo ? [lo, hi] : null;
-    },
+    }
     /** free length beyond node n (reached along e) up to the next junction pad / dead end, through 2-way nodes (≤ cap) */
     runTo(n, e, cap) {
         let d = 0;
@@ -372,7 +373,7 @@ export const trafficLaneMethods = {
             d += g.len; n = g.a === n ? g.b : g.a; e = g;
         }
         return d;
-    },
+    }
 
     placeOnLane(v, snap, dt) {
         const t = this.laneTarget(v, this._t || (this._t = {}));
@@ -438,13 +439,13 @@ export const trafficLaneMethods = {
         }
         v.mesh.rotation.set(pitch, v.heading, 0, 'YXZ');
         if (e.rail) this.poseTramSections(v);
-    },
+    }
 
     // ------------------------------------------------------------------ routing
     turnLaneAllows(e, dir, lane, next, v) {
         return v?.tram || laneTurnAllowed(this.turnLaneRules, e, dir, lane, next?.e, next?.dir) &&
             (!next || motorTurnAllowed(this.motorTurnRestrictions,e,dir,next.e,next.dir,{mode:motorRestrictionMode(v)}) && sourceRoadClearance(this.world?.data,next.e,v).eligible===true);
-    },
+    }
     /** Constructor planning normally has no motor routes: spawnAll consumes no
      * route-choice RNG. Still expose any invalid supplied/bound future turn,
      * especially one whose pad/body span could already influence publication. */
@@ -463,13 +464,13 @@ export const trafficLaneMethods = {
             }
         }
         return {passed:invalid.length===0,vehicles,transitions,invalid,rngDraws:0,scope:'Declared motor-route source turns only; full emitted body/grade/static clearance remains a separate admission gate. Invalid futures are revalidated before physical motion; no actor hiding or constructor RNG reroll.'};
-    },
+    }
     keepsTurnLane(e, dir, next) {
         return !!next && !next.uturn && preservesTurnLane(this.turnLaneRules, e, dir, next.e, next.dir);
-    },
+    }
     laneOnNext(v, lane, e, dir) {
         return v.bus ? Math.max(0, lanesDir(e, dir) - 1) : clamp(lane, 0, this.carLaneMax(e, dir, v));
-    },
+    }
     routeLaneAt(v, edge, dir) {
         let lane = v.lane;
         if (edge === v.edge && dir === v.dir) return lane;
@@ -478,7 +479,7 @@ export const trafficLaneMethods = {
             if (r.e === edge && r.dir === dir) return lane;
         }
         return lane;
-    },
+    }
     chooseNext(e, dir, v, lane = v.lane) {
         if (e.rail) {
             if (!v.tram) return null;
@@ -520,7 +521,7 @@ export const trafficLaneMethods = {
         for (const c of cands) { r -= c.w; if (r <= 0) { best = c; break; } }
         best = best || cands[cands.length - 1];
         return { e: best.n, dir: best.nd };
-    },
+    }
     ensureRoute(v) {
         const R = v.route;
         let lane = v.lane, from = v.edge, dir = v.dir;
@@ -552,7 +553,7 @@ export const trafficLaneMethods = {
             lane = this.laneOnNext(v, lane, nx.e, nx.dir);
             if (nx.uturn) break;
         }
-    },
+    }
     advance(v) {
         const e = v.edge, odir = v.dir;
         const nx = v.route.shift();
@@ -583,7 +584,7 @@ export const trafficLaneMethods = {
             const newLat = v.tram ? tramOffset(nx.e, nx.dir) : laneOffset(nx.e, v.laneCur, nx.dir) + v.latExtraCur;
             v.latBlend = dot > 0.7 && !v.long && !e.sharedLane && !nx.e.sharedLane ? clamp(oldLat * dot - newLat, -4, 4) : 0; // shared mouths use the continuous junction chord
         }
-    },
+    }
     /** move a vehicle somewhere else in the city, out of sight of the player */
     respawn(v, hidden = true) {
         if (hidden && v.mesh.visible !== false && this.inView(v)) return false;
@@ -618,7 +619,7 @@ export const trafficLaneMethods = {
         // Failed candidates must preserve the physical pose and unfinished steering.
         this.restorePose(v, original);
         return false;
-    },
+    }
     /**
      * Player-blocked watchdog (round-5 QA, Bellevue finale): while the player drives and has crawled < 1 m/s for > 12 s,
      * NPCs ahead of it within ~32 m in (about) its lane, or knotted into each other in front of it, that have stood still
@@ -643,7 +644,7 @@ export const trafficLaneMethods = {
             v.stuck = 0; v.still = 0; n++;
         }
         if (n) { this.stats.playerWatchdog = (this.stats.playerWatchdog || 0) + n; P.blockedT = 6; this.grid.build(this.vehicles); }
-    },
+    }
     /** queues that have not moved for ~20 s: recycle the head vehicle (out of the player's view if possible) */
     resolveDeadlocks() {
         const P = this.player;
@@ -660,7 +661,7 @@ export const trafficLaneMethods = {
             h.still = 0; h.dlTries = 0; this.stats.deadlocks = (this.stats.deadlocks || 0) + 1;
             for (const s of seen) s.still = Math.min(s.still, 10);
         }
-    },
+    }
 
     roundaboutBusy(node, v) {
         let busy = false;
@@ -674,7 +675,7 @@ export const trafficLaneMethods = {
             }
         });
         return busy;
-    },
+    }
 
     /** distance to the next un-served bus stop on (e,dir) given D = front-to-end distance for that edge */
     busStopAhead(v, e, dir, D, isCurrent) {
@@ -694,7 +695,7 @@ export const trafficLaneMethods = {
             if (d < best) best = d;
         }
         return best;
-    },
+    }
 
     laneFree(v, lane) {
         const lat = laneOffset(v.edge, lane, v.dir) + v.latExtraCur;
@@ -722,5 +723,5 @@ export const trafficLaneMethods = {
             }
         }
         return free;
-    },
-};
+    }
+}

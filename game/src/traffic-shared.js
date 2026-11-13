@@ -194,9 +194,3 @@ export class Grid {
  * nothing nearer than the first distance changes. */
 export const DISTRICT_LOD_VEHICLE_M = 160, DISTRICT_LOD_VEHICLE_FAR_M = 380, DISTRICT_LOD_WALKER_M = 160, DISTRICT_LOD_WALKER_FAR_M = 320;
 export const lodStride = (tier, dt) => tier ? Math.max(1, Math.min(tier === 2 ? 4 : 2, Math.floor(0.08 / dt + 1e-6))) : 1;
-
-/** Adds methods to a class prototype exactly as if they were written in the class body (non-enumerable). The Traffic and
- * Pedestrians classes keep their methods in several modules (traffic-*.js, pedestrians-*.js) to stay under 60 KB each. */
-export function mixin(Cls, ...parts) {
-    for (const part of parts) for (const [k, d] of Object.entries(Object.getOwnPropertyDescriptors(part))) Object.defineProperty(Cls.prototype, k, { ...d, enumerable: false });
-}

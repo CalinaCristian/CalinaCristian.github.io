@@ -5,9 +5,10 @@ import { makeCrowd } from './crowd.js';
 import { isMotorway } from './nav.js';
 import { collideBuildings } from './world-collide.js';
 import { relocationPeerQuery } from './pedestrian-relocation-peers.js';
-import { Grid, trafficMulOf, sidewalkWidthOf, sourceSideWidth, PED_R, DISTRICT_LOD_WALKER_M, DISTRICT_LOD_WALKER_FAR_M, mixin } from './traffic-shared.js';
-import { pedestrianWalkMethods } from './pedestrians-walk.js';
-import { pedestrianRoadMethods } from './pedestrians-road.js';
+import { Grid, trafficMulOf, sidewalkWidthOf, sourceSideWidth, PED_R, DISTRICT_LOD_WALKER_M, DISTRICT_LOD_WALKER_FAR_M } from './traffic-shared.js';
+import { mixin } from './mixin.js';
+import { PedestriansWalk } from './pedestrians-walk.js';
+import { PedestriansRoad } from './pedestrians-road.js';
 
 // ============================================================================
 //  PEDESTRIANS
@@ -515,4 +516,4 @@ export class Pedestrians {
     }
     dispose() { this.crowd.dispose(); }
 }
-mixin(Pedestrians, pedestrianWalkMethods, pedestrianRoadMethods);
+mixin(Pedestrians, PedestriansWalk, PedestriansRoad);

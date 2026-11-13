@@ -1,5 +1,5 @@
-// Traffic methods (split from traffic.js, spec 22): horns, speech bubbles and the illegal-parking flow (assessment,
-// fines, officer and tow truck), with the local remark lines.
+// Traffic methods (split from traffic.js, spec 22; mixed into Traffic by mixin.js): horns, speech bubbles and the
+// illegal-parking flow (assessment, fines, officer and tow truck), with the local remark lines.
 import * as THREE from '../vendor/three.module.min.js';
 import * as VEH from './vehicles.js';
 import { PHRASES } from './data.js';
@@ -63,7 +63,7 @@ const PARK_US = {
     tow: [RL('Hooking it up — it\'ll be at the impound lot.')],
 };
 
-export const trafficParkingMethods = {
+export class TrafficParking {
 
     honk(v, reason) {
         const dialogueEvent=this.onHonk(v, reason);
@@ -72,7 +72,7 @@ export const trafficParkingMethods = {
             v.bubbleCd = 4;
             this.bubble(v, reason === 'stuck' ? 'stuck' : 'honkedAt',dialogueEvent);
         }
-    },
+    }
 
     /** the player honked: nearby drivers react */
     playerHonk(px, pz, fx, fz,dialogueEvent=null) {
@@ -103,19 +103,19 @@ export const trafficParkingMethods = {
             if (said) this._pedHonkT = now + 2500;
         } }
         return reacted;
-    },
+    }
 
     /** player bumped vehicle v */
     bump(v,dialogueEvent=null) {
         if (v.bubbleCd <= 0) { v.bubbleCd = 4; this.bubble(v, 'bumped',dialogueEvent); }
         if (this.rng.chance(0.5 * this.chaos + 0.1)) this.honk(v, 'bumped');
-    },
+    }
 
-    _scheduleHornReply(v,delay) { const timer=setTimeout(()=>{this._replyTimers?.delete(timer);this.honk(v,'reply');},delay);(this._replyTimers||=new Set()).add(timer); },
-    dialogueEvent(kind,source,options) { return this._situational?.event(kind,source,options)||null; },
-    emitDialogueEvent(event,options) { return this._situational?.dispatch(event,options)||0; },
-    speakSituational(event,actor,role,options) { return this._situational?.present(event,actor,role,options)||false; },
-    situationalHudFrame() { this._situational?.hudFrame(); },
+    _scheduleHornReply(v,delay) { const timer=setTimeout(()=>{this._replyTimers?.delete(timer);this.honk(v,'reply');},delay);(this._replyTimers||=new Set()).add(timer); }
+    dialogueEvent(kind,source,options) { return this._situational?.event(kind,source,options)||null; }
+    emitDialogueEvent(event,options) { return this._situational?.dispatch(event,options)||0; }
+    speakSituational(event,actor,role,options) { return this._situational?.present(event,actor,role,options)||false; }
+    situationalHudFrame() { this._situational?.hudFrame(); }
 
     // ------------------------------------------------------------------ illegal parking reactions (note 8)
     /**
@@ -134,7 +134,7 @@ export const trafficParkingMethods = {
      * marked is fined. US (WA RCW 46.61.570 / city codes) — no parking in a crosswalk or intersection, within 15 ft of a
      * hydrant, in a bus zone, on a sidewalk, blocking a driveway or a traffic lane.
      */
-    onParkingEvent(cb) { const L = this._parkCbs || (this._parkCbs = []); L.push(cb); return () => { const i = L.indexOf(cb); if (i >= 0) L.splice(i, 1); }; },
+    onParkingEvent(cb) { const L = this._parkCbs || (this._parkCbs = []); L.push(cb); return () => { const i = L.indexOf(cb); if (i >= 0) L.splice(i, 1); }; }
     emitParking(type, extra = {}) {
         const st = this.park, c = st?.check || {};
         const ev = { type, city: this.city.id, district: this.world.district?.id || null, reason: c.primary || null, reasons: c.reasons || [], severity: c.severity || null, x: st?.x, z: st?.z, t: Math.round((st?.t || 0) * 10) / 10, ...extra };
@@ -142,7 +142,11 @@ export const trafficParkingMethods = {
         this.stats.parkingEvents = (this.stats.parkingEvents || 0) + 1;
         for (const cb of (this._parkCbs || []).slice()) { try { cb(ev); } catch (e) { console.warn('[traffic] parking event handler', e); } }
         return ev;
-    },
+    }
+    // (spec 22 split) this getter stood in the Traffic class body before the bubble() method below, which replaces it on
+    // the prototype: this.bubble in relocate calls is that method, not 650. Kept here, in front of the method, so the
+    // prototype stays exactly as before the split (behaviour unchanged, R22.5).
+    get bubble() { return 650; }
     /** a driver's chat bubble of a kind (honkedAt, bumped, stuck, green, redLight) from data.js PHRASES: Romanian lines
      *  are {t, en} and show the English gloss underneath (plain strings still work); falls back to opts.onBubble */
     bubble(v, kind,dialogueEvent=null) {
@@ -154,7 +158,7 @@ export const trafficParkingMethods = {
         this._lastLine[kind] = k;
         const it = L[k], line = typeof it === 'string' ? { t: it } : it;
         this.say(v, line, kind === 'bumped' ? 'angry' : kind === 'honkedAt' ? 'mad' : '', kind === 'bumped' ? 2 : 1,{situational:true,event:dialogueEvent,role:'driver'});
-    },
+    }
     /** a chat bubble over anything with {x, z}: opts.onSay(target, text, sub, cls) when gameplay wires it, else hud.say */
     say(target, line, cls = '', pri = 2,options=null) {
         if(this._situational&&!options?.actual&&!options?.legacyAdmission){
@@ -175,7 +179,7 @@ export const trafficParkingMethods = {
         this.stats.parkingBubbles = (this.stats.parkingBubbles || 0) + 1;
         (this._sayLog || (this._sayLog = [])).push(text); if (this._sayLog.length > 40) this._sayLog.shift();
         return true;
-    },
+    }
     /**
      * Screen-space layout of the chat bubbles traffic shows: at most 3 at once; a new bubble that would cover another one
      * is nudged sideways (its anchor follows the speaker with a world offset along the camera's right axis — the HUD
@@ -211,7 +215,7 @@ export const trafficParkingMethods = {
         const anchor = ox || oz ? { get x() { return target.x + ox; }, get z() { return target.z + oz; }, get bubbleY() { return target.bubbleY; } } : target;
         state._bub.push({ anchor, pri, until: now + 4300 });
         return anchor;
-    },
+    }
     /** where the car stands and why that is illegal → { illegal, reasons, primary, severity, edge, dir, lat, along } */
     assessParking(P) {
         const x = P.x, z = P.z, y = P.surfY ?? P.y ?? 0.24, US = !this.buc;
@@ -271,13 +275,13 @@ export const trafficParkingMethods = {
         let dir = 1, along = 0;
         if (car) { const hx = -Math.sin(P.heading), hz = -Math.cos(P.heading); dir = car.e.dirx * hx + car.e.dirz * hz >= 0 ? 1 : -1; if (!canTravel(car.e, dir) && canTravel(car.e, -dir)) dir = -dir; along = (dir > 0 ? car.t : 1 - car.t) * car.e.len; }
         return { illegal: !!primary, reasons, primary, severity, edge: car?.e || walk?.e || null, inLane: !!car, dir, lat: car ? car.lat * dir : 0, along, blockEdge: car && (R.has('lane') || R.has('junction') || R.has('tram') || R.has('zebra')) ? car.e : null };
-    },
+    }
     hydrants() {
         if (this._hyd) return this._hyd;
         const out = this._hyd = [], F = this.world.data?.furniture || [], K = this.world.data?.furnKinds || [];
         for (let i = 0; i + 2 < F.length; i += 3) if (K[F[i]] === 'fire_hydrant') out.push({ x: F[i + 1] / 10, z: F[i + 2] / 10 });
         return out;
-    },
+    }
     fineFor(kind) {
         // Romania (OUG 195/2002 art. 108 classes; 1 penalty point = 10 % of the gross minimum wage = 216.25 lei since
         // 1 July 2026, HG 146/2026; press summaries, spec 13 log): sidewalk parking that still leaves room = class I
@@ -293,7 +297,7 @@ export const trafficParkingMethods = {
             return { amount: amt, currency: 'RON', label: `Amendă Poliția Locală (${cls}, ${pts}–${pts + 1} puncte)`, range: [amt, hi] };
         }
         return { amount: null, currency: 'USD', label: kind === 'tow' ? 'Tow + impound' : 'Parking citation' };
-    },
+    }
     updateParking(dt) {
         const P = this.player, W = this.walker;
         const parked = !!(P && W && W.active && Math.abs(P.speed || 0) < 0.3);
@@ -360,7 +364,7 @@ export const trafficParkingMethods = {
         if (obstruct && !S.truck && st.t > (US ? 70 : 50)) { S.truck = true; this.callTowTruck(st); }
         if (S.truckAt != null && !S.tow && st.t > S.truckAt + (US ? 12 : 10)) { S.tow = true; this.emitParking('tow', { fine: this.fineFor('tow') }); this.say(st.truck || st.officer, pick(L.tow), '', 3); }
         if (st.truck) { const on = ((this.time * 3) | 0) % 2 === 0; if (st.beacon) st.beacon.visible = on; st.truck.mesh.userData.setLights?.(on); }
-    },
+    }
     /** the officer: a passer-by in uniform walks up to the car, writes the ticket / fits the clamp */
     callOfficer(st) {
         const peds = this.peds, P = this.player, W = this.walker; if (!peds.list.length) return;
@@ -381,7 +385,7 @@ export const trafficParkingMethods = {
         best.agent = { x: tx, z: tz, fx: st.x, fz: st.z, pose: 'phone', prop: 'phone', onArrive: () => { st.S.arrived = st.t; this.emitParking('officer', { arrived: true }); } };
         st.officer = best; this.emitParking('officer', { arrived: false });
         this.say(best, (this.buc ? PARK_RO : PARK_US).officer[0], '', 3);
-    },
+    }
     /** the tow truck ("ridicare auto" / tow company): parks in the lane right in front of the car, beacon flashing */
     callTowTruck(st) {
         const P = this.player, c = st.check, e = c.edge; if (!e) return;
@@ -403,7 +407,7 @@ export const trafficParkingMethods = {
         st.truck = v; st.S.truckAt = st.t;
         this.emitParking('towtruck');
         this.say(v, (this.buc ? PARK_RO : PARK_US).truck[0], '', 3);
-    },
+    }
     /** paper under the wiper (note / ticket) or a yellow wheel clamp on the parked car */
     addCarProp(kind) {
         const st = this.park, P = this.player; if (!st || !P) return;
@@ -424,7 +428,7 @@ export const trafficParkingMethods = {
             g.rotation.set(-0.55, st.heading, 0, 'YXZ');
         }
         this.group.add(g); st.props.push(g);
-    },
+    }
     endParking(why) {
         const st = this.park; if (!st) return;
         if (st.check.illegal) this.emitParking('cleared', { why, stages: Object.keys(st.S) });
@@ -434,5 +438,5 @@ export const trafficParkingMethods = {
         const v = st.truck;
         if (v) { const i = this.vehicles.indexOf(v); if (i >= 0) this.vehicles.splice(i, 1); v.inactive = true; v.mesh.visible = false; if (st.beacon) v.mesh.remove(st.beacon); this.group.remove(v.mesh); this.grid.build(this.vehicles); }
         this.park = null; this.parking = null;
-    },
-};
+    }
+}

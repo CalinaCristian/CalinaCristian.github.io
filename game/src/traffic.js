@@ -10,10 +10,11 @@ import { sampleTramPath, buildTramNetwork, nearestTramSource, canTravelTram, pro
 import { buildTurnLaneRules } from './turn-lanes.js';
 import { buildMotorTurnRestrictions } from './motor-turn-restrictions.js';
 import { buildTramSourceSignals, tramSourceSignalState } from './tram-source-signals.js';
-import { DISTRICT_LOD_VEHICLE_FAR_M, DISTRICT_LOD_VEHICLE_M, Grid, HOUR_PROFILE, RECOVERY_VIEW_FAR_M, actorCanTravel, bandOf, closedEdge, hourDensity, isJunction, junctionDist, laneOffset, layerOf, lodStride, mixin, trafficMulOf, vpPen } from './traffic-shared.js';
-import { trafficLaneMethods } from './traffic-lanes.js';
-import { trafficStepMethods } from './traffic-step.js';
-import { trafficParkingMethods } from './traffic-parking.js';
+import { mixin } from './mixin.js';
+import { DISTRICT_LOD_VEHICLE_FAR_M, DISTRICT_LOD_VEHICLE_M, Grid, HOUR_PROFILE, RECOVERY_VIEW_FAR_M, actorCanTravel, bandOf, closedEdge, hourDensity, isJunction, junctionDist, laneOffset, layerOf, lodStride, trafficMulOf, vpPen } from './traffic-shared.js';
+import { TrafficLanes } from './traffic-lanes.js';
+import { TrafficStep } from './traffic-step.js';
+import { TrafficParking } from './traffic-parking.js';
 import { Pedestrians } from './pedestrians.js';
 export { hourDensity, bandOf, medianOf, laneOffset, junctionDist, playerPen } from './traffic-shared.js';
 export { Pedestrians } from './pedestrians.js';
@@ -383,7 +384,6 @@ export class Traffic {
             this.peds.relocateAll();
         }
     }
-    get bubble() { return 650; }
     /** edges around the player, cached (refreshed when the player moved 80 m or every 2 s) */
     nearEdges(r, rail = false) {
         const P = this.player; const c = this._ne || (this._ne = {});
@@ -610,4 +610,4 @@ export class Traffic {
 
     dispose() { try { this.endParking('dispose'); } catch { /* ignore */ } this._situational?.dispose();this._situational=null;for(const timer of this._replyTimers||[])clearTimeout(timer);this._replyTimers?.clear();this._bub=[];this.scene.remove(this.group); this.peds.dispose(); }
 }
-mixin(Traffic, trafficLaneMethods, trafficStepMethods, trafficParkingMethods);
+mixin(Traffic, TrafficLanes, TrafficStep, TrafficParking);

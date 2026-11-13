@@ -1,12 +1,12 @@
-// Pedestrians methods (split from traffic.js, spec 22): the road and its vehicles (carriageway tests, kerb clamp,
-// vehicle avoidance, crossings and node plans) and crowd separation.
+// Pedestrians methods (split from traffic.js, spec 22; mixed into Pedestrians by mixin.js): the road and its vehicles
+// (carriageway tests, kerb clamp, vehicle avoidance, crossings and node plans) and crowd separation.
 import { angleLerp, clamp } from './util.js';
 import { turnAngle } from './nav.js';
 import { PED_R, streetLevel } from './traffic-shared.js';
 
 const T_BUC = (peds) => peds.t.buc;
 
-export const pedestrianRoadMethods = {
+export class PedestriansRoad {
     /** A road-axis side/rear yield must not prevent a physically clear body
      * from moving away from the waiting person. Preview the actual native
      * placement, including its unfinished heading/turn, without moving it. */
@@ -38,7 +38,7 @@ export const pedestrianRoadMethods = {
             previous = next;
         }
         return previous > before + 1e-6;
-    },
+    }
     /** gap from vehicle front to the nearest pedestrian on the carriageway in its path */
     obstacleGap(v, look, dt = 1 / 30) {
         let gap = Infinity; const half = v.length / 2;
@@ -51,8 +51,8 @@ export const pedestrianRoadMethods = {
             if (g < gap) gap = g;
         });
         return gap;
-    },
-    scare(x, z, r) { for (const p of this.near(x, z, r)) if (p.state === 'wait') p.waitT += 2; },
+    }
+    scare(x, z, r) { for (const p of this.near(x, z, r)) if (p.state === 'wait') p.waitT += 2; }
     /** the carriageway (ground level) the point is deepest inside → { e, d, cx, cz, hw } or null (every nearby edge, not just the nearest) */
     roadAt(x, z, margin = 0.4) {
         const list = this.t.index.near(x, z, 30, this._near || (this._near = [])), boxes = this._roadBox || (this._roadBox = new Map());
@@ -73,8 +73,8 @@ export const pedestrianRoadMethods = {
             if (d < hw && hw - d > bp) { bp = hw - d; best = { e, d, cx, cz, hw }; }
         }
         return best;
-    },
-    inCarriageway(p) { return !!this.roadAt(p.x, p.z, 0.4); },
+    }
+    inCarriageway(p) { return !!this.roadAt(p.x, p.z, 0.4); }
     /** (h-sim, 2026-11-13) off the carriageway: moved elsewhere out of the player's sight, or, in view (where relocate
      *  refuses), walked to the nearest free sidewalk point as a crossing (replanWalk). Before, a refused relocation left
      *  them in the road in the walk state, walking their sidewalk line through it (Romană, George Enescu / Tache Ionescu) */
@@ -82,8 +82,8 @@ export const pedestrianRoadMethods = {
         const x = p.x, z = p.z;
         if (this.t.large) this.relocate(p, 120, 420, true); else this.relocate(p, 30, 200, true);
         if (p.x === x && p.z === z && this.roadAt(p.x, p.z, 0.4) && this.replanWalk(p)) this.stats.leaveRoadReplanned = (this.stats.leaveRoadReplanned || 0) + 1;
-    },
-    inWater(x, z) { const w = this.t.world.isWater; if (!w) return false; return w(x, z) || w(x + 1, z) || w(x - 1, z) || w(x, z + 1) || w(x, z - 1); },
+    }
+    inWater(x, z) { const w = this.t.world.isWater; if (!w) return false; return w(x, z) || w(x + 1, z) || w(x - 1, z) || w(x, z + 1) || w(x, z - 1); }
     /** keep a pedestrian that is not crossing out of every carriageway: move it to the nearest kerb */
     kerbClamp(p) {
         const ox = p.x, oz = p.z;
@@ -116,7 +116,7 @@ export const pedestrianRoadMethods = {
         }
         if (moved) this.recoverPose(p, ox, oz);
         return moved;
-    },
+    }
     /**
      * Vehicles are solid for pedestrians: a step that would walk into a vehicle (OBB + margin) is refused,
      * and a vehicle that moves into a pedestrian pushes it out sideways (toward the kerb). Returns true if blocked.
@@ -160,7 +160,7 @@ export const pedestrianRoadMethods = {
         if (pushed) this.stats.pushes++;
         if(!pushed&&!blocked){p._vehicleClearFrame=this._fr;p._vehicleClearX=p.x;p._vehicleClearZ=p.z;}
         return blocked;
-    },
+    }
     /** a stopped / parked vehicle sits on the crossing line from the pedestrian to the far kerb */
     crossBlocked(p, leg) {
         const T = this.t; if (!T.grid.items) return false;
@@ -174,7 +174,7 @@ export const pedestrianRoadMethods = {
             }
         });
         return hit;
-    },
+    }
     /** knocked over by the player */
     knock(p, fx, fz, strength) {
         if (p.state === 'down') return false;
@@ -184,7 +184,7 @@ export const pedestrianRoadMethods = {
         const v0 = clamp(2.5 + strength * 0.45, 3, 9), fl = Math.hypot(fx, fz) || 1; p.flyX = fx / fl * v0; p.flyZ = fz / fl * v0;
         p.fallDir = Math.atan2(-fx, -fz);
         return true;
-    },
+    }
     /**
      * People never stand inside each other (two bodies in one spot z-fight into flickering patches): overlapping pairs
      * are pushed apart. Walkers sidestep through their sidewalk offset (walkOff, so placeWalk keeps it; head-on they
@@ -234,7 +234,7 @@ export const pedestrianRoadMethods = {
                 }
             }
         }
-    },
+    }
     /**
      * (2026-11-08, owner: a dozen walkers piled into one spot at a corner) everyone waiting to cross used to stand on the
      * same kerb point: each gets a free spot of a small queue grid there (along the kerb, then rows back from it), ≥ 0.7 m
@@ -258,7 +258,7 @@ export const pedestrianRoadMethods = {
             const q = { x: leg.x + tx * leg.slot.l, z: leg.z + tz * leg.slot.l };
             if (!this.roadAt(q.x, q.z, 0.35) && !(this.obsDepth(q.x, q.z) > 0)) { leg.x = q.x; leg.z = q.z; }
         }
-    },
+    }
     /** the free spot nearest to p (>= 0.7 m from everyone, off the carriageway, clear of obstacles) within r; moves p there */
     unpile(p, r) {
         let best = null;
@@ -273,7 +273,7 @@ export const pedestrianRoadMethods = {
         }
         if (best) { const x = p.x, z = p.z; p.x = best.x; p.z = best.z; this.recoverPose(p, x, z); }
         return !!best;
-    },
+    }
     sepPush(p, px, pz, other) {
         if (!px && !pz) return;
         const oldX = p.x, oldZ = p.z;
@@ -302,7 +302,7 @@ export const pedestrianRoadMethods = {
         } else { p.x += px; p.z += pz; }
         if (p.live && !this.peerCorrectionClear(p, p.x, p.z, oldX, oldZ)) { p.x = oldX; p.z = oldZ; if (p.state === 'walk' && p.e) this.syncWalkPose(p); }
         this.guardPeerStep(p, oldX, oldZ, this._stepDt || 1 / 30);
-    },
+    }
 
     planNode(p, node) {
         const e = p.e; const fx = e.dirx * p.dir, fz = e.dirz * p.dir;
@@ -373,7 +373,7 @@ export const pedestrianRoadMethods = {
         if (selected) goWalk(selected.o.g, selected.o.og, selected.from, selected.legs);
         else { p.dir = -p.dir; this.syncWalkPose(p); p.legs = []; p.next = null; p.state = 'walk'; } // walk back at the same physical pose
 
-    },
+    }
 
     safeToCross(leg, waited, p) {
         const T = this.t; const node = leg.node, X = leg.edge;
@@ -384,7 +384,7 @@ export const pedestrianRoadMethods = {
         }
         if (waited > (T.buc ? 14 : 30)) return this.noFastCar(leg, 8);
         return this.noFastCar(leg, node.crossing ? 16 : 26);
-    },
+    }
     noFastCar(leg, r) {
         const mx = leg.x, mz = leg.z; let ok = true;
         this.t.grid.query(mx, mz, r, (v) => {
@@ -398,5 +398,5 @@ export const pedestrianRoadMethods = {
         const P = this.t.player;
         if (P) { const dx = mx - P.x, dz = mz - P.z; const d = Math.hypot(dx, dz); if (d < r && Math.abs(P.speed) > 2 && (dx * P.fx + dz * P.fz) > -2) ok = false; }
         return ok;
-    },
-};
+    }
+}

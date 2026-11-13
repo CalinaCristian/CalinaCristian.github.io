@@ -22,6 +22,22 @@ function memoHeights(fn) {
         return v;
     };
 }
+/** fn(x, z, y) with its recent answers kept in a direct-mapped table of its own (2^bits slots, keyed by the exact bits of
+ *  the three arguments, as memoHeights): for a pure fn of those arguments. Only numbers are kept. */
+export function exactMemo3(fn, bits = 16) {
+    const mask = (1 << bits) - 1, W = new Uint32Array(6 << bits), V = new Float64Array(1 << bits), U = new Uint8Array(1 << bits), K = new Float64Array(3), KW = new Uint32Array(K.buffer);
+    return (x, z, y) => {
+        K[0] = x; K[1] = z; K[2] = y;
+        const w0 = KW[0], w1 = KW[1], w2 = KW[2], w3 = KW[3], w4 = KW[4], w5 = KW[5];
+        let h = Math.imul(w0 ^ w1, 0x9e3779b1) ^ Math.imul(w2 ^ w3, 0x85ebca6b) ^ Math.imul(w4 ^ w5, 0xc2b2ae35);
+        h ^= h >>> 16; h = Math.imul(h, 0x27d4eb2f); h ^= h >>> 15; h &= mask;
+        const o = h * 6;
+        if (U[h] && W[o] === w0 && W[o + 1] === w1 && W[o + 2] === w2 && W[o + 3] === w3 && W[o + 4] === w4 && W[o + 5] === w5) return V[h];
+        const v = fn(x, z, y);
+        if (typeof v === 'number') { W[o] = w0; W[o + 1] = w1; W[o + 2] = w2; W[o + 3] = w3; W[o + 4] = w4; W[o + 5] = w5; V[h] = v; U[h] = 1; }
+        return v;
+    };
+}
 /** Mesh-only adaptive displacement. Keeps source graph vertices/edges and
  * material attributes; records sampled chord error instead of changing grade.
  * (spec 10 load budget) Vertices live in one flat pool (12 numbers: position, normal, uv, colour, tile); the arithmetic is

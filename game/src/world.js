@@ -11,7 +11,7 @@ import { compileSharedBridgeProfile } from './shared-bridge-profile.js';
 import { buildGeneratedParapetOwnership, emitOwnedSeparationQuad } from './generated-parapet-ownership.js';
 
 import { compileSourceBridgeDescents } from './source-bridge-descents.js';
-import { displaceBridgeSurface, shapeDeckSoup } from './bridge-surface-mesh.js';
+import { displaceBridgeSurface, shapeDeckSoup, exactMemo3 } from './bridge-surface-mesh.js';
 import * as THREE from '../vendor/three.module.min.js';
 import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landmarkHelpers } from './util.js';
 import { makeTextures, emitFacadeSlab } from './buildings.js';
@@ -3733,7 +3733,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         // climbing right next to a street — OSM geometry squeezed by the map scale), a car leaving the road there would
         // drop / jump onto it. Put a visible concrete barrier on that edge instead of an invisible cliff.
         let wg = null; const rebuildWg = () => { wg = new BoxGrid(16); for (const w of walls) wg.insert(Math.min(w.ax, w.bx), Math.min(w.az, w.bz), Math.max(w.ax, w.bx), Math.max(w.az, w.bz), w); };
-        const land = (x, z, y) => { let best = null, bd = Infinity; surfacesAt(x, z, (h) => { const d = Math.abs(h - y); if (d <= 2.5 && d < bd) { bd = d; best = h; } }); return best ?? Y.road; };
+        // (spec 10 load budget) the barrier sweeps ask about the same points again (two thirds of the questions): land is
+        // a pure function of (x, z, y) while they run (they add walls; surfacesAt reads none), so its answers are kept
+        const land = exactMemo3((x, z, y) => { let best = null, bd = Infinity; surfacesAt(x, z, (h) => { const d = Math.abs(h - y); if (d <= 2.5 && d < bd) { bd = d; best = h; } }); return best ?? Y.road; });
         const blocked = (x0, z0, x1, z1, y) => { let f = false; wg.each(Math.min(x0, x1) - 1, Math.min(z0, z1) - 1, Math.max(x0, x1) + 1, Math.max(z0, z1) + 1, (w) => {
             if (f) return; if (!segsCross([x0, z0], [x1, z1], [w.ax, w.az], [w.bx, w.bz]) && distPointSeg(x1, z1, w.ax, w.az, w.bx, w.bz).d > 1.0) return;
             const t = distPointSeg(x1, z1, w.ax, w.az, w.bx, w.bz).t; if (y >= w.y0a + (w.y0b - w.y0a) * t - 0.3 && y <= w.y1a + (w.y1b - w.y1a) * t) f = true; }); return f; };

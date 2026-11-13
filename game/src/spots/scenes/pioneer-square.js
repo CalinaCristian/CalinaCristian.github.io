@@ -16,6 +16,7 @@ import { seaBackdrop, seaActivity } from './sea-common.js';
 import { addTraffic } from '../cars.js';
 import { LANDMARKS, buildLandmark } from '../../landmarks.js';
 import { FRONTS, buildFronts, OCC_CANOPY, occidentalSquareProps } from './pioneer-square-fronts.js';
+import { playgroundKit } from '../playground-kit.js';
 import { westEndStreets } from './pioneer-square-westend.js';
 
 // ---------------------------------------------------------------------------- the Chief-of-All-Women pole (1940 replica)
@@ -253,8 +254,13 @@ export default {
         { const y = g.heightAt(cs.x, cs.z); tb.cyl(cs.x, y, cs.z, 0.9, 0.9, '#7d7a72', 'stone', 16); tb.cyl(cs.x, y + 0.9, cs.z, 0.45, 1.1, '#6f6b63', 'stone', 12); tb.sphere(cs.x, y + 2.25, cs.z, 0.32, 0.4, 0.3, '#4a3a26', 'bronze', 12, 10); tb.sphere(cs.x, y + 1.95, cs.z, 0.45, 0.25, 0.32, '#4a3a26', 'bronze', 12, 8); ctx.circle(cs.x, cs.z, 0.95, 2.5); }
         ctx.add(tb.build('totem-bust'));
         // purple vault lights (amethyst glass prisms) in the 1st Ave / Yesler sidewalks
-        ctx.painter.custom((x, T, k, isMask) => { if (isMask) return; const r = rng(3); for (const [x0, z0, x1, z1] of [[8, -60, 12, -20], [-12, -40, -8, -12], [14, 2, 18, 40]]) for (let px = x0; px < x1; px += 0.45) for (let pz = z0; pz < z1; pz += 0.45) { if (r() < 0.25) continue; const [a, b] = T(px, pz); x.fillStyle = r() < 0.7 ? '#7d5aa6' : '#9b7cc4'; x.fillRect(a, b, Math.max(1, 0.3 * k), Math.max(1, 0.3 * k)); } });
+        // (r3-sea-spots-b-1) the vault lights are set in cast-iron panels: rows of round prisms on a regular grid, not random
+        // patches; panel size (1.2 m, 0.3 m prism pitch) is the usual Pioneer Square pattern; the strips' extent is an estimate
+        ctx.painter.custom((x, T, k, isMask) => { if (isMask) return; for (const [x0, z0, x1, z1] of [[8, -60, 12, -20], [-12, -40, -8, -12], [14, 2, 18, 40]]) for (let qx = x0; qx < x1 - 1.1; qx += 1.35) for (let qz = z0; qz < z1 - 1.1; qz += 1.35) {
+            { const [a, b] = T(qx, qz); x.fillStyle = '#3d3a38'; x.fillRect(a, b, Math.max(1, 1.2 * k), Math.max(1, 1.2 * k)); } // the iron panel
+            for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { const [a, b] = T(qx + 0.15 + i * 0.3, qz + 0.15 + j * 0.3); x.fillStyle = (i + j) % 3 ? '#8a68b2' : '#a689cc'; x.beginPath(); x.arc(a, b, Math.max(0.6, 0.1 * k), 0, 7); x.fill(); } } });
         ctx.exclude.push([[per.cx - 32, per.cz - 40], [per.cx + 32, per.cz - 40], [per.cx + 32, per.cz + 30], [per.cx - 32, per.cz + 30]].map(([x, z]) => [x, z])); // keep Pioneer Place open (no street trees)
+        { const pg = d.areas.find((a) => a.id === 'w1155308011'); if (pg) ctx.extras.occidentalPlayground = playgroundKit(ctx, pg.poly, { name: 'occidental-playground' }).pieces; } // (r3-sea-spots-b-1) OSM area, equipment generic
         ctx.skipBuildings.add(OCC_CANOPY); ctx.extras.occidentalSquare = occidentalSquareProps(ctx); // the open canopy over the square's kiosk (round 3)
         // (r3-sea-spots-b-2) Sinking Ship Garage w52781697 (OSM 3 levels / 10.9 m): the building volume stands on the highest
         // ground under its footprint, so its roof was 10.9 m above the 2nd Ave Extension corner. Official panorama

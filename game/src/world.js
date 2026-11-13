@@ -83,7 +83,7 @@ import { fuelStationRow, fuelLookFor, fasciaQuads } from './fuel-look.js';
 import { reviewBrands } from './brand-review.js';
 import { emitWeirs } from './weirs.js';
 import { dropMedianLinkSidewalks } from './sidewalk-overlap.js';
-import { emitBellevueGuideway } from './bellevue-guideway.js';
+import { emitBellevueGuideway, WILBURTON_STATION } from './bellevue-guideway.js';
 import { emitSeatacGuideway } from './seatac-guideway.js';
 import { garageDeckRoads } from './garage-decks.js';
 import { buildElevatedSources, planElevatedSources } from './elevated-sources.js';
@@ -4380,7 +4380,10 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     // ---- street-level review rows by OSM id (round 2 fidelity pass; game/src/building-review.js): reviewed storeys / style / colour
-    const buildingReviewAudit = applyBuildingReview({ key: city.id + '-' + distId, bRecs });    // ---- height sanity (2026-11-07, world-visual): the data build gives every untagged large footprint outside the old
+    const buildingReviewAudit = applyBuildingReview({ key: city.id + '-' + distId, bRecs });
+    // (r2-world-guideway) Wilburton's roof w615292866 (building=train_station, layer=1, no min_height) came out of the pack as a
+    // 7.8 m windowed block on the ground round the guideway; bellevue-guideway.js draws the station at deck level instead
+    if (distId === 'bellevue') for (const b of bRecs) if (data.buildingIds?.[b.derivedFrom ?? b.i] === WILBURTON_STATION.replacesSource) { b.skip = true; b.replacedBy = 'wilburton-station'; }    // ---- height sanity (2026-11-07, world-visual): the data build gives every untagged large footprint outside the old
     //      centre 8–10 storeys (23–30 m 'bloc'), so museums, villas and institutions on Kiseleff / Dorobanți became grey
     //      slabs. Buildings without building:levels whose height is exactly such a default are re-estimated here from
     //      their name and shape: real slab blocks (≤ 22 m wide, ≥ 30 m long) keep their storeys, compact or courtyard
@@ -8284,7 +8287,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         keep: (x, z, len) => !(ringGeometry && sceneryMargin(x, z) > (distCfg?.outerRing ?? 600) + len / 2), stationCentre: bRecs.find(b => b.sourceId === 'w54139654')?.c || null }) : null;
     if (seatacGuideway) railStats.guideway = { ways: [...seatacGuideway.ways], metres: seatacGuideway.metres, piers: seatacGuideway.piers, piersOmitted: seatacGuideway.piersOmitted };
     // Bellevue: the 2 Line guideway over I-405 to Wilburton; rail level is a stated estimate over USGS ground, see bellevue-guideway.js.
-    const bellevueGuideway = distId === 'bellevue' ? emitBellevueGuideway({ railways: data.railways, scenery: data.scenery, undelta, cellOf, rgb, onRibbon, buildingAt, addPropColl,
+    const bellevueGuideway = distId === 'bellevue' ? emitBellevueGuideway({ railways: data.railways, scenery: data.scenery, undelta, cellOf, rgb, onRibbon, buildingAt, addPropColl, proj: (la, lo) => city.proj(la, lo),
         keep: (x, z, len) => !(ringGeometry && sceneryMargin(x, z) > (distCfg?.outerRing ?? 600) + len / 2) }) : null;
     if (bellevueGuideway) railStats.bellevueGuideway = { ...bellevueGuideway, ways: [...bellevueGuideway.ways] };
     for (const r of data.railways || []) {

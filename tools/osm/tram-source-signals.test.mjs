@@ -12,7 +12,7 @@ import { readDistrictData } from './district-data.mjs';
 const results = [], test = (name, fn) => { const details = fn(); results.push({ name, details }); console.log('PASS ' + name); };
 const input = JSON.parse(fs.readFileSync('handoffs/fidelity/source-controlled-crossing/groz-motor98-input.json'));
 const fullData = readDistrictData('game/data/bucharest-grozavesti.bin.gz');
-const worldSource = fs.readFileSync('game/src/world.js', 'utf8'), lightBody = worldSource.match(/lightState\(nodeId, edge, time, cycle\) \{([\s\S]*?)\n        \},/)[1];
+const worldSource = fs.readFileSync('game/src/world-api.js', 'utf8'), lightBody = worldSource.match(/lightState\(nodeId, edge, time, cycle\) \{([\s\S]*?)\n        \},/)[1];
 function fixture() {
     const nodes = new Map(), edges = structuredClone(input.edges).map(e => {
         for (const end of ['a', 'b']) { if (!nodes.has(e[end].id)) nodes.set(e[end].id, { ...e[end], edges: [] }); e[end] = nodes.get(e[end].id); e[end].edges.push(e); }

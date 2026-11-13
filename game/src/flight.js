@@ -1,5 +1,5 @@
 import { drawFitText } from './canvasText.js';
-import { NE_LAND, NE_BORDERS } from './geo-ne110.js';
+import { NE_LAND, NE_BORDERS } from '../data/geo/ne110.js';
 
 /**
  * Flight cutscene (note 47): an orthographic globe with Natural Earth 1:110m coastlines + land borders (public domain),

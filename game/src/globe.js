@@ -21,7 +21,7 @@
 //    flightScene(ctx, o) — the flight's globe frame (space, globe, route flown so far, airports, plane)
 //    new WorldGlobe() — the World-tab controller: draw(g, { W, H, dpr, view, counts, here, pick }) → hits
 // ============================================================================
-import { NE_LAND, NE_BORDERS } from './geo-ne110.js';
+import { NE_LAND, NE_BORDERS } from '../data/geo/ne110.js';
 
 const D2R = Math.PI / 180, TAU = Math.PI * 2;
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);

@@ -182,7 +182,9 @@ const brandStyle = (name) => {
 };
 let BRAND_RES = null; const BRAND_HITS = new Map();
 
-const shoulderOf = (e) => (e.roadWidthSource && (e.roadWidthSource.source === 'OSM width' || e.roadWidthSource.review)) ? 0 : (/motorway|trunk/.test(e.type) ? (e.type.endsWith('_link') ? 0.6 : 1.2) : 0.15);
+// (spec 10 load budget) the motorway / trunk test per road type, kept (a regular expression per call before)
+const MOTORWAY_TRUNK = new Map(), isMotorwayTrunk = (t) => { let v = MOTORWAY_TRUNK.get(t); if (v === undefined) MOTORWAY_TRUNK.set(t, v = /motorway|trunk/.test(t)); return v; };
+const shoulderOf = (e) => (e.roadWidthSource && (e.roadWidthSource.source === 'OSM width' || e.roadWidthSource.review)) ? 0 : (isMotorwayTrunk(e.type) ? (e.type.endsWith('_link') ? 0.6 : 1.2) : 0.15);
 const AWNING = ['#b91c1c', '#1f4e79', '#14532d', '#7c2d12', '#374151', '#6b21a8', '#0f766e', '#a16207'].map(rgb);
 const PHASES = [];
 let _phaseT = 0, _phaseName = '';
@@ -2589,7 +2591,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // (2026-11-08, owner: "parked cars look sunk", then "do the sidewalks") realPass districts: sidewalks at the kerb's height
     // (Y.road + Y.kerb) instead of 0.22 m below it — the top of every sidewalk band, the junction corners between them, the
     // physics (surfacesAt → walkers, the car mounting a kerb), the crowd and everything standing on a sidewalk (DY_SIDE)
-    const raisedEdge = (e, side = null) => realPass && !e.virtual && (side == null ? Math.max(sidewalkWidth(e, 1), sidewalkWidth(e, -1)) : sidewalkWidth(e, side)) > 0.3 && !/motorway|trunk/.test(e.type) && !e.tunnel && !e.bridge;
+    const raisedEdge = (e, side = null) => realPass && !e.virtual && (side == null ? Math.max(sidewalkWidth(e, 1), sidewalkWidth(e, -1)) : sidewalkWidth(e, side)) > 0.3 && !isMotorwayTrunk(e.type) && !e.tunnel && !e.bridge;
     const DY_SIDE = Y.road + Y.kerb - Y.side; // props stand at Y.side (+ profile): raised by this on a raised sidewalk
     const sideJoins = new Map(); // pad node → [{ e, asph, outer }] sidewalk ends meeting at a junction
     const cornerPolys = [], cornerGrid = new BoxGrid(24); // raised junction corners {p, n, x0..z1}
@@ -2654,7 +2656,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (e.a.pad) { if (sidewalkWidth(e, 1) > .3) pushPad(e.a, 'side', sa); if (sidewalkWidth(e, -1) > .3) pushPad(e.a, 'side', ta); }
             if (e.b.pad) { if (sidewalkWidth(e, 1) > .3) pushPad(e.b, 'side', sb); if (sidewalkWidth(e, -1) > .3) pushPad(e.b, 'side', tb); }
             // kerbs: raised strip + vertical face along both edges
-            if (!/motorway|trunk/.test(e.type) && !e.tunnel) {
+            if (!isMotorwayTrunk(e.type) && !e.tunnel) {
                 for (const s of [1, -1]) {
                     if (sidewalkWidth(e, s) <= .3) continue;
                     const ia = s > 0 ? aR : aL, ib = s > 0 ? bR : bL;
@@ -2737,7 +2739,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             // a one-way carriageway built wider than its lane count is marked evenly over its real width (see the dividers)
             const Wc = e.wL + e.wR, nEff = e.oneway ? Math.round(Wc / e.laneW) : 0, evenLanes = e.oneway && nEff > e.lanesF && Wc - e.lanesF * e.laneW > e.laneW * 0.7;
             // bus lanes (outermost lane each way)
-            if (e.busLane && !/motorway|trunk/.test(e.type)) {
+            if (e.busLane && !isMotorwayTrunk(e.type)) {
                 if (realPass) { // (2026-11-08, Street View walk of Calea Floreasca) plain asphalt behind a wide solid line, not red paint (red only on the boulevards that have it)
                     const wl = rgb('#ecebe6');
                     if (evenLanes) { const o = -e.wL + Wc * (nEff - 1) / nEff; band(longM, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); } // (on the last divider of the evenly marked lanes)
@@ -2798,7 +2800,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (s1 - s0 > .2) {
                     if (e.taperR) { const n = Math.max(1, Math.ceil(s1 - s0)); for (let i = 0; i < n; i++) { const sa = s0 + (s1 - s0) * i / n, sb = s0 + (s1 - s0) * (i + 1) / n, oa = e.wR - 0.15 + sideExtra(e, 1, sa), ob = e.wR - 0.15 + sideExtra(e, 1, sb), P = (q, o) => [e.a.x + e.dirx * q + e.nx * o, e.a.z + e.dirz * q + e.nz * o], A = P(sa, oa - 0.08), B = P(sb, ob - 0.08), C = P(sb, ob + 0.08), D = P(sa, oa + 0.08); edgeM.flatQuad(A[0], A[1], B[0], B[1], C[0], C[1], D[0], D[1], yM, white, 0); } } // (a lane-drop taper: the line closes in with the kerb)
                     else dashLine(edgeM, e, s0, s1, e.wR - 0.15, yM, white, Math.min(1, s1 - s0), 0, 0.08);
-                    dashLine(edgeM, e, s0, s1, -(e.wL - 0.15), yM, (US && e.oneway && /motorway|trunk/.test(e.type)) ? yellow : white, Math.min(1, s1 - s0), 0, 0.08);
+                    dashLine(edgeM, e, s0, s1, -(e.wL - 0.15), yM, (US && e.oneway && isMotorwayTrunk(e.type)) ? yellow : white, Math.min(1, s1 - s0), 0, 0.08);
                 }
             }
             // stop lines at lights / stop signs
@@ -2914,7 +2916,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (e.len > 12) {
             const ra = retract(e, e.a) + 5, rb = e.len - retract(e, e.b) - 5;
             if (lampRoad && (!/motorway/.test(e.type) || e.lit)) {
-                const step = big ? 34 : resLamp ? 32 : 28, hh = big || /motorway|trunk/.test(e.type) ? 8 : 6;
+                const step = big ? 34 : resLamp ? 32 : 28, hh = big || isMotorwayTrunk(e.type) ? 8 : 6;
                 for (let s = ra + ((e.id * 7) % step); s < rb; s += step) {
                     for (const sd of (resLamp ? [((e.road * 7) % 2) ? 1 : -1] : e.oneway && e.lanesF <= 1 ? [1] : [1, -1])) {
                         if (e.sidewalkSource.explicit && sidewalkWidth(e, sd) <= .3 && !e.bridge) continue;
@@ -3959,7 +3961,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const px = -iz, pz = ix;
             const setback = Math.min(1.5, e.len / 2), cx = n.x + ix * setback, cz = n.z + iz * setback, y = Y.road + yAlong(e, cx, cz);
             n.mapEnd = true;
-            const kind = /motorway|trunk/.test(e.type) ? 'highway' : (/^(primary|secondary)(_link)?$/.test(e.type) || e.lanesF + e.lanesB >= 4) ? 'boulevard' : 'small';
+            const kind = isMotorwayTrunk(e.type) ? 'highway' : (/^(primary|secondary)(_link)?$/.test(e.type) || e.lanesF + e.lanesB >= 4) ? 'boulevard' : 'small';
             // One asymmetric full exit span (road/shoulder/source sidewalk) is
             // finalized before both the physical wall and visible decoration.
             const sgn = px * e.nx + pz * e.nz >= 0 ? 1 : -1,
@@ -8303,6 +8305,10 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         edgeGrid.each(x - 2, z - 2, x + 2, z + 2, (e) => {
             if (seen.has(e) || e.virtual || e === exclude) return; seen.add(e);
+            // (spec 10 load budget) the distance below is at least the gap to the edge's box; lim is at most the wider width +
+            // the largest shoulder (1.2) + the wider sidewalk + SIDE_BACK (+ 1.5 preferred): past that bound it returns anyway
+            const gap = Math.max(Math.min(e.a.x, e.b.x) - x, x - Math.max(e.a.x, e.b.x), Math.min(e.a.z, e.b.z) - z, z - Math.max(e.a.z, e.b.z));
+            if (gap > Math.max(e.wR, e.wL) + 1.2 + (carriagewayOnly ? 0 : Math.max(sidewalkWidth(e, 1), sidewalkWidth(e, -1)) + SIDE_BACK) + (e === prefer ? 1.5 : 0) + 1e-6) return;
             const q = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z);
             const side = ((x - q.cx) * e.nx + (z - q.cz) * e.nz) >= 0 ? 1 : -1;
             const lim = (side > 0 ? e.wR : e.wL) + shoulderOf(e) + (carriagewayOnly ? 0 : sidewalkWidth(e, side) + (raisedEdge(e, side) ? SIDE_BACK : 0.05)) + (e === prefer ? 1.5 : 0);

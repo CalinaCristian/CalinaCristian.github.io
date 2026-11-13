@@ -585,6 +585,14 @@ legible at this resolution).
   ten on the west kerb of Bellevue Way at 47.6187 - 47.6200, four on its east kerb, six along the west side at 47.6142 - 47.6147 and
   two on the south kerb of NE 8th St. 18 are placed; the world builder refuses 4 (carriageway / building clearance). Crowns in the
   towers' shadows (most of NE 8th St, Bellevue Way 47.6150 - 47.6185) cannot be read on this imagery and are not added.
+- **Lincoln Square North podium** (r2-landmarks-5, `bLincolnN` / `bOneLincoln` in landmarks.js), from the evidence already recorded
+  (sections 16 - 18): the sidewalk canopies are blue (were dark grey); the red-brick accent bay is drawn on the NE 8th St face where the
+  diagonal skybridge lands (12 m wide, estimate); the mapped OSM tenants inside the podium now carry their own fascias on it (the
+  landmark keeps unit signs, as Unirea does), so they are signed where OSM puts them (Din Tai Fung seen on the NE 8th face); the Westin podium
+  and its level 2-3 connector have punched square windows in tan stone instead of continuous ribbons (window size / pitch estimates).
+  **Estimates / not verifiable**: the NE 8th face beyond those items was never compared with a panorama (it keeps the cream stone over
+  a grey storefront base seen at the corner); the poster boards beside the Cinemark sign are not drawn (no source for their size or
+  position).
 
 ## 24. Backlog close-out, cross-district lane (2026-11-13)
 

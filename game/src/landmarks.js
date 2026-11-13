@@ -2835,7 +2835,17 @@ function bLincolnN(b) {
         const a = pod[i], c = pod[(i + 1) % pod.length], L = Math.hypot(c[0] - a[0], c[1] - a[1]); if (L < 12) continue;
         const n = edgeN(pod, i); if (n[1] > 0.7) continue;                                  // not on the inner (south) court side
         const mx = (a[0] + c[0]) / 2 + n[0] * 1.4, mz = (a[1] + c[1]) / 2 + n[1] * 1.4;
-        b.box(mx, 4.3, mz, L * 0.8, 0.35, 2.8, '#4a4f53', { ry: -Math.atan2(c[1] - a[1], c[0] - a[0]) });
+        b.box(mx, 4.3, mz, L * 0.8, 0.35, 2.8, '#2f5d8e', { ry: -Math.atan2(c[1] - a[1], c[0] - a[0]) }); // (r2-landmarks-5) blue awnings (street-level review 2026-11-12)
+    }
+    // (r2-landmarks-5) the street-level review of 2026-11-12 (dossier section 16) saw a red-brick accent bay where the diagonal NE 8th St
+    // skybridge lands on the podium; drawn on the north (NE 8th) face round the bridge's nearest source vertex, 12 m wide (estimate)
+    {
+        let best = null;
+        for (let i = 0; i < pod.length; i++) {
+            const a = pod[i], c = pod[(i + 1) % pod.length], L = Math.hypot(c[0] - a[0], c[1] - a[1]), n = edgeN(pod, i); if (L < 8 || n[1] > -0.8) continue;
+            for (const q of br8) { const t = Math.max(0, Math.min(1, ((q[0] - a[0]) * (c[0] - a[0]) + (q[1] - a[1]) * (c[1] - a[1])) / (L * L))), d = Math.hypot(a[0] + (c[0] - a[0]) * t - q[0], a[1] + (c[1] - a[1]) * t - q[1]); if (!best || d < best.d) best = { d, a, c, t, L, n }; }
+        }
+        if (best && best.d < 6) { const { a, c, t, L, n } = best, h = 6 / L, P3 = (k) => [a[0] + (c[0] - a[0]) * k, a[1] + (c[1] - a[1]) * k]; facadeQuad(b, P3(Math.max(0, t - h)), P3(Math.min(1, t + h)), 5.9, 15.2, RED, 'm', n, 0.2); }
     }
     b.text('LINCOLN SQUARE', -31, 10.2, -87.85, Math.PI, 1.4, '#3a342c');                       // NE 8th St face (north); dark letters on the cream stone
     // --- Lincoln Square North tower (UiPath): 126 m = lobby + 27 office floors (3.95 m) + recessed top + louvred crown
@@ -2905,8 +2915,10 @@ function bOneLincoln(b) {
     // --- Westin podium (2 levels) + One Lincoln Tower (137 m: hotel floors 4-~10, condos above)
     b.prism(westin, 0, 10.5, '#c9bfae', { topCol: '#7f9c6c' });
     b.prism(offset(westin, 0.12), 0, 4.8, '#37444d', { mat: 'g', top: false });
-    b.cornice(westin, 4.8, 0.6, 0.4, '#e2dccf'); b.bands(westin, 5.6, 10.2, 4.4, '#3f4b52', { frac: 0.55, wall: null });
-    b.prism(conn, 7, 15.5, '#bfb6a6', { bottom: true, topCol: '#8e8a84' }); b.bands(conn, 7, 15.5, 4.2, '#3f4b52', { frac: 0.5, wall: null });
+    // (r2-landmarks-5, round 2 panoramas on Bellevue Way NE) the podium south of the retail block has punched square windows in tan stone,
+    // not continuous window ribbons; window size and pitch are estimates
+    b.cornice(westin, 4.8, 0.6, 0.4, '#e2dccf'); b.windows(westin, 5.6, 10.2, 4.4, '#3f4b52', { bay: 3.6, wf: 0.44, hf: 0.42, start: 0.9, mat: 'g', minL: 4, off: 0.07 });
+    b.prism(conn, 7, 15.5, '#bfb6a6', { bottom: true, topCol: '#8e8a84' }); b.windows(conn, 7, 15.5, 4.2, '#3f4b52', { bay: 3.6, wf: 0.44, hf: 0.42, start: 1.0, mat: 'g', minL: 4, off: 0.07 });
     b.text('THE WESTIN', -44.7, 6.2, 70, -Math.PI / 2, 1.1, '#f6f3ec');
     // (round 2, panoramas on Bellevue Way NE at 47.616895, -122.2018 heading 105-140 and NE 4th at 47.615169, -122.201847
     // heading 39, viewed only): the tower reads as blue reflective glass with white slab-edge bands, like its neighbours;
@@ -4165,7 +4177,7 @@ export const LANDMARKS = [
     L('mtbaker', 'seattle', 'Mount Baker Tunnel (east portal)', [], 0, bMtBaker, { sourceIds: [] }),
     L('seatac', 'seattle', 'Seattle-Tacoma International Airport', ['Sea-Tac Airport Main Terminal'], 480, bSeaTac, { sourceIds: ['w23772634','w23772637','w734002404','w869951038'] }),
     L('seatower', 'seattle', 'SeaTac Control Tower', ['SeaTac Control Tower'], 30, bSeaTower, { sourceIds: ['w53199557','w1199936806','w1199936807'] }),   // r 30: also the 71 m parent outline w53199557 (centroid ~15-21 m off)
-    L('lincoln', 'seattle', 'Lincoln Square North (UiPath Bellevue)', ['Lincoln Square', 'Lincoln Square North', 'Cinemark Lincoln Square'], 72, bLincolnN, {  cvStop: 'uipath-bel', hero: true, sourceIds: ['w604028609','w161929514','w1364249504'] }),
+    L('lincoln', 'seattle', 'Lincoln Square North (UiPath Bellevue)', ['Lincoln Square', 'Lincoln Square North', 'Cinemark Lincoln Square'], 72, bLincolnN, {  cvStop: 'uipath-bel', hero: true, unitSigns: true, sourceIds: ['w604028609','w161929514','w1364249504'] }),
     L('onelincoln', 'seattle', 'One Lincoln Tower / Westin Bellevue', ['One Lincoln Tower', 'Westin Bellevue', 'Westin'], 40, bOneLincoln, { sourceIds: ['w604028611','w328017119','w1474737770'] }),
     L('lincolnsouth', 'seattle', 'Lincoln Square South', ['Lincoln Square South', 'Lincoln Square South Tower', '400 Lincoln Square', 'Two Lincoln Tower', 'W Bellevue'], 50, bLincolnS, { sourceIds: ['w1326151866','w604028603','w1326151868'] }),
     L('plazacenter', 'seattle', 'Plaza Center (UiPath Bellevue 2018–2025)', ['Plaza Center'], 32, bPlazaCenter, {  passing: 'plaza-center', sourceIds: ['w33725899'] }),

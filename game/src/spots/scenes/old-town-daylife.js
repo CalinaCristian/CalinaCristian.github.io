@@ -1,7 +1,7 @@
 // Old Town by day, and more to do at night (owner, 2026-11-11: "figure out activities for daytime too and more
 // activities in general for that area"). By day the visit had the Carusel stair and nothing else: Freddo is a club night.
 // Every activity here stands at a real OSM place inside the visit area and is what visitors do there; hours, sources and
-// what is estimated are in game/research/old-town-daylife.md. Nothing is added to a street or a building: the props are
+// what is estimated are in game/research/bucharest-spots.md, "Things to do by day and night". Nothing is added to a street or a building: the props are
 // held in the visitor's hand, the busker's case lies at the busker the scene already had.
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, distPolyline, inPoly, canvas, canvasTexture, disposeTree } from '../kit.js';

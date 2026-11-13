@@ -4,7 +4,7 @@
 //  board itself: throws the dice, taps or drags a checker to a marked landing spot, hands the dice over; Doru then
 //  throws and moves his own checkers and talks the way old table players do (backgammon-banter.js). Rules:
 //  backgammon-engine.js (Romanian opening, linie / marț scoring, first to three lines). Research and the sources of
-//  the lines: game/research/table-cismigiu.md. Board, checker and dice sizes are estimates.
+//  the lines: game/research/bucharest-spots.md, "Table (Romanian backgammon)". Board, checker and dice sizes are estimates.
 //
 //  ctx.extras.backgammon: { state(), score(), result(), legalMoves(), events(), debug: { … } } for checks.
 // ============================================================================

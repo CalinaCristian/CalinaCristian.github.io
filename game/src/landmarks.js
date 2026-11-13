@@ -2834,7 +2834,7 @@ function bLincolnN(b) {
         const mx = (a[0] + c[0]) / 2 + n[0] * 1.4, mz = (a[1] + c[1]) / 2 + n[1] * 1.4;
         b.box(mx, 4.3, mz, L * 0.8, 0.35, 2.8, '#2f5d8e', { ry: -Math.atan2(c[1] - a[1], c[0] - a[0]) }); // (r2-landmarks-5) blue awnings (street-level review 2026-11-12)
     }
-    // (r2-landmarks-5) the street-level review of 2026-11-12 (dossier section 16) saw a red-brick accent bay where the diagonal NE 8th St
+    // (r2-landmarks-5) the street-level review of 2026-11-12 (seattle-bellevue.md §6.1) saw a red-brick accent bay where the diagonal NE 8th St
     // skybridge lands on the podium; drawn on the north (NE 8th) face round the bridge's nearest source vertex, 12 m wide (estimate)
     {
         let best = null;

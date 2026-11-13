@@ -293,7 +293,7 @@ export default {
         ctx.osmBackdrop({ paint: {}, urban: false, style: (bd) => (bd.rc === '#a2452d' ? 'apartment' : undefined), areaTreeOpts: { conifer: 0.5, density: 1 / 70 } });
         // Carl S. English Jr. Botanical Garden: specimen trees + beds
         // (r3-sea-spots-4) the Administration Building's garden (OSM w60973304, leisure=garden) is wooded with tall conifers in
-        // Street View (section 10), not open lawn: conifers on a 5 m staggered grid inside the mapped garden; the grid and the
+        // Street View (seattle-spots.md "Ballard Locks"), not open lawn: conifers on a 5 m staggered grid inside the mapped garden; the grid and the
         // tree sizes are estimates (no tree nodes are mapped there)
         { const ag = d.areas.find((a) => a.id === 'w60973304'); if (ag) { const bb = polyBox(ag.poly), r = rng(60973304); let n = 0;
             for (let x = bb.x0 + 2.5, row = 0; x < bb.x1; x += 4.4, row++) for (let z = bb.z0 + 2.5 + (row % 2) * 2.5; z < bb.z1; z += 5) { const jx = x + (r() - 0.5) * 1.6, jz = z + (r() - 0.5) * 1.6; if (!inPoly(jx, jz, ag.poly)) continue; ctx.trees.push({ x: jx, z: jz, kind: 'con', s: 1.7 + r() * 0.5 }); n++; }

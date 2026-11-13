@@ -1,5 +1,5 @@
 // Original procedural composition, "Lipscani after dark" (2026), CC0-1.0.
-// No samples, quotations, recordings or known melodies. See research/old-town-nightlife.md.
+// No samples, quotations, recordings or known melodies. See game/research/bucharest-spots.md, "Things to do by day and night".
 export const CLUB_BPM = 126;
 export const CLUB_BEAT = 60 / CLUB_BPM;
 

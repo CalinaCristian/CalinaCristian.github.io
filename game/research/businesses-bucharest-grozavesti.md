@@ -1,66 +1,33 @@
 # Businesses & speed limits — Grozăvești (Bucharest)
 
-Research pass 2026-11-07 (spec 20, R12.2 / R11). Machine-readable: `businesses-bucharest-grozavesti.json` (one entry per business) and the `bucharest-grozavesti` block of `speedlimits.json`. Zone = everything within **60 m of a chapter route** (routes recomputed on the OSM graph from `CHAPTERS` starts to the stop doors, one-way and turn-restriction aware) **plus** recognisable businesses within 50 m of a main street (motorway…tertiary) inside the district mask of `game/data/bucharest-grozavesti.json`. Standalone ATMs, parcel lockers, chargers and pure company offices are left out.
+Research pass 2026-11-07 (spec 20, R12.2 / R11). Machine-readable: `businesses-bucharest-grozavesti.json` (one entry per business, independents included) and the `bucharest-grozavesti` block of `speedlimits.json`. Zone = everything within **60 m of a chapter route** (routes recomputed on the OSM graph from `CHAPTERS` starts to the stop doors, one-way and turn-restriction aware) **plus** recognisable businesses within 50 m of a main street (motorway…tertiary) inside the district mask. Standalone ATMs, parcel lockers, chargers and pure company offices are left out. Confidence and sign-style rules as in `businesses-bucharest-floreasca.md`.
 
-## Counts
+Against the game data of 2026-11-07, 13 businesses were missing (6 dropped by the `poiKind()` build filter: bookmaker, post office, hairdresser, copyshop, doctors, chocolate; 7 outside the mask / deduplicated); the 2026-11-12 POI append (below) has filled part of that gap. Brands without sign colours fall back to the generic kind colours (Altex, Dodo Pizza, Honda, Kia, Samsung, Synevo, Toyota, Tucano Coffee at the time).
 
-| | |
-|---|---|
-| businesses in zone | 92 |
-| … of which within 60 m of a chapter route | 13 |
-| chain brands | 34 |
-| confirmed by an official store locator | 1 |
-| confidence high | 4 |
-| confidence medium | 61 |
-| confidence low | 27 |
-| chain store NOT in its official locator (possibly closed) | 0 |
-| in the official locator but not in OSM (added) | 0 |
-| closed per OSM lifecycle tags (on route, listed below) | 1 |
-| in the game (POI within 35 m) | 78 |
-| in the game only as a facade sign | 1 |
-| missing in the game | 13 |
-| … of which on a chapter route | 3 |
-| ATMs drawn as bank POIs on a route | 0 |
+## On the chapter route (upb)
 
-Confidence: **high** = official locator match, or OSM `check_date` ≥ 2025-05; **medium** = OSM element edited or checked since 2023-11; **low** = older OSM data, or a chain store missing from its official locator. Sign `style` is a category rule (fuel → pylon, RO pharmacy → projecting green cross, drive-thru fast food in its own building → pylon, else fascia); `sign.basis` says where the colours come from.
+| brand | category | address | side | conf. |
+|---|---|---|---|---|
+| BCR | bank | Șoseaua Orhideelor 15D | W side of Șos. Orhideelor | medium |
+| Lukoil | fuel + convenience | Șoseaua Orhideelor 4 | E side of Șos. Orhideelor | medium |
+| OMV | fuel | Bd. Doina Cornea 5 | SE side of Bd. Doina Cornea | medium |
 
-## On the chapter routes (chain brands)
-
-| chapter | brand | category | address | side | conf. | in game | note |
-|---|---|---|---|---|---|---|---|
-| upb | BCR | bank | Șoseaua Orhideelor 15D, București | W side of Șoseaua Orhideelor | medium | present |  |
-| upb | Lukoil | fuel | Șoseaua Orhideelor 4, București | E side of Șoseaua Orhideelor | medium | present | fuel: canopy fascia in brand colours + price pylon at the kerb; Lukoil international assets (incl. Romanian stations) were the subject of a sale offer in Nov 2025 (Wikipedia "Lukoil"); station brand may change — re-check |
-| upb | Lukoil | convenience | Șoseaua Orhideelor 4, București | E side of Șoseaua Orhideelor | medium | present | Lukoil international assets (incl. Romanian stations) were the subject of a sale offer in Nov 2025 (Wikipedia "Lukoil"); station brand may change — re-check |
-| upb | OMV | fuel | Bulevardul Doina Cornea 5, București | SE side of Bulevardul Doina Cornea | medium | present |  |
-
-Independents on the routes (9): 14th Lane (cafe), 14th Lane (restaurant), ? (convenience), Ahrend (furniture), Choco-Museum (chocolate), Fabrica Grivița (bar), Green Day Spa (hairdresser), Sir Orhideea (hotel), So Coffee (cafe)
+Fuel: canopy fascia in brand colours plus a price pylon at the kerb. Lukoil's international assets (Romanian stations included) were offered for sale in Nov 2025 (Wikipedia "Lukoil"): the station brand may change, re-check. Nine independents on the route are in the JSON.
 
 ## Official-locator checks
 
-- **Carrefour Express** Șoseaua Orhideelor 15A, București: position match with "Express Orhideea Towers" (121 m) — https://carrefour.ro/corporate/magazine
+- **Carrefour Express** Șos. Orhideelor 15A: position match, "Express Orhideea Towers" (121 m), carrefour.ro/corporate/magazine.
+- Closed per OSM lifecycle tags: n6792143476 (`disused:amenity=restaurant`, 44.44581, 26.05984): draw as a vacant "De închiriat" unit if modelled.
 
-## Closed per OSM lifecycle tags (within 60 m of a route)
+## POIs added from live OSM (2026-11-12 / 13)
 
-- (unnamed) — `disused:amenity=restaurant` at 44.44581, 26.05984 (node/6792143476, last edit 2024-11-06) — draw as a vacant unit ('De închiriat') if modelled
+`tools/osm/add-pois.mjs --edge 100` on API 0.6 tiles of the playable area + 260 m appended 140 rows (161 before; 117 in the edge strip; 21 dropped by class; 2 new in OSM / relations; 6 own building names). Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or indoor, nodes deep inside multi-tenant halls (Carrefour Orhideea gallery, 40), unnamed objects, ATMs outside the area.
+- Germag n5862008006 (`shop=yes`, named; named `shop=yes` is now a shop class): pano wEy2ri9fhmOq0iOEkX5jIg shows the GERMAG front at Bd. Banu Manta 2.
+- Street View, Calea Griviței 158: ground-floor shop fronts where the game has a Catena fascia (name not readable in the preview). 6 Bd. Iuliu Maniu (The Light One): glass office tower, no tenant name dominates at street level.
 
-## Game comparison (`game/data/bucharest-grozavesti.json`)
+## Speed limits on the chapter route
 
-Missing businesses by reason: 6× dropped by the build filter; 7× not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter).
-
-Categories dropped by `poiKind()`: bookmaker (1), post_office (1), hairdresser (1), copyshop (1), doctors (1), chocolate (1).
-
-Missing chain brands: LYB Arhi-Proiect S.R.L., Mega Image, Superbet, Synevo (★ = on a chapter route).
-
-Brands with no sign colours in `data.brands` nor in `world.js BRANDS` (fall back to generic kind colours): Altex, Dodo Pizza, Honda, Kia, LYB Arhi-Proiect S.R.L., Samsung, Synevo, Toyota, Tucano Coffee.
-
-Wrong colours / names: `Molson Coors GBS` — world.js brandStyle() prefix match gives it the 'mol' brand colours.
-
-## Speed limits on the chapter routes
-
-**Legal default (Romania).** Inside localities the limit is 50 km/h unless signed; the road owner may, with traffic-police approval, raise it on some sections up to 80 km/h or lower it down to 30 km/h (OUG 195/2002 art. 49 as summarised in https://en.wikipedia.org/wiki/Speed_limits_in_Romania, fetched 2026-11-07; the official text at legislatie.just.ro did not respond). Bucharest's big boulevards are signed 60 (Magheru, Lascăr Catargiu, Kiseleff, parts of Bd. Unirii) — OSM `maxspeed=60` on those ways; DN1 through Otopeni is signed 70 on the flyover (OSM `maxspeed=70`). There is no automatic school-zone limit in Romania: schools get the triangular "Copii" warning sign and, where the city chose so, a signed 30 (OSM tags these as `maxspeed=30`, e.g. Grigore Alexandrescu by the children's hospital, parts of Garibaldi).
-
-
-**upb** — 1661 m; OSM ways with `maxspeed`: 16 (1653 m), without: 0 (0 m).
+Romanian legal default: see `businesses-bucharest-floreasca.md`. **upb** — 1661 m, all OSM ways tagged.
 
 | street | class | m | OSM maxspeed | game km/h |
 |---|---|---|---|---|
@@ -70,42 +37,8 @@ Wrong colours / names: `Molson Coors GBS` — world.js brandStyle() prefix match
 | Șoseaua Grozăvești | secondary | 70 | 50 | 50 |
 | Bulevardul Doina Cornea | secondary | 691 | 50 | 50 |
 
-Schools / kindergartens within 150 m of a route: Gradinița nr. 168 (way/1331454041, 41 m).
+Schools / kindergartens within 150 m: Grădinița nr. 168 (w1331454041, 41 m).
 
 ## Sources
 
-- OpenStreetMap API 0.6 tiles fetched 2026-11-06 (`/api/0.6/map`), © OpenStreetMap contributors, ODbL — element ids in every entry.
-- McDonald's România restaurant list https://mcdonalds.ro/restaurante (fetched 2026-11-07; 118 restaurants, coordinates for 33).
-- KFC România https://kfc.ro/restaurante (fetched 2026-11-07, coordinates per restaurant).
-- Kaufland România store finder JSON https://www.kaufland.ro/.klstorefinder.json (2026-11-07).
-- Carrefour România store list https://carrefour.ro/corporate/magazine (2026-11-07, 451 stores incl. Express/Market, `temporarily_closed` flag).
-- Farmacia Dona list https://www.dona.ro/farmacii (2026-11-07, 672 pharmacies with coordinates).
-- Not machine-readable from here (2026-11-07): Mega Image (GraphQL API refused by the network after one call), Profi, Dr.Max, HelpNet, CEC, Raiffeisen (HTTP 403), Lidl / Penny / Catena / BT / BCR / ING / Orange / Vodafone / Petrom / OMV / MOL / Rompetrol locators (JavaScript-only or 404), Lukoil / OTP / Alpha Bank / Digi / telekom.ro (no response or bot wall). These brands rely on OSM (edit / check dates) only.
-- Garanti BBVA brand name: https://www.garantibbva.ro (page title "… | Garanti BBVA", 2026-11-07).
-
-## POI append, 2026-11-12 (round 2, lane builder)
-
-Source: OpenStreetMap API 0.6 `map.json` tiles fetched 2026-11-12 (playable area + 260 m; raw files not committed).
-Tool: `tools/osm/add-pois.mjs --edge 100`. Rows appended to `pois` (original rows and indices unchanged):
-
-| district | before | added | edge strip | dropped classes | new in OSM / relations | own building names |
-|---|---|---|---|---|---|---|
-| bucharest-grozavesti | 161 | 140 | 117 | 21 | 2 | 6 |
-
-Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or
-indoor, nodes deep inside multi-tenant halls (Carrefour Orhideea gallery 40, Bellevue malls 68, Promenada 16, Otopeni terminal
-11), unnamed objects, ATMs outside the area.
-
-Street View comparison (reference only, nothing stored), same position and bearing as the game render:
-- Unirii, 13 Bd. Dimitrie Cantemir; Grozăvești, Calea Griviței 158; Floreasca, 109 Calea Dorobanți: blocks with ground-floor shop fronts where the game now has Catena / Catena / Banca Transilvania fascias; the previews were too coarse to read the names.
-- Pipera, 169 Calea Floreasca (Floreasca Tower) and Grozăvești, 6 Bd. Iuliu Maniu (The Light One): glass office towers; no tenant name dominates the facade at street level.
-
-Not compared: every other appended POI (881 of 894, all eight districts).
-
-## Round 3, lane builder (2026-11-13)
-
-Sources: live OSM (API 0.6 / Overpass, 2026-11-12/13; the round-2 map.json tiles of each district for the cached-source
-tools), official Street View panoramas looked at for appearance only (nothing stored, nothing extracted into data).
-
-Germag n5862008006 (`shop=yes`, named): appended (named `shop=yes` is now a shop class); pano wEy2ri9fhmOq0iOEkX5jIg shows
-the GERMAG shop front on that block at Bd. Banu Manta 2.
+OpenStreetMap API 0.6 tiles fetched 2026-11-06 and 2026-11-12, © OpenStreetMap contributors, ODbL; official Street View panoramas viewed for appearance only (nothing stored); locators as listed in `businesses-bucharest-floreasca.md`.

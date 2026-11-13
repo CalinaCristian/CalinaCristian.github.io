@@ -21,7 +21,7 @@ import { westEndStreets } from './pioneer-square-westend.js';
 
 // ---------------------------------------------------------------------------- the Chief-of-All-Women pole (1940 replica)
 /**
- * Modelled from the research dossier (game/research/pioneer-totem.md: Garfield 1996 pp. 15–17 via Wikipedia): western red
+ * Modelled from the research dossier (game/research/seattle-spots.md, "The totem pole": Garfield 1996 pp. 15–17 via Wikipedia): western red
  * cedar, ≈ 15.2 m × 1.37 m, deep relief; figures top → bottom: Raven with the crescent moon in his beak; a woman holding
  * her frog child; her frog husband; Mink; Raven; Whale holding a seal; Raven-at-the-Head-of-Nass. Paint only in the
  * Tlingit palette — black formline, red (lips, nostrils, secondary lines), blue-green (eye sockets, tertiary) — on

@@ -271,7 +271,7 @@ export default {
         { const ext = Object.values(d.spots).map((q) => polyBox(q.extent.polygon));
             // (r3) The far canopy below draws every tree beyond the 850 nearest as a cheap, chunk-culled instance (about
             // 46 triangles, no shadow): the even thinning keeps the whole estimated park density now (budget above the
-            // 6.7 k generated trees); measured frame cost in the round-3 dossier.
+            // 6.7 k generated trees); the round-3 frame cost is in the git history of game/research/bucharest-spots.md.
             ctx.extras.herastrauTreeBudget = thinTrees(ctx, { budget: 7200, far: 0.6, keep: (t) => !!t.c || !!t.sy, core: (x, z) => ext.some((q) => x > q.x0 - 40 && x < q.x1 + 40 && z > q.z0 - 40 && z < q.z1 + 40) }); }
         // Unlocated random towers beyond the extract produced a false skyline
         // across the lake. Preserve every mapped building; source coverage

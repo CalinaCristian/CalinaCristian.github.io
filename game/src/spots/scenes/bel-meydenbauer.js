@@ -14,7 +14,7 @@
 //  Seattle on the horizon (≈ 9 km west).
 //  Round 2 of the 2026-11-12 fidelity pass compared the scene with Street View
 //  from 99th Ave NE, the marina lot and Lake Washington Blvd (see
-//  game/research/seattle-spots.md §6b for what was established).
+//  game/research/seattle-spots.md, "Meydenbauer Bay Park", for what was established).
 //  Activities (note 57): walk to the end of the crescent; rent a kayak at the
 //  boathouse (summer) for a paddle round the bay; skip stones from the beach.
 // ============================================================================

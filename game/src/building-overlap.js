@@ -231,7 +231,7 @@ export async function planOverlapCutsParallel(recs, pool, opts = {}) {
     pool.overlapRecords(packed);
     // the workers plan the first ranges; the last share is planned here meanwhile (on the records themselves, as
     // planOverlapCuts does), and joined last, so the order is the same
-    const mainFrom = live.length - Math.floor(live.length / (pool.size + 2));
+    const mainFrom = live.length - Math.floor(live.length / 4); // (the workers first unpack every record: this thread takes a quarter)
     const step = Math.ceil(mainFrom / (pool.size * 4)), jobs = [];
     for (let a = 0; a < mainFrom; a += step) jobs.push(pool.overlap(a, Math.min(mainFrom, a + step), opts));
     let here = null;

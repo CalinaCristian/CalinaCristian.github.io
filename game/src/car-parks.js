@@ -36,7 +36,7 @@ export const CAR_PARK_SOURCES = {
     w450055216: { district: 'bellevue', name: '', levels: 0, tags: 'building=parking, amenity=parking, parking=multi-storey' },
     // (r3) Parcare Cocor w658281398 (building:part inside the Cocor store): the street side is a dark grey panelled wall with a
     // vehicle entrance (panorama ky8lvOleKFvuiFVszKDv7Q, 44.430274, 26.104834, heading 240); the pack draws the store volume
-    // there (glass), the part is not a building record of its own: not changed (backlog)
+    // there (glass), the part is not a building record of its own: its street face is drawn by car-park-fronts.js (round 4)
 };
 
 /** the car-park record of a source building id (listed, or recognised from retained source tags), else null */

@@ -983,6 +983,9 @@ Official panoramas only (ids cited; no imagery stored). Runtime modules named in
   round 34 m end caps, which laid bare construction-coloured ground over the first ≈ 34 m of the open east basin (and past the
   west end). The reach now has square ends at its mapped end points, so the open water reaches the slab end at the railing as
   in the review; the weir w1434558024 (`weirs.js`, ≈ 16 blocks at the basin level) now shows across the basin (top render).
+- **Parcare Cocor** w658281398 (r3-look-7): the part's north-east street face (live OSM vertices 44.4301812, 26.1048784 →
+  44.4304824, 26.1044621) now shows the dark grey panelled wall with a vehicle entrance and a barrier arm of panorama
+  ky8lvOleKFvuiFVszKDv7Q h 240, drawn over the store's glazing there (`game/src/car-park-fronts.js`).
 - **Piața Unirii lamps** (r3-look-13): the mapped street lamps within 150 m of the square centre (8 drawn after the generic
   lamp de-duplication) take the candelabra form seen in the 2024 panoramas (`game/src/lamp-reviews.js`, a third instanced lamp
   set: dark post on a plinth, a cross of arms, five globes; the night light sits over the post). Positions stay OSM's.
@@ -1006,8 +1009,12 @@ Official panoramas only (ids cited; no imagery stored). Runtime modules named in
 - **Playground equipment** and **candelabra sizes**: no OSM object maps the equipment or the lamp form; the drawn sets and the
   globe / arm sizes are class estimates (`PLAYGROUND_MODEL`, `CANDELABRA_MODEL`).
 - **Dâmbovița levels**: one water level per polygon, each reviewed at one place: east basin w174991904 -2.4 m (44.42609,
-  26.10433), Grozăvești w170930341 -1.6 m; the west polygon w174990751 varies along its length (r3-look-5). The weir's block
-  count and size are estimates.
+  26.10433), Grozăvești w170930341 -1.6 m. The west polygon w174990751 looked about 2.5 - 3 m down at 26.0998 (round 3) and
+  about 4.5 m at 26.0976 (round 2), but OSM maps no weir, dam or lock between them (live OSM 2026-11-13: only the river and
+  its culvert w43898061), and the two panoramas are of different dates on a regulated channel: the difference is read as the
+  level on different days, not a step, and one level is kept (-4.4 m, estimate). The weir's block count and size are estimates.
+- **Parcare Cocor front**: the panelled wall runs to the host store's wall top (the part has no height or levels tag); panel
+  width, entrance size and the barrier are estimates (`CAR_PARK_FRONT_MODEL`).
 - **Unirea Shopping Center**: panel module, louvre pitch, banner size and the logo's letter height / place along the south front
   are estimates; the north end and the east (rear) faces were not seen on a sharp official panorama and keep the light panel
   skin of the reviewed south front.

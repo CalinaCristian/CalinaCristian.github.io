@@ -14,7 +14,7 @@ export function buildWallsBarriers(ctx) {
         cellOf, data, distCfg, edgeGrid, edges, medianGrid, onOtherCarriageway, padHeightAt,
         parapetOwnership, polyDist, raisedDeck, retract, ribGrid, ribPoly, ribbons, segsCross,
         sharedTrenchSide, surfacesAt, tramGrades, tramPropEnvelope, tramSweep, tramSweepConflicts, wallCut, walls,
-        widthAsphalt, widthSide, yAlong,
+        widthAsphalt, widthSide, yAlong, barrierHidden = null,
     } = ctx;
     let { blocksLane } = ctx; // (updated here, handed back: see the return)
     {
@@ -402,6 +402,7 @@ export function buildWallsBarriers(ctx) {
             // concrete pieces where the pad-rim rule did, piece by piece around every node. They are not drawn there and
             // their walls are removed; the guard completion fences those edges with one continuous white rail.
             if (w.inferred === true && w.edge && raisedDeck(w.edge)) continue; // (owner, 2026-11-12, (77, 112): grey piece on a 2.4 m ramp too) // (replaced by the continuous guard: see the guard completion below)
+            if (w.inferred === true && barrierHidden && barrierHidden(w)) continue; // (a drawn median of its own stands there instead, e.g. the Pasajul Unirii planters; the wall stays)
             const ya = w.y0a + 0.45, yb = w.y0b + 0.45, L = Math.hypot(w.bx - w.ax, w.bz - w.az) || 1, px = -(w.bz - w.az) / L * 0.15, pz = (w.bx - w.ax) / L * 0.15;
             const c = cellOf(w.x, w.z);
             const metadata={inferred:w.inferred===true,emitter:'separation-barrier',sourceId:data.roadSourceGeometry?.[w.edge?.road]?.sourceId,edgeId:w.edge?.id};

@@ -972,6 +972,15 @@ Official panoramas only (ids cited; no imagery stored). Runtime modules named in
   'louvred'`, pale wall with a dark louvre ribbon per level) is what the game draws, not open decks. The car wash "Spălătorie
   Unirea Etaj 7" no longer gets street boards: a business named for an upper floor ("Etaj n") has no street-level fascia
   (world.js `addUnitSign`, the same rule as the building sign).
+- **Piața Unirii lamps** (r3-look-13): the mapped street lamps within 150 m of the square centre (8 drawn after the generic
+  lamp de-duplication) take the candelabra form seen in the 2024 panoramas (`game/src/lamp-reviews.js`, a third instanced lamp
+  set: dark post on a plinth, a cross of arms, five globes; the night light sits over the post). Positions stay OSM's.
+- **Playgrounds** n7958996084 (44.424677, 26.103238) and n5766022623 (44.43433, 26.116368): OSM `leisure=playground` nodes
+  without an outline, now drawn as a generic class set (rubber patch, swing frame, slide; `game/src/playgrounds.js`).
+- **ATMs**: the four mapped ATMs (Euronet ×3, Bitcoin ATM) show the ATM symbol on the map, not the bank one.
+- **Unirea Shopping Center** (r2-landmarks-4): the red "UNIREA" logo now stands near the roof of the south front (landmarks.js
+  `bUnirea`). The trees in front are OSM tree nodes (159 in the box round the south front, drawn from the pack); the hedge
+  strip has no OSM object (no `barrier=hedge` there, live OSM 2026-11-13), so it is not drawn.
 
 ### Estimates
 
@@ -983,3 +992,33 @@ Official panoramas only (ids cited; no imagery stored). Runtime modules named in
   (95 m) and trams osm521 (41 m) / osm522 (93 m) / osm523 (42 m), Hala Traian osm544 (75 m) / osm545 (52 m) and trams osm552
   (95 m) / osm553 (60 m). The cap is the frame budget's (a shelter further out is distant scenery); whether those stops have a
   shelter at all is not established either way (r3-builder-4).
+- **Playground equipment** and **candelabra sizes**: no OSM object maps the equipment or the lamp form; the drawn sets and the
+  globe / arm sizes are class estimates (`PLAYGROUND_MODEL`, `CANDELABRA_MODEL`).
+- **Unirea Shopping Center**: panel module, louvre pitch, banner size and the logo's letter height / place along the south front
+  are estimates; the north end and the east (rear) faces were not seen on a sharp official panorama and keep the light panel
+  skin of the reviewed south front.
+
+## Backlog close-out, cross-district lane (2026-11-13)
+
+What the rows r3-builder-1 / -2 / -3 / -4, r2-world-monuments and r3-look-1 recorded for Unirii, kept here once the rows were
+closed (each was either fixed or is an estimate no available source settles).
+
+- **Fountain basins** appended by `tools/osm/add-areas.mjs`: w413969309, w1474406316, w586376877, w1459195391, w1459195396 and
+  the Colțea basins keep the generic 0.45 m light-stone coping with full water. That coping is an estimate; no official panorama
+  shows these basins (the Colțea ones are not visible from the street pano i2dCK2VAtXOYKj-5Wy-EHA). w608657873 is still mapped
+  as `amenity=fountain` in OSM but is a planted bed in pano m4ZygVZxXJZodU3nvvedUg: it stays excluded (`add-areas.mjs
+  --exclude`). Correcting the OSM object is a mapper's edit, not made from this repo.
+- **Stop at Piața Sf. Gheorghe** (node/5810960053, appended stop, no shelter metadata): pano 6pmwrKMHq2FbxifltMYaqw shows a stop
+  pole only. world.js `STOP_POLE_ONLY` draws the pole and its sign without the inferred shelter (documented look exception).
+- **Sign side by address** (`fix-pois.mjs --street`, all districts): the ~260 moves to the face on the POI's own `addr:street`
+  are not applied. A postal address names a street, not the face a sign hangs on: the sample moved Unirea Shopping Center's
+  interior KFC / Mega Image 57 m onto the Piața Unirii facade. Only `entrance`-node anchors are applied. Sheraton's Alpha Bank
+  (Romană; no entrance node, no own address) stays one bay off for the same reason.
+- **Ambiguous POI links** (`fix-pois.mjs` `linksAmbiguous`, 18 rows over the districts): a node POI with two footprints within
+  2.5 m of each other stays at its own OSM point, unlinked; OSM does not say which building it belongs to.
+- **Monuments**: Lupoaica (n1731041124) and Leul Ierusalimului (n7350336938) now have low-poly subject forms (the she-wolf with
+  the twins on a tall pedestal; a standing lion with a mane block; `monuments.js` `MONUMENT_SUBJECT`), still not likenesses.
+  Mihail Cantacuzino n916016099 and Domnița Bălașa n921821381 fall inside a building footprint, Dimitar Hadjvasilev n6945692385
+  and Bustul lui Barbu Constantinescu n10726686133 on a carriageway: reported, never moved (`monuments-review.json`).
+- **Fuel**: MOL's four pump islands are the generic model (not counted); OMV's curved shop canopy is not modelled
+  (`fuel-stations-review.json` `remainingEstimates`).

@@ -649,3 +649,38 @@ guards and the yellow railing drawn; the water and the lake polygon are unchange
 - **Podul Barbu Văcărescu lamps** (backlog r3-structures-3): `game/src/deck-lamps.js` puts a single-arm lamp in the guard
   line of both deck edges about every 30 m wherever the deck is at least 2 m up (44 lamps). OSM maps no `street_lamp` on the
   deck; spacing and the 8 m height are estimates, the form and both lit edges are from the panorama 44.479661, 26.100612 h 253.
+- **Muzeul Național al Aviației Române** (w392466489, backlog r2-districts-view-12): the 23 mapped aircraft outlines
+  (`historic=aircraft`) are drawn by the aircraft class (`building-aircraft.js`). The three mapped only as points (IAK-52
+  n13340068830, L-29 n13340068854, Yak-23 n13340068855) have no planform and are not drawn (estimate: their size). `park-walls.js` now draws the 2 m concrete
+  panel fence seen from Bd. Dimitrie Pompeiu (panorama 44.479143, 26.110517) along the grounds' boulevard edge
+  (n696844080 → n4161774631 → n4161774633, 238 m), a documented exception (no mapped barrier); height and post pitch are
+  estimates, the graffiti is not drawn. Estimate kept: the tree belt behind the fence is not added, because the measured canopy
+  (aerial survey in the pack) has no crowns there and invented trees are not placed over a measured canopy.
+- **Metro pedestrian tunnels** (backlog pipera-6): the tunnels w739789922–24 (Aurel Vlaicu) and w739791318 / 19 (Pipera) are
+  `layer=-1` footways under the street, and all five of their entrance nodes lie inside mapped OSM buildings (the entrance
+  buildings are drawn as those buildings), so nothing of them shows at street level. Not compared at street level: the look of
+  the entrance buildings (no panorama could be viewed in this pass).
+- **Promenada median and tenant bands** (backlog pipera-7). Estimates: the hedge and jersey-barrier median on Calea Floreasca
+  is not mapped in OSM (no `barrier=hedge` / `jersey_barrier` there; the carriageways alternate between one 4-lane way and
+  one-way pairs), so it has no line to stand on and is not drawn; the tenant-band positions on the mall front are estimates.
+  The east (Barbu Văcărescu) front stays open as backlog r3-landmarks-8.
+- **Not seen from any street panorama** (backlog r2-districts-view-15): the clay courts at 44.47793, 26.09902 and 44.47814,
+  26.10046, and Kaufland (44.47799, 26.1226) beyond its car park. Drawn from OSM (outlines, classes); their look is the
+  class estimate.
+- **Strada Petricani bridge, settled parts** (backlog pipera-2): the "weir" w1507038443 is a small `natural=water`,
+  `water=weir` polygon at 44.4705, 26.1230, about 420 m south of the bridge, not a weir line across the lake; its form is not
+  seen on any panorama in this pass, so nothing is drawn for it. The tram reserve west of the bridge carries the tram bridges
+  w23583767 / w902027550, `railway=construction` (STB extension, opening_date 2027): construction railways are not drawn until
+  OSM maps them open. The sunken water level and the coarse lake outline stay open in the backlog.
+
+## Backlog close-out, cross-district lane (2026-11-13)
+
+- **Fuel stations** (GPL Lukoil Aviației -913,-2; Petrom -1135,55; Lukoil -876,-18): all three stand on Șos. Pipera westbound,
+  whose only inflows inside the district come from the map ends (Șos. Pipera at -688,-115 and Barbu Văcărescu at -533,321) or
+  through the `maxheight=2` service passage w350999211 the player's car does not fit (2.14 m model height). From the luxoft
+  chapter start no legal route reaches them, from the db start one does. The Gas stations list offers a station only when a
+  route reaches it from the player's position (`main.js` `stationOffered`); the audit records the others as
+  `fuel-not-offered` (low). Petrom shows about four pump islands, two are drawn (generic model).
+- **Pedestrian fronts** (r2-builder-pedestrian-fronts): four businesses lie on the mapped pedestrian way w1568673179 (Pizzeria
+  Geniale x Vice Cream, Plantini, Pasta del Popolo, BigBoys Barbershop) and sign their own buildings (shop + sign flags);
+  World Class on w1472893992 is in the scenery ring (no signs there by rule). Promenada's tenants are interior units.

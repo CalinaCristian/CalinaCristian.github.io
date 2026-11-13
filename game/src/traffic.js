@@ -83,6 +83,8 @@ const LONG_BODY = true;
 /** pad half-length used to blend lane paths across node n (junction pad, or a few metres at a bend) */
 const padOf = (n, e) => Math.min(Math.max(n.radius ?? 0, 3), e.len * 0.45);
 const PED_R = 0.3; // pedestrian body radius (vehicles and static obstacles keep this clear)
+// (h-sim) a signal head of the controller a car left less than this far back is part of the same movement (no new red)
+const SAME_CONTROLLER_M = 40;
 function pedestrianPen(v, p, x = v.x, z = v.z, heading = v.heading) {
     const fx = -Math.sin(heading), fz = -Math.cos(heading), dx = p.x - x, dz = p.z - z;
     return PED_R - Math.max(Math.abs(dx * fx + dz * fz) - v.length / 2, Math.abs(-dx * fz + dz * fx) - v.width / 2);
@@ -808,7 +810,7 @@ export class Traffic {
         if (ok && this._recent) for (const o of this._recent) check(o);
         return ok;
     }
-    noteRelocated(v) { if (v.edge.rail) { v.servedRailStop = null; v.servedRailStopOdo = null; v.dwell = 0; } v._moveGeneration = (v._moveGeneration || 0) + 1; if (this._bulk) { this._bulk.push(v); return; } const r = this._recent || (this._recent = []); r.push(v); if (r.length > 32) r.shift(); }
+    noteRelocated(v) { if (v.edge.rail) { v.servedRailStop = null; v.servedRailStopOdo = null; v.dwell = 0; } v.sigCtl = null; v._moveGeneration = (v._moveGeneration || 0) + 1; if (this._bulk) { this._bulk.push(v); return; } const r = this._recent || (this._recent = []); r.push(v); if (r.length > 32) r.shift(); }
 
     /** world position for a vehicle's lane state */
     laneTarget(v, out) {
@@ -1496,7 +1498,11 @@ export class Traffic {
             }
             if (node.hasLight && !v.isPolice) {
                 const controller = this.boxController(node);
-                const committed = this.boxes.get(controller)?.some(r => r.v === v && this.inBox(r, controller) && r.entered);
+                // (h-sim, 2026-11-13, Romană: Piața Romană) a car that left this controller's box less than SAME_CONTROLLER_M ago
+                // is still in the same movement: its reservation ends at a node outside the cluster, and the cluster's next
+                // signal head (Magheru southbound, after the square) held it at red while the cars queued behind it inside the
+                // box kept every other phase red (occupiedPhases): the square and Magheru locked for minutes
+                const committed = (v.sigCtl === controller && (v.odo || 0) - (v.sigCtlOdo || 0) < SAME_CONTROLLER_M) || this.boxes.get(controller)?.some(r => r.v === v && this.inBox(r, controller) && r.entered);
                 // A turn/short link within one controller is one movement. Its entry
                 // signal governs; once admitted the car clears all of the split box.
                 const st = committed || seenSignals.has(controller) ? 'green' : this.lightState(node, curE);
@@ -1799,7 +1805,10 @@ export class Traffic {
     syncSignalOccupancy() {
         for (const l of this.world.lights || []) l.node.lightCluster.occupiedPhases = [];
         for (const [key, list] of this.boxes) for (const r of list) {
-            if (this.inBox(r, key) && r.entered && Number.isInteger(r.phase) && key.occupiedPhases && !key.occupiedPhases.includes(r.phase)) key.occupiedPhases.push(r.phase);
+            if (!this.inBox(r, key) || !r.entered) continue;
+            // (h-sim) the last signal controller this car was inside, and where: see SAME_CONTROLLER_M
+            r.v.sigCtl = key; r.v.sigCtlOdo = r.v.odo || 0;
+            if (Number.isInteger(r.phase) && key.occupiedPhases && !key.occupiedPhases.includes(r.phase)) key.occupiedPhases.push(r.phase);
         }
     }
     pruneBoxes() {
@@ -3380,6 +3389,14 @@ export class Pedestrians {
         return best;
     }
     inCarriageway(p) { return !!this.roadAt(p.x, p.z, 0.4); }
+    /** (h-sim, 2026-11-13) off the carriageway: moved elsewhere out of the player's sight, or, in view (where relocate
+     *  refuses), walked to the nearest free sidewalk point as a crossing (replanWalk). Before, a refused relocation left
+     *  them in the road in the walk state, walking their sidewalk line through it (Romană, George Enescu / Tache Ionescu) */
+    leaveRoad(p) {
+        const x = p.x, z = p.z;
+        if (this.t.large) this.relocate(p, 120, 420, true); else this.relocate(p, 30, 200, true);
+        if (p.x === x && p.z === z && this.roadAt(p.x, p.z, 0.4) && this.replanWalk(p)) this.stats.leaveRoadReplanned = (this.stats.leaveRoadReplanned || 0) + 1;
+    }
     inWater(x, z) { const w = this.t.world.isWater; if (!w) return false; return w(x, z) || w(x + 1, z) || w(x - 1, z) || w(x, z + 1) || w(x, z - 1); }
     /** keep a pedestrian that is not crossing out of every carriageway: move it to the nearest kerb */
     kerbClamp(p) {
@@ -3390,6 +3407,26 @@ export class Pedestrians {
             let nx = p.x - r.cx, nz = p.z - r.cz; const d = Math.hypot(nx, nz);
             if (d > 1e-3) { nx /= d; nz /= d; } else { nx = r.e.nx; nz = r.e.nz; }
             p.x = r.cx + nx * (r.hw + 0.3); p.z = r.cz + nz * (r.hw + 0.3); moved = true;
+        }
+        // (h-sim, 2026-11-13, Romană: Magheru at Jules Michelet / Tache Ionescu) a corner leg (not a crossing) inside or across
+        // another carriageway: the walker was clamped to the kerb, walked back onto the leg and was clamped again, creeping
+        // along that road for half a minute. A corner point inside a carriageway goes to the kerb; a leg whose straight line
+        // still cuts a carriageway after two clamps is walked as a crossing (cars wait, no clamp), from where they stand
+        const leg = moved && p.state === 'legs' && !p.onRoad ? p.legs?.[0] : null;
+        if (leg && !leg.cross && !leg.recovery) {
+            for (let k = 0; k < 3; k++) {
+                const r = this.roadAt(leg.x, leg.z, 0.7); if (!r) break;
+                let nx = leg.x - r.cx, nz = leg.z - r.cz; const d = Math.hypot(nx, nz);
+                if (d > 1e-3) { nx /= d; nz /= d; } else { nx = r.e.nx; nz = r.e.nz; }
+                leg.x = r.cx + nx * (r.hw + 0.3); leg.z = r.cz + nz * (r.hw + 0.3);
+            }
+            leg.clamps = (leg.clamps || 0) + 1;
+            if (leg.clamps >= 2 && !this.roadAt(leg.x, leg.z, 0.7)) {
+                p.x = ox; p.z = oz; moved = false;
+                leg.cross = true; leg.started = true; leg.sx = p.x; leg.sz = p.z; leg.len = Math.hypot(leg.x - p.x, leg.z - p.z);
+                p.onRoad = true; p.crossT = 0; p.legBest = undefined; p.legStall = 0;
+                this.stats.cornerLegCrossings = (this.stats.cornerLegCrossings || 0) + 1;
+            }
         }
         if (moved) this.recoverPose(p, ox, oz);
         return moved;
@@ -3506,7 +3543,7 @@ export class Pedestrians {
                     if (p.recBest === undefined || left < p.recBest - 0.15) { p.recBest = left; p.recStall = 0; } else p.recStall = (p.recStall || 0) + dt;
                     if (p.recStall > 3) {
                         p.recBest = undefined; p.recStall = 0; this.stats.recoveryStallResolved = (this.stats.recoveryStallResolved || 0) + 1;
-                        if (p.onRoad || this.roadAt(p.x, p.z)) { p.recovery = null; p.onRoad = false; p.state = 'walk'; p.legs = []; if (T.large) this.relocate(p, 120, 420, true); else this.relocate(p, 30, 200, true); }
+                        if (p.onRoad || this.roadAt(p.x, p.z)) { p.recovery = null; p.onRoad = false; p.state = 'walk'; p.legs = []; this.leaveRoad(p); }
                         else { p.state = q.state; p.onRoad = q.onRoad; p.legs = q.legs; p.recovery = null; if (p.state === 'walk' && p.e) this.syncWalkPose(p); }
                     }
                 }
@@ -3555,7 +3592,10 @@ export class Pedestrians {
                     p.s = sEnd; this.placeWalk(p);
                     if (this.guardPeerStep(p, ox, oz, dt, true)) this.planNode(p, endNode);
                 } else { this.placeWalk(p); this.guardPeerStep(p, ox, oz, dt, true); }
-                p.onRoad = false; moved = true;
+                // (h-sim) placeWalk may have started a recovery walk across a carriageway (recoverPose sets onRoad): keep it,
+                // so cars wait for them and the walk back counts as being on the road
+                if (!p.recovery) p.onRoad = false;
+                moved = true;
             } else if (p.state === 'legs' || p.state === 'wait') {
                 const leg = p.legs[0];
                 if (!leg) { p.state = 'walk'; continue; }
@@ -3597,7 +3637,7 @@ export class Pedestrians {
                 if (leg.cross && p.legStall > 2.5 && leg.sx !== undefined) {
                     p.legBest = undefined; p.legStall = 0;
                     if (!leg.back) { leg.x = leg.sx; leg.z = leg.sz; leg.back = true; p.legs.length = 1; if (p.next) p.next.dir = -p.next.dir; this.stats.crossStallTurned = (this.stats.crossStallTurned || 0) + 1; }
-                    else { p.onRoad = false; p.state = 'walk'; p.legs.length = 0; this.stats.crossStallRelocated = (this.stats.crossStallRelocated || 0) + 1; if (T.large) this.relocate(p, 120, 420, true); else this.relocate(p, 30, 200, true); continue; }
+                    else { p.onRoad = false; p.state = 'walk'; p.legs.length = 0; this.stats.crossStallRelocated = (this.stats.crossStallRelocated || 0) + 1; this.leaveRoad(p); continue; }
                 }
                 const stalled = !leg.cross && p.legStall > 2.5;
                 if (d < sp * dt + 0.05 || stalled) {
@@ -3616,12 +3656,16 @@ export class Pedestrians {
             // never loiter in a carriageway (except while crossing): checked a few peds per frame
             if (!p.onRoad && (p.i + this._fr) % 30 === 0) {
                 if (p.state !== 'walk') this.kerbClamp(p);
+                // (h-sim, 2026-11-13, Romană: Magheru at C. A. Rosetti) pushed off the line toward the road (walkOff < 0, kept by
+                // syncWalkPose after a recovery): the walk back drifted at 0.35 m/s, so the turn-back / replan below sent them
+                // across the carriageway again and again. They first sidestep onto their line at a walking pace
+                else if (!p.onDodge && (p.walkOff || 0) < -0.25 && p.walkGoal === undefined && this.inCarriageway(p)) { p.walkGoal = 0; p.passT = 0; }
                 else if (!p.onDodge && this.inCarriageway(p)) {
                     // the sidewalk line runs through another road here: turn back, then switch sides / move away
                     p.roadHits = (p.roadHits || 0) + 1;
                     if (p.roadHits === 1) { p.dir = -p.dir; p.s = os; }
                     else if (p.roadHits === 2 && this.width(p.e, -p.side) > 0) { const x = p.x, z = p.z; p.side = -p.side; this.placeWalk(p); this.recoverPose(p, x, z); }
-                    else { p.roadHits = 0; if (T.large) this.relocate(p, 120, 420, true); else this.relocate(p, 30, 200, true); } // (standing them at the kerb piled them up on one spot)
+                    else { p.roadHits = 0; this.leaveRoad(p); } // (standing them at the kerb piled them up on one spot)
                 } else p.roadHits = 0;
                 // never in water / a fountain basin (+ 1 m rim; world-visual request, note 17): walkers cross to the other
                 // sidewalk, anyone else is moved back onto a sidewalk around the player
@@ -3659,7 +3703,7 @@ export class Pedestrians {
                     if (leg.cross && leg.sx !== undefined && !leg.back) { leg.back = true; leg.x = leg.sx; leg.z = leg.sz; p.legs.length = 1; p.next = { e: p.e, dir: -p.dir, side: p.side, s: p.s }; }
                     // (owner, 2026-11-11, Grozavesti (477, -673): "traffic jam") pinned both ways (the way back is blocked too): the cars
                     // wait for them for good; they leave the carriageway (back onto a sidewalk away from the camera)
-                    else if (leg.cross && leg.back) { this.stats.pinnedRelocated = (this.stats.pinnedRelocated || 0) + 1; p.onRoad = false; p.state = 'walk'; p.legs.length = 0; if (T.large) this.relocate(p, 120, 420, true); else this.relocate(p, 30, 200, true); continue; }
+                    else if (leg.cross && leg.back) { this.stats.pinnedRelocated = (this.stats.pinnedRelocated || 0) + 1; p.onRoad = false; p.state = 'walk'; p.legs.length = 0; this.leaveRoad(p); continue; }
                     else if (!leg.cross) { p.legs.shift(); if (!p.legs.length && p.next) { const qx = p.x, qz = p.z; p.state = 'walk'; p.onRoad = false; p.e = p.next.e; p.dir = p.next.dir; p.side = p.next.side; p.s = p.next.s; this.placeWalk(p); this.adoptLine(p, qx, qz); } }
                 }
                 if (leg && leg.cross && leg.sx !== undefined && p.crossT > 5 + (leg.len || 10) / 1.2 && !leg.back) {

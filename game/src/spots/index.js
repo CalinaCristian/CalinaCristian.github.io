@@ -15,6 +15,7 @@ import { Ground, Painter, buildTerrain } from './ground.js';
 import { buildWillows } from './willow.js';
 import { patchSpotFacade } from '../facade-detail.js';
 import { canopyPosts } from './canopy-posts.js';
+import { withoutExtraFurniture, buildPicnicTables, buildFlagpoles } from './furniture-extra.js';
 import { paintOSM, buildBuildings, buildTrees, buildLamps, buildFurniture, roadLampPoints, streetTrees, areaTrees, waterPlane, polyCollider, streetBands, carriagewayTest } from './osm.js';
 import { Crowd } from './people.js';
 import { SpotUI, SpotMap, plaqueMesh } from './ui.js';
@@ -71,7 +72,7 @@ export const ACTIVITIES = [
     ['palace-parliament', 'balcony', 'Frame the Palace facade'], ['palace-parliament', 'pace', 'Walk the public Palace sidewalk'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
     ['bel-meydenbauer', 'pier-end', 'Walk to the end of the pier'], ['bel-meydenbauer', 'kayak', 'Kayak on Meydenbauer Bay'], ['bel-downtown-park', 'loop', 'Walk the park loop'],
     ['bel-botanical-garden', 'bridge', 'Cross the suspension bridge'], ['bel-lincoln-square', 'badge-in', 'Frame Lincoln Square'],
-    ['space-needle', 'lm-chihuly-glasshouse', 'Explore the Glasshouse details'],
+    ['space-needle', 'lm-chihuly-glasshouse', 'Explore the Glasshouse details'], ['mopop', 'mopop-lobes', 'Frame MoPOP\'s metal lobes'],
     ['arcul-de-triumf', 'arcul-race', 'Win the island race'], ['arcul-de-triumf', 'arcul-baguette', 'Catch the baguette three times'],
 ].map(([spot, id, title]) => ({ spot, id, title }));
 /**
@@ -165,7 +166,9 @@ class SceneContext {
             const fromOsm = (d.furniture.street_lamp || []).map(([x, z]) => ({ x, z, rot: 0 }));
             this.lampPoints.push(...(fromOsm.length > 6 ? fromOsm : []), ...roadLampPoints(d, { skip: this.skipWays, inside: (x, z) => !ex.some((p) => inPoly(x, z, p)), ...(o.lampOpts || {}) }));
         }
-        if (o.furniture !== false) { const F = buildFurniture(d, this.ground, { exclude: ex, onRoad: this.onRoad }); this.add(F.group); this.colliders.push(...F.colliders); }
+        if (o.furniture !== false) { const F = buildFurniture(withoutExtraFurniture(d), this.ground, { exclude: ex, onRoad: this.onRoad }); this.add(F.group); this.colliders.push(...F.colliders);
+            const T = buildPicnicTables(d, this.ground, { exclude: ex, onRoad: this.onRoad }); if (T.group) this.add(T.group); this.colliders.push(...T.colliders);
+            this.flagpoleExclude = ex; } // flagpoles go in after the scene build (furniture-extra.js: skip the poles a scene dressed)
     }
     /** water plane at level y over a box (terrain inside `polys` is pushed below it) */
     water(y, box, polys = [], o = {}) {
@@ -223,6 +226,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     if (opts.legacyGround) { ctx.ground.pendingConform = null; ctx.ground._settled = true; } // dev A/B: the pre-round-5 raw DEM ground
     const def = mod.default || mod;
     await def.build(ctx);
+    if (ctx.flagpoleExclude) { const F = buildFlagpoles(data, ctx.ground, ctx.scene, { exclude: ctx.flagpoleExclude }); if (F.group) ctx.add(F.group); ctx.colliders.push(...F.colliders); }
     const tBuild = performance.now();
     // ---- standard finish: terrain, trees, lamps, crowd, spawn
     const T = ctx.terrainOpts, W = Object.values(data.spots).flatMap((s) => s.extent?.polygon || []);
@@ -261,6 +265,9 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         if (!globalThis.__spotsLegacy) ctx.lampPoints = ctx.lampPoints.filter((p) => p.noPost || p.keepOnRoad || !ctx.onRoad(p.x, p.z, 0.25));
         ctx.extras.clippedOnRoad.lamps = n0 - ctx.lampPoints.length; }
     const lamps = buildLamps(ctx.lampPoints, ctx.ground, ctx.lampOpts);
+    // meshless light entries (scene-built lamps) come back from the hash-locked osm.js without their flag and arm yaw: a
+    // `rot` given on a noPost point puts the light pool under the head (render.js head offset), as for the generated posts
+    { const np = ctx.lampPoints.filter((p) => p.noPost), ex = lamps.lamps.slice(lamps.lamps.length - np.length); ex.forEach((l, i) => { l.noPost = true; if (np[i].rot != null) l.rot = np[i].rot; }); }
     ctx.add(lamps.group); ctx.colliders.push(...lamps.colliders);
     // props need their base height (walkers jump onto low props)
     for (const c of ctx.colliders) if (c.prop && c.y === undefined) c.y = ctx.ground.heightAt(c.x, c.z);
@@ -998,12 +1005,22 @@ export function auditSpot(spot, { maxSamples = 6 } = {}) {
     boxes.forEach((B, n) => { if (B[3] - B[0] > 120 || B[5] - B[2] > 120) return; for (let i = Math.floor(B[0] / cell); i <= Math.floor(B[3] / cell); i++) for (let j = Math.floor(B[2] / cell); j <= Math.floor(B[5] / cell); j++) { const k = gk(i, j); let a = grid.get(k); if (!a) grid.set(k, a = []); a.push(n); } });
     const anyIn = (x0, z0, x1, z1, y0, y1, test) => { for (let i = Math.floor(x0 / cell); i <= Math.floor(x1 / cell); i++) for (let j = Math.floor(z0 / cell); j <= Math.floor(z1 / cell); j++) for (const n of grid.get(gk(i, j)) || []) { const B = boxes[n]; if (B[0] <= x1 && B[3] >= x0 && B[2] <= z1 && B[5] >= z0 && B[1] <= y1 && B[4] >= y0 && (!test || test(B))) return true; } return false; };
     const G = spot.ground;
+    // a poly collider held inside another poly collider over its whole height band cannot be touched: not an invisible wall
+    // (the elevated Avenue Bellevue building:part volumes inside the w1215907937 outline, r3-bel-spots-7)
+    const pip = (x, z, P) => { let a = false; for (let i = 0, j = P.length - 1; i < P.length; j = i++) { const [xi, zi] = P[i], [xj, zj] = P[j]; if ((zi > z) !== (zj > z) && x < (xj - xi) * (z - zi) / (zj - zi) + xi) a = !a; } return a; };
+    const enclosedBy = (c, pts) => spot.colliders.some((o) => o !== c && o.poly && !o.intended && !o.invisible && (o.y0 ?? -1e9) <= (c.y0 ?? -1e9) + 0.01 && (o.y1 ?? 1e9) >= (c.y1 ?? 1e9) - 0.01 && pts.every(([x, z]) => pip(x, z, o.poly)));
     for (const c of spot.colliders) {
         if (c.intended || c.invisible) continue;
-        const pts = c.wall ? [0.15, 0.5, 0.85].map((u) => [c.ax + (c.bx - c.ax) * u, c.az + (c.bz - c.az) * u]) : c.poly ? [[c.x, c.z], ...c.poly.slice(0, 6)].map(([x, z]) => [x + (c.x - x) * 0.15, z + (c.z - z) * 0.15]) : [[c.x, c.z]];
+        // a raised poly (an elevated building:part, min_height above head height) renders walls and roof only: its shell is
+        // checked on the edges, not at interior points where nothing is drawn (r3-bel-spots-7, Avenue Bellevue parts)
+        const raisedPoly = c.poly && c.y0 !== undefined && c.y0 > G.groundAt(c.x, c.z, G.heightAt(c.x, c.z) + 1) + 2.2;
+        const pts = c.wall ? [0.15, 0.5, 0.85].map((u) => [c.ax + (c.bx - c.ax) * u, c.az + (c.bz - c.az) * u])
+            : raisedPoly ? c.poly.slice(0, 8).map(([x, z], i) => { const [x2, z2] = c.poly[(i + 1) % c.poly.length]; return [(x + x2) / 2, (z + z2) / 2]; })
+            : c.poly ? [[c.x, c.z], ...c.poly.slice(0, 6)].map(([x, z]) => [x + (c.x - x) * 0.15, z + (c.z - z) * 0.15]) : [[c.x, c.z]];
         let miss = 0, blocks = false;
         for (const [x, z] of pts) { const gy = c.y ?? G.groundAt(x, z, G.heightAt(x, z) + 1), r = c.wall ? 0.6 : c.poly ? 1.5 : Math.max(0.3, Math.min(c.r, 3)); const y0 = c.wall ? Math.min(c.y0a ?? -1e9, c.y0b ?? -1e9) : c.y0, y1 = c.wall ? Math.max(c.y1a ?? 1e9, c.y1b ?? 1e9) : c.y1; if (y1 !== undefined && y1 < gy) continue; blocks = true;
             const b0 = y0 !== undefined && y0 > gy + 1.2 ? y0 : gy + 0.05, b1 = Math.min(y1 ?? 1e9, b0 + 2.2); if (!anyIn(x - r, z - r, x + r, z + r, b0 - 0.1, b1)) miss++; } // a raised collider (upper-floor railing, overhang) is checked at its own height
+        if (blocks && miss === pts.length && c.poly && enclosedBy(c, pts)) continue;
         if (blocks && miss === pts.length) add('phantom', { x: +c.x.toFixed(1), z: +c.z.toFixed(1), kind: c.wall ? 'wall' : c.poly ? 'poly' : c.prop ? 'prop' : 'box', r: +(c.r || 0).toFixed(1) });
     }
     // ---- people

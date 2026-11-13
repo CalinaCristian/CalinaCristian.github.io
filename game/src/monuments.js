@@ -17,6 +17,15 @@ export const MONUMENT_MODEL = {
     totalM: { statue: 4.4, equestrian: 9, bust: 2.5, obelisk: 6, cross: 3.2, wayside: 1.5, sculpture: 2.6, installation: 2.6, stele: 2.6, monument: 4.2, marker: 0.9 },
     colliderM: { statue: 0.95, equestrian: 2.0, bust: 0.6, obelisk: 1.1, cross: 0.7, wayside: 0.45, sculpture: 0.85, installation: 0.85, stele: 1.0, monument: 1.5, marker: 0.75 },
 };
+// (r2-world-monuments, 2026-11-13) works whose subject is known from their OSM name and article (not from a panorama trace):
+// a low-poly subject form instead of the class block. Still not likenesses; proportions are estimates. heightM only where
+// noted (Memorialul Renașterii: about 25 m, ro.wikipedia "Memorialul Renașterii"; OSM has no height).
+export const MONUMENT_SUBJECT = {
+    n1731041124: { form: 'wolf' },                      // Lupoaica (Lupa Capitolina): the she-wolf with the twins
+    w170953582: { form: 'lion' },                       // Monumentul Trupelor de Geniu (Leul)
+    n7350336938: { form: 'lion' },                      // Leul Ierusalimului
+    n1393030628: { form: 'spire', heightM: 25 },        // Memorialul Renașterii: white marble spire through a dark crown
+};
 const MATERIAL = { bronze: '#565b4c', copper: '#5f7f6c', coper: '#5f7f6c', metal: '#7b8186', steel: '#8a9096', 'stainless steel': '#a9aeb2', marble: '#e2dfd6', granite: '#8c8884', stone: '#b7b0a1', wood: '#7a5a3c', glass: '#9cc0cc', concrete: '#b4b1a9' };
 const materialColour = (m, fallback) => { for (const part of String(m || '').toLowerCase().split(/[;,]/)) { const k = part.trim(); if (MATERIAL[k]) return MATERIAL[k]; } return fallback; };
 const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
@@ -50,8 +59,8 @@ export function emitMonuments(env) {
         if (done.some(d => Math.hypot(d.x - m.x, d.z - m.z) < 1.6)) { out.skipped.push({ ...rec, reason: 'duplicate-position' }); continue; }
         const r = MONUMENT_MODEL.colliderM[m.form] || 0.9, why = env.blocked(m.x, m.z, r);
         if (why) { out.skipped.push({ ...rec, reason: why }); continue; }
-        const total = m.heightM > 0 ? m.heightM : MONUMENT_MODEL.totalM[m.form];
-        build(env, m, total);
+        const subj = MONUMENT_SUBJECT[m.id], total = m.heightM > 0 ? m.heightM : subj?.heightM > 0 ? subj.heightM : MONUMENT_MODEL.totalM[m.form];
+        build(env, subj ? { ...m, form: subj.form } : m, total);
         env.addCollider(m.x, m.z, r, Math.min(total, 4), rec);
         done.push(m); out.placed.push({ ...rec, totalM: total, heightSource: m.heightM > 0 ? 'OSM height' : 'estimate' });
     }
@@ -63,7 +72,32 @@ function build(env, m, total) {
     const stone = env.rgb(materialColour(/marble|granite|stone|concrete/.test(m.material || '') ? m.material : '', '#bcb6a8')), stoneD = env.shadeRgb(stone, 0.86);
     const fig = env.rgb(materialColour(m.material, m.form === 'obelisk' || m.form === 'stele' || m.form === 'cross' || m.form === 'monument' ? '#b9b3a6' : '#565b4c'));
     const box = (y0, w, h, d, col, a = ang) => c.box(x, y + y0, z, w, h, d, a, col);
-    if (m.form === 'bust') {
+    // a box offset along the facing (local z: forward) and across it (local x)
+    const ca = Math.cos(ang), sa = Math.sin(ang);
+    const at = (lx, lz, y0, w, h, d, col, a = ang) => c.box(x + lx * ca + lz * sa, y + y0, z - lx * sa + lz * ca, w, h, d, a, col);
+    const pedestal = (ped, w, d) => { at(0, 0, 0, w + 0.5, 0.25, d + 0.5, stoneD); at(0, 0, 0.25, w, ped - 0.4, d, stone); at(0, 0, ped - 0.15, w + 0.2, 0.15, d + 0.2, stoneD); };
+    const quadruped = (ped, k, body, legH, headUp) => { // body length along the facing; legs at the four corners; head forward
+        const bw = 0.34 * k, bl = body * k, bh = 0.42 * k, lh = legH * k;
+        for (const sx of [-1, 1]) for (const sz of [-1, 1]) at(sx * bw * 0.3, sz * bl * 0.36, ped, 0.1 * k, lh + 0.05, 0.12 * k, fig);
+        at(0, 0, ped + lh, bw, bh, bl, fig);
+        at(0, bl * 0.5 + 0.12 * k, ped + lh + bh * (headUp ? 0.7 : 0.35), 0.24 * k, 0.3 * k, 0.34 * k, fig);
+    };
+    if (m.form === 'wolf') { // tall pedestal, the she-wolf, two small figures under her
+        const ped = total * 0.75, S = (total - ped) / 0.82;
+        pedestal(ped, 0.45 * S + 0.3, 1.2 * S + 0.3);
+        quadruped(ped, S, 1.0, 0.32, false);
+        for (const sz of [-0.15, 0.2]) at(0, sz * S, ped, 0.12 * S, 0.2 * S, 0.14 * S, fig);
+    } else if (m.form === 'lion') { // pedestal, a standing lion with a mane block
+        const ped = total * 0.62, S = (total - ped) / 0.9;
+        pedestal(ped, 0.45 * S + 0.4, 1.2 * S + 0.4);
+        quadruped(ped, S, 1.0, 0.34, true);
+        at(0, 0.42 * S, ped + 0.34 * S + 0.1 * S, 0.46 * S, 0.5 * S, 0.3 * S, fig);
+    } else if (m.form === 'spire') { // a slender three-sided white marble spire through a dark crown two thirds up
+        const marble = env.rgb('#e6e2d8'), crown = env.rgb('#4a4d50'), n = 8;
+        at(0, 0, 0, 4.2, 0.4, 4.2, stoneD);
+        for (let i = 0; i < n; i++) { const w0 = 2.2 * (1 - i / n) + 0.25; at(0, 0, 0.4 + (total - 0.4) * i / n, w0, (total - 0.4) / n, w0, marble, ang + Math.PI / 4); }
+        at(0, 0, total * 0.62, 3.1, total * 0.07, 3.1, crown); at(0, 0, total * 0.62 + total * 0.07, 2.5, total * 0.03, 2.5, crown, ang + Math.PI / 4);
+    } else if (m.form === 'bust') {
         const k = total / 2.5, ped = 1.72 * k;
         box(0, 0.95 * k, 0.16, 0.95 * k, stoneD); box(0.16, 0.7 * k, ped - 0.16, 0.7 * k, stone);
         box(ped, 0.66 * k, 0.36 * k, 0.32 * k, fig); box(ped + 0.36 * k, 0.27 * k, 0.4 * k, 0.29 * k, fig);

@@ -752,6 +752,12 @@ abutment, 1859), Old Town min_height / description / start_date on 138 features,
 CEC garden trees (all Prunus persica 5 m in OSM vs mature 12–18 m trees in the 2023 pano) and w1476833908 (a part without a
 base) are OSM questions: unchanged.
 
+Follow-up 2026-11-13 (backlog r3-builder-7 closed): the spot builder now keeps these keys at a rebuild —
+`game/src/spots/tools/build-data.mjs` copies `bridge:structure`, `bridge:support`, `start_date`, `min_height` and
+`description` on ways and areas (spelt with `_` as the enrichment tool writes them), and `fetch-buc.mjs` files `barrier=gate`
+nodes (not disused) under `furniture.gate`. None of the 11 Spring Palace gate nodes lies on the palace grounds outline
+w38236017 (nearest 46 m, n6262632759–61 belong to neighbouring properties), so the scene's own gate on Bd. Primăverii stays
+where the scene places it (no OSM gate node on that frontage: an estimate) and no scene draws the neighbours' gates.
 ## 15. Round 4 (2026-11-13): backlog closures
 
 Sources: live OSM (API 0.6, 2026-11-13). Street View could not be opened this round (no browser pane in the session):

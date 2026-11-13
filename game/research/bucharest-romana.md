@@ -1016,3 +1016,33 @@ Sources: live OSM, the official panorama poses recorded in the backlog rows (loo
   data, so its real start stays an estimate.
 - **Royal Palace front**: column radius, pair spacing (one pair per two 4.2 m bays), cornice depth, dentil and baluster pitch
   are estimates; the equestrian Carol I is massing only (plinth / group split of the 13 m OSM height estimated).
+
+## Backlog clearing (2026-11-13)
+
+- **Not seen from any street panorama** (backlog r2-districts-view-15): Piscina Lido (w810540711), Mavrogheni church
+  (w78841431), SNSPA (w23647615), Casa Henri Coandă (w256051276). Drawn from OSM outlines and classes; their look is the class
+  estimate. Hotel Minerva (w171045151) is covered by the review above.
+
+## Backlog close-out, cross-district lane (2026-11-13)
+
+- **Fountain basins** w1331108694 and w809629318 (add-areas.mjs) keep the generic 0.45 m light-stone coping and full water: no
+  official panorama found within reach; the coping is an estimate.
+- **Hotel Minerva** w171045151: review row (building-review.js) from pano 0IR_4oFjbwg7c8euMfNEkw: plastered grey-beige with
+  white window surrounds instead of a glazed 'shop' block. OSM `building=retail`, `building:levels=8` and height kept.
+- **Monuments**: Memorialul Renașterii (n1393030628) has a low-poly subject form (`monuments.js` `MONUMENT_SUBJECT`; the
+  equestrian Carol I has its own `equestrian` class since round 4) (a white marble spire through a
+  dark crown, about 25 m after ro.wikipedia; OSM has no height), but its node lies inside a mapped building outline, so the
+  monument is skipped (reported, never moved) and the subject form shows only if that conflict is resolved in OSM.
+- **antipa** (r2-landmarks-b-1): still not compared (facade hidden by trees in reality). The tree belt on Șos. Kiseleff in front of
+  the museum is missing in the game: inferred trees are suppressed inside the aerial survey's coverage, so those crowns need
+  measuring on the aerial mosaic (`tools/aerial`, as r3-look-8), never placing from a panorama.
+- **Pedestrian streets and the green raster** (r3-look-14): top-down renders (round 3) show no lawn on the mapped pedestrian
+  bands; plazas outside the 3.5 m band (around 44.4398, 26.0968) keep the aerial-measured green-ground raster. The raster is a
+  measurement (`tools/aerial`); whether that ground is lawn or paving was not compared with a panorama.
+- **Signals, queues and walkers** (h-sim): a car that has just left a signal controller's box is not held by the same
+  controller's next signal head within 40 m (`traffic.js` `SAME_CONTROLLER_M`): at Piața Romană the cars queued inside the box
+  kept every other phase red while the car in front of them waited at the square's Magheru exit head, and the square and
+  Magheru locked for minutes. Signal timings remain conservative equal-slot simulation phases, not measured plans (Magheru's
+  slot at the five-phase square is one fifth of the cycle). Walkers no longer creep along a carriageway on a corner leg that
+  cuts it (Magheru at Jules Michelet / Tache Ionescu: the leg is walked as a crossing) and step back onto their line before
+  turning round (Magheru at C. A. Rosetti).

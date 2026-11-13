@@ -21,7 +21,8 @@ export const LOOK_REVIEW = {
     },
     'seattle-bellevue': {
         // Bravern 2 (w38224225, 47.617297, -122.192967 heading 184): cream stone at street level, but the street face is its
-        // 22-storey OSM part w1474780191 (glass curtain above): one colour per part cannot hold both; left as glass (backlog)
+        // 22-storey OSM part w1474780191 (glass curtain above): one colour per part cannot hold both; the part stays glass and
+        // facade-bands.js draws the stone base band round it (r3-look-10)
         w33613428: { style: 'interwar', colour: '#CDB3A3', note: 'Bellevue Place: pink-beige precast with a red-brick arched base and a glass atrium (drawn as dark blue glass); panorama kxosxD8k3pWuWhUSIn2npQ (47.618065, -122.200804) heading 15' },
         r8064670: { style: 'interwar', colour: '#9A9D9C', note: 'Courtyard by Marriott: grey panel / stucco walls (drawn as dark blue glass); panorama sTPVjoz6jM0aI-f3NYYzng (47.618231, -122.193019) heading 187' },
     },

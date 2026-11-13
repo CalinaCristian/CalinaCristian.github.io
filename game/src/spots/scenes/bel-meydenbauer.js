@@ -189,14 +189,14 @@ export default {
         ctx.add(b.build('crescent-pier'));
 
         // ---------------------------------------------------------------- pavilion (restrooms / viewing terrace), whaling building, REI boathouse
-        const pb = new GeoBatch(), pv = bld('w688203355');
+        const pb = new GeoBatch(), pv = bld('w688203355'); let TERRACE_Y = 4.45;
         for (const id of ['w688203355', 'w819159071', 'w698374975', 'w819159076']) ctx.skipBuildings.add(id);
         if (pv) {
             // The pavilion is set into the bank: its roof is a public terrace level with the upper walk (OSM footway
             // w841411879 layer=1 crosses it; picnic tables n7850600507-510 layer=1 stand on it; Street View from 99th Ave NE,
             // 2026-11-12: a light concrete deck with galvanised mesh railings and picnic tables, no dark overhanging roof).
             // USGS 1 m DEM: beach side 1.0-1.8 m, uphill side 4.2-4.6 m (scene datum) -> deck at 4.45.
-            const py = Math.min(...pv.map(([x, z]) => g.heightAt(x, z))), TOPV = Math.max(py + 3.0, 4.45); g.flatten(pv, py, 3);
+            const py = Math.min(...pv.map(([x, z]) => g.heightAt(x, z))), TOPV = Math.max(py + 3.0, 4.45); TERRACE_Y = TOPV; g.flatten(pv, py, 3);
             const pvE = [...pv, pv[0]], pvD = (x, z) => distPolyline(x, z, pvE).d;
             // the bank behind it meets the terrace; under the uphill half of the footprint the ground stays just below the
             // slab (the terrain mesh has 2 m cells: a floor at beach level there dragged the bank down along the wall)
@@ -417,6 +417,16 @@ export default {
         // flights with the mapped number of steps between the ground levels at their ends, a steel handrail each side; the
         // flight width (2.0 m) is an estimate. Each tread is a walkable surface. Built after osmBackdrop: its ground settling changes
         // the levels at the flight's ends.
+        // (r3-bel-spots-2) the bank round both flights is graded to the USGS 1 m DEM (EPQS, 2026-11-13, scene datum = NAVD88 − 5.7):
+        // w840902386 runs 2.49 m at its top (54.9, 18.8) down to 0.30 m at its foot (52.2, 23.6); w841411878 starts at 3.70 m
+        // (50.4, 4.3; the pavilion bank modifier above had raised it flush with the terrace, so the 5 steps had no rise) and
+        // climbs to the terrace deck. A corridor 2 m either side of each flight follows the line between those levels, with a
+        // 1 m landing past each end, and blends back into the scene's bank over the next 3 m.
+        for (const [id, yA, yB] of [['w840902386', 2.49, 0.30], ['w841411878', 3.70, TERRACE_Y]]) {
+            const pts = way(id); if (!pts || pts.length < 2) continue; const A = pts[0], B = pts[pts.length - 1], L = Math.hypot(B[0] - A[0], B[1] - A[1]), ux = (B[0] - A[0]) / L, uz = (B[1] - A[1]) / L;
+            g.mod((x, z, h) => { const dx = x - A[0], dz = z - A[1], u = dx * ux + dz * uz, v = Math.abs(-dx * uz + dz * ux); if (v > 5 || u < -4 || u > L + 4) return h;
+                const w = smooth(5, 2, v) * smooth(-4, -1, u) * smooth(L + 4, L + 1, u); return w > 0 ? lerp(h, lerp(yA, yB, clamp(u / L, 0, 1)), w) : h; });
+        }
         { const FL = [['w841411878', 5], ['w840902386', 17]], stb = new GeoBatch();
             for (const [id, n] of FL) { const pts = way(id); if (!pts || pts.length < 2) continue; const A = pts[0], B = pts[pts.length - 1], yA0 = g.heightAt(A[0], A[1]), yB0 = g.heightAt(B[0], B[1]);
                 const [lo, hi, ylo, yhi] = yA0 <= yB0 ? [A, B, yA0, yB0] : [B, A, yB0, yA0], Ls = Math.hypot(hi[0] - lo[0], hi[1] - lo[1]); if (Ls < 0.5 || yhi - ylo < 0.15) continue;
@@ -449,8 +459,27 @@ export default {
             if (cobra.length) { const keep = new Set(cobra); ctx.lampPoints = ctx.lampPoints.filter((p) => !keep.has(p) && !(near(p) && !p.noPost)); const H = 8.5, L = buildLamps(cobra, g, { style: 'cobra', color: '#8e9396', h: H });
                 if (L.headMesh) { const hm = L.headMesh.material; hm.emissive.set('#ffe9c4'); hm.emissiveIntensity = 0; hm.userData.nightEmissive = 1.6; hm.userData.nightGlow = 1.6; hm.userData.dayGlow = 0; }
                 ctx.add(L.group); ctx.colliders.push(...L.colliders);
-                for (const l of L.lamps) ctx.lampPoints.push({ x: l.x, z: l.z, noPost: true, h: l.h, y: l.y }); // light entry at the post (a noPost entry loses its arm offset; at the head it read as a lamp in the carriageway)
+                for (const l of L.lamps) ctx.lampPoints.push({ x: l.x, z: l.z, noPost: true, h: l.h, y: l.y, rot: l.rot }); // light entry with the arm yaw: the pool sits under the head (r3-bel-spots-3)
                 ctx.extras.boulevardLamps = cobra.length; } }
+        // (r3-bel-spots-3) 99th Ave NE: Street View shows a dark post with a bell pendant, not the park's arm posts. The generated
+        // points within 10 m of the mapped 99th Ave NE way get that lamp: 4.6 m post, a short swan-neck arm, a dark bell shade
+        // with a lit underside. Post height, arm reach and bell size are estimates (no lamp nodes are mapped here).
+        { const ave = d.ways.filter((w) => /^99th Avenue Northeast/.test(w.name || '') && w.pts.length > 1), nearA = (p) => ave.some((w) => distPolyline(p.x, p.z, w.pts).d < 10);
+            const bells = ctx.lampPoints.filter((p) => !p.noPost && nearA(p) && !ctx.onRoad?.(p.x, p.z, 0.25));
+            if (bells.length) { const keep = new Set(bells); ctx.lampPoints = ctx.lampPoints.filter((p) => !keep.has(p)); const lb = new GeoBatch(), H = 4.6, R = 0.75;
+                const shadeMat = new THREE.MeshStandardMaterial({ color: '#f6efd9', emissive: '#ffe4b0', emissiveIntensity: 0, roughness: 0.5 }); shadeMat.userData.nightEmissive = 1.4; shadeMat.userData.nightGlow = 1.2; shadeMat.userData.dayGlow = 0;
+                const glow = [];
+                for (const p of bells) { const y = g.heightAt(p.x, p.z), rot = p.rot ?? 0, ax = -Math.sin(rot), az = -Math.cos(rot), hx = p.x + ax * R, hz = p.z + az * R; // arm along −z rotated by rot (osm.js convention)
+                    lb.cyl(p.x, y, p.z, 0.13, 0.5, '#24272a', 'metal', 10); lb.cyl(p.x, y + 0.5, p.z, 0.065, H - 0.5, '#24272a', 'metal', 8);
+                    lb.tube([[p.x, y + H - 0.2, p.z], [p.x + ax * 0.25, y + H + 0.12, p.z + az * 0.25], [p.x + ax * 0.6, y + H + 0.12, p.z + az * 0.6], [hx, y + H - 0.1, hz]], 0.035, '#24272a', 'metal', 6);
+                    lb.cyl(hx, y + H - 0.48, hz, 0.3, 0.38, '#1f2326', 'metal', 14, 0.25); // the bell (wide at the bottom)
+                    glow.push([hx, y + H - 0.5, hz]);
+                    ctx.collider({ x: p.x, z: p.z, r: 0.15, hw: 0.15, prop: true, h: H });
+                    ctx.lampPoints.push({ x: hx, z: hz, noPost: true, h: (H - 0.5) * 8 / 7.7, y }); } // render.js puts the light at 7.7·h/8: under the bell
+                ctx.add(lb.build('bell-lamps'));
+                const dg = new THREE.CylinderGeometry(0.26, 0.26, 0.02, 14), dm = new THREE.InstancedMesh(dg, shadeMat, glow.length), m4 = new THREE.Matrix4();
+                glow.forEach(([x, y, z], i) => { m4.makeTranslation(x, y, z); dm.setMatrixAt(i, m4); }); dm.name = 'bell-lamp-glass'; dm.userData.noAudit = true; ctx.add(dm);
+                ctx.extras.bellLamps = bells.length; } }
         // promenade lights (Street View): dark posts about 5 m tall with a short arm and a pendant shade — not 7 m grey cobra heads
         ctx.lampOpts = { style: 'cobra', color: '#2d3033', h: 5.2 };
         for (const pts of prom) { const Lp = polylineLength(pts); for (let s = 6; s < Lp; s += 24) { const p = alongPolyline(pts, s), p2 = alongPolyline(pts, Math.min(Lp, s + 1)), tx = p2.x - p.x, tz = p2.z - p.z, tl = Math.hypot(tx, tz) || 1; ctx.lampPoints.push({ x: p.x + tz / tl * 2.7, z: p.z - tx / tl * 2.7, rot: Math.atan2(-tz, tx) }); } }

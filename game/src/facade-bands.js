@@ -9,6 +9,10 @@ export const FACADE_BANDS = [
     { district: 'grozavesti', id: 'w247015071', name: 'Brico Dépôt / Altex',
         fascia: { colour: '#c41e24', belowTopM: 0.4, heightM: 1.5 },
         corner: { colour: '#d0202a', at: [44.448203, 26.062284], widthM: 16, fromM: 4.2 } }, // (from the top of the drawn shopfront glazing)
+    // (backlog r3-look-10) Bravern 2, NE 8th St: panorama 8BgiFdoVWhfWK7YqNBAXgw (47.617297, -122.192967) h 184 shows cream stone
+    // at street level under the glass curtain wall; the street face is the 22-storey OSM part w1474780191 (a building record has one
+    // wall colour, glass here). A stone base band round the part; its height (two retail storeys) is an estimate
+    { district: 'bellevue', id: 'w1474780191', name: 'Bravern 2', base: { colour: '#e2d2b0', fromM: 0.15, toM: 8.4, bays: { everyM: 6, widthM: 4.4, fromM: 0.5, toM: 3.9, colour: '#34424c' } } },
 ];
 
 const sub = (a, b) => [a[0] - b[0], a[1] - b[1]];
@@ -27,6 +31,16 @@ export function emitFacadeBands(env) {
         if (r.fascia) {
             const col = env.rgb(r.fascia.colour), y1 = h - r.fascia.belowTopM, y0 = y1 - r.fascia.heightM;
             for (let k = 0; k < n; k++) { const a = R[k], c = R[(k + 1) % n], L = Math.hypot(c[0] - a[0], c[1] - a[1]); if (L < 0.3) continue; panel(a, c, y0, y1, 0.08, col); rec.fasciaM += L; }
+        }
+        if (r.base) { // a stone / clad base round the whole part (walls against a taller neighbour are hidden inside it)
+            const col = env.rgb(r.base.colour), y0 = r.base.fromM ?? 0.15, y1 = Math.min(h - 0.1, r.base.toM);
+            const bay = r.base.bays, bayCol = bay ? env.rgb(bay.colour) : null; // optional shop-window bays in the base (estimates)
+            for (let k = 0; k < n; k++) {
+                const a = R[k], c = R[(k + 1) % n], L = Math.hypot(c[0] - a[0], c[1] - a[1]); if (L < 0.3) continue; panel(a, c, y0, y1, 0.1, col); rec.baseM = (rec.baseM || 0) + L;
+                if (bay && L >= bay.widthM + 1) { const m = Math.max(1, Math.floor(L / bay.everyM)), at = (t) => [a[0] + (c[0] - a[0]) * t, a[1] + (c[1] - a[1]) * t];
+                    for (let j = 0; j < m; j++) { const mid = (j + 0.5) / m, hw = bay.widthM / 2 / L; panel(at(mid - hw), at(mid + hw), bay.fromM, bay.toM, 0.14, bayCol); } }
+            }
+            rec.baseM = Math.round(rec.baseM || 0);
         }
         if (r.corner) {
             const p = env.project(r.corner.at[0], r.corner.at[1]), col = env.rgb(r.corner.colour), W = r.corner.widthM;

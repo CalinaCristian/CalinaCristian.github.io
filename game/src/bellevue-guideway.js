@@ -19,8 +19,9 @@
 //    game's flat ground is rail level minus the ground level under it (6 - 18 m; highest over the I-405 valley);
 //  - girder depth, deck width, parapet, pier section, pier spacing and positions (OSM maps no supports). Piers stand only
 //    clear of carriageways (district roads and scenery streets) and buildings; where none fits the span stays open.
-// Not drawn: the two stations (Bellevue Downtown lies outside the district; Wilburton's platform w922284294 and canopies
-// are not in the district pack), the overhead line, trains.
+// Wilburton station (platform w922284294, roof w615292866, lifts) is drawn from live OSM coordinates below (emitWilburton) and the
+// overhead line by guideway-ocs.js (estimates). Not drawn: Bellevue Downtown station (outside the district), trains.
+import { GUIDEWAY_OCS, ocsWires, ocsPole } from './guideway-ocs.js';
 export const BELLEVUE_GUIDEWAY = {
     mains: ['w669516620', 'w1154876472'],
     others: ['w762965202', 'w762965203', 'w614517901', 'w669516619'],
@@ -35,6 +36,18 @@ export const BELLEVUE_GUIDEWAY = {
     // I-405 and its ramps between 141 and 221 m; the span ends are the nearest piers the game places outside them (estimate: the real
     // pier positions are not mapped). The parapets stay concrete.
     steelSpanM: [129, 232], steelCol: '#7f9a83',
+};
+
+// (r2-world-guideway) Wilburton station, from live OSM (2026-11-13): the island platform w922284294 (railway=platform, bridge=yes,
+// layer=1, shelter=yes), the station roof w615292866 (building=train_station, layer=1, same outline plus the stair heads) and the
+// two lifts n11812430045 / n11812430046 (highway=elevator, level 0;1). Estimates: platform 0.36 m above the rail (Link's low-floor
+// platform height), roof 4.2 m clear and 0.5 m deep on one row of columns down the platform centre every 12 m, lift shafts 2.4 m
+// square; the stairs (w1273554471-73, w1274300267) and the station's look were not compared with a panorama and are not drawn.
+export const WILBURTON_STATION = {
+    platform: [[47.6174519, -122.1837911], [47.6174581, -122.1839299], [47.6184580, -122.1838298], [47.6184574, -122.1838165], [47.6184518, -122.1836939]],
+    roof: [[47.6179844, -122.1839038], [47.6184580, -122.1838298], [47.6184574, -122.1838165], [47.6184532, -122.1837240], [47.6184517, -122.1836934], [47.6181790, -122.1837200], [47.6177655, -122.1837605], [47.6174519, -122.1837911], [47.6174581, -122.1839299]],
+    lifts: [[47.6181412, -122.1837575], [47.6178067, -122.1837915]],
+    replacesSource: 'w615292866', aboveRailM: 0.36, roofClearM: 4.2, roofDepthM: 0.5, columnEveryM: 12, liftM: 2.4,
 };
 
 const lerpTable = (T, s) => { if (s <= T[0][0]) return T[0][1]; for (let i = 1; i < T.length; i++) if (s <= T[i][0]) { const a = T[i - 1], b = T[i]; return a[1] + (b[1] - a[1]) * (s - a[0]) / (b[0] - a[0] || 1); } return T[T.length - 1][1]; };
@@ -73,10 +86,10 @@ const cumOf = (pts) => { const c = [0]; for (let i = 1; i < pts.length; i++) c.p
  * Returns { ways: Set of handled way ids, metres, piers, piersOmitted, maxTopM } (an audit record for world stats).
  */
 export function emitBellevueGuideway(env) {
-    const CON = env.rgb('#c4c1ba'), PIER = env.rgb('#bcb9b2'), RAIL = env.rgb('#6d7174'), WALL = env.rgb('#a9a6a0'), STEEL = env.rgb(BELLEVUE_GUIDEWAY.steelCol);
+    const CON = env.rgb('#c4c1ba'), PIER = env.rgb('#bcb9b2'), RAIL = env.rgb('#6d7174'), WALL = env.rgb('#a9a6a0'), OCSW = env.rgb(GUIDEWAY_OCS.wireColour), OCSP = env.rgb(GUIDEWAY_OCS.colour), STEEL = env.rgb(BELLEVUE_GUIDEWAY.steelCol);
     const G = BELLEVUE_GUIDEWAY, byId = new Map((env.railways || []).map(r => [r.id, r]));
     const line = (id) => { const r = byId.get(id); return r ? env.undelta(r.points, 0) : null; };
-    const mains = G.mains.map(line), out = { ways: new Set(), metres: 0, piers: 0, piersOmitted: 0, pierS: [], steelMetres: 0, maxTopM: 0, railLevel: 'estimate (clearances over 112th Ave NE and NE 8th St + USGS 3DEP ground)' };
+    const mains = G.mains.map(line), out = { ways: new Set(), metres: 0, piers: 0, piersOmitted: 0, ocsPoles: 0, pierS: [], steelMetres: 0, maxTopM: 0, railLevel: 'estimate (clearances over 112th Ave NE and NE 8th St + USGS 3DEP ground)' };
     if (!mains[0] || !mains[1]) return out;
     const cum0 = cumOf(mains[0]), start = mains[0][0];
     // metres along the first main; west of its start (the station tracks) the distance from the start counts negative
@@ -110,7 +123,7 @@ export function emitBellevueGuideway(env) {
             const depth = top < G.pierMinTopM ? top - 0.02 : G.girderM;
             return { x: p[0], z: p[1], ux, uz, nx, nz, wl, wr, side, half, top: top + lift[0], depth: depth + lift[0] - lift[1] };
         });
-        let run = 0, nextPier = G.pierEveryM / 2;
+        let run = 0, nextPier = G.pierEveryM / 2, nextPole = 12;
         for (let i = 1; i < N; i++) {
             const a = S[i - 1], b = S[i], L = Math.hypot(b.x - a.x, b.z - a.z), mx = (a.x + b.x) / 2, mz = (a.z + b.z) / 2;
             run += L;
@@ -132,6 +145,10 @@ export function emitBellevueGuideway(env) {
             }
             for (const g of [-0.7175, 0.7175]) quad(m, [P(a, g + 0.05, a.top + 0.16), P(b, g + 0.05, b.top + 0.16), P(b, g - 0.05, b.top + 0.16), P(a, g - 0.05, a.top + 0.16)], [0, 1, 0], RAIL); // 1435 mm gauge
             out.metres += L;
+            if (other) { // (seatac-7 / r2-world-guideway) overhead contact line: guideway-ocs.js (estimates)
+                ocsWires(quad, P, m, a, b, OCSW);
+                if (id === G.mains[0] && run >= nextPole) { nextPole = run + GUIDEWAY_OCS.poleEveryM; out.ocsPoles += ocsPole(env, a, OCSP); }
+            }
             if (fill) { if (i % 2 === 0 && !onStreet(mx, mz, 2.6)) env.addPropColl(mx, mz, Math.max(a.wl, a.wr) + 0.3, 'guideway'); continue; }
             if (!piers || run < nextPier) continue;
             nextPier = run + G.pierEveryM;
@@ -151,6 +168,39 @@ export function emitBellevueGuideway(env) {
     };
     emit(G.mains[0], mains[0], mains[1], true); emit(G.mains[1], mains[1], mains[0], false);
     for (const id of G.others) { const pts = line(id); if (pts) emit(id, pts, null, false); }
+    if (env.proj) out.wilburton = emitWilburton(env, along);
     out.metres = Math.round(out.metres); out.maxTopM = +out.maxTopM.toFixed(1);
     return out;
+}
+
+// a flat-topped prism over a convex ring [x, z][] from y0(x, z) to y1(x, z) (per-vertex heights), outward side faces
+function slab(m, ring, y0, y1, col) {
+    let sa = 0; for (let k = 0; k < ring.length; k++) { const [ax, az] = ring[k], [bx, bz] = ring[(k + 1) % ring.length]; sa += ax * bz - bx * az; }
+    const top = ring.map(([x, z]) => m.v(x, y1(x, z), z, 0, 1, 0, x * 0.125, z * 0.125, col)), bot = ring.map(([x, z]) => m.v(x, y0(x, z), z, 0, -1, 0, x * 0.125, z * 0.125, col));
+    for (let k = 1; k + 1 < ring.length; k++) { if (sa > 0) { m.tri(top[0], top[k + 1], top[k]); m.tri(bot[0], bot[k], bot[k + 1]); } else { m.tri(top[0], top[k], top[k + 1]); m.tri(bot[0], bot[k + 1], bot[k]); } }
+    for (let k = 0; k < ring.length; k++) {
+        const a = ring[k], b = ring[(k + 1) % ring.length], L = Math.hypot(b[0] - a[0], b[1] - a[1]); if (L < 0.05) continue;
+        let nx = (b[1] - a[1]) / L, nz = -(b[0] - a[0]) / L; if (sa < 0) { nx = -nx; nz = -nz; }
+        quad(m, [[a[0], y1(...a), a[1]], [b[0], y1(...b), b[1]], [b[0], y0(...b), b[1]], [a[0], y0(...a), a[1]]], [nx, 0, nz], col);
+    }
+}
+function emitWilburton(env, along) {
+    const W = WILBURTON_STATION, pr = (q) => { const p = env.proj(q[0], q[1]); return [p.x, p.z]; };
+    const plat = W.platform.map(pr), roof = W.roof.map(pr);
+    const cx = plat.reduce((s, p) => s + p[0], 0) / plat.length, cz = plat.reduce((s, p) => s + p[1], 0) / plat.length;
+    if (!env.keep(cx, cz, 0)) return { drawn: false };
+    const deck = (x, z) => bellevueRailTop(along(x, z)), platTop = (x, z) => deck(x, z) + 0.16 + W.aboveRailM;
+    const m = env.cellOf(cx, cz).solid, PLAT = env.rgb('#b9b6ae'), ROOF = env.rgb('#d9dcdd'), COL = env.rgb('#8e9396'), LIFT = env.rgb('#5f7482');
+    slab(m, plat, (x, z) => deck(x, z) - 0.02, platTop, PLAT);
+    const roofY = (x, z) => platTop(x, z) + W.roofClearM;
+    slab(m, roof, roofY, (x, z) => roofY(x, z) + W.roofDepthM, ROOF);
+    // columns down the platform centre line (south edge mid -> north edge mid)
+    const s0 = [(plat[0][0] + plat[1][0]) / 2, (plat[0][1] + plat[1][1]) / 2], s1 = [(plat[2][0] + plat[4][0]) / 2, (plat[2][1] + plat[4][1]) / 2], L = Math.hypot(s1[0] - s0[0], s1[1] - s0[1]);
+    const n = Math.max(1, Math.round(L / W.columnEveryM)), ang = Math.atan2(s1[0] - s0[0], s1[1] - s0[1]);
+    let columns = 0;
+    for (let k = 0; k <= n; k++) { const t = 0.04 + 0.92 * k / n, x = s0[0] + (s1[0] - s0[0]) * t, z = s0[1] + (s1[1] - s0[1]) * t, y = platTop(x, z); env.cellOf(x, z).solid.box(x, y, z, 0.35, W.roofClearM, 0.35, ang, COL); columns++; }
+    // lift shafts from the street (or from the deck where a carriageway passes under) to above the platform
+    let lifts = 0;
+    for (const q of W.lifts) { const [x, z] = pr(q), y = platTop(x, z), y0 = env.onRibbon(x, z, W.liftM / 2 + 0.3) ? deck(x, z) : 0.1; env.cellOf(x, z).solid.box(x, y0, z, W.liftM, y + 3.1 - y0, W.liftM, ang, LIFT); if (y0 < 1) env.addPropColl(x, z, W.liftM / 2 + 0.1, 'station-lift'); lifts++; }
+    return { drawn: true, columns, lifts, platformTopM: +platTop(cx, cz).toFixed(2) };
 }

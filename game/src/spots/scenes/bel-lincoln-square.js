@@ -14,7 +14,7 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { photoHunt } from '../photo-hunt.js';
-import { GeoBatch, rng, headingFromBearing, polyBox, inPoly, distPolyline } from '../kit.js';
+import { GeoBatch, rng, headingFromBearing, polyBox, inPoly, distPolyline, offsetPolyline, polyArea } from '../kit.js';
 import { signBoard, shopfrontSigns } from '../props.js';
 import { seattleBackdrop } from '../backdrop.js';
 import { addTraffic } from '../cars.js';
@@ -22,15 +22,48 @@ import { emitActivity, seasonal, placeLitLandmark, skipNearLandmark, fairyLights
 
 const SKY_Y = 6.2; // skybridge floor above the roadway (landmarks.js uses the same)
 
+/** a band of half-width hw along a polyline with mitred bends (a polygon for a prism): the bridge decks / roofs used to be
+ *  one box per segment, unmitred, open wedges or overlapping (z-fighting) corners at each bend (r3-builder-spots-5) */
+function mitredBand(pts, hw) {
+    const P = pts.filter((q, i) => !i || Math.hypot(q[0] - pts[i - 1][0], q[1] - pts[i - 1][1]) > 0.05), L = [], R = [];
+    for (let i = 0; i < P.length; i++) {
+        const nrm = (a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], l = Math.hypot(dx, dz) || 1; return [-dz / l, dx / l]; };
+        const n0 = i > 0 ? nrm(P[i - 1], P[i]) : null, n1 = i < P.length - 1 ? nrm(P[i], P[i + 1]) : null;
+        let [nx, nz] = n0 && n1 ? [n0[0] + n1[0], n0[1] + n1[1]] : (n0 || n1); const l = Math.hypot(nx, nz) || 1; nx /= l; nz /= l;
+        const k = n0 && n1 ? Math.min(3, 1 / Math.max(0.2, nx * n0[0] + nz * n0[1])) : 1;
+        L.push([P[i][0] + nx * hw * k, P[i][1] + nz * hw * k]); R.push([P[i][0] - nx * hw * k, P[i][1] - nz * hw * k]);
+    }
+    return [...L, ...R.reverse()];
+}
 function skybridge(ctx, b, pts, glassMat) {
     const g = ctx.ground;
+    // one floor level per bridge (the higher end's ground + SKY_Y: per-segment levels stepped at the bends)
+    const y = Math.max(...pts.map(([x, z]) => g.heightAt(x, z))) + SKY_Y;
+    b.prism(mitredBand(pts, 2.3), y - 0.6, y, '#d9dcdd', 'paint', { bottom: true });
+    b.prism(mitredBand(pts, 2.5), y + 4.2, y + 4.7, '#d9dcdd', 'paint', { bottom: true });
     for (let i = 1; i < pts.length; i++) {
-        const [ax, az] = pts[i - 1], [bx, bz] = pts[i], L = Math.hypot(bx - ax, bz - az), yaw = Math.atan2(bx - ax, bz - az), mx = (ax + bx) / 2, mz = (az + bz) / 2;
-        const y = Math.max(g.heightAt(ax, az), g.heightAt(bx, bz)) + SKY_Y;
-        b.box(mx, y - 0.6, mz, 4.6, 0.6, L, '#d9dcdd', 'paint', yaw);
-        b.box(mx, y + 4.2, mz, 5.0, 0.5, L + 0.2, '#d9dcdd', 'paint', yaw);
+        const [ax, az] = pts[i - 1], [bx, bz] = pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 0.05) continue;
+        const yaw = Math.atan2(bx - ax, bz - az);
         for (const s of [-1, 1]) { const ox = Math.cos(yaw) * 2.3 * s, oz = -Math.sin(yaw) * 2.3 * s; for (let t = 0; t <= L; t += 4) { const px = ax + (bx - ax) * t / L + ox, pz = az + (bz - az) * t / L + oz; b.box(px, y, pz, 0.14, 4.2, 0.14, '#c9cdd0', 'steel', yaw); } }
-        const glass = new THREE.Mesh(new THREE.BoxGeometry(4.5, 4.1, L), glassMat); glass.position.set(mx, y + 2.05, mz); glass.rotation.y = yaw; ctx.add(glass);
+        const glass = new THREE.Mesh(new THREE.BoxGeometry(4.5, 4.1, L), glassMat); glass.position.set((ax + bx) / 2, y + 2.05, (az + bz) / 2); glass.rotation.y = yaw; ctx.add(glass);
+    }
+}
+
+/** an open footbridge (garage-deck walkway, OSM bridge=yes layer=1, not covered): concrete deck with steel rails at the
+ *  skybridges' floor estimate (no measured level) */
+function openBridge(ctx, b, pts) {
+    const g = ctx.ground, y = Math.max(...pts.map(([x, z]) => g.heightAt(x, z))) + SKY_Y;
+    // a way that runs out and back round a deck (w843400114: ends 2.8 m apart, legs 2 m apart) outlines that deck
+    const [p0, pn] = [pts[0], pts[pts.length - 1]];
+    if (pts.length > 3 && Math.hypot(pn[0] - p0[0], pn[1] - p0[1]) < 3.5) { b.prism(pts, y - 0.5, y, '#bdb9b0', 'concrete', { bottom: true }); return; }
+    b.prism(mitredBand(pts, 1.2), y - 0.5, y, '#bdb9b0', 'concrete', { bottom: true });
+    for (let i = 1; i < pts.length; i++) {
+        const [ax, az] = pts[i - 1], [bx, bz] = pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 0.05) continue;
+        const yaw = Math.atan2(bx - ax, bz - az);
+        for (const s of [-1, 1]) { const ox = Math.cos(yaw) * 1.15 * s, oz = -Math.sin(yaw) * 1.15 * s;
+            b.rod([ax + ox, y + 1.05, az + oz], [bx + ox, y + 1.05, bz + oz], 0.035, '#7d8387', 'steel', 6);
+            b.rod([ax + ox, y + 0.5, az + oz], [bx + ox, y + 0.5, bz + oz], 0.02, '#7d8387', 'steel', 5);
+            for (let t = 0; t <= L; t += 2) { const px = ax + (bx - ax) * t / L + ox, pz = az + (bz - az) * t / L + oz; b.rod([px, y, pz], [px, y + 1.05, pz], 0.025, '#7d8387', 'steel', 5); } }
     }
 }
 
@@ -71,6 +104,19 @@ export default {
         parkPavilions(ctx); // bus shelters / park restrooms in the surroundings: open roofs / low blocks, not shop blocks
         ctx.osmBackdrop({ paint: {}, streetTrees: false, lampOpts: { kinds: ['primary', 'secondary', 'tertiary'], spacing: 30 },
             style: (bd) => (AVENUE.has(bd.id) ? 'concrete' : (bd.h || 0) > 40 ? 'office' : /Square|Mall|Nordstrom|Macy/.test(bd.name || '') ? 'mall' : BPLACE.has(bd.id) ? 'concrete' : undefined) });
+        // (r2-bel-spots-6) Avenue Bellevue's balcony rings: Street View (NE 8th St / Bellevue Way, 2026-11-12) shows both towers
+        // ringed by white balcony bands, one per storey. The tower parts follow their OSM rings (w1223091248, w1223378663,
+        // w1223091245: 30–65-vertex curved plans); each storey above the part's base gets a slab round the ring, 1.2 m deep
+        // (depth and slab thickness are estimates), at the part's own storey height (height / levels from OSM).
+        { const grow = (poly, dd) => { const cw = polyArea(poly) > 0, o = offsetPolyline([...poly, poly[0], poly[1]], cw ? -dd : dd); return o.slice(1, poly.length + 1); };
+            const bb = new GeoBatch(); let slabs = 0;
+            for (const id of ['w1223091248', 'w1223378663', 'w1223091245']) {
+                const bd = d.buildings.find((x) => x.id === id), c = ctx.colliders.find((q) => q.source === id && q.poly); if (!bd || !c || !(bd.lv > (bd.minLv || 0))) continue;
+                const n = bd.lv - (bd.minLv || 0), fh = (c.y1 - c.y0) / n, ring = grow(bd.poly, 1.2);
+                if (!ring?.length || ring.some((q) => !Number.isFinite(q[0] + q[1]))) continue;
+                for (let k = 1; k < n; k++) { const y = c.y0 + k * fh; bb.prism(ring, y - 0.22, y, '#f1f2f0', 'concrete', { bottom: true }); slabs++; } // (the cap inside the tower is hidden by its walls)
+            }
+            if (slabs) ctx.add(bb.build('avenue-balconies')); ctx.extras.avenueBalconies = slabs; }
         // street shop fascias (shared helper), none inside the landmark blocks (their podium storefronts are part of the models)
         const lmPolys = d.buildings.filter((bd) => ctx.skipBuildings.has(bd.id)).map((bd) => bd.poly);
         ctx.painter.poly([[-22, -22], [4.5, -22], [4.5, -1.5], [-22, -1.5]], '#a8a49a', 'slab'); // NW corner paving (no residential-lawn paint showing through)
@@ -125,6 +171,8 @@ export default {
         // (r3, bel-spots-2) the covered OSM skybridges between Bellevue Square and the West Parking Garage across its service
         // drive (live OSM, in the data since the round-3 append): floor height is the same estimate as the other skybridges
         for (const id of ['w387201731', 'w29234888', 'w843400178', 'w843400185', 'w843400163', 'w30758942', 'w843400165']) { const w = d.ways.find((x) => x.id === id); if (w && w.covered === 'yes') skybridge(ctx, b, w.pts, glassMat); }
+        // (r3-builder-spots-4) the open garage-deck walkways across the same drive (OSM footway bridge=yes layer=1, no roof)
+        for (const id of ['w29234889', 'w843400118', 'w843400136', 'w843400114']) { const w = d.ways.find((x) => x.id === id); if (w && w.covered !== 'yes') { ctx.skipWays.add(id); openBridge(ctx, b, w.pts); } }
         // ---------------------------------------------------------------- streetscape: trees in grated pits along Bellevue Way + NE 8th, holiday lights
         const blockers = d.ways.filter((w) => ['service', 'footway', 'residential', 'unclassified'].includes(w.k)).flatMap((w) => [w.pts[0], w.pts[w.pts.length - 1]]);
         const lines = [[[4.5, -92], [4.5, -6]], [[4.5, 30], [4.5, 205]], [[32.6, 30], [32.6, 205]], [[32.6, -92], [32.6, -6]], [[38, 27], [140, 27]], [[-180, 27], [1, 27]], [[38, -2.5], [150, -2.5]], [[-180, -2.5], [0, -2.5]]];

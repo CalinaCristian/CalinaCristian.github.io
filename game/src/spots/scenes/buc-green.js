@@ -126,13 +126,20 @@ function facadeOf(d, px, pz, qx, qz) {
         for (let i = 0, j = p.length - 1; i < p.length; j = i++) {
             const [ax, az] = p[j], ex = p[i][0] - ax, ez = p[i][1] - az, den = dx * ez - dz * ex; if (Math.abs(den) < 1e-9) continue;
             const t = ((ax - px) * ez - (az - pz) * ex) / den, u = ((ax - px) * dz - (az - pz) * dx) / den;
-            if (t >= 0 && t <= 60 && u >= 0 && u <= 1 && (!best || t < best.t)) { const L = Math.hypot(ex, ez); best = { t, x: px + dx * t, z: pz + dz * t, ex: ex / L, ez: ez / L }; }
+            if (t >= 0 && t <= 60 && u >= 0 && u <= 1 && (!best || t < best.t)) { const L = Math.hypot(ex, ez); best = { t, x: px + dx * t, z: pz + dz * t, ex: ex / L, ez: ez / L, ax, az, L, s: u * L }; }
         }
         if (!best) return null;
         let nx = best.ez, nz = -best.ex; if ((qx - best.x) * nx + (qz - best.z) * nz < 0) { nx = -nx; nz = -nz; }
-        return { x: best.x, z: best.z, nx, nz, b };
+        return { x: best.x, z: best.z, nx, nz, b, ax: best.ax, az: best.az, ex: best.ex, ez: best.ez, L: best.L, s: best.s };
     }
     return null;
+}
+/** keep a board of width w on its wall: slide its centre along the hit edge (and narrow it on a short edge) so it never
+ *  hangs past a corner (r3-builder-spots-3: the Kuwait embassy board hung half past the villa's west corner) */
+export function boardOnWall(f, w, margin = 0.25) {
+    const room = f.L - 2 * margin; if (room <= 0.6) return { x: f.x, z: f.z, w: Math.min(w, Math.max(0.6, f.L)) };
+    const ww = Math.min(w, room), s = Math.min(Math.max(f.s, margin + ww / 2), f.L - margin - ww / 2);
+    return { x: f.ax + f.ex * s, z: f.az + f.ez * s, w: ww };
 }
 const SIGN_LOOK = { embassy: { bg: '#8a6f3a', fg: '#fbf3dc', h: 0.5, y: 2.1 }, food: { bg: '#27352d', fg: '#f3e9cf', h: 0.62, y: 3.05 }, culture: { bg: '#e9e4d6', fg: '#2a2622', h: 0.62, y: 3.05 }, trade: { bg: '#2a2f38', fg: '#eef0f2', h: 0.56, y: 3.05 } };
 
@@ -148,9 +155,9 @@ export function businessSigns(ctx, { inside = null, skip = new Set(), name = 'bu
         const label = String(text || '').trim(); if (!label || seen.has(label) || skip.has(id) || ctx.skipBuildings.has(id) || (inside && !inside(x, z))) return;
         const st = nearestStreet(x, z); if (!st || st[0] > 90) return;
         const f = facadeOf(d, x, z, st[1], st[2]); if (!f || ctx.skipBuildings.has(f.b.id)) return;
-        const L = SIGN_LOOK[kind], w = Math.min(7, Math.max(1.6, label.length * 0.26 + 0.8));
-        signs.push({ x: f.x + f.nx * 0.09, y: g.heightAt(f.x + f.nx * 0.5, f.z + f.nz * 0.5) + L.y, z: f.z + f.nz * 0.09, yaw: Math.atan2(f.nx, f.nz), w, h: L.h, text: label, bg: L.bg, fg: L.fg, border: kind === 'embassy' ? 'rgba(255,240,200,0.7)' : false });
-        seen.add(label); placed.push({ id, name: label, kind, x: f.x, z: f.z });
+        const L = SIGN_LOOK[kind], q = boardOnWall(f, Math.min(7, Math.max(1.6, label.length * 0.26 + 0.8))), w = q.w;
+        signs.push({ x: q.x + f.nx * 0.09, y: g.heightAt(q.x + f.nx * 0.5, q.z + f.nz * 0.5) + L.y, z: q.z + f.nz * 0.09, yaw: Math.atan2(f.nx, f.nz), w, h: L.h, text: label, bg: L.bg, fg: L.fg, border: kind === 'embassy' ? 'rgba(255,240,200,0.7)' : false });
+        seen.add(label); placed.push({ id, name: label, kind, x: q.x, z: q.z });
     };
     for (const b of d.buildings) {
         const kind = b.name && !b.part && SIGN_KIND(b); if (!kind) continue;

@@ -1,102 +1,118 @@
-# Tourist spots framework (spec 15)
+# Tourist spots framework
 
-Walk-only, high-fidelity bonus scenes built from the research dossiers (spec 20). Seattle 10 + Bellevue 4 and
-Bucharest 10 (7 scenes) are built on this framework (see *Adding a spot* and *Bucharest*). Owner role: **spots**
-(`game/src/spots/*`, `game/data/spots/*`, `game/dev/spots.html`).
+Walk-only, high-fidelity bonus scenes built from the research dossiers (spec 20). Requirements and acceptance:
+[specs/15-tourist-spots.md](../../../specs/15-tourist-spots.md). Owner role: **spots** (`game/src/spots/*`,
+`game/data/spots/*`, `game/dev/spots.html`). Visual QA of spots: `npm run harness:spots`
+([game/dev/harness/visual/README.md](../../dev/harness/visual/README.md)).
 
 ## Quick start
 
 ```bash
-node game/src/spots/tools/build-data.mjs              # research → game/data/spots/<scene>.json (all scenes)
-python3 -m http.server 8123                            # from the repo root
+node game/src/spots/tools/build-data.mjs     # research → game/data/spots/<scene>.json (all scenes)
+python3 -m http.server 8123                   # from the repo root
 open http://localhost:8123/game/dev/spots.html?id=fremont-troll
 ```
 
-Dev page parameters: `id` (spot id), `ov` (`day|sunset|dusk|night|dawn`), `hour` (local time at the spot),
-`date` (ISO), `weather` (`clear|cloudy|drizzle|rain|snow|fog|storm`), `season`, `q` (quality), `walker=local`
-(force the fallback walker), `at=x,z,bearing,pitch` (walker pose), `cam=x,y,z,bearing,pitch,fov` (free camera),
-`fov`, `ui=0` (hide dev + spot UI), `hud=0` (hide the spot card/help), `manual=1` (no rAF loop; drive frames with
-`spotDev.step(n, dt)` — used by the Playwright screenshots). `window.spotDev = { session, r3d, camera, setCam,
-walkTo, step, photo, loadMs }`.
+Dev page parameters: `id`, `ov` (`day|sunset|dusk|night|dawn`), `hour` (local time at the spot), `date` (ISO), `weather`
+(`clear|cloudy|drizzle|rain|snow|fog|storm`), `season`, `q` (quality), `walker=local` (fallback walker),
+`at=x,z,bearing,pitch` (walker pose), `cam=x,y,z,bearing,pitch,fov` (free camera), `fov`, `ui=0` (hide all UI), `hud=0`
+(hide the spot card / help), `dev=0` (hide the dev panel), `manual=1` (no rAF loop; drive frames with
+`spotDev.step(n, dt)`), `audit=1|0` (run / skip `auditSpot`; on by default under automation), `legacy=1` /
+`ground=legacy` (pre-round-5 core behaviour for A/B). `window.spotDev = { session, r3d, camera, THREE, setCam, walkTo,
+step, photo, loadMs, audit }`.
 
-## API (contract in specs/01-architecture.md)
+## API
 
 ```js
-import { SPOTS, loadSpot, startSpot, SpotSession, spotProgress } from './spots/index.js';
+import { SPOTS, SPOTS_ALL, DEV_SPOTS, ACTIVITIES, MENU_AVAILABLE, spotById, loadSpot, startSpot, SpotSession, spotProgress } from './spots/index.js';
 
-SPOTS // [{ id, city, area?, name, lat, lon, kind: 'walk', blurb, scene }]
+SPOTS_ALL  // [{ id, city, area?, name, lat, lon, kind: 'walk', blurb, scene }]
+SPOTS      // the menu: SPOTS_ALL filtered by MENU_AVAILABLE (spot-availability.js), in MENU_ORDER;
+           // ?spots=all or localStorage['dmcv.spots.showAll'] = '1' lists every spot
+DEV_SPOTS  // loadable by id (dev page, spotById) but never listed
 const spot = await loadSpot(id, renderer?)   // → { scene, spawn, colliders, plaques[], dispose(), …extras }
 const s = await startSpot(id, { r3d, camera, input, photo?, audio?, hud?, date?, override?, walker? })
 loop: s.update(dt); r3d.frame(dt);
 photo onPhoto(meta) → s.onPhoto(meta)        // crowd reactions + postcard challenge
 photo getInfo()     → s.photoInfo()
-s.teleport('chihuly')                          // another spawn of the same scene (seattle-center)
+s.teleport(spotId)                            // another spawn of the same scene
+s.cancelActivities(reason)                    // hosts call this before pause / photo / drone / map takeovers
 s.dispose()
 ```
 
-`loadSpot` extras: `spawns{}`, `ground` (`heightAt`, `groundAt`), `groundAt(x,z,y)`, `env` (Renderer3D env),
-`clock {lat, lon, timeZone}`, `lamps[]` + `lampHeadMesh` (for `r3d.setLamps`), `vegetation` (for
-`r3d.setScene`), `crowd`, `interactables[]`, `challenges[]`, `updaters[]`, `nightHooks[]`, `sounds[]`, `tris`,
-`timing`.
+`loadSpot` extras: `spawns{}`, `ground` (`heightAt`, `groundAt`, `flightHeightAt`), `groundAt(x,z,y)`, `env`,
+`clock {lat, lon, timeZone}`, `lamps[]` + `lampHeadMesh` (for `r3d.setLamps`), `vegetation` (for `r3d.setScene`),
+`crowd`, `interactables[]`, `challenges[]`, `updaters[]`, `nightHooks[]`, `sounds[]`, `tris`, `timing`.
 
-Source-backed surrounding terrain can expose its materials in `ctx.extras.sourceGroundMaterials`.
-The loader adds them to `vegetation.groundMaterials` for the same weather/season treatment as the fine terrain;
-they are not grass/crown materials and must not receive vegetation wind deformation.
+`SpotSession` wires `Renderer3D.setScene/setClock/setLamps` (real sun, weather and season at the spot — spec 18), the
+walker (`OnFootController` from `src/onfoot.js`, else `walker.js` `LocalWalker`), the crowd, the UI (`ui.js`), the
+ambience (`sound.js`), `E` interactions, the postcard challenge, night lights and telemetry (`spot_enter`, `spot_plaque`,
+`spot_postcard`, `spot_exit` via `window.cvTelemetry`). Progress is kept in `localStorage['dmcv.spots.v1']`. Completing
+an activity fires `game.emit('activity', { spot, id })` / `dmcv:activity`; activity ids are in `ACTIVITIES`.
 
-`SpotSession` wires everything a host needs: `Renderer3D.setScene/setClock/setLamps` (real sun, weather and
-season at the spot's lat/lon — spec 18), the walker (`OnFootController` from `src/onfoot.js` when present,
-otherwise `walker.js` `LocalWalker` with the same interface), the crowd, the UI overlay (`ui.js`), the ambience
-(`sound.js`), interactions (`E`), the postcard challenge, night lights (façade windows, neon, floodlights) and
-telemetry (`spot_enter`, `spot_plaque`, `spot_postcard`, `spot_exit` via `window.cvTelemetry` when enabled).
-Progress (postcards, coins, gum…) is kept in `localStorage['dmcv.spots.v1']`.
+### Activities
+
+- `activityFlow(ctx)` (`participation.js`): the shared participatory flow — 44 px buttons, E / Escape, explicit busy
+  phases, completion callbacks only on a real finish, cleanup on map, travel, visibility change and disposal. Camera
+  rides set `cameraRide: true`; other locked activities keep mouse / touch look.
+- `onActivityCancel(ctx, cancel)`: walking courses (no panel) register here so `cancelActivities()` clears their partial
+  progress.
+- Helpers: `buc.js` `boatRide`, `race-course.js`, `water-route.js` (paddle courses, dry-bank landings), `photo-hunt.js`, `venue-activities.js`
+  (held-item sequences), `candle-light.js`, `coin-drop.js`, `stone-skipping.js`, `dance-camera.js`, `bike.js`,
+  `backgammon-*.js`, `baguette-game.js`, `chess-opening.js`, `tour.js` (guided-walk routing), `walk-boundary.js`
+  (visit boundary applied after walker and crowd collision).
+
+## Seattle context cache
+
+`game/data/spots/seattle-context-render.bin.gz` records the SHA-256 of the scripts it was built with
+(`game/data/spots/seattle-context-manifest.json` → `nativeGeometryConsumerHashes`: `spots/osm.js`,
+`spots/source-buildings.js`, `spots/kit.js`, `spots/source-context-data.js`, `spots/context-array-codec.js`,
+`building-parts.js`, `building-roofs.js`). If one changes, the cache is refused and Pike Place and the Space Needle do not
+open; the generator is not in this repository. `game/dev/source-context-consumers.test.mjs` fails first. Put fixes in
+separate modules instead (`furniture-extra.js`, `canopy-posts.js`, `willow.js`, `source-facade.js`,
+`game/src/facade-detail.js`).
 
 ## Files
 
-| File | What |
-|---|---|
-| `index.js` | `SPOTS`, `loadSpot`, `startSpot`/`SpotSession`, the `SceneContext` handed to scene modules |
-| `scenes/<scene>.js` | one module per scene: `export default { env?, async build(ctx) }` |
-| `tools/build-data.mjs` | research JSON + OSM extract + terrain grid → `game/data/spots/<scene>.json` (local metres) |
-| `ground.js` | `Ground` (bicubic terrain, modifiers, walkable solids, deep-water blocking), `Painter` (ground splat), ground shader (brick / cobbles / slab joints / grass / asphalt detail), `buildTerrain` |
-| `osm.js` | OSM ground painting, buildings with procedural façades + night windows + gable roofs, trees (season-tinted by render.js), street lamps, furniture, water |
-| `kit.js` | `GeoBatch` (merged vertex-coloured meshes per material), shared materials, canvas text / textures, polygon + polyline maths |
-| `sdf.js` | SDF primitives + surface-nets mesher + top-surface heightmaps (sculptures: Troll, Rachel, MoPOP, Piloti…) |
-| `props.js` | neon / painted signs, lattice frames, clock faces, canopies, market stalls, fish, Great Wheel, Space Needle, skyline, mountains, totem poles, railings, `SEATTLE_TOWERS` |
-| `scenes/fine-dem.js` + `scenes/fine-dem-<scene>.js` | USGS 3DEP 1 m DEM samples on a 4–10 m grid for scenes whose 20 m research grid is too coarse where levels change within metres (Ballard Locks banks, the Gas Works shore and Prow, the embankment at the Aurora Bridge's end): `applyFineDem(ground, grid)` replaces the terrain inside the grid's box before the scene shapes it |
-| `space-needle.js` | The Space Needle at 1:1 from the OSM parts and Street View: `spaceNeedleModel({ detail, cabs, interior })` (legs, open core, 100 ft wings, fins, halo, both glazed levels, roof, three elevator cars; `interior` fits out The Loupe and the 520 ft level; night floodlighting baked per vertex), `needlePavilion()` (base pavilion), `NEEDLE` (levels, radii and interior layout the visit scene uses for floors and colliders). Estimates are listed in its header |
-| `backdrop.js` | Seattle far backdrop: Needle at its real position, downtown towers, city filler, Elliott Bay, Rainier / Olympics (weather-dependent visibility) |
-| `people.js` | `Crowd`: instanced personas, path network walkers, group acts (watch / photo / pose / queue / sit / talk / perform / guide / throw), reactions + chat bubbles |
-| `ui.js` | `SpotUI` (title card, prompt, plaque reader, toasts, challenge line, crosshair) + `BubbleLayer` + `plaqueMesh` |
-| `sound.js` | `SpotSound`: procedural positional ambience (traffic, crowd, water, waterfall, wind, birds, gulls, crows, bells, market calls, bridge thumps) + one-shots |
-| `cars.js` | light traffic loops + parked cars (vehicles.js models) |
-| `walker.js` | collider spatial index, collisions, `LocalWalker` fallback |
-| `buc.js` | Bucharest kit: `bucBackdrop` (eclectic / bloc / interwar façades, white centre lines, lanterns / candelabras, tree LOD), `classicFacade` + `classicWalls` (canvas façade tiles for heroes: arcades, arched / pedimented windows, pilasters, niches, brick-band stripes, floodlit at night), `balustrade`, `palisade`, `hedge`, `flagpole` (RO / EU / NATO, waving in the real wind), `placeLandmark` (landmarks.js models at their lat/lon), `floodlight`, `signAtlas` (all shop signs in one draw call), `oldTownTerraces` (pergolas + awnings + tables in front of OSM bars), `cityFiller` (blocks beyond the OSM extract) |
-| `buc-barriers.js` | `osmBarriers(ctx, { skip, pad })`: the mapped walls, fences, hedges, retaining / city walls and `area=yes` plinths of a Bucharest scene near its walk extents (OSM `height` / `min_height`; labelled default heights otherwise), open where a mapped way crosses or at a mapped gate, never drawn twice over the scene's own railings / walls (their colliders) or inside a building outline; stats in `extras.osmBarriers` |
-| `buc-places.js` | `osmPlaces(ctx)`: unnamed mapped places — waterfalls (stone cascade + sound), viewpoints (E look-out points), playgrounds (estimated equipment clear of ways and buildings) and `furniture.gate` nodes (piers + an open iron gate); stats in `extras.osmPlaces` |
-| `scenes/buc-green.js` | North-Bucharest scene context (Arcul de Triumf, Herăstrău, Spring Palace): `parkWoods` (estimated canopy inside mapped park / garden polygons, clear of mapped ways, buildings, pitches, water), `dropMedianTrees` (no generated trees between carriageways or on junction islands), `thinTrees` (one even tree budget instead of the nearest-first cap), `businessSigns` (name boards for mapped, named businesses / embassies / museums; these scenes build with `urban: false`, so no generated shopfronts) |
-| `frame-budget.js` | Tourist-scene frame budget without removing content: `compactMaterialGroups` (one draw per material for multi-material meshes, all spots), multi-draw batching of the mapped city context per 120 m cell with frustum and skyline culling (needs three.js r170 `BatchedMesh` internals: `batchedInternals()` probes them and falls back to plain chunk meshes otherwise, also without `WEBGL_multi_draw`), shadow-only facade proxies in 64 m blocks, distance hiding. Test: `game/dev/frame-budget.test.mjs`. Scenes register late hooks in `ctx.extras.finishers` (run on the finished scene); a collider with `solid: true` is a closed shell that may occlude the skyline cull |
-| `precip-shelter.js` | `declareInterior(ctx, { poly \| box, y0, y1 })`: roofed interiors where rain / snow particles are discarded (weather.js `setShelters`) and walkers close their umbrellas (Carusel, Freddo room, the hidden bar, the Chihuly Glasshouse) |
-| `scenes/buc-walls.js` | `stoneWall()`: masonry walls with piers, panels, optional grille and gates at mapped gate nodes, with colliders (Parliament perimeter) |
-| `scenes/waterfront-pier-rings.js` | Seattle waterfront pier decks rebuilt as closed rings from the live OSM relations (the extract stored them as concatenated member ways) |
-| `tools/fetch-buc.mjs` | Bucharest sources: Overpass OSM extract + EU-DEM terrain (OpenTopoData, opened to bare earth) per scene, cached in `$SPOTS_OSM_CACHE` (default `<tmp>/dmcv-spots-osm/buc`), never in git |
+- Core: `index.js` (registry, `loadSpot`, `SpotSession`, the `SceneContext`, `auditSpot`, `floorProbe`),
+  `scenes/<scene>.js` (`export default { env?, async build(ctx) }`, plus helper modules per scene), `walker.js`
+  (collider index, `LocalWalker`), `people.js` (`Crowd`), `ui.js` (`SpotUI`, `SpotMap`, `BubbleLayer`, `plaqueMesh`),
+  `sound.js` (`SpotSound`), `cars.js`.
+- Data: `tools/build-data.mjs` (research JSON + OSM extract + terrain grid → `game/data/spots/<scene>.json`),
+  `tools/fetch-buc.mjs` (Bucharest Overpass OSM + EU-DEM, cached in `$SPOTS_OSM_CACHE`, default
+  `<tmp>/dmcv-spots-osm/buc`, never in git; run by the builder when missing; `NODE_USE_ENV_PROXY=1` behind a proxy).
+- Terrain: `ground.js` (`Ground`, `Painter`, `buildTerrain`), `scenes/fine-dem*.js` (`applyFineDem`: USGS 1 m DEM where
+  the 20 m grid is too coarse), `source-*.js` (literal source context shared with the street worlds).
+- Building kits: `osm.js` and `kit.js` (hash-locked, see above), `sdf.js` (sculptures), `props.js`, `space-needle.js`
+  (`spaceNeedleModel`, `needlePavilion`, `NEEDLE`; estimates in its header), `backdrop.js` (Seattle far backdrop),
+  `buc.js` (Bucharest kit: `bucBackdrop`, `classicFacade`, `placeLandmark`, `signAtlas`, `oldTownTerraces`, …),
+  `buc-barriers.js` (`osmBarriers`), `buc-places.js` (`osmPlaces`), `buc-streetscape.js`, `scenes/buc-green.js`,
+  `scenes/buc-walls.js` (`stoneWall`), `landmark-colliders.js`.
+- `frame-budget.js`: `compactMaterialGroups`, batched city context per 120 m cell with frustum / skyline culling (falls
+  back without `BatchedMesh` internals or `WEBGL_multi_draw`); test `game/dev/frame-budget.test.mjs`. Late hooks go in
+  `ctx.extras.finishers`; a collider with `solid: true` may occlude the skyline cull.
+- `precip-shelter.js`: `declareInterior(ctx, { poly | box, y0, y1 })` for roofed interiors (no rain / snow, umbrellas
+  closed).
 
 ## Coordinates
 
-Local metres: **x east, z south, y up**; origin = the scene origin in the data file (default: the first member
-spot's research spawn); `y = 0` at `origin.elev` (metres above the research datum, NAVD88 for Seattle).
-`ctx.ll(lat, lon) → {x, z}`. Headings: compass bearing → walker yaw with `headingFromBearing(deg)`.
-Colliders use the `world.js` formats (polygon `{x,z,r,poly}`, oriented box `{x,z,angle,hw,hd}`, circle prop
-`{x,z,r,hw:r,prop,h,y}`, wall segment `{wall,ax,az,bx,bz,y0a,y1a,y0b,y1b}`) and are indexed (`.query`).
+Local metres: **x east, z south, y up**; origin = the scene origin in the data file (default: the first member spot's
+research spawn); `y = 0` at `origin.elev` (NAVD88 for Seattle). `ctx.ll(lat, lon) → {x, z}`. Compass bearing → walker
+yaw with `headingFromBearing(deg)`. Colliders use the `world.js` formats (polygon `{x,z,r,poly}`, oriented box
+`{x,z,angle,hw,hd}`, circle prop `{x,z,r,hw:r,prop,h,y}`, wall segment `{wall,ax,az,bx,bz,y0a,y1a,y0b,y1b}`) and are
+indexed (`.query`). Floor probes honour `userData.noFloor`. Drone altitude uses `ground.flightHeightAt()` (terrain,
+reachable decks, water level); the walker's deep-water / steep-sculpture barrier stays in `groundAt()`.
 
-## Adding a spot (e.g. Bucharest)
+## Adding a spot
 
-1. Add a `SCENES` entry in `tools/build-data.mjs` (`research: 'bucharest-spots.json'`, `osmDir: 'buc-spots'`,
+1. Add a `SCENES` entry in `tools/build-data.mjs` (Bucharest: `research: 'bucharest-spots.json'`, `osmDir: 'buc-spots'`,
    `tz: 'Europe/Bucharest'`; several spots may share a scene with `members`). Run the builder.
-2. Add the `SPOTS` entries in `index.js` (`city: 'bucharest'`, `scene: '<scene>'`). `CITIES[city].env` is used.
+2. Add the spot to `SPOTS_ALL` in `index.js` (or `DEV_SPOTS` until verified); menu access is `MENU_ORDER` in
+   `game/src/spot-availability.js`.
 3. Write `scenes/<scene>.js`:
    ```js
    export default {
-       env: { fogFar: 4000 },                      // optional Renderer3D env overrides
+       env: { fogFar: 4000 },                                       // optional Renderer3D env overrides
        async build(ctx) {
            const g = ctx.ground, sp = ctx.spot('<id>');
            g.flatten(poly, y) / g.corridor(pts, w) / g.mod(fn)        // shape the terrain
@@ -107,78 +123,28 @@ Colliders use the `world.js` formats (polygon `{x,z,r,poly}`, oriented box `{x,z
            ctx.add(heroGroup); ctx.collider(...) / ctx.box / ctx.circle / ctx.poly; g.addBox / addPoly / addHeightmap
            ctx.plaque(sp.plaques[i], x, z, yaw, { credit })            // research plaques; credit the artist (R15.7)
            ctx.challenge('<id>', { r, tol, cond })                      // postcard from research photo.iconic
-           ctx.interactables.push({ x, z, r, label, use(session) })     // E actions (fun)
+           ctx.interactables.push({ x, z, r, label, use(session) })     // E actions
            ctx.crowdCfg = { personas, walkers, paths: ctx.footLines(), groups: [...] }
            ctx.sound(kind, x, z, radius, gain); ctx.onUpdate(fn); ctx.onNight(fn)
-           ctx.spawns['<id>'] = { x, z, heading, pitch: 0 } // optional finite pitch in radians, clamped to native ±1.3
+           ctx.spawns['<id>'] = { x, z, heading, pitch: 0 }             // optional pitch (rad), clamped to ±1.3
+           ctx.treeLod = { cap, near, max, force? }                     // optional tree budget: nearest `max` within `near` m at full detail
+           ctx.extras.sourceGroundMaterials = [...]                     // extra terrain materials: weather / season, no wind
        },
    };
    ```
-4. Check it in `game/dev/spots.html?id=<id>` (day, dusk, rain), compare with `game/research/refs/<dir>/` side by
-   side, keep ≤ 1 M triangles (the dev stats show scene / drawn triangles) and load < 3 s.
+4. Check it in `game/dev/spots.html?id=<id>` (day, dusk, rain) beside `game/research/refs/<dir>/`; keep ≤ 1 M triangles
+   (the dev stats show them) and load < 3 s.
 
-Data caveats: the OSM extracts drop multipolygon inner rings (a lake around a park becomes one big polygon) — derive shorelines from the terrain grid (`g.mod((x,z,h) => h < level ? …)`) and let the water plane draw the water; linear waterways are painted as lines. Research coordinates (iconic photo points) can fall inside buildings or water: `loadSpot` moves spawns and challenge poses to the nearest dry spot; check them in the dev page.
-
-Data provenance: a Bucharest scene can be rebuilt from live OSM (`tools/fetch-buc.mjs` + `build-data.mjs`; it keeps the classes `tools/spots/append-osm-features.mjs` and `tools/spots/enrich-osm-tags.mjs` added in round 3). The Seattle / Bellevue extracts (`game/research/osm/sea-spots/*.json`) have no in-repo fetch tool: what they hold beyond the builder's classes (the bel-lincoln-square skybridges) exists only in the prepared scene JSON, so never rebuild those scenes from a fresh extract without carrying it over.
-
-## Bucharest
-
-Scenes: `buc-parliament` (palace-parliament + peoples-salvation-cathedral), `buc-old-town` (old-town-lipscani +
-stavropoleos-cec), `athenaeum-revolution`, `arcul-de-triumf`, `buc-herastrau` (herastrau-park + village-museum),
-`spring-palace`, `cismigiu`. The research dossier (`bucharest-spots.json`) has its own schema: `build-data.mjs`
-adapts it (`bucSpot`: spawn from `SCENES[].spawns`, extent from `footprint`, postcard from `photo_angle`, plaque
-titles from `BUC_TITLES`; `bucDialogue`: persona lines → `{p, ctx, text (en), orig, lang}` plus `when` /
-`wx` / `season` tags derived from the text — the crowd prefers lines that fit the spot's local time, the real
-weather and the season). OSM + terrain are fetched by `tools/fetch-buc.mjs` (Overpass + EU-DEM; run automatically
-by the builder when the cache is missing; needs `NODE_USE_ENV_PROXY=1` behind a proxy). Romania has no freedom of
-panorama: every building and artwork is modelled (canvas façade tiles are drawn procedurally, never photos);
-architects / sculptors are credited on the plaques. Heroes: own models for the Palace of the Parliament (OSM parts:
-29 / 58 / 86 m tiers, east portico), the People's Salvation Cathedral (section-drawing heights, ribbed gilded
-domes), Cărturești Carusel (enterable 5-level white atrium, E at the stair), Hanul lui Manuc (courtyard, gate),
-Stavropoleos (porch, painted frieze, tower), Curtea Veche, the Dragomirești wooden church + peasant households,
-Spring Palace (+ peacocks); landmarks.js models (floodlit) for Arcul de Triumf, Ateneul Român (frieze plate
-"ATHENEUL ROMAN"), Palatul Regal, CEC, MNIR. New spots go to `DEV_SPOTS` (loadable in the dev page, not listed)
-until verified, then move to `SPOTS`. Tree LOD: `ctx.treeLod = { cap, near, max }` (Bucharest scenes) keeps
-the `max` trees within `near` m of the camera at full detail, the rest low-poly.
-
-Rules (spec 15): artworks are modelled in 3-D from the research description (no photo textures) and credited on a
-plaque; dialogue comes from the research (`spots[].dialogue`, translation under non-English lines); keep
-deep water / dangerous structures unwalkable (Gas Works towers are fenced).
-
-Old Town terrace furniture requires explicit OSM `outdoor_seating=yes`. A venue's name alone supplies a façade sign,
-not a canopy, tables or seating. Dristor's mapped terrace remains; Shoteria's `outdoor_seating=no` frontage carries its
-name and the three-action drink interaction without generated outdoor furniture. Sign colours remain procedural estimates.
-Tourist floor probes honour `userData.noFloor` and visibility on ancestors, so unnamed vehicle parts never lift a person
-onto a car roof. Traffic starts at its lane pose before crowd placement, and initial guides keep clear of postcard cameras.
-
-Scene participation uses `activityFlow(ctx)` (`participation.js`): native 44 px buttons, E/Escape, explicit busy phases,
-complete-only callbacks, and cleanup on map, travel, visibility and disposal. Hosts must call
-`session.cancelActivities(reason)` before pause/photo/drone takeovers; this delegates the earlier Lipscani venue controller
-as well. Camera rides set `cameraRide: true`; other locked activities retain mouse/touch look.
-
-`boatRide` now requires repeated strokes. Each stroke visibly moves both oars, adds velocity and advances a validated water
-course; drag stops an idle boat. The full return course is required for completion. Cișmigiu uses the mapped Debarcader
-`n473428602`, a dry-bank approach and a 48 m course inside lake `w16292044`, away from mapped bridges. Course length and
-boat appearance are gameplay estimates, not surveyed rental equipment. Rental hours remain unconfirmed; the seasonal
-calendar is a gameplay approximation. July visit dates and the renderer's winter season drive the relevant availability.
-Entrance history is read one fact at a time outdoors; it does not claim an accessible interior.
-
-Seattle Center's Glasshouse, Loupe and passing Monorail exercises require manual looking and an explicit shutter;
-short steady-frame gates prevent a button press or idle timer from awarding the view. Each belongs to its active shared
-entry. The animated Needle elevator uses the shared Leave/mode cancellation flow; it runs from the base pavilion to the
-520 ft observation level and back down from either public level. The two levels are walkable (floors seen only from
-within 1.6 m below their underside, walls with height bands) and joined by a walkable stair; the Loupe's glass floor
-carries the walker at its real rate. Ground-level footprints under them (the pavilion) carry a height band so that they
-do not act on the rooms above. Eating and drinking at the three counters (The Loupe Lounge, Atmos Cafe, Atmos Wine Bar)
-are held-item sequences on the shared flow: order, then sips / bites that advance only after their animation; leaving
-early awards nothing. Their menu prices are the game's guess (no sourced menu); the $35-39 ticket in the running total
-is the mapped `charge`. The instant open-air-deck visit award stays retired. Kerry Park's city-lights activity
-requires an actual dusk/night capture.
-Palace pacing counts continuous walking along its public-frontage game course; its endpoints are UI waypoints without
-invented marker posts. Botanical Garden trail notes are explicitly virtual at mapped rooms and add no physical plant-label
-hardware or reading-count award; its suspension-bridge award requires continuous walking on the existing bridge deck.
-Walking courses register `onActivityCancel(ctx, cancel)` for host takeovers. `SpotSession.cancelActivities()` clears their
-partial progress immediately when the host opens a mode that freezes scene updates; visibility listeners are disposed with
-the scene. This covers Palace pacing, the ravine crossing, the promenade loop and an unfinished Carusel climb.
-Drone altitude queries use `ground.flightHeightAt()`: actual terrain, reachable deck surfaces and the declared water level.
-The walker's deep-water/steep-sculpture `y + 50` movement barrier remains confined to `groundAt()`.
+Data caveats:
+- The OSM extracts drop multipolygon inner rings: derive shorelines from the terrain grid and let the water plane draw
+  the water.
+- Research coordinates can fall inside buildings or water; `loadSpot` moves spawns and challenge poses to the nearest dry
+  spot — check them in the dev page.
+- Bucharest scenes can be rebuilt from live OSM (`tools/fetch-buc.mjs` + `build-data.mjs`; keep the classes added by
+  `tools/spots/append-osm-features.mjs` and `tools/spots/enrich-osm-tags.mjs`). The Seattle / Bellevue extracts
+  (`game/research/osm/sea-spots/`) have no fetch tool, and some content (the Lincoln Square skybridges) exists only in the
+  prepared scene JSON: never rebuild those scenes from a fresh extract without carrying it over.
+- `build-data.mjs` adapts the Bucharest dossier's own schema (`bucSpot`: spawns from `SCENES[].spawns`, extent from
+  `footprint`, postcard from `photo_angle`, plaque titles from `BUC_TITLES`; `bucDialogue`: persona lines → `{p, ctx,
+  text, orig, lang}` plus `when` / `wx` / `season` tags the crowd uses to pick lines that fit the time, weather and
+  season).

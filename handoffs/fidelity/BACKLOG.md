@@ -38,16 +38,16 @@ and the F8 JSON the owner pastes.
 
 ## Rules
 
-- Fixes go straight to `master`, no PR (owner, 2026-11-11), after the checks below pass. `git fetch origin master` and
-  merge before each push.
+- Fixes go straight to `master`, no PR (owner rule), after the checks below pass. `git fetch origin master` and merge
+  before each push.
 - OSM decides where things are; Street View panoramas decide what they look like. Panoramas are a visual reference only:
   never downloaded in bulk, stored, traced, copied into textures or published. When a panorama shows OSM is wrong, the fix
   is a documented exception, never a silent move. Review tool: `node game/dev/reality/capture.cjs --district=<id>`
   (viewpoints in `game/dev/reality/viewpoints.json`); what a review establishes goes into the district's
   `game/research/` dossier.
 - Do not claim hardware frame rates from emulation.
-- The other folders here hold JSON / image evidence that game code, tools or tests read (for example
-  `d-otopeni/terminal-roof-measurements.json`); older notes were removed once stale and stay in git history.
+- The other folders here hold only evidence that game code, tools, tests or the overview read (for example
+  `d-otopeni/terminal-roof-measurements.json`); delete a folder once nothing reads it (git history keeps it).
 
 ## Checks before every push
 

@@ -1,6 +1,0 @@
-PASS literal context and direct native road/rail state agree while renderer state stays explicitly unobserved
-PASS wrong source controller/phase/axis/context and mismatched native states fail
-PASS observing red at time0 never constitutes a driven stop or a green resume
-PASS actual stopped red interval followed by bounded physical green progress is required
-PASS mapped stop dwell uses real physical duration and stationary source position
-{"passed":true,"controls":5}

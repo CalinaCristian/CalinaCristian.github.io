@@ -1,9 +1,0 @@
-{
-  "pass": true,
-  "controllerRoutes": 10,
-  "beforeBreteaContactsCapped": 25,
-  "sourcePreserved": "523632a18195768063bb82cc454f9b454ea969d802daaee6f446ebf423cbc3ef",
-  "previouslyClearFootprintPairs": 266,
-  "guardPositiveNegativeGroups": 7,
-  "newMediumFindings": []
-}

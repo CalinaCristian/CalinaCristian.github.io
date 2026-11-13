@@ -1,9 +1,0 @@
-[
-  {"id":"luxoft-start","label":"Luxoft chapter start","lat":44.473,"lon":26.1243,"kind":"chapter-start","source":"game/src/cities.js:CHAPTERS.luxoft.start; c78a5f4"},
-  {"id":"db-start","label":"Deutsche Bank chapter start","lat":44.47919,"lon":26.0963,"kind":"chapter-start","source":"game/src/cities.js:CHAPTERS.db.start; c78a5f4"},
-  {"id":"hermes","label":"Hermes Business Campus","lat":44.4810862,"lon":26.1140757,"kind":"cv-stop","source":"game/src/landmarks.js:ANCHOR.hermes; c78a5f4"},
-  {"id":"bob","label":"BOB Tower / Deutsche Bank","lat":44.479608,"lon":26.1147802,"kind":"cv-stop","source":"game/src/landmarks.js:ANCHOR.bob; c78a5f4"},
-  {"id":"skytower","label":"Sky Tower","lat":44.4779551,"lon":26.1047395,"kind":"landmark","source":"game/src/landmarks.js:ANCHOR.skytower; c78a5f4"},
-  {"id":"promenada","label":"Promenada Mall","lat":44.4781916,"lon":26.1034126,"kind":"landmark","source":"game/src/landmarks.js:ANCHOR.promenada; c78a5f4"},
-  {"id":"globalworth","label":"Globalworth Tower","lat":44.4792401,"lon":26.1024141,"kind":"landmark","source":"game/src/landmarks.js:ANCHOR.globalworth; c78a5f4"}
-]

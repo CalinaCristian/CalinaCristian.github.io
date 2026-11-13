@@ -27,7 +27,7 @@ Research the kept areas in depth so the visuals match reality as closely as poss
 | research-sea-spots | Seattle top 10 tourist spots (spec 15) — confirm the list with evidence first |
 
 ## Sources & etiquette
-OSM tags (building:levels, building:colour, roof:*, building:material, shop/amenity/brand, lanes, turn:lanes, lanes:bus, cycleway, sidewalk, surface, lit, natural=tree, railway=tram, trolley_wire), raw tiles in `/tmp/claude-0/-home-user-CalinaCristian-github-io/c23e7db4-0398-5255-9d52-f406a6fe27a7/scratchpad/osm/tiles/` or api.openstreetmap.org; Wikipedia (en/ro), Wikivoyage, Wikimedia Commons categories, KartaView open imagery (Mapillary needs a token — skip), brand store locators, transit agencies (STB, King County Metro, Sound Transit), city open data (Seattle SDOT, Bellevue GIS), TomTom Traffic Index. Rate-limit (≥ 1.5 s between Wikimedia requests, descriptive User-Agent).
+OSM tags (building:levels, building:colour, roof:*, building:material, shop/amenity/brand, lanes, turn:lanes, lanes:bus, cycleway, sidewalk, surface, lit, natural=tree, railway=tram, trolley_wire) from api.openstreetmap.org (tiles: `tools/osm/README.md`); Wikipedia (en/ro), Wikivoyage, Wikimedia Commons categories, KartaView open imagery (Mapillary needs a token — skip), brand store locators, transit agencies (STB, King County Metro, Sound Transit), city open data (Seattle SDOT, Bellevue GIS), TomTom Traffic Index. Rate-limit (≥ 1.5 s between Wikimedia requests, descriptive User-Agent).
 
 ## Acceptance
 - Every chapter-route street and every fronting building covered (log coverage %).

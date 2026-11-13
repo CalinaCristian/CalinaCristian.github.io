@@ -1,192 +1,125 @@
 # Drive My CV — play-test harness
 
-An autopilot that plays the game end-to-end in headless Chromium (Playwright, software GL) and reports
-what goes wrong: JS errors, invisible collisions, clipping, bridge snapping, traffic overlaps, pedestrians
-in cars, objects in the road, unreachable doors, broken routes… plus a static audit of the whole road
-network of both cities.
-
-It never edits the game. It loads `game/index.html`, injects `page/index.js` as an ES module on top of
-`window.game`, takes over the game loop (fixed-step simulation, rendering only for screenshots) and drives.
+An autopilot that plays the game in headless Chromium (Playwright, software GL) and reports JS errors, invisible
+collisions, clipping, height snapping, traffic overlaps, pedestrians in cars, objects in the road, unreachable doors,
+broken routes, plus a static audit of the loaded district's road network. It never edits the game: it loads
+`game/index.html`, injects `page/index.js` on top of `window.game`, takes over the loop (fixed-step simulation, rendering
+only for screenshots) and drives. Visual QA (what a player sees) is a separate tool: [visual/README.md](visual/README.md).
 
 ## Run
 
 ```sh
-npm run harness                                     # everything: audit + all scenarios, both cities (~5–8 min)
-npm run harness -- --scenario=b --city=bucharest    # one scenario group (b = the 11 streets)
-npm run harness -- --scenario=b:magheru             # one street
+npm run harness                                     # audit + the full scenario set, both cities (~5–8 min)
+npm run harness -- --scenario=b --city=bucharest    # one scenario group (b = the street drives)
+npm run harness -- --scenario=b:magheru             # one scenario
 npm run harness -- --scenario=a,h,i                 # several
-npm run harness -- --audit                          # static world audit only (both cities, ~30 s)
+npm run harness:audit                               # static audit only (= --audit), ~30 s
 npm run harness -- --audit --city=seattle
 npm run harness -- --scenario=c --headed            # watch it (still software GL, slow)
 ```
 
-Options: `--city=bucharest|seattle`, `--verbose` (progress log + page warnings), `--no-audit`,
-`--traffic=full|low` (full = the desktop/auto traffic density the owner plays with, default; low = mobile
-density), `--dt=30` (physics Hz, default 30), `--shots=40` (screenshot budget), `--timeout=240` (s per
-scenario), `--size=640x360` (viewport), `--port=8123`, `--out=<dir>` (report folder, default `report/`),
-`--trace[=2]` (autopilot state every N sim seconds into `latest.log`), `--shot-all`.
+Options: `--city=bucharest|seattle`, `--verbose` (progress log + page warnings), `--no-audit`, `--traffic=full|low`
+(desktop density, default / mobile density), `--dt=30` (physics Hz), `--shots=30` (screenshot budget), `--shot-all`
+(also for overlap / pedestrian issues), `--timeout=240` (s per scenario), `--size=640x360`, `--port=8123`,
+`--out=<dir>` (default `report/`), `--trace[=2]` (autopilot state every N sim seconds into `latest.log`), `--help`.
 
-Exit code: `0` = no high-severity issue, `1` = at least one high-severity issue (driving or audit),
-`2` = bad arguments, `3` = the harness itself failed.
+Exit code: `0` no high-severity issue, `1` at least one, `2` bad arguments, `3` the harness failed.
 
-The game is served from `http://127.0.0.1:8123/` if something answers there (e.g.
-`python3 -m http.server 8123`), otherwise the runner starts its own no-cache static server on a free port.
-Playwright is required as a module (`require('playwright')`, globally installed here). Nothing is cached
-between runs: every run starts a fresh browser context, and the report folder's screenshots are wiped.
-
-Speed: the simulation runs headless at roughly 5–8× real time (≈4–5 ms per 1/30 s step with ~250 vehicles
-in Bucharest, ≈1.5 ms in Seattle); nothing is rendered except screenshots. A screenshot frame is rendered at
-half pixel ratio with the far plane clipped to 300 m (≈0.3–1 s in SwiftShader; the first one per city ~6–10 s
-for shader compilation), and they are rationed: 2 per issue type and 3 per scenario, 30 per run, none for
-remote/transient types (vehicle overlaps, pedestrians) unless `--shot-all`. A full run takes ≈5 min on an idle
-4-core machine (7–8 min measured here with several other headless browsers competing for the CPU).
+The game is served from `http://127.0.0.1:8123/` if something answers there, otherwise the runner starts its own
+no-cache server. Needs the `playwright` module. Every run uses a fresh browser context, wipes the report screenshots and
+answers Open-Meteo requests with an error (the game falls back to climate data).
 
 ## Scenarios
 
-Every map is a 1:1 chapter district. A city loads the district of its first chapter (Bucharest: Floreasca,
-Seattle: SeaTac) unless the scenario names its own (the district column).
+Every map is a 1:1 chapter district. A city loads the district of its first chapter (Bucharest: Floreasca, Seattle:
+SeaTac) unless the scenario names its own. The full run is `FULL` in `run.js`.
 
 | id | city | district | what |
 |---|---|---|---|
-| `a` | both | first chapter | spawn sanity: pose on the road / legal direction / not touching anything, objective + route + nav line present, drive the first 150 m |
-| `b:<street>` | Bucharest | the street's | drive ~400 m on Magheru, Calea Victoriei, Lascăr Catargiu (Romana), Bd. Unirii (Unirii), Calea Floreasca (Floreasca), Barbu Văcărescu (Pipera), stopping short of a map end (`b` = all) |
-| `c` | both | loaded one | visit the district's CV stops: fast travel near it, drive to the door, E, walk to a screen, read it, leave (a stop unlocks only after the whole conversation: `office-talk`) |
-| `d` | both | Floreasca / SeaTac | refuel: drive to the nearest station, E, tank full |
-| `e` | both | loaded one | fast travel to each of the district's stops and the airport: landing pose, route, last-mile drive |
-| `g` | Bucharest | Romana | night: night lights / headlights / NPC lights on; drive Calea Victoriei; street-lamp light-pool churn (flicker heuristic) |
-| `h` | both | Romana / Bellevue | crash into a building wall, keep pushing (stuck prompt), R reset (pose checks), drive away; drive into a lamp/tree (must stop, not pass through), R |
-| `i` | Bucharest | Romana | 60 s stopped in the inner lane of Magheru: vehicles behind must get past |
+| `a` | both | first chapter | spawn sanity: pose on a legal lane, objective + route + nav line, drive 150 m |
+| `b:<street>` | Bucharest | the street's | drive ~400 m: `magheru`, `victoriei`, `catargiu` (Romana), `unirii` (Unirii), `floreasca` (Floreasca), `barbu` (Pipera) |
+| `c` | both | loaded | visit each CV stop: fast travel, drive to the door, E, read, leave |
+| `d` | both | Floreasca / SeaTac | refuel at the nearest station |
+| `e` | both | loaded | fast travel to each stop and the airport: landing pose, route, last-mile drive |
+| `g` | Bucharest | Romana | night: lights on, drive Calea Victoriei, lamp light-pool churn |
+| `h` | both | Romana / Bellevue | crash into a wall (stuck prompt, R reset), drive into a lamp / tree (must stop) |
+| `i` | Bucharest | Romana | 60 s stopped in Magheru's inner lane: traffic must get past |
 
-The flight between the cities is part of the chapter run (`ch`).
+Run by id only (not in the full run): `ch` (every chapter in its district, including the flight), `drive:<chapter>`
+and `fin` (a chapter route at legal speed), `jam` (Romana rush hour), `foot` (walk to an office and back), `roam` (free
+roam in every district), `spots:<id>` (enter a tourist spot from the drive and leave), and the `r5` group (`pause`,
+`fines`, `chain`, `restore`, `office-talk`, `findcar`, `parking`). `run.js` lists the known ids on a typo.
 
-Every scenario keeps ≤ 90 s of simulated time per drive (teleports instead of long trips).
+### Checked every frame while driving
 
-### Invariants checked every frame while driving
+`js-error` / `console-error`, `nan-state`, `height-jump` (> 1.5 m in a frame), `car-off-surface` (> 1 m),
+`surface-mismatch` / `route-wrong-level` (snapped to another level), `invisible-collision` (throttle on, stopped 2 s,
+nothing ahead), `clipping`, `vehicle-overlap`, `vehicle-overlaps-player`, `vehicle-off-road`, `vehicle-wrong-way`,
+`ped-in-vehicle`, `ped-on-carriageway`, `ped-stuck-crossing`, `route-failure`, `nav-missing`, `traffic-blockage`,
+`autopilot-no-progress`, `perf-traffic-update`, `perf-fps` (low; software GL). After each drive the road ribbons near
+the path are checked for objects (`object-in-road`, `object-under-elevated-road`, `object-over-sunken-road`); the
+closure barriers at district edges are not counted.
 
-`js-error` / `console-error` (window errors, unhandled rejections, console.error), `nan-state` (player or any
-vehicle), `height-jump` (car surface height changes > 1.5 m in one frame), `car-off-surface`
-(|car y − surface| > 1 m), `surface-mismatch` / `route-wrong-level` (the car's height differs > 1 m from the
-profile of the route edge it is driving on — e.g. snapped onto an overpass), `invisible-collision` (throttle on,
-< 0.5 m/s for 2 s, nothing within ~4 m ahead; includes `player.debug.lastCollider` when the game exposes it),
-`clipping` (car body overlapping a building / box / prop that the game's collision considers solid at the car's
-level), `vehicle-overlap` (two NPCs overlapping > 0.5 m for > 1 s; `-ghost` when deadlock ghosting is on),
-`vehicle-overlaps-player`, `vehicle-off-road` (> half-width + 1 m from its edge, away from junctions),
-`vehicle-wrong-way` (against a one-way), `ped-in-vehicle`, `ped-on-carriageway` (> 5 s, not on a crossing
-leg), `ped-stuck-crossing`, `route-failure`, `nav-missing`, `traffic-blockage` (autopilot blocked 18 s, needed
-R), `autopilot-no-progress`, `perf-traffic-update` (traffic.update average > 8 ms, low), `perf-fps` (low;
-software GL, only at quality low ≤ 640×360). After each drive the road ribbons near the driven path are
-checked for objects (`object-in-road`, `object-under-elevated-road`, `object-over-sunken-road`); the closure
-barriers that end a road at the district edge are there on purpose and are not counted.
+### Static audit (`--audit`, also part of the full run)
 
-### Static world audit (`--audit`, also part of the full run)
+For every drivable edge: props and buildings in the carriageway or junction boxes (level aware), `cliff-edge`,
+`node-height-mismatch`, `height-snap` (the surface resolver returns another road's height), CV / airport / fuel doors not
+reachable from a lane or inside buildings, no route from the spawn, spawned vehicles / pedestrians overlapping, the
+player spawn. `world.audit()` / `world.devCheck()` results are ingested as `world.audit:<group>` issues.
 
-For every drivable edge of the city: props (trees, lamps, posts, shelters, furniture…) and
-buildings/landmark boxes intersecting the carriageway (`*-in-road`, by how deep they reach into it, level
-aware: under a deck / over a trench are separate low/medium types), props/buildings inside junction boxes,
-`cliff-edge` (|ya − yb| / len > 0.25), `node-height-mismatch`, `height-snap` (driving an edge at its own height,
-the car's surface resolver — `player.surfaceAt` when present, else `world.roadHeight` — returns another road's
-height), CV / airport / fuel doors not reachable from a routable lane (11 / 90 / 12 m), doors inside buildings,
-no route from the spawn, freshly spawned vehicles overlapping each other or objects, pedestrians spawned inside
-vehicles/buildings, the player spawn. The world's own self-checks (`world.audit()`, `world.devCheck()`) are
-ingested as `world.audit:<group>` issues when they exist.
+## Report
 
-## Read the report
+`report/latest.md` (human), `latest.json` (machine), `latest.log` (steps, autopilot decisions, issues as they happen),
+`report/shots/<run>-*.jpg`. A game that does not boot gives one `boot-failure` issue and exit code 1. Each issue has
+`type`, `severity`, `scenario`, `city`, `x, z`, `lat, lon`, `street`, `msg`, `count` (merged by type + ~30 m cell or
+object), `data`, `shot`. Screenshots are rationed (2 per issue type, 3 per scenario).
 
-`report/latest.md` (human), `report/latest.json` (machine), `report/latest.log` (the harness log: scenario
-steps, autopilot decisions, every issue as it happened), `report/shots/<run>-*.jpg`. If the game does not boot
-(syntax error mid-edit…), the report contains a single `boot-failure` issue with the page errors and the exit
-code is 1.
-
-- Each issue: `type`, `severity` (high / medium / low), `scenario`, `city`, `x, z` (game metres), `lat, lon`
-  (inverse of `city.proj`), `street` (nearest edge), `msg`, `count` (occurrences merged into it — issues are
-  deduplicated by type + ~30 m cell or by object), `data` (ids, depths, heights…), `shot` (screenshot).
-- The markdown lists the scenarios (sim/wall time, outcome), then driving issues grouped by type with the top
-  examples, then one static-audit section per city with positions, sorted by depth / severity.
-- To look at a spot in the game: `game.player.place(x, z, heading)` in the console (plus
-  `game.traffic.setPlayer(game.player)`), or run `harness.H.placeOnRoad(x, z)` after injecting the harness.
+To look at a spot in the game: `game.player.place(x, z, heading)` then `game.traffic.setPlayer(game.player)`, or
+`harness.H.placeOnRoad(x, z)` after injecting the harness.
 
 ## Add a scenario
 
-Scenarios live in `page/scenarios.js` (`SCENARIOS`). Each is `{ id, title, city, run(H) }`, `city` =
-`'bucharest' | 'seattle' | 'any'`; `run` returns any JSON-able result. Useful pieces of `H` (`page/core.js`):
+Scenarios live in `page/scenarios.js` (`SCENARIOS`; streets for `b` in `STREETS`). Each is
+`{ id, group?, title, city: 'bucharest'|'seattle'|'any', district?, run(H) }`; `run` returns any JSON-able result. `H`
+(`page/core.js`):
 
 ```js
-await H.run(seconds, until?)                 // step the sim (invariants run every frame)
-await H.driveTo(x, z, { arriveR, timeout, stop, label })   // autopilot along the nav route → { ok, reason, t, dist }
+await H.run(seconds, until?)                                // step the sim (invariants run every frame)
+await H.driveTo(x, z, { arriveR, timeout, stop, label })    // autopilot along the nav route → { ok, reason, t, dist }
 H.placeOnRoad(x, z, heading, { edge, dir, s, lane })        // teleport onto a lane (rebuilds the traffic bubble)
-findStreet(H, /Regex/, 400, { ll: [lat, lon], bearing })   // a stretch of a named road → { edge, dir, s, end }
+findStreet(H, /Regex/, 400, { ll: [lat, lon], bearing })    // scenarios.js: a stretch of a named road
 H.issue(type, 'high'|'medium'|'low', msg, { x, z, ...data }, { key, shot: true })
-await H.shot('name')                         // screenshot now (→ report/shots/name.jpg)
+await H.shot('name'); H.note(msg)
 H.press('KeyE'); H.setControls(throttle, steer, brake); H.auditAroundPath(radius)
 ```
 
-Add new streets for `b` to `STREETS`. Add the scenario id to `FULL` in `run.js` (and `DEFAULT_CITIES` for
-`'any'` scenarios) to include it in the full run. In the page, `window.harness` exposes
-`driveTo`, `visitStop(id)`, `refuel()`, `fly()`, `stats()`, `issues`, `runScenario(id)`, `audit()`.
+Add the id to `FULL` in `run.js` (and `DEFAULT_CITIES` for `'any'` scenarios) to include it in the full run. In the page,
+`window.harness` exposes `list()`, `runScenario(id)`, `audit()`, `driveTo`, `visitStop(id)`, `refuel`, `findStreet`,
+`stats()`, `perfProbe()`, `issues`.
 
-## Files
+Files: `run.js` (CLI), `report.js` (report writer), `page/index.js` (entry, `window.harness`), `page/core.js` (loop
+takeover, autopilot, invariants, ribbon checks), `page/scenarios.js`, `page/audit.js`, `page/util.js` (self-contained
+helpers; missing game APIs are reported as `harness-api`).
 
-- `run.js` — CLI: server, browser, plan, timeouts, recovery, screenshots, exit code.
-- `report.js` — writes `report/latest.json`, `report/latest.md`, the stdout summary.
-- `page/index.js` — injected entry, `window.harness`.
-- `page/core.js` — loop takeover, autopilot (pure pursuit + speed planning + obstacle/red-light handling +
-  unstick), per-frame invariants, issue log, ribbon checks.
-- `page/scenarios.js` — scenarios and street list. `page/audit.js` — static world audit.
-- `page/util.js` — self-contained geometry/edge helpers (no imports from `game/src`, so the harness survives
-  refactors; game APIs it needs are feature-checked and reported as `harness-api` when missing).
+Limits: software GL, so fps and lamp flicker are heuristics and visual-only bugs are not detected; traffic and
+pedestrians only exist in the ~650 m bubble around the player; the autopilot is not perfect, so check the screenshot of a
+`traffic-blockage`, `autopilot-no-progress` or `drive-failed` before filing a game bug.
 
-## Known limitations
+## Other checks in this folder
 
-- Software GL: fps and lamp flicker are only heuristics; visual-only bugs (z-fighting, textures, the look of a
-  model) are not detected. Look at the screenshots.
-- Traffic, pedestrians and the spawn-overlap audit only cover the ~650 m simulation bubble around the player.
-- Collider kinds are taken from `collider.kind` when the world sets it, else inferred from the radius.
-- The autopilot is a reasonable driver, not a perfect one: `traffic-blockage`, `autopilot-no-progress` and
-  some `drive-failed` results can be the harness's fault — check the screenshot before filing a game bug.
+Standalone `*-check.*` and `*.test.mjs` scripts each document their purpose and flags in their header. Two are general:
 
-## Settings, conditions and Continue (`conditions-check.cjs`)
+- `conditions-check.cjs` — Settings panel (time / weather / season, Live, touch layouts at 390×844 and 844×390),
+  conditions kept across district / city changes, Resume and Continue after a reload. Starts its own server, fixes the
+  clock, fails Open-Meteo on purpose, exits nonzero on a failed assertion, writes `report.json` + screenshots.
+  `node game/dev/harness/conditions-check.cjs [--controls | --only-controls | --only-access] --out=<dir>`.
+- `viewpoints.js` — renders a district from real poses beside Google Street View (or an aerial mosaic for top-down
+  poses). Street View is for visual comparison only: nothing from it enters the game data, and images are cached in the
+  output folder, never committed. Key: `$GOOGLE_MAPS_KEY`. Images cost money: `--max` caps the poses (default 400) and
+  `--dry` lists them first. All options are in the file header.
 
-```sh
-node game/dev/harness/conditions-check.cjs --controls --out=/tmp/dmcv-conditions-check
-```
-
-Needs Playwright and its Chromium. It starts its own static server, mutes audio, fixes the clock at 2026-11-08 10:00 UTC,
-fails Open-Meteo requests on purpose (climate fallback) and isolates each fixture in a fresh browser context; it exits
-nonzero on any failed assertion and writes `report.json` plus screenshots. It covers the title-screen Settings panel
-(time / weather / season, the Live button, touch layouts at 390×844 and 844×390), conditions kept across district and
-city changes, Resume story and Continue after a reload (fuel included: zero survives, negative / NaN are ignored).
-`--controls` adds the cockpit mirror and driving / on-foot L (headlights vs nothing); `--only-controls` and
-`--only-access` run subsets. It is a functional check, not a frame-rate or weather-transition visual test.
-
-## Reality comparison: viewpoints and the Street View street walk (`viewpoints.js`, 2026-11-08)
-
-Renders a district world from real poses next to Google Street View (same spot, heading, camera height, fov) or, for
-top-down poses, next to an aerial mosaic crop. Any `--city` / `--district`. Street View is used for **visual comparison
-only** (Google's terms): nothing from it goes into the game data; images are cached in the output folder, never committed.
-
-```sh
-# walk every drivable street: a stop every 25 m on both sidewalks, facade + along-street views, snapped to the nearest pano
-node game/dev/harness/viewpoints.js --city=bucharest --district=floreasca --walk --streetview --out=/tmp/walk
-node game/dev/harness/viewpoints.js --district=floreasca --walk --streets='Georges Bizet' --every=50 --streetview --max=24
-node game/dev/harness/viewpoints.js --district=floreasca --walk --dry --max=5000          # count poses / panos, fetch no images
-node game/dev/harness/viewpoints.js --district=floreasca --views=game/dev/harness/views/floreasca.json --streetview
-node game/dev/harness/viewpoints.js --district=floreasca --topdown=250 --mosaic=/tmp/flo18  # game vs aerial tiles
-```
-
-Key: `$GOOGLE_MAPS_KEY` (or injected by the network proxy). Pano lookups use the free metadata endpoint; images cost
-money, so `--max` caps the poses (default 400) and `--dry` lists them first. `--eye=pano` (default) puts the game camera
-where the Street View camera stood (2.5 m); `--eye=sidewalk` stands on the sidewalk at 1.7 m. `--season` defaults to
-summer with Street View (most panos are summer shots). Output: `<out>/index.html` grouped by street, `poses.json`,
-`world-stats.json` (buildings, trees, kerbside cars, fences, fuel forecourts …).
-
-Walks accept official Google panoramas by default; public uploads are excluded because their lighting and camera
-height can differ. `--pano-provider=any` allows those uploads explicitly. Metadata and image requests have a 30 s
-absolute timeout; network errors contain codes rather than key-bearing URLs or response bodies. Reuse `--cache=<dir>`
-for retakes to avoid paying for the same reference image again.
-
-Generated walk poses preserve `sourceEdge` and `sourceLayer` alongside their original road-centre coordinates.
-The comparison camera follows that source road's grade only when the panorama remains in its road corridor and
-overlapping runtime surfaces agree within 0.25 m. Legacy manifests resolve the source edge from their original
-road centre and street name. A missing explicit source edge or conflicting surface levels keeps the default
-ground height and records the ambiguity; the harness does not infer panorama altitude. `<out>/camera-poses.json`
-records each rendered pose's `cameraBaseY`, `cameraY`, `cameraSourceEdge` and `cameraLevelAmbiguity` for review.
+  ```sh
+  node game/dev/harness/viewpoints.js --city=bucharest --district=floreasca --walk --streetview --out=/tmp/walk
+  node game/dev/harness/viewpoints.js --district=floreasca --views=game/dev/harness/views/floreasca.json --streetview
+  node game/dev/harness/viewpoints.js --district=floreasca --topdown=250 --mosaic=/tmp/flo18
+  ```

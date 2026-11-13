@@ -1,5 +1,0 @@
-(node:255571) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/landmarks.js is not specified and it doesn't parse as CommonJS.
-Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
-(Use `node --trace-warnings ...` to show where the warning was created)
-{"passed":true,"city":"all","records":61,"captures":183,"missing":[],"scope":"Image/source integrity only; physical world fidelity is a separate acceptance gate"}

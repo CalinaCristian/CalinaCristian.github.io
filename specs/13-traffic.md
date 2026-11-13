@@ -1,32 +1,55 @@
 # 13 — Traffic, congestion, pedestrians, transit
 
-Owner role: **gameplay** (traffic.js). Data: **world** (`congestion` in cities.js, `trafficProfile`).
-
-Initial generated parking (2026-11-09): `spawnAll` retains every historic draw, attempted parked slot/loop termination, original vehicle/ID/kind/mesh/source edge/lane/station. `initial-parking-behavior.js` admits the parked flag only before visibility, with literal direction/access/parking orientation and clearance, exact own-side flat support from final emitted triangles, actual model and tyre facets, static/shared/peer clearance, no legal moving-lane or junction-pad intrusion, and the native pedestrian line kept clear. Unknown designation/grade/width/support refuses this behavior; the same newly created actor remains ordinary driving at its original zero-offset native pose. No later unpark, actor deletion, reassignment, new parking source, graph join, extra RNG or guard tolerance change. `T.initialParking` records original slots and admitted/refused reasons. Existing future relocation/respawn eligibility is a separate coverage gap. Focused tests retain actual be12 ramp van484, positive parking and source/support/body negatives, full historic-loop RNG and a subsequent nonempty tram cohort. Fresh native cohort/drive/budget acceptance remains required.
+Owner role: **gameplay** (traffic.js). Data: **world** (`congestion` in cities.js, `trafficProfile`). APIs: spec 01.
 
 ## Requirements
-R13.1 Keep: lanes/one-ways, lights, junction claims, overlap guard, honking, chat bubbles, facts ticker (owner favourites), traffic-by-hour, weather slow-down.
-R13.2 **Standstill traffic in real hotspots**: per district `congestion [{lat,lon,radius,hours,level}]` → at those local hours dense spawning, queues spilling back from junctions, crawling/stopped cars, honk storms + bubbles; cleared smoothly off-peak; the player can still get through slowly (gaps, lane changes, side streets).
-R13.3 Transit with real liveries/routes from research: STB trams (red/yellow, articulated), trolleybuses (with poles under wires), buses; King County Metro buses, Sound Transit Link (Bellevue) if visible.
-R13.4 Pedestrians: never inside cars, never on the carriageway except crossings; density by area/hour; tourists with cameras at landmarks.
-R13.5 Zero NPC–NPC and NPC–player overlaps visible (harness ≤ 5 minor).
+R13.1 Keep: lanes/one-ways, lights, junction claims, overlap guard, honking, chat bubbles, facts ticker (owner
+favourites), traffic by hour, weather slow-down.
+R13.2 **Standstill traffic in real hotspots**: per district `congestion [{lat,lon,radius,hours,level}]` → at those local
+hours dense spawning, queues spilling back from junctions, crawling/stopped cars, honk storms and bubbles; cleared
+smoothly off-peak; the player can still get through slowly.
+R13.3 Transit with real liveries/routes from research: STB trams (articulated), trolleybuses (poles under wires), buses;
+King County Metro buses, Sound Transit Link where visible.
+R13.4 Pedestrians: never inside cars, never on the carriageway except at crossings; density by area/hour; placed on the
+source sidewalk sides; crossings need real roadside endpoints on both sides.
+R13.5 Zero visible NPC–NPC and NPC–player overlaps (harness ≤ 5 minor).
 R13.6 District boundaries: vehicles despawn/respawn out of view at the edges.
-R13.7 A side/rear pedestrian yield may release only when the emitted vehicle body is already clear and its native proposed motion monotonically increases clearance through the step. Include the pedestrian's actual carried reach; preserve front crossing yields, collision guards, source lanes, identities and clocks.
-R13.8 Before first publication, bounded initial placement transactions reject conflicts with held bodies first, then resolve longer blocking bodies with stable fleet-order ties. Keep all original work/depth limits and native source/static/shared/body validation. Fixture success does not accept incorrect source assignment or replace native constructor/publication checks.
-R13.9 Compile tram source identity, complete way/node references, all original tags, ordered relation membership and tagged nodes independently of the motor graph. Preserve existing render runs and all pre-existing data fields. Route suspension notes, unavailable coordinates and unknown grades stay explicit. Metadata checks do not accept runtime rail placement, bridge profiles or intersections.
-R13.10 Tram actors bind before publication to local source-legal rail poses with whole-body static/domain checks, preserving their constructed identities, fleet, meshes and random sequence. Motion, long-body sampling, stopping, recovery and recycling use the same rail path; source-identical crossing nodes share physical claims without a routing join. Stop at real mapped stop nodes with an explicitly estimated five-second dwell. Ground-model admission does not accept unknown bridge/tunnel grades or rendered support; shared grade/render and all-district native tests remain separate gates. `traffic.initialTramBinding` retains every binding and failed actor, and a binding failure also fails initial admission.
-R13.11 Respect source directional turn-lane roles at the actual source-way terminal, including projected lane context in later route legs. Do not repeat a terminal rule at internal shape nodes or clipped endpoints. Keep mapped approach lanes on turns and their actual lateral history through node handoff; preserve early straight lane-drop planning, original graph/fleet/constructor RNG, physical tolerances and watchdogs. The Unirii2/423 source-lane counterexample, its frozen229 negative and all native gates remain explicit evidence scopes.
-R13.12 Separate source rail-mode eligibility from motor access. Initial admission rejects a car on a rail edge, a wrong rail direction or an unbound tram; source-aware relocation and respawn obey the same mode gate. Rail grade callbacks supply the same modeled profile used by rendered tracks/support, with absent callbacks retaining explicit ground-stage limitations.
-R13.13 Rail spawn spans and terminal-source stops retain the existing physical crossing-pad radius plus1.5m beyond the whole vehicle body. A source-connected shared motor crossing does not permit a tram bumper at its centre. Preserve ordinary-car placement margins and actual rail geometry/directions.
-R13.14 Existing compiled flag8 denotes a mapped controlled pedestrian crossing, so it enables an actual signal controller at that source node. Do not redirect its standalone controller to a nearby junction. Literal crossing-footway source context may associate parallel rail approaches with that same synthetic controller, retaining separate routing nodes and explicit missing/ambiguous evidence.
-R13.15 Select the closest source-legal track before grade admission and retain its connected source component. A level-only underground source is unresolved without an explicit grade model; rejecting it must not reassign its tram to a farther modeled surface track.
-R13.16 The Victoria tram tunnel model retains literal revenue source paths, underground stop nodes and ground source joins. Depth, floor width/thickness, ramp transitions and roof extent are explicit estimates; source layer/level tags do not supply metres. Reject changed topology, missing source anchors, conflicting identical motor-source heights, unsupported revenue branches and infeasible grade lengths. Validate the actual emitted train, pantograph, floor, ceiling and overlapping road geometry before native acceptance.
-R13.17 District regeneration emits literal crossing context from an independent raw-source snapshot before compiler clipping/decoration. Existing dataset metadata can instead be appended from cached source XML. Neither path invents source incidence or changes existing prepared geometry to create an association.
-R13.18 Fit rigid tram meshes from actual emitted wheel support and complete triangle envelopes against the shared rendered support pieces. Preserve source XY, heading, source profiles, fleet and RNG; retain derived pitch/lift and rigid-proxy limitations. Initial admission independently revalidates a fresh geometry/pose/piece certificate before exempting only its own identified slab from the conservative global-Y disc check. Genuine own-slab, ceiling, post, unrelated-model and unknown-span contacts still block admission.
-R13.19 Apply existing whole-body crossing-pad margins to both directions at verified source-signal associations, including unresolved controlled nodes. Lack of an identical motor node does not remove the physical pad from a mapped controlled rail crossing.
-R13.20 Preserve signalized `railway=tram_crossing` pedestrian semantics separately from tram-vehicle phases when no tram-vehicle head is mapped. Missing motor control at such a literal pedestrian crossing is not a tram-binding failure. Keep explicit vehicle-head/missing-context guards, known source-road phase associations and all physical pedestrian yielding/obstacle checks. Do not infer vehicle priority, actual timing or signal-head positions/rendering.
+R13.7 A side/rear pedestrian yield releases only when the vehicle body is already clear and its next motion increases
+clearance (including what the pedestrian carries); front crossing yields stay.
+R13.8 Before the first frame, bounded initial placement resolves held conflicts first, then longer blocking bodies, within
+fixed work limits and full source/static/shared-lane validation. Generated parking is admitted only with legal,
+supported, clear placement; a refused car keeps driving on its original lane with its identity and random sequence.
+R13.9 Compile tram source identity, way/node references, original tags, route relations and tagged nodes independently of
+the motor graph, without changing existing render runs or data fields; unknowns stay explicit.
+R13.10 Trams bind before the first frame to source-legal rail poses with whole-body checks, keeping identities, fleet,
+meshes and random sequence; motion, stopping, recovery and recycling use the same rail path; they stop at mapped stop
+nodes (estimated 5 s dwell). A binding failure fails initial admission.
+R13.11 Respect mapped turn-lane roles at the source-way terminal (not at internal shape nodes or clipped ends); keep
+approach lanes on turns and their lateral history through node hand-off; plan straight lane drops early.
+R13.12 Rail-mode eligibility is separate from motor access: no car on a rail edge, no tram against the rail direction or
+unbound; relocation and respawn obey the same gate. Rail grades use the same model as the rendered track and support.
+R13.13 Rail spawn spans and terminal stops keep the crossing-pad radius plus 1.5 m beyond the whole vehicle body.
+R13.14 Compiled flag 8 (mapped controlled pedestrian crossing) gets its own signal controller at that node, never a nearby
+junction's; literal crossing-footway context may associate parallel rail approaches with it.
+R13.15 Select the closest source-legal track before grade admission; an underground track without a grade model stays
+unresolved and never reassigns its tram to a farther surface track.
+R13.16 The Victoria tram tunnel keeps the literal source paths, underground stops and ground joins; depth, floor, ramps and
+roof extent are explicit estimates validated against the actual emitted train and overlapping roads.
+R13.17 District builds emit literal crossing context before clipping; existing packs can get it appended from cached
+source XML. Neither invents source incidence.
+R13.18 Fit rigid tram meshes from their actual wheel support against the rendered support pieces, keeping source XY,
+heading and profiles; only the tram's own identified slab is exempt from the static disc check.
+R13.19 Whole-body crossing-pad margins apply in both directions at verified source-signal associations, including
+unresolved controlled nodes.
+R13.20 A signalized `railway=tram_crossing` without mapped tram heads is pedestrian control, not a tram red phase; never
+infer vehicle priority, timings or signal-head positions.
+R13.21 GPS and NPC routes respect mapped height/width limits against the actual vehicle model (mirrors, taxi signs,
+trolley poles); unknown limits are never a pass.
 
 ## Acceptance
-- Harness: vehicle-overlap ≤ 5, ped-in-vehicle 0, vehicle-overlaps-player 0, scenario i passes.
-- Rush-hour run in `romana` at 08:00: average speed in the Piața Victoriei hotspot < 2 m/s, outside > 6 m/s; player crosses it in < 4 min.
+- Harness: vehicle-overlap ≤ 5, ped-in-vehicle 0, vehicle-overlaps-player 0, scenario `i` passes.
+- Rush hour in `romana` at 08:00: average speed in the Piața Victoriei hotspot < 2 m/s, outside > 6 m/s; the player
+  crosses it in < 4 min.
 - Night run: light traffic.
+- `node game/dev/harness/tram-sweep-audit.cjs` and `tram-progress-check.cjs`: nothing generated in a tram's swept path,
+  no tram held > 10 s.

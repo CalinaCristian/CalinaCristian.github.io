@@ -1,6 +1,0 @@
-page.evaluate: Cannot serialize result: object reference chain is too long.
-    at page.evaluate (/workspace/integration-qa-evidence/rail-world-54c04442-native/integration-browser-bounds.cjs:8:30)
-    at /workspace/integration-qa-evidence/rail-world-54c04442-native/runner.cjs:39:34 {
-  log: [],
-  name: 'Error'
-}

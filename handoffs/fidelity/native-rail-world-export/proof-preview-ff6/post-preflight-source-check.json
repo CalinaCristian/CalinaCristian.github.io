@@ -1,8 +1,0 @@
-{
-  "sourceCommit": "ff6b2bff3cfe5b45c5dba9624abbb6672304bfed",
-  "checkedAtUtc": "2026-11-09T09:02:12.388511+00:00",
-  "copiedFilesGitAndShaVerified": 215,
-  "servedFilesGitAndShaVerified": 119,
-  "allThreeNativePreflightsPassed": true,
-  "scope": "Independent source check after all native preflight facts, while immutable deferred geometry transport continues. Not final whole-game acceptance."
-}

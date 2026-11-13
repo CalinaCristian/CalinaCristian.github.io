@@ -1,73 +1,135 @@
 # 15 — Tourist spots (walk-only bonus scenes)
 
-## Current seven-visit focus · 2026-11-09 playtest
-
-The owner capped visits at three per Bucharest/Seattle/Bellevue and six to eight total. MENU_AVAILABLE now contains seven: Old Town, Cișmigiu, Arcul de Triumf; Pike Place, combined Space Needle/Chihuly; Meydenbauer, Downtown Park. Retired source/evidence records and earned history remain; they are excluded from current visit/activity completion. MoPOP has no current visit or objective. This menu change is not acceptance of scene quality: the user found severe Seattle terrain/context/camera failures, and actual corrections/recaptures remain required.
-
-Current activity keys include `cismigiu:backgammon` (achievement `lm-cismigiu-backgammon`, only a game the player wins), `old-town-lipscani:freddo-dance` and `old-town-lipscani:freddo-shot`. Retire `cismigiu:chess` from current completion without deleting old unlocked history. The Glasshouse achievement keeps its ID, uses `space-needle:lm-chihuly-glasshouse` and accepts its old `chihuly:` activity key when restoring saves. A registry entry is not native scene acceptance; the actual table, visuals and full approach/play/leave gates remain separate.
-
-**Table at La Șahiști (owner, 2026-11-11).** The backgammon activity is a real game of table (Romanian backgammon) played on the board itself, not in a panel. The player sits on the east seat. Over the board the camera leans in: a high seated angle with the whole board as large as the screen allows, clear of the activity panel (one slim bar that shows the dice as large faces), on desktop, phone portrait and short landscape. While dice roll the camera drops right above them, seen from the top, then sits back; it looks up at Doru when he speaks between turns, and on sitting down. The player throws the dice (button, E / Space, or a tap on the dice), then taps or drags one of the ringed checkers to a marked landing spot (a spot reached with both dice plays them in turn); Take back undoes within the turn; the dice are handed over explicitly once nothing more can be played, and pass by themselves when the roll allows no move. Doru then throws and moves his own checkers one at a time. Rules follow Romanian practice (`game/research/table-cismigiu.md`): no cube, the opening winner throws both dice again, both dice compulsory and the higher when only one can be played, linie 1 / marț 2 / marț tehnic 3, and Doru keeps the score to three lines across games. Doru (and an onlooker by the table) talk in Romanian with an English line below: they call the dice the Romanian way, brag about lucky rolls and grumble about the player's (luck is rated against all 36 throws from the position), and react to hits, gates, a closed board, bare checkers, the race, a marț in the air, slow play and the result. The player can talk back and ask for advice, which Doru also shows on the board. Keyboard alone must be able to play a full game. Standing up mid-turn returns the turn to its roll and keeps the game for the next visit; finishing a game completes the tour step whenever the player then gets up. Doru and the onlooker are fictional.
-
-**Bikes in Cișmigiu (owner, 2026-11-11).** The Herăstrău bike rental (`spots/bike.js`, activity `*:bike`) stands by the Cișmigiu arrival alley now that Herăstrău is retired. No station is mapped there: its place and name are estimates. A bike stays standing where the rider got off, and E beside it gets back on; renting again at the station brings it back.
-
-Arc keys are `arcul-de-triumf:arcul-race` → `lm-arc-race` (beat both actual opponents over the complete course) and `arcul-de-triumf:arcul-baguette` → `lm-arc-baguette` (three consecutive timed catches). Retire the no-longer-emitted `arcul-de-triumf:terrace` from current requirements, retaining old unlocked history. Native public approach, legal course, camera, desktop/touch, failure/cancel and resources remain separate acceptance gates.
-
-Opening a participatory modal no longer ends the tour. The owning flow captures its exact current stop, completion advances it once, cancellation keeps it unfinished. Named compound Freddo completions satisfy the street door stop only after a real dance/shot; entering the doorway alone does not. J and the visible Skip step button skip without a tour award.  Its flow checks (formerly `tools/tourist-flow-state-check.mjs`, removed) were not a physical scene or visual-quality pass.
-
-While an activity is open at phone widths or short landscape heights, the title card compacts to its current step and 44px Skip/End controls. A scoped ResizeObserver measures the real card bottom, keeps the activity below it and limits its scrolling panel to the remaining viewport. Cancellation/completion/disposal removes the observer and restores the full card. During a participatory modal, the existing notification region moves below the activity controls inside that panel, then returns to the HUD before panel removal; arrival messages cannot cover Skip/End. Host modal gating distinguishes a full modal from participation: the latter hides/inerts map, drone, pause and movement launchers while preserving the activity’s controls and tour Skip/End. Venue pour/toast/drink uses the same measured panel/notification lifecycle. Cancel/complete restores host controls. Native backgammon point16 interception on source052 is the regression witness; shared DOM checks are not a substitute for the corrected full phone match. Native DOM controls cover 390×844 and 844×390 coexistence, including skipping an active modal. Actual scene camera/phone checks remain separate.
-
-Spot maps accept named or custom waypoints through pointer/touch and keyboard list selection. A persistent HUD shows direction/distance and a blue validated walking route; guide routing remains gold. Unreachable points are explicitly marked without a false safe-route line. Clear removes the pin/route, and shared-scene teleport clears it. Optional visit boundaries constrain both the walker and guide/waypoint planning; concave focus exits cannot become A* shortcuts. Native DOM fixtures cover map selection, inverse projection, clear and keyboard focus, plus a concave path control. These do not substitute for the seven actual scene walkthroughs.
-
-Scene spawn metadata accepts an optional finite `pitch` in radians, clamped to the native walker range ±1.3 on ordinary entry and a shared-scene spawn switch. Absent pitch retains the existing controller behavior. This is a public starting view, not a capture-only camera override; scene acceptance must use it as shipped.
-
-Returning to the menu calls `Renderer3D.releaseScene()` after disposing the visit. Clear scene/player/pass/vegetation/backdrop references while preserving the persistent light pool and presentation resources; an inactive walker still retains its scene and obstacle closure. Native511 backgammon exposed this retention despite detached/disposed board meshes. CPU controls verify explicit host reference release; fresh native weak-reference/enter-leave checks are required separately.
-
-Planner/fallback wall queries interpolate the native segment bands `y0a/y0b/y1a/y1b` at the closest segment point, using the same query-height convention as World. Elevated Carusel rails previously blocked lower-floor planning at every height. Level parity/ground-route/own-level/legacy controls are in `tourist-wall-levels.test.mjs`; actual bookshop access remains a native acceptance gate.
-
-Carusel’s current estimated interior replaces separate oval floor holes with one continuous long hall/stair void, perimeter galleries, supported return stairs/landings, white gallery rails and a source-door threshold above the retained terrain. Preserve the exact outer source ring/door and match floor/void/rail collision to the emitted geometry. These internal levels/dimensions are photo-led game estimates. Phone dance camera fitting uses the actual panel/toast rectangle and avatar points, preserving field of view; actual ground/gallery/day/night/phone captures remain acceptance gates.
-
-Old Town's visit boundary is enforced after native controller movement and crowd push-out, preserving the exact source streets/buildings as surrounding scenery. Freddo hours and the source anchor are recorded in `game/research/old-town-daylife.md` and `game/src/spots/scenes/old-town-nightlife.js`; the interior layout and music are authored game content. Native dance, shot, hidden sports-room access and mobile checks are separate gates.
-
-Old Town by day (2026-11-11, `scenes/old-town-daylife.js`, research `game/research/old-town-daylife.md`): five more activities, each on the street in front of a real OSM place inside the visit area that web research found open, with that place's hours: `lipscani-coffee` (Gregory's, 08:00–16:00), `jacks-papanasi` (Jack's Pub, 10:00–02:00), `lipscani-busker` (10:00–24:00, estimate), `lipscani-photo-walk` (always) and `mojo-karaoke` (Mojo Music Club, 21:00–03:00). A closed place keeps its prompt and says when it opens. Props are held in the hand and nothing is added to a building or a street except the busker's open guitar case. A place OSM lists but that has closed gets no activity. New activity code for this scene goes in that module, not in the files hashed into the Seattle context.
-
-Owner role: **spots** (new agent, after research). Inputs: research dossiers (spec 20), `OnFootController` (spec 14), `PhotoMode` (spec 16), landmarks.js.
-
-Bounded literal source context and measured outside-DEM continuation follow one contract. Preserve source IDs, all rings/holes, raw dimensional priority and explicit unknown estimates. New scene materials/visibility caches, actual ground/elevated/activity pictures, loads/budgets and current overview captures remain acceptance gates; data counts alone never establish visual quality.
-
-The Seattle context uses complete source components and actual indexed frustum bounds, shared GPU attributes, and lossless binary geometry transport. Close-up source duplicates and declared source-named hero replacements are recorded separately from unresolved vertical parts. A malformed old multipolygon may be replaced only after its actual source components and invalid native ring are verified; retain the raw record and correction ledger. `Ground.sourceTerrain.renderedHeightAt` supplies only its emitted outer triangles after the native close-up query, with `-Infinity` authoritative for removed water floors. Optional `sourceTerrain.waterAt(x,z)` supplies source-masked water heights for walker/aircraft support; absent hooks retain legacy water behavior. Ground materials register through `extras.sourceGroundMaterials`, never wind-blown grass materials. Far source solids/terrain do not become crowd step-probe platforms. Fresh public-app images, activity/walk/loading/budget results and overview updates are still required.
-
-Ground continuity contract (2026-11-09): `Ground.settle` adds its residual beneath the existing authored modifiers; never switch a multi-metre residual using a small height-difference threshold. `Ground.corridor` joins nearby segment profiles continuously while retaining the exact source/profile centreline anchors and straight grades. Once terrain is emitted, `terrainHeightAt`, walking and aircraft terrain support use the emitted Float32 triangles and their actual diagonal. `heightAt` retains the analytic shaping field. Reachable solid/deck, overhead, deep-water and unsupported-outside-terrain rules remain explicit. CPU counterexamples and native picture/walking scope were recorded in `handoffs/fidelity/seattle-visit-source/` (removed, in git history); numeric continuity does not establish architectural or photographic parity.
-
-Seattle Center scene membership (2026-11-09): the current visit/activity owner is `space-needle`, including Chihuly's `lm-chihuly-glasshouse`. MoPOP has no scene-created activity, challenge, plaque or visitor spawn. Preserve its literal mapped parent/part geometry as context; do not leave a void or substitute unsupported sculptural masses. Current map/tour labels follow the combined entry; old `chihuly`/`mopop` evidence stays historical.
-
-Space Needle model (2026-11-11): one builder, `spots/space-needle.js`, serves the visit scene and every far backdrop, and the driving-world landmark follows the same proportions. Positions and radii come from the OSM parts of way 12903132; appearance comes from Street View (Space Needle Loop, Aug 2025) and the licensed reference photographs. The visit scene has clear glazing and both public levels fitted out and walkable: 500 ft The Loupe (glass floor turning at its real rate, The Loupe Lounge) and 520 ft (Atmos Cafe, Atmos Wine Bar, open-air deck behind the outward-leaning glass barrier), joined by a walkable stair. The elevator ride runs from the base pavilion to the 520 ft level and back from either level, with the car's doors and back wall modelled. Night: the floodlighting is baked per vertex (no added lights), rooms are lit by their own fittings, the halo ring and the beacon come on at dusk. Interior layout, furniture, member sizes and lighting strengths are estimates and are named as such in the module header. Eat and drink (2026-11-12): a cocktail at The Loupe Lounge, a latte and croissant at Atmos Cafe and a glass at Atmos Wine Bar are step-by-step held-item activities with a running bill; each has an achievement about its price and a fourth is awarded for all three. Menu prices are game-authored (no sourced menu) and say so in the panel; only the $35-39 ticket is the mapped OSM `charge`.
-
-Source-mountain projection: `sourceMountain` retains all mesh/normal/index bytes and uniformly compresses source coordinates around the current native camera, rather than a fixed ground eye. `ctx.env.cameraFarM` and `backdropFarM` are finite bounds derived from the complete source mesh and scene terrain/camera domain. Groups expose `userData.sourceProjection` with their individual bound/basis; `group.visible` follows the existing visibility/cloud fade threshold. Host camera setup must apply a real projection update, and renderer fog culling must preserve the finite required far bound only while the source backdrop is effectively visible. Fog-hidden backdrops retain ordinary weather culling. Do not claim that changing an initial far plane alone defeats subsequent weather culling.
-
-Additional source terrain materials belong in `ctx.extras.sourceGroundMaterials`, appended to `vegetation.groundMaterials`. This shares the scene's ground weather/season uniforms without applying grass/tree wind. Absent extras preserve the existing material membership. Seattle source-context loading, visibility and native budget checks remain separate.
-
-Tree detail selection accepts optional `update(x,z,eyeY)`: a finite eye height uses the actual transformed emitted crown bounding-sphere centre in 3D; two arguments retain historical XZ selection exactly. Camera hosts pass world position, including parented walk/ride cameras. Vertical-only travel invalidates the distance cache. Native spot `treeLod.force` uses the existing far variants for small groups as well; Pike/Seattle Center set `cap:Infinity`, retaining every authored/source record and collider. Geometry, dimensions and existing near/far shadow policy remain unchanged. CPU controls include the recorded native Loupe camera matrix; fresh native close/elevated images and actual submitted counters remain required. Historical failed 00c images and load/pass costs are retained separately.
-
-Bonus content: only the most important, must-see tourist places in each city (top 10), e.g. the Fremont Troll and the Gum Wall in Seattle, built as small high-fidelity areas you explore on foot (no driving).
+Bonus content: the must-see tourist places of each city, built as small high-fidelity areas explored on foot (no
+driving). Owner role: **spots**. Inputs: research dossiers (spec 20), `OnFootController` (spec 14), `PhotoMode`
+(spec 16), landmarks.js. Framework, API and how to add a spot: `game/src/spots/README.md`. Open work:
+`handoffs/fidelity/BACKLOG.md`.
 
 ## Requirements
-R15.1 Top 10 per city chosen by evidence (tourism rankings, Wikipedia/Wikivoyage "see" lists, visitor numbers) in research. Initial candidates (research confirms/replaces):
-- **Seattle area = Seattle + Bellevue**: Seattle top 10 — Pike Place Market (+ Gum Wall, original Starbucks, fish throwing, the neon sign), Space Needle + Seattle Center, Chihuly Garden and Glass, MoPOP, Fremont Troll, Kerry Park viewpoint, Waterfront + Great Wheel, Pioneer Square + Smith Tower, Ballard Locks, Gas Works Park; **plus Bellevue's top spots** (research picks 3–5): Lincoln Square + Bellevue Square + the skybridges (UiPath's office is in Lincoln Square), Bellevue Downtown Park (waterfall, canal ring), Bellevue Botanical Garden, Meydenbauer Bay Park, Bellevue Arts Museum, The Bravern, Old Main Street.
-- **Bucharest**: Palace of the Parliament, Old Town (Lipscani, Hanul lui Manuc, Stavropoleos), Romanian Athenaeum + Piața Revoluției (Memorial of Rebirth), Cărturești Carusel, Arcul de Triumf, Herăstrău/King Michael I Park + Village Museum, Calea Victoriei + CEC Palace, Cișmigiu Gardens, Patriarchal Cathedral hill, Therme or National Museum of Art (research decides).
-R15.2 Each spot: a small walk-only scene (~150–400 m across) at 1:1, hand-built at HIGH fidelity from research (dimensions, materials, colours, signage, props, vegetation), with real neighbouring façades as backdrop, ambient crowd, ambient sound, time of day + weather + season from spec 18.
-R15.3 Interactions: 3–6 info plaques per spot (short facts, sources), a "postcard" photo challenge (spec 16), spot-specific fun (throw a coin, stick gum on the Gum Wall, catch a fish at Pike Place, climb onto the Troll's hand, honk-free zone).
-R15.8 **Short optional tours** (owner feedback, 2026-11-08): choose an available activity first, then a nearby fact and the current spot's postcard/view, at most three stops and 300 m of validated walking paths. Preserve full free exploration. A narration timer must not complete an activity; a photo stop requires the real postcard capture. Skip/End are always available, and a skipped tour grants no tour achievement. Pause tour advancement during maps, photos, drone flight and rides. Reject inaccessible destinations instead of substituting a point up to 45 m away. Shared-scene entrance changes refresh the active entry's title, objectives and photo metadata and cancel its previous tour; they never teleport the guide.
-R15.6 **Living crowds with chat bubbles**: each spot has people around (tourists, locals, vendors, guides, buskers, staff) who react with chat bubbles when you walk up, bump into them, take their photo, or idle nearby, plus ambient chatter between them. Lines are written from cultural research per city and spot: language mix (Romanian with English translations in Bucharest; English plus the many tourist languages in Seattle), local humour and typical small talk, spot-specific lines (Pike Place fishmongers calling orders, Gum Wall reactions, Old Town terrace waiters, Parliament tour guides with real facts), tone and etiquette (friendly, no stereotypes or slurs). Bubbles use the same system as the driving reactions (spec 13) with a translation line under non-English text.
-R15.7 **Copyrighted public art** (owner decision): model artworks (Fremont Troll, Chihuly glass, Rachel the pig, sculptures) faithfully in 3D from the researched descriptions and dimensions, never with photo textures, and credit the artist on an info plaque. Same rule for buildings in Romania (no freedom of panorama): 3D modelling is fine, photos only as reference. Gas Works towers stay fenced (no climbing). Pike Place is car-free. Space Needle + Chihuly + MoPOP share one `seattle-center` scene with three spawn points.
-R15.4 Access: the menu uses the explicit ordered `MENU_AVAILABLE` set in `spot-availability.js`, currently 7 destinations (Old Town, Cișmigiu, Arcul de Triumf, Pike Place, Space Needle, Meydenbauer, Downtown Park) with accepted selected activity approaches. Recommend Troll, cathedral and Old Town together before city groups; collapse quieter parks/gardens and keep touch targets at least 44 px. Ballard Locks, Herăstrău and Village Museum remain directly developer-loadable pending their primary activity entry routes. Preserve the historical 12-entry `READY` visual-review set separately: menu availability is not photographic certification. All 24 destinations retain dedicated overview evidence.
-R15.5 Each spot targets < 3 s loading, ≤ 1 M unique scene triangles and 60 fps at Auto. Record submitted triangles including shadow passes separately from unique geometry; neither a warm cache result nor software-GL timing proves a cold hardware load/frame target.
+
+R15.1 Top 10 spots per city chosen by evidence (tourism rankings, Wikipedia / Wikivoyage "see" lists, visitor numbers) in research.
+Candidates:
+- **Seattle + Bellevue**: Pike Place Market (Gum Wall, original Starbucks, fish throwing, the neon sign), Space Needle +
+  Seattle Center, Chihuly Garden and Glass, MoPOP, Fremont Troll, Kerry Park, Waterfront + Great Wheel, Pioneer Square +
+  Smith Tower, Ballard Locks, Gas Works Park; Bellevue: Lincoln Square + Bellevue Square (UiPath's office), Downtown Park,
+  Botanical Garden, Meydenbauer Bay Park.
+- **Bucharest**: Palace of the Parliament, Old Town (Lipscani, Hanul lui Manuc, Stavropoleos), Romanian Athenaeum +
+  Piața Revoluției, Cărturești Carusel, Arcul de Triumf, Herăstrău + Village Museum, Calea Victoriei + CEC Palace,
+  Cișmigiu Gardens, People's Salvation Cathedral, Spring Palace.
+
+R15.2 Each spot: a walk-only scene (~150–400 m across) at 1:1, built at high fidelity from research (dimensions,
+materials, colours, signage, props, vegetation), with the real neighbouring façades as backdrop, ambient crowd and sound,
+and time of day + weather + season from spec 18. Source context keeps its source ids, all rings / holes and literal
+heights; anything estimated is named as an estimate.
+
+R15.3 Interactions: 3–6 info plaques per spot (short facts, sources), a postcard photo challenge (spec 16), and
+spot-specific activities.
+
+R15.4 Access: the menu lists the ordered `MENU_ORDER` set in `game/src/spot-availability.js` — at most three visits per
+Bucharest / Seattle / Bellevue and six to eight in total. Currently seven: Old Town, Cișmigiu, Arcul de Triumf, Pike
+Place, Space Needle (combined with Chihuly), Meydenbauer, Downtown Park. Every other spot stays loadable by id (dev page,
+`?spots=all`). Retired visits and activities (`RETIRED_ACTIVITIES`) keep earned history but do not count toward current
+completion; achievement ids stay stable for saves (an achievement may accept an old activity key, e.g. the Glasshouse's
+`chihuly:` key). Menu touch targets are at least 44 px. The historical `READY` review set is not a menu gate.
+
+R15.5 Each spot loads in < 3 s, has ≤ 1 M unique scene triangles and runs at 60 fps at Auto. Submitted triangles
+(including shadow passes) are recorded separately from unique geometry; a warm cache or software-GL timing does not
+prove the cold hardware target.
+
+R15.6 **Living crowds with chat bubbles**: tourists, locals, vendors, guides, buskers and staff react with chat bubbles
+when the player walks up, bumps into them, takes their photo or idles nearby, plus ambient chatter. Lines come from
+cultural research per city and spot (Romanian with an English line below in Bucharest; English plus tourist languages in
+Seattle), fit the local time, weather and season, and avoid stereotypes and slurs. Bubbles use the driving reaction
+system (spec 13).
+
+R15.7 **Copyrighted public art and buildings**: artworks (Fremont Troll, Chihuly glass, Rachel the pig, sculptures) are
+modelled in 3D from researched descriptions and dimensions, never with photo textures, and the artist is credited on a
+plaque. The same holds for buildings in Romania (no freedom of panorama): photos are reference only. Deep water and
+dangerous structures stay unwalkable (Gas Works towers are fenced). Pike Place is car-free. Space Needle, Chihuly and
+MoPOP share one `seattle-center` scene; the `space-needle` entry owns its visit and activities, and MoPOP stays as mapped
+context with no activity, challenge, plaque or spawn.
+
+R15.8 **Short optional tours**: choose an available activity first, then a nearby fact and the spot's postcard view —
+at most three stops and 300 m of validated walking path. Free exploration stays available. A narration timer never
+completes an activity; a photo stop needs the real postcard capture. Skip (J or the button) and End are always available
+and a skipped tour grants no tour achievement. Tour advancement pauses during maps, photos, drone flight and rides.
+Inaccessible destinations are rejected, never substituted. Switching entrance in a shared scene refreshes the title,
+objectives and photo metadata and cancels the previous tour without teleporting the guide.
+
+R15.9 **Activities**: an activity completes only through its real play and its visible animations; cancelling, leaving
+or an idle timer awards nothing and keeps the tour stop unfinished. Opening an activity does not end the tour; its
+completion advances the current stop once. Hosts cancel activities before pause, photo, drone and map takeovers. While an
+activity is open at phone widths or short landscape heights, the title card compacts to the current step with 44 px
+Skip / End, the activity panel sits below it and scrolls within the remaining viewport, notifications never cover
+Skip / End, and map / drone / pause / movement launchers are hidden; everything is restored on close. Keyboard alone can
+complete every activity.
+
+R15.10 **Spot map**: named or custom waypoints by pointer, touch or keyboard list; a HUD shows direction and distance and
+a blue validated walking route (guide routes are gold); unreachable points are marked without a route line. Clear removes
+the pin; a shared-scene teleport clears it. Visit boundaries constrain the walker, the guide and route planning.
+
+R15.11 **Visit content**:
+- **Cișmigiu — table at La Șahiști.** A real game of table (Romanian backgammon) on the board itself against Doru, a
+  fictional park regular; the player sits on the east seat. The camera leans in to show the whole board as large as the
+  screen allows, clear of a slim activity bar with large dice faces (desktop, phone portrait, short landscape); it drops
+  above the dice while they roll and looks up at Doru when he speaks. The player throws (button, E / Space or a tap on
+  the dice), then taps or drags a ringed checker to a marked landing spot (a spot reached with both dice plays them in
+  turn); Take back undoes within the turn; the dice are handed over explicitly once nothing more can be played and pass
+  by themselves when no move is possible. Doru moves his checkers one at a time. Rules follow Romanian practice
+  (`game/research/table-cismigiu.md`): no cube, the opening winner throws both dice again, both dice compulsory and the
+  higher when only one can be played, linie 1 / marț 2 / marț tehnic 3, score kept to three lines across games. Doru and
+  an onlooker talk in Romanian with an English line below (dice called the Romanian way, luck rated against all 36
+  throws, reactions to hits, gates, a closed board, bare checkers, the race, a marț, slow play, the result); the player
+  can talk back and ask for advice, shown on the board. Standing up mid-turn returns the turn to its roll and keeps the
+  game for the next visit. Only a won game completes the activity; the tour step completes when the player then gets
+  up.
+- **Cișmigiu — boat and bike.** Rowing needs repeated strokes that visibly move both oars, from the mapped Debarcader
+  (dry-bank approach) around a course inside the lake clear of the bridges; the full return course completes it. The
+  bike station by the arrival alley is an estimate (none is mapped); a bike stays where the rider got off and E beside it
+  gets back on.
+- **Old Town.** Freddo dance and shot complete only after real play; entering the doorway alone does not. Day
+  activities (`scenes/old-town-daylife.js`, `game/research/old-town-daylife.md`) stand in front of real OSM places found
+  open, with their hours; a closed place says when it opens and a closed-down place gets no activity. Props are
+  held in the hand; nothing is added to buildings or streets except the busker's guitar case. Terrace furniture needs
+  OSM `outdoor_seating=yes`; a name alone gives a sign only. The visit boundary is enforced after walker movement and
+  crowd push-out; the source streets beyond stay as scenery.
+- **Arcul de Triumf.** `arcul-race`: beat both visible opponents over the complete legal walking course (mapped
+  pedestrian ways plus short public-apron connectors that add no mapped paving); stopping, losing or cancelling never
+  awards it. `arcul-baguette`: three consecutive timed catches; a miss resets the streak.
+- **Seattle Center.** One builder, `spots/space-needle.js`, serves the visit, every backdrop and the driving-world
+  proportions (OSM parts of way 12903132, Street View, licensed reference photos). Both public levels are walkable and
+  fitted out — 500 ft The Loupe (glass floor turning at its real rate, The Loupe Lounge) and 520 ft (Atmos Cafe, Atmos
+  Wine Bar, open-air deck) — joined by a stair; the elevator runs from the base pavilion to 520 ft and back from either
+  level. Night: baked floodlighting, rooms lit by their fittings, halo and beacon from dusk. Eating and drinking at the
+  three counters are step-by-step held-item activities with a running bill; menu prices are game-authored and say so,
+  only the $35–39 ticket is the mapped `charge`. The Glasshouse, Loupe and Monorail photo exercises need manual looking,
+  a steady frame and an explicit shutter.
+- **Other scenes.** View activities need an aimed capture (Athenaeum and Spring Palace: three aimed shutters from the
+  public approach; Kerry Park city lights: a dusk / night capture). Walking courses (Palace pacing, the Botanical Garden
+  bridge, the Downtown Park loop) need continuous walking on the existing paths; their waypoints add no physical
+  markers. No activity implies an indoor visit that is not modelled.
+
+R15.12 **Technical contracts**:
+- Ground: `Ground.settle` adds its residual beneath the authored modifiers; `Ground.corridor` joins segment profiles
+  continuously while keeping source centrelines and grades. Once terrain is emitted, walking and aircraft support use the
+  emitted triangles; `heightAt` keeps the analytic field. Drone altitude uses `flightHeightAt()`.
+- Walls and floors: planner and fallback wall queries interpolate a segment's height bands at the closest point, so
+  elevated rails do not block lower floors; floor probes honour `noFloor` and ancestor visibility.
+- `placeLandmark` translates the landmark's rotated colliders (polygons, holes, height bands), never full-height boxes
+  for every volume.
+- Tree LOD with an eye height uses the 3D distance to the emitted crown; all authored and source trees and colliders are
+  kept.
+- Source mountains keep all mesh bytes, compress about the current camera and set a finite far bound only while visible.
+- Returning to the menu disposes the visit and calls `Renderer3D.releaseScene()`, releasing scene, player, vegetation and
+  backdrop references.
 
 ## Acceptance
 
-- Arc full scene: all5authored interpretation plaques must keep their entire tilted .62×.42×.03m plate outside every course leg, actual source roads and retained solids; radial distance from one anchor alone is insufficient at the tight U turns. Source node11056553808 explicitly supplies flagpole `min_height=27`/`height=31`; retain its literal point and source record once on the roof, without a second ground mast.
-
-- Arcul de Triumf uses `arcul-race` and `arcul-baguette` for success-only completion. The closed 166.7043 m game course follows literal pedestrian ways1479986588/89 and short clear public-apron connectors; connectors add no source way or paving footprint. Three explicit `foot=yes` / `motor_vehicle=no` source exceptions survive the spot compiler and data, without granting motor access. Two visible solid opponents progress only when physical placement is clear; stopping, losing, discontinuous movement or cancelling never awards the race. A cancelled opponent returns continuously along the same legal walking course. The baguette requires three timed catches and their completed visible animations; misses reset the streak, recovery requires input, and cancellation restores control without completion. Source27part geometry/heights retain exact collider bands; only the former invented full-width plinth is replaced by literal pier-base/public-floor polygons. The upper decorative arch remains an explicitly estimated model. Focused CPU checks are separate from the still-required full native scene, normal-input playthrough, phone/conditions, resource/performance and overview refresh gates.
-- `placeLandmark` translates the native rotated colliders, including polygon/holes and individual y0/y1 bands. It must not reconstruct every source volume as a full-height box. Keep native courtyard openings and omit redundant whole-outline blockers.
-- Current exterior activities at the Athenaeum and Spring Palace require three explicitly aimed shutters from the public approach. The old Next/Finish history award helper and unverified contemporary Athenaeum donation action are removed. Palace and Lincoln Square achievement copy describes the outdoor camera exercises; the cathedral achievement describes the virtual handheld forecourt candle. Historical activity IDs remain stable for saves. Source facts remain on plaques and never imply a modelled indoor visit.
-- 20 spots playable on foot, each passes visual QA review with no medium+ defects and is recognisable from reference photos side by side.
-- Plaques have sources; photo challenge works on desktop + mobile.
+- Each menu visit is playable on foot, passes visual QA with no medium+ defects and is recognisable beside reference
+  photos.
+- Plaques have sources; the photo challenge works on desktop and mobile.
+- Every menu activity completes through normal input on desktop, touch and keyboard, awards nothing when cancelled, and
+  fits 390×844 and 844×390 alongside the tour controls.
+- Arc: each interpretation plaque (the whole tilted .62 × .42 m plate) clears every course leg, source road and solid;
+  the mapped flagpole (node 11056553808, 27–31 m) stands once on the roof.
+- R15.5 is met in a cold load on hardware, and the overview evidence for each spot is current.

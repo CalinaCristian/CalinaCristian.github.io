@@ -1,60 +1,53 @@
 # 21 — Telemetry and landing page
 
-Owner role: **orchestrator**.
+Owner role: **orchestrator**. Dashboards, the health tables and their sync / validation commands:
+[`tools/telemetry/README.md`](../tools/telemetry/README.md).
 
-## Telemetry
+## Privacy and transport
+- PostHog Cloud EU, cookieless (`persistence: 'memory'`), lazy, production hosts only, Do Not Track / Global Privacy
+  Control respected, bots filtered. No persistent visitor identity, no session replay, no free text, no positions (the
+  finest location is the district id); props are ids from fixed lists, counts and rounded minutes.
+- Early exceptions queue for the lazy SDK (at most 200 items).
 
-Dashboards cover visit funnels and successful loads/FPS. The starter retention chart is not reliable with memory-only
-anonymous identities.
+## Events
+- Landing: `cv_toggle, cv_pdf_open, social_click, play_cta_click`.
+- Game funnel: `game_start` (`entry`: `story` | `spot`) → `world_loaded` → `stop_visited` → `office_screen_read` →
+  `flight_taken` → `seattle_arrived` → `finale_reached` → `game_exit`; feature usage, `perf_summary`, health.
+- `world_loaded` is sent after every completed `game.loadCity` (each district load), with `district`, `load_ms` (the
+  duration of `loadCity` itself) and `first` (first load of the page visit, cold caches and shader compilation).
+- Health (`telemetry-health.js`): `load_started/completed/failed`, bucketed `load_stages`, `scene_first_frame`,
+  `scene_released`, `continue_result`, `render_stall`, UI/office action events; performance summaries keep a bounded
+  4,096-value reservoir of frame intervals, frame-budget breach counts and texture/geometry/program counts (not total
+  browser RAM/VRAM). A per-tab sessionStorage breadcrumb (15 minutes; fixed place/action IDs, attempt ID, load stage)
+  identifies an interrupted load or first frame on the next boot; it does not prove an OS crash.
+- Releases: `tools/telemetry/stamp-release.mjs` fingerprints the committed runtime and stamps release/source metadata
+  into both HTML entry pages; diagnostics carry `telemetry_schema: 2`, `release_id` and the source commit.
 
-## Health observer v2 (staged, release gate pending)
-
-`telemetry-health.js` observes district loads, releases, real render frames, office rendering and fixed UI actions.
-`load_started/completed/failed`, bucketed `load_stages`, `scene_first_frame`, `scene_released`, `continue_result`,
-`render_stall` and UI/office action events provide context missing from the original observer. Performance summaries
-cover rendered modes with a bounded 4,096-value reservoir of frame intervals, actual frame-budget breach counts and
-texture/geometry/program counts. These counters are not total browser RAM/VRAM. Unsupported long-task observation is labelled.
-
-A per-tab sessionStorage breadcrumb expires after 15 minutes and contains fixed place/action IDs, attempt ID and
-load stage only. It can identify an ungracefully interrupted load or first frame on the next boot, not prove an OS crash.
-Normal pagehide is marked; capture/storage respects DNT/GPC and disabled tracking. No persistent visitor identity or replay
-is added. Early exceptions queue for the lazy SDK (bounded at 200 items), avoiding the previous cold-start blind spot.
-
-`tools/telemetry/stamp-release.mjs` fingerprints committed runtime assets and stamps release/source metadata into both HTML
-entry pages. Its self-referential meta lines are excluded from the hash. Run after committing runtime changes and before
-deployment; diagnostics include `telemetry_schema:2`, `release_id` and the source commit. Dashboard definitions and observer
-behavior pass 12 actual-browser checks and eight pure privacy/wrapper tests. Seven release-aware health tables were applied
-to project338182 and read back successfully; their definitions and idempotent sync command are in `tools/telemetry/`.
-They remain empty until a v2 game release is published. Full rollout still requires the final combined release gate.
-
-PostHog Cloud EU, cookieless (`persistence: 'memory'`), lazy, production hosts only, DNT/GPC respected, bots filtered. Landing events: `cv_toggle, cv_pdf_open, social_click, play_cta_click`. Game: funnel (`game_start → world_loaded → stop_visited → office_screen_read → flight_taken → seattle_arrived → finale_reached → game_exit`), feature usage, `perf_summary`, health. Chapter / on-foot / photo / spot events: see below. **Todo**: owner to set Authorized URLs + Error tracking in PostHog.
-
-## Game events: chapters, on foot, photo, tourist spots (gameplay, 2026-11-07)
-Sent by `game/src/telemetry-game.js` (observes `window.game`, wraps a few game methods; never breaks the game). Cookieless like the rest; props are ids from fixed lists, counts and rounded minutes only — no free text, no positions (the finest location is the district id).
+Sent by `game/src/telemetry-game.js` (observes `window.game`, wraps a few methods, never breaks the game):
 
 | event | when | props |
 |---|---|---|
-| `chapter_start` | a chapter is entered (start, Continue, select, replay) | `id`, `n` (1–10), `district`, `city`, `replay` (already completed before), `minutes` (session) |
-| `chapter_complete` | the chapter goal is reached (office read / boarding / waypoint) | `id`, `district`, `minutes` (in the chapter, 0.1), `replay`, `fast_travels` (session count) |
-| `chapter_select` | a chapter picked from the menu chapter list, the map panel, or the map's "Next chapter" | `id`, `source`: `menu` \| `map` \| `next` |
+| `chapter_start` | a chapter is entered (start, Continue, select, replay) | `id`, `n` (1–10), `district`, `city`, `replay`, `minutes` (session) |
+| `chapter_complete` | the chapter goal is reached | `id`, `district`, `minutes` (in the chapter), `replay`, `fast_travels` |
+| `chapter_select` | a chapter picked from the menu, the map panel or the map's "Next chapter" | `id`, `source`: `menu` \| `map` \| `next` |
 | `free_drive` | "Free drive here" on the chapter card | `chapter`, `district` |
-| `boundary_hit` | the district-edge closure toast is shown (max 20 per session) | `district`, `kind` (`small` \| `boulevard` \| `highway`), `leads_to` (district id or null), `chapter` |
+| `boundary_hit` | the district-edge closure toast is shown (max 20 per session) | `district`, `kind`, `leads_to`, `chapter` |
 | `on_foot` | out of / back into the car | `action`: `enter` \| `exit`, `seconds` (exit), `district`, `city` (enter) |
-| `photo_taken` | a picture is taken (photo.js sends it; telemetry-game.js removes the place name) | `mode` (`drive` \| `foot` \| `office` \| `spot`), `filter`, `city`, `district` (or `spot` in a spot) — never image data |
-| `spot_enter` | a tourist spot opens | `id`, `city`, `from` (`menu` \| `drive` \| `foot`) |
-| `spot_leave` | the spot is left | `id`, `seconds` |
-| `spot_plaque` | an info plaque is read | `id`, `plaque` (index in the spot's plaque list) |
-| `spot_challenge` | the postcard photo challenge is completed | `id`, `first` (first time in this browser) |
-| `parking_event` | the player's car left illegally: detected / ticket / clamp / tow / cleared (round 5, note 8) | `type`, `reason` (rule id), `city`, `district` |
-| `free_roam_start` | free roam started from the menu / map | `district`, `tod`, `weather` |
-| `worldmap_jump` | a place picked on the world-map hub (explore.js) | `to` (`district:<id>` \| `spot:<id>`), `from` (current place key or null) |
-| `story_resume` | (2026-11-08) "📖 Resume story" (chip / pause): back from free roam to the story | `chapter`, `from` (district or null) |
-| `free_roam_start` | a district is opened from the free-roam menu | `district`, `tod` (preset id), `weather` (picker value) |
-| `completion_milestone` | overall completion crosses 25 / 50 / 75 / 100 % (achievements.js) | `pct` (25 \| 50 \| 75 \| 100) |
+| `photo_taken` | a picture is taken (place name removed) | `mode` (`drive` \| `foot` \| `office` \| `spot`), `filter`, `city`, `district` or `spot` |
+| `spot_enter` / `spot_leave` | a tourist spot opens / is left | `id`, `city`, `from` / `id`, `seconds` |
+| `spot_plaque` | an info plaque is read | `id`, `plaque` (index) |
+| `spot_challenge` | the postcard challenge is completed | `id`, `first` |
+| `parking_event` | the player's car left illegally: detected / ticket / clamp / tow / cleared | `type`, `reason`, `city`, `district` |
+| `free_roam_start` | free roam started | `district`, `tod`, `weather` |
+| `worldmap_jump` | a place picked on the world-map hub | `to` (`district:<id>` \| `spot:<id>`), `from` |
+| `story_resume` | "📖 Resume story" (chip / pause) | `chapter`, `from` |
+| `achievement` | an achievement unlocks | `id` |
+| `completion_milestone` | completion crosses 25 / 50 / 75 / 100 % | `pct` |
 
-Implementation notes: spots/* and photo.js call `cvTelemetry.track` themselves (`spot_enter`, `spot_exit`, `spot_plaque` with the plaque title, `spot_postcard`, `photo_taken` with the place name); telemetry-game.js installs a filter on `cvTelemetry.track` that rewrites those into the shapes above (`spot_exit` → `spot_leave`, `spot_postcard` → `spot_challenge`, titles → index, place dropped). `game_start` gained `entry` (`story` \| `spot`), `world_loaded` gained `district`. Existing events unchanged.
-
-`world_loaded` (2026-11-08): sent after every completed `game.loadCity` (each city or district load, not only a city change), on the next tick in drive / foot so it still follows `game_start`. `load_ms` is the duration of `loadCity` itself; `first` is true for the first load of the page visit (includes shader compilation and cold caches). Before this change `load_ms` was measured from leaving the menu (story start: ~0 ms, because the state stays `menu` while loading) or from takeoff (Explore map browsing / flight cutscene included, up to minutes), so events without `first` have unusable `load_ms`.
+spots/* and photo.js call `cvTelemetry.track` themselves; telemetry-game.js filters those calls into the shapes above
+(`spot_exit` → `spot_leave`, `spot_postcard` → `spot_challenge`, titles → index, place names dropped).
 
 ## Landing page
-Opt-in "🎮 Play my CV — discover my career interactively" CTA (pill + card footer); lightweight background (since 2026-11-08): `public/background.svg`, a dark navy gradient with soft blue / orange glows, a faint grid and road curves, with small drifting city lights (`canvas.js`) in place of the old grey bubbles.
+Opt-in "🎮 Play my CV — discover my career interactively" CTA (pill + card footer); a lightweight background
+(`public/background.svg`, dark navy gradient with soft glows, a faint grid and road curves) with small drifting city
+lights (`canvas.js`).

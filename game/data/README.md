@@ -1,170 +1,218 @@
 # game/data
 
-**Chapter districts (real 1:1 scale)**: `<city>-<district>.bin.gz` — `bucharest-{floreasca,grozavesti,unirii,pipera,romana,otopeni}`,
-`seattle-{seatac,bellevue}` — a lossless binary pack of the district JSON described below (spec 10: ≤ 3 MiB per district).
-`game/src/district-pack.js` decodes it to exactly the object `JSON.parse` gave for the JSON (same keys and order, same
-strings, bit-identical numbers); the only change is that cache-validation `signature` / `authoritySignature` strings of 64
-characters or more are stored as a 53-bit hash (`h1:…`) and compared through `signatureMatches`. Read it from Node with
-`readDistrictData` (`tools/osm/district-data.mjs`), write it with `writeDistrictData`, convert with
-`node tools/osm/pack-district.mjs FILE.json [--replace]` / `--unpack FILE.bin.gz [OUT.json]`; tools that edit the JSON
-text append-only (`add-tram-source-metadata.mjs`) work on an unpacked copy. Built by `node tools/osm/build-data.mjs --tiles DIR --districts` from the districts in
-`game/src/cities.js` (`CITIES[city].districts`) and loaded by `buildWorld(city, renderer, { district })`. Same schema as below
-plus `district: {id, name, bbox, areaKm2, polys, ends: [node index of every road cut at the boundary], mask: {x0, z0, cell, w, h,
-rle}}` (inside-mask, 20 m cells, run lengths alternating outside/inside starting with outside) and optional `brands`
-(`{brand: [bg, fg, accent]}` sign colours from `game/research/`). The field research (`game/research/<city>-<district>.json`)
-fills missing building heights / levels / facade and roof colours / roof shapes at build time.
+The single reference for the district data format. Data © OpenStreetMap contributors (ODbL).
 
-Do not edit the packs by hand. Data © OpenStreetMap contributors (ODbL). The whole-city corridor maps (`bucharest.json`,
-`seattle.json`) were removed with the corridor era (spec 22); they are in git history.
+| file | what |
+|---|---|
+| `<city>-<district>.bin.gz` | one 1:1 chapter district: `bucharest-{grozavesti,unirii,romana,floreasca,pipera,otopeni}`, `seattle-{seatac,bellevue}` (≤ 3 MiB each, spec 10) |
+| `places.json` | reachable places per district for the world map / minimap, written by `tools/osm/places.mjs` (format below) |
+| `dialogue.json` | city crowd lines `{p, ctx, text, orig?, lang?, when?, wx?, season?}` and culture tips (`main.js`, `spots/index.js`) |
+| `spots/` | tourist-spot data (`<spot>.json`) and the Seattle context assets (below) |
 
-## Schema (version 2)
+## District packs
 
-All coordinates are **integers in decimetres** in game space (x = east, z = south, origin at the
-city anchor). *delta* arrays are `[x0, z0, dx1, dz1, …]` (each point relative to the previous).
-String fields are indices into `strings` (`-1` = none).
+A pack is a lossless binary encoding of the district JSON. `game/src/district-pack.js` decodes it to exactly the object
+`JSON.parse` gave (same keys and order, same strings, bit-identical numbers). The only difference: cache signatures of 64
+characters or more (`signature` / `authoritySignature`) are stored as a 53-bit hash `h1:…` and compared with
+`signatureMatches`.
 
-Prepared row indices belong to their exact dataset snapshot. Across source expansions, join audits and compiled-source comparisons by literal OSM identity plus the complete outer and inner rings; a multipolygon may have several outers with the same source ID. Historical `sourceIndex` fields record the bake position and must not address a later dataset blindly.
+- Game: `buildWorld(city, renderer, { district })` loads the pack of a district in `game/src/cities.js`.
+- Node: `readDistrictData` / `writeDistrictData` / `resolveDistrictFile` in `tools/osm/district-data.mjs`.
+- Convert: `node tools/osm/pack-district.mjs FILE.json [--replace]` (pack; `--replace` deletes the JSON once verified) and
+  `node tools/osm/pack-district.mjs --unpack FILE.bin.gz [OUT.json]`. Tools that read or append to the JSON text
+  (`add-tram-source-metadata.mjs`, `add-footbridges.mjs`, `graft-roads.cjs`, `road-source-audit.mjs`,
+  `tram-source-audit.py`) need an unpacked copy.
+- Build and edit tools: `tools/osm/README.md`. Do not edit packs by hand.
+
+## District definition (`game/src/cities.js`)
+
+`CITIES[city].districts[id]`: `name`, `label`, `center {lat, lon}` (projection anchor), `bbox [minLat, minLon, maxLat, maxLon]`,
+and the playable area as any union of `poly [[lat, lon], …]`, `bands [{r, line: [[lat, lon], …], chapter}]` (r metres either
+side of a line), `circles [{lat, lon, r, name}]` and `route` waypoints (buffered by `rRoute`); a bbox alone is the area when
+none of these is given. `outerRing` (default 600 m) is the scenery ring around it. `landmarks` lists the landmark ids built
+in the district; `scenery` the subset that is background only (no marker, label or route). `congestion` lists traffic
+hotspots. `tools/osm/corridors.mjs` computes the exact area from these shapes.
+
+## Conventions
+
+- Coordinates are integers in decimetres (`q` = 10 units per metre) in game space: x = east, z = south, origin at the
+  district `center`. Fields named `…M` or holding `[[x, z], …]` point lists are in metres.
+- *delta* arrays are `[x0, z0, dx1, dz1, …]` (each point relative to the previous).
+- String fields are indices into `strings` (−1 = none).
+- Sparse objects are keyed by row index (`{"12": …}`); a missing key means "no record".
+- OSM identities are `w<id>` / `r<id>` (or `node/…`, `way/…`, `relation/…` in POI records). Row indices belong to one
+  pack; join across rebuilds by OSM identity and full geometry, never by index.
+- Source tags and dimensions win over estimates. Fields with `…Source`, `evidence`, `dimensionNote` record provenance;
+  values marked `estimate` are authoring choices, not OSM tags.
+
+## Core
 
 | key | content |
 |---|---|
-| `proj` | `{lat0, lon0, scale, mPerLat, mPerLon, compress}` — x = (lon−lon0)·mPerLon·scale, z = −dlat·mPerLat·scale; latitudes above `compress.above` are multiplied by `compress.factor` |
+| `version`, `city`, `generated`, `attribution` | version 2; city id; build date |
+| `proj` | `{lat0, lon0, scale, mPerLat, mPerLon, compress}`; x = (lon − lon0)·mPerLon·scale, z = −(lat − lat0)·mPerLat·scale. Districts: scale 1, `compress` null |
 | `bounds` | `[minX, minZ, maxX, maxZ]` of the road graph |
-| `classes`, `styles`, `roofs`, `poiKinds`, `areaKinds`, `lineKinds` | lookup tables for the indices below |
-| `nodes` | road graph nodes `[x0, z0, x1, z1, …]` (absolute) |
-| `nodeFlags` | `[nodeIndex, flags, …]`: 1 traffic signals, 2 crossing, 4 zebra, 8 signalised crossing, 16 stop, 32 give way, 64 bus stop, 128 tram stop, 256 speed camera, 512 mini roundabout, 1024 red-light camera |
-| `roads` | `[name, class, lanesF, lanesB, median_dm, laneW_dm, sidewalk_dm, maxspeed_kmh, flags, layer, node…]` — nodes in travel order for one-way roads (`lanesB = 0`); `median` is negative for one-way roads (= −lanesF·laneW) so that the lane-centre formula `median/2 + laneW·(i+0.5)` centres the lanes on the way; flags: 1 oneway, 2 bridge, 4 tunnel, 8 roundabout, 16 bus lane, 32 tram, 64 toll, 128 unpaved/cobbles, 256 tram in the median, 512 painted bike lane, 1024 cycle track beside the road, 2048 lit, 4096 lit=no |
-| `trams` | tram track centre lines (delta) |
-| `tramSources` | Parallel to `trams`: `{sourceId:'w…', nodeIds:[original source ID per unchanged rendered vertex], tags:{all raw way tags}}`. This is render coverage, not permission to infer a motor-road tram path. |
-| `tramSourceWays` | Complete selected source ways: `{sourceId:'w…', nodeIds:[complete original refs], tags:{all raw tags}, points:[delta using existing q]}`. Ways underlying rendered runs and literal shared-node continuations inside cached coverage are retained; service/status/direction/access/grade tags are not removed. Missing coordinates retain every node ref with `points:null` and `missingNodeIds`. |
-| `tramRoutes` | Relevant actual OSM tram route/master relations: `{sourceId:'r…', tags:{all raw tags}, members:[{type,ref,role}]}` in original member order. Optional `missingWayIds` identifies member way refs absent from exported complete ways; platform/stop roles remain literal. It does not claim a complete citywide route or invent unavailable geometry. Temporary suspension notes remain unchanged. |
-| `tramSourceNodeTags` | Original node-ID keys to all raw tags on selected source-way/relevant relation nodes: rail signals, crossings, tram stops, access, elevation and other source tags. A nearby motor light never supplies missing rail signal rights. |
-| `tramSourceCrossings` | Complete literal crossing-footway records `{sourceId,nodeIds,tags,points,nodeTags,railNodeIds,roadIncidences:[{nodeId,sourceId}]}` incident to rendered rail and prepared source-road nodes. Coordinates use existing q/delta; unavailable nodes remain explicit. District compilation snapshots raw context before clipping; the cached append-only CLI preserves existing geometry/date/bytes. Shared curb nodes and geometric proximity create no extra associations. |
-| `buildings` | `[style, height_dm, minHeight_dm, roof, name, flags, levels, colour, roofColour, ring delta…]` (v2; v1 had the ring at index 6); `levels` = OSM `building:levels` (0 unknown), `colour`/`roofColour` = string index of `#rrggbb` from `building:colour` / `building:material` / `roof:colour` / `roof:material` (−1 none); roofs: flat, pyramid, gabled, dome, hipped, skillion, mansard; flags: 1 ground-floor shops, 2 has a sign (`name` = sign text), 4 landmark-ish, 8 the sign is a brand, 16 roof shape measured (OSM `roof:shape` or the aerial roof survey: world.js keeps it), 32 scenery ring (district worlds: a real footprint outside the playable area, no shops / signs / street clutter), 64 a large named building its own service lanes run into (market hall: not shrunk away by them) |
-| `areaKinds` additions | (2026-11-08, appended so older indices stay valid) `track` (velodrome / running track, under its infield), `clay` (clay / tartan courts), `turf` (artificial-turf pitch), `hard` (asphalt / acrylic courts), `pool` (outdoor pool), `yard` (school / university / hospital / sports-centre grounds). District builds keep every area out to the scenery ring (was 120 m past the edge for all but parks / water). world.js dresses pitch / turf / clay / hard / pool areas with markings, goals, nets, fences, hoops, copings |
-| `scenery` | (districts, 2026-11-08) `[carriagewayWidthDm, sidewalkDm, class, flags, delta…]` per street piece of the scenery ring (≤ 600 m outside the playable area by default) and inside pieces off the drivable network; flags 1 bridge (skipped), 2 inside fragment. Drawn as asphalt + sidewalks, no traffic |
-| `green` | (districts, 2026-11-08) `{x0, z0, cx, cz, w, h, rle}` green ground (gardens, lawns, ground under crowns) measured on aerial imagery (`tools/aerial/trees.py --ground-out` → `game/research/green-<city>-<district>.json`), re-gridded in game metres; `rle` = run lengths per row (off, on, …, −1 at each row end) |
-| `pois` | `[kind, x, z, name, brand, sub, buildingIndex]` (`sub` = OSM value, e.g. `fast_food:burger`). Districts (2026-11-12): rows appended by `tools/osm/add-pois.mjs` may lie up to 100 m outside the playable edge and may point at a scenery-ring building (flag 32); classes without a kind of their own use an existing kind with the OSM value in `sub` (`nightclub` → food; `gallery`, `fitness_centre`, `craft`, `laboratory` … → shop; `kindergarten` → school; any `office=*` → office) |
-| `poiSources` | (districts, 2026-11-12, optional) `{poiIndex: 'node/…' \| 'way/…' \| 'relation/…'}` OSM identity of the POI rows appended by `add-pois.mjs`; rows of the original build have none |
-| `buildingOwnTags` | (districts, 2026-11-12, optional) `{buildingSourceId: {name, tourism?, brand?, 'addr:street'?}}` for a way / relation building whose sign the build gave to a street-level tenant POI: world.js signs the building with its own name (a hotel with its brand) and the tenant keeps its unit fascia. The building row is unchanged |
-| `poiAppend` | (districts, 2026-11-12, optional) `{schema: 1, runs: [{tool, date, edgeM, osmFiles, osmDigest, addedPois, byClass, ownBuildingNames, fountains}]}` provenance of each cached-source POI append |
-| `poiSignAnchors` | (districts, 2026-11-13, optional, `tools/osm/fix-pois.mjs`) `{poiIndex: [x, z, how, source]}` where OSM says a business's sign is: `how` = `entrance` (an OSM entrance node of its building, `source` = `node/…`) or `street` (the point on the footprint face fronting the POI's own `addr:street`, `source` = the street name). world.js places the unit fascia from the anchor instead of the bare POI point. Rows of `pois` are unchanged by it |
-| `poiFix` | (districts, 2026-11-13, optional) `{schema: 1, runs: [{tool, date, osmFiles, osmDigest, linkM, linkGapM, links: [[poiIndex, buildingSourceId]], anchors}]}`: provenance of `fix-pois.mjs`; `links` lists the POI rows whose `buildingIndex` was set from −1 to the footprint the POI point lies just outside of |
-| `areaTagAppend` | (districts, 2026-11-13, optional) `{schema: 1, runs: [{tool, date, source, keys, areas, returned, missing, areasTagged, byKey}]}`: provenance of `tools/osm/add-area-tags.mjs` (literal `tourism` / `man_made` / `sport` of every area identity added to `areaSourceTags`; rows unchanged) |
-| `areaAppend` | (districts, 2026-11-13, optional) `{schema: 1, runs: [{tool, date, osmFiles, osmDigest, minAreaM2, added: [sourceId], excluded, furnitureFountainsReplaced}]}`: provenance of `tools/osm/add-areas.mjs` (water basins, fountain outlines, outdoor pools appended to `areas`; a furniture fountain inside an added fountain outline is removed from `furniture`) |
-| `buildingFix` | (districts, 2026-11-13, optional) `{schema: 1, runs: [{tool, date, osmDigest, levels, colours, styles}]}`: building ids whose estimates `tools/osm/fix-buildings.mjs` changed (storeys from `min_level` / `max_level`; the "glass curtain wall" palette estimate cleared; office / commercial / transportation not styled `bloc`) |
-| `areas` | `[kind, name, outer delta, hole delta, …]` |
-| `lines` | `[kind, width_dm, name, delta]` (runways, taxiways, rivers) |
-| `lineSources` | Optional parallel original OSM way IDs/tags, node IDs/WGS84, precise projected points, width and width provenance. Runtime prefers these points and positive widths; absent metadata retains legacy coordinates. Mapped water polygons control known banks. Estimated ribbons are omitted where a mapped surface already exists; an unmeasured partial boundary conflict stays in `world.stats.waterLines.unresolvedBoundaryM`. Source lines and polygons remain available unchanged. |
-| `lamps` | `[x, z, height_dm, …]` — OSM `highway=street_lamp` nodes (height 0 = unknown) |
+| `classes`, `styles`, `roofs`, `poiKinds`, `areaKinds`, `lineKinds`, `furnKinds` | lookup tables for the indices below. Roofs: flat, pyramid, gabled, dome, hipped, skillion, mansard. Append new kinds at the end so old indices stay valid |
+| `district` | `{id, name, bbox, areaKm2, geometry, polys, ends, sourceReturns?, mask}` (below) |
+| `corridor` | `{areaKm2, legs}`: playable-area size from `corridors.mjs` (`legs` is empty for districts) |
+| `backdrop` | `[x, z, w, d, h, angleDeg, …]` low-poly boxes (one per 40 m cell) beyond the scenery ring |
+| `brands` | `{brand: [bg, fg, accent, logoText?]}` sign colours from research |
+
+`district`:
+
+- `geometry`: `{pieces: [{r, pts: [[x, z], …]}], circles: [{x, z, r}], polys: [[[x, z], …]]}` in metres. The exact union of
+  buffered polylines, circles and polygons is the playable boundary; the scenery ring is measured from it.
+- `mask`: `{x0, z0, cell, w, h, rle}` inside mask on 20 m cells; `rle` run lengths alternate outside / inside, starting
+  outside. Looser than `geometry`; used to place closures and by `places.mjs`.
+- `ends`: node index of every road cut at the boundary.
+- `sourceReturns` (optional): reviewed finite source-road legs outside the area `{schema, envelope, evidence, corridors,
+  restrictions}` (directed `{sourceId, from, to, fromXZ, toXZ}` legs, turn checks, restriction compliance records). Read by
+  `motor-turn-restrictions.js`; they never join sources, reverse travel or route through the virtual outside.
+
+## Roads
+
+| key | content |
+|---|---|
+| `nodes` | road graph nodes `[x0, z0, x1, z1, …]` (absolute dm) |
+| `nodeFlags` | `[nodeIndex, flags, …]`: 1 traffic signals, 2 crossing, 4 zebra / marked, 8 signalised crossing, 16 stop, 32 give way, 64 bus stop, 128 tram stop, 256 speed camera, 512 mini roundabout, 1024 red-light camera |
+| `roads` | `[name, class, lanesF, lanesB, median_dm, laneW_dm, sidewalk_dm, maxspeed_kmh, flags, layer, node…]`. One-way roads (`lanesB` 0) list nodes in travel order and have a negative median (−lanesF·laneW) so lane centres `median/2 + laneW·(i + 0.5)` sit on the way. Flags: 1 oneway, 2 bridge, 4 tunnel, 8 roundabout, 16 bus lane, 32 tram, 64 toll, 128 unpaved / cobbles, 256 tram in the median, 512 painted bike lane, 1024 cycle track, 2048 lit, 4096 lit=no |
+| `roadInfo` | 6 per road: `[osmLayer, flags, widthDm, maxheightDm, placement, bridgeStructure]`. Raw OSM `layer` (`roads` keeps the adjusted one); flags 1 covered, 2 tunnel=building_passage, 4 bridge, 8 `level` tagged, 16 `*_link`, 32 `layer` tagged, 64 / 128 kerbside parking right / left, 256 / 512 no parking right / left; OSM `width` / `maxheight` (0 unknown); `placement` and `bridge:structure` / `bridge:name` as strings |
+| `turnLanes` | `[roadIndex, forward, backward, …]`: OSM `turn:lanes` strings (`left\|through;right`) for painted arrows |
+| `parking` | optional rows `[roadIndex, rightLocation, rightOrientation, leftLocation, leftOrientation]` (strings) from `parking:{side}[:orientation]` / `parking:lane:*`; sides follow the output road direction. Location `lane` / `street_side` / `on_kerb` does not imply sidewalk parking |
+| `rampLimits` | `[roadIndex, legalKmh, …]`: US ramps without a posted limit (`maxspeed` holds the advisory). Written by the build; nothing in `game/src` reads it yet |
+| `scenery` | `[carriagewayWidthDm, sidewalkDm, class, flags, delta…]` per street piece of the scenery ring and inside pieces off the drivable network; flags 1 bridge, 2 inside fragment. Drawn as asphalt and sidewalks, no traffic |
+
+Source road detail (districts declare `roadGeometryPolicy: "source"`; runtime uses the precise metre values):
+
+| key | content |
+|---|---|
+| `roadNodePositions` | `[x, z, …]` lossless metres parallel to `nodes` |
+| `roadNodeIds` | OSM node id per node (negative = boundary cut) |
+| `roadSourceGeometry` | `{roadIndex: {sourceId, nodeIds, wgs84, projected, tags, …}}` full original way and its prepared node ids |
+| `scenerySourceGeometry` | same per `scenery` piece |
+| `roadAccess` / `sceneryAccess` | `{index: {sourceId, publicDrive, throughAccess, key, value, reason, conditionalUnresolved, tags}}`. Motorcar permission follows `motorcar > motor_vehicle > vehicle > access`. `publicDrive: false` keeps the physical road but excludes it from the SCC, navigator, traffic and map closures; `destination` / `customers` allow only a selected endpoint. HOV, reversible and unevaluated conditional access stay excluded |
+| `roadWidths` | `{roadIndex: {sourceId, widthM, medianM, laneWidthM, leftM?, rightM?, source, widthSource, rawWidth?, review?, issues?, definition}}`: precise total width (incl. median). Priority: OSM `width`, then a research `road_widths` review. `leftM` / `rightM` are measured either side of the source centreline (swapped for `oneway=-1`); runtime edges get `wL` / `wR` and `laneCenterShiftM`. A literal `placement` wins over a review |
+| `sharedLanes` | `{roadIndex: {widthM, sourceId, widthSource, evidence, classificationSource}}`: an OSM `lanes=1` two-way road with one physical lane. Graph keeps both directions on the centreline, no dividing line; `laneW` in `roads` is half the width |
+| `roadRestrictions` / `roadRestrictionCoverage` | raw OSM turn-restriction relations `[{sourceId, tags, members}]` and their source ledger (files, hashes, counts, missing core ways / nodes). Read by `motor-turn-restrictions.js` |
+| `roadSourceNodeTags` / `roadSourceNodeTagCoverage` | literal `ele` / `incline` / `level` strings per OSM node id, plus inspected keys, node count and missing nodes. Read by the bridge-profile code; no height is inferred from them |
+
+## Buildings
+
+| key | content |
+|---|---|
+| `buildings` | `[style, height_dm, minHeight_dm, roof, name, flags, levels, colour, roofColour, ring delta…]`. `levels` = `building:levels` (0 unknown); `colour` / `roofColour` = `#rrggbb` string from colour / material tags. Flags: 1 ground-floor shops, 2 has a sign (`name` = sign text), 4 landmark-ish, 8 sign is a brand, 16 roof shape measured (OSM or aerial survey), 32 scenery ring (no shops / signs / clutter), 64 large named building its own service lanes run into (not shrunk away) |
+| `buildingInfo` | 5 per building: `[type, startYear, architect, material, hSrc]`; `building` value, `architect`, `building:material` as strings, `start_date` year (0 unknown); hSrc 0 OSM, 1 research, 2 default estimate, 3 re-estimated by the height-sanity pass |
+| `buildingIds` | OSM `w…` / `r…` per building ("" for an aggregate). A relation can own several outers |
+| `buildingSourceTags` | `{sourceId: {all raw tags}}` retained raw OSM tags; the renderer uses them for car parks, worship towers, lodging signs and literal colours |
+| `buildingGeometryPolicy` | `"source"`: footprints are kept whole at source precision, no road-clearance shrinking |
+| `buildingFootprints` | `{index: [[x, z], …]}` precise outer ring (0.0001 m) |
+| `buildingHoleFootprints` | `{index: [[[x, z], …], …]}` precise courtyard rings |
+| `buildingHoles` | `{index: [holeDelta, …]}` courtyards in dm (headerless delta rings, no closing point). Courtyards are excluded from walls, roofs, collision and point tests |
+| `buildingDimensions` | `{index: [heightM, minHeightM]}` source metres beyond dm precision |
+| `buildingCoveredBy` | `{baseIndex: partIndex}`: a ground part exactly covering the base footprint and height; the part is rendered once |
+| `buildingAssemblies` | `{index: {mode: "parts" \| "union", parts, residualHeightM, residualHeightSource, sourceCoverage, preparedCoverage, geometry}}`: an aggregate rebuilt from its source parts, or its residual body |
+| `buildingUnions` / `buildingGeometryPoints` | physical-surface cache `{version: 2, sources: [{i, signature, authoritySignature}], surfaces: [{i, neighbours, surface}]}` with a shared lossless point table; removes coincident walls between touching solids. An invalid cache falls back to the source bodies |
+| `buildingRoofProfiles` | `{index: {version, shape, totalM, eavesM, riseM, heightSource, riseSource, axis, low, high, raw, issues?}}` roof geometry per building |
+| `buildingRoofSurfaces` / `buildingRoofGeometryPoints` | cached roof meshes `{index: {sources: [{i, signature}], …}}` with a shared `[x, y, z]` point table; validated by signature, else meshed at load |
+| `buildingCanopies` | `{index: {topM, clearanceM, estimateSupports, supportWidthM, evidence, dimensionNote, …Source}}`: a reviewed open roof (fuel canopy, entrance cover). Draws the roof slab and supports instead of a fuel-canopy template; `amenity=fuel` or `layer` alone never creates one |
+| `buildingPassages` | `{index: [{sourceRoadId, sourceSegment, sourceNodeIds, roadIndices, ring, widthM, clearanceM, …Source, tags, mouthGeometry, evidence}]}`: openings from `tunnel=building_passage` ways (or a reviewed shared-wall passage). Untagged clearance is an explicit 3.1 m estimate. Runtime cuts only that low void |
+| `buildingPassageIssues` | rejected passages, e.g. `reason: "absolute-passage-base-unknown"` for a nonzero level / layer (no fabricated ground void) |
+| `buildingAircraft` | `{index: {…Source, dimensionNote}}`: `historic` / `aeroway=aircraft` exhibits mapped as buildings, drawn as wing, fuselage and fin |
+| `buildingOwnTags` | `{sourceId: {name, tourism?, brand?, 'addr:street'?}}`: the building's own name where its sign went to a tenant POI; the building is signed with it, the tenant keeps its fascia |
+| `vacant` | `[x, z, buildingIndex, …]` closed shop units from research (`businesses-gamediff.json`), drawn with a to-let board |
+| `reviewedCoveredRoads` | reviewed covered-street records (source road / cover ids, raw tags, ground joins, estimated clearance), validated at load by `covered-road-models.js` and `source-canopy-road-models.js` |
+
+District `buildings` include every whole source footprint whose solid geometry (edges, holes) intersects the core or the
+scenery ring; a large one may extend past it. An authored landmark replaces only the OSM identities in its registry
+`sourceIds` (`world.stats.landmarkSourceReplacements`); its builder gets those footprints as `ctx.sourceBuildings[sourceId]`
+(precise rings in the landmark frame with height, roof and colour fields).
+
+## Trees, ground, areas, lines
+
+| key | content |
+|---|---|
+| `trees` | `[x, z, t, …]`, `t = height_dm·2 + conifer` (height 0 unknown): OSM trees, `tree_row` samples (7 m) and aerial crowns |
+| `treeInfo` | 3 per tree: `[taxon, circumferenceCm, leaf]`; taxon string (species → genus, −1 none), circumference (0 unknown), leaf bits 1 broadleaved, 2 needleleaved, 4 deciduous, 8 evergreen, 16 from a `tree_row`, 32 measured on aerial imagery |
+| `treeCrownRadii` | parallel to `trees`: measured crown radius dm (0 unknown) |
+| `treeRetention` | `{policy, inputCrowns, retained, rejectedGeometryOrDuplicate, outsideSurveyDistrict, thinned}` accounting of the aerial crowns (`policy: "all-measured"` = no thinning) |
+| `treeCoverage` | `[south, west, north, east]` area the aerial canopy survey measured; inferred street / park trees are suppressed only inside it |
+| `streetTrees` | `{street name: [species keys]}` from the research dossier; `[]` = researched as treeless |
+| `green` | `{x0, z0, cx, cz, w, h, rle}` green ground measured on aerial imagery (cells `cx` × `cz` m); `rle` per row: off, on, …, −1 at row end |
+| `areas` | `[kind, name, outer delta, hole delta, …]`. Kinds include `track`, `clay`, `turf`, `hard`, `pool`, `yard` (sports and school grounds get markings, goals, fences) |
+| `areaSourceIds` | OSM identity per area row (one relation can own several rows) |
+| `areaSourceTags` | `{sourceId: {water?, natural?, waterway?, amenity?, fountain?, tourism?, man_made?, sport?}}` literal tags. `water=lake\|pond\|reservoir` stops the channel estimate; `amenity=fountain` gets a stone coping |
+| `parkingFootprints` | `{areaIndex: [ring, …]}` precise metre rings of parking areas |
+| `parkingLayouts` | `{areaIndex: {sourceId, rowBearingDeg, stallBearingDeg, confidence, coverage, evidence}}` stall rows measured on aerial imagery (`game/research/parking-layouts-*.json`) |
+| `lines` | `[kind, width_dm, name, delta]` runways, taxiways, rivers |
+| `lineSources` | parallel to `lines`: `{sourceId, tags, nodeIds, points, widthM, …}`; runtime prefers these points and positive widths |
+| `lamps` | `[x, z, height_dm, …]` OSM street lamps (0 = unknown height) |
+| `furniture` | `[kind, x, z, …]`, kinds in `furnKinds` (bench, waste basket, bollard, post box, bicycle parking, drinking water, fountain, hydrant, recycling, telephone, vending machine, picnic table, advertising); never on a carriageway |
 | `places` | `[name, x, z, rank]` (0 city, 1 suburb, 2 quarter, 3 neighbourhood) |
-| `trees` | `[x, z, t, …]` — OSM `natural=tree` nodes and `tree_row` ways (sampled every 7 m); `t = height_dm·2 + conifer` (height 0 = unknown, conifer from `leaf_type` / `genus`) |
-| `rampLimits` | (2026-11-07) `[roadIndex, legalKmh, …]`: US ramps without a posted limit; `roads[i].maxspeed` = advisory, `legalKmh` for the HUD, no limit sign |
-| `vacant` | (2026-11-07) `[x, z, buildingIndex, …]` disused shop units from research (`businesses-gamediff.json` closed) |
-| `brands` | `{brand: [bg, fg, accent, logoText?]}` sign colours from research (district dossier + `businesses-<city>-<district>.json`) |
-| `streetTrees` | (districts, 2026-11-07) `{street name: [species keys]}` from the research dossier's per-street tree notes (`streets[].research.trees` text + `streets[].trees.genus`, mapped with `trees.js speciesFromOSM`); `[]` = researched as treeless. world.js reads it instead of fetching `game/research/*.json` |
-| `roadInfo` | (districts, 2026-11-07) 6 per road, same order as `roads`: `[osmLayer, flags, widthDm, maxheightDm, placement, bridgeStructure, …]` — raw OSM `layer`; flags 1 covered, 2 tunnel=building_passage, 4 bridge, 8 `level` tagged, 16 `*_link`, 32 `layer` tagged, 64 / 128 kerbside parking right / left (OSM `parking:*`, way direction), 256 / 512 no parking right / left; OSM `width` / `maxheight` (dm, 0 unknown); `placement`, `bridge:structure` / `bridge:name` (string indices, −1 none) |
-| `parking` | (districts, 2026-11-08, optional) rows `[roadIndex, rightLocation, rightOrientation, leftLocation, leftOrientation]`; the last four values are string indices (`−1` absent), preserving OSM `parking:{side}` / `parking:{side}:orientation` and older `parking:lane:{side}` / `:{orientation}` tags. Sides follow the output road direction (swapped for `oneway=-1`). Location such as `lane`, `street_side` or `on_kerb` does not imply sidewalk parking. Missing tags remain unknown; `roadInfo` stride is unchanged. |
-| `treeCoverage` | (districts, 2026-11-08, optional) `[south, west, north, east]` lat/lon rectangle measured by the aerial canopy survey. Inferred street, park and garden trees should be suppressed only inside this measured coverage, not throughout any district that happens to contain OSM/aerial trees. |
-| `buildingIds` | (districts, 2026-11-08, optional) source OSM `w<id>` / `r<id>` parallel to `buildings`, for exact source matching in development audits. An empty string means an aggregate shape without one source identity. |
-| `buildingHoles` | (2026-11-08, optional) sparse object `{buildingIndex: [holeDelta, …]}` for mapped multipolygon courtyards. Each hole is a headerless delta ring in the same absolute decimetre coordinate system as its building's outer ring, without a repeated closing point. Missing entries mean no holes. Courtyards exclude building walls, roofs, collisions and point containment; tree and POI filtering uses the remaining building footprint. Stadiums retain their existing annular stand sectors. |
-| `buildingCoveredBy` | (2026-11-08, optional) sparse object `{baseBuildingIndex: coveringPartIndex}` for a unique mapped ground-based building part covering the base's entire footprint and height. Both records and source IDs remain intact for audits. The builder requires exact source and prepared outer/hole equality up to rotation/reversal, tagged part height/levels covering the base, zero minimum height and no ambiguous matches. Runtime validates the relation, renders the part once and redirects source-building associations; partial or elevated parts are excluded. |
-| `buildingDimensions` / `buildingFootprints` | Optional sparse records keyed by building index: `[heightM,minHeightM]` preserves precise source metres, and `[[x,z],…]` preserves the prepared footprint where decimetre encoding loses thin structural strips. Absent values use the legacy building row. |
-| `buildingAssemblies` | Optional records keyed by aggregate index: `mode: parts` reconstructs the complete aggregate from uniquely associated source parts; `mode: union` retains its residual body. Source identities, raw/prepared coverage and raw outside area remain auditable, with separately described residual dimensions and baked surfaces. Source rows are retained; associations resolve to the suitable ground part/body. |
-| `buildingUnions` / `buildingGeometryPoints` | Optional validated physical-surface cache: `{version:2,sources:[{i,signature,authoritySignature}],surfaces:[{i,neighbours,surface}]}` indexes lossless mesh coordinates in `buildingGeometryPoints`. This removes coincident surfaces for ordinary touching solids as well as source parts, retaining source records and parent identities. Courtyard `holeWalls` retain open interiors; literal-height/research/source-level/estimate authority is signed separately from geometry. Physical visibility does not set assembly membership or remove exterior detail. Run `tools/osm/refresh-building-surfaces.mjs --in prepared.json --out NEW.json` after final source changes to refresh only this cache and append/reuse exact mesh points. Invalid caches preserve source bodies and expose rejection reasons in runtime stats. |
-| `district.geometry` | (2026-11-08, optional) `{pieces:[{r,pts:[[x,z],…]}],circles:[{x,z,r}],polys:[[[x,z],…]]}` in game metres. The exact union of buffered polylines, circles and polygons defines the playable boundary and its 600 m scenery ring. This differs from the looser driving-mask cells used to position closures. |
-| `district.sourceReturns` | Optional reviewed finite source-road selections: literal directed `{sourceId,from,to,sourceIndex,fromXZ,toXZ}` legs, domain radius/envelope, source turn-choice checks, complete touching restriction records and evidence. The compiler unions these pieces before clipping and rebuilding mask/ends/context. They never create a source join, reverse travel or connect through virtual OUT. Native whole-body grade/static/mask/closure acceptance remains separate. |
-| `roadSourceNodeTags` / `roadSourceNodeTagCoverage` | Literal original retained core/scenery road-node `ele/incline/level` strings, plus inspected source-node count and any missing-node IDs. The exact source-node set is recoverable from `roadSourceGeometry` and `scenerySourceGeometry`. Absent older metadata remains unknown; no metric height is inferred here. |
-| `sourceContextPreservation.levelHeightEstimates` | Optional explicit prior per-storey MODEL retention result. An unchanged raw footprint and source dimensions are required; literal/research height takes precedence. This preserves a prior body while coverage changes, and is not a measured elevation claim. |
-| `sourceContextPreservation.inferredBuildingModels` | Optional reviewed prior fallback style/wall-height/roof results. Exact unchanged raw/effective tags, closed outer ring and all inner rings are mandatory before roof/body/cache baking. New source or research annotations win; unchanged literal heights can retain only an explicitly reviewed fallback style. Later name-based height sanity cannot overwrite a validated prior model; unknown storeys and estimated-source classifications remain unchanged. A prior fallback roof is applied only without current literal or measured roof evidence. Prior estimates remain estimates. |
-| `roadRestrictions` / `roadRestrictionCoverage` | Optional raw `[{sourceId,tags,members}]` restriction catalogue, with hashed tile ledger, retained core way/node set hash, exact raw-source match counts and explicit malformed/conditional/via-way exceptions. Includes mode-only and `except` tags unchanged. Each of the eight current source districts has its own actual cached-source catalogue; absent older catalogues are unknown. Source selection does not infer a missing member or implement runtime permission. |
-| `sourceContextPreservation` | Provenance/accounting for explicitly reviewed prior context carried through a bounded rebuild: unchanged distant source-water rings and hash-verified measured crowns. Current source water records win. Preserved crowns that meet broad inferred-road filters retain an unresolved physical-clearance note; this field never waives collision or narrows a source road. |
-| `buildingInfo` | (districts, 2026-11-07) one 5-tuple per building, same order as `buildings`: `[type, startYear, architect, material, hSrc, …]` — OSM `building` value / `architect` / `building:material` as string indices (−1 none), `start_date` year (0 unknown), height source 0 OSM, 1 research, 2 default estimate, 3 re-estimated by the height-sanity pass |
-| `treeInfo` | (districts, 2026-11-07) one triple per tree, same order as `trees`: `[taxon, circumferenceCm, leaf, …]` — `taxon` = string index of the OSM `species` / `taxon` / `species:en` / `genus` text (most specific first, −1 none), circumference in cm (0 unknown; OSM metres converted), `leaf` bits: 1 broadleaved, 2 needleleaved, 4 deciduous, 8 evergreen, 16 generated from a `tree_row` (7 m spacing), 32 measured on aerial imagery (`tools/aerial/trees.py` crowns, height from the crown radius; 2026-11-08) |
-| `furniture` | `[kind, x, z, …]` — kinds in `furnKinds` (bench, waste_basket, bollard, post_box, bicycle_parking, drinking_water, fountain, fire_hydrant, recycling, telephone, vending_machine, picnic_table, advertising); none on a carriageway |
-| `backdrop` | `[x, z, w, d, h, angleDeg, …]` (dm, degrees) — low-poly building masses beyond the playable area (one box per 40 m cell) so the horizon is not empty |
-| `corridor` | `{areaKm2, legs: [[label, km], …]}` — the playable area's size and the routes it was built round (`tools/osm/corridors.mjs`) |
 
-### Playable area
+## Trams and rail
 
-A district build keeps its roads, buildings and POIs inside the district polygon plus the scenery ring (`outerRing`,
-600 m by default); `corridor` records the area `tools/osm/corridors.mjs` computed for it.
+| key | content |
+|---|---|
+| `trams` | tram track centre lines (delta) |
+| `tramSources` | parallel to `trams`: `{sourceId, nodeIds, tags}` per rendered run |
+| `tramSourceWays` | complete selected source ways `{sourceId, nodeIds, tags, points}` (`points: null` + `missingNodeIds` when coordinates are missing) |
+| `tramRoutes` | OSM tram route relations `{sourceId, tags, members: [{type, ref, role}], missingWayIds?}` |
+| `tramSourceNodeTags` | `{nodeId: {raw tags}}` signals, crossings, stops on those ways |
+| `tramSourceCrossings` | footway crossings `{sourceId, nodeIds, tags, points, nodeTags, railNodeIds, roadIncidences: [{nodeId, sourceId}]}` |
+| `railways` | `[{id, nodeIds, tags, points}]` rail / disused / abandoned ways touching the scenery ring. Ground rail with a numeric gauge is drawn; a bridge with `min_height` is a viaduct (`elevated-sources.js`); other bridges / tunnels stay unresolved |
 
+Rail connectivity uses identical OSM node ids only; layer numbers are not metres and no direction or grade is invented.
+The tram fields come from the build or from `tools/osm/add-tram-source-metadata.mjs` (append-only; Grozăvești, Pipera,
+Romană and Unirii have trams). Pedestrian footbridges live in `game/src/footbridge-sources.js`, not in the pack
+(`tools/osm/add-footbridges.mjs`).
 
-Optional `buildingCanopies` is an object keyed by building index. It marks only an explicitly reviewed open roof, keeping the corresponding `buildingIds` identity and complete mapped footprint. `topM` and `clearanceM` agree with that building's height/minHeight band; `classificationSource`, `evidence`, `topSource`, `clearanceSource`, `supportSource` and `dimensionNote` record provenance. Values marked `estimate` are authoring choices, not OSM metre tags. `estimateSupports` optionally adds narrow estimated supports only where their full footprints clear roads and neighbouring buildings; `supportWidthM` is their width. Runtime draws the source roof slab and colliding supports, keeps the roof band collidable, and omits the guessed fuel-canopy/pump template for that source record. Neither `amenity=fuel` nor OSM `layer` alone enables this field. OSM positive height/minimum tags take precedence over estimated dimensions.
+## POIs and transit
 
-Optional `buildingSourceIssues` maps building indices to source anomalies such as a nonpositive OSM height. A nonpositive height is not treated as a valid measured dimension; its fallback remains an estimate. Positive literal heights, including structures below 2.5m, are retained.
+| key | content |
+|---|---|
+| `pois` | `[kind, x, z, name, brand, sub, buildingIndex]`; `sub` = OSM value (e.g. `fast_food:burger`). Rows may lie up to 100 m outside the playable edge and point at a scenery-ring building. Classes without their own kind reuse one with the OSM value in `sub` (nightclub → food; gallery, fitness centre, craft → shop; kindergarten → school; any `office=*` → office) |
+| `poiSources` | `{poiIndex: 'node/…' \| 'way/…' \| 'relation/…'}` OSM identity per row |
+| `poiSignAnchors` | `{poiIndex: [x, z, how, source]}` where the sign goes: `entrance` (OSM entrance node, `source` = node id) or `street` (the footprint face on the POI's `addr:street`) |
+| `publicTransportSources` | optional `{schema: 1, poiSources, platforms, stopAreas, coverage}`: literal platform / stop-area features (`sourceId`, `nodeIds`, `points`, `tags`) keyed by POI index, read by `source-transit-shelter.js`. `stop_position` belongs to the vehicle, not a shelter |
 
+## Provenance records
 
-District `buildings` include whole source footprints whose solid geometry intersects the core or its600m scenery ring. Membership uses exact source edges/circles/polygons and courtyard holes, rather than the footprint centre or a bounding radius. A large retained building can extend beyond600m; far-context boxes are never a substitute for the intersecting source building.
+Written by the build or the append tools for audits; no runtime reader: `buildingSourceSkips` (invalid / unclosed source
+geometry and why), `buildingRoadConflicts` (footprints kept despite an inferred road envelope), `buildingSourceIssues`
+(e.g. a nonpositive OSM height, an unsupported canopy review), `parkingLayoutAudit`, and one `{schema: 1, runs: [{tool,
+date, …counts}]}` record per append tool: `poiAppend` (`add-pois.mjs`), `poiFix` (`fix-pois.mjs`, incl. the
+`[poiIndex, buildingSourceId]` links it set), `areaAppend` (`add-areas.mjs`), `areaTagAppend` (`add-area-tags.mjs`),
+`buildingFix` (`fix-buildings.mjs`), `roadAppend` (`add-roads.mjs`).
 
-Freshly rebuilt districts may declare `buildingGeometryPolicy: "source"`. Their `buildingFootprints` contain every valid source outer ring at 0.0001m precision; optional `buildingHoleFootprints[index]` contains the corresponding precise courtyard rings. Legacy decimetre rows and `buildingHoles` remain available. The renderer and assembly/physical-union caches use the same precise geometry. This policy disables inferred-road clearance shrinkage and deletion; it does not declare a road contact resolved. `buildingRoadConflicts` retains source IDs, detection phase and preservation status for further source review. Runtime `world.stats.buildingClearance` likewise retains unresolved contacts without changing their footprint.
+No tool in `tools/osm` writes `roadRestrictions(+Coverage)`, `roadSourceNodeTags(+Coverage)`, `publicTransportSources`,
+`reviewedCoveredRoads` or `district.sourceReturns`: a rebuild from tiles drops them, so carry them over (or graft roads
+with `graft-roads.cjs`).
 
-`buildingSourceSkips` records invalid, unclosed, incomplete or zero-area source geometry with its identity and explicit reason. Valid positive-area small buildings and mapped building parts have no minimum-area gate. The independent building auditor matches `buildingIds` exactly whenever present and reports geometry/topology separately; a nearby source can never stand in for a missing identity. Its default ring is600m and its complete-identity totals include small structures; the historical40m² non-utility subset remains separately labelled.
+## Research inputs read by the build
 
-With the source geometry policy, an authored landmark replaces only the explicit OSM identities in its registry `sourceIds` array, including separately mapped parts where applicable. Radius, name, cover polygons and collision centres never suppress neighbouring source buildings. Runtime `world.stats.landmarkSourceReplacements` records declared, matched and unmatched identities. Source replacement and complete landmark parity are separate checks.
+From `game/research/` (OSM tags always win):
 
-The landmark builder context also exposes `ctx.sourceBuildings[sourceId]` as an array of source outer buildings (a relation can have several). Each record carries precise `ring`, `holes`, `h`, `minH`, `levels`, `roof`, `colour`, `roofColour`, `heightSourceCode`, `sourceId` and `provenance`. The rings use the authored landmark frame, transformed with inverse yaw and projection scale from the exact district source geometry. This avoids independent rounded copies and preserves the actual model/world pivot. It is available only for the explicit replacement identities in source-policy data; legacy models keep their existing input fallback. Height/colour/roof source priority and explicit unknowns remain the model owner's responsibility.
+- `<city>-<district>.json` dossier: per-building `research: {height_m, storeys, facade_hex, roof}` and `open_canopy`
+  (`evidence`, `topM > clearanceM > 0`, `dimensionNote`), `building_passages` (reviewed shared-wall passages),
+  `road_widths` (`{sourceRoadId, widthM, source, uncertaintyM, evidence, measurement?, leftM?, rightM?}`; a
+  `physicalSingleLane` review needs aerial calipers and no raw width / lane tags), street tree notes, brand colours.
+- `roofs-…json`: `roofs: {wayId: [shape, confidence, colour, areaM2]}` plus optional `colourMeasurements[wayId]` (colour applied
+  at confidence ≥ 0.65). `trees-…json` (crowns, optional `_coverage`, `_retention: "all-measured"`), `green-…json`.
+  See `tools/aerial/README.md`.
+- `businesses-<city>-<district>.json`, `businesses-gamediff.json` (stale / closed businesses), `parking-layouts-…json`.
 
-Optional `sharedLanes[roadIndex] = {widthM,sourceId,widthSource,evidence}` preserves a source `lanes=1` road that legally carries both directions. The graph retains one forward and one backward connection; its physical carriageway is one lane wide. Explicit positive OSM `width` wins; otherwise `widthSource` identifies the class-width estimate. Runtime edges expose `sharedLane`, `sharedLaneWidthM` and `sharedLaneSource`; both directions use the centreline, and no dividing line or duplicated turn arrows are drawn. `laneW` in the legacy road row is half the physical width, solely to keep its two-direction width sum consistent. Traffic must arbitrate entry/yielding before sharing this single physical lane.
+## places.json
 
-Optional `buildingAircraft[index]` classifies only source `historic=aircraft` / `aeroway=aircraft` exhibits that are also mapped as building outlines. Their complete `buildingIds` and source planform remain intact. Runtime emits the actual planform as a thin wing, with a simple fuselage/fin and separate vertical collision bands. It omits house walls, windows, pitched roofs and rooftop props. `classificationSource`, `dimensionsSource` and `dimensionNote` distinguish authoritative source object meaning from estimated vertical detail/paint. A source metre height, where present, remains authoritative. These are aircraft exhibits, rather than roof survey samples.
-Optional `roadAccess[roadIndex]` and `sceneryAccess[sceneryIndex]` preserve `{sourceId,publicDrive,throughAccess,key,value,reason,conditionalUnresolved,tags}`. Motorcar permission follows `motorcar > motor_vehicle > vehicle > access`; a specific public permission overrides inherited private access. `destination` / `customers` permit a selected endpoint in that connected access area but never an ambient-traffic shortcut. Parking aisles and drive-throughs also have no through access. HOV-only, reversible and unevaluated conditional permissions retain their source tags and require context; they are excluded from public navigation. Restricted core roads remain full physical road rows with their bridge/tunnel/layer profile, but `edge.publicDrive=false` excludes them from the SCC, navigator, traffic and inferred map closures. No gate or barrier is invented from an access tag. Legacy datasets without this metadata retain their existing runtime behavior.
+`{generated, legend: [{cat, label, icon, color}], districts: {"<city>-<district>": {city, district, scenery, notReachable,
+counts, places}}}`. `places` maps each category (`cv`, `landmark`, `spot`, `fuel`, `business`, `park`, `transit`) to
+`[{id?, name, lat, lon, x, z, nx, nz, …}]`: `x` / `z` in district metres, `nx` / `nz` the nearest street point reachable
+from the chapter start (the route target), `walk` metres on foot where `tools/osm/places-navfix.json` moved it; extra keys
+per category (`chapter`, `stop`, `brand`, `kind`, `sub`, `mode`). Only places inside the playable area beside a reachable
+street are listed. Regenerate with `node tools/osm/places.mjs` after a build, POI append or landmark change.
 
-Optional `buildingPassages[index]` contains opening records sourced only from OSM `tunnel=building_passage` ways: `sourceRoadId`, `sourceSegment`, `sourceNodeIds`, `roadIndices`, precise `ring`, `widthM`, `widthSource`, `clearanceM`, `clearanceSource`, raw `tags`, evidence and dimension notes. `roadIndices` addresses the immutable district's output rows; `roadAccess[edge.road].sourceId` can also identify the source road. Positive `width` and `maxheight:physical` use strict metre/unit parsing. A legal `maxheight` is retained separately and supplies an explicitly estimated ceiling with0.2m allowance; untagged clearance is an explicit3.1m estimate. Clearance is measured above the matched road surface. No opening is inferred merely from a service road.
+## Spots
 
-The full building outline, courtyard and total-height record remain intact. Runtime cuts only the declared low void from outer/inner wall bands and physical collision pieces, retains side posts and upper floors, and emits shared interior walls/ceilings once across overlapping source bodies/segments. A short body can pass only when its actual vertical envelope clears the ceiling. `buildingPassageIssues` and `world.stats.buildingPassages` retain incompatible-source/rejected openings rather than silently lifting the entire building or changing its height. Legacy data without this field is unchanged.
-
-Optional `reviewedCoveredRoads` adds individually reviewed `tunnel=yes` covered-street associations, distinct from underground roads. Each record retains source road/building/part IDs, original nodes/projected geometry/raw tags, source XML hash/evidence, exact ground-join source chains, and explicitly estimated floor/clearance inputs. Full road-centreline containment in its source cover and compatible source ordering are mandatory. Runtime revalidates the association before omitting its otherwise unjustified negative tunnel seed or deriving bounded passage records for the matched parent/parts. Original source rows/XY/access/tags remain intact. Positive literal road width/physical clearance and compatible source metric minima override estimates; contradictions stay unresolved. Existing ground model zero is a local model datum, not measured elevation. Historical DEM responses cannot substitute for a current road survey; the rejected2021 Bellevue excavation-like samples remain evidence rather than fitting inputs.
-
-Its `reviewed-source-fuel-canopy-covered-road` variant retains `sourceCanopy` (raw source IDs/tags/order/coordinates), the covered driveway and exact `groundJoins` to ordinary ground roads. The cover must match an existing `buildingCanopies` footprint and actual dimension inputs; its profile-only model adds no opening, ceiling, support or collider. Literal negative layer ordering below the source fuel roof is retained without converting it to underground metres. Existing canopy underside minus the native road surface determines the modeled physical opening; legal `maxheight` remains separate. Explicit incline, elevation, underground location/node datum, missing joins/cover or incompatible opening rejects the model. Only the reviewed association is appended; every preexisting Unirii data field and byte prefix remains unchanged.
-
-The covered-road review is applied at build time by `game/src/covered-road-models.js`; the earlier append tool and its research file were removed (git history).
-
-Optional `railways` is an array of `{id, nodeIds, tags, points}`. `id` is the OSM way identity; complete source node IDs and raw railway/gauge/layer/bridge/tunnel/status tags are preserved. `points` uses the usual decimetre delta encoding. A source way is selected when any segment intersects the exact600m ring; its complete geometry remains available for audits. The renderer emits only ground rail/disused ways with a known numeric gauge. Abandoned rails are not invented, and tagged tunnels/bridges or nonzero/invalid layers remain unresolved in that ground pass rather than receiving fabricated elevations. A `railway=rail` way tagged `bridge` with a numeric `min_height` is drawn as a viaduct by `game/src/elevated-sources.js` (soffit = `min_height`; deck width, girder depth and pier spacing are named estimates; supports stay off carriageways); a bridge without `min_height` stays unresolved (`stats.elevatedSources.unresolved`). Pedestrian footbridges are not in the district JSON: `game/src/footbridge-sources.js` holds the OSM footway-bridge ways and their end steps per dataset (`tools/osm/add-footbridges.mjs`). Gauge is in millimetres. Ballast/tie/head profiles are explicit visual estimates relative to the game's flat ground; no trains or unsourced overhead supports are added.
-
-### Source tram metadata without regeneration
-
-The builder snapshots original tram ways/nodes/relations before decorating general source records and emits metadata beside the unchanged clipping output. Complete rail topology joins only identical original node IDs; a geometric crossing, nearby motor road or road one-way/median never creates rail connectivity or travel rights. Node/way tags preserve explicit source direction, access, status, bridge/tunnel/layer, incline and elevation. Missing or unsupported direction/grade remains unresolved: layer numbers are not metres, absent elevation is not a surveyed ground datum, and route membership does not override a suspension note or access restriction. The separate runtime rail adapter and its native placement/crossing tests are independent of this data-preservation step.
-
-Existing datasets can receive metadata only, using the same sorted-cache/first-occurrence source parser as the builder:
-
-```sh
-node tools/osm/add-tram-source-metadata.mjs --data game/data/bucharest-grozavesti.json --osm /path/to/cached/xml --write --report /tmp/tram-metadata.json
-python3 tools/osm/tram-source-audit.py --data game/data/bucharest-grozavesti.json --osm /path/to/cached/xml --report /tmp/tram-source-audit.json
-node tools/osm/tram-sources.test.mjs /tmp/tram-source-controls.json
-```
-
-The metadata-only command matches every existing rendered vertex at the dataset's exact projection/q, refuses unmatched or ambiguous source identity, appends only these four new fields, preserves the original serialized prefix/old values/`generated` date, and verifies cached input hashes before writing. It never invokes a download or full rebuild. Datasets with no rendered trams remain byte-identical. Current metadata covers Grozăvești's 24 runs, Pipera's 2, Romană's 7 and Unirii's 4; Floreasca/Otopeni are unchanged. The independent XML audit checks all old fields, full original way node order/tags/coordinates, route member order/tags, node tags, exact render membership and cached-source integrity. These checks are source metadata acceptance, not native tram placement, movement or full district acceptance.
-
-Optional `treeCrownRadii` is parallel to `trees`, with measured crown radii in decimetres (zero means unknown). It affects crown width independently from estimated height/species; it does not create new crowns. A survey can opt into `_retention: "all-measured"` in its research input. `treeRetention` accounts for every input crown as retained, outside the district survey envelope, rejected by source geometry/duplicate tests, or legacy thinning. Reviewed all-measured inputs have `thinned:0`. Input measurements remain intact. Roads, active ground tracks, buildings, sports/parking/water areas and duplicates remain explicit geometry filters, not frame-budget culling. Existing maps without these optional fields keep their previous runtime behavior.
-
-Source districts also emit `roadGeometryPolicy: "source"`. Their legacy decimetre `nodes` are accompanied by lossless metre coordinates in `roadNodePositions` and parallel original OSM identities in `roadNodeIds` (negative IDs identify exact boundary cuts). Runtime uses the precise coordinates. `roadSourceGeometry[roadIndex]` preserves the full original way's node IDs, WGS84 coordinates, projected coordinates and tags, plus the prepared node IDs; `scenerySourceGeometry` preserves original identities and precise prepared ring polylines. The source path keeps every mapped vertex and short stub, with no carriageway displacement, inferred gap joins, invisible U-turn roads or one-way reversal. The existing outside SCC classification remains classification only. Car and foot navigation reject virtual connectors; source foot routes do not use an invented straight-line shortcut across blocks or closures.
-
-Research roof arrays keep their existing `[shape, confidence, colour, areaM2]` schema. Optional research `colourMeasurements[wayId]` separates pixel-sample colour reliability from shape confidence. The compiler applies its raw median at confidence >=0.65, after OSM colour/material priority, and does not mark that independent colour as evidence of a measured roof shape. Legacy files without this map retain their previous colour rule.
-For a source district, a fuel POI establishes a real station anchor and identity. Only a reviewed `buildingCanopies` source roof supplies canopy geometry. An unmatched fuel POI retains its interaction/label and an explicit `world.stats.fuel` unknown-geometry record; it does not generate a guessed canopy, pumps, pylon or fuel-grade board. Legacy districts retain their prior template.
-
-An individually reviewed research `building_passages` entry may declare a single source through-access without adding an OSM tunnel tag. It requires exact `buildingId` / `sourceRoadId`, both road endpoints as `sharedWallNodeIds` on the building, `classificationSource: "reviewed source shared-wall-node topology"`, HTTPS evidence and a finite positive estimated `clearanceM`. The opening is restricted to that building identity. Raw road tags remain literal. Opening strips preserve lossless `sourceCentreline` positions and lateral width; `longitudinalSeamOverlapM:0.0001` only closes the numerical seam against four-decimal building coordinates at a shared wall node. It does not move the source road or alter the building footprint.
-
-Source districts may emit `roadWidths[roadIndex] = {sourceId,widthM,medianM,laneWidthM,source,widthSource,rawWidth?,review?,issues?,definition}`. `widthM` is the precise total road width, including any inferred median; runtime uses these metre values instead of the decimetre row's rounded lane width. Positive OSM `width` has priority, followed by an individually reviewed research `road_widths` record `{sourceRoadId,widthM,source,uncertaintyM,evidence,measurement?,note?}`. `source` is `independent aerial measurement` or `geometry-constrained estimate`; the full review and raw source tags are retained. Legal lane counts and source node positions remain unchanged. An unsupported inferred median is omitted when it cannot fit within the source total width, and this assumption is recorded in `issues`. A source width too narrow for its tagged lane count remains an explicit contradiction.
-
-A review may also give `leftM` / `rightM` (extents either side of the unchanged source centreline, summing to `widthM`, with `measurement.scope: "travel carriageway excluding parking and sidewalks"`): the carriageway is then placed sideways and its lanes follow (`laneCenterShiftM`). `node tools/osm/apply-road-width-reviews.mjs <city>-<district> [--check]` applies the district's `road_widths` reviews to the prepared data without a rebuild from tiles, for plain one-way carriageways only (anything else is refused). Bd. Unirii's four carriageways beside the fountain basins carry such reviews (2026-11-12), so that the median between them has its mapped width.
-
-An inferred `physicalSingleLane:true` review additionally requires independent aerial calipers (`measurement.metresPerPixel` and `calipers:[{a:[px,py],b:[px,py]}]`) and the complete absence of raw width and lane-count fields. This keeps a legal two-way graph with one physical lane and uses the existing shared-lane traffic contract. A tagged two-lane road is never reclassified by a review. Invalid/unmatched/duplicate review inputs remain in `roadWidthIssues`; legacy datasets without these optional fields keep their prior road sizing.
-
-A reviewed width may include `leftM/rightM` extents with a `measurement.scope` of `travel carriageway excluding parking and sidewalks`. These are measured perpendicular distances from the original OSM way reference line, looking from its first source node to its last. They sum to the reviewed width. The compiler swaps them for a prepared `oneway=-1` way. Positive mapped width still determines the total; reviewed side proportions fit within that total. Supported literal `placement=left_of:N|middle_of:N|right_of:N` takes priority. Unsupported placement forms remain flagged and prevent an aerial side estimate from overwriting the tag.
-
-Runtime edges expose precise `wL/wR` and canonical `laneCenterShiftM` along `edge.nx=-dirz,edge.nz=dirx` (right of the prepared edge). This is the translation of the existing lane grid, calculated as `rightM-baseRightM`; it differs from `pavementCenterOffsetM=(rightM-leftM)/2` for unequal forward/backward lane counts. A travel-relative lane offset adds `dir*laneCenterShiftM` before the caller's existing multiplication by travel direction. Shared lanes use this same signed centre for both directions. Mapped nodes remain unchanged. Paint, lane arrows, medians and physical pavement follow the recorded extents; class-based extra shoulder width is not added beyond a mapped or reviewed total width. Legacy data and symmetric/default records keep their existing placements.
-
-Passage `mouthGeometry` records the physical interpretation of the source line as a constant-width swept corridor: round end caps of radius `widthM/2` (12 facets per semicircle), with the separately declared0.1mm numerical seam. This lets a finite vehicle cross an oblique or corner wall at the mapped mouth. It does not extend a new straight tunnel along another wing. Only source bodies whose solid footprint is actually crossed by the tagged/reviewed centreline receive an opening; nearby frontage touched only by the width buffer remains intact. Real source regression fixtures retain all source outlines, original tags, way points and dimensions.
-
-Explicit nonzero or unparsed `level/layer`, bridge ordering, or elevated/underground location does not supply an absolute passage base in metres. Such source ways are retained in `buildingPassageIssues` with `reason:"absolute-passage-base-unknown"`, `baseUnknown:true`, complete source node IDs/projected centreline/raw tags, evidence and associated building IDs. They do not cut a fabricated ground-level void. Runtime also guards older passage payloads and exposes these unresolved records through `world.stats.buildingPassages`. No relative level is converted to a floor height or used to lift the whole building. A future supported physical vertical datum requires a separate reviewed contract. Actual SeaTac level3/layer1 and Bellevue level1/layer1 sources are frozen regression controls.
-
-Optional `publicTransportSources` (`schema:1`) retains `poiSources` keyed by the unchanged prepared POI index, `platforms`, `stopAreas` and `coverage`. Each source feature has literal `sourceId`, ordered `nodeIds`, metre-space `points` projected from the raw nodes, and complete raw `tags`. Stop areas retain their original tags/member roles; absence does not invent an association. Coverage lists source tile filenames/SHA256, scope, source-set digest, incomplete counts and unmatched/ambiguous POIs. The metadata-only append command preserves every other field and original JSON byte prefix. A point tagged `public_transport=stop_position` belongs to the vehicle, not to the shelter. Open platform lines establish neither roof width nor shelter station. World source-shelter decisions report unknown geometry and withhold only the unlocated generic vehicle-stop shelter unit; mapped source geometry is independently owned and remains intact. Literal shelter=no applies only with a valid current POI match. Missing/stale metadata remains explicitly legacy/unreviewed. Genuine historical rail/motor-body negatives remain retained; these decisions do not certify the unmodeled real shelter or current constructor/route clearance.
-
-`areaSourceTags` is optional and keyed by exact `areaSourceIds` identities, including a shared identity for multiple outers. It retains literal OSM `water`, `natural` and `waterway` strings (since 2026-11-13 also `amenity=fountain` / `fountain` of a fountain basin: world.js draws its stone coping; and, from `tools/osm/add-area-tags.mjs`, the area's own literal `tourism`, `man_made` and `sport` from the live OSM API, e.g. Floreasca velodrome infield w362465818 `sport=rugby_league`; provenance in `areaTagAppend`); it never changes the area row or source rings. Explicit `water=lake|pond|reservoir` prevents the legacy unnamed narrow-shape Dâmbovița channel estimate. The flat surface height is still an explicit model estimate, not a measured OSM elevation. Missing metadata preserves legacy behavior; no nearby feature supplies another area's tags. `world.stats.waterChannels` retains the classification source and estimated surface height. Raw-tag augmentation must verify exact source IDs, tile/tag hashes, and unchanged values for every existing dataset field.
-
-Tourist source context uses a separate compact indexed schema and optional measured outside-DEM continuation. It keeps literal source IDs, rings and holes, tag priority, Float32 pixel centres and explicit unknown estimates, and is validated against its cache manifest. Existing district and spot arrays remain unchanged.
-
-Seattle context assets are `spots/seattle-context.json.gz` (indexed literal source records and original numeric elevations), `spots/seattle-context-render.bin.gz` (lossless native geometry) and the readable `spots/seattle-context-manifest.json`. The binary cache contains a versioned 16-byte header, a UTF-8 JSON metadata block and aligned little-endian typed-array blocks; no source coordinates, normals, UVs or colours are quantized. Exact data/profile and native geometry-consumer hashes reject stale caches. Whole-source chunks share GPU attributes and use their actual indexed bounds. Missing elevated-part minimum heights are withheld before CSG and retained by ID as unresolved. Separate source outer components never become one concatenated polygon. These assets carry model estimates and bounded source gaps; their existence does not certify current scene pictures or performance.
-
-Finite source-return review files can contain individually pinned `restrictionCompliance` entries. They preserve the exact expected raw tags/member list and identify the narrowly proved finite-path basis, not a corrected relation. Compiled restriction copies expose `reviewValidation` and an explicitly unresolved `runtimeStatus`; the full `roadRestrictions` source catalogue retains the original missing members. Missing-via FROM/TO incidence requires a unique actual shared node, complete finite original XY and the exact reviewed exit; missing-TO irrelevance requires zero reviewed known-FROM/VIA arrivals. Neither record authorizes a generic Nav/NPC exception or an absolute ground grade.
+`spots/<spot>.json` holds tourist-spot data (see `game/src/spots/`). Seattle context: `spots/seattle-context.json.gz`
+(indexed source records and original elevations), `spots/seattle-context-render.bin.gz` (lossless geometry: 16-byte
+header, UTF-8 JSON metadata block, aligned little-endian typed arrays) and `spots/seattle-context-manifest.json`; data
+and consumer hashes reject stale caches.

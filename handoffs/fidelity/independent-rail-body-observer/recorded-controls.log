@@ -1,7 +1,0 @@
-PASS lossless QA typed buffers reconstruct actual support and current emitted body through independent source checks
-PASS decoder/source adapter rejects changed native pose despite unchanged producer certificates
-PASS an omitted native solid buffer and an unverified reviewed-model pin remain explicit gaps
-PASS actual crossing registration metadata is required and never inferred from rail nodes
-PASS bounded index retains huge and cross-cell triangles instead of dropping their contacts
-PASS unrecorded native direction arrays remain a coverage gap even when current raw-source legality and body are clear
-{"passed":true,"controls":6,"browserOpened":false}

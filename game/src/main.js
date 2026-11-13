@@ -33,6 +33,7 @@ import { initAchievements } from './achievements.js'; // spec 23 (progression): 
 import { showFinale } from './finale.js'; // cockpit-ui, note 71
 import { playChapterTransition } from './transition.js'; // cockpit-ui, note 16
 import { save } from './save.js'; // progression, note 73
+import { districtFile } from './district-pack.js';
 import { createDinamoFootball } from './football.js';
 import { createRosettiBasketball } from './basketball.js';
 import { initExplore } from './explore.js'; // world-map hub, free roam ⇄ story (resume chip), drone — hooks listed in spec 10 (one mode since 2026-11-08)
@@ -225,7 +226,7 @@ class Game {
         // World map (explore.js): the hub to pick a start anywhere — free roam, the story waits (one mode since 2026-11-08)
         $('#worldmap-start')?.addEventListener('click', () => { this.audio.init(); this.audio.resume(); this.explore?.roam?.(); });
         // Continue (progression / save.js, note 73): restores the last session (position, mode, conditions)
-        try { save.ready?.then?.(() => { const b = $('#continue'); if (b) { b.hidden = !save.hasSession?.(); b.onclick = () => save.restore(this); } }); } catch (e) { console.warn('[save]', e); }
+        try { save.ready?.then?.(() => { const b = $('#continue'); if (b) { b.hidden = !save.hasSession?.(); b.onclick = () => save.restore(this); } this.prefetchDistrictPacks(); }); } catch (e) { console.warn('[save]', e); }
         { const cw = $('#menu .controls-wrap'); if (cw && matchMedia('(min-height: 900px) and (min-width: 900px)').matches) cw.open = true; } // tall screens: controls open; else collapsed so the menu fits
         $('#quality').addEventListener('change', (e) => { this.quality = e.target.value; this.r3d.setQuality(e.target.value); });
         $('#mute').addEventListener('click', (e) => { this.audio.setMuted(!this.audio.muted); e.target.textContent = this.audio.muted ? '🔇' : '🔊'; });
@@ -306,6 +307,19 @@ class Game {
         try { const b = $('#continue'); if (b) b.hidden = true; } catch { /* ignore */ }
         this.renderMenuChapters?.();
         return this.start(0);
+    }
+    /** (spec 10 load budget, owner 2026-11-13) while the menu is open, the data packs of the districts the player most likely
+     *  enters next (the saved session's, and the first chapter not done yet) are downloaded at low priority into the HTTP
+     *  cache: the build worker's fetch of that pack then skips the download. Nothing else changes; a failure is ignored. */
+    prefetchDistrictPacks() {
+        const go = () => {
+            if (this.started || this.state !== 'menu') return;
+            const files = new Set(), add = (city, district) => { if (city && district && CITIES[city]?.districts?.[district]) files.add(districtFile(city, district)); };
+            const s = save.session; if (s) add(s.city, s.freeRoam?.district || s.district);
+            const next = this.chapters?.find(c => !this.progress?.done?.has(c.id)) || this.chapters?.[0]; if (next) add(next.city, next.district);
+            for (const f of files) fetch(new URL(`../data/${f}`, import.meta.url), { priority: 'low' }).then(r => (r.ok ? r.arrayBuffer() : null)).catch(() => null);
+        };
+        if (typeof requestIdleCallback === 'function') requestIdleCallback(go, { timeout: 1500 }); else setTimeout(go, 500);
     }
     async start(chapterIdx = null) {
         if (this.started) return; this.started = true;

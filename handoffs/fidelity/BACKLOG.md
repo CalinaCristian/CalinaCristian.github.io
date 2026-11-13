@@ -18,7 +18,7 @@ and the F8 JSON the owner pastes.
 
 | ID | Item | Spec | State |
 | --- | --- | --- | --- |
-| R22 | Code cleanup after the district migration (corridor era, split `world.js`, dead code) | 22 | in progress: the harness runs in districts; next the corridor maps and their code paths |
+| R22 | Code cleanup after the district migration (spec 22) | 22 | in progress: corridor era gone (maps, main.js paths, world.js / landmarks.js branches, all 8 worlds byte-identical); left: split `world.js` (one 790 KB `buildWorld` closure) into modules < 60 KB, dead code / duplicates (R22.3), single sources (R22.4) |
 | pipera-2 | Strada Petricani bridge (w8208289, 44.4743,26.1240): W-beam guard rails and the yellow east railing drawn since round 3; still open: water of Lacul Tei (w117140697, w117140691) and Lacul Plumbuita (r11546654) drawn at street level on both sides (real surface metres lower; needs a sunken-lake bank model and a level source), crowns inside the coarse CORINE lake polygon w117140691 (measured trees on the real bank: needs a documented outline exception). Weir and tram reserve: dossier (2026-11-13) | 11 | todo |
 | unirii-small | Unirii: Dealul Mitropoliei has no relief: the district ground is flat, and the hill needs ground heights under its roads (Aleea Dealul Mitropoliei), buildings and the Patriarchal Cathedral; playgrounds and ATM markers are done since round 4 (`playgrounds.js`) | 12 | todo |
 | unirii-pasaj-look | Unirii: Pasajul Unirii still lacks the leaf / butterfly motifs on the ramp cladding, the "PASAJUL UNIRII" portal header, the planter median between the carriageways and the tall wall screen above street level (panorama May 2024); north ramp not compared at the pano pose (camera lands beside the trench) | 12 | todo |

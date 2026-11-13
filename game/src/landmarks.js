@@ -38,13 +38,12 @@ import { emitArcGround, emitArcSourceColliders, ARC_SOURCE_FLAGPOLE } from './la
 //  - Collision boxes {x, z, hw, hd, angle} are returned relative to the anchor in WORLD axes
 //    (rotation and city scale already applied), `angle` uses the same convention as
 //    world.js collideBuildings(). Add the anchor's world position to x/z.
-//  - Every model is authored in real metres. Bucharest is built at 1:1. Seattle: in the legacy corridor world (scaled
-//    0.5 on x/z) the Builder squashes x/z by SEA_SCALE; chapter districts are real 1:1 (spec 10), so pass
-//    ctx.realScale = true to get Seattle at 1:1 (result.authoredScale says which; LANDMARKS[].radiusM = radius in real
-//    metres). Legacy behaviour is the default until the spec 22 cleanup removes the corridor world.
+//  - Every model is authored and built in real metres (1:1, the chapter districts of spec 10); LANDMARKS[].radiusM is
+//    the clearing radius in metres. (`ctx.realScale` is accepted and ignored: the half-scale Seattle of the corridor
+//    maps is gone, spec 22.)
 //  - District-era landmarks (2026-11, `P2` footprints) use rotation 0 and footprints projected at the anchor from the
-//    raw OSM tiles; `cvStop` / `passing` name the CV POI hosted by the model; `districtOnly` models (road-aligned
-//    structures) are skipped in the legacy world.
+//    raw OSM tiles; `cvStop` / `passing` name the CV POI hosted by the model; `districtOnly` marks road-aligned
+//    structures anchored on the district road graph.
 //  - Anchors / orientations / footprints come from OpenStreetMap (ways listed per landmark,
 //    footprints simplified with Douglas-Peucker and stored in P below, in model-frame metres).
 //  - Geometry is merged into one BufferGeometry per material (vertex colours), so every
@@ -54,7 +53,6 @@ import { emitArcGround, emitArcSourceColliders, ARC_SOURCE_FLAGPOLE } from './la
 //    ("Src:" line + numbers in its comment). Dev viewer: game/dev/landmarks.html?id=<id>&view=street|top.
 // ============================================================================
 
-export const SEA_SCALE = 0.5;
 const P = {
     parliament: [[-87.04,69.54,-86.62,92.35,-100.75,108.58,-113.34,108.87,-112.7,136.61,-84.52,135.95,-84.69,126.6,-69.71,110.58,-14.09,109.67,-13.94,117.16,19.98,116.34,19.87,109.82,69.21,109.03,85.89,123.82,85.72,138.29,115.06,138.34,114.95,110.31,104.38,110.16,87.17,92.75,86.25,-0.7,84.82,-91.59,102.13,-110.31,113.52,-110.61,113.39,-138.25,86.21,-137.93,86.09,-123.3,64.78,-103.05,1.84,-102.21,-66.52,-102.01,-86.2,-122.11,-85.95,-135.31,-110.07,-135.6,-114.49,-135.66,-115.05,-106.56,-102.66,-106.61,-82.89,-85.66,-82.27,-33.18,-111.81,-32.67,-111.03,1,-110.4,30.86,-87.17,30.68],[-27.16,-54.69,-27.03,-30.13,-19.62,-29.82,-17.77,-29.03,-16.28,-27.36,-15.01,-23.69,13.62,-23.86,15,-28.3,16.44,-29.37,18.42,-30.16,23.88,-30.72,24.51,-62.9,21.59,-62.98,20.72,-57.26,19.4,-51.63,17.28,-46.58,13.07,-41.78,7.68,-38.69,-0.04,-37.22,-7.14,-37.99,-13.26,-41.14,-18.64,-46.03,-22.06,-51.3,-23.66,-55.74,-24.28,-61.36,-27.13,-61.3],[-36.42,72.76,-36.7,40.84,-28.24,40.62,-28.31,29.71,-21.6,29.43,-18.28,27.66,-15.28,24.67,13.67,24.02,15.8,26.19,17.72,27.95,20.35,28.91,25.21,28.94,25.39,39.15,33.12,38.98,33.66,72.96,25.65,73,25.62,65.62,16.21,65.65,15.93,52.67,13.89,49.39,9.45,48.47,-12.95,48.8,-17.3,50.67,-19.08,54.02,-19.01,66.29,-27.05,66.48,-26.94,72.49],[-60.46,83.47,39.02,82.75,37.94,-72.38,-19.53,-71.96,-19.49,-66.55,-29.13,-66.48,-28.85,-24.74,-62.03,-24.51,-62.46,-88.05,-37.02,-88.23,-37.07,-94.17,56.15,-94.81,56.19,-88.42,81.75,-88.59,81.91,-64.76,60.35,-64.61,61.32,81.29,82.2,81.16,82.37,105.25,-60.31,106.26],[39.46,60.44,66.23,60.23,66.08,41.62,60.44,41.66,59.91,-25.38,65.98,-25.43,65.82,-46.82,38.63,-46.62]], // OSM source rings, centimetre projection; see research/landmark-source-bucharest.json
     cathedral: [[-60.4,-16.36,-60.41,15.72,-51.02,15.71,-51.01,26.33,-48.02,29.28,-36.54,29.28,-33.31,26.24,-33.32,22.45,-12.52,22.4,-12.5,27.27,-10.93,29.27,4.42,29.25,5.43,30.85,6.91,32.63,8.65,33.98,10.36,34.84,12.84,35.44,15.8,35.39,15.86,35.38,18.75,34.44,21,32.92,22.53,31.25,22.95,30.6,23.8,29.24,39.37,29.24,41.62,26.31,41.57,18.09,44.89,17.78,48.1,16.89,52.33,14.66,55.56,11.8,57.96,8.47,59.8,3.9,60.42,-0.29,60.01,-4.83,58.24,-9.7,54.92,-14.22,54.08,-14.85,50.42,-17.58,45.59,-19.37,41.33,-19.84,41.28,-26.78,38.53,-29.71,23.47,-29.69,22.41,-31.49,20.51,-33.35,17.56,-34.89,14.27,-35.44,10.49,-34.73,8.03,-33.36,5.49,-31.15,4.15,-29.86,-9.41,-29.65,-12.28,-27.35,-12.29,-21.63,-33.77,-21.63,-33.78,-26.78,-36.47,-29.62,-48.77,-29.6,-51.06,-27.06,-51.01,-16.35]], // OSM source rings, centimetre projection; see research/landmark-source-bucharest.json
@@ -2338,8 +2336,7 @@ function bARO(b) {
 }
 
 // ===========================================================================
-//  SEATTLE / BELLEVUE — authored in real metres; the Builder squashes x/z by SEA_SCALE (0.5)
-//  so footprints match the half-scale world while heights stay real.
+//  SEATTLE / BELLEVUE — authored in real metres
 // ===========================================================================
 
 // Space Needle (1962) — 184 m (605 ft). The same sources and proportions as the walk-in model (spots/space-needle.js):
@@ -4106,8 +4103,8 @@ const A = {
 
 function L(id, city, name, osmNames, radius, fn, extra = {}) {
     const [lat, lon, rotation] = A[id];
-    // footprintRadius: legacy contract (Seattle halved, see SEA_SCALE); radiusM: the same radius in real metres (1:1 districts)
-    const lm = { id, city, name, lat, lon, rotation, osmNames, footprintRadius: city === 'seattle' ? radius * SEA_SCALE : radius, radiusM: radius,
+    // radiusM: the clearing radius in metres
+    const lm = { id, city, name, lat, lon, rotation, osmNames, radiusM: radius,
         ...(LANDMARK_SOURCE_IDS[id] ? { sourceIds: LANDMARK_SOURCE_IDS[id] } : {}), ...extra };
     Object.defineProperty(lm, '_fn', { value: fn, enumerable: false });
     lm.build = (ctx) => buildLandmark(lm, ctx);
@@ -4204,21 +4201,15 @@ export const LANDMARKS = [
 /**
  * Build one landmark.
  * @param lm  entry of LANDMARKS
- * @param ctx { THREE?, rng?, helpers?, backdropScale?, realScale? } — nothing is required; the module is self-contained.
- *            realScale: true builds Seattle models at 1:1 (district mode, spec 10). Without it (legacy corridor world)
- *            Seattle models stay squashed by SEA_SCALE on x/z — kept until the spec 22 cleanup.
- * @returns null for a `districtOnly` landmark in the legacy world (ctx.scale !== 1), else
- *          { mesh: THREE.Group (rotation applied, position at origin), clear: footprintRadius (legacy units) / clearM (real m),
- *            collision: [{x, z, hw, hd, angle}] relative to the anchor in world axes, triangles,
- *            authoredScale: x/z scale the model was built at (1, or SEA_SCALE for legacy Seattle) }
+ * @param ctx { THREE?, rng?, helpers?, backdropScale? } — nothing is required; the module is self-contained.
+ * @returns { mesh: THREE.Group (rotation applied, position at origin), clear / clearM: clearing radius (m),
+ *            collision: [{x, z, hw, hd, angle}] relative to the anchor in world axes, triangles, authoredScale: 1 }
  */
 export function buildLandmark(lm, ctx = {}) {
-    // road-aligned structures (Murrow arches) are anchored on the 1:1 district road graph: skip them in the legacy corridor world
-    if (lm.districtOnly && ctx.scale !== undefined && ctx.scale !== 1) return null;
-    const hs = lm.city === 'seattle' && !ctx.realScale ? SEA_SCALE : 1;
+    const hs = 1;
     const b = new Builder(hs);
     lm._fn(b, ctx);
-    const { group, tris } = b.finish({ floodlit: !!lm.floodlit && ctx.floodlit !== false && !(lm.city === 'seattle' && !ctx.realScale), masonry: !!lm.masonry });
+    const { group, tris } = b.finish({ floodlit: !!lm.floodlit && ctx.floodlit !== false, masonry: !!lm.masonry });
     group.name = 'landmark:' + lm.id;
     group.userData.landmark = lm.id;
     if (b.sourceMassAudit) group.userData.sourceMassAudit = b.sourceMassAudit;
@@ -4243,5 +4234,5 @@ export function buildLandmark(lm, ctx = {}) {
     const covers = lm.backdrop ? [] : b.covers.map(rot), grounds = lm.backdrop ? [] : b.grounds.map(g => g.map(rot)); // grounds: surfaces kept clear of trees
     const coverPolys = lm.backdrop ? [] : b.coverPolys.map(g => g.map(rot)); // polygons: every OSM building centred inside is the model's own
     const waterFootprints = lm.backdrop ? [] : (b.waterFootprints || []).map(a => ({ ...a, ring: a.ring.map(rot) }));
-    return { waterFootprints, mesh: group, clear: hs === 1 ? lm.radiusM : lm.footprintRadius, clearM: lm.radiusM, collision, triangles: tris, authoredScale: hs, fences, covers, grounds, coverPolys };
+    return { waterFootprints, mesh: group, clear: lm.radiusM, clearM: lm.radiusM, collision, triangles: tris, authoredScale: hs, fences, covers, grounds, coverPolys };
 }

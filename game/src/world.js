@@ -1,6 +1,7 @@
 import { fitFacadeSign, facadeSignBoard } from './facade-sign-layout.js';
 import { sourceWaterTreeConflicts } from './source-water-tree-conflicts.js';
 import { reviewedTreeExclusions } from './tree-reviews.js';
+import { emitOvalDormers } from './reviewed-dormers.js';
 import { emitStreetLevelWaterBridgeRailings, emitReviewedStreetBridgeRailings } from './water-bridge-railings.js';
 import { emitPedestrianBridges } from './pedestrian-bridges.js';
 import { trenchParapetRow, emitTrenchBalustrade } from './trench-parapets.js';
@@ -4331,8 +4332,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     // ---- street-level review rows by OSM id (round 2 fidelity pass; game/src/building-review.js): reviewed storeys / style / colour
-    const buildingReviewAudit = applyBuildingReview({ key: city.id + '-' + distId, bRecs });
-    // ---- height sanity (2026-11-07, world-visual): the data build gives every untagged large footprint outside the old
+    const buildingReviewAudit = applyBuildingReview({ key: city.id + '-' + distId, bRecs });    // ---- height sanity (2026-11-07, world-visual): the data build gives every untagged large footprint outside the old
     //      centre 8–10 storeys (23–30 m 'bloc'), so museums, villas and institutions on Kiseleff / Dorobanți became grey
     //      slabs. Buildings without building:levels whose height is exactly such a default are re-estimated here from
     //      their name and shape: real slab blocks (≤ 22 m wide, ≥ 30 m long) keep their storeys, compact or courtyard
@@ -6152,8 +6152,13 @@ export async function buildWorld(city, renderer, opts = {}) {
         // (after round 6) whole storeys: the wall holds an integer number of window rows, so the top row is never sliced
         // by the eaves / roof line. Church facades use the same atlas and need whole rows too.
         if (h - y0 > 2) { const n = Math.max(1, Math.round((h - y0) / floorH)); floorH = (h - y0) / n; }
-        const shop = (b.flags & 1) && b.minH <= 0 && h > 6 && !carPark && b.style !== 'church';
+        const shop = (b.flags & 1) && b.minH <= 0 && h > 6 && !carPark && b.style !== 'church' && !b.reviewedNoShopfront;
         if (shop && !b.shopFaces && distId) b.shopFaces = streetFacing(b, signedArea(b.ring) > 0); // (district worlds: shopfronts on the street faces only)
+        if (shop && b.shopFaces && b.shopFaceAt) { // (building-review row `shopFaceAt`: the reviewed shop opens on the face nearest its OSM node only; r3-look-12)
+            const p = city.proj(b.shopFaceAt[0], b.shopFaceAt[1]); let kBest = -1, dBest = Infinity;
+            for (let k = 0; k < b.ring.length; k++) { const a = b.ring[k], q = b.ring[(k + 1) % b.ring.length], dd = distPointSeg(p.x, p.z, a[0], a[1], q[0], q[1]).d; if (dd < dBest) { dBest = dd; kBest = k; } }
+            b.shopFaces = b.shopFaces.map((v, k) => !!v && k === kBest);
+        }
         const yShop = y0 + (b.gfh || 4.2); // (researched ground-floor height)
         const pitched = b.roof === 'gabled' || b.roof === 'pyramid';
         const wallTop = h;
@@ -6286,6 +6291,8 @@ export async function buildWorld(city, renderer, opts = {}) {
             else for (const [i, face] of sourceRoof.walls.entries()) {
                 mb.face4(...face, wallCol, sourceRoof.wallNormals[i]);
             }
+            if (b.dormers === 'oval') emitOvalDormers({ ring, eavesM: b.roofProfile.eavesM, heightAt: (x, z) => sourceRoof.heightAt(x, z), cols: { wall: wallCol, slate: pitchCol, glass: rgb('#2b3036') }, // (reviewed-dormers.js, building-review row `dormers`)
+                box: (x, y, z, w, hh, d, rot, col) => mb.box(x, y, z, w, hh, d, rot, col), ellipsoid: (x, y, z, rot, sx, sy, sz, col) => rmb.geo(props().sphere, x, y, z, rot, sx, sy, sz, col) });
             if (!surface && b.minH > 0) {
                 const underside = triangulate(ring, b.holes);
                 for (const tri of underside.tris) mb.face3(...tri.map(i => [underside.pts[i][0], b.minH, underside.pts[i][1]]), shadeRgb(wallCol, 0.75), [0, -1, 0]);

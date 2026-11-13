@@ -475,7 +475,8 @@ export class Player {
         // detail: backdrop / horizon / far LOD), and no shadow-map pass of its own (the main frame's maps are reused)
         const sm = renderer.shadowMap, au = sm.autoUpdate, nu = sm.needsUpdate; sm.autoUpdate = false; sm.needsUpdate = false;
         renderer.setRenderTarget(this.mirrorTarget);
-        renderer.render(scene, this.mirrorCam);
+        const lod = this.world?.vegetation?.mirrorLod; lod?.(true); // (r2-perf-5: low-poly near crowns in the mirror only, trees.js)
+        try { renderer.render(scene, this.mirrorCam); } finally { lod?.(false); }
         renderer.setRenderTarget(prev);
         sm.autoUpdate = au; sm.needsUpdate = nu;
         this.mirror.visible = shown && this.driveRigShown && this.mirrorEnabled && !this.lookBack;

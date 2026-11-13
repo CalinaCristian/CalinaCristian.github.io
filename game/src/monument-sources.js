@@ -42,7 +42,8 @@ export const MONUMENT_SOURCES = [
     {"id":"n1227925581","lat":44.4389812,"lon":26.0924193,"name":"Iosif Sava","form":"bust"},
     {"id":"n1393030628","lat":44.4388891,"lon":26.0974538,"name":"Memorialul Renașterii","form":"monument"},
     {"id":"n1393747894","lat":44.4456924,"lon":26.0928435,"name":"Ion C. Brătianu","form":"statue","material":"granite"},
-    {"id":"n1883108499","lat":44.4396493,"lon":26.0970075,"name":"Carol I","form":"statue","material":"bronze","heightM":13},
+    // (round 4) form from the node's own OSM tags: wikipedia=en:Equestrian statue of Carol I, artist_name=Florin Codre (2010)
+    {"id":"n1883108499","lat":44.4396493,"lon":26.0970075,"name":"Carol I","form":"equestrian","material":"bronze","heightM":13},
     {"id":"n1911337561","lat":44.4410689,"lon":26.0967794,"name":"Mihai Eminescu","form":"statue","material":"bronze"},
     {"id":"n2385317479","lat":44.4559637,"lon":26.0828964,"name":"Hakim Omar Khayyam","form":"statue"},
     {"id":"n2497032517","lat":44.4400159,"lon":26.0840984,"name":"General Alexandru Cernat","form":"bust","material":"bronze"},

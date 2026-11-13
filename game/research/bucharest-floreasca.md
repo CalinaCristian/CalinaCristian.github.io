@@ -754,3 +754,47 @@ Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
 - **Statue, Parcul Cinema Floreasca** (w1171561661, tourism=artwork, artwork_type=statue, 16 × 15 m outline): the nearest
   official panorama (44.461990, 26.105017 h 282) shows only park trees; the statue is not visible, form unknown, not modelled.
 - **Dinamo statue row** (n8013556514–18, n14180087101): no new panorama evidence (inside the grounds).
+
+## Backlog clearing (2026-11-13)
+
+- **Velodromul Dinamo** (backlog floreasca-2): live OSM tags, w37899329 `leisure=track`, `sport=cycling`, `surface=concrete`;
+  w362465818 `leisure=pitch`, `sport=rugby_league`. `game/src/sport-areas.js` dresses both by these tags: a banked concrete
+  track between the two mapped outlines and rugby league markings with H posts on the infield. Estimates (no panorama
+  reaches the grounds, so none of this is checked against the real track): flat apron 1.2 m, bank 12° on the straights
+  rising to 32° in the bends (UCI outdoor range), outer edge capped at 3.6 m above the infield, 1 m rail on top; try lines
+  100 m apart, in-goals fitted inside the capsule-shaped infield (dead-ball lines 56 m from the centre), field width 56 m
+  (limited by the outline, the standard is 68 m), posts 5.5 m apart, crossbar 3 m, uprights 10 m.
+- **Statues** (backlog floreasca-3, r2-landmarks-b-4): the Dinamo row (n8013556514–18 Atletul, Discobolul, Alergătorul,
+  Cătălin Hîldan, Ivan Patzaichin; n14180087101 Statuie poloist) and the Parcul Cinema Floreasca statue (w1171561661) stand
+  as generic objects of their OSM class (`monuments.js`: plinth and a plain figure). Estimate: form and size. No panorama
+  shows any of them (inside the Dinamo grounds; behind the park trees from 44.461990, 26.105017 h 282), so no likeness.
+- **Piața Floreasca / Agora** (w34832556, backlog r3-landmarks-1): the review row now carries the silver-grey colour
+  (#c5cacc) and a light reviewed glass colour renders as pale coated glass (less mirror, its own colour; world.js), so the
+  curtain wall reads light grey instead of dark blue. Estimate: the whole footprint is drawn at the reviewed 9 m. The real
+  single-storey Banul Antonache side with its parking bays is part of the same OSM building; OSM has no line between the
+  two parts and the panorama cannot be traced for one, so the footprint is not split.
+- **Sign boards** (backlog floreasca-11): the three fascias at Str. Ceaikovski 9 seen in the round 2 comparison now carry
+  their boards (`brand-review.js`): Roll Master and Burgerati black, Chocoloco beige (letter colours estimated; the striped
+  awning is not drawn). Estimate: every other unbranded business keeps the neutral dark slate board (#1f2937), because no
+  panorama review covers it and Wikidata has no colours for these names.
+- **Route `rosetti`, cockpit at (21.5, -144.3) / (23.9, -144.0), heading -1.72** (backlog r2-perf-7, visual QA
+  `road-sky-hole` 21 % at HEAD 94a177d5): rendered again from the real cockpit pose (car placed there, three physics steps,
+  the cockpit camera) on 2026-11-13: both frames show Str. Ceaikovski with the bus ahead, no pale surface at eye level and
+  no road plane across the dashboard. Not reproduced; closed.
+- **Mondayz Coffee and the disused units** (backlog floreasca-5). Estimates kept: Mondayz Coffee (n5053344722) is an OSM
+  point with no building within 16 m, so it has no wall to sign and is not drawn. The three units OSM marks disused
+  (n5053344622, n7038762287, n6968373504) keep no "DE ÎNCHIRIAT" board: OSM says only that the shop closed, and the one
+  panorama that reaches a disused point (the café at Calea Floreasca 70–72) shows no for-rent board.
+- **Calea Floreasca 43 and the unreviewed clusters** (backlog floreasca-10). Decision: n7038739416 keeps the vacant board,
+  because OSM (`disused:shop=motorcycle_repair`, edit 2025-04-22) is a later source than the May 2024 panorama with the
+  trading "Automecanica" shop. Not compared at street level (no panorama could be viewed in this pass): Banul Antonache 40–44
+  (Yoshi, CAU), Madison, Graffiti Hotel / My Maya, Komodo, Schnitzel King, Genin / Mumbai, Shop&Go, Hotel Johann Strauss;
+  their names, positions and signs are OSM's.
+- **Stadionul Dinamo pit** (backlog r2-landmarks-1). Estimate: the bowl is sunk 9 m (`DIN_DEPTH`, landmarks.js) from EU-DEM
+  (25 m cells) and two panoramas; OSM has no height or layer for the stands. The district ground is flat, so the pit has a rim
+  all round, although the real ground north and east of it is about as low as the pitch: no finer elevation source exists for
+  Bucharest in the toolset, so that slope is not modelled.
+- **Dinamo leftovers** (backlog r2-landmarks-b-6). OSM gap: w387467641 (`building=yes`, 44.45373, 26.10237) lies 60 m north of
+  the Ștefan cel Mare gate, so the unfinished concrete frame seen west of the gate lane has no footprint at its place and is not
+  drawn. Not seen on any panorama (inside the grounds), so drawn from the model's estimates or not at all: the boundary wall,
+  the scoreboard, the floodlight mast positions and the west-stand roof.

@@ -15,7 +15,8 @@
 //  (`pylon: { lat, lon }`: an estimate from the panorama bearing and apparent distance, ±10 m; the emitter puts the pylon
 //  on the nearest free ground there), or that none was seen (`pylon: 'none'`), and the panoramas it rests on.
 //  No price, fuel grade or shop name is drawn; a station that a panorama shows under another brand than OSM's keeps its
-//  OSM identity in the data, and its row records the documented exception (`seenBrand`).
+//  OSM identity in the data, and its row records the documented exception (`seenBrand`); its canopy, pylon, building name
+//  and map label (world.js) follow the row's `text`.
 // ============================================================================
 
 export const FUEL_LOOK = {
@@ -79,13 +80,18 @@ export const FUEL_STATION_REVIEW = {
             seen: 'white fascia with the orange band and the rompetrol logo, orange columns; slim white pylon beside the flag masts on the DN1 frontage',
             evidence: [P('S-NLftUc9aS5ox2xY6-tLA', 44.561153, 26.06884, 19), P('7DPejJPO8OrQJAdWxso_3A', 44.56146, 26.069094, 225)] },
         w244429098: { brand: 'OMV', seenBrand: 'mol', text: 'MOL', pylon: { lat: 44.5668, lon: 26.07006 },
-            seen: 'a MOL station: green fascia with white MOL letters, white columns, green MOL pylon at the south end by DN1. OSM still says brand=OMV (its own brand:wikipedia tag already reads en:MOL (company)): documented exception, drawn as seen; the POI keeps the OSM name',
+            seen: 'a MOL station: green fascia with white MOL letters, white columns, green MOL pylon at the south end by DN1. OSM still says brand=OMV (its own brand:wikipedia tag already reads en:MOL (company)): documented exception, drawn and labelled on the map as seen (r3-look-2); the data keeps the OSM brand',
             evidence: [P('NDGwi1S_sXzOjXEXu_Xs8w', 44.566864, 26.070119, 16), P('iNwZVPNKq8h9KgXzPzc8YA', 44.567234, 26.070075, 152)] },
     },
     'seattle-seatac': {
-        'poi:shell@47.450517,-122.295791': { brand: 'Shell', pylon: { lat: 47.450584, lon: -122.295732 },
-            seen: 'white canopies with a yellow / red fascia stripe over the pumps in front of the Food Mart (no canopy footprint in OSM: not drawn); slim white pylon with the Shell sign at the corner of International Blvd / S 170th',
-            evidence: [P('fmPpufJiQj3Z0heB49Z9MQ', 47.450512, -122.295971, 87)] },
+        // (r3-look-3) OSM maps the station as a node (n824050627) but its two canopies as untagged building=roof, layer=1 ways
+        // w647569414 / w647566814 (covered service ways under them, maxheight 13'0''); the pack already carries both as open canopies.
+        // canopies ties them to the node: pumps under each, the brand look on both, the pylon by the nearer one (w647569414)
+        'poi:shell@47.450517,-122.295791': { brand: 'Shell', pylon: { lat: 47.450584, lon: -122.295732 }, canopies: ['w647569414', 'w647566814'],
+            seen: 'white canopies with a yellow / red fascia stripe over the pumps in front of the Food Mart; slim white pylon with the Shell sign at the corner of International Blvd / S 170th',
+            evidence: [P('fmPpufJiQj3Z0heB49Z9MQ', 47.450512, -122.295971, 87), 'OSM w647569414 / w647566814 building=roof layer=1'] },
+        w647569414: { brand: 'Shell', pylon: { lat: 47.450584, lon: -122.295732 }, seen: 'Shell canopy by the pylon (see the station row above)', evidence: [P('fmPpufJiQj3Z0heB49Z9MQ', 47.450512, -122.295971, 87)] },
+        w647566814: { brand: 'Shell', pylon: 'none', seen: 'second Shell canopy, north-west of the first (see the station row above)', evidence: [P('fmPpufJiQj3Z0heB49Z9MQ', 47.450512, -122.295971, 87)] },
         w433205179: { brand: '76', pylon: 'none',
             seen: 'light grey fascia with a thin orange top line, kiosk under the canopy; no pylon on the International Blvd frontage (an older panorama shows a red fascia: rebranded since)',
             evidence: [P('bpGv_kTfou2TMftytaQqEQ', 47.451014, -122.295834, 98), P('MPSenMWz4D9YPpME0MO0DA', 47.450952, -122.295066, 275)] },

@@ -28,6 +28,7 @@ import { addTraffic } from '../cars.js';
 import { mappedTreeSizes, alleyHedges, poiSigns } from '../buc-streetscape.js';
 import { stoneWall } from './buc-walls.js';
 import { farCanopy } from './buc-green.js';
+import { osmBarriers } from '../buc-barriers.js';
 
 // The gates of the grounds' wall (OSM way 94522653, barrier=wall): its thirteen nodes tagged barrier=gate, [node id, lat, lon]
 // (live OSM, 2026-11-12). Gate width and build are not mapped.
@@ -544,6 +545,8 @@ export default {
         ctx.challenge('peoples-salvation-cathedral', { view: [C?.x ?? -654, C?.z ?? 158], x: -731, z: 165, heading: 85, pitch: 28, r: 6, tol: 28, text: 'From the mapped west forecourt, outside the church inner ring and the western source building, looking toward the main portal and bell tower.' });
         // crowd
         const cl = SQ.clock, cat = C || { x: -654, z: 158, PY: 14 };
+        // (round 4) the mapped walls, fences and hedges this scene does not draw itself (buc-barriers.js)
+        osmBarriers(ctx, { skip: ['w94522653', 'w178307163'] });
         ctx.crowdCfg = {
             spots: ['palace-parliament', 'peoples-salvation-cathedral'],
             personas: { tourist_uk: 2, tourist_de: 2, tourist_us: 1.5, tourist_bg: 1.5, local_young: 3, local_elder: 2, local_parent: 1.5, kid: 0.8 },

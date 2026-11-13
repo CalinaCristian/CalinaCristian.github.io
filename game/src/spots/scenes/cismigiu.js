@@ -15,6 +15,7 @@ import { shortWaterRoute, dryLanding } from '../water-route.js';
 import { backgammonGame } from '../backgammon-game.js';
 import { addBikeRental } from '../bike.js';
 import { bust, standingFigure } from '../buc-streetscape.js';
+import { osmBarriers } from '../buc-barriers.js';
 
 // Signed distance to a ring (m; > 0 outside, < 0 inside), sampled on a grid round it and read back bilinearly. Beyond the
 // grid, `far` (positive: outside). Rows use a scanline for inside/outside.
@@ -341,6 +342,8 @@ export default {
         { const seen = new Set(); ctx.onUpdate((dt, s) => { const p = s.position; if (Math.hypot(p.x - rot.x, p.z - rot.z) > rotR + 6 || seen.size >= 12) return; rotBusts.forEach(({ name: nm, x: bx, z: bz }) => { const k = 1 - 1.5 / rotR; if (Math.hypot(p.x - (rot.x + (bx - rot.x) * k), p.z - (rot.z + (bz - rot.z) * k)) < 1.9 && !seen.has(nm)) { seen.add(nm); if (seen.size === 12) bucActivity(s, 'cismigiu', 'rotunda', '📖 Twelve writers', 'You stood before every bust in the Rotunda — Eminescu to Iosif.'); } }); }); }
         ctx.challenge('cismigiu', { x: ctx.extras.shore.x, z: ctx.extras.shore.z, r: 12, tol: 30 });
         // crowd
+        // (round 4) the mapped walls, fences and hedges this scene does not draw itself (buc-barriers.js)
+        osmBarriers(ctx, { skip: ['w1478446281', 'w1478446287', 'w1478446288'] });
         ctx.crowdCfg = {
             personas: { local_elder: 3.5, local_young: 3, local_parent: 2, kid: 1.4, tourist_fr: 1, tourist_it: 1 },
             walkers: 40, paths: ctx.footLines(),

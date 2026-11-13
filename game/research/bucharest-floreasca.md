@@ -773,3 +773,11 @@ Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
   curtain wall reads light grey instead of dark blue. Estimate: the whole footprint is drawn at the reviewed 9 m. The real
   single-storey Banul Antonache side with its parking bays is part of the same OSM building; OSM has no line between the
   two parts and the panorama cannot be traced for one, so the footprint is not split.
+- **Sign boards** (backlog floreasca-11): the three fascias at Str. Ceaikovski 9 seen in the round 2 comparison now carry
+  their boards (`brand-review.js`): Roll Master and Burgerati black, Chocoloco beige (letter colours estimated; the striped
+  awning is not drawn). Estimate: every other unbranded business keeps the neutral dark slate board (#1f2937), because no
+  panorama review covers it and Wikidata has no colours for these names.
+- **Route `rosetti`, cockpit at (21.5, -144.3) / (23.9, -144.0), heading -1.72** (backlog r2-perf-7, visual QA
+  `road-sky-hole` 21 % at HEAD 94a177d5): rendered again from the real cockpit pose (car placed there, three physics steps,
+  the cockpit camera) on 2026-11-13: both frames show Str. Ceaikovski with the bus ahead, no pale surface at eye level and
+  no road plane across the dashboard. Not reproduced; closed.

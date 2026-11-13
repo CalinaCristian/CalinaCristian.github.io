@@ -78,6 +78,7 @@ import { emitWeirs } from './weirs.js';
 import { dropMedianLinkSidewalks } from './sidewalk-overlap.js';
 import { emitBellevueGuideway } from './bellevue-guideway.js';
 import { emitSeatacGuideway } from './seatac-guideway.js';
+import { garageDeckRoads } from './garage-decks.js';
 import { buildElevatedSources, planElevatedSources } from './elevated-sources.js';
 import { openRuns, weldEnds } from './deck-outline.js';
 import { applyBuildingReview } from './building-review.js';
@@ -734,7 +735,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         };
     });
     const unnamed = US ? '' : '';
+    const garageDecks = distId ? garageDeckRoads(data) : new Map(); // (h-seatac-garage: car-park deck aisles, garage-decks.js)
     for (const rd of roads) {
+        if (garageDecks.has(rd.index)) continue;
         for (let i = 0; i < rd.ids.length - 1; i++) {
             const a = nodeArr[rd.ids[i]], b = nodeArr[rd.ids[i + 1]];
             if (a === b) continue;

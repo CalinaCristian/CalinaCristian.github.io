@@ -221,3 +221,12 @@ outline w1035290130, 47.444099, -122.293207 h330): a low white enclosed corridor
   is an estimate), beige.
 - **SureStay** (w314940622): the only official panorama in reach (47.446223, -122.294333) is old (Clarion signage) and stands
   against the wall; at least three storeys behind a one-storey front. The 9 m default is kept.
+
+## 17. Backlog clearance (2026-11-13)
+
+- **Garage deck aisles** (h-seatac-garage): OSM maps the Port garage's aisles (rel 15763840, `parking=multi-storey`, 7 levels) as
+  `highway=service` ways on `layer=2` (parking aisles w344201644-55, w430427477, w430442190, w722071151-60, w1444470941, ramp
+  w521034679) and `layer=1` `tunnel=building_passage` `level=3` drives. Not bridges, so they were drawn and routable on the ground
+  through the garage posts and the terminal model. A way on layer >= 1 lying wholly inside a multi-storey car park is now taken as one
+  of its internal decks (`game/src/garage-decks.js`): not drawn, not routable. The ground-level entry ways (layer 0, tunnels) stay as
+  mapped; with no mapped exit at ground level they are no longer part of the routable network.

@@ -396,17 +396,38 @@ the west end down to Elliott Bay. Spawn 47.60166, −122.3342 heading 20° (1st 
   (96BnTtZETD_9PxJd3_oy9w @ 250 / 300); Water Taxi terminal (w226321140, 1 level). Panoramas fYcy5IxBB8nxBtlHlp0w6w,
   icoHFzEOnBuL9Tmg_QeZUw: concrete roadways, white zebras, grey mast-arm signals, young street trees, grass beds. The fine
   (2 m) terrain reaches x = −336; west of it 8 m steps.
+- Fronts behind the walk area (`scenes/pioneer-square-backfronts.js`, `FRONTS_OSM`; no panorama recorded): the mapped
+  fronts on 2nd Ave, Yesler Way east of Occidental and S Washington St east in the same facade system, from OSM tags
+  (live API 2026-11-13): storeys, `building:colour` #85552e and `building:architecture=neo-romanesque` on the S Washington
+  St pair (w226321135, w439990240, 1890), start dates 1890–1928 (Collins Building w226321732 1894, Florence Building
+  w910445794 1900, Monterey Lofts w226323029 1909, Chin Gee Hee Building w226323030 1890, Apex Building w439990263 1928,
+  Frye Apartments w226323020 1908, w226321144 1893, McCoy's Firehouse BBQ w226321143, w439990242, w439990247).
+- Smith Tower's storefront base: a two-storey granite facing with storefront and mezzanine glazing on every street face
+  of the mapped footprint, a pale terracotta cornice band over it, the entrance canopy with SMITH TOWER on the face
+  nearest 2nd Ave (its address street). Merchant's Cafe and Saloon (w52782171, 109 Yesler Way): its own name board,
+  MERCHANT'S CAFE & SALOON in gold on the storefront's dark green over the Yesler Way front (the generic shop sign is
+  dropped for it).
+- Colman Dock (`scenes/pioneer-square-colman.js`, live OSM 2026-11-13): the Water Taxi / Fast Ferries Terminal on its
+  outline (w226321140, 1 level) as the "low grey shed" with a glazed waiting room, a flat roof overhanging as a canopy
+  and its name; the 2-level block at the end of its pier (w736858270) with the two flights up to it (w736858271,
+  w736858273); the WSF slip-approach canopy (w1251064470, metal shelter roof, layer 3) on posts; the WSF stairs
+  (w1194539050, w1436091947); the four ferry slips (`mooring=ferry`: w389138743, w448857944, w448857945, w1241786940) as
+  steel aprons on piles with a pair of white transfer-span towers where each outline widens; the Waterfront Trail's
+  mapped benches (n14145559226 … 39) and lamps (n14005374592, n14005381663, n14005403057, n14005408300, n14145559225).
+  The fine terrain now reaches x = −440 (the slips and Pier 48's west end are off the 8 m outer steps).
 - Businesses: live OSM 2026-11-12 adds Sam Day Studio & Gallery, Cookie's Country Chicken, Good Bar; mapped closed and not
   signed: Woven Art (n2351695509), Luigi's (n2351695585), The Underground Gallery (n2351695606), Revolution Books
   (n2351695730), Flame Catering Cafe (n2351700811), Tobacco Patch (n2354406522), Comedy Underground (n4626879391).
 
 **Estimates**: bay widths, opening sizes, floor heights, colours and window frames of the 25 fronts; Pioneer Building tower
 width, depths, oriel sizes; vault-light strip extent (1.2 m panels of 4 × 4 prisms); Occidental Square's trees (generated);
-playground pieces.
+playground pieces. Behind the walk area: every wall colour without `building:colour`, arch patterns, bases, cornices and
+storefront colours of the 12 OSM-only fronts. Smith Tower base: 7.6 m granite band, ≈ 4.2 m bays, glazing sizes, the
+canopy (5.2 × 1.6 m at 4.1 m) and its bronze; Merchant's Cafe board 7.5 × 0.85 m at 4.15 m and its lettering. Colman Dock:
+shed 4.6 m with 1.2 m roof overhang, glazed band, the 2-level block 7.2 m, flight rises (2.4 m, 4.2 m), canopy at 10.5 m
+on posts every ≈ 8 m, apron thickness, piles, towers 9 m; colours. Pier 48: no `surface` tag — plain concrete paint.
 
-**Open (needs a panorama look)**: fronts behind the walk area (2nd Ave, Yesler east of Occidental, S Washington St east),
-Smith Tower's storefront base and crown colours, Merchant's Cafe's own sign board; the Water Taxi terminal's look, the
-ferry slips and Pier 48 surface, the terminal's roof canopy and stairs, the seawall promenade dressing.
+**Open (needs a panorama look)**: Smith Tower's crown colours.
 
 ### The totem pole (n3211770116)
 

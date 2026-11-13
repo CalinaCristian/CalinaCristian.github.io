@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { FRONTS, OCC_CANOPY } from '../src/spots/scenes/pioneer-square-fronts.js';
 import { WESTEND } from '../src/spots/scenes/pioneer-square-westend-data.js';
+import { FRONTS_OSM } from '../src/spots/scenes/pioneer-square-backfronts.js';
 
 const data = JSON.parse(readFileSync(new URL('../data/spots/pioneer-square.json', import.meta.url), 'utf8'));
 const byId = new Map(data.buildings.map((b) => [b.id, b]));
@@ -17,6 +18,14 @@ test('every front is a mapped building of the spot extract, with its panorama re
         else assert.match(F.wall || '', /^#[0-9a-f]{6}$/i, `${id}: a wall colour`);
     }
     assert.ok(byId.get(OCC_CANOPY), 'the Occidental Square canopy is a mapped way');
+});
+
+test('the OSM-only fronts behind the walk area are mapped buildings, not panorama fronts, and defer to building:colour', () => {
+    for (const [id, F] of Object.entries(FRONTS_OSM)) {
+        const b = byId.get(id); assert.ok(b, `${id} (${F.name}) is not in pioneer-square.json`);
+        assert.ok(!b.part, `${id} is a building:part`); assert.ok(!FRONTS[id], `${id} is also a panorama front`);
+        if (b.c) assert.equal(F.osmColour, true, `${id} has building:colour ${b.c}`); else assert.match(F.wall || '', /^#[0-9a-f]{6}$/i);
+    }
 });
 
 test('the west-end snapshot holds only features the spot extract does not already carry', () => {

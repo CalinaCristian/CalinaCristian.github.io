@@ -92,10 +92,19 @@ export function buildRailRoadsideClearance(grades, envelope) {
     const apply = (mesh, start, e) => {
         const s = states.get(e); if (!s?.mode || !s.cuts.length || start === mesh.ic) return;
         const indices = Array.from(mesh.i.subarray(start, mesh.ic)), result = [];
-        const vertex = i => [...mesh.p.subarray(i * 3, i * 3 + 3), ...mesh.n.subarray(i * 3, i * 3 + 3), ...mesh.u.subarray(i * 2, i * 2 + 2), ...mesh.c.subarray(i * 3, i * 3 + 3), mesh.t?.[i] ?? -1];
+        const vertex = i => { const p = mesh.p, n = mesh.n, u = mesh.u, c = mesh.c, i3 = i * 3, i2 = i * 2; return [p[i3], p[i3 + 1], p[i3 + 2], n[i3], n[i3 + 1], n[i3 + 2], u[i2], u[i2 + 1], c[i3], c[i3 + 1], c[i3 + 2], mesh.t?.[i] ?? -1]; };
+        // (spec 10 load budget) a triangle whose plan bounds stay 1 mm clear of every cut's bounds has no part inside a cut
+        // (each cut is a convex polygon: fragments returns the triangle unchanged), so it is kept without building it
+        const P = mesh.p, clear = (a, b, c) => {
+            const x0 = Math.min(P[a * 3], P[b * 3], P[c * 3]), x1 = Math.max(P[a * 3], P[b * 3], P[c * 3]), z0 = Math.min(P[a * 3 + 2], P[b * 3 + 2], P[c * 3 + 2]), z1 = Math.max(P[a * 3 + 2], P[b * 3 + 2], P[c * 3 + 2]);
+            for (const cut of s.cuts) if (!(x0 > cut.x1 + 1e-3 || x1 < cut.x0 - 1e-3 || z0 > cut.z1 + 1e-3 || z1 < cut.z0 - 1e-3)) return false;
+            return true;
+        };
         let changed = false;
         for (let i = 0; i < indices.length; i += 3) {
-            const ids = indices.slice(i, i + 3), tri = ids.map(vertex), fs = fragments(tri, e, null, true);
+            const ids = indices.slice(i, i + 3);
+            if (clear(ids[0], ids[1], ids[2])) { result.push({ ids }); continue; }
+            const tri = ids.map(vertex), fs = fragments(tri, e, null, true);
             if (fs.length === 1 && fs[0] === tri) result.push({ ids });
             else { changed = true; result.push(...fs.map(poly => ({ poly }))); }
         }

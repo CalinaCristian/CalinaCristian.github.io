@@ -1189,6 +1189,22 @@ class Game {
     }
 
     // ---------------------------------------------------------------------------------- fuel
+    /** (h-stations, 2026-11-13) the map offers a station only when a route reaches it from where the player is. A
+     *  district map can hold a station in a pocket of one-way carriageways fed only from outside the map: Pipera's three
+     *  on Șos. Pipera westbound (entered from the map ends on Șos. Pipera and Barbu Văcărescu), Otopeni's Rompetrol on
+     *  Str. Nicolae Grigorescu (entered from DN1 northbound at the south map end). Real OSM ways, no join invented. */
+    stationOffered(s, from = null) {
+        const P = from || (this.state === 'foot' && this.foot?.active ? this.foot : this.player);
+        if (!this.nav || !P) return true;
+        const key = `${this.district}|${this.nav.walking ? 'w' : 'd'}|${Math.round(P.x / 25)}|${Math.round(P.z / 25)}|${Math.round(s.x)}|${Math.round(s.z)}`;
+        const memo = this._stationRoute || (this._stationRoute = new Map());
+        if (!memo.has(key)) {
+            if (memo.size > 200) memo.clear();
+            let r = null; try { r = this.nav.compute(P.x, P.z, s.x, s.z, P.heading ?? null, P.surfY ?? P.y ?? null); } catch { r = null; }
+            memo.set(key, !!r);
+        }
+        return memo.get(key);
+    }
     nearestStation(x, z) { let best = null, bd = Infinity; for (const s of this.stations) { const d = Math.hypot(s.x - x, s.z - z); if (d < bd) { bd = d; best = s; } } return best ? { st: best, d: bd } : null; }
     updateFuelStops(dt, v) {
         if (!this.stations?.length) return null;
@@ -1489,7 +1505,7 @@ class Game {
         if (n && n.poiRef) add('Next objective', n.icon, `Next: ${n.short}`, n.poiRef.doorX ?? n.poiRef.x, n.poiRef.doorZ ?? n.poiRef.z);
         for (const s of this.stops) if (s.poiRef && s !== n) add('Offices', s.icon, `${s.short}${this.visited.has(s.id) ? ' ✓' : ''}`, s.poiRef.doorX ?? s.poiRef.x, s.poiRef.doorZ ?? s.poiRef.z, 'cv');
         if (this.airport) add('Travel', '✈️', AIRPORTS[this.city.id].name, this.airport.doorX ?? this.airport.x, this.airport.doorZ ?? this.airport.z);
-        const st = [...this.stations].sort((a, b) => Math.hypot(a.x - p.x, a.z - p.z) - Math.hypot(b.x - p.x, b.z - p.z)).slice(0, 6);
+        const st = [...this.stations].sort((a, b) => Math.hypot(a.x - p.x, a.z - p.z) - Math.hypot(b.x - p.x, b.z - p.z)).filter(s => this.stationOffered(s)).slice(0, 6);
         for (const s of st) add('Gas stations', '⛽', `${s.brand} · ${this.city.units === 'mph' ? '$' + s.price.toFixed(2) + '/gal' : s.price.toFixed(2) + ' RON/L'}`, s.x, s.z, 'fuel');
         if (this.places?.length) {
             // every reachable place of the district by category (world-data places.json): nearest first, long lists capped

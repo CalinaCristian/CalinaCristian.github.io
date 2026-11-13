@@ -166,7 +166,7 @@ and the kept ones in `viewpoints-add.json`.
 | seagarage | 47.4423, -122.3005 h 41 | partial: round columns with red bands in reality, square posts in the model (open) |
 | sealink | 47.4446, -122.2971 h 249 | match (elevated guideway, truss canopy) |
 
-Statues not modelled: SeaTac artwork n8604417196 statue (the nearest panoramas show trees / a car park, nothing recognisable).
+Statues: SeaTac artwork n8604417196 (`tourism=artwork`, `artwork_type=statue`, no name) is drawn as the generic statue class (plinth and plain figure, monuments.js; no likeness: the nearest panoramas show trees / a car park, nothing recognisable).
 
 ## 12. Round 2 (2026-11-12), lane world
 

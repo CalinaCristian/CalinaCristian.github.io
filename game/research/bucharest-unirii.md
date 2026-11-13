@@ -965,3 +965,28 @@ Official panoramas only (ids cited; no imagery stored). Runtime modules named in
 - **Piața Unirii lamps**: 16 OSM `highway=street_lamp` nodes in the square (no style tags) are drawn as the generic lamp; the
   candelabra form needs a second lamp instance set in the lamp renderer (not done). Advertising column w1176142649 is an OSM building
   (height 4, onion roof, #1d3b35), drawn by the pack's building path.
+
+## Backlog close-out, cross-district lane (2026-11-13)
+
+What the rows r3-builder-1 / -2 / -3 / -4, r2-world-monuments and r3-look-1 recorded for Unirii, kept here once the rows were
+closed (each was either fixed or is an estimate no available source settles).
+
+- **Fountain basins** appended by `tools/osm/add-areas.mjs`: w413969309, w1474406316, w586376877, w1459195391, w1459195396 and
+  the Colțea basins keep the generic 0.45 m light-stone coping with full water. That coping is an estimate; no official panorama
+  shows these basins (the Colțea ones are not visible from the street pano i2dCK2VAtXOYKj-5Wy-EHA). w608657873 is still mapped
+  as `amenity=fountain` in OSM but is a planted bed in pano m4ZygVZxXJZodU3nvvedUg: it stays excluded (`add-areas.mjs
+  --exclude`). Correcting the OSM object is a mapper's edit, not made from this repo.
+- **Stop at Piața Sf. Gheorghe** (node/5810960053, appended stop, no shelter metadata): pano 6pmwrKMHq2FbxifltMYaqw shows a stop
+  pole only. world.js `STOP_POLE_ONLY` draws the pole and its sign without the inferred shelter (documented look exception).
+- **Sign side by address** (`fix-pois.mjs --street`, all districts): the ~260 moves to the face on the POI's own `addr:street`
+  are not applied. A postal address names a street, not the face a sign hangs on: the sample moved Unirea Shopping Center's
+  interior KFC / Mega Image 57 m onto the Piața Unirii facade. Only `entrance`-node anchors are applied. Sheraton's Alpha Bank
+  (Romană; no entrance node, no own address) stays one bay off for the same reason.
+- **Ambiguous POI links** (`fix-pois.mjs` `linksAmbiguous`, 18 rows over the districts): a node POI with two footprints within
+  2.5 m of each other stays at its own OSM point, unlinked; OSM does not say which building it belongs to.
+- **Monuments**: Lupoaica (n1731041124) and Leul Ierusalimului (n7350336938) now have low-poly subject forms (the she-wolf with
+  the twins on a tall pedestal; a standing lion with a mane block; `monuments.js` `MONUMENT_SUBJECT`), still not likenesses.
+  Mihail Cantacuzino n916016099 and Domnița Bălașa n921821381 fall inside a building footprint, Dimitar Hadjvasilev n6945692385
+  and Bustul lui Barbu Constantinescu n10726686133 on a carriageway: reported, never moved (`monuments-review.json`).
+- **Fuel**: MOL's four pump islands are the generic model (not counted); OMV's curved shop canopy is not modelled
+  (`fuel-stations-review.json` `remainingEstimates`).

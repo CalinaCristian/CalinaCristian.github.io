@@ -34,6 +34,8 @@ export const BUILDING_REVIEW = {
         w303678262: { style: 'interwar', colour: '#F1F0EC', note: 'Vienna House Easy: white six-storey hotel slab (drawn as a blue apartment block)' },
         w303678255: { style: 'house', colour: '#F0EDE4', roofColour: '#4A3B32', note: 'Casa Românească hotel: white walls with dark timber framing, dark shingle roof (drawn as a grey block)' },
         w495066823: { style: 'house', colour: '#F0EDE4', roofColour: '#4A3B32', note: 'Casa Românească restaurant: same white and dark timber house' },
+        // (r3-builder-5, 2026-11-13) official panorama XiEkrn45SiO9mH88qzVfbA
+        w303678268: { h: 11.5, levels: 3, style: 'interwar', colour: '#B23A33', note: 'Maxigel (DN1): red-panel showroom of about three storeys with a curved glazed corner (drawn as a 17.7 m five-storey block from a re-estimate; the curved glass corner is not modelled)' },
     },
     'bucharest-romana': {
         w162494340: { colour: '#EDE9DF', note: 'Hotel Lido (Bd. Magheru): cream-white interwar hotel front (drawn saturated blue from a default hotel colour)' },
@@ -43,6 +45,8 @@ export const BUILDING_REVIEW = {
         // (round 3, 2026-11-13) official panoramas 44.448503, 26.093125 heading 275 and 44.450278, 26.087635 heading 262
         w79139872: { h: 13, levels: 3, style: 'eclectic', colour: '#EFE7D6', note: 'Observatorul Urseanu (Bd. Lascăr Catargiu 21): cream three-storey villa with rounded corner bays and iron balconies (drawn as a 6.4 m two-storey box); the round east tower w1220336122 and its dome are the landmark urseanudome' },
         w131269864: { style: 'eclectic', colour: '#E8DCC4', roofColour: '#4B5057', note: 'Casa Filipescu-Cesianu (Calea Victoriei 151): cream two-storey eclectic palace under a dark slate mansard with oval dormers (OSM roof:shape=quadruple_saltbox and building:levels=2 kept; drawn plain with a light roof)' },
+        // (r3-builder-5, 2026-11-13) official panorama 0IR_4oFjbwg7c8euMfNEkw; OSM building=retail, building:levels=8 and height kept
+        w171045151: { style: 'interwar', colour: '#CBBFA8', note: 'Hotel Minerva: plastered grey-beige block with white window surrounds (drawn as a glazed shop block, default colour #5e7f8c)' },
     },
     // (round 3, 2026-11-13) official panoramas on Calea Floreasca: 44.460443, 26.101023 h 240; 44.461341, 26.101235 h 262;
     // 44.462811, 26.101521 h 265; 44.454184, 26.100804 h 40

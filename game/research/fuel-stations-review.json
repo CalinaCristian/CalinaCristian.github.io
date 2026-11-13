@@ -349,5 +349,13 @@
  "notInPacks": {
   "bucharest-floreasca": "GPL Mol Barbu Văcărescu n2437148866 is the LPG point of the MOL station (no pylon of its own)",
   "bucharest-pipera": "GPL Lukoil Aviației: LPG point beside Lukoil w547396767"
+ },
+ "remainingEstimates": {
+  "recorded": "2026-11-13 (backlog r3-look-1 closed into this file)",
+  "pumpIslands": "Pump-island count and positions are the generic model at every station (e.g. Pipera Petrom shows about four islands, two are drawn; Unirii MOL four drawn, not counted): the islands are not mapped in OSM and a panorama gives no plan.",
+  "pylons": "Reviewed pylon places are estimates from the panorama bearing and apparent distance (±10 m).",
+  "shops": "Shop fronts / kiosks under the canopies (Pipera Petrom, Grozăvești Petrom, Unirii OMV curved shop canopy) are not modelled: no OSM outline of their own.",
+  "soffits": "Canopy soffits render dark tan in shade although white in every panorama: lighting of downward faces, not their colour (#eeeeea).",
+  "flagMasts": "Flag masts at Otopeni Gazprom / Rompetrol are not drawn: no OSM object."
  }
 }

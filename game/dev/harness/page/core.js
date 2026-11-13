@@ -11,6 +11,8 @@ import {
 } from './util.js';
 
 const SEV_ORDER = { high: 0, medium: 1, low: 2 };
+// a red-light queue (the leader waits at red, or queues behind one that does) counts as waiting, not blocked, this long
+const RED_QUEUE_S = 60;
 // issue types whose screenshot rarely helps (remote / transient): never spend a software-GL frame on them
 const NO_SHOT = new Set(['vehicle-overlap', 'vehicle-overlap-ghost', 'ped-in-vehicle', 'vehicle-off-road', 'ped-on-carriageway']);
 
@@ -368,13 +370,14 @@ export class Harness {
         // stop at the target
         if (ap.o.stop) vt = Math.min(vt, Math.sqrt(2 * 2.5 * Math.max(0, remaining - ap.o.arriveR * 0.4)) + 0.6);
         // red lights at the end of the current leg
+        ap.atRed = false;
         if (ap.o.obeyLights && leg) {
             const node = leg.dir > 0 ? leg.e.b : leg.e.a;
             const dn = path.cum[Math.min(bi + 1, path.cum.length - 1)] - bs;
             if (node.hasLight && dn < 45 && dn > 0) {
                 let st = 'green'; try { st = g.traffic.lightState(node, leg.e); } catch { /* ignore */ }
                 const stopAt = dn - (node.radius ?? 6) - 2.5;
-                if (st === 'red' || (st === 'yellow' && stopAt > av * 0.8)) { if (stopAt > -1) vt = Math.min(vt, Math.sqrt(2 * 3.5 * Math.max(0, stopAt))); }
+                if (st === 'red' || (st === 'yellow' && stopAt > av * 0.8)) { if (stopAt > -1) { vt = Math.min(vt, Math.sqrt(2 * 3.5 * Math.max(0, stopAt))); ap.atRed = true; } }
             }
         }
         // obstacles on the path (vehicles, pedestrians)
@@ -395,9 +398,17 @@ export class Harness {
         // ---------- stuck handling
         const wantsGo = vt > 2 || (obs.info?.id != null && plannedVt > 2);
         if (wantsGo && av < 0.5) {
-            if (obs.gap < 9) { ap.waitT += dt; ap.stallT = 0; }
+            // (h-sim, 2026-11-13) queued behind a car that waits at a red light (the game's own redQ: its queue is not stuck)
+            // is legal waiting for up to RED_QUEUE_S (about one five-phase cycle at Piața Romană), not a blockage
+            const redQueue = obs.gap < 9 && obs.info?.redQ && (ap.redQT = (ap.redQT || 0) + dt) < RED_QUEUE_S;
+            if (redQueue) { ap.stallT = 0; ap.lastProgressT += dt; }
+            else if (obs.gap < 9) { ap.waitT += dt; ap.stallT = 0; }
             else { ap.stallT += dt; }
-        } else { ap.waitT = Math.max(0, ap.waitT - dt * 2); ap.stallT = Math.max(0, ap.stallT - dt); }
+        } else {
+            ap.waitT = Math.max(0, ap.waitT - dt * 2); ap.stallT = Math.max(0, ap.stallT - dt); if (av > 2) ap.redQT = 0;
+            // (h-sim) stopped at its own red light: legal waiting, not "no progress" (up to RED_QUEUE_S)
+            if (ap.atRed && av < 0.5 && (ap.redQT = (ap.redQT || 0) + dt) < RED_QUEUE_S) ap.lastProgressT += dt;
+        }
         // pinned (pushing into something that throws the car back: the speedo never reads 0): no displacement for 3 s
         if (!ap.anchor || Math.hypot(P.x - ap.anchor.x, P.z - ap.anchor.z) > 1.5 || !wantsGo || obs.gap < 9) ap.anchor = { x: P.x, z: P.z, t: this.scT };
         else if (this.scT - ap.anchor.t > 3) { ap.stallT = Math.max(ap.stallT, 2.3); ap.anchor = { x: P.x, z: P.z, t: this.scT }; }
@@ -510,9 +521,9 @@ export class Harness {
             if ((!py.known || !vy.known) && Math.abs((v.y ?? .24) - (P.y ?? .24)) > 3) continue;
             const fx = Number.isFinite(v.heading) ? -Math.sin(v.heading) : v.fx, fz = Number.isFinite(v.heading) ? -Math.cos(v.heading) : v.fz;
             const along = fx * P.fx + fz * P.fz;
-            test(v.x, v.z, fx, fz, v.width / 2, v.length / 2, v.speed * along, v.parked ? 'parked car' : (v.kind || 'car'), { id: v.id, kind: v.kind, parked: !!v.parked, speed: r1(v.speed) });
+            test(v.x, v.z, fx, fz, v.width / 2, v.length / 2, v.speed * along, v.parked ? 'parked car' : (v.kind || 'car'), { id: v.id, kind: v.kind, parked: !!v.parked, speed: r1(v.speed), redQ: !!(v.waitRed || v.redQ) });
             const currentBodyGap = bodyGap(v, fx, fz);
-            if (currentBodyGap < gap) { gap = currentBodyGap; speed = v.speed * along; what = v.parked ? 'parked car' : (v.kind || 'car'); info = { id: v.id, kind: v.kind, parked: !!v.parked, speed: r1(v.speed), bodyCorridor: true, playerYSource: py.source, vehicleYSource: vy.source }; }
+            if (currentBodyGap < gap) { gap = currentBodyGap; speed = v.speed * along; what = v.parked ? 'parked car' : (v.kind || 'car'); info = { id: v.id, kind: v.kind, parked: !!v.parked, speed: r1(v.speed), redQ: !!(v.waitRed || v.redQ), bodyCorridor: true, playerYSource: py.source, vehicleYSource: vy.source }; }
         }
         for (const p of (T.nearPeds && !this.ap.ignorePeds) ? T.nearPeds(P.x + P.fx * 15, P.z + P.fz * 15, 22) : []) if (p.state !== 'down') test(p.x, p.z, 1, 0, 0.4, 0, 0, 'pedestrian', null);
         return { gap, speed, what, info };

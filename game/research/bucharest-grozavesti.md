@@ -602,3 +602,17 @@ Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
   h 256: low glazed pavilion, grey metal frames, shallow white roof, blue Metrorex "M" on the east front. New landmark
   `grozmetro`: 10 × 5 m pavilion 3 m west of the door node (footprint, heights, position: estimates), 368 triangles. The
   east entrance n2479115705 and the OSM roof w905217305 beside it were not looked at.
+
+## Backlog close-out, cross-district lane (2026-11-13)
+
+- **Fountain basins** w1454825579 and w1279629948 (add-areas.mjs): no official panorama within 50 m; generic coping and full
+  water are estimates.
+- **Germag** (Bd. Banu Manta 2, node/5862008006 appended by add-pois.mjs, building 2122, 'bloc', 8.7 m): world.js gives a block
+  carrying an appended street-level food / shop / bank / pharmacy POI the builder's own shop-unit flag (the rule of
+  `tools/osm/build-data.mjs`), so it gets the shop front with its fascia instead of a small board on a plain wall
+  (pano wEy2ri9fhmOq0iOEkX5jIg).
+- **Leul** (Monumentul Trupelor de Geniu, w170953582): low-poly lion form on its pedestal (`MONUMENT_SUBJECT`), not a likeness;
+  height is the class estimate.
+- **Petrom** (1065, -1193): the nearest edge to the forecourt is the first metres of Bd. Alexandru Ioan Cuza after the map edge
+  (entered only from outside the map); the route now ends on the next edge a route reaches, 4 m away (`nav.compute` goal
+  fallback). The shop under the canopy is not modelled (`fuel-stations-review.json`).

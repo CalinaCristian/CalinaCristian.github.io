@@ -622,6 +622,22 @@ Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
   so the fascia was never seen; `drawBasarabGuard` now draws the band instead of the fascia where the band exists (the band casts
   the fascia's shadow). Day and night renders at 44.44503, 26.06120 unchanged; about 44,000 fewer triangles in Basarab frames
   (1.042 M → 0.998 M at the pose, day).
+- **Pedestrian passages (grozavesti-7)**, live OSM 2026-11-13:
+  - Grozăvești metro passage w737986560 / w737986561 (`tunnel=yes`, `layer=-1`) runs between the two subway entrances. West
+    n610921621: the `grozmetro` pavilion (round 3). East n2479115705: under the OSM roof w905217305 (`building=roof`, 14 × 8 m),
+    which the pack drew as a closed grey block; it is now an open canopy (3.9 m top, 3.45 m clearance, columns: estimates) over a
+    stair well (`game/src/underpass-mouths.js`), open at the east end, down towards the passage that leaves westwards. Stair run
+    and well width are estimates; no official panorama of the east entrance was compared.
+  - Doina Cornea / Splaiul Independenței underpass w277315766 (35 m, no steps or width mapped): a stair well with parapets and
+    handrails at each end node, on the tunnel's own axis; both runs are cut short where they would reach the Splaiul kerb (4.3 m
+    and 3.5 m drawn). Estimates as above.
+  - Politehnica w737868100 / w980510524 / w1071237750 are `level=-1` concourse ways between the station stairs (w1071237751 /
+    -754 / -756, `level=-2;-1`): no street-level end. The station's street entrances are subway_entrance POIs.
+  - w738281345 is a 5 m `layer=3` link between the platform footways w738281336 (ref 1) and w738281339 (ref 10), which are
+    `layer=1`: a tagging oddity inside the tram station on Pasajul Basarab, not a separate structure; the platform model draws
+    the platforms (Basarab structures are not changed here).
+  - Covered platforms w620826242 / w620826243 (Pasajul Basarab tram station): rendered from above the deck (770, 25, -930):
+    the glazed barrel canopy stands over both platforms.
 
 ## Backlog clearing (2026-11-13)
 

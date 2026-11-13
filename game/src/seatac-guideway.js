@@ -17,7 +17,7 @@ export const SEATAC_GUIDEWAY = {
     station: 'w54139654',      // deck inside the station is drawn by the landmark
     railTopM: 18.0,
     endTopM: 0.45, rampM: 358, // down to the at-grade tracks at the north end of the bridge ways (about 4.9 %)
-    girderM: 1.8, outerHalfM: 2.6, pierEveryM: 34, pierMinTopM: 6.5,
+    girderM: 1.8, outerHalfM: 2.6, pierEveryM: 34, sharedM: 14, pierMinTopM: 6.5,
 };
 
 
@@ -63,12 +63,19 @@ export function emitSeatacGuideway(env) {
     const inStation = (x, z) => !!sc && Math.abs(z - sc[1]) < 71 && Math.abs(x - sc[0]) < 16;
     const emit = (id, pts, other) => {
         const st = resample(pts, 8), N = st.length; if (N < 2) return;
+        // (r2-perf-3, visual QA flicker under the SeaTac guideway) the two mains share one deck while they are less than sharedM
+        // apart: round the station and the pocket track OSM spreads them 9.4 - 12 m, and with the old 9 m limit they had separate
+        // decks with inner parapets whose faces stood a few cm from the decks of the sidings / crossovers between them. Decks that
+        // overlap are not coplanar: the second main's inner edge overlaps the first by 4 cm and the sidings / crossovers lie on
+        // the mains' deck, so their top sits slightly lower and their soffit slightly higher and the first main's faces win.
+        const lift = id === G.mains[0] ? [0, 0] : id === G.mains[1] ? [-0.015, 0.04] : [-0.03, 0.08];
         const S = st.map((p, i) => {
             const a = st[Math.max(0, i - 1)], b = st[Math.min(N - 1, i + 1)], L = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1, ux = (b[0] - a[0]) / L, uz = (b[1] - a[1]) / L, nx = uz, nz = -ux;
             let wl = other ? G.outerHalfM : 2.2, wr = wl, side = 0, half = 0;
-            if (other) { const q = nearestOn(other, p[0], p[1]); if (q.d < 9) { side = (q.x - p[0]) * nx + (q.z - p[1]) * nz >= 0 ? 1 : -1; half = q.d / 2; if (side > 0) wl = half + 0.02; else wr = half + 0.02; } }
+            if (other) { const q = nearestOn(other, p[0], p[1]); if (q.d < G.sharedM) { side = (q.x - p[0]) * nx + (q.z - p[1]) * nz >= 0 ? 1 : -1; half = q.d / 2; if (side > 0) wl = half + 0.02; else wr = half + 0.02; } }
             const top = topAt(p[0], p[1], !!other);
-            return { x: p[0], z: p[1], ux, uz, nx, nz, wl, wr, side, half, top, depth: top < G.pierMinTopM ? top - 0.02 : G.girderM };
+            const depth = top < G.pierMinTopM ? top - 0.02 : G.girderM;
+            return { x: p[0], z: p[1], ux, uz, nx, nz, wl, wr, side, half, top: top + lift[0], depth: depth + lift[0] - lift[1] };
         });
         let run = 0, nextPier = G.pierEveryM / 2;
         for (let i = 1; i < N; i++) {

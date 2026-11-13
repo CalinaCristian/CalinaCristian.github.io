@@ -222,6 +222,26 @@ outline w1035290130, 47.444099, -122.293207 h330): a low white enclosed corridor
 - **SureStay** (w314940622): the only official panorama in reach (47.446223, -122.294333) is old (Clarion signage) and stands
   against the wall; at least three storeys behind a one-storey front. The 9 m default is kept.
 
+## 17. Backlog clearance (2026-11-13)
+
+- **Garage deck aisles** (h-seatac-garage): OSM maps the Port garage's aisles (rel 15763840, `parking=multi-storey`, 7 levels) as
+  `highway=service` ways on `layer=2` (parking aisles w344201644-55, w430427477, w430442190, w722071151-60, w1444470941, ramp
+  w521034679) and `layer=1` `tunnel=building_passage` `level=3` drives. Not bridges, so they were drawn and routable on the ground
+  through the garage posts and the terminal model. A way on layer >= 1 lying wholly inside a multi-storey car park is now taken as one
+  of its internal decks (`game/src/garage-decks.js`): not drawn, not routable. The ground-level entry ways (layer 0, tunnels) stay as
+  mapped; with no mapped exit at ground level they are no longer part of the routable network.
+- **Link guideway decks** (r2-perf-3): round the station and the pocket track OSM spreads the two main tracks 9.4 - 12 m apart
+  (w34746781 / w260383054, z 373 - 943 in the game); the guideway joined the two decks only below 9 m, so there it drew two
+  girders with inner parapets whose faces stood a few cm from the decks of the sidings / crossovers between them. The mains now
+  share one deck below 14 m (one wide deck with the pier between the tracks, as on the rest of the line) and siding decks sit a
+  few cm inside the main deck. A replication of the visual-QA flicker test on a GPU (two unlit renders 1 mm apart at the flagged
+  samples) finds no changed pixel on the guideway; under SwiftShader the pixels the QA still counts there are the girder's
+  silhouette against the sky (no second surface within 5 cm behind them), not coplanar faces.
+- **Car park w479818870** (47.44449, -122.29277; r2-world-b-carpark-479818870, r2-world-carparkheights): drawn solid-clad since
+  round 3 (`car-parks.js`). Estimate: 3 levels from the pack's 9 m height. OSM has no `height` / `building:levels` and the only
+  official panorama (KauyPKtqD_ylEozRWpdOXg) cuts the upper levels; no other source found.
+- **SureStay** w314940622 (r3-landmarks-5): storey count still not established (see section 16); the 9 m default is an estimate.
+
 ## Backlog clearing (2026-11-13)
 
 - **Not seen from any street panorama** (backlog r2-districts-view-15): the hotel pool at 47.444558, −122.294232 and the

@@ -981,6 +981,20 @@ Sources: live OSM, the official panorama poses recorded in the backlog rows (loo
   (tourism=museum on w546500256), not made here.
 - **Muzeul Țăranului Român** r2552618 (r2-districts-view-10): two tall storeys under a steep red tile roof (6 m rise inside the
   unchanged 19.6 m total), red brick, no shop floor.
+- **Pasajul Victoria hall** (romana-1): the shared hall now has the steel fence between the piers along the road edge of the
+  platform, benches and a stop pole on the platform only where the hall holds a mapped tram stop (the four `Piața Victoriei`
+  tram_stop nodes, x ≈ -376 … -329), and dark lamp housings with orange (sodium) lenses every 9 m under the soffit
+  (`game/src/hall-furniture.js`; 139 posts, 20 benches, 103 lamps at HEAD). Render checked inside the hall.
+- **Royal Palace / Carol I** (r2-landmarks-3): the court front of the central body carries paired giant columns on pedestals,
+  a dentilled cornice and the attic balustrade (landmarks.js `bRegal`); the Carol I statue n1883108499 is drawn with a new
+  `equestrian` monument class (horse and rider on a tall plinth, OSM height 13 m kept). Its form comes from the node's own tags
+  (wikipedia=en:Equestrian statue of Carol I, artist Florin Codre, 2010).
+- **Pasajul Victoria flicker / overlap** (r2-perf-2), re-measured at HEAD with a two-render 2 mm camera shift: at the four
+  underpass points (-506.8, -413.3), (-386.8, -413.7), (-267.8, -424.7) and (-701.6, -417.2) the changing pixels are moving
+  vehicles and road-texture shimmer; no coplanar pair (second hit within 5 cm) except the markings over the road (3 cm, by
+  design). The Titulescu overlap points (-629.4, -434.8) / (-606.7, -435.5) render without a visible step from street level
+  and above. The 6.8 m² overlap of a building outline with service edge 1193 at (-642.1, -470.5) is a source-data overlap
+  (both mapped), kept as mapped.
 
 ### Estimates
 
@@ -991,6 +1005,17 @@ Sources: live OSM, the official panorama poses recorded in the backlog rows (loo
 - **Muzeul Țăranului Român**: the total height (19.6 m, a re-estimate) and the 6 m roof rise are not measurable from the street
   (the museum stands behind the Kiseleff tree belt); the entrance tower has no OSM `building:part` and no sourced height, so it is
   not drawn.
+- **Pasajul Victoria hall**: platform and pier sizes, fence height (1.1 m), post / bench / lamp spacing and the lamp colour are
+  estimates (`HALL_FURNITURE_MODEL.estimates`); no OSM object maps them.
+- **Pasajul Victoria rim balustrade** (`trench-parapets.js`): the class comes from the east-ramp panorama and is applied to
+  every open approach of the way; the west ramp has not been compared at its own pose, pier spacing and heights are estimates,
+  and the cast panel ornament is simplified to bars.
+- **Pasajul Victoria ramp grades** (`grade-review.js`): the eastbound west ramp w27008418 descends at half the model grade
+  (walls seen 115 m before the portal); the westbound exit ramp w241374320 keeps the model grade (9 %, about 67 m): it was not
+  seen from its own carriageway, and a longer ramp would pass at full depth under the at-grade crossing of the same way in the
+  data, so its real start stays an estimate.
+- **Royal Palace front**: column radius, pair spacing (one pair per two 4.2 m bays), cornice depth, dentil and baluster pitch
+  are estimates; the equestrian Carol I is massing only (plinth / group split of the 13 m OSM height estimated).
 
 ## Backlog clearing (2026-11-13)
 

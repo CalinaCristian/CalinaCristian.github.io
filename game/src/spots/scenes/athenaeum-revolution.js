@@ -12,12 +12,13 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, polyArea, obb } from '../kit.js';
-import { bucBackdrop, classicFacade, classicWalls, osmPoly, cityFiller, placeLandmark, signAtlas, balustrade, balustradeMaterial, flagpole, floodlight, bucActivity, palisade } from '../buc.js';
+import { bucBackdrop, bucStyle, classicFacade, classicWalls, osmPoly, cityFiller, placeLandmark, signAtlas, balustrade, balustradeMaterial, flagpole, floodlight, bucActivity, palisade } from '../buc.js';
 import { photoHunt } from '../photo-hunt.js';
 import { bench } from '../osm.js';
 import { addTraffic } from '../cars.js';
 import { mappedTreeSizes, poiSigns, bust, standingFigure } from '../buc-streetscape.js';
 import { aisleParking } from './ctr-parking.js';
+import { osmBarriers } from '../buc-barriers.js';
 
 function grow(poly, d) { const cw = polyArea(poly) > 0; const o = offsetPolyline([...poly, poly[0], poly[1]], cw ? -d : d); return o.slice(1, poly.length + 1); }
 const local = (lm, x, z) => { const c = Math.cos(lm.lm.rotation), s = Math.sin(lm.lm.rotation); return { x: lm.x + x * c + z * s, z: lm.z - x * s + z * c }; };
@@ -182,7 +183,10 @@ export default {
         ctx.add(b.build('revolution', { matOverrides: { [fBCU.key]: fBCU.mat, [fCC.key]: fCC.mat, ...matX, balustrade: balustradeMaterial() } }));
         // ---- backdrop: Calea Victoriei eclectic façades, the garden, lamps, traffic
         ctx.terrainOpts = { bg: '#8b8780', bgMask: 'slab', innerPx: 2048, innerStep: 3, outerStep: 16, outerPad: 700 };
-        bucBackdrop(ctx, { lampStyle: 'lantern', lampColor: '#1b1d1e', lampH: 4.6, lampPad: 30, treeLod: { cap: 1200, max: 400 }, lampOpts: { spacing: 26, kinds: ['secondary', 'tertiary', 'residential', 'living_street', 'pedestrian'] }, streetTreeOpts: { kinds: ['tertiary', 'residential'], prob: 0.5 } });
+        // w958584624 (Calea Victoriei 68–70, building=apartments, 7 levels, start_date 1954 in live OSM) is a stone
+        // neoclassical block in Street View 2024; the levels rule would give it the 1980s `bloc` look.
+        const STYLE_BY_ID = { w958584624: 'eclectic' };
+        bucBackdrop(ctx, { style: (bd) => STYLE_BY_ID[bd.id] || bucStyle(bd), lampStyle: 'lantern', lampColor: '#1b1d1e', lampH: 4.6, lampPad: 30, treeLod: { cap: 1200, max: 400 }, lampOpts: { spacing: 26, kinds: ['secondary', 'tertiary', 'residential', 'living_street', 'pedestrian'] }, streetTreeOpts: { kinds: ['tertiary', 'residential'], prob: 0.5 } });
         if (garden) { ctx.painter.poly(garden, '#5f7d3f', 'grass'); const r = rng(3), bb = polyBox(garden); const axis = AT ? [local(AT, 30, 0), local(AT, 110, 0)] : null; for (let i = 0; i < 90; i++) { const x = bb.x0 + r() * (bb.x1 - bb.x0), z = bb.z0 + r() * (bb.z1 - bb.z0); const onAxis = axis && Math.abs((x - axis[0].x) * (axis[1].z - axis[0].z) - (z - axis[0].z) * (axis[1].x - axis[0].x)) / 80 < 14; if (inPoly(x, z, grow(garden, -3)) && !onAxis && !(at && inPoly(x, z, grow(at.poly, 6)))) ctx.trees.push(r() < 0.4 ? { x, z, kind: 'con', s: 1.25 + r() * 0.5, keep: true } : { x, z, kind: 'broad', s: 1.1 + r() * 0.6, keep: true }); }
             // (fidelity pass 2026-11-12; Street View 2023) the garden is closed by a white stone balustrade on a low wall and
             // shaded by tall old trees, many of them conifers; it was an open lawn with 16 small trees. The balustrade follows
@@ -240,6 +244,8 @@ export default {
         if (AT) { const cp = local(AT, 56, 7), hd = (Math.atan2(AT.x - cp.x, -(AT.z - cp.z)) * 180 / Math.PI + 360) % 360; ctx.challenge('athenaeum-revolution', { view: [AT.x, AT.z], x: cp.x, z: cp.z, heading: hd, r: 12, tol: 26 }); const sp2 = local(AT, 56, -8); ctx.spawns['athenaeum-revolution'] = { x: sp2.x, z: sp2.z, heading: headingFromBearing((Math.atan2(AT.x - sp2.x, -(AT.z - sp2.z)) * 180 / Math.PI + 360) % 360) }; }
         else ctx.challenge('athenaeum-revolution', { r: 12, tol: 30 });
         // crowd
+        // (round 4) the mapped walls, fences and hedges this scene does not draw itself (buc-barriers.js)
+        osmBarriers(ctx, { skip: ['w1478814648', 'w1476829138', 'w1476829137', 'w1457045952', 'w1457045969', 'w1454592908', 'w1454592909'] });
         ctx.crowdCfg = {
             personas: { local_young: 3, local_elder: 2, tourist_fr: 1.5, tourist_de: 1.5, tourist_us: 1.5, local_parent: 1, kid: 0.5 },
             walkers: 40, paths: ctx.footLines(),

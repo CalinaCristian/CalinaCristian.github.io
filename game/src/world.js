@@ -2,6 +2,7 @@ import { fitFacadeSign, facadeSignBoard } from './facade-sign-layout.js';
 import { sourceWaterTreeConflicts } from './source-water-tree-conflicts.js';
 import { reviewedTreeExclusions } from './tree-reviews.js';
 import { emitOvalDormers } from './reviewed-dormers.js';
+import { emitHallFurniture, HALL_FURNITURE_MODEL } from './hall-furniture.js';
 import { emitStreetLevelWaterBridgeRailings, emitReviewedStreetBridgeRailings } from './water-bridge-railings.js';
 import { emitPedestrianBridges } from './pedestrian-bridges.js';
 import { trenchParapetRow, emitTrenchBalustrade } from './trench-parapets.js';
@@ -84,6 +85,7 @@ import { emitWeirs } from './weirs.js';
 import { dropMedianLinkSidewalks } from './sidewalk-overlap.js';
 import { emitBellevueGuideway } from './bellevue-guideway.js';
 import { emitSeatacGuideway } from './seatac-guideway.js';
+import { garageDeckRoads } from './garage-decks.js';
 import { buildElevatedSources, planElevatedSources } from './elevated-sources.js';
 import { openRuns, weldEnds } from './deck-outline.js';
 import { applyBuildingReview } from './building-review.js';
@@ -92,6 +94,7 @@ import { pavedReviewAreas } from './ground-review.js';
 import { reviewedGradeK } from './grade-review.js';
 import { emitAirportForecourt } from './airport-forecourt.js';
 import { emitAreaFences } from './area-fences.js';
+import { applyEntranceCanopies, emitUnderpassMouths } from './underpass-mouths.js';
 import { applyFuelCanopyReview } from './fuel-canopy-review.js';
 import { PEDESTRIAN_FRONTS } from './pedestrian-fronts.js';
 import { bridgeGuardRow, emitBridgeGuard, guardBlockH, emitGuardSteel, emitGuardScreen, GUARD_CONCRETE } from './bridge-guards.js';
@@ -750,7 +753,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         };
     });
     const unnamed = US ? '' : '';
+    const garageDecks = distId ? garageDeckRoads(data) : new Map(); // (h-seatac-garage: car-park deck aisles, garage-decks.js)
     for (const rd of roads) {
+        if (garageDecks.has(rd.index)) continue;
         for (let i = 0; i < rd.ids.length - 1; i++) {
             const a = nodeArr[rd.ids[i]], b = nodeArr[rd.ids[i + 1]];
             if (a === b) continue;
@@ -3249,7 +3254,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         [...cells].map(([key, c]) => ({ mesh: c.water, id: 'water:' + key, water: true })) : [], underpassOwnerOptions));
     const deferredUnderpassDown = [];
     // shared underpass hall (2026-11-12 fidelity pass): roofed tram-station pieces and the deep covered carriageways beside them
-    const tramHallPieces = []; let hallRoads = null;
+    const tramHallPieces = []; let hallRoads = null; const hallFurnitureStats = { posts: 0, benches: 0, lamps: 0 }, hallLampRuns = new Set();
+    const hallTramStops = (data.pois || []).filter(r => data.poiKinds?.[r[0]] === 'busstop' && str(r[5]) === 'tram_stop').map(r => [r[1] / 10, r[2] / 10]);
+    const hallStopNear = (x, z) => hallTramStops.some(([sx, sz]) => Math.hypot(sx - x, sz - z) < HALL_FURNITURE_MODEL.stopReachM);
     const sharedHallTram = (x, z, ox, oz) => { let best = null;
         for (const p of tramHallPieces) { const dx = p.b[0] - p.a[0], dz = p.b[1] - p.a[1], L2 = dx * dx + dz * dz || 1, t = ((x - p.a[0]) * dx + (z - p.a[1]) * dz) / L2; if (t < -.1 || t > 1.1) continue;
             const d = (p.a[0] + dx * t - x) * ox + (p.a[1] + dz * t - z) * oz; if (d > .5 && d < 12 && (!best || d - p.half < best.gap)) best = { gap: d - p.half }; }
@@ -3360,6 +3367,12 @@ export async function buildWorld(city, renderer, opts = {}) {
                         sb.face4(q(t0, p0, yf(t0) + pf), q(t0, p1, yf(t0) + pf), q(t0, p1, top(t0)), q(t0, p0, top(t0)), conc, back);
                         sb.face4(q(t1, p0, yf(t1) + pf), q(t1, p1, yf(t1) + pf), q(t1, p1, top(t1)), q(t1, p0, top(t1)), conc, along);
                         const pb = o + so * .22; sb.face4(q(t0, pb, yf(t0) + pf + .35), q(t1, pb, yf(t1) + pf + .35), q(t1, pb, yf(t1) + pf + .8), q(t0, pb, yf(t0) + pf + .8), red, inn); // warning band on the pier foot
+                    }
+                    { // (romana-1) fence between the piers, tram-stop benches / pole on the platform, sodium lamps under the soffit (hall-furniture.js)
+                        const pdt = Math.min(1.3, e.len * .3) / e.len, pier = a2 <= .5 && b2 >= .5 && hall.gap > .9 ? [.5 - pdt, .5 + pdt] : null;
+                        const f = emitHallFurniture({ q: (t, off, y) => roofPoint(t, off, y), floor: t => yf(t) + pf, ceil: top, a2, b2, o, so, gap: hall.gap, len: e.len, pier, inn, along: [e.dirx, 0, e.dirz],
+                            face4: (...v) => sb.face4(...v), rgb, lampOffset: hallLampRuns.has(e.id + ':' + a2) ? null : (hallLampRuns.add(e.id + ':' + a2), (wr - wl) / 2), nearStop: hallStopNear }); // (lamps once per run: the first hall side drawn)
+                        hallFurnitureStats.posts += f.posts; hallFurnitureStats.benches += f.benches; hallFurnitureStats.lamps += f.lamps;
                     }
                 }
                 if (covered && wallCol !== conc) for (const [o, sgn] of [[wr, -1], [-wl, 1]]) { // yellow accent panels ≈ every 14 m and the light line along the wall head
@@ -4406,6 +4419,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     if (distId) for (const b of bRecs) { const rh = reviewedCarParkHeight(b.sourceId, b.heightSourceCode); if (rh && (!b.roofProfile || (b.roofProfile.shape === 'flat' && b.roofProfile.heightSource === 'style estimate'))) { b.h = rh; if (b.roofProfile) b.roofProfile = { ...b.roofProfile, totalM: rh, eavesM: rh, heightSource: 'street-level review estimate' }; } } // (r2: car-park storeys counted from the street: car-parks.js)
     const fuelCanopyReview = distId ? applyFuelCanopyReview(city.id + '-' + distId, bRecs, data.buildingIds) : []; // (r2: reviewed open fuel roofs the pack draws as blocks: fuel-canopy-review.js)
+    const entranceCanopies = distId ? applyEntranceCanopies(city.id + '-' + distId, bRecs, data.buildingIds) : []; // (grozavesti-7: an OSM roof over a metro entrance is an open canopy, underpass-mouths.js)
     coveredRoadModels.useNativeRibbons(ribbons);
     const buildingPassageAudit=(data.buildingPassageIssues||[]).map(i=>({...i,accepted:false}));
     const configurePassages=b=>{
@@ -8335,6 +8349,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         blocked: (x, z, r) => onRibbon(x, z, r) ? 'path' : tramSweep?.circle(x, z, r + 0.2, 0, 6) ? 'tram-sweep' : null, wallAt: (x, z) => !!buildingAt(x, z),
         baseY: (x, z) => raisedTop(x, z) ?? 0.05,
         addCollider: (x, z, hd, angle, h, rec) => propColl.push({ x, z, hw: 0.1, hd, angle, r: Math.hypot(0.1, hd), poly: null, h, prop: true, kind: 'fence', sourceId: rec.id }) }) : null;
+    // (grozavesti-7) street-level mouths of pedestrian underpasses OSM maps underground (underpass-mouths.js)
+    const underpassMouths = distId ? emitUnderpassMouths({ key: city.id + '-' + distId, project: (la, lo) => city.proj(la, lo), cellOf,
+        blocked: (x, z, r) => onRibbon(x, z, r) ? 'ribbon' : tramSweep?.circle(x, z, r + 0.2, 0, 6) ? 'tram-sweep' : null, inBuilding: (x, z) => !!buildingAt(x, z),
+        baseY: (x, z) => raisedTop(x, z) ?? 0.05,
+        addCollider: (x, z, hw, hd, angle, h, rec) => propColl.push({ x, z, hw, hd, angle, r: Math.hypot(hw, hd), poly: null, h, prop: true, kind: 'underpass-parapet', sourceId: rec.id }) }) : null;
     const touchesDetailedRing = (x, z, w, d) => realPass && ringGeometry && sceneryMargin(x, z, true) <= (distCfg?.outerRing ?? 600) + Math.hypot(w, d) / 2;
     {
         const bd = data.backdrop || [], pal = PALETTES[country];
@@ -8765,7 +8784,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     graph.edges = driv;
 
     setProgress(''); const phases = PHASES.splice(0);
-    const stats = { waterBridgeRailings, reviewedBridgeRailings, fasciaLayout: { records: fasciaLayoutAudit, boards: facadeBoards, scope: 'Inferred coplanar fascia boards on existing source walls; source POIs and names unchanged' }, sourceWaterTreeConflicts: { records: waterTreeConflicts.records, sourceRecordsRetained: true, marginM: 0, scope: 'Physical trunk bodies intersect detailed basins and their rendered granite rims; not canopy thinning or road/traffic change' }, parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, bridgeBents: bridgeBents.report, treeDeckClearance, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, backdropSourceOwnership, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, sportAreas: sportAreaLog, fuel: fuelLog,
+    const stats = { hallFurniture: hallFurnitureStats, waterBridgeRailings, reviewedBridgeRailings, fasciaLayout: { records: fasciaLayoutAudit, boards: facadeBoards, scope: 'Inferred coplanar fascia boards on existing source walls; source POIs and names unchanged' }, sourceWaterTreeConflicts: { records: waterTreeConflicts.records, sourceRecordsRetained: true, marginM: 0, scope: 'Physical trunk bodies intersect detailed basins and their rendered granite rims; not canopy thinning or road/traffic change' }, parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, bridgeBents: bridgeBents.report, treeDeckClearance, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, backdropSourceOwnership, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, sportAreas: sportAreaLog, fuel: fuelLog,
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, inferredBuildingDetails: inferredDetailAudit, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     stats.scenerySource = scenerySourceAudit;
     stats.backdropInLandmark = backdropInLandmark;
@@ -8793,7 +8812,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.buildingOverlapCuts = overlapCuts; // (world-space basin outlines: audits of what stands in or over them)
     stats.buildingOutlineParts = outlineParts; // (style-estimated outlines left undrawn in favour of the tagged volumes inside them)
     stats.bridgeGuardCompletion = guardCompletion; stats.railingNetwork = railingNetwork; stats.railingDrops = railingDrops;
-    stats.elevatedSources = elevatedSources.report; stats.areaFences = areaFences; stats.pedestrianBridges = pedestrianBridges;
+    stats.elevatedSources = elevatedSources.report; stats.areaFences = areaFences; stats.underpassMouths = underpassMouths; stats.entranceCanopies = entranceCanopies; stats.pedestrianBridges = pedestrianBridges;
     stats.basarabLamps = basarabLamps;
     stats.barrierJoins = walls.barrierJoins || null;
     stats.coveredRoadModels = coveredRoadModels.report;

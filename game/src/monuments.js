@@ -14,8 +14,8 @@ export const MONUMENT_LANDMARK_OWNED = ['lascăr catargiu', 'monumentul eroilor 
 
 export const MONUMENT_MODEL = {
     estimates: 'all dimensions except a tagged OSM height',
-    totalM: { statue: 4.4, bust: 2.5, obelisk: 6, cross: 3.2, wayside: 1.5, sculpture: 2.6, installation: 2.6, stele: 2.6, monument: 4.2, marker: 0.9 },
-    colliderM: { statue: 0.95, bust: 0.6, obelisk: 1.1, cross: 0.7, wayside: 0.45, sculpture: 0.85, installation: 0.85, stele: 1.0, monument: 1.5, marker: 0.75 },
+    totalM: { statue: 4.4, equestrian: 9, bust: 2.5, obelisk: 6, cross: 3.2, wayside: 1.5, sculpture: 2.6, installation: 2.6, stele: 2.6, monument: 4.2, marker: 0.9 },
+    colliderM: { statue: 0.95, equestrian: 2.0, bust: 0.6, obelisk: 1.1, cross: 0.7, wayside: 0.45, sculpture: 0.85, installation: 0.85, stele: 1.0, monument: 1.5, marker: 0.75 },
 };
 const MATERIAL = { bronze: '#565b4c', copper: '#5f7f6c', coper: '#5f7f6c', metal: '#7b8186', steel: '#8a9096', 'stainless steel': '#a9aeb2', marble: '#e2dfd6', granite: '#8c8884', stone: '#b7b0a1', wood: '#7a5a3c', glass: '#9cc0cc', concrete: '#b4b1a9' };
 const materialColour = (m, fallback) => { for (const part of String(m || '').toLowerCase().split(/[;,]/)) { const k = part.trim(); if (MATERIAL[k]) return MATERIAL[k]; } return fallback; };
@@ -82,6 +82,15 @@ function build(env, m, total) {
     } else if (m.form === 'wayside') { // (r3) a small stone wayside cross (troiță) on a low base: OSM historic=wayside_cross / man_made=cross
         const ws = env.rgb(materialColour(m.material, '#b7b0a1'));
         box(0, 0.6, 0.18, 0.42, stoneD); box(0.18, 0.2, total - 0.18, 0.14, ws); box(0.18 + (total - 0.18) * 0.66, Math.min(0.75, total * 0.5), 0.17, 0.14, ws);
+    } else if (m.form === 'equestrian') { // (round 4, r2-landmarks-3) a rider on a horse on a tall plinth; massing only, not a likeness
+        const at = (y0, w, h, d, along, col, a = ang) => c.box(x + Math.sin(ang) * along, y + y0, z + Math.cos(ang) * along, w, h, d, a, col);
+        const k = Math.max(0.6, (total - Math.min(total * 0.58, 7.6)) / 5.4), ped = total - 5.4 * k; // (group ≈ 5.4 m at k = 1; the rest is plinth)
+        box(0, 3.4 * k, 0.35, 5.6 * k, stoneD); box(0.35, 2.7 * k, ped - 0.75, 4.9 * k, stone); box(ped - 0.4, 3.0 * k, 0.4, 5.2 * k, stoneD);
+        for (const [s, l] of [[-1, 1], [1, 1], [-1, -1], [1, -1]]) c.box(x + Math.sin(ang) * l * 0.95 * k + Math.cos(ang) * s * 0.3 * k, y + ped, z + Math.cos(ang) * l * 0.95 * k - Math.sin(ang) * s * 0.3 * k, 0.24 * k, 1.55 * k, 0.26 * k, ang, fig); // legs
+        at(ped + 1.5 * k, 0.9 * k, 1.05 * k, 2.6 * k, 0, fig); // barrel
+        at(ped + 2.2 * k, 0.55 * k, 0.9 * k, 0.6 * k, 1.35 * k, fig); at(ped + 2.85 * k, 0.4 * k, 0.45 * k, 0.95 * k, 1.75 * k, fig); // neck, head
+        at(ped + 2.55 * k, 0.75 * k, 1.05 * k, 0.5 * k, -0.15 * k, fig); at(ped + 3.6 * k, 0.32 * k, 0.4 * k, 0.34 * k, -0.1 * k, fig); // rider, head
+        at(ped + 0.7 * k, 0.16 * k, 0.9 * k, 0.16 * k, -1.35 * k, fig); // tail
     } else if (m.form === 'stele') {
         box(0, 2.0, 0.28, 0.9, stoneD); box(0.28, 1.35, total - 0.28, 0.32, fig);
     } else if (m.form === 'monument') {

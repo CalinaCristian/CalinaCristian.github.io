@@ -1853,13 +1853,15 @@ export async function buildWorld(city, renderer, opts = {}) {
     //  CELLS (chunked static geometry)
     // -----------------------------------------------------------------------
     const cells = new Map();
+    let builderEpoch = 0; // (counts the cells' builders made: the map-end pass keeps its list of them until it changes)
     const cellOf = (x, z) => {
         const i = Math.floor(x / CELL), j = Math.floor(z / CELL), k = i * 10007 + j;
         let c = cells.get(k);
+        if (!c) builderEpoch++;
         if (!c) cells.set(k, c = { i, j, solid: new MeshBuilder(true), roof: new MeshBuilder(), ground: new MeshBuilder(), area: new MeshBuilder(), grass: new MeshBuilder(), pave: new MeshBuilder(), sport: new MeshBuilder(), marks: new MeshBuilder(), road: new MeshBuilder(), pad: new MeshBuilder(), water: new MeshBuilder(), backdrop: new MeshBuilder(), detail: new MeshBuilder(true), signs: [] });
         return c;
     };
-    const signMB = (c, page) => c.signs[page] || (c.signs[page] = new MeshBuilder());
+    const signMB = (c, page) => c.signs[page] || (builderEpoch++, c.signs[page] = new MeshBuilder());
 
     // bounds
     const [bx0, bz0, bx1, bz1] = data.bounds.map(v => v * 0.1);
@@ -6017,7 +6019,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     // only shopfronts on a street (its carriageway within ≈ 12 m: a sidewalk), never fronts on a square / plaza
                     const wallToRoad = ne ? Math.max(0, ne.d + 3 - (((mx + nx * 3 - ne.cx) * ne.edge.nx + (mz + nz * 3 - ne.cz) * ne.edge.nz) >= 0 ? ne.edge.wR : ne.edge.wL)) : Infinity;
                     if (ne && wallToRoad < 12 && !buildingAt(mx + nx * 1.5, mz + nz * 1.5) && !isPark(mx + nx * 2, mz + nz * 2)) {
-                        const sb = c.spill || (c.spill = new MeshBuilder()), w0 = [255, 255, 255], yS2 = (raisedTop(mx + nx * 1.5, mz + nz * 1.5) !== null ? Y.road + Y.kerb : Y.side) + 0.02;
+                        const sb = c.spill || (builderEpoch++, c.spill = new MeshBuilder()), w0 = [255, 255, 255], yS2 = (raisedTop(mx + nx * 1.5, mz + nz * 1.5) !== null ? Y.road + Y.kerb : Y.side) + 0.02;
                         // inset 0.3 m at both ends; stop at the kerb (never on the carriageway)
                         const ux = (bx - ax) / L, uz = (bz - az) / L, p0x = ax + ux * 0.3, p0z = az + uz * 0.3, p1x = bx - ux * 0.3, p1z = bz - uz * 0.3;
                         let d = Math.min(D, wallToRoad - 0.4); const offRoad = (dd) => { for (const f of [0, 0.25, 0.5, 0.75, 1]) { const px = p0x + (p1x - p0x) * f + nx * dd, pz = p0z + (p1z - p0z) * f + nz * dd; if (onRibbon(px, pz, 0.25)) return false; } return true; }; while (d > 0.8 && !offRoad(d)) d -= 0.4;
@@ -7225,7 +7227,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         const others = Object.entries(city.districts || {}).filter(([id]) => id !== distId).map(([id, d]) => { const q = city.proj(d.center.lat, d.center.lon); return { id, x: q.x, z: q.z }; });
         const post = (c, x, z, y, h) => c.solid.box(x, y, z, 0.08, h, 0.08, 0, postCol);
         const sign = (c, x, z, y, ang, text, bg, fg, accent, w = 1.6) => { const sg = signs.get(text, bg, fg, accent, true); if (!sg) return; post(c, x, z, y, 1.4 + 0.25); addSignQuad(c, x, z, ang, 1, w, w / sg.aspect * 1.0, y + 1.4 + w / sg.aspect / 2, sg, 0.05); };
-        const closureBuilders = () => [...cells.values()].flatMap(c => [...Object.values(c), ...(c.signs || [])]).filter(mb => mb && typeof mb.ic === 'number' && typeof mb.v === 'function');
+        // (spec 10 load budget) every builder of every cell, in this order, made again only when a builder was added
+        let cbList = null, cbIndex = null, cbEpoch = -1;
+        const closureBuilders = () => { if (cbEpoch !== builderEpoch) { cbList = [...cells.values()].flatMap(c => [...Object.values(c), ...(c.signs || [])]).filter(mb => mb && typeof mb.ic === 'number' && typeof mb.v === 'function'); cbIndex = new Map(cbList.map((mb, k) => [mb, k])); cbEpoch = builderEpoch; } return cbList; };
         mapEnds.forEach((m, k) => {
             const { ix, iz, px, pz, y, kind, edge: e } = m, c = cellOf(m.x, m.z), ang = Math.atan2(px, pz), face = Math.atan2(ix, iz); // signs face the driver coming toward the edge
             const starts = new Map(closureBuilders().map(mb => [mb, mb.ic])), sourceScene = data.roadGeometryPolicy === 'source';
@@ -7247,11 +7251,14 @@ export async function buildWorld(city, renderer, opts = {}) {
             // A readable sign and its post are one discrete object. Clipping
             // its glyph quad into pieces can leave misleading partial words.
             const wholePrimitive = emit => {
-                const before = new Map(closureBuilders().map(mb => [mb, { vc: mb.vc, ic: mb.ic }]));
+                // (each builder's counts before, by its place in the list as it was then; one made since counts from 0)
+                const list0 = closureBuilders(), index0 = cbIndex, vcs = new Int32Array(list0.length), ics = new Int32Array(list0.length);
+                for (let k = 0; k < list0.length; k++) { vcs[k] = list0[k].vc; ics[k] = list0[k].ic; }
+                const before = mb => { const k = index0.get(mb); return k === undefined ? null : k; };
                 emit();
-                const touched = closureBuilders().filter(mb => mb.ic > (before.get(mb)?.ic || 0));
-                if (touched.every(mb => boundarySupport.clearMeshRange(mb, before.get(mb)?.ic || 0, clipOptions))) return true;
-                for (const mb of touched) { const old = before.get(mb); mb.vc = old?.vc || 0; mb.ic = old?.ic || 0; }
+                const touched = closureBuilders().filter(mb => { const k = before(mb); return mb.ic > (k === null ? 0 : ics[k] || 0); });
+                if (touched.every(mb => { const k = before(mb); return boundarySupport.clearMeshRange(mb, k === null ? 0 : ics[k] || 0, clipOptions); })) return true;
+                for (const mb of touched) { const k = before(mb); mb.vc = k === null ? 0 : vcs[k] || 0; mb.ic = k === null ? 0 : ics[k] || 0; }
                 boundarySupport.report.rejectedDiscreteProps++; return false;
             };
             const closureSign = (...args) => wholePrimitive(() => sign(...args));

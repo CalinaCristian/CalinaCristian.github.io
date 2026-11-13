@@ -10,6 +10,7 @@ import { SPECIES, buildSpeciesTrees, defaultSpecies, speciesFromOSM, treeGeometr
 import { coveredPlatformCanopies } from './covered-platform-canopies.js';
 import { BASARAB_PLATFORMS } from './basarab-source.js';
 import { placeTreeAdditions } from './tree-additions.js';
+import { placeOutlineExceptionCrowns } from './sunken-lakes.js';
 import { planElevatedSources } from './elevated-sources.js';
 import { BoxGrid, Y, undelta } from './world-shared.js';
 import { buildStreetFurniture } from './world-furniture.js';
@@ -185,6 +186,7 @@ export async function buildTreesLamps(ctx) {
         tramTreeConflicts.add(t); tramSweepConflicts.trees.push({ x: t.x, z: t.z, kind: t.kind, species: t.species ?? null, trunkRadiusM: body.r, acrossBodyAxisM: Math.abs(dz * hit.fx - dx * hit.fz), bodyHalfWidthM: hit.body.widthM / 2, bodyLengthM: hit.body.lengthM });
     }
     const treeAdditions = placeTreeAdditions(distId, city.proj, placeTree); // (r3-look-8: aerial-measured crowns the survey missed, tree-additions.js)
+    treeAdditions.outlineException = placeOutlineExceptionCrowns(distId, city.proj, placeTree); // (pipera-2: measured crowns inside a narrowed coarse water outline, sunken-lakes.js)
     const reviewedTreeOut = reviewedTreeExclusions(treeList, city.proj, distId); // (tree-reviews.js: street-level reviewed crowns)
     const excludedTrees = new Set([...coveredCanopies.excluded, ...waterTreeConflicts.excluded, ...tramTreeConflicts, ...reviewedTreeOut]);
     const treeCount = treeList.length - excludedTrees.size;

@@ -83,6 +83,7 @@ import { emitDeckLamps } from './deck-lamps.js';
 import { emitFacadeBands } from './facade-bands.js';
 import { placeTreeAdditions } from './tree-additions.js';
 import { channelProfile } from './water-channel-review.js';
+import { sunkenLake, waterOutlineException } from './sunken-lakes.js';
 import { carParkOf, carParkLevels, emitCarParkWall, reviewedCarParkHeight } from './car-parks.js';
 import { emitFuelForecourt } from './fuel-forecourt.js';
 import { fuelStationRow, fuelLookFor, fasciaQuads } from './fuel-look.js';
@@ -434,9 +435,15 @@ export async function buildWorld(city, renderer, opts = {}) {
     };
     const areas = [];
     const waterGrid = new BoxGrid(200), parkGrid = new BoxGrid(200);
+    const waterOutlineAudit = [], meadowFills = []; let riverLinePts = null;
+    const waterRiverLines = () => riverLinePts || (riverLinePts = (data.lines || []).flatMap((l, i) => data.lineKinds?.[l[0]] === 'river' ? [data.lineSources?.[i]?.points?.length >= 2 ? data.lineSources[i].points : undelta(l[3], 0)] : []));
     for (let areaIndex = 0; areaIndex < data.areas.length; areaIndex++) {
         const a = data.areas[areaIndex], kind = data.areaKinds[a[0]];
-        const rings = kind === 'parking' && data.parkingFootprints?.[areaIndex] || a.slice(2).map(r => undelta(r, 0));
+        let rings = kind === 'parking' && data.parkingFootprints?.[areaIndex] || a.slice(2).map(r => undelta(r, 0));
+        if (kind === 'water' && rings[0]?.length >= 3) { // (pipera-2: a documented coarse outline narrowed to its mapped river line, sunken-lakes.js)
+            const ex = waterOutlineException(distId, data.areaSourceIds?.[areaIndex] || '', rings[0], waterRiverLines(), pointInPolygon);
+            if (ex) { meadowFills.push(rings[0]); rings = [ex.ring]; waterOutlineAudit.push({ sourceId: data.areaSourceIds[areaIndex], halfWidthM: ex.halfW, lineVertices: ex.line.length, review: ex.review }); }
+        }
         const outer = rings[0]; if (!outer || outer.length < 3) continue;
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity;
         for (const [x, z] of outer) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
@@ -494,6 +501,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (a.kind !== 'water') continue;
         // Literal mapped water type precedes the legacy estimated channel classification.
         a.channelDecision = waterChannelDecision(a, { us: US, tags: data.areaSourceTags?.[a.sourceId] || {} });
+        { const lake = sunkenLake(distId, a.sourceId); if (lake) { a.sunkenLake = lake; a.channelDecision = { ...a.channelDecision, channel: true, sunkenLake: true, source: 'reviewed sunken lake: ' + lake.source }; } } // (pipera-2, sunken-lakes.js)
         if (!a.channelDecision.channel) continue;
         const t = triangulate(a.outer, a.holes); waterTris.set(a, t);
         for (const tri of t.tris) {
@@ -546,7 +554,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (a.kind === 'water') {
             const target = (a.x1 - a.x0 > CELL * 2 || a.z1 - a.z0 > CELL * 2) ? bigWater : cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2).water;
             const channel = a.channelDecision, chan = channel.channel;
-            const chanP = channelProfile(distId, a.sourceId, CHAN); if (chan) a.chanProfile = chanP; // (r2: reviewed section per water polygon, water-channel-review.js)
+            const chanP = a.sunkenLake || channelProfile(distId, a.sourceId, CHAN); if (chan) a.chanProfile = chanP; // (r2: reviewed section per water polygon, water-channel-review.js)
             waterChannelAudit.push({ sourceId: a.sourceId, name: a.name, ...channel, surfaceM: chan ? chanP.water : y, surfaceSource: chan && chanP.source || 'model estimate' });
             // (round 3, r2-builder-fountain-outlines) a fountain basin mapped as an outline (areaSourceTags amenity=fountain,
             // tools/osm/add-areas.mjs) holds its water inside a low stone coping (≈ 0.45 m, an estimate), not at ground level
@@ -556,7 +564,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             // the eight districts are 38 m² and up)
             const wt = data.areaSourceTags?.[a.sourceId], ornamental = !!wt && (wt.amenity === 'fountain' || /^(reflecting_pool|fountain)$/.test(wt.water || '') || (wt.natural === 'water' && !wt.water && a.size <= 30));
             const basin = !chan && ornamental, wy = basin ? 0.36 : y;
-            const v0 = target.vc; target.flatPoly(pts, tris, chan ? chanP.water : wy, chan ? rgb('#3c4a42') : col, 0.02); a.waterMesh = { mb: target, v0, v1: target.vc };
+            const v0 = target.vc; target.flatPoly(pts, tris, chan ? chanP.water : wy, chan && !a.sunkenLake ? rgb('#3c4a42') : col, 0.02); a.waterMesh = { mb: target, v0, v1: target.vc };
             if (basin) { // coping: outer face, top (0.3 m wide), inner face down to the water, along the outer ring
                 const sb = cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2).solid, stone = rgb(FOUNTAIN_COPING[a.sourceId] || '#b9b2a5'), R = a.outer, ccw = signedArea(R) > 0, top = 0.45, base = 0;
                 for (let k = 0; k < R.length; k++) {
@@ -574,6 +582,13 @@ export async function buildWorld(city, renderer, opts = {}) {
             const cc = cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2);
             (SPORT_KINDS.has(a.kind) ? cc.sport : GRASSY.has(a.kind) ? cc.grass : PAVED.has(a.kind) ? cc.pave : cc.area).flatPoly(pts, tris, y, col, 0.1); // (sports grounds: own layer + weather)
         }
+    }
+    // (pipera-2) the land inside a narrowed coarse water outline is the meadow OSM maps there: one grass layer under the
+    // mapped grass / meadow polygons, cut over the river band like any ground layer (sunken-lakes.js)
+    for (const ring of meadowFills) {
+        let { pts, tris } = triangulate(ring, []); ({ pts, tris } = cutTrenches(pts, tris)); if (!tris.length) continue;
+        let cx = 0, cz = 0; for (const [x, z] of ring) { cx += x / ring.length; cz += z / ring.length; }
+        cellOf(cx, cz).grass.flatPoly(pts, tris, Y.grass - 0.004, rgb(areaColors.grass), 0.1);
     }
     // sports grounds (2026-11-08): line markings, goals, tennis nets and court fences, basketball hoops, pool copings on
     // the pitch / turf / clay / hard / pool areas — they were flat coloured patches. The court is fitted with the
@@ -2304,6 +2319,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.transitShelters = { schema: 1, records: transitShelterAudit, withheldUnknown: transitShelterAudit.filter(r => r.status === 'unknown-shelter-geometry').length, literalNo: transitShelterAudit.filter(r => r.status === 'literal-no-shelter').length, legacyUnreviewed: transitShelterAudit.filter(r => r.status === 'legacy-unreviewed').length, limits: 'Inferred generic-unit decisions only; no real shelter absence, mapped geometry removal or constructor/route clearance acceptance.' };
     stats.waterShore = waterShoreAudit;
     stats.waterChannels = waterChannelAudit;
+    stats.waterOutlineExceptions = waterOutlineAudit; // (pipera-2: coarse outlines narrowed to their river line, sunken-lakes.js)
     stats.waterLines = waterLineAudit;
     stats.tramGrades = tramGrades.report;
     stats.railRoadside = railRoadside.report;

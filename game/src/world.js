@@ -4419,6 +4419,10 @@ export async function buildWorld(city, renderer, opts = {}) {
         overlapCuts.removedM2 = Math.round(overlapCuts.removedM2);
     }
     for(const b of bRecs)if(b.derivedFrom!==undefined)configurePassages(b);
+    // (spec 10 load budget) the source roofs the building loop will mesh (a roof profile, no prepared roof surface) are
+    // meshed in the build workers meanwhile, from the ring, holes and profile each building has now; the loop uses one only
+    // while the building still has those same objects (else it meshes the roof itself, as before)
+    const roofPrefetch = buildPool ? buildPool.roofMeshes(bRecs.filter(b => !b.skip && !b.canopy && b.roofProfile && !data.buildingRoofSurfaces?.[b.i]).map(b => ({ key: b, ring: b.ring, holes: b.holes, profile: b.roofProfile }))).catch(err => (console.warn('[world] roof workers failed, meshing here', err), null)) : null;
     const buildingIndex = (index, x, z) => {
         const b = bRecs[index];
         if (b?.assemblyParts) return b.assemblyParts.find(i => { const p = bRecs[i]; return p.minH === 0 && pointInPolygon(x ?? b.c[0], z ?? b.c[1], p.ring); }) ?? b.assemblyPrimary;
@@ -5851,6 +5855,12 @@ export async function buildWorld(city, renderer, opts = {}) {
     let wallTris = 0;
     // (spec 10 load budget) a source building's roof signature (and its hash) is made once for this loop, which changes no
     // field the signature reads (i, h, minH, ring, holes, roofProfile): a building is the source of several roof surfaces
+    const roofsReady = roofPrefetch ? await roofPrefetch : null;
+    /** the worker's roof of b (its faces, walls and wall normals; heightAt made here on first use), or null */
+    const prefetchedRoof = (b, roofLazy) => {
+        const r = roofsReady?.get(b); if (!r || r.ring !== b.ring || r.holes !== b.holes || r.profile !== b.roofProfile) return null;
+        return { faces: r.faces, walls: r.walls, wallNormals: r.wallNormals, heightAt: (...a) => roofLazy().heightAt(...a) };
+    };
     const roofSignatureMatches = new Map(), roofSignatureMatch = (source) => { let m = roofSignatureMatches.get(source); if (!m) roofSignatureMatches.set(source, m = signatureMatcher(roofSignature(source))); return m; };
     for (const b of bRecs) {
         if (b.skip) continue;
@@ -6089,7 +6099,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         // collider's roofHeightAt, so it is computed on its first use there (from the same ring, holes and profile)
         const roofLazy = b.roofProfile ? lazyRoofMesh(b, ring) : null;
         const cached = b.roofProfile ? data.buildingRoofSurfaces?.[b.i] : undefined, valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && roofSignatureMatch(source)(s.signature); });
-        const sourceRoof = b.roofProfile ? (valid ? { heightAt: (...a) => roofLazy().heightAt(...a) } : roofLazy()) : null;
+        const sourceRoof = b.roofProfile ? (valid ? { heightAt: (...a) => roofLazy().heightAt(...a) } : prefetchedRoof(b, roofLazy) ?? roofLazy()) : null;
         if (sourceRoof) {
             if (cached) { if (valid) roofProfileAudit.surfacesApplied++; else roofProfileAudit.surfacesRejected.push(data.buildingIds?.[b.i] || b.i); }
             const unpack = face => data.buildingRoofGeometryPoints ? face.map(i => data.buildingRoofGeometryPoints[i]) : face;

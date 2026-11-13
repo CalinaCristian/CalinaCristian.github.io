@@ -57,6 +57,22 @@ export function createBuildPool(size = Math.max(1, Math.min(6, ((typeof navigato
             s.w.postMessage({ type: 'clips', ids, ownerI, ownerSid, faceEnd, nEnd, faces, nI, nMinH, nRoof, nSid }, [faces.buffer]);
             batch = []; batchSpecs = new Map();
         },
+        /** source roofs meshed in the workers (building-roofs.js roofMesh with the shared triangulate): items [{key, ring,
+         *  holes, profile}] → Promise<Map(key → {ring, holes, profile, faces, walls, wallNormals})> (fresh arrays, made here) */
+        async roofMeshes(items) {
+            const flat = (r) => { const a = new Float64Array(r.length * 2); r.forEach((p, k) => { a[2 * k] = p[0]; a[2 * k + 1] = p[1]; }); return a; };
+            const per = Math.max(1, Math.ceil(items.length / (this.size * 2))), jobs = [];
+            for (let at = 0; at < items.length; at += per) {
+                const part = items.slice(at, at + per);
+                jobs.push(this.job({ type: 'roofMeshes', roofs: part.map((it) => ({ ring: flat(it.ring), holes: (it.holes || []).map(flat), profile: it.profile })) }).then((r) => [part, r.out]));
+            }
+            const out = new Map(), pts = (a, n) => { const f = []; for (let k = 0; k < a.length; k += 3 * n) { const q = []; for (let j = 0; j < n; j++) q.push([a[k + 3 * j], a[k + 3 * j + 1], a[k + 3 * j + 2]]); f.push(q); } return f; };
+            for (const [part, res] of await Promise.all(jobs)) part.forEach((it, k) => {
+                const r = res[k]; const wallNormals = []; for (let q = 0; q < r.normals.length; q += 3) wallNormals.push([r.normals[q], r.normals[q + 1], r.normals[q + 2]]);
+                out.set(it.key, { ring: it.ring, holes: it.holes, profile: it.profile, faces: pts(r.faces, 3), walls: pts(r.walls, 4), wallNormals });
+            });
+            return out;
+        },
         /** the deck height models of this build (bridge-height-models.js specs: { shared, descents, pads }), to every worker */
         deckModels(spec) { for (const s of state) s.w.postMessage({ type: 'deckModels', spec }); },
         /** shape one deck (bridge-surface-mesh.js shapeDeckSoup) with the height of grade spec `grade` (and the verge rule of

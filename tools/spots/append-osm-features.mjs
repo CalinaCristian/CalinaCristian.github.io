@@ -127,7 +127,7 @@ for (const sceneId of sceneIds) {
     // proof: every pre-existing feature unchanged (removed ones excepted), every other key deep-equal
     for (const k of Object.keys(before)) {
         if (['ways', 'areas', 'pois'].includes(k)) { const keep = before[k].filter(f => !removed.some(r => r.id === baseId(f.id))); if (!isDeepStrictEqual(data[k].slice(0, keep.length), keep)) throw Error(`${sceneId}.${k}: pre-existing features changed`); }
-        else if (!isDeepStrictEqual(data[k], before[k])) throw Error(`${sceneId}.${k} changed`);
+        else if (k !== 'osmAppend' && !isDeepStrictEqual(data[k], before[k])) throw Error(`${sceneId}.${k} changed`); // (osmAppend: earlier runs kept, this run appended)
     }
     let out = JSON.stringify(data);
     // keep the source file's own number spelling where JSON.stringify would rewrite it ("30410.0" written by a Python tool)

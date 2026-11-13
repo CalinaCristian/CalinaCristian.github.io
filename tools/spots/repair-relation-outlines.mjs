@@ -11,11 +11,16 @@
 //      gets `<id>_<n>` areas (same tags) for the others, appended at the end of `areas`;
 //    - with --extracts, also the `outline` / `holes` of the same relation in the source extracts (so a scene rebuild
 //      keeps the fix).
+//  With --from-extracts the source extracts are scanned on their own (their bow-ties stay after the scene files were
+//  repaired, so a scene rebuild would bring them back): each crossing relation outline there is replaced by the assembled
+//  ring; an outline the extract clipped to its reach (a lake or bay larger than the extract) is replaced by the assembled
+//  ring clipped to the stored outline's bounding box, in the extract and in the scene files whose area still crosses
+//  (--clip-scenes). The extract tool itself is not in this repo: the repaired extracts are the source from here on.
 //  An area whose correctly assembled OSM outline still crosses itself is left as it is (an OSM geometry question).
 //  Nothing else in any file changes; each changed scene file gets an `outlineRepair` provenance record.
 //
 //  usage: node tools/spots/repair-relation-outlines.mjs --osm <dir> [--fetch] [--scenes a,b] [--repo <worktree>]
-//               [--in <dir>] [--out <dir>] [--extracts] [--extracts-out <dir>] [--write]
+//               [--in <dir>] [--out <dir>] [--extracts] [--extracts-out <dir>] [--from-extracts [--clip-scenes]] [--write]
 //  © OpenStreetMap contributors, ODbL 1.0.
 // ============================================================================
 import fs from 'node:fs';
@@ -115,5 +120,52 @@ if (args.extracts && args.write) { // the source extracts: outline / holes of th
         const d = JSON.parse(fs.readFileSync(path.join(sd, f), 'utf8')); let n = 0;
         for (const a of d.areas || []) { const asm = fixedLL.get(a.id); if (!asm || asm.outers.length !== 1 || !a.outline || !crossings(a.outline)) continue; a.outline = asm.outers[0]; if (asm.inners.length) a.holes = asm.inners; n++; }
         if (n) { fs.mkdirSync(so, { recursive: true }); fs.writeFileSync(path.join(so, f), JSON.stringify(d)); console.log('extract', f, 'outlines repaired', n); }
+    }
+}
+
+// ---- --from-extracts: repair the source extracts directly (lat/lon outlines); clipped outlines are re-clipped to their box
+/** Sutherland–Hodgman: a simple polygon clipped to an axis box [a0, b0, a1, b1] (first / second coordinate) */
+function clipBox(poly, [a0, b0, a1, b1]) {
+    const edges = [[(p) => p[0] >= a0, (p, q) => [a0, p[1] + (q[1] - p[1]) * (a0 - p[0]) / (q[0] - p[0])]], [(p) => p[0] <= a1, (p, q) => [a1, p[1] + (q[1] - p[1]) * (a1 - p[0]) / (q[0] - p[0])]],
+        [(p) => p[1] >= b0, (p, q) => [p[0] + (q[0] - p[0]) * (b0 - p[1]) / (q[1] - p[1]), b0]], [(p) => p[1] <= b1, (p, q) => [p[0] + (q[0] - p[0]) * (b1 - p[1]) / (q[1] - p[1]), b1]]];
+    let out = poly.slice(); if (out.length > 1 && out[0][0] === out[out.length - 1][0] && out[0][1] === out[out.length - 1][1]) out.pop();
+    for (const [inside, cut] of edges) { const src = out; out = []; for (let i = 0; i < src.length; i++) { const p = src[i], q = src[(i + 1) % src.length], pi = inside(p), qi = inside(q); if (pi) out.push(p); if (pi !== qi) out.push(cut(p, q)); } if (!out.length) break; }
+    return out;
+}
+const dropCollinear = (p) => { const o = []; for (let i = 0; i < p.length; i++) { const a = p[(i - 1 + p.length) % p.length], b = p[i], c = p[(i + 1) % p.length]; const cr = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]); if (Math.abs(cr) > 1e-14 && !(a[0] === b[0] && a[1] === b[1])) o.push(b); } return o; };
+if (args['from-extracts']) {
+    const sd = path.join(REPO, 'game/research/osm/sea-spots'), so = path.resolve(args['extracts-out'] || sd), clipped = new Map();
+    for (const f of fs.readdirSync(sd).filter(f => f.endsWith('.json') && !f.includes('terrain'))) {
+        const d = JSON.parse(fs.readFileSync(path.join(sd, f), 'utf8')), done = [], extra = [];
+        for (const a of d.areas || []) {
+            const m = /^r(\d+)$/.exec(String(a.id)); if (!m || !a.outline || a.outline.length < 4) continue;
+            const before = crossings(a.outline); if (!before) continue;
+            const full = await relationFull(+m[1]); if (!full) { console.log('extract', f, a.id, 'no OSM reply saved (run with --fetch)'); continue; }
+            const asm = assemble(full.json, +m[1]); if (!asm || !asm.outers.length) { console.log('extract', f, a.id, 'no closed outer ring in OSM'); continue; }
+            const key = (q) => q[0].toFixed(6) + ',' + q[1].toFixed(6), stored = new Set(a.outline.map(key)), pts = asm.outers.flat();
+            const same = pts.filter(q => stored.has(key(q))).length >= 0.9 * pts.length;
+            let ring = null, how = '';
+            if (same && asm.outers.every(r => !crossings(r))) { // mis-joined: the largest ring keeps the id, the others become <id>_<k>
+                const rs = asm.outers.slice().sort((p, q) => Math.abs(area(q)) - Math.abs(area(p))); ring = rs[0]; how = `rejoined (${rs.length} outer ring(s))`;
+                const holesOf = (r) => asm.inners.filter(h => inPoly(h[0][0], h[0][1], r));
+                for (let k = 1; k < rs.length; k++) { const { id, outline, holes, ...tags } = a, hk = holesOf(rs[k]); extra.push({ id: `${a.id}_${k}`, ...tags, outline: rs[k], ...(hk.length ? { holes: hk } : {}) }); }
+                const h0 = holesOf(rs[0]); if (h0.length) a.holes = h0; else delete a.holes;
+            } else { // clipped by the extract: the assembled outer ring that overlaps the stored box, clipped to that box
+                const la = a.outline.map(q => q[0]), lo = a.outline.map(q => q[1]), box = [Math.min(...la), Math.min(...lo), Math.max(...la), Math.max(...lo)];
+                const cands = asm.outers.map(r => dropCollinear(clipBox(r, box))).filter(r => r.length >= 3).sort((p, q) => Math.abs(area(q)) - Math.abs(area(p)));
+                if (cands.length && !crossings(cands[0])) { ring = [...cands[0], cands[0][0]]; how = `clipped to the stored box (${asm.outers.length} outer ring(s))`; clipped.set(a.id, { box, ring: cands[0], sha: full.sha256 }); }
+            }
+            if (!ring) { console.log('extract', f, a.id, 'crossings', before, 'left as it is (assembled ring still crosses)'); continue; }
+            a.outline = ring;
+            done.push(a.id); console.log('extract', f, a.id, 'crossings', before, '→ 0,', how);
+        }
+        d.areas.push(...extra);
+        if (done.length && args.write) { d.outlineRepair = { tool: 'tools/spots/repair-relation-outlines.mjs --from-extracts', date: new Date().toISOString().slice(0, 10), source: 'OSM API 0.6 relation/<id>/full.json', repaired: done, added: extra.map(a => a.id) }; fs.mkdirSync(so, { recursive: true }); fs.writeFileSync(path.join(so, f), JSON.stringify(d)); }
+    }
+    if (args['clip-scenes']) for (const f of files) { // the clipped lakes / bays in the scene files, where the stored area still crosses
+        const d = JSON.parse(fs.readFileSync(path.join(IN, f), 'utf8')); if (!d.origin || !Array.isArray(d.areas)) continue;
+        const P = projector(d.origin.lat, d.origin.lon), changed = [];
+        for (const a of d.areas) { const c = clipped.get(a.id); if (!c || !a.poly || !crossings(a.poly)) continue; const poly = cleanPoly(c.ring.map(([la, lo]) => P.xy(la, lo))); if (crossings(poly)) continue; console.log('scene', f, a.id, 'crossings', crossings(a.poly), '→ 0 (clipped OSM outline)'); a.poly = poly; changed.push({ id: a.id, osmSha256: c.sha, clippedTo: c.box }); }
+        if (changed.length && args.write) { d.outlineRepair = { ...(d.outlineRepair || {}), clipped: changed, clippedDate: new Date().toISOString().slice(0, 10) }; fs.writeFileSync(path.join(OUT, f), JSON.stringify(d)); }
     }
 }

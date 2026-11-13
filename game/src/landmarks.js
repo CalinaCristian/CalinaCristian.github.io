@@ -2874,6 +2874,14 @@ function bLincolnN(b) {
     b.cornice(br8, 6.6, 0.5, 0.25, '#eef0f0'); b.cornice(br8, 10.8, 0.5, 0.3, '#eef0f0');
     // Its sides are an open white steel truss (street-level review 2026-11-12), drawn on the two long source edges.
     for (let i = 0; i < br8.length; i++) { const p = br8[i], q = br8[(i + 1) % br8.length]; if (Math.hypot(q[0] - p[0], q[1] - p[1]) > 12) trussSide(b, p, q, 6.85, 10.8); }   // long edges only (the two ends are the landings)
+    // (bellevue-7) a glazed pitched roof over the bridge (ridge 1.2 m above the eaves, along the centre line of the source
+    // outline; the ridge height is an estimate). The white curved pier on the north sidewalk is not drawn: its place is not
+    // mapped (seattle-bellevue.md)
+    if (br8.length === 6) {
+        const Lf = [br8[0], br8[1], br8[2]], Rt = [br8[5], br8[4], br8[3]], C = Lf.map((p, i) => [(p[0] + Rt[i][0]) / 2, (p[1] + Rt[i][1]) / 2]), E = 11, R = 12.2, GLR = '#9fc2cf';
+        for (const side of [Lf, Rt]) for (let i = 0; i < 2; i++) b.quad([side[i][0], E, side[i][1]], [side[i + 1][0], E, side[i + 1][1]], [C[i + 1][0], R, C[i + 1][1]], [C[i][0], R, C[i][1]], GLR, 'g');
+        for (const i of [0, 2]) b.quad([Lf[i][0], E, Lf[i][1]], [C[i][0], R, C[i][1]], [C[i][0], R, C[i][1]], [Rt[i][0], E, Rt[i][1]], '#eef0f0', 'm');   // gable ends
+    }
     b.colPolygon(pod, { y1: 16 });                                                                   // (skybridge spans have no collision)
 }
 /** glazed skybridge box on a light steel frame between two plan points at floor height y */

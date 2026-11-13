@@ -8378,7 +8378,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         overTrunk: (x, z) => { const q = nearestEdge(x, z, e => /^(motorway|trunk)$/.test(e.type) && !e.virtual, 40); return !!q && q.d < q.edge.halfW + 1.5; } });
     // (round 3) footbridges / skybridges by reviewed class (pedestrian-bridges.js: ASE covered footbridges, the Hilton wing skybridge, the Regie footbridge)
     const pedestrianBridges = distId ? emitPedestrianBridges({ dataset: elevatedDataset, proj: (la, lo) => city.proj(la, lo), cellOf, rgb,
-        groundAt: (x, z) => { let g = null; surfacesAt(x, z, h => { if (h < 3 && (g === null || h > g)) g = h; }); return g; } }) : { bridges: [] };
+        groundAt: (x, z) => { let g = null; surfacesAt(x, z, h => { if (h < 3 && (g === null || h > g)) g = h; }); return g; }, inBuilding: (x, z) => !!buildingAt(x, z) }) : { bridges: [] };
     // (fidelity pass r2) free-standing monuments / memorials / artworks at their mapped OSM positions (monuments.js): districts only
     const monuments = distId ? emitMonuments({ pois: data.pois.filter(r => data.poiKinds[r[0]] === 'landmark').map(r => ({ name: str(r[3]), sub: str(r[5]), x: r[1] / 10, z: r[2] / 10, building: r[6] })),
         project: (la, lo) => city.proj(la, lo), keep: (x, z) => !ringGeometry || sceneryMargin(x, z) <= 400, cellOf, rgb, shadeRgb, landmarkDiscs: landmarkDiscs.filter(d => d.r <= 12),

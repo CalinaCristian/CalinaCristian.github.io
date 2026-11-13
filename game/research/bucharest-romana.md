@@ -1046,3 +1046,8 @@ Sources: live OSM, the official panorama poses recorded in the backlog rows (loo
   slot at the five-phase square is one fifth of the cycle). Walkers no longer creep along a carriageway on a corner leg that
   cuts it (Magheru at Jules Michelet / Tache Ionescu: the leg is walked as a crossing) and step back onto their line before
   turning round (Magheru at C. A. Rosetti).
+
+## Estimates (structures, 2026-11-13)
+
+- ASE covered footbridges (w783025570, w783025571, w942676266): width 3.2 m, soffit 5.2 m and the shallow-arch canopy (0.7 m rise) are estimates; only w783025570 was seen on a panorama.
+- ASE footbridge w783025570: its east end lies in the ASE footprint the `ase` landmark replaces, but the model does not fill that corner, so the corridor ends open in the air there (a landmark-model gap; w783025571 / w942676266 now run on to their walls).

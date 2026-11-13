@@ -663,3 +663,7 @@ Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
 - **Petrom** (1065, -1193): the nearest edge to the forecourt is the first metres of Bd. Alexandru Ioan Cuza after the map edge
   (entered only from outside the map); the route now ends on the next edge a route reaches, 4 m away (`nav.compute` goal
   fallback). The shop under the canopy is not modelled (`fuel-stations-review.json`).
+
+## Estimates (structures, 2026-11-13)
+
+- Regie footbridge (w799487638): rise 1.6 m and width 4.2 m are estimates; the quay parapet and railing stay open where it lands.

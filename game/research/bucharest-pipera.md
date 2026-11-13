@@ -684,3 +684,7 @@ guards and the yellow railing drawn; the water and the lake polygon are unchange
 - **Pedestrian fronts** (r2-builder-pedestrian-fronts): four businesses lie on the mapped pedestrian way w1568673179 (Pizzeria
   Geniale x Vice Cream, Plantini, Pasta del Popolo, BigBoys Barbershop) and sign their own buildings (shop + sign flags);
   World Class on w1472893992 is in the scenery ring (no signs there by rule). Promenada's tenants are interior units.
+
+## Estimates (fuel stations, 2026-11-13)
+
+- Petrom (Pipera): about four pump islands in the panorama, two drawn by the generic forecourt model; the shop under the canopy is not modelled. Reviewed pylon places are ±10 m estimates from the panorama bearing (`fuel-stations-review.json`).

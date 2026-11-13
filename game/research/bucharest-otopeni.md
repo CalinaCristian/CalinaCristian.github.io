@@ -561,3 +561,7 @@ and r3-look-9 established. No available source settles the estimates below; they
   district (no join is invented). The map's Gas stations list offers a station only when a route reaches it from where the
   player is (`main.js` `stationOffered`); the station stays a real POI and can be refuelled at.
 - **Fuel flag masts** at Gazprom / Rompetrol: no OSM object, not drawn.
+
+## Estimates (fuel stations, 2026-11-13)
+
+- Gazprom / Rompetrol flag masts are not drawn: no OSM object.

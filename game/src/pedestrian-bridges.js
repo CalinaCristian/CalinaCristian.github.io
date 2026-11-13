@@ -41,6 +41,14 @@ export function emitPedestrianBridges(env) {
     const C = env.rgb, CREAM = C('#ddd6c3'), CON = C('#bdb8ad'), GLASS = C('#9db6be'), FRAME = C('#c7cbcc'), WHITE = C('#e6e4de'), BAND = C('#7f97a2'), GREEN = C('#2f6a4b'), DECK = C('#a8a49b');
     for (const b of list) {
         const pts = b.nodes.map(([lat, lon]) => { const q = env.proj(lat, lon); return [q.x ?? q[0], q.z ?? q[1]]; });
+        // (owner, 2026-11-13: "floating connecting buildings that don't connect to anything") an elevated corridor ends at a
+        // building: an end the mapped way leaves short of the wall runs on along the bridge until it meets the building it
+        // serves (up to 8 m; the way's own nodes are kept)
+        if ((b.cls === 'covered-glass' || b.cls === 'enclosed') && env.inBuilding && pts.length >= 2) for (const [i, j] of [[0, 1], [pts.length - 1, pts.length - 2]]) {
+            const p = pts[i], q = pts[j], l = Math.hypot(p[0] - q[0], p[1] - q[1]); if (l < .05 || env.inBuilding(p[0], p[1])) continue;
+            const ux = (p[0] - q[0]) / l, uz = (p[1] - q[1]) / l;
+            for (let d = .5; d <= 8; d += .5) if (env.inBuilding(p[0] + ux * d, p[1] + uz * d)) { pts[i] = [p[0] + ux * (d + .3), p[1] + uz * (d + .3)]; (report.extended ||= []).push({ id: b.id, end: i ? 'last' : 'first', m: d + .3 }); break; }
+        }
         let L = 0; for (let i = 1; i < pts.length; i++) L += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
         let g = 0, n = 0; for (const p of pts) { const h = env.groundAt(p[0], p[1]); if (h != null) { g += h; n++; } }
         const ground = n ? g / n : 0, W = b.widthM, hw = W / 2, rec = { id: b.id, cls: b.cls, lengthM: +L.toFixed(1), widthM: W, groundM: +ground.toFixed(2), pano: b.pano };
@@ -56,12 +64,17 @@ export function emitPedestrianBridges(env) {
                         m.box(mx + nx * (hw - 0.1) * s, base + 0.55, mz + nz * (hw - 0.1) * s, 0.2, 1.1, len + 0.02, ang, CREAM); // parapet band
                         m.face4(P(0, (hw - 0.05) * s, base + 1.65), P(1, (hw - 0.05) * s, base + 1.65), P(1, (hw - 0.05) * s, base + 2.75), P(0, (hw - 0.05) * s, base + 2.75), GLASS, [nx * s, 0, nz * s]);
                         m.face4(P(1, (hw - 0.05) * s, base + 1.65), P(0, (hw - 0.05) * s, base + 1.65), P(0, (hw - 0.05) * s, base + 2.75), P(1, (hw - 0.05) * s, base + 2.75), GLASS, [-nx * s, 0, -nz * s]);
-                        m.face4(P(0, (hw - 0.05) * s, base + 2.75), P(1, (hw - 0.05) * s, base + 2.75), P(1, 0, base + 3.45), P(0, 0, base + 3.45), GLASS, [nx * s * .6, .8, nz * s * .6]); // pitched roof
-                        m.face4(P(1, (hw - 0.05) * s, base + 2.75), P(0, (hw - 0.05) * s, base + 2.75), P(0, 0, base + 3.45), P(1, 0, base + 3.45), GLASS, [-nx * s * .6, -.8, -nz * s * .6]);
+                    }
+                    // (r3-structures-1) the canopy is a shallow arch (panorama 44.447532, 26.097783 h160), not a pitched roof: 0.7 m rise
+                    const arch = o => base + 2.75 + 0.7 * (1 - (o / (hw - 0.05)) ** 2), K = 6;
+                    for (let k = 0; k < K; k++) {
+                        const o0 = -(hw - 0.05) + (2 * (hw - 0.05)) * k / K, o1 = -(hw - 0.05) + (2 * (hw - 0.05)) * (k + 1) / K, sl = (arch(o1) - arch(o0)) / (o1 - o0);
+                        m.face4(P(0, o0, arch(o0)), P(1, o0, arch(o0)), P(1, o1, arch(o1)), P(0, o1, arch(o1)), GLASS, [-nx * sl, 1, -nz * sl]);
+                        m.face4(P(1, o0, arch(o0)), P(0, o0, arch(o0)), P(0, o1, arch(o1)), P(1, o1, arch(o1)), GLASS, [nx * sl, -1, nz * sl]);
                     }
                     const frames = Math.max(1, Math.round(len / 2.5));
                     for (let k = 0; k <= frames; k++) { const f = k / frames, c = P(f, 0, 0);
-                        for (const s of [1, -1]) { const p = P(f, (hw - 0.05) * s, 0); m.box(p[0], base + 1.65, p[2], 0.08, 1.1, 0.08, ang, FRAME); m.box((p[0] + c[0]) / 2, base + 3.08, (p[2] + c[2]) / 2, hw, 0.07, 0.08, ang, FRAME); } }
+                        for (const s of [1, -1]) { const p = P(f, (hw - 0.05) * s, 0); m.box(p[0], base + 1.65, p[2], 0.08, 1.1, 0.08, ang, FRAME); m.box((p[0] + c[0]) / 2, base + 3.27, (p[2] + c[2]) / 2, hw, 0.07, 0.08, ang, FRAME); } }
                 } else {
                     for (const s of [1, -1]) {
                         const o = (hw - 0.05) * s, wall = (y0, y1, col) => { m.face4(P(0, o, y0), P(1, o, y0), P(1, o, y1), P(0, o, y1), col, [nx * s, 0, nz * s]); m.face4(P(1, o, y0), P(0, o, y0), P(0, o, y1), P(1, o, y1), col, [-nx * s, 0, -nz * s]); };

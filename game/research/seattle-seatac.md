@@ -265,3 +265,9 @@ outline w1035290130, 47.444099, -122.293207 h330): a low white enclosed corridor
 
 - **Not seen from any street panorama** (backlog r2-districts-view-15): the hotel pool at 47.444558, −122.294232 and the
   garage rideshare ramps at 47.4430, −122.2982. Drawn from OSM; their look is the class estimate.
+
+## Estimates (structures, 2026-11-13)
+
+- Hilton wing skybridge (w1035290130 / w1035290131): width 4.6 m and soffit 4.4 m are estimates.
+- Airport Expressway overhead sign gantries are not drawn: not in OSM, and their text is not legible in any panorama.
+- The terminal Departures curb canopy and the airline door signs are approximations.

@@ -600,3 +600,7 @@ legible at this resolution).
 - **Monuments skipped by the footprint test**: Root n11862631648 and Story Pole VI n12554043199 (reported, never moved).
 - **Menu**: `bel-lincoln-square` is not in `game/src/spot-availability.js` `MENU_AVAILABLE` (commit f49c4fdc), so places.json
   does not list it; offering it is the owner's decision.
+
+## Estimates (structures, 2026-11-13)
+
+- Lincoln Square NE 8th skybridge (w1364249504): the glazed pitched roof is drawn with its ridge 1.2 m above the eaves (estimate). The white curved pier on the north sidewalk is not drawn: its place is not mapped.

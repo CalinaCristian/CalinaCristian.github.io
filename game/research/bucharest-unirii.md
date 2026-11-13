@@ -1022,3 +1022,7 @@ closed (each was either fixed or is an estimate no available source settles).
   and Bustul lui Barbu Constantinescu n10726686133 on a carriageway: reported, never moved (`monuments-review.json`).
 - **Fuel**: MOL's four pump islands are the generic model (not counted); OMV's curved shop canopy is not modelled
   (`fuel-stations-review.json` `remainingEstimates`).
+
+## Estimates (fuel stations, 2026-11-13)
+
+- MOL: four pump islands drawn, not counted on a panorama; OMV's curved shop canopy is not modelled. Canopy soffits read dark under shade although white in every panorama (lighting, not colour).

@@ -1,6 +1,6 @@
 // What Doru (the fictional Cișmigiu regular) says over a game of table, and when. Pure data + selection: no DOM, no
 // three.js. Sources and which lines are attested (heard in Cișmigiu, in Romanian dictionaries or press) against which
-// are written in the same style: game/research/table-cismigiu.md. Romanian players call the dice in plain Romanian
+// are written in the same style: game/research/bucharest-spots.md, "Table (Romanian backgammon)". Romanian players call the dice in plain Romanian
 // ("șase-cinci", "dublă de patru"); only a few old Turkish names survive: "dușeș" (6-6), "șeș-beș" (6-5), "epiec" (1-1),
 // and "gherlă" for a useless roll. Each line is [Romanian, English]; {…} are filled from the event.
 const side = (p) => (p === 1 ? 0 : 1);

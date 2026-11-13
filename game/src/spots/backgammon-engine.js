@@ -1,7 +1,7 @@
 // Pure rules of "table", backgammon as played in Romania. +1 moves 24→1, -1 moves 1→24. Points are zero-based;
 // positive/negative counts belong to the two players. Every public transition
 // returns a new frozen position. Dice are supplied by the activity, never here.
-// Romanian practice (game/research/table-cismigiu.md): no doubling cube; each player throws one die to open, a tie
+// Romanian practice (game/research/bucharest-spots.md, "Table (Romanian backgammon)"): no doubling cube; each player throws one die to open, a tie
 // is thrown again and the winner then throws both dice for the first move (`opening: 'reroll'`, the default;
 // 'use' plays the two opening dice as in international rules); a win is a "linie" (1), a "marț" (2) when the loser
 // has borne off nothing, a "marț tehnic" (3) when the loser also still has a checker on the bar or in the winner's home.

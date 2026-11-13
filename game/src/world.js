@@ -1,5 +1,6 @@
 import { fitFacadeSign, facadeSignBoard } from './facade-sign-layout.js';
 import { sourceWaterTreeConflicts } from './source-water-tree-conflicts.js';
+import { reviewedTreeExclusions } from './tree-reviews.js';
 import { emitStreetLevelWaterBridgeRailings, emitReviewedStreetBridgeRailings } from './water-bridge-railings.js';
 import { emitPedestrianBridges } from './pedestrian-bridges.js';
 import { trenchParapetRow, emitTrenchBalustrade } from './trench-parapets.js';
@@ -2937,7 +2938,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (s1 - s0 > .2) {
                     if (e.taperR) { const n = Math.max(1, Math.ceil(s1 - s0)); for (let i = 0; i < n; i++) { const sa = s0 + (s1 - s0) * i / n, sb = s0 + (s1 - s0) * (i + 1) / n, oa = e.wR - 0.15 + sideExtra(e, 1, sa), ob = e.wR - 0.15 + sideExtra(e, 1, sb), P = (q, o) => [e.a.x + e.dirx * q + e.nx * o, e.a.z + e.dirz * q + e.nz * o], A = P(sa, oa - 0.08), B = P(sb, ob - 0.08), C = P(sb, ob + 0.08), D = P(sa, oa + 0.08); edgeM.flatQuad(A[0], A[1], B[0], B[1], C[0], C[1], D[0], D[1], yM, white, 0); } } // (a lane-drop taper: the line closes in with the kerb)
                     else dashLine(edgeM, e, s0, s1, e.wR - 0.15, yM, white, Math.min(1, s1 - s0), 0, 0.08);
-                    dashLine(edgeM, e, s0, s1, -(e.wL - 0.15), yM, (US && e.oneway && isMotorwayTrunk(e.type)) ? yellow : white, Math.min(1, s1 - s0), 0, 0.08);
+                    // (owner, 2026-11-13: "lanes are drawn badly on both seattle and bellevue") US: the left edge line of every one-way
+                    // roadway is yellow (MUTCD 3B.06: divided highways, one-way roadways and ramps), not only on motorways / trunks;
+                    // International Blvd's and NE 8th St's carriageways had a white line along their median side
+                    dashLine(edgeM, e, s0, s1, -(e.wL - 0.15), yM, (US && e.oneway) ? yellow : white, Math.min(1, s1 - s0), 0, 0.08);
                 }
             }
             // stop lines at lights / stop signs
@@ -3595,13 +3599,13 @@ export async function buildWorld(city, renderer, opts = {}) {
     // Bretea slip ramps leave and join the Basarab deck on their own bridges; only edges named Pasajul Basarab had the
     // continuous guard, so the ramps kept the grey pad-rim barrier pieces (one stood in the carriageway where a ramp meets
     // the deck). Every raised bridge edge connected to the Basarab deck through raised bridge edges is one structure.
-    let basarabDeckSet = null;
-    const basarabDeck = e => {
-        if (!basarabDeckSet) {
-            basarabDeckSet = new Set(edges.filter(f => basarabEdge(data, f))); const todo = [...basarabDeckSet];
-            while (todo.length) { const e2 = todo.pop(); for (const n of [e2.a, e2.b]) for (const f of n.edges) if (!basarabDeckSet.has(f) && f.bridge && !f.virtual && !f.tunnel && Math.max(f.ya, f.yb) > .3) { basarabDeckSet.add(f); todo.push(f); } }
-        }
-        return basarabDeckSet.has(e);
+    // (owner, 2026-11-13, SeaTac: "bridges with borders that don't connect properly", Bellevue: "fences do not connect")
+    // the per-edge railings left the same gaps and stray pieces at every other interchange: every raised bridge
+    // carriageway of every district now takes the one guard rule (the outline of the union of the raised carriageways).
+    let raisedDeckSet = null;
+    const raisedDeck = e => {
+        if (!raisedDeckSet) raisedDeckSet = new Set(edges.filter(f => basarabEdge(data, f) || (f.bridge && !f.virtual && !f.tunnel && Math.max(f.ya, f.yb) > .3)));
+        return raisedDeckSet.has(e);
     };
     const medianFill = { quads: 0, areaM2: 0, decks: [] }, medianGrid = new BoxGrid(32);
     {
@@ -4035,7 +4039,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         walls.length = 0; walls.push(...railClearWalls);
         // draw the concrete separation barriers that survived
         for (const w of walls) {
-            if(w.kind==='rail'&&w.edge&&basarabDeck(w.edge)){} // (drawn after the guard completion, its joins and the width-step tapers: see there)
+            if(w.kind==='rail'&&w.edge&&raisedDeck(w.edge)){} // (drawn after the guard completion, its joins and the width-step tapers: see there)
             // (owner, 2026-11-11, Grozavesti (286, -776): "still broken", barriers on the Exit to Giulesti ramp in chunks) the
             // parapet of every other bridge is drawn exactly along its final collision rail: one continuous run wherever the
             // deck has an edge to guard, open exactly where the rail is open (junction mouths, merging decks)
@@ -4065,7 +4069,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             // elevated Basarab decks an edge was guarded by the white rail where the guard builder ran and by these grey
             // concrete pieces where the pad-rim rule did, piece by piece around every node. They are not drawn there and
             // their walls are removed; the guard completion fences those edges with one continuous white rail.
-            if (w.inferred === true && w.edge && basarabDeck(w.edge)) continue; // (owner, 2026-11-12, (77, 112): grey piece on a 2.4 m ramp too) // (replaced by the continuous guard: see the guard completion below)
+            if (w.inferred === true && w.edge && raisedDeck(w.edge)) continue; // (owner, 2026-11-12, (77, 112): grey piece on a 2.4 m ramp too) // (replaced by the continuous guard: see the guard completion below)
             const ya = w.y0a + 0.45, yb = w.y0b + 0.45, L = Math.hypot(w.bx - w.ax, w.bz - w.az) || 1, px = -(w.bz - w.az) / L * 0.15, pz = (w.bx - w.ax) / L * 0.15;
             const c = cellOf(w.x, w.z);
             const metadata={inferred:w.inferred===true,emitter:'separation-barrier',sourceId:data.roadSourceGeometry?.[w.edge?.road]?.sourceId,edgeId:w.edge?.id};
@@ -5413,7 +5417,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         //      centre support, station roof, H-frame, stays and river arch. The slot infill above is real deck for its stay
         //      anchors; the stretches its stays and arch carry get no pier below.
         const basarabRoadRegions = basarabDistrict ? raisedRoadTriangles(cells.values()) : [];
-        basarabStructure = buildBasarabStructure(data, tramGrades, cellOf, group, edges, { roadRegions: basarabRoadRegions, tramEnvelope: tramPropEnvelope, tramSweep, roadFootprints: basarabDistrict ? edges.filter(e => e.bridge && !e.virtual && !e.tunnel && basarabDeck(e)).map(e => asphaltCorners(e, (f, sd) => widthAsphalt(f, sd) + .4)) : [], supportAt: (x, z, base) => { let top = null; surfacesAt(x, z, h => { if (Math.abs(h - base) < .3 && (top === null || Math.abs(h - base) < Math.abs(top - base))) top = h; }); return top; } });
+        basarabStructure = buildBasarabStructure(data, tramGrades, cellOf, group, edges, { roadRegions: basarabRoadRegions, tramEnvelope: tramPropEnvelope, tramSweep, roadFootprints: basarabDistrict ? edges.filter(e => e.bridge && !e.virtual && !e.tunnel && raisedDeck(e)).map(e => asphaltCorners(e, (f, sd) => widthAsphalt(f, sd) + .4)) : [], supportAt: (x, z, base) => { let top = null; surfacesAt(x, z, h => { if (Math.abs(h - base) < .3 && (top === null || Math.abs(h - base) < Math.abs(top - base))) top = h; }); return top; } });
         const carriedSpans = basarabStructure.report.superstructure?.carriedSpans || [];
         // The slot between the two tram slabs is the centre support's where that exists (station, cable-stayed span).
         // Beyond its ends the slot stayed open: a hole in the deck with the ground visible through it. Closed there now.
@@ -5521,10 +5525,10 @@ export async function buildWorld(city, renderer, opts = {}) {
     //      above the street (owner, (134, -475): "why not fence till the end").
     const ghostRails = []; // railing pieces drawn without a collision wall (inside the tram guard's cover, clear of the tram body)
     const railingDrops = [], DROP = (x, z, why) => railingDrops.push([Math.round(x * 10) / 10, Math.round(z * 10) / 10, why]); // (stats.railingDrops: where a railing piece was left out, and why)
-    const guardCompletion = { basis: 'Pasajul Basarab: railing on the outline of the union of its elevated carriageways (deck-outline.js)', candidates: 0, runs: 0, lengthM: 0, addedM: 0, welds: 0, strays: 0, sweptM: 0, replacedWalls: 0 };
+    const guardCompletion = { basis: 'raised decks: railing on the outline of the union of the elevated carriageways (deck-outline.js)', candidates: 0, runs: 0, lengthM: 0, addedM: 0, welds: 0, strays: 0, sweptM: 0, replacedWalls: 0 };
     {
         const GROW = .3, EPS = .05, LEVEL = .6, LOW = .15;
-        for (let i = walls.length - 1; i >= 0; i--) { const w = walls[i]; if (w.edge && !w.tramDeckRailing && basarabDeck(w.edge) && (w.kind === 'rail' || w.kind === 'embank' || (w.kind === 'barrier' && w.inferred === true))) { walls.splice(i, 1); guardCompletion.replacedWalls++; } }
+        for (let i = walls.length - 1; i >= 0; i--) { const w = walls[i]; if (w.edge && !w.tramDeckRailing && raisedDeck(w.edge) && (w.kind === 'rail' || w.kind === 'embank' || (w.kind === 'barrier' && w.inferred === true))) { walls.splice(i, 1); guardCompletion.replacedWalls++; } }
         // is (x, z) of a guard line at road level y taken by another surface: within GROW of a carriageway or pad at this
         // level (its own guard line runs there, or the two are one road), inside a deck up to 3 m above (the line would stand
         // in that deck), or at a filled median
@@ -5543,22 +5547,22 @@ export async function buildWorld(city, renderer, opts = {}) {
         };
         const cands = [];
         for (const e of edges) {
-            if (!e.bridge || e.virtual || e.tunnel || !basarabDeck(e)) continue;
+            if (!e.bridge || e.virtual || e.tunnel || !raisedDeck(e)) continue;
             const [aR, bR, bL, aL] = asphaltCorners(e, (f, sd) => widthAsphalt(f, sd) + GROW), h = (x, z) => yAlong(e, x, z);
             cands.push({ e, node: null, a: aR, b: bR, nx: -e.nx, nz: -e.nz, h, low: e.overWater ? -Infinity : LOW }, { e, node: null, a: aL, b: bL, nx: e.nx, nz: e.nz, h, low: e.overWater ? -Infinity : LOW });
         }
         for (const o of surfList) {
-            const n = o.node; if (!n || o.poly.length < 3 || !n.edges.some(e => e.bridge && !e.virtual && !e.tunnel && basarabDeck(e))) continue;
+            const n = o.node; if (!n || o.poly.length < 3 || !n.edges.some(e => e.bridge && !e.virtual && !e.tunnel && raisedDeck(e))) continue;
             const P = o.poly, cx = P.reduce((s2, q) => s2 + q[0], 0) / P.length, cz = P.reduce((s2, q) => s2 + q[1], 0) / P.length, h = (x, z) => padHeightAt(n, x, z);
             for (let k = 0; k < P.length; k++) {
                 const p = P[k], q = P[(k + 1) % P.length], L = Math.hypot(q[0] - p[0], q[1] - p[1]); if (L < .05) continue;
                 let ox = (q[1] - p[1]) / L, oz = -(q[0] - p[0]) / L; if (((p[0] + q[0]) / 2 - cx) * ox + ((p[1] + q[1]) / 2 - cz) * oz < 0) { ox = -ox; oz = -oz; }
-                cands.push({ e: n.edges.find(e => e.bridge && !e.virtual && basarabDeck(e)), node: n, a: [p[0] + ox * GROW, p[1] + oz * GROW], b: [q[0] + ox * GROW, q[1] + oz * GROW], nx: -ox, nz: -oz, h, low: LOW });
+                cands.push({ e: n.edges.find(e => e.bridge && !e.virtual && raisedDeck(e)), node: n, a: [p[0] + ox * GROW, p[1] + oz * GROW], b: [q[0] + ox * GROW, q[1] + oz * GROW], nx: -ox, nz: -oz, h, low: LOW });
             }
         }
         // the open end of a filled median (where its two carriageways part by more than the fill spans) is an edge too
         for (const d of medianFill.decks) {
-            if (!d.edge || !basarabDeck(d.edge)) continue;
+            if (!d.edge || !raisedDeck(d.edge)) continue;
             for (const [p, q] of d.caps) {
                 const L = Math.hypot(q[0] - p[0], q[2] - p[2]); if (L < .3) continue;
                 let ox = (q[2] - p[2]) / L, oz = -(q[0] - p[0]) / L; if (((p[0] + q[0]) / 2 - d.x) * ox + ((p[2] + q[2]) / 2 - d.z) * oz < 0) { ox = -ox; oz = -oz; }
@@ -5794,10 +5798,10 @@ export async function buildWorld(city, renderer, opts = {}) {
     //          reach without crossing a carriageway at its level, another railing or a tram's swept body;
     //      (2) a dead-end spur under 6 m and an isolated group under 16 m are removed;
     //      (3) only then is the railing drawn. What still ends in the air is listed in stats.railingNetwork.openEnds.
-    const railingNetwork = { basis: 'MODEL: Basarab railings joined into one network before they are drawn', joins: 0, joinM: 0, endToRailing: 0, prunedSpurs: 0, prunedIsolated: 0, prunedM: 0, openEnds: [] };
+    const railingNetwork = { basis: 'MODEL: raised-deck railings joined into one network before they are drawn', joins: 0, joinM: 0, endToRailing: 0, prunedSpurs: 0, prunedIsolated: 0, prunedM: 0, openEnds: [] };
     {
         const mine = w => w.kind === 'rail' && w.basarabStyle === true;
-        if (basarabStructure.report.active) {
+        if (walls.some(mine) || ghostRails.length) { // (every district with raised decks since 2026-11-13: see raisedDeck)
             const TOUCH = .3, len = w => Math.hypot(w.bx - w.ax, w.bz - w.az);
             const analyse = () => {
                 const rails = walls.filter(mine).concat(ghostRails), ends = [], grid = new BoxGrid(8), bodies = new BoxGrid(8);
@@ -5898,9 +5902,20 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         // (3) draw (one post where two pieces meet)
         const posts = new Set(), postKey = (x, z) => Math.round(x * 20) + ',' + Math.round(z * 20), shared = basarabStructure.report.active;
+        // (other districts, 2026-11-13) the guard of every other raised deck keeps the look its bridges were reviewed with: the
+        // reviewed guard class of its way (bridge-guards.js), else the plain concrete parapet the per-edge rails drew
+        const parapet = w => {
+            const L = Math.hypot(w.bx - w.ax, w.bz - w.az), gc = cellOf((w.ax + w.bx) / 2, (w.az + w.bz) / 2);
+            if (w.edge && emitBridgeGuard(gc.solid, gc.detail, w, bridgeGuardRow(data.roadSourceGeometry?.[w.edge.road]?.sourceId))) return;
+            if (!(L > .05)) return;
+            const sb = gc.solid, ta = w.y1a, tb = w.y1b, ba = ta - 1.1, bb = tb - 1.1, ox = -w.nx * .3, oz = -w.nz * .3;
+            const A0 = [w.ax, ba, w.az], B0 = [w.bx, bb, w.bz], B1 = [w.bx, tb, w.bz], A1 = [w.ax, ta, w.az], A2 = [w.ax + ox, ta, w.az + oz], B2 = [w.bx + ox, tb, w.bz + oz], A3 = [w.ax + ox, ba, w.az + oz], B3 = [w.bx + ox, bb, w.bz + oz];
+            sb.face4(A0, B0, B1, A1, rgb('#8a939d'), [w.nx, 0, w.nz]); sb.face4(B3, A3, A2, B2, rgb('#9aa3ad'), [-w.nx, 0, -w.nz]); sb.face4(A1, B1, B2, A2, rgb('#b0b8c0'), [0, 1, 0]);
+            sb.face4(A3, A0, A1, A2, rgb('#9aa3ad'), [-(w.bx - w.ax) / L, 0, -(w.bz - w.az) / L]); sb.face4(B0, B3, B2, B1, rgb('#9aa3ad'), [(w.bx - w.ax) / L, 0, (w.bz - w.az) / L]);
+        };
         for (const w of walls.concat(ghostRails)) {
             if (!mine(w)) continue;
-            if (!shared) { drawBasarabGuard(w, cellOf, basarabBlue); continue; } // (other districts: as they were reviewed)
+            if (!shared) { parapet(w); continue; }
             const L = Math.hypot(w.bx - w.ax, w.bz - w.az), n = Math.max(1, Math.round(L / 2.4)), at = [];
             for (let i = 0; i <= n; i++) { const f = i / n, key = postKey(w.ax + (w.bx - w.ax) * f, w.az + (w.bz - w.az) * f); if (i > 0 && i < n) at.push(f); else if (!posts.has(key)) { posts.add(key); at.push(f); } }
             drawBasarabGuard(w, cellOf, basarabBlue, at, BASARAB_GUARD_STEEL[basarabGuardPlace(w, basarabStructure.report.superstructure?.carriedSpans)]); // (round 3: blue steel off the river arch, panoramas in bridge-guards.json)
@@ -6653,6 +6668,9 @@ export async function buildWorld(city, renderer, opts = {}) {
     // within reach of the normal test (it still may not face an adjoining building)
     function addUnitSign(b, x, z, text, kind, poiIndex = -1, anchored = false) {
         if ((b.skip && !b.landmarkUnitSigns) || b.cv || (b.minH || 0) > 0.5 || b.h < 3) return;
+        // (r3-look-6, Parcare Unirea w184169515: "Spălătorie Unirea Etaj 7" drew two stacked boards at street level) a business
+        // named for an upper floor has no street-level fascia; the building sign names the building
+        if (/\betaj(ul)?\s*[1-9]/i.test(text || '')) return;
         // (2026-11-08, owner: "Poke House duplicated") the building's own name sign already names this business
         // (2026-11-12: unless this POI owns that sign — b.poiSign — and places it here, over its own street front)
         if ((b.flags & 2) && b.name && !(poiIndex >= 0 && b.poiSign === poiIndex)) { const a = normName(b.name), c2 = normName(text); if (a && c2 && (a.includes(c2) || c2.includes(a) || a.split(' ')[0] === c2.split(' ')[0])) return; }
@@ -7274,7 +7292,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         const dx = t.x - hit.x, dz = t.z - hit.z;
         tramTreeConflicts.add(t); tramSweepConflicts.trees.push({ x: t.x, z: t.z, kind: t.kind, species: t.species ?? null, trunkRadiusM: body.r, acrossBodyAxisM: Math.abs(dz * hit.fx - dx * hit.fz), bodyHalfWidthM: hit.body.widthM / 2, bodyLengthM: hit.body.lengthM });
     }
-    const excludedTrees = new Set([...coveredCanopies.excluded, ...waterTreeConflicts.excluded, ...tramTreeConflicts]);
+    const reviewedTreeOut = distId ? reviewedTreeExclusions(treeList, city.proj, distId) : new Set(); // (tree-reviews.js: street-level reviewed crowns)
+    const excludedTrees = new Set([...coveredCanopies.excluded, ...waterTreeConflicts.excluded, ...tramTreeConflicts, ...reviewedTreeOut]);
     const treeCount = treeList.length - excludedTrees.size;
     // instanced trees in district 250 m / legacy 500 m chunks; crowns keep a per-instance colour (instanceColor)
     // so the season / weather code can tint each tree (world.vegetation)
@@ -9039,7 +9058,11 @@ function collisionHeightClear(b,x,z,radius,y,bodyHeight) {
     if (b.roofHeightAt) {
         const top = b.roofHeightAt(x, z, radius);
         // The same triangulated roof drives collision; the full total-height box is only broad phase.
-        if (top === null || (y ?? 0.24) > top || (b.roadDeck && (y ?? .24) >= b.roofHeightAt(x, z, 0) - 1e-4)) return false;
+        // (owner, 2026-11-13, SeaTac (-981, -16): "invisible wall", the Airport Expressway fork) a bridge junction slab is
+        // the structure under a junction the car drives across: its top follows the drawn pad skin, which runs up to 0.37 m
+        // above the road height the car follows there, so its edge stopped the car like a wall. A car within 0.5 m of the
+        // slab top is on the junction, not under it.
+        if (top === null || (y ?? 0.24) > top || (b.roadDeck && (y ?? .24) >= b.roofHeightAt(x, z, 0) - (b.bridgeJunction ? 0.5 : 1e-4))) return false;
     }
     if (b.minHeightAt) { const bottom = b.minHeightAt(x, z, radius); if (bottom === null || (y ?? .24) + bodyHeight < bottom) return false; }
     return true;

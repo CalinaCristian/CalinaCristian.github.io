@@ -9,15 +9,15 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "293e02f0769ad178b408d6a09cb329347843e0e3",
-  "reviewedOn": "2026-11-12",
+  "sourceSha": "29c7e6aca5b23100f45fd37e1d1e9f6ab7bcee86",
+  "reviewedOn": "2026-11-13",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
     "districts": 8,
     "chapters": 10,
-    "landmarks": 67,
-    "landmarkBuilders": 66,
-    "landmarkEvidence": 67,
+    "landmarks": 70,
+    "landmarkBuilders": 69,
+    "landmarkEvidence": 70,
     "spots": 24,
     "spotEvidence": 24,
     "scenes": 19,
@@ -93,11 +93,14 @@
         "victoria",
         "ase",
         "ambasador",
+        "aro",
         "thelandmark",
         "europehouse",
         "antipa",
         "catargiu",
         "veronafountain",
+        "nobildac",
+        "enescu",
         "skytower",
         "ateneu",
         "regal",
@@ -107,7 +110,10 @@
         "skytower",
         "ateneu",
         "regal",
-        "tnb"
+        "tnb",
+        "aro",
+        "nobildac",
+        "enescu"
       ],
       "chapters": [
         {
@@ -180,9 +186,12 @@
       "name": "Otopeni",
       "label": "DN1 at Otopeni and the Henri Coandă terminal (OTP)",
       "landmarks": [
-        "otp"
+        "otp",
+        "otpgara"
       ],
-      "scenery": [],
+      "scenery": [
+        "otpgara"
+      ],
       "chapters": [
         {
           "id": "otopeni",
@@ -1938,6 +1947,36 @@
       "rangeContexts": []
     },
     {
+      "id": "nobildac",
+      "city": "bucharest",
+      "name": "Statuia „Nobil Dac”",
+      "builder": "bNobilDac",
+      "lat": 44.4466925,
+      "lon": 26.0945949,
+      "evidence": "evidence/landmarks/bucharest/nobildac.json",
+      "rangeContexts": []
+    },
+    {
+      "id": "enescu",
+      "city": "bucharest",
+      "name": "Statuia George Enescu",
+      "builder": "bEnescu",
+      "lat": 44.4437403,
+      "lon": 26.0980397,
+      "evidence": "evidence/landmarks/bucharest/enescu.json",
+      "rangeContexts": []
+    },
+    {
+      "id": "otpgara",
+      "city": "bucharest",
+      "name": "Gara Aeroport Henri Coandă",
+      "builder": "bOtpGara",
+      "lat": 44.569035,
+      "lon": 26.0751467,
+      "evidence": "evidence/landmarks/bucharest/otpgara.json",
+      "rangeContexts": []
+    },
+    {
       "id": "gts",
       "city": "bucharest",
       "name": "Calea Călărașilor 101 (GTS Global Intelligence)",
@@ -2889,18 +2928,18 @@
       "menuAvailable": true,
       "menuTier": "recommended",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 16,
         "conditionCount": 4,
         "viewpointCount": 4,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:52:50.781Z",
-          "2026-11-12T19:57:30.576Z"
+          "2026-11-13T05:35:46.502Z",
+          "2026-11-13T05:35:59.952Z"
         ]
       },
       "evidence": "evidence/spots/pike-place.json"
@@ -2915,18 +2954,18 @@
       "menuAvailable": false,
       "menuTier": "destination",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 2,
         "conditionCount": 0,
         "viewpointCount": 2,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:51:37.314Z",
-          "2026-11-12T19:51:37.596Z"
+          "2026-11-13T05:34:34.662Z",
+          "2026-11-13T05:34:34.954Z"
         ]
       },
       "evidence": "evidence/spots/chihuly.json"
@@ -2941,18 +2980,18 @@
       "menuAvailable": true,
       "menuTier": "recommended",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 20,
         "conditionCount": 4,
         "viewpointCount": 5,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:53:00.452Z",
-          "2026-11-12T19:54:30.510Z"
+          "2026-11-13T05:36:07.847Z",
+          "2026-11-13T05:36:14.724Z"
         ]
       },
       "evidence": "evidence/spots/space-needle.json"
@@ -2993,18 +3032,18 @@
       "menuAvailable": false,
       "menuTier": "destination",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 2,
         "conditionCount": 0,
         "viewpointCount": 2,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:50:08.826Z",
-          "2026-11-12T19:50:09.059Z"
+          "2026-11-13T05:34:13.035Z",
+          "2026-11-13T05:34:13.334Z"
         ]
       },
       "evidence": "evidence/spots/kerry-park.json"
@@ -3019,18 +3058,18 @@
       "menuAvailable": false,
       "menuTier": "destination",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 2,
         "conditionCount": 0,
         "viewpointCount": 2,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:51:44.097Z",
-          "2026-11-12T19:51:44.332Z"
+          "2026-11-13T05:34:42.948Z",
+          "2026-11-13T05:34:43.189Z"
         ]
       },
       "evidence": "evidence/spots/mopop.json"
@@ -3045,18 +3084,18 @@
       "menuAvailable": false,
       "menuTier": "destination",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 2,
         "conditionCount": 0,
         "viewpointCount": 2,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:53:23.422Z",
-          "2026-11-12T19:53:23.623Z"
+          "2026-11-13T05:34:08.889Z",
+          "2026-11-13T05:34:09.166Z"
         ]
       },
       "evidence": "evidence/spots/waterfront.json"
@@ -3149,18 +3188,18 @@
       "menuAvailable": false,
       "menuTier": "destination",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 2,
         "conditionCount": 0,
         "viewpointCount": 2,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:49:55.982Z",
-          "2026-11-12T19:49:56.212Z"
+          "2026-11-13T05:34:19.774Z",
+          "2026-11-13T05:34:20.066Z"
         ]
       },
       "evidence": "evidence/spots/bel-lincoln-square.json"
@@ -3175,18 +3214,18 @@
       "menuAvailable": true,
       "menuTier": "recommended",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 16,
         "conditionCount": 4,
         "viewpointCount": 4,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:52:10.437Z",
-          "2026-11-12T19:52:16.062Z"
+          "2026-11-13T05:36:27.588Z",
+          "2026-11-13T05:36:31.820Z"
         ]
       },
       "evidence": "evidence/spots/bel-downtown-park.json"
@@ -3201,18 +3240,18 @@
       "menuAvailable": false,
       "menuTier": "park",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 2,
         "conditionCount": 0,
         "viewpointCount": 2,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:49:58.583Z",
-          "2026-11-12T19:49:58.811Z"
+          "2026-11-13T05:34:16.380Z",
+          "2026-11-13T05:34:16.613Z"
         ]
       },
       "evidence": "evidence/spots/bel-botanical-garden.json"
@@ -3227,18 +3266,18 @@
       "menuAvailable": false,
       "menuTier": "destination",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 2,
         "conditionCount": 0,
         "viewpointCount": 2,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:49:48.777Z",
-          "2026-11-12T19:49:49.029Z"
+          "2026-11-13T05:33:47.433Z",
+          "2026-11-13T05:33:47.647Z"
         ]
       },
       "evidence": "evidence/spots/palace-parliament.json"
@@ -3253,18 +3292,18 @@
       "menuAvailable": false,
       "menuTier": "destination",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 2,
         "conditionCount": 0,
         "viewpointCount": 2,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:50:33.734Z",
-          "2026-11-12T19:50:33.978Z"
+          "2026-11-13T05:34:23.416Z",
+          "2026-11-13T05:34:23.668Z"
         ]
       },
       "evidence": "evidence/spots/peoples-salvation-cathedral.json"
@@ -3279,18 +3318,18 @@
       "menuAvailable": true,
       "menuTier": "recommended",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 20,
         "conditionCount": 4,
         "viewpointCount": 5,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:52:38.132Z",
-          "2026-11-12T19:57:12.720Z"
+          "2026-11-13T05:35:14.483Z",
+          "2026-11-13T05:39:44.206Z"
         ]
       },
       "evidence": "evidence/spots/old-town-lipscani.json"
@@ -3305,18 +3344,18 @@
       "menuAvailable": false,
       "menuTier": "destination",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 2,
         "conditionCount": 0,
         "viewpointCount": 2,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:51:55.165Z",
-          "2026-11-12T19:51:55.443Z"
+          "2026-11-13T05:33:40.225Z",
+          "2026-11-13T05:33:40.518Z"
         ]
       },
       "evidence": "evidence/spots/stavropoleos-cec.json"
@@ -3331,18 +3370,18 @@
       "menuAvailable": false,
       "menuTier": "destination",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 2,
         "conditionCount": 0,
         "viewpointCount": 2,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:49:52.652Z",
-          "2026-11-12T19:49:52.909Z"
+          "2026-11-13T05:33:52.943Z",
+          "2026-11-13T05:33:53.198Z"
         ]
       },
       "evidence": "evidence/spots/athenaeum-revolution.json"
@@ -3383,18 +3422,18 @@
       "menuAvailable": false,
       "menuTier": "park",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 2,
         "conditionCount": 0,
         "viewpointCount": 2,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:50:27.752Z",
-          "2026-11-12T19:50:27.995Z"
+          "2026-11-13T05:34:03.530Z",
+          "2026-11-13T05:34:03.781Z"
         ]
       },
       "evidence": "evidence/spots/village-museum.json"
@@ -3409,18 +3448,18 @@
       "menuAvailable": false,
       "menuTier": "park",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 2,
         "conditionCount": 0,
         "viewpointCount": 2,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:50:05.856Z",
-          "2026-11-12T19:50:06.079Z"
+          "2026-11-13T05:33:59.988Z",
+          "2026-11-13T05:34:00.249Z"
         ]
       },
       "evidence": "evidence/spots/herastrau-park.json"
@@ -3435,18 +3474,18 @@
       "menuAvailable": false,
       "menuTier": "destination",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 2,
         "conditionCount": 0,
         "viewpointCount": 2,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:50:19.734Z",
-          "2026-11-12T19:50:19.991Z"
+          "2026-11-13T05:33:55.778Z",
+          "2026-11-13T05:33:56.030Z"
         ]
       },
       "evidence": "evidence/spots/spring-palace.json"
@@ -3461,18 +3500,18 @@
       "menuAvailable": true,
       "menuTier": "recommended",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 16,
         "conditionCount": 4,
         "viewpointCount": 4,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:52:27.146Z",
-          "2026-11-12T19:52:30.130Z"
+          "2026-11-13T05:34:53.642Z",
+          "2026-11-13T05:35:01.799Z"
         ]
       },
       "evidence": "evidence/spots/cismigiu.json"
@@ -3487,18 +3526,18 @@
       "menuAvailable": true,
       "menuTier": "recommended",
       "visitorGallery": {
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "captureCount": 16,
         "conditionCount": 4,
         "viewpointCount": 4,
         "retainedCaptureCount": 0,
         "reportCount": 1,
         "captureSourceCommits": [
-          "346f798681d891de6cebfc9e1d094996b1ace2e3"
+          "9824fd56de3f0e420821e871436906186a80e493"
         ],
         "captureRange": [
-          "2026-11-12T19:52:19.170Z",
-          "2026-11-12T19:57:39.869Z"
+          "2026-11-13T05:36:19.534Z",
+          "2026-11-13T05:36:24.598Z"
         ]
       },
       "evidence": "evidence/spots/bel-meydenbauer.json"
@@ -3515,7 +3554,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "29a02ac39ee46bc211352eaed208155d0c9a6c15b914c869cc522c022fd18551"
+      "sha256": "234355c3750aeea7ef09c76fe6ae04665e2980f5acbdec1a50b3e0be0c93248b"
     },
     {
       "path": "specs/README.md",
@@ -3555,7 +3594,7 @@
     },
     {
       "path": "game/data/README.md",
-      "sha256": "5092b25ef730e2e3e382bb7247bbbcfa63a45adb25af2f009016473c290f3c65"
+      "sha256": "472c118a18b39088fa885ca611afe06096bcf2916221207ab27c40fbf68ad438"
     },
     {
       "path": "tools/osm/build-data.mjs",
@@ -3567,15 +3606,15 @@
     },
     {
       "path": "game/src/main.js",
-      "sha256": "c2eab3bdbc6e31465e22ced7438c206822f96e9c71d89779e4e6c57c9f2947f7"
+      "sha256": "49051d23163ffab33a4460b4721e9cac3e02a7a79add251e1d3e58c709bd5ae1"
     },
     {
       "path": "game/src/world.js",
-      "sha256": "eea0049f9006422bf92c4d55d180d0014a2d24dddce61f69c33023e834c015bc"
+      "sha256": "c69c300ede516ac7670d7de6e5d46c661f6f1bfb725c77b79b85c6e1c1e68f87"
     },
     {
       "path": "game/src/cities.js",
-      "sha256": "a7d38452c4d01faf1916b102b3cf080a9103b1f776d6410c28f722ddff94d3c4"
+      "sha256": "69c437c742af21727b2821f8ad0799cc7dc95f60eb43b6c67d4e892e498c1228"
     },
     {
       "path": "game/src/geobuild.js",
@@ -3591,7 +3630,7 @@
     },
     {
       "path": "game/src/landmarks.js",
-      "sha256": "e0486ed2d568870a56322f9201254290913318f8082ba4a839f61ebe2fd0036e"
+      "sha256": "d975fa13ee86b3c29dcb7f76d27a2cdb0a66c7fb6db4ef607e81421be94fd440"
     },
     {
       "path": "game/src/render.js",
@@ -3599,7 +3638,7 @@
     },
     {
       "path": "game/src/weather.js",
-      "sha256": "a2bb0854d3fe3792f94ca9f3b2f2ecbdd9e61b497aca1d3ac5d51d02ec5875b8"
+      "sha256": "d5dc6674d516fdf7427e130e95e4c9d77cb8b055d8cdfebd434ce3216e69eb95"
     },
     {
       "path": "game/src/traffic.js",
@@ -3611,7 +3650,7 @@
     },
     {
       "path": "game/src/crowd.js",
-      "sha256": "2ca69f82d7e7603d78c864ecd7b7162e88fcb61ff63b75aaf152dda5c3471776"
+      "sha256": "623f03ce9b638b34bf7bfc63749b09a34909aac6fa79dc28ddc1d55f5086f581"
     },
     {
       "path": "game/src/vehicles.js",
@@ -3643,7 +3682,7 @@
     },
     {
       "path": "game/src/drone.js",
-      "sha256": "cc2c644b9de75b1414273c53b0ed566d3cc176c233ea4bf5fc97a6eefc644e48"
+      "sha256": "53e602af556b6a56453421fd1b6379aceb48391bfb6d806f3143d31030b73a96"
     },
     {
       "path": "game/src/inspection.js",
@@ -3667,7 +3706,7 @@
     },
     {
       "path": "game/src/spots/index.js",
-      "sha256": "fb2b989d6fe4bd0fb4cf7f02f061a5edd9ed0090bbacead6cf498bbc47fe9f64"
+      "sha256": "9479b3c26534679b64ec53ef5c571585839d6e81db4bf0a88123f6cc2a04d0a0"
     },
     {
       "path": "game/src/spots/osm.js",
@@ -3699,7 +3738,7 @@
     },
     {
       "path": "game/src/trees.js",
-      "sha256": "968891c47e5ceb7d57989a7ce1e1915fb589fbc771aa61bccb0ead66f5f8a620"
+      "sha256": "9847661a35b37a3d5841208179075ea658b30b67aebbaa69a1ef763494d262ba"
     },
     {
       "path": "game/src/water.js",
@@ -3716,6 +3755,10 @@
     {
       "path": "public/telemetry.js",
       "sha256": "2fccb2a095d527b1ed3ff80043d150afc6a1f2bd78ca8f781c7533432632238a"
+    },
+    {
+      "path": "game/src/airport-forecourt.js",
+      "sha256": "cbe6a0558e7ac4e32860a48a31dd04c3487991a41e62fe05c96964ea8e8bb73c"
     },
     {
       "path": "game/src/backdrop-source-owner.js",
@@ -3738,8 +3781,16 @@
       "sha256": "a84a93eb1257da5fb4cb1d931612c48b0ddaf29cfab3d133b99e06178a824795"
     },
     {
+      "path": "game/src/bellevue-guideway.js",
+      "sha256": "82ec0c8082c860e3560c6dd6a133e7523f139ad1c61c53dabf9ff1c4791d3365"
+    },
+    {
       "path": "game/src/bridge-bents.js",
       "sha256": "461e6852456f600cd7bf4849ba0b78f276ad4498af4f0aec20a5a93ad438baaf"
+    },
+    {
+      "path": "game/src/bridge-guards.js",
+      "sha256": "f48d4975d0873ccc9f8bfc57c582d73040e7bbb28ca76cafc47db6ccd44e56c1"
     },
     {
       "path": "game/src/bridge-junction.js",
@@ -3752,6 +3803,10 @@
     {
       "path": "game/src/bridge-profile-geometry.js",
       "sha256": "94c245f282c32912894b601148c9347c95dd3a8fb2dca81519de1fdc3a9ff75c"
+    },
+    {
+      "path": "game/src/bridge-surface-band.js",
+      "sha256": "307a1916d346ad9fda09510983eef396f5e10b2b6660d774c99832e313a45b50"
     },
     {
       "path": "game/src/bridge-surface-mesh.js",
@@ -3794,6 +3849,10 @@
       "sha256": "6bd606c4b3a62ffc3af3b4e8b4be65c5880fe7546ab7fc6ad5b521168045fe5d"
     },
     {
+      "path": "game/src/building-review.js",
+      "sha256": "4f03d8d3f890d894b11926498b9333ed515c4754c4f7b62eb2c61c7d88a0eef8"
+    },
+    {
       "path": "game/src/building-roofs.js",
       "sha256": "a82db31d1197b3953c9f4718dbc44b2972a90e25d9c2c07c683e6ab5386fa8ac"
     },
@@ -3806,8 +3865,16 @@
       "sha256": "35983021a8548740d623d83aaa092fa9f95a3f58b454575b8ab4732a47db2714"
     },
     {
+      "path": "game/src/car-parks.js",
+      "sha256": "3ea083535290395501f5d223937ae12f14bc1f19ae2dd568e7d97a6b7dd427ca"
+    },
+    {
       "path": "game/src/cell-frustum.js",
       "sha256": "75180d907270939422d304d2eb7d35f76abb6a4657ac36137c72538799b3e07a"
+    },
+    {
+      "path": "game/src/chapter-start.js",
+      "sha256": "0af26fbf7af0710c6e6d0b0a8fc4395bf261a00bfb664cc7b6446ced63e0a4c8"
     },
     {
       "path": "game/src/chapter-waypoint.js",
@@ -3886,12 +3953,28 @@
       "sha256": "0b42d4ae3cb80a57c274e462a827bf588273a138c807ae05b0e19b256dc75458"
     },
     {
+      "path": "game/src/fuel-canopy-review.js",
+      "sha256": "b67a4affca9bc4fb32fe335e07b4c7916e1b3deb60b9e693f7cf2ea96669d078"
+    },
+    {
+      "path": "game/src/fuel-forecourt.js",
+      "sha256": "3d797aaa257855eb474d4bb914e2475433296ebf66102c3ffd91618582f35b54"
+    },
+    {
       "path": "game/src/generated-parapet-ownership.js",
       "sha256": "ed75fc65c6859907697ec51c8ddceca4871525e388e02db0706d4f82eb077a2a"
     },
     {
       "path": "game/src/geo-ne110.js",
       "sha256": "6d9c86444680f5007b90d41e7a5d93a2d1f081dcc556b665fcbcb9cd0ecf8f36"
+    },
+    {
+      "path": "game/src/grade-review.js",
+      "sha256": "ad060b44f062480fb4e5aa54d4914b398ca03314e62ebcf712f50b057db14ce6"
+    },
+    {
+      "path": "game/src/ground-review.js",
+      "sha256": "a35d47a79bc309bbbbb7d1b1db43163e006cd6bddcbad4844270e8b71639b9fd"
     },
     {
       "path": "game/src/hud.js",
@@ -3986,8 +4069,20 @@
       "sha256": "eb5749a020fed4b6967fa7222a97abc512d304ea8cb9d56022ec58e0afbcaf63"
     },
     {
+      "path": "game/src/mesh-tiles.js",
+      "sha256": "8aa1a5be9ff052d0214960b3b055580e2f55d5bbeb635ea3cc73976c524fcf71"
+    },
+    {
       "path": "game/src/modal-controls.js",
       "sha256": "6e7609fb6156f6936b05b66f719419d67a4497cfde9a7525bcb9379d2f2bc2e4"
+    },
+    {
+      "path": "game/src/monument-sources.js",
+      "sha256": "5e6710fa76f02150c2506516822819eba62cb8c04aeebcaf8e17e5b9a2f1227e"
+    },
+    {
+      "path": "game/src/monuments.js",
+      "sha256": "929acc79cde7c3a5d014b65a8ee0a4cbeaa31692790fa47d4c9ed9dbe72a2001"
     },
     {
       "path": "game/src/motor-turn-restrictions.js",
@@ -4036,6 +4131,10 @@
     {
       "path": "game/src/parking-layout.js",
       "sha256": "b5c127c33e1c80e72a6cece698f831949ad637498ed7d7beb1252f30c6b4f0d9"
+    },
+    {
+      "path": "game/src/pedestrian-fronts.js",
+      "sha256": "eff3e5f49251a4a7d09ae3b832614b9ba6bd41e3e4b1d36f8a391c969a0c9c05"
     },
     {
       "path": "game/src/pedestrian-relocation-peers.js",
@@ -4218,6 +4317,10 @@
       "sha256": "3f1da643c88e464ab1ac2f92538eaf70c9b2eec33dff13985b4625eb99ef0046"
     },
     {
+      "path": "game/src/spots/frame-budget.js",
+      "sha256": "0ac3435f240cd8a0f0802561c6a92d5cf6c9466188bec8fe2980d82dbf772b62"
+    },
+    {
       "path": "game/src/spots/ground.js",
       "sha256": "ce061b7cf6f74743c24f50cf455c0993713bd8555591802bc8afd21c3964e6c5"
     },
@@ -4239,11 +4342,15 @@
     },
     {
       "path": "game/src/spots/people.js",
-      "sha256": "793af95f743cda5c17f4b96141e54399242294cc358dd1c551a3257807aaca63"
+      "sha256": "8c4390b2e9b6b0a3eee6a9f3ea3b2d6a3167083a65f7ab6b9994b048ff9e7fe9"
     },
     {
       "path": "game/src/spots/photo-hunt.js",
       "sha256": "a5852148f76272a601e491cd56b1fa524b9a1b04fe697e82b5680e93f3a42462"
+    },
+    {
+      "path": "game/src/spots/precip-shelter.js",
+      "sha256": "6dd8c421690ad2119780334d7f8301fcca2d7ba10d558d6460efb0f2d05da6d6"
     },
     {
       "path": "game/src/spots/props.js",
@@ -4267,7 +4374,7 @@
     },
     {
       "path": "game/src/spots/scenes/athenaeum-revolution.js",
-      "sha256": "bdd047de605990452f5c0c872bbc1f46f6e6b20874bac78bc5b435ccf2a3b262"
+      "sha256": "44baeada161d43af5266e1563b857392594bbe3fb877e744135738113098900c"
     },
     {
       "path": "game/src/spots/scenes/ballard-locks.js",
@@ -4279,23 +4386,23 @@
     },
     {
       "path": "game/src/spots/scenes/bel-botanical-garden.js",
-      "sha256": "cc5656d8ba8a0021bfbfed1b8b0dc67da77f33659da1276bae4d11e748de844d"
+      "sha256": "19380899e62d0b3692208525eb6998a9c9b2c869a5cfb83231ce76150dc83829"
     },
     {
       "path": "game/src/spots/scenes/bel-common.js",
-      "sha256": "07f6d04633f36dc7d8534982d4c22e3ce6efbaed5552d59eb5b1d744cbd2aa07"
+      "sha256": "cbf0205532783579bc93bc7e66591bb415545fb6062e72c37af22d6822493c17"
     },
     {
       "path": "game/src/spots/scenes/bel-downtown-park.js",
-      "sha256": "f79de7a952d1e54454cece4a199ff5e99e03d9ecfc42e38cbbb4887494615f66"
+      "sha256": "ae9008f772acaac14ee2cd3dc65541626778a309de0b74cb59239c7ce0f11926"
     },
     {
       "path": "game/src/spots/scenes/bel-lincoln-square.js",
-      "sha256": "a4801bc8a6852411e4c79481e2e3bcc7e6f1b2d40e9808d8e55d450f57070779"
+      "sha256": "980d9946d6227d97d03cae60ed9e380df860541aa0ea013f48362a2b991c3353"
     },
     {
       "path": "game/src/spots/scenes/bel-meydenbauer.js",
-      "sha256": "e81807ba101c1ad684bf6a8a955af9ca2565ce7aa7d11c803ac3969e84e4e290"
+      "sha256": "b77d378b32434c8aca66a58ecdb3685866719caf2777bb3be2ab20ab7cada529"
     },
     {
       "path": "game/src/spots/scenes/buc-green.js",
@@ -4303,15 +4410,19 @@
     },
     {
       "path": "game/src/spots/scenes/buc-herastrau.js",
-      "sha256": "59340109c56edab1fafb74019b8224dd233a686f1f7f31e4caf90a21d6a6d492"
+      "sha256": "8b97c8cf4db6c4c43224012ebc1d86ca092ab8bb896e994f44ff587b7492e928"
     },
     {
       "path": "game/src/spots/scenes/buc-old-town.js",
-      "sha256": "d99d8a746d2b22436e9339cd12a38f6fe1a43e711ff4f9d9f62915e34b0ccb16"
+      "sha256": "ceab9f880da31a4714729092950ff3a982cea79e36b74569deafedfb2e2febde"
     },
     {
       "path": "game/src/spots/scenes/buc-parliament.js",
-      "sha256": "8b3300eedf6bfc1265da0d6eaf0101b4b4ed26476280d1fc0ad592441c40a9e1"
+      "sha256": "b3ad7a163789f58008fc289b61a44fdfbd42466d57408cede92cea22ef776376"
+    },
+    {
+      "path": "game/src/spots/scenes/buc-walls.js",
+      "sha256": "aba9292b757da184d0c26035598a665d6c24e393ba2178025a24a33d5c82b1f4"
     },
     {
       "path": "game/src/spots/scenes/carusel-interior.js",
@@ -4323,7 +4434,7 @@
     },
     {
       "path": "game/src/spots/scenes/cismigiu.js",
-      "sha256": "7c82b5341d0947f7ff39083e6d430b28a7b8f3f3a081e6b62212e9b4cc2dfa1d"
+      "sha256": "ff6a9ec6d9c7c19cf41c61fd5bfe96916d11c4f132397a1e54f1bd41b1c912da"
     },
     {
       "path": "game/src/spots/scenes/dinamo-hint-tv.js",
@@ -4363,7 +4474,7 @@
     },
     {
       "path": "game/src/spots/scenes/kerry-park.js",
-      "sha256": "54454df7e92da540c33d75850e83a44042b572a69a5227de45303fd8f29d72e2"
+      "sha256": "9f4d8af8937aa16baf5979c00d7ed36b948f70b9cd5a8b80e6fe71e71247cb31"
     },
     {
       "path": "game/src/spots/scenes/old-town-daylife.js",
@@ -4371,11 +4482,11 @@
     },
     {
       "path": "game/src/spots/scenes/old-town-nightlife.js",
-      "sha256": "d2cc84791943d351dad1de4ccd976e39248b24a521b0466b258fb0d42abb0ffe"
+      "sha256": "8f2f12eeace098c68579a038f834335c053d16bfcc59c723139030ef8e79afb4"
     },
     {
       "path": "game/src/spots/scenes/pike-place-facades.js",
-      "sha256": "72832adfdb4d2fd341b179225020968944405ee3de4010c7a571aabc9e744d8d"
+      "sha256": "54eaf5efff8d3afc94d1c4e4d2d558d169132a95b108d32aa47db651703bd81a"
     },
     {
       "path": "game/src/spots/scenes/pike-place-lower.js",
@@ -4383,7 +4494,7 @@
     },
     {
       "path": "game/src/spots/scenes/pike-place-market.js",
-      "sha256": "143310908b20de00f35b33cc499398ec024c3703a38f13f0e4cedff5c7760f79"
+      "sha256": "26d47d834ce8beaf11ba63aed10352a4a46ed0cd718108bb1e62c78cfddc0ad4"
     },
     {
       "path": "game/src/spots/scenes/pike-place-shops.js",
@@ -4395,7 +4506,7 @@
     },
     {
       "path": "game/src/spots/scenes/pike-place.js",
-      "sha256": "eb6063485c25e95796110a4c2929e11396194b9ad8774fc39214a299183bd6d4"
+      "sha256": "e972bc3642edb34078b283e9fb6c41facd972a28455d112498ddaaa9444c3a32"
     },
     {
       "path": "game/src/spots/scenes/pioneer-square.js",
@@ -4407,11 +4518,15 @@
     },
     {
       "path": "game/src/spots/scenes/seattle-center.js",
-      "sha256": "ae6cf297d82e020fb95b0d4b31534f1fd1d18123d036edf5c353c72f2554e63f"
+      "sha256": "2161a72138ab8fe44b9b04d7993fface29fb763f39df27c136e58ef5998d5cd2"
     },
     {
       "path": "game/src/spots/scenes/spring-palace.js",
-      "sha256": "76a232d2da726d388d0752a2843fe6b0dc22abcc69cee378f52fcfbbfb238043"
+      "sha256": "e9f431fe7a73fc79ec8ecfe94da3212251be92c0babb8bd52a6835df8e00efbd"
+    },
+    {
+      "path": "game/src/spots/scenes/waterfront-pier-rings.js",
+      "sha256": "7b187c742887371e7c4e0e9d87b899439e7af1177194e53027c6f498a183a1d3"
     },
     {
       "path": "game/src/spots/scenes/waterfront-piers.js",
@@ -4423,11 +4538,11 @@
     },
     {
       "path": "game/src/spots/scenes/waterfront.js",
-      "sha256": "bc7c600393cef2f4819fe2cfe2602a47d94a96708320e457ddd8c8f23dab7107"
+      "sha256": "a277b79be97a46df4a080610a609356823b8e30153b57af89db4910a80266d52"
     },
     {
       "path": "game/src/spots/scenes/wcp-secret-bar.js",
-      "sha256": "33c5a180b7eb273359ac2c51f656b9a92b6187c5f9c54a018246f32dc36fd084"
+      "sha256": "a2cf5b86f78913a25928efb45e5d2676c9f024d6e374bdc79d3897c6f731bab0"
     },
     {
       "path": "game/src/spots/sdf.js",
@@ -4511,7 +4626,7 @@
     },
     {
       "path": "game/src/spots/water-route.js",
-      "sha256": "0c9421c2001c50156c31048e877bd9bcd99e2629d9c84f992bf5dbc18f8a7665"
+      "sha256": "435041fa66ae3cc05d3d2760eb736ad232691bcfa0303ca3261819719ef6f08b"
     },
     {
       "path": "game/src/spots/willow.js",
@@ -4586,6 +4701,10 @@
       "sha256": "10994d76c55fae2f1efafd7e01309cfaed06322abfe1c6f49f24c39dace5f110"
     },
     {
+      "path": "game/src/water-channel-review.js",
+      "sha256": "49833f7681afd30982a7ad4ec79a8b25e32033722846cdc406f3e7ff599b18be"
+    },
+    {
       "path": "game/src/water-channel.js",
       "sha256": "02aa9b79ebbf3565439698cd4c766cb161fdd684d520c7de64497505d7ee7d14"
     },
@@ -4596,6 +4715,10 @@
     {
       "path": "game/src/water-shore.js",
       "sha256": "6705b456454df3ac85ada90a96ff66280706ad306de401dea25896b8d379315e"
+    },
+    {
+      "path": "game/src/worship.js",
+      "sha256": "49796c4b357d5812aac3b2500597f8693b51fe931f1c7846459d6a6a0a38cbf8"
     },
     {
       "path": "game/overview/assets/landmarks/skytower/native-20261110/summary.json",
@@ -4614,6 +4737,10 @@
       "sha256": "ae80d9c7d22cc3e72d90e10f542ee98e0fcaf035242a0f7c3174ef959d7ece93"
     },
     {
+      "path": "game/overview/assets/spots/athenaeum-revolution/visit-9824fd56/capture.json",
+      "sha256": "09cbe4dc44809f1821e5a817132f796f88f52a25051c18cc1aa17ce360cf1ba3"
+    },
+    {
       "path": "game/overview/assets/spots/ballard-locks/visit-346f7986/capture.json",
       "sha256": "b51cdc6674f6522ab1dc1630252798c4eb117b3ac3458fee35ae888e33fb4f93"
     },
@@ -4622,8 +4749,16 @@
       "sha256": "edcf3c74e3a4d26031d1aace6853b590741ed78efea1ffcd2eca3f5d73c74609"
     },
     {
+      "path": "game/overview/assets/spots/bel-botanical-garden/visit-9824fd56/capture.json",
+      "sha256": "df556369c238a1d58a014639fa2f0f8a1694be5ae519bffc25c484f8542c9542"
+    },
+    {
       "path": "game/overview/assets/spots/bel-downtown-park/ground-346f7986/manifest.json",
       "sha256": "1a4da54002e450f3af17f3019cc49bea581a84fd198eeeecf083623277d0893d"
+    },
+    {
+      "path": "game/overview/assets/spots/bel-downtown-park/ground-9824fd56/manifest.json",
+      "sha256": "fa2d219967fa111fe2fac4b6dd642106387dd639794da4dbb08f2191feabbe42"
     },
     {
       "path": "game/overview/assets/spots/bel-downtown-park/ground-dc93023f/manifest.json",
@@ -4638,8 +4773,16 @@
       "sha256": "bb58615a6b4411a40db2e3061c68b6a2573dc3019a2c55f2c9ac0d12e7881200"
     },
     {
+      "path": "game/overview/assets/spots/bel-lincoln-square/visit-9824fd56/capture.json",
+      "sha256": "51ef24b4a68b9f9e3a6df449bee6ecbc1bdd36eb0d89570c5b3e6a5bc96eb06c"
+    },
+    {
       "path": "game/overview/assets/spots/bel-meydenbauer/ground-346f7986/manifest.json",
       "sha256": "bb33883a37597dbb32eefa82154952899ae04ae9e54df580eabc0abf9be8f7c3"
+    },
+    {
+      "path": "game/overview/assets/spots/bel-meydenbauer/ground-9824fd56/manifest.json",
+      "sha256": "f72110daf522b4aa561f9b0fad7ddf66aee8799f3217596f02426b968469ae72"
     },
     {
       "path": "game/overview/assets/spots/bel-meydenbauer/ground-dc93023f/manifest.json",
@@ -4650,8 +4793,16 @@
       "sha256": "0feb2969ca2a76ac27fd410b43550a70268f2afe3ff7e083375c839237a16539"
     },
     {
+      "path": "game/overview/assets/spots/chihuly/visit-9824fd56/capture.json",
+      "sha256": "87ae13c955e93f996165fce81e88a00c598dcd1d68bacdf4eb7485f00b3eb057"
+    },
+    {
       "path": "game/overview/assets/spots/cismigiu/ground-346f7986/manifest.json",
       "sha256": "775f601e389ddc774dfde110cf1154bd02747e21867ccaba9135d4fc8c3998d5"
+    },
+    {
+      "path": "game/overview/assets/spots/cismigiu/ground-9824fd56/manifest.json",
+      "sha256": "e703ee710fb58ea7db5562765f0c74e907f42ed5e693840cf1538b4a75642c35"
     },
     {
       "path": "game/overview/assets/spots/cismigiu/ground-dc93023f/manifest.json",
@@ -4670,16 +4821,32 @@
       "sha256": "b17c08675604a05f5d1ee72138a9b1be342ba9ae40eb3ed1689f9daba24467b6"
     },
     {
+      "path": "game/overview/assets/spots/herastrau-park/visit-9824fd56/capture.json",
+      "sha256": "297d2e4cfd1a24929d0885c2f13054b26d2332403a65fa86f5c9d8a1f7639512"
+    },
+    {
       "path": "game/overview/assets/spots/kerry-park/visit-346f7986/capture.json",
       "sha256": "99e38df985d88d36d2adc427667896270d54151145dd7a72767042119b3f3fbc"
+    },
+    {
+      "path": "game/overview/assets/spots/kerry-park/visit-9824fd56/capture.json",
+      "sha256": "4a84536f238e9e2e8b1612a1e225b17e6e117a9fd36673738f0293f15ddd9da3"
     },
     {
       "path": "game/overview/assets/spots/mopop/visit-346f7986/capture.json",
       "sha256": "dfd32c0ec9644f5c1bba04cf71a1e00c462e8c107c23b76a8b23b4665ac7fd5e"
     },
     {
+      "path": "game/overview/assets/spots/mopop/visit-9824fd56/capture.json",
+      "sha256": "b4ffbbaefaac7e4669cd24bad703cc827cbe3777556336e43113022e0db8d983"
+    },
+    {
       "path": "game/overview/assets/spots/old-town-lipscani/ground-346f7986/manifest.json",
       "sha256": "2f129be1273833d10db9382faa2b122d45bc3c6c99bc82a032e60f8df21657ad"
+    },
+    {
+      "path": "game/overview/assets/spots/old-town-lipscani/ground-9824fd56/manifest.json",
+      "sha256": "55f8c820cd11ac7b9e6ec275f09406895b53a2e1797a66cff5e756ccd9ed5ae8"
     },
     {
       "path": "game/overview/assets/spots/old-town-lipscani/ground-dc93023f/manifest.json",
@@ -4690,12 +4857,24 @@
       "sha256": "af1f2de9610c08623bae0cd11e355e7deaaeadc7757bc60a036cc06a119856b1"
     },
     {
+      "path": "game/overview/assets/spots/palace-parliament/visit-9824fd56/capture.json",
+      "sha256": "3502d9a41acc2fee5cfacc9ed31b1821f8abc43f172b9373929112847ada896c"
+    },
+    {
       "path": "game/overview/assets/spots/peoples-salvation-cathedral/visit-346f7986/capture.json",
       "sha256": "88cd5c918828a3887464a8f806f80c341a65bc54ee6233868061c24c13d7bd79"
     },
     {
+      "path": "game/overview/assets/spots/peoples-salvation-cathedral/visit-9824fd56/capture.json",
+      "sha256": "25eedae6a91e06391b44af7f4b4985d948c3dc7d4fed78766037d00ad8dc8dc5"
+    },
+    {
       "path": "game/overview/assets/spots/pike-place/ground-346f7986/manifest.json",
       "sha256": "f30bef3a63e13277b0a3a22582e208a40d135be3ee4a3609c6ac826a0efdd88c"
+    },
+    {
+      "path": "game/overview/assets/spots/pike-place/ground-9824fd56/manifest.json",
+      "sha256": "70a2da81c6a8fc51d5893a728a26694986f0265f3b7684286f28665e9259ae80"
     },
     {
       "path": "game/overview/assets/spots/pike-place/ground-d91aadd8/manifest.json",
@@ -4718,6 +4897,10 @@
       "sha256": "df2c17951bc97272a1355035be7531954319754ec8444e6eb9ff8b9c75f1913d"
     },
     {
+      "path": "game/overview/assets/spots/space-needle/ground-9824fd56/manifest.json",
+      "sha256": "96fdd5dcbf46f86e4c8d249809468fadcdca315be37a019502f7c921aa1eeb16"
+    },
+    {
       "path": "game/overview/assets/spots/space-needle/ground-dc93023f/manifest.json",
       "sha256": "0832a2e9f3654e07e0aeee566b8f367167066e5cfcbff8def7cf541c83584b9a"
     },
@@ -4726,16 +4909,32 @@
       "sha256": "c84467bc0c2e84e909d8f901b6483490088cb1728fb62637eda0699564a5c66e"
     },
     {
+      "path": "game/overview/assets/spots/spring-palace/visit-9824fd56/capture.json",
+      "sha256": "9fb0911aadadc608cda12db052f9759eec2ef118a7c77882e0aa920d36f4d723"
+    },
+    {
       "path": "game/overview/assets/spots/stavropoleos-cec/visit-346f7986/capture.json",
       "sha256": "77e48da0e095b1886c3f2b5c534685ef9800279b260023ad7372f59ce3d2e6e1"
+    },
+    {
+      "path": "game/overview/assets/spots/stavropoleos-cec/visit-9824fd56/capture.json",
+      "sha256": "c02e8855fee0ba85d0e5b9b87d6929ed4b72dd358dad834e25985c479e400c22"
     },
     {
       "path": "game/overview/assets/spots/village-museum/visit-346f7986/capture.json",
       "sha256": "8463a99816c00a6ed7420b9c13091987d4c837a4b21f46fccc302847a4226fec"
     },
     {
+      "path": "game/overview/assets/spots/village-museum/visit-9824fd56/capture.json",
+      "sha256": "bee4cbb379dc38dc965bcda4731c0fd210c2b6234fc79a7a6b8640d514281eb7"
+    },
+    {
       "path": "game/overview/assets/spots/waterfront/visit-346f7986/capture.json",
       "sha256": "2016ae82d5e41d8cb4e18e15f658b598b7b39175c9af69d4742d4fae85e6ba28"
+    },
+    {
+      "path": "game/overview/assets/spots/waterfront/visit-9824fd56/capture.json",
+      "sha256": "1c5dc5f75711e22543f887572df15f4f685a114f3e5f419cc407e52468bef628"
     },
     {
       "path": "game/overview/assets/validation/inspection-dc930/summary.json",
@@ -4771,11 +4970,11 @@
     },
     {
       "path": "game/overview/comparison-data/bellevue/grid-plan.json",
-      "sha256": "8d3c3811d7d66eda37e88cab5a1337d43e1ac77117fe6b8b92321959224b8b3a"
+      "sha256": "f90168666480b1b57a3c7f0a75945fa3765b3a520aa0e52c017752c454e67949"
     },
     {
       "path": "game/overview/comparison-data/bellevue/manifest.json",
-      "sha256": "6211b35c00b35a26e9debb45cf2c6cd226475705dc8e93818a586d62fa8a2154"
+      "sha256": "255ba510ac413e50d94c06b86fd3cd6e892dc169598eba15d7daaa01ff3593ad"
     },
     {
       "path": "game/overview/comparison-data/bellevue/retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/boundary-source.json",
@@ -4856,6 +5055,38 @@
     {
       "path": "game/overview/comparison-data/bellevue/retakes/338300a9/world-stats.json",
       "sha256": "ff47d25f5027afcf9ac815cfe087e489fd45630a004746a7e02b7a06f6d4aacb"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/retakes/9824fd56de3f0e420821e871436906186a80e493/capture-report.json",
+      "sha256": "1a5508711bc27904396a19e07dd287566c085f78b91e2f4ac3869998ef652ed0"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/retakes/9824fd56de3f0e420821e871436906186a80e493/grid-plan.json",
+      "sha256": "b8b77eed0be05eb28ceacf8d2de969ce685595c364a1f79c0d478243fc6d9e6f"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sha256": "5064143fa6de7ea0fcf3c5c3d29bbf508aa6437b242942ad4b00e7369c880a05"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
+      "sha256": "e0f55eb9b5abf0dcdf14f8a411a451977ea8ca443129d1685f1247d7ebaf8454"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/retakes/9824fd56de3f0e420821e871436906186a80e493/poses.json",
+      "sha256": "5ed182a95eb8779fed088bce73361c69e866da4f77a5c504c07831019e421866"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/retakes/9824fd56de3f0e420821e871436906186a80e493/publication-validation.json",
+      "sha256": "9e2011cf37b3b280f8a8baa49444cd2908b85775f51f22056b2f3c313b8be723"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/retakes/9824fd56de3f0e420821e871436906186a80e493/recapture-mask.json",
+      "sha256": "7b3878a6bd20016dc9a73063f5baa2eb72cea36eb24e2b0dde4a14f0fd448aa9"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
+      "sha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b"
     },
     {
       "path": "game/overview/comparison-data/bellevue/retakes/mall-7593b636/atlas-capture.json",
@@ -5131,15 +5362,15 @@
     },
     {
       "path": "game/overview/comparison-data/floreasca/grid-plan.json",
-      "sha256": "4d998c3b5d63f0c4ef5c3e7b9839424fbe37cdf24e30b48058920ace8b4a39e5"
+      "sha256": "06db2672daf00dfed3c7ef89881144dc33b66757359e1b0507b12d06eea6ac14"
     },
     {
       "path": "game/overview/comparison-data/floreasca/manifest.json",
-      "sha256": "2385dc41f6065458a2ed732ac9da53c7762e4364030ebe46ed3e306f7f3ed59f"
+      "sha256": "f018ed938f2acdc28ab0bae7218efcd83b88108d4085bd25518c935b961f615a"
     },
     {
       "path": "game/overview/comparison-data/floreasca/poses.json",
-      "sha256": "3a44d655204f3ae29973f800241ba6ff8654e54e55e3074ccb306eed586dae38"
+      "sha256": "6e009642e7c8e89b2859c1dc2491bbeebd048b66e123af0966d343b3d3b20caf"
     },
     {
       "path": "game/overview/comparison-data/floreasca/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/capture-report.json",
@@ -5220,6 +5451,38 @@
     {
       "path": "game/overview/comparison-data/floreasca/retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/source-provenance.json",
       "sha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/retakes/9824fd56de3f0e420821e871436906186a80e493/capture-report.json",
+      "sha256": "a3f30be25ef52bd067994be8b8e798633b7f45aa058563d29c141dd9be0c4843"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/retakes/9824fd56de3f0e420821e871436906186a80e493/grid-plan.json",
+      "sha256": "b9b979a8db2250557c4d9435280a58041e4af7f4b044fff9c3c781915db97cd2"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sha256": "51a0d818d1f01efd44d3b3c17b68c82a9e2c9d47ec234b7044bae3a4dd1c3d9b"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
+      "sha256": "856372f4d887806dc3f50a8a00409f0120099eb741fa61cb4e8a6c8262341c37"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/retakes/9824fd56de3f0e420821e871436906186a80e493/poses.json",
+      "sha256": "3dc9f30a6c49c1cdc29ec49680a6924925a8e1d98679f054f8b4ecface9446c5"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/retakes/9824fd56de3f0e420821e871436906186a80e493/publication-validation.json",
+      "sha256": "1193f5b96fe1684aee2e2f9507525b62bc0fd22062f04f3aa05d32bde5979eb7"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/retakes/9824fd56de3f0e420821e871436906186a80e493/recapture-mask.json",
+      "sha256": "96b41b59e04a1d00ba33f0e93d8d10267cf0a6ca8414e9f18e1d54df4fcc5276"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
+      "sha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b"
     },
     {
       "path": "game/overview/comparison-data/floreasca/retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/boundary-source.json",
@@ -5403,15 +5666,15 @@
     },
     {
       "path": "game/overview/comparison-data/grozavesti/grid-plan.json",
-      "sha256": "d13625c320a36fb2476182f82621ee0f582c02fc11853c9f0c4021490b03e7b7"
+      "sha256": "4996114c92a38765de85c376a36f04f5b4cca7ee938b8fb282a70640a1276e1b"
     },
     {
       "path": "game/overview/comparison-data/grozavesti/manifest.json",
-      "sha256": "ed9f77915928a70205d29b8851ff6824e81f08d8bf21dd63b2e387103c2f5f0d"
+      "sha256": "6d9158ad76a5824353e7f76f966af4812e71c9fce9bdc188225158c8ae04f298"
     },
     {
       "path": "game/overview/comparison-data/grozavesti/poses.json",
-      "sha256": "988c60ec78cfe37e743b77f0edbe6b541ac2da81deb5a7ec6a45a21b6ac9be5e"
+      "sha256": "f1c838c0ef5347dfdbe9e41d5fa37c105ac23b21d7561441e297db6732f76e5a"
     },
     {
       "path": "game/overview/comparison-data/grozavesti/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/capture-report.json",
@@ -5542,6 +5805,38 @@
       "sha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47"
     },
     {
+      "path": "game/overview/comparison-data/grozavesti/retakes/9824fd56de3f0e420821e871436906186a80e493/capture-report.json",
+      "sha256": "5d91bb4bf4bd125728867d56298378862553694b13805f372ccb55013c69ef72"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/retakes/9824fd56de3f0e420821e871436906186a80e493/grid-plan.json",
+      "sha256": "f4d3be429693895f4751fe683d92b9d0d79692c4f12d1d94fd0b7c2591178924"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sha256": "baa7edd4ae80e2347bb4a6d75209cb558c2cdd4def9300bf3a9e8b6a89cdccd0"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
+      "sha256": "62aa2b4bfd95c4dd2182f7af7b367f0714c2f72894b8b8147338c88ee9ad5af2"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/retakes/9824fd56de3f0e420821e871436906186a80e493/poses.json",
+      "sha256": "13f3cbd74eacbdfa3115f9317f5a80c728231a625c50d33685039b9c8e112884"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/retakes/9824fd56de3f0e420821e871436906186a80e493/publication-validation.json",
+      "sha256": "c8e1279d706103425a6301701c62afdb2206cee91166604f7b965e827a30d933"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/retakes/9824fd56de3f0e420821e871436906186a80e493/recapture-mask.json",
+      "sha256": "17a6c05bb2e73fea3fe72320e98cfb96d5fe6ee29d823d7381d4b67402e7e2b5"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
+      "sha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b"
+    },
+    {
       "path": "game/overview/comparison-data/grozavesti/retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/boundary-source.json",
       "sha256": "088acda5d3a4133d1f7614a33dc13d6e9f12cbec98fa52ea0bbdf1647913d8ff"
     },
@@ -5631,15 +5926,15 @@
     },
     {
       "path": "game/overview/comparison-data/otopeni/grid-plan.json",
-      "sha256": "de184639f38dd4c179a4b128d540e3d5881510080eface03615e7eb1538f4bed"
+      "sha256": "186f5374299b57e12c9002a774983551caa6c620f89821f1ef59c7e2c225709f"
     },
     {
       "path": "game/overview/comparison-data/otopeni/manifest.json",
-      "sha256": "2d2eb0f3f9769a2d9bb615740f285941076179a2e783dbd515a2c4ac3f24aec6"
+      "sha256": "e76e076b7e9a85d1aa319981eb88bbde2b182c4a3ae5aa225068ba97c32878e1"
     },
     {
       "path": "game/overview/comparison-data/otopeni/poses.json",
-      "sha256": "29df5491250e3e56737334076465408e3dcd093dced7c8891518a6bd9beed70c"
+      "sha256": "0472adb23e17577d0dfd35da4d8ba22c8b9cbc444761467c89785344e8143afd"
     },
     {
       "path": "game/overview/comparison-data/otopeni/retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/capture-report.json",
@@ -5672,6 +5967,38 @@
     {
       "path": "game/overview/comparison-data/otopeni/retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/source-provenance.json",
       "sha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47"
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/retakes/9824fd56de3f0e420821e871436906186a80e493/capture-report.json",
+      "sha256": "a4a69a5b08f6bc7c8e37e0200958676d55ac319190a390ee3e25c4999a6f1f8e"
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/retakes/9824fd56de3f0e420821e871436906186a80e493/grid-plan.json",
+      "sha256": "444c96871d50152ecee8656f2d1caebaecbdb492387cb405d06761723d362357"
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sha256": "ccb86c62c8447b91063c3f556be01809354c5583cb88c6eb49caf1c356a206d9"
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
+      "sha256": "9aab5d8d7dea402f531d0ecc8bd4905493ab1950c50d79891f643574b990be91"
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/retakes/9824fd56de3f0e420821e871436906186a80e493/poses.json",
+      "sha256": "527fbcfc7655f27f252acab16d4fc7e4f0978a7f8733cf7ed2840f6fbe984ec2"
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/retakes/9824fd56de3f0e420821e871436906186a80e493/publication-validation.json",
+      "sha256": "bd98ce6ce2fc2aec4e69a3d8c57ec95ad53c6df1252aa487a58622ccd9bbf690"
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/retakes/9824fd56de3f0e420821e871436906186a80e493/recapture-mask.json",
+      "sha256": "8b9182b615efecbee4b7ef69deb7a3cd9597245fea3113a43a72aa5d74d7b489"
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
+      "sha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b"
     },
     {
       "path": "game/overview/comparison-data/otopeni/retakes/b1e33eee/capture-report.json",
@@ -5747,15 +6074,15 @@
     },
     {
       "path": "game/overview/comparison-data/pipera/grid-plan.json",
-      "sha256": "6acf90461f948714f68b2210c3a95092b0fa8204cd7f5dd40786494515b1939c"
+      "sha256": "d14d205ed424959e5be1da5721b4665335c85a8d5dfecfc2d5c3173e12c3f18a"
     },
     {
       "path": "game/overview/comparison-data/pipera/manifest.json",
-      "sha256": "bdcdfdb0dfebdc4a0adb3e89aa7db964f6abd84e21c15b61cbae0d4cf6f896aa"
+      "sha256": "b07a53acd7a85f20e38b1db72f418a86cc502c1dc684a0600608d91012da1974"
     },
     {
       "path": "game/overview/comparison-data/pipera/poses.json",
-      "sha256": "11b1253b999d6a349e1193f88403db035f26f4a5656d9d7e813914f03ad64f1e"
+      "sha256": "f2f3a845d6277c1553fb1a2f39997ef25b0f4d0a7aa4a581fe50ed997549e55c"
     },
     {
       "path": "game/overview/comparison-data/pipera/retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/boundary-source.json",
@@ -5836,6 +6163,38 @@
     {
       "path": "game/overview/comparison-data/pipera/retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/source-provenance.json",
       "sha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/9824fd56de3f0e420821e871436906186a80e493/capture-report.json",
+      "sha256": "e4ba7b206cec0afde29cb4a81852a6a85301b0ae145e01d839241d6dfc8e8a64"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/9824fd56de3f0e420821e871436906186a80e493/grid-plan.json",
+      "sha256": "c17d72e5d4f4416185f33fb571b2ee2ba9047b1b8f08206ab1c547a2f9efb382"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sha256": "0557082c77102a6fa3273ec01cf891eb0fdeb781433a4b63c7a5a4b6699d62f0"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
+      "sha256": "c690ba3799b6c7e84924ecc57381580778d004c65d7ab343ef33283051a6f41b"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/9824fd56de3f0e420821e871436906186a80e493/poses.json",
+      "sha256": "bace7bac335f6415bc1a9e4ef08e6e92cb1d84c0e7b54ee3181583cddc11db1c"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/9824fd56de3f0e420821e871436906186a80e493/publication-validation.json",
+      "sha256": "04623bce959230bdb6691fa4efe16238b403d239e086005795d105e189698d1a"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/9824fd56de3f0e420821e871436906186a80e493/recapture-mask.json",
+      "sha256": "c8ee10927f22afc3f9f31fc284fc25513766456035f5ea9b0650a1a98a21fd40"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
+      "sha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b"
     },
     {
       "path": "game/overview/comparison-data/pipera/retakes/bc9a3ff3/boundary-source.json",
@@ -6031,15 +6390,15 @@
     },
     {
       "path": "game/overview/comparison-data/romana/grid-plan.json",
-      "sha256": "adff0f7e21f8dd775915e0d3c6ff410f7a1229c61282001d87b3bd0e0d6041a2"
+      "sha256": "e5acd3a21a5ef4aae8c837c21500569950a6adca98c3d75117a93bab0ae63b5e"
     },
     {
       "path": "game/overview/comparison-data/romana/manifest.json",
-      "sha256": "69bd7d766bc460e95bb9e8301c18113d7d19c18bdbcbfe2f34cbe25996bee0f5"
+      "sha256": "7f9f5523a0565b14c2e3641f0f877ca73c44a234f7d44d5d99bdc70c6e474011"
     },
     {
       "path": "game/overview/comparison-data/romana/poses.json",
-      "sha256": "f818aeb683e18f1fda35885d7d1c6a097600e38bebb013dc5f5c2489b9f4f827"
+      "sha256": "04eaad480372afdd2a7cac888a7164eba52e4d7916f7804ce5987d5699ce158f"
     },
     {
       "path": "game/overview/comparison-data/romana/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/capture-report.json",
@@ -6122,6 +6481,38 @@
       "sha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47"
     },
     {
+      "path": "game/overview/comparison-data/romana/retakes/9824fd56de3f0e420821e871436906186a80e493/capture-report.json",
+      "sha256": "93fc443da92ce7ecf8e1995eb8ba16243a59cb17009641a9239eea86ea880e32"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/retakes/9824fd56de3f0e420821e871436906186a80e493/grid-plan.json",
+      "sha256": "b34750f32edaf314ea6035cb8d40118a0d4196a20232a49bb44e579debef26dd"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sha256": "b4ae8b7a2f290c895a26097c06bc73bb9aa1d55cdc50d44a9391b8dc65ccf42e"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
+      "sha256": "d05ec19dd373e4fd5c73e56b1720e5c291befe8ecdd8b9b0b6ae2689e4dea5c9"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/retakes/9824fd56de3f0e420821e871436906186a80e493/poses.json",
+      "sha256": "0e85fc235019b0320c3bacab962f5690af3f2ad9418da2a69e3347448915d245"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/retakes/9824fd56de3f0e420821e871436906186a80e493/publication-validation.json",
+      "sha256": "940f2e66c513af7e0afe0f237072f6edc70c957cf38f609d9302764af23e39b4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/retakes/9824fd56de3f0e420821e871436906186a80e493/recapture-mask.json",
+      "sha256": "8ad46f332102624a443d89bc6a2a9888a54051a3958973c8790ce954e4a4704f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
+      "sha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b"
+    },
+    {
       "path": "game/overview/comparison-data/romana/retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/capture-report.json",
       "sha256": "209bbad1aad4599adb97bd032c4b395b52905bd6c02e70b4f9c8adc37f30dfe9"
     },
@@ -6191,11 +6582,11 @@
     },
     {
       "path": "game/overview/comparison-data/seatac/grid-plan.json",
-      "sha256": "ecc3023721cbe9077f3fcb771a5a82fb88550114d8a8fa4bf6271779e8df6202"
+      "sha256": "daa7ae4b7bb7483e4fef959103b32b611de6302ac624a2ffa3b75d9d120e1ebd"
     },
     {
       "path": "game/overview/comparison-data/seatac/manifest.json",
-      "sha256": "6fb5b06460240e22fd6cf63b4bea69bfa4dfd7aa58ad2a3676e6c8b828d1a85c"
+      "sha256": "11bc20517173fa0b01c499c926343964694ba0f9df5fe678da3dd906df4cd4fd"
     },
     {
       "path": "game/overview/comparison-data/seatac/retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/boundary-source.json",
@@ -6278,6 +6669,38 @@
       "sha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47"
     },
     {
+      "path": "game/overview/comparison-data/seatac/retakes/9824fd56de3f0e420821e871436906186a80e493/capture-report.json",
+      "sha256": "8e09d394969efb2349b1c4a7cf562f46a71b74b56e1e239d93c90031d846b03b"
+    },
+    {
+      "path": "game/overview/comparison-data/seatac/retakes/9824fd56de3f0e420821e871436906186a80e493/grid-plan.json",
+      "sha256": "f8e8c8682c77024b725b6e6c39ec47831d21660321247ac2108aaed440c361d2"
+    },
+    {
+      "path": "game/overview/comparison-data/seatac/retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sha256": "d5a1bd12f73f3bd6bd6ac80012e7737f769c78c841ab140b08b8e1e21bc02ce4"
+    },
+    {
+      "path": "game/overview/comparison-data/seatac/retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
+      "sha256": "f367a4263c2b628ffa523de4e4b591ce6c7ecb3ab692bd5713938cabd67e9b36"
+    },
+    {
+      "path": "game/overview/comparison-data/seatac/retakes/9824fd56de3f0e420821e871436906186a80e493/poses.json",
+      "sha256": "82b19788cfa9c7f4c1a7e470f3499c27e09982aea3c41d56fe957ef1b15f1ae1"
+    },
+    {
+      "path": "game/overview/comparison-data/seatac/retakes/9824fd56de3f0e420821e871436906186a80e493/publication-validation.json",
+      "sha256": "bf38c063e4312543add0b5badea9b94a8e9cc536c24455df89de836d4c924462"
+    },
+    {
+      "path": "game/overview/comparison-data/seatac/retakes/9824fd56de3f0e420821e871436906186a80e493/recapture-mask.json",
+      "sha256": "4931415b34cdf4222d000e8273bbfdf5df513d45ed8cfce4ba94694d35b61a05"
+    },
+    {
+      "path": "game/overview/comparison-data/seatac/retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
+      "sha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b"
+    },
+    {
       "path": "game/overview/comparison-data/seatac/source-provenance.json",
       "sha256": "30a8636628c9647cda5c2b96622d8a2707685c5ffe52589fc756256c144d018b"
     },
@@ -6315,15 +6738,15 @@
     },
     {
       "path": "game/overview/comparison-data/unirii/grid-plan.json",
-      "sha256": "1b98d81b434fd67096eba24a75437b51b282a4ec51fc931ba5eecff5a1b8ca92"
+      "sha256": "1086755af7059b1a23aba213c02cb867feabc1a8a40f7ddc7a2c0006de4a7851"
     },
     {
       "path": "game/overview/comparison-data/unirii/manifest.json",
-      "sha256": "d7b35fbf465b2266480dbffab52f0a7d2c6cdfa50fe5139a20ad65697cb7d0a8"
+      "sha256": "5d11351eda7be21a3cfa2acfae5f9d40e9900708466ca784eb30615faf529bd6"
     },
     {
       "path": "game/overview/comparison-data/unirii/poses.json",
-      "sha256": "6b206a146dfc44985583eac0c4670bee09a1f11fe6364eb7ce13d251b2cafca7"
+      "sha256": "c23286ce532df8f1d4214021fa9878a922dbb7bebb00ff6bbd49dd557ecbff7c"
     },
     {
       "path": "game/overview/comparison-data/unirii/retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/boundary-source.json",
@@ -6404,6 +6827,38 @@
     {
       "path": "game/overview/comparison-data/unirii/retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/source-provenance.json",
       "sha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47"
+    },
+    {
+      "path": "game/overview/comparison-data/unirii/retakes/9824fd56de3f0e420821e871436906186a80e493/capture-report.json",
+      "sha256": "08faffbcad042973311430472af3d74f2c7e26ec8f8e616b7e940b7d5a54c719"
+    },
+    {
+      "path": "game/overview/comparison-data/unirii/retakes/9824fd56de3f0e420821e871436906186a80e493/grid-plan.json",
+      "sha256": "62b30d098cbce789436b17510383e82babd10089ac0b867b09dedccf7688f8eb"
+    },
+    {
+      "path": "game/overview/comparison-data/unirii/retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sha256": "467917f829597aa94a701d2d3b8190bc8266f42d403d5658e9543284bc427246"
+    },
+    {
+      "path": "game/overview/comparison-data/unirii/retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
+      "sha256": "f8787b2090742cab481e2d31904dbc56cca6d6d936cf86730aa1b5c6d21cf84b"
+    },
+    {
+      "path": "game/overview/comparison-data/unirii/retakes/9824fd56de3f0e420821e871436906186a80e493/poses.json",
+      "sha256": "c064cef991f4bec80cac1ee5781f4b6287c0e956f4748ed23ef72cee9e9525a8"
+    },
+    {
+      "path": "game/overview/comparison-data/unirii/retakes/9824fd56de3f0e420821e871436906186a80e493/publication-validation.json",
+      "sha256": "21a4b7021dcf7c5fce8afcd38b7adefae495cb3562a3a6b2ab41538ce68429ac"
+    },
+    {
+      "path": "game/overview/comparison-data/unirii/retakes/9824fd56de3f0e420821e871436906186a80e493/recapture-mask.json",
+      "sha256": "6c4a1cb08194476a290540e21855d9cf72ea0b964a915f0dac3f395ff980bc3c"
+    },
+    {
+      "path": "game/overview/comparison-data/unirii/retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
+      "sha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b"
     },
     {
       "path": "game/overview/comparison-data/unirii/retakes/b2c4ea4a/capture-report.json",
@@ -6487,7 +6942,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/ambasador.json",
-      "sha256": "81661c0cc1f61cfcfabdbf8aa813e03dbe7d47376b964c2936fedc90823fdea5"
+      "sha256": "e0221042dca2c24763303efa7ac6db4a09a8f3bc15e551c638810903a09ba9ab"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/antipa.json",
@@ -6499,7 +6954,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/aro.json",
-      "sha256": "8e91ce26b64f782a20594af8dc01b4b999553f76c2639ea177851403d1264d99"
+      "sha256": "1a535168f9474a76a91e9b2a96c718f7ff1035077e13dd7be8ad38a9ea9d5a6f"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/ase.json",
@@ -6531,7 +6986,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/catargiu.json",
-      "sha256": "b7463083cbec8c704268000582fce7b45e981d01ec0ccb5ed8aab434de2a3a58"
+      "sha256": "ed14aa5753fff4d81a2217c363373a41118d55906a80d811c554c91b629c78dc"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/cathedral.json",
@@ -6539,7 +6994,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/cec.json",
-      "sha256": "5e6cea0e12b67e37354ceb7bf559e2d663be3807ce0a557c8d4936ae6246a296"
+      "sha256": "288d436a4b510f11cea45ada5199da96a791d69a096299c2605c241aeca5c840"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/cetgrozavesti.json",
@@ -6547,7 +7002,11 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/dinamo.json",
-      "sha256": "e493bf89e45e9f992a2e69173c40e8cd5b9d42766c3e86ba1457192cb97e5bdc"
+      "sha256": "6dbe82adacb5de1a30a0fa96893a184ad00043fdd6ec99fa6a6394b37468e155"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/enescu.json",
+      "sha256": "826d4a756c84241d944c1cf7e70fdda0636312a8c00ec2d60e915666b41fcb69"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/europehouse.json",
@@ -6563,7 +7022,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/globalworth.json",
-      "sha256": "9a67ed0d32b28798ee24808ca2ca3d28c55bae30442c5e1eb814dcbc31bf97f0"
+      "sha256": "c6c0adc91823041b0795be10686617f696f54abf3d46e01d35fcb5351a994771"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/grandhotel.json",
@@ -6587,7 +7046,11 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/mnir.json",
-      "sha256": "9476a281e15fe85d212bcde5a0a28325585f22c495b56541e6469e6480e642db"
+      "sha256": "d81f2314a926608a91c123aca38c24919de4e49a98a94594e06b0b7f0e3ff7b6"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/nobildac.json",
+      "sha256": "9e918b960ead3af1735e636f983349f4fd583f3d3e01e7587d61e165909398a2"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/opera.json",
@@ -6595,11 +7058,15 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/orhideeasign.json",
-      "sha256": "dd53b7f2b768186412d5c6199fdd0625013b19cdaed97d6b683640a03605a182"
+      "sha256": "a8371c2b53a962f06cec0036f2478e8f2b18649854ed268af33c3514941db545"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/otp.json",
-      "sha256": "36004cfed5cbb095db512b7cd3a49d96aeef726effcbdbe71daf8358bf68ab96"
+      "sha256": "755565c106a3f1e29a140d65ca885369ed4512b9efd3b48c236a184b2255dfd3"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/otpgara.json",
+      "sha256": "49466b576d76624def966362660d85276dcb03635b50d1c3c176319a0dabf24d"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/parliament.json",
@@ -6611,11 +7078,11 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/promenada.json",
-      "sha256": "8706a708845ac0b231fdcf639c01dea4218a81f0447150b3d3d0bdc5bfa25980"
+      "sha256": "28a53b53c383a8f5477e4f7b2fc304466a45636d80b2505d715e138858626286"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/regal.json",
-      "sha256": "3d14973ca5bf3bb8288a8ec21ec493335eecf38917aa13515f274ad8e4251752"
+      "sha256": "e8573c93cbb24798aaa2bebb6d2681af126d33492ccf5dba3feb3d2ce2444261"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/romexpo.json",
@@ -6635,7 +7102,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/thelandmark.json",
-      "sha256": "fc8c54f2a18ef8f48d04d201514aaed34c1dde4f4a1569b41ba0319b9d52da8c"
+      "sha256": "4eb997194afc24b8db7cd37f90fb0b6f67400ae5af980cb6291433a204ee667a"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/tnb.json",
@@ -6643,7 +7110,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/unirea.json",
-      "sha256": "169ed4550fd15b5c21b7ca868f964487526bb9149bef47c360a1add790f753ee"
+      "sha256": "703827e5ef1a975abfd2955ec2e325b32f03046d7eb38e9478e43a4dbfb098a1"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/univ.json",
@@ -6667,7 +7134,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/bellevuetowers.json",
-      "sha256": "5429857676ce99c0d3ee70defdecf3034d31114945a96ac98eedd81315228026"
+      "sha256": "7287d94e2971204ae806a45b0bd08507502214a2b7987021133f3e5b7e06731e"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/columbia.json",
@@ -6679,11 +7146,11 @@
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/lincoln.json",
-      "sha256": "1965d5c91f01c019c655c9c9f093f7f1c0cef000b20992ad9d949ffc86c62092"
+      "sha256": "53c514e8b8276c8a56f5f644b34ba732c3e148c9acdd3f13eb20e097af97ed29"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/lincolnsouth.json",
-      "sha256": "aac42c9ea9d38c1fbc8d9651fefd1e2bdcca4c4969815e6cb838ae7bcc631511"
+      "sha256": "2bc29531d628bb2f26d1d117c8f380118f822017278737a4be9c93c5c413fe12"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/lumen.json",
@@ -6707,7 +7174,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/onelincoln.json",
-      "sha256": "6236eaa3a01de15bc56fb8c69b33d964bc59fe625ea647116758dab2927ade9b"
+      "sha256": "82f0d91a177bf7a29f20331db465107aca741b116312183a92c3a4df71c80403"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/plazacenter.json",
@@ -6743,7 +7210,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/spaceneedle.json",
-      "sha256": "9df0fecdabc778f603db6545184822c34e0b54a10a31ed2711277089820ff0f4"
+      "sha256": "8b1557bda2f6cc210bebfaacfc69d5c94a8e850cca3e3364f9159e3c984e04f4"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/spheres.json",
@@ -6771,7 +7238,7 @@
     },
     {
       "path": "game/overview/evidence/spots/athenaeum-revolution.json",
-      "sha256": "6305552f845ac9a12db46cc313e3ed5a4fca710e42c22c29e1536610c034e0dd"
+      "sha256": "14f4f30e29fbe3089ff148fda6ea445dc9c9792027c7c33eaa7c76b688a993a8"
     },
     {
       "path": "game/overview/evidence/spots/ballard-locks.json",
@@ -6779,27 +7246,27 @@
     },
     {
       "path": "game/overview/evidence/spots/bel-botanical-garden.json",
-      "sha256": "1d8ba4060a3f398088380f3ce5db9d50ba114e27b798534a7171e8a8b1e3b104"
+      "sha256": "533d8038b6e195c974cfd84d3c6329e7baba339ccd53c7c49df93cb59193f004"
     },
     {
       "path": "game/overview/evidence/spots/bel-downtown-park.json",
-      "sha256": "a5bc815f994775ba1869c7d3a35827758f3ae969b9a6758e115a8b332351df18"
+      "sha256": "8a32dd92bdd3939c9248674879b87c4f21061abd8c17a007d43b4e932b9a8d61"
     },
     {
       "path": "game/overview/evidence/spots/bel-lincoln-square.json",
-      "sha256": "e4ce4c746cf602574ce4202899815077130a9a3ac71262b8e9e967653eac28dc"
+      "sha256": "7a8f3df7ebcb37e750c553a2fc1c847769ac977fca7cb9bb8710bf2839085fb2"
     },
     {
       "path": "game/overview/evidence/spots/bel-meydenbauer.json",
-      "sha256": "0bab9601b6722e967c51d25853a624d749f93a8350f93fc448e254c9f6b43f3a"
+      "sha256": "9db3458dd07cfa8e23e13e21ef3f3811636fc1647d8a416fed4a55fb3b357912"
     },
     {
       "path": "game/overview/evidence/spots/chihuly.json",
-      "sha256": "8ecf93237642b430fcccbd5f848017ec4bf2940b6659c1fc44d27707bea9d92c"
+      "sha256": "56c66215c2ba25bc2ef737e047bd7a5aa4bfac9da8e43b2a6f842c97d58d1513"
     },
     {
       "path": "game/overview/evidence/spots/cismigiu.json",
-      "sha256": "b2058f2b2202cccd1afb8e34e07962e8573e07a25b7416d9769cfa005b0cdbf2"
+      "sha256": "b8b86ba835552af12b7c5a3f04b445043e129f8df295357a0e1c169cb6626e3b"
     },
     {
       "path": "game/overview/evidence/spots/fremont-troll.json",
@@ -6811,31 +7278,31 @@
     },
     {
       "path": "game/overview/evidence/spots/herastrau-park.json",
-      "sha256": "8e1c45cfabfbf86a6d02b26be556bc23960332ab32fd207a864f921a7fda239c"
+      "sha256": "90dc78b5f2d7444faaf1d2c18d71e402e011afbdaba260a985dec36e75298d32"
     },
     {
       "path": "game/overview/evidence/spots/kerry-park.json",
-      "sha256": "0cf76ac46e039ec7b03f6488362040e221e7b02231afd0f2103ed5cde57d8d65"
+      "sha256": "067de1a6b5b3b3ba409aa2af58e5c6d5bb2ab93b6cb269e2ca33183d288544db"
     },
     {
       "path": "game/overview/evidence/spots/mopop.json",
-      "sha256": "216ef6c1aaa7e65fdd5c8c70e923b83acc55cfba67fda351098f4b2888129c01"
+      "sha256": "eaf8eb3bbb1e4bbe224e873ec316eb63b342725171342edb74df9564d8aff8d3"
     },
     {
       "path": "game/overview/evidence/spots/old-town-lipscani.json",
-      "sha256": "252cf5bac155441ca5a8c75876a1fca32a66e486a0a3b50ddd857afa43c57562"
+      "sha256": "0f76bcabb1b97b47798bcdc2f20949ac05e3f3a2fc8ba66c16ae832a964a7dce"
     },
     {
       "path": "game/overview/evidence/spots/palace-parliament.json",
-      "sha256": "8823bb283248c65148c4e54f19410c27d2034f4b4e53d20e9b6cf5dca9d41e0e"
+      "sha256": "f49895a6e62add44c9bbef61c16380630e8c25d4ddf4a59949413255f1b8c160"
     },
     {
       "path": "game/overview/evidence/spots/peoples-salvation-cathedral.json",
-      "sha256": "599bf5c6c0bf941b7dc9e602343b8d559e3a17103c146e6aa36a18d12a21dc00"
+      "sha256": "4dac5c3c06bdeaadef2543de796f7fdf783e004d6a0a57400d18d2e8151a5e64"
     },
     {
       "path": "game/overview/evidence/spots/pike-place.json",
-      "sha256": "f9596cc9f34d06bfebfb60ea89ad7ea423cfb4c8e241336116de43035765cae6"
+      "sha256": "54be36d714fbd6a9fafab69d191642080a1be390e986a9037980ebdb383f0cda"
     },
     {
       "path": "game/overview/evidence/spots/pioneer-square.json",
@@ -6843,23 +7310,23 @@
     },
     {
       "path": "game/overview/evidence/spots/space-needle.json",
-      "sha256": "ddebc398abe63d404de6099619c358b8937f75a3c73d8e5332fd6e5bf285241d"
+      "sha256": "3c87a2a9c8392cbac412e1f5b14e27182d9874894ded8b189a6facd358fbcd38"
     },
     {
       "path": "game/overview/evidence/spots/spring-palace.json",
-      "sha256": "08f615aef52d5889f0d724ec1ee2c9872d1d921491dfaeae8ee7838ef035191d"
+      "sha256": "8dff20286219801e2b30c763a0aec44cfb467917e9467ca06cc1b6935c08a88e"
     },
     {
       "path": "game/overview/evidence/spots/stavropoleos-cec.json",
-      "sha256": "d707c77bc41c6bb8b4c9de3d603a36c5d25ac282561fbeb525cc0c67fef4c9d1"
+      "sha256": "16cc7756b7e5b55c539b69697394d20679bfeb2aaeef54a3f21e44d938c232e4"
     },
     {
       "path": "game/overview/evidence/spots/village-museum.json",
-      "sha256": "0784151815665a68ddd31bc4891c6b61200bb62e00d868df1e9506e206d0e49d"
+      "sha256": "0fdc5f0a116c3cb1b28295d1a6bf174ec714ccfc79540f7ec187f0051027f37b"
     },
     {
       "path": "game/overview/evidence/spots/waterfront.json",
-      "sha256": "84a74c942590591ece1e10c30012f81d06e0bd2da9e89c00859f69656fd0e2e4"
+      "sha256": "4457158f74447d3efa7ef2abe298fbfdf17d34e43b9b6241b607645f762956d3"
     },
     {
       "path": "game/overview/evidence-paths.js",
@@ -6884,6 +7351,10 @@
     {
       "path": "game/overview/fix-fidelity-pass/summary.json",
       "sha256": "33c7c7fb11cf81c043c67753c3ad21feacbe1da248c68d9350af30210bd9f2f4"
+    },
+    {
+      "path": "game/overview/fix-fidelity-pass-2/summary.json",
+      "sha256": "701b7e822957a71cf05ca3bc3ce2cfed79a2139b3e779d6ed7d2a4a1461b7c3e"
     },
     {
       "path": "game/overview/fix-floreasca-facades/summary.json",
@@ -6967,15 +7438,15 @@
     },
     {
       "path": "game/overview/generate.mjs",
-      "sha256": "fdf0e23fa5b3e0621916783496d6654fd9d3739ff656c1efe6433b69e5721b39"
+      "sha256": "d53a063639777a66cc2f279b09ee6ed2920ad5dbdba05acdd81aaefa58b22296"
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "3790d9384185b362788233ef2bc25cabb17d672a7440e964f3c1193e514d01f8"
+      "sha256": "2047cca66f10ef30fc1e3eed6047cc164ea6f61f9cbf2212522a2098341bd85b"
     },
     {
       "path": "game/overview/landmark-evidence.js",
-      "sha256": "bf143b682598de2197989f59752be1541b044502cfcf37ed9a4c61022cef8114"
+      "sha256": "d1ca32a95f4b7ddd0860ffe927fda852a27c83e1b4efa918d1415200d6040d90"
     },
     {
       "path": "game/overview/landmark-ranges.js",
@@ -6983,7 +7454,7 @@
     },
     {
       "path": "game/overview/overview.js",
-      "sha256": "b8a8733a351ea053ef4c80ffe810efaa2ab2576082f9f9c8230f9c657a3938fb"
+      "sha256": "e0a250427b016780fbf0c107a0c8f8cf7a27528944548a3be0109a413f6c3bdc"
     },
     {
       "path": "game/overview/perspective-viewer.js",
@@ -6995,7 +7466,7 @@
     },
     {
       "path": "game/overview/style.css",
-      "sha256": "f2c88d56f1c1f6bd3a39c4dbd0df3a492a73d18970e0526c3df278a7519b2a5a"
+      "sha256": "b2282ae53da184b187c879293c09ce4c3b086749f79997b1107014ab63679374"
     }
   ],
   "stagingEvidence": [

@@ -88,6 +88,7 @@ import { pavedReviewAreas } from './ground-review.js';
 import { reviewedGradeK } from './grade-review.js';
 import { emitAirportForecourt } from './airport-forecourt.js';
 import { emitAreaFences } from './area-fences.js';
+import { applyEntranceCanopies, emitUnderpassMouths } from './underpass-mouths.js';
 import { applyFuelCanopyReview } from './fuel-canopy-review.js';
 import { PEDESTRIAN_FRONTS } from './pedestrian-fronts.js';
 import { bridgeGuardRow, emitBridgeGuard, guardBlockH, emitGuardSteel, emitGuardScreen, GUARD_CONCRETE } from './bridge-guards.js';
@@ -4371,6 +4372,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     if (distId) for (const b of bRecs) { const rh = reviewedCarParkHeight(b.sourceId, b.heightSourceCode); if (rh && (!b.roofProfile || (b.roofProfile.shape === 'flat' && b.roofProfile.heightSource === 'style estimate'))) { b.h = rh; if (b.roofProfile) b.roofProfile = { ...b.roofProfile, totalM: rh, eavesM: rh, heightSource: 'street-level review estimate' }; } } // (r2: car-park storeys counted from the street: car-parks.js)
     const fuelCanopyReview = distId ? applyFuelCanopyReview(city.id + '-' + distId, bRecs, data.buildingIds) : []; // (r2: reviewed open fuel roofs the pack draws as blocks: fuel-canopy-review.js)
+    const entranceCanopies = distId ? applyEntranceCanopies(city.id + '-' + distId, bRecs, data.buildingIds) : []; // (grozavesti-7: an OSM roof over a metro entrance is an open canopy, underpass-mouths.js)
     coveredRoadModels.useNativeRibbons(ribbons);
     const buildingPassageAudit=(data.buildingPassageIssues||[]).map(i=>({...i,accepted:false}));
     const configurePassages=b=>{
@@ -8290,6 +8292,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         blocked: (x, z, r) => onRibbon(x, z, r) ? 'path' : tramSweep?.circle(x, z, r + 0.2, 0, 6) ? 'tram-sweep' : null, wallAt: (x, z) => !!buildingAt(x, z),
         baseY: (x, z) => raisedTop(x, z) ?? 0.05,
         addCollider: (x, z, hd, angle, h, rec) => propColl.push({ x, z, hw: 0.1, hd, angle, r: Math.hypot(0.1, hd), poly: null, h, prop: true, kind: 'fence', sourceId: rec.id }) }) : null;
+    // (grozavesti-7) street-level mouths of pedestrian underpasses OSM maps underground (underpass-mouths.js)
+    const underpassMouths = distId ? emitUnderpassMouths({ key: city.id + '-' + distId, project: (la, lo) => city.proj(la, lo), cellOf,
+        blocked: (x, z, r) => onRibbon(x, z, r) ? 'ribbon' : tramSweep?.circle(x, z, r + 0.2, 0, 6) ? 'tram-sweep' : null, inBuilding: (x, z) => !!buildingAt(x, z),
+        baseY: (x, z) => raisedTop(x, z) ?? 0.05,
+        addCollider: (x, z, hw, hd, angle, h, rec) => propColl.push({ x, z, hw, hd, angle, r: Math.hypot(hw, hd), poly: null, h, prop: true, kind: 'underpass-parapet', sourceId: rec.id }) }) : null;
     const touchesDetailedRing = (x, z, w, d) => realPass && ringGeometry && sceneryMargin(x, z, true) <= (distCfg?.outerRing ?? 600) + Math.hypot(w, d) / 2;
     {
         const bd = data.backdrop || [], pal = PALETTES[country];
@@ -8748,7 +8755,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.buildingOverlapCuts = overlapCuts; // (world-space basin outlines: audits of what stands in or over them)
     stats.buildingOutlineParts = outlineParts; // (style-estimated outlines left undrawn in favour of the tagged volumes inside them)
     stats.bridgeGuardCompletion = guardCompletion; stats.railingNetwork = railingNetwork; stats.railingDrops = railingDrops;
-    stats.elevatedSources = elevatedSources.report; stats.areaFences = areaFences; stats.pedestrianBridges = pedestrianBridges;
+    stats.elevatedSources = elevatedSources.report; stats.areaFences = areaFences; stats.underpassMouths = underpassMouths; stats.entranceCanopies = entranceCanopies; stats.pedestrianBridges = pedestrianBridges;
     stats.basarabLamps = basarabLamps;
     stats.barrierJoins = walls.barrierJoins || null;
     stats.coveredRoadModels = coveredRoadModels.report;

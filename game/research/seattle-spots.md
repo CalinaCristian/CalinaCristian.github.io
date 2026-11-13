@@ -185,10 +185,24 @@ Needle).
   skillion buttresses w1352666990 / w1352647807 / w1352647810 / w1352647812, Alaska Airlines Atrium w1270549342 — and the
   parent outline as a glass curtain wall up to 8 m under a thin white fascia (xLh7PyEOCxKVuesNWAzPBw @ 270,
   jLP72IlkxVljWg52cvsHAA @ 10 / 60: green-tinted glass, white mullions, a white sloped A-frame mid east side).
+- MoPOP skin (`scenes/seattle-center-mopop.js`): the seven lobes keep their OSM footprints, heights and colours but are
+  continuous curved metal masses — corners rounded, walls bulging out above the ground and rolling into a rounded crown at
+  the mapped height, each leaning away from the building's middle — in an iridescent shingled metal (purple sheen on the
+  silver lobes).
+- Climate Pledge Arena: the west and north A-frames stand on the parent outline's mapped 4.6 m spurs (feet at x −427.4,
+  z −254.5), with the mapped east part's section (white wedge, ground → 11 m, 10.1 m inside the wall); the south side has
+  no spur (the atria). CLIMATE PLEDGE ARENA lettering on the white fascia of the longest east (1st Ave N) glass wall.
+- Planting (`scenes/seattle-center-trees.js`): 56 live-OSM trees missing from the extract (rows along the Armory's west
+  side and Thomas St, the double row west of the Chihuly garden; API map call 2026-11-13); the mapped natural=wood
+  polygons round the Armory and east of the Needle (w394259997) filled at one tree per 30 m²; shrubs and small trees in
+  the mapped bed w394259987 by the pavilion.
 - Howard S. Wright fountain (w241876412), Armory (w231764919), Pacific Science Center (w394955903) at their mapped places.
   All 35 live businesses and 25 tourism / artwork objects inside the terrain box were in the extract (2026-11-12).
 
-**Estimates**: International Fountain micro-shooter and floodlight ring radii, the show rhythm (90 s show, 60 s still),
+**Estimates**: MoPOP's bulge (≤ 6 %), crown profile, 1.6 m lean, shingle size, metal sheen / iridescence and the 18 %
+toning of the tagged colours toward polished metal; the A-frames' inner end (copied from the east part); the lettering's
+face (the review that noted it did not record which face), its dark green colour and 26 m width; wood fill density
+(1 / 30 m², ≥ 3.5 m apart), the bed's shrub density and tree sizes. International Fountain micro-shooter and floodlight ring radii, the show rhythm (90 s show, 60 s still),
 the 6 m asphalt apron; the Iliad's split into legs and top, tube lengths and angles; the station canopy's rise and rib
 spacing; MoPOP height at the highest lobes ≈ 26–30 m; monorail beam ≈ 6–8 m overhead. Pacific Science Center has no
 height tag (generic volume) and its arches have no OSM object.
@@ -196,10 +210,8 @@ height tag (generic volume) and its arches have no OSM object.
 **Not modelled**: the Acrobat Constellation (n3211770205: three figures 21–25 ft on poles, mapped as one node, pole
 positions unknown); Chihuly's EXHIBITION ENTRANCE / bookstore signs and planted wall.
 
-**Open (needs a panorama look)**: MoPOP's real skin (iridescent purple-bronze and silver, continuous curved lobes; needs a
-hero model); screening trees at the Armory (reality wooded, the game open lawn) and round the Needle pavilion (its
-soffit band is deeper in reality); the arena's A-frames on the sides other than the mapped east one and its "CLIMATE
-PLEDGE ARENA" lettering; the Pacific Science Center arches (no panorama found shows them).
+**Source gaps**: the Pacific Science Center arches (no OSM object, no panorama found shows them); the Needle pavilion's
+deeper soffit band (no measurement recorded).
 
 ## Fremont Troll (`fremont-troll`)
 
@@ -262,9 +274,14 @@ same bearing.
   −122.34237; header of `waterfront-piers.js`): Pier 54 pale grey-green two-storey (Ivar's, Ye Olde Curiosity Shop); Pier 55
   red-brown under a dark hipped roof (Starbucks); Pier 56 dark green gabled with white trim, shopfront on its slanted
   street end; Pier 57 red with MINERS LANDING in gold letters, yellow awnings; Pier 59 grey-green with SEATTLE AQUARIUM on
-  the street front; Pier 60 (w1154870289) a low open-sided shed under a shallow gable (VuVTZJti0rfyEFN0lJAiMQ @ 240), drawn
-  as a low shed in the Aquarium's grey-green. The panorama Google returns at 47.60625, −122.34070 is from the construction
+  the street front; Pier 60 (w1154870289) a low open-sided shed under a shallow gable (VuVTZJti0rfyEFN0lJAiMQ @ 240). The panorama Google returns at 47.60625, −122.34070 is from the construction
   years: not used.
+- Pier 57 is several sheds joined: each mapped `building:part` is its own gabled volume at its OSM height, ridges along
+  the pier — the 3-level main shed (w429553383, 10.9 m) with the 4-level raised middle shed (w396606860, 14.2 m,
+  clerestory windows) down its spine, the 2-level street-end shed on the slanted Alaskan Way front (w429553384, 7.6 m,
+  ridge along that front; MINERS LANDING on it, PIER 57 on the main gable above), the 2-level west shed (w429553382) and
+  the 1-level west tip (w396606855); a party wall is drawn by the taller part only. Pier 60: the shallow gable clipped
+  to its irregular 59-vertex plan (`spots/gable-plan.js`), on posts, the deck walkable under it.
 - Great Wheel (n1809238334): 53.3 m, 42 gondolas, 12.2 m over the water.
 - Ocean Pavilion (w1256939021, Aug 2024): charcoal ribbed cladding over a board-formed concrete base ≈ 2.2 m high
   (d_zvaPdDFeRnyCx2epCvqA @ 250, nVwg3181AIHZBcGR4Gy80w @ 270), outside stair tower.
@@ -286,16 +303,18 @@ same bearing.
 - **Documented exception (OSM incomplete)**: "Elliott's Oyster House" has no OSM object; its sign is on the Pier 56 street
   gable in the Sep 2025 panorama, and the game shows the name there only.
 
-**Estimates**: shed eave / ridge heights (OSM gives 10.9 m for Piers 54 / 55 and 10.9–14.2 m for Pier 57's parts), window
-rhythm, colours; Pier 60's 7 m (no height tag); Salish Steps width; promenade lamp post 9 m, arm 2 m, head size; the
+**Estimates**: shed eave / ridge heights (OSM gives 10.9 m for Piers 54 / 55 and 4.3–14.2 m for Pier 57's parts), window
+rhythm, colours; Pier 57's eaves (ridge − 2.4 m main, − 1.6 m middle, − 1.4 m 2-level parts, − 0.7 m west tip), 0.45 m
+roof overhang and the clerestory row; Pier 60 (no height or roof tags): eave 5.2 m, ridge 7 m, ridge along the plan's
+long axis, posts every ≈ 6 m, 0.6 m overhang, dark grey roof over a pale soffit; Salish Steps width; promenade lamp post 9 m, arm 2 m, head size; the
 Overlook Walk's bridge steps w1320933924/5 are folded into the deck's one level (their fall is not known). Source gaps kept:
 the water triangle (−39.5, 58.4)–(−35.6, 65.7)–(−33.6, 65.8) lies outside Pier 57 (r812609) and Pier 58 in OSM and is water
 in the coastline; Pier 55's three inner rings are recorded in `waterfront-pier-rings.js` and not opened (the coastline
 treats them as land).
 
-**Open (needs a panorama look)**: Pier 57's joined sheds and Pier 60's open gabled roof over its irregular plan; the Ocean
-Pavilion's oculus and planted roof (no view of the roof); planters, bins and traffic on Alaskan Way (open paving in the
-game). No official panorama lies within 45 m of Piers 55–57.
+**Source gaps**: the Ocean Pavilion's oculus and planted roof (no view of the roof, no OSM roof object; the roof is the
+green-grey tint only); planters and bins on Alaskan Way (not mapped; open paving in the game). No official panorama lies
+within 45 m of Piers 55–57.
 
 ## Pioneer Square & Smith Tower (`pioneer-square`)
 

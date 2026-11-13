@@ -505,3 +505,47 @@ Monumentul Eroilor Jandarmi (w565845891, historic=memorial) exists in OSM.
   307 crowns in 44.563-44.568 × 26.0705-26.078, radius median 3.1 m, quartiles 2.2 / 4.9 m), not inferred, so the coverage rule does
   not apply; the 2026-11-08 aerial review only covered airside / yellow-marking candidates. Removing any of them needs a bounded crop
   review on the aerial mosaic (tools/aerial), never thinning.
+
+## Backlog close-out (2026-11-13): estimates, decisions and what was fixed
+
+What the backlog rows otopeni-5 / -6 / -9 / -10, r2-districts-view-4, r2-landmarks-b-5, r2-world-b-otopeni-flags, r3-look-2
+and r3-look-9 established. No available source settles the estimates below; they stay estimates until one does.
+
+- **Rail viaduct and footbridges (otopeni-5), estimates**: viaduct deck width 6.5 m, girder 2.2 m, piers every 24 m (real pier
+  positions not surveyed; 3 spans left without a support where no free ground was found); footbridge clearance 5.5 m, blank side
+  panels; footbridge decks and stairs cannot be walked. All recorded per source in `world.stats.elevatedSources` (models.rail /
+  models.footbridge `estimates`).
+- **CFR station w813193384 (otopeni-6), verified**: renders at the three official panorama poses (44.568817, 26.073336 h 66;
+  44.56887, 26.07495 h 10 / 300) show one glazed barrel vault (landmark `otpgara`); `airport-forecourt.js` skips its own vault
+  when a landmark replaced the footprint. `otpgara` already draws the wall piers with crossheads and the west stair; the older
+  note "stair / lift tower and hammerhead wall piers still missing" (round 2, lane world-b) is out of date.
+- **Terminal interior units (otopeni-9), decision**: Gloria Jean's w1360387415, Buongiorno w1360387418, Relay w1360387425, Aelia
+  w1360387422 and City Grill w1360350022 are mapped `level=1` / `indoor` (airside upper floor); the airline desks
+  n4836899527 / -528 / -530 / -531 / -642, n4836901429 / -430, n4836902828 and Brioche Dorée n4836902823 are nodes deep inside the
+  terminal hall. `tools/osm/add-pois.mjs` keeps them out by its rules (not at street level; interior unit of a multi-tenant hall
+  over 3000 m²), the same rules that stop a mall gallery becoming fascias on its outer wall; the game has no terminal interior to
+  put them in. Hesburger w1360360979 and Left Bank n4836899632 are already POIs. The ticket desks south of 44.5714 come from the
+  original build and stay.
+- **Ramada pool w1322339467 and the far rentals (otopeni-10)**: the pool is an area since round 3 (`add-areas.mjs`, with the
+  coping / deck of the round-3 review); no official panorama shows it, so its look stays unverified. KTM Bucuresti n4566226637
+  (235 m out) and the rental returns at 291B (n4473174189, n11452068656, n11059234902, n12584873472; 298–322 m) stay out by the
+  100 m frontage rule.
+- **Arrivals side (r2-districts-view-4), no panorama**: no official panorama within 50 m of the arrivals kerb (44.5686,
+  26.0766), the ramp foot (44.56828, 26.07705), the Sosiri front (44.56926, 26.07826) or Salonul Oficial (44.568268, 26.077911).
+  The departures ramp w180054678, the arrivals level, the P2 car park and Salonul Oficial (w771096084, 17.7 m / five storeys from
+  the default) remain uncompared. Official panoramas do exist on the access loop, under the station, at the forecourt roundabout
+  and at the Plecări ground kerb.
+- **Control tower (r2-landmarks-b-5)**: rendered at the round-2 panorama pose (44.570884, 26.076884 h 125): the five ring floors
+  stand under the mapped cab w794617342 (min_height 20, height 25). In the panorama the tower looks about twice as tall; the OSM
+  height is kept (estimate not settled). The vault canopy positions along the Plecări front are estimates (door groups not mapped).
+- **Forecourt roundabout flags (r2-world-b-otopeni-flags), not drawn**: the round-2 panorama shows two flag masts and a sculpture
+  group on the roundabout island near 44.5700, 26.0757. Live OSM (2026-11-13) has no object there; the island area is now crossed by
+  the Magistrala 6 works (construction subway ways w1564835988–92, construction roads w1475545133 / w1491003767), so the panorama
+  may predate the works. Nothing is drawn without a mapped position.
+- **"OMV" w244429098 is a MOL station (r3-look-2)**: the documented exception now also covers the map label and the canopy's
+  building name (world.js reads `fuel-look.js` `seenBrand` / `text`); the data keeps OSM's brand=OMV. An OSM correction
+  (brand=MOL; its brand:wikipedia already reads en:MOL) is still to be made upstream, then the exception can go.
+- **DN1 fields crown review (r3-look-9)**: all 307 measured crowns of 44.563–44.568 × 26.0705–26.078 were drawn over Esri z19
+  imagery and inspected; 63 sit on the airside taxiway (dark rubber-streaked asphalt between edge lines and taxiway lights) and 2
+  on paving: those 65 are removed from the survey and the district pack (ledger: `trees-bucharest-otopeni-review.json`
+  `dn1FieldsReview20261113`). The other 242 are the hedgerow trees, the wood edge and ambiguous vegetation, and stay.

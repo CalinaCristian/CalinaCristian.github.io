@@ -602,3 +602,16 @@ Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
   h 256: low glazed pavilion, grey metal frames, shallow white roof, blue Metrorex "M" on the east front. New landmark
   `grozmetro`: 10 × 5 m pavilion 3 m west of the door node (footprint, heights, position: estimates), 368 triangles. The
   east entrance n2479115705 and the OSM roof w905217305 beside it were not looked at.
+
+## Backlog close-out (2026-11-13): estimates, decisions and what was fixed
+
+- **School pitch w678756216 (r2-districts-view-14)**: the 46 × 33 m pitch lies inside the school ground w813901657
+  (`amenity=school`, `barrier=fence`), whose south-east side it shares with Universitatea Artifex w813677026
+  (`amenity=university`, `barrier=fence`). The district pack keeps no barrier tags, so `game/src/area-fences.js` draws both
+  OSM outlines as a 2 m welded-mesh fence (height and post pitch: estimates), left open along building walls, on mapped paths and
+  at the two gate nodes (n6244816927, n3709955844). The street-side tree row seen in the panorama (44.439158, 26.056929 h 313) has
+  no OSM trees; the generated kerb row already stands there.
+- **Lukoil canopy w256806132 (r2-world-b-lukoil-height)**: live OSM (v7) still tags height=3, which left 2.6 m under the slab;
+  both official panoramas (hGqephV5yIK6jWNVMdcHBw h 70, FxOOz6e8e3HgHwgY0fxicg h 137) show a roof about 5–5.5 m high. Documented
+  exception in `fuel-canopy-review.js`: drawn at 5.4 m with 4.6 m clearance, like the district's other canopies. Correct the OSM
+  tag upstream, then drop the exception.

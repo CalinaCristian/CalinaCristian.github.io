@@ -972,6 +972,17 @@ Official panoramas only (ids cited; no imagery stored). Runtime modules named in
   'louvred'`, pale wall with a dark louvre ribbon per level) is what the game draws, not open decks. The car wash "Spălătorie
   Unirea Etaj 7" no longer gets street boards: a business named for an upper floor ("Etaj n") has no street-level fascia
   (world.js `addUnitSign`, the same rule as the building sign).
+- **Bd. Unirii through Piața Unirii** (unirii-bd-unirii-square), era decided: the open carriageways. Live OSM tags w153967343 /
+  w228997261 `highway=construction construction=primary access=no` for the Planșeul Unirii slab works (2024-26), but traffic
+  crossed the square beside the basins in the 2024 panoramas and in the 2015 chapter, and the dossier's recommendation is the
+  normal layout. Documented exception: both ways are appended to the district pack as ordinary oneway primaries
+  (`tools/osm/add-roads.mjs`, `roadAppend` provenance; the OSM tags stay in `roadSourceGeometry` with a `reviewedException`
+  record). They split round the central plaza between the basins as mapped and join the existing junction nodes. Lane count
+  (2), lane width and sidewalk are the builder's class defaults (the ways carry no lanes / width tags).
+- **Covered Dâmbovița ends** (r2-world-river, r3-look-4): the covered reach under the square (`final-water-topology.js`) had
+  round 34 m end caps, which laid bare construction-coloured ground over the first ≈ 34 m of the open east basin (and past the
+  west end). The reach now has square ends at its mapped end points, so the open water reaches the slab end at the railing as
+  in the review; the weir w1434558024 (`weirs.js`, ≈ 16 blocks at the basin level) now shows across the basin (top render).
 - **Piața Unirii lamps** (r3-look-13): the mapped street lamps within 150 m of the square centre (8 drawn after the generic
   lamp de-duplication) take the candelabra form seen in the 2024 panoramas (`game/src/lamp-reviews.js`, a third instanced lamp
   set: dark post on a plinth, a cross of arms, five globes; the night light sits over the post). Positions stay OSM's.
@@ -994,6 +1005,9 @@ Official panoramas only (ids cited; no imagery stored). Runtime modules named in
   shelter at all is not established either way (r3-builder-4).
 - **Playground equipment** and **candelabra sizes**: no OSM object maps the equipment or the lamp form; the drawn sets and the
   globe / arm sizes are class estimates (`PLAYGROUND_MODEL`, `CANDELABRA_MODEL`).
+- **Dâmbovița levels**: one water level per polygon, each reviewed at one place: east basin w174991904 -2.4 m (44.42609,
+  26.10433), Grozăvești w170930341 -1.6 m; the west polygon w174990751 varies along its length (r3-look-5). The weir's block
+  count and size are estimates.
 - **Unirea Shopping Center**: panel module, louvre pitch, banner size and the logo's letter height / place along the south front
   are estimates; the north end and the east (rear) faces were not seen on a sharp official panorama and keep the light panel
   skin of the reviewed south front.

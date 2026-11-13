@@ -4,18 +4,23 @@ import * as THREE from '../vendor/three.module.min.js';
 import { MeshBuilder } from './geobuild.js';
 
 export function projectCoveredWater(city, { us = false } = {}) {
-    return (us ? [] : [{ r: 34, pts: [[44.4288061, 26.1010674], [44.4285939, 26.1013182], [44.4262866, 26.1035491], [44.4261682, 26.1037764], [44.4261085, 26.1040376], [44.4260752, 26.1043771]] }])
-        .map(c => ({ r: c.r, pts: c.pts.map(([la, lo]) => { const q = city.proj(la, lo); return [q.x, q.z]; }) }));
+    // (r2-world-river / unirii-bd-unirii-square, round 4) square ends: the cover stops at the slab's ends (east end at the
+    // railing where open water begins, 44.42609, 26.10433 in the street-level review); a round 34 m cap laid bare ground
+    // over the first ≈ 34 m of the open basin east of the square (and the same past the west end)
+    return (us ? [] : [{ r: 34, square: true, pts: [[44.4288061, 26.1010674], [44.4285939, 26.1013182], [44.4262866, 26.1035491], [44.4261682, 26.1037764], [44.4261085, 26.1040376], [44.4260752, 26.1043771]] }])
+          .map(c => ({ r: c.r, square: !!c.square, pts: c.pts.map(([la, lo]) => { const q = city.proj(la, lo); return [q.x, q.z]; }) }));
 }
 export function coveredWaterAt(x, z, covered) {
-    return covered.some(c => { for (let i = 1; i < c.pts.length; i++) { const [ax, az] = c.pts[i - 1], [bx, bz] = c.pts[i], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1, t = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / L2)); if (Math.hypot(x - ax - dx * t, z - az - dz * t) < c.r) return true; } return false; });
+    return covered.some(c => { const last = c.pts.length - 1; for (let i = 1; i < c.pts.length; i++) { const [ax, az] = c.pts[i - 1], [bx, bz] = c.pts[i], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1, t0 = ((x - ax) * dx + (z - az) * dz) / L2;
+        if (c.square && ((i === 1 && t0 < 0) || (i === last && t0 > 1))) continue; // (square ends: nothing beyond the first / last point)
+        const t = Math.max(0, Math.min(1, t0)); if (Math.hypot(x - ax - dx * t, z - az - dz * t) < c.r) return true; } return false; });
 }
 /** Convex pieces (a rectangle per span, a 16-gon per vertex) containing every point within r + pad of a covered line. */
 export function coveredWaterHulls(covered, pad = 0) {
     const hulls = [];
     for (const c of covered) {
         const r = c.r + pad, R = r / Math.cos(Math.PI / 16);
-        for (const [x, z] of c.pts) hulls.push(Array.from({ length: 16 }, (_, k) => [x + R * Math.cos(k * Math.PI / 8), z + R * Math.sin(k * Math.PI / 8)]));
+        for (const [k, [x, z]] of c.pts.entries()) if (!c.square || (k > 0 && k < c.pts.length - 1)) hulls.push(Array.from({ length: 16 }, (_, k) => [x + R * Math.cos(k * Math.PI / 8), z + R * Math.sin(k * Math.PI / 8)]));
         for (let i = 1; i < c.pts.length; i++) {
             const [ax, az] = c.pts[i - 1], [bx, bz] = c.pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 1e-6) continue;
             const nx = -(bz - az) / L * r, nz = (bx - ax) / L * r;

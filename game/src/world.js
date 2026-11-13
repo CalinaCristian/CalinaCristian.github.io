@@ -3805,12 +3805,16 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (f) return; if (!segsCross([x0, z0], [x1, z1], [w.ax, w.az], [w.bx, w.bz]) && distPointSeg(x1, z1, w.ax, w.az, w.bx, w.bz).d > 1.0) return;
             const t = distPointSeg(x1, z1, w.ax, w.az, w.bx, w.bz).t; if (y >= w.y0a + (w.y0b - w.y0a) * t - 0.3 && y <= w.y1a + (w.y1b - w.y1a) * t) f = true; }); return f; };
         const barrierCol = rgb('#b9b6ae');
+        // (spec 10 load budget) an edge's centre-line height at its samples is the same for both sides and every sweep (the
+        // same t sequence, yAlong a pure function of the point): kept per edge and sample
+        const ownAt = new Map();
         const genBarriers = () => {
         rebuildWg();
         for (const e of edges) {
             if (e.virtual) continue;
             const t0 = 0, t1 = 1; // the whole edge: junction mouths are opened by the lane-cut rule below
             const step = Math.max(0.02, 1.5 / e.len);
+            let ownv = ownAt.get(e); if (!ownv) ownAt.set(e, ownv = []);
             for (const s of [1, -1]) {
                 const off = (e.bridge ? widthAsphalt(e, s) + 0.3 : widthSide(e, s));
                 let run = null;
@@ -3826,9 +3830,9 @@ export async function buildWorld(city, renderer, opts = {}) {
                     walls.push(w); wg.insert(Math.min(ax, bx), Math.min(az, bz), Math.max(ax, bx), Math.max(az, bz), w);
                     }
                 };
-                for (let t = t0; t <= t1 + 1e-6; t += step) {
+                for (let t = t0, k = 0; t <= t1 + 1e-6; t += step, k++) {
                     const tt = Math.min(t, t1);
-                    const own = Y.road + yAlong(e,e.a.x+e.dirx*e.len*tt,e.a.z+e.dirz*e.len*tt);
+                    let own = ownv[k]; if (own === undefined) own = ownv[k] = Y.road + yAlong(e,e.a.x+e.dirx*e.len*tt,e.a.z+e.dirz*e.len*tt);
                     const x = e.a.x + e.dirx * e.len * tt + e.nx * (off + 0.6) * s, z = e.a.z + e.dirz * e.len * tt + e.nz * (off + 0.6) * s;
                     const ix = e.a.x + e.dirx * e.len * tt + e.nx * (s > 0 ? e.wR : e.wL) * 0.5 * s, iz = e.a.z + e.dirz * e.len * tt + e.nz * (s > 0 ? e.wR : e.wL) * 0.5 * s;
                     // (owner register #59: the drop beside a sunken ramp hovering about 0.45 m switched the barrier on and off in

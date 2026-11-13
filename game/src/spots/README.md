@@ -117,6 +117,8 @@ Colliders use the `world.js` formats (polygon `{x,z,r,poly}`, oriented box `{x,z
 
 Data caveats: the OSM extracts drop multipolygon inner rings (a lake around a park becomes one big polygon) — derive shorelines from the terrain grid (`g.mod((x,z,h) => h < level ? …)`) and let the water plane draw the water; linear waterways are painted as lines. Research coordinates (iconic photo points) can fall inside buildings or water: `loadSpot` moves spawns and challenge poses to the nearest dry spot; check them in the dev page.
 
+Data provenance: a Bucharest scene can be rebuilt from live OSM (`tools/fetch-buc.mjs` + `build-data.mjs`; it keeps the classes `tools/spots/append-osm-features.mjs` and `tools/spots/enrich-osm-tags.mjs` added in round 3). The Seattle / Bellevue extracts (`game/research/osm/sea-spots/*.json`) have no in-repo fetch tool: what they hold beyond the builder's classes (the bel-lincoln-square skybridges) exists only in the prepared scene JSON, so never rebuild those scenes from a fresh extract without carrying it over.
+
 ## Bucharest
 
 Scenes: `buc-parliament` (palace-parliament + peoples-salvation-cathedral), `buc-old-town` (old-town-lipscani +

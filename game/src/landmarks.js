@@ -900,8 +900,24 @@ function bCathedral(b) {
 // "Arco de Triunfo, Bucarest, 2016-05-30, DD 24" / "Arcul de Triumf (24396923048)": opening ≈ 8.8 m wide x 15.7 m,
 // recessed frame 14.4 m, inscription band 18.4-20.8 m, cornice 23.2-24.6 m (overhang to ≈ 27 m), attic to 27 m.
 // No columns: plain Rușchița-marble piers with corner strips, Jalea/Baraschi medallions, winged-Victory reliefs
-// flanking the inscription, royal crown/arms; north (+z) and south (-z) inscriptions abridged to their bold lines.
+// flanking the inscription, royal crown/arms; the four inscriptions in full (arcBand).
 // Src: https://ro.wikipedia.org/wiki/Arcul_de_Triumf_din_București ; OSM way 217851530
+// The four Arcul de Triumf texts, ro.wikipedia "Arcul de Triumf din București", section "Arhitectura monumentului"
+// (accessed 2026-11-13); the same wording the arcul-de-triumf scene quotes at its read-points.
+const ARC_TEXT = {
+    south: 'DUPĂ SECOLE DE SUFERINȚE CREȘTINEȘTE ÎNDURATE ȘI LUPTE GRELE PENTRU PĂSTRAREA FIINȚEI NAȚIONALE, DUPĂ APĂRAREA PLINĂ DE SACRIFICII A CIVILIZAȚIEI UMANE, SE ÎNDEPLINI DREPTATEA ȘI PENTRU POPORUL ROMÂN, PRIN SABIA REGELUI FERDINAND, CU AJUTORUL ÎNTREGII NAȚIUNI ȘI GÂNDUL REGINEI MARIA',
+    north: 'LIBERATOR DE NEAM ȘI ÎNTREGITOR DE HOTARE PRIN VIRTUTEA OSTAȘILOR SĂI VREDNICI URMAȘI AI EROILOR CREȘTINĂTĂȚII FERDINAND I DOMN ȘI REGE AL ROMÂNILOR ȘI-A FĂCUT INTRAREA LA 16 OCTOMBRIE 1922 ÎN CETATEA SA DE SCAUN A BUCUREȘTILOR DUPĂ ÎNCORONAREA LA ALBA-IULIA',
+    east: 'GLORIE CELOR CE PRIN LUMINA MINTEI ȘI PUTEREA SUFLETULUI AU PREGĂTIT UNITATEA NAȚIONALĂ',
+    west: 'GLORIE CELOR CE PRIN VITEJIA ȘI PRIN JERTFA LOR DE SÂNGE AU ÎNFĂPTUIT UNITATEA NAȚIONALĂ',
+};
+/** a text in `lines` lines of equal-ish length (word breaks), centred on (x, z), top at yTop, letters sized to fit `width` */
+function arcBand(b, text, lines, x, z, ry, yTop, width, col) {
+    const words = text.split(' '), target = text.length / lines, out = []; let cur = '';
+    for (const w of words) { if (cur && out.length < lines - 1 && cur.length + 1 + w.length / 2 > target) { out.push(cur); cur = w; } else cur = cur ? cur + ' ' + w : w; }
+    out.push(cur);
+    const h = Math.min(0.36, width / (Math.max(...out.map((l) => l.length)) * 6 / 7)), pitch = h * 1.35;
+    out.forEach((l, i) => b.text(l, x, yTop - (i + 1) * pitch, z, ry, h, col));
+}
 function bArcul(b) {
     const W = 25, D = 9.6, S = '#ebe3d2', S2 = '#e0d5bf', TR = '#f2ecdf', RL = '#cdbfa3', TX = '#857660';   // pale Rușchița marble
     emitArcGround(b); // four literal pier bases and the .01/.1m public passage, never a solid plinth across it
@@ -926,14 +942,16 @@ function bArcul(b) {
         b.box(0, 18.45, z + s * 0.1, 15.2, 2.3, 0.2, '#e3d6bd');
         for (const x of [-10.2, 10.2]) { b.box(x, 18.5, z + s * 0.15, 3.8, 2.2, 0.3, RL); b.box(x - 0.6, 18.9, z + s * 0.35, 1.2, 1.5, 0.3, '#b5a283'); b.box(x + 0.7, 19.6, z + s * 0.35, 1.8, 0.5, 0.3, '#b5a283', { rz: -0.4 }); }
     }
-    // inscriptions (bold lines of the 1936 texts). Source checked round 3 (2026-11-13): ro.wikipedia.org/wiki/Arcul_de_Triumf_din_București,
-    // section „Arhitectura monumentului”: the north text ends „FERDINAND I DOMN ȘI REGE AL ROMÂNILOR”, the south text holds
-    // „SE ÎNDEPLINI DREPTATEA ȘI PENTRU POPORUL ROMÂN”, the east and west texts open „GLORIE CELOR CE”. Fragments only, never
-    // transcribed from panoramas; the real bands are five long lines of small capitals (layout not drawn).
+    // inscriptions: the full texts as ro.wikipedia.org/wiki/Arcul_de_Triumf_din_București gives them (section „Arhitectura
+    // monumentului”, accessed 2026-11-13; no footnote there), carved as long lines of small capitals: five lines across each
+    // long face's band between the Victories, three on each short face. Wording from the article only, never from
+    // panoramas; the carved line breaks are not in the source (lines are balanced by length: an estimate). The model's
+    // local +z face is north, -z south; local +x is west after the placement rotation, -x east.
     const n = D / 2 + 0.18;
-    b.text('FERDINAND I', 0, 19.95, n, 0, 0.62, TX); b.text('DOMN SI REGE AL ROMANILOR', 0, 18.85, n, 0, 0.62, TX);
-    b.text('SE INDEPLINI DREPTATEA', 0, 19.95, -n, Math.PI, 0.62, TX); b.text('SI PENTRU POPORUL ROMAN', 0, 18.85, -n, Math.PI, 0.62, TX);
-    b.text('GLORIE CELOR CE', W / 2 + 0.1, 19.2, 0, Math.PI / 2, 0.5, TX); b.text('GLORIE CELOR CE', -W / 2 - 0.1, 19.2, 0, -Math.PI / 2, 0.5, TX);
+    arcBand(b, ARC_TEXT.north, 5, 0, n, 0, 20.62, 14.4, TX);
+    arcBand(b, ARC_TEXT.south, 5, 0, -n, Math.PI, 20.62, 14.4, TX);
+    arcBand(b, ARC_TEXT.west, 3, W / 2 + 0.1, 0, Math.PI / 2, 20.45, 8.4, TX);
+    arcBand(b, ARC_TEXT.east, 3, -W / 2 - 0.1, 0, -Math.PI / 2, 20.45, 8.4, TX);
     // royal arms in the passage + coffered vault ribs
     for (const s of [-1, 1]) b.box(s * 4.3, 8, 0, 0.3, 2.6, 2.2, RL);
     // cornice, attic with acroteria, flag

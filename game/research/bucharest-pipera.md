@@ -197,6 +197,13 @@ Key buildings:
 
 ## 7. Measurements, trees and green
 
+- **Pedestrian plazas and the green raster** (r3-look-14, 2026-11-13; `ground-review.js`, plazas in `pedestrian-plazas.js`
+  from the live OSM data via `tools/osm/pedestrian-plazas.mjs`): a mapped pedestrian area (`highway=pedestrian|footway` +
+  `area=yes`, `area:highway`, `place=square`; ways and multipolygons) is paved over its whole polygon: its `surface` decides,
+  no surface tag counts as paved, and only `surface=grass` keeps the aerial raster's lawn there. Before, only a 3.5 m band
+  round mapped pedestrian lines was kept free, so plazas kept the raster's green cells (tree shade, planters, joints).
+  Mapped grass / park polygons and trees inside a plaza stay as OSM has them (Piața Unirii's `place=square` covers its park:
+  its lawns are OSM polygons and are unchanged). Not compared with a panorama: the rule follows OSM's tags. Here: 18 plazas, none tagged grass (the Promenada forecourt among them).
 Independent full-ring measurements (2026-11-08; ledger `measurements-bucharest-pipera.json`):
 
 - Fresh OSM API 0.6 tiles cover the analytic core and a complete 600 m ring of intersecting sources; every source ID is audited

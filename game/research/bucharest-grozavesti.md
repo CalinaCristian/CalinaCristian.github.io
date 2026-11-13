@@ -224,6 +224,13 @@ Nord, outside the district. Street View, viewed 2026-11-11/13 (reference only; t
 
 ## Trees and green
 
+- **Pedestrian plazas and the green raster** (r3-look-14, 2026-11-13; `ground-review.js`, plazas in `pedestrian-plazas.js`
+  from the live OSM data via `tools/osm/pedestrian-plazas.mjs`): a mapped pedestrian area (`highway=pedestrian|footway` +
+  `area=yes`, `area:highway`, `place=square`; ways and multipolygons) is paved over its whole polygon: its `surface` decides,
+  no surface tag counts as paved, and only `surface=grass` keeps the aerial raster's lawn there. Before, only a 3.5 m band
+  round mapped pedestrian lines was kept free, so plazas kept the raster's green cells (tree shade, planters, joints).
+  Mapped grass / park polygons and trees inside a plaza stay as OSM has them (Piața Unirii's `place=square` covers its park:
+  its lawns are OSM polygons and are unchanged). Not compared with a panorama: the rule follows OSM's tags. Here: 45 plazas, none tagged grass.
 - 27 OSM trees in the 2026-11-06 extract (four Populus near Str. Economu Cezărescu); poplar and linden rows along the
   canal embankments; campus lawns and car parks. Street species lists are in the JSON (`streets[].research.trees`).
 

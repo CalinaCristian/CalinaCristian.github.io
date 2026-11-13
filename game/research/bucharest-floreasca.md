@@ -204,6 +204,13 @@ w38757552, grandstand w859972644, outdoor pool w23611448.
 
 ## Trees and green
 
+- **Pedestrian plazas and the green raster** (r3-look-14, 2026-11-13; `ground-review.js`, plazas in `pedestrian-plazas.js`
+  from the live OSM data via `tools/osm/pedestrian-plazas.mjs`): a mapped pedestrian area (`highway=pedestrian|footway` +
+  `area=yes`, `area:highway`, `place=square`; ways and multipolygons) is paved over its whole polygon: its `surface` decides,
+  no surface tag counts as paved, and only `surface=grass` keeps the aerial raster's lawn there. Before, only a 3.5 m band
+  round mapped pedestrian lines was kept free, so plazas kept the raster's green cells (tree shade, planters, joints).
+  Mapped grass / park polygons and trees inside a plaza stay as OSM has them (Piața Unirii's `place=square` covers its park:
+  its lawns are OSM polygons and are unchanged). Not compared with a panorama: the rule follows OSM's tags. Here: 3 plazas, none tagged grass.
 - OSM maps no individual trees in the district (2026-11-06). Calea Floreasca has mature linden and chestnut rows on both
   sides; Garibaldi and the villa streets linden and robinia over gardens; Parcul Floreasca old park trees. The street
   species lists live in the JSON (`streets[].research.trees`) and feed `streetTrees`.

@@ -278,8 +278,13 @@ Key buildings:
   physical exclusion (`tree-reviews.js`), the source record stays in the pack. The street trees along the island edges stay.
 - **Piața Victoriei**: the green came from the aerial green raster (no OSM polygon); a reviewed paved ring (`ground-review.js`)
   keeps it out of the square.
-- **Pedestrian streets**: top-down renders show no lawn on the mapped pedestrian bands; plazas outside the 3.5 m band (around
-  44.4398, 26.0968) keep the aerial-measured green raster (lawn or paving not compared: backlog r3-look-14).
+- **Pedestrian plazas and the green raster** (r3-look-14, 2026-11-13; `ground-review.js`, plazas in `pedestrian-plazas.js`
+  from the live OSM data via `tools/osm/pedestrian-plazas.mjs`): a mapped pedestrian area (`highway=pedestrian|footway` +
+  `area=yes`, `area:highway`, `place=square`; ways and multipolygons) is paved over its whole polygon: its `surface` decides,
+  no surface tag counts as paved, and only `surface=grass` keeps the aerial raster's lawn there. Before, only a 3.5 m band
+  round mapped pedestrian lines was kept free, so plazas kept the raster's green cells (tree shade, planters, joints).
+  Mapped grass / park polygons and trees inside a plaza stay as OSM has them (Piața Unirii's `place=square` covers its park:
+  its lawns are OSM polygons and are unchanged). Not compared with a panorama: the rule follows OSM's tags. Here: 58 plazas, none tagged grass; the cited one round 44.4398, 26.0968 (w180685596, paving stones) lost its green cells.
 - **Antipa tree belt**: the museum facade is hidden by trees in reality; the game shows it over open lawn. Inferred trees are
   suppressed inside the aerial survey's coverage, so those crowns need measuring on the aerial mosaic (`tools/aerial`), never
   placing from a panorama.

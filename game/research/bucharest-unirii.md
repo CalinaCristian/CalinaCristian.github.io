@@ -321,6 +321,13 @@ w241369588, w241369345, w899314658, 44.4237, 26.1124) is 600 m outside the playa
   Unirii; old chestnuts and robinias on Călărașilor; the square is open with trees mainly in the central park.
 - The aerial green raster is not drawn where a cell's centre lies in a mapped water polygon (crowns over the water had
   been measured as green ground).
+- **Pedestrian plazas and the green raster** (r3-look-14, 2026-11-13; `ground-review.js`, plazas in `pedestrian-plazas.js`
+  from the live OSM data via `tools/osm/pedestrian-plazas.mjs`): a mapped pedestrian area (`highway=pedestrian|footway` +
+  `area=yes`, `area:highway`, `place=square`; ways and multipolygons) is paved over its whole polygon: its `surface` decides,
+  no surface tag counts as paved, and only `surface=grass` keeps the aerial raster's lawn there. Before, only a 3.5 m band
+  round mapped pedestrian lines was kept free, so plazas kept the raster's green cells (tree shade, planters, joints).
+  Mapped grass / park polygons and trees inside a plaza stay as OSM has them (Piața Unirii's `place=square` covers its park:
+  its lawns are OSM polygons and are unchanged). Not compared with a panorama: the rule follows OSM's tags. Here: 89 plazas, none tagged grass.
 
 ## Estimates and open questions
 

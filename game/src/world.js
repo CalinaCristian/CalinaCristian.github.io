@@ -3037,7 +3037,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const q1 = [[pl[0], Y.side + h, pl[1]], [pr[0], Y.side + h, pr[1]], [pr[0], .02, pr[1]], [pl[0], .02, pl[1]]], uv = q1.map(p => [(p[0] + p[2]) * .125, p[1] * .125]);
                 cs.face4(...q1, wallCol, [e.dirx, 0, e.dirz], -1, uv); cs.face4(...q1.slice().reverse(), wallCol, [-e.dirx, 0, -e.dirz], -1, uv.slice().reverse());
             }
-            displace(c.road, v0p, f, e, i0p, {}); displace(c.marks, v0m, f, e, i0m, {}); displace(c.solid, v0s, f, e, i0s, {}); }
+            displace(c.road, v0p, f, e, i0p); displace(c.marks, v0m, f, e, i0m, {}); displace(c.solid, v0s, f, e, i0s, {}); } // (the road here: it is read before the Basarab structure, and light)
         railRoadside.apply(c.ground, i0g, e); railRoadside.apply(c.road, i0p, e); railRoadside.apply(c.solid, i0s, e);
         if(bridgeGuard){
             if(elevated)displace(bridgeGuard,0,(x,z)=>yAlong(e,x,z),e,0);
@@ -5278,7 +5278,6 @@ export async function buildWorld(city, renderer, opts = {}) {
         // ---- Pasajul Basarab superstructure (basarab-structure.js, integrated from fidelity/basarab-render-r9): platforms,
         //      centre support, station roof, H-frame, stays and river arch. The slot infill above is real deck for its stay
         //      anchors; the stretches its stays and arch carry get no pier below.
-        if (basarabDistrict) await finishDeckJobs(new Set([...cells.values()].map(c => c.road))); // (read just below: those decks first)
         const basarabRoadRegions = basarabDistrict ? raisedRoadTriangles(cells.values()) : [];
         basarabStructure = buildBasarabStructure(data, tramGrades, cellOf, group, edges, { roadRegions: basarabRoadRegions, tramEnvelope: tramPropEnvelope, tramSweep, roadFootprints: basarabDistrict ? edges.filter(e => e.bridge && !e.virtual && !e.tunnel && basarabDeck(e)).map(e => asphaltCorners(e, (f, sd) => widthAsphalt(f, sd) + .4)) : [], supportAt: (x, z, base) => { let top = null; surfacesAt(x, z, h => { if (Math.abs(h - base) < .3 && (top === null || Math.abs(h - base) < Math.abs(top - base))) top = h; }); return top; } });
         const carriedSpans = basarabStructure.report.superstructure?.carriedSpans || [];

@@ -792,8 +792,50 @@ appearance claims below come from the round 2–3 panorama notes above, never fr
   outer verge (`arcul-de-triumf.js`, `extras.arcMasts`; seven placed clear of the approach carriageways).
 - Arcul de Triumf model (`landmarks.js` `bArcul`): the four inscriptions are carved in full from the cited article: five
   lines across each long face's band, three on each short face (east "… LUMINA MINTEI …", west "… VITEJIA …").
+- Pasajul Macca–Vilacrosse: the Calea Victoriei end of the Macca arm (w108817132, mapped open, covered in the 2023-08
+  panorama) now has a pitched iron-and-glass roof between the mapped walls (`ot-fronts.js` `maccaGlassRoof`; documented look
+  exception). The Vilacrosse end (w657740097) runs on the shared wall of the mapped outlines r19924111 / r19924112: there is
+  no gap between the mapped buildings to roof, so it stays as mapped.
+- Hanul cu Tei (r19931391): drawn with two storeys and deep timber eaves round its outer walls and the passage (2022-10
+  panorama; documented look exception, the data keeps OSM's building:levels=4).
+- Old National Bank (w1210146218), Lipscani front: a façade skin with a rusticated ground floor and round-arched windows,
+  pedimented windows between paired pilasters, a dentilled top storey, a cornice and a balustrade (`bnrLipscani`), over the
+  mapped part volumes.
+- Interiors in fog (`precip-shelter.js` + the render.js fog shader): from inside a declared interior the first 30 m of each
+  view ray stay clear and the weather fog acts beyond, so the street seen through the Carusel door and the Seattle Center
+  Glasshouse panes keeps its fog (it was cleared with the room). Checked in fog at the Carusel door and inside the
+  Glasshouse.
+- Far trees: Arcul uses the two-lump far crown everywhere and Herăstrău from 320 m beyond the walk extents (the one-lump
+  crown read faceted at the Charles de Gaulle entrance, 203 m out, and on Kiseleff north of the museum, 410 m out in the Arcul
+  scene). Herăstrău scene 880 k → 909 k triangles, Arcul 409 k → 441 k.
+- Mapped places without a name (`spots/buc-places.js` `osmPlaces`): Cișmigiu's two waterfalls (n8807086588, n12065694916) as
+  small stone cascades with a water sheet and basin; the viewpoints (Cișmigiu n2723650896 / n8809102213, Herăstrău
+  n2791530781 / n2791530802) as "look out" points; the playgrounds (n2791579390 in Herăstrău and Arcul, n6401707601 by the
+  Spring Palace) as a swing frame, a slide and a sand box placed clear of mapped ways and buildings; the mapped gates
+  (`furniture.gate`, eight in the Spring Palace scene) as stone piers with an open iron double gate. The Village Museum's
+  point-mapped households Casa Mastaacăn Neamț (n6815285188) and Casa Naruja, Vrancea (n6815289695) get a peasant house at
+  their node, turned along the nearest lane.
+- Overview: the visitor galleries of all ten Bucharest spots (`game/overview/evidence/spots/*.json`, `visitorGallery` /
+  `visitorGalleryRecapture`) were recaptured from the merged round-3 source 2b1a251 (pass range 9824fd56..2b1a2511), which
+  holds the round 2–3 scene changes (Old Town Calea Victoriei / BNR / Macca portal, Revolution Square, car parks and
+  Kretzulescu, Parliament venue signs, Cișmigiu Lacul Lebedelor, Arcul inscription, Herăstrău Japanese garden, Spring Palace
+  UN House). The round-4 changes above post-date those pictures.
+- CEC Palace in the Old Town scene: its pale stone vertices are warmed (red +4 %, green +1.5 %, blue −7 %, staying above the
+  masonry-joint threshold) on the scene's own landmark geometry, toward the warm cream limestone of the 2023-08 panoramas
+  under this scene's cool sky light; the landmark source colours and the driving world are unchanged. The amount is an
+  estimate.
 
 ### Estimates and limits (no available source settles them)
+
+- Macca glass roof: height (1 m under the lower flanking eaves, at most 10.5 m), 1.4 m rise and 2 m rib spacing.
+- Hanul cu Tei eaves: depth and colour; the iron shutters of the shops seen in the panorama are not drawn (generic
+  shopfronts stay).
+- Old National Bank: bay width, storey heights, balustrade height. The Doamnei side (colonnade) has no official panorama and
+  keeps the generic façade; the conifers in the Lipscani beds are not in OSM and are not added.
+- Waterfalls 1.6 m high and 2.4 m wide; playground equipment, size and layout (OSM maps only the point); gates 3.6 m wide
+  with 2.4 m piers; museum node houses 8 × 5.5 m.
+- Spring Palace / Arcul villas and embassies other than the UN House keep generic façades (no comparison per villa); the
+  palace grounds polygon w38236017 is still the 4-node outline in live OSM (an OSM question).
 
 - Untagged barrier heights: wall 1.8 m, fence 1.5 m, hedge 1.1 m, retaining wall 1.0 m, city wall 3.0 m (`DEFAULT_H`).
 - Arcul roundabout masts: count (8), height (16 m), four heads and the verge offset (kerb + 2.2 m) are estimates; OSM maps no

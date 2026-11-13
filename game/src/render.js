@@ -105,7 +105,11 @@ const FOG_H = 1100;
             float fgK = ${(1 / FOG_H).toFixed(7)};
             float fgA = max(cameraPosition.y, 0.0) * fgK, fgB = max(vFogH, 0.0) * fgK, fgD = fgB - fgA;
             float fgL = abs(fgD) > 1e-3 ? (exp(-fgA) - exp(-fgB)) / fgD : exp(-fgA);
-            float fogFactor = 1.0 - exp(-fogDensity * length(vFogV) * fgL);
+            // a negative density marks a frame drawn from inside a roofed interior (spots/precip-shelter.js): the first 30 m
+            // of every view ray (the room) stay clear and the weather fog acts only beyond, so the street seen through a
+            // door keeps its fog. (keep the literal "fogDensity * length": sea-common.js patches it)
+            float fgClr = fogDensity < 0.0 ? 30.0 : 0.0;
+            float fogFactor = 1.0 - exp(-abs(fogDensity * length(vFogV)) * max(1.0 - fgClr / max(length(vFogV), 1e-3), 0.0) * fgL);
         #else
             float fogFactor = smoothstep(fogNear, fogFar, vFogDepth);
         #endif

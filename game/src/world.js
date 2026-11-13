@@ -2517,11 +2517,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             const context={edgeId:edge.id,sourceId:edge.access?.sourceId||edge.sourceId};
             // in a worker: a deck whose triangles nothing reads before the join (no rail-roadside cut on its edge; a builder
             // without tiles), from the same input triangles and the same height model made from its spec
-            if (worker && deckWorkers && edge.sourceBridgeGrade.workerSpec && !railRoadside.active(edge) && !mb.t && mb.ic > fromIndex) {
-                const n = mb.ic - fromIndex, input = new Float64Array(n * 12);
-                for (let q = 0; q < n; q++) { const v = mb.i[fromIndex + q], k = q * 12; input[k] = mb.p[v * 3]; input[k + 1] = mb.p[v * 3 + 1]; input[k + 2] = mb.p[v * 3 + 2]; input[k + 3] = mb.n[v * 3]; input[k + 4] = mb.n[v * 3 + 1]; input[k + 5] = mb.n[v * 3 + 2]; input[k + 6] = mb.u[v * 2]; input[k + 7] = mb.u[v * 2 + 1]; input[k + 8] = mb.c[v * 3]; input[k + 9] = mb.c[v * 3 + 1]; input[k + 10] = mb.c[v * 3 + 2]; input[k + 11] = -1; }
-                const job = { builder: mb, sv: from, ev: mb.vc, si: fromIndex, ei: mb.ic, input, fn, entry: { a: null, context } };
-                job.promise = buildPool.deck(input, edge.sourceBridgeGrade.workerSpec, worker.verge);
+            if (worker && deckWorkers && edge.sourceBridgeGrade.workerSpec && !railRoadside.active(edge) && mb.ic > fromIndex) {
+                const n = mb.ic - fromIndex, input = new Float64Array(n * 12), T = mb.t;
+                for (let q = 0; q < n; q++) { const v = mb.i[fromIndex + q], k = q * 12; input[k] = mb.p[v * 3]; input[k + 1] = mb.p[v * 3 + 1]; input[k + 2] = mb.p[v * 3 + 2]; input[k + 3] = mb.n[v * 3]; input[k + 4] = mb.n[v * 3 + 1]; input[k + 5] = mb.n[v * 3 + 2]; input[k + 6] = mb.u[v * 2]; input[k + 7] = mb.u[v * 2 + 1]; input[k + 8] = mb.c[v * 3]; input[k + 9] = mb.c[v * 3 + 1]; input[k + 10] = mb.c[v * 3 + 2]; input[k + 11] = T ? T[v] : -1; }
+                const job = { builder: mb, sv: from, ev: mb.vc, si: fromIndex, ei: mb.ic, input, fn, withTile: !!T, entry: { a: null, context } };
+                job.promise = buildPool.deck(input, edge.sourceBridgeGrade.workerSpec, worker.verge ?? null, !!T, worker.scaleY ?? null);
                 deckJobs.push(job); deckAudit.push(job.entry); return;
             }
             deckAudit.push({ a: displaceBridgeSurface(mb,from,fromIndex,fn), context }); foldDeckAudit(); return;
@@ -3037,7 +3037,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const q1 = [[pl[0], Y.side + h, pl[1]], [pr[0], Y.side + h, pr[1]], [pr[0], .02, pr[1]], [pl[0], .02, pl[1]]], uv = q1.map(p => [(p[0] + p[2]) * .125, p[1] * .125]);
                 cs.face4(...q1, wallCol, [e.dirx, 0, e.dirz], -1, uv); cs.face4(...q1.slice().reverse(), wallCol, [-e.dirx, 0, -e.dirz], -1, uv.slice().reverse());
             }
-            displace(c.road, v0p, f, e, i0p); displace(c.marks, v0m, f, e, i0m); displace(c.solid, v0s, f, e, i0s); }
+            displace(c.road, v0p, f, e, i0p, {}); displace(c.marks, v0m, f, e, i0m, {}); displace(c.solid, v0s, f, e, i0s, {}); }
         railRoadside.apply(c.ground, i0g, e); railRoadside.apply(c.road, i0p, e); railRoadside.apply(c.solid, i0s, e);
         if(bridgeGuard){
             if(elevated)displace(bridgeGuard,0,(x,z)=>yAlong(e,x,z),e,0);
@@ -3167,7 +3167,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (const [o, sgn] of [[wr, 1], [-wl, -1]]) {const A=Pm(0,o,0),B=Pm(1,o,0),lip=inferredBridgeFasciaUpstand(e,[A[0],A[2]],[B[0],B[2]],{grades:tramGrades,envelope:tramPropEnvelope});sb.face4(Pm(0, o, dA), Pm(1, o, dB), Pm(1, o, topB + lip), Pm(0, o, topA + lip), conc, [e.nx * sgn, 0, e.nz * sgn]);}
             sb.face4(Pm(0, wr, dA), Pm(1, wr, dB), Pm(1, -wl, dB), Pm(0, -wl, dA), dark, [0, -1, 0]);
             // (piers: one planned pass over whole deck chains, once the tram decks and buildings exist: see BRIDGE BENTS)
-            if(shared)displace(sb,roadsideSolidVertexStart,(x,z)=>yAlong(e,x,z),e,roadsideSolidStart);
+            if(shared)displace(sb,roadsideSolidVertexStart,(x,z)=>yAlong(e,x,z),e,roadsideSolidStart,{});
             railRoadside.apply(sb, roadsideSolidStart, e);
             const outer = [Pm(0, wr, 0), Pm(1, wr, 0), Pm(1, -wl, 0), Pm(0, -wl, 0)].map(p => [p[0], p[2]]);
             const bottomAt = (x, z) => { const y = yAlong(e, x, z); return y + Y.road - Math.min(1.1, Math.max(.05, y)); };
@@ -3176,7 +3176,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             // ramp on an embankment: retaining walls down to the ground
             const shared=!!e.sourceBridgeGrade?.known,topA=shared?Y.road:Math.max(0,yA),topB=shared?Y.road:Math.max(0,yB);
             for (const [o, sgn] of [[wr, 1], [-wl, -1]]) sb.face4(Pm(0, o, 0), Pm(1, o, 0), Pm(1, o, topB), Pm(0, o, topA), conc, [e.nx * sgn, 0, e.nz * sgn]);
-            if(shared)displace(sb,roadsideSolidVertexStart,(x,z,y)=>yAlong(e,x,z)*clamp(y/Y.road,0,1),e,roadsideSolidStart);
+            if(shared)displace(sb,roadsideSolidVertexStart,(x,z,y)=>yAlong(e,x,z)*clamp(y/Y.road,0,1),e,roadsideSolidStart,{scaleY:Y.road});
         }
         if (down) {
             const emitDown = () => {
@@ -4735,11 +4735,12 @@ export async function buildWorld(city, renderer, opts = {}) {
         inferredDetailAudit.ranges++; inferredDetailAudit.clippedAreaM2 += result.clippedAreaM2;
         for(const issue of result.issues)if(inferredDetailAudit.issues.length<100)inferredDetailAudit.issues.push({owner:owner.sourceId,...issue});
     }
-    async function finishDetailClips() {
+    /** the clipped detail ranges, per builder (in builder order), for spliceDetailRanges; the audit is filled here */
+    async function detailClipItems() {
         buildPool?.flush();
-        if (!pendingDetailClips.length) return;
-        const results = await Promise.all(pendingDetailClips.map(j => j.promise ? j.promise.catch(e => (console.warn('[world] build worker failed, clipping here', e), null)) : null));
         const byBuilder = new Map();
+        if (!pendingDetailClips.length) return byBuilder;
+        const results = await Promise.all(pendingDetailClips.map(j => j.promise ? j.promise.catch(e => (console.warn('[world] build worker failed, clipping here', e), null)) : null));
         pendingDetailClips.forEach((j, n) => {
             let r = results[n], replace = null;
             if (r) replace = r.faces;
@@ -4752,28 +4753,38 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (r.clippedAreaM2 > 1e-10) { let l = byBuilder.get(j.builder); if (!l) byBuilder.set(j.builder, l = []); l.push({ ...j, replace }); }
         });
         pendingDetailClips.length = 0;
-        for (const [B, items] of byBuilder) spliceDetailRanges(B, items);
+        return byBuilder;
     }
     /** replace the vertex / index ranges of `items` (in builder order) by their clipped faces, as builder.v / builder.tri
      *  would have emitted them at that point, and shift the indices of everything after */
     /** the decks shaped in the build workers: their results replace their ranges (in call order per builder), and their
      *  audits join sharedBridgeMeshAudit in call order. A failed job is shaped here from the same input. */
-    async function finishDeckJobs() {
-        if (deckJobs.length) {
-            const jobs = deckJobs.splice(0);
+    /** the deck ranges of the builders `only` (all when null) shaped, per builder (in builder order); audits filled */
+    async function deckItems(only = null) {
+        const byBuilder = new Map();
+        const jobs = deckJobs.filter(j => !only || only.has(j.builder));
+        if (jobs.length) {
+            for (let k = deckJobs.length - 1; k >= 0; k--) if (!only || only.has(deckJobs[k].builder)) deckJobs.splice(k, 1);
             const results = await Promise.all(jobs.map(j => j.promise.catch(err => (console.warn('[world] deck worker failed, shaping here', err), null))));
-            const byBuilder = new Map();
             jobs.forEach((j, n) => {
                 let r = results[n];
-                if (!r) r = shapeDeckSoup(j.input, j.fn);
+                if (!r) r = shapeDeckSoup(j.input, j.fn, j.withTile);
                 j.entry.a = r.stats;
                 const o = r, count = o.count;
                 let l = byBuilder.get(j.builder); if (!l) byBuilder.set(j.builder, l = []);
-                l.push({ sv: j.sv, ev: j.ev, si: j.si, ei: j.ei, count, fill: (p, nn, u, c, t, at) => { p.set(o.p, at * 3); nn.set(o.n, at * 3); u.set(o.u, at * 2); c.set(o.c, at * 3); if (t) t.fill(-1, at, at + count); } });
+                l.push({ sv: j.sv, ev: j.ev, si: j.si, ei: j.ei, count, fill: (p, nn, u, c, t, at) => { p.set(o.p, at * 3); nn.set(o.n, at * 3); u.set(o.u, at * 2); c.set(o.c, at * 3); if (t) { if (o.t) t.set(o.t, at); else t.fill(-1, at, at + count); } } });
             });
-            for (const [B, items] of byBuilder) spliceDetailRanges(B, items);
         }
         foldDeckAudit();
+        return byBuilder;
+    }
+    /** the deck ranges of `only` (all when null) spliced into their builders now */
+    async function finishDeckJobs(only = null) { for (const [B, items] of await deckItems(only)) spliceDetailRanges(B, items); }
+    /** every pending range (decks, then the building loop's detail clips: later in each builder) spliced in */
+    async function finishPendingRanges() {
+        const byBuilder = await deckItems();
+        for (const [B, items] of await detailClipItems()) { const l = byBuilder.get(B); if (l) l.push(...items); else byBuilder.set(B, items); }
+        for (const [B, items] of byBuilder) spliceDetailRanges(B, items);
     }
     function spliceDetailRanges(B, items) {
         // an item gives its faces as `replace` (12 numbers per point) or as `count` points written by `fill`
@@ -5267,6 +5278,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         // ---- Pasajul Basarab superstructure (basarab-structure.js, integrated from fidelity/basarab-render-r9): platforms,
         //      centre support, station roof, H-frame, stays and river arch. The slot infill above is real deck for its stay
         //      anchors; the stretches its stays and arch carry get no pier below.
+        if (basarabDistrict) await finishDeckJobs(new Set([...cells.values()].map(c => c.road))); // (read just below: those decks first)
         const basarabRoadRegions = basarabDistrict ? raisedRoadTriangles(cells.values()) : [];
         basarabStructure = buildBasarabStructure(data, tramGrades, cellOf, group, edges, { roadRegions: basarabRoadRegions, tramEnvelope: tramPropEnvelope, tramSweep, roadFootprints: basarabDistrict ? edges.filter(e => e.bridge && !e.virtual && !e.tunnel && basarabDeck(e)).map(e => asphaltCorners(e, (f, sd) => widthAsphalt(f, sd) + .4)) : [], supportAt: (x, z, base) => { let top = null; surfacesAt(x, z, h => { if (Math.abs(h - base) < .3 && (top === null || Math.abs(h - base) < Math.abs(top - base))) top = h; }); return top; } });
         const carriedSpans = basarabStructure.report.superstructure?.carriedSpans || [];
@@ -7242,8 +7254,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     //      barriers, cones, jersey barriers, arrow boards, an excavator or a Poliția Rutieră car; US: ROAD CLOSED type III
     //      barricades, drums, DETOUR / LOCAL TRAFFIC ONLY, a flagger, ramp closed for bridge maintenance)
     const closures = [];
-    await finishDeckJobs();
-    await finishDetailClips();
+    await finishPendingRanges();
     if (mapEnds.length) {
         const P = props();
         const coneG = P._cone || (P._cone = mergeProps([bakeProp(new THREE.ConeGeometry(0.18, 0.7, 8), { y: 0.35, color: '#ff6a13' }), bakeProp(new THREE.CylinderGeometry(0.115, 0.13, 0.12, 8), { y: 0.42, color: '#f4f4f4' }), bakeProp(new THREE.BoxGeometry(0.42, 0.04, 0.42), { y: 0.02, color: '#222222' })]));

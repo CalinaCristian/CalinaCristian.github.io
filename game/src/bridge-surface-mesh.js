@@ -108,12 +108,12 @@ export function displaceBridgeSurface(mesh, fromVertex, fromIndex, heightAtWorld
 /** (spec 10 load budget) displaceBridgeSurface over a deck's input triangles given as corners (12 numbers each: position,
  *  normal, uv, colour, tile −1), in a builder of their own → { stats, count, p, n, u, c } (the shaped triangles, three
  *  points each, in order). world.js and the build workers both shape a deferred deck with this. */
-export function shapeDeckSoup(input, fn) {
-    const n = input.length / 12, mb = new MeshBuilder(false, Math.max(64, n));
-    for (let q = 0; q < n; q++) { const k = q * 12; mb.v(input[k], input[k + 1], input[k + 2], input[k + 3], input[k + 4], input[k + 5], input[k + 6], input[k + 7], [input[k + 8], input[k + 9], input[k + 10]]); }
+export function shapeDeckSoup(input, fn, withTile = false) {
+    const n = input.length / 12, mb = new MeshBuilder(withTile, Math.max(64, n));
+    for (let q = 0; q < n; q++) { const k = q * 12; mb.v(input[k], input[k + 1], input[k + 2], input[k + 3], input[k + 4], input[k + 5], input[k + 6], input[k + 7], [input[k + 8], input[k + 9], input[k + 10]], input[k + 11]); }
     for (let q = 0; q < n; q += 3) mb.tri(q, q + 1, q + 2);
     const stats = displaceBridgeSurface(mb, 0, 0, fn);
     if (mb.ic !== mb.vc) throw new Error('deck shaping: unexpected vertex count');
     for (let k = 0; k < mb.ic; k++) if (mb.i[k] !== k) throw new Error('deck shaping: unexpected index order');
-    return { stats, count: mb.vc, p: mb.p.slice(0, mb.vc * 3), n: mb.n.slice(0, mb.vc * 3), u: mb.u.slice(0, mb.vc * 2), c: mb.c.slice(0, mb.vc * 3) };
+    return { stats, count: mb.vc, p: mb.p.slice(0, mb.vc * 3), n: mb.n.slice(0, mb.vc * 3), u: mb.u.slice(0, mb.vc * 2), c: mb.c.slice(0, mb.vc * 3), t: mb.t ? mb.t.slice(0, mb.vc) : null };
 }

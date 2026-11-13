@@ -74,7 +74,10 @@ self.onmessage = (ev) => {
             return;
         }
         if (m.type === 'deckModels') { deckSpec = { ...m.spec, padIds: new Map(m.spec.pads) }; deckShared = null; deckDescents.clear(); deckPads.clear(); return; }
-        if (m.type === 'deck') { const r = shapeDeckSoup(m.input, deckHeight(m.grade, m.verge)); self.postMessage({ id: m.id, ...r }, [r.p.buffer, r.n.buffer, r.u.buffer, r.c.buffer]); return; }
+        if (m.type === 'deck') {
+            const f = deckHeight(m.grade, m.verge), fn = m.scaleY != null ? (x, z, y) => f(x, z) * Math.max(0, Math.min(1, y / m.scaleY)) : f; // (world.js: yAlong · clamp(y / Y.road, 0, 1))
+            const r = shapeDeckSoup(m.input, fn, m.withTile); self.postMessage({ id: m.id, ...r }, [r.p.buffer, r.n.buffer, r.u.buffer, r.c.buffer, ...(r.t ? [r.t.buffer] : [])]); return;
+        }
         if (m.type === 'roofSpecs') { for (const sp of m.specs) specs.set(sp.i, { kind: sp.kind, ring: ring(sp.ring), holes: sp.holes.map(ring), profile: sp.profile, h: sp.h }); return; }
         if (m.type === 'clip') { const r = clipJob(m); self.postMessage(r, r.faces ? [r.faces.buffer] : []); return; }
         if (m.type === 'clips') {

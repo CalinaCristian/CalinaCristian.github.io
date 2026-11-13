@@ -77,7 +77,7 @@ export function createBuildPool(size = Math.max(1, Math.min(6, ((typeof navigato
         deckModels(spec) { for (const s of state) s.w.postMessage({ type: 'deckModels', spec }); },
         /** shape one deck (bridge-surface-mesh.js shapeDeckSoup) with the height of grade spec `grade` (and the verge rule of
          *  world.js when `verge`) → Promise<{ stats, count, p, n, u, c }> */
-        deck(input, grade, verge) { return this.job({ type: 'deck', input, grade, verge }); },
+        deck(input, grade, verge, withTile = false, scaleY = null) { return this.job({ type: 'deck', input, grade, verge, withTile, scaleY }); },
         /** the fallback ground's source openings ({poly: [[x, z]…], x0, x1, z0, z1}), to every worker */
         fallbackCuts(cuts) {
             // three flat arrays (copied by memcpy) instead of an object per opening: the same numbers

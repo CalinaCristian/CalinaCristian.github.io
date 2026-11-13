@@ -1621,7 +1621,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             // Centre-line samples can miss a short overlap at the outside corner of an approach. Preserve separation
             // over the complete asphalt footprints too: their linear height difference reaches its extrema at these
             // intersection vertices. Clamping each floor to its original height keeps this pass lowering-only.
-            const corners = e => asphaltCorners(e, wA);
+            // (spec 10 load budget) an edge's footprint is read, never changed, and nothing in this pass moves nodes or widths:
+            // each edge's corners are made once (they were made again for every pair)
+            const cornerMemo = new Map(), corners = e => { let c = cornerMemo.get(e); if (!c) cornerMemo.set(e, c = asphaltCorners(e, wA)); return c; };
             const inside = (p, poly) => pointInPolygon(p[0], p[1], poly) || poly.some((q, i) => { const r = poly[(i + 1) % poly.length]; return distPointSeg(p[0], p[1], q[0], q[1], r[0], r[1]).d < 1e-7; });
             for (const e of edges) {
                 if (e.virtual) continue;

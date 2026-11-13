@@ -116,7 +116,7 @@ generated 2026-11-09: 238 named businesses inside the playable area, 223 present
 (Sephora, Douglas, Superbet, Telekom, DHL, MoneyGram, Stanleybet, Maxbet) are now in the data. 120 businesses within 60 m
 outside the playable edge are still missing (the builder keeps POIs only inside the edge); `businesses-gamediff.json` →
 `bucharest-unirii.missing` now holds that live list with `edgeM` (metres outside the edge), `recheck` the counts, and
-`closed` five more disused units. Details: `bucharest-unirii.md` → "Fidelity pass 2026-11-12".
+`closed` five more disused units. Details: `bucharest-unirii.md` → "Buildings and shopfronts".
 
 ## Sources
 

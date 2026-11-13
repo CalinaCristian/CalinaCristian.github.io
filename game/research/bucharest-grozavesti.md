@@ -1,669 +1,269 @@
-# Bucharest — Grozăvești & Politehnica (`grozavesti`): field research dossier
-
-Role: research-buc-districts · generated 2026-11-06 23:07 UTC · machine-readable twin: `bucharest-grozavesti.json` · images: `refs/grozavesti/` (see LICENSES.md).
-
-Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and comes from the OSM API 0.6 snapshot of 2026-11-06 [osm]. Bracketed keys like [wp_lascar] point to the **Sources** table at the end. Confidence: *high* = OSM/official/encyclopedic; *medium* = consistent across photos/common knowledge, verify on refs; *low* = estimate.
-
-## Coverage
-
-| metric | value |
-|---|---|
-| route_streets | Bulevardul Doina Cornea, Podul Grozăvești, Șoseaua Grozăvești, Șoseaua Orhideelor |
-| route_streets_researched | Bulevardul Doina Cornea, Podul Grozăvești, Șoseaua Grozăvești, Șoseaua Orhideelor |
-| fronting_route_buildings | 10 |
-| fronting_route_with_height | 80.0 |
-| fronting_route_with_colour | 10.0 |
-| fronting_route_researched | 10.0 |
-| fronting_route_with_street_frontage_rule | 100.0 |
-| fronting_route_with_storeys_any_source | 100.0 |
-| fronting_route_with_facade_hex_any | 80.0 |
-| fronting_main_buildings | 219 |
-| fronting_main_with_height | 66.2 |
-| buildings_total | 1598 |
-| buildings_with_height | 39.5 |
-| businesses_total | 475 |
-| businesses_on_route | 11 |
-| businesses_branded | 75 |
-| trees_osm | 27 |
-| lamps_osm | 0 |
-| crossings | 305 |
-| signal_nodes | 38 |
-| transit_stops | 50 |
-| metro_entrances | 7 |
-
-## Proposed boundary (~1 km²)
-
-- Polygon (lat, lon): `[[44.4335, 26.046], [44.449, 26.046], [44.449, 26.0725], [44.4335, 26.0725]]` → bbox `[44.4335, 26.046, 44.449, 26.0725]`, area **3.628 km²**.
-- Why: Extraction area = world agent bbox from cities.js BUC_DISTRICTS (so every street the world builds is covered). 1.39 km N-S × 1.35 km E-W ≈ 1.2 km² (some of it campus/park): north edge Bd. Regiei/Regie campus, east edge just past Podul Grozăvești/Șos. Grozăvești (Basarab overpass ramps), south edge Bd. Iuliu Maniu, west edge Str. Petre Popovăț/Splai bend; includes the whole UPB campus, Regie dorms, Grozăvești metro and the Dâmbovița with both Splai carriageways.
-- Research-proposed compact ~1 km² polygon (optional tighter cut): `[[44.4345, 26.047], [44.447, 26.047], [44.447, 26.064], [44.4345, 26.064]]`
-
-## Chapter routes
-
-### upb · 2013 — Politehnica (UPB) — Rectorat
-
-- **Start**: WORLD START: Șos. Orhideelor southbound — `44.447432, 26.062618`, heading 242° on Șoseaua Orhideelor.
-- **End**: UPB Rectorat forecourt (campus road behind the Doina Cornea gate) — `44.438998, 26.051727`.
-- **Length**: 1744 m (computed on the OSM drivable graph respecting one-ways; routable: True).
-- **Why this route**: Come down Șos. Orhideelor (Basarab overpass towering alongside), cross the Dâmbovița on Podul Grozăvești (Grozăvești metro + Regie student campus on the right), turn onto Bd. Doina Cornea south along the UPB campus (tram reservation in the middle), then in through the campus gate to the Rectorat forecourt.
-- **Sequence**: Șoseaua Orhideelor (586 m) → Podul Grozăvești (57 m) → Șoseaua Grozăvești (70 m) → Bulevardul Doina Cornea (607 m) → (service) (424 m)
-- Waypoints for `CHAPTERS`/autopilot: `[{"lat": 44.447432, "lon": 26.062618, "road": "Orhideelor", "bearing": 242}, {"lat": 44.4405, "lon": 26.057, "road": "Doina Cornea", "bearing": 200}, {"lat": 44.4387, "lon": 26.0515}]`
-
-## CV stops (verified)
-
-### upb — Universitatea Politehnica din București — Rectorat
-
-- **address**: Splaiul Independenței 313, Sector 6 (campus "Noul Local"; the Leu site is at Bd. Iuliu Maniu 1-3)
-- **building_osm**: w28240552 (Rectorat, 5 levels) inside campus area w23608402
-- **lat**: 44.43848
-- **lon**: 26.05145
-- **door**: lat: 44.4387; lon: 26.0515; street: campus road (service, access=private, barrier at the gates); side: forecourt north of the Rectorat; gates: vehicle gates: Bd. Doina Cornea side (gate node n6810324892 at 44.43807, 26.05543) and Splaiul Independenței side (campus road w26314495/w178160268 meets the eastbound Splai at ≈44.4441, 26.0538)
-- **building**: storeys: 5 + rooftop dome; facade: iconic 1970s modernist Rectorat: long symmetrical white concrete frame grid (#EDEDE8) with RED infill panels (#B8312F) between the window bays, recessed ground floor, and a wide shallow saucer-shaped DOME on the roof (aula), flagpoles; at night the dome rim is lit blue; large paved forecourt + parking; conf: high from photos (refs/grozavesti), storeys OSM [osm] [upb_address] [ref_upb]
-- **cities_js_check**: cities.js upb {44.4366, 26.0526} is ~200 m south of the Rectorat (near the Iuliu Maniu side of campus). The Rectorat is at {44.4385, 26.0515}; it has NO public-street frontage — the drive ends via a campus gate (Doina Cornea) and ~420 m of private campus road. The Splai carriageway next to the campus (way 227053932) is ONE-WAY EASTBOUND.
-
-## Streets — route and main streets
-
-Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, speed, surface) is in the JSON `streets[].segments[]`. Below: research cross-sections + OSM summary.
-
-### Șoseaua Orhideelor (chapter route)
-
-- OSM: 18 ways, 2251 m in district, classes secondary; lanes values ['1', '2', '3', '4']; one-way segments 18/18; maxspeed ['50', 'RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: shared carriageway (rails in road).
-- Transit lines (OSM route relations): bus 105, bus 123, bus 162, bus 163, bus 178, tram 11, tram 44.
-- OSM furniture: {'lift_gate': 6}.
-- Fronting buildings: 13; businesses: 12.
-- **cross_section**: one-way pairs 2–3 lanes each running beside/below the elevated Pasajul Basarab (layer 1–2 bridge) from Gara de Nord side down to Podul Grozăvești; 50 km/h; buses 105, 162, 163
-- **frontage**: W: The Bridge office campus (3 towers, 11 lv, 52 m — IBM, Bitdefender, BCR), Ahrend; E: Poliția Locală Sector 6, Lukoil fuel station (canopy, n/w296332666), Sir Orhideea hotel
-- **barrier_note**: OSM maps NO jersey barrier/guard-rail across Orhideelor here; the concrete parapets belong to the elevated Pasajul Basarab ribbons above/alongside (bridge=yes, layer 1–2). The owner's "concrete barrier across the lane on Orhideelor" is therefore a generation bug (an overpass wall projected onto ground level) — walls must stay on the Basarab layer.
-- confidence: high (OSM) [osm] [newsweek_basarab]
-
-### Bulevardul Doina Cornea (chapter route)
-
-- OSM: 11 ways, 2246 m in district, classes secondary; lanes values ['1', '2', '3']; one-way segments 11/11; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: central reservation, shared carriageway (rails in road).
-- Transit lines (OSM route relations): bus 105, tram 1, tram 10, tram 11.
-- OSM furniture: {'gate': 3, 'bicycle_rental': 1, 'parking_entrance': 1}.
-- Fronting buildings: 11; businesses: 7.
-- **cross_section**: dual carriageway 2+2 (3 at junctions) with trams 1, 10, 11 on a central reservation (part shares the Basarab viaduct approach, bridge segments layer 1–2); bus 105; 50 km/h; UPB campus fence on the W side, Politehnica railway halt on the E side, Enel and OMV buildings
-- confidence: high (OSM) [osm]
-
-### Șoseaua Grozăvești (chapter route)
-
-- OSM: 12 ways, 1851 m in district, classes primary, secondary; lanes values ['1', '2', '3']; one-way segments 12/12; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 105, bus 1929, trolleybus 63.
-- Fronting buildings: 16; businesses: 1.
-- **cross_section**: one-way pairs, 2 lanes each, 50 km/h; trolleybus 63, buses 105/1929; tram tracks cross at the Splai
-- confidence: high (OSM) [osm]
-
-### Podul Grozăvești (chapter route)
-
-- OSM: 6 ways, 115 m in district, classes secondary; lanes values ['3']; one-way segments 6/6; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 105.
-- Fronting buildings: 0; businesses: 0.
-- **cross_section**: short road bridge over the Dâmbovița canal (57 m) linking Orhideelor and Șos. Grozăvești; railings both sides; Grozăvești metro (M1) entrances at both ends, Regie student campus NW
-- confidence: high (OSM) [osm] [wp_grozavesti_metro] [adevarul_grozavesti_works]
-
-### Splaiul Independenței
-
-- OSM: 25 ways, 5137 m in district, classes secondary, service; lanes values ['2', '3', '4']; one-way segments 24/25; maxspeed ['10', '30', '40', '50', '60', 'RO:urban']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: True; bus/psv lanes tagged: False; tram: shared carriageway (rails in road).
-- Transit lines (OSM route relations): bus 123, tram 1, tram 11, trolleybus 90, trolleybus 96.
-- OSM furniture: {'lift_gate': 8, 'gate': 8, 'surveillance': 1, 'drinking_water': 1, 'waste_basket': 1, 'bench': 1, 'bicycle_parking': 1}.
-- Fronting buildings: 56; businesses: 26.
-- **cross_section**: the Dâmbovița runs in a straight concrete-lined canal (trapezoidal, ~40 m wide, low water, steel railings) with a ONE-WAY carriageway on each bank: south bank (campus side) EASTBOUND 2–3 lanes (40–50 km/h), north bank (Regie side) WESTBOUND 2 lanes; tram 1/11 and trolleybus 90 sections; poplar/linden rows on the embankments
-- **frontage**: N bank: Regie student campus (dormitories P1–P27, U1–U6: 5–9-storey 1970s blocks), Ibis Politehnica, Novum Invest office; S bank: UPB campus fence, Casa Corpului Didactic
-- confidence: high (OSM); canal look medium [osm]
-
-### Pasajul Basarab
-
-- OSM: 14 ways, 2612 m in district, classes primary; lanes values ['1', '2']; one-way segments 14/14; maxspeed []; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: central reservation, shared carriageway (rails in road).
-- Transit lines (OSM route relations): bus 1929, tram 1, tram 10, tram 11, tram 44.
-- Fronting buildings: 3; businesses: 2.
-- Street View (viewed 2026-11-11/12, reference only; the game follows it):
-  - West ramp (Pasajul): both carriageways at street level at 44.44005 (z ≈ 128), then one embankment on retaining walls
-    with a grass median as they climb; a kerbed concrete median with the arch hangers on the river arch; no railing
-    between the carriageways.
-  - Ramps by Șos. Nicolae Titulescu: the climbing carriageway (with the tram) is at street level at 92 Titulescu, about
-    2.5 m up at 87 Titulescu on a solid retaining wall with a low parapet, and an open viaduct about 6 m up with parking
-    beneath at 44.45084, where Titulescu stays at street level. The trams reach street level where the rail bridge ends
-    on Titulescu (44.45172, 26.07131).
-  - Viaducts stand on single hammerhead piers about every 30–40 m. The cable-stayed main span carries the deck with no
-    piers from the last stay anchor (44.44893, 26.06688) to the pylon.
-  - The tram slab has its own blue steel railing beside the carriageway's concrete barrier.
-  - The Orhideelor entry ramp passes under the viaduct about 1 m up, its barrier at the street's edge (44.44529, 26.06167).
-  - Calea Griviței at the south-west link ramp foot is at street level.
-
-### Bulevardul Iuliu Maniu
-
-- OSM: 15 ways, 2216 m in district, classes primary; lanes values ['3']; one-way segments 15/15; maxspeed ['30', '50', '60']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: False; bus/psv lanes tagged: True; tram: —.
-- Transit lines (OSM route relations): bus 139, bus 1929, trolleybus 61, trolleybus 62, trolleybus 63, trolleybus 93.
-- OSM furniture: {'gate': 7, 'lift_gate': 4, 'bench': 6}.
-- Fronting buildings: 24; businesses: 24.
-- **cross_section**: south edge: one-way pairs 3 lanes each with trolleybus wires (61, 62, 63, 93), 50 km/h; Politehnica metro (M3) entrances A–C; new 11-storey offices (The Light One, Campus 6.1/6.2, 45 m) on the N side
-- confidence: high (OSM) [osm]
-
-### Șoseaua Cotroceni
-
-- OSM: 16 ways, 1861 m in district, classes primary, secondary; lanes values ['2', '3', '6']; one-way segments 16/16; maxspeed ['50', '60']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 1929, trolleybus 61, trolleybus 62, trolleybus 93.
-- OSM furniture: {'gate': 2, 'waste_basket': 2, 'bench': 2}.
-- Fronting buildings: 49; businesses: 14.
-
-### Bulevardul Regiei
-
-- OSM: 5 ways, 487 m in district, classes residential, tertiary; lanes values ['2']; one-way segments 3/5; maxspeed ['50', 'RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 162, bus 163.
-- OSM furniture: {'gate': 4, 'lift_gate': 2}.
-- Fronting buildings: 15; businesses: 5.
-
-### Strada Economu Cezărescu
-
-- OSM: 6 ways, 469 m in district, classes residential; lanes values ['2']; one-way segments 0/6; maxspeed ['RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- OSM trees within 25 m: 4 (species —, genus {'Populus': 4}).
-- OSM furniture: {'gate': 2, 'parking_entrance': 1}.
-- Fronting buildings: 19; businesses: 14.
-
-### Bulevardul Geniului
-
-- OSM: 4 ways, 415 m in district, classes primary; lanes values ['2']; one-way segments 4/4; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 139, trolleybus 63.
-- OSM furniture: {'bench': 1}.
-- Fronting buildings: 6; businesses: 0.
-
-### Bulevardul General Paul Teodorescu
-
-- OSM: 5 ways, 405 m in district, classes secondary; lanes values ['2']; one-way segments 5/5; maxspeed ['50']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 105, bus 139, trolleybus 93.
-- OSM furniture: {'lift_gate': 1}.
-- Fronting buildings: 6; businesses: 11.
-
-### Intrarea Grozăvești
-
-- OSM: 3 ways, 395 m in district, classes service; lanes values []; one-way segments 1/3; maxspeed ['50', 'RO:urban']; surface ['asphalt', 'dirt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- Fronting buildings: 0; businesses: 0.
-
-### Strada Sergent Constantin Ghercu
-
-- OSM: 1 ways, 371 m in district, classes residential; lanes values ['2']; one-way segments 0/1; maxspeed ['RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- OSM furniture: {'lift_gate': 4, 'gate': 1}.
-- Fronting buildings: 11; businesses: 10.
-
-### Strada Palatul Cotroceni
-
-- OSM: 4 ways, 316 m in district, classes service; lanes values []; one-way segments 0/4; maxspeed ['RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- Fronting buildings: 0; businesses: 0.
-
-### Intrarea Sergent Constantin Ghercu
-
-- OSM: 1 ways, 140 m in district, classes service; lanes values []; one-way segments 0/1; maxspeed []; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- Fronting buildings: 0; businesses: 0.
-
-### Podul Cotroceni
-
-- OSM: 2 ways, 65 m in district, classes secondary; lanes values ['3']; one-way segments 2/2; maxspeed ['50']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 123, trolleybus 62, trolleybus 93.
-- Fronting buildings: 0; businesses: 0.
-
-## Squares, junctions, landmarks
-
-- **Podul Grozăvești (Orhideelor × Splai × Grozăvești)** — signalised bridge-head junctions on both banks, tram crossing on the Splai;  [osm]
-- **Doina Cornea × Iuliu Maniu (Politehnica metro)** — large signalised junction, trams + trolleybuses;  [osm]
-- **UPB campus & Rectorat** (`politehnica`, w23608402) — fenced campus, parking everywhere, students; Rectorat with flags [osm] [upb_address]
-- **Regie student campus** (`regie`, w23770544) — rows of 5–9-storey 1970s dormitories along the north bank; Fabrica Grivița/One Club bars [osm]
-- **Dâmbovița canal** (`dambovita`, ) — concrete trapezoidal canal with steel railings, one-way Splai on each bank [osm]
-- **Pasajul Basarab (cable-stayed viaduct, 2011)** (`basarab`, ) — elevated 2-level structure along Orhideelor/Doina Cornea carrying cars + trams; cable-stayed span near Gara de Nord (outside) [osm]
-
-Signalised / main junctions on the chapter routes (OSM):
-
-| node | streets | signals | roundabout | crossings ≤40 m |
-|---|---|---|---|---|
-| n32934941 | Podul Grozăvești × Splaiul Independenței × Șoseaua Orhideelor | yes |  | 5 |
-| n249659921 | Strada Sergent Constantin Ghercu × Șoseaua Orhideelor |  |  | 3 |
-| n2159714546 | Bulevardul Doina Cornea × Șoseaua Grozăvești |  |  | 0 |
-| n304485447 | Bulevardul Doina Cornea × Strada Economu Cezărescu | yes |  | 7 |
-| n32934934 | Bulevardul Regiei × Șoseaua Orhideelor | yes |  | 5 |
-| n981556145 | Calea Giulești × Șoseaua Orhideelor | yes |  | 8 |
-
-## Key buildings (researched)
-
-| OSM | name | storeys / height | facade | roof | era | notes |
-|---|---|---|---|---|---|---|
-| w661134293 | The Bridge 1 | 11 / 52 | #7D93A0 glass curtain wall |  | 2010s |  [osm] |
-| w699470645 | The Light One | 11 / 45 | #8A9BA5 glass + white fins |  |  |  [osm] |
-| w28240552 | UPB Rectorat | 5 / 24 | #EDEDE8 white concrete frame grid + red infill panels + glazing | flat with a central shallow saucer dome (aula), blue rim lighting at night | 1970s | upb [osm] [ref_upb] |
-| w50538006 | Biblioteca Centrală UPB |  /  |   |  |  |  [osm] |
-
-## Buildings fronting the chapter routes (all, from OSM + style rules)
-
-`facade_hex_est` is a district style-rule estimate (not observed) — research values override. Side = compass side of the street axis.
-
-| OSM | street | side | addr | type | levels | height | year | condition | style (est.) | facade | shops |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| w239358321 | Bulevardul Doina Cornea | W | 4A | office | 8 |  | 2004 |  | modern office/glass curtain wall | #7D93A0 est | 2 |
-| w413703560 | Bulevardul Doina Cornea | NW | 2P | yes · Enel | 4.0 est |  |  |  | unknown (use district rule) |  | 1 |
-| w312139192 | Bulevardul Doina Cornea | NW |  | commercial | 5 |  |  |  | unknown (use district rule) | #7D93A0 est | 0 |
-| w312139191 | Bulevardul Doina Cornea | NW | 2I | commercial | 6 |  | 2010 |  | modern office/glass curtain wall | #7D93A0 est | 0 |
-| w741025125 | Bulevardul Doina Cornea | W | 2F | commercial | 7.0 est |  |  |  | unknown (use district rule) | #D9D2C3 est | 0 |
-| w661134294 | Șoseaua Orhideelor | W |  | yes | 12 | 50 |  |  | unknown (use district rule) | #D3CEC2 est | 5 |
-| w1559344858 | Șoseaua Orhideelor | W | 15A | office | 16 | 64 | 2018 |  | modern office/glass curtain wall | #7D93A0 est | 0 |
-| w740780913 | Șoseaua Orhideelor | W |  | yes | 16 | 64 |  |  | unknown (use district rule) | #BDB7AA est | 4 |
-| w661134293 | Șoseaua Orhideelor | W | 15D | office · The Bridge 1 | 11 | 52 | 2017 |  | modern office/glass curtain wall | #7D93A0 | 7 |
-| w247015074 | Șoseaua Orhideelor | N |  | warehouse | 1 | 8 |  |  | low house/villa (19th-early 20th c. likely) |  | 0 |
-
-## Ground-floor businesses on the chapter routes
-
-| OSM | name | brand / sign colours | kind | street | side | addr |
-|---|---|---|---|---|---|---|
-| n12320402685 | Clinica Victoria |  | amenity=dentist | Bulevardul Doina Cornea | W | 4 |
-| w413703560 | Enel |  | office=energy_supplier | Bulevardul Doina Cornea | NW | 2P |
-| n10027962824 | Testronic |  | office=it | Bulevardul Doina Cornea | W | 4A |
-| n14189240522 | Ahrend |  | shop=furniture | Șoseaua Orhideelor | W | 15D |
-| n6773934063 | BCR | BCR bg #0074BC fg #FFFFFF | amenity=bank | Șoseaua Orhideelor | W | 15D |
-| n6933055419 | Bitdefender |  | office=it | Șoseaua Orhideelor | W | 15A |
-| n13710547706 | Domestina România |  | craft=cleaning | Șoseaua Orhideelor | W | 15A |
-| w247015087 | Fabrica Grivița |  | amenity=bar | Șoseaua Orhideelor | N | 2 |
-| w1331454041 | Gradinița nr. 168 |  | amenity=kindergarten | Șoseaua Orhideelor | N | 19 |
-| n3756985973 | Green Day Spa |  | shop=hairdresser | Șoseaua Orhideelor | W | 19 |
-| n6933055421 | IBM |  | office=company | Șoseaua Orhideelor | W | 15D |
-
-Other branded businesses in the district (off-route): OMV (Bulevardul Doina Cornea, w239359996); Starbucks (Bulevardul Doina Cornea, n6098653953); BRD (Bulevardul General Paul Teodorescu, n2437110915); ING (Bulevardul General Paul Teodorescu, n2394811005); Luca (Bulevardul General Paul Teodorescu, n5431039851); 5 to go (Bulevardul Iuliu Maniu, w1158163403); Banca Transilvania (Bulevardul Iuliu Maniu, n1827391331); Dristor Kebap (Bulevardul Iuliu Maniu, n10770721474); Dristor Kebap (Bulevardul Iuliu Maniu, w771711009); Superbet (Bulevardul Iuliu Maniu, n8628417856); Catena (Calea Plevnei, n6257141008); Catena (Calea Plevnei, n11747813932); Shop&Go (Calea Plevnei, n12816643597); ING (Intrarea Elizeu, n7026903567); 5 to go (Splaiul Independenței, n11210115650); Carrefour Express (Splaiul Independenței, n12258231590); Petrom (Strada Doctor Ernest Juvara, w170950529); Profi (Strada Drajna, n9990622878); 5 to go (Strada Economu Cezărescu, n13236285714); Carrefour (Strada Economu Cezărescu, n11528410571); La Doi Pași (Strada Economu Cezărescu, n13236285710); BCR (Strada George Ranetti, n2414411003); 5 to go (Strada Sergent Constantin Ghercu, n6877476154); CEC Bank (Strada Zării, n13174885875); ING (Strada Zării, n6952897499); 5 to go (, n11210073895); 5 to go (, n11876439490); 5 to go (, n12318869822); Vodafone (, n11009381359); BCR (, n610615259); BCR (, n3021606033); BRD (, n4805940522); BRD (, n6773898600); Banca Transilvania (, n1306485690); Carrefour (, w925593033); Chopstix (, n6768983283); Domino's (, n9958810731); Dr. Max (, n11009381348); Dristor Kebap (, n11009381368); Euronet (, n7072653286); Fornetti (, n4805940722); Help Net (, n12319355969); Help Net (, n2637755374); Ibis Styles (, w899792464); Intersport (, n11009381360); KFC (, n3619175487); Kaufland (, w423683661); Libra Bank (, w23608496); Maxbet (, n11009381371); McDonald's (, n4805940523); Mega Image (, n12319355971); Mesopotamia (, n11009381367); Mesopotamia (, n11009381353); MOL (, n14189221844); Noriel (, n11009381369); OPTIblu (, n11009381346); Orange (, n6772394787); Pepco (, n11009381363); Pizza Hut (, n10060255155); Profi (, n8727848532); Profi (, n8727848953); Raiffeisen Bank (, n4805940721); Regina Maria (, n11508840142); Regina Maria (, n9888785698); Samsonite (, n11009381350); Sephora (, n11009381374); Starbucks (, n6768983282); Ted's Coffee Co. (, n12652304729); Yves Rocher (, n11009381345); dm (, n11009381361); Inmedio (, n3619175488); Regina Maria (Șoseaua Cotroceni, n6245711398); Shop&Go (Șoseaua Cotroceni, n6952897501); Lukoil (Șoseaua Orhideelor, w256806132).
-
-## Transit
-
-- Lines with OSM route relations touching the district: bus 105, bus 122, bus 123, bus 137, bus 139, bus 162, bus 163, bus 168, bus 178, bus 182, bus 226, bus 282, bus 368, bus 780, bus 1929, tram 1, tram 10, tram 11, tram 44, trolleybus 61, trolleybus 62, trolleybus 63, trolleybus 69, trolleybus 85, trolleybus 86, trolleybus 90, trolleybus 93, trolleybus 96, trolleybus 97.
-- Stops: A.N.E.F.S. (bus/trolleybus); Bd. Dr. Marinescu (trolleybus); Bd. G-ral Paul Teodorescu (bus/trolleybus); Bd. Iuliu Maniu (bus/trolleybus); Bd. Iuliu Maniu (tram); Bd. Regiei (bus); Calea Giulești (bus); Calea Giulești (platform); Calea Giulești (tram); Calea Plevnei (platform); Calea Plevnei (tram); Calea Plevnei (trolleybus); Carol Davila (bus/trolleybus); Complex Grozăvești (platform); Complex Regie (platform); Cămin U4 (bus); E.L.C.E.N. (bus); Economu Anastasie Stoicescu (bus); Facultatea de Electronică (bus/trolleybus); Facultatea de Filosofie (bus); Facultatea de Medicină (bus/trolleybus); Facultatea de Medicină (trolleybus); Gara Basarab (bus); General Petre Popovăț (bus); Grădina Botanică (bus/trolleybus); M Petrache Poenaru (bus); Mircea Vulcănescu (bus); Piața Leul (bus/trolleybus); Piața Leul (platform); Pod Cotroceni (bus); Pod Cotroceni (bus/trolleybus); Pod Cotroceni (trolleybus); Pod Grozăvești (bus); Pod Grozăvești (tram); Podul Grozăvești (bus); Podul Grozăvești (platform); Primăria Sector 6 (bus); Spitalul Universitar (platform); Universitatea Politehnica (bus/trolleybus); Universitatea Politehnică (bus); Witing (bus/trolleybus); Șos. Orhideelor (platform).
-- Metro entrances: Cale acces A Statie Metrou Politehnica (M3) A (44.43476, 26.05506); Cale acces C Politehnica (M3) C (44.43603, 26.05618); Cale acces B Statie Metrou Politehnica (M3) B (44.43526, 26.05627); None  (44.43506, 26.05461); Grozăvești  (44.44285, 26.05994); Grozăvești  (44.44264, 26.06105); Petrache Poenaru  (44.44534, 26.04669).
-- Liveries:
-  - **tram_imperio**: Astra Vagoane Arad Imperio Metropolitan (100 ordered 2021, in service since Dec 2022; 3-section, 100% low floor); body #F4C300 accent #C8102E; yellow STB body with darker front mask; verify accent colours on refs (medium) [imperio] [imperio2] [wp_transport]
-  - **tram_v3a**: V3A-93 / V3A-93-2000 / V3A-CH-PPC (articulated, Bucharest URAC-built); body #F2C230 accent #B5121B; yellow with red stripe; frequent full-body advertising wraps (medium) [stb]
-  - **tram_bucur**: Bucur LF / Bucur 1 (modernised V3A with low-floor middle section); body #F2C230 accent #1F4E9A;  (low)
-  - **trolleybus**: Astra-Ikarus 415T (163 of 265 in 2022, 1990s high-floor, 2-axle 12 m) + Solaris Trollino 12 (100 delivered from 2024) + Astra Citelis; body #F4C300 accent #C8102E;  (medium) [wp_transport]
-  - **bus**: Mercedes-Benz Citaro (1,000 delivered 2006–2009), Citaro Hybrid (2020+), Otokar Kent C 12/18 m, Mercedes eCitaro / BYD electric; body #F4C300 accent #C8102E; STB yellow; Citaro hybrids yellow with STB logo; many carry ad wraps (medium) [stb]
-  - **taxi**: ; body #F7D417 accent ; Bucharest licensed taxis are yellow with chequer/stripe and company name/phone on doors (Dacia Logan, Toyota Corolla/Prius, Škoda Octavia) (high)
-  - **ride_hail**: ; body  accent ; Uber/Bolt cars are unmarked (any colour), very common (high)
-
-## Dialogue (district pedestrians)
-
-Each line {text (original language), en (English)}; persona.lang = language of text; `base` refers to bucharest-spots.json dialogue_general.persona_library; categories greeting / bumped / photographed / idle / district (place-specific facts, all consistent with this dossier). Shared: bucharest-spots.json → dialogue_general.pedestrian_general (honked_at, near_miss, sidewalk_parking, idle, small_talk) applies to every district pedestrian. Total district lines: 64.
-
-### Vlad (UPB student) (`upb_student`, local, lang ro, 19-24) — 16 lines
-Computer-science student heading from Regie to the Politehnica campus.
-
-- *greeting*: „Salut!” (Hi!) · „Neața, colega!” (Morning, mate!) · „Hei, la ce facultate ești?” (Hey, which faculty are you at?)
-- *bumped*: „Băi, am laptopul la mine!” (Hey, I have my laptop on me!) · „Scuze, eram cu ochii pe cod.” (Sorry, I was looking at code.) · „Ușurel, colega.” (Easy, mate.)
-- *photographed*: „Prinde și Rectoratul!” (Get the Rectorate in!) · „Pentru grupul de an? Ok.” (For the year group chat? OK.) · „Fă-o rapid, am laborator.” (Make it quick, I have a lab.)
-- *idle*: „Am predare la proiect mâine.” (Project hand-in tomorrow.) · „Cantina e plină la unu.” (The canteen is full at one.) · „Mergem la Fabrica după examen?” (Shall we go to Fabrica after the exam?)
-- *district*: „De la Regie la Rectorat faci zece minute pe jos.” (From Regie to the Rectorate is a ten-minute walk.) · „Splaiul e cu sens unic pe fiecare mal.” (The Splai is one-way on each bank.) · „105 e autobuzul studenților.” (The 105 is the students' bus.) · „Metroul Grozăvești e chiar lângă pod.” (Grozăvești metro is right by the bridge.)
-
-### Cristina (Regie dorm resident from Chișinău) (`regie_student_md`, local, lang ro, 19-23) — 16 lines
-Engineering student from the Republic of Moldova living in the Regie dorms; same language, slightly different everyday words.
-
-- *greeting*: „Bună!” (Hi!) · „Salut, ce mai faci?” (Hi, how are you?) · „Bună ziua, știți unde-i căminul P5?” (Good day, do you know where dorm P5 is?)
-- *bumped*: „Ai grijă, te rog!” (Careful, please!) · „Ups, scuze!” (Oops, sorry!) · „Nimic, nimic, se întâmplă.” (Nothing, nothing, it happens.)
-- *photographed*: „Trimit poza la mama acasă!” (I'll send the picture to my mum back home!) · „Fă-o cu Dâmbovița în spate.” (Take it with the Dâmbovița behind.) · „Mulțumesc frumos!” (Thank you kindly!)
-- *idle*: „Diseară gătim în bucătăria de la cămin.” (Tonight we cook in the dorm kitchen.) · „De sărbători plec acasă cu autocarul.” (For the holidays I go home by coach.) · „Am sesiune, nu ies nicăieri.” (Exams are on, I'm not going out.)
-- *district*: „Căminele din Regie sunt toate din anii șaptezeci.” (The Regie dorms are all from the seventies.) · „Pe Splai bate vântul tot timpul.” (The wind always blows on the Splai.) · „Biblioteca Politehnicii e deschisă până seara.” (The Politehnica library is open until evening.) · „Pasajul Basarab se vede de la geamul meu.” (I can see the Basarab overpass from my window.)
-
-### Prof. Ionescu (UPB lecturer) (`professor`, local, lang ro, 50-70) — 16 lines
-Engineering professor in a tweed jacket, formal and dry-witted.
-
-- *greeting*: „Bună ziua.” (Good day.) · „Bună ziua, domnule coleg.” (Good day, colleague.) · „Căutați secretariatul?” (Looking for the faculty office?)
-- *bumped*: „Atenție, vă rog.” (Careful, please.) · „Mai încet, nu e examen de viteză.” (Slower, this isn't a speed exam.) · „Nu s-a întâmplat nimic.” (Nothing happened.)
-- *photographed*: „Fotografiați clădirea, e mai interesantă.” (Photograph the building, it's more interesting.) · „Pentru revista facultății?” (For the faculty magazine?) · „Bine, dar repede.” (Fine, but quickly.)
-- *idle*: „Am patruzeci de lucrări de corectat.” (I have forty papers to mark.) · „Studenții de azi nu mai scriu de mână.” (Students today don't write by hand anymore.) · „Ședința de consiliu e la două.” (The council meeting is at two.)
-- *district*: „Politehnica are rădăcini din 1818, școala lui Gheorghe Lazăr.” (Politehnica's roots go back to 1818, Gheorghe Lazăr's school.) · „Rectoratul e pe Splaiul Independenței 313.” (The Rectorate is at Splaiul Independenței 313.) · „Accesul cu mașina e doar cu permis, la barieră.” (Car access is by permit only, at the barrier.) · „Pe vremuri veneam cu tramvaiul pe Splai.” (In the old days I came by tram along the Splai.)
-
-### Bogdan (shaorma kiosk by the metro) (`shaorma_vendor`, vendor, lang ro, 25-45) — 16 lines
-Runs a late-night shaorma window near Grozăvești metro.
-
-- *greeting*: „Salut, șefu', ce-ți fac?” (Hi boss, what can I make you?) · „Una mare cu de toate?” (A large one with everything?) · „Bună seara, mai avem și falafel.” (Good evening, we have falafel too.)
-- *bumped*: „Ai grijă la geam!” (Mind the window!) · „Hopa, era să-ți cadă sosul!” (Whoa, you nearly dropped the sauce!) · „Nu-i nimic, frate.” (No worries, bro.)
-- *photographed*: „Fă poză la shaorma, e vedeta!” (Photograph the shaorma, it's the star!) · „Dă-ne și o stea pe hartă!” (Give us a star on the map!) · „Stai că zâmbesc!” (Hold on, I'll smile!)
-- *idle*: „La două noaptea vin toți studenții.” (At two a.m. all the students turn up.) · „Azi s-a terminat cartofii devreme.” (We ran out of fries early today.) · „Plata și cu cardul, da.” (Card is fine, yes.)
-- *district*: „Lângă metrou e cea mai bună locație din Grozăvești.” (Next to the metro is the best spot in Grozăvești.) · „Pe Orhideelor e trafic până seara târziu.” (Orhideelor has traffic until late evening.) · „Studenții de la Regie sunt cei mai buni clienți.” (The Regie students are the best customers.) · „Când plouă, se umple tot de umbrele aici.” (When it rains, this place fills with umbrellas.)
-
-Culture notes:
-
-- **Register** — "Bună ziua" with strangers, "Salut/Neața" among young people; "dumneavoastră" (formal you) to older people; "Mersi" is as common as "Mulțumesc". (https://en.wikivoyage.org/wiki/Romanian_phrasebook)
-- **Traffic temper** — Bucharest drivers honk readily and often do not stop at zebras; pedestrians answer with sarcasm rather than aggression — keep lines teasing, not violent. (https://en.wikivoyage.org/wiki/Bucharest#Stay_safe)
-- **Sidewalk parking** — Cars parked on sidewalks are a constant pedestrian complaint; a natural topic for bumped/idle lines in side streets. (https://en.wikivoyage.org/wiki/Bucharest#Get_around)
-- **Taxis at the airport** — At OTP passengers order licensed taxis from touch-screen kiosks in Arrivals; unsolicited offers are a known nuisance — staff lines should point to the kiosks. (https://www.inyourpocket.com/bucharest/The-Definitive-Guide-to-Finding-a-Taxi-at-Bucharest-Airport_74243f)
-- **No stereotypes** — Personas are defined by role/place (student, vendor, commuter), never by ethnicity; Roma, Moldovan or diaspora characters are not caricatured; humour targets traffic, weather, parking and the metro. (spec 20 (game/research) requirement)
-- **Shared library** — Generic personas (local_elder, tour_guide …) and the pedestrian_general set (honked_at, near_miss, sidewalk_parking) live in bucharest-spots.json → dialogue_general; district personas below add place-specific lines. (game/research/bucharest-spots.json)
-
-## Traffic / congestion (feeds `congestion`, spec 13)
-
-- City: Bucharest ≈62.5 % congestion, 171 h lost per driver in 2025; worst slot Wednesday 17:00–18:00 [tomtom_2025] [tomtom_2025b]
+# Bucharest — Grozăvești & Politehnica (`grozavesti`): research dossier
+
+The reference for why the Grozăvești district looks the way it does: facts about the real place, their sources, the
+estimates the game makes where no source exists, and the places where it knowingly differs from OSM.
+
+## Overview and sources
+
+- **Data.** First generated 2026-11-06 (role research-buc-districts) from the OSM API 0.6 snapshot of that day; reality
+  pass 2026-11-08 (sixteen OSM API tiles over 44.425–44.465, 26.029–26.093, the actual `cities.js` band and circles plus
+  their 600 m scenery ring, at 1:1; source hashes and the imagery measurement ledger in
+  `handoffs/fidelity/d-grozavesti/source-ledger.json`; z18 aerial mosaic 44.428, 26.038 – 44.458, 26.079 at about
+  0.426 m/px, acquisition date unknown, only derived measurements committed); live OSM re-checked 2026-11-12/13. Every
+  OSM fact is keyed by id (w = way, n = node, r = relation). Bracketed keys like [osm] point to **Sources**.
+- **Machine-readable twin** `bucharest-grozavesti.json` holds the generated tables this file no longer repeats: per-street
+  segments, every building with its style-rule facade estimate, businesses, junctions and crossings, transit lines, stops,
+  metro entrances and STB liveries, the Bucharest-wide streetscape rules (`city_rules`), palette (`colours`),
+  `top_local_details`, `gaps`, district pedestrians (`dialogue`) and traffic hotspots (`traffic`). Business detail:
+  `businesses-bucharest-grozavesti.md`.
+- **Street level.** Official Street View panoramas were looked at only; nothing was stored, traced or measured from them.
+  A panorama is cited as its id plus heading (`hGqephV5yIK6jWNVMdcHBw h70`) or as its position. Game views:
+  `node game/dev/reality/capture.cjs --district=grozavesti`.
+- **Images.** `refs/grozavesti/`: nine Commons photos, mostly of the UPB Rectorat (2004, 2024 day and night) and the
+  Bitdefender building (licences in `LICENSES.md`).
+- **Heights.** OSM `height` / `building:levels` where mapped, otherwise default estimates.
+- **Confidence.** *high* = OSM / official / encyclopedic; *medium* = consistent across photos or common knowledge;
+  *low* = estimate.
+
+**The place.** The Dâmbovița runs here in a straight concrete channel with a one-way Splai on each bank; Pasajul Basarab, a
+two-level viaduct carrying cars and trams, towers over Șos. Orhideelor; the Regie student campus (long rows of 1970s
+dormitories) lines the north bank and the fenced UPB campus the south; The Bridge glass towers (IBM, Bitdefender, BCR) stand
+on Orhideelor. Students everywhere in term time; open, flat, windy riverside.
+
+## Chapter route and CV stop: `upb` (2013)
+
+- **Route.** Start on Șos. Orhideelor southbound at 44.447432, 26.062618 (heading 242°), with the Basarab overpass
+  alongside; over the Dâmbovița on Podul Grozăvești (Grozăvești metro and the Regie campus on the right), south on Bd.
+  Doina Cornea along the UPB campus (trams in the middle), in through the campus gate to the Rectorat forecourt
+  (44.438998, 26.051727). 1744 m on the OSM drivable graph respecting one-ways: Orhideelor 586 m, Podul Grozăvești 57 m,
+  Șos. Grozăvești 70 m, Doina Cornea 607 m, campus service road 424 m.
+- **Stop.** Universitatea Politehnica din București, Rectorat, Splaiul Independenței 313, Sector 6 (campus "Noul Local";
+  the Leu site is at Bd. Iuliu Maniu 1-3): w28240552 (5 levels) inside campus w23608402 [osm] [upb_address].
+- **No street frontage.** The drive ends through a campus gate and about 420 m of private campus road (`access=private`,
+  barriers at the gates). Vehicle gates: Bd. Doina Cornea side (n6810324892, 44.43807, 26.05543) and Splaiul Independenței
+  side (campus road w26314495 / w178160268 meets the eastbound Splai at about 44.4441, 26.0538). The Splai carriageway
+  beside the campus (w227053932) is one-way eastbound.
+- **Look.** 1970s modernist Rectorat: long symmetrical frame of pale vertical concrete fins with red panels between the
+  window bays, a brick recessed lower floor, a recessed glazed top storey, a wide roof slab, and a wide shallow saucer
+  dome (the aula) on the roof, its rim lit blue at night; flagpoles; large paved forecourt with parking. Facade review
+  2026-11-08 from the 2024 Commons photos (CC BY-SA 4.0), measurements in `landmark-politehnica-measurements.json`. OSM
+  gives 5 levels and no metre height; the dome is roof part w1217715300 (`min_level=6`), about 40 ± 4 m across on aerial
+  imagery [ref_upb]. No driving-street panorama faces it (none within 200 m).
+
+## Streets and traffic
+
+- **Șos. Orhideelor** (secondary, one-way pairs of 2–3 lanes, 50 km/h): runs beside and below the elevated Pasajul Basarab
+  from the Gara de Nord side down to Podul Grozăvești; trams 11 / 44 in the shared carriageway, buses 105, 123, 162, 163,
+  178. Frontage W: The Bridge office campus (three towers, 11 levels, 52 m), Ahrend; E: Poliția Locală Sector 6, the
+  Lukoil station, Sir Orhideea hotel. OSM maps **no** jersey barrier or guard rail across Orhideelor at ground level: the
+  concrete parapets belong to the Basarab decks above (`bridge=yes`, layer 1–2) [osm] [newsweek_basarab].
+- **Bd. Doina Cornea** (secondary, dual carriageway 2+2, 3 at junctions, 50 km/h): trams 1, 10, 11 on a central
+  reservation (part shares the Basarab viaduct approach), bus 105; UPB campus fence on the W side, the Politehnica railway
+  halt on the E side, Enel and OMV.
+- **Șos. Grozăvești** (primary / secondary, one-way pairs, 2 lanes each, 50 km/h): trolleybus 63, buses 105 / 1929; tram
+  tracks cross at the Splai.
+- **Podul Grozăvești** (57 m, 3 lanes each way): short road bridge over the Dâmbovița linking Orhideelor and Șos.
+  Grozăvești; Grozăvești metro (M1) entrances at both ends, Regie campus to the north-west [wp_grozavesti_metro]
+  [adevarul_grozavesti_works].
+- **Splaiul Independenței**: a one-way carriageway on each bank: south (campus) bank eastbound 2–3 lanes (40–50 km/h),
+  north (Regie) bank westbound 2 lanes; trams 1 / 11 and trolleybus 90 sections; poplar and linden rows on the
+  embankments. Frontage N: Regie dormitories (P1–P27, U1–U6, five- to nine-storey 1970s blocks), Ibis Politehnica, Novum
+  Invest; S: UPB campus fence, Casa Corpului Didactic.
+- **Bd. Iuliu Maniu** (south edge, one-way pairs of 3 lanes, 50 km/h): trolleybuses 61, 62, 63, 93; Politehnica metro
+  (M3) entrances A–C; new 11-storey offices on the north side (The Light One, Campus 6.1 / 6.2, 45 m).
+- **Signals** on the route: n32934941 (Podul Grozăvești × Splai × Orhideelor), n304485447 (Doina Cornea × Economu
+  Cezărescu), n32934934 (Bd. Regiei × Orhideelor), n981556145 (Calea Giulești × Orhideelor); Doina Cornea × Iuliu Maniu
+  (Politehnica metro) is a large signalised junction with trams and trolleybuses.
+- **Transit**: buses 105 (the classic UPB–Regie line), trams 1, 10, 11, 44 on and beside the viaduct, trolleybuses on
+  Iuliu Maniu, Șos. Grozăvești and the Splai; metro Grozăvești (M1, entrances 44.44285, 26.05994 and 44.44264, 26.06105),
+  Politehnica (M3) and Petrache Poenaru.
+- **Traffic hotspots** (JSON `traffic.hotspots`, read by `cities.js` congestion). City: about 62.5 % congestion, 171 h
+  lost per driver in 2025, worst slot Wednesday 17:00–18:00 [tomtom_2025] [tomtom_2025b].
 
 | hotspot | lat, lon | radius m | hours (local) | level | evidence |
 |---|---|---|---|---|---|
-| Podul Grozăvești / Orhideelor | 44.4437, 26.0612 | 180 | [[7.5, 10], [16.5, 19.5]] | 0.65 | Basarab corridor overloads (+10,000 cars when Podul Grant is closed) [newsweek_basarab] [tomtom_peak] |
-| Iuliu Maniu × Doina Cornea (Politehnica) | 44.4346, 26.0545 | 160 | [[7.5, 9.5], [16, 19]] | 0.6 | Militari commuter flow + campus [tomtom_peak] |
-| UPB gates (term time) | 44.4381, 26.0554 | 100 | [[7.5, 9], [15, 18]] | 0.35 | students crossing, cars queuing at barrier (assumption) |
+| Podul Grozăvești / Orhideelor | 44.4437, 26.0612 | 180 | 7.5–10, 16.5–19.5 | 0.65 | Basarab corridor overloads (+10,000 cars when Podul Grant is closed) [newsweek_basarab] [tomtom_peak] |
+| Iuliu Maniu × Doina Cornea (Politehnica) | 44.4346, 26.0545 | 160 | 7.5–9.5, 16–19 | 0.6 | Militari commuter flow + campus [tomtom_peak] |
+| UPB gates (term time) | 44.4381, 26.0554 | 100 | 7.5–9, 15–18 | 0.35 | students crossing, cars queuing at the barrier (assumption) |
 
-## Streetscape rules (Bucharest-wide, apply unless a street overrides)
+## Buildings and shopfronts
 
-- **driving**: side: right; urban_speed_default_kmh: 50; boulevard_signed_kmh: 50, 60; units: km/h; note: RO:urban default 50; several boulevards signed 60 (OSM maxspeed=60 on Lascăr Catargiu, Magheru, Dorobanți north). (high) [osm] [ro_signs]
-- **markings**: colour_hex: #F4F4F0; lane_line: white dashed 3 m line / 6 m gap on urban roads (RO standard SR 1848-7), 0.10–0.15 m wide; centre_line: white continuous (single) on 2-lane two-way, double continuous on 4+ lane two-way without median; stop_line: white 0.4–0.5 m; zebra: white bars 0.5 m wide / 0.5 m gap, parallel to traffic, no side lines; a few school-zone crossings have red infill between the white bars (verify per crossing on refs); turn_arrows: white arrows per turn:lanes; bus_lane: white continuous line with "BUS" text; since 2019 some STB lanes on Magheru axis/Ștefan cel Mare painted red-brown (#9E3B2E) – verify per street; yellow: yellow only for temporary works and kerb no-parking (zig-zag at bus stops); wear: markings visibly worn/faded on most streets except freshly resurfaced arteries — use 60–80% opacity (medium) [ro_markings]
-- **kerbs**: material: grey concrete kerbstones 15×25 cm (older streets: granite #8C8C8C), kerb height 12–18 cm, often chipped; colour_hex: #9B9A94 (medium)
-- **sidewalks**: paving: mix: (a) grey concrete interlocking pavers ("pavele") #A9A59C on renovated boulevards; (b) cracked asphalt #6E6C68 on side streets; (c) 40×40 grey concrete slabs on 1960–80s estates; parking_on_sidewalk: very common: cars half/fully on the sidewalk on side streets, behind metal bollards on boulevards (medium)
-- **traffic_lights**: model: RO 3-aspect vehicle heads (200/300 mm), black or yellow housing with yellow-black backplates on main arteries, mounted on grey/black poles + overhead mast arms at big junctions; pedestrian 2-aspect (red/green man) with countdown displays on major junctions (medium)
-- **street_name_plates**: style: blue plate (#1F4E9A) white text "Bulevardul X" + sector number "Sector 1" in smaller text, on building corners or poles (medium)
-- **bus_shelter**: style: STB/Clear-channel style glass shelters with grey steel frame and backlit ad panel; many stops have only a pole with the yellow STB stop sign + timetable (medium) [stb]
-- **metro_totem**: style: Metrorex entrance: blue square sign with white "M", station name in white on blue; stairs down with grey stone/steel railings; colour_hex: #0055A4 (medium) [metrorex]
-- **trolleybus_wires**: style: pair of copper contact wires 0.6 m apart per direction at ~5.6 m, carried by span wires between steel or concrete poles on both kerbs (often shared with street lamps) (medium)
-- **tram_track**: style: standard gauge 1435 mm; on boulevards in a central reservation with concrete sleepers/ballast or grass, kerbed and fenced in places; overhead single contact wire on span wires (medium)
-- **lamps**: boulevard: galvanised/grey steel octagonal poles 10–12 m, single or double arm, LED or older sodium cobra heads (sodium = orange #FFB45A; LED = 4000 K white #F2F0E6); 25–35 m spacing staggered on both kerbs and often in the median; side_street: 7–9 m grey poles or concrete poles with single arm, ~30 m spacing; historic: Calea Victoriei: black ornamental cast-iron style lanterns (medium) [lighting_2025] [lighting_ebrd]
-- **trees**: species: Tilia (linden, dominant on boulevards), Aesculus hippocastanum (horse chestnut), Acer platanoides, Platanus (plane, older avenues), Robinia pseudoacacia (side streets), Celtis; crown 8–14 m; spacing_m: 8, 12 (medium)
-- **furniture**: bin: grey/green metal municipal litter bins on poles; bollards: black or grey steel anti-parking posts (~0.9 m) lining boulevard kerbs; bike: I'Velo green docks at main squares (medium)
-- **buildings**: ground_floor: shops with mixed signage, many vacant "De închiriat" (for rent) banners; ATM boxes; exchange offices; air_con: split AC units on facades (very visible); cables: loose telecom cables strung between buildings/poles on side streets (medium)
+**Key buildings** (research rows; the JSON `buildings[].research` carries the same values):
 
-## Colour palette
+| OSM | name | storeys / height | facade | roof | era | notes |
+|---|---|---|---|---|---|---|
+| w661134293 | The Bridge 1 (Orhideelor 15D) | 11 / 52 | #7D93A0 glass curtain wall | | 2017 | [osm] |
+| w699470645 | The Light One | 11 / 45 | #8A9BA5 glass + white fins | | | [osm] |
+| w28240552 | UPB Rectorat | 5 / – (OSM has no height; an earlier 24 m override was unsupported and removed) | #EDEDE8 white concrete frame grid + red infill panels (#B8312F) + glazing | flat with a central shallow saucer dome (aula), blue rim lighting at night | 1970s | upb [osm] [ref_upb] |
+| w50538006 | Biblioteca Centrală UPB | | | | | [osm] |
 
-- facades_1970s_90s_blocks: #C9C4B8 #BDB7AA #D3CEC2 #B8B2A6
-- facades_interwar_modernist: #D9D2C3
-- glass_office: #7D93A0
-- canal_water: #5E6F5A
-- canal_concrete: #A8A499
-- road: #424247
-- sidewalk: #A3A097
-- kerb: #9B9A94
-- marking: #F4F4F0
-- conf: medium/estimated
+**Reviewed buildings and landmarks** (`building-review.js`, `landmarks.js`; live OSM 2026-11-13):
 
-## Top 30 things a local would notice if wrong
+- **The Bridge 1** (`thebridge1`; pano 44.4441, 26.0628 h212): dark glass box, grey mullion grid, BCR band: matches.
+- **Centrul Comercial Orhideea** w23557062 (height 8) with **Carrefour** w925593033: pale panel façade with red bands, no
+  continuous shop glazing, large blue Carrefour lettering above the west façade (pano 44.444372, 26.061485 h25 / h70).
+  Row: style `plain`, pale; landmark `orhideeasign` draws the white panel wall with red bands and the lettering. The red /
+  orange entrance canopy at the north-west rotunda has no OSM outline or height and is not drawn.
+- **Brico Dépôt / Altex** w247015071 (height 15, flat roof; Altex POI at 44.448203, 26.062284; panos 44.447216, 26.061955
+  h0 and 44.448422, 26.062576 h270): long light-grey ribbed panel box with a red fascia band, a red Altex front at the
+  south-east corner and a grey glazed entrance volume. Row: style `plain`, light grey. `facade-bands.js` draws the band
+  round the top (1.5 m deep, 0.4 m under the eaves) and the red front on the south-east corner, 16 m along each of its two
+  walls, from the top of the shopfront glazing (4.2 m) to the eaves.
+- **Turnul de apă, Belvedere** w678037221 (`man_made=water_tower`, historic, height 30, `building:levels=8`,
+  `roof:shape=cone`; pano 44.447216, 26.061955 h19 from Calea Giulești): weathered grey-beige rendered shaft with flat
+  pilasters and one vertical row of small windows, a wider tank head with round windows and cornices, low crown. Landmark
+  `turnulapa`: tank head on the exact mapped outline (r ≈ 5.6 m), shaft radius 4.2 m (0.75 of the head, from the
+  panorama's proportions), top 30 m (OSM), low cone behind a parapet.
+- **CET Grozăvești** (`cetgrozavesti`): four waisted concrete cooling towers (w188102855, w188102865, w188102870,
+  w188102882, height 50) and seven steel stacks (w905217275–7, w905217281, w905217307–9, height 50) behind two large grey
+  fuel tanks on Șos. Grozăvești; profile estimated. Hidden behind blocks and trees at every street pose found.
+- **Germag** (Bd. Banu Manta 2, n5862008006, appended by `add-pois.mjs`): a block carrying an appended street-level shop
+  POI gets the builder's shop-unit flag, so a shop front with its fascia (pano `wEy2ri9fhmOq0iOEkX5jIg`).
 
-1. The Dâmbovița is a straight concrete canal here with a one-way Splai on each bank.
-2. Pasajul Basarab viaduct towers over Orhideelor — two levels, trams on it.
-3. Podul Grozăvești is short; Grozăvești metro entrances at both ends.
-4. Regie dorms: long rows of grey/cream 1970s student blocks on the north bank.
-5. UPB Rectorat = white grid facade with red panels and a flat saucer dome on the roof, inside the fenced campus.
-6. Bd. Doina Cornea has trams (1, 10, 11) in the median along the campus.
-7. The Bridge glass towers (IBM, Bitdefender) on Orhideelor.
-8. Lukoil station on Orhideelor (east side).
-9. Students everywhere 08–20 in term time; kiosks, copy shops, cheap food.
-10. Politehnica metro (M3) on Iuliu Maniu at the south edge; railway halt "Politehnica" on Doina Cornea.
-11. Trolleybuses on Iuliu Maniu (61, 62, 63, 93).
-12. New 11-storey offices on Iuliu Maniu (The Light One, Campus 6).
-13. Poplars and lindens along the canal embankment.
-14. Steel railings along the canal and on Podul Grozăvești.
-15. No concrete barrier across Orhideelor at ground level.
-16. Splai south bank is eastbound only, north bank westbound only.
-17. Parking lots and parked cars filling campus roads.
-18. Ibis Politehnica hotel by the Splai.
-19. Fabrica Grivița / One Club bars at Regie.
-20. Wide intersections with tram crossings at the bridge heads.
-21. Cotroceni Palace area lies just south-east (outside).
-22. Graffiti on canal walls and underpasses.
-23. Bus 105 is the classic UPB–Regie line.
-24. Evening queues on the Basarab ramps.
-25. Open, flat, windy riverside — big sky.
-26. Concrete lamp poles along the Splai, newer LED poles on Iuliu Maniu.
-27. BCR branch in The Bridge.
-28. Policlinica Regie and Sala de Sport Regie on Bd. Regiei.
-29. Faculty buildings (Electronics/ETTI) at the south-east corner by the metro.
-30. Dust and construction around new office projects on Iuliu Maniu.
+**Businesses.** Live OSM 2026-11-12: 116 named businesses inside the playable geometry, 108 in the game at their mapped
+place. Not drawn (categories the builder does not keep): Columbia Fitness n6793227019, Domestina România n13710547706,
+Manpower n11508840180, WorkAsia.ro n11998746459, Bioclinica n14013820311, Debarcaderul Regie w1429973848 (marina),
+Grădinița nr. 168 w1331454041 (drawn as grounds without a name sign). Mall units beyond the playable edge are not signed by
+design.
 
-## Gaps / to verify
+**Fuel stations** (`fuel-look.js`, `fuel-canopy-review.js`, `fuel-stations-review.json`):
 
-- Rectorat construction year/architect not found (look confirmed from photos). Facade review 2026-11-08 (measurements in `landmark-politehnica-measurements.json`): Mister rf's 2024 Commons photos (CC BY-SA 4.0) show pale vertical concrete fins, red main-floor panels, a brick lower facade, a recessed glazed top floor, a wide roof slab and a blue-lit dome rim at night. OSM gives 5 levels, no metre height; the dome is roof part `w1217715300` (`min_level=6`), about 40 ± 4 m across on aerial imagery. Floor heights, fin depths and bay widths are estimates
-- Canal/embankment details from photos pending
-- Campus internal road layout only from OSM
+- **OMV Bd. Doina Cornea** w239359996: green fascia with a blue OMV panel, white soffit, blue-clad columns, pump islands
+  either side of the drive lane; a white pylon with a blue head by the grass at the west entrance (`o-A84Hr8qgnnLr-yuzR3ag
+  h85`, `MvkbucAsNkIDNRPMJ6Q9Ag h172`). The station's own mapped service lanes cross the canopy in three directions; three
+  islands are drawn, each 2.7 m clear of every service centre line. A second plain white canopy (wash / shop side) is part
+  of the same footprint area.
+- **Lukoil Șos. Orhideelor** w256806132: open canopy on white columns, red fascia with white LUKOIL letters, white soffit,
+  red-clad columns (`hGqephV5yIK6jWNVMdcHBw h70`); no pylon on the frontage in two panoramas (a billboard stands there).
+  Canopy height: see **Documented exceptions**.
+- **Petrom Bd. Al. I. Cuza** w237830689: yellow fascia with blue curved accents, round blue columns, open canopy wrapping
+  the kiosk; no pylon from either street (`dfKJPktXMs74JuwfOWbUDQ h88`, `lScnlaZqLyfRA7Kzl9V6nQ h358`). Entered only from
+  outside the map; the shop under the canopy is not modelled.
+- **MOL Bd. Dinicu Golescu** w326062450 (`PXJbcAsSr6l3B5-zQqqutA h124`): open canopy on columns, green MOL fascia, small
+  kiosk; fascia and boards from the way's own OSM brand tag (estimated 5.4 m top / 4.6 m clearance); the pack has no fuel
+  POI on it, so no pumps or pylon.
 
-## Reference images (`refs/grozavesti/`, 9 files, licences in LICENSES.md)
+**Palette** (estimates, JSON `colours`): 1970s–90s blocks #C9C4B8 #BDB7AA #D3CEC2 #B8B2A6; interwar #D9D2C3; office glass
+#7D93A0; canal water #5E6F5A; canal concrete #A8A499.
 
-| file | taken | near | licence | facade-texture candidate |
-|---|---|---|---|---|
-| Politehnica_University_of_Bucharest_at_night.jpg | 2024-04-24 | UPB Rectorat | CC BY-SA 4.0 |  |
-| Politehnica_University_of_Bucharest_at_night_01.jpg | 2024-04-24 | UPB Rectorat | CC BY-SA 4.0 |  |
-| Politehnica_University_of_Bucharest_at_night_02.jpg | 2024-04-24 | UPB Rectorat | CC BY-SA 4.0 |  |
-| Politehnica_University_of_Bucharest.jpg | 2024-01-22 | UPB Rectorat | CC BY-SA 4.0 |  |
-| Politehnica_University_of_Bucharest_02.jpg | 2024-01-22 | UPB Rectorat | CC BY-SA 4.0 |  |
-| Politehnica_University_of_Bucharest_03.jpg | 2024-01-22 | UPB Rectorat | CC BY-SA 4.0 |  |
-| Politehnica_University_of_Bucharest_04.jpg | 2024-01-22 | UPB Rectorat | CC BY-SA 4.0 |  |
-| Bitdefender_Headquarters_Bucharest_Romania.jpg | 2023-02-16 | Grozăvești metro | CC BY-SA 4.0 |  |
-| RO_B_Politehnica_university_rectorate.jpg | 2004-03-20 | Politehnica campus | CC BY-SA 3.0 |  |
+## Landmarks, monuments and campus
+
+- **UPB campus and Rectorat** (`politehnica`, w23608402): fenced campus, parking everywhere; see the CV stop.
+- **Regie student campus** (w23770544): rows of five- to nine-storey 1970s dormitories along the north bank; Fabrica
+  Grivița (w247015087) and One Club bars.
+- **School pitch** w678756216 (46 × 33 m; pose 44.439158, 26.056929 h313) inside the school ground w813901657
+  (`amenity=school`, `barrier=fence`), which shares its south-east side with Universitatea Artifex w813677026
+  (`amenity=university`, `barrier=fence`). The pack keeps no barrier tags, so `area-fences.js` draws both outlines as a 2 m
+  welded-mesh fence, open along building walls, on mapped paths and at the gate nodes n6244816927 and n3709955844. The
+  street-side tree row has no OSM trees; the generated kerb row stands there.
+- **Monuments** (generic class objects, `monuments.js`): 11 placed, among them Leul (Monumentul Trupelor de Geniu,
+  w170953582: a low-poly lion on its pedestal, `MONUMENT_SUBJECT`, not a likeness), the George Caranda obelisk (OSM height
+  6 m), the Panait Donici bust (OSM height 4 m), Coloana Timpului and sculptures.
+- **Fountain basins** w1454825579 and w1279629948 (`add-areas.mjs`): no official panorama within 50 m.
+
+## Water, bridges and structures
+
+**Dâmbovița** (w170930341 `water=river`, r6213935): a concrete channel with sloped slab banks and green water; a black
+steel railing with posts on the quay sidewalk and a tree row between sidewalk and railing, on both banks. From the north
+quay (44.443748, 26.058521, looking SSW) the water is about 1.5 m below the quay with a short sloped revetment; the
+section is drawn at -1.6 m (`water-channel-review.js`). Green aerial-raster cells that touch a channel are not drawn (the
+raster had classified about 46,000 m² of river surface as lawn). A weir crosses the river about 100 m west of Podul
+Grozăvești (w902058419), drawn as a low sill.
+
+**Podul Grozăvești and the Basarab arch** (w902056192 `bridge:structure=arch`, street-level decks w128304847 /
+w128304855, trams w128304859, w660918286): street-level decks with, from the kerb, a row of concrete planters with shrubs,
+a sidewalk, and a grey steel picket railing between square concrete posts at the water (44.443114, 26.060816 h80); drawn
+as planters at the kerb (same collision rail) and the picket railing on the sidewalk edge (`water-bridge-railings.js`,
+`bridge-guards.js`). The Basarab viaduct crosses above on blue steel girders hung from a pale grey arch. All 31 road bridge
+ways of live OSM match the game's bridge flag and layer; no road tunnel exists in the area.
+
+**Regie footbridge** w799487638 (`type=moon bridge`; 44.444677, 26.053527 h220): humped open footbridge with green steel
+railings, street level at both ends; drawn by `pedestrian-bridges.js` ('arched'); the quay parapet and railing stay open
+where it lands.
+
+### Pasajul Basarab
+
+Cable-stayed viaduct (2011) along Orhideelor and Doina Cornea carrying cars and trams; the cable-stayed span is near Gara de
+Nord, outside the district. Street View, viewed 2026-11-11/13 (reference only; the game follows it):
+
+- **West ramp** (Pasajul): both carriageways at street level at 44.44005 (z ≈ 128), then one embankment on retaining
+  walls with a grass median as they climb; a kerbed concrete median with the arch hangers on the river arch; no railing
+  between the carriageways.
+- **Ramps by Șos. Nicolae Titulescu**: the climbing carriageway (with the tram) is at street level at 92 Titulescu, about
+  2.5 m up at 87 Titulescu on a solid retaining wall with a low parapet, and an open viaduct about 6 m up with parking
+  beneath at 44.45084, where Titulescu stays at street level. The trams reach street level where the rail bridge ends on
+  Titulescu (44.45172, 26.07131).
+- **Piers**: single hammerhead piers about every 30–40 m. The cable-stayed main span carries the deck with no piers from
+  the last stay anchor (44.44893, 26.06688) to the pylon.
+- **Guards**: blue steel railings (rails and posts) on concrete kerb barriers on every deck seen (Doina Cornea, Bretea,
+  Exit → Giulești, Calea Plevnei, ramp w128304850; 44.441673, 26.060264 h220; 44.444732, 26.061237 h13). Only the
+  river-arch span carries a white tube guard rail with an outer orange pedestrian railing (44.443076, 26.060567 h250, on
+  the upper deck). Game: blue off the arch, white on it (`basarab-structure.js` `BASARAB_GUARD_STEEL`). The tram slab has
+  its own blue steel railing beside the carriageway's concrete barrier.
+- The Orhideelor entry ramp passes under the viaduct about 1 m up, its barrier at the street's edge (44.44529, 26.06167).
+  Calea Griviței at the south-west link ramp foot is at street level.
+- **Tram station on the viaduct**: covered platforms w620826242 / w620826243 with a glazed barrel canopy over both; the
+  "footbridges" w738281332–45 are the footways on the two platforms (layer 1, level 1), drawn by the platform model;
+  w738281345 is a 5 m `layer=3` link between platform footways w738281336 (ref 1) and w738281339 (ref 10), a tagging
+  oddity, not a separate structure.
+
+**Pedestrian passages** (live OSM 2026-11-13; `underpass-mouths.js`):
+
+- **Grozăvești metro passage** w737986560 / w737986561 (`tunnel=yes`, `layer=-1`) between the two subway entrances. West
+  entrance n610921621 (no OSM building; pano 44.442913, 26.060332 h256): a low glazed pavilion, grey metal frames, shallow
+  white roof, blue Metrorex "M" on the east front: landmark `grozmetro`, 10 × 5 m, 3 m west of the door node. East entrance
+  n2479115705 under the OSM roof w905217305 (`building=roof`, 14 × 8 m): an open canopy (3.9 m top, 3.45 m clearance) over
+  a stair well, open at the east end, down towards the passage that leaves westwards. No panorama of the east entrance was
+  compared.
+- **Doina Cornea / Splaiul Independenței underpass** w277315766 (35 m, no steps or width mapped): a stair well with
+  parapets and handrails at each end node on the tunnel's axis; both runs are cut short where they would reach the Splai
+  kerb (4.3 m and 3.5 m drawn).
+- **Politehnica** w737868100 / w980510524 / w1071237750 are `level=-1` concourse ways between the station stairs
+  (w1071237751 / -754 / -756, `level=-2;-1`) with no street-level end; the street entrances are subway_entrance POIs.
+  Other pedestrian subways (`tunnel=yes`, layer -1) are underground and their entrances not modelled.
+
+## Trees and green
+
+- 27 OSM trees in the 2026-11-06 extract (four Populus near Str. Economu Cezărescu); poplar and linden rows along the
+  canal embankments; campus lawns and car parks. Street species lists are in the JSON (`streets[].research.trees`).
+
+## Estimates and open questions
+
+- **Dâmbovița**: the -1.6 m section was seen at one place; the weir sill height is a model estimate.
+- **Regie footbridge**: rise 1.6 m and width 4.2 m.
+- **Grozăvești metro pavilion**: footprint, heights and position; the east canopy's height, columns, stair run and well
+  width; the Doina Cornea underpass stair runs.
+- **Turnul de apă**: shaft radius and bands; **CET Grozăvești** tower profile.
+- **Altex**: band depth, front width and the glazing line.
+- **School pitch fence**: height and post pitch.
+- **Fountain basins** w1454825579, w1279629948: the generic coping and full water.
+- **Leul**: height is the class estimate.
+- **MOL Dinicu Golescu** canopy height.
+- **Open**: the Rectorat's construction year and architect were not found (look confirmed from photos); floor heights,
+  fin depths and bay widths of the Rectorat are estimates; the campus internal road layout is only from OSM; the
+  Orhideea entrance canopy cannot be measured without tracing a panorama.
+
+## Documented exceptions
+
+- **Lukoil canopy** w256806132: live OSM (v7, 2026-11-13) tags `height=3`, which leaves 2.6 m under the slab; both official
+  panoramas (`hGqephV5yIK6jWNVMdcHBw h70`, `FxOOz6e8e3HgHwgY0fxicg h137`) show a roof about 5–5.5 m high. Drawn at 5.4 m
+  with 4.6 m clearance like the district's other canopies (`fuel-canopy-review.js`). Correct the OSM tag upstream, then
+  drop the exception.
 
 ## Sources
 
 | key | URL |
 |---|---|
-| osm | https://www.openstreetmap.org (API 0.6 map tiles, 2026-11-06; tags lanes, turn:lanes, maxspeed, trolley_wire, building:*) |
-| wp_lascar | https://en.wikipedia.org/wiki/Bulevardul_Lasc%C4%83r_Catargiu |
-| wp_victoriei | https://en.wikipedia.org/wiki/Victory_Square,_Bucharest |
-| wp_romana | https://en.wikipedia.org/wiki/Pia%C8%9Ba_Roman%C4%83 |
-| wp_victoria_palace | https://en.wikipedia.org/wiki/Victoria_Palace |
-| wp_ase | https://en.wikipedia.org/wiki/Bucharest_University_of_Economic_Studies |
-| tomtom_2025 | https://www.romania-insider.com/tomtom-bucharest-residents-stuck-traffic-2025 |
-| tomtom_2025b | https://universul.net/bucharest-residents-spent-over-a-week-stuck-in-traffic-in-2025/ |
-| tomtom_peak | https://www.romania-insider.com/bucharest-has-the-biggest-traffic-jams-in-europe-study-shows-which-are-the-busiest-hours |
-| euronews_10km | https://www.euronews.ro/articole/cosmarul-traficului-din-bucuresti-nu-s-a-schimbat-10-kilometri-in-peste-45-de-minute |
-| hotnews_axis | https://hotnews.ro/bucurestiul-pe-locul-8-n-topul-celor-mai-aglomerate-de-trafic-orase-din-lume-23247 |
-| tvr_romana | https://tvrinfo.ro/nu-mai-exista-ora-de-varf-ci-un-blocaj-continuu-in-trafic-in-prag-de-sarbatori-in-bucuresti/ |
-| pressone_ads | https://pressone.ro/peste-200-de-spatii-de-reclame-din-centrul-bucurestiului-aduc-profituri-de-zeci-de-milioane-de-euro-autoritatile-nu-raspund-daca-sunt-amplasate-legal |
-| lighting_2025 | https://romania-insider.com/bucharest-replace-lighting-fixtures-energy-efficient-2025 |
-| lighting_ebrd | https://ebrdgeff.com/projects/improved-public-lighting-in-bucharest/ |
-| imperio | https://rollingstockworld.com/lrv/astra-vagoane-began-to-deliver-a-new-generation-of-imperio-trams-to-bucharest/ |
-| imperio2 | https://www.gandul.ro/actualitate/stb-cifrele-tramvaiului-astra-imperio-din-bucuresti-dupa-doi-ani-137-de-milioane-de-calatorii-20377577 |
-| europe_house_caimmo | https://caimmo.com/en/press-corner/news/news-detail/bristol-myers-squibb-romania-remains-another-5-years-in-europe-house-office-building |
-| europe_house_cw | https://office.cwechinox.com/?p=20629 |
-| europe_house_zf | https://m.zf.ro/amp/zf-english/the-first-glass-offices-of-bucharest-still-lure-tenants-owing-to-location-6744587 |
-| landmark_vectr | https://romania-insider.com/vectr-realty-the-landmark-offices-deal-bucharest-2024 |
-| landmark_economedia | https://economedia.ro/fratii-gupta-care-detin-si-london-partners-au-cumparat-cladirea-de-birouri-the-landmark-unde-are-sediu-uipath.html |
-| landmark_spatii | https://www.spatii-de-birouri.ro/en/bucharest-the-landmark |
-| uipath_addr | https://assets.opencorporates.com/companies/ro/34737997 |
-| db_careers | https://careers.db.com/explore-the-bank/locations/emea/romania |
-| db_hq_2015 | https://www.romania-insider.com/deutsche-banks-technology-center-in-bucharest-reached-300-employees-plans-to-add-200-more |
-| luxoft_careers | https://career.luxoft.com/locations/romania |
-| luxoft_ripe | https://ripe.net/membership/indices/data/ro.lux.html |
-| gts_termene | https://termene.ro/firma/31050700-- |
-| gts_biz | https://www.revistabiz.ro/gts-global-intelligence-a-preluat-lummetry-companie-romaneasca-de-inteligenta-artificiala/ |
-| ro_signs | https://en.wikipedia.org/wiki/Road_signs_in_Romania |
-| ro_markings | https://ro.wikipedia.org/wiki/Marcaj_rutier |
-| stb | https://en.wikipedia.org/wiki/Societatea_de_Transport_Bucure%C8%99ti |
-| metrorex | https://en.wikipedia.org/wiki/Bucharest_Metro |
-| wp_transport | https://en.wikipedia.org/wiki/Transport_in_Bucharest |
+| osm | https://www.openstreetmap.org (API 0.6 map tiles, 2026-11-06; live re-checks 2026-11-12/13) |
 | upb_address | https://upb.ro/en/?p=14876 |
 | upb_bucharest_ro | https://www.bucharest.ro/article/the-polytechnic-university-of-bucharest-a-legacy-of-innovation-and-excellence-223 |
 | upb_zsn | https://zilesinopti.ro/locuri/universitatea-politehnica-din-bucuresti-upb/ |
+| ref_upb | https://commons.wikimedia.org/wiki/Category:Universitatea_Politehnica_din_Bucure%C8%99ti (exact files in refs/grozavesti/LICENSES.md) |
 | wp_grozavesti_metro | https://en.wikipedia.org/wiki/Groz%C4%83ve%C8%99ti_metro_station |
 | adevarul_grozavesti_works | https://adevarul.ro/stiri-locale/bucuresti/de-azi-nu-se-mai-circula-in-zona-podului-1377962.html |
 | newsweek_basarab | https://newsweek.ro/actualitate/podul-grant-se-deschide-doar-pe-jumatate-bucurestenii-nu-scapa-de-haos-in-trafic |
-| ref_upb | https://commons.wikimedia.org/wiki/Category:Universitatea_Politehnica_din_Bucure%C8%99ti (see refs/grozavesti/LICENSES.md for the exact files) |
+| tomtom_2025 | https://www.romania-insider.com/tomtom-bucharest-residents-stuck-traffic-2025 |
+| tomtom_2025b | https://universul.net/bucharest-residents-spent-over-a-week-stuck-in-traffic-in-2025/ |
+| tomtom_peak | https://www.romania-insider.com/bucharest-has-the-biggest-traffic-jams-in-europe-study-shows-which-are-the-busiest-hours |
 
-
-## District reality pass — 2026-11-08
-
-The earlier tables above describe the historical research rectangle. The current pass follows `cities.js`'s actual Grozăvești analytic band/circles and their complete 600 m scenery ring, at scale 1:1. Sixteen fresh OSM API tiles cover latitude 44.425–44.465, longitude 26.029–26.093, including a western extension missing from the standard tile prefix. Source hashes and the independent imagery measurement ledger are in `handoffs/fidelity/d-grozavesti/source-ledger.json`. The local z18 aerial mosaic covers 44.428,26.038–44.458,26.079 at approximately 0.426 m/px; acquisition date is unknown. Only derived measurements are committed.
-
-Heights: OSM `height` / `building:levels` where mapped; otherwise default estimates. The earlier unsupported Rectorat 24 m override was removed. Build counts and capture status from that pass are in the git history.
-
-## Fidelity pass — 2026-11-12 (live OSM + street-level reference)
-
-Sources: OSM API 0.6 map tiles fetched 2026-11-12 for 44.4335–44.4540, 26.0470–26.0750 (the playable geometry and its
-surroundings). Street-level panoramas were looked at as a visual reference only; nothing is stored. Game views:
-`node game/dev/reality/capture.cjs --district=grozavesti` (26 viewpoints added for the bridge, canal, sports grounds,
-businesses and landmarks).
-
-- **Dâmbovița** (OSM w170930341 `water=river`, r6213935): a concrete channel with sloped slab banks, green water, a black
-  steel railing with posts on the quay sidewalk and a tree row between the sidewalk and the railing, on both banks. The
-  aerial green raster classified the river surface as lawn (3,975 cells, about 46,000 m²), which covered the sunken channel
-  with grass; green cells that touch a channel area are no longer drawn. A weir crosses the river about 100 m west of
-  Podul Grozăvești (OSM w902058419); it is drawn as a low sill (its height is a model estimate).
-- **Podul Grozăvești / Basarab arch** (OSM w902056192 `bridge:structure=arch`, w128304847, w128304855, trams w128304859,
-  w660918286): street-level decks with a grey steel picket railing between concrete posts; the Basarab viaduct crosses
-  above on blue steel girders hung from a pale grey arch. The game's arch, blue deck and street-level decks agree. All 31
-  road bridge ways of live OSM match the game's bridge flag and layer; no road tunnel exists in the area.
-- **CET Grozăvești**: four waisted concrete cooling towers (OSM w188102855, w188102865, w188102870, w188102882, height 50)
-  and seven steel stacks (OSM w905217275–7, w905217281, w905217307–9, height 50) behind two large grey fuel tanks on
-  Șoseaua Grozăvești. The towers were round blocks with windows and the stacks were missing; they are now the
-  `cetgrozavesti` landmark (profile estimated).
-- **Centrul Comercial Orhideea** (OSM w23557062) with **Carrefour** (OSM w925593033): pale façade with a red band, large
-  blue "Carrefour" lettering above the west façade, an orange curved entrance canopy at the south-west rotunda. The sign
-  and band are added (`orhideeasign`); the canopy and the façade colour are not modelled.
-- **Businesses**: 116 named businesses of live OSM lie inside the playable geometry; 108 are in the game at their mapped
-  place. Not in the game (categories the builder does not keep): Columbia Fitness (n6793227019), Domestina România
-  (n13710547706), Manpower (n11508840180), WorkAsia.ro (n11998746459), Germag (n5862008006), Bioclinica (n14013820311),
-  Debarcaderul Regie (w1429973848, marina), Grădinița nr. 168 (w1331454041, drawn as grounds without a name sign).
-  Mall units beyond the playable edge are not signed by design. No game business is closed in live OSM.
-- **Still different from the street** (see the backlog rows): Grozăvești metro entrance pavilion (glazed canopy at the
-  south-west bridge head) is not built; the footbridge over the river by Regie (OSM w799487638) is missing; OMV and
-  Lukoil have no brand dressing (Lukoil's `building=roof` is a solid slab); the Brico Dépôt / Altex box (OSM w247015071)
-  is red and orange with an ALTEX sign, the game draws glass; the pedestrian passages (OSM w737986560/1, w277315766,
-  Politehnica and Basarab subways) and the Basarab station footbridges (OSM w738281332–345) are not modelled.
-
-## Fidelity pass round 2, 2026-11-12 (sweep)
-
-- **Pitch at 44.439984, 26.055778** (46 × 33 m; `grz-pitch-splai`, 44.439158, 26.056929, heading 313): behind a fence and a row of trees along the street in the panorama; the game has the pitch as an area on open lawn with scattered trees, no perimeter fence. Partly matching.
-- No other bridge, underpass, water body, sports ground or large store of the district data lacks a viewpoint within 130 m. Bellevue and Floreasca: none found either (the Dinamo main pitch and track are faced by `flo-dinamo-stadium`).
-
-## Landmark catalogue review against panoramas (fidelity pass round 2b, lane landmarks-b, 2026-11-12)
-
-Method: official panorama ids found from Maps coverage metadata (`photometa/ac`, coverage only), the game rendered at the
-pano position and bearing (eye 2.5 m), then compared side by side by eye. No imagery kept. Poses: `viewpoints-add.json`
-of this lane and the poses below. "Match" = shape class, height, roof, main materials/colours, entrance side and signage
-read as the real thing at street distance; it is not a claim of parity. Table positions are rounded and some are
-approximate; the exact poses with their pano ids are in this lane's `pick/*.json`, `views2b.json` and `views3.json`,
-and the kept ones in `viewpoints-add.json`.
-
-| Landmark | Pose (lat, lon, heading) | Verdict |
-| --- | --- | --- |
-| thebridge1 | 44.4441, 26.0628 h 212 | match (dark glass box, grey mullion grid, BCR band) |
-| cetgrozavesti | 44.4421, 26.0630 h 184 | not compared: towers hidden behind blocks / trees at every street pose found |
-| orhideeasign | 44.444372, 26.061485 h 70 | fixed: white panel wall with red bands (was a dark windowed front); Carrefour lettering kept |
-| politehnica | none within 200 m | not compared (no driving-street pano faces it) |
-
-## Round 2 (2026-11-12), lane world
-
-Monuments: 11 placed (Leul as a generic monument, George Caranda obelisk at OSM height
-6 m, Panait Donici bust at OSM height 4 m, Coloana Timpului, sculptures). Fuel: OMV pylon only (its own service lane
-fills the canopy, no island); Lukoil w256806132 pylon only (roof not a canopy in the pack). Bridges: guard styles not
-reviewed; from the Basarab arch span the panorama shows a white tube guard rail on posts and an orange pedestrian railing.
-
-## Round 2 (2026-11-12), lane world-b
-
-Street View was used only to look (official panoramas, ids found from coverage metadata); nothing was saved or traced.
-
-Bridges: the Basarab group decks (Doina Cornea, Bretea, Exit → Giulești, Calea Plevnei,
-ramp w128304850) have blue steel railings on a concrete kerb in the panoramas; the game draws white (basarab-structure.js,
-not changed). Fuel: Lukoil w256806132 (open canopy on white columns, red fascia; OSM height=3 kept) and Petrom w237830689
-(canopy on blue round columns) are now open canopies (fuel-canopy-review.js). Dâmbovița w170930341: from the north quay
-(44.443748, 26.058521, looking SSW) the water is about 1.5 m below the quay with a short sloped revetment; the reviewed
-section is now water -1.6 m (water-channel-review.js); the section is an estimate, seen at one place.
-
-## Round 3 (2026-11-13), lane structures
-
-Official Street View panoramas were looked at only (ids from coverage metadata); nothing was saved, traced or measured from them.
-
-Pasajul Basarab group: blue steel railings (rails and posts) on concrete kerb barriers on every deck
-seen (44.441673, 26.060264 h220; 44.444732, 26.061237 h13; plus the five round-2 panoramas); only the river-arch span carries the
-white tube guard rail with an outer pedestrian railing (44.443076, 26.060567 h250 — this panorama is on the UPPER deck: the round-2
-note that put it on Podul Grozăvești was wrong). Game: blue off the arch, white on it (basarab-structure.js BASARAB_GUARD_STEEL;
-the blue night band unchanged). Podul Grozăvești (street-level decks w128304847 / w128304855, 44.443114, 26.060816 h80): a row of
-concrete planters with shrubs at the kerb, a sidewalk, and a grey steel picket railing between square concrete posts at the
-water; the game had a 1.1 m concrete wall at the kerb and an open sidewalk edge over the river: now planters at the kerb (same
-collision rail) and the picket railing on the sidewalk edge (water-bridge-railings.js, bridge-guards.js). Regie footbridge
-w799487638 (`type=moon bridge`): humped open footbridge with green steel railings, street level at both ends (44.444677, 26.053527
-h220): drawn (pedestrian-bridges.js 'arched', rise 1.6 m and width 4.2 m are estimates). The Basarab station "footbridges"
-w738281332–45 are the footways on the two covered tram platforms (layer 1, level 1), already drawn by the platform model; the 5 m
-layer-3 connector w738281345 was not looked at. Pedestrian subways (w737986560/1, w277315766, w737868100, w980510524,
-w1071237750: tunnel=yes, layer -1) are underground; their entrances are not modelled.
-
-## Round 3 street-level review, lane look (2026-11-13)
-
-- **OMV Bd. Doina Cornea** w239359996 (grozavesti-3): green fascia with a blue OMV panel, white soffit, blue-clad columns and two or
-  three pump islands either side of the drive lane; a white pylon with a blue head stands by the grass at the west entrance
-  (o-A84Hr8qgnnLr-yuzR3ag h85, MvkbucAsNkIDNRPMJ6Q9Ag h172). The station's own mapped service lanes cross the canopy in three
-  directions, which is why round 2 found no strip; reviewed islands may now stand beside the drive lane (2.7 m clear of every service
-  centre line): three islands drawn. A second, plain white canopy (wash / shop side) is part of the same footprint area.
-- **Lukoil Șos. Orhideelor** w256806132: red fascia with white LUKOIL letters, white soffit, red-clad columns (hGqephV5yIK6jWNVMdcHBw
-  h70). No pylon on the frontage in two panoramas (a billboard stands there): the generic pylon is removed. Canopy top stays OSM
-  height=3 although the panorama suggests about 5 - 5.5 m.
-- **Petrom Bd. Al. I. Cuza** w237830689: yellow fascia with blue curved accents, round blue columns, canopy wrapping the kiosk; no
-  pylon from either street (dfKJPktXMs74JuwfOWbUDQ h88, lScnlaZqLyfRA7Kzl9V6nQ h358).
-- **MOL Bd. Dinicu Golescu** w326062450 (r2-world-b-mol-grz): seen at last from PXJbcAsSr6l3B5-zQqqutA h124: an open canopy on columns
-  with a green MOL fascia and a small kiosk. Now an open canopy (fuel-canopy-review.js, estimated 5.4 m top / 4.6 m clearance) with the
-  MOL fascia and boards from the way's own OSM brand tag; the pack has no fuel POI on it, so no pumps / pylon.
-
-## Fidelity pass round 3 — landmarks lane (2026-11-13)
-
-Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
-
-- **Turnul de apă, Belvedere** (w678037221: man_made=water_tower, historic, height=30, building:levels=8, roof:shape=cone,
-  r ≈ 5.6 m). Pano 44.447216, 26.061955 heading 19 (Calea Giulești) shows it clearly: weathered grey-beige rendered shaft with
-  flat pilasters and a single vertical row of small windows, a wider tank head with round windows and cornices, low crown.
-  New landmark `turnulapa` replaces the generic eight-window-row cylinder of its own footprint: tank head = the exact mapped
-  outline (traced from above), shaft radius 4.2 m (0.75 of the head, from the panorama's proportions), bands estimated, top
-  30 m (OSM), low cone behind a parapet (OSM roof:shape=cone). 946 triangles.
-- **Brico Dépôt / Altex** (w247015071, height=15, roof:shape=flat; Altex POI at its south-east corner). Panos 44.447216,
-  26.061955 h 0 and 44.448422, 26.062576 h 270: long light-grey ribbed panel box with a red fascia band, a red Altex front at
-  the south-east corner and a grey glazed entrance volume. Review row: style `plain`, light grey (was a dark glass hall).
-  The red Altex front section is not drawn (one colour per building record).
-- **Centrul Comercial Orhideea** (w23557062, height=8): pale panel façade with red bands, no continuous shop glazing; a red
-  entrance canopy at the north-west end (pano 44.444372, 26.061485 h 25). Review row: style `plain`, pale. The canopy is not
-  drawn (its outline and height are not mapped).
-- **Metrou Grozăvești west entrance** (n610921621 railway=subway_entrance; no OSM building). Pano 44.442913, 26.060332
-  h 256: low glazed pavilion, grey metal frames, shallow white roof, blue Metrorex "M" on the east front. New landmark
-  `grozmetro`: 10 × 5 m pavilion 3 m west of the door node (footprint, heights, position: estimates), 368 triangles. The
-  east entrance n2479115705 and the OSM roof w905217305 beside it were not looked at.
-
-## Backlog close-out (2026-11-13): estimates, decisions and what was fixed
-
-- **School pitch w678756216 (r2-districts-view-14)**: the 46 × 33 m pitch lies inside the school ground w813901657
-  (`amenity=school`, `barrier=fence`), whose south-east side it shares with Universitatea Artifex w813677026
-  (`amenity=university`, `barrier=fence`). The district pack keeps no barrier tags, so `game/src/area-fences.js` draws both
-  OSM outlines as a 2 m welded-mesh fence (height and post pitch: estimates), left open along building walls, on mapped paths and
-  at the two gate nodes (n6244816927, n3709955844). The street-side tree row seen in the panorama (44.439158, 26.056929 h 313) has
-  no OSM trees; the generated kerb row already stands there.
-- **Lukoil canopy w256806132 (r2-world-b-lukoil-height)**: live OSM (v7) still tags height=3, which left 2.6 m under the slab;
-  both official panoramas (hGqephV5yIK6jWNVMdcHBw h 70, FxOOz6e8e3HgHwgY0fxicg h 137) show a roof about 5–5.5 m high. Documented
-  exception in `fuel-canopy-review.js`: drawn at 5.4 m with 4.6 m clearance, like the district's other canopies. Correct the OSM
-  tag upstream, then drop the exception.
-- **Orhideea car-park frame (r2-landmarks-b-7)**: at a395e49a the pose 44.444372, 26.061485 measures 0.86 M triangles in the
-  driving view (heading 70, mirror on), 1.01 M at eye height, and at most 1.26 M over twelve headings (driving and eye views,
-  1280 × 720); heading 70 at ultra quality and 1920 × 1080 gives the same 1.01 M: under the 1.5 M budget. The round-2 1.544 M no longer reproduces.
-- **Basarab light band (r2-perf-6)**: the night band's box (0.215 m) enclosed the guards' 0.18 m blue fascia with the same ends,
-  so the fascia was never seen; `drawBasarabGuard` now draws the band instead of the fascia where the band exists (the band casts
-  the fascia's shadow). Day and night renders at 44.44503, 26.06120 unchanged; about 44,000 fewer triangles in Basarab frames
-  (1.042 M → 0.998 M at the pose, day).
-- **Pedestrian passages (grozavesti-7)**, live OSM 2026-11-13:
-  - Grozăvești metro passage w737986560 / w737986561 (`tunnel=yes`, `layer=-1`) runs between the two subway entrances. West
-    n610921621: the `grozmetro` pavilion (round 3). East n2479115705: under the OSM roof w905217305 (`building=roof`, 14 × 8 m),
-    which the pack drew as a closed grey block; it is now an open canopy (3.9 m top, 3.45 m clearance, columns: estimates) over a
-    stair well (`game/src/underpass-mouths.js`), open at the east end, down towards the passage that leaves westwards. Stair run
-    and well width are estimates; no official panorama of the east entrance was compared.
-  - Doina Cornea / Splaiul Independenței underpass w277315766 (35 m, no steps or width mapped): a stair well with parapets and
-    handrails at each end node, on the tunnel's own axis; both runs are cut short where they would reach the Splaiul kerb (4.3 m
-    and 3.5 m drawn). Estimates as above.
-  - Politehnica w737868100 / w980510524 / w1071237750 are `level=-1` concourse ways between the station stairs (w1071237751 /
-    -754 / -756, `level=-2;-1`): no street-level end. The station's street entrances are subway_entrance POIs.
-  - w738281345 is a 5 m `layer=3` link between the platform footways w738281336 (ref 1) and w738281339 (ref 10), which are
-    `layer=1`: a tagging oddity inside the tram station on Pasajul Basarab, not a separate structure; the platform model draws
-    the platforms (Basarab structures are not changed here).
-  - Covered platforms w620826242 / w620826243 (Pasajul Basarab tram station): rendered from above the deck (770, 25, -930):
-    the glazed barrel canopy stands over both platforms.
-
-## Backlog clearing (2026-11-13)
-
-- **Brico Dépôt / Altex** (w247015071, backlog r3-landmarks-2): `game/src/facade-bands.js` draws the red fascia band round
-  the top of the box (1.5 m deep, 0.4 m under the eaves) and the red Altex front on the south-east corner (the ring corner
-  nearest the Altex POI 44.448203, 26.062284), 16 m along each of its two walls, from the top of the drawn shopfront glazing
-  (4.2 m) to the eaves. Estimates: band depth, front width and the glazing line; colours and placement from the panoramas
-  44.447216, 26.061955 h 0 and 44.448422, 26.062576 h 270.
-- **Centrul Comercial Orhideea entrance canopy** (w23557062, backlog r3-landmarks-2). Estimate, not drawn: the red canopy at
-  the north-west end (pano 44.444372, 26.061485 h 25) has no OSM outline or height, and its size cannot be measured from a
-  panorama without tracing it.
-
-## Backlog close-out, cross-district lane (2026-11-13)
-
-- **Fountain basins** w1454825579 and w1279629948 (add-areas.mjs): no official panorama within 50 m; generic coping and full
-  water are estimates.
-- **Germag** (Bd. Banu Manta 2, node/5862008006 appended by add-pois.mjs, building 2122, 'bloc', 8.7 m): world.js gives a block
-  carrying an appended street-level food / shop / bank / pharmacy POI the builder's own shop-unit flag (the rule of
-  `tools/osm/build-data.mjs`), so it gets the shop front with its fascia instead of a small board on a plain wall
-  (pano wEy2ri9fhmOq0iOEkX5jIg).
-- **Leul** (Monumentul Trupelor de Geniu, w170953582): low-poly lion form on its pedestal (`MONUMENT_SUBJECT`), not a likeness;
-  height is the class estimate.
-- **Petrom** (1065, -1193): the nearest edge to the forecourt is the first metres of Bd. Alexandru Ioan Cuza after the map edge
-  (entered only from outside the map); the route now ends on the next edge a route reaches, 4 m away (`nav.compute` goal
-  fallback). The shop under the canopy is not modelled (`fuel-stations-review.json`).
-
-## Estimates (structures, 2026-11-13)
-
-- Regie footbridge (w799487638): rise 1.6 m and width 4.2 m are estimates; the quay parapet and railing stay open where it lands.
+The Bucharest-wide sources (road signs and markings, STB, Metrorex, lighting, trams) are listed in the JSON `meta.sources`.

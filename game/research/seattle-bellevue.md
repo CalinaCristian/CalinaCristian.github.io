@@ -580,3 +580,8 @@ legible at this resolution).
   published profile). The Bellevue Downtown station tracks (w614517901 / w669516619, layer 1) are drawn as the guideway class: the
   station lies outside the district and its structure was not compared. One pier of 27 is left out where a scenery carriageway passes
   under the span (piers are never placed on a carriageway).
+- **Street trees on Bellevue Way / NE 8th St** (r3-look-8): small crowns re-measured by eye on the aerial mosaic (Esri World Imagery,
+  zoom 19, 0.20 m/px; imagery kept in scratch only), 22 crown centres converted with the exact tile maths (`tree-additions.js`):
+  ten on the west kerb of Bellevue Way at 47.6187 - 47.6200, four on its east kerb, six along the west side at 47.6142 - 47.6147 and
+  two on the south kerb of NE 8th St. 18 are placed; the world builder refuses 4 (carriageway / building clearance). Crowns in the
+  towers' shadows (most of NE 8th St, Bellevue Way 47.6150 - 47.6185) cannot be read on this imagery and are not added.

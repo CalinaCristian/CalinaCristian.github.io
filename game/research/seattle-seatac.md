@@ -255,6 +255,11 @@ outline w1035290130, 47.444099, -122.293207 h330): a low white enclosed corridor
   spacing) are estimates: OSM maps no supports and no published drawing was found. The bridge ways w165240082 / w165240083 (towards
   SR-518) lie 0.4 - 1.2 km north-east, outside the district polygon, and have no sourced height: not drawn. Trains: the game has no
   light-rail service, so no trains run on the guideway (a simplification, not a data gap).
+- **Ground west of International Blvd** (seatac-6, still open): USGS 3DEP (epqs.nationalmap.gov, 2026-11-13) gives 107.9 m on
+  International Blvd at 47.4475 and 110.8 / 115.2 / 114.6 m at 26 / 52 / 130 m west of it; 107.2 -> 110.3 m at 47.4460; 113.4 -> 122.0 m
+  at 47.4490. The expressway and station stand 3 - 9 m above the boulevard. The district world is flat ground (only road decks and
+  ramps have heights) and OSM maps no retaining wall there, so the step is not drawn: a wall with a berm behind it would put the
+  expressway side below its own bank.
 
 ## Backlog clearing (2026-11-13)
 

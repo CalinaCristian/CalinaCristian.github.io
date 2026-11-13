@@ -78,6 +78,7 @@ import { AREA_SPORT, emitBankedTrack, emitRugbyLeague } from './sport-areas.js';
 import { emitParkWalls } from './park-walls.js';
 import { emitDeckLamps } from './deck-lamps.js';
 import { emitFacadeBands } from './facade-bands.js';
+import { placeTreeAdditions } from './tree-additions.js';
 import { channelProfile } from './water-channel-review.js';
 import { carParkOf, carParkLevels, emitCarParkWall, reviewedCarParkHeight } from './car-parks.js';
 import { emitFuelForecourt } from './fuel-forecourt.js';
@@ -7360,6 +7361,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const dx = t.x - hit.x, dz = t.z - hit.z;
         tramTreeConflicts.add(t); tramSweepConflicts.trees.push({ x: t.x, z: t.z, kind: t.kind, species: t.species ?? null, trunkRadiusM: body.r, acrossBodyAxisM: Math.abs(dz * hit.fx - dx * hit.fz), bodyHalfWidthM: hit.body.widthM / 2, bodyLengthM: hit.body.lengthM });
     }
+    const treeAdditions = distId ? placeTreeAdditions(distId, city.proj, placeTree) : null; // (r3-look-8: aerial-measured crowns the survey missed, tree-additions.js)
     const reviewedTreeOut = distId ? reviewedTreeExclusions(treeList, city.proj, distId) : new Set(); // (tree-reviews.js: street-level reviewed crowns)
     const excludedTrees = new Set([...coveredCanopies.excluded, ...waterTreeConflicts.excluded, ...tramTreeConflicts, ...reviewedTreeOut]);
     const treeCount = treeList.length - excludedTrees.size;
@@ -8836,7 +8838,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.tramPropEnvelope = tramPropEnvelope;
     stats.tramSweep = tramSweep ? { ...tramSweep.report, conflicts: tramSweepConflicts } : null;
     stats.tramRailings = tramRailings;
-    stats.monuments = monuments; stats.playgrounds = playgrounds; stats.parkWalls = parkWalls; stats.deckLamps = deckLamps; stats.facadeBands = facadeBands; stats.weirs = weirs; stats.medianLinkSidewalks = medianLinkSidewalks;
+    stats.monuments = monuments; stats.playgrounds = playgrounds; stats.parkWalls = parkWalls; stats.deckLamps = deckLamps; stats.facadeBands = facadeBands; stats.treeAdditions = treeAdditions; stats.weirs = weirs; stats.medianLinkSidewalks = medianLinkSidewalks;
     stats.fuelForecourts = fuelForecourts;
     stats.landmarkWaterFootprints = landmarkWaterFootprints;
     stats.trenchGroundCuts = { corridors: trenchQuads.length, channelWaterTriangles: channelCuts.length, triangles: trenchCutTris }; // (ground layers cut out of open trenches and sunken water channels)

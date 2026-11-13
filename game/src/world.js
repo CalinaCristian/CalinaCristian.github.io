@@ -87,6 +87,7 @@ import { emitWorshipOpenings, worshipHasTowerTag } from './worship.js';
 import { pavedReviewAreas } from './ground-review.js';
 import { reviewedGradeK } from './grade-review.js';
 import { emitAirportForecourt } from './airport-forecourt.js';
+import { emitAreaFences } from './area-fences.js';
 import { applyFuelCanopyReview } from './fuel-canopy-review.js';
 import { PEDESTRIAN_FRONTS } from './pedestrian-fronts.js';
 import { bridgeGuardRow, emitBridgeGuard, guardBlockH, emitGuardSteel, emitGuardScreen, GUARD_CONCRETE } from './bridge-guards.js';
@@ -4318,7 +4319,8 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (i < 0 && k === 'hotel') { // not attached by the build: the building beside it that already carries its name
                 let best = 60; for (const b of bRecs) { const n = norm(b.name); if (!n || (n !== norm(brand) && n !== norm(name))) continue; const d = Math.hypot(b.c[0] - p[1] / q, b.c[1] - p[2] / q); if (d < best) { best = d; i = b.i; } }
             }
-            if (i >= 0 && !(k === 'hotel' ? lodging : fuel).has(i)) (k === 'hotel' ? lodging : fuel).set(i, { text: brand || name, brand: !!brand });
+            const seen = k === 'fuel' && distId && i >= 0 ? fuelStationRow(city.id + '-' + distId, data.buildingIds?.[bRecs[i]?.i ?? i])?.text : null; // (r3-look-2: fuel-look.js seenBrand)
+            if (i >= 0 && !(k === 'hotel' ? lodging : fuel).has(i)) (k === 'hotel' ? lodging : fuel).set(i, { text: seen || brand || name, brand: !!brand });
         }
         for (const b of bRecs) { const t = data.buildingSourceTags?.[b.sourceId] || data.buildingOwnTags?.[b.sourceId]; if (t && /^(hotel|motel|hostel|guest_house)$/.test(t.tourism || '') && !lodging.has(b.i)) lodging.set(b.i, { text: t.brand || t.name || '', brand: !!t.brand }); }
         for (const [i, s] of fuel) { const b = bRecs[i]; if (b && s.text && !lodging.has(i)) { b.name = s.text; b.flags |= 2 | (s.brand ? 8 : 0); } }
@@ -6911,8 +6913,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         const kind = data.poiKinds[r[0]];
         const x = r[1] / 10, z = r[2] / 10, name = str(r[3]), brand = str(r[4]), sub = str(r[5]), bIdx = buildingIndex(r[6], x, z);
         const ks = KIND_STYLE[kind] || KIND_STYLE.landmark;
-        const label = name || brand || (kind === 'busstop' ? (sub.startsWith('tram') ? (US ? 'Streetcar stop' : 'Stație tramvai') : (US ? 'Bus stop' : 'Stație autobuz')) : kind === 'metro' ? (US ? 'Link station' : 'Metrou') : kind);
-        const poi = { id: 'osm' + pois.length, kind, sub, label, brand, x, z, doorX: x, doorZ: z, color: ks.color, icon: sub.startsWith('cafe') ? '☕' : ks.icon, visited: false, h: 4, w: 4, d: 4, interactive: false, building: bIdx };
+        // (r3-look-2) a station a panorama shows under another brand than OSM's (fuel-look.js `seenBrand`, documented exception)
+        // is labelled on the map as it is drawn; the data keeps the OSM brand
+        const seenFuel = kind === 'fuel' && distId && bIdx >= 0 ? fuelStationRow(city.id + '-' + distId, data.buildingIds?.[bRecs[bIdx]?.i])?.text : null;
+        const label = seenFuel || name || brand || (kind === 'busstop' ? (sub.startsWith('tram') ? (US ? 'Streetcar stop' : 'Stație tramvai') : (US ? 'Bus stop' : 'Stație autobuz')) : kind === 'metro' ? (US ? 'Link station' : 'Metrou') : kind);
+        const poi = { id: 'osm' + pois.length, kind, sub, label, brand: seenFuel && brand ? seenFuel : brand, x, z, doorX: x, doorZ: z, color: ks.color, icon: sub.startsWith('cafe') ? '☕' : ks.icon, visited: false, h: 4, w: 4, d: 4, interactive: false, building: bIdx };
         pois.push(poi);
         if (kind === 'busstop') { poi.shelterModel = sourceTransitShelterDecision(data, poiIndex); transitShelterAudit.push({ poiId: poi.id, ...poi.shelterModel }); }
         if (kind === 'fuel') { // the pump is reached from the street: door at the kerb of the nearest drivable lane
@@ -8279,6 +8284,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         // a source building a landmark model replaced (or any otherwise skipped record) is drawn by that model only
         building: id => { const recs = bRecs.filter(o => data.buildingIds?.[o.derivedFrom ?? o.i] === id), lmRec = recs.find(o => o.landmarkReplacement), b = recs.find(o => !o.skip);
             return lmRec ? { replacedBy: lmRec.landmarkReplacement } : b ? { ring: b.ring, h: b.h } : null; } }) : null;
+    // (r2-districts-view-14) perimeter fences OSM maps as `barrier=fence` on a school / university ground (area-fences.js)
+    const areaFences = distId ? emitAreaFences({ key: city.id + '-' + distId, project: (la, lo) => city.proj(la, lo), cellOf,
+        blocked: (x, z, r) => onRibbon(x, z, r) ? 'path' : tramSweep?.circle(x, z, r + 0.2, 0, 6) ? 'tram-sweep' : null, wallAt: (x, z) => !!buildingAt(x, z),
+        baseY: (x, z) => raisedTop(x, z) ?? 0.05,
+        addCollider: (x, z, hd, angle, h, rec) => propColl.push({ x, z, hw: 0.1, hd, angle, r: Math.hypot(0.1, hd), poly: null, h, prop: true, kind: 'fence', sourceId: rec.id }) }) : null;
     const touchesDetailedRing = (x, z, w, d) => realPass && ringGeometry && sceneryMargin(x, z, true) <= (distCfg?.outerRing ?? 600) + Math.hypot(w, d) / 2;
     {
         const bd = data.backdrop || [], pal = PALETTES[country];
@@ -8737,7 +8747,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.buildingOverlapCuts = overlapCuts; // (world-space basin outlines: audits of what stands in or over them)
     stats.buildingOutlineParts = outlineParts; // (style-estimated outlines left undrawn in favour of the tagged volumes inside them)
     stats.bridgeGuardCompletion = guardCompletion; stats.railingNetwork = railingNetwork; stats.railingDrops = railingDrops;
-    stats.elevatedSources = elevatedSources.report; stats.pedestrianBridges = pedestrianBridges;
+    stats.elevatedSources = elevatedSources.report; stats.areaFences = areaFences; stats.pedestrianBridges = pedestrianBridges;
     stats.basarabLamps = basarabLamps;
     stats.barrierJoins = walls.barrierJoins || null;
     stats.coveredRoadModels = coveredRoadModels.report;

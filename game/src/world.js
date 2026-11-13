@@ -191,11 +191,15 @@ const brandStyle = (name) => {
     if (RESEARCH_BRANDS[k]) return RESEARCH_BRANDS[k];
     // whole-word match (research Request: 'Mega' ≠ 'Megaron'); BRANDS is fixed, so its patterns and answers are kept
     if (BRAND_HITS.has(k)) return BRAND_HITS.get(k);
-    BRAND_RES ||= Object.keys(BRANDS).map(b => [new RegExp('(^|[^\\p{L}\\p{N}])' + b.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '($|[^\\p{L}\\p{N}])', 'u'), BRANDS[b]]);
+    BRAND_RES ||= brandPatterns();
     let hit = null; for (const [re, style] of BRAND_RES) if (re.test(k)) { hit = style; break; }
     BRAND_HITS.set(k, hit); return hit;
 };
 let BRAND_RES = null; const BRAND_HITS = new Map();
+function brandPatterns() { return Object.keys(BRANDS).map(b => [new RegExp('(^|[^\\p{L}\\p{N}])' + b.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '($|[^\\p{L}\\p{N}])', 'u'), BRANDS[b]]); }
+// (spec 10 load budget) the brand patterns (Unicode property classes: slow to compile, and V8 compiles a pattern on its
+// first test) are made and run once while the page is idle; the same patterns, in the same order
+if (typeof window !== 'undefined') setTimeout(() => { try { BRAND_RES ||= brandPatterns(); for (const [re] of BRAND_RES) re.test(''); } catch (e) { /* made on first use instead */ } }, 0);
 
 // (spec 10 load budget) the motorway / trunk test per road type, kept (a regular expression per call before)
 const MOTORWAY_TRUNK = new Map(), isMotorwayTrunk = (t) => { let v = MOTORWAY_TRUNK.get(t); if (v === undefined) MOTORWAY_TRUNK.set(t, v = /motorway|trunk/.test(t)); return v; };

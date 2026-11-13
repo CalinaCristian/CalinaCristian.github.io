@@ -469,6 +469,12 @@ export default {
             // r13104229 is one real relation with two prepared outer records.
             // Canonical CEC now includes both exact outer volumes and all holes.
             if(lmId==='cec')for(const sourceId of ['r13104229_0','r13104229_1'])ctx.skipBuildings.add(sourceId);
+            // (round 4, r3-buc-spots-ot-cec) under this scene's sky light the CEC's warm source stone (#dccbaa / #e2d6bb) read
+            // grey-beige; the 2023-08 panoramas show warm cream limestone. Its light stone vertices are warmed here (buildLandmark
+            // builds a fresh geometry per call: the landmark model and the driving world keep theirs): red +4 %, green +1.5 %, blue −7 %
+            // (pale stone stays above the 0.6 floor of the masonry joints shader).
+            if(lmId==='cec'&&L2)L2.mesh.traverse((o)=>{const c=o.isMesh&&o.geometry?.attributes?.color;if(!c)return;const C=c;
+                for(let i=0;i<C.count;i++){const r=C.getX(i),g=C.getY(i),b=C.getZ(i);if(r+g+b<1.7||r<b||r-b>0.3)continue;C.setXYZ(i,Math.min(1,r*1.04),Math.min(1,g*1.015),b>0.6?Math.max(0.605,b*0.93):b*0.93);}C.needsUpdate=true;});
             // placeLandmark supplies exact per-solid polygons/holes/vertical
             // bands. A second filled parent body would close real courtyards.
         }

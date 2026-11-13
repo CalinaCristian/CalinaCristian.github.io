@@ -820,6 +820,10 @@ appearance claims below come from the round 2–3 panorama notes above, never fr
   holds the round 2–3 scene changes (Old Town Calea Victoriei / BNR / Macca portal, Revolution Square, car parks and
   Kretzulescu, Parliament venue signs, Cișmigiu Lacul Lebedelor, Arcul inscription, Herăstrău Japanese garden, Spring Palace
   UN House). The round-4 changes above post-date those pictures.
+- CEC Palace in the Old Town scene: its pale stone vertices are warmed (red +4 %, green +1.5 %, blue −7 %, staying above the
+  masonry-joint threshold) on the scene's own landmark geometry, toward the warm cream limestone of the 2023-08 panoramas
+  under this scene's cool sky light; the landmark source colours and the driving world are unchanged. The amount is an
+  estimate.
 
 ### Estimates and limits (no available source settles them)
 

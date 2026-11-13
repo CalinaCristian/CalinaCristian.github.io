@@ -365,7 +365,7 @@ w241369588, w241369345, w899314658, 44.4237, 26.1124) is 600 m outside the playa
   `m4ZygVZxXJZodU3nvvedUg` shows a round planted bed at grade (a shrub, grass), no basin: OSM looks stale; excluded
   (`add-areas.mjs --exclude`). Correcting the OSM object is a mapper's edit, not made from this repo.
 - **Stop at Piața Sf. Gheorghe** (node/5810960053, appended, no shelter metadata): pano `6pmwrKMHq2FbxifltMYaqw` shows a
-  pole only; `world.js` `STOP_POLE_ONLY` draws the pole and sign without the inferred shelter.
+  pole only; `world-shared.js` `STOP_POLE_ONLY` draws the pole and sign without the inferred shelter.
 
 ## Sources
 

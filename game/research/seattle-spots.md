@@ -135,17 +135,29 @@ looking at the sign). Pike Place is car-free in the scene by design: a car-free 
 - SkyBridge over Western Ave (w296789534, `building=roof`, layer 1): an enclosed walkway between two green steel Warren
   trusses with pale green panels, flat roof, white concrete pier at the market-side kerb (iFZRr4o9WP2yFdlbuLUkeQ @ 315).
 - Pike Place Market Parking garage w184870422: its Western Ave wall is a garage front, not shops.
+- Western Ave (`pike-place-westface.js`): a colonnade at street level along the market's west walls facing the avenue
+  (Main Arcade / Leland Hotel volumes w1271653801, w1271653800, w231357660: square white piers, beam and soffit) and
+  PIKE PLACE MARKET in red letters on the white wall above it. West side: the low pink-stucco building with a parking
+  sign = Market Heritage Center (w231359028, 1 storey, PARKING board on its avenue face); the cream three-storey block =
+  Fix Building (w231359020). "Market Place North" (tan, ribbon windows) is not an OSM name: the mapped Market Place
+  complex north of the market (landuse w403552339) has Market Place One (w231355701, 2003 Western Ave, 8 levels) and Two
+  (w231355696, 2001 Western Ave, 5 levels); both take the tan band-window front.
+- Victor Steinbrueck Park lamps: the three mapped `street_lamp` nodes (n11660363671, n11660363674, n11660363677) and
+  the generated park lamps are drawn by the shared lamp builder.
 
 **Estimates**: sign letter row ≈ 14–16 m, clock Ø ≈ 2.5–3 m; North Arcade eave 3.3 m, roof run 7 m; SkyBridge underside
-≈ 6.5 m over the road. The Gum Wall's current height after cleanings is unknown (2024 figure used).
+≈ 6.5 m over the road. Western Ave: which mapped volumes the pink and cream west-side blocks and "Market Place North"
+are (assignments above), their colours (#d8a598 pink, #e6dcc4 cream, #c8b08a tan) and storeys (Heritage Center 4.6 m,
+Fix Building 3 × 3.7 m); colonnade piers 0.7 m square, 1.6 m off the wall, ≈ 4.5 m apart, beam at 4.4 m; the lettering's
+face (the longest avenue-facing wall), height (7.2 m over the road), 18 m width and red. The Gum Wall's current height after cleanings is unknown (2024 figure used).
 
 **Open (needs a panorama look)**: the Main Arcade street front has a green dado, small-pane windows and ENTRANCE signs —
 the pigs on the roof edge of the Economy / Main Arcade were not seen on any panorama checked and are not modelled; the
 barrel-vaulted canopy left of the sign is neither confirmed nor excluded (small and partly hidden by the sign frame from
-1st Ave and the Corner Market); the Western Ave west side (a low pink-stucco building with a parking sign, a cream
-three-storey block — which of the mapped volumes they are), the "Pike Place Market" lettering and street-level colonnade
-on the market's west face; Steinbrueck Park benches / lamps; Market Place North (tan with ribbon windows; a generic grey
-extrusion in the game).
+1st Ave and the Corner Market).
+
+**Source gaps**: Steinbrueck Park benches — none mapped in the park (the two mapped benches nearby, n8508584428 and
+n8508584429, are on 1st Ave / Pike Place) and no recorded positions, so none are drawn.
 
 ## Seattle Center: Space Needle, Chihuly Garden and Glass, MoPOP (`space-needle`, `chihuly`, `mopop`)
 

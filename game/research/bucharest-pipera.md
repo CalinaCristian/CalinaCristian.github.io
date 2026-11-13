@@ -637,3 +637,15 @@ guards and the yellow railing drawn; the water and the lake polygon are unchange
   rounded corners and a curved roof edge, a large LED screen and flagpoles on a paved forecourt. The model's white panel walls
   with a grey plinth read as a plain grey wall from there; the glazed band, screen and curved edge are not drawn (extents
   not measured).
+
+## Backlog clearing (2026-11-13)
+
+- **Soviet Soldier park wall** (backlog r3-landmarks-9): `game/src/park-walls.js` draws the ≈ 1.1 m red-brick wall with a
+  cap seen on the panorama 44.479208, 26.097410 h 185. Documented exception: OSM maps no barrier there, so the line is the
+  north edge of the mapped park w23731459 (n257012533 → n11871379035, 156 m drawn), open at the two mapped swing gates
+  n311736694 / n311737019 where footway w28379731 enters. Estimates: opening 3.2 m, thickness 0.3 m, the cap colour.
+- **Monumentul Soldatului Sovietic** (n1174026151, backlog r2-landmarks-b-4): a generic `monument` object (`monuments.js`).
+  Estimate: form and size; the monument is hidden by trees from both Șos. Pipera poses, so no likeness.
+- **Podul Barbu Văcărescu lamps** (backlog r3-structures-3): `game/src/deck-lamps.js` puts a single-arm lamp in the guard
+  line of both deck edges about every 30 m wherever the deck is at least 2 m up (44 lamps). OSM maps no `street_lamp` on the
+  deck; spacing and the 8 m height are estimates, the form and both lit edges are from the panorama 44.479661, 26.100612 h 253.

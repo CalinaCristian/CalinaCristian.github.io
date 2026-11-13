@@ -72,6 +72,10 @@ import { decodeDistrictMask, buildSourceBoundarySupport, normalizeSourceMapEnds,
 import { FACADE_DETAIL_GLSL } from './facade-detail.js';
 import { subtractConvex } from './building-overlap.js';
 import { emitMonuments } from './monuments.js';
+import { AREA_SPORT, emitBankedTrack, emitRugbyLeague } from './sport-areas.js';
+import { emitParkWalls } from './park-walls.js';
+import { emitDeckLamps } from './deck-lamps.js';
+import { emitFacadeBands } from './facade-bands.js';
 import { channelProfile } from './water-channel-review.js';
 import { carParkOf, carParkLevels, emitCarParkWall, reviewedCarParkHeight } from './car-parks.js';
 import { emitFuelForecourt } from './fuel-forecourt.js';
@@ -81,6 +85,7 @@ import { emitWeirs } from './weirs.js';
 import { dropMedianLinkSidewalks } from './sidewalk-overlap.js';
 import { emitBellevueGuideway } from './bellevue-guideway.js';
 import { emitSeatacGuideway } from './seatac-guideway.js';
+import { garageDeckRoads } from './garage-decks.js';
 import { buildElevatedSources, planElevatedSources } from './elevated-sources.js';
 import { openRuns, weldEnds } from './deck-outline.js';
 import { applyBuildingReview } from './building-review.js';
@@ -89,6 +94,7 @@ import { pavedReviewAreas } from './ground-review.js';
 import { reviewedGradeK } from './grade-review.js';
 import { emitAirportForecourt } from './airport-forecourt.js';
 import { emitAreaFences } from './area-fences.js';
+import { applyEntranceCanopies, emitUnderpassMouths } from './underpass-mouths.js';
 import { applyFuelCanopyReview } from './fuel-canopy-review.js';
 import { PEDESTRIAN_FRONTS } from './pedestrian-fronts.js';
 import { bridgeGuardRow, emitBridgeGuard, guardBlockH, emitGuardSteel, emitGuardScreen, GUARD_CONCRETE } from './bridge-guards.js';
@@ -484,7 +490,16 @@ function solidMaterial(atlas, preparedNight = null) {
         }
     }
 #endif`).replace('#include <metalnessmap_fragment>', `#include <metalnessmap_fragment>
-    if (vTile > -0.5 && (abs(vTile - 4.0) < 0.1 || abs(vTile - 12.0) < 0.1)) { metalnessFactor = 0.55; roughnessFactor = 0.16; }
+    if (vTile > -0.5 && (abs(vTile - 4.0) < 0.1 || abs(vTile - 12.0) < 0.1)) {
+        // (backlog r3-landmarks-1) a light reviewed glass colour (Agora's silver-grey curtain wall, building-review.js) is pale
+        // coated glass: less mirror, more of its own colour. The palette glass tints all stay below the threshold.
+        float gLight = 0.0;
+#ifdef USE_COLOR
+        gLight = smoothstep(0.5, 0.56, dot(vColor.rgb, vec3(0.2126, 0.7152, 0.0722)));
+        diffuseColor.rgb = mix(diffuseColor.rgb, vColor.rgb * 0.82, gLight * 0.6);
+#endif
+        metalnessFactor = mix(0.55, 0.12, gLight); roughnessFactor = mix(0.16, 0.34, gLight);
+    }
 #ifdef USE_MAP
     else if (isGlass > 0.5) { // window panes: calm sky reflection over the fake room (curtains / open windows reflect less)
         float gl = 1.0 - glassOpen;
@@ -738,7 +753,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         };
     });
     const unnamed = US ? '' : '';
+    const garageDecks = distId ? garageDeckRoads(data) : new Map(); // (h-seatac-garage: car-park deck aisles, garage-decks.js)
     for (const rd of roads) {
+        if (garageDecks.has(rd.index)) continue;
         for (let i = 0; i < rd.ids.length - 1; i++) {
             const a = nodeArr[rd.ids[i]], b = nodeArr[rd.ids[i + 1]];
             if (a === b) continue;
@@ -2075,6 +2092,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // the pitch / turf / clay / hard / pool areas — they were flat coloured patches. The court is fitted with the
     // smallest-area rectangle of its outline (skipped when the outline is not rectangular enough); everything is visual.
     let pitchesDressed = 0;
+    const sportAreaLog = []; // (sport-areas.js: grounds dressed by their own OSM sport tag)
     const sportsColl = []; // (colliders of the sports dressing: it runs before propColl exists — merged in below)
     const dressSports = () => { // (run after the landmarks are built: a ground inside a landmark — the Dinamo pitch — is the model's own)
         const W = rgb('#f4f4ef'), POST = rgb('#ededea'), FENCE = rgb('#2f4a3a'), NET = rgb('#2a2d30');
@@ -2121,10 +2139,31 @@ export async function buildWorld(city, renderer, opts = {}) {
                     if (HL > 10) for (let v = -HW + 2.5; v < HW - 1.5; v += 2.5) strip(-HL + 1, v, HL - 1, v, 0.08); } // lane ropes on long rectangular pools
                 pitchesDressed++; continue;
             }
+            // (backlog floreasca-2) Velodromul Dinamo: a sport=cycling track is a banked concrete bank, not a flat band (sport-areas.js)
+            const sportTag = AREA_SPORT[a.sourceId];
+            const groundOf = (q) => lmGrounds.push({ p: q, x0: Math.min(...q.map(v => v[0])), x1: Math.max(...q.map(v => v[0])), z0: Math.min(...q.map(v => v[1])), z1: Math.max(...q.map(v => v[1])) });
+            if (sportTag === 'cycling' && a.kind === 'track') {
+                const infield = areas.find(o => o !== a && /^(pitch|turf)$/.test(o.kind) && pointInPolygon((o.x0 + o.x1) / 2, (o.z0 + o.z1) / 2, a.outer)), R = minRect(a.outer);
+                if (infield && R) sportAreaLog.push({ id: a.sourceId, sport: sportTag, ...emitBankedTrack({ track: a, infield, rect: R, cell: cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2), base: AREA_Y.track, rgb, ground: groundOf,
+                    addFence: (ax, az, bx, bz, h) => { const L = Math.hypot(bx - ax, bz - az); sportsColl.push({ x: (ax + bx) / 2, z: (az + bz) / 2, hw: 0.2, hd: L / 2, angle: Math.atan2(bx - ax, bz - az), r: Math.hypot(0.2, L / 2), poly: null, h, prop: true, kind: 'fence' }); } }) });
+                continue;
+            }
             if (!/^(pitch|turf|clay|hard|pool)$/.test(a.kind) || a.size < 60 || a.size > 20000) continue;
             if (landmarks.some(l => l.radius > 0 && Math.hypot(l.x - (a.x0 + a.x1) / 2, l.z - (a.z0 + a.z1) / 2) < l.radius)) continue;
             if (a.kind !== 'pool' && holdsOthers(a)) continue;
             const R = minRect(a.outer); if (!R || a.size / R.A < 0.8) continue;
+            if (/^rugby/.test(sportTag || '') && (a.kind === 'pitch' || a.kind === 'turf')) { // (backlog floreasca-2) rugby league lines and H posts, not football (sport-areas.js)
+                const c = cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2), base = AREA_Y[a.kind] ?? Y.pitch, P = (u, v) => [R.cx + R.ux * u - R.uz * v, R.cz + R.uz * u + R.ux * v], POSTC = rgb('#f6f6f4');
+                const q4 = (u0, v0, u1, v1, y, col) => { const [x0, z0] = P(u0, v0), [x1, z1] = P(u1, v0), [x2, z2] = P(u1, v1), [x3, z3] = P(u0, v1); c.sport.flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, y, col, 0.1); };
+                const line = (u0, v0, u1, v1, w = 0.1) => { const L = Math.hypot(u1 - u0, v1 - v0); if (L < 0.05) return; const nu = -(v1 - v0) / L * w / 2, nv = (u1 - u0) / L * w / 2, [ax, az] = P(u0 + nu, v0 + nv), [bx, bz] = P(u1 + nu, v1 + nv), [qx, qz] = P(u1 - nu, v1 - nv), [rx, rz] = P(u0 - nu, v0 - nv); c.sport.flatQuad(ax, az, bx, bz, qx, qz, rx, rz, base + 0.016, W, 0.1); };
+                const s1 = rgb('#5d9a45'), s2 = rgb('#528d3d');
+                sportAreaLog.push({ id: a.sourceId, sport: sportTag, ...emitRugbyLeague({ area: a, rect: R, base, line, P, ang: Math.atan2(R.ux, R.uz), ground: groundOf,
+                    stripe: (u0, u1, hw, k) => q4(u0, -hw, u1, hw, base + 0.003, k % 2 ? s1 : s2),
+                    post: (x, z, h, r) => c.detail.geo(props().cylY, x, base + h / 2, z, 0, r, h, r, POSTC),
+                    crossbar: (x, z, y, len, an, r) => c.detail.geo(props().cylZ, x, base + y, z, an, r, r, len, POSTC),
+                    addPost: (x, z) => sportsColl.push({ x, z, r: 0.12, hw: 0.12, hd: 0.12, angle: 0, poly: null, h: 3, prop: true, kind: 'post' }) }) });
+                pitchesDressed++; continue;
+            }
             // (fidelity pass 2026-11-12, Velodromul Dinamo, OSM way/362465818 inside track way/37899329) a rounded outline —
             // the infield of a velodrome / running track is a capsule — is not its bounding rectangle: the marked pitch is
             // shortened until its corners lie inside the mapped outline (its stripes covered the track's curves)
@@ -4380,6 +4419,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     if (distId) for (const b of bRecs) { const rh = reviewedCarParkHeight(b.sourceId, b.heightSourceCode); if (rh && (!b.roofProfile || (b.roofProfile.shape === 'flat' && b.roofProfile.heightSource === 'style estimate'))) { b.h = rh; if (b.roofProfile) b.roofProfile = { ...b.roofProfile, totalM: rh, eavesM: rh, heightSource: 'street-level review estimate' }; } } // (r2: car-park storeys counted from the street: car-parks.js)
     const fuelCanopyReview = distId ? applyFuelCanopyReview(city.id + '-' + distId, bRecs, data.buildingIds) : []; // (r2: reviewed open fuel roofs the pack draws as blocks: fuel-canopy-review.js)
+    const entranceCanopies = distId ? applyEntranceCanopies(city.id + '-' + distId, bRecs, data.buildingIds) : []; // (grozavesti-7: an OSM roof over a metro entrance is an open canopy, underpass-mouths.js)
     coveredRoadModels.useNativeRibbons(ribbons);
     const buildingPassageAudit=(data.buildingPassageIssues||[]).map(i=>({...i,accepted:false}));
     const configurePassages=b=>{
@@ -5931,11 +5971,12 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     // ---- Pasajul Basarab by night: the blue light band along the deck edges (owner's reference photograph, 2026-11-11).
-    //      The band is the guards' own blue fascia, repeated a few centimetres proud in one mesh whose material glows at
-    //      night (userData.nightEmissive). By day it is the same blue. ESTIMATE of colour and strength.
+    //      The band is the guards' own blue fascia (drawn only here, a few centimetres wider than the fascia it replaces) in one
+    //      mesh whose material glows at night (userData.nightEmissive). By day it is the same blue. ESTIMATE of colour and strength.
     if (basarabBlue.ic > 0) {
         const mesh = new THREE.Mesh(basarabBlue.build(), new THREE.MeshStandardMaterial({ vertexColors: true, emissive: '#2444ff', emissiveIntensity: 0, roughness: 0.6 }));
-        mesh.material.userData.nightEmissive = 2.2; mesh.name = 'Basarab night light band (estimate)'; mesh.castShadow = false; group.add(splitMeshByTiles(mesh, 125)); // (tiles: culled out of view, same geometry)
+        mesh.material.userData.nightEmissive = 2.2; mesh.name = 'Basarab night light band (estimate)'; mesh.castShadow = true; // (r2-perf-6: the band is the fascia now, drawBasarabGuard; it casts the fascia's shadow)
+        group.add(splitMeshByTiles(mesh, 125)); // (tiles: culled out of view, same geometry)
     }
     const treeClear = []; // (after round 6) {x, z, r}: no trees here (fuel forecourts)
     const addPropColl = (x, z, r, kind = 'prop') => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h: 3, prop: true, kind });
@@ -6131,7 +6172,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         // tagged colour only sets the tone, the hue comes from the city / style / era palette (per-building variety)
         const palPick = rgb(pal[Math.floor(brng() * pal.length)]);
         let wallCol = palPick;
-        if (b.colour && b.style !== 'glass') {
+        if (b.colour && (b.style !== 'glass' || b.reviewedColour)) { // (backlog r3-landmarks-1: a reviewed glass colour is kept, Agora's silver-grey wall rendered dark blue)
             const tc = rgb(b.colour), mx = Math.max(...tc), mn = Math.min(...tc), sat = mx ? (mx - mn) / mx : 0;
             // (fidelity pass, Hanul lui Manuc: OSM building:colour=white came out ochre) a literal source colour tag is not a
             // research estimate: it wins outright wherever the raw source tags are retained (data.buildingSourceTags)
@@ -7404,6 +7445,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             basarabLamps.medianTwin = (basarabLamps.medianTwin || 0) + 1;
         }
     }
+    // (backlog r3-structures-3) single-arm lamps on both edges of reviewed road decks (deck-lamps.js; the generic rule keeps none on a deck)
+    const deckLamps = distId ? emitDeckLamps({ district: distId, edges, onRibbon, lampNear, deckY: (e, x, z) => raisedTop(x, z, 0.2) ?? 0.15 + yAlong(e, x, z),
+        place: (l) => { const q = { ...l, osm: false }; lamps.push(q); lampGrid.insert(q.x, q.z, q.x, q.z, q); propColl.push({ x: q.x, z: q.z, r: .18, hw: .18, hd: .18, angle: 0, poly: null, prop: true, kind: 'lamp', inferred: true, y: q.y, h: q.h, top: q.y + q.h, y0: q.y - .3, y1: q.y + q.h }); } }) : [];
     // street furniture from OSM (benches, bins, bollards, post boxes, hydrants, …) — never on a carriageway
     let furnCount = 0;
     {
@@ -8281,6 +8325,13 @@ export async function buildWorld(city, renderer, opts = {}) {
         blocked: (x, z, r) => onRibbon(x, z, r) ? 'on-carriageway' : buildingAt(x, z) ? 'inside-building' : underRoof(x, z) ? 'under-roof' : isWater(x, z) ? 'in-water' : tramSweep?.circle(x, z, r + 0.2, 0, 6) ? 'tram-sweep' : null,
         faceAngle: (x, z) => { const q = nearestEdge(x, z, e => !e.virtual && !e.tunnel, 80); return q ? Math.atan2(q.edge.dirx, q.edge.dirz) + Math.PI / 2 : 0; },
         baseY: (x, z) => raisedTop(x, z) ?? 0.05, addCollider: (x, z, r, h, rec) => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h, prop: true, kind: 'monument', sourceId: rec.id, estimated: true }) }) : null;
+    // (backlog r3-landmarks-9) reviewed boundary walls OSM does not map as barriers, on a mapped outline (park-walls.js)
+    const parkWalls = distId ? emitParkWalls({ district: distId, project: (la, lo) => city.proj(la, lo), cellOf, rgb, baseY: (x, z) => raisedTop(x, z) ?? 0.05,
+        blocked: (x, z, r) => onRibbon(x, z, r) ? 'on-carriageway' : buildingAt(x, z) ? 'inside-building' : tramSweep?.circle(x, z, r + 0.2, 0, 6) ? 'tram-sweep' : null,
+        addWall: (ax, az, bx, bz, h, w) => { const L = Math.hypot(bx - ax, bz - az); propColl.push({ x: (ax + bx) / 2, z: (az + bz) / 2, hw: 0.15, hd: L / 2, angle: Math.atan2(bx - ax, bz - az), r: Math.hypot(0.15, L / 2), poly: null, h, prop: true, kind: 'wall', sourceId: w.id, estimated: true }); } }) : [];
+    // (backlog r3-landmarks-2) reviewed fascia bands / corner fronts on one-colour buildings (facade-bands.js)
+    const facadeBands = distId ? emitFacadeBands({ district: distId, project: (la, lo) => city.proj(la, lo), cellOf, rgb,
+        building: id => { const b = bRecs.find(o => !o.skip && data.buildingIds?.[o.derivedFrom ?? o.i] === id); return b ? { ring: b.ring, h: b.roofProfile?.eavesM ?? b.h } : null; } }) : [];
     const weirs = distId ? emitWeirs({ district: distId, project: (la, lo) => city.proj(la, lo), cellOf, rgb, inWater: isWater, keep: (x, z) => !ringGeometry || sceneryMargin(x, z) <= 400 }) : []; // (r3: mapped weirs in reviewed channels, weirs.js)
     // (2026-11-12 render review) under ANY mapped footprint, also one drawn by a landmark model (skipped here), a canopy
     // or an elevated part: SeaTac's Talking Fountain n8920167700 stands inside the Main Terminal w23772634 (drawn by its
@@ -8298,6 +8349,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         blocked: (x, z, r) => onRibbon(x, z, r) ? 'path' : tramSweep?.circle(x, z, r + 0.2, 0, 6) ? 'tram-sweep' : null, wallAt: (x, z) => !!buildingAt(x, z),
         baseY: (x, z) => raisedTop(x, z) ?? 0.05,
         addCollider: (x, z, hd, angle, h, rec) => propColl.push({ x, z, hw: 0.1, hd, angle, r: Math.hypot(0.1, hd), poly: null, h, prop: true, kind: 'fence', sourceId: rec.id }) }) : null;
+    // (grozavesti-7) street-level mouths of pedestrian underpasses OSM maps underground (underpass-mouths.js)
+    const underpassMouths = distId ? emitUnderpassMouths({ key: city.id + '-' + distId, project: (la, lo) => city.proj(la, lo), cellOf,
+        blocked: (x, z, r) => onRibbon(x, z, r) ? 'ribbon' : tramSweep?.circle(x, z, r + 0.2, 0, 6) ? 'tram-sweep' : null, inBuilding: (x, z) => !!buildingAt(x, z),
+        baseY: (x, z) => raisedTop(x, z) ?? 0.05,
+        addCollider: (x, z, hw, hd, angle, h, rec) => propColl.push({ x, z, hw, hd, angle, r: Math.hypot(hw, hd), poly: null, h, prop: true, kind: 'underpass-parapet', sourceId: rec.id }) }) : null;
     const touchesDetailedRing = (x, z, w, d) => realPass && ringGeometry && sceneryMargin(x, z, true) <= (distCfg?.outerRing ?? 600) + Math.hypot(w, d) / 2;
     {
         const bd = data.backdrop || [], pal = PALETTES[country];
@@ -8728,7 +8784,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     graph.edges = driv;
 
     setProgress(''); const phases = PHASES.splice(0);
-    const stats = { hallFurniture: hallFurnitureStats, waterBridgeRailings, reviewedBridgeRailings, fasciaLayout: { records: fasciaLayoutAudit, boards: facadeBoards, scope: 'Inferred coplanar fascia boards on existing source walls; source POIs and names unchanged' }, sourceWaterTreeConflicts: { records: waterTreeConflicts.records, sourceRecordsRetained: true, marginM: 0, scope: 'Physical trunk bodies intersect detailed basins and their rendered granite rims; not canopy thinning or road/traffic change' }, parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, bridgeBents: bridgeBents.report, treeDeckClearance, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, backdropSourceOwnership, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
+    const stats = { hallFurniture: hallFurnitureStats, waterBridgeRailings, reviewedBridgeRailings, fasciaLayout: { records: fasciaLayoutAudit, boards: facadeBoards, scope: 'Inferred coplanar fascia boards on existing source walls; source POIs and names unchanged' }, sourceWaterTreeConflicts: { records: waterTreeConflicts.records, sourceRecordsRetained: true, marginM: 0, scope: 'Physical trunk bodies intersect detailed basins and their rendered granite rims; not canopy thinning or road/traffic change' }, parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, bridgeBents: bridgeBents.report, treeDeckClearance, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, backdropSourceOwnership, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, sportAreas: sportAreaLog, fuel: fuelLog,
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, inferredBuildingDetails: inferredDetailAudit, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     stats.scenerySource = scenerySourceAudit;
     stats.backdropInLandmark = backdropInLandmark;
@@ -8748,7 +8804,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.tramPropEnvelope = tramPropEnvelope;
     stats.tramSweep = tramSweep ? { ...tramSweep.report, conflicts: tramSweepConflicts } : null;
     stats.tramRailings = tramRailings;
-    stats.monuments = monuments; stats.weirs = weirs; stats.medianLinkSidewalks = medianLinkSidewalks;
+    stats.monuments = monuments; stats.parkWalls = parkWalls; stats.deckLamps = deckLamps; stats.facadeBands = facadeBands; stats.weirs = weirs; stats.medianLinkSidewalks = medianLinkSidewalks;
     stats.fuelForecourts = fuelForecourts;
     stats.landmarkWaterFootprints = landmarkWaterFootprints;
     stats.trenchGroundCuts = { corridors: trenchQuads.length, channelWaterTriangles: channelCuts.length, triangles: trenchCutTris }; // (ground layers cut out of open trenches and sunken water channels)
@@ -8756,7 +8812,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.buildingOverlapCuts = overlapCuts; // (world-space basin outlines: audits of what stands in or over them)
     stats.buildingOutlineParts = outlineParts; // (style-estimated outlines left undrawn in favour of the tagged volumes inside them)
     stats.bridgeGuardCompletion = guardCompletion; stats.railingNetwork = railingNetwork; stats.railingDrops = railingDrops;
-    stats.elevatedSources = elevatedSources.report; stats.areaFences = areaFences; stats.pedestrianBridges = pedestrianBridges;
+    stats.elevatedSources = elevatedSources.report; stats.areaFences = areaFences; stats.underpassMouths = underpassMouths; stats.entranceCanopies = entranceCanopies; stats.pedestrianBridges = pedestrianBridges;
     stats.basarabLamps = basarabLamps;
     stats.barrierJoins = walls.barrierJoins || null;
     stats.coveredRoadModels = coveredRoadModels.report;

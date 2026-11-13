@@ -7,7 +7,7 @@ export const CANDELABRA_MODEL = { globes: 5, globeR: 0.32, armHalfM: 0.95, estim
 export const LAMP_FORM_ZONES = {
     'bucharest-unirii': [
         // Piața Unirii: 16 mapped street_lamp nodes in the square, no style tags; the 2024 panoramas of the fountain field
-        // (round 2 / 3 street-level review, game/research/bucharest-unirii.md) show tall dark candelabra lamps with globe clusters
+        // (game/research/bucharest-unirii.md, "Landmarks, monuments and street furniture") show tall dark candelabra lamps with globe clusters
         { form: 'candelabra', lat: 44.4268, lon: 26.1025, radiusM: 150, review: 'Street View 2024, Piața Unirii fountain field' },
     ],
 };

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import * as THREE from '../../game/vendor/three.module.min.js';
 import { LANDMARKS, buildLandmark } from '../../game/src/landmarks.js';
-import { collideBuildings } from '../../game/src/world.js';
+import { collideBuildings } from '../../game/src/world-collide.js';
 import { US_FOOTPRINTS as U } from '../../game/src/landmark-us-source.js';
 const ledger=JSON.parse(await fs.readFile(new URL('../../game/research/us-landmarks-source.json',import.meta.url)));
 const sea=LANDMARKS.filter(l=>l.city==='seattle'),models=new Map();let checks=0;

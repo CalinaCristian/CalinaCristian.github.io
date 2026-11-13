@@ -76,7 +76,7 @@ R15.11 **Visit content**:
   the dice), then taps or drags a ringed checker to a marked landing spot (a spot reached with both dice plays them in
   turn); Take back undoes within the turn; the dice are handed over explicitly once nothing more can be played and pass
   by themselves when no move is possible. Doru moves his checkers one at a time. Rules follow Romanian practice
-  (`game/research/table-cismigiu.md`): no cube, the opening winner throws both dice again, both dice compulsory and the
+  (`game/research/bucharest-spots.md`, "Table (Romanian backgammon) at La Șahiști"): no cube, the opening winner throws both dice again, both dice compulsory and the
   higher when only one can be played, linie 1 / marț 2 / marț tehnic 3, score kept to three lines across games. Doru and
   an onlooker talk in Romanian with an English line below (dice called the Romanian way, luck rated against all 36
   throws, reactions to hits, gates, a closed board, bare checkers, the race, a marț, slow play, the result); the player
@@ -88,7 +88,7 @@ R15.11 **Visit content**:
   bike station by the arrival alley is an estimate (none is mapped); a bike stays where the rider got off and E beside it
   gets back on.
 - **Old Town.** Freddo dance and shot complete only after real play; entering the doorway alone does not. Day
-  activities (`scenes/old-town-daylife.js`, `game/research/old-town-daylife.md`) stand in front of real OSM places found
+  activities (`scenes/old-town-daylife.js`, `game/research/bucharest-spots.md` ("Things to do by day and night")) stand in front of real OSM places found
   open, with their hours; a closed place says when it opens and a closed-down place gets no activity. Props are
   held in the hand; nothing is added to buildings or streets except the busker's guitar case. Terrace furniture needs
   OSM `outdoor_seating=yes`; a name alone gives a sign only. The visit boundary is enforced after walker movement and

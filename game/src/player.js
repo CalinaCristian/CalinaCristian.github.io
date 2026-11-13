@@ -1,6 +1,6 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { makeCockpit } from './vehicles.js';
-import { collideBuildings } from './world.js';
+import { collideBuildings } from './world-collide.js';
 import { clamp, damp, lerp } from './util.js';
 import { roadWidthAt } from './nav.js';
 import { playerBodySampler } from './player-body-interval.js';

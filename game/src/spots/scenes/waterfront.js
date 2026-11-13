@@ -120,7 +120,7 @@ export default {
         // promenade lamps on the water side of Alaskan Way (every 22 m), and warm lights along the pier edges (bay lights at night)
         { const road = [[113, 96], [89, 59], [69, 27], [41, -19], [14, -59], [-25, -112], [-62, -159], [-80, -178]];
           // (r3-sea-spots-b-6) the rebuilt promenade's poles are tall dark square-section posts with a slim arm and a flat head
-          // (Street View along Alaskan Way, section 7), not the shared round grey cobra: built here; their light entries go to
+          // (Street View along Alaskan Way, seattle-spots.md "Waterfront"), not the shared round grey cobra: built here; their light entries go to
           // the shared set with the arm yaw. Post 9 m, arm 2 m and head size are estimates.
           const lb = new GeoBatch(), H = 9;
           for (let i = 1; i < road.length; i++) { const [ax, az] = road[i - 1], [bx, bz] = road[i], L = Math.hypot(bx - ax, bz - az), ux = (bx - ax) / L, uz = (bz - az) / L;
@@ -134,7 +134,7 @@ export default {
           ctx.add(lb.build('promenade-lamps')); }
         // (r3-sea-spots-b-6) Pier 58 playground (OSM w1417461575, equipment not mapped): generic climbing tower and swings on
         // the rebuilt pier's deck; the promenade's planted beds (OSM natural=scrub / flowerbed / man_made=bioswale, Street View
-        // section 7: planted beds between road and promenade) carry low shrubs instead of reading as grass
+        // seattle-spots.md "Waterfront": planted beds between road and promenade) carry low shrubs instead of reading as grass
         { const pg = d.areas.find((a) => a.id === 'w1417461575'); if (pg) ctx.extras.pier58Playground = playgroundKit(ctx, pg.poly, { y: DECK_Y + 0.08, name: 'pier58-playground' }).pieces; }
         { const rb = rng(1417); let n = 0; for (const a of d.areas) { if (!(a.natural === 'scrub' || a.landuse === 'flowerbed' || a.man_made === 'bioswale')) continue; const B = polyBox(a.poly), A = Math.abs(polyArea(a.poly));
             for (let i = 0, k = 0; i < 400 && k < Math.min(60, A / 6); i++) { const x = B.x0 + rb() * (B.x1 - B.x0), z = B.z0 + rb() * (B.z1 - B.z0); if (!inPoly(x, z, a.poly) || isWater(x, z)) continue; k++; n++; ctx.trees.push({ x, z, kind: 'shrub', s: 0.35 + rb() * 0.35, c: ['#4f6a38', '#5d7340', '#6b5a3a', '#46603a', '#7a6a4a'][k % 5] }); } }

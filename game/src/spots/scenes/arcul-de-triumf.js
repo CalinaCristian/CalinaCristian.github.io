@@ -6,7 +6,7 @@ import { bucBackdrop, placeLandmark } from '../buc.js';
 import { roadWidth } from '../osm.js';
 import { addTraffic } from '../cars.js';
 import { ARC_SOURCE_PARTS } from '../../landmark-arcul-source.js';
-import { collideBuildings } from '../../world.js';
+import { collideBuildings } from '../../world-collide.js';
 import { arcRaceCourse, arcRoundabout, arcActiveCarriageway, arcPlaquePlacements } from './arcul-layout.js';
 import { createArcActivities } from './arcul-activities.js';
 import { parkWoods, dropMedianTrees, businessSigns, thinTrees, farCanopy } from './buc-green.js';

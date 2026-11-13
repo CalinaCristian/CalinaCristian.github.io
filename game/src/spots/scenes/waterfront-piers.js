@@ -16,7 +16,7 @@
 //  1 m DEM at MarketFront (23.8 m NAVD88 at 47.60951, -122.34293).
 //  Businesses: OpenStreetMap, live database of 2026-11-12 (the extract of 2026-11-06 plus the ones in LIVE below);
 //  "Elliott's Oyster House" on Pier 56 is not mapped: its sign is there in the Sep 2025 panorama (documented
-//  exception, game/research/seattle-spots.md).
+//  exception, game/research/seattle-spots.md, "Waterfront").
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, obb, inPoly, centroid, clamp } from '../kit.js';

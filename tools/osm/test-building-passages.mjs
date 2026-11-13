@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import { pointInPolygon } from './geom.mjs';
 import assert from 'node:assert/strict';
 import { passageSolids, clipPassageWall, passageInterior, passageBaseUnknown } from '../../game/src/building-passages.js';
-import { collideBuildings } from '../../game/src/world.js';
+import { collideBuildings } from '../../game/src/world-collide.js';
 import { ringArea } from '../../game/src/building-parts.js';
 import { sourcePassages } from './source-passages.mjs';
 const ring=[[0,-6],[20,-6],[20,6],[0,6]],holes=[[[7,3],[11,3],[11,5],[7,5]]],snapshot=JSON.stringify({ring,holes});

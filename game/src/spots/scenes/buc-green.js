@@ -1,7 +1,7 @@
 // ============================================================================
 //  Shared context helpers for the north-Bucharest tourist scenes (Arcul de
 //  Triumf, Herăstrău, Spring Palace), from the 2026-11-12 OSM / Street View
-//  fidelity review (game/research/bucharest-spots.md, "Fidelity review"):
+//  fidelity review (game/research/bucharest-spots.md, "Rules shared by the Bucharest scenes"):
 //   - parkWoods: the mature canopy of mapped parks / gardens. OSM maps the park
 //     polygons but almost none of their trees; the count and the positions are
 //     an estimate (deterministic scatter), kept clear of every mapped building,

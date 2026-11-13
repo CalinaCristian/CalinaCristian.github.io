@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Building/courtyard collision behavior, independent of rendering or network.
 import assert from 'node:assert/strict';
-import { collideBuildings } from '../../src/world.js';
+import { collideBuildings } from '../../src/world-collide.js';
 
 const building = {
     x: 0, z: 0, r: 20, hw: 10, hd: 10, angle: 0, h: 12,

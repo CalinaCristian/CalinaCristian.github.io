@@ -16,7 +16,7 @@
 // ============================================================================
 import { CITIES } from './cities.js';
 import { chapterMontage, saveProgress } from './chapters.js';
-import { collideBuildings } from './world.js';
+import { collideBuildings } from './world-collide.js';
 import { WorldMap } from './worldmap.js';
 import { Drone } from './drone.js';
 

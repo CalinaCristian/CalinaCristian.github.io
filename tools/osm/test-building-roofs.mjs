@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import * as THREE from '../../game/vendor/three.module.min.js';
-import { collideBuildings } from '../../game/src/world.js';
+import { collideBuildings } from '../../game/src/world-collide.js';
 import { parseMeasure, makeRoofProfile, parseRoofDirection, validRoofProfile, roofMesh, visibleRoofMesh, roofSignature } from '../../game/src/building-roofs.js';
 const close = (a, b, epsilon = 1e-7) => assert.ok(Math.abs(a - b) < epsilon, `${a} != ${b}`);
 const triangulate = (outer, holes = []) => ({ pts: outer.concat(...holes), tris: THREE.ShapeUtils.triangulateShape(outer.map(p => new THREE.Vector2(...p)), holes.map(r => r.map(p => new THREE.Vector2(...p)))) });

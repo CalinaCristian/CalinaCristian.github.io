@@ -13,6 +13,9 @@ import {
 const SEV_ORDER = { high: 0, medium: 1, low: 2 };
 // a red-light queue (the leader waits at red, or queues behind one that does) counts as waiting, not blocked, this long
 const RED_QUEUE_S = 60;
+// a leader inside an active congestion hotspot (the game's traffic.jamAt > 0.25: the configured rush-hour / school-run
+// jams, e.g. the Rosetti school run on Garibaldi, I-405 / NE 8th) crawls stop-and-go by design: legal waiting this long
+const JAM_QUEUE_S = 90;
 // issue types whose screenshot rarely helps (remote / transient): never spend a software-GL frame on them
 const NO_SHOT = new Set(['vehicle-overlap', 'vehicle-overlap-ghost', 'ped-in-vehicle', 'vehicle-off-road', 'ped-on-carriageway']);
 
@@ -401,11 +404,12 @@ export class Harness {
             // (h-sim, 2026-11-13) queued behind a car that waits at a red light (the game's own redQ: its queue is not stuck)
             // is legal waiting for up to RED_QUEUE_S (about one five-phase cycle at Piața Romană), not a blockage
             const redQueue = obs.gap < 9 && obs.info?.redQ && (ap.redQT = (ap.redQT || 0) + dt) < RED_QUEUE_S;
-            if (redQueue) { ap.stallT = 0; ap.lastProgressT += dt; }
+            const jamQueue = !redQueue && obs.gap < 9 && obs.info?.jam > 0.25 && (ap.jamQT = (ap.jamQT || 0) + dt) < JAM_QUEUE_S;
+            if (redQueue || jamQueue) { ap.stallT = 0; ap.lastProgressT += dt; }
             else if (obs.gap < 9) { ap.waitT += dt; ap.stallT = 0; }
             else { ap.stallT += dt; }
         } else {
-            ap.waitT = Math.max(0, ap.waitT - dt * 2); ap.stallT = Math.max(0, ap.stallT - dt); if (av > 2) ap.redQT = 0;
+            ap.waitT = Math.max(0, ap.waitT - dt * 2); ap.stallT = Math.max(0, ap.stallT - dt); if (av > 2) { ap.redQT = 0; ap.jamQT = 0; }
             // (h-sim) stopped at its own red light: legal waiting, not "no progress" (up to RED_QUEUE_S)
             if (ap.atRed && av < 0.5 && (ap.redQT = (ap.redQT || 0) + dt) < RED_QUEUE_S) ap.lastProgressT += dt;
         }
@@ -523,7 +527,7 @@ export class Harness {
             const along = fx * P.fx + fz * P.fz;
             test(v.x, v.z, fx, fz, v.width / 2, v.length / 2, v.speed * along, v.parked ? 'parked car' : (v.kind || 'car'), { id: v.id, kind: v.kind, parked: !!v.parked, speed: r1(v.speed), redQ: !!(v.waitRed || v.redQ) });
             const currentBodyGap = bodyGap(v, fx, fz);
-            if (currentBodyGap < gap) { gap = currentBodyGap; speed = v.speed * along; what = v.parked ? 'parked car' : (v.kind || 'car'); info = { id: v.id, kind: v.kind, parked: !!v.parked, speed: r1(v.speed), redQ: !!(v.waitRed || v.redQ), bodyCorridor: true, playerYSource: py.source, vehicleYSource: vy.source }; }
+            if (currentBodyGap < gap) { gap = currentBodyGap; speed = v.speed * along; what = v.parked ? 'parked car' : (v.kind || 'car'); info = { id: v.id, kind: v.kind, parked: !!v.parked, speed: r1(v.speed), redQ: !!(v.waitRed || v.redQ), bodyCorridor: true, playerYSource: py.source, vehicleYSource: vy.source, jam: r1(v.jam || 0), still: r1(v.still || 0), stopWhy: v.stopWhy ?? null }; }
         }
         for (const p of (T.nearPeds && !this.ap.ignorePeds) ? T.nearPeds(P.x + P.fx * 15, P.z + P.fz * 15, 22) : []) if (p.state !== 'down') test(p.x, p.z, 1, 0, 0.4, 0, 0, 'pedestrian', null);
         return { gap, speed, what, info };

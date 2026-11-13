@@ -232,7 +232,18 @@ areas and jet nodes: JSON `fountains.layout.basins[]` [fountains_44] [fountains_
 
 - **Dealul Mitropoliei** (Patriarchal Cathedral, `cathedral`; the Palace of the Parliament, `parliament`, closes the Bd.
   Unirii vista to the west): the hill (about 15 m) is not modelled, the district ground is flat; at its foot on Str.
-  Bibescu Vodă parking, trees and steps rising to the hill. Reviews: cathedral (44.4241, 26.0827 h340 / h48) cream-white
+  Bibescu Vodă parking, trees and steps rising to the hill. EU-DEM 25 m (OpenTopoData, 2026-11-13): plateau 79–81.5 m
+  (peak n9680128587 at 44.42438, 26.09762), Antim Ivireanu 71.2 m, Bd. Unirii by the square 72.5 m, the south foot
+  73–76 m. A raised landform would have to lift the cathedral w232296927, the Patriarchal Palace, the bell tower
+  w381822404, the Strada Patriarhiei driveways (one in a short tunnel, w1458826486), Aleea Dealul Mitropoliei with its
+  houses and every tree and path of the slope park w283790894; the plateau also lies outside the playable edge (about
+  100 m west of it). So the hill stays flat, and what OSM maps of its built relief is drawn instead (`hill-structures.js`,
+  2026-11-13): the switchback stair on the south-east flank (steps w1053336775 / w1053336776 / w1053336783 between the
+  retaining walls w1053336778–w1053336782, 126 m of wall) and the flight w677291288 below the bell tower. The district's
+  ground stands for the plateau there, so they are drawn as seen from the top: each wall shows a 0.9 m stone parapet
+  with a coping and each stair a paved strip with marked treads; drawn as rising blocks they read as walls and stairs to
+  nowhere. The steps w1219309567 by the Faculty of Theology are left out (no incline tag; both ends equally far from the
+  plateau). Reviews: cathedral (44.4241, 26.0827 h340 / h48) cream-white
   body, gold domes, tall central tower: match (the wall in front is outside the model); parliament (44.4292, 26.0897
   h287) massing and cream colour: match.
 - **Other places**: Sf. Spiridon Nou church on Bd. Cantemir south of the square; Biserica Hagiu (1872) on Str. Traian;
@@ -380,8 +391,8 @@ w241369588, w241369345, w899314658, 44.4237, 26.1124) is 600 m outside the playa
 - **Fuel**: MOL's four pump islands were not counted on a panorama; OMV's curved shop canopy is not modelled. Canopy soffits
   read dark under shade although white in every panorama (lighting, not colour).
 - **Open**: the GTS office unit at no. 101 (courtyard building?) is unverified; the rooftop advertising brands round
-  Piața Unirii are not verified; Dealul Mitropoliei needs ground heights under its roads, buildings and the cathedral
-  (backlog unirii-small); not seen at street level: Hala Traian main front, Sf. Spiridon Nou, the school pitches, the park
+  Piața Unirii are not verified; Dealul Mitropoliei's relief needs ground heights under its roads, buildings and the
+  cathedral (only its mapped walls and stairs are drawn; parapet 0.9 m, stair width 2 m and materials are estimates); not seen at street level: Hala Traian main front, Sf. Spiridon Nou, the school pitches, the park
   interior of Piața Unirii, the tenant fronts along the middle of the Unirea west side.
 
 ## Documented exceptions

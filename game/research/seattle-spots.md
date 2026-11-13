@@ -637,7 +637,7 @@ courtyard).
 - Car park r19655198: in use with dense conifers round it; parked cars square to the mapped aisles.
 - Postcard: the guided tour's postcard frames the Perennial Border; the research iconic photo (ravine bridge) is ≈ 300 m
   from the entry spawn, past the tour's 230 m reach, and the bridge keeps its own activity ("Cross the suspension
-  bridge"). Owner decision still open (r3-bel-spots-9).
+  bridge"). Kept that way (2026-11-13): the postcard stays inside the tour's reach and the bridge has its own activity.
 
 **Estimates**: artwork stand-ins sized from one photo each; Shorts House exterior (one storey, flat roof — no exterior
 photo); pitch markings (standard proportions), floodlight masts 18 m; parked cars (OSM maps lot + aisles, not bays). Name

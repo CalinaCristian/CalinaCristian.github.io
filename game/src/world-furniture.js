@@ -8,6 +8,7 @@ import { clamp, distPointSeg, pointInPolygon } from './util.js';
 import { rgb } from './geobuild.js';
 import { basarabEdge } from './basarab-structure.js';
 import { emitDeckLamps } from './deck-lamps.js';
+import { emitLakeBankPiece } from './sunken-lakes.js';
 import { quayBalustradeRow, emitOrnamentalQuayPanels } from './quay-balustrades.js';
 import { Y, props } from './world-shared.js';
 
@@ -129,7 +130,24 @@ export async function buildStreetFurniture(ctx) {
     // and railing stay open across its width there (its mapped line, pedestrian-bridges.js)
     const footLandings = (PEDESTRIAN_BRIDGES[`${city.id}-${distId}`] || []).filter(b => b.cls === 'arched').map(b => ({ hw: b.widthM / 2 + .4, pts: b.nodes.map(([la, lo]) => { const q = city.proj(la, lo); return [q.x, q.z]; }) }));
     const onFootLanding = (x, z) => footLandings.some(f => f.pts.some((p, i) => i > 0 && distPointSeg(x, z, f.pts[i - 1][0], f.pts[i - 1][1], p[0], p[1]).d < f.hw));
+    let lakeBankM = 0;
     for (const a of channelAreas) {
+        if (a.sunkenLake) { // (pipera-2) a lake below the street: a grass bank and a slab revetment inside the outline, no quay (sunken-lakes.js)
+            const prof = a.sunkenLake, grass = rgb('#6d7b4c'), slab = rgb('#8f8c84'), earth = rgb('#5c5442');
+            for (const ring of [a.outer, ...a.holes]) for (let k = 0; k < ring.length; k++) {
+                const [ax, az] = ring[k], [bx, bz] = ring[(k + 1) % ring.length], L = Math.hypot(bx - ax, bz - az); if (L < 0.3) continue;
+                const ux = (bx - ax) / L, uz = (bz - az) / L; let nx = -uz, nz = ux;
+                { const mx = (ax + bx) / 2, mz = (az + bz) / 2; if (!isWater(mx + nx * 1.5, mz + nz * 1.5)) { nx = -nx; nz = -nz; } }
+                const n = Math.max(1, Math.round(L / 4));
+                for (let i = 0; i < n; i++) {
+                    const t0 = i / n * L, t1 = (i + 1) / n * L, P = (t, o, y) => [ax + ux * t + nx * o, y, az + uz * t + nz * o];
+                    const mx = ax + ux * (t0 + t1) / 2, mz = az + uz * (t0 + t1) / 2;
+                    if (onRibbon(mx, mz, 1.0) || onRibbon(mx + nx * 3, mz + nz * 3, 0.5)) continue; // a bridge / street over the water
+                    emitLakeBankPiece({ sb: cellOf(mx, mz).solid, P, t0, t1, nx, nz, prof, grass, slab, earth }); lakeBankM += t1 - t0;
+                }
+            }
+            continue;
+        }
         const CHAN = a.chanProfile; // (shadows the model section with this polygon's own, see water-channel-review.js)
         const conc = rgb('#9c9890'), wet = rgb('#5d615a'), bankC = rgb('#86857c'), rail = rgb('#3d4246'), capC = rgb('#b3afa6');
         for (const ring of [a.outer, ...a.holes]) for (let k = 0; k < ring.length; k++) {
@@ -183,6 +201,6 @@ export async function buildStreetFurniture(ctx) {
     const closures = [];
     await finishPendingRanges();
     return {
-        basarabLamps, channelM, closures, deckLamps, furnCount, lampsMoved, get lampsWet() { return lampsWet; },
+        basarabLamps, channelM, closures, deckLamps, furnCount, lakeBankM, lampsMoved, get lampsWet() { return lampsWet; },
     };
 }

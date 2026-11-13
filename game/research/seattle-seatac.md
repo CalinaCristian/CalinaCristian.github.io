@@ -57,9 +57,11 @@ Review against panoramas (2026-11-12):
 - **Estimates** (OSM maps no supports, no published drawing found): pier positions and spacing (34 m; piers only clear of carriageways and buildings), girder depth 1.8 m, deck width 2 × 2.6 m plus the track spacing, wire / pole heights and spacing.
 - Not drawn: the bridge ways w165240082 / w165240083 towards SR-518 (0.4–1.2 km north-east, outside the district, no sourced height). No trains: the game has no light-rail service (a simplification).
 
-## 5. Ground levels west of International Blvd (open)
+## 5. Ground levels west of International Blvd
 
-USGS 3DEP (epqs.nationalmap.gov, 2026-11-13): 107.9 m on International Blvd at 47.4475 and 110.8 / 115.2 / 114.6 m at 26 / 52 / 130 m west of it; 107.2 → 110.3 m at 47.4460; 113.4 → 122.0 m at 47.4490. Between S 176th and S 170th the boulevard lies below a ~3 m concrete retaining wall, rockery and planted bank carrying the expressway and the station, which stand 3–9 m above it. The district world is flat ground (only road decks and ramps have heights) and OSM maps no retaining wall there, so the step is not drawn: a wall with a berm behind it would put the expressway side below its own bank. Needs ground heights outside the road decks (backlog seatac-6).
+USGS 3DEP (epqs.nationalmap.gov, 2026-11-13): 107.9 m on International Blvd at 47.4475 and 110.8 / 115.2 / 114.6 m at 26 / 52 / 130 m west of it; 107.2 → 110.3 m at 47.4460; 113.4 → 122.0 m at 47.4490. Between S 176th and S 170th the boulevard lies below a ~3 m concrete retaining wall, rockery and planted bank carrying the expressway and the station, which stand 3–9 m above it. OSM maps no retaining wall there.
+
+Drawn since 2026-11-13 (`retaining-banks.js`, backlog seatac-6), without moving any road: the district ground is flat and the expressway lies at the boulevard's level 0–6 m west of its sidewalk, so the full step cannot be shown. Along the back of the boulevard's west sidewalk from 47.44875 to 47.44545 (354 m) a concrete wall 1.4 m high; where a strip is left before the expressway's guard rail (2.0–3.7 m wide, 204 m of the run) a rockery steps back to 2.0 m and a planted bank with shrubs (to about 3 m above the boulevard, the USGS step) fills it up to the guard rail, so the expressway side sees a 2.0 m planted bank behind its rail; where the sidewalk meets the expressway's edge (152 m, round the station footbridge and at 47.4480) the wall takes the back 0.4 m of the sidewalk and stands alone against the barrier. Colliders follow the wall and bank. Estimates: wall 1.4 m, rockery 0.9 m deep to 2.0 m, shrubs 0.7–1.1 m, colours; the reference's split between plain wall, rockery and bank along the run was not measured (the same section is drawn wherever the strip allows). The 3–9 m step itself still needs ground heights outside the road decks.
 
 ## 6. Buildings, hotels and car parks
 
@@ -117,7 +119,7 @@ Three placed outdoors (Celestial Navigation, Talking Fountain, one statue); work
   `area:highway`, `place=square`; `pedestrian-plazas.js`) is drawn paved over its whole polygon unless its OSM `surface` is
   grass (no surface tag counts as paved); mapped grass / park polygons inside stay. Rule as in `bucharest-romana.md`
   section 8; not compared with a panorama. Here: 1 plaza, untagged (paved).
-- Ground step west of International Blvd (§5).
+- Ground step west of International Blvd (§5): drawn as a wall, rockery and bank at the boulevard's level; the real 3–9 m step needs ground heights.
 - Car park w479818870 level count and SureStay storeys (§6).
 - Terminal facade, curb canopy and airline door signs are not photo-verified (Commons has almost no CC photos of the drives).
 

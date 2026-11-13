@@ -15,6 +15,8 @@ import { backdropSourceOwner } from './backdrop-source-owner.js';
 import { sidewalkWidth } from './sidewalk-source.js';
 import { emitMonuments } from './monuments.js';
 import { emitParkWalls } from './park-walls.js';
+import { emitRetainingBanks } from './retaining-banks.js';
+import { emitHillStructures } from './hill-structures.js';
 import { emitFacadeBands } from './facade-bands.js';
 import { emitWeirs } from './weirs.js';
 import { emitBellevueGuideway } from './bellevue-guideway.js';
@@ -359,6 +361,13 @@ export function buildScenery(ctx) {
     const parkWalls = emitParkWalls({ district: distId, project: (la, lo) => city.proj(la, lo), cellOf, rgb, baseY: (x, z) => raisedTop(x, z) ?? 0.05,
         blocked: (x, z, r) => onRibbon(x, z, r) ? 'on-carriageway' : buildingAt(x, z) ? 'inside-building' : tramSweep?.circle(x, z, r + 0.2, 0, 6) ? 'tram-sweep' : null,
         addWall: (ax, az, bx, bz, h, w) => { const L = Math.hypot(bx - ax, bz - az); propColl.push({ x: (ax + bx) / 2, z: (az + bz) / 2, hw: 0.15, hd: L / 2, angle: Math.atan2(bx - ax, bz - az), r: Math.hypot(0.15, L / 2), poly: null, h, prop: true, kind: 'wall', sourceId: w.id, estimated: true }); } });
+    // (backlog seatac-6) a reviewed retaining wall, rockery and planted bank between a street and the higher road beside it (retaining-banks.js)
+    const retainingBanks = emitRetainingBanks({ district: distId, proj: (la, lo) => city.proj(la, lo), edges, onRibbon, raisedTop, buildingAt, cellOf, rgb,
+        addCollider: (x, z, hw, hd, angle, h, run) => propColl.push({ x, z, hw, hd, angle, r: Math.hypot(hw, hd), poly: null, h, prop: true, kind: 'retaining-wall', sourceId: run.id, estimated: true }) });
+    // (backlog unirii-small) the mapped retaining walls and stair flights of a hill the flat district cannot lift (hill-structures.js)
+    const hillStructures = emitHillStructures({ district: distId, proj: (la, lo) => city.proj(la, lo), cellOf, rgb,
+        blocked: (x, z, r) => onRibbon(x, z, r) ? 'on-carriageway' : buildingAt(x, z) ? 'inside-building' : tramSweep?.circle(x, z, r + 0.2, 0, 6) ? 'tram-sweep' : null,
+        addCollider: (x, z, hw, hd, angle, h, kind, id) => propColl.push({ x, z, hw, hd, angle, r: Math.hypot(hw, hd), poly: null, h, prop: true, kind, sourceId: id, estimated: true }) });
     // (backlog r3-landmarks-2) reviewed fascia bands / corner fronts on one-colour buildings (facade-bands.js)
     const facadeBands = emitFacadeBands({ district: distId, project: (la, lo) => city.proj(la, lo), cellOf, rgb,
         building: id => { const b = bRecs.find(o => !o.skip && data.buildingIds?.[o.derivedFrom ?? o.i] === id); return b ? { ring: b.ring, h: b.roofProfile?.eavesM ?? b.h } : null; } });
@@ -443,7 +452,7 @@ export function buildScenery(ctx) {
     return {
         areaFences, backdropCount, backdropInLandmark, backdropMat, backdropSourceOwnership, bollards, carParkFronts, cellsGroup,
         elevatedSources, facadeBands, fallbackApertures, horizon, monuments, parkWalls, pedestrianBridges, playgrounds,
-        railStats, roofMat, scenerySourceAudit, sceneryStreets, signMats, signTex, underpassMouths, weirs,
+        hillStructures, railStats, retainingBanks, roofMat, scenerySourceAudit, sceneryStreets, signMats, signTex, underpassMouths, weirs,
         get fenceM() { return fenceM; },
     };
 }

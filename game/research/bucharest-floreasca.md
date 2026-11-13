@@ -210,6 +210,18 @@ w38757552, grandstand w859972644, outdoor pool w23611448.
 
 ## Estimates and open questions
 
+- **Places of worship** (r3-look-11, 2026-11-13; `worship.js`, tags in `worship-source.js` from the live OSM API): one rule
+  from OSM tags, not church by church. A building with an Orthodox (or Armenian) `denomination` gets the convention towers,
+  an octagonal drum with a metal helmet and a cross over the middle of its long axis, and a smaller pronaos tower 30 % of
+  the length towards the west end when the footprint is at least 20 m long and 1.6 times as long as wide (Armenian: one
+  drum with a cone; `building=chapel` or under 120 m2: one small tower; under 60 m2: none), and only where its height and
+  roof are the build's estimates: an OSM `height` is read as the top of the church with its tower (nothing added), and
+  building parts, mapped domes / flat roofs and courtyards are kept as mapped. Western-rite, free-church, Jewish and
+  untagged buildings get none. Estimates: radius 0.2 x footprint width (1.4-3 m; small 0.9-1.5 m), drum 1.4 r + 0.8 m
+  (2.4-5.5 m) above the roof top, helmet 1.3 r, pronaos tower 0.7 r and 0.4 of the drum, helmet colour from
+  `roof:colour` / `roof:material`, else the roof's colour, else dark tin #5e6668. Which churches really have one tower or
+  two, a porch (pridvor) or a separate bell tower was not compared (porches and separate bell towers stay unmodelled unless
+  mapped). Here: no church takes a tower: Nașterea Maicii Domnului - Floreasca has a measured flat roof, the greco-catolică cathedral is Western-rite, three are untagged.
 - **Velodrome** (`SPORT_ESTIMATES`, UCI outdoor range): flat apron 1.2 m; bank 12° on the straights rising to 32° in the
   bends; outer edge capped 3.6 m above the infield, 1 m rail on top. Rugby: try lines 100 m apart, in-goals fitted inside
   the capsule-shaped infield (dead-ball lines 56 m from the centre), field width 56 m (limited by the outline; the standard

@@ -79,6 +79,7 @@ before committing.
 | `add-tram-source-metadata.mjs --data FILE.json --osm DIR [--crossings-only] [--report F] [--write]` | appends the tram source fields to an unpacked JSON, byte-preserving the existing prefix; refuses unmatched or ambiguous identities |
 | `area-source-tags.py --data FILE.json --osm DIR --proof F` | appends literal area tags from cached XML by exact `areaSourceIds` (unpacked JSON) |
 | `add-footbridges.mjs --data FILE.json --osm overpass.json [--out F] [--margin 100] [--dry]` | writes the dataset's footway-bridge ways and their end steps into `game/src/footbridge-sources.js`; the pack is only read (unpacked JSON) |
+| `worship-source.mjs` | writes the live OSM religion / denomination / roof and colour tags of every place-of-worship building way in the packs to `game/src/worship-source.js` (read by `worship.js` for the Orthodox tower rule); the packs are only read |
 
 The POI, area and fix tools take `--osm` as a folder of API 0.6 `map.json` tiles or Overpass `out body geom;` JSON for the
 district and its edge strip, kept outside the repo, e.g.

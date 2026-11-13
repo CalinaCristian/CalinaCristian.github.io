@@ -207,7 +207,7 @@ Reviewed looks are rows in `game/src/building-review.js` (`bucharest-romana`) an
 
 - **Places of worship** (Sinagoga Eșua Tova, Boteanu, Visarion): drawn with plain walls and tall arched openings (`worship.js`),
   no longer house windows. The real ones: a two-storey synagogue front with a tracery window, a church with a round banded
-  porch tower, an ochre neo-Romanian church with an arcaded porch. Towers / domes only where OSM tags them.
+  porch tower, an ochre neo-Romanian church with an arcaded porch. Towers: the Orthodox convention rule in section 10.
 - **Victoria Center** w173938539 carries its own name board; its corner unit is a Starbucks (dark fascia, white STARBUCKS COFFEE
   letters; GKPZybRO6HC9NrDEiel-DA h 240).
 - **POI links to footprints**: Hotel Michelangelo n2942500701 → w437256698 (4.8 m from the node; a cream eclectic house with
@@ -301,6 +301,18 @@ Key buildings:
 
 ## 10. Estimates and open questions
 
+- **Places of worship** (r3-look-11, 2026-11-13; `worship.js`, tags in `worship-source.js` from the live OSM API): one rule
+  from OSM tags, not church by church. A building with an Orthodox (or Armenian) `denomination` gets the convention towers,
+  an octagonal drum with a metal helmet and a cross over the middle of its long axis, and a smaller pronaos tower 30 % of
+  the length towards the west end when the footprint is at least 20 m long and 1.6 times as long as wide (Armenian: one
+  drum with a cone; `building=chapel` or under 120 m2: one small tower; under 60 m2: none), and only where its height and
+  roof are the build's estimates: an OSM `height` is read as the top of the church with its tower (nothing added), and
+  building parts, mapped domes / flat roofs and courtyards are kept as mapped. Western-rite, free-church, Jewish and
+  untagged buildings get none. Estimates: radius 0.2 x footprint width (1.4-3 m; small 0.9-1.5 m), drum 1.4 r + 0.8 m
+  (2.4-5.5 m) above the roof top, helmet 1.3 r, pronaos tower 0.7 r and 0.4 of the drum, helmet colour from
+  `roof:colour` / `roof:material`, else the roof's colour, else dark tin #5e6668. Which churches really have one tower or
+  two, a porch (pridvor) or a separate bell tower was not compared (porches and separate bell towers stay unmodelled unless
+  mapped). Here: 16 churches with 27 towers; no tower on 3 with an OSM height (among them Biserica Albă and Biserica Doamnei), the Western-rite (Sf. Iosif, Italiană, Anglicană, Sacré-Cœur, Luterană, greco-catolică), free-church, Jewish and untagged ones.
 - **Statues** (Catargiu, Nobil Dac, Enescu): hand-modelled silhouettes, sizes estimated. **Observatory**: tower height, dome
   form, size and finish.
 - **Royal Palace front**: column radius, pair spacing (one pair per two 4.2 m bays), cornice depth, dentil and baluster pitch;

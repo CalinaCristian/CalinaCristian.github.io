@@ -1233,7 +1233,22 @@ function bRegal(b) {
     b.prism(rect(-36, -40, 59, fz(10) - 0.5), 0, 0.06, '#c9c4b8');
     b.fence([[-55, -42], [-8, -44], [28, -44], [75, -36]], 2.4, 7, '#22272a', { post: 0.7, postCol: '#d6ccb4', base: 0.6, baseCol: '#d6ccb4', bars: 0.35 });
     b.cyl(-6, 0, -2 + fz(-6), 0.1, 0.14, 12, '#dddddd', 6); flag(b, -6, 11.8, -2 + fz(-6), 2.6);
-
+    // (round 4, r2-landmarks-3) the court front of the central body (x -28..52, z = fz(x)): paired giant columns on pedestals
+    // over the rusticated ground floor (5.7 m) up to the cornice, a dentilled cornice and the attic balustrade on the 15.7 m
+    // roofline (Commons "49-53, Calea Victoriei", Street View from Piața Revoluției 2024). Pair spacing follows the 4.2 m window
+    // bay (one pair per two bays); column radius, cornice depth, dentil and baluster pitch are estimates.
+    const BAY = 4.2;
+    for (let x0 = -28; x0 + BAY <= 52.01; x0 += BAY) {
+        const xm = x0 + BAY / 2, z0 = fz(xm);
+        b.box(xm, 13.75, z0 - 0.35, BAY, 0.25, 0.7, TR); b.box(xm, 14.0, z0 - 0.45, BAY, 0.55, 0.9, S); // architrave band + cornice
+        for (let k = 0; k < 7; k++) b.box(x0 + 0.3 + k * 0.6, 13.6, z0 - 0.68, 0.22, 0.15, 0.18, TR); // dentils under the cornice
+        b.box(xm, 15.7, z0 - 0.2, BAY, 0.18, 0.5, TR); b.box(xm, 16.45, z0 - 0.2, BAY, 0.15, 0.55, TR); // balustrade base and rail
+        for (let k = 0; k < 10; k++) b.cyl(x0 + 0.21 + k * 0.42, 15.88, z0 - 0.2, 0.07, 0.1, 0.57, COL, 6); // balusters
+    }
+    for (let x = -28 + BAY; x < 52; x += BAY * 2) for (const s2 of [-0.75, 0.75]) {
+        const zc = fz(x + s2) - 0.55;
+        b.box(x + s2, 5.7, zc, 1.0, 0.9, 1.0, TR); b.cyl(x + s2, 6.6, zc, 0.36, 0.42, 7.0, COL, 12); b.box(x + s2, 13.6, zc, 0.95, 0.15, 0.95, TR); // pedestal, shaft, capital
+    }
 }
 
 // Palatul Victoria (Government, Duiliu Marcu, 1937-52) — OSM way 23554419 + parts 1516914665 (20 m),

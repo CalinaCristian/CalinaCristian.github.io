@@ -30,6 +30,7 @@ import { applyFineDem } from './fine-dem.js';
 import LOCKS_DEM from './fine-dem-ballard-locks.js';
 import SOUTH_DEM from './fine-dem-ballard-locks-south.js';
 import { salmonWaves, southPlaza } from './ballard-locks-art.js';
+import { LOCKS_1915, CONTROL_TOWER, locks1915Material, controlTower, fishLadderViewingRoom } from './ballard-locks-buildings.js';
 
 // lock axis from the west (sea) gate to the east (lake) gate — OSM lock_gate ways
 const A = [-105, 42], B = [131, 130];
@@ -290,7 +291,10 @@ export default {
         // 1915 buildings: grey concrete walls (Street View: the Administration Building front), red tile hipped roofs
         for (const bd of d.buildings) if (/Administration|Operating House|Control Tower|Visitor Center|Machine Shop|Office and Shop|Mechanics|Warehouse No|Steel Shop|Gatehouse/.test(bd.name || '')) { bd.estimatedRoof = 'hipped'; bd.rc = '#a2452d'; bd.c = '#b4b1a7'; bd.estimatedHeight = /Administration/.test(bd.name) ? 11 : 7; }
         ctx.terrainOpts = { bg: '#5f7a3c', innerPx: 2048, skirtY: SEA - 0.2, skirtColor: '#36525a' };
-        ctx.osmBackdrop({ paint: {}, urban: false, style: (bd) => (bd.rc === '#a2452d' ? 'apartment' : undefined), areaTreeOpts: { conifer: 0.5, density: 1 / 70 } });
+        // (sea-spots-b-3) the Control Tower is its own model, the other lock buildings take the arched-window concrete tile
+        ctx.skipBuildings.add(CONTROL_TOWER);
+        ctx.osmBackdrop({ paint: {}, urban: false, style: (bd) => (bd.rc === '#a2452d' ? LOCKS_1915 : undefined), areaTreeOpts: { conifer: 0.5, density: 1 / 70 } });
+        locks1915Material(); ctx.extras.controlTower = controlTower(ctx); fishLadderViewingRoom(ctx); // ballard-locks-buildings.js
         // Carl S. English Jr. Botanical Garden: specimen trees + beds
         // (r3-sea-spots-4) the Administration Building's garden (OSM w60973304, leisure=garden) is wooded with tall conifers in
         // Street View (seattle-spots.md "Ballard Locks"), not open lawn: conifers on a 5 m staggered grid inside the mapped garden; the grid and the

@@ -8,6 +8,7 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { rng } from '../kit.js';
 import { buildBuildings } from '../osm.js';
+import { signBoard } from '../props.js';
 
 const FT = 0.3048, IN = 0.0254;
 export const ILIAD = { ll: [47.6193785, -122.3500573], n: 41, dMin: 48 * IN, dMax: 64 * IN, H: 45 * FT, W: 60 * FT, D: 30 * FT };
@@ -91,7 +92,44 @@ export function climatePledgeArena(ctx) {
     const mg = new THREE.BoxGeometry(0.14, EAVE - 0.9, 0.14); mg.translate(0, (EAVE - 0.9) / 2, 0); const mi = new THREE.InstancedMesh(mg, white, mull.length); mi.name = 'arena-mullions';
     const m4 = new THREE.Matrix4(); mull.forEach(([x, z], i) => { m4.makeTranslation(x, y0 - 0.2, z); mi.setMatrixAt(i, m4); }); ctx.add(mi);
     ctx.poly(P, { y0: y0 - 30, y1: y0 + EAVE + 0.3 });
-    return { sourceId: ARENA, parts: [...parts], rendered: B.sourceMembers.map((m) => m.source), heroSkip: B.sourceGeometry.heroReplacements, wallTop: EAVE, mullions: mull.length, wallsLeftToParts: skipped, basis: 'parent outline and parts literal (OSM, untagged colours white); glass wall and fascia from panoramas' };
+    const aFrames = arenaAFrames(ctx, bd, y0), lettering = arenaLettering(ctx, P, y0, EAVE);
+    return { aFrames, lettering, sourceId: ARENA, parts: [...parts], rendered: B.sourceMembers.map((m) => m.source), heroSkip: B.sourceGeometry.heroReplacements, wallTop: EAVE, mullions: mull.length, wallsLeftToParts: skipped, basis: 'parent outline and parts literal (OSM, untagged colours white); glass wall and fascia from panoramas' };
+}
+
+// (r3-sea-spots-b-4) The other A-frames. Only the east buttress is a mapped part (w1352666990: skillion, 11 m, 4.6 m wide,
+// foot 15.5 m outside the glass wall, top 10.1 m inside it); the parent outline maps the feet of the west and north ones as
+// the same 4.6 m spurs (west x < −413.6, north z < −239.1). Those two are drawn here with the east part's section: a white
+// concrete wedge from the ground at the spur's outer end up to 11 m, 10.1 m inside the wall line. The south side has no
+// spur (the atria cover it). Section copied from the east part; the inner end is an estimate.
+function arenaAFrames(ctx, bd, y0) {
+    const east = ctx.data.buildings.find((q) => q.id === 'w1352666990'), H = east?.h ?? 11, INNER = 10.1, P = bd.poly, out = [];
+    const spur = (sel) => { const pts = P.filter(sel); if (pts.length < 4) return null; const xs = pts.map((p) => p[0]), zs = pts.map((p) => p[1]); return { x0: Math.min(...xs), x1: Math.max(...xs), z0: Math.min(...zs), z1: Math.max(...zs) }; };
+    const geo = new THREE.BufferGeometry(), pos = [];
+    // wedge: foot (outer end, ground) → top (inner end, H); w = width across, (fx, fz) foot centre, (ux, uz) toward the building
+    const wedge = (fx, fz, ux, uz, len, w) => { const vx = -uz * w / 2, vz = ux * w / 2, tx = fx + ux * len, tz = fz + uz * len, yb = y0 - 0.3, yt = y0 + H;
+        const A = [fx + vx, yb, fz + vz], B = [fx - vx, yb, fz - vz], C = [tx - vx, yb, tz - vz], D = [tx + vx, yb, tz + vz], E = [tx - vx, yt, tz - vz], F = [tx + vx, yt, tz + vz];
+        const q = (a, b, c, d) => pos.push(...a, ...b, ...c, ...a, ...c, ...d), t = (a, b, c) => pos.push(...a, ...b, ...c);
+        q(A, B, E, F); /* sloped face */ t(A, F, D); t(B, C, E); /* sides */ q(C, D, F, E); /* inner end */
+        ctx.poly([[A[0], A[2]], [B[0], B[2]], [C[0], C[2]], [D[0], D[2]]], { y0: y0 - 1, y1: y0 + H }); };
+    const w = spur((p) => p[0] < -415), n = spur((p) => p[1] < -241); // the spur vertices only (the walls wander ±0.5 m)
+    if (w) { const W = w.z1 - w.z0, len = (-413.6 + INNER) - w.x0; wedge(w.x0, (w.z0 + w.z1) / 2, 1, 0, len, W); out.push({ side: 'west', foot: [+w.x0.toFixed(1), +((w.z0 + w.z1) / 2).toFixed(1)], len: +len.toFixed(1), width: +W.toFixed(1) }); }
+    if (n) { const W = n.x1 - n.x0, len = (-239.1 + INNER) - n.z0; wedge((n.x0 + n.x1) / 2, n.z0, 0, 1, len, W); out.push({ side: 'north', foot: [+((n.x0 + n.x1) / 2).toFixed(1), +n.z0.toFixed(1)], len: +len.toFixed(1), width: +W.toFixed(1) }); }
+    if (!pos.length) return out;
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.computeVertexNormals();
+    const m = new THREE.MeshStandardMaterial({ color: '#e9e7e1', roughness: 0.75, side: THREE.DoubleSide }); m.name = 'arena-aframe';
+    const me = new THREE.Mesh(geo, m); me.name = 'arena-aframes'; me.castShadow = true; me.receiveShadow = true; ctx.add(me);
+    return out;
+}
+// (r3-sea-spots-b-4) "CLIMATE PLEDGE ARENA" lettering: noted as missing in the panorama review (seattle-spots.md), without
+// its place. Put on the white fascia of the longest east-facing glass wall (1st Ave N, the side the review looked at),
+// dark green letters filling the fascia band. Face, letter colour and size are estimates.
+function arenaLettering(ctx, P, y0, EAVE) {
+    let best = null; const n = P.length, A = P.reduce((s, p, i) => s + p[0] * P[(i + 1) % n][1] - P[(i + 1) % n][0] * p[1], 0) > 0 ? 1 : -1;
+    for (let i = 0; i < n; i++) { const [ax, az] = P[i], [bx, bz] = P[(i + 1) % n], L = Math.hypot(bx - ax, bz - az); if (L < 20) continue; const nx = A * (bz - az) / L, nz = -A * (bx - ax) / L; if (nx < 0.9) continue; if (!best || L > best.L) best = { L, mx: (ax + bx) / 2, mz: (az + bz) / 2, nx, nz }; }
+    if (!best) return null;
+    const w = Math.min(26, best.L * 0.7), sg = signBoard('CLIMATE PLEDGE ARENA', w, 1.0, { bg: '#eceae4', fg: '#1f4d3b', font: (s) => `800 ${s}px "Helvetica Neue", Arial, sans-serif`, frame: '#eceae4', depth: 0.06 });
+    sg.position.set(best.mx + best.nx * 0.05, y0 + EAVE - 0.3, best.mz + best.nz * 0.05); sg.rotation.y = Math.atan2(best.nx, best.nz); ctx.add(sg);
+    return { at: [+best.mx.toFixed(1), +best.mz.toFixed(1)], width: +w.toFixed(1) };
 }
 
 export function seattleCenterHeroes(ctx) {

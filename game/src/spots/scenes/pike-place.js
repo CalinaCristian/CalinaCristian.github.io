@@ -19,7 +19,7 @@ import { coinDrop } from '../coin-drop.js';
 import { activityBlocked, onActivityCancel } from '../participation.js';
 import {prepareSourceContext,addSourceContext} from '../source-context.js';
 import { SURVEY, profile, gradeStreets, gradeWesternEastBank } from './pike-place-streets.js';
-import { marketWestMaterial } from './pike-place-westface.js';
+import { marketWestMaterial, prepareWestSide, westFaceDressing, westSideSigns } from './pike-place-westface.js';
 import { skyBridge, SKYBRIDGE_ID } from './pike-place-skybridge.js';
 import { prepareLower, buildLower, GUM } from './pike-place-lower.js';
 import { prepareHalls, buildHalls, HALLS } from './pike-place-market.js';
@@ -283,7 +283,8 @@ export default {
         // generic shop ground floor (amenity on a tall urban volume), so its long Western Ave wall read as shopfront glazing;
         // panorama iFZRr4o9WP2yFdlbuLUkeQ shows a garage wall there. The parking style stays (building=parking).
         { const gp = ctx.data.buildings.find((b) => b.id === 'w184870422'); if (gp && gp.k === 'parking') delete gp.amenity; }
-        ctx.osmBackdrop({ paint: {}, shopStyle: 'bucshop', streetTreeOpts: { spacing: 14, prob: 0.5, kinds: ['primary', 'secondary', 'tertiary'] }, lampOpts: { kinds: ['primary', 'secondary', 'tertiary'] }, style: (b) => (/hotel|apartments/.test(b.k) && (b.h || 0) < 25 ? 'brick' : buildingStyle(b, true)) });
+        const westStyle = prepareWestSide(ctx); // (r3-sea-spots-b-5) Western Ave west side, Market Place One / Two (pike-place-westface.js)
+        ctx.osmBackdrop({ paint: {}, shopStyle: 'bucshop', streetTreeOpts: { spacing: 14, prob: 0.5, kinds: ['primary', 'secondary', 'tertiary'] }, lampOpts: { kinds: ['primary', 'secondary', 'tertiary'] }, style: (b) => westStyle(b) || (/hotel|apartments/.test(b.k) && (b.h || 0) < 25 ? 'brick' : buildingStyle(b, true)) });
         buildGlobeLamps(ctx);
         { const W = profile(SURVEY.western); skyBridge(ctx, { roadYAt: (x, z) => W.at(x, z).y }); } // the green truss over Western Ave (sea-spots-a-13)
         const P = ctx.painter;
@@ -317,6 +318,7 @@ export default {
             ctx.add(bb.build('main-arcade', { matOverrides: { 'f-brick': facadeMaterial('brick'), 'f-apartment': marketWestMaterial() } }));
         }
         buildHalls(ctx, { line: PIKE_PLACE, at: ppAt });
+        { const W = profile(SURVEY.western); ctx.extras.westFace = westFaceDressing(ctx, W); ctx.extras.westSideSigns = westSideSigns(ctx, W); } // colonnade + lettering, PARKING sign
         buildFacades(ctx, { at: ppAt }, { low: HALL_IDS }); // each market building's own front
         buildArcade(ctx);
         // every mapped business at its own frontage; the hero storefronts below carry their own signs

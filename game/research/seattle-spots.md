@@ -135,17 +135,29 @@ looking at the sign). Pike Place is car-free in the scene by design: a car-free 
 - SkyBridge over Western Ave (w296789534, `building=roof`, layer 1): an enclosed walkway between two green steel Warren
   trusses with pale green panels, flat roof, white concrete pier at the market-side kerb (iFZRr4o9WP2yFdlbuLUkeQ @ 315).
 - Pike Place Market Parking garage w184870422: its Western Ave wall is a garage front, not shops.
+- Western Ave (`pike-place-westface.js`): a colonnade at street level along the market's west walls facing the avenue
+  (Main Arcade / Leland Hotel volumes w1271653801, w1271653800, w231357660: square white piers, beam and soffit) and
+  PIKE PLACE MARKET in red letters on the white wall above it. West side: the low pink-stucco building with a parking
+  sign = Market Heritage Center (w231359028, 1 storey, PARKING board on its avenue face); the cream three-storey block =
+  Fix Building (w231359020). "Market Place North" (tan, ribbon windows) is not an OSM name: the mapped Market Place
+  complex north of the market (landuse w403552339) has Market Place One (w231355701, 2003 Western Ave, 8 levels) and Two
+  (w231355696, 2001 Western Ave, 5 levels); both take the tan band-window front.
+- Victor Steinbrueck Park lamps: the three mapped `street_lamp` nodes (n11660363671, n11660363674, n11660363677) and
+  the generated park lamps are drawn by the shared lamp builder.
 
 **Estimates**: sign letter row ≈ 14–16 m, clock Ø ≈ 2.5–3 m; North Arcade eave 3.3 m, roof run 7 m; SkyBridge underside
-≈ 6.5 m over the road. The Gum Wall's current height after cleanings is unknown (2024 figure used).
+≈ 6.5 m over the road. Western Ave: which mapped volumes the pink and cream west-side blocks and "Market Place North"
+are (assignments above), their colours (#d8a598 pink, #e6dcc4 cream, #c8b08a tan) and storeys (Heritage Center 4.6 m,
+Fix Building 3 × 3.7 m); colonnade piers 0.7 m square, 1.6 m off the wall, ≈ 4.5 m apart, beam at 4.4 m; the lettering's
+face (the longest avenue-facing wall), height (7.2 m over the road), 18 m width and red. The Gum Wall's current height after cleanings is unknown (2024 figure used).
 
 **Open (needs a panorama look)**: the Main Arcade street front has a green dado, small-pane windows and ENTRANCE signs —
 the pigs on the roof edge of the Economy / Main Arcade were not seen on any panorama checked and are not modelled; the
 barrel-vaulted canopy left of the sign is neither confirmed nor excluded (small and partly hidden by the sign frame from
-1st Ave and the Corner Market); the Western Ave west side (a low pink-stucco building with a parking sign, a cream
-three-storey block — which of the mapped volumes they are), the "Pike Place Market" lettering and street-level colonnade
-on the market's west face; Steinbrueck Park benches / lamps; Market Place North (tan with ribbon windows; a generic grey
-extrusion in the game).
+1st Ave and the Corner Market).
+
+**Source gaps**: Steinbrueck Park benches — none mapped in the park (the two mapped benches nearby, n8508584428 and
+n8508584429, are on 1st Ave / Pike Place) and no recorded positions, so none are drawn.
 
 ## Seattle Center: Space Needle, Chihuly Garden and Glass, MoPOP (`space-needle`, `chihuly`, `mopop`)
 
@@ -185,10 +197,24 @@ Needle).
   skillion buttresses w1352666990 / w1352647807 / w1352647810 / w1352647812, Alaska Airlines Atrium w1270549342 — and the
   parent outline as a glass curtain wall up to 8 m under a thin white fascia (xLh7PyEOCxKVuesNWAzPBw @ 270,
   jLP72IlkxVljWg52cvsHAA @ 10 / 60: green-tinted glass, white mullions, a white sloped A-frame mid east side).
+- MoPOP skin (`scenes/seattle-center-mopop.js`): the seven lobes keep their OSM footprints, heights and colours but are
+  continuous curved metal masses — corners rounded, walls bulging out above the ground and rolling into a rounded crown at
+  the mapped height, each leaning away from the building's middle — in an iridescent shingled metal (purple sheen on the
+  silver lobes).
+- Climate Pledge Arena: the west and north A-frames stand on the parent outline's mapped 4.6 m spurs (feet at x −427.4,
+  z −254.5), with the mapped east part's section (white wedge, ground → 11 m, 10.1 m inside the wall); the south side has
+  no spur (the atria). CLIMATE PLEDGE ARENA lettering on the white fascia of the longest east (1st Ave N) glass wall.
+- Planting (`scenes/seattle-center-trees.js`): 56 live-OSM trees missing from the extract (rows along the Armory's west
+  side and Thomas St, the double row west of the Chihuly garden; API map call 2026-11-13); the mapped natural=wood
+  polygons round the Armory and east of the Needle (w394259997) filled at one tree per 30 m²; shrubs and small trees in
+  the mapped bed w394259987 by the pavilion.
 - Howard S. Wright fountain (w241876412), Armory (w231764919), Pacific Science Center (w394955903) at their mapped places.
   All 35 live businesses and 25 tourism / artwork objects inside the terrain box were in the extract (2026-11-12).
 
-**Estimates**: International Fountain micro-shooter and floodlight ring radii, the show rhythm (90 s show, 60 s still),
+**Estimates**: MoPOP's bulge (≤ 6 %), crown profile, 1.6 m lean, shingle size, metal sheen / iridescence and the 18 %
+toning of the tagged colours toward polished metal; the A-frames' inner end (copied from the east part); the lettering's
+face (the review that noted it did not record which face), its dark green colour and 26 m width; wood fill density
+(1 / 30 m², ≥ 3.5 m apart), the bed's shrub density and tree sizes. International Fountain micro-shooter and floodlight ring radii, the show rhythm (90 s show, 60 s still),
 the 6 m asphalt apron; the Iliad's split into legs and top, tube lengths and angles; the station canopy's rise and rib
 spacing; MoPOP height at the highest lobes ≈ 26–30 m; monorail beam ≈ 6–8 m overhead. Pacific Science Center has no
 height tag (generic volume) and its arches have no OSM object.
@@ -196,10 +222,8 @@ height tag (generic volume) and its arches have no OSM object.
 **Not modelled**: the Acrobat Constellation (n3211770205: three figures 21–25 ft on poles, mapped as one node, pole
 positions unknown); Chihuly's EXHIBITION ENTRANCE / bookstore signs and planted wall.
 
-**Open (needs a panorama look)**: MoPOP's real skin (iridescent purple-bronze and silver, continuous curved lobes; needs a
-hero model); screening trees at the Armory (reality wooded, the game open lawn) and round the Needle pavilion (its
-soffit band is deeper in reality); the arena's A-frames on the sides other than the mapped east one and its "CLIMATE
-PLEDGE ARENA" lettering; the Pacific Science Center arches (no panorama found shows them).
+**Source gaps**: the Pacific Science Center arches (no OSM object, no panorama found shows them); the Needle pavilion's
+deeper soffit band (no measurement recorded).
 
 ## Fremont Troll (`fremont-troll`)
 
@@ -437,6 +461,12 @@ the south-bank plaza and fish ladder. Spawn 47.6664, −122.397 heading 180°. L
   lamp posts; gate tops a little above the footbridge deck. No red hoist boxes.
 - Buildings (1915: Administration Building w51475867, Operating Houses w285289605 / w285289606, Control Tower w223562285
   of 1969): grey concrete walls with arched openings (Administration front), red tile hipped roofs (seen from the dam).
+- `scenes/ballard-locks-buildings.js`: the 1915 buildings carry a concrete tile with tall round-arched windows; the
+  Control Tower (w223562285: `man_made=tower`, `tower:type=observation`, 1969, the lock's VHF station "Locks") is a
+  concrete shaft on its footprint under a glazed control cab, flat roof and radio mast; the Fish Ladder Viewing Room
+  (n3413278212, wheelchair, 07:00–21:00) is entered at the mapped tunnel mouths (ramp w285281015 → tunnel w285281016,
+  steps w285281017): the scene's ground is one terrain surface, so the room is built apart (like the Carusel bar) — a dim
+  concrete room with six windows into the ladder and salmon swimming upstream past them.
 - Administration garden w60973304 (`leisure=garden`): wooded with tall conifers in Street View, drawn as conifers on a 5 m
   staggered grid. Carl S. English Jr. Botanical Garden: w51475864.
 - Salmon Waves (n3211770269, Paul Sorey 2001, SPU04.087; `scenes/ballard-locks-art.js`): "Seven stainless steel waves
@@ -451,12 +481,12 @@ the south-bank plaza and fish ladder. Spawn 47.6664, −122.397 heading 180°. L
 **Estimates**: footbridge and service-bridge levels (lake +0.1 m / +2.5 m) and all wall tops (7.0 m, the north bank's coping)
 read from one panorama and the bank; the large chamber moves as one sheet across the intermediate gate; Salmon Waves'
 layout, facing and curl from one panorama; plaza level from two dry DEM samples; parapet 1.05 × 0.25 m; the garden's
-conifer grid and tree sizes; 1915 building heights.
+conifer grid and tree sizes; 1915 building heights; the arched windows' size and rhythm (one per 3.2 m bay and 3 m
+floor); Control Tower shaft 9 m, cab 3 m with a 0.45 m overhang, mast 4.5 m; the viewing room's size (18 × 7 × 3.2 m),
+six 2.4 × 2.2 m windows, the water colour and the 14 salmon.
 
-**Open (needs a panorama look of the lock grounds)**: the Control Tower is still a generic block, the 1915 buildings keep
-generic windows, the fish-ladder viewing room interior and entrance are not modelled; the visitor centre, the garden's
-planting; roof-tile colour against a reference. Lock-wall panoramas put the game's eye in the chamber (no valid
-comparison).
+**Open (needs a panorama look of the lock grounds)**: the visitor centre, the garden's planting; roof-tile colour against a
+reference. Lock-wall panoramas put the game's eye in the chamber (no valid comparison).
 
 ## Gas Works Park (`gas-works`)
 

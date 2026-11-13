@@ -23,6 +23,8 @@ import { batchSourceContext, horizonCuller, solidShells, onRenderCamera, distanc
 import { sourceRecord } from '../source-buildings.js';
 import { internationalFountain } from './seattle-center-fountain.js';
 import { seattleCenterHeroes, ARENA, arenaParts } from './seattle-center-heroes.js';
+import { mopopSkin, MOPOP_LOBES } from './seattle-center-mopop.js';
+import { seattleCenterPlanting } from './seattle-center-trees.js';
 
 const NEEDLE = { x: 0.3, z: 0.7, y: 1.5 };
 const MONO = [[-46, -86], [-23, -87], [-8, -87], [10, -88], [37, -89], [49, -88], [56, -87], [64, -86], [71, -83], [78, -80], [96, -62], [102, -54], [105, -50], [109, -43], [115, -39], [124, -30], [129, -10], [129, 60], [126, 160], [126, 300]];
@@ -502,11 +504,14 @@ export default {
         // (ways 1534908988–94, 18–22 m) in a plain wall up to 14 m; the Sky Church room (way 1092469435) has the same footprint as
         // the maroon lobe. Street View (5th Ave N, 47.62138,-122.34768 looking 240°) shows the coloured metal down to the ground.
         ctx.skipBuildings.add('w161587742'); ctx.skipBuildings.add('w1092469435');
+        for (const id of MOPOP_LOBES) ctx.skipBuildings.add(id); // (r3-sea-spots-b-4) the lobes as curved metal masses: seattle-center-mopop.js
         ctx.skipBuildings.add('w394955907'); // the International Fountain's dome (roof:shape=dome): drawn by seattle-center-fountain.js
         ctx.skipBuildings.add(ARENA); // Climate Pledge Arena: its parts + the glass wall and fascia by seattle-center-heroes.js (round 3)
         const arenaP = arenaParts(d); // drawn by seattle-center-heroes.js with the arena (round 3)
         ctx.osmBackdrop({ paint: {}, filter: (b) => !arenaP.has(b.id), style: (b) => MOPOP_PARTS.has(b.id) ? MOPOP_METAL : undefined,
             streetTreeOpts: { spacing: 12, prob: 0.7 }, areaTreeOpts: { conifer: 0.4 } });
+        ctx.extras.mopopSkin = mopopSkin(ctx);
+        seattleCenterPlanting(ctx, { needle: { x: NEEDLE.x, z: NEEDLE.z, pavR: NL.pavR } }); // live OSM trees, the Armory's woods, the pavilion's beds
         const P = ctx.painter;
         P.circle(NEEDLE.x, NEEDLE.z, 30, '#b4afa6', 'slab'); P.circle(NEEDLE.x, NEEDLE.z, NL.pavR + 0.4, '#8d8a84', 'slab');
         buildFountain(ctx);

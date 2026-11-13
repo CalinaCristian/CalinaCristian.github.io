@@ -2021,10 +2021,14 @@ export class Traffic {
             const l = (P.x - v.x) * rx + (P.z - v.z) * rz, el = playerExtent(P, rx, rz);
             shifts = [l - el - v.width / 2 - margin, l + el + v.width / 2 + margin];
         } else shifts = [-(e.laneW ?? 3.3) * 0.95];
+        // (2026-11-13, harness foot run in Floreasca: a hatch 1.1 m beyond Strada Garibaldi's kerb) where the car settles is its
+        // target lane plus the shift; a stopped car has not yet moved to that lane (it steers only while moving), so a shift
+        // that fits from where it stands (still in lane 1) could end beyond the kerb once it rolls into lane 0. Both fit now.
+        const finOff = laneOffset(e, v.lane, v.dir) + v.latExtraCur, outside = o => o + v.width / 2 > right + 0.3 || o - v.width / 2 < -left - 0.3;
         let best = null;
         for (const sh of shifts) {
             const off = curOff + sh; // lateral offset from the centreline (right of travel = +)
-            if (off + v.width / 2 > right + 0.3 || off - v.width / 2 < -left - 0.3) continue; // stay on the carriageway
+            if (outside(off) || outside(finOff + sh)) continue; // stay on the carriageway, now and where the car settles
             if (Math.abs(sh) > (e.laneW ?? 3.3) * 1.5) continue;
             const contra = !e.oneway && off - v.width / 2 < v.dir * (e.laneCenterShiftM || 0) + medianOf(e) / 2 - 0.2;
             if (contra && !this.oncomingClear(v, off, 45)) continue;

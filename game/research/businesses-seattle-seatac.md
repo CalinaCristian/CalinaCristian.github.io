@@ -66,3 +66,21 @@ Brands with no sign colours in `data.brands` nor in `world.js BRANDS` (fall back
 - Bank of America locator https://locators.bankofamerica.com/wa/bellevue/ (2026-11-07: 4 pins in or near downtown).
 - Bartell Drugs: Wikipedia "Bartell Drugs" / "Rite Aid" (fetched 2026-11-07): about half the stores closed by 2025, the rest acquired and rebranded by CVS Pharmacy during Rite Aid's 2025 liquidation (all Rite Aid stores closed 2025-10-03). No Bartell storefront should appear in the game.
 - Not machine-readable from here: Chase, U.S. Bank, Walgreens (JavaScript-only), CVS, McDonald's US, Trader Joe's (HTTP 403), QFC (no response).
+
+## POI append, 2026-11-12 (round 2, lane builder)
+
+Source: OpenStreetMap API 0.6 `map.json` tiles fetched 2026-11-12 (playable area + 260 m; raw files not committed).
+Tool: `tools/osm/add-pois.mjs --edge 100`. Rows appended to `pois` (original rows and indices unchanged):
+
+| district | before | added | edge strip | dropped classes | new in OSM / relations | own building names |
+|---|---|---|---|---|---|---|
+| seattle-seatac | 210 | 5 | 2 | 2 | 1 | 6 |
+
+Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or
+indoor, nodes deep inside multi-tenant halls (Carrefour Orhideea gallery 40, Bellevue malls 68, Promenada 16, Otopeni terminal
+11), unnamed objects, ATMs outside the area.
+
+Street View comparison (reference only, nothing stored), same position and bearing as the game render:
+- SeaTac: 7-Eleven pylon at the lot (game: fascia on the store), Coast Gateway Hotel (photosphere). Bellevue: Westin lettering on the tower at NE 6th St (game: own name), 999 Bellevue Way NE (Tempur-Pedic, unreadable behind a tree).
+
+Not compared: every other appended POI (881 of 894, all eight districts).

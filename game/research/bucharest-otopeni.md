@@ -404,3 +404,66 @@ Sports / water: no water body or fountain inside the district; pitch w1244012657
 | otp_sosiri_parking | https://www.euronews.ro/articole/aeroportul-otopeni-parcarea-de-la-sosiri-inchisa-pentru-consolidare-ce-alternativ |
 | otp_taxi_guide | https://www.inyourpocket.com/bucharest/The-Definitive-Guide-to-Finding-a-Taxi-at-Bucharest-Airport_74243f |
 | ref_otp | see refs/otopeni/LICENSES.md (Commons photos of the CFR station canopy and the terminal arches/control tower from the apron) |
+
+## Fidelity pass round 2, 2026-11-12 (airport side and DN1 businesses at street level)
+
+Sources: live OSM dump of 2026-11-12 (Overpass, bbox 44.5524,26.0645 – 44.5729,26.0820); official street-level panoramas looked at for appearance only (nothing stored, traced or measured from them). Game views: `game/dev/reality/viewpoints.json` (`otp-*`, 17 added, `otp-arrivals` re-posed out of a car-park wall).
+
+Where official panoramas exist on the airport side (round 1 believed there were none): the access road from DN1 (44.568636, 26.071303; 44.56877, 26.07244; 44.56878, 26.0734), under the station deck (44.56885, 26.07486), the long-term car park road (44.569156, 26.074543), the forecourt roundabout (44.569998, 26.075594), the departures car park road (44.570356, 26.074949) and the ground-level kerb at the Plecări hall (44.5709, 26.07702, older camera). None within 50 m of the arrivals kerb, the departures ramp, the Sosiri front or Salonul Oficial; user photospheres exist at the memorial (44.568687, 26.074156) and on the old car-park deck (44.56966, 26.07725, taken before the station was built).
+
+Verdicts
+
+| Item (OSM) | Reality at the pose | Game | Verdict |
+|---|---|---|---|
+| Access road from DN1 (viaduct w681892716) | two-lane road, grass verges, sidewalk on the south side only, steel-girder viaduct with a green band beside and then over the road, wall piers | same layout; a sidewalk with bollards also on the north side | match, sidewalk side differs |
+| CFR station w813193384 | concrete box-girder deck on hammerhead wall piers, glazed barrel-vault canopy over the platforms, glazed stair / lift tower at the west end | flat green-topped slab on thin piers | still wrong (lane landmarks / world) |
+| Monumentul Eroilor Jandarmi w565845891 | granite-paved plaza, low stone blocks, benches, dense trees behind (photosphere only) | lawn with a paved patch and trees | needs data (no official panorama) |
+| Staff and taxi car park w23585062, long-term car park w406904953, departures car park w110663816 | surface car parks behind hedges, red / white barriers, lamp masts | parking areas with parked cars, hedges absent | match in position and kind |
+| TAROM office w216626527 | long office slab south of the departures car park | glass block, OSM height 20 m | match in position; facade not compared |
+| Forecourt roundabout (44.5700, 26.0757) | planted island with two flag masts, orange / white lighting mast n4089486527, terminal and control cab w794617342 behind | lawn and trees, no masts | still wrong (lane world) |
+| Plecări hall w771096082, ground kerb | silver barrel-vaulted entrance canopies on white columns, white cylindrical stair tower, blue curtain wall | flat slab over the kerb road, white pilasters, blue wall | still wrong (lane landmarks) |
+| Departures ramp w180054678, arrivals level, P2, Salonul Oficial w771096084 | no official panorama | present | not compared |
+| Romstal w219767593 | blue panel showroom hall, two low storeys | was a 24.2 m apartment block; now 8.5 m blue hall with its shopfront | fixed |
+| Mega Image w312547018 | one-storey dark grey flat-roofed box, red entrance portal, car park in front | was a 9 m gabled glazed shed; now a 6 m dark grey flat box | fixed (the red portal is not drawn) |
+| Ferremo Trendy w259171763 | three-storey showroom, white / grey panels, dark red glazed centre bay | was 17.7 m, five storeys, balconies; now 11.5 m, three storeys, ribbon windows over the shopfront | fixed |
+| Cris Garden Plaza w259171686 | low glazed garden-centre hall behind a fenced yard | was a three-storey apartment block; now glazed (OSM levels 3 kept) | fixed (style only) |
+| Gazprom w918040928 / shop w918040927, Rompetrol w312547071 / w918040922, OMV w244429098 | canopies and kiosks as mapped | as round 1 left them | match |
+| Ramada w259171710 | silver-grey panels and glass, curved glazed corner | was an ochre apartment block; now light grey with a window grid and glazed ground floor (OSM 20 m / 5 levels kept) | fixed |
+| Ibis Styles w918040921 | grey four-storey box, few windows on the end wall, green sign | grey four-storey block | match |
+| RIN Airport Hotel w336933042, Hotel Otopeni w413830137 | set back on a side street; not seen clearly from DN1 | present with OSM heights | not compared |
+| Novomatic w303678264 | four-storey glass office set back behind a fenced lawn | glass block, set back | match |
+| Vienna House Easy w303678262 | white hotel slab, vertical HOTEL lettering, flags | was a saturated blue apartment block; now white with a window grid (OSM 18 m / 6 levels kept) | fixed |
+| Casa Românească w303678255 / w495066823 | white walls with dark timber framing, dark shingle roof, wooden porch | was a grey block; now white with dark shutters and a dark roof | fixed |
+
+How the fixes are made: `game/src/building-review.js` holds one row per OSM id (reviewed storeys, facade style, tone, roof tone); `world.js` applies it before the height-sanity pass. Heights in rows are estimates from the storey count (Romstal 8.5 m, Mega Image 6 m, Ferremo 11.5 m) and are marked `street-level review estimate` in the roof profile; a height or roof shape tagged in OSM is never changed. The same values are recorded under `buildings[].research` in `bucharest-otopeni.json`.
+
+Not checked: the airside, the terminal interior units, the M6 works, DN1 north of the closure, everything at night.
+
+## Landmark catalogue review against panoramas (fidelity pass round 2b, lane landmarks-b, 2026-11-12)
+
+Method: official panorama ids found from Maps coverage metadata (`photometa/ac`, coverage only), the game rendered at the
+pano position and bearing (eye 2.5 m), then compared side by side by eye. No imagery kept. Poses: `viewpoints-add.json`
+of this lane and the poses below. "Match" = shape class, height, roof, main materials/colours, entrance side and signage
+read as the real thing at street distance; it is not a claim of parity. Table positions are rounded and some are
+approximate; the exact poses with their pano ids are in this lane's `pick/*.json`, `views2b.json` and `views3.json`,
+and the kept ones in `viewpoints-add.json`.
+
+| Landmark | Pose (lat, lon, heading) | Verdict |
+| --- | --- | --- |
+| otp | 44.570884, 26.076884 h 20 / 100 / 125 | fixed: vaulted canopies and white stair cylinder on the Plecări kerb; control tower ring floors added below the mapped cab (not seen rendered at a matching pose) |
+| otpgara (new) | 44.56887, 26.07495 h 10 / 300; 44.568817, 26.073336 h 60 | new model: box girder on wall piers, glazed barrel vault, green edge band, west stair |
+
+## Round 2 (2026-11-12), lane world
+
+Airport car park w1215048759 (drawn through its part w217927380, 2 levels): open decks.
+Fuel: Gazprom 2 islands, Rompetrol 3 and 4, OMV 1 (no free place for its pylon). Monumentul Eroilor Jandarmi: stele.
+
+## Round 2 (2026-11-12), lane world-b
+
+Street View was used only to look (official panoramas, ids found from coverage metadata); nothing was saved or traced.
+
+CFR station w813193384: glazed barrel vault with green ribs and edge bands over the platform
+deck now drawn on the mapped footprint (rise 4.6 m estimate); stair / lift tower and wall piers still missing. 12 OSM
+lighting masts (man_made=tower, tower:type=lighting) drawn at their nodes; heights from OSM where tagged (20 - 40 m), else
+25 m estimate; n4089486527 banded orange / white as seen. The roundabout flag masts are not in OSM and are not drawn.
+Departures flyover w180054678: a steel post-and-rail railing (seen from the forecourt only).

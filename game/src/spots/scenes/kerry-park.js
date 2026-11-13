@@ -74,6 +74,10 @@ export default {
         });
         const OUTER = 360;
         ctx.terrainOpts = { bg: '#5f6a52', innerPx: 2048, outerPad: OUTER, skirtY: -112, skirtColor: '#1f333c' };
+        // no generated street trees on the park's own frontage (OSM park way 49734702, x −30 … 61): OSM maps none there and the
+        // 2025 panoramas on W Highland Dr (ids y4VIyX3fc6pkQsYrTG-A1w, D19wLVvtz886pOofJWALBA) show an open kerb — the row
+        // the generator planted stood between the street and the postcard view
+        ctx.exclude.push([[-34, -9.2], [65, -8], [65, 0.5], [-34, 0.5]]);
         ctx.osmBackdrop({ paint: {}, style: (b) => (b.k === 'apartments' ? 'apartment' : 'house'), streetTreeOpts: { spacing: 10, prob: 0.8 }, urban: false });
         // the brick plaza round the sculpture, from the sidewalk to the wall (Street View; OSM maps its two edges as the
         // paving_stones footways w1125970640 / w1125970641)

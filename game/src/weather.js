@@ -1,5 +1,30 @@
 import * as THREE from '../vendor/three.module.min.js';
 
+// ---- precipitation shelters (2026-11-12): roofed interior volumes in which no rain streak / snow flake is drawn.
+// The particle box wraps around the camera and knows nothing of roofs, so snow fell inside enterable rooms (the Carusel
+// bookshop, the Old Town rooms, the Chihuly Glasshouse). A scene declares its interiors (spots/precip-shelter.js); each is
+// an upright box { cx, cz, hx, hz, y0, y1, ux, uz } (centre, half sizes along the unit axis (ux, uz) and across it, levels).
+// A list lasts SHELTER_TTL updates unless it is set again, so it cannot outlive the scene that declared it.
+export const MAX_SHELTERS = 8;
+const SHELTER_TTL = 3;
+const SHELTER_GLSL = /* glsl */`
+    uniform vec4 uShA[${MAX_SHELTERS}]; uniform vec4 uShB[${MAX_SHELTERS}]; uniform int uShN;
+    bool sheltered(vec3 w){
+        for (int i = 0; i < ${MAX_SHELTERS}; i++) {
+            if (i >= uShN) break;
+            vec4 a = uShA[i], b = uShB[i]; vec2 q = w.xz - a.xy;
+            if (abs(q.x * b.z + q.y * b.w) < a.z && abs(q.y * b.z - q.x * b.w) < a.w && w.y > b.x && w.y < b.y) return true;
+        }
+        return false;
+    }`;
+const shelterUniforms = () => ({ uShA: { value: Array.from({ length: MAX_SHELTERS }, () => new THREE.Vector4()) }, uShB: { value: Array.from({ length: MAX_SHELTERS }, () => new THREE.Vector4(0, 0, 1, 0)) }, uShN: { value: 0 } });
+function setShelters(fx, list) {
+    const u = fx.uniforms, n = Math.min(MAX_SHELTERS, list?.length || 0);
+    for (let i = 0; i < n; i++) { const s = list[i]; u.uShA.value[i].set(s.cx, s.cz, s.hx, s.hz); u.uShB.value[i].set(s.y0, s.y1, s.ux ?? 1, s.uz ?? 0); }
+    u.uShN.value = n; fx._shelterTtl = n ? SHELTER_TTL : 0;
+}
+function ageShelters(fx) { if (fx._shelterTtl > 0 && --fx._shelterTtl === 0) fx.uniforms.uShN.value = 0; }
+
 /**
  * GPU rain: N streaks in a box that wraps around the camera. All motion happens in the vertex
  * shader (no per-frame CPU work besides a few uniforms). Streak direction follows the rain's
@@ -23,14 +48,14 @@ export class Rain {
             uTime: { value: 0 }, uCam: { value: new THREE.Vector3() }, uVel: { value: new THREE.Vector3(0.8, -9.5, 0.3) },
             uBox: { value: box }, uH: { value: height }, uColor: { value: new THREE.Color(color) }, uOpacity: { value: opacity },
             uStreak: { value: 0.045 },
-            fogColor: { value: new THREE.Color() }, fogDensity: { value: 0 },
+            fogColor: { value: new THREE.Color() }, fogDensity: { value: 0 }, ...shelterUniforms(),
         };
         const mat = new THREE.ShaderMaterial({
             uniforms: this.uniforms, transparent: true, depthWrite: false, fog: false,
             vertexShader: /* glsl */`
                 attribute float aEnd; attribute float aSeed;
                 uniform float uTime, uBox, uH, uStreak; uniform vec3 uCam, uVel;
-                varying float vA;
+                varying float vA;${SHELTER_GLSL}
                 void main(){
                     vec3 p = position;
                     float fall = -uVel.y * (0.85 + aSeed * 0.3);
@@ -38,6 +63,7 @@ export class Rain {
                     vec3 drift = vec3(uVel.x, 0.0, uVel.z) * (p.y / max(fall, 0.1));
                     vec3 w = vec3(mod(p.x - uCam.x - drift.x, uBox), p.y + uCam.y - uH * 0.35, mod(p.z - uCam.z - drift.z, uBox));
                     w.xz += uCam.xz - uBox * 0.5;
+                    if (sheltered(w)) { gl_Position = vec4(2.0, 2.0, 2.0, 1.0); vA = 0.0; return; } // both ends of a streak test its head
                     w -= uVel * uStreak * aEnd * (0.8 + aSeed * 0.4);
                     vec4 mv = modelViewMatrix * vec4(w, 1.0);
                     gl_Position = projectionMatrix * mv;
@@ -58,7 +84,7 @@ export class Rain {
     /** camPos: world position; carVel: Vector3 world velocity of the player (m/s); wind: {x, z} m/s (optional) */
     update(dt, camPos, carVel, wind) {
         const u = this.uniforms;
-        u.uTime.value += dt;
+        u.uTime.value += dt; ageShelters(this);
         u.uCam.value.copy(camPos);
         // rain velocity relative to the car (wind + falling - car motion)
         const wx = wind ? wind.x * 0.8 : 0.8, wz = wind ? wind.z * 0.8 : 0.3;
@@ -66,6 +92,8 @@ export class Rain {
     }
     /** intensity 0..1 → number of streaks drawn */
     setIntensity(k) { const n = this.mesh.geometry.attributes.position.count; this.mesh.geometry.setDrawRange(0, 2 * Math.round(n / 2 * THREE.MathUtils.clamp(k, 0, 1))); }
+    /** roofed volumes without rain (see the note at the top); call every frame while they apply */
+    setShelters(list) { setShelters(this, list); }
     dispose() { this.mesh.geometry.dispose(); this.mesh.material.dispose(); }
 }
 
@@ -164,14 +192,14 @@ export class Snow {
         this.uniforms = {
             uTime: { value: 0 }, uCam: { value: new THREE.Vector3() }, uVel: { value: new THREE.Vector3(0, -1.1, 0) },
             uBox: { value: box }, uH: { value: height }, uSize: { value: size }, uColor: { value: new THREE.Color('#f4f7fb') },
-            uOpacity: { value: opacity }, uScale: { value: 400 },
+            uOpacity: { value: opacity }, uScale: { value: 400 }, ...shelterUniforms(),
         };
         const mat = new THREE.ShaderMaterial({
             uniforms: this.uniforms, transparent: true, depthWrite: false, fog: false,
             vertexShader: /* glsl */`
                 attribute float aSeed;
                 uniform float uTime, uBox, uH, uSize, uScale; uniform vec3 uCam, uVel;
-                varying float vA;
+                varying float vA;${SHELTER_GLSL}
                 void main(){
                     vec3 p = position;
                     float fall = -uVel.y * (0.7 + aSeed * 0.6);
@@ -181,6 +209,7 @@ export class Snow {
                     vec3 drift = vec3(uVel.x, 0.0, uVel.z) * uTime * (0.8 + aSeed * 0.4); // wind only, carried over time: the flakes stay put in the world while the car moves (round 6 note 40)
                     vec3 w = vec3(mod(p.x - uCam.x - drift.x + swirl.x, uBox), p.y + uCam.y - uH * 0.35, mod(p.z - uCam.z - drift.z + swirl.z, uBox));
                     w.xz += uCam.xz - uBox * 0.5;
+                    if (sheltered(w)) { gl_Position = vec4(2.0, 2.0, 2.0, 1.0); gl_PointSize = 1.0; vA = 0.0; return; }
                     vec4 mv = modelViewMatrix * vec4(w, 1.0);
                     gl_Position = projectionMatrix * mv;
                     float d = length(mv.xyz);
@@ -205,10 +234,12 @@ export class Snow {
     setIntensity(k) { this.mesh.geometry.setDrawRange(0, Math.round(this.count * THREE.MathUtils.clamp(k, 0, 1))); }
     update(dt, camPos, carVel, wind) {
         const u = this.uniforms;
-        u.uTime.value += dt;
+        u.uTime.value += dt; ageShelters(this);
         u.uCam.value.copy(camPos);
         u.uVel.value.set(wind ? wind.x : 0, -1.1, wind ? wind.z : 0); void carVel; // (the car's own motion needs no term: the flakes are world-anchored)
     }
+    /** roofed volumes without snow (see the note at the top); call every frame while they apply */
+    setShelters(list) { setShelters(this, list); }
     dispose() { this.mesh.geometry.dispose(); this.mesh.material.dispose(); }
 }
 

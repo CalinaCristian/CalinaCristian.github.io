@@ -540,3 +540,108 @@ OSM does not map is listed here as an estimate.
   (nodes 11068954269–71), the Iuliu Maniu memorial (way 1454535798).
 - Name signs for 80 mapped venues and the named hotels / theatres on their own buildings.
 - Live Overpass did not answer for this box on the review day: the inventory is the 2026-11-07 extract.
+
+## 6. Fidelity review, round 2 (2026-11-12): Old Town heroes outside the walk, interiors, tours
+
+Method as in section 5. Street View was looked at next to game renders from the same position and bearing, as a visual
+reference only (nothing stored, traced or measured). Official panoramas: Calea Victoriei / Str. Mihai Vodă corner
+(44.43238, 26.09701), Str. Stavropoleos (44.43189, 26.09864 and 44.43189, 26.09812), Bd. Corneliu Coposu (44.42903, 26.10212).
+User photospheres (position and heading unreliable): Lipscani in front of the National Bank (May 2019), the garden of
+Sf. Anton (June 2019), Str. Franceză at Hanul lui Manuc (Aug 2019), Calea Victoriei at Pasajul Macca (May 2026).
+Live OSM: Overpass 2026-11-12 21:39 UTC for 44.4290–44.4336 N, 26.0965–26.1035 E; single ways through the OSM API.
+
+### Verdicts (position and footprint are the OSM outlines in every case)
+| Object (OSM) | Height / shape class | Materials, colour | Signage | Result |
+| --- | --- | --- | --- | --- |
+| CEC Palace (w973712798, landmark model) | mass and arched front present; the glass central dome and the four corner domes are not seen from Calea Victoriei in the game | pale stone: matches | none in either | still different: domes; the real plot has a fenced garden with tall trees, the game an open lawn with generated street trees |
+| National History Museum / Palatul Poștelor (r19919941, landmark model) | colonnade and steps present; the domed corner pavilions are flat boxes | rusticated stone: matches | lettering present | still different: corner domes; generated street trees stand in front of the steps (none in reality) |
+| Stavropoleos church (w78444014) | height and porch match | was cream with a bright red tile roof; reality is ochre plaster under dark timber-shingle roofs | none | fixed (colour, lower roof); frieze colours remain an estimate |
+| Caru' cu Bere (w1456401783, no OSM tags beyond building=yes) | was a tan block with a flat roof; reality has a steep slate roof with a gabled centre and a slim corner spire | pale neo-Gothic stone | "CARU' CU BERE" over the door: present | fixed as a shape class (roof rise, gable and spire sizes are estimates); bay balconies and terrace parasols are not modelled |
+| Hanul lui Manuc (r19803024) | two storeys, long shingle roof: matches from Bd. Coposu and Str. Franceză | white plaster, dark roof: matches | "HANUL MANUC" | fixed: roof spikes over the rounded corners (self-crossing ridge offset) |
+| Curtea Veche ruins (w658220894) | low brick remains in a railed pit | brick | none | not compared with a current panorama (site under restoration; no official panorama inside) |
+| Biserica Sf. Anton (w150803286) | single tower, low roof: matches | bands were about 1.2 m wide; reality is fine brick / plaster banding with a blind arcade | none | fixed (band period halved); arcade and window detail remain generic |
+| Pasajul Macca–Vilacrosse (w108817126, w108817130, w657742193, w108817132, w657740097, w657740103) | OSM tags the arms tunnel=yes, layer=-1, covered=arcade; in the game the passage is not visible: closed fronts on both streets | – | – | not fixed: needs the glazed arcade and the two portals (Calea Victoriei, Str. Eugeniu Carada); not walkable in this scene |
+| National Bank, old palace (w1210146218) and new palace (w1210147193) | no OSM height or colour: were hash-coloured modern blocks 2–5 storeys high | pale limestone, rusticated ground floor with arched windows, iron fence and rose garden on Lipscani | none | partly fixed: stone colour, period façade style, 4 / 6 storeys (estimates); portico, fence and garden not modelled |
+| Ruinele Hanului Șerban Vodă (n6164079116, part w658220780 without height) | was a red three-storey box in the Lipscani paving; reality is a walk-on glass cover over the cellars | glass in a metal frame | none | fixed (low glass cover; frame layout estimated) |
+
+### Other findings
+- The scene's style override fell back to the generic (non-Bucharest) façade rules for every building it did not trim, so
+  Calea Victoriei, the bank block and all side streets read as modern grid-window blocks. They now use the Bucharest rules
+  (19th-century stucco fronts below 7 storeys), as the other Bucharest scenes do.
+- Businesses: 236 named venues in the box x −130…290, z −110…240 are unchanged against live OSM. "Dunk Shop"
+  (n10775260921) is gone from OSM and removed; added from live OSM: Gelateria La Romania dal 1947 (n14360710671), Pizza al
+  taglio (n14360710672, Lipscani 76), Class shoes (n14360710673), Casa de Balet – Studio Unirii (w1471936597, Blănari 21),
+  Teatrul Zurli (w1472212055, Lipscani 53). These are applied in the scene module until the scene data is rebuilt.
+- Named venues outside the walk (Lipscani west, Smârdan south, Șelari, Covaci, Franceză, Gabroveni, Stavropoleos) now carry
+  a name board on their own building: 110 boards, 9 more left out by the cap. Strip clubs, massage and erotic shops stay
+  unnamed. Board colours are procedural; names are the OSM names.
+- The `stavropoleos-cec` entry now arrives on Str. Stavropoleos (it shared the Smârdan arrival); the walk polygon gained
+  the street from the church to Caru' cu Bere (x −128…−12, z −78…−40). The scene overrides that entry's extent in memory;
+  `game/data/spots/buc-old-town.json` still lists the Lipscani polygon for both entries (to change at the next data build).
+- Two plaques ("Lipscani = Leipzig", "Guild streets") stood inside building footprints; they now stand on Lipscani.
+- Herăstrău: the park entry had no activity within reach of its arrival; a camera exercise on the Sleeping Nymph
+  (n1342884103) and up to two mapped artworks within 70 m was added.
+- Interiors (Carusel, the Freddo room, the hidden bar; the Chihuly Glasshouse in Seattle) are declared as roofed volumes:
+  no rain or snow is drawn inside them.
+
+### Not reviewed in round 2
+Street View stopped resolving panoramas before the other scenes were reached. Still without a panorama comparison:
+Parliament (cathedral precinct, Izvor park edge, Calea 13 Septembrie frontage, the palace's north / south / west sides),
+Athenaeum / Revolution Square (Hilton, Memorialul Renașterii, former Central Committee building, the library's other
+sides), Cișmigiu (lake, kiosks, gates, Bd. Regina Elisabeta frontage), Arcul de Triumf park edges, Herăstrău (lake shore,
+Casa Presei axis, entrance pavilions), Spring Palace beyond the one Bd. Primăverii panorama of round 1.
+
+## 7. Fidelity review, round 2b (2026-11-12): Parliament, Athenaeum, Cișmigiu, Arcul, Herăstrău, Spring Palace
+
+Live OSM: the OSM API 0.6 `map` call, tiled, 2026-11-12 ~22:00 UTC, for each scene's spot extents + 160 m (Overpass
+answered 502 / timed out all evening). Street View: official panoramas looked at next to game renders from the same
+position and bearing, as a visual reference only (nothing stored, traced or measured). Panoramas used:
+Calea 13 Septembrie at the cathedral (44.42471, 26.08879, Aug 2024), Strada Izvor 86 (44.42951, 26.08152),
+Bd. Națiunile Unite at the visitors' gate (44.43034, 26.08874), Calea Victoriei 47 / Piața Revoluției (44.43877, 26.09709),
+Bd. Regina Elisabeta 59 (44.43460, 26.09060), Kiseleff north of the arch (44.46790, 26.07779), Bd. Primăverii 40
+(44.46881, 26.09142). Several requested points returned no panorama (Bd. Libertății south, Calea 13 Septembrie west,
+Izvor west, Kiseleff at the museum, Aviatorilor at Charles de Gaulle, Știrbei Vodă, Primăverii east of the palace); the
+Village Museum point gave only a user photosphere.
+
+### Verdicts by feature (OSM = position / class; panorama = look)
+| Scene / feature | Result |
+| --- | --- |
+| Parliament perimeter wall (w94522653, barrier=wall, 13 gate nodes) | was a 0.6 m plinth + see-through palisade on three sides. Reality: a solid cream stone wall a little over head height, relief panels between square piers with pyramid caps, closed iron gates (13 Septembrie, Izvor); on Națiunile Unite the same piers carry an iron grille on a low base course. **Fixed** (new `scenes/buc-walls.js`, gates at the mapped nodes; heights / bay / gate width estimated) |
+| Calea 13 Septembrie / Bd. Națiunile Unite levels | the +16 m palace platform covered the whole box and lifted both streets onto the hill, ending in a 13 m cliff at the far kerb. **Fixed**: the platform is clipped to the mapped wall ring; streets keep the DEM; the lawn banks up behind the wall (bank width estimated) |
+| Parcul Izvor (w14262324) and its fence (w178307163) | the loader's tree cap deleted all 308 mapped park trees; no fence. **Fixed**: far canopy keeps every tree beyond the 1,400 nearest; low dark-green fence on the mapped way (height estimated) |
+| Garages block w393036569 (building=garages) | stood as a 4-storey windowed front over the Izvor wall; reality is a long low building. **Fixed** (1 storey) |
+| Cathedral precinct (w232332568, piazza r16698908, retaining walls w1223607030–35), Casa Academiei (r2230394), "Parcul Catedralei" (w393036564, landuse=construction) | position / outline match; cathedral as mapped (construction_end_expected 2025). The construction-site park is drawn as plain ground; not seen up close (no panorama on the piazza) |
+| Parliament north / west palace faces | seen from Națiunile Unite: tiers and colour match class; façade detail stays generic |
+| Senate gardens (r19749443, multipolygon) | not in the scene extract: needs data rebuild |
+| Memorialul Renașterii (n1393030628) | the spire is plain white; the crown is a dark woven ball about 3/4 up. Was a ring of spikes over a red band. **Fixed** (sizes estimated) |
+| Memorial Revoluție (w996044652, marble sculpture) | missing. **Added** as a low marble block on the mapped 6 m outline; real form not seen (trees) |
+| Carol I (n1883108499, height=13) | was ~9.7 m. **Fixed** to the mapped 13 m |
+| Biblioteca Centrală Universitară (r19896250) | slate domes stood on the block's long axis, invisible from the square; reality: domes with lanterns on the two rounded corner pavilions facing the square. **Fixed** (sized to the mapped pavilion outline) |
+| Palatul Regal court railings (w1478814648, w1476829138, w1476829137 height=2 metal; w1457045952, w1457045969) | missing. **Fixed** (iron on a low base). The piano-nobile windows are tall round arches with balustrades (were pedimented). **Fixed** |
+| Hotel Lido (w162494340, disused:tourism=hotel), English Bar (n2463617058, disused:shop) | carried name signs. **Fixed** (closed venues get no sign); Scala (disused cinema) had none |
+| Athénée Palace / InterContinental, Kretzulescu, former CC building, Calea Victoriei venues | 368 named businesses live, 367 in the data; Crocante (n14363552618, 44.44352, 26.09266) is new and outside the walk: needs rebuild |
+| Cișmigiu front on Bd. Regina Elisabeta | lawns ran open to the kerb; reality: green iron railing on a low stone base. **Fixed** on the three mapped fence pieces round the gate recess (w1478446281/87/88) and, as a documented Street View exception, along the mapped park outline (w16291869) west and east of it. Other sides not seen |
+| Cișmigiu lake, Lacul Lebedelor (r12837108), piers (w753761841, w951486102/03), waterfalls (n8807086588, n12065694916), viewpoints (n2723650896, n8809102213), ponds w951486099/100 | in the extract except the waterfall / viewpoint nodes (builder drops them): needs rebuild. Not compared with a panorama (no current coverage inside) |
+| Cișmigiu playgrounds (w842284872/73, w843007162, w950134300), fitness station, tennis | present by id; not seen |
+| Arcul de Triumf: Kiseleff both ways, four quadrants | 24 businesses / 9 sport / 9 tourist all in the data. Panorama north of the arch: open approaches, grass medians, closed woods both sides, villas behind: matches the round-1 changes. No change |
+| Herăstrău / Village Museum | 27 businesses, 47 sport, 6 water, 9 bridges / covered ways all present by id. Missing (builder drops nodes): houses Casa Mastaacăn Neamț (n6815285188) and Casa Naruja (n6815289695), playground n2791579390, viewpoints n2791530781 / n2791530802. No official panorama resolved at the museum gate, the shore or Charles de Gaulle: not compared |
+| Spring Palace frontage | on Bd. Primăverii the palace is closed by a plain rendered wall about 2 m high with greenery over it, not railings. **Fixed** on the boulevard edge of w38236017 (other sides keep the railing; height estimated). The UN House (n12857652820) is a white curved-balcony block with an "UN HOUSE" fascia; the game has a generic façade: not fixed. Kuwait embassy grounds w781162166 and playground n6401707601 missing: needs rebuild |
+
+Budgets (spawn, four headings, max): Parliament 1,059k / 263 calls → 1,175k / 307 (scene 689k → 864k unique, the far canopy
+and walls); cathedral entry 851k / 245 → 999k / 300; Athenaeum 701k / 171 → 712k / 173; Cișmigiu 1,378k / 199 → 1,378k /
+203; Spring Palace unchanged (558k / 203). All under 1.5 M / 400; Parliament's unique scene triangles (864k) stay under
+the 1 M spot target. Spot audit z-fights: Parliament 101 → 71, Spring Palace 0 → 0, others unchanged.
+
+## 8. CEC Palace and History Museum domes, round 2 (2026-11-12, lane landmarks)
+
+- CEC: the mapped parts (162 volumes) carry the domes as stepped flat rings (`roof:shape=dome` / `onion` unsupported),
+  so no dome was visible. Dome shells added over the mapped steps: central r 8.4 m from 24.6 m (lantern w657898053 to
+  37.5 m stays above), four corner domes r 4.5 m from 25.2 m. Radii / rises are estimates inside the mapped totals.
+- History Museum: the two end pavilions on Calea Victoriei carry domes (r 4.7 m, estimate) over a low hip base.
+
+## 9. Old Town walk scene: CEC and History Museum against the panoramas (fidelity pass round 2b, lane landmarks-b, 2026-11-12)
+
+Old Town walk scene (spot `old-town-lipscani`, served with lane buc-spots' overlay): from Calea Victoriei at
+44.4319, 26.097074 heading 286 the CEC central dome and a corner dome show above the cornice as in the panorama; the
+CEC limestone reads grey-white where the real stone is warm cream. History Museum (mnir): from 44.4319, 26.097074
+heading 150 the real view shows the south pavilion dome above the colonnade; the game frame shows no dome (open).

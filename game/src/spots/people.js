@@ -11,6 +11,7 @@ import * as THREE from '../../vendor/three.module.min.js';
 import { rng, clamp, distSeg, inPoly } from './kit.js';
 import { collide } from './walker.js';
 import { makeCrowd, dressFor, seasonOf } from '../crowd.js';
+import { insideInterior } from './precip-shelter.js';
 
 // ---------------------------------------------------------------------------- looks per persona
 const SKIN = ['#f1c9a5', '#e0ac85', '#c68863', '#9a6544', '#7a4b31', '#f5d6bc', '#d8a47f', '#5f3a26'];
@@ -511,7 +512,10 @@ export class Crowd {
                 else if (q === 'talk') pose = 'talk';
                 else if (L.prop === 'phone' && i % 3 === 0) { pose = 'phone'; prop = 'phone'; }
                 if (walking && L.prop === 'phone' && i % 5 === 0) prop = 'phone';
-                cr.set(i, { x: p.x, y: p.y, z: p.z, yaw: p.yaw + Math.PI, phase: p.phase, amp: walking ? clamp(p.speed / 1.4, 0.2, 1) : 0, scale: s, pose, prop });
+                // (2026-11-12 render review) nobody holds an open umbrella under a roof: people inside a declared interior
+                // (ctx.extras.interiors: Carusel, Freddo, the sports room, the Chihuly Glasshouse) close it
+                const indoor = insideInterior(this.interiors, p.x, p.y + 1, p.z);
+                cr.set(i, { x: p.x, y: p.y, z: p.z, yaw: p.yaw + Math.PI, phase: p.phase, amp: walking ? clamp(p.speed / 1.4, 0.2, 1) : 0, scale: s, pose, prop, indoor });
                 if (this._legacyHidden) continue;
             }
             const sw = walking ? Math.sin(p.phase) * clamp(p.speed / 1.4, 0, 1.2) : 0;

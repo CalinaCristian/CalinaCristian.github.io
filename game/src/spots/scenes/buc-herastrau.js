@@ -14,6 +14,7 @@ import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, obb, p
 import { bucBackdrop, osmPoly, placeLandmark, palisade, signAtlas, bucActivity, boatRide } from '../buc.js';
 import { railing } from '../props.js';
 import { addBikeRental } from '../bike.js';
+import { photoHunt } from '../photo-hunt.js';
 import { dryLanding, shortWaterRoute } from '../water-route.js';
 import { parkWoods, businessSigns, thinTrees, farCanopy, dropDegenerateTriangles } from './buc-green.js';
 
@@ -284,6 +285,13 @@ export default {
         // postcards: the church spire from the lawn (research pose); the nymph with the lake behind
         if (church) { const ic = spV.photo.iconic, dx = ic.x - church.x, dz = ic.z - church.z, L = Math.hypot(dx, dz) || 1, px = church.x + dx / L * 16, pz = church.z + dz / L * 16; ctx.challenge('village-museum', { view: [church.x, church.z], x: px, z: pz, heading: (Math.atan2(church.x - px, -(church.z - pz)) * 180 / Math.PI + 360) % 360, pitch: 32, r: 10, tol: 28 }); }
         else ctx.challenge('village-museum', { r: 10, tol: 28 });
+        // (r2, 2026-11-12) An activity at the park entry itself: the guided tour needs one within reach of the arrival and
+        // every existing one (museum households, bike dock, Debarcader) is 320-800 m away. Targets are mapped objects only.
+        { const gy = (x, z) => g.heightAt(x, z), near = d.pois.filter((p) => p.tourism === 'artwork' && p.id !== nymph.id && Math.hypot(p.x - nymph.x, p.z - nymph.z) < 70).sort((a, b) => Math.hypot(a.x - nymph.x, a.z - nymph.z) - Math.hypot(b.x - nymph.x, b.z - nymph.z)).slice(0, 2);
+          const targets = [{ label: 'Sleeping Nymph', x: nymph.x, y: gy(nymph.x, nymph.z) + 1.25, z: nymph.z, radius: 0.9 }, ...near.map((p) => ({ label: p.name || 'Park sculpture', x: p.x, y: gy(p.x, p.z) + 1.7, z: p.z, radius: 0.8, surfaceTolerance: 2.5 }))];
+          ctx.extras.nymphFraming = photoHunt(ctx, { x: nymph.x - 5, z: nymph.z + 13, title: 'Frame the Sleeping Nymph', targets,
+              unavailable: 'A camera exercise from the public alley; the sculptures are stylised stand-ins at their mapped positions.',
+              onDone: (s) => bucActivity(s, 'herastrau-park', 'nymph', '📷 Sleeping Nymph framed', 'You framed the marble nymph at the park entrance from the alley.') }); }
         ctx.challenge('herastrau-park', { view: [nymph.x, nymph.z], x: nymph.x - 0.8, z: nymph.z + 4.2, heading: 350, pitch: -12, r: 8, tol: 30, text: 'The Sleeping Nymph with the park and Lake Herăstrău behind' });
         // crowd
         ctx.crowdCfg = {

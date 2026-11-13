@@ -638,3 +638,206 @@ platform on a shore); the fine grids replace it there (`scenes/fine-dem.js`).
   silhouettes at their mapped positions.
 - Not checked on imagery: the sundial's actual design (the scene's is a stylised pattern), the amphitheatre steps,
   the car park and the entrance sign, the Burke-Gilman trail edge, the towers' individual shapes.
+
+## 9. Fidelity pass round 2, 2026-11-12 (lane sea-spots)
+
+Sources: the spot extracts and scene modules at 94a177d5; one Google Maps user photosphere viewed for reference only
+(nothing stored or copied). After that view the Maps pane returned "No Street View imagery available here" for every
+request, including a point where round 1 had a panorama, so no further imagery was compared in this round.
+
+**Pike Place, 1st Ave x Pike St looking down Pike St** (photosphere dated May 2020, position 47.60907,-122.33981 as
+reported by Maps; a photosphere's heading is not reliable). Seen: the PUBLIC MARKET CENTER sign in red letters on an
+open steel frame on the roof of the one-storey corner at the end of Pike St, three rows, the clock right of MARKET /
+CENTER; MEET THE PRODUCER on the roof edge of the taller cream building behind it; a red FARMERS MARKET band at
+street level; the Corner Market on the right, buff with brick-red panels, round-arched top windows, a green canopy
+and three-globe lamp posts at the kerb; brick paving on Pike St; cars on Pike Place (2020, before the car-free trial).
+Game at the same place (scene x −6, z 10): sign, frame, clock position, MEET THE PRODUCER, FARMERS MARKET and the
+Corner Market are present in the same arrangement. Differences: no three-globe lamp posts; a tree at the Corner
+Market corner on the Pike St side; a barrel-vaulted canopy left of the sign that the photo neither confirms nor
+excludes.
+
+**Waterfront, the research photo point.** 47.6069,-122.3416 (scene 0, 0) lies in OSM `natural=water` way 1417461574,
+the cove between the rebuilt Pier 58 (way 1155067802) and the seawall. The postcard stand is now the promenade paving
+8 m north-east of it (scene 3.5, −7.5), the Great Wheel on the same bearing (215). The data's pier polygons for the
+relations (Pier 55 / 56 / 57 / 59 / 60) are single self-crossing rings; the Great Wheel base and the ticket booth
+(way 429553385) therefore stand partly over open water. The "Over the water" plaque and the queue were moved onto the
+promenade south of the booth; the pier rings themselves were not repaired.
+
+**Seattle Center, presence in the extract** (data only, no imagery): Space Needle way 12903132, MoPOP way 161587742,
+Armory way 231764919, Pacific Science Center way 394955903 (no height tag), Climate Pledge Arena way 25123756
+(35 m, west of the terrain box), Chihuly Garden and Glass way 161587729, Howard S. Wright Memorial Fountain way
+241876412, the monorail guideway ways. The International Fountain lies north of the native extract and is not
+modelled. Shape class and materials of these were not compared with imagery in this round.
+
+**Frame budget** (High quality, 1200 x 700, 12 bearings at every spawn, postcard, plaque and activity anchor):
+Pike Place 2,452,726 triangles / 686 draw calls before, 1,113,634 / 339 after; Seattle Center 1,626,690 / 508 before,
+1,232,012 / 274 after. What dominated: the mapped city context (855 k triangles in ~270 chunk meshes of 800 m, drawn
+whenever a chunk touched the view), the sun's shadow pass over every window frame and glazing bar of the market
+facades (309 k), six draw calls per sign board and seven per plaque in each pass. Nothing was removed: the context is
+one multi-draw per material with 120 m cells culled by the frustum and by the skyline of nearer solid blocks, the
+facades are one multi-draw per material with a shadow-only proxy (walls, roofs, canopies, awnings, balconies,
+cornices, window surrounds, shop piers), far-LOD tree trunks are not submitted beyond 500 m (their crowns are).
+Still over: a drone frame 90 m above Pike Place looking north, 1.61 M triangles.
+
+## 10. Fidelity pass round 2b, 2026-11-12 (lane sea-spots-b): Street View side by side
+
+Sources: official Google panoramas, found through Maps' own coverage lookup (`photometa/ac/v1`, z17 tiles: coverage
+metadata only), viewed for reference through the thumbnail endpoint and never stored; game frames rendered at the
+panorama's position, eye 2.5 m, same bearing (High quality, summer); live OSM (Overpass + API 0.6, 2026-11-12); USGS
+3DEP 1 m DEM (EPQS). User photospheres were skipped. 68 bearings compared across 9 scenes; the panorama ids are given
+where a fix depends on them.
+
+**Pike Place** (27 bearings at 12 panoramas on Pike St, Pike Pl, Post Alley, Virginia St, Western Ave)
+- Matches: the PUBLIC MARKET CENTER sign and clock, MEET THE PRODUCER, FARMERS MARKET, PIKE PLACE FISH, Corner Market
+  (CORNER MARKET lettering, arched top windows), Sanitary Market, the Starbucks front and pale band sign, Beecher's
+  Handmade Cheese, Mr. D's Greek Delicacies, Sur La Table and Cafe Campagne on Post Alley, the POST ALLEY banner,
+  brick paving, the falling street profile.
+- Fixed: three-globe lamp posts on 1st Ave (panorama tT8x8F7kggeRi_KoY1vLng: low posts, globe on top + two on a cross
+  arm; the tall cobra heads stay on Pike Pl), placed at the generator's 1st Ave lamp points. No generated street tree
+  on the Corner Market's 1st Ave frontage (no OSM tree, open in the panorama at 235 / 265°). The North Arcade's street
+  front is an open day-stall shed (dark-green fascia, single grey-green roof plane rising from the eave), not the
+  windowed hall of the Main Arcade (grsVDUMkuBMlk2jyCNtErA, gUpSU7FwJVKGzsOM5hEfWg, qe8_CeOlBF2k55UTq3zkAg); eave 3.3 m,
+  run 7 m are estimates. Victor Steinbrueck Park: the bay carve west of x = −315 cut the park into the bluff (lawn
+  sloping off to roof level); the DEM gives 30.7–31.5 m NAVD88 at 24 points over the whole OSM park (way 14026690):
+  the park is now level at −5.7 relative, the carve stops at the park's west wall. Its two poles stand at their OSM
+  nodes (n3211770167 Farmer's Pole 50 ft, n3211770169 untitled, height not mapped).
+- Not fixed: Main Arcade street front (reality: green dado + small-pane windows + ENTRANCE signs, pigs on the roof
+  edge of the Economy/Main arcade at Pike Pl; game: similar band but no roof pigs); Western Ave market west face
+  (red-framed industrial windows); the Steinbrueck park has no benches, lamps or trees beyond the OSM trees and the
+  office block west of it (Market Place North) is a generic grey extrusion where reality is tan with ribbon windows;
+  parked cars on Pike Pl (panoramas 2023–2024; the scene is car-free by design, the 2025 trial).
+- Barrel-vault canopy left of the sign: from the official panoramas at 1st Ave (235° / 265°) and at the Corner Market
+  (250°) that spot is small and partly hidden by the sign frame; not settled either way. No change.
+
+**Seattle Center** (28 bearings at 12 panoramas)
+- Space Needle base pavilion: curved glass with a white soffit band, queue, stone ball bollards: shape matches; the
+  soffit band in reality is deeper and the pavilion is screened by large trees and planting that the game lacks.
+- MoPOP from the west steps and 5th Ave N: reality is a multicoloured iridescent / purple-bronze and silver skin,
+  continuous curved lobes; the game draws the seven OSM lobes as flat red, blue, gold and white-grey slabs (way colours)
+  and the monorail passes through as in reality. Colours follow OSM tags; the iridescence and the curvature are not
+  modelled (needs a hero model).
+- Monorail guideway and station: twin beams on T-columns and the beam into MoPOP match; the station roof is a plain
+  slab (reality: a long curved canopy over three platforms, OSM w333355314/5/7).
+- Chihuly: Glasshouse frame and red suspended forms match in kind; the EXHIBITION ENTRANCE / bookstore signs and the
+  planted wall are not modelled.
+- Armory: from the monorail walkway the real Armory is screened by large trees; the game has open lawn there.
+- Pacific Science Center: reality shows the red Olympic Iliad (n3211770187) in the park south of it; the white
+  arches are not visible from the nearest official panorama; the game has no Iliad and generic volumes.
+- Climate Pledge Arena (way 25123756): reality is the sweeping 1962 roof with sloped buttresses and a glass front;
+  the game has a generic box at the edge of the extract.
+- International Fountain (w35352476, 57 × 56 m, `height=37`, Fountain Lawn w394955954, International Fountain
+  Pavilion w492644115, Acrobat Constellation n3211770205): the fountain lies 15–43 m west of the native terrain box
+  (x0 = −190); the panorama at its edge shows the white dome bowl inside a ring of trees, the game a plain lawn.
+  Adding it needs: the fountain ring and lawn as literal OSM rings in a scene module (as `waterfront-pier-rings.js`
+  does), the native ground extended west (the source context terrain already covers it), and a hero model of the
+  bowl / dome / jets from sources.
+- Howard S. Wright fountain (w241876412): present at its mapped place.
+
+**Waterfront**: the pier relations were stored as one concatenated ring each (Pier 57 self-crossing, Piers 59 / 60
+half their area, Pier 56 reversed). The scene now uses the live relations joined into closed rings
+(`waterfront-pier-rings.js`). Probe: the Great Wheel base (−67.7, 81.2) and the ticket booth (w429553385) already
+stood on walkable deck at HEAD and still do. The water triangle (−39.5, 58.4)–(−35.6, 65.7)–(−33.6, 65.8) is
+outside both Pier 57 (r812609) and Pier 58 (w1155067802) in OSM and water in the coastline: a source gap, kept.
+Pier 55's three inner rings are recorded and not opened (the coastline treats them as land). Panoramas: Aquarium
+walkway and Overlook Walk (ssVBdmKRn3zMu6r2avuajw, I70pAql2e9X-e2-1ah4X8w), where the game's eye fell inside the
+Ocean Pavilion volume and under the Overlook, which is not a useful comparison. From the cove corner (FK3X6Xtysq2K8zjHYn66Kw)
+the wheel, Pier 57 and the promenade read right; reality has planters, bins and two-way traffic on Alaskan Way where
+the game has open paving. No official panorama within 45 m of Piers 55–57.
+
+**Pioneer Square**: 1st Ave x Yesler (uDkRVtPBN2CfJGuwgVQGvw): pergola, totem, Smith Tower, brick blocks and the open
+crossing match; reality's trees are taller and fuller, the Pioneer Building is a stone-and-brick Romanesque front
+(game: plain red brick). Occidental Ave S looking south: the Union Trust Building / Annex (granite piers, green
+storefronts) is a generic red-brick block in the game. 2nd Ave Ext x Yesler looking 250°: the panorama shows a
+surface lot with a booth; the game camera stood against the Sinking Ship Garage (way 52781697, still mapped as a
+3-level garage, v14 2026-10-20). Unverified.
+
+**Kerry Park** (y4VIyX3fc6pkQsYrTG-A1w, D19wLVvtz886pOofJWALBA): Changing Form, plinth, brick plaza, lawn, railing
+and the view match. Fixed: the street-tree row the generator planted on the park's own kerb (none in OSM, none in
+either panorama). Not changed: parked cars along W Highland Dr, the hedges / gardens on the north side.
+
+**Fremont Troll**: the official panorama nearest the Troll is on the Aurora deck (no altitude in panorama metadata),
+so the Troll itself was not compared. N 36th St west (Waz2-sx9krbbJvb3y-2BUw): concrete columns with capitals and
+haunched girders; the game's arches read taller and rounder (as section 8 says). Aurora north: balustrade parapet in
+reality, plain wall in the game.
+
+**Ballard Locks**: the walkway panoramas confirm the "Salmon Waves" (n3211770269, a row of curled concrete forms with
+globe lamp posts on the south-bank promenade), not modelled. Lock-wall views put the game's eye in the chamber
+(panorama metadata has no altitude): not a valid comparison. Administration garden: reality is wooded with tall
+conifers; the game shows open lawn with scattered trees.
+
+**Gas Works**: one official panorama inside 60 m (park entrance); the towers, the barn and Kite Hill have no official
+panorama in reach. Not compared.
+
+## 11. Bellevue spots — round 2, 2026-11-12 (Street View side by side + live OSM)
+
+Method: the live OSM extracts of round 1 (same day) for position / type, official Street View panoramas for look, the game
+rendered at each panorama's position and bearing (`game/dev/spots.html`, summer, clear day) before and after each change.
+No panorama imagery was saved; only the observations below. Heights quoted "on the scene datum" use the USGS 3DEP 1 m DEM
+(`epqs.nationalmap.gov`) where the 20 m research grid is too coarse.
+
+Street View technique notes (they explain round 1's "no panorama" result): the Maps tab in the hidden browser pane does not
+resolve a panorama until a screenshot forces a frame — navigate, take one small screenshot, wait 3–5 s, read the tab URL.
+In the thumbnail endpoint a **positive `pitch` looks down**, a negative one up.
+
+Official panoramas used (lat, lon): Lake Washington Blvd bridge 47.61201, −122.21094; 99th Ave NE foot 47.61046, −122.20985;
+Lake Washington Blvd × 99th Ave NE 47.61105, −122.20915; marina lot 47.60989, −122.20898; NE 4th St at the park gate
+47.61381, −122.20422 and 47.61381, −122.20442; NE 4th St by Piloti 47.61391, −122.20251; Bellevue Way 47.61291, −122.20171;
+100th Ave NE 47.61190, −122.20696; NE 1st St 47.61122, −122.20480; Main St at the garden drive 47.60995, −122.17853; garden
+drive 47.60941, −122.17850; garden drop-off loop 47.60893, −122.17824; Bellevue Way under the skybridge 47.61642, −122.20159;
+Bellevue Way × NE 6th 47.61577, −122.20179; NE 8th St east of Bellevue Way 47.61735, −122.20089. Park interiors (beach, pier
+deck, canal ring, waterfall, playground, garden rooms, ravine bridge) have user photospheres only: they were judged from OSM.
+
+**Meydenbauer Bay Park** (scene origin 47.6106, −122.2108)
+
+| Feature (OSM) | Verdict | What was established / changed |
+|---|---|---|
+| Pavilion w688203355 (`building=toilets`), footway w841411879 `layer=1`, picnic tables n7850600507–510 `layer=1` | was wrong type → fixed | It is set into the bank; its roof is a public terrace level with the upper walk (SV: light concrete deck, galvanised mesh rails, picnic tables; no dark overhanging roof). DEM: beach side 1.0–1.8 m, uphill side 4.2–4.6 m. Terrace at 4.45 m, walkable from both mapped approaches, tables at their nodes. The "MEYDENBAUER BAY PARK" plate on it had no source: removed. Beach face not seen (no panorama). |
+| Whaling Building w819159071 (`building:levels=2`) | was wrong look → fixed | SV: dark brown boards, white-trimmed windows, steep brown-grey shingle roof, ridge about level with 99th Ave NE (≈ 7 m). Was a white two-storey box 9.3 m high. Eaves 3.3 m / rise 3.4 m are estimates. |
+| REI Boathouse w698374975 | was wrong look → fixed | SV: same dark brown / white trim / shingles — not red. No name board readable from the street: the invented "BOATHOUSE · KAYAKS · SUP" plate is removed. |
+| Covered moorage w819159076 (`building=roof`) | match, detail added | SV (marina lot): grey roof, deep brown timber fascia, posts. Fascia added. |
+| Yacht-club buildings w627898895 / 896 / 897 (`building=yes`, over water, inside `leisure=marina` w393293243) | was wrong type → fixed | SV from 99th Ave NE: long covered-moorage sheds. They were four-storey windowed blocks standing in the lake. |
+| Piers `man_made=pier` w753594668–678, w753594680, w737163199–206 | missing → added | 19 linear piers (marina fingers, yacht club, private docks NW). 2.2 m timber decks on piles; width / height estimated. Not walkable (private / `access=no`). |
+| Crescent pier w688415225 / w687934817 | match | SV: low grey deck, mesh rails, white pile tops above the rail. Walkable deck had slivers of open water (collision boxes turned the wrong way, last panels skipped): fixed. |
+| Buoys n6901346624–629 (`seamark:type=buoy_special_purpose`) | missing → added | six white can buoys with an orange band (shape estimated). |
+| Lake Washington Blvd bridge w243441596, sidewalks w753604118 / w753604114 (`layer=1`) | partly wrong → fixed | SV on the deck: raised concrete sidewalk each side inside concrete balustrades, dark lantern posts on the parapet. The deck was 24 level boxes (a 13 cm stair every 4 m) with nothing to stand on: walkers on the boulevard dropped to the ravine floor. One sloped slab, sidewalks, four lanterns (number / places estimated), walkable. Substructure under the deck not seen. |
+| Park name sign (park w57883263) | missing → added | SV: low teal panel between two posts at the LWB × 99th Ave NE corner. |
+| Far shores | was wrong look → fixed | SV: continuous belt of tall firs with houses at the waterline. Was bare green hills with a scatter of trees. Dense low-detail tree belt; the shore houses are not modelled. |
+| Promenade lights | partly fixed | SV: dark ≈ 5 m posts with a pendant shade. One lamp style per scene: the boulevard's tall grey cobra heads now share it (wrong for the street). |
+| Beach w688203354, swimming area w737163174, swim float, playground w688639344, streams, parking, viewpoints | match (position / type) | swim float and buoy line seen from 99th Ave NE. Playground equipment, picnic tables off the terrace, bubbler n6458275653: generic stand-ins. |
+| Fish sculpture n13707322282 | not modelled | description only ("native-PNW style fish"), not seen. |
+
+**Bellevue Downtown Park** (origin 47.6133, −122.2034)
+
+| Feature (OSM) | Verdict | What was established / changed |
+|---|---|---|
+| NE 4th St forecourt r11564632 (`highway=pedestrian`, `surface=paving_stones`) | was wrong → fixed | SV: grey pavers from the kerb to the canal wall. Was a lawn in a brick frame. |
+| Fountain w655090567 | was wrong form → fixed | SV: raised round granite bowl spilling over its rim onto three circular steps ringed by low round-topped bollards. Was a flat basin at ground level. Sizes estimated from the mapped Ø 5.4 m outline. |
+| Obelisk lamps (not mapped) | missing at the forecourt → added | SV: pink-granite obelisks with globe lamps, as on the canal ring. Four at the forecourt, placed by bearings from two panoramas (± 2 m): (−72.8, −35.8), (−55.6, −35.8), (−82.0, −41.5), (−46.4, −41.5). The same views confirm the ring obelisks exist. |
+| Flagpole n12195609190, map table n4957270649 (`information=map`) | missing → added | SV: flagpole with the US flag at the east edge; stone table with a relief map. |
+| Piloti w1326469154 | partly wrong → improved | SV from NE 4th: a cluster of slender white columns flaring into the canopy. Was three thick legs. Seven columns (count / places estimated); the canopy's undulating edge is still a plain shell. |
+| WWI memorial n5657152449 | corrected | research: "Three elms and a plaque"; seven elms stood round it. |
+| Canal ring w1326469164 / 165 / 169, weirs, upper pool w1326469168, cascade w842753013, reflecting pool w1326469177, lower plaza w1326475313, south fountain w842753014, Inspiration Playground w503657594 + nodes, shelters, restrooms, splash pad | match (position / type) | no panorama inside the park: stone colour, cascade and pool edges unverified in look. Playground seen across the 100th Ave NE car park only (position right). |
+| Terraces w810574801–803, w842753004–006, old school outline w810575032 (`height=0.2`) | not modelled as walls | paths only. |
+| Skyline | sanity | Lincoln Square towers north-east, mid-rise blocks south: present. Bellevue Way raised median near NE 2nd St not checked. |
+
+**Bellevue Botanical Garden** (origin 47.6088, −122.1793)
+
+| Feature (OSM) | Verdict | What was established / changed |
+|---|---|---|
+| Name sign | wrong place → fixed | SV on Main St: teal panel between two posts on the east side of the drive. A 5.6 m board stood inside the garden by Shorts House (no source). |
+| Yao Garden w32121704 | invented feature removed | an 18 m ellipse of raked gravel was painted; OSM describes gate, basalt streambed, boulders, lanterns, maples. |
+| Artworks | 5 added, 8 not modelled | Friendship Circle n4499338296 (standing stone circle), Night Blooming n5531375272 (wood, 4.1 × 3 m), Basalt Bench n4730801813, Stacked Stones n13176504583 (cairn), Waterwall n9251586886 / w1433659335 (slate wall fountain): forms from their tags, sizes estimated. Owl's Glare, Goldiwarts, Large Galaxy, Shaman, Three Cranes, Sophia's Dream, The Nature of Sitting, Sheepish Rabbit: name only. |
+| Car park r19655198 | dressed | SV from the drop-off loop: lot in use, dense conifers round it. Parked cars square to the mapped aisles (bays not mapped). |
+| Aaron Education Center r19675678 | generic | not visible from any panorama (hidden by planting). Two mapped courtyards still not cut. |
+| Ravine Experience bridge w210457899, Tateuchi pavilion w32121769, Yao Gate r19659543, ponds, boardwalks w453135455 / w1433659385, Lost Meadow bridge w1431835804, Wilburton Hill sports ground | match (position / type) | not seen in Street View. Wilburton Hill Park frontage on Main St: forest edge, matches. |
+
+**Lincoln Square** (origin 47.61755, −122.20195)
+
+| Feature (OSM) | Verdict | What was established / changed |
+|---|---|---|
+| Bellevue Square NE block w33106348, Bellevue Way face | corrected | SV under the skybridge: white stucco on both storeys, dark shopfronts, ivy bays (Tavern Hall, Castilla, Shake Shack); the red-brick building is the next one south (The Cheesecake Factory, part of the Bellevue Square model). Round 1's brick base removed. |
+| Avenue Bellevue w1215907936 / w1215907937 + parts | was wrong look → fixed | SV: two white towers ringed by balcony bands. Were dark office glass. Curved plan and balconies not modelled. |
+| Bellevue Way skybridge w43872832 | match (class) | SV: steel truss with glazing on branching columns; the landmark model's truss bridge is of that class. |
+| Lincoln Square North podium w161929514 | landmark model (other lane) | SV: glass canopy, The Container Store and Earls at street level, beige / salmon piers; "LINCOLN SQUARE" lettering on the NE 8th canopy. |
+| Bellevue Way medians | not in the scene | SV: a yellow-kerbed raised median under the skybridge and a planted median near NE 6th. Roads are painted by the locked `osm.js`. |
+| Research plaques "Bellevue Square", "Skybridge" | fixed | they stood inside the w33106348 block since round 1 made it a building again. |

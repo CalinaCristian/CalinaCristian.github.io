@@ -507,3 +507,42 @@ businesses and landmarks).
   Lukoil have no brand dressing (Lukoil's `building=roof` is a solid slab); the Brico Dépôt / Altex box (OSM w247015071)
   is red and orange with an ALTEX sign, the game draws glass; the pedestrian passages (OSM w737986560/1, w277315766,
   Politehnica and Basarab subways) and the Basarab station footbridges (OSM w738281332–345) are not modelled.
+
+## Fidelity pass round 2, 2026-11-12 (sweep)
+
+- **Pitch at 44.439984, 26.055778** (46 × 33 m; `grz-pitch-splai`, 44.439158, 26.056929, heading 313): behind a fence and a row of trees along the street in the panorama; the game has the pitch as an area on open lawn with scattered trees, no perimeter fence. Partly matching.
+- No other bridge, underpass, water body, sports ground or large store of the district data lacks a viewpoint within 130 m. Bellevue and Floreasca: none found either (the Dinamo main pitch and track are faced by `flo-dinamo-stadium`).
+
+## Landmark catalogue review against panoramas (fidelity pass round 2b, lane landmarks-b, 2026-11-12)
+
+Method: official panorama ids found from Maps coverage metadata (`photometa/ac`, coverage only), the game rendered at the
+pano position and bearing (eye 2.5 m), then compared side by side by eye. No imagery kept. Poses: `viewpoints-add.json`
+of this lane and the poses below. "Match" = shape class, height, roof, main materials/colours, entrance side and signage
+read as the real thing at street distance; it is not a claim of parity. Table positions are rounded and some are
+approximate; the exact poses with their pano ids are in this lane's `pick/*.json`, `views2b.json` and `views3.json`,
+and the kept ones in `viewpoints-add.json`.
+
+| Landmark | Pose (lat, lon, heading) | Verdict |
+| --- | --- | --- |
+| thebridge1 | 44.4441, 26.0628 h 212 | match (dark glass box, grey mullion grid, BCR band) |
+| cetgrozavesti | 44.4421, 26.0630 h 184 | not compared: towers hidden behind blocks / trees at every street pose found |
+| orhideeasign | 44.444372, 26.061485 h 70 | fixed: white panel wall with red bands (was a dark windowed front); Carrefour lettering kept |
+| politehnica | none within 200 m | not compared (no driving-street pano faces it) |
+
+## Round 2 (2026-11-12), lane world
+
+Monuments: 11 placed (Leul as a generic monument, George Caranda obelisk at OSM height
+6 m, Panait Donici bust at OSM height 4 m, Coloana Timpului, sculptures). Fuel: OMV pylon only (its own service lane
+fills the canopy, no island); Lukoil w256806132 pylon only (roof not a canopy in the pack). Bridges: guard styles not
+reviewed; from the Basarab arch span the panorama shows a white tube guard rail on posts and an orange pedestrian railing.
+
+## Round 2 (2026-11-12), lane world-b
+
+Street View was used only to look (official panoramas, ids found from coverage metadata); nothing was saved or traced.
+
+Bridges: the Basarab group decks (Doina Cornea, Bretea, Exit → Giulești, Calea Plevnei,
+ramp w128304850) have blue steel railings on a concrete kerb in the panoramas; the game draws white (basarab-structure.js,
+not changed). Fuel: Lukoil w256806132 (open canopy on white columns, red fascia; OSM height=3 kept) and Petrom w237830689
+(canopy on blue round columns) are now open canopies (fuel-canopy-review.js). Dâmbovița w170930341: from the north quay
+(44.443748, 26.058521, looking SSW) the water is about 1.5 m below the quay with a short sloped revetment; the reviewed
+section is now water -1.6 m (water-channel-review.js); the section is an estimate, seen at one place.

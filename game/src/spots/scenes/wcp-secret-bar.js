@@ -1,5 +1,6 @@
 // Owner-requested fictional Easter egg (feedback 79 / 84), reached from the existing enterable bookshop lobby.
 // Keep this room separate from the source street frontage and the normal tourist itinerary.
+import { declareInterior } from '../precip-shelter.js';
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, canvas, canvasTexture, obb, polyArea, offsetPolyline, flatGeometry,distPolyline } from '../kit.js';
 import { bucActivity, signAtlas } from '../buc.js';
@@ -163,6 +164,7 @@ export function buildSecretWcpBar(ctx, carusel) {
     rctx.add = (...objects) => { room.add(...objects); return objects[0]; };
     rctx.collider = (c) => ctx.collider({ y0:y-.2, y1:y+4.1, intended:true, ...c });
     const door = { mx:x, mz:z, ux:1, uz:0, nx:0, nz:-1, L:11.6 };
+    declareInterior(ctx,{box:{x0:x-5.8,z0:z-.5,x1:x+5.8,z1:z+10.5},y0:y-1,y1:y+4.3,pad:1,name:'wcp-room'}); // a ceilinged room: no rain or snow in it
     const B = buildRoom(rctx, { p:[[x-5.8,z],[x+5.8,z],[x+5.8,z+10.5],[x-5.8,z+10.5]], gmax:y-.03, door });
     B.groups.forEach(group => { group.wcpFan = true; });
     const lines = ctx.spot('old-town-lipscani').dialogue.lines;

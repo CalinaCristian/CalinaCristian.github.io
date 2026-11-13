@@ -15,6 +15,7 @@ import { addTraffic } from '../cars.js';
 import { activityFlow } from '../participation.js';
 import { buildShore } from './waterfront-shore.js';
 import { preparePiers, buildPiers, pierStyle, waterfrontBusinesses } from './waterfront-piers.js';
+import { PIER_RINGS } from './waterfront-pier-rings.js';
 import { buildShopSigns } from './pike-place-shops.js';
 
 const DECK_Y = 3.4;
@@ -32,7 +33,9 @@ export default {
         const bayW = seaWater(ctx, WY, { name: 'elliott-bay', color: '#1d3640', opacity: 1, repeat: 60 }); ctx.add(bayW);
         ctx.terrainOpts = { bg: '#9a968c', bgMask: 'slab', innerPx: 2048, outerPad: 420, skirtY: -6, skirtColor: '#1d3640', ...(shore ? { inner: INNER, cutouts: shore.cutouts } : {}) };
         // piers: decks on piles, walkable
-        const piers = d.areas.filter((a) => a.man_made === 'pier' && Math.abs(polyArea(a.poly)) > 40);
+        // (the pier relations as closed rings joined from their live OSM member ways: waterfront-pier-rings.js)
+        const piers = d.areas.flatMap((a) => (PIER_RINGS[a.id] ? PIER_RINGS[a.id].outer.map((poly) => ({ ...a, poly, ringsFrom: 'osm-live' })) : [a])).filter((a) => a.man_made === 'pier' && Math.abs(polyArea(a.poly)) > 40);
+        ctx.extras.pierRings = { relations: Object.keys(PIER_RINGS).length, innerRingsNotOpened: Object.values(PIER_RINGS).reduce((n, r) => n + r.inner.length, 0) };
         const b = new GeoBatch(), r = rng(9);
         for (const p of piers) {
             const concrete = p.surface === 'concrete' || /62|58/.test(p.name || ''); // Pier 58 was rebuilt in concrete (opened 2025)
@@ -125,20 +128,20 @@ export default {
           if (main.length > 3 && nb.length > 3 && sb.length > 3) addTraffic(ctx, { lanes: [{ pts: [...off(main, 1), ...nb.slice(1)], n: 4, speed: 10 }, { pts: [...sb, ...off([...main].reverse(), -1).slice(1)], n: 4, speed: 10 }] }); }
         // plaques
         const PL = sp.plaques;
-        ctx.plaque(PL[0], bx + 6, bz - 6, Math.PI * 0.8, { credit: 'Seattle Great Wheel (2012): 53.3 m, 42 gondolas.' });
+        ctx.plaque(PL[0], bx + 2, bz + 5, Math.PI * 0.8, { credit: 'Seattle Great Wheel (2012): 53.3 m, 42 gondolas.' });
         ctx.plaque(PL[1], 18, 66, Math.PI * 0.8); ctx.plaque(PL[2], -27, -50, Math.PI * 0.5); ctx.plaque(PL[3], -60, -140, Math.PI * 0.8);
-        ctx.challenge('waterfront', { r: 14, tol: 30 });
+        ctx.challenge('waterfront', { x: 3.5, z: -7.5, r: 6, tol: 30 }); // the research point (0, 0) lies in the mapped cove between Pier 58 and the seawall (water way 1417461574): the stand is the promenade paving 8 m north-east of it, the wheel on the same bearing
         // crowd
         ctx.crowdCfg = {
             personas: { tourist_us: 5, local: 2.5, tech: 1, tourist_cn: 2, tourist_kr: 1.2, tourist_jp: 1.2, tourist_de: 1, tourist_es: 1, tourist_ca: 1.5, tourist_in: 1.2, kid: 1.5, photographer: 0.8 },
-            walkers: 40, paths: [...ctx.footLines(), [[14, 9], [26, 28], [38, 46], [53, 71], [76, 108], [97, 142]], [[-45, -60], [-28, -42], [-2, -12], [14, 9]]],
+            walkers: 40, paths: [...ctx.footLines(), [[19, 6], [31, 25], [43, 43], [58, 68], [81, 105], [102, 139]], [[-45, -60], [-28, -42], [3, -15], [19, 6]]],
             groups: [
-                { line: [[bx + 2, bz - 3], [bx + 8, bz - 6], [bx + 14, bz - 2]], n: 12, act: 'queue', personas: ['tourist_us', 'kid', 'tourist_cn', 'tourist_in', 'tourist_es', 'tourist_ca'], y: DECK_Y },
-                { x: gw.x + 12, z: gw.z - 6, r: 4, n: 6, act: 'photo', look: [gw.x, gw.z], personas: ['tourist_us', 'tourist_kr', 'tourist_jp', 'photographer'], y: DECK_Y },
+                { line: [[bx + 2.5, bz + 3.5], [bx + 8, bz + 5], [bx + 14, bz + 6.5]], n: 12, act: 'queue', personas: ['tourist_us', 'kid', 'tourist_cn', 'tourist_in', 'tourist_es', 'tourist_ca'] },
+                { x: gw.x + 12, z: gw.z - 6, r: 4, n: 6, act: 'photo', look: [gw.x, gw.z], personas: ['tourist_us', 'tourist_kr', 'tourist_jp', 'photographer'] },
                 { x: -20, z: 60, r: 5, n: 7, act: 'watch', look: [-400, 300], personas: ['tourist_us', 'local', 'tourist_de', 'tourist_ca'] },
                 { x: 30, z: 50, r: 0.5, n: 1, act: 'perform', look: [20, 40], personas: ['busker'], prop: 'guitar' },
                 { x: -26, z: -57, r: 3, n: 5, act: 'watch', look: [-40, -57], personas: ['kid', 'tourist_us', 'tourist_cn'] },
-                { x: bx - 2, z: bz + 1, r: 0.3, n: 1, act: 'watch', look: [bx + 6, bz - 4], personas: ['staff'], y: DECK_Y },
+                { x: bx + 1, z: bz + 3.6, r: 0.3, n: 1, act: 'watch', look: [bx + 6, bz + 6], personas: ['staff'] },
             ],
         };
         ctx.sound('water', -40, 60, 120, 1); ctx.sound('gulls', -60, 60, 200, 1.2); ctx.sound('crowd', 0, 60, 70, 1); ctx.sound('traffic', 40, -20, 80, 0.7); ctx.sound('bell', -300, 300, 900, 0.6);

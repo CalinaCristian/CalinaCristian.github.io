@@ -672,3 +672,50 @@ Seen at 16 poses; the game render at the same pose is in brackets.
 | bucharest_ro_rosetti | https://www.bucharest.ro/locations/education-c-a-rosetti-theoretical-high-school-390 |
 | parcul_floreasca | https://zilesinopti.ro/locuri/parcul-floreasca/ |
 | floreasca_nightlife | https://hotnews.ro/?p=1594020 |
+
+## Stadionul Dinamo: the bowl lies in a pit (fidelity pass round 2, 2026-11-12)
+
+- OSM (live 2026-11-12): w28212482 `leisure=stadium`, r9146640 `building=stadium` (multipolygon, Calea Floreasca 22),
+  w427813551 pitch, r9146639 track, w860001496 Peluza Cătălin Hildan. No `height`, `building:levels`, `layer` or
+  `location` tag on any of them: OSM does not say how deep the bowl is.
+- Street-level reference (eyes only): from Calea Floreasca 33 (44.4558352, 26.1007094, looking east) a car park, a
+  graffitied brick boundary wall about 2.5 m high and two floodlight masts; no stand, roof or scoreboard above the wall.
+  From Șos. Ștefan cel Mare 7 (44.4530935, 26.1026882, looking north) the gate pillars, an unfinished four-storey concrete
+  frame on the left (w387467641) and an access lane that falls towards the pitch; again no stand above street level.
+- Elevation: EU-DEM 25 m (opentopodata `eudem25m`, sampled 2026-11-12): pitch 74.2–77.0 m; Calea Floreasca
+  82–84 m; Ștefan cel Mare side 79–82 m (inflated by buildings); the sports park north and east of the stadium 77 m.
+  The model is a smoothed surface model and under-reads a 190 m pit.
+- Decision: pitch 9 m below the street (`DIN_DEPTH`, estimate), top rows 0–1.6 m above it, parapet 1.1 m. The district
+  is flat, so the pit has a rim all round although the real ground north / east is as low as the pitch.
+- r9146640 is now one of the model's source ids (it stood as a 14 m generic wall round the sunk bowl).
+- Not established: west-stand roof, scoreboard, exact mast positions (masts now stand on the rim inside the outline),
+  the boundary wall (not mapped), the gatehouse.
+
+## Landmark catalogue review against panoramas (fidelity pass round 2b, lane landmarks-b, 2026-11-12)
+
+Method: official panorama ids found from Maps coverage metadata (`photometa/ac`, coverage only), the game rendered at the
+pano position and bearing (eye 2.5 m), then compared side by side by eye. No imagery kept. Poses: `viewpoints-add.json`
+of this lane and the poses below. "Match" = shape class, height, roof, main materials/colours, entrance side and signage
+read as the real thing at street distance; it is not a claim of parity. Table positions are rounded and some are
+approximate; the exact poses with their pano ids are in this lane's `pick/*.json`, `views2b.json` and `views3.json`,
+and the kept ones in `viewpoints-add.json`.
+
+| Landmark | Pose (lat, lon, heading) | Verdict |
+| --- | --- | --- |
+| rosetti | 44.4687, 26.1061 h 352 | match (school block, painted fence plinth) |
+| dinamo | — | compared in round 2 (lane landmarks) |
+
+Statues not modelled: Dinamo statue row n8013556514–17 (panoramas from Ștefan cel Mare only show the gate, the statues are inside).
+
+## Round 2 (2026-11-12), lane world
+
+Monuments: 8 placed (Discobolul, Alergătorul, Atletul, Cătălin Hîldan, Ivan Patzaichin,
+Statuie poloist, a bust). MOL canopy w235639134 is not a canopy in the pack (closed block): builder. Agora facade
+(way/34832556) is the generic rule (dark colour -> dark glass tile), not changed.
+
+## Round 2 (2026-11-12), lane world-b
+
+Street View was used only to look (official panoramas, ids found from coverage metadata); nothing was saved or traced.
+
+MOL w235639134: white canopy on a row of round columns over the islands (panorama
+44.465747, 26.108980): now an open canopy.

@@ -1,0 +1,32 @@
+{
+  "about": "Bridge / flyover deck edge class per OSM way, from street-level review (appearance only; no imagery stored). Fidelity pass round 2, lane world-b, 2026-11-12. Classes: parapet (solid concrete, game default), barrier (low concrete traffic barrier), kerb-railing (low kerb + steel post-and-rail), kerb-mesh (low kerb + steel posts with mesh panels), parapet-fence (concrete parapet + steel picket fence), basarab (drawn by basarab-structure.js, not by this table). Rows with applied=true are in game/src/bridge-guards.js.",
+  "rows": [
+    { "way": "w119926495", "district": "pipera", "name": "Podul Barbu Văcărescu", "pano": "44.479661, 26.100612 heading 253", "seen": "low concrete kerb, galvanised posts with mesh panels both sides", "class": "kerb-mesh", "applied": true },
+    { "way": "w8208289", "district": "pipera", "name": "Strada Petricani bridge", "pano": "44.474233, 26.124001 heading 7", "seen": "W-beam guard rail on the left, yellow steel railing on a concrete kerb on the right", "class": "kerb-railing", "applied": false, "why": "deck drawn at grade (no elevated rail generated); needs a street-level railing emitter" },
+    { "way": "w180054678", "district": "otopeni", "name": "airport departures flyover", "pano": "44.569611, 26.075695 heading 92 (forecourt, deck seen from below)", "seen": "steel post-and-rail railing along the deck edge", "class": "kerb-railing", "applied": true },
+    { "way": "w37017723", "district": "seatac", "name": "Departures Drive", "pano": "47.444481, -122.300824 heading 225", "seen": "low concrete barrier", "class": "barrier", "applied": true },
+    { "way": "w963677010", "district": "seatac", "name": "Departures Drive", "pano": "same deck as w37017723", "class": "barrier", "applied": true },
+    { "way": "w428095059", "district": "seatac", "name": "Departures Drive", "pano": "47.445739, -122.298703 heading 233", "seen": "concrete barrier", "class": "barrier", "applied": true },
+    { "way": "w427909577", "district": "seatac", "name": "Seattle-Tacoma Airport Departures", "pano": "47.441505, -122.298842 heading 128", "seen": "concrete barrier", "class": "barrier", "applied": true },
+    { "way": "w428003817", "district": "seatac", "name": "Seattle-Tacoma Airport Departures", "pano": "same deck as w427909577", "class": "barrier", "applied": true },
+    { "way": "w31928842", "district": "seatac", "name": "Ramp", "pano": "47.441190, -122.296497 heading 38", "seen": "concrete barrier", "class": "barrier", "applied": true },
+    { "way": "w103929484", "district": "seatac", "name": "Exit to Parking", "pano": "47.441955, -122.296789 heading 353", "seen": "concrete barriers both sides", "class": "barrier", "applied": true },
+    { "way": "w6429448", "district": "seatac", "name": "Airport Expressway", "pano": "47.450663, -122.300582 heading 180", "seen": "concrete barriers", "class": "barrier", "applied": true },
+    { "way": "w291552722", "district": "seatac", "name": "Ramp", "pano": "same view as w6429448", "class": "barrier", "applied": true },
+    { "way": "w428094930", "district": "seatac", "name": "Ramp", "pano": "same view as w6429448", "class": "barrier", "applied": true },
+    { "way": "w23609851", "district": "seatac", "name": "Airport Expressway", "pano": "47.450382, -122.298317 heading 314", "seen": "concrete barrier, chain-link fence behind (fence not drawn)", "class": "barrier", "applied": true },
+    { "way": "w1165458667", "district": "seatac", "name": "Airport Expressway", "pano": "same deck as w23609851", "class": "barrier", "applied": true },
+    { "way": "w30615115", "district": "bellevue", "name": "NE 8th St over I-405", "pano": "47.617209, -122.188666 heading 91", "seen": "concrete parapet with a dark steel picket fence on top", "class": "parapet-fence", "applied": true },
+    { "way": "w55481043", "district": "bellevue", "name": "NE 8th St over I-405", "class": "parapet-fence", "applied": true },
+    { "way": "w428073537", "district": "bellevue", "name": "NE 8th St over I-405", "class": "parapet-fence", "applied": true },
+    { "way": "w513238699", "district": "bellevue", "name": "NE 8th St over I-405", "class": "parapet-fence", "applied": true },
+    { "way": "w1058885032", "district": "bellevue", "name": "NE 8th St over I-405", "class": "parapet-fence", "applied": true },
+    { "way": "w84488180", "district": "grozavesti", "name": "Bd. Doina Cornea (layer 2)", "pano": "44.442074, 26.060309 heading 185", "seen": "steel railing on a low kerb, light grey", "class": "basarab", "applied": false, "why": "Basarab group: drawn by basarab-structure.js (white tube rail + pedestrian railing)" },
+    { "way": "w458458374", "district": "grozavesti", "name": "Bd. Doina Cornea (layer 1)", "pano": "44.440785, 26.059039 heading 222", "seen": "BLUE steel railing on a concrete kerb", "class": "basarab", "applied": false, "why": "Basarab group; game railing is white: colour mismatch listed in backlog" },
+    { "way": "w84482671", "district": "grozavesti", "name": "Bretea", "pano": "44.447714, 26.064544 heading 1", "seen": "blue steel railing on a concrete kerb", "class": "basarab", "applied": false, "why": "Basarab group; colour mismatch (white in game)" },
+    { "way": "w84483589", "district": "grozavesti", "name": "Exit to Giulești", "pano": "44.448095, 26.063502 heading 285", "seen": "blue steel railing on a concrete kerb", "class": "basarab", "applied": false, "why": "Basarab group; colour mismatch" },
+    { "way": "w668676697", "district": "grozavesti", "name": "Calea Plevnei", "pano": "44.447328, 26.064906 heading 311", "seen": "blue steel railing on a concrete kerb", "class": "basarab", "applied": false, "why": "Basarab group; colour mismatch" },
+    { "way": "w128304850", "district": "grozavesti", "name": "Pasajul Basarab ramp (layer 2)", "pano": "44.445625, 26.061761 heading 23", "seen": "blue steel railing on a concrete kerb", "class": "basarab", "applied": false, "why": "Basarab group; colour mismatch" },
+    { "way": "w128304847", "district": "grozavesti", "name": "Podul Grozăvești", "pano": "44.443076, 26.060567 heading 191", "seen": "white tube guard rail between carriageway and footway, pedestrian railing outside, arches", "class": "basarab", "applied": false, "why": "landmark structure (basarab-structure.js)" }
+  ]
+}

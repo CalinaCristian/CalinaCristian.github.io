@@ -35,15 +35,18 @@ function piloti(ctx, x, y, z, sx = 1, sz = 1) {
     const sdf = (px, py, pz) => {
         let d = sdEllipsoid(px, py, pz, 0, 6.0, 0, 3.6, 1.3, 3.2);
         d = smax(d, -sdEllipsoid(px, py, pz, 0, 5.3, 0, 3.3, 1.1, 2.9), 0.15);
-        for (let i = 0; i < 3; i++) { const a = i / 3 * TAU + 0.4; d = smin(d, sdCapsule(px, py, pz, Math.cos(a) * 2.2, 0, Math.sin(a) * 2.2, Math.cos(a) * 1.2, 5.4, Math.sin(a) * 1.0, 0.35, 0.9), 0.8); }
-        return d + 0.04 * noise3(px * 3, py * 3, pz * 3);
+        // Street View from NE 4th St (2026-11-12): a cluster of slender white columns that flare into the canopy, not three
+        // thick legs. Seven columns (the count and their places under the shell are estimates).
+        for (const [a, rr] of PILOTI_LEGS) d = smin(d, sdCapsule(px, py, pz, Math.cos(a) * rr, 0, Math.sin(a) * rr * 0.9, Math.cos(a) * rr * 0.8, 5.5, Math.sin(a) * rr * 0.72, 0.17, 0.3), 0.6);
+        return d + 0.03 * noise3(px * 3, py * 3, pz * 3);
     };
     const geo = meshSDF(sdf, { min: [-4.4, -0.2, -4], max: [4.4, 7.6, 4], cell: 0.1, ao: 0.4,
         color: (px, py, pz, nx, ny, nz, ao, o) => { const hex = Math.abs(Math.sin(px * 6.0) * Math.sin(pz * 6.0 + py * 4.0)); o.set(hex > 0.92 ? '#c9ced2' : '#f4f5f6'); return o.multiplyScalar(0.75 + 0.25 * ao); } });
     const m = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.45, metalness: 0.3, side: THREE.DoubleSide }));
     m.position.set(x, y, z); m.scale.set(sx, 1, sz); m.castShadow = true; m.name = 'piloti'; ctx.add(m);
-    for (let i = 0; i < 3; i++) { const a = i / 3 * TAU + 0.4; ctx.circle(x + Math.cos(a) * 2.2 * sx, z + Math.sin(a) * 2.2 * sz, 0.6 * Math.min(sx, sz), 5); }
+    for (const [a, rr] of PILOTI_LEGS) ctx.circle(x + Math.cos(a) * rr * sx, z + Math.sin(a) * rr * 0.9 * sz, 0.2 * Math.min(sx, sz), 5);
 }
+const PILOTI_LEGS = [[0.4, 2.5], [1.5, 2.3], [2.5, 2.6], [3.6, 2.2], [4.5, 2.5], [5.5, 2.4], [0.9, 0.9]];
 /** arc distance (rad) from the north high point along a branch: dir +1 east branch, −1 west */
 const along = (a, dir) => { let d = (a - A_N) * dir; d = ((d % TAU) + TAU) % TAU; return d; };
 
@@ -145,7 +148,7 @@ export default {
         }
         // WWI memorial elms (1926) + "Lest We Forget" marker in the meadow
         const mem = sp.structures.find((s) => s.id === 'memorial') || { x: -47, z: 61 };
-        for (let i = 0; i < 7; i++) { const a = i / 7 * TAU + 0.3; ctx.trees.push({ x: mem.x + Math.cos(a) * 9, z: mem.z + Math.sin(a) * 9, kind: 'broad', s: 1.5 + r() * 0.2, species: 'elm' }); }
+        for (let i = 0; i < 3; i++) { const a = i / 3 * TAU + 0.3; ctx.trees.push({ x: mem.x + Math.cos(a) * 9, z: mem.z + Math.sin(a) * 9, kind: 'broad', s: 1.5 + r() * 0.2, species: 'elm' }); } // three elms (research dossier: "Three elms and a plaque"); seven stood here
         // OSM n5657152449 historic=memorial, memorial=obelisk, name "Lest We Forget": a granite obelisk on a plinth (it was a
         // low slab; the height, 2.9 m, is an estimate — no tag gives it; the plate carries the mapped name only)
         { const mb = new GeoBatch(), y = g.heightAt(mem.x, mem.z); mb.box(mem.x, y, mem.z, 1.1, 0.5, 1.1, '#8d8a84', 'stone', 0.2); mb.cyl(mem.x, y + 0.5, mem.z, 0.42, 2.2, '#96928a', 'stone', 4, 0.55, 0, 0.2 + Math.PI / 4); mb.cyl(mem.x, y + 2.7, mem.z, 0.231, 0.22, '#96928a', 'stone', 4, 0.05, 0, 0.2 + Math.PI / 4); ctx.add(mb.build('memorial-obelisk')); ctx.box(mem.x, mem.z, 0.55, 0.55, -0.2, { prop: true, h: 2.9 }); const t = glowText('LEST WE FORGET', 0.9, 0.2, { fg: '#2a2a28', bg: '#9a968e', font: (s) => `700 ${s}px Georgia, serif`, night: 0 }); t.position.set(mem.x - Math.sin(0.2) * 0.56, y + 0.27, mem.z - Math.cos(0.2) * 0.56); t.rotation.y = Math.PI + 0.2; ctx.add(t); }
@@ -201,7 +204,31 @@ export default {
         // ---------------------------------------------------------------- backdrop: OSM streets / blocks, Lincoln Square + Bellevue skyline behind
         // fountains (OSM amenity=fountain: w655090567 at the north gateway, w842753014 at the south end): a granite-coped basin
         // holding water instead of flat paint (jets are not modelled: nothing maps them)
-        for (const id of ['w655090567', 'w842753014']) { const p = area(id); if (!p) continue; ctx.skipAreas.add(id); ctx.exclude.push(p); for (let i = ctx.trees.length - 1; i >= 0; i--) if (inPoly(ctx.trees[i].x, ctx.trees[i].z, p)) ctx.trees.splice(i, 1); /* no promenade tree in the basin */
+        // ---- NE 4th St entrance plaza. OSM: r11564632 highway=pedestrian surface=paving_stones (the whole forecourt, it was
+        // a lawn inside a brick frame), fountain w655090567, flagpole n12195609190, tourism=information information=map
+        // n4957270649. Street View from NE 4th St (two official panoramas, 2026-11-12): grey pavers from the kerb to the canal
+        // wall; the fountain is a raised round granite bowl spilling over its rim onto three circular steps ringed by low
+        // round-topped bollards; four pink-granite obelisks with globe lamps like those of the canal ring (an inner pair
+        // 8.6 m east and west of the bowl, an outer pair at the forecourt's edges — placed by bearings from the two panoramas,
+        // ± 2 m); a stone table carrying a relief map; a flagpole with the US flag by the east edge. Step, bowl and bollard
+        // sizes are estimates.
+        const northPlaza = area('r11564632') || way('r11564632');
+        { const fp = area('w655090567'), nb = new GeoBatch();
+            if (fp) { ctx.skipAreas.add('w655090567'); ctx.exclude.push(fp); for (let i = ctx.trees.length - 1; i >= 0; i--) if (Math.hypot(ctx.trees[i].x + 64.2, ctx.trees[i].z + 34.3) < 7.5) ctx.trees.splice(i, 1);
+                const fb = polyBox(fp), fx = (fb.x0 + fb.x1) / 2, fz = (fb.z0 + fb.z1) / 2, fr = Math.max(2.2, (fb.x1 - fb.x0 + fb.z1 - fb.z0) / 4), y = g.heightAt(fx, fz);
+                g.flatten(Array.from({ length: 20 }, (_, i) => [fx + Math.cos(i / 20 * TAU) * (fr + 4.2), fz + Math.sin(i / 20 * TAU) * (fr + 4.2)]), y, 3);
+                [[fr + 3.3, 0.15], [fr + 2.5, 0.3], [fr + 1.7, 0.45]].forEach(([rr, h], i) => nb.cyl(fx, y - 0.4 + i * 0.1, fz, rr, h + 0.4 - i * 0.1, i % 2 ? '#aaa59c' : '#b3aea5', 'stone', 40));
+                nb.cyl(fx, y + 0.45, fz, fr, 0.86, '#a8928a', 'stone', 36, 1.08); nb.cyl(fx, y + 1.31, fz, fr * 1.08 + 0.1, 0.1, COP, 'stone', 36);
+                waterPoly(ctx, Array.from({ length: 28 }, (_, i) => [fx + Math.cos(i / 28 * TAU) * (fr * 1.08 - 0.12), fz + Math.sin(i / 28 * TAU) * (fr * 1.08 - 0.12)]), y + 1.435, { deep: '#2a4744', shallow: '#4d6a62', cell: 0.8, foam: 0, name: 'fountain-w655090567' });
+                for (let i = 0; i < 10; i++) { const a = (i + 0.5) / 10 * TAU, bx = fx + Math.cos(a) * (fr + 4.0), bz = fz + Math.sin(a) * (fr + 4.0); nb.cyl(bx, y - 0.2, bz, 0.2, 0.62, '#b3aea5', 'stone', 10); nb.sphere(bx, y + 0.42, bz, 0.2, 0.16, 0.2, '#b3aea5', 'stone', 10, 6); ctx.circle(bx, bz, 0.22, 0.6); }
+                ctx.circle(fx, fz, fr + 1.7, 1.4); ctx.sound('water', fx, fz, 26, 0.7); }
+            for (const [x, z] of [[-72.8, -35.8], [-55.6, -35.8], [-82.0, -41.5], [-46.4, -41.5]]) { const y = g.heightAt(x, z); nb.cyl(x, y - 0.1, z, 0.42, 0.5, '#a78d84', 'stone', 4, 1, 0, Math.PI / 4); nb.cyl(x, y + 0.4, z, 0.34, 3.0, '#b8a097', 'stone', 4, 0.55, 0, Math.PI / 4); ctx.lampPoints.push({ x, z, rot: 0 }); ctx.circle(x, z, 0.45, 3.5); }
+            { const x = -59.2, z = -43.0, y = g.heightAt(x, z); nb.box(x, y, z, 1.25, 0.72, 0.8, '#9c958a', 'stone'); nb.box(x, y + 0.72, z, 1.5, 0.1, 1.0, '#a7a095', 'stone'); nb.box(x, y + 0.82, z, 1.3, 0.035, 0.8, '#7d6a48', 'metal'); ctx.box(x, z, 0.75, 0.5, 0, { prop: true, h: 0.86 }); } // relief-map table
+            { const x = -46.0, z = -43.3, y = g.heightAt(x, z), H = 10.5; nb.cyl(x, y, z, 0.075, H, '#c9cdd0', 'steel', 8, 0.6); nb.sphere(x, y + H + 0.08, z, 0.1, 0.1, 0.1, '#d9c27a', 'metal', 8, 6); ctx.circle(x, z, 0.12, H);
+                const c = canvas(190, 100), q = c.getContext('2d'); for (let i = 0; i < 13; i++) { q.fillStyle = i % 2 ? '#f4f2ec' : '#b22234'; q.fillRect(0, i * 100 / 13, 190, 100 / 13 + 0.6); } q.fillStyle = '#3c3b6e'; q.fillRect(0, 0, 76, 100 * 7 / 13); q.fillStyle = '#f4f2ec'; for (let j = 0; j < 5; j++) for (let i = 0; i < 6; i++) q.fillRect(6 + i * 12, 5 + j * 10, 2.4, 2.4);
+                const flag = new THREE.Mesh(new THREE.PlaneGeometry(1.9, 1.0), new THREE.MeshStandardMaterial({ map: canvasTexture(c), side: THREE.DoubleSide, roughness: 0.8 })); flag.name = 'us-flag'; flag.position.set(x + 0.98, y + H - 0.62, z); flag.userData.noAudit = true; ctx.add(flag); }
+            ctx.add(nb.build('north-plaza')); }
+        for (const id of ['w842753014']) { const p = area(id); if (!p) continue; ctx.skipAreas.add(id); ctx.exclude.push(p); for (let i = ctx.trees.length - 1; i >= 0; i--) if (inPoly(ctx.trees[i].x, ctx.trees[i].z, p)) ctx.trees.splice(i, 1); /* no promenade tree in the basin */
             const y = Math.max(...p.map(([x, z]) => g.heightAt(x, z))) - 0.15; /* rim level from the highest bank point: the lowest one buried the south basin 2.6 m under the lawn */
             for (let i = 0; i < p.length; i++) { const [ax, az] = p[i], [qx, qz] = p[(i + 1) % p.length], Lq = Math.hypot(qx - ax, qz - az); if (Lq < 0.3) continue; const base = Math.min(g.heightAt(ax, az), g.heightAt(qx, qz)) - 0.25; wb.box((ax + qx) / 2, base, (az + qz) / 2, 0.35, y + 0.45 - base, Lq + 0.2, COP, 'stone', Math.atan2(qx - ax, qz - az)); } /* the rim wall reaches the ground on a sloping site (south basin: OSM barrier=wall) */
             waterPoly(ctx, p, y + 0.3, { deep: '#2a4744', shallow: '#4d6a62', cell: 0.8, foam: 0, name: 'fountain-' + id }); ctx.poly(p, { h: 0.6, intended: true }); }
@@ -214,6 +241,8 @@ export default {
         for (const id of ['lincoln', 'onelincoln', 'lincolnsouth']) skipNearLandmark(ctx, id);
         parkPavilions(ctx); // picnic shelters + restrooms (OSM amenity=shelter / toilets): open roofs / low blocks, not shop blocks
         ctx.osmBackdrop({ paint: {}, trees: true, areaTreeOpts: { conifer: 0.25 }, streetTreeOpts: { spacing: 10, prob: 0.8 }, style: (bd) => ((bd.h || 0) > 40 ? 'office' : undefined) });
+        if (northPlaza) { ctx.painter.poly(northPlaza, '#b3b0a8', 'slab'); // the NE 4th St forecourt: square pavers (OSM surface=paving_stones)
+            const mapped = d.trees || []; ctx.trees = ctx.trees.filter((t) => !inPoly(t.x, t.z, northPlaza) || mapped.some(([x, z]) => Math.hypot(x - t.x, z - t.z) < 0.6)); } // only the mapped trees stand in the paving
         ctx.painter.poly([[-214.1, 177.4], [-210.0, 173.2], [-205.9, 174.8], [-202.2, 173.9], [-199.5, 170.9], [-196.6, 169.2], [-194.7, 170.9], [-193.5, 173.1], [-193.9, 178.2], [-195.3, 180.4], [-198.2, 181.6], [-206.0, 182.1], [-211.3, 180.5]], '#8fa9b4', 'slab'); // splash pad (live OSM w1389888661 playground=splash_pad)
         for (const id of ['lincoln', 'onelincoln', 'lincolnsouth']) placeLitLandmark(ctx, id, { collide: false, seed: id.length });
         seattleBackdrop(ctx, { clear: 2000, hazeK: 0.4 });

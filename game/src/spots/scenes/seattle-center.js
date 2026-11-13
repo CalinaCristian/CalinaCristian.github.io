@@ -8,6 +8,7 @@
 //  Artworks are modelled from descriptions (no photo textures).
 //  Local frame: x east, z south; origin = Space Needle centre (OSM w12903132).
 // ============================================================================
+import { declareInterior } from '../precip-shelter.js';
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, canvas, canvasTexture, inPoly, clamp, lerp, smooth, headingFromBearing, polyBox, alongPolyline, polylineLength, centroid, offsetPolyline, compactTriangles, capsuleGeometry } from '../kit.js';
 import { signBoard, railing } from '../props.js';
@@ -18,6 +19,7 @@ import { photoHunt } from '../photo-hunt.js';
 import { activityFlow } from '../participation.js';
 import { facadeMaterial } from '../osm.js';
 import {prepareSourceContext,addSourceContext} from '../source-context.js';
+import { batchSourceContext, horizonCuller, solidShells, onRenderCamera, distanceHide } from '../frame-budget.js';
 import { sourceRecord } from '../source-buildings.js';
 
 const NEEDLE = { x: 0.3, z: 0.7, y: 1.5 };
@@ -143,11 +145,11 @@ function buildNeedle(ctx) {
         });
     };
     const onLevel = (s, yy) => Math.abs(s.ctl.position.y - yy) < 1.2;
-    ctx.interactables.push({ kind: 'activity', x: door.x, z: door.z, y, r: 3, label: 'Ride the elevator to the observation level (41 s)', cond: s => s.spot.entry.id === 'space-needle' && !ride && Math.abs(s.ctl.position.y - y) < 1.2, use: s => startRide(s, true) });
-    for (const yy of [DECK_Y, LOUPE_Y]) { const p = lobby(yy); ctx.interactables.push({ kind: 'ride', x: p.x, z: p.z, y: yy, r: 2.4, label: 'Ride the elevator back down', cond: s => s.spot.entry.id === 'space-needle' && !ride && onLevel(s, yy), use: s => startRide(s, false) }); }
+    ctx.interactables.push({ kind: 'activity', x: door.x, z: door.z, y, r: 3, label: 'Ride the elevator to the observation level (41 s)', cond: s => !ride && Math.abs(s.ctl.position.y - y) < 1.2, use: s => startRide(s, true) });
+    for (const yy of [DECK_Y, LOUPE_Y]) { const p = lobby(yy); ctx.interactables.push({ kind: 'ride', x: p.x, z: p.z, y: yy, r: 2.4, label: 'Ride the elevator back down', cond: s => !ride && onLevel(s, yy), use: s => startRide(s, false) }); }
     // On the Loupe, manually frame the downward view through the glass.
     { const [hx, hz] = at(L.loupeTableR, Math.PI / 2 + 0.26), [tx, tz] = at(L.loupeTableR + 0.5, Math.PI / 2 + 0.34);
-        ctx.extras.loupeLook = photoHunt(ctx, { x: hx, z: hz, y: LOUPE_Y, r: 3.2, spot: 'space-needle',
+        ctx.extras.loupeLook = photoHunt(ctx, { x: hx, z: hz, y: LOUPE_Y, r: 3.2,
             cond: s => !ride && onLevel(s, LOUPE_Y), title: 'Look down through the glass floor',
             unavailable: 'The floor below you rotates at its real slow speed.',
             targets: [{ label: 'The view beneath the revolving glass', x: tx, z: tz, y: LOUPE_Y - .04, radius: .18, minDistance: .6, maxDistance: 5, surfaceTolerance: .15, holdSeconds: .75 }],
@@ -213,7 +215,7 @@ function buildNeedle(ctx) {
         for (const [k, m] of Object.entries(MENU)) {
             const mid = (m.c.a0 + m.c.a1) / 2 + m.da, [ix, iz] = at(m.c.r1 + m.out, mid), [fx, fz] = at(m.c.r0 - 0.4, mid);
             m.focus = { x: fx, z: fz, y: m.level + 1.35 };
-            ctx.interactables.push({ kind: 'activity', x: ix, z: iz, y: m.level, r: 1.9, label: m.label, cond: s => s.spot.entry.id === 'space-needle' && !ride && onLevel(s, m.level), use: s => order(s, k) });
+            ctx.interactables.push({ kind: 'activity', x: ix, z: iz, y: m.level, r: 1.9, label: m.label, cond: s => !ride && onLevel(s, m.level), use: s => order(s, k) });
         }
     }
     // ---- people upstairs (fixed heights: the crowd's floor search is for the ground)
@@ -293,6 +295,7 @@ function buildChihuly(ctx) {
     for (const x of [bb.x0, bb.x1]) pos.push(x, y0, bb.z0, x, y0, bb.z1, x, y0 + eave, bb.z1, x, y0, bb.z0, x, y0 + eave, bb.z1, x, y0 + eave, bb.z0);
     gGeo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); gGeo.computeVertexNormals();
     const glassMesh = new THREE.Mesh(gGeo, glass); glassMesh.name = 'glasshouse-glass'; glassMesh.renderOrder = 3; ctx.add(glassMesh);
+    declareInterior(ctx, { box: bb, y0: y0 - 1, y1: y0 + H, name: 'chihuly-glasshouse' }); // glazed roof: no rain or snow inside
     // frame: portal frames every 3 m along z + mullions
     for (let z = bb.z0; z <= bb.z1 + 0.01; z += D / Math.round(D / 3)) {
         for (let i = 0; i < us.length - 1; i++) b.rod([cx + us[i], y0 + prof(us[i]), z], [cx + us[i + 1], y0 + prof(us[i + 1]), z], 0.09, steel, 'metal', 5);
@@ -441,6 +444,13 @@ export default {
         buildFountain(ctx);
         // the city around the grounds (seen from the deck: 360°) — real towers, blocks, ground, Elliott Bay + ferries, mountains
         addSourceContext(ctx);
+        // frame budget (frame-budget.js): the city as one multi-draw per material, culled per 120 m cell by the frustum and by
+        // the skyline of the mapped solid blocks around the walker (nothing is hidden from the deck or the drone)
+        { const cityBatch = batchSourceContext(ctx);
+          (ctx.extras.finishers ||= []).push(() => { if (!cityBatch) return;
+            const cull = horizonCuller({ occluders: solidShells(ctx), items: cityBatch.items });
+            const trunks = []; ctx.scene.traverse((o) => { if (o.isInstancedMesh && /^treeTrunks .* far$/.test(o.name)) trunks.push(o); }); const far = distanceHide(trunks, 500);
+            ctx.extras.horizonCull = cull.stats; ctx.extras.trunkLod = far.stats; onRenderCamera(ctx.scene, (cam) => { cull.update(cam); far.update(cam); }); }); }
         ctx.extras.seaBackdrop = seaBackdrop(ctx, { needle: false, towers: false, bay: false, clear: 380, eyeY: 1.6 });
         // 5th Ave / Broad St traffic
         addTraffic(ctx, { lanes: [{ pts: [[129, 160], [129, -20], [129, -174], [130, -219], [124, -305]], n: 3, speed: 10 }, { pts: [[124, -305], [130, -219], [129, -174], [129, -20], [129, 160]].map(([x, z]) => [x - 5, z]), n: 3, speed: 10 }, { pts: [[7, 120], [18, 108], [40, 83], [79, 34], [103, 6], [129, -20]], n: 2, speed: 10 }] });
@@ -453,7 +463,7 @@ export default {
         ctx.challenge('space-needle', { r: 16, tol: 45, pitch: 60, cond: (s) => s.camera.getWorldDirection(new THREE.Vector3()).y > 0.42, condHint: 'Look straight up the legs.' });
         // Visitor exercises use actual looking and shutters. Their guide rings
         // are temporary game aids, not invented museum hardware.
-        ctx.extras.chihulyFraming = photoHunt(ctx, { x: chi.cx + 3, z: chi.cz, spot: 'space-needle', title: 'Frame the Chihuly suspended sculpture',
+        ctx.extras.chihulyFraming = photoHunt(ctx, { x: chi.cx + 3, z: chi.cz, title: 'Frame the Chihuly suspended sculpture',
             unavailable: 'Dale Chihuly’s suspended forms are modelled from public descriptions.',
             targets: [.2, .5, .8].map((t, i) => ({ label: ['North hanging forms', 'Central hanging forms', 'South hanging forms'][i], x: chi.cx - 1, y: chi.y0 + chi.H - 4.6, z: lerp(chi.bb.z0 + 3, chi.bb.z1 - 3, t), radius: .65, surfaceTolerance: 1.2, holdSeconds: .35 })),
             onDone: s => seaActivity(s, 'lm-chihuly-glasshouse', 'space-needle', '🌺 Glasshouse details framed', 'You framed three parts of Dale Chihuly’s suspended sculpture using your own camera view.') });

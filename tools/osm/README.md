@@ -52,6 +52,49 @@ Washington) are completed with `/api/0.6/relation/<id>/full`, cached in `tools/o
 | `corridors.mjs` | the story corridors: shortest travel-time routes between the CV stops + loops, buffered into a 10 m margin raster |
 | `build-data.mjs` | the converter; the JSON schema is documented at the top of the file and in `game/data/README.md` |
 | `graft-roads.cjs` | `node tools/osm/graft-roads.cjs <committed.json> <fresh-build.json> <out.json>` (on unpacked JSON: `pack-district.mjs --unpack` / pack again): after a district's boundary changes, takes only the re-cut and new road rows, their nodes, the boundary and the scenery streets they replace from a fresh build, and leaves every other field of the committed file as it is. A full rebuild renumbers buildings and strings, which reshuffles index-seeded details (shop names, sign colours) across the district and drops fields added after the build (`roadRestrictions`). Used for the Romana west strip (2026-11-12) |
+| `add-pois.mjs` | cached-source POI append (below): adds the OSM businesses / public places / stops a district dataset lost, without a rebuild |
+| `poi-kinds.mjs` | OSM tags → POI kind: `basePoiKind` (the build's classifier, verbatim), `extraPoiKind` (classes the build drops), lifecycle and street-level tests, sign text. A future rebuild should import `poiKind` from here |
+| `places.mjs` | `game/data/places.json` (reachable places per district) from the district packs, `cities.js`, `landmarks.js`, the spots index and `places-navfix.json`; run it after a build, a POI append or a landmark change (`--repo`, `--data-dir`, `--out` for a dry run elsewhere) |
+
+## POIs without a rebuild (`add-pois.mjs`, 2026-11-12)
+
+A district build keeps POIs only inside the playable edge, reads them from nodes and ways only, and knows a fixed list
+of classes. A rebuild renumbers buildings and strings (see `graft-roads.cjs`), so the missing POIs are appended instead:
+
+```bash
+# 1. raw OSM for the district and its edge strip, outside the repo (API 0.6 map.json tiles of ~0.008° × 0.006°;
+#    Overpass `out body geom;` JSON works too)
+curl -o /scratch/osm/bucharest-unirii/t1.json "https://api.openstreetmap.org/api/0.6/map.json?bbox=26.096,44.424,26.104,44.430"
+# 2. dry run (prints counts, writes the review list), then --write
+node tools/osm/add-pois.mjs --city bucharest --district unirii --osm /scratch/osm/bucharest-unirii --report /scratch/unirii.json
+node tools/osm/add-pois.mjs --city bucharest --district unirii --osm /scratch/osm/bucharest-unirii --write
+# 3. the places list follows the POIs
+node tools/osm/places.mjs
+```
+
+* **Added**: (1) everything the build's classifier keeps, up to `--edge` metres (default 100) outside the playable edge
+  (`district.geometry`: frontages across the edge street, metro entrances, stops); (2) the classes the build drops,
+  mapped onto the existing `poiKinds` with the OSM value in `sub` — nightclub → `food`; gallery, fitness / gaming centre,
+  bowling, craft, non-hospital `healthcare=*` → `shop`; kindergarten, childcare, language / music school → `school`;
+  guest house → `hotel`; courthouse, embassy, marketplace, community / conference / events centre, sports centre,
+  marina, castle / ruins → `landmark`; every named `office=*` → `office`; (3) POIs mapped as multipolygon relations;
+  (4) anything of these inside the area that live OSM has and the dataset does not.
+* **Never added**: `disused:` / `abandoned:` / `was:` objects, `shop=vacant`, `opening_hours=closed`, construction;
+  research-stale and research-closed businesses (`businesses-<city>-<district>.json`, `businesses-gamediff.json`);
+  units off street level (`level` ≠ 0, indoor, underground; a node more than 10 m inside a footprint over 3000 m² that holds
+  four or more businesses: mall gallery, terminal); unnamed businesses; anything already in the dataset
+  (same name within 40 m, same kind within 1 m, transit of the same kind within 8 m); ATMs outside the area.
+* **Written**: rows appended to `pois` and `strings` (existing indices unchanged, so `publicTransportSources.poiSources`
+  and index-seeded details stay valid), `poiSources` (OSM id per appended row; a second run skips them),
+  `buildingOwnTags` (a signed building's own OSM name where a street-level tenant had taken the sign: the building shows
+  its name, the tenant keeps a unit fascia; a faculty / clinic / office tenant, which has no fascia, keeps the sign; addresses, block numbers,
+  lettered wings and plain residential names are not signs, a named house with a `wikidata` / `historic` tag is),
+  small `amenity=fountain` ways as `furniture` fountains (a basin over 30 m² is reported, not added: it needs its outline
+  as water), and `poiAppend` (date, edge, input digest, counts). Everything else, `generated` included, is untouched;
+  the tool refuses a compressed or non-district dataset. Compare before / after section by section before committing.
+* world.js: a POI of kind food / shop / bank / pharmacy / hotel gets its fascia on a street face of its building; for a
+  scenery-ring building that face is found against the scenery streets (`sceneryStreetNear`). Stops outside the edge are
+  POIs only (the inferred shelter needs a graph edge); metro entrances get their pole.
 
 ## What the converter does
 

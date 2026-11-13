@@ -146,3 +146,22 @@ Schools / kindergartens within 150 m of a route: Grădinița nr. 116 (node/25587
 - Farmacia Dona list https://www.dona.ro/farmacii (2026-11-07, 672 pharmacies with coordinates).
 - Not machine-readable from here (2026-11-07): Mega Image (GraphQL API refused by the network after one call), Profi, Dr.Max, HelpNet, CEC, Raiffeisen (HTTP 403), Lidl / Penny / Catena / BT / BCR / ING / Orange / Vodafone / Petrom / OMV / MOL / Rompetrol locators (JavaScript-only or 404), Lukoil / OTP / Alpha Bank / Digi / telekom.ro (no response or bot wall). These brands rely on OSM (edit / check dates) only.
 - Garanti BBVA brand name: https://www.garantibbva.ro (page title "… | Garanti BBVA", 2026-11-07).
+
+## POI append, 2026-11-12 (round 2, lane builder)
+
+Source: OpenStreetMap API 0.6 `map.json` tiles fetched 2026-11-12 (playable area + 260 m; raw files not committed).
+Tool: `tools/osm/add-pois.mjs --edge 100`. Rows appended to `pois` (original rows and indices unchanged):
+
+| district | before | added | edge strip | dropped classes | new in OSM / relations | own building names |
+|---|---|---|---|---|---|---|
+| bucharest-romana | 362 | 254 | 175 | 47 | 32 | 7 |
+
+Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or
+indoor, nodes deep inside multi-tenant halls (Carrefour Orhideea gallery 40, Bellevue malls 68, Promenada 16, Otopeni terminal
+11), unnamed objects, ATMs outside the area.
+
+Street View comparison (reference only, nothing stored), same position and bearing as the game render:
+- Romană, 30 Bd. Dacia (Aug 2023): Alpha Bank and Pizza Hut ground-floor units of the Sheraton block; game: "Sheraton Bucharest Hotel" on the building, Alpha Bank fascia, one bay off.
+- Romană, Str. George Enescu: Mega Image on the ground floor of a block; game: fascia there.
+
+Not compared: every other appended POI (881 of 894, all eight districts).

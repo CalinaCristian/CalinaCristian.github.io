@@ -25,6 +25,7 @@ import { GeoBatch, rng, canvas, canvasTexture, inPoly, polyArea, lerp, fitDraw }
 import { stall, signBoard } from '../props.js';
 import { triangulate } from '../../building-overlap.js';
 import { lowerWallKind } from './pike-place-lower.js';
+import { batchUnits, castProxy, multiDrawGuard } from '../frame-budget.js';
 
 const CREAM = '#e8dec3', BUFF = '#dcc7a6', BRICK = '#a2543f', GREEN = '#2f5a44', CANOPY = '#31463d';
 const upper = (h, win, extra = {}) => ({ h, win, ...extra });
@@ -130,7 +131,15 @@ function wallLetters(text, w, h, color, font) {
  * @param {{ low?: Set<string> }} o  low: one-storey footprints (the market halls) that do not hide the storeys of a taller neighbour
  */
 export function buildFacades(ctx, street, { low: lowIds = new Set() } = {}) {
-    const g = ctx.ground, d = ctx.data, b = new GeoBatch(), grp = new THREE.Group(), r = rng(1907); grp.name = 'market-facades';
+    const g = ctx.ground, d = ctx.data, grp = new THREE.Group(), r = rng(1907); grp.name = 'market-facades';
+    // frame budget (frame-budget.js): every building face is its own unit of one multi-draw per material (culled per face by
+    // the frustum and the skyline), and `sh` — walls, roofs, canopies, awnings, balconies — is the only part in the shadow pass
+    const units = [], unit = () => { const u = new GeoBatch(); units.push(u); return u; }, SH = '#888888';
+    // the shadow proxy is cut into 64 m blocks: the sun's shadow map covers 160 m round the player, so only the blocks near
+    // him are submitted to it (one proxy for the whole market put all of it into every shadow pass)
+    const shBlocks = new Map(), shBlock = (x, z) => { const k = Math.floor(x / 64) + ',' + Math.floor(z / 64); let q = shBlocks.get(k); if (!q) shBlocks.set(k, q = new GeoBatch()); return q; };
+    let sh = null;
+    let b = unit();
     const blockers = d.buildings.filter((o) => o.k !== 'roof' && !o.hasParts && o.poly?.length > 2), roofs = d.buildings.filter((o) => o.k === 'roof' && o.poly?.length > 2);
     const mats = {
         'pp-brick': new THREE.MeshStandardMaterial({ map: brickTile(), vertexColors: true, roughness: 0.92 }), 'pp-stucco': new THREE.MeshStandardMaterial({ map: stuccoTile(), vertexColors: true, roughness: 0.95 }), 'pp-siding': new THREE.MeshStandardMaterial({ map: sidingTile(), vertexColors: true, roughness: 0.8 }),
@@ -143,6 +152,7 @@ export function buildFacades(ctx, street, { low: lowIds = new Set() } = {}) {
     for (const src of d.buildings) {
         const S = SPECS[src.id]; if (!S) continue;
         const poly = polyArea(src.poly) > 0 ? src.poly : [...src.poly].reverse(), n = poly.length, key = 'pp-' + S.mat;
+        sh = shBlock(poly.reduce((a, q) => a + q[0], 0) / n, poly.reduce((a, q) => a + q[1], 0) / n);
         const faces = poly.map((A, i) => { const B = poly[(i + 1) % n], L = Math.hypot(B[0] - A[0], B[1] - A[1]) || 1e-6, ux = (B[0] - A[0]) / L, uz = (B[1] - A[1]) / L; let nx = uz, nz = -ux;
             if (inPoly((A[0] + B[0]) / 2 + nx * 0.4, (A[1] + B[1]) / 2 + nz * 0.4, poly)) { nx = -nx; nz = -nz; }
             const mx = (A[0] + B[0]) / 2, mz = (A[1] + B[1]) / 2, clear = (o) => !blockers.some((q) => q !== src && !(S.from != null && lowIds.has(q.id)) && inPoly(mx + nx * o, mz + nz * o, q.poly));
@@ -154,14 +164,16 @@ export function buildFacades(ctx, street, { low: lowIds = new Set() } = {}) {
         stats.buildings++;
         for (const f of faces) {
             if (f.L < 0.15) continue;
+            b = unit();
             const y0 = from ?? Math.min(f.gA, f.gB, low + 1.2) - 0.6, T = S.mat === 'siding' ? 1.6 : 2.15, service = S.back === 'service' && f.sd > 22, wallTop = service ? Math.max(roofY, Math.max(f.gA, f.gB) + 4.8) : roofY;
             b.quad([f.B[0], y0, f.B[1]], [f.A[0], y0, f.A[1]], [f.A[0], wallTop, f.A[1]], [f.B[0], wallTop, f.B[1]], S.wall, key, [f.L / T, y0 / T, 0, y0 / T, 0, wallTop / T, f.L / T, wallTop / T]);
+            sh.quad([f.B[0], y0, f.B[1]], [f.A[0], y0, f.A[1]], [f.A[0], wallTop, f.A[1]], [f.B[0], wallTop, f.B[1]], SH, 'concrete');
             if (wallTop > roofY + 0.05) b.quad([f.A[0], roofY, f.A[1]], [f.B[0], roofY, f.B[1]], [f.B[0], wallTop, f.B[1]], [f.A[0], wallTop, f.A[1]], S.wall, key, [0, roofY / T, f.L / T, roofY / T, f.L / T, wallTop / T, 0, wallTop / T]); // (its back, seen over the roof)
             if (!f.front) continue;
             stats.fronts++;
-            const at = (u, y, out = 0) => [f.A[0] + f.ux * u + f.nx * out, y, f.A[1] + f.uz * u + f.nz * out], box = (u, y, out, w, h, dp, col, k = 'paint') => { const [x, , z] = at(u, y, out); b.box(x, y, z, w, h, dp, col, k, f.yaw); };
+            const at = (u, y, out = 0) => [f.A[0] + f.ux * u + f.nx * out, y, f.A[1] + f.uz * u + f.nz * out], box = (u, y, out, w, h, dp, col, k = 'paint') => { const [x, , z] = at(u, y, out); b.box(x, y, z, w, h, dp, col, k, f.yaw); }, cbox = (u, y, out, w, h, dp, col, k = 'paint') => { box(u, y, out, w, h, dp, col, k); const [x, , z] = at(u, y, out); sh.box(x, y, z, w, h, dp, SH, 'concrete', f.yaw); };
             const nb = Math.max(1, Math.round(f.L / S.bay)), bw = f.L / nb, gnd = (u) => lerp(f.gA, f.gB, u / f.L), lined = /^(gum|alley|alleyGum|under|espresso|door)$/.test(f.lower || '');
-            box(f.L / 2, wallTop - 0.28, 0.1, f.L + 0.3, 0.3, 0.4, S.cornice || S.wall);                                 // cornice
+            cbox(f.L / 2, wallTop - 0.28, 0.1, f.L + 0.3, 0.3, 0.4, S.cornice || S.wall);                                 // cornice
             // upper storeys, hung from the roof line
             let yTop = roofY - parapet;
             // on a side where the ground is a storey or more lower (an alley behind a 1st Ave front) the windows carry on down
@@ -175,21 +187,21 @@ export function buildFacades(ctx, street, { low: lowIds = new Set() } = {}) {
                     const u = (k + 0.5) * bw, ys = yF + W.sill, key2 = r() < 0.32 ? 'pp-winlit' : 'pp-win'; if (ys < gnd(u) + 0.45 || (lined && ys < 3.7)) continue; stats.windows++;
                     box(u, ys, 0.03, ww, W.h, 0.06, '#ffffff', key2);
                     if (W.arch) { const [x, , z] = at(u, 0, 0.02); b.cyl(x, ys + W.h, z, ww / 2 + 0.09, 0.03, W.frame, 'paint', 18, 1, Math.PI / 2, f.yaw, 0); const [x2, , z2] = at(u, 0, 0.045); b.cyl(x2, ys + W.h, z2, ww / 2, 0.03, '#ffffff', key2, 18, 1, Math.PI / 2, f.yaw, 0); box(u, ys + W.h - 0.04, 0.06, ww, 0.08, 0.08, W.frame); }
-                    for (const s of [-1, 1]) box(u + s * (ww / 2 + 0.035), ys - 0.04, 0.06, 0.09, W.h + 0.12, 0.12, W.frame);                    // jambs
-                    if (!W.arch) box(u, ys + W.h, 0.06, ww + 0.16, 0.09, 0.12, W.frame); box(u, ys - 0.09, 0.09, ww + 0.3, 0.09, 0.2, '#d9d2c0');    // head, sill
+                    for (const s of [-1, 1]) cbox(u + s * (ww / 2 + 0.035), ys - 0.04, 0.06, 0.09, W.h + 0.12, 0.12, W.frame);                    // jambs
+                    if (!W.arch) cbox(u, ys + W.h, 0.06, ww + 0.16, 0.09, 0.12, W.frame); cbox(u, ys - 0.09, 0.09, ww + 0.3, 0.09, 0.2, '#d9d2c0');    // head, sill
                     for (let q = 1; q < (W.cols || 1); q++) box(u - ww / 2 + ww * q / W.cols, ys, 0.07, 0.05, W.h, 0.05, W.frame);
                     for (let q = 1; q < (W.rows || 1); q++) box(u, ys + W.h * q / W.rows - 0.025, 0.07, ww, 0.05, 0.05, W.frame);
                     if (F.panel) { box(u, yF + 0.12, 0.03, ww + 0.1, Math.max(0.35, W.sill - 0.32), 0.05, F.panel); box(u, yF + 0.22, 0.05, (ww + 0.1) * 0.5, Math.max(0.15, W.sill - 0.52), 0.04, '#d8b9a0'); } // brick-pattern panel under the window
-                    if (W.awning) { const a = at(u - ww / 2 - 0.15, ys + W.h + 0.2, 0.05), c2 = at(u + ww / 2 + 0.15, ys + W.h + 0.2, 0.05), a2 = at(u - ww / 2 - 0.15, ys + W.h - 0.38, 0.8), c3 = at(u + ww / 2 + 0.15, ys + W.h - 0.38, 0.8); b.quad(c2, a, a2, c3, W.awning, 'fabric'); b.quad(a, c2, c3, a2, W.awning, 'fabric'); }
+                    if (W.awning) { const a = at(u - ww / 2 - 0.15, ys + W.h + 0.2, 0.05), c2 = at(u + ww / 2 + 0.15, ys + W.h + 0.2, 0.05), a2 = at(u - ww / 2 - 0.15, ys + W.h - 0.38, 0.8), c3 = at(u + ww / 2 + 0.15, ys + W.h - 0.38, 0.8); b.quad(c2, a, a2, c3, W.awning, 'fabric'); b.quad(a, c2, c3, a2, W.awning, 'fabric'); sh.quad(c2, a, a2, c3, SH, 'concrete'); sh.quad(a, c2, c3, a2, SH, 'concrete'); }
                     if (W.juliet) { for (const yy of [ys + 0.02, ys + 0.95]) box(u, yy, 0.36, ww + 0.36, 0.045, 0.045, '#1e1e20', 'metal'); for (let q = 0; q <= 6; q++) box(u - (ww + 0.3) / 2 + (ww + 0.3) * q / 6, ys + 0.02, 0.36, 0.025, 0.95, 0.025, '#1e1e20', 'metal'); for (const s of [-1, 1]) box(u + s * (ww / 2 + 0.17), ys + 0.95, 0.19, 0.045, 0.045, 0.36, '#1e1e20', 'metal'); box(u, ys - 0.06, 0.2, ww + 0.4, 0.07, 0.4, '#8f8a82', 'concrete'); }
-                    if (F.planter) { box(u, ys - 0.5, 0.3, ww + 0.5, 0.42, 0.6, '#c9c4b6', 'concrete'); box(u, ys - 0.1, 0.3, ww + 0.3, 0.3, 0.46, '#3f7a3a', 'plant'); }
+                    if (F.planter) { cbox(u, ys - 0.5, 0.3, ww + 0.5, 0.42, 0.6, '#c9c4b6', 'concrete'); box(u, ys - 0.1, 0.3, ww + 0.3, 0.3, 0.46, '#3f7a3a', 'plant'); }
                 }
-                if (F.ledge) { box(f.L / 2, yF - 0.12, 0.3, f.L, 0.12, 0.6, '#b9b3a6', 'concrete'); for (let k = 0; k < nb; k += 2) { const [x, , z] = at((k + 0.5) * bw, 0, 0.3); b.cyl(x, yF, z, 0.3, 0.9, '#2f5d3a', 'plant', 7, 0.05); } }
+                if (F.ledge) { cbox(f.L / 2, yF - 0.12, 0.3, f.L, 0.12, 0.6, '#b9b3a6', 'concrete'); for (let k = 0; k < nb; k += 2) { const [x, , z] = at((k + 0.5) * bw, 0, 0.3); b.cyl(x, yF, z, 0.3, 0.9, '#2f5d3a', 'plant', 7, 0.05); } }
                 if (fi === S.floors.length - 1 && S.balcony) { // an iron balcony across the storey, on posts at the kerb
-                    const B2 = S.balcony; box(f.L / 2, yF - 0.02, B2.depth / 2, f.L, 0.16, B2.depth, '#6b655c', 'concrete');
+                    const B2 = S.balcony; cbox(f.L / 2, yF - 0.02, B2.depth / 2, f.L, 0.16, B2.depth, '#6b655c', 'concrete');
                     for (const yy of [yF + 0.2, yF + 1.05]) box(f.L / 2, yy, B2.depth - 0.05, f.L, 0.05, 0.05, B2.rail, 'metal');
                     for (let q = 0, m = Math.max(2, Math.round(f.L / 0.45)); q <= m; q++) box(f.L * q / m, yF + 0.14, B2.depth - 0.05, 0.03, 0.93, 0.03, B2.rail, 'metal');
-                    for (let k = 0; k <= nb; k++) { const u = Math.min(f.L - 0.1, Math.max(0.1, k * bw)), [x, , z] = at(u, 0, B2.depth - 0.12), yg = g.heightAt(x, z); b.box(x, yg, z, 0.17, yF - yg, 0.17, B2.posts, 'paint', f.yaw); ctx.circle(x, z, 0.12, 3, { y: yg }); }
+                    for (let k = 0; k <= nb; k++) { const u = Math.min(f.L - 0.1, Math.max(0.1, k * bw)), [x, , z] = at(u, 0, B2.depth - 0.12), yg = g.heightAt(x, z); b.box(x, yg, z, 0.17, yF - yg, 0.17, B2.posts, 'paint', f.yaw); sh.box(x, yg, z, 0.17, yF - yg, 0.17, SH, 'concrete', f.yaw); ctx.circle(x, z, 0.12, 3, { y: yg }); }
                 }
             });
             // the street storey
@@ -199,33 +211,35 @@ export function buildFacades(ctx, street, { low: lowIds = new Set() } = {}) {
                 const u = (k + 0.5) * bw, y = gnd(u), room = yTop - y; if (room < 2.4) continue;
                 if (G.kind === 'shop') { stats.shopBays++;
                     const door = k % 3 === 1 && bw > 2.6, gw = bw - 0.55;
-                    box(u - bw / 2 + 0.01, y, 0.05, 0.42, 2.9, 0.18, G.trim); if (k === nb - 1) box(u + bw / 2 - 0.01, y, 0.05, 0.42, 2.9, 0.18, G.trim);          // piers
+                    cbox(u - bw / 2 + 0.01, y, 0.05, 0.42, 2.9, 0.18, G.trim); if (k === nb - 1) cbox(u + bw / 2 - 0.01, y, 0.05, 0.42, 2.9, 0.18, G.trim);          // piers
                     box(u, y, 0.05, gw, 0.5, 0.12, G.bulk || G.trim); box(u, y + 0.5, 0.02, gw, 2.12, 0.06, '#ffffff', 'pp-shop');
                     for (let q = 0; q < 3; q++) { const du = (q - 1) * gw * 0.3 + (r() - 0.5) * 0.2, hh = 0.35 + r() * 0.75; box(u + du, y + 0.56, 0.09, gw * 0.2, hh, 0.02, ['#c9a36a', '#a8683f', '#d8c9a3', '#7f9a78', '#b9574a', '#e3d2ae'][Math.floor(r() * 6)], 'pp-display'); } // goods in the window                                    // bulkhead, glass
-                    box(u, y + 2.05, 0.06, gw, 0.07, 0.1, G.trim); box(u, y + 2.62, 0.05, bw, 0.28, 0.14, G.trim); box(u, y + 0.5, 0.06, 0.07, 2.12, 0.1, G.trim);    // transom, head, mullion
+                    box(u, y + 2.05, 0.06, gw, 0.07, 0.1, G.trim); cbox(u, y + 2.62, 0.05, bw, 0.28, 0.14, G.trim); box(u, y + 0.5, 0.06, 0.07, 2.12, 0.1, G.trim);    // transom, head, mullion
                     if (door) { box(u + gw / 4, y, 0.07, 0.98, 2.05, 0.09, G.trim); box(u + gw / 4, y + 0.9, 0.15, 0.62, 1.0, 0.03, '#ffffff', 'pp-shop'); box(u + gw / 4 + 0.36, y + 1.0, 0.13, 0.04, 0.22, 0.05, '#c9b27a', 'metal'); }
                     if (G.awning && !G.canopy) { const [c1, c2] = G.awning.startsWith('stripe:') ? G.awning.slice(7).split(',') : [G.awning, G.awning], ns = Math.max(2, Math.round(gw / 0.5)); // a canvas awning over the shop window
-                        for (let q = 0; q < ns; q++) { const u0 = u - gw / 2 + gw * q / ns, u1 = u - gw / 2 + gw * (q + 1) / ns, col = q % 2 ? c2 : c1, a = at(u0, y + 2.95, 0.12), c = at(u1, y + 2.95, 0.12), a2 = at(u0, y + 2.4, 1.15), c3 = at(u1, y + 2.4, 1.15); b.quad(c, a, a2, c3, col, 'fabric'); b.quad(a, c, c3, a2, col, 'fabric'); b.quad(c3, a2, at(u0, y + 2.22, 1.15), at(u1, y + 2.22, 1.15), col, 'fabric'); } }
+                        for (let q = 0; q < ns; q++) { const u0 = u - gw / 2 + gw * q / ns, u1 = u - gw / 2 + gw * (q + 1) / ns, col = q % 2 ? c2 : c1, a = at(u0, y + 2.95, 0.12), c = at(u1, y + 2.95, 0.12), a2 = at(u0, y + 2.4, 1.15), c3 = at(u1, y + 2.4, 1.15); b.quad(c, a, a2, c3, col, 'fabric'); b.quad(a, c, c3, a2, col, 'fabric'); b.quad(c3, a2, at(u0, y + 2.22, 1.15), at(u1, y + 2.22, 1.15), col, 'fabric'); }
+                        { const a = at(u - gw / 2, y + 2.95, 0.12), c = at(u + gw / 2, y + 2.95, 0.12), a2 = at(u - gw / 2, y + 2.4, 1.15), c3 = at(u + gw / 2, y + 2.4, 1.15); sh.quad(c, a, a2, c3, SH, 'concrete'); sh.quad(a, c, c3, a2, SH, 'concrete'); } }
                 } else if (G.kind === 'service') { // an alley side: a steel door, now and then a roll shutter
                     if (k % 3 === 1) { box(u, y, 0.04, 1.0, 2.1, 0.07, '#4a4f4c', 'metal'); box(u, y + 2.1, 0.04, 1.16, 0.09, 0.09, '#3a3d3b'); } else if (k % 4 === 2 && bw > 3) { box(u, y, 0.04, bw - 1.0, 2.7, 0.06, '#8c8c86', 'metal'); for (let q = 1; q < 9; q++) box(u, y + q * 0.3, 0.08, bw - 1.0, 0.03, 0.02, '#6f6f69', 'metal'); }
                 } else if (G.kind === 'open') {
                     box(u, y, 0.03, bw, Math.min(3.25, room - 0.2), 0.05, '#1b1815');                                                                                   // the market hall behind the stalls
-                    box(u - bw / 2 + 0.01, y, 0.14, 0.22, 3.3, 0.22, G.posts); if (k === nb - 1) box(u + bw / 2 - 0.01, y, 0.14, 0.22, 3.3, 0.22, G.posts);
+                    cbox(u - bw / 2 + 0.01, y, 0.14, 0.22, 3.3, 0.22, G.posts); if (k === nb - 1) cbox(u + bw / 2 - 0.01, y, 0.14, 0.22, 3.3, 0.22, G.posts);
                     if (k % 3 === 2) { box(u, y, 0.07, bw - 0.4, 3.0, 0.06, G.shutter, 'metal'); for (let q = 1; q < 10; q++) box(u, y + q * 0.3, 0.11, bw - 0.4, 0.03, 0.02, '#6f6f69', 'metal'); }
-                    else if (bw > 3.0 && G.stalls) { const [x, , z] = at(u, 0, 1.0), ys = g.heightAt(x, z), w = Math.min(3.3, bw - 0.7); stall(b, x, ys, z, f.yaw, { w, kind: G.stalls[stats.stalls % G.stalls.length], seed: 40 + stats.stalls }); ctx.box(x, z, w / 2, 0.6, f.yaw, { prop: true, h: 0.85 }); stats.stalls++; }
+                    else if (bw > 3.0 && G.stalls) { const [x, , z] = at(u, 0, 1.0), ys = g.heightAt(x, z), w = Math.min(3.3, bw - 0.7); stall(b, x, ys, z, f.yaw, { w, kind: G.stalls[stats.stalls % G.stalls.length], seed: 40 + stats.stalls }); sh.box(x, ys, z, w, 0.85, 1.1, SH, 'concrete', f.yaw); ctx.box(x, z, w / 2, 0.6, f.yaw, { prop: true, h: 0.85 }); stats.stalls++; }
                 }
-                if (G.canopy && !coveredAt(u) && !coveredAt(u - bw * 0.4) && !coveredAt(u + bw * 0.4)) { box(u, y + 3.32, 1.2, bw + 0.02, 0.14, 2.4, G.canopy); box(u, y + 3.2, 2.36, bw + 0.02, 0.3, 0.08, G.canopy); if (k % 2 === 0) { const p = at(u, y + 3.46, 2.2), q = at(u, y + 4.5, 0.05); b.rod(p, q, 0.02, '#2a2d2c', 'metal', 5); } }
+                if (G.canopy && !coveredAt(u) && !coveredAt(u - bw * 0.4) && !coveredAt(u + bw * 0.4)) { cbox(u, y + 3.32, 1.2, bw + 0.02, 0.14, 2.4, G.canopy); box(u, y + 3.2, 2.36, bw + 0.02, 0.3, 0.08, G.canopy); if (k % 2 === 0) { const p = at(u, y + 3.46, 2.2), q = at(u, y + 4.5, 0.05); b.rod(p, q, 0.02, '#2a2d2c', 'metal', 5); } }
             }
             if (S.lettering && (f === main || f.L > S.lettering.text.length * S.lettering.h * 0.74 + 2.5)) letters.push({ S, f, roofY });
         }
-        if (S.shell !== false) { b.flat(poly, roofY - 0.06, S.roof || '#6e6a64', 'roofs'); ctx.poly(poly, { y0: low - 2, y1: roofY }); }
+        if (S.shell !== false) { b = unit(); b.flat(poly, roofY - 0.06, S.roof || '#6e6a64', 'roofs'); sh.flat(poly, roofY - 0.06, SH, 'concrete'); ctx.poly(poly, { y0: low - 2, y1: roofY, solid: true }); }
     }
     // the sidewalk canopies, following the street's fall
     for (const src of d.buildings) {
         if (!CANOPIES.includes(src.id)) continue;
         const poly = src.poly, yAt = (x, z) => g.heightAt(x, z) + 3.55, T = 0.14, ring = [...poly, poly[0]];
+        b = unit(); sh = shBlock(poly.reduce((a, q) => a + q[0], 0) / poly.length, poly.reduce((a, q) => a + q[1], 0) / poly.length);
         for (const tri of triangulate(poly) || []) { const v = tri.map(([x, z]) => [x, yAt(x, z) + T, z]), w = tri.map(([x, z]) => [x, yAt(x, z), z]); const up = (v[1][2] - v[0][2]) * (v[2][0] - v[0][0]) - (v[1][0] - v[0][0]) * (v[2][2] - v[0][2]) > 0;
-            const [p, q, t2] = up ? v : [v[0], v[2], v[1]], [p2, q2, t3] = up ? [w[0], w[2], w[1]] : w; b.quad(p, q, t2, t2, '#2f4a3c', 'paint'); b.quad(p2, q2, t3, t3, '#cdd2c6', 'paint'); }
+            const [p, q, t2] = up ? v : [v[0], v[2], v[1]], [p2, q2, t3] = up ? [w[0], w[2], w[1]] : w; b.quad(p, q, t2, t2, '#2f4a3c', 'paint'); b.quad(p2, q2, t3, t3, '#cdd2c6', 'paint'); sh.quad(p, q, t2, t2, SH, 'concrete'); sh.quad(p2, q2, t3, t3, SH, 'concrete'); }
         let since = 3;
         for (let i = 0; i < poly.length; i++) { const A = ring[i], B = ring[i + 1], L = Math.hypot(B[0] - A[0], B[1] - A[1]); if (L < 0.05) continue;
             const ya = yAt(A[0], A[1]), yb = yAt(B[0], B[1]), mx = (A[0] + B[0]) / 2, mz = (A[1] + B[1]) / 2;
@@ -233,17 +247,19 @@ export function buildFacades(ctx, street, { low: lowIds = new Set() } = {}) {
             if (!atWall) b.quad([A[0], ya - 0.2, A[1]], [B[0], yb - 0.2, B[1]], [B[0], yb + T, B[1]], [A[0], ya + T, A[1]], '#2a4236', 'paint'); if (!atWall) b.quad([B[0], yb - 0.2, B[1]], [A[0], ya - 0.2, A[1]], [A[0], ya + T, A[1]], [B[0], yb + T, B[1]], '#2a4236', 'paint'); // fascia
             for (let u = Math.max(0, 5 - since); u < L; u += 5) { const x = A[0] + (B[0] - A[0]) * u / L, z = A[1] + (B[1] - A[1]) * u / L; since = -u;
                 if (blockers.some((q) => inPoly(x, z, q.poly) || q.poly.some((P, k) => { const Q = q.poly[(k + 1) % q.poly.length], dx = Q[0] - P[0], dz = Q[1] - P[1], t = Math.max(0, Math.min(1, ((x - P[0]) * dx + (z - P[1]) * dz) / (dx * dx + dz * dz || 1))); return Math.hypot(x - P[0] - dx * t, z - P[1] - dz * t) < 0.9; }))) continue; // hung from the wall there
-                const y0 = g.heightAt(x, z); b.cyl(x, y0, z, 0.07, 3.55, '#2f4a3c', 'paint', 8); ctx.circle(x, z, 0.1, 3.5, { y: y0 }); stats.posts = (stats.posts || 0) + 1; }
+                const y0 = g.heightAt(x, z); b.cyl(x, y0, z, 0.07, 3.55, '#2f4a3c', 'paint', 8); sh.cyl(x, y0, z, 0.07, 3.55, SH, 'concrete', 6); ctx.circle(x, z, 0.1, 3.5, { y: y0 }); stats.posts = (stats.posts || 0) + 1; }
             since += L; }
         { const cx = poly.reduce((a, p) => a + p[0], 0) / poly.length, cz = poly.reduce((a, p) => a + p[1], 0) / poly.length; if (inPoly(cx, cz, poly)) ctx.lampPoints.push({ x: cx, z: cz, y: g.heightAt(cx, cz), h: 3.2, noPost: true }); }
     }
     // the POST ALLEY sign over the alley's mouth at Pine St (Street View: a teal banner between the two buildings)
+    b = unit();
     { const x = -117.4, z = -60.8, dx = -0.545, dz = -0.839, y = g.heightAt(x, z) + 4.5;
         for (const s of [1, -1]) { const m = signBoard('POST ALLEY', 4.6, 0.85, { bg: '#3aa39c', fg: '#f4f1e6', depth: 0.04, font: (q) => `800 ${q}px "Trebuchet MS", "Helvetica Neue", Arial, sans-serif`, glow: 0.08, night: 1.0 }); m.position.set(x + dx * 0.03 * s, y, z + dz * 0.03 * s); m.rotation.y = Math.atan2(dx * s, dz * s); grp.add(m); }
         for (const s of [-1, 1]) b.rod([x - dz * 2.3 * s, y + 0.2, z + dx * 2.3 * s], [x - dz * 3.1 * s, y + 0.6, z + dx * 3.1 * s], 0.02, '#2a2d2c', 'metal', 5); }
     for (const { S, f, roofY } of letters) { const L = S.lettering, w = Math.min(f.L - 1.2, L.text.length * L.h * 0.74), m = wallLetters(L.text, w, L.h, L.color, L.font);
         m.position.set(f.mx + f.nx * 0.07, roofY - L.fromTop, f.mz + f.nz * 0.07); m.rotation.y = f.yaw; grp.add(m); }
-    const built = b.build('market-facades', { matOverrides: mats }); for (const m of Object.values(mats)) m.name = 'pike-' + (m.map ? 'wall' : 'glazing');
-    grp.add(built); ctx.add(grp); ctx.extras.facades = stats;
+    const built = batchUnits(units.map((u) => u.build('market-facades', { matOverrides: mats })), 'market-facades', { castShadow: false }); for (const m of Object.values(mats)) m.name = 'pike-' + (m.map ? 'wall' : 'glazing');
+    multiDrawGuard(ctx, built); stats.units = built.items.length; stats.shadowTris = [...shBlocks.values()].reduce((a, q) => a + q.tris, 0); stats.shadowBlocks = shBlocks.size;
+    grp.add(built.group, ...[...shBlocks.values()].map((q) => castProxy(q, 'market-facades-shadow'))); ctx.add(grp); ctx.extras.facades = stats; ctx.extras.facadeItems = built.items;
     return stats;
 }

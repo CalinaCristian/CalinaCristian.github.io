@@ -26,6 +26,14 @@ import { clockFace } from '../props.js';
 import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, flagpole, palisade, hedge, osmPoly, cityFiller, placeLandmark, bucActivity } from '../buc.js';
 import { addTraffic } from '../cars.js';
 import { mappedTreeSizes, alleyHedges } from '../buc-streetscape.js';
+import { stoneWall } from './buc-walls.js';
+import { farCanopy } from './buc-green.js';
+
+// The gates of the grounds' wall (OSM way 94522653, barrier=wall): its thirteen nodes tagged barrier=gate, [node id, lat, lon]
+// (live OSM, 2026-11-12). Gate width and build are not mapped.
+const WALL_GATES = [[11503769707, 44.430371, 26.0861948], [1886695700, 44.4303402, 26.0865609], [1886695710, 44.4301784, 26.088756], [1886699982, 44.4299907, 26.0908054],
+    [1886699986, 44.4247383, 26.0903566], [11503769687, 44.4247592, 26.0887471], [1886701044, 44.4248567, 26.0871692], [10847065657, 44.4249416, 26.0856521], [11503769681, 44.4254877, 26.0785811],
+    [7580904584, 44.4267804, 26.0790983], [11503769702, 44.4280699, 26.0796012], [6242510588, 44.4289689, 26.0804165], [6242510591, 44.4294385, 26.0816726]];
 
 const CREAM = '#d9ccb2', CREAM2 = '#e3d8c2', ROOF = '#bdb6a7';
 /** x of a roughly N–S polyline at z (null outside its z range) */
@@ -55,11 +63,23 @@ function palaceGround(ctx) {
         const x13 = at(w13, z, -13), x49 = at(w49, z, -49), x89 = at(w89, z, -89);
         if (x > x13) return 0.8; if (x > x49) return ramp(x, x13, x49, 5.5, 8); if (x > x89) return ramp(x, x49, x89, 10.5, 12.5); return ramp(x, x89, x89 - 12, 15, YP);
     };
+    // (round 2, 2026-11-12) The 16 m platform was applied to the whole box z −330…300, x −470…40: it carried Calea
+    // 13 Septembrie and Bd. Națiunile Unite, which run outside the grounds' wall, up onto the hill and ended in a 13 m
+    // cliff across the far kerb. The streets keep the DEM (it climbs from the square to about +15 m at Strada Uranus,
+    // and stays near 0 along Izvor park); the hill starts at the mapped wall (OSM way 94522653) and its lawn banks
+    // up to the terraces behind it, as seen over the wall from Calea 13 Septembrie (Street View, Aug 2024) and up the
+    // visitors' drive from Bd. Națiunile Unite. The bank's width is an estimate; its first 17 m stay at street level
+    // because the terrain mesh out here has 16 m cells (a bank starting at the wall buried the wall in the mesh).
+    const ring = wall.length > 3 ? wall.slice(0, -1) : null, sideSegs = [], BANK0 = 17, BANK = 100;
+    for (let i = 1; i < wall.length; i++) { const A = wall[i - 1], B = wall[i], isF = (p) => p[0] > -30 && Math.abs(p[1]) < 300; if (!(isF(A) && isF(B))) sideSegs.push([A[0], A[1], B[0] - A[0], B[1] - A[1], (B[0] - A[0]) ** 2 + (B[1] - A[1]) ** 2 || 1e-9]); }
+    const sideDist = (x, z) => { let m = 1e9; for (const [ax, az, ex, ez, l2] of sideSegs) { const t = Math.max(0, Math.min(1, ((x - ax) * ex + (z - az) * ez) / l2)), q = Math.hypot(x - ax - ex * t, z - az - ez * t); if (q < m) m = q; } return m; };
+    const smooth = (a, b2, v) => { const t = Math.max(0, Math.min(1, (v - a) / (b2 - a))); return t * t * (3 - 2 * t); };
     g.mod((x, z, h) => {
-        if (z < -330 || z > 300 || x < -470 || x > 40) return h;
+        if (z < -345 || z > 305 || x < -470 || x > 40) return h;
+        if (ring && !inPoly(x, z, ring)) return h;
         const t = terrace(x, z); if (t === null) return h;
-        if (x < -400) { const k = (x + 470) / 70; return h + (YP - h) * Math.max(0, Math.min(1, k)); }
-        return t + 0.0;
+        const v = x < -400 ? h + (YP - h) * Math.max(0, Math.min(1, (x + 470) / 70)) : t;
+        return ring ? h + (v - h) * smooth(BANK0, BANK, sideDist(x, z)) : v;
     });
     // the square, the ring road, the sidewalk along the fence and the head of Bd. Unirii: one flat plane, gently falling east
     g.mod((x, z, h) => {
@@ -202,23 +222,34 @@ function buildGardens(ctx, G, P) {
     // its columns, not 26 m masts on the lawn by the fence; mast height is an estimate)
     for (const [z, k] of [[-17.5, 'eu'], [-10.5, 'ro'], [-3.5, 'nato']]) { const x = P.portico.x + 12, f = flagpole(x, g.heightAt(x, z), z, 14, k, { yaw: Math.PI * 0.85 }); ctx.add(f.group); flags.push(f); ctx.circle(x, z, 0.3, 14); }
     // the grounds' wall. Along Bd. Libertății (Street View, May 2025): a solid pale stone wall about 2.2 m high on a base
-    // course, square stone piers with caps about every 8 m and a short wrought-iron grille between them; elsewhere the
-    // earlier plinth + palisade stays (not reviewed). Sizes are estimates.
+    // course, square stone piers with caps about every 8 m and a short wrought-iron grille between them.
+    // (round 2, 2026-11-12) The other three sides were a 0.6 m plinth under a see-through palisade. OSM maps the whole
+    // way as barrier=wall, and from Calea 13 Septembrie and Strada Izvor (Street View, Aug 2024) it is a solid cream
+    // stone wall a little over head height: bays with a relief panel between square piers with pyramid caps, closed
+    // iron gates between taller piers at the mapped gate nodes. Height, bay and gate width are estimates.
     const isFront = ([x, z]) => x > -30 && Math.abs(z) < 300, runs = []; let cur = null;
-    for (let i = 1; i < G.wall.length; i++) { const A = G.wall[i - 1], B = G.wall[i], f = isFront(A) && isFront(B); if (cur && cur.f === f) cur.pts.push(B); else runs.push(cur = { f, pts: [A, B] }); }
+    // Along Bd. Națiunile Unite (Street View, 2024, at the visitors' gate) the same stone piers carry an iron grille on
+    // a low base course instead of solid bays: the palace's north front is seen through it.
+    const isNorth = ([x, z]) => z < -270 && x > -520;
+    for (let i = 1; i < G.wall.length; i++) { const A = G.wall[i - 1], B = G.wall[i], f = isFront(A) && isFront(B) ? 'front' : isNorth(A) && isNorth(B) ? 'north' : 'solid'; if (cur && cur.f === f) cur.pts.push(B); else runs.push(cur = { f, pts: [A, B] }); }
     let mats = {};
+    const gates = WALL_GATES.map(([id, lat, lon]) => ({ id: 'n' + id, ...ctx.ll(lat, lon) })), wallInfo = { source: 'w94522653', gates: [], solidM: 0 };
+    ctx.extras.palaceWall = wallInfo;
     for (const run of runs) {
-        if (!run.f) { mats = palisade(ctx, b, run.pts, { h: 1.9, plinth: 0.6, post: 4.5 }); continue; }
-        mats = palisade(ctx, b, run.pts, { h: 0.85, plinth: 2.2, post: 1e6, plinthCol: '#d8cfbc' });
+        if (run.f !== 'front') { const W = stoneWall(ctx, b, run.pts, run.f === 'north' ? { h: 0.6, grille: 1.75, bay: 4.4, gates, gateW: 5.2, endPier: false } : { h: 2.35, bay: 4.4, gates, gateW: 5.2, endPier: false }); mats = { ...mats, ...W.mats }; wallInfo.gates.push(...W.gates.map((q) => q.id)); wallInfo.solidM += Math.round(W.lengthM); continue; }
+        mats = { ...mats, ...palisade(ctx, b, run.pts, { h: 0.85, plinth: 2.2, post: 1e6, plinthCol: '#d8cfbc' }) };
         let carry = 0;
         for (let i = 1; i < run.pts.length; i++) {
             const [ax, az] = run.pts[i - 1], [bx, bz] = run.pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 0.2) continue; const a = Math.atan2(bx - ax, bz - az), cx = (ax + bx) / 2, cz = (az + bz) / 2, yb = Math.min(g.heightAt(ax, az), g.heightAt(bx, bz));
             b.box(cx, yb - 0.3, cz, 0.72, 0.85, L + 0.3, '#cfc5b1', 'stone', a); b.box(cx, yb + 2.2, cz, 0.6, 0.12, L + 0.3, '#e4dccb', 'stone', a); // base course, coping
             let u = carry;
-            for (; u <= L; u += 8) { const x = ax + (bx - ax) * u / L, z = az + (bz - az) * u / L, y = g.heightAt(x, z); b.box(x, y - 0.3, z, 0.95, 3.5, 0.95, '#ddd4c2', 'stone', a); b.box(x, y + 3.2, z, 1.15, 0.2, 1.15, '#e8e0cf', 'stone', a); b.box(x, y + 3.4, z, 0.7, 0.22, 0.7, '#ddd4c2', 'stone', a); }
+            for (; u <= L; u += 8) { const x = ax + (bx - ax) * u / L, z = az + (bz - az) * u / L, y = g.heightAt(x, z); b.box(x, y - 0.37, z, 0.95, 3.57, 0.95, '#ddd4c2', 'stone', a); /* (round 2: the pier foot 7 cm below the base course: their undersides were coplanar, 40 audit z-fights) */ b.box(x, y + 3.2, z, 1.15, 0.2, 1.15, '#e8e0cf', 'stone', a); b.box(x, y + 3.4, z, 0.7, 0.22, 0.7, '#ddd4c2', 'stone', a); }
             carry = u - L;
         }
     }
+    // Izvor park's edge on Bd. Națiunile Unite (OSM way 178307163, barrier=fence, no height): a low dark-green metal
+    // fence, as seen across the boulevard from the visitors' gate (Street View, 2024). Height estimated.
+    { const w = d.ways.find((q) => q.id === 'w178307163' || q.id === 'w178307163_b'); if (w?.pts.length > 1) { mats = { ...mats, ...palisade(ctx, b, w.pts, { h: 1.15, post: 2.5, postCol: '#24382b', colour: '#3d5c46' }) }; ctx.extras.izvorFence = w.id; } }
     ctx.add(b.build('palace-gardens', { matOverrides: { ...mats } }));
     return { flags };
 }
@@ -412,7 +443,11 @@ export default {
         // square: granite setts (OSM parking area w219710325)
         const sq = osmPoly(d, 'w219710325');
         ctx.terrainOpts = { bg: '#7c8a55', bgMask: 'grass', innerPx: 2048, innerStep: 5, outerStep: 16, outerPad: 900 };
-        bucBackdrop(ctx, { treeLod: { cap: 1400, max: 240 }, lampPad: 25, lampStyle: 'candelabra', lampColor: '#2c2f2c', lampOpts: { spacing: 50, kinds: ['primary'] }, streetTreeOpts: { spacing: 10, prob: 0.8, kinds: ['primary', 'secondary', 'tertiary', 'residential'] } });
+        // (round 2) OSM way 393036569 is building=garages (the long curved block north-west of the cathedral, no height
+        // or levels). The style rules know `garage` only, so it stood as a four-storey windowed front over the wall on
+        // Strada Izvor, where a long low building shows (Street View, Aug 2024). One storey, plain walls.
+        for (const q of d.buildings) if (q.k === 'garages' && !q.h && !q.lv) { q.lv = 1; q.k = 'garage'; }
+        bucBackdrop(ctx, { treeLod: { cap: 6000, max: 240 }, lampPad: 25, lampStyle: 'candelabra', lampColor: '#2c2f2c', lampOpts: { spacing: 50, kinds: ['primary'] }, streetTreeOpts: { spacing: 10, prob: 0.8, kinds: ['primary', 'secondary', 'tertiary', 'residential'] } });
         C?.paintPiazza();
         if (sq) {
             ctx.painter.poly(sq, '#8e8a84', 'cobble');
@@ -520,6 +555,10 @@ export default {
         // spawns: the square by the clock looking at the palace; the piazza's south-west corner looking at the west front
         ctx.spawns['palace-parliament'] = { x: cl.x - 4, z: cl.z - 3, heading: headingFromBearing(268) };
         ctx.spawns['peoples-salvation-cathedral'] = { x: -732, z: 169, heading: headingFromBearing(85) };
+        // (round 2) The loader's cap kept the 1400 trees nearest the two walks and deleted the rest: Izvor park (308
+        // mapped trees north of Bd. Națiunile Unite) and the streets beyond stood bare, where a tree line closes the
+        // view (Street View, 2024). The same 1400 stay in the stock builder; all the others are drawn as far canopy.
+        ctx.extras.farCanopy = farCanopy(ctx, { near: 1400 });
         void distPolyline; void canvas; void canvasTexture; void fitDraw;
     },
 };

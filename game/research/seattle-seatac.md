@@ -140,3 +140,49 @@ position (reference only; nothing stored). Trees render bare because the capture
 box; Red Lion (w364221560), Rodeway Inn (w647567422), SureStay (w314940622) have no `building:levels` and render one storey; International
 Blvd lies below a retaining wall and planted bank under the expressway and station (the game is flat); Hilton wing skybridge (w1035290130 /
 w1035290131) absent; expressway sign gantries absent; Bow Lake (w37023588) is not visible from any public road and was not compared.
+
+## 10. Fidelity pass round 2, 2026-11-12 (sweep for uncovered structures, water, sports, hotels)
+
+Items of the district data with no reference viewpoint within 130 m; viewpoints added and compared with the official panorama at the same point (appearance only, nothing stored).
+
+- **Airport Expressway bridges at 47.4504, −122.3005** (roads 464 / 538 / 565, bridge, layer 1; `sea-expressway-160`, 47.450968, −122.300674, heading 166, on the deck): reality is one wide carriageway with a painted gore between the expressway and the ramp, a low barrier on the left and an overhead sign gantry ahead; the game draws the decks separately with an open slot between them and no gantry. Still wrong.
+- **Garage rideshare ramps** (service bridges / tunnels round 47.4430, −122.2982; `sea-garage-rideshare`, 47.442220, −122.299727, heading 47): from Arrivals Drive only the garage front, round columns and the deck above are visible in both; the ramps inside the garage are not visible from any panorama found. Not compared.
+- **Hotels east of International Blvd**: `sea-hotel-pool` (47.444547, −122.296121, heading 88): four-storey cream hotel behind tall trees and a lawn; game: four-storey grey block, lawn, leafless trees: match in massing; the pool (47.444558, −122.294232) is behind the building in both. `sea-surestay` (47.446701, −122.296277, heading 87): low motel ranges with a tall white hotel behind and car parks; game: tall pale block and a car park: match in massing. `sea-ramada` (47.452649, −122.295178, heading 87): cream stucco hotel with arched windows and planting; game: beige windowed block: match in massing.
+- Bow Lake keeps its existing viewpoint (`sea-bowlake`).
+
+## 11. Landmark catalogue review against panoramas (fidelity pass round 2b, lane landmarks-b, 2026-11-12)
+
+Method: official panorama ids found from Maps coverage metadata (`photometa/ac`, coverage only), the game rendered at the
+pano position and bearing (eye 2.5 m), then compared side by side by eye. No imagery kept. Poses: `viewpoints-add.json`
+of this lane and the poses below. "Match" = shape class, height, roof, main materials/colours, entrance side and signage
+read as the real thing at street distance; it is not a claim of parity. Table positions are rounded and some are
+approximate; the exact poses with their pano ids are in this lane's `pick/*.json`, `views2b.json` and `views3.json`,
+and the kept ones in `viewpoints-add.json`.
+
+| Landmark | Pose (lat, lon, heading) | Verdict |
+| --- | --- | --- |
+| seatac | 47.4440, -122.3010 h 294 | match (glazed curtain wall, garage opposite) |
+| seatower | 47.4535, -122.3005 h 20 | shaft and cab match; base building is beige concrete in reality, white with navy bands in the model (open) |
+| seagarage | 47.4423, -122.3005 h 41 | partial: round columns with red bands in reality, square posts in the model (open) |
+| sealink | 47.4446, -122.2971 h 249 | match (elevated guideway, truss canopy) |
+
+Statues not modelled: SeaTac artwork n8604417196 statue (the nearest panoramas show trees / a car park, nothing recognisable).
+
+## 12. Round 2 (2026-11-12), lane world
+
+Car parks w433205175 (MasterPark) and w479818870: open decks, 3 levels estimated from the 9 m pack
+height; the panorama at 47.45213, -122.29542 shows MasterPark as an open-deck concrete garage of about 6 levels with a
+glazed stair tower: type matches, height does not. Fuel: 76 (w433205179) 3 islands + pylon; Shell (node, no canopy mapped)
+pylon only. Monuments: 3 placed outdoors (Celestial Navigation, Talking Fountain, one statue); works inside the terminal
+are not drawn.
+
+## 13. Round 2 (2026-11-12), lane world-b
+
+Street View was used only to look (official panoramas, ids found from coverage metadata); nothing was saved or traced.
+
+Bridge guards: concrete barriers on the Airport Expressway (w6429448, w23609851, w1165458667),
+its ramps (w291552722, w428094930), Departures Drive (w37017723, w963677010, w428095059), Airport Departures (w427909577,
+w428003817), Ramp w31928842 and Exit to Parking w103929484. The open slot between the expressway and its ramp (47.45097,
+-122.30067) is now filled as painted asphalt gore (US link gores in world.js median fill). MasterPark w433205175: ground
+floor + five open decks + glazed stair tower (panorama 47.452126, -122.295417 h95): 6 levels, 18.6 m (estimate from the
+count). w479818870: white clad curved walls, not open decks (not changed).

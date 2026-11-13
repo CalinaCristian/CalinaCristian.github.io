@@ -1,5 +1,7 @@
 // Real-scene guided-tour regression. Run with muted system Chromium:
 // NODE_OPTIONS=--require=/workspace/.environment/drive-my-cv/use-system-chromium.cjs node tools/tourist-tour-check.mjs --out=/tmp/tour-check
+// --spots=all (or a comma list of spot ids) additionally plans the guided tour of each of those spots and reports
+// every failing stop with its reason; --spots-only=1 skips the fixed regression cases. Works on Windows and POSIX.
 import { createRequire } from 'node:module';
 import { createServer } from 'node:http';
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
@@ -9,9 +11,9 @@ const { chromium } = createRequire(import.meta.url)('playwright');
 const root = path.resolve(fileURLToPath(new URL('../', import.meta.url)));
 const args = Object.fromEntries(process.argv.slice(2).map((v) => v.replace(/^--/, '').split('=')));
 const out = path.resolve(args.out || '/tmp/tourist-tour-check'); await mkdir(out, { recursive: true });
-const mime = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg' };
+const mime = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.json': 'application/json', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.svg': 'image/svg+xml', '.wasm': 'application/wasm' };
 const server = createServer(async (req, res) => {
-    try { const p = path.resolve(root, '.' + decodeURIComponent(new URL(req.url, 'http://localhost').pathname)); if (!p.startsWith(root + '/')) throw Error('path'); const data = await readFile(p); res.writeHead(200, { 'content-type': mime[path.extname(p)] || 'application/octet-stream' }); res.end(data); }
+    try { const p = path.resolve(root, '.' + decodeURIComponent(new URL(req.url, 'http://localhost').pathname)); const rel = path.relative(root, p); if (!rel || rel.startsWith('..') || path.isAbsolute(rel)) throw Error('path'); const data = await readFile(p); res.writeHead(200, { 'content-type': mime[path.extname(p)] || 'application/octet-stream' }); res.end(data); }
     catch { res.writeHead(404); res.end(); }
 });
 await new Promise((r) => server.listen(0, '127.0.0.1', r));
@@ -29,19 +31,36 @@ const load = async (id) => {
 };
 const route = async (id) => {
     const r = await page.evaluate(async () => {
-        const { pathLength, walkSegment } = await import('/game/src/spots/tour.js'); const s = spotDev.session;
+        const { pathLength, walkSegment, TOUR_WALK_LIMIT_M } = await import('/game/src/spots/tour.js'); const s = spotDev.session;
         s.endTour(); const ms = performance.now(); s.startTour();
-        return { id: s.spot.id, name: s.spot.name, sceneTris: s.spot.tris, ms: performance.now() - ms, meters: s.tour?.walked,
+        // Without a tour, say why for every activity of the scene: the planner needs one reachable, available activity first.
+        const G = s.guide, sp0 = s.spot.spawns[s.spot.id] || s.spot.spawn, round = (v) => Math.round(v * 10) / 10;
+        const noTour = s.tour ? null : s.objectives().filter((m) => ['activity', 'bike'].includes(m.kind)).map((m) => { const it = m.interaction, why = [];
+            if (m.noTour) why.push('excluded from tours (noTour)');
+            if (m.id && m.id !== s.spot.id) why.push(`belongs to the entry ${m.id}`);
+            if (Math.hypot(m.x - sp0.x, m.z - sp0.z) > 230) why.push(`${round(Math.hypot(m.x - sp0.x, m.z - sp0.z))} m from the entry spawn (limit 230 m)`);
+            if (it?.cond && !it.cond(s)) why.push('its condition is false now (time, season or state)');
+            if (it?.tourAvailable && !it.tourAvailable(s)) why.push('tourAvailable() is false');
+            if (it && Math.abs((it.y ?? s.ctl.y) - s.ctl.y) >= 3) why.push(`on another level (${round((it.y ?? s.ctl.y) - s.ctl.y)} m from the walker)`);
+            if (G && !s._navPath(G.x, G.z, m.x, m.z, { radius: it ? Math.min(1.5, Math.max(0.4, (it.r || 2) - 0.4)) : 1.5, maxLength: TOUR_WALK_LIMIT_M, startY: G.y, targetY: m.floorY })) why.push(`no walkable route of at most ${TOUR_WALK_LIMIT_M} m from the guide at ${round(G.x)}, ${round(G.z)}`);
+            return { label: m.label, at: [round(m.x), round(m.z)], why: why.length ? why : ['passes every test checked here (entry extent / nearer-entry rule not reproduced)'] }; });
+        return { id: s.spot.id, name: s.spot.name, sceneTris: s.spot.tris, ms: performance.now() - ms, meters: s.tour?.walked, limit: TOUR_WALK_LIMIT_M, guide: !!G, noTour,
             stops: s.tour?.stops.map((m) => ({ kind: m.kind, id: m.id, label: m.label, target: [m.x, m.z], endpoint: [m.tx, m.tz], radius: m.radius, length: pathLength(m.path), clear: m.path.slice(1).every((p, i) => walkSegment(s.spot.ground, s.spot.colliders, m.path[i], p)), available: !m.interaction || ((!m.interaction.cond || m.interaction.cond(s)) && Math.abs((m.interaction.y ?? s.ctl.y) - s.ctl.y) < 3) })) };
     });
     results.routes.push(r);
-    check(`${id}: <=3 stops and <=180 actual route metres`, r.stops?.length > 0 && r.stops.length <= 3 && r.meters <= 180, { metres: r.meters, stops: r.stops?.map((m) => m.label) });
-    check(`${id}: clear routes within interaction reach`, r.stops?.every((m) => m.clear && m.available && Math.hypot(m.endpoint[0] - m.target[0], m.endpoint[1] - m.target[1]) <= m.radius + 1e-6));
+    check(`${id}: <=3 stops within the ${r.limit} m walk budget`, r.stops?.length > 0 && r.stops.length <= 3 && r.meters <= r.limit, r.stops?.length ? { metres: r.meters, stops: r.stops.map((m) => m.label) } : { noTour: !r.guide ? 'the scene has no guide' : r.noTour?.length ? r.noTour : 'the scene offers no activity objective' });
+    const bad = (r.stops || []).map((m, i) => { const gap = Math.hypot(m.endpoint[0] - m.target[0], m.endpoint[1] - m.target[1]), why = [];
+        if (!m.clear) why.push('route segment blocked by a collider or ground step');
+        if (!m.available) why.push('interaction unavailable from the route level or its condition is false');
+        if (!(gap <= m.radius + 1e-6)) why.push(`route ends ${gap.toFixed(2)} m from the stop, outside its ${m.radius} m reach`);
+        return why.length ? { stop: i + 1, kind: m.kind, label: m.label, target: m.target, endpoint: m.endpoint, why } : null; }).filter(Boolean);
+    r.failingStops = bad;
+    check(`${id}: clear routes within interaction reach`, r.stops?.length > 0 && !bad.length, bad.length ? bad : r.stops?.length ? undefined : 'no tour could be planned (startTour produced no stops)');
     check(`${id}: hero/photo belong to active entry`, r.id === id && r.stops?.every((m) => !m.id || m.id === id));
     return r;
 };
 try {
-    if (process.env.ONLY_QUEUE !== '1') {
+    if (process.env.ONLY_QUEUE !== '1' && args['spots-only'] !== '1') {
     await load('pike-place');
     const fixtures = await page.evaluate(async () => {
         const { findWalkPath, walkSegment, pathLength } = await import('/game/src/spots/tour.js');
@@ -75,19 +94,25 @@ try {
         s.host.photo = { active: true }; const b = state(); s.update(0.1); const photo = state() === b; s.host.photo = null;
         s.host.explore = { drone: { active: true } }; const c = state(); s.update(0.1); const drone = state() === c; s.host.explore = null;
         // Real interaction dispatch; requesting a fish starts its activity but does not counterfeit a catch achievement.
-        s.ctl.teleport(st.x, st.z); s.input.actions.add('KeyE'); s.update(0.1); const participation = !!st.participated;
+        s.ctl.teleport(st.x, st.z); s.input.actions.add('KeyE'); s.update(0.1);
+        // A modal activity (the coin drop) reports its own completion: opening it never completes the stop, its action does.
+        const flow = s.spot.ctx.extras.participation, modal = !!flow?.active, openDoesNotComplete = !modal || (!st.participated && s.tour.i === 0);
+        if (modal) { flow.run.button.click(); for (let i = 0; i < 60 && flow.active; i++) s.update(0.1); }
+        const participation = !!st.participated;
         const noFakeCatch = !s.progress.fish && !events.some((e) => e.id === 'fish' || e.id === 'lm-pike-fish');
         s.update(0.1); const advanced = s.tour.i === 1;
-        return { firstStep, maxStep, frames: n, arrival: s.tour.state, noAutoActivity, panel, photo, drone, participation, noFakeCatch, advanced };
+        return { firstStep, maxStep, frames: n, arrival: s.tour.state, noAutoActivity, panel, photo, drone, modal, openDoesNotComplete, participation, noFakeCatch, advanced };
     });
     check('Guide arrives by walking, without in-view snaps', dynamics.frames < 1500 && dynamics.firstStep <= 0.451 && dynamics.maxStep <= 0.451, dynamics);
-    for (const name of ['noAutoActivity', 'panel', 'photo', 'drone', 'participation', 'noFakeCatch', 'advanced']) check(`tour state: ${name}`, dynamics[name]);
+    for (const name of ['noAutoActivity', 'panel', 'photo', 'drone', 'openDoesNotComplete', 'participation', 'noFakeCatch', 'advanced']) check(`tour state: ${name}`, dynamics[name]);
     // Synthetic destination poses isolate tour state and postcard dispatch.
     // Physical player movement is independently exercised by the queue case.
     const fullVisit = await page.evaluate(() => {
         const s = spotDev.session, events = []; let callbacks = 0, postcardWaited = false, photoResult = null, reached = true;
         s.host.onTour = () => callbacks++; window.addEventListener('dmcv:activity', (e) => events.push(e.detail));
+        let passes = 0;
         while (s.tour.state !== 'done') {
+            if (passes++ > s.tour.stops.length + 2) { reached = false; break; }
             const st = s.tour.stops[s.tour.i]; s.ctl.teleport(st.tx, st.tz);
             let n = 0; while (s.tour.state === 'walk' && n++ < 1500) s._updateTour(0.1, { ...s.ctl.position, speed: 4.6 });
             if (s.tour.state !== 'arrive') { reached = false; break; }
@@ -107,7 +132,7 @@ try {
     await page.evaluate(() => { const s = spotDev.session; s.endTour(); s.startTour(); });
     await page.locator('[data-tour-skip]').click();
     check('Skip stop control advances itinerary', await page.evaluate(() => spotDev.session.tour.i === 1));
-    const skips = await page.evaluate(() => { const s = spotDev.session, before = s.progress.tours?.[s.spot.sceneId]; while (s.tour.state !== 'done') s.skipTourStop(); return { awarded: s.progress.tours?.[s.spot.sceneId] !== before, text: s.ui.$('.sp-tour').textContent }; });
+    const skips = await page.evaluate(() => { const s = spotDev.session, before = s.progress.tours?.[s.spot.sceneId]; for (let n = 0; s.tour.state !== 'done' && n < 12; n++) s.skipTourStop(); return { awarded: s.progress.tours?.[s.spot.sceneId] !== before, text: s.ui.$('.sp-tour').textContent }; });
     check('Skipping does not award tour completion', !skips.awarded && skips.text.includes('Tour ended'), skips);
     await page.locator('[data-tour-end]').click(); check('End/Close control clears tour', await page.evaluate(() => !spotDev.session.tour && !spotDev.session._route));
     const empty = await page.evaluate(() => { const s = spotDev.session, nav = s._navPath; s._navPath = () => null; const result = s.startTour(); s._navPath = nav; return result === false && !s.tour; }); check('Unreachable empty itinerary never crashes/awards', empty);
@@ -125,16 +150,19 @@ try {
             const sync = await page.evaluate((target) => { const s = spotDev.session; s.teleport(target); return { id: s.spot.id, name: s.spot.name, photo: s.photoInfo().place, title: s.ui.$('.sp-card b').textContent, entry: s.spot.entry.id, sameSpawn: s.spot.spawn === s.spot.spawns[target], tour: !!s.tour, route: !!s._route }; }, target);
             check(`${target}: shared-scene entry metadata and cancelled tour`, sync.id === target && sync.entry === target && sync.name === sync.photo && sync.name === sync.title && sync.sameSpawn && !sync.tour && !sync.route, sync);
             // Teleporting the player does not teleport the guide across the scene. A fresh entry creates its local guide.
-            const remote = await page.evaluate(() => { const s = spotDev.session; s.startTour(); return { safe: !s.tour || s.tour.walked <= 180, guideDistance: Math.hypot(s.guide.x - s.ctl.x, s.guide.z - s.ctl.z), hasTour: !!s.tour }; });
+            const remote = await page.evaluate(async () => { const s = spotDev.session; s.startTour(); return { safe: !s.tour || s.tour.walked <= (await import('/game/src/spots/tour.js')).TOUR_WALK_LIMIT_M, guideDistance: Math.hypot(s.guide.x - s.ctl.x, s.guide.z - s.ctl.z), hasTour: !!s.tour }; });
             check(`${target}: remote guide remains safe after teleport`, remote.safe, remote);
             await load(target); await route(target);
         }
         if (id === 'herastrau-park') { await page.setViewportSize({ width: 390, height: 844 }); await page.evaluate(async () => { await new Promise(requestAnimationFrame); spotDev.step(2, 1 / 30); }); const fits = await page.evaluate(() => { const card = document.querySelector('.sp-card').getBoundingClientRect(), controls = document.querySelector('.sp-tour-controls').getBoundingClientRect(); return card.right <= innerWidth && controls.bottom < innerHeight; }); check('Phone tour card and controls fit viewport', fits); await page.screenshot({ path: path.join(out, 'village-tour-phone.png') }); }
     }
     }
+    const spotList = !args.spots ? [] : args.spots === 'all' ? await (async () => { await load('pike-place'); return page.evaluate(async () => (await import('/game/src/spots/index.js')).SPOTS_ALL.map((s) => s.id)); })() : args.spots.split(',');
+    for (const id of spotList) { try { await load(id); await route(id); await page.screenshot({ path: path.join(out, `tour-${id}.png`) }); } catch (error) { check(`${id}: scene loads and plans a tour`, false, String(error)); } }
+    if (args['spots-only'] !== '1') {
     await load('waterfront');
     const queue = await page.evaluate(async () => {
-        const { pathLength, findWalkPath, withMovingBodies, walkSegment } = await import('/game/src/spots/tour.js');
+        const { pathLength, findWalkPath, withMovingBodies, walkSegment, TOUR_WALK_LIMIT_M } = await import('/game/src/spots/tour.js');
         const s=spotDev.session,S=s.spot,G=s.guide,source=JSON.stringify(S.data.buildings),population=S.crowd.peds.length,colliders=S.colliders.length;
         const plaque=S.plaques.find(p=>/Pier 57/i.test(p.title));
         if(!plaque)return{passed:false,error:'Missing real Pier57 plaque'};
@@ -153,11 +181,12 @@ try {
             if(frames%40===0)trace.push({frame:frames,guide:[G.x,G.z],player:[s.position.x,s.position.z],state:s.tour.state});
         }
         s.ctl.auto=null;s.input.keys?.clear?.();spotDev.step(.1,0);
-        return{passed:s.tour.state==='arrive',walker:s.walkerKind,state:s.tour.state,narrative:s.tour.narr,frames,routeMetres:pathLength(path),guideTravelled:s.tour.travelled,staticCrowdCrossing,initialBodies:initialBodies.length,playerReplans,maxGuideStep,maxPlayerStep,populationBefore:population,populationAfter:S.crowd.peds.length,colliderCountBefore:colliders,colliderCountAfter:S.colliders.length,sourceUnchanged:source===JSON.stringify(S.data.buildings),player:{...s.position},guide:[G.x,G.z],trace};
+        return{passed:s.tour.state==='arrive',limit:TOUR_WALK_LIMIT_M,walker:s.walkerKind,state:s.tour.state,narrative:s.tour.narr,frames,routeMetres:pathLength(path),guideTravelled:s.tour.travelled,staticCrowdCrossing,initialBodies:initialBodies.length,playerReplans,maxGuideStep,maxPlayerStep,populationBefore:population,populationAfter:S.crowd.peds.length,colliderCountBefore:colliders,colliderCountAfter:S.colliders.length,sourceUnchanged:source===JSON.stringify(S.data.buildings),player:{...s.position},guide:[G.x,G.z],trace};
     });
     results.queue=queue;
-    check('Waterfront actual guide and native player traverse the retained queue',queue.passed&&queue.walker==='OnFootController'&&queue.maxGuideStep<=.226&&queue.maxPlayerStep<.8&&queue.guideTravelled<=180&&queue.sourceUnchanged&&queue.populationBefore===queue.populationAfter&&queue.colliderCountBefore===queue.colliderCountAfter,queue);
+    check('Waterfront actual guide and native player traverse the retained queue',queue.passed&&queue.walker==='OnFootController'&&queue.maxGuideStep<=.226&&queue.maxPlayerStep<.8&&queue.guideTravelled<=queue.limit&&queue.sourceUnchanged&&queue.populationBefore===queue.populationAfter&&queue.colliderCountBefore===queue.colliderCountAfter,queue);
     await page.screenshot({path:path.join(out,'waterfront-native-queue.png')});
+    }
     check('No runtime map/tour errors', results.errors.length === 0, results.errors);
 } catch (error) { results.errors.push({ fatal: String(error), stack: error.stack }); check('Runtime completed', false, String(error)); }
 finally { await writeFile(path.join(out, 'results.json'), JSON.stringify(results, null, 2)); await browser.close(); await new Promise((r) => server.close(r)); }

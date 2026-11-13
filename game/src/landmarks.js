@@ -261,7 +261,7 @@ function M(x = 0, y = 0, z = 0, ry = 0, sx = 1, sy = 1, sz = 1, rx = 0, rz = 0) 
 }
 
 class Builder {
-    constructor(hs = 1) { this.hs = hs; this.wall = null; this.bk = {}; this.cols = []; this.extras = []; this.fences = []; this.covers = []; this.grounds = []; this.coverPolys = []; this.stack = [new THREE.Matrix4()]; this.ox = 0; this.oz = 0; }
+    constructor(hs = 1) { this.hs = hs; this.wall = null; this.bk = {}; this.cols = []; this.extras = []; this.fences = []; this.covers = []; this.grounds = []; this.coverPolys = []; this.stack = [new THREE.Matrix4()]; this.ox = 0; this.oz = 0; this.baseY = 0; }
     /** translate everything that follows by (dx, dz) model metres (lets a builder keep its source coordinates when its anchor moves) */
     shift(dx, dz) { this.ox = dx; this.oz = dz; return this; }
     _b(mat) { return this.bk[mat] || (this.bk[mat] = { p: [], n: [], c: [] }); }
@@ -1208,8 +1208,13 @@ function bRegal(b) {
     // Preserve those 263 explicit part boundaries and min_height bands instead of the prior uniform 19.9 m mass.
     for (const layer of BUCHAREST_SOURCE_MASSES.regal.layers) {
         for (const q of layer.polygons) {
-            b.prism(q.ring,layer.y0,layer.height,'#eee8aa',{holes:q.holes,top:false});
-            if(layer.height-layer.y0>3)b.windows(q.ring,layer.y0,layer.height,4.8,WIN,{bay:4.6,wf:0.36,hf:0.62,arch:layer.y0<4,minL:6});
+            // (round 2, 2026-11-12) The mapped colour name "palegoldenrod" (#eee8aa) read olive in shade, and the one window row
+            // asked for 6 m wall runs that the pilaster-detailed rings hardly have. Limestone as in the walk scene (#e1d6bc,
+            // Street View from Piața Revoluției 2024: warm cream ashlar, darker rusticated ground floor) and one window per
+            // wall panel on the three storeys the palace shows: arched ground floor, tall first floor, lower second floor.
+            b.prism(q.ring,layer.y0,layer.height,layer.height<=5.7?TR:S,{holes:q.holes,top:false});
+            const st=layer.y0===1.5?[1.5,4.3,2.8,0.55,true]:layer.y0===5.7?[5.7,10,4.3,0.66,false]:layer.y0===10?[10,12,2,0.74,false]:null;
+            if(st)b.windows(q.ring,st[0],st[1],st[2],WIN,{bay:4.2,wf:0.42,hf:st[3],arch:st[4],minL:2.3,start:st[2]*0.16});
             b.colPolygon(q.ring,{holes:q.holes,y0:layer.y0,y1:layer.height});
         }
         for (const q of layer.caps) b.cap(q.ring,layer.height,layer.height>=15.7?'#c0c0c0':'#d8ccb0',q.holes);
@@ -1300,6 +1305,15 @@ function bCEC(b) {
     b.box(xr + 0.35, 12.3, 0, 0.1, 0.8, 0.1, '#222');
     b.box(xr + 0.35, 12.35, 0.2, 0.1, 0.1, 0.5, '#222');
     for (const z of [-6.8, -5.3, 5.3, 6.8]) b.cyl(xf + 0.08, 2.2, z, 0.38, 0.42, 10.4, COL, 10);
+    // (round 2, 2026-11-12; found by the Old Town walk-scene review) The mapped parts step up to the lanterns as flat rings
+    // (roof:shape=dome / onion are not supported by the source roofs), so the palace read as five stepped boxes with rods:
+    // no dome was seen from Calea Victoriei. Dome shells over those steps: the glass-and-metal central dome above the
+    // 25 m crossing (source centre -1.4, 1.2; lantern w657898053 to 37.5 m stays visible above it) and the four corner
+    // pavilion domes (source drums w657898126 / w657898137 and the two western ones, lanterns to 32.5 - 35 m). Shell radii
+    // and rises are estimates fitted inside the mapped totals; no source volume is removed and the 37.5 m maximum is kept.
+    b.dome(-1.4, 24.6, 1.2, 8.4, 9.6, '#8d9da3', 20, { mat: 'g' });
+    b.cyl(-1.4, 24.2, 1.2, 8.5, 8.7, 0.9, TR, 20);
+    for (const [x, z] of [[13.5, -25.9], [13.4, 25.2], [-16.5, 25.7], [-16.9, -25.8]]) { b.dome(x, 25.2, z, 4.5, 6.6, '#727a80', 12); b.cyl(x, 25, z, 4.6, 4.7, 0.5, TR, 12); }
 }
 
 // Muzeul Național de Istorie a României (Palatul Poștelor, Alexandru Săvulescu, 1894-1900) — ≈ 22 m,
@@ -1318,7 +1332,7 @@ function bMNIR(b) {
     b.colonnade(xf - 8.2, -26, xf - 8.2, 26, 3, 13.2, 14, 1, '#f3eee3', { capital: TR, seg: 10 });
     b.box(xf - 5, 16.2, 0, 10.6, 2.6, 62, TR); b.box(xf - 5, 18.8, 0, 9.6, 1.5, 60, S);
     b.text('MUZEUL NATIONAL DE ISTORIE A ROMANIEI', xf - 10.32, 16.75, 0, -Math.PI / 2, 0.85, '#7a6b52');
-    for (const z of [-36, 36]) { b.box(xf + 3, 0, z, 10, 24.5, 14, S); b.windows(rect(xf - 2, z - 7, xf + 8, z + 7), 0, 23, 6.5, WIN, { bay: 4.6, wf: 0.4, hf: 0.6, arch: true, minL: 4 }); b.hip(xf + 3, 24.5, z, 10, 14, 4, '#8f9599'); }
+    for (const z of [-36, 36]) { b.box(xf + 3, 0, z, 10, 24.5, 14, S); b.windows(rect(xf - 2, z - 7, xf + 8, z + 7), 0, 23, 6.5, WIN, { bay: 4.6, wf: 0.4, hf: 0.6, arch: true, minL: 4 }); b.hip(xf + 3, 24.5, z, 10, 14, 1.6, '#8f9599'); b.dome(xf + 3, 25.2, z, 4.7, 5.6, '#7d858a', 12); b.cyl(xf + 3, 30.6, z, 0.25, 0.5, 1.6, '#7d858a', 6); } // (round 2: the end pavilions carry domes — Old Town walk-scene review, Calea Victoriei 2024; radius / rise estimated, the hip stays as their low base)
     // Trajan's Column replica (cast, 1967) in the courtyard
     const [hx, hz] = centroid(hole); b.cyl(hx, 0, hz, 2, 2, 3, '#d9d1c1', 8); b.cyl(hx, 3, hz, 1.6, 1.8, 24, '#d6cdb9', 10); b.box(hx, 27, hz, 2.4, 1.2, 2.4, '#d9d1c1');
     b.colPolygon(p, { holes: [hole], y1: 19.2 });
@@ -1369,10 +1383,26 @@ function bUnirea(b) {
     const [p] = P.unirea.map(pts);
     // Independent 2017 façade reference: opaque ribbed metal skin over a glazed ground floor.
     // The earlier all-glass elevation and large fabricated name panel did not match it.
-    b.prism(p,0,24,'#85898a',{topCol:'#aaa9a3'});
+    // (round 2, 2026-11-12) Street View from Piața Unirii (44.42700, 26.10377, May 2024): the south front and the
+    // south-west rotunda are large flat white-grey panels with a blank white billboard frame on the curve; the west front on
+    // Bd. I. C. Brătianu is a dark bronze louvred wall carrying full-height advertising banners; a white canopy band runs
+    // over the recessed glazed ground floor. The uniform grey ribbed skin (a 2017 reference) matched neither. Panel module,
+    // louvre pitch and the banner size are estimates; the banner is a plain canvas (its advertising is not reproduced).
+    const LIGHT='#d3d4d0',JOINT='#a4a7a5',DARK='#6a655d',SLAT='#817a70',sg=signedArea(p)>0?1:-1;
+    b.prism(p,0,24,LIGHT,{topCol:'#aaa9a3'});
     b.windows(p,0.3,4.9,4.8,'#415564',{bay:3.2,wf:0.9,hf:0.84,start:0.2,mat:'g',minL:4});
-    for(let y=5.2;y<22.8;y+=0.38) b.ring(offset(p,0.09),y,y+0.1,'#c2c5c2');
-    b.cornice(p,4.8,0.55,0.45,'#d4d4cc');b.cornice(p,23.4,0.6,0.35,'#575e63');
+    for(const y of [9.9,14.4,18.9]) b.ring(offset(p,0.06),y,y+0.07,JOINT);
+    for(let i=0;i<p.length;i++){
+        const a=p[i],c=p[(i+1)%p.length],L=Math.hypot(c[0]-a[0],c[1]-a[1]);if(L<1.2)continue;
+        const dx=(c[0]-a[0])/L,dz=(c[1]-a[1])/L,n=[sg*dz,-sg*dx],at=(t,o)=>[a[0]+dx*t+n[0]*o,a[1]+dz*t+n[1]*o];
+        const q=(t0,t1,y0,y1,o,col,mat)=>{const u=at(t0,o),v=at(t1,o);b.quad([u[0],y0,u[1]],[v[0],y0,v[1]],[v[0],y1,v[1]],[u[0],y1,u[1]],col,mat||'m',[n[0],0,n[1]]);};
+        if(i===24){ // the west front (129 m): louvred bronze wall + one banner next to the rotunda
+            q(0,L,5.4,23.4,0.1,DARK);for(let y=5.9;y<23;y+=0.95)q(0,L,y,y+0.16,0.17,SLAT);
+            q(L-40,L-9,6.6,22.4,0.3,'#a8322f');q(L-40,L-9,6.6,7.0,0.34,'#e9e6df');q(L-40,L-9,22.0,22.4,0.34,'#e9e6df');
+        }else if(L>=5){const k=Math.max(1,Math.round(L/6.2));for(let j=1;j<k;j++)q(j/k*L-0.04,j/k*L+0.04,5.4,23.4,0.06,JOINT);}
+        if(i>=34&&i<=41)q(0,L,11.5,20.5,0.3,'#f1f1ee'); // the blank billboard frame on the rotunda
+    }
+    b.cornice(p,4.8,0.55,0.45,'#e3e3de');b.cornice(p,23.4,0.6,0.35,'#b9bbb7');
     // (owner, 2026-11-11: "this still sticks out") The roof storey is the footprint inset by 12 m. On this concave outline
     // a plain 12 m inset folds over itself and a slab of it stood out over the street. The inset is used only when every
     // vertex of it lies inside the footprint and no two of its edges cross; otherwise a smaller one, or none.
@@ -1668,7 +1698,9 @@ function bPromenada(b) {
     // Independent exterior photograph: white panel cladding and a dark glazed entrance,
     // rather than three continuous floors of blue windows. Exact entrance bay remains estimated.
     b.prism(p,0,18,'#eef0ed',{topCol:'#c5c7bf'});
-    b.windows(p,0.4,5,4.6,'#405461',{bay:4,wf:0.82,hf:0.85,start:0.2,mat:'g',minL:6});
+    // (round 2, panoramas at 44.47748, 26.10262 heading 48 and 44.47806, 26.10497 heading 257, viewed only): the white panel
+    // walls have no ground-floor window row (a row of blue squares ran round the whole building); grey plinth instead
+    b.ring(offset(p,0.05),0,1.1,'#a9adab');
     for(let y=3;y<16.5;y+=1.7) b.ring(offset(p,0.04),y,y+0.045,'#c6cccb');
     b.cornice(p,16.1,0.4,0.5,'#f6f7f7');
     // Aerial-measured garden coverage replaces the invented all-green stepped roof.
@@ -1905,6 +1937,19 @@ function bOTP(b, ctx = {}) {
     b.box(-106, 13.4, 200.5, 190, 0.6, 9, WH);                                              // cantilevered canopy over the upper-level kerb
     b.text('HENRI COANDA', -106, 14.5, 196.6, 0, 2.6, '#ffffff', { mat: 'g' });
     b.text('PLECARI  DEPARTURES', -106, 10.2, 196.6, 0, 1.6, '#ffd84a', { mat: 'g' });
+    // (round 2, official panorama on the Plecări kerb at 44.570884, 26.076884, headings 10 / 20 / 100 / 125, viewed only)
+    // Silver corrugated barrel-vault canopies on round white columns cover the pavement in front of the door groups, one
+    // after another along the kerb; a white cylindrical stair tower closes the south end of the blue curtain wall (its arc
+    // is in the mapped outline of w771096082 at about (−12.4, 192.5), r 2.9 m). Vault size, spring height and the five
+    // positions along the front are estimates: the door groups are not mapped.
+    for (const cx of [-176, -144, -112, -80, -48]) {
+        b.geo(new THREE.CylinderGeometry(4.6, 4.6, 17, 12, 1, true, 0, Math.PI), '#b4bcc2', M(cx, 5.3, 201.2, 0, 0.56, 1, 1, 0, Math.PI / 2));
+        b.geo(new THREE.CylinderGeometry(4.5, 4.5, 17, 12, 1, true, 0, Math.PI), '#8f979d', M(cx, 5.3, 201.2, 0, 0.56, -1, 1, 0, Math.PI / 2));   // underside
+        for (let k = -3; k <= 3; k++) b.geo(new THREE.TorusGeometry(4.62, 0.07, 4, 10, Math.PI), '#d9dee1', M(cx + k * 2.7, 5.3, 201.2, Math.PI / 2, 1, 0.56, 1));   // ribs
+        for (const z of [196.7, 205.7]) b.box(cx, 5.0, z, 17, 0.35, 0.3, '#eef0ef');
+        for (const sx of [-6.5, 0, 6.5]) b.cyl(cx + sx, 0, 205.6, 0.38, 0.38, 5.0, '#eef0ef', 8);
+    }
+    b.cyl(-12.4, 0, 192.5, 3.15, 3.15, 20.6, '#ecedea', 16); b.cyl(-12.4, 20.6, 192.5, 3.3, 3.3, 0.4, '#d9dbd8', 16);
     // 1970 "T1" (Sosiri): ten measured repeated roof bays. Nadir imagery
     // establishes their axis/spacing, while1.2m rise is an explicit estimate.
     // Keep the prior total14m and all colliders; clip every bay to the source.
@@ -1947,7 +1992,11 @@ function bOTP(b, ctx = {}) {
         b.colPolygon(q.ring,{holes:q.holes,y1:12});
     }
     const control=BUCHAREST_SOURCE_MASSES.otp.control;
-    b.cyl(63,12,162,3.2,3.6,8,CON,10); // supporting shaft: prior photo-led estimate
+    // (round 2, same panorama, heading 125) the tower is a stack of ring floors that widen upwards under the cab, not a
+    // bare shaft. OSM w794617342 gives only the cab (min_height 20, height 25) and stays as mapped; the five rings below it
+    // fill roof → 20 m. In the panorama the tower looks about twice that tall: the tag, not the picture, sets the height.
+    b.cyl(63,12,162,2.6,2.6,8,CON,10);
+    for (let i = 0; i < 5; i++) { const y = 12.2 + i * 1.56, r = 3.5 + i * 0.6; b.cyl(63, y, 162, r, r - 0.3, 0.4, '#e4e5e1', 12); b.cyl(63, y + 0.4, 162, r - 0.45, r - 0.45, 1.16, '#55748a', 12, { mat: 'g', open: true }); }
     b.prism(control,20,25,'#33505f',{mat:'g',topCol:WH});
     b.colPolygon(control,{y0:20,y1:25});
     b.cyl(63,25,162,0.2,0.2,5,'#d33',6); // aerial mast height remains estimated
@@ -1960,6 +2009,43 @@ function bOTP(b, ctx = {}) {
     airliner(b, px, -45, Math.PI, { tail: '#c6007e', belly: '#2b0f5c' });           // Wizz Air
     airliner(b, bb.x0 - 26, -120, 0, { tail: '#0b4ea2', stripe: '#0b4ea2' });       // Blue Air
     b.colPolygon(dep, { y1: 21 }); b.colPolygon(arr, { y1: 14 });
+}
+
+// Gara „Aeroport Henri Coandă” (CFR airport station, opened 2020-12-13): OSM w813193384 (building=train_station,
+// layer=1, min_height=5, building:levels=2, roof:shape=gabled, covered=arcade), a 169 × 18 m strip on the rail viaduct
+// in front of the terminals. Official panoramas at 44.568817, 26.073336 heading 66 and 44.56887, 26.07495 headings
+// 10 / 60 / 300 (viewed only): a deep concrete box-girder deck on wide wall piers with a crosshead, a green edge band,
+// and one long glazed barrel vault on a white lattice over the platforms; an open stair with green rails climbs to the
+// west end. The generic rendering was a flat green-topped slab on thin columns. Documented exception: the vault follows
+// the panoramas, the mapped `gabled` is the nearest tag for it. Deck depth, vault rise (the two mapped levels: 5 → 13 m),
+// pier spacing and the stair's place are estimates; piers are left out where a mapped road passes under the deck.
+const OTP_GARA_RING = [[-85.2,-1],[-83.5,16.9],[-24.4,11.4],[45.9,4.6],[61.2,3.3],[85.2,1],[84.9,-1.8],[83.7,-12.5],[83.2,-16.9],[59.3,-14.7],[45.4,-13.4],[-26.5,-6.7]];
+function bOtpGara(b, ctx = {}) {
+    const ring = ctx.sourceBuildings?.w813193384?.[0]?.ring || OTP_GARA_RING, CON = '#c9c6bd', GRN = '#2f9460', WH = '#eef0ee';
+    const A0 = [-84.35, 7.95], A1 = [84.2, -7.95], L = Math.hypot(A1[0] - A0[0], A1[1] - A0[1]), ux = (A1[0] - A0[0]) / L, uz = (A1[1] - A0[1]) / L, nx = -uz, nz = ux;
+    const cx = (A0[0] + A1[0]) / 2, cz = (A0[1] + A1[1]) / 2, ry = Math.atan2(-uz, ux), at = (t, s) => [cx + ux * t + nx * s, cz + uz * t + nz * s];
+    const deck0 = 5, deck1 = 7.7, W = 17.4;
+    b.prism(offset(ring, -1.6), deck0, deck1 - 0.5, CON, { bottom: true, top: false });                 // box girder
+    b.prism(ring, deck1 - 0.5, deck1, CON, { bottom: true, topCol: '#9a9c98' });                        // cantilevered deck slab
+    b.ring(offset(ring, 0.05), deck1, deck1 + 0.45, GRN);                                                // green edge band
+    // glazed barrel vault on a white lattice
+    const R = W / 2 - 0.4, rise = 5.3 / R;
+    b.geo(new THREE.CylinderGeometry(R, R, L - 2, 14, 1, true, 0, Math.PI), '#9cc7ba', M(cx, deck1 + 0.45, cz, ry, rise, 1, 1, 0, Math.PI / 2), 'g');
+    b.geo(new THREE.CylinderGeometry(R - 0.1, R - 0.1, L - 2, 14, 1, true, 0, Math.PI), '#87aea3', M(cx, deck1 + 0.45, cz, ry, rise, -1, 1, 0, Math.PI / 2), 'g');
+    for (let t = -L / 2 + 1; t <= L / 2 - 1 + 1e-6; t += (L - 2) / 28) { const [x, z] = at(t, 0); b.geo(new THREE.TorusGeometry(R + 0.03, 0.09, 4, 10, Math.PI), WH, M(x, deck1 + 0.45, z, ry + Math.PI / 2, 1, rise, 1)); }
+    for (const a of [0.42, Math.PI / 2, Math.PI - 0.42]) { const s = Math.cos(a) * (R + 0.04), y = deck1 + 0.45 + Math.sin(a) * (R + 0.04) * rise, p0 = at(-L / 2 + 1, s), p1 = at(L / 2 - 1, s); b.strut([p0[0], y, p0[1]], [p1[0], y, p1[1]], 0.14, 0.14, WH); }
+    // wall piers with a crosshead (estimated pitch), none where a mapped road passes underneath
+    for (let t = -L / 2 + 12; t <= L / 2 - 12 + 1e-6; t += (L - 24) / 5) {
+        const [x, z] = at(t, 0);
+        if (ctx.roadAt && [-6, -3, 0, 3, 6].some(s => { const q = at(t, s); return ctx.roadAt(q[0], q[1], -1, 2.5); })) continue;
+        b.box(x, 0, z, 2.2, deck0 - 0.9, 8.6, CON, { ry: ry + Math.PI / 2 }); b.box(x, deck0 - 0.9, z, 2.8, 0.9, 13.5, CON, { ry: ry + Math.PI / 2 });
+        b.col(x, z, 1.1, 4.3, ry + Math.PI / 2, { y0: 0, y1: deck0 });
+    }
+    // open stair to the west end, south side
+    { const s = W / 2 + 1.6, p0 = at(-L / 2 - 23, s), p1 = at(-L / 2 + 1, s);
+      b.strut([p0[0], 0.15, p0[1]], [p1[0], deck1, p1[1]], 2.6, 0.35, CON);
+      for (const e of [-1.3, 1.3]) { const q0 = at(-L / 2 - 23, s + e), q1 = at(-L / 2 + 1, s + e); b.strut([q0[0], 1.2, q0[1]], [q1[0], deck1 + 1.05, q1[1]], 0.08, 0.08, GRN); }
+      const m = at(-L / 2 - 11, s); b.col(m[0], m[1], 12, 1.4, ry, { y0: 0, y1: deck1 + 1 }); }
 }
 
 // ASE — Ion N. Angelescu: source rings r2274298 (2026-11-08), including its mapped rounded corner and four courts.
@@ -2165,7 +2251,10 @@ function bAmbasador(b) {
         [clip(-15.8,-60,-5.2,-3.2),40,43],[clip(5.2,-60,15.8,-3.2),40,43],
         [clip(-13.5,-60,-7.5,-4.5),43,46],[clip(7.5,-60,13.5,-4.5),43,46]];
     for (const [q,y0,y1] of blocks) {
-        b.prism(q,y0,y1,S,{topCol:T}); b.windows(q,y0+0.4,y1-0.3,3.3,GL,{bay:3.15,wf:0.56,hf:0.62,minL:2,mat:'g',off:0.06});
+        // (round 2, panorama 44.441899, 26.098971 heading 80, viewed at two zooms): every bay is a dark window over a
+        // red-brown apron panel between pale piers; whole red squares read as polka dots from the boulevard
+        b.prism(q,y0,y1,S,{topCol:T}); b.windows(q,y0+0.4,y1-1.8,3.3,'#9a7a6c',{bay:3.15,wf:0.7,hf:0.3,start:0.35,minL:2,off:0.06}); // (y1 − 1.8: same storey count as the glass row)
+        b.windows(q,y0+0.4,y1-0.3,3.3,'#39424a',{bay:3.15,wf:0.7,hf:0.46,start:1.35,minL:2,off:0.06,mat:'g'});
         b.cornice(q,y1,0.35,0.2,T); b.colPolygon(q,{y0,y1});
     }
     // Rounded returns stay behind the surveyed street edge; no unsupported forward projection.
@@ -2182,16 +2271,23 @@ function bAmbasador(b) {
 // windows, corner tower with the PATRIA cinema sign on Bd. Magheru.
 // Src: https://ro.wikipedia.org/wiki/Blocul_ARO ; OSM way 163622261
 function bARO(b) {
-    b.wall = '#eeeae1';
-    const [p] = P.aro.map(pts), S = '#eeeae1', bb = bbox([p]);
-    b.prism(p, 0, 33, S); b.bands(p, 0, 33, 3.3, '#3e4a55', { frac: 0.52, mat: 'g', wall: null });
-    const end = p.filter(q => q[1] < bb.z0 + 16), [tx, tz] = centroid(end.length ? end : p);
-    const t = rect(tx - 7, Math.max(bb.z0 + 1, tz - 7), tx + 7, Math.max(bb.z0 + 1, tz - 7) + 14);
-    b.prism(t, 33, 41, S); b.bands(t, 33, 41, 3.3, '#3e4a55', { frac: 0.52, mat: 'g', wall: null });
-    const xs = xAt([p], (bb.z0 + bb.z1) / 2) || [bb.x0, bb.x1];
-    b.box(xs[0] - 0.7, 4, (bb.z0 + bb.z1) / 2, 1, 3.5, 18, '#c62828');      // PATRIA marquee
-    b.box(xs[0] - 1.1, 9, (bb.z0 + bb.z1) / 2 - 7, 1.2, 20, 2.2, '#c62828'); // vertical sign
-    b.colPolygon(p, { y1: 33 });
+    // (round 2, panoramas on Bd. Magheru at 44.442644, 26.098615 headings 105 / 120 and 44.442974, 26.098813 heading 149,
+    // viewed only): a weathered grey-beige slab with continuous ribbon windows and pale sill bands over a shop floor, and a
+    // taller, almost blind pale tower with one vertical glazed strip at the NORTH end. The model was white, had the tower
+    // at the south end (the registry yaw of −175° turns model −z to the south) and carried a red PATRIA marquee and vertical
+    // sign on the rear face; no such sign shows on the boulevard front in the panoramas, so none is drawn. OSM w163622261:
+    // 10 levels (33 m at 3.3 m); the tower's extra height (to 43 m) is an estimate, it has no part of its own.
+    const [p] = P.aro.map(pts), S = '#b4ad9f', LT = '#d3cdc0', GL = '#39424b';
+    b.wall = S;
+    b.prism(p, 0, 33, S, { topCol: '#8d8a84' });
+    b.prism(offset(p, 0.08), 0, 3.7, '#353d44', { mat: 'g', top: false });
+    b.cornice(p, 3.7, 0.45, 0.6, LT);
+    b.bands(p, 4.2, 33, 3.3, GL, { frac: 0.44, start: 1.1, mat: 'g', wall: null });
+    for (let y = 4.2 + 0.75; y + 0.35 < 33; y += 3.3) b.ring(offset(p, 0.2), y, y + 0.35, LT);            // pale sill bands
+    const t = [[5.83, 21.97], [4.43, 29.3], [-13.59, 25.85], [-11.93, 17.21], [-2.85, 18.94]];             // the mapped north-end block
+    b.prism(offset(t, 0.1), 0, 43, LT, { topCol: '#8d8a84' });
+    { const a = t[0], c = t[1], n = edgeN(t, 0), at = k => [a[0] + (c[0] - a[0]) * k, a[1] + (c[1] - a[1]) * k]; facadeQuad(b, at(0.36), at(0.64), 5, 41.5, GL, 'g', n, 0.2); }   // glazed stair strip on the boulevard face
+    b.colPolygon(p, { y1: 33 }); b.colPolygon(t, { y0: 33, y1: 43 });
 }
 
 // ===========================================================================
@@ -2251,7 +2347,7 @@ function bSpaceNeedle(b) {
     b.cyl(0, 161.3, 0, 15.36, 15.3, 0.42, W, 32); b.cyl(0, 161.72, 0, 10.2, 15.36, 2.48, W, 32, { open: true }); b.cyl(0, 164.2, 0, 7.75, 10.2, 2.3, W, 32, { open: true });
     b.cyl(0, 166.5, 0, 7.75, 7.75, 0.9, GL, 24, { mat: 'g', open: true }); b.cyl(0, 167.4, 0, 7.95, 7.95, 0.18, W, 24);
     b.cyl(0, 167.58, 0, 5.4, 7.95, 0.87, W, 24, { open: true }); b.cyl(0, 168.45, 0, 2.7, 5.4, 0.5, W, 24, { open: true }); b.cyl(0, 168.95, 0, 1.9, 1.9, 1.35, W, 12); b.cyl(0, 170.3, 0, 2.45, 2.45, 0.12, W, 12);
-    b.cone(0, 170.42, 0, 0.95, 10.6, W, 12); b.cyl(0, 181, 0, 0.09, 0.09, 3.4, '#cfcfcf', 6);
+    b.cone(0, 170.42, 0, 0.95, 10.6, W, 12); b.cyl(0, 181, 0, 0.09, 0.09, 3, '#cfcfcf', 6); // (to 184 m exactly: the rod ended at 184.4 and failed us-source-check behind an earlier failure)
 }
 
 // Columbia Center (Chester Lindsey, 1985) — 937 ft / 286 m, 76 floors (en.wikipedia "Columbia Center"),
@@ -2520,7 +2616,13 @@ function bSeaTower(b) {
 // Src: https://www.skyscrapercenter.com/complex/2787 ; game/research/seattle-bellevue.json landmarks[bellevue-towers]
 function bBellevueTowers(b) {
     const [n,s,pod] = ['w370237986','w370239409','w118119171'].map(id=>U[id]);
-    b.prism(pod, 0, 18, '#d1ccc2', { topCol: '#7f9e6b' }); b.bands(pod, 0, 18, 3.6, '#4f6573', { frac: 0.5 });
+    // (round 2, panoramas at 47.613977, -122.198816 heading 54 and NE 4th / 106th heading 47, viewed only): the podium is
+    // grey-beige stone with a tall glazed retail floor under a canopy line and windows above; the model wrapped it in five
+    // bold blue-and-cream stripes (a car-park look).
+    b.prism(pod, 0, 18, '#b9b3a6', { topCol: '#7f9e6b' });
+    b.windows(pod, 0, 5.6, 5.6, '#56707f', { bay: 6.5, wf: 0.84, hf: 0.8, start: 0.2, mat: 'g', minL: 5, off: 0.07 });
+    b.cornice(pod, 5.6, 0.35, 0.9, '#8f979b');
+    b.windows(pod, 6.2, 17.6, 3.8, '#5d7887', { bay: 3.25, wf: 0.6, hf: 0.6, start: 0.7, mat: 'g', minL: 5, off: 0.07 });
     for (const [p, h] of [[n, 137], [s, 131]]) {          // OSM: North 137 m/43 levels; South 131 m/42 levels, including crowns
         b.prism(p, 18, h - 7, '#7a96a8', { mat: 'g', topCol: '#c7d0d6' });
         b.bands(p, 18, h - 7, 3.1, '#d9e0e4', { frac: 0.12, off: 0.1 });
@@ -2663,7 +2765,22 @@ function bLincolnN(b) {
     b.prism(pod, 0, 16, BRICK, { topCol: '#8e8a84' });
     b.prism(offset(pod, 0.15), 0, 5.2, SHOP, { mat: 'g', top: false });                    // storefront glazing
     b.cornice(pod, 5.2, 0.7, 0.45, STONE); b.cornice(pod, 15.2, 0.9, 0.5, STONE);
-    b.bands(pod, 6.4, 15, 4.3, '#3c4850', { frac: 0.5, pitch: 6, wall: BRICK });           // L2/L3 windows split by brick piers
+    // (round 2, 2026-11-12) Street View on Bellevue Way at 47.61709 and 47.61647: the upper podium is wide blue-glass bays
+    // between stone piers (the model had dark slits), the bay south of the Bellevue Square skybridge (z ≈ -25 … 0) is
+    // red-brown brick with the same glazing, and brick piers stand between the shopfronts at the sidewalk. Only the Bellevue
+    // Way faces were looked at, so the NE 8th and court faces keep the earlier windows. Bay width (≈ 7.5 m), sill / head
+    // heights and the brick stretch's exact ends are estimates.
+    const BAY = '#6d93b8', RED = '#7d4a3a';
+    b.bands(pod, 6.4, 15, 4.3, '#3c4850', { frac: 0.5, pitch: 6, wall: BRICK });           // L2/L3 windows split by piers (faces not reviewed)
+    for (let i = 0; i < pod.length; i++) {
+        const a = pod[i], c = pod[(i + 1) % pod.length], L = Math.hypot(c[0] - a[0], c[1] - a[1]), n = edgeN(pod, i); if (L < 3 || n[0] > -0.9) continue; // Bellevue Way (west) faces
+        const k = Math.max(1, Math.round(L / 7.5)), P3 = (t) => [a[0] + (c[0] - a[0]) * t, a[1] + (c[1] - a[1]) * t], brickFrom = L > 40 ? 1 - 25 / L : 2;
+        facadeQuad(b, a, c, 5.9, 15.2, BRICK, 'm', n, 0.26);
+        if (brickFrom < 1) facadeQuad(b, P3(brickFrom), c, 5.9, 15.2, RED, 'm', n, 0.29);    // the brick bay south of the skybridge (edge 20, its north 25 m)
+        for (let j = 0; j < k; j++) facadeQuad(b, P3((j + 0.13) / k), P3((j + 0.87) / k), 6.7, 13.9, BAY, 'g', n, 0.33); // wide glazed bays between the piers
+        facadeQuad(b, a, c, 10.15, 10.45, '#56636d', 'm', n, 0.37);                         // the floor line across the bays
+        for (let j = 0; j <= k; j++) { const q = P3(j / k); b.box(q[0] + n[0] * 0.25, 0, q[1] + n[1] * 0.25, 0.5, 5.2, 1.2, RED); }                      // brick piers at the sidewalk
+    }
     for (let i = 0; i < pod.length; i++) {                                                  // sidewalk canopies on the street faces
         const a = pod[i], c = pod[(i + 1) % pod.length], L = Math.hypot(c[0] - a[0], c[1] - a[1]); if (L < 12) continue;
         const n = edgeN(pod, i); if (n[1] > 0.7) continue;                                  // not on the inner (south) court side
@@ -2741,12 +2858,15 @@ function bOneLincoln(b) {
     b.cornice(westin, 4.8, 0.6, 0.4, '#e2dccf'); b.bands(westin, 5.6, 10.2, 4.4, '#3f4b52', { frac: 0.55, wall: null });
     b.prism(conn, 7, 15.5, '#bfb6a6', { bottom: true, topCol: '#8e8a84' }); b.bands(conn, 7, 15.5, 4.2, '#3f4b52', { frac: 0.5, wall: null });
     b.text('THE WESTIN', -44.7, 6.2, 70, -Math.PI / 2, 1.1, '#f6f3ec');
-    curtainTower(b, one, 10.5, 131, { glass: '#7a847c', glassMat: 'm', spandrel: '#adb1a9', mullion: '#4f5550', pitch: 4.2, fh: 3.05, frac: 0.7, start: 0.6 });
+    // (round 2, panoramas on Bellevue Way NE at 47.616895, -122.2018 heading 105-140 and NE 4th at 47.615169, -122.201847
+    // heading 39, viewed only): the tower reads as blue reflective glass with white slab-edge bands, like its neighbours;
+    // the model was a matt grey-green grid with dark mullions (a brown block on the skyline).
+    curtainTower(b, one, 10.5, 131, { glass: '#6f8ea6', spandrel: '#dde2e2', mullion: '#b4bdc2', pitch: 4.2, mw: 0.14, md: 0.16, fh: 3.05, frac: 0.7, start: 0.6 });
     for (let y = 40; y < 129; y += 3.05) {                                                   // stacked glass balconies (south + east faces of the condo floors)
         b.box(37, y, 81.9, 14, 0.18, 1.8, '#c9ccc8'); b.box(37, y + 0.18, 82.75, 14, 1.0, 0.06, '#8b9590', { mat: 'g' });
         b.box(46.1, y, 72, 1.8, 0.18, 16, '#c9ccc8'); b.box(47, y + 0.18, 72, 0.06, 1.0, 16, '#8b9590', { mat: 'g' });
     }
-    b.ring(offset(one, 0.06), 131, 137, '#76807a'); b.ring(offset(one, -0.3), 131, 137, '#76807a', { inward: true }); b.cap(offset(one, -0.3), 133, '#6b706c');
+    b.ring(offset(one, 0.06), 131, 137, '#7d98ab', { mat: 'g' }); b.ring(offset(one, -0.3), 131, 137, '#7d98ab', { inward: true }); b.cap(offset(one, -0.3), 133, '#6b706c');
     b.text('WESTIN', -13.6, 132.2, 72, Math.atan2(-0.986, -0.164), 2.6, '#ffffff');                          // white letters, west face of the crown
     skybridge(b, [14.8, 85.9], [11.7, 108], 6.2, 5, 4.6);                                 // over NE 6th to Lincoln Square South
     b.colPolygon(westin, { y1: 10.5 }); b.colPolygon(one, { y0: 10.5, y1: 137 }); b.colPolygon(conn, { y0: 7, y1: 15.5 });
@@ -2762,13 +2882,15 @@ function bLincolnS(b) {
     b.prism(pod, 0, 15.5, '#b9ac98', { topCol: '#8a8781' });
     b.prism(offset(pod, 0.15), 0, 5, '#33414b', { mat: 'g', top: false });
     b.cornice(pod, 5, 0.6, 0.4, '#ddd5c6'); b.cornice(pod, 14.8, 0.8, 0.45, '#ddd5c6');
-    b.bands(pod, 6.2, 14.6, 4.2, '#3c4850', { frac: 0.5, pitch: 6, wall: '#b9ac98' });
+    // (round 2, panorama on Bellevue Way NE at 47.61479, -122.201752 heading 93, viewed only): tall glazed shopfront bays
+    // between tan stone piers on both upper levels, not small punched windows
+    b.windows(pod, 5.9, 14.6, 4.3, '#5f8098', { bay: 8.4, wf: 0.8, hf: 0.78, start: 0.35, mat: 'g', minL: 6, off: 0.08 });
     // 400 Lincoln Square: 31 office floors from level 4, stepped glass crown
     curtainTower(b, t400, 15.5, 128, { glass: '#6e8a9e', spandrel: '#7f96a6', mullion: '#b9c0c4', pitch: 1.6, mw: 0.12, md: 0.18, fh: 3.75, frac: 0.78, start: 0.4 });
     const c1 = offset(t400, -2.5); b.prism(c1, 128, 133, '#6e8a9e', { mat: 'g', topCol: '#9fa8ad' }); b.pilasters(c1, 128, 133, 1.6, 0.12, 0.18, '#b9c0c4', {});
     const c2 = offset(t400, -6); b.ring(c2, 133, 137, '#879fb0', { mat: 'g' }); b.cap(c2, 134, '#8e9498');
     // Two Lincoln Tower: glass with continuous balcony slab edges
-    curtainTower(b, two, 15.5, 131, { glass: '#6b7c86', spandrel: '#e2e4e2', fh: 3.0, frac: 0.78, start: 0.3 });
+    curtainTower(b, two, 15.5, 131, { glass: '#6c8ba3', spandrel: '#e2e4e2', fh: 3.0, frac: 0.72, start: 0.3 });   // (round 2: blue glass between white balcony bands, panorama 47.613915, -122.201845 heading 39)
     b.ring(offset(two, 0.05), 131, 137, '#7c8b94', { mat: 'g' }); b.cap(offset(two, -0.3), 133, '#8e9498');
     b.box(18, 6, -85.8, 9, 3, 0.4, '#141414'); b.text('W BELLEVUE', 18, 6.8, -86.05, Math.PI, 1.2, '#f2f2f2');   // W hotel at the base on NE 6th St
     b.colPolygon(pod, { y1: 16 });
@@ -3354,15 +3476,20 @@ function bTheLandmark(b) {
     // with deep window reveals, topped by a cantilevered three-storey glass box with dark horizontal bands and a rooftop
     // metal mesh screen; glazed ground floor; landscaped courtyard with a pool between the blocks.
     const ps = P2.thelandmark.map(pts), ST = '#ddd6c8', FR = '#3c3f42', GL = '#6f8a94';
+    // (round 2, panoramas at 44.450288, 26.094312 heading 143 and 44.449916, 26.094312 heading 66, viewed only): the
+    // Vasile Alecsandri fronts are limestone to the top of the fifth upper storey, tall windows in deep reveals between
+    // stone piers on every storey, a glazed ground floor BETWEEN the same piers, and one set-back glazed storey under the
+    // roof screen. The model had its windows 0.25 m inside the wall (invisible: a blank stone block), a glass skirt
+    // standing proud of the wall and three glass storeys. Storey heights stay estimates (OSM: 7 levels).
+    const stoneTop = 4.2 + 5 * 3.75;
     for (const p of ps) {
-        b.prism(p, 0, 15.6, ST, { top: false });
-        b.prism(offset(p, 0.1), 0, 4.2, '#7d949c', { mat: 'g', top: false });                // glazed ground floor
-        b.pilasters(offset(p, 0.1), 0, 4.2, 3.2, 0.16, 0.12, FR, {});
-        b.windows(p, 4.2, 15.6, 3.8, '#55636b', { bay: 2.6, wf: 0.62, hf: 0.78, start: 0.4, mat: 'g', minL: 3, off: -0.25 });   // deep reveals
-        b.pilasters(p, 4.2, 15.6, 2.6, 0.5, 0.35, ST, {});
-        const top = offset(p, 0.7);                                                            // cantilevered glass box
-        curtainTower(b, top, 15.6, 26.6, { glass: GL, spandrel: '#2f3438', mullion: '#8d9599', pitch: 1.5, mw: 0.08, md: 0.1, fh: 3.65, frac: 0.78, start: 0.3 });
-        b.cap(top, 15.6, '#cfc8ba', [], -1);
+        b.prism(p, 0, stoneTop, ST, { topCol: '#cfc8ba' });
+        b.windows(p, 0, 4.2, 4.2, '#5f7780', { bay: 5.2, wf: 0.8, hf: 0.82, start: 0.15, mat: 'g', minL: 3, off: 0.06 });   // glazed ground floor between the piers
+        b.windows(p, 4.2, stoneTop, 3.75, '#4a575e', { bay: 2.6, wf: 0.56, hf: 0.74, start: 0.5, mat: 'g', minL: 3, off: 0.06 });
+        b.pilasters(p, 0, stoneTop, 5.2, 0.6, 0.3, ST, {});
+        b.cornice(p, 4.2, 0.3, 0.2, ST); b.cornice(p, stoneTop - 0.3, 0.3, 0.25, ST);
+        const top = offset(p, -1.2);                                                           // set-back glazed top storey
+        curtainTower(b, top, stoneTop, 26.6, { glass: GL, spandrel: '#2f3438', mullion: '#8d9599', pitch: 1.5, mw: 0.08, md: 0.1, fh: 3.65, frac: 0.78, start: 0.3 });
         const sc = offset(p, -1.5); b.ring(sc, 26.6, 29.4, '#6c7175'); b.ring(offset(sc, -0.1), 26.6, 29.4, '#6c7175', { inward: true });   // rooftop mesh screen
     }
     // UiPath door on Vasile Alecsandri (west face of Corp B at the address point 44.4499, 26.0944): canopy + street number
@@ -3457,8 +3584,12 @@ function bHalaTraian(b) {
 // Src: game/research/bucharest-pipera.json landmarks[globalworth_tower] (wp_globalworth_tower: 118-120 m, 26 floors) ; OSM w547396774
 function bGlobalworth(b) {
     const [p] = P2.globalworth.map(pts);
-    b.prism(offset(p, 0.3), 0, 8, '#2f3a43', { mat: 'g', top: false });
-    curtainTower(b, p, 8, 114, { glass: '#5d7f99', spandrel: '#6c8aa0', mullion: '#c7cfd5', pitch: 3.2, mw: 0.16, md: 0.3, fh: 4.08, frac: 0.8, start: 0.3 });
+    // (round 2, panoramas at 44.479318, 26.103249 heading 263 and 44.47893, 26.10196 heading 72, viewed only): the base
+    // is a white-framed, double-height glazed podium (it was a navy block) and the shaft is grey-blue glass
+    b.prism(offset(p, 0.3), 0, 11.5, '#e3e5e3', { top: false });
+    b.windows(offset(p, 0.3), 0, 11.5, 5.75, '#5d7888', { bay: 4.6, wf: 0.84, hf: 0.86, start: 0.35, mat: 'g', minL: 4, off: 0.07 });
+    b.cornice(offset(p, 0.3), 11.1, 0.4, 0.5, '#eceeec');
+    curtainTower(b, p, 11.5, 114, { glass: '#66819a', spandrel: '#7890a2', mullion: '#c7cfd5', pitch: 3.2, mw: 0.16, md: 0.3, fh: 4.08, frac: 0.8, start: 0.3 });
     b.ring(offset(p, 0.05), 114, 120, '#6f8fa6', { mat: 'g' }); b.cap(offset(p, -0.3), 115.5, '#8e9498');
     b.colPolygon(p, { y1: 120 });
 }
@@ -3477,7 +3608,22 @@ function bGlobalworth(b) {
 // Src: https://en.wikipedia.org/wiki/Stadionul_Dinamo ; OSM ways 28212482, 427813551, 860001496 (Peluza Cătălin Hildan)
 const DIN_OUT = [-81.2,14.2,-82.3,1.4,-82.6,-15.3,-81.7,-30.5,-79.5,-47.1,-75.8,-60.2,-68.4,-74.8,-64.2,-80.7,-59.6,-86.1,-53.1,-92.3,-46.7,-97.1,-39.2,-101.7,-32.8,-104.7,-23.9,-107.8,-14.2,-109.9,-6.7,-110.6,2,-110.6,13,-109.2,10.5,-99.7,17.1,-98,23.4,-95.7,31.4,-91.7,32.7,-91.1,41.5,-84.9,49.5,-77.4,56.1,-69,61.2,-60.2,64.7,-51.8,72.7,-31.1,77.7,-13.5,81.3,10.7,81.6,26.5,81,36.3,79.8,46.7,78,56.5,76.2,66.1,72.8,76.1,68.7,84.3,62.7,93,55.7,100.6,36,114.9,37.2,123.3,23.1,126.3,12.8,127.3,3.2,126.9,-5.6,125.5,-12.3,123.6,-20.9,120.2,-27.6,116.7,-39.3,108.5,-51.9,96.2,-60.2,84.4,-66.6,70.7,-72,56.1,-76.6,39.8,-78.8,29.5];
 const DIN_PITCH = [28.5,-48,-33.3,-38.7,-17.7,63.6,44,54.3];
+// (fidelity pass round 2, 2026-11-12) "Groapa": the bowl lies in a pit. Street View from Calea Floreasca 33 and Șos. Ștefan
+// cel Mare 7 shows no stand above a 2.5 m boundary wall, only the floodlight masts, and the access lane falling from the
+// Ștefan cel Mare gate towards the pitch; the model stood 10–14 m above the street. OSM has no height / level / layer tag
+// on w28212482 / r9146640. The depth is an estimate: EU-DEM 25 m (a smoothed surface model) has the pitch at 74–77 m and
+// Calea Floreasca / Ștefan cel Mare 5–8 m higher, which under-reads a 190 m pit; stands of this size rise ≈ 9–10 m and
+// their top rows meet the street. DIN_DEPTH = 9 m: the model is authored from the pitch (y = 0) as before and the whole
+// group is lowered, so the pitch frame, the football activity and the collider bands move with it. The ground north and
+// east of the real pit is as low as the pitch (the sports park); the game's district is flat, so the pit has a rim all round.
+const DIN_DEPTH = 9;
+/** Landmarks sunk below the street: the world opens its flat ground layers over `ring` (model metres, x east / z south, at
+ *  the anchor; rotation 0) and takes `floorY` as the lowest surface there. */
+export function landmarkGroundPits(cityId, ids = null) {
+    return cityId === 'bucharest' && (!ids || ids.includes('dinamo')) ? [{ id: 'dinamo', lat: A.dinamo[0], lon: A.dinamo[1], ring: pts(DIN_OUT), floorY: -DIN_DEPTH }] : [];
+}
 function bDinamo(b) {
+    const D = DIN_DEPTH; b.baseY = -D; // every height below is measured from the pitch; the street is at y = D
     const out = pts(DIN_OUT), pitchC = pts(DIN_PITCH);
     const cx = pitchC.reduce((s, p) => s + p[0], 0) / 4, cz = pitchC.reduce((s, p) => s + p[1], 0) / 4;
     // stadium frame: u along the pitch's long axis (toward the south end), v across (toward the east)
@@ -3543,7 +3689,7 @@ function bDinamo(b) {
         if (q.u > A + 4) return q.v > 8 ? 'SE' : q.v < -8 ? 'SW' : 'S';
         return q.v > 0 ? 'E' : 'W';
     };
-    const H = { N: 10.5, E: 12, W: 14, SE: 8.5, S: 4.5, SW: 2.6 };
+    const H = { N: D + 0.6, E: D + 1, W: D + 1.6, SE: D, S: D, SW: D }; // top rows about level with the street (rim 0–1.6 m above it)
     const seatCol = (sec, k, t, T) => {
         if (sec === 'SW' || sec === 'S') return null;                    // grassed embankment
         const blk = Math.floor(k / 5);
@@ -3576,10 +3722,9 @@ function bDinamo(b) {
         }
         if (!grass) b.quad(P(a, 0, 0), P(c, 0, 0), P(c, 0, h0), P(a, 0, h0), '#e8e6e0', 'm', [-a.dx, 0, -a.dz]); // perimeter wall at the track
         // back wall down to the street (concrete with a darker plinth), parapet on top
-        b.quad(P(a, 1, 0), P(c, 1, 0), P(c, 1, hc + 1.1), P(a, 1, ha + 1.1), CON, 'm', [a.dx, 0, a.dz]);
+        b.quad(P(a, 1, D - 0.3), P(c, 1, D - 0.3), P(c, 1, hc + 1.1), P(a, 1, ha + 1.1), CON, 'm', [a.dx, 0, a.dz]); // (only the parapet stands above the street)
         b.quad(P(a, 1, ha), P(c, 1, hc), P(c, 1, hc + 1.1), P(a, 1, ha + 1.1), CON2, 'm', [-a.dx, 0, -a.dz]);
         b.quad(P(a, 1, ha + 1.1), P(c, 1, hc + 1.1), [P(c, 1, 0)[0] + c.dx * 0.3, hc + 1.1, P(c, 1, 0)[2] + c.dz * 0.3], [P(a, 1, 0)[0] + a.dx * 0.3, ha + 1.1, P(a, 1, 0)[2] + a.dz * 0.3], '#cfccc4', 'm', [0, 1, 0]);
-        if (k % 4 === 0 && !grass) { const [ox, , oz] = P(a, 1, 0); b.box(ox + a.dx * 0.4, 0, oz + a.dz * 0.4, 1.2, ha + 0.4, 1.2, '#9d9a92', { ry: Math.atan2(a.dx, a.dz) }); } // buttresses
         // vomitories (dark openings) every ~25 m on the main sectors
         if (!grass && k % 8 === 3) { const t0 = 0.45; const pa = P(a, t0, h0 + (ha - h0) * t0), pc = P(c, t0, h0 + (hc - h0) * t0); b.quad([pa[0], pa[1] + 0.02, pa[2]], [pc[0], pc[1] + 0.02, pc[2]], [pc[0] + c.dx * 2.5, pc[1] + 0.02, pc[2] + c.dz * 2.5], [pa[0] + a.dx * 2.5, pa[1] + 0.02, pa[2] + a.dz * 2.5], '#2a2a2a', 'm', [0, 1, 0]); }
     }
@@ -3588,7 +3733,7 @@ function bDinamo(b) {
     if (west.length > 4) {
         const mid = west.slice(Math.floor(west.length * 0.12), Math.ceil(west.length * 0.88));
         for (let i = 0; i < mid.length - 1; i++) {
-            const a = mid[i], c = mid[i + 1], yb = a.h + 6.2, yf = a.h + 4.6;
+            const a = mid[i], c = mid[i + 1], yb = a.h + 4.6, yf = a.h + 3.6;
             const back = (p) => [p.ix + p.dx * (p.d + 0.6), 0, p.iz + p.dz * (p.d + 0.6)], front = (p) => [p.ix + p.dx * p.d * 0.22, 0, p.iz + p.dz * p.d * 0.22];
             const ba = back(a), bc = back(c), fa = front(a), fc = front(c);
             standBox([fa, fc, bc, ba].map(p => [p[0], p[2]]), { y0: yf - 0.5, y1: yb });
@@ -3605,24 +3750,29 @@ function bDinamo(b) {
     { const q = prof.reduce((m, p) => (p.sec === 'N' && Math.abs(-(p.ix - cx) * vx - (p.iz - cz) * vz) < Math.abs(-(m.ix - cx) * vx - (m.iz - cz) * vz) ? p : m), prof.find(p => p.sec === 'N') || prof[0]);
       const [sx, sz] = [q.ix + q.dx * q.d * 0.9, q.iz + q.dz * q.d * 0.9], ry = Math.atan2(q.dx, q.dz);
       // (2026-11-08, owner screenshot) on legs above the stand: the real building behind the north curve hid the lower half
-      const yb = q.h + 5.5;
+      const yb = q.h + 1.2; // (round 2: the bowl is sunk, nothing hides the board any more: short legs)
       b.box(sx, yb, sz, 16, 7, 1.2, '#1e2227', { ry }); b.box(sx - q.dx * 0.62, yb + 0.8, sz - q.dz * 0.62, 14.4, 5.4, 0.05, '#20303a', { ry, mat: 'e' });
       b.text('DINAMO', sx - q.dx * 0.7, yb + 2.4, sz - q.dz * 0.7, ry + Math.PI, 2.2, '#e0302e', { mat: 'e' });
-      for (const s of [-1, 1]) { b.box(sx + Math.cos(ry) * s * 6, 0, sz - Math.sin(ry) * s * 6, 0.8, yb + 0.2, 0.8, '#6f747a'); b.box(sx + Math.cos(ry) * s * 6, yb - 2.5, sz - Math.sin(ry) * s * 6, 0.4, 0.3, 3.0, '#6f747a', { ry }); } }
+      for (const s of [-1, 1]) { b.box(sx + Math.cos(ry) * s * 6, q.h, sz - Math.sin(ry) * s * 6, 0.8, yb - q.h + 0.2, 0.8, '#6f747a'); b.box(sx + Math.cos(ry) * s * 6, yb - 2.5, sz - Math.sin(ry) * s * 6, 0.4, 0.3, 3.0, '#6f747a', { ry }); } }
     // ---- four floodlight masts outside the corners (lattice-tapered shafts, a tilted lamp frame facing the centre)
     for (const [su, sv] of [[-1, -1], [-1, 1], [1, -1], [1, 1]]) {
         const ang = Math.atan2(sv * 0.62, su), qd = { nu: Math.cos(ang), nv: Math.sin(ang) };
         const dx = ux * qd.nu + vx * qd.nv, dz = uz * qd.nu + vz * qd.nv;
         const bx0 = cx + ux * su * (A + 4) + vx * sv * (RA + 2), bz0 = cz + uz * su * (A + 4) + vz * sv * (RA + 2);
-        const d = rayHit(bx0, bz0, dx, dz); const mx = bx0 + dx * ((isFinite(d) ? d : 25) + 3), mz = bz0 + dz * ((isFinite(d) ? d : 25) + 3);
+        const d = rayHit(bx0, bz0, dx, dz); const mx = bx0 + dx * ((isFinite(d) ? d : 25) - 2.5), mz = bz0 + dz * ((isFinite(d) ? d : 25) - 2.5); // (round 2: on the rim inside the mapped outline; 3 m outside it the north-west mast stood in the Calea Floreasca car park)
         const Hm = 44, ry = Math.atan2(dx, dz);
-        b.geo(new THREE.CylinderGeometry(0.55, 1.4, Hm, 4, 1), '#9aa1a8', M(mx, Hm / 2, mz, ry + Math.PI / 4));
-        for (let y = 4; y < Hm - 2; y += 4) b.box(mx, y, mz, 2.2 - y / Hm * 1.2, 0.12, 0.12, '#7e858c', { ry });
+        b.geo(new THREE.CylinderGeometry(0.55, 1.4, Hm, 4, 1), '#9aa1a8', M(mx, D + Hm / 2, mz, ry + Math.PI / 4)); // (the masts stand on the street-level rim)
+        for (let y = 4; y < Hm - 2; y += 4) b.box(mx, D + y, mz, 2.2 - y / Hm * 1.2, 0.12, 0.12, '#7e858c', { ry });
         const hx = mx - dx * 1.2, hz = mz - dz * 1.2;
-        b.box(hx, Hm, hz, 9, 5.5, 0.5, '#5d636a', { ry, rx: 0 });
-        for (let i = 0; i < 4; i++) for (let j = 0; j < 3; j++) b.box(hx - dx * 0.3 + Math.cos(ry) * (i - 1.5) * 2.1, Hm + 0.5 + j * 1.7, hz - dz * 0.3 - Math.sin(ry) * (i - 1.5) * 2.1, 1.6, 1.2, 0.2, '#fff6dd', { ry, mat: 'e' });
-        b.col(mx, mz, 1.4, 1.4, 0, { h: Hm + 6 });
+        b.box(hx, D + Hm, hz, 9, 5.5, 0.5, '#5d636a', { ry, rx: 0 });
+        for (let i = 0; i < 4; i++) for (let j = 0; j < 3; j++) b.box(hx - dx * 0.3 + Math.cos(ry) * (i - 1.5) * 2.1, D + Hm + 0.5 + j * 1.7, hz - dz * 0.3 - Math.sin(ry) * (i - 1.5) * 2.1, 1.6, 1.2, 0.2, '#fff6dd', { ry, mat: 'e' });
+        b.col(mx, mz, 1.4, 1.4, 0, { h: D + Hm + 6 });
     }
+    // ---- the Șos. Ștefan cel Mare gate (round 2b): OSM n11383452958 (barrier=gate, 44.453207, 26.102647) on the access
+    // lane. Panoramas at 44.453094, 26.102688 heading 350 and 44.453095, 26.102558 heading 30 (viewed only): two tall square
+    // rendered pillars with a red base band flank the lane. Pillar size and spacing are estimates. The unfinished concrete
+    // frame seen west of the lane has no footprint at that place (w387467641 lies 60 m further north) and is not drawn.
+    for (const s of [-1, 1]) { const gx = 26.05 + s * 3.9, gz = 213.8; b.box(gx, D, gz, 1.0, 6.4, 1.0, '#d8d3c8'); b.box(gx, D, gz, 1.08, 1.1, 1.08, '#b03a30'); b.box(gx, D + 6.4, gz, 1.25, 0.25, 1.25, '#c9c4b8'); b.col(gx, gz, 0.55, 0.55, 0, { h: D + 6.7 }); }
     b.grounds.push(out); b.coverPolys.push(offset(out, -3)); // no trees in the bowl; OSM buildings inside the outline are the model's own
 }
 
@@ -3664,8 +3814,66 @@ function bCatargiu(b) {
     const ST = '#bdb5a6', ST2 = '#cbc3b4', BR = '#4b4a3d';
     b.prism(k(1), 0, 0.45, ST); b.prism(k(0.78), 0.45, 0.9, ST); b.prism(k(0.36), 0.9, 1.5, ST2);
     b.prism(k(0.28), 1.5, 5.2, ST2); b.cornice(k(0.28), 5.2, 0.3, 0.18, ST); // slim shaft: Street View from Bd. Lascăr Catargiu 22 (2026-11-12)
-    b.cyl(0, 5.5, 0, 0.36, 0.52, 2.3, BR, 8); b.box(0, 7.55, 0, 1.0, 0.5, 0.55, BR, { ry: 0.6 }); b.sphere(0, 8.4, 0, 0.3, BR, { detail: 0 });
+    // (round 2, panoramas at 44.448932, 26.093057 heading 331 and 44.449226, 26.092807 heading 146, viewed only): a standing
+    // bronze man in a long frock coat on the pedestal, facing down the boulevard towards Piața Romană, and a second, smaller
+    // bronze figure standing against the pedestal's south-west side, reaching up. They were a cylinder, a box and a ball.
+    // Silhouettes only; figure heights are estimates.
+    const fx = 0.83, fz = 0.56;
+    statueFigure(b, 0, 5.5, 0, Math.atan2(fx, fz), 2.9, BR, { coat: true });
+    statueFigure(b, -fz * 1.75, 0.9, fx * 1.75, Math.atan2(fz, -fx), 1.9, BR, { robe: true, reach: true });
     b.colPolygon(k(0.8), { y1: 5 }); b.grounds.push(k(2.3)); // the open traffic island (Street View): no tree crown through the figure
+}
+
+/**
+ * Statue silhouette (round 2): a standing figure (o.coat: long coat, o.robe: draped to the feet, o.reach: one arm raised)
+ * or a seated one (o.seated, on a block of o.seat colour). h = overall height, front = local +z turned by ry. Boxes,
+ * tapered cylinders and one low-poly head only: a silhouette class, not a likeness.
+ */
+function statueFigure(b, x, y, z, ry, h, col, o = {}) {
+    b.push(M(x, y, z, ry));
+    if (o.seated) {
+        const u = h / 1.45;                                                                       // seated height ≈ 1.45 units
+        b.box(0, 0, -0.1 * u, 0.75 * u, 0.5 * u, 0.8 * u, o.seat || col);                         // seat block / rock
+        b.box(0, 0.5 * u, 0.12 * u, 0.56 * u, 0.2 * u, 0.62 * u, col);                             // thighs
+        for (const s of [-1, 1]) b.box(s * 0.16 * u, 0, 0.42 * u, 0.2 * u, 0.52 * u, 0.2 * u, col); // lower legs
+        b.box(0, 0.62 * u, -0.14 * u, 0.5 * u, 0.56 * u, 0.3 * u, col, { rx: 0.14 });               // torso, leaning forward a little
+        for (const s of [-1, 1]) b.box(s * 0.31 * u, 0.66 * u, 0.02 * u, 0.13 * u, 0.42 * u, 0.36 * u, col, { rx: 0.5 }); // arms on the knees
+        b.sphere(0, 1.3 * u, 0.0, 0.15 * u, col, { detail: 1 });
+    } else {
+        const body = o.robe ? [0.2, 0.11, 0.6] : o.coat ? [0.17, 0.12, 0.56] : [0.13, 0.11, 0.5];   // hem radius, waist radius, height (× h)
+        b.cyl(0, 0, 0, body[1] * h, body[0] * h, body[2] * h, col, 8);
+        b.box(0, body[2] * h, 0, 0.27 * h, (0.84 - body[2]) * h, 0.15 * h, col);                   // chest and shoulders
+        b.box(-0.165 * h, 0.5 * h, 0.01 * h, 0.07 * h, 0.33 * h, 0.09 * h, col);
+        if (o.reach) b.box(0.17 * h, 0.78 * h, 0.03 * h, 0.07 * h, 0.34 * h, 0.08 * h, col, { rz: -0.35 });
+        else b.box(0.165 * h, 0.5 * h, 0.01 * h, 0.07 * h, 0.33 * h, 0.09 * h, col);
+        b.cyl(0, 0.84 * h, 0, 0.035 * h, 0.04 * h, 0.04 * h, col, 6);
+        b.sphere(0, 0.935 * h, 0, 0.065 * h, col, { detail: 1 });
+    }
+    b.pop();
+}
+
+// „Nobil Dac” (Str. Mendeleev × Str. George Enescu, Romană): OSM w1170480716 (tourism=artwork, artwork_type=statue,
+// material=marble; a 1.5 m square outline = the plinth). Panoramas at 44.44681, 26.094523 heading 158 and 44.446652,
+// 26.094859 heading 285 (viewed only): a grey-weathered marble standing figure wrapped in a long cloak, facing east, on a
+// plain square stone plinth with a plaque on the front and a low base, in the small parking square. Plinth and figure
+// heights are estimates.
+function bNobilDac(b) {
+    const o = [[-0.8, -0.6], [-0.7, 0.7], [0.8, 0.6], [0.7, -0.7]], k = f => o.map(([x, z]) => [x * f, z * f]), ST = '#b3aea3', MB = '#b9b6ad';
+    b.prism(k(1.3), 0, 0.3, '#a39e93'); b.prism(k(1), 0.3, 2.2, ST); b.cornice(k(1), 2.05, 0.15, 0.08, '#beb9ae');
+    b.box(0.79, 1.0, 0, 0.04, 0.7, 0.8, '#5b5a55');                                                // plaque (east face)
+    statueFigure(b, 0, 2.2, 0, Math.PI / 2, 2.3, MB, { robe: true });
+    b.colPolygon(k(1.3), { y1: 2.2 }); b.grounds.push(k(3));
+}
+
+// George Enescu (Bd. Magheru × Str. George Enescu, Romană): OSM w1171605516 (tourism=artwork, artwork_type=statue; a
+// 4.4 m square outline = the base). Panorama at 44.443605, 26.098132 heading 312 (viewed only): a dark bronze man seated
+// on a rough block, on two low grey granite steps in the paved corner of the square, facing west-south-west towards the
+// boulevard. Step and figure heights are estimates.
+function bEnescu(b) {
+    const o = [[-2.8, -1.3], [-1.3, 2.8], [2.8, 1.3], [1.3, -2.8]], k = f => o.map(([x, z]) => [x * f, z * f]), GR = '#a7a59f', BR = '#3f4639';
+    b.prism(k(1), 0, 0.32, GR); b.prism(k(0.68), 0.32, 0.66, '#b3b1ab');
+    statueFigure(b, 0, 0.66, 0, Math.atan2(-0.94, 0.34), 2.1, BR, { seated: true, seat: '#4a4f44' });
+    b.colPolygon(k(1), { y1: 1.6 }); b.grounds.push(k(1.6));
 }
 
 // Fântâna Arteziană Arthur Verona (Str. Pictor Arthur Verona, beside Bd. Magheru): decorative round basin.
@@ -3703,6 +3911,8 @@ function bCetGrozavesti(b) {
 // (230.5, −320.9) → (256.6, −437.9) in district metres.
 function bOrhideeaSign(b) {
     const ry = -1.7906, nx = -.976, nz = -.218;
+    b.box(nx * .12, 0, nz * .12, 112, 6.6, .2, '#eeeeea', { ry }); // (round 2, panorama 44.444372, 26.061485 heading 70: a white panel wall with a broad red band, not a dark windowed front)
+    b.box(nx * .2, 2.3, nz * .2, 112, 1.9, .3, '#c8102e', { ry });
     b.box(nx * .2, 6.6, nz * .2, 112, 1.1, .3, '#c8102e', { ry });
     b.box(nx * .25, 8, nz * .25, 27, 4, .25, '#f4f4f1', { ry });
     b.text('Carrefour', nx * .42, 8.6, nz * .42, ry, 2.8, '#1e4fa3', { d: .04 });
@@ -3736,6 +3946,8 @@ const A = {
     seagarage: [47.4432823, -122.2992416, 0], sealink: [47.4452089, -122.2969786, 0],
     gts: [44.433369, 26.1176015, 0], rosetti: [44.4671565, 26.106133, 0], dinamo: [44.4551306, 26.1023192, 0], bob: [44.479608, 26.1147802, 0], thelandmark: [44.450012, 26.0946079, 0], europehouse: [44.4511557, 26.087697, 0], halatraian: [44.4333566, 26.120567, 0], globalworth: [44.4792401, 26.1024141, 0], thebridge1: [44.44481317, 26.06011122, 0],
     cetgrozavesti: [44.440165, 26.062861, 0], orhideeasign: [44.444574, 26.062252, 0],
+    nobildac: [44.4466925, 26.0945949, 0], enescu: [44.4437403, 26.0980397, 0], // (round 2b) OSM w1170480716 / w1171605516 bbox centres
+    otpgara: [44.569035, 26.0751467, 0],                                        // (round 2b) OSM w813193384 bbox centre
 };
 
 function L(id, city, name, osmNames, radius, fn, extra = {}) {
@@ -3792,8 +4004,11 @@ export const LANDMARKS = [
     L('antipa', 'bucharest', 'Muzeul Antipa', ['Muzeul Național de Istorie Naturală "Grigore Antipa"', 'Muzeul Antipa'], 46, bAntipa, { floodlit: true, masonry: true, sourceIds: ['w23610985'] }),
     L('catargiu', 'bucharest', 'Statuia Lascăr Catargiu', [], 5, bCatargiu, { sourceIds: [] }),
     L('veronafountain', 'bucharest', 'Fântâna Arthur Verona', [], 5, bVeronaFountain, { sourceIds: [] }),
+    L('nobildac', 'bucharest', 'Statuia „Nobil Dac”', [], 3, bNobilDac, { districtOnly: true, sourceIds: [] }),
+    L('enescu', 'bucharest', 'Statuia George Enescu', [], 4, bEnescu, { districtOnly: true, sourceIds: [] }),
+    L('otpgara', 'bucharest', 'Gara Aeroport Henri Coandă', ['Aeroport Henri Coandă'], 0, bOtpGara, { districtOnly: true, sourceIds: ['w813193384'] }), // replaces the generic slab of its own footprint only
     L('gts', 'bucharest', 'Calea Călărașilor 101 (GTS Global Intelligence)', [], 9.5, bGTS, { cvStop: 'gts', ownSign: true, floodlit: true }),
-    L('dinamo', 'bucharest', 'Stadionul Dinamo', ['Stadionul Dinamo', 'Peluza Catalin Hildan', 'Peluza Cătălin Hildan'], 95, bDinamo, { floodlit: true }),
+    L('dinamo', 'bucharest', 'Stadionul Dinamo', ['Stadionul Dinamo', 'Peluza Catalin Hildan', 'Peluza Cătălin Hildan'], 95, bDinamo, { floodlit: true, sourceIds: ['w28212482', 'w427813551', 'w860001496', 'r9146640'] }), // r9146640: the building=stadium multipolygon of the same bowl (it stood as a 14 m generic wall round the sunk model)
     L('rosetti', 'bucharest', 'Liceul Teoretic C.A. Rosetti', ['Liceul Teoretic C.A. Rosetti', 'Liceul Teoretic „C.A. Rosetti”', 'Liceul C.A. Rosetti'], 26, bRosetti, { cvStop: 'rosetti', ownSign: true, floodlit: true }),
     L('bob', 'bucharest', 'BOB Tower (DB Global Technology)', ['BOB Tower'], 40, bBOB, { cvStop: 'db', ownSign: true, sourceIds: ['w55450549'] }),
     L('halatraian', 'bucharest', 'Hala Traian', ['Hala Traian'], 12, bHalaTraian),
@@ -3852,6 +4067,7 @@ export function buildLandmark(lm, ctx = {}) {
     if (b.footballPitch) group.userData.footballPitch = b.footballPitch;
     if (b.basketballCourt) group.userData.basketballCourt = b.basketballCourt;
     group.rotation.y = lm.rotation;
+    if (b.baseY) group.position.y = 0.12 + b.baseY; // a model sunk below the street: the world keeps this height and adds it to the collider bands
     let k = 1;
     if (lm.backdrop) { k = ctx.backdropScale ?? 1; group.scale.setScalar(k); }
     const c = Math.cos(lm.rotation), s = Math.sin(lm.rotation);

@@ -21,6 +21,35 @@ function visitGallery(record, id, name) {
     return `<section class="visit-preview" aria-label="Visit preview"><p class="notice"><b>Staging game preview.</b> ${esc(gallery.notice)} Source ${commit(gallery.sourceCommit)}. These are game illustrations; independent visual comparison remains open.</p><div class="visit-gallery visit-primary">${views.map(figure).join('')}</div><details><summary>Viewpoint and capture details</summary><p>${esc(gallery.setup)} No reference imagery is embedded. Open any image for its original dimensions.</p>${gallery.limitations?.length ? list(gallery.limitations) : ''}<ul>${[...(gallery.reports || []), ...(gallery.report ? [{report: gallery.report, label: 'Visitor capture manifest'}] : [])].filter(proof => evidenceReport(proof.report)).map(proof => `<li><a href="${esc(proof.report)}" target="_blank" rel="noopener">${esc(proof.label)}</a></li>`).join('')}</ul></details>${retained.length ? `<details class="visit-retained"><summary>Earlier preview framing · ${retained.length} retained images</summary><p>Original attempts from this staging capture session, with their actual source and time. The final views above have their own capture records.</p><div class="visit-gallery">${retained.map(figure).join('')}</div></details>` : ''}</section>`;
 }
 
+// Superseded captures stay published in the record. They are listed in a collapsed section, each collection with the
+// source commit and date its own pictures were taken at; the pictures are added to the page when the section is opened.
+const dayOf = value => { const date = new Date(value); return Number.isFinite(date.getTime()) ? new Intl.DateTimeFormat('en-GB', {timeZone: 'America/Los_Angeles', day: '2-digit', month: 'short', year: 'numeric'}).format(date) : ''; };
+function historicalSets(record, kind, id) {
+    const safe = captures => (captures || []).filter(capture => evidenceAsset(capture?.image, {kind, id}));
+    const sets = [
+        ...(record.historicalCollections || []).map(set => ({...set, captures: safe(set.captures)})),
+        ...(record.historicalVisitorGalleries || []).map(set => ({...set, label: set.label || 'Earlier visitor gallery', captures: safe(set.captures)})),
+        ...(record.historicalCaptures?.length ? [{label: kind === 'spot' ? 'Earlier validation frames' : 'Earlier model studies', captures: safe(record.historicalCaptures)}] : []),
+    ];
+    return sets.filter(set => set.captures.length);
+}
+function historySummary(set) {
+    const commits = [...new Set(set.captures.map(capture => capture.sourceCommit || set.sourceCommit).filter(Boolean))];
+    const days = [...new Set(set.captures.map(capture => Date.parse(capture.capturedAt)).filter(Number.isFinite).sort((a, b) => a - b).map(dayOf))];
+    const source = commits.length ? commits.map(commit).join(', ') : commit(set.sourceCommit);
+    return `Game source ${source} · ${days.length ? 'captured ' + esc(days.length > 1 ? days[0] + ' to ' + days.at(-1) : days[0]) + ' (Pacific)' : 'capture date not recorded'}${set.supersededBy ? ` · superseded by ${commit(set.supersededBy)}${set.supersededAt ? ' on ' + esc(dayOf(set.supersededAt)) : ''}` : ''}`;
+}
+function historyFigure(capture, set, name) {
+    const label = capture.label || capture.kind || 'Game capture', condition = capture.condition?.label || (typeof capture.conditions === 'string' ? capture.conditions : '');
+    const size = capture.viewport?.width && capture.viewport?.height ? ` width="${Number(capture.viewport.width)}" height="${Number(capture.viewport.height)}"` : '';
+    return `<figure${capture.viewport?.height > capture.viewport?.width ? ' class="lm-history-phone"' : ''}><a href="${esc(capture.image)}" target="_blank" rel="noopener"><img src="${esc(capture.image)}" alt="${esc('Historical game capture of ' + name + ': ' + label)}" loading="lazy" decoding="async"${size}></a><figcaption><span class="tag historical">Historical</span> <b>${esc(label)}</b>${condition ? ' · ' + esc(condition) : ''}<br>Earlier game capture · ${commit(capture.sourceCommit || set.sourceCommit)}${capture.capturedAt ? `<br>${esc(captureDate(capture.capturedAt))}` : ''}</figcaption></figure>`;
+}
+function historySection(sets) {
+    if (!sets.length) return '';
+    const images = sets.reduce((sum, set) => sum + set.captures.length, 0);
+    return `<details class="lm-history"><summary>Earlier captures · ${sets.length} historical ${sets.length === 1 ? 'collection' : 'collections'} · ${images} ${images === 1 ? 'picture' : 'pictures'}</summary><p class="notice"><b>Historical, not the current game.</b> These pictures were superseded by later work. Each keeps the source revision and date it was really taken at; nothing here was recaptured.</p>${sets.map((set, i) => `<section class="lm-history-set" aria-label="Historical collection: ${esc(set.label || 'Earlier captures')}"><h5><span class="tag historical">Historical</span> ${esc(set.label || 'Earlier captures')}</h5><p class="lm-caption">${historySummary(set)}</p>${set.reason ? `<p class="lm-caption">${esc(set.reason)}</p>` : ''}<div class="lm-captures lm-history-captures" data-history="${i}"></div></section>`).join('')}</details>`;
+}
+
 export const mountLandmarkEvidence = (root, inventory) => mountEvidence(root, inventory.landmarks, 'landmark');
 export const mountSpotEvidence = (root, inventory) => mountEvidence(root, inventory.spots.filter(entry=>entry.menuAvailable), 'spot');
 function mountEvidence(root, entries, kind) {
@@ -50,6 +79,7 @@ function mountEvidence(root, entries, kind) {
         const captures = (kind === 'spot' && record.visitorGallery ? [] : record.captures || []).filter(capture => evidenceAsset(capture.image, {kind, id}));
         const nativeProofs = (record.nativeProofs || []).filter(proof => evidenceReport(proof.report));
         const ranges=kind==='landmark'?landmarkRangeContexts(lm):[];
+        const history = historicalSets(record, kind, id);
         body.innerHTML = `<article data-evidence-id="${esc(id)}"><div class="lm-heading"><div><p class="eyebrow">${kind === 'spot' ? `Tourist visit · ${esc(cityName(record.city))}` : `${esc(record.id)} · ${esc(record.city)}`}</p><h4>${esc(lm.name)}</h4></div><span class="tag ${gaps.length ? 'pending' : 'sourced'}">${esc(kind === 'spot' ? (record.status || 'Reviewed evidence').replaceAll('_', ' ') : record.status || 'Reviewed evidence')}</span></div>
           ${kind === 'spot' ? visitGallery(record, id, lm.name) : ''}
           ${kind==='landmark'?`<p class="eyebrow range-label">Viewing range by district</p><div class="landmark-ranges" aria-label="Landmark viewing ranges">${ranges.length?ranges.map(c=>`<span class="range-chip range-${esc(c.range)}" title="${esc([c.distance,c.modelScope].filter(Boolean).join(' · '))}">${esc(c.label)} <small>· ${esc(c.name)}${c.distance?' · '+esc(c.distance):''}</small></span>`).join(''):'<span class="range-chip">Outside currently covered views</span>'}</div><p class="lm-caption">Intended staging viewing ranges: close range, nearby scenery or distant backdrop. This broader landmark rollout is not yet included in the current runtime. Camera direction, weather and occlusion determine what is actually in view. Model quality gaps remain listed below; tourist scenes may use a separate model.</p>`:''}
@@ -59,10 +89,16 @@ function mountEvidence(root, entries, kind) {
           ${gaps.length ? `<h5>Remaining gaps and estimates</h5>${list(gaps)}` : ''}
           <div class="lm-captures">${captures.map((capture, i) => `<figure><a href="${esc(capture.image)}" target="_blank" rel="noopener"><img src="${esc(capture.image)}" alt="${esc(kind === 'spot' ? validationPurpose(capture) : capture.label || lm.name + ' game capture')}" loading="lazy" decoding="async"></a><figcaption>${esc(kind === 'spot' ? validationPurpose(capture) : capture.label || capture.kind)} · game capture · ${commit(capture.sourceCommit || record.sourceCommit)}${capture.capturedAt ? `<br>${esc(captureDate(capture.capturedAt))}` : ''}${capture.conditions ? `<br>${esc(typeof capture.conditions === 'string' ? capture.conditions : JSON.stringify(capture.conditions))}` : ''}</figcaption>${kind === 'spot' && capture.label ? `<p class="lm-caption">Original label: ${esc(capture.label)}</p>` : ''}${capture.limitations?.length ? list(capture.limitations) : ''}${capture.kind === 'top' && capture.comparison?.orientation === 'north-up' && [capture.comparison.lat, capture.comparison.lon, capture.comparison.size].every(Number.isFinite) ? `<div class="lm-aerial" data-aerial="${i}"><p role="status">Loading live aerial for this ground square…</p></div>` : `<p class="lm-caption">${kind === 'spot' ? 'Validation view' : 'Model/view'} study. Reference links below; this is not a matched Street View photograph.</p>`}</figure>`).join('')}</div>
 
+          ${historySection(history)}
           ${nativeProofs.length ? `<details><summary>Native activity and access evidence</summary><ul>${nativeProofs.map(proof => `<li><a href="${esc(proof.report)}" target="_blank" rel="noopener">${esc(proof.label)}</a> · ${commit(proof.sourceCommit)} · ${proof.passed === true ? 'Passed within stated scope' : 'Open / retained finding'}<p>${esc(proof.scope || '')}</p>${proof.cases?.length ? list(proof.cases) : ''}</li>`).join('')}</ul></details>` : ''}
           ${record.perf ? `<p class="notice">${Number.isFinite(record.perf.triangles) ? `${record.perf.triangles.toLocaleString()} triangles. ` : ''}${Number.isFinite(record.perf.drawCalls) ? `${record.perf.drawCalls} draw calls. ` : ''}${esc(record.perf.note || 'Focused capture; not a full district traffic budget.')}</p>` : ''}
           ${record.checks?.length ? `<details><summary>Verification checks</summary><ul>${record.checks.map(check => `<li>${check.passed === true ? 'Passed' : check.passed === false ? 'Open' : 'Recorded'}: ${esc(check.label)}${check.details ? ` · ${esc(typeof check.details === 'string' ? check.details : JSON.stringify(check.details))}` : ''}</li>`).join('')}</ul></details>` : ''}
           <details open><summary>Sources and independent references</summary><ul>${sources || '<li>No independently linked reference published yet.</li>'}</ul><p>Street View is comparison-only. Reference imagery is not copied into the game or this site. Live aerial images stay in the browser for 15 minutes, including reloads where storage is available; acquisition dates may differ.</p></details></article>`;
+        // Historical pictures enter the document only when their section is first opened.
+        body.querySelector('.lm-history')?.addEventListener('toggle', event => {
+            if (!event.currentTarget.open) return;
+            for (const target of event.currentTarget.querySelectorAll('[data-history]:empty')) { const set = history[Number(target.dataset.history)]; target.innerHTML = set.captures.map(capture => historyFigure(capture, set, lm.name)).join(''); }
+        });
         if(kind==='spot'&&record.visitorGallery?.conditionSets)conditionGallery=mountConditionGallery(body.querySelector('.visit-condition-host'),record.visitorGallery,{resolveImage:image=>evidenceAsset(image,{kind:'spot',id}),manifestURL:evidenceReport(record.visitorGallery.report)});
         for (const target of body.querySelectorAll('[data-aerial]')) {
             const capture = captures[Number(target.dataset.aerial)], url = aerialURL(capture.comparison);

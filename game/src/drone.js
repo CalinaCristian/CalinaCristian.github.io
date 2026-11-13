@@ -182,7 +182,7 @@ export class Drone {
         if (g.state === 'foot' && g.foot?.active && g.world) {
             const w = g.world;
             return { kind: 'district', scene: g.scene, walker: g.foot, colliders: w.buildings, boundary: inspectionEnabled()?null:flightBoundary(w, w.district?.flightBoundary), units: g.city?.units === 'mph' ? 'imperial' : 'metric',
-                groundAt: (x, z, y) => { try { const h = w.roadHeight?.(x, z, { y }); return Number.isFinite(h) ? Math.max(0, h - 0.24) : 0; } catch { return 0; } } };
+                groundAt: (x, z, y) => { try { const h = w.roadHeight?.(x, z, { y }), pit = w.pitFloorAt?.(x, z) || 0; return Number.isFinite(h) ? Math.max(pit, h - 0.24 + pit) : pit; } catch { return 0; } } }; // (pit: the floor of a sunk landmark, e.g. the Dinamo bowl)
         }
         return null;
     }

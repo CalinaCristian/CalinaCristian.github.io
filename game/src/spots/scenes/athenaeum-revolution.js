@@ -12,7 +12,7 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, polyArea, obb } from '../kit.js';
-import { bucBackdrop, classicFacade, classicWalls, osmPoly, cityFiller, placeLandmark, signAtlas, balustrade, balustradeMaterial, flagpole, floodlight, bucActivity } from '../buc.js';
+import { bucBackdrop, classicFacade, classicWalls, osmPoly, cityFiller, placeLandmark, signAtlas, balustrade, balustradeMaterial, flagpole, floodlight, bucActivity, palisade } from '../buc.js';
 import { photoHunt } from '../photo-hunt.js';
 import { bench } from '../osm.js';
 import { addTraffic } from '../cars.js';
@@ -38,10 +38,13 @@ function memorial(b, ctx, x, z) {
     const y = ctx.ground.heightAt(x, z);
     b.cyl(x, y - 0.2, z, 14, 0.4, '#a39c94', 'stone', 32); // plaza disc
     b.cyl(x, y + 0.2, z, 2.6, 0.5, '#cfcac2', 'stone', 3); // base
-    b.add(new THREE.CylinderGeometry(0.15, 1.9, 25, 3), 'stone', M(x, y + 0.7 + 12.5, z, 0, 0.3, 0), (px, py) => (py < y + 9 && py > y + 6.5 ? '#a8322a' : '#ece9e3'));
-    const r = rng(14); // the "crown": a ragged dark metal basket at ~15 m
-    for (let i = 0; i < 26; i++) { const a = i / 26 * Math.PI * 2, rr = 2.4 + r() * 1.4, yy = y + 15.2 + r() * 1.8; b.rod([x + Math.cos(a) * 0.6, y + 15.6, z + Math.sin(a) * 0.6], [x + Math.cos(a) * rr, yy + r() * 1.5, z + Math.sin(a) * rr], 0.12 + r() * 0.1, '#3c3a36', 'metal', 4); }
-    b.cyl(x, y + 15.2, z, 1.4, 1.2, '#3c3a36', 'metal', 10, 1.5);
+    // (round 2, 2026-11-12; Street View, 2024, from Calea Victoriei) The spire is plain white from base to tip, and the
+    // "crown" is a dark, roughly spherical woven mass threaded on it at about three quarters of its height. It was a
+    // ring of spikes at 15 m over a red band on the shaft (the 2012 paint is no longer there). Sizes are estimates.
+    b.add(new THREE.CylinderGeometry(0.15, 1.9, 25, 3), 'stone', M(x, y + 0.7 + 12.5, z, 0, 0.3, 0), '#ece9e3');
+    const r = rng(14), cy = y + 0.7 + 18.2, CR = '#3a352d';
+    b.sphere(x, cy, z, 1.75, 1.5, 1.75, CR, 'metal', 12, 8);
+    for (let i = 0; i < 16; i++) { const a = r() * 6.28, e = (r() - 0.5) * 1.6, a2 = a + 0.9 + r() * 1.2, e2 = (r() - 0.5) * 1.6, P = (aa, ee) => [x + Math.cos(aa) * Math.cos(ee) * 1.86, cy + Math.sin(ee) * 1.6, z + Math.sin(aa) * Math.cos(ee) * 1.86]; b.rod(P(a, e), P(a2, e2), 0.09 + r() * 0.05, '#2c2822', 'metal', 4); }
     ctx.circle(x, z, 2.6, 25);
     // eight backless benches facing each other round the plaza
     for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2 + Math.PI / 8, bx = x + Math.cos(a) * 9, bz = z + Math.sin(a) * 9; b.box(bx, y, bz, 2.4, 0.45, 0.7, '#d6d0c6', 'stone', -a + Math.PI / 2); ctx.box(bx, bz, 1.2, 0.35, -a + Math.PI / 2, { prop: true, h: 0.45 }); }
@@ -69,15 +72,31 @@ export default {
             // almost without windows: on the square it read as an olive windowless block. Here the mapped outline gets the
             // palace's own front (Street View, 2024): beige limestone, rusticated ground floor with arched windows, two upper
             // storeys between paired pilasters, cornice and attic balustrade. Height 17.5 m after the mapped parts (15.7–18 m).
-            const fRG = classicFacade('royal-palace', [{ t: 'arch', w: 0.36, rustic: true, top: 0.2 }, { t: 'pediment', w: 0.32, pil: 'pair', rail: true, top: 0.3 }, { t: 'rect', w: 0.3, pil: 'pair', dentils: true, top: 0.3 }, { t: 'small', w: 0.26 }], { bay: 4.6, floor: 17.5 / 3, lit: 0.3 });
+            // (round 2; Street View 2024 from Calea Victoriei at the south wing) The piano nobile has tall round-arched
+            // windows with balustraded sills between the pilasters and a low attic of small square windows above; it
+            // was a storey of pedimented and one of plain rectangular windows.
+            const fRG = classicFacade('royal-palace', [{ t: 'arch', w: 0.36, rustic: true, top: 0.2 }, { t: 'arch', w: 0.36, pil: 'pair', rail: true, top: 0.12, bottom: 0.14 }, { t: 'small', w: 0.24, pil: 'pair', dentils: true, top: 0.34 }, { t: 'small', w: 0.26 }], { bay: 4.6, floor: 17.5 / 3, lit: 0.3 });
             const y = Math.min(...rg.poly.map(([x, z]) => g.heightAt(x, z))) - 0.2, H = 17.5;
             classicWalls(b, fRG, rg.poly, y, y + H, '#e1d6bc', y); for (const hole of rg.holes || []) classicWalls(b, fRG, [...hole].reverse(), y, y + H, '#e1d6bc', y);
             b.prism(grow(rg.poly, 0.7), y + H - 0.7, y + H, '#ebe2cd', 'stone', { noTop: true }); b.flat(rg.poly, y + H, '#8f8d88', 'roofs'); balustrade(b, grow(rg.poly, 0.3), y + H, 1.0, { closed: true });
-            ctx.poly(rg.poly, { y0: y - 1, y1: y + 30 }); matX[fRG.key] = fRG.mat; }
+            ctx.poly(rg.poly, { y0: y - 1, y1: y + 30 }); matX[fRG.key] = fRG.mat;
+            // The palace railings on Calea Victoriei and across the court (OSM barrier=fence ways; 1478814648, 1476829138
+            // and 1476829137 are tagged height=2, material=metal over a 0.5 m wall): black iron on a low stone base,
+            // as seen from the street. The two court ways carry no height tag: same build assumed.
+            const rails = []; for (const id of ['w1478814648', 'w1476829138', 'w1476829137', 'w1457045952', 'w1457045969']) { const w = d.ways.find((q) => q.id === id || q.id === id + '_b'); if (!w || w.pts.length < 2) continue; Object.assign(matX, palisade(ctx, b, w.pts, { h: 1.5, plinth: 0.5, post: 3.2, plinthCol: '#cfc7b5', postCol: '#15181a' })); rails.push(id); }
+            ctx.extras.palaceRailings = rails; }
         // Central University Library (eclectic, three storeys, domed corner pavilions)
         const bcu = d.buildings.find((x) => x.id === 'r19896250');
         const fBCU = classicFacade('bcu', [{ t: 'portal', w: 0.42, rustic: true }, { t: 'arch', w: 0.34, pil: 'pair', rail: true }, { t: 'pediment', w: 0.32, pil: 'pair' }, { t: 'small', w: 0.26, dentils: true }], { bay: 4.4, floor: 5.2, lit: 0.4 });
-        if (bcu) { ctx.skipBuildings.add(bcu.id); const y = Math.min(...bcu.poly.map(([x, z]) => g.heightAt(x, z))) - 0.2; classicWalls(b, fBCU, bcu.poly, y, y + 20.8, '#e4dac3', y); b.prism(grow(bcu.poly, 0.8), y + 20.2, y + 21.0, '#ece4d2', 'stone', { noTop: true }); b.flat(bcu.poly, y + 21, '#8a8a86', 'roofs'); balustrade(b, grow(bcu.poly, 0.4), y + 21, 1.1, { closed: true }); b.prism(grow(bcu.poly, -1.6), y + 21, y + 24.6, '#474c52', 'roofs'); /* dark slate mansard behind the balustrade, as on the real library; height estimated */ const o = obb(bcu.poly); for (const s of [-1, 1]) { const cx = o.cx + o.ux * s * o.len * 0.42, cz = o.cz + o.uz * s * o.len * 0.42; b.add(new THREE.SphereGeometry(5.2, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2), 'metal', M(cx, y + 24.6, cz, 0, 0, 0, 1, 1.25, 1), '#474c52'); } ctx.poly(bcu.poly, { y0: y - 1, y1: y + 30 }); }
+        if (bcu) { ctx.skipBuildings.add(bcu.id); const y = Math.min(...bcu.poly.map(([x, z]) => g.heightAt(x, z))) - 0.2; classicWalls(b, fBCU, bcu.poly, y, y + 20.8, '#e4dac3', y); b.prism(grow(bcu.poly, 0.8), y + 20.2, y + 21.0, '#ece4d2', 'stone', { noTop: true }); b.flat(bcu.poly, y + 21, '#8a8a86', 'roofs'); balustrade(b, grow(bcu.poly, 0.4), y + 21, 1.1, { closed: true }); b.prism(grow(bcu.poly, -1.6), y + 21, y + 24.6, '#474c52', 'roofs'); /* dark slate mansard behind the balustrade, as on the real library; height estimated */
+            // (round 2; Street View 2024) The slate domes stand on the two rounded corner pavilions of the front on the
+            // square (tall, with a lantern), sized to the mapped pavilion outline. They were two hemispheres on the
+            // block's long axis, hidden from the square. Dome rise and lantern are estimates.
+            const corner = (ax, az) => { const m = bcu.poly.filter(([px, pz]) => Math.hypot(px - ax, pz - az) < 8.5); if (m.length < 5) return null; const cx = m.reduce((t, q) => t + q[0], 0) / m.length, cz = m.reduce((t, q) => t + q[1], 0) / m.length; return [cx, cz, m.reduce((t, q) => t + Math.hypot(q[0] - cx, q[1] - cz), 0) / m.length]; };
+            const domes = [corner(-23.5, 144.5), corner(-42, 105)].filter(Boolean); ctx.extras.bcuDomes = domes.map((q) => ({ x: +q[0].toFixed(1), z: +q[1].toFixed(1), r: +q[2].toFixed(1) }));
+            for (const [cx, cz, r0] of domes) { const rr = Math.min(6, Math.max(3.6, r0 + 0.5)), hh = rr * 1.3; b.cyl(cx, y + 21, cz, rr, 1.2, '#e4dac3', 'stone', 16); b.add(new THREE.SphereGeometry(rr, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2), 'metal', M(cx, y + 22.2, cz, 0, 0, 0, 1, hh / rr, 1), '#474c52');
+                b.cyl(cx, y + 22.2 + hh - 0.3, cz, rr * 0.2, 1.8, '#565b60', 'metal', 8); b.cyl(cx, y + 22.2 + hh + 1.5, cz, rr * 0.24, 1.3, '#474c52', 'metal', 8, 0.1); }
+            ctx.poly(bcu.poly, { y0: y - 1, y1: y + 30 }); }
         // former Central Committee building (Ministry of Internal Affairs) with the 1989 balcony toward the square
         const cc = d.buildings.find((x) => x.id === 'w224624034');
         const fCC = classicFacade('cc-building', [{ t: 'rect', w: 0.34, rustic: true }, { t: 'rect', w: 0.3, pil: true }, { t: 'rect', w: 0.3, pil: true }, { t: 'rect', w: 0.28, pil: true, dentils: true }], { bay: 3.6, floor: 3.8, lit: 0.4 });
@@ -93,7 +112,13 @@ export default {
         const MEM = memorial(b, ctx, mem.x, mem.z);
         ctx.painter.custom((x, T, k) => { const [px, py] = T(mem.x, mem.z); x.fillStyle = '#a39c94'; x.beginPath(); x.arc(px, py, 22 * k, 0, 7); x.fill(); });
         const carol = d.pois.find((p) => p.id === 'n1883108499') || { x: -51.1, z: 133.4 };
-        equestrian(b, ctx, carol.x, carol.z, Math.PI * 0.55, { plinth: 5.2 });
+        // (round 2) OSM node 1883108499 gives height=13 for the monument; it was about 9.7 m. Plinth and bronze share
+        // the mapped total about half and half, as seen from Calea Victoriei.
+        equestrian(b, ctx, carol.x, carol.z, Math.PI * 0.55, { plinth: +carol.height > 6 ? +carol.height * 0.51 : 6.6, s: +carol.height > 6 ? (+carol.height * 0.49 - 0.45) / 3.57 : 1.67 });
+        // Memorial Revoluție (OSM way 996044652: historic=memorial, memorial=sculpture, material=marble, a 6 m × 6 m
+        // outline in front of the former Central Committee building; not in the scene extract of 2026-11-07). Its form
+        // could not be seen from the street panoramas (trees): a plain low marble block stands on the mapped outline.
+        { const q = ctx.ll(44.438593, 26.098249), yq = g.heightAt(q.x, q.z); b.box(q.x, yq - 0.2, q.z, 5.6, 0.5, 5.6, '#cfcac0', 'stone', 0.35); b.box(q.x, yq + 0.3, q.z, 2.4, 1.5, 1.2, '#eceae4', 'stone', 0.35); ctx.box(q.x, q.z, 2.8, 2.8, 0.35, { y0: yq - 1, y1: yq + 1.8 }); ctx.extras.revolutionMemorial = { source: 'w996044652', x: q.x, z: q.z, formEstimated: true }; }
         // ---- (fidelity pass 2026-11-12) what OSM maps on the square and the scene did not show
         // Kretzulescu church (OSM w1476760553, 1722): bare red brick with pale bands, two towers with dark conical roofs.
         // Modelled on the mapped outline (it was a generic plastered house); heights are estimates.
@@ -128,8 +153,11 @@ export default {
         ctx.painter.custom((x, T, k) => { const [px, py] = T(mem.x, mem.z); x.strokeStyle = '#c9c0b4'; x.lineWidth = 1.5 * k; x.beginPath(); x.arc(px, py, 14 * k, 0, 7); x.stroke(); });
         // name signs of the mapped venues facing the walk (hotels, museums, banks, cafés, shops), each on its own building
         { const eb = polyBox(sp.extent.polygon), near = (x, z) => x > eb.x0 - 40 && x < eb.x1 + 40 && z > eb.z0 - 40 && z < eb.z1 + 40;
-            const big = d.buildings.filter((q) => !q.part && q.name && /hotel|theatre|library/.test(`${q.tourism || ''} ${q.amenity || ''} ${q.k || ''}`) && !['w16291602', 'r19896250'].includes(q.id)).map((q) => { const [x, z] = centroid(q.poly); return { id: q.id, name: q.name.replace(/ Bucharest, by IHG$/, ''), x, z, big: true }; });
-            const S = poiSigns(ctx, { inside: near, extra: big, max: 80, accept: (p) => !!(p.shop && p.shop !== 'vacant') || ['restaurant', 'cafe', 'bar', 'pub', 'fast_food', 'ice_cream', 'bank', 'cinema', 'theatre', 'arts_centre', 'casino'].includes(p.amenity) || ['hotel', 'museum', 'gallery'].includes(p.tourism) });
+            // (round 2) no name for what live OSM marks as closed: Hotel Lido (way 162494340, disused:tourism=hotel)
+            // and any venue node with a disused:* key (English Bar, node 2463617058)
+            const closed = (p) => Object.keys(p).some((k) => /^(disused|abandoned|was)(:|$)/.test(k));
+            const big = d.buildings.filter((q) => !q.part && q.name && /hotel|theatre|library/.test(`${q.tourism || ''} ${q.amenity || ''} ${q.k || ''}`) && !['w16291602', 'r19896250', 'w162494340'].includes(q.id)).map((q) => { const [x, z] = centroid(q.poly); return { id: q.id, name: q.name.replace(/ Bucharest, by IHG$/, ''), x, z, big: true }; });
+            const S = poiSigns(ctx, { inside: near, extra: big, max: 80, accept: (p) => !closed(p) && (!!(p.shop && p.shop !== 'vacant') || ['restaurant', 'cafe', 'bar', 'pub', 'fast_food', 'ice_cream', 'bank', 'cinema', 'theatre', 'arts_centre', 'casino'].includes(p.amenity) || ['hotel', 'museum', 'gallery'].includes(p.tourism)) });
             ctx.extras.venueSigns = { signs: S.signs.map((q) => ({ source: q.source, text: q.text })), skipped: S.skipped };
             const SA = signAtlas(S.signs, { name: 'venue-signs', night: 0.7 }); if (SA) ctx.add(SA); }
         ctx.extras.mappedTrees = mappedTreeSizes(ctx);

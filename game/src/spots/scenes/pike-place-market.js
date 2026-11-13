@@ -18,7 +18,10 @@ import { wallGeometry, facadeMaterial, facadeStyle } from '../osm.js';
 export const HALLS = {
     w1275882970: { h: 4.6, roof: '#6d6a64' },   // the day-stall strip in front of the Leland Hotel and the Main Arcade
     w1271653801: { h: 5.6, roof: '#77736c' },   // Main Arcade
-    w231357659: { h: 4.7, roof: '#4f7d68' },    // North Arcade (green standing-seam roof)
+    // North Arcade: an open day-stall front under a low metal shed roof that rises away from the street (panoramas on Pike Pl at
+    // Stewart St and north of it, ids grsVDUMkuBMlk2jyCNtErA, gUpSU7FwJVKGzsOM5hEfWg, qe8_CeOlBF2k55UTq3zkAg: tables under a dark
+    // green fascia, a pale grey-green roof plane above it up to a level ridge). Eave, rise and run are estimates from those views.
+    w231357659: { h: 5.1, roof: '#6f9182', shed: { eave: 3.3, run: 7, roof: '#6f9182' } },
 };
 const OPEN_UNTIL = 26; // m along Pike Place from Pike St: the open market front under the FARMERS MARKET fascia (pike-place.js)
 
@@ -51,6 +54,16 @@ export function buildHalls(ctx, street) {
             for (let k = 0; k < n; k++) {
                 const t = (k + 0.5) / n, x = A[0] + (B[0] - A[0]) * t, z = A[1] + (B[1] - A[1]) * t, at = street.at(x, z), y = at.y, door = bays % 5 === 2, open = at.s < OPEN_UNTIL; bays++;
                 const P = (out, up) => [x + nx * out, y + up, z + nz * out];
+                if (H.shed) {
+                    const E = H.shed.eave; let run = 0; while (run < H.shed.run && inPoly(x - nx * (run + 0.5), z - nz * (run + 0.5), poly)) run += 0.5; run = Math.max(1.5, run);
+                    b.box(...P(-Math.min(1.5, run - 0.1), 0), w, E, 0.1, dark, 'paint', yaw);                                  // the hall behind the day stalls
+                    b.box(x - ux * w / 2, y, z - uz * w / 2, 0.14, E, 0.14, '#2f5a44', 'paint', yaw);                         // a post between two stalls
+                    b.box(...P(-0.6, 0), w - 0.5, 0.78, 0.8, ['#e9e4d6', '#7a2e1d', '#2c4f39', '#30506e'][bays % 4], 'fabric', yaw); // the stall's covered table
+                    b.box(...P(0.0, E - 0.45), w + 0.01, 0.45, 0.2, '#2f5a44', 'paint', yaw);                                  // fascia under the eave
+                    const h2 = w / 2 + 0.005, e1 = [x - ux * h2 + nx * 0.5, y + E, z - uz * h2 + nz * 0.5], e2 = [x + ux * h2 + nx * 0.5, y + E, z + uz * h2 + nz * 0.5], r1 = [x - ux * h2 - nx * run, y + H.h + 0.03, z - uz * h2 - nz * run], r2 = [x + ux * h2 - nx * run, y + H.h + 0.03, z + uz * h2 - nz * run];
+                    b.quad(e1, e2, r2, r1, H.shed.roof, 'roofs'); b.quad(e2, e1, r1, r2, H.shed.roof, 'roofs');           // the shed roof, eave to ridge
+                    continue;
+                }
                 if (open) b.box(...P(-0.12, 0), w, 3.75, 0.1, dark, 'paint', yaw);                                         // the open stalls: a dark hall behind the counters
                 else if (door) { b.box(...P(-0.3, 0), w - 0.5, 2.75, 0.1, dark, 'paint', yaw); for (const s of [-1, 1]) b.box(x + ux * s * (w / 2 - 0.14) + nx * 0.02, y, z + uz * s * (w / 2 - 0.14) + nz * 0.02, 0.28, 2.75, 0.3, green, 'paint', yaw); }
                 else {

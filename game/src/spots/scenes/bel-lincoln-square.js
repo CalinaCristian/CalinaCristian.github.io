@@ -57,9 +57,15 @@ export default {
         // shows tan / rose precast with rectangular punched windows — not the generic red-brick style with arched windows.
         const BPLACE = new Set(['w366831926', 'w366831918', 'w366831921', 'w366831924', 'w366831929', 'w366831931', 'w33613428']);
         for (const bd of d.buildings) if (BPLACE.has(bd.id) && !bd.c) bd.c = '#cdb09c';
+        // Avenue Bellevue (NW corner of NE 8th × Bellevue Way, OSM w1215907936 residential 26 levels + w1215907937 and their
+        // parts): Street View from NE 8th St and Bellevue Way (official panoramas, 2026-11-12) shows two white towers ringed
+        // by balcony bands — they were drawn as dark office glass (every building over 40 m was). Light banded facade now;
+        // the curved plan and the balconies themselves are not modelled.
+        const AVENUE = new Set(['w1215907936', 'w1215907937', 'w1223091248', 'w1223378663', 'w1223091245', 'w1223374204']);
+        for (const bd of d.buildings) if (AVENUE.has(bd.id)) bd.c = '#e6e8e7';
         parkPavilions(ctx); // bus shelters / park restrooms in the surroundings: open roofs / low blocks, not shop blocks
         ctx.osmBackdrop({ paint: {}, streetTrees: false, lampOpts: { kinds: ['primary', 'secondary', 'tertiary'], spacing: 30 },
-            style: (bd) => ((bd.h || 0) > 40 ? 'office' : /Square|Mall|Nordstrom|Macy/.test(bd.name || '') ? 'mall' : BPLACE.has(bd.id) ? 'concrete' : undefined) });
+            style: (bd) => (AVENUE.has(bd.id) ? 'concrete' : (bd.h || 0) > 40 ? 'office' : /Square|Mall|Nordstrom|Macy/.test(bd.name || '') ? 'mall' : BPLACE.has(bd.id) ? 'concrete' : undefined) });
         // street shop fascias (shared helper), none inside the landmark blocks (their podium storefronts are part of the models)
         const lmPolys = d.buildings.filter((bd) => ctx.skipBuildings.has(bd.id)).map((bd) => bd.poly);
         ctx.painter.poly([[-22, -22], [4.5, -22], [4.5, -1.5], [-22, -1.5]], '#a8a49a', 'slab'); // NW corner paving (no residential-lawn paint showing through)
@@ -77,8 +83,11 @@ export default {
                     if (!((nx > 0.7 && mx > -2) || (nz < -0.7 && mz < 32))) continue;                          // the Bellevue Way and NE 8th faces
                     const crate = mz < 62 && mx > -55, ux = (p1[0] - p0[0]) / Le, uz = (p1[1] - p0[1]) / Le, ga = g.heightAt(p0[0] + nx, p0[1] + nz), gb = g.heightAt(p1[0] + nx, p1[1] + nz), y0 = Math.min(ga, gb) - 0.3, yb = Math.max(ga, gb), yT = yb + H;
                     const Q = (t0, t1, ya, yc, off, col, key) => { const a = [p0[0] + ux * t0 + nx * off, p0[1] + uz * t0 + nz * off], c = [p0[0] + ux * t1 + nx * off, p0[1] + uz * t1 + nz * off]; b.quad([a[0], ya, a[1]], [c[0], ya, c[1]], [c[0], yc, c[1]], [a[0], yc, a[1]], col, key); };
-                    Q(0, Le, y0, yT, 0.06, crate ? '#f1f0ec' : '#d8ccb5', 'paint');
-                    if (!crate) Q(0, Le, y0, yb + 4.1, 0.09, '#8f4f3e', 'paint');                                 // brick base
+                    Q(0, Le, y0, yT, 0.06, crate ? '#f1f0ec' : '#ece7dc', 'paint');
+                    // (round 2, Street View on Bellevue Way under the skybridge: the restaurant row — Tavern Hall, Castilla,
+                    // Shake Shack — is white stucco on both storeys with dark shopfronts and ivy bays; the red-brick building
+                    // is the next one south (The Cheesecake Factory, part of the Bellevue Square model). No brick base here.)
+                    if (!crate) Q(0, Le, y0, yb + 0.5, 0.09, '#cfc9bc', 'paint');                                 // stone plinth
                     const bay = crate ? 3.2 : 4.6, n = Math.max(1, Math.floor((Le - 0.8) / bay)), m0 = (Le - n * bay) / 2;
                     for (let k = 0; k < n; k++) { const t0 = m0 + k * bay + 0.15, t1 = m0 + (k + 1) * bay - 0.15;
                         if (!crate && r() < 0.3) { Q(t0 - 0.15, t1 + 0.15, yb, yT - 0.4, 0.13, '#3f6b35', 'plant'); continue; }  // ivy-covered bay
@@ -143,7 +152,9 @@ export default {
         addTraffic(ctx, { lanes: [{ pts: [[13, -101], [13, -43], [12, 7], [11, 27], [13, 149], [14, 225], [15, 278], [18, 409]], n: 6, speed: 9 }, { pts: [[31, 484], [28, 317], [25, 217], [24, 83], [24, 18], [23, -2], [22, -95]], n: 6, speed: 9 }, { pts: [[219, 8], [150, 8], [93, 8], [24, 8], [-88, 7], [-213, 8]], n: 5, speed: 9 }, { pts: [[-262, 18], [-112, 17], [12, 18], [77, 20], [176, 20]], n: 5, speed: 9 }] });
         // plaques
         const PL = sp.plaques;
-        ctx.plaque(PL[0], 1.5, 120, Math.PI / 2); ctx.plaque(PL[1], 2, 82, Math.PI / 2); ctx.plaque(PL[2], 31, 110, -Math.PI / 2); ctx.plaque(PL[3], ue.x - 5.5, ue.z - 5, -Math.PI / 2, { credit: 'UiPath office address from UiPath; move reported by GeekWire (2025).' });
+        // (these two stood at x = 1.5 / 2: inside the w33106348 block since it is a building again — its Bellevue Way face is
+        // at x = 3.4 / 2.6 there. On the sidewalk in front of it now.)
+        ctx.plaque(PL[0], 4.7, 120, Math.PI / 2); ctx.plaque(PL[1], 3.9, 82, Math.PI / 2); ctx.plaque(PL[2], 31, 110, -Math.PI / 2); ctx.plaque(PL[3], ue.x - 5.5, ue.z - 5, -Math.PI / 2, { credit: 'UiPath office address from UiPath; move reported by GeekWire (2025).' });
         // postcard: from the NE 8th × Bellevue Way corner, looking up at Lincoln Square North + One Lincoln with the skybridge
         ctx.challenge('bel-lincoln-square', { x: -2, z: 2, heading: 145, pitch: 18, r: 12, tol: 35, text: 'Lincoln Square North (UiPath) and One Lincoln Tower over Bellevue Way' });
         const s0 = { x: sp.spawn.x - 3, z: sp.spawn.z - 3 }, gx = s0.x + 2.67 + 3, gz = s0.z - 2.1; // tour guide at the side of the spawn, facing the player

@@ -114,8 +114,8 @@ const BUC_DISTRICTS = {
             { r: 60, sceneryRing: false, line: [[44.452100, 26.084300], [44.452100, 26.081500]] },
         ],
         circles: [{ lat: 44.451180, lon: 26.087950, r: 200, name: 'arnia door' }, { lat: 44.441800, lon: 26.098800, r: 110, name: 'arnia start' }, { lat: 44.451180, lon: 26.087950, r: 120, name: 'arnia building' }, { lat: 44.449900, lon: 26.094400, r: 200, name: 'uipath-buc door' }, { lat: 44.456000, lon: 26.084200, r: 110, name: 'uipath-buc start' }, { lat: 44.449900, lon: 26.094400, r: 120, name: 'uipath-buc building' }],
-        landmarks: ['victoria', 'ase', 'ambasador', 'thelandmark', 'europehouse', 'antipa', 'catargiu', 'veronafountain', 'skytower', 'ateneu', 'regal', 'tnb'],
-        scenery: ['skytower', 'ateneu', 'regal', 'tnb'], // real skyline/600 m ring landmarks; no unreachable marker, label or route
+        landmarks: ['victoria', 'ase', 'ambasador', 'aro', 'thelandmark', 'europehouse', 'antipa', 'catargiu', 'veronafountain', 'nobildac', 'enescu', 'skytower', 'ateneu', 'regal', 'tnb'],
+        scenery: ['skytower', 'ateneu', 'regal', 'tnb', 'aro', 'nobildac', 'enescu'], // real skyline/600 m ring landmarks; no unreachable marker, label or route
         congestion: [ // from game/research/bucharest-romana.json traffic.hotspots
             { lat: 44.45260, lon: 26.08580, radius: 220, hours: [[7.5,  10],  [16,  19.5]], level: 0.90, note: 'Piața Victoriei' },
             { lat: 44.44680, lon: 26.09700, radius: 160, hours: [[7.5,  10],  [16,  19.5]], level: 0.85, note: 'Piața Romană' },
@@ -167,9 +167,9 @@ const BUC_DISTRICTS = {
             { r: 130, chapter: 'otopeni', line: [[44.555701, 26.069266], [44.567688, 26.069828], [44.568107, 26.070210], [44.568353, 26.070566], [44.568595, 26.071160], [44.568712, 26.071910], [44.568865, 26.074766], [44.568688, 26.075155], [44.568738, 26.075716], [44.568673, 26.075837], [44.568362, 26.076033], [44.568238, 26.076278], [44.568195, 26.076570], [44.568229, 26.076890], [44.568409, 26.077228], [44.568659, 26.077371], [44.569445, 26.077274], [44.569560, 26.077200]] },
         ],
         circles: [{ lat: 44.569560, lon: 26.077200, r: 200, name: 'otopeni door' }, { lat: 44.556000, lon: 26.070000, r: 110, name: 'otopeni start' }, { lat: 44.569600, lon: 26.077000, r: 120, name: 'otopeni building' }],
-        landmarks: ['otp'],
+        landmarks: ['otp', 'otpgara'],
         dualCarriagewayBarrier: true, // DN1: one concrete barrier between the two carriageways (reference checked 2026-11-12 at 44.5595 / 44.5672 / 44.5687; world.js walls)
-        scenery: [], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
+        scenery: ['otpgara'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
         congestion: [ // from game/research/bucharest-otopeni.json traffic.hotspots
             { lat: 44.56200, lon: 26.06970, radius: 400, hours: [[7,  10],  [16.5,  20]], level: 0.65, note: 'DN1 southbound towards Băneasa (Otopeni)' },
             { lat: 44.56960, lon: 26.07700, radius: 150, hours: [[4.5,  7.5],  [15,  20]], level: 0.45, note: 'Departures kerb / ramp' },

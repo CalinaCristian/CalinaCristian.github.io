@@ -220,19 +220,20 @@ export const rockGeometry = () => ROCK;
  * Fairy / holiday lights: small additive points (pts = [[x, y, z], …]), visible only at night (nightK) and while
  * `on()` says so. One draw call.
  */
-export function fairyLights(ctx, pts, { color = '#ffe2a8', size = 0.22, twinkle = 0.25, on = () => true, name = 'fairy-lights' } = {}) {
+// screenPx: a fixed on-screen size in pixels (navigation / masthead lights read as a point at any distance)
+export function fairyLights(ctx, pts, { color = '#ffe2a8', size = 0.22, twinkle = 0.25, on = () => true, name = 'fairy-lights', screenPx = 0 } = {}) {
     const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pts.flat(), 3));
     const ph = new Float32Array(pts.length); for (let i = 0; i < ph.length; i++) ph[i] = hash2(i * 0.37, i * 1.13) * 6.28; g.setAttribute('aPh', new THREE.BufferAttribute(ph, 1));
     const sprite = (() => { const c = canvas(32, 32), x = c.getContext('2d'), gr = x.createRadialGradient(16, 16, 0, 16, 16, 16); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.25, 'rgba(255,255,255,0.8)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = gr; x.fillRect(0, 0, 32, 32); return canvasTexture(c, { mips: false }); })();
     const U = { uT: { value: 0 }, uK: { value: 0 }, uTw: { value: twinkle } };
-    const m = new THREE.PointsMaterial({ color, size, map: sprite, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true, toneMapped: false });
+    const m = new THREE.PointsMaterial({ color, size: screenPx || size, map: sprite, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: !screenPx, toneMapped: false });
     m.onBeforeCompile = (sh) => {
         Object.assign(sh.uniforms, U);
         sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute float aPh; uniform float uT, uK, uTw; varying float vA;')
             .replace('#include <project_vertex>', '#include <project_vertex>\nvA = uK * (1.0 - uTw + uTw * (0.5 + 0.5 * sin(uT * 2.3 + aPh)));');
         sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying float vA;').replace('#include <premultiplied_alpha_fragment>', '#include <premultiplied_alpha_fragment>\ngl_FragColor.rgb *= vA * 2.2; gl_FragColor.a *= vA;');
     };
-    m.customProgramCacheKey = () => 'bel-fairy';
+    m.customProgramCacheKey = () => 'bel-fairy' + (screenPx ? '-px' : '');
     const P = new THREE.Points(g, m); P.name = name; P.frustumCulled = false; ctx.add(P);
     ctx.onUpdate((dt, s) => { U.uT.value += dt; const k = on(s) ? s.nightK : 0; U.uK.value = k; P.visible = k > 0.02; });
     return P;

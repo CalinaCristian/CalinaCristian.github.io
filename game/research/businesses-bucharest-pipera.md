@@ -114,3 +114,22 @@ Schools / kindergartens within 150 m of a route: Colegiul Tehnic "Edmond Nicolau
 - Farmacia Dona list https://www.dona.ro/farmacii (2026-11-07, 672 pharmacies with coordinates).
 - Not machine-readable from here (2026-11-07): Mega Image (GraphQL API refused by the network after one call), Profi, Dr.Max, HelpNet, CEC, Raiffeisen (HTTP 403), Lidl / Penny / Catena / BT / BCR / ING / Orange / Vodafone / Petrom / OMV / MOL / Rompetrol locators (JavaScript-only or 404), Lukoil / OTP / Alpha Bank / Digi / telekom.ro (no response or bot wall). These brands rely on OSM (edit / check dates) only.
 - Garanti BBVA brand name: https://www.garantibbva.ro (page title "… | Garanti BBVA", 2026-11-07).
+
+## POI append, 2026-11-12 (round 2, lane builder)
+
+Source: OpenStreetMap API 0.6 `map.json` tiles fetched 2026-11-12 (playable area + 260 m; raw files not committed).
+Tool: `tools/osm/add-pois.mjs --edge 100`. Rows appended to `pois` (original rows and indices unchanged):
+
+| district | before | added | edge strip | dropped classes | new in OSM / relations | own building names |
+|---|---|---|---|---|---|---|
+| bucharest-pipera | 260 | 61 | 42 | 18 | 1 | 8 |
+
+Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or
+indoor, nodes deep inside multi-tenant halls (Carrefour Orhideea gallery 40, Bellevue malls 68, Promenada 16, Otopeni terminal
+11), unnamed objects, ATMs outside the area.
+
+Street View comparison (reference only, nothing stored), same position and bearing as the game render:
+- Otopeni, Str. Libertății (Cris Garden Plaza): garden-centre building, consistent. Pipera, Str. Marin Preda (Kaufland): the real wall on this side is a blank service wall; the game's fascia is on the wrong side.
+- Pipera, 169 Calea Floreasca (Floreasca Tower) and Grozăvești, 6 Bd. Iuliu Maniu (The Light One): glass office towers; no tenant name dominates the facade at street level.
+
+Not compared: every other appended POI (881 of 894, all eight districts).

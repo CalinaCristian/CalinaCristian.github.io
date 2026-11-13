@@ -820,3 +820,76 @@ What the review established
 - Agree with OSM: the four building passages on the service ways (w672096997, w1458318537, w1575956753, w229193339), the
   service tunnel w1516934660, the Kiseleff fountains n7894980887 / n4405655095 and pond w1092796819, Piscina Lido
   (w810540711), the tartan pitch w916708228, the metro entrance POIs.
+
+## Fidelity pass round 2, 2026-11-12 (Magheru, Piața Romană, Calea Victoriei, Lascăr Catargiu, Dorobanți side, Piața Victoriei, Kiseleff)
+
+Sources: the live OSM extract of 2026-11-12 used in round 1 (100 mapped hotels, banks, museums, churches, fountains, statues, structures, pools and pitches in the playable area; 81 are game POIs by name); official panoramas looked at for appearance only (nothing stored). Game views: `viewpoints.json` (`rom-*`, 27 added). Pose ids below are viewpoint ids.
+
+What was looked at, with a verdict
+
+- **Bd. Magheru.** `rom-magheru-scala`, `rom-magheru-mcd`, `rom-balcescu-bcr`: tree-lined six-lane boulevard, white modernist blocks of 8 – 10 storeys with shops at the ground floor; the game matches in massing, signs come from POIs. Match (generic facades). `rom-magheru-patria`: the ARO / Patria block is a grey-beige ribbon-window slab with its tower at the north end; the game has a white ribbon-window block without the tower (romana-3 stays open). `rom-magheru-ambasador`: the real front is pale stone with dark red-brown window bays; the landmark model has blue windows on white: still wrong (lane landmarks). `rom-magheru-lido`: Hotel Lido (w162494340) is a cream-white interwar hotel with a bronze entrance canopy; it was drawn saturated blue from a default hotel colour: fixed (cream). Banks First Bank n4549374244, UniCredit n4549374245 / n3118870194, Libra n4549374248, BCR n5519217930, BRD n3734652403, BCR n5602922763: present as POIs on the right blocks; fascias not compared one by one.
+- **Piața Romană.** `rom-romana-ase`: ASE palace with its dome and lettering matches (landmark); beside it reality has the copper-glass new wing, a white eclectic house and a yellow four-storey eclectic building where the game has a beige eight-storey block: generic, not corrected. `rom-romana-south`: the large corner block with roof advertising matches in massing. Match.
+- **Dorobanți side.** Calea Dorobanților itself is scenery (not drivable). `rom-dorobanti-sheraton`: grey stone-clad podium with Pizza Hut at the ground floor and a cylindrical glazed corner; the game has a grey block; the building was signed "Pizza Hut" only: fixed, it now carries "Sheraton" and keeps the tenant sign. The cylinder is not modelled.
+- **Bd. Lascăr Catargiu.** `rom-catargiu-mid-nw`, `rom-catargiu-mid-se`: two carriageways, grassed and tree-planted median, mature trees hiding two- to five-storey houses; the game has the median, smaller trees and taller generic fronts on the north side. Match in layout; heights generic. `rom-severeanu`: Colecția Severeanu (w231445058) is a yellow one-storey eclectic house: fixed (yellow). `rom-coanda-michelangelo`: eclectic two- and three-storey houses with rusticated bases; game: cream block and a seven-storey grey block behind: not corrected (identity of the footprints not established). `rom-nobil-dac`: statue on a tall plinth in the small square: absent in the game (lane world).
+- **Calea Victoriei / Piața Victoriei.** `rom-victoriei-south`: curved nine-storey stone block with roof advertising, BCR n1563503947 (blue fascia), Intesa n2502640586 and Mega Image n2613331337 at the ground floor, a small park in front: the game's curved block matches in massing; roof advertising absent. `rom-victoriei-palat`: the square is one asphalt expanse in front of Palatul Victoria; the game fills the centre with lawn: still wrong (lane world). `rom-hunedoara-cec`: blue curtain-wall office with CEC Bank n3757940564: match. `rom-hunedoara-east`: long eight-storey block north side, curved glass office south side: match. `rom-bariera`: small park with trees at the Bariera Mogoșoaiei marker n13849319703; the marker itself is visible in neither. `rom-cv-banks` / `rom-cv-south`: only a user photosphere lies within 25 m of this point; not compared.
+- **More Magheru / side-street poses.** `rom-scala-hotel`: Scala Boutique Hotel (w163622247) is a cream three-storey house with green awnings; the game has a cream three-storey house with its sign: match. `rom-magheru-banks`: small park with trees and benches in front of the blocks: match. `rom-magheru-unicredit`: UniCredit at the ground floor, terrace, spherical bollards: match (sign present, bollards are posts). `rom-magheru-libra`: white streamlined block with Libra Bank: match in massing. `rom-buzesti`: the ground floor of the curved block is a row of shopfronts (a burger restaurant, a pharmacy, Starbucks) behind a parking strip; the game shows signs on a wall with ordinary windows, no glazed shop floor: still wrong (small). `rom-titulescu-west`: at 44.452076, 26.082576 the panorama is already inside the walled west descent of Pasajul Victoria (retaining walls with stone-pier and iron-panel balustrades, fenced tram reservation to the north); the game is at street level there with a planted median: check the ramp start against w241374320 (lane world). `rom-duke`, `rom-romana-bcr`, `rom-unique`, `rom-storck` poses are too close to the walls for a judgement of the named building.
+- **Kiseleff.** `rom-kiseleff-mtr`: Muzeul Țăranului Român (r2552618) is red brick behind large trees; it was beige with a glazed shop ground floor: fixed (red, no shopfront; height unchanged). `rom-kiseleff-geologic`: three storeys under a red tiled roof behind trees: match. `rom-mavrogheni`, `rom-khayyam`: church and statue not visible from the panoramas found; not compared.
+- **Churches and the synagogue.** `rom-sinagoga`, `rom-visarion`, `rom-boteanu`: all three are drawn with house windows on four floors under a pyramid roof (the `church` style uses the eclectic window tile); the real buildings are a two-storey synagogue front with a tracery window, a church with a round banded porch tower, and an ochre neo-Romanian church with an arcaded porch: still wrong, a class defect (lane world). A Stanleybet shop stands beside the synagogue in the panorama; OSM has Stanleybet only at n11361411581 (44.44393, 26.09433), so it is not shown.
+- **Storck museum** (n2634651933): dark red house; the POI is a bare node without a footprint link, so the cream building with a shopfront there was not changed (lane builder).
+
+Fixes are rows in `game/src/building-review.js` (`bucharest-romana`), mirrored in `buildings[].research` of `bucharest-romana.json`: w162494340 colour, r2552618 colour and no shopfront, w231445058 colour and style, w29819032 sign.
+
+Not checked: Pasajul Victoria (round 1), interiors, side streets beyond the poses listed, Piscina Lido, Hotel Minerva, SNSPA, the Storck and Joja houses beyond the note above, night views.
+
+## Landmarks, round 2 (2026-11-12, lane landmarks)
+
+- Royal Palace (`regal`, OSM w232472401 + 263 parts, parts tagged `building:colour=#eee8aa`): the district model used the
+  mapped colour name and read olive. Panorama at Piața Revoluției (44.43972, 26.0971644, heading 245, 2024): warm cream
+  limestone, arched ground-floor windows, tall first-floor and lower second-floor windows, engaged columns. The model
+  takes the walk scene's #e1d6bc (documented exception to the mapped colour) and one window per wall panel on three storeys.
+- Hotel Ambasador (w442813528, no height / levels tags): window bays dark red-brown between pale piers (panorama
+  44.441899, 26.098971 heading 75, reported by lane districts-view); the model had blue glass.
+- OSM heights against the models (live tags 2026-11-12): TNB `height=24` = model body (fly towers above are modelled
+  to 34 m); Europe House 14 levels / 56 m; The Landmark 7 levels / 29.4 m; Sky Tower 137; Victoria parts 20 / 23 / 30.
+
+## Landmark catalogue review against panoramas (fidelity pass round 2b, lane landmarks-b, 2026-11-12)
+
+Method: official panorama ids found from Maps coverage metadata (`photometa/ac`, coverage only), the game rendered at the
+pano position and bearing (eye 2.5 m), then compared side by side by eye. No imagery kept. Poses: `viewpoints-add.json`
+of this lane and the poses below. "Match" = shape class, height, roof, main materials/colours, entrance side and signage
+read as the real thing at street distance; it is not a claim of parity. Table positions are rounded and some are
+approximate; the exact poses with their pano ids are in this lane's `pick/*.json`, `views2b.json` and `views3.json`,
+and the kept ones in `viewpoints-add.json`.
+
+| Landmark | Pose (lat, lon, heading) | Verdict |
+| --- | --- | --- |
+| ase | 44.4472, 26.096476 h 39 | match (dome, colonnade, www.ase.ro lettering) |
+| ambasador | 44.441899, 26.098971 h 81 | fixed: dark windows over muted red-brown aprons between pale piers (were red squares, before that blue) |
+| aro | 44.442644, 26.098615 h 110 | fixed: grey-beige ribbon-window slab, pale tower at the NORTH end (was white, tower at the south end, not in the district list); PATRIA marquee removed (not seen on the boulevard front) |
+| thelandmark | 44.450288, 26.094312 h 143 | fixed: stone grid with windows on every storey, glazed ground floor, set-back glass top storey (was a blank stone block) |
+| europehouse | 44.4508, 26.0882 h 315 / 44.4511, 26.0869 h 87 | partial: long glass slab right; real glass is a lighter blue, the end at Lascăr Catargiu is a curved grey-banded volume, not a charcoal wedge (open) |
+| antipa | 44.453011, 26.085294 h 280 | not compared: facade hidden by trees in reality; the game shows it over open lawn (tree belt missing, world scope) |
+| catargiu | 44.449226, 26.092807 h 146 | fixed: standing bronze figure in a long coat + smaller figure against the pedestal (was cylinder/box/ball) |
+| veronafountain | 44.442772, 26.09817 h 265 | match (low round stone rim on paving) |
+| ateneu | 44.441005, 26.098035 h 305 | not compared (no pose with a clear view found) |
+| tnb | 44.4365, 26.1054 h 75 | match (red hat roof, glazed front) |
+| regal, victoria | — | compared in round 2 (lane landmarks) |
+
+Statues (hand models, silhouettes only, sizes estimated): Lascăr Catargiu (w800350070), Nobil Dac (w1170480716, marble, cloaked standing figure on a square plinth), George Enescu (w1171605516, seated bronze on two granite steps). Not modelled: Monumentul Infanteriei n987467409 (not in a chapter district).
+
+## Round 2 (2026-11-12), lane world
+
+Monuments: 18 generic class objects placed (Alexandru Lahovary on the Piața Lahovari island:
+compared with the panorama at 44.44553, 26.09976, a figure on a plinth in the planted island, class matches; Mihai
+Eminescu, George Enescu, Nobil Dac, Carol I at its OSM height of 13 m, Monumentul Infanteriei as a stele, busts).
+Lascăr Catargiu is the landmark's. No bridges, fuel stations or mapped car-park buildings in the district.
+
+## Round 2 (2026-11-12), lane world-b
+
+Street View was used only to look (official panoramas, ids found from coverage metadata); nothing was saved or traced.
+
+Piața Victoriei: the panorama at the centre (44.452163, 26.085980) shows asphalt in every
+direction; the green came from the aerial green raster (no OSM polygon). A reviewed paved ring (ground-review.js) keeps
+the raster grass out of the square. Pasajul Victoria west ramp: the panorama at 44.452076, 26.082576 is inside the walled
+descent; the eastbound ramp w27008418 now descends at half the model grade (grade-review.js), about 60 m earlier.
+Places of worship (Sinagoga Eșua Tova, Boteanu, Visarion): plain walls with tall arched openings now (worship.js).

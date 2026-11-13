@@ -80,8 +80,8 @@ function cleanPoly(p) {
     if (o.length > 2 && Math.hypot(o[0][0] - o[o.length - 1][0], o[0][1] - o[o.length - 1][1]) < 0.15) o.pop();
     return o;
 }
-const WAY_KEEP = ['name', 'footway', 'surface', 'lanes', 'oneway', 'bridge', 'tunnel', 'layer', 'width', 'service', 'crossing', 'incline', 'step_count', 'covered', 'area', 'sidewalk', 'sidewalk:both', 'cycleway', 'access', 'foot', 'motor_vehicle', 'level', 'indoor', 'height', 'material', 'fence_type', 'natural', 'tram', 'junction'];
-const AREA_KEEP = ['landuse', 'leisure', 'natural', 'amenity', 'man_made', 'barrier', 'waterway', 'water', 'surface', 'name', 'area:highway', 'layer', 'level', 'indoor', 'leaf_type', 'parking', 'railway', 'fence_type', 'height', 'highway', 'place', 'building', 'tourism'];
+const WAY_KEEP = ['name', 'footway', 'surface', 'lanes', 'oneway', 'bridge', 'tunnel', 'layer', 'width', 'service', 'crossing', 'incline', 'step_count', 'covered', 'area', 'sidewalk', 'sidewalk:both', 'cycleway', 'access', 'foot', 'motor_vehicle', 'level', 'indoor', 'height', 'material', 'fence_type', 'natural', 'tram', 'junction', 'min_height', 'description', 'start_date', 'bridge:structure', 'bridge:support'];
+const AREA_KEEP = ['landuse', 'leisure', 'natural', 'amenity', 'man_made', 'barrier', 'waterway', 'water', 'surface', 'name', 'area:highway', 'layer', 'level', 'indoor', 'leaf_type', 'parking', 'railway', 'fence_type', 'height', 'highway', 'place', 'building', 'tourism', 'min_height', 'description', 'start_date', 'bridge:structure', 'bridge:support'];
 const POI_DROP = ['id', 'll', 'wheelchair', 'brand:wikidata', 'wikidata', 'addr:postcode', 'addr:city', 'addr:state', 'check_date', 'source', 'opening_hours'];
 const mapWay = (w, P) => { const o = { id: w.id, k: w.highway || w.railway || w.barrier || w.man_made || 'line', pts: w.line.map(([la, lo]) => P.xy(la, lo)) }; for (const k of WAY_KEEP) if (w[k] !== undefined) o[k.replace(':', '_')] = w[k]; return o; };
 const mapArea = (a, P) => { const poly = cleanPoly(a.outline.map(([la, lo]) => P.xy(la, lo))); if (poly.length < 3) return null; const o = { id: a.id, poly }; for (const k of AREA_KEEP) if (a[k] !== undefined) o[k.replace(':', '_')] = a[k]; if (a.holes) o.holes = a.holes.map((h) => cleanPoly(h.map(([la, lo]) => P.xy(la, lo)))); return o; };
@@ -127,7 +127,7 @@ for (const sceneId of sceneIds) {
     // proof: every pre-existing feature unchanged (removed ones excepted), every other key deep-equal
     for (const k of Object.keys(before)) {
         if (['ways', 'areas', 'pois'].includes(k)) { const keep = before[k].filter(f => !removed.some(r => r.id === baseId(f.id))); if (!isDeepStrictEqual(data[k].slice(0, keep.length), keep)) throw Error(`${sceneId}.${k}: pre-existing features changed`); }
-        else if (!isDeepStrictEqual(data[k], before[k])) throw Error(`${sceneId}.${k} changed`);
+        else if (k !== 'osmAppend' && !isDeepStrictEqual(data[k], before[k])) throw Error(`${sceneId}.${k} changed`); // (osmAppend: earlier runs kept, this run appended)
     }
     let out = JSON.stringify(data);
     // keep the source file's own number spelling where JSON.stringify would rewrite it ("30410.0" written by a Python tool)

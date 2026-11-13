@@ -16,6 +16,8 @@
 //      the building with the building's own OSM name (the OSM object is cited in the note).
 //  Row: 'w<id>' / 'r<id>': { h, levels, style, roof, colour, roofColour, name, shopfront: false, note }
 //    shopfront: false removes a glazed shop ground floor where the real building has none (museum, church house).
+//    shopFaceAt: [lat, lon] keeps the shop ground floor only on the face nearest that point (the mapped shop's OSM node).
+//    roofShape: a drawable shape for an OSM roof:shape the roof builder cannot draw; dormers: 'oval' (reviewed-dormers.js).
 //    style: district facade style: 'bloc' (apartment block, balconies), 'civic' (window grid behind a columned portico: institutions only),
 //           'interwar' (plain plaster window grid), 'eclectic', 'glass' (curtain wall), 'shop' (glazed shop hall), 'plain' (windowless panels), 'house'.
 // ============================================================================
@@ -39,19 +41,28 @@ export const BUILDING_REVIEW = {
     },
     'bucharest-romana': {
         w162494340: { colour: '#EDE9DF', note: 'Hotel Lido (Bd. Magheru): cream-white interwar hotel front (drawn saturated blue from a default hotel colour)' },
-        r2552618: { colour: '#A65A44', shopfront: false, note: 'Muzeul Național al Țăranului Român: red-brick neo-Romanian museum behind trees, no shop windows on Șos. Kiseleff (drawn beige with a glazed shop ground floor)' },
+        r2552618: { colour: '#A65A44', shopfront: false, levels: 2, roofShape: 'hipped', riseM: 6, roofColour: '#7A3E2C', note: 'Muzeul Național al Țăranului Român: red-brick neo-Romanian museum behind trees, two tall storeys under steep tiled roofs, no shop windows on Șos. Kiseleff (drawn beige with a glazed shop ground floor, then a flat-roofed four-storey block). The 19.6 m total stays (not measurable from the street); the 6 m roof rise is an estimate; the entrance tower has no OSM part and is not drawn (round 4, r2-districts-view-10)' },
         w231445058: { style: 'eclectic', colour: '#E6D08A', note: 'Colecția Severeanu (Str. Henri Coandă 26): yellow one-storey eclectic house with white window surrounds (drawn tan)' },
         w29819032: { name: 'Sheraton', note: 'Sheraton Bucharest Hotel (OSM w29819032 name / brand): the building was signed with its ground-floor tenant Pizza Hut' },
         // (round 3, 2026-11-13) official panoramas 44.448503, 26.093125 heading 275 and 44.450278, 26.087635 heading 262
         w79139872: { h: 13, levels: 3, style: 'eclectic', colour: '#EFE7D6', note: 'Observatorul Urseanu (Bd. Lascăr Catargiu 21): cream three-storey villa with rounded corner bays and iron balconies (drawn as a 6.4 m two-storey box); the round east tower w1220336122 and its dome are the landmark urseanudome' },
-        w131269864: { style: 'eclectic', colour: '#E8DCC4', roofColour: '#4B5057', note: 'Casa Filipescu-Cesianu (Calea Victoriei 151): cream two-storey eclectic palace under a dark slate mansard with oval dormers (OSM roof:shape=quadruple_saltbox and building:levels=2 kept; drawn plain with a light roof)' },
+        // (round 4, r3-look-12) official panorama Yv9RTMCoVSMxEoPO0dOE7g h245 shows the east front; Viggo n5602930826 (shop=clothes,
+        // check_date 2026-06-15) lies 4.4 m inside the south-west face and 8 m from the west one, not at that front
+        w171045146: { style: 'eclectic', colour: '#D9CAA8', shopFaceAt: [44.447466, 26.0962622], note: 'Casa Gheorghe Petrașcu: beige ornamented stone with barred ground-floor windows on the east front (drawn white with a glazed shop front all round); the Viggo shop front stays on the south-west face nearest its OSM node' },
+        // (round 4, r3-landmarks-7) Storck collection n2634651933 (Str. Vasile Alecsandri 16; OSM tourism=artwork, in no outline):
+        // the house of 1912-13 by Alexandru Clavel, Anglo-Norman neo-Gothic (cimec ghidul muzeelor / Muzeul Bucureștiului); its
+        // Wikipedia coordinates 44.4509722, 26.0944917 lie 12 m from w546500256, the red-brick gabled house seen from pano
+        // 44.450834, 26.094312 h 60, and 19 / 25 m from the other two outlines. Storeys from that view; heights are estimates
+        w546500256: { h: 9, levels: 2, style: 'house', roofShape: 'gabled', colour: '#8A4334', roofColour: '#5A3A2E', shopfront: false, note: 'Muzeul Storck: red-brick two-storey gabled house (drawn as a cream 12.8 m four-storey block with a glazed shop floor)' },
+        w546500238: { h: 4.5, levels: 1, style: 'house', colour: '#EDE3CC', shopfront: false, note: 'cream one-storey house beside the Storck museum (drawn as a 12.8 m four-storey block)' },
+        w131269864: { style: 'eclectic', colour: '#E8DCC4', roofColour: '#4B5057', roofShape: 'mansard', dormers: 'oval', note:'Casa Filipescu-Cesianu (Calea Victoriei 151): cream two-storey eclectic palace under a dark slate mansard with oval dormers (OSM roof:shape=quadruple_saltbox and building:levels=2 kept; drawn plain with a light roof)' },
         // (r3-builder-5, 2026-11-13) official panorama 0IR_4oFjbwg7c8euMfNEkw; OSM building=retail, building:levels=8 and height kept
         w171045151: { style: 'interwar', colour: '#CBBFA8', note: 'Hotel Minerva: plastered grey-beige block with white window surrounds (drawn as a glazed shop block, default colour #5e7f8c)' },
     },
     // (round 3, 2026-11-13) official panoramas on Calea Floreasca: 44.460443, 26.101023 h 240; 44.461341, 26.101235 h 262;
     // 44.462811, 26.101521 h 265; 44.454184, 26.100804 h 40
     'bucharest-floreasca': {
-        w34832556: { h: 9, levels: 2, style: 'glass', note: 'Piața Floreasca / Agora (Calea Floreasca 111-113): two-storey light glass curtain-wall front with hedges and terraces (drawn as a dark slatted 7.4 m shop box); the lower single-storey Banul Antonache side is part of the same footprint and is not split' },
+        w34832556: { h: 9, levels: 2, style: 'glass', colour: '#c5cacc', note: 'Piața Floreasca / Agora (Calea Floreasca 111-113): two-storey light glass curtain-wall front with hedges and terraces (drawn as a dark slatted 7.4 m shop box); the lower single-storey Banul Antonache side is part of the same footprint and is not split' },
         w245407579: { h: 27.5, levels: 8, style: 'glass', note: 'Nusco Floreasca 1 (Calea Floreasca 131-137, OSM building=office): blue-grey reflective glass tower, about six glazed storeys over a tall dark ground floor and a set-back top storey (drawn as an 11.6 m four-storey block); storey count from the street' },
         w39348919: { h: 7.5, levels: 2, style: 'interwar', colour: '#F1EFEA', note: 'Souk (Calea Floreasca 131B): low white two-storey building with a red band and a dark roof edge (drawn as a 12.6 m four-storey block)' },
         w245345976: { style: 'glass', note: 'Spitalul Euroclinic (Calea Floreasca 14A): modern glass and pale grey panel block, seen only from about 40 m (drawn as a beige eclectic house; OSM building:levels=7 kept)' },
@@ -92,11 +103,21 @@ export function applyBuildingReview({ key, bRecs }) {
             if (flat) b.roof = 'flat';
         }
         if (r.roof && !b.roofProfile && !osmRoof) b.roof = r.roof;
+        // (r3-landmarks-3) an OSM roof:shape the roof builder cannot draw (e.g. quadruple_saltbox) falls back to 'hipped'; a
+        // reviewed row may name the drawable shape the panorama shows instead (the OSM tag itself is kept in the profile)
+        // (a profile whose shape is the builder's estimate, no OSM roof:shape, takes the reviewed shape as well)
+        if (r.roofShape && b.roofProfile && (!osmRoof || b.roofProfile.issues?.some(s => /^unsupported roof:shape/.test(s)))) {
+            const q = b.roofProfile, rise = r.riseM > 0 && r.riseM < q.totalM ? r.riseM : q.riseM; // (riseM: a reviewed roof rise inside the unchanged total height)
+            b.roofProfile = { ...q, shape: r.roofShape, riseM: rise, eavesM: +(q.totalM - rise).toFixed(2), riseSource: r.riseM > 0 ? 'street-level review estimate' : q.riseSource, shapeSource: 'street-level review (OSM roof:shape not drawable)' };
+        }
+        if (r.levels && !r.h && !osmHeight) b.levels = r.levels; // (a storey count seen from the street, height unchanged)
+        if (r.dormers) b.dormers = r.dormers;
+        if (r.shopFaceAt) b.shopFaceAt = r.shopFaceAt;
         if (r.style) b.style = r.style;
         if (r.colour) { b.colour = r.colour; b.reviewedColour = true; }
         if (r.roofColour) b.roofColour = r.roofColour;
         if (r.name) { b.name = r.name; b.flags |= 2; }
-        if (r.shopfront === false) b.flags &= ~1;
+        if (r.shopfront === false) { b.flags &= ~1; b.reviewedNoShopfront = true; } // (the flag kept: a later part / overlap merge may OR a tenant's shop bit back in)
         audit.applied.push(id);
     }
     return audit;

@@ -15,6 +15,7 @@ import { photoHunt } from '../photo-hunt.js';
 import { stoneWall } from './buc-walls.js';
 import { addTraffic } from '../cars.js';
 import { unHouse } from './nth-un-house.js';
+import { osmBarriers } from '../buc-barriers.js';
 
 function grow(poly, d) { const cw = polyArea(poly) > 0; const o = offsetPolyline([...poly, poly[0], poly[1]], cw ? -d : d); return o.slice(1, poly.length + 1); }
 function hipRoof(b, poly, y, h, col, over = 1.0) { const o = obb(poly); if (!o) return; const g = new THREE.CylinderGeometry(Math.SQRT1_2 * 0.3, Math.SQRT1_2, 1, 4).rotateY(Math.PI / 4); b.add(g, 'roofs', M(o.cx, y + h / 2, o.cz, 0, -o.angle, 0, o.len + over * 2, h, o.wid + over * 2), col); g.dispose(); }
@@ -150,6 +151,8 @@ export default {
             ], onDone: s => bucActivity(s, 'spring-palace', 'residence-tour', '📷 Spring Palace entrance', 'You framed the gate, flag and residence from its public approach.') });
         }
         { const cs = [[inG.x - 12, inG.z + 9], [inG.x - 15, inG.z + 5]]; ctx.trees = ctx.trees.filter((t) => cs.every(([x, z]) => Math.hypot(t.x - x, t.z - z) > 4.5)); } // the garden groups stand clear of trunks
+        // (round 4) the mapped walls, fences and hedges this scene does not draw itself (buc-barriers.js)
+        osmBarriers(ctx);
         ctx.crowdCfg = {
             personas: { tourist_uk: 2, tourist_de: 2, tourist_us: 2, local_elder: 1.5, local_young: 1 },
             walkers: 14, paths: ctx.footLines(),

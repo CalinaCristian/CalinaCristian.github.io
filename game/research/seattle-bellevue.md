@@ -552,7 +552,25 @@ legible at this resolution).
   (FjAPRHBV5IcENxea32KJiw h7) the deck edge is one storey up behind a glass railing. Levels below not visible. The game draws nothing
   at that pose (outside the drawn area).
 
-## 23. Backlog close-out, cross-district lane (2026-11-13)
+## 23. Backlog clearance (2026-11-13)
+
+- **2 Line I-405 span colour** (r2-world-b-guideway-colour): the girders of the span over I-405 are painted sage green (official
+  panoramas 47.61504, -122.188416 h60 and 47.616547, -122.184279 h180). `bellevue-guideway.js` now draws the girder faces and soffit
+  of that span `#7f9a83` between the piers the game places either side of I-405 and its ramps (129 - 232 m along w669516620; OSM puts
+  the carriageways at 141 - 221 m). Parapets stay concrete. The span ends are an estimate: OSM maps no supports.
+- **2 Line decks at Wilburton**: the two tracks spread to 9.3 m round the station; they now share one deck below 14 m, as at SeaTac.
+- **Garage w450055216** (r2-world-carparkheights): an open rooftop deck over the REI podium (section 22). Estimate: 3 levels from the
+  pack's 10 m height; OSM has no levels, the panoramas were taken on the roof, and no other source was found.
+- **Road-sky hole at Bellevue Way / NE 7th St** (r3-look-15): visual QA on 2026-11-13 (route uipath-bel, sample #33 at
+  47.616117, -122.200589, the covered drive under Lincoln Square) flags no `road-sky-hole`; the pale band at the horizon is the road
+  surface in daylight. Not reproduced, so closed.
+- **Bravern 2** (r3-look-10): the street face is the 22-storey part w1474780191; `facade-bands.js` now draws a cream stone base band
+  round it (0.15 - 8.4 m, two retail storeys: estimate) with shop-window bays, the glass curtain wall above unchanged.
+- **Landmark colours** (r2-landmarks-b-2): Bellevue Square's Bellevue Way face is red brick with two-storey glazed bays between proud
+  brick columns (was grey stone with one blue shop band; bay rhythm 7.5 m and heights are estimates); the Bellevue Towers podium
+  stone is darker grey (#9c978e).
+
+## 24. Backlog close-out, cross-district lane (2026-11-13)
 
 - **Fountain w469892286** (47.61756, -122.19944): drawn with a red-brick coping (world.js `FOUNTAIN_COPING`), as in the one
   panorama that shows it (round basin, brick coping, dry with a sculpture). The dry state may be seasonal and the sculpture's

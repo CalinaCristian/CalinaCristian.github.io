@@ -1,7 +1,7 @@
 // Arcul de Triumf: literal source roads/paved walks and the low public passage.
 // Races, blue course markers and the baguette are explicitly authored game play.
 import { photoHunt } from '../photo-hunt.js';
-import { GeoBatch, offsetPolyline, inPoly } from '../kit.js';
+import { GeoBatch, offsetPolyline, inPoly, distPolyline, polylineLength, alongPolyline } from '../kit.js';
 import { bucBackdrop, placeLandmark } from '../buc.js';
 import { roadWidth } from '../osm.js';
 import { addTraffic } from '../cars.js';
@@ -10,6 +10,7 @@ import { collideBuildings } from '../../world.js';
 import { arcRaceCourse, arcRoundabout, arcActiveCarriageway, arcPlaquePlacements } from './arcul-layout.js';
 import { createArcActivities } from './arcul-activities.js';
 import { parkWoods, dropMedianTrees, businessSigns, thinTrees, farCanopy } from './buc-green.js';
+import { osmBarriers } from '../buc-barriers.js';
 
 // (r3, 2026-11-13) Texts of the four central inscriptions as given by Romanian Wikipedia, "Arcul de Triumf din București",
 // section "Arhitectura monumentului" (accessed 2026-11-13; the article attaches no footnote to these lines). Wording and
@@ -49,6 +50,19 @@ export default {
         // curved arm and a disc head (single-arm style kept, colour corrected); the double-arm columns of the old note were not seen.
         bucBackdrop(ctx,{urban:false,species:{plane:.55,linden:.3,chestnut:.15},doubleCentre:true,lampStyle:'cobra',lampColor:'#9a9fa4',lampH:10,lampPad:30,
             treeLod:{cap:3200,max:420},lampOpts:{spacing:34,kinds:['primary','secondary']},streetTreeOpts:{spacing:8.5,prob:.92,kinds:['primary','secondary','tertiary']}});
+        // (round 4, r3-buc-spots-nth-6) Round the roundabout the round-3 panorama notes (44.46767, 26.07788) show tall masts
+        // with several heads, not the single-arm Kiseleff lamp: the road lamps the backdrop put along the circular carriageway
+        // become eight masts on its outer verge (16 m, four heads; count, height and head layout are estimates; no lamp
+        // is mapped in OSM there), clear of the approach carriageways.
+        {const ring=roundabout.points,w=roadWidth(firstRoad),cx=ring.reduce((a,p)=>a+p[0],0)/ring.length,cz=ring.reduce((a,p)=>a+p[1],0)/ring.length;
+            const rad=(q)=>q.reduce((a,p)=>a+Math.hypot(p[0]-cx,p[1]-cz),0)/q.length,A=offsetPolyline(ring,w/2+2.2),B=offsetPolyline(ring,-(w/2+2.2)),outer=rad(A)>rad(B)?A:B;
+            const n0=ctx.lampPoints.length;ctx.lampPoints=ctx.lampPoints.filter(p=>p.noPost||distPolyline(p.x,p.z,ring).d>w/2+6);
+            const road=arcActiveCarriageway(d),L=polylineLength(outer),mb=new GeoBatch(),masts=[];
+            for(let k=0;k<8;k++){let best=null;for(const sh of [0,4,-4,8,-8,12,-12]){const q=alongPolyline(outer,((k+.5)/8*L+sh+L)%L);if(!road(q.x,q.z,1.2)){best=q;break;}}if(!best)continue;
+                const y=g.heightAt(best.x,best.z),H=16;mb.cyl(best.x,y,best.z,.24,.6,'#8e9398','metal',10);mb.cyl(best.x,y+.6,best.z,.2,H-.6,'#9a9fa4','metal',10,.55);
+                for(let j=0;j<4;j++){const a=j*Math.PI/2+Math.atan2(best.x-cx,best.z-cz)+Math.PI/4,hx=best.x+Math.sin(a)*.75,hz=best.z+Math.cos(a)*.75;mb.rod([best.x,y+H-.3,best.z],[hx,y+H-.05,hz],.05,'#9a9fa4','metal',5);mb.box(hx,y+H-.25,hz,.55,.16,.38,'#7d8288','metal',a);}
+                ctx.circle(best.x,best.z,.3,H);ctx.lampPoints.push({x:best.x,z:best.z,h:H-.3,noPost:true});masts.push([+best.x.toFixed(1),+best.z.toFixed(1)]);}
+            ctx.add(mb.build('roundabout-masts'));ctx.extras.arcMasts={masts,replacedRoadLamps:n0-ctx.lampPoints.length+masts.length,estimate:true};}
         for(const id of ['w1191615184','w1191615185','w1191624784','w1191624785']){const a=d.areas.find(a=>a.id===id);if(a)ctx.painter.poly(a.poly,'#b6b5ad','dirt');}
         for(const id of ['w1191615188','w1458987299']){const a=d.areas.find(a=>a.id===id);if(a)ctx.painter.poly(a.poly,'#b9b7ad','slab');}
         ctx.painter.poly(arch.poly,'#b9b5aa','slab');
@@ -110,6 +124,8 @@ export default {
         ctx.spawns['arcul-de-triumf']={x:start.x,z:start.z,heading:Math.atan2(-dx,-dz),pitch:.5};
         const photo=way('w1571030032')[0];
         if(photo){const bearing=(Math.atan2(AR.x-photo[0],photo[1]-AR.z)*180/Math.PI+360)%360;ctx.challenge('arcul-de-triumf',{view:[AR.x,AR.z],x:photo[0],z:photo[1],heading:bearing,pitch:11,r:8,tol:20});}
+        // (round 4) the mapped walls, fences and hedges this scene does not draw itself (buc-barriers.js)
+        osmBarriers(ctx);
         ctx.crowdCfg={personas:{local_young:3,local_elder:1.5,tourist_de:1.5,tourist_it:1.5,kid:.6,local_parent:1},walkers:26,paths:ctx.footLines(),groups:[
             {x:29,z:-99,r:2,n:5,act:'photo',look:[AR.x,AR.z],personas:['tourist_de','tourist_it','local_young']},
             {x:-45,z:-121,r:1,n:3,act:'photo',look:[AR.x,AR.z],personas:['tourist_it','tourist_de']},

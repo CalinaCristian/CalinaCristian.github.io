@@ -966,6 +966,38 @@ Official panoramas only (ids cited; no imagery stored). Runtime modules named in
   candelabra form needs a second lamp instance set in the lamp renderer (not done). Advertising column w1176142649 is an OSM building
   (height 4, onion roof, #1d3b35), drawn by the pack's building path.
 
+## Round 4, backlog clearance (2026-11-13)
+
+- **Parcare Unirea** w184169515: rendered from four sides at HEAD: the reviewed louvred facade (`car-parks.js` `facade:
+  'louvred'`, pale wall with a dark louvre ribbon per level) is what the game draws, not open decks. The car wash "Spălătorie
+  Unirea Etaj 7" no longer gets street boards: a business named for an upper floor ("Etaj n") has no street-level fascia
+  (world.js `addUnitSign`, the same rule as the building sign).
+- **Piața Unirii lamps** (r3-look-13): the mapped street lamps within 150 m of the square centre (8 drawn after the generic
+  lamp de-duplication) take the candelabra form seen in the 2024 panoramas (`game/src/lamp-reviews.js`, a third instanced lamp
+  set: dark post on a plinth, a cross of arms, five globes; the night light sits over the post). Positions stay OSM's.
+- **Playgrounds** n7958996084 (44.424677, 26.103238) and n5766022623 (44.43433, 26.116368): OSM `leisure=playground` nodes
+  without an outline, now drawn as a generic class set (rubber patch, swing frame, slide; `game/src/playgrounds.js`).
+- **ATMs**: the four mapped ATMs (Euronet ×3, Bitcoin ATM) show the ATM symbol on the map, not the bank one.
+- **Unirea Shopping Center** (r2-landmarks-4): the red "UNIREA" logo now stands near the roof of the south front (landmarks.js
+  `bUnirea`). The trees in front are OSM tree nodes (159 in the box round the south front, drawn from the pack); the hedge
+  strip has no OSM object (no `barrier=hedge` there, live OSM 2026-11-13), so it is not drawn.
+
+### Estimates
+
+- **Stops outside the playable edge** (unirii-edge-pois): 18 appended bus / tram stops lie outside the edge (game render
+  2026-11-13, metres outside the edge). Within the 30 m frontage cap, so with the inferred shelter on their scenery street:
+  Piața Unirii osm377 (4 m), Hristo Botev osm504 (1 m) and tram osm524 (30 m), Piața Sf. Gheorghe osm507 (26 m), Hala Traian
+  tram osm520 (28 m), Bd. Dimitrie Cantemir tram osm561 (25 m). Beyond the cap (POI and map marker only, no shelter model):
+  Bd. Mărășești osm342 / osm359 (49 m), Universitate osm429 (44 m), Hristo Botev osm505 (74 m), Piața Sf. Gheorghe osm512
+  (95 m) and trams osm521 (41 m) / osm522 (93 m) / osm523 (42 m), Hala Traian osm544 (75 m) / osm545 (52 m) and trams osm552
+  (95 m) / osm553 (60 m). The cap is the frame budget's (a shelter further out is distant scenery); whether those stops have a
+  shelter at all is not established either way (r3-builder-4).
+- **Playground equipment** and **candelabra sizes**: no OSM object maps the equipment or the lamp form; the drawn sets and the
+  globe / arm sizes are class estimates (`PLAYGROUND_MODEL`, `CANDELABRA_MODEL`).
+- **Unirea Shopping Center**: panel module, louvre pitch, banner size and the logo's letter height / place along the south front
+  are estimates; the north end and the east (rear) faces were not seen on a sharp official panorama and keep the light panel
+  skin of the reviewed south front.
+
 ## Backlog close-out, cross-district lane (2026-11-13)
 
 What the rows r3-builder-1 / -2 / -3 / -4, r2-world-monuments and r3-look-1 recorded for Unirii, kept here once the rows were

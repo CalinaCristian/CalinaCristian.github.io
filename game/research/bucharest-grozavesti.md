@@ -603,6 +603,53 @@ Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
   `grozmetro`: 10 × 5 m pavilion 3 m west of the door node (footprint, heights, position: estimates), 368 triangles. The
   east entrance n2479115705 and the OSM roof w905217305 beside it were not looked at.
 
+## Backlog close-out (2026-11-13): estimates, decisions and what was fixed
+
+- **School pitch w678756216 (r2-districts-view-14)**: the 46 × 33 m pitch lies inside the school ground w813901657
+  (`amenity=school`, `barrier=fence`), whose south-east side it shares with Universitatea Artifex w813677026
+  (`amenity=university`, `barrier=fence`). The district pack keeps no barrier tags, so `game/src/area-fences.js` draws both
+  OSM outlines as a 2 m welded-mesh fence (height and post pitch: estimates), left open along building walls, on mapped paths and
+  at the two gate nodes (n6244816927, n3709955844). The street-side tree row seen in the panorama (44.439158, 26.056929 h 313) has
+  no OSM trees; the generated kerb row already stands there.
+- **Lukoil canopy w256806132 (r2-world-b-lukoil-height)**: live OSM (v7) still tags height=3, which left 2.6 m under the slab;
+  both official panoramas (hGqephV5yIK6jWNVMdcHBw h 70, FxOOz6e8e3HgHwgY0fxicg h 137) show a roof about 5–5.5 m high. Documented
+  exception in `fuel-canopy-review.js`: drawn at 5.4 m with 4.6 m clearance, like the district's other canopies. Correct the OSM
+  tag upstream, then drop the exception.
+- **Orhideea car-park frame (r2-landmarks-b-7)**: at a395e49a the pose 44.444372, 26.061485 measures 0.86 M triangles in the
+  driving view (heading 70, mirror on), 1.01 M at eye height, and at most 1.26 M over twelve headings (driving and eye views,
+  1280 × 720); heading 70 at ultra quality and 1920 × 1080 gives the same 1.01 M: under the 1.5 M budget. The round-2 1.544 M no longer reproduces.
+- **Basarab light band (r2-perf-6)**: the night band's box (0.215 m) enclosed the guards' 0.18 m blue fascia with the same ends,
+  so the fascia was never seen; `drawBasarabGuard` now draws the band instead of the fascia where the band exists (the band casts
+  the fascia's shadow). Day and night renders at 44.44503, 26.06120 unchanged; about 44,000 fewer triangles in Basarab frames
+  (1.042 M → 0.998 M at the pose, day).
+- **Pedestrian passages (grozavesti-7)**, live OSM 2026-11-13:
+  - Grozăvești metro passage w737986560 / w737986561 (`tunnel=yes`, `layer=-1`) runs between the two subway entrances. West
+    n610921621: the `grozmetro` pavilion (round 3). East n2479115705: under the OSM roof w905217305 (`building=roof`, 14 × 8 m),
+    which the pack drew as a closed grey block; it is now an open canopy (3.9 m top, 3.45 m clearance, columns: estimates) over a
+    stair well (`game/src/underpass-mouths.js`), open at the east end, down towards the passage that leaves westwards. Stair run
+    and well width are estimates; no official panorama of the east entrance was compared.
+  - Doina Cornea / Splaiul Independenței underpass w277315766 (35 m, no steps or width mapped): a stair well with parapets and
+    handrails at each end node, on the tunnel's own axis; both runs are cut short where they would reach the Splaiul kerb (4.3 m
+    and 3.5 m drawn). Estimates as above.
+  - Politehnica w737868100 / w980510524 / w1071237750 are `level=-1` concourse ways between the station stairs (w1071237751 /
+    -754 / -756, `level=-2;-1`): no street-level end. The station's street entrances are subway_entrance POIs.
+  - w738281345 is a 5 m `layer=3` link between the platform footways w738281336 (ref 1) and w738281339 (ref 10), which are
+    `layer=1`: a tagging oddity inside the tram station on Pasajul Basarab, not a separate structure; the platform model draws
+    the platforms (Basarab structures are not changed here).
+  - Covered platforms w620826242 / w620826243 (Pasajul Basarab tram station): rendered from above the deck (770, 25, -930):
+    the glazed barrel canopy stands over both platforms.
+
+## Backlog clearing (2026-11-13)
+
+- **Brico Dépôt / Altex** (w247015071, backlog r3-landmarks-2): `game/src/facade-bands.js` draws the red fascia band round
+  the top of the box (1.5 m deep, 0.4 m under the eaves) and the red Altex front on the south-east corner (the ring corner
+  nearest the Altex POI 44.448203, 26.062284), 16 m along each of its two walls, from the top of the drawn shopfront glazing
+  (4.2 m) to the eaves. Estimates: band depth, front width and the glazing line; colours and placement from the panoramas
+  44.447216, 26.061955 h 0 and 44.448422, 26.062576 h 270.
+- **Centrul Comercial Orhideea entrance canopy** (w23557062, backlog r3-landmarks-2). Estimate, not drawn: the red canopy at
+  the north-west end (pano 44.444372, 26.061485 h 25) has no OSM outline or height, and its size cannot be measured from a
+  panorama without tracing it.
+
 ## Backlog close-out, cross-district lane (2026-11-13)
 
 - **Fountain basins** w1454825579 and w1279629948 (add-areas.mjs): no official panorama within 50 m; generic coping and full

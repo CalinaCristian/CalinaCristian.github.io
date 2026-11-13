@@ -14,14 +14,13 @@ export const MONUMENT_LANDMARK_OWNED = ['lascăr catargiu', 'monumentul eroilor 
 
 export const MONUMENT_MODEL = {
     estimates: 'all dimensions except a tagged OSM height',
-    totalM: { statue: 4.4, bust: 2.5, obelisk: 6, cross: 3.2, wayside: 1.5, sculpture: 2.6, installation: 2.6, stele: 2.6, monument: 4.2, marker: 0.9 },
-    colliderM: { statue: 0.95, bust: 0.6, obelisk: 1.1, cross: 0.7, wayside: 0.45, sculpture: 0.85, installation: 0.85, stele: 1.0, monument: 1.5, marker: 0.75 },
+    totalM: { statue: 4.4, equestrian: 9, bust: 2.5, obelisk: 6, cross: 3.2, wayside: 1.5, sculpture: 2.6, installation: 2.6, stele: 2.6, monument: 4.2, marker: 0.9 },
+    colliderM: { statue: 0.95, equestrian: 2.0, bust: 0.6, obelisk: 1.1, cross: 0.7, wayside: 0.45, sculpture: 0.85, installation: 0.85, stele: 1.0, monument: 1.5, marker: 0.75 },
 };
 // (r2-world-monuments, 2026-11-13) works whose subject is known from their OSM name and article (not from a panorama trace):
 // a low-poly subject form instead of the class block. Still not likenesses; proportions are estimates. heightM only where
 // noted (Memorialul Renașterii: about 25 m, ro.wikipedia "Memorialul Renașterii"; OSM has no height).
 export const MONUMENT_SUBJECT = {
-    n1883108499: { form: 'equestrian' },                // Carol I, Piața Revoluției (OSM height 13 m kept)
     n1731041124: { form: 'wolf' },                      // Lupoaica (Lupa Capitolina): the she-wolf with the twins
     w170953582: { form: 'lion' },                       // Monumentul Trupelor de Geniu (Leul)
     n7350336938: { form: 'lion' },                      // Leul Ierusalimului
@@ -83,13 +82,7 @@ function build(env, m, total) {
         at(0, 0, ped + lh, bw, bh, bl, fig);
         at(0, bl * 0.5 + 0.12 * k, ped + lh + bh * (headUp ? 0.7 : 0.35), 0.24 * k, 0.3 * k, 0.34 * k, fig);
     };
-    if (m.form === 'equestrian') { // pedestal, horse, rider: figure height H = horse withers + rider (about 2.6 units)
-        const ped = total * 0.5, H = total - ped, u = H / 2.6, S = 1.76 * u;
-        pedestal(ped, 1.1 * u, 2.7 * u);
-        quadruped(ped, S, 1.25, 0.51, true);
-        const seat = ped + (0.51 + 0.42) * S;
-        at(0, -0.15 * u, seat, 0.5 * u, 0.72 * u, 0.32 * u, fig); at(0, -0.1 * u, seat + 0.72 * u, 0.26 * u, 0.28 * u, 0.26 * u, fig);
-    } else if (m.form === 'wolf') { // tall pedestal, the she-wolf, two small figures under her
+    if (m.form === 'wolf') { // tall pedestal, the she-wolf, two small figures under her
         const ped = total * 0.75, S = (total - ped) / 0.82;
         pedestal(ped, 0.45 * S + 0.3, 1.2 * S + 0.3);
         quadruped(ped, S, 1.0, 0.32, false);
@@ -123,6 +116,15 @@ function build(env, m, total) {
     } else if (m.form === 'wayside') { // (r3) a small stone wayside cross (troiță) on a low base: OSM historic=wayside_cross / man_made=cross
         const ws = env.rgb(materialColour(m.material, '#b7b0a1'));
         box(0, 0.6, 0.18, 0.42, stoneD); box(0.18, 0.2, total - 0.18, 0.14, ws); box(0.18 + (total - 0.18) * 0.66, Math.min(0.75, total * 0.5), 0.17, 0.14, ws);
+    } else if (m.form === 'equestrian') { // (round 4, r2-landmarks-3) a rider on a horse on a tall plinth; massing only, not a likeness
+        const at = (y0, w, h, d, along, col, a = ang) => c.box(x + Math.sin(ang) * along, y + y0, z + Math.cos(ang) * along, w, h, d, a, col);
+        const k = Math.max(0.6, (total - Math.min(total * 0.58, 7.6)) / 5.4), ped = total - 5.4 * k; // (group ≈ 5.4 m at k = 1; the rest is plinth)
+        box(0, 3.4 * k, 0.35, 5.6 * k, stoneD); box(0.35, 2.7 * k, ped - 0.75, 4.9 * k, stone); box(ped - 0.4, 3.0 * k, 0.4, 5.2 * k, stoneD);
+        for (const [s, l] of [[-1, 1], [1, 1], [-1, -1], [1, -1]]) c.box(x + Math.sin(ang) * l * 0.95 * k + Math.cos(ang) * s * 0.3 * k, y + ped, z + Math.cos(ang) * l * 0.95 * k - Math.sin(ang) * s * 0.3 * k, 0.24 * k, 1.55 * k, 0.26 * k, ang, fig); // legs
+        at(ped + 1.5 * k, 0.9 * k, 1.05 * k, 2.6 * k, 0, fig); // barrel
+        at(ped + 2.2 * k, 0.55 * k, 0.9 * k, 0.6 * k, 1.35 * k, fig); at(ped + 2.85 * k, 0.4 * k, 0.45 * k, 0.95 * k, 1.75 * k, fig); // neck, head
+        at(ped + 2.55 * k, 0.75 * k, 1.05 * k, 0.5 * k, -0.15 * k, fig); at(ped + 3.6 * k, 0.32 * k, 0.4 * k, 0.34 * k, -0.1 * k, fig); // rider, head
+        at(ped + 0.7 * k, 0.16 * k, 0.9 * k, 0.16 * k, -1.35 * k, fig); // tail
     } else if (m.form === 'stele') {
         box(0, 2.0, 0.28, 0.9, stoneD); box(0.28, 1.35, total - 0.28, 0.32, fig);
     } else if (m.form === 'monument') {

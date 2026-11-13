@@ -542,5 +542,5 @@
    "basis": "kept out: OSM artwork_type / memorial is wall-mounted (mural)"
   }
  ],
- "subjectForms": "Since 2026-11-13 (monuments.js MONUMENT_SUBJECT) five works whose subject their OSM name and article give have a low-poly subject form instead of the class block, still not likenesses: the equestrian Carol I n1883108499 (OSM height 13 m), Lupoaica n1731041124 (she-wolf with the twins on a tall pedestal), Leul w170953582 and Leul Ierusalimului n7350336938 (a standing lion), Memorialul Renașterii n1393030628 (a white spire through a dark crown, about 25 m after ro.wikipedia; OSM has no height; skipped while its node lies inside a mapped building outline). Proportions are estimates; no panorama was traced."
+ "subjectForms": "Since 2026-11-13 (monuments.js MONUMENT_SUBJECT) four works whose subject their OSM name and article give have a low-poly subject form instead of the class block, still not likenesses (the equestrian Carol I n1883108499 has its own `equestrian` class since round 4): Lupoaica n1731041124 (she-wolf with the twins on a tall pedestal), Leul w170953582 and Leul Ierusalimului n7350336938 (a standing lion), Memorialul Renașterii n1393030628 (a white spire through a dark crown, about 25 m after ro.wikipedia; OSM has no height; skipped while its node lies inside a mapped building outline). Proportions are estimates; no panorama was traced."
 }

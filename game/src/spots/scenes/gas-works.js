@@ -12,7 +12,6 @@ import { bench } from '../osm.js';
 import { activityFlow } from '../participation.js';
 import { applyFineDem } from './fine-dem.js';
 import GAS_DEM from './fine-dem-gas-works.js';
-import PROW_DEM from './fine-dem-gas-works-prow.js';
 
 const KITE = { x: -58, z: 31, h: 9.5, r: 34 }; // summit (OSM n9331087056 / w191328703, ele 20 m; USGS 1 m DEM 20.4 m NAVD88 = +9.5 here)
 const LAKE_Y = -5.92;                           // Lake Union in the USGS DEM: 4.98 m NAVD88
@@ -227,7 +226,6 @@ export default {
         // lake, the shore path 1 m above it); the lake is its flat 4.98 m NAVD88 surface. The OSM lake multipolygon
         // lost its inner rings (the park) in the extract, so the shoreline is the DEM's.
         applyFineDem(g, GAS_DEM, { fade: 10 });
-        applyFineDem(g, PROW_DEM, { fade: 5 }); // round 3 (sea-spots-b-5): the Prow and the south shore on a 5 m grid of the same DEM (EPQS answered again)
         const WY = LAKE_Y, BED = WY - 2.5;
         g.mod((x, z, h) => (h < WY + 0.3 ? BED : h));
         g.mod((x, z, h) => (z > 150 ? Math.min(h, lerp(h, BED, smooth(150, 200, z))) : h)); // open lake south of the park

@@ -900,8 +900,24 @@ function bCathedral(b) {
 // "Arco de Triunfo, Bucarest, 2016-05-30, DD 24" / "Arcul de Triumf (24396923048)": opening ≈ 8.8 m wide x 15.7 m,
 // recessed frame 14.4 m, inscription band 18.4-20.8 m, cornice 23.2-24.6 m (overhang to ≈ 27 m), attic to 27 m.
 // No columns: plain Rușchița-marble piers with corner strips, Jalea/Baraschi medallions, winged-Victory reliefs
-// flanking the inscription, royal crown/arms; north (+z) and south (-z) inscriptions abridged to their bold lines.
+// flanking the inscription, royal crown/arms; the four inscriptions in full (arcBand).
 // Src: https://ro.wikipedia.org/wiki/Arcul_de_Triumf_din_București ; OSM way 217851530
+// The four Arcul de Triumf texts, ro.wikipedia "Arcul de Triumf din București", section "Arhitectura monumentului"
+// (accessed 2026-11-13); the same wording the arcul-de-triumf scene quotes at its read-points.
+const ARC_TEXT = {
+    south: 'DUPĂ SECOLE DE SUFERINȚE CREȘTINEȘTE ÎNDURATE ȘI LUPTE GRELE PENTRU PĂSTRAREA FIINȚEI NAȚIONALE, DUPĂ APĂRAREA PLINĂ DE SACRIFICII A CIVILIZAȚIEI UMANE, SE ÎNDEPLINI DREPTATEA ȘI PENTRU POPORUL ROMÂN, PRIN SABIA REGELUI FERDINAND, CU AJUTORUL ÎNTREGII NAȚIUNI ȘI GÂNDUL REGINEI MARIA',
+    north: 'LIBERATOR DE NEAM ȘI ÎNTREGITOR DE HOTARE PRIN VIRTUTEA OSTAȘILOR SĂI VREDNICI URMAȘI AI EROILOR CREȘTINĂTĂȚII FERDINAND I DOMN ȘI REGE AL ROMÂNILOR ȘI-A FĂCUT INTRAREA LA 16 OCTOMBRIE 1922 ÎN CETATEA SA DE SCAUN A BUCUREȘTILOR DUPĂ ÎNCORONAREA LA ALBA-IULIA',
+    east: 'GLORIE CELOR CE PRIN LUMINA MINTEI ȘI PUTEREA SUFLETULUI AU PREGĂTIT UNITATEA NAȚIONALĂ',
+    west: 'GLORIE CELOR CE PRIN VITEJIA ȘI PRIN JERTFA LOR DE SÂNGE AU ÎNFĂPTUIT UNITATEA NAȚIONALĂ',
+};
+/** a text in `lines` lines of equal-ish length (word breaks), centred on (x, z), top at yTop, letters sized to fit `width` */
+function arcBand(b, text, lines, x, z, ry, yTop, width, col) {
+    const words = text.split(' '), target = text.length / lines, out = []; let cur = '';
+    for (const w of words) { if (cur && out.length < lines - 1 && cur.length + 1 + w.length / 2 > target) { out.push(cur); cur = w; } else cur = cur ? cur + ' ' + w : w; }
+    out.push(cur);
+    const h = Math.min(0.36, width / (Math.max(...out.map((l) => l.length)) * 6 / 7)), pitch = h * 1.35;
+    out.forEach((l, i) => b.text(l, x, yTop - (i + 1) * pitch, z, ry, h, col));
+}
 function bArcul(b) {
     const W = 25, D = 9.6, S = '#ebe3d2', S2 = '#e0d5bf', TR = '#f2ecdf', RL = '#cdbfa3', TX = '#857660';   // pale Rușchița marble
     emitArcGround(b); // four literal pier bases and the .01/.1m public passage, never a solid plinth across it
@@ -926,14 +942,16 @@ function bArcul(b) {
         b.box(0, 18.45, z + s * 0.1, 15.2, 2.3, 0.2, '#e3d6bd');
         for (const x of [-10.2, 10.2]) { b.box(x, 18.5, z + s * 0.15, 3.8, 2.2, 0.3, RL); b.box(x - 0.6, 18.9, z + s * 0.35, 1.2, 1.5, 0.3, '#b5a283'); b.box(x + 0.7, 19.6, z + s * 0.35, 1.8, 0.5, 0.3, '#b5a283', { rz: -0.4 }); }
     }
-    // inscriptions (bold lines of the 1936 texts). Source checked round 3 (2026-11-13): ro.wikipedia.org/wiki/Arcul_de_Triumf_din_București,
-    // section „Arhitectura monumentului”: the north text ends „FERDINAND I DOMN ȘI REGE AL ROMÂNILOR”, the south text holds
-    // „SE ÎNDEPLINI DREPTATEA ȘI PENTRU POPORUL ROMÂN”, the east and west texts open „GLORIE CELOR CE”. Fragments only, never
-    // transcribed from panoramas; the real bands are five long lines of small capitals (layout not drawn).
+    // inscriptions: the full texts as ro.wikipedia.org/wiki/Arcul_de_Triumf_din_București gives them (section „Arhitectura
+    // monumentului”, accessed 2026-11-13; no footnote there), carved as long lines of small capitals: five lines across each
+    // long face's band between the Victories, three on each short face. Wording from the article only, never from
+    // panoramas; the carved line breaks are not in the source (lines are balanced by length: an estimate). The model's
+    // local +z face is north, -z south; local +x is west after the placement rotation, -x east.
     const n = D / 2 + 0.18;
-    b.text('FERDINAND I', 0, 19.95, n, 0, 0.62, TX); b.text('DOMN SI REGE AL ROMANILOR', 0, 18.85, n, 0, 0.62, TX);
-    b.text('SE INDEPLINI DREPTATEA', 0, 19.95, -n, Math.PI, 0.62, TX); b.text('SI PENTRU POPORUL ROMAN', 0, 18.85, -n, Math.PI, 0.62, TX);
-    b.text('GLORIE CELOR CE', W / 2 + 0.1, 19.2, 0, Math.PI / 2, 0.5, TX); b.text('GLORIE CELOR CE', -W / 2 - 0.1, 19.2, 0, -Math.PI / 2, 0.5, TX);
+    arcBand(b, ARC_TEXT.north, 5, 0, n, 0, 20.62, 14.4, TX);
+    arcBand(b, ARC_TEXT.south, 5, 0, -n, Math.PI, 20.62, 14.4, TX);
+    arcBand(b, ARC_TEXT.west, 3, W / 2 + 0.1, 0, Math.PI / 2, 20.45, 8.4, TX);
+    arcBand(b, ARC_TEXT.east, 3, -W / 2 - 0.1, 0, -Math.PI / 2, 20.45, 8.4, TX);
     // royal arms in the passage + coffered vault ribs
     for (const s of [-1, 1]) b.box(s * 4.3, 8, 0, 0.3, 2.6, 2.2, RL);
     // cornice, attic with acroteria, flag
@@ -1233,7 +1251,22 @@ function bRegal(b) {
     b.prism(rect(-36, -40, 59, fz(10) - 0.5), 0, 0.06, '#c9c4b8');
     b.fence([[-55, -42], [-8, -44], [28, -44], [75, -36]], 2.4, 7, '#22272a', { post: 0.7, postCol: '#d6ccb4', base: 0.6, baseCol: '#d6ccb4', bars: 0.35 });
     b.cyl(-6, 0, -2 + fz(-6), 0.1, 0.14, 12, '#dddddd', 6); flag(b, -6, 11.8, -2 + fz(-6), 2.6);
-
+    // (round 4, r2-landmarks-3) the court front of the central body (x -28..52, z = fz(x)): paired giant columns on pedestals
+    // over the rusticated ground floor (5.7 m) up to the cornice, a dentilled cornice and the attic balustrade on the 15.7 m
+    // roofline (Commons "49-53, Calea Victoriei", Street View from Piața Revoluției 2024). Pair spacing follows the 4.2 m window
+    // bay (one pair per two bays); column radius, cornice depth, dentil and baluster pitch are estimates.
+    const BAY = 4.2;
+    for (let x0 = -28; x0 + BAY <= 52.01; x0 += BAY) {
+        const xm = x0 + BAY / 2, z0 = fz(xm);
+        b.box(xm, 13.75, z0 - 0.35, BAY, 0.25, 0.7, TR); b.box(xm, 14.0, z0 - 0.45, BAY, 0.55, 0.9, S); // architrave band + cornice
+        for (let k = 0; k < 7; k++) b.box(x0 + 0.3 + k * 0.6, 13.6, z0 - 0.68, 0.22, 0.15, 0.18, TR); // dentils under the cornice
+        b.box(xm, 15.7, z0 - 0.2, BAY, 0.18, 0.5, TR); b.box(xm, 16.45, z0 - 0.2, BAY, 0.15, 0.55, TR); // balustrade base and rail
+        for (let k = 0; k < 10; k++) b.cyl(x0 + 0.21 + k * 0.42, 15.88, z0 - 0.2, 0.07, 0.1, 0.57, COL, 6); // balusters
+    }
+    for (let x = -28 + BAY; x < 52; x += BAY * 2) for (const s2 of [-0.75, 0.75]) {
+        const zc = fz(x + s2) - 0.55;
+        b.box(x + s2, 5.7, zc, 1.0, 0.9, 1.0, TR); b.cyl(x + s2, 6.6, zc, 0.36, 0.42, 7.0, COL, 12); b.box(x + s2, 13.6, zc, 0.95, 0.15, 0.95, TR); // pedestal, shaft, capital
+    }
 }
 
 // Palatul Victoria (Government, Duiliu Marcu, 1937-52) — OSM way 23554419 + parts 1516914665 (20 m),
@@ -1406,6 +1439,15 @@ function bUnirea(b) {
             q(L-40,L-9,6.6,22.4,0.3,'#a8322f');q(L-40,L-9,6.6,7.0,0.34,'#e9e6df');q(L-40,L-9,22.0,22.4,0.34,'#e9e6df');
         }else if(L>=5){const k=Math.max(1,Math.round(L/6.2));for(let j=1;j<k;j++)q(j/k*L-0.04,j/k*L+0.04,5.4,23.4,0.06,JOINT);}
         if(i>=34&&i<=41)q(0,L,11.5,20.5,0.3,'#f1f1ee'); // the blank billboard frame on the rotunda
+    }
+    // (round 4, r2-landmarks-4) the red "UNIREA" logo near the roof at the west end of the south front (May 2024 panorama from
+    // Piața Unirii): on the longest face whose outward normal points most to the south (world +z; model -> world by A.unirea's
+    // rotation). Letter height and the inset from the corner are estimates; the logo's exact artwork is not reproduced.
+    {
+        const rot=A.unirea[2],c0=Math.cos(rot),s0=Math.sin(rot);let best=null;
+        for(let i=0;i<p.length;i++){const a=p[i],c=p[(i+1)%p.length],L=Math.hypot(c[0]-a[0],c[1]-a[1]);if(L<25)continue;const dx=(c[0]-a[0])/L,dz=(c[1]-a[1])/L,n=[sg*dz,-sg*dx],wz=-n[0]*s0+n[1]*c0;if(!best||wz>best.wz)best={a,dx,dz,n,L,wz};}
+        if(best&&best.wz>0.5){const {a,dx,dz,n,L}=best,t=Math.min(L-9,14),o=0.45,x=a[0]+dx*t+n[0]*o,z=a[1]+dz*t+n[1]*o,ry=Math.atan2(n[0],n[1]); // (text faces n, reads left to right from outside)
+            b.text('UNIREA',x+n[0]*0.08,20.0,z+n[1]*0.08,ry,2.3,'#d0202a');}
     }
     b.cornice(p,4.8,0.55,0.45,'#e3e3de');b.cornice(p,23.4,0.6,0.35,'#b9bbb7');
     // (owner, 2026-11-11: "this still sticks out") The roof storey is the footprint inset by 12 m. On this concave outline
@@ -2609,7 +2651,9 @@ function bSeaTac(b) {
 // SeaTac Air Traffic Control Tower (2004) — 71 m (233 ft) overall, OSM way 1199936807.
 // Src: https://en.wikipedia.org/wiki/Seattle–Tacoma_International_Airport (tower 233 ft) ; game/research/seattle-seatac.json landmarks[sea-control-tower] ; OSM way 1199936807
 function bSeaTower(b) {
-    const p=U.w1199936806; b.prism(p,0,9,'#cfcdc6');b.bands(p,0,9,4.5,'#4c5964',{frac:0.5});
+    // (r2-landmarks-b-2, panorama 47.4535, -122.3005 h 20, round 2b) the base building is beige concrete (was white with navy
+    // bands); its window strips read as dark glass
+    const p=U.w1199936806; b.prism(p,0,9,'#cbbb9c');b.bands(p,0,9,4.5,'#3f464a',{frac:0.36});
     // Tagged 71 m is the complete tower height, not an invented 71 m cab floor.
     atcTower(b,0,0,65.7,{r:3.6,col:'#dedcd5'});
     b.colPolygon(p,{y1:9});b.col(0,0,3.6,3.6,0,{y0:0,y1:71});
@@ -2624,7 +2668,8 @@ function bBellevueTowers(b) {
     // (round 2, panoramas at 47.613977, -122.198816 heading 54 and NE 4th / 106th heading 47, viewed only): the podium is
     // grey-beige stone with a tall glazed retail floor under a canopy line and windows above; the model wrapped it in five
     // bold blue-and-cream stripes (a car-park look).
-    b.prism(pod, 0, 18, '#b9b3a6', { topCol: '#7f9e6b' });
+    // (r2-landmarks-b-2, round 2b at 47.613977, -122.198816 h 54) the podium stone is a darker grey than the first estimate
+    b.prism(pod, 0, 18, '#9c978e', { topCol: '#7f9e6b' });
     b.windows(pod, 0, 5.6, 5.6, '#56707f', { bay: 6.5, wf: 0.84, hf: 0.8, start: 0.2, mat: 'g', minL: 5, off: 0.07 });
     b.cornice(pod, 5.6, 0.35, 0.9, '#8f979b');
     b.windows(pod, 6.2, 17.6, 3.8, '#5d7887', { bay: 3.25, wf: 0.6, hf: 0.6, start: 0.7, mat: 'g', minL: 5, off: 0.07 });

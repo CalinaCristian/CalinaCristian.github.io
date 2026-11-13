@@ -751,3 +751,92 @@ Spot tag enrichment from live OSM (`tools/spots/enrich-osm-tags.mjs`): Spring Pa
 abutment, 1859), Old Town min_height / description / start_date on 138 features, Athenaeum descriptions (Zidul amintirii).
 CEC garden trees (all Prunus persica 5 m in OSM vs mature 12–18 m trees in the 2023 pano) and w1476833908 (a part without a
 base) are OSM questions: unchanged.
+
+Follow-up 2026-11-13 (backlog r3-builder-7 closed): the spot builder now keeps these keys at a rebuild —
+`game/src/spots/tools/build-data.mjs` copies `bridge:structure`, `bridge:support`, `start_date`, `min_height` and
+`description` on ways and areas (spelt with `_` as the enrichment tool writes them), and `fetch-buc.mjs` files `barrier=gate`
+nodes (not disused) under `furniture.gate`. None of the 11 Spring Palace gate nodes lies on the palace grounds outline
+w38236017 (nearest 46 m, n6262632759–61 belong to neighbouring properties), so the scene's own gate on Bd. Primăverii stays
+where the scene places it (no OSM gate node on that frontage: an estimate) and no scene draws the neighbours' gates.
+## 15. Round 4 (2026-11-13): backlog closures
+
+Sources: live OSM (API 0.6, 2026-11-13). Street View could not be opened this round (no browser pane in the session):
+appearance claims below come from the round 2–3 panorama notes above, never from a new look.
+
+- Calea Victoriei 68–70 (w958584624, building=apartments, 7 levels, `start_date=1954` in live OSM): stone neoclassical in the
+  2024 panorama; the scene now gives it the eclectic stone façade (`athenaeum-revolution.js` `STYLE_BY_ID`) instead of the
+  levels rule's 1980s `bloc`.
+- Name boards of the north scenes (`buc-green.js` `businessSigns`) slide along their wall and narrow on a short wall so they
+  never hang past a corner (`boardOnWall`); the Kuwait embassy board (w781162166) now sits on the villa's east front.
+- Old Town walk extents live in the research: `walk_extent` on `old-town-lipscani` (Lipscani 28–71 and upper Smârdan) and
+  `stavropoleos-cec` (Strada Stavropoleos from the church to Caru' cu Bere). `build-data.mjs` prefers it over the footprint
+  for the walkable extent (the footprint still sets the OSM extract box); the scene no longer overrides the data. The walk
+  polygon size stays the owner's call (change `walk_extent`).
+- A Bucharest rebuild keeps the round-3 classes: unnamed viewpoint / playground / waterfall nodes, named building nodes,
+  named office / embassy outline ways (`fetch-buc.mjs` `convert()` and its Overpass query), `barrier=gate` nodes as
+  `furniture.gate`, and the barrier / bridge tags `min_height`, `description`, `start_date`, `bridge:structure`,
+  `bridge:support` (`build-data.mjs` keep lists).
+- OSM barriers as a class (`spots/buc-barriers.js` `osmBarriers`, every Bucharest scene): mapped walls, fences, hedges,
+  retaining / city walls and `area=yes` walls (plinths, piers) within 60–120 m of the walk extents. Position and class from
+  OSM; `height` / `min_height` where tagged (a fence with `min_height` stands on a plinth of that height). Openings where a
+  mapped footway / street crosses the line and at mapped gates. Not drawn twice where the scene already has its own railing,
+  wall or hedge on the line (within 1.2 m of its collider), inside hero exclusions, or inside a building outline (roof
+  parapets). Lengths drawn: Old Town 413 m (27 plinth / pier areas), Parliament 3,987 m (74 hedges), Arcul 2,862 m (the
+  Village Museum fence w29701978 and the park fences), Cișmigiu 907 m, Herăstrău 633 m, Athenaeum 583 m, Spring Palace
+  131 m. Spot audit: Athenaeum z-fight entries 4 → 6, Cișmigiu 6 → 7, Parliament 67 → 68, Arcul 12 → 13 (crossing hedges /
+  wall pieces touching another barrier); no new phantom colliders.
+- Stavropoleos: the invented closed 4.5 m ring wall round the church is gone; the churchyard boundary is OSM's plinths and
+  piers (w657432484, w1181448687–698) with the fences on them (w1181448722–730, min_height 0.5, height 1.8), on the street
+  and west sides only.
+- Arcul de Triumf roundabout: the road lamps along the circular carriageway are replaced by eight multi-head masts on its
+  outer verge (`arcul-de-triumf.js`, `extras.arcMasts`; seven placed clear of the approach carriageways).
+- Arcul de Triumf model (`landmarks.js` `bArcul`): the four inscriptions are carved in full from the cited article: five
+  lines across each long face's band, three on each short face (east "… LUMINA MINTEI …", west "… VITEJIA …").
+
+### Estimates and limits (no available source settles them)
+
+- Untagged barrier heights: wall 1.8 m, fence 1.5 m, hedge 1.1 m, retaining wall 1.0 m, city wall 3.0 m (`DEFAULT_H`).
+- Arcul roundabout masts: count (8), height (16 m), four heads and the verge offset (kerb + 2.2 m) are estimates; OSM maps no
+  lamp there and the panorama was only looked at in round 3.
+- Arcul inscriptions: the carved line breaks are not in the source; lines are balanced by length. A primary source (the
+  monument record) would be stronger than the article, which gives no footnote for the texts.
+- Parliament hill: EU-DEM / SRTM / ASTER are surface models (palace and trees mask the ground), so the +16 m platform and
+  the three lawns stay estimates until a ground survey or LiDAR is available. Parliament wall height, bay and gate width are
+  estimates (section 12); Parcul Catedralei's construction site (w393036564) has no official panorama within 217 m;
+  Memorial Revoluție (w996044652) size and orientation are estimated.
+- Cișmigiu: Podul Mare, Podul de Nuc, café n13206539592, kiosk n13206526147 and Lacul Lebedelor's edge have no official
+  panorama within 90 m (render-checked only); the café and kiosk have no mapped outline; street name plates are not placed
+  (their positions are not mapped).
+- Athenaeum car parks: the bay layout is an estimate (perpendicular bays along the mapped aisles). The CC lot (w23556698)
+  shows more parked rows in Street View 2024 than the mapped lawns allow: OSM's lawns are kept. Parked cars add about
+  260 k scene / 520 k frame triangles (frame max 1.23 M).
+- Revolution Square: the bronze figure group is not in OSM, so it is not placed; the Wall of Remembrance height (1.6 m) is
+  an estimate.
+- Village Museum windmills: no `man_made=windmill` in live OSM inside w29701978 (2026-11-12) and no official panorama inside
+  the museum (nearest official coverage on Kiseleff at 44.47155, 26.07613): not placed until a mapper or a museum plan with a
+  usable licence gives positions.
+- Herăstrău: the lake shore (mapped asphalt promenade w370524819) and the Japanese garden have no official panorama within
+  230 m: the promenade's water edge (coping / quay) look and the garden planting are unseen; statues are size-class figures.
+- Curtea Veche: the latest official panorama (2022-10, Str. Franceză) shows the ruins under a temporary protective roof
+  behind site fencing; the 2026 state is unknown. The game keeps the open ruins (the monument's lasting state) until a newer
+  source shows the works are still there.
+- Old Town adult venues: the 17 adult-venue POIs stay unsigned by design (Street View shows their lit signs, e.g. "NIGHT CLUB
+  Angels", Str. Franceză).
+- Shopfronts: `spots/osm.js` (hash-locked for the Seattle context pack) glazes a building's whole ground-floor ring, courtyard
+  sides included, so blocks of flats with mapped shops (Bd. Unirii 1–11, building=apartments) stay without a shopfront and
+  unmapped shops on side streets stay plain (section 11). Changing this needs a front-only shopfront outside osm.js.
+- History Museum (mnir, `landmarks.js` `bMNIR`), south pavilion dome from Calea Victoriei (44.4319, 26.097074, heading 150;
+  round 2b panorama note: the dome shows above the colonnade). Sight-line check in the game (round 4): from that pose the
+  south dome (top 32.2 m) is 90 m away along the façade, and the line to it crosses the portico's attic at 31–38 m, which
+  hides everything below about 49 m at the dome. Enlarging the dome cannot reproduce the view; what differs is the portico:
+  in the model it projects about 8 m in front of the pavilions with its attic top at 20.3 m. Its real projection, column
+  height and attic height are not measured (OSM maps the outline only, no parts or heights), so nothing was changed.
+- History Museum front steps: the model has a 3 m podium block in front of the colonnade with four steps that protrude only
+  1.1 m; the 2023-08 panoramas (44.43238, 26.09701 and 44.43137, 26.09688) show broad steps rising from the forecourt to the
+  colonnade. The podium height and the stair's depth are not measured and OSM maps no steps there; a stair in front of the
+  colonnade line would move onto the forecourt by an unmeasured amount. Kept until measured.
+- Caru' cu Bere terrace (Old Town walk): not compared with a panorama yet (no browser pane this round); position and
+  furniture follow OSM (`outdoor_seating`).
+
+- Crocante (n14363552618, fast food, 44.443518, 26.09266) is about 200 m outside the Athenaeum walk (sign area = walk
+  extent + 40 m): it is in the data, gets no board, and cannot be seen from the walk.

@@ -30,6 +30,7 @@ import { buildOldTownDaylife } from './old-town-daylife.js';
 import { poiSigns } from '../buc-streetscape.js';
 import { declareInterior } from '../precip-shelter.js';
 import { caleaVictoriei, bnrLipscani, maccaPortal, withoutShopfront, courtyardSigns } from './ot-fronts.js';
+import { osmBarriers } from '../buc-barriers.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
 const simplifyRing = (p, tol) => { const s2 = simplify([...p, p[0]], tol); s2.pop(); return s2.length >= 3 ? s2 : p; };
@@ -407,12 +408,10 @@ function buildStavropoleos(ctx) {
     for (let i = 0; i <= 5; i++) { const t = -0.5 + i / 5, cx = wx - o.ux * 0.35 + (-o.uz) * t * o.wid * 0.94, cz = wz - o.uz * 0.35 + o.ux * t * o.wid * 0.94; b.cyl(cx, y, cz, 0.24, 0.5, '#cdb68a', 'stone', 8); b.cyl(cx, y + 0.5, cz, 0.17, 3.0, '#d8c7a2', 'stone', 10); b.cyl(cx, y + 3.5, cz, 0.3, 0.45, '#cdb68a', 'stone', 8, 1.4); }
     ctx.poly(p, { y0: y - 1, y1: y + 18 });
     ctx.add(fz.build('stavropoleos-frieze', { matOverrides: { frieze: fm } }));
-    // courtyard wall: low stone wall, pillars with urn finials, black iron grilles (OSM: churchyard around the church)
-    const yard = grow(p, 4.5), wb = new GeoBatch();
-    for (let i = 0; i < yard.length; i++) { const [ax, az] = yard[i], [bx, bz] = yard[(i + 1) % yard.length], L = Math.hypot(bx - ax, bz - az); if (L < 1) continue; const n = Math.max(1, Math.round(L / 3.2)); for (let k = 0; k < n; k++) { const x = ax + (bx - ax) * k / n, z = az + (bz - az) * k / n, yy = g.heightAt(x, z); wb.box(x, yy, z, 0.55, 1.75, 0.55, '#d6c9ad', 'stone'); wb.cyl(x, yy + 1.75, z, 0.2, 0.25, '#cbbd9e', 'stone', 8); wb.sphere(x, yy + 2.15, z, 0.2, 0.26, 0.2, '#cbbd9e', 'stone', 6, 4); } }
-    const gm = palisade(ctx, wb, [...yard, yard[0]], { h: 1.0, plinth: 0.7, post: 3.2, postCol: '#d6c9ad' });
-    // entrance gap: remove nothing visually, but the gate in the north wall is drawn open (the wall collider stays: enter by the gate interaction)
-    ctx.add(wb.build('stavropoleos-yard', { matOverrides: gm }));
+    // (round 4, r3-buc-spots-ot-1) The churchyard boundary is OSM's: plinths and piers (w657432484, w1181448687–698) and
+    // fences on them (w1181448722–730, min_height 0.5, height 1.8) on the street and west sides only, drawn by osmBarriers
+    // with the scene's other mapped barriers. The invented closed 4.5 m ring wall is gone; the yard stays paved.
+    const yard = grow(p, 4.5);
     ctx.painter.poly(yard, '#a9a49a', 'slab');
     ctx.add(b.build('stavropoleos', { matOverrides: { [fac.key]: fac.mat } }));
     return { x: o.cx, z: o.cz, y, west: { x: wx, z: wz }, yard, o };
@@ -422,9 +421,8 @@ export default {
     env: { fogFar: 3000, ambientCity: 0.65, groundAlbedo: 0.15 },
     async build(ctx) {
         const g = ctx.ground, d = ctx.data, spL = ctx.spot('old-town-lipscani'), spS = ctx.spot('stavropoleos-cec');
-        // (r2) The data gives both entries the Lipscani walk polygon. The Stavropoleos entry's own ground is Strada
-        // Stavropoleos from the church to Caru' cu Bere (the part OLD_TOWN_FOCUS now adds): tours, terraces and trim use it.
-        if (spS?.extent) spS.extent.polygon = [[-128, -78], [-12, -78], [-12, -40], [-128, -40]];
+        // The Stavropoleos entry's own ground (data extent, from the research `walk_extent`) is Strada Stavropoleos from the
+        // church to Caru' cu Bere (the part OLD_TOWN_FOCUS adds): tours, terraces and trim use it.
         // (r2) Live OSM, Overpass 2026-11-12 21:39 UTC, against the 2026-11-07 extract for Lipscani / Smardan / Selari / Covaci /
         // Franceza (236 named venues unchanged): one node deleted, three surveyed 2026-11-08/09 and two theatres mapped as
         // ways were missing. Applied here until the scene data is rebuilt; positions are the OSM node / way centres.
@@ -495,6 +493,8 @@ export default {
         withoutShopfront(ctx, ['w1210146218'], () => bucBackdrop(ctx, { shopEvidence: false, wallOpenings:FRONT?[FRONT.opening]:[],lampStyle: 'lantern', lampColor: '#191b1c', lampH: 4.4, lampPad: 15, treeLod: { cap: 1600, max: 400 }, lampOpts: { spacing: 24, kinds: ['pedestrian', 'living_street'] }, streetTreeOpts: { kinds: ['primary', 'secondary', 'tertiary'], prob: 0.5 }, style: (bd) => (OT.decoratedIds.has(bd.id) || bd.k === 'church' || HERO_STONE.has(bd.id) ? 'eclectic' : bucStyle(bd)) }));
         // (r3) Calea Victoriei at CEC / the History Museum, the Bank's Lipscani front, the Macca-Vilacrosse portal (ot-fronts.js)
         caleaVictoriei(ctx); bnrLipscani(ctx);
+        // (round 4) the mapped walls, fences, hedges and plinths (osmBarriers); the CEC garden railing is ot-fronts' own
+        osmBarriers(ctx, { skip: ['w657976539', 'w657976540'], pad: 60 });
         { const pb = d.buildings.find((x) => x.id === 'r19924112'); if (pb) { const rec = sourceRecord(pb, 0, g); maccaPortal(ctx, { sourceTop: rec.datum + rec.height }); } }
         CA?.finishInterior();
         const WB = buildSecretWcpBar(ctx, CA);

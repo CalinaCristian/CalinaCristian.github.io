@@ -672,3 +672,15 @@ guards and the yellow railing drawn; the water and the lake polygon are unchange
   seen on any panorama in this pass, so nothing is drawn for it. The tram reserve west of the bridge carries the tram bridges
   w23583767 / w902027550, `railway=construction` (STB extension, opening_date 2027): construction railways are not drawn until
   OSM maps them open. The sunken water level and the coarse lake outline stay open in the backlog.
+
+## Backlog close-out, cross-district lane (2026-11-13)
+
+- **Fuel stations** (GPL Lukoil Aviației -913,-2; Petrom -1135,55; Lukoil -876,-18): all three stand on Șos. Pipera westbound,
+  whose only inflows inside the district come from the map ends (Șos. Pipera at -688,-115 and Barbu Văcărescu at -533,321) or
+  through the `maxheight=2` service passage w350999211 the player's car does not fit (2.14 m model height). From the luxoft
+  chapter start no legal route reaches them, from the db start one does. The Gas stations list offers a station only when a
+  route reaches it from the player's position (`main.js` `stationOffered`); the audit records the others as
+  `fuel-not-offered` (low). Petrom shows about four pump islands, two are drawn (generic model).
+- **Pedestrian fronts** (r2-builder-pedestrian-fronts): four businesses lie on the mapped pedestrian way w1568673179 (Pizzeria
+  Geniale x Vice Cream, Plantini, Pasta del Popolo, BigBoys Barbershop) and sign their own buildings (shop + sign flags);
+  World Class on w1472893992 is in the scenery ring (no signs there by rule). Promenada's tenants are interior units.

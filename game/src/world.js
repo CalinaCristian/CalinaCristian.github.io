@@ -136,6 +136,12 @@ const TILE = { interwar: 0, eclectic: 1, civic: 2, bloc: 3, glass: 4, house: 5, 
 const TILE_GRID = { 0: [2, 2], 1: [3, 2], 2: [4, 2], 3: [4, 2], 4: [4, 2], 5: [3, 1], 6: [1, 1], 7: [1, 1], 8: [3, 2], 9: [3, 2], 10: [2, 2], 11: [4, 2], 12: [2, 4], 13: [2, 1], 14: [1, 1], 15: [4, 1] };
 const GRASSY = new Set(['park', 'grass', 'forest', 'scrub', 'pitch', 'cemetery', 'turf']);
 const SPORT_KINDS = new Set(['pitch', 'turf', 'clay', 'hard', 'track']); // (drawn in the 'sport' ground layer)
+// (r3-builder-4, 2026-11-13) stops without shelter metadata whose official panorama shows only a stop pole (documented
+// look exceptions to the inferred-shelter rule): OSM identity of the stop POI → the panorama that shows it
+const STOP_POLE_ONLY = { 'node/5810960053': 'Unirii, Piața Sf. Gheorghe (pano 6pmwrKMHq2FbxifltMYaqw)' };
+// (r3-builder-1, 2026-11-13) fountain basin copings seen on an official panorama (the generic coping is light stone):
+// Bellevue w469892286, round basin with a red-brick coping
+const FOUNTAIN_COPING = { w469892286: '#9a5442' };
 const PAVED = new Set(['parking', 'apron', 'runway', 'clay', 'hard', 'pool']); // (courts / pools over the park or yard they sit in; track stays in the first-drawn area layer, under its infield pitch)
 const AREA_Y = { track: Y.pitch - 0.012, clay: Y.pitch + 0.004, turf: Y.pitch, hard: Y.pitch + 0.004, pool: Y.pitch + 0.006, yard: Y.landuse + 0.01, residential: Y.landuse, industrial: Y.landuse, commercial: Y.landuse, retail: Y.landuse, railway: Y.landuse, construction: Y.landuse, cemetery: Y.grass, grass: Y.grass, scrub: Y.grass, forest: Y.forest, park: Y.park, pitch: Y.pitch, parking: Y.parking, apron: Y.parking, runway: Y.parking + 0.01, water: Y.water };
 const TRAFFIC_MUL = { motorway: 0.6, motorway_link: 0.3, trunk: 1.2, trunk_link: 0.35, primary: 1.8, primary_link: 0.4, secondary: 1.3, secondary_link: 0.3, tertiary: 0.9, tertiary_link: 0.25, residential: 0.3, unclassified: 0.35, living_street: 0.08, service: 0.04 };
@@ -2074,7 +2080,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const basin = !chan && ornamental, wy = basin ? 0.36 : y;
             const v0 = target.vc; target.flatPoly(pts, tris, chan ? chanP.water : wy, chan ? rgb('#3c4a42') : col, 0.02); a.waterMesh = { mb: target, v0, v1: target.vc };
             if (basin) { // coping: outer face, top (0.3 m wide), inner face down to the water, along the outer ring
-                const sb = cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2).solid, stone = rgb('#b9b2a5'), R = a.outer, ccw = signedArea(R) > 0, top = 0.45, base = 0;
+                const sb = cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2).solid, stone = rgb(FOUNTAIN_COPING[a.sourceId] || '#b9b2a5'), R = a.outer, ccw = signedArea(R) > 0, top = 0.45, base = 0;
                 for (let k = 0; k < R.length; k++) {
                     const [ax, az] = R[k], [bx, bz] = R[(k + 1) % R.length], L = Math.hypot(bx - ax, bz - az); if (L < 0.05) continue;
                     let nx = (bz - az) / L, nz = -(bx - ax) / L; if (!ccw) { nx = -nx; nz = -nz; } // (outward)
@@ -6077,6 +6083,11 @@ export async function buildWorld(city, renderer, opts = {}) {
     if (realPass) for (const [poiIndex, r] of data.pois.entries()) {
         if (!['food', 'shop', 'bank', 'pharmacy', 'hotel'].includes(data.poiKinds[r[0]]) || str(r[5]) === 'atm') continue;
         const pb = bRecs[buildingIndex(r[6], r[1] / 10, r[2] / 10)], text = str(r[4]) || str(r[3]);
+        // (r3-builder-8, 2026-11-13) a business appended after the build (add-pois.mjs: `poiSources`) gets the builder's own
+        // street-level rule (tools/osm/build-data.mjs: a food / shop / bank / pharmacy in a block or villa over 6 m is a
+        // ground-floor shop unit, street faces only); the appender never rewrites building rows, so Germag (Grozăvești,
+        // Bd. Banu Manta 2) and the other appended units showed a small board on a plain wall
+        if (pb && data.poiSources?.[poiIndex] && data.poiKinds[r[0]] !== 'hotel' && !(pb.flags & 32) && /^(interwar|eclectic|civic|bloc|plain)$/.test(pb.style) && pb.h > 6) pb.flags |= 1;
         if (!pb || pb.poiSign != null || !(pb.flags & 2) || !pb.name || !text || pb.cv) continue;
         const nrm = (t) => String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
         const a = nrm(pb.name), c2 = nrm(text);
@@ -7117,12 +7128,16 @@ export async function buildWorld(city, renderer, opts = {}) {
             const back = L2W(-side * 0.8, 0), v0b = c.solid.vc; // local +x points toward the road (= -normal)
             // (real STB / King County Metro shelter: ~3.4 × 1.5 m, 2.3 m roof, tinted glass on a raised frame — not a pale box)
             const glass = rgb('#6f8a99'), frame = rgb(US ? '#2f3e46' : '#3b3f45');
+            // (r3-builder-4) a reviewed stop whose official panorama shows only a stop pole keeps the pole and its sign
+            const poleOnly = !!STOP_POLE_ONLY[data.poiSources?.[poiIndex]];
+            if (!poleOnly) {
             c.solid.box(back[0], 0.35, back[1], 0.06, 1.9, 3.2, ang, glass);
             for (const lz of [-1.6, 1.6]) { const p2 = L2W(-side * 0.8, lz); c.solid.box(p2[0], 0.2, p2[1], 0.1, 2.15, 0.1, ang, frame); const p3 = L2W(-side * 0.25, lz); c.solid.box(p3[0], 0.35, p3[1], 1.1, 1.9, 0.05, ang, glass); }
             const roofP = L2W(-side * 0.25, 0); c.solid.box(roofP[0], 2.35, roofP[1], 1.6, 0.1, 3.5, ang, frame);
             const bench = L2W(-side * 0.5, 0); c.solid.box(bench[0], 0.45, bench[1], 0.4, 0.08, 2.4, ang, rgb('#6b4a2f'));
-            const pole = L2W(side * 0.3, 1.9);
             for (const lz of [-1.3, 0, 1.3]) { const q2 = L2W(-side * 0.5, lz); addPropColl(q2[0], q2[1], 0.75, 'busstop'); }
+            }
+            const pole = L2W(side * 0.3, 1.9);
             addPropColl(pole[0], pole[1], 0.15, 'busstop'); c.solid.box(pole[0], 0.2, pole[1], 0.08, 2.8, 0.08, ang, frame);
             const s = signs.get(sub.startsWith('tram') ? 'T' : 'BUS', sub.startsWith('tram') ? '#c2410c' : '#0f766e', '#ffffff', null);
             if (s) for (const sd of [1, -1]) addSignQuad(c, pole[0], pole[1], ang, sd, 0.6, 0.5, 2.5, s, 0.05);

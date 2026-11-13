@@ -481,7 +481,7 @@ and the kept ones in `viewpoints-add.json`.
 | bellevuetowers | 47.613977, -122.198816 h 54 | fixed podium (stone + glazed retail floor, stripes removed); real podium stone is darker grey at that corner |
 | bellevuesq | 47.615603, -122.201778 h 272 | partial: real east face is red brick with glazed bays and columns; model grey with a blue band (open, module landmark-bellevue-square.js) |
 
-Statues not modelled: Bellevue artworks (Gandhi n1704038437, Forest Deity n7205021680: the nearest panoramas show trees / a car park, nothing recognisable).
+Statues: Gandhi n1704038437 (`tourism=artwork`, statue, bronze) is drawn as the generic statue class (plinth and plain figure, monuments.js; no likeness: the nearest panoramas show trees / a car park, nothing recognisable). Forest Deity n7205021680 (`artwork_type=sculpture`, Dudley C. Carter, 1947) lies outside the playable area (game x -802, z -308), where district monuments are not placed; not drawn.
 
 ## 19. Round 2 (2026-11-12), lane world: 2 Line guideway and car parks
 
@@ -585,3 +585,18 @@ legible at this resolution).
   ten on the west kerb of Bellevue Way at 47.6187 - 47.6200, four on its east kerb, six along the west side at 47.6142 - 47.6147 and
   two on the south kerb of NE 8th St. 18 are placed; the world builder refuses 4 (carriageway / building clearance). Crowns in the
   towers' shadows (most of NE 8th St, Bellevue Way 47.6150 - 47.6185) cannot be read on this imagery and are not added.
+
+## 24. Backlog close-out, cross-district lane (2026-11-13)
+
+- **Fountain w469892286** (47.61756, -122.19944): drawn with a red-brick coping (world.js `FOUNTAIN_COPING`), as in the one
+  panorama that shows it (round basin, brick coping, dry with a sculpture). The dry state may be seasonal and the sculpture's
+  form is unknown: water and no sculpture stay. Not compared (no panorama shows them): w838537627 (pano 2lDHfGbz2QT5bkpGoW4jZw
+  shows terraces only), w545422304, w656577811, w865988158, w655090567, w842753014, w862758179.
+- **Arco** (713, -311): the nearest edge is the first metres of NE 8th St after the map edge, entered only from outside; the
+  route now ends on the next edge a route reaches, 6.5 m away (`nav.compute` goal fallback).
+- **Pedestrian fronts** (r2-builder-pedestrian-fronts): no mapped business lies within 15 m of the 11 mapped pedestrian ways /
+  named footways; the Bellevue Square and Lincoln Square tenants are interior units or front streets, so the pedestrian-front
+  rule has nothing to sign here.
+- **Monuments skipped by the footprint test**: Root n11862631648 and Story Pole VI n12554043199 (reported, never moved).
+- **Menu**: `bel-lincoln-square` is not in `game/src/spot-availability.js` `MENU_AVAILABLE` (commit f49c4fdc), so places.json
+  does not list it; offering it is the owner's decision.

@@ -33,7 +33,22 @@ export const SOUTH_PLAZA = { id: 'w1475183524', top: -1.67 };
 export function southPlaza(ctx, { floor = -9 } = {}) {
     const w = ctx.data.ways.find((x) => x.id === SOUTH_PLAZA.id); if (!w || w.pts.length < 4) return null;
     const ring = w.pts.slice(0, -1), top = SOUTH_PLAZA.top, b = new GeoBatch();
-    b.prism(ring, floor, top, '#b4b0a6', 'concrete'); ctx.add(b.build('south-plaza'));
+    b.prism(ring, floor, top, '#b4b0a6', 'concrete');
+    // (r3-sea-spots-4) the panorama (AVeeBVnYYgdepI_VExHVWQ) shows concrete walls round the plaza where it stands over lower
+    // ground or water: a 1.05 m concrete parapet on every edge stretch whose outside lies 0.6 m or more below the deck,
+    // open where a mapped footway / steps meets the edge. Parapet height and thickness are estimates.
+    { const G = ctx.ground, ends = ctx.data.ways.filter((q) => q.id !== SOUTH_PLAZA.id && /footway|steps|path|pedestrian/.test(q.k) && q.pts.length > 1).flatMap((q) => q.pts);
+      let A = 0; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) A += (ring[j][0] - ring[i][0]) * (ring[j][1] + ring[i][1]);
+      const out = A > 0 ? 1 : -1; let runs = 0;
+      for (let i = 0; i < ring.length; i++) { const [ax, az] = ring[i], [bx, bz] = ring[(i + 1) % ring.length], L = Math.hypot(bx - ax, bz - az); if (L < 0.3) continue;
+          const ux = (bx - ax) / L, uz = (bz - az) / L, nx = uz * out, nz = -ux * out, n = Math.max(1, Math.round(L / 1.0));
+          for (let k = 0; k < n; k++) { const t0 = k * L / n, t1 = (k + 1) * L / n, mx = ax + ux * (t0 + t1) / 2, mz = az + uz * (t0 + t1) / 2;
+              const low = G.base(mx + nx * 1.5, mz + nz * 1.5) < top - 0.6 || G.heightAt(mx + nx * 1.5, mz + nz * 1.5) < top - 0.6, open = ends.some(([x, z]) => Math.hypot(x - mx, z - mz) < 1.6);
+              if (!low || open) continue; runs++;
+              b.box(mx - nx * 0.12, top - 0.02, mz - nz * 0.12, 0.25, 1.07, t1 - t0 + 0.02, '#c2beb4', 'concrete', Math.atan2(ux, uz));
+              ctx.collider({ wall: true, ax: ax + ux * t0 - nx * 0.12, az: az + uz * t0 - nz * 0.12, bx: ax + ux * t1 - nx * 0.12, bz: az + uz * t1 - nz * 0.12, y0a: top - 0.2, y1a: top + 1.05, y0b: top - 0.2, y1b: top + 1.05, nx: 0, nz: 1, y: top, intended: true }); } }
+      ctx.extras.southPlazaParapet = runs; }
+    ctx.add(b.build('south-plaza'));
     ctx.ground.addPoly(ring, top, floor);
     // round 3: the terrain under the (solid) deck takes its level too, so walkers that follow the terrain stand on the deck
     // (the audit had one 1.2 m under it: pedBelow at −28.6, 201.9)

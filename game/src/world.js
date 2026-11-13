@@ -808,7 +808,18 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         return best ? { edge: best, d: bd, t: bt, cx: bcx, cz: bcz } : null;
     };
-    const edgesInBox = (x0, z0, x1, z1, cb) => { const seen = new Set(); edgeGrid.each(x0, z0, x1, z1, (e) => { if (!seen.has(e)) { seen.add(e); cb(e); } }); };
+    // (spec 10 load budget) a box within one grid cell whose list holds no edge twice (an edge is listed twice in a cell only
+    // when two of its cells share a hash key) visits that list as it is: the duplicate check could drop nothing there
+    const cellListRepeats = new Map();
+    const edgesInBox = (x0, z0, x1, z1, cb) => {
+        const i0 = Math.floor(x0 / EG), j0 = Math.floor(z0 / EG);
+        if (i0 === Math.floor(x1 / EG) && j0 === Math.floor(z1 / EG)) {
+            const key = edgeGrid.k(i0, j0), list = edgeGrid.map.get(key); if (!list) return;
+            let repeats = cellListRepeats.get(key); if (repeats === undefined) cellListRepeats.set(key, repeats = new Set(list).size !== list.length);
+            if (!repeats) { for (const e of list) cb(e); return; }
+        }
+        const seen = new Set(); edgeGrid.each(x0, z0, x1, z1, (e) => { if (!seen.has(e)) { seen.add(e); cb(e); } });
+    };
 
     // ---- dual carriageways cut by the map border (or by a mapping gap) end in a one-way "sink" next to a
     //      one-way "source" going the other way: join them with an invisible U-turn so they stay routable

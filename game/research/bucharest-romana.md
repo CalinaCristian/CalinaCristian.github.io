@@ -959,3 +959,18 @@ Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
   (Overpass 2026-11-13); the nearest footprints are w546500238 (11 m), w546500256 (16 m) and w546500250 (31 m). From pano
   44.450834, 26.094312 h 60 the red-brick gabled house and a cream one-storey house both stand there; which outline is the
   museum is not settled, so nothing is changed.
+
+## Round 4, backlog clearance (2026-11-13)
+
+Sources: live OSM, the official panorama poses recorded in the backlog rows (looked at only, nothing stored), the cited pages.
+
+- **Statuia Lascăr Catargiu** (r3-landmarks-4): the aerial-measured crown about 11 m south-east of the statue (no OSM tree node)
+  stood on the paved island that the official panorama at 44.448932, 26.093057 h 331 shows open; it hid the figure. It is now a
+  reviewed physical exclusion (`game/src/tree-reviews.js`); the source record stays in the pack.
+
+### Estimates
+
+- **Monumentul Infanteriei Române** (n987467409, romana-11): a bronze work by Ioan Bolborea, unveiled 27 April 2000 on the site of
+  the interwar infantry monument (ro.wikipedia "Parcul Kiseleff", citing Formula AS "Coloana lui Bolborea": a column). Its form
+  and height are not visible from any official panorama on Șos. Kiseleff (hidden by trees) and no source gives dimensions, so it
+  stays the generic bronze `stele` class of `monument-sources.js` (an upright column-like mass), size from the class.

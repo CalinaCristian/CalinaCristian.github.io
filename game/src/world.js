@@ -1,5 +1,6 @@
 import { fitFacadeSign, facadeSignBoard } from './facade-sign-layout.js';
 import { sourceWaterTreeConflicts } from './source-water-tree-conflicts.js';
+import { reviewedTreeExclusions } from './tree-reviews.js';
 import { emitStreetLevelWaterBridgeRailings, emitReviewedStreetBridgeRailings } from './water-bridge-railings.js';
 import { emitPedestrianBridges } from './pedestrian-bridges.js';
 import { trenchParapetRow, emitTrenchBalustrade } from './trench-parapets.js';
@@ -6651,6 +6652,9 @@ export async function buildWorld(city, renderer, opts = {}) {
     // within reach of the normal test (it still may not face an adjoining building)
     function addUnitSign(b, x, z, text, kind, poiIndex = -1, anchored = false) {
         if ((b.skip && !b.landmarkUnitSigns) || b.cv || (b.minH || 0) > 0.5 || b.h < 3) return;
+        // (r3-look-6, Parcare Unirea w184169515: "Spălătorie Unirea Etaj 7" drew two stacked boards at street level) a business
+        // named for an upper floor has no street-level fascia; the building sign names the building
+        if (/\betaj(ul)?\s*[1-9]/i.test(text || '')) return;
         // (2026-11-08, owner: "Poke House duplicated") the building's own name sign already names this business
         // (2026-11-12: unless this POI owns that sign — b.poiSign — and places it here, over its own street front)
         if ((b.flags & 2) && b.name && !(poiIndex >= 0 && b.poiSign === poiIndex)) { const a = normName(b.name), c2 = normName(text); if (a && c2 && (a.includes(c2) || c2.includes(a) || a.split(' ')[0] === c2.split(' ')[0])) return; }
@@ -7269,7 +7273,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         const dx = t.x - hit.x, dz = t.z - hit.z;
         tramTreeConflicts.add(t); tramSweepConflicts.trees.push({ x: t.x, z: t.z, kind: t.kind, species: t.species ?? null, trunkRadiusM: body.r, acrossBodyAxisM: Math.abs(dz * hit.fx - dx * hit.fz), bodyHalfWidthM: hit.body.widthM / 2, bodyLengthM: hit.body.lengthM });
     }
-    const excludedTrees = new Set([...coveredCanopies.excluded, ...waterTreeConflicts.excluded, ...tramTreeConflicts]);
+    const reviewedTreeOut = distId ? reviewedTreeExclusions(treeList, city.proj, distId) : new Set(); // (tree-reviews.js: street-level reviewed crowns)
+    const excludedTrees = new Set([...coveredCanopies.excluded, ...waterTreeConflicts.excluded, ...tramTreeConflicts, ...reviewedTreeOut]);
     const treeCount = treeList.length - excludedTrees.size;
     // instanced trees in district 250 m / legacy 500 m chunks; crowns keep a per-instance colour (instanceColor)
     // so the season / weather code can tint each tree (world.vegetation)

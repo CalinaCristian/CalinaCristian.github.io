@@ -115,6 +115,10 @@ import { buildBuildingsLandmarks } from './world-buildings.js';
 import { buildSideJoins } from './world-side-joins.js';
 import { buildRibbons } from './world-ribbons.js';
 import { buildRoadGraphAids } from './world-road-graph.js';
+import { buildFinalMeshes } from './world-final-meshes.js';
+import { buildParkingLights } from './world-parking-lights.js';
+import { buildTreesLamps } from './world-trees-lamps.js';
+import { buildPaintSetup } from './world-paint-setup.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>-<district>.bin.gz,
@@ -1501,145 +1505,15 @@ export async function buildWorld(city, renderer, opts = {}) {
             pitchesDressed++;
         }
     };
-    // green ground (district worlds, 2026-11-08): gardens, lawns, courtyards and the ground under the crowns, measured on
-    // aerial imagery (data.green raster, build-data / tools/aerial/trees.py), as grass quads under everything paved —
-    // the quarter's private gardens were bare grey ground. Runs merged across rows into rectangles.
-    let greenQuads = 0;
-    if (data.green?.rle) {
-        const G = data.green, base = rgb(shadeHex(env.grass, 0.94)), gr = makeRng(4421);
-        const open = new Map(); // "c:n" → {c, n, r0}
-        const flush = (o, r1) => {
-            const x0 = G.x0 + o.c * G.cx, x1 = G.x0 + (o.c + o.n) * G.cx, z0 = G.z0 + o.r0 * G.cz, z1 = G.z0 + r1 * G.cz;
-            const k = 0.9 + gr() * 0.16, col = [Math.round(base[0] * k), Math.round(base[1] * (k + 0.02)), Math.round(base[2] * k)];
-            const gq = cellOf((x0 + x1) / 2, (z0 + z1) / 2).grass;
-            // (the aerial green raster also sees grass on the banks of open trenches, and lawn in the green water of a
-            // sunken river channel: cut it out of them like the areas)
-            const quad = [[x0, z0], [x1, z0], [x1, z1], [x0, z1]];
-            if (groundCutsAt(quad, x0, z0, x1, z1).length) { const cut = cutTrenches(quad, [[0, 1, 2], [0, 2, 3]]); if (cut.tris.length) gq.flatPoly(cut.pts, cut.tris, Y.grass + 0.004, col, 0.1); }
-            else gq.flatQuad(x0, z0, x1, z0, x1, z1, x0, z1, Y.grass + 0.004, col, 0.1);
-            greenQuads++;
-        };
-        let r = 0, c = 0, cur = 0; let rowRuns = [];
-        // (owner, 2026-11-12, Unirii: "random green patches on the water") from the air a river is as green as a lawn, and
-        // the raster marks cells on the Dâmbovița. No green cell is drawn on mapped water: the columns of a row that a
-        // water polygon touches (on the cell row's top, middle or bottom line) are taken out of its runs.
-        const waterAreas = areas.filter(a => a.kind === 'water').concat(pavedReviewAreas(city.id + '-' + distId, (la, lo) => city.proj(la, lo))); // (+ squares reviewed as paved: ground-review.js)
-        let rowWater = null;
-        const waterCols = () => { // sorted, merged [c0, c1) column spans of row r on water
-            const spans = [];
-            for (const f of [0.02, 0.5, 0.98]) {
-                const z = G.z0 + (r + f) * G.cz;
-                for (const a of waterAreas) {
-                    if (z < a.z0 || z > a.z1) continue;
-                    const xs = [];
-                    for (const ring of a.rings) for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
-                        const [xi, zi] = ring[i], [xj, zj] = ring[j];
-                        if ((zi > z) !== (zj > z)) xs.push(xi + (xj - xi) * (z - zi) / (zj - zi));
-                    }
-                    xs.sort((p, q) => p - q);
-                    for (let k = 0; k + 1 < xs.length; k += 2) spans.push([Math.floor((xs[k] - G.x0) / G.cx), Math.floor((xs[k + 1] - G.x0) / G.cx) + 1]);
-                }
-            }
-            spans.sort((p, q) => p[0] - q[0]);
-            const merged = [];
-            for (const s of spans) { const last = merged[merged.length - 1]; if (last && s[0] <= last[1]) last[1] = Math.max(last[1], s[1]); else merged.push([s[0], s[1]]); }
-            return merged;
-        };
-        const pushRun = (c0, n) => {
-            if (waterAreas.length) {
-                rowWater ??= waterCols();
-                let a = c0; const end = c0 + n;
-                for (const [w0, w1] of rowWater) {
-                    if (w1 <= a) continue; if (w0 >= end) break;
-                    if (w0 > a) rowRuns.push([a, w0 - a]);
-                    a = Math.max(a, w1); if (a >= end) return;
-                }
-                if (a < end) rowRuns.push([a, end - a]);
-            } else rowRuns.push([c0, n]);
-        };
-        const endRow = () => {
-            const seen = new Set();
-            for (const [c2, n2] of rowRuns) { const key = c2 + ':' + n2; seen.add(key); if (!open.has(key)) open.set(key, { c: c2, n: n2, r0: r }); }
-            for (const [key, o] of open) if (!seen.has(key)) { flush(o, r); open.delete(key); }
-            rowRuns = []; rowWater = null; r++; c = 0; cur = 0;
-        };
-        for (const v of G.rle) { if (v < 0) { endRow(); continue; } if (cur && v > 0) pushRun(c, v); c += v; cur ^= 1; }
-        for (const o of open.values()) flush(o, r);
-    }
-    // Exact mapped water banks take precedence over fallback centreline widths.
-    const waterLineAudit = [];
-    for (const [lineIndex, l] of data.lines.entries()) {
-        const source = data.lineSources?.[lineIndex], kind = data.lineKinds[l[0]], w = source?.widthM > 0 ? source.widthM : l[1] / 10, pts = source?.points?.length >= 2 ? source.points : undelta(l[3], 0);
-        const airfield = kind === 'runway' || kind === 'taxiway';
-        const audit = airfield ? null : { lineIndex, sourceId: source?.sourceId || `prepared-line:${lineIndex}`, kind, preparedWidthM: w, widthSource: source?.widthSource || 'legacy prepared width; raw provenance unavailable', sourceLengthM: 0, coveredByMappedWaterM: 0, renderedFallbackM: 0, unresolvedBoundaryM: 0, mappedSources: [] };
-        if (audit) waterLineAudit.push(audit);
-        const col = rgb(kind === 'runway' ? '#4f5156' : kind === 'taxiway' ? '#5d5f63' : env.water);
-        const y = kind === 'runway' || kind === 'taxiway' ? Y.parking + 0.012 : Y.water - 0.005;
-        for (let i = 0; i < pts.length - 1; i++) {
-            const [ax, az] = pts[i], [bx, bz] = pts[i + 1]; const L = Math.hypot(bx - ax, bz - az); if (L < 0.1) continue;
-            const nx = -(bz - az) / L * w / 2, nz = (bx - ax) / L * w / 2;
-            const tgt = kind === 'runway' || kind === 'taxiway' ? cellOf(ax, az).pave : cellOf(ax, az).water;
-            const inChan = channelAreas.length && kind !== 'runway' && kind !== 'taxiway' && channelAreas.find(c2 => inArea(c2, (ax + bx) / 2, (az + bz) / 2)); // (the river line inside the sunken channel)
-            let spans = [{ a: [ax, az], b: [bx, bz], length: L }];
-            if (audit) {
-                const candidates = new Set(); waterGrid.each(Math.min(ax, bx), Math.min(az, bz), Math.max(ax, bx), Math.max(az, bz), area => candidates.add(area));
-                const selection = uncoveredWaterLine([ax, az], [bx, bz], [...candidates]); spans = selection.outside;
-                // A known bank plus an explicitly unmeasured width cannot justify
-                // painting land at a conflicting source endpoint. Keep the source
-                // line and report that unresolved span, using the mapped surface.
-                if (selection.covered.length && source?.widthSource?.startsWith('estimate:')) { audit.unresolvedBoundaryM += spans.reduce((sum, span) => sum + span.length, 0); spans = []; }
-                audit.sourceLengthM += L; audit.coveredByMappedWaterM += selection.coveredLength;
-                audit.renderedFallbackM += spans.reduce((sum, span) => sum + span.length, 0);
-                for (const source of selection.covered.flatMap(span => span.sourceIds)) if (!audit.mappedSources.includes(source)) audit.mappedSources.push(source);
-            }
-            for (const span of spans) { const [x0, z0] = span.a, [x1, z1] = span.b; tgt.flatQuad(x0 + nx, z0 + nz, x1 + nx, z1 + nz, x1 - nx, z1 - nz, x0 - nx, z0 - nz, inChan ? (inChan.chanProfile || CHAN).water - 0.01 : y, col, 0.05); }
-            if (kind === 'runway') for (let s = 10; s < L - 10; s += 50) { const ux = (bx - ax) / L, uz = (bz - az) / L; const cx = ax + ux * s, cz = az + uz * s; const hw = 0.5, hl = 15; cellOf(cx, cz).marks.flatQuad(cx - uz * hw, cz + ux * hw, cx - uz * hw + ux * hl * 2, cz + ux * hw + uz * hl * 2, cx + uz * hw + ux * hl * 2, cz - ux * hw + uz * hl * 2, cx + uz * hw, cz - ux * hw, y + 0.02, rgb('#e8e8e8')); }
-        }
-    }
-
-    // -----------------------------------------------------------------------
-    //  ROADS
-    // -----------------------------------------------------------------------
-    setProgress('Paving the streets…'); await tick();
-    // asphalt albedo (linear vertex colour): weathered asphalt is ≈ 0.09–0.15, so the road reads mid-grey in shade
-    // and does not wash out in sun under ACES. Bucharest: lighter, sun-bleached, patched; Seattle: darker, wetter
-    // asphalt, and Portland-cement concrete panels on the motorway main lines (I-5 / I-405 / SR-518).
-    // (env.asphalt, the old near-black [7, 8, 9] in Seattle, is no longer used for carriageways)
-    const ASPHALT = US ? '#535250' : '#5d5c5a', CONCRETE = '#7c7a76'; // (render's AgX + SH ambient target: albedo ≈ 0.08–0.12) // (slightly warm: the sky-lit shade is blue)
-    const asphaltBase = rgb(ASPHALT), concreteCol = rgb(CONCRETE);
-    const sideCol = shadeRgb(rgb(env.sidewalk), 0.8); // (QA r2: sidewalks read snow-white under AgX; paving albedo ≈ 0.3)
-    const kerbCol = shadeRgb(rgb(env.sidewalk), 1.18);
-    const white = rgb('#e9e9e6'), yellow = rgb('#e3b341'), busCol = rgb('#8a3b34'), railCol = rgb('#55524e'), ballastCol = rgb('#6d6861');
-    const layerY = () => 0; // real heights are applied per vertex (node.y), see displace()
-    const isConcrete = (e) => US && e.type === 'motorway';
-    // US ramps: concrete where they leave / join the motorway (they overlap it at the gore), fading to asphalt over
-    // 40–120 m along the ramp, so neither the gore nor the ramp terminal shows a two-colour slab (review #2)
-    // distance along the ramps from the motorway (dM) and from the street network (dA): concrete at the motorway end,
-    // asphalt at the street end, a smooth blend between (no light slab where an off-ramp meets an arterial deck)
-    const rampDist = (seed) => {
-        const dist = new Map(), q = [];
-        for (const n of nodeArr) if (n.edges.some(seed)) { dist.set(n, 0); q.push(n); }
-        while (q.length) {
-            const n = q.shift(), d0 = dist.get(n);
-            for (const e of n.edges) { if (e.type !== 'motorway_link' || e.virtual) continue; const o = e.a === n ? e.b : e.a, d = d0 + e.len; if (d < (dist.get(o) ?? Infinity) && d < 400) { dist.set(o, d); q.push(o); } }
-        }
-        return dist;
-    };
-    const dMot = US ? rampDist(isConcrete) : new Map(), dArt = US ? rampDist(e => !e.virtual && !/^motorway/.test(e.type)) : new Map();
-    const mixCol = (a, b, t) => [Math.round(a[0] + (b[0] - a[0]) * t), Math.round(a[1] + (b[1] - a[1]) * t), Math.round(a[2] + (b[2] - a[2]) * t)];
-    const nodeSurf = (n) => {
-        const m = dMot.get(n); if (m == null) return asphaltBase;
-        const a = dArt.get(n) ?? 400, t = clamp((m - 25) / Math.max(1, m + a - 50), 0, 1);
-        return mixCol(concreteCol, asphaltBase, t * t * (3 - 2 * t));
-    };
-    const asphaltOf = (e) => { // (one shade per class family: overlapping ribbons of one colour cannot flicker)
-        if (e.unpaved) return rgb('#6b645b');
-        if (isConcrete(e)) return e.tunnel ? shadeRgb(concreteCol, 0.85) : concreteCol;
-        return e.tunnel ? shadeRgb(asphaltBase, 0.85) : asphaltBase;
-    };
-    /** [colour at a, colour at b] of a carriageway (ramps fade) */
-    const asphaltEnds = (e) => (US && e.type === 'motorway_link' && !e.tunnel) ? [nodeSurf(e.a), nodeSurf(e.b)] : [asphaltOf(e), asphaltOf(e)];
-    const padAsphalt = (n) => { const es = n.edges.filter(f => !f.virtual); const cc = es.filter(isConcrete).length; if (cc * 2 >= es.length && cc) return concreteCol; if (es.length && es.every(f => f.tunnel)) return shadeRgb(asphaltBase, 0.85); return es.some(f => f.type === 'motorway_link') ? nodeSurf(n) : asphaltBase; };
+    // (world paint setup: world-paint-setup.js)
+    const __buildPaintSetup = await buildPaintSetup({
+        CHAN, US, areas, cellOf, channelAreas, city, cutTrenches, data,
+        distId, env, groundCutsAt, inArea, nodeArr, waterGrid,
+    });
+    const {
+        ASPHALT, asphaltBase, asphaltEnds, ballastCol, concreteCol, isConcrete, kerbCol, layerY,
+        padAsphalt, railCol, sideCol, waterLineAudit, white, yellow,
+    } = __buildPaintSetup;
     function isPadNode(n) {
         if (n.shortBendPad) return true;
         if (n.edges.length !== 2) return n.edges.length >= 3;
@@ -3488,203 +3362,19 @@ export async function buildWorld(city, renderer, opts = {}) {
     // every tree / lamp / prop below is checked against the carriageway ribbons (onRibbon) before it is placed
     const maxTrees = city.id === 'bucharest' ? 32000 : 28000;
     const treeList = [], treeBodies = new WeakMap(), treeSourceMetadata = new WeakMap();
-    const treeSeen = new Set();
-    const exactTreeCentres = new Set();
-    const dtSea = US ? city.proj(47.6062, -122.3321) : null, dtBel = US ? city.proj(47.6150, -122.2000) : null;
-    const coniferChance = (x, z, kind) => {
-        if (!US) return kind === 'forest' ? 0.1 : 0; // (Bucharest: conifers only where OSM says needleleaved, or in woods — note 17)
-        const dt = Math.min(Math.hypot(x - dtSea.x, z - dtSea.z) / 1300, Math.hypot(x - dtBel.x, z - dtBel.z) / 700);
-        return kind === 'street' ? (dt < 1 ? 0.08 : 0.3) : dt < 1 ? 0.2 : 0.62;
-    };
-    // species trees (trees.js): species from OSM where mapped, else per city / street-type defaults (one species per
-    // street row; conifers only where OSM says needleleaved, in parks / forests / gardens); size from the OSM height,
-    // else typical per kind. `s` (legacy ≈ 1 for a 6–8 m tree) only seeds the height when nothing better is known.
-    const TG = treeGeometries();
-    const treeGrid = new BoxGrid(20), treeNear = (x, z, r) => { let f = false; treeGrid.each(x - r, z - r, x + r, z + r, (t) => { if (!f && Math.hypot(t.x - x, t.z - z) < r) f = true; }); return f; };
-    const treeCoverage = Array.isArray(data.treeCoverage) && data.treeCoverage.length === 4 ? data.treeCoverage : null;
-    const measuredCanopyAt = (x, z) => {
-        if (!treeCoverage) return false;
-        const ll = city.proj.inverse(x, z);
-        return ll.lat >= treeCoverage[0] && ll.lat <= treeCoverage[2] && ll.lon >= treeCoverage[1] && ll.lon <= treeCoverage[3];
-    };
-    // elevated decks a crown must keep out of: raised carriageways / pads and elevated rail slabs (nearest within reach)
-    const TREE_DECK_GAP = .6, treeDeckClearance = { narrowed: 0, lowered: 0, excluded: [] };
-    const elevatedDeckNear = (x, z, reach) => {
-        let best = null; const take = (poly, soffit, top) => { const d = pointInPolygon(x, z, poly) ? 0 : polyDist(x, z, poly); if (d < reach && (!best || d < best.d)) best = { d, soffit, top }; };
-        ribGrid.each(x - reach, z - reach, x + reach, z + reach, rb => {
-            if (rb.y < 2.5 || x < rb.x0 - reach || x > rb.x1 + reach || z < rb.z0 - reach || z > rb.z1 + reach) return;
-            const low = rb.e ? Math.min(rb.e.ya, rb.e.yb) : rb.node.y; take(rb.poly, low + Y.road - Math.min(1.1, Math.max(.05, low)), rb.y + Y.road);
-        });
-        sceneryDeckGrid.each(x - reach, z - reach, x + reach, z + reach, d => { if ((d.kind === 'source-tram-deck' || d.kind === 'bridge-slot-infill' || d.kind === 'basarab-centre-support' || d.kind === 'basarab-platform') && d.y1 > 2.5) take(d.poly, d.y0, d.y1); });
-        return best;
-    };
-    const treeBuildingClearance = { narrowed: 0, skipped: 0, mapped: 0 };
-    // the 12 probe directions of a crown's wall test (cos / sin of k·π/6, the same numbers each time)
-    const WALL_PROBE_COS = Array.from({ length: 12 }, (_, k) => Math.cos(k * Math.PI / 6)), WALL_PROBE_SIN = Array.from({ length: 12 }, (_, k) => Math.sin(k * Math.PI / 6));
-    const elevatedDataset = `${city.id}-${distId}`, elevatedPlan = planElevatedSources(data, undelta, elevatedDataset); // rail viaduct / footbridge decks: no tree or inferred lamp grows through them
-    const poolAreas = areas.filter(a => a.kind === 'pool');
-    const poolNear = (x, z, m) => poolAreas.some(a => x > a.x0 - m && x < a.x1 + m && z > a.z0 - m && z < a.z1 + m && (inArea(a, x, z) || polyDist(x, z, a.outer) < m));
-    const placeTree = (x, z, s, kind, con = null, dec = null, opt = {}) => {
-        if (elevatedPlan.decks && elevatedPlan.under(x, z, 1.5)) { elevatedPlan.skipped.trees++; return false; }
-        // Mapped/measured crowns arrive first as 'osm'. Where a canopy survey
-        // actually covers the ground, do not fill its lawns/gaps with invented trees.
-        if (kind !== 'osm' && measuredCanopyAt(x, z)) return false;
-        if (treeList.length >= maxTrees) return false;
-        if (kind === 'street' && treeNear(x, z, 4.5)) return false; // (a mapped OSM tree already stands there)
-        { let under = false; surfacesAt(x, z, (hh,raised,surface) => { if(surface?.kind?.startsWith('basarab-')||surface?.kind==='bridge-slot-infill')return;if (hh > Y.road + 2.5) under = true; }); if (under) return false; } // New Basarab survey conflicts and slot slabs are audited after generation, preserving retained instances/RNG.
-        if (kind === 'street' && onRibbon(x, z, 1.3)) return false; // (no row trees on medians / verges narrower than ≈ 2.6 m)
-        const sourceCentre = sourceTreeCentrePolicy(kind, data.treeRetention);
-        const k = Math.round(x / 1.6) + ',' + Math.round(z / 1.6);
-        if (treeCentreDuplicate(x, z, sourceCentre, treeSeen, exactTreeCentres)) return false;
-        if (onRibbon(x, z, 0.35 * s + 0.5) || buildingAt(x, z) || treeCentreWater(x, z, sourceCentre, isWater, nearWater)) return false;
-        if (kind !== 'osm' && poolNear(x, z, 1.2)) return false; // (round 3 review, Otopeni Ramada w1322339467: an invented trunk on the pool edge) no invented tree in a mapped pool or on its deck
-        if (lmGrounds.some(g => x > g.x0 - 1.5 && x < g.x1 + 1.5 && z > g.z0 - 1.5 && z < g.z1 + 1.5 && (pointInPolygon(x, z, g.p) || polyDist(x, z, g.p) < 1.5))) return false;
-        treeSeen.add(k);
-        const isCon = con ?? (kind === 'street' || kind === 'osm' ? false : rng.chance(coniferChance(x, z, kind)));
-        let species = opt.species || (isCon ? 'conifer' : defaultSpecies(city.id, kind, opt.road ?? Math.round(x * 0.01 + z * 0.013), rng()));
-        if (species === 'conifer' && !isCon) species = 'generic';
-        const shape = TG.shapes[(SPECIES[species] || SPECIES.generic).shape];
-        const H = opt.h > 0 ? opt.h : kind === 'street' ? (US ? rng.range(8, 12) : rng.range(10, 14)) * (shape.top < 9 ? 0.75 : 1) : kind === 'garden' ? rng.range(5, 9) : kind === 'forest' ? rng.range(12, 20) : rng.range(8, 15);
-        let sz = clamp(H / shape.top, 0.35, 1.5);
-        // a crown that would reach over a carriageway is narrowed toward it (clear stems keep foliage above the lanes;
-        // review #20); conifers are slimmed, never lifted
-        const measuredCrown = opt.crownRadiusM > 0;
-        let sh = measuredCrown ? opt.crownRadiusM / (shape.rx * sz) : 1;
-        const R = shape.rx * sz;
-        if (!measuredCrown && onRibbon(x, z, R)) {
-            let lo = 0.35 * s + 0.5, hi = R;
-            for (let it = 0; it < 4; it++) { const m = (lo + hi) / 2; if (onRibbon(x, z, m)) hi = m; else lo = m; }
-            const lowCrown = (shape.cy - shape.ry * 0.8) * sz < 4.4; // crown bottom below truck height
-            sh = clamp((lo + (lowCrown ? 0.3 : 1.6)) / R, isCon ? 0.35 : 0.55, 1);
-        }
-        // (owner report: crowns through the elevated carriageway) a crown may not occupy an elevated deck or the tram
-        // viaduct beside it: measured crowns included. Narrow it to the deck edge; a trunk too close for that keeps
-        // its place as a tree that stays below the soffit; only one that fits neither way is a physical exclusion.
-        {
-            const deck = elevatedDeckNear(x, z, shape.rx * sz * sh + TREE_DECK_GAP);
-            if (deck && shape.top * sz > deck.soffit - .2 && (shape.cy - shape.ry) * sz < deck.top + 5) {
-                const fit = (deck.d - TREE_DECK_GAP) / (shape.rx * sz);
-                if (fit >= .45) { if (fit < sh) { sh = fit; treeDeckClearance.narrowed++; } }
-                else if (deck.soffit - .4 >= shape.top * .35) { sz = Math.min(sz, (deck.soffit - .4) / shape.top); treeDeckClearance.lowered++; }
-                else { treeDeckClearance.excluded.push({ x: +x.toFixed(1), z: +z.toFixed(1), kind, soffitM: +deck.soffit.toFixed(2) }); return false; }
-            }
-        }
-        // guards (route-blocked on Str. Buzești): the trunk collider plus 0.3 m must be off every carriageway / lane strip,
-        // and a crown hanging below 4.4 m may not reach over one (else it is dropped, never left in a lane)
-        const collR = 0.3 * Math.max(0.6, sz * 1.4);
-        if (onRibbon(x, z, collR + 0.3)) return false;
-        if (treeClear.some((q) => (x - q.x) ** 2 + (z - q.z) ** 2 < q.r * q.r)) return false;
-        if (kind !== 'osm' && pierColl.some(q => Math.abs(x - q.x) < q.r + 1.2 && Math.abs(z - q.z) < q.r + 1.2)) return false; // (inferred trees keep off the bridge columns)
-        if (!measuredCrown && (shape.cy - shape.ry * 0.8) * sz < 4.4 && onRibbon(x, z, R * sh * 0.9)) { if (kind === 'street' || kind === 'garden') return false; sh = Math.max(0.3, sh * 0.6); }
-        // (owner register #23, Unirii: "tree crown intersects building facade") a crown may not reach into a building: it is narrowed
-        // to 0.3 m off the nearest wall (down to 45 %); an invented tree closer than that is not planted, a mapped one keeps its place
-        {
-            // (spec 10 load budget) every probe lies within Rc of the tree: the buildings that could hold one are gathered once
-            // (as buildingAt finds them: not skipped, its box, its ring outside its holes); wallAt asks only whether one does
-            const Rc = shape.rx * sz * sh, near = [], reach = Rc + 1e-6;
-            bGrid.each(x - reach, z - reach, x + reach, z + reach, (b) => { if (!b.skip && b.x1 >= x - reach && b.x0 <= x + reach && b.z1 >= z - reach && b.z0 <= z + reach && !near.includes(b)) near.push(b); });
-            const inBuilding = (px, pz) => { for (const b of near) if (px >= b.x0 && px <= b.x1 && pz >= b.z0 && pz <= b.z1 && pointInPolygon(px, pz, b.ring) && !b.holes.some(h => pointInPolygon(px, pz, h))) return true; return false; };
-            const wallAt = r => { for (let k = 0; k < 12; k++) if (inBuilding(x + WALL_PROBE_COS[k] * r, z + WALL_PROBE_SIN[k] * r)) return true; return false; };
-            if (wallAt(Rc)) {
-                let lo = 0, hi = Rc; for (let it = 0; it < 6; it++) { const m = (lo + hi) / 2; if (wallAt(m)) hi = m; else lo = m; }
-                const fit = (lo - .3) / (shape.rx * sz);
-                if (fit >= .45) { sh = Math.min(sh, fit); treeBuildingClearance.narrowed++; }
-                else if (kind !== 'osm') { treeBuildingClearance.skipped++; return false; }
-                else { sh = Math.min(sh, .45); treeBuildingClearance.mapped++; }
-            }
-        }
-        treeList.push({ x, z, s: sz, species, con: !!isCon, dec: dec ?? (isCon ? 0 : 1), kind, sh }); treeGrid.insert(x, z, x, z, treeList[treeList.length - 1]);
-        exactTreeCentres.add(`${x},${z}`);
-        addPropColl(x, z, collR, 'tree');
-        if(basarabStructure.report.active&&Number.isInteger(opt.sourceIndex))treeSourceMetadata.set(treeList.at(-1),{sourceIndex:opt.sourceIndex,crownRadiusM:opt.crownRadiusM||0,collider:propColl.at(-1)});
-        treeBodies.set(treeList.at(-1), propColl.at(-1));
-        return true;
-    };
-    // OSM natural=tree / tree_row (real positions, leaf type where tagged)
-    const osmTrees = data.trees || [];
-    const TI = data.treeInfo || [];
-    let treesOSM = 0, treesRows = 0;
-    for (let i = 0; i + 2 < osmTrees.length; i += 3) {
-        const x = osmTrees[i] / 10, z = osmTrees[i + 1] / 10, t = osmTrees[i + 2], hh = (t >> 1) / 10;
-        // treeInfo (world-data): taxon text → species, circumference → size, leaf bits (2 needleleaved, 1 broadleaved)
-        const k = i / 3, taxon = TI[k * 3] >= 0 ? str(TI[k * 3]) : '', circ = TI[k * 3 + 1] || 0, leaf = TI[k * 3 + 2] || 0;
-        let species = taxon ? speciesFromOSM(taxon) : null;
-        const con = species === 'conifer' || (leaf & 2) ? true : (t & 1) && !(leaf & 1) && !TI.length ? true : false; // (leaf data known: needleleaved only)
-        if (con) species = 'conifer'; else if (species === 'conifer') species = null;
-        const dbh = circ > 0 ? circ / Math.PI : 0; // trunk diameter, cm
-        const h = hh > 0 ? hh : dbh > 0 ? clamp(4 + dbh * 0.2, 4, 26) : 0;
-        if (placeTree(x, z, h > 0 ? clamp(h / 6.5, 0.6, 2.0) : rng.range(0.85, 1.25), 'osm', con, null, { h, species: species || undefined, crownRadiusM: (data.treeCrownRadii?.[k] || 0) / 10,sourceIndex:k })) treesOSM++;
-    }
-    for (const [x, z, s, kind, road, sp] of treeSpots) if (placeTree(x, z, s, kind, null, null, { road, species: sp || undefined })) treesRows++;
-    // parks & forests
-    for (const a of areas) {
-        if (!['park', 'forest', 'scrub', 'cemetery', 'grass'].includes(a.kind)) continue;
-        const dens = a.kind === 'forest' ? 1 / 70 : a.kind === 'park' ? 1 / 140 : a.kind === 'cemetery' ? 1 / 120 : a.kind === 'scrub' ? 1 / 200 : 1 / 600;
-        const n = Math.min(3000, Math.floor(a.size * dens));
-        for (let i = 0; i < n; i++) {
-            const x = rng.range(a.x0, a.x1), z = rng.range(a.z0, a.z1);
-            if (!inArea(a, x, z)) continue;
-            placeTree(x, z, rng.range(0.9, a.kind === 'forest' ? 1.7 : 1.4), a.kind);
-        }
-    }
-    // residential gardens (sparse)
-    for (const a of areas) {
-        if (a.kind !== 'residential' || treeList.length >= maxTrees) continue;
-        const n = Math.min(400, Math.floor(a.size / (US ? 500 : 900)));
-        for (let i = 0; i < n; i++) {
-            const x = rng.range(a.x0, a.x1), z = rng.range(a.z0, a.z1);
-            if (!inArea(a, x, z) || !clearOf(x, z, 2.5)) continue;
-            placeTree(x, z, rng.range(0.8, 1.3), 'garden');
-        }
-    }
-    const coveredCanopies=coveredPlatformCanopies(treeList,BASARAB_PLATFORMS.filter(p=>basarabStructure.report.sourcePlatforms.includes(p.sourceId)),treeSourceMetadata);
-    basarabStructure.report.treeSourceConflicts={excludedMeasured:coveredCanopies.conflicts,retainedMapped:coveredCanopies.unresolved};
-    const waterTreeConflicts = sourceWaterTreeConflicts(treeList, landmarkWaterFootprints, t => treeBodies.get(t));
-    // A trunk inside the swept cover of the tram bodies cannot stand where the source puts it (the source positions of a
-    // rail and of a tree are each good to about a metre). It is listed and left out after generation, as the basin
-    // conflicts are: retained trees keep their rotation, colour and random stream.
-    const tramTreeConflicts = new Set();
-    if (tramSweep) for (const t of treeList) {
-        const body = treeBodies.get(t), hit = body && tramSweep.circle(t.x, t.z, body.r, 0, body.h ?? 3); if (!hit) continue;
-        const dx = t.x - hit.x, dz = t.z - hit.z;
-        tramTreeConflicts.add(t); tramSweepConflicts.trees.push({ x: t.x, z: t.z, kind: t.kind, species: t.species ?? null, trunkRadiusM: body.r, acrossBodyAxisM: Math.abs(dz * hit.fx - dx * hit.fz), bodyHalfWidthM: hit.body.widthM / 2, bodyLengthM: hit.body.lengthM });
-    }
-    const treeAdditions = placeTreeAdditions(distId, city.proj, placeTree); // (r3-look-8: aerial-measured crowns the survey missed, tree-additions.js)
-    const reviewedTreeOut = reviewedTreeExclusions(treeList, city.proj, distId); // (tree-reviews.js: street-level reviewed crowns)
-    const excludedTrees = new Set([...coveredCanopies.excluded, ...waterTreeConflicts.excluded, ...tramTreeConflicts, ...reviewedTreeOut]);
-    const treeCount = treeList.length - excludedTrees.size;
-    // instanced trees in district 250 m / legacy 500 m chunks; crowns keep a per-instance colour (instanceColor)
-    // so the season / weather code can tint each tree (world.vegetation)
-    const vegetation = { treeCrownMeshes: [], treeTrunkMeshes: [], deciduousMask: null, grassMaterials: [], groundMaterials: [], roofMaterials: [], trees: treeList };
-    {
-        // (2026-11-08) district worlds carry the measured canopy (thousands of real trees): fewer full-detail near trees
-        const T = buildSpeciesTrees(treeList, { rng, cull: 480, chunk: 250, near: 60, maxNear: 110, farLayer: 2, exclude: excludedTrees, stemLod: 180 }); // Covered-platform and water-basin source conflicts are recorded separately from LOD/culling; smaller district chunks cull off-screen trees precisely; no trees or LOD geometry are removed
-        // Generate every instance first so unaffected colours, rotations and RNG stay identical.
-        if (excludedTrees.size) {
-            const bodies = new Set([...excludedTrees].map(t => treeBodies.get(t)));
-            treesOSM -= [...excludedTrees].filter(t => t.kind === 'osm').length;
-            let at = 0; for (const t of treeList) if (!excludedTrees.has(t)) treeList[at++] = t; treeList.length = at;
-            at = 0; for (const p of propColl) if (!bodies.has(p)) propColl[at++] = p; propColl.length = at;
-        }
-        vegetation.treeCrownMeshes.push(...T.crownMeshes); vegetation.treeTrunkMeshes.push(...T.trunkMeshes);
-        vegetation.update = T.update;
-        vegetation.deciduousMask = new Float32Array(treeList.map(t => t.dec));
-    }
-    // street lamps: real OSM highway=street_lamp nodes (moved to the sidewalk edge when mapped on the carriageway)
-    // + synthesized ones on lit / main roads at the outer edge of the sidewalk
-    const lamps = [];
-    const lampGrid = new BoxGrid(30);
-    const lampNear = (x, z, r) => { let f = false; lampGrid.each(x - r, z - r, x + r, z + r, (l) => { if (!f && Math.hypot(l.x - x, l.z - z) < r) f = true; }); return f; };
-    // (t: world-furniture.js)
-    const __buildStreetFurniture = await buildStreetFurniture({
-        US, addPropColl, basarabStructure, buildingAt, cellOf, channelAreas, city, data,
-        distId, edges, elevatedPlan, finishPendingRanges, isWater, kerbSpot, lampGrid, lampNear,
-        lampSpots, lamps, liftOnSide, medianFill, nearWater, nearestEdge, onRibbon, propColl,
-        raisedTop, surfacesAt, sweptOut, tramGrades, tramPropEnvelope, tramSweep, walls, yAlong,
-    });
+    // (world trees and lamps: world-trees-lamps.js)
     const {
-        basarabLamps, channelM, closures, deckLamps, furnCount, lampsMoved,
-    } = __buildStreetFurniture;
+        __buildStreetFurniture, basarabLamps, channelM, closures, deckLamps, elevatedDataset, elevatedPlan, furnCount,
+        lampGrid, lampNear, lamps, lampsMoved, treeAdditions, treeBuildingClearance, treeCount, treeDeckClearance,
+        treeNear, treesOSM, treesRows, vegetation, waterTreeConflicts,
+    } = await buildTreesLamps({
+        US, addPropColl, areas, bGrid, basarabStructure, buildingAt, cellOf, channelAreas,
+        city, clearOf, data, distId, edges, finishPendingRanges, inArea, isWater,
+        kerbSpot, lampSpots, landmarkWaterFootprints, liftOnSide, lmGrounds, maxTrees, medianFill, nearWater,
+        nearestEdge, onRibbon, pierColl, polyDist, propColl, raisedTop, ribGrid, rng,
+        sceneryDeckGrid, str, surfacesAt, sweptOut, tramGrades, tramPropEnvelope, tramSweep, tramSweepConflicts,
+        treeBodies, treeClear, treeList, treeSourceMetadata, treeSpots, walls, yAlong,
+    });
     if (mapEnds.length) {
         const P = props();
         const coneG = P._cone || (P._cone = mergeProps([bakeProp(new THREE.ConeGeometry(0.18, 0.7, 8), { y: 0.35, color: '#ff6a13' }), bakeProp(new THREE.CylinderGeometry(0.115, 0.13, 0.12, 8), { y: 0.42, color: '#f4f4f4' }), bakeProp(new THREE.BoxGeometry(0.42, 0.04, 0.42), { y: 0.02, color: '#222222' })]));
@@ -3986,180 +3676,17 @@ export async function buildWorld(city, renderer, opts = {}) {
         arcPostMesh.instanceMatrix.needsUpdate = true; arcHeadMesh.instanceMatrix.needsUpdate = true;
     };
     void P;
-    // parked cars on surface parking lots
-    const carKinds = US ? ['suv', 'sedan', 'suv', 'hatch'] : ['hatch', 'sedan', 'hatch', 'suv'];
-    // parked cars: vehicles.js `makeParkedCars` (low-detail ~250-tri parked models as one InstancedMesh per kind, per-car
-    // colour), one group per 500 m super-cell (culling + few draw calls); full lots again (the 700 k cap is gone).
-    // Fallback without it: merged low-LOD props, triangle-capped.
-    const parkedLots = new Map(); // super-cell key → [{kind, color, x, y, z, yaw}]
-    const parkingOverlap = parkingPolygonsOverlap;
-    // Mapped lots can extend under the modeled pavement (the lot at the Rosetti
-    // start does). Test the complete car, including intersections through its
-    // edges, against sidewalk bands and junction corners; a clear centre is not
-    // enough. Keep the source lot polygon and the remaining stalls in place.
-    const parkingWalks = new BoxGrid(24);
-    const addParkingWalk = (p) => parkingWalks.insert(Math.min(...p.map(q => q[0])), Math.min(...p.map(q => q[1])), Math.max(...p.map(q => q[0])), Math.max(...p.map(q => q[1])), p);
-    {
-        for (const e of edges) if (raisedEdge(e)) for (const sd of [1, -1]) {
-            if (!raisedEdge(e, sd)) continue;
-            const wi = widthAsphalt(e, sd) + 0.02, wo = widthAsphalt(e, sd) + sidewalkWidth(e, sd) + SIDE_BACK;
-            addParkingWalk([[e.a.x + e.nx * wi * sd, e.a.z + e.nz * wi * sd], [e.b.x + e.nx * wi * sd, e.b.z + e.nz * wi * sd], [e.b.x + e.nx * wo * sd, e.b.z + e.nz * wo * sd], [e.a.x + e.nx * wo * sd, e.a.z + e.nz * wo * sd]]);
-        }
-        for (const cp of cornerPolys) addParkingWalk(cp.p);
-    }
-    const parkingFits = (a, fp) => fp.every(([x, z]) => inArea(a, x, z)) && !polysCross(fp, a.outer) && !a.holes.some(h => parkingOverlap(fp, h));
-    const parkingOnWalk = (fp) => {
-        let hit = false;
-        parkingWalks.each(Math.min(...fp.map(q => q[0])), Math.min(...fp.map(q => q[1])), Math.max(...fp.map(q => q[0])), Math.max(...fp.map(q => q[1])), p => { if (!hit && parkingOverlap(fp, p)) hit = true; });
-        return hit;
-    };
-    const parkingOnBuilding = fp => {
-        let hit = false;
-        bGrid.each(Math.min(...fp.map(q => q[0])), Math.min(...fp.map(q => q[1])), Math.max(...fp.map(q => q[0])), Math.max(...fp.map(q => q[1])), b => {
-            if (hit || b.skip && data.buildingGeometryPolicy !== 'source') return;
-            hit = parkingBodyOverlap(fp, { outer: b.ring, holes: b.holes, minHeightM: b.minH, maxHeightM: b.h });
-        });
-        return hit;
-    };
-    const parkingSupports = new BoxGrid(24);
-    for (const c of propColl) if (c.kind === 'canopy-support') {
-        const p = c.poly || obbPoly(c);
-        parkingSupports.insert(Math.min(...p.map(q => q[0])), Math.min(...p.map(q => q[1])), Math.max(...p.map(q => q[0])), Math.max(...p.map(q => q[1])), p);
-    }
-    const parkingOnSupport = fp => {
-        let hit = false;
-        parkingSupports.each(Math.min(...fp.map(q => q[0])), Math.min(...fp.map(q => q[1])), Math.max(...fp.map(q => q[0])), Math.max(...fp.map(q => q[1])), p => { if (!hit && parkingOverlap(fp, p)) hit = true; });
-        return hit;
-    };
-    // (2026-11-08, owner: cars parked across a CV stop's glowing door ring) no parked car within 7 m of a stop's door
-    const stopDoors = pois.filter(p => p.interactive && p.doorX !== undefined), nearDoor = (x, z) => stopDoors.some(p => Math.hypot(p.doorX - x, p.doorZ - z) < 7);
-    const useInst = typeof makeParkedCars === 'function';
-    const carTris = useInst ? 260 : carKinds.reduce((s2, k) => { const pr = carProps(k, CAR_COLORS[0]); return s2 + (pr.index ? pr.index.length / 3 : 772); }, 0) / carKinds.length;
-    const parkingClearance = { candidates: 0, retained: 0, outsideSourceLot: 0, raisedSidewalk: 0, buildingBody: 0, canopySupport: 0, measuredLots: [] };
-    let parked = 0, lotSeeds = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 195000 / Math.max(1, carTris)));
-    for (const a of areas) {
-        if (a.kind !== 'parking' || lotSeeds >= maxParked || a.size < 120) continue;
-        // orientation: longest edge
-        let best = 0, ang = 0;
-        for (let k = 0; k < a.outer.length; k++) { const [ax, az] = a.outer[k], [bx, bz] = a.outer[(k + 1) % a.outer.length]; const L = Math.hypot(bx - ax, bz - az); if (L > best) { best = L; ang = Math.atan2(bx - ax, bz - az); } }
-        const measured = a.parkingLayout?.sourceId === a.sourceId ? resolveParkingLayout(a.parkingLayout, a.parkingLayout.sourceTags).layout : null;
-        if (measured) parkingClearance.measuredLots.push(a.sourceId);
-        if (measured) ang = parkingRowPose(measured, 0).rowYaw;
-        const ux = Math.sin(ang), uz = Math.cos(ang), vx = uz, vz = -ux; // u along rows, v across
-        const cx = (a.x0 + a.x1) / 2, cz = (a.z0 + a.z1) / 2, R = Math.hypot(a.x1 - a.x0, a.z1 - a.z0) / 2;
-        let lotCount = 0;
-        // (2026-11-08) lots in the scenery ring outside the playable area (reality-pass districts): a light fill, frame budget
-        const lotFill = dmask && !dmask.at(cx, cz) ? 0.22 : 0.72, lotMax = 45;
-        for (let v = -R, row = 0; v < R; row++) {
-            const measuredRow = measured ? parkingRowPose(measured, row) : null;
-            for (let u = -R; u < R; u += measuredRow?.stallPitchM || 2.6) {
-                const x = cx + ux * u + vx * v, z = cz + uz * u + vz * v;
-                if (!inArea(a, x, z) || !inArea(a, x + vx * 2.6, z + vz * 2.6) || !inArea(a, x - vx * 2.6, z - vz * 2.6)) continue;
-                if (!rng.chance(lotFill) || (buildingAt(x, z)?.minH ?? Infinity) <= 2.1 || nearWater(x, z, 3.5) || nearDoor(x, z)) continue; // (never on a channel quay slope / in water)
-                const rot = measuredRow?.stallYaw ?? (ang + (row % 2 ? 0 : Math.PI) + Math.PI / 2);
-                const box = { x, z, hw: 0.95, hd: 2.3, angle: rot, r: 2.5, poly: null, h: 1.5, prop: true, kind: 'parked', parkingSourceId: a.sourceId, parkingAreaIndex: a.areaIndex };
-                if (polyOnRibbon(obbPoly({ ...box, hw: 1.3, hd: 2.7 })) || [-1.6, 0, 1.6].some(o => onRibbon(x + Math.sin(rot) * o, z + Math.cos(rot) * o, 1.2))) continue; // keep off any carriageway / lane strip
-                const kind = rng.pick(carKinds), col = rng.pick(CAR_COLORS);
-                // Consume the original seed and paint choices even when rejected:
-                // removing an obstructing car must not shuffle the valid stalls.
-                lotSeeds++; lotCount++;
-                const size = vehicleSize(kind, city.id);
-                box.hw = Math.max(box.hw, size.width / 2); box.hd = Math.max(box.hd, size.length / 2); box.r = Math.hypot(box.hw, box.hd);
-                const fp = obbPoly({ ...box, hw: box.hw + 0.1, hd: box.hd + 0.1 });
-                parkingClearance.candidates++;
-                const fits = parkingFits(a, fp), walk = fits && parkingOnWalk(fp), body = fits && !walk && parkingOnBuilding(fp), support = fits && !walk && !body && parkingOnSupport(fp);
-                if (!fits) parkingClearance.outsideSourceLot++;
-                else if (walk) parkingClearance.raisedSidewalk++;
-                else if (body) parkingClearance.buildingBody++;
-                else if (support) parkingClearance.canopySupport++;
-                else {
-                    if (useInst) { const k2 = Math.floor(x / (CELL * 2)) + ',' + Math.floor(z / (CELL * 2)); let L = parkedLots.get(k2); if (!L) parkedLots.set(k2, L = []); L.push({ kind, color: col, x, y: 0.12, z, yaw: rot }); }
-                    else cellOf(x, z).solid.geo(carProps(kind, col), x, 0.12, z, rot, 1, 1, 1, [255, 255, 255]);
-                    propColl.push(box); parked++;
-                    parkingClearance.retained++;
-                }
-                if (lotSeeds >= maxParked || lotCount > lotMax) break;
-            }
-            if (lotSeeds >= maxParked || lotCount > lotMax) break;
-            v += row % 2 ? 7.5 : 5.2; // two rows back to back, then an aisle
-        }
-    }
-
-    // -----------------------------------------------------------------------
-    //  TRAFFIC LIGHTS (static poles + instanced lit lamps)
-    // -----------------------------------------------------------------------
-    const lights = [];
-    const lampList = [];
-    for (const n of nodeArr) {
-        if (!n.hasLight || !n.edges.length) continue;
-        const cl = n.lightCluster;
-        const approaches = [];
-        for (const e of n.edges) {
-            const atA = e.a === n;
-            if (atA && e.oneway) continue; // traffic only leaves the node on this edge
-            const out = atA ? 1 : -1;
-            const dx = e.dirx * out, dz = e.dirz * out; // pointing away from the node along the edge
-            const rx = dz, rz = -dx; // right-hand side of the incoming travel direction (-d)
-            const w = (atA ? e.wL : e.wR) + shoulderOf(e) + 0.9;
-            const r = retract(e, n) + 1.2;
-            let px = n.x + dx * r + rx * w, pz = n.z + dz * r + rz * w;
-            const poleBlocked = () => onRibbon(px, pz, 0.3) || !!tramSweep?.circle(px, pz, 0.2, 0, 3);
-            for (let k = 0; k < 5 && poleBlocked(); k++) { px += rx * 0.7; pz += rz * 0.7; } // never in another approach's carriageway or in a tram's swept body
-            const noPole = !!poleBlocked(); // no room for a pole: the approach keeps its phase, no pole is drawn
-            const c = cellOf(px, pz);
-            const rot = Math.atan2(-dz, dx); // housing local +x faces along +d (toward incoming cars)
-            const tly = 0.15 + n.y + (raisedTop(px, pz, 0.3) !== null ? DY_SIDE : 0); // (on a raised corner)
-            if (!noPole) { c.solid.geo(P.tlight, px, tly, pz, rot, 1, 1, 1, [255, 255, 255]); addPropColl(px, pz, 0.2, 'tlight'); }
-            const ap = { edge: e, node: n, x: px + dx * 0.36, z: pz + dz * 0.36, y: noPole ? -200 : tly, state: null, lamp: lampList.length, lamps: null, noPole };
-            lampList.push(ap);
-            approaches.push(ap);
-        }
-        if (approaches.length) lights.push({ node: n, approaches, offset: cl.offset });
-    }
-    for (const cl of clusters.values()) cl.phaseCount = assignSignalPhases(lights.filter(l => l.node.lightCluster === cl).flatMap(l => l.approaches));
-    const nodeLight = {};
-    for (const l of lights) nodeLight[l.node.id] = l;
-    const lampMesh = new THREE.InstancedMesh(new THREE.SphereGeometry(0.17, 6, 4), new THREE.MeshBasicMaterial({ color: '#ffffff', toneMapped: false }), Math.max(1, lampList.length));
-    lampMesh.count = lampList.length;
-    lampMesh.frustumCulled = false;
-    lampMesh.name = 'trafficLamps';
-    const LAMP_COL = { red: new THREE.Color('#ff3b30').multiplyScalar(1.6), yellow: new THREE.Color('#ffcc00').multiplyScalar(1.6), green: new THREE.Color('#34c759').multiplyScalar(1.6) };
-    const LAMP_Y = { red: 4.5, yellow: 4.12, green: 3.74 };
-    const tmpM = new THREE.Matrix4();
-    for (const ap of lampList) { tmpM.makeTranslation(ap.x, ap.y + 4.5, ap.z); lampMesh.setMatrixAt(ap.lamp, tmpM); lampMesh.setColorAt(ap.lamp, LAMP_COL.red); }
-    group.add(lampMesh);
-
-    // -----------------------------------------------------------------------
-    //  MESHES
-    // -----------------------------------------------------------------------
-    setProgress('Finishing…'); await tick();
-    const atlas = earlyAtlas ? earlyAtlas.atlas : makeAtlas();
-    const solidMat = solidMaterial(atlas, earlyAtlas?.night);
-    // shop light spill: additive, black diffuse + warm emissive with a falloff away from the window; render eases
-    // emissiveIntensity 0 → nightEmissive at dusk (0 by day: adds nothing); dimmed as shops close (uClosed)
-    const spillMat = (() => {
-        const g = makeCanvasTexture(4, 64, (ctx, w, h) => { const gr = ctx.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#ffffff'); gr.addColorStop(0.35, '#6a6a6a'); gr.addColorStop(1, '#000000'); ctx.fillStyle = gr; ctx.fillRect(0, 0, w, h); });
-        g.colorSpace = THREE.NoColorSpace;
-        const m = new THREE.MeshLambertMaterial({ color: 0x000000, emissive: new THREE.Color('#ffc890'), emissiveMap: g, emissiveIntensity: 0, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -6, polygonOffsetUnits: -12, fog: true });
-        m.userData.nightEmissive = 0.3; m.name = 'shop-spill';
-        m.onBeforeCompile = (sh) => { sh.uniforms.uClosed = solidMat.userData.uClosed; sh.fragmentShader = 'uniform float uClosed;\n' + sh.fragmentShader.replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n\ttotalEmissiveRadiance *= 1.0 - 0.8 * uClosed;'); };
-        return m;
-    })();
-    const noise = noiseTexture();
-    const groundMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise });
-    if (!underpassCover.empty) {
-        const material = new THREE.MeshBasicMaterial({ colorWrite: UNDERPASS_COVER_POLICY.colorWrite, depthWrite: UNDERPASS_COVER_POLICY.depthWrite, depthTest: UNDERPASS_COVER_POLICY.depthTest });
-        material.name = 'underpass-earth-cover';
-        const mesh = new THREE.Mesh(underpassCover.build(), material);
-        mesh.name = 'underpass-earth-cover'; mesh.renderOrder = UNDERPASS_COVER_POLICY.renderOrder;
-        mesh.matrixAutoUpdate = false; mesh.updateMatrix(); mesh.castShadow = mesh.receiveShadow = false;
-        group.add(mesh);
-    }
-    // strict layering (spec R11.2): ground/sidewalks (0) < carriageways (-1) < junction pads (-2) < markings (-4); each also has
-    // its own renderOrder, so coplanar pieces resolve the same way every frame (no z-fighting / flicker)
-    const roadMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -2 }); roadMat.name = 'road';
-    const padMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 }); padMat.name = 'junction';
-    const marksMat = new THREE.MeshLambertMaterial({ vertexColors: true, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -8 }); marksMat.name = 'markings';
+    // (world parking and lights: world-parking-lights.js)
+    const {
+        LAMP_COL, LAMP_Y, atlas, groundMat, lampMesh, lights, marksMat, nearDoor,
+        nodeLight, noise, padMat, parked, parkedLots, parkingClearance, roadMat, solidMat,
+        spillMat, tmpM, useInst,
+    } = await buildParkingLights({
+        DY_SIDE, P, SIDE_BACK, US, addPropColl, areas, bGrid, buildingAt,
+        cellOf, city, clusters, cornerPolys, data, dmask, earlyAtlas, edges,
+        group, inArea, nearWater, nodeArr, obbPoly, onRibbon, pois, polyOnRibbon,
+        propColl, raisedEdge, raisedTop, retract, rng, tramSweep, underpassCover, widthAsphalt,
+    });
     // shared water material from render's water.js (Fresnel env reflection, ripples, flow, night light streaks — note 11);
     // the old flat vertex-colour material stays as the fallback if the module is missing
     let waterMat = null;
@@ -4200,206 +3727,19 @@ export async function buildWorld(city, renderer, opts = {}) {
         elevatedSources, facadeBands, fallbackApertures, horizon, monuments, parkWalls, pedestrianBridges, playgrounds,
         railStats, roofMat, scenerySourceAudit, sceneryStreets, signMats, signTex, underpassMouths, weirs,
     } = __buildScenery;
-    let tris = underpassCover.ic / 3;
-    // Destination guides are gameplay markers, including at doors reached from a sidewalk.
-    // Keep their exact paint/material while batching them separately from physical carriageway markings.
-    if (!poiDoorGuides.empty) {
-        const m = new THREE.Mesh(poiDoorGuides.build(), marksMat);
-        m.name = 'poi-door-guides'; m.receiveShadow = true; m.renderOrder = 4;
-        m.matrixAutoUpdate = false; m.updateMatrix(); poiGroup.add(m); tris += poiDoorGuides.ic / 3;
-    }
-    const addMesh = (mb, mat, cast, name) => {
-        if (mb.empty) return null;
-        const m = new THREE.Mesh(mb.build(), mat);
-        m.castShadow = cast; m.receiveShadow = true; m.name = name; m.matrixAutoUpdate = false; m.updateMatrix();
-        tris += mb.ic / 3;
-        m.userData.cx = (cx + 0.5) * CELL; m.userData.cz = (cz + 0.5) * CELL;
-        if (name.startsWith('signs')) m.userData.cull = 520; else if (name.startsWith('marks')) m.userData.cull = 820;
-        cellsGroup.add(m); return m;
-    };
-    // view ranges (render's weather-driven visibility is 15–20 km on clear days, so culling no longer follows the fog):
-    // buildings / ground / roads ≈ 2.7 km, small props / trees / parked cars ≈ 1.2 km, signs 520 m, markings 820 m
-    const VIEW = { far: 2700, props: 1200 };
-    const cullR = VIEW.far + CELL * 0.71;
-    let cx = 0, cz = 0;
-    // (2026-11-07, world-visual) draw calls: the flat / cheap layers of neighbouring cells are merged into super-cells
-    // (2×2 cells = 500 m; the far backdrop 4×4) — fewer meshes for the same pixels; solid buildings stay per cell (culling)
-    const SUPER = { area: 4, grass: 4, pave: 4, sport: 4, roof: 4, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 4, signs: 4, spill: 4, solid: 2, detail: 1 };
-    const supers = new Map();
-    const superOf = (c, layer, page = 0) => {
-        const K = SUPER[layer], I = Math.floor(c.i / K), J = Math.floor(c.j / K), key = layer + page + ':' + I + ',' + J;
-        let o = supers.get(key); if (!o) supers.set(key, o = { layer, page, K, I, J, mb: null });
-        return o;
-    };
-    const tramTrench = buildTramTrenchCutter(tramGrades.support);
-    // (spec 10 load budget) a super-cell's first builder takes the others once, at their final size (appendAll), when its
-    // mesh is made: the same arrays as appending them one by one here; o.ic is the merged index count so far
-    const superAdd = (o, mb) => { if (!o.mb) o.mb = mb; else (o.pending ||= []).push(mb); o.ic = (o.ic || 0) + mb.ic; };
-    for (const c of cells.values()) {
-        for (const layer of ['area', 'grass', 'pave', 'sport', 'roof', 'backdrop', 'ground', 'road', 'pad', 'marks', 'water', 'solid', 'detail']) {
-            if (c[layer].empty) continue;
-            if (['area', 'grass', 'pave', 'sport', 'ground'].includes(layer)) c[layer] = tramTrench.cut(c[layer]);
-            const o = superOf(c, layer);
-            if (['solid', 'roof', 'area', 'grass', 'pave', 'sport', 'ground', 'road', 'pad', 'marks'].includes(layer)) {
-                const mb = c[layer], box = new THREE.Box3().setFromArray(mb.p.subarray(0, mb.vc * 3));
-                (o.parts ||= []).push({ start: o.ic || 0, count: mb.ic, bounds: [...box.min.toArray(), ...box.max.toArray()] });
-            }
-            superAdd(o, c[layer]);
-        }
-        c.signs.forEach((mb, k) => { if (!mb || mb.empty) return; superAdd(superOf(c, 'signs', k), mb); });
-        if (c.spill && !c.spill.empty) superAdd(superOf(c, 'spill'), c.spill);
-    }
-    const addSuper = (o, mat, cast, name) => {
-        if (o.pending) { o.mb.appendAll(o.pending); o.pending = null; }
-        cx = o.I * o.K + o.K / 2 - 0.5; cz = o.J * o.K + o.K / 2 - 0.5; // (addMesh centres at (cx + 0.5) · CELL)
-        const m = addMesh(o.mb, mat, cast, `${name} ${o.I},${o.J}`); if (!m) return null;
-        if(['ground','road','pad'].includes(o.layer))fallbackApertures.addGeometry(m.geometry,'road-floor');
-        if (o.parts) cullMergedCells(m, o.parts, { blockTriangles: o.layer === 'ground' || o.layer === 'grass' ? 64 : 0 });
-        const extra = CELL * (o.K - 1) * 0.71; m.userData.cull = (m.userData.cull || cullR) + extra;
-        return m;
-    };
-    for (const o of supers.values()) {
-        switch (o.layer) {
-            case 'area': { const m = addSuper(o, areaMat, false, 'area'); if (m) m.renderOrder = -19.5; break; }
-            case 'grass': { const m = addSuper(o, grassMat, false, 'grass'); if (m) m.renderOrder = -19.2; break; }
-            case 'pave': { const m = addSuper(o, paveMat, false, 'pave'); if (m) m.renderOrder = -19; break; }
-            // (2026-11-08, owner: a band across a pitch) pitch stripes / court lines draw after every grass / paved mesh: these
-            // layers do not write depth, so a neighbouring cell's lawn drawn later painted over the part of a pitch in its cell
-            case 'sport': { const m = addSuper(o, sportMat, false, 'sport'); if (m) m.renderOrder = -18.9; break; }
-            case 'roof': addSuper(o, roofMat, true, 'roofs'); break;
-            case 'backdrop': { const m = addSuper(o, backdropMat, true, 'backdrop'); if (m) m.userData.cull = cullR + 600 + CELL * (o.K - 1) * 0.71; break; }
-            case 'ground': { const m = addSuper(o, groundMat, false, 'ground'); if (m) m.renderOrder = 1; break; }
-            case 'road': { const m = addSuper(o, roadMat, false, 'road'); if (m) m.renderOrder = 2; break; }
-            case 'pad': { const m = addSuper(o, padMat, false, 'junction'); if (m) m.renderOrder = 3; break; }
-            case 'marks': { const m = addSuper(o, marksMat, false, 'marks'); if (m) m.renderOrder = 4; break; }
-            case 'water': { const m = addSuper(o, waterMat, false, 'water'); if (m) { m.renderOrder = -18; shoreFoam(m, preparedSmallWater?.get(o.I + ',' + o.J)); fallbackApertures.addGeometry(m.geometry,'final-water'); } break; }
-            case 'solid': addSuper(o, solidMat, true, 'solid'); break;
-            case 'detail': { const m = addSuper(o, solidMat, false, 'detail'); if (m) { m.userData.cull = 110 + CELL * 0.71; m.layers.set(2); } break; } // (main view only) // near LOD only // (2026-11-08: no shadow pass — pickets, wires, nets: the frame budget)
-            case 'signs': addSuper(o, signMats[o.page], false, 'signs'); break;
-            case 'spill': { const m = addSuper(o, spillMat, false, 'shop-spill'); if (m) { m.renderOrder = 5; m.castShadow = m.receiveShadow = false; } break; }
-        }
-    }
-    if (preparedSmallWater && [...preparedSmallWater.values()].some(entry => !entry.consumed)) throw Error('A certified small-water group was not assembled');
-    // ---- kerbside parking (district worlds, Bucharest): mapped parking keeps its location / orientation; legacy yes
-    //      flags alone cannot authorize sidewalk cars. Untagged residential / unclassified streets (and tertiary streets
-    //      with one lane each way) retain the parallel-kerb fallback where the sidewalk is ≥ 2.2 m. Clear of junctions,
-    //      crossings, bus stops, fuel forecourts, trees, lamps and buildings. Kerb cars stand on the raised sidewalk;
-    //      surface-lot cars above must clear that pavement with their whole footprint.
-    let kerbParked = 0;
-    if (!US && useInst) {
-        const RI = data.roadInfo || [], kRng = makeRng(90127), cols = CAR_COLORS;
-        const mappedParking = new Map((data.parking || []).map(row => [row[0], row]));
-        const stops = pois.filter(p => p.kind === 'busstop'), parkLots = areas.filter(a => a.kind === 'parking');
-        const kinds = ['hatch', 'hatch', 'sedan', 'suv', 'hatch', 'sedan'];
-        const pcGrid = new BoxGrid(16); for (const pc of propColl) { const r = pc.r || 0.5; pcGrid.insert(pc.x - r, pc.z - r, pc.x + r, pc.z + r, pc); }
-        for (const e of edges) {
-            if (!e.drivable || e.virtual || e.tunnel || e.bridge || e.len < 22 || Math.abs(e.ya) > 0.3 || Math.abs(e.yb) > 0.3) continue;
-            const rf = RI[e.road * 6 + 1] | 0;
-            const parking = mappedParking.get(e.road);
-            const resid = /^(residential|unclassified|living_street)$/.test(e.type) || (e.type === 'tertiary' && e.lanesF <= 1 && e.lanesB <= 1);
-            for (const sd of [1, -1]) {
-                const tagged = sd > 0 ? (rf & 64) : (rf & 128), none = sd > 0 ? (rf & 256) : (rf & 512);
-                if (none || (!resid && !tagged) || e.sidewalk < 2.2) continue;
-                // Legacy yes flags omit the mapped location/orientation. A parking
-                // lane (e.g. Calea Floreasca) does not authorize sidewalk cars.
-                if (tagged && !parking) continue;
-                if (parking) {
-                    const offset = sd > 0 ? 1 : 3, location = str(parking[offset]), orientation = str(parking[offset + 1]);
-                    // This pass draws parallel cars wholly on the kerb. Mapped
-                    // carriageway bays, diagonal/perpendicular parking and half-on-
-                    // kerb arrangements need their own surfaces/placement; don't
-                    // silently turn those source facts into parallel sidewalk cars.
-                    if ((orientation && orientation !== 'parallel') || (location && location !== 'on_kerb')) continue;
-                    if (orientation && !location) continue;
-                }
-                const occ = tagged ? 0.86 : 0.72;
-                const s0 = retract(e, e.a) + 9 + (e.a.crossing ? 8 : 0), s1 = e.len - retract(e, e.b) - 9 - (e.b.crossing ? 8 : 0);
-                const w = (sd > 0 ? e.wR : e.wL) + shoulderOf(e), o = w + 1.2, yaw = Math.atan2(e.dirx, e.dirz) + (kRng() < 0.5 ? 0 : Math.PI);
-                for (let sAl = s0 + kRng() * 2; sAl < s1; sAl += 5.4 + kRng() * 0.8) {
-                    if (kRng() > occ) { if (kRng() < 0.25) sAl += 6; continue; } // (gaps, sometimes a driveway)
-                    const x = e.a.x + e.dirx * sAl + e.nx * o * sd, z = e.a.z + e.dirz * sAl + e.nz * o * sd;
-                    const box = { x, z, hw: 0.92, hd: 2.25, angle: yaw, r: 2.4, poly: null, h: 1.5, prop: true, kind: 'parked' };
-                    const fp = obbPoly(box);
-                    if (polyOnRibbon(fp) || fp.some(([qx, qz]) => buildingAt(qx, qz)) || buildingAt(x, z) || nearWater(x, z, 2.5)) continue;
-                    const ry = raisedTop(x, z); if (ry === null) continue; // (only where the sidewalk is raised: the wheels stand on it)
-                    if (treeNear(x, z, 2.2) || lampNear(x, z, 1.9) || treeClear.some((q) => (x - q.x) ** 2 + (z - q.z) ** 2 < (q.r + 3) ** 2)) continue;
-                    if (stops.some(p => Math.hypot(p.x - x, p.z - z) < 14) || nearDoor(x, z)) continue;
-                    // (2026-11-08, owner: "remove the cars parked next to the parking lot — their wheels are in the road") a
-                    // street front with a car park behind the sidewalk has no kerbside parking: people park in the lot
-                    if (parkLots.some(a => [2.5, 5, 8].some(d => { const qx = x + e.nx * sd * d, qz = z + e.nz * sd * d; return inArea(a, qx, qz); }))) continue;
-                    if (mapEnds.some(m => Math.hypot(m.x - x, m.z - z) < 30)) continue; // (owner: "this sign is overlapping a car": the road-closure scene at the map edge)
-                    let blocked = false; pcGrid.each(x - 3, z - 3, x + 3, z + 3, (pc) => { if (!blocked && Math.hypot(pc.x - x, pc.z - z) < (pc.r || 0.5) + 1.6) blocked = true; });
-                    if (blocked) continue;
-                    pcGrid.insert(x - 2.4, z - 2.4, x + 2.4, z + 2.4, box);
-                    const k2 = Math.floor(x / (CELL * 2)) + ',' + Math.floor(z / (CELL * 2)); let L = parkedLots.get(k2); if (!L) parkedLots.set(k2, L = []);
-                    const kind = kinds[Math.floor(kRng() * kinds.length)], color = cols[Math.floor(kRng() * cols.length)], cyaw = yaw + (kRng() - 0.5) * 0.05;
-                    L.push({ kind, color, x, y: ry + 0.005, z, yaw: cyaw });
-                    propColl.push(box); kerbParked++;
-                }
-            }
-        }
-    }
-    let parkedCalls = 0;
-    for (const [k, list] of parkedLots) {
-        const [I, J] = k.split(',').map(Number);
-        const pg = makeParkedCars(list, { city: city.id, paintSpace: 'linear', castShadow: false }); // (no shadow pass for lots) pg.name = `parked ${k}`; // (CAR_COLORS are sRGB hex: let three.js linearise them, as the old merged lots did)
-        pg.userData.cx = (I + 0.5) * CELL * 2; pg.userData.cz = (J + 0.5) * CELL * 2; pg.userData.cull = 300 + CELL * 0.71; // (district worlds line every residential kerb with cars: drawn to ≈ 0.3 km beyond the cell)
-        tris += pg.userData.triangles || 0; parkedCalls += pg.userData.drawCalls || 0;
-        pg.traverse(o => o.layers.set(2)); // (layer 2, main view only: the mirror pass skips parked lots)
-        cellsGroup.add(pg);
-    }
-    for (const m of vegetation.treeCrownMeshes.concat(vegetation.treeTrunkMeshes)) { cellsGroup.add(m); tris += (m.userData.always ? m.instanceMatrix.count : m.count) * (m.geometry.index.count / 3); }
-    { const hMat = new THREE.MeshLambertMaterial({ vertexColors: true }); hMat.name = 'horizon'; const hm = addMesh(horizon, hMat, false, 'horizon'); if (hm) { hm.userData.always = true; hm.frustumCulled = true; } }
-    let waterMesh = addMesh(bigWater, waterMat, false, 'water-big'); if (waterMesh) shoreFoam(waterMesh);
-    if (waterMesh && (waterMesh.geometry.index?.count || waterMesh.geometry.attributes.position.count) > 15000) {
-        // A single lake/river mesh spanning the district defeats frustum culling:
-        // the mirror submitted all 60k water triangles even when it saw no water.
-        // Partition after shoreline calculation, preserving every triangle and
-        // attribute (including shore distance) so chunk edges add no foam seams.
-        const source = waterMesh.geometry, position = source.attributes.position, index = source.index;
-        const chunks = new Map(), count = index ? index.count : position.count;
-        const vertex = i => index ? index.getX(i) : i;
-        for (let i = 0; i < count; i += 3) {
-            const a = vertex(i), b = vertex(i + 1), c = vertex(i + 2);
-            const x = (position.getX(a) + position.getX(b) + position.getX(c)) / 3;
-            const z = (position.getZ(a) + position.getZ(b) + position.getZ(c)) / 3;
-            const key = Math.floor(x / 500) + ',' + Math.floor(z / 500);
-            let vertices = chunks.get(key); if (!vertices) chunks.set(key, vertices = []);
-            vertices.push(a, b, c);
-        }
-        if (chunks.size > 1) {
-            const parent = new THREE.Group(); parent.name = 'water-big';
-            for (const [key, vertices] of chunks) {
-                const geometry = new THREE.BufferGeometry();
-                for (const [name, attribute] of Object.entries(source.attributes)) {
-                    const size = attribute.itemSize, array = new attribute.array.constructor(vertices.length * size);
-                    vertices.forEach((v, i) => { for (let c = 0; c < size; c++) array[i * size + c] = attribute.array[v * size + c]; });
-                    geometry.setAttribute(name, new THREE.BufferAttribute(array, size, attribute.normalized));
-                }
-                geometry.computeBoundingSphere();
-                const mesh = new THREE.Mesh(geometry, waterMat); mesh.name = 'water-big ' + key;
-                mesh.receiveShadow = true; mesh.renderOrder = -18; mesh.matrixAutoUpdate = false;
-                parent.add(mesh);
-            }
-            parent.userData.triangles = count / 3; parent.userData.chunks = chunks.size;
-            waterMesh.removeFromParent(); source.dispose(); cellsGroup.add(parent); waterMesh = parent;
-        }
-    }
-    if (waterMesh) { waterMesh.userData.always = true; waterMesh.renderOrder = -18; }
-    if (waterMesh?.isGroup) {
-        // Group order precedes mesh order in Three's opaque sort. Keep this group
-        // neutral so land draws first; small water/shore meshes still overlay it.
-        waterMesh.renderOrder = 0;
-        for (const mesh of waterMesh.children) mesh.renderOrder = -18.1;
-    }
-    // Read the complete final retained water before its first view selection.
-    if(waterMesh?.isGroup)for(const m of waterMesh.children)fallbackApertures.addGeometry(m.geometry,'final-water');
-    else if(waterMesh?.geometry)fallbackApertures.addGeometry(waterMesh.geometry,'final-water');
-    for (const pit of landmarkPits) for (const q of pit.tris) { const v = q.map(([x, z]) => [x, pit.floorY, z]); fallbackApertures.addTriangle(v, 'landmark-pit'); fallbackApertures.addTriangle([v[0], v[2], v[1]], 'landmark-pit'); }
-    if (waterMesh?.isGroup) batchWaterChunks(waterMesh);
-    // distance culling: cells beyond the fog are hidden (three.js only frustum-culls, and the camera far plane is 5 km).
-    // The viewer is world.camera if set, else the widest perspective camera found in the scene.
-    const _v = new THREE.Vector3();
+    // (world final meshes: world-final-meshes.js)
+    const __buildFinalMeshes = buildFinalMeshes({
+        US, areaMat, areas, backdropMat, bigWater, buildingAt, cells, cellsGroup,
+        city, data, edges, fallbackApertures, grassMat, groundMat, horizon, inArea,
+        lampNear, landmarkPits, mapEnds, marksMat, nearDoor, nearWater, obbPoly, padMat,
+        parkedLots, paveMat, poiDoorGuides, poiGroup, pois, polyOnRibbon, preparedSmallWater, propColl,
+        raisedTop, retract, roadMat, roofMat, shoreFoam, signMats, solidMat, spillMat,
+        sportMat, str, tramGrades, treeClear, treeNear, underpassCover, useInst, vegetation,
+        waterMat,
+    });
+    const {
+        _v, cullR, kerbParked, tramTrench, waterMesh,
+    } = __buildFinalMeshes;
     let viewerCam = null, lastCull = null;
     // shops closing at night: the share of shutters down follows the district's local hour (render's simulated clock;
     // a fixed 'night' look counts as 23:00, 'dusk' as 19:00): 0 until 21:00, ~55 % at 23:00, ~70 % 00–06, open by 07:30
@@ -4580,8 +3920,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     graph.edges = driv;
 
     setProgress(''); const phases = PHASES.splice(0);
-    const stats = { hallFurniture: hallFurnitureStats, waterBridgeRailings, reviewedBridgeRailings, fasciaLayout: { records: fasciaLayoutAudit, boards: facadeBoards, scope: 'Inferred coplanar fascia boards on existing source walls; source POIs and names unchanged' }, sourceWaterTreeConflicts: { records: waterTreeConflicts.records, sourceRecordsRetained: true, marginM: 0, scope: 'Physical trunk bodies intersect detailed basins and their rendered granite rims; not canopy thinning or road/traffic change' }, parkingClearance, phases, railways: railStats, network: __buildRoadGraphAids.sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, bridgeBents: bridgeBents.report, treeDeckClearance, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, backdropSourceOwnership, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: __buildRibbons.raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(__buildScenery.fenceM), bollards, pitchesDressed, sportAreas: sportAreaLog, fuel: fuelLog,
-        buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, inferredBuildingDetails: inferredDetailAudit, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: __buildStreetFurniture.lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
+    const stats = { hallFurniture: hallFurnitureStats, waterBridgeRailings, reviewedBridgeRailings, fasciaLayout: { records: fasciaLayoutAudit, boards: facadeBoards, scope: 'Inferred coplanar fascia boards on existing source walls; source POIs and names unchanged' }, sourceWaterTreeConflicts: { records: waterTreeConflicts.records, sourceRecordsRetained: true, marginM: 0, scope: 'Physical trunk bodies intersect detailed basins and their rendered granite rims; not canopy thinning or road/traffic change' }, parkingClearance, phases, railways: railStats, network: __buildRoadGraphAids.sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, bridgeBents: bridgeBents.report, treeDeckClearance, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, backdropSourceOwnership, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: __buildRibbons.raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads: __buildPaintSetup.greenQuads, fenceM: Math.round(__buildScenery.fenceM), bollards, pitchesDressed, sportAreas: sportAreaLog, fuel: fuelLog,
+        buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, inferredBuildingDetails: inferredDetailAudit, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: __buildStreetFurniture.lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(__buildFinalMeshes.tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     stats.scenerySource = scenerySourceAudit;
     stats.backdropInLandmark = backdropInLandmark;
     stats.treeBuildingClearance = treeBuildingClearance;

@@ -7,6 +7,7 @@ The single reference for the district data format. Data © OpenStreetMap contrib
 | `<city>-<district>.bin.gz` | one 1:1 chapter district: `bucharest-{grozavesti,unirii,romana,floreasca,pipera,otopeni}`, `seattle-{seatac,bellevue}` (≤ 3 MiB each, spec 10) |
 | `places.json` | reachable places per district for the world map / minimap, written by `tools/osm/places.mjs` (format below) |
 | `dialogue.json` | city crowd lines `{p, ctx, text, orig?, lang?, when?, wx?, season?}` and culture tips (`main.js`, `spots/index.js`) |
+| `landmarks/` | generated exact source massing of Bucharest landmarks (`bucharest-source-masses.json`, `cec-source-masses.json`), read by `game/src/landmarks/source-data.js` |
 | `spots/` | tourist-spot data (`<spot>.json`) and the Seattle context assets (below) |
 
 ## District packs

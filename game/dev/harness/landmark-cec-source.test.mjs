@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { CEC_SOURCE_MASSES as source } from '../../src/landmark-cec-source.js';
+import { cecSourceMasses } from '../../src/landmarks/source-data.js';
 import { LANDMARKS, buildLandmark } from '../../src/landmarks.js';
 import { parseMeasure } from '../../src/building-roofs.js';
 import { Box3 } from '../../vendor/three.module.min.js';
@@ -10,7 +10,7 @@ const data=readDistrictData(new URL('../../data/bucharest-unirii.bin.gz',import.
 // The recorded dataset SHA identifies the source snapshot used to bake the model.
 // Unrelated district trees/roads can change later; compare the actual CEC source
 // records below so a source-volume edit still fails without rebaking the model.
-const landmark=LANDMARKS.find(l=>l.id==='cec'),built=buildLandmark(landmark,{realScale:true,floodlit:false}),volumes=source.volumes;
+const source=cecSourceMasses(),landmark=LANDMARKS.find(l=>l.id==='cec'),built=buildLandmark(landmark,{realScale:true,floodlit:false}),volumes=source.volumes;
 assert.equal(volumes.length,162);assert.equal(built.collision.length,162);
 assert.equal(new Set(volumes.map(v=>v.sourceId)).size,161);
 assert.equal(volumes.reduce((n,v)=>n+v.holes.length,0),5);

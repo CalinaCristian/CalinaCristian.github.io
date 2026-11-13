@@ -3,6 +3,8 @@ import { sourceWaterTreeConflicts } from './source-water-tree-conflicts.js';
 import { reviewedTreeExclusions } from './tree-reviews.js';
 import { emitOvalDormers } from './reviewed-dormers.js';
 import { emitHallFurniture, HALL_FURNITURE_MODEL } from './hall-furniture.js';
+import { reviewedLampForm, CANDELABRA_MODEL } from './lamp-reviews.js';
+import { emitPlaygrounds } from './playgrounds.js';
 import { emitStreetLevelWaterBridgeRailings, emitReviewedStreetBridgeRailings } from './water-bridge-railings.js';
 import { emitPedestrianBridges } from './pedestrian-bridges.js';
 import { trenchParapetRow, emitTrenchBalustrade } from './trench-parapets.js';
@@ -83,7 +85,7 @@ import { fuelStationRow, fuelLookFor, fasciaQuads } from './fuel-look.js';
 import { reviewBrands } from './brand-review.js';
 import { emitWeirs } from './weirs.js';
 import { dropMedianLinkSidewalks } from './sidewalk-overlap.js';
-import { emitBellevueGuideway } from './bellevue-guideway.js';
+import { emitBellevueGuideway, WILBURTON_STATION } from './bellevue-guideway.js';
 import { emitSeatacGuideway } from './seatac-guideway.js';
 import { garageDeckRoads } from './garage-decks.js';
 import { buildElevatedSources, planElevatedSources } from './elevated-sources.js';
@@ -4380,7 +4382,10 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     // ---- street-level review rows by OSM id (round 2 fidelity pass; game/src/building-review.js): reviewed storeys / style / colour
-    const buildingReviewAudit = applyBuildingReview({ key: city.id + '-' + distId, bRecs });    // ---- height sanity (2026-11-07, world-visual): the data build gives every untagged large footprint outside the old
+    const buildingReviewAudit = applyBuildingReview({ key: city.id + '-' + distId, bRecs });
+    // (r2-world-guideway) Wilburton's roof w615292866 (building=train_station, layer=1, no min_height) came out of the pack as a
+    // 7.8 m windowed block on the ground round the guideway; bellevue-guideway.js draws the station at deck level instead
+    if (distId === 'bellevue') for (const b of bRecs) if (data.buildingIds?.[b.derivedFrom ?? b.i] === WILBURTON_STATION.replacesSource) { b.skip = true; b.replacedBy = 'wilburton-station'; }    // ---- height sanity (2026-11-07, world-visual): the data build gives every untagged large footprint outside the old
     //      centre 8–10 storeys (23–30 m 'bloc'), so museums, villas and institutions on Kiseleff / Dorobanți became grey
     //      slabs. Buildings without building:levels whose height is exactly such a default are re-estimated here from
     //      their name and shape: real slab blocks (≤ 22 m wide, ≥ 30 m long) keep their storeys, compact or courtyard
@@ -6967,7 +6972,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         // is labelled on the map as it is drawn; the data keeps the OSM brand
         const seenFuel = kind === 'fuel' && distId && bIdx >= 0 ? fuelStationRow(city.id + '-' + distId, data.buildingIds?.[bRecs[bIdx]?.i])?.text : null;
         const label = seenFuel || name || brand || (kind === 'busstop' ? (sub.startsWith('tram') ? (US ? 'Streetcar stop' : 'Stație tramvai') : (US ? 'Bus stop' : 'Stație autobuz')) : kind === 'metro' ? (US ? 'Link station' : 'Metrou') : kind);
-        const poi = { id: 'osm' + pois.length, kind, sub, label, brand: seenFuel && brand ? seenFuel : brand, x, z, doorX: x, doorZ: z, color: ks.color, icon: sub.startsWith('cafe') ? '☕' : ks.icon, visited: false, h: 4, w: 4, d: 4, interactive: false, building: bIdx };
+        const poi = { id: 'osm' + pois.length, kind, sub, label, brand: seenFuel && brand ? seenFuel : brand, x, z, doorX: x, doorZ: z, color: ks.color, icon: sub.startsWith('cafe') ? '☕' : sub === 'atm' ? '🏧' : ks.icon, // (unirii-small: a mapped ATM is an ATM on the map, not a bank)
+             visited: false, h: 4, w: 4, d: 4, interactive: false, building: bIdx };
         pois.push(poi);
         if (kind === 'busstop') { poi.shelterModel = sourceTransitShelterDecision(data, poiIndex); transitShelterAudit.push({ poiId: poi.id, ...poi.shelterModel }); }
         if (kind === 'fuel') { // the pump is reached from the street: door at the kerb of the nearest drivable lane
@@ -7404,7 +7410,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (ne) { rot = Math.atan2(-(ne.cz - z), ne.cx - x); ly = ne.d < ne.edge.halfW + 6 && !ne.edge.tunnel ? yAlong(ne.edge, x, z) : 0; if (!hh) hh = /^(motorway|trunk|primary|secondary)/.test(ne.edge.type) ? 8 : 5; }
         if (!hh) hh = 6;
         if (buildingAt(x, z)) continue;
-        addLamp({ x, z, h: hh, rot, y: 0.15 + ly, osm: true });
+        addLamp({ x, z, h: hh, rot, y: 0.15 + ly, osm: true, ...(distId && reviewedLampForm(city.id + '-' + distId, city.proj, x, z) === 'candelabra' ? { candelabra: true } : {}) }); // (r3-look-13: lamp-reviews.js)
     }
     for (const [x, z, ang, ly, hh] of lampSpots) {
         if (lampNear(x, z, osmLamps.length > 300 ? 17 : 10) || buildingAt(x, z) || onRibbon(x, z, 0.35)) continue;
@@ -7791,6 +7797,17 @@ export async function buildWorld(city, renderer, opts = {}) {
         toGeo(mergeProps(parts), arcPostGeo);
         toGeo(bakeProp(new THREE.BoxGeometry(1, 1, 1), { x: 2.3, y: 7.84, sx: 0.8, sy: 0.14, sz: 0.34 }), arcHeadGeo);
     }
+    const candPostGeo = new THREE.BufferGeometry(), candHeadGeo = new THREE.BufferGeometry();
+    { // (r3-look-13) candelabra: dark post on a plinth, a cross of arms and a cluster of globes (unit height 8, CANDELABRA_MODEL)
+        const toGeo = (p, g) => { g.setAttribute('position', new THREE.BufferAttribute(p.pos, 3)); g.setAttribute('normal', new THREE.BufferAttribute(p.nor, 3)); g.setIndex(new THREE.BufferAttribute(p.index, 1)); };
+        const C = CANDELABRA_MODEL, a = C.armHalfM;
+        toGeo(mergeProps([bakeProp(new THREE.BoxGeometry(1, 1, 1), { y: 0.45, sx: 0.55, sy: 0.9, sz: 0.55 }), bakeProp(new THREE.CylinderGeometry(0.1, 0.16, 1, 6), { y: 3.9, sy: 6.0 }),
+            bakeProp(new THREE.BoxGeometry(1, 1, 1), { y: 6.95, sx: a * 2 + 0.1, sy: 0.1, sz: 0.1 }), bakeProp(new THREE.BoxGeometry(1, 1, 1), { y: 6.95, sx: 0.1, sy: 0.1, sz: a * 2 + 0.1 }),
+            bakeProp(new THREE.CylinderGeometry(0.07, 0.09, 1, 5), { y: 7.35, sy: 0.8 })]), candPostGeo);
+        const globe = (x, y, z) => bakeProp(new THREE.IcosahedronGeometry(C.globeR, 1), { x, y, z });
+        toGeo(mergeProps([globe(0, 7.85, 0), globe(a, 7.3, 0), globe(-a, 7.3, 0), globe(0, 7.3, a), globe(0, 7.3, -a)]), candHeadGeo);
+    }
+    const CAND_MAX = lamps.filter(l => l.candelabra).length || 1;
     const ARC_MAX = lamps.filter(l => l.arc).length || 1;
     const LAMP_MAX = Math.min(lamps.length, 6000) || 1;
     const lampPostMesh = new THREE.InstancedMesh(postGeo, new THREE.MeshLambertMaterial({ color: '#4a4f57' }), LAMP_MAX);
@@ -7803,17 +7820,23 @@ export async function buildWorld(city, renderer, opts = {}) {
     arcPostMesh.name = 'lampArcPosts'; arcHeadMesh.name = 'lampArcHeads'; arcPostMesh.castShadow = true; arcPostMesh.frustumCulled = false; arcHeadMesh.frustumCulled = false;
     arcPostMesh.count = arcHeadMesh.count = 0;
     if (lamps.some(l => l.arc)) group.add(arcPostMesh, arcHeadMesh);
+    const candPostMesh = new THREE.InstancedMesh(candPostGeo, new THREE.MeshLambertMaterial({ color: '#2b2f33' }), CAND_MAX), candHeadMesh = new THREE.InstancedMesh(candHeadGeo, lampHeadMesh.material, CAND_MAX);
+    candPostMesh.name = 'lampCandelabraPosts'; candHeadMesh.name = 'lampCandelabraHeads'; candPostMesh.castShadow = true; candPostMesh.frustumCulled = false; candHeadMesh.frustumCulled = false;
+    candPostMesh.count = candHeadMesh.count = 0;
+    if (lamps.some(l => l.candelabra)) group.add(candPostMesh, candHeadMesh);
     const _lm = new THREE.Matrix4(), _lq = new THREE.Quaternion(), _lp = new THREE.Vector3(), _ls = new THREE.Vector3(), _ly = new THREE.Vector3(0, 1, 0);
     const fillLamps = (vx, vz, R) => {
-        let n = 0, na = 0;
+        let n = 0, na = 0, nc = 0;
         lampGrid.each(vx - R, vz - R, vx + R, vz + R, (l) => {
-            if (Math.abs(l.x - vx) > R || Math.abs(l.z - vz) > R || (l.arc ? na >= ARC_MAX : n >= LAMP_MAX)) return;
+            if (Math.abs(l.x - vx) > R || Math.abs(l.z - vz) > R || (l.arc ? na >= ARC_MAX : l.candelabra ? nc >= CAND_MAX : n >= LAMP_MAX)) return;
             const k = l.h / 8;
             _lm.compose(_lp.set(l.x, l.y, l.z), _lq.setFromAxisAngle(_ly, l.rot), _ls.set(k, k, k));
             if (l.arc) { arcPostMesh.setMatrixAt(na, _lm); arcHeadMesh.setMatrixAt(na, _lm); na++; }
+            else if (l.candelabra) { candPostMesh.setMatrixAt(nc, _lm); candHeadMesh.setMatrixAt(nc, _lm); nc++; }
             else { lampPostMesh.setMatrixAt(n, _lm); lampHeadMesh.setMatrixAt(n, _lm); n++; }
         });
-        lampPostMesh.count = lampHeadMesh.count = n; arcPostMesh.count = arcHeadMesh.count = na;
+        lampPostMesh.count = lampHeadMesh.count = n; arcPostMesh.count = arcHeadMesh.count = na; candPostMesh.count = candHeadMesh.count = nc;
+        candPostMesh.instanceMatrix.needsUpdate = true; candHeadMesh.instanceMatrix.needsUpdate = true;
         lampPostMesh.instanceMatrix.needsUpdate = true; lampHeadMesh.instanceMatrix.needsUpdate = true;
         arcPostMesh.instanceMatrix.needsUpdate = true; arcHeadMesh.instanceMatrix.needsUpdate = true;
     };
@@ -8284,7 +8307,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         keep: (x, z, len) => !(ringGeometry && sceneryMargin(x, z) > (distCfg?.outerRing ?? 600) + len / 2), stationCentre: bRecs.find(b => b.sourceId === 'w54139654')?.c || null }) : null;
     if (seatacGuideway) railStats.guideway = { ways: [...seatacGuideway.ways], metres: seatacGuideway.metres, piers: seatacGuideway.piers, piersOmitted: seatacGuideway.piersOmitted };
     // Bellevue: the 2 Line guideway over I-405 to Wilburton; rail level is a stated estimate over USGS ground, see bellevue-guideway.js.
-    const bellevueGuideway = distId === 'bellevue' ? emitBellevueGuideway({ railways: data.railways, scenery: data.scenery, undelta, cellOf, rgb, onRibbon, buildingAt, addPropColl,
+    const bellevueGuideway = distId === 'bellevue' ? emitBellevueGuideway({ railways: data.railways, scenery: data.scenery, undelta, cellOf, rgb, onRibbon, buildingAt, addPropColl, proj: (la, lo) => city.proj(la, lo),
         keep: (x, z, len) => !(ringGeometry && sceneryMargin(x, z) > (distCfg?.outerRing ?? 600) + len / 2) }) : null;
     if (bellevueGuideway) railStats.bellevueGuideway = { ...bellevueGuideway, ways: [...bellevueGuideway.ways] };
     for (const r of data.railways || []) {
@@ -8337,6 +8360,10 @@ export async function buildWorld(city, renderer, opts = {}) {
     // (backlog r3-landmarks-2) reviewed fascia bands / corner fronts on one-colour buildings (facade-bands.js)
     const facadeBands = distId ? emitFacadeBands({ district: distId, project: (la, lo) => city.proj(la, lo), cellOf, rgb,
         building: id => { const b = bRecs.find(o => !o.skip && data.buildingIds?.[o.derivedFrom ?? o.i] === id); return b ? { ring: b.ring, h: b.roofProfile?.eavesM ?? b.h } : null; } }) : [];
+    const playgrounds = distId ? emitPlaygrounds({ district: distId, project: (la, lo) => city.proj(la, lo), cellOf, rgb, // (unirii-small: OSM playground nodes, playgrounds.js)
+        blocked: (x, z, r) => onRibbon(x, z, r) ? 'on-carriageway' : buildingAt(x, z) ? 'inside-building' : isWater(x, z) ? 'in-water' : tramSweep?.circle(x, z, r + 0.2, 0, 6) ? 'tram-sweep' : null,
+        faceAngle: (x, z) => { const q = nearestEdge(x, z, e => !e.virtual && !e.tunnel, 80); return q ? Math.atan2(q.edge.dirx, q.edge.dirz) : 0; },
+        baseY: (x, z) => raisedTop(x, z) ?? 0.05, addCollider: (x, z, r, h, rec) => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h, prop: true, kind: 'playground', sourceId: rec.id, estimated: true }) }) : null;
     const weirs = distId ? emitWeirs({ district: distId, project: (la, lo) => city.proj(la, lo), cellOf, rgb, inWater: isWater, keep: (x, z) => !ringGeometry || sceneryMargin(x, z) <= 400 }) : []; // (r3: mapped weirs in reviewed channels, weirs.js)
     // (2026-11-12 render review) under ANY mapped footprint, also one drawn by a landmark model (skipped here), a canopy
     // or an elevated part: SeaTac's Talking Fountain n8920167700 stands inside the Main Terminal w23772634 (drawn by its
@@ -8809,7 +8836,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.tramPropEnvelope = tramPropEnvelope;
     stats.tramSweep = tramSweep ? { ...tramSweep.report, conflicts: tramSweepConflicts } : null;
     stats.tramRailings = tramRailings;
-    stats.monuments = monuments; stats.parkWalls = parkWalls; stats.deckLamps = deckLamps; stats.facadeBands = facadeBands; stats.weirs = weirs; stats.medianLinkSidewalks = medianLinkSidewalks;
+    stats.monuments = monuments; stats.playgrounds = playgrounds; stats.parkWalls = parkWalls; stats.deckLamps = deckLamps; stats.facadeBands = facadeBands; stats.weirs = weirs; stats.medianLinkSidewalks = medianLinkSidewalks;
     stats.fuelForecourts = fuelForecourts;
     stats.landmarkWaterFootprints = landmarkWaterFootprints;
     stats.trenchGroundCuts = { corridors: trenchQuads.length, channelWaterTriangles: channelCuts.length, triangles: trenchCutTris }; // (ground layers cut out of open trenches and sunken water channels)

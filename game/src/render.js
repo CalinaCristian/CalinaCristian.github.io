@@ -1029,7 +1029,7 @@ export class Renderer3D {
             let x, z, h, rot = null, y = 0;
             if (typeof lamps[0] === 'number') { x = lamps[i * 3]; z = lamps[i * 3 + 1]; h = lamps[i * 3 + 2] || 8; }
             else if (Array.isArray(lamps[i])) { [x, z, h = 8] = lamps[i]; }
-            else { ({ x, z } = lamps[i]); h = lamps[i].h || 8; rot = lamps[i].rot ?? null; y = lamps[i].y || 0; }
+            else { ({ x, z } = lamps[i]); h = lamps[i].h || 8; rot = lamps[i].candelabra ? null : lamps[i].rot ?? null; y = lamps[i].y || 0; } // (a candelabra's globes sit over its post: no arm offset)
             const k = h / 8;
             if (rot !== null) { x += Math.cos(rot) * 1.8 * k; z -= Math.sin(rot) * 1.8 * k; }
             flat.set([x, z, y + 7.7 * k, y], i * 4);

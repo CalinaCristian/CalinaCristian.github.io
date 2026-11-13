@@ -972,6 +972,15 @@ Official panoramas only (ids cited; no imagery stored). Runtime modules named in
   'louvred'`, pale wall with a dark louvre ribbon per level) is what the game draws, not open decks. The car wash "Spălătorie
   Unirea Etaj 7" no longer gets street boards: a business named for an upper floor ("Etaj n") has no street-level fascia
   (world.js `addUnitSign`, the same rule as the building sign).
+- **Piața Unirii lamps** (r3-look-13): the mapped street lamps within 150 m of the square centre (8 drawn after the generic
+  lamp de-duplication) take the candelabra form seen in the 2024 panoramas (`game/src/lamp-reviews.js`, a third instanced lamp
+  set: dark post on a plinth, a cross of arms, five globes; the night light sits over the post). Positions stay OSM's.
+- **Playgrounds** n7958996084 (44.424677, 26.103238) and n5766022623 (44.43433, 26.116368): OSM `leisure=playground` nodes
+  without an outline, now drawn as a generic class set (rubber patch, swing frame, slide; `game/src/playgrounds.js`).
+- **ATMs**: the four mapped ATMs (Euronet ×3, Bitcoin ATM) show the ATM symbol on the map, not the bank one.
+- **Unirea Shopping Center** (r2-landmarks-4): the red "UNIREA" logo now stands near the roof of the south front (landmarks.js
+  `bUnirea`). The trees in front are OSM tree nodes (159 in the box round the south front, drawn from the pack); the hedge
+  strip has no OSM object (no `barrier=hedge` there, live OSM 2026-11-13), so it is not drawn.
 
 ### Estimates
 
@@ -983,3 +992,8 @@ Official panoramas only (ids cited; no imagery stored). Runtime modules named in
   (95 m) and trams osm521 (41 m) / osm522 (93 m) / osm523 (42 m), Hala Traian osm544 (75 m) / osm545 (52 m) and trams osm552
   (95 m) / osm553 (60 m). The cap is the frame budget's (a shelter further out is distant scenery); whether those stops have a
   shelter at all is not established either way (r3-builder-4).
+- **Playground equipment** and **candelabra sizes**: no OSM object maps the equipment or the lamp form; the drawn sets and the
+  globe / arm sizes are class estimates (`PLAYGROUND_MODEL`, `CANDELABRA_MODEL`).
+- **Unirea Shopping Center**: panel module, louvre pitch, banner size and the logo's letter height / place along the south front
+  are estimates; the north end and the east (rear) faces were not seen on a sharp official panorama and keep the light panel
+  skin of the reviewed south front.

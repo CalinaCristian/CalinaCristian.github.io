@@ -1440,6 +1440,15 @@ function bUnirea(b) {
         }else if(L>=5){const k=Math.max(1,Math.round(L/6.2));for(let j=1;j<k;j++)q(j/k*L-0.04,j/k*L+0.04,5.4,23.4,0.06,JOINT);}
         if(i>=34&&i<=41)q(0,L,11.5,20.5,0.3,'#f1f1ee'); // the blank billboard frame on the rotunda
     }
+    // (round 4, r2-landmarks-4) the red "UNIREA" logo near the roof at the west end of the south front (May 2024 panorama from
+    // Piața Unirii): on the longest face whose outward normal points most to the south (world +z; model -> world by A.unirea's
+    // rotation). Letter height and the inset from the corner are estimates; the logo's exact artwork is not reproduced.
+    {
+        const rot=A.unirea[2],c0=Math.cos(rot),s0=Math.sin(rot);let best=null;
+        for(let i=0;i<p.length;i++){const a=p[i],c=p[(i+1)%p.length],L=Math.hypot(c[0]-a[0],c[1]-a[1]);if(L<25)continue;const dx=(c[0]-a[0])/L,dz=(c[1]-a[1])/L,n=[sg*dz,-sg*dx],wz=-n[0]*s0+n[1]*c0;if(!best||wz>best.wz)best={a,dx,dz,n,L,wz};}
+        if(best&&best.wz>0.5){const {a,dx,dz,n,L}=best,t=Math.min(L-9,14),o=0.45,x=a[0]+dx*t+n[0]*o,z=a[1]+dz*t+n[1]*o,ry=Math.atan2(n[0],n[1]); // (text faces n, reads left to right from outside)
+            b.text('UNIREA',x+n[0]*0.08,20.0,z+n[1]*0.08,ry,2.3,'#d0202a');}
+    }
     b.cornice(p,4.8,0.55,0.45,'#e3e3de');b.cornice(p,23.4,0.6,0.35,'#b9bbb7');
     // (owner, 2026-11-11: "this still sticks out") The roof storey is the footprint inset by 12 m. On this concave outline
     // a plain 12 m inset folds over itself and a slab of it stood out over the street. The inset is used only when every

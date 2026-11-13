@@ -11,6 +11,7 @@
 // Estimates, stated as such (not surveyed): girder depth, deck width, parapet, pier section and the pier spacing / pier
 // positions (OSM maps no supports); piers are only placed clear of carriageways and buildings, never moved onto them.
 // Street-level imagery was used to confirm the structure type only (concrete box girder on single columns).
+import { GUIDEWAY_OCS, ocsWires, ocsPole } from './guideway-ocs.js';
 export const SEATAC_GUIDEWAY = {
     mains: ['w34746781', 'w260383054'],
     others: ['w164665648', 'w260383057', 'w911020383', 'w911020385', 'w911020386', 'w911020387', 'w916372227'],
@@ -53,10 +54,10 @@ function nearestOn(pts, x, z) {
  * Returns { ways: Set of handled way ids, metres, piers, piersOmitted } (an audit record for world stats).
  */
 export function emitSeatacGuideway(env) {
-    const CON = env.rgb('#c4c1ba'), PIER = env.rgb('#bcb9b2'), RAIL = env.rgb('#6d7174'), WALL = env.rgb('#a9a6a0');
+    const CON = env.rgb('#c4c1ba'), PIER = env.rgb('#bcb9b2'), RAIL = env.rgb('#6d7174'), WALL = env.rgb('#a9a6a0'), OCSW = env.rgb(GUIDEWAY_OCS.wireColour), OCSP = env.rgb(GUIDEWAY_OCS.colour);
     const G = SEATAC_GUIDEWAY, byId = new Map((env.railways || []).map(r => [r.id, r]));
     const line = (id) => { const r = byId.get(id); return r ? env.undelta(r.points, 0) : null; };
-    const mains = G.mains.map(line), out = { ways: new Set(), metres: 0, piers: 0, piersOmitted: 0 };
+    const mains = G.mains.map(line), out = { ways: new Set(), metres: 0, piers: 0, piersOmitted: 0, ocsPoles: 0 };
     if (!mains[0] || !mains[1]) return out;
     const end = mains[0][mains[0].length - 1], sc = env.stationCentre;
     const topAt = (x, z, main) => { if (!main) return G.railTopM; const d = Math.hypot(x - end[0], z - end[1]); return d >= G.rampM ? G.railTopM : G.endTopM + (G.railTopM - G.endTopM) * d / G.rampM; };
@@ -77,7 +78,7 @@ export function emitSeatacGuideway(env) {
             const depth = top < G.pierMinTopM ? top - 0.02 : G.girderM;
             return { x: p[0], z: p[1], ux, uz, nx, nz, wl, wr, side, half, top: top + lift[0], depth: depth + lift[0] - lift[1] };
         });
-        let run = 0, nextPier = G.pierEveryM / 2;
+        let run = 0, nextPier = G.pierEveryM / 2, nextPole = 12;
         for (let i = 1; i < N; i++) {
             const a = S[i - 1], b = S[i], L = Math.hypot(b.x - a.x, b.z - a.z), mx = (a.x + b.x) / 2, mz = (a.z + b.z) / 2;
             run += L;
@@ -98,6 +99,10 @@ export function emitSeatacGuideway(env) {
             }
             for (const g of [-0.7175, 0.7175]) quad(m, [P(a, g + 0.05, a.top + 0.16), P(b, g + 0.05, b.top + 0.16), P(b, g - 0.05, b.top + 0.16), P(a, g - 0.05, a.top + 0.16)], [0, 1, 0], RAIL); // 1435 mm gauge
             out.metres += L;
+            if (other) { // (seatac-7 / r2-world-guideway) overhead contact line: guideway-ocs.js (estimates)
+                ocsWires(quad, P, m, a, b, OCSW);
+                if (id === G.mains[0] && run >= nextPole) { nextPole = run + GUIDEWAY_OCS.poleEveryM; out.ocsPoles += ocsPole(env, a, OCSP); }
+            }
             if (fill) { if (i % 2 === 0) env.addPropColl(mx, mz, Math.max(a.wl, a.wr) + 0.3, 'guideway'); continue; }
             if (id !== G.mains[0] || run < nextPier) continue;
             nextPier = run + G.pierEveryM;

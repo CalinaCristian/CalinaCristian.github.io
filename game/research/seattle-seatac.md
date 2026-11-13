@@ -248,6 +248,13 @@ outline w1035290130, 47.444099, -122.293207 h330): a low white enclosed corridor
 - **Landmark colours** (r2-landmarks-b-2): the control tower's base building is beige concrete with dark window strips (was white with
   navy bands); the garage's facade columns are round with a red band at street level (were square posts; 8-sided columns, band
   0.9 - 1.8 m an estimate).
+- **Link overhead line** (seatac-7): the guideway now carries a contact wire and a messenger over each main track and a pole with a
+  cross arm every 55 m (`guideway-ocs.js`). Wire / pole heights, spacing and positions are estimates (OSM maps the
+  line as electrified, not its supports).
+- **Estimates kept** (seatac-7): pier positions and spacing (34 m), girder depth (1.8 m) and deck width (2 x 2.6 m plus the track
+  spacing) are estimates: OSM maps no supports and no published drawing was found. The bridge ways w165240082 / w165240083 (towards
+  SR-518) lie 0.4 - 1.2 km north-east, outside the district polygon, and have no sourced height: not drawn. Trains: the game has no
+  light-rail service, so no trains run on the guideway (a simplification, not a data gap).
 
 ## Backlog clearing (2026-11-13)
 

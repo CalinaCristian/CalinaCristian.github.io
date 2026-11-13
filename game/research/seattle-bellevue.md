@@ -569,6 +569,17 @@ legible at this resolution).
 - **Landmark colours** (r2-landmarks-b-2): Bellevue Square's Bellevue Way face is red brick with two-storey glazed bays between proud
   brick columns (was grey stone with one blue shop band; bay rhythm 7.5 m and heights are estimates); the Bellevue Towers podium
   stone is darker grey (#9c978e).
+- **Wilburton station** (r2-world-guideway): drawn from live OSM: the island platform w922284294 at deck level, the roof outline
+  w615292866 on one row of columns, the two lifts (n11812430045 / n11812430046) as shafts from the street. The pack had drawn the roof
+  (building=train_station, layer=1, no min_height) as a 7.8 m windowed block on the ground round the guideway: that block is now left
+  out. Estimates: platform 0.36 m above the rail, roof 4.2 m clear and 0.5 m deep, columns every 12 m, shafts 2.4 m; the stairs
+  (w1273554471-73, w1274300267) and the station's look were not compared with a panorama.
+- **2 Line overhead line**: contact and messenger wires over both tracks, a pole with a cross arm every 55 m (`guideway-ocs.js`;
+  estimates).
+- **Estimates kept** (r2-world-guideway): the rail level (section 19: clearances over 112th Ave NE and NE 8th St on USGS ground; no
+  published profile). The Bellevue Downtown station tracks (w614517901 / w669516619, layer 1) are drawn as the guideway class: the
+  station lies outside the district and its structure was not compared. One pier of 27 is left out where a scenery carriageway passes
+  under the span (piers are never placed on a carriageway).
 
 ## 24. Backlog close-out, cross-district lane (2026-11-13)
 

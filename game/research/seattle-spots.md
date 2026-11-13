@@ -1155,3 +1155,24 @@ Estimates and source gaps that no available source settles (moved here from the 
 - **Sinking Ship Garage.** Deck level 12.68 m NAVD88 (mean of the DEM at the two 2nd Ave Extension corners); OSM's 3 levels /
   10.9 m are kept as the mapped total, with the levels below the high street.
 - **Rainier / Olympics.** Snow from 1950 m (blend 1650–1950 m) and the 45 % haze mix are judged, not measured.
+
+Second batch (same day): the Ballard Locks south-bank plaza has a 1.05 m concrete parapet where it stands over water or lower
+ground (open at the mapped footways), the Administration Building's garden w60973304 is a stand of tall conifers; Pioneer
+Square's vault lights are iron panels of round prisms and the Occidental Square playground w1155308011 has a climbing tower
+and swings (`spots/playground-kit.js`, also on Pier 58's w1417461575); the waterfront promenade's lamps are dark
+square-section posts with a slim arm and flat head, and the mapped planted beds (scrub / flowerbed / bioswale) carry shrubs;
+the Pike Place Market Parking garage w184870422 lost the generic shop ground floor (its Western Ave wall is a garage front).
+More estimates:
+- **Ballard Locks.** Footbridge and service-bridge levels of the spillway (lake +0.1 m / +2.5 m) and all wall tops (7.0 m
+  NAVD88, the north bank's coping) are read from one panorama and the bank (the DEM flattens the walls into the water); the
+  tide is fixed at the DEM's low-water surface (−0.36 m NAVD88); the large chamber moves as one sheet across the
+  intermediate gate. Salmon Waves' layout, facing and curl come from one panorama (AVeeBVnYYgdepI_VExHVWQ); the plaza deck
+  is level at −1.67 (two dry DEM samples); parapet 1.05 m × 0.25 m; the garden's conifer grid and sizes.
+- **Pioneer Square.** The 25 panorama-checked fronts keep estimated bay widths, opening sizes, floor heights and colours;
+  Occidental Square's trees are generated (OSM maps no tree nodes there); vault-light strips: extent estimated, 1.2 m panels
+  of 4 × 4 prisms; playground equipment generic (the area is OSM, the pieces are not mapped).
+- **Seattle Center.** Pacific Science Center (w394955903) has no height tag (generic OSM volume) and its arches have no OSM
+  object; no official panorama found shows them.
+- **Pike Place.** Roof pigs: not seen on any panorama checked, not modelled.
+- **Waterfront.** The Overlook Walk's bridge steps w1320933924/5 are folded into the deck's one level (their fall is not
+  known); the Ocean Pavilion's oculus and planted roof are not drawn (no view of the roof); promenade lamp post 9 m, arm 2 m.

@@ -1,7 +1,8 @@
 // ============================================================================
 //  Scenarios. Each entry: { id, title, city, run(H, ctx) → result object }.
 //  `city` is where the scenario starts ('bucharest' | 'seattle'); the runner
-//  loads that city first. Keep every scenario ≤ 90 s of simulated time:
+//  loads that city first (the district of its first chapter), or `district`
+//  (an id, or a function of the city id) when the scenario names one. Keep every scenario ≤ 90 s of simulated time:
 //  teleport (H.placeOnRoad) instead of driving long distances.
 //  To add one: append to SCENARIOS (or STREETS for a new "drive 400 m" street).
 // ============================================================================
@@ -24,19 +25,16 @@ export function spawnDriveBudget(route, targetIndex, traffic, elapsed = 0) {
 }
 
 /** streets for scenario b: regex on the edge name, reference point (lat/lon) and preferred bearing (deg, 0 = north) */
-export const STREETS = [
-    { id: 'magheru', name: 'Bd. Magheru', re: /Magheru/, ll: [44.4440, 26.0978], bearing: 0 },
-    { id: 'victoriei', name: 'Calea Victoriei', re: /^Calea Victoriei$/, ll: [44.4395, 26.0962], bearing: 0 },
-    { id: 'unirii', name: 'Bd. Unirii', re: /^Bulevardul Unirii$/, ll: [44.4262, 26.1080], bearing: 90 },
-    { id: 'kiseleff', name: 'Șos. Kiseleff', re: /Kiseleff/, ll: [44.4620, 26.0810], bearing: 0 },
-    { id: 'stefan', name: 'Șos. Ștefan cel Mare', re: /Ștefan cel Mare|Stefan cel Mare/, ll: [44.4505, 26.1110], bearing: 90 },
-    { id: 'pipera', name: 'Șos. Pipera', re: /^Șoseaua Pipera$/, ll: [44.4940, 26.1150], bearing: 0 },
-    { id: 'dn1', name: 'DN1', re: /DN1|București-Ploiești/, ll: [44.5150, 26.0840], bearing: 0 },
-    { id: 'splaiul', name: 'Splaiul Independenței', re: /^Splaiul Independenței$/, ll: [44.4330, 26.0880], bearing: 90 },
-    { id: 'catargiu', name: 'Bd. Lascăr Catargiu', re: /Lascăr Catargiu/, ll: [44.4480, 26.0925], bearing: 0 },
-    { id: 'floreasca', name: 'Calea Floreasca', re: /^Calea Floreasca$/, ll: [44.4590, 26.1000], bearing: 0 },
-    { id: 'barbu', name: 'Str. Barbu Văcărescu', re: /Barbu Văcărescu/, ll: [44.4740, 26.1050], bearing: 0 },
+export const STREETS = [ // each in the district that holds it (1:1 districts, spec 22)
+    { id: 'magheru', name: 'Bd. Magheru', re: /Magheru/, ll: [44.4440, 26.0978], bearing: 0, district: 'romana' },
+    { id: 'victoriei', name: 'Calea Victoriei', re: /^Calea Victoriei$/, ll: [44.4395, 26.0962], bearing: 0, district: 'romana' },
+    { id: 'unirii', name: 'Bd. Unirii', re: /^Bulevardul Unirii$/, ll: [44.4262, 26.1080], bearing: 90, district: 'unirii' },
+    { id: 'catargiu', name: 'Bd. Lascăr Catargiu', re: /Lascăr Catargiu/, ll: [44.4480, 26.0925], bearing: 0, district: 'romana' },
+    { id: 'floreasca', name: 'Calea Floreasca', re: /^Calea Floreasca$/, ll: [44.4590, 26.1000], bearing: 0, district: 'floreasca' },
+    { id: 'barbu', name: 'Str. Barbu Văcărescu', re: /Barbu Văcărescu/, ll: [44.4740, 26.1050], bearing: 0, district: 'pipera' },
 ];
+/** the CV stops of the loaded district (the others have no POI in this map) */
+const districtStops = (g) => (g.stops || []).filter(s => !g.district || g.chapters?.some(c => c.stop === s.id && c.district === g.district));
 
 // ---------------------------------------------------------------- helpers
 const bearingOf = (e, dir) => (Math.atan2(e.dirx * dir, -e.dirz * dir) * 180 / Math.PI + 360) % 360;
@@ -48,7 +46,9 @@ const angDiff = (a, b) => Math.abs(((a - b + 540) % 360) - 180);
 export function findStreet(H, re, length, { ll = null, bearing = null, bridge = null, maxStart = 1500 } = {}) {
     const g = H.g, W = g.world;
     const nameOk = (e) => re.test(e.name || '') || re.test(e.ref || '');
-    let cands = W.graph.edges.filter(e => nameOk(e) && e.main !== false && e.len > 8 && (bridge === null || !!e.bridge === bridge));
+    // inside the district's drivable area; the walk stops at a map end (the road is closed there)
+    const inside = (e) => !W.district?.inside || W.district.inside((e.a.x + e.b.x) / 2, (e.a.z + e.b.z) / 2);
+    let cands = W.graph.edges.filter(e => nameOk(e) && e.main !== false && e.len > 8 && inside(e) && (bridge === null || !!e.bridge === bridge));
     if (!cands.length) return null;
     let ref = null;
     if (ll && g.city?.proj) ref = g.city.proj(ll[0], ll[1]);
@@ -64,19 +64,22 @@ export function findStreet(H, re, length, { ll = null, bearing = null, bridge = 
                 // walk forward along same-name edges, smallest turn first
                 let e = e0, dir = d0, len = e0.len * 0.5, guard = 0; const used = new Set([e0]); const names = [roadName(e0)];
                 while (len < length && guard++ < 400) {
-                    const node = dir > 0 ? e.b : e.a; let nx = null, bd = Infinity;
+                    const node = dir > 0 ? e.b : e.a; let nx = null, bd = Infinity; if (node.mapEnd) break;
                     for (const n of node.edges) {
                         if (used.has(n) || n.main === false) continue;
                         const nd = n.a === node ? 1 : -1; if (!canTravel(n, nd)) continue;
-                        if (!nameOk(n)) continue;
+                        if (!nameOk(n) || !inside(n)) continue;
                         const dot = n.dirx * nd * e.dirx * dir + n.dirz * nd * e.dirz * dir; if (dot < 0.3) continue;
                         if (-dot < bd) { bd = -dot; nx = { e: n, dir: nd }; }
                     }
                     if (!nx) break;
                     e = nx.e; dir = nx.dir; used.add(e); len += e.len;
                 }
-                const end = dir > 0 ? e.b : e.a;
-                const cand = { edge: e0, dir: d0, s: e0.len * 0.5, end: { x: end.x, z: end.z }, length: len, names, bearing: Math.round(bearingOf(e0, d0)) };
+                const endN = dir > 0 ? e.b : e.a, from = dir > 0 ? e.a : e.b;
+                // a map end is closed by a barrier: stop 25 m short of it
+                const back = endN.mapEnd ? Math.min(25, e.len / 2) / (e.len || 1) : 0, end = { x: endN.x + (from.x - endN.x) * back, z: endN.z + (from.z - endN.z) * back };
+                if (back) len -= back * e.len;
+                const cand = { edge: e0, dir: d0, s: e0.len * 0.5, end, length: len, names, bearing: Math.round(bearingOf(e0, d0)) };
                 if (len >= length) return cand;
                 if (!best || len > best.length) best = cand;
             }
@@ -150,7 +153,8 @@ async function enterOfficeAndRead(H, stop) {
     await sleep(0);
     // ('card': the chapter-complete card opened on leaving)
     if (g.state !== 'drive' && g.state !== 'card') { H.issue('office-leave-failed', 'high', `could not leave the ${stop.id} office with E at the exit`, {}, { key: 'leave:' + stop.id }); o.done = true; await H.run(0.3); }
-    res.visited = g.visited?.has(stop.id); res.ok = !!res.visited || (!!g.freeRoam && g.state === 'drive'); // free roam: CV content only, no unlocks
+    // a stop unlocks after the whole conversation (linear office story); free roam: CV content only, no unlocks
+    res.visited = g.visited?.has(stop.id); res.ok = !!res.visited || !o.conversationComplete || (!!g.freeRoam && g.state === 'drive');
     if (!res.ok) H.issue('office-not-unlocked', 'high', `left the ${stop.id} office after reading a screen but the stop is not marked visited`, {}, { key: 'unlock:' + stop.id });
     return res;
 }
@@ -249,14 +253,14 @@ export const SCENARIOS = [
         },
     },
     ...STREETS.map(st => ({
-        id: 'b:' + st.id, group: 'b', title: `Drive 400 m on ${st.name}`, city: 'bucharest',
+        id: 'b:' + st.id, group: 'b', title: `Drive 400 m on ${st.name}`, city: 'bucharest', district: st.district,
         async run(H) { await prep(H); return driveStreet(H, st); },
     })),
     {
         id: 'c', title: 'Visit every CV stop (enter, read one screen, leave)', city: 'any',
         async run(H) {
             const g = H.g; await prep(H); const out = [];
-            for (const stop of g.stops || []) {
+            for (const stop of districtStops(g)) {
                 if (!stop.poiRef) { H.issue('poi-missing', 'high', `stop ${stop.id} has no POI`, { x: 0, z: 0 }, { key: 'pm:' + stop.id }); continue; }
                 const dx = stop.poiRef.doorX ?? stop.poiRef.x, dz = stop.poiRef.doorZ ?? stop.poiRef.z;
                 H.note(`visiting ${stop.id}`);
@@ -274,7 +278,7 @@ export const SCENARIOS = [
         },
     },
     {
-        id: 'd', title: 'Refuel at a station', city: 'any',
+        id: 'd', title: 'Refuel at a station', city: 'any', district: (city) => city === 'seattle' ? 'seatac' : 'floreasca',
         async run(H) {
             const g = H.g, P = g.player; await prep(H);
             if (!g.stations?.length) { H.issue('no-stations', 'high', 'no gas stations in this city', {}, { key: 'nostations' }); return { ok: false }; }
@@ -298,7 +302,7 @@ export const SCENARIOS = [
         id: 'e', title: 'Fast travel to each stop', city: 'any',
         async run(H) {
             const g = H.g, P = g.player; await prep(H); const out = [];
-            const targets = (g.stops || []).filter(s => s.poiRef).map(s => ({ id: s.id, x: s.poiRef.doorX ?? s.poiRef.x, z: s.poiRef.doorZ ?? s.poiRef.z, label: s.short || s.id }));
+            const targets = districtStops(g).filter(s => s.poiRef).map(s => ({ id: s.id, x: s.poiRef.doorX ?? s.poiRef.x, z: s.poiRef.doorZ ?? s.poiRef.z, label: s.short || s.id }));
             if (g.airport) targets.push({ id: 'airport', x: g.airport.doorX ?? g.airport.x, z: g.airport.doorZ ?? g.airport.z, label: 'airport' });
             for (const t of targets) {
                 if (Math.hypot(P.x - t.x, P.z - t.z) < 200) { H.placeOnRoad(P.x + 900, P.z + 600); await H.run(0.2); }
@@ -319,64 +323,7 @@ export const SCENARIOS = [
         },
     },
     {
-        id: 'f', title: 'Fly to Seattle, SR-518 → I-5 → I-90 bridge → I-405 → NE 8th, UiPath Bellevue, finale', city: 'bucharest',
-        async run(H, ctx) {
-            const g = H.g; await prep(H); const res = { legs: [] };
-            if (g.city.id === 'bucharest') {
-                const t0 = performance.now();
-                const p = g.fly();
-                for (let i = 0; i < 40 && g.state === 'flight'; i++) { await sleep(150); document.querySelector('#flight [data-skip]')?.click(); }
-                await p;
-                res.flightMs = Math.round(performance.now() - t0);
-                if (g.city.id !== 'seattle' || g.state !== 'drive') { H.issue('flight-failed', 'high', `after fly(): city=${g.city.id} state=${g.state}`, {}, { key: 'fly' }); return res; }
-                H.lampSet = null; H.begin(H.scenario); // new world: reset per-world state, keep the scenario name
-                await prep(H);
-                res.seattleSpawn = H.where(g.player.x, g.player.z);
-                checkPose(H, 'Seattle spawn after the flight');
-                res.shotSpawn = await H.shot('seattle-scenario-f-spawn');
-            }
-            const legs = [
-                { name: 'SR-518', re: /SR-518/, len: 600, ll: [47.4640, -122.2950], bearing: 90 },
-                { name: 'I-5', re: /^I-5$/, len: 700, ll: [47.5200, -122.2900], bearing: 0 },
-                { name: 'I-90 floating bridge', re: /^I-90/, len: 900, ll: [47.5900, -122.2700], bearing: 90 },
-                { name: 'I-405', re: /^I-405$/, len: 700, ll: [47.5950, -122.1880], bearing: 0 },
-            ];
-            for (const L of legs) {
-                H.mon.pathXZ = [];
-                const seg = findStreet(H, L.re, L.len, { ll: L.ll, bearing: L.bearing, maxStart: 3000 });
-                if (!seg) { H.issue('street-not-found', 'high', `no drivable edge for ${L.name}`, { x: 0, z: 0 }, { key: 'sea:' + L.name }); res.legs.push({ name: L.name, ok: false }); continue; }
-                const pose = H.placeOnRoad(0, 0, null, { edge: seg.edge, dir: seg.dir, s: seg.s });
-                checkPose(H, `start of ${L.name}`, seg.edge);
-                const bridge0 = !!g.flags?.bridge;
-                const r = await H.driveTo(seg.end.x, seg.end.z, { label: L.name, arriveR: 20, timeout: 60, stop: false });
-                if (!r.ok) H.issue('drive-failed', 'medium', `could not drive ${L.name} (${Math.round(seg.length)} m): ${r.reason}, ${r.remaining} m left`, {}, { shot: true, key: 'sea-drive:' + L.name });
-                const leg = { name: L.name, from: H.where(pose?.x ?? 0, pose?.z ?? 0), length: Math.round(seg.length), ...r, objectsInRoad: H.auditAroundPath(30) };
-                if (/I-90/.test(L.name)) { leg.bridgeAchievement = !!g.flags?.bridge; if (!bridge0 && !g.flags?.bridge) H.issue('bridge-not-detected', 'low', 'drove the I-90 leg but the floating-bridge achievement did not fire', {}, { key: 'bridge' }); }
-                res.legs.push(leg);
-            }
-            // NE 8th → UiPath Bellevue
-            const stop = (g.stops || []).find(s => s.id === 'uipath-bel');
-            if (!stop?.poiRef) { H.issue('poi-missing', 'high', 'no UiPath Bellevue POI', { x: 0, z: 0 }, { key: 'pm:uipath-bel' }); return res; }
-            const dx = stop.poiRef.doorX ?? stop.poiRef.x, dz = stop.poiRef.doorZ ?? stop.poiRef.z;
-            const seg = findStreet(H, /^Northeast 8th Street$/, 300, { ll: [47.6170, -122.2010], bearing: 90 });
-            H.mon.pathXZ = [];
-            if (seg) H.placeOnRoad(0, 0, null, { edge: seg.edge, dir: seg.dir, s: seg.s });
-            else { H.issue('street-not-found', 'high', 'no NE 8th St edge', { x: 0, z: 0 }, { key: 'ne8' }); H.placeOnRoad(dx - 300, dz); }
-            const r = await H.driveTo(dx, dz, { label: 'UiPath Bellevue', arriveR: 7, timeout: 60, stop: true });
-            res.legs.push({ name: 'NE 8th → UiPath Bellevue', ...r, objectsInRoad: H.auditAroundPath(30) });
-            const office = await enterOfficeAndRead(H, stop);
-            res.office = office;
-            // finale panel opens 1.2 s (real time) after leaving the last office
-            const t1 = performance.now(); while (performance.now() - t1 < 3000 && !g.hud.panelOpen) { await H.run(0.1); await sleep(50); }
-            res.finale = g.hud.panelOpen && /Story complete/i.test(document.querySelector('#panel')?.textContent || '');
-            if (res.finale) res.finaleShot = await H.shot('seattle-finale');
-            else H.issue('finale-missing', 'high', 'left UiPath Bellevue after reading a screen but the finale panel did not open', {}, { shot: true, key: 'finale' });
-            try { g.hud.closePanel(); } catch { /* ignore */ }
-            return res;
-        },
-    },
-    {
-        id: 'g', title: 'Night run with headlights', city: 'bucharest',
+        id: 'g', title: 'Night run with headlights', city: 'bucharest', district: 'romana',
         async run(H) {
             const g = H.g, P = g.player; await prep(H, { night: true });
             await H.run(0.5);
@@ -416,7 +363,7 @@ export const SCENARIOS = [
         },
     },
     {
-        id: 'h', title: 'Collision / unstick (hit a wall, hit a prop, press R)', city: 'any',
+        id: 'h', title: 'Collision / unstick (hit a wall, hit a prop, press R)', city: 'any', district: (city) => city === 'seattle' ? 'bellevue' : 'romana',
         async run(H) {
             const g = H.g, P = g.player, W = g.world; await prep(H);
             const res = {};
@@ -478,7 +425,7 @@ export const SCENARIOS = [
         },
     },
     {
-        id: 'i', title: '60 s stopped in a lane on Magheru (traffic must flow around)', city: 'bucharest',
+        id: 'i', title: '60 s stopped in a lane on Magheru (traffic must flow around)', city: 'bucharest', district: 'romana',
         async run(H) {
             const g = H.g, P = g.player; await prep(H);
             const st = STREETS.find(s => s.id === 'magheru');

@@ -44,7 +44,7 @@ for (const a of process.argv.slice(2)) {
 // default cities for scenarios that can run in either city (when --city is not given)
 const DEFAULT_CITIES = { a: ['bucharest', 'seattle'], c: ['bucharest'], d: ['bucharest', 'seattle'], e: ['bucharest', 'seattle'], h: ['bucharest', 'seattle'] };
 const FULL = {
-    bucharest: ['audit', 'a', 'h', 'i', 'b', 'd', 'g', 'e', 'c', 'f'],
+    bucharest: ['audit', 'a', 'h', 'i', 'b', 'd', 'g', 'e', 'c'],
     seattle: ['audit', 'a', 'h', 'd', 'e'],
 };
 function buildPlan(list) {
@@ -66,7 +66,7 @@ function buildPlan(list) {
         for (const id of found) {
             const s = list.find(x => x.id === id);
             const want = args.city ? [args.city] : cityOf(s) ? [cityOf(s)] : (DEFAULT_CITIES[s.group || s.id] || ['bucharest']);
-            for (const c of want) { if (cityOf(s) && cityOf(s) !== c && !(s.id === 'f')) { console.error(`scenario ${id} only runs in ${cityOf(s)}`); continue; } plan[c].push(id); }
+            for (const c of want) { if (cityOf(s) && cityOf(s) !== c) { console.error(`scenario ${id} only runs in ${cityOf(s)}`); continue; } plan[c].push(id); }
         }
     }
     return plan;

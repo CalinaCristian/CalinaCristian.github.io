@@ -716,7 +716,7 @@ export function ribbonHits(e, W, lamps) {
     const seen = new Set();
     W.buildings.query(mx, mz, e.len / 2 + Math.max(wR, wL) + 2, (c) => {
         if (seen.has(c)) return; seen.add(c);
-        if (c.wall || c.ax !== undefined || c.kind === 'pier' || c.yMax !== undefined) return;
+        if (c.wall || c.ax !== undefined || c.kind === 'pier' || c.kind === 'closure' || c.yMax !== undefined) return; // (closures: the barriers that close a road at the district edge, there on purpose)
         const base = c.y ?? c.base ?? 0;
         if (c.prop) {
             const circle = c.hw === c.r;

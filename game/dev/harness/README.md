@@ -43,17 +43,21 @@ remote/transient types (vehicle overlaps, pedestrians) unless `--shot-all`. A fu
 
 ## Scenarios
 
-| id | city | what |
-|---|---|---|
-| `a` | both | spawn sanity: pose on the road / legal direction / not touching anything, objective + route + nav line present, drive the first 150 m |
-| `b:<street>` | Bucharest | drive ~400 m on Magheru, Calea Victoriei, Unirii, Kiseleff, Ștefan cel Mare, Pipera, DN1, Splaiul Independenței, Lascăr Catargiu, Calea Floreasca, Barbu Văcărescu (`b` = all) |
-| `c` | Bucharest | visit every CV stop: fast travel near it, drive to the door, E, walk to a screen, read it, leave, check it is unlocked |
-| `d` | both | refuel: drive to the nearest station, E, tank full |
-| `e` | both | fast travel to each stop and the airport: landing pose, route, last-mile drive |
-| `f` | Bucharest→Seattle | fly (skip the cut-scene), SR-518 → I-5 → I-90 floating bridge → I-405 → NE 8th, enter UiPath Bellevue, finale panel |
-| `g` | Bucharest | night: night lights / headlights / NPC lights on; drive Calea Victoriei; street-lamp light-pool churn (flicker heuristic) |
-| `h` | both | crash into a building wall, keep pushing (stuck prompt), R reset (pose checks), drive away; drive into a lamp/tree (must stop, not pass through), R |
-| `i` | Bucharest | 60 s stopped in the inner lane of Magheru: vehicles behind must get past |
+Every map is a 1:1 chapter district. A city loads the district of its first chapter (Bucharest: Floreasca,
+Seattle: SeaTac) unless the scenario names its own (the district column).
+
+| id | city | district | what |
+|---|---|---|---|
+| `a` | both | first chapter | spawn sanity: pose on the road / legal direction / not touching anything, objective + route + nav line present, drive the first 150 m |
+| `b:<street>` | Bucharest | the street's | drive ~400 m on Magheru, Calea Victoriei, Lascăr Catargiu (Romana), Bd. Unirii (Unirii), Calea Floreasca (Floreasca), Barbu Văcărescu (Pipera), stopping short of a map end (`b` = all) |
+| `c` | both | loaded one | visit the district's CV stops: fast travel near it, drive to the door, E, walk to a screen, read it, leave (a stop unlocks only after the whole conversation: `office-talk`) |
+| `d` | both | Floreasca / SeaTac | refuel: drive to the nearest station, E, tank full |
+| `e` | both | loaded one | fast travel to each of the district's stops and the airport: landing pose, route, last-mile drive |
+| `g` | Bucharest | Romana | night: night lights / headlights / NPC lights on; drive Calea Victoriei; street-lamp light-pool churn (flicker heuristic) |
+| `h` | both | Romana / Bellevue | crash into a building wall, keep pushing (stuck prompt), R reset (pose checks), drive away; drive into a lamp/tree (must stop, not pass through), R |
+| `i` | Bucharest | Romana | 60 s stopped in the inner lane of Magheru: vehicles behind must get past |
+
+The flight between the cities is part of the chapter run (`ch`).
 
 Every scenario keeps ≤ 90 s of simulated time per drive (teleports instead of long trips).
 
@@ -71,7 +75,8 @@ level), `vehicle-overlap` (two NPCs overlapping > 0.5 m for > 1 s; `-ghost` when
 leg), `ped-stuck-crossing`, `route-failure`, `nav-missing`, `traffic-blockage` (autopilot blocked 18 s, needed
 R), `autopilot-no-progress`, `perf-traffic-update` (traffic.update average > 8 ms, low), `perf-fps` (low;
 software GL, only at quality low ≤ 640×360). After each drive the road ribbons near the driven path are
-checked for objects (`object-in-road`, `object-under-elevated-road`, `object-over-sunken-road`).
+checked for objects (`object-in-road`, `object-under-elevated-road`, `object-over-sunken-road`); the closure
+barriers that end a road at the district edge are there on purpose and are not counted.
 
 ### Static world audit (`--audit`, also part of the full run)
 

@@ -10,8 +10,11 @@ const g = window.game;
 const H = new Harness(g);
 H.install();
 
-async function loadCity(id) {
-    if (g.city?.id === id && g.started && g.state !== 'menu' && g.state !== 'loading') return true;
+// every map is a 1:1 district (spec 22): without one, a city loads the district of its first chapter
+const districtOf = (id, district) => district || g.chapters?.find(c => c.city === id)?.district || null;
+async function loadCity(id, district) {
+    district = districtOf(id, district);
+    if (g.city?.id === id && g.district === district && g.started && g.state !== 'menu' && g.state !== 'loading') return true;
     const prev = g.state; g.state = 'loading';
     if (!g.started) {
         // what Game.start() does, minus the hard-wired Bucharest load and the audio
@@ -20,7 +23,7 @@ async function loadCity(id) {
         document.querySelector('#hud')?.classList.add('show');
         g.startTime = performance.now();
     }
-    try { await g.loadCity(id); } catch (e) { H.issue('js-error', 'high', `loadCity(${id}) threw: ${e.message}`, { x: 0, z: 0 }, { key: 'load:' + id }); g.state = prev; return false; }
+    try { await g.loadCity(id, { district }); } catch (e) { H.issue('js-error', 'high', `loadCity(${id}:${district}) threw: ${e.message}`, { x: 0, z: 0 }, { key: 'load:' + id + ':' + district }); g.state = prev; return false; }
     try { g.player.camHolder.add(g.camera); g.camera.position.set(0, 0, 0); g.camera.rotation.set(0, 0, 0); } catch { /* ignore */ }
     g.fuel = 45; g.state = 'drive'; H.lampSet = null;
     return true;
@@ -34,10 +37,13 @@ window.harness = {
     loadCity,
     async runScenario(id, ctx = {}) {
         const sc = SCENARIOS.find(s => s.id === id); if (!sc) throw new Error('unknown scenario ' + id);
+        // a scenario tied to a street names its district (`district`: an id, or a function of the city id)
+        const want = typeof sc.district === 'function' ? sc.district(g.city?.id) : sc.district;
+        if (want && g.district !== want) await loadCity(g.city?.id || sc.city, want);
         H.begin(id); H.perf = null;
         const t0 = performance.now(), sim0 = H.simT, before = H.issues.length;
         let result = null, error = null;
-        try { result = await sc.run(H, ctx); }
+        try { if (want && g.district !== want) throw new Error('could not load district ' + want); result = await sc.run(H, ctx); }
         catch (e) { error = e.message + '\n' + (e.stack || '').split('\n').slice(0, 4).join('\n'); H.issue('harness-error', 'medium', `scenario ${id} crashed: ${e.message}`, { stack: e.stack }, { key: 'crash:' + id }); }
         H.ap = null; H.setControls(0, 0, true);
         await H.flushShots();
@@ -53,7 +59,6 @@ window.harness = {
         return H.driveTo(dx, dz, { arriveR: 7, stop: true, label: id });
     },
     refuel: () => H.refuelInstant(),
-    async fly() { const p = g.fly(); for (let i = 0; i < 40 && g.state === 'flight'; i++) { await sleep(150); document.querySelector('#flight [data-skip]')?.click(); } await p; H.lampSet = null; return g.city.id; },
     findStreet: (re, len, o) => findStreet(H, re, len, o),
     stats: () => ({ simT: H.simT, issues: H.issues.length, shots: H.shots, city: H.city, scenario: H.scenario, player: g.player ? { x: g.player.x, z: g.player.z, speed: g.player.speed } : null, traffic: g.traffic?.stats, render: g.r3d?.stats, lastRenderMs: H._lastRenderMs, stepMs: H.perf && H.perf.n ? { autopilot: +(H.perf.ap / H.perf.n).toFixed(2), game: +(H.perf.game / H.perf.n).toFixed(2), checks: +(H.perf.check / H.perf.n).toFixed(2), steps: H.perf.n, shotsMs: Math.round(H.perf.shot), yieldMs: Math.round(H.perf.yield), auditMs: Math.round(H.perf.audit) } : null }),
     perfProbe(frames = 6) {

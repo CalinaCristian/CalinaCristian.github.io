@@ -139,7 +139,7 @@ function applyLook() {
 async function chaptersList() {
     try { const m = await import('../../../../src/cities.js'); return Array.isArray(m.CHAPTERS) && m.CHAPTERS.length ? m.CHAPTERS : null; } catch { return null; }
 }
-/** groups to survey: one per loaded world (legacy city or chapter district) */
+/** groups to survey: one per chapter district */
 async function groups(cityFilter) {
     const ch = await chaptersList();
     const out = [];
@@ -151,10 +151,8 @@ async function groups(cityFilter) {
             if (!gr) out.push(gr = { key, city: c.city, district: c.district, chapters: [] });
             gr.chapters.push({ id: c.id, stop: c.stop, title: c.title, year: c.year });
         }
-        return { mode: 'chapters', groups: out };
     }
-    for (const c of ['bucharest', 'seattle']) if (!cityFilter || c === cityFilter) out.push({ key: c, city: c, district: null, chapters: [] });
-    return { mode: 'legacy', groups: out };
+    return { mode: 'chapters', groups: out };
 }
 async function loadGroup(key, opts = {}) {
     Object.assign(S.opts, opts);
@@ -167,11 +165,9 @@ async function loadGroup(key, opts = {}) {
     g.clock.override = S.opts.time || 'day'; g.weatherOverride = S.opts.weather || 'clear';
     try { g.quality = S.opts.quality; } catch { /* ignore */ } // (traffic pool sizes follow the quality at load time)
     const t0 = performance.now();
-    if (gr.district) {
-        const ch = (await chaptersList()).find(c => c.city === gr.city && c.district === gr.district);
-        await g.loadCity(gr.city, { district: gr.district, start: ch.start });
-        if (distId() !== gr.district) note(`asked for district ${gr.district}, world says ${distId()}`);
-    } else await g.loadCity(gr.city);
+    const ch = (await chaptersList()).find(c => c.city === gr.city && c.district === gr.district);
+    await g.loadCity(gr.city, { district: gr.district, start: ch.start });
+    if (distId() !== gr.district) note(`asked for district ${gr.district}, world says ${distId()}`);
     try { g.player.camHolder.add(g.camera); g.camera.position.set(0, 0, 0); g.camera.rotation.set(0, 0, 0); } catch { /* ignore */ }
     if (S.gameFar == null) S.gameFar = g.camera.far;
     g.fuel = 45; g.state = 'drive';
@@ -221,15 +217,6 @@ async function plans() {
             }
         }
         return out;
-    }
-    // legacy corridor worlds: spawn → stops in story order (→ airport)
-    const stops = (g.stops || []).filter(s => s.poiRef);
-    let from = { x: S.spawn.x, z: S.spawn.z, heading: S.spawn.heading }, fromId = g.city.id === 'seattle' ? 'seatac' : 'spawn';
-    const legs = stops.map(s => ({ id: s.id, ...doorOf(s.poiRef) }));
-    if (g.city.id === 'bucharest' && g.airport) legs.push({ id: 'otopeni', ...doorOf(g.airport) });
-    for (const L of legs) {
-        out.push({ id: `${fromId}-${L.id}`, label: `${fromId} → ${L.id}`, kind: 'story', from, to: { x: L.x, z: L.z, label: L.id } });
-        from = { x: L.x, z: L.z, heading: null }; fromId = L.id;
     }
     return out;
 }

@@ -185,10 +185,24 @@ Needle).
   skillion buttresses w1352666990 / w1352647807 / w1352647810 / w1352647812, Alaska Airlines Atrium w1270549342 — and the
   parent outline as a glass curtain wall up to 8 m under a thin white fascia (xLh7PyEOCxKVuesNWAzPBw @ 270,
   jLP72IlkxVljWg52cvsHAA @ 10 / 60: green-tinted glass, white mullions, a white sloped A-frame mid east side).
+- MoPOP skin (`scenes/seattle-center-mopop.js`): the seven lobes keep their OSM footprints, heights and colours but are
+  continuous curved metal masses — corners rounded, walls bulging out above the ground and rolling into a rounded crown at
+  the mapped height, each leaning away from the building's middle — in an iridescent shingled metal (purple sheen on the
+  silver lobes).
+- Climate Pledge Arena: the west and north A-frames stand on the parent outline's mapped 4.6 m spurs (feet at x −427.4,
+  z −254.5), with the mapped east part's section (white wedge, ground → 11 m, 10.1 m inside the wall); the south side has
+  no spur (the atria). CLIMATE PLEDGE ARENA lettering on the white fascia of the longest east (1st Ave N) glass wall.
+- Planting (`scenes/seattle-center-trees.js`): 56 live-OSM trees missing from the extract (rows along the Armory's west
+  side and Thomas St, the double row west of the Chihuly garden; API map call 2026-11-13); the mapped natural=wood
+  polygons round the Armory and east of the Needle (w394259997) filled at one tree per 30 m²; shrubs and small trees in
+  the mapped bed w394259987 by the pavilion.
 - Howard S. Wright fountain (w241876412), Armory (w231764919), Pacific Science Center (w394955903) at their mapped places.
   All 35 live businesses and 25 tourism / artwork objects inside the terrain box were in the extract (2026-11-12).
 
-**Estimates**: International Fountain micro-shooter and floodlight ring radii, the show rhythm (90 s show, 60 s still),
+**Estimates**: MoPOP's bulge (≤ 6 %), crown profile, 1.6 m lean, shingle size, metal sheen / iridescence and the 18 %
+toning of the tagged colours toward polished metal; the A-frames' inner end (copied from the east part); the lettering's
+face (the review that noted it did not record which face), its dark green colour and 26 m width; wood fill density
+(1 / 30 m², ≥ 3.5 m apart), the bed's shrub density and tree sizes. International Fountain micro-shooter and floodlight ring radii, the show rhythm (90 s show, 60 s still),
 the 6 m asphalt apron; the Iliad's split into legs and top, tube lengths and angles; the station canopy's rise and rib
 spacing; MoPOP height at the highest lobes ≈ 26–30 m; monorail beam ≈ 6–8 m overhead. Pacific Science Center has no
 height tag (generic volume) and its arches have no OSM object.
@@ -196,10 +210,8 @@ height tag (generic volume) and its arches have no OSM object.
 **Not modelled**: the Acrobat Constellation (n3211770205: three figures 21–25 ft on poles, mapped as one node, pole
 positions unknown); Chihuly's EXHIBITION ENTRANCE / bookstore signs and planted wall.
 
-**Open (needs a panorama look)**: MoPOP's real skin (iridescent purple-bronze and silver, continuous curved lobes; needs a
-hero model); screening trees at the Armory (reality wooded, the game open lawn) and round the Needle pavilion (its
-soffit band is deeper in reality); the arena's A-frames on the sides other than the mapped east one and its "CLIMATE
-PLEDGE ARENA" lettering; the Pacific Science Center arches (no panorama found shows them).
+**Source gaps**: the Pacific Science Center arches (no OSM object, no panorama found shows them); the Needle pavilion's
+deeper soffit band (no measurement recorded).
 
 ## Fremont Troll (`fremont-troll`)
 

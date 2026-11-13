@@ -3650,6 +3650,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             let hit = false;
             ribGrid.each(x - 0.6, z - 0.6, x + 0.6, z + 0.6, (rb) => {
                 if (hit || (w.edge && rb.e === w.edge)) return;
+                // (spec 10 load budget) every hit below needs (x, z) inside rb.poly, whose exact bounds these are (the test
+                // that stood further down, now first: the cheaper rejection for the ribbons a grid cell merely shares)
+                if (x < rb.x0 - 0.6 || x > rb.x1 + 0.6 || z < rb.z0 - 0.6 || z > rb.z1 + 0.6) return;
                 if (w.dualMedian) { // the barrier between two carriageways: their shoulders lap its line; only a road that crosses the median opens it
                     if (rb.e && rb.e.oneway && /^(motorway|trunk)$/.test(rb.e.type) && Math.abs(w.edge.dirx * rb.e.dirx + w.edge.dirz * rb.e.dirz) > 0.9) return;
                     if (rb.node) {

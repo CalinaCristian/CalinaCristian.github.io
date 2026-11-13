@@ -4,8 +4,8 @@
 //  shop gone, the ones below added). Each business is put on the building that holds it, on the wall nearest to its
 //  mapped position that faces open ground (its own frontage: Pike Place, Post Alley, 1st Ave, a side street…), at
 //  its own place along that wall and on its own floor (`level`). Signs on one wall never overlap: they slide
-//  along it, narrow, and as a last resort stack in a second row; none is dropped. Closed businesses (`disused:*`
-//  with nothing else) get no sign.
+//  along it, narrow, and as a last resort stack in a second row. Closed businesses (`disused:*` with nothing else)
+//  get no sign, nor do interior / arcade tenants of a hillside building whose nearest open wall is a lower face.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, inPoly, distSeg, clamp, hash2 } from '../kit.js';
@@ -79,15 +79,24 @@ export function buildShopSigns(ctx, o = {}) {
         if (!host) { let best = 10; for (const b of bldgs) for (let i = 0; i < b.poly.length; i++) { const q = b.poly[i], w = b.poly[(i + 1) % b.poly.length], dd = distSeg(biz.x, biz.z, q[0], q[1], w[0], w[1]).d; if (dd < best) { best = dd; host = b; } } }
         if (!host) { rows.push({ name: biz.name, placed: false, why: 'no building within 10 m' }); continue; }
         // the wall of its building nearest to the mapped point that has open ground in front
-        let pick = null;
+        let pick = null; const cands = [];
         for (let i = 0; i < host.poly.length; i++) {
             const [ax, az] = host.poly[i], [bx, bz] = host.poly[(i + 1) % host.poly.length], L = Math.hypot(bx - ax, bz - az); if (L < 1.6) continue;
             const r = distSeg(biz.x, biz.z, ax, az, bx, bz), ux = (bx - ax) / L, uz = (bz - az) / L; let nx = uz, nz = -ux;
             if (inPoly((ax + bx) / 2 + nx * 0.4, (az + bz) / 2 + nz * 0.4, host.poly)) { nx = -nx; nz = -nz; }
             const open = !inAny(r.cx + nx * 2.2, r.cz + nz * 2.2, host) && !inAny(r.cx + nx * 0.8, r.cz + nz * 0.8, host), score = r.d + (open ? 0 : 60) + (L < 3 ? 4 : 0);
-            if (!pick || score < pick.score) pick = { score, i, ax, az, bx, bz, L, ux, uz, nx, nz, t: r.t * L, open };
+            const c = { score, i, ax, az, bx, bz, L, ux, uz, nx, nz, t: r.t * L, open, front: yAt(r.cx + nx * 1.4, r.cz + nz * 1.4) }; cands.push(c);
+            if (!pick || score < pick.score) pick = c;
         }
         if (!pick) { rows.push({ name: biz.name, placed: false, why: 'no wall' }); continue; }
+        // (round 3 review, Pike Place Western Ave: ten Main Arcade tenants pasted on the arcade's rear wall 15 m below their
+        // floor) a hillside building fronts streets at different heights: a business on a street level (level ≥ 0) only signs a
+        // wall within 12 m (three storeys; the market streets themselves slope 4–8 m along one building) of the ground in
+        // front of the building's highest face, open or not (the Main Arcade's Pike Place face is behind its mapped arcade
+        // canopy w1275882970); one whose nearest open wall is a lower face (the rear over Western Ave) is an arcade /
+        // interior tenant and gets no sign
+        if (biz.level >= 0 && pick.open) { const top = Math.max(...cands.map((c) => c.front));
+            if (pick.front < top - 12) { rows.push({ name: biz.name, placed: false, why: `interior tenant: nearest open wall is ${(top - pick.front).toFixed(1)} m below the building's street front` }); continue; } }
         const lv = clamp(Math.round(biz.level), -1, 4), key = host.id + ':' + pick.i + ':' + lv;
         if (!walls.has(key)) walls.set(key, { ...pick, lv, host, items: [] });
         walls.get(key).items.push({ biz, t: pick.t });

@@ -186,3 +186,38 @@ w428003817), Ramp w31928842 and Exit to Parking w103929484. The open slot betwee
 -122.30067) is now filled as painted asphalt gore (US link gores in world.js median fill). MasterPark w433205175: ground
 floor + five open decks + glazed stair tower (panorama 47.452126, -122.295417 h95): 6 levels, 18.6 m (estimate from the
 count). w479818870: white clad curved walls, not open decks (not changed).
+
+## 14. Round 3 (2026-11-13), lane structures
+
+Official Street View panoramas were looked at only (ids from coverage metadata); nothing was saved, traced or measured from them.
+
+Deck guards now reviewed for every mapped deck (bridge-guards.json): Departures exit w1548998258 barrier
+(on the deck); w369418216 and w124272635 barrier (seen from below only); ramp w1165458668 barrier; rideshare ramp w955297074
+solid parapet with a pipe rail (parapet-rail); garage service decks w955297071 / w722314207 / w1165140428 / w1165151564 /
+w256517923 solid concrete walls (seen from the surface car park, weak). Hilton wing skybridge (corridor w1035290131 in bridge
+outline w1035290130, 47.444099, -122.293207 h330): a low white enclosed corridor with a glazing band and a flat roof: drawn
+(pedestrian-bridges.js 'enclosed'; soffit 4.4 m estimate, width from the OSM outline).
+
+## 15. Round 3 street-level review, lane look (2026-11-13)
+
+- **Shell** n824050627 (International Blvd / S 170th, seatac-1): white canopies with a yellow over red fascia stripe over the pumps in
+  front of the Food Mart w647569318, and a slim white pylon with the Shell sign at the corner (fmPpufJiQj3Z0heB49Z9MQ h87). OSM maps
+  the station as a node only, so no canopy is drawn; the pylon is now white (was the yellow brand box) at the corner.
+- **76** w433205179: light grey fascia with a thin orange top line, kiosk under the canopy (bpGv_kTfou2TMftytaQqEQ h98); an older
+  panorama (MPSenMWz4D9YPpME0MO0DA h275) shows a red fascia, so the station was rebranded since. No pylon on the International Blvd
+  frontage in either: the generic orange pylon is removed.
+- **Garage w479818870**: the only official panorama (KauyPKtqD_ylEozRWpdOXg, 57 m) shows the ground storey with the PARKING portal
+  and a glazed band above; the frame cuts the upper levels, so the level count is still unknown (solid facade from round 2 kept).
+- **Artworks without a form**: cloudsandclunkers n3643290937, Pantopol V n5164278023, Infinity Column n14013735472 have no official
+  panorama within 50 m (station area): still not drawn.
+
+## 16. Fidelity pass round 3 — landmarks lane (2026-11-13): hotels without `building:levels`
+
+- **Rodeway Inn** (w647567422, tourism=motel; pano 47.447515, -122.293784 h 265): two-storey orange motel with blue trim and a
+  blue entrance canopy. Review row: 6.5 m, 2 storeys, orange (was a 4.2 m one-storey shop).
+- **Red Lion Inn** (w364221560; pano 47.439912, -122.294810 h 185, 64 m away, and 47.439354, -122.296008 h 90 on
+  International Blvd): from the north, a beige wing with a brick-red end shows three window rows above a 4 m hedge; from
+  International Blvd only a low white front wing is visible behind trees. Review row: 13 m, 4 storeys (the hidden ground storey
+  is an estimate), beige.
+- **SureStay** (w314940622): the only official panorama in reach (47.446223, -122.294333) is old (Clarion signage) and stands
+  against the wall; at least three storeys behind a one-storey front. The 9 m default is kept.

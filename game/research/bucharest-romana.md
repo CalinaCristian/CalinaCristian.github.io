@@ -893,3 +893,69 @@ direction; the green came from the aerial green raster (no OSM polygon). A revie
 the raster grass out of the square. Pasajul Victoria west ramp: the panorama at 44.452076, 26.082576 is inside the walled
 descent; the eastbound ramp w27008418 now descends at half the model grade (grade-review.js), about 60 m earlier.
 Places of worship (Sinagoga Eșua Tova, Boteanu, Visarion): plain walls with tall arched openings now (worship.js).
+
+## Round 3, lane builder (2026-11-13)
+
+Sources: live OSM (API 0.6 / Overpass, 2026-11-12/13; the round-2 map.json tiles of each district for the cached-source
+tools), official Street View panoramas looked at for appearance only (nothing stored, nothing extracted into data).
+
+Hotel Michelangelo n2942500701 is now linked to w437256698 (4.8 m from the node; next footprint 7.8 m): panorama
+tj5o-VAsm5bhIxSueHjLCQ looking WSW shows a cream eclectic house with flags at its gate there. Colecția Vasile Pârvan
+n2634652176 → w678558174 (2.3 m). Storck n2634651933 is tagged `tourism=artwork`: not linked (see backlog r3-builder-3).
+Hotel Minerva w171045151 (pano 0IR_4oFjbwg7c8euMfNEkw, Str. Gen. Gheorghe Manu): plastered grey-beige walls with white
+window surrounds and stained-glass ground-floor windows; the "glass curtain wall" palette estimate #5e7f8c is cleared;
+OSM `building=retail` still gives it the glazed 'shop' style (r3-builder-5).
+
+## Round 3 (2026-11-13), lane structures
+
+Official Street View panoramas were looked at only (ids from coverage metadata); nothing was saved, traced or measured from them.
+
+ASE covered footbridges w783025570 / w783025571 / w942676266 (`bridge=covered`, layer 1): concrete deck
+with a cream solid parapet band and a glazed pitched canopy on light steel frames, about one storey above the street (44.447532,
+26.097783 h160 looking up): drawn (pedestrian-bridges.js 'covered-glass'; width 3.2 m and soffit 5.2 m are estimates; the two
+shorter ways were not seen on their own). Pasajul Victoria east ramp (44.452073, 26.088653 h91): square light stone piers with dark
+iron balustrade panels; the open approaches of Pasajul Victoria now draw that class instead of the plain parapet
+(trench-parapets.js; pier spacing / heights estimated, the panels' cast ornament drawn as bars).
+
+## Round 3 street-level review, lane look (2026-11-13)
+
+- **Signs** (r2-districts-view-11): Victoria Center w173938539 now carries its own name board; its corner unit really is a Starbucks
+  (dark fascia, white STARBUCKS COFFEE letters, GKPZybRO6HC9NrDEiel-DA h240), so the Starbucks unit board is right. Casa Gheorghe
+  Petrașcu w171045146 now carries its own name instead of "Viggo"; Viggo (n5602930826, shop=clothes, check_date 2026-06-15) is still
+  in live OSM on that footprint, so its unit stays. The street front seen from Yv9RTMCoVSMxEoPO0dOE7g h245 is beige ornamented stone
+  with barred windows (the game draws white walls and a glazed shop front); not changed, because the Viggo unit is mapped there.
+- **Churches** (r2-world-b-church-likeness; rows in building-review-look.js): Boteanu-Ienii w179319626 warm ochre / sand plaster with
+  an arcaded porch (SjOI2XLkhdK5Ic0qM-OaLQ h71); Crețulescu w1476760553 exposed red brick over a stone plinth (q4sm16NZ5g9nzAl59Pleug
+  h140); Amzei w76915020 cream stone banded with red brick, one warm tone (8to4VNCB5GgzGL5IUsc2oA h162). Biserica Albă w78467985 and
+  Icoanei w76920898 are white and match the class colour. Towers / domes unchanged (only where OSM tags them).
+- **Statue n3495777662** (tourism=artwork, no artwork_type, 44.44385, 26.100948): a pale stone standing figure on a plinth in a small
+  fenced garden (MEOXvDv_jIyjjHmsQMop0g h95): now drawn with the generic `statue` class, stone.
+- **White Creature** n3236859765 (Calea Griviței 37): wall art on a building front (R_ibENhyicLAd8a1JxM1ug h187): not drawn.
+
+## Fidelity pass round 3 — landmarks lane (2026-11-13)
+
+Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
+
+- **Observatorul Astronomic „Amiral Vasile Urseanu”** (w79139872 building=civic, man_made=observatory; pano 44.448503,
+  26.093125 h 275): a cream three-storey villa with rounded corner bays and iron balconies; the roof over the round east
+  tower is blurred on the panorama. The round tower is OSM w1220336122 (`building:part=yes`, no height), which the data drew
+  as a 25.6 m default cylinder in front of a 6.4 m two-storey box. Review row: villa 13 m / 3 storeys, cream eclectic.
+  New landmark `urseanudome` replaces the part only (sourceIds w1220336122): the exact mapped round outline as a 13.5 m cream
+  tower with windows and two dark balcony bands, and a grey hemispherical observatory dome (r 2.6 m, rise 2.4 m) on it —
+  tower height, dome form, size and finish are estimates (the panorama blurs the roof; the dome itself is documented by the
+  observatory's OSM tags and Wikipedia).
+- **Casa Filipescu-Cesianu** (w131269864, building:levels=2, roof:shape=quadruple_saltbox; pano 44.450278, 26.087635 h 262):
+  cream two-storey eclectic palace under a dark slate mansard with oval dormers. Review row: eclectic, cream walls, dark slate
+  roof colour. OSM storeys and roof shape kept; the mansard form is not modelled by the roof profile.
+- **Europe House** (pano 44.450804, 26.088191 h 315): the glass is lighter blue; the south-east end is a rounded volume of
+  grey bands between ribbon windows. Model: lighter glass, grey-banded end volume (still square), band pitch estimated.
+- **Hotel Ambasador** (pano 44.441899, 26.098971 h 75): pale stone front, dark windows over red-brown aprons, two raised
+  wings — the round-2 model already matches; no change.
+- **Statuia Lascăr Catargiu** (pano 44.448932, 26.093057 h 331): the panorama shows an open island and the figure clear
+  against the buildings. In the game an aerial-measured crown (`kind: osm`, no OSM tree node within 20 m) stands 11 m
+  south-east of the statue (≈ 44.449049, 26.093009), on the island, and hides the figure. Not changed here (tree data is
+  the builder / world lane's; it is a physical-exclusion question, not a landmark one).
+- **Storck collection** (n2634651933, tourism=artwork, Str. Vasile Alecsandri 16): the node lies in no building outline
+  (Overpass 2026-11-13); the nearest footprints are w546500238 (11 m), w546500256 (16 m) and w546500250 (31 m). From pano
+  44.450834, 26.094312 h 60 the red-brick gabled house and a cream one-storey house both stand there; which outline is the
+  museum is not settled, so nothing is changed.

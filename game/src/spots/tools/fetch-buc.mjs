@@ -92,7 +92,8 @@ export function convert(json, box, sceneId) {
             if (t.natural === 'tree') { out.trees.push([el.lat, el.lon, t.leaf_type || '', t.species || t.genus || '', t.height || '']); continue; }
             const k = t.highway === 'street_lamp' ? 'street_lamp' : t.highway === 'bus_stop' ? 'bus_stop' : t.highway === 'traffic_signals' ? 'traffic_signals' : t.barrier === 'bollard' ? 'bollard' : t.man_made === 'flagpole' ? 'flagpole' : t.man_made === 'cross' || t.historic === 'wayside_cross' ? 'cross' : t.emergency === 'fire_hydrant' ? 'fire_hydrant' : t.tourism === 'information' && t.information !== 'office' ? 'information' : t.leisure === 'picnic_table' ? 'picnic_table' : FURN[t.amenity] || null;
             if (k) furn(k, p);
-            if (t.name || t.tourism === 'artwork' || t.historic || t.amenity === 'fountain' || t.amenity === 'clock' || t.shop || (t.amenity && !FURN[t.amenity])) {
+            // (r3) unnamed viewpoints, playgrounds and waterfalls are places too (tools/spots/append-osm-features.mjs keeps them)
+            if (t.name || t.tourism === 'artwork' || t.historic || t.amenity === 'fountain' || t.amenity === 'clock' || t.shop || (t.amenity && !FURN[t.amenity]) || t.tourism === 'viewpoint' || t.leisure === 'playground' || t.waterway === 'waterfall' || t.natural === 'waterfall') {
                 const o = { id: 'n' + el.id, ll: p };
                 for (const [kk, v] of Object.entries(t)) if (!/^(source|check_date|wikidata|brand:wikidata|opening_hours|wheelchair|addr:postcode|addr:city|addr:country|phone|website|email|contact:|mapillary|image|wikimedia_commons|survey)/.test(kk)) o[kk] = v;
                 out.pois.push(o);
@@ -142,6 +143,11 @@ export function convert(json, box, sceneId) {
             for (const [k, v] of Object.entries(t)) if (!/^(source|check_date|wikidata|wikipedia|maxspeed:|old_name|alt_name|name:)/.test(k)) o[k] = v;
             if (t.natural === 'tree_row') o.barrier = o.barrier || 'tree_row';
             out.ways.push(o);
+        } else if (el.type === 'way' && line && t.name && (t.office || t.diplomatic)) {
+            // (r3) a named office / embassy mapped only by its grounds outline: a POI at the outline's vertex centroid, like a node
+            const pts = polys ? polys[0].slice(0, -1) : line, o = { id, ll: [Math.round(pts.reduce((s, p) => s + p[0], 0) / pts.length * 1e7) / 1e7, Math.round(pts.reduce((s, p) => s + p[1], 0) / pts.length * 1e7) / 1e7] };
+            for (const [kk, v] of Object.entries(t)) if (!/^(source|check_date|wikidata|brand:wikidata|opening_hours|wheelchair|addr:postcode|addr:city|addr:country|phone|website|email|contact:|mapillary|image|wikimedia_commons|survey)/.test(kk)) o[kk] = v;
+            out.pois.push(o);
         }
     }
     out.summary = { buildings: out.buildings.length, backdrop_buildings: out.backdrop_buildings.length, ways: out.ways.length, areas: out.areas.length, trees: out.trees.length, pois: out.pois.length, furniture: Object.fromEntries(Object.entries(out.furniture).map(([k, v]) => [k, v.length])) };
@@ -191,6 +197,7 @@ export async function fetchScene(sceneId, { force = false } = {}) {
   relation["type"="multipolygon"]["water"](${bb});
   node["natural"="tree"](${bb}); node["amenity"](${bb}); node["highway"](${bb}); node["barrier"](${bb}); node["man_made"](${bb});
   node["tourism"](${bb}); node["historic"](${bb}); node["shop"](${bb}); node["leisure"](${bb}); node["emergency"="fire_hydrant"](${bb}); node["craft"](${bb}); node["office"](${bb});
+  node["building"]["name"](${bb}); node["waterway"="waterfall"](${bb}); node["natural"="waterfall"](${bb}); way["office"]["name"](${bb}); way["diplomatic"]["name"](${bb});
 );out geom;`;
         console.log(`${sceneId}: overpass ${bb}`);
         const json = await overpass(q);

@@ -21,10 +21,11 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { polyArea, GeoBatch, M, rng, headingFromBearing, lerp, smooth, clamp, inPoly, polyBox, alongPolyline, polylineLength, distPolyline, canvas, canvasTexture } from '../kit.js';
 import { seattleBackdrop } from '../backdrop.js';
-import { bench } from '../osm.js';
+import { bench, buildLamps } from '../osm.js';
 import { boatRide } from '../buc.js';
 import { dryLanding, shortWaterRoute, waterLoop } from '../water-route.js';
 import { stoneSkipping } from '../stone-skipping.js';
+import { loadShoreHouses, shoreHouses } from './bel-shore-houses.js';
 import { emitActivity, localMD, inWindow, seasonal, shoreField, waterGrid, boulderWall, nightLit, glowText, gableRoof, tri, fairyLights } from './bel-common.js';
 
 const LAKE_Y = -0.55; // Lake Washington ≈ 5.1–5.7 m NAVD88 (regulated); scene datum 5.7 m
@@ -99,6 +100,7 @@ export default {
     env: { fogFar: 9000, ambientCity: 0, groundAlbedo: 0.1 }, // no synthetic city walls in the probe: they reflect as pale slabs on the open lake
     async build(ctx) {
         const g = ctx.ground, d = ctx.data, sp = ctx.spot('bel-meydenbauer'), r = rng(69);
+        const shoreList = await loadShoreHouses(); // live OSM houses at the far shores (bel-shore-houses.js)
         const area = (id) => d.areas.find((a) => a.id === id)?.poly, way = (id) => d.ways.find((w) => w.id === id)?.pts, bld = (id) => d.buildings.find((x) => x.id === id)?.poly;
         // ---------------------------------------------------------------- lake + shoreline (OSM Lake Washington outline, not the 20 m DEM)
         const lakePoly = area('r2793848');
@@ -391,7 +393,11 @@ export default {
             for (const s of [-1, 1]) ctx.collider({ wall: true, ax: Pt(0, 6.6 * s)[0], az: Pt(0, 6.6 * s)[2], bx: Pt(1, 6.6 * s)[0], bz: Pt(1, 6.6 * s)[2], y0a: ya - 0.5, y1a: ya + 1.05, y0b: yb - 0.5, y1b: yb + 1.05, nx: 0, nz: 1, y: ya, intended: true }); // balustrades
             for (const [t, s] of [[0.03, 1], [0.97, -1], [0.42, -1], [0.58, 1]]) { const p = Pt(t, 6.25 * s, 0.17); br.cyl(p[0], p[1], p[2], 0.07, 4.0, '#232527', 'metal', 8); br.box(p[0], p[1] + 4.0, p[2], 0.26, 0.42, 0.26, '#e9e2c8', 'glass'); br.box(p[0], p[1] + 4.42, p[2], 0.42, 0.08, 0.42, '#2b2d2f', 'metal'); }
             for (const s of [-1, 1]) for (let t = 0; t <= 1.001; t += 1 / 46) { const x = cx + (a1[0] - a0[0]) * t + nx * 6.6 * s, z = cz + (a1[1] - a0[1]) * t + nz * 6.6 * s, y = yAt(t); br.box(x, y, z, 0.18, 0.75, 0.18, '#c9c5bb', 'concrete', yaw); if (t < 0.99) { const x2 = cx + (a1[0] - a0[0]) * (t + 1 / 46) + nx * 6.6 * s, z2 = cz + (a1[1] - a0[1]) * (t + 1 / 46) + nz * 6.6 * s; br.box((x + x2) / 2, y + 0.75, (z + z2) / 2, 0.32, 0.22, Lb / 46 + 0.02, '#cdc9bf', 'concrete', yaw); } }
-            for (const t of [0.3, 0.7]) { const x = cx + (a1[0] - a0[0]) * t, z = cz + (a1[1] - a0[1]) * t, y = yAt(t), gy = g.heightAt(x, z); if (y - gy > 3) for (const s of [-1, 1]) br.rod([x + nx * 4 * s, gy - 1, z + nz * 4 * s], [x + nx * 4 * s + Math.sin(yaw) * (t < 0.5 ? 3 : -3), y - 1.4, z + nz * 4 * s + Math.cos(yaw) * (t < 0.5 ? 3 : -3)], 0.7, '#9e9a91', 'concrete', 8); }
+            // (round 3) the substructure as seen from below in an official panorama on the ravine lane beside the bridge (2026-11-13):
+            // a concrete slab deck on single tapered rectangular piers standing upright on the slope under the deck's middle —
+            // not the two pairs of canted struts guessed before. Pier count / spacing and section are estimates (three piers).
+            for (const t of [0.25, 0.5, 0.75]) { const [x, , z] = Pt(t, 0), y = yAt(t) - DTH, gy = g.heightAt(x, z), h = y - gy + 1.2; if (h < 3) continue;
+                const pg = new THREE.CylinderGeometry(1.0, 0.72, h, 4).rotateY(Math.PI / 4); br.add(pg, 'concrete', M(x, gy - 1.2 + h / 2, z, 0, yaw, 0, 1.8, 1, 1), '#a29e95'); pg.dispose(); ctx.circle(x, z, 0.9, h, { y: gy }); }
             ctx.add(br.build('lwb-bridge'));
         }
         // park name sign at the Lake Washington Blvd × 99th Ave NE entrance (Street View 2026-11-12: a low teal panel between
@@ -406,6 +412,21 @@ export default {
         if (pv) ctx.exclude.push(pv); // the four layer-1 picnic tables were drawn on the pavilion floor, inside its walls: they stand on the terrace (above)
         { const deck = way('w687934817'); if (deck) ctx.exclude.push(deck); } // mapped pier benches were dropped onto the lake bed under the deck (generic furniture uses terrain height); the pier has its own
         ctx.osmBackdrop({ paint: {}, urban: false, areaTreeOpts: { conifer: 0.7, density: 1 / 45 }, style: (bd) => (/detached|house/.test(bd.k || '') || (Math.abs(polyArea(bd.poly)) < 260 && (+bd.lv || +bd.levels || 1) <= 2) ? 'house' : undefined) });
+        // (round 3, r2-bel-spots-3) the mapped flights beside the pavilion were a smooth bank: OSM w841411878 (highway=steps,
+        // step_count=5, handrail=both, concrete, lit) and w840902386 (step_count=17, handrail=both, concrete). Built as concrete
+        // flights with the mapped number of steps between the ground levels at their ends, a steel handrail each side; the
+        // flight width (2.0 m) is an estimate. Each tread is a walkable surface. Built after osmBackdrop: its ground settling changes
+        // the levels at the flight's ends.
+        { const FL = [['w841411878', 5], ['w840902386', 17]], stb = new GeoBatch();
+            for (const [id, n] of FL) { const pts = way(id); if (!pts || pts.length < 2) continue; const A = pts[0], B = pts[pts.length - 1], yA0 = g.heightAt(A[0], A[1]), yB0 = g.heightAt(B[0], B[1]);
+                const [lo, hi, ylo, yhi] = yA0 <= yB0 ? [A, B, yA0, yB0] : [B, A, yB0, yA0], Ls = Math.hypot(hi[0] - lo[0], hi[1] - lo[1]); if (Ls < 0.5 || yhi - ylo < 0.15) continue;
+                const ux = (hi[0] - lo[0]) / Ls, uz = (hi[1] - lo[1]) / Ls, yaw = Math.atan2(ux, uz), run = Ls / n, rise = (yhi - ylo) / n, HWS = 1.0;
+                for (let i = 0; i < n; i++) { const t = (i + 0.5) * run, x = lo[0] + ux * t, z = lo[1] + uz * t, top = ylo + rise * (i + 1);
+                    stb.box(x, ylo - 0.4, z, 2 * HWS, top - ylo + 0.4, run + 0.004, i % 2 ? '#b4b1aa' : '#bbb8b1', 'concrete', yaw); g.addBox(x, z, HWS, run / 2 + 0.01, yaw, top - 1.5, top); }
+                for (const s of [-1, 1]) { const ox = uz * (HWS - 0.06) * s, oz = -ux * (HWS - 0.06) * s, p0 = [lo[0] + ox, ylo + rise + 0.9, lo[1] + oz], p1 = [hi[0] + ox, yhi + 0.9, hi[1] + oz];
+                    stb.rod(p0, p1, 0.025, '#9ea4a8', 'steel', 6); for (const q of [0, 0.5, 1]) { const x = lo[0] + ox + (hi[0] - lo[0]) * q, z = lo[1] + oz + (hi[1] - lo[1]) * q, yt = ylo + rise + (yhi - ylo - rise) * q; stb.rod([x, yt - 0.9 + (q === 0 ? -rise : 0), z], [x, yt + 0.9, z], 0.022, '#9ea4a8', 'steel', 6); }
+                    ctx.collider({ wall: true, ax: p0[0], az: p0[2], bx: p1[0], bz: p1[2], y0a: ylo - 0.5, y1a: p0[1] + 0.1, y0b: yhi - 0.5, y1b: p1[1] + 0.1, nx: 0, nz: 1, intended: true }); } }
+            ctx.add(stb.build('pavilion-steps')); }
         for (const a of d.areas) if (a.landuse === 'shrubs') { const B = polyBox(a.poly); for (let i = 0; i < Math.min(14, Math.abs((B.x1 - B.x0) * (B.z1 - B.z0)) / 12); i++) { const x = B.x0 + r() * (B.x1 - B.x0), z = B.z0 + r() * (B.z1 - B.z0); if (inPoly(x, z, a.poly)) ctx.trees.push({ x, z, kind: 'shrub', s: 0.45 + r() * 0.35, c: ['#56703a', '#6b4a3a', '#4c6a3c', '#7a6a3a'][i % 4] }); } }
         // Douglas firs + cedars on the ravine slopes behind the beach (the wooded edge in every photo)
         for (let i = 0; i < 320; i++) { const x = -190 + r() * 330, z = -230 + r() * 210; if (sdf(x, z) > -6 || g.heightAt(x, z) < 1.5 || d.buildings.some((bd) => !bd.part && Math.abs(bd.poly[0][0] - x) < 25 && Math.abs(bd.poly[0][1] - z) < 25 && inPoly(x, z, bd.poly))) continue; if (d.ways.some((w) => w.pts.length > 1 && distPolyline(x, z, w.pts).d < 3.5)) continue; if (d.areas.some((a) => (a.landuse === 'grass' || a.leisure === 'playground' || a.natural === 'beach') && inPoly(x, z, a.poly))) continue; ctx.trees.push({ x, z, kind: r() < 0.72 ? 'con' : 'broad', s: 1.0 + r() * 0.7 }); }
@@ -415,7 +436,21 @@ export default {
         // tall firs with houses at the waterline — not bare green hills with a scatter of trees. A dense, low-detail belt
         // (tree LOD below: only the nearest crowns are full detail) on every shore beyond the playable area.
         { const r2 = rng(6902); for (let i = 0; i < 9000; i++) { const x = -560 + r2() * 1120, z = -260 + r2() * 860, s = sdf(x, z); if (s > -3 || s < -420) continue; if (x > DT.x0 - 10 && x < DT.x1 + 10 && z > DT.z0 - 10 && z < DT.z1 + 10) continue; if (r2() > (s > -50 ? 0.5 : 0.9)) continue; if (d.buildings.some((bd) => !bd.part && Math.abs(bd.poly[0][0] - x) < 90 && Math.abs(bd.poly[0][1] - z) < 90 && inPoly(x, z, bd.poly)) || d.ways.some((w) => w.pts.length > 1 && Math.abs(w.pts[0][0] - x) < 400 && distPolyline(x, z, w.pts).d < 5)) continue; ctx.trees.push({ x, z, kind: r2() < 0.8 ? 'con' : 'broad', s: 1.5 + r2() * 1.0 }); } }
+        ctx.extras.shoreHouses = shoreHouses(ctx, shoreList, { sdf, lakeY: LAKE_Y }).length; // houses at the waterline under the fir belt (r2-bel-spots-1)
         ctx.treeLod = { cap: Infinity, near: 110, max: 420, force: true };
+        // (round 3, r2-bel-spots-2) two lamp families, as in Street View: the street lights along Lake Washington Blvd NE are
+        // tall grey cobra heads; the park's own lights are the dark 5 m pendant posts below. The scene's lamp set has one
+        // style (ctx.lampOpts), so the boulevard's generated lamp points (osmBackdrop, within 12 m of a mapped Lake Washington
+        // Blvd way) are built here as a second set with the shared lamp builder, and only their light pools go to the shared
+        // set (noPost entries at the post, 1.8 m short of the head). Spacing / side are the generator's (no lamp nodes are mapped here); the 8.5 m
+        // height is the shared cobra default.
+        { const blvd = d.ways.filter((w) => /^Lake Washington Boulevard/.test(w.name || '') && w.pts.length > 1), near = (p) => blvd.some((w) => distPolyline(p.x, p.z, w.pts).d < 12);
+            const cobra = ctx.lampPoints.filter((p) => !p.noPost && near(p) && !ctx.onRoad?.(p.x, p.z, 0.25));
+            if (cobra.length) { const keep = new Set(cobra); ctx.lampPoints = ctx.lampPoints.filter((p) => !keep.has(p) && !(near(p) && !p.noPost)); const H = 8.5, L = buildLamps(cobra, g, { style: 'cobra', color: '#8e9396', h: H });
+                if (L.headMesh) { const hm = L.headMesh.material; hm.emissive.set('#ffe9c4'); hm.emissiveIntensity = 0; hm.userData.nightEmissive = 1.6; hm.userData.nightGlow = 1.6; hm.userData.dayGlow = 0; }
+                ctx.add(L.group); ctx.colliders.push(...L.colliders);
+                for (const l of L.lamps) ctx.lampPoints.push({ x: l.x, z: l.z, noPost: true, h: l.h, y: l.y }); // light entry at the post (a noPost entry loses its arm offset; at the head it read as a lamp in the carriageway)
+                ctx.extras.boulevardLamps = cobra.length; } }
         // promenade lights (Street View): dark posts about 5 m tall with a short arm and a pendant shade — not 7 m grey cobra heads
         ctx.lampOpts = { style: 'cobra', color: '#2d3033', h: 5.2 };
         for (const pts of prom) { const Lp = polylineLength(pts); for (let s = 6; s < Lp; s += 24) { const p = alongPolyline(pts, s), p2 = alongPolyline(pts, Math.min(Lp, s + 1)), tx = p2.x - p.x, tz = p2.z - p.z, tl = Math.hypot(tx, tz) || 1; ctx.lampPoints.push({ x: p.x + tz / tl * 2.7, z: p.z - tx / tl * 2.7, rot: Math.atan2(-tz, tx) }); } }

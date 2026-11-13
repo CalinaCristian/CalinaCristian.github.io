@@ -101,17 +101,18 @@ export function buildElevatedSources(data, env) {
                 const lo = j * L / steps, hi = (j + 1) * L / steps, mid = (lo + hi) / 2, x = a[0] + ux * mid, z = a[1] + uz * mid, len = hi - lo;
                 if (!visible(x, z, len) || covered(x, z, soffit + 1)) continue;
                 const c = cellOf(x, z), col = overTrunk(x, z) ? GIRDER_GREEN : GIRDER, e = W / 2 - GW / 2;
-                c.solid.box(x, soffit, z, W, FL, len + 0.04, angle, CON2);
+                const bl = j === steps - 1 ? len + 0.04 : len; // (r2-perf-3: only a segment's last piece overlaps the next segment; colinear 4 cm overlaps were coplanar)
+                c.solid.box(x, soffit + 0.05, z, W - 2 * GW + 0.04, FL - 0.05, bl, angle, CON2); // (r2-perf-3: the floor spans between the girders, its soffit 5 cm up: no face coplanar with a girder's)
                 for (const s of [1, -1]) {
-                    c.solid.box(x + nx * e * s, soffit, z + nz * e * s, GW, D, len + 0.04, angle, col);
+                    c.solid.box(x + nx * e * s, soffit, z + nz * e * s, GW, D, bl, angle, col);
                     for (const f of [0.25, 0.75]) { const m = lo + len * f, px = a[0] + ux * m + nx * (W / 2 + 0.04) * s, pz = a[1] + uz * m + nz * (W / 2 + 0.04) * s; c.solid.box(px, soffit + 0.12, pz, 0.1, D - 0.24, 0.16, angle, shadeRgb(col, 0.86)); }
                     // railing on the girder's top flange: two rails and posts, thin strips
                     const ax = a[0] + ux * lo + nx * e * s, az = a[1] + uz * lo + nz * e * s, bx = a[0] + ux * hi + nx * e * s, bz = a[1] + uz * hi + nz * e * s, y = soffit + D;
                     for (const h of [0.5, 1.0]) strip(c.detail, ax, az, bx, bz, y + h, y + h + 0.06, y + h, y + h + 0.06, STEEL, nx, nz);
                     for (let p = 0; p < len; p += 2.5) { const qx = ax + ux * p, qz = az + uz * p; strip(c.detail, qx, qz, qx + ux * 0.06, qz + uz * 0.06, y, y + 1.0, y, y + 1.0, STEEL, nx, nz); }
                 }
-                c.detail.box(x, soffit + FL, z, gauge + 1.7, 0.22, len + 0.04, angle, BALLAST);
-                for (const s of [1, -1]) c.detail.box(x + nx * gauge / 2 * s, soffit + FL + 0.22, z + nz * gauge / 2 * s, 0.07, 0.1, len + 0.04, angle, RAIL);
+                c.detail.box(x, soffit + FL, z, gauge + 1.7, 0.22, bl, angle, BALLAST);
+                for (const s of [1, -1]) c.detail.box(x + nx * gauge / 2 * s, soffit + FL + 0.22, z + nz * gauge / 2 * s, 0.07, 0.1, bl, angle, RAIL);
                 rec.deckMetres += len;
             }
         }

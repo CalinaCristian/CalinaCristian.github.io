@@ -841,3 +841,239 @@ deck, canal ring, waterfall, playground, garden rooms, ravine bridge) have user 
 | Lincoln Square North podium w161929514 | landmark model (other lane) | SV: glass canopy, The Container Store and Earls at street level, beige / salmon piers; "LINCOLN SQUARE" lettering on the NE 8th canopy. |
 | Bellevue Way medians | not in the scene | SV: a yellow-kerbed raised median under the skybridge and a planted median near NE 6th. Roads are painted by the locked `osm.js`. |
 | Research plaques "Bellevue Square", "Skybridge" | fixed | they stood inside the w33106348 block since round 1 made it a building again. |
+
+## 12. Fidelity pass round 3, 2026-11-13 (lane sea-spots)
+
+Sources: live OSM (API 0.6 / Overpass, 2026-11-12/13), USGS 3DEP 1 m DEM (EPQS point queries, 2026-11-13), the Seattle
+public-art records quoted in the OSM nodes' tags, Wikipedia ("International Fountain"), and official Google panoramas
+(found through Maps' coverage lookup, viewed through the thumbnail endpoint, nothing stored). Game frames rendered at the
+panorama position (eye 2.5 m) and bearing.
+
+**International Fountain (Seattle Center).** OSM w35352476 (amenity=fountain, height=37) is not in the spot extract nor in
+the source context; its 34-node ring is stored in `scenes/seattle-center-fountain.js`. The dome is OSM building
+w394955907 (roof:shape=dome, height 3, 9.5 m across; Wikipedia gives 27 ft = 8.2 m × 10 ft for the 1995 stainless dome —
+OSM kept). The native volume of w394955907 had been drawn as an apartment block with windows. DEM across the bowl: floor
+32.90–32.99 m NAVD88 within ~17 m of the centre, rising to 35.1 (north) … 37.0 (south) m at the ring. Wikipedia: 4 "super
+shooters" up to 120 ft (37 m = the OSM height), 56 micro shooters in the granite floor, a ring of floodlights between them
+and the dome. Panorama Efow4N6Ma8F4LGpK2x3jWQ (south-east edge) looking 351°: a low kerb on the rim with a red-brown
+face, a light grey bowl, a low silver dome, the jets off; looking 300° / 0°: the ground between that panorama and the rim
+is asphalt paving, not lawn (OSM maps only the landuse=recreation_ground "Fountain Lawn" w394955954 there). The scene's
+native ground (and the seam of the source-context ground) now extends west from x = −208 to x = −288 to hold the bowl and its terraces. Estimates: micro-shooter ring radius, floodlight ring radius,
+the show rhythm (90 s show, 60 s still).
+
+**Olympic Iliad.** OSM n3211770187 (Alexander Liberman, 1984): "41 … bright red rolled steel cylinders ranging in size from
+48 to 64 in diameter … piled on top of one another at various angles", H 45' × W 60' × D 30'. Panoramas
+LUaNF3kzF_XhFiy0kx43bA (looking 278°) and RB_2Feewsyx_qfiPQNLcaA (looking 17°): an open arcade — upright tubes as legs in
+two rows, one tube leaning out at the north end, a tangle of tilted tubes with oblique cut ends on top; long axis
+north–south. The split of the 41 tubes into legs and top, their lengths and angles are estimates.
+
+**Pike Place — Western Ave.** Panorama iFZRr4o9WP2yFdlbuLUkeQ (47.60878,-122.34155) looking 315–318°: the SkyBridge
+(OSM w296789534, building=roof, layer 1) is an enclosed walkway between two green steel Warren trusses with pale green
+panels, a flat roof, a white concrete pier at the market-side kerb; its underside about 6.5 m over the road (estimate).
+The west side of Western Ave at that panorama is a low pink-stucco building with a parking sign and a cream three-storey
+block, with the Pike Place Market Parking garage beyond; the game shows the garage's long wall with shopfront glazing
+and colour bands there. The market's west face carries "Pike Place Market" lettering and white walls with dark windows
+over a street-level colonnade. Ground: the east bank of Western Ave (USGS profile in `pike-place-streets.js`) is now flat
+to 13 m from the centre line (the 2 m terrain grid had ramped up in front of the market walls as pale mounds).
+
+**Ballard Locks — south-bank plaza and "Salmon Waves".** OSM n3211770269 (Paul Sorey, 2001, SPU04.087): "Seven stainless
+steel waves varying from 6 to 9 ft. high", 350 sq ft, blue LEDs (round 2b's "curled concrete forms" was the look; the
+material is stainless steel). The node lies on the plaza w1475183524 (highway=footway, area=yes) over the fish ladder
+(w285286401, layer −1). The DEM is hydro-flattened to the lake (4.98 m NAVD88) over most of that plaza, so the scene drew
+open water there; its dry samples give 6.72 / 6.94 m NAVD88 (−1.78 / −1.56 relative): the plaza is now a deck at −1.67.
+Panorama AVeeBVnYYgdepI_VExHVWQ (6 m west of the node) looking 60°: seven brushed-steel bands rising and curling over
+into spirals, in a loose row running east across the plaza, curls facing the promenade (layout and curl estimated from
+that view).
+
+**Kerry Park.** DEM (2026-11-13) on the terrace (z = 5): +1.18 (x −28), +1.28 (−15), +1.00 (0), +0.58 (25), +0.43 (40),
++0.29 (55) m; on W Highland Dr (z = −8): +1.10, +0.78, +0.45, +0.18 m. The terrace and the street now follow these
+profiles (they were level at +0.15); railing, wall, plinth and binoculars follow the terrace.
+
+**Monorail station / Climate Pledge Arena / Pacific Science Center.** The panorama nearest the station
+(NaVvIpRPS6R1zvL4egrPUQ, 2022) shows a service yard, not the platforms; no official panorama in reach shows the canopy.
+The Science Center's arches have no OSM object; the panoramas checked do not show them. Not changed.
+
+**Guided tour.** A guide held up by a walker (body overlapping the guide) used to replan from inside that walker's
+clearance, find no start and end the leg as "blocked" (HEAD: blocked 1 s after the body arrived, waterfront). The replan
+now leaves out the bodies whose clearance holds the guide, the guide may step out of such a body, and a leg is called
+blocked only after 6 s without progress. The planner retries a failed search on a 0.75 m grid: the Ballard Locks
+crossing (north bank → west gate → middle wall → small-lock gates → south wall → dam) plans at 221 m, where the 1.5 m grid
+found none (the 2.1 m gate decks leave a 1.3 m band between their railings).
+
+## 13. Fidelity pass round 3, 2026-11-13 (lane sea-spots-b)
+
+Sources: live OSM (API 0.6 and Overpass, 2026-11-13), USGS 3DEP 1 m DEM (EPQS point queries, 2026-11-13), official Google
+panoramas found through Maps' coverage lookup and viewed through the thumbnail endpoint (nothing stored, nothing traced).
+Game frames rendered at the panorama position (eye 2.5 m) and bearing, summer day, High.
+
+**Pioneer Square fronts.** Each mapped front on Pioneer Place, 1st Ave S, Yesler Way, Occidental Ave S and S Main St
+(25 buildings, table `FRONTS` in `scenes/pioneer-square-fronts.js`) now has its own facade instead of the generic red
+brick: material (brick / rusticated stone / painted / modern), wall and base colour, storey count (OSM `building:levels`),
+cornice, arch pattern (arched ground floor, arched first floor, arched top floor, two-storey arches), storefront colour.
+OSM `building:colour` wins where mapped (the 1st Ave S row J&M Hotel, Skagit, Marathon, Lucky Hotel, w439990255:
+#85552e). What the panoramas show (id @ bearing):
+- Mutual Life Building (w140345971), kJVn9dVw2rWKgTf-rsYWzw @ 250: tan brick upper floors over a red-brown two-storey base
+  with round-arched ground-floor openings, pale window frames, paired windows.
+- Yesler Building (w439990280): grey stone, arched first-floor windows.
+- Gatzert & Schwabacher (w226937778), uVzwONsTTGBy9AqfGImghA @ 290: pale painted wall, dark storefront base, no cornice.
+- Terry Denny Lofts (w226321137), uVzw… @ 250 / StRtj6G68vgv607YPmToqw @ 310: red brick, arched top-floor windows.
+- Maynard Building (w226937777), StRtj… @ 250 / 270: grey stone, arched ground and top floors.
+- 1st Ave S west row (J&M, Skagit, Marathon, Lucky, w439990255, New England Hotel), iEVQhhDOR8aTqLQD5K522g @ 255,
+  g3aSGggFrVoEYwpMr3OBLA @ 270: red-brown brick (OSM colour), dark storefront bases, white-framed windows, brick cornices.
+- Olympic Block (w226321142), uVzw… @ 70 / 97bndGEyQS57itfhcMvcfA @ 200: beige modern cladding, ribbon-like windows.
+- Lippy Building (w140631721), uVzw… @ 110: dark brick, green storefronts.
+- City Club Building (w226321147) and The Delmar (w367359273), StRtj… @ 60 / 75: red brick, the Delmar with two-storey
+  round arches over each bay.
+- Buttnick Building (w140631796), iEVQ… @ 60 / 100: dark grey painted front.
+- Grand Central (w140631769), g3aS… @ 70 / 90: red brick over a buff stone ground floor of tall round arches, arched
+  top floor.
+- Globe Building (w226323009), OqApslrrErDPH77wLl-ESg @ 110 / 998tDSzok9LVXyH1FIpejQ @ 135: red brick over a grey
+  two-storey base, teal storefronts.
+- Union Trust Building / Annex (w389138212 / w389138218), KLmc32jpRbH8dU_WjBku6A @ 215, 998tD… @ 135: buff stone with a
+  grey rusticated base, dark green storefronts, arched top floor, cornice.
+- Interurban Building (w226321146), Eoj9slwTpsFLNZYztebPNg @ 60: lighter red brick, two-storey round arches, arched
+  top floor.
+- Korn Building (w439990299) and Merchant's Cafe (w52782171), 97bnd… @ 185: red brick, dark green storefronts.
+- w439990295 (one storey at Yesler / Occidental), Eoj9… @ 250: dark modern front.
+- 200 Occidental (w27183365), b5T7tpwVchrYOjElqXCH9Q @ 140: dark brown modern cladding over a glazed ground floor.
+Volumes, roofs and colliders stay the native source plan (same footprints and heights); only the wall material differs.
+Estimates: bay widths, opening sizes, floor heights, colours (judged albedo), window frames.
+
+**Pioneer Building (w52782046).** Panorama kJVn9… (47.60198,-122.33415) @ 75–100: red brick wings and a central full-height
+tower bay of rough-faced grey-brown sandstone round the arched entrance on Pioneer Place, with two stacked oriel bays of dark
+blue-grey metal and glass over the middle floors. The entrance had been drawn on a party wall (the longest west-facing edge
+touches the Mutual Life block's neighbour); it now goes on the longest street face. Tower width, depths, oriel sizes estimated.
+
+**Occidental Square.** OSM w1155305355 (building=yes, no other tags) is an open canopy: panorama wtV8CTwZJSh3TDNhSKHKLA
+(47.60026,-122.33301) @ 265–290 shows glass roof panels on pale timber beams over black steel posts with a small
+timber-clad glass kiosk under it; it had been drawn as a closed block. Table tennis n14005376908 and chess n14005378203
+(leisure=pitch, both live OSM 2026-11-13) are now at their mapped points. The playground w1155308011 is still not built.
+No tree nodes are mapped in the square (the random trees stay).
+
+**Sinking Ship Garage (w52781697, r2-sea-spots-b-7).** Panorama NMuWBnWs062EFE23JyuBAg at the garage's north-east corner
+on 2nd Ave Extension looks across its open top deck (parked cars, the PARK sign) about level with the street; the USGS DEM
+gives 12.50 m NAVD88 there (scene ground 4.50 m relative, matching). The game draws the mapped volume (3 levels, 10.9 m)
+with its roof at 15.4 m relative, about 11 m over that street corner. OSM's height is probably taken from Yesler Way;
+the datum of a deck on a slope is a source question (not changed).
+
+**West end (Western Ave → Elliott Bay).** From live Overpass (bbox 47.6005,-122.3395,47.6040,-122.3352, 2026-11-13):
+117 roads (Alaskan Way S, the Colman Dock holding lanes 1–45, Columbia / Marion / Madison St), 131 foot and cycle ways,
+45 crossings, 17 traffic signals, 137 trees (nodes + tree_rows sampled every 7 m), 17 planted beds (natural=scrub,
+landuse=flowerbed), 17 pier / pedestrian areas. Stored in `scenes/pioneer-square-westend-data.js` (generated, ground
+level only). Panoramas fYcy5IxBB8nxBtlHlp0w6w (Yesler at Post Ave @ 270), icoHFzEOnBuL9Tmg_QeZUw (Alaskan Way @ 250),
+96BnTtZETD_9PxJd3_oy9w (Alaskan Way at Columbia @ 250 / 300): concrete roadways with white zebra crossings, grey
+mast-arm signals, young street trees, beds of grasses, the 2023 ferry terminal (a glazed ground floor under a
+timber-slatted storey and a dark flat roof). The fine (2 m) terrain now reaches x = −336 (was −144).
+
+**Seattle Center.** Climate Pledge Arena (w25123756): its OSM parts (roof w411521517 white pyramidal from 8 m to 33 m, the
+skillion buttresses w1352666990 / w1352647807 / w1352647810, w1352647812, the Alaska Airlines Atrium w1270549342) were
+hidden inside the parent drawn as a 35 m box of apartment windows. Panoramas xLh7PyEOCxKVuesNWAzPBw (1st Ave N @ 270:
+glass curtain wall under a thin white fascia, a white sloped concrete A-frame at the middle of the east side) and
+jLP72IlkxVljWg52cvsHAA (Thomas St @ 10 / 60: green-tinted glass, white mullions). Now the parts are drawn as mapped (untagged
+colours white) and the parent outline as the glass wall up to the roof part's 8 m with a fascia. Monorail station:
+panorama 1_C7cgJZv-E44e8HIqd5tg (the concourse, 47.62111,-122.34999) @ 330 shows a curved translucent canopy on arched
+ribs over the platforms (w333355314/5/7) and the concourse (w637649471), dark columns, a black fascia with "ALWEG
+MONORAIL" in red letters; drawn so (rise, rib spacing estimated). International Fountain apron: panorama
+Efow4N6Ma8F4LGpK2x3jWQ @ 140 / 320: asphalt all round between the rim kerb and the lawn; now a 6 m asphalt apron (width
+estimated). Not done: MoPOP skin (iridescent curved lobes), screening trees, Pacific Science Center arches.
+
+**Pike Place west walls.** Panorama iFZRr4o9WP2yFdlbuLUkeQ (Western Ave) @ 60: white-painted walls with rows of wide
+red-framed multi-pane steel windows several storeys down the bluff; drawn so on the market halls' and the Main Arcade's
+west walls (were the generic apartment tile). The Western Ave west side (low pink stucco building, cream three-storey
+block) and the "Pike Place Market" lettering are still not drawn.
+
+**Waterfront.** Overlook Walk (w1256939020) is walkable: the deck is a solid at its level over Alaskan Way (w1256939017,
+layer −1), with railings as walls; the Salish Steps (w1320933922 + w1320933923, steps "down" from the deck's west edge)
+are a 6.5 m wide flight to the promenade (panorama cLi3KbZ4ALUiPoUywFMtKw @ 70: a wide concrete flight between handrails
+and cheek walls; width estimated), and the east stair core (w1289027232–4, w1256939012, levels 1–4) is a "take the
+stairs" use between its foot and the deck (its flights are too small to walk with the game's body). Ocean Pavilion
+(w1256939021): panoramas d_zvaPdDFeRnyCx2epCvqA @ 250 and nVwg3181AIHZBcGR4Gy80w @ 270 show a board-formed concrete base
+about 2.2 m high under the charcoal ribbed cladding: drawn. Panorama VuVTZJti0rfyEFN0lJAiMQ @ 240: Pier 60 is a low
+open-sided shed under a shallow gabled roof (not a vault): not changed yet. The lane lines of the concrete roadways north
+of Union St and the street trees there were checked on a top-down: lane lines present, no tree in a roadway (already at
+9824fd56).
+
+**Fremont Troll / Aurora Bridge.** Official panoramas run under the bridge along N 36th St (Z4ECcm_Bohycl_4lNh_0Yw,
+1Ei0hgAU9k4ebaKIP7yMvw, Yz1JPc9S36oaFTKzQyz7Mg, s2nejgAfrxEcFPqUbBfauA) and on the deck (x2QjqdB3dcu1G078SXSXkA and the
+x = −12.5 / −1.0 rows). From the deck the column lines are not visible. Z4ECcm @ 90 shows the arch over the Troll spanning
+to a column on its east side; the game draws a column line west of the Troll as well (x = −8.75). The positions could not
+be fixed from these views with confidence (pano heading vs the Troll's bearing disagree by about 30°).
+
+**Gas Works fine terrain.** EPQS answered again on 2026-11-13 (single queries 2–9 s, about one point a second): a 5 m grid of the 1 m DEM over the Prow and the south shore (x 0…160, z 70…130, 429 points) refines the 10 m grid of 2026-11-12; the two agree exactly at their 119 shared points. The full-park 5 m grid (2,277 points) was not finished.
+
+## 14. Bellevue scenes — round 3 of the fidelity pass (2026-11-13, lane bel-spots)
+
+Sources used: live OSM (Overpass extracts of 2026-11-12, plus buildings round Meydenbauer Bay at osm_base 2026-11-13T05:52Z);
+official Street View panoramas found with the coverage-metadata lookup (viewed only, nothing saved); the Bellevue Botanical
+Garden's own art page (bellevuebotanical.org/garden-art, the `source` the artwork nodes cite) and history page; Commons photos
+named by OSM `image` tags ("Bellevue, WA (2023) - 02 / 12 / 28") and "Bellevue Botanical Garden 04 - Aaron Education Center";
+USGS 3DEP 1 m elevations.
+
+**Botanical Garden.**
+- Aaron Education Center r19675678 (Olson Kundig, June 2014): two inner rings (w1435225256 = bed GC03, w1435225279) are open
+  courtyards. Garden side (Commons): one storey, pale timber panels between white posts, white multi-pane glazed doors, a thin
+  grey metal roof edge with a deep overhang.
+- Shorts House r6758706 (building=retail, the shop): the Shorts' 1957 "contemporary home" by Paul Kirk (garden history page);
+  its inner ring w184864667 is the atrium (bed SH06, Sheepish Rabbit). The garden's rabbit photo shows a pale grey wall base and
+  light timber above in the atrium. No exterior photo found: storeys / roof are estimates.
+- Sharp Cabin w453135458 (Commons photo from its north-west, 2023): one-storey cottage, khaki lap siding, taupe trim, steep grey
+  shingle roof with a cross gable, recessed porch with white rail and fretwork brackets in the north gable end, red door.
+- Artworks (art-page photos): Owl's Glare — bronze owl landing with raised wings on a boulder; Goldiwarts — large bronze toad
+  beside a bronze leaf; Large Galaxy — tall S-curved brushed-steel stem with a cluster of coloured kinetic pieces (≈ 5 m);
+  Shaman — tall pointed dark monolith with carved folds (≈ 2.3 m); Three Cranes — three verdigris metal cranes on thin legs,
+  one stooping; Sophia's Dream — a long low dark carved stone (bench-like, ≈ 2 m); The Nature of Sitting — a brushed-aluminium
+  leaf cut-out on a rough granite block; Sheepish Rabbit — hunched rounded bronze rabbit on a grey stone drum.
+- Perennial Border r19655849: garden:style=flower_garden; its ring is two outer ways sharing both ends. The spot extract appends
+  the second way unreversed (a bow-tie outline); the scene rejoins it. It has no mapped beds inside.
+- The visitor-lot parked cars stay an estimate (OSM maps lot + aisles, not bays / occupancy); the drive's official panorama shows
+  the lot in use.
+- The research iconic photo (ravine bridge) is ≈ 300 m from the entry spawn, past the guided tour's 230 m reach; the game's
+  postcard frames the Perennial Border instead (owner decision open: r3-bel-spots-9).
+
+**Meydenbauer Bay Park.**
+- Lake Washington Blvd bridge, seen from below (official panorama on the lane beside it, 47.612160, −122.211318): concrete slab
+  deck on single upright tapered rectangular piers under its middle — no canted struts.
+- Lake Washington Blvd street lights: grey cobra heads (round 2); park lights: dark posts. The 99th Ave NE light is a dark post
+  with a bell pendant.
+- Far shores from 99th Ave NE (47.610531, −122.209775, yaw 235): houses, condos and boathouses at the waterline under the fir
+  belt. 152 live-OSM footprints outside the DEM grid within 120 m of the water: `game/data/spots/bel-meydenbauer-shore.json`.
+- Steps: w840902386 (17 steps) rises 2.2 m on the USGS DEM (y 0.30 → 2.49 on the scene datum); w841411878 (5 steps up to the
+  terrace) from y 3.7 → 4.45. The scene's bank grading gives 0.76 m and ≈ 0 m there.
+- Fish sculpture n13707322282: OSM "A native-PNW style fish sculpture"; hidden by shrubs from both panoramas in reach; no photo.
+
+**Downtown Park.** Ten forecourt benches n7861958149–158 (white in Street View). Mapped terrace walls w810574801–803 and
+w842753004–006 (no height tag), old-school outline w810575032 (height=0.2). No OSM nodes for the forecourt's lantern lamps /
+kerb bollards.
+
+**Lincoln Square.** w33106348: official panoramas on Bellevue Way (47.617039, −122.201613; 47.616778, −122.201609): two tall
+storeys, restaurant-row cornice level with the street-light heads (≈ 10 m), Crate & Barrel corner parapet ≈ 12 m; on NE 8th
+(47.617365, −122.202878) the west part is red brick with a steel-and-glass canopy and a glazed upper storey; towards NE 6th
+(47.616193, −122.202176) cream stucco with a brick base, ivy and tall windows. Upper-level tenants (Cactus, Thai Kitchen Bird
+Pepper, both level 2) show no legible street sign. Bellevue Way south of NE 8th is mapped as two one-way carriageways
+(w425272687 southbound; w738584326 / w470492322 northbound): a divided road, consistent with the medians seen in round 2.
+
+## 15. bel-lincoln-square: Bellevue Square ↔ West Parking Garage skybridges (round 3, lane builder, 2026-11-13)
+
+Live OSM (API 0.6, 2026-11-13): twelve `highway=footway` + `bridge=yes` + `layer=1` ways cross the service drive between the
+mall's west wall and the West Parking Garage (w30758875): covered w387201731 (z ≈ 86), w29234888 / w843400176 / w843400178 /
+w843400185 / w843400163 (z ≈ 155–163), w30758942 / w843400164 (z ≈ 277–280, continuing as the already-extracted
+w843400165 to the east); open w29234889, w843400118, w843400136, w843400114 (garage-deck walkways). All twelve are appended to
+`bel-lincoln-square.json` `ways` by `tools/spots/append-osm-features.mjs` (schema of `build-data.mjs`; nothing else changed).
+The scene draws a covered one only through its own skybridge() list: `patches/bel-lincoln-square.js.patch` adds
+w387201731, w29234888, w843400178, w843400185, w843400163, w30758942 and w843400165 (the 2 m junction stubs w843400176 /
+w843400164 are left out: an unmitred 4.6 m box on a 2 m stub stuck out of the garage corner). Floor height: the scene's
+skybridge estimate (6.2 m); no measured height. The 54 ground ways of the same strip are still not extracted (backlog
+r3-builder-spots-4). Official panoramas on the drive: EE7cKAltcksKzsSBPd822A, odcxtWhNyv-UeSc9O436Lw, _-8mGqQtoDS7uRaPUYC-ww;
+not viewed this round (browser pane at its tab cap).
+
+## 16. Round 3, lane builder (2026-11-13): multipolygon outlines in the Seattle spot extracts
+
+Sources: live OSM (API 0.6 / Overpass, 2026-11-12/13; the round-2 map.json tiles of each district for the cached-source
+tools), official Street View panoramas looked at for appearance only (nothing stored, nothing extracted into data).
+
+Bow-tie multipolygons in the Seattle spot extracts (member ways joined without reversing): 23 relation areas repaired in
+the scene data from live OSM relation geometry (`tools/spots/repair-relation-outlines.mjs`): Bellevue Botanical Garden
+(Perennial Border r19655849, Curbside Gardens, Waterwise, Shorts Ground Cover, Rock Garden … 15), Gas Works (park r1047789,
+r5579292, r7174145), Seattle Aquarium r16051213 (pike-place, waterfront), Broad Street Green r5569823, Piers 55 / 59.
+Render: the Perennial Border bed now shows its planting (was lawn). Clipped water bodies (Lake Washington, Lake Union,
+Elliott Bay) and Ballard railway r4065613 were not touched (stored outline is a clip, not the same vertices).

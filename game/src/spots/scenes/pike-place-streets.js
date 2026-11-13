@@ -55,3 +55,28 @@ export function gradeStreets(ground) {
     // band is wider than the alley and its banks stay inside them
     { const line = SURVEY.lower.slice(6), ys = new Map(line.map(([x, z, y]) => [x + ',' + z, y])); ground.corridor(line.map(([x, z]) => [x, z]), 13, 4, (x, z) => ys.get(x + ',' + z)); }
 }
+
+/**
+ * Western Ave's east (market) bank: between the 14 m street band and the market's lower walls the terrain rose 2–4 m
+ * as pale mounds on the sidewalk (sea-spots-a-13, 47.60878,-122.34155). The ground there is the street's own surveyed
+ * level out to 13 m from the centre line (also just inside the walls), easing back to the DEM by 17 m outside the
+ * footprints; deeper inside the footprints (hidden by their walls) nothing changes. Call after gradeStreets().
+ */
+export function gradeWesternEastBank(ground, footprints) {
+    const P = profile(SURVEY.western), bb = { x0: 1e9, z0: 1e9, x1: -1e9, z1: -1e9 };
+    for (const [x, z] of P.pts) { bb.x0 = Math.min(bb.x0, x - 18); bb.x1 = Math.max(bb.x1, x + 18); bb.z0 = Math.min(bb.z0, z - 18); bb.z1 = Math.max(bb.z1, z + 18); }
+    const boxes = footprints.filter((p) => p?.length > 2).map((p) => { let x0 = 1e9, z0 = 1e9, x1 = -1e9, z1 = -1e9; for (const [x, z] of p) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); } return { p, x0, z0, x1, z1 }; });
+    const inside = (x, z) => boxes.some((b) => x >= b.x0 && x <= b.x1 && z >= b.z0 && z <= b.z1 && inPolyLocal(x, z, b.p));
+    ground.mod((x, z, h) => {
+        if (x < bb.x0 || x > bb.x1 || z < bb.z0 || z > bb.z1) return h;
+        const r = P.at(x, z); if (r.d < 7 || r.d > 17) return h;
+        // east of the line only: the line runs north-west, so the market lies on its left (cross product > 0)
+        const i = Math.min(P.pts.length - 2, Math.max(0, P.cum.findIndex((c) => c >= r.s) - 1)), [ax, az] = P.pts[i], [bx, bz] = P.pts[i + 1];
+        if ((bx - ax) * (z - az) - (bz - az) * (x - ax) <= 0 || h <= r.y) return h;
+        // (the flat reaches 13 m also under the footprints' edges: the 2 m terrain grid otherwise ramps up in front of a wall)
+        if (r.d > 13 && inside(x, z)) return h;
+        const k = Math.min(1, Math.max(0, (r.d - 13) / 4)), s = k * k * (3 - 2 * k);
+        return r.y + (h - r.y) * s;
+    });
+}
+function inPolyLocal(x, z, p) { let c = false; for (let i = 0, j = p.length - 1; i < p.length; j = i++) { const xi = p[i][0], zi = p[i][1], xj = p[j][0], zj = p[j][1]; if ((zi > z) !== (zj > z) && x < (xj - xi) * (z - zi) / (zj - zi) + xi) c = !c; } return c; }

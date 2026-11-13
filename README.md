@@ -143,7 +143,7 @@ that chapter of the CV.
   snow and fog, weather-driven visibility (snow settles on streets, roofs, lawns, sports grounds and the landmarks
   alike — pitches and courts get a dusting their lines still show through), and seasons (autumn colours, bare winter
   trees, the Unirii fountains drained in winter).
-- **Landmarks and buildings.** 70 hand-modelled landmarks (e.g. every CV-stop building — the GTS house on Calea
+- **Landmarks and buildings.** 74 hand-modelled landmarks (e.g. every CV-stop building — the GTS house on Calea
   Călărașilor, Liceul C.A. Rosetti with its sports hall, sports ground and fenced yard, the Politehnica rectorate, Hermes Business Campus, BOB Tower, Europe House, The
   Landmark, Lincoln Square — plus Hala Traian, the Parliament, Victoria Palace, Sky Tower, Stadionul Dinamo with its
   track, terraces, covered main stand and floodlight masts, the SeaTac garage and tower);
@@ -246,7 +246,37 @@ that chapter of the CV.
     side). Seattle Center's MoPOP, Climate Pledge Arena and monorail station are still generic shapes; the International
     Fountain is outside the scene. Some statues have no hand model (Soviet Soldier, Monumentul Infanteriei, Gandhi).
     Unreviewed bridges keep the plain parapet. MoPOP has no guided tour. Many heights, depths and levels are estimates.
-    The open list is `handoffs/fidelity/BACKLOG.md`.
+    The open list is `handoffs/fidelity/BACKLOG.md`. (Round 3 below closes several of these.)
+- **Fidelity pass, round 3 (2026-11-13).** The remaining backlog, same method.
+  - *All districts.* Fuel stations look like their brands (fascia, columns, pumps, pylon colours), all 16 compared with
+    Street View, with a price pylon only where the real one stands. Every mapped road-bridge deck has a reviewed edge class.
+    Mapped fountain and basin outlines are real basins with a stone coping, small hotel pools appear, and stops just
+    outside the playable edge get their shelter. Signs follow their building's OSM entrance where one is mapped, and 79
+    businesses mapped just outside a footprint are attached to it. 45 mapped wayside crosses stand in the streets.
+    A future district rebuild keeps all of this (`tools/osm/build-data.mjs` shares `poi-kinds.mjs`; test
+    `tools/osm/poi-rules.test.mjs`).
+  - *Districts.* Grozăvești: the Belvedere water tower, the metro's glazed west entrance, blue Basarab railings, planters
+    and a picket railing on Podul Grozăvești, the Regie footbridge. Romană: the Urseanu observatory dome, the ASE covered
+    footbridges, Europe House, Casa Filipescu-Cesianu, Pasajul Victoria's balustrades. Floreasca: the Automatica Ford
+    building site, Agora, Nusco and Souk. Pipera: the Petricani bridge guards and railing, the Barbu Văcărescu noise
+    screens. Otopeni: a kerb instead of a guard along DN1, Rompetrol's orange and white (the DN1 station mapped "OMV" is
+    drawn as the MOL station it is now; the map label keeps the OSM name). SeaTac: the Hilton skybridge, two hotels'
+    storeys. Bellevue: pedestrians no longer walk down the NE 8th St median.
+  - *Tourist scenes.* Seattle Center: the International Fountain (with its jet show), Climate Pledge Arena's real
+    shape, the monorail station canopy, the Olympic Iliad. Pioneer Square: every mapped front has its own facade, the
+    Pioneer Building its entrance tower, Occidental Square its canopy, the waterfront end its real streets. Waterfront:
+    the Overlook Walk and Salish Steps are walkable. Pike Place: the SkyBridge truss, the white west walls. Ballard Locks:
+    Salmon Waves. Kerry Park's terrace slope. Bucharest scenes: shopfronts only where a business is mapped or on main
+    roads; the CEC railing and History Museum forecourt; Revolution Square's memorials and car parks; Cișmigiu's Swan
+    Lake; the UN House; the Arc's four inscriptions (quoted from Romanian Wikipedia). Bellevue: the Botanical Garden's
+    Aaron Education Center, Shorts House, Sharp Cabin and eight artworks; Meydenbauer's shore houses and bridge piers;
+    Downtown Park's terrace walls; Lincoln Square's Bellevue Way median and skybridges. Guided tours no longer give up
+    when a passer-by blocks the guide. No rain, snow or fog indoors.
+  - *Frame budget.* Every district and tourist scene stays within 1.5 M triangles / 400 draw calls, also in browsers
+    without WEBGL_multi_draw (Pike Place 1.93 M → 1.04 M there) and in the Pike Place drone view.
+  - *Known gaps.* Still generic or estimated: MoPOP's skin, the Pacific Science Center arches, the Petricani lake banks,
+    several statues hidden by trees on every panorama, Piața Unirii's candelabra lamps, many sizes and colours (marked in
+    the dossiers). The open list is `handoffs/fidelity/BACKLOG.md`.
 - **Performance.** Ultra’s normal-only ambient-occlusion pass uses a finite face-normal fallback with its own declared view-position varying, so smooth normal materials compile without the previous missing-varying shader error. This is a shader correctness fix, not a hardware FPS claim. Adaptive quality tiers, instanced traffic/crowds/parked cars and view-range culling target at most
   1.5 million triangles / 400 draw calls per district frame including traffic and the mirror. The overview records
   measured checks and remaining limits; software-rendered test timing is not phone performance.
@@ -379,7 +409,7 @@ The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, o
 
 ## Technical overview and comparisons
 
-Browse [the game overview](https://cristiancalina.com/game/overview/) for the architecture, simulation, controls and spec-driven AI development, plus inline comparisons for eight districts, 70 landmark entries and 24 tourist destinations. This guide previews the ongoing fidelity work; each capture retains its actual source and date. The game update is still being tested.
+Browse [the game overview](https://cristiancalina.com/game/overview/) for the architecture, simulation, controls and spec-driven AI development, plus inline comparisons for eight districts, 74 landmark entries and 24 tourist destinations. This guide previews the ongoing fidelity work; each capture retains its actual source and date. The game update is still being tested.
 
 For release evidence, `tools/fidelity/archive-evidence.py` retains all local branch tips, fetched remote-tracking tips and worktree HEADs, plus recorded capture, implementation and prior-source links. Its JSON plan records provenance and missing objects. Dry runs are read-only; explicit `--write-tag` creates a new immutable annotated archive with the selected source tree and evidence dates unchanged. Fetch every remote branch head before final archival and verify the pushed archive before branch cleanup.
 

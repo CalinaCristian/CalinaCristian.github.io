@@ -918,3 +918,50 @@ Street View was used only to look (official panoramas, ids found from coverage m
 Old Town pedestrian streets (Str. Franceză, Lipscani): cobbled wall to wall in the panoramas; the
 raster drew lawn. Mapped highway=pedestrian ways now keep a 7 m paved band; 32 business fascias were added on pedestrian
 fronts (e.g. Hanu' lui Manuc, City Grill, Mojo Music Club, Gelateria La Romania dal 1947; see world.stats.fasciaLayout).
+
+## Round 3, lane builder (2026-11-13)
+
+Sources: live OSM (API 0.6 / Overpass, 2026-11-12/13; the round-2 map.json tiles of each district for the cached-source
+tools), official Street View panoramas looked at for appearance only (nothing stored, nothing extracted into data).
+
+Fountain outlines (`tools/osm/add-areas.mjs`): w413969309 (20 m², replaces the round-2 furniture bowl), w1474406316,
+w586376877, w1459195391 / w1459195396, and the Colțea garden basins w1180500523 / w1180500524 / w1180503225
+(`natural=water`, 13–16 m², 19–46 m outside the playable edge) are water areas with a stone coping (world.js patch).
+w608657873 (44.43414, 26.11631, Str. Ion Câmpineanu side square) is NOT added: the official panorama
+m4ZygVZxXJZodU3nvvedUg shows a round planted bed at grade (a shrub, grass), no basin — OSM looks stale there.
+The six 0.6 m jet slits (w1176128444 …) stay out (degenerate after simplification; inside the `fountains` landmark).
+
+## Round 3 street-level review, lane look (2026-11-13)
+
+Official panoramas only (ids cited; no imagery stored). Runtime modules named in brackets.
+
+- **Fuel stations** (fuel-look.js, game/research/fuel-stations-review.json). OMV Bd. Corneliu Coposu w263315803: green fascia with a
+  blue OMV panel, white soffit, blue-and-white clad columns, islands with blue bases; white / blue pylon south-west of the canopy
+  (XTVqSWyob94uGXTDzkYZFg h45, D1ZNjm-lmugZGMje_XXCGg h189). MOL w670595374: green fascia, curved green MOL pylon with the red logo at
+  the west entrance (h16qhTmS_zN0GfsQ2P6rIA h140, 7VQRohD43rltUvsClUDt_Q h103). The game had a blue OMV / red MOL fascia.
+- **Weir w1434558024** (OSM `waterway=weir`, 44.425858-44.426298, 26.10454-26.10461): a row of about sixteen low grey concrete blocks
+  across the basin just downstream of the covered section (NrlzOfq1HTfol_d90aJ3FA h95). weirs.js draws it at the reviewed basin level
+  (water -2.4 m + 0.45 m freeboard; block count / size are estimates), but only where the game has open water: the west end of
+  w174991904 is bare construction ground in the game (the Piața Unirii era, an owner decision), so no block is drawn today.
+- **Dâmbovița level**: at 44.429203, 26.099789 (4Tc0SMwEbrKg8LFcABcVWg h110, just west of the square) the water is high, about 2.5 - 3 m
+  below the quay, with a broad sloped bank on the north side; round 2 saw it about 4.5 m down at 26.0976 on the same polygon
+  w174990751. The level varies inside the polygon; water-channel-review.js holds one level per polygon (not changed).
+- **Kilometrul 0** n2496554613 (tourism=artwork, no artwork_type): a dark bronze ring sculpture on a low round plinth in the fenced
+  churchyard of Sf. Gheorghe Nou (FW4Rlti5tfUkf9fpP8YuJg h106): now drawn with the generic `sculpture` class, bronze (monument-sources.js).
+- **Wayside crosses**: 45 OSM `historic=wayside_cross` / `man_made=cross` nodes in the Bucharest district areas are drawn with a
+  new small stone wayside-cross class (`wayside`, 1.5 m on a low base, estimate): the crosses in the grass median of Bd. Brătianu at
+  Piața Universității (WTniXBNPVx6ZDxHLKCnDSQ h322) are about 1 - 1.5 m stone crosses, far smaller than the 3.2 m memorial `cross`
+  class. 20 are in Unirii (Troița Mântuirii Neamului n2079451985 and Cruce de piatră n9411250345 among them; one duplicate position
+  skipped). No official panorama within 40 m of the Troița, whose real size is not known.
+- **Horațiu** n2486324771: the mapped point is a shop front (OPtvWjzotRRHelaG81dCHg h81); nothing free-standing; OSM itself has
+  `fixme=Is this really here?`. Not drawn.
+- **Parcare Unirea** w184169515: the building sign now reads its own name "Parcare Unirea" (rule "Etaj n is not the building sign"
+  verified in a render from four sides); the car wash POI "Spălătorie Unirea Etaj 7" (shop car_wash on the same footprint) still
+  gets two small stacked unit boards on the west face at street level.
+- **Parcare Cocor** w658281398 (building:part in the Cocor store): the street side is a dark grey panelled wall with a vehicle
+  entrance and barrier (ky8lvOleKFvuiFVszKDv7Q h240); the pack draws the store's glazing there and the part is not a building record
+  of its own, so car-parks.js cannot restyle it. Levels not visible.
+- **Domnița Bălașa** w78564921: cream stone with red-brown brick bands (2tFsWbmuz3BKVzjdbjqNww h277): matches the church class colour.
+- **Piața Unirii lamps**: 16 OSM `highway=street_lamp` nodes in the square (no style tags) are drawn as the generic lamp; the
+  candelabra form needs a second lamp instance set in the lamp renderer (not done). Advertising column w1176142649 is an OSM building
+  (height 4, onion roof, #1d3b35), drawn by the pack's building path.

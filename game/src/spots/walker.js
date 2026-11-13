@@ -27,7 +27,8 @@ export function colliderIndex(list, cell = 16) {
     return arr;
 }
 
-function collideOne(b, x, z, radius, y) {
+function collideOne(b, x, z, radius, y, crowd = false) {
+    if (b.crowdOnly && !crowd) return null; // (round 3 review) a crowd blocker: keeps the people out of an artwork group, not the player
     if (b.y0 !== undefined && y !== undefined && (y > b.y1 || y + 1.7 < b.y0)) return null;
     if (b.prop && b.h !== undefined && y !== undefined && y > (b.y ?? -1e9) + b.h - 0.05 && b.y !== undefined) return null;
     if (b.wall) {
@@ -52,10 +53,10 @@ function collideOne(b, x, z, radius, y) {
     const pen = d > 1e-4 ? radius - d : radius + Math.min(b.hw - Math.abs(lx), b.hd - Math.abs(lz));
     return { nx: nx * c + nz * s, nz: -nx * s + nz * c, pen };
 }
-/** push vector out of all colliders near (x, z) */
-export function collide(list, x, z, radius, y) {
+/** push vector out of all colliders near (x, z); crowd: also the crowd-only blockers (people.js) */
+export function collide(list, x, z, radius, y, crowd = false) {
     let px = 0, pz = 0, hit = null;
-    const test = (b) => { const dx = x - b.x, dz = z - b.z; if (dx * dx + dz * dz > (b.r + radius + 0.5) ** 2) return; const r = collideOne(b, x, z, radius, y); if (r && r.pen > 0) { px += r.nx * r.pen; pz += r.nz * r.pen; hit = b; } };
+    const test = (b) => { const dx = x - b.x, dz = z - b.z; if (dx * dx + dz * dz > (b.r + radius + 0.5) ** 2) return; const r = collideOne(b, x, z, radius, y, crowd); if (r && r.pen > 0) { px += r.nx * r.pen; pz += r.nz * r.pen; hit = b; } };
     if (list.query) list.query(x, z, radius + 2, test); else for (const b of list) test(b);
     return hit ? { px, pz, hit } : null;
 }

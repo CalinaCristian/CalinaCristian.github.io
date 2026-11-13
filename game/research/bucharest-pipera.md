@@ -607,3 +607,33 @@ Podul Barbu Văcărescu w119926495: low concrete kerb with galvanised posts and 
 (panorama 44.479661, 26.100612 h253): drawn so. Str. Petricani bridge w8208289: W-beam guard rail + yellow railing; the
 game deck is at grade without a railing (not changed). Kaufland w1198250017: the store is mapped as one point in the middle
 of the footprint; the sign now goes on the east face toward its own car park w1198250027.
+
+## Round 3 (2026-11-13), lane structures
+
+Official Street View panoramas were looked at only (ids from coverage metadata); nothing was saved, traced or measured from them.
+
+Podul Barbu Văcărescu: transparent noise screens on posts to about 3 m above the mesh railing on the north
+edge (44.479661, 26.100612 h253): the frames are drawn. Single-arm lamps on both edges of the deck: not drawn. Strada Petricani
+w8208289 (44.474233, 26.124001 h7 / h95 / h275): W-beam guard rails at both carriageway edges, yellow steel picket railing at the
+east sidewalk edge, water a few metres below with a weir; on the west a gravel / green strip, no water visible. Game: W-beam
+guards and the yellow railing drawn; the water and the lake polygon are unchanged (still at street level).
+
+## Round 3 street-level review, lane look (2026-11-13)
+
+- **Petrom Șos. Pipera** w241976323 (pipera-4): long yellow fascia, blue square-clad columns, white soffit, yellow / blue / red shop
+  front; no pylon on the Șos. Pipera frontage nor at the west end (zLWCouEoyC82uJ90Q-pXdA h356, zy0-QE4qE154VeHmviOP0A h49 / h250):
+  the generic pylon (22 m west of the canopy) is removed. Pump islands stay the generic estimate (about four islands seen, two drawn).
+- **Lukoil Str. Căpitan Aviator Șerbănescu** w547396767: red fascia with white LUKOIL letters, red / white columns, minimarket beside
+  it (VrpS5Xl6H0bPq1iUAjN4-w h342); white pylon with a red head at the north-east entrance (WAU_Ey5duTIjThXrwFsqcA h218), now
+  placed there (3 m from the reviewed place; was 17 m off).
+
+## Fidelity pass round 3 — landmarks lane (2026-11-13)
+
+- **Monumentul Soldatului Sovietic** (n1174026151, historic=monument, no material / form tags): the nearest official
+  panorama on Șos. Pipera (44.479208, 26.097410 h 185, 44 m) shows a ≈ 1.1 m red-brick wall with a cap along the pavement,
+  a lawn, trees and rows of white grave markers behind; the monument itself is hidden by trees. Not modelled (form unknown).
+  The brick wall is not drawn: landmark fence styles are only `bars` / `mesh` (world.js), and its line is not mapped.
+- **Promenada Mall east front** (pano 44.478431, 26.104866 h 255, Barbu Văcărescu side): white cladding, a dark glazed band,
+  rounded corners and a curved roof edge, a large LED screen and flagpoles on a paved forecourt. The model's white panel walls
+  with a grey plinth read as a plain grey wall from there; the glazed band, screen and curved edge are not drawn (extents
+  not measured).

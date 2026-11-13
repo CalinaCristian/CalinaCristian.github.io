@@ -33,7 +33,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { readDistrictData, writeDistrictData, resolveDistrictFile } from './district-data.mjs';
-import { poiKind, basePoiKind, isClosedPoi, isOffStreet, signText } from './poi-kinds.mjs';
+import { poiKind, basePoiKind, isClosedPoi, isOffStreet, signText, ownBuildingSign, NON_PLACE_RELATION, SIGNED_KIND } from './poi-kinds.mjs';
 
 const args = {}; for (let i = 2; i < process.argv.length; i++) { const k = process.argv[i]; if (k.startsWith('--')) args[k.slice(2)] = process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[++i] : true; }
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -111,6 +111,9 @@ for (const c of gamediff.closed || []) banned.push({ osm: c.osm || '', xz: c.lat
 const strIdx = new Map(D.strings.map((s, i) => [s, i])), newStrings = [];
 const S = (s) => { if (!s) return -1; let i = strIdx.get(s); if (i === undefined) { i = D.strings.length + newStrings.length; newStrings.push(s); strIdx.set(s, i); } return i; };
 const rows = [], sources = [], seen = new Set(), report = { added: [], skipped: {}, buildingNames: [], buildingNamesKept: [], fountains: [], edgeHistogram: {} };
+// (round 3) the dataset's own rows seed the same-kind-and-name dedup: on a re-run, a stop's platform way must not come in
+// beside the stop node an earlier run appended (Pasaj Victoria way/920117618 vs its node)
+for (const p of D.pois) seen.add(D.poiKinds[p[0]] + '|' + (str(p[3]) || str(p[4])) + '|' + Math.round(p[1] / q / 15) + '|' + Math.round(p[2] / q / 15));
 const skip = (why) => { report.skipped[why] = (report.skipped[why] || 0) + 1; };
 // interior units: a node more than 10 m inside a footprint over 3000 m² that holds four or more businesses is a unit of a
 // mall / hypermarket gallery / terminal, not a street frontage (OSM rarely tags `level` there: Carrefour Orhideea's gallery
@@ -124,7 +127,7 @@ for (const e of [...nodes.values(), ...ways.values()]) {
 const ringDist = (x, z, r) => { let d = Infinity; for (let i = 0, j = r.length - 1; i < r.length; j = i++) d = Math.min(d, dseg(x, z, r[j], r[i])); return d; };
 const consider = (e) => {
     const t = e.tags; if (!t) return;
-    if (e.type === 'relation' && /^(route|route_master|restriction|public_transport|boundary|network|associatedStreet|street)$/.test(t.type || '')) return;
+    if (e.type === 'relation' && NON_PLACE_RELATION.test(t.type || '')) return;
     const k = poiKind(t); if (!k) return;
     const osm = `${e.type}/${e.id}`;
     if (known.has(osm)) return skip('appended by an earlier run');
@@ -160,19 +163,14 @@ if (!args['no-building-names']) for (const e of [...ways.values(), ...rels.value
     const t = e.tags; if (!t || !t.building || !t.name) continue;
     const id = (e.type === 'way' ? 'w' : 'r') + e.id, bs = byId.get(id); if (!bs || bs.length !== 1) continue; // (a relation with several outers has no single sign)
     const b = bs[0]; if ((b.flags & 32) || !(b.flags & 2) || D.buildingOwnTags?.[id]) continue;
-    const name = signText(t, country).name; if (!name || !norm(b.name) || norm(b.name).includes(norm(name)) || norm(name).includes(norm(b.name))) continue; // (the sign already names it)
     // only where the tenant keeps a sign of its own: a street-level business (unit fascia), or the building is itself a hotel.
     // A faculty, clinic, museum or office tenant has no unit fascia in world.js: its name stays on the building.
-    const lodging = /^(hotel|hostel|motel|guest_house)$/.test(t.tourism || '');
+    // (round 3) the rule is shared with the district build: poi-kinds.mjs ownBuildingSign
     const tenant = D.pois.find(p => p[6] === b.i && norm(str(p[4]) || str(p[3])) === norm(b.name)), tk = tenant ? D.poiKinds[tenant[0]] : '';
-    if (!lodging && !/^(food|shop|bank|pharmacy)$/.test(tk)) { report.buildingNamesKept.push({ building: id, own: name, signedAs: b.name, tenantKind: tk || 'unknown' }); continue; }
-    // build-data.mjs: what makes a building's own name a sign (not an address, a block number or a plain residential name)
-    const n2 = name.toLowerCase().replace(/^(strada|str\.?|bulevardul|bd\.?|calea|șoseaua|sos\.?|intrarea|aleea|piața)\s+/, '').trim(), stt = String(t['addr:street'] || '').toLowerCase().replace(/^(strada|bulevardul|calea|șoseaua|intrarea|aleea|piața)\s+/, '').trim();
-    const addrLike = /^\D*\d+[a-z]?(\s*[-,]\s*\d+[a-z]?)?$/i.test(n2) && (!stt || n2.startsWith(stt.slice(0, 6)) || /^(nr\.?|no\.?)\s*\d/.test(n2)) || (t['addr:housenumber'] && n2.endsWith(' ' + String(t['addr:housenumber']).toLowerCase()) && stt && n2.startsWith(stt.slice(0, 5)));
-    const residential = /^(residential|apartments|house|detached|semidetached_house|terrace|villa|dormitory|yes)$/.test(t.building || '') && !(t.amenity || t.shop || t.office || t.tourism || t.healthcare || t.leisure || t.historic || t.wikidata || t.wikipedia); // (a named house with its own encyclopedia entry is a known place: Casa Gheorghe Petrașcu)
-    if (addrLike || residential || /^(bl(oc)?\.?|block|scara|sc\.|cl[aă]direa|corp(ul)?|building|bldg\.?)\s*\S{1,5}$/i.test(name.trim())) continue; // ("Clădirea B+C", "Corp BN": a lettered wing, not a sign)
-    ownTags[id] = { name, ...(lodging ? { tourism: t.tourism, ...(t.brand ? { brand: signText(t, country).brand } : {}) } : {}), ...(t['addr:street'] ? { 'addr:street': t['addr:street'] } : {}) };
-    report.buildingNames.push({ building: id, own: name, signedAs: b.name, lodging });
+    const own = ownBuildingSign(t, b.name, tk, country); if (!own) continue;
+    if (own.kept) { report.buildingNamesKept.push({ building: id, own: t.name, signedAs: b.name, tenantKind: own.kept }); continue; }
+    ownTags[id] = own;
+    report.buildingNames.push({ building: id, own: own.name, signedAs: b.name, lodging: !!own.tourism });
 }
 
 // ---- small fountains mapped as ways (the build keeps amenity=fountain nodes only): the same street-furniture fountain

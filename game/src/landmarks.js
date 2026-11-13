@@ -924,7 +924,10 @@ function bArcul(b) {
         b.box(0, 18.45, z + s * 0.1, 15.2, 2.3, 0.2, '#e3d6bd');
         for (const x of [-10.2, 10.2]) { b.box(x, 18.5, z + s * 0.15, 3.8, 2.2, 0.3, RL); b.box(x - 0.6, 18.9, z + s * 0.35, 1.2, 1.5, 0.3, '#b5a283'); b.box(x + 0.7, 19.6, z + s * 0.35, 1.8, 0.5, 0.3, '#b5a283', { rz: -0.4 }); }
     }
-    // inscriptions (bold lines of the 1936 texts)
+    // inscriptions (bold lines of the 1936 texts). Source checked round 3 (2026-11-13): ro.wikipedia.org/wiki/Arcul_de_Triumf_din_București,
+    // section „Arhitectura monumentului”: the north text ends „FERDINAND I DOMN ȘI REGE AL ROMÂNILOR”, the south text holds
+    // „SE ÎNDEPLINI DREPTATEA ȘI PENTRU POPORUL ROMÂN”, the east and west texts open „GLORIE CELOR CE”. Fragments only, never
+    // transcribed from panoramas; the real bands are five long lines of small capitals (layout not drawn).
     const n = D / 2 + 0.18;
     b.text('FERDINAND I', 0, 19.95, n, 0, 0.62, TX); b.text('DOMN SI REGE AL ROMANILOR', 0, 18.85, n, 0, 0.62, TX);
     b.text('SE INDEPLINI DREPTATEA', 0, 19.95, -n, Math.PI, 0.62, TX); b.text('SI PENTRU POPORUL ROMAN', 0, 18.85, -n, Math.PI, 0.62, TX);
@@ -3510,7 +3513,10 @@ function bEuropeHouse(b) {
     // with fine horizontal lines, a taller charcoal wedge-shaped volume at one end with the lit "Orange" rooftop sign (Orange
     // Romania offices are in the building), a light-grey panelled end box with small square windows and "EUROPE HOUSE"
     // lettering, shops on the ground floor. Which end carries the wedge is not certain from the photos (NW end assumed).
-    const [p] = P2.europehouse.map(pts), GL = '#3a4c5c', FR = '#6d7880', BASE = '#8d8c88';
+    // (round 3, official panorama 44.450804, 26.088191 heading 315, viewed only): the glass reads a lighter blue than the dark
+    // slate it was, and the south-east end over Bd. Lascăr Catargiu is a rounded volume of grey bands between ribbon windows
+    // (was a plain light-grey panelled box). Band pitch is an estimate; the rounding is not modelled.
+    const [p] = P2.europehouse.map(pts), GL = '#56778f', FR = '#6d7880', BASE = '#8d8c88';
     b.prism(p, 0, 5.5, BASE, { top: false }); b.bands(p, 0.4, 5, 4.6, '#3f4f58', { frac: 0.8, wall: BASE, pitch: 4.8, start: 0.4 });
     curtainTower(b, p, 5.5, 44, { glass: GL, spandrel: '#2f3b46', mullion: FR, pitch: 1.6, mw: 0.08, md: 0.12, fh: 3.4, frac: 0.82, start: 0.3 });
     b.cornice(p, 5.4, 0.5, 0.35, FR);
@@ -3521,9 +3527,10 @@ function bEuropeHouse(b) {
     b.geo((() => { const sh = new THREE.Shape([new THREE.Vector2(-6, 0), new THREE.Vector2(6, 0), new THREE.Vector2(-6, 10)]); const g = new THREE.ExtrudeGeometry(sh, { depth: 11, bevelEnabled: false }); g.translate(0, 0, -5.5); return g; })(), '#26292c', M(c0[0], 46, c0[1], ry - Math.PI / 2));
     // lit "Orange" sign on the wedge (real tenant signage)
     for (const sg of [-1, 1]) { const x = c0[0] + nx * sg * 5.6 - ux * 3.5, z = c0[1] + nz * sg * 5.6 - uz * 3.5, r2 = Math.atan2(nx * sg, nz * sg); b.box(x, 50.5, z, 4.2, 1.6, 0.1, '#ff7900', { ry: r2, mat: 'e' }); b.text('ORANGE', x + nx * sg * 0.06, 50.85, z + nz * sg * 0.06, r2, 0.8, '#ffffff', { mat: 'e', d: 0.01 }); }
-    // light-grey panelled end box (SE end) with small square windows
+    // south-east end volume: grey bands between ribbon windows (the real end is rounded; drawn square on the old end box)
     const c1 = [33 - ux * 4, 29 - uz * 4];
-    b.box(c1[0], 5.5, c1[1], 9, 38.5, 9, '#c9cbca', { ry: ry + Math.PI / 2 });
+    b.box(c1[0], 5.5, c1[1], 9, 38.5, 9, '#8f9395', { ry: ry + Math.PI / 2 });
+    for (let y = 6.6; y < 43; y += 3.4) b.box(c1[0], y, c1[1], 9.12, 1.9, 9.12, '#6f8ea3', { ry: ry + Math.PI / 2, mat: 'g' });
     { const t = offset(p, -3.5); b.prism(t, 44, 46, '#8e9396'); }
     { const [qx, qz] = centroid(p); b.box(qx, 46, qz, 10, 2.5, 6, '#9a9c9c'); }
     // Arnia (2019 CV stop): main door on Lascăr Catargiu nearest the address point, building name on the canopy, tenant plate
@@ -3918,6 +3925,83 @@ function bOrhideeaSign(b) {
     b.text('Carrefour', nx * .42, 8.6, nz * .42, ry, 2.8, '#1e4fa3', { d: .04 });
 }
 
+// Turnul de apă, Belvedere cigarette factory (Grozăvești): OSM w678037221 (man_made=water_tower, historic, height=30,
+// building:levels=8, roof:shape=cone). It was the generic round building with eight rows of windows all round. Official
+// panorama 44.447216, 26.061955 heading 19 (Calea Giulești, viewed only, round 3 2026-11-13): a weathered grey-beige
+// rendered shaft with flat pilasters and one vertical row of small windows, under a wider tank head with round windows
+// and a cornice. The mapped outline (r 5.6 m, traced from above) is the tank head and is kept exactly; the shaft radius
+// (0.75 of the head, from the panorama's proportions) and every band height are estimates; the 30 m top is OSM's.
+const TOWER_RING = [[3.21,4.61],[1.53,5.4],[-0.3,5.61],[-2.12,5.21],[-3.69,4.24],[-4.87,2.82],[-5.53,1.1],[-5.59,-0.75],[-5.05,-2.52],[-3.96,-4.02],[-2.39,-5.11],[-0.6,-5.59],[1.24,-5.49],[2.96,-4.78],[4.35,-3.57],[5.27,-1.97],[5.62,-0.16],[5.37,1.67],[4.53,3.32]];
+function bWaterTower(b) {
+    const ST = '#b7ae9c', ST2 = '#a69d8b', TR = '#c6bead', WIN = '#3a3833', r = 4.2, sh = 21.6;
+    b.cyl(0, 0, 0, r, r * 1.04, sh, ST, 20);
+    // (single quads and one pilaster per edge: the Grozăvești frame budget has no headroom)
+    const pan = (a, rr, y, w, h, col) => { const c = Math.cos(a), s = Math.sin(a), tx = -s * w / 2, tz = c * w / 2, x = c * rr, z = s * rr;
+        b.quad([x - tx, y, z - tz], [x + tx, y, z + tz], [x + tx, y + h, z + tz], [x - tx, y + h, z - tz], col, 'm', [c, 0, s]); };
+    b.pilasters(ellipse(0, 0, r * 1.02, r * 1.02, 8), 0.6, sh, 2 * r * 1.02 * Math.sin(Math.PI / 8), 0.55, 0.16, ST2, { every: 2 });
+    for (let y = 2.4; y < sh - 1; y += 2.75) { pan(Math.PI / 2, r + 0.03, y, 0.62, 1.3, WIN); pan(Math.PI, r + 0.03, y + 1.2, 0.5, 1.0, WIN); } // one row of small windows
+    b.cyl(0, sh, 0, 5.15, r * 1.04, 1.4, TR, 20);                                     // corbel out to the tank head
+    const k = TOWER_RING.map(([x, z]) => [x * 0.985, z * 0.985]);
+    b.prism(TOWER_RING, sh + 1.4, 28.4, ST); b.cornice(TOWER_RING, sh + 1.4, 0.4, 0.12, TR);
+    b.cornice(TOWER_RING, 28.4, 0.5, 0.2, TR); b.prism(k, 28.9, 29.3, ST2);              // crown parapet
+    for (let i = 0; i < 10; i++) pan(i / 10 * Math.PI * 2 + 0.3, 5.66, 25.1, 1.0, 1.0, WIN); // round windows of the head (square quads)
+    b.cone(0, 28.9, 0, 5.0, 1.1, '#8d877c', 16);                                     // low cone roof behind the parapet (OSM roof:shape=cone)
+    b.col(0, 0, r, r, 0, { y0: 0, y1: sh }); b.colPolygon(TOWER_RING, { y0: sh, y1: 30 });
+}
+
+// Automatica Ford (Calea Floreasca 159): OSM w39348916 (building=construction, historic=building, start_date=1938,
+// building:levels=2). It was drawn as a finished white hall. Official panorama 44.464086, 26.101630 heading 270 (May 2024,
+// viewed only; OSM check_date 2026-04-08 still `construction`): the site is wrapped in white scaffold netting on a grid of
+// scaffold tubes, behind a dark navy site hoarding along Calea Floreasca. The two mapped storeys are kept (10 m: storey height
+// of a 1938 industrial hall is an estimate); hoarding height and tube spacing are estimates; no hoarding text is drawn (the
+// banners are advertising). The hoarding stands on the mapped outline: the real line on the pavement is not mapped.
+const FORD_RING = [[32,-66.5],[12.54,72.7],[-32,66.5],[-12.53,-72.7]];
+function bAutomatica(b) {
+    const NET = '#dcdedb', TUBE = '#8b8e90', HO = '#1e2a55', H = 10;
+    b.prism(FORD_RING, 0, H, NET, { topCol: '#a9aca8' });
+    b.pilasters(FORD_RING, 0, H + 0.6, 2.6, 0.07, 0.12, TUBE);
+    b.bands(FORD_RING, 2, H, 2, TUBE, { h: 0.08, out: 0.1 });
+    b.ring(offset(FORD_RING, 0.18), 0, 2.6, HO);                                       // site hoarding all round
+    b.colPolygon(FORD_RING, { y1: H });
+}
+
+// Metrou Grozăvești, west entrance (OSM n610921621 railway=subway_entrance, Metrorex). No OSM building. Official panorama
+// 44.442913, 26.060332 heading 256 (viewed only, round 3 2026-11-13): a low glazed pavilion with grey metal frames and a
+// shallow white roof, the blue Metrorex "M" on its east front. Footprint 10 x 6 m, heights and its position 3 m west of
+// the mapped door node are estimates from that panorama.
+function bGrozMetro(b) {
+    const FR = '#8a9196', GL = '#4f6068', RF = '#e8e9e6', w = 3, d = 5;
+    b.shift(-3, 0);                                                                    // pavilion centre 3 m west of the door node
+    b.prism(rect(-d / 2 - 0.5, -w - 2, d / 2, w + 2), 0, 0.15, '#9a9a94');
+    b.prism(rect(-d / 2, -w - 2, d / 2, w + 2), 0.15, 2.9, GL, { mat: 'g' });
+    for (const x of [-d / 2 - 0.03, d / 2 + 0.03]) for (let z = -w - 2; z <= w + 2.01; z += 1.66) b.quad([x, 0.15, z - 0.07], [x, 0.15, z + 0.07], [x, 2.9, z + 0.07], [x, 2.9, z - 0.07], FR, 'm', [Math.sign(x), 0, 0]); // mullions: single quads (frame budget)
+    for (const z of [-w - 2.03, w + 2.03]) for (let x = -d / 2; x <= d / 2 + 0.01; x += 1.25) b.quad([x - 0.07, 0.15, z], [x + 0.07, 0.15, z], [x + 0.07, 2.9, z], [x - 0.07, 2.9, z], FR, 'm', [0, 0, Math.sign(z)]);
+    b.prism(rect(-d / 2 - 0.4, -w - 2.4, d / 2 + 0.4, w + 2.4), 2.9, 3.15, RF);
+    b.hip(0, 3.15, 0, 2 * w + 4.8, d + 0.8, 0.45, RF, { ry: Math.PI / 2 });
+    b.box(d / 2 + 0.1, 2.2, 1.2, 0.08, 0.66, 0.66, '#1d4fa0'); b.text('M', d / 2 + 0.15, 2.3, 1.2, Math.PI / 2, 0.46, '#ffffff', { d: 0.02 });
+    b.col(0, 0, d / 2 + 0.1, w + 2.1, 0, { y1: 3.3 });
+    b.shift(0, 0);
+}
+
+// Round east tower and observatory dome of the Observatorul Astronomic „Amiral Vasile Urseanu” (OSM w79139872
+// man_made=observatory, observatory:type=astronomical). The tower is OSM w1220336122 (building:part=yes, no height, r 3.3 m),
+// which the data drew as a 25.6 m blank default cylinder; this model replaces that part only. Official panorama 44.448503,
+// 26.093125 heading 275 (round 3, viewed only): a cream rounded corner bay with iron balconies, level with the three-storey
+// villa (13.5 m, an estimate from the storey count); the roof is blurred there, so the dome's form is the usual hemispherical
+// observatory dome: radius, rise and the grey metal finish are estimates.
+const URSEANU_TOWER = [[-2.5,-2.4],[-3.1,-1.5],[-3.4,-0.4],[-3.4,0.7],[-3,1.7],[-2.3,2.5],[-1.3,3.1],[-0.2,3.3],[0.9,3.1],[1.7,2.7],[2.3,2.2],[2.9,1.3],[3.1,0.3],[3.1,-0.6],[2.8,-1.5],[2.3,-2.2],[1.6,-2.8],[0.6,-3.2],[-0.5,-3.3],[-1.6,-3]];
+function bUrseanuDome(b) {
+    const S = '#efe7d6', TR = '#e2d8c4', H = 13.5;
+    b.wall = S; b.prism(URSEANU_TOWER, 0, H, S, { topCol: TR });
+    b.windows(URSEANU_TOWER, 0.9, H - 1, 3.9, '#4c4a45', { bay: 1.6, wf: 0.6, hf: 0.6, start: 0.9, minL: 0.9 });
+    for (const y of [4.6, 8.5]) b.cornice(URSEANU_TOWER, y, 0.14, 0.45, '#3e3f40');   // balcony slabs with dark iron rails (thin band)
+    b.cornice(URSEANU_TOWER, H - 0.5, 0.5, 0.3, TR);
+    b.cyl(0, H, 0, 2.75, 2.85, 0.5, '#d9d2c2', 16);
+    b.dome(0, H + 0.5, 0, 2.6, 2.4, '#aab0b5', 16);
+    b.box(0, H + 0.7, 2.1, 0.9, 2.1, 0.5, '#5d6368', { rx: -0.45 });                    // shutter slit (south)
+    b.colPolygon(URSEANU_TOWER, { y1: H });
+}
+
 const A = {
     parliament: [44.4275038, 26.0874035, -0.0698], cathedral: [44.4259297, 26.0822981, -0.0873], arcul: [44.4671902, 26.078127, -2.7925],
     casapresei: [44.4815236, 26.0709515, -1.2217], grandhotel: [44.4372925, 26.1022881, -2.7751], univ: [44.4355639, 26.1007589, -2.7925],
@@ -3948,6 +4032,9 @@ const A = {
     cetgrozavesti: [44.440165, 26.062861, 0], orhideeasign: [44.444574, 26.062252, 0],
     nobildac: [44.4466925, 26.0945949, 0], enescu: [44.4437403, 26.0980397, 0], // (round 2b) OSM w1170480716 / w1171605516 bbox centres
     otpgara: [44.569035, 26.0751467, 0],                                        // (round 2b) OSM w813193384 bbox centre
+    turnulapa: [44.4479069, 26.062282, 0], automatica: [44.4640864, 26.1010897, 0], // (round 3) OSM w678037221 / w39348916 node centroids
+    urseanudome: [44.4485165, 26.0929986, 0],                                   // (round 3) OSM w1220336122 node centroid
+    grozmetro: [44.442853, 26.059936, 0],                                       // (round 3) OSM n610921621 (subway entrance)
 };
 
 function L(id, city, name, osmNames, radius, fn, extra = {}) {
@@ -4016,6 +4103,10 @@ export const LANDMARKS = [
     L('thebridge1', 'bucharest', 'The Bridge 1 (BCR)', ['The Bridge 1'], 45, bTheBridge1, { sourceIds: ['w661134293'] }),
     L('cetgrozavesti', 'bucharest', 'CET Grozăvești (cooling towers)', [], 60, bCetGrozavesti, { districtOnly: true, sourceIds: ['w188102855', 'w188102865', 'w188102870', 'w188102882'] }),
     L('orhideeasign', 'bucharest', 'Carrefour Orhideea', [], 0, bOrhideeaSign, { districtOnly: true, sourceIds: [] }),
+    L('turnulapa', 'bucharest', 'Turnul de apă (Belvedere)', [], 0, bWaterTower, { districtOnly: true, sourceIds: ['w678037221'] }), // (round 3) replaces the generic round block of its own footprint only
+    L('automatica', 'bucharest', 'Automatica Ford (building site)', [], 0, bAutomatica, { districtOnly: true, sourceIds: ['w39348916'] }), // (round 3) OSM building=construction
+    L('urseanudome', 'bucharest', 'Observatorul Urseanu (tower and dome)', [], 0, bUrseanuDome, { districtOnly: true, sourceIds: ['w1220336122'] }), // (round 3) replaces the 25.6 m default cylinder of its own building:part only
+    L('grozmetro', 'bucharest', 'Metrou Grozăvești (west entrance)', [], 0, bGrozMetro, { districtOnly: true, sourceIds: [] }),
     // ---- Seattle / Bellevue (radius given in real metres, halved by L()) ----
     L('spaceneedle', 'seattle', 'Space Needle', ['Space Needle'], 30, bSpaceNeedle, { floodlit: true, sourceIds: ['w12903132','w394254329','w394254330','w394254331','w394254332','w394254333','w394254334','w394254335','w394254336','w394254337','w394254484','w394254485','w394254486','w394254487','w394254488','w394956342','w394956343','w394956344'] }),
     L('columbia', 'seattle', 'Columbia Center', ['Columbia Center'], 50, bColumbia, { sourceIds: ['r4648083','w107124288','w331293871','w418132520','w418132515','w418132517','w418132525'] }),

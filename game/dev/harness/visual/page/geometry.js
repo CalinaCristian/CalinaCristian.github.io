@@ -403,7 +403,7 @@ export function geometryDetectors(G, opts) {
         const wet = (x, z, m) => W.isWater(x, z) || W.isWater(x + m, z) || W.isWater(x - m, z) || W.isWater(x, z + m) || W.isWater(x, z - m);
         const inC = (x, z) => corridor.all || corridor.near(x, z, corridor.r);
         if (W.isWater) {
-            for (const l of W.lamps || []) if (inC(l.x, l.z) && wet(l.x, l.z, 1)) add('in-water', 'high', `a street lamp stands in water / a fountain basin`, { x: l.x, z: l.z });
+            for (const l of W.lamps || []) if (inC(l.x, l.z) && !(l.y > 2) && wet(l.x, l.z, 1)) add('in-water', 'high', `a street lamp stands in water / a fountain basin`, { x: l.x, z: l.z }); // (y > 2: on a bridge deck above the water, r2-perf-4)
             for (const t of W.treeSpots || []) if (inC(t.x, t.z) && wet(t.x, t.z, 1)) add('in-water', 'medium', `a ${t.species || 'tree'} stands in water / a fountain basin`, { x: t.x, z: t.z });
         }
     } catch (err) { add('harness-error', 'low', 'in-water detector failed: ' + err.message, {}); }

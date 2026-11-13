@@ -18,12 +18,14 @@ import { seaActivity, seaWheel, seaBackdrop, signAtlas } from './sea-common.js';
 import { coinDrop } from '../coin-drop.js';
 import { activityBlocked, onActivityCancel } from '../participation.js';
 import {prepareSourceContext,addSourceContext} from '../source-context.js';
-import { SURVEY, profile, gradeStreets } from './pike-place-streets.js';
+import { SURVEY, profile, gradeStreets, gradeWesternEastBank } from './pike-place-streets.js';
+import { marketWestMaterial } from './pike-place-westface.js';
+import { skyBridge, SKYBRIDGE_ID } from './pike-place-skybridge.js';
 import { prepareLower, buildLower, GUM } from './pike-place-lower.js';
 import { prepareHalls, buildHalls, HALLS } from './pike-place-market.js';
 import { buildShopSigns } from './pike-place-shops.js';
 import { prepareFacades, buildFacades, FACADE_IDS } from './pike-place-facades.js';
-import { batchSourceContext, horizonCuller, solidShells, onRenderCamera, distanceHide } from '../frame-budget.js';
+import { batchSourceContext, horizonCuller, solidShells, onRenderCamera, distanceHide, boxDistanceHide } from '../frame-budget.js';
 
 // ---------------------------------------------------------------------------- street profile (OSM centrelines; levels surveyed: pike-place-streets.js)
 const PIKE_PLACE = [[-50, 33], [-60, 25], [-76, 10], [-91, -3], [-95, -6], [-103, -14], [-126, -34], [-141, -48], [-148, -53], [-151, -56], [-172, -75], [-179, -81], [-263, -155], [-270, -161]];
@@ -258,7 +260,7 @@ export default {
         await prepareSourceContext(ctx,{heroSourceIds:['w12903132']}); // The existing source-named Needle model is already visible across the city.
         const g = ctx.ground, d = ctx.data, sp = ctx.spot('pike-place');
         // ---- ground: Pike Place, Pike St, Post Alley at their real levels; Elliott Bay below the bluff
-        gradeStreets(g); // every street at its surveyed level (Pike St is nearly flat; the steep cobbles are the ramp into Post Alley)
+        gradeStreets(g); gradeWesternEastBank(g, d.buildings.filter((b) => !b.part).map((b) => b.poly)); // every street at its surveyed level (Pike St is nearly flat; the steep cobbles are the ramp into Post Alley)
         g.flatten([[-58.4, 39.9], [-61.3, 41.6], [-54.9, 51.8], [-53.6, 53.8], [-50.3, 51.7], [-44, 47.9], [-46.6, 40.3], [-51, 39.5]], SURVEY.pikeSt[3][2], 2); // the market-level floor under the sign, out to the deck over Post Alley
         g.mod((x,z,h)=>{const t=d.terrain,dx=Math.max(t.x0-x,0,x-(t.x0+(t.nx-1)*t.d)),dz=Math.max(t.z0-z,0,z-(t.z0+(t.nz-1)*t.d)),weight=1-smooth(0,t.d,Math.hypot(dx,dz));
             const local=x < -335 ? Math.min(h,-40) : x < -315 ? Math.min(h,lerp(-31,-40,(-315-x)/20)) : h;return lerp(h,local,weight*benchFoot(x,z));});
@@ -270,7 +272,8 @@ export default {
         // ---- paint
         ctx.terrainOpts = { bg: '#6d6a60', bgMask: 'slab', brickAngle: 0.72, innerPx: 2048, outerPad: 0, skirt: 0 };
         ctx.treeLod = { cap: Infinity, near: 90, max: 700, force: true };
-        ctx.skipBuildings = new Set(['w231357660', 'w1271653801', 'w1271653800', 'w1275882970', 'w1275882966']); // + the covered stretch of Post Alley (open alley here) // hero arcade replaces these footprints
+        ctx.skipBuildings = new Set(['w231357660', 'w1271653801', 'w1271653800', 'w1275882970', 'w1275882966', SKYBRIDGE_ID]); // (SKYBRIDGE_ID: the Western Ave SkyBridge, pike-place-skybridge.js)
+        // + the covered stretch of Post Alley (open alley here) // hero arcade replaces these footprints
         ctx.exclude.push([...offsetPolyline(PIKE_ST, -11), ...offsetPolyline(PIKE_ST, 11).reverse()]); // no street trees on lower Pike St (open view to the sign)
         // … nor on the 1st Ave sidewalk in front of the Corner Market (Pike St to 13 m north): OSM maps no tree there and the
         // panoramas at 1st Ave x Pike St (tT8x8F7kggeRi_KoY1vLng, looking 235° / 265°) show the corner open
@@ -278,6 +281,7 @@ export default {
         prepareLower(ctx); prepareHalls(ctx); prepareFacades(ctx);
         ctx.osmBackdrop({ paint: {}, shopStyle: 'bucshop', streetTreeOpts: { spacing: 14, prob: 0.5, kinds: ['primary', 'secondary', 'tertiary'] }, lampOpts: { kinds: ['primary', 'secondary', 'tertiary'] }, style: (b) => (/hotel|apartments/.test(b.k) && (b.h || 0) < 25 ? 'brick' : buildingStyle(b, true)) });
         buildGlobeLamps(ctx);
+        { const W = profile(SURVEY.western); skyBridge(ctx, { roadYAt: (x, z) => W.at(x, z).y }); } // the green truss over Western Ave (sea-spots-a-13)
         const P = ctx.painter;
         P.line(PIKE_PLACE, 17, '#a39e93', 'slab'); P.line(PIKE_PLACE, 9.2, '#8c4b39', 'brick');
         P.line(PIKE_ST.slice(1), 10, '#8c4b39', 'brick');
@@ -293,7 +297,8 @@ export default {
                 const hotel = m.id === 'w1271653800', hh = hotel ? 13.4 : 5.6, bottom = Math.min(...m.poly.map(([x, z]) => g.base(x, z))) - 2;
                 if (hotel) ctx.extras.lelandRoof = top + hh; // (its upper storeys: pike-place-facades.js)
                 else bb.prism(m.poly, top + 3.9, top + hh, '#e9dfc6', 'paint', { noTop: true }); // the corner is one storey: the sign stands on its roof
-                if (top - 0.15 > bottom) { const low = wallGeometry(m.poly, bottom, top - 0.15, facadeStyle('apartment'), bottom, '#c9bfa6'); bb.add(low, 'f-apartment', null, low.userData.col); }
+                if (top - 0.15 > bottom) { const low = wallGeometry(m.poly, bottom, top - 0.15, facadeStyle('apartment'), bottom, '#f6f4ee'); // round 3: white walls, red steel sash (pike-place-westface.js)
+                 bb.add(low, 'f-apartment', null, low.userData.col); }
                 // the market-floor storey is enclosed except on the Pike Place / Pike St fronts (no see-through to the bay, note 49)
                 for (let i = 0; i < m.poly.length; i++) { const [ax, az] = m.poly[i], [bx, bz] = m.poly[(i + 1) % m.poly.length], mx = (ax + bx) / 2, mz = (az + bz) / 2;
                     if (Math.hypot(bx - ax, bz - az) < 0.5 || distPolyline(mx, mz, PIKE_PLACE).d < 7 || distPolyline(mx, mz, PIKE_ST).d < 8) continue;
@@ -305,7 +310,7 @@ export default {
             // green cornice / trim band above the canopy along the arcade front
             const trim = offsetPolyline(OPEN_FRONT, -5.0);
             for (let i = 1; i < trim.length; i++) { const [ax, az] = trim[i - 1], [bx, bz] = trim[i], ya = ppAt(ax, az).y, yb = ppAt(bx, bz).y; bb.quad([ax, ya + 3.9, az], [bx, yb + 3.9, bz], [bx, yb + 4.5, bz], [ax, ya + 4.5, az], '#2f5a44', 'paint'); { const L = Math.hypot(bx - ax, bz - az) || 1, ox = (bz - az) / L * 0.06, oz = -(bx - ax) / L * 0.06; bb.quad([bx + ox, yb + 3.9, bz + oz], [ax + ox, ya + 3.9, az + oz], [ax + ox, ya + 4.5, az + oz], [bx + ox, yb + 4.5, bz + oz], '#2f5a44', 'paint'); } }
-            ctx.add(bb.build('main-arcade', { matOverrides: { 'f-brick': facadeMaterial('brick'), 'f-apartment': facadeMaterial('apartment') } }));
+            ctx.add(bb.build('main-arcade', { matOverrides: { 'f-brick': facadeMaterial('brick'), 'f-apartment': marketWestMaterial() } }));
         }
         buildHalls(ctx, { line: PIKE_PLACE, at: ppAt });
         buildFacades(ctx, { at: ppAt }, { low: HALL_IDS }); // each market building's own front
@@ -331,7 +336,11 @@ export default {
             const cull = horizonCuller({ occluders: solidShells(ctx), items: [...cityBatch.items, ...(ctx.extras.facadeItems || [])] });
             // far-LOD trunks of the mapped city trees: under a pixel wide beyond 500 m, their crowns stay
             const trunks = []; ctx.scene.traverse((o) => { if (o.isInstancedMesh && /^treeTrunks .* far$/.test(o.name)) trunks.push(o); }); const far = distanceHide(trunks, 500);
-            ctx.extras.horizonCull = cull.stats; ctx.extras.trunkLod = far.stats; onRenderCamera(ctx.scene, (cam) => { cull.update(cam); far.update(cam); }); });
+            // round 3 (r2-sea-spots-b-5): the market's flower baskets and planters (market halls, facades, arcade: 98 k
+            // triangles of sub-metre pieces) are not submitted while the camera is more than 70 m from every one of them —
+            // the drone; at street level they are always drawn
+            const plants = []; ctx.scene.traverse((o) => { if ((o.isMesh || o.isBatchedMesh) && /^(market-halls|market-facades|arcade):plant$/.test(o.name)) plants.push(o); }); const flora = boxDistanceHide(plants, 70);
+            ctx.extras.horizonCull = cull.stats; ctx.extras.trunkLod = far.stats; ctx.extras.plantLod = flora.stats; onRenderCamera(ctx.scene, (cam) => { cull.update(cam); far.update(cam); flora.update(cam); }); });
         ctx.extras.seaBackdrop = seaBackdrop(ctx, { clear: 330, needle: true, towers: false, bay: false, eyeY: 1.6 });
         // MarketFront viewpoint railing
         { const b = new GeoBatch(); railing(b, [[-268, -98], [-262, -72], [-250, -50], [-238, -36]], (x, z) => g.heightAt(x, z)); ctx.add(b.build('marketfront-rail')); }

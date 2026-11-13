@@ -63,6 +63,11 @@ export default {
         // the curved plan and the balconies themselves are not modelled.
         const AVENUE = new Set(['w1215907936', 'w1215907937', 'w1223091248', 'w1223378663', 'w1223091245', 'w1223374204']);
         for (const bd of d.buildings) if (AVENUE.has(bd.id)) bd.c = '#e6e8e7';
+        // (round 3, bel-spots-3) w33106348 carries no building:levels / height in OSM and rose at the generic default. Official
+        // panoramas on Bellevue Way (by the skybridge and at NE 7th, 2026-11-13): two tall storeys; the restaurant row's cornice
+        // is level with the top of a street-light head (≈ 10 m), the Crate & Barrel corner's white parapet ≈ 12 m. The volume
+        // takes the row's 10 m (2 storeys); the corner's extra 2 m is its street-face parapet below. Heights are estimates.
+        { const bq0 = d.buildings.find((x) => x.id === 'w33106348'); if (bq0 && !bq0.h) { bq0.h = 10; bq0.lv = 2; } }
         parkPavilions(ctx); // bus shelters / park restrooms in the surroundings: open roofs / low blocks, not shop blocks
         ctx.osmBackdrop({ paint: {}, streetTrees: false, lampOpts: { kinds: ['primary', 'secondary', 'tertiary'], spacing: 30 },
             style: (bd) => (AVENUE.has(bd.id) ? 'concrete' : (bd.h || 0) > 40 ? 'office' : /Square|Mall|Nordstrom|Macy/.test(bd.name || '') ? 'mall' : BPLACE.has(bd.id) ? 'concrete' : undefined) });
@@ -74,27 +79,32 @@ export default {
         // ---- Bellevue Square NE block (w33106348) street faces, from Street View (official panos at the NE 8th corner and on
         // Bellevue Way by the skybridge, 2026-11-12): a white, fully glazed two-storey Crate & Barrel on the corner; south of it
         // a brick-and-stucco restaurant row with dark canopies and ivy. Laid 6-9 cm over the generic shopfront walls of the OSM
-        // volume, 6-13 cm proud (it keeps its footprint, collider and mapped signs). Bay rhythm and the 8.6 m height are estimates.
+        // volume, 6-13 cm proud (it keeps its footprint, collider and mapped signs). Bay rhythm and the heights (row 10 m, corner 12 m: round 3) are estimates.
         { const bq = d.buildings.find((x) => x.id === 'w33106348');
-            if (bq) { const P = bq.poly, H = 8.6;
+            if (bq) { const P = bq.poly;
                 for (let i = 0; i < P.length; i++) { const [ax, az] = P[i], [qx, qz] = P[(i + 1) % P.length], Le = Math.hypot(qx - ax, qz - az); if (Le < 2.5) continue;
                     let nx = -(qz - az) / Le, nz = (qx - ax) / Le, p0 = [ax, az], p1 = [qx, qz]; const mx = (ax + qx) / 2, mz = (az + qz) / 2;
                     if (inPoly(mx + nx * 0.5, mz + nz * 0.5, P)) { nx = -nx; nz = -nz; p0 = [qx, qz]; p1 = [ax, az]; }
-                    if (!((nx > 0.7 && mx > -2) || (nz < -0.7 && mz < 32))) continue;                          // the Bellevue Way and NE 8th faces
-                    const crate = mz < 62 && mx > -55, ux = (p1[0] - p0[0]) / Le, uz = (p1[1] - p0[1]) / Le, ga = g.heightAt(p0[0] + nx, p0[1] + nz), gb = g.heightAt(p1[0] + nx, p1[1] + nz), y0 = Math.min(ga, gb) - 0.3, yb = Math.max(ga, gb), yT = yb + H;
+                    const south = nz > 0.7 && mz > 130;                                                          // the south face (towards NE 6th)
+                    if (!((nx > 0.7 && mx > -2) || (nz < -0.7 && mz < 32) || south)) continue;                 // the Bellevue Way, NE 8th and south faces
+                    // ne8w: the NE 8th face west of the corner — red brick, a steel-and-glass canopy and a glazed upper storey (official
+                    // panorama on NE 8th at x ≈ −70, round 3); upper-level tenants (Thai Kitchen Bird Pepper, level 2) show no sign there
+                    const crate = mz < 62 && mx > -55, ne8w = !crate && nz < -0.7 && mz < 32, H = crate ? 12 : 10, ux = (p1[0] - p0[0]) / Le, uz = (p1[1] - p0[1]) / Le, ga = g.heightAt(p0[0] + nx, p0[1] + nz), gb = g.heightAt(p1[0] + nx, p1[1] + nz), y0 = Math.min(ga, gb) - 0.3, yb = Math.max(ga, gb), yT = yb + H;
                     const Q = (t0, t1, ya, yc, off, col, key) => { const a = [p0[0] + ux * t0 + nx * off, p0[1] + uz * t0 + nz * off], c = [p0[0] + ux * t1 + nx * off, p0[1] + uz * t1 + nz * off]; b.quad([a[0], ya, a[1]], [c[0], ya, c[1]], [c[0], yc, c[1]], [a[0], yc, a[1]], col, key); };
-                    Q(0, Le, y0, yT, 0.06, crate ? '#f1f0ec' : '#ece7dc', 'paint');
+                    Q(0, Le, y0, yT, 0.06, crate ? '#f1f0ec' : south ? '#e6dfcf' : ne8w ? '#9a553e' : '#ece7dc', ne8w ? 'brick' : 'paint');
+                    if (crate) b.box(mx + nx * 0.06, yT - 0.05, mz + nz * 0.06, 0.4, 0.3, Le, '#f4f3ef', 'paint', Math.atan2(ux, uz)); // parapet coping over the corner's taller face
                     // (round 2, Street View on Bellevue Way under the skybridge: the restaurant row — Tavern Hall, Castilla,
                     // Shake Shack — is white stucco on both storeys with dark shopfronts and ivy bays; the red-brick building
                     // is the next one south (The Cheesecake Factory, part of the Bellevue Square model). No brick base here.)
-                    if (!crate) Q(0, Le, y0, yb + 0.5, 0.09, '#cfc9bc', 'paint');                                 // stone plinth
+                    if (!crate) Q(0, Le, y0, yb + (south ? 1.2 : 0.5), 0.09, south ? '#8a4a3a' : '#cfc9bc', 'paint');      // stone plinth (south face: a brick base, panorama on NE 6th)
                     const bay = crate ? 3.2 : 4.6, n = Math.max(1, Math.floor((Le - 0.8) / bay)), m0 = (Le - n * bay) / 2;
                     for (let k = 0; k < n; k++) { const t0 = m0 + k * bay + 0.15, t1 = m0 + (k + 1) * bay - 0.15;
-                        if (!crate && r() < 0.3) { Q(t0 - 0.15, t1 + 0.15, yb, yT - 0.4, 0.13, '#3f6b35', 'plant'); continue; }  // ivy-covered bay
-                        Q(t0, t1, yb + 0.35, yb + 3.5, 0.12, '#2c3b45', 'darkglass'); Q(t0, t1, yb + (crate ? 4.6 : 5.2), yb + (crate ? 8.0 : 7.4), 0.12, '#31424d', 'darkglass'); }
-                    if (!crate) b.box(mx + nx * 0.75, yb + 3.55, mz + nz * 0.75, 1.4, 0.12, Le - 0.6, '#2b2d2f', 'metal', Math.atan2(ux, uz));
+                        if (ne8w) { r(); Q(t0, t1, yb + 0.6, yb + 3.3, 0.12, '#2c3b45', 'darkglass'); Q(t0 - 0.1, t1 + 0.1, yb + 4.4, yT - 0.5, 0.12, '#3a4c58', 'darkglass'); continue; } // no ivy here; the draw is still taken (keeps the other faces' random sequence)
+                        if (south ? k === 0 : !crate && r() < 0.3) { Q(t0 - 0.15, t1 + 0.15, yb, yT - 0.4, 0.13, '#3f6b35', 'plant'); continue; }  // ivy-covered bay
+                        Q(t0, t1, yb + 0.35, yb + 3.5, 0.12, '#2c3b45', 'darkglass'); Q(t0, t1, yb + (crate ? 4.9 : 5.4), yb + (crate ? 10.2 : 8.4), 0.12, '#31424d', 'darkglass'); }
+                    if (!crate && !south) b.box(mx + nx * 0.75, yb + 3.55, mz + nz * 0.75, 1.4, 0.12, Le - 0.6, '#2b2d2f', 'metal', Math.atan2(ux, uz));
                 }
-                const cs = glowText('Crate&Barrel', 7, 1.0, { fg: '#1a1a1a', bg: '#f1f0ec', night: 0.6 }); cs.position.set(-8, g.heightAt(-8, 24) + 7.3, Math.min(...P.filter((q) => q[0] > -20 && q[1] < 40).map((q) => q[1])) - 0.16); cs.rotation.y = Math.PI; ctx.add(cs);
+                const cs = glowText('Crate&Barrel', 7, 1.0, { fg: '#1a1a1a', bg: '#f1f0ec', night: 0.6 }); cs.position.set(-8, g.heightAt(-8, 24) + 10.6, Math.min(...P.filter((q) => q[0] > -20 && q[1] < 40).map((q) => q[1])) - 0.16); cs.rotation.y = Math.PI; ctx.add(cs);
             } }
         // ---- street-level tenants of the Lincoln Square podiums (OSM POIs inside the landmark footprints; the landmark models
         // carry no tenant signs): a plate on the nearest podium street wall. Cinemark's large parapet sign over Bellevue Way is
@@ -112,6 +122,9 @@ export default {
             if (pod && (d.pois || []).some((p) => /^Cinemark Lincoln Square$/.test(p.name || ''))) { const wx = Math.min(...pod.poly.filter((q) => Math.abs(q[1] - 112) < 40).map((q) => q[0])), cm = glowText('CINEMARK', 9, 1.5, { fg: '#c8102e', bg: '#f3f2ee', night: 1.2 }); cm.position.set(wx - 0.45, g.heightAt(wx - 2, 112) + 11.5, 112); cm.rotation.y = -Math.PI / 2; ctx.add(cm); } }
         const glassMat = new THREE.MeshStandardMaterial({ color: '#8fb0c2', transparent: true, opacity: 0.45, roughness: 0.05, metalness: 0.5, depthWrite: false });
         for (const id of ['w1222676052', 'w29234890', 'w497738385']) { const w = d.ways.find((x) => x.id === id); if (w) skybridge(ctx, b, w.pts, glassMat); }
+        // (r3, bel-spots-2) the covered OSM skybridges between Bellevue Square and the West Parking Garage across its service
+        // drive (live OSM, in the data since the round-3 append): floor height is the same estimate as the other skybridges
+        for (const id of ['w387201731', 'w29234888', 'w843400178', 'w843400185', 'w843400163', 'w30758942', 'w843400165']) { const w = d.ways.find((x) => x.id === id); if (w && w.covered === 'yes') skybridge(ctx, b, w.pts, glassMat); }
         // ---------------------------------------------------------------- streetscape: trees in grated pits along Bellevue Way + NE 8th, holiday lights
         const blockers = d.ways.filter((w) => ['service', 'footway', 'residential', 'unclassified'].includes(w.k)).flatMap((w) => [w.pts[0], w.pts[w.pts.length - 1]]);
         const lines = [[[4.5, -92], [4.5, -6]], [[4.5, 30], [4.5, 205]], [[32.6, 30], [32.6, 205]], [[32.6, -92], [32.6, -6]], [[38, 27], [140, 27]], [[-180, 27], [1, 27]], [[38, -2.5], [150, -2.5]], [[-180, -2.5], [0, -2.5]]];
@@ -146,6 +159,24 @@ export default {
         ],onDone:s=>emitActivity(s,'bel-lincoln-square','badge-in','📷 Lincoln Square details','You framed the office tower, public skybridge and crown from the public approach.')});
         // ---------------------------------------------------------------- Bellevue Collection wayfinding pylon, Bellevue Square entrance
         const pyl = signBoard('THE BELLEVUE COLLECTION', 0.9, 3.2, { bg: '#1d2b36', fg: '#e8e3d6', maxLines: 4, font: (s) => `600 ${s}px Georgia, serif`, ppm: 220, night: 0.8 }); pyl.position.set(4, g.heightAt(4, 40) + 1.7, 40); pyl.rotation.y = Math.PI / 2; ctx.add(pyl); ctx.box(4, 40, 0.2, 0.5, 0, { prop: true, h: 3.4 });
+        // ---- Bellevue Way median (round 3, r2-bel-spots-6). OSM maps Bellevue Way south of NE 8th as two one-way carriageways
+        // (southbound w425272687, northbound w738584326 / w470492322): a divided road. Street View (round 2, official panoramas)
+        // shows a raised median with yellow kerbs under the skybridge and a planted one with grasses near NE 6th. Drawn here as
+        // its own geometry on the road paint (the painter is the hash-locked spots/osm.js): centred between the carriageways,
+        // as wide as the gap between their painted edges (0.6–2.4 m), broken where a mapped road or crossing meets it. Width,
+        // the planted stretch (the last 30 m before NE 6th) and the kerb height (15 cm) are estimates.
+        { const sbw = d.ways.find((w) => w.id === 'w425272687'), nbw = [d.ways.find((w) => w.id === 'w738584326'), d.ways.find((w) => w.id === 'w470492322')].filter(Boolean);
+            const xAt = (pts, z) => { for (let i = 1; i < pts.length; i++) { const [ax, az] = pts[i - 1], [bx, bz] = pts[i]; if ((z - az) * (z - bz) <= 0 && az !== bz) return ax + (bx - ax) * (z - az) / (bz - az); } return null; };
+            const halfW = (w) => { const n = parseInt(w.lanes, 10); return (n > 0 ? n * 3.3 + 2.6 : 9) / 2; };
+            const cross = d.ways.filter((w) => w.pts.length > 1 && !['w425272687', 'w738584326', 'w470492322'].includes(w.id) && /^(primary|secondary|tertiary|residential|service|unclassified|footway)$/.test(w.k) && (w.k !== 'footway' || /crossing/.test(w.footway || '')));
+            const md = new GeoBatch(), MZ0 = 88, MZ1 = 203, STEP = 3, grass = [];
+            if (sbw && nbw.length) for (let z = MZ0; z < MZ1; z += STEP) { const zc = z + STEP / 2, xs = xAt(sbw.pts, zc), xn = nbw.map((w) => xAt(w.pts, zc)).find((v) => v !== null); if (xs === null || xn == null) continue;
+                const e0 = xs + halfW(sbw), e1 = xn - halfW(nbw[0]), xm = (e0 + e1) / 2, w = Math.max(0.6, Math.min(2.4, e1 - e0)); if (cross.some((cw) => distPolyline(xm, zc, cw.pts).d < 4)) continue;
+                const y = g.heightAt(xm, zc), planted = zc > MZ1 - 30;
+                md.box(xm, y - 0.05, zc, w, 0.2, STEP - 0.02, '#d6b03c', 'paint');                                                  // yellow kerb faces
+                md.box(xm, y, zc, w - 0.16, 0.19, STEP - 0.18, planted ? '#5b6a3a' : '#bdb9b0', planted ? 'plant' : 'concrete');  // top 4 cm higher, 8 cm in
+                if (planted) for (let k = 0; k < 3; k++) grass.push({ x: xm + (k - 1) * Math.min(0.25, w / 5), z: zc + (k - 1) * 0.9, kind: 'shrub', s: 0.22, c: ['#8a8a4a', '#7a7d44', '#9a9150'][k] }); }
+            ctx.trees.push(...grass); ctx.add(md.build('bellevue-way-median')); }
         ctx.add(b.build('lincoln-streetscape'));
         // Seattle across Lake Washington (≈ 9 km) — towers + Needle on clear days
         seattleBackdrop(ctx, { clear: 2000, hazeK: 0.4, needle: true });

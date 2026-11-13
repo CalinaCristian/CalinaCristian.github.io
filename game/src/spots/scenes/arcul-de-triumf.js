@@ -11,11 +11,18 @@ import { arcRaceCourse, arcRoundabout, arcActiveCarriageway, arcPlaquePlacements
 import { createArcActivities } from './arcul-activities.js';
 import { parkWoods, dropMedianTrees, businessSigns, thinTrees, farCanopy } from './buc-green.js';
 
+// (r3, 2026-11-13) Texts of the four central inscriptions as given by Romanian Wikipedia, "Arcul de Triumf din București",
+// section "Arhitectura monumentului" (accessed 2026-11-13; the article attaches no footnote to these lines). Wording and
+// punctuation as there; line breaks of the carved bands are not given by the source. English renderings are ours.
 const INSCRIPTIONS = [
-    { face: 'south', ro: 'FERDINAND I · DOMN ȘI REGE AL ROMÂNILOR', en: 'Ferdinand I, Prince and King of the Romanians — the 1918 union completed under his reign.' },
-    { face: 'north', ro: 'SE ÎNDEPLINI DREPTATEA ȘI PENTRU POPORUL ROMÂN', en: 'Justice was done for the Romanian people too.' },
-    { face: 'east', ro: 'GLORIE CELOR CE PRIN VITEJIA ȘI PRIN JERTFA LOR AU ÎNTREGIT UNITATEA NAȚIONALĂ', en: 'Glory to those who, by their bravery and sacrifice, completed the national unity.' },
-    { face: 'west', ro: 'GLORIE CELOR CE PRIN VITEJIA ȘI PRIN JERTFA LOR AU ÎNTREGIT UNITATEA NAȚIONALĂ', en: 'Glory to those who, by their bravery and sacrifice, completed the national unity.' },
+    { face: 'south', ro: 'DUPĂ SECOLE DE SUFERINȚE CREȘTINEȘTE ÎNDURATE ȘI LUPTE GRELE PENTRU PĂSTRAREA FIINȚEI NAȚIONALE, DUPĂ APĂRAREA PLINĂ DE SACRIFICII A CIVILIZAȚIEI UMANE, SE ÎNDEPLINI DREPTATEA ȘI PENTRU POPORUL ROMÂN, PRIN SABIA REGELUI FERDINAND, CU AJUTORUL ÎNTREGII NAȚIUNI ȘI GÂNDUL REGINEI MARIA',
+        en: 'After centuries of suffering borne in a Christian spirit and hard struggles to preserve the nation, after a defence of human civilisation full of sacrifice, justice was done for the Romanian people too, by the sword of King Ferdinand, with the help of the whole nation and the thought of Queen Maria.' },
+    { face: 'north', ro: 'LIBERATOR DE NEAM ȘI ÎNTREGITOR DE HOTARE PRIN VIRTUTEA OSTAȘILOR SĂI VREDNICI URMAȘI AI EROILOR CREȘTINĂTĂȚII FERDINAND I DOMN ȘI REGE AL ROMÂNILOR ȘI-A FĂCUT INTRAREA LA 16 OCTOMBRIE 1922 ÎN CETATEA SA DE SCAUN A BUCUREȘTILOR DUPĂ ÎNCORONAREA LA ALBA-IULIA',
+        en: 'Liberator of the nation and uniter of its borders through the valour of his soldiers, worthy heirs of the heroes of Christendom, Ferdinand I, Prince and King of the Romanians, entered his capital Bucharest on 16 October 1922 after the coronation at Alba Iulia.' },
+    { face: 'east', ro: 'GLORIE CELOR CE PRIN LUMINA MINTEI ȘI PUTEREA SUFLETULUI AU PREGĂTIT UNITATEA NAȚIONALĂ',
+        en: 'Glory to those who, by the light of the mind and the strength of the soul, prepared the national unity.' },
+    { face: 'west', ro: 'GLORIE CELOR CE PRIN VITEJIA ȘI PRIN JERTFA LOR DE SÂNGE AU ÎNFĂPTUIT UNITATEA NAȚIONALĂ',
+        en: 'Glory to those who, by their bravery and the sacrifice of their blood, achieved the national unity.' },
 ];
 
 export default {
@@ -38,7 +45,9 @@ export default {
         ctx.terrainOpts={bg:'#707c54',bgMask:'grass',innerPx:2048,innerStep:3,outerStep:16,outerPad:700};
         // No generated ground-floor shopfronts here: the square is villas, embassies,
         // sports grounds and the park (Street View 2026-11-12); mapped businesses get name boards below.
-        bucBackdrop(ctx,{urban:false,species:{plane:.55,linden:.3,chestnut:.15},doubleCentre:true,lampStyle:'cobra',lampColor:'#2b2e31',lampH:10,lampPad:30,
+        // (r3) Kiseleff lamps in the official panoramas (44.46606, 26.07864 and 44.46766, 26.07788): light grey poles with one
+        // curved arm and a disc head (single-arm style kept, colour corrected); the double-arm columns of the old note were not seen.
+        bucBackdrop(ctx,{urban:false,species:{plane:.55,linden:.3,chestnut:.15},doubleCentre:true,lampStyle:'cobra',lampColor:'#9a9fa4',lampH:10,lampPad:30,
             treeLod:{cap:3200,max:420},lampOpts:{spacing:34,kinds:['primary','secondary']},streetTreeOpts:{spacing:8.5,prob:.92,kinds:['primary','secondary','tertiary']}});
         for(const id of ['w1191615184','w1191615185','w1191624784','w1191624785']){const a=d.areas.find(a=>a.id===id);if(a)ctx.painter.poly(a.poly,'#b6b5ad','dirt');}
         for(const id of ['w1191615188','w1458987299']){const a=d.areas.find(a=>a.id===id);if(a)ctx.painter.poly(a.poly,'#b9b7ad','slab');}
@@ -62,7 +71,8 @@ export default {
         // the mapped splitter islands hid the arch from Kiseleff; those are open in reality.
         ctx.extras.arcMedianTreesRemoved=dropMedianTrees(ctx,{keep:t=>sourceTrees.has(Math.round(t.x*10)+','+Math.round(t.z*10))});
         // One even tree budget: the loader cap alone keeps the nearest trees and leaves a hard-edged wood.
-        ctx.extras.arcTreeBudget=thinTrees(ctx,{budget:3050,far:.6,keep:t=>sourceTrees.has(Math.round(t.x*10)+','+Math.round(t.z*10)),core:(x,z)=>Math.hypot(x-AR.x,z-AR.z)<300});
+        // (r3) far trees are cheap culled instances (farCanopy below): keep the whole estimated density.
+        ctx.extras.arcTreeBudget=thinTrees(ctx,{budget:3400,far:.6,keep:t=>sourceTrees.has(Math.round(t.x*10)+','+Math.round(t.z*10)),core:(x,z)=>Math.hypot(x-AR.x,z-AR.z)<300});
         const edge=new GeoBatch();for(let i=1;i<island.length;i++)edge.rod([island[i-1][0],floor+.07,island[i-1][1]],[island[i][0],floor+.07,island[i][1]],.08,'#bbb7ad','stone',4);
         ctx.add(edge.build('source-roundabout-inner-kerb'));
         // The mapped mast belongs to the monument roof: literal source node
@@ -81,7 +91,10 @@ export default {
             blocked:(x,z,r)=>!!collideBuildings(ctx.colliders,x,z,r,floor+.2)});
         sp.plaques.forEach((pl,i)=>{const p=plaqueSites[i];ctx.plaque(pl,p.x,p.z,p.yaw,{style:'bronze',credit:credits[i],y:floor});});
         const c=Math.cos(AR.lm.rotation),sn=Math.sin(AR.lm.rotation),local=(u,v)=>({x:AR.x+u*c+v*sn,z:AR.z-u*sn+v*c});
-        const faces={south:local(0,-6.2),north:local(0,6.2),east:local(15.8,0),west:local(-15.8,0)},read=new Set();
+        // Faces named by their world direction (x east, z south): with the model's rotation the old fixed
+        // local(+15.8, 0) "east" stood on the west side and vice versa.
+        const long=[local(0,-6.2),local(0,6.2)].sort((p,q)=>q.z-p.z),short=[local(15.8,0),local(-15.8,0)].sort((p,q)=>q.x-p.x);
+        const faces={south:long[0],north:long[1],east:short[0],west:short[1]},read=new Set();
         for(const ins of INSCRIPTIONS){const p=faces[ins.face];ctx.interactables.push({...p,y:floor,r:2.3,label:`Read the inscription (${ins.face} face)`,use:s=>{read.add(ins.face);s.ui.toast(ins.ro,`${ins.en} (${read.size}/4 faces read)`);}});}
         const photoAt=local(0,17.5),left=local(-9,-4.8),right=local(9,-4.8);
         photoHunt(ctx,{...photoAt,title:'Frame the Arc memorial',unavailable:'Current museum and roof admission are not verified; interior access is unavailable.',targets:[
@@ -90,7 +103,7 @@ export default {
         createArcActivities(ctx,course,{floor,arch:AR});
         ctx.extras.arcBusinessSigns=businessSigns(ctx,{name:'arc-business-signs'});
         // Frame cost: only the 900 trees nearest the walkable extent stay in the stock builder (about its original budget).
-        ctx.extras.arcFarCanopy=farCanopy(ctx,{near:900,keep:t=>sourceTrees.has(Math.round(t.x*10)+','+Math.round(t.z*10))});
+        ctx.extras.arcFarCanopy=farCanopy(ctx,{near:900,lean:150,keep:t=>sourceTrees.has(Math.round(t.x*10)+','+Math.round(t.z*10))});
         // Actual north-apron path arrival. Both activities are reachable without
         // crossing the roundabout. The optional pitch is a normal entry pose.
         const start=course.at(course.length-1.2),dx=AR.x-start.x,dz=AR.z-start.z;

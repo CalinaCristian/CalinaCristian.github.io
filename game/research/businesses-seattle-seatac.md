@@ -84,3 +84,13 @@ Street View comparison (reference only, nothing stored), same position and beari
 - SeaTac: 7-Eleven pylon at the lot (game: fascia on the store), Coast Gateway Hotel (photosphere). Bellevue: Westin lettering on the tower at NE 6th St (game: own name), 999 Bellevue Way NE (Tempur-Pedic, unreadable behind a tree).
 
 Not compared: every other appended POI (881 of 894, all eight districts).
+
+## Round 3, lane builder (2026-11-13)
+
+Sources: live OSM (API 0.6 / Overpass, 2026-11-12/13; the round-2 map.json tiles of each district for the cached-source
+tools), official Street View panoramas looked at for appearance only (nothing stored, nothing extracted into data).
+
+Bibito Cafe and Olympia Coffee are not stale: live OSM re-mapped both — node/14111796067 `amenity=cafe` "Bibito Cafe"
+(v1 2026-08-22, at 47.4563129, −122.2930413, the old position; the same changeset named building w374790723
+"Halal Eats Food ") and node/14189991289 "Olympia Coffee" (v2 2026-09-17, 47.4448329, −122.3035338, Concourse C). The game
+rows stay. `businesses-gamediff.json` → `seattle-seatac.closed` (both entries) is outdated and blocks a re-append; drop them.

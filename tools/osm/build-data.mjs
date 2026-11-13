@@ -97,6 +97,8 @@ import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
 import { LANDMARKS } from '../../game/src/landmarks.js';
 import { speciesFromOSM } from '../../game/src/trees.js';
 import { resolveResearchSource } from './research-source.mjs';
+// (round 3, BACKLOG r2-builder-builder-adopt) one classifier and one set of POI / sign rules for the build and add-pois.mjs
+import { poiKind, isClosedPoi, isOffStreet, signText as poiSignText, ownBuildingSign, levelsFromLevelTags, POI_EDGE_M, NON_PLACE_RELATION, SIGNED_KIND, POI_KINDS as SHARED_POI_KINDS } from './poi-kinds.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, '..', '..');
@@ -140,7 +142,7 @@ function normColour(v) {
     return CSS_COLOURS[v.replace(/[\s_-]/g, '')] || '';
 }
 const MATERIAL_COLOUR = { brick: '#a65f45', stone: '#c9bfae', sandstone: '#d4c29a', limestone: '#ddd5c2', wood: '#9a7552', timber_framing: '#d9cdb5', metal: '#9ea4a9', concrete: '#b3b0a8', plaster: '#e4dccb', glass: '' };
-const POI_KINDS = ['office', 'school', 'airport', 'fuel', 'food', 'shop', 'bank', 'pharmacy', 'metro', 'busstop', 'hospital', 'landmark', 'park', 'hotel'];
+const POI_KINDS = SHARED_POI_KINDS; // (poi-kinds.mjs: append only, world.js reads kinds by index)
 const AREA_KINDS = ['water', 'park', 'grass', 'forest', 'scrub', 'pitch', 'cemetery', 'residential', 'industrial', 'commercial', 'retail', 'railway', 'parking', 'apron', 'runway', 'construction', 'track', 'clay', 'turf', 'hard', 'pool', 'yard'];
 // (2026-11-08) track = concrete / asphalt sports track (velodrome), clay = clay courts / tartan tracks, turf = artificial-turf
 // pitch, hard = asphalt / concrete / acrylic courts, pool = outdoor swimming pool, yard = school / hospital / sports-centre grounds
@@ -792,6 +794,9 @@ function buildCity(cityId, did = null) {
     // =======================================================================
     const areaKindOf = (t) => {
         if (t.natural === 'water' || t.waterway === 'riverbank' || t.landuse === 'reservoir' || t.landuse === 'basin' || t.water) return 'water';
+        // (round 3, BACKLOG r2-builder-fountain-outlines / unirii-fountain-ways) a fountain mapped as an outline is its basin's
+        // water (under 30 m² it stays the street-furniture fountain, below); areaSourceTags keeps amenity=fountain
+        if (ds && t.amenity === 'fountain' && t.building == null && !/^(splash_pad|bubbler|drinking|nozzle)$/.test(t.fountain || '')) return 'water'; // (a splash pad has no standing water)
         if (t.leisure === 'park' || t.leisure === 'garden' || t.leisure === 'dog_park' || t.leisure === 'playground') return 'park';
         if (t.leisure === 'track') return /grass/.test(t.surface || '') ? 'pitch' : 'track'; // (any running / cycling track: under its infield pitch)
         if (t.leisure === 'pitch' && /clay|tartan/.test(t.surface || '')) return 'clay';
@@ -819,7 +824,7 @@ function buildCity(cityId, did = null) {
         const tol = kind === 'water' ? 1.5 : 1.0;
         const so = simplifyRing(outer, tol, tol * 0.6, 2000); if (!so) return;
         const A = Math.abs(polyArea(so));
-        if (A < 30) return;
+        if (A < (ds && (kind === 'water' || kind === 'pool') ? 4 : 30)) return; // (round 3: a 15 m² fountain basin / courtyard pool is visible; jet slits stay out)
         // keep when near the corridors (parks / water / forest may extend further for scenery)
         // (2026-11-08) district mode: everything out to the scenery ring (pitches, courts, pools, lawns, yards between 120 and
         // 600 m were dropped and left bare patches next to the real buildings)
@@ -991,6 +996,10 @@ function buildCity(cityId, did = null) {
                 if (t['building:levels'] == null && t.height == null && set('building:levels', b.levelsEst)) { ch = true; hr = hr || 2; }
                 if (hr) t.__hRes = hr;
                 const fc = hex(rs.facade_hex) || b.facade_hex || b.facade_hex_est || b.building_colour || (b.facade && (b.facade.colour || b.facade.wall || b.facade.glass));
+                // (round 3, BACKLOG r2-builder-default-heights) the palette ESTIMATE of a guessed "glass curtain wall" style
+                // (#5e7f8c on Hotel Minerva) is only a colour for a building the build draws as glass: remembered here, dropped
+                // below once the style is known (reviewed `facade_hex` and tagged colours always stay)
+                if (!hex(rs.facade_hex) && !b.facade_hex && b.facade_hex_est && fc === b.facade_hex_est && /glass curtain/i.test(b.style_est || '') && t['building:colour'] == null) t.__glassEstimateColour = String(fc).toLowerCase();
                 ch = set('building:colour', fc) || ch;
                 ch = set('roof:shape', roofShape(rs.roof) ?? b.roof_shape ?? b.roofShape) || ch;
                 ch = set('roof:colour', b.roof_colour ?? b.roofColour) || ch;
@@ -1185,7 +1194,9 @@ function buildCity(cityId, did = null) {
         const holesFit = (outer, inner) => inner.every(h => h.every((p, i) => { const q = h[(i + 1) % h.length]; return [p, [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2]].every(v => pointInPolygon(v[0], v[1], outer)); }) && !ringsCross(h, outer));
         if (holes.length && !holesFit(ring, holes)) { if (ds) buildingSourceSkips.push({ sourceId: t.__id, reason: 'courtyard-outside-source-outline', marginM: mg }); else dropWhy('invalid-courtyard'); continue; }
         // ---- style & height
-        const levels = num(t['building:levels']);
+        // (round 3, BACKLOG r2-builder-default-heights) without building:levels, the OSM level range a mapped building spans
+        // (min_level / max_level: Salonul Oficial w771096084 0–1 = two storeys) is its storey count, before any default
+        const levels = num(t['building:levels']) > 0 ? num(t['building:levels']) : ds ? levelsFromLevelTags(t) : num(t['building:levels']);
         const roofLevels = num(t['roof:levels']) || 0;
         let h = parseMeasure(t.height); if (!isFinite(h)) h = NaN;
         const literalMinimum = parseMeasure(t.min_height);
@@ -1223,6 +1234,10 @@ function buildCity(cityId, did = null) {
         else if (country === 'RO') {
             const pipera = la > 44.4745 && lo > 26.095;
             if (isOffice && (pipera || (isFinite(levels) && levels >= 6) || realArea > 1500)) { style = 'glass'; defLevels = pipera ? 10 : 8; }
+            // (round 3, BACKLOG r2-builder-default-heights) a named office / commercial / transportation footprint (Maxigel
+            // building=office, Terminalul Vioara aeroway=terminal) is not an apartment block: plain window grid, no balconies;
+            // its storeys stay the estimate below unless OSM levels / a street-level review give them
+            else if (ds && t.name && (isOffice || b === 'transportation' || t['building:part'] === 'transportation' || t.aeroway === 'terminal')) { style = 'interwar'; defLevels = isFinite(levels) ? levels : t.aeroway === 'terminal' || /transportation/.test(b + (t['building:part'] || '')) ? 2 : 4; }
             else if (pipera && (realArea > 900 || (isFinite(levels) && levels >= 7))) { style = 'glass'; defLevels = 10; }
             else if (realArea > 250 && roadNameNear(cOut[0], cOut[1], 75, RE_CIVIC)) { style = 'civic'; defLevels = 9; }
             else if (roadNameNear(cOut[0], cOut[1], 55, RE_INTERWAR)) { style = 'interwar'; defLevels = 8; }
@@ -1402,7 +1417,8 @@ function buildCity(cityId, did = null) {
         let name = t.name || '';
         let brand = t.brand || '';
         if (t.tourism || t.historic || (h > 60)) flags |= 4;
-        const colour = normColour(t['building:colour'] || t['building:color']) || MATERIAL_COLOUR[(t['building:material'] || '').split(';')[0]] || '';
+        let colour = normColour(t['building:colour'] || t['building:color']) || MATERIAL_COLOUR[(t['building:material'] || '').split(';')[0]] || '';
+        if (t.__glassEstimateColour && style !== 'glass' && String(colour).toLowerCase() === t.__glassEstimateColour) colour = ''; // (round 3: see the research enrichment)
         let roofColour = normColour(t['roof:colour'] || t['roof:color']) || (/tile|clay/.test(t['roof:material'] || '') ? '#9c5a3c' : /metal|tin|copper/.test(t['roof:material'] || '') ? (t['roof:material'] === 'copper' ? '#6f9a86' : '#7d848a') : '');
         if (!roofColour && rb.aerColour !== undefined) {
             const measurement = rb.aerColour;
@@ -1451,62 +1467,30 @@ function buildCity(cityId, did = null) {
     // =======================================================================
     // 4. POIs
     // =======================================================================
-    const poiKind = (t) => {
-        const a = t.amenity, s = t.shop, tr = t.tourism;
-        if (a === 'fuel') return ['fuel', a];
-        if (a === 'fast_food' || a === 'cafe' || a === 'restaurant' || a === 'food_court' || a === 'ice_cream') return ['food', a];
-        if (a === 'bank' || a === 'atm' || a === 'bureau_de_change') return ['bank', a];
-        if (a === 'pharmacy' || s === 'chemist' && false) return ['pharmacy', a];
-        if (a === 'hospital' || a === 'clinic') return ['hospital', a];
-        if (a === 'university' || a === 'school' || a === 'college') return ['school', a];
-        if (a === 'cinema' || a === 'theatre' || a === 'place_of_worship' || a === 'police' || a === 'fire_station' || a === 'townhall' || a === 'arts_centre' || a === 'library') return ['landmark', a];
-        if (a === 'bus_station') return ['busstop', a];
-        if (['supermarket', 'mall', 'convenience', 'department_store', 'car', 'bakery', 'electronics', 'clothes', 'doityourself', 'hardware', 'furniture'].includes(s)) return ['shop', s];
-        // (2026-11-07, research R12.2) every named trading shop (books, optician, mobile_phone, cosmetics, chemist, pastry, variety_store,
-        // houseware …) and the street-front amenities the research found missing (betting, car rental, couriers / post, bars, clinics)
-        if (s && !/^(vacant|no|yes|disused)$/.test(s) && (t.name || t.brand)) return ['shop', s];
-        if (['bookmaker', 'casino', 'gambling', 'car_rental', 'car_wash', 'post_office', 'money_transfer', 'dentist', 'doctors', 'veterinary', 'internet_cafe', 'driving_school'].includes(a)) return ['shop', a];
-        if (a === 'bar' || a === 'pub' || a === 'biergarten') return ['food', a];
-        if (t.office === 'courier' && (t.name || t.brand)) return ['shop', 'courier'];
-        if (tr === 'hotel' || tr === 'hostel' || tr === 'motel') return ['hotel', tr];
-        if (tr === 'attraction' || tr === 'museum' || tr === 'viewpoint' || tr === 'artwork' && t.name || t.historic === 'monument' || t.historic === 'memorial' && t.name) return ['landmark', tr || t.historic];
-        if (t.railway === 'subway_entrance' || t.station === 'subway' || (t.railway === 'station' && (t.subway === 'yes' || t.station === 'subway' || t.station === 'light_rail'))) return ['metro', t.railway || 'station'];
-        if (t.railway === 'station' || (t.public_transport === 'station' && !t.bus)) return ['landmark', 'station'];
-        if (t.highway === 'bus_stop' || (t.public_transport === 'platform' && t.bus === 'yes')) return ['busstop', 'bus_stop'];
-        if (t.railway === 'tram_stop' || (t.public_transport === 'platform' && t.tram === 'yes')) return ['busstop', 'tram_stop'];
-        if (t.leisure === 'park' && t.name) return ['park', 'park'];
-        if (t.leisure === 'stadium') return ['landmark', 'stadium'];
-        if (t.aeroway === 'terminal' || t.aeroway === 'aerodrome') return ['airport', t.aeroway];
-        if (t.office && t.name && ['company', 'it', 'telecommunication', 'government', 'diplomatic', 'financial', 'insurance'].includes(t.office)) return ['office', t.office];
-        return null;
-    };
+    // (round 3, BACKLOG r2-builder-builder-adopt) the classifier, sign texts and POI rules are tools/osm/poi-kinds.mjs, shared
+    // with add-pois.mjs: a rebuild keeps what the round-2 append added (the dropped classes, frontages up to POI_EDGE_M past
+    // the playable edge, POIs mapped as relations, own building names) instead of losing it.
     const pois = [];
     const poiSeen = new Set();
-    // brand names as they are written on the signs (research businesses-*.json brandTable / notes)
-    const BRAND_NORM = [
-        [/^garanti( bankas[ıi]| bank)?$/i, 'Garanti BBVA'], [/^(лукойл|lukoil)$/i, 'Lukoil'], [/^(omv petrom|petrom)$/i, 'Petrom'],
-        [/^omv$/i, 'OMV'], [/^mol( romania)?$/i, 'MOL'], [/^rompetrol$/i, 'Rompetrol'], [/^(газпром|gazprom)$/i, 'Gazprom'],
-        [/^socar$/i, 'SOCAR'], [/^banca transilvania$/i, 'Banca Transilvania'], [/^brd( groupe soci[eé]t[eé] g[eé]n[eé]rale)?$/i, 'BRD'],
-        [/^ing( bank)?$/i, 'ING'], [/^bcr$/i, 'BCR'],
-    ];
-    const NON_LATIN = /[\u0370-\u03ff\u0400-\u04ff\u0590-\u06ff\u0e00-\u0eff\u3040-\u9fff\uac00-\ud7af]/;
-    const signText = (t) => { // Romanian signage never shows non-Latin scripts: fall back to name:ro / name:en / the brand
-        let name = t.name || '', brand = t.brand || '';
-        for (const [re, v] of BRAND_NORM) { if (re.test(brand.trim())) brand = v; if (re.test(name.trim())) name = v; }
-        if (country === 'RO') { if (NON_LATIN.test(name)) name = t['name:ro'] || t['name:en'] || (NON_LATIN.test(brand) ? '' : brand); if (NON_LATIN.test(brand)) brand = t['brand:en'] || ''; }
-        return { name, brand };
-    };
+    const signText = (t) => poiSignText(t, country); // (Romanian signage never shows non-Latin scripts; brand spellings as on the signs)
+    // a building by its own source identity (a POI mapped as the building's own outline / relation names that building)
+    const bySource = new Map(); buildings.forEach((b, i) => { const id = b.t?.__id; if (!id || b.minH > 0.5) return; const o = bySource.get(id); if (o === undefined || b.area > buildings[o].area) bySource.set(id, i); });
     const addPoi = (t, x, z, bIdx = -1, osm = '') => {
         const k = poiKind(t); if (!k) return;
+        if (ds && isClosedPoi(t)) return; // (as add-pois.mjs) closed / disused / vacant / proposed objects are not trading places
         const st = signText(t);
         const name = st.name || st.brand || '';
         if (k[0] !== 'busstop' && k[0] !== 'metro' && !name) return;
-        if (M(x, z) > (k[0] === 'landmark' || k[0] === 'airport' || k[0] === 'park' ? 100 : 0)) return;
-        if (!nearNetwork(x, z, k[0] === 'landmark' || k[0] === 'airport' || k[0] === 'park' ? 700 : BUFFER)) return;
+        const wide = k[0] === 'landmark' || k[0] === 'airport' || k[0] === 'park', m = M(x, z), off = isOffStreet(t);
+        if (m > (wide ? 100 : ds ? POI_EDGE_M : 0)) return;
+        if (ds && m > 0 && k[1] === 'atm') return; // (an ATM is a map marker only: nothing to see across the edge)
+        if (ds && m > 0 && SIGNED_KIND.test(k[0]) && off) return; // (a unit off the street level across the edge: no street sign)
+        if (!nearNetwork(x, z, wide ? 700 : BUFFER)) return;
         const key = k[0] + '|' + name + '|' + Math.round(x / 15) + '|' + Math.round(z / 15);
         if (poiSeen.has(key)) return; poiSeen.add(key);
+        if (bIdx < 0) bGrid.query(x, z, 1, (o) => { if (bIdx < 0 && o.minH < 0.5 && solidAt(x, z, o.ring, o.holes)) bIdx = buildings.indexOf(o); });
         if (bIdx < 0) bGrid.query(x, z, 1, (o) => { if (bIdx < 0 && solidAt(x, z, o.ring, o.holes)) bIdx = buildings.indexOf(o); });
-        pois.push({ kind: k[0], sub: k[1], x, z, name: st.name, brand: st.brand, op: t.operator || '', cuisine: t.cuisine || '', bIdx, osm, inside: (t.level != null && !/^0(;0)*$/.test(String(t.level))) || t.location === 'indoor' });
+        pois.push({ kind: k[0], sub: k[1], x, z, name: st.name, brand: st.brand, op: t.operator || '', cuisine: t.cuisine || '', bIdx, osm, inside: off });
     };
     for (const [id, t] of ntags) { const p = pt(id); if (p) addPoi(t, p[0], p[1], -1, 'node/' + id); }
     for (const [wid, w] of W) {
@@ -1514,7 +1498,26 @@ function buildCity(cityId, did = null) {
         if (w.nodes.length < 3) continue;
         const pts = w.nodes.map(pt); if (pts.some(p => !p)) continue;
         const c = polyCentroid(pts);
-        addPoi(t, c[0], c[1], -1, 'way/' + wid);
+        addPoi(t, c[0], c[1], ds ? bySource.get('w' + wid) ?? -1 : -1, 'way/' + wid);
+    }
+    // POIs mapped as relations (a hotel / museum / school multipolygon: Hilton r5186200, Courtyard r8064670): the centroid of
+    // the largest closed outer ring, else the middle of the member ways' extent
+    if (ds) for (const [rid, r] of R) {
+        const t = r.tags; if (!t || NON_PLACE_RELATION.test(t.type || '') || !poiKind(t)) continue;
+        const outers = r.members.filter(m => m.type === 'way' && (!m.role || m.role === 'outer') && W.has(m.ref)).map(m => W.get(m.ref).nodes);
+        let best = null; const all = [];
+        for (const ring of assembleRings(outers.map(o => o.slice())).rings) { const pts = ring.map(pt); if (pts.some(p => !p) || pts.length < 4) continue; all.push(...pts); if (!best || Math.abs(polyArea(pts)) > Math.abs(polyArea(best))) best = pts; }
+        if (!best) for (const o of outers) for (const n of o) { const p = pt(n); if (p) all.push(p); }
+        if (!all.length) continue;
+        const c = best ? polyCentroid(best) : [(Math.min(...all.map(p => p[0])) + Math.max(...all.map(p => p[0]))) / 2, (Math.min(...all.map(p => p[1])) + Math.max(...all.map(p => p[1]))) / 2];
+        addPoi(t, c[0], c[1], bySource.get('r' + rid) ?? -1, 'relation/' + rid);
+    }
+    // interior units (as add-pois.mjs): a node more than 10 m inside a footprint over 3000 m² that holds four or more signed
+    // businesses is a unit of a mall / hypermarket gallery / terminal, not a street frontage: it keeps its POI but no sign
+    if (ds) {
+        const tenants = new Map(); for (const p of pois) if (SIGNED_KIND.test(p.kind) && p.sub !== 'atm' && p.bIdx >= 0) tenants.set(p.bIdx, (tenants.get(p.bIdx) || 0) + 1);
+        const ringDist = (x, z, r) => { let d = Infinity; for (let i = 0, j = r.length - 1; i < r.length; j = i++) d = Math.min(d, distPointSeg(x, z, r[j][0], r[j][1], r[i][0], r[i][1]).d); return d; };
+        for (const p of pois) { const b = buildings[p.bIdx]; if (b && p.kind !== 'hotel' && SIGNED_KIND.test(p.kind) && p.osm.startsWith('node/') && b.area > 3000 && (tenants.get(p.bIdx) || 0) >= 4 && ringDist(p.x, p.z, b.ring) > 10) p.inside = true; }
     }
     // ---- verified businesses (research R12.2: game/research/businesses-<city>-<district>.json, businesses-gamediff.json):
     //      locator-confirmed stores missing from OSM are added, stale ones (not in the official locator, unverified) dropped,
@@ -1558,16 +1561,34 @@ function buildCity(cityId, did = null) {
         log(`businesses: +${bizAdded} locator-only, −${bizDropped} stale, ${vacant.length / 3} vacant units`);
     }
     // businesses/names attached to buildings → facade signs
-    for (const p of pois) {
+    // (round 3, BACKLOG seatac-4: moved here from world.js "principal occupant") a hotel / motel, then a fuel station, names
+    // its building before any other POI on it (the first POI used to win: the Hilton read "Spencer's", a fuel canopy "Food
+    // Mart"); a US building signed by a hotel is a windowed block, not the 'plain' / 'shop' fallback of untagged footprints
+    const signRank = (p) => (p.kind === 'hotel' ? 0 : p.kind === 'fuel' ? 1 : 2);
+    for (const p of pois.map((p, i) => [p, i]).sort((a, b) => signRank(a[0]) - signRank(b[0]) || a[1] - b[1]).map(e => e[0])) {
         if (p.bIdx < 0) continue;
         const b = buildings[p.bIdx];
         if (['busstop', 'metro'].includes(p.kind)) continue;
         if (p.sub === 'atm' || p.inside) continue; // ATMs are not branches; shops inside malls / upper floors get no street sign
-        if (!b.signName) { b.signName = p.brand || p.name; b.signBrand = !!p.brand; }
+        if (!b.signName) {
+            b.signName = p.brand || p.name; b.signBrand = !!p.brand; b.signKind = p.kind;
+            if (ds && country === 'US' && p.kind === 'hotel' && (b.style === 'plain' || b.style === 'shop')) { b.style = 'bloc'; b.flags &= ~1; }
+        }
         // (2026-11-08) a street-level business in a block / villa = a ground-floor shop unit (world.js: street faces only)
         if (ds && /^(food|shop|bank|pharmacy)$/.test(p.kind) && !(b.flags & 32) && /^(interwar|eclectic|civic|bloc|plain)$/.test(b.style) && b.h > 6) b.flags |= 1;
     }
-    log('pois', pois.length);
+    // (round 3, as add-pois.mjs) a signed building's own OSM name where the sign went to a street-level tenant: world.js
+    // signs the building with its own name (a hotel with its brand) and the tenant keeps its unit fascia
+    const buildingOwnTags = {};
+    if (ds) {
+        const idCount = new Map(); for (const b of buildings) if (b.t?.__id) idCount.set(b.t.__id, (idCount.get(b.t.__id) || 0) + 1);
+        for (const b of buildings) {
+            const id = b.t?.__id; if (!id || idCount.get(id) !== 1 || !b.signName || (b.flags & 32) || b.minH > 0.5) continue;
+            const own = ownBuildingSign(b.t.__originalTags || b.t, b.signName, b.signKind || '', country);
+            if (own && !own.kept) buildingOwnTags[id] = own;
+        }
+    }
+    log('pois', pois.length, 'own building names', Object.keys(buildingOwnTags).length);
 
     // ---- trees (natural=tree nodes + tree_row ways) and street furniture, inside the corridors, off the carriageway
     const onCarriageway = (x, z, extra) => !!nearestRoad(x, z, 25, null) && (() => { let bad = false; roadGrid.query(x, z, 20, (s) => { if (bad || (s.r.flags & 4)) return; const q = distPointSeg(x, z, s.a[0], s.a[1], s.b[0], s.b[1]); const dx = s.b[0] - s.a[0], dz = s.b[1] - s.a[1]; const right = (x - s.a[0]) * (-dz) + (z - s.a[1]) * dx > 0; if (q.d < (right ? s.wR : s.wL) + extra) bad = true; }); return bad; })();
@@ -1655,6 +1676,13 @@ function buildCity(cityId, did = null) {
         if (k === 'bollard' && onCarriageway(p[0], p[1], 0.3)) continue; // bollards on the road (access barriers) would block it
         if (k === 'fountain' && t.amenity === 'fountain' && !nearNetwork(p[0], p[1], 60)) continue;
         outFurn.push(FURN_KINDS.indexOf(k), Math.round(p[0] * 10), Math.round(p[1] * 10));
+    }
+    // (round 3, as add-pois.mjs) a fountain mapped as a small outline (under the 4 m² water threshold) is the furniture fountain
+    if (ds) for (const w of W.values()) {
+        const t = w.tags; if (t.amenity !== 'fountain' || t.building != null || isClosedPoi(t) || w.nodes.length < 4 || w.nodes[0] !== w.nodes[w.nodes.length - 1]) continue;
+        const pts = w.nodes.slice(0, -1).map(pt); if (pts.some(p => !p) || Math.abs(polyArea(pts)) >= 4) continue;
+        const c = polyCentroid(pts); if (M(c[0], c[1]) > 0 || onCarriageway(c[0], c[1], 0.6)) continue;
+        outFurn.push(FURN_KINDS.indexOf('fountain'), Math.round(c[0] * 10), Math.round(c[1] * 10));
     }
     log('osm trees', outTrees.length / 3, 'furniture', outFurn.length / 3);
 
@@ -1939,7 +1967,7 @@ function buildCity(cityId, did = null) {
     const outP = pois.map(p => [POI_KINDS.indexOf(p.kind), Math.round(p.x * 10), Math.round(p.z * 10), S(p.name), S(p.brand), S(p.sub + (p.cuisine ? ':' + p.cuisine : '')), p.bIdx]);
     const outA = areaRings.map(a => [AREA_KINDS.indexOf(a.kind), S(a.name), ...a.rings.map(delta)]);
     const areaSourceTags = Object.fromEntries(areaRings.flatMap(a => {
-        const tags = Object.fromEntries(['water', 'natural', 'waterway'].flatMap(k => a.sourceTags?.[k] != null ? [[k, a.sourceTags[k]]] : []));
+        const tags = Object.fromEntries(['water', 'natural', 'waterway', ...(a.sourceTags?.amenity === 'fountain' ? ['amenity', 'fountain'] : [])].flatMap(k => a.sourceTags?.[k] != null ? [[k, a.sourceTags[k]]] : []));
         return a.sourceId && Object.keys(tags).length ? [[a.sourceId, tags]] : [];
     }));
     const parkingLayouts = {}, parkingLayoutAudit = [], parkingFootprints = Object.fromEntries(areaRings.flatMap((a,i) => a.sourceParkingRings ? [[i,a.sourceParkingRings]] : []));
@@ -1981,6 +2009,11 @@ function buildCity(cityId, did = null) {
         corridor: { areaKm2: +cor.areaKm2.toFixed(2), legs: cor.legs.map(l => [l.label, l.km]) },
     };
     if (Object.keys(researchBrands).length) doc.brands = researchBrands;
+    if (ds) { // (round 3) the OSM identity of every POI row (add-pois.mjs dedups against it) and the buildings' own signs
+        const poiSources = Object.fromEntries(pois.flatMap((p, i) => /^(node|way|relation)\/\d+$/.test(p.osm) ? [[i, p.osm]] : []));
+        if (Object.keys(poiSources).length) doc.poiSources = poiSources;
+        if (Object.keys(buildingOwnTags).length) doc.buildingOwnTags = buildingOwnTags;
+    }
     if (ds) {
         doc.buildingGeometryPolicy = 'source';
         doc.buildingSourceSkips = buildingSourceSkips;

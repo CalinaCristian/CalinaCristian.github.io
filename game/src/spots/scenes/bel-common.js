@@ -266,6 +266,23 @@ export function glowText(text, w, h, { fg = '#ffffff', bg = null, font = (s) => 
     return mesh;
 }
 
+/**
+ * Prism over an outer ring with inner rings left open (OSM multipolygon courtyards / atria): walls face out on the
+ * outer ring and into each courtyard, the top cap has the holes. `bottom: false` drops the underside.
+ */
+export function ringPrism(b, outer, holes, y0, y1, color, key = 'concrete', { bottom = false } = {}) {
+    const ccw = (p) => (polyAreaSigned(p) > 0 ? p : [...p].reverse()), cw = (p) => (polyAreaSigned(p) > 0 ? [...p].reverse() : p);
+    const shape = new THREE.Shape(ccw(outer).map(([x, z]) => new THREE.Vector2(x, -z)));
+    for (const h of holes || []) shape.holes.push(new THREE.Path(cw(h).map(([x, z]) => new THREE.Vector2(x, -z))));
+    let g = new THREE.ExtrudeGeometry(shape, { depth: y1 - y0, bevelEnabled: false }); g.rotateX(-Math.PI / 2); g.translate(0, y0, 0);
+    if (!bottom) { const ng = g.toNonIndexed(), P = ng.attributes.position, keep = []; // drop the down-facing cap (never seen, costs triangles)
+        for (let t = 0; t < P.count; t += 3) { const ys = [P.getY(t), P.getY(t + 1), P.getY(t + 2)]; if (ys.every((v) => Math.abs(v - y0) < 1e-4)) continue; for (let k = 0; k < 3; k++) keep.push(P.getX(t + k), P.getY(t + k), P.getZ(t + k)); }
+        g.dispose(); g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(keep, 3)); g.computeVertexNormals(); }
+    b.add(g, key, null, color); g.dispose();
+}
+// signed shoelace area in the x/z plane (x east, z south): > 0 is counter-clockwise seen from above (−z up the page)
+function polyAreaSigned(p) { let a = 0; for (let i = 0, j = p.length - 1; i < p.length; j = i++) a += (p[j][0] * -p[i][1]) - (p[i][0] * -p[j][1]); return a / 2; }
+
 /** a single triangle into a GeoBatch (no degenerate quads → no zero normals) */
 export function tri(b, a, c, d, color, key = 'concrete') {
     const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute([...a, ...c, ...d], 3)); g.computeVertexNormals(); b.add(g, key, null, color); g.dispose();

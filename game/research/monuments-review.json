@@ -1,0 +1,545 @@
+{
+ "schemaVersion": 1,
+ "reviewedAt": "2026-11-13",
+ "lane": "fidelity pass round 3, look",
+ "method": "The 59 OSM monument / artwork objects left out in round 2 (r2/world gen-monuments) re-read from live OSM tags (api 0.6, 2026-11-13); free-standing candidates (tourism=artwork without artwork_type) looked at in official panoramas where one is within 50 m. Drawn ones are listed at the end of game/src/monument-sources.js.",
+ "counts": {
+  "total": 59,
+  "drawn": 2,
+  "keptOut": 57
+ },
+ "footprintSkips": "Unchanged (reported, never moved): Mihail Cantacuzino n916016099 and Domnița Bălașa n921821381 fall inside a building footprint; Dimitar Hadjvasilev n6945692385 and Bustul lui Barbu Constantinescu n10726686133 on a carriageway; Root n11862631648 and Story Pole VI n12554043199 (Bellevue). Positions are OSM's; not checked against panoramas this round.",
+ "rows": [
+  {
+   "id": "n2634651933",
+   "name": "Colecția de Artă Plastica \"Fr. Storck și Cecilia Cutescu Storck\"",
+   "lat": 44.450912,
+   "lon": 26.094471,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "round-2 rule confirmed: tourism=artwork without artwork_type: form unknown"
+  },
+  {
+   "id": "n2634651941",
+   "name": "Muzeul Memorial \"George Călinescu\"",
+   "lat": 44.462162,
+   "lon": 26.099546,
+   "round2Reason": "museum / building / indoor",
+   "verdict": "kept out",
+   "basis": "kept out: museum / memorial house or an indoor work (OSM level / building)"
+  },
+  {
+   "id": "n2634651992",
+   "name": "Casa Memorială \"Ion Minulescu\"",
+   "lat": 44.434678,
+   "lon": 26.067039,
+   "round2Reason": "museum / building / indoor",
+   "verdict": "kept out",
+   "basis": "kept out: museum / memorial house or an indoor work (OSM level / building)"
+  },
+  {
+   "id": "n2634652016",
+   "name": "Casa Memorială \"Liviu Rebreanu - Fanny Rebreanu\"",
+   "lat": 44.434835,
+   "lon": 26.067024,
+   "round2Reason": "museum / building / indoor",
+   "verdict": "kept out",
+   "basis": "kept out: museum / memorial house or an indoor work (OSM level / building)"
+  },
+  {
+   "id": "n12593112638",
+   "name": "Decebal",
+   "lat": 44.5707957,
+   "lon": 26.0800828,
+   "round2Reason": "museum / building / indoor",
+   "verdict": "kept out",
+   "basis": "kept out: museum / memorial house or an indoor work (OSM level / building)"
+  },
+  {
+   "id": "n2634651890",
+   "name": "Casa Memorială \"Constantin Joja\"",
+   "lat": 44.450317,
+   "lon": 26.096448,
+   "round2Reason": "museum / building / indoor",
+   "verdict": "kept out",
+   "basis": "kept out: museum / memorial house or an indoor work (OSM level / building)"
+  },
+  {
+   "id": "n3236859765",
+   "name": "White Creature",
+   "lat": 44.44458,
+   "lon": 26.0868181,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "panorama R_ibENhyicLAd8a1JxM1ug (44.444674, 26.086833) heading 187: building facade with street art at Calea Griviței 37; wall-mounted"
+  },
+  {
+   "id": "n3495777662",
+   "name": "",
+   "lat": 44.44385,
+   "lon": 26.1009476,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "drawn",
+   "basis": "panorama MEOXvDv_jIyjjHmsQMop0g (44.443858, 26.100822) heading 95: pale stone standing figure on a plinth in a small fenced garden; form statue, material stone"
+  },
+  {
+   "id": "n6049341531",
+   "name": "",
+   "lat": 44.4492873,
+   "lon": 26.0880564,
+   "round2Reason": "wall-mounted (graffiti)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (graffiti)"
+  },
+  {
+   "id": "n6870912985",
+   "name": "Taurus & Eagle WWF",
+   "lat": 44.442658,
+   "lon": 26.1013448,
+   "round2Reason": "wall-mounted (graffiti)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (graffiti)"
+  },
+  {
+   "id": "n7177383986",
+   "name": "IP 2018",
+   "lat": 44.4430664,
+   "lon": 26.0996658,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "name:en names a street-art / graffiti work (streetartcities-style names, no artwork_type): wall art, not a free-standing object"
+  },
+  {
+   "id": "n7177389085",
+   "name": "Culori pe Cale de Disparitie",
+   "lat": 44.4426514,
+   "lon": 26.101064,
+   "round2Reason": "wall-mounted (graffiti)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (graffiti)"
+  },
+  {
+   "id": "n7177389285",
+   "name": "",
+   "lat": 44.4425982,
+   "lon": 26.1001424,
+   "round2Reason": "wall-mounted (graffiti)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (graffiti)"
+  },
+  {
+   "id": "n7178653285",
+   "name": "Ortaku Angel",
+   "lat": 44.4457022,
+   "lon": 26.08255,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "name:en names a street-art / graffiti work (streetartcities-style names, no artwork_type): wall art, not a free-standing object"
+  },
+  {
+   "id": "n7178654485",
+   "name": "Allan Dalla Kiero Graffiti",
+   "lat": 44.445706,
+   "lon": 26.0828698,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "name:en names a street-art / graffiti work (streetartcities-style names, no artwork_type): wall art, not a free-standing object"
+  },
+  {
+   "id": "n7178659386",
+   "name": "Sweet Damage Crew",
+   "lat": 44.4448339,
+   "lon": 26.1023715,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "name:en names a street-art / graffiti work (streetartcities-style names, no artwork_type): wall art, not a free-standing object"
+  },
+  {
+   "id": "n7178660385",
+   "name": "Obie Platon + Irlo",
+   "lat": 44.4395932,
+   "lon": 26.082276,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "name:en names a street-art / graffiti work (streetartcities-style names, no artwork_type): wall art, not a free-standing object"
+  },
+  {
+   "id": "n7178660389",
+   "name": "Obie Platon",
+   "lat": 44.439965,
+   "lon": 26.0929847,
+   "round2Reason": "wall-mounted (graffiti)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (graffiti)"
+  },
+  {
+   "id": "n7178666086",
+   "name": "Aitch Tiger",
+   "lat": 44.4445777,
+   "lon": 26.1010626,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "name:en names a street-art / graffiti work (streetartcities-style names, no artwork_type): wall art, not a free-standing object"
+  },
+  {
+   "id": "n7178666088",
+   "name": "Cross Legged Man",
+   "lat": 44.4445757,
+   "lon": 26.1011943,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "name:en names a street-art / graffiti work (streetartcities-style names, no artwork_type): wall art, not a free-standing object"
+  },
+  {
+   "id": "n7178668085",
+   "name": "Sweet Damage Crew Boy on TV",
+   "lat": 44.4453457,
+   "lon": 26.0993115,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "name:en names a street-art / graffiti work (streetartcities-style names, no artwork_type): wall art, not a free-standing object"
+  },
+  {
+   "id": "n7179072185",
+   "name": "Don’t panik!",
+   "lat": 44.4475089,
+   "lon": 26.1017114,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "name:en names a street-art / graffiti work (streetartcities-style names, no artwork_type): wall art, not a free-standing object"
+  },
+  {
+   "id": "n7179312085",
+   "name": "By Cutarica",
+   "lat": 44.4445825,
+   "lon": 26.1013882,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "name:en names a street-art / graffiti work (streetartcities-style names, no artwork_type): wall art, not a free-standing object"
+  },
+  {
+   "id": "n7843252185",
+   "name": "Tiger & Graffiti",
+   "lat": 44.4441364,
+   "lon": 26.0896542,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "name:en names a street-art / graffiti work (streetartcities-style names, no artwork_type): wall art, not a free-standing object"
+  },
+  {
+   "id": "n11205794909",
+   "name": "",
+   "lat": 44.4385242,
+   "lon": 26.1004578,
+   "round2Reason": "wall-mounted (graffiti)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (graffiti)"
+  },
+  {
+   "id": "n13125264745",
+   "name": "500 de ani de la reformație",
+   "lat": 44.4417384,
+   "lon": 26.091797,
+   "round2Reason": "wall-mounted (plaque)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (plaque)"
+  },
+  {
+   "id": "n13530417107",
+   "name": "",
+   "lat": 44.4431521,
+   "lon": 26.0904725,
+   "round2Reason": "wall-mounted (graffiti)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (graffiti)"
+  },
+  {
+   "id": "w256051276",
+   "name": "Casa Henri Coandă",
+   "lat": null,
+   "lon": null,
+   "round2Reason": "museum / building / indoor",
+   "verdict": "kept out",
+   "basis": "kept out: museum / memorial house or an indoor work (OSM level / building)"
+  },
+  {
+   "id": "w1410034830",
+   "name": "",
+   "lat": null,
+   "lon": null,
+   "round2Reason": "wall-mounted (mural)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (mural)"
+  },
+  {
+   "id": "n1439641175",
+   "name": "Monumentul Sfânta Vineri",
+   "lat": 44.4298569,
+   "lon": 26.1072592,
+   "round2Reason": "wall-mounted (plaque)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (plaque)"
+  },
+  {
+   "id": "n2486324771",
+   "name": "Horațiu",
+   "lat": 44.4309944,
+   "lon": 26.1000256,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "panorama OPtvWjzotRRHelaG81dCHg (44.430975, 26.099847) heading 81: a shop front (Bubble Waffles) at the mapped point, no free-standing statue; OSM itself has fixme \"Is this really here?\""
+  },
+  {
+   "id": "n2496554613",
+   "name": "Kilometrul 0",
+   "lat": 44.4326992,
+   "lon": 26.1040482,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "drawn as the generic plain marker",
+   "basis": "panorama FW4Rlti5tfUkf9fpP8YuJg (44.43275, 26.103793) heading 106 shows a free-standing object in the churchyard of Sf. Gheorghe Nou (comparison only); live OSM tags (tourism=artwork, name, source=survey) do not describe its form or material, so it is drawn as the generic plain marker (round 3 review, 2026-11-13), not as a sculpture of a read-off class"
+  },
+  {
+   "id": "n7128900791",
+   "name": "",
+   "lat": 44.4296306,
+   "lon": 26.1088018,
+   "round2Reason": "wall-mounted (plaque)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (plaque)"
+  },
+  {
+   "id": "n13197997353",
+   "name": "",
+   "lat": 44.4348164,
+   "lon": 26.1031192,
+   "round2Reason": "wall-mounted (plaque)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (plaque)"
+  },
+  {
+   "id": "n13197997354",
+   "name": "",
+   "lat": 44.4339366,
+   "lon": 26.103369,
+   "round2Reason": "wall-mounted (plaque)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (plaque)"
+  },
+  {
+   "id": "n13197997355",
+   "name": "",
+   "lat": 44.4349707,
+   "lon": 26.1030753,
+   "round2Reason": "wall-mounted (plaque)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (plaque)"
+  },
+  {
+   "id": "n13456671056",
+   "name": "",
+   "lat": 44.4315184,
+   "lon": 26.1058487,
+   "round2Reason": "wall-mounted (graffiti)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (graffiti)"
+  },
+  {
+   "id": "n14028212879",
+   "name": "",
+   "lat": 44.4351394,
+   "lon": 26.107616,
+   "round2Reason": "wall-mounted (plaque)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (plaque)"
+  },
+  {
+   "id": "w1176896690",
+   "name": "",
+   "lat": null,
+   "lon": null,
+   "round2Reason": "way without a centre in the extract and no name",
+   "verdict": "kept out",
+   "basis": "round-2 rule confirmed: way without a centre in the extract and no name"
+  },
+  {
+   "id": "n7849534785",
+   "name": "Walls for Freedom",
+   "lat": 44.4229749,
+   "lon": 26.1036445,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "name:en names a street-art / graffiti work (streetartcities-style names, no artwork_type): wall art, not a free-standing object"
+  },
+  {
+   "id": "n3643290937",
+   "name": "cloudsandclunkers",
+   "lat": 47.4398759,
+   "lon": -122.2978078,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "no official panorama within 50 m (inside the SeaTac/Airport station area); form unknown"
+  },
+  {
+   "id": "n5164278023",
+   "name": "Pantopol V",
+   "lat": 47.4388513,
+   "lon": -122.2977174,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "no official panorama within 50 m; form unknown"
+  },
+  {
+   "id": "n12377717964",
+   "name": "",
+   "lat": 47.4455514,
+   "lon": -122.2969214,
+   "round2Reason": "museum / building / indoor",
+   "verdict": "kept out",
+   "basis": "kept out: museum / memorial house or an indoor work (OSM level / building)"
+  },
+  {
+   "id": "n12377717973",
+   "name": "",
+   "lat": 47.445242,
+   "lon": -122.2969012,
+   "round2Reason": "museum / building / indoor",
+   "verdict": "kept out",
+   "basis": "kept out: museum / memorial house or an indoor work (OSM level / building)"
+  },
+  {
+   "id": "n13950614416",
+   "name": "Shared Breath",
+   "lat": 47.4448151,
+   "lon": -122.3033478,
+   "round2Reason": "museum / building / indoor",
+   "verdict": "kept out",
+   "basis": "kept out: museum / memorial house or an indoor work (OSM level / building)"
+  },
+  {
+   "id": "n13976556414",
+   "name": "Tree at C",
+   "lat": 47.4448079,
+   "lon": -122.3031516,
+   "round2Reason": "museum / building / indoor",
+   "verdict": "kept out",
+   "basis": "kept out: museum / memorial house or an indoor work (OSM level / building)"
+  },
+  {
+   "id": "n14013735472",
+   "name": "Infinity Column",
+   "lat": 47.440387,
+   "lon": -122.2983703,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "no official panorama within 50 m; form unknown"
+  },
+  {
+   "id": "n4741271672",
+   "name": "Compass",
+   "lat": 47.6138991,
+   "lon": -122.1918287,
+   "round2Reason": "tourism=artwork without artwork_type: form unknown",
+   "verdict": "kept out",
+   "basis": "panorama sJvwN-B1g-FhCPCOrfFs_g (47.613754, -122.191857) heading 7: trees and a garage wall, no object visible; form unknown"
+  },
+  {
+   "id": "n4741271673",
+   "name": "Longboat Reed Rookery",
+   "lat": 47.6145718,
+   "lon": -122.1926309,
+   "round2Reason": "museum / building / indoor",
+   "verdict": "kept out",
+   "basis": "kept out: museum / memorial house or an indoor work (OSM level / building)"
+  },
+  {
+   "id": "n11212853758",
+   "name": "Lincoln Square Fiori",
+   "lat": 47.6167801,
+   "lon": -122.2014287,
+   "round2Reason": "museum / building / indoor",
+   "verdict": "kept out",
+   "basis": "kept out: museum / memorial house or an indoor work (OSM level / building)"
+  },
+  {
+   "id": "n11214221844",
+   "name": "Lincoln Square End of the Day Chandelier",
+   "lat": 47.6167535,
+   "lon": -122.2014717,
+   "round2Reason": "museum / building / indoor",
+   "verdict": "kept out",
+   "basis": "kept out: museum / memorial house or an indoor work (OSM level / building)"
+  },
+  {
+   "id": "n12134850735",
+   "name": "",
+   "lat": 47.6187647,
+   "lon": -122.1839539,
+   "round2Reason": "wall-mounted (mural)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (mural)"
+  },
+  {
+   "id": "n13237845900",
+   "name": "Crossing Paths",
+   "lat": 47.6190932,
+   "lon": -122.1862209,
+   "round2Reason": "wall-mounted (mural)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (mural)"
+  },
+  {
+   "id": "n13237996411",
+   "name": "Colors of Joy I, II",
+   "lat": 47.619369,
+   "lon": -122.2002726,
+   "round2Reason": "wall-mounted (mural)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (mural)"
+  },
+  {
+   "id": "n13238424478",
+   "name": "A Tutti Frutti Crossing",
+   "lat": 47.6190367,
+   "lon": -122.1965284,
+   "round2Reason": "wall-mounted (mural)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (mural)"
+  },
+  {
+   "id": "n13238424479",
+   "name": "Water Lily",
+   "lat": 47.6175573,
+   "lon": -122.2019511,
+   "round2Reason": "wall-mounted (mural)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (mural)"
+  },
+  {
+   "id": "n13238424480",
+   "name": "Praise for You, Dive with Me",
+   "lat": 47.6162811,
+   "lon": -122.2015521,
+   "round2Reason": "wall-mounted (mural)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (mural)"
+  },
+  {
+   "id": "n13238424481",
+   "name": "The Shoppers, The Sidewalk, Passerby, 11AM Saturday Morning, The Intersection, The Crosswalk",
+   "lat": 47.6154748,
+   "lon": -122.2015319,
+   "round2Reason": "wall-mounted (mural)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (mural)"
+  },
+  {
+   "id": "n13238424482",
+   "name": "All Day Long the Earth Sings, The Sun Beckons",
+   "lat": 47.6139411,
+   "lon": -122.1991754,
+   "round2Reason": "wall-mounted (mural)",
+   "verdict": "kept out",
+   "basis": "kept out: OSM artwork_type / memorial is wall-mounted (mural)"
+  }
+ ]
+}

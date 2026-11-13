@@ -719,3 +719,38 @@ Street View was used only to look (official panoramas, ids found from coverage m
 
 MOL w235639134: white canopy on a row of round columns over the islands (panorama
 44.465747, 26.108980): now an open canopy.
+
+## Round 3 street-level review, lane look (2026-11-13)
+
+- **Sign colours** (floreasca-11, brand-review.js): the Mega Image store at Piața Floreasca w34832556 has white MEGA IMAGE letters on a
+  dark grey band with the red lion square (orHAmm3GllAsPPrvYACycA h105); the Dona pharmacy at the car-park entrance has teal panels with
+  white DONA letters (NWuTtHcsu_MBJEKTpucUsA h1). The pack's research palettes were red / white. Both are corrected for this district
+  only (one store each). No brand here has a Wikidata colour (P465). The generic navy / grey boards of unbranded businesses were not
+  changed; the two corrected boards read clearly in the render.
+- **MOL Barbu Văcărescu** w235639134: lime-green fascia with white MOL letters and a darker green lower band, white soffit, white round
+  columns, green-clad pumps (rt_5dQilD9RWXQ93yElt2w h33); dark grey pylon with a green edge in the kerbed bed by the south entrance on
+  Str. Barbu Văcărescu (same panorama h290; JP23iWj1iHarqB7b0BfNkA h169). Round 2 found no frontage street for a pylon; it now stands
+  at the reviewed place. The game drew a red fascia and doubled every column (the generic floating-part columns under the canopy).
+
+## Fidelity pass round 3 — landmarks lane (2026-11-13)
+
+Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
+
+- **Piața Floreasca / Agora** (w34832556, Calea Floreasca 111-113; pano 44.460443, 26.101023 h 240): two-storey light glass
+  curtain wall with hedges and terraces, Medicover / Agora signs. Review row: 9 m, two storeys, `glass` (was a 7.4 m dark
+  slatted shop box). The `glass` style ignores the row colour, so the glass renders darker blue than the real silver-grey.
+  The single-storey Banul Antonache side is the same OSM footprint and cannot be split.
+- **Nusco Floreasca 1** (w245407579, building=office; pano 44.461341, 26.101235 h 262): blue-grey reflective glass tower,
+  about six glazed storeys over a tall dark ground floor plus a set-back top storey. Review row: 27.5 m, 8 storeys, `glass`
+  (was an 11.6 m four-storey block). Storey count from the street; height an estimate.
+- **Souk** (w39348919, Calea Floreasca 131B; pano 44.462811, 26.101521 h 265): low white two-storey building with a red band
+  and dark roof edge. Review row: 7.5 m, two storeys, white `interwar` (was a 12.6 m four-storey block).
+- **Spitalul Euroclinic** (w245345976, OSM building:levels=7 kept; pano 44.454184, 26.100804 h 40): modern glass and pale
+  panel block seen only from about 40 m. Review row: style `glass` (was beige eclectic).
+- **Automatica Ford** (w39348916: building=construction, historic=building, start_date=1938, building:levels=2, check_date
+  2026-04-08; pano 44.464086, 26.101630 h 270, May 2024): white scaffold netting on scaffold tubes behind a dark navy hoarding.
+  New landmark `automatica` replaces the finished white hall of its own footprint: 10 m netting body (two OSM storeys; storey
+  height estimated), tube grid, 2.6 m navy hoarding on the mapped outline. Hoarding text is advertising and is not drawn.
+- **Statue, Parcul Cinema Floreasca** (w1171561661, tourism=artwork, artwork_type=statue, 16 × 15 m outline): the nearest
+  official panorama (44.461990, 26.105017 h 282) shows only park trees; the statue is not visible, form unknown, not modelled.
+- **Dinamo statue row** (n8013556514–18, n14180087101): no new panorama evidence (inside the grounds).

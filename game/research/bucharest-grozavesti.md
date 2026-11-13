@@ -546,3 +546,59 @@ not changed). Fuel: Lukoil w256806132 (open canopy on white columns, red fascia;
 (canopy on blue round columns) are now open canopies (fuel-canopy-review.js). Dâmbovița w170930341: from the north quay
 (44.443748, 26.058521, looking SSW) the water is about 1.5 m below the quay with a short sloped revetment; the reviewed
 section is now water -1.6 m (water-channel-review.js); the section is an estimate, seen at one place.
+
+## Round 3 (2026-11-13), lane structures
+
+Official Street View panoramas were looked at only (ids from coverage metadata); nothing was saved, traced or measured from them.
+
+Pasajul Basarab group: blue steel railings (rails and posts) on concrete kerb barriers on every deck
+seen (44.441673, 26.060264 h220; 44.444732, 26.061237 h13; plus the five round-2 panoramas); only the river-arch span carries the
+white tube guard rail with an outer pedestrian railing (44.443076, 26.060567 h250 — this panorama is on the UPPER deck: the round-2
+note that put it on Podul Grozăvești was wrong). Game: blue off the arch, white on it (basarab-structure.js BASARAB_GUARD_STEEL;
+the blue night band unchanged). Podul Grozăvești (street-level decks w128304847 / w128304855, 44.443114, 26.060816 h80): a row of
+concrete planters with shrubs at the kerb, a sidewalk, and a grey steel picket railing between square concrete posts at the
+water; the game had a 1.1 m concrete wall at the kerb and an open sidewalk edge over the river: now planters at the kerb (same
+collision rail) and the picket railing on the sidewalk edge (water-bridge-railings.js, bridge-guards.js). Regie footbridge
+w799487638 (`type=moon bridge`): humped open footbridge with green steel railings, street level at both ends (44.444677, 26.053527
+h220): drawn (pedestrian-bridges.js 'arched', rise 1.6 m and width 4.2 m are estimates). The Basarab station "footbridges"
+w738281332–45 are the footways on the two covered tram platforms (layer 1, level 1), already drawn by the platform model; the 5 m
+layer-3 connector w738281345 was not looked at. Pedestrian subways (w737986560/1, w277315766, w737868100, w980510524,
+w1071237750: tunnel=yes, layer -1) are underground; their entrances are not modelled.
+
+## Round 3 street-level review, lane look (2026-11-13)
+
+- **OMV Bd. Doina Cornea** w239359996 (grozavesti-3): green fascia with a blue OMV panel, white soffit, blue-clad columns and two or
+  three pump islands either side of the drive lane; a white pylon with a blue head stands by the grass at the west entrance
+  (o-A84Hr8qgnnLr-yuzR3ag h85, MvkbucAsNkIDNRPMJ6Q9Ag h172). The station's own mapped service lanes cross the canopy in three
+  directions, which is why round 2 found no strip; reviewed islands may now stand beside the drive lane (2.7 m clear of every service
+  centre line): three islands drawn. A second, plain white canopy (wash / shop side) is part of the same footprint area.
+- **Lukoil Șos. Orhideelor** w256806132: red fascia with white LUKOIL letters, white soffit, red-clad columns (hGqephV5yIK6jWNVMdcHBw
+  h70). No pylon on the frontage in two panoramas (a billboard stands there): the generic pylon is removed. Canopy top stays OSM
+  height=3 although the panorama suggests about 5 - 5.5 m.
+- **Petrom Bd. Al. I. Cuza** w237830689: yellow fascia with blue curved accents, round blue columns, canopy wrapping the kiosk; no
+  pylon from either street (dfKJPktXMs74JuwfOWbUDQ h88, lScnlaZqLyfRA7Kzl9V6nQ h358).
+- **MOL Bd. Dinicu Golescu** w326062450 (r2-world-b-mol-grz): seen at last from PXJbcAsSr6l3B5-zQqqutA h124: an open canopy on columns
+  with a green MOL fascia and a small kiosk. Now an open canopy (fuel-canopy-review.js, estimated 5.4 m top / 4.6 m clearance) with the
+  MOL fascia and boards from the way's own OSM brand tag; the pack has no fuel POI on it, so no pumps / pylon.
+
+## Fidelity pass round 3 — landmarks lane (2026-11-13)
+
+Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
+
+- **Turnul de apă, Belvedere** (w678037221: man_made=water_tower, historic, height=30, building:levels=8, roof:shape=cone,
+  r ≈ 5.6 m). Pano 44.447216, 26.061955 heading 19 (Calea Giulești) shows it clearly: weathered grey-beige rendered shaft with
+  flat pilasters and a single vertical row of small windows, a wider tank head with round windows and cornices, low crown.
+  New landmark `turnulapa` replaces the generic eight-window-row cylinder of its own footprint: tank head = the exact mapped
+  outline (traced from above), shaft radius 4.2 m (0.75 of the head, from the panorama's proportions), bands estimated, top
+  30 m (OSM), low cone behind a parapet (OSM roof:shape=cone). 946 triangles.
+- **Brico Dépôt / Altex** (w247015071, height=15, roof:shape=flat; Altex POI at its south-east corner). Panos 44.447216,
+  26.061955 h 0 and 44.448422, 26.062576 h 270: long light-grey ribbed panel box with a red fascia band, a red Altex front at
+  the south-east corner and a grey glazed entrance volume. Review row: style `plain`, light grey (was a dark glass hall).
+  The red Altex front section is not drawn (one colour per building record).
+- **Centrul Comercial Orhideea** (w23557062, height=8): pale panel façade with red bands, no continuous shop glazing; a red
+  entrance canopy at the north-west end (pano 44.444372, 26.061485 h 25). Review row: style `plain`, pale. The canopy is not
+  drawn (its outline and height are not mapped).
+- **Metrou Grozăvești west entrance** (n610921621 railway=subway_entrance; no OSM building). Pano 44.442913, 26.060332
+  h 256: low glazed pavilion, grey metal frames, shallow white roof, blue Metrorex "M" on the east front. New landmark
+  `grozmetro`: 10 × 5 m pavilion 3 m west of the door node (footprint, heights, position: estimates), 368 triangles. The
+  east entrance n2479115705 and the OSM roof w905217305 beside it were not looked at.

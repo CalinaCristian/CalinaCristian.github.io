@@ -104,8 +104,16 @@ function shed(ctx, b, bld, S, y0, isWater) {
             for (const [wy, wh] of S.eave >= 7 ? [[y0 + 1.15, 1.5], [y0 + 4.7, 1.35]] : [[y0 + 1.15, 1.5]]) { b.box(x + nx * 0.03, wy - 0.12, z + nz * 0.03, 1.9, wh + 0.24, 0.1, S.trim, 'paint', ry); b.box(x + nx * 0.07, wy, z + nz * 0.07, 1.62, wh, 0.1, '#1e2a33', 'darkglass', ry); } }
     }
     if (S.side) for (const sd of [-1, 1]) if (sd * vz < 0) { // the name again along the long side that faces north (Pier 58 and the spawn)
-        const sg = signBoard(S.side, 12, 1.3, { bg: S.wall, fg: S.signs[0][4], font: SERIF, frame: S.wall, depth: 0.1 }), p = P(hl - 16, sd * (hw + 0.12), e - 1.2);
-        sg.position.set(p[0], p[1], p[2]); sg.rotation.y = Math.atan2(sd * vx, sd * vz); ctx.add(sg); }
+        // round 3 (sea-spots-a-10): on the mapped wall piece itself (the longest footprint edge facing that side), not on the
+        // bounding box's side, which floats off the recessed parts of Pier 57
+        let best = null; for (let i = 0; i < n; i++) { const [ax, az] = bld.poly[i], [bx, bz] = bld.poly[(i + 1) % n], L = Math.hypot(bx - ax, bz - az); if (L < 13) continue;
+            let nx = (bz - az) / L, nz = -(bx - ax) / L; const mx = (ax + bx) / 2, mz = (az + bz) / 2; if (inPoly(mx + nx * 0.5, mz + nz * 0.5, bld.poly)) { nx = -nx; nz = -nz; }
+            if (nx * sd * vx + nz * sd * vz > 0.9 && (!best || L > best.L)) best = { L, mx, mz, nx, nz, dx: (bx - ax) / L, dz: (bz - az) / L }; }
+        const sg = signBoard(S.side, 12, 1.3, { bg: S.wall, fg: S.signs[0][4], font: SERIF, frame: S.wall, depth: 0.1 });
+        if (best) { const along = clamp(hl - 16 - ((best.mx - o.cx) * ux + (best.mz - o.cz) * uz), -(best.L / 2 - 6.2), best.L / 2 - 6.2), k = best.dx * ux + best.dz * uz >= 0 ? 1 : -1;
+            sg.position.set(best.mx + best.dx * along * k + best.nx * 0.12, e - 1.2, best.mz + best.dz * along * k + best.nz * 0.12); sg.rotation.y = Math.atan2(best.nx, best.nz); }
+        else { const p = P(hl - 16, sd * (hw + 0.12), e - 1.2); sg.position.set(p[0], p[1], p[2]); sg.rotation.y = Math.atan2(sd * vx, sd * vz); }
+        ctx.add(sg); }
     // names on the street gable
     let sy = y0 + Math.min(S.eave - 0.9, 6.4);
     for (const [text, w, h, bg, fg, font] of S.signs) { const sg = signBoard(text, Math.min(w, hw * 1.7), h, { bg, fg, font, frame: bg === S.wall ? S.wall : '#1d1f20', depth: 0.1 }); const p = P(hl + 0.12, 0, sy); sg.position.set(p[0], p[1], p[2]); sg.rotation.y = Math.atan2(ux, uz); ctx.add(sg); sy += h + 1.5; }
@@ -119,20 +127,100 @@ function overlook(ctx, b) {
     for (const up of [true, false]) { const geo = new THREE.ShapeGeometry(new THREE.Shape(ow.poly.map(([x, z]) => new THREE.Vector2(x, z)))); geo.rotateX(Math.PI / 2); const p = geo.attributes.position; for (let i = 0; i < p.count; i++) p.setY(i, top(p.getX(i), p.getZ(i)) - (up ? 0 : T));
         if (up !== (() => { geo.computeVertexNormals(); return geo.attributes.normal.getY(0) > 0; })()) { const ix = geo.index.array; for (let i = 0; i < ix.length; i += 3) { const t = ix[i + 1]; ix[i + 1] = ix[i + 2]; ix[i + 2] = t; } geo.computeVertexNormals(); }
         b.add(geo, 'concrete', null, up ? col : '#b9b5ac'); geo.dispose(); }
-    const n = ow.poly.length;
+    const n = ow.poly.length, open = overlookOpenings(d); // (round 3: no railing, no upstand across the mapped stair heads)
     for (let i = 0; i < n; i++) { const [ax, az] = ow.poly[i], [bx, bz] = ow.poly[(i + 1) % n], ya = top(ax, az), yb = top(bx, bz);
-        two(b, [ax, ya - T, az], [bx, yb - T, bz], [bx, yb + 0.25, bz], [ax, ya + 0.25, az], col, 'concrete'); // edge beam / upstand
-        b.rod([ax, ya + 1.1, az], [bx, yb + 1.1, bz], 0.035, '#5c6468', 'metal', 5); if (i % 2 === 0) b.rod([ax, ya + 0.25, az], [ax, ya + 1.1, az], 0.03, '#5c6468', 'metal', 4); }
+        two(b, [ax, ya - T, az], [bx, yb - T, bz], [bx, yb + (open((ax + bx) / 2, (az + bz) / 2) ? 0 : 0.25), bz], [ax, ya + (open((ax + bx) / 2, (az + bz) / 2) ? 0 : 0.25), az], col, 'concrete'); // edge beam / upstand
+        if (!open((ax + bx) / 2, (az + bz) / 2)) b.rod([ax, ya + 1.1, az], [bx, yb + 1.1, bz], 0.035, '#5c6468', 'metal', 5); if (i % 2 === 0 && !open(ax, az)) b.rod([ax, ya + 0.25, az], [ax, ya + 1.1, az], 0.03, '#5c6468', 'metal', 4); }
     const road = d.ways.find((w) => w.id === 'w1256939017')?.pts || [[-95.1, -201], [-79.6, -178.4]];
     const a = road[0], c = road[road.length - 1], L = Math.hypot(c[0] - a[0], c[1] - a[1]), ux = (c[0] - a[0]) / L, uz = (c[1] - a[1]) / L;
     for (let t = -18; t <= L + 18; t += 12) for (const s of [-1, 1]) { const x = a[0] + ux * t - uz * s * 12.5, z = a[1] + uz * t + ux * s * 12.5; if (!inPoly(x, z, ow.poly)) continue; const y = g.heightAt(x, z); b.cyl(x, y, z, 0.75, top(x, z) - T - y, '#c4c0b7', 'concrete', 14); ctx.circle(x, z, 0.8, 9); }
+    return walkOverlook(ctx, b, ow, top, T);
 }
 
+/**
+ * Round 3 (sea-spots-a-1): the Overlook Walk is walkable. The deck (OSM w1256939020) is a solid with its top at the deck
+ * level and its underside T below, so Alaskan Way (w1256939017, layer −1) still runs underneath; railings are walls in the
+ * deck's height band, open only where mapped stairs join it. Access as mapped: the Salish Steps (w1320933922 + w1320933923,
+ * steps "down" from the deck's west edge to the promenade), joined on the deck by the bridge steps w1320933924/5, and the
+ * stair core at the deck's east end (w1289027232–4 levels 1–3, footway w1289027233 level 4 on top, w1256939012): a
+ * four-level core too small to walk with the game's body, so it is a "take the stairs" use between its foot and the
+ * deck. Estimates: the Salish Steps' width (6.5 m, panorama cLi3KbZ4ALUiPoUywFMtKw looking 70°) and their even fall; the deck stays at one level over its west lobe
+ * (the bridge steps' own fall is not known).
+ */
+/** (x, z) on the deck edge where a mapped stair joins it: the Salish Steps' head (w1320933922) and the east stair core */
+function overlookOpenings(d) {
+    const way = (id) => d.ways.find((w) => w.id === id)?.pts || null, s = way('w1320933922'), c = way('w1289027232') || way('w1256939012'), pts = [];
+    if (s) pts.push([s[0][0], s[0][1], 6.5 / 2 + 0.8]);
+    if (c) pts.push([c.reduce((a, p) => a + p[0], 0) / c.length, c.reduce((a, p) => a + p[1], 0) / c.length, 5.5]);
+    return (x, z) => pts.some(([px, pz, r]) => Math.hypot(x - px, z - pz) < r);
+}
+function walkOverlook(ctx, b, ow, top, T) {
+    const g = ctx.ground, d = ctx.data, way = (id) => d.ways.find((w) => w.id === id)?.pts || null, out = { deck: true };
+    const lo = Math.min(...ow.poly.map(([x, z]) => top(x, z)));
+    g.addPoly(ow.poly, top, lo - T, { kind: 'overlook-walk' });
+    // the Salish Steps: one flight along the mapped ways, deck edge → promenade
+    const s1 = way('w1320933922'), s2 = way('w1320933923'), chain = s1 && s2 ? [...s1, ...s2.slice(1)] : null, gaps = [];
+    if (chain) {
+        const [x0, z0] = chain[0], [x1, z1] = chain[chain.length - 1], yTop = top(x0, z0), yBot = g.heightAt(x1 - 1.5, z1 + 0.5), W = 6.5;
+        let Ltot = 0; const cum = [0]; for (let i = 1; i < chain.length; i++) { Ltot += Math.hypot(chain[i][0] - chain[i - 1][0], chain[i][1] - chain[i - 1][1]); cum.push(Ltot); }
+        const yAt = (s) => yTop + (yBot - yTop) * (s / Ltot);
+        for (let i = 1; i < chain.length; i++) {
+            const [ax, az] = chain[i - 1], [bx, bz] = chain[i], L = cum[i] - cum[i - 1], ux = (bx - ax) / L, uz = (bz - az) / L, nx = -uz, nz = ux;
+            const ext = i === 1 ? -0.6 : 0, quad = [[ax - ux * 0.6 + nx * W / 2, az - uz * 0.6 + nz * W / 2], [bx + ux * 0.6 + nx * W / 2, bz + uz * 0.6 + nz * W / 2], [bx + ux * 0.6 - nx * W / 2, bz + uz * 0.6 - nz * W / 2], [ax - ux * 0.6 - nx * W / 2, az - uz * 0.6 - nz * W / 2]];
+            void ext;
+            g.addPoly(quad, (x, z) => yAt(clamp(cum[i - 1] + ((x - ax) * ux + (z - az) * uz), 0, Ltot)), Math.min(yAt(cum[i]), yAt(cum[i - 1])) - 1.2, { kind: 'salish-steps' });
+            // treads (0.17 m risers), stringer walls and handrails
+            const n = Math.max(1, Math.round((yAt(cum[i - 1]) - yAt(cum[i])) / 0.17));
+            for (let k = 0; k < n; k++) { const t = (k + 0.5) / n, x = ax + (bx - ax) * t, z = az + (bz - az) * t, y = yAt(cum[i - 1] + L * t); b.box(x, y - 0.17, z, W, 0.17, L / n + 0.02, '#c9c5bc', 'concrete', Math.atan2(ux, uz)); }
+            for (const s of [-1, 1]) { const px = nx * s * (W / 2 + 0.15), pz = nz * s * (W / 2 + 0.15), ya = yAt(cum[i - 1]), yb = yAt(cum[i]);
+                two(b, [ax + px, g.heightAt(ax + px, az + pz) - 0.3, az + pz], [bx + px, g.heightAt(bx + px, bz + pz) - 0.3, bz + pz], [bx + px, yb + 0.2, bz + pz], [ax + px, ya + 0.2, az + pz], '#bdb9b0', 'concrete');
+                b.rod([ax + px, ya + 1.05, az + pz], [bx + px, yb + 1.05, bz + pz], 0.035, '#5c6468', 'metal', 5);
+                ctx.collider({ wall: true, kind: 'salish-steps-rail', ax: ax + px, az: az + pz, bx: bx + px, bz: bz + pz, y0a: yBot - 1, y0b: yBot - 1, y1a: ya + 1.1, /* closed down to the promenade (cheek walls) */ y1b: yb + 1.1, nx: nx * s, nz: nz * s, x: (ax + bx) / 2 + px, z: (az + bz) / 2 + pz, r: L / 2 + 1, hw: 0, hd: 0, angle: 0, poly: null, h: 0 }); }
+        }
+        // the cheek wall under the flight down to the ground
+        gaps.push({ x: x0, z: z0, r: W / 2 + 0.8 });
+        out.salishSteps = { from: [x0, z0, +yTop.toFixed(2)], to: [x1, z1, +yBot.toFixed(2)], length: +Ltot.toFixed(1), slope: +((yTop - yBot) / Ltot).toFixed(2) };
+    }
+    // the east stair core (levels 1–4): a concrete tower; "take the stairs" between its foot and the deck
+    const core = way('w1289027232') || way('w1256939012');
+    if (core) {
+        const cx = core.reduce((s, p) => s + p[0], 0) / core.length, cz = core.reduce((s, p) => s + p[1], 0) / core.length, yG = g.heightAt(cx, cz), yD = top(cx, cz);
+        b.box(cx, yG, cz, 4.2, yD + 1.2 - yG, 3.6, '#bdb9b0', 'concrete', 0.55); ctx.box(cx, cz, 2.1, 1.8, -0.55, { h: yD - yG + 1.2 });
+        let foot = null, deck = null; for (let r = 3; r < 9 && (!foot || !deck); r += 0.5) for (let k = 0; k < 16; k++) { const a = k / 16 * Math.PI * 2, x = cx + Math.cos(a) * r, z = cz + Math.sin(a) * r; if (!deck && inPoly(x, z, ow.poly)) deck = { x, z }; if (!foot && !inPoly(x, z, ow.poly) && Math.abs(g.heightAt(x, z) - yG) < 0.6) foot = { x, z }; }
+        if (foot && deck) {
+            gaps.push({ x: deck.x, z: deck.z, r: 3.5 });
+            const go = (s, p, y) => { s.ctl.y = y; s.ctl.teleport(p.x, p.z, s.ctl.heading); s.sound?.play?.('step'); };
+            ctx.interactables.push({ kind: 'stairs', x: foot.x, z: foot.z, r: 2.6, label: 'Take the stairs up to the Overlook Walk', use: (s) => go(s, deck, yD) });
+            ctx.interactables.push({ kind: 'stairs', x: deck.x, z: deck.z, r: 2.6, label: 'Take the stairs down to Alaskan Way', use: (s) => go(s, foot, g.heightAt(foot.x, foot.z)) });
+            out.stairCore = { at: [+cx.toFixed(1), +cz.toFixed(1)], foot: [+foot.x.toFixed(1), +foot.z.toFixed(1)], deck: [+deck.x.toFixed(1), +deck.z.toFixed(1)], rise: +(yD - yG).toFixed(2) };
+        }
+    }
+    // railings: walls in the deck's band along every edge, open where stairs join
+    let rails = 0; const openAt = overlookOpenings(d);
+    for (let i = 0; i < ow.poly.length; i++) { const [ax, az] = ow.poly[i], [bx, bz] = ow.poly[(i + 1) % ow.poly.length], L = Math.hypot(bx - ax, bz - az); if (L < 0.3) continue;
+        const mx = (ax + bx) / 2, mz = (az + bz) / 2; if (openAt(mx, mz) || gaps.some((q) => Math.hypot(mx - q.x, mz - q.z) < q.r)) continue;
+        const ya = top(ax, az), yb = top(bx, bz);
+        ctx.collider({ wall: true, kind: 'overlook-rail', ax, az, bx, bz, y0a: ya - 0.3, y0b: yb - 0.3, y1a: ya + 1.1, y1b: yb + 1.1, nx: (bz - az) / L, nz: -(bx - ax) / L, x: mx, z: mz, r: L / 2 + 1, hw: 0, hd: 0, angle: 0, poly: null, h: 0 }); rails++; }
+    out.rails = rails;
+    ctx.extras.overlookWalk = out;
+    return out;
+}
+
+function norm2(x, z) { const L = Math.hypot(x, z) || 1; return [x / L, z / L]; }
 /** after ctx.osmBackdrop() */
 export function buildPiers(ctx, { deckY, isWater }) {
     const b = new GeoBatch(), built = [];
     for (const [id, S] of Object.entries(SHEDS)) { const bld = ctx.data.buildings.find((q) => q.id === id); if (!bld) continue; shed(ctx, b, bld, S, deckY + 0.08, isWater); built.push(S.name); }
     overlook(ctx, b);
+    // round 3 (sea-spots-a-2): the Ocean Pavilion (w1256939021) stands on a board-formed concrete base about 2.2 m high under
+    // its charcoal ribbed cladding, with a grey steel handrail along the sidewalk (panoramas d_zvaPdDFeRnyCx2epCvqA looking
+    // 250°, nVwg3181AIHZBcGR4Gy80w looking 270°). Base height estimated from those views.
+    { const op = ctx.data.buildings.find((q) => q.id === 'w1256939021');
+      if (op) { const P = op.poly, n = P.length, A = P.reduce((s, p, i) => s + p[0] * P[(i + 1) % n][1] - P[(i + 1) % n][0] * p[1], 0) > 0 ? 1 : -1, out = [];
+        for (let i = 0; i < n; i++) { const a = P[(i + n - 1) % n], c = P[i], e = P[(i + 1) % n]; const n1 = norm2(c[1] - a[1], -(c[0] - a[0])), n2 = norm2(e[1] - c[1], -(e[0] - c[0])); let mx = n1[0] + n2[0], mz = n1[1] + n2[1]; const L = Math.hypot(mx, mz) || 1; mx /= L; mz /= L; const k = 0.07 / Math.max(0.4, mx * n1[0] + mz * n1[1]); out.push([c[0] + A * mx * k, c[1] + A * mz * k]); }
+        const y0 = Math.min(...P.map(([x, z]) => ctx.ground.heightAt(x, z))) - 0.3;
+        b.prism(out, y0, y0 + 2.5, '#b9b6ad', 'concrete', { noTop: true });
+        ctx.extras.oceanPavilionBase = { source: op.id, top: +(y0 + 2.5).toFixed(2) }; } }
     const m = b.build('waterfront-piers'); ctx.add(m);
     ctx.extras.piers = { sheds: built, tris: b.tris };
     return ctx.extras.piers;

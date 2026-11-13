@@ -35,18 +35,52 @@ export function bucBackdrop(ctx, o = {}) {
     const boxes = Object.values(ctx.data.spots).map((s) => polyBox(s.extent?.polygon?.length ? s.extent.polygon : [[-150, -150], [150, 150]]));
     const pad = o.lampPad ?? 60, ex = ctx.exclude;
     const near = (x, z) => boxes.some((b) => x > b.x0 - pad && x < b.x1 + pad && z > b.z0 - pad && z < b.z1 + pad) && !ex.some((p) => inPoly(x, z, p));
-    ctx.osmBackdrop({
-        urban: true, style: o.style || bucStyle, shopStyle: 'bucshop',
-        streetTreeOpts: { spacing: 12, prob: 0.7, ...(o.streetTreeOpts || {}) },
-        lampOpts: { spacing: 32, inside: near, ...(o.lampOpts || {}) },
-        ...o,
-        paint: { centre: '#e8e6df', centreSingle: !o.doubleCentre, ...(o.paint || {}) },
-    });
+    // osm.js (hash-locked) glazes the ground floor of every urban building=yes over 7 m. In Bucharest a
+    // building=yes keeps that shopfront only with evidence (shopfrontKinds); the rest get a neutral kind for
+    // this one call (copies; source records and every later consumer keep the original tags). Old Town
+    // scenes opt out (shopEvidence: false): every street front there is commercial.
+    const d0 = ctx.data, swap = (o.urban ?? true) && o.shopEvidence !== false ? shopfrontKinds(d0) : null;
+    if (swap?.size) ctx.data = { ...d0, buildings: d0.buildings.map((b) => (swap.has(b) ? { ...b, ...swap.get(b) } : b)) };
+    try {
+        ctx.osmBackdrop({
+            urban: true, style: o.style || bucStyle, shopStyle: 'bucshop',
+            streetTreeOpts: { spacing: 12, prob: 0.7, ...(o.streetTreeOpts || {}) },
+            lampOpts: { spacing: 32, inside: near, ...(o.lampOpts || {}) },
+            ...o,
+            paint: { centre: '#e8e6df', centreSingle: !o.doubleCentre, ...(o.paint || {}) },
+        });
+    } finally { ctx.data = d0; }
+    if (swap) ctx.extras.shopEvidence = { plain: swap.size };
     ctx.treeLod = { dist: 45, cap: 3200, ...(o.treeLod || {}) };
     ctx.finishTrees = () => assignSpecies(ctx, o.species); // run by loadSpot after the scene added all its trees
     if (o.treeScale) for (const t of ctx.trees) t.s = (t.s || 0.9) * o.treeScale; // mature boulevard trees (Kiseleff: 15–20 m)
     ctx.lampOpts = { style: o.lampStyle || 'lantern', color: o.lampColor || '#1b1d1e', h: o.lampH || (o.lampStyle === 'candelabra' ? 9 : 4.4) };
 }
+
+// amenities that occupy a ground floor behind a street front (not street furniture, parking or places of worship)
+const FRONT_AMENITY = /^(restaurant|cafe|bar|pub|fast_food|ice_cream|biergarten|food_court|bank|bureau_de_change|pharmacy|clinic|dentist|doctors|veterinary|post_office|cinema|theatre|nightclub|casino|internet_cafe|car_rental|money_transfer|marketplace|community_centre|arts_centre|library|coworking_space|events_venue|stripclub|hookah_lounge|gambling)$/;
+const MAIN_ROAD = /^(trunk|primary|secondary)(_link)?$/, MAIN_REACH = 22; // carriageway centre line → building outline, metres
+/**
+ * building → kind override for the backdrop call: a building=yes keeps its (osm.js, whole-ring) shopfront only
+ * with evidence: a mapped front business inside or within 3 m of its outline, or an outline within 22 m of a
+ * trunk / primary / secondary carriageway (a labelled rule of thumb: the boulevard blocks of Calea 13 Septembrie
+ * and Bd. Unirii have commercial ground floors in Street View 2024 where OSM maps none). Others → 'building'.
+ * Blocks of flats are not promoted: osm.js glazes the whole ring, courtyards included (Str. C. A. Rosetti 2024).
+ */
+export function shopfrontKinds(d) {
+    const fronts = (d.pois || []).filter((p) => p.shop || p.craft || (p.amenity && FRONT_AMENITY.test(p.amenity)));
+    const mains = (d.ways || []).filter((w) => MAIN_ROAD.test(w.k || '') && !w.tunnel && !(+w.layer) && w.pts?.length > 1).map((w) => ({ pts: w.pts, bb: polyBox(w.pts) }));
+    const out = new Map();
+    for (const b of d.buildings) {
+        if (b.shop || b.amenity || !b.poly || b.poly.length < 3 || !/yes/.test(b.k || '')) continue;
+        const bb = polyBox(b.poly);
+        const hit = fronts.some((p) => p.x > bb.x0 - 3 && p.x < bb.x1 + 3 && p.z > bb.z0 - 3 && p.z < bb.z1 + 3 && (inPoly(p.x, p.z, b.poly) || ringDist(p.x, p.z, b.poly) <= 3));
+        const R = MAIN_REACH, main = !hit && mains.some((m) => m.bb.x0 < bb.x1 + R && m.bb.x1 > bb.x0 - R && m.bb.z0 < bb.z1 + R && m.bb.z1 > bb.z0 - R && (m.pts.some(([x, z]) => ringDist(x, z, b.poly) <= R) || b.poly.some(([x, z]) => ringDist(x, z, m.pts, true) <= R)));
+        if (!hit && !main) out.set(b, { k: 'building' });
+    }
+    return out;
+}
+function ringDist(x, z, poly, open = false) { let d = 1e9; for (let i = 0; i < poly.length - (open ? 1 : 0); i++) { const [ax, az] = poly[i], [bx, bz] = poly[(i + 1) % poly.length], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1, t = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / L2)); d = Math.min(d, Math.hypot(x - ax - dx * t, z - az - dz * t)); } return d; }
 
 /** broadleaf trees → species crowns (OSM species where mapped; else plane / linden / chestnut by weights) */
 export function assignSpecies(ctx, weights = { plane: 0.4, linden: 0.35, chestnut: 0.25 }) {

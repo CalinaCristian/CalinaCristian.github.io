@@ -134,12 +134,22 @@ export function buildBasarabStructure(data,grades,cellOf,group,edges=[],{roadReg
 /** `lit` (optional MeshBuilder): the blue band along the deck edge is repeated in it, for the night lighting. */
 /** `posts` (optional): the fractions along the piece where a post stands; by default one every 2.4 m and at both ends
  * (a run drawn piece by piece passes its own, so two pieces meeting at a point share one post). */
-export function drawBasarabGuard(w,cellOf,lit=null,posts=null){
+// (fidelity pass round 3, 2026-11-13) Railing colour by place, from official panoramas (game/research/bridge-guards.json):
+// the river-arch span keeps the white tube rails (44.443076, 26.060567 h250); every other deck of the group has BLUE steel
+// rails and posts (44.441673, 26.060264 h220; 44.444732, 26.061237 h13; 44.440785, 26.059039 h222; 44.447714, 26.064544 h1).
+export const BASARAB_GUARD_STEEL={arch:['#e4e8e7','#dce2e2'],deck:['#3f6eaa','#3a669e']};
+/** 'arch' when the guard piece's middle lies over the river-arch span (carriedSpans kind 'river-arch'), else 'deck'. */
+export function basarabGuardPlace(w,spans){
+ const mx=(w.ax+w.bx)/2,mz=(w.az+w.bz)/2;
+ for(const s of spans||[]){if(s.kind!=='river-arch')continue;const dx=s.b[0]-s.a[0],dz=s.b[1]-s.a[1],L2=dx*dx+dz*dz||1,t=((mx-s.a[0])*dx+(mz-s.a[1])*dz)/L2;if(t<0||t>1)continue;if(Math.hypot(mx-s.a[0]-dx*t,mz-s.a[1]-dz*t)<=s.halfWidthM)return 'arch';}
+ return 'deck';
+}
+export function drawBasarabGuard(w,cellOf,lit=null,posts=null,steel=BASARAB_GUARD_STEEL.arch){
  const L=Math.hypot(w.bx-w.ax,w.bz-w.az),n=Math.max(1,Math.ceil(L/2.4)),at=(t,h)=>[w.ax+(w.bx-w.ax)*t,w.y1a+(w.y1b-w.y1a)*t-1.1+h,w.az+(w.bz-w.az)*t];
- for(const h of [.48,.97])bridgeBeam(cellOf,at(0,h),at(1,h),.1,'#e4e8e7');
+ for(const h of [.48,.97])bridgeBeam(cellOf,at(0,h),at(1,h),.1,steel[0]);
  bridgeBeam(cellOf,at(0,.1),at(1,.1),.18,'#456e9a');
  if(lit)bridgeBeam(()=>({solid:lit}),at(0,.1),at(1,.1),.215,'#456e9a');
- for(const t of posts||Array.from({length:n+1},(_,i)=>i/n))bridgeBeam(cellOf,at(t,.15),at(t,1.08),.085,'#dce2e2');
+ for(const t of posts||Array.from({length:n+1},(_,i)=>i/n))bridgeBeam(cellOf,at(t,.15),at(t,1.08),.085,steel[1]);
 }
 
 /** Completed bridge form from the builder's description/photos. Untagged

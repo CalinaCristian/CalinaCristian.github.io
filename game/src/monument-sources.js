@@ -4,6 +4,9 @@
 // (artwork_type / memorial / man_made), material and height where tagged. `form` is the OSM class, not a likeness.
 // Left out on purpose (59 objects): wall-mounted works (mural, graffiti, plaque, relief), objects inside a building or on an
 // indoor level, memorial houses / museums, and tourism=artwork without an artwork_type (form unknown: nothing is invented).
+// (round 3, 2026-11-13) Those 59 were re-checked against live OSM tags and, where an official panorama reaches them,
+// Street View: 57 stay out (records in game/research/monuments-review.json); 2 artworks are free-standing outdoor objects
+// and are listed at the end with the class seen.
 // A record without lat/lon is an OSM way whose position comes from the district's own POI of the same name.
 // Data © OpenStreetMap contributors (ODbL).
 export const MONUMENT_SOURCES = [
@@ -114,6 +117,58 @@ export const MONUMENT_SOURCES = [
     {"id":"n13005673846","lat":47.6176504,"lon":-122.1966465,"name":"","form":"sculpture"},
     {"id":"n13797309890","lat":47.6149201,"lon":-122.1929528,"name":"#BVUE","form":"sculpture"},
     {"id":"n14156589862","lat":47.6151269,"lon":-122.1965668,"name":"","form":"sculpture"},
+    // (round 3, 2026-11-13: review of the 59 left-out objects) two `tourism=artwork` nodes without an artwork_type are
+    // free-standing outdoor objects in official panoramas; their class (`form`) comes from that look, position from OSM:
+    {"id":"n2496554613","lat":44.4326992,"lon":26.1040482,"name":"Kilometrul 0","form":"marker","review":"(round 3 review) live OSM tags are tourism=artwork, name, source=survey only: no artwork_type, material or height, so the form is not described; drawn as the generic plain marker (the earlier sculpture / bronze class was read from panorama FW4Rlti5tfUkf9fpP8YuJg, which is comparison-only)"},
+    {"id":"n3495777662","lat":44.44385,"lon":26.1009476,"name":"","form":"statue","material":"stone","review":"panorama MEOXvDv_jIyjjHmsQMop0g (44.443858, 26.100822) heading 95: pale stone standing figure on a plinth in a small fenced garden"},
+    // (round 3, unirii-small) wayside crosses: OSM historic=wayside_cross / man_made=cross (live Overpass 2026-11-13, all
+    // district areas); position and material from OSM; the small stone wayside-cross class (MONUMENT_MODEL.totalM.wayside: the crosses seen in
+    // panorama WTniXBNPVx6ZDxHLKCnDSQ at Piața Universității are about 1 - 1.5 m stone crosses in the grass median)
+    {"id":"n304797077","lat":44.472712,"lon":26.0880269,"name":"Crucea Secolului","form":"wayside"},
+    {"id":"n940839126","lat":44.4354201,"lon":26.1296811,"name":"Cruce de piatră","form":"wayside","material":"stone"},
+    {"id":"n979600941","lat":44.4353596,"lon":26.1254268,"name":"","form":"wayside","material":"stone"},
+    {"id":"n1015159329","lat":44.435956,"lon":26.1022266,"name":"Crucea lui Neofit","form":"wayside","material":"stone"},
+    {"id":"n2079451985","lat":44.427951,"lon":26.1030037,"name":"Troița Mântuirii Neamului","form":"wayside"},
+    {"id":"n3462282897","lat":44.4324085,"lon":26.1042897,"name":"","form":"wayside"},
+    {"id":"n6068484019","lat":44.4254364,"lon":26.0790059,"name":"","form":"wayside"},
+    {"id":"n9411250345","lat":44.4258573,"lon":26.1005318,"name":"Cruce de piatră","form":"wayside","material":"stone"},
+    {"id":"n9412760700","lat":44.4282139,"lon":26.1000593,"name":"","form":"wayside"},
+    {"id":"n10726686135","lat":44.4218671,"lon":26.1032576,"name":"Crucea lui Leon Vodă","form":"wayside","material":"stone"},
+    {"id":"n10728222293","lat":44.4247745,"lon":26.0978416,"name":"Crucea logofătului Stoica","form":"wayside","material":"stone"},
+    {"id":"n10728222294","lat":44.4247812,"lon":26.0978363,"name":"","form":"wayside"},
+    {"id":"n10728222295","lat":44.4247883,"lon":26.0978294,"name":"","form":"wayside"},
+    {"id":"n10879373891","lat":44.4469599,"lon":26.0966777,"name":"Cruci tradiționale","form":"wayside","material":"wood"},
+    {"id":"n10880733306","lat":44.4359984,"lon":26.1021645,"name":"","form":"wayside","material":"stone"},
+    {"id":"n10880733307","lat":44.4360116,"lon":26.1022096,"name":"","form":"wayside","material":"stone"},
+    {"id":"n10880733308","lat":44.4469708,"lon":26.0966945,"name":"","form":"wayside"},
+    {"id":"n10880733309","lat":44.4469489,"lon":26.0966612,"name":"","form":"wayside"},
+    {"id":"n10936492467","lat":44.4360194,"lon":26.1021798,"name":"","form":"wayside","material":"stone"},
+    {"id":"n11329678363","lat":44.4582544,"lon":26.0959133,"name":"","form":"wayside","material":"stone"},
+    {"id":"n11329689813","lat":44.4915147,"lon":26.0768188,"name":"","form":"wayside","material":"stone"},
+    {"id":"n11329707722","lat":44.4456564,"lon":26.0837349,"name":"","form":"wayside","material":"stone"},
+    {"id":"n11329728418","lat":44.4439523,"lon":26.0887761,"name":"Cruce de piatră","form":"wayside","material":"stone"},
+    {"id":"n11329734994","lat":44.4429375,"lon":26.1270337,"name":"","form":"wayside","material":"stone"},
+    {"id":"n11329747450","lat":44.4483298,"lon":26.1268042,"name":"Cruce de piatră","form":"wayside","material":"stone"},
+    {"id":"n11329812302","lat":44.4292806,"lon":26.0954961,"name":"","form":"wayside","material":"stone"},
+    {"id":"n12383729689","lat":47.5687356,"lon":-122.2217651,"name":"","form":"wayside"},
+    {"id":"n12760788625","lat":47.5685702,"lon":-122.2219293,"name":"","form":"wayside"},
+    {"id":"n13004158393","lat":44.4707432,"lon":26.0776646,"name":"","form":"wayside","material":"stone"},
+    {"id":"n13004250195","lat":44.4718781,"lon":26.0776254,"name":"","form":"wayside","material":"stone"},
+    {"id":"n13004324741","lat":44.4713726,"lon":26.0789974,"name":"","form":"wayside"},
+    {"id":"n13004338624","lat":44.4715037,"lon":26.079005,"name":"","form":"wayside"},
+    {"id":"n13004345465","lat":44.4713536,"lon":26.0789767,"name":"","form":"wayside"},
+    {"id":"n13004348611","lat":44.471347,"lon":26.0790163,"name":"","form":"wayside"},
+    {"id":"n13004356201","lat":44.471368,"lon":26.0790377,"name":"","form":"wayside"},
+    {"id":"n13004478988","lat":44.4707277,"lon":26.077672,"name":"","form":"wayside"},
+    {"id":"n13006371272","lat":44.4316979,"lon":26.098773,"name":"","form":"wayside"},
+    {"id":"n13090488958","lat":47.5675012,"lon":-122.2217665,"name":"","form":"wayside"},
+    {"id":"n13205546563","lat":47.5676376,"lon":-122.2218331,"name":"","form":"wayside"},
+    {"id":"n13891041942","lat":44.4358962,"lon":26.1022531,"name":"","form":"wayside","material":"wood"},
+    {"id":"n13925723133","lat":44.4357301,"lon":26.1023013,"name":"","form":"wayside","material":"stone"},
+    {"id":"n13925723134","lat":44.4357495,"lon":26.102336,"name":"","form":"wayside","material":"stone"},
+    {"id":"n13925723135","lat":44.4357149,"lon":26.1022968,"name":"","form":"wayside","material":"stone"},
+    {"id":"n13925723136","lat":44.4357304,"lon":26.10233,"name":"","form":"wayside","material":"stone"},
+    {"id":"n13925723137","lat":44.4357249,"lon":26.1023612,"name":"","form":"wayside","material":"stone"},
 ];
 // named OSM objects of these classes that are not free-standing, or whose form is unknown: never given a generic object
 export const MONUMENT_NOT_FREESTANDING = ["colecția de artă plastica \"fr. storck și cecilia cutescu storck\"","muzeul memorial \"george călinescu\"","casa memorială \"ion minulescu\"","casa memorială \"liviu rebreanu - fanny rebreanu\"","decebal","casa memorială \"constantin joja\"","culori pe cale de disparitie","obie platon","500 de ani de la reformație","casa henri coandă","monumentul sfânta vineri","horațiu","kilometrul 0","cloudsandclunkers","pantopol v","shared breath","tree at c","infinity column","compass","longboat reed rookery","lincoln square fiori","lincoln square end of the day chandelier","crossing paths","colors of joy i, ii","a tutti frutti crossing","water lily","praise for you, dive with me","the shoppers, the sidewalk, passerby, 11am saturday morning, the intersection, the crosswalk","all day long the earth sings, the sun beckons"];

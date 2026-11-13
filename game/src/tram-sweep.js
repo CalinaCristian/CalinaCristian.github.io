@@ -64,6 +64,17 @@ export function tramBodyProfiles(makeVehicle, city = 'bucharest', kinds = ['tram
     }).filter(b => b.lengthM > 0 && b.widthM > 0 && b.outline.length);
 }
 
+// one number per grid cell (unique within ±786 km of the origin at 24 m cells), cheaper to look up than an 'i,j' string
+const cellKey = (i, j) => (i + 32768) * 65536 + (j + 32768);
+// the part [t0, t1] of a segment (offset o, change d along one axis) within ±h of the axis, or null when it is empty
+const slabOut = [0, 0];
+function slab(o, d, h, t0, t1) {
+    if (Math.abs(d) < 1e-12) { if (Math.abs(o) >= h) return null; slabOut[0] = t0; slabOut[1] = t1; return slabOut; }
+    let e = (-h - o) / d, l = (h - o) / d; if (e > l) { const q = e; e = l; l = q; }
+    t0 = Math.max(t0, e); t1 = Math.min(t1, l); if (t0 >= t1) return null;
+    slabOut[0] = t0; slabOut[1] = t1; return slabOut;
+}
+
 /**
  * @param network buildTramNetwork(...) result (or { edges })
  * @param bodies  [{ lengthM, widthM, outline: [[y, z], ...] }]
@@ -84,7 +95,7 @@ export function buildTramSweep(network, bodies, model = TRAM_SWEEP_MODEL, { keep
         if (keep && !keep(p)) { report.outsideDomain++; return; }
         const ex = Math.abs(p.fx) * p.hl + Math.abs(p.fz) * p.hw, ez = Math.abs(p.fz) * p.hl + Math.abs(p.fx) * p.hw;
         for (let i = Math.floor((p.x - ex) / cell); i <= Math.floor((p.x + ex) / cell); i++) for (let j = Math.floor((p.z - ez) / cell); j <= Math.floor((p.z + ez) / cell); j++) {
-            const k = i + ',' + j; let list = cells.get(k); if (!list) cells.set(k, list = []); list.push(p);
+            const k = cellKey(i, j); let list = cells.get(k); if (!list) cells.set(k, list = []); list.push(p);
         }
         poses.push(p);
     };
@@ -143,7 +154,7 @@ export function buildTramSweep(network, bodies, model = TRAM_SWEEP_MODEL, { keep
     const near = (x0, z0, x1, z1, fn) => {
         const seen = x1 - x0 > cell || z1 - z0 > cell ? new Set() : null;
         for (let i = Math.floor(x0 / cell); i <= Math.floor(x1 / cell); i++) for (let j = Math.floor(z0 / cell); j <= Math.floor(z1 / cell); j++) {
-            const list = cells.get(i + ',' + j); if (!list) continue;
+            const list = cells.get(cellKey(i, j)); if (!list) continue;
             for (const p of list) { if (seen) { if (seen.has(p)) continue; seen.add(p); } if (fn(p)) return p; }
         }
         return null;
@@ -158,13 +169,9 @@ export function buildTramSweep(network, bodies, model = TRAM_SWEEP_MODEL, { keep
     const segment = (a, b, r = 0, y0 = -Infinity, y1 = Infinity) => near(Math.min(a[0], b[0]) - r, Math.min(a[1], b[1]) - r, Math.max(a[0], b[0]) + r, Math.max(a[1], b[1]) + r, p => {
         if (!(y1 > p.lo && y0 < p.hi)) return false;
         const ua = (a[0] - p.x) * p.fx + (a[1] - p.z) * p.fz, va = (a[1] - p.z) * p.fx - (a[0] - p.x) * p.fz, ub = (b[0] - p.x) * p.fx + (b[1] - p.z) * p.fz, vb = (b[1] - p.z) * p.fx - (b[0] - p.x) * p.fz;
-        let t0 = 0, t1 = 1;
-        for (const [o, d, h] of [[ua, ub - ua, p.hl + r], [va, vb - va, p.hw + r]]) {
-            if (Math.abs(d) < 1e-12) { if (Math.abs(o) >= h) return false; continue; }
-            let e = (-h - o) / d, l = (h - o) / d; if (e > l) [e, l] = [l, e];
-            t0 = Math.max(t0, e); t1 = Math.min(t1, l); if (t0 >= t1) return false;
-        }
-        return true;
+        // the slab test along the pose's length, then across it (written out: no arrays per pose, the same arithmetic)
+        const span = slab(ua, ub - ua, p.hl + r, 0, 1); if (!span) return false;
+        return !!slab(va, vb - va, p.hw + r, span[0], span[1]);
     });
     /** parts [f0, f1] of a wall that stay outside every cover; heights may vary linearly along it */
     const freeRuns = (a, b, { r = 0, y0a = -Infinity, y1a = Infinity, y0b = y0a, y1b = y1a, pieceM = .5 } = {}) => {

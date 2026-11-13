@@ -61,8 +61,23 @@ self.onmessage = (ev) => {
     if (m.type === 'pack') { fetchDistrictPackText(m.url).then((text) => self.postMessage({ id: m.id, text }), (e) => self.postMessage({ id: m.id, error: String(e && e.stack || e) })); return; }
     try {
         if (m.type === 'reset') { roofs.clear(); specs.clear(); deckSpec = null; deckShared = null; deckDescents.clear(); deckPads.clear(); cuts = []; overlapLive = []; overlapIndex = new Map(); overlapCells = null; return; }
+        if (m.type === 'roofMeshes') {
+            const out = m.roofs.map((r) => {
+                const mesh = roofMesh(ring(r.ring), r.holes.map(ring), r.profile, triangulate);
+                const faces = new Float64Array(mesh.faces.length * 9), walls = new Float64Array(mesh.walls.length * 12), normals = new Float64Array(mesh.wallNormals.length * 3);
+                let k = 0; for (const f of mesh.faces) { if (f.length !== 3) throw new Error('roof: face of ' + f.length); for (const p of f) { faces[k++] = p[0]; faces[k++] = p[1]; faces[k++] = p[2]; } }
+                k = 0; for (const w of mesh.walls) { if (w.length !== 4) throw new Error('roof: wall of ' + w.length); for (const p of w) { walls[k++] = p[0]; walls[k++] = p[1]; walls[k++] = p[2]; } }
+                k = 0; for (const n of mesh.wallNormals) { normals[k++] = n[0]; normals[k++] = n[1]; normals[k++] = n[2]; }
+                return { faces, walls, normals };
+            });
+            self.postMessage({ id: m.id, out }, out.flatMap((r) => [r.faces.buffer, r.walls.buffer, r.normals.buffer]));
+            return;
+        }
         if (m.type === 'deckModels') { deckSpec = { ...m.spec, padIds: new Map(m.spec.pads) }; deckShared = null; deckDescents.clear(); deckPads.clear(); return; }
-        if (m.type === 'deck') { const r = shapeDeckSoup(m.input, deckHeight(m.grade, m.verge)); self.postMessage({ id: m.id, ...r }, [r.p.buffer, r.n.buffer, r.u.buffer, r.c.buffer]); return; }
+        if (m.type === 'deck') {
+            const f = deckHeight(m.grade, m.verge), fn = m.scaleY != null ? (x, z, y) => f(x, z) * Math.max(0, Math.min(1, y / m.scaleY)) : f; // (world.js: yAlong · clamp(y / Y.road, 0, 1))
+            const r = shapeDeckSoup(m.input, fn, m.withTile); self.postMessage({ id: m.id, ...r }, [r.p.buffer, r.n.buffer, r.u.buffer, r.c.buffer, ...(r.t ? [r.t.buffer] : [])]); return;
+        }
         if (m.type === 'roofSpecs') { for (const sp of m.specs) specs.set(sp.i, { kind: sp.kind, ring: ring(sp.ring), holes: sp.holes.map(ring), profile: sp.profile, h: sp.h }); return; }
         if (m.type === 'clip') { const r = clipJob(m); self.postMessage(r, r.faces ? [r.faces.buffer] : []); return; }
         if (m.type === 'clips') {

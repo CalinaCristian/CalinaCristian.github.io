@@ -30,11 +30,10 @@ function clipHalf(subject, keep) {
     return out;
 }
 
-/** clipHalf(subject, p => -keep(p)) and clipHalf(subject, keep) in one pass, keep evaluated once per point. Exact: the
+/** clipHalf(subject, p => -keep(p)) and clipHalf(subject, keep) in one pass, from f[i] = keep(subject[i]). Exact: the
  *  negated values give the same tests and t = (−fp) / ((−fp) − (−fq)) = fp / (fp − fq) bit for bit. */
-function clipBoth(subject, keep) {
-    const n = subject.length, f = new Array(n), neg = [], pos = [];
-    for (let i = 0; i < n; i++) f[i] = keep(subject[i]);
+function clipSides(subject, f) {
+    const n = subject.length, neg = [], pos = [];
     for (let i = 0; i < n; i++) {
         const j = (i + 1) % n, p = subject[i], q = subject[j], fp = f[i], fq = f[j];
         // outside part: −fp ≥ 0
@@ -51,13 +50,20 @@ function clipBoth(subject, keep) {
  *  Piece k is the subject inside the first k-1 edge half-planes and outside the k-th: the pieces do not overlap and
  *  their union is exactly the difference. A non-convex subject is clipped correctly by convex regions (Sutherland-
  *  Hodgman can leave zero-width bridges along a clip edge; they have no area and draw nothing). */
-export function subtractConvex(subject, convex) {
-    const s = Math.sign(area(convex)) || 1, pieces = [];
+let sides = new Float64Array(64); // (scratch: the side of each point of the part being clipped)
+export function subtractConvex(subject, convex, s = Math.sign(area(convex)) || 1) {
+    const pieces = [];
     let rest = subject;
     for (let i = 0; i < convex.length && rest.length >= 3; i++) {
-        const a = convex[i], b = convex[(i + 1) % convex.length];
-        const inside = p => s * ((b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0]));
-        const [outsidePart, insidePart] = clipBoth(rest, inside);
+        const a = convex[i], b = convex[(i + 1) % convex.length], n = rest.length;
+        // the side of every point; a rest wholly on one side is clipSides' answer without its copies (spec 10 load time):
+        // all outside → the whole rest is the outside piece (the same points, in order); all inside → the rest goes on
+        if (sides.length < n) sides = new Float64Array(2 * n);
+        const f = sides; let below = 0, above = 0;
+        for (let k = 0; k < n; k++) { const p = rest[k], v = s * ((b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0])); f[k] = v; if (v < 0) below++; else if (v > 0) above++; }
+        if (below === n) { const outsidePart = rest.slice(); if (Math.abs(area(outsidePart)) > 1e-6) pieces.push(outsidePart); rest = []; break; }
+        if (above === n) continue;
+        const [outsidePart, insidePart] = clipSides(rest, f);
         if (outsidePart.length >= 3 && Math.abs(area(outsidePart)) > 1e-6) pieces.push(outsidePart);
         rest = insidePart;
     }
@@ -168,6 +174,12 @@ export function overlapCandidates(live, from, to, { minOverlapM2 = 2, heightMarg
     }
     return { cutters, skipped };
 }
+/** pieces.flatMap(p => subtractConvex(p, convex)), the convex's orientation found once */
+function subtractAll(pieces, convex) {
+    const sign = Math.sign(area(convex)) || 1, out = [];
+    for (const p of pieces) for (const q of subtractConvex(p, convex, sign)) out.push(q);
+    return out;
+}
 export function overlapPieces(cutters, { minPieceM2 = 4 } = {}) {
     const cuts = [];
     for (const [lower, list] of cutters) {
@@ -175,10 +187,10 @@ export function overlapPieces(cutters, { minPieceM2 = 4 } = {}) {
         for (const { parts, courtyards } of list) {
             // what lies in the taller building's courtyards is not inside it: kept, cut out of the solid part only
             const kept = courtyards ? pieces.flatMap(p => courtyards.map(c => intersectConvex(p, c)).filter(Boolean)) : [];
-            for (const part of parts) pieces = pieces.flatMap(p => subtractConvex(p, part));
+            for (const part of parts) pieces = subtractAll(pieces, part);
             pieces.push(...kept);
         }
-        if (lower.holeParts) for (const hole of lower.holeParts) pieces = pieces.flatMap(p => subtractConvex(p, hole));
+        if (lower.holeParts) for (const hole of lower.holeParts) pieces = subtractAll(pieces, hole);
         pieces = pieces.filter(p => Math.abs(area(p)) >= minPieceM2);
         cuts.push({ lower, tallers: list.map(q => q.taller), overlapM2: list.reduce((n, q) => n + q.ov, 0), pieces, removedM2: Math.abs(area(lower.ring)) - (lower.holes || []).reduce((n, h) => n + Math.abs(area(h)), 0) - pieces.reduce((n, p) => n + Math.abs(area(p)), 0) });
     }
@@ -231,7 +243,7 @@ export async function planOverlapCutsParallel(recs, pool, opts = {}) {
     pool.overlapRecords(packed);
     // the workers plan the first ranges; the last share is planned here meanwhile (on the records themselves, as
     // planOverlapCuts does), and joined last, so the order is the same
-    const mainFrom = live.length - Math.floor(live.length / (pool.size + 2));
+    const mainFrom = live.length - Math.floor(live.length / 2); // (the workers first unpack every record: this thread takes half)
     const step = Math.ceil(mainFrom / (pool.size * 4)), jobs = [];
     for (let a = 0; a < mainFrom; a += step) jobs.push(pool.overlap(a, Math.min(mainFrom, a + step), opts));
     let here = null;

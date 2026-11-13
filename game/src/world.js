@@ -84,6 +84,7 @@ import { emitFacadeBands } from './facade-bands.js';
 import { placeTreeAdditions } from './tree-additions.js';
 import { channelProfile } from './water-channel-review.js';
 import { sunkenLake, waterOutlineException } from './sunken-lakes.js';
+import { emitFreewayCuts } from './freeway-cut.js';
 import { carParkOf, carParkLevels, emitCarParkWall, reviewedCarParkHeight } from './car-parks.js';
 import { emitFuelForecourt } from './fuel-forecourt.js';
 import { fuelStationRow, fuelLookFor, fasciaQuads } from './fuel-look.js';
@@ -2114,6 +2115,14 @@ export async function buildWorld(city, renderer, opts = {}) {
         elevatedSources, facadeBands, fallbackApertures, horizon, monuments, parkWalls, pedestrianBridges, playgrounds,
         railStats, retainingBanks, roofMat, scenerySourceAudit, sceneryStreets, signMats, signTex, underpassMouths, weirs,
     } = __buildScenery;
+    // (backlog bellevue-2) a freeway in a cut under a cross-street bridge: median barrier and abutment walls (freeway-cut.js)
+    const freewayCuts = emitFreewayCuts({ district: distId, proj: (la, lo) => city.proj(la, lo), onRibbon, cellOf, rgb,
+        deckAbove: (x, z) => { let top = null; ribGrid.each(x, z, x, z, (rb) => { // (the lowest raised carriageway / pad over the point: its surface height)
+            if (rb.y <= 1.0 || x < rb.x0 || x > rb.x1 || z < rb.z0 || z > rb.z1 || !pointInPolygon(x, z, rb.poly)) return;
+            const h = rb.e ? rb.e.ya + (rb.e.yb - rb.e.ya) * clamp(((x - rb.e.a.x) * rb.e.dirx + (z - rb.e.a.z) * rb.e.dirz) / rb.e.len, 0, 1) : rb.node.y;
+            if (h > 1.0 && (top === null || h < top)) top = h; }); return top; },
+        solidAt: (x, z, r) => pierColl.some(p => Math.abs(p.x - x) < (p.r || 1) + r && Math.abs(p.z - z) < (p.r || 1) + r),
+        addCollider: (x, z, hw, hd, angle, h, kind, cut) => propColl.push({ x, z, hw, hd, angle, r: Math.hypot(hw, hd), poly: null, h, prop: true, kind, sourceId: cut.id, estimated: true }) });
     // (world final meshes: world-final-meshes.js)
     const __buildFinalMeshes = buildFinalMeshes({
         US, areaMat, areas, backdropMat, bigWater, buildingAt, cells, cellsGroup,
@@ -2328,7 +2337,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.tramPropEnvelope = tramPropEnvelope;
     stats.tramSweep = tramSweep ? { ...tramSweep.report, conflicts: tramSweepConflicts } : null;
     stats.tramRailings = tramRailings;
-    stats.monuments = monuments; stats.playgrounds = playgrounds; stats.carParkFronts = carParkFronts; stats.parkWalls = parkWalls; stats.retainingBanks = retainingBanks; stats.deckLamps = deckLamps; stats.facadeBands = facadeBands; stats.treeAdditions = treeAdditions; stats.weirs = weirs; stats.medianLinkSidewalks = medianLinkSidewalks;
+    stats.monuments = monuments; stats.playgrounds = playgrounds; stats.carParkFronts = carParkFronts; stats.parkWalls = parkWalls; stats.retainingBanks = retainingBanks; stats.freewayCuts = freewayCuts; stats.deckLamps = deckLamps; stats.facadeBands = facadeBands; stats.treeAdditions = treeAdditions; stats.weirs = weirs; stats.medianLinkSidewalks = medianLinkSidewalks;
     stats.fuelForecourts = fuelForecourts;
     stats.landmarkWaterFootprints = landmarkWaterFootprints;
     stats.trenchGroundCuts = { corridors: trenchQuads.length, channelWaterTriangles: channelCuts.length, triangles: trenchCutTris }; // (ground layers cut out of open trenches and sunken water channels)

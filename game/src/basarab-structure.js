@@ -147,8 +147,10 @@ export function basarabGuardPlace(w,spans){
 export function drawBasarabGuard(w,cellOf,lit=null,posts=null,steel=BASARAB_GUARD_STEEL.arch){
  const L=Math.hypot(w.bx-w.ax,w.bz-w.az),n=Math.max(1,Math.ceil(L/2.4)),at=(t,h)=>[w.ax+(w.bx-w.ax)*t,w.y1a+(w.y1b-w.y1a)*t-1.1+h,w.az+(w.bz-w.az)*t];
  for(const h of [.48,.97])bridgeBeam(cellOf,at(0,h),at(1,h),.1,steel[0]);
- bridgeBeam(cellOf,at(0,.1),at(1,.1),.18,'#456e9a');
+ // the blue fascia; with the night light band (lit) the band's box (0.215 m, same ends) encloses the 0.18 m fascia, so the band
+ // is the fascia: drawing both doubled ~46,000 triangles in Basarab frames and coplanar end caps (r2-perf-6)
  if(lit)bridgeBeam(()=>({solid:lit}),at(0,.1),at(1,.1),.215,'#456e9a');
+ else bridgeBeam(cellOf,at(0,.1),at(1,.1),.18,'#456e9a');
  for(const t of posts||Array.from({length:n+1},(_,i)=>i/n))bridgeBeam(cellOf,at(t,.15),at(t,1.08),.085,steel[1]);
 }
 

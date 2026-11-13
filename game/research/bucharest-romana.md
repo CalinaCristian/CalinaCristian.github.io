@@ -959,3 +959,66 @@ Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
   (Overpass 2026-11-13); the nearest footprints are w546500238 (11 m), w546500256 (16 m) and w546500250 (31 m). From pano
   44.450834, 26.094312 h 60 the red-brick gabled house and a cream one-storey house both stand there; which outline is the
   museum is not settled, so nothing is changed.
+
+## Round 4, backlog clearance (2026-11-13)
+
+Sources: live OSM, the official panorama poses recorded in the backlog rows (looked at only, nothing stored), the cited pages.
+
+- **Statuia Lascăr Catargiu** (r3-landmarks-4): the aerial-measured crown about 11 m south-east of the statue (no OSM tree node)
+  stood on the paved island that the official panorama at 44.448932, 26.093057 h 331 shows open; it hid the figure. It is now a
+  reviewed physical exclusion (`game/src/tree-reviews.js`); the source record stays in the pack.
+- **Casa Filipescu-Cesianu** w131269864 (r3-landmarks-3): OSM `roof:shape=quadruple_saltbox` is not a shape the roof builder
+  draws (it fell back to a plain hipped roof); the building-review row now draws it as a mansard (`roofShape`) with oval dormers
+  (`game/src/reviewed-dormers.js`: one per 3.6 m along each face, size and set-back estimates). The OSM tag stays in the profile.
+- **Casa Gheorghe Petrașcu** w171045146 (r3-look-12): Viggo n5602930826 lies 4.4 m inside the south-west face (8 m from the west
+  face), not at the east front seen from Yv9RTMCoVSMxEoPO0dOE7g h 245. The front is now beige ornamented stone with a window grid;
+  the Viggo shop front stays only on the south-west face (`shopFaceAt` in the review row).
+- **Storck collection** (r3-landmarks-7): the museum is the house of 1912–13 by Alexandru Clavel, described as Anglo-Norman
+  neo-Gothic (Muzeul Bucureștiului, cimec ghidul muzeelor); Wikipedia's coordinates (44.4509722, 26.0944917) lie 12 m from
+  w546500256, the red-brick gabled house, and 19 / 25 m from w546500238 / w546500250. w546500256 is now a red-brick two-storey
+  gabled house without a shop floor, w546500238 the cream one-storey house (storeys from pano 44.450834, 26.094312 h 60; heights
+  9 m / 4.5 m are estimates). OSM still tags the museum node `tourism=artwork` in no outline: a tagging fix for OSM
+  (tourism=museum on w546500256), not made here.
+- **Muzeul Țăranului Român** r2552618 (r2-districts-view-10): two tall storeys under a steep red tile roof (6 m rise inside the
+  unchanged 19.6 m total), red brick, no shop floor.
+- **Pasajul Victoria hall** (romana-1): the shared hall now has the steel fence between the piers along the road edge of the
+  platform, benches and a stop pole on the platform only where the hall holds a mapped tram stop (the four `Piața Victoriei`
+  tram_stop nodes, x ≈ -376 … -329), and dark lamp housings with orange (sodium) lenses every 9 m under the soffit
+  (`game/src/hall-furniture.js`; 139 posts, 20 benches, 103 lamps at HEAD). Render checked inside the hall.
+- **Royal Palace / Carol I** (r2-landmarks-3): the court front of the central body carries paired giant columns on pedestals,
+  a dentilled cornice and the attic balustrade (landmarks.js `bRegal`); the Carol I statue n1883108499 is drawn with a new
+  `equestrian` monument class (horse and rider on a tall plinth, OSM height 13 m kept). Its form comes from the node's own tags
+  (wikipedia=en:Equestrian statue of Carol I, artist Florin Codre, 2010).
+- **Pasajul Victoria flicker / overlap** (r2-perf-2), re-measured at HEAD with a two-render 2 mm camera shift: at the four
+  underpass points (-506.8, -413.3), (-386.8, -413.7), (-267.8, -424.7) and (-701.6, -417.2) the changing pixels are moving
+  vehicles and road-texture shimmer; no coplanar pair (second hit within 5 cm) except the markings over the road (3 cm, by
+  design). The Titulescu overlap points (-629.4, -434.8) / (-606.7, -435.5) render without a visible step from street level
+  and above. The 6.8 m² overlap of a building outline with service edge 1193 at (-642.1, -470.5) is a source-data overlap
+  (both mapped), kept as mapped.
+
+### Estimates
+
+- **Monumentul Infanteriei Române** (n987467409, romana-11): a bronze work by Ioan Bolborea, unveiled 27 April 2000 on the site of
+  the interwar infantry monument (ro.wikipedia "Parcul Kiseleff", citing Formula AS "Coloana lui Bolborea": a column). Its form
+  and height are not visible from any official panorama on Șos. Kiseleff (hidden by trees) and no source gives dimensions, so it
+  stays the generic bronze `stele` class of `monument-sources.js` (an upright column-like mass), size from the class.
+- **Muzeul Țăranului Român**: the total height (19.6 m, a re-estimate) and the 6 m roof rise are not measurable from the street
+  (the museum stands behind the Kiseleff tree belt); the entrance tower has no OSM `building:part` and no sourced height, so it is
+  not drawn.
+- **Pasajul Victoria hall**: platform and pier sizes, fence height (1.1 m), post / bench / lamp spacing and the lamp colour are
+  estimates (`HALL_FURNITURE_MODEL.estimates`); no OSM object maps them.
+- **Pasajul Victoria rim balustrade** (`trench-parapets.js`): the class comes from the east-ramp panorama and is applied to
+  every open approach of the way; the west ramp has not been compared at its own pose, pier spacing and heights are estimates,
+  and the cast panel ornament is simplified to bars.
+- **Pasajul Victoria ramp grades** (`grade-review.js`): the eastbound west ramp w27008418 descends at half the model grade
+  (walls seen 115 m before the portal); the westbound exit ramp w241374320 keeps the model grade (9 %, about 67 m): it was not
+  seen from its own carriageway, and a longer ramp would pass at full depth under the at-grade crossing of the same way in the
+  data, so its real start stays an estimate.
+- **Royal Palace front**: column radius, pair spacing (one pair per two 4.2 m bays), cornice depth, dentil and baluster pitch
+  are estimates; the equestrian Carol I is massing only (plinth / group split of the 13 m OSM height estimated).
+
+## Backlog clearing (2026-11-13)
+
+- **Not seen from any street panorama** (backlog r2-districts-view-15): Piscina Lido (w810540711), Mavrogheni church
+  (w78841431), SNSPA (w23647615), Casa Henri Coandă (w256051276). Drawn from OSM outlines and classes; their look is the class
+  estimate. Hotel Minerva (w171045151) is covered by the review above.

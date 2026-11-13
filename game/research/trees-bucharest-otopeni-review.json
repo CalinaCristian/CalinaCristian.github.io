@@ -4,8 +4,8 @@
   "sourceInput": "game/research/trees-bucharest-otopeni.json",
   "rawInputSha256": "1770ef2b3523b77825b6e8ed582279bc338f4a3f36ebfc8c001df3f973985dac",
   "rawCandidateCount": 31433,
-  "remainingCandidateCount": 30733,
-  "excludedCount": 700,
+  "remainingCandidateCount": 30668,
+  "excludedCount": 765,
   "affectedCompiledBeforeCount": 380,
   "reviewedAt": "2026-11-08",
   "provider": "Esri World Imagery",
@@ -17858,5 +17858,674 @@
     "This is a bounded review of airport airside and yellow-marking candidates, not a new manual census of every automatically extracted crown.",
     "Aerial acquisition date is unknown. Ambiguous shrubs, vegetation strips and possible crowns remain unchanged; no source-tree parity claim follows from candidate counts."
   ],
-  "rawOrderedCandidatesSha256": "45c2b60dedc9ad09e36be4be279e9a4ebf50512a2a7971ba2c9ecd6275b4b3bd"
+  "rawOrderedCandidatesSha256": "45c2b60dedc9ad09e36be4be279e9a4ebf50512a2a7971ba2c9ecd6275b4b3bd",
+  "dn1FieldsReview20261113": {
+    "backlog": "r3-look-9 (otopeni-4)",
+    "reviewedAt": "2026-11-13",
+    "box": [
+      44.563,
+      26.0705,
+      44.568,
+      26.078
+    ],
+    "crownsInBox": 307,
+    "provider": "Esri World Imagery (z19 tiles viewed in a headless browser; nothing stored or committed)",
+    "method": "Every measured crown of the box drawn at its measured radius over the z19 imagery (0.21 m/px); twelve 1100 x 900 px review sheets inspected, then a verification sheet with the excluded crowns in red. Only candidates on paving are excluded; crowns, hedgerow trees, the wood and every ambiguous dark-green patch on grass remain. No thinning. The district pack lost the same 65 trees (targeted removal, no rebuild).",
+    "result": {
+      "kept": 242,
+      "excluded": 65
+    },
+    "exclusions": [
+      {
+        "surveyIndexBefore": 20474,
+        "candidate": [
+          44.564174,
+          26.076806,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On paving (apron / pad edge); no foliage."
+      },
+      {
+        "surveyIndexBefore": 20547,
+        "candidate": [
+          44.564533,
+          26.076742,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On paving (apron / pad edge); no foliage."
+      },
+      {
+        "surveyIndexBefore": 20686,
+        "candidate": [
+          44.565168,
+          26.076817,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20704,
+        "candidate": [
+          44.565244,
+          26.07686,
+          4
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20732,
+        "candidate": [
+          44.565367,
+          26.076838,
+          4
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20764,
+        "candidate": [
+          44.565474,
+          26.076828,
+          3.1
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20783,
+        "candidate": [
+          44.565535,
+          26.076795,
+          2.8
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20790,
+        "candidate": [
+          44.565565,
+          26.07671,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20801,
+        "candidate": [
+          44.565604,
+          26.076774,
+          4.9
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20805,
+        "candidate": [
+          44.565611,
+          26.076635,
+          4
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20821,
+        "candidate": [
+          44.565672,
+          26.076763,
+          4.9
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20833,
+        "candidate": [
+          44.565726,
+          26.076742,
+          3.9
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20847,
+        "candidate": [
+          44.565756,
+          26.07686,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20850,
+        "candidate": [
+          44.565779,
+          26.076795,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20865,
+        "candidate": [
+          44.565825,
+          26.076592,
+          2.8
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20874,
+        "candidate": [
+          44.565864,
+          26.07657,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20886,
+        "candidate": [
+          44.565902,
+          26.076581,
+          2.8
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20887,
+        "candidate": [
+          44.565902,
+          26.076688,
+          5.7
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20891,
+        "candidate": [
+          44.565917,
+          26.076774,
+          2.9
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20906,
+        "candidate": [
+          44.565978,
+          26.076763,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20910,
+        "candidate": [
+          44.565993,
+          26.076688,
+          4.9
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20921,
+        "candidate": [
+          44.566047,
+          26.076559,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20922,
+        "candidate": [
+          44.566047,
+          26.076838,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20924,
+        "candidate": [
+          44.566055,
+          26.076613,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20927,
+        "candidate": [
+          44.566062,
+          26.076699,
+          4.9
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20933,
+        "candidate": [
+          44.566085,
+          26.076903,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20935,
+        "candidate": [
+          44.5661,
+          26.076828,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20940,
+        "candidate": [
+          44.566108,
+          26.076549,
+          2.8
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20943,
+        "candidate": [
+          44.566123,
+          26.076688,
+          4.9
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20963,
+        "candidate": [
+          44.566169,
+          26.076538,
+          2.8
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20973,
+        "candidate": [
+          44.5662,
+          26.076677,
+          5.5
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20991,
+        "candidate": [
+          44.566246,
+          26.076795,
+          2.8
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 20999,
+        "candidate": [
+          44.566261,
+          26.076549,
+          4.4
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21010,
+        "candidate": [
+          44.566292,
+          26.076667,
+          4.9
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21022,
+        "candidate": [
+          44.566322,
+          26.076517,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21024,
+        "candidate": [
+          44.56633,
+          26.07657,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21030,
+        "candidate": [
+          44.566345,
+          26.076785,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21042,
+        "candidate": [
+          44.566383,
+          26.076506,
+          2.8
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21043,
+        "candidate": [
+          44.566383,
+          26.076667,
+          5.3
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21047,
+        "candidate": [
+          44.566391,
+          26.07657,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21048,
+        "candidate": [
+          44.566391,
+          26.076774,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21056,
+        "candidate": [
+          44.566444,
+          26.076484,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21069,
+        "candidate": [
+          44.566513,
+          26.076774,
+          2.8
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21078,
+        "candidate": [
+          44.566551,
+          26.076474,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21079,
+        "candidate": [
+          44.566559,
+          26.076753,
+          2.9
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21098,
+        "candidate": [
+          44.566628,
+          26.076763,
+          3.5
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21108,
+        "candidate": [
+          44.566674,
+          26.076645,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21122,
+        "candidate": [
+          44.566735,
+          26.076817,
+          3.5
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21126,
+        "candidate": [
+          44.566743,
+          26.076677,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21140,
+        "candidate": [
+          44.566773,
+          26.076699,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21149,
+        "candidate": [
+          44.566796,
+          26.076559,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21154,
+        "candidate": [
+          44.566804,
+          26.076881,
+          2.8
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21159,
+        "candidate": [
+          44.566811,
+          26.076731,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21169,
+        "candidate": [
+          44.566842,
+          26.076581,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21170,
+        "candidate": [
+          44.566842,
+          26.076935,
+          3.5
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21175,
+        "candidate": [
+          44.56685,
+          26.076774,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21179,
+        "candidate": [
+          44.566865,
+          26.076613,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21184,
+        "candidate": [
+          44.566872,
+          26.076806,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21196,
+        "candidate": [
+          44.566895,
+          26.076645,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21197,
+        "candidate": [
+          44.566895,
+          26.076838,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21203,
+        "candidate": [
+          44.566918,
+          26.076871,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21213,
+        "candidate": [
+          44.566941,
+          26.076913,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21217,
+        "candidate": [
+          44.566949,
+          26.076699,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21255,
+        "candidate": [
+          44.567025,
+          26.076838,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      },
+      {
+        "surveyIndexBefore": 21264,
+        "candidate": [
+          44.567048,
+          26.076892,
+          2.2
+        ],
+        "classification": "reviewed non-crown",
+        "reason": "On the airside taxiway: dark rubber-streaked asphalt between the painted edge lines and the taxiway lights; no foliage."
+      }
+    ]
+  }
 }

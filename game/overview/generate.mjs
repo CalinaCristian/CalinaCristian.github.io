@@ -70,7 +70,7 @@ if (process.argv.includes('--check-visitor-galleries')) {
 const sourceSha = process.argv.find(x => x.startsWith('--source='))?.slice(9) || execFileSync('git', ['rev-parse','HEAD'], {cwd:root, encoding:'utf8'}).trim();
 const citySource = read('game/src/cities.js');
 const { CITIES, CHAPTERS } = await import('data:text/javascript;base64,' + Buffer.from(citySource).toString('base64'));
-const landmarkSource = read('game/src/landmarks.js');
+const landmarkSource = read('game/src/landmarks.js') + read('game/src/landmarks/anchors.js'); // registry + anchors (spec 22 split)
 const anchors = Object.fromEntries([...landmarkSource.split('const A = {')[1].split('\n};')[0].matchAll(/(\w+): \[(-?[\d.]+),\s*(-?[\d.]+),/g)].map(m=>[m[1],{lat:+m[2],lon:+m[3]}]));
 const landmarks = [...landmarkSource.matchAll(/^\s+L\('([^']+)', '([^']+)', '((?:\\.|[^'])+)', .*?, (b\w+)(?:, \{|\))/gm)].map(m => ({id:m[1],city:m[2],name:m[3].replace(/\\'/g,"'"),builder:m[4],...anchors[m[1]]}));
 // Each L() call remains on one line. Avoid requiring a WebGL/browser module during generation.

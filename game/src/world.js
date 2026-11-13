@@ -2555,6 +2555,8 @@ export async function buildWorld(city, renderer, opts = {}) {
             mb.flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, y, col, uvS);
         },
     });
+    // the reach of clipMarkingHalfPlane's tolerance (1e-10 of edge length × distance) around a surface polygon, with room
+    const surfMargins = new WeakMap(), surfMargin = o => { let m = surfMargins.get(o); if (m === undefined) { let L = Infinity; for (let i = 0; i < o.poly.length; i++) { const a = o.poly[i], b = o.poly[(i + 1) % o.poly.length], l = Math.hypot(b[0] - a[0], b[1] - a[1]); if (l >= 1e-10) L = Math.min(L, l); } m = Number.isFinite(L) ? Math.max(1e-6, 4e-10 / L) : Infinity; surfMargins.set(o, m); } return m; };
     const markProxy = (mb, e) => ({
         flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, y, col, uvS) {
             this.flatPolygon([[x0,z0],[x1,z1],[x2,z2],[x3,z3]],y,col,uvS);
@@ -2564,8 +2566,12 @@ export async function buildWorld(city, renderer, opts = {}) {
             const kept=own?clipMarkingConvex(input,own):input, ownedArea=markingArea(kept), blockers=[], seen=new Set();
             if(kept.length){
                 const xs=kept.map(p=>p[0]),zs=kept.map(p=>p[1]);let unsupported=false;
-                surfGrid.each(Math.min(...xs),Math.min(...zs),Math.max(...xs),Math.max(...zs),o=>{
+                const kx0=Math.min(...xs),kz0=Math.min(...zs),kx1=Math.max(...xs),kz1=Math.max(...zs);
+                surfGrid.each(kx0,kz0,kx1,kz1,o=>{
                     if(o.e===e||seen.has(o))return;seen.add(o);
+                    // (spec 10 load budget) the clip keeps only points within its tolerance of every edge of o.poly (shrunk by
+                    // the inset): bounds farther apart than that tolerance leave no region, as clipMarkingConvex finds
+                    const m=surfMargin(o);if(kx0>o.x1+m||kx1<o.x0-m||kz0>o.z1+m||kz1<o.z0-m)return;
                     const region=clipMarkingConvex(kept,o.poly,o.e ? .15 : 0);if(!region.length)return;
                     const low=o.e?(markWins(e,o.e) ? .01 : -.01):-1;
                     const blocked=clipAffineMarkingRange(region,p=>o.h(p[0],p[1])-yAlong(e,p[0],p[1]),low,1);

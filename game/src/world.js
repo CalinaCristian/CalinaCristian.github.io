@@ -4173,10 +4173,14 @@ export async function buildWorld(city, renderer, opts = {}) {
     //      in Floreasca / Romană they are interwar villas (plaster, low hipped roof), and a lone house among office towers
     //      (Pipera, Bd. Dimitrie Pompeiu) reads as a low commercial block. Seattle keeps its wooden houses.
     if (!US) {
-        const tall = bRecs.filter(b => b.h > 20);
+        // (spec 10 load budget) the tall buildings by 70 m cell (each in the cell of its centre): a house reads the 3 × 3
+        // cells round its own; the same distances, so the same count of those nearer than 70 m (up to 3)
+        const tallCells = new Map(), tallKey = (i, j) => i * 100003 + j;
+        for (const t of bRecs) if (t.h > 20) { const k = tallKey(Math.floor(t.c[0] / 70), Math.floor(t.c[1] / 70)); let l = tallCells.get(k); if (!l) tallCells.set(k, l = []); l.push(t); }
         for (const b of bRecs) {
             if (b.style !== 'house') continue;
-            let n = 0; for (const t of tall) if (Math.hypot(t.c[0] - b.c[0], t.c[1] - b.c[1]) < 70 && ++n >= 3) break;
+            let n = 0; const bi = Math.floor(b.c[0] / 70), bj = Math.floor(b.c[1] / 70);
+            near: for (let i = bi - 1; i <= bi + 1; i++) for (let j = bj - 1; j <= bj + 1; j++) for (const t of tallCells.get(tallKey(i, j)) || []) if (Math.hypot(t.c[0] - b.c[0], t.c[1] - b.c[1]) < 70 && ++n >= 3) break near;
             if (n >= 3 && !(b.flags & 16) && !b.roofProfile) { b.style = 'plain'; b.roof = 'flat'; }
             else { b.style = 'interwar'; b.villa = true; if (!b.roofProfile && !(b.flags & 16) && (b.roof === 'gabled' || b.roof === 'pitched')) b.roof = 'hipped'; } // (flags 16: roof shape measured — OSM / aerial survey — kept)
         }

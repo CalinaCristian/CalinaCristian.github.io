@@ -70,16 +70,23 @@ export function sceneryBridgeProfiles(data, profiles, coreEdges = []) {
         return { name, branches, directions, bridge };
     };
     const continuationEvidence = new Map();
-    const sourceBuildingVertices = new Map();
-    for (const [index, ring] of Object.entries(data.buildingFootprints || {})) for (const p of ring) {
-        const key = p[0].toFixed(4) + ',' + p[1].toFixed(4);
-        if (!sourceBuildingVertices.has(key)) sourceBuildingVertices.set(key, data.buildingIds?.[index]);
-    }
+    // (spec 10 load budget) every source building vertex by its 0.1 mm key, made when a short service way first asks
+    let sourceBuildingVertices = null;
+    const buildingVertexAt = key => {
+        if (!sourceBuildingVertices) {
+            sourceBuildingVertices = new Map();
+            for (const [index, ring] of Object.entries(data.buildingFootprints || {})) for (const p of ring) {
+                const k = p[0].toFixed(4) + ',' + p[1].toFixed(4);
+                if (!sourceBuildingVertices.has(k)) sourceBuildingVertices.set(k, data.buildingIds?.[index]);
+            }
+        }
+        return sourceBuildingVertices.get(key);
+    };
     const buildingEntry = (n, incoming, e) => {
         if (!incoming.piece.bridge || layerOf(incoming.piece.tags, true) <= 0 || e.piece.type !== 'service' || e.piece.tags.name || e.piece.tags.layer !== undefined || e.piece.edges.length !== 1 || e.len > 30) return null;
         const end = e.a === n ? e.b : e.a;
         if (end.links.length !== 1 || !(end.sourceNode > 0)) return null;
-        return sourceBuildingVertices.get(end.p[0].toFixed(4) + ',' + end.p[1].toFixed(4)) || null;
+        return buildingVertexAt(end.p[0].toFixed(4) + ',' + end.p[1].toFixed(4)) || null;
     };
     // (owner, 2026-11-11, Grozavesti (1069, -849): "looks broken") A raised core road leaving the district on a way that is
     // not tagged bridge (Pasajul Basarab: layer 0, 6.6 m up at the map end) had its scenery continuation drawn at street
@@ -119,10 +126,14 @@ export function sceneryBridgeProfiles(data, profiles, coreEdges = []) {
     // A bridge over a real lower road needs an estimated clearance. River/rail-only bridges stay at grade.
     for (const e of originalEdges.filter(e => e.piece.bridge || raisedTie.includes(e.piece))) {
         const upper = e.piece.bridge ? layerOf(e.piece.tags, true) : Math.max(1, layerOf(e.piece.tags, true)), candidates = [];
-        for (const f of coreEdges) if (!f.virtual && !f.tunnel && data.roadSourceGeometry?.[f.road]?.sourceId !== e.piece.source.sourceId && upper > (f.bridge ? Math.max(1, f.layer || 1) : 0)) {
+        // (spec 10 load budget) a segment whose box lies more than 1 cm from e's box cannot cross it (crossing's tolerance is
+        // 1e-6 of a segment's own length): it is not a candidate
+        const ex0 = Math.min(e.a.p[0], e.b.p[0]) - .01, ex1 = Math.max(e.a.p[0], e.b.p[0]) + .01, ez0 = Math.min(e.a.p[1], e.b.p[1]) - .01, ez1 = Math.max(e.a.p[1], e.b.p[1]) + .01;
+        const apart = (ax, az, bx, bz) => Math.max(ax, bx) < ex0 || Math.min(ax, bx) > ex1 || Math.max(az, bz) < ez0 || Math.min(az, bz) > ez1;
+        for (const f of coreEdges) if (!apart(f.a.x, f.a.z, f.b.x, f.b.z) && !f.virtual && !f.tunnel && data.roadSourceGeometry?.[f.road]?.sourceId !== e.piece.source.sourceId && upper > (f.bridge ? Math.max(1, f.layer || 1) : 0)) {
             candidates.push({ a: [f.a.x, f.a.z], b: [f.b.x, f.b.z], y0: f.ya, y1: f.yb, halfW: Math.max(f.wL, f.wR), id: data.roadSourceGeometry?.[f.road]?.sourceId, sourceNodeIds: [f.a.sourceId, f.b.sourceId], core: true });
         }
-        for (const f of originalEdges) if (f.piece.source.sourceId !== e.piece.source.sourceId && upper > layerOf(f.piece.tags, f.piece.bridge) && (!f.piece.tags.tunnel || f.piece.tags.tunnel === 'no')) {
+        for (const f of originalEdges) if (!apart(f.a.p[0], f.a.p[1], f.b.p[0], f.b.p[1]) && f.piece.source.sourceId !== e.piece.source.sourceId && upper > layerOf(f.piece.tags, f.piece.bridge) && (!f.piece.tags.tunnel || f.piece.tags.tunnel === 'no')) {
             candidates.push({ a: f.a.p, b: f.b.p, y0: f.a.coreY ?? 0, y1: f.b.coreY ?? 0, halfW: Math.max(f.piece.profile.leftM, f.piece.profile.rightM), id: f.piece.source.sourceId, edge: f });
         }
         for (const f of candidates) {

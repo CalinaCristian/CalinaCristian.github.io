@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { LANDMARKS, buildLandmark } from '../../game/src/landmarks.js';
-import { collideBuildings } from '../../game/src/world.js';
+import { collideBuildings } from '../../game/src/world-collide.js';
 import { pointInPolygon } from '../../game/src/util.js';
 import { footprintCoverage } from '../../game/src/building-parts.js';
 import { readDistrictData } from '../osm/district-data.mjs';

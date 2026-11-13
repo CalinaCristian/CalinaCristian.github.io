@@ -5,7 +5,7 @@ Research pass 2026-11-07 (spec 20, R12.2 / R11), re-checked against live OSM on 
 ## Counts
 
 - 2026-11-07: 361 businesses in the zone, 89 within 60 m of the route; 119 chain brands; 5 confirmed by an official locator; confidence high 28 / medium 220 / low 113; 1 chain store missing from its locator; 2 closed per lifecycle tags on the route.
-- 2026-11-12 (live OSM, data of 2026-11-09): 238 named businesses inside the playable area, 223 in the game, 15 not drawn by category (craft, healthcare, generic offices, holiday apartments, vacant). The route chains once missing (Sephora, Douglas, Superbet, Telekom, DHL, MoneyGram, Stanleybet, Maxbet) are in the data. 120 businesses within 60 m outside the playable edge are not drawn (the builder keeps POIs inside the edge only).
+- 2026-11-12 (live OSM, data of 2026-11-09): 238 named businesses inside the playable area, 223 in the game, 15 not drawn by category (craft, healthcare, generic offices, holiday apartments, vacant). The route chains once missing (Sephora, Douglas, Superbet, Telekom, DHL, MoneyGram, Stanleybet, Maxbet) are in the data. 120 businesses within 60 m outside the playable edge are not drawn (the builder keeps POIs inside the edge only). Shopfront details: `bucharest-unirii.md` → "Buildings and shopfronts".
 - Brands without sign colours fall back to the generic kind colours (at the time: Avbs Broker, DoubleTree by Hilton, Fortuna, Giant, Intesa Sanpaolo, Mercure, MoneyGram, New Yorker, Tucano Coffee). Inglot's ING orange from the old dossier is overridden to black / white in `tools/osm/build-data.mjs`; "Garanti Bankası" is renamed Garanti BBVA in `tools/osm/poi-kinds.mjs`. Euronet ATMs on the route are drawn as bank POIs.
 
 ## On the chapter route (gts)

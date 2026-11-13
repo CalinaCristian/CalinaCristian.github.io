@@ -2,7 +2,7 @@
 // first publication. Preserve all original actors, source assignments and RNG.
 import { canTravel, lanesDir } from './nav.js';
 import { ambientTrafficAccess } from './road-access.js';
-import { collideBuildings } from './world.js';
+import { collideBuildings } from './world-collide.js';
 import {sourceRoadClearance} from './source-road-clearance.js';
 import { planInitialVehicleAdmission, ordinaryVehicleStations, vehicleVerticalInterval, vehicleVerticalIntervalAlong, initialVehicleConflict } from './initial-vehicle-admission.js';
 import { canTravelTram, tramSectionPoses } from './tram-path.js';

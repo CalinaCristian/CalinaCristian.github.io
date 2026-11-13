@@ -248,3 +248,8 @@ outline w1035290130, 47.444099, -122.293207 h330): a low white enclosed corridor
 - **Landmark colours** (r2-landmarks-b-2): the control tower's base building is beige concrete with dark window strips (was white with
   navy bands); the garage's facade columns are round with a red band at street level (were square posts; 8-sided columns, band
   0.9 - 1.8 m an estimate).
+
+## Backlog clearing (2026-11-13)
+
+- **Not seen from any street panorama** (backlog r2-districts-view-15): the hotel pool at 47.444558, −122.294232 and the
+  garage rideshare ramps at 47.4430, −122.2982. Drawn from OSM; their look is the class estimate.

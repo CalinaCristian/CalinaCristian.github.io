@@ -781,3 +781,20 @@ Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
   `road-sky-hole` 21 % at HEAD 94a177d5): rendered again from the real cockpit pose (car placed there, three physics steps,
   the cockpit camera) on 2026-11-13: both frames show Str. Ceaikovski with the bus ahead, no pale surface at eye level and
   no road plane across the dashboard. Not reproduced; closed.
+- **Mondayz Coffee and the disused units** (backlog floreasca-5). Estimates kept: Mondayz Coffee (n5053344722) is an OSM
+  point with no building within 16 m, so it has no wall to sign and is not drawn. The three units OSM marks disused
+  (n5053344622, n7038762287, n6968373504) keep no "DE ÎNCHIRIAT" board: OSM says only that the shop closed, and the one
+  panorama that reaches a disused point (the café at Calea Floreasca 70–72) shows no for-rent board.
+- **Calea Floreasca 43 and the unreviewed clusters** (backlog floreasca-10). Decision: n7038739416 keeps the vacant board,
+  because OSM (`disused:shop=motorcycle_repair`, edit 2025-04-22) is a later source than the May 2024 panorama with the
+  trading "Automecanica" shop. Not compared at street level (no panorama could be viewed in this pass): Banul Antonache 40–44
+  (Yoshi, CAU), Madison, Graffiti Hotel / My Maya, Komodo, Schnitzel King, Genin / Mumbai, Shop&Go, Hotel Johann Strauss;
+  their names, positions and signs are OSM's.
+- **Stadionul Dinamo pit** (backlog r2-landmarks-1). Estimate: the bowl is sunk 9 m (`DIN_DEPTH`, landmarks.js) from EU-DEM
+  (25 m cells) and two panoramas; OSM has no height or layer for the stands. The district ground is flat, so the pit has a rim
+  all round, although the real ground north and east of it is about as low as the pitch: no finer elevation source exists for
+  Bucharest in the toolset, so that slope is not modelled.
+- **Dinamo leftovers** (backlog r2-landmarks-b-6). OSM gap: w387467641 (`building=yes`, 44.45373, 26.10237) lies 60 m north of
+  the Ștefan cel Mare gate, so the unfinished concrete frame seen west of the gate lane has no footprint at its place and is not
+  drawn. Not seen on any panorama (inside the grounds), so drawn from the model's estimates or not at all: the boundary wall,
+  the scoreboard, the floodlight mast positions and the west-stand roof.

@@ -1016,3 +1016,9 @@ Sources: live OSM, the official panorama poses recorded in the backlog rows (loo
   data, so its real start stays an estimate.
 - **Royal Palace front**: column radius, pair spacing (one pair per two 4.2 m bays), cornice depth, dentil and baluster pitch
   are estimates; the equestrian Carol I is massing only (plinth / group split of the 13 m OSM height estimated).
+
+## Backlog clearing (2026-11-13)
+
+- **Not seen from any street panorama** (backlog r2-districts-view-15): Piscina Lido (w810540711), Mavrogheni church
+  (w78841431), SNSPA (w23647615), Casa Henri Coandă (w256051276). Drawn from OSM outlines and classes; their look is the class
+  estimate. Hotel Minerva (w171045151) is covered by the review above.

@@ -7,7 +7,7 @@
 //   Pier 56   dark green gabled shed with white trim, Elliott's on the street gable
 //   Pier 57   Miners Landing: red shed, MINERS LANDING in gold letters along the top, yellow awnings
 //   Pier 59   the Seattle Aquarium: grey-green shed, SEATTLE AQUARIUM on the street front
-//   Pier 60   the Aquarium's dark exhibit building; Ocean Pavilion (2024): charcoal ribbed cladding
+//   Pier 60   the Aquarium: a low open-sided shed under a shallow gable; Ocean Pavilion (2024): charcoal ribbed cladding
 //   Overlook Walk (2024): a thick pale concrete deck from the Ocean Pavilion roof over Alaskan Way up to MarketFront,
 //             on round columns beside the road. It is drawn, not walkable (its stairs and lifts are not built here).
 //  Before, every shed was a generic flat-roofed brick / concrete block and the Overlook Walk a tilted sheet.
@@ -21,19 +21,19 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, obb, inPoly, centroid, clamp } from '../kit.js';
 import { signBoard } from '../props.js';
+import { gableFrame, gableRoof, gableWalls } from '../gable-plan.js';
 
 const SERIF = (s) => `700 ${s}px Georgia, "Times New Roman", serif`, SANS = (s) => `800 ${s}px "Helvetica Neue", Arial, sans-serif`;
 export const SHEDS = {
     w232088564: { name: 'Pier 54', wall: '#a7ab9d', trim: '#e9e6da', roof: '#55585a', eave: 7.5, ridge: 10.9, awning: '#2f5a44', signs: [['PIER 54', 4.2, 0.9, '#a7ab9d', '#2b3a33', SANS]] },
     w166910704: { name: 'Pier 55', wall: '#8a3b2d', trim: '#e6dcc6', roof: '#3b3431', eave: 7.5, ridge: 10.9, hip: true, awning: '#6e2a20', signs: [['PIER 55', 4.2, 0.9, '#8a3b2d', '#f0e2c0', SANS]] },
     w166910697: { name: 'Pier 56', wall: '#3f5b47', trim: '#ece8dc', roof: '#4a4f4c', eave: 7.5, ridge: 11.5, awning: '#2c4434', signs: [["ELLIOTT'S OYSTER HOUSE", 7.5, 1.0, '#ece8dc', '#2c4434', SERIF], ['PIER 56', 4.2, 0.9, '#3f5b47', '#ece8dc', SANS]] },
-    w166910699: { name: 'Pier 57', wall: '#8c2f25', trim: '#e3c98a', roof: '#4b4441', eave: 8.5, ridge: 12.5, awning: '#e2b33c', side: 'MINERS LANDING', signs: [['MINERS LANDING', 13, 1.5, '#8c2f25', '#e8c15a', SERIF], ['PIER 57', 4.6, 1.0, '#8c2f25', '#e8c15a', SERIF]] },
+    w166910699: { name: 'Pier 57', wall: '#8c2f25', trim: '#e3c98a', roof: '#4b4441', eave: 8.5, ridge: 12.5, awning: '#e2b33c', side: 'MINERS LANDING', parts: true, signs: [['MINERS LANDING', 13, 1.5, '#8c2f25', '#e8c15a', SERIF], ['PIER 57', 4.6, 1.0, '#8c2f25', '#e8c15a', SERIF]] },
     w35345179: { name: 'Pier 59', wall: '#51655c', trim: '#e6e4da', roof: '#3d4345', eave: 8, ridge: 12, awning: null, signs: [['SEATTLE AQUARIUM', 11, 1.3, '#51655c', '#f2f0e6', SANS]] },
 };
 // appearance only (colour and wall pattern) for mapped buildings that stay generic volumes
 export const TINTS = {
     w1256939021: ['#3b3e41', '#4a5a4c', 'industrial'], // Ocean Pavilion: charcoal ribbed metal, planted roof
-    w1154870289: ['#51655c', '#3d4345', 'industrial'], // Seattle Aquarium on Pier 60 (low shed: see preparePiers)
     w184870422: ['#a8a59c', '#8a8784', 'parking'],     // Pike Place Market garage
     w234810726: ['#8a3b2d', '#3b3431', 'house'],       // Argosy Cruises ticket office
     w429553385: ['#f1efe8', '#3d5f8a', 'house'],       // Great Wheel ticket booth
@@ -47,7 +47,24 @@ const LIVE = [
     ['Great State Burger', 181.7, 294.9, 'fast_food', 0], ['Premier Meat Pies', 148.3, 290.6, 'restaurant', 0], ['Harley-Davidson Motorcycles', 136.8, 295.5, 'shop', 0],
     ['Copperworks Tasting Room & Distillery', 140.6, 99.2, 'bar', 0],
 ];
-const P57_PARTS = ['w396606855', 'w396606860', 'w429553382', 'w429553383', 'w429553384']; // building:part volumes of Pier 57: one shed here
+const P57_PARTS = ['w396606855', 'w396606860', 'w429553382', 'w429553383', 'w429553384']; // building:part volumes of Pier 57
+// (r3-sea-spots-b-6) Pier 57 is several sheds joined (seattle-spots.md "Waterfront"): each mapped building:part is its own
+// gabled volume at its OSM height (building:levels → h), the ridge along the pier: the 3-level main shed (10.9 m) under the
+// 4-level raised middle shed (14.2 m, w396606860) running down its spine, the 2-level street-end shed on the slanted
+// Alaskan Way front (w429553384, 7.6 m, ridge along that front), the 2-level west shed round the middle shed's end
+// (w429553382) and the 1-level west tip (w396606855). Eave heights (ridge − 1.4 / 1.6 / 2.4 / 0.7 m) are estimates.
+// [id, eave, ridge, axis: 'pier' (the middle shed's axis) | 'own' (the part's long axis), main span half-width]
+const P57_SHEDS = [['w429553383', 8.5, 10.9, 'pier', 15.55], ['w396606860', 12.6, 14.2, 'pier'], ['w429553384', 6.2, 7.6, 'own'], ['w429553382', 6.2, 7.6, 'pier'], ['w396606855', 3.6, 4.3, 'pier']];
+function pier57Parts(ctx) {
+    const by = (id) => ctx.data.buildings.find((b) => b.id === id), spine = by('w396606860'); if (!spine) return null;
+    const S0 = gableFrame(spine.poly, { eave: 12.6, ridge: 14.2 }), out = [];
+    for (const [id, eave, ridge, axis, hw] of P57_SHEDS) { const bd = by(id); if (!bd) continue;
+        let F = axis === 'pier' ? gableFrame(bd.poly, { ux: S0.ux, uz: S0.uz, eave, ridge }) : gableFrame(bd.poly, { eave, ridge });
+        // the main shed's ridge runs under the middle shed's (same axis: the V of the two frames differ by a constant)
+        if (hw) F = gableFrame(bd.poly, { ux: S0.ux, uz: S0.uz, eave, ridge, vMid: S0.vMid + F.V(0, 0) - S0.V(0, 0), hw, minTop: eave - 2.5 });
+        out.push({ id, poly: bd.poly, F, ridge }); }
+    return out;
+}
 const FOOD = /^(restaurant|cafe|fast_food|bar|pub|ice_cream)$/;
 
 /** every mapped business of the scene as { id, name, x, z, kind, level } (points, indoor rooms, named buildings, live additions) */
@@ -64,10 +81,8 @@ export function waterfrontBusinesses(d) {
 export function preparePiers(ctx) {
     for (const id of [...Object.keys(SHEDS), ...P57_PARTS]) if (ctx.data.buildings.some((b) => b.id === id)) ctx.skipBuildings.add(id);
     for (const b of ctx.data.buildings) { const t = TINTS[b.id]; if (t) { b.c = t[0]; b.rc = t[1]; } }
-    // (r3-sea-spots-b-6) Pier 60 (w1154870289, no height in OSM): official panorama VuVTZJti0rfyEFN0lJAiMQ shows a low shed in
-    // the Aquarium's grey-green, not the tall dark block the generic default made. A gable over its irregular 59-vertex plan
-    // overhung the water and the promenade, so it keeps its flat-roofed plan at a low shed's height (7 m, an estimate).
-    { const p60 = ctx.data.buildings.find((b) => b.id === 'w1154870289'); if (p60 && !p60.h) { p60.h = 7; p60.lv = 1; } }
+    // Pier 60 (w1154870289): drawn by pier60() as an open-sided shed (no generic volume)
+    if (ctx.data.buildings.some((b) => b.id === 'w1154870289')) ctx.skipBuildings.add('w1154870289');
 }
 export const pierStyle = (bd) => TINTS[bd.id]?.[2];
 
@@ -82,8 +97,21 @@ function shed(ctx, b, bld, S, y0, isWater) {
     // u points to the street end (the end on land)
     if (isWater(o.cx + ux * (hl + 8), o.cz + uz * (hl + 8)) && !isWater(o.cx - ux * (hl + 8), o.cz - uz * (hl + 8))) { ux = -ux; uz = -uz; }
     const vx = -uz, vz = ux, P = (u, v, y) => [o.cx + ux * u + vx * v, y, o.cz + uz * u + vz * v], e = y0 + S.eave, r = y0 + S.ridge, ov = 0.6, hip = S.hip ? hw : 0;
-    b.prism(bld.poly, y0 - 0.5, e, S.wall, 'wood');
-    for (const s of [-1, 1]) {
+    const PT = S.parts ? pier57Parts(ctx) : null;
+    // wall top at a point just inside the footprint (the part holding it; Infinity for a one-roof shed)
+    const topAt = (x, z) => { if (!PT) return Infinity; let t = -Infinity; for (const q of PT) if (inPoly(x, z, q.poly)) t = Math.max(t, y0 + q.F.top(x, z)); return t; };
+    if (PT) for (const q of PT) {
+        // a party wall is drawn only by the taller of the two parts it divides
+        const F = { ...q.F, top: (x, z) => y0 + q.F.top(x, z) };
+        gableWalls(b, q.poly, F, y0 - 0.5, { color: S.wall, key: 'wood', skip: (mx, mz, nx, nz) => PT.some((o2) => o2 !== q && o2.ridge > q.ridge && inPoly(mx + nx * 0.3, mz + nz * 0.3, o2.poly)) });
+        gableRoof(b, q.poly, F, { color: S.roof, overhang: 0.45, lift: 0.02, thick: 0.3, fascia: S.trim });
+        // clerestory windows on the raised middle shed's long walls, above the main roof (spacing as the walls below)
+        if (q.id === 'w396606860') for (let i = 0; i < q.poly.length; i++) { const [ax, az] = q.poly[i], [bx, bz] = q.poly[(i + 1) % q.poly.length], L = Math.hypot(bx - ax, bz - az); if (L < 12) continue;
+            const dx = (bx - ax) / L, dz = (bz - az) / L; if (Math.abs(dx * q.F.ux + dz * q.F.uz) < 0.9) continue; let nx = dz, nz = -dx; if (inPoly((ax + bx) / 2 + nx * 0.3, (az + bz) / 2 + nz * 0.3, q.poly)) { nx = -nx; nz = -nz; }
+            for (let t = 4; t < L - 3; t += 4.4) { const x = ax + dx * t, z = az + dz * t, wy = y0 + 10.95; b.box(x + nx * 0.03, wy - 0.1, z + nz * 0.03, 1.8, 1.1, 0.1, S.trim, 'paint', Math.atan2(nx, nz)); b.box(x + nx * 0.07, wy, z + nz * 0.07, 1.55, 0.9, 0.1, '#1e2a33', 'darkglass', Math.atan2(nx, nz)); } }
+    }
+    else b.prism(bld.poly, y0 - 0.5, e, S.wall, 'wood');
+    if (!PT) for (const s of [-1, 1]) {
         two(b, P(-hl - ov, s * (hw + ov), e - 0.1), P(hl + ov, s * (hw + ov), e - 0.1), P(hl + ov - hip, 0, r), P(-hl - ov + hip, 0, r), S.roof, 'roofs');
         b.box(...P(0, s * (hw + ov), e - 0.38), 0.14, 0.3, 2 * (hl + ov), S.trim, 'paint', Math.atan2(ux, uz)); // eave fascia
         if (hip) two(b, P(s * (hl + ov), -hw - ov, e - 0.1), P(s * (hl + ov), hw + ov, e - 0.1), P(s * (hl + ov - hip), 0, r), P(s * (hl + ov - hip), 0, r), S.roof, 'roofs');
@@ -98,7 +126,7 @@ function shed(ctx, b, bld, S, y0, isWater) {
         if (inPoly(mx + nx * 0.5, mz + nz * 0.5, bld.poly)) { nx = -nx; nz = -nz; }
         // the street end: an edge across the pier near its land end; a slanted end (Pier 56: cut at ≈ 58° over 20 m) reaches
         // back from the end by half its own run along the pier, so its midpoint is measured from there (sea-spots-a-3)
-        const ry = Math.atan2(nx, nz), front = Math.abs(dx * ux + dz * uz) < 0.85 && (mx - o.cx) * ux + (mz - o.cz) * uz > hl - 4 - Math.abs(dx * ux + dz * uz) * L / 2;
+        const ry = Math.atan2(nx, nz), front = Math.abs(dx * ux + dz * uz) < 0.85 && (PT ? !isWater(mx + nx * 8, mz + nz * 8) : (mx - o.cx) * ux + (mz - o.cz) * uz > hl - 4 - Math.abs(dx * ux + dz * uz) * L / 2);
         if (front) {
             b.box(mx + nx * 0.05, y0 + 0.35, mz + nz * 0.05, L * 0.82, 2.9, 0.14, '#1b252d', 'darkglass', ry);
             for (let k = -2; k <= 2; k++) b.box(mx + dx * k * L * 0.164 + nx * 0.1, y0 + 0.3, mz + dz * k * L * 0.164 + nz * 0.1, 0.16, 3.0, 0.16, S.trim, 'paint', ry);
@@ -106,8 +134,8 @@ function shed(ctx, b, bld, S, y0, isWater) {
             continue;
         }
         const cnt = Math.max(1, Math.floor((L - 2) / 4.4));
-        for (let k = 0; k < cnt; k++) { const t = (k + 0.5) / cnt * L, x = ax + dx * t, z = az + dz * t;
-            for (const [wy, wh] of S.eave >= 7 ? [[y0 + 1.15, 1.5], [y0 + 4.7, 1.35]] : [[y0 + 1.15, 1.5]]) { b.box(x + nx * 0.03, wy - 0.12, z + nz * 0.03, 1.9, wh + 0.24, 0.1, S.trim, 'paint', ry); b.box(x + nx * 0.07, wy, z + nz * 0.07, 1.62, wh, 0.1, '#1e2a33', 'darkglass', ry); } }
+        for (let k = 0; k < cnt; k++) { const t = (k + 0.5) / cnt * L, x = ax + dx * t, z = az + dz * t, wt = topAt(x - nx * 0.3, z - nz * 0.3);
+            for (const [wy, wh] of S.eave >= 7 ? [[y0 + 1.15, 1.5], [y0 + 4.7, 1.35]] : [[y0 + 1.15, 1.5]]) { if (wy + wh + 0.4 > wt) continue; b.box(x + nx * 0.03, wy - 0.12, z + nz * 0.03, 1.9, wh + 0.24, 0.1, S.trim, 'paint', ry); b.box(x + nx * 0.07, wy, z + nz * 0.07, 1.62, wh, 0.1, '#1e2a33', 'darkglass', ry); } }
     }
     if (S.side) for (const sd of [-1, 1]) if (sd * vz < 0) { // the name again along the long side that faces north (Pier 58 and the spawn)
         // round 3 (sea-spots-a-10): on the mapped wall piece itself (the longest footprint edge facing that side), not on the
@@ -121,9 +149,28 @@ function shed(ctx, b, bld, S, y0, isWater) {
         else { const p = P(hl - 16, sd * (hw + 0.12), e - 1.2); sg.position.set(p[0], p[1], p[2]); sg.rotation.y = Math.atan2(sd * vx, sd * vz); }
         ctx.add(sg); }
     // names on the street gable
+    if (PT) { pier57Names(ctx, PT, S, y0, isWater); ctx.poly(bld.poly); return; }
     let sy = y0 + Math.min(S.eave - 0.9, 6.4);
     for (const [text, w, h, bg, fg, font] of S.signs) { const sg = signBoard(text, Math.min(w, hw * 1.7), h, { bg, fg, font, frame: bg === S.wall ? S.wall : '#1d1f20', depth: 0.1 }); const p = P(hl + 0.12, 0, sy); sg.position.set(p[0], p[1], p[2]); sg.rotation.y = Math.atan2(ux, uz); ctx.add(sg); sy += h + 1.5; }
     ctx.poly(bld.poly);
+}
+
+// Pier 57's names: MINERS LANDING along the top of the street-end shed's slanted Alaskan Way front (its longest land-facing
+// edge), PIER 57 on the main shed's gable wall above and behind it
+function pier57Names(ctx, PT, S, y0, isWater) {
+    const face = (q) => { let best = null; const P = q.poly, n = P.length;
+        for (let i = 0; i < n; i++) { const [ax, az] = P[i], [bx, bz] = P[(i + 1) % n], L = Math.hypot(bx - ax, bz - az); if (L < 6) continue;
+            let nx = (bz - az) / L, nz = -(bx - ax) / L; const mx = (ax + bx) / 2, mz = (az + bz) / 2; if (inPoly(mx + nx * 0.3, mz + nz * 0.3, P)) { nx = -nx; nz = -nz; }
+            if (isWater(mx + nx * 8, mz + nz * 8) || Math.abs(nx * q.F.ux + nz * q.F.uz) > 0.95 && q.id !== 'w429553383') continue;
+            if (q.id === 'w429553383' && !PT.some((o2) => o2.id === 'w429553384' && inPoly(mx + nx * 0.3, mz + nz * 0.3, o2.poly))) continue; // the gable wall above the street shed
+            if (!best || L > best.L) best = { L, mx, mz, nx, nz }; }
+        return best; };
+    const put = (q, [text, w, h, bg, fg, font], below) => { const f = face(q); if (!f) return;
+        const sg = signBoard(text, Math.min(w, f.L * 0.8), h, { bg, fg, font, frame: bg === S.wall ? S.wall : '#1d1f20', depth: 0.1 });
+        sg.position.set(f.mx + f.nx * 0.12, y0 + q.F.top(f.mx - f.nx * 0.3, f.mz - f.nz * 0.3) - below - h / 2, f.mz + f.nz * 0.12); sg.rotation.y = Math.atan2(f.nx, f.nz); ctx.add(sg); };
+    const street = PT.find((q) => q.id === 'w429553384'), main = PT.find((q) => q.id === 'w429553383');
+    if (street) put(street, S.signs[0], 0.45);
+    if (main) put(main, S.signs[1], 0.8);
 }
 
 /** the Overlook Walk deck (OSM way 1256939020, man_made=bridge) and its columns beside the covered road (way 1256939017) */
@@ -212,12 +259,36 @@ function walkOverlook(ctx, b, ow, top, T) {
     return out;
 }
 
+/**
+ * (r3-sea-spots-b-6) Pier 60 (w1154870289, building=yes, no height or roof tags): official panorama VuVTZJti0rfyEFN0lJAiMQ
+ * looking 240° shows a low open-sided shed under a shallow gable in the Aquarium's grey-green. The gable is clipped to the
+ * irregular 59-vertex plan (gable-plan.js; a gable over the bounding box overhung the water and the promenade), ridge along
+ * the plan's long axis, on posts round the plan; the deck stays walkable under it. Eave 5.2 m, ridge 7 m, post spacing
+ * ≈ 6 m, 0.6 m overhang and the colours are estimates.
+ */
+function pier60(ctx, b, y0) {
+    const bld = ctx.data.buildings.find((q) => q.id === 'w1154870289'); if (!bld) return null;
+    const F0 = gableFrame(bld.poly, { eave: 5.2, ridge: 7 }); if (!F0) return null;
+    const F = { ...F0, top: (x, z) => y0 + F0.top(x, z) }, P = bld.poly, n = P.length, post = '#51655c';
+    gableRoof(b, P, F, { color: '#3d4345', overhang: 0.6, thick: 0.45, fascia: '#e6e4da' });
+    gableRoof(b, P, F, { color: '#9a9d94', key: 'paint', overhang: 0.6, lift: -0.45 }); // pale soffit under the roof deck
+    let posts = 0, run = 0;
+    const at = (x, z) => { const h = F.top(x, z) - 0.45 - y0; b.box(x, y0, z, 0.32, h, 0.32, post, 'paint'); ctx.circle(x, z, 0.25, h); posts++; };
+    for (let i = 0; i < n; i++) { const a = P[(i + n - 1) % n], c = P[i], e = P[(i + 1) % n], L = Math.hypot(e[0] - c[0], e[1] - c[1]);
+        const turn = Math.abs(Math.atan2((c[0] - a[0]) * (e[1] - c[1]) - (c[1] - a[1]) * (e[0] - c[0]), (c[0] - a[0]) * (e[0] - c[0]) + (c[1] - a[1]) * (e[1] - c[1])));
+        if (turn > 0.35 || run > 5) { at(c[0], c[1]); run = 0; }
+        for (let t = 6; t < L - 2; t += 6) at(c[0] + (e[0] - c[0]) * t / L, c[1] + (e[1] - c[1]) * t / L);
+        run += L % 6; }
+    return { source: bld.id, posts, eave: +(y0 + 5.2).toFixed(2), ridge: +(y0 + 7).toFixed(2) };
+}
+
 function norm2(x, z) { const L = Math.hypot(x, z) || 1; return [x / L, z / L]; }
 /** after ctx.osmBackdrop() */
 export function buildPiers(ctx, { deckY, isWater }) {
     const b = new GeoBatch(), built = [];
     for (const [id, S] of Object.entries(SHEDS)) { const bld = ctx.data.buildings.find((q) => q.id === id); if (!bld) continue; shed(ctx, b, bld, S, deckY + 0.08, isWater); built.push(S.name); }
     overlook(ctx, b);
+    ctx.extras.pier60 = pier60(ctx, b, deckY + 0.08);
     // round 3 (sea-spots-a-2): the Ocean Pavilion (w1256939021) stands on a board-formed concrete base about 2.2 m high under
     // its charcoal ribbed cladding, with a grey steel handrail along the sidewalk (panoramas d_zvaPdDFeRnyCx2epCvqA looking
     // 250°, nVwg3181AIHZBcGR4Gy80w looking 270°). Base height estimated from those views.

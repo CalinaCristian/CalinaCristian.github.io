@@ -262,9 +262,14 @@ same bearing.
   −122.34237; header of `waterfront-piers.js`): Pier 54 pale grey-green two-storey (Ivar's, Ye Olde Curiosity Shop); Pier 55
   red-brown under a dark hipped roof (Starbucks); Pier 56 dark green gabled with white trim, shopfront on its slanted
   street end; Pier 57 red with MINERS LANDING in gold letters, yellow awnings; Pier 59 grey-green with SEATTLE AQUARIUM on
-  the street front; Pier 60 (w1154870289) a low open-sided shed under a shallow gable (VuVTZJti0rfyEFN0lJAiMQ @ 240), drawn
-  as a low shed in the Aquarium's grey-green. The panorama Google returns at 47.60625, −122.34070 is from the construction
+  the street front; Pier 60 (w1154870289) a low open-sided shed under a shallow gable (VuVTZJti0rfyEFN0lJAiMQ @ 240). The panorama Google returns at 47.60625, −122.34070 is from the construction
   years: not used.
+- Pier 57 is several sheds joined: each mapped `building:part` is its own gabled volume at its OSM height, ridges along
+  the pier — the 3-level main shed (w429553383, 10.9 m) with the 4-level raised middle shed (w396606860, 14.2 m,
+  clerestory windows) down its spine, the 2-level street-end shed on the slanted Alaskan Way front (w429553384, 7.6 m,
+  ridge along that front; MINERS LANDING on it, PIER 57 on the main gable above), the 2-level west shed (w429553382) and
+  the 1-level west tip (w396606855); a party wall is drawn by the taller part only. Pier 60: the shallow gable clipped
+  to its irregular 59-vertex plan (`spots/gable-plan.js`), on posts, the deck walkable under it.
 - Great Wheel (n1809238334): 53.3 m, 42 gondolas, 12.2 m over the water.
 - Ocean Pavilion (w1256939021, Aug 2024): charcoal ribbed cladding over a board-formed concrete base ≈ 2.2 m high
   (d_zvaPdDFeRnyCx2epCvqA @ 250, nVwg3181AIHZBcGR4Gy80w @ 270), outside stair tower.
@@ -286,16 +291,18 @@ same bearing.
 - **Documented exception (OSM incomplete)**: "Elliott's Oyster House" has no OSM object; its sign is on the Pier 56 street
   gable in the Sep 2025 panorama, and the game shows the name there only.
 
-**Estimates**: shed eave / ridge heights (OSM gives 10.9 m for Piers 54 / 55 and 10.9–14.2 m for Pier 57's parts), window
-rhythm, colours; Pier 60's 7 m (no height tag); Salish Steps width; promenade lamp post 9 m, arm 2 m, head size; the
+**Estimates**: shed eave / ridge heights (OSM gives 10.9 m for Piers 54 / 55 and 4.3–14.2 m for Pier 57's parts), window
+rhythm, colours; Pier 57's eaves (ridge − 2.4 m main, − 1.6 m middle, − 1.4 m 2-level parts, − 0.7 m west tip), 0.45 m
+roof overhang and the clerestory row; Pier 60 (no height or roof tags): eave 5.2 m, ridge 7 m, ridge along the plan's
+long axis, posts every ≈ 6 m, 0.6 m overhang, dark grey roof over a pale soffit; Salish Steps width; promenade lamp post 9 m, arm 2 m, head size; the
 Overlook Walk's bridge steps w1320933924/5 are folded into the deck's one level (their fall is not known). Source gaps kept:
 the water triangle (−39.5, 58.4)–(−35.6, 65.7)–(−33.6, 65.8) lies outside Pier 57 (r812609) and Pier 58 in OSM and is water
 in the coastline; Pier 55's three inner rings are recorded in `waterfront-pier-rings.js` and not opened (the coastline
 treats them as land).
 
-**Open (needs a panorama look)**: Pier 57's joined sheds and Pier 60's open gabled roof over its irregular plan; the Ocean
-Pavilion's oculus and planted roof (no view of the roof); planters, bins and traffic on Alaskan Way (open paving in the
-game). No official panorama lies within 45 m of Piers 55–57.
+**Source gaps**: the Ocean Pavilion's oculus and planted roof (no view of the roof, no OSM roof object; the roof is the
+green-grey tint only); planters and bins on Alaskan Way (not mapped; open paving in the game). No official panorama lies
+within 45 m of Piers 55–57.
 
 ## Pioneer Square & Smith Tower (`pioneer-square`)
 

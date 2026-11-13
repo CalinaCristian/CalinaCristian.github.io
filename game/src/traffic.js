@@ -2796,7 +2796,19 @@ export class Pedestrians {
             }
         }
     }
-    width(e, side, fallback = 3) { return sidewalkWidthOf(this.t.world, e, side, fallback); }
+    width(e, side, fallback = 3) { const w = sidewalkWidthOf(this.t.world, e, side, fallback); return w > 0 ? w : this.separateSidewalk(e, side); }
+    /** (2026-11-13, Bellevue: 132 of 180 walkers piled on three junction stubs) OSM `sidewalk=separate` (270 of Bellevue's 305
+     *  streets) maps the sidewalk as its own way beside the road; the road then has no sidewalk band, so the crowd had almost
+     *  nowhere to walk. Such a side counts as a 1.8 m sidewalk just beyond the kerb, where the separate way runs. */
+    separateSidewalk(e, side) {
+        const cache = this._sepSide || (this._sepSide = new Map()); let v = cache.get(e);
+        if (v === undefined) {
+            const t = this.t.world?.data?.roadSourceGeometry?.[e.road]?.tags || {}, sep = k => /separate/.test(t[k] || '');
+            const both = sep('sidewalk') || sep('sidewalk:both');
+            v = { r: both || sep('sidewalk:right'), l: both || sep('sidewalk:left') }; cache.set(e, v);
+        }
+        return (side > 0 ? v.r : v.l) ? 1.8 : 0;
+    }
     ok(e) { return !isMotorway(e) && !e.tunnel && !e.bridge && e.len > 4 && Math.max(this.width(e, 1, 1), this.width(e, -1, 1)) > 0 && e.type !== 'dn' && e.type !== 'service'; }
     // (2026-11-08, owner: "people not even walking on it") district worlds: the walking line is the middle of that side's own
     // sidewalk — halfW (the wider half) put the line metres past the sidewalk on the narrow side of asymmetric streets

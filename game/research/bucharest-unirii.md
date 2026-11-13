@@ -292,8 +292,13 @@ carriageways in one walled trench with a row of concrete planters between them; 
 perforated metal with green leaf, flower and butterfly motifs, rising well above street level as a screen; a "PASAJUL
 UNIRII" header over the portal; inside, pale mesh wall panels with yellow accent panels, a continuous light line along the
 wall head, a dark mesh ceiling and a raised kerb walkway. The game has the dark ramp walls and the pale interior with
-yellow panels and the light line (`unr-pasaj-south`, `unr-pasaj-inside`); the motifs, header, planter median and tall
-screen are backlog unirii-pasaj-look.
+yellow panels and the light line (`unr-pasaj-south`, `unr-pasaj-inside`). Since 2026-11-13 (`pasaj-unirii-look.js`, drawn
+from the recorded review above, no new panorama): the open ramp walls carry a pattern of green leaf sprays, flowers and
+butterflies on the dark cladding, the rim is a dark cladding screen rising to 2.4 m above the street where the cut is deep
+(steel uprights on the street side, the motifs on both faces), the south pair (w241368618 / w1383050305, centre lines
+8.4 m apart in one cut) has a row of concrete planters with shrubs on the line between the carriageways instead of trench
+walls or an inferred barrier there (the collision walls are unchanged), and each portal has a dark beam with "PASAJUL
+UNIRII" (one shared by the south pair; the two north portals, 22 m apart, one each).
 
 **Footbridge** w231671712 (`bridge=yes`, `layer=1`, 13 m, 44.42873, 26.10576 → 44.42867, 26.10562): an enclosed glazed
 walkway one storey up across the brick-paved Aleea Alexandru Brătescu-Voinești from the Unirea car park (w184169515) to the
@@ -338,6 +343,12 @@ w241369588, w241369345, w899314658, 44.4237, 26.1124) is 600 m outside the playa
   and place are estimates; the north end and the east (rear) faces were not seen on a sharp panorama and keep the light
   panel skin of the south front.
 - **Footbridge** w231671712: deck height 6 m and section 3.2 × 3 m.
+- **Pasajul Unirii look** (`PASAJ_UNIRII_MODEL`): screen height 2.4 m (rising from the 1 m rim over the first 2 m of cut
+  depth), post pitch 3 m, the motif lattice (1.5 × 1.1 m), shapes and greens, planter size (2.2 × 0.9 × 0.85 m, 3.2 m
+  pitch, from 0.9 m of cut depth), the header beam (1.3 m deep, letters 0.9 m, white on dark grey) are estimates: the review
+  recorded what is there, not sizes or the exact panel design. Whether the north ramps (two separate cuts in OSM, 22 m
+  apart) also have screens and motifs on every wall was not compared at the pano pose (the camera lands beside the trench);
+  the game gives every open Pasajul Unirii wall the same treatment.
 - **Fountain basins** appended by `add-areas.mjs`: the generic 0.45 m light-stone coping with full water (no panorama shows
   them; the Colțea ones are not visible from `i2dCK2VAtXOYKj-5Wy-EHA`). Show jet heights and LED details: medium–low.
 - **Bd. Unirii carriageways through the square**: lane count (2), lane width and sidewalk are the builder's class defaults.

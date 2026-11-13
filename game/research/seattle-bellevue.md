@@ -481,7 +481,7 @@ and the kept ones in `viewpoints-add.json`.
 | bellevuetowers | 47.613977, -122.198816 h 54 | fixed podium (stone + glazed retail floor, stripes removed); real podium stone is darker grey at that corner |
 | bellevuesq | 47.615603, -122.201778 h 272 | partial: real east face is red brick with glazed bays and columns; model grey with a blue band (open, module landmark-bellevue-square.js) |
 
-Statues not modelled: Bellevue artworks (Gandhi n1704038437, Forest Deity n7205021680: the nearest panoramas show trees / a car park, nothing recognisable).
+Statues: Gandhi n1704038437 (`tourism=artwork`, statue, bronze) is drawn as the generic statue class (plinth and plain figure, monuments.js; no likeness: the nearest panoramas show trees / a car park, nothing recognisable). Forest Deity n7205021680 (`artwork_type=sculpture`, Dudley C. Carter, 1947) lies outside the playable area (game x -802, z -308), where district monuments are not placed; not drawn.
 
 ## 19. Round 2 (2026-11-12), lane world: 2 Line guideway and car parks
 
@@ -569,3 +569,34 @@ legible at this resolution).
 - **Landmark colours** (r2-landmarks-b-2): Bellevue Square's Bellevue Way face is red brick with two-storey glazed bays between proud
   brick columns (was grey stone with one blue shop band; bay rhythm 7.5 m and heights are estimates); the Bellevue Towers podium
   stone is darker grey (#9c978e).
+- **Wilburton station** (r2-world-guideway): drawn from live OSM: the island platform w922284294 at deck level, the roof outline
+  w615292866 on one row of columns, the two lifts (n11812430045 / n11812430046) as shafts from the street. The pack had drawn the roof
+  (building=train_station, layer=1, no min_height) as a 7.8 m windowed block on the ground round the guideway: that block is now left
+  out. Estimates: platform 0.36 m above the rail, roof 4.2 m clear and 0.5 m deep, columns every 12 m, shafts 2.4 m; the stairs
+  (w1273554471-73, w1274300267) and the station's look were not compared with a panorama.
+- **2 Line overhead line**: contact and messenger wires over both tracks, a pole with a cross arm every 55 m (`guideway-ocs.js`;
+  estimates).
+- **Estimates kept** (r2-world-guideway): the rail level (section 19: clearances over 112th Ave NE and NE 8th St on USGS ground; no
+  published profile). The Bellevue Downtown station tracks (w614517901 / w669516619, layer 1) are drawn as the guideway class: the
+  station lies outside the district and its structure was not compared. One pier of 27 is left out where a scenery carriageway passes
+  under the span (piers are never placed on a carriageway).
+- **Street trees on Bellevue Way / NE 8th St** (r3-look-8): small crowns re-measured by eye on the aerial mosaic (Esri World Imagery,
+  zoom 19, 0.20 m/px; imagery kept in scratch only), 22 crown centres converted with the exact tile maths (`tree-additions.js`):
+  ten on the west kerb of Bellevue Way at 47.6187 - 47.6200, four on its east kerb, six along the west side at 47.6142 - 47.6147 and
+  two on the south kerb of NE 8th St. 18 are placed; the world builder refuses 4 (carriageway / building clearance). Crowns in the
+  towers' shadows (most of NE 8th St, Bellevue Way 47.6150 - 47.6185) cannot be read on this imagery and are not added.
+
+## 24. Backlog close-out, cross-district lane (2026-11-13)
+
+- **Fountain w469892286** (47.61756, -122.19944): drawn with a red-brick coping (world.js `FOUNTAIN_COPING`), as in the one
+  panorama that shows it (round basin, brick coping, dry with a sculpture). The dry state may be seasonal and the sculpture's
+  form is unknown: water and no sculpture stay. Not compared (no panorama shows them): w838537627 (pano 2lDHfGbz2QT5bkpGoW4jZw
+  shows terraces only), w545422304, w656577811, w865988158, w655090567, w842753014, w862758179.
+- **Arco** (713, -311): the nearest edge is the first metres of NE 8th St after the map edge, entered only from outside; the
+  route now ends on the next edge a route reaches, 6.5 m away (`nav.compute` goal fallback).
+- **Pedestrian fronts** (r2-builder-pedestrian-fronts): no mapped business lies within 15 m of the 11 mapped pedestrian ways /
+  named footways; the Bellevue Square and Lincoln Square tenants are interior units or front streets, so the pedestrian-front
+  rule has nothing to sign here.
+- **Monuments skipped by the footprint test**: Root n11862631648 and Story Pole VI n12554043199 (reported, never moved).
+- **Menu**: `bel-lincoln-square` is not in `game/src/spot-availability.js` `MENU_AVAILABLE` (commit f49c4fdc), so places.json
+  does not list it; offering it is the owner's decision.

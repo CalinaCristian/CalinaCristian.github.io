@@ -166,7 +166,7 @@ and the kept ones in `viewpoints-add.json`.
 | seagarage | 47.4423, -122.3005 h 41 | partial: round columns with red bands in reality, square posts in the model (open) |
 | sealink | 47.4446, -122.2971 h 249 | match (elevated guideway, truss canopy) |
 
-Statues not modelled: SeaTac artwork n8604417196 statue (the nearest panoramas show trees / a car park, nothing recognisable).
+Statues: SeaTac artwork n8604417196 (`tourism=artwork`, `artwork_type=statue`, no name) is drawn as the generic statue class (plinth and plain figure, monuments.js; no likeness: the nearest panoramas show trees / a car park, nothing recognisable).
 
 ## 12. Round 2 (2026-11-12), lane world
 
@@ -248,6 +248,18 @@ outline w1035290130, 47.444099, -122.293207 h330): a low white enclosed corridor
 - **Landmark colours** (r2-landmarks-b-2): the control tower's base building is beige concrete with dark window strips (was white with
   navy bands); the garage's facade columns are round with a red band at street level (were square posts; 8-sided columns, band
   0.9 - 1.8 m an estimate).
+- **Link overhead line** (seatac-7): the guideway now carries a contact wire and a messenger over each main track and a pole with a
+  cross arm every 55 m (`guideway-ocs.js`). Wire / pole heights, spacing and positions are estimates (OSM maps the
+  line as electrified, not its supports).
+- **Estimates kept** (seatac-7): pier positions and spacing (34 m), girder depth (1.8 m) and deck width (2 x 2.6 m plus the track
+  spacing) are estimates: OSM maps no supports and no published drawing was found. The bridge ways w165240082 / w165240083 (towards
+  SR-518) lie 0.4 - 1.2 km north-east, outside the district polygon, and have no sourced height: not drawn. Trains: the game has no
+  light-rail service, so no trains run on the guideway (a simplification, not a data gap).
+- **Ground west of International Blvd** (seatac-6, still open): USGS 3DEP (epqs.nationalmap.gov, 2026-11-13) gives 107.9 m on
+  International Blvd at 47.4475 and 110.8 / 115.2 / 114.6 m at 26 / 52 / 130 m west of it; 107.2 -> 110.3 m at 47.4460; 113.4 -> 122.0 m
+  at 47.4490. The expressway and station stand 3 - 9 m above the boulevard. The district world is flat ground (only road decks and
+  ramps have heights) and OSM maps no retaining wall there, so the step is not drawn: a wall with a berm behind it would put the
+  expressway side below its own bank.
 
 ## Backlog clearing (2026-11-13)
 

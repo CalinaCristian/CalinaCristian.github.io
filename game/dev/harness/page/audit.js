@@ -107,7 +107,7 @@ export async function staticAudit(H, { maxPerType = 4000 } = {}) {
     await sleep(0);
     // ---------------------------------------------------------------- POI doors
     const main = (e) => e.main !== false && (canTravel(e, 1) || canTravel(e, -1));
-    const doorCheck = (label, x, z, reach, sev = 'high') => {
+    const doorCheck = (label, x, z, reach, sev = 'high', station = null) => {
         if (x === undefined || z === undefined) { add('poi-door', sev, `${label}: no door position`, { x: 0, z: 0 }, `door:${label}`); return; }
         let best = Infinity, be = null;
         for (const e of g.nav.index.near(x, z, Math.max(60, reach + 30), [])) {
@@ -126,13 +126,16 @@ export async function staticAudit(H, { maxPerType = 4000 } = {}) {
         // route from the spawn
         const sp = W.spawn || { x: g.player.x, z: g.player.z };
         let r = null; try { r = g.nav.compute(sp.x, sp.z, x, z, sp.heading ?? null); } catch { /* ignore */ }
-        if (!r) add('route-failure', 'high', `no route from the spawn to ${label}`, { x, z }, `rt:${label}`);
+        // (h-stations) a station no route reaches from the spawn is not offered by the map (g.stationOffered): a pocket
+        // of one-way carriageways fed only from outside the district map; recorded, not a failure
+        if (!r && station && g.stationOffered?.(station, sp) === false) add('fuel-not-offered', 'low', `${label}: no route from the spawn, so the map does not offer it`, { x, z }, `fno:${label}`);
+        else if (!r) add('route-failure', 'high', `no route from the spawn to ${label}`, { x, z }, `rt:${label}`);
     };
     for (const sp of g.stopPois || []) doorCheck(`stop ${sp.stop.id} (${sp.stop.company || sp.stop.short})`, sp.poi.doorX ?? sp.poi.x, sp.poi.doorZ ?? sp.poi.z, 11);
     for (const s of g.stops || []) if (!s.poiRef) add('poi-missing', 'high', `stop ${s.id} has no world POI '${s.poi}'`, { x: 0, z: 0 }, `pm:${s.id}`);
     if (g.airport) doorCheck('airport', g.airport.doorX ?? g.airport.x, g.airport.doorZ ?? g.airport.z, 90);
     else add('poi-missing', 'high', 'no airport POI', { x: 0, z: 0 }, 'pm:airport');
-    for (const st of g.stations || []) doorCheck(`fuel ${st.brand}`, st.x, st.z, 12, 'medium');
+    for (const st of g.stations || []) doorCheck(`fuel ${st.brand}`, st.x, st.z, 12, 'medium', st);
     await sleep(0);
     // ---------------------------------------------------------------- spawned traffic
     const T = g.traffic, vs = T?.vehicles || [];

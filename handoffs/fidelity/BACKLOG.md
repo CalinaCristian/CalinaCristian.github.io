@@ -9,7 +9,10 @@ and the F8 JSON the owner pastes.
 
 | Where | Report | State / diagnosis |
 | --- | --- | --- |
-| (none open) | | |
+| Romana, UiPath (241, -184), 2026-11-13 | "uipath is broken it has a building in side it" | open: at the pose the model's dark door canopy and frame stand out of the west face; no other building, part or mesh found inside The Landmark's footprint (ray scan of the volume) |
+| SeaTac (-981, -16), 2026-11-13 | "bridges with borders that don't connect", "floating connecting buildings that don't connect to anything", "invisible wall … can't even reach destination" | wall fixed (the Airport Expressway fork's junction slab, node 255158306, stood 0.13-0.37 m above the road height the car follows: a car within 0.5 m of a junction slab's top is on it); railings: every raised deck of every district takes the Basarab guard rule now (one railing on the outline of the union of the raised carriageways, joined and pruned as one network, drawn as the reviewed guard class or a concrete parapet); SeaTac 486 runs, 14 open ends left at abutments and the garage helix. Floating connectors: the garage skybridges were checked from the drives and reach both ends; the owner's pose of the floating one is needed |
+| Bellevue, 2026-11-13 | "fences do not connect, etc" | railings as SeaTac (50 runs, 8 open ends); the Exit to NE 8th St West keeps 0.58 m above NE 8th where it merges (327, -329), so its inferred side barrier crosses the street's lanes: ramp profile still open |
+| SeaTac and Bellevue, 2026-11-13 | "lanes are drawn badly on both seattle and bellevue" | the median-side edge line of every US one-way carriageway is yellow now (MUTCD 3B.06; it was white except on motorways / trunks); the Bellevue merge barrier above is the other visible fault |
 
 ## Other open work
 

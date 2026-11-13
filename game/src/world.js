@@ -3771,6 +3771,10 @@ export async function buildWorld(city, renderer, opts = {}) {
             });
             return hit;
         };
+        // (spec 10 load budget) a wall the last cut kept whole, whose copy has the very same ends and heights, would be
+        // sampled again at the same points with the same answers (blocksLane reads no wall; the sweeps between the cuts
+        // only add walls): it is kept whole again without the samples
+        const settled = new WeakSet();
         const cutWalls = () => {
         const kept = []; let cutPieces = 0;
         for (const w of walls) {
@@ -3779,8 +3783,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             const emit = (f0, f1) => {
                 const lerp = (a, b, f) => a + (b - a) * f;
                 const ax = lerp(w.ax, w.bx, f0), az = lerp(w.az, w.bz, f0), bx = lerp(w.ax, w.bx, f1), bz = lerp(w.az, w.bz, f1);
-                kept.push({ ...w, ax, az, bx, bz, y0a: lerp(w.y0a, w.y0b, f0), y1a: lerp(w.y1a, w.y1b, f0), y0b: lerp(w.y0a, w.y0b, f1), y1b: lerp(w.y1a, w.y1b, f1), x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + 0.3 });
+                const p = { ...w, ax, az, bx, bz, y0a: lerp(w.y0a, w.y0b, f0), y1a: lerp(w.y1a, w.y1b, f0), y0b: lerp(w.y0a, w.y0b, f1), y1b: lerp(w.y1a, w.y1b, f1), x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + 0.3 };
+                kept.push(p);
+                if (f0 === 0 && f1 === 1 && p.ax === w.ax && p.az === w.az && p.bx === w.bx && p.bz === w.bz && p.y0a === w.y0a && p.y1a === w.y1a && p.y0b === w.y0b && p.y1b === w.y1b) settled.add(p);
             };
+            if (settled.has(w)) { emit(0, 1); continue; } // (the samples' run: [0, n / n])
             for (let k = 0; k < n; k++) {
                 const f0 = k / n, f1 = (k + 1) / n;
                 let bad = false;

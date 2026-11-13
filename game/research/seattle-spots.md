@@ -1077,3 +1077,47 @@ the scene data from live OSM relation geometry (`tools/spots/repair-relation-out
 r5579292, r7174145), Seattle Aquarium r16051213 (pike-place, waterfront), Broad Street Green r5569823, Piers 55 / 59.
 Render: the Perennial Border bed now shows its planting (was lawn). Clipped water bodies (Lake Washington, Lake Union,
 Elliott Bay) and Ballard railway r4065613 were not touched (stored outline is a clip, not the same vertices).
+
+Follow-up 2026-11-13 (backlog r3-builder-6 / r3-bel-spots-5 closed): `repair-relation-outlines.mjs --from-extracts
+--clip-scenes` repaired the source extracts themselves (`game/research/osm/sea-spots/*.json`: 28 bow-tie relation outlines,
+a relation with several outer rings now keeps its id on the largest ring and gets `<id>_<k>` areas for the others, as in the
+scene files), so a rebuild with `build-data.mjs` no longer brings the bow-ties back; the extract tool itself is not in this
+repo, the repaired extracts are the source from here on. The four clipped outlines (Lake Washington r2793848, Lake Union
+r2793813, Elliott Bay r13316235, Ballard railway r4065613) are now the assembled live OSM ring clipped to the stored
+outline's bounding box, in the extracts and the scene files (0 crossings; renders of Meydenbauer, Gas Works, the Waterfront
+and the Locks unchanged apart from the repaired edges).
+
+## 17. Backlog close-out, 2026-11-13 (Bellevue spots and the spot builder)
+
+Fixed in the game (git history has the commits): picnic tables with both seats and flagpoles at the mapped nodes
+(`spots/furniture-extra.js`, the hash-locked `osm.js` drew one seat and no poles; `tourism=information` boards stay undrawn
+by design, note 36); the spot audit no longer counts elevated building:part volumes inside another collider as phantoms
+(Avenue Bellevue); the Meydenbauer flights w840902386 / w841411878 stand on a bank graded to the USGS DEM; boulevard light
+pools sit under the cobra heads; 99th Ave NE has dark bell-pendant posts; the Bellevue Square ↔ West Parking Garage strip
+has its 62 live-OSM ground ways (service drive, aisles, sidewalks, crossings, steps), the four open garage-deck walkways are
+drawn as concrete decks with rails, the skybridges have one floor level and mitred bends; Avenue Bellevue's tower parts carry
+a balcony slab per storey.
+
+Estimates that no available source settles (moved here from the backlog):
+- **Meydenbauer.** Terrace deck 4.45 m (USGS DEM), whaling building eaves 3.3 m / rise 3.4 m, boathouse sizes, the 19 added
+  piers 2.2 m wide: each read against one panorama. Lake Washington Blvd bridge piers: count (3), spacing and section read
+  from one panorama under the bridge. Shore houses (152 live-OSM footprints): levels / roof / colour by rule where OSM has
+  no tags. Not seen in any official panorama: the pavilion's beach face, the pier deck from on it, the playground equipment,
+  the upper walk's railing (not modelled), fish sculpture n13707322282 (hidden by shrubs, description only: unmodelled).
+  Boulevard and 99th Ave NE lamps are generated points (no lamp nodes mapped); the bell lamp's post 4.6 m, arm 0.75 m and
+  bell size are estimates. Flight widths 2.0 m.
+- **Botanical Garden.** The eight round-3 artworks are low-poly stand-ins sized from one photo each; Shorts House (one
+  storey, flat roof, timber over a grey base) has no exterior photo; the Aaron Education Center and the artworks are inside
+  the garden (no official panorama). Parked cars use three car models (the others add audit z-fights). The Perennial
+  Border's inner beds are not mapped: its ring is painted as one flower garden with 150 perennial clumps. Postcard: the
+  Perennial Border frames the tour's postcard (the ravine bridge is ≈ 300 m from the entry spawn, past the tour's 230 m
+  reach; the bridge keeps its own activity, "Cross the suspension bridge").
+- **Downtown Park.** No official panorama inside the park: canal coping colour, weir sills, cascade face, the terrace walls
+  (w810574801–803, w842753004–006: 0.45 m above the higher side), the old-school outline kerb and Piloti's six 0.9 m vaults
+  are estimates; the forecourt's lantern lamps and kerb bollards have no OSM nodes (unmodelled).
+- **Lincoln Square.** w33106348 heights (row 10 m, Crate & Barrel corner 12 m) read against street-light heads; the
+  garage-facing inner faces keep the generic shopfront (no panorama reaches them). Bellevue Way median width = the gap
+  between the painted carriageway edges (0.6–2.4 m); planted stretch, kerb height and turn-lane breaks are estimates.
+  Skybridge / open walkway floor 6.2 m over the higher end's ground (no measured level; official panoramas on the drive
+  EE7cKAltcksKzsSBPd822A, odcxtWhNyv-UeSc9O436Lw, _-8mGqQtoDS7uRaPUYC-ww, xnT4Gtmue9XZR7R-xc0iTQ were not viewable from this
+  session). Avenue Bellevue balcony depth 1.2 m and slab 0.22 m are estimates.

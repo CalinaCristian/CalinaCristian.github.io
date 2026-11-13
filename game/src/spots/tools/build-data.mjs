@@ -214,7 +214,7 @@ export function buildScene(sceneId) {
             if (seen.has(w.id)) continue; seen.add(w.id);
             const pts = w.line.map(([la, lo]) => P.xy(la, lo));
             const o = { id: w.id, k: w.highway || w.railway || w.barrier || w.man_made || 'line', pts };
-            const keep = ['name', 'footway', 'surface', 'lanes', 'oneway', 'bridge', 'tunnel', 'layer', 'width', 'service', 'crossing', 'incline', 'step_count', 'covered', 'area', 'sidewalk', 'sidewalk:both', 'cycleway', 'access', 'foot', 'motor_vehicle', 'level', 'indoor', 'height', 'material', 'fence_type', 'natural', 'tram', 'junction'];
+            const keep = ['name', 'footway', 'surface', 'lanes', 'oneway', 'bridge', 'tunnel', 'layer', 'width', 'service', 'crossing', 'incline', 'step_count', 'covered', 'area', 'sidewalk', 'sidewalk:both', 'cycleway', 'access', 'foot', 'motor_vehicle', 'level', 'indoor', 'height', 'material', 'fence_type', 'natural', 'tram', 'junction', 'bridge:structure', 'bridge:support', 'start_date', 'min_height', 'description']; // (the last five: tools/spots/enrich-osm-tags.mjs, r3-builder-7)
             for (const k of keep) if (w[k] !== undefined) o[k.replace(':', '_')] = w[k];
             out.ways.push(o);
         }
@@ -223,7 +223,7 @@ export function buildScene(sceneId) {
             const poly = cleanPoly(a.outline.map(([la, lo]) => P.xy(la, lo)));
             if (poly.length < 3) continue;
             const o = { id: a.id, poly };
-            const keep = ['landuse', 'leisure', 'natural', 'amenity', 'man_made', 'barrier', 'waterway', 'water', 'surface', 'name', 'area:highway', 'layer', 'level', 'indoor', 'leaf_type', 'parking', 'railway', 'fence_type', 'height', 'highway', 'place', 'building', 'tourism'];
+            const keep = ['landuse', 'leisure', 'natural', 'amenity', 'man_made', 'barrier', 'waterway', 'water', 'surface', 'name', 'area:highway', 'layer', 'level', 'indoor', 'leaf_type', 'parking', 'railway', 'fence_type', 'height', 'highway', 'place', 'building', 'tourism', 'bridge:structure', 'bridge:support', 'start_date', 'min_height', 'description'];
             for (const k of keep) if (a[k] !== undefined) o[k.replace(':', '_')] = a[k];
             if (a.holes) o.holes = a.holes.map((h) => cleanPoly(h.map(([la, lo]) => P.xy(la, lo))));
             out.areas.push(o);

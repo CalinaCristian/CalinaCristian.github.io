@@ -965,3 +965,21 @@ Official panoramas only (ids cited; no imagery stored). Runtime modules named in
 - **Piața Unirii lamps**: 16 OSM `highway=street_lamp` nodes in the square (no style tags) are drawn as the generic lamp; the
   candelabra form needs a second lamp instance set in the lamp renderer (not done). Advertising column w1176142649 is an OSM building
   (height 4, onion roof, #1d3b35), drawn by the pack's building path.
+
+## Round 4, backlog clearance (2026-11-13)
+
+- **Parcare Unirea** w184169515: rendered from four sides at HEAD: the reviewed louvred facade (`car-parks.js` `facade:
+  'louvred'`, pale wall with a dark louvre ribbon per level) is what the game draws, not open decks. The car wash "Spălătorie
+  Unirea Etaj 7" no longer gets street boards: a business named for an upper floor ("Etaj n") has no street-level fascia
+  (world.js `addUnitSign`, the same rule as the building sign).
+
+### Estimates
+
+- **Stops outside the playable edge** (unirii-edge-pois): 18 appended bus / tram stops lie outside the edge (game render
+  2026-11-13, metres outside the edge). Within the 30 m frontage cap, so with the inferred shelter on their scenery street:
+  Piața Unirii osm377 (4 m), Hristo Botev osm504 (1 m) and tram osm524 (30 m), Piața Sf. Gheorghe osm507 (26 m), Hala Traian
+  tram osm520 (28 m), Bd. Dimitrie Cantemir tram osm561 (25 m). Beyond the cap (POI and map marker only, no shelter model):
+  Bd. Mărășești osm342 / osm359 (49 m), Universitate osm429 (44 m), Hristo Botev osm505 (74 m), Piața Sf. Gheorghe osm512
+  (95 m) and trams osm521 (41 m) / osm522 (93 m) / osm523 (42 m), Hala Traian osm544 (75 m) / osm545 (52 m) and trams osm552
+  (95 m) / osm553 (60 m). The cap is the frame budget's (a shelter further out is distant scenery); whether those stops have a
+  shelter at all is not established either way (r3-builder-4).

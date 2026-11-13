@@ -1768,6 +1768,23 @@ function bPromenada(b) {
     b.text('STARBUCKS COFFEE',-71,4.1,zf-0.06,0,0.5,'#1e3932');
     b.text('PROMENADA',-25,8.4,zf-0.06,0,0.8,'#28568a');
     [['#2f6eb5'],['#f39200'],['#d6336c'],['#7ab800'],['#f2c300'],['#00a0c6'],['#8e44ad'],['#e03c31']].forEach(([col],i)=>b.box(-16.5,3.2+i*1.15,zf-0.06,3.4,0.85,0.12,col));
+    // Barbu Văcărescu (east) front = local -z (r3-landmarks-8, 2026-11-13), drawn from the review recorded in
+    // research/bucharest-pipera.md (pano 44.478431, 26.104866 h 255, looked at only: "white cladding, dark glazed band,
+    // rounded corners, curved roof edge, a large LED screen and flagpoles on a paved forecourt"). The rounded corners are
+    // the OSM outline's own. The pano looks square onto this face at about local x = 10; the band's extent and height, the
+    // screen's size and place, the roll radius and the flagpoles are estimates (dossier section 9), not measurements.
+    const ze=x=>(zAt([p],x)?.[0]??-50), eRy=-Math.atan2(ze(60)-ze(-60),120);
+    b.box(0,11.3,ze(0)-0.12,124,4.5,0.2,'#1d2730',{mat:'g',ry:eRy});                        // dark glazed band, upper storey
+    for(let x=-61.5;x<=61.5;x+=3) b.box(x,11.3,ze(x)-0.24,0.12,4.5,0.08,'#b9c0c3');          // its mullions
+    b.box(0,11.15,ze(0)-0.25,124.4,0.18,0.3,'#eef0ed',{ry:eRy}); b.box(0,15.8,ze(0)-0.25,124.4,0.18,0.3,'#eef0ed',{ry:eRy});
+    b.cylX(0,16.3,ze(0)-0.1,1.05,158,'#f3f4f2',14);                                         // rounded roll along the roof edge
+    const sx=12,sz=ze(sx);
+    b.box(sx,2.6,sz-0.55,15.2,8.6,0.5,'#141619',{ry:eRy});                                   // LED screen: frame
+    b.box(sx,2.9,sz-0.83,14.4,8.0,0.06,'#1b4f9c',{ry:eRy,mat:'e'});                          // lit face (a generic advert)
+    b.box(sx-3.2,4.1,sz-0.88,6.6,5.6,0.04,'#f4f1e6',{ry:eRy,mat:'e'}); b.box(sx+3.6,8.2,sz-0.88,5.6,1.6,0.04,'#ffcc29',{ry:eRy,mat:'e'});
+    for(const sg of [-1,1]) b.box(sx+sg*6.4,0,sz-0.55,0.45,2.6,0.45,'#2a2d31',{ry:eRy});       // its two legs
+    [['#002b7f'],['#fcd116'],['#ce1126'],['#003399'],['#ffffff']].forEach(([col],i)=>{       // flagpoles on the forecourt
+        const fx=-14+i*7, fz=ze(fx)-9; b.cyl(fx,0,fz,0.08,0.11,10.5,'#e8eaea',8); b.box(fx+1.05,8.3,fz,2.0,1.3,0.03,col,{ry:eRy}); });
     b.colPolygon(p,{y1:18});
 }
 

@@ -127,8 +127,10 @@ Both chapters are 2017. Starts and roads are authoritative in `cities.js` CHAPTE
   white walls without a window row, a black tenant band at the north end (Douglas, Hervis, Zara, C&A, H&M: OSM shop nodes inside
   the mall), Starbucks under it (n4833254421, level 0), the glazed entrance hall south of it, the mall's name and colour bars;
   positions along the wall estimated to a few metres. East (Barbu Văcărescu) front, pano 44.478431, 26.104866 h 255: white
-  cladding, dark glazed band, rounded corners, curved roof edge, a large LED screen and flagpoles on a paved forecourt; the
-  glazed band, screen and curved edge are not modelled (open: backlog r3-landmarks-8).
+  cladding, dark glazed band, rounded corners, curved roof edge, a large LED screen and flagpoles on a paved forecourt. Drawn
+  since 2026-11-13 from that record (no new panorama): a dark glazed band along the upper storey of the east face with light
+  mullions, a white rounded roll along its roof edge, a lit LED screen on two legs near the middle of the face (where the
+  pano looks square onto it) and five flagpoles on the forecourt; the rounded corners are the OSM outline's own.
 - **Pipera metro** (M2 terminus, w41337085): low pavilion with the blue M sign at the east end of Pompeiu; entrances at 44.48078,
   26.11660 and 44.48073, 26.11639.
 - **Courtyard by Marriott** (w764534288; pose `pip-courtyard` 44.478444, 26.106966 h 163): dark anthracite glass tower and a
@@ -236,6 +238,10 @@ Independent full-ring measurements (2026-11-08; ledger `measurements-bucharest-p
 - Aircraft exhibits: vertical dimensions; the three point-only aircraft (size unknown, not drawn).
 - BOB metre height (≈ 28 m from GF + 6); which building in the panorama is BOB.
 - Promenada tenant-band positions; the Calea Floreasca median (unmapped).
+- Promenada east front (`bPromenada`): glazed band 124 m long at 11.3-15.8 m (local x -62..62), mullions every 3 m, roll radius
+  1.05 m, LED screen 14.4 x 8 m on 2.6 m legs centred 12 m along the face (its picture is a generic lit panel), five 10.5 m
+  flagpoles 9 m in front of the face 7 m apart with plain-colour flags: positions, sizes and colours are estimates (extents
+  were not measured on the panorama).
 - Petrom pump islands (≈ 4 seen, 2 drawn); reviewed pylon places ±10 m (`fuel-stations-review.json`).
 - Uncompared: entrance buildings of the metro tunnels, the building passages, the clay courts, Kaufland's store front, the
   Kaufland median barrier on Fabrica de Glucoză.

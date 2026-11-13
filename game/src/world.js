@@ -19,7 +19,7 @@ import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landma
 import { makeTextures, emitFacadeSlab } from './buildings.js';
 import { footprintCells, insetFootprint, assemblySignature, geometryRing, geometrySurface } from './building-parts.js';
 import { validRoofProfile, roofMesh, roofSignature } from './building-roofs.js';
-import { districtFile, fetchDistrictPack, parseDistrictPackText, signatureMatches } from './district-pack.js';
+import { districtFile, fetchDistrictPack, parseDistrictPackText, signatureMatches, signatureMatcher } from './district-pack.js';
 import { triangulate } from './triangulate.js';
 import { sharedBuildPool } from './build-pool.js';
 import { sourceSurfaceEligible, validateSourceSurface } from './building-surface-cache.js';
@@ -5849,6 +5849,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (a && c2 && (a.includes(c2) || c2.includes(a) || a.split(' ')[0] === c2.split(' ')[0])) pb.poiSign = poiIndex;
     }
     let wallTris = 0;
+    // (spec 10 load budget) a source building's roof signature (and its hash) is made once for this loop, which changes no
+    // field the signature reads (i, h, minH, ring, holes, roofProfile): a building is the source of several roof surfaces
+    const roofSignatureMatches = new Map(), roofSignatureMatch = (source) => { let m = roofSignatureMatches.get(source); if (!m) roofSignatureMatches.set(source, m = signatureMatcher(roofSignature(source))); return m; };
     for (const b of bRecs) {
         if (b.skip) continue;
         const c = cellOf(b.c[0], b.c[1]);
@@ -5878,7 +5881,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const canopyAudit = roofProfileAudit.canopies ||= { native: [], legacyFlat: [] };
             canopyAudit[sourceRoof ? 'native' : 'legacyFlat'].push({ sourceId: data.buildingIds?.[b.i] || b.i, shape: sourceRoof ? b.roofProfile.shape : 'flat', totalM: b.h, eavesM: canopy.eavesM, minimumM: b.minH });
             const cached = sourceRoof && data.buildingRoofSurfaces?.[b.i];
-            const valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && signatureMatches(s.signature, roofSignature(source)); });
+            const valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && roofSignatureMatch(source)(s.signature); });
             if (cached) { if (valid) roofProfileAudit.surfacesApplied++; else roofProfileAudit.surfacesRejected.push(data.buildingIds?.[b.i] || b.i); }
             const unpack = face => data.buildingRoofGeometryPoints ? face.map(i => data.buildingRoofGeometryPoints[i]) : face;
             if (sourceRoof) for (const face of valid ? cached.faces.map(unpack) : canopy.roofFaces) c.roof.face3(...face, roofCol, [0, 1, 0]);
@@ -6085,7 +6088,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         // (spec 10 load budget) a valid prepared roof surface is drawn from the pack; the roof mesh is then only read by the
         // collider's roofHeightAt, so it is computed on its first use there (from the same ring, holes and profile)
         const roofLazy = b.roofProfile ? lazyRoofMesh(b, ring) : null;
-        const cached = b.roofProfile ? data.buildingRoofSurfaces?.[b.i] : undefined, valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && signatureMatches(s.signature, roofSignature(source)); });
+        const cached = b.roofProfile ? data.buildingRoofSurfaces?.[b.i] : undefined, valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && roofSignatureMatch(source)(s.signature); });
         const sourceRoof = b.roofProfile ? (valid ? { heightAt: (...a) => roofLazy().heightAt(...a) } : roofLazy()) : null;
         if (sourceRoof) {
             if (cached) { if (valid) roofProfileAudit.surfacesApplied++; else roofProfileAudit.surfacesRejected.push(data.buildingIds?.[b.i] || b.i); }

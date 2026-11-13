@@ -51,6 +51,11 @@ export function signatureHash(s) {
 }
 const HASHED = /^h1:[0-9a-f]{14}$/;
 /** true when a stored signature (literal, or hashed by the pack) matches the signature the builder computed */
+/** (stored) => signatureMatches(stored, computed) for one computed signature, its hash made once on first need */
+export function signatureMatcher(computed) {
+    let hash;
+    return (stored) => typeof stored === 'string' && typeof computed === 'string' && (stored === computed || (HASHED.test(stored) && computed.length >= SIGNATURE_MIN && stored === (hash ??= signatureHash(computed))));
+}
 export const signatureMatches = (stored, computed) => typeof stored === 'string' && typeof computed === 'string' && (stored === computed || (HASHED.test(stored) && computed.length >= SIGNATURE_MIN && stored === signatureHash(computed)));
 
 /** replace long signature strings by their hash (in place); returns the count */

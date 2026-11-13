@@ -1077,3 +1077,81 @@ the scene data from live OSM relation geometry (`tools/spots/repair-relation-out
 r5579292, r7174145), Seattle Aquarium r16051213 (pike-place, waterfront), Broad Street Green r5569823, Piers 55 / 59.
 Render: the Perennial Border bed now shows its planting (was lawn). Clipped water bodies (Lake Washington, Lake Union,
 Elliott Bay) and Ballard railway r4065613 were not touched (stored outline is a clip, not the same vertices).
+
+Follow-up 2026-11-13 (backlog r3-builder-6 / r3-bel-spots-5 closed): `repair-relation-outlines.mjs --from-extracts
+--clip-scenes` repaired the source extracts themselves (`game/research/osm/sea-spots/*.json`: 28 bow-tie relation outlines,
+a relation with several outer rings now keeps its id on the largest ring and gets `<id>_<k>` areas for the others, as in the
+scene files), so a rebuild with `build-data.mjs` no longer brings the bow-ties back; the extract tool itself is not in this
+repo, the repaired extracts are the source from here on. The four clipped outlines (Lake Washington r2793848, Lake Union
+r2793813, Elliott Bay r13316235, Ballard railway r4065613) are now the assembled live OSM ring clipped to the stored
+outline's bounding box, in the extracts and the scene files (0 crossings; renders of Meydenbauer, Gas Works, the Waterfront
+and the Locks unchanged apart from the repaired edges).
+
+## 17. Backlog close-out, 2026-11-13 (Bellevue spots and the spot builder)
+
+Fixed in the game (git history has the commits): picnic tables with both seats and flagpoles at the mapped nodes
+(`spots/furniture-extra.js`, the hash-locked `osm.js` drew one seat and no poles; `tourism=information` boards stay undrawn
+by design, note 36); the spot audit no longer counts elevated building:part volumes inside another collider as phantoms
+(Avenue Bellevue); the Meydenbauer flights w840902386 / w841411878 stand on a bank graded to the USGS DEM; boulevard light
+pools sit under the cobra heads; 99th Ave NE has dark bell-pendant posts; the Bellevue Square ↔ West Parking Garage strip
+has its 62 live-OSM ground ways (service drive, aisles, sidewalks, crossings, steps), the four open garage-deck walkways are
+drawn as concrete decks with rails, the skybridges have one floor level and mitred bends; Avenue Bellevue's tower parts carry
+a balcony slab per storey.
+
+Estimates that no available source settles (moved here from the backlog):
+- **Meydenbauer.** Terrace deck 4.45 m (USGS DEM), whaling building eaves 3.3 m / rise 3.4 m, boathouse sizes, the 19 added
+  piers 2.2 m wide: each read against one panorama. Lake Washington Blvd bridge piers: count (3), spacing and section read
+  from one panorama under the bridge. Shore houses (152 live-OSM footprints): levels / roof / colour by rule where OSM has
+  no tags. Not seen in any official panorama: the pavilion's beach face, the pier deck from on it, the playground equipment,
+  the upper walk's railing (not modelled), fish sculpture n13707322282 (hidden by shrubs, description only: unmodelled).
+  Boulevard and 99th Ave NE lamps are generated points (no lamp nodes mapped); the bell lamp's post 4.6 m, arm 0.75 m and
+  bell size are estimates. Flight widths 2.0 m.
+- **Botanical Garden.** The eight round-3 artworks are low-poly stand-ins sized from one photo each; Shorts House (one
+  storey, flat roof, timber over a grey base) has no exterior photo; the Aaron Education Center and the artworks are inside
+  the garden (no official panorama). Parked cars use three car models (the others add audit z-fights). The Perennial
+  Border's inner beds are not mapped: its ring is painted as one flower garden with 150 perennial clumps. Postcard: the
+  Perennial Border frames the tour's postcard (the ravine bridge is ≈ 300 m from the entry spawn, past the tour's 230 m
+  reach; the bridge keeps its own activity, "Cross the suspension bridge").
+- **Downtown Park.** No official panorama inside the park: canal coping colour, weir sills, cascade face, the terrace walls
+  (w810574801–803, w842753004–006: 0.45 m above the higher side), the old-school outline kerb and Piloti's six 0.9 m vaults
+  are estimates; the forecourt's lantern lamps and kerb bollards have no OSM nodes (unmodelled).
+- **Lincoln Square.** w33106348 heights (row 10 m, Crate & Barrel corner 12 m) read against street-light heads; the
+  garage-facing inner faces keep the generic shopfront (no panorama reaches them). Bellevue Way median width = the gap
+  between the painted carriageway edges (0.6–2.4 m); planted stretch, kerb height and turn-lane breaks are estimates.
+  Skybridge / open walkway floor 6.2 m over the higher end's ground (no measured level; official panoramas on the drive
+  EE7cKAltcksKzsSBPd822A, odcxtWhNyv-UeSc9O436Lw, _-8mGqQtoDS7uRaPUYC-ww, xnT4Gtmue9XZR7R-xc0iTQ were not viewable from this
+  session). Avenue Bellevue balcony depth 1.2 m and slab 0.22 m are estimates.
+
+## 18. Backlog close-out, 2026-11-13 (Seattle spots)
+
+Fixed in the game: the Seattle / Bellevue backdrop — Mount Rainier from Kerry Park now carries snow from about 1900 m over
+haze-tinted rock (`source-landmark.js` recolours a copy of the shared USGS mesh; the snow line is an artistic distant-view
+treatment, the heights are untouched), and the midrise blocks take the same haze as the far ground under them (they kept the
+skyline towers' reduced haze and read as dark blocks floating over Queen Anne / Capitol Hill from Gas Works); Gas Works on a
+5 m USGS grid over the whole park (`fine-dem-gas-works.js`, 2,277 EPQS samples); the Sinking Ship Garage's deck at the 2nd
+Ave Extension street level (documented exception, `pioneer-square.js`); a MoPOP camera challenge at its arrival, so its
+guided tour has a stop ("Frame MoPOP's metal lobes"); Pier 56's slanted street end gets its shopfront; Pier 60 is a low shed
+in the Aquarium's grey-green.
+
+Estimates and source gaps that no available source settles (moved here from the backlog):
+- **Waterfront.** The water triangle (−39.5, 58.4)–(−35.6, 65.7)–(−33.6, 65.8) between Pier 57 (r812609) and Pier 58
+  (w1155067802) is unmapped in OSM and water in the coastline (source gap, kept); Pier 55's three inner rings are recorded
+  in `waterfront-pier-rings.js` and not opened (coastline land). The Pike Place Market businesses on the bluff (95 named
+  nodes east of Western Ave, live OSM 2026-11-13) are not in the waterfront extract: they front Pike Place and Post Alley,
+  away from the waterfront, and are signed in the `pike-place` scene. Pier 60's 7 m height is an estimate (no height tag).
+- **Seattle Center, International Fountain.** The dome follows OSM w394955907 (9.5 m across; Wikipedia's 8.2 m loses, the
+  panorama Efow4N6Ma8F4LGpK2x3jWQ shows it lower); the micro-shooter and floodlight ring radii and the show rhythm are
+  estimates. The Acrobat Constellation (n3211770205: three figures 21–25 ft on poles) is one node: the three pole positions
+  are unknown, so it is not modelled. MoPOP's lobe targets sit at two thirds of each part's mapped height.
+- **Kerry Park.** The hanging planters and plaza benches seen in earlier reviews have no OSM nodes and no recorded positions
+  (the 8 mapped benches are drawn); the "street lamp in front of the sculpture" was not found within 9 m of Changing Form
+  and stays unidentified.
+- **Fremont Troll.** Official panoramas under the bridge along N 36th St (Z4ECcm_Bohycl_4lNh_0Yw, 1Ei0hgAU9k4ebaKIP7yMvw,
+  Yz1JPc9S36oaFTKzQyz7Mg, s2nejgAfrxEcFPqUbBfauA) disagree with the Troll's bearing by ≈ 30°; whether the arch over the
+  Troll spans to a column on its east side or the x = −8.75 bent line stands west of it needs an aerial / survey of the
+  bent positions (none available); the game keeps its bent lines.
+- **Gas Works.** The amphitheatre steps (not found in OSM), the sundial design, the towers' individual shapes, the car park,
+  the entrance sign, the trail edge and the floatplane / houseboat positions are unverified.
+- **Sinking Ship Garage.** Deck level 12.68 m NAVD88 (mean of the DEM at the two 2nd Ave Extension corners); OSM's 3 levels /
+  10.9 m are kept as the mapped total, with the levels below the high street.
+- **Rainier / Olympics.** Snow from 1950 m (blend 1650–1950 m) and the 45 % haze mix are judged, not measured.

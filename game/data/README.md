@@ -14,9 +14,8 @@ rle}}` (inside-mask, 20 m cells, run lengths alternating outside/inside starting
 (`{brand: [bg, fg, accent]}` sign colours from `game/research/`). The field research (`game/research/<city>-<district>.json`)
 fills missing building heights / levels / facade and roof colours / roof shapes at build time.
 
-**Legacy corridor maps**: `bucharest.json` and `seattle.json` are generated from OpenStreetMap by
-`tools/osm/build-data.mjs` (see `tools/osm/README.md`) and loaded at runtime by
-`game/src/world.js`. Do not edit by hand. Data © OpenStreetMap contributors (ODbL).
+Do not edit the packs by hand. Data © OpenStreetMap contributors (ODbL). The whole-city corridor maps (`bucharest.json`,
+`seattle.json`) were removed with the corridor era (spec 22); they are in git history.
 
 ## Schema (version 2)
 
@@ -81,15 +80,13 @@ Prepared row indices belong to their exact dataset snapshot. Across source expan
 | `buildingInfo` | (districts, 2026-11-07) one 5-tuple per building, same order as `buildings`: `[type, startYear, architect, material, hSrc, …]` — OSM `building` value / `architect` / `building:material` as string indices (−1 none), `start_date` year (0 unknown), height source 0 OSM, 1 research, 2 default estimate, 3 re-estimated by the height-sanity pass |
 | `treeInfo` | (districts, 2026-11-07) one triple per tree, same order as `trees`: `[taxon, circumferenceCm, leaf, …]` — `taxon` = string index of the OSM `species` / `taxon` / `species:en` / `genus` text (most specific first, −1 none), circumference in cm (0 unknown; OSM metres converted), `leaf` bits: 1 broadleaved, 2 needleleaved, 4 deciduous, 8 evergreen, 16 generated from a `tree_row` (7 m spacing), 32 measured on aerial imagery (`tools/aerial/trees.py` crowns, height from the crown radius; 2026-11-08) |
 | `furniture` | `[kind, x, z, …]` — kinds in `furnKinds` (bench, waste_basket, bollard, post_box, bicycle_parking, drinking_water, fountain, fire_hydrant, recycling, telephone, vending_machine, picnic_table, advertising); none on a carriageway |
-| `backdrop` | `[x, z, w, d, h, angleDeg, …]` (dm, degrees) — low-poly building masses beyond the corridors (one box per 40 m cell) so the horizon is not empty |
-| `corridor` | `{areaKm2, legs: [[label, km], …]}` — the routes the map was cut to (see `tools/osm/corridors.mjs`) |
+| `backdrop` | `[x, z, w, d, h, angleDeg, …]` (dm, degrees) — low-poly building masses beyond the playable area (one box per 40 m cell) so the horizon is not empty |
+| `corridor` | `{areaKm2, legs: [[label, km], …]}` — the playable area's size and the routes it was built round (`tools/osm/corridors.mjs`) |
 
-### Corridors (since v2)
+### Playable area
 
-The maps only contain what the story drives: travel-time routes on the drivable graph between the CV stops in
-story order (+ the centre / north loops in Bucharest, the SR-520 alternative and a downtown loop in Seattle),
-buffered by 300 m (450 m around stops and landmarks, 600 m in the historic centre of Bucharest). Roads, buildings,
-POIs, lamps, trees and furniture outside are dropped; parks / water may extend 600 m further for scenery.
+A district build keeps its roads, buildings and POIs inside the district polygon plus the scenery ring (`outerRing`,
+600 m by default); `corridor` records the area `tools/osm/corridors.mjs` computed for it.
 
 
 Optional `buildingCanopies` is an object keyed by building index. It marks only an explicitly reviewed open roof, keeping the corresponding `buildingIds` identity and complete mapped footprint. `topM` and `clearanceM` agree with that building's height/minHeight band; `classificationSource`, `evidence`, `topSource`, `clearanceSource`, `supportSource` and `dimensionNote` record provenance. Values marked `estimate` are authoring choices, not OSM metre tags. `estimateSupports` optionally adds narrow estimated supports only where their full footprints clear roads and neighbouring buildings; `supportWidthM` is their width. Runtime draws the source roof slab and colliding supports, keeps the roof band collidable, and omits the guessed fuel-canopy/pump template for that source record. Neither `amenity=fuel` nor OSM `layer` alone enables this field. OSM positive height/minimum tags take precedence over estimated dimensions.

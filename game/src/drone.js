@@ -10,7 +10,7 @@ import {inspectionEnabled} from './inspection.js';
 //  frame(dt) → true when the drone owns this frame (explore.js calls it from its loop hook)
 // ============================================================================
 import * as THREE from '../vendor/three.module.min.js';
-import { collideBuildings } from './world.js';
+import { collideBuildings } from './world-collide.js';
 import { createFlightBoundary, spotFlightSource, FLIGHT_GRACE } from './drone-boundary.js';
 import { makeCrowd, dressFor, seasonOf, CROWD_FLAGS } from './crowd.js';
 

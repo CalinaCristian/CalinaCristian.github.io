@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { LANDMARKS, buildLandmark } from '../../game/src/landmarks.js';
-import { collideBuildings } from '../../game/src/world.js';
+import { collideBuildings } from '../../game/src/world-collide.js';
 import { translatedLandmarkCollider } from '../../game/src/spots/landmark-colliders.js';
 const anchor = {x:173.5,z:-291.25}, base = 13.4;
 const inside = (x,z,p) => { let yes=false; for(let i=0,j=p.length-1;i<p.length;j=i++) if((p[i][1]>z)!==(p[j][1]>z)&&x<(p[j][0]-p[i][0])*(z-p[i][1])/(p[j][1]-p[i][1])+p[i][0])yes=!yes; return yes; };

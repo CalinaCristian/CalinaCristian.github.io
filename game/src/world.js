@@ -787,6 +787,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const EG = 40;
     const edgeGrid = new BoxGrid(EG);
     for (const e of edges) edgeGrid.insert(Math.min(e.a.x, e.b.x), Math.min(e.a.z, e.b.z), Math.max(e.a.x, e.b.x), Math.max(e.a.z, e.b.z), e);
+    let surfCells = null; // (surfacesAt's flat copy of these cells, made at its first query: surfCellsOf)
     const nearestEdge = (x, z, filter = null, maxR = 3000) => {
         const ix = Math.floor(x / EG), iz = Math.floor(z / EG);
         let best = null, bd = Infinity, bt = 0, bcx = 0, bcz = 0;
@@ -8533,29 +8534,57 @@ export async function buildWorld(city, renderer, opts = {}) {
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */
     function surfacesAt(x, z, cb, prefer = null, carriagewayOnly = false, exclude = null) {
-        const seen = new Set();
+        let seen = null; // (made for the first edge near enough: four in five that the grid cells hold are not)
         sceneryDeckGrid.each(x, z, x, z, deck => { if (pointInPolygon(x, z, deck.poly)) cb(deck.roofHeightAt(x, z),false,deck); });
         if (realPass && !carriagewayOnly && cornerPolys.length) { // a raised junction corner: the only surface there (cb(h, raised))
             let hc = null; cornerGrid.each(x, z, x, z, (cp) => { if (hc === null && x >= cp.x0 && x <= cp.x1 && z >= cp.z0 && z <= cp.z1 && pointInPolygon(x, z, cp.p)) hc = Y.road + Y.kerb + padHeightAt(cp.n, x, z); });
             if (hc !== null && !onRibbon(x, z, 0, RIB_ONLY)) { cb(hc, true); return; }
         }
-        edgeGrid.each(x - 2, z - 2, x + 2, z + 2, (e) => {
-            if (seen.has(e) || e.virtual || e === exclude) return; seen.add(e);
-            // (spec 10 load budget) the distance below is at least the gap to the edge's box; lim is at most the wider width +
-            // the largest shoulder (1.2) + the wider sidewalk + SIDE_BACK (+ 1.5 preferred): past that bound it returns anyway
-            const gap = Math.max(Math.min(e.a.x, e.b.x) - x, x - Math.max(e.a.x, e.b.x), Math.min(e.a.z, e.b.z) - z, z - Math.max(e.a.z, e.b.z));
-            if (gap > Math.max(e.wR, e.wL) + 1.2 + (carriagewayOnly ? 0 : Math.max(sidewalkWidth(e, 1), sidewalkWidth(e, -1)) + SIDE_BACK) + (e === prefer ? 1.5 : 0) + 1e-6) return;
-            const q = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z);
-            const side = ((x - q.cx) * e.nx + (z - q.cz) * e.nz) >= 0 ? 1 : -1;
-            const lim = (side > 0 ? e.wR : e.wL) + shoulderOf(e) + (carriagewayOnly ? 0 : sidewalkWidth(e, side) + (raisedEdge(e, side) ? SIDE_BACK : 0.05)) + (e === prefer ? 1.5 : 0);
-            if (q.d > lim) return;
-            if ((q.t <= 0 || q.t >= 1) && Math.hypot(x - (q.t <= 0 ? e.a.x : e.b.x), z - (q.t <= 0 ? e.a.z : e.b.z)) > (q.t <= 0 ? e.a : e.b).radius + (carriagewayOnly ? 0 : 1)) return;
-            const h = Y.road + yAlong(e,x,z);
-            if (!carriagewayOnly && q.t > 0 && q.t < 1 && raisedEdge(e, side) && q.d > widthAsphalt(e, side) + 0.02 && !onRibbon(x, z, 0, RIB_ONLY)) { const sh = railRoadside.surface(e, x, z, h + Y.kerb); if (sh !== null) cb(sh, sh > h + .01); return; } // source-rail flush paving follows rendered height
-            let adjusted = railRoadside.surface(e, x, z, h);
-            if (adjusted === null && !carriagewayOnly) adjusted = railRoadside.surface(e, x, z, h + Y.side - Y.road);
-            if (adjusted !== null) cb(adjusted);
-        });
+        // (spec 10 load budget) the edge grid's cells as flat arrays (surfCells): the same cells and edges in the same order
+        // as edgeGrid.each(x - 2, z - 2, x + 2, z + 2), each edge's first test read from numbers instead of the edge
+        if (!surfCells) surfCells = surfCellsOf();
+        const gc = edgeGrid.cell, i1 = Math.floor((x + 2) / gc), j0 = Math.floor((z - 2) / gc), j1 = Math.floor((z + 2) / gc);
+        for (let i = Math.floor((x - 2) / gc); i <= i1; i++) for (let j = j0; j <= j1; j++) {
+            const cellE = surfCells.get(edgeGrid.k(i, j)); if (!cellE) continue;
+            const { list, box } = cellE;
+            for (let k = 0; k < list.length; k++) {
+                const o = 7 * k; if (box[o + 6]) continue; // (virtual)
+                const e = list[k]; if (e === exclude) continue;
+                // the distance below is at least the gap to the edge's box; lim is at most the wider width + the largest
+                // shoulder (1.2) + the wider sidewalk + SIDE_BACK (+ 1.5 preferred): past that bound it returns anyway. The
+                // test is a pure function of the edge and the point, so it comes before the duplicate check (same answers)
+                const gap = Math.max(box[o] - x, x - box[o + 1], box[o + 2] - z, z - box[o + 3]), reach = carriagewayOnly ? box[o + 5] : box[o + 4];
+                if (gap > (e === prefer ? reach + 1.5 : reach) + 1e-6) continue;
+                if (!seen) seen = new Set(); else if (seen.has(e)) continue;
+                seen.add(e);
+                const q = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z);
+                const side = ((x - q.cx) * e.nx + (z - q.cz) * e.nz) >= 0 ? 1 : -1;
+                const lim = (side > 0 ? e.wR : e.wL) + shoulderOf(e) + (carriagewayOnly ? 0 : sidewalkWidth(e, side) + (raisedEdge(e, side) ? SIDE_BACK : 0.05)) + (e === prefer ? 1.5 : 0);
+                if (q.d > lim) continue;
+                if ((q.t <= 0 || q.t >= 1) && Math.hypot(x - (q.t <= 0 ? e.a.x : e.b.x), z - (q.t <= 0 ? e.a.z : e.b.z)) > (q.t <= 0 ? e.a : e.b).radius + (carriagewayOnly ? 0 : 1)) continue;
+                const h = Y.road + yAlong(e,x,z);
+                if (!carriagewayOnly && q.t > 0 && q.t < 1 && raisedEdge(e, side) && q.d > widthAsphalt(e, side) + 0.02 && !onRibbon(x, z, 0, RIB_ONLY)) { const sh = railRoadside.surface(e, x, z, h + Y.kerb); if (sh !== null) cb(sh, sh > h + .01); continue; } // source-rail flush paving follows rendered h
+                let adjusted = railRoadside.surface(e, x, z, h);
+                if (adjusted === null && !carriagewayOnly) adjusted = railRoadside.surface(e, x, z, h + Y.side - Y.road);
+                if (adjusted !== null) cb(adjusted);
+            }
+        }
+    }
+    /** surfacesAt's flat edge cells: per cell of edgeGrid its edge list and, per edge, 7 numbers: its box (x0, x1, z0, z1),
+     *  its reach with and without the sidewalk (wider width + 1.2 (+ wider sidewalk + SIDE_BACK)) and 1 when virtual.
+     *  Made at the first query: edge widths, sidewalks and node positions are final by then, and the grid is never added to. */
+    function surfCellsOf() {
+        const out = new Map();
+        for (const [key, list] of edgeGrid.map) {
+            const box = new Float64Array(list.length * 7);
+            list.forEach((e, k) => {
+                const o = 7 * k, base = Math.max(e.wR, e.wL) + 1.2;
+                box[o] = Math.min(e.a.x, e.b.x); box[o + 1] = Math.max(e.a.x, e.b.x); box[o + 2] = Math.min(e.a.z, e.b.z); box[o + 3] = Math.max(e.a.z, e.b.z);
+                box[o + 4] = base + (Math.max(sidewalkWidth(e, 1), sidewalkWidth(e, -1)) + SIDE_BACK); box[o + 5] = base + 0; box[o + 6] = e.virtual ? 1 : 0;
+            });
+            out.set(key, { list, box });
+        }
+        return out;
     }
 
     const world = {

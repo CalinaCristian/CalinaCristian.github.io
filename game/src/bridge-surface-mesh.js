@@ -1,44 +1,119 @@
+import { MeshBuilder } from './geobuild.js';
+
+// (spec 10 load budget) heightAtWorld is a pure function of its arguments; neighbouring triangles ask it again at the same
+// points (shared corners, the samples of a shared edge), mostly moments apart: close to half the questions on a deck.
+// Recent answers are kept in a small direct-mapped table (a slot holds the last key that hashed to it), keyed by the
+// exact bits of (x, z, y); a generation per call marks the slots of the current function. Only numbers are kept.
+const KEY = new Float64Array(3), KEYW = new Uint32Array(KEY.buffer), MEMO_BITS = 14, MEMO_MASK = (1 << MEMO_BITS) - 1;
+const memoW = new Uint32Array(6 << MEMO_BITS), memoV = new Float64Array(1 << MEMO_BITS), memoG = new Uint32Array(1 << MEMO_BITS);
+let memoGen = 0;
+function memoHeights(fn) {
+    if (++memoGen > 0xfffffff0) { memoG.fill(0); memoGen = 1; }
+    const gen = memoGen;
+    return (x, z, y) => {
+        KEY[0] = x; KEY[1] = z; KEY[2] = y;
+        const w0 = KEYW[0], w1 = KEYW[1], w2 = KEYW[2], w3 = KEYW[3], w4 = KEYW[4], w5 = KEYW[5];
+        let h = Math.imul(w0 ^ w1, 0x9e3779b1) ^ Math.imul(w2 ^ w3, 0x85ebca6b) ^ Math.imul(w4 ^ w5, 0xc2b2ae35);
+        h ^= h >>> 16; h = Math.imul(h, 0x27d4eb2f); h ^= h >>> 15; h &= MEMO_MASK;
+        const o = h * 6;
+        if (memoG[h] === gen && memoW[o] === w0 && memoW[o + 1] === w1 && memoW[o + 2] === w2 && memoW[o + 3] === w3 && memoW[o + 4] === w4 && memoW[o + 5] === w5) return memoV[h];
+        const v = fn(x, z, y);
+        if (typeof v === 'number') { memoW[o] = w0; memoW[o + 1] = w1; memoW[o + 2] = w2; memoW[o + 3] = w3; memoW[o + 4] = w4; memoW[o + 5] = w5; memoV[h] = v; memoG[h] = gen; }
+        return v;
+    };
+}
+/** fn(x, z, y) with its recent answers kept in a direct-mapped table of its own (2^bits slots, keyed by the exact bits of
+ *  the three arguments, as memoHeights): for a pure fn of those arguments. Only numbers are kept. */
+export function exactMemo3(fn, bits = 16) {
+    const mask = (1 << bits) - 1, W = new Uint32Array(6 << bits), V = new Float64Array(1 << bits), U = new Uint8Array(1 << bits), K = new Float64Array(3), KW = new Uint32Array(K.buffer);
+    return (x, z, y) => {
+        K[0] = x; K[1] = z; K[2] = y;
+        const w0 = KW[0], w1 = KW[1], w2 = KW[2], w3 = KW[3], w4 = KW[4], w5 = KW[5];
+        let h = Math.imul(w0 ^ w1, 0x9e3779b1) ^ Math.imul(w2 ^ w3, 0x85ebca6b) ^ Math.imul(w4 ^ w5, 0xc2b2ae35);
+        h ^= h >>> 16; h = Math.imul(h, 0x27d4eb2f); h ^= h >>> 15; h &= mask;
+        const o = h * 6;
+        if (U[h] && W[o] === w0 && W[o + 1] === w1 && W[o + 2] === w2 && W[o + 3] === w3 && W[o + 4] === w4 && W[o + 5] === w5) return V[h];
+        const v = fn(x, z, y);
+        if (typeof v === 'number') { W[o] = w0; W[o + 1] = w1; W[o + 2] = w2; W[o + 3] = w3; W[o + 4] = w4; W[o + 5] = w5; V[h] = v; U[h] = 1; }
+        return v;
+    };
+}
 /** Mesh-only adaptive displacement. Keeps source graph vertices/edges and
- * material attributes; records sampled chord error instead of changing grade. */
-export function displaceBridgeSurface(mesh, fromVertex, fromIndex, heightAtWorld, { maxErrorM=.002, maxDepth=18 }={}) {
-    const rows=[];
-    for(let k=fromIndex;k<mesh.ic;k+=3)rows.push([0,1,2].map(j=>{const i=mesh.i[k+j];return{p:Array.from(mesh.p.subarray(i*3,i*3+3)),n:Array.from(mesh.n.subarray(i*3,i*3+3)),u:Array.from(mesh.u.subarray(i*2,i*2+2)),c:Array.from(mesh.c.subarray(i*3,i*3+3)),t:mesh.t?.[i]??-1};}));
+ * material attributes; records sampled chord error instead of changing grade.
+ * (spec 10 load budget) Vertices live in one flat pool (12 numbers: position, normal, uv, colour, tile); the arithmetic is
+ * that of the object form it replaced: mix = a + (b − a) · t per number, snap = fround of x and z. */
+export function displaceBridgeSurface(mesh, fromVertex, fromIndex, heightAtWorldFn, { maxErrorM=.002, maxDepth=18 }={}) {
+    const heightAtWorld = memoHeights(heightAtWorldFn);
+    const S = 12, inputs = Math.max(0, Math.floor((mesh.ic - fromIndex + 2) / 3)), V = new Float64Array((inputs * 3 + maxDepth + 2) * S);
+    let top = 0;
+    // the input corners, snapped (as the root of each triangle snapped them)
+    for (let k = fromIndex; k < mesh.ic; k += 3) for (let j = 0; j < 3; j++) {
+        const i = mesh.i[k + j], o = top; top += S;
+        V[o] = Math.fround(mesh.p[i * 3]); V[o + 1] = mesh.p[i * 3 + 1]; V[o + 2] = Math.fround(mesh.p[i * 3 + 2]);
+        V[o + 3] = mesh.n[i * 3]; V[o + 4] = mesh.n[i * 3 + 1]; V[o + 5] = mesh.n[i * 3 + 2]; V[o + 6] = mesh.u[i * 2]; V[o + 7] = mesh.u[i * 2 + 1];
+        V[o + 8] = mesh.c[i * 3]; V[o + 9] = mesh.c[i * 3 + 1]; V[o + 10] = mesh.c[i * 3 + 2]; V[o + 11] = mesh.t?.[i] ?? -1;
+    }
     mesh.vc=fromVertex;mesh.ic=fromIndex;
-    const stats={inputTriangles:rows.length,outputTriangles:0,maxLeafControlErrorM:0,depthLimit:0,limitSamples:[],worstControl:null};
-    const mix=(a,b,t)=>({p:a.p.map((v,k)=>v+(b.p[k]-v)*t),n:a.n.map((v,k)=>v+(b.n[k]-v)*t),u:a.u.map((v,k)=>v+(b.u[k]-v)*t),c:a.c.map((v,k)=>v+(b.c[k]-v)*t),t:a.t});
-    const at=v=>heightAtWorld(v.p[0],v.p[2],v.p[1]);
+    const stats={inputTriangles:inputs,outputTriangles:0,maxLeafControlErrorM:0,depthLimit:0,limitSamples:[],worstControl:null};
+    const at = o => heightAtWorld(V[o], V[o + 2], V[o + 1]);
     // height at mix(a, b, t).p, with mix's own arithmetic, without building the whole vertex
-    const atMix=(a,b,t)=>{const A=a.p,B=b.p;return heightAtWorld(A[0]+(B[0]-A[0])*t,A[2]+(B[2]-A[2])*t,A[1]+(B[1]-A[1])*t);};
-    const edgeError=(a,b,ha,hb)=>{let e=0;for(const t of [.25,.5,.75])e=Math.max(e,Math.abs(atMix(a,b,t)-(ha+(hb-ha)*t)));return e;};
-    const snap=v=>({...v,p:[Math.fround(v.p[0]),v.p[1],Math.fround(v.p[2])]});
+    const atMix = (a, b, t) => heightAtWorld(V[a] + (V[b] - V[a]) * t, V[a + 2] + (V[b + 2] - V[a + 2]) * t, V[a + 1] + (V[b + 1] - V[a + 1]) * t);
+    const edgeError = (a, b, ha, hb) => { let e = 0; for (const t of [.25, .5, .75]) e = Math.max(e, Math.abs(atMix(a, b, t) - (ha + (hb - ha) * t))); return e; };
+    const col = [0, 0, 0];
+    const emit = (o, y, n0, n1, n2) => { col[0] = V[o + 8]; col[1] = V[o + 9]; col[2] = V[o + 10]; return mesh.v(V[o], y, V[o + 2], n0, n1, n2, V[o + 6], V[o + 7], col, V[o + 11]); };
+    const witness = (depth, error, vs, hs) => ({ depth, errorM: error, vertices: vs.map((o, i) => ({ position: [V[o], V[o + 1], V[o + 2]], heightDisplacement: hs[i], color: [V[o + 8], V[o + 9], V[o + 10]], materialTag: V[o + 11] })) });
     // heightAtWorld is a pure function of its arguments, so values already known for the same arguments are reused: a
     // child keeps two of its parent's (already snapped) corners and the error of the parent edge it shares (same
     // vertices, same direction), and a leaf's displacement is its corner control height (the same snapped x, z, y).
-    const recurse=(tri,depth,knownH,knownE)=>{
+    // Corners q0…q2 are pool offsets, h0…h2 their heights, k0…k2 the known errors of edges q0q1, q1q2, q2q0 (NaN: unknown;
+    // an error that is NaN itself is just computed again, the same).
+    const recurse = (q0, q1, q2, depth, h0, h1, h2, k0, k1, k2) => {
         // Controls and subsequent child nodes use the actual serialized XY.
         // Longest-edge bisection bounds both horizontal dimensions, including
         // long thin fascia faces; the deeper finite budget is numerical only.
-        if(!knownH)tri=tri.map(snap);
-        const H=knownH?knownH.map((h,i)=>h===undefined?at(tri[i]):h):tri.map(at),E=[undefined,undefined,undefined];let error=0,longest=-1,split=0;
-        for(let i=0;i<3;i++){const a=tri[i],b=tri[(i+1)%3],d=Math.hypot(b.p[0]-a.p[0],b.p[2]-a.p[2]);if(d>longest){longest=d;split=i;}}
-        const edge=i=>E[i]??(E[i]=knownE?.[i]??edgeError(tri[i],tri[(i+1)%3],H[i],H[(i+1)%3]));
-        const p0=tri[0].p,p1=tri[1].p,p2=tri[2].p,centre=()=>Math.abs(heightAtWorld((p0[0]+p1[0]+p2[0])/3,(p0[2]+p1[2]+p2[2])/3,(p0[1]+p1[1]+p2[1])/3)-(H[0]+H[1]+H[2])/3);
-        const j=(split+1)%3,k=(split+2)%3,canSplit=depth<maxDepth&&longest>1e-5;
+        const Q = [q0, q1, q2], H = [h0, h1, h2], E = [k0, k1, k2];
+        let error = 0, longest = -1, split = 0;
+        for (let i = 0; i < 3; i++) { const a = Q[i], b = Q[(i + 1) % 3], d = Math.hypot(V[b] - V[a], V[b + 2] - V[a + 2]); if (d > longest) { longest = d; split = i; } }
+        const edge = i => { let e = E[i]; if (e !== e) e = E[i] = edgeError(Q[i], Q[(i + 1) % 3], H[i], H[(i + 1) % 3]); return e; };
+        const j = (split + 1) % 3, k = (split + 2) % 3, canSplit = depth < maxDepth && longest > 1e-5;
         // The node splits when the largest control error exceeds the tolerance. When it can split, the controls are tested
         // in an order (the edges its children keep first) and the test stops at the first one over the tolerance: the
         // decision is the same, and a split node records nothing; a child recomputes a kept edge's error identically
         // (same vertices, same direction, same heights). A leaf always evaluates every control.
-        for(const i of canSplit?[k,j,split]:[0,1,2]){error=Math.max(error,edge(i));if(canSplit&&error>maxErrorM)break;}
-        if(!(canSplit&&error>maxErrorM))error=Math.max(error,centre());
-        if(error>maxErrorM&&canSplit){const m=snap(mix(tri[split],tri[j],.5)),hm=at(m);recurse([tri[split],m,tri[k]],depth+1,[H[split],hm,H[k]],[undefined,undefined,E[k]]);recurse([m,tri[j],tri[k]],depth+1,[hm,H[j],H[k]],[undefined,E[j],undefined]);return;}
-        const witness=()=>({depth,errorM:error,vertices:tri.map((v,i)=>({position:v.p,heightDisplacement:H[i],color:v.c,materialTag:v.t}))});
-        if(error>maxErrorM){stats.depthLimit++;if(stats.limitSamples.length<16)stats.limitSamples.push(witness());}if(error>stats.maxLeafControlErrorM)stats.worstControl=witness();stats.maxLeafControlErrorM=Math.max(stats.maxLeafControlErrorM,error);
+        if (canSplit) { for (const i of [k, j, split]) { error = Math.max(error, edge(i)); if (error > maxErrorM) break; } }
+        else for (let i = 0; i < 3; i++) error = Math.max(error, edge(i));
+        if (!(canSplit && error > maxErrorM)) error = Math.max(error, Math.abs(heightAtWorld((V[q0] + V[q1] + V[q2]) / 3, (V[q0 + 2] + V[q1 + 2] + V[q2 + 2]) / 3, (V[q0 + 1] + V[q1 + 1] + V[q2 + 1]) / 3) - (h0 + h1 + h2) / 3));
+        if (error > maxErrorM && canSplit) {
+            const a = Q[split], b = Q[j], m = top; top += S;
+            for (let r = 0; r < 11; r++) V[m + r] = V[a + r] + (V[b + r] - V[a + r]) * .5;
+            V[m] = Math.fround(V[m]); V[m + 2] = Math.fround(V[m + 2]); V[m + 11] = V[a + 11];
+            const hm = at(m);
+            // children: [split, m, k] keeps edge k→split (its third edge); [m, j, k] keeps edge j→k (its second edge)
+            recurse(a, m, Q[k], depth + 1, H[split], hm, H[k], NaN, NaN, E[k]);
+            recurse(m, b, Q[k], depth + 1, hm, H[j], H[k], NaN, E[j], NaN);
+            top -= S; return;
+        }
+        if (error > maxErrorM) { stats.depthLimit++; if (stats.limitSamples.length < 16) stats.limitSamples.push(witness(depth, error, Q, H)); }
+        if (error > stats.maxLeafControlErrorM) stats.worstControl = witness(depth, error, Q, H);
+        stats.maxLeafControlErrorM = Math.max(stats.maxLeafControlErrorM, error);
         // (the same arithmetic as before, on scalars: P = corner + its displacement, normal = (P1 − P0) × (P2 − P0) / |…|)
-        const x0=p0[0],y0=p0[1]+H[0],z0=p0[2],x1=p1[0],y1=p1[1]+H[1],z1=p1[2],x2=p2[0],y2=p2[1]+H[2],z2=p2[2];
-        const a0=x1-x0,a1=y1-y0,a2=z1-z0,b0=x2-x0,b1=y2-y0,b2=z2-z0,c0=a1*b2-a2*b1,c1=a2*b0-a0*b2,c2=a0*b1-a1*b0,L=Math.hypot(c0,c1,c2)||1,n0=c0/L,n1=c1/L,n2=c2/L;
-        const u0=tri[0].u,u1=tri[1].u,u2=tri[2].u;
-        mesh.tri(mesh.v(x0,y0,z0,n0,n1,n2,u0[0],u0[1],tri[0].c,tri[0].t),mesh.v(x1,y1,z1,n0,n1,n2,u1[0],u1[1],tri[1].c,tri[1].t),mesh.v(x2,y2,z2,n0,n1,n2,u2[0],u2[1],tri[2].c,tri[2].t));stats.outputTriangles++;
+        const x0 = V[q0], y0 = V[q0 + 1] + h0, z0 = V[q0 + 2], x1 = V[q1], y1 = V[q1 + 1] + h1, z1 = V[q1 + 2], x2 = V[q2], y2 = V[q2 + 1] + h2, z2 = V[q2 + 2];
+        const a0 = x1 - x0, a1 = y1 - y0, a2 = z1 - z0, b0 = x2 - x0, b1 = y2 - y0, b2 = z2 - z0, c0 = a1 * b2 - a2 * b1, c1 = a2 * b0 - a0 * b2, c2 = a0 * b1 - a1 * b0, L = Math.hypot(c0, c1, c2) || 1, n0 = c0 / L, n1 = c1 / L, n2 = c2 / L;
+        mesh.tri(emit(q0, y0, n0, n1, n2), emit(q1, y1, n0, n1, n2), emit(q2, y2, n0, n1, n2)); stats.outputTriangles++;
     };
-    for(const tri of rows)recurse(tri,0,null,null);
+    for (let r = 0; r < inputs; r++) { const q0 = r * 3 * S, q1 = q0 + S, q2 = q1 + S; recurse(q0, q1, q2, 0, at(q0), at(q1), at(q2), NaN, NaN, NaN); }
     return stats;
+}
+
+/** (spec 10 load budget) displaceBridgeSurface over a deck's input triangles given as corners (12 numbers each: position,
+ *  normal, uv, colour, tile −1), in a builder of their own → { stats, count, p, n, u, c } (the shaped triangles, three
+ *  points each, in order). world.js and the build workers both shape a deferred deck with this. */
+export function shapeDeckSoup(input, fn) {
+    const n = input.length / 12, mb = new MeshBuilder(false, Math.max(64, n));
+    for (let q = 0; q < n; q++) { const k = q * 12; mb.v(input[k], input[k + 1], input[k + 2], input[k + 3], input[k + 4], input[k + 5], input[k + 6], input[k + 7], [input[k + 8], input[k + 9], input[k + 10]]); }
+    for (let q = 0; q < n; q += 3) mb.tri(q, q + 1, q + 2);
+    const stats = displaceBridgeSurface(mb, 0, 0, fn);
+    if (mb.ic !== mb.vc) throw new Error('deck shaping: unexpected vertex count');
+    for (let k = 0; k < mb.ic; k++) if (mb.i[k] !== k) throw new Error('deck shaping: unexpected index order');
+    return { stats, count: mb.vc, p: mb.p.slice(0, mb.vc * 3), n: mb.n.slice(0, mb.vc * 3), u: mb.u.slice(0, mb.vc * 2), c: mb.c.slice(0, mb.vc * 3) };
 }

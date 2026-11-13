@@ -134,6 +134,7 @@ class Game {
         // Renderer3D owns the WebGLRenderer, lighting, sky, weather, post-processing and adaptive quality
         this.r3d = this.renderer3d = new Renderer3D(this.canvas, { quality: 'auto' });
         this.renderer = this.r3d.renderer; // still used directly for the mirror pass and the office scene
+        setTimeout(() => { try { this.r3d.prewarmEnvBake?.(); } catch (e) { /* only a warm-up */ } }, 0); // (spec 10: first place's env bake)
         this.camera = new THREE.PerspectiveCamera(72, 1, 0.2, 5000); // near 0.2: the door trim is 0.47 m from the eye (R17.4)
         this.input = new Input();
         this.audio = new Audio();
@@ -399,7 +400,9 @@ class Game {
         // lighting, sky, fog and weather are owned by Renderer3D (set up after the world exists)
         // world (buildWorld may be async)
         try { VEHICLES.setFleetCity?.(id); } catch { /* older vehicles.js */ } // plates / police livery of parked props + the player's exterior car
-        const world = this.world = await buildWorld(city, this.renderer, district ? { district, start } : {});
+        // (spec 10 load budget) deferGround: the build workers finish the fallback ground while traffic and the player are
+        // set up below; world.ready is awaited before the renderer is attached (the first frame)
+        const world = this.world = await buildWorld(city, this.renderer, district ? { district, start, deferGround: true } : { deferGround: true });
         scene.add(world.group);
         this.football = createDinamoFootball(this);
         this.basketball = createRosettiBasketball(this);
@@ -442,6 +445,7 @@ class Game {
         this.traffic.setPlayer(this.player);
         this.traffic.clearForPlayer?.(this.player) ?? this.traffic.clearAround(this.player.x, this.player.z, 14);
         // renderer: scene, lighting, real-time sun, street lamps, weather
+        await world.ready;
         this.attachWorldRender();
         this.r3d.onNightLights = (on) => { this.nightLights = on; this.traffic?.setNightLights(on || !!this._fogLights); };
         this.r3d.onNightLights(this.r3d.nightLights);

@@ -36,15 +36,22 @@ export function buildSourceSurfaceCache(physical) {
         surfaces: bodies.map(b => ({ i: b.i, neighbours: neighbours.get(b.i).map(p => p.i).sort((a, b) => a - b), surface: bakeSourceSolidSurface(b, [b, ...neighbours.get(b.i)]) })) };
 }
 
-export function validateSourceSurface(spec, cache, records, { eligible = sourceSurfaceEligible, requireAuthority = cache.version >= 2, points } = {}) {
+/** `memo` (optional Map): the per-source answers of earlier calls with the same cache, records and options, while the
+ *  records do not change (one validation pass): a source shared by several surfaces is checked once */
+export function validateSourceSurface(spec, cache, records, { eligible = sourceSurfaceEligible, requireAuthority = cache.version >= 2, points, memo = null } = {}) {
     if (!spec || !Array.isArray(spec.neighbours)) return 'missing-neighbours';
     const sources = cache instanceof Map ? cache : new Map((cache.sources || []).map(s => [s.i, s]));
     const owner = records[spec.i], indices = [spec.i, ...spec.neighbours];
-    for (const i of indices) {
+    const check = i => {
         const b = records[i], source = sources.get(i);
         if (!b || !eligible(b)) return 'inactive-or-unsupported-source';
         if (!source || !signatureMatches(source.signature, assemblySignature(b, []))) return 'prepared-geometry-mismatch';
         if ((requireAuthority || source.authoritySignature !== undefined) && !signatureMatches(source.authoritySignature, sourceSurfaceAuthority(b).signature)) return 'prepared-authority-mismatch';
+        return null;
+    };
+    for (const i of indices) {
+        let reason; if (memo && memo.has(i)) reason = memo.get(i); else { reason = check(i); memo?.set(i, reason); }
+        if (reason) return reason;
     }
     if (spec.surface?.walls?.length !== owner.ring.length || owner.holes.length && (spec.surface?.holeWalls?.length !== owner.holes.length || spec.surface.holeWalls.some((walls, i) => walls.length !== owner.holes[i].length))) return 'prepared-face-mismatch';
     const bandValid = f => f && [f.t0,f.t1,f.y0,f.y1].every(Number.isFinite) && f.t0 >= 0 && f.t1 <= 1 && f.t1 > f.t0 && f.y0 >= (owner.minH > 0 ? owner.minH : Math.min(.18, owner.h)) - 1e-7 && f.y1 <= (owner.roofProfile?.eavesM ?? owner.h) + 1e-7 && f.y1 > f.y0;

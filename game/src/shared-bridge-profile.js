@@ -2,6 +2,7 @@ import { SHARED_BRIDGE_MODELS } from './shared-bridge-models.js';
 import { decodeTramPoints } from './tram-path.js';
 import { smoothTramRamp } from './tram-grade.js';
 import { clipConvex, polygonArea, sourcePath, pathStation, sourceFrames, distance, clipAffine } from './bridge-profile-geometry.js';
+import { asymmetricRamp, sharedCommonAt, sharedApproachAt, sharedEdgeHeight } from './bridge-height-models.js';
 const EPS = 1e-7;
 const no = v => v == null || /^(no|false|0)$/.test(String(v));
 const sorted = value => value && typeof value === 'object' && !Array.isArray(value) ? Object.fromEntries(Object.keys(value).sort().map(k => [k, sorted(value[k])])) : Array.isArray(value) ? value.map(sorted) : value;
@@ -15,14 +16,6 @@ function overlapComponents(A, B, pad, lanePolygon) {
     let changed = true;
     while (changed) { changed = false; for (let i = 0; i < candidates.length; i++) if (!selected.has(i) && [...selected].some(j => clipConvex(candidates[i].poly, candidates[j].poly).length)) { selected.add(i); changed = true; } }
     return [...selected].map(i => candidates[i]);
-}
-// A fork can carry nonzero longitudinal grade through its original source
-// node. Ease only the actual ground/flat boundaries, not every graph vertex.
-function asymmetricRamp(length, height, leftEase, rightEase, maxGrade) {
-    const peakGrade=height/(length-(leftEase+rightEase)/2);
-    if(!(length>0)||height<0||leftEase<0||rightEase<0||leftEase+rightEase>length||peakGrade>maxGrade+1e-10)return null;
-    const at=s=>s<=0?0:s>=length?height:leftEase&&s<leftEase?peakGrade*s*s/(2*leftEase):rightEase&&s>length-rightEase?height-peakGrade*(length-s)**2/(2*rightEase):peakGrade*(s-leftEase/2);
-    return {at,length,height,peakGrade,easeM:[leftEase,rightEase],breaks:[0,leftEase,length-rightEase,length]};
 }
 /** Compile an auditable MODEL candidate. Application is separate: caller must
  * validate physical road/rail ordering and emitted vehicle geometry first. */
@@ -111,12 +104,12 @@ export function compileSharedBridgeProfile(data, { coreEdges = [], lanePolygon, 
     }
     const lift=model.splitterModelHeightM,groundTrunkLength=L0-approachReserves.trunk[0],groundEaseM=Math.min(model.groundEaseM,groundTrunkLength/2);
     const internalHeight=lift+G*(groundTrunkLength-groundEaseM/2),trunk=asymmetricRamp(groundTrunkLength,internalHeight-lift,groundEaseM,0,G),radialRise=0;
-    const branchRadialEnds={},branches={};
+    const branchRadialEnds={},branches={},branchArgs={};
     for(const role of ['branchA','branchB']){
         const points=overlaps[role].flatMap(c=>c.poly);if(!points.length)return fail('source-branch-flat-merge-hull-unknown',{role});
         const end=Math.min(...points.map(p=>distance(p,centre))),height=H-internalHeight,endEase=Math.min(model.preferredEaseM,2*(end-height/G)*.999),length=height/G+endEase/2;
         if(!(endEase>0)||endEase>length||length-endEase<radius-1e-6)return fail('source-radial-c1-branch-and-shared-fan-infeasible',{role,lift,end,height,endEase,radius});
-        branches[role]=asymmetricRamp(length,height,0,endEase,G);branchRadialEnds[role]=end;
+        branchArgs[role]=[length,height,0,endEase,G];branches[role]=asymmetricRamp(...branchArgs[role]);branchRadialEnds[role]=end;
     }
     // Incoming/outgoing source carriageways share a real reverse-parallel
     // junction footprint. Use one homologous section field through that overlap,
@@ -126,7 +119,7 @@ export function compileSharedBridgeProfile(data, { coreEdges = [], lanePolygon, 
     let zeroR=masterLength-zeroStation.s;
     for(const cell of approachOverlaps)if([cell.e,cell.f].some(e=>!['w668676695','w84482712','w668679788','w668676694','w668676697'].includes(e.sourceId)))for(const p of cell.poly)zeroR=Math.min(zeroR,masterLength-roleProjection('approachIn',p));
     const inLength=zeroR-flatStart,outLength=inLength,approachIn=smoothTramRamp(inLength,lift,model),approachOut=approachIn;
-    const approachAt=p=>{const q=approachMaster.locate(p);return q?lift-approachIn.at(masterLength-q.s-flatStart):0;};
+    const approachAt=sharedApproachAt(approachMaster,approachIn,lift,masterLength,flatStart);
     if(!trunk||!approachIn||Object.values(branches).some(v=>!v))return fail('finite-source-approach-c1-fit-infeasible',{lift,approachReserves,inLength,zeroR,flatStart});
     const sourceFlatAnchor = (role, height, predicate, last=false) => {
         const rows=[...paths[role].stations].map(([nodeId,s])=>({nodeId,s,node:byNode.get(nodeId)})).filter(a=>a.node && Math.abs(a.node.y-height)<EPS && predicate(a));
@@ -173,36 +166,31 @@ export function compileSharedBridgeProfile(data, { coreEdges = [], lanePolygon, 
     if (!south || !north) return fail('homologous-existing-flat11m-source-anchors-unresolved', { zoneLo, zoneHi });
     const dipSouth = smoothTramRamp(zoneLo - south.s, model.stationHeightM - H, model), dipNorth = smoothTramRamp(north.s - zoneHi, model.stationHeightM - H, model);
     if (!dipSouth || !dipNorth) return fail('shared-main-c1-transition-infeasible');
-    const commonAt = s => s < south.s || s > north.s ? null : s < zoneLo ? model.stationHeightM - dipSouth.at(s - south.s) : s <= zoneHi ? H : H + dipNorth.at(s - zoneHi);
+    const commonAt = sharedCommonAt({ southS: south.s, northS: north.s, zoneLo, zoneHi, H, stationHeightM: model.stationHeightM, dipSouth, dipNorth });
     const commonPoint = p => { const q = frames.locate(p); return q ? commonAt(q.s) : null; };
     const padFields=new Map();
     const roleSources = new Map(); for (const [role, def] of Object.entries(model.paths)) for (const [id] of def.ways) roleSources.set(id, role);
     const mainSources = new Set(model.mainSources.flat()), roadGrades = new Map();
+    // (spec 10 load budget) the edge heights are made by bridge-height-models.js from this context; workerSpec holds its
+    // numbers and source points, from which the build workers make the same context
+    const ctx = { commonPoint, roleFrames, lift, trunk, trunk0: approachReserves.trunk[0], approachAt, internalHeight, branches, centre, H, loop, loopAnchorS: loopAnchor.s, mergeLoop: merge.loop, exitRamp, exitAnchorS: exitAnchor.s, mergeExit: merge.exit, auxiliaryRamp, auxAnchorS: auxiliaryAnchor.s, stationHeightM: model.stationHeightM };
+    const workerSpec = { modelId: model.id, referencePoints, rolePoints: Object.fromEntries(Object.entries(paths).map(([id, p]) => [id, p.points])), southS: south.s, northS: north.s, zoneLo, zoneHi, H,
+        dipSouth: [zoneLo - south.s, model.stationHeightM - H], dipNorth: [north.s - zoneHi, model.stationHeightM - H], lift, trunk: [groundTrunkLength, internalHeight - lift, groundEaseM, 0, G], trunk0: approachReserves.trunk[0],
+        approachIn: [inLength, lift], masterLength, flatStart, internalHeight, branchA: branchArgs.branchA, branchB: branchArgs.branchB, centre,
+        loop: [loopAnchor.s - merge.loop, H - 5.2], loopAnchorS: loopAnchor.s, mergeLoop: merge.loop, exit: [exitAnchor.s - merge.exit, model.stationHeightM - H], exitAnchorS: exitAnchor.s, mergeExit: merge.exit,
+        auxiliary: [paths.auxiliary.length - merge.auxiliary - auxiliaryAnchor.s, model.stationHeightM - H], auxAnchorS: auxiliaryAnchor.s };
     for (const e of edges) {
         const role = roleSources.get(e.sourceId), main = mainSources.has(e.sourceId); if (!role && !main) continue;
-        const oldYa = e.ya, oldYb = e.yb, legacy = p => { const t = Math.max(0, Math.min(1, ((p[0] - e.a.x) * e.dirx + (p[1] - e.a.z) * e.dirz) / e.len)); return oldYa + (oldYb - oldYa) * t; };
+        const oldYa = e.ya, oldYb = e.yb;
         let s0, s1;
         if (role) { s0 = pathStation(paths[role], lookup, e, point(e.a)); s1 = pathStation(paths[role], lookup, e, point(e.b)); if (![s0, s1].every(Number.isFinite)) return fail('native-model-edge-not-on-original-source-role', { sourceId: e.sourceId, edgeId: e.id }); }
-        const rawAtWorld = p => {
-            if (main) return commonPoint(p) ?? legacy(p);
-            const t = Math.max(0, Math.min(1, ((p[0] - e.a.x) * e.dirx + (p[1] - e.a.z) * e.dirz) / e.len)), s = roleFrames[role].locate(p)?.s ?? s0 + (s1 - s0) * t;
-            // Keep the original endpoint heights in the same mitered source
-            // cross-section coordinates as the MODEL. A tangent projection
-            // gives a different lateral station at a curved anchor and would
-            // introduce a height jump at the MODEL/legacy section boundary.
-            const sectionLegacy = oldYa + (oldYb - oldYa) * Math.max(0, Math.min(1, (s - s0) / ((s1 - s0) || 1)));
-            if (role === 'trunk') return lift+trunk.at(s-approachReserves.trunk[0]);
-            if(role==='approachIn'||role==='approachOut')return approachAt(p);
-            if (role === 'branchA' || role === 'branchB') return internalHeight + branches[role].at(distance(p, centre));
-            if (role === 'loop') return s <= loopAnchor.s ? H - loop.at(s - merge.loop) : sectionLegacy;
-            if (role === 'exit') return s <= exitAnchor.s ? H + exitRamp.at(s - merge.exit) : sectionLegacy;
-            return s >= auxiliaryAnchor.s ? model.stationHeightM - auxiliaryRamp.at(s - auxiliaryAnchor.s) : sectionLegacy;
-        };
-        const atWorld=p=>{let y=rawAtWorld(p);for(const n of [e.a,e.b]){const field=padFields.get(n.id);if(field)y=field.blendHeight(...p,y);}return y;};
+        const es = { main, role: role ?? null, ax: e.a.x, az: e.a.z, dirx: e.dirx, dirz: e.dirz, len: e.len, oldYa, oldYb, s0, s1, aId: e.a.id, bId: e.b.id };
+        const { legacy, atWorld } = sharedEdgeHeight(ctx, es, id => padFields.get(id));
         const changed = [0, .25, .5, .75, 1].some(t => { const p = [e.a.x + (e.b.x - e.a.x) * t, e.a.z + (e.b.z - e.a.z) * t]; return Math.abs(atWorld(p) - legacy(p)) > 1e-8; });
         if (!changed) continue;
         const grade = { known: true, modelId: model.id, estimated: true, basis: model.basis, sourceId: e.sourceId, role: main ? 'main' : role,
             ya: atWorld(point(e.a)), yb: atWorld(point(e.b)), heightAt: t => atWorld([e.a.x + (e.b.x - e.a.x) * Math.max(0, Math.min(1, t)), e.a.z + (e.b.z - e.a.z) * Math.max(0, Math.min(1, t))]), heightAtWorld: (x, z) => atWorld([x, z]), oldYa, oldYb };
+        Object.defineProperty(grade, 'workerSpec', { value: { kind: 'shared', edge: es } }); // (not enumerable: the grade record is as before)
         roadGrades.set(e.id, grade); report.oldProfiles.push({ edgeId: e.id, sourceId: e.sourceId, ya: oldYa, yb: oldYb });
     }
     const seamValues = new Map();
@@ -231,7 +219,7 @@ export function compileSharedBridgeProfile(data, { coreEdges = [], lanePolygon, 
         const oldAt=grade.heightAt||((t)=>grade.ya+(grade.yb-grade.ya)*Math.max(0,Math.min(1,t))),heightAt=t=>commonPoint([a[0]+v[0]*t,a[1]+v[1]*t])??oldAt(t);
         return {...grade,ya:heightAt(0),yb:heightAt(1),heightAt,heightAtWorld:(x,z)=>commonPoint([x,z])??oldAt(Math.max(0,Math.min(1,((x-a[0])*v[0]+(z-a[1])*v[1])/(v[0]*v[0]+v[1]*v[1])))),surfaceRegions,sourceBridgeModelId:model.id,sourceBridgeBasis:model.basis,breaks:[...new Set([...(grade.breaks||[]),...ts.filter(t=>t>1e-8&&t<1-1e-8)])].sort((a,b)=>a-b)};
     };
-    return { known: true, report, model, roadGrades, frames, commonAt, commonPoint, adaptRailGrade, surfaceRegions, bindPadSurface:(node,field)=>padFields.set(node.id,field), padHeightAt:(node,x,z)=>padFields.get(node.id)?.heightAtWorld(x,z)??null, overlaps, internalOverlaps: internal, approachOverlaps, paths, lookup,
+    return { known: true, workerSpec, report, model, roadGrades, frames, commonAt, commonPoint, adaptRailGrade, surfaceRegions, bindPadSurface:(node,field)=>padFields.set(node.id,field), padHeightAt:(node,x,z)=>padFields.get(node.id)?.heightAtWorld(x,z)??null, overlaps, internalOverlaps: internal, approachOverlaps, paths, lookup,
         contains: p => { const q = frames.locate(p); return !!q && q.s >= south.s && q.s <= north.s; },
         railOverride: (way, leg) => { if (![model.referenceRail, model.pairedRail].includes(way.sourceId)) return null; const a = point(leg.a), b = point(leg.b), mid = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]; if (![a, b, mid].some(p => commonPoint(p) !== null)) return null; return { commonPoint, modelId: model.id }; } };
 }

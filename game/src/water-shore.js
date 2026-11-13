@@ -3,7 +3,9 @@
 export function makeSourceShoreSampler(areas, { maxD = 30, cell = 32 } = {}) {
     const grid = new Map(), long = [], sources = [], issues = [];
     let segments = 0;
-    const put = (x, z, segment) => { const key = x + ',' + z; if (!grid.has(key)) grid.set(key, []); grid.get(key).push(segment); };
+    // (spec 10 load budget) numeric cell keys; a cell outside their range sends the segment to `long` (always measured)
+    const CK = 1 << 20, cellKey = (x, z) => (x + CK) * 2 * CK + (z + CK), inKeys = (x0, x1, z0, z1) => x0 >= -CK && x1 < CK && z0 >= -CK && z1 < CK;
+    const put = (x, z, segment) => { const key = cellKey(x, z); if (!grid.has(key)) grid.set(key, []); grid.get(key).push(segment); };
     for (const [i, area] of areas.entries()) {
         const id = area.sourceId || 'prepared-area:' + (area.areaIndex ?? i);
         sources.push(id);
@@ -15,7 +17,7 @@ export function makeSourceShoreSampler(areas, { maxD = 30, cell = 32 } = {}) {
                 if (a[0] === b[0] && a[1] === b[1]) continue;
                 const s = [a[0], a[1], b[0], b[1]], x0 = Math.floor(Math.min(a[0], b[0]) / cell), x1 = Math.floor(Math.max(a[0], b[0]) / cell);
                 const z0 = Math.floor(Math.min(a[1], b[1]) / cell), z1 = Math.floor(Math.max(a[1], b[1]) / cell);
-                if ((x1 - x0 + 1) * (z1 - z0 + 1) > 4096) long.push(s);
+                if ((x1 - x0 + 1) * (z1 - z0 + 1) > 4096 || !inKeys(x0, x1, z0, z1)) long.push(s);
                 else for (let x = x0; x <= x1; x++) for (let z = z0; z <= z1; z++) put(x, z, s);
                 segments++;
             }
@@ -30,7 +32,9 @@ export function makeSourceShoreSampler(areas, { maxD = 30, cell = 32 } = {}) {
         maxD, segments, sourceIds: [...new Set(sources)], issues,
         distance(x, z) {
             const cx = Math.floor(x / cell), cz = Math.floor(z / cell), r = Math.ceil(maxD / cell); let best = maxD;
-            for (let a = -r; a <= r; a++) for (let b = -r; b <= r; b++) for (const s of grid.get((cx + a) + ',' + (cz + b)) || []) best = Math.min(best, distanceTo(x, z, s));
+            // a segment whose bounds lie more than best (+1 µm) away along one axis is farther than best: min keeps best
+            if (inKeys(cx - r, cx + r, cz - r, cz + r)) for (let a = -r; a <= r; a++) for (let b = -r; b <= r; b++) { const l = grid.get(cellKey(cx + a, cz + b)); if (l) for (const s of l) { const m = best + 1e-6; if (Math.min(s[0], s[2]) - x > m || x - Math.max(s[0], s[2]) > m || Math.min(s[1], s[3]) - z > m || z - Math.max(s[1], s[3]) > m) continue; best = Math.min(best, distanceTo(x, z, s)); } }
+            else for (let a = -r; a <= r; a++) for (let b = -r; b <= r; b++) { const l = inKeys(cx + a, cx + a, cz + b, cz + b) && grid.get(cellKey(cx + a, cz + b)); if (l) for (const s of l) best = Math.min(best, distanceTo(x, z, s)); }
             for (const s of long) best = Math.min(best, distanceTo(x, z, s));
             return best;
         },
@@ -40,7 +44,8 @@ export function makeSourceShoreSampler(areas, { maxD = 30, cell = 32 } = {}) {
 
 export function sourceShoreAttribute(position, index, sampler, { coarseEdgeM = 8 } = {}) {
     const distances = new Float32Array(position.count), foamReliable = new Float32Array(position.count).fill(1), cache = new Map();
-    const sample = (x, z) => { const key = x + ',' + z; if (!cache.has(key)) cache.set(key, sampler.distance(x, z)); return cache.get(key); };
+    // cache by x, then z (Map keys compare as the old string keys did: -0 is 0, NaN is NaN)
+    const sample = (x, z) => { let row = cache.get(x); if (!row) cache.set(x, row = new Map()); let d = row.get(z); if (d === undefined) row.set(z, d = sampler.distance(x, z)); return d; };
     for (let i = 0; i < position.count; i++) distances[i] = sample(position.getX(i), position.getZ(i));
     const faces = (index?.count ?? position.count) / 3, ranges = [], fallbackBySource = {};
     let fallbackFaces = 0, indexedUnreliableFaces = 0;

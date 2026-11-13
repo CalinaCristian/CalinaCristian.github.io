@@ -11,7 +11,7 @@ import { compileSharedBridgeProfile } from './shared-bridge-profile.js';
 import { buildGeneratedParapetOwnership, emitOwnedSeparationQuad } from './generated-parapet-ownership.js';
 
 import { compileSourceBridgeDescents } from './source-bridge-descents.js';
-import { displaceBridgeSurface } from './bridge-surface-mesh.js';
+import { displaceBridgeSurface, shapeDeckSoup, exactMemo3 } from './bridge-surface-mesh.js';
 import { displaceBandedSurface } from './bridge-surface-band.js';
 import { splitMeshByTiles } from './mesh-tiles.js';
 import * as THREE from '../vendor/three.module.min.js';
@@ -20,6 +20,7 @@ import { makeTextures, emitFacadeSlab } from './buildings.js';
 import { footprintCells, insetFootprint, assemblySignature, geometryRing, geometrySurface } from './building-parts.js';
 import { validRoofProfile, roofMesh, roofSignature } from './building-roofs.js';
 import { districtFile, fetchDistrictPack, parseDistrictPackText, signatureMatches } from './district-pack.js';
+import { triangulate } from './triangulate.js';
 import { sharedBuildPool } from './build-pool.js';
 import { sourceSurfaceEligible, validateSourceSurface } from './building-surface-cache.js';
 import { clipBuildingDetailRange } from './building-detail-range.js';
@@ -83,6 +84,10 @@ import { PEDESTRIAN_FRONTS } from './pedestrian-fronts.js';
 import { bridgeGuardRow, emitBridgeGuard, guardBlockH, emitGuardSteel, GUARD_CONCRETE } from './bridge-guards.js';
 // (spec 10 load budget) start the build workers now, so they are loaded before the first district is built
 try { if (typeof window !== 'undefined') sharedBuildPool(); } catch (e) { /* no workers: buildWorld runs everything here */ }
+// (spec 10 load budget) the modules buildWorld imports on demand are fetched and compiled while the page is idle; a build
+// awaits the same import (a failed prefetch is retried there, as before)
+const lazyModule = (load) => { let p = null; if (typeof window !== 'undefined') { p = load(); p.catch(() => {}); } return () => (p ? p.catch(load) : load()); };
+const landmarksModule = lazyModule(() => import('./landmarks.js')), archetypesModule = lazyModule(() => import('./archetypes.js'));
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -184,9 +189,13 @@ const brandStyle = (name) => {
     if (!name) return null;
     const k = name.toLowerCase();
     if (RESEARCH_BRANDS[k]) return RESEARCH_BRANDS[k];
-    for (const b in BRANDS) if (new RegExp('(^|[^\\p{L}\\p{N}])' + b.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '($|[^\\p{L}\\p{N}])', 'u').test(k)) return BRANDS[b]; // whole-word match (research Request: 'Mega' ≠ 'Megaron')
-    return null;
+    // whole-word match (research Request: 'Mega' ≠ 'Megaron'); BRANDS is fixed, so its patterns and answers are kept
+    if (BRAND_HITS.has(k)) return BRAND_HITS.get(k);
+    BRAND_RES ||= Object.keys(BRANDS).map(b => [new RegExp('(^|[^\\p{L}\\p{N}])' + b.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '($|[^\\p{L}\\p{N}])', 'u'), BRANDS[b]]);
+    let hit = null; for (const [re, style] of BRAND_RES) if (re.test(k)) { hit = style; break; }
+    BRAND_HITS.set(k, hit); return hit;
 };
+let BRAND_RES = null; const BRAND_HITS = new Map();
 
 const shoulderOf = (e) => (e.roadWidthSource && (e.roadWidthSource.source === 'OSM width' || e.roadWidthSource.review)) ? 0 : (/motorway|trunk/.test(e.type) ? (e.type.endsWith('_link') ? 0.6 : 1.2) : 0.15);
 const AWNING = ['#b91c1c', '#1f4e79', '#14532d', '#7c2d12', '#374151', '#6b21a8', '#0f766e', '#a16207'].map(rgb);
@@ -235,11 +244,6 @@ function polysCross(A, B) {
         }
     }
     return false;
-}
-function triangulate(outer, holes = []) {
-    const contour = outer.map(([x, z]) => new THREE.Vector2(x, z));
-    const hs = holes.map(h => h.map(([x, z]) => new THREE.Vector2(x, z)));
-    try { return { pts: outer.concat(...holes), tris: THREE.ShapeUtils.triangulateShape(contour, hs) }; } catch (e) { return { pts: outer, tris: [] }; }
 }
 
 /** Uniform grid keyed by cell → array of items (items inserted by bbox). */
@@ -362,7 +366,7 @@ function nightAtlas(atlas) {
     return { night: tex(N.c, false), win: rect };
 }
 
-function solidMaterial(atlas) {
+function solidMaterial(atlas, preparedNight = null) {
     // (2026-11-07, world-visual) PBR so glass curtain walls pick up the sky probe / environment (tiles 4 / 12: metalness
     // 0.55, roughness 0.16; everything else matte), and lit windows at night: render.js eases emissiveIntensity from 0
     // by day to userData.nightEmissive at night (contract 01 → Render); ~42 % of windows lit, warm 2700–4000 K, a few
@@ -370,7 +374,7 @@ function solidMaterial(atlas) {
     const m = new THREE.MeshStandardMaterial({ vertexColors: true, map: atlas, roughness: 0.92, metalness: 0, emissive: new THREE.Color(1, 1, 1), emissiveIntensity: 0 });
     m.userData.nightEmissive = 1.2;
     m.userData.uClosed = { value: 0 }; // share of shops closed (shutters down), set by world from the local hour
-    let night = null, win = null; try { ({ night, win } = nightAtlas(atlas)); } catch (e) { console.warn('[world] night atlas', e); }
+    let night = null, win = null; try { ({ night, win } = preparedNight || nightAtlas(atlas)); } catch (e) { console.warn('[world] night atlas', e); }
     m.userData.ownedTextures = [night, win].filter(Boolean); // shader-closure textures belong to this district material
     m.onBeforeCompile = (sh) => {
         sh.uniforms.winTexel = { value: 4 / atlas.image.width }; sh.uniforms.nightMap = { value: night }; sh.uniforms.winMap = { value: win }; sh.uniforms.uClosed = m.userData.uClosed;
@@ -655,7 +659,11 @@ export async function buildWorld(city, renderer, opts = {}) {
     const buildPool = distId ? sharedBuildPool() : null;
     buildPool?.reset();
     let data = null;
-    if (buildPool) try { data = parseDistrictPackText(await buildPool.packText(url)); } catch (e) { console.warn('[world] pack worker failed, decoding here', e); }
+    const packText = buildPool ? buildPool.packText(url) : null;
+    // (spec 10 load budget) the facade atlas and its night data do not depend on the place: they are painted while the
+    // worker decodes the pack (canvas textures only; the materials are made where they were)
+    const earlyAtlas = (() => { try { const atlas = makeAtlas(); let night = null; try { night = nightAtlas(atlas); } catch (e) { /* solidMaterial reports it */ } return { atlas, night }; } catch (e) { return null; } })();
+    if (packText) try { data = parseDistrictPackText(await packText); } catch (e) { console.warn('[world] pack worker failed, decoding here', e); }
     if (!data) data = distId ? await fetchDistrictPack(url) : await (await fetch(url)).json();
     const realPass = !!data.scenery; // (2026-11-08) a district rebuilt by the reality pass (scenery ring, aerial roofs / trees / green): street-level dressing on
     // field research (spec 20): street-tree notes per street, baked by tools/osm into data.streetTrees
@@ -1764,6 +1772,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         for(const e of edges){e.ya=e.a.y;e.yb=e.b.y;}
     }
     sharedBridgeProfile.report.sourceDescents = sourceBridgeDescents.report;
+    const deckAudit = [], deckJobs = []; let deckWorkers = false; // (deck shaping in the build workers: see displace)
     const sharedBridgeMeshAudit={inputTriangles:0,outputTriangles:0,maxLeafControlErrorM:0,depthLimit:0,limitSamples:[],worstControl:null};
     if(profileStats)profileStats.sharedBridge=sharedBridgeProfile.report;
     // (owner, 2026-11-12, Grozavesti (770, -1016) "lane gets tiny": the two Grivitei slip ramps left the 11 m deck level at
@@ -2430,6 +2439,13 @@ export async function buildWorld(city, renderer, opts = {}) {
         const es=n.edges.filter(e=>!e.virtual),hull=convexHull(es.flatMap(e=>[corner(e,n,1,widthAsphalt(e,1),widthAsphalt),corner(e,n,-1,widthAsphalt(e,-1),widthAsphalt)])),surface=sharedBridgePadSurface(n,hull,es,(e,p)=>yAlong(e,...p));
         if(surface){sharedPadSurfaces.set(n.id,surface);sharedBridgeProfile.bindPadSurface?.(n,surface);sourceBridgeDescents.bindPadSurface?.(n,surface);}
     }
+    // (spec 10 load budget) the deck height models as data for the build workers (bridge-height-models.js): they shape the
+    // decks' ground ribbons (displace, finishDeckJobs) with the same functions
+    if (buildPool && (sharedBridgeProfile.known || sourceBridgeDescents.known)) try {
+        buildPool.deckModels({ shared: sharedBridgeProfile.known ? sharedBridgeProfile.workerSpec : null, descents: [...(sourceBridgeDescents.workerSpecs || new Map()).values()],
+            pads: [...sharedPadSurfaces].map(([id, s]) => [id, { P: s.poly, triangles: s.topTriangles, baseM: s.baseM }]) });
+        deckWorkers = true;
+    } catch (err) { console.warn('[world] deck models for the workers', err); }
     const padCorners = new Map(); // node -> {road:[], side:[]}
     const pushPad = (n, kind, p) => { let o = padCorners.get(n); if (!o) padCorners.set(n, o = { road: [], side: [], y: 0 }); o[kind].push(p); };
     const markingStations = buildMarkingStations(edges, e => data.roadSourceGeometry?.[e.road]?.sourceId || e.access?.sourceId);
@@ -2477,10 +2493,28 @@ export async function buildWorld(city, renderer, opts = {}) {
     };
     const ribbons = []; // carriageway polygons (asphalt incl. shoulder) of every edge + junction pads → definitive clearance checks
     const dash = US ? [3, 9] : [3, 5];
-    const displace = (mb, from, fn, edge=null, fromIndex=null) => {
+    // (spec 10 load budget) deck shaping results enter sharedBridgeMeshAudit in call order (foldDeckAudit), also those
+    // shaped in the build workers (deferred: the range stays in its builder until finishDeckJobs splices the result in)
+    const foldDeckAudit = () => {
+        let n = 0;
+        for (; n < deckAudit.length && deckAudit[n].a; n++) { const { a, context } = deckAudit[n];
+            sharedBridgeMeshAudit.inputTriangles+=a.inputTriangles;sharedBridgeMeshAudit.outputTriangles+=a.outputTriangles;if(a.maxLeafControlErrorM>sharedBridgeMeshAudit.maxLeafControlErrorM)sharedBridgeMeshAudit.worstControl={...a.worstControl,...context};sharedBridgeMeshAudit.maxLeafControlErrorM=Math.max(sharedBridgeMeshAudit.maxLeafControlErrorM,a.maxLeafControlErrorM);sharedBridgeMeshAudit.depthLimit+=a.depthLimit;for(const sample of a.limitSamples)if(sharedBridgeMeshAudit.limitSamples.length<32)sharedBridgeMeshAudit.limitSamples.push({...sample,...context}); }
+        deckAudit.splice(0, n);
+    };
+    const displace = (mb, from, fn, edge=null, fromIndex=null, worker=null) => {
         if(edge?.sourceBridgeGrade?.known){
             if(fromIndex===null){fromIndex=mb.ic;for(let k=0;k<mb.ic;k+=3)if(mb.i[k]>=from||mb.i[k+1]>=from||mb.i[k+2]>=from){fromIndex=k;break;}}
-            const a=displaceBridgeSurface(mb,from,fromIndex,fn),context={edgeId:edge.id,sourceId:edge.access?.sourceId||edge.sourceId};sharedBridgeMeshAudit.inputTriangles+=a.inputTriangles;sharedBridgeMeshAudit.outputTriangles+=a.outputTriangles;if(a.maxLeafControlErrorM>sharedBridgeMeshAudit.maxLeafControlErrorM)sharedBridgeMeshAudit.worstControl={...a.worstControl,...context};sharedBridgeMeshAudit.maxLeafControlErrorM=Math.max(sharedBridgeMeshAudit.maxLeafControlErrorM,a.maxLeafControlErrorM);sharedBridgeMeshAudit.depthLimit+=a.depthLimit;for(const sample of a.limitSamples)if(sharedBridgeMeshAudit.limitSamples.length<32)sharedBridgeMeshAudit.limitSamples.push({...sample,...context});return;
+            const context={edgeId:edge.id,sourceId:edge.access?.sourceId||edge.sourceId};
+            // in a worker: a deck whose triangles nothing reads before the join (no rail-roadside cut on its edge; a builder
+            // without tiles), from the same input triangles and the same height model made from its spec
+            if (worker && deckWorkers && edge.sourceBridgeGrade.workerSpec && !railRoadside.active(edge) && !mb.t && mb.ic > fromIndex) {
+                const n = mb.ic - fromIndex, input = new Float64Array(n * 12);
+                for (let q = 0; q < n; q++) { const v = mb.i[fromIndex + q], k = q * 12; input[k] = mb.p[v * 3]; input[k + 1] = mb.p[v * 3 + 1]; input[k + 2] = mb.p[v * 3 + 2]; input[k + 3] = mb.n[v * 3]; input[k + 4] = mb.n[v * 3 + 1]; input[k + 5] = mb.n[v * 3 + 2]; input[k + 6] = mb.u[v * 2]; input[k + 7] = mb.u[v * 2 + 1]; input[k + 8] = mb.c[v * 3]; input[k + 9] = mb.c[v * 3 + 1]; input[k + 10] = mb.c[v * 3 + 2]; input[k + 11] = -1; }
+                const job = { builder: mb, sv: from, ev: mb.vc, si: fromIndex, ei: mb.ic, input, fn, entry: { a: null, context } };
+                job.promise = buildPool.deck(input, edge.sourceBridgeGrade.workerSpec, worker.verge);
+                deckJobs.push(job); deckAudit.push(job.entry); return;
+            }
+            deckAudit.push({ a: displaceBridgeSurface(mb,from,fromIndex,fn), context }); foldDeckAudit(); return;
         }
         for (let i = from; i < mb.vc; i++) mb.p[i * 3 + 1] += fn(mb.p[i * 3], mb.p[i * 3 + 2]);
     };
@@ -2955,10 +2989,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         if (elevated) { const f = (x, z) => yAlong(e, x, z);
             // the sidewalk rides with the ramp; on an embankment ramp the verge beyond it stays on the ground, under the skirt
-            const fg = e.bridge || e.tunnel ? f : (x, z) => { const lat = (x - e.a.x) * e.nx + (z - e.a.z) * e.nz; return Math.abs(lat) <= widthSide(e, lat >= 0 ? 1 : -1) + 0.05 ? f(x, z) : Math.min(0, f(x, z)); };
+            const wPos = widthSide(e, 1), wNeg = widthSide(e, -1); // (the edge does not change while it is displaced)
+            const fg = e.bridge || e.tunnel ? f : (x, z) => { const lat = (x - e.a.x) * e.nx + (z - e.a.z) * e.nz; return Math.abs(lat) <= (lat >= 0 ? wPos : wNeg) + 0.05 ? f(x, z) : Math.min(0, f(x, z)); };
             // (a rule that jumps at the band edge cannot be met by adaptive subdivision: cut on the line instead, bridge-surface-band.js)
-            if (!(e.bridge || e.tunnel) && e.sourceBridgeGrade?.known) displaceBandedSurface(c.ground, v0g, i0g, { ax: e.a.x, az: e.a.z, nx: e.nx, nz: e.nz, limit: sd => widthSide(e, sd) + 0.05, inside: f, outside: (x, z) => Math.min(0, f(x, z)) }, sharedBridgeMeshAudit, { edgeId: e.id, sourceId: e.access?.sourceId || e.sourceId });
-            else displace(c.ground, v0g, fg, e, i0g);
+            if (!(e.bridge || e.tunnel) && e.sourceBridgeGrade?.known) displaceBandedSurface(c.ground, v0g, i0g, { ax: e.a.x, az: e.a.z, nx: e.nx, nz: e.nz, limit: sd => (sd > 0 ? wPos : wNeg) + 0.05, inside: f, outside: (x, z) => Math.min(0, f(x, z)) }, sharedBridgeMeshAudit, { edgeId: e.id, sourceId: e.access?.sourceId || e.sourceId });
+            else displace(c.ground, v0g, fg, e, i0g, { verge: e.bridge || e.tunnel ? null : { ax: e.a.x, az: e.a.z, nx: e.nx, nz: e.nz, wPos, wNeg } });
             // (owner, 2026-11-11, Grozavesti (68.5, 203): "looks odd", "not smooth", "let's simulate real life") the verge of a
             // raised ramp ended in a stepped cliff above the grass (each segment's strip ends square-on). Street-level reference
             // (game/research/bucharest-grozavesti.md, Pasajul Basarab): the Basarab and Pasajul ramps stand on vertical concrete
@@ -3058,6 +3093,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         return { x0: Math.min(...points.map(p => p[0])), x1: Math.max(...points.map(p => p[0])), z0: Math.min(...points.map(p => p[1])), z1: Math.max(...points.map(p => p[1])) };
     });
     const underpassOwnerOptions = { fallbackM: -.3, regions: underpassRegions }; // exact unchanged emitted groundPlane datum
+    if (underpassRegions.length) await finishDeckJobs(); // (the index reads every ground triangle: the decks first)
     const underpassGroundOwners = buildUnderpassOwnerIndex(underpassRegions.length ? [
         ...[...cells].flatMap(([key, c]) => ['area', 'grass', 'pave', 'sport', 'ground', 'road', 'pad'].map(layer => ({ mesh: c[layer], id: layer + ':' + key }))),
         { mesh: bigWater, id: 'water-big', water: true },
@@ -3743,7 +3779,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         // climbing right next to a street — OSM geometry squeezed by the map scale), a car leaving the road there would
         // drop / jump onto it. Put a visible concrete barrier on that edge instead of an invisible cliff.
         let wg = null; const rebuildWg = () => { wg = new BoxGrid(16); for (const w of walls) wg.insert(Math.min(w.ax, w.bx), Math.min(w.az, w.bz), Math.max(w.ax, w.bx), Math.max(w.az, w.bz), w); };
-        const land = (x, z, y) => { let best = null, bd = Infinity; surfacesAt(x, z, (h) => { const d = Math.abs(h - y); if (d <= 2.5 && d < bd) { bd = d; best = h; } }); return best ?? Y.road; };
+        // (spec 10 load budget) the barrier sweeps ask about the same points again (two thirds of the questions): land is
+        // a pure function of (x, z, y) while they run (they add walls; surfacesAt reads none), so its answers are kept
+        const land = exactMemo3((x, z, y) => { let best = null, bd = Infinity; surfacesAt(x, z, (h) => { const d = Math.abs(h - y); if (d <= 2.5 && d < bd) { bd = d; best = h; } }); return best ?? Y.road; });
         const blocked = (x0, z0, x1, z1, y) => { let f = false; wg.each(Math.min(x0, x1) - 1, Math.min(z0, z1) - 1, Math.max(x0, x1) + 1, Math.max(z0, z1) + 1, (w) => {
             if (f) return; if (!segsCross([x0, z0], [x1, z1], [w.ax, w.az], [w.bx, w.bz]) && distPointSeg(x1, z1, w.ax, w.az, w.bx, w.bz).d > 1.0) return;
             const t = distPointSeg(x1, z1, w.ax, w.az, w.bx, w.bz).t; if (y >= w.y0a + (w.y0b - w.y0a) * t - 0.3 && y <= w.y1a + (w.y1b - w.y1a) * t) f = true; }); return f; };
@@ -4378,7 +4416,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // landmarks (another module; optional)
     let LANDMARKS = [], buildLandmarkFn = null, landmarkSurfaceMats = [];
     let SEA_SCALE = 0.5;
-    try { const mod = await import('./landmarks.js'); landmarkSurfaceMats = mod.landmarkSurfaceMaterials?.() || []; LANDMARKS = (mod.LANDMARKS || []).filter(l => l.city === city.id); buildLandmarkFn = mod.buildLandmark || null; SEA_SCALE = mod.SEA_SCALE || 0.5; } catch (err) { LANDMARKS = []; }
+    try { const mod = await landmarksModule(); landmarkSurfaceMats = mod.landmarkSurfaceMaterials?.() || []; LANDMARKS = (mod.LANDMARKS || []).filter(l => l.city === city.id); buildLandmarkFn = mod.buildLandmark || null; SEA_SCALE = mod.SEA_SCALE || 0.5; } catch (err) { LANDMARKS = []; }
     // a district only builds its own landmarks (+ distant backdrops such as Rainier)
     // (a landmark the district lists explicitly may stand outside it, up to ~2.5 km: skyline landmarks seen down an
     //  avenue, e.g. the Parliament / People's Salvation Cathedral at the west end of Bd. Unirii seen from Piața Unirii)
@@ -4588,8 +4626,9 @@ export async function buildWorld(city, renderer, opts = {}) {
     // source assembly membership or suppressing legitimate exterior details.
     const physicalUnionAudit = [], physicalUnionRejected = [];
     const unionSources = new Map((data.buildingUnions?.sources || []).map(s => [s.i, s]));
+    const unionChecks = new Map(); // (this loop only sets b.sourceSurface, which no check reads)
     for (const spec of data.buildingUnions?.surfaces || []) {
-        const b = bRecs[spec.i], reason = validateSourceSurface(spec, unionSources, bRecs, { requireAuthority: data.buildingUnions.version >= 2, points: data.buildingGeometryPoints });
+        const b = bRecs[spec.i], reason = validateSourceSurface(spec, unionSources, bRecs, { requireAuthority: data.buildingUnions.version >= 2, points: data.buildingGeometryPoints, memo: unionChecks });
         if (reason) { physicalUnionRejected.push({ source: data.buildingIds?.[b?.derivedFrom ?? spec.i] || spec.i, reason }); continue; }
         b.sourceSurface = geometrySurface(spec.surface, data.buildingGeometryPoints);
         physicalUnionAudit.push({ source: data.buildingIds?.[b.derivedFrom ?? b.i] || b.i, neighbours: spec.neighbours.length });
@@ -4603,6 +4642,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (m && m.ring === b.ring && m.holes === b.holes && m.profile === b.roofProfile) return m.mesh;
         const mesh = roofMesh(b.ring, b.holes, b.roofProfile, triangulate);
         roofMeshMemo.set(b, { ring: b.ring, holes: b.holes, profile: b.roofProfile, mesh }); return mesh;
+    }
+    /** () => the roof mesh of b over `ring` with b's current holes and profile, computed on the first call */
+    function lazyRoofMesh(b, ring) {
+        const holes = b.holes, profile = b.roofProfile; let mesh = null;
+        return () => mesh || (mesh = ring === b.ring && holes === b.holes && profile === b.roofProfile ? roofMeshOf(b) : roofMesh(ring, holes, profile, triangulate));
     }
     function completeDetailRoof(b) {
         if (detailRoofs.has(b.i)) return detailRoofs.get(b.i);
@@ -4618,15 +4662,20 @@ export async function buildWorld(city, renderer, opts = {}) {
     // for now and finishDetailClips(), right after the building loop and before anything else reads those builders,
     // splices each clipped result in, in call order, shifting the vertex indices of the triangles appended after it.
     // That yields the arrays the in-place clip (clipBuildingDetailRange) produces, and the same audit, in the same order.
-    const pendingDetailClips = [], roofFlat = new WeakMap();
-    const flatRoof = mesh => {
-        if (roofFlat.has(mesh)) return roofFlat.get(mesh);
-        const faces = mesh?.faces; let out = null;
-        if (Array.isArray(faces) && faces.every(f => Array.isArray(f) && f.length === 3 && f.every(q => Array.isArray(q) && q.length === 3))) { out = new Float64Array(faces.length * 9); let k = 0; for (const f of faces) for (const q of f) { out[k++] = q[0]; out[k++] = q[1]; out[k++] = q[2]; } }
-        roofFlat.set(mesh, out); return out;
-    };
+    const pendingDetailClips = [];
     const unflatFaces = (flat, size) => { const faces = []; for (let k = 0; k < flat.length; k += 3 * size) { const f = []; for (let j = 0; j < 3; j++) f.push(Array.from(flat.subarray(k + j * size, k + (j + 1) * size))); faces.push(f); } return faces; };
-    function detailNeighbours(owner, faces, flat = null) {
+    // (spec 10 load budget) with the build workers a neighbour's complete roof is made there, from its ring, holes, profile
+    // and height as they are at its first use here (completeDetailRoof keeps a neighbour's first roof in the same way)
+    const detailSpecs = new Map();
+    function detailSpec(b) {
+        if (detailSpecs.has(b.i)) return detailSpecs.get(b.i);
+        const kind = sourceSurfaceEligible(b) ? (b.roofProfile ? 1 : b.roof === 'flat' ? 2 : 0) : 0;
+        const spec = kind ? { i: b.i, sourceId: b.sourceId, minH: b.minH, kind, ring: b.ring, holes: b.holes, profile: b.roofProfile, h: b.h } : null;
+        detailSpecs.set(b.i, spec); return spec;
+    }
+    /** the complete roof faces of a spec, as completeDetailRoof makes them (build-worker.js makes the same) */
+    const specFaces = spec => { if (spec.kind === 1) return roofMesh(spec.ring, spec.holes, spec.profile, triangulate).faces; const { pts, tris } = triangulate(spec.ring, spec.holes); return tris.map(t => t.map(i => [pts[i][0], spec.h, pts[i][1]])); };
+    function detailNeighbours(owner, faces, flat = null, spec = false) {
             let x0=Infinity,z0=Infinity,x1=-Infinity,z1=-Infinity;
             if(flat)for(let k=0;k<flat.length;k+=12){x0=Math.min(x0,flat[k]);z0=Math.min(z0,flat[k+2]);x1=Math.max(x1,flat[k]);z1=Math.max(z1,flat[k+2]);}
             else for(const f of faces)for(const p of f){x0=Math.min(x0,p[0]);z0=Math.min(z0,p[2]);x1=Math.max(x1,p[0]);z1=Math.max(z1,p[2]);}
@@ -4636,6 +4685,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 // BoxGrid visits each occupied cell. Query each actual source
                 // once, and reject disjoint bounds in the emitted Float32 frame.
                 if(b===owner||b.skip||Math.min(b.x0,Math.fround(b.x0))>x1||Math.max(b.x1,Math.fround(b.x1))<x0||Math.min(b.z0,Math.fround(b.z0))>z1||Math.max(b.z1,Math.fround(b.z1))<z0)return;
+                if(spec){const s=detailSpec(b);neighbours.push(s?{i:s.i,sourceId:s.sourceId,minH:s.minH,spec:s}:{i:b.i,sourceId:b.sourceId,minH:b.minH,spec:null});return;}
                 const roof=completeDetailRoof(b);
                 if(roof)neighbours.push(roof);else neighbours.push({i:b.i,sourceId:b.sourceId,minH:b.minH});
             });
@@ -4648,10 +4698,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             const P = builder.p, N = builder.n, U = builder.u, C = builder.c, Tl = builder.t, I = builder.i, nf = (builder.ic - start.ic) / 3, flat = new Float64Array(nf * 36);
             let k = 0;
             for (let q = start.ic; q < builder.ic; q++) { const v = I[q]; flat[k++] = P[v * 3]; flat[k++] = P[v * 3 + 1]; flat[k++] = P[v * 3 + 2]; flat[k++] = N[v * 3]; flat[k++] = N[v * 3 + 1]; flat[k++] = N[v * 3 + 2]; flat[k++] = U[v * 2]; flat[k++] = U[v * 2 + 1]; flat[k++] = C[v * 3]; flat[k++] = C[v * 3 + 1]; flat[k++] = C[v * 3 + 2]; flat[k++] = Tl ? Tl[v] : -1; }
-            const neighbours = detailNeighbours(owner, null, flat), roofs = neighbours.map(n => n.mesh ? flatRoof(n.mesh) : null);
+            const neighbours = detailNeighbours(owner, null, flat, true);
             const job = { builder, sv: start.vc, ev: builder.vc, si: start.ic, ei: builder.ic, owner, flat, neighbours };
-            // a neighbour roof that is not plain triangles of [x, y, z] points is clipped here, as before
-            if (neighbours.every((n, j) => !n.mesh || roofs[j])) job.promise = buildPool.clip(flat, { i: owner.i, sourceId: owner.sourceId }, neighbours.map((n, j) => ({ i: n.i, sourceId: n.sourceId, minH: n.minH, roof: roofs[j] })));
+            job.promise = buildPool.clip(flat, { i: owner.i, sourceId: owner.sourceId }, neighbours);
             pendingDetailClips.push(job);
             return;
         }
@@ -4660,6 +4709,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         for(const issue of result.issues)if(inferredDetailAudit.issues.length<100)inferredDetailAudit.issues.push({owner:owner.sourceId,...issue});
     }
     async function finishDetailClips() {
+        buildPool?.flush();
         if (!pendingDetailClips.length) return;
         const results = await Promise.all(pendingDetailClips.map(j => j.promise ? j.promise.catch(e => (console.warn('[world] build worker failed, clipping here', e), null)) : null));
         const byBuilder = new Map();
@@ -4667,7 +4717,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             let r = results[n], replace = null;
             if (r) replace = r.faces;
             else { // no worker result (unsupported roof data or a failed worker): the same function, here
-                r = clipInferredBuildingDetail(unflatFaces(j.flat, 12), j.owner, j.neighbours, { inferred: true });
+                r = clipInferredBuildingDetail(unflatFaces(j.flat, 12), j.owner, j.neighbours.map(n => (n.spec ? { i: n.i, sourceId: n.sourceId, minH: n.minH, mesh: { faces: specFaces(n.spec) } } : { i: n.i, sourceId: n.sourceId, minH: n.minH })), { inferred: true });
                 if (r.clippedAreaM2 > 1e-10) { replace = new Float64Array(r.faces.length * 36); let k = 0; for (const f of r.faces) { if (f.length !== 3) throw new Error('detail clip: non-triangle face'); for (const p of f) { if (p.length !== 12) throw new Error('detail clip: point attributes'); replace.set(p, k); k += 12; } } }
             }
             inferredDetailAudit.ranges++; inferredDetailAudit.clippedAreaM2 += r.clippedAreaM2;
@@ -4679,19 +4729,41 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     /** replace the vertex / index ranges of `items` (in builder order) by their clipped faces, as builder.v / builder.tri
      *  would have emitted them at that point, and shift the indices of everything after */
+    /** the decks shaped in the build workers: their results replace their ranges (in call order per builder), and their
+     *  audits join sharedBridgeMeshAudit in call order. A failed job is shaped here from the same input. */
+    async function finishDeckJobs() {
+        if (deckJobs.length) {
+            const jobs = deckJobs.splice(0);
+            const results = await Promise.all(jobs.map(j => j.promise.catch(err => (console.warn('[world] deck worker failed, shaping here', err), null))));
+            const byBuilder = new Map();
+            jobs.forEach((j, n) => {
+                let r = results[n];
+                if (!r) r = shapeDeckSoup(j.input, j.fn);
+                j.entry.a = r.stats;
+                const o = r, count = o.count;
+                let l = byBuilder.get(j.builder); if (!l) byBuilder.set(j.builder, l = []);
+                l.push({ sv: j.sv, ev: j.ev, si: j.si, ei: j.ei, count, fill: (p, nn, u, c, t, at) => { p.set(o.p, at * 3); nn.set(o.n, at * 3); u.set(o.u, at * 2); c.set(o.c, at * 3); if (t) t.fill(-1, at, at + count); } });
+            });
+            for (const [B, items] of byBuilder) spliceDetailRanges(B, items);
+        }
+        foldDeckAudit();
+    }
     function spliceDetailRanges(B, items) {
+        // an item gives its faces as `replace` (12 numbers per point) or as `count` points written by `fill`
+        const countOf = it => it.fill ? it.count : it.replace.length / 12;
         let nv = B.vc, ni = B.ic;
-        for (const it of items) { const n = it.replace.length / 36; nv += 3 * n - (it.ev - it.sv); ni += 3 * n - (it.ei - it.si); }
+        for (const it of items) { const n = countOf(it); nv += n - (it.ev - it.sv); ni += n - (it.ei - it.si); }
         const p = new Float32Array(Math.max(1, nv) * 3), nn = new Float32Array(Math.max(1, nv) * 3), u = new Float32Array(Math.max(1, nv) * 2), c = new Uint8Array(Math.max(1, nv) * 3), t = B.t ? new Float32Array(Math.max(1, nv)) : null, ix = new Uint32Array(Math.max(1, ni));
         // old vertex → new: shifted by the size change of every replaced range before it; a reference into a replaced range is an error
         const ends = [], deltas = []; let d = 0;
-        for (const it of items) { d += 3 * (it.replace.length / 36) - (it.ev - it.sv); ends.push(it.ev); deltas.push(d); }
+        for (const it of items) { d += countOf(it) - (it.ev - it.sv); ends.push(it.ev); deltas.push(d); }
         const map = x => { let lo = 0, hi = items.length; while (lo < hi) { const m = (lo + hi) >> 1; if (ends[m] <= x) lo = m + 1; else hi = m; } if (lo < items.length && x >= items[lo].sv) throw new Error('detail splice: index into a clipped range'); return x + (lo ? deltas[lo - 1] : 0); };
         const copyV = (from, to, at) => { p.set(B.p.subarray(from * 3, to * 3), at * 3); nn.set(B.n.subarray(from * 3, to * 3), at * 3); u.set(B.u.subarray(from * 2, to * 2), at * 2); c.set(B.c.subarray(from * 3, to * 3), at * 3); if (t) t.set(B.t.subarray(from, to), at); };
         const copyI = (from, to, at) => { for (let q = from; q < to; q++) ix[at++] = map(B.i[q]); return at; };
         let ov = 0, oi = 0, av = 0, ai = 0;
         for (const it of items) {
             copyV(ov, it.sv, av); av += it.sv - ov; ai = copyI(oi, it.si, ai);
+            if (it.fill) { it.fill(p, nn, u, c, t, av); for (let q = 0; q < it.count; q++) ix[ai++] = av++; ov = it.ev; oi = it.ei; continue; }
             const f = it.replace, n = f.length / 12;
             for (let q = 0; q < n; q++) { const k = q * 12, a3 = av * 3; p[a3] = f[k]; p[a3 + 1] = f[k + 1]; p[a3 + 2] = f[k + 2]; nn[a3] = f[k + 3]; nn[a3 + 1] = f[k + 4]; nn[a3 + 2] = f[k + 5]; u[av * 2] = f[k + 6]; u[av * 2 + 1] = f[k + 7]; c[a3] = f[k + 8]; c[a3 + 1] = f[k + 9]; c[a3 + 2] = f[k + 10]; if (t) t[av] = f[k + 11]; ix[ai++] = av++; }
             ov = it.ev; oi = it.ei;
@@ -4969,7 +5041,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // (round 5, note 77) non-residential archetypes from the research building specs: game/src/archetypes.js
     let ARCH = null;
     const archetypeData = coveredOutlines.length && data.buildingSpec ? { ...data, buildingSpec: data.buildingSpec.map(row => row.length === 17 ? [buildingIndex(row[0]), ...row.slice(1)] : row) } : data;
-    try { ARCH = (await import('./archetypes.js')).createArchetypes({ city, distId, data: archetypeData, US, CELL, proj: (la, lo) => city.proj(la, lo), bGrid, buildingAt, nearestEdge, onRibbon, signs, addSignQuad, brandStyle, triangulate, pointInPolygon, signedArea, TILE, TILE_GRID }); ARCH.match(bRecs); }
+    try { ARCH = (await archetypesModule()).createArchetypes({ city, distId, data: archetypeData, US, CELL, proj: (la, lo) => city.proj(la, lo), bGrid, buildingAt, nearestEdge, onRibbon, signs, addSignQuad, brandStyle, triangulate, pointInPolygon, signedArea, TILE, TILE_GRID }); ARCH.match(bRecs); }
     catch (err) { console.warn('[arch] archetypes unavailable', err); ARCH = null; }
     const palette = PALETTES[country], roofCols = ROOF_COL[country];
     const collision = [];
@@ -5995,9 +6067,12 @@ export async function buildWorld(city, renderer, opts = {}) {
             const { pts, tris } = triangulate(underside);
             for (const tri of tris) mb.face3(...tri.map(i => [pts[i][0], b.minH, pts[i][1]]), shadeRgb(wallCol, 0.75), [0, -1, 0]);
         }
-        const sourceRoof = b.roofProfile ? (ring === b.ring ? roofMeshOf(b) : roofMesh(ring, b.holes, b.roofProfile, triangulate)) : null;
+        // (spec 10 load budget) a valid prepared roof surface is drawn from the pack; the roof mesh is then only read by the
+        // collider's roofHeightAt, so it is computed on its first use there (from the same ring, holes and profile)
+        const roofLazy = b.roofProfile ? lazyRoofMesh(b, ring) : null;
+        const cached = b.roofProfile ? data.buildingRoofSurfaces?.[b.i] : undefined, valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && signatureMatches(s.signature, roofSignature(source)); });
+        const sourceRoof = b.roofProfile ? (valid ? { heightAt: (...a) => roofLazy().heightAt(...a) } : roofLazy()) : null;
         if (sourceRoof) {
-            const cached = data.buildingRoofSurfaces?.[b.i], valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && signatureMatches(s.signature, roofSignature(source)); });
             if (cached) { if (valid) roofProfileAudit.surfacesApplied++; else roofProfileAudit.surfacesRejected.push(data.buildingIds?.[b.i] || b.i); }
             const unpack = face => data.buildingRoofGeometryPoints ? face.map(i => data.buildingRoofGeometryPoints[i]) : face;
             const visibleFaces = valid ? cached.faces.map(unpack) : sourceRoof.faces;
@@ -6126,7 +6201,10 @@ export async function buildWorld(city, renderer, opts = {}) {
         // (fidelity pass: the Unirea car park was signed "Spălătorie Unirea Etaj 7") a business named for an upper floor is not the building's street sign
         if ((b.flags & 2) && b.name && (b.cvSign || b.area < 20000) && !AR?.signed && b.poiSign == null && str(data.buildingInfo?.[b.i * 5] ?? -1) !== 'construction' && !/\betaj(ul)?\s*[1-9]/i.test(b.name)) addFacadeSign(b, h, shop, wallCol);
     }
-    await finishDetailClips();
+    buildPool?.flush(); // (the last clip jobs of the loop go out now; their results are spliced in below)
+    // (spec 10 load budget) the clipped detail ranges are spliced in just before the map-end closure, the first pass that
+    // reads those builders' contents: until then (passages, shops, trees) the builders are only appended to, and the
+    // splice shifts what was appended after each range, as it did here
     {
         const sourceBodies=bRecs.filter(b=>!b.skip&&b.passages?.length),unique=new Map();
         for(const b of sourceBodies)for(const p of b.passages)unique.set(p.key,p);
@@ -7123,6 +7201,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     //      barriers, cones, jersey barriers, arrow boards, an excavator or a Poliția Rutieră car; US: ROAD CLOSED type III
     //      barricades, drums, DETOUR / LOCAL TRAFFIC ONLY, a flagger, ramp closed for bridge maintenance)
     const closures = [];
+    await finishDeckJobs();
+    await finishDetailClips();
     if (mapEnds.length) {
         const P = props();
         const coneG = P._cone || (P._cone = mergeProps([bakeProp(new THREE.ConeGeometry(0.18, 0.7, 8), { y: 0.35, color: '#ff6a13' }), bakeProp(new THREE.CylinderGeometry(0.115, 0.13, 0.12, 8), { y: 0.42, color: '#f4f4f4' }), bakeProp(new THREE.BoxGeometry(0.42, 0.04, 0.42), { y: 0.02, color: '#222222' })]));
@@ -7546,8 +7626,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     //  MESHES
     // -----------------------------------------------------------------------
     setProgress('Finishing…'); await tick();
-    const atlas = makeAtlas();
-    const solidMat = solidMaterial(atlas);
+    const atlas = earlyAtlas ? earlyAtlas.atlas : makeAtlas();
+    const solidMat = solidMaterial(atlas, earlyAtlas?.night);
     // shop light spill: additive, black diffuse + warm emissive with a falloff away from the window; render eases
     // emissiveIntensity 0 → nightEmissive at dusk (0 by day: adds nothing); dimmed as shops close (uClosed)
     const spillMat = (() => {
@@ -8203,22 +8283,32 @@ export async function buildWorld(city, renderer, opts = {}) {
     const W = bounds.maxX - bounds.minX, H = bounds.maxZ - bounds.minZ;
     // (the plane reaches 30 km past the map: its edge was visible at ~3 km on clear days with render's 15–20 km visibility)
     const GPAD = 60000;
-    const fallbackOpts={x0:bounds.minX-GPAD/2,x1:bounds.maxX+GPAD/2,z0:bounds.minZ-GPAD/2,z1:bounds.maxZ+GPAD/2},fallback=buildPool?await buildFallbackGroundParallel(fallbackApertures,fallbackOpts,buildPool):buildFallbackGround(fallbackApertures,fallbackOpts);
-    fallbackApertures.cuts.length=0;
-    let groundGeo=fallback.geometry;
-    if(!groundGeo){
-        groundGeo=new THREE.PlaneGeometry(W+GPAD,H+GPAD,1,1);groundGeo.rotateX(-Math.PI/2);
-        const uv=groundGeo.attributes.uv;for(let i=0;i<uv.count;i++)uv.setXY(i,uv.getX(i)*(W+GPAD)/12,uv.getY(i)*(H+GPAD)/12);
-    }
-    const groundPlaneMat = new THREE.MeshLambertMaterial({ color: new THREE.Color(env.ground).multiplyScalar(0.72), map: noise, depthWrite: fallback.report.known }); groundPlaneMat.name = 'groundPlane';
-    const ground = new THREE.Mesh(groundGeo, groundPlaneMat);
+    const fallbackOpts={x0:bounds.minX-GPAD/2,x1:bounds.maxX+GPAD/2,z0:bounds.minZ-GPAD/2,z1:bounds.maxZ+GPAD/2};
+    // (spec 10 load budget) with the build workers the fallback ground is walked there while the rest of the build and the
+    // caller's setup go on: the plane's mesh and material are made here, in their place, and get the geometry, depth write,
+    // culling and report when the walk is done (world.ready; buildWorld waits for it unless opts.deferGround).
+    const fallbackJob=buildPool?buildFallbackGroundParallel(fallbackApertures,fallbackOpts,buildPool):null;
+    const groundPlaneMat = new THREE.MeshLambertMaterial({ color: new THREE.Color(env.ground).multiplyScalar(0.72), map: noise }); groundPlaneMat.name = 'groundPlane';
+    const ground = new THREE.Mesh(new THREE.BufferGeometry(), groundPlaneMat);
     vegetation.grassMaterials.push(grassMat);
     vegetation.groundMaterials.push(groundPlaneMat, areaMat, paveMat);
     vegetation.roofMaterials.push(roofMat);
     vegetation.sportMaterials = [sportMat, ...landmarkSurfaceMats];
-    if(!fallback.report.known)ground.position.set((bounds.minX + bounds.maxX) / 2, -0.3, (bounds.minZ + bounds.maxZ) / 2);
-    else cullMergedCells(ground,fallback.parts,{blockTriangles:64});
-    ground.userData.fallbackGround=fallback.report;
+    const placeGround=fallback=>{
+        fallbackApertures.cuts.length=0;
+        let groundGeo=fallback.geometry;
+        if(!groundGeo){
+            groundGeo=new THREE.PlaneGeometry(W+GPAD,H+GPAD,1,1);groundGeo.rotateX(-Math.PI/2);
+            const uv=groundGeo.attributes.uv;for(let i=0;i<uv.count;i++)uv.setXY(i,uv.getX(i)*(W+GPAD)/12,uv.getY(i)*(H+GPAD)/12);
+        }
+        groundPlaneMat.depthWrite=fallback.report.known;
+        ground.geometry.dispose(); ground.geometry=groundGeo;
+        if(!fallback.report.known)ground.position.set((bounds.minX + bounds.maxX) / 2, -0.3, (bounds.minZ + bounds.maxZ) / 2);
+        else cullMergedCells(ground,fallback.parts,{blockTriangles:64});
+        ground.userData.fallbackGround=fallback.report;
+        return fallback;
+    };
+    const fallbackReady=fallbackJob?fallbackJob.then(placeGround):Promise.resolve(placeGround(buildFallbackGround(fallbackApertures,fallbackOpts)));
     ground.renderOrder = -20; // far horizon filler only; the city's ground is per cell
     ground.receiveShadow = true; ground.name = 'ground';
     group.add(ground);
@@ -8342,7 +8432,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.treeBuildingClearance = treeBuildingClearance;
     stats.floatingSupport = { parts: floatingSupport.parts, columns: floatingSupport.columns, grounded: floatingSupport.grounded || 0 };
     stats.medianFill = { quads: medianFill.quads, areaM2: medianFill.areaM2, grass: medianFill.decks.filter(d => d.medianKind === 'grass').length, concrete: medianFill.decks.filter(d => d.medianKind === 'concrete').length, asphalt: medianFill.decks.filter(d => d.medianKind === 'asphalt').length };
-    stats.fallbackGround=fallback.report;
+    stats.fallbackGround=null; // (set when the fallback ground is placed: world.ready)
     stats.districtBoundary = boundarySupport.report;
     stats.transitShelters = { schema: 1, records: transitShelterAudit, withheldUnknown: transitShelterAudit.filter(r => r.status === 'unknown-shelter-geometry').length, literalNo: transitShelterAudit.filter(r => r.status === 'literal-no-shelter').length, legacyUnreviewed: transitShelterAudit.filter(r => r.status === 'legacy-unreviewed').length, limits: 'Inferred generic-unit decisions only; no real shelter absence, mapped geometry removal or constructor/route clearance acceptance.' };
     stats.waterShore = waterShoreAudit;
@@ -8448,7 +8538,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         /** (realPass districts) top of the raised sidewalk at (x, z) or null — where walkers' feet go (traffic crowd) */
         // Exact-coordinate bounded cache, populated only after construction.
         // Static sidewalk geometry has no time/weather dependence.
-        walkTop: (()=>{const cache=new Map(),keys=new Array(4096);let next=0;return(x,z)=>{const key=x+','+z,cached=cache.get(key);if(cached!==undefined)return cached;const top=raisedTop(x,z);if(keys[next]!==undefined)cache.delete(keys[next]);keys[next]=key;next=(next+1)&4095;cache.set(key,top);return top;};})(),
+        // (cached by x, then z: Map keys compare as the former 'x,z' string keys did; the last 4096 points are kept)
+        walkTop: (()=>{const cache=new Map(),kx=new Float64Array(4096),kz=new Float64Array(4096),used=new Uint8Array(4096);let next=0;return(x,z)=>{let row=cache.get(x);if(row!==undefined){const cached=row.get(z);if(cached!==undefined)return cached;}const top=raisedTop(x,z);if(used[next]){const r=cache.get(kx[next]);if(r!==undefined){r.delete(kz[next]);if(!r.size)cache.delete(kx[next]);}}kx[next]=x;kz[next]=z;used[next]=1;next=(next+1)&4095;row=cache.get(x);if(row===undefined)cache.set(x,row=new Map());row.set(z,top);return top;};})(),
         /** floor of a sunk landmark's pit at (x, z) (negative metres), or 0 outside every pit */
         pitFloorAt(x, z) { for (const pit of landmarkPits) if (pointInPolygon(x, z, pit.ring)) return pit.floorY; return 0; },
         roadHeight(x, z, opts = null) {
@@ -8587,6 +8678,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         },
     };
     void renderer;
+    world.ready = fallbackReady.then(fallback => { stats.fallbackGround = fallback.report; });
+    if (!opts.deferGround) await world.ready;
     return world;
 }
 

@@ -138,5 +138,7 @@ export function buildRailRoadsideClearance(grades, envelope) {
         const s = states.get(e); if (!s?.mode || s.mode !== 'trim') return [poly];
         return fragments(poly.map(p => [p[0], profile(e, ...p) + offset, p[1]]), e).map(f => f.map(p => [p[0], p[2]]));
     };
-    return { register, fragments, apply, caps, surface, footprint, report };
+    /** true when apply(mesh, start, e) can change e's triangles (it reads them only then) */
+    const active = e => { const s = states.get(e); return !!(s?.mode && s.cuts.length); };
+    return { register, fragments, apply, caps, surface, footprint, report, active };
 }

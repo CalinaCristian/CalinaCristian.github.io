@@ -2839,6 +2839,48 @@ export class Pedestrians {
     admit(p, peers = null) {
         return this.spaceLoad(p.e, p.side, p,peers) < this.walkSpace(p.e, p.side).cells.length && this.freeWalkPoint(p.x, p.z, this.reach(p)) && this.freePersonalSpace(p,peers) && this.freeVehiclePoint(p.x, p.z, Math.max(this.reach(p), PED_R + 0.4));
     }
+    /** The free sidewalk slots of `edges` (each on p's side, then the other) nearest p first: the order of a stable sort
+     * of every slot by distance (ties: edge, side, slot order). (spec 10 load budget) An edge side's slots are only
+     * computed (walkSpace) once its lower bound could come before the next slot: its slots lie in a rectangle of the
+     * edge's frame, along [lo, hi], out from the centre line [w + taper min, w + sw + taper max] (the lane-drop taper is
+     * linear along the edge, world.sideExtra). Without an orthonormal frame or finite bounds an edge side is computed. */
+    *slotsByDistance(p, edges) {
+        const groups = [];
+        for (const e of edges) for (const side of [p.side, -p.side]) groups.push({ e, side, order: groups.length, lb: this.slotBound(e, side, p.x, p.z) });
+        const pending = groups.slice().sort((a, b) => a.lb - b.lb), pool = []; let gi = 0, pi = 0;
+        const cmp = (a, b) => a.distance - b.distance || a.order - b.order || a.k - b.k;
+        while (true) {
+            let added = false;
+            while (gi < pending.length && (pi >= pool.length || !(pending[gi].lb > pool[pi].distance))) {
+                const g = pending[gi++], cells = this.walkSpace(g.e, g.side).cells;
+                for (let k = 0; k < cells.length; k++) { const slot = cells[k], distance = Math.hypot(slot.x - p.x, slot.z - p.z); if (Number.isNaN(distance)) return yield* this.slotsBySort(p, edges); pool.push({ e: g.e, side: g.side, slot, distance, order: g.order, k }); }
+                added = true;
+            }
+            if (added) { const rest = pool.splice(pi).sort(cmp); for (const c of rest) pool.push(c); continue; }
+            if (pi >= pool.length) return;
+            yield pool[pi++];
+        }
+    }
+    /** slotsByDistance by sorting every slot (the plain form) */
+    *slotsBySort(p, edges) {
+        const candidates = [];
+        for (const e of edges) for (const side of [p.side, -p.side]) for (const slot of this.walkSpace(e, side).cells) candidates.push({ e, side, slot, distance: Math.hypot(slot.x - p.x, slot.z - p.z) });
+        candidates.sort((a, b) => a.distance - b.distance);
+        yield* candidates;
+    }
+    /** a lower bound (with 1 µm to spare) of the distance from (x, z) to any slot of walkSpace(e, side), or 0 */
+    slotBound(e, side, x, z) {
+        const sides = this._walkSpace.get(e); if (sides?.has(side)) return 0; // (known: costs nothing to list)
+        const dx = e.dirx, dz = e.dirz, nx = e.nx, nz = e.nz;
+        if (!(Math.abs(dx * dx + dz * dz - 1) < 1e-9 && Math.abs(nx * nx + nz * nz - 1) < 1e-9 && Math.abs(dx * nx + dz * nz) < 1e-9)) return 0;
+        const w = (this.t.world.district ? (side > 0 ? e.wR : e.wL) : null) ?? e.halfW ?? 6, sw = this.width(e, side);
+        const lo = Math.min(this.inset(e.a), e.len * 0.45), hi = e.len - Math.min(this.inset(e.b), e.len * 0.45);
+        let tmin = 0, tmax = 0;
+        if (e.taperR) { const t0 = e.taperR[0], t1 = e.taperR[1]; if (!Number.isFinite(t0) || !Number.isFinite(t1)) return 0; tmin = Math.min(0, t0, t1); tmax = Math.max(0, t0, t1); }
+        const px = x - e.a.x, pz = z - e.a.z, along = px * dx + pz * dz, out = (px * nx + pz * nz) * side;
+        const da = Math.max(0, lo - along, along - hi), dl = Math.max(0, w + tmin - out, out - (w + sw + tmax)), d = Math.hypot(da, dl) - 1e-6;
+        return Number.isFinite(d) && d > 0 ? d : 0;
+    }
     /** A source sidewalk line can end inside a crossing street's carriageway.
      * Pick a clear existing sidewalk slot before first visibility, without
      * drawing another random number or changing a live person's physical pose. */
@@ -2847,14 +2889,7 @@ export class Pedestrians {
         const radius = this.reach(p), vehicleRadius = Math.max(radius, PED_R + 0.4);
         if (this.width(p.e, p.side) > 0 && this.freeWalkPoint(p.x, p.z, radius) && this.freeVehiclePoint(p.x, p.z, vehicleRadius) && this.freePersonalSpace(p)) return false;
         const edges = [...new Set([p.e, ...this.t.index.near(p.x, p.z, 60, [])])].filter(e => this.ok(e));
-        const candidates = [];
-        for (const e of edges) for (const side of [p.side, -p.side]) {
-            for (const slot of this.walkSpace(e, side).cells) {
-                candidates.push({ e, side, slot, distance: Math.hypot(slot.x - p.x, slot.z - p.z) });
-            }
-        }
-        candidates.sort((a, b) => a.distance - b.distance);
-        for (const { e, side, slot } of candidates) {
+        for (const { e, side, slot } of this.slotsByDistance(p, edges)) {
             const trial = { ...p, e, side, s: slot.s, walkOff: slot.u - this.off(e, side),
                 dodge: 0, dodgeEdge: e, dodgeFrame: undefined, recovery: null, legs: [], next: null };
             this.placeWalk(trial);
@@ -3325,10 +3360,16 @@ export class Pedestrians {
     scare(x, z, r) { for (const p of this.near(x, z, r)) if (p.state === 'wait') p.waitT += 2; }
     /** the carriageway (ground level) the point is deepest inside → { e, d, cx, cz, hw } or null (every nearby edge, not just the nearest) */
     roadAt(x, z, margin = 0.4) {
-        const list = this.t.index.near(x, z, 30, this._near || (this._near = []));
+        const list = this.t.index.near(x, z, 30, this._near || (this._near = [])), boxes = this._roadBox || (this._roadBox = new Map());
         let best = null, bp = 0;
         for (const e of list) {
             if (e.tunnel || (e.ya ?? 0) > 1.5 || (e.yb ?? 0) > 1.5) continue;
+            // (spec 10 load budget) the nearest point lies in the edge's bounding box: an axis gap past the wider half width
+            // plus the margin (and 1 µm) cannot be a hit, so that edge is skipped (the static graph's boxes are kept here)
+            let bb = boxes.get(e);
+            if (bb === undefined) { const dist = this.t.world.district, wR = (dist ? e.wR : null) ?? e.halfW ?? 6, wL = (dist ? e.wL : null) ?? e.halfW ?? 6; bb = [Math.min(e.a.x, e.b.x), Math.max(e.a.x, e.b.x), Math.min(e.a.z, e.b.z), Math.max(e.a.z, e.b.z), Math.max(wR, wL)]; boxes.set(e, bb); }
+            const lim = bb[4] + margin + 1e-6;
+            if (bb[0] - x > lim || x - bb[1] > lim || bb[2] - z > lim || z - bb[3] > lim) continue;
             const dx = e.b.x - e.a.x, dz = e.b.z - e.a.z, L2 = dx * dx + dz * dz || 1;
             const t = clamp(((x - e.a.x) * dx + (z - e.a.z) * dz) / L2, 0, 1);
             const cx = e.a.x + dx * t, cz = e.a.z + dz * t, d = Math.hypot(x - cx, z - cz);

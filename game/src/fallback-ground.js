@@ -59,19 +59,28 @@ export async function buildFallbackGroundParallel(apertures,opts,pool,{depth=Inf
     const {x0,x1,z0,z1,leafSize=64,maxNodes=100000,maxFragments=2048}=opts||{};
     const report={...apertures.report,leafSize,nodes:0,leaves:0,triangles:0};
     if(!pool||!report.known||![x0,x1,z0,z1,leafSize].every(Number.isFinite)||x1<=x0||z1<=z0||leafSize<1)return buildFallbackGround(apertures,opts);
-    const cuts=apertures.cuts.filter(c=>overlaps(c,{x0,x1,z0,z1})),index=new Map(cuts.map((c,i)=>[c,i])),params={leafSize,maxNodes,maxFragments,datum:report.datum,x0,z1};
-    const chunks=[];let nodes=0;
+    const cuts=apertures.cuts.filter(c=>overlaps(c,{x0,x1,z0,z1})),params={leafSize,maxNodes,maxFragments,datum:report.datum,x0,z1};
+    // (the walk keeps cut indices and the cuts' bounds in flat arrays: the same overlap test, in the same order; leaves
+    // with cuts go to the workers in batches, answered in order)
+    const cb=new Float64Array(cuts.length*4);cuts.forEach((c,i)=>{cb[4*i]=c.x0;cb[4*i+1]=c.x1;cb[4*i+2]=c.z0;cb[4*i+3]=c.z1;});
+    const chunks=[];let nodes=0,batch=[];
+    const flush=()=>{if(!batch.length)return;const job=pool.fallbackBatch(batch,params);batch.forEach((_,k)=>chunks[batch[k].at]=job.then(r=>r.results[k]));batch=[];};
     const descend=(box,nearby,d)=>{
         const w=box.x1-box.x0,h=box.z1-box.z0;
-        if(!nearby.length){chunks.push(fallbackVisit(box,nearby,fallbackState({report:{known:true,reason:null,nodes:0,leaves:0},...params})));return;}
-        if(!(Math.max(w,h)>leafSize)||d>=depth){chunks.push(pool.fallback(box,Int32Array.from(nearby,c=>index.get(c)),params));return;}
+        if(!nearby.length){chunks.push(fallbackVisit(box,[],fallbackState({report:{known:true,reason:null,nodes:0,leaves:0},...params})));return;}
+        if(!(Math.max(w,h)>leafSize)||d>=depth){batch.push({box,nearby,at:chunks.length});chunks.push(null);if(batch.length>=16)flush();return;}
         nodes++;
         const split=w>=h?(box.x0+box.x1)/2:(box.z0+box.z1)/2;
         const children=w>=h?[{...box,x1:split},{...box,x0:split}]:[{...box,z1:split},{...box,z0:split}];
-        for(const child of children)descend(child,nearby.filter(c=>overlaps(child,c)),d+1);
+        for(const child of children){
+            const keep=new Int32Array(nearby.length);let n=0;
+            for(let k=0;k<nearby.length;k++){const i=nearby[k],o=4*i;if(child.x1>=cb[o]&&child.x0<=cb[o+1]&&child.z1>=cb[o+2]&&child.z0<=cb[o+3])keep[n++]=i;}
+            descend(child,keep.subarray(0,n),d+1);
+        }
     };
     pool.fallbackCuts(cuts);
-    descend({x0,x1,z0,z1},cuts,0);
+    descend({x0,x1,z0,z1},Int32Array.from(cuts,(_,i)=>i),0);
+    flush();
     let parts;
     try{parts=await Promise.all(chunks);}catch(e){console.warn('[fallback ground] worker failed, building here',e);return buildFallbackGround(apertures,opts);}
     let leaves=0;for(const c of parts){if(!c.report.known)return buildFallbackGround(apertures,opts);nodes+=c.report.nodes;leaves+=c.report.leaves;}

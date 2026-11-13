@@ -6976,7 +6976,12 @@ export async function buildWorld(city, renderer, opts = {}) {
         // (owner register #23, Unirii: "tree crown intersects building facade") a crown may not reach into a building: it is narrowed
         // to 0.3 m off the nearest wall (down to 45 %); an invented tree closer than that is not planted, a mapped one keeps its place
         {
-            const Rc = shape.rx * sz * sh, wallAt = r => { for (let k = 0; k < 12; k++) { const a = k * Math.PI / 6; if (buildingAt(x + Math.cos(a) * r, z + Math.sin(a) * r)) return true; } return false; };
+            // (spec 10 load budget) every probe lies within Rc of the tree: the buildings that could hold one are gathered once
+            // (as buildingAt finds them: not skipped, its box, its ring outside its holes); wallAt asks only whether one does
+            const Rc = shape.rx * sz * sh, near = [], reach = Rc + 1e-6;
+            bGrid.each(x - reach, z - reach, x + reach, z + reach, (b) => { if (!b.skip && b.x1 >= x - reach && b.x0 <= x + reach && b.z1 >= z - reach && b.z0 <= z + reach && !near.includes(b)) near.push(b); });
+            const inBuilding = (px, pz) => { for (const b of near) if (px >= b.x0 && px <= b.x1 && pz >= b.z0 && pz <= b.z1 && pointInPolygon(px, pz, b.ring) && !b.holes.some(h => pointInPolygon(px, pz, h))) return true; return false; };
+            const wallAt = r => { for (let k = 0; k < 12; k++) { const a = k * Math.PI / 6; if (inBuilding(x + Math.cos(a) * r, z + Math.sin(a) * r)) return true; } return false; };
             if (wallAt(Rc)) {
                 let lo = 0, hi = Rc; for (let it = 0; it < 6; it++) { const m = (lo + hi) / 2; if (wallAt(m)) hi = m; else lo = m; }
                 const fit = (lo - .3) / (shape.rx * sz);

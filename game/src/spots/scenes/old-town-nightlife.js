@@ -1,5 +1,6 @@
 // Freddo: source building/entrance in the city; a deliberately estimated interior.
 // OSM n1416523788 / w657568283 and current official freddo.ro, checked 2026-11-09.
+import { declareInterior } from '../precip-shelter.js';
 import * as THREE from '../../../vendor/three.module.min.js';
 import { makeCrowd, dressFor } from '../../crowd.js';
 import { GeoBatch, centroid, inPoly, distPolyline, rng, flatGeometry } from '../kit.js';
@@ -11,7 +12,9 @@ import { collide } from '../walker.js';
 import {freddoRoomDetails} from './freddo-look.js';
 import {danceViewFit} from '../dance-camera.js';
 
-export const OLD_TOWN_FOCUS = [[-12,-104],[286,-104],[286,-32],[62,-32],[62,89],[-12,89]];
+// (r2, 2026-11-12) plus Strada Stavropoleos west to the church and Caru' cu Bere: the `stavropoleos-cec` entry arrived on
+// Smardan and its tour led to Freddo and the bookshop, never to the church it is named after.
+export const OLD_TOWN_FOCUS = [[-12,-104],[286,-104],[286,-32],[62,-32],[62,89],[-12,89],[-12,-40],[-128,-40],[-128,-78],[-12,-78]];
 // (owner, 2026-11-11: "old town during the day shouldn't have Freddo busy ... visibly closed with a sign that says opens at
 // 10 PM") The game's Freddo is its club night: doors 22:00-05:00. The bar's published daytime hours (10:00) are not modelled.
 export const nightlifeHours = hour => ({ open: hour >= 22 || hour < 5, party: hour >= 22 || hour < 5, opens: '22:00', closes: '05:00' });
@@ -32,6 +35,7 @@ export function buildOldTownNightlife(ctx, venueActivities) {
     const [cx,cz]=centroid(building.poly), dx=10000-cx,dz=8000-cz, floor=ctx.ground.heightAt(entry.x,entry.z)+.05;
     // An exact translated source footprint, never a claim of a measured internal floor plan.
     const polygon=building.poly.map(([x,z])=>[x+dx,z+dz]), b=new GeoBatch(), Q=(x,z)=>[x+dx,z+dz];
+    declareInterior(ctx,{poly:polygon,y0:floor-1,y1:floor+4.4,pad:1,name:'freddo'}); // a ceilinged room: no rain or snow in it
     b.flat(polygon,floor,'#2c2923','wood');ctx.ground.addPoly(polygon,floor,floor-1,{kind:'freddo-floor'});
     const ceiling=reverse(flatGeometry(polygon,floor+4.2));b.add(ceiling,'freddoCeiling',null,'#151713');ceiling.dispose();
     const wall=reverse(wallGeometry(polygon,floor,floor+4.2,{bay:3,floor:4.2},floor,'#332c22'));b.add(wall,'paint',null,'#332c22');wall.dispose();

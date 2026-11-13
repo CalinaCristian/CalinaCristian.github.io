@@ -3,7 +3,7 @@
   "id": "onelincoln",
   "city": "seattle",
   "name": "One Lincoln Tower / Westin Bellevue",
-  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
   "status": "in-progress",
   "coordinates": {
     "lat": 47.6159634,
@@ -45,21 +45,48 @@
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9d86fd88dd72ef83d785982e70ac9b89bcbba146",
       "label": "Shared skybridge builder changed to an open steel truss (9d86fd8)",
       "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493",
+      "label": "Fidelity pass round 2 (9824fd5), not yet published when captured",
+      "type": "implementation"
     }
   ],
   "improvements": [
     "Refreshed the complete office/Westin/podium source contours while retaining their correct shared geographic frame.",
     "Preserved only explicitly declared building identities and changed collisions to exact source footprints.",
-    "The NE 6th St skybridge to Lincoln Square South uses the shared builder, now a glazed walkway inside an open white steel truss. Nothing else in this model changed in the pass."
+    "The NE 6th St skybridge to Lincoln Square South uses the shared builder, now a glazed walkway inside an open white steel truss. Nothing else in this model changed in the pass.",
+    "The tower reads as blue reflective glass with white slab-edge bands like its neighbours, and its crown is glazed; it was a matt grey-green grid with dark mullions."
   ],
   "remainingGaps": [
     "Hotel/office facade differences, podium levels, bridge junctions and plant setbacks remain procedural approximations.",
     "Not every untagged roof element has an independently established metre height.",
     "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
     "The shared explicit-ID source-replacement implementation is integrated in production (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). These studies retain their actual capture-era source and do not establish current district placement, road/body clearance, traffic/mirror budgets or seasonal parity. Registry entries outside a district list and context-only models with no replacement IDs do not replace neighbouring buildings.",
-    "Truss member sizes and spacing of the skybridge are estimates from a street-level review used as viewed reference only."
+    "Truss member sizes and spacing of the skybridge are estimates from a street-level review used as viewed reference only.",
+    "Glass and band colours come from panoramas on Bellevue Way NE and NE 4th (viewed only); estimates."
   ],
   "checks": [
+    {
+      "label": "Pictures recaptured at 9824fd5 (round 2)",
+      "passed": true,
+      "details": "Front, top and oblique pictures recaptured from the commit snapshot. Same viewer routes as the previous pictures. Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 9824fd5 (game/src clean) on 2026-11-13: passed, 2144 checks over 70 models; this model 4107 triangles, 3 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "Earlier checks below",
+      "passed": null,
+      "details": "The checks that follow were recorded for source 346f798 or earlier and were not re-run for this recapture."
+    },
     {
       "label": "Model studies recaptured at 346f798",
       "passed": true,
@@ -116,13 +143,13 @@
       "id": "front",
       "label": "Isolated model study · front elevation",
       "kind": "front",
-      "image": "assets/landmarks/onelincoln/source-346f7986/front.webp",
-      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-      "sha256": "62a478bf1fbaa018029aa23edcf14bf7764632ae36f7a2147a3011d614afa881",
-      "bytes": 9586,
+      "image": "assets/landmarks/onelincoln/source-9824fd56/front.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "0aa16773447100ed5ced5af2eeffac21e3e769ce47ee0d0f06eab54bb5a882a4",
+      "bytes": 11732,
       "width": 640,
       "height": 640,
-      "capturedAt": "2026-11-12T19:45:11.348Z",
+      "capturedAt": "2026-11-13T05:29:16.934Z",
       "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
       "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
@@ -161,13 +188,13 @@
       "id": "top",
       "label": "Isolated model study · orthographic north-up plan",
       "kind": "top",
-      "image": "assets/landmarks/onelincoln/source-346f7986/top.webp",
-      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-      "sha256": "89843e50db0364ff8707011f3d63cfb2f83113f90be89abbd8a33cca9f99fc83",
-      "bytes": 13396,
+      "image": "assets/landmarks/onelincoln/source-9824fd56/top.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "e00944faeebfab4bedc90c4442810f27f1ec27f73220bbfe2d1b3d36e81cc712",
+      "bytes": 13250,
       "width": 640,
       "height": 640,
-      "capturedAt": "2026-11-12T19:45:11.865Z",
+      "capturedAt": "2026-11-13T05:29:17.568Z",
       "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
       "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
@@ -207,13 +234,13 @@
       "id": "oblique",
       "label": "Isolated model study · oblique overview",
       "kind": "oblique",
-      "image": "assets/landmarks/onelincoln/source-346f7986/oblique.webp",
-      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-      "sha256": "7dc7805cb4e4f161394cf65d95564841c6e9dbcc24c648b8b658ad4e8c0d0888",
-      "bytes": 55898,
+      "image": "assets/landmarks/onelincoln/source-9824fd56/oblique.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "e5bb5ec831a002afb89e47f7ceab0347ee716af3a8683410fbfb61509e20ad6b",
+      "bytes": 57614,
       "width": 640,
       "height": 640,
-      "capturedAt": "2026-11-12T19:45:12.404Z",
+      "capturedAt": "2026-11-13T05:29:18.186Z",
       "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
       "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
@@ -378,11 +405,163 @@
           }
         }
       ]
+    },
+    {
+      "id": "captures-346f7986",
+      "label": "Pictures before fidelity pass round 2",
+      "status": "historical",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededBy": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededAt": "2026-11-13T05:41:38.367Z",
+      "reason": "The model changed in 94a177d5..9824fd56; these pictures show the earlier model and keep their original source, dates and files.",
+      "perf": {
+        "triangles": 4109,
+        "drawCalls": 3,
+        "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
+      },
+      "captures": [
+        {
+          "id": "front",
+          "label": "Isolated model study · front elevation",
+          "kind": "front",
+          "image": "assets/landmarks/onelincoln/source-346f7986/front.webp",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "sha256": "62a478bf1fbaa018029aa23edcf14bf7764632ae36f7a2147a3011d614afa881",
+          "bytes": 9586,
+          "width": 640,
+          "height": 640,
+          "capturedAt": "2026-11-12T19:45:11.348Z",
+          "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pose": {
+            "position": [
+              -240.50735806254048,
+              54.800000000000004,
+              10.229194641113237
+            ],
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "quaternion": [
+              0,
+              -0.7071067811865476,
+              0,
+              0.7071067811865475
+            ],
+            "projection": "perspective",
+            "fov": 45,
+            "target": [
+              0.2350006103515625,
+              54.800000000000004,
+              10.229194641113281
+            ],
+            "frame": "isolated landmark model, +x east / +z south, metres",
+            "viewerRoute": "/game/dev/landmarks.html?id=onelincoln&view=34&clean=1&az=270&el=0",
+            "viewport": [
+              640,
+              640
+            ]
+          }
+        },
+        {
+          "id": "top",
+          "label": "Isolated model study · orthographic north-up plan",
+          "kind": "top",
+          "image": "assets/landmarks/onelincoln/source-346f7986/top.webp",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "sha256": "89843e50db0364ff8707011f3d63cfb2f83113f90be89abbd8a33cca9f99fc83",
+          "bytes": 13396,
+          "width": 640,
+          "height": 640,
+          "capturedAt": "2026-11-12T19:45:11.865Z",
+          "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pose": {
+            "position": [
+              0.2350006103515625,
+              247.49959716796874,
+              10.229194641113281
+            ],
+            "up": [
+              0,
+              0,
+              -1
+            ],
+            "quaternion": [
+              -0.7071067811865475,
+              0,
+              0,
+              0.7071067811865476
+            ],
+            "projection": "orthographic",
+            "groundSquareM": 110.49959716796874,
+            "orientation": "north-up",
+            "target": [
+              0.2350006103515625,
+              0,
+              10.229194641113281
+            ],
+            "frame": "isolated landmark model, +x east / +z south, metres",
+            "viewerRoute": "/game/dev/landmarks.html?id=onelincoln&view=top&clean=1&az=35&el=26",
+            "viewport": [
+              640,
+              640
+            ]
+          }
+        },
+        {
+          "id": "oblique",
+          "label": "Isolated model study · oblique overview",
+          "kind": "oblique",
+          "image": "assets/landmarks/onelincoln/source-346f7986/oblique.webp",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "sha256": "7dc7805cb4e4f161394cf65d95564841c6e9dbcc24c648b8b658ad4e8c0d0888",
+          "bytes": 55898,
+          "width": 640,
+          "height": 640,
+          "capturedAt": "2026-11-12T19:45:12.404Z",
+          "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pose": {
+            "position": [
+              124.3442072753763,
+              160.3345038521431,
+              187.4755107581135
+            ],
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "quaternion": [
+              -0.21453963361642958,
+              0.29299872934427457,
+              0.06764408664580113,
+              0.929273247087327
+            ],
+            "projection": "perspective",
+            "fov": 45,
+            "target": [
+              0.2350006103515625,
+              54.800000000000004,
+              10.229194641113281
+            ],
+            "frame": "isolated landmark model, +x east / +z south, metres",
+            "viewerRoute": "/game/dev/landmarks.html?id=onelincoln&view=34&clean=1&az=35&el=26",
+            "viewport": [
+              640,
+              640
+            ]
+          }
+        }
+      ]
     }
   ],
-  "recapturedAt": "2026-11-12T20:03:08.418Z",
+  "recapturedAt": "2026-11-13T05:41:38.367Z",
   "sourceVerification": {
-    "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
-    "checkedAt": "2026-11-12T20:03:08.417Z"
+    "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T05:41:38.367Z"
   }
 }

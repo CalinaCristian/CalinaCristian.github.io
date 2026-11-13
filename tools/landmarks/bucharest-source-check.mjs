@@ -13,7 +13,8 @@ const results=[];let checks=0;
 for(const record of facts.landmarks){
  const lm=LANDMARKS.find(l=>l.id===record.id),model=buildLandmark(lm,{realScale:true}),box=new THREE.Box3().setFromObject(model.mesh);
  assert.deepEqual(lm.sourceIds,record.sourceIds,`${lm.id}: replacement identities match evidence`);checks++;
- assert(box.min.y<=0.01&&box.min.y>=-0.5,`${lm.id}: model has actual ground support`);checks++;
+ const floor=record.groundPit?.floorY??0; // (a recorded sunk bowl stands on its pit floor: Stadionul Dinamo)
+ assert(box.min.y<=floor+(floor?0.13:0.01)&&box.min.y>=floor-0.5,`${lm.id}: model has actual ground support`);checks++;
  const refs=[...record.primarySources,...record.associatedParts,...record.primarySources.flatMap(r=>(r.members||[]).map(m=>m.way).filter(Boolean))];
  for(const mapping of record.footprintUpgrades){
   const key=typeof mapping.authoredRing==='string'?mapping.authoredRing:record.id;

@@ -22,6 +22,7 @@ import { SpotSound } from './sound.js';
 import { colliderIndex, LocalWalker, collide } from './walker.js';
 import { findWalkPath, pathLength, walkHeight, walkSegment, withMovingBodies, walkingLevelGround, TOUR_WALK_LIMIT_M } from './tour.js';
 import { countTris, disposeTree, headingFromBearing, inPoly, polyBox, DEG, rng, distPolyline } from './kit.js';
+import { compactMaterialGroups } from './frame-budget.js';
 
 // ---------------------------------------------------------------------------- registry (Seattle 10 + Bellevue 4; Bucharest added by its builder)
 export const SPOTS_ALL = [
@@ -60,7 +61,7 @@ export const DEV_SPOTS = [
  */
 export const ACTIVITIES = [
     ['cismigiu', 'rowboat', 'Row a boat on the lake'], ['cismigiu', 'backgammon', 'Beat Doru at backgammon'], ['cismigiu', 'rotunda', 'Visit the Writers\' Rotunda'],
-    ['herastrau-park', 'boat', 'Boat on Lake Herăstrău'], ['village-museum', 'farmhouse', 'Collect a virtual household passport'],
+    ['herastrau-park', 'boat', 'Boat on Lake Herăstrău'], ['herastrau-park', 'nymph', 'Frame the Sleeping Nymph'], ['village-museum', 'farmhouse', 'Collect a virtual household passport'],
     ['old-town-lipscani', 'wcp-bar', 'Hidden project'], ['old-town-lipscani', 'romanian-style', 'Romanian style'],
     ['old-town-lipscani', 'freddo-dance', 'Find your rhythm at Freddo'], ['old-town-lipscani', 'freddo-shot', 'Pour, toast and drink at Freddo'],
     ['old-town-lipscani', 'carusel', 'Climb Cărturești Carusel'], ['old-town-lipscani', 'curtea-veche', 'Old Princely Court'],
@@ -306,6 +307,10 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     }
     const vegetation = { treeCrownMeshes: ctx.crownMeshes, grassMaterials: ctx.grassMaterials, groundMaterials: [...terr.materials, ...(ctx.extras.sourceGroundMaterials || [])], roofMaterials: ctx.roofMaterials };
     ctx.scene.userData.vegetation = vegetation;
+    // frame budget: scene hooks that need the finished scene, then one draw call per material of a multi-material mesh
+    // (a sign board or plaque was 6-7 calls per pass; same pixels) — frame-budget.js
+    for (const f of ctx.extras.finishers || []) f(ctx);
+    ctx.extras.drawGroups = compactMaterialGroups(ctx.scene);
     const tris = countTris(ctx.scene);
     const city = CITIES[entry.city] || CITIES.seattle;
     const env = { ...city.env, fogFar: 2400, ...(def.env || {}), ...ctx.env };
@@ -803,7 +808,7 @@ export class SpotSession {
         if (this.spot.crowd) {
             this.condT = (this.condT ?? 0) - dt;
             if (this.condT <= 0) { this.condT = 2; this.spot.crowd.cond = this._conditions(); }
-            this.spot.crowd.rainy = (this.r3d.weather?.kind || '').includes('rain'); this.spot.crowd.update(dt, pl, this.camera);
+            this.spot.crowd.rainy = (this.r3d.weather?.kind || '').includes('rain'); this.spot.crowd.interiors = this.spot.ctx.extras.interiors; this.spot.crowd.update(dt, pl, this.camera);
         }
         for (const f of this.spot.updaters) f(dt, this, pl);
         try { // map + tour never break the frame loop

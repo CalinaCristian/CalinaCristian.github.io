@@ -1,0 +1,27 @@
+{
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r06-c06",
+    "aerial-r06-c07"
+  ],
+  "reviewedAt": "2026-11-13T05:49:21.518Z",
+  "method": "Published game capture, a 94a177d5 render and the 9824fd56 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r06-c06",
+      "originalGameSha256": "7452f424004aac5087b66eb76248d64f8ec507399e7461c9f4584a86c11557d6",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "6c445198fe4f24e8f17c4b92a8ea7ae31772edd8ee2f7b8779a536462e3ccf7a",
+      "observation": "Promenada west front: dark window band no longer drawn on the roof edge"
+    },
+    {
+      "id": "aerial-r06-c07",
+      "originalGameSha256": "9573922109655f21d836ad3ee535be2e6be50fcab671514f71a337fb55bbec06",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "1604035533a6d5544306a076f48af06453d53a81f5c9ef6aa1b235980ccec489",
+      "observation": "Promenada front: the brown strip in front of the entrance removed"
+    }
+  ]
+}

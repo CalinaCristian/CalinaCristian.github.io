@@ -452,3 +452,69 @@ Landmarks
 - Plaza Center: striped tower, black base, "10900" pylon and U.S. Bank sign agree; the reference panorama shows a UiPath sign over the door.
 - Bellevue Way NE and NE 8th St: the reference has continuous street trees and a planted median on Bellevue Way; the game has almost none there.
 - Buildings without a landmark model (The Bravern, Bellevue Place / Hyatt, Courtyard, Key Center, towers on 108th) are all drawn as dark blue glass. Reference: The Bravern has a cream stone retail podium and towers with punched windows; Bellevue Place is pink-beige precast with square windows; the Courtyard is grey stucco.
+
+## 17. Lincoln Square North podium, round 2 (2026-11-12, lane landmarks)
+
+- OSM w161929514 `building=retail`, `building:levels=3`. Panoramas on Bellevue Way NE at 47.6170863, -122.2018217
+  (east) and 47.6164672, -122.2018012 (headings 20 / 60 / 120): cream stone piers with wide blue-glass bays on the
+  upper levels; the bay directly south of the Bellevue Square skybridge is red-brown brick with the same glazing; brick
+  piers between the shopfronts; south of it (One Lincoln / Westin) tan stone with punched windows. The NE 8th face was
+  not looked at and keeps the earlier windows.
+
+## 18. Landmark catalogue review against panoramas (fidelity pass round 2b, lane landmarks-b, 2026-11-12)
+
+Method: official panorama ids found from Maps coverage metadata (`photometa/ac`, coverage only), the game rendered at the
+pano position and bearing (eye 2.5 m), then compared side by side by eye. No imagery kept. Poses: `viewpoints-add.json`
+of this lane and the poses below. "Match" = shape class, height, roof, main materials/colours, entrance side and signage
+read as the real thing at street distance; it is not a claim of parity. Table positions are rounded and some are
+approximate; the exact poses with their pano ids are in this lane's `pick/*.json`, `views2b.json` and `views3.json`,
+and the kept ones in `viewpoints-add.json`.
+
+| Landmark | Pose (lat, lon, heading) | Verdict |
+| --- | --- | --- |
+| lincoln | — | compared in round 2 (lane landmarks) |
+| onelincoln | 47.615169, -122.201847 h 39 | fixed: blue glass with white slab bands (was matt grey-green) |
+| lincolnsouth | 47.61479, -122.201752 h 93 | fixed podium: tall glazed bays (were punched windows); tower glass bluer |
+| plazacenter | 47.6181, -122.1937 h 231 / 335 | match (ivory piers, dark glass strips) |
+| sonic | 47.6149, -122.1960 h 83 / 279 | match (dark glass); base retaining wall not in scope |
+| bellevue600 | — | not compared: the candidate poses face a garage in front of it |
+| bellevuetowers | 47.613977, -122.198816 h 54 | fixed podium (stone + glazed retail floor, stripes removed); real podium stone is darker grey at that corner |
+| bellevuesq | 47.615603, -122.201778 h 272 | partial: real east face is red brick with glazed bays and columns; model grey with a blue band (open, module landmark-bellevue-square.js) |
+
+Statues not modelled: Bellevue artworks (Gandhi n1704038437, Forest Deity n7205021680: the nearest panoramas show trees / a car park, nothing recognisable).
+
+## 19. Round 2 (2026-11-12), lane world: 2 Line guideway and car parks
+
+**2 Line guideway (`game/src/bellevue-guideway.js`).** Drawn from the OSM ways w669516620 / w1154876472 (bridge, layer 2),
+the crossovers w762965202 / w762965203 and the station tracks w614517901 / w669516619 (layer 1). Streets crossed, from the
+district pack's scenery roads: 112th Ave NE (13 m along the first track), I-405 and its ramps (141 - 221 m), 116th Ave NE
+(414 m), NE 8th St (683 - 696 m); the track is at grade again at 1,144 m (OSM: no bridge tag north of there).
+
+Ground under the track, USGS 3DEP via epqs.nationalmap.gov, sampled every 50 m on 2026-11-12 (m): 35.6, 33.2, 30.5, 30.2,
+30.4, 28.3, 28.4, 29.2, 31.1, 34.1, 36.9, 38.5, 42.6, 44.3, 44.3, 44.8, 45.1, 45.0, 43.4, 44.2, 43.6, 43.8, 44.9, 46.5;
+west of the bridge 41.2 / 39.4. NE 8th St at the crossing: 44.3 m.
+
+Rail level: **an estimate**. No published profile was found (Wikipedia and Sound Transit pages give the structure type
+only: an 810 ft long-span bridge over I-405, an elevated Wilburton station above NE 8th St). Assumed 42.1 m at the west
+end (5 m clearance + 1.5 m structure over 112th Ave NE), 51.3 m over NE 8th St (5 m + 2 m), held 150 m for the platform,
+straight grades between and down to the at-grade track. Drawn deck height over the game's flat ground = rail level minus
+ground: 6.5 m at 112th, up to 17.7 m over the I-405 valley, 7 m at NE 8th. Girder 2.2 m, deck half-width 2.6 m, piers
+every 34 m (26 placed, 1 omitted on a carriageway): estimates. Not drawn: Wilburton platform (w922284294) and canopies,
+overhead line, trains. Street View was not compared for the guideway.
+
+**Car parks (`game/src/car-parks.js`).** Open decks on the unchanged footprint and height for w30758875 (West Parking
+Garage, 4 levels), w34040306 (Southeast, 2), w161929522 (Northeast, 6), w104581576 (4), w450055216 (no levels in OSM:
+3 from the 10 m pack height, estimate). Not compared with Street View.
+
+**Monuments (`game/src/monuments.js`).** 11 placed as generic class objects (Mahatma Gandhi statue, Guan Yin, Double
+Inquiry, Heronious One, #BVUE and unnamed sculptures); murals and untyped artworks are left as markers; Root (in water)
+and Story Pole VI (on a carriageway) skipped.
+
+## 20. Round 2 (2026-11-12), lane world-b
+
+Street View was used only to look (official panoramas, ids found from coverage metadata); nothing was saved or traced.
+
+NE 8th St over I-405 (w30615115, w55481043, w428073537, w513238699, w1058885032): concrete parapet
+with a dark steel picket fence: drawn so. 2 Line guideway: single-column hammerhead piers and box deck match the class at
+47.61504, -122.188416 and 47.616547, -122.184279; the I-405 span's girders are sage green in reality (grey in the game).
+Monuments (Gandhi, Guan Yin, Double Inquiry and 8 others) and the car parks were render-checked (generic class forms).

@@ -3,7 +3,7 @@
   "id": "catargiu",
   "city": "bucharest",
   "name": "Statuia Lascăr Catargiu",
-  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.4491223,
@@ -29,18 +29,45 @@
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/77c2420945ba1a1e22dbc8c455ff6f5aa7406be5",
       "label": "Slimmer pedestal (77c2420)",
       "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493",
+      "label": "Fidelity pass round 2 (9824fd5), not yet published when captured",
+      "type": "implementation"
     }
   ],
   "sourceIds": [],
   "reviewedAt": "2026-11-12",
   "improvements": [
-    "The Lascar Catargiu statue stands on its mapped plinth outline as a stepped stone base, a slim shaft and a simplified bronze figure; the traffic island around it is kept clear of tree crowns."
+    "The Lascar Catargiu statue stands on its mapped plinth outline as a stepped stone base, a slim shaft and a simplified bronze figure; the traffic island around it is kept clear of tree crowns.",
+    "A standing bronze man in a long frock coat on the pedestal, facing down the boulevard towards Piata Romana, and a second, smaller bronze figure against the south-west side of the pedestal, reaching up (panoramas at 44.448932, 26.093057 and 44.449226, 26.092807). They were a cylinder, a box and a ball."
   ],
   "remainingGaps": [
     "All heights are estimates (shaft to 5.2 m, figure to about 8.7 m). The figure is a cylinder, a box and a sphere, not a likeness. The registry declares no replacement source id.",
-    "Sculptor, date and reinstallation year in the source comment (Antonin Mercie, 1907, 2011) were not re-verified for this record."
+    "Sculptor, date and reinstallation year in the source comment (Antonin Mercie, 1907, 2011) were not re-verified for this record.",
+    "Silhouettes only, not likenesses; figure heights are estimates."
   ],
   "checks": [
+    {
+      "label": "Pictures recaptured at 9824fd5 (round 2)",
+      "passed": true,
+      "details": "Front, top and oblique pictures recaptured from the commit snapshot. The front study stands 9 m from the statue on the figure's facing side (az=56). Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 9824fd5 (game/src clean) on 2026-11-13: passed, 2144 checks over 70 models; this model 408 triangles, 1 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "Earlier checks below",
+      "passed": null,
+      "details": "The checks that follow were recorded for source 346f798 or earlier and were not re-run for this recapture."
+    },
     {
       "label": "Registry identity",
       "passed": true,
@@ -65,19 +92,19 @@
   "captures": [
     {
       "id": "front",
-      "label": "Street-height model study · 22 m away",
+      "label": "Street-height model study · 9 m in front of the figure",
       "kind": "front",
-      "image": "assets/landmarks/catargiu/source-346f7986/front.webp",
-      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-      "sha256": "54d0ffb39ab85bd84fe7ab2b4162c68b2e8f8de8cb66c756836cb142383fb56a",
-      "bytes": 2420,
+      "image": "assets/landmarks/catargiu/source-9824fd56/front.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "ed0b8e73b180b8689e2abb1d17f71015835845bf8a89f35c6363c1bcb141fb7b",
+      "bytes": 7372,
       "width": 960,
       "height": 720,
-      "capturedAt": "2026-11-12T19:48:31.402Z",
+      "capturedAt": "2026-11-13T05:31:59.117Z",
       "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
       "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
-        "viewerRoute": "/game/dev/landmarks.html?id=catargiu&clean=1&fountains=on&view=street&az=35&d=22",
+        "viewerRoute": "/game/dev/landmarks.html?id=catargiu&clean=1&fountains=on&view=street&az=56&d=9&ty=5",
         "anchor": {
           "lat": 44.4491223,
           "lon": 26.0929099,
@@ -86,19 +113,19 @@
         "camera": {
           "projection": "perspective",
           "position": [
-            12.618681599723013,
+            7.461338152995376,
             1.3,
-            18.02134497435782
+            5.032736131236721
           ],
           "quaternion": [
-            0.05595330330115221,
-            0.30018783683262845,
-            -0.01764200876463172,
-            0.9520741830310204
+            0.17110651599833607,
+            0.4605717959419535,
+            -0.09097894837505101,
+            0.866209565820122
           ],
           "fov": 62,
           "near": 0.3,
-          "far": 440,
+          "far": 180,
           "viewport": [
             960,
             720
@@ -117,7 +144,7 @@
           ],
           "max": [
             3.9000000953674316,
-            8.655195236206055,
+            8.399999618530273,
             4
           ]
         },
@@ -129,13 +156,13 @@
       "id": "top",
       "label": "North-up orthographic model study",
       "kind": "top",
-      "image": "assets/landmarks/catargiu/source-346f7986/top.webp",
-      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-      "sha256": "1a76499ca51c2d437836a2d71c902fc2d97657302dbb68aaaaa125c04cf2fd23",
-      "bytes": 13282,
+      "image": "assets/landmarks/catargiu/source-9824fd56/top.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "6e7efc4f5f15c4c0bb04393453dbce7896c5f850f3dcd1186f0f1fca2ef477d7",
+      "bytes": 15582,
       "width": 720,
       "height": 720,
-      "capturedAt": "2026-11-12T19:45:20.052Z",
+      "capturedAt": "2026-11-13T05:29:52.539Z",
       "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
       "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
@@ -188,7 +215,7 @@
           ],
           "max": [
             3.9000000953674316,
-            8.655195236206055,
+            8.399999618530273,
             4
           ]
         },
@@ -200,13 +227,13 @@
       "id": "oblique",
       "label": "Oblique model study",
       "kind": "oblique",
-      "image": "assets/landmarks/catargiu/source-346f7986/oblique.webp",
-      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-      "sha256": "9c1396bf66e1154dee464b492998d7cd46b5b68ac60e797931c8fcb6a84c3da8",
-      "bytes": 8688,
+      "image": "assets/landmarks/catargiu/source-9824fd56/oblique.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "e0e97fcbc5d051b979f426fc65a79fd29d46456b6d23c469f06669212f7c4533",
+      "bytes": 9582,
       "width": 960,
       "height": 720,
-      "capturedAt": "2026-11-12T19:45:20.583Z",
+      "capturedAt": "2026-11-13T05:29:53.108Z",
       "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
       "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
@@ -219,9 +246,9 @@
         "camera": {
           "projection": "perspective",
           "position": [
-            14.964789291309302,
-            11.929655079774818,
-            5.446737864102205
+            14.597382230239186,
+            11.619685661369541,
+            5.313012630013457
           ],
           "quaternion": [
             -0.19817081533873587,
@@ -231,7 +258,7 @@
           ],
           "fov": 45,
           "near": 0.5,
-          "far": 360.72800384521497,
+          "far": 351.8716134772311,
           "viewport": [
             960,
             720
@@ -250,7 +277,7 @@
           ],
           "max": [
             3.9000000953674316,
-            8.655195236206055,
+            8.399999618530273,
             4
           ]
         },
@@ -260,13 +287,227 @@
     }
   ],
   "perf": {
-    "triangles": 130,
+    "triangles": 410,
     "drawCalls": 2,
     "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
   },
   "sourceVerification": {
-    "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
-    "checkedAt": "2026-11-12T20:03:08.417Z"
+    "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T05:41:38.367Z"
   },
-  "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
+  "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes.",
+  "historicalCollections": [
+    {
+      "id": "captures-346f7986",
+      "label": "Pictures before fidelity pass round 2",
+      "status": "historical",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededBy": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededAt": "2026-11-13T05:41:38.367Z",
+      "reason": "The model changed in 94a177d5..9824fd56; these pictures show the earlier model and keep their original source, dates and files.",
+      "perf": {
+        "triangles": 130,
+        "drawCalls": 2,
+        "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
+      },
+      "captures": [
+        {
+          "id": "front",
+          "label": "Street-height model study · 22 m away",
+          "kind": "front",
+          "image": "assets/landmarks/catargiu/source-346f7986/front.webp",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "sha256": "54d0ffb39ab85bd84fe7ab2b4162c68b2e8f8de8cb66c756836cb142383fb56a",
+          "bytes": 2420,
+          "width": 960,
+          "height": 720,
+          "capturedAt": "2026-11-12T19:48:31.402Z",
+          "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=catargiu&clean=1&fountains=on&view=street&az=35&d=22",
+            "anchor": {
+              "lat": 44.4491223,
+              "lon": 26.0929099,
+              "rotation": 0
+            },
+            "camera": {
+              "projection": "perspective",
+              "position": [
+                12.618681599723013,
+                1.3,
+                18.02134497435782
+              ],
+              "quaternion": [
+                0.05595330330115221,
+                0.30018783683262845,
+                -0.01764200876463172,
+                0.9520741830310204
+              ],
+              "fov": 62,
+              "near": 0.3,
+              "far": 440,
+              "viewport": [
+                960,
+                720
+              ],
+              "up": [
+                0,
+                1,
+                0
+              ]
+            },
+            "bounds": {
+              "min": [
+                -3.9000000953674316,
+                0,
+                -4
+              ],
+              "max": [
+                3.9000000953674316,
+                8.655195236206055,
+                4
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+          }
+        },
+        {
+          "id": "top",
+          "label": "North-up orthographic model study",
+          "kind": "top",
+          "image": "assets/landmarks/catargiu/source-346f7986/top.webp",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "sha256": "1a76499ca51c2d437836a2d71c902fc2d97657302dbb68aaaaa125c04cf2fd23",
+          "bytes": 13282,
+          "width": 720,
+          "height": 720,
+          "capturedAt": "2026-11-12T19:45:20.052Z",
+          "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=catargiu&clean=1&fountains=on&view=top&az=0",
+            "anchor": {
+              "lat": 44.4491223,
+              "lon": 26.0929099,
+              "rotation": 0
+            },
+            "camera": {
+              "projection": "orthographic",
+              "position": [
+                0,
+                100,
+                0
+              ],
+              "quaternion": [
+                -0.7071067811865475,
+                0,
+                0,
+                0.7071067811865476
+              ],
+              "fov": 45,
+              "near": 0.5,
+              "far": 2000,
+              "viewport": [
+                720,
+                720
+              ],
+              "up": [
+                0,
+                0,
+                -1
+              ],
+              "left": -6.64,
+              "right": 6.64,
+              "top": 6.64,
+              "bottom": -6.64,
+              "zoom": 1,
+              "groundSquareM": 13.28,
+              "groundWidthM": 13.28,
+              "groundDepthM": 13.28,
+              "orientation": "north-up"
+            },
+            "bounds": {
+              "min": [
+                -3.9000000953674316,
+                0,
+                -4
+              ],
+              "max": [
+                3.9000000953674316,
+                8.655195236206055,
+                4
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+          }
+        },
+        {
+          "id": "oblique",
+          "label": "Oblique model study",
+          "kind": "oblique",
+          "image": "assets/landmarks/catargiu/source-346f7986/oblique.webp",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "sha256": "9c1396bf66e1154dee464b492998d7cd46b5b68ac60e797931c8fcb6a84c3da8",
+          "bytes": 8688,
+          "width": 960,
+          "height": 720,
+          "capturedAt": "2026-11-12T19:45:20.583Z",
+          "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=catargiu&clean=1&fountains=on&view=oblique&az=70&el=28",
+            "anchor": {
+              "lat": 44.4491223,
+              "lon": 26.0929099,
+              "rotation": 0
+            },
+            "camera": {
+              "projection": "perspective",
+              "position": [
+                14.964789291309302,
+                11.929655079774818,
+                5.446737864102205
+              ],
+              "quaternion": [
+                -0.19817081533873587,
+                0.5565387648840361,
+                0.13876069875334723,
+                0.7948197277438546
+              ],
+              "fov": 45,
+              "near": 0.5,
+              "far": 360.72800384521497,
+              "viewport": [
+                960,
+                720
+              ],
+              "up": [
+                0,
+                1,
+                0
+              ]
+            },
+            "bounds": {
+              "min": [
+                -3.9000000953674316,
+                0,
+                -4
+              ],
+              "max": [
+                3.9000000953674316,
+                8.655195236206055,
+                4
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+          }
+        }
+      ]
+    }
+  ],
+  "recapturedAt": "2026-11-13T05:41:38.367Z"
 }

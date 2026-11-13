@@ -1,0 +1,267 @@
+{
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r04-c02",
+    "aerial-r05-c02",
+    "aerial-r06-c03",
+    "aerial-r06-c04",
+    "aerial-r07-c06",
+    "aerial-r08-c07",
+    "aerial-r09-c07",
+    "aerial-r06-c05",
+    "aerial-r07-c05",
+    "aerial-r05-c03",
+    "aerial-r01-c06",
+    "aerial-r02-c05",
+    "aerial-r03-c03",
+    "aerial-r10-c03",
+    "aerial-r10-c06",
+    "aerial-r10-c07",
+    "aerial-r01-c11",
+    "aerial-r02-c12",
+    "aerial-r05-c01",
+    "aerial-r06-c12",
+    "aerial-r08-c01",
+    "aerial-r09-c01",
+    "aerial-r10-c02",
+    "context-northeast",
+    "context-southeast",
+    "context-southwest",
+    "aerial-r03-c04",
+    "aerial-r09-c08",
+    "aerial-r10-c04",
+    "aerial-r10-c05",
+    "aerial-r08-c05",
+    "context-parliament"
+  ],
+  "reviewedAt": "2026-11-13T05:49:19.255Z",
+  "method": "Published game capture, a 94a177d5 render and the 9824fd56 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r04-c02",
+      "originalGameSha256": "f42db2ecfcd29e6368f12cf8d3cac5b0536d9fe7287c315c597e1fee6aea18b3",
+      "originalGameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "retakeGameSha256": "b084620b6db05377d874e8a5b42de4834f798fc86ebbaa8758d502e92abe1d10",
+      "observation": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r05-c02",
+      "originalGameSha256": "7574274d9983bb162986ab532f52d22359f3307b6c09b87ff087427fb75b6e59",
+      "originalGameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "retakeGameSha256": "7596809debc5179bedf847ca79248f43550d05c855882c90bd2b1f675322d200",
+      "observation": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r06-c03",
+      "originalGameSha256": "49ccfd89a5c0fabda6b314bb79991064d86067848982f8ddf58437fc8c1265f8",
+      "originalGameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "retakeGameSha256": "1a5d76867cfe5433cf988a0bbd0e021ed098d6f1e9150a1352789aacf24c7709",
+      "observation": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r06-c04",
+      "originalGameSha256": "c6f0082c3e324690e741d4f451cc756cbbdc1d6c216e050e3b512a046ea7bb20",
+      "originalGameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "retakeGameSha256": "9b12c235a99f59d69ff224cec624000d8936bd822ff41393921d0aa9516c103c",
+      "observation": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r07-c06",
+      "originalGameSha256": "9b8b300464e97ae616db454e2c98ca5ed6454ed4eac86a3aa5d9bd11d2e43790",
+      "originalGameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "retakeGameSha256": "9ed291d7d84135e86e49b215e6c3c8517284b43f77a032b36ba751c7837db860",
+      "observation": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r08-c07",
+      "originalGameSha256": "287e192de346e86ca1f7732ec283c0690e4ee69925761e9ddfd21d45999ef6f5",
+      "originalGameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "retakeGameSha256": "a306d3487c0532a629f4b5a4db003d235effff8f56372d3010b950e6ed2938cc",
+      "observation": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r09-c07",
+      "originalGameSha256": "6dbc67c2311de829c69ca11c9f29fae62e2297f0fb4dcd15ee11c6f2e664bb57",
+      "originalGameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "retakeGameSha256": "5838022a039253df5ca52f86d298f919ff589fc462fc6d72ffd88db39e2763d0",
+      "observation": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r06-c05",
+      "originalGameSha256": "874190b97e7fb00730a733c45861dc1a66c4d94d1745fc816be9a1c1db09ed75",
+      "originalGameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "retakeGameSha256": "7fd479a9c096ee6b92647bef5b22cb222a719369a64f056695aa3317385ef0e2",
+      "observation": "Unirea store skin redrawn (and the east basin edge)"
+    },
+    {
+      "id": "aerial-r07-c05",
+      "originalGameSha256": "8b2668e6528f365ebbc4353cd1c68caab2784296019c4a661f6d6cd8d9d86f40",
+      "originalGameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "retakeGameSha256": "b1e5e5c883f101393dcf529041729b302ed08d946d55533f380e81fe511a5cc9",
+      "observation": "Unirea store skin redrawn (and the east basin edge)"
+    },
+    {
+      "id": "aerial-r05-c03",
+      "originalGameSha256": "a263acd92df4abf3971ef4103b3686f2d051ace1a9a2d851eff8b45495a4e972",
+      "originalGameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "retakeGameSha256": "a6c2a58337df9bb5d92f1bbc19321bd04ba7721c89165e58c7fbb357af44c0a6",
+      "observation": "stale before this range: the published bbaffc0d capture predates later data/model changes; the current render visibly differs (building models changed)"
+    },
+    {
+      "id": "aerial-r01-c06",
+      "originalGameSha256": "770397f1095e2c0ee9fa5ae9543dffc1694276abb3ff2618f251c67a0eff9627",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "b9a394e829b441455c931d024506de26cde9844d5d965ef586a6596e113cdfd9",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r02-c05",
+      "originalGameSha256": "5198b1e01450d76f45a7fdde5931d7c63665ef7cb601512fa11033e815f866ef",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "fb4570f8d179cc00162bb1f43071eda02dcb725a719377f46673689a4e9bb58b",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r03-c03",
+      "originalGameSha256": "68a0ef531cb885e35dbe535ee922221254cbfe4a338b0299c314e1f19ae07764",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "90d9e6094c8624cf174bce0cad64de8e99c9c3ef60e370e48187b1728ca26ea4",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r10-c03",
+      "originalGameSha256": "33f5baaceeafa87004ff761ea89dc009029731b2cf3f8be9256131c524d46752",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "0631b1ec86ab42d15404fe8501c306ac19dfb73e42b5c60c5e5f68d41ef8552d",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r10-c06",
+      "originalGameSha256": "7ceaa514c02fae8b17496efd0eb59ff39bb0473ceae0f60141554b8d0dd2439c",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "e408ba67ae674b28a3b486ed10ee8d7704520a0b1e7b51a0b4196900c3048d78",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r10-c07",
+      "originalGameSha256": "cbe4d926ca5caedbb56724465f9904f3a842f8d46238393ed720719f91f951aa",
+      "originalGameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "retakeGameSha256": "d8d8f557ac57143ac547e5ea76bca6d5b982434c58d7dede968c58585b934efb",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r01-c11",
+      "originalGameSha256": "585fd065eacdb3d6c4780afe926ef0a15b7cf583c0dcaeef528233968586735b",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "2e79a989ce60fc38bde92258088ece332c72a1a9a59dc4cc3d7fff4cc4aaa656",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "aerial-r02-c12",
+      "originalGameSha256": "3c9730ac8054f67b935e60dc83942af648c37664970d31cd8dd81f886cbc9ed5",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "48df88ddfebec9d5b58ee9ee7799c531ab0d8f730b62959d832feb449a3f6f1c",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "aerial-r05-c01",
+      "originalGameSha256": "672856c75a3e940584962d397889c2fa2eb9a7c80fad1c9aa9328b3f25600152",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "0654edf3de3e523ea3d72f8c8e175d546ac43552f8fa35f5fe1686eab112486e",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "aerial-r06-c12",
+      "originalGameSha256": "c9c8ac7d87a3596c7f624f9cc5105fa3de6b0c1fe9be078fac28d2ae5e14cacf",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "0469841fbc139118492076dc132af2d38c1d1d927394cf4565bdf95bc6fb6c7f",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "aerial-r08-c01",
+      "originalGameSha256": "f9095e16d9fb0aaa4b8411d5bcfe2d15aae543e63b0663db50b9de05dd18aab8",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "bc10e6a2e8914ce8365bb0a31d02a9f14cd81b9cd7702b6c433ac7f60f62621c",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "aerial-r09-c01",
+      "originalGameSha256": "be8e87407384cc7973c569bc15562ff4d493c4ab3ed4d89775344971952d1c36",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "96a347fcbf7fa502e02c5d97ef8f1bf7280c527f2d5c054a1c985c4afb3207fa",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "aerial-r10-c02",
+      "originalGameSha256": "fee7818dac9939958698281ac4f2af4c1fc58dea450aaf3d8ef6e4d41900cd50",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "3c8fdf2326b208d8e18d42711bb704f0c5d0c7b0a817f13ddabe8d509b7f5615",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "context-northeast",
+      "originalGameSha256": "58a20f2f994c50bde8f58667816994ac64ef7263c76592d9c2b35feffc367c2d",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "326498ceb5ab0e112f4f75b781760ad98d02a70ba99bad36ec03c1d6fa1b7aa0",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "context-southeast",
+      "originalGameSha256": "8740c42468c6910a50a3aa554a7ec825bcefb8a27accef11a6dc185c5d3d5300",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "3db3f1a56e536b2111b21b3eac96e003e3a7363593acf53841618ce695f9bd7b",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "context-southwest",
+      "originalGameSha256": "42c855ae12f23422d57ea8a6de7191280af2dba2f4ae0a26ed79799db4bf458e",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "c5f7cede34d36b0945bcfe44d720423ef6a6abb9183c3571fc0fe4dfbeadea43",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "aerial-r03-c04",
+      "originalGameSha256": "2aef5ad8c27513ef9af9b59de7f609a10f8e0f59bdcdb794798d12bc0eef8348",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "9eca9f13f002c932b276c2a801ae5ef733f8c3f4b71224e5040deb9ff1ff28d2",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (buildings added or reshaped)"
+    },
+    {
+      "id": "aerial-r09-c08",
+      "originalGameSha256": "463e0db17ef7f4a2bc4ecb7fe0c89f766f61576d89fddd39c412e2f4092015cc",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "3519bbbebd060e25c962a662fca3545d7f2ee6bb1d0515db7670ffe29edf8975",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (buildings added or reshaped)"
+    },
+    {
+      "id": "aerial-r10-c04",
+      "originalGameSha256": "2d79ed9450706c727f554f3eccdfa53ef38f0446ecbbcc3a6fd39530a00e2c5b",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "3cb64b4b76a70a9d8f0fd7d5580260ddbae9f2d09c3f52a831ca8c7393e92861",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (buildings added or reshaped)"
+    },
+    {
+      "id": "aerial-r10-c05",
+      "originalGameSha256": "a5bd62efd1d7c588c3cff4907d601081561f17876cffbe1120ba691676985b31",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "3a8d1444a20b251867c41f837b98f041618cc4e28c9f0e63f9dd050a276ec6ca",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (buildings added or reshaped)"
+    },
+    {
+      "id": "aerial-r08-c05",
+      "originalGameSha256": "a7d4fb73b9b275a3805be7e9a3e126d07224208e94e457a698bf137949184766",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "963ddbbcc1c724d95ca1be6d048092e0d53ff7936fbb2996160fc4d9d9e63488",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (boulevard drawn with its underpass)"
+    },
+    {
+      "id": "context-parliament",
+      "originalGameSha256": "bd4700a9c465e0f50109400a633ed317bfe91aae6660a6c0f3c06425c949c93c",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "932640171f3f01a51b6b62b56552df24390812e24e2830337d51b09a6d63b7fa",
+      "observation": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (boxes inside the Palace courtyard removed)"
+    }
+  ]
+}

@@ -3,7 +3,7 @@
   "id": "otp",
   "city": "bucharest",
   "name": "Aeroportul Henri Coandă",
-  "sourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.5708154,
@@ -237,16 +237,21 @@
       "type": "osm",
       "url": "https://www.openstreetmap.org/way/1325276811",
       "label": "Mapped pier part w1325276811 · literal footprint and height/minimum retained"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493",
+      "label": "Fidelity pass round 2 (9824fd5), not yet published when captured",
+      "type": "implementation"
     }
   ],
   "sourceIds": [
     "r16476195",
-    "w1321861231",
     "w771096081",
     "w771096082",
     "w771096083",
     "w794617342",
     "w1321861230",
+    "w1321861231",
     "w1321861232",
     "w1321861233",
     "w1325276784",
@@ -286,7 +291,9 @@
     "Replaced guessed control-cabin and 20 m pier-spine outlines with the exact source polygons; cabin spans 20–25 m.",
     "Separated independently measured departures white hall roofs, dark membrane zones, Vioara membranes and seven roof strips, clipped to complete mapped source rings. All seven colliders, source IDs, heights and courtyard geometry remain unchanged.",
     "Replaced the flat arrivals cap with ten independently measured repeated curved bays, clipped to the exact source ring; total14m and existing collision bands stay unchanged.",
-    "Pier assembly uses 32 literal source-part footprints and height ranges once, including open space below mapped elevated connectors; narrow untagged residual strips inherit an explicit estimated adjacent height band."
+    "Pier assembly uses 32 literal source-part footprints and height ranges once, including open space below mapped elevated connectors; narrow untagged residual strips inherit an explicit estimated adjacent height band.",
+    "Five silver corrugated barrel-vault canopies on round white columns cover the Plecari kerb in front of the door groups, and a white cylindrical stair tower closes the south end of the blue curtain wall (its arc is in the mapped outline of w771096082).",
+    "The control tower is a stack of five ring floors widening upwards under the mapped cab (w794617342, min_height 20, height 25), not a bare shaft."
   ],
   "remainingGaps": [
     "Connector roof height 12 m is explicitly estimated; the aggregate has max_level=2 but no height.",
@@ -294,9 +301,30 @@
     "Static aircraft and some jet-bridge details are legacy illustrations, not surveyed current aircraft positions.",
     "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity.",
     "Roof plant/HVAC equipment and membrane/weathering detail are incomplete. Pixel RGB observations have unknown imagery acquisition lighting and are material-colour estimates.",
-    "Arrivals bay count10, axis84.47degrees and median spacing8.88m are independently measured; rise1.2m is estimated within the prior total14m. A northern imagery/source outline mismatch of approximately5–6m is retained as uncertainty; the source boundary is preserved."
+    "Arrivals bay count10, axis84.47degrees and median spacing8.88m are independently measured; rise1.2m is estimated within the prior total14m. A northern imagery/source outline mismatch of approximately5–6m is retained as uncertainty; the source boundary is preserved.",
+    "Vault size, spring height and the five positions along the front are estimates: the door groups are not mapped. The tower in the panorama looks about twice as tall as the mapped cab height; the tag sets the height."
   ],
   "checks": [
+    {
+      "label": "Pictures recaptured at 9824fd5 (round 2)",
+      "passed": true,
+      "details": "Front, top and oblique pictures recaptured from the commit snapshot. The front picture is now a street-height view of the Plecari kerb (80 m, looking east) to show the new canopies; top and oblique keep their routes (the oblique uses the d=1000 framing of the earlier picture). Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 9824fd5 (game/src clean) on 2026-11-13: passed, 2144 checks over 70 models; this model 53100 triangles, 2934 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "Earlier checks below",
+      "passed": null,
+      "details": "The checks that follow were recorded for source b1e33ee or earlier and were not re-run for this recapture."
+    },
     {
       "label": "Historical source boundary and replacement-identity checks",
       "passed": true,
@@ -346,12 +374,19 @@
   "captures": [
     {
       "id": "front",
-      "label": "Departures facade detail — street-height model study",
-      "sha256": "79f8ec94da06f426739ec71c08a7f3d0bfd29c6a58585dc5117be2fced19ea54",
-      "capturedAt": "2026-11-11T01:33:35.445Z",
-      "sourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+      "label": "Street-height model study · Plecari kerb and canopies",
+      "kind": "front",
+      "image": "assets/landmarks/otp/source-9824fd56/front.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "9713f200505ebc1c845f7e1b46ff8f4a7659601193ce257b320e8097e6322dae",
+      "bytes": 20812,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:31:58.477Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
-        "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=street&az=-84.00134234412998&d=220&tx=-170.20144234878296&tz=-88.69875434522132&ty=9&ey=1.6",
+        "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=street&az=-84&tx=-212&tz=-90&d=80&ty=6&ey=1.6",
         "anchor": {
           "lat": 44.5708154,
           "lon": 26.0795884,
@@ -360,19 +395,19 @@
         "camera": {
           "projection": "perspective",
           "position": [
-            -388.9967980336489,
+            -291.56175162946187,
             1.6,
-            -65.70761842867692
+            -81.63772293858773
           ],
           "quaternion": [
-            0.012492914134061586,
-            -0.6690447517347269,
-            0.0112489354033115,
-            0.7430319701903471
+            0.020413345253170696,
+            -0.6688781162955646,
+            0.01838025862360301,
+            0.7428644068532302
           ],
           "fov": 62,
           "near": 0.3,
-          "far": 5332.080824981656,
+          "far": 5333.104971116632,
           "viewport": [
             960,
             720
@@ -385,32 +420,33 @@
         },
         "bounds": {
           "min": [
-            -225.6367935160489,
-            0,
+            -226.61142312412414,
+            -1.9073486612342094e-7,
             -227.5981963697926
           ],
           "max": [
             224.98425943834576,
             30,
-            303.609886128373
+            303.71230074187065
           ]
         },
-        "render": {
-          "triangles": 48974,
-          "calls": 3
-        },
         "isolatedModel": true,
-        "scope": "Current source-part assembly; isolated model view, no district or photographic parity claim."
-      },
-      "image": "assets/landmarks/otp/source-parts-b1e33eee/front.png",
-      "kind": "front"
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
     },
     {
       "id": "top",
-      "label": "Top model study (north-up orthographic)",
-      "sha256": "92b18e06fe689b3aa313981a2d222a70d9ace58a8398245f9be3f8e774314801",
-      "capturedAt": "2026-11-11T01:33:44.888Z",
-      "sourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+      "label": "North-up orthographic model study",
+      "kind": "top",
+      "image": "assets/landmarks/otp/source-9824fd56/top.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "a4b6b365f772316127733983d23c389c5804b9a79b0f7b8f8d314fdaa0855c87",
+      "bytes": 21588,
+      "width": 720,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:40.893Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=top&az=0",
         "anchor": {
@@ -421,9 +457,9 @@
         "camera": {
           "projection": "orthographic",
           "position": [
-            -0.3262670388515687,
-            650.2013756978721,
-            38.005844879290194
+            -0.8135818428891923,
+            650.3201768402643,
+            38.05705218603903
           ],
           "quaternion": [
             -0.7071067811865475,
@@ -432,10 +468,10 @@
             0.7071067811865476
           ],
           "fov": 45,
-          "near": 1.3004027513957441,
-          "far": 13004.027513957442,
+          "near": 1.3006403536805284,
+          "far": 13006.403536805285,
           "viewport": [
-            960,
+            720,
             720
           ],
           "up": [
@@ -443,46 +479,47 @@
             0,
             -1
           ],
-          "left": -413.46758379858136,
-          "right": 413.46758379858136,
-          "top": 310.10068784893605,
-          "bottom": -310.10068784893605,
+          "left": -310.1600883247647,
+          "right": 310.1600883247647,
+          "top": 310.1600883247647,
+          "bottom": -310.1600883247647,
           "zoom": 1,
-          "groundSquareM": 826.9351675971627,
-          "groundWidthM": 826.9351675971627,
-          "groundDepthM": 620.2013756978721,
+          "groundSquareM": 620.3201766495293,
+          "groundWidthM": 620.3201766495293,
+          "groundDepthM": 620.3201766495293,
           "orientation": "north-up"
         },
         "bounds": {
           "min": [
-            -225.6367935160489,
-            0,
+            -226.61142312412414,
+            -1.9073486612342094e-7,
             -227.5981963697926
           ],
           "max": [
             224.98425943834576,
             30,
-            303.609886128373
+            303.71230074187065
           ]
         },
-        "render": {
-          "triangles": 48974,
-          "calls": 3
-        },
         "isolatedModel": true,
-        "scope": "Current source-part assembly; isolated model view, no district or photographic parity claim."
-      },
-      "image": "assets/landmarks/otp/source-parts-b1e33eee/top.png",
-      "kind": "top"
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
     },
     {
       "id": "oblique",
       "label": "Oblique model study",
-      "sha256": "854c9a998dccac2c8bdb52c61e23cc36ca9c9a3af69cf223fe6f18db38ea988b",
-      "capturedAt": "2026-11-11T01:33:56.500Z",
-      "sourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+      "kind": "oblique",
+      "image": "assets/landmarks/otp/source-9824fd56/oblique.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "46ea3e642c62114f07343f2d6fc0b69c034fe48486f48ba48d89c766961013f5",
+      "bytes": 15682,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:44.001Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
-        "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=oblique&az=-49.00134234412998&el=28&d=1000&el=38",
+        "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=oblique&az=-49.00134234412998&el=28&d=1000",
         "anchor": {
           "lat": 44.5708154,
           "lon": 26.0795884,
@@ -491,9 +528,9 @@
         "camera": {
           "projection": "perspective",
           "position": [
-            -666.7088452471284,
-            481.4715627858908,
-            617.2559732313376
+            -667.196160051166,
+            481.4715628621847,
+            617.3071805380865
           ],
           "quaternion": [
             -0.22013838035332248,
@@ -516,31 +553,25 @@
         },
         "bounds": {
           "min": [
-            -225.6367935160489,
-            0,
+            -226.61142312412414,
+            -1.9073486612342094e-7,
             -227.5981963697926
           ],
           "max": [
             224.98425943834576,
             30,
-            303.609886128373
+            303.71230074187065
           ]
         },
-        "render": {
-          "triangles": 48974,
-          "calls": 3
-        },
         "isolatedModel": true,
-        "scope": "Current source-part assembly; isolated model view, no district or photographic parity claim."
-      },
-      "image": "assets/landmarks/otp/source-parts-b1e33eee/oblique.png",
-      "kind": "oblique"
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
     }
   ],
   "perf": {
-    "triangles": 48972,
+    "triangles": 53102,
     "drawCalls": 3,
-    "note": "Isolated current model studies; excludes district, traffic and mirrors."
+    "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
   },
   "roofMeasurementLedger": "../../../../../../handoffs/fidelity/d-otopeni/terminal-roof-measurements.json",
   "implementationNotesUpdatedAt": "2026-11-09",
@@ -734,5 +765,220 @@
         "note": "Isolated game-only source model study. Roof plan/colours and ten arrivals bay positions use independent Esri measurements; arrivals rise1.2m is explicitly estimated. All base/total heights, source footprints/courtyard and seven colliders remain unchanged."
       }
     }
-  ]
+  ],
+  "historicalCollections": [
+    {
+      "id": "captures-b1e33eee",
+      "label": "Pictures before fidelity pass round 2",
+      "status": "historical",
+      "sourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+      "supersededBy": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededAt": "2026-11-13T05:41:38.367Z",
+      "reason": "The model changed in 94a177d5..9824fd56; these pictures show the earlier model and keep their original source, dates and files.",
+      "perf": {
+        "triangles": 48972,
+        "drawCalls": 3,
+        "note": "Isolated current model studies; excludes district, traffic and mirrors."
+      },
+      "captures": [
+        {
+          "id": "front",
+          "label": "Departures facade detail — street-height model study",
+          "sha256": "79f8ec94da06f426739ec71c08a7f3d0bfd29c6a58585dc5117be2fced19ea54",
+          "capturedAt": "2026-11-11T01:33:35.445Z",
+          "sourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=street&az=-84.00134234412998&d=220&tx=-170.20144234878296&tz=-88.69875434522132&ty=9&ey=1.6",
+            "anchor": {
+              "lat": 44.5708154,
+              "lon": 26.0795884,
+              "rotation": -1.4661
+            },
+            "camera": {
+              "projection": "perspective",
+              "position": [
+                -388.9967980336489,
+                1.6,
+                -65.70761842867692
+              ],
+              "quaternion": [
+                0.012492914134061586,
+                -0.6690447517347269,
+                0.0112489354033115,
+                0.7430319701903471
+              ],
+              "fov": 62,
+              "near": 0.3,
+              "far": 5332.080824981656,
+              "viewport": [
+                960,
+                720
+              ],
+              "up": [
+                0,
+                1,
+                0
+              ]
+            },
+            "bounds": {
+              "min": [
+                -225.6367935160489,
+                0,
+                -227.5981963697926
+              ],
+              "max": [
+                224.98425943834576,
+                30,
+                303.609886128373
+              ]
+            },
+            "render": {
+              "triangles": 48974,
+              "calls": 3
+            },
+            "isolatedModel": true,
+            "scope": "Current source-part assembly; isolated model view, no district or photographic parity claim."
+          },
+          "image": "assets/landmarks/otp/source-parts-b1e33eee/front.png",
+          "kind": "front"
+        },
+        {
+          "id": "top",
+          "label": "Top model study (north-up orthographic)",
+          "sha256": "92b18e06fe689b3aa313981a2d222a70d9ace58a8398245f9be3f8e774314801",
+          "capturedAt": "2026-11-11T01:33:44.888Z",
+          "sourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=top&az=0",
+            "anchor": {
+              "lat": 44.5708154,
+              "lon": 26.0795884,
+              "rotation": -1.4661
+            },
+            "camera": {
+              "projection": "orthographic",
+              "position": [
+                -0.3262670388515687,
+                650.2013756978721,
+                38.005844879290194
+              ],
+              "quaternion": [
+                -0.7071067811865475,
+                0,
+                0,
+                0.7071067811865476
+              ],
+              "fov": 45,
+              "near": 1.3004027513957441,
+              "far": 13004.027513957442,
+              "viewport": [
+                960,
+                720
+              ],
+              "up": [
+                0,
+                0,
+                -1
+              ],
+              "left": -413.46758379858136,
+              "right": 413.46758379858136,
+              "top": 310.10068784893605,
+              "bottom": -310.10068784893605,
+              "zoom": 1,
+              "groundSquareM": 826.9351675971627,
+              "groundWidthM": 826.9351675971627,
+              "groundDepthM": 620.2013756978721,
+              "orientation": "north-up"
+            },
+            "bounds": {
+              "min": [
+                -225.6367935160489,
+                0,
+                -227.5981963697926
+              ],
+              "max": [
+                224.98425943834576,
+                30,
+                303.609886128373
+              ]
+            },
+            "render": {
+              "triangles": 48974,
+              "calls": 3
+            },
+            "isolatedModel": true,
+            "scope": "Current source-part assembly; isolated model view, no district or photographic parity claim."
+          },
+          "image": "assets/landmarks/otp/source-parts-b1e33eee/top.png",
+          "kind": "top"
+        },
+        {
+          "id": "oblique",
+          "label": "Oblique model study",
+          "sha256": "854c9a998dccac2c8bdb52c61e23cc36ca9c9a3af69cf223fe6f18db38ea988b",
+          "capturedAt": "2026-11-11T01:33:56.500Z",
+          "sourceCommit": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=oblique&az=-49.00134234412998&el=28&d=1000&el=38",
+            "anchor": {
+              "lat": 44.5708154,
+              "lon": 26.0795884,
+              "rotation": -1.4661
+            },
+            "camera": {
+              "projection": "perspective",
+              "position": [
+                -666.7088452471284,
+                481.4715627858908,
+                617.2559732313376
+              ],
+              "quaternion": [
+                -0.22013838035332248,
+                -0.40238542384061593,
+                -0.10032595409938755,
+                0.882926818660568
+              ],
+              "fov": 45,
+              "near": 2,
+              "far": 20000,
+              "viewport": [
+                960,
+                720
+              ],
+              "up": [
+                0,
+                1,
+                0
+              ]
+            },
+            "bounds": {
+              "min": [
+                -225.6367935160489,
+                0,
+                -227.5981963697926
+              ],
+              "max": [
+                224.98425943834576,
+                30,
+                303.609886128373
+              ]
+            },
+            "render": {
+              "triangles": 48974,
+              "calls": 3
+            },
+            "isolatedModel": true,
+            "scope": "Current source-part assembly; isolated model view, no district or photographic parity claim."
+          },
+          "image": "assets/landmarks/otp/source-parts-b1e33eee/oblique.png",
+          "kind": "oblique"
+        }
+      ]
+    }
+  ],
+  "recapturedAt": "2026-11-13T05:41:38.367Z",
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T05:41:38.367Z"
+  }
 }

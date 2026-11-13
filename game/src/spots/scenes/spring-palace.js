@@ -12,6 +12,7 @@ import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, obb, p
 import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, palisade, osmPoly, flagpole, bucActivity } from '../buc.js';
 import { parkWoods, greenClearance, businessSigns, farCanopy } from './buc-green.js';
 import { photoHunt } from '../photo-hunt.js';
+import { stoneWall } from './buc-walls.js';
 import { addTraffic } from '../cars.js';
 
 function grow(poly, d) { const cw = polyArea(poly) > 0; const o = offsetPolyline([...poly, poly[0], poly[1]], cw ? -d : d); return o.slice(1, poly.length + 1); }
@@ -86,7 +87,13 @@ export default {
         let gateI = 0, gd = 1e9; for (let i = 0; i < grounds.length; i++) { const [ax, az] = grounds[i], [bx, bz] = grounds[(i + 1) % grounds.length], mx = (ax + bx) / 2, mz = (az + bz) / 2, dd = Math.hypot(mx - -60, mz - -60); if (dd < gd) { gd = dd; gateI = i; } }
         const [gax, gaz] = grounds[gateI], [gbx, gbz] = grounds[(gateI + 1) % grounds.length], gmx = (gax + gbx) / 2, gmz = (gaz + gbz) / 2, gL = Math.hypot(gbx - gax, gbz - gaz), gux = (gbx - gax) / gL, guz = (gbz - gaz) / gL;
         const runA = [...ring.slice(gateI + 1), ...ring.slice(1, gateI + 1)], gateA = [gmx - gux * 3, gmz - guz * 3], gateB = [gmx + gux * 3, gmz + guz * 3];
-        const mats = palisade(ctx, b, [gateB, ...runA, gateA], { h: 1.9, plinth: 0.8, post: 3, plinthCol: '#8a8580', postCol: '#14171a' });
+        // (round 2, 2026-11-12) On Bd. Primăverii the property is closed by a plain rendered wall about 2 m high with
+        // greenery spilling over it, not by railings (Street View from Bd. Primăverii 40, looking along the frontage):
+        // the boulevard edge of the mapped grounds is now a solid wall on both sides of the gate. The other three
+        // sides were not seen from a street and keep the plinth and railings. Wall height and colour are estimates.
+        const mats = palisade(ctx, b, runA, { h: 1.9, plinth: 0.8, post: 3, plinthCol: '#8a8580', postCol: '#14171a' });
+        for (const run of [[gateB, runA[0]], [runA[runA.length - 1], gateA]]) stoneWall(ctx, b, run, { h: 2.1, thick: 0.4, bay: 6, pierW: 0.58, pierRise: 0.12, panel: false, col: '#bdb6a8', pierCol: '#b3ab9d', capCol: '#a9a193' });
+        ctx.extras.springFrontWall = { source: 'w38236017', side: 'Bulevardul Primăverii', solid: true };
         for (const [x, z] of [gateA, gateB]) { b.box(x, yG - 0.3, z, 0.8, 3.0, 0.8, '#8a8580', 'stone'); b.sphere(x, yG + 2.9, z, 0.3, 0.3, 0.3, '#14171a', 'metal', 8, 6); }
         // garden: lawn, gravel paths, rose beds, conifers + lindens
         ctx.add(b.build('spring-palace', { matOverrides: { [fMain.key]: fMain.mat, balustrade: balustradeMaterial(), ...mats } }));

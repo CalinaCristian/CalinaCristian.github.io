@@ -3,7 +3,7 @@
   "id": "dinamo",
   "city": "bucharest",
   "name": "Stadionul Dinamo",
-  "sourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.4551306,
@@ -67,26 +67,73 @@
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/29f4533895e1abba65f342ebffed735791c1e301/handoffs/fidelity/original-districts-refresh/proof/water-overlap-bbaffc/floreasca-publication-validation.json",
       "label": "Existing bbaffc0d exact-pose atlas retakes, including both affected Dinamo squares",
       "type": "validation"
+    },
+    {
+      "url": "https://www.openstreetmap.org/relation/9146640",
+      "label": "OSM r9146640 · building=stadium multipolygon of the same bowl (now a declared replacement id)",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/node/11383452958",
+      "label": "OSM n11383452958 · barrier=gate on the Sos. Stefan cel Mare access lane",
+      "type": "osm"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493",
+      "label": "Fidelity pass round 2 (9824fd5), not yet published when captured",
+      "type": "implementation"
     }
   ],
   "sourceIds": [
     "w28212482",
     "w427813551",
-    "w860001496"
+    "w860001496",
+    "r9146640"
   ],
   "sourceLedger": "../../../../research/landmark-source-bucharest.json",
   "reviewedAt": "2026-11-09",
   "improvements": [
     "Refreshed the full mapped stadium and stand outlines.",
     "Retained the open bowl and specialized stand collision instead of filling the playing field.",
-    "Replaced the existing 57 twelve-centimetre paint strips with exact polygon-union coverage and mip filtering, preserving their original footprints, football metadata and all non-paint geometry."
+    "Replaced the existing 57 twelve-centimetre paint strips with exact polygon-union coverage and mip filtering, preserving their original footprints, football metadata and all non-paint geometry.",
+    "\"Groapa\": the bowl lies in a pit. The model is lowered 9 m (DIN_DEPTH) so only the parapet stands above the street and the top rows meet street level; the world opens its ground over the outline. Floodlight masts stand on the rim inside the mapped outline (the north-west mast stood in the Calea Floreasca car park), the scoreboard has short legs.",
+    "r9146640 (building=stadium) is now a declared replacement id: it stood as a 14 m generic wall round the bowl.",
+    "Two rendered gate pillars with a red base band flank the Sos. Stefan cel Mare access lane at OSM n11383452958."
   ],
   "remainingGaps": [
     "Stand heights, roof geometry and 49.5 m floodlights remain estimates; no source building heights are mapped.",
     "Stadium redevelopment/current operational state needs date-specific confirmation.",
-    "Source-stamped native Floreasca placement/paint views and two exact-pose atlas tiles are now recorded. They retain raw scene-contact diagnostics and do not establish complete neighbour/terrain clearance, every tourist-scene placement or whole-district parity."
+    "Source-stamped native Floreasca placement/paint views and two exact-pose atlas tiles are now recorded. They retain raw scene-contact diagnostics and do not establish complete neighbour/terrain clearance, every tourist-scene placement or whole-district parity.",
+    "The 9 m depth is an estimate: OSM has no height / level / layer tag on w28212482 / r9146640, and EU-DEM 25 m under-reads a 190 m pit. The game district is flat, so the pit has a rim on all sides while the real ground north and east is as low as the pitch.",
+    "Gate pillar size and spacing are estimates; the unfinished concrete frame west of the lane has no footprint there and is not drawn.",
+    "The isolated landmark viewer draws its ground at street level, which hides a sunk bowl; these pictures are therefore in-world views of the Floreasca district."
   ],
   "checks": [
+    {
+      "label": "Pictures recaptured at 9824fd5 (round 2)",
+      "passed": true,
+      "details": "Front, top and oblique pictures recaptured from the commit snapshot. In-world views in Floreasca replace the isolated studies: the sunk bowl is below the isolated viewer's ground plane. The front view stands at the Stefan cel Mare gate looking north (pose of the reference panorama 44.453094, 26.102688, heading 350; panorama not stored). Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 9824fd5 (game/src clean) on 2026-11-13: passed, 2144 checks over 70 models; this model 17235 triangles, 183 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "In-world frame workload",
+      "passed": null,
+      "details": "front: 719,691 triangles / 254 draw calls; top: 422,538 triangles / 141 draw calls; oblique: 736,349 triangles / 237 draw calls. Recorded, not a budget acceptance."
+    },
+    {
+      "label": "Earlier checks below",
+      "passed": null,
+      "details": "The checks that follow were recorded for source d5795e2 or earlier and were not re-run for this recapture."
+    },
     {
       "label": "Historical source boundary and replacement-identity checks",
       "passed": true,
@@ -126,192 +173,353 @@
   "captures": [
     {
       "id": "front",
-      "label": "Street-height model study",
+      "label": "In-world view from the Sos. Stefan cel Mare gate, looking north",
       "kind": "front",
-      "image": "assets/landmarks/dinamo/front.webp",
-      "sourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
-      "sha256": "068d67395b0e68271393c53b4c66e86aef53a59043f2a897146cc85fb0ea52f6",
-      "capturedAt": "2026-11-09T00:14:23.679Z",
+      "image": "assets/landmarks/dinamo/source-9824fd56/front.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "d6f8f4b93534e2b0738537126f3038852c31e53a46e315e4c74adac39d576522",
+      "bytes": 86030,
+      "width": 1280,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:30:18.226Z",
+      "encoding": "WebP quality 0.9 of the game canvas",
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "auto",
+        "clockOverride": "day",
+        "weatherOverride": "clear",
+        "note": "Season is the game default for the capture date (autumn foliage)."
+      },
+      "metrics": {
+        "triangles": 719691,
+        "drawCalls": 254,
+        "quality": "auto (high)"
+      },
       "pose": {
-        "viewerRoute": "/game/dev/landmarks.html?id=dinamo&clean=1&fountains=on&view=street&az=0",
-        "anchor": {
-          "lat": 44.4551306,
-          "lon": 26.1023192,
-          "rotation": 0
-        },
-        "camera": {
-          "projection": "perspective",
-          "position": [
-            -0.5211715698242188,
-            1.3,
-            245.16899673461918
-          ],
-          "quaternion": [
-            0.044081880444842785,
-            0,
-            0,
-            0.9990279214398599
-          ],
-          "fov": 62,
-          "near": 0.3,
-          "far": 4744.310339355469,
-          "viewport": [
-            960,
-            720
-          ],
-          "up": [
-            0,
-            1,
-            0
-          ]
-        },
-        "bounds": {
-          "min": [
-            -83.16758728027344,
-            0,
-            -111.20306396484375
-          ],
-          "max": [
-            82.125244140625,
-            49.5,
-            127.11002349853516
-          ]
-        },
-        "isolatedModel": true,
-        "note": "Static daylight GAME-only development viewer; no adjacent district buildings. Native model study, not a georeferenced aerial or Street View comparison."
+        "lat": 44.453094,
+        "lon": 26.102688,
+        "heading": 350,
+        "pitch": 4,
+        "cameraY": 1.89,
+        "cameraBaseY": 0.24,
+        "eyeAboveSurfaceM": 1.65,
+        "fov": 70,
+        "viewport": [
+          1280,
+          720
+        ],
+        "district": "floreasca",
+        "worldXZ": [
+          -88.34562516260165,
+          1256.4583919997328
+        ],
+        "frame": "Production district world (game/?inspect=1), free camera at a geographic pose as in game/dev/reality/capture.cjs; no simulation between shots, player rig hidden"
       }
     },
     {
       "id": "top",
-      "label": "North-up orthographic model study",
+      "label": "In-world view straight down, north up",
       "kind": "top",
-      "image": "assets/landmarks/dinamo/top.webp",
-      "sourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
-      "sha256": "7ced74321d7f7c8ef8e793539fd7218b3720711df3785baa158282829239b168",
-      "capturedAt": "2026-11-09T00:14:28.051Z",
+      "image": "assets/landmarks/dinamo/source-9824fd56/top.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "00f49e642536bfc7eadf8cfc18b04e9ef541bbabc6399d749f560679751dec97",
+      "bytes": 196692,
+      "width": 1280,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:30:18.809Z",
+      "encoding": "WebP quality 0.9 of the game canvas",
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "auto",
+        "clockOverride": "day",
+        "weatherOverride": "clear",
+        "note": "Season is the game default for the capture date (autumn foliage)."
+      },
+      "metrics": {
+        "triangles": 422538,
+        "drawCalls": 141,
+        "quality": "auto (high)"
+      },
       "pose": {
-        "viewerRoute": "/game/dev/landmarks.html?id=dinamo&clean=1&fountains=on&view=top&az=0",
-        "anchor": {
-          "lat": 44.4551306,
-          "lon": 26.1023192,
-          "rotation": 0
-        },
-        "camera": {
-          "projection": "orthographic",
-          "position": [
-            -0.5211715698242188,
-            329.94318145751953,
-            7.953479766845703
-          ],
-          "quaternion": [
-            -0.7071067811865475,
-            0,
-            0,
-            0.7071067811865476
-          ],
-          "fov": 45,
-          "near": 0.6598863629150391,
-          "far": 6598.863629150391,
-          "viewport": [
-            960,
-            720
-          ],
-          "up": [
-            0,
-            0,
-            -1
-          ],
-          "left": -186.96212097167967,
-          "right": 186.96212097167967,
-          "top": 140.22159072875976,
-          "bottom": -140.22159072875976,
-          "zoom": 1,
-          "groundSquareM": 373.92424194335933,
-          "groundWidthM": 373.92424194335933,
-          "groundDepthM": 280.44318145751953,
-          "orientation": "north-up"
-        },
-        "bounds": {
-          "min": [
-            -83.16758728027344,
-            0,
-            -111.20306396484375
-          ],
-          "max": [
-            82.125244140625,
-            49.5,
-            127.11002349853516
-          ]
-        },
-        "isolatedModel": true,
-        "note": "Static daylight GAME-only development viewer; no adjacent district buildings. Native model study, not a georeferenced aerial or Street View comparison."
+        "lat": 44.4551306,
+        "lon": 26.1023192,
+        "heading": 0,
+        "pitch": -90,
+        "cameraY": 420.24,
+        "cameraBaseY": 0.24,
+        "eyeAboveSurfaceM": 420,
+        "fov": 40,
+        "viewport": [
+          1280,
+          720
+        ],
+        "district": "floreasca",
+        "worldXZ": [
+          -117.64586487485705,
+          1030.1269608000969
+        ],
+        "frame": "Production district world (game/?inspect=1), free camera at a geographic pose as in game/dev/reality/capture.cjs; no simulation between shots, player rig hidden"
       }
     },
     {
       "id": "oblique",
-      "label": "Oblique model study",
+      "label": "In-world elevated view from the south-west",
       "kind": "oblique",
-      "image": "assets/landmarks/dinamo/oblique.webp",
-      "sourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
-      "sha256": "4ac68a5fd9dc5081555a6214c73da43c1f2b7cc3f5e6b57e20b7ca5da59bebd0",
-      "capturedAt": "2026-11-09T00:14:31.382Z",
+      "image": "assets/landmarks/dinamo/source-9824fd56/oblique.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "43cb8ce4290d18598ef4d0cef24a1dcfd4bf66c2dc0fb203773829e7496b5e99",
+      "bytes": 229732,
+      "width": 1280,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:32:09.268Z",
+      "encoding": "WebP quality 0.9 of the game canvas",
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "auto",
+        "clockOverride": "day",
+        "weatherOverride": "clear",
+        "note": "Season is the game default for the capture date (autumn foliage)."
+      },
+      "metrics": {
+        "triangles": 736349,
+        "drawCalls": 237,
+        "quality": "auto (high)"
+      },
       "pose": {
-        "viewerRoute": "/game/dev/landmarks.html?id=dinamo&clean=1&fountains=on&view=oblique&az=35&el=28",
-        "anchor": {
-          "lat": 44.4551306,
-          "lon": 26.1023192,
-          "rotation": 0
-        },
-        "camera": {
-          "projection": "perspective",
-          "position": [
-            183.11547528152096,
-            190.0324763386706,
-            270.21379093239995
-          ],
-          "quaternion": [
-            -0.230725012590546,
-            0.2917735521254029,
-            0.07274731703388737,
-            0.9253874813879795
-          ],
-          "fov": 45,
-          "near": 0.7252088937123015,
-          "far": 7252.088937123015,
-          "viewport": [
-            960,
-            720
-          ],
-          "up": [
-            0,
-            1,
-            0
-          ]
-        },
-        "bounds": {
-          "min": [
-            -83.16758728027344,
-            0,
-            -111.20306396484375
-          ],
-          "max": [
-            82.125244140625,
-            49.5,
-            127.11002349853516
-          ]
-        },
-        "isolatedModel": true,
-        "note": "Static daylight GAME-only development viewer; no adjacent district buildings. Native model study, not a georeferenced aerial or Street View comparison."
+        "lat": 44.4535,
+        "lon": 26.1003,
+        "heading": 42,
+        "pitch": -27,
+        "cameraY": 85.24,
+        "cameraBaseY": 0.24,
+        "eyeAboveSurfaceM": 85,
+        "fov": 55,
+        "viewport": [
+          1280,
+          720
+        ],
+        "district": "floreasca",
+        "worldXZ": [
+          -278.0662662493339,
+          1211.3387999999406
+        ],
+        "frame": "Production district world (game/?inspect=1), free camera at a geographic pose as in game/dev/reality/capture.cjs; no simulation between shots, player rig hidden"
       }
     }
   ],
   "perf": {
-    "triangles": 17549,
-    "modelTriangles": 17547,
-    "drawCalls": 5,
-    "paintTextureMipBytes": 2796202,
-    "note": "Isolated development viewer actual render, including its2 ground triangles; excludes district world, traffic and mirrors. Paint adds1 main draw and no shadow draw."
+    "triangles": 736349,
+    "drawCalls": 254,
+    "note": "Peak of the three in-world frames (whole district in view, quality auto/high); not a traffic or mirror budget run and not hardware FPS."
   },
   "implementationNotesUpdatedAt": "2026-11-09",
-  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance.",
+  "historicalCollections": [
+    {
+      "id": "captures-d5795e20",
+      "label": "Pictures before fidelity pass round 2",
+      "status": "historical",
+      "sourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+      "supersededBy": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededAt": "2026-11-13T05:41:38.367Z",
+      "reason": "The model changed in 94a177d5..9824fd56; these pictures show the earlier model and keep their original source, dates and files.",
+      "perf": {
+        "triangles": 17549,
+        "modelTriangles": 17547,
+        "drawCalls": 5,
+        "paintTextureMipBytes": 2796202,
+        "note": "Isolated development viewer actual render, including its2 ground triangles; excludes district world, traffic and mirrors. Paint adds1 main draw and no shadow draw."
+      },
+      "captures": [
+        {
+          "id": "front",
+          "label": "Street-height model study",
+          "kind": "front",
+          "image": "assets/landmarks/dinamo/front.webp",
+          "sourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+          "sha256": "068d67395b0e68271393c53b4c66e86aef53a59043f2a897146cc85fb0ea52f6",
+          "capturedAt": "2026-11-09T00:14:23.679Z",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=dinamo&clean=1&fountains=on&view=street&az=0",
+            "anchor": {
+              "lat": 44.4551306,
+              "lon": 26.1023192,
+              "rotation": 0
+            },
+            "camera": {
+              "projection": "perspective",
+              "position": [
+                -0.5211715698242188,
+                1.3,
+                245.16899673461918
+              ],
+              "quaternion": [
+                0.044081880444842785,
+                0,
+                0,
+                0.9990279214398599
+              ],
+              "fov": 62,
+              "near": 0.3,
+              "far": 4744.310339355469,
+              "viewport": [
+                960,
+                720
+              ],
+              "up": [
+                0,
+                1,
+                0
+              ]
+            },
+            "bounds": {
+              "min": [
+                -83.16758728027344,
+                0,
+                -111.20306396484375
+              ],
+              "max": [
+                82.125244140625,
+                49.5,
+                127.11002349853516
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight GAME-only development viewer; no adjacent district buildings. Native model study, not a georeferenced aerial or Street View comparison."
+          }
+        },
+        {
+          "id": "top",
+          "label": "North-up orthographic model study",
+          "kind": "top",
+          "image": "assets/landmarks/dinamo/top.webp",
+          "sourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+          "sha256": "7ced74321d7f7c8ef8e793539fd7218b3720711df3785baa158282829239b168",
+          "capturedAt": "2026-11-09T00:14:28.051Z",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=dinamo&clean=1&fountains=on&view=top&az=0",
+            "anchor": {
+              "lat": 44.4551306,
+              "lon": 26.1023192,
+              "rotation": 0
+            },
+            "camera": {
+              "projection": "orthographic",
+              "position": [
+                -0.5211715698242188,
+                329.94318145751953,
+                7.953479766845703
+              ],
+              "quaternion": [
+                -0.7071067811865475,
+                0,
+                0,
+                0.7071067811865476
+              ],
+              "fov": 45,
+              "near": 0.6598863629150391,
+              "far": 6598.863629150391,
+              "viewport": [
+                960,
+                720
+              ],
+              "up": [
+                0,
+                0,
+                -1
+              ],
+              "left": -186.96212097167967,
+              "right": 186.96212097167967,
+              "top": 140.22159072875976,
+              "bottom": -140.22159072875976,
+              "zoom": 1,
+              "groundSquareM": 373.92424194335933,
+              "groundWidthM": 373.92424194335933,
+              "groundDepthM": 280.44318145751953,
+              "orientation": "north-up"
+            },
+            "bounds": {
+              "min": [
+                -83.16758728027344,
+                0,
+                -111.20306396484375
+              ],
+              "max": [
+                82.125244140625,
+                49.5,
+                127.11002349853516
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight GAME-only development viewer; no adjacent district buildings. Native model study, not a georeferenced aerial or Street View comparison."
+          }
+        },
+        {
+          "id": "oblique",
+          "label": "Oblique model study",
+          "kind": "oblique",
+          "image": "assets/landmarks/dinamo/oblique.webp",
+          "sourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+          "sha256": "4ac68a5fd9dc5081555a6214c73da43c1f2b7cc3f5e6b57e20b7ca5da59bebd0",
+          "capturedAt": "2026-11-09T00:14:31.382Z",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=dinamo&clean=1&fountains=on&view=oblique&az=35&el=28",
+            "anchor": {
+              "lat": 44.4551306,
+              "lon": 26.1023192,
+              "rotation": 0
+            },
+            "camera": {
+              "projection": "perspective",
+              "position": [
+                183.11547528152096,
+                190.0324763386706,
+                270.21379093239995
+              ],
+              "quaternion": [
+                -0.230725012590546,
+                0.2917735521254029,
+                0.07274731703388737,
+                0.9253874813879795
+              ],
+              "fov": 45,
+              "near": 0.7252088937123015,
+              "far": 7252.088937123015,
+              "viewport": [
+                960,
+                720
+              ],
+              "up": [
+                0,
+                1,
+                0
+              ]
+            },
+            "bounds": {
+              "min": [
+                -83.16758728027344,
+                0,
+                -111.20306396484375
+              ],
+              "max": [
+                82.125244140625,
+                49.5,
+                127.11002349853516
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight GAME-only development viewer; no adjacent district buildings. Native model study, not a georeferenced aerial or Street View comparison."
+          }
+        }
+      ]
+    }
+  ],
+  "recapturedAt": "2026-11-13T05:41:38.367Z",
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T05:41:38.367Z"
+  }
 }

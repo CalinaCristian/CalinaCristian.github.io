@@ -3,7 +3,7 @@
   "id": "unirea",
   "city": "bucharest",
   "name": "Unirea Shopping Center",
-  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.4280154,
@@ -52,6 +52,11 @@
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/b9fd5b1441cba155a0b950d03ffae0bee2b1e6e9",
       "label": "Unirea tenant signs (district world) (b9fd5b1)",
       "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493",
+      "label": "Fidelity pass round 2 (9824fd5), not yet published when captured",
+      "type": "implementation"
     }
   ],
   "sourceIds": [
@@ -63,15 +68,37 @@
     "Replaced the fully glazed upper elevation with a ribbed opaque metal skin and glazed ground floor from an independent facade reference.",
     "Removed the fabricated giant white name panel and retained the exact mapped outline.",
     "Added the enclosed glazed footbridge from the Unirea car park to the Carrefour building on its mapped line (w231671712, 13 m), with the Carrefour name on both sides.",
-    "The registry entry now requests ground-floor tenant signs from OSM (unitSigns). Those signs are placed by the district world and are not part of the isolated model shown here."
+    "The registry entry now requests ground-floor tenant signs from OSM (unitSigns). Those signs are placed by the district world and are not part of the isolated model shown here.",
+    "Facade from Street View from Piata Unirii (May 2024): large flat white-grey panels on the south front and the south-west rotunda with a blank white billboard frame on the curve; the west front on Bd. I. C. Bratianu is a dark bronze louvred wall with one full-height banner; a white canopy band over the recessed glazed ground floor. It replaces the uniform grey ribbed skin."
   ],
   "remainingGaps": [
     "Roof height 28.5 m remains estimated from the six-level source; the facade reference is dated 2017 and current tenant branding was not inferred.",
     "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity.",
     "Footbridge deck height (6 m), section (3.2 × 3 m) and lettering size are estimates; OSM gives no dimensions. In the isolated study the bridge ends in mid-air because the Carrefour building belongs to the district data, not to this model.",
-    "Ground-floor tenant signs are not visible in these studies; they need an in-world capture in Unirii, which was not made for this record."
+    "Ground-floor tenant signs are not visible in these studies; they need an in-world capture in Unirii, which was not made for this record.",
+    "Panel module, louvre pitch and banner size are estimates; the banner is a plain red canvas, its advertising is not reproduced. Street View viewed as reference only; not stored or published."
   ],
   "checks": [
+    {
+      "label": "Pictures recaptured at 9824fd5 (round 2)",
+      "passed": true,
+      "details": "Front, top and oblique pictures recaptured from the commit snapshot. Same viewer routes as the previous pictures. Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 9824fd5 (game/src clean) on 2026-11-13: passed, 2144 checks over 70 models; this model 2826 triangles, 1 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "Earlier checks below",
+      "passed": null,
+      "details": "The checks that follow were recorded for source 346f798 or earlier and were not re-run for this recapture."
+    },
     {
       "label": "Model studies recaptured at 346f798",
       "passed": true,
@@ -128,13 +155,13 @@
       "id": "front",
       "label": "Street-height model study",
       "kind": "front",
-      "image": "assets/landmarks/unirea/source-346f7986/front.webp",
-      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-      "sha256": "f2e794df461f477f55b0023983a8b6a8e9d2a6e4ffad798c9fa712c9ad2cf21d",
-      "bytes": 10832,
+      "image": "assets/landmarks/unirea/source-9824fd56/front.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "d05e68d136c0cb40927cb78ea770881a0ee47af841196f8b5eeea2c95529f9a2",
+      "bytes": 8754,
       "width": 960,
       "height": 720,
-      "capturedAt": "2026-11-12T19:45:14.554Z",
+      "capturedAt": "2026-11-13T05:29:31.261Z",
       "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
       "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
@@ -190,13 +217,13 @@
       "id": "top",
       "label": "North-up orthographic model study",
       "kind": "top",
-      "image": "assets/landmarks/unirea/source-346f7986/top.webp",
-      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-      "sha256": "cfe807a17c7a143c45fd5819adbc529d8343c1298ece84c79ace837d22b501bc",
-      "bytes": 10278,
+      "image": "assets/landmarks/unirea/source-9824fd56/top.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "b2d3e9f80a702a88d283a00ca81adc633fe511fc9afaebbb39a2316b1acff51f",
+      "bytes": 10366,
       "width": 720,
       "height": 720,
-      "capturedAt": "2026-11-12T19:45:15.069Z",
+      "capturedAt": "2026-11-13T05:29:31.935Z",
       "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
       "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
@@ -261,13 +288,13 @@
       "id": "oblique",
       "label": "Oblique model study",
       "kind": "oblique",
-      "image": "assets/landmarks/unirea/source-346f7986/oblique.webp",
-      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-      "sha256": "acb1f614868e8baf704d3197cef904d7a1ac02e8889242c2a0a42440761cde1d",
-      "bytes": 18412,
+      "image": "assets/landmarks/unirea/source-9824fd56/oblique.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "e5d67b8df2d7a9dd1b3619ad1b3f1f1446597eaf566302c61f04211f4855315f",
+      "bytes": 16600,
       "width": 960,
       "height": 720,
-      "capturedAt": "2026-11-12T19:48:30.860Z",
+      "capturedAt": "2026-11-13T05:29:32.552Z",
       "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
       "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
@@ -321,7 +348,7 @@
     }
   ],
   "perf": {
-    "triangles": 8950,
+    "triangles": 2828,
     "drawCalls": 3,
     "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
   },
@@ -496,11 +523,222 @@
           }
         }
       ]
+    },
+    {
+      "id": "captures-346f7986",
+      "label": "Pictures before fidelity pass round 2",
+      "status": "historical",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededBy": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededAt": "2026-11-13T05:41:38.367Z",
+      "reason": "The model changed in 94a177d5..9824fd56; these pictures show the earlier model and keep their original source, dates and files.",
+      "perf": {
+        "triangles": 8950,
+        "drawCalls": 3,
+        "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
+      },
+      "captures": [
+        {
+          "id": "front",
+          "label": "Street-height model study",
+          "kind": "front",
+          "image": "assets/landmarks/unirea/source-346f7986/front.webp",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "sha256": "f2e794df461f477f55b0023983a8b6a8e9d2a6e4ffad798c9fa712c9ad2cf21d",
+          "bytes": 10832,
+          "width": 960,
+          "height": 720,
+          "capturedAt": "2026-11-12T19:45:14.554Z",
+          "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=unirea&clean=1&fountains=on&view=street&az=-86.00096504913657",
+            "anchor": {
+              "lat": 44.4280154,
+              "lon": 26.1048886,
+              "rotation": -1.501
+            },
+            "camera": {
+              "projection": "perspective",
+              "position": [
+                -215.4825669655837,
+                1.3,
+                15.004378372924483
+              ],
+              "quaternion": [
+                0.015311435324033139,
+                -0.6818550373560719,
+                0.014278385510083584,
+                0.7311876610608887
+              ],
+              "fov": 62,
+              "near": 0.3,
+              "far": 4534.674024061262,
+              "viewport": [
+                960,
+                720
+              ],
+              "up": [
+                0,
+                1,
+                0
+              ]
+            },
+            "bounds": {
+              "min": [
+                -61.47119389649682,
+                0,
+                -114.00892205478765
+              ],
+              "max": [
+                82.86937129783973,
+                24,
+                112.39301113051124
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+          }
+        },
+        {
+          "id": "top",
+          "label": "North-up orthographic model study",
+          "kind": "top",
+          "image": "assets/landmarks/unirea/source-346f7986/top.webp",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "sha256": "cfe807a17c7a143c45fd5819adbc529d8343c1298ece84c79ace837d22b501bc",
+          "bytes": 10278,
+          "width": 720,
+          "height": 720,
+          "capturedAt": "2026-11-12T19:45:15.069Z",
+          "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=unirea&clean=1&fountains=on&view=top&az=0",
+            "anchor": {
+              "lat": 44.4280154,
+              "lon": 26.1048886,
+              "rotation": -1.501
+            },
+            "camera": {
+              "projection": "orthographic",
+              "position": [
+                10.699088700671457,
+                290.6262424949467,
+                -0.807955462138203
+              ],
+              "quaternion": [
+                -0.7071067811865475,
+                0,
+                0,
+                0.7071067811865476
+              ],
+              "fov": 45,
+              "near": 0.5812524849898935,
+              "far": 5812.524849898935,
+              "viewport": [
+                720,
+                720
+              ],
+              "up": [
+                0,
+                0,
+                -1
+              ],
+              "left": -133.31312124747336,
+              "right": 133.31312124747336,
+              "top": 133.31312124747336,
+              "bottom": -133.31312124747336,
+              "zoom": 1,
+              "groundSquareM": 266.6262424949467,
+              "groundWidthM": 266.6262424949467,
+              "groundDepthM": 266.6262424949467,
+              "orientation": "north-up"
+            },
+            "bounds": {
+              "min": [
+                -61.47119389649682,
+                0,
+                -114.00892205478765
+              ],
+              "max": [
+                82.86937129783973,
+                24,
+                112.39301113051124
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+          }
+        },
+        {
+          "id": "oblique",
+          "label": "Oblique model study",
+          "kind": "oblique",
+          "image": "assets/landmarks/unirea/source-346f7986/oblique.webp",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "sha256": "acb1f614868e8baf704d3197cef904d7a1ac02e8889242c2a0a42440761cde1d",
+          "bytes": 18412,
+          "width": 960,
+          "height": 720,
+          "capturedAt": "2026-11-12T19:48:30.860Z",
+          "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=unirea&clean=1&fountains=on&view=oblique&az=140&el=28",
+            "anchor": {
+              "lat": 44.4280154,
+              "lon": 26.1048886,
+              "rotation": -1.501
+            },
+            "camera": {
+              "projection": "perspective",
+              "position": [
+                206.2941576357348,
+                171.39487807794956,
+                -233.90908155921198
+              ],
+              "quaternion": [
+                -0.08274216140661586,
+                0.9117797339616575,
+                0.22733222010154672,
+                0.33186068336920027
+              ],
+              "fov": 45,
+              "near": 0.6892638059602277,
+              "far": 6892.638059602277,
+              "viewport": [
+                960,
+                720
+              ],
+              "up": [
+                0,
+                1,
+                0
+              ]
+            },
+            "bounds": {
+              "min": [
+                -61.47119389649682,
+                0,
+                -114.00892205478765
+              ],
+              "max": [
+                82.86937129783973,
+                24,
+                112.39301113051124
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+          }
+        }
+      ]
     }
   ],
-  "recapturedAt": "2026-11-12T20:03:08.418Z",
+  "recapturedAt": "2026-11-13T05:41:38.367Z",
   "sourceVerification": {
-    "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
-    "checkedAt": "2026-11-12T20:03:08.417Z"
+    "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T05:41:38.367Z"
   }
 }

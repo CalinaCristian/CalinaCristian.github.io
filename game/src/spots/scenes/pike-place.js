@@ -23,6 +23,7 @@ import { prepareLower, buildLower, GUM } from './pike-place-lower.js';
 import { prepareHalls, buildHalls, HALLS } from './pike-place-market.js';
 import { buildShopSigns } from './pike-place-shops.js';
 import { prepareFacades, buildFacades, FACADE_IDS } from './pike-place-facades.js';
+import { batchSourceContext, horizonCuller, solidShells, onRenderCamera, distanceHide } from '../frame-budget.js';
 
 // ---------------------------------------------------------------------------- street profile (OSM centrelines; levels surveyed: pike-place-streets.js)
 const PIKE_PLACE = [[-50, 33], [-60, 25], [-76, 10], [-91, -3], [-95, -6], [-103, -14], [-126, -34], [-141, -48], [-148, -53], [-151, -56], [-172, -75], [-179, -81], [-263, -155], [-270, -161]];
@@ -215,11 +216,39 @@ function buildStarbucks(ctx) {
     return { x, z, yaw, line };
 }
 
-// ---------------------------------------------------------------------------- Victor Steinbrueck Park poles (James Bender) — stylised, no reproduced carving
+// ---------------------------------------------------------------------------- Victor Steinbrueck Park
+// The bay carve in build() (everything west of x = −315 pushed down to the shore) cut through the park and the block north
+// of it: the top of the bluff ends at the park's west wall, a line through (−277, −83) and (−343, −146) — the OSM park
+// edge, where the 1 m DEM drops from −6 to −14 … −18. East of that line the ground keeps its own level.
+const STEINBRUECK_Y = -5.7;
+function benchFoot(x, z) { return 1 - smooth(-4, 0, (x + 277) * 0.692 - (z + 83) * 0.721); }
+// The two poles (James Bender, 1984) at their OSM nodes: "Farmer's Pole" n3211770167 (50 ft) and the untitled Haida-style
+// pole n3211770169 (no height mapped: the same height is an estimate) — stylised, no reproduced carving
 function buildSteinbrueck(ctx) {
     const b = new GeoBatch(), g = ctx.ground;
-    for (const [x, z, h, sd] of [[-286, -133, 15, 3], [-300, -121, 15, 8]]) { totemPole(b, x, g.heightAt(x, z), z, h, 0.5, { seed: sd }); ctx.circle(x, z, 0.5, h); }
+    for (const [x, z, h, sd] of [[-297.6, -110.4, 15.2, 3], [-320.3, -130.7, 15.2, 8]]) { totemPole(b, x, g.heightAt(x, z), z, h, 0.5, { seed: sd }); ctx.circle(x, z, 0.5, h); }
     ctx.add(b.build('steinbrueck-poles'));
+}
+
+// ---------------------------------------------------------------------------- 1st Ave: three-globe lamp posts
+// The official panorama at 1st Ave x Pike St (id tT8x8F7kggeRi_KoY1vLng) shows the avenue lit by low posts carrying three
+// white globes (one on top, two on a cross arm) at both Pike St corners and up the avenue; the tall cobra heads stand on
+// Pike Place itself. The lamp points the street generator put along 1st Ave keep their places and their light and get
+// this post instead of the cobra mast (post height and globe size are estimates from that view).
+const FIRST_AVE = [[59, 126], [54, 118], [10, 46], [-2, 27], [-10, 14], [-20, -3], [-39, -34], [-48, -48], [-72, -89], [-81, -104], [-104, -141], [-137, -174], [-206, -233]];
+function buildGlobeLamps(ctx) {
+    const b = new GeoBatch(), H = 4.3, dark = '#1f2a25'; let n = 0;
+    for (const p of ctx.lampPoints) {
+        if (p.noPost || p.keepOnRoad || ctx.onRoad?.(p.x, p.z, 0.25)) continue; // (points in a carriageway are dropped by the finisher: leave them to it)
+        const q = distPolyline(p.x, p.z, FIRST_AVE); if (q.d > 16) continue;
+        const y = p.y ?? ctx.ground.heightAt(p.x, p.z), ax = (p.x - q.cx) / (q.d || 1), az = (p.z - q.cz) / (q.d || 1), tx = -az, tz = ax; // cross arm along the kerb
+        b.cyl(p.x, y, p.z, 0.17, 0.9, dark, 'metal', 8); b.cyl(p.x, y + 0.9, p.z, 0.075, H - 0.9, dark, 'metal', 8);
+        b.rod([p.x - tx * 0.55, y + H - 0.55, p.z - tz * 0.55], [p.x + tx * 0.55, y + H - 0.55, p.z + tz * 0.55], 0.035, dark, 'metal', 5);
+        for (const [u, up] of [[-0.55, -0.3], [0.55, -0.3], [0, 0.22]]) b.sphere(p.x + tx * u, y + H + up, p.z + tz * u, 0.21, 0.21, 0.21, '#f4f1e6', 'glow', 8, 6);
+        ctx.circle(p.x, p.z, 0.17, H, { y }); p.noPost = true; p.h = H; p.y = y; n++;
+    }
+    if (n) ctx.add(b.build('first-ave-globe-lamps'));
+    ctx.extras.globeLamps = n;
 }
 
 // ============================================================================
@@ -232,15 +261,23 @@ export default {
         gradeStreets(g); // every street at its surveyed level (Pike St is nearly flat; the steep cobbles are the ramp into Post Alley)
         g.flatten([[-58.4, 39.9], [-61.3, 41.6], [-54.9, 51.8], [-53.6, 53.8], [-50.3, 51.7], [-44, 47.9], [-46.6, 40.3], [-51, 39.5]], SURVEY.pikeSt[3][2], 2); // the market-level floor under the sign, out to the deck over Post Alley
         g.mod((x,z,h)=>{const t=d.terrain,dx=Math.max(t.x0-x,0,x-(t.x0+(t.nx-1)*t.d)),dz=Math.max(t.z0-z,0,z-(t.z0+(t.nz-1)*t.d)),weight=1-smooth(0,t.d,Math.hypot(dx,dz));
-            const local=x < -335 ? Math.min(h,-40) : x < -315 ? Math.min(h,lerp(-31,-40,(-315-x)/20)) : h;return lerp(h,local,weight);});
+            const local=x < -335 ? Math.min(h,-40) : x < -315 ? Math.min(h,lerp(-31,-40,(-315-x)/20)) : h;return lerp(h,local,weight*benchFoot(x,z));});
+        // Victor Steinbrueck Park is a level lid on top of the bluff: USGS 3DEP 1 m DEM (EPQS, 2026-11-12) 30.7–31.5 m NAVD88
+        // (−5.3 … −6.1 here) at 24 points over the whole OSM park (way 14026690) and under Market Place Two, and 8–10 m less
+        // just beyond its west wall. The 20 m grid smears that edge into a slope; the park takes the surveyed level.
+        { const park = d.areas.find((a) => a.id === 'w14026690'); if (park) g.flatten(park.poly, STEINBRUECK_Y, 2.5); }
         ctx.waterLevel=g.waterY=1-d.origin.elev; // Literal coast mask supplies the actual water mesh.
         // ---- paint
         ctx.terrainOpts = { bg: '#6d6a60', bgMask: 'slab', brickAngle: 0.72, innerPx: 2048, outerPad: 0, skirt: 0 };
         ctx.treeLod = { cap: Infinity, near: 90, max: 700, force: true };
         ctx.skipBuildings = new Set(['w231357660', 'w1271653801', 'w1271653800', 'w1275882970', 'w1275882966']); // + the covered stretch of Post Alley (open alley here) // hero arcade replaces these footprints
         ctx.exclude.push([...offsetPolyline(PIKE_ST, -11), ...offsetPolyline(PIKE_ST, 11).reverse()]); // no street trees on lower Pike St (open view to the sign)
+        // … nor on the 1st Ave sidewalk in front of the Corner Market (Pike St to 13 m north): OSM maps no tree there and the
+        // panoramas at 1st Ave x Pike St (tT8x8F7kggeRi_KoY1vLng, looking 235° / 265°) show the corner open
+        ctx.exclude.push([[-42, -10], [-14, -10], [-8, 14], [-42, 14]]);
         prepareLower(ctx); prepareHalls(ctx); prepareFacades(ctx);
         ctx.osmBackdrop({ paint: {}, shopStyle: 'bucshop', streetTreeOpts: { spacing: 14, prob: 0.5, kinds: ['primary', 'secondary', 'tertiary'] }, lampOpts: { kinds: ['primary', 'secondary', 'tertiary'] }, style: (b) => (/hotel|apartments/.test(b.k) && (b.h || 0) < 25 ? 'brick' : buildingStyle(b, true)) });
+        buildGlobeLamps(ctx);
         const P = ctx.painter;
         P.line(PIKE_PLACE, 17, '#a39e93', 'slab'); P.line(PIKE_PLACE, 9.2, '#8c4b39', 'brick');
         P.line(PIKE_ST.slice(1), 10, '#8c4b39', 'brick');
@@ -287,11 +324,19 @@ export default {
         { const w = ctx.ll(47.60617, -122.3425), wh = seaWheel(w.x, -33.5, w.z, -0.35, { spin: true }); ctx.add(wh.group); ctx.onUpdate((dt, s) => wh.update(dt, s.nightK, s.t)); }
         // the city + bay context: downtown towers beyond the OSM extract, ferries on the Bainbridge run, port cranes, the Olympics
         addSourceContext(ctx);
+        const cityBatch = batchSourceContext(ctx); // one multi-draw per material, culled per 120 m cell (frame-budget.js)
+        // … and not submitted at all while a cell is wholly behind the nearer blocks' skyline (in the market's streets most of
+        // the city is): recomputed from the rendering camera, so the camera, the drone and captures get their own answer
+        (ctx.extras.finishers ||= []).push(() => { if (!cityBatch) return;
+            const cull = horizonCuller({ occluders: solidShells(ctx), items: [...cityBatch.items, ...(ctx.extras.facadeItems || [])] });
+            // far-LOD trunks of the mapped city trees: under a pixel wide beyond 500 m, their crowns stay
+            const trunks = []; ctx.scene.traverse((o) => { if (o.isInstancedMesh && /^treeTrunks .* far$/.test(o.name)) trunks.push(o); }); const far = distanceHide(trunks, 500);
+            ctx.extras.horizonCull = cull.stats; ctx.extras.trunkLod = far.stats; onRenderCamera(ctx.scene, (cam) => { cull.update(cam); far.update(cam); }); });
         ctx.extras.seaBackdrop = seaBackdrop(ctx, { clear: 330, needle: true, towers: false, bay: false, eyeY: 1.6 });
         // MarketFront viewpoint railing
         { const b = new GeoBatch(); railing(b, [[-268, -98], [-262, -72], [-250, -50], [-238, -36]], (x, z) => g.heightAt(x, z)); ctx.add(b.build('marketfront-rail')); }
         // 1st Ave traffic (Pike Place itself is car-free)
-        const firstAve = [[59, 126], [54, 118], [10, 46], [-2, 27], [-10, 14], [-20, -3], [-39, -34], [-48, -48], [-72, -89], [-81, -104], [-104, -141], [-137, -174], [-206, -233]];
+        const firstAve = FIRST_AVE;
         addTraffic(ctx, { lanes: [{ pts: offsetPolyline(firstAve, 3.2), n: 4, speed: 8.5 }, { pts: offsetPolyline([...firstAve].reverse(), 3.2), n: 4, speed: 8.5 }] });
         // ---- plaques (6) — Rachel credited to Georgia Gerber
         const PL = sp.plaques;

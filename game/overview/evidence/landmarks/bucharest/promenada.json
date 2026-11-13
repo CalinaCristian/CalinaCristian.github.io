@@ -3,7 +3,7 @@
   "id": "promenada",
   "city": "bucharest",
   "name": "Promenada Mall",
-  "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.4781916,
@@ -73,6 +73,11 @@
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/32267f879ad7c4cd9d7e76af3baaca274b9d31ee",
       "label": "Promenada tenant front (32267f8)",
       "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493",
+      "label": "Fidelity pass round 2 (9824fd5), not yet published when captured",
+      "type": "implementation"
     }
   ],
   "sourceIds": [
@@ -84,15 +89,37 @@
     "Corrected the roof envelope to the mapped 18 m height.",
     "Replaced an entirely green roof with a grey roof plus independently measured landscaped patches.",
     "Removed three guessed rooftop blocks.",
-    "The Calea Floreasca front carries the mall's mapped tenants: a black tenant band (Douglas, Hervis, Zara, C&A, H&M) at the north end with Starbucks under it, the glazed entrance hall south of it, then the PROMENADA name with its colour bars."
+    "The Calea Floreasca front carries the mall's mapped tenants: a black tenant band (Douglas, Hervis, Zara, C&A, H&M) at the north end with Starbucks under it, the glazed entrance hall south of it, then the PROMENADA name with its colour bars.",
+    "The ground-floor window row that ran round the whole building is replaced by a grey plinth: the white panel walls have none (panoramas at 44.47748, 26.10262 and 44.47806, 26.10497)."
   ],
   "remainingGaps": [
     "Roof garden boundaries are independent aerial measurements with approximately 2 m uncertainty.",
     "Facade grid, entrances and garden surface heights of 18.025/18.05 m are rendering estimates.",
     "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity.",
-    "Tenants are the OSM shop nodes; their order and positions along the wall, the band and letter sizes and the entrance hall width are estimated to a few metres from the street look (viewed only)."
+    "Tenants are the OSM shop nodes; their order and positions along the wall, the band and letter sizes and the entrance hall width are estimated to a few metres from the street look (viewed only).",
+    "Plinth height (1.1 m) is an estimate; panoramas viewed as reference only; not stored or published."
   ],
   "checks": [
+    {
+      "label": "Pictures recaptured at 9824fd5 (round 2)",
+      "passed": true,
+      "details": "Front, top and oblique pictures recaptured from the commit snapshot. Same viewer routes as the previous pictures. Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 9824fd5 (game/src clean) on 2026-11-13: passed, 2144 checks over 70 models; this model 1735 triangles, 1 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "Earlier checks below",
+      "passed": null,
+      "details": "The checks that follow were recorded for source 346f798 or earlier and were not re-run for this recapture."
+    },
     {
       "label": "Model studies recaptured at 346f798",
       "passed": true,
@@ -147,15 +174,15 @@
   "captures": [
     {
       "id": "front",
-      "label": "Street-height model study · tenant front on Calea Floreasca",
+      "label": "Street-height model study",
       "kind": "front",
-      "image": "assets/landmarks/promenada/source-346f7986/front.webp",
-      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-      "sha256": "b37e79754d8edf851bf8157ba2b1eeeeb5f3f9c7b238875deaec7485fe65dada",
-      "bytes": 22344,
+      "image": "assets/landmarks/promenada/source-9824fd56/front.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "188b23eca3d1c24589586c3ff2f50be8e4864b46a7db017757dd532ee4e83f5a",
+      "bytes": 22290,
       "width": 960,
       "height": 720,
-      "capturedAt": "2026-11-12T19:48:30.311Z",
+      "capturedAt": "2026-11-13T05:29:33.169Z",
       "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
       "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
@@ -211,13 +238,13 @@
       "id": "top",
       "label": "North-up orthographic model study",
       "kind": "top",
-      "image": "assets/landmarks/promenada/source-346f7986/top.webp",
-      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "image": "assets/landmarks/promenada/source-9824fd56/top.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "sha256": "fee5b714fa1752fe1364ea620b0663bc8badb008919d202eb56ee5cd71538560",
       "bytes": 8928,
       "width": 720,
       "height": 720,
-      "capturedAt": "2026-11-12T19:45:16.673Z",
+      "capturedAt": "2026-11-13T05:29:33.762Z",
       "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
       "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
@@ -282,13 +309,13 @@
       "id": "oblique",
       "label": "Oblique model study",
       "kind": "oblique",
-      "image": "assets/landmarks/promenada/source-346f7986/oblique.webp",
-      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-      "sha256": "bcb2a2e0f3191606fb3fe583c9c56903c8d8932712c6d1476dd25a88f804fe23",
-      "bytes": 15832,
+      "image": "assets/landmarks/promenada/source-9824fd56/oblique.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "145ced6ccdec565d7d2d673cd2e994ed2101d4c26cc64cc7a4dedef6cce91c9e",
+      "bytes": 14978,
       "width": 960,
       "height": 720,
-      "capturedAt": "2026-11-12T19:45:17.221Z",
+      "capturedAt": "2026-11-13T05:29:34.367Z",
       "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
       "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
@@ -342,7 +369,7 @@
     }
   ],
   "perf": {
-    "triangles": 1953,
+    "triangles": 1737,
     "drawCalls": 3,
     "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
   },
@@ -517,11 +544,222 @@
           }
         }
       ]
+    },
+    {
+      "id": "captures-346f7986",
+      "label": "Pictures before fidelity pass round 2",
+      "status": "historical",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededBy": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededAt": "2026-11-13T05:41:38.367Z",
+      "reason": "The model changed in 94a177d5..9824fd56; these pictures show the earlier model and keep their original source, dates and files.",
+      "perf": {
+        "triangles": 1953,
+        "drawCalls": 3,
+        "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
+      },
+      "captures": [
+        {
+          "id": "front",
+          "label": "Street-height model study · tenant front on Calea Floreasca",
+          "kind": "front",
+          "image": "assets/landmarks/promenada/source-346f7986/front.webp",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "sha256": "b37e79754d8edf851bf8157ba2b1eeeeb5f3f9c7b238875deaec7485fe65dada",
+          "bytes": 22344,
+          "width": 960,
+          "height": 720,
+          "capturedAt": "2026-11-12T19:48:30.311Z",
+          "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=promenada&clean=1&fountains=on&view=street&az=-68&tx=-67&tz=-32&d=75",
+            "anchor": {
+              "lat": 44.4781916,
+              "lon": 26.1034126,
+              "rotation": -1.1868
+            },
+            "camera": {
+              "projection": "perspective",
+              "position": [
+                -136.53878909250906,
+                1.3,
+                -3.904505493806603
+              ],
+              "quaternion": [
+                0.03759100200524402,
+                -0.5586177623350024,
+                0.02535545100917783,
+                0.8281848907558007
+              ],
+              "fov": 62,
+              "near": 0.3,
+              "far": 2008.2481827142976,
+              "viewport": [
+                960,
+                720
+              ],
+              "up": [
+                0,
+                1,
+                0
+              ]
+            },
+            "bounds": {
+              "min": [
+                -79.38698635600008,
+                0,
+                -99.41739118922898
+              ],
+              "max": [
+                79.38335940788053,
+                18.049999237060547,
+                99.40742708220077
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+          }
+        },
+        {
+          "id": "top",
+          "label": "North-up orthographic model study",
+          "kind": "top",
+          "image": "assets/landmarks/promenada/source-346f7986/top.webp",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "sha256": "fee5b714fa1752fe1364ea620b0663bc8badb008919d202eb56ee5cd71538560",
+          "bytes": 8928,
+          "width": 720,
+          "height": 720,
+          "capturedAt": "2026-11-12T19:45:16.673Z",
+          "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=promenada&clean=1&fountains=on&view=top&az=0",
+            "anchor": {
+              "lat": 44.4781916,
+              "lon": 26.1034126,
+              "rotation": -1.1868
+            },
+            "camera": {
+              "projection": "orthographic",
+              "position": [
+                -0.001813474059773057,
+                252.68678843191907,
+                -0.004982053514105189
+              ],
+              "quaternion": [
+                -0.7071067811865475,
+                0,
+                0,
+                0.7071067811865476
+              ],
+              "fov": 45,
+              "near": 0.5053735768638381,
+              "far": 5053.735768638381,
+              "viewport": [
+                720,
+                720
+              ],
+              "up": [
+                0,
+                0,
+                -1
+              ],
+              "left": -117.31839459742926,
+              "right": 117.31839459742926,
+              "top": 117.31839459742926,
+              "bottom": -117.31839459742926,
+              "zoom": 1,
+              "groundSquareM": 234.63678919485852,
+              "groundWidthM": 234.63678919485852,
+              "groundDepthM": 234.63678919485852,
+              "orientation": "north-up"
+            },
+            "bounds": {
+              "min": [
+                -79.38698635600008,
+                0,
+                -99.41739118922898
+              ],
+              "max": [
+                79.38335940788053,
+                18.049999237060547,
+                99.40742708220077
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+          }
+        },
+        {
+          "id": "oblique",
+          "label": "Oblique model study",
+          "kind": "oblique",
+          "image": "assets/landmarks/promenada/source-346f7986/oblique.webp",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "sha256": "bcb2a2e0f3191606fb3fe583c9c56903c8d8932712c6d1476dd25a88f804fe23",
+          "bytes": 15832,
+          "width": 960,
+          "height": 720,
+          "capturedAt": "2026-11-12T19:45:17.221Z",
+          "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+          "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=promenada&clean=1&fountains=on&view=oblique&az=-32.998631126126114&el=28",
+            "anchor": {
+              "lat": 44.4781916,
+              "lon": 26.1034126,
+              "rotation": -1.1868
+            },
+            "camera": {
+              "projection": "perspective",
+              "position": [
+                -145.7156520030864,
+                149.4798594697052,
+                224.38638917936746
+              ],
+              "quaternion": [
+                -0.23196030856306657,
+                -0.2755677616168572,
+                -0.06870675965189671,
+                0.9303419829218383
+              ],
+              "fov": 45,
+              "near": 0.6060424999149974,
+              "far": 6060.424999149974,
+              "viewport": [
+                960,
+                720
+              ],
+              "up": [
+                0,
+                1,
+                0
+              ]
+            },
+            "bounds": {
+              "min": [
+                -79.38698635600008,
+                0,
+                -99.41739118922898
+              ],
+              "max": [
+                79.38335940788053,
+                18.049999237060547,
+                99.40742708220077
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+          }
+        }
+      ]
     }
   ],
-  "recapturedAt": "2026-11-12T20:03:08.418Z",
+  "recapturedAt": "2026-11-13T05:41:38.367Z",
   "sourceVerification": {
-    "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
-    "checkedAt": "2026-11-12T20:03:08.417Z"
+    "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T05:41:38.367Z"
   }
 }

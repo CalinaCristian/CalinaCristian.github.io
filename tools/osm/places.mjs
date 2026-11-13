@@ -1,21 +1,28 @@
 #!/usr/bin/env node
 // ============================================================================
 //  Reachable places per chapter district (round 5, notes 9/18) → game/data/places.json
-//  Run after the district builds:  node tools/osm/places.mjs
+//  Run after the district builds / POI appends:  node tools/osm/places.mjs [--repo DIR] [--data-dir DIR] [--out FILE]
+//  (reads the district packs through district-data.mjs; --repo: where game/src and game/data are read from, --data-dir:
+//  another folder of district files, --out: another output file; defaults = this repo, game/data, game/data/places.json)
 //  For every district: CV stops, landmarks (minus `scenery`), tourist-spot entrances, fuel, notable (branded)
 //  businesses, named parks and transit stops that lie INSIDE the playable area and next to a drivable street
 //  there, with lat/lon (world-map hub) and district game metres x/z (minimap). Categories + legend in `legend`.
 // ============================================================================
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { CITIES, CHAPTERS } from '../../game/src/cities.js';
-import { LANDMARKS } from '../../game/src/landmarks.js';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { readDistrictData, resolveDistrictFile } from './district-data.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-const DATA = path.resolve(HERE, '..', '..', 'game', 'data');
+const arg = (k) => { const i = process.argv.indexOf('--' + k); return i >= 0 ? process.argv[i + 1] : null; };
+const REPO = arg('repo') ? path.resolve(arg('repo')) : path.resolve(HERE, '..', '..');
+const DATA = arg('data-dir') ? path.resolve(arg('data-dir')) : path.join(REPO, 'game', 'data');
+const OUT = arg('out') ? path.resolve(arg('out')) : path.join(REPO, 'game', 'data', 'places.json');
+const mod = (p) => import(pathToFileURL(path.join(REPO, p)).href);
+const { CITIES, CHAPTERS } = await mod('game/src/cities.js');
+const { LANDMARKS } = await mod('game/src/landmarks.js');
 let SPOTS = [];
-try { SPOTS = (await import('../../game/src/spots/index.js')).SPOTS || []; } catch (e) { console.warn('places: no SPOTS', e.message); }
+try { SPOTS = (await mod('game/src/spots/index.js')).SPOTS || []; } catch (e) { console.warn('places: no SPOTS', e.message); }
 
 export const LEGEND = [
     { cat: 'cv', label: 'CV stop', icon: '★', color: '#f97316' },
@@ -31,8 +38,8 @@ const NAVFIX = fs.existsSync(path.join(HERE, 'places-navfix.json')) ? JSON.parse
 const out = { generated: new Date().toISOString().slice(0, 10), legend: LEGEND, districts: {} };
 for (const [cityId, city] of Object.entries(CITIES)) {
     for (const [did, dc] of Object.entries(city.districts || {})) {
-        const f = path.join(DATA, `${cityId}-${did}.json`); if (!fs.existsSync(f)) continue;
-        const d = JSON.parse(fs.readFileSync(f, 'utf8'));
+        const f = resolveDistrictFile(path.join(DATA, `${cityId}-${did}.json`)); if (!fs.existsSync(f)) continue; // (.bin.gz pack or JSON)
+        const d = readDistrictData(f);
         const S = (i) => (i >= 0 ? d.strings[i] : ''), P = d.proj, N = d.nodes;
         const xy = (lat, lon) => [(lon - P.lon0) * P.mPerLon, -(lat - P.lat0) * P.mPerLat];
         const ll = (x, z) => [+(P.lat0 - z / P.mPerLat).toFixed(6), +(P.lon0 + x / P.mPerLon).toFixed(6)];
@@ -122,5 +129,5 @@ for (const [cityId, city] of Object.entries(CITIES)) {
         console.log(`${cityId}-${did}`, JSON.stringify(out.districts[`${cityId}-${did}`].counts), dropped.length ? 'not reachable: ' + dropped.join(',') : '');
     }
 }
-fs.writeFileSync(path.join(DATA, 'places.json'), JSON.stringify(out));
-console.log('wrote game/data/places.json', (fs.statSync(path.join(DATA, 'places.json')).size / 1024).toFixed(0), 'kB');
+fs.writeFileSync(OUT, JSON.stringify(out));
+console.log('wrote', OUT, (fs.statSync(OUT).size / 1024).toFixed(0), 'kB');

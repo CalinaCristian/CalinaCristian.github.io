@@ -67,7 +67,7 @@ fs.mkdirSync(out, { recursive: true });
                 d.pos.copy(point(-4 * sign, 0, 30)); d.vel.set(0, 0, 0); d.gimbal = -Math.PI / 2; g.input.keys.add('KeyW'); for (let i = 0; i < 70; i++) d._fly(0.05); g.input.keys.clear(); d.gimbal = 0;
                 result.paths.push({ name: `descent ${sign}`, end: f.local(d.pos), pass: Math.abs(f.local(d.pos).u + 4 * sign) < 0.15 && f.local(d.pos).h < 0.5 });
             }
-            const stands = g.world.buildings.filter(b => b.landmark === 'dinamo' && b.y0 === undefined && b.h > 3 && b.h < 22);
+            const stands = g.world.buildings.filter(b => b.landmark === 'dinamo' && b.y0 === undefined && b.h > 1 && b.h < 22); // (round 2: the bowl is sunk, the stands' tops are 1.2-2.7 m above the street)
             for (let i = 0; i < stands.length; i += Math.max(1, Math.floor(stands.length / 12))) {
                 const b = stands[i], p = new THREE.Vector3(b.x, 1, b.z); d.pos.copy(p); d.vel.set(0, 0, 0); d._collide(d.c);
                 result.stands.push({ push: d.pos.distanceTo(p), groundSolid: !!collideBuildings([b], b.x, b.z, 0.4), h: b.h });

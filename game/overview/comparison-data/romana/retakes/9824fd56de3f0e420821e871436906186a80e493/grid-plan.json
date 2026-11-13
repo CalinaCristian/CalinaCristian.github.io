@@ -1,0 +1,117 @@
+{
+  "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "city": "bucharest",
+  "district": "romana",
+  "grid": {
+    "x0": -1500,
+    "z0": -1750,
+    "columns": 12,
+    "rows": 14,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "ring-touches": 81,
+    "core-touches": 30,
+    "outside-ring": 5
+  },
+  "locations": [
+    {
+      "id": "arnia-start",
+      "label": "arnia chapter start",
+      "kind": "chapter-start",
+      "lat": 44.4418,
+      "lon": 26.0988,
+      "tileId": "aerial-r10-c09"
+    },
+    {
+      "id": "uipath-buc-start",
+      "label": "uipath-buc chapter start",
+      "kind": "chapter-start",
+      "lat": 44.456,
+      "lon": 26.0842,
+      "tileId": "aerial-r04-c04"
+    },
+    {
+      "id": "victoria",
+      "label": "Palatul Victoria",
+      "kind": "landmark",
+      "lat": 44.4528232,
+      "lon": 26.0874287,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r05-c05"
+    },
+    {
+      "id": "ase",
+      "label": "ASE — Palatul Ion N. Angelescu",
+      "kind": "landmark",
+      "lat": 44.447807,
+      "lon": 26.0971572,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r08-c08"
+    },
+    {
+      "id": "ambasador",
+      "label": "Hotel Ambasador",
+      "kind": "landmark",
+      "lat": 44.441963,
+      "lon": 26.099535,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r10-c09"
+    },
+    {
+      "id": "thelandmark",
+      "label": "The Landmark (UiPath HQ)",
+      "kind": "landmark",
+      "lat": 44.450012,
+      "lon": 26.0946079,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r07-c08"
+    },
+    {
+      "id": "europehouse",
+      "label": "Europe House",
+      "kind": "landmark",
+      "lat": 44.4511557,
+      "lon": 26.087697,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r06-c05"
+    },
+    {
+      "id": "skytower",
+      "label": "Sky Tower",
+      "kind": "skyline",
+      "lat": 44.4779551,
+      "lon": 26.1047395,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "context-skytower"
+    },
+    {
+      "id": "ateneu",
+      "label": "Ateneul Român",
+      "kind": "landmark",
+      "lat": 44.441344,
+      "lon": 26.0973695,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r11-c08"
+    },
+    {
+      "id": "regal",
+      "label": "Palatul Regal (MNAR)",
+      "kind": "landmark",
+      "lat": 44.4394699,
+      "lon": 26.0960493,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r11-c08"
+    },
+    {
+      "id": "tnb",
+      "label": "Teatrul Național București",
+      "kind": "landmark",
+      "lat": 44.4370273,
+      "lon": 26.1036159,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r13-c10"
+    }
+  ],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score."
+}

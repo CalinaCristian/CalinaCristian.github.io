@@ -313,7 +313,7 @@ const _fr = new THREE.Frustum(), _pm = new THREE.Matrix4(), _sp = new THREE.Sphe
 export function makeCrowd({ max = 256, city = 'bucharest', season = seasonOf(), weather = null, rng = Math.random, castShadow = true } = {}) {
     const G = personGeometry(), mat = crowdMaterial();
     const N = Math.max(1, max);
-    const poses = new Float32Array(N), mats = new Float32Array(N * 16), anim = new Float32Array(N * 2), cols = new Float32Array(N * 15), flags = new Float32Array(N), live = new Uint8Array(N), rad = new Float32Array(N);
+    const poses = new Float32Array(N), mats = new Float32Array(N * 16), anim = new Float32Array(N * 2), cols = new Float32Array(N * 15), flags = new Float32Array(N), live = new Uint8Array(N), rad = new Float32Array(N), wantUmb = new Uint8Array(N);
     const outfits = new Array(N);
     const object = new THREE.Group(); object.name = 'crowd';
     const mk = (geo, cast) => {
@@ -331,8 +331,10 @@ export function makeCrowd({ max = 256, city = 'bucharest', season = seasonOf(), 
     near.mesh.name = 'crowd-near'; far.mesh.name = 'crowd-far';
     const crowd = {
         object, max: N, count: 0, city, season, weather, stats: { near: 0, far: 0, culled: 0, ms: 0 },
-        set(i, { x = 0, y = 0, z = 0, yaw = 0, phase = 0, amp = 0, scale = 1, down = false, fallDir = 0, pose = 0, prop } = {}) {
+        set(i, { x = 0, y = 0, z = 0, yaw = 0, phase = 0, amp = 0, scale = 1, down = false, fallDir = 0, pose = 0, prop, indoor } = {}) {
             if (i >= N) return;
+            // (2026-11-12) indoor (under a declared roof): the umbrella is closed; outside again it opens if the weather gave one
+            if (indoor !== undefined) flags[i] = (flags[i] & ~CROWD_FLAGS.umbrella) | (wantUmb[i] && !indoor ? CROWD_FLAGS.umbrella : 0);
             if (down) _m4.compose(_p.set(x, y + 0.12 * scale, z), _q.setFromEuler(_e.set(-Math.PI / 2, fallDir, 0, 'YXZ')), _s.set(scale, scale, scale));
             else _m4.compose(_p.set(x, y, z), _q.setFromEuler(_e.set(0, yaw, 0)), _s.set(scale, scale, scale));
             _m4.toArray(mats, i * 16); anim[i * 2] = phase; anim[i * 2 + 1] = down ? 0 : amp; live[i] = 1; rad[i] = 1.2 * scale;
@@ -351,7 +353,7 @@ export function makeCrowd({ max = 256, city = 'bucharest', season = seasonOf(), 
             o = o || dressFor(city, crowd.season, crowd.weather, rng);
             outfits[i] = o;
             ['top', 'bottom', 'skin', 'hair', 'acc'].forEach((k, j) => { _c.set(o[k]); cols[i * 15 + j * 3] = _c.r; cols[i * 15 + j * 3 + 1] = _c.g; cols[i * 15 + j * 3 + 2] = _c.b; });
-            flags[i] = (o.flags || 0) | (flags[i] & PROP_MASK);
+            flags[i] = (o.flags || 0) | (flags[i] & PROP_MASK); wantUmb[i] = flags[i] & CROWD_FLAGS.umbrella ? 1 : 0;
         },
         setWeather(w) {
             if (w === crowd.weather) return; crowd.weather = w;
@@ -359,7 +361,7 @@ export function makeCrowd({ max = 256, city = 'bucharest', season = seasonOf(), 
             for (let i = 0; i < N; i++) {
                 if (!outfits[i] || (flags[i] & CROWD_FLAGS.worker)) continue;
                 const u = wet && rng() < (city === 'seattle' ? 0.18 : 0.55);
-                flags[i] = (flags[i] & ~CROWD_FLAGS.umbrella) | (u ? CROWD_FLAGS.umbrella : 0);
+                flags[i] = (flags[i] & ~CROWD_FLAGS.umbrella) | (u ? CROWD_FLAGS.umbrella : 0); wantUmb[i] = u ? 1 : 0;
             }
         },
         dispose() { removePre(); object.parent?.remove(object); for (const x of [near, far]) { for (const k in x.at) x.mesh.geometry.deleteAttribute(k); x.mesh.geometry.dispose(); x.mesh.dispose?.(); } },

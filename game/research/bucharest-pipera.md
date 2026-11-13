@@ -564,3 +564,46 @@ Scope: the playable area of `cities.js` (130 m either side of the two chapter ro
 
 Missing from `data.pois`, at street level on or beside the routes (needs a POI rebuild / append; the builder's `poiKind()` has no rule for several of these classes): Starbucks n4107002593 (Fabrica de Glucoză 9B), Starbucks n6155859303 and Stradale n9226903343 (Pompeiu 4-6), Vista Bank n10113539341, World Class n4161831405 (`leisure=fitness_centre`), CEC Bank n4833254521 and French Revolution n9574755539 (Calea Floreasca 169A), Auchan Go n11958088007, Eggs Cup n9226929866, P44 n11096775776, Afina pharmacy n1143427037, Alpha Bank n304720869, Carrefour Market n412366230, Flora Studio n728736339, Toma's Optik n11222883620 (`craft`), Adecco n3717196110, DB Schenker n6866017228 and the office tenants (HP, Allianz, Amazon, Deloitte, Dell, Uber: `office=yes/company` nodes). About 60 more are shops inside Promenada on levels −1 / 1 / 2 (no street sign in reality either, apart from the tenant band).
 Stale / to check in the game: `Pasta Bar` n5868977715 is `shop=vacant` in OSM (not in the game: correct). `Express Green Court` (Carrefour Express) and `McDonald's Promenada Mall` come from the brand locators, not OSM. Kaufland's POI is 63 m from the centroid of its OSM building w1198250017.
+
+## Fidelity pass round 2, 2026-11-12 (sweep for uncovered structures, water, sports, large stores)
+
+A sweep of the district data found these items in the playable area with no reference viewpoint within 130 m; viewpoints were added and compared with the official panorama at the same point (appearance only, nothing stored).
+
+- **Kaufland** (POI at 44.477991, 26.122599; covered service road beside it): from Șos. Fabrica de Glucoză (`pip-kaufland`, 44.478452, 26.122228, heading 149) the store is a low box far behind its car park, with a concrete barrier in the middle of the road and towers under construction to the east; the game shows the car-park side with glass office blocks behind and no median barrier. Store front not compared (too far from the street).
+- **Muzeul Național al Aviației Române** (POIs 44.4777 – 44.4790, 26.1102 – 26.1116): from Bd. Dimitrie Pompeiu (`pip-aviation-museum`, 44.479143, 26.110517, heading 163) a concrete fence with graffiti and a tree belt hide the grounds; the game has open lawn, no fence and none of the 25 mapped aircraft exhibits. Still wrong.
+- **Courtyard by Marriott** (POI 44.47802, 26.107132; `pip-courtyard`, 44.478444, 26.106966, heading 163): dark glass hotel tower and a mirrored podium behind a lawn; the game has blue glass towers there. Match in massing, colour more saturated than the real anthracite.
+- **Clay courts** at 44.47793, 26.09902 and 44.47814, 26.10046: hidden behind houses from every panorama found; present as areas; not compared.
+
+## Landmark catalogue review against panoramas (fidelity pass round 2b, lane landmarks-b, 2026-11-12)
+
+Method: official panorama ids found from Maps coverage metadata (`photometa/ac`, coverage only), the game rendered at the
+pano position and bearing (eye 2.5 m), then compared side by side by eye. No imagery kept. Poses: `viewpoints-add.json`
+of this lane and the poses below. "Match" = shape class, height, roof, main materials/colours, entrance side and signage
+read as the real thing at street distance; it is not a claim of parity. Table positions are rounded and some are
+approximate; the exact poses with their pano ids are in this lane's `pick/*.json`, `views2b.json` and `views3.json`,
+and the kept ones in `viewpoints-add.json`.
+
+| Landmark | Pose (lat, lon, heading) | Verdict |
+| --- | --- | --- |
+| hermes | 44.48056, 26.115007 h 308 | match in class (striped glass offices); real view mostly hidden by trees |
+| bob | 44.4797, 26.1150 h 156 | unresolved: two different buildings in the frame, which one is BOB not established |
+| globalworth | 44.479318, 26.103249 h 263 | fixed base: white-framed glazed podium (was navy); shaft grey-blue |
+| skytower | 44.4787, 26.1065 h 249 | match |
+| promenada | 44.477617, 26.102507 h 48 | fixed: no window row round the white walls; tenant band position on the corner not checked |
+
+Statues not modelled: Soviet Soldier monument n1174026151 (both panoramas face a brick wall and trees, the monument is not visible).
+
+## Round 2 (2026-11-12), lane world
+
+Fuel: Petrom 2 islands + pylon, Lukoil 3 islands (no free place for the pylon); the LPG point
+"GPL Lukoil Aviației" gets no pylon of its own. Monumentul Soldatului Sovietic: generic monument. Podul Barbu Văcărescu
+guard not reviewed.
+
+## Round 2 (2026-11-12), lane world-b
+
+Street View was used only to look (official panoramas, ids found from coverage metadata); nothing was saved or traced.
+
+Podul Barbu Văcărescu w119926495: low concrete kerb with galvanised posts and mesh panels
+(panorama 44.479661, 26.100612 h253): drawn so. Str. Petricani bridge w8208289: W-beam guard rail + yellow railing; the
+game deck is at grade without a railing (not changed). Kaufland w1198250017: the store is mapped as one point in the middle
+of the footprint; the sign now goes on the east face toward its own car park w1198250027.

@@ -104,6 +104,7 @@ export function treeGeometries() {
     // one shared stem with limbs (authored 5 m tall; instances scale it to the species' clear stem)
     const trunk = trunkWithLimbs(5, 0.25, [[1, 0.3, 2.6, 0.5], [-0.8, -0.6, 2.4, 0.45], [0.1, 1, 2.2, 0.4]]);
     const trunkLow = (() => { const t = new THREE.CylinderGeometry(0.15, 0.25, 5, 3, 1, true); t.translate(0, 2.5, 0); return mergeGeos([t, ...branchSkeleton(4.75, 6.3, 3.0, 8.0, 0.25, true)]); })(); // open, ≈ 50 tris (stem + 3 limbs)
+    const stemLow = (() => { const t = new THREE.CylinderGeometry(0.15, 0.25, 5, 3, 1, true); t.translate(0, 2.5, 0); return mergeGeos([t]); })(); // trunkLow without its limbs (6 tris): the far trunk beyond opts.stemLod
     GEO = {
         shapes: {
             plane: { ...plane, stem: 7.0, top: 15, rx: 4.3, ry: 3.6, cols: ['#6a9a45', '#5f9140', '#74a14c'] },
@@ -112,7 +113,7 @@ export function treeGeometries() {
             small: { ...small, stem: 2.8, top: 7.2, rx: 3.0, ry: 2.0, cols: ['#62963f', '#6b9a46', '#5b8c3c'] },
             conifer: { ...conifer, stem: 2.2, top: 11.1, rx: 2.4, ry: 4.6, cols: ['#2f5d3a', '#356640', '#2b5434', '#3a6b45'], conifer: true },
         },
-        low, conLow, trunk, trunkLow,
+        low, conLow, trunk, trunkLow, stemLow,
     };
     return GEO;
 }
@@ -149,7 +150,9 @@ export function defaultSpecies(cityId, kind, key, h) {
 /**
  * Instanced species trees with a dynamic near/far LOD.
  *   trees: [{x, z, y?, s (scale vs the species' nominal size), species, sh? (narrow toward a road), rot?, col?}]
- *   opts: { near = 110, maxNear = 520, chunk = 750, cull, castShadow = true, rng }
+ *   opts: { near = 110, maxNear = 520, chunk = 750, cull, castShadow = true, rng, stemLod }
+ *   stemLod (metres, optional): far trunks of chunks beyond it are drawn as the bare stem (the three limbs of the far
+ *      trunk are thinner than a pixel there); every tree keeps its trunk and crown. Needs update() to be called.
  * Near: one InstancedMesh per crown shape + one trunk mesh (global, refilled when the viewer moves 20 m).
  * Far: per chunk one deciduous low-lobe crown mesh, one conifer low crown mesh, one low trunk mesh; trees that are near
  *      are hidden in the far meshes (zero scale). All crowns are named 'treeCrowns …' (render season hooks), conifers flagged.
@@ -188,7 +191,7 @@ export function buildSpeciesTrees(trees, opts = {}) {
     const chunks = new Map();
     for (const r of T) { let c = chunks.get(r.chunk); if (!c) chunks.set(r.chunk, c = { dec: [], con: [] }); (r.con ? c.con : c.dec).push(r); }
     const crownMeshes = [], trunkMeshes = [], farOf = [];
-    const cull = opts.cull ?? 1600;
+    const cull = opts.cull ?? 1600, stemLod = opts.stemLod > 0 ? Math.max(opts.stemLod, near + 20) : 0, stemMeshes = [];
     for (const [k, c] of chunks) {
         const [ci, cj] = k.split(',').map(Number);
         const all = c.dec.concat(c.con);
@@ -211,6 +214,14 @@ export function buildSpeciesTrees(trees, opts = {}) {
             m.userData.cx = (ci + 0.5) * CH; m.userData.cz = (cj + 0.5) * CH; m.userData.cull = cull + CH * 0.71;
             group.add(m); farOf.push(m);
         }
+        if (stemLod) { // limbed far trunks up to stemLod (the caller's distance culling: userData.cull), bare stems from there to the cull distance (update())
+            const stems = new THREE.InstancedMesh(G.stemLow, trunkMat, all.length); stems.name = `treeTrunks ${k} far stem`;
+            all.forEach((r, i) => stems.setMatrixAt(i, r.ft)); stems.instanceMatrix.needsUpdate = true; stems.computeBoundingSphere();
+            stems.castShadow = false; stems.receiveShadow = true; stems.matrixAutoUpdate = false; if (opts.farLayer != null) stems.layers.set(opts.farLayer);
+            Object.assign(stems.userData, { cx: trunks.userData.cx, cz: trunks.userData.cz, always: true, near: stemLod + CH * 0.71, far: cull + CH * 0.71 }); stems.visible = false;
+            trunks.userData.cull = stemLod + CH * 0.71;
+            group.add(stems); trunkMeshes.push(stems); stemMeshes.push(stems);
+        }
     }
     // near meshes (global, refilled on update)
     const nearM = {};
@@ -230,6 +241,7 @@ export function buildSpeciesTrees(trees, opts = {}) {
     T.forEach((r) => { for (const [g, p] of [[grid, r.t], [crownGrid, r.centre]]) { const k = Math.floor(p.x / GS) + ',' + Math.floor(p.z / GS); let a = g.get(k); if (!a) g.set(k, a = []); a.push(r); } });
     let lx = 1e9, lz = 1e9, ly, cur = [];
     const update = (x, z, eyeY) => {
+        for (const m of stemMeshes) { const d = Math.hypot(m.userData.cx - x, m.userData.cz - z); m.visible = d >= m.userData.near && d < m.userData.far; } // (same test, same position as the caller's culling of the limbed trunks)
         const spatial = Number.isFinite(eyeY), wasSpatial = Number.isFinite(ly);
         if (spatial === wasSpatial && Math.hypot(x - lx, z - lz, spatial ? eyeY - ly : 0) < 20) return; lx = x; lz = z; ly = spatial ? eyeY : undefined;
         const cand = []; const K = Math.ceil(near / GS);

@@ -1,0 +1,119 @@
+{
+  "district": "romana",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "tiles": [
+    {
+      "id": "aerial-r06-c05",
+      "reason": "Piața Victoriei centre paved (was lawn)"
+    },
+    {
+      "id": "aerial-r10-c09",
+      "reason": "ARO tower and Hotel Ambasador models redrawn"
+    },
+    {
+      "id": "aerial-r11-c09",
+      "reason": "Royal Palace model redrawn (pale stone fronts)"
+    },
+    {
+      "id": "aerial-r05-c04",
+      "reason": "building model redrawn with its own roof edge and courtyard fronts"
+    },
+    {
+      "id": "aerial-r01-c03",
+      "reason": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r01-c04",
+      "reason": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r01-c05",
+      "reason": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r02-c02",
+      "reason": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r03-c01",
+      "reason": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r04-c01",
+      "reason": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r05-c01",
+      "reason": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r11-c12",
+      "reason": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r12-c12",
+      "reason": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r14-c08",
+      "reason": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r14-c09",
+      "reason": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r14-c10",
+      "reason": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    }
+  ],
+  "reason": "Piața Victoriei paved centre, ARO/Ambasador, Royal Palace, building models; far background restored",
+  "originalManifestSha256": "69bd7d766bc460e95bb9e8301c18113d7d19c18bdbcbfe2f34cbe25996bee0f5",
+  "totalFrames": 116,
+  "method": "Round 2. Every atlas pose was rendered at 9824fd56 and, for diagnosis only, at the range start 94a177d5 (game images only, same tool and conditions). Poses were ranked by compact changed pixels (vegetation masked) between the two renders and against the published tile. Range-changed poses were compared by eye (published | 94a177d5 | 9824fd56, same pixels). As asked, poses whose published capture is older than later changes were also checked (published | 9824fd56) and refreshed where buildings, streets, water or structures visibly differ. Not counted as a change: roof / facade tints, tree crowns and parked cars, which vary between source revisions. Every kept image was inspected at full size.",
+  "baselineCommit": "94a177d5e739e0f23dc1ea9af696174364684084",
+  "candidatesCaptured": 116,
+  "rejected": [
+    {
+      "ids": [
+        "aerial-r06-c04",
+        "aerial-r07-c08"
+      ],
+      "reason": "no change that reads at tile scale"
+    },
+    {
+      "ids": [
+        "aerial-r06-c02",
+        "aerial-r07-c02",
+        "aerial-r08-c02",
+        "aerial-r08-c03",
+        "aerial-r13-c09",
+        "aerial-r13-c10",
+        "aerial-r13-c11",
+        "context-northwest"
+      ],
+      "reason": "round-1 backdrop tiles: the current render matches the published capture again, no retake needed"
+    },
+    {
+      "ids": [
+        "aerial-r01-c06",
+        "aerial-r05-c05",
+        "aerial-r05-c07",
+        "aerial-r05-c08",
+        "aerial-r06-c06",
+        "aerial-r06-c07",
+        "aerial-r06-c08",
+        "aerial-r07-c04",
+        "aerial-r07-c05",
+        "aerial-r08-c07",
+        "aerial-r09-c05",
+        "aerial-r11-c07",
+        "aerial-r11-c08",
+        "aerial-r12-c09",
+        "aerial-r12-c10"
+      ],
+      "reason": "stale-tile check: parked cars / tints only"
+    }
+  ],
+  "notRetaken": "Every other pose: no visible change between the 94a177d5 and 9824fd56 renders at the same pose, or only the differences listed under rejected."
+}

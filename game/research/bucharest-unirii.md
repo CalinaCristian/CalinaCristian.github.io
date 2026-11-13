@@ -853,3 +853,68 @@ interior of Piața Unirii, the tenant fronts along the middle of the Unirea west
 | fountains_dismantle | https://www.g4media.ro/spectacolele-simfonia-apei-de-la-fantanile-urbane-din-piata-unirii-vor-mai-avea-loc-doar-in-urmatoarele-trei-weekenduri-din-30-iunie-incepe-dezafectarea-fantanilor-pentru-lucrarile.html |
 | fountains_until_june | https://www.antena3.ro/actualitate/spectacolele-simfonia-apei-de-la-fantanile-urbane-continua-pana-la-finalul-lunii-iunie-749199.html |
 | fountains_drones | https://www.stiripesurse.ro/fantanile-urbane-din-piata-unirii-vor-celebra-performantele-olimpice-romanesti-cu-spectacole-de-apa-lumini-si-drone_3384799.html |
+
+## Fidelity pass round 2, 2026-11-12 (sweep)
+
+- **Median basin at 44.42695, 26.098886** (28 × 6 m water area on Bd. Unirii west of the square; `unr-water-west`, 44.427025, 26.099343, heading 261): low stone basins in a grassed median between tree rows, parked cars along the kerb; the game has the basins with water in a grassed median and tree rows. Match.
+- No other bridge, underpass, water body or sports ground of the district data lacks a viewpoint within 130 m. The Bd. Unirii carriageway and Călărași tram works were not touched (owner decision).
+
+## Unirea Shopping Center, round 2 (2026-11-12, lane landmarks)
+
+- OSM w23492027 `building:levels=6`, no colour / material tags. Panorama at Piața Unirii (44.4269991, 26.1037744,
+  headings 40 and 85, May 2024): south front and south-west rotunda in large flat white-grey panels with a blank white
+  billboard frame on the curve and a white canopy band over a recessed glazed ground floor; west front (Bd. I. C.
+  Brătianu) dark bronze louvres with a full-height advertising banner next to the rotunda; red Unirea logo near the roof.
+  Panel module (6.2 m), louvre pitch and banner size in the model are estimates; the banner is a plain canvas.
+
+## Landmark catalogue review against panoramas (fidelity pass round 2b, lane landmarks-b, 2026-11-12)
+
+Method: official panorama ids found from Maps coverage metadata (`photometa/ac`, coverage only), the game rendered at the
+pano position and bearing (eye 2.5 m), then compared side by side by eye. No imagery kept. Poses: `viewpoints-add.json`
+of this lane and the poses below. "Match" = shape class, height, roof, main materials/colours, entrance side and signage
+read as the real thing at street distance; it is not a claim of parity. Table positions are rounded and some are
+approximate; the exact poses with their pano ids are in this lane's `pick/*.json`, `views2b.json` and `views3.json`,
+and the kept ones in `viewpoints-add.json`.
+
+| Landmark | Pose (lat, lon, heading) | Verdict |
+| --- | --- | --- |
+| cathedral | 44.4241, 26.0827 h 340 / h 48 | match (cream-white body, gold domes, tall central tower); wall in front not in the model's scope |
+| gts | 44.433259, 26.117608 h 358 | match (three arched windows, garland stucco, mansard) |
+| fountains | 44.427059, 26.102191 h 140 | match in form (round basins on the median); water is off in the game in November, on in the summer panorama |
+| halatraian | 44.4334, 26.1197 h 257 / 351 | match (cream hall, red/cream banded piers, arched central gable); ground-floor tenant fascias not checked |
+| parliament | 44.4292, 26.0897 h 287 | match (massing, cream colour) |
+| unirea | — | compared in round 2 (lane landmarks) |
+
+## Round 2 (2026-11-12), lane world: Dâmbovița, monuments, car park, fuel
+
+**Dâmbovița.** Street-level review (appearance only):
+- West of Piața Unirii, from the south quay at 44.42932, 26.09763 looking north: dark-green iron railing on a low kerb
+  (as modelled), then one broad sloped concrete bank down to low water; no service bench. The model section had a steep
+  wall and a 2 m bench. Now `water-channel-review.js` gives w174990751 a 4.6 m sloped bank; level kept at -4.4 m (estimate).
+- East end of the covered section, 44.42609, 26.10433 looking east: open water begins at the railing; a wide basin with
+  sloped banks, water about 2 - 2.5 m below the quay; a row of concrete blocks across the basin. The game had the water
+  4.4 m down: w174991904 is now at -2.4 m with sloped banks (estimate, reviewed at this one place). The blocks are not drawn.
+  The game still shows about 80 m of bare construction ground east of the railing where reality has water: that is the
+  Piața Unirii construction state in OSM (owner decision), not changed.
+- The "thin strip of water at pavement level" along the quay was an open slot: the ground stopped 0.3 - 0.4 m short of
+  the quay kerb and the channel water showed through. A coping strip closes it along every channel quay (seen fixed at
+  (-900, 32)).
+
+**Monuments** (generic class objects, `monuments.js`): 27 placed (among them Lupoaica, Constantin Brâncoveanu, the four
+statues at Universitate, Alexandru Ioan Cuza, Șerban Cantacuzino, Barbu Catargiu, the Pogrom memorial obelisk, busts).
+Not placed: Mihail Cantacuzino and Domnița Bălașa (the point is inside a building footprint in the pack), Dimitar
+Hadjvasilev and Bustul lui Barbu Constantinescu (on a carriageway), Fântâna Vioara Spartă (in water); plaques and
+untyped artworks (Kilometrul 0, Horațiu) stay markers. None compared with Street View in this district.
+
+**Parcare Unirea** (w184169515, 10 levels): open decks on the source footprint. Parcare Cocor (w658281398) is an amenity
+polygon without a building tag and keeps the store facade.
+
+**Fuel**: OMV (w263315803) 2 pump islands + pylon; MOL (w670595374) 4 islands + pylon: generic model, not compared.
+
+## Round 2 (2026-11-12), lane world-b
+
+Street View was used only to look (official panoramas, ids found from coverage metadata); nothing was saved or traced.
+
+Old Town pedestrian streets (Str. Franceză, Lipscani): cobbled wall to wall in the panoramas; the
+raster drew lawn. Mapped highway=pedestrian ways now keep a 7 m paved band; 32 business fascias were added on pedestrian
+fronts (e.g. Hanu' lui Manuc, City Grill, Mojo Music Club, Gelateria La Romania dal 1947; see world.stats.fasciaLayout).

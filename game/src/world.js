@@ -12,6 +12,8 @@ import { buildGeneratedParapetOwnership, emitOwnedSeparationQuad } from './gener
 
 import { compileSourceBridgeDescents } from './source-bridge-descents.js';
 import { displaceBridgeSurface, shapeDeckSoup, exactMemo3 } from './bridge-surface-mesh.js';
+import { displaceBandedSurface } from './bridge-surface-band.js';
+import { splitMeshByTiles } from './mesh-tiles.js';
 import * as THREE from '../vendor/three.module.min.js';
 import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landmarkHelpers } from './util.js';
 import { makeTextures, emitFacadeSlab } from './buildings.js';
@@ -64,9 +66,22 @@ import { markingArea, clipMarkingHalfPlane, clipMarkingConvex, subtractMarkingCo
 import { decodeDistrictMask, buildSourceBoundarySupport, normalizeSourceMapEnds, districtMaskSegments } from './district-boundary.js';
 import { FACADE_DETAIL_GLSL } from './facade-detail.js';
 import { subtractConvex } from './building-overlap.js';
+import { emitMonuments } from './monuments.js';
+import { channelProfile } from './water-channel-review.js';
+import { carParkOf, carParkLevels, emitCarParkWall, reviewedCarParkHeight } from './car-parks.js';
+import { emitFuelForecourt } from './fuel-forecourt.js';
+import { emitBellevueGuideway } from './bellevue-guideway.js';
 import { emitSeatacGuideway } from './seatac-guideway.js';
 import { buildElevatedSources, planElevatedSources } from './elevated-sources.js';
 import { openRuns, weldEnds } from './deck-outline.js';
+import { applyBuildingReview } from './building-review.js';
+import { emitWorshipOpenings, worshipHasTowerTag } from './worship.js';
+import { pavedReviewAreas } from './ground-review.js';
+import { reviewedGradeK } from './grade-review.js';
+import { emitAirportForecourt } from './airport-forecourt.js';
+import { applyFuelCanopyReview } from './fuel-canopy-review.js';
+import { PEDESTRIAN_FRONTS } from './pedestrian-fronts.js';
+import { bridgeGuardRow, emitBridgeGuard, guardBlockH, emitGuardSteel, GUARD_CONCRETE } from './bridge-guards.js';
 // (spec 10 load budget) start the build workers now, so they are loaded before the first district is built
 try { if (typeof window !== 'undefined') sharedBuildPool(); } catch (e) { /* no workers: buildWorld runs everything here */ }
 // (spec 10 load budget) the modules buildWorld imports on demand are fetched and compiled while the page is idle; a build
@@ -95,7 +110,7 @@ const landmarksModule = lazyModule(() => import('./landmarks.js')), archetypesMo
 const CELL = 250;
 // layering heights (metres) — every flat layer has its own height to avoid z-fighting
 const Y = { landuse: 0.02, grass: 0.045, forest: 0.06, park: 0.07, pitch: 0.095, parking: 0.095, water: 0.11, ballast: 0.2, side: 0.15, road: 0.24, layer: 0.09, mark: 0.03, kerb: 0.13 };
-const TILE = { interwar: 0, eclectic: 1, civic: 2, bloc: 3, glass: 4, house: 5, shop: 6, plain: 7, church: 1 };
+const TILE = { interwar: 0, eclectic: 1, civic: 2, bloc: 3, glass: 4, house: 5, shop: 6, plain: 7, church: 7 }; // (church: plain wall, the tall arched openings are geometry: worship.js)
 /** window grid (columns × rows) drawn in each facade atlas tile: wall UVs are divided by it so one window column = one
  *  bay (≈ 2.4–3.6 m) and one window row = one storey (the tiles hold 2 storeys and 2–4 bays: without this the windows
  *  came out at half / a quarter of their real size — the "tiny window dots") */
@@ -528,8 +543,8 @@ function noiseTexture() {
 /** Sign atlas: pages of 2048x2048 with 256x64 cells */
 class SignAtlas {
     constructor() { this.pages = []; this.map = new Map(); this.cols = 8; this.rows = 32; }
-    get(text, bg = '#1f2937', fg = '#ffffff', accent = null, force = false) {
-        const key = text + '|' + bg + '|' + fg + '|' + accent;
+    get(text, bg = '#1f2937', fg = '#ffffff', accent = null, force = false, twoLine = false) {
+        const key = text + '|' + bg + '|' + fg + '|' + accent + (twoLine ? '|2' : '');
         let r = this.map.get(key); if (r) return r;
         let page = this.pages[this.pages.length - 1];
         if (!page || page.n >= this.cols * this.rows) {
@@ -545,9 +560,20 @@ class SignAtlas {
         ctx.fillStyle = fg; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         let size = 40; ctx.font = `bold ${size}px "Helvetica Neue", Arial, sans-serif`;
         while (ctx.measureText(text).width > W - 16 && size > 14) { size -= 2; ctx.font = `bold ${size}px "Helvetica Neue", Arial, sans-serif`; }
-        ctx.fillText(text, x + W / 2, y + H / 2 - (accent ? 3 : 0), W - 12);
-        const pi = this.pages.indexOf(page);
-        r = { page: pi, u0: (x + 1) / 2048, u1: (x + W - 1) / 2048, v0: 1 - (y + H - 1) / 2048, v1: 1 - (y + 1) / 2048, aspect: Math.min(4, Math.max(1.6, ctx.measureText(text).width / H + 0.6)) };
+        // (2026-11-12 render review, fascias) twoLine: a name that only fits a 256 px cell in small type ("Minimarket Bobtig
+        // Non-Stop" at ~16 px) is set on two balanced lines in larger type instead
+        let lines = null;
+        if (twoLine && size < 26 && text.includes(' ')) {
+            const sp = [...text.matchAll(/ /g)].map(m => m.index), mid = text.length / 2, cut = sp.reduce((a, b) => Math.abs(b - mid) < Math.abs(a - mid) ? b : a);
+            const L2 = [text.slice(0, cut), text.slice(cut + 1)], usable = H - (accent ? 10 : 6);
+            let s2 = Math.min(28, Math.floor(usable / 2.1)); const f2 = (q) => `bold ${q}px "Helvetica Neue", Arial, sans-serif`; ctx.font = f2(s2);
+            while (Math.max(...L2.map(l => ctx.measureText(l).width)) > W - 16 && s2 > 14) { s2 -= 1; ctx.font = f2(s2); }
+            if (s2 > size) { lines = L2; size = s2; } else ctx.font = `bold ${size}px "Helvetica Neue", Arial, sans-serif`;
+        }
+        if (lines) { const cy = y + H / 2 - (accent ? 3 : 0), dy = size * 0.55; ctx.fillText(lines[0], x + W / 2, cy - dy, W - 12); ctx.fillText(lines[1], x + W / 2, cy + dy, W - 12); }
+        else ctx.fillText(text, x + W / 2, y + H / 2 - (accent ? 3 : 0), W - 12);
+        const pi = this.pages.indexOf(page), tw = lines ? Math.max(...lines.map(l => ctx.measureText(l).width)) : ctx.measureText(text).width;
+        r = { page: pi, u0: (x + 1) / 2048, u1: (x + W - 1) / 2048, v0: 1 - (y + H - 1) / 2048, v1: 1 - (y + 1) / 2048, aspect: Math.min(4, Math.max(1.6, tw / H + 0.6)) };
         this.map.set(key, r); return r;
     }
     /** a 64×64 pictogram (road signs) drawn by draw(ctx, x, y, size); four per atlas cell */
@@ -1041,6 +1067,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     let profileStats = null, profileStats0 = null, wallCut = 0, blocksLane = null;
     {
         for (const e of edges) { e.L = e.virtual || e.coveredRoadModel ? 0 : Math.max(-2, Math.min(3, e.bridge ? Math.max(1, e.layer) : e.tunnel ? Math.min(-1, e.layer) : 0)); e.over = null; e.anchorH = 0; }
+        if (distId) for (const e of edges) { const k = reviewedGradeK(city.id + '-' + distId, data.roadSourceGeometry?.[e.road]?.sourceId); if (k) e.gradeK = k; } // (reviewed approach-ramp length: grade-review.js)
         const near = (e) => { const s = new Set([e.a, e.b]); for (const n of [e.a, e.b]) for (const f of n.edges) { s.add(f.a); s.add(f.b); } return s; };
         const segX = (e, f) => { // centreline intersection → {t, u} or null
             const rx = e.b.x - e.a.x, rz = e.b.z - e.a.z, sx = f.b.x - f.a.x, sz = f.b.z - f.a.z;
@@ -1101,7 +1128,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     for (const e of n.edges) {
                         if (e.virtual) continue;
                         const o = e.a === n ? e.b : e.a; if (o.yFixed || o.yPin) continue;
-                        const nv = v - GRADE * e.len * (e.bridge ? (e.L >= 2 ? 0.1 : 0.35) : 1); // decks stay up (layer ≥ 2: viaducts)
+                        const nv = v - GRADE * e.len * (e.bridge ? (e.L >= 2 ? 0.1 : 0.35) : (e.gradeK || 1)); // decks stay up (layer ≥ 2: viaducts)
                         if (nv > 0.02 && nv > (best.get(o) ?? 0)) { best.set(o, nv); push(o, nv); }
                     }
                 }
@@ -1932,6 +1959,18 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
         }
     }
+    // (fidelity pass round 2, Stadionul Dinamo) A landmark sunk below the street is an opening of the same kind: the flat
+    // ground layers and the green raster are cut over its pit, and the horizon ground gets an aperture there (below).
+    const landmarkPits = [];
+    try {
+        for (const pit of (await import('./landmarks.js')).landmarkGroundPits?.(city.id, distCfg?.landmarks) || []) {
+            if (!distId) continue; // (1:1 districts only: the legacy compressed world keeps its flat ground)
+            const o = city.proj(pit.lat, pit.lon), ring = pit.ring.map(([x, z]) => [o.x + x * data.proj.scale, o.z + z * data.proj.scale]), t = triangulate(ring);
+            const tris = t.tris.map(tri => tri.map(k => t.pts[k]));
+            landmarkPits.push({ id: pit.id, ring, tris, floorY: pit.floorY });
+            for (const q of tris) { const xs = q.map(v => v[0]), zs = q.map(v => v[1]); if (Math.abs(signedArea(q)) > 1e-6) channelCuts.push({ q, x0: Math.min(...xs), x1: Math.max(...xs), z0: Math.min(...zs), z1: Math.max(...zs) }); }
+        }
+    } catch (err) { console.warn('landmark pits', err); }
     const groundCuts = trenchQuads.concat(channelCuts);
     // (a river polygon's triangles are long slivers with large boxes: the exact test keeps the ground beside them whole)
     const groundCutsAt = (poly, x0, z0, x1, z1) => groundCuts.filter(h => h.x1 > x0 && h.x0 < x1 && h.z1 > z0 && h.z0 < z1 && !convexApart(poly, h.q));
@@ -1960,8 +1999,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (a.kind === 'water') {
             const target = (a.x1 - a.x0 > CELL * 2 || a.z1 - a.z0 > CELL * 2) ? bigWater : cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2).water;
             const channel = a.channelDecision, chan = channel.channel;
-            waterChannelAudit.push({ sourceId: a.sourceId, name: a.name, ...channel, surfaceM: chan ? CHAN.water : y, surfaceSource: 'model estimate' });
-            const v0 = target.vc; target.flatPoly(pts, tris, chan ? CHAN.water : y, chan ? rgb('#3c4a42') : col, 0.02); a.waterMesh = { mb: target, v0, v1: target.vc };
+            const chanP = channelProfile(distId, a.sourceId, CHAN); if (chan) a.chanProfile = chanP; // (r2: reviewed section per water polygon, water-channel-review.js)
+            waterChannelAudit.push({ sourceId: a.sourceId, name: a.name, ...channel, surfaceM: chan ? chanP.water : y, surfaceSource: chan && chanP.source || 'model estimate' });
+            const v0 = target.vc; target.flatPoly(pts, tris, chan ? chanP.water : y, chan ? rgb('#3c4a42') : col, 0.02); a.waterMesh = { mb: target, v0, v1: target.vc };
             if (chan) { a.channel = true; channelAreas.push(a); }
         } else {
             const cc = cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2);
@@ -2183,7 +2223,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         // (owner, 2026-11-12, Unirii: "random green patches on the water") from the air a river is as green as a lawn, and
         // the raster marks cells on the Dâmbovița. No green cell is drawn on mapped water: the columns of a row that a
         // water polygon touches (on the cell row's top, middle or bottom line) are taken out of its runs.
-        const waterAreas = areas.filter(a => a.kind === 'water');
+        const waterAreas = areas.filter(a => a.kind === 'water').concat(pavedReviewAreas(city.id + '-' + distId, (la, lo) => city.proj(la, lo))); // (+ squares reviewed as paved: ground-review.js)
         let rowWater = null;
         const waterCols = () => { // sorted, merged [c0, c1) column spans of row r on water
             const spans = [];
@@ -2239,7 +2279,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const [ax, az] = pts[i], [bx, bz] = pts[i + 1]; const L = Math.hypot(bx - ax, bz - az); if (L < 0.1) continue;
             const nx = -(bz - az) / L * w / 2, nz = (bx - ax) / L * w / 2;
             const tgt = kind === 'runway' || kind === 'taxiway' ? cellOf(ax, az).pave : cellOf(ax, az).water;
-            const inChan = channelAreas.length && kind !== 'runway' && kind !== 'taxiway' && channelAreas.some(c2 => inArea(c2, (ax + bx) / 2, (az + bz) / 2)); // (the river line inside the sunken channel)
+            const inChan = channelAreas.length && kind !== 'runway' && kind !== 'taxiway' && channelAreas.find(c2 => inArea(c2, (ax + bx) / 2, (az + bz) / 2)); // (the river line inside the sunken channel)
             let spans = [{ a: [ax, az], b: [bx, bz], length: L }];
             if (audit) {
                 const candidates = new Set(); waterGrid.each(Math.min(ax, bx), Math.min(az, bz), Math.max(ax, bx), Math.max(az, bz), area => candidates.add(area));
@@ -2252,7 +2292,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 audit.renderedFallbackM += spans.reduce((sum, span) => sum + span.length, 0);
                 for (const source of selection.covered.flatMap(span => span.sourceIds)) if (!audit.mappedSources.includes(source)) audit.mappedSources.push(source);
             }
-            for (const span of spans) { const [x0, z0] = span.a, [x1, z1] = span.b; tgt.flatQuad(x0 + nx, z0 + nz, x1 + nx, z1 + nz, x1 - nx, z1 - nz, x0 - nx, z0 - nz, inChan ? CHAN.water - 0.01 : y, col, 0.05); }
+            for (const span of spans) { const [x0, z0] = span.a, [x1, z1] = span.b; tgt.flatQuad(x0 + nx, z0 + nz, x1 + nx, z1 + nz, x1 - nx, z1 - nz, x0 - nx, z0 - nz, inChan ? (inChan.chanProfile || CHAN).water - 0.01 : y, col, 0.05); }
             if (kind === 'runway') for (let s = 10; s < L - 10; s += 50) { const ux = (bx - ax) / L, uz = (bz - az) / L; const cx = ax + ux * s, cz = az + uz * s; const hw = 0.5, hl = 15; cellOf(cx, cz).marks.flatQuad(cx - uz * hw, cz + ux * hw, cx - uz * hw + ux * hl * 2, cz + ux * hw + uz * hl * 2, cx + uz * hw + ux * hl * 2, cz - ux * hw + uz * hl * 2, cx + uz * hw, cz - ux * hw, y + 0.02, rgb('#e8e8e8')); }
         }
     }
@@ -2961,7 +3001,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             // the sidewalk rides with the ramp; on an embankment ramp the verge beyond it stays on the ground, under the skirt
             const wPos = widthSide(e, 1), wNeg = widthSide(e, -1); // (the edge does not change while it is displaced)
             const fg = e.bridge || e.tunnel ? f : (x, z) => { const lat = (x - e.a.x) * e.nx + (z - e.a.z) * e.nz; return Math.abs(lat) <= (lat >= 0 ? wPos : wNeg) + 0.05 ? f(x, z) : Math.min(0, f(x, z)); };
-            displace(c.ground, v0g, fg, e, i0g, { verge: e.bridge || e.tunnel ? null : { ax: e.a.x, az: e.a.z, nx: e.nx, nz: e.nz, wPos, wNeg } });
+            // (a rule that jumps at the band edge cannot be met by adaptive subdivision: cut on the line instead, bridge-surface-band.js)
+            if (!(e.bridge || e.tunnel) && e.sourceBridgeGrade?.known) displaceBandedSurface(c.ground, v0g, i0g, { ax: e.a.x, az: e.a.z, nx: e.nx, nz: e.nz, limit: sd => (sd > 0 ? wPos : wNeg) + 0.05, inside: f, outside: (x, z) => Math.min(0, f(x, z)) }, sharedBridgeMeshAudit, { edgeId: e.id, sourceId: e.access?.sourceId || e.sourceId });
+            else displace(c.ground, v0g, fg, e, i0g, { verge: e.bridge || e.tunnel ? null : { ax: e.a.x, az: e.a.z, nx: e.nx, nz: e.nz, wPos, wNeg } });
             // (owner, 2026-11-11, Grozavesti (68.5, 203): "looks odd", "not smooth", "let's simulate real life") the verge of a
             // raised ramp ended in a stepped cliff above the grass (each segment's strip ends square-on). Street-level reference
             // (game/research/bucharest-grozavesti.md, Pasajul Basarab): the Basarab and Pasajul ramps stand on vertical concrete
@@ -3490,7 +3532,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         };
         const emit = (A, B) => {
             const gap = Math.max(A.hit.t, B.hit.t), maxTop = Math.max(A.top, B.top, A.hit.top, B.hit.top) - Y.road;
-            const kind = gap <= 1.2 ? 'asphalt' : maxTop <= 9 ? 'grass' : 'concrete', rise = kind === 'asphalt' ? 0 : .15;
+            // (r2, SeaTac Airport Expressway 47.45097, -122.30067: the gore between a US ramp and its carriageway is painted asphalt)
+            const usGore = US && (/_link$/.test(A.st.e.type) || /_link$/.test(A.hit.st.e.type));
+            const kind = gap <= 1.2 || usGore ? 'asphalt' : maxTop <= 9 ? 'grass' : 'concrete', rise = kind === 'asphalt' ? 0 : .15;
             const top = [[A.ox, A.top + rise, A.oz], [B.ox, B.top + rise, B.oz], [B.hit.x, B.hit.top + rise, B.hit.z], [A.hit.x, A.hit.top + rise, A.hit.z]];
             const up = (top[1][2] - top[0][2]) * (top[2][0] - top[0][0]) - (top[1][0] - top[0][0]) * (top[2][2] - top[0][2]) > 0, Q = up ? top : top.slice().reverse();
             const cx = (A.ox + B.ox + A.hit.x + B.hit.x) / 4, cz = (A.oz + B.oz + A.hit.z + B.hit.z) / 4, cell = cellOf(cx, cz);
@@ -3506,7 +3550,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             medianFill.quads++; medianFill.areaM2 += Math.hypot(B.ox - A.ox, B.oz - A.oz) * (A.hit.t + B.hit.t) / 2;
         };
         for (const st of strips) for (const side of [1, -1]) {
-            const w = st.half(side), dx = st.nx * side, dz = st.nz * side, at = q => { const ox = q[0] + dx * w, oz = q[1] + dz * w, top = st.topAt(ox, oz); return { ox, oz, top, hit: reach(st, ox, oz, dx, dz, top) }; };
+            const w = st.half(side), dx = st.nx * side, dz = st.nz * side, at = q => { const ox = q[0] + dx * w, oz = q[1] + dz * w, top = st.topAt(ox, oz); return { st, ox, oz, top, hit: reach(st, ox, oz, dx, dz, top) }; };
             const ends = [at(st.a), at(st.b)];
             if (ends[0].hit && ends[1].hit) {
                 // (owner, 2026-11-12, Grozavesti (80, -90) "random piece": one quad per segment cut straight across where the
@@ -3527,9 +3571,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (!ends[0].hit && !ends[1].hit) continue;
             // one end joined (two carriageways parting, or one ending beside the other): fill in 1 m steps while the neighbour is in reach
             const k0 = ends[0].hit ? 0 : 1, P0 = k0 ? st.b : st.a, P1 = k0 ? st.a : st.b, L = Math.hypot(P1[0] - P0[0], P1[1] - P0[1]), n = Math.max(1, Math.ceil(L));
-            if (ends[k0].hit.st.id < st.id) continue; // (each pair once, from its lower id)
+            // (r2, US districts: the neighbour reached first may be a short segment with a lower id while the rest of the run
+            //  faces a long one with a higher id: the open slot between the Airport Expressway and its ramp. Per step there.)
+            if (ends[k0].hit.st.id < st.id && !US) continue; // (each pair once, from its lower id)
             let prev = null;
-            for (let i = 0; i <= n; i++) { const f = i / n, cur = at([P0[0] + (P1[0] - P0[0]) * f, P0[1] + (P1[1] - P0[1]) * f]); if (!cur.hit) break; if (prev) emit(prev, cur); prev = cur; }
+            for (let i = 0; i <= n; i++) { const f = i / n, cur = at([P0[0] + (P1[0] - P0[0]) * f, P0[1] + (P1[1] - P0[1]) * f]); if (!cur.hit) break; if (prev && (!US || (prev.hit.st.id > st.id && cur.hit.st.id > st.id))) emit(prev, cur); prev = cur; }
         }
         medianFill.areaM2 = Math.round(medianFill.areaM2);
     }
@@ -3883,7 +3929,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             // parapet of every other bridge is drawn exactly along its final collision rail: one continuous run wherever the
             // deck has an edge to guard, open exactly where the rail is open (junction mouths, merging decks)
             else if (w.kind === 'rail' && w.edge && w.edge.bridge && !w.tramDeckRailing) {
-                const L = Math.hypot(w.bx - w.ax, w.bz - w.az); if (L > .05) {
+                const L = Math.hypot(w.bx - w.ax, w.bz - w.az), gc = cellOf((w.ax + w.bx) / 2, (w.az + w.bz) / 2);
+                if (emitBridgeGuard(gc.solid, gc.detail, w, bridgeGuardRow(data.roadSourceGeometry?.[w.edge.road]?.sourceId))) {} // (reviewed guard class: bridge-guards.js)
+                else if (L > .05) {
                     const sb = cellOf((w.ax + w.bx) / 2, (w.az + w.bz) / 2).solid, ta = w.y1a, tb = w.y1b, ba = ta - 1.1, bb = tb - 1.1, ox = -w.nx * .3, oz = -w.nz * .3;
                     const A0 = [w.ax, ba, w.az], B0 = [w.bx, bb, w.bz], B1 = [w.bx, tb, w.bz], A1 = [w.ax, ta, w.az], A2 = [w.ax + ox, ta, w.az + oz], B2 = [w.bx + ox, tb, w.bz + oz], A3 = [w.ax + ox, ba, w.az + oz], B3 = [w.bx + ox, bb, w.bz + oz];
                     sb.face4(A0, B0, B1, A1, rgb('#8a939d'), [w.nx, 0, w.nz]); sb.face4(B3, A3, A2, B2, rgb('#9aa3ad'), [-w.nx, 0, -w.nz]); sb.face4(A1, B1, B2, A2, rgb('#b0b8c0'), [0, 1, 0]);
@@ -3910,8 +3958,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             const ya = w.y0a + 0.45, yb = w.y0b + 0.45, L = Math.hypot(w.bx - w.ax, w.bz - w.az) || 1, px = -(w.bz - w.az) / L * 0.15, pz = (w.bx - w.ax) / L * 0.15;
             const c = cellOf(w.x, w.z);
             const metadata={inferred:w.inferred===true,emitter:'separation-barrier',sourceId:data.roadSourceGeometry?.[w.edge?.road]?.sourceId,edgeId:w.edge?.id};
-            for (const sd of [1, -1]) emitOwnedSeparationQuad(c.solid,[[w.ax + px * sd, ya, w.az + pz * sd], [w.bx + px * sd, yb, w.bz + pz * sd], [w.bx + px * sd, yb + 0.9, w.bz + pz * sd], [w.ax + px * sd, ya + 0.9, w.az + pz * sd]],shadeRgb(barrierCol,sd>0?1:.9),[px*sd,0,pz*sd],metadata,parapetOwnership);
-            emitOwnedSeparationQuad(c.solid,[[w.ax + px, ya + 0.9, w.az + pz], [w.bx + px, yb + 0.9, w.bz + pz], [w.bx - px, yb + 0.9, w.bz - pz], [w.ax - px, ya + 0.9, w.az - pz]],shadeRgb(barrierCol,1.08),[0,1,0],metadata,parapetOwnership);
+            // (reviewed guard class of a bridge way, bridge-guards.js: the concrete part keeps this owned emission at the class's height, the steel part is added above it)
+            const gRow = w.inferred === true && w.edge?.bridge ? bridgeGuardRow(metadata.sourceId) : null, gH = gRow && guardBlockH(gRow) != null ? guardBlockH(gRow) - .25 : .9, gCol = gH !== .9 ? GUARD_CONCRETE : barrierCol;
+            for (const sd of [1, -1]) emitOwnedSeparationQuad(c.solid,[[w.ax + px * sd, ya, w.az + pz * sd], [w.bx + px * sd, yb, w.bz + pz * sd], [w.bx + px * sd, yb + gH, w.bz + pz * sd], [w.ax + px * sd, ya + gH, w.az + pz * sd]],shadeRgb(gCol,sd>0?1:.9),[px*sd,0,pz*sd],metadata,parapetOwnership);
+            emitOwnedSeparationQuad(c.solid,[[w.ax + px, ya + gH, w.az + pz], [w.bx + px, yb + gH, w.bz + pz], [w.bx - px, yb + gH, w.bz - pz], [w.ax - px, ya + gH, w.az - pz]],shadeRgb(gCol,1.08),[0,1,0],metadata,parapetOwnership);
+            if (gH !== .9) emitGuardSteel(c.detail, w.ax, w.az, w.bx, w.bz, ya - .25, yb - .25, gRow);
         }
     }
     for (const w of railRoadsideCaps) { // exact render-matched new fascia; no invented barrier thickness
@@ -4088,12 +4139,15 @@ export async function buildWorld(city, renderer, opts = {}) {
         const roofProfile = validRoofProfile(data.buildingRoofProfiles?.[i], sourceHeight, minimum) ? data.buildingRoofProfiles[i] : null;
         // A building whose own source tags (kept for multipolygon relations) say it is a hotel shows the hotel's sign: the builder
         // reads POIs from nodes and ways only, so a tenant inside it had taken the sign (Courtyard, Bellevue, OSM r8064670).
-        const ownTags = data.buildingSourceTags?.[data.buildingIds?.[i]];
-        const ownSign = ownTags && /^(hotel|hostel|motel)$/.test(ownTags.tourism || '') ? (ownTags.brand || ownTags.name || '') : '';
+        // (r2-builder) data.buildingOwnTags (tools/osm/add-pois.mjs): a way building's own name where a tenant POI had taken its
+        // sign (Sheraton read "Pizza Hut", Victoria Center "Starbucks"); the tenant keeps its unit fascia (addUnitSign)
+        const ownTags = data.buildingSourceTags?.[data.buildingIds?.[i]] || data.buildingOwnTags?.[data.buildingIds?.[i]];
+        const ownSign = ownTags && /^(hotel|hostel|motel)$/.test(ownTags.tourism || '') ? (ownTags.brand || ownTags.name || '') : (data.buildingOwnTags?.[data.buildingIds?.[i]]?.name || '');
         return { i, sourceId: data.buildingIds?.[i], heightSourceCode: data.buildingInfo?.[i * 5 + 4], style: data.styles[b[0]], h: data.buildingDimensions?.[i]?.[0] ?? b[1] / 10, minH: data.buildingDimensions?.[i]?.[1] ?? b[2] / 10, roof: data.roofs[b[3]], name: ownSign || str(b[4]), flags: ownSign ? (b[5] | 2 | (ownTags.brand ? 8 : 0)) : b[5], signStreet: ownSign ? ownTags['addr:street'] || '' : '', ring, holes, c, x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false,
             roofProfile, canopy: data.buildingCanopies?.[i] || null, levels: B_OFF === 9 ? b[6] : 0, colour: B_OFF === 9 ? str(b[7]) : '', roofColour: B_OFF === 9 ? str(b[8]) : '' };
     });
     for (const b of bRecs) b.aircraft = data.buildingAircraft?.[b.i] || null;
+    const carParkOutlines = distId ? bRecs.filter(o => o.ring?.length >= 3 && carParkOf(data.buildingIds?.[o.i], data.buildingSourceTags)) : []; // (r2: a car park drawn through its building parts keeps its decks)
     const roofProfileAudit = { supplied: Object.keys(data.buildingRoofProfiles || {}).length, applied: bRecs.filter(b => b.roofProfile).length, rejected: bRecs.filter(b => data.buildingRoofProfiles?.[b.i] && !b.roofProfile).map(b => data.buildingIds?.[b.i] || b.i), uncertain: bRecs.filter(b => b.roofProfile?.issues?.length).map(b => ({ source: data.buildingIds?.[b.i] || b.i, issues: b.roofProfile.issues })), surfacesApplied: 0, surfacesRejected: [] };
     // ---- (round 6 notes 10 / 46) Bucharest 'house' buildings: the village-house look (shutters, steep gable) read wrong —
     //      in Floreasca / Romană they are interwar villas (plaster, low hipped roof), and a lone house among office towers
@@ -4147,7 +4201,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
             if (i >= 0 && !(k === 'hotel' ? lodging : fuel).has(i)) (k === 'hotel' ? lodging : fuel).set(i, { text: brand || name, brand: !!brand });
         }
-        for (const b of bRecs) { const t = data.buildingSourceTags?.[b.sourceId]; if (t && /^(hotel|motel|hostel|guest_house)$/.test(t.tourism || '') && !lodging.has(b.i)) lodging.set(b.i, { text: t.brand || t.name || '', brand: !!t.brand }); }
+        for (const b of bRecs) { const t = data.buildingSourceTags?.[b.sourceId] || data.buildingOwnTags?.[b.sourceId]; if (t && /^(hotel|motel|hostel|guest_house)$/.test(t.tourism || '') && !lodging.has(b.i)) lodging.set(b.i, { text: t.brand || t.name || '', brand: !!t.brand }); }
         for (const [i, s] of fuel) { const b = bRecs[i]; if (b && s.text && !lodging.has(i)) { b.name = s.text; b.flags |= 2 | (s.brand ? 8 : 0); } }
         for (const [i, text] of museums) { const b = bRecs[i]; if (b && (b.flags & 2) && !lodging.has(i) && !fuel.has(i)) { b.name = text; b.flags &= ~8; } }
         for (const [i, s] of lodging) {
@@ -4156,6 +4210,8 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (US && (b.style === 'plain' || b.style === 'shop')) { b.style = 'bloc'; b.flags &= ~1; }
         }
     }
+    // ---- street-level review rows by OSM id (round 2 fidelity pass; game/src/building-review.js): reviewed storeys / style / colour
+    const buildingReviewAudit = applyBuildingReview({ key: city.id + '-' + distId, bRecs });
     // ---- height sanity (2026-11-07, world-visual): the data build gives every untagged large footprint outside the old
     //      centre 8–10 storeys (23–30 m 'bloc'), so museums, villas and institutions on Kiseleff / Dorobanți became grey
     //      slabs. Buildings without building:levels whose height is exactly such a default are re-estimated here from
@@ -4193,6 +4249,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         if (heightFixes.length) console.info('[world] height sanity:', heightFixes.length, 'buildings re-estimated', heightFixes.slice(0, 8));
     }
+    if (distId) for (const b of bRecs) { const rh = reviewedCarParkHeight(b.sourceId, b.heightSourceCode); if (rh && (!b.roofProfile || (b.roofProfile.shape === 'flat' && b.roofProfile.heightSource === 'style estimate'))) { b.h = rh; if (b.roofProfile) b.roofProfile = { ...b.roofProfile, totalM: rh, eavesM: rh, heightSource: 'street-level review estimate' }; } } // (r2: car-park storeys counted from the street: car-parks.js)
+    const fuelCanopyReview = distId ? applyFuelCanopyReview(city.id + '-' + distId, bRecs, data.buildingIds) : []; // (r2: reviewed open fuel roofs the pack draws as blocks: fuel-canopy-review.js)
     coveredRoadModels.useNativeRibbons(ribbons);
     const buildingPassageAudit=(data.buildingPassageIssues||[]).map(i=>({...i,accepted:false}));
     const configurePassages=b=>{
@@ -4441,6 +4499,23 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
         }
         return kerbGrid;
+    };
+    // (r2-builder) the scenery street nearest to a point, shaped like nearestEdge's result: businesses of the edge strip
+    // (data.pois appended by tools/osm/add-pois.mjs, up to 100 m outside the playable edge) face a real street that is not
+    // a graph edge, so their fascia had no "street front" to go on
+    let sceneryStreetGrid = null;
+    const sceneryStreetNear = (x, z, maxR) => {
+        if (!sceneryStreetGrid) {
+            sceneryStreetGrid = new BoxGrid(64);
+            for (const [ri, r] of (data.scenery || []).entries()) {
+                if (r[3] & 1) continue; // (bridge decks: not a street front)
+                const pts = scenerySourceProfile(data, ri, undelta(r, 4)).points;
+                for (let i = 0; i + 1 < pts.length; i++) { const [ax, az] = pts[i], [bx, bz] = pts[i + 1]; sceneryStreetGrid.insert(Math.min(ax, bx), Math.min(az, bz), Math.max(ax, bx), Math.max(az, bz), [ax, az, bx, bz]); }
+            }
+        }
+        let best = null, bd = maxR;
+        sceneryStreetGrid.each(x - maxR, z - maxR, x + maxR, z + maxR, ([ax, az, bx, bz]) => { const q = distPointSeg(x, z, ax, az, bx, bz); if (q.d < bd) { bd = q.d; best = { d: q.d, cx: q.cx, cz: q.cz }; } });
+        return best;
     };
     for (const lm of LANDMARKS) {
         try {
@@ -5677,7 +5752,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     //      night (userData.nightEmissive). By day it is the same blue. ESTIMATE of colour and strength.
     if (basarabBlue.ic > 0) {
         const mesh = new THREE.Mesh(basarabBlue.build(), new THREE.MeshStandardMaterial({ vertexColors: true, emissive: '#2444ff', emissiveIntensity: 0, roughness: 0.6 }));
-        mesh.material.userData.nightEmissive = 2.2; mesh.name = 'Basarab night light band (estimate)'; mesh.castShadow = false; group.add(mesh);
+        mesh.material.userData.nightEmissive = 2.2; mesh.name = 'Basarab night light band (estimate)'; mesh.castShadow = false; group.add(splitMeshByTiles(mesh, 125)); // (tiles: culled out of view, same geometry)
     }
     const treeClear = []; // (after round 6) {x, z, r}: no trees here (fuel forecourts)
     const addPropColl = (x, z, r, kind = 'prop') => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h: 3, prop: true, kind });
@@ -5818,6 +5893,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const fs = signs.get((str(fuelPoi[4]) || str(fuelPoi[3])).slice(0, 18), fuelBrand[0], fuelBrand[1], fuelBrand[2]), sh = Math.min(0.75, (canopy.eavesM - b.minH) * 0.84);
                 if (fs) for (const wall of canopy.walls.map(wl => ({ wl, L: Math.hypot(wl.vertices[1][0] - wl.vertices[0][0], wl.vertices[1][2] - wl.vertices[0][2]) })).sort((p, q) => q.L - p.L).slice(0, 2)) {
                     const [p0, p1] = wall.wl.vertices, n = wall.wl.normal, sw = Math.min(wall.L * 0.8, sh * fs.aspect);
+                    (b.brandBoardFaces ||= []).push({ nx: n[0], nz: n[2] }); // (the POI pass adds no second board on these faces)
                     addSignQuad(c, (p0[0] + p1[0]) / 2 + n[0] * 0.03, (p0[2] + p1[2]) / 2 + n[2] * 0.03, Math.atan2(n[0], n[2]), 1, sw, sw / fs.aspect, b.minH + (canopy.eavesM - b.minH - sw / fs.aspect) / 2, fs, 0.02);
                 }
             }
@@ -5845,7 +5921,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         const surface = b.sourceSurface || b.assemblySurface;
         const seedI = b.overlapCut ? b.derivedFrom : b.i; // (the pieces of a cut building keep its one colour and style)
         const brng = makeRng(seedI * 7919 + 13);
-        const AR = !b.roofProfile && !b.assembly && !b.sourceSurface && !b.holes.length && !b.passages?.length && b.arch && ARCH ? ARCH.emit(b, c, makeRng(seedI * 7919 + 17)) : null; // archetype roofs do not yet support courtyards
+        const carParkOutline = carParkOutlines.length ? carParkOutlines.find(o => o.i === (b.derivedFrom ?? b.i)) || carParkOutlines.find(o => o.skip && b.c[0] >= o.x0 && b.c[0] <= o.x1 && b.c[1] >= o.z0 && b.c[1] <= o.z1 && pointInPolygon(b.c[0], b.c[1], o.ring)) : null;
+        const carPark = carParkOutline ? carParkOf(data.buildingIds?.[carParkOutline.i], data.buildingSourceTags) : null; // (fidelity pass r2) open parking decks: car-parks.js
+        const AR = !carPark && !b.roofProfile && !b.assembly && !b.sourceSurface && !b.holes.length && !b.passages?.length && b.arch && ARCH ? ARCH.emit(b, c, makeRng(seedI * 7919 + 17)) : null; // archetype roofs do not yet support courtyards
         // (2026-11-08) Bucharest villas keep the interwar facade tiles but the villa quarter's warmer plasters (cream, ochre,
         // pale yellow, salmon, off-white, sage — Floreasca / Dorobanți), not the interwar blocks' greys
         const pal = (b.villa && VILLA_PAL) || palette[b.style] || palette.plain;
@@ -5857,7 +5935,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const tc = rgb(b.colour), mx = Math.max(...tc), mn = Math.min(...tc), sat = mx ? (mx - mn) / mx : 0;
             // (fidelity pass, Hanul lui Manuc: OSM building:colour=white came out ochre) a literal source colour tag is not a
             // research estimate: it wins outright wherever the raw source tags are retained (data.buildingSourceTags)
-            const literalColour = !!data.buildingSourceTags?.[data.buildingIds?.[b.derivedFrom ?? b.i]]?.['building:colour'];
+            const literalColour = !!b.reviewedColour || !!data.buildingSourceTags?.[data.buildingIds?.[b.derivedFrom ?? b.i]]?.['building:colour']; // (reviewedColour: building-review.js)
             wallCol = literalColour || sat > 0.3 || mx < 120 ? tc : mixRgb(tc, palPick, 0.85); // (research estimates: tone only)
         }
         { // per-building hue / value jitter
@@ -5882,7 +5960,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         // (after round 6) whole storeys: the wall holds an integer number of window rows, so the top row is never sliced
         // by the eaves / roof line. Church facades use the same atlas and need whole rows too.
         if (h - y0 > 2) { const n = Math.max(1, Math.round((h - y0) / floorH)); floorH = (h - y0) / n; }
-        const shop = (b.flags & 1) && b.minH <= 0 && h > 6;
+        const shop = (b.flags & 1) && b.minH <= 0 && h > 6 && !carPark && b.style !== 'church';
         if (shop && !b.shopFaces && distId) b.shopFaces = streetFacing(b, signedArea(b.ring) > 0); // (district worlds: shopfronts on the street faces only)
         const yShop = y0 + (b.gfh || 4.2); // (researched ground-floor height)
         const pitched = b.roof === 'gabled' || b.roof === 'pyramid';
@@ -5899,6 +5977,12 @@ export async function buildWorld(city, renderer, opts = {}) {
             let nx = (bz - az) / L, nz = -(bx - ax) / L;
             if (!ccw) { nx = -nx; nz = -nz; }
             const [gc, gr] = TILE_GRID[tile] || [1, 1];
+            if (carPark) { // spandrel / open-band decks on the unchanged source wall faces (passages stay open)
+                const cp = b.carParkCols ||= (() => { const lv = carParkLevels(carPark, b.levels, wallTop - y0), con = carPark.wallColour ? rgb(carPark.wallColour) : b.colour ? wallCol : rgb('#b9b6ae'), lou = rgb(carPark.louvreColour || '#4b5058'); (roofProfileAudit.carParks ||= []).push({ sourceId: data.buildingIds?.[b.derivedFrom ?? b.i], levels: lv.levels, levelsSource: lv.source, baseM: y0, topM: wallTop, facade: carPark.facade || 'open' }); return { levels: lv.levels, base: y0, top: wallTop, concrete: con, dark: rgb('#2c2e31'), pier: shadeRgb(con, 1.06), facade: carPark.facade || 'open', louvre: lou, slat: shadeRgb(lou, 1.35) }; })();
+                for (const face of clipPassageWall([ax, az], [bx, bz], surface ? surface.walls[k] : [{ t0: 0, t1: 1, y0, y1: wallTop }], b.passages || []))
+                    emitCarParkWall(mb, ax + (bx - ax) * face.t0, az + (bz - az) * face.t0, ax + (bx - ax) * face.t1, az + (bz - az) * face.t1, face.y0, face.y1, cp.base, cp.top, cp.levels, nx, nz, cp);
+                perim += L; continue;
+            }
             // (after round 6) whole window bays per wall, restarting at every corner: windows were sliced at the corners of
             // narrow houses (the bays ran on round the perimeter); a wall too short for a bay shows plain wall
             const nbay = Math.round(L / bayW), u0 = k * 5, u1 = nbay > 0 ? u0 + nbay / gc : u0 + 0.02 / gc;
@@ -5952,7 +6036,8 @@ export async function buildWorld(city, renderer, opts = {}) {
             wallTris += shop ? 4 : 2;
             perim += L;
         }
-        if (!AR && !b.assembly && !b.passages?.length) { const target=h>40?mb:c.detail,start={ic:target.ic,vc:target.vc}; addDetail(b,target,brng,wallCol,h,y0,shop,yShop,floorH,ccw); clipBuildingDetails(target,start,b); } // (cornices / balconies / mullions: near LOD only, except towers' silhouettes)
+        if (b.style === 'church' && !AR && !carPark && !b.passages?.length) emitWorshipOpenings(mb, ring, ccw, y0, wallTop, wallCol); // (places of worship: tall arched openings, no window grid)
+        if (!AR && !carPark && !b.assembly && !b.passages?.length) { const target=h>40?mb:c.detail,start={ic:target.ic,vc:target.vc}; addDetail(b,target,brng,wallCol,h,y0,shop,yShop,floorH,ccw); clipBuildingDetails(target,start,b); } // (cornices / balconies / mullions: near LOD only, except towers' silhouettes)
         for (const [holeIndex, hole] of b.holes.entries()) {
             const ccwHole = signedArea(hole) > 0;
             for (let i = 0; i < hole.length; i++) {
@@ -5962,6 +6047,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const [columns, rows] = TILE_GRID[tile] || [1, 1];
                 for(const face of clipPassageWall(a,p,surface?.holeWalls?.[holeIndex]?.[i]||[{t0:0,t1:1,y0,y1:wallTop}],b.passages||[])){
                     const lo=[a[0]+(p[0]-a[0])*face.t0,a[1]+(p[1]-a[1])*face.t0],hi=[a[0]+(p[0]-a[0])*face.t1,a[1]+(p[1]-a[1])*face.t1];
+                    if (b.carParkCols) emitCarParkWall(mb, lo[0], lo[1], hi[0], hi[1], face.y0, face.y1, b.carParkCols.base, b.carParkCols.top, b.carParkCols.levels, nx, nz, b.carParkCols); else
                     mb.wall(lo[0],lo[1],hi[0],hi[1],face.y0,face.y1,nx,nz,wallCol,0,Math.max(1,Math.round(length/bayW))/columns,0,(face.y1-face.y0)/(floorH*rows),tile);
                 }
             }
@@ -6115,12 +6201,12 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
             if (b.roof === 'dome') { const r = clamp(Math.sqrt(b.area) * 0.28, 3, 14); rmb.geo(props().sphere, b.c[0], h, b.c[1], 0, r, r * 0.9, r, rgb(b.style === 'church' ? '#7a8a8f' : '#8c9aa3')); }
         }
-        if (!b.roofProfile && b.style === 'church' && b.area > 120 && !b.holes.length) { // a generic centroid cupola cannot span a courtyard
+        if (!b.roofProfile && b.style === 'church' && b.area > 120 && !b.holes.length && worshipHasTowerTag(data.buildingSourceTags?.[data.buildingIds?.[b.derivedFrom ?? b.i]])) { // (a cupola only where the source tags a tower / dome) // a generic centroid cupola cannot span a courtyard
             const r = clamp(Math.sqrt(b.area) * 0.12, 1.5, 4);
             mb.box(b.c[0], h, b.c[1], r * 2, r * 2.4, r * 2, 0, wallCol, tile);
             mb.geo(props().sphere, b.c[0], h + r * 2.4, b.c[1], 0, r * 1.05, r * 1.4, r * 1.05, rgb('#6f8f86'));
         }
-        if (!b.assembly && !b.passages?.length && h >= 5 && b.style !== 'church' && !AR && !(b.flags & 32)) { const start={ic:c.detail.ic,vc:c.detail.vc}; addNearDetail(b,c.detail,brng,wallCol,h,y0,shop,yShop,floorH,bayW,ccw,flatRoofCol); clipBuildingDetails(c.detail,start,b); } // (flags 32: the scenery ring outside the playable area — no street-level clutter)
+        if (!b.assembly && !b.passages?.length && h >= 5 && b.style !== 'church' && !AR && !carPark && !(b.flags & 32)) { const start={ic:c.detail.ic,vc:c.detail.vc}; addNearDetail(b,c.detail,brng,wallCol,h,y0,shop,yShop,floorH,bayW,ccw,flatRoofCol); clipBuildingDetails(c.detail,start,b); } // (flags 32: the scenery ring outside the playable area — no street-level clutter)
         // collision
         collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(([x, z]) => Math.hypot(x - b.c[0], z - b.c[1]))), poly: ring, holes: b.holes, passageSolids: b.passageSolids, sourceId: data.buildingIds?.[b.derivedFrom ?? b.i], derived: b.derivedFrom !== undefined, minH: b.minH, angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, h: sourceRoof ? b.h : h, ...(sourceRoof ? { y0: b.minH, y1: b.h, roofHeightAt: sourceRoof.heightAt } : {}), poi: b.cv || undefined });
         // facade sign
@@ -6362,34 +6448,65 @@ export async function buildWorld(city, renderer, opts = {}) {
     /** (play-test note 10a) a business inside a building: its own ground-floor fascia (brand colours + name) over its
      *  unit, on the street wall nearest to the mapped point, + a projecting blade sign; lit at night with the signs */
     let unitSigns = 0, vacantUnits = 0;
+    // (2026-11-12 render review) a fascia name never ends mid-word ("Mosto - Natural Wine Bar & Bistró" read "…& Bistr"):
+    // a long name keeps its lead part before a " - " / " | " / ", " qualifier, else it is shortened at a word boundary
+    // (a dangling "&" / "and" / "și" / "-" dropped)
+    const fasciaText = (t, max = 32) => {
+        t = String(t || '').replace(/\s+/g, ' ').trim(); if (t.length <= max) return t;
+        const lead = t.split(/\s+[-–—|]\s+|,\s+/)[0].trim(); if (lead.length >= 3 && lead.length <= max) return lead;
+        const words = t.split(' '); let out = '';
+        for (const w of words) { if ((out ? out.length + 1 : 0) + w.length > max) break; out = out ? out + ' ' + w : w; }
+        out = out.replace(/(\s+(&|and|si|și|de|la|du|des|of|the|[-–—|,]))+$/i, '').trim();
+        return out || t.slice(0, max);
+    };
     const normName = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+    // (r2) pedestrian streets / footways from OSM (pedestrian-fronts.js): a business front on one is a street front too
+    let pedGrid = null;
+    const pedStreetNear = (x, z, maxR) => {
+        if (!pedGrid) { pedGrid = new BoxGrid(32); for (const [, , pts] of PEDESTRIAN_FRONTS[city.id + '-' + distId] || []) { const P = pts.map(([la, lo]) => { const q = city.proj(la, lo); return [q.x, q.z]; }); for (let i = 0; i + 1 < P.length; i++) { const [ax, az] = P[i], [bx, bz] = P[i + 1]; pedGrid.insert(Math.min(ax, bx), Math.min(az, bz), Math.max(ax, bx), Math.max(az, bz), [ax, az, bx, bz]); } } }
+        let best = null; pedGrid.each(x - maxR, z - maxR, x + maxR, z + maxR, ([ax, az, bx, bz]) => { const d = distPointSeg(x, z, ax, az, bx, bz).d; if (d <= maxR && (!best || d < best.d)) best = { d, pedestrian: true }; });
+        return best;
+    };
+    // (r2, Pipera Kaufland w1198250017) a large store mapped as one point deep inside its footprint says nothing about which
+    // side carries the sign: there the face with the store's own OSM car park in front of it is the entrance front
+    const parkFront = (px, pz, nx, nz) => { let n = 0; for (const dd of [8, 20]) { const qx = px + nx * dd, qz = pz + nz * dd; if (areas.some(a => a.kind === 'parking' && qx >= a.x0 && qx <= a.x1 && qz >= a.z0 && qz <= a.z1 && pointInPolygon(qx, qz, a.rings[0]))) n++; } return n; };
     function addUnitSign(b, x, z, text, kind, poiIndex = -1) {
         if ((b.skip && !b.landmarkUnitSigns) || b.cv || (b.minH || 0) > 0.5 || b.h < 3) return;
         // (2026-11-08, owner: "Poke House duplicated") the building's own name sign already names this business
         // (2026-11-12: unless this POI owns that sign — b.poiSign — and places it here, over its own street front)
         if ((b.flags & 2) && b.name && !(poiIndex >= 0 && b.poiSign === poiIndex)) { const a = normName(b.name), c2 = normName(text); if (a && c2 && (a.includes(c2) || c2.includes(a) || a.split(' ')[0] === c2.split(' ')[0])) return; }
         const ring = b.ring, ccw = signedArea(ring) > 0;
+        const central = kind === 'shop' && Math.abs(signedArea(ring)) >= 1500 && ring.every((p, k) => { const q = ring[(k + 1) % ring.length]; return distPointSeg(x, z, p[0], p[1], q[0], q[1]).d >= 10; });
+        // (2026-11-12 render review, Romstal Otopeni w219767593) a store that IS the whole mapped building (its name is the
+        // building's) is mapped at the centroid, which says nothing about its front: the board went on the blank wall facing
+        // a lawn. Such a store signs the face toward the most important street (and its own car park), not the nearest wall.
+        const wholeStore = kind === 'shop' && !!b.name && normName(b.name) === normName(text) && Math.abs(signedArea(ring)) >= 400;
+        const streetRank = (e) => !e ? 0 : /^(trunk|primary)/.test(e.type) ? 30 : /^secondary/.test(e.type) ? 20 : /^tertiary/.test(e.type) ? 10 : e.type === 'service' ? -8 : 0;
         let best = null, bd = Infinity;
         for (let k = 0; k < ring.length; k++) {
             const [ax, az] = ring[k], [bx, bz] = ring[(k + 1) % ring.length], L = Math.hypot(bx - ax, bz - az); if (L < 3) continue;
             let nx = (bz - az) / L, nz = -(bx - ax) / L; if (!ccw) { nx = -nx; nz = -nz; }
             const t = clamp(((x - ax) * (bx - ax) + (z - az) * (bz - az)) / (L * L), 0, 1), px = ax + (bx - ax) * t, pz = az + (bz - az) * t;
-            const ne = nearestEdge(px + nx * 4, pz + nz * 4, (e) => !e.virtual && e.drivable, 30); if (!ne || buildingAt(px + nx * 1.5, pz + nz * 1.5)) continue; // (a street front)
-            const d = Math.hypot(px - x, pz - z) + ne.d * 0.3; if (d < bd) { bd = d; best = { ax, az, bx, bz, L, nx, nz, t }; }
+            const ne = nearestEdge(px + nx * 4, pz + nz * 4, (e) => !e.virtual && e.drivable, 30) || ((b.flags & 32) ? sceneryStreetNear(px + nx * 4, pz + nz * 4, 30) : null) || (distId ? pedStreetNear(px + nx * 3, pz + nz * 3, 9) : null); if (!ne || buildingAt(px + nx * 1.5, pz + nz * 1.5)) continue; // (a street front; scenery-ring buildings: a scenery street; r2: a mapped pedestrian street)
+            const pf = (central || wholeStore) && L >= 12 ? parkFront(ax + (bx - ax) * .5, az + (bz - az) * .5, nx, nz) : 0;
+            const d = wholeStore ? Math.hypot(px - x, pz - z) * 0.2 + ne.d * 0.5 - streetRank(ne.edge) - 30 * pf + (L < 8 ? 20 : 0)
+                : Math.hypot(px - x, pz - z) + ne.d * 0.3 - (central && L >= 12 ? 60 * pf : 0);
+            if (d < bd) { bd = d; best = { ax, az, bx, bz, L, nx, nz, t: (central || wholeStore) && L >= 12 && (pf || wholeStore) ? .5 : t }; }
         }
         if (!best) return;
         const bs = (kind === 'vacant' ? ['#f2f2ef', '#b91c1c', null] : null) || brandStyle(text) || (kind === 'pharmacy' ? ['#15803d', '#ffffff', null] : kind === 'bank' ? ['#1e3a8a', '#ffffff', null] : ['#1f2937', '#f5f5f4', null]);
-        const s = signs.get(((bs[3] || text).replace(/\s*\([^)]*\)/g, '').trim() || text).slice(0, 32), bs[0], bs[1], bs[2]); if (!s) return; // (data.brands[k][3] = logo text; 32: "Trattoria Il Calcio Floreasca", "Mega Image Maison des Chefs" were cut mid-word at 24)
+        const s = signs.get(fasciaText((bs[3] || text).replace(/\s*\([^)]*\)/g, '').trim() || text), bs[0], bs[1], bs[2], false, true); if (!s) return; // (data.brands[k][3] = logo text; 32: "Trattoria Il Calcio Floreasca", "Mega Image Maison des Chefs" were cut mid-word at 24; a long name sets on two lines to stay readable)
         const { ax, az, bx, bz, L, nx, nz } = best, tx = (bx - ax) / L, tz = (bz - az) / L;
         let w = Math.min(6.5, L - 0.8), hh = Math.min(0.7, w / s.aspect); w = Math.min(w, hh * s.aspect);
-        let tc = clamp(best.t * L, w / 2 + 0.4, L - w / 2 - 0.4), mx = ax + tx * tc + nx * 0.14, mz = az + tz * tc + nz * 0.14;
-        const shop = (b.flags & 1) && b.h > 6; let y = b.signY != null ? b.signY - hh / 2 : shop ? (b.gfh || 4.2) - hh - 0.1 : Math.min(3.0, b.h - hh - 0.3); // (archetypes: their fascia height)
+        const shop = (b.flags & 1) && b.h > 6, proud = shop ? 0.14 : 0.36; // (r2-builder) no shopfront band: the board stands proud of the window surrounds (0.32 m), which cut through the name
+        let tc = clamp(best.t * L, w / 2 + 0.4, L - w / 2 - 0.4), mx = ax + tx * tc + nx * proud, mz = az + tz * tc + nz * proud;
+        let y = b.signY != null ? b.signY - hh / 2 : shop ? (b.gfh || 4.2) - hh - 0.1 : Math.min(3.0, b.h - hh - 0.3); // (archetypes: their fascia height)
         y = clearPortal(b, mx, mz, w, y);
         const fitted = fitFacadeSign(best, { centre: tc, width: w, minWidth: Math.min(w, s.aspect * 0.3), y0: y - 0.1, y1: y + hh + 0.1 }, facadeBoards);
         if (!fitted) { fasciaLayoutAudit.push({ text, building: b.i, status: 'no-clear-inferred-fascia-span', x, z }); return; }
         const original = { x: mx, z: mz, width: w };
         tc = fitted.centre; w = fitted.width; hh = Math.min(hh, w / s.aspect);
-        mx = ax + tx * tc + nx * 0.14; mz = az + tz * tc + nz * 0.14;
+        mx = ax + tx * tc + nx * proud; mz = az + tz * tc + nz * proud;
         fasciaLayoutAudit.push({ text, building: b.i, status: 'placed', original, x: mx, z: mz, width: w, height: hh, y });
         facadeBoards.push(facadeSignBoard(mx, mz, tx, tz, w + 0.5, y - 0.1, y + hh + 0.1, text));
         const cc = cellOf(mx, mz), white = [255, 255, 255], mbS = signMB(cc, s.page);
@@ -6399,13 +6516,18 @@ export async function buildWorld(city, renderer, opts = {}) {
         const i0 = mbS.v(Lx, y, Lz, nx, 0, nz, s.u0, s.v0, white), i1 = mbS.v(Rx, y, Rz, nx, 0, nz, s.u1, s.v0, white);
         const i2 = mbS.v(Rx, y + hh, Rz, nx, 0, nz, s.u1, s.v1, white), i3 = mbS.v(Lx, y + hh, Lz, nx, 0, nz, s.u0, s.v1, white);
         mbS.tri(i0, i1, i2); mbS.tri(i0, i2, i3);
-        cc.solid.box(mx - nx * 0.07, y - 0.1, mz - nz * 0.07, 0.1, hh + 0.2, w + 0.5, Math.atan2(tx, tz), rgb(bs[0])); // fascia board
-        const ex = mx + tx * (w / 2 + 0.7) + nx * 0.5, ez = mz + tz * (w / 2 + 0.7) + nz * 0.5;
+        cc.solid.box(mx - nx * (shop ? 0.07 : 0.17), y - 0.1, mz - nz * (shop ? 0.07 : 0.17), shop ? 0.1 : 0.32, hh + 0.2, w + 0.5, Math.atan2(tx, tz), rgb(bs[0])); // fascia board
         if (tc + w / 2 + 1.3 < L && (b.flags & 1)) { // projecting blade sign (both faces), on a bracket — shopfronts only (owner: a stray plate on a blank wall)
-            cc.solid.box(ex - nx * 0.25, y + hh + 0.75, ez - nz * 0.25, 0.04, 0.04, 0.7, Math.atan2(nx, nz), rgb('#2b2b2b'));
+            // (2026-11-12 render review, BRD by ING at Grozăvești: the blade hung below a separate bracket box, 0.5 m out with
+            // one face, and read as a detached plate at an angle) the blade now stands 0.12 m off the wall, faces both ways
+            // and hangs from a flat arm along its top edge that runs from the wall; the arm is two quads, not a 12-triangle box
             const cross = kind === 'pharmacy' ? signs.get('✚', '#15803d', '#ffffff', null, true) : null; // (category style: green cross)
-            if (cross) addSignQuad(cc, ex, ez, Math.atan2(tx, tz), 1, 0.8, 0.8, y + hh + 0.45, cross, 0.08);
-            else addSignQuad(cc, ex, ez, Math.atan2(tx, tz), 1, 1.1, Math.max(0.28, 1.1 / s.aspect), y + hh + 0.4, s, 0.05);
+            const bw = cross ? 0.8 : 1.1, bh = cross ? 0.8 : Math.max(0.28, 1.1 / s.aspect), by = y + hh + 0.4, off = 0.12 + bw / 2;
+            const wx = mx - nx * proud + tx * (w / 2 + 0.7), wz = mz - nz * proud + tz * (w / 2 + 0.7), ex = wx + nx * off, ez = wz + nz * off;
+            const ay0 = by + bh / 2 + 0.01, ay1 = ay0 + 0.05, out = 0.12 + bw + 0.06, arm = rgb('#2b2b2b');
+            const A = (o, yy) => [wx + nx * o, yy, wz + nz * o];
+            cc.solid.face4(A(0, ay0), A(out, ay0), A(out, ay1), A(0, ay1), arm, [tx, 0, tz]); cc.solid.face4(A(out, ay0), A(0, ay0), A(0, ay1), A(out, ay1), arm, [-tx, 0, -tz]);
+            for (const sd of [1, -1]) addSignQuad(cc, ex, ez, Math.atan2(tx, tz), sd, bw, bh, by, cross || s, 0.012);
         }
         signedSpots.push([mx, mz, y]); unitSigns++;
     }
@@ -6527,6 +6649,29 @@ export async function buildWorld(city, renderer, opts = {}) {
     setProgress('Opening the shops…'); await tick();
     const P = props();
     const fuelLog = []; // fuel forecourts: where the canopy went (or why not) — world.stats.fuel
+    // (fidelity pass r2) pump islands under the mapped canopy + a brand pylon at the street: fuel-forecourt.js (districts only)
+    const fuelForecourts = [];
+    const fuelForecourt = (x, z, label, canopyRec) => {
+        if (!distId || !label) return;
+        // a second fuel point of one station (an LPG point beside the canopy) gets no pylon of its own
+        if (!canopyRec && data.pois.some(r => { if (data.poiKinds[r[0]] !== 'fuel') return false; const d = Math.hypot(r[1] / 10 - x, r[2] / 10 - z); const other = (str(r[4]) || str(r[3])).toLowerCase(); return d > 1 && d < 60 && !!other && label.toLowerCase().includes(other) && !!bRecs[buildingIndex(r[6], r[1] / 10, r[2] / 10)]?.canopy; })) return; // (same brand only: GPL Lukoil beside Lukoil)
+        const bsF = brandStyle(label) || ['#1f2937', '#ffffff', '#f97316'], lane = canopyRec ? nearestEdge(canopyRec.c[0], canopyRec.c[1], q => q.type === 'service' && !q.virtual && !q.tunnel, 22) : null;
+        // (2026-11-12) the street is looked for from the canopy (else the mapped point); emitFuelForecourt keeps the pylon on
+        // the station's own frontage, so a street that only passes 70 m away gives no pylon (was 90-98 m from the station)
+        const ax = canopyRec ? canopyRec.c[0] : x, az = canopyRec ? canopyRec.c[1] : z;
+        const streets = [], seenE = new Set();
+        for (let k = 0; k < 3; k++) { // the three nearest public street edges (different edges), nearest first
+            const stE = nearestEdge(ax, az, q => q.drivable && !q.virtual && !q.tunnel && q.type !== 'service' && !/motorway/.test(q.type) && Math.abs(q.ya) < 0.3 && Math.abs(q.yb) < 0.3 && !seenE.has(q), 70);
+            if (!stE) break; seenE.add(stE.edge);
+            const q = stE.edge, sd = ((ax - stE.cx) * q.nx + (az - stE.cz) * q.nz) >= 0 ? 1 : -1, off = (sd > 0 ? q.wR : q.wL) + 1.0;
+            streets.push({ x: stE.cx + q.nx * off * sd, z: stE.cz + q.nz * off * sd, nx: q.nx * sd, nz: q.nz * sd, dirx: q.dirx, dirz: q.dirz });
+        }
+        const street = streets[0] || null;
+        fuelForecourts.push(emitFuelForecourt({ cellOf, rgb, baseY: (px, pz) => raisedTop(px, pz) ?? Y.side,
+            blocked: (px, pz, r) => onRibbon(px, pz, r) ? 'carriageway' : buildingAt(px, pz) && buildingAt(px, pz) !== canopyRec ? 'building' : tramSweep?.circle(px, pz, r + 0.2, 0, 7) ? 'tram-sweep' : null,
+            addCollider: (px, pz, r, kind) => propColl.push({ x: px, z: pz, r, hw: r, hd: r, angle: 0, poly: null, h: 3, prop: true, kind, estimated: true }), addSign: addSignQuad },
+            { name: label, at: [x, z], ring: canopyRec?.ring || null, laneDir: lane ? [lane.edge.dirx, lane.edge.dirz] : null, street, streets, colours: bsF, sign: signs.get(label.slice(0, 18), bsF[0], bsF[1], bsF[2]), panel: signs.get(' ', '#15181c', '#15181c', null) }));
+    };
     const transitShelterAudit = [];
     for (const [poiIndex, r] of data.pois.entries()) {
         const kind = data.poiKinds[r[0]];
@@ -6563,19 +6708,27 @@ export async function buildWorld(city, renderer, opts = {}) {
                   // source POI, colours from the brand table); pumps / pylon stay unknown and are not drawn
                     const bsC = brandStyle(brand || name), fsC = bsC && (brand || name) ? signs.get((brand || name).slice(0, 18), bsC[0], bsC[1], bsC[2]) : null, R = sourceCanopy.ring;
                     if (fsC && R?.length >= 3) {
-                        const edges = R.map((a, k) => { const b2 = R[(k + 1) % R.length]; return { a, b: b2, L: Math.hypot(b2[0] - a[0], b2[1] - a[1]) }; }).sort((p, q) => q.L - p.L).slice(0, 4);
+                        // (2026-11-12 render review) one board per facing side: an L-shaped canopy (Grozăvești Petrom wraps its
+                        // kiosk) has two parallel edges on one face; an edge against another building (the kiosk wall) carries
+                        // none; and a face the canopy builder already signed (brandBoardFaces, its two longest walls) gets no
+                        // second board: those two boards read "Petrom / Petrom". Outward normal from the ring's winding.
+                        const ccwC = signedArea(R) > 0, faces = [...(sourceCanopy.brandBoardFaces || [])];
+                        const edges = R.map((a, k) => { const b2 = R[(k + 1) % R.length], L = Math.hypot(b2[0] - a[0], b2[1] - a[1]) || 1; let nx = (b2[1] - a[1]) / L, nz = -(b2[0] - a[0]) / L; if (!ccwC) { nx = -nx; nz = -nz; } return { a, b: b2, L, nx, nz }; }).sort((p, q) => q.L - p.L);
                         for (const ed of edges) {
-                            if (ed.L < 4) continue;
-                            const mx = (ed.a[0] + ed.b[0]) / 2, mz = (ed.a[1] + ed.b[1]) / 2; let nx = (ed.b[1] - ed.a[1]) / ed.L, nz = -(ed.b[0] - ed.a[0]) / ed.L;
-                            if ((mx - sourceCanopy.c[0]) * nx + (mz - sourceCanopy.c[1]) * nz < 0) { nx = -nx; nz = -nz; }
-                            addSignQuad(cellOf(mx, mz), mx, mz, Math.atan2(nx, nz), 1, Math.min(ed.L * 0.6, 1.0 * fsC.aspect), 1.0, sourceCanopy.h - 0.2, fsC, 0.04);
+                            if (ed.L < 4 || faces.length >= 4) continue;
+                            if (faces.some(f => f.nx * ed.nx + f.nz * ed.nz > Math.cos(25 * Math.PI / 180))) continue;
+                            const mx = (ed.a[0] + ed.b[0]) / 2, mz = (ed.a[1] + ed.b[1]) / 2, ob = buildingAt(mx + ed.nx * 0.6, mz + ed.nz * 0.6);
+                            if (ob && ob !== sourceCanopy) continue;
+                            faces.push(ed);
+                            addSignQuad(cellOf(mx, mz), mx, mz, Math.atan2(ed.nx, ed.nz), 1, Math.min(ed.L * 0.6, 1.0 * fsC.aspect), 1.0, sourceCanopy.h - 0.2, fsC, 0.04);
                         }
                     }
                 }
+                fuelForecourt(x, z, brand || name, sourceCanopy);
                 continue;
             }
             if (data.buildingGeometryPolicy === 'source') {
-                poi.h = sourceCanopy?.h || 4;
+                poi.h = sourceCanopy?.h || 4; fuelForecourt(x, z, brand || name, null);
                 fuelLog.push({ name: brand || name, x: Math.round(x), z: Math.round(z), canopy: false, sourceFootprint: false, reason: 'No reviewed mapped canopy at this source POI; canopy/pumps/pylon dimensions and fuel grades are unknown' });
                 continue;
             }
@@ -6893,7 +7046,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const vegetation = { treeCrownMeshes: [], treeTrunkMeshes: [], deciduousMask: null, grassMaterials: [], groundMaterials: [], roofMaterials: [], trees: treeList };
     {
         // (2026-11-08) district worlds carry the measured canopy (thousands of real trees): fewer full-detail near trees
-        const T = buildSpeciesTrees(treeList, { rng, cull: distId ? 480 : 550, chunk: distId ? 250 : 500, near: distId ? 60 : 95, maxNear: distId ? 110 : 240, farLayer: 2, exclude: excludedTrees }); // Covered-platform and water-basin source conflicts are recorded separately from LOD/culling; smaller district chunks cull off-screen trees precisely; no trees or LOD geometry are removed
+        const T = buildSpeciesTrees(treeList, { rng, cull: distId ? 480 : 550, chunk: distId ? 250 : 500, near: distId ? 60 : 95, maxNear: distId ? 110 : 240, farLayer: 2, exclude: excludedTrees, stemLod: distId ? 180 : 0 }); // Covered-platform and water-basin source conflicts are recorded separately from LOD/culling; smaller district chunks cull off-screen trees precisely; no trees or LOD geometry are removed
         // Generate every instance first so unaffected colours, rotations and RNG stay identical.
         if (excludedTrees.size) {
             const bodies = new Set([...excludedTrees].map(t => treeBodies.get(t)));
@@ -7015,6 +7168,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     //      cut where a street / bridge crosses (the decks stay at street level over the channel)
     let channelM = 0;
     for (const a of channelAreas) {
+        const CHAN = a.chanProfile; // (shadows the model section with this polygon's own, see water-channel-review.js)
         const conc = rgb('#9c9890'), wet = rgb('#5d615a'), bankC = rgb('#86857c'), rail = rgb('#3d4246'), capC = rgb('#b3afa6');
         for (const ring of [a.outer, ...a.holes]) for (let k = 0; k < ring.length; k++) {
             const [ax, az] = ring[k], [bx, bz] = ring[(k + 1) % ring.length], L = Math.hypot(bx - ax, bz - az); if (L < 0.5) continue;
@@ -7030,6 +7184,9 @@ export async function buildWorld(city, renderer, opts = {}) {
                 sb.face4(P(t0, 0, 0.02), P(t1, 0, 0.02), P(t1, o1, CHAN.bank), P(t0, o1, CHAN.bank), conc, toW);            // quay wall (battered)
                 sb.face4(P(t0, o1, CHAN.bank), P(t1, o1, CHAN.bank), P(t1, o2, CHAN.bank), P(t0, o2, CHAN.bank), bankC, [0, 1, 0]); // service bank
                 sb.face4(P(t0, o2, CHAN.bank), P(t1, o2, CHAN.bank), P(t1, o2, CHAN.water - 0.4), P(t0, o2, CHAN.water - 0.4), wet, [nx, 0, nz]); // lower wall, wet
+                // (fidelity pass r2, Unirii (-900, 32)) the ground stopped 0.3-0.4 m short of the quay kerb: an open slot along the whole bank,
+                // read from the street as a thin strip of water at pavement level. A coping strip closes it (districts only).
+                if (distId) sb.face4(P(t0, -1.1, 0.03), P(t1, -1.1, 0.03), P(t1, 0, 0.03), P(t0, 0, 0.03), conc, [0, 1, 0]);
                 const ang = Math.atan2(ux, uz), [rx, , rz] = P((t0 + t1) / 2, -0.15, 0);
                 if (distId === 'unirii') {
                     // (fidelity pass, street-level look 2024: Splaiul Unirii / Splaiul Independenței at Piața Unirii) no solid
@@ -7800,9 +7957,14 @@ export async function buildWorld(city, renderer, opts = {}) {
     const seatacGuideway = distId === 'seatac' ? emitSeatacGuideway({ railways: data.railways, undelta, cellOf, rgb, onRibbon, buildingAt, addPropColl,
         keep: (x, z, len) => !(ringGeometry && sceneryMargin(x, z) > (distCfg?.outerRing ?? 600) + len / 2), stationCentre: bRecs.find(b => b.sourceId === 'w54139654')?.c || null }) : null;
     if (seatacGuideway) railStats.guideway = { ways: [...seatacGuideway.ways], metres: seatacGuideway.metres, piers: seatacGuideway.piers, piersOmitted: seatacGuideway.piersOmitted };
+    // Bellevue: the 2 Line guideway over I-405 to Wilburton; rail level is a stated estimate over USGS ground, see bellevue-guideway.js.
+    const bellevueGuideway = distId === 'bellevue' ? emitBellevueGuideway({ railways: data.railways, scenery: data.scenery, undelta, cellOf, rgb, onRibbon, buildingAt, addPropColl,
+        keep: (x, z, len) => !(ringGeometry && sceneryMargin(x, z) > (distCfg?.outerRing ?? 600) + len / 2) }) : null;
+    if (bellevueGuideway) railStats.bellevueGuideway = { ...bellevueGuideway, ways: [...bellevueGuideway.ways] };
     for (const r of data.railways || []) {
         const t = r.tags || {}, gaugeMM = Number(t.gauge), layer = t.layer == null ? 0 : Number(t.layer);
         if (t.railway === 'abandoned') continue; // OSM abandoned tracks have had their rails removed.
+        if (bellevueGuideway?.ways.has(r.id)) { railStats.renderedWays++; continue; }
         if (seatacGuideway?.ways.has(r.id)) { railStats.renderedWays++; continue; }
         if (!(gaugeMM > 0) || !Number.isFinite(layer) || layer !== 0 || (t.bridge && t.bridge !== 'no') || (t.tunnel && t.tunnel !== 'no')) { railStats.unresolved.push({ source: r.id, reason: 'unknown-gauge-or-vertical-placement' }); continue; }
         const pts = undelta(r.points, 0), gauge = gaugeMM / 1000, bedHalf = gauge / 2 + 0.8; let travelled = 0, emitted = false;
@@ -7833,6 +7995,23 @@ export async function buildWorld(city, renderer, opts = {}) {
     const elevatedSources = buildElevatedSources(data, { cellOf, undelta, surfacesAt, addPropColl, roadY: Y.road, tramSweep, plan: elevatedPlan, dataset: elevatedDataset,
         visible: (x, z, len) => !ringGeometry || sceneryMargin(x, z) <= (distCfg?.outerRing ?? 600) + len / 2,
         overTrunk: (x, z) => { const q = nearestEdge(x, z, e => /^(motorway|trunk)$/.test(e.type) && !e.virtual, 40); return !!q && q.d < q.edge.halfW + 1.5; } });
+    // (fidelity pass r2) free-standing monuments / memorials / artworks at their mapped OSM positions (monuments.js): districts only
+    const monuments = distId ? emitMonuments({ pois: data.pois.filter(r => data.poiKinds[r[0]] === 'landmark').map(r => ({ name: str(r[3]), sub: str(r[5]), x: r[1] / 10, z: r[2] / 10, building: r[6] })),
+        project: (la, lo) => city.proj(la, lo), keep: (x, z) => !ringGeometry || sceneryMargin(x, z) <= 400, cellOf, rgb, shadeRgb, landmarkDiscs: landmarkDiscs.filter(d => d.r <= 12),
+        blocked: (x, z, r) => onRibbon(x, z, r) ? 'on-carriageway' : buildingAt(x, z) ? 'inside-building' : underRoof(x, z) ? 'under-roof' : isWater(x, z) ? 'in-water' : tramSweep?.circle(x, z, r + 0.2, 0, 6) ? 'tram-sweep' : null,
+        faceAngle: (x, z) => { const q = nearestEdge(x, z, e => !e.virtual && !e.tunnel, 80); return q ? Math.atan2(q.edge.dirx, q.edge.dirz) + Math.PI / 2 : 0; },
+        baseY: (x, z) => raisedTop(x, z) ?? 0.05, addCollider: (x, z, r, h, rec) => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h, prop: true, kind: 'monument', sourceId: rec.id, estimated: true }) }) : null;
+    // (2026-11-12 render review) under ANY mapped footprint, also one drawn by a landmark model (skipped here), a canopy
+    // or an elevated part: SeaTac's Talking Fountain n8920167700 stands inside the Main Terminal w23772634 (drawn by its
+    // landmark) and was drawn under the terminal roof. Only invalid (dropped) outlines do not count.
+    function underRoof(x, z) { let r = false; bGrid.each(x, z, x, z, (b) => { if (!r && !b.dropped && b.ring?.length >= 3 && x >= b.x0 && x <= b.x1 && z >= b.z0 && z <= b.z1 && pointInPolygon(x, z, b.ring) && !b.holes?.some(h => pointInPolygon(x, z, h))) r = true; }); return r; }
+    // (fidelity pass r2) Otopeni: OSM lighting masts and the CFR station's platform vault (airport-forecourt.js)
+    const airportForecourt = distId ? emitAirportForecourt({ key: city.id + '-' + distId, project: (la, lo) => city.proj(la, lo), cellOf,
+        blocked: (x, z, r) => onRibbon(x, z, r) ? 'on-carriageway' : buildingAt(x, z) ? 'inside-building' : tramSweep?.circle(x, z, r + 0.2, 0, 6) ? 'tram-sweep' : null,
+        baseY: (x, z) => raisedTop(x, z) ?? 0.05, addCollider: (x, z, r, h, rec) => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h, prop: true, kind: 'lighting-mast', sourceId: rec.id }),
+        // a source building a landmark model replaced (or any otherwise skipped record) is drawn by that model only
+        building: id => { const recs = bRecs.filter(o => data.buildingIds?.[o.derivedFrom ?? o.i] === id), lmRec = recs.find(o => o.landmarkReplacement), b = recs.find(o => !o.skip);
+            return lmRec ? { replacedBy: lmRec.landmarkReplacement } : b ? { ring: b.ring, h: b.h } : null; } }) : null;
     const touchesDetailedRing = (x, z, w, d) => realPass && ringGeometry && sceneryMargin(x, z, true) <= (distCfg?.outerRing ?? 600) + Math.hypot(w, d) / 2;
     {
         const bd = data.backdrop || [], pal = PALETTES[country];
@@ -8074,6 +8253,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // Read the complete final retained water before its first view selection.
     if(waterMesh?.isGroup)for(const m of waterMesh.children)fallbackApertures.addGeometry(m.geometry,'final-water');
     else if(waterMesh?.geometry)fallbackApertures.addGeometry(waterMesh.geometry,'final-water');
+    for (const pit of landmarkPits) for (const q of pit.tris) { const v = q.map(([x, z]) => [x, pit.floorY, z]); fallbackApertures.addTriangle(v, 'landmark-pit'); fallbackApertures.addTriangle([v[0], v[2], v[1]], 'landmark-pit'); }
     if (waterMesh?.isGroup) batchWaterChunks(waterMesh);
     // distance culling: cells beyond the fog are hidden (three.js only frustum-culls, and the camera far plane is 5 km).
     // The viewer is world.camera if set, else the widest perspective camera found in the scene.
@@ -8278,6 +8458,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.tramPropEnvelope = tramPropEnvelope;
     stats.tramSweep = tramSweep ? { ...tramSweep.report, conflicts: tramSweepConflicts } : null;
     stats.tramRailings = tramRailings;
+    stats.monuments = monuments;
+    stats.fuelForecourts = fuelForecourts;
     stats.landmarkWaterFootprints = landmarkWaterFootprints;
     stats.trenchGroundCuts = { corridors: trenchQuads.length, channelWaterTriangles: channelCuts.length, triangles: trenchCutTris }; // (ground layers cut out of open trenches and sunken water channels)
     stats.trenchGoreCuts = trenchGoreCuts; // (#59: trench wall sides stopped at another sunken ramp)
@@ -8375,6 +8557,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         // Static sidewalk geometry has no time/weather dependence.
         // (cached by x, then z: Map keys compare as the former 'x,z' string keys did; the last 4096 points are kept)
         walkTop: (()=>{const cache=new Map(),kx=new Float64Array(4096),kz=new Float64Array(4096),used=new Uint8Array(4096);let next=0;return(x,z)=>{let row=cache.get(x);if(row!==undefined){const cached=row.get(z);if(cached!==undefined)return cached;}const top=raisedTop(x,z);if(used[next]){const r=cache.get(kx[next]);if(r!==undefined){r.delete(kz[next]);if(!r.size)cache.delete(kx[next]);}}kx[next]=x;kz[next]=z;used[next]=1;next=(next+1)&4095;row=cache.get(x);if(row===undefined)cache.set(x,row=new Map());row.set(z,top);return top;};})(),
+        /** floor of a sunk landmark's pit at (x, z) (negative metres), or 0 outside every pit */
+        pitFloorAt(x, z) { for (const pit of landmarkPits) if (pointInPolygon(x, z, pit.ring)) return pit.floorY; return 0; },
         roadHeight(x, z, opts = null) {
             if (opts && opts.a && opts.b && opts.len) return Y.road + yAlong(opts, x, z); // legacy (edge)
             const y = opts && typeof opts.y === 'number' ? opts.y : null;

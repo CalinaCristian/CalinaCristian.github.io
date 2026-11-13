@@ -14,6 +14,7 @@ import { GeoBatch, M, rng, headingFromBearing, alongPolyline, polylineLength, le
 import { signBoard } from '../props.js';
 import { activityBlocked, onActivityCancel } from '../participation.js';
 import { makeWaterMaterial } from '../../water.js';
+import { addTraffic } from '../cars.js';
 import { emitActivity, seasonal, waterPoly, fairyLights, gableRoof, glowText, nightLit, parkPavilions, pitchMarkings } from './bel-common.js';
 
 function suspensionBridge(ctx, pts) {
@@ -74,6 +75,7 @@ export default {
         for (const id of ['r19675678', 'r19659543', 'w32121769']) ctx.skipBuildings.add(id);
         for (const id of ['w453135450', 'w133513232', 'w480055239']) ctx.skipAreas.add(id);
         ctx.terrainOpts = { bg: '#4f6a34', innerPx: 2048 };
+        ctx.treeLod = { cap: Infinity, near: 100, max: 520, force: true }; // ~2 000 forest trees: full crowns near the walker only (the scene drew 1.07 M triangles)
         // Wilburton Hill Park sports ground (OSM pitch w32025468 soccer / artificial turf, track w403375045, basketball
         // w1332124896, bleachers): open ground, no forest on it
         const sports = d.areas.filter((a) => a.leisure === 'pitch' || a.leisure === 'track' || a.leisure === 'bleachers');
@@ -90,7 +92,15 @@ export default {
             ctx.add(sq.build('wilburton-sports')); }
         const r = rng(33), b = new GeoBatch();
         // ponds (OSM) on the shared water material
-        for (const id of ['w453135450', 'w133513232', 'w480055239']) { const p = area(id); if (!p) continue; const y = Math.min(...p.map(([x, z]) => g.heightAt(x, z))) - 0.25; g.mod((x, z, h) => (inPoly(x, z, p) ? Math.min(h, y - 0.6) : h)); waterPoly(ctx, p, y, { deep: '#26382c', shallow: '#4a5a3c', cell: 1.2, name: 'pond-' + id }); ctx.poly(p, { h: 0.5, intended: true }); }
+        // (2026-11-12 render review) the mapped Basalt Bench n4730801813 (an artwork seat, v3 2025) lies 1.8 m inside the west
+        // tip of pond w480055239 (v1 2017, a 12-node outline of a ~100 m pond drawn under the forest canopy: the aerial shows
+        // only crowns there), so it stood under water. The coarse pond tip is the wrong side: the water stops
+        // SHORE_CLEAR_M short of the bench (cut square to the line bench → pond centre); the bench keeps its mapped point.
+        const SHORE_CLEAR_M = 1.8, shorePts = ['Basalt Bench'].map((n) => (d.pois || []).find((q) => q.name === n)).filter(Boolean);
+        const clipShore = (p) => { for (const s of shorePts) { if (!inPoly(s.x, s.z, p)) continue; const cx = p.reduce((a, q) => a + q[0], 0) / p.length, cz = p.reduce((a, q) => a + q[1], 0) / p.length, L = Math.hypot(cx - s.x, cz - s.z) || 1, ux = (cx - s.x) / L, uz = (cz - s.z) / L, f = (q) => (q[0] - s.x) * ux + (q[1] - s.z) * uz - SHORE_CLEAR_M, out = [];
+            for (let i = 0; i < p.length; i++) { const a = p[i], q = p[(i + 1) % p.length], fa = f(a), fq = f(q); if (fa >= 0) out.push(a); if ((fa >= 0) !== (fq >= 0)) { const t = fa / (fa - fq); out.push([a[0] + (q[0] - a[0]) * t, a[1] + (q[1] - a[1]) * t]); } }
+            if (out.length >= 3) p = out; } return p; };
+        for (const id of ['w453135450', 'w133513232', 'w480055239']) { let p = area(id); if (!p) continue; p = clipShore(p); const y = Math.min(...p.map(([x, z]) => g.heightAt(x, z))) - 0.25; g.mod((x, z, h) => (inPoly(x, z, p) ? Math.min(h, y - 0.6) : h)); waterPoly(ctx, p, y, { deep: '#26382c', shallow: '#4a5a3c', cell: 1.2, name: 'pond-' + id }); ctx.poly(p, { h: 0.5, intended: true }); }
         // forest (Douglas fir, western red cedar, bigleaf maple) outside the garden rooms
         const rooms = d.areas.filter((a) => a.leisure === 'garden' || a.landuse === 'flowerbed' || a.landuse === 'grass' || a.natural === 'water' || a.landuse === 'meadow' || a.leisure === 'pitch' || a.leisure === 'track' || a.leisure === 'bleachers' || a.leisure === 'playground' || a.amenity === 'parking').map((a) => ({ p: a.poly, b: polyBox(a.poly) }));
         const inRoom = (x, z) => rooms.some((q) => x > q.b.x0 && x < q.b.x1 && z > q.b.z0 && z < q.b.z1 && inPoly(x, z, q.p));
@@ -102,7 +112,8 @@ export default {
         for (const a of beds) { const B = polyBox(a.poly); for (let i = 0; i < Math.min(16, Math.abs((B.x1 - B.x0) * (B.z1 - B.z0)) / 60); i++) { const x = B.x0 + r() * (B.x1 - B.x0), z = B.z0 + r() * (B.z1 - B.z0); if (inPoly(x, z, a.poly)) ctx.trees.push({ x, z, kind: 'shrub', s: 0.4 + r() * 0.35, c: ['#4f6a38', '#5d7340', '#6b5a3a', '#46603a', '#7a6640'][i % 5] }); } }
         // Yao Garden (sister city Yao, Japan): gate, lanterns, maples, raked gravel
         const ygp = area('w32121704'), yg = ygp ? cen(ygp) : { x: 104, z: 18 };
-        ctx.painter.custom((x, T, k, isMask) => { const [cx, cy] = T(yg.x - 14, yg.z - 4); x.fillStyle = isMask ? 'rgb(0,120,0)' : '#cfc9bb'; x.beginPath(); x.ellipse(cx, cy, 9 * k, 6 * k, 0.3, 0, 7); x.fill(); if (!isMask) { x.strokeStyle = 'rgba(120,112,98,0.6)'; x.lineWidth = Math.max(1, 0.06 * k); for (let i = 1; i < 8; i++) { x.beginPath(); x.ellipse(cx, cy, i * 1.1 * k, i * 0.7 * k, 0.3, 0, 7); x.stroke(); } } });
+        // (an 18 m ellipse of raked gravel was painted here: no source for one — OSM describes the Yao Garden as a gate, a
+        // basalt streambed, boulders, stone lanterns, maples, azaleas and rhododendrons. Removed.)
         const lanterns = [];
         // the stone lanterns stand where OSM maps them (Kasuga n13176039734, Miyoshi n13176039735, Stone Lantern n13179881929)
         const lpos = (d.pois || []).filter((p) => p.tourism === 'artwork' && /Lantern/.test(p.name || '')).map((p) => [p.x - yg.x, p.z - yg.z]);
@@ -119,7 +130,39 @@ export default {
             ctx.poly(vcp); const c = cen(vcp); const glow = nightLit('#ffd59a', 1.1, { base: '#3a3a36', name: 'vc-glow' }); const gm = new THREE.Mesh(new THREE.BoxGeometry(0.1, 2.6, 30), glow); gm.position.set(polyBox(vcp).x0 - 0.2, yb + 1.9, c.z + 10); ctx.add(gm); }
         ctx.add(b.build('garden-structures'));
         const vc = vcp ? { x: polyBox(vcp).x0 - 6, z: polyBox(vcp).z1 + 6 } : (sp.structures.find((s) => s.id === 'visitor-center') || { x: 5, z: -8 });
-        const sg = signBoard('BELLEVUE BOTANICAL GARDEN', 5.6, 0.8, { bg: '#3d4f2e', fg: '#efe9d8', font: (s) => `700 ${s}px Georgia, serif`, night: 0.6 }); sg.position.set(vc.x - 4, g.heightAt(vc.x - 4, vc.z - 14) + 1.2, vc.z - 14); ctx.add(sg);
+        // The garden's name sign stands at the Main St entrance, on the east side of the drive (Street View, official
+        // panorama on Main St, 2026-11-12): a teal panel between two posts in a mulched bed, facing the street. (A 5.6 m
+        // board stood inside the garden by Shorts House: no source for one there.) Size estimated; the name is OSM's.
+        { const sx = 68.4, sz = -125.1, sy = g.heightAt(sx, sz), th = Math.PI - 300 * Math.PI / 180, es = new GeoBatch();
+            for (const s of [-1.3, 1.3]) es.box(sx + Math.cos(th) * s, sy, sz - Math.sin(th) * s, 0.22, 1.7, 0.22, '#7d8a80', 'wood', th);
+            es.box(sx, sy + 0.55, sz, 2.4, 1.05, 0.12, '#2e6f73', 'paint', th); ctx.add(es.build('garden-entrance-sign'));
+            const t1 = glowText('Bellevue Botanical Garden', 2.2, 0.36, { fg: '#f3f1e8', bg: '#2e6f73', font: (q) => `600 ${q}px Georgia, serif`, night: 0.5 }); t1.position.set(sx + Math.sin(th) * 0.07, sy + 1.15, sz + Math.cos(th) * 0.07); t1.rotation.y = th; ctx.add(t1);
+            ctx.box(sx, sz, 1.4, 0.2, th, { prop: true, h: 1.7 }); ctx.trees = ctx.trees.filter((t) => Math.hypot(t.x - sx, t.z - sz) > 4 && !(t.x > 58 && t.x < sx && Math.abs(t.z - sz) < 5)); } // nothing generated stands between the sign and the drive
+        // ---- artworks whose mapped tags describe their form (live OSM 2026-11-12); the other mapped artworks (Owl's Glare,
+        // Goldiwarts, Large Galaxy, Shaman, Three Cranes, Sophia's Dream, The Nature of Sitting, Sheepish Rabbit) carry a
+        // name only and are not modelled. Sizes without a tag are estimates.
+        { const ab = new GeoBatch(), ra = rng(4499), P = (n) => (d.pois || []).find((p) => p.name === n);
+            const fc = P('Friendship Circle'); // n4499338296 "A standing stone circle sculpture" (Roger Hopkins)
+            if (fc) { const y = g.heightAt(fc.x, fc.z); for (let i = 0; i < 7; i++) { const a = i / 7 * Math.PI * 2, x = fc.x + Math.cos(a) * 1.9, z = fc.z + Math.sin(a) * 1.9, h = 1.3 + ra() * 0.5; ab.box(x, y - 0.2, z, 0.55 + ra() * 0.2, h + 0.2, 0.32, ['#8a877f', '#7d7a73', '#96928a'][i % 3], 'stone', -a + Math.PI / 2 + (ra() - 0.5) * 0.3); ctx.circle(x, z, 0.35, h); } }
+            const nbl = P('Night Blooming'); // n5531375272 material=wood height=4.1 width=3 (Taiji Miyasaka, David Drake, 2014)
+            if (nbl) { const y = g.heightAt(nbl.x, nbl.z); ab.cyl(nbl.x, y, nbl.z, 1.5, 3.2, '#3a2e26', 'wood', 12); ab.cyl(nbl.x, y + 3.2, nbl.z, 1.5, 0.9, '#33281f', 'wood', 12, 0.45); ctx.circle(nbl.x, nbl.z, 1.55, 4.1); }
+            const bb = P('Basalt Bench'); // n4730801813 material=basalt, backrest=no (Barry Namm, 2006)
+            if (bb) { const y = g.heightAt(bb.x, bb.z); ab.box(bb.x, y, bb.z, 1.7, 0.46, 0.5, '#3f4245', 'stone', 0.4); ctx.box(bb.x, bb.z, 0.85, 0.25, 0.4, { prop: true, h: 0.46 }); }
+            const st = P('Stacked Stones'); // n13176504583 man_made=cairn material=stone (David Cox, 2005)
+            if (st) { const y = g.heightAt(st.x, st.z); let yy = y; for (let i = 0; i < 6; i++) { const rr = 0.42 - i * 0.055, h = 0.26 - i * 0.02; ab.sphere(st.x + (ra() - 0.5) * 0.06, yy + h * 0.5, st.z + (ra() - 0.5) * 0.06, rr, h * 0.62, rr * 0.9, ['#807c74', '#6f6c66', '#8d8980'][i % 3], 'stone', 9, 6); yy += h * 0.92; } ctx.circle(st.x, st.z, 0.45, 1.4); }
+            const ww = P('Waterwall'); // n9251586886 amenity=fountain material=slate (+ w1433659335 waterway=weir "Waterwall")
+            if (ww) { const y = g.heightAt(ww.x, ww.z); ab.box(ww.x, y, ww.z, 0.35, 1.9, 3.6, '#4a4f55', 'stone'); ab.box(ww.x - 0.5, y, ww.z, 0.7, 0.3, 3.9, '#5a5f64', 'stone'); ab.box(ww.x - 0.19, y + 0.3, ww.z, 0.02, 1.58, 3.3, '#9fc0c8', 'glass'); ctx.box(ww.x - 0.2, ww.z, 0.6, 1.95, 0, { prop: true, h: 1.9 }); ctx.sound('water', ww.x, ww.z, 14, 0.5); }
+            ctx.add(ab.build('garden-artworks')); }
+        // ---- visitor car park (OSM amenity=parking r19655198, surface; Street View from the drop-off loop shows it in use):
+        // parked cars square to the mapped aisles. Bays are not mapped: their pitch (2.75 m) and which are taken are estimates.
+        { const lot = d.areas.find((a) => a.id === 'r19655198')?.poly, rp = rng(1965), cars = [];
+            if (lot) { const beds = d.areas.filter((a) => a.landuse === 'flowerbed' || a.landuse === 'grass' || a.leisure === 'garden').map((a) => a.poly), aisles = d.ways.filter((w) => w.k === 'service' && w.pts.some(([x, z]) => inPoly(x, z, lot)));
+                for (const w of aisles) for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [qx, qz] = w.pts[i], Le = Math.hypot(qx - ax, qz - az); if (Le < 12) continue; const ux = (qx - ax) / Le, uz = (qz - az) / Le;
+                    for (const s of [-1, 1]) for (let t = 2.5; t < Le - 2; t += 2.75) { const x = ax + ux * t + uz * 5.6 * s, z = az + uz * t - ux * 5.6 * s; if (rp() > 0.5 || cars.length > 54) continue;
+                        if (!inPoly(x, z, lot) || beds.some((p) => inPoly(x, z, p)) || aisles.some((v) => distPolyline(x, z, v.pts).d < 4.6) || cars.some((c) => Math.hypot(c.x - x, c.z - z) < (c.row === `${w.id}:${i}:${s}` ? 2.6 : 5.6))) continue;
+                        cars.push({ x, z, row: `${w.id}:${i}:${s}`, kind: ['sedan', 'hatch', 'compact-sedan'][Math.floor(rp() * 3)], yaw: Math.atan2(uz * s, -ux * s) + (rp() < 0.5 ? Math.PI : 0) }); } }
+                /* passenger cars only: the default pick includes buses, trams, police cars; of the car models only sedan / hatch / compact-sedan pass the spot audit's coplanar test (estate, crossover, ev-sedan, SUV, pickup, van each add z-fight findings) */
+                if (cars.length) addTraffic(ctx, { parked: cars, merge: true, seed: 1965 }); ctx.extras.gardenParked = cars.length; } }
         // Garden d'Lights (late Nov – Dec 31): coloured lights in beds, on paths, round the ponds — night only
         { const pts = []; for (const a of beds) { const B = polyBox(a.poly); for (let i = 0; i < Math.min(260, Math.abs((B.x1 - B.x0) * (B.z1 - B.z0)) / 4); i++) { const x = B.x0 + r() * (B.x1 - B.x0), z = B.z0 + r() * (B.z1 - B.z0); if (inPoly(x, z, a.poly)) pts.push([x, g.heightAt(x, z) + 0.3 + r() * 1.2, z]); } }
             for (const w of d.ways) { if (!['footway', 'path'].includes(w.k) || Math.hypot(w.pts[0][0], w.pts[0][1]) > 160) continue; for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [qx, qz] = w.pts[i], L = Math.hypot(qx - ax, qz - az); for (let t = 0; t < L; t += 1.4) pts.push([ax + (qx - ax) * t / L + 1.3, g.heightAt(ax, az) + 0.25, az + (qz - az) * t / L]); } }

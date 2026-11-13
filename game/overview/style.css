@@ -1484,6 +1484,17 @@ section.search-match {
 .lm-captures figcaption,.lm-caption{font-size:12px;line-height:1.55;color:var(--muted);margin:10px 0}
 .lm-aerial{margin-top:18px}
 @media(max-width:640px){.lm-heading{display:block}.lm-heading .tag{display:inline-block;margin:8px 0}.lm-evidence h4{font-size:24px}}
+/* Superseded captures: collapsed, visibly historical, pictures added when opened. */
+.tag.historical{background:#f1e4d3;color:#70491c}
+.lm-history{margin:24px 0;border:1px dashed #c9b79f;border-radius:12px;background:#faf6ef;padding:0 16px;min-width:0}
+.lm-history>summary{padding:14px 0;font-weight:650;cursor:pointer;min-height:48px;box-sizing:border-box}
+.lm-history[open]{padding-bottom:16px}
+.lm-history-set{border-top:1px solid #e3d8c8;margin-top:16px;min-width:0}
+.lm-history-set h5{margin-top:18px}
+.lm-history-captures{grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:16px;margin:16px 0 0}
+.lm-history-captures:empty{display:none}
+.lm-history-captures figure{background:#fffdf9;border-color:#e3d8c8}
+.lm-history-captures .lm-history-phone img{max-width:244px;margin:0 auto}
 .perspective-viewer{min-width:0}
 .perspective-viewer label{display:flex;flex-direction:column;gap:8px;max-width:420px}
 .perspective-viewer select{font:inherit;min-height:48px;max-width:100%;padding:8px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink)}

@@ -1,0 +1,41 @@
+{
+  "district": "seatac",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "tiles": [
+    {
+      "id": "aerial-r05-c07",
+      "reason": "car park redrawn as a clad multi-storey deck (deck grid and open sides visible from above)"
+    },
+    {
+      "id": "aerial-r06-c07",
+      "reason": "car park redrawn as a clad multi-storey deck (deck grid and open sides visible from above)"
+    }
+  ],
+  "reason": "multi-storey car parks drawn as clad decks",
+  "originalManifestSha256": "6fb5b06460240e22fd6cf63b4bea69bfa4dfd7aa58ad2a3676e6c8b828d1a85c",
+  "totalFrames": 139,
+  "method": "Round 2. Every atlas pose was rendered at 9824fd56 and, for diagnosis only, at the range start 94a177d5 (game images only, same tool and conditions). Poses were ranked by compact changed pixels (vegetation masked) between the two renders and against the published tile. Range-changed poses were compared by eye (published | 94a177d5 | 9824fd56, same pixels). As asked, poses whose published capture is older than later changes were also checked (published | 9824fd56) and refreshed where buildings, streets, water or structures visibly differ. Not counted as a change: roof / facade tints, tree crowns and parked cars, which vary between source revisions. Every kept image was inspected at full size.",
+  "baselineCommit": "94a177d5e739e0f23dc1ea9af696174364684084",
+  "candidatesCaptured": 139,
+  "rejected": [
+    {
+      "ids": [
+        "aerial-r04-c07",
+        "aerial-r13-c04",
+        "aerial-r03-c05",
+        "aerial-r06-c06",
+        "aerial-r05-c06",
+        "aerial-r10-c05",
+        "aerial-r10-c07",
+        "aerial-r14-c09",
+        "aerial-r07-c07",
+        "aerial-r08-c05",
+        "aerial-r08-c07",
+        "aerial-r02-c08",
+        "aerial-r07-c05"
+      ],
+      "reason": "no change in this range; differences to the published tile are older (not reviewed for retake in round 2)"
+    }
+  ],
+  "notRetaken": "Every other pose: no visible change between the 94a177d5 and 9824fd56 renders at the same pose, or only the differences listed under rejected."
+}

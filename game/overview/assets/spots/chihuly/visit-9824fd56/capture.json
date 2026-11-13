@@ -1,0 +1,278 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "purpose": "Visitor scene illustrations after fidelity pass round 2; not public-route proof or a matched reference comparison.",
+  "tool": "visit-capture.cjs: the procedure of handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/capture.cjs and capture-portrait.cjs (native destination entry, production on-foot controller placed at the viewpoint, look acquired with CDP touch drags, no free camera), run on Windows with hardware GL",
+  "toolSHA256": "8f878841017205d1316f0549584e7b5fe7b84a39e1b9ce5db90cd41afdcc54f6",
+  "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted).",
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T05:41:38.367Z"
+  },
+  "record": {
+    "id": "chihuly",
+    "captures": [
+      {
+        "kind": "scene",
+        "file": "chihuly/scene.webp",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "capturedAt": "2026-11-13T05:34:34.662Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": -56.25,
+          "z": -6.2,
+          "y": 1.8165060818195344,
+          "heading": -1.047197578125
+        },
+        "pose": {
+          "position": [
+            -56.25,
+            3.466506081819534,
+            -6.2
+          ],
+          "bearing": 60.00000154288381,
+          "pitch": 38.00000008191319
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-13T05:34:30.079Z",
+        "triangles": 917053,
+        "drawCalls": 146,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "d34ee9ac06b673bbc0670ab511d8c684462c391babd6dab8dff7b5ac2b0c2f6f",
+        "bytes": 106426,
+        "fullPageHUD": false
+      },
+      {
+        "kind": "phone-ui-touch",
+        "file": "chihuly/phone-ui-touch.jpg",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "capturedAt": "2026-11-13T05:34:34.954Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -56.25,
+          "z": -6.2,
+          "y": 1.8165060818195344,
+          "heading": -1.0471975195312502
+        },
+        "pose": {
+          "position": [
+            -56.25,
+            3.466506081819534,
+            -6.2
+          ],
+          "bearing": 59.99999818570922,
+          "pitch": 38.000000081913186
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-13T05:34:30.371Z",
+        "triangles": 778713,
+        "drawCalls": 98,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "01b97d312f4ff791caedf2fb2e765c180afeb3980fb6e75afbec54236cc9c170",
+        "bytes": 67829,
+        "fullPageHUD": true
+      }
+    ],
+    "startedAt": "2026-11-13T05:34:23.784Z",
+    "probe": {
+      "sceneId": "seattle-center",
+      "spawn": {
+        "x": -73.4,
+        "z": 11.8,
+        "heading": -1.3962634015954636,
+        "y": 2.368782734870911
+      },
+      "challenges": [
+        {
+          "view": null,
+          "id": "space-needle",
+          "x": 0.3,
+          "z": 56.3,
+          "bearing": 0,
+          "pitch": 60,
+          "fov": 70,
+          "text": "Straight up the legs from the south base",
+          "r": 16,
+          "tol": 45,
+          "targets": [],
+          "condHint": "Look straight up the legs."
+        }
+      ],
+      "interactables": [
+        {
+          "x": -0.39999999999999997,
+          "z": 20.499999999999996,
+          "label": "Ride the elevator to the observation level (41 s)"
+        },
+        {
+          "x": 6.881793068761734,
+          "z": 4.499999999999999,
+          "label": "Ride the elevator back down"
+        },
+        {
+          "x": 6.881793068761734,
+          "z": 4.499999999999999,
+          "label": "Ride the elevator back down"
+        },
+        {
+          "x": -2.887798843462723,
+          "z": 12.683235728867963,
+          "label": "Look down through the glass floor"
+        },
+        {
+          "x": -8.580095266426834,
+          "z": -2.532090354427565,
+          "label": "Order a cocktail at The Loupe Lounge"
+        },
+        {
+          "x": -2.594012357668283,
+          "z": 9.432965846358455,
+          "label": "Buy a coffee and a croissant at Atmos Cafe"
+        },
+        {
+          "x": -7.714514261564751,
+          "z": -4.115606000409006,
+          "label": "Taste a Washington red at Atmos Wine Bar"
+        },
+        {
+          "x": 16.30483782851211,
+          "z": 20.912813098684172,
+          "label": "Read: 605 feet"
+        },
+        {
+          "x": 8.73038382451196,
+          "z": 24.620732535677508,
+          "label": "Read: Built fast"
+        },
+        {
+          "x": 0.3000000000000017,
+          "z": 25.9,
+          "label": "Read: Original colours"
+        },
+        {
+          "x": -8.130383824511956,
+          "z": 24.620732535677508,
+          "label": "Read: Glass floor"
+        },
+        {
+          "x": -15.704837828512108,
+          "z": 20.912813098684172,
+          "label": "Read: Built to last"
+        },
+        {
+          "x": -71.5,
+          "z": 9.2,
+          "label": "Read: The Glasshouse"
+        },
+        {
+          "x": -75.5,
+          "z": 9.2,
+          "label": "Read: From fun fair to garden"
+        },
+        {
+          "x": -79.5,
+          "z": 9.2,
+          "label": "Read: Green building"
+        },
+        {
+          "x": -50.75,
+          "z": -13.2,
+          "label": "Frame the Chihuly suspended sculpture"
+        },
+        {
+          "x": -70.15536169861889,
+          "z": 7.166176277283446,
+          "label": "Join the short guided tour"
+        },
+        {
+          "x": 1000000000,
+          "z": 1000000000,
+          "label": ""
+        }
+      ]
+    },
+    "setup": {
+      "arrival": {
+        "x": -73.4,
+        "z": 11.8,
+        "y": 2.368782734870911,
+        "heading": -1.3962634015954636
+      },
+      "authoredViewpoint": null,
+      "viewpoint": {
+        "id": "chihuly",
+        "x": -56.25,
+        "z": -6.2,
+        "bearing": 60,
+        "pitch": 38,
+        "text": "Inside the Glasshouse looking up through the red-orange sculpture and glass roof to the Space Needle (pose of the aabd17ad and 346f7986 captures; the runtime lists no postcard challenge for this destination)",
+        "authoredOverride": true
+      },
+      "position": {
+        "x": -56.25,
+        "z": -6.2,
+        "y": 1.8165060818195344,
+        "heading": 0
+      },
+      "walker": "OnFootController",
+      "sceneId": "seattle-center",
+      "origin": {
+        "lat": 47.6205063,
+        "lon": -122.3493043,
+        "elev": 40.5
+      },
+      "projection": {
+        "mLat": 111182.94,
+        "mLon": 75171.03
+      }
+    },
+    "look": {
+      "drags": 4,
+      "residualInputPixels": {
+        "x": -0.00001122016775786013,
+        "y": 5.956895162325301e-7
+      }
+    },
+    "lookBefore": {
+      "heading": -1.047197578125,
+      "pitch": 0.6632251171875
+    },
+    "lookAfterInitialTouch": {
+      "heading": -1.219997578125,
+      "pitch": 0.6632251171875
+    },
+    "phoneLook": {
+      "drags": 1,
+      "residualInputPixels": {
+        "x": 0.00001319389486553746,
+        "y": 5.956895162325301e-7
+      }
+    },
+    "passed": true,
+    "endedAt": "2026-11-13T05:34:35.053Z"
+  }
+}

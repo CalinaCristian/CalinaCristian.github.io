@@ -1,0 +1,120 @@
+{
+  "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "city": "seattle",
+  "district": "seatac",
+  "grid": {
+    "x0": -2250,
+    "z0": -1500,
+    "columns": 10,
+    "rows": 14,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "ring-touches": 86,
+    "core-touches": 50,
+    "outside-ring": 3
+  },
+  "locations": [
+    {
+      "id": "seatac-chapter-start",
+      "label": "Arrivals Drive chapter start",
+      "lat": 47.4435,
+      "lon": -122.3003,
+      "kind": "chapter-start",
+      "source": "game/src/cities.js CHAPTERS; original configured position before public-lane snapping",
+      "tileId": "aerial-r09-c05"
+    },
+    {
+      "id": "seatac-source-anchor",
+      "label": "SeaTac terminal",
+      "lat": 47.4423743,
+      "lon": -122.3012208,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w23772634",
+        "w23772637",
+        "w734002404",
+        "w869951038"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/23772634",
+        "https://www.openstreetmap.org/way/23772637",
+        "https://www.openstreetmap.org/way/734002404",
+        "https://www.openstreetmap.org/way/869951038"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r10-c05"
+    },
+    {
+      "id": "seatower-source-anchor",
+      "label": "Airport control tower",
+      "lat": 47.4557242,
+      "lon": -122.3013712,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w53199557",
+        "w1199936806",
+        "w1199936807"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/53199557",
+        "https://www.openstreetmap.org/way/1199936806",
+        "https://www.openstreetmap.org/way/1199936807"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r04-c05"
+    },
+    {
+      "id": "seagarage-source-anchor",
+      "label": "SeaTac parking garage",
+      "lat": 47.4432823,
+      "lon": -122.2992416,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "r15763840",
+        "w37017724",
+        "w37017725",
+        "w37017726",
+        "w37017727",
+        "w37017728",
+        "w37017729"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/relation/15763840",
+        "https://www.openstreetmap.org/way/37017724",
+        "https://www.openstreetmap.org/way/37017725",
+        "https://www.openstreetmap.org/way/37017726",
+        "https://www.openstreetmap.org/way/37017727",
+        "https://www.openstreetmap.org/way/37017728",
+        "https://www.openstreetmap.org/way/37017729"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r09-c05"
+    },
+    {
+      "id": "sealink-source-anchor",
+      "label": "Airport Link station",
+      "lat": 47.4452089,
+      "lon": -122.2969786,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w54139654"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/54139654"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r09-c06"
+    },
+    {
+      "id": "seatac-expressway-waypoint",
+      "label": "Airport Expressway chapter objective",
+      "lat": 47.454,
+      "lon": -122.30023,
+      "kind": "chapter-end",
+      "source": "game/src/cities.js CHAPTERS waypoint",
+      "tileId": "aerial-r05-c05"
+    }
+  ],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score."
+}

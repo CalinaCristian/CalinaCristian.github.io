@@ -1939,7 +1939,8 @@
         "lon": -122.2035769
       },
       "sourceIds": [
-        "w29234887"
+        "w29234887",
+        "w497739259"
       ],
       "sources": [
         {
@@ -1966,6 +1967,17 @@
             "wikipedia": "en:Bellevue Square"
           },
           "url": "https://www.openstreetmap.org/way/29234887"
+        },
+        {
+          "id": "w497739259",
+          "version": 12,
+          "timestamp": "2024-02-09T15:46:49Z",
+          "tags": {
+            "building:part": "yes",
+            "name": "Macy's"
+          },
+          "url": "https://www.openstreetmap.org/way/497739259",
+          "note": "identity and tags read from api.openstreetmap.org on 2026-11-12 (fidelity pass round 2); only name / building:part recorded here"
         }
       ]
     },

@@ -8,7 +8,7 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, polyArea, offsetPolyline, distPolyline } from '../kit.js';
-import { bucBackdrop, osmPoly, cityFiller, signAtlas, bucActivity, boatRide } from '../buc.js';
+import { bucBackdrop, osmPoly, cityFiller, signAtlas, bucActivity, boatRide, palisade } from '../buc.js';
 import { bench } from '../osm.js';
 import { clockFace, railing } from '../props.js';
 import { shortWaterRoute, dryLanding } from '../water-route.js';
@@ -207,6 +207,17 @@ export default {
         ctx.terrainOpts = { bg: '#6a8444', bgMask: 'grass', innerPx: 2048, innerStep: 2, outerStep: 16, outerPad: 600, cutouts: lake ? [lake] : [] };
         bucBackdrop(ctx, { lampStyle: 'lantern', lampColor: '#22262a', lampH: 4.2, lampPad: 5, treeLod: { cap: 1800, max: 380 }, lampOpts: { spacing: 26, kinds: ['footway', 'path', 'pedestrian'] }, streetTreeOpts: { kinds: ['secondary', 'tertiary'], prob: 0.6 }, areaTreeOpts: { kinds: ['wood', 'forest', 'park'], density: 1 / 140, conifer: 0.08 } });
         const park = osmPoly(d, 'w16291869');
+        // (round 2, 2026-11-12) The garden's front on Bd. Regina Elisabeta is closed by a green iron railing on a low
+        // stone base, with the trees right behind it (Street View from Bd. Regina Elisabeta 59, looking east). OSM maps
+        // only its three pieces round the gate recess (ways 1478446281 / 1478446287 / 1478446288, fence_type=metal);
+        // the two straight stretches follow the mapped park outline (way 16291869) from the school's corner to the
+        // recess and from the recess to the east corner: a documented Street View exception, heights estimated.
+        // The lawns ran open to the kerb. The other sides were not seen and stay open.
+        if (park) { const fb = new GeoBatch(), runs = [], pc = (x, z) => park.find(([px, pz]) => Math.hypot(px - x, pz - z) < 2.5);
+            for (const id of ['w1478446281', 'w1478446287', 'w1478446288']) { const w = d.ways.find((q) => q.id === id || q.id === id + '_b'); if (w?.pts.length > 1) runs.push({ id, pts: w.pts }); }
+            const a0 = pc(-40.4, 252.2), a1 = pc(30.7, 252.3), e0 = pc(56.1, 251.6), e1 = pc(165, 249); if (a0 && a1) runs.push({ id: 'w16291869 (west of the gate)', pts: [a0, a1] }); if (e0 && e1) runs.push({ id: 'w16291869 (east of the gate)', pts: [e0, e1] });
+            let fm = {}; for (const q of runs) fm = { ...fm, ...palisade(ctx, fb, q.pts, { h: 1.45, plinth: 0.45, post: 2.6, plinthCol: '#c2bbad', postCol: '#24402c', colour: '#3f6a48' }) };
+            if (runs.length) { ctx.add(fb.build('cismigiu-front-railing', { matOverrides: fm })); ctx.extras.frontRailing = runs.map((q) => q.id); } }
         // (owner, 2026-11-11, spot pass: plain grey path strips, one flat green) Lawns mottled in greens and straw; the alleys
         // redrawn by their mapped surface (asphalt, paving stones, setts) with a stone kerb, at estimated widths (untagged in
         // OSM: asphalt 3 m, paving 2.6 m, setts 2.4 m); low green hoop borders along the lawn edges, as in Bucharest parks.

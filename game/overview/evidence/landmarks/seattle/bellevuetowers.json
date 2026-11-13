@@ -3,7 +3,7 @@
   "id": "bellevuetowers",
   "city": "seattle",
   "name": "Bellevue Towers",
-  "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
   "status": "in-progress",
   "coordinates": {
     "lat": 47.6143271,
@@ -40,20 +40,47 @@
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13",
       "label": "Accepted production explicit-ID source replacement; implementation scope only (2c73f3d9)",
       "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493",
+      "label": "Fidelity pass round 2 (9824fd5), not yet published when captured",
+      "type": "implementation"
     }
   ],
   "improvements": [
     "Refreshed both mapped tower outlines and the podium footprint.",
     "Corrected north137 m / south131 m assignment and included each crown inside that total instead of adding seven extra metres.",
-    "Changed podium collision to its exact source polygon."
+    "Changed podium collision to its exact source polygon.",
+    "The podium is grey-beige stone with a tall glazed retail floor under a canopy line and windows above, instead of five blue-and-cream stripes (panoramas at 47.613977, -122.198816 and NE 4th / 106th)."
   ],
   "remainingGaps": [
     "Individual balconies, crown facets, rooftop plant and facade bay changes remain simplified.",
     "Podium floor-to-floor conversion and facade palette retain prior estimates.",
     "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
-    "The shared explicit-ID source-replacement implementation is integrated in production (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). These studies retain their actual capture-era source and do not establish current district placement, road/body clearance, traffic/mirror budgets or seasonal parity. Registry entries outside a district list and context-only models with no replacement IDs do not replace neighbouring buildings."
+    "The shared explicit-ID source-replacement implementation is integrated in production (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). These studies retain their actual capture-era source and do not establish current district placement, road/body clearance, traffic/mirror budgets or seasonal parity. Registry entries outside a district list and context-only models with no replacement IDs do not replace neighbouring buildings.",
+    "Bay widths and the canopy line height are estimates."
   ],
   "checks": [
+    {
+      "label": "Pictures recaptured at 9824fd5 (round 2)",
+      "passed": true,
+      "details": "Front, top and oblique pictures recaptured from the commit snapshot. Same viewer routes as the previous pictures. Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 9824fd5 (game/src clean) on 2026-11-13: passed, 2144 checks over 70 models; this model 3917 triangles, 1 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "Earlier checks below",
+      "passed": null,
+      "details": "The checks that follow were recorded for source 7273204 or earlier and were not re-run for this recapture."
+    },
     {
       "label": "Historical Bucharest foot,a regression",
       "passed": true,
@@ -89,14 +116,19 @@
     {
       "id": "front",
       "label": "Isolated model study · front elevation",
-      "image": "assets/landmarks/bellevuetowers/front.webp",
       "kind": "front",
-      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
-      "sha256": "703eeb4a16b84b4e59fd5d3df83e0e7b3f25d54d29ebe74e399a397d99346aeb",
-      "capturedAt": "2026-11-08T17:08:48.222Z",
+      "image": "assets/landmarks/bellevuetowers/source-9824fd56/front.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "c8ae7f1d479efb6b75c5fe7bee7f86177258c541eb328ddb1f65121617faa2e5",
+      "bytes": 21188,
+      "width": 640,
+      "height": 640,
+      "capturedAt": "2026-11-13T05:29:20.716Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "position": [
-          1.9073486328125e-06,
+          0.000011444091796875,
           54.800000000000004,
           240.74235867289204
         ],
@@ -114,25 +146,35 @@
         "projection": "perspective",
         "fov": 45,
         "target": [
-          1.9073486328125e-06,
+          0.000011444091796875,
           54.800000000000004,
           0
         ],
-        "frame": "isolated landmark model, +x east / +z south, metres"
+        "frame": "isolated landmark model, +x east / +z south, metres",
+        "viewerRoute": "/game/dev/landmarks.html?id=bellevuetowers&view=34&clean=1&az=0&el=0",
+        "viewport": [
+          640,
+          640
+        ]
       }
     },
     {
       "id": "top",
       "label": "Isolated model study · orthographic north-up plan",
-      "image": "assets/landmarks/bellevuetowers/top.webp",
       "kind": "top",
-      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
-      "sha256": "7a48e0614f363da76683abd2dd55e5ea92c4f035be83fbecbaa728afd2f966d8",
-      "capturedAt": "2026-11-08T17:08:49.552Z",
+      "image": "assets/landmarks/bellevuetowers/source-9824fd56/top.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "1a4ba2160fb6295b3cd26e3d44ecfdfa963e9805be5ae9974067de4fd68d1439",
+      "bytes": 13540,
+      "width": 640,
+      "height": 640,
+      "capturedAt": "2026-11-13T05:29:21.355Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "position": [
-          1.9073486328125e-06,
-          252.08160690307616,
+          0.000011444091796875,
+          253.75202301025388,
           0
         ],
         "up": [
@@ -141,33 +183,43 @@
           -1
         ],
         "quaternion": [
-          -0.7071067811865474,
+          -0.7071067811865475,
           0,
           0,
           0.7071067811865476
         ],
         "projection": "orthographic",
-        "groundSquareM": 115.08160690307616,
+        "groundSquareM": 116.7520230102539,
         "orientation": "north-up",
         "target": [
-          1.9073486328125e-06,
+          0.000011444091796875,
           0,
           0
         ],
-        "frame": "isolated landmark model, +x east / +z south, metres"
+        "frame": "isolated landmark model, +x east / +z south, metres",
+        "viewerRoute": "/game/dev/landmarks.html?id=bellevuetowers&view=top&clean=1&az=35&el=26",
+        "viewport": [
+          640,
+          640
+        ]
       }
     },
     {
       "id": "oblique",
       "label": "Isolated model study · oblique overview",
-      "image": "assets/landmarks/bellevuetowers/oblique.webp",
       "kind": "oblique",
-      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
-      "sha256": "cb6a2311ab15b959fe02c69e4ad2bcd23d41b73ef704a755ddd4939aa3e15fd5",
-      "capturedAt": "2026-11-08T17:08:51.022Z",
+      "image": "assets/landmarks/bellevuetowers/source-9824fd56/oblique.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "014e0050cf1ff6f7ad5a020f6917b5b1985935c91ade91b40d0e3d4d37f07ac3",
+      "bytes": 34960,
+      "width": 640,
+      "height": 640,
+      "capturedAt": "2026-11-13T05:29:21.950Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "position": [
-          124.10920857237338,
+          124.10921810911654,
           160.3345038521431,
           177.24631611700022
         ],
@@ -185,19 +237,153 @@
         "projection": "perspective",
         "fov": 45,
         "target": [
-          1.9073486328125e-06,
+          0.000011444091796875,
           54.800000000000004,
           0
         ],
-        "frame": "isolated landmark model, +x east / +z south, metres"
+        "frame": "isolated landmark model, +x east / +z south, metres",
+        "viewerRoute": "/game/dev/landmarks.html?id=bellevuetowers&view=34&clean=1&az=35&el=26",
+        "viewport": [
+          640,
+          640
+        ]
       }
     }
   ],
   "perf": {
-    "triangles": 3521,
+    "triangles": 3919,
     "drawCalls": 3,
-    "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+    "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
   },
   "implementationNotesUpdatedAt": "2026-11-09",
-  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance.",
+  "historicalCollections": [
+    {
+      "id": "captures-72732045",
+      "label": "Pictures before fidelity pass round 2",
+      "status": "historical",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "supersededBy": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededAt": "2026-11-13T05:41:38.367Z",
+      "reason": "The model changed in 94a177d5..9824fd56; these pictures show the earlier model and keep their original source, dates and files.",
+      "perf": {
+        "triangles": 3521,
+        "drawCalls": 3,
+        "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+      },
+      "captures": [
+        {
+          "id": "front",
+          "label": "Isolated model study · front elevation",
+          "image": "assets/landmarks/bellevuetowers/front.webp",
+          "kind": "front",
+          "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+          "sha256": "703eeb4a16b84b4e59fd5d3df83e0e7b3f25d54d29ebe74e399a397d99346aeb",
+          "capturedAt": "2026-11-08T17:08:48.222Z",
+          "pose": {
+            "position": [
+              0.0000019073486328125,
+              54.800000000000004,
+              240.74235867289204
+            ],
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "projection": "perspective",
+            "fov": 45,
+            "target": [
+              0.0000019073486328125,
+              54.800000000000004,
+              0
+            ],
+            "frame": "isolated landmark model, +x east / +z south, metres"
+          }
+        },
+        {
+          "id": "top",
+          "label": "Isolated model study · orthographic north-up plan",
+          "image": "assets/landmarks/bellevuetowers/top.webp",
+          "kind": "top",
+          "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+          "sha256": "7a48e0614f363da76683abd2dd55e5ea92c4f035be83fbecbaa728afd2f966d8",
+          "capturedAt": "2026-11-08T17:08:49.552Z",
+          "pose": {
+            "position": [
+              0.0000019073486328125,
+              252.08160690307616,
+              0
+            ],
+            "up": [
+              0,
+              0,
+              -1
+            ],
+            "quaternion": [
+              -0.7071067811865474,
+              0,
+              0,
+              0.7071067811865476
+            ],
+            "projection": "orthographic",
+            "groundSquareM": 115.08160690307616,
+            "orientation": "north-up",
+            "target": [
+              0.0000019073486328125,
+              0,
+              0
+            ],
+            "frame": "isolated landmark model, +x east / +z south, metres"
+          }
+        },
+        {
+          "id": "oblique",
+          "label": "Isolated model study · oblique overview",
+          "image": "assets/landmarks/bellevuetowers/oblique.webp",
+          "kind": "oblique",
+          "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+          "sha256": "cb6a2311ab15b959fe02c69e4ad2bcd23d41b73ef704a755ddd4939aa3e15fd5",
+          "capturedAt": "2026-11-08T17:08:51.022Z",
+          "pose": {
+            "position": [
+              124.10920857237338,
+              160.3345038521431,
+              177.24631611700022
+            ],
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "quaternion": [
+              -0.21453963361642958,
+              0.29299872934427457,
+              0.06764408664580113,
+              0.929273247087327
+            ],
+            "projection": "perspective",
+            "fov": 45,
+            "target": [
+              0.0000019073486328125,
+              54.800000000000004,
+              0
+            ],
+            "frame": "isolated landmark model, +x east / +z south, metres"
+          }
+        }
+      ]
+    }
+  ],
+  "recapturedAt": "2026-11-13T05:41:38.367Z",
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T05:41:38.367Z"
+  }
 }

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "SeaTac aerial comparisons",
-  "generatedDate": "2026-11-12",
-  "generatedAt": "2026-11-12T19:46:31.381Z",
+  "generatedDate": "2026-11-13",
+  "generatedAt": "2026-11-13T05:26:17.106Z",
   "defaultTile": "aerial-r09-c05",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -3214,13 +3214,13 @@
         -500,
         -250
       ],
-      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 93,
-        "triangles": 288148,
-        "renderMs": 1.2999999970197678,
+        "triangles": 288588,
+        "renderMs": 1.7999999970197678,
         "quality": "high"
       },
       "traffic": {
@@ -3236,16 +3236,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-12T19:45:53.641Z",
-      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r05-c07.jpg",
-      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r05-c07.jpg",
-      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r05-c07.jpg",
-      "sha256": "310596783d175b0e517c0ad59fff37b82d54c16128ec6a7c267a11c51169b889",
+      "capturedAt": "2026-11-13T05:25:36.901Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r05-c07.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r05-c07.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r05-c07.jpg",
+      "sha256": "4de1e015f4a8b85e4e9763d035988478b6ceee1afcbb3c516e19afb81063b4de",
       "width": 640,
       "height": 640,
-      "captureWallMs": 484,
+      "captureWallMs": 520,
       "dataset": "atlas",
-      "thumbnailSha256": "1b602cb7c5856831fdf9e07443f5603ee3e846f775731f2cd4e3000ecc9b2b84",
+      "thumbnailSha256": "56ad7ed9c40c0f4d9fe624301f5d042fd5fd4dbedbd34fbf08ae018a2f999e9a",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.45224957707951,
@@ -3256,8 +3256,8 @@
       "coverageType": "core-touches",
       "orientation": "north-up",
       "places": [],
-      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
-      "sourceNote": "Exact-pose scoped retake at 346f7986 (hotel block shows its windowed front; pre-pass strip structure at the junction is gone); prior collection archived."
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (car park redrawn as a clad multi-storey deck (deck grid and open sides visible from above)); prior collection archived."
     },
     {
       "id": "aerial-r05-c08",
@@ -3878,13 +3878,13 @@
         -500,
         0
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 100,
-        "triangles": 381275,
-        "renderMs": 6.899999998509884,
+        "drawCalls": 98,
+        "triangles": 275347,
+        "renderMs": 3.5,
         "quality": "high"
       },
       "traffic": {
@@ -3900,16 +3900,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:06:11.387Z",
-      "gamePath": "images/aerial-r06-c07.jpg",
-      "image": "images/aerial-r06-c07.jpg",
-      "thumbnail": "thumbs/aerial-r06-c07.jpg",
-      "sha256": "e49d93742abce7d3d091eead068a8fe8ff861b648ce58023a5c0c66e3aad8aa9",
+      "capturedAt": "2026-11-13T05:25:41.017Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c07.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c07.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r06-c07.jpg",
+      "sha256": "c3347d8fb32ec61c8889b514a53cd62ca871dedd3c204ba1df336647a01f32f9",
       "width": 640,
       "height": 640,
-      "captureWallMs": 11435,
+      "captureWallMs": 492,
       "dataset": "atlas",
-      "thumbnailSha256": "9d37fcc5f8045c3ea229e7667bd34d8d6976b46660563a23ecebd95811469045",
+      "thumbnailSha256": "6378c86d3f1805b9adc1ccfcb2693048c052bd7311198542667be3771fe3f888",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.45,
@@ -3919,7 +3919,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (car park redrawn as a clad multi-storey deck (deck grid and open sides visible from above)); prior collection archived."
     },
     {
       "id": "aerial-r06-c08",
@@ -11796,8 +11798,9 @@
     "structureRetakeSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
     "structureRetakesReviewed": 20,
     "currentAtlasSourceCounts": {
-      "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 110,
-      "346f798681d891de6cebfc9e1d094996b1ace2e3": 14,
+      "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 109,
+      "346f798681d891de6cebfc9e1d094996b1ace2e3": 13,
+      "9824fd56de3f0e420821e871436906186a80e493": 2,
       "07cc3d6bcefe90967c5bde3af2237dab4b972705": 15
     },
     "priorCompleteReview": {
@@ -11808,19 +11811,23 @@
     "status": "Complete retained earlier review coverage plus 20 fresh exact-pose structural/separator pairs inspected; genuine source-height, materials, context and imagery-date limits remain.",
     "realWorldParityAccepted": false,
     "structureRetakeReviewedAt": "2026-11-09T02:11:54.813785+00:00",
-    "targetedRetakeReview": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json"
+    "targetedRetakeReview": "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
+    "earlierTargetedRetakeReviews": [
+      "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json"
+    ]
   },
   "reviewNote": "Complete retained earlier review coverage plus 20 fresh exact-pose structural/separator pairs inspected; genuine source-height, materials, context and imagery-date limits remain.",
   "comparisonSourceCommits": {
     "atlas": [
       "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
       "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "9824fd56de3f0e420821e871436906186a80e493",
       "07cc3d6bcefe90967c5bde3af2237dab4b972705"
     ],
     "streetWalk": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a"
   },
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 14 poses retaken on 2026-11-12 at 346f7986 (Link aerial guideway and SeaTac/Airport station footbridge; windowed hotel fronts); all other images retain their recorded sources and dates.",
+    "atlas": "Mixed-source technical atlas: 2 poses retaken on 2026-11-13 at 9824fd56 (multi-storey car parks drawn as clad decks); all other images retain their recorded sources and dates.",
     "streetWalk": "Immutable source 4378317. Every available comparison pose, game image only. Reference imagery remains outside git; official reference URLs and dates are retained. Camera season follows reference metadata month. These762 GAME frames are historical BEFORE evidence from4378317. They predate independently measured airside aircraft and integrated source-grade/performance changes. Current aerial/aircraft/native evidence has its own c78a5f4 revision; the earlier walk is not relabelled as current."
   },
   "aerial": {
@@ -11832,8 +11839,9 @@
     "extent": "250 m ground-plane square, north-up; elevated roofs project larger under the perspective camera."
   },
   "atlasSourceCounts": {
-    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 110,
-    "346f798681d891de6cebfc9e1d094996b1ace2e3": 14,
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 109,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 13,
+    "9824fd56de3f0e420821e871436906186a80e493": 2,
     "07cc3d6bcefe90967c5bde3af2237dab4b972705": 15
   },
   "sourceCaptureManifest": {
@@ -11868,6 +11876,15 @@
       "sourceProvenance": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/source-provenance.json",
       "sourceProvenanceSha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47",
       "frames": 14
+    },
+    {
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "treeSha256": "ae5b9d7a70a4b3fd14dfcdce1a76092981d8db36d05abb7b1aaaa70af7b27b0b",
+      "manifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "manifestSha256": "d5a1bd12f73f3bd6bd6ac80012e7737f769c78c841ab140b08b8e1e21bc02ce4",
+      "sourceProvenance": "retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
+      "sourceProvenanceSha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b",
+      "frames": 2
     }
   ],
   "sourceCaptureManifests": [
@@ -11920,6 +11937,19 @@
       "sourceCounts": {
         "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 119,
         "07cc3d6bcefe90967c5bde3af2237dab4b972705": 20
+      },
+      "captureType": "mixed-source-survey"
+    },
+    {
+      "manifest": "historical/mixed-before-9824fd56-6fb5b064/manifest.json",
+      "label": "Atlas before the 9824fd5 retake (multi-storey car parks drawn as clad decks)",
+      "frames": 139,
+      "generatedAt": "2026-11-12T19:46:31.381Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 110,
+        "346f798681d891de6cebfc9e1d094996b1ace2e3": 14,
+        "07cc3d6bcefe90967c5bde3af2237dab4b972705": 15
       },
       "captureType": "mixed-source-survey"
     }

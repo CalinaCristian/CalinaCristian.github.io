@@ -66,19 +66,26 @@
       "label": "District fidelity pass scene change (f9787fa)",
       "type": "Game source change",
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/f9787fa85ddbe6d4e9dd6b5eb9fedbb1fa436440"
+    },
+    {
+      "label": "Fidelity pass round 2 scene change (9824fd5)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493"
     }
   ],
   "improvements": [
     "Current native scene retains 1818 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
     "Physical candle approach; canonical source-volume/courtyard restoration; shared handheld candle implementation",
     "The selected primary activity approach is accepted separately from full-scene comparison.",
-    "District fidelity pass, f9787fa (range 332ae423..346f7986): In the shared Old Town scene mapped venues without a sign now carry their names."
+    "District fidelity pass, f9787fa (range 332ae423..346f7986): In the shared Old Town scene mapped venues without a sign now carry their names.",
+    "Fidelity pass round 2, 9824fd5 (range 94a177d5..9824fd56): The entry now arrives on Strada Stavropoleos between Caru' cu Bere and the church (it shared the Smardan arrival 300 m away), and the walk ground includes Str. Stavropoleos. The National Bank palaces are pale limestone, the neo-Gothic front on Stavropoleos has a slate roof and corner spire, and mapped named venues across the old town carry name boards."
   ],
   "remainingGaps": [
     "Full source-version-specific candle control package and current courtyard/frontage comparison remain separate from the route proof",
     "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
     "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
-    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 93b0d86 or earlier, before the district fidelity pass, and were not re-run at 346f798."
+    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 93b0d86 or earlier, before the district fidelity pass, and were not re-run at 346f798.",
+    "Validation frames, native proofs, source-geometry counts and performance figures in this record predate 9824fd5 and were not re-run for round 2."
   ],
   "checks": [
     {
@@ -120,6 +127,16 @@
       "label": "Validation frames and native proofs re-run at 346f798",
       "passed": false,
       "details": "Not re-run. The validation captures and proofs above keep their original source and date and describe the scene before the pass."
+    },
+    {
+      "label": "Visitor views recaptured at 9824fd5 (round 2)",
+      "passed": true,
+      "details": "scene view and complete phone page recaptured (scene, phone-ui-touch); peak 773,497 triangles / 140 draw calls in these frames. Every picture was inspected after capture. Appearance only; no route, activity or reference-match claim."
+    },
+    {
+      "label": "Validation frames and native proofs re-run at 9824fd5",
+      "passed": false,
+      "details": "Not re-run. The validation captures and proofs keep their original source and date."
     }
   ],
   "captures": [
@@ -503,7 +520,7 @@
     },
     "collection": "previous-context-gallery"
   },
-  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical candle approach; canonical source-volume/courtyard restoration; shared handheld candle implementation Full source-version-specific candle control package and current courtyard/frontage comparison remain separate from the route proof Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates.",
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical candle approach; canonical source-volume/courtyard restoration; shared handheld candle implementation Full source-version-specific candle control package and current courtyard/frontage comparison remain separate from the route proof Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates. Round-2 visitor views recaptured 2026-11-13 from 9824fd5; the 346f7986 views are kept in historicalCollections.",
   "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
   "menuAvailable": true,
   "captureSourceCommits": [
@@ -528,12 +545,12 @@
   ],
   "visitorGallery": {
     "id": "stavropoleos-cec",
-    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
     "captures": [
       {
         "kind": "scene",
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-        "capturedAt": "2026-11-12T19:51:55.165Z",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "capturedAt": "2026-11-13T05:33:40.225Z",
         "viewport": {
           "width": 1280,
           "height": 720
@@ -541,13 +558,13 @@
         "position": {
           "x": -70.1,
           "z": -68.9,
-          "y": 0.3819728572771429,
+          "y": 0.3818814506133398,
           "heading": -2.0943951562499996
         },
         "pose": {
           "position": [
             -70.1,
-            2.0319728572771427,
+            2.03188145061334,
             -68.9
           ],
           "bearing": 120.00000308576756,
@@ -558,41 +575,65 @@
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-12T19:51:51.489Z",
-        "triangles": 723602,
-        "drawCalls": 146,
+        "simulationDate": "2026-11-13T05:33:34.878Z",
+        "triangles": 773497,
+        "drawCalls": 140,
         "cameraParent": "onfoot",
         "ui": {
           "touch": true,
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "530c65109fa7c2cd937f877dce7039443a7396faa454d904c2728127982e280c",
-        "bytes": 75558,
+        "sha256": "245b26ffae3a2e06ddf2c8d4310725d7ca0c0b7cfd1de004aea60aa7b828d875",
+        "bytes": 78240,
         "fullPageHUD": false,
-        "image": "assets/spots/stavropoleos-cec/visit-346f7986/scene.webp",
-        "captureRecord": "assets/spots/stavropoleos-cec/visit-346f7986/capture.json",
+        "image": "assets/spots/stavropoleos-cec/visit-9824fd56/scene.webp",
+        "captureRecord": "assets/spots/stavropoleos-cec/visit-9824fd56/capture.json",
         "setup": {
           "arrival": {
-            "x": 28.290201761516066,
-            "z": 54.56227436028759,
-            "y": -0.7374490987605102,
-            "heading": -5.235987755982989
+            "x": -84,
+            "z": -66.5,
+            "y": 0.368542363246282,
+            "heading": -1.7453292519943295
           },
-          "authoredViewpoint": null,
-          "viewpoint": {
+          "authoredViewpoint": {
+            "view": [
+              -53.307692307692314,
+              -54.03846153846156
+            ],
             "id": "stavropoleos-cec",
             "x": -70.1,
             "z": -68.9,
             "bearing": 120,
             "pitch": 10,
-            "text": "From Str. Stavropoleos at the north-west corner of the church looking south-east at the west porch (pose of the aabd17ad capture; the current runtime no longer lists a postcard challenge for this destination)",
-            "authoredOverride": true
+            "fov": 65,
+            "text": "From Str. Stavropoleos at the north-west corner of the church looking south-east at the west porch with its carved stone columns and painted upper walls (OSM: long axis E-W, altar to the east); alt: CEC Palace from the Calea Victoriei crossing at [44.43160,26.09690] heading 320.",
+            "r": 7,
+            "tol": 30,
+            "targets": [],
+            "condHint": null
+          },
+          "viewpoint": {
+            "view": [
+              -53.307692307692314,
+              -54.03846153846156
+            ],
+            "id": "stavropoleos-cec",
+            "x": -70.1,
+            "z": -68.9,
+            "bearing": 120,
+            "pitch": 10,
+            "fov": 65,
+            "text": "From Str. Stavropoleos at the north-west corner of the church looking south-east at the west porch with its carved stone columns and painted upper walls (OSM: long axis E-W, altar to the east); alt: CEC Palace from the Calea Victoriei crossing at [44.43160,26.09690] heading 320.",
+            "r": 7,
+            "tol": 30,
+            "targets": [],
+            "condHint": null
           },
           "position": {
             "x": -70.1,
             "z": -68.9,
-            "y": 0.3819728572771429,
+            "y": 0.3818814506133398,
             "heading": 0
           },
           "walker": "OnFootController",
@@ -612,8 +653,8 @@
       },
       {
         "kind": "phone-ui-touch",
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-        "capturedAt": "2026-11-12T19:51:55.443Z",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "capturedAt": "2026-11-13T05:33:40.518Z",
         "viewport": {
           "width": 390,
           "height": 844
@@ -621,13 +662,13 @@
         "position": {
           "x": -70.1,
           "z": -68.9,
-          "y": 0.3819728572771429,
+          "y": 0.3818814506133398,
           "heading": -2.0943950976562498
         },
         "pose": {
           "position": [
             -70.1,
-            2.0319728572771427,
+            2.03188145061334,
             -68.9
           ],
           "bearing": 119.99999972859302,
@@ -638,8 +679,8 @@
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-12T19:51:51.766Z",
-        "triangles": 574416,
+        "simulationDate": "2026-11-13T05:33:35.170Z",
+        "triangles": 624181,
         "drawCalls": 80,
         "cameraParent": "onfoot",
         "ui": {
@@ -647,32 +688,56 @@
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "7a613f5ebe3e92cf84193a45947afe331c2930e9ac671bf39a8a756f17a4051b",
-        "bytes": 59575,
+        "sha256": "f60bc161b1ef54e837f46c9c6d9d37bc6519b96ee10f00538833e382d4f7b97c",
+        "bytes": 60227,
         "fullPageHUD": true,
-        "image": "assets/spots/stavropoleos-cec/visit-346f7986/phone-ui-touch.jpg",
-        "captureRecord": "assets/spots/stavropoleos-cec/visit-346f7986/capture.json",
+        "image": "assets/spots/stavropoleos-cec/visit-9824fd56/phone-ui-touch.jpg",
+        "captureRecord": "assets/spots/stavropoleos-cec/visit-9824fd56/capture.json",
         "setup": {
           "arrival": {
-            "x": 28.290201761516066,
-            "z": 54.56227436028759,
-            "y": -0.7374490987605102,
-            "heading": -5.235987755982989
+            "x": -84,
+            "z": -66.5,
+            "y": 0.368542363246282,
+            "heading": -1.7453292519943295
           },
-          "authoredViewpoint": null,
-          "viewpoint": {
+          "authoredViewpoint": {
+            "view": [
+              -53.307692307692314,
+              -54.03846153846156
+            ],
             "id": "stavropoleos-cec",
             "x": -70.1,
             "z": -68.9,
             "bearing": 120,
             "pitch": 10,
-            "text": "From Str. Stavropoleos at the north-west corner of the church looking south-east at the west porch (pose of the aabd17ad capture; the current runtime no longer lists a postcard challenge for this destination)",
-            "authoredOverride": true
+            "fov": 65,
+            "text": "From Str. Stavropoleos at the north-west corner of the church looking south-east at the west porch with its carved stone columns and painted upper walls (OSM: long axis E-W, altar to the east); alt: CEC Palace from the Calea Victoriei crossing at [44.43160,26.09690] heading 320.",
+            "r": 7,
+            "tol": 30,
+            "targets": [],
+            "condHint": null
+          },
+          "viewpoint": {
+            "view": [
+              -53.307692307692314,
+              -54.03846153846156
+            ],
+            "id": "stavropoleos-cec",
+            "x": -70.1,
+            "z": -68.9,
+            "bearing": 120,
+            "pitch": 10,
+            "fov": 65,
+            "text": "From Str. Stavropoleos at the north-west corner of the church looking south-east at the west porch with its carved stone columns and painted upper walls (OSM: long axis E-W, altar to the east); alt: CEC Palace from the Calea Victoriei crossing at [44.43160,26.09690] heading 320.",
+            "r": 7,
+            "tol": 30,
+            "targets": [],
+            "condHint": null
           },
           "position": {
             "x": -70.1,
             "z": -68.9,
-            "y": 0.3819728572771429,
+            "y": 0.3818814506133398,
             "heading": 0
           },
           "walker": "OnFootController",
@@ -693,18 +758,18 @@
     ],
     "limitations": [
       "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
-      "The current runtime lists no postcard challenge for this destination (only the scene primary); the camera uses the pose recorded in the aabd17ad capture.",
-      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
+      "Scene view from the authored postcard point on Str. Stavropoleos; the arrival point is 14 m west of it on the same street.",
+      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
     ],
     "reports": [
       {
-        "label": "Scene and portrait capture record, 346f798",
-        "report": "assets/spots/stavropoleos-cec/visit-346f7986/capture.json",
-        "sha256": "77e48da0e095b1886c3f2b5c534685ef9800279b260023ad7372f59ce3d2e6e1"
+        "label": "Scene and portrait capture record, 9824fd5",
+        "report": "assets/spots/stavropoleos-cec/visit-9824fd56/capture.json",
+        "sha256": "c02e8855fee0ba85d0e5b9b87d6929ed4b72dd358dad834e25985c479e400c22"
       }
     ],
-    "updatedAt": "2026-11-12T19:51:55.443Z",
-    "notice": "Recaptured from game source 346f798 after the district fidelity pass. The earlier aabd17a views are kept in this record as historical.",
+    "updatedAt": "2026-11-13T05:33:40.518Z",
+    "notice": "Recaptured from game source 9824fd5 after fidelity pass round 2. Earlier views are kept in this record as historical.",
     "setup": "Explicit production on-foot viewpoints with native touch look, at 1280 × 720 and as the complete 390 × 844 phone page. The scene-authored postcard pose is used unless a limitation below says otherwise. No route, reference match or release acceptance is implied."
   },
   "historicalCollections": [
@@ -918,19 +983,202 @@
           "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
         }
       ]
+    },
+    {
+      "id": "visitor-gallery-346f7986",
+      "label": "Visitor views before fidelity pass round 2",
+      "status": "historical",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededBy": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededAt": "2026-11-13T05:41:38.367Z",
+      "reason": "The scene changed in 94a177d5..9824fd56; these pictures show the earlier scene and keep their original source, dates and capture records.",
+      "notice": "Recaptured from game source 346f798 after the district fidelity pass. The earlier aabd17a views are kept in this record as historical.",
+      "setup": "Explicit production on-foot viewpoints with native touch look, at 1280 × 720 and as the complete 390 × 844 phone page. The scene-authored postcard pose is used unless a limitation below says otherwise. No route, reference match or release acceptance is implied.",
+      "limitations": [
+        "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+        "The current runtime lists no postcard challenge for this destination (only the scene primary); the camera uses the pose recorded in the aabd17ad capture.",
+        "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
+      ],
+      "updatedAt": "2026-11-12T19:51:55.443Z",
+      "reports": [
+        {
+          "label": "Scene and portrait capture record, 346f798",
+          "report": "assets/spots/stavropoleos-cec/visit-346f7986/capture.json",
+          "sha256": "77e48da0e095b1886c3f2b5c534685ef9800279b260023ad7372f59ce3d2e6e1"
+        }
+      ],
+      "captures": [
+        {
+          "kind": "scene",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "capturedAt": "2026-11-12T19:51:55.165Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -70.1,
+            "z": -68.9,
+            "y": 0.3819728572771429,
+            "heading": -2.0943951562499996
+          },
+          "pose": {
+            "position": [
+              -70.1,
+              2.0319728572771427,
+              -68.9
+            ],
+            "bearing": 120.00000308576756,
+            "pitch": 10.000002495263686
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-12T19:51:51.489Z",
+          "triangles": 723602,
+          "drawCalls": 146,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "530c65109fa7c2cd937f877dce7039443a7396faa454d904c2728127982e280c",
+          "bytes": 75558,
+          "fullPageHUD": false,
+          "image": "assets/spots/stavropoleos-cec/visit-346f7986/scene.webp",
+          "captureRecord": "assets/spots/stavropoleos-cec/visit-346f7986/capture.json",
+          "setup": {
+            "arrival": {
+              "x": 28.290201761516066,
+              "z": 54.56227436028759,
+              "y": -0.7374490987605102,
+              "heading": -5.235987755982989
+            },
+            "authoredViewpoint": null,
+            "viewpoint": {
+              "id": "stavropoleos-cec",
+              "x": -70.1,
+              "z": -68.9,
+              "bearing": 120,
+              "pitch": 10,
+              "text": "From Str. Stavropoleos at the north-west corner of the church looking south-east at the west porch (pose of the aabd17ad capture; the current runtime no longer lists a postcard challenge for this destination)",
+              "authoredOverride": true
+            },
+            "position": {
+              "x": -70.1,
+              "z": -68.9,
+              "y": 0.3819728572771429,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "buc-old-town",
+            "origin": {
+              "lat": 44.4313,
+              "lon": 26.0995,
+              "elev": 86.7
+            },
+            "projection": {
+              "mLat": 111120.67,
+              "mLon": 79622.95
+            }
+          },
+          "label": "Stavropoleos church from the street",
+          "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+        },
+        {
+          "kind": "phone-ui-touch",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "capturedAt": "2026-11-12T19:51:55.443Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -70.1,
+            "z": -68.9,
+            "y": 0.3819728572771429,
+            "heading": -2.0943950976562498
+          },
+          "pose": {
+            "position": [
+              -70.1,
+              2.0319728572771427,
+              -68.9
+            ],
+            "bearing": 119.99999972859302,
+            "pitch": 9.999995780914526
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-12T19:51:51.766Z",
+          "triangles": 574416,
+          "drawCalls": 80,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "7a613f5ebe3e92cf84193a45947afe331c2930e9ac671bf39a8a756f17a4051b",
+          "bytes": 59575,
+          "fullPageHUD": true,
+          "image": "assets/spots/stavropoleos-cec/visit-346f7986/phone-ui-touch.jpg",
+          "captureRecord": "assets/spots/stavropoleos-cec/visit-346f7986/capture.json",
+          "setup": {
+            "arrival": {
+              "x": 28.290201761516066,
+              "z": 54.56227436028759,
+              "y": -0.7374490987605102,
+              "heading": -5.235987755982989
+            },
+            "authoredViewpoint": null,
+            "viewpoint": {
+              "id": "stavropoleos-cec",
+              "x": -70.1,
+              "z": -68.9,
+              "bearing": 120,
+              "pitch": 10,
+              "text": "From Str. Stavropoleos at the north-west corner of the church looking south-east at the west porch (pose of the aabd17ad capture; the current runtime no longer lists a postcard challenge for this destination)",
+              "authoredOverride": true
+            },
+            "position": {
+              "x": -70.1,
+              "z": -68.9,
+              "y": 0.3819728572771429,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "buc-old-town",
+            "origin": {
+              "lat": 44.4313,
+              "lon": 26.0995,
+              "elev": 86.7
+            },
+            "projection": {
+              "mLat": 111120.67,
+              "mLon": 79622.95
+            }
+          },
+          "label": "Phone view with the native touch interface",
+          "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+        }
+      ]
     }
   ],
   "visitorGalleryRecapture": {
-    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-    "assembledAt": "2026-11-12T20:03:08.418Z",
-    "passRange": "332ae423..346f7986",
-    "sceneCommits": [
-      "f9787fa85ddbe6d4e9dd6b5eb9fedbb1fa436440"
-    ],
-    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes.",
+    "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+    "assembledAt": "2026-11-13T05:41:38.367Z",
+    "passRange": "94a177d5..9824fd56",
+    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted).",
     "sourceVerification": {
-      "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
-      "checkedAt": "2026-11-12T20:03:08.417Z"
+      "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+      "checkedAt": "2026-11-13T05:41:38.367Z"
     }
   }
 }

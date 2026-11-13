@@ -37,6 +37,7 @@ import { createDinamoFootball } from './football.js';
 import { createRosettiBasketball } from './basketball.js';
 import { initExplore } from './explore.js'; // world-map hub, free roam ⇄ story (resume chip), drone — hooks listed in spec 10 (one mode since 2026-11-08)
 import { chapterWaypointReached } from './chapter-waypoint.js';
+import { chapterStartPose } from './chapter-start.js';
 const { makeVehicle } = VEHICLES;
 
 const $ = (s) => document.querySelector(s);
@@ -2370,6 +2371,8 @@ ${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" 
     chapterPose(ch) {
         const st = ch.start; if (!st) return null;
         const q = this.city.proj(st.lat, st.lon), heading = -((st.heading ?? st.bearing ?? 0) * Math.PI / 180);
+        // the same rule as the district's own spawn (world.js): legal carriageway for the declared heading, same lane
+        const built = chapterStartPose(this.world?.graph?.edges, q, st); if (built) return built;
         const named = st.road ? (e) => st.road.test(e.name || '') || st.road.test(e.ref || '') : null;
         return (named && this.lanePose(q.x, q.z, heading, null, named)) || this.lanePose(q.x, q.z, heading);
     }

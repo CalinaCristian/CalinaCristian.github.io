@@ -1,0 +1,29 @@
+{
+  "district": "floreasca",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "tiles": [
+    {
+      "id": "aerial-r09-c04",
+      "reason": "Stadionul Dinamo sunk into its pit: stands, pitch level and surroundings redrawn"
+    },
+    {
+      "id": "aerial-r10-c04",
+      "reason": "Stadionul Dinamo sunk into its pit: stands, pitch level and surroundings redrawn"
+    }
+  ],
+  "reason": "Dinamo stadium sunk into its pit",
+  "originalManifestSha256": "2385dc41f6065458a2ed732ac9da53c7762e4364030ebe46ed3e306f7f3ed59f",
+  "totalFrames": 90,
+  "method": "Round 2. Every atlas pose was rendered at 9824fd56 and, for diagnosis only, at the range start 94a177d5 (game images only, same tool and conditions). Poses were ranked by compact changed pixels (vegetation masked) between the two renders and against the published tile. Range-changed poses were compared by eye (published | 94a177d5 | 9824fd56, same pixels). As asked, poses whose published capture is older than later changes were also checked (published | 9824fd56) and refreshed where buildings, streets, water or structures visibly differ. Not counted as a change: roof / facade tints, tree crowns and parked cars, which vary between source revisions. Every kept image was inspected at full size.",
+  "baselineCommit": "94a177d5e739e0f23dc1ea9af696174364684084",
+  "candidatesCaptured": 90,
+  "rejected": [
+    {
+      "ids": [
+        "aerial-r09-c05"
+      ],
+      "reason": "no visible change"
+    }
+  ],
+  "notRetaken": "Every other pose: no visible change between the 94a177d5 and 9824fd56 renders at the same pose, or only the differences listed under rejected."
+}

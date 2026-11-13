@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "Pipera aerial comparisons",
-  "generatedDate": "2026-11-12",
-  "generatedAt": "2026-11-12T19:51:55.293Z",
+  "generatedDate": "2026-11-13",
+  "generatedAt": "2026-11-13T05:31:54.652Z",
   "defaultTile": "aerial-r08-c13",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -5027,19 +5027,19 @@
         -750,
         500
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 103,
-        "triangles": 386785,
-        "renderMs": 48.399999998509884,
+        "drawCalls": 100,
+        "triangles": 297374,
+        "renderMs": 2.0999999940395355,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 306
+        "vehicleCount": 303
       },
       "renderer": {
         "width": 640,
@@ -5049,16 +5049,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:09:15.862Z",
-      "gamePath": "images/aerial-r06-c06.jpg",
-      "image": "images/aerial-r06-c06.jpg",
-      "thumbnail": "thumbs/aerial-r06-c06.jpg",
-      "sha256": "7452f424004aac5087b66eb76248d64f8ec507399e7461c9f4584a86c11557d6",
+      "capturedAt": "2026-11-13T05:31:28.990Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c06.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c06.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r06-c06.jpg",
+      "sha256": "6c445198fe4f24e8f17c4b92a8ea7ae31772edd8ee2f7b8779a536462e3ccf7a",
       "width": 640,
       "height": 640,
-      "captureWallMs": 10861,
+      "captureWallMs": 509,
       "dataset": "atlas",
-      "thumbnailSha256": "1f39dfb77e7430b1ed4285c78725f802f8c3a8c12287f033344cf30dbdcb582b",
+      "thumbnailSha256": "7659a147171c04bb2132215c0ac3852ae4d4d268f9e67b10ed9c82813b627b0c",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.475500845840976,
@@ -5066,9 +5066,9 @@
         44.47775042292049,
         26.10355728048669
       ],
-      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (Promenada west front: dark window band no longer drawn on the roof edge); prior collection archived.",
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "reviewSourceManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json"
     },
     {
       "id": "aerial-r06-c07",
@@ -5093,19 +5093,19 @@
         -500,
         500
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 105,
-        "triangles": 402046,
-        "renderMs": 7.400000002235174,
+        "drawCalls": 103,
+        "triangles": 313547,
+        "renderMs": 1.5999999940395355,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 306
+        "vehicleCount": 303
       },
       "renderer": {
         "width": 640,
@@ -5115,16 +5115,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:09:26.723Z",
-      "gamePath": "images/aerial-r06-c07.jpg",
-      "image": "images/aerial-r06-c07.jpg",
-      "thumbnail": "thumbs/aerial-r06-c07.jpg",
-      "sha256": "9573922109655f21d836ad3ee535be2e6be50fcab671514f71a337fb55bbec06",
+      "capturedAt": "2026-11-13T05:31:29.499Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c07.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c07.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r06-c07.jpg",
+      "sha256": "1604035533a6d5544306a076f48af06453d53a81f5c9ef6aa1b235980ccec489",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7656,
+      "captureWallMs": 492,
       "dataset": "atlas",
-      "thumbnailSha256": "21930ab8b8eab9c2133c0f15826d1bf449781e3ccbb8e445a4eed5c1a33be7c6",
+      "thumbnailSha256": "e5109913e8e3cc96e8bff10e40f374268fff4eea44d3917d8a2d751b63c5b65a",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.475500845840976,
@@ -5132,9 +5132,9 @@
         44.47775042292049,
         26.106704853657792
       ],
-      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (Promenada front: the brown strip in front of the entrance removed); prior collection archived.",
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "reviewSourceManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json"
     },
     {
       "id": "aerial-r06-c08",
@@ -8978,7 +8978,7 @@
     "acquisitionDate": null,
     "delivery": "Live image request; no reference imagery is stored in this repository."
   },
-  "description": "Mixed-source technical atlas: 2 poses retaken on 2026-11-12 at 346f7986 (Petricani water-bridge decks and railings; Promenada tenant front); all other images retain their recorded sources and dates.",
+  "description": "Mixed-source technical atlas: 2 poses retaken on 2026-11-13 at 9824fd56 (Promenada front); all other images retain their recorded sources and dates.",
   "coverageNote": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score. Boundary cells also contain land outside the source ring.",
   "reviewNote": "Sign-affected current game captures inspected at full size; source/aerial comparisons retain their historical scope. No district fidelity acceptance.",
   "review": {
@@ -9006,7 +9006,7 @@
       "framesInOriginalReview": 133,
       "framesRetainedHere": 96
     },
-    "targetedRetakeReview": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+    "targetedRetakeReview": "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
     "findings": [
       {
         "ids": [
@@ -9263,11 +9263,12 @@
     "structureRetakeSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
     "structureRetakesReviewed": 2,
     "currentAtlasSourceCounts": {
-      "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 94,
+      "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 92,
       "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
       "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
       "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
-      "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 34
+      "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 34,
+      "9824fd56de3f0e420821e871436906186a80e493": 2
     },
     "priorCompleteReview": {
       "manifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/manifest.json",
@@ -9278,18 +9279,20 @@
     "priorTargetedRetakeReview": "retakes/bc9a3ff3/paired-review.json",
     "structureRetakeReviewedAt": "2026-11-09T02:11:54.820077+00:00",
     "earlierTargetedRetakeReviews": [
-      "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json"
+      "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+      "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json"
     ]
   },
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 2 poses retaken on 2026-11-12 at 346f7986 (Petricani water-bridge decks and railings; Promenada tenant front); all other images retain their recorded sources and dates."
+    "atlas": "Mixed-source technical atlas: 2 poses retaken on 2026-11-13 at 9824fd56 (Promenada front); all other images retain their recorded sources and dates."
   },
   "atlasSourceCounts": {
-    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 94,
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 92,
     "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
     "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
     "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
-    "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 34
+    "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 34,
+    "9824fd56de3f0e420821e871436906186a80e493": 2
   },
   "comparisonSourceCommits": {
     "atlas": [
@@ -9297,7 +9300,8 @@
       "07cc3d6bcefe90967c5bde3af2237dab4b972705",
       "8add95f35681eddaf01a136ff1f5769a5329b102",
       "346f798681d891de6cebfc9e1d094996b1ace2e3",
-      "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58"
+      "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
+      "9824fd56de3f0e420821e871436906186a80e493"
     ]
   },
   "sourceCaptureManifests": [
@@ -9354,6 +9358,15 @@
       "sourceProvenance": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/source-provenance.json",
       "sourceProvenanceSha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47",
       "frames": 2
+    },
+    {
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "treeSha256": "ae5b9d7a70a4b3fd14dfcdce1a76092981d8db36d05abb7b1aaaa70af7b27b0b",
+      "manifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "manifestSha256": "0557082c77102a6fa3273ec01cf891eb0fdeb781433a4b63c7a5a4b6699d62f0",
+      "sourceProvenance": "retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
+      "sourceProvenanceSha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b",
+      "frames": 2
     }
   ],
   "sourceCompatibility": {
@@ -9391,6 +9404,21 @@
         "07cc3d6bcefe90967c5bde3af2237dab4b972705": 2,
         "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
         "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 35
+      },
+      "captureType": "mixed-source-survey"
+    },
+    {
+      "manifest": "historical/mixed-before-9824fd56-bdcdfdb0/manifest.json",
+      "label": "Atlas before the 9824fd5 retake (Promenada front)",
+      "frames": 133,
+      "generatedAt": "2026-11-12T19:51:55.293Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 94,
+        "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
+        "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
+        "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
+        "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 34
       },
       "captureType": "mixed-source-survey"
     }

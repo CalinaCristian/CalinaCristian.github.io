@@ -23,10 +23,11 @@
   },
   "note": "Geometric coverage plan is unchanged. Per-pose source SHA records 35 current retakes and 98 original frames; this is not 133 fresh captures.",
   "sourceCounts": {
-    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 94,
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 92,
     "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
     "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
     "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
-    "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 34
+    "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 34,
+    "9824fd56de3f0e420821e871436906186a80e493": 2
   }
 }

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "Floreasca aerial comparisons",
-  "generatedDate": "2026-11-12",
-  "generatedAt": "2026-11-12T19:50:52.084Z",
+  "generatedDate": "2026-11-13",
+  "generatedAt": "2026-11-13T05:30:47.339Z",
   "defaultTile": "aerial-r09-c04",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -4030,19 +4030,19 @@
         0,
         1000
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 117,
-        "triangles": 470832,
-        "renderMs": 22,
+        "triangles": 402887,
+        "renderMs": 1.8999999910593033,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 194
+        "vehicleCount": 193
       },
       "renderer": {
         "width": 640,
@@ -4052,16 +4052,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:36:24.493Z",
-      "gamePath": "images/aerial-r09-c04.jpg",
-      "image": "images/aerial-r09-c04.jpg",
-      "thumbnail": "thumbs/aerial-r09-c04.jpg",
-      "sha256": "6529bb0b16cf9a608009701a94158c8567833ae6b1ef76618f176e60c327a3e6",
+      "capturedAt": "2026-11-13T05:30:35.588Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r09-c04.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r09-c04.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r09-c04.jpg",
+      "sha256": "207e7c514401657516d8d29d8e60a3ede2d09ab126862968d6ad12ab00b8749b",
       "width": 640,
       "height": 640,
-      "captureWallMs": 6823,
+      "captureWallMs": 614,
       "dataset": "atlas",
-      "thumbnailSha256": "d40f942019be12e286bcfe42f16f574f85dd028ef8a0eccc99e7834e60a1f4a5",
+      "thumbnailSha256": "31587175a6ae39bc23bd1c597a1bdf70aa407b9ae015760e3cd320bd2b2e83d0",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.45540169168196,
@@ -4069,8 +4069,8 @@
         44.457651268761474,
         26.1038
       ],
-      "sourceCaptureManifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
-      "sourceNote": "Exact-pose scoped retake; full prior mixed atlas archived byte-identically."
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (Stadionul Dinamo sunk into its pit: stands, pitch level and surroundings redrawn); prior collection archived."
     },
     {
       "id": "aerial-r09-c05",
@@ -4410,19 +4410,19 @@
         0,
         1250
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 120,
-        "triangles": 409484,
-        "renderMs": 43.30000000447035,
+        "drawCalls": 122,
+        "triangles": 344497,
+        "renderMs": 1.1000000089406967,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 194
+        "vehicleCount": 193
       },
       "renderer": {
         "width": 640,
@@ -4432,16 +4432,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:36:31.322Z",
-      "gamePath": "images/aerial-r10-c04.jpg",
-      "image": "images/aerial-r10-c04.jpg",
-      "thumbnail": "thumbs/aerial-r10-c04.jpg",
-      "sha256": "17eab42e394b44b89e9cb80e54bfe802616ed147ab588d9efe4e5ee584f04816",
+      "capturedAt": "2026-11-13T05:30:38.346Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r10-c04.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r10-c04.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r10-c04.jpg",
+      "sha256": "a429585155e30a0831c9b8ac447437b99dabdd6267e06ce938ea9540f96ae770",
       "width": 640,
       "height": 640,
-      "captureWallMs": 15167,
+      "captureWallMs": 420,
       "dataset": "atlas",
-      "thumbnailSha256": "01dbc3f00451c67a1fdab1d431fcca1bdd6b7959487f9a6508e247581123138b",
+      "thumbnailSha256": "10e8799ffd0974daeef45de0a43da1e64c3ec895480f6143ea990845eaab29c6",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.45315211460245,
@@ -4449,8 +4449,8 @@
         44.45540169168196,
         26.1038
       ],
-      "sourceCaptureManifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
-      "sourceNote": "Exact-pose scoped retake; full prior mixed atlas archived byte-identically."
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (Stadionul Dinamo sunk into its pit: stands, pitch level and surroundings redrawn); prior collection archived."
     },
     {
       "id": "aerial-r10-c05",
@@ -5847,10 +5847,11 @@
   ],
   "atlasSourceCounts": {
     "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 6,
-    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 20,
+    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 18,
     "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
     "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 59,
-    "8add95f35681eddaf01a136ff1f5769a5329b102": 3
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 3,
+    "9824fd56de3f0e420821e871436906186a80e493": 2
   },
   "sourceSnapshots": [
     {
@@ -5884,6 +5885,15 @@
       "sourceProvenance": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/source-provenance.json",
       "sourceProvenanceSha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47",
       "frames": 2
+    },
+    {
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "treeSha256": "ae5b9d7a70a4b3fd14dfcdce1a76092981d8db36d05abb7b1aaaa70af7b27b0b",
+      "manifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "manifestSha256": "51a0d818d1f01efd44d3b3c17b68c82a9e2c9d47ec234b7044bae3a4dd1c3d9b",
+      "sourceProvenance": "retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
+      "sourceProvenanceSha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b",
+      "frames": 2
     }
   ],
   "sourceCompatibility": {
@@ -5903,7 +5913,7 @@
     "delivery": "Live image request; no aerial imagery is stored in this repository.",
     "extent": "250 m ground square centred at each listed WGS84 coordinate; EPSG:3857 with latitude scale correction."
   },
-  "description": "Mixed-source technical atlas: 2 poses retaken on 2026-11-12 at 346f7986 (Dinamo velodrome infield; lake bridge decks); all other images retain their recorded sources and dates.",
+  "description": "Mixed-source technical atlas: 2 poses retaken on 2026-11-13 at 9824fd56 (Dinamo stadium sunk into its pit); all other images retain their recorded sources and dates.",
   "coverageNote": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score. Boundary cells also contain land outside the ring.",
   "reviewNote": "Sign-affected current game captures inspected at full size; source/aerial comparisons retain their historical scope. No district fidelity acceptance.",
   "review": {
@@ -5911,10 +5921,11 @@
     "gameSourceCommit": null,
     "sourceCounts": {
       "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 6,
-      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 20,
+      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 18,
       "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
       "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 59,
-      "8add95f35681eddaf01a136ff1f5769a5329b102": 3
+      "8add95f35681eddaf01a136ff1f5769a5329b102": 3,
+      "9824fd56de3f0e420821e871436906186a80e493": 2
     },
     "framesReviewed": 90,
     "status": "Complete prior review retained with 21 fresh exact-pose water/paint pairs inspected; all geometry, source-height, facade, canopy, occupancy and unknown-date limits remain.",
@@ -6655,15 +6666,15 @@
         "id": "aerial-r09-c04",
         "originalGameSha256": "2879d14866e6e0a983303180015c77c8655e6d3107e0e4194b63c5f6f81bb35d",
         "retakeGameSha256": "6529bb0b16cf9a608009701a94158c8567833ae6b1ef76618f176e60c327a3e6",
-        "gameSha256": "6529bb0b16cf9a608009701a94158c8567833ae6b1ef76618f176e60c327a3e6",
-        "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-        "pairSha256": "89e15c686a0ecf6ed866c5d0814a1a8438b46fe9c3ad91d3d9ce8350e51f26ba",
+        "gameSha256": "207e7c514401657516d8d29d8e60a3ede2d09ab126862968d6ad12ab00b8749b",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "reviewSheet": "comparison-03.jpg",
         "reviewSheetSha256": "9f7900cc94fb2e507b91ae78f6d7d069db5809ee90946d852d1e424c89b29b6e",
         "referenceCoverageFraction": 1.0,
         "reviewedAt": "2026-11-09T00:38:25.908818+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Exact original tile clips the north end of Dinamo at the bottom edge; its fresh filtered boundary/box paint is visible there. The separate training pitches above still show sparse/dotted small markings at this technical aerial distance; no correction or readability claim is made for them. Estimated roof detail/canopy and reference date/state remain gaps."
+        "observations": "Exact original tile clips the north end of Dinamo at the bottom edge; its fresh filtered boundary/box paint is visible there. The separate training pitches above still show sparse/dotted small markings at this technical aerial distance; no correction or readability claim is made for them. Estimated roof detail/canopy and reference date/state remain gaps.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r09-c05",
@@ -6724,15 +6735,15 @@
         "id": "aerial-r10-c04",
         "originalGameSha256": "c8ad956b91128d7d78995fdca34a9472b1b158545f2e7c95fd83acd740c2c2ea",
         "retakeGameSha256": "17eab42e394b44b89e9cb80e54bfe802616ed147ab588d9efe4e5ee584f04816",
-        "gameSha256": "17eab42e394b44b89e9cb80e54bfe802616ed147ab588d9efe4e5ee584f04816",
-        "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-        "pairSha256": "bc6c64535932337b13322d4273a81ddeba83498bc4d83e413c97ad0f33381895",
+        "gameSha256": "a429585155e30a0831c9b8ac447437b99dabdd6267e06ce938ea9540f96ae770",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "reviewSheet": "comparison-04.jpg",
         "reviewSheetSha256": "2d5f0f94e2ff91fd8f7e02d34f28fce9b9db84d462bc76a5dfcf431b280c8ae5",
         "referenceCoverageFraction": 1.0,
         "reviewedAt": "2026-11-09T00:38:25.909478+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Fresh Dinamo field shows continuous centre circle, halfway line and both boxes in the visible original tile crop. Reference stadium pitch is less saturated and current state/date are unknown; stand/roof/floodlight dimensions remain estimates. Circus lower-left lobed roof is still simplified and is not claimed corrected."
+        "observations": "Fresh Dinamo field shows continuous centre circle, halfway line and both boxes in the visible original tile crop. Reference stadium pitch is less saturated and current state/date are unknown; stand/roof/floodlight dimensions remain estimates. Circus lower-left lobed roof is still simplified and is not claimed corrected.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r10-c05",
@@ -6983,13 +6994,14 @@
         "observations": "All six contextual 250m north-up ground-square pairs viewed. Northwest/northeast show the angular lake band plus sparse outside-detail masses. Southwest/southeast show isolated generic skyline masses and grey ground versus dense reference buildings/canopy. context-skytower and context-globalworth are approximate outside-detail backdrop masses, not upgraded detailed tower/podium context; explicit source/visual gap retained. They are square north-up atlas items, not perspective model studies."
       }
     ],
-    "targetedRetakeReview": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+    "targetedRetakeReview": "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
     "earlierTargetedRetakeReviews": [
-      "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/paired-review.json"
+      "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/paired-review.json",
+      "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json"
     ]
   },
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 2 poses retaken on 2026-11-12 at 346f7986 (Dinamo velodrome infield; lake bridge decks); all other images retain their recorded sources and dates."
+    "atlas": "Mixed-source technical atlas: 2 poses retaken on 2026-11-13 at 9824fd56 (Dinamo stadium sunk into its pit); all other images retain their recorded sources and dates."
   },
   "perspectiveCollections": [
     {
@@ -7071,6 +7083,21 @@
         "bbaffc0d6cdccb6246edeb9478c58590852980d9": 21,
         "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 59,
         "8add95f35681eddaf01a136ff1f5769a5329b102": 4
+      },
+      "captureType": "mixed-source-survey"
+    },
+    {
+      "manifest": "historical/mixed-before-9824fd56-2385dc41/manifest.json",
+      "label": "Atlas before the 9824fd5 retake (Dinamo stadium sunk into its pit)",
+      "frames": 90,
+      "generatedAt": "2026-11-12T19:50:52.084Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 6,
+        "bbaffc0d6cdccb6246edeb9478c58590852980d9": 20,
+        "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 59,
+        "8add95f35681eddaf01a136ff1f5769a5329b102": 3
       },
       "captureType": "mixed-source-survey"
     }

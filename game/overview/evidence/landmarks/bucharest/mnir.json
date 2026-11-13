@@ -3,7 +3,7 @@
   "id": "mnir",
   "city": "bucharest",
   "name": "Muzeul Național de Istorie a României",
-  "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.4313746,
@@ -35,6 +35,11 @@
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/b203c38abf3651dd3d472c491238ad36089a633a/handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json",
       "label": "Existing recorded source-book/topology result; not a new execution",
       "type": "validation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493",
+      "label": "Fidelity pass round 2 (9824fd5), not yet published when captured",
+      "type": "implementation"
     }
   ],
   "sourceIds": [
@@ -114,14 +119,36 @@
   "reviewedAt": "2026-11-08",
   "improvements": [
     "Refreshed the museum multipolygon and its actual courtyard.",
-    "Triangulated pitched roof and source polygon collision retain the courtyard void."
+    "Triangulated pitched roof and source polygon collision retain the courtyard void.",
+    "The two corner pavilions carry low hip roofs with small domes and finials instead of tall hips."
   ],
   "remainingGaps": [
     "Roof rise and facade ornament remain estimates because the source relation has no height.",
     "The courtyard Lapidarium/central museum volume is not yet represented with a verified dedicated source model; the existing column illustration remains simplified.",
-    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity.",
+    "Dome size, rise and the finials are estimates; the landmark source comment gives no measurement for them."
   ],
   "checks": [
+    {
+      "label": "Pictures recaptured at 9824fd5 (round 2)",
+      "passed": true,
+      "details": "Front, top and oblique pictures recaptured from the commit snapshot. Same viewer routes as the previous pictures. Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 9824fd5 (game/src clean) on 2026-11-13: passed, 2144 checks over 70 models; this model 16450 triangles, 1 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "Earlier checks below",
+      "passed": null,
+      "details": "The checks that follow were recorded for source 5b92547 or earlier and were not re-run for this recapture."
+    },
     {
       "label": "Historical source boundary and replacement-identity checks",
       "passed": true,
@@ -158,10 +185,15 @@
       "id": "front",
       "label": "Street-height model study",
       "kind": "front",
-      "image": "assets/landmarks/mnir/front.webp",
-      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
-      "sha256": "9b4d7cbc12736eb64c0f95b3be5f7f9e022656864f1524ca50c0857c611e05e3",
-      "capturedAt": "2026-11-08T16:48:15.097005Z",
+      "image": "assets/landmarks/mnir/source-9824fd56/front.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "7780a7515a888f6886d03e776b21bf5fc3eb71908e494403261b5d57b51e30a6",
+      "bytes": 17790,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:29.200Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=mnir&clean=1&fountains=on&view=street&az=-101.99773623003944",
         "anchor": {
@@ -170,23 +202,29 @@
           "rotation": -0.2094
         },
         "camera": {
+          "projection": "perspective",
           "position": [
-            -142.27655446474893,
+            -171.40702796224042,
             1.3,
-            -30.179366203736365
+            -36.370036547958954
           ],
           "quaternion": [
-            0.02550943006010642,
-            -0.7764948526163934,
-            0.03150025023856253,
-            0.6288185327049147
+            0.02413414755797385,
+            -0.7765618864664198,
+            0.02980198638618261,
+            0.6288728178390312
           ],
           "fov": 62,
           "near": 0.3,
-          "far": 2836.287192535106,
+          "far": 3431.907502967479,
           "viewport": [
             960,
             720
+          ],
+          "up": [
+            0,
+            1,
+            0
           ]
         },
         "bounds": {
@@ -197,22 +235,27 @@
           ],
           "max": [
             64.53270761493557,
-            28.5,
+            32.20000076293945,
             72.3089911545218
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
       }
     },
     {
       "id": "top",
-      "label": "Top model study (perspective)",
+      "label": "North-up orthographic model study",
       "kind": "top",
-      "image": "assets/landmarks/mnir/top.webp",
-      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
-      "sha256": "d7bc18ce93740ec661fc251450a77ec886c169aba91f5c3e14e15765556a7fed",
-      "capturedAt": "2026-11-08T16:48:17.572976Z",
+      "image": "assets/landmarks/mnir/source-9824fd56/top.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "5e7e18fa0bbce3bdda3f6930ddc10ba7fada4feb5e00380d848843cbf6dfb221",
+      "bytes": 50800,
+      "width": 720,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:29.938Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=mnir&clean=1&fountains=on&view=top&az=0",
         "anchor": {
@@ -221,24 +264,39 @@
           "rotation": -0.2094
         },
         "camera": {
+          "projection": "orthographic",
           "position": [
             -3.5600140005039194,
-            228.61417278631242,
-            -0.4713693632092003
+            205.58082222173462,
+            -0.6999836122002563
           ],
           "quaternion": [
-            -0.7067531394223399,
+            -0.7071067811865475,
             0,
             0,
-            0.7074602461740636
+            0.7071067811865476
           ],
           "fov": 45,
           "near": 0.5,
-          "far": 4572.285741868929,
+          "far": 4111.616444434692,
           "viewport": [
-            960,
+            720,
             720
-          ]
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -86.69041072939758,
+          "right": 86.69041072939758,
+          "top": 86.69041072939758,
+          "bottom": -86.69041072939758,
+          "zoom": 1,
+          "groundSquareM": 173.38082145879517,
+          "groundWidthM": 173.38082145879517,
+          "groundDepthM": 173.38082145879517,
+          "orientation": "north-up"
         },
         "bounds": {
           "min": [
@@ -248,22 +306,27 @@
           ],
           "max": [
             64.53270761493557,
-            28.5,
+            32.20000076293945,
             72.3089911545218
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
       }
     },
     {
       "id": "oblique",
       "label": "Oblique model study",
       "kind": "oblique",
-      "image": "assets/landmarks/mnir/oblique.webp",
-      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
-      "sha256": "781c59ad415ab15f4df973f5d83126406692390ab79a76581c35cb8d0003ce99",
-      "capturedAt": "2026-11-08T16:48:20.072949Z",
+      "image": "assets/landmarks/mnir/source-9824fd56/oblique.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "b15712c966058c7965adf29c301277912a5ac90dc0d2fdbe520c91f27601f093",
+      "bytes": 39990,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:30.673Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=mnir&clean=1&fountains=on&view=oblique&az=-66.99773623003944&el=28",
         "anchor": {
@@ -272,9 +335,10 @@
           "rotation": -0.2094
         },
         "camera": {
+          "projection": "perspective",
           "position": [
             -185.07973359755744,
-            116.2526418499383,
+            117.73264215511408,
             76.35903025429364
           ],
           "quaternion": [
@@ -289,6 +353,11 @@
           "viewport": [
             960,
             720
+          ],
+          "up": [
+            0,
+            1,
+            0
           ]
         },
         "bounds": {
@@ -299,20 +368,196 @@
           ],
           "max": [
             64.53270761493557,
-            28.5,
+            32.20000076293945,
             72.3089911545218
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
       }
     }
   ],
   "perf": {
-    "triangles": 16282,
+    "triangles": 16452,
     "drawCalls": 2,
-    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+    "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
   },
   "implementationNotesUpdatedAt": "2026-11-09",
-  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance.",
+  "historicalCollections": [
+    {
+      "id": "captures-5b925476",
+      "label": "Pictures before fidelity pass round 2",
+      "status": "historical",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "supersededBy": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededAt": "2026-11-13T05:41:38.367Z",
+      "reason": "The model changed in 94a177d5..9824fd56; these pictures show the earlier model and keep their original source, dates and files.",
+      "perf": {
+        "triangles": 16282,
+        "drawCalls": 2,
+        "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+      },
+      "captures": [
+        {
+          "id": "front",
+          "label": "Street-height model study",
+          "kind": "front",
+          "image": "assets/landmarks/mnir/front.webp",
+          "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+          "sha256": "9b4d7cbc12736eb64c0f95b3be5f7f9e022656864f1524ca50c0857c611e05e3",
+          "capturedAt": "2026-11-08T16:48:15.097005Z",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=mnir&clean=1&fountains=on&view=street&az=-101.99773623003944",
+            "anchor": {
+              "lat": 44.4313746,
+              "lon": 26.097758,
+              "rotation": -0.2094
+            },
+            "camera": {
+              "position": [
+                -142.27655446474893,
+                1.3,
+                -30.179366203736365
+              ],
+              "quaternion": [
+                0.02550943006010642,
+                -0.7764948526163934,
+                0.03150025023856253,
+                0.6288185327049147
+              ],
+              "fov": 62,
+              "near": 0.3,
+              "far": 2836.287192535106,
+              "viewport": [
+                960,
+                720
+              ]
+            },
+            "bounds": {
+              "min": [
+                -71.65273561594341,
+                0,
+                -73.70895837892232
+              ],
+              "max": [
+                64.53270761493557,
+                28.5,
+                72.3089911545218
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+          }
+        },
+        {
+          "id": "top",
+          "label": "Top model study (perspective)",
+          "kind": "top",
+          "image": "assets/landmarks/mnir/top.webp",
+          "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+          "sha256": "d7bc18ce93740ec661fc251450a77ec886c169aba91f5c3e14e15765556a7fed",
+          "capturedAt": "2026-11-08T16:48:17.572976Z",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=mnir&clean=1&fountains=on&view=top&az=0",
+            "anchor": {
+              "lat": 44.4313746,
+              "lon": 26.097758,
+              "rotation": -0.2094
+            },
+            "camera": {
+              "position": [
+                -3.5600140005039194,
+                228.61417278631242,
+                -0.4713693632092003
+              ],
+              "quaternion": [
+                -0.7067531394223399,
+                0,
+                0,
+                0.7074602461740636
+              ],
+              "fov": 45,
+              "near": 0.5,
+              "far": 4572.285741868929,
+              "viewport": [
+                960,
+                720
+              ]
+            },
+            "bounds": {
+              "min": [
+                -71.65273561594341,
+                0,
+                -73.70895837892232
+              ],
+              "max": [
+                64.53270761493557,
+                28.5,
+                72.3089911545218
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+          }
+        },
+        {
+          "id": "oblique",
+          "label": "Oblique model study",
+          "kind": "oblique",
+          "image": "assets/landmarks/mnir/oblique.webp",
+          "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+          "sha256": "781c59ad415ab15f4df973f5d83126406692390ab79a76581c35cb8d0003ce99",
+          "capturedAt": "2026-11-08T16:48:20.072949Z",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=mnir&clean=1&fountains=on&view=oblique&az=-66.99773623003944&el=28",
+            "anchor": {
+              "lat": 44.4313746,
+              "lon": 26.097758,
+              "rotation": -0.2094
+            },
+            "camera": {
+              "position": [
+                -185.07973359755744,
+                116.2526418499383,
+                76.35903025429364
+              ],
+              "quaternion": [
+                -0.20173787656384148,
+                -0.5355261137370243,
+                -0.1335216564084223,
+                0.8091264288942632
+              ],
+              "fov": 45,
+              "near": 0.5,
+              "far": 4466.836765478714,
+              "viewport": [
+                960,
+                720
+              ]
+            },
+            "bounds": {
+              "min": [
+                -71.65273561594341,
+                0,
+                -73.70895837892232
+              ],
+              "max": [
+                64.53270761493557,
+                28.5,
+                72.3089911545218
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+          }
+        }
+      ]
+    }
+  ],
+  "recapturedAt": "2026-11-13T05:41:38.367Z",
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T05:41:38.367Z"
+  }
 }

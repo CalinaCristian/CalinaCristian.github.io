@@ -1,0 +1,52 @@
+[
+  {
+    "id": "aerial-r05-c07",
+    "label": "Row 5 · Column 7",
+    "row": 5,
+    "column": 7,
+    "lat": 47.45337436561927,
+    "lon": -122.29330252585996,
+    "x": -624.9999999998607,
+    "z": -375.00000000021555,
+    "h": 216.50635094610968,
+    "size": 250,
+    "fov": 60,
+    "heading": 0,
+    "pitch": -90,
+    "square": true,
+    "scope": "core-touches",
+    "sourceRingMinDistanceM": 0,
+    "boundsXZ": [
+      -750,
+      -500,
+      -500,
+      -250
+    ],
+    "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493"
+  },
+  {
+    "id": "aerial-r06-c07",
+    "label": "Row 6 · Column 7",
+    "row": 6,
+    "column": 7,
+    "lat": 47.45112478853976,
+    "lon": -122.29330252585996,
+    "x": -624.9999999998607,
+    "z": -125.00000000007185,
+    "h": 216.50635094610968,
+    "size": 250,
+    "fov": 60,
+    "heading": 0,
+    "pitch": -90,
+    "square": true,
+    "scope": "core-touches",
+    "sourceRingMinDistanceM": 0,
+    "boundsXZ": [
+      -750,
+      -250,
+      -500,
+      0
+    ],
+    "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493"
+  }
+]

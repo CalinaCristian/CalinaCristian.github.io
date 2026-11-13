@@ -100,8 +100,9 @@ that chapter of the CV.
   car somewhere illegal and passers-by react — then the ticket, the clamp or the tow truck.
 - District cleanup also unregisters retired fountain basins from animation, so travelling away from Unirii releases its scene while other fountains keep working.
 - **Saves.** Progress, position and photos persist in IndexedDB; **Continue** resumes exactly where you left off. District replacement clears nearby traffic around the actual new spawn before its first rendered frame, so the car does not start inside another vehicle.
-- **Achievements and completion %.** 114 catalogue entries cover story, exploration, driving, local colour, activities,
-  photography, walking and secrets. The weighted score appears in the menu, map and pause screens. Tourist totals and
+- **Achievements and completion %.** The catalogue holds 129 achievements; 105 are active in the current game (106 once
+  you have ridden a bike): entries for destinations that are not in the menu and for retired activities stay hidden and
+  do not count. They cover story, exploration, driving, local colour, activities, photography, walking and secrets. The weighted score appears in the menu, map and pause screens. Tourist totals and
   activity requirements follow the available menu destinations; unavailable activities and retired save keys do not inflate completion.
   Cycling becomes active after its first use.
 - New districts check initial car and bus bodies across road segments before showing them, keeping the fleet and source lanes. A bounded placement search can make room between neighbouring vehicles before first display; constructor and full rush-hour publication checks are separate gates.
@@ -142,7 +143,7 @@ that chapter of the CV.
   snow and fog, weather-driven visibility (snow settles on streets, roofs, lawns, sports grounds and the landmarks
   alike — pitches and courts get a dusting their lines still show through), and seasons (autumn colours, bare winter
   trees, the Unirii fountains drained in winter).
-- **Landmarks and buildings.** 67 hand-modelled landmarks (e.g. every CV-stop building — the GTS house on Calea
+- **Landmarks and buildings.** 70 hand-modelled landmarks (e.g. every CV-stop building — the GTS house on Calea
   Călărașilor, Liceul C.A. Rosetti with its sports hall, sports ground and fenced yard, the Politehnica rectorate, Hermes Business Campus, BOB Tower, Europe House, The
   Landmark, Lincoln Square — plus Hala Traian, the Parliament, Victoria Palace, Sky Tower, Stadionul Dinamo with its
   track, terraces, covered main stand and floodlight masts, the SeaTac garage and tower);
@@ -210,11 +211,42 @@ that chapter of the CV.
     stands on its hill behind its wall; Cișmigiu's Rotonda busts are at their mapped positions; the Arc is visible
     from Kiseleff under the park canopy; Downtown Park's canal has its coping and footbridges. Invented shopfronts
     were removed from the Arcul, Herăstrău and Spring Palace scenes.
-  - *Known gaps.* Street View was not compared for Pike Place, most of Seattle Center, Meydenbauer, the Botanical
-    Garden, the Otopeni airport side and large parts of Romană. Businesses just outside a district's playable edge and
-    some classes (nightclubs, galleries, fitness, kindergartens, offices) need a builder change and a rebuild. Statues,
-    multi-storey car parks, bridge parapets and fuel pumps are still generic. Many new heights and pier spacings are
-    estimates.
+- **Fidelity pass, round 2 (2026-11-12/13).** The same method, extended to what round 1 left.
+  - *Businesses and places, all districts.* 894 more real businesses, public places, stops and metro entrances from
+    OpenStreetMap, including frontages up to 100 m outside the playable edge and the classes the builder used to drop
+    (nightclubs, galleries, gyms, kindergartens, offices, clinics); appended to the district data without a rebuild
+    (`tools/osm/add-pois.mjs`). Buildings that carried a tenant's name show their own (Sheraton, Victoria Center,
+    Magazinul București, Floreasca Tower, Westin Bellevue …); businesses on pedestrian streets get their fascia, and
+    pedestrian streets are paved, not lawn. Closed, disused, indoor and upper-floor places are never added.
+  - *Generic classes, all districts.* OSM statues, busts, obelisks, crosses, steles and sculptures stand at their mapped
+    place as plain objects of their class (never a likeness); multi-storey car parks are open decks; fuel stations get
+    pump islands under their mapped canopy and a brand pylon on their own frontage (no prices); churches and synagogues
+    have plain walls with tall arched windows; reviewed bridges show their real edge (concrete barriers, parapet with a
+    picket fence, mesh railing; `game/research/bridge-guards.json`).
+  - *Districts.* Stadionul Dinamo lies in its pit (pitch about 9 m below the street, an estimate; the drone football
+    game is played in the bowl). Romană: ARO/Patria, The Landmark, Hotel Ambasador, the Royal Palace, statues of Nobil
+    Dac, George Enescu and Lascăr Catargiu, a paved Piața Victoriei. Otopeni: the CFR airport station's glazed vault,
+    the Plecări canopies and stair tower, the apron lighting masts, and the DN1 businesses (Romstal, Mega Image, Ferremo,
+    Ramada, Vienna House, Casa Românească). Unirii: the Unirea skin and higher water in the basin east of the square.
+    Grozăvești: the Dâmbovița level. Bellevue: the Link 2 Line guideway over I-405 (rail level estimated), Lincoln
+    Square's podiums. Re-entering a chapter in a loaded district now starts the car where a fresh load does (Arnia no
+    longer starts facing south with no route).
+  - *Tourist scenes.* Old Town: Stavropoleos, Caru' cu Bere, Hanul lui Manuc, the National Bank, CEC's domes; the
+    Stavropoleos visit arrives on Str. Stavropoleos with its own tour. Parliament's stone perimeter wall and gates;
+    Revolution Square's memorials, Carol I and the library domes; Cișmigiu's railing; the Spring Palace wall. Pike
+    Place's 1st Ave lamps and North Arcade; the waterfront piers from OSM; Meydenbauer's pavilion terrace, boathouses,
+    moorage and walkable bridge; Downtown Park's NE 4th forecourt; the Botanical Garden's entrance sign and artworks.
+    Rain and snow no longer fall inside roofed interiors. Herăstrău, Stavropoleos, Chihuly and the waterfront have
+    working guided tours.
+  - *Frame budget.* Every district's worst frame is within 1.5 M triangles / 400 draw calls (Grozăvești 1.93 M → 1.50 M,
+    exactly at the limit; Unirii 1.52 M → 1.48 M); Pike Place 2.45 M / 686 → 1.04 M / 361 and Seattle Center 1.63 M /
+    508 → 1.23 M / 274 in tourist frames. No sourced content was removed.
+  - *Known gaps.* Places with no official panorama in reach were judged from OSM only (inside the Bellevue parks,
+    Herăstrău and the Village Museum, the Gas Works towers, the Fremont Troll itself, parts of the Otopeni airport
+    side). Seattle Center's MoPOP, Climate Pledge Arena and monorail station are still generic shapes; the International
+    Fountain is outside the scene. Some statues have no hand model (Soviet Soldier, Monumentul Infanteriei, Gandhi).
+    Unreviewed bridges keep the plain parapet. MoPOP has no guided tour. Many heights, depths and levels are estimates.
+    The open list is `handoffs/fidelity/BACKLOG.md`.
 - **Performance.** Ultra’s normal-only ambient-occlusion pass uses a finite face-normal fallback with its own declared view-position varying, so smooth normal materials compile without the previous missing-varying shader error. This is a shader correctness fix, not a hardware FPS claim. Adaptive quality tiers, instanced traffic/crowds/parked cars and view-range culling target at most
   1.5 million triangles / 400 draw calls per district frame including traffic and the mirror. The overview records
   measured checks and remaining limits; software-rendered test timing is not phone performance.
@@ -322,7 +354,10 @@ The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, o
 - Map data © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL); built offline by
   `tools/osm/` into `game/data/`: the eight chapter districts as lossless binary packs `<city>-<district>.bin.gz`
   (≤ 3 MiB each, spec 10; `node tools/osm/pack-district.mjs --unpack FILE` gives the JSON back), the legacy corridor
-  maps as JSON.
+  maps as JSON. Later additions from live OpenStreetMap (fetched 2026-11-12) are appended to the packs by
+  `tools/osm/add-pois.mjs`; mapped pedestrian ways are in `game/src/pedestrian-fronts.js`.
+- Ground levels under the Bellevue Link guideway and Victor Steinbrueck Park: USGS 3DEP 1 m elevation
+  (epqs.nationalmap.gov, public domain).
 - Aerial roof, tree-crown and vegetation measurements: Esri World Imagery (Esri, Maxar, Earthstar Geographics and the GIS
   User Community). Only measurements are stored in the game; reference imagery stays in local research output. Google
   Street View is used only for visual comparison, never as a source for game data or committed imagery.
@@ -344,7 +379,7 @@ The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, o
 
 ## Technical overview and comparisons
 
-Browse [the game overview](https://cristiancalina.com/game/overview/) for the architecture, simulation, controls and spec-driven AI development, plus inline comparisons for eight districts, 67 landmark entries and 24 tourist destinations. This guide previews the ongoing fidelity work; each capture retains its actual source and date. The game update is still being tested.
+Browse [the game overview](https://cristiancalina.com/game/overview/) for the architecture, simulation, controls and spec-driven AI development, plus inline comparisons for eight districts, 70 landmark entries and 24 tourist destinations. This guide previews the ongoing fidelity work; each capture retains its actual source and date. The game update is still being tested.
 
 For release evidence, `tools/fidelity/archive-evidence.py` retains all local branch tips, fetched remote-tracking tips and worktree HEADs, plus recorded capture, implementation and prior-source links. Its JSON plan records provenance and missing objects. Dry runs are read-only; explicit `--write-tag` creates a new immutable annotated archive with the selected source tree and evidence dates unchanged. Fetch every remote branch head before final archival and verify the pushed archive before branch cleanup.
 

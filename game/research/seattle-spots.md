@@ -135,17 +135,29 @@ looking at the sign). Pike Place is car-free in the scene by design: a car-free 
 - SkyBridge over Western Ave (w296789534, `building=roof`, layer 1): an enclosed walkway between two green steel Warren
   trusses with pale green panels, flat roof, white concrete pier at the market-side kerb (iFZRr4o9WP2yFdlbuLUkeQ @ 315).
 - Pike Place Market Parking garage w184870422: its Western Ave wall is a garage front, not shops.
+- Western Ave (`pike-place-westface.js`): a colonnade at street level along the market's west walls facing the avenue
+  (Main Arcade / Leland Hotel volumes w1271653801, w1271653800, w231357660: square white piers, beam and soffit) and
+  PIKE PLACE MARKET in red letters on the white wall above it. West side: the low pink-stucco building with a parking
+  sign = Market Heritage Center (w231359028, 1 storey, PARKING board on its avenue face); the cream three-storey block =
+  Fix Building (w231359020). "Market Place North" (tan, ribbon windows) is not an OSM name: the mapped Market Place
+  complex north of the market (landuse w403552339) has Market Place One (w231355701, 2003 Western Ave, 8 levels) and Two
+  (w231355696, 2001 Western Ave, 5 levels); both take the tan band-window front.
+- Victor Steinbrueck Park lamps: the three mapped `street_lamp` nodes (n11660363671, n11660363674, n11660363677) and
+  the generated park lamps are drawn by the shared lamp builder.
 
 **Estimates**: sign letter row ≈ 14–16 m, clock Ø ≈ 2.5–3 m; North Arcade eave 3.3 m, roof run 7 m; SkyBridge underside
-≈ 6.5 m over the road. The Gum Wall's current height after cleanings is unknown (2024 figure used).
+≈ 6.5 m over the road. Western Ave: which mapped volumes the pink and cream west-side blocks and "Market Place North"
+are (assignments above), their colours (#d8a598 pink, #e6dcc4 cream, #c8b08a tan) and storeys (Heritage Center 4.6 m,
+Fix Building 3 × 3.7 m); colonnade piers 0.7 m square, 1.6 m off the wall, ≈ 4.5 m apart, beam at 4.4 m; the lettering's
+face (the longest avenue-facing wall), height (7.2 m over the road), 18 m width and red. The Gum Wall's current height after cleanings is unknown (2024 figure used).
 
 **Open (needs a panorama look)**: the Main Arcade street front has a green dado, small-pane windows and ENTRANCE signs —
 the pigs on the roof edge of the Economy / Main Arcade were not seen on any panorama checked and are not modelled; the
 barrel-vaulted canopy left of the sign is neither confirmed nor excluded (small and partly hidden by the sign frame from
-1st Ave and the Corner Market); the Western Ave west side (a low pink-stucco building with a parking sign, a cream
-three-storey block — which of the mapped volumes they are), the "Pike Place Market" lettering and street-level colonnade
-on the market's west face; Steinbrueck Park benches / lamps; Market Place North (tan with ribbon windows; a generic grey
-extrusion in the game).
+1st Ave and the Corner Market).
+
+**Source gaps**: Steinbrueck Park benches — none mapped in the park (the two mapped benches nearby, n8508584428 and
+n8508584429, are on 1st Ave / Pike Place) and no recorded positions, so none are drawn.
 
 ## Seattle Center: Space Needle, Chihuly Garden and Glass, MoPOP (`space-needle`, `chihuly`, `mopop`)
 
@@ -449,6 +461,12 @@ the south-bank plaza and fish ladder. Spawn 47.6664, −122.397 heading 180°. L
   lamp posts; gate tops a little above the footbridge deck. No red hoist boxes.
 - Buildings (1915: Administration Building w51475867, Operating Houses w285289605 / w285289606, Control Tower w223562285
   of 1969): grey concrete walls with arched openings (Administration front), red tile hipped roofs (seen from the dam).
+- `scenes/ballard-locks-buildings.js`: the 1915 buildings carry a concrete tile with tall round-arched windows; the
+  Control Tower (w223562285: `man_made=tower`, `tower:type=observation`, 1969, the lock's VHF station "Locks") is a
+  concrete shaft on its footprint under a glazed control cab, flat roof and radio mast; the Fish Ladder Viewing Room
+  (n3413278212, wheelchair, 07:00–21:00) is entered at the mapped tunnel mouths (ramp w285281015 → tunnel w285281016,
+  steps w285281017): the scene's ground is one terrain surface, so the room is built apart (like the Carusel bar) — a dim
+  concrete room with six windows into the ladder and salmon swimming upstream past them.
 - Administration garden w60973304 (`leisure=garden`): wooded with tall conifers in Street View, drawn as conifers on a 5 m
   staggered grid. Carl S. English Jr. Botanical Garden: w51475864.
 - Salmon Waves (n3211770269, Paul Sorey 2001, SPU04.087; `scenes/ballard-locks-art.js`): "Seven stainless steel waves
@@ -463,12 +481,12 @@ the south-bank plaza and fish ladder. Spawn 47.6664, −122.397 heading 180°. L
 **Estimates**: footbridge and service-bridge levels (lake +0.1 m / +2.5 m) and all wall tops (7.0 m, the north bank's coping)
 read from one panorama and the bank; the large chamber moves as one sheet across the intermediate gate; Salmon Waves'
 layout, facing and curl from one panorama; plaza level from two dry DEM samples; parapet 1.05 × 0.25 m; the garden's
-conifer grid and tree sizes; 1915 building heights.
+conifer grid and tree sizes; 1915 building heights; the arched windows' size and rhythm (one per 3.2 m bay and 3 m
+floor); Control Tower shaft 9 m, cab 3 m with a 0.45 m overhang, mast 4.5 m; the viewing room's size (18 × 7 × 3.2 m),
+six 2.4 × 2.2 m windows, the water colour and the 14 salmon.
 
-**Open (needs a panorama look of the lock grounds)**: the Control Tower is still a generic block, the 1915 buildings keep
-generic windows, the fish-ladder viewing room interior and entrance are not modelled; the visitor centre, the garden's
-planting; roof-tile colour against a reference. Lock-wall panoramas put the game's eye in the chamber (no valid
-comparison).
+**Open (needs a panorama look of the lock grounds)**: the visitor centre, the garden's planting; roof-tile colour against a
+reference. Lock-wall panoramas put the game's eye in the chamber (no valid comparison).
 
 ## Gas Works Park (`gas-works`)
 

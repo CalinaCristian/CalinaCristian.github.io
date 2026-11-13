@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { CEC_SOURCE_MASSES as source } from '../../src/landmark-cec-source.js';
+import { CEC_SOURCE_MASSES as source } from '../../src/landmarks/source-data.js';
 import { LANDMARKS, buildLandmark } from '../../src/landmarks.js';
 import { parseMeasure } from '../../src/building-roofs.js';
 import { Box3 } from '../../vendor/three.module.min.js';

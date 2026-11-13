@@ -991,3 +991,9 @@ Sources: live OSM, the official panorama poses recorded in the backlog rows (loo
 - **Muzeul Țăranului Român**: the total height (19.6 m, a re-estimate) and the 6 m roof rise are not measurable from the street
   (the museum stands behind the Kiseleff tree belt); the entrance tower has no OSM `building:part` and no sourced height, so it is
   not drawn.
+
+## Backlog clearing (2026-11-13)
+
+- **Not seen from any street panorama** (backlog r2-districts-view-15): Piscina Lido (w810540711), Mavrogheni church
+  (w78841431), SNSPA (w23647615), Casa Henri Coandă (w256051276). Drawn from OSM outlines and classes; their look is the class
+  estimate. Hotel Minerva (w171045151) is covered by the review above.

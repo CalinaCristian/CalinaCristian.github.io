@@ -221,3 +221,8 @@ outline w1035290130, 47.444099, -122.293207 h330): a low white enclosed corridor
   is an estimate), beige.
 - **SureStay** (w314940622): the only official panorama in reach (47.446223, -122.294333) is old (Clarion signage) and stands
   against the wall; at least three storeys behind a one-storey front. The 9 m default is kept.
+
+## Backlog clearing (2026-11-13)
+
+- **Not seen from any street panorama** (backlog r2-districts-view-15): the hotel pool at 47.444558, −122.294232 and the
+  garage rideshare ramps at 47.4430, −122.2982. Drawn from OSM; their look is the class estimate.

@@ -615,3 +615,10 @@ Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
   both official panoramas (hGqephV5yIK6jWNVMdcHBw h 70, FxOOz6e8e3HgHwgY0fxicg h 137) show a roof about 5–5.5 m high. Documented
   exception in `fuel-canopy-review.js`: drawn at 5.4 m with 4.6 m clearance, like the district's other canopies. Correct the OSM
   tag upstream, then drop the exception.
+- **Orhideea car-park frame (r2-landmarks-b-7)**: at a395e49a the pose 44.444372, 26.061485 measures 0.86 M triangles in the
+  driving view (heading 70, mirror on), 1.01 M at eye height, and at most 1.26 M over twelve headings (driving and eye views,
+  1280 × 720); heading 70 at ultra quality and 1920 × 1080 gives the same 1.01 M: under the 1.5 M budget. The round-2 1.544 M no longer reproduces.
+- **Basarab light band (r2-perf-6)**: the night band's box (0.215 m) enclosed the guards' 0.18 m blue fascia with the same ends,
+  so the fascia was never seen; `drawBasarabGuard` now draws the band instead of the fascia where the band exists (the band casts
+  the fascia's shadow). Day and night renders at 44.44503, 26.06120 unchanged; about 44,000 fewer triangles in Basarab frames
+  (1.042 M → 0.998 M at the pose, day).

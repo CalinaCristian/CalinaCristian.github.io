@@ -5922,11 +5922,12 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     // ---- Pasajul Basarab by night: the blue light band along the deck edges (owner's reference photograph, 2026-11-11).
-    //      The band is the guards' own blue fascia, repeated a few centimetres proud in one mesh whose material glows at
-    //      night (userData.nightEmissive). By day it is the same blue. ESTIMATE of colour and strength.
+    //      The band is the guards' own blue fascia (drawn only here, a few centimetres wider than the fascia it replaces) in one
+    //      mesh whose material glows at night (userData.nightEmissive). By day it is the same blue. ESTIMATE of colour and strength.
     if (basarabBlue.ic > 0) {
         const mesh = new THREE.Mesh(basarabBlue.build(), new THREE.MeshStandardMaterial({ vertexColors: true, emissive: '#2444ff', emissiveIntensity: 0, roughness: 0.6 }));
-        mesh.material.userData.nightEmissive = 2.2; mesh.name = 'Basarab night light band (estimate)'; mesh.castShadow = false; group.add(splitMeshByTiles(mesh, 125)); // (tiles: culled out of view, same geometry)
+        mesh.material.userData.nightEmissive = 2.2; mesh.name = 'Basarab night light band (estimate)'; mesh.castShadow = true; // (r2-perf-6: the band is the fascia now, drawBasarabGuard; it casts the fascia's shadow)
+        group.add(splitMeshByTiles(mesh, 125)); // (tiles: culled out of view, same geometry)
     }
     const treeClear = []; // (after round 6) {x, z, r}: no trees here (fuel forecourts)
     const addPropColl = (x, z, r, kind = 'prop') => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h: 3, prop: true, kind });

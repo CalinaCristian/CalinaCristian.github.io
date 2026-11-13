@@ -8094,6 +8094,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         return o;
     };
     const tramTrench = buildTramTrenchCutter(tramGrades.support);
+    // (spec 10 load budget) a super-cell's first builder takes the others once, at their final size (appendAll), when its
+    // mesh is made: the same arrays as appending them one by one here; o.ic is the merged index count so far
+    const superAdd = (o, mb) => { if (!o.mb) o.mb = mb; else (o.pending ||= []).push(mb); o.ic = (o.ic || 0) + mb.ic; };
     for (const c of cells.values()) {
         for (const layer of ['area', 'grass', 'pave', 'sport', 'roof', 'backdrop', 'ground', 'road', 'pad', 'marks', 'water', 'solid', 'detail']) {
             if (c[layer].empty) continue;
@@ -8101,14 +8104,15 @@ export async function buildWorld(city, renderer, opts = {}) {
             const o = superOf(c, layer);
             if (['solid', 'roof', 'area', 'grass', 'pave', 'sport', 'ground', 'road', 'pad', 'marks'].includes(layer)) {
                 const mb = c[layer], box = new THREE.Box3().setFromArray(mb.p.subarray(0, mb.vc * 3));
-                (o.parts ||= []).push({ start: o.mb?.ic || 0, count: mb.ic, bounds: [...box.min.toArray(), ...box.max.toArray()] });
+                (o.parts ||= []).push({ start: o.ic || 0, count: mb.ic, bounds: [...box.min.toArray(), ...box.max.toArray()] });
             }
-            if (!o.mb) o.mb = c[layer]; else o.mb.append(c[layer]);
+            superAdd(o, c[layer]);
         }
-        c.signs.forEach((mb, k) => { if (!mb || mb.empty) return; const o = superOf(c, 'signs', k); if (!o.mb) o.mb = mb; else o.mb.append(mb); });
-        if (c.spill && !c.spill.empty) { const o = superOf(c, 'spill'); if (!o.mb) o.mb = c.spill; else o.mb.append(c.spill); }
+        c.signs.forEach((mb, k) => { if (!mb || mb.empty) return; superAdd(superOf(c, 'signs', k), mb); });
+        if (c.spill && !c.spill.empty) superAdd(superOf(c, 'spill'), c.spill);
     }
     const addSuper = (o, mat, cast, name) => {
+        if (o.pending) { o.mb.appendAll(o.pending); o.pending = null; }
         cx = o.I * o.K + o.K / 2 - 0.5; cz = o.J * o.K + o.K / 2 - 0.5; // (addMesh centres at (cx + 0.5) · CELL)
         const m = addMesh(o.mb, mat, cast, `${name} ${o.I},${o.J}`); if (!m) return null;
         if(['ground','road','pad'].includes(o.layer))fallbackApertures.addGeometry(m.geometry,'road-floor');

@@ -148,8 +148,35 @@ export class MeshBuilder {
         geo.setAttribute('color', new THREE.BufferAttribute(this.c.slice(0, this.vc * 3), 3, true));
         if (this.t) geo.setAttribute('tile', new THREE.BufferAttribute(this.t.slice(0, this.vc), 1));
         geo.setIndex(new THREE.BufferAttribute(this.vc > 65535 ? this.i.slice(0, this.ic) : new Uint16Array(this.i.subarray(0, this.ic)), 1));
-        geo.computeBoundingSphere(); geo.computeBoundingBox();
+        // (spec 10 load budget) the box once: BufferGeometry.computeBoundingSphere builds the same box from the positions
+        // again before its radius pass; this is that radius pass, on the box computeBoundingBox made
+        geo.computeBoundingBox();
+        const sphere = geo.boundingSphere = new THREE.Sphere(), P = geo.attributes.position.array;
+        geo.boundingBox.getCenter(sphere.center);
+        const cx = sphere.center.x, cy = sphere.center.y, cz = sphere.center.z; let r2 = 0;
+        for (let k = 0; k < this.vc * 3; k += 3) { const dx = cx - P[k], dy = cy - P[k + 1], dz = cz - P[k + 2]; r2 = Math.max(r2, dx * dx + dy * dy + dz * dz); }
+        sphere.radius = Math.sqrt(r2);
+        if (isNaN(sphere.radius)) geo.computeBoundingSphere(); // (three's own pass, which also reports it)
         return geo;
+    }
+    /** append every builder of `list` to this one, as append() one by one would, with arrays of the exact final size */
+    appendAll(list) {
+        let vc = this.vc, ic = this.ic;
+        for (const o of list) if (o && !o.empty) { vc += o.vc; ic += o.ic; }
+        const grow = (a, k, T) => { const b = new T(Math.max(1, vc) * k); b.set(a.subarray(0, this.vc * k)); return b; };
+        this.p = grow(this.p, 3, Float32Array); this.n = grow(this.n, 3, Float32Array); this.u = grow(this.u, 2, Float32Array); this.c = grow(this.c, 3, Uint8Array);
+        if (this.t) this.t = grow(this.t, 1, Float32Array);
+        const ix = new Uint32Array(Math.max(1, ic)); ix.set(this.i.subarray(0, this.ic)); this.i = ix;
+        for (const o of list) {
+            if (!o || o.empty) continue;
+            const k = this.vc;
+            this.p.set(o.p.subarray(0, o.vc * 3), k * 3); this.n.set(o.n.subarray(0, o.vc * 3), k * 3);
+            this.u.set(o.u.subarray(0, o.vc * 2), k * 2); this.c.set(o.c.subarray(0, o.vc * 3), k * 3);
+            if (this.t) { if (o.t) this.t.set(o.t.subarray(0, o.vc), k); else this.t.fill(-1, k, k + o.vc); }
+            for (let i = 0; i < o.ic; i++) this.i[this.ic + i] = o.i[i] + k;
+            this.vc += o.vc; this.ic += o.ic;
+        }
+        return this;
     }
 }
 

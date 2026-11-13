@@ -5,7 +5,9 @@ import { sharedBridgePadSurface } from './bridge-pad-profile.js';
 import { shapeDeckSoup } from './bridge-surface-mesh.js';
 import * as THREE from '../vendor/three.module.min.js';
 import { distPointSeg, pointInPolygon } from './util.js';
+import { triangulate } from './triangulate.js';
 import { clipInferredBuildingDetail } from './building-detail-visibility.js';
+import { rgb } from './geobuild.js';
 import { sourceSidewalkSides, sidewalkWidth } from './sidewalk-source.js';
 import { roadMiter, needsRoadBevelPad } from './road-joins.js';
 import { buildSourceBoundarySupport } from './district-boundary.js';
@@ -95,11 +97,19 @@ export async function buildWorld(city, renderer, opts = {}) {
         str, tramGrades,
     });
     const {
-        CHAN, areas, bigWater, bounds, builderEpoch, bx0, bx1, bz0,
-        bz1, cellOf, cells, channelAreas, channelCuts, convexApart, coveredWater, cutTrenches,
-        fountainBasinColl, graph, groundCutsAt, inArea, isPark, isWater, landmarkPits, nearWater,
-        pad, signMB, sweptOut, tramSweep, tramSweepConflicts, trenchQuads, waterChannelAudit, waterGrid,
+        CHAN, areaColors, areas, bigWater, bounds, builderEpoch, bx0, bx1,
+        bz0, bz1, cellOf, cells, channelAreas, channelCuts, convexApart, coveredWater,
+        cutTrenches, fountainBasinColl, graph, groundCutsAt, inArea, isPark, isWater, landmarkPits,
+        meadowFills, nearWater, pad, signMB, sweptOut, tramSweep, tramSweepConflicts, trenchQuads,
+        waterChannelAudit, waterGrid, waterOutlineAudit,
     } = __buildAreasWater;
+    // (pipera-2) the land inside a narrowed coarse water outline is the meadow OSM maps there: one grass layer under the
+    // mapped grass / meadow polygons, cut over the river band like any ground layer (sunken-lakes.js)
+    for (const ring of meadowFills) {
+        let { pts, tris } = triangulate(ring, []); ({ pts, tris } = cutTrenches(pts, tris)); if (!tris.length) continue;
+        let cx = 0, cz = 0; for (const [x, z] of ring) { cx += x / ring.length; cz += z / ring.length; }
+        cellOf(cx, cz).grass.flatPoly(pts, tris, Y.grass - 0.004, rgb(areaColors.grass), 0.1);
+    }
     // sports grounds (2026-11-08): line markings, goals, tennis nets and court fences, basketball hoops, pool copings on
     // the pitch / turf / clay / hard / pool areas — they were flat coloured patches. The court is fitted with the
     // smallest-area rectangle of its outline (skipped when the outline is not rectangular enough); everything is visual.
@@ -516,13 +526,14 @@ export async function buildWorld(city, renderer, opts = {}) {
         nodeArr, nodes, noise, obbPoly, onRibbon, opts, outlineParts, overlapCuts,
         padMat, parked, parkedLots, parkingClearance, pasajPortals, pasajStats, physicalUnionAudit, physicalUnionRejected,
         pierColl, poiDoorGuides, poiGroup, pois, polyDist, polyOnRibbon, preparedSmallWater: __buildRaisedEdges.preparedSmallWater, profileStats,
-        propColl, railRoadside, railingDrops, railingNetwork, raisedTop, retract, reviewedBridgeRailings, rng,
-        roadMat, roofAdList, roofAds, roofProfileAudit, sceneryDeckGrid, sideJoins, signedSpots, signs,
-        solidMat, spillMat, sportAreaLog, str, surfacesAt, sweptOut, t0, tramGrades,
-        tramPropEnvelope, tramRailings, tramSweep, tramSweepConflicts, transitShelterAudit, treeAdditions, treeBuildingClearance, treeClear,
-        treeCount, treeDeckClearance, treeNear, treesOSM, treesRows, trenchGoreCuts, trenchQuads, underpassColl,
-        underpassCollEdges, underpassCover, underpassOwners: __buildRaisedEdges.underpassOwners, underpassRoofAudit, useInst, vacantUnits, vegetation, wallCut,
-        walls, waterBridgeRailings, waterChannelAudit, waterLineAudit, waterMat: __buildStreetscape.waterMat, waterTreeConflicts, yAlong,
+        propColl, railRoadside, railingDrops, railingNetwork, raisedTop, retract, reviewedBridgeRailings, ribGrid,
+        rng, roadMat, roofAdList, roofAds, roofProfileAudit, sceneryDeckGrid, sideJoins, signedSpots,
+        signs, solidMat, spillMat, sportAreaLog, str, surfacesAt, sweptOut, t0,
+        tramGrades, tramPropEnvelope, tramRailings, tramSweep, tramSweepConflicts, transitShelterAudit, treeAdditions, treeBuildingClearance,
+        treeClear, treeCount, treeDeckClearance, treeNear, treesOSM, treesRows, trenchGoreCuts, trenchQuads,
+        underpassColl, underpassCollEdges, underpassCover, underpassOwners: __buildRaisedEdges.underpassOwners, underpassRoofAudit, useInst, vacantUnits, vegetation,
+        wallCut, walls, waterBridgeRailings, waterChannelAudit, waterLineAudit, waterMat: __buildStreetscape.waterMat, waterOutlineAudit, waterTreeConflicts,
+        yAlong,
         __live: {
             get pitchesDressed() { return pitchesDressed; },
             get signCount() { return __buildStreetscape.signCount; },

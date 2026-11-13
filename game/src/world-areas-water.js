@@ -12,6 +12,7 @@ import { districtTramSweep } from './tram-sweep.js';
 import { decodeDistrictMask } from './district-boundary.js';
 import { subtractConvex } from './building-overlap.js';
 import { channelProfile } from './water-channel-review.js';
+import { sunkenLake, waterOutlineException } from './sunken-lakes.js';
 import { AREA_Y, BoxGrid, CELL, FOUNTAIN_COPING, GRASSY, PAVED, SPORT_KINDS, Y, setProgress, shadeHex, signedArea, tick, undelta } from './world-shared.js';
 
 export async function buildAreasWater(ctx) {
@@ -61,9 +62,15 @@ export async function buildAreasWater(ctx) {
     };
     const areas = [];
     const waterGrid = new BoxGrid(200), parkGrid = new BoxGrid(200);
+    const waterOutlineAudit = [], meadowFills = []; let riverLinePts = null;
+    const waterRiverLines = () => riverLinePts || (riverLinePts = (data.lines || []).flatMap((l, i) => data.lineKinds?.[l[0]] === 'river' ? [data.lineSources?.[i]?.points?.length >= 2 ? data.lineSources[i].points : undelta(l[3], 0)] : []));
     for (let areaIndex = 0; areaIndex < data.areas.length; areaIndex++) {
         const a = data.areas[areaIndex], kind = data.areaKinds[a[0]];
-        const rings = kind === 'parking' && data.parkingFootprints?.[areaIndex] || a.slice(2).map(r => undelta(r, 0));
+        let rings = kind === 'parking' && data.parkingFootprints?.[areaIndex] || a.slice(2).map(r => undelta(r, 0));
+        if (kind === 'water' && rings[0]?.length >= 3) { // (pipera-2: a documented coarse outline narrowed to its mapped river line, sunken-lakes.js)
+            const ex = waterOutlineException(distId, data.areaSourceIds?.[areaIndex] || '', rings[0], waterRiverLines(), pointInPolygon);
+            if (ex) { meadowFills.push(rings[0]); rings = [ex.ring]; waterOutlineAudit.push({ sourceId: data.areaSourceIds[areaIndex], halfWidthM: ex.halfW, lineVertices: ex.line.length, review: ex.review }); }
+        }
         const outer = rings[0]; if (!outer || outer.length < 3) continue;
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity;
         for (const [x, z] of outer) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
@@ -121,6 +128,7 @@ export async function buildAreasWater(ctx) {
         if (a.kind !== 'water') continue;
         // Literal mapped water type precedes the legacy estimated channel classification.
         a.channelDecision = waterChannelDecision(a, { us: US, tags: data.areaSourceTags?.[a.sourceId] || {} });
+        { const lake = sunkenLake(distId, a.sourceId); if (lake) { a.sunkenLake = lake; a.channelDecision = { ...a.channelDecision, channel: true, sunkenLake: true, source: 'reviewed sunken lake: ' + lake.source }; } } // (pipera-2, sunken-lakes.js)
         if (!a.channelDecision.channel) continue;
         const t = triangulate(a.outer, a.holes); waterTris.set(a, t);
         for (const tri of t.tris) {
@@ -173,7 +181,7 @@ export async function buildAreasWater(ctx) {
         if (a.kind === 'water') {
             const target = (a.x1 - a.x0 > CELL * 2 || a.z1 - a.z0 > CELL * 2) ? bigWater : cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2).water;
             const channel = a.channelDecision, chan = channel.channel;
-            const chanP = channelProfile(distId, a.sourceId, CHAN); if (chan) a.chanProfile = chanP; // (r2: reviewed section per water polygon, water-channel-review.js)
+            const chanP = a.sunkenLake || channelProfile(distId, a.sourceId, CHAN); if (chan) a.chanProfile = chanP; // (r2: reviewed section per water polygon, water-channel-review.js)
             waterChannelAudit.push({ sourceId: a.sourceId, name: a.name, ...channel, surfaceM: chan ? chanP.water : y, surfaceSource: chan && chanP.source || 'model estimate' });
             // (round 3, r2-builder-fountain-outlines) a fountain basin mapped as an outline (areaSourceTags amenity=fountain,
             // tools/osm/add-areas.mjs) holds its water inside a low stone coping (≈ 0.45 m, an estimate), not at ground level
@@ -183,7 +191,7 @@ export async function buildAreasWater(ctx) {
             // the eight districts are 38 m² and up)
             const wt = data.areaSourceTags?.[a.sourceId], ornamental = !!wt && (wt.amenity === 'fountain' || /^(reflecting_pool|fountain)$/.test(wt.water || '') || (wt.natural === 'water' && !wt.water && a.size <= 30));
             const basin = !chan && ornamental, wy = basin ? 0.36 : y;
-            const v0 = target.vc; target.flatPoly(pts, tris, chan ? chanP.water : wy, chan ? rgb('#3c4a42') : col, 0.02); a.waterMesh = { mb: target, v0, v1: target.vc };
+            const v0 = target.vc; target.flatPoly(pts, tris, chan ? chanP.water : wy, chan && !a.sunkenLake ? rgb('#3c4a42') : col, 0.02); a.waterMesh = { mb: target, v0, v1: target.vc };
             if (basin) { // coping: outer face, top (0.3 m wide), inner face down to the water, along the outer ring
                 const sb = cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2).solid, stone = rgb(FOUNTAIN_COPING[a.sourceId] || '#b9b2a5'), R = a.outer, ccw = signedArea(R) > 0, top = 0.45, base = 0;
                 for (let k = 0; k < R.length; k++) {
@@ -204,6 +212,7 @@ export async function buildAreasWater(ctx) {
     }
     return {
         CHAN,
+        areaColors,
         areas,
         bigWater,
         bounds,
@@ -226,6 +235,7 @@ export async function buildAreasWater(ctx) {
         isPark,
         isWater,
         landmarkPits,
+        meadowFills,
         nearWater,
         pad,
         signMB,
@@ -235,6 +245,7 @@ export async function buildAreasWater(ctx) {
         trenchQuads,
         waterChannelAudit,
         waterGrid,
+        waterOutlineAudit,
         get dmask() { return dmask; }, set dmask(v) { dmask = v; },
         get trenchCutTris() { return trenchCutTris; }, set trenchCutTris(v) { trenchCutTris = v; },
     };

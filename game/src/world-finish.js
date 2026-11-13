@@ -8,8 +8,10 @@ import * as THREE from '../vendor/three.module.min.js';
 import { clamp, pointInPolygon } from './util.js';
 import { collisionBounds } from './world-collide.js';
 import { CHAPTERS } from './cities.js';
+import { rgb } from './geobuild.js';
 import { cullMergedCells } from './cell-frustum.js';
 import { buildFallbackGround, buildFallbackGroundParallel } from './fallback-ground.js';
+import { emitFreewayCuts } from './freeway-cut.js';
 import { BoxGrid, PHASES, Y, buildSky, setProgress } from './world-shared.js';
 import { buildScenery } from './world-scenery.js';
 import { buildFinalMeshes } from './world-final-meshes.js';
@@ -30,13 +32,14 @@ export function buildWorldFinish(ctx) {
         nodeArr, nodes, noise, obbPoly, onRibbon, opts, outlineParts, overlapCuts,
         padMat, parked, parkedLots, parkingClearance, pasajPortals, pasajStats, physicalUnionAudit, physicalUnionRejected,
         pierColl, poiDoorGuides, poiGroup, pois, polyDist, polyOnRibbon, preparedSmallWater, profileStats,
-        propColl, railRoadside, railingDrops, railingNetwork, raisedTop, retract, reviewedBridgeRailings, rng,
-        roadMat, roofAdList, roofAds, roofProfileAudit, sceneryDeckGrid, sideJoins, signedSpots, signs,
-        solidMat, spillMat, sportAreaLog, str, surfacesAt, sweptOut, t0, tramGrades,
-        tramPropEnvelope, tramRailings, tramSweep, tramSweepConflicts, transitShelterAudit, treeAdditions, treeBuildingClearance, treeClear,
-        treeCount, treeDeckClearance, treeNear, treesOSM, treesRows, trenchGoreCuts, trenchQuads, underpassColl,
-        underpassCollEdges, underpassCover, underpassOwners, underpassRoofAudit, useInst, vacantUnits, vegetation, wallCut,
-        walls, waterBridgeRailings, waterChannelAudit, waterLineAudit, waterMat, waterTreeConflicts, yAlong,
+        propColl, railRoadside, railingDrops, railingNetwork, raisedTop, retract, reviewedBridgeRailings, ribGrid,
+        rng, roadMat, roofAdList, roofAds, roofProfileAudit, sceneryDeckGrid, sideJoins, signedSpots,
+        signs, solidMat, spillMat, sportAreaLog, str, surfacesAt, sweptOut, t0,
+        tramGrades, tramPropEnvelope, tramRailings, tramSweep, tramSweepConflicts, transitShelterAudit, treeAdditions, treeBuildingClearance,
+        treeClear, treeCount, treeDeckClearance, treeNear, treesOSM, treesRows, trenchGoreCuts, trenchQuads,
+        underpassColl, underpassCollEdges, underpassCover, underpassOwners, underpassRoofAudit, useInst, vacantUnits, vegetation,
+        wallCut, walls, waterBridgeRailings, waterChannelAudit, waterLineAudit, waterMat, waterOutlineAudit, waterTreeConflicts,
+        yAlong,
     } = ctx;
     const __live = ctx.__live;
     // shoreline foam / shallow tint / wet edges (water.js): every water mesh is re-tessellated (≤ 6 m edges) and gets
@@ -72,8 +75,16 @@ export function buildWorldFinish(ctx) {
     const {
         areaFences, backdropCount, backdropInLandmark, backdropMat, backdropSourceOwnership, bollards, carParkFronts, cellsGroup,
         elevatedSources, facadeBands, fallbackApertures, horizon, monuments, parkWalls, pedestrianBridges, playgrounds,
-        railStats, roofMat, scenerySourceAudit, sceneryStreets, signMats, signTex, underpassMouths, weirs,
+        hillStructures, railStats, retainingBanks, roofMat, scenerySourceAudit, sceneryStreets, signMats, signTex, underpassMouths, weirs,
     } = __buildScenery;
+    // (backlog bellevue-2) a freeway in a cut under a cross-street bridge: median barrier and abutment walls (freeway-cut.js)
+    const freewayCuts = emitFreewayCuts({ district: distId, proj: (la, lo) => city.proj(la, lo), onRibbon, cellOf, rgb,
+        deckAbove: (x, z) => { let top = null; ribGrid.each(x, z, x, z, (rb) => { // (the lowest raised carriageway / pad over the point: its surface height)
+            if (rb.y <= 1.0 || x < rb.x0 || x > rb.x1 || z < rb.z0 || z > rb.z1 || !pointInPolygon(x, z, rb.poly)) return;
+            const h = rb.e ? rb.e.ya + (rb.e.yb - rb.e.ya) * clamp(((x - rb.e.a.x) * rb.e.dirx + (z - rb.e.a.z) * rb.e.dirz) / rb.e.len, 0, 1) : rb.node.y;
+            if (h > 1.0 && (top === null || h < top)) top = h; }); return top; },
+        solidAt: (x, z, r) => pierColl.some(p => Math.abs(p.x - x) < (p.r || 1) + r && Math.abs(p.z - z) < (p.r || 1) + r),
+        addCollider: (x, z, hw, hd, angle, h, kind, cut) => propColl.push({ x, z, hw, hd, angle, r: Math.hypot(hw, hd), poly: null, h, prop: true, kind, sourceId: cut.id, estimated: true }) });
     // (world final meshes: world-final-meshes.js)
     const __buildFinalMeshes = buildFinalMeshes({
         US, areaMat, areas, backdropMat, bigWater, buildingAt, cells, cellsGroup,
@@ -279,6 +290,7 @@ export function buildWorldFinish(ctx) {
     stats.transitShelters = { schema: 1, records: transitShelterAudit, withheldUnknown: transitShelterAudit.filter(r => r.status === 'unknown-shelter-geometry').length, literalNo: transitShelterAudit.filter(r => r.status === 'literal-no-shelter').length, legacyUnreviewed: transitShelterAudit.filter(r => r.status === 'legacy-unreviewed').length, limits: 'Inferred generic-unit decisions only; no real shelter absence, mapped geometry removal or constructor/route clearance acceptance.' };
     stats.waterShore = waterShoreAudit;
     stats.waterChannels = waterChannelAudit;
+    stats.waterOutlineExceptions = waterOutlineAudit; // (pipera-2: coarse outlines narrowed to their river line, sunken-lakes.js)
     stats.waterLines = waterLineAudit;
     stats.tramGrades = tramGrades.report;
     stats.railRoadside = railRoadside.report;
@@ -287,7 +299,7 @@ export function buildWorldFinish(ctx) {
     stats.tramPropEnvelope = tramPropEnvelope;
     stats.tramSweep = tramSweep ? { ...tramSweep.report, conflicts: tramSweepConflicts } : null;
     stats.tramRailings = tramRailings;
-    stats.monuments = monuments; stats.playgrounds = playgrounds; stats.carParkFronts = carParkFronts; stats.parkWalls = parkWalls; stats.deckLamps = deckLamps; stats.facadeBands = facadeBands; stats.treeAdditions = treeAdditions; stats.weirs = weirs; stats.medianLinkSidewalks = medianLinkSidewalks;
+    stats.monuments = monuments; stats.playgrounds = playgrounds; stats.carParkFronts = carParkFronts; stats.parkWalls = parkWalls; stats.retainingBanks = retainingBanks; stats.hillStructures = hillStructures; stats.freewayCuts = freewayCuts; stats.deckLamps = deckLamps; stats.facadeBands = facadeBands; stats.treeAdditions = treeAdditions; stats.weirs = weirs; stats.medianLinkSidewalks = medianLinkSidewalks;
     stats.fuelForecourts = fuelForecourts;
     stats.landmarkWaterFootprints = landmarkWaterFootprints;
     stats.trenchGroundCuts = { corridors: trenchQuads.length, channelWaterTriangles: channelCuts.length, triangles: __live.trenchCutTris }; // (ground layers cut out of open trenches and sunken water channels)

@@ -106,8 +106,10 @@ Both chapters are 2017. Starts and roads are authoritative in `cities.js` CHAPTE
   `water-bridge-railings.js`). Settled: the "weir" w1507038443 is a small `natural=water`, `water=weir` polygon at 44.4705,
   26.1230, ≈ 420 m south of the bridge, not a line across the lake; not seen on a panorama, not drawn. The tram reserve west of
   the bridge carries the tram bridges w23583767 / w902027550 (`railway=construction`, STB extension, opening_date 2027):
-  construction railways are not drawn until OSM maps them open. Open (backlog pipera-2): the lake water is drawn at street level
-  and the lake polygon w117140691 is a coarse 2006 CORINE import with measured crowns inside it.
+  construction railways are not drawn until OSM maps them open. Lakes below the street (2026-11-13, `sunken-lakes.js`): Lacul
+  Plumbuita r11546654 is drawn 2.0 m and Lacul Tei w117140697 1.5 m below the street inside their mapped outlines, with a
+  2.4 m grass bank and a 0.9 m concrete slab revetment at the waterline (the 1930s Colentina regularisation); bridges and
+  streets over the water keep the bank open. The coarse outline w117140691 is narrowed to the Colentina (section 8).
 - **Metro pedestrian tunnels** w739789922–24 (Aurel Vlaicu) and w739791318 / 19 (Pipera): `layer=-1` footways under the street;
   all five entrance nodes lie inside mapped buildings (drawn as those buildings), so nothing shows at street level.
 - **Promenada car-park tunnels** (w764616770/1, w467560865, w467560480/1, w467560867, layer −1): service roads flagged tunnel.
@@ -148,7 +150,8 @@ Both chapters are 2017. Starts and roads are authoritative in `cities.js` CHAPTE
 - **Clubul Sportiv Năstase & Marica** (w23731450): clay courts w885503360 / 61 / 62 / 71 / 73 / 74, pool w1284446111 and the
   stadium pitch w885503357 / w47422913 at their OSM positions (no public panorama inside the club). The clay courts at
   44.47793, 26.09902 and 44.47814, 26.10046 are hidden behind houses from every panorama.
-- **Water**: Lacul Tei w117140691 and Lacul Plumbuita r11546654 (section 4); pond w1423621338.
+- **Water**: Lacul Tei w117140697, Lacul Plumbuita r11546654 and the Colentina band of w117140691 (section 4); pond
+  w1423621338.
 
 ## 6. Buildings, businesses and fuel
 
@@ -224,6 +227,15 @@ Independent full-ring measurements (2026-11-08; ledger `measurements-bucharest-p
   n311737019 where footway w28379731 enters.
 - **Aviation museum fence** (`park-walls.js`): 2 m concrete panel fence along the grounds' boulevard edge (n696844080 →
   n4161774631 → n4161774633, 238 m); no mapped barrier.
+- **Lacul Tei w117140691 narrowed to the Colentina** (`sunken-lakes.js`, `WATER_OUTLINE_EXCEPTIONS`): the polygon is a 2006
+  CORINE import (`CLC:year=2006`) covering the strip south of the Petricani bridge as open water. Live OSM (2026-11-13) maps
+  that strip as land: the protected meadow "Aria naturală protejată Pajiștea Petricani" w1420394521, meadow w1420395543 /
+  w1420388611, grass w1420394519, reedbeds w1254087120 / 21 / 22 and dirt paths ("Poteca principală") lie inside it, and the
+  only water mapped through it is the Colentina river line w231801791; the bridge panorama (h 275) shows no water west of the
+  bridge. Inside this outline only a band 4 m either side of the pack's river line is water (sunk 1.2 m, a 1.2 m grass bank
+  and a muddy edge); the rest is drawn as meadow, and the 46 crowns of the aerial survey that stand inside the outline
+  (`trees-bucharest-pipera.json`; the pack had left them out as trees in water) are placed: 45 stand, 1 falls in the band.
+  The source outline stays in the data unchanged.
 
 ## 9. Estimates and open questions
 
@@ -240,6 +252,12 @@ Independent full-ring measurements (2026-11-08; ledger `measurements-bucharest-p
   two, a porch (pridvor) or a separate bell tower was not compared (porches and separate bell towers stay unmodelled unless
   mapped). Here: 4 churches with 6 towers (Herăstrău, Pogorârea Duhului Sfânt și Sf. Apostoli Petru și Pavel, Sf. Grigore Dascălul, Doamna Ghica - Tei); no tower on Teocentric (free church), the other Pogorârea Duhului Sfânt building and Sf. Tecla (no denomination tag).
 - Park wall: opening 3.2 m, thickness 0.3 m, cap colour. Museum fence: height and post pitch.
+- Lake levels below the street (no source gives them): Plumbuita 2.0 m (EU-DEM via OpenTopoData, 2026-11-13: water
+  63.3–63.8 m, the bridge deck 64.3 m, which a smoothed surface model under-reads; the panorama shows the water some metres
+  below the east railing), Tei 1.5 m (EU-DEM water 63.3 m; bank height as the Herăstrău review of the same lake chain). The
+  streets on the terraces round the valley stand 76–82 m (EU-DEM): the flat district shows only the bank, not the valley.
+  Bank: grass slope 2.4 m, slab revetment 0.9 m; Colentina band half-width 4 m (the nearest measured crown is 6.9 m from the
+  river line, crown radius 2.2 m), sunk 1.2 m.
 - Deck lamps on Podul Barbu Văcărescu: spacing 30 m and height 8 m.
 - Soviet Soldier monument: form and size (hidden by trees).
 - Aircraft exhibits: vertical dimensions; the three point-only aircraft (size unknown, not drawn).

@@ -1,0 +1,102 @@
+[
+  {
+    "id": "aerial-r08-c07",
+    "label": "Row 8 · Column 7",
+    "row": 8,
+    "column": 7,
+    "lat": 47.44662563438074,
+    "lon": -122.29330252585996,
+    "x": -624.9999999998607,
+    "z": 375.00000000021555,
+    "h": 216.50635094610968,
+    "size": 250,
+    "fov": 60,
+    "heading": 0,
+    "pitch": -90,
+    "square": true,
+    "scope": "core-touches",
+    "sourceRingMinDistanceM": 0,
+    "boundsXZ": [
+      -750,
+      250,
+      -500,
+      500
+    ],
+    "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305"
+  },
+  {
+    "id": "aerial-r09-c07",
+    "label": "Row 9 · Column 7",
+    "row": 9,
+    "column": 7,
+    "lat": 47.44437605730123,
+    "lon": -122.29330252585996,
+    "x": -624.9999999998607,
+    "z": 625.0000000003593,
+    "h": 216.50635094610968,
+    "size": 250,
+    "fov": 60,
+    "heading": 0,
+    "pitch": -90,
+    "square": true,
+    "scope": "core-touches",
+    "sourceRingMinDistanceM": 0,
+    "boundsXZ": [
+      -750,
+      500,
+      -500,
+      750
+    ],
+    "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305"
+  },
+  {
+    "id": "aerial-r11-c06",
+    "label": "Row 11 · Column 6",
+    "row": 11,
+    "column": 6,
+    "lat": 47.43987690314221,
+    "lon": -122.29662353620394,
+    "x": -874.9999999995911,
+    "z": 1124.999999999857,
+    "h": 216.50635094610968,
+    "size": 250,
+    "fov": 60,
+    "heading": 0,
+    "pitch": -90,
+    "square": true,
+    "scope": "core-touches",
+    "sourceRingMinDistanceM": 0,
+    "boundsXZ": [
+      -1000,
+      1000,
+      -750,
+      1250
+    ],
+    "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305"
+  },
+  {
+    "id": "aerial-r11-c07",
+    "label": "Row 11 · Column 7",
+    "row": 11,
+    "column": 7,
+    "lat": 47.43987690314221,
+    "lon": -122.29330252585996,
+    "x": -624.9999999998607,
+    "z": 1124.999999999857,
+    "h": 216.50635094610968,
+    "size": 250,
+    "fov": 60,
+    "heading": 0,
+    "pitch": -90,
+    "square": true,
+    "scope": "core-touches",
+    "sourceRingMinDistanceM": 0,
+    "boundsXZ": [
+      -750,
+      1000,
+      -500,
+      1250
+    ],
+    "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305"
+  }
+]

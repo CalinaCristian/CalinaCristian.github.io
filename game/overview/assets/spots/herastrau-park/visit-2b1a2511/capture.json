@@ -1,0 +1,357 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "purpose": "Visitor scene illustrations after fidelity pass round 3; not public-route proof or a matched reference comparison.",
+  "tool": "visit-capture.cjs: the procedure of handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/capture.cjs and capture-portrait.cjs (native destination entry, production on-foot controller placed at the viewpoint, look acquired with CDP touch drags, no free camera), run on Windows with hardware GL",
+  "toolSHA256": "2de67318f278fff069fbd6d561c93a6e6b23c84f1baba215a5d3e8a2a04ac49e",
+  "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted).",
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 2b1a2511d6b8b521b409d55415b2eca9906cc305: `git archive 2b1a2511d6b8b521b409d55415b2eca9906cc305 game` extracted to a scratch directory and served by a no-store static server; key runtime and data files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T10:01:51.995Z"
+  },
+  "record": {
+    "id": "herastrau-park",
+    "captures": [
+      {
+        "kind": "scene",
+        "file": "herastrau-park/scene.webp",
+        "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+        "capturedAt": "2026-11-13T09:58:26.049Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": 235.5,
+          "z": 114,
+          "y": 2.5539336502552032,
+          "heading": 0.17453296875000002
+        },
+        "pose": {
+          "position": [
+            235.5,
+            4.203933650255204,
+            114
+          ],
+          "bearing": 349.9999975047363,
+          "pitch": -11.99999896570693
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-13T09:58:24.761Z",
+        "triangles": 790938,
+        "drawCalls": 118,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "77a0f19c6ce9a734731cae3366501e9b1b4950ddab17a93a4bb3780167522e50",
+        "bytes": 51426,
+        "fullPageHUD": false
+      },
+      {
+        "kind": "phone-ui-touch",
+        "file": "herastrau-park/phone-ui-touch.jpg",
+        "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+        "capturedAt": "2026-11-13T09:58:26.289Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 235.5,
+          "z": 114,
+          "y": 2.5539336502552032,
+          "heading": 0.17453296875000002
+        },
+        "pose": {
+          "position": [
+            235.5,
+            4.203933650255204,
+            114
+          ],
+          "bearing": 349.9999975047363,
+          "pitch": -11.99999896570693
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-13T09:58:25.000Z",
+        "triangles": 736292,
+        "drawCalls": 75,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "e900784c41eca70a4073e13dadf6be221345ceca2fbd7c620bd244531dafd973",
+        "bytes": 47609,
+        "fullPageHUD": true
+      }
+    ],
+    "startedAt": "2026-11-13T09:58:22.866Z",
+    "probe": {
+      "sceneId": "buc-herastrau",
+      "spawn": {
+        "x": 232.3,
+        "z": 139.8,
+        "heading": -6.1086523819801535,
+        "y": 2.4808324456214907
+      },
+      "challenges": [
+        {
+          "view": [
+            -77.89999999999999,
+            -48.85000000000001
+          ],
+          "id": "village-museum",
+          "x": -90.26053515493962,
+          "z": -38.69041483703681,
+          "bearing": 50.58193848683749,
+          "pitch": 32,
+          "fov": 55,
+          "text": "From the lawn ~40 m south-west of the wooden church (OSM way/277782593 at 44.47145,26.07900) looking NE up at the west tower spire with the graveyard crosses in the foreground.",
+          "r": 10,
+          "tol": 28,
+          "targets": [],
+          "condHint": null
+        },
+        {
+          "view": [
+            236.3,
+            109.8
+          ],
+          "id": "herastrau-park",
+          "x": 235.5,
+          "z": 114,
+          "bearing": 350,
+          "pitch": -12,
+          "fov": 65,
+          "text": "The Sleeping Nymph with the park and Lake Herăstrău behind",
+          "r": 8,
+          "tol": 30,
+          "targets": [],
+          "condHint": null
+        }
+      ],
+      "interactables": [
+        {
+          "x": -232.96733720218984,
+          "z": -89.11229316900793,
+          "label": "Record a virtual passport visit: Gospodărie din Goicea Mică, Dolj"
+        },
+        {
+          "x": -207.19449132406763,
+          "z": -64.85038062068371,
+          "label": "Record a virtual passport visit: Gospodărie din Măldărești, Vâlcea"
+        },
+        {
+          "x": -152.1465224975946,
+          "z": 60.76778435375239,
+          "label": "Record a virtual passport visit: Gospodăria din Ieud, Maramureș"
+        },
+        {
+          "x": -56.14209103715286,
+          "z": -1.1513428420820428,
+          "label": "Record a virtual passport visit: Stână"
+        },
+        {
+          "x": -312.34547679438043,
+          "z": -277.6157888147499,
+          "label": "Record a virtual passport visit: Casa Audia, Neamt"
+        },
+        {
+          "x": -287.3536883251431,
+          "z": -305.3176219979054,
+          "label": "Record a virtual passport visit: Căsoaia Paltin, Vrancea"
+        },
+        {
+          "x": -108.5039933261645,
+          "z": 46.32233281376409,
+          "label": "Record a virtual passport visit: Casa din Bancu, Harghita"
+        },
+        {
+          "x": -334.7284981810584,
+          "z": -328.69806859521407,
+          "label": "Record a virtual passport visit: Casa Răpciuni, Neamț"
+        },
+        {
+          "x": 222.3,
+          "z": 119,
+          "label": "Read: 187 hectares"
+        },
+        {
+          "x": 229.3,
+          "z": 119,
+          "label": "Read: From marsh to park"
+        },
+        {
+          "x": 236.3,
+          "z": 119,
+          "label": "Read: Many names"
+        },
+        {
+          "x": 243.3,
+          "z": 119,
+          "label": "Read: Why \"Herăstrău\""
+        },
+        {
+          "x": 250.3,
+          "z": 119,
+          "label": "Read: Mammoths"
+        },
+        {
+          "x": -91.19360748630709,
+          "z": -35.55639251369291,
+          "label": "Read: Opened 1936"
+        },
+        {
+          "x": -94.34965728811936,
+          "z": -39.74786974915096,
+          "label": "Read: A whole country"
+        },
+        {
+          "x": -96.22445770388394,
+          "z": -44.64830393072417,
+          "label": "Read: 56 railway wagons"
+        },
+        {
+          "x": -96.67198217270737,
+          "z": -49.87600453583599,
+          "label": "Read: Dragomirești church"
+        },
+        {
+          "x": -95.65737340602259,
+          "z": -55.02379054706923,
+          "label": "Read: The 2002 fire"
+        },
+        {
+          "x": -93.25965839123876,
+          "z": -59.69070542466904,
+          "label": "Read: Visitors"
+        },
+        {
+          "x": -225.8,
+          "z": -514,
+          "label": "Row a short course from Debarcader"
+        },
+        {
+          "x": 231.3,
+          "z": 122.8,
+          "label": "Frame the Sleeping Nymph"
+        },
+        {
+          "x": -72.3212691457829,
+          "z": 422.5568925512663,
+          "label": "Rent a bike — I'Velo"
+        },
+        {
+          "x": 1000000000,
+          "z": 1000000000,
+          "label": ""
+        },
+        {
+          "x": 227.66617627728345,
+          "z": 136.55536169861892,
+          "label": "Join the short guided tour"
+        },
+        {
+          "x": 1000000000,
+          "z": 1000000000,
+          "label": ""
+        }
+      ]
+    },
+    "setup": {
+      "arrival": {
+        "x": 232.3,
+        "z": 139.8,
+        "y": 2.4808324456214907,
+        "heading": -6.1086523819801535
+      },
+      "authoredViewpoint": {
+        "view": [
+          236.3,
+          109.8
+        ],
+        "id": "herastrau-park",
+        "x": 235.5,
+        "z": 114,
+        "bearing": 350,
+        "pitch": -12,
+        "fov": 65,
+        "text": "The Sleeping Nymph with the park and Lake Herăstrău behind",
+        "r": 8,
+        "tol": 30,
+        "targets": [],
+        "condHint": null
+      },
+      "viewpoint": {
+        "view": [
+          236.3,
+          109.8
+        ],
+        "id": "herastrau-park",
+        "x": 235.5,
+        "z": 114,
+        "bearing": 350,
+        "pitch": -12,
+        "fov": 65,
+        "text": "The Sleeping Nymph with the park and Lake Herăstrău behind",
+        "r": 8,
+        "tol": 30,
+        "targets": [],
+        "condHint": null
+      },
+      "position": {
+        "x": 235.5,
+        "z": 114,
+        "y": 2.5539336502552032,
+        "heading": 0
+      },
+      "walker": "OnFootController",
+      "sceneId": "buc-herastrau",
+      "origin": {
+        "lat": 44.471,
+        "lon": 26.08,
+        "elev": 84.2
+      },
+      "projection": {
+        "mLat": 111121.44,
+        "mLon": 79569.03
+      }
+    },
+    "look": {
+      "drags": 1,
+      "residualInputPixels": {
+        "x": 0.000018146069831933197,
+        "y": 0.000007521591474657364
+      }
+    },
+    "lookBefore": {
+      "heading": 0.17453296875000002,
+      "pitch": -0.2094394921875
+    },
+    "lookAfterInitialTouch": {
+      "heading": 0.0017329687500000357,
+      "pitch": -0.2094394921875
+    },
+    "phoneLook": {
+      "drags": 1,
+      "residualInputPixels": {
+        "x": 0.000018146069831933197,
+        "y": 0.000007521591474657364
+      }
+    },
+    "passed": true,
+    "endedAt": "2026-11-13T09:58:26.360Z"
+  }
+}

@@ -38,7 +38,7 @@ document.addEventListener('click',async event=>{
 });
 async function initInventory() {
   try {
-    const response = await fetch('inventory.json?v=20261113-fidelity-pass-2');
+    const response = await fetch('inventory.json?v=20261113-fidelity-pass-3');
     if (!response.ok) throw new Error(`Inventory HTTP ${response.status}`);
     inventory = await response.json();
     for (const selector of ['#hero-sha','#source-sha']) { const e=$(selector); e.textContent=selector==='#hero-sha'?inventory.sourceSha.slice(0,7):inventory.sourceSha; e.href=`${repo}/tree/${inventory.sourceSha}`; }
@@ -50,7 +50,7 @@ async function initInventory() {
     $('#landmark-table').innerHTML=table(`${inventory.landmarks.length} catalogue entries · ${inventory.counts.landmarkBuilders} distinct builders`,['Landmark / ID','Staging district use','Model / comparison evidence'],inventory.landmarks.map(lm=>{const ds=districtFor(lm);const supported=ds.filter(d=>hasComparison(d.id));return `<tr id="landmark-${esc(lm.id)}"><th scope="row">${esc(lm.name)}<small>${esc(lm.id)}</small><span class="range-chip">${esc(landmarkRangeSummary(lm))}</span></th><td>${ds.length?ds.map(d=>`${esc(d.name)}${d.scenery.includes(lm.id)?' · scenery only':''}`).join('<br>'):'<span class="tag pending">Outside current district lists</span>'}<small>${lm.city==='bucharest'?'Bucharest':'Seattle / Bellevue'}</small></td><td><a href="?landmark=${encodeURIComponent(lm.id)}#landmark-evidence" data-landmark-evidence="${esc(lm.id)}">Dedicated evidence ↓</a><br>${sourceLink('game/src/landmarks.js',lm.builder)} · ${sourceLink('game/dev/landmarks.html','Model viewer source')}<small>${supported.length?supported.map(d=>compareLink(d.id,`${d.name} survey ↓`,{lat:lm.lat,lon:lm.lon,targetLabel:lm.name})).join('<br>'):'Reality comparison: not published'}${supported.length?'<br>Nearest survey tile; no dedicated landmark pair.':''}</small></td></tr>`;}));
     $('#spot-table').innerHTML=table(`${inventory.counts.menuAvailable} selected visits`,['Destination','Scene / sharing','Availability'],inventory.spots.filter(s=>s.menuAvailable).map(s=>`<tr><th scope="row">${esc(s.name)}<small>${esc(s.area==='bellevue'?'Bellevue':s.city==='bucharest'?'Bucharest':'Seattle')} · ${esc(s.id)}</small></th><td>${sourceLink('game/src/spots/index.js',s.scene)}<small>${inventory.spots.filter(x=>x.scene===s.scene).length} destination(s) in scene</small></td><td><span class="tag ${s.menuAvailable?'sourced':'pending'}">${s.menuAvailable?(s.menuTier==='recommended'?'Recommended':s.menuTier==='park'?'Quieter park':'In menu'):'Developer only'}</span><small><a href="?spot=${encodeURIComponent(s.id)}#spot-evidence" data-spot-evidence="${esc(s.id)}">Dedicated evidence ↓</a></small></td></tr>`));
     $('#source-index').innerHTML=inventory.sources.map(s=>`<li>${sourceLink(s.path)}</li>`).join('');
-    const {mountLandmarkEvidence,mountSpotEvidence}=await import('./landmark-evidence.js?v=20261113-fidelity-pass-2');
+    const {mountLandmarkEvidence,mountSpotEvidence}=await import('./landmark-evidence.js?v=20261113-fidelity-pass-3');
     landmarkEvidence=mountLandmarkEvidence($('#landmark-evidence-viewer'),inventory);
     spotEvidence=mountSpotEvidence($('#spot-evidence-viewer'),inventory);
     applySearch();

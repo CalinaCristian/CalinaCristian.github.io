@@ -1,0 +1,37 @@
+{
+  "district": "floreasca",
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "tiles": [
+    {
+      "id": "aerial-r06-c04",
+      "reason": "Automatica Ford building site: netting and scaffold over the outline (light roof, dark edges)"
+    },
+    {
+      "id": "aerial-r05-c04",
+      "reason": "block drawn with a light roof and glass sides"
+    },
+    {
+      "id": "aerial-r07-c04",
+      "reason": "buildings drawn with blue glass fronts"
+    },
+    {
+      "id": "aerial-r10-c04",
+      "reason": "buildings drawn with blue glass fronts"
+    }
+  ],
+  "reason": "Automatica building site, glass fronts",
+  "originalManifestSha256": "f018ed938f2acdc28ab0bae7218efcd83b88108d4085bd25518c935b961f615a",
+  "totalFrames": 90,
+  "method": "Round 3 (range 9824fd56..2b1a2511). Every atlas pose was rendered at 9824fd56, at 03aec30a (the master merge of load-time commits, before the round-3 work) and at 2b1a2511, with the same tool and conditions (game images only). The merge was checked first: 9824fd56 vs 03aec30a has no structural change in any of the 865 poses of the eight districts (no blurred difference at the 30/255 level survives a 5 px erosion; single-pixel maxima equal run-to-run JPEG noise), so the identical-output claim holds from above. Round-3 changes were ranked between the 03aec30a and 2b1a2511 renders (vegetation masked) and every ranked pose was compared by eye (published | 03aec30a | 2b1a2511, same pixels). Kept: new or changed structures, water areas, building heights and material class (glass vs masonry). Not counted: parked cars, tree crowns, median surfaces and re-rolled colours of procedural or background boxes. Every kept image was inspected at full size.",
+  "baselineCommit": "03aec30a0388aeebea711ec55353165399647883",
+  "candidatesCaptured": 90,
+  "rejected": [
+    {
+      "ids": [
+        "aerial-r02-c07"
+      ],
+      "reason": "no visible change"
+    }
+  ],
+  "notRetaken": "Every other pose: no visible change between the 03aec30a and 2b1a2511 renders at the same pose, or only the differences listed under rejected."
+}

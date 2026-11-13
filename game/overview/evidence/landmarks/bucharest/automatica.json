@@ -1,0 +1,326 @@
+{
+  "schemaVersion": 1,
+  "id": "automatica",
+  "city": "bucharest",
+  "name": "Automatica Ford (building site)",
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4640864,
+    "lon": 26.1010897
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/39348916",
+      "label": "OSM w39348916 · building=construction, historic=building, start_date=1938, building:levels=2",
+      "type": "osm"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/2b1a2511d6b8b521b409d55415b2eca9906cc305/game/research/bucharest-floreasca.md",
+      "label": "District dossier: Automatica Ford site, scaffold mesh behind a navy hoarding",
+      "type": "research"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "label": "Fidelity pass round 3 (2b1a251), not yet published when captured",
+      "type": "implementation"
+    }
+  ],
+  "sourceIds": [
+    "w39348916"
+  ],
+  "reviewedAt": "2026-11-13",
+  "improvements": [
+    "The Automatica Ford building site is drawn as what the street shows: white scaffold netting on a grid of scaffold tubes behind a dark navy site hoarding along Calea Floreasca, on the mapped outline and at the two mapped storeys. It was a finished white two-storey hall."
+  ],
+  "remainingGaps": [
+    "Storey height (10 m for two storeys of a 1938 industrial hall), hoarding height and tube spacing are estimates; the hoarding stands on the mapped outline (its real line on the pavement is not mapped); no hoarding text is drawn (the banners are advertising).",
+    "OSM check_date 2026-04-08 still has the site under construction; the panorama is from May 2024 (viewed only)."
+  ],
+  "checks": [
+    {
+      "label": "Registry identity",
+      "passed": true,
+      "details": "id, name, anchor and sourceIds are read from game/src/landmarks.js at 2b1a251."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 2b1a251 (game/src clean) on 2026-11-13: passed, 2158 checks over 74 models; this model 926 triangles, 1 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 4 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "In-world district view",
+      "passed": null,
+      "details": "In-world view from Calea Floreasca (pose of the reference panorama 44.464086, 26.101630, heading 270): 473,638 triangles / 138 draw calls in the floreasca district world. Recorded, not a budget acceptance."
+    },
+    {
+      "label": "Matched Street View / aerial comparison",
+      "passed": false,
+      "details": "No matched reference comparison was made for this record. The source comments name panoramas used as viewed reference only; no reference imagery is stored or published."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/automatica/source-2b1a2511/front.webp",
+      "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "sha256": "5c3c84c6e099b9d75705f718d2bf63655e8d5a9345ccf7b8667d5cc3b6453d74",
+      "bytes": 7464,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T09:44:57.123Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=automatica&clean=1&fountains=on&view=street&az=90",
+        "anchor": {
+          "lat": 44.4640864,
+          "lon": 26.1010897,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            141.64492645263672,
+            1.3,
+            8.67325075694987e-15
+          ],
+          "quaternion": [
+            0.008659358959678095,
+            0.707053757151751,
+            -0.008659358959678095,
+            0.7070537571517511
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 2832.898681640625,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -32.203216552734375,
+            0,
+            -72.90308380126953
+          ],
+          "max": [
+            32.20320129394531,
+            10.600000381469727,
+            72.90308380126953
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "North-up orthographic model study",
+      "kind": "top",
+      "image": "assets/landmarks/automatica/source-2b1a2511/top.webp",
+      "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "sha256": "efb020e14fd8bccc9b9902fa443b73c40ad43367f81da923d4732ac0dc533208",
+      "bytes": 6778,
+      "width": 720,
+      "height": 720,
+      "capturedAt": "2026-11-13T09:44:57.759Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=automatica&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4640864,
+          "lon": 26.1010897,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "orthographic",
+          "position": [
+            -0.00000762939453125,
+            183.73515480041502,
+            0
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 3674.7030960083002,
+          "viewport": [
+            720,
+            720
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -86.56757720947265,
+          "right": 86.56757720947265,
+          "top": 86.56757720947265,
+          "bottom": -86.56757720947265,
+          "zoom": 1,
+          "groundSquareM": 173.1351544189453,
+          "groundWidthM": 173.1351544189453,
+          "groundDepthM": 173.1351544189453,
+          "orientation": "north-up"
+        },
+        "bounds": {
+          "min": [
+            -32.203216552734375,
+            0,
+            -72.90308380126953
+          ],
+          "max": [
+            32.20320129394531,
+            10.600000381469727,
+            72.90308380126953
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/automatica/source-2b1a2511/oblique.webp",
+      "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "sha256": "b0e1b5c79b1d1e6869351faff948f1d0d8a2994609c63b8a987c77a0fb31811a",
+      "bytes": 9404,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T09:44:58.390Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=automatica&clean=1&fountains=on&view=oblique&az=125&el=28",
+        "anchor": {
+          "lat": 44.4640864,
+          "lon": 26.1010897,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            161.30494632379836,
+            108.9426203664917,
+            -112.94694470859582
+          ],
+          "quaternion": [
+            -0.11170709980433724,
+            0.8606628205933394,
+            0.214587342179916,
+            0.4480327060358214
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 4460.445680355508,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -32.203216552734375,
+            0,
+            -72.90308380126953
+          ],
+          "max": [
+            32.20320129394531,
+            10.600000381469727,
+            72.90308380126953
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "district",
+      "label": "In-world view from Calea Floreasca (pose of the reference panorama 44.464086, 26.101630, heading 270)",
+      "kind": "district",
+      "image": "assets/landmarks/automatica/source-2b1a2511/district.webp",
+      "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "sha256": "1301857a47bf8af8047f0d9e9df39cb96bc9cda944a359b3821742870806d65a",
+      "bytes": 90192,
+      "width": 1280,
+      "height": 720,
+      "capturedAt": "2026-11-13T09:45:22.173Z",
+      "encoding": "WebP quality 0.9 of the game canvas",
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "auto",
+        "clockOverride": "day",
+        "weatherOverride": "clear",
+        "note": "Season is the game default for the capture date (autumn foliage)."
+      },
+      "metrics": {
+        "triangles": 473638,
+        "drawCalls": 138,
+        "quality": "auto (high)"
+      },
+      "pose": {
+        "lat": 44.464086,
+        "lon": 26.10163,
+        "heading": 270,
+        "pitch": 4,
+        "cameraY": 1.89,
+        "cameraBaseY": 0.24,
+        "eyeAboveSurfaceM": 1.65,
+        "fov": 70,
+        "viewport": [
+          1280,
+          720
+        ],
+        "district": "floreasca",
+        "worldXZ": [
+          -172.40108507460397,
+          34.89544799954754
+        ],
+        "frame": "Production district world (game/?inspect=1), free camera at a geographic pose as in game/dev/reality/capture.cjs; no simulation between shots, player rig hidden",
+        "eye": [
+          -172.40108507460397,
+          1.89,
+          34.89544799954754
+        ],
+        "bearing": 270
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 928,
+    "drawCalls": 2,
+    "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS. In-world frame counts are recorded on the district view."
+  },
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 2b1a2511d6b8b521b409d55415b2eca9906cc305: `git archive 2b1a2511d6b8b521b409d55415b2eca9906cc305 game` extracted to a scratch directory and served by a no-store static server; key runtime and data files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T10:01:51.995Z"
+  },
+  "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+}

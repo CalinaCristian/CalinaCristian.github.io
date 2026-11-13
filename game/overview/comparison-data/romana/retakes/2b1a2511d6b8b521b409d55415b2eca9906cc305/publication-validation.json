@@ -1,0 +1,27 @@
+{
+  "district": "romana",
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "frames": 116,
+  "retakesInstalled": 3,
+  "retakenIds": [
+    "aerial-r07-c07",
+    "aerial-r08-c09",
+    "aerial-r11-c09"
+  ],
+  "untouchedItemsAndBytesPreserved": 113,
+  "archivedManifest": "historical/mixed-before-2b1a2511-7f9f5523/manifest.json",
+  "archivedManifestSha256": "7f9f5523a0565b14c2e3641f0f877ca73c44a234f7d44d5d99bdc70c6e474011",
+  "archivedItemsResolved": 116,
+  "sourceFilesVerifiedAgainstCommit": 540,
+  "atlasSourceCounts": {
+    "9824fd56de3f0e420821e871436906186a80e493": 15,
+    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 79,
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 13,
+    "d8e7d119ba8dcc29fce289e8c9f988092507fc10": 2,
+    "2b1a2511d6b8b521b409d55415b2eca9906cc305": 3,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 4
+  },
+  "allGroundPosesPreserved": true,
+  "sourceRevisionCorrections": [],
+  "failures": []
+}

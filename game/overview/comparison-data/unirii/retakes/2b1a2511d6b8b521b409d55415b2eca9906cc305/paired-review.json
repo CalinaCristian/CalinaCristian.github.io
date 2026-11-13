@@ -1,0 +1,35 @@
+{
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r02-c09",
+    "aerial-r03-c05",
+    "aerial-r04-c05"
+  ],
+  "reviewedAt": "2026-11-13T10:11:47.988Z",
+  "method": "Published game capture, a 03aec30a render and the 2b1a2511 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r02-c09",
+      "originalGameSha256": "f57da9a14602189ba3ab85e3914dd613077738a06955ad96148f8a298ac30e11",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "260c93f875e4027c5958a5d9ed2d65b53557bf6ee9c3128983c1d1f846e5c2a5",
+      "observation": "fountain basin in the roundabout garden"
+    },
+    {
+      "id": "aerial-r03-c05",
+      "originalGameSha256": "8f920c0e080f461675a8560f9a05a12edc4818fb296316ca0895286710828bac",
+      "originalGameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "retakeGameSha256": "9104865de854425b9e5c8f2747c63c43db88fb5fcd28ca50d0b1243d89a4d61c",
+      "observation": "courtyard / garden fountain basins drawn as water"
+    },
+    {
+      "id": "aerial-r04-c05",
+      "originalGameSha256": "cd025edf70bf931214646444115a611c77f15b69859afdd7500e2e31c6b3c4de",
+      "originalGameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "retakeGameSha256": "203e115ff15a2faebf0e7dcb15762c99d7da6f1cae646e3354624b00780f9f73",
+      "observation": "courtyard / garden fountain basins drawn as water"
+    }
+  ]
+}

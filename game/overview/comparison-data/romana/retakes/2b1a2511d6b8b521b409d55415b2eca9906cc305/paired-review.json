@@ -1,0 +1,35 @@
+{
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r07-c07",
+    "aerial-r08-c09",
+    "aerial-r11-c09"
+  ],
+  "reviewedAt": "2026-11-13T10:11:48.601Z",
+  "method": "Published game capture, a 03aec30a render and the 2b1a2511 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r07-c07",
+      "originalGameSha256": "8e4bd65cf7f909e63d5e38112f243637d169de2f2c0541a3cb48ea7219aee536",
+      "originalGameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "retakeGameSha256": "0875ec14298d68249ecd739bc0afda8b318a52443da546822681782fdd1f1c1f",
+      "observation": "Urseanu observatory tower with its dome"
+    },
+    {
+      "id": "aerial-r08-c09",
+      "originalGameSha256": "dd876a5717f69cf0590f34bcb733c5e7e4a8abbe1d8bfa4c11c3dee2162fa2cc",
+      "originalGameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "retakeGameSha256": "7b2bb9211bde5373b9224732c5c279f03c1faa212b4b90fcf68510e6c4d9691f",
+      "observation": "ASE covered pedestrian bridge over the street"
+    },
+    {
+      "id": "aerial-r11-c09",
+      "originalGameSha256": "6ef801f197d73664c9f85cf48e1d57f675ca4aa31b041bdd3beab5b294d0eb55",
+      "originalGameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "retakeGameSha256": "82c57ba0e5c9247624fbcd0222bcadb867537d599898461e4a63a3b5217f269d",
+      "observation": "hotel / office blocks drawn with windowed fronts instead of the blue glass estimate"
+    }
+  ]
+}

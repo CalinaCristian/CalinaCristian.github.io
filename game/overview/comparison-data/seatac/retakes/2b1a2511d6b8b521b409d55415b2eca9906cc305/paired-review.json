@@ -1,0 +1,43 @@
+{
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r09-c07",
+    "aerial-r08-c07",
+    "aerial-r11-c06",
+    "aerial-r11-c07"
+  ],
+  "reviewedAt": "2026-11-13T10:11:46.057Z",
+  "method": "Published game capture, a 03aec30a render and the 2b1a2511 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r09-c07",
+      "originalGameSha256": "7d67204fb65ee901105686c2153d66395f871cc487df2f137ddb7dae7a380cb0",
+      "originalGameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "retakeGameSha256": "8dde0305f2315c76afcf84efe8a6fdb127df6caa6eb8a22603d2b0162ee44ad0",
+      "observation": "Hilton wing skybridge drawn over the drive; hotel pool redrawn"
+    },
+    {
+      "id": "aerial-r08-c07",
+      "originalGameSha256": "7887e601cdcb722b2e000f1c294461e598bf8f8cafa381ac24621ea449ad33ac",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "185a78149cb2af4f4fdb2d0e8de092dff53ff00319941a1ad9a1f32022bd56d6",
+      "observation": "Red Lion / Rodeway blocks with their storey count: red facade bands visible round the roof"
+    },
+    {
+      "id": "aerial-r11-c06",
+      "originalGameSha256": "066440307ab9fd22437980c87c935c13f9c39c0aa8fd707610354f8399b173a9",
+      "originalGameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "retakeGameSha256": "f7ed7422b8ae5c7fc216514ab63f70a9e0bae8de5707eb0eb8af0fa8729e0eb8",
+      "observation": "hotel blocks drawn with windowed fronts instead of plain walls"
+    },
+    {
+      "id": "aerial-r11-c07",
+      "originalGameSha256": "a72f9462f564a7671056b56cda0eb677eef4ab2ede5a0bf33f1fb42a0c8db3cf",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "2831717fd9e63864a8797ccd7015590d59af9f45e51b2e1f45c28cdf0c4de20c",
+      "observation": "hotel blocks drawn with windowed fronts instead of plain walls"
+    }
+  ]
+}

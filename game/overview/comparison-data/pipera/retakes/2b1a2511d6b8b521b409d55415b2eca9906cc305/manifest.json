@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "title": "pipera aerial comparisons",
+  "generatedDate": "2026-11-13",
+  "generatedAt": "2026-11-13T09:58:48.012Z",
+  "defaultTile": "aerial-r03-c10",
+  "tileMetres": 250,
+  "orientation": "north-up",
+  "atlasScopeCounts": {
+    "ring-touches": 91,
+    "core-touches": 38,
+    "outside-ring": 4
+  },
+  "publishedBaseline": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "capture": {
+    "startedAt": "2026-11-13T09:57:45.667Z",
+    "endedAt": "2026-11-13T09:58:48.012Z",
+    "elapsedSeconds": 62.345,
+    "source": "e0f6d269e2f5186247021c2a0b9f3286489f749e48235e8a55bdaa73ade1f636",
+    "loaded": {
+      "key": "bucharest-pipera",
+      "city": "bucharest",
+      "district": "pipera",
+      "ms": 3392,
+      "edges": 1260,
+      "ribbons": 1733
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "frameCounts": 1,
+    "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+    "scopeCounts": {
+      "ring-touches": 91,
+      "core-touches": 38,
+      "outside-ring": 4
+    },
+    "candidateFramesCaptured": 133,
+    "note": "One capture run over every atlas pose of the district; only the reviewed changed tiles are kept here. Tool: tools/aerial/capture-game-grid.cjs (unmodified, sha256 329f0d5e83d2581771f0f3d40975a0352cfa5c13b2d61189597f69026429cefd)."
+  },
+  "locations": [],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "boundarySource": "boundary-source.json",
+  "items": [
+    {
+      "id": "aerial-r05-c05",
+      "label": "Row 5 · Column 5",
+      "row": 5,
+      "column": 5,
+      "lat": 44.47887521146024,
+      "lon": 26.098835920730036,
+      "x": -1125.0000000000393,
+      "z": 125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        -1250,
+        0,
+        -1000,
+        250
+      ],
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 123,
+        "triangles": 402349,
+        "renderMs": 2.800000000046566,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 303
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T09:58:16.633Z",
+      "gamePath": "images/aerial-r05-c05.jpg",
+      "image": "images/aerial-r05-c05.jpg",
+      "thumbnail": "thumbs/aerial-r05-c05.jpg",
+      "sha256": "205179687c9da249dce53f06279e36a15844a1bb546dbc65af3bba3d6d879eca",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 485,
+      "dataset": "atlas",
+      "thumbnailSha256": "887eb15cc85474690b7968803de4df3c932e5bab61a2f7de58c0c53072467433",
+      "retakeReason": "pool drawn as water"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "startedAt": "2026-11-13T09:46:08.583Z",
+  "endedAt": "2026-11-13T09:47:02.746Z",
+  "elapsedSeconds": 54.163,
+  "source": "e0f6d269e2f5186247021c2a0b9f3286489f749e48235e8a55bdaa73ade1f636",
+  "loaded": {
+    "key": "bucharest-grozavesti",
+    "city": "bucharest",
+    "district": "grozavesti",
+    "ms": 7207,
+    "edges": 1826,
+    "ribbons": 2359
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "traffic": false,
+  "quality": "high",
+  "weather": "clear",
+  "season": "summer",
+  "time": "day",
+  "mirror": false,
+  "frameCounts": 11,
+  "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "scopeCounts": {
+    "ring-touches": 72,
+    "core-touches": 23,
+    "outside-ring": 5
+  },
+  "candidateFramesCaptured": 100,
+  "note": "One capture run over every atlas pose of the district; only the reviewed changed tiles are kept here. Tool: tools/aerial/capture-game-grid.cjs (unmodified, sha256 329f0d5e83d2581771f0f3d40975a0352cfa5c13b2d61189597f69026429cefd)."
+}

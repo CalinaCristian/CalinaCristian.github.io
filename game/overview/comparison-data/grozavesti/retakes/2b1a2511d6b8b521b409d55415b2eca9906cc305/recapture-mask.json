@@ -1,0 +1,72 @@
+{
+  "district": "grozavesti",
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "tiles": [
+    {
+      "id": "aerial-r06-c05",
+      "reason": "Regie pedestrian bridge over the Dâmbovița"
+    },
+    {
+      "id": "aerial-r07-c07",
+      "reason": "Grozăvești metro west entrance pavilion"
+    },
+    {
+      "id": "aerial-r05-c07",
+      "reason": "Belvedere water tower; neighbouring block lost the glass colour estimate (orange window walls)"
+    },
+    {
+      "id": "aerial-r04-c08",
+      "reason": "Pasajul Basarab deck railings drawn blue along the ramps"
+    },
+    {
+      "id": "aerial-r05-c08",
+      "reason": "Pasajul Basarab deck railings drawn blue along the ramps"
+    },
+    {
+      "id": "aerial-r08-c04",
+      "reason": "fountain basin drawn as water"
+    },
+    {
+      "id": "aerial-r06-c08",
+      "reason": "Brico Dépôt / Altex box drawn light grey with its own walls"
+    },
+    {
+      "id": "aerial-r06-c11",
+      "reason": "building drawn on a footprint that was empty ground"
+    },
+    {
+      "id": "aerial-r04-c07",
+      "reason": "block lost the glass colour estimate: walls drawn as masonry instead of blue glass"
+    },
+    {
+      "id": "aerial-r06-c07",
+      "reason": "block lost the glass colour estimate: walls drawn as masonry instead of blue glass"
+    },
+    {
+      "id": "aerial-r07-c06",
+      "reason": "block lost the glass colour estimate: walls drawn as masonry instead of blue glass"
+    }
+  ],
+  "reason": "Regie footbridge, metro pavilion, water tower, Basarab railings, fountains, facades",
+  "originalManifestSha256": "6d9158ad76a5824353e7f76f966af4812e71c9fce9bdc188225158c8ae04f298",
+  "totalFrames": 100,
+  "method": "Round 3 (range 9824fd56..2b1a2511). Every atlas pose was rendered at 9824fd56, at 03aec30a (the master merge of load-time commits, before the round-3 work) and at 2b1a2511, with the same tool and conditions (game images only). The merge was checked first: 9824fd56 vs 03aec30a has no structural change in any of the 865 poses of the eight districts (no blurred difference at the 30/255 level survives a 5 px erosion; single-pixel maxima equal run-to-run JPEG noise), so the identical-output claim holds from above. Round-3 changes were ranked between the 03aec30a and 2b1a2511 renders (vegetation masked) and every ranked pose was compared by eye (published | 03aec30a | 2b1a2511, same pixels). Kept: new or changed structures, water areas, building heights and material class (glass vs masonry). Not counted: parked cars, tree crowns, median surfaces and re-rolled colours of procedural or background boxes. Every kept image was inspected at full size.",
+  "baselineCommit": "03aec30a0388aeebea711ec55353165399647883",
+  "candidatesCaptured": 100,
+  "rejected": [
+    {
+      "ids": [
+        "aerial-r12-c03"
+      ],
+      "reason": "only a roof / facade colour of a procedural or background box differs (re-rolled tint), no geometry or material-class change"
+    },
+    {
+      "ids": [
+        "aerial-r07-c08",
+        "aerial-r11-c03"
+      ],
+      "reason": "no visible change"
+    }
+  ],
+  "notRetaken": "Every other pose: no visible change between the 03aec30a and 2b1a2511 renders at the same pose, or only the differences listed under rejected."
+}

@@ -1,0 +1,29 @@
+{
+  "district": "unirii",
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "frames": 98,
+  "retakesInstalled": 3,
+  "retakenIds": [
+    "aerial-r02-c09",
+    "aerial-r03-c05",
+    "aerial-r04-c05"
+  ],
+  "untouchedItemsAndBytesPreserved": 95,
+  "archivedManifest": "historical/mixed-before-2b1a2511-5d11351e/manifest.json",
+  "archivedManifestSha256": "5d11351eda7be21a3cfa2acfae5f9d40e9900708466ca784eb30615faf529bd6",
+  "archivedItemsResolved": 98,
+  "sourceFilesVerifiedAgainstCommit": 540,
+  "atlasSourceCounts": {
+    "9824fd56de3f0e420821e871436906186a80e493": 32,
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 45,
+    "2b1a2511d6b8b521b409d55415b2eca9906cc305": 3,
+    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 4,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 7,
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
+    "b2c4ea4a1ff792c53e4c052f258bd61942cf5195": 5,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 1
+  },
+  "allGroundPosesPreserved": true,
+  "sourceRevisionCorrections": [],
+  "failures": []
+}

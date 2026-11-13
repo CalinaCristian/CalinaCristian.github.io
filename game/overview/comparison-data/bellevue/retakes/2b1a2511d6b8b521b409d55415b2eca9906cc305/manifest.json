@@ -1,0 +1,498 @@
+{
+  "schemaVersion": 1,
+  "title": "bellevue aerial comparisons",
+  "generatedDate": "2026-11-13",
+  "generatedAt": "2026-11-13T09:59:23.121Z",
+  "defaultTile": "aerial-r04-c09",
+  "tileMetres": 250,
+  "orientation": "north-up",
+  "atlasScopeCounts": {
+    "ring-touches": 64,
+    "core-touches": 14,
+    "outside-ring": 4
+  },
+  "publishedBaseline": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "capture": {
+    "startedAt": "2026-11-13T09:58:48.735Z",
+    "endedAt": "2026-11-13T09:59:23.121Z",
+    "elapsedSeconds": 34.386,
+    "source": "e0f6d269e2f5186247021c2a0b9f3286489f749e48235e8a55bdaa73ade1f636",
+    "loaded": {
+      "key": "seattle-bellevue",
+      "city": "seattle",
+      "district": "bellevue",
+      "ms": 2786,
+      "edges": 917,
+      "ribbons": 1144
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "frameCounts": 5,
+    "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+    "scopeCounts": {
+      "ring-touches": 64,
+      "core-touches": 14,
+      "outside-ring": 4
+    },
+    "candidateFramesCaptured": 82,
+    "note": "One capture run over every atlas pose of the district; only the reviewed changed tiles are kept here. Tool: tools/aerial/capture-game-grid.cjs (unmodified, sha256 329f0d5e83d2581771f0f3d40975a0352cfa5c13b2d61189597f69026429cefd)."
+  },
+  "locations": [
+    {
+      "id": "bellevue-chapter-start",
+      "label": "NE 8th Street West chapter start",
+      "lat": 47.61746,
+      "lon": -122.18725,
+      "kind": "chapter-start",
+      "source": "game/src/cities.js CHAPTERS; original configured position before public-lane snapping",
+      "tileId": "aerial-r04-c09"
+    },
+    {
+      "id": "lincoln-source-anchor",
+      "label": "Lincoln Square North",
+      "lat": 47.6168559,
+      "lon": -122.2010316,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w604028609",
+        "w161929514",
+        "w1364249504"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/604028609",
+        "https://www.openstreetmap.org/way/161929514",
+        "https://www.openstreetmap.org/way/1364249504"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r04-c05"
+    },
+    {
+      "id": "onelincoln-source-anchor",
+      "label": "One Lincoln Tower",
+      "lat": 47.6159634,
+      "lon": -122.2008866,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w604028611",
+        "w328017119",
+        "w1474737770"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/604028611",
+        "https://www.openstreetmap.org/way/328017119",
+        "https://www.openstreetmap.org/way/1474737770"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r05-c05"
+    },
+    {
+      "id": "lincolnsouth-source-anchor",
+      "label": "Lincoln Square South",
+      "lat": 47.6147631,
+      "lon": -122.2008325,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w1326151866",
+        "w604028603",
+        "w1326151868"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/1326151866",
+        "https://www.openstreetmap.org/way/604028603",
+        "https://www.openstreetmap.org/way/1326151868"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r05-c05"
+    },
+    {
+      "id": "plazacenter-source-anchor",
+      "label": "Plaza Center",
+      "lat": 47.6178822,
+      "lon": -122.1940388,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w33725899"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/33725899"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r04-c07"
+    },
+    {
+      "id": "sonic-source-anchor",
+      "label": "Bellevue skyline — City Center",
+      "lat": 47.6148782,
+      "lon": -122.1968365,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w1214423752",
+        "w1214424283",
+        "w1556489725"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/1214423752",
+        "https://www.openstreetmap.org/way/1214424283",
+        "https://www.openstreetmap.org/way/1556489725"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r05-c06"
+    },
+    {
+      "id": "bellevue600-source-anchor",
+      "label": "Bellevue 600",
+      "lat": 47.6160667,
+      "lon": -122.1942494,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w1453402304",
+        "w1453402305",
+        "w1474780170",
+        "w1474780171",
+        "w1474780172",
+        "w1474780173"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/1453402304",
+        "https://www.openstreetmap.org/way/1453402305",
+        "https://www.openstreetmap.org/way/1474780170",
+        "https://www.openstreetmap.org/way/1474780171",
+        "https://www.openstreetmap.org/way/1474780172",
+        "https://www.openstreetmap.org/way/1474780173"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r05-c07"
+    },
+    {
+      "id": "bellevuetowers-source-anchor",
+      "label": "Bellevue Towers",
+      "lat": 47.6143271,
+      "lon": -122.1981129,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w118119171",
+        "w370237986",
+        "w370239409"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/118119171",
+        "https://www.openstreetmap.org/way/370237986",
+        "https://www.openstreetmap.org/way/370239409"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r06-c06"
+    },
+    {
+      "id": "bellevuesq-source-anchor",
+      "label": "Bellevue Square",
+      "lat": 47.615653,
+      "lon": -122.2035769,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w29234887"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/29234887"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r05-c04"
+    }
+  ],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "boundarySource": "boundary-source.json",
+  "items": [
+    {
+      "id": "aerial-r04-c05",
+      "label": "Row 4 · Column 5",
+      "row": 4,
+      "column": 5,
+      "lat": 47.617874365619265,
+      "lon": -122.19999716590226,
+      "x": -374.9999999996427,
+      "z": -375.00000000021555,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -200,
+      "boundsXZ": [
+        -500,
+        -500,
+        -250,
+        -250
+      ],
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 103,
+        "triangles": 181469,
+        "renderMs": 2.3999999999068677,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 149
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T09:59:07.383Z",
+      "gamePath": "images/aerial-r04-c05.jpg",
+      "image": "images/aerial-r04-c05.jpg",
+      "thumbnail": "thumbs/aerial-r04-c05.jpg",
+      "sha256": "aab61c61b4759099734fc6b3d1d9c2373a10c2eb2a2c122b1802a2e288605dc9",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 463,
+      "dataset": "atlas",
+      "thumbnailSha256": "88a39fc5b4f542c933a5b8a5935e7a06d0baf3bee898f708acb5d4db3297fe4a",
+      "retakeReason": "covered skybridges to the West Parking Garage"
+    },
+    {
+      "id": "aerial-r03-c05",
+      "label": "Row 3 · Column 5",
+      "row": 3,
+      "column": 5,
+      "lat": 47.620123942698775,
+      "lon": -122.19999716590226,
+      "x": -374.9999999996427,
+      "z": -625.0000000003593,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -3.3903599999641187,
+      "boundsXZ": [
+        -500,
+        -750,
+        -250,
+        -500
+      ],
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 91,
+        "triangles": 198467,
+        "renderMs": 1.3000000000465661,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 149
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T09:59:02.805Z",
+      "gamePath": "images/aerial-r03-c05.jpg",
+      "image": "images/aerial-r03-c05.jpg",
+      "thumbnail": "thumbs/aerial-r03-c05.jpg",
+      "sha256": "65bdbf378b4520249ff5f69ca6f5a998f967a1f3f40fdc989acbe454e7f6b951",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 347,
+      "dataset": "atlas",
+      "thumbnailSha256": "6f37d254cec77417e4956cc52beba21d6a05d6ea1e28ebca6ab66ba5c5acaaf7",
+      "retakeReason": "Bellevue Place base drawn as brick with windows (was dark glass)"
+    },
+    {
+      "id": "aerial-r07-c04",
+      "label": "Row 7 · Column 4",
+      "row": 7,
+      "column": 4,
+      "lat": 47.611125634380734,
+      "lon": -122.20332860983711,
+      "x": -625.0000000001154,
+      "z": 375.00000000021555,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "ring-touches",
+      "sourceRingMinDistanceM": 299.14478400016685,
+      "boundsXZ": [
+        -750,
+        250,
+        -500,
+        500
+      ],
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 91,
+        "triangles": 163308,
+        "renderMs": 1.5,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 149
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T09:59:18.373Z",
+      "gamePath": "images/aerial-r07-c04.jpg",
+      "image": "images/aerial-r07-c04.jpg",
+      "thumbnail": "thumbs/aerial-r07-c04.jpg",
+      "sha256": "8e20c80660ebe7545f8422b54ac74ca540152c5eca0bb347bbefef305cb2e3ca",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 305,
+      "dataset": "atlas",
+      "thumbnailSha256": "3f409f8be60836c5023c4c286f1e4d8255a3383ead4440fc5a6c6255a24b00c6",
+      "retakeReason": "fountain basin drawn as water"
+    },
+    {
+      "id": "aerial-r05-c05",
+      "label": "Row 5 · Column 5",
+      "row": 5,
+      "column": 5,
+      "lat": 47.615624788539755,
+      "lon": -122.19999716590226,
+      "x": -374.9999999996427,
+      "z": -125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -146.60964000003588,
+      "boundsXZ": [
+        -500,
+        -250,
+        -250,
+        0
+      ],
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 100,
+        "triangles": 140734,
+        "renderMs": 0.8000000000465661,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 149
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T09:59:11.548Z",
+      "gamePath": "images/aerial-r05-c05.jpg",
+      "image": "images/aerial-r05-c05.jpg",
+      "thumbnail": "thumbs/aerial-r05-c05.jpg",
+      "sha256": "e7c9621e7a963a5c92ae3866916fdb0fb87ca41650e227e6940d4bdea377f76a",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 410,
+      "dataset": "atlas",
+      "thumbnailSha256": "e93e9a0a61d8187d5535bb7b9aeab45f32509eb35e89293d36ffa754835fbb90",
+      "retakeReason": "fountain basin drawn as water"
+    },
+    {
+      "id": "aerial-r06-c06",
+      "label": "Row 6 · Column 6",
+      "row": 6,
+      "column": 6,
+      "lat": 47.613375211460244,
+      "lon": -122.19666572196742,
+      "x": -125.00000000023637,
+      "z": 125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "ring-touches",
+      "sourceRingMinDistanceM": 177.627354340473,
+      "boundsXZ": [
+        -250,
+        0,
+        0,
+        250
+      ],
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 104,
+        "triangles": 148629,
+        "renderMs": 1.099999999976717,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 149
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T09:59:15.935Z",
+      "gamePath": "images/aerial-r06-c06.jpg",
+      "image": "images/aerial-r06-c06.jpg",
+      "thumbnail": "thumbs/aerial-r06-c06.jpg",
+      "sha256": "24bfc4a64606c11020980ffaa40db2bbd2e3729b3e13837841258e29217fbe56",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 343,
+      "dataset": "atlas",
+      "thumbnailSha256": "1b0a70702c33da8c4de0c73c0f99ddf13e3065a49d8813e37683250d9c5b5164",
+      "retakeReason": "fountain basin drawn as water"
+    }
+  ]
+}

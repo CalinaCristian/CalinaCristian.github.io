@@ -1,0 +1,77 @@
+[
+  {
+    "id": "aerial-r07-c07",
+    "label": "Row 7 · Column 7",
+    "row": 7,
+    "column": 7,
+    "lat": 44.44942478853976,
+    "lon": 26.092772932225838,
+    "x": 125.000000000141,
+    "z": -125.00000000007185,
+    "h": 216.50635094610968,
+    "size": 250,
+    "fov": 60,
+    "heading": 0,
+    "pitch": -90,
+    "square": true,
+    "scope": "core-touches",
+    "sourceRingMinDistanceM": -195.69787977516015,
+    "boundsXZ": [
+      0,
+      -250,
+      250,
+      0
+    ],
+    "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305"
+  },
+  {
+    "id": "aerial-r08-c09",
+    "label": "Row 8 · Column 9",
+    "row": 8,
+    "column": 9,
+    "lat": 44.44717521146025,
+    "lon": 26.09906466112918,
+    "x": 625.0000000001403,
+    "z": 125.00000000007185,
+    "h": 216.50635094610968,
+    "size": 250,
+    "fov": 60,
+    "heading": 0,
+    "pitch": -90,
+    "square": true,
+    "scope": "core-touches",
+    "sourceRingMinDistanceM": -114.88026864814194,
+    "boundsXZ": [
+      500,
+      0,
+      750,
+      250
+    ],
+    "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305"
+  },
+  {
+    "id": "aerial-r11-c09",
+    "label": "Row 11 · Column 9",
+    "row": 11,
+    "column": 9,
+    "lat": 44.440426480221724,
+    "lon": 26.09906466112918,
+    "x": 625.0000000001403,
+    "z": 874.9999999997133,
+    "h": 216.50635094610968,
+    "size": 250,
+    "fov": 60,
+    "heading": 0,
+    "pitch": -90,
+    "square": true,
+    "scope": "core-touches",
+    "sourceRingMinDistanceM": -130,
+    "boundsXZ": [
+      500,
+      750,
+      750,
+      1000
+    ],
+    "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305"
+  }
+]

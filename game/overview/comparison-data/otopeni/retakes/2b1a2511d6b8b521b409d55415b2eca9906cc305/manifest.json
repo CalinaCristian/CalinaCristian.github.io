@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 1,
+  "title": "otopeni aerial comparisons",
+  "generatedDate": "2026-11-13",
+  "generatedAt": "2026-11-13T09:46:07.750Z",
+  "defaultTile": "aerial-r11-c04",
+  "tileMetres": 250,
+  "orientation": "north-up",
+  "atlasScopeCounts": {
+    "ring-touches": 77,
+    "core-touches": 26,
+    "outside-ring": 4
+  },
+  "publishedBaseline": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "capture": {
+    "startedAt": "2026-11-13T09:45:18.086Z",
+    "endedAt": "2026-11-13T09:46:07.750Z",
+    "elapsedSeconds": 49.664,
+    "source": "e0f6d269e2f5186247021c2a0b9f3286489f749e48235e8a55bdaa73ade1f636",
+    "loaded": {
+      "key": "bucharest-otopeni",
+      "city": "bucharest",
+      "district": "otopeni",
+      "ms": 2294,
+      "edges": 365,
+      "ribbons": 929
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "frameCounts": 2,
+    "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+    "scopeCounts": {
+      "ring-touches": 77,
+      "core-touches": 26,
+      "outside-ring": 4
+    },
+    "candidateFramesCaptured": 107,
+    "note": "One capture run over every atlas pose of the district; only the reviewed changed tiles are kept here. Tool: tools/aerial/capture-game-grid.cjs (unmodified, sha256 329f0d5e83d2581771f0f3d40975a0352cfa5c13b2d61189597f69026429cefd)."
+  },
+  "locations": [
+    {
+      "id": "otopeni-start",
+      "label": "Otopeni chapter start on DN1",
+      "lat": 44.555701,
+      "lon": 26.069266,
+      "source": "game/src/cities.js:CHAPTERS.otopeni.start",
+      "kind": "chapter-start",
+      "tileId": "aerial-r11-c04"
+    },
+    {
+      "id": "otopeni",
+      "label": "Henri Coandă Airport terminal",
+      "lat": 44.5708154,
+      "lon": 26.0795884,
+      "source": "game/src/landmarks.js:ANCHOR.otp; OSM r16476195 and five declared building parts",
+      "osm": "relation/16476195",
+      "kind": "cv-stop",
+      "tileId": "aerial-r04-c07"
+    },
+    {
+      "id": "airport-train-station",
+      "label": "Aeroport Henri Coandă train station",
+      "lat": 44.5690573,
+      "lon": 26.0754927,
+      "source": "OSM w813193384; source retained independently of terminal replacement; mean of distinct closing-ring vertices",
+      "osm": "way/813193384",
+      "kind": "landmark",
+      "tileId": "aerial-r05-c06"
+    },
+    {
+      "id": "source-parking-deck",
+      "label": "Mapped 5–6m parking deck band",
+      "lat": 44.5691737,
+      "lon": 26.077014,
+      "source": "OSM w1215048760 literal height6/min_height5",
+      "osm": "way/1215048760",
+      "kind": "source-check",
+      "tileId": "aerial-r05-c07"
+    }
+  ],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "boundarySource": "boundary-source.json",
+  "items": [
+    {
+      "id": "aerial-r04-c07",
+      "label": "Row 4 · Column 7",
+      "row": 4,
+      "column": 7,
+      "lat": 44.570623942698774,
+      "lon": 26.07857608442689,
+      "x": 125.00000000012622,
+      "z": -625.0000000003593,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -200,
+      "boundsXZ": [
+        0,
+        -750,
+        250,
+        -500
+      ],
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 99,
+        "triangles": 206768,
+        "renderMs": 1.5999999940395355,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 144
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T09:45:35.752Z",
+      "gamePath": "images/aerial-r04-c07.jpg",
+      "image": "images/aerial-r04-c07.jpg",
+      "thumbnail": "thumbs/aerial-r04-c07.jpg",
+      "sha256": "94446875c381eeb8081f5f6324128917839d4c1041a412090ac15844eec8667e",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 446,
+      "dataset": "atlas",
+      "thumbnailSha256": "5d25d07195ee1e41d7f5d3b1568d0ea67b4c2f189b823f87106c91f6fe50720d",
+      "retakeReason": "Salonul Oficial drawn as a two-storey block with a light roof (was a dark generic slab)"
+    },
+    {
+      "id": "aerial-r05-c07",
+      "label": "Row 5 · Column 7",
+      "row": 5,
+      "column": 7,
+      "lat": 44.56837436561926,
+      "lon": 26.07857608442689,
+      "x": 125.00000000012622,
+      "z": -375.00000000021555,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -193.2380799994438,
+      "boundsXZ": [
+        0,
+        -500,
+        250,
+        -250
+      ],
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 90,
+        "triangles": 194743,
+        "renderMs": 1.7999999821186066,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 144
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T09:45:39.815Z",
+      "gamePath": "images/aerial-r05-c07.jpg",
+      "image": "images/aerial-r05-c07.jpg",
+      "thumbnail": "thumbs/aerial-r05-c07.jpg",
+      "sha256": "2945fad70e3fdc80a3c3406682cf432d4e242adbc215eadd1d876f34c47484db",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 370,
+      "dataset": "atlas",
+      "thumbnailSha256": "327183dff166b40beae07944a2e0c5cedd0494aced1ccf16f1d3dd835352498b",
+      "retakeReason": "named commercial footprint drawn with its window-grid walls and light roof"
+    }
+  ]
+}

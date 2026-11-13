@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "Floreasca aerial comparisons",
   "generatedDate": "2026-11-13",
-  "generatedAt": "2026-11-13T05:30:47.339Z",
+  "generatedAt": "2026-11-13T09:57:44.875Z",
   "defaultTile": "aerial-r09-c04",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -2074,19 +2074,19 @@
         0,
         0
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 113,
-        "triangles": 840205,
-        "renderMs": 5,
+        "drawCalls": 114,
+        "triangles": 558727,
+        "renderMs": 1.5,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 194
+        "vehicleCount": 193
       },
       "renderer": {
         "width": 640,
@@ -2096,23 +2096,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:29:19.673Z",
-      "gamePath": "images/aerial-r05-c04.jpg",
-      "image": "images/aerial-r05-c04.jpg",
-      "thumbnail": "thumbs/aerial-r05-c04.jpg",
-      "sha256": "9682c311502747533d4b310fa25d8b0a93207366c045b16688dd643691d3c448",
+      "capturedAt": "2026-11-13T09:57:20.417Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r05-c04.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r05-c04.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r05-c04.jpg",
+      "sha256": "80f724dbc9c7dfbc39d4debd338adc1c51e92d8cd6938c0e06a11aef5d9de34c",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7608,
+      "captureWallMs": 544,
       "dataset": "atlas",
-      "thumbnailSha256": "6c71e6cf50fa99ef2394bfb2ab1d3a0b4df2accf9437ac6d1ea47790141ba64c",
+      "thumbnailSha256": "b6c9d81c3a613636e0c63c65e57b6480dd52ead8c505e5cc6dc227bd2247e49d",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.4644,
         26.10065326806519,
         44.46664957707951,
         26.1038
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (block drawn with a light roof and glass sides); prior collection archived."
     },
     {
       "id": "aerial-r05-c05",
@@ -2578,19 +2580,19 @@
         0,
         250
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 112,
-        "triangles": 799648,
-        "renderMs": 10.100000001490116,
+        "drawCalls": 115,
+        "triangles": 542430,
+        "renderMs": 1.8999999999650754,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 194
+        "vehicleCount": 193
       },
       "renderer": {
         "width": 640,
@@ -2600,23 +2602,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:30:27.284Z",
-      "gamePath": "images/aerial-r06-c04.jpg",
-      "image": "images/aerial-r06-c04.jpg",
-      "thumbnail": "thumbs/aerial-r06-c04.jpg",
-      "sha256": "15f12aba649dc5ddab76d33a59aa2709b774aa25c088646fc7ff98ade63fa9d2",
+      "capturedAt": "2026-11-13T09:57:23.913Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r06-c04.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r06-c04.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r06-c04.jpg",
+      "sha256": "d77bfdeacd36617976f4eada1ad6584576ee192bd0ce0690b056f0a14ac107f7",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8612,
+      "captureWallMs": 445,
       "dataset": "atlas",
-      "thumbnailSha256": "bc0aa32468a46892c09f0ae79fe6b2a2f4506fcf7465dd7550ea1a505f0cd58e",
+      "thumbnailSha256": "8a1cb7ac495b9a3b1f3e084613128eb404750cc6e6ad78269458294977762e88",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.46215042292049,
         26.10065326806519,
         44.4644,
         26.1038
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (Automatica Ford building site: netting and scaffold over the outline (light roof, dark edges)); prior collection archived."
     },
     {
       "id": "aerial-r06-c05",
@@ -3082,16 +3086,19 @@
         0,
         500
       ],
-      "gameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 99,
-        "triangles": 476353
+        "triangles": 477135,
+        "renderMs": 0.7000000000116415,
+        "quality": "high"
       },
       "traffic": {
         "enabled": false,
-        "visible": false
+        "visible": false,
+        "vehicleCount": 193
       },
       "renderer": {
         "width": 640,
@@ -3101,16 +3108,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-11T01:51:38.302Z",
-      "gamePath": "retakes/signs-8add95f3/atlas/aerial-r07-c04.png",
-      "image": "retakes/signs-8add95f3/atlas/aerial-r07-c04.png",
-      "thumbnail": "retakes/signs-8add95f3/atlas/aerial-r07-c04.png",
-      "sha256": "e20f1e292322d03ce73ea333ae6f633099c8e83229d0e370d0185afb18c6bef9",
+      "capturedAt": "2026-11-13T09:57:27.145Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r07-c04.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r07-c04.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r07-c04.jpg",
+      "sha256": "27866152f213f822e07be1a8739d6838bdec0b95c1635eb45a13dae65a399540",
       "width": 640,
       "height": 640,
-      "captureWallMs": 9602,
+      "captureWallMs": 420,
       "dataset": "atlas",
-      "thumbnailSha256": "e20f1e292322d03ce73ea333ae6f633099c8e83229d0e370d0185afb18c6bef9",
+      "thumbnailSha256": "e966cb687297e9d113557f7f14dd6872098bc50bd8704f4c5e1838db4fabb550",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.45990084584098,
@@ -3119,8 +3126,8 @@
         26.1038
       ],
       "district": "floreasca",
-      "sourceNote": "Current native recapture after source-wall fascia placement correction.",
-      "sourceCaptureManifest": "retakes/signs-8add95f3/atlas-capture.json"
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (buildings drawn with blue glass fronts); prior collection archived.",
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json"
     },
     {
       "id": "aerial-r07-c05",
@@ -4410,13 +4417,13 @@
         0,
         1250
       ],
-      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 122,
-        "triangles": 344497,
-        "renderMs": 1.1000000089406967,
+        "triangles": 343399,
+        "renderMs": 2.400000000023283,
         "quality": "high"
       },
       "traffic": {
@@ -4432,16 +4439,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-13T05:30:38.346Z",
-      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r10-c04.jpg",
-      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r10-c04.jpg",
-      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r10-c04.jpg",
-      "sha256": "a429585155e30a0831c9b8ac447437b99dabdd6267e06ce938ea9540f96ae770",
+      "capturedAt": "2026-11-13T09:57:36.866Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r10-c04.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r10-c04.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r10-c04.jpg",
+      "sha256": "0ea16334b5faf1993dd522923e4a6b9bfcdba59dbcfd1adf92f6926f45c94d1e",
       "width": 640,
       "height": 640,
-      "captureWallMs": 420,
+      "captureWallMs": 453,
       "dataset": "atlas",
-      "thumbnailSha256": "10e8799ffd0974daeef45de0a43da1e64c3ec895480f6143ea990845eaab29c6",
+      "thumbnailSha256": "b0ec3b438e38b1c8a5721b49ac8c5ce1fe0e9bf12e438d6f3af46180b67a4504",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.45315211460245,
@@ -4449,8 +4456,8 @@
         44.45540169168196,
         26.1038
       ],
-      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
-      "sourceNote": "Exact-pose scoped retake at 9824fd56 (Stadionul Dinamo sunk into its pit: stands, pitch level and surroundings redrawn); prior collection archived."
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (buildings drawn with blue glass fronts); prior collection archived."
     },
     {
       "id": "aerial-r10-c05",
@@ -5849,9 +5856,10 @@
     "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 6,
     "bbaffc0d6cdccb6246edeb9478c58590852980d9": 18,
     "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
-    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 59,
-    "8add95f35681eddaf01a136ff1f5769a5329b102": 3,
-    "9824fd56de3f0e420821e871436906186a80e493": 2
+    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 57,
+    "2b1a2511d6b8b521b409d55415b2eca9906cc305": 4,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
+    "9824fd56de3f0e420821e871436906186a80e493": 1
   },
   "sourceSnapshots": [
     {
@@ -5894,6 +5902,15 @@
       "sourceProvenance": "retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
       "sourceProvenanceSha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b",
       "frames": 2
+    },
+    {
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "treeSha256": "e0f6d269e2f5186247021c2a0b9f3286489f749e48235e8a55bdaa73ade1f636",
+      "manifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "manifestSha256": "a86c37e40a3f5c771438098e24d6315b060109f06cc4874b4ac78ade9218452c",
+      "sourceProvenance": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/source-provenance.json",
+      "sourceProvenanceSha256": "ded825b46df601ef23bcabc110f65d2116d77929dc3a461a1434d4e738117ab6",
+      "frames": 4
     }
   ],
   "sourceCompatibility": {
@@ -5913,7 +5930,7 @@
     "delivery": "Live image request; no aerial imagery is stored in this repository.",
     "extent": "250 m ground square centred at each listed WGS84 coordinate; EPSG:3857 with latitude scale correction."
   },
-  "description": "Mixed-source technical atlas: 2 poses retaken on 2026-11-13 at 9824fd56 (Dinamo stadium sunk into its pit); all other images retain their recorded sources and dates.",
+  "description": "Mixed-source technical atlas: 4 poses retaken on 2026-11-13 at 2b1a2511 (Automatica building site, glass fronts); all other images retain their recorded sources and dates.",
   "coverageNote": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score. Boundary cells also contain land outside the ring.",
   "reviewNote": "Sign-affected current game captures inspected at full size; source/aerial comparisons retain their historical scope. No district fidelity acceptance.",
   "review": {
@@ -5923,9 +5940,10 @@
       "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 6,
       "bbaffc0d6cdccb6246edeb9478c58590852980d9": 18,
       "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
-      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 59,
-      "8add95f35681eddaf01a136ff1f5769a5329b102": 3,
-      "9824fd56de3f0e420821e871436906186a80e493": 2
+      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 57,
+      "2b1a2511d6b8b521b409d55415b2eca9906cc305": 4,
+      "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
+      "9824fd56de3f0e420821e871436906186a80e493": 1
     },
     "framesReviewed": 90,
     "status": "Complete prior review retained with 21 fresh exact-pose water/paint pairs inspected; all geometry, source-height, facade, canopy, occupancy and unknown-date limits remain.",
@@ -6323,14 +6341,14 @@
       },
       {
         "id": "aerial-r05-c04",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "9682c311502747533d4b310fa25d8b0a93207366c045b16688dd643691d3c448",
-        "pairSha256": "f65219354294931921002340d2c75cf6c45062c0faed034a7577e0f121c9a7a6",
+        "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+        "gameSha256": "80f724dbc9c7dfbc39d4debd338adc1c51e92d8cd6938c0e06a11aef5d9de34c",
         "reviewSheet": "comparison-06.jpg",
         "reviewSheetSha256": "40aeb962c8a7845c791573463a876db4408c569b575f6708d7d09795fa997f12",
         "reviewedAt": "2026-11-08T22:04:16.096495+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "All six pairs viewed. Source streets/intersections and residential blocks present. Large eastern parking and sports context remain simplified; occupancy and roof fixture detail are not measured by source primitive audits. Roof tones smoother than varied reference materials; no footprint rejection from roof parallax."
+        "observations": "All six pairs viewed. Source streets/intersections and residential blocks present. Large eastern parking and sports context remain simplified; occupancy and roof fixture detail are not measured by source primitive audits. Roof tones smoother than varied reference materials; no footprint rejection from roof parallax.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r05-c05",
@@ -6411,14 +6429,14 @@
       },
       {
         "id": "aerial-r06-c04",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "15f12aba649dc5ddab76d33a59aa2709b774aa25c088646fc7ff98ade63fa9d2",
-        "pairSha256": "b8e417d6b4443681bffd0be943d6f29c9beafa70a77fc54643feaaee94dfd379",
+        "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+        "gameSha256": "d77bfdeacd36617976f4eada1ad6584576ee192bd0ce0690b056f0a14ac107f7",
         "reviewSheet": "comparison-07.jpg",
         "reviewSheetSha256": "f9519c13cf751a41373ebe6e562c6a6877b8794aef9c0ba1b52c1eeadf00289f",
         "reviewedAt": "2026-11-08T22:04:16.215400+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "All six pairs viewed. Residential flat/hipped mixture and retained green courtyards visible. Large source carpark r06c06 has only sparse seeded rows versus hundreds of reference cars; world per-lot cap45 confirmed, unknown reference date prevents occupancy claim. Car clearance correctness does not establish measured occupancy or row layout. r06c07 has source blocks but sparse simplified tree/garden dressing."
+        "observations": "All six pairs viewed. Residential flat/hipped mixture and retained green courtyards visible. Large source carpark r06c06 has only sparse seeded rows versus hundreds of reference cars; world per-lot cap45 confirmed, unknown reference date prevents occupancy claim. Car clearance correctness does not establish measured occupancy or row layout. r06c07 has source blocks but sparse simplified tree/garden dressing.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r06-c05",
@@ -6499,14 +6517,14 @@
       },
       {
         "id": "aerial-r07-c04",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "9e100eb7f9e88d3d64ba09492ead4def779d248b8fe540badf9815db68badadd",
-        "pairSha256": "d31e876bc0cbef5cd064e8ce377cdf7c622eb11612dc6ef180ef7784529ae169",
+        "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+        "gameSha256": "27866152f213f822e07be1a8739d6838bdec0b95c1635eb45a13dae65a399540",
         "reviewSheet": "comparison-08.jpg",
         "reviewSheetSha256": "32c8de348cbf2641341ecdb3a6b574ee982b155ef008218984c0ed1ed26e1b6c",
         "reviewedAt": "2026-11-08T22:04:16.565936+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "All six pairs viewed. Urban source street grid and small pitched roof mix present; exact roof material/fixtures and garden crowns remain simplified. r07c01 triangular junction and r07c04 long block geometry visible; broad road width/body warnings require native carriageway probe, not acceptance from this scale."
+        "observations": "All six pairs viewed. Urban source street grid and small pitched roof mix present; exact roof material/fixtures and garden crowns remain simplified. r07c01 triangular junction and r07c04 long block geometry visible; broad road width/body warnings require native carriageway probe, not acceptance from this scale.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r07-c05",
@@ -6735,8 +6753,8 @@
         "id": "aerial-r10-c04",
         "originalGameSha256": "c8ad956b91128d7d78995fdca34a9472b1b158545f2e7c95fd83acd740c2c2ea",
         "retakeGameSha256": "17eab42e394b44b89e9cb80e54bfe802616ed147ab588d9efe4e5ee584f04816",
-        "gameSha256": "a429585155e30a0831c9b8ac447437b99dabdd6267e06ce938ea9540f96ae770",
-        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "0ea16334b5faf1993dd522923e4a6b9bfcdba59dbcfd1adf92f6926f45c94d1e",
+        "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
         "reviewSheet": "comparison-04.jpg",
         "reviewSheetSha256": "2d5f0f94e2ff91fd8f7e02d34f28fce9b9db84d462bc76a5dfcf431b280c8ae5",
         "referenceCoverageFraction": 1.0,
@@ -6994,14 +7012,15 @@
         "observations": "All six contextual 250m north-up ground-square pairs viewed. Northwest/northeast show the angular lake band plus sparse outside-detail masses. Southwest/southeast show isolated generic skyline masses and grey ground versus dense reference buildings/canopy. context-skytower and context-globalworth are approximate outside-detail backdrop masses, not upgraded detailed tower/podium context; explicit source/visual gap retained. They are square north-up atlas items, not perspective model studies."
       }
     ],
-    "targetedRetakeReview": "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
+    "targetedRetakeReview": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/paired-review.json",
     "earlierTargetedRetakeReviews": [
       "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/paired-review.json",
-      "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json"
+      "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+      "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json"
     ]
   },
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 2 poses retaken on 2026-11-13 at 9824fd56 (Dinamo stadium sunk into its pit); all other images retain their recorded sources and dates."
+    "atlas": "Mixed-source technical atlas: 4 poses retaken on 2026-11-13 at 2b1a2511 (Automatica building site, glass fronts); all other images retain their recorded sources and dates."
   },
   "perspectiveCollections": [
     {
@@ -7098,6 +7117,22 @@
         "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
         "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 59,
         "8add95f35681eddaf01a136ff1f5769a5329b102": 3
+      },
+      "captureType": "mixed-source-survey"
+    },
+    {
+      "manifest": "historical/mixed-before-2b1a2511-f018ed93/manifest.json",
+      "label": "Atlas before the 2b1a251 retake (Automatica building site, glass fronts)",
+      "frames": 90,
+      "generatedAt": "2026-11-13T05:30:47.339Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 6,
+        "bbaffc0d6cdccb6246edeb9478c58590852980d9": 18,
+        "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 59,
+        "8add95f35681eddaf01a136ff1f5769a5329b102": 3,
+        "9824fd56de3f0e420821e871436906186a80e493": 2
       },
       "captureType": "mixed-source-survey"
     }

@@ -96,6 +96,11 @@
       "label": "Fidelity pass round 2 scene change (9824fd5)",
       "type": "Game source change",
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493"
+    },
+    {
+      "label": "Fidelity pass round 3 scene change (2b1a251)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/2b1a2511d6b8b521b409d55415b2eca9906cc305"
     }
   ],
   "improvements": [
@@ -103,14 +108,14 @@
     "Physical entry approach; three manual desktop/touch aimed shutters",
     "The selected primary activity approach is accepted separately from full-scene comparison.",
     "District fidelity pass, 6ccf348 / 0446b77 (range 332ae423..346f7986): In the shared Seattle Center scene the MoPOP lobes reach the ground in steel. The Glasshouse itself was not changed by the pass.",
-    "Fidelity pass round 2, 9824fd5 (range 94a177d5..9824fd56): The Glasshouse is a declared roofed interior: no rain or snow inside and people inside close umbrellas; skyline culling of the city context."
+    "Fidelity pass round 2, 9824fd5 (range 94a177d5..9824fd56): The Glasshouse is a declared roofed interior: no rain or snow inside and people inside close umbrellas; skyline culling of the city context.",
+    "Fidelity pass round 3, 2b1a251 (range 9824fd56..2b1a2511): Shared Seattle Center scene: International Fountain, Olympic Iliad, Climate Pledge Arena and the monorail station canopy."
   ],
   "remainingGaps": [
     "Artwork/Glasshouse matched fidelity and that older partial run's completed reload are not inferred",
     "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
     "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
-    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 93b0d86 or earlier, before the district fidelity pass, and were not re-run at 346f798.",
-    "Validation frames, native proofs, source-geometry counts and performance figures in this record predate 9824fd5 and were not re-run for round 2."
+    "Validation frames, native proofs, source-geometry counts and performance figures in this record predate 2b1a251 and were not re-run for round 3."
   ],
   "checks": [
     {
@@ -160,6 +165,16 @@
     },
     {
       "label": "Validation frames and native proofs re-run at 9824fd5",
+      "passed": false,
+      "details": "Not re-run. The validation captures and proofs keep their original source and date."
+    },
+    {
+      "label": "Visitor views recaptured at 2b1a251 (round 3)",
+      "passed": true,
+      "details": "scene view and complete phone page recaptured (scene, phone-ui-touch); peak 958,289 triangles / 152 draw calls in these frames. Every picture was inspected after capture. Appearance only; no route, activity or reference-match claim."
+    },
+    {
+      "label": "Validation frames and native proofs re-run at 2b1a251",
       "passed": false,
       "details": "Not re-run. The validation captures and proofs keep their original source and date."
     }
@@ -400,7 +415,7 @@
     },
     "collection": "previous-context-gallery"
   },
-  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical entry approach; three manual desktop/touch aimed shutters Artwork/Glasshouse matched fidelity and that older partial run's completed reload are not inferred Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates. Round-2 visitor views recaptured 2026-11-13 from 9824fd5; the 346f7986 views are kept in historicalCollections.",
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical entry approach; three manual desktop/touch aimed shutters Artwork/Glasshouse matched fidelity and that older partial run's completed reload are not inferred Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates. Round-2 visitor views recaptured 2026-11-13 from 9824fd5; the 346f7986 views are kept in historicalCollections. Round-3 visitor views recaptured 2026-11-13 from 2b1a251; the earlier views are kept in historicalCollections.",
   "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
   "menuAvailable": true,
   "captureSourceCommits": [
@@ -447,12 +462,12 @@
   ],
   "visitorGallery": {
     "id": "chihuly",
-    "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+    "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
     "captures": [
       {
         "kind": "scene",
-        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
-        "capturedAt": "2026-11-13T05:34:34.662Z",
+        "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+        "capturedAt": "2026-11-13T09:59:04.299Z",
         "viewport": {
           "width": 1280,
           "height": 720
@@ -477,20 +492,20 @@
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-13T05:34:30.079Z",
-        "triangles": 917053,
-        "drawCalls": 146,
+        "simulationDate": "2026-11-13T09:59:00.625Z",
+        "triangles": 958289,
+        "drawCalls": 152,
         "cameraParent": "onfoot",
         "ui": {
           "touch": true,
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "d34ee9ac06b673bbc0670ab511d8c684462c391babd6dab8dff7b5ac2b0c2f6f",
-        "bytes": 106426,
+        "sha256": "d29e408ff7e9e0b7cf3243ef73affa07264a040b088205e1372ee0c1fa7f5b86",
+        "bytes": 106602,
         "fullPageHUD": false,
-        "image": "assets/spots/chihuly/visit-9824fd56/scene.webp",
-        "captureRecord": "assets/spots/chihuly/visit-9824fd56/capture.json",
+        "image": "assets/spots/chihuly/visit-2b1a2511/scene.webp",
+        "captureRecord": "assets/spots/chihuly/visit-2b1a2511/capture.json",
         "setup": {
           "arrival": {
             "x": -73.4,
@@ -505,7 +520,7 @@
             "z": -6.2,
             "bearing": 60,
             "pitch": 38,
-            "text": "Inside the Glasshouse looking up through the red-orange sculpture and glass roof to the Space Needle (pose of the aabd17ad and 346f7986 captures; the runtime lists no postcard challenge for this destination)",
+            "text": "Inside the Glasshouse looking up through the red-orange sculpture and glass roof to the Space Needle (pose of the earlier captures; the runtime lists no postcard challenge for this destination)",
             "authoredOverride": true
           },
           "position": {
@@ -531,8 +546,8 @@
       },
       {
         "kind": "phone-ui-touch",
-        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
-        "capturedAt": "2026-11-13T05:34:34.954Z",
+        "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+        "capturedAt": "2026-11-13T09:59:04.558Z",
         "viewport": {
           "width": 390,
           "height": 844
@@ -557,20 +572,20 @@
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-13T05:34:30.371Z",
-        "triangles": 778713,
-        "drawCalls": 98,
+        "simulationDate": "2026-11-13T09:59:00.883Z",
+        "triangles": 805325,
+        "drawCalls": 108,
         "cameraParent": "onfoot",
         "ui": {
           "touch": true,
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "01b97d312f4ff791caedf2fb2e765c180afeb3980fb6e75afbec54236cc9c170",
-        "bytes": 67829,
+        "sha256": "ba15b2da40526ba859dac185451b77e991b11e3be711b7bbd966fc19f2308c30",
+        "bytes": 67794,
         "fullPageHUD": true,
-        "image": "assets/spots/chihuly/visit-9824fd56/phone-ui-touch.jpg",
-        "captureRecord": "assets/spots/chihuly/visit-9824fd56/capture.json",
+        "image": "assets/spots/chihuly/visit-2b1a2511/phone-ui-touch.jpg",
+        "captureRecord": "assets/spots/chihuly/visit-2b1a2511/capture.json",
         "setup": {
           "arrival": {
             "x": -73.4,
@@ -585,7 +600,7 @@
             "z": -6.2,
             "bearing": 60,
             "pitch": 38,
-            "text": "Inside the Glasshouse looking up through the red-orange sculpture and glass roof to the Space Needle (pose of the aabd17ad and 346f7986 captures; the runtime lists no postcard challenge for this destination)",
+            "text": "Inside the Glasshouse looking up through the red-orange sculpture and glass roof to the Space Needle (pose of the earlier captures; the runtime lists no postcard challenge for this destination)",
             "authoredOverride": true
           },
           "position": {
@@ -617,13 +632,13 @@
     ],
     "reports": [
       {
-        "label": "Scene and portrait capture record, 9824fd5",
-        "report": "assets/spots/chihuly/visit-9824fd56/capture.json",
-        "sha256": "87ae13c955e93f996165fce81e88a00c598dcd1d68bacdf4eb7485f00b3eb057"
+        "label": "Scene and portrait capture record, 2b1a251",
+        "report": "assets/spots/chihuly/visit-2b1a2511/capture.json",
+        "sha256": "4e20b055941704523f69bdc1d2c59fca3ecb413780276754397497f0acc72b6c"
       }
     ],
-    "updatedAt": "2026-11-13T05:34:34.954Z",
-    "notice": "Recaptured from game source 9824fd5 after fidelity pass round 2. Earlier views are kept in this record as historical.",
+    "updatedAt": "2026-11-13T09:59:04.558Z",
+    "notice": "Recaptured from game source 2b1a251 after fidelity pass round 3. Earlier views are kept in this record as historical.",
     "setup": "Explicit production on-foot viewpoints with native touch look, at 1280 × 720 and as the complete 390 × 844 phone page. The scene-authored postcard pose is used unless a limitation below says otherwise. No route, reference match or release acceptance is implied."
   },
   "historicalCollections": [
@@ -1015,16 +1030,202 @@
           "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
         }
       ]
+    },
+    {
+      "id": "visitor-gallery-9824fd56",
+      "label": "Visitor views before fidelity pass round 3",
+      "status": "historical",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededBy": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "supersededAt": "2026-11-13T10:01:51.995Z",
+      "reason": "The scene changed after 9824fd5 (round 3: 9824fd56..2b1a2511); these pictures show the earlier scene and keep their original source, dates and capture records.",
+      "notice": "Recaptured from game source 9824fd5 after fidelity pass round 2. Earlier views are kept in this record as historical.",
+      "setup": "Explicit production on-foot viewpoints with native touch look, at 1280 × 720 and as the complete 390 × 844 phone page. The scene-authored postcard pose is used unless a limitation below says otherwise. No route, reference match or release acceptance is implied.",
+      "limitations": [
+        "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+        "The runtime lists no postcard challenge for this destination; the camera uses the pose of the earlier captures.",
+        "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+      ],
+      "updatedAt": "2026-11-13T05:34:34.954Z",
+      "reports": [
+        {
+          "label": "Scene and portrait capture record, 9824fd5",
+          "report": "assets/spots/chihuly/visit-9824fd56/capture.json",
+          "sha256": "87ae13c955e93f996165fce81e88a00c598dcd1d68bacdf4eb7485f00b3eb057"
+        }
+      ],
+      "captures": [
+        {
+          "kind": "scene",
+          "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+          "capturedAt": "2026-11-13T05:34:34.662Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -56.25,
+            "z": -6.2,
+            "y": 1.8165060818195344,
+            "heading": -1.047197578125
+          },
+          "pose": {
+            "position": [
+              -56.25,
+              3.466506081819534,
+              -6.2
+            ],
+            "bearing": 60.00000154288381,
+            "pitch": 38.00000008191319
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-13T05:34:30.079Z",
+          "triangles": 917053,
+          "drawCalls": 146,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "d34ee9ac06b673bbc0670ab511d8c684462c391babd6dab8dff7b5ac2b0c2f6f",
+          "bytes": 106426,
+          "fullPageHUD": false,
+          "image": "assets/spots/chihuly/visit-9824fd56/scene.webp",
+          "captureRecord": "assets/spots/chihuly/visit-9824fd56/capture.json",
+          "setup": {
+            "arrival": {
+              "x": -73.4,
+              "z": 11.8,
+              "y": 2.368782734870911,
+              "heading": -1.3962634015954636
+            },
+            "authoredViewpoint": null,
+            "viewpoint": {
+              "id": "chihuly",
+              "x": -56.25,
+              "z": -6.2,
+              "bearing": 60,
+              "pitch": 38,
+              "text": "Inside the Glasshouse looking up through the red-orange sculpture and glass roof to the Space Needle (pose of the aabd17ad and 346f7986 captures; the runtime lists no postcard challenge for this destination)",
+              "authoredOverride": true
+            },
+            "position": {
+              "x": -56.25,
+              "z": -6.2,
+              "y": 1.8165060818195344,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "seattle-center",
+            "origin": {
+              "lat": 47.6205063,
+              "lon": -122.3493043,
+              "elev": 40.5
+            },
+            "projection": {
+              "mLat": 111182.94,
+              "mLon": 75171.03
+            }
+          },
+          "label": "Glasshouse and suspended sculpture",
+          "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+        },
+        {
+          "kind": "phone-ui-touch",
+          "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+          "capturedAt": "2026-11-13T05:34:34.954Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -56.25,
+            "z": -6.2,
+            "y": 1.8165060818195344,
+            "heading": -1.0471975195312502
+          },
+          "pose": {
+            "position": [
+              -56.25,
+              3.466506081819534,
+              -6.2
+            ],
+            "bearing": 59.99999818570922,
+            "pitch": 38.000000081913186
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-13T05:34:30.371Z",
+          "triangles": 778713,
+          "drawCalls": 98,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "01b97d312f4ff791caedf2fb2e765c180afeb3980fb6e75afbec54236cc9c170",
+          "bytes": 67829,
+          "fullPageHUD": true,
+          "image": "assets/spots/chihuly/visit-9824fd56/phone-ui-touch.jpg",
+          "captureRecord": "assets/spots/chihuly/visit-9824fd56/capture.json",
+          "setup": {
+            "arrival": {
+              "x": -73.4,
+              "z": 11.8,
+              "y": 2.368782734870911,
+              "heading": -1.3962634015954636
+            },
+            "authoredViewpoint": null,
+            "viewpoint": {
+              "id": "chihuly",
+              "x": -56.25,
+              "z": -6.2,
+              "bearing": 60,
+              "pitch": 38,
+              "text": "Inside the Glasshouse looking up through the red-orange sculpture and glass roof to the Space Needle (pose of the aabd17ad and 346f7986 captures; the runtime lists no postcard challenge for this destination)",
+              "authoredOverride": true
+            },
+            "position": {
+              "x": -56.25,
+              "z": -6.2,
+              "y": 1.8165060818195344,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "seattle-center",
+            "origin": {
+              "lat": 47.6205063,
+              "lon": -122.3493043,
+              "elev": 40.5
+            },
+            "projection": {
+              "mLat": 111182.94,
+              "mLon": 75171.03
+            }
+          },
+          "label": "Phone view with the native touch interface",
+          "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+        }
+      ]
     }
   ],
   "visitorGalleryRecapture": {
-    "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
-    "assembledAt": "2026-11-13T05:41:38.367Z",
-    "passRange": "94a177d5..9824fd56",
+    "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+    "assembledAt": "2026-11-13T10:01:51.995Z",
+    "passRange": "9824fd56..2b1a2511",
     "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted).",
     "sourceVerification": {
-      "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
-      "checkedAt": "2026-11-13T05:41:38.367Z"
+      "method": "Captured from a snapshot of 2b1a2511d6b8b521b409d55415b2eca9906cc305: `git archive 2b1a2511d6b8b521b409d55415b2eca9906cc305 game` extracted to a scratch directory and served by a no-store static server; key runtime and data files were re-hashed against `git show` at assembly",
+      "checkedAt": "2026-11-13T10:01:51.995Z"
     }
   }
 }

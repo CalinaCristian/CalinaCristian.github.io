@@ -1,0 +1,331 @@
+{
+  "schemaVersion": 1,
+  "id": "urseanudome",
+  "city": "bucharest",
+  "name": "Observatorul Urseanu (tower and dome)",
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4485165,
+    "lon": 26.0929986
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/1220336122",
+      "label": "OSM w1220336122 · building:part=yes (the round east tower), no height",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/79139872",
+      "label": "OSM w79139872 · man_made=observatory, observatory:type=astronomical (the villa)",
+      "type": "osm"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/2b1a2511d6b8b521b409d55415b2eca9906cc305/game/research/bucharest-romana.md",
+      "label": "District dossier: Observatorul Astronomic Amiral Vasile Urseanu",
+      "type": "research"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "label": "Fidelity pass round 3 (2b1a251), not yet published when captured",
+      "type": "implementation"
+    }
+  ],
+  "sourceIds": [
+    "w1220336122"
+  ],
+  "reviewedAt": "2026-11-13",
+  "improvements": [
+    "The round east tower of the Urseanu observatory is a cream rounded corner bay with iron balcony bands at the villa's three-storey height (13.5 m), topped by a grey hemispherical observatory dome with a shutter slit. It replaces the 25.6 m blank default cylinder of its own building:part only."
+  ],
+  "remainingGaps": [
+    "13.5 m comes from the storey count; the dome is blurred on the panorama, so its radius, rise and grey metal finish are estimates of the usual observatory dome.",
+    "From the street at the reference panorama's pose the dome is hidden behind the tower's own parapet and the street trees, so the district picture is an elevated view (40 m above the street) from the east; it is not a street-level comparison."
+  ],
+  "checks": [
+    {
+      "label": "Registry identity",
+      "passed": true,
+      "details": "id, name, anchor and sourceIds are read from game/src/landmarks.js at 2b1a251."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 2b1a251 (game/src clean) on 2026-11-13: passed, 2158 checks over 74 models; this model 702 triangles, 1 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 4 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "In-world district view",
+      "passed": null,
+      "details": "In-world elevated view from the east (40 m up): tower and dome on the villa corner: 570,456 triangles / 196 draw calls in the romana district world. Recorded, not a budget acceptance."
+    },
+    {
+      "label": "Matched Street View / aerial comparison",
+      "passed": false,
+      "details": "No matched reference comparison was made for this record. The source comments name panoramas used as viewed reference only; no reference imagery is stored or published."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study · 30 m",
+      "kind": "front",
+      "image": "assets/landmarks/urseanudome/source-2b1a2511/front.webp",
+      "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "sha256": "cefffe8f1e682c3d2f9899ffde3546a543610d76e6232a41f25717fdee0126f7",
+      "bytes": 8078,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T09:44:59.031Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=urseanudome&clean=1&fountains=on&view=street&az=90&d=30",
+        "anchor": {
+          "lat": 44.4485165,
+          "lon": 26.0929986,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            29.850000023841858,
+            1.3,
+            0.0009385347366351377
+          ],
+          "quaternion": [
+            0.07057822939879574,
+            0.7035756629779991,
+            -0.07057822939879574,
+            0.7035756629779991
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 600,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -3.8499999046325684,
+            0,
+            -3.755500555038452
+          ],
+          "max": [
+            3.549999952316284,
+            16.399999618530273,
+            3.7573776245117188
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "North-up orthographic model study",
+      "kind": "top",
+      "image": "assets/landmarks/urseanudome/source-2b1a2511/top.webp",
+      "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "sha256": "06ee1db6d78ac076ff2ab2bf4e26dc04d0e6b31a6141a8bb1eb6a297fa157318",
+      "bytes": 32916,
+      "width": 720,
+      "height": 720,
+      "capturedAt": "2026-11-13T09:44:59.707Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=urseanudome&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4485165,
+          "lon": 26.0929986,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "orthographic",
+          "position": [
+            -0.1499999761581421,
+            100,
+            0.0009385347366333008
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 2000,
+          "viewport": [
+            720,
+            720
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -6.357469344139099,
+          "right": 6.357469344139099,
+          "top": 6.357469344139099,
+          "bottom": -6.357469344139099,
+          "zoom": 1,
+          "groundSquareM": 12.714938688278197,
+          "groundWidthM": 12.714938688278197,
+          "groundDepthM": 12.714938688278197,
+          "orientation": "north-up"
+        },
+        "bounds": {
+          "min": [
+            -3.8499999046325684,
+            0,
+            -3.755500555038452
+          ],
+          "max": [
+            3.549999952316284,
+            16.399999618530273,
+            3.7573776245117188
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/urseanudome/source-2b1a2511/oblique.webp",
+      "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "sha256": "514f0b6ed22cf895c1150bd49dfc7e17c71322becbace3c60df4d6f163e9dce6",
+      "bytes": 17414,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T09:45:00.335Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=urseanudome&clean=1&fountains=on&view=oblique&az=125&el=24",
+        "anchor": {
+          "lat": 44.4485165,
+          "lon": 26.0929986,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            23.404000505730064,
+            19.36216123054112,
+            -16.49175015767663
+          ],
+          "quaternion": [
+            -0.09600293491045149,
+            0.8676275182981714,
+            0.18441992209975352,
+            0.4516582981780104
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 629.5061731501371,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -3.8499999046325684,
+            0,
+            -3.755500555038452
+          ],
+          "max": [
+            3.549999952316284,
+            16.399999618530273,
+            3.7573776245117188
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "district",
+      "label": "In-world elevated view from the east (40 m up): tower and dome on the villa corner",
+      "kind": "district",
+      "image": "assets/landmarks/urseanudome/source-2b1a2511/district.webp",
+      "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "sha256": "a4403cc9b0c0cec4c8f06598e64eebce8f4374ed283e5c7dad8910d5bddf444f",
+      "bytes": 194414,
+      "width": 1280,
+      "height": 720,
+      "capturedAt": "2026-11-13T09:56:38.227Z",
+      "encoding": "WebP quality 0.9 of the game canvas",
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "auto",
+        "clockOverride": "day",
+        "weatherOverride": "clear",
+        "note": "Season is the game default for the capture date (autumn foliage)."
+      },
+      "metrics": {
+        "triangles": 570456,
+        "drawCalls": 196,
+        "quality": "auto (high)"
+      },
+      "pose": {
+        "lat": 44.4485165,
+        "lon": 26.0938,
+        "heading": 270,
+        "pitch": -25,
+        "cameraY": 40.24,
+        "cameraBaseY": 0.24,
+        "eyeAboveSurfaceM": 40,
+        "fov": 45,
+        "viewport": [
+          1280,
+          720
+        ],
+        "district": "romana",
+        "worldXZ": [
+          206.62047268278826,
+          -24.06007799926681
+        ],
+        "frame": "Production district world (game/?inspect=1), free camera at a geographic pose as in game/dev/reality/capture.cjs; no simulation between shots, player rig hidden",
+        "eye": [
+          206.62047268278826,
+          40.24,
+          -24.06007799926681
+        ],
+        "bearing": 270
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 704,
+    "drawCalls": 2,
+    "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS. In-world frame counts are recorded on the district view."
+  },
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 2b1a2511d6b8b521b409d55415b2eca9906cc305: `git archive 2b1a2511d6b8b521b409d55415b2eca9906cc305 game` extracted to a scratch directory and served by a no-store static server; key runtime and data files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T10:01:51.995Z"
+  },
+  "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+}

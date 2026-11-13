@@ -1,0 +1,25 @@
+{
+  "district": "otopeni",
+  "sourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "frames": 107,
+  "retakesInstalled": 2,
+  "retakenIds": [
+    "aerial-r04-c07",
+    "aerial-r05-c07"
+  ],
+  "untouchedItemsAndBytesPreserved": 105,
+  "archivedManifest": "historical/mixed-before-2b1a2511-e76e076b/manifest.json",
+  "archivedManifestSha256": "e76e076b7e9a85d1aa319981eb88bbde2b182c4a3ae5aa225068ba97c32878e1",
+  "archivedItemsResolved": 107,
+  "sourceFilesVerifiedAgainstCommit": 540,
+  "atlasSourceCounts": {
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 82,
+    "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 8,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 12,
+    "9824fd56de3f0e420821e871436906186a80e493": 3,
+    "2b1a2511d6b8b521b409d55415b2eca9906cc305": 2
+  },
+  "allGroundPosesPreserved": true,
+  "sourceRevisionCorrections": [],
+  "failures": []
+}

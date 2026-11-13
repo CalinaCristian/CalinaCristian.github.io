@@ -1,0 +1,179 @@
+{
+  "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+  "city": "seattle",
+  "district": "bellevue",
+  "grid": {
+    "x0": -1500,
+    "z0": -1250,
+    "columns": 12,
+    "rows": 8,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "ring-touches": 64,
+    "core-touches": 14,
+    "outside-ring": 4
+  },
+  "locations": [
+    {
+      "id": "bellevue-chapter-start",
+      "label": "NE 8th Street West chapter start",
+      "lat": 47.61746,
+      "lon": -122.18725,
+      "kind": "chapter-start",
+      "source": "game/src/cities.js CHAPTERS; original configured position before public-lane snapping",
+      "tileId": "aerial-r04-c09"
+    },
+    {
+      "id": "lincoln-source-anchor",
+      "label": "Lincoln Square North",
+      "lat": 47.6168559,
+      "lon": -122.2010316,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w604028609",
+        "w161929514",
+        "w1364249504"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/604028609",
+        "https://www.openstreetmap.org/way/161929514",
+        "https://www.openstreetmap.org/way/1364249504"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r04-c05"
+    },
+    {
+      "id": "onelincoln-source-anchor",
+      "label": "One Lincoln Tower",
+      "lat": 47.6159634,
+      "lon": -122.2008866,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w604028611",
+        "w328017119",
+        "w1474737770"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/604028611",
+        "https://www.openstreetmap.org/way/328017119",
+        "https://www.openstreetmap.org/way/1474737770"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r05-c05"
+    },
+    {
+      "id": "lincolnsouth-source-anchor",
+      "label": "Lincoln Square South",
+      "lat": 47.6147631,
+      "lon": -122.2008325,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w1326151866",
+        "w604028603",
+        "w1326151868"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/1326151866",
+        "https://www.openstreetmap.org/way/604028603",
+        "https://www.openstreetmap.org/way/1326151868"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r05-c05"
+    },
+    {
+      "id": "plazacenter-source-anchor",
+      "label": "Plaza Center",
+      "lat": 47.6178822,
+      "lon": -122.1940388,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w33725899"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/33725899"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r04-c07"
+    },
+    {
+      "id": "sonic-source-anchor",
+      "label": "Bellevue skyline — City Center",
+      "lat": 47.6148782,
+      "lon": -122.1968365,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w1214423752",
+        "w1214424283",
+        "w1556489725"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/1214423752",
+        "https://www.openstreetmap.org/way/1214424283",
+        "https://www.openstreetmap.org/way/1556489725"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r05-c06"
+    },
+    {
+      "id": "bellevue600-source-anchor",
+      "label": "Bellevue 600",
+      "lat": 47.6160667,
+      "lon": -122.1942494,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w1453402304",
+        "w1453402305",
+        "w1474780170",
+        "w1474780171",
+        "w1474780172",
+        "w1474780173"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/1453402304",
+        "https://www.openstreetmap.org/way/1453402305",
+        "https://www.openstreetmap.org/way/1474780170",
+        "https://www.openstreetmap.org/way/1474780171",
+        "https://www.openstreetmap.org/way/1474780172",
+        "https://www.openstreetmap.org/way/1474780173"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r05-c07"
+    },
+    {
+      "id": "bellevuetowers-source-anchor",
+      "label": "Bellevue Towers",
+      "lat": 47.6143271,
+      "lon": -122.1981129,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w118119171",
+        "w370237986",
+        "w370239409"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/118119171",
+        "https://www.openstreetmap.org/way/370237986",
+        "https://www.openstreetmap.org/way/370239409"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r06-c06"
+    },
+    {
+      "id": "bellevuesq-source-anchor",
+      "label": "Bellevue Square",
+      "lat": 47.615653,
+      "lon": -122.2035769,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w29234887"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/29234887"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r05-c04"
+    }
+  ],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score."
+}

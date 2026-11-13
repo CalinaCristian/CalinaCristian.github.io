@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "Pipera aerial comparisons",
   "generatedDate": "2026-11-13",
-  "generatedAt": "2026-11-13T05:31:54.652Z",
+  "generatedAt": "2026-11-13T09:58:48.012Z",
   "defaultTile": "aerial-r08-c13",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -3905,19 +3905,19 @@
         -1000,
         250
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 125,
-        "triangles": 496460,
-        "renderMs": 13.100000001490116,
+        "drawCalls": 123,
+        "triangles": 402349,
+        "renderMs": 2.800000000046566,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 306
+        "vehicleCount": 303
       },
       "renderer": {
         "width": 640,
@@ -3927,16 +3927,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:06:35.006Z",
-      "gamePath": "images/aerial-r05-c05.jpg",
-      "image": "images/aerial-r05-c05.jpg",
-      "thumbnail": "thumbs/aerial-r05-c05.jpg",
-      "sha256": "01ed9e92bc86e96e40c9da27c6f7edee558320a69b1cc2be83d82ead08e1624e",
+      "capturedAt": "2026-11-13T09:58:16.633Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r05-c05.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r05-c05.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r05-c05.jpg",
+      "sha256": "205179687c9da249dce53f06279e36a15844a1bb546dbc65af3bba3d6d879eca",
       "width": 640,
       "height": 640,
-      "captureWallMs": 9972,
+      "captureWallMs": 485,
       "dataset": "atlas",
-      "thumbnailSha256": "b7ba7db8e149c6758f3e3f35594029c57d1210d2117f297621344ac665b3e574",
+      "thumbnailSha256": "887eb15cc85474690b7968803de4df3c932e5bab61a2f7de58c0c53072467433",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.47775042292049,
@@ -3944,9 +3944,9 @@
         44.48,
         26.10040970731559
       ],
-      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
-      "sourceCaptureManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
-      "reviewSourceManifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/pipera/historical/c78a5f4/review.json"
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (pool drawn as water); prior collection archived.",
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "reviewSourceManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/paired-review.json"
     },
     {
       "id": "aerial-r05-c06",
@@ -8978,7 +8978,7 @@
     "acquisitionDate": null,
     "delivery": "Live image request; no reference imagery is stored in this repository."
   },
-  "description": "Mixed-source technical atlas: 2 poses retaken on 2026-11-13 at 9824fd56 (Promenada front); all other images retain their recorded sources and dates.",
+  "description": "Mixed-source technical atlas: 1 pose retaken on 2026-11-13 at 2b1a2511 (pool drawn as water); all other images retain their recorded sources and dates.",
   "coverageNote": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score. Boundary cells also contain land outside the source ring.",
   "reviewNote": "Sign-affected current game captures inspected at full size; source/aerial comparisons retain their historical scope. No district fidelity acceptance.",
   "review": {
@@ -9006,7 +9006,7 @@
       "framesInOriginalReview": 133,
       "framesRetainedHere": 96
     },
-    "targetedRetakeReview": "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
+    "targetedRetakeReview": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/paired-review.json",
     "findings": [
       {
         "ids": [
@@ -9263,9 +9263,10 @@
     "structureRetakeSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
     "structureRetakesReviewed": 2,
     "currentAtlasSourceCounts": {
-      "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 92,
+      "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 91,
       "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
       "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
+      "2b1a2511d6b8b521b409d55415b2eca9906cc305": 1,
       "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
       "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 34,
       "9824fd56de3f0e420821e871436906186a80e493": 2
@@ -9280,16 +9281,18 @@
     "structureRetakeReviewedAt": "2026-11-09T02:11:54.820077+00:00",
     "earlierTargetedRetakeReviews": [
       "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
-      "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json"
+      "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+      "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json"
     ]
   },
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 2 poses retaken on 2026-11-13 at 9824fd56 (Promenada front); all other images retain their recorded sources and dates."
+    "atlas": "Mixed-source technical atlas: 1 pose retaken on 2026-11-13 at 2b1a2511 (pool drawn as water); all other images retain their recorded sources and dates."
   },
   "atlasSourceCounts": {
-    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 92,
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 91,
     "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
     "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
+    "2b1a2511d6b8b521b409d55415b2eca9906cc305": 1,
     "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
     "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 34,
     "9824fd56de3f0e420821e871436906186a80e493": 2
@@ -9299,6 +9302,7 @@
       "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
       "07cc3d6bcefe90967c5bde3af2237dab4b972705",
       "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "9824fd56de3f0e420821e871436906186a80e493"
@@ -9367,6 +9371,15 @@
       "sourceProvenance": "retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
       "sourceProvenanceSha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b",
       "frames": 2
+    },
+    {
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "treeSha256": "e0f6d269e2f5186247021c2a0b9f3286489f749e48235e8a55bdaa73ade1f636",
+      "manifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "manifestSha256": "f1745f0e354d0e661bec663120d3a9c5f84047efbddda6824a47508bd3120faa",
+      "sourceProvenance": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/source-provenance.json",
+      "sourceProvenanceSha256": "ded825b46df601ef23bcabc110f65d2116d77929dc3a461a1434d4e738117ab6",
+      "frames": 1
     }
   ],
   "sourceCompatibility": {
@@ -9419,6 +9432,22 @@
         "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
         "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
         "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 34
+      },
+      "captureType": "mixed-source-survey"
+    },
+    {
+      "manifest": "historical/mixed-before-2b1a2511-b07a53ac/manifest.json",
+      "label": "Atlas before the 2b1a251 retake (pool drawn as water)",
+      "frames": 133,
+      "generatedAt": "2026-11-13T05:31:54.652Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 92,
+        "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
+        "8add95f35681eddaf01a136ff1f5769a5329b102": 2,
+        "346f798681d891de6cebfc9e1d094996b1ace2e3": 2,
+        "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 34,
+        "9824fd56de3f0e420821e871436906186a80e493": 2
       },
       "captureType": "mixed-source-survey"
     }

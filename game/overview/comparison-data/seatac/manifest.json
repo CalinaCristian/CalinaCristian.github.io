@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "SeaTac aerial comparisons",
   "generatedDate": "2026-11-13",
-  "generatedAt": "2026-11-13T05:26:17.106Z",
+  "generatedAt": "2026-11-13T09:45:17.084Z",
   "defaultTile": "aerial-r09-c05",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -5214,13 +5214,13 @@
         -500,
         500
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 102,
-        "triangles": 389204,
-        "renderMs": 5.699999999254942,
+        "drawCalls": 103,
+        "triangles": 329964,
+        "renderMs": 2.100000023841858,
         "quality": "high"
       },
       "traffic": {
@@ -5236,16 +5236,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:08:26.119Z",
-      "gamePath": "images/aerial-r08-c07.jpg",
-      "image": "images/aerial-r08-c07.jpg",
-      "thumbnail": "thumbs/aerial-r08-c07.jpg",
-      "sha256": "7887e601cdcb722b2e000f1c294461e598bf8f8cafa381ac24621ea449ad33ac",
+      "capturedAt": "2026-11-13T09:44:50.673Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r08-c07.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r08-c07.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r08-c07.jpg",
+      "sha256": "185a78149cb2af4f4fdb2d0e8de092dff53ff00319941a1ad9a1f32022bd56d6",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8581,
+      "captureWallMs": 485,
       "dataset": "atlas",
-      "thumbnailSha256": "fef7b3536c27f50c447a475ec3f13c5277b8aa92af7be67ad9a638163dea8f56",
+      "thumbnailSha256": "328aea15b475121a2930980879d033cfc09653c226296ba887941e7985093638",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.44550084584098,
@@ -5255,7 +5255,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (Red Lion / Rodeway blocks with their storey count: red facade bands visible round the roof); prior collection archived."
     },
     {
       "id": "aerial-r08-c08",
@@ -5891,13 +5893,13 @@
         -500,
         750
       ],
-      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 104,
-        "triangles": 325787,
-        "renderMs": 1.3999999910593033,
+        "drawCalls": 105,
+        "triangles": 325725,
+        "renderMs": 2.9000000059604645,
         "quality": "high"
       },
       "traffic": {
@@ -5913,16 +5915,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-12T19:46:10.569Z",
-      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r09-c07.jpg",
-      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r09-c07.jpg",
-      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r09-c07.jpg",
-      "sha256": "7d67204fb65ee901105686c2153d66395f871cc487df2f137ddb7dae7a380cb0",
+      "capturedAt": "2026-11-13T09:44:55.781Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r09-c07.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r09-c07.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r09-c07.jpg",
+      "sha256": "8dde0305f2315c76afcf84efe8a6fdb127df6caa6eb8a22603d2b0162ee44ad0",
       "width": 640,
       "height": 640,
-      "captureWallMs": 420,
+      "captureWallMs": 496,
       "dataset": "atlas",
-      "thumbnailSha256": "ffe7eea1880d42c14fc7214f09aa7a8ac4a3abd769ec0d18a00c6bce610108c2",
+      "thumbnailSha256": "4cd5cd269f99b66263f67eb60fa05eac5bd0f533cd36967fd084d689d98f0b96",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.44325126876148,
@@ -5933,8 +5935,8 @@
       "coverageType": "core-touches",
       "orientation": "north-up",
       "places": [],
-      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
-      "sourceNote": "Exact-pose scoped retake at 346f7986 (hotel beside the station shows its windowed fronts); prior collection archived."
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (Hilton wing skybridge drawn over the drive; hotel pool redrawn); prior collection archived."
     },
     {
       "id": "aerial-r09-c08",
@@ -7173,13 +7175,13 @@
       "coverageType": "core-touches",
       "orientation": "north-up",
       "places": [],
-      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 106,
-        "triangles": 342159,
-        "renderMs": 1.2999999970197678,
+        "drawCalls": 108,
+        "triangles": 338854,
+        "renderMs": 1.300000011920929,
         "quality": "high"
       },
       "traffic": {
@@ -7195,16 +7197,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-12T19:46:18.429Z",
-      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r11-c06.jpg",
-      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r11-c06.jpg",
-      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r11-c06.jpg",
-      "sha256": "066440307ab9fd22437980c87c935c13f9c39c0aa8fd707610354f8399b173a9",
+      "capturedAt": "2026-11-13T09:45:03.907Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r11-c06.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r11-c06.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r11-c06.jpg",
+      "sha256": "f7ed7422b8ae5c7fc216514ab63f70a9e0bae8de5707eb0eb8af0fa8729e0eb8",
       "width": 640,
       "height": 640,
-      "captureWallMs": 437,
+      "captureWallMs": 450,
       "dataset": "atlas",
-      "thumbnailSha256": "e8a43a4181aa8ea9c9bdfd963ef34f6f1eed706c9b3befa7f6948df145fec0f8",
+      "thumbnailSha256": "5299b9e2bd3b4184cdf26d842d84f55b2cecf72fd5d31df22e8e562966b8e7e1",
       "captureType": "game-topdown",
       "boundsWgs84": [
         47.43875211460246,
@@ -7212,9 +7214,9 @@
         47.44100169168197,
         -122.29496303103195
       ],
-      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
-      "reviewSourceManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
-      "sourceNote": "Exact-pose scoped retake at 346f7986 (Link aerial guideway now runs along International Blvd); prior collection archived."
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "reviewSourceManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/paired-review.json",
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (hotel blocks drawn with windowed fronts instead of plain walls); prior collection archived."
     },
     {
       "id": "aerial-r11-c07",
@@ -7239,13 +7241,13 @@
         -500,
         1250
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 107,
-        "triangles": 373779,
-        "renderMs": 10,
+        "drawCalls": 106,
+        "triangles": 301783,
+        "renderMs": 1.0999999940395355,
         "quality": "high"
       },
       "traffic": {
@@ -7261,16 +7263,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:11:53.183Z",
-      "gamePath": "images/aerial-r11-c07.jpg",
-      "image": "images/aerial-r11-c07.jpg",
-      "thumbnail": "thumbs/aerial-r11-c07.jpg",
-      "sha256": "a72f9462f564a7671056b56cda0eb677eef4ab2ede5a0bf33f1fb42a0c8db3cf",
+      "capturedAt": "2026-11-13T09:45:04.358Z",
+      "gamePath": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r11-c07.jpg",
+      "image": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/images/aerial-r11-c07.jpg",
+      "thumbnail": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/thumbs/aerial-r11-c07.jpg",
+      "sha256": "2831717fd9e63864a8797ccd7015590d59af9f45e51b2e1f45c28cdf0c4de20c",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5688,
+      "captureWallMs": 438,
       "dataset": "atlas",
-      "thumbnailSha256": "70ff13e4a471540bac223fc21bab92d0637dda9225c05b67527658440a915721",
+      "thumbnailSha256": "425fcb8b48f3ae09f1dd2b8361e6d77816a2eb5a5a8e922413111d8e3054ca53",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.43875211460246,
@@ -7280,7 +7282,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 2b1a2511 (hotel blocks drawn with windowed fronts instead of plain walls); prior collection archived."
     },
     {
       "id": "aerial-r11-c08",
@@ -11798,10 +11802,11 @@
     "structureRetakeSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
     "structureRetakesReviewed": 20,
     "currentAtlasSourceCounts": {
-      "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 109,
-      "346f798681d891de6cebfc9e1d094996b1ace2e3": 13,
+      "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 107,
+      "346f798681d891de6cebfc9e1d094996b1ace2e3": 11,
       "9824fd56de3f0e420821e871436906186a80e493": 2,
-      "07cc3d6bcefe90967c5bde3af2237dab4b972705": 15
+      "07cc3d6bcefe90967c5bde3af2237dab4b972705": 15,
+      "2b1a2511d6b8b521b409d55415b2eca9906cc305": 4
     },
     "priorCompleteReview": {
       "manifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/seatac/historical/full-before-07cc3d6b-2215e3c4/manifest.json",
@@ -11811,9 +11816,10 @@
     "status": "Complete retained earlier review coverage plus 20 fresh exact-pose structural/separator pairs inspected; genuine source-height, materials, context and imagery-date limits remain.",
     "realWorldParityAccepted": false,
     "structureRetakeReviewedAt": "2026-11-09T02:11:54.813785+00:00",
-    "targetedRetakeReview": "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
+    "targetedRetakeReview": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/paired-review.json",
     "earlierTargetedRetakeReviews": [
-      "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json"
+      "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+      "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json"
     ]
   },
   "reviewNote": "Complete retained earlier review coverage plus 20 fresh exact-pose structural/separator pairs inspected; genuine source-height, materials, context and imagery-date limits remain.",
@@ -11822,12 +11828,13 @@
       "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
       "346f798681d891de6cebfc9e1d094996b1ace2e3",
       "9824fd56de3f0e420821e871436906186a80e493",
-      "07cc3d6bcefe90967c5bde3af2237dab4b972705"
+      "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "2b1a2511d6b8b521b409d55415b2eca9906cc305"
     ],
     "streetWalk": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a"
   },
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 2 poses retaken on 2026-11-13 at 9824fd56 (multi-storey car parks drawn as clad decks); all other images retain their recorded sources and dates.",
+    "atlas": "Mixed-source technical atlas: 4 poses retaken on 2026-11-13 at 2b1a2511 (Hilton wing skybridge, motel storeys, hotel fronts); all other images retain their recorded sources and dates.",
     "streetWalk": "Immutable source 4378317. Every available comparison pose, game image only. Reference imagery remains outside git; official reference URLs and dates are retained. Camera season follows reference metadata month. These762 GAME frames are historical BEFORE evidence from4378317. They predate independently measured airside aircraft and integrated source-grade/performance changes. Current aerial/aircraft/native evidence has its own c78a5f4 revision; the earlier walk is not relabelled as current."
   },
   "aerial": {
@@ -11839,10 +11846,11 @@
     "extent": "250 m ground-plane square, north-up; elevated roofs project larger under the perspective camera."
   },
   "atlasSourceCounts": {
-    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 109,
-    "346f798681d891de6cebfc9e1d094996b1ace2e3": 13,
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 107,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 11,
     "9824fd56de3f0e420821e871436906186a80e493": 2,
-    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 15
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 15,
+    "2b1a2511d6b8b521b409d55415b2eca9906cc305": 4
   },
   "sourceCaptureManifest": {
     "path": "capture-manifest.json",
@@ -11885,6 +11893,15 @@
       "sourceProvenance": "retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
       "sourceProvenanceSha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b",
       "frames": 2
+    },
+    {
+      "gameSourceCommit": "2b1a2511d6b8b521b409d55415b2eca9906cc305",
+      "treeSha256": "e0f6d269e2f5186247021c2a0b9f3286489f749e48235e8a55bdaa73ade1f636",
+      "manifest": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/manifest.json",
+      "manifestSha256": "3fcaa42cae90dae2045d6b1348f56b22511d721daaf1dc98f762f3d75c0f0c2a",
+      "sourceProvenance": "retakes/2b1a2511d6b8b521b409d55415b2eca9906cc305/source-provenance.json",
+      "sourceProvenanceSha256": "ded825b46df601ef23bcabc110f65d2116d77929dc3a461a1434d4e738117ab6",
+      "frames": 4
     }
   ],
   "sourceCaptureManifests": [
@@ -11949,6 +11966,20 @@
       "sourceCounts": {
         "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 110,
         "346f798681d891de6cebfc9e1d094996b1ace2e3": 14,
+        "07cc3d6bcefe90967c5bde3af2237dab4b972705": 15
+      },
+      "captureType": "mixed-source-survey"
+    },
+    {
+      "manifest": "historical/mixed-before-2b1a2511-11bc2051/manifest.json",
+      "label": "Atlas before the 2b1a251 retake (Hilton wing skybridge, motel storeys, hotel fronts)",
+      "frames": 139,
+      "generatedAt": "2026-11-13T05:26:17.106Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 109,
+        "346f798681d891de6cebfc9e1d094996b1ace2e3": 13,
+        "9824fd56de3f0e420821e871436906186a80e493": 2,
         "07cc3d6bcefe90967c5bde3af2237dab4b972705": 15
       },
       "captureType": "mixed-source-survey"

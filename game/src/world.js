@@ -27,7 +27,7 @@ import { clipBuildingDetailRange } from './building-detail-range.js';
 import { clipInferredBuildingDetail } from './building-detail-visibility.js';
 import { sourceTreeCentrePolicy, treeCentreDuplicate, treeCentreWater } from './source-tree-centres.js';
 import { canopyGeometry } from './building-canopies.js';
-import { makeVehicle, CAR_COLORS, makeParkedCars, vehicleSize } from './vehicles.js';
+import { makeVehicle, CAR_COLORS, makeParkedCars, vehicleSize, VEHICLE_KINDS } from './vehicles.js';
 import { projector, CHAPTERS } from './cities.js';
 import { STOPS } from './data.js';
 import { MeshBuilder, rgb, shadeRgb, prep, mergeProps, bakeProp, UNIT_BOX } from './geobuild.js';
@@ -669,6 +669,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     // (spec 10 load budget) the facade atlas and its night data do not depend on the place: they are painted while the
     // worker decodes the pack (canvas textures only; the materials are made where they were)
     const earlyAtlas = (() => { try { const atlas = makeAtlas(); let night = null; try { night = nightAtlas(atlas); } catch (e) { /* solidMaterial reports it */ } return { atlas, night }; } catch (e) { return null; } })();
+    // and the traffic's vehicle models (vehicles.js keeps one per kind and city, built the same whenever it is asked first)
+    if (packText) try { for (const kind of VEHICLE_KINDS) vehicleSize(kind, city.id); } catch (e) { /* made where they were */ }
     if (packText) try { data = parseDistrictPackText(await packText); } catch (e) { console.warn('[world] pack worker failed, decoding here', e); }
     if (!data) data = distId ? await fetchDistrictPack(url) : await (await fetch(url)).json();
     const realPass = !!data.scenery; // (2026-11-08) a district rebuilt by the reality pass (scenery ring, aerial roofs / trees / green): street-level dressing on
@@ -7276,7 +7278,10 @@ export async function buildWorld(city, renderer, opts = {}) {
         const closureBuilders = () => { if (cbEpoch !== builderEpoch) { cbList = [...cells.values()].flatMap(c => [...Object.values(c), ...(c.signs || [])]).filter(mb => mb && typeof mb.ic === 'number' && typeof mb.v === 'function'); cbIndex = new Map(cbList.map((mb, k) => [mb, k])); cbEpoch = builderEpoch; } return cbList; };
         mapEnds.forEach((m, k) => {
             const { ix, iz, px, pz, y, kind, edge: e } = m, c = cellOf(m.x, m.z), ang = Math.atan2(px, pz), face = Math.atan2(ix, iz); // signs face the driver coming toward the edge
-            const starts = new Map(closureBuilders().map(mb => [mb, mb.ic])), sourceScene = data.roadGeometryPolicy === 'source';
+            // each builder's index count now, by its place in the list as it is now (as wholePrimitive below; a Map of every
+            // builder per map end cost more than the closure): one made since starts from 0
+            const startList = closureBuilders(), startIndex = cbIndex, startIc = new Int32Array(startList.length), sourceScene = data.roadGeometryPolicy === 'source';
+            for (let k = 0; k < startList.length; k++) startIc[k] = startList[k].ic;
             const clipOptions = { ownerEdges: m.ownerEdges, floorY: y };
             const discrete = (mb, emit, x, z, radius, collidable = true) => {
                 const vi = mb.vc, ii = mb.ic; emit();
@@ -7444,8 +7449,8 @@ export async function buildWorld(city, renderer, opts = {}) {
             const worker = m.bundlePrimary && boundarySupport.clearCircle(wx, wz, .6, { ownerEdges: m.ownerEdges, y0: y - .3, y1: y + 2 }) ? { x: wx, z: wz, y, yaw: Math.atan2(ix, iz) } : false;
             closures.push({ x: m.x, z: m.z, y, top: y + m.barrierHeight, heading: m.heading, edge: e, node: m.node, kind, leadsTo,
                 l0: m.l0, l1: m.l1, half: m.half, bundleId: m.bundleId, bundlePrimary: m.bundlePrimary, worker });
-            for (const mb of closureBuilders()) if (mb.ic > (starts.get(mb) || 0))
-                boundarySupport.applyMesh(mb, starts.get(mb) || 0, clipOptions);
+            const now = closureBuilders(), startOf = (mb, k) => (now === startList ? startIc[k] : (k = startIndex.get(mb)) === undefined ? 0 : startIc[k]);
+            for (let k = 0; k < now.length; k++) { const mb = now[k], s0 = startOf(mb, k); if (mb.ic > s0) boundarySupport.applyMesh(mb, s0, clipOptions); }
         });
     }
     // road signs: speed limits where the limit changes, one-way at one-way entries, no-entry at one-way exits

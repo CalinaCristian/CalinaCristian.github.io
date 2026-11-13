@@ -6,7 +6,7 @@ import path from 'node:path';
 import { parseFiles } from './parse-osm.mjs';
 import { aircraftBody } from '../../game/src/building-aircraft.js';
 import { pointInPolygon, distPointSeg } from '../../game/src/util.js';
-import { collideBuildings } from '../../game/src/world.js';
+import { collideBuildings } from '../../game/src/world-collide.js';
 const args=Object.fromEntries(process.argv.slice(2).map(s=>s.replace(/^--/,'').split('=')));
 const d=JSON.parse(fs.readFileSync(args.data));
 const raw=parseFiles(fs.readdirSync(args.osm).filter(f=>f.endsWith('.xml')).map(f=>path.join(args.osm,f)));

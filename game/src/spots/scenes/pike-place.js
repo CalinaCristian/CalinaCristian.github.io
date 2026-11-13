@@ -279,6 +279,10 @@ export default {
         // panoramas at 1st Ave x Pike St (tT8x8F7kggeRi_KoY1vLng, looking 235° / 265°) show the corner open
         ctx.exclude.push([[-42, -10], [-14, -10], [-8, 14], [-42, 14]]);
         prepareLower(ctx); prepareHalls(ctx); prepareFacades(ctx);
+        // (r3-sea-spots-b-5) the Pike Place Market Parking garage (w184870422, building=parking amenity=parking) took the
+        // generic shop ground floor (amenity on a tall urban volume), so its long Western Ave wall read as shopfront glazing;
+        // panorama iFZRr4o9WP2yFdlbuLUkeQ shows a garage wall there. The parking style stays (building=parking).
+        { const gp = ctx.data.buildings.find((b) => b.id === 'w184870422'); if (gp && gp.k === 'parking') delete gp.amenity; }
         ctx.osmBackdrop({ paint: {}, shopStyle: 'bucshop', streetTreeOpts: { spacing: 14, prob: 0.5, kinds: ['primary', 'secondary', 'tertiary'] }, lampOpts: { kinds: ['primary', 'secondary', 'tertiary'] }, style: (b) => (/hotel|apartments/.test(b.k) && (b.h || 0) < 25 ? 'brick' : buildingStyle(b, true)) });
         buildGlobeLamps(ctx);
         { const W = profile(SURVEY.western); skyBridge(ctx, { roadYAt: (x, z) => W.at(x, z).y }); } // the green truss over Western Ave (sea-spots-a-13)

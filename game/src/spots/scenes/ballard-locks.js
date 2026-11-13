@@ -292,6 +292,12 @@ export default {
         ctx.terrainOpts = { bg: '#5f7a3c', innerPx: 2048, skirtY: SEA - 0.2, skirtColor: '#36525a' };
         ctx.osmBackdrop({ paint: {}, urban: false, style: (bd) => (bd.rc === '#a2452d' ? 'apartment' : undefined), areaTreeOpts: { conifer: 0.5, density: 1 / 70 } });
         // Carl S. English Jr. Botanical Garden: specimen trees + beds
+        // (r3-sea-spots-4) the Administration Building's garden (OSM w60973304, leisure=garden) is wooded with tall conifers in
+        // Street View (section 10), not open lawn: conifers on a 5 m staggered grid inside the mapped garden; the grid and the
+        // tree sizes are estimates (no tree nodes are mapped there)
+        { const ag = d.areas.find((a) => a.id === 'w60973304'); if (ag) { const bb = polyBox(ag.poly), r = rng(60973304); let n = 0;
+            for (let x = bb.x0 + 2.5, row = 0; x < bb.x1; x += 4.4, row++) for (let z = bb.z0 + 2.5 + (row % 2) * 2.5; z < bb.z1; z += 5) { const jx = x + (r() - 0.5) * 1.6, jz = z + (r() - 0.5) * 1.6; if (!inPoly(jx, jz, ag.poly)) continue; ctx.trees.push({ x: jx, z: jz, kind: 'con', s: 1.7 + r() * 0.5 }); n++; }
+            ctx.extras.adminGardenConifers = n; } }
         { const gd = d.areas.find((a) => a.id === 'w51475864'); if (gd) { const bb = polyBox(gd.poly), r = rng(14); for (let i = 0; i < 260; i++) { const x = bb.x0 + r() * (bb.x1 - bb.x0), z = bb.z0 + r() * (bb.z1 - bb.z0); if (!inPoly(x, z, gd.poly) || g.heightAt(x, z) < WALL_TOP - 0.4) continue; ctx.trees.push({ x, z, kind: r() < 0.25 ? 'con' : r() < 0.6 ? 'broad' : 'shrub', s: 0.6 + r() * 0.7 }); } } }
         // night: lamps along the lock walls (every 24 m, both sides) and the garden / promenade paths
         for (const side of [-1, 1]) for (let s0 = 8; s0 < LEN - 4; s0 += 24) { const [x, z] = fromAx(s0, LARGE.t + side * (LARGE.w / 2 + 2.6)); ctx.lampPoints.push({ x, z, rot: 0, y: WALL_TOP }); }

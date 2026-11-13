@@ -17,6 +17,7 @@ import { buildShore } from './waterfront-shore.js';
 import { preparePiers, buildPiers, pierStyle, waterfrontBusinesses } from './waterfront-piers.js';
 import { PIER_RINGS } from './waterfront-pier-rings.js';
 import { buildShopSigns } from './pike-place-shops.js';
+import { playgroundKit } from '../playground-kit.js';
 
 const DECK_Y = 3.4;
 
@@ -118,8 +119,26 @@ export default {
         const bd = seaBackdrop(ctx, { clear: 330, eyeY: DECK_Y + 1.6, bay: false, midrise: 900, midClear: 420, midBox: [47.596, -122.345, 47.625, -122.312] });
         // promenade lamps on the water side of Alaskan Way (every 22 m), and warm lights along the pier edges (bay lights at night)
         { const road = [[113, 96], [89, 59], [69, 27], [41, -19], [14, -59], [-25, -112], [-62, -159], [-80, -178]];
+          // (r3-sea-spots-b-6) the rebuilt promenade's poles are tall dark square-section posts with a slim arm and a flat head
+          // (Street View along Alaskan Way, section 7), not the shared round grey cobra: built here; their light entries go to
+          // the shared set with the arm yaw. Post 9 m, arm 2 m and head size are estimates.
+          const lb = new GeoBatch(), H = 9;
           for (let i = 1; i < road.length; i++) { const [ax, az] = road[i - 1], [bx, bz] = road[i], L = Math.hypot(bx - ax, bz - az), ux = (bx - ax) / L, uz = (bz - az) / L;
-            for (let t = 0; t < L; t += 22) for (const sd of [-1, 1]) { const x = ax + ux * t - uz * sd * 13, z = az + uz * t + ux * sd * 13; if (x < ax + ux * t && !isWater(x, z)) ctx.lampPoints.push({ x, z, rot: Math.atan2(-uz * sd, ux * sd) }); } } }
+            for (let t = 0; t < L; t += 22) for (const sd of [-1, 1]) { const x = ax + ux * t - uz * sd * 13, z = az + uz * t + ux * sd * 13; if (!(x < ax + ux * t && !isWater(x, z))) continue;
+                const rot = Math.atan2(-uz * sd, ux * sd), dx = -Math.sin(rot), dz = -Math.cos(rot), y = g.heightAt(x, z), yaw = Math.atan2(dx, dz);
+                lb.box(x, y, z, 0.42, 0.5, 0.42, '#3a3d40', 'concrete', yaw); lb.box(x, y + 0.5, z, 0.2, H - 0.5, 0.2, '#25282b', 'metal', yaw);
+                lb.boxC(x + dx * 1.0, y + H - 0.18, z + dz * 1.0, 0.09, 0.09, 2.0, '#25282b', 'metal', yaw);
+                lb.boxC(x + dx * 1.95, y + H - 0.32, z + dz * 1.95, 0.34, 0.12, 0.62, '#25282b', 'metal', yaw);
+                ctx.circle(x, z, 0.25, 9);
+                ctx.lampPoints.push({ x, z, noPost: true, h: (H - 0.4) * 8 / 7.7, y, rot: rot + Math.PI / 2 }); } }
+          ctx.add(lb.build('promenade-lamps')); }
+        // (r3-sea-spots-b-6) Pier 58 playground (OSM w1417461575, equipment not mapped): generic climbing tower and swings on
+        // the rebuilt pier's deck; the promenade's planted beds (OSM natural=scrub / flowerbed / man_made=bioswale, Street View
+        // section 7: planted beds between road and promenade) carry low shrubs instead of reading as grass
+        { const pg = d.areas.find((a) => a.id === 'w1417461575'); if (pg) ctx.extras.pier58Playground = playgroundKit(ctx, pg.poly, { y: DECK_Y + 0.08, name: 'pier58-playground' }).pieces; }
+        { const rb = rng(1417); let n = 0; for (const a of d.areas) { if (!(a.natural === 'scrub' || a.landuse === 'flowerbed' || a.man_made === 'bioswale')) continue; const B = polyBox(a.poly), A = Math.abs(polyArea(a.poly));
+            for (let i = 0, k = 0; i < 400 && k < Math.min(60, A / 6); i++) { const x = B.x0 + rb() * (B.x1 - B.x0), z = B.z0 + rb() * (B.z1 - B.z0); if (!inPoly(x, z, a.poly) || isWater(x, z)) continue; k++; n++; ctx.trees.push({ x, z, kind: 'shrub', s: 0.35 + rb() * 0.35, c: ['#4f6a38', '#5d7340', '#6b5a3a', '#46603a', '#7a6a4a'][k % 5] }); } }
+          ctx.extras.plantedBedShrubs = n; }
         // traffic follows the mapped carriageways: one two-way road south of Union St (ways 519441949, 1166041039), two one-way
         // roadways north of it (southbound way 1020457467; northbound ways 1167554010 + 1321962100). The old hand-drawn line ran
         // straight on and put cars on the promenade near Pine St.

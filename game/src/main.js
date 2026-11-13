@@ -328,19 +328,8 @@ class Game {
         $('#menu').classList.remove('show');
         $('#hud').classList.add('show'); document.body.classList.add('playing');
         this.startTime = performance.now();
-        if (this.chapters) {
-            await this.enterChapter(chapterIdx ?? 0, { initial: true });
-            this.hud.toast('🚗 Follow the blue route', this.touch ? 'Dashboard screen = navigation. Tap 🧭 for the map, or ⏸ for actions and settings.' : 'Dashboard screen = navigation. H = horn · M = map, chapters & navigation.', 'intro');
-            setTimeout(() => this.lookHint(), 4500);
-            return;
-        }
-        $('#loading').classList.add('show');
-        await new Promise(r => setTimeout(r, 30));
-        await this.loadCity('bucharest');
-        $('#loading').classList.remove('show');
-        this.state = 'drive';
-        this.hud.toast('🚗 Bucharest, 2013', 'Follow the blue route on the dashboard screen. H = horn · M = map & navigation.', 'intro');
-        this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0);
+        await this.enterChapter(chapterIdx ?? 0, { initial: true });
+        this.hud.toast('🚗 Follow the blue route', this.touch ? 'Dashboard screen = navigation. Tap 🧭 for the map, or ⏸ for actions and settings.' : 'Dashboard screen = navigation. H = horn · M = map, chapters & navigation.', 'intro');
         setTimeout(() => this.lookHint(), 4500);
     }
     /** back to play after a panel / card / map closed: keyboard focus on the game canvas, input flushed (the Esc / Enter
@@ -400,11 +389,11 @@ class Game {
         const resume = $('#continue'); if (resume) resume.hidden = !save.hasSession();
         document.body.classList.remove('playing', 'free-roam');
     }
-    /** load a city: the old continuous map, or with `{ district, start }` one chapter district (spec 10) */
+    /** load one chapter district of a city: `{ district, start }` (spec 10; every map is a 1:1 district) */
     async loadCity(id, { district = null, start = null } = {}) {
         this.explore?.hooks?.abortDrone?.();
         const city = CITIES[id];
-        if (!city || (district && !city.districts?.[district])) throw new Error(`unknown district ${id}:${district}`);
+        if (!city || !city.districts?.[district]) throw new Error(`unknown district ${id}:${district}`);
         this.disposeCity();
         this.city = city;
         this.chapter = null; this.ch = null; this.chapterIdx = -1; this.chapterDone = false; this.district = district;
@@ -416,7 +405,7 @@ class Game {
         try { VEHICLES.setFleetCity?.(id); } catch { /* older vehicles.js */ } // plates / police livery of parked props + the player's exterior car
         // (spec 10 load budget) deferGround: the build workers finish the fallback ground while traffic and the player are
         // set up below; world.ready is awaited before the renderer is attached (the first frame)
-        const world = this.world = await buildWorld(city, this.renderer, district ? { district, start, deferGround: true } : { deferGround: true });
+        const world = this.world = await buildWorld(city, this.renderer, { district, start, deferGround: true });
         scene.add(world.group);
         this.football = createDinamoFootball(this);
         this.basketball = createRosettiBasketball(this);
@@ -486,7 +475,6 @@ class Game {
         this.stopPois = this.stops.filter(s => s.poiRef).map(s => ({ stop: s, poi: s.poiRef }));
         this.airport = world.pois.find(p => p.id === AIRPORTS[city.id].poi && p.interactive !== false) || world.pois.find(p => p.id === AIRPORTS[city.id].poi);
         this.buildActionMarkers();
-        this.leftAirport = false;
         this.prevEdgeInfo = null;
         this.navManual = false; this.navInfo = null;
         this.setupClosures(city, world);
@@ -850,16 +838,12 @@ class Game {
         }
         if (this.airport) {
             const p = this.airport; const d = Math.hypot((p.doorX ?? p.x) - player.x, (p.doorZ ?? p.z) - player.z);
-            if (d > 140) this.leftAirport = true;
             if (this.ch) {
                 // chapters: boarding completes the Otopeni chapter (card → flight → SeaTac)
                 if (!prompt && d < 90 && v < 6 && this.ch.stop === 'otopeni' && !this.chapterDone) {
                     prompt = '<kbd>E</kbd> Board the flight to Seattle ✈️';
                     if (input.take('KeyE')) this.completeChapter();
                 }
-            } else if (!prompt && !this.freeRoam && d < 90 && v < 6 && (this.leftAirport || city.id === 'bucharest')) {
-                prompt = city.id === 'bucharest' ? (this.nextStop ? `<kbd>E</kbd> Board flight to Seattle <small>(${this.stops.filter(s => !this.visited.has(s.id)).length} stops still unvisited in Bucharest)</small>` : '<kbd>E</kbd> Board flight to Seattle ✈️') : '<kbd>E</kbd> Fly back to Bucharest ✈️';
-                if (input.take('KeyE')) this.fly();
             }
         }
         if (!prompt) prompt = this.updateClosures(dt);
@@ -1189,6 +1173,22 @@ class Game {
     }
 
     // ---------------------------------------------------------------------------------- fuel
+    /** (h-stations, 2026-11-13) the map offers a station only when a route reaches it from where the player is. A
+     *  district map can hold a station in a pocket of one-way carriageways fed only from outside the map: Pipera's three
+     *  on Șos. Pipera westbound (entered from the map ends on Șos. Pipera and Barbu Văcărescu), Otopeni's Rompetrol on
+     *  Str. Nicolae Grigorescu (entered from DN1 northbound at the south map end). Real OSM ways, no join invented. */
+    stationOffered(s, from = null) {
+        const P = from || (this.state === 'foot' && this.foot?.active ? this.foot : this.player);
+        if (!this.nav || !P) return true;
+        const key = `${this.district}|${this.nav.walking ? 'w' : 'd'}|${Math.round(P.x / 25)}|${Math.round(P.z / 25)}|${Math.round(s.x)}|${Math.round(s.z)}`;
+        const memo = this._stationRoute || (this._stationRoute = new Map());
+        if (!memo.has(key)) {
+            if (memo.size > 200) memo.clear();
+            let r = null; try { r = this.nav.compute(P.x, P.z, s.x, s.z, P.heading ?? null, P.surfY ?? P.y ?? null); } catch { r = null; }
+            memo.set(key, !!r);
+        }
+        return memo.get(key);
+    }
     nearestStation(x, z) { let best = null, bd = Infinity; for (const s of this.stations) { const d = Math.hypot(s.x - x, s.z - z); if (d < bd) { bd = d; best = s; } } return best ? { st: best, d: bd } : null; }
     updateFuelStops(dt, v) {
         if (!this.stations?.length) return null;
@@ -1489,7 +1489,7 @@ class Game {
         if (n && n.poiRef) add('Next objective', n.icon, `Next: ${n.short}`, n.poiRef.doorX ?? n.poiRef.x, n.poiRef.doorZ ?? n.poiRef.z);
         for (const s of this.stops) if (s.poiRef && s !== n) add('Offices', s.icon, `${s.short}${this.visited.has(s.id) ? ' ✓' : ''}`, s.poiRef.doorX ?? s.poiRef.x, s.poiRef.doorZ ?? s.poiRef.z, 'cv');
         if (this.airport) add('Travel', '✈️', AIRPORTS[this.city.id].name, this.airport.doorX ?? this.airport.x, this.airport.doorZ ?? this.airport.z);
-        const st = [...this.stations].sort((a, b) => Math.hypot(a.x - p.x, a.z - p.z) - Math.hypot(b.x - p.x, b.z - p.z)).slice(0, 6);
+        const st = [...this.stations].sort((a, b) => Math.hypot(a.x - p.x, a.z - p.z) - Math.hypot(b.x - p.x, b.z - p.z)).filter(s => this.stationOffered(s)).slice(0, 6);
         for (const s of st) add('Gas stations', '⛽', `${s.brand} · ${this.city.units === 'mph' ? '$' + s.price.toFixed(2) + '/gal' : s.price.toFixed(2) + ' RON/L'}`, s.x, s.z, 'fuel');
         if (this.places?.length) {
             // every reachable place of the district by category (world-data places.json): nearest first, long lists capped
@@ -2816,28 +2816,6 @@ ${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" 
         this.input.flush();
         this.player.speed = 0;
         this.returnFocus();
-    }
-
-    async fly() {
-        this.photo?.close?.();
-        const from = this.city.id;
-        this.state = 'flight';
-        this.input.lookAllowed = false; this.input.releaseLock();
-        this.audio.stopEngine();
-        $('#hud').classList.add('in-office');
-        this.hud.setNavLine('');
-        await playFlight({ from, hud: this.hud, audio: this.audio, texts: from === 'seattle' ? [[0, 'Back to Romania for a visit'], [0.4, 'Over Greenland again'], [0.8, 'Landing at Otopeni. Brace for DN1.']] : undefined });
-        $('#loading').classList.add('show');
-        await new Promise(r => setTimeout(r, 30));
-        await this.loadCity(from === 'bucharest' ? 'seattle' : 'bucharest');
-        this.fuel = TANK_L * 0.85; // rental car / back home: fresh tank
-        $('#loading').classList.remove('show');
-        $('#hud').classList.remove('in-office'); document.body.classList.remove('in-office');
-        this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0);
-        this.state = 'drive';
-        if (from === 'bucharest') { this.hud.achievement('flight'); this.hud.toast('🌧️ Welcome to Seattle', 'Rental car picked up at SeaTac. Follow the route: I-5 N → I-90 E → I-405 N to Bellevue.', 'intro'); }
-        else this.hud.toast('🇷🇴 Back in Bucharest', 'Explore. The traffic missed you.');
-        this.input.flush();
     }
 
     finale() {

@@ -131,7 +131,9 @@ function checkPose(H, label, edge = null) {
     if (probs.length) H.issue('bad-placement', probs.severe ? 'high' : 'medium', `${label}: ${probs.join('; ')}`, {}, { shot: true });
     return probs;
 }
-async function enterOfficeAndRead(H, stop) {
+/** enter the stop's office by its door, read one screen (or, `complete`, hear the whole linear story from the host:
+ *  a chapter completes only after the final Continue), leave by the exit */
+async function enterOfficeAndRead(H, stop, { complete = false } = {}) {
     const g = H.g, P = g.player; const door = stop.poiRef; const res = { stop: stop.id };
     const dx = door.doorX ?? door.x, dz = door.doorZ ?? door.z;
     const d = Math.hypot(P.x - dx, P.z - dz); res.doorDist = r1(d);
@@ -140,7 +142,17 @@ async function enterOfficeAndRead(H, stop) {
     H.press('KeyE'); await H.run(0.2, () => g.state === 'office');
     if (g.state !== 'office') { H.issue('office-enter-failed', 'high', `pressed E at ${r1(d)} m from the ${stop.id} door but the office did not open`, {}, { shot: true, key: 'enter:' + stop.id }); res.ok = false; return res; }
     const o = g.office; const st = o.stations?.[0];
-    if (!st) { H.issue('office-no-screens', 'high', `office ${stop.id} has no screens`, {}, { key: 'noscr:' + stop.id }); }
+    if (complete && o.npc) {
+        const dn = Math.hypot(o.x - o.npc.x, o.z - o.npc.z) || 1; o.x = o.npc.x + (o.x - o.npc.x) / dn * 2.5; o.z = o.npc.z + (o.z - o.npc.z) / dn * 2.5;
+        await H.run(0.1); H.press('KeyE'); await H.run(0.4, () => g.hud.panelOpen);
+        const key = (code) => dispatchEvent(new KeyboardEvent('keydown', { code, bubbles: true }));
+        let guard = 0; while (o.talking && guard++ < 40) { key(guard % 2 ? 'Enter' : 'Space'); await H.run(0.05); }
+        res.read = o.read.size; res.topics = o.stations?.length;
+        if (!o.conversationComplete) H.issue('office-talk-incomplete', 'high', `${stop.id}: the conversation did not complete (${res.read}/${res.topics} sections)`, {}, { key: 'chtalk:' + stop.id });
+        await H.run(0.2); if (g.hud.panelOpen) g.hud.closePanel();
+        // the final Continue ends the visit: the player is back outside (pressing E at the "exit" now would enter again)
+        if (g.state !== 'office') { res.visited = g.visited?.has(stop.id); res.ok = !!res.visited || !!g.freeRoam; if (!res.ok) H.issue('office-not-unlocked', 'high', `${stop.id}: the whole conversation did not mark the stop visited`, {}, { key: 'unlock:' + stop.id }); return res; }
+    } else if (!st) { H.issue('office-no-screens', 'high', `office ${stop.id} has no screens`, {}, { key: 'noscr:' + stop.id }); }
     else {
         o.x = st.x * 0.45; o.z = st.z; await H.run(0.2);
         H.press('KeyE'); await H.run(0.2);
@@ -152,7 +164,7 @@ async function enterOfficeAndRead(H, stop) {
     H.press('KeyE'); await H.run(0.5, () => g.state === 'drive' || g.state === 'card');
     await sleep(0);
     // ('card': the chapter-complete card opened on leaving)
-    if (g.state !== 'drive' && g.state !== 'card') { H.issue('office-leave-failed', 'high', `could not leave the ${stop.id} office with E at the exit`, {}, { key: 'leave:' + stop.id }); o.done = true; await H.run(0.3); }
+    if (g.state !== 'drive' && g.state !== 'card') { H.issue('office-leave-failed', 'high', `could not leave the ${stop.id} office with E at the exit (state ${g.state}, chapter ${g.chapter}, at ${r1(o.x)}, ${r1(o.z)}, talking ${!!o.talking}, panel ${!!g.hud.panelOpen})`, {}, { key: 'leave:' + stop.id }); o.done = true; await H.run(0.3); }
     // a stop unlocks after the whole conversation (linear office story); free roam: CV content only, no unlocks
     res.visited = g.visited?.has(stop.id); res.ok = !!res.visited || !o.conversationComplete || (!!g.freeRoam && g.state === 'drive');
     if (!res.ok) H.issue('office-not-unlocked', 'high', `left the ${stop.id} office after reading a screen but the stop is not marked visited`, {}, { key: 'unlock:' + stop.id });
@@ -475,7 +487,8 @@ export const SCENARIOS = [
             if (!g.chapters || typeof g.goToChapter !== 'function') { H.note('no CHAPTERS: skipped'); return { skipped: true }; }
             const chm = await import('../../../src/chapters.js');
             const out = []; const N = g.chapters.length;
-            const waitDrive = async (idx, ms = 240000) => { const t = performance.now(); while (!(g.state === 'drive' && g.chapterIdx === idx) && performance.now() - t < ms) { if (g.state === 'drive' || g.state === 'office') await H.run(0.2); await sleep(30); } return g.state === 'drive' && g.chapterIdx === idx; };
+            // (the flight between the cities waits for its skip button: the harness clicks it, as a player may)
+            const waitDrive = async (idx, ms = 240000) => { const t = performance.now(); while (!(g.state === 'drive' && g.chapterIdx === idx) && performance.now() - t < ms) { if (g.state === 'drive' || g.state === 'office') await H.run(0.2); document.querySelector('#flight [data-skip]')?.click(); await sleep(30); } return g.state === 'drive' && g.chapterIdx === idx; };
             const waitCard = async (ms = 6000) => { const t = performance.now(); while (!chm.chapterCardOpen() && performance.now() - t < ms) { if (g.state === 'drive' || g.state === 'office') await H.run(0.1); await sleep(30); } return chm.chapterCardOpen(); };
             g.goToChapter(0);
             for (let i = 0; i < N; i++) {
@@ -501,11 +514,12 @@ export const SCENARIOS = [
                     if (Math.hypot(g.player.x - ox, g.player.z - oz) > 150) { res.fast = await fast(H, ox, oz, g.objectivePlain || ch.id); g.navManual = false; g.autoRoute(true); }
                     const stop = (g.stops || []).find(s => s.id === ch.stop && s.poiRef);
                     if (o.waypoint) res.drive = await H.driveTo(ox, oz, { label: ch.id, arriveR: 20, timeout: 60, stop: false });
-                    else if (stop) { res.drive = await H.driveTo(ox, oz, { label: ch.id, arriveR: 7, timeout: 50, stop: true }); res.office = await enterOfficeAndRead(H, stop); }
+                    else if (stop) { res.drive = await H.driveTo(ox, oz, { label: ch.id, arriveR: 7, timeout: 50, stop: true }); res.office = await enterOfficeAndRead(H, stop, { complete: true }); }
                     else { res.drive = await H.driveTo(ox, oz, { label: ch.id, arriveR: 40, timeout: 50, stop: true }); H.setControls(0, 0, true); await H.run(1, () => Math.abs(g.player.speed) < 0.5); H.press('KeyE'); await H.run(0.3); }
                 }
                 res.card = await waitCard();
-                if (i === N - 1) { res.finale = await (async () => { const t = performance.now(); while (!g.hud.panelOpen && performance.now() - t < 5000) await sleep(100); return g.hud.panelOpen; })(); if (!res.finale) H.issue('finale-missing', 'high', 'no finale panel after the last chapter', {}, { key: 'chfin' }); g.hud.closePanel?.(); }
+                if (i === N - 1) { res.finale = await (async () => { const t = performance.now(); const open = () => g.hud.panelOpen || !!document.querySelector('#finale .fn-wrap'); while (!open() && performance.now() - t < 5000) await sleep(100); return open(); })(); /* (the finale is its own overlay, finale.js) */ if (!res.finale) H.issue('finale-missing', 'high', 'no finale panel after the last chapter', {}, { key: 'chfin' }); g.hud.closePanel?.(); }
+                else if (!res.card && g.chapterIdx === i + 1 && g.chapters[i + 1]?.district === ch.district) res.chained = true; // (same-district chapters chain in place, no card: see 'chain')
                 else if (!res.card) { H.issue('chapter-not-completed', 'high', `chapter ${ch.id}: reaching the goal did not complete the chapter (no card)`, {}, { shot: true, key: 'chc:' + ch.id }); out.push(res); g.goToChapter(i + 1); continue; }
                 else chm.closeChapterCard('next');
                 res.done = g.progress?.done?.has(ch.id);

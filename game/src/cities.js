@@ -184,7 +184,6 @@ export const BUCHAREST = {
     units: 'kmh',
     center: { lat: 44.4268, lon: 26.1025 },
     timeZone: 'Europe/Bucharest',
-    data: './data/bucharest.json',
     proj: projector({ lat0: 44.4268, lon0: 26.1025, scale: 0.7, compress: { above: 44.497, factor: 0.35 } }), // whole city drawn at 0.7
     pois: BUC_POIS,
     districts: BUC_DISTRICTS,
@@ -265,7 +264,6 @@ export const SEATTLE = {
     units: 'mph',
     center: { lat: 47.6062, lon: -122.3321 },
     timeZone: 'America/Los_Angeles',
-    data: './data/seattle.json',
     proj: projector({ lat0: 47.4435, lon0: -122.3016, scale: 0.5 }),
     pois: SEA_POIS,
     districts: SEA_DISTRICTS,

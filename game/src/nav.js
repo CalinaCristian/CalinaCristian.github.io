@@ -111,6 +111,8 @@ const TYPE_COST = { living_street: 1.8, service: 4, residential: 1.15, small: 1.
 // entering a service road (parking aisle, driveway, private access) from a real street: a big fixed cost, so a
 // route only uses one to reach a door that is on it, never as a shortcut
 const SERVICE_ENTRY = 25;
+// a goal edge no route reaches: try the next nearest edges within this radius (nav.compute)
+const GOAL_RETRY_M = 60, GOAL_RETRIES = 8;
 
 /** signed turn angle from direction (ax,az) to (bx,bz). positive = right turn (x east, z south). */
 export function turnAngle(ax, az, bx, bz) { return Math.atan2(-bx * az + bz * ax, ax * bx + az * bz); }
@@ -176,8 +178,30 @@ export class Navigator {
         const alt = this.index.nearest(x, z, hit.d + slack + 1, (e) => e.type !== 'service' && filter(e));
         return alt && alt.d <= hit.d + slack ? alt : hit;
     }
-    /** A* on travel time. heading (optional) penalises starting against the player's heading. */
+    /**
+     * A* on travel time. heading (optional) penalises starting against the player's heading.
+     * The goal snaps to the nearest main edge. In a district map that edge can be one no route from inside enters
+     * (a one-way stub cut at the map edge, the far carriageway of a divided road fed only from outside the map: the
+     * main component joins map ends through a virtual outside node). Then the route ends on the nearest edge within
+     * GOAL_RETRY_M of the target that a route does reach (h-stations, 2026-11-13: six fuel stations had no route).
+     */
     compute(fx, fz, tx, tz, heading = null, fy = null) {
+        const first = this.computeTo(fx, fz, tx, tz, heading, fy, null);
+        if (first || this.walking) return first;
+        const tried = new Set([this.lastGoalEdge]), cand = [];
+        for (const e of this.index.near(tx, tz, GOAL_RETRY_M)) {
+            if (tried.has(e) || e.main === false) continue;
+            const q = distPointSeg(tx, tz, e.a.x, e.a.z, e.b.x, e.b.z);
+            if (q.d <= GOAL_RETRY_M) cand.push({ edge: e, d: q.d, t: q.t, cx: q.cx, cz: q.cz });
+        }
+        cand.sort((a, b) => a.d - b.d);
+        for (let i = 0; i < cand.length && i < GOAL_RETRIES; i++) {
+            const route = this.computeTo(fx, fz, tx, tz, heading, fy, cand[i]);
+            if (route) { route.goalFallback = { d: cand[i].d, edge: cand[i].edge }; return route; }
+        }
+        return null;
+    }
+    computeTo(fx, fz, tx, tz, heading = null, fy = null, goalHit = null) {
         // on foot (nav.walking): every street both ways (no one-way rules), walking pace, no heading penalty; motorways excluded
         const W = !!this.walking, checks = new Map(), actor = this.sourceVehicle || this.player;
         const dimensions = !W && this.sourceClearance.report.finiteRules ? sourceVehicleDimensions(actor) : null;
@@ -196,7 +220,8 @@ export class Navigator {
         const P = this.player; if (fy == null && P && Math.hypot(P.x - fx, P.z - fz) < 1.5) fy = P.surfY ?? P.y ?? null;
         const level = (e) => main(e) && (fy == null || Math.abs(yAt(e) - fy) < 2);
         const s = this.preferStreet(fx, fz, (fy != null && this.index.nearest(fx, fz, 60, level)) || this.index.nearest(fx, fz, 400, main) || this.index.nearest(fx, fz), (e) => level(e), 3);
-        const g = this.preferStreet(tx, tz, this.index.nearest(tx, tz, 600, main) || this.index.nearest(tx, tz), main, 3);
+        const g = goalHit && clearanceOK(goalHit.edge) ? goalHit : goalHit ? null : this.preferStreet(tx, tz, this.index.nearest(tx, tz, 600, main) || this.index.nearest(tx, tz), main, 3);
+        if (!goalHit) this.lastGoalEdge = g?.edge || null;
         if (!s || !g) return null;
         if (!W && this.motorTurnRestrictions.modeCounts[this.motorMode || 'motorcar']) return this.computeMotorTurns(s, g, tx, tz, heading, clearanceOK);
         const N = this.nodes.length, GOAL = N;

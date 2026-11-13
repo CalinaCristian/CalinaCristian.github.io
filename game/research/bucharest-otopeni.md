@@ -549,3 +549,15 @@ and r3-look-9 established. No available source settles the estimates below; they
   imagery and inspected; 63 sit on the airside taxiway (dark rubber-streaked asphalt between edge lines and taxiway lights) and 2
   on paving: those 65 are removed from the survey and the district pack (ledger: `trees-bucharest-otopeni-review.json`
   `dn1FieldsReview20261113`). The other 242 are the hedgerow trees, the wood edge and ambiguous vegetation, and stay.
+
+## Backlog close-out, cross-district lane (2026-11-13)
+
+- **Maxigel** w303678268: review row from pano XiEkrn45SiO9mH88qzVfbA: red-panel showroom of about three storeys (11.5 m
+  estimate), was a 17.7 m five-storey block from a re-estimate; the curved glazed corner is not modelled.
+- **Not reviewed, no source**: Dix Depot w1501279482 and Ifantis w217108491 were not in the cached OSM input (no tags to apply);
+  Terminalul Vioara and Salonul Oficial have no official panorama in reach (see r2-districts-view-4).
+- **Rompetrol on Str. Nicolae Grigorescu** (-641, 421): the street and the DN1 northbound carriageway south of it form a pocket
+  entered only from the southern map edge; from the chapter start on DN1 southbound no legal route reaches it inside the
+  district (no join is invented). The map's Gas stations list offers a station only when a route reaches it from where the
+  player is (`main.js` `stationOffered`); the station stays a real POI and can be refuelled at.
+- **Fuel flag masts** at Gazprom / Rompetrol: no OSM object, not drawn.

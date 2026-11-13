@@ -18,6 +18,7 @@ import { photoHunt } from '../photo-hunt.js';
 import { dryLanding, shortWaterRoute } from '../water-route.js';
 import { parkWoods, businessSigns, thinTrees, farCanopy, dropDegenerateTriangles } from './buc-green.js';
 import { osmBarriers } from '../buc-barriers.js';
+import { osmPlaces } from '../buc-places.js';
 
 function grow(poly, d) { const cw = polyArea(poly) > 0; const o = offsetPolyline([...poly, poly[0], poly[1]], cw ? -d : d); return o.slice(1, poly.length + 1); }
 const NORTH = /Maramureș|Maramures|Bistrița|Hunedoara|Harghita|Suceava|Neamț|Neamt|Alba|Cluj|Sălaj|Mureș|Brașov|Sibiu|Covasna|Bihor|Satu Mare|Bucovina/;
@@ -161,6 +162,21 @@ export default {
             if (bd.id === 'w277782593' || bd.k === 'church') { const cb = new GeoBatch(); church = woodenChurch(cb, ctx, bd); ctx.add(cb.build('wooden-church')); continue; }
             const h = peasantHouse(b, ctx, bd, r); if (h) houses.push({ ...h, bd });
         }
+        // (round 4, r3-builder-spots-1) named `building=house` nodes inside the museum (Casa Mastaacăn Neamț n6815285188,
+        // Casa Naruja, Vrancea n6815289695: OSM spellings) are households mapped as points: each gets a house at its node,
+        // turned along the nearest museum lane, where that footprint (8 × 5.5 m, an estimate) is clear of the mapped
+        // households and the lanes; otherwise it is left out (ctx.extras.villageHouseNodes says which and why).
+        if (mus) { const lanesM = d.ways.filter((w) => /footway|path|pedestrian|service|track|steps/.test(w.k || '') && w.pts.some(([x, z]) => inPoly(x, z, mus))), nodeHouses = [];
+            for (const p of d.pois) {
+                if (p.building !== 'house' || !p.name || !inPoly(p.x, p.z, mus)) continue;
+                let best = null; for (const w of lanesM) for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1, t = Math.max(0, Math.min(1, ((p.x - ax) * dx + (p.z - az) * dz) / L2)), dd = Math.hypot(p.x - ax - dx * t, p.z - az - dz * t); if (!best || dd < best.d) best = { d: dd, ux: dx / Math.sqrt(L2), uz: dz / Math.sqrt(L2) }; }
+                const ux = best?.ux ?? 1, uz = best?.uz ?? 0, poly = [[-4, -2.75], [4, -2.75], [4, 2.75], [-4, 2.75]].map(([u, v]) => [p.x + ux * u - uz * v, p.z + uz * u + ux * v]);
+                const hitsHouse = [...poly, [p.x, p.z]].some(([x, z]) => houses.some((h) => inPoly(x, z, h.bd.poly))) || houses.some((h) => h.bd.poly.some(([x, z]) => inPoly(x, z, poly)));
+                const onLane = lanesM.some((w) => poly.some(([x, z]) => distPolyline(x, z, w.pts).d < 1.0) || distPolyline(p.x, p.z, w.pts).d < 3.8);
+                if (hitsHouse || onLane) { nodeHouses.push({ id: p.id, name: p.name, placed: false, why: hitsHouse ? 'overlaps a mapped household' : 'on a museum lane' }); continue; }
+                const bd = { id: p.id, name: p.name, k: 'house', poly }, h = peasantHouse(b, ctx, bd, r); if (h) { houses.push({ ...h, bd }); nodeHouses.push({ id: p.id, name: p.name, placed: true }); }
+            }
+            ctx.extras.villageHouseNodes = nodeHouses; }
         // wattle fences round the households near the church + wells with sweeps + wayside crosses (OSM crosses)
         // (round 6 note 16: the rings overlapped each other and cut the museum's lanes — a fence piece is now built only
         //  where it is clear of every footpath (2 m) and of the other households' yards, so the lanes stay walkable)
@@ -304,6 +320,8 @@ export default {
         // crowd
         // (round 4) the mapped walls, fences and hedges this scene does not draw itself (buc-barriers.js)
         osmBarriers(ctx);
+        // (round 4) mapped unnamed waterfalls, viewpoints and playgrounds (buc-places.js)
+        osmPlaces(ctx);
         ctx.crowdCfg = {
             spots: ['herastrau-park', 'village-museum'],
             personas: { local_parent: 2.5, local_elder: 2.5, local_young: 3, kid: 1.4, tourist_it: 1, tourist_uk: 1, tourist_de: 1, tourist_us: 0.8 },
@@ -325,6 +343,8 @@ export default {
         if(bikeDock){ctx.extras.bikeRental=addBikeRental(ctx,{x:bikeDock.x,z:bikeDock.z,heading:headingFromBearing(80),n:6,name:bikeDock.name||"I'Velo",colour:'#2f8f46'});ctx.extras.bikeRentalSource={id:bikeDock.id,x:bikeDock.x,z:bikeDock.z,capacity:Number(bikeDock.capacity),displayedBikes:6,estimatedLayout:true};}
         ctx.spawns['village-museum'] = { x: spV.spawn.x, z: spV.spawn.z, heading: headingFromBearing(40) };
         // Frame cost: only the 850 trees nearest the two walkable extents stay in the stock builder (about its original budget).
-        ctx.extras.herastrauFarCanopy = farCanopy(ctx, { near: 850, lean: 150 });
+        // (round 4, r3-buc-spots-nth-5) one-lump far crowns only from 320 m beyond the walk extents: the Charles de Gaulle
+        // entrance (203 m out) is walkable and the lean crown read faceted there
+        ctx.extras.herastrauFarCanopy = farCanopy(ctx, { near: 850, lean: 320 });
     },
 };

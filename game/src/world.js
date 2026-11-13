@@ -6,7 +6,7 @@ import { emitHallFurniture, HALL_FURNITURE_MODEL } from './hall-furniture.js';
 import { reviewedLampForm, CANDELABRA_MODEL } from './lamp-reviews.js';
 import { emitPlaygrounds } from './playgrounds.js';
 import { emitStreetLevelWaterBridgeRailings, emitReviewedStreetBridgeRailings } from './water-bridge-railings.js';
-import { emitPedestrianBridges } from './pedestrian-bridges.js';
+import { emitPedestrianBridges, PEDESTRIAN_BRIDGES } from './pedestrian-bridges.js';
 import { trenchParapetRow, emitTrenchBalustrade } from './trench-parapets.js';
 import { nonShopWindowBands } from './facade-window-bands.js';
 import { sourceTransitShelterDecision } from './source-transit-shelter.js';
@@ -7489,6 +7489,10 @@ export async function buildWorld(city, renderer, opts = {}) {
     // ---- Dâmbovița channel (note 11): quay wall, service bank, lower wall into the water, parapet + railing on the quay;
     //      cut where a street / bridge crosses (the decks stay at street level over the channel)
     let channelM = 0;
+    // (r3-structures-4, Grozăvești: the Regie footbridge w799487638) a footbridge at street level lands on the quay: the parapet
+    // and railing stay open across its width there (its mapped line, pedestrian-bridges.js)
+    const footLandings = (PEDESTRIAN_BRIDGES[`${city.id}-${distId}`] || []).filter(b => b.cls === 'arched').map(b => ({ hw: b.widthM / 2 + .4, pts: b.nodes.map(([la, lo]) => { const q = city.proj(la, lo); return [q.x, q.z]; }) }));
+    const onFootLanding = (x, z) => footLandings.some(f => f.pts.some((p, i) => i > 0 && distPointSeg(x, z, f.pts[i - 1][0], f.pts[i - 1][1], p[0], p[1]).d < f.hw));
     for (const a of channelAreas) {
         const CHAN = a.chanProfile; // (shadows the model section with this polygon's own, see water-channel-review.js)
         const conc = rgb('#9c9890'), wet = rgb('#5d615a'), bankC = rgb('#86857c'), rail = rgb('#3d4246'), capC = rgb('#b3afa6');
@@ -7501,6 +7505,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const t0 = i / n * L, t1 = (i + 1) / n * L, P = (t, o, y) => [ax + ux * t + nx * o, y, az + uz * t + nz * o];
                 const mx = ax + ux * (t0 + t1) / 2, mz = az + uz * (t0 + t1) / 2;
                 if (onRibbon(mx, mz, 1.0) || onRibbon(mx + nx * 3, mz + nz * 3, 0.5)) continue; // a bridge / street over the channel
+                const landing = onFootLanding(mx, mz);
                 if (tramGrades.excludesInferredObstacle([ax + ux * t0, az + uz * t0], [ax + ux * t1, az + uz * t1], { inferred: true, y0a: 0, y1a: 1.15, radiusM: .15, kind: 'channel-quay-inferred' })) continue;
                 const sb = cellOf(mx, mz).solid, o1 = CHAN.slope, o2 = CHAN.slope + CHAN.bankW, toW = [nx, 0.4, nz];
                 sb.face4(P(t0, 0, 0.02), P(t1, 0, 0.02), P(t1, o1, CHAN.bank), P(t0, o1, CHAN.bank), conc, toW);            // quay wall (battered)
@@ -7510,6 +7515,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 // read from the street as a thin strip of water at pavement level. A coping strip closes it (districts only).
                 if (distId) sb.face4(P(t0, -1.1, 0.03), P(t1, -1.1, 0.03), P(t1, 0, 0.03), P(t0, 0, 0.03), conc, [0, 1, 0]);
                 const ang = Math.atan2(ux, uz), [rx, , rz] = P((t0 + t1) / 2, -0.15, 0);
+                if (landing) { channelM += t1 - t0; continue; }
                 if (distId === 'unirii') {
                     // (fidelity pass, street-level look 2024: Splaiul Unirii / Splaiul Independenței at Piața Unirii) no solid
                     // parapet: a low stone kerb and a dark-green iron balustrade (posts ≈ 2 m apart, three rails, top at 1.05 m)
@@ -8255,6 +8261,15 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (bridge.bridge || Math.max(...heights.slice(i - 1, i + 1)) > .05) {
                     for (let j = 0; j < 4; j++) { const k = (j + 1) % 4, lo = v => [v[0], v[1] - bridge.thicknessM, v[2]], outward = [poly[k][1] - poly[j][1], 0, poly[j][0] - poly[k][0]]; c.solid.face4(lo(vertices[j]), lo(vertices[k]), vertices[k], vertices[j], rgb('#99968e'), outward); }
                     c.solid.face4(...vertices.map(v => [v[0], v[1] - bridge.thicknessM, v[2]]), rgb('#55524d'), [0, -1, 0]);
+                    // (r3-structures-4) a raised scenery deck had no guard: a plain concrete parapet (0.9 m, 0.3 m thick) on both
+                    // edges where the deck stands over 1 m above the street (scenery only, no collision: outside the playable area)
+                    if (Math.min(...top) > Y.road + 1) for (const [p0, p1] of [[vertices[0], vertices[1]], [vertices[2], vertices[3]]]) {
+                        const dx = p1[0] - p0[0], dz = p1[2] - p0[2], l = Math.hypot(dx, dz); if (l < .05) continue;
+                        const ix = -dz / l * .3, iz = dx / l * .3, sgn = ((x - p0[0]) * ix + (z - p0[2]) * iz) > 0 ? 1 : -1, wx = ix * sgn, wz = iz * sgn;
+                        const A = [p0[0], p0[1], p0[2]], B = [p1[0], p1[1], p1[2]], up = (v, dy) => [v[0], v[1] + dy, v[2]], inn = v => [v[0] + wx, v[1], v[2] + wz], col = rgb('#a5a39c');
+                        c.solid.face4(A, B, up(B, .9), up(A, .9), col, [-wx, 0, -wz]); c.solid.face4(inn(B), inn(A), up(inn(A), .9), up(inn(B), .9), col, [wx, 0, wz]);
+                        c.solid.face4(up(A, .9), up(B, .9), up(inn(B), .9), up(inn(A), .9), rgb('#b7b5ae'), [0, 1, 0]);
+                    }
                 }
                 const deck = { x, z, r: Math.max(...poly.map(p => Math.hypot(p[0] - x, p[1] - z))), poly, holes: [], roadDeck: true, kind: 'scenery-road-deck', sourceId: bridge.sourceId, sourceTags: bridge.tags, access: bridge.access, estimated: true, elevationSource: bridge.elevationSource, y0: Math.min(...bottom), y1: Math.max(...top), h: Math.max(...top), roofHeightAt: (px, pz, radius) => band(px, pz, radius).top, minHeightAt: (px, pz, radius) => band(px, pz, radius).bottom };
                 sceneryDeckGrid.insert(x - deck.r, z - deck.r, x + deck.r, z + deck.r, deck); propColl.push(deck);

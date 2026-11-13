@@ -1745,6 +1745,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         for(const e of edges){e.ya=e.a.y;e.yb=e.b.y;}
     }
     sharedBridgeProfile.report.sourceDescents = sourceBridgeDescents.report;
+    const deckAudit = [], deckJobs = []; let deckWorkers = false; // (deck shaping in the build workers: see displace)
     const sharedBridgeMeshAudit={inputTriangles:0,outputTriangles:0,maxLeafControlErrorM:0,depthLimit:0,limitSamples:[],worstControl:null};
     if(profileStats)profileStats.sharedBridge=sharedBridgeProfile.report;
     // (owner, 2026-11-12, Grozavesti (770, -1016) "lane gets tiny": the two Grivitei slip ramps left the 11 m deck level at
@@ -2454,7 +2455,6 @@ export async function buildWorld(city, renderer, opts = {}) {
     const dash = US ? [3, 9] : [3, 5];
     // (spec 10 load budget) deck shaping results enter sharedBridgeMeshAudit in call order (foldDeckAudit), also those
     // shaped in the build workers (deferred: the range stays in its builder until finishDeckJobs splices the result in)
-    const deckAudit = [], deckJobs = []; let deckWorkers = false;
     const foldDeckAudit = () => {
         let n = 0;
         for (; n < deckAudit.length && deckAudit[n].a; n++) { const { a, context } = deckAudit[n];

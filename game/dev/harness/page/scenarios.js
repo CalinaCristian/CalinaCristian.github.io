@@ -229,6 +229,9 @@ export const SCENARIOS = [
             const g = H.g, W = g.world;
             await prep(H);
             g.placeSpawn ? g.placeSpawn(g.city, W) : null;
+            // (a fresh arrival: the game places the spawn before traffic exists and admits none there; this scenario re-places
+            // the player mid-run, after other scenarios moved traffic, so the spawn's surroundings are cleared the same way)
+            g.traffic.clearAround?.(g.player.x, g.player.z, 15);
             g.traffic.setPlayer(g.player); H.mon.skipH = 3;
             // spawn sanity is about a fresh arrival: this city's stops unvisited (scenario f may already have
             // finished the story in Seattle); progress is restored at the end

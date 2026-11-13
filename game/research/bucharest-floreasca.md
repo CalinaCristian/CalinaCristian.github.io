@@ -754,3 +754,22 @@ Official panoramas viewed only (no imagery kept); live OSM fetched 2026-11-13.
 - **Statue, Parcul Cinema Floreasca** (w1171561661, tourism=artwork, artwork_type=statue, 16 × 15 m outline): the nearest
   official panorama (44.461990, 26.105017 h 282) shows only park trees; the statue is not visible, form unknown, not modelled.
 - **Dinamo statue row** (n8013556514–18, n14180087101): no new panorama evidence (inside the grounds).
+
+## Backlog clearing (2026-11-13)
+
+- **Velodromul Dinamo** (backlog floreasca-2): live OSM tags, w37899329 `leisure=track`, `sport=cycling`, `surface=concrete`;
+  w362465818 `leisure=pitch`, `sport=rugby_league`. `game/src/sport-areas.js` dresses both by these tags: a banked concrete
+  track between the two mapped outlines and rugby league markings with H posts on the infield. Estimates (no panorama
+  reaches the grounds, so none of this is checked against the real track): flat apron 1.2 m, bank 12° on the straights
+  rising to 32° in the bends (UCI outdoor range), outer edge capped at 3.6 m above the infield, 1 m rail on top; try lines
+  100 m apart, in-goals fitted inside the capsule-shaped infield (dead-ball lines 56 m from the centre), field width 56 m
+  (limited by the outline, the standard is 68 m), posts 5.5 m apart, crossbar 3 m, uprights 10 m.
+- **Statues** (backlog floreasca-3, r2-landmarks-b-4): the Dinamo row (n8013556514–18 Atletul, Discobolul, Alergătorul,
+  Cătălin Hîldan, Ivan Patzaichin; n14180087101 Statuie poloist) and the Parcul Cinema Floreasca statue (w1171561661) stand
+  as generic objects of their OSM class (`monuments.js`: plinth and a plain figure). Estimate: form and size. No panorama
+  shows any of them (inside the Dinamo grounds; behind the park trees from 44.461990, 26.105017 h 282), so no likeness.
+- **Piața Floreasca / Agora** (w34832556, backlog r3-landmarks-1): the review row now carries the silver-grey colour
+  (#c5cacc) and a light reviewed glass colour renders as pale coated glass (less mirror, its own colour; world.js), so the
+  curtain wall reads light grey instead of dark blue. Estimate: the whole footprint is drawn at the reviewed 9 m. The real
+  single-storey Banul Antonache side with its parking bays is part of the same OSM building; OSM has no line between the
+  two parts and the panorama cannot be traced for one, so the footprint is not split.

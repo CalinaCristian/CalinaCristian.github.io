@@ -538,6 +538,13 @@ export default {
             unavailable: 'Dale Chihuly’s suspended forms are modelled from public descriptions.',
             targets: [.2, .5, .8].map((t, i) => ({ label: ['North hanging forms', 'Central hanging forms', 'South hanging forms'][i], x: chi.cx - 1, y: chi.y0 + chi.H - 4.6, z: lerp(chi.bb.z0 + 3, chi.bb.z1 - 3, t), radius: .65, surfaceTolerance: 1.2, holdSeconds: .35 })),
             onDone: s => seaActivity(s, 'lm-chihuly-glasshouse', 'space-needle', '🌺 Glasshouse details framed', 'You framed three parts of Dale Chihuly’s suspended sculpture using your own camera view.') });
+        // (r2-sea-spots-3) MoPOP had no activity near its arrival, so its guided tour had no stop: a camera challenge from the
+        // 5th Ave N arrival frames three of the mapped metal lobes (OSM building:part w1534908994 gold, w1534908992 red,
+        // w1534908990 silver) at two thirds of their mapped height; the same shutter-and-look exercise as the Chihuly one
+        { const lobes = [['w1534908994', 'The gold lobe'], ['w1534908992', 'The red lobe'], ['w1534908990', 'The silver lobe']].map(([id, label]) => { const b = d.buildings.find((q) => q.id === id); if (!b) return null; const [cx, cz] = centroid(b.poly); return { label, x: cx, z: cz, y: g.heightAt(cx, cz) + (b.h || 18) * 0.66, radius: 2.2, surfaceTolerance: 6, holdSeconds: .35 }; }).filter(Boolean);
+            const ms = S.mopop?.spawn; if (lobes.length === 3 && ms) ctx.extras.mopopFraming = photoHunt(ctx, { x: ms.x, z: ms.z, spot: 'mopop', title: 'Frame MoPOP\'s metal lobes',
+                unavailable: 'Frank Gehry\'s building is modelled from its OSM parts; the interior is not modelled.', targets: lobes,
+                onDone: (s) => seaActivity(s, 'mopop-lobes', 'mopop', '🎸 MoPOP framed', 'You framed the gold, red and silver lobes of Frank Gehry\'s Museum of Pop Culture.') }); }
         // ---- spawns (research)
         for (const id of ['space-needle', 'chihuly']) { const sp = S[id]?.spawn; if (sp) ctx.spawns[id] = { x: sp.x, z: sp.z, heading: headingFromBearing(sp.heading_deg) }; }
         // Arrive on the mapped public approach, 8.3 m from the entrance;

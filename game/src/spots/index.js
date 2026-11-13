@@ -72,7 +72,7 @@ export const ACTIVITIES = [
     ['palace-parliament', 'balcony', 'Frame the Palace facade'], ['palace-parliament', 'pace', 'Walk the public Palace sidewalk'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
     ['bel-meydenbauer', 'pier-end', 'Walk to the end of the pier'], ['bel-meydenbauer', 'kayak', 'Kayak on Meydenbauer Bay'], ['bel-downtown-park', 'loop', 'Walk the park loop'],
     ['bel-botanical-garden', 'bridge', 'Cross the suspension bridge'], ['bel-lincoln-square', 'badge-in', 'Frame Lincoln Square'],
-    ['space-needle', 'lm-chihuly-glasshouse', 'Explore the Glasshouse details'],
+    ['space-needle', 'lm-chihuly-glasshouse', 'Explore the Glasshouse details'], ['mopop', 'mopop-lobes', 'Frame MoPOP\'s metal lobes'],
     ['arcul-de-triumf', 'arcul-race', 'Win the island race'], ['arcul-de-triumf', 'arcul-baguette', 'Catch the baguette three times'],
 ].map(([spot, id, title]) => ({ spot, id, title }));
 /**

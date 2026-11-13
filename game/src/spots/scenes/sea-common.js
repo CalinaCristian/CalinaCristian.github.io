@@ -85,8 +85,9 @@ const STYLES = {
 };
 const FACADE = new Map();
 /** shared façade material per style; vertex colour = wall colour */
-export function facadeMaterial(style = 'glass') {
-    if (FACADE.has(style)) return FACADE.get(style);
+export function facadeMaterial(style = 'glass', { haze = 0.4 } = {}) {
+    const key = haze === 0.4 ? style : style + '@' + haze;
+    if (FACADE.has(key)) return FACADE.get(key);
     const S = STYLES[style] || STYLES.glass;
     const m = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: S.rough, metalness: S.metal, emissive: new THREE.Color('#ffffff'), emissiveIntensity: 0 });
     m.name = 'sea-facade-' + style;
@@ -128,10 +129,10 @@ export function facadeMaterial(style = 'glass') {
             .replace('#include <metalnessmap_fragment>', '#include <metalnessmap_fragment>\nmetalnessFactor = mix(metalnessFactor, uLit.y, sWin);')
             .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\ntotalEmissiveRadiance *= sLit * sTint * mix(0.8, 1.15, sfHash(sC + 5.1));')
             // skyline towers keep more contrast than the haze floor gives far ground (clear PNW days: 30+ km visibility)
-            .replace('#include <fog_fragment>', THREE.ShaderChunk.fog_fragment.replace('fogDensity * length', 'fogDensity * 0.4 * length'));
+            .replace('#include <fog_fragment>', THREE.ShaderChunk.fog_fragment.replace('fogDensity * length', `fogDensity * ${haze.toFixed(2)} * length`));
     };
-    m.customProgramCacheKey = () => 'sea-facade-v1';
-    FACADE.set(style, m);
+    m.customProgramCacheKey = () => 'sea-facade-v1' + (haze === 0.4 ? '' : '-h' + haze);
+    FACADE.set(key, m);
     return m;
 }
 
@@ -310,7 +311,10 @@ export function seaMidrise(ctx, { box = [47.596, -122.372, 47.640, -122.312], n 
     let total = 0;
     for (const [style, list] of Object.entries(kinds)) {
         if (!list.length) continue;
-        const mat = facadeMaterial(style);
+        // (sea-spots-b-6) the midrise blocks take the full haze, as the far ground under them: with the skyline towers'
+        // 0.4 they stayed dark over slopes that had faded into the haze (Queen Anne / Capitol Hill from Gas Works read as
+        // dark blocks floating in the haze)
+        const mat = facadeMaterial(style, { haze: 1 });
         const im = new THREE.InstancedMesh(geo, mat, list.length);
         list.forEach((t, i) => { m4.compose(new THREE.Vector3(t.x, t.y - 4, t.z), q.setFromAxisAngle(up, t.yaw), new THREE.Vector3(t.w, t.h + 4, t.d)); im.setMatrixAt(i, m4); im.setColorAt(i, col.set(t.c)); });
         im.name = 'sea-midrise-' + style; im.castShadow = false; im.receiveShadow = false; im.computeBoundingSphere(); grp.add(im); total += list.length;

@@ -33,7 +33,7 @@ export const SHEDS = {
 // appearance only (colour and wall pattern) for mapped buildings that stay generic volumes
 export const TINTS = {
     w1256939021: ['#3b3e41', '#4a5a4c', 'industrial'], // Ocean Pavilion: charcoal ribbed metal, planted roof
-    w1154870289: ['#3f4a48', '#3a3f41', 'industrial'], // Seattle Aquarium on Pier 60
+    w1154870289: ['#51655c', '#3d4345', 'industrial'], // Seattle Aquarium on Pier 60 (low shed: see preparePiers)
     w184870422: ['#a8a59c', '#8a8784', 'parking'],     // Pike Place Market garage
     w234810726: ['#8a3b2d', '#3b3431', 'house'],       // Argosy Cruises ticket office
     w429553385: ['#f1efe8', '#3d5f8a', 'house'],       // Great Wheel ticket booth
@@ -64,6 +64,10 @@ export function waterfrontBusinesses(d) {
 export function preparePiers(ctx) {
     for (const id of [...Object.keys(SHEDS), ...P57_PARTS]) if (ctx.data.buildings.some((b) => b.id === id)) ctx.skipBuildings.add(id);
     for (const b of ctx.data.buildings) { const t = TINTS[b.id]; if (t) { b.c = t[0]; b.rc = t[1]; } }
+    // (r3-sea-spots-b-6) Pier 60 (w1154870289, no height in OSM): official panorama VuVTZJti0rfyEFN0lJAiMQ shows a low shed in
+    // the Aquarium's grey-green, not the tall dark block the generic default made. A gable over its irregular 59-vertex plan
+    // overhung the water and the promenade, so it keeps its flat-roofed plan at a low shed's height (7 m, an estimate).
+    { const p60 = ctx.data.buildings.find((b) => b.id === 'w1154870289'); if (p60 && !p60.h) { p60.h = 7; p60.lv = 1; } }
 }
 export const pierStyle = (bd) => TINTS[bd.id]?.[2];
 
@@ -92,7 +96,9 @@ function shed(ctx, b, bld, S, y0, isWater) {
         const [ax, az] = bld.poly[i], [bx, bz] = bld.poly[(i + 1) % n], L = Math.hypot(bx - ax, bz - az); if (L < 5) continue;
         const dx = (bx - ax) / L, dz = (bz - az) / L; let nx = dz, nz = -dx; const mx = (ax + bx) / 2, mz = (az + bz) / 2;
         if (inPoly(mx + nx * 0.5, mz + nz * 0.5, bld.poly)) { nx = -nx; nz = -nz; }
-        const ry = Math.atan2(nx, nz), front = Math.abs(dx * ux + dz * uz) < 0.85 && (mx - o.cx) * ux + (mz - o.cz) * uz > hl - 4;
+        // the street end: an edge across the pier near its land end; a slanted end (Pier 56: cut at ≈ 58° over 20 m) reaches
+        // back from the end by half its own run along the pier, so its midpoint is measured from there (sea-spots-a-3)
+        const ry = Math.atan2(nx, nz), front = Math.abs(dx * ux + dz * uz) < 0.85 && (mx - o.cx) * ux + (mz - o.cz) * uz > hl - 4 - Math.abs(dx * ux + dz * uz) * L / 2;
         if (front) {
             b.box(mx + nx * 0.05, y0 + 0.35, mz + nz * 0.05, L * 0.82, 2.9, 0.14, '#1b252d', 'darkglass', ry);
             for (let k = -2; k <= 2; k++) b.box(mx + dx * k * L * 0.164 + nx * 0.1, y0 + 0.3, mz + dz * k * L * 0.164 + nz * 0.1, 0.16, 3.0, 0.16, S.trim, 'paint', ry);

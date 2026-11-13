@@ -1121,3 +1121,37 @@ Estimates that no available source settles (moved here from the backlog):
   Skybridge / open walkway floor 6.2 m over the higher end's ground (no measured level; official panoramas on the drive
   EE7cKAltcksKzsSBPd822A, odcxtWhNyv-UeSc9O436Lw, _-8mGqQtoDS7uRaPUYC-ww, xnT4Gtmue9XZR7R-xc0iTQ were not viewable from this
   session). Avenue Bellevue balcony depth 1.2 m and slab 0.22 m are estimates.
+
+## 18. Backlog close-out, 2026-11-13 (Seattle spots)
+
+Fixed in the game: the Seattle / Bellevue backdrop — Mount Rainier from Kerry Park now carries snow from about 1900 m over
+haze-tinted rock (`source-landmark.js` recolours a copy of the shared USGS mesh; the snow line is an artistic distant-view
+treatment, the heights are untouched), and the midrise blocks take the same haze as the far ground under them (they kept the
+skyline towers' reduced haze and read as dark blocks floating over Queen Anne / Capitol Hill from Gas Works); Gas Works on a
+5 m USGS grid over the whole park (`fine-dem-gas-works.js`, 2,277 EPQS samples); the Sinking Ship Garage's deck at the 2nd
+Ave Extension street level (documented exception, `pioneer-square.js`); a MoPOP camera challenge at its arrival, so its
+guided tour has a stop ("Frame MoPOP's metal lobes"); Pier 56's slanted street end gets its shopfront; Pier 60 is a low shed
+in the Aquarium's grey-green.
+
+Estimates and source gaps that no available source settles (moved here from the backlog):
+- **Waterfront.** The water triangle (−39.5, 58.4)–(−35.6, 65.7)–(−33.6, 65.8) between Pier 57 (r812609) and Pier 58
+  (w1155067802) is unmapped in OSM and water in the coastline (source gap, kept); Pier 55's three inner rings are recorded
+  in `waterfront-pier-rings.js` and not opened (coastline land). The Pike Place Market businesses on the bluff (95 named
+  nodes east of Western Ave, live OSM 2026-11-13) are not in the waterfront extract: they front Pike Place and Post Alley,
+  away from the waterfront, and are signed in the `pike-place` scene. Pier 60's 7 m height is an estimate (no height tag).
+- **Seattle Center, International Fountain.** The dome follows OSM w394955907 (9.5 m across; Wikipedia's 8.2 m loses, the
+  panorama Efow4N6Ma8F4LGpK2x3jWQ shows it lower); the micro-shooter and floodlight ring radii and the show rhythm are
+  estimates. The Acrobat Constellation (n3211770205: three figures 21–25 ft on poles) is one node: the three pole positions
+  are unknown, so it is not modelled. MoPOP's lobe targets sit at two thirds of each part's mapped height.
+- **Kerry Park.** The hanging planters and plaza benches seen in earlier reviews have no OSM nodes and no recorded positions
+  (the 8 mapped benches are drawn); the "street lamp in front of the sculpture" was not found within 9 m of Changing Form
+  and stays unidentified.
+- **Fremont Troll.** Official panoramas under the bridge along N 36th St (Z4ECcm_Bohycl_4lNh_0Yw, 1Ei0hgAU9k4ebaKIP7yMvw,
+  Yz1JPc9S36oaFTKzQyz7Mg, s2nejgAfrxEcFPqUbBfauA) disagree with the Troll's bearing by ≈ 30°; whether the arch over the
+  Troll spans to a column on its east side or the x = −8.75 bent line stands west of it needs an aerial / survey of the
+  bent positions (none available); the game keeps its bent lines.
+- **Gas Works.** The amphitheatre steps (not found in OSM), the sundial design, the towers' individual shapes, the car park,
+  the entrance sign, the trail edge and the floatplane / houseboat positions are unverified.
+- **Sinking Ship Garage.** Deck level 12.68 m NAVD88 (mean of the DEM at the two 2nd Ave Extension corners); OSM's 3 levels /
+  10.9 m are kept as the mapped total, with the levels below the high street.
+- **Rainier / Olympics.** Snow from 1950 m (blend 1650–1950 m) and the 45 % haze mix are judged, not measured.

@@ -9,58 +9,15 @@ exclude:
   - README.md
   # Large internal diagnostics remain in Git, outside the published site.
   # Public native activity proofs under tourist-context-activities stay available.
-  - handoffs/fidelity/pipera-fidelity
   - handoffs/fidelity/original-districts-refresh
   - handoffs/fidelity/integration-final-acceptance
   - handoffs/fidelity/us-districts
-  - handoffs/fidelity/unirii-pedestrian-recovery
-  - handoffs/fidelity/cockpit-sharp-displays
   - handoffs/fidelity/root-acceptance-archive
-  - handoffs/fidelity/tram-source-metadata
-  - handoffs/fidelity/tram-native-support-6cb
-  - handoffs/fidelity/tram-romana-constructor-6cb
   - handoffs/fidelity/source-controlled-crossing
-  - handoffs/fidelity/overview-preview-release
-  - handoffs/fidelity/native-rail-world-export
-  - handoffs/fidelity/independent-rail-body-observer
-  - handoffs/fidelity/archive-reachability
-  - handoffs/fidelity/overview-bellevue-103rd
-  - handoffs/fidelity/tram-pedestrian-signal-semantics
-  - handoffs/fidelity/game-preview-ff6b2bff
-  - handoffs/fidelity/history-unsigned-20261109
-  - handoffs/fidelity/game-preview-publication-20261109
-  - handoffs/fidelity/native-final-qa
-  - handoffs/fidelity/road-marking-closure-audit
-  - handoffs/fidelity/source-surface-ownership
-  - handoffs/fidelity/root-duplicate-source-cleanup
-  - handoffs/fidelity/root-foot-a-4cd4
-  - handoffs/fidelity/pedestrian-relocation-performance
 
-  - handoffs/fidelity/shared-bridge-native-8b51e6f3
-  - handoffs/fidelity/basarab-north-descent
-  - handoffs/fidelity/generated-parapet-ownership
-  - handoffs/fidelity/bridge-closure-hud-8b51
-  - handoffs/fidelity/unirii-pasaj-source-return
-  - handoffs/fidelity/cv-interiors-photo-led-20261109
-  - handoffs/fidelity/cv-window-bindings-20261109
-  - handoffs/fidelity/old-town-nightlife-20261109/source-cleanup-20261109
 
   # Closed internal native/controller diagnostics; public viewer assets stay under game/overview.
-  - handoffs/fidelity/combined-native-budget
-  - handoffs/fidelity/backgammon-result-confirmation-20261109
-  - handoffs/fidelity/staging-pages-headroom-20261109
-  - handoffs/fidelity/source-identity-regression-20261109
-  - handoffs/fidelity/overview-carusel-viewport-20261109
-  - handoffs/fidelity/unirii-initial-parking
-  - handoffs/fidelity/root-combined-984d-regression
-  - handoffs/fidelity/overview-carusel-progress-publication
-  - handoffs/fidelity/tram490-native-984
-  - handoffs/fidelity/inferred-road-sign-native-984
 
-  - handoffs/fidelity/live-office-windows
-  - handoffs/fidelity/situational-dialogue-20261109
-  - handoffs/fidelity/situational-dialogue-integration-20261109
-  - handoffs/fidelity/batch-20261110
 
   # Latest public surveys only; original archived source stays in Git history.
   - game/overview/comparison-data/floreasca/historical

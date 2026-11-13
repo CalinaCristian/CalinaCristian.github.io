@@ -17,6 +17,7 @@ import { addBikeRental } from '../bike.js';
 import { photoHunt } from '../photo-hunt.js';
 import { dryLanding, shortWaterRoute } from '../water-route.js';
 import { parkWoods, businessSigns, thinTrees, farCanopy, dropDegenerateTriangles } from './buc-green.js';
+import { osmBarriers } from '../buc-barriers.js';
 
 function grow(poly, d) { const cw = polyArea(poly) > 0; const o = offsetPolyline([...poly, poly[0], poly[1]], cw ? -d : d); return o.slice(1, poly.length + 1); }
 const NORTH = /Maramureș|Maramures|Bistrița|Hunedoara|Harghita|Suceava|Neamț|Neamt|Alba|Cluj|Sălaj|Mureș|Brașov|Sibiu|Covasna|Bihor|Satu Mare|Bucovina/;
@@ -301,6 +302,8 @@ export default {
               onDone: (s) => bucActivity(s, 'herastrau-park', 'nymph', '📷 Sleeping Nymph framed', 'You framed the marble nymph at the park entrance from the alley.') }); }
         ctx.challenge('herastrau-park', { view: [nymph.x, nymph.z], x: nymph.x - 0.8, z: nymph.z + 4.2, heading: 350, pitch: -12, r: 8, tol: 30, text: 'The Sleeping Nymph with the park and Lake Herăstrău behind' });
         // crowd
+        // (round 4) the mapped walls, fences and hedges this scene does not draw itself (buc-barriers.js)
+        osmBarriers(ctx);
         ctx.crowdCfg = {
             spots: ['herastrau-park', 'village-museum'],
             personas: { local_parent: 2.5, local_elder: 2.5, local_young: 3, kid: 1.4, tourist_it: 1, tourist_uk: 1, tourist_de: 1, tourist_us: 0.8 },

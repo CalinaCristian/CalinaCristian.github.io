@@ -3,8 +3,8 @@
 //  2026-11-13): places of worship (r2-world-b-church-likeness) and downtown Bellevue (bellevue-6).
 //  Same row format and rules as BUILDING_REVIEW in building-review.js, which merges these rows (its own row for the same
 //  OSM id wins field by field): keyed by OSM id, footprint / height / identity unchanged, colours are tone classes seen
-//  on the facade in an official panorama (cited), not sampled pixels; no tower or dome is added here (worship.js draws a
-//  cupola only where OSM tags one).
+//  on the facade in an official panorama (cited), not sampled pixels; no tower or dome is added here (worship.js draws
+//  towers by its own OSM-tag rule).
 // ============================================================================
 
 export const LOOK_REVIEW = {

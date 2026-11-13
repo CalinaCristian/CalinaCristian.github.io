@@ -169,6 +169,10 @@ Photo-derived values are medians of hand-picked regions. Facades of 400 Lincoln 
 
 ## 14. Open questions and estimates still standing
 
+- **Pedestrian plazas** (r3-look-14, 2026-11-13): a mapped pedestrian area (`highway=pedestrian|footway` + `area=yes`,
+  `area:highway`, `place=square`; `pedestrian-plazas.js`) is drawn paved over its whole polygon unless its OSM `surface` is
+  grass (no surface tag counts as paved); mapped grass / park polygons inside stay. Rule as in `bucharest-romana.md`
+  section 8; not compared with a panorama. Here: 18 plazas, none tagged grass.
 - Lincoln Square: lobby and UiPath signage, the second UiPath floor, the NE 8th podium face beyond the reviewed items (§6.1).
 - NE 8th St bridge over I-405: north sidewalk and the overhead gantry are not drawn (§5).
 - Street trees in the towers' shadows on NE 8th / Bellevue Way (§5).

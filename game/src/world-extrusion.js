@@ -12,7 +12,7 @@ import { aircraftBody } from './building-aircraft.js';
 import { clipPassageWall } from './building-passages.js';
 import { carParkLevels, carParkOf, emitCarParkWall } from './car-parks.js';
 import { fasciaQuads, fuelLookFor, fuelStationRow } from './fuel-look.js';
-import { emitWorshipOpenings, worshipHasTowerTag } from './worship.js';
+import { emitWorshipOpenings, worshipHasTowerTag, worshipTowerPlan, emitWorshipTowers } from './worship.js';
 import { TILE, TILE_GRID, VILLA_PAL, Y, brandStyle, mixRgb, polysCross, props, signedArea } from './world-shared.js';
 
 export function buildExtrusion(ctx) {
@@ -386,6 +386,11 @@ export function buildExtrusion(ctx) {
                 if (pointInPolygon(x, z, ring) && polyDist(x, z, ring) > Math.hypot(w, d) / 2) mb.box(x, h, z, w, 2.2, d, angle, shadeRgb(flatRoofCol, 1.15));
             }
             if (b.roof === 'dome') { const r = clamp(Math.sqrt(b.area) * 0.28, 3, 14); rmb.geo(props().sphere, b.c[0], h, b.c[1], 0, r, r * 0.9, r, rgb(b.style === 'church' ? '#7a8a8f' : '#8c9aa3')); }
+        }
+        if (b.roofProfile && b.style === 'church' && sourceRoof) { // (r3-look-11: Orthodox naos / pronaos towers on estimated church roofs, worship.js)
+            const sid = data.buildingIds?.[b.derivedFrom ?? b.i], plan = worshipTowerPlan(b, sid, (x, z) => { try { return sourceRoof.heightAt(x, z); } catch { return null; } });
+            const wa = roofProfileAudit.worshipTowers ||= { churches: 0, towers: 0, skipped: {} };
+            if (plan.towers.length) { wa.churches++; wa.towers += emitWorshipTowers(mb, rmb, plan, wallCol, tile, rgb, sid, b.roofColour); } else { wa.skipped[plan.reason] = (wa.skipped[plan.reason] || 0) + 1; (wa.unknownIds ||= []).length < 40 && plan.reason === 'rite:unknown' && wa.unknownIds.push(sid); }
         }
         if (!b.roofProfile && b.style === 'church' && b.area > 120 && !b.holes.length && worshipHasTowerTag(data.buildingSourceTags?.[data.buildingIds?.[b.derivedFrom ?? b.i]])) { // (a cupola only where the source tags a tower / dome) // a generic centroid cupola cannot span a courtyard
             const r = clamp(Math.sqrt(b.area) * 0.12, 1.5, 4);

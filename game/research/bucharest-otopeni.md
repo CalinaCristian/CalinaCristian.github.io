@@ -181,6 +181,13 @@ Other business facts:
 
 ## 7. Trees, green, water and sports
 
+- **Pedestrian plazas and the green raster** (r3-look-14, 2026-11-13; `ground-review.js`, plazas in `pedestrian-plazas.js`
+  from the live OSM data via `tools/osm/pedestrian-plazas.mjs`): a mapped pedestrian area (`highway=pedestrian|footway` +
+  `area=yes`, `area:highway`, `place=square`; ways and multipolygons) is paved over its whole polygon: its `surface` decides,
+  no surface tag counts as paved, and only `surface=grass` keeps the aerial raster's lawn there. Before, only a 3.5 m band
+  round mapped pedestrian lines was kept free, so plazas kept the raster's green cells (tree shade, planters, joints).
+  Mapped grass / park polygons and trees inside a plaza stay as OSM has them (Piața Unirii's `place=square` covers its park:
+  its lawns are OSM polygons and are unchanged). Not compared with a panorama: the rule follows OSM's tags. Here: 3 plazas, none tagged grass (Piața Otopeni among them).
 - Flat, open landscape: the forecourts and fields along DN1 are open grass with few trees.
 - **DN1 fields crowns**: the crowns in 44.563–44.568 × 26.0705–26.078 are measured (aerial survey
   `trees-bucharest-otopeni.json`: 307 crowns, radius median 3.1 m, quartiles 2.2 / 4.9 m), not inferred. All 307 were drawn

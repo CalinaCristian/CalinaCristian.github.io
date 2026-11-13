@@ -260,9 +260,23 @@ export async function buildWorld(city, renderer, opts = {}) {
     //      profile can bend where a ramp meets its street (gore pass below).
     {
         const PIECE = 10, src = edges.slice();
-        let split = 0;
+        // (2026-11-13) an at-grade approach that leaves a deck and has a ramp (*_link) merging inside its carriageway (Bellevue:
+        // NE 8th St west of the I-405 bridge, one 92 m edge from the abutment to 112th Ave, with the Exit to NE 8th St
+        // West joining along it) is cut too: as one straight slope it stayed 0.3–0.6 m above the ramp where they merge
+        const shares = (e, f) => e.a === f.a || e.a === f.b || e.b === f.a || e.b === f.b;
+        const nearDeck = new Map(); // node → graph distance to a deck end over at-grade edges (≤ 40 m)
+        {
+            const q = []; for (const f of src) if (f.bridge || f.tunnel) for (const n of [f.a, f.b]) if (!nearDeck.has(n)) { nearDeck.set(n, 0); q.push(n); }
+            while (q.length) { const n = q.shift(), d = nearDeck.get(n); for (const f of n.edges) { if (f.bridge || f.tunnel) continue; const o = f.a === n ? f.b : f.a, nd = d + f.len; if (nd <= 40 && nd < (nearDeck.get(o) ?? Infinity)) { nearDeck.set(o, nd); q.push(o); } } }
+        }
+        const mergeApproach = (e) => {
+            if (e.bridge || e.tunnel || !(nearDeck.has(e.a) || nearDeck.has(e.b))) return false;
+            return src.some(f => f !== e && /_link$/.test(f.type) && !f.bridge && !f.tunnel && !nearDeck.has(f.a) && !nearDeck.has(f.b) && !shares(e, f) && (e.oneway && f.oneway ? 1 : Math.sign(e.dirx * f.dirx + e.dirz * f.dirz)) * (e.dirx * f.dirx + e.dirz * f.dirz) >= 0.85 // (a merge runs the same way: not the twin carriageway)
+                && [f.a, f.b].some(p => { const q = distPointSeg(p.x, p.z, e.a.x, e.a.z, e.b.x, e.b.z); return q.t > 0.02 && q.t < 0.98 && q.d < e.halfW + f.halfW; })); // (the two carriageways overlap)
+        };
+        let split = 0, approaches = 0;
         for (const e of src) {
-            if (e.len <= PIECE * 1.4 || !(e.bridge || e.tunnel)) continue; // (at-grade links stay whole: traffic queues / merges there)
+            if (e.len <= PIECE * 1.4 || !(e.bridge || e.tunnel || (mergeApproach(e) && ++approaches))) continue; // (other at-grade links stay whole: traffic queues / merges there)
             const k = Math.ceil(e.len / PIECE), b = e.b, plen = e.len / k;
             b.edges.splice(b.edges.indexOf(e), 1);
             let prev = e.a;
@@ -276,7 +290,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 prev = n;
             }
         }
-        if (split) console.info('[world] profile points: +' + split + ' edge pieces');
+        if (split) console.info('[world] profile points: +' + split + ' edge pieces (' + approaches + ' merge approaches)');
     }
     for (const n of nodeArr) {
         if (!n.edges.length) continue;

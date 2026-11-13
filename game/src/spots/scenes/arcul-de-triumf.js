@@ -11,6 +11,7 @@ import { arcRaceCourse, arcRoundabout, arcActiveCarriageway, arcPlaquePlacements
 import { createArcActivities } from './arcul-activities.js';
 import { parkWoods, dropMedianTrees, businessSigns, thinTrees, farCanopy } from './buc-green.js';
 import { osmBarriers } from '../buc-barriers.js';
+import { osmPlaces } from '../buc-places.js';
 
 // (r3, 2026-11-13) Texts of the four central inscriptions as given by Romanian Wikipedia, "Arcul de Triumf din București",
 // section "Arhitectura monumentului" (accessed 2026-11-13; the article attaches no footnote to these lines). Wording and
@@ -117,7 +118,9 @@ export default {
         createArcActivities(ctx,course,{floor,arch:AR});
         ctx.extras.arcBusinessSigns=businessSigns(ctx,{name:'arc-business-signs'});
         // Frame cost: only the 900 trees nearest the walkable extent stay in the stock builder (about its original budget).
-        ctx.extras.arcFarCanopy=farCanopy(ctx,{near:900,lean:150,keep:t=>sourceTrees.has(Math.round(t.x*10)+','+Math.round(t.z*10))});
+        // (round 4, r3-buc-spots-nth-5) no one-lump far crowns here: Kiseleff north of the museum and the Charles de Gaulle
+        // entrance, 410–460 m from the walk extents, are walkable and the lean crown read faceted there
+        ctx.extras.arcFarCanopy=farCanopy(ctx,{near:900,keep:t=>sourceTrees.has(Math.round(t.x*10)+','+Math.round(t.z*10))});
         // Actual north-apron path arrival. Both activities are reachable without
         // crossing the roundabout. The optional pitch is a normal entry pose.
         const start=course.at(course.length-1.2),dx=AR.x-start.x,dz=AR.z-start.z;
@@ -126,6 +129,8 @@ export default {
         if(photo){const bearing=(Math.atan2(AR.x-photo[0],photo[1]-AR.z)*180/Math.PI+360)%360;ctx.challenge('arcul-de-triumf',{view:[AR.x,AR.z],x:photo[0],z:photo[1],heading:bearing,pitch:11,r:8,tol:20});}
         // (round 4) the mapped walls, fences and hedges this scene does not draw itself (buc-barriers.js)
         osmBarriers(ctx);
+        // (round 4) mapped unnamed waterfalls, viewpoints and playgrounds (buc-places.js)
+        osmPlaces(ctx);
         ctx.crowdCfg={personas:{local_young:3,local_elder:1.5,tourist_de:1.5,tourist_it:1.5,kid:.6,local_parent:1},walkers:26,paths:ctx.footLines(),groups:[
             {x:29,z:-99,r:2,n:5,act:'photo',look:[AR.x,AR.z],personas:['tourist_de','tourist_it','local_young']},
             {x:-45,z:-121,r:1,n:3,act:'photo',look:[AR.x,AR.z],personas:['tourist_it','tourist_de']},

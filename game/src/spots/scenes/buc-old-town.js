@@ -29,7 +29,7 @@ import {buildCaruselInterior} from './carusel-interior.js';
 import { buildOldTownDaylife } from './old-town-daylife.js';
 import { poiSigns } from '../buc-streetscape.js';
 import { declareInterior } from '../precip-shelter.js';
-import { caleaVictoriei, bnrLipscani, maccaPortal, withoutShopfront, courtyardSigns } from './ot-fronts.js';
+import { caleaVictoriei, bnrLipscani, maccaPortal, maccaGlassRoof, withoutShopfront, courtyardSigns } from './ot-fronts.js';
 import { osmBarriers } from '../buc-barriers.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
@@ -490,12 +490,21 @@ export default {
         // shopfront-needs-a-mapped-business rule of the other Bucharest scenes does not apply here.
         // (r3) The Old National Bank (w1210146218) has no shop floor: Street View 2022-10 from Lipscani shows a rusticated
         // ground floor with arched windows and the entrance stair (the every-front shop rule glazed it).
+        // (round 4, r3-buc-spots-ot-4) Hanul cu Tei (r19931391): OSM building:levels=4, but the official 2022-10 panorama
+        // from Lipscani shows a two-storey inn with deep timber eaves (the 1833 inn). Documented look exception: drawn with 2
+        // levels (the data keeps OSM's 4); the eaves follow below. Eave depth and colour are estimates.
+        const HCT = d.buildings.find((x) => x.id === 'r19931391'); if (HCT) HCT.lv = 2;
         withoutShopfront(ctx, ['w1210146218'], () => bucBackdrop(ctx, { shopEvidence: false, wallOpenings:FRONT?[FRONT.opening]:[],lampStyle: 'lantern', lampColor: '#191b1c', lampH: 4.4, lampPad: 15, treeLod: { cap: 1600, max: 400 }, lampOpts: { spacing: 24, kinds: ['pedestrian', 'living_street'] }, streetTreeOpts: { kinds: ['primary', 'secondary', 'tertiary'], prob: 0.5 }, style: (bd) => (OT.decoratedIds.has(bd.id) || bd.k === 'church' || HERO_STONE.has(bd.id) ? 'eclectic' : bucStyle(bd)) }));
         // (r3) Calea Victoriei at CEC / the History Museum, the Bank's Lipscani front, the Macca-Vilacrosse portal (ot-fronts.js)
         caleaVictoriei(ctx); bnrLipscani(ctx);
         // (round 4) the mapped walls, fences, hedges and plinths (osmBarriers); the CEC garden railing is ot-fronts' own
         osmBarriers(ctx, { skip: ['w657976539', 'w657976540'], pad: 60 });
+        if (HCT) { const rec = sourceRecord(HCT, 0, g), top = rec.datum + rec.height, eb = new GeoBatch();
+            for (const ring of [HCT.poly, ...(HCT.holes || [])]) for (let i = 0; i < ring.length; i++) { const [ax, az] = ring[i], [bx, bz] = ring[(i + 1) % ring.length], L = Math.hypot(bx - ax, bz - az); if (L < 1) continue;
+                const yaw = Math.atan2(bx - ax, bz - az), k = (i % 3) * 0.04; eb.box((ax + bx) / 2, top - 0.45 - k, (az + bz) / 2, 2.0 + k * 1.5, 0.3, L + 0.9, '#4b3527', 'wood', yaw); } // under the roof edge; neighbours differ by 4 cm (no coplanar faces)
+            ctx.add(eb.build('hanul-cu-tei-eaves')); ctx.extras.hanulCuTei = { levels: 2, osmLevels: 4, eaveTop: +top.toFixed(2) }; }
         { const pb = d.buildings.find((x) => x.id === 'r19924112'); if (pb) { const rec = sourceRecord(pb, 0, g); maccaPortal(ctx, { sourceTop: rec.datum + rec.height }); } }
+        maccaGlassRoof(ctx, { recordOf: (bd) => { const r = sourceRecord(bd, 0, g); return r.datum + r.height; } });
         CA?.finishInterior();
         const WB = buildSecretWcpBar(ctx, CA);
         oldTownGlazing(ctx,FRONT);

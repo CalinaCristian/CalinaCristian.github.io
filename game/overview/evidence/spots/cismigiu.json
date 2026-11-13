@@ -66,19 +66,26 @@
       "label": "District fidelity pass scene change (c59429a)",
       "type": "Game source change",
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/c59429ae3a2613f38d9668c00d81ba177b2cd69e"
+    },
+    {
+      "label": "Fidelity pass round 2 scene change (9824fd5)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493"
     }
   ],
   "improvements": [
     "Current native scene retains 756 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
     "Physical 205.549 m rowing approach; earlier native rowing and moving chess opening",
     "The selected primary activity approach is accepted separately from full-scene comparison.",
-    "District fidelity pass, f9787fa / c59429a (range 332ae423..346f7986): The Rotonda busts stand on their mapped nodes; the rowing boat works outside winter."
+    "District fidelity pass, f9787fa / c59429a (range 332ae423..346f7986): The Rotonda busts stand on their mapped nodes; the rowing boat works outside winter.",
+    "Fidelity pass round 2, 9824fd5 (range 94a177d5..9824fd56): A green iron railing on a low stone base closes the garden front on Bd. Regina Elisabeta."
   ],
   "remainingGaps": [
     "Actual twelve-bust Rotunda walk, completed boat reload and whole-park comparison remain unverified",
     "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
     "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
-    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 93b0d86 or earlier, before the district fidelity pass, and were not re-run at 346f798."
+    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 93b0d86 or earlier, before the district fidelity pass, and were not re-run at 346f798.",
+    "Validation frames, native proofs, source-geometry counts and performance figures in this record predate 9824fd5 and were not re-run for round 2."
   ],
   "checks": [
     {
@@ -120,6 +127,16 @@
       "label": "Validation frames and native proofs re-run at 346f798",
       "passed": false,
       "details": "Not re-run. The validation captures and proofs above keep their original source and date and describe the scene before the pass."
+    },
+    {
+      "label": "Visitor views recaptured at 9824fd5 (round 2)",
+      "passed": true,
+      "details": "4 viewpoints × 4 conditions recaptured (garden-entrance, backgammon, rowing-landing, writers-rotunda); peak 1,376,059 triangles / 185 draw calls. Every picture was inspected after capture. Appearance only; no route, activity or reference-match claim."
+    },
+    {
+      "label": "Validation frames and native proofs re-run at 9824fd5",
+      "passed": false,
+      "details": "Not re-run. The validation captures and proofs keep their original source and date."
     }
   ],
   "captures": [
@@ -336,7 +353,7 @@
     },
     "collection": "previous-context-gallery"
   },
-  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical 205.549 m rowing approach; earlier native rowing and moving chess opening Actual twelve-bust Rotunda walk, completed boat reload and whole-park comparison remain unverified Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates.",
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical 205.549 m rowing approach; earlier native rowing and moving chess opening Actual twelve-bust Rotunda walk, completed boat reload and whole-park comparison remain unverified Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates. Round-2 visitor views recaptured 2026-11-13 from 9824fd5; the 346f7986 views are kept in historicalCollections.",
   "publicPathProof": {
     "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
     "priorSourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
@@ -393,14 +410,15 @@
   ],
   "visitorGallery": {
     "schemaVersion": 1,
-    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-    "notice": "4 matched walking-height viewpoints in each of four conditions, recaptured from game source 346f798 after the district fidelity pass. Open any picture at its original size.",
+    "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+    "notice": "4 matched walking-height viewpoints in each of four conditions, recaptured from game source 9824fd5 after fidelity pass round 2. Open any picture at its original size.",
     "setup": "Production app, scene, actors, lighting and renderer at High quality, 1280 × 800. Automatic animation was paused and explicit frames rendered at fixed on-foot cameras 1.65 m above their supporting surfaces. Local simulation dates and weather were controlled; capturedAt records the real capture time.",
     "limitations": [
       "Fixed on-foot appearance fixtures; cameras were positioned for inspection. These pictures do not establish a traversed route, activity completion, physical-phone behavior or hardware FPS.",
-      "Viewpoint ids, positions, look and field of view are those of the dc93023f gallery.",
-      "The captured High-quality frames reach 1,368,233 triangles / 205 draw calls.",
-      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
+      "Viewpoint ids, positions, look and field of view are those of the 346f7986 gallery.",
+      "Night conditions are taken after the scene's night-light fade completed (recorded nightK = 1 for every night picture).",
+      "The captured High-quality frames reach 1,376,059 triangles / 185 draw calls, within the 1.5 M triangle / 400 draw-call frame budget in these frames.",
+      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
     ],
     "conditionSets": [
       {
@@ -417,8 +435,8 @@
             "place": "cismigiu",
             "label": "Cișmigiu · garden approach and paths",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-12T19:52:27.146Z",
-            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+            "capturedAt": "2026-11-13T05:34:53.642Z",
+            "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -444,17 +462,18 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794513145653,
+                "updatedAt": 1794548089123,
                 "climate": null
               },
               "date": "2026-07-15T09:00:00.000Z",
               "timeZone": "Europe/Bucharest",
               "sunElevation": 61.54205009846908,
               "nightLights": false,
+              "nightK": 0,
               "quality": "high"
             },
-            "sha256": "76ab5d2f2e28d72a889f39eac6e727a408d73921a81de3fe4a44a36b452371b3",
-            "bytes": 194783,
+            "sha256": "275e17f65553ebf4499f6437269b448f49eaaa4a2baa492db1d96fcf504b8399",
+            "bytes": 194716,
             "pose": {
               "x": 2,
               "z": -74,
@@ -466,15 +485,16 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 200.55604521958347,
-              "pitch": -0.2445499841088054,
+              "pitch": -0.24454998410880543,
               "fov": 74
             },
             "cameraBodyClear": true,
+            "nightK": 0,
             "stats": {
-              "fps": 0.8,
-              "frameMs": 1252.2,
-              "drawCalls": 205,
-              "triangles": 1358843,
+              "fps": 0.25,
+              "frameMs": 4015.5,
+              "drawCalls": 185,
+              "triangles": 1363043,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -482,7 +502,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/cismigiu/ground-346f7986/summer-day/garden-entrance.jpg"
+            "image": "assets/spots/cismigiu/ground-9824fd56/summer-day/garden-entrance.jpg"
           },
           {
             "id": "backgammon",
@@ -490,8 +510,8 @@
             "place": "cismigiu",
             "label": "La Șahiști · backgammon table and Doru",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-12T19:52:27.188Z",
-            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+            "capturedAt": "2026-11-13T05:34:53.666Z",
+            "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -517,17 +537,18 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794513145653,
+                "updatedAt": 1794548089123,
                 "climate": null
               },
               "date": "2026-07-15T09:00:00.000Z",
               "timeZone": "Europe/Bucharest",
               "sunElevation": 61.54205009846908,
               "nightLights": false,
+              "nightK": 0,
               "quality": "high"
             },
-            "sha256": "5e419b25ec09bf51dd14c43a96f2d11292d3e1b33418c8506bc4cba567fa801f",
-            "bytes": 189384,
+            "sha256": "67da218730c2b45944860cfac6dcd6f28798a93d28db885dd0fedbf4d7424934",
+            "bytes": 189345,
             "pose": {
               "x": -128.5,
               "z": 77.8,
@@ -543,10 +564,11 @@
               "fov": 64
             },
             "cameraBodyClear": true,
+            "nightK": 0,
             "stats": {
-              "fps": 0.8,
-              "frameMs": 254.9,
-              "drawCalls": 135,
+              "fps": 2,
+              "frameMs": 508,
+              "drawCalls": 131,
               "triangles": 1368233,
               "pixelRatio": 1,
               "shadows": 4096,
@@ -555,7 +577,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/cismigiu/ground-346f7986/summer-day/backgammon.jpg"
+            "image": "assets/spots/cismigiu/ground-9824fd56/summer-day/backgammon.jpg"
           },
           {
             "id": "rowing-landing",
@@ -563,8 +585,8 @@
             "place": "cismigiu",
             "label": "Debarcader · dry shore approach and rowing boat",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-12T19:52:27.221Z",
-            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+            "capturedAt": "2026-11-13T05:34:53.701Z",
+            "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -590,13 +612,14 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794513145653,
+                "updatedAt": 1794548089123,
                 "climate": null
               },
               "date": "2026-07-15T09:00:00.000Z",
               "timeZone": "Europe/Bucharest",
               "sunElevation": 61.54205009846908,
               "nightLights": false,
+              "nightK": 0,
               "quality": "high"
             },
             "sha256": "7a5907b5a3f5089c39e7394024ac1b5bdf6288c166930e1e2116b81c5062f717",
@@ -612,15 +635,16 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 67.06169082288812,
-              "pitch": -11.507972981100892,
+              "pitch": -11.507972981100894,
               "fov": 70
             },
             "cameraBodyClear": true,
+            "nightK": 0,
             "stats": {
-              "fps": 0.8,
-              "frameMs": 35.7,
-              "drawCalls": 163,
-              "triangles": 1367659,
+              "fps": 2,
+              "frameMs": 24.5,
+              "drawCalls": 159,
+              "triangles": 1376059,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -628,7 +652,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/cismigiu/ground-346f7986/summer-day/rowing-landing.jpg"
+            "image": "assets/spots/cismigiu/ground-9824fd56/summer-day/rowing-landing.jpg"
           },
           {
             "id": "writers-rotunda",
@@ -636,8 +660,8 @@
             "place": "cismigiu",
             "label": "Writers’ Rotunda · busts and garden path",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-12T19:52:27.255Z",
-            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+            "capturedAt": "2026-11-13T05:34:53.728Z",
+            "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -663,13 +687,14 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794513145653,
+                "updatedAt": 1794548089123,
                 "climate": null
               },
               "date": "2026-07-15T09:00:00.000Z",
               "timeZone": "Europe/Bucharest",
               "sunElevation": 61.54205009846908,
               "nightLights": false,
+              "nightK": 0,
               "quality": "high"
             },
             "sha256": "c39aecadfb66e319230f5034b062369ab7f6c8ddf7ec654235971ace744c3bf6",
@@ -689,10 +714,11 @@
               "fov": 74
             },
             "cameraBodyClear": true,
+            "nightK": 0,
             "stats": {
-              "fps": 0.8,
-              "frameMs": 32.2,
-              "drawCalls": 119,
+              "fps": 2,
+              "frameMs": 33.9,
+              "drawCalls": 115,
               "triangles": 1329011,
               "pixelRatio": 1,
               "shadows": 4096,
@@ -701,7 +727,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/cismigiu/ground-346f7986/summer-day/writers-rotunda.jpg"
+            "image": "assets/spots/cismigiu/ground-9824fd56/summer-day/writers-rotunda.jpg"
           }
         ]
       },
@@ -719,8 +745,8 @@
             "place": "cismigiu",
             "label": "Cișmigiu · garden approach and paths",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-12T19:52:29.476Z",
-            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+            "capturedAt": "2026-11-13T05:35:00.621Z",
+            "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -746,17 +772,18 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794513147263,
+                "updatedAt": 1794548093733,
                 "climate": null
               },
               "date": "2026-07-15T20:00:00.000Z",
               "timeZone": "Europe/Bucharest",
               "sunElevation": -16.621291350918778,
               "nightLights": true,
+              "nightK": 1,
               "quality": "high"
             },
-            "sha256": "73d1543f61134b6d6ef245d794b2d263ae4792c85f78f03c01daf4225761b55d",
-            "bytes": 188988,
+            "sha256": "5c5a1731c3b8bb2d56184683fff504de4f62d2ba4a952ebaf65ec24e364206aa",
+            "bytes": 188917,
             "pose": {
               "x": 2,
               "z": -74,
@@ -768,15 +795,16 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 200.55604521958347,
-              "pitch": -0.2445499841088054,
+              "pitch": -0.24454998410880543,
               "fov": 74
             },
             "cameraBodyClear": true,
+            "nightK": 1,
             "stats": {
-              "fps": 2.2,
-              "frameMs": 1904.8,
-              "drawCalls": 153,
-              "triangles": 791099,
+              "fps": 0.74,
+              "frameMs": 5352.1,
+              "drawCalls": 137,
+              "triangles": 795299,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -784,7 +812,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/cismigiu/ground-346f7986/summer-night/garden-entrance.jpg"
+            "image": "assets/spots/cismigiu/ground-9824fd56/summer-night/garden-entrance.jpg"
           },
           {
             "id": "backgammon",
@@ -792,8 +820,8 @@
             "place": "cismigiu",
             "label": "La Șahiști · backgammon table and Doru",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-12T19:52:29.498Z",
-            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+            "capturedAt": "2026-11-13T05:35:00.651Z",
+            "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -819,17 +847,18 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794513147263,
+                "updatedAt": 1794548093733,
                 "climate": null
               },
               "date": "2026-07-15T20:00:00.000Z",
               "timeZone": "Europe/Bucharest",
               "sunElevation": -16.621291350918778,
               "nightLights": true,
+              "nightK": 1,
               "quality": "high"
             },
-            "sha256": "4891d5c04619604dbb6a8cbe0d3996ff79c5dcf37890f9ba7800e32d90464394",
-            "bytes": 192470,
+            "sha256": "cb16de1f12e7727fda6bad5a177b8a7a5c44d07d0a35f33b37342fa828cd415a",
+            "bytes": 192478,
             "pose": {
               "x": -128.5,
               "z": 77.8,
@@ -845,9 +874,10 @@
               "fov": 64
             },
             "cameraBodyClear": true,
+            "nightK": 1,
             "stats": {
-              "fps": 2.2,
-              "frameMs": 314.9,
+              "fps": 0.65,
+              "frameMs": 1542,
               "drawCalls": 80,
               "triangles": 792617,
               "pixelRatio": 1,
@@ -857,7 +887,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/cismigiu/ground-346f7986/summer-night/backgammon.jpg"
+            "image": "assets/spots/cismigiu/ground-9824fd56/summer-night/backgammon.jpg"
           },
           {
             "id": "rowing-landing",
@@ -865,8 +895,8 @@
             "place": "cismigiu",
             "label": "Debarcader · dry shore approach and rowing boat",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-12T19:52:29.524Z",
-            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+            "capturedAt": "2026-11-13T05:35:00.677Z",
+            "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -892,13 +922,14 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794513147263,
+                "updatedAt": 1794548093733,
                 "climate": null
               },
               "date": "2026-07-15T20:00:00.000Z",
               "timeZone": "Europe/Bucharest",
               "sunElevation": -16.621291350918778,
               "nightLights": true,
+              "nightK": 1,
               "quality": "high"
             },
             "sha256": "d88ab81dc615ccc63b9bf443cfc41916d9ed893f49384f9289f5c6759d6defad",
@@ -914,15 +945,16 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 67.06169082288812,
-              "pitch": -11.507972981100892,
+              "pitch": -11.507972981100894,
               "fov": 70
             },
             "cameraBodyClear": true,
+            "nightK": 1,
             "stats": {
-              "fps": 2.2,
-              "frameMs": 19.9,
+              "fps": 0.65,
+              "frameMs": 29.3,
               "drawCalls": 109,
-              "triangles": 793868,
+              "triangles": 798068,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -930,7 +962,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/cismigiu/ground-346f7986/summer-night/rowing-landing.jpg"
+            "image": "assets/spots/cismigiu/ground-9824fd56/summer-night/rowing-landing.jpg"
           },
           {
             "id": "writers-rotunda",
@@ -938,8 +970,8 @@
             "place": "cismigiu",
             "label": "Writers’ Rotunda · busts and garden path",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-12T19:52:29.553Z",
-            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+            "capturedAt": "2026-11-13T05:35:00.708Z",
+            "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -965,13 +997,14 @@
                 "visibilityM": 19500,
                 "cloud": 0.1,
                 "season": "summer",
-                "updatedAt": 1794513147263,
+                "updatedAt": 1794548093733,
                 "climate": null
               },
               "date": "2026-07-15T20:00:00.000Z",
               "timeZone": "Europe/Bucharest",
               "sunElevation": -16.621291350918778,
               "nightLights": true,
+              "nightK": 1,
               "quality": "high"
             },
             "sha256": "b437f8492c2433e4f30b03e3254072a704423ea8d13c3080c36e2ecc55510333",
@@ -991,9 +1024,10 @@
               "fov": 74
             },
             "cameraBodyClear": true,
+            "nightK": 1,
             "stats": {
-              "fps": 2.2,
-              "frameMs": 29.2,
+              "fps": 0.65,
+              "frameMs": 27.2,
               "drawCalls": 71,
               "triangles": 773332,
               "pixelRatio": 1,
@@ -1003,7 +1037,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/cismigiu/ground-346f7986/summer-night/writers-rotunda.jpg"
+            "image": "assets/spots/cismigiu/ground-9824fd56/summer-night/writers-rotunda.jpg"
           }
         ]
       },
@@ -1021,8 +1055,8 @@
             "place": "cismigiu",
             "label": "Cișmigiu · garden approach and paths",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-12T19:52:29.740Z",
-            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+            "capturedAt": "2026-11-13T05:35:01.093Z",
+            "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1048,17 +1082,18 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794513149559,
+                "updatedAt": 1794548100712,
                 "climate": null
               },
               "date": "2026-01-15T10:00:00.000Z",
               "timeZone": "Europe/Bucharest",
               "sunElevation": 24.23245030272935,
               "nightLights": false,
+              "nightK": 0,
               "quality": "high"
             },
-            "sha256": "1d5e170428966b362e4dfe5eff1f63e58537bc59dd983e0903c38b4006222af2",
-            "bytes": 197875,
+            "sha256": "42a5fe21f9aad561a3b0f958e7b3e9a62c51cd0a3f811120a54ee56c2690ddea",
+            "bytes": 197909,
             "pose": {
               "x": 2,
               "z": -74,
@@ -1070,15 +1105,16 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 200.55604521958347,
-              "pitch": -0.2445499841088054,
+              "pitch": -0.24454998410880543,
               "fov": 74
             },
             "cameraBodyClear": true,
+            "nightK": 0,
             "stats": {
-              "fps": 9.1,
-              "frameMs": 161.8,
-              "drawCalls": 182,
-              "triangles": 1140245,
+              "fps": 0.65,
+              "frameMs": 355.6,
+              "drawCalls": 162,
+              "triangles": 1148645,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1086,7 +1122,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/cismigiu/ground-346f7986/winter-day/garden-entrance.jpg"
+            "image": "assets/spots/cismigiu/ground-9824fd56/winter-day/garden-entrance.jpg"
           },
           {
             "id": "backgammon",
@@ -1094,8 +1130,8 @@
             "place": "cismigiu",
             "label": "La Șahiști · backgammon table and Doru",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-12T19:52:29.767Z",
-            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+            "capturedAt": "2026-11-13T05:35:01.118Z",
+            "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1121,17 +1157,18 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794513149559,
+                "updatedAt": 1794548100712,
                 "climate": null
               },
               "date": "2026-01-15T10:00:00.000Z",
               "timeZone": "Europe/Bucharest",
               "sunElevation": 24.23245030272935,
               "nightLights": false,
+              "nightK": 0,
               "quality": "high"
             },
-            "sha256": "b613bfe85234345731ac200568c520ab3280edc31a5d52b34df803d9720f7e47",
-            "bytes": 160015,
+            "sha256": "fbbf67600afa85def1c03bf2c5f8f7962686e8d597b500fc0f371d8e343d3533",
+            "bytes": 159994,
             "pose": {
               "x": -128.5,
               "z": 77.8,
@@ -1147,10 +1184,11 @@
               "fov": 64
             },
             "cameraBodyClear": true,
+            "nightK": 0,
             "stats": {
-              "fps": 9.1,
-              "frameMs": 26.6,
-              "drawCalls": 131,
+              "fps": 0.65,
+              "frameMs": 30.2,
+              "drawCalls": 123,
               "triangles": 1163683,
               "pixelRatio": 1,
               "shadows": 4096,
@@ -1159,7 +1197,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/cismigiu/ground-346f7986/winter-day/backgammon.jpg"
+            "image": "assets/spots/cismigiu/ground-9824fd56/winter-day/backgammon.jpg"
           },
           {
             "id": "rowing-landing",
@@ -1167,8 +1205,8 @@
             "place": "cismigiu",
             "label": "Debarcader · dry shore approach and rowing boat",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-12T19:52:29.791Z",
-            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+            "capturedAt": "2026-11-13T05:35:01.144Z",
+            "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1194,17 +1232,18 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794513149559,
+                "updatedAt": 1794548100712,
                 "climate": null
               },
               "date": "2026-01-15T10:00:00.000Z",
               "timeZone": "Europe/Bucharest",
               "sunElevation": 24.23245030272935,
               "nightLights": false,
+              "nightK": 0,
               "quality": "high"
             },
-            "sha256": "9b503cb763aaa984087772d4e4bb80958f7219b726991290376c00478d8a283f",
-            "bytes": 155104,
+            "sha256": "33036b833d0bb9d9f0967c34f9031b93fbbbc95a7325cc307fdbbdf7b6a74b71",
+            "bytes": 154257,
             "pose": {
               "x": -16.039442855671236,
               "z": 100.80608662535704,
@@ -1216,15 +1255,16 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 67.06169082288812,
-              "pitch": -11.507972981100892,
+              "pitch": -11.507972981100894,
               "fov": 70
             },
             "cameraBodyClear": true,
+            "nightK": 0,
             "stats": {
-              "fps": 9.1,
-              "frameMs": 27.4,
-              "drawCalls": 146,
-              "triangles": 1141761,
+              "fps": 0.65,
+              "frameMs": 25,
+              "drawCalls": 138,
+              "triangles": 1150161,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1232,7 +1272,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/cismigiu/ground-346f7986/winter-day/rowing-landing.jpg"
+            "image": "assets/spots/cismigiu/ground-9824fd56/winter-day/rowing-landing.jpg"
           },
           {
             "id": "writers-rotunda",
@@ -1240,8 +1280,8 @@
             "place": "cismigiu",
             "label": "Writers’ Rotunda · busts and garden path",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-12T19:52:29.819Z",
-            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+            "capturedAt": "2026-11-13T05:35:01.168Z",
+            "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1267,17 +1307,18 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794513149559,
+                "updatedAt": 1794548100712,
                 "climate": null
               },
               "date": "2026-01-15T10:00:00.000Z",
               "timeZone": "Europe/Bucharest",
               "sunElevation": 24.23245030272935,
               "nightLights": false,
+              "nightK": 0,
               "quality": "high"
             },
-            "sha256": "c3864f85d00e8431f22d78b6148e67f24fbf65199fd24dcc78139ae9e6123be7",
-            "bytes": 142486,
+            "sha256": "b2942fcad196728de72d9e75d857e325eff260a9bad8b703f6df70e843a14063",
+            "bytes": 141319,
             "pose": {
               "x": -144,
               "z": 27,
@@ -1293,10 +1334,11 @@
               "fov": 74
             },
             "cameraBodyClear": true,
+            "nightK": 0,
             "stats": {
-              "fps": 9.1,
-              "frameMs": 24.1,
-              "drawCalls": 120,
+              "fps": 13,
+              "frameMs": 25.4,
+              "drawCalls": 112,
               "triangles": 1123297,
               "pixelRatio": 1,
               "shadows": 4096,
@@ -1305,7 +1347,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/cismigiu/ground-346f7986/winter-day/writers-rotunda.jpg"
+            "image": "assets/spots/cismigiu/ground-9824fd56/winter-day/writers-rotunda.jpg"
           }
         ]
       },
@@ -1323,8 +1365,8 @@
             "place": "cismigiu",
             "label": "Cișmigiu · garden approach and paths",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-12T19:52:30.042Z",
-            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+            "capturedAt": "2026-11-13T05:35:01.704Z",
+            "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1350,17 +1392,18 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794513149825,
+                "updatedAt": 1794548101173,
                 "climate": null
               },
               "date": "2026-01-15T21:00:00.000Z",
               "timeZone": "Europe/Bucharest",
               "sunElevation": -60.688225876300045,
               "nightLights": true,
+              "nightK": 1,
               "quality": "high"
             },
-            "sha256": "c94a3ab8086a0c26876b0ab43ddcd1b9fd497895f8807af03423db891e352d06",
-            "bytes": 226964,
+            "sha256": "d4f97f83917d218b7d993323d4ad958b9cb15937a70ad8546884ddf7c1f29b48",
+            "bytes": 225003,
             "pose": {
               "x": 2,
               "z": -74,
@@ -1372,15 +1415,16 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 200.55604521958347,
-              "pitch": -0.2445499841088054,
+              "pitch": -0.24454998410880543,
               "fov": 74
             },
             "cameraBodyClear": true,
+            "nightK": 1,
             "stats": {
-              "fps": 9.1,
-              "frameMs": 167.3,
-              "drawCalls": 133,
-              "triangles": 789725,
+              "fps": 13,
+              "frameMs": 474.8,
+              "drawCalls": 117,
+              "triangles": 793925,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1388,7 +1432,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/cismigiu/ground-346f7986/winter-night/garden-entrance.jpg"
+            "image": "assets/spots/cismigiu/ground-9824fd56/winter-night/garden-entrance.jpg"
           },
           {
             "id": "backgammon",
@@ -1396,8 +1440,8 @@
             "place": "cismigiu",
             "label": "La Șahiști · backgammon table and Doru",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-12T19:52:30.068Z",
-            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+            "capturedAt": "2026-11-13T05:35:01.731Z",
+            "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1423,17 +1467,18 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794513149825,
+                "updatedAt": 1794548101173,
                 "climate": null
               },
               "date": "2026-01-15T21:00:00.000Z",
               "timeZone": "Europe/Bucharest",
               "sunElevation": -60.688225876300045,
               "nightLights": true,
+              "nightK": 1,
               "quality": "high"
             },
-            "sha256": "530707a534e889bf98e2d3a3c9b737ed5745a67cbc38172813d9e44a683ad892",
-            "bytes": 185696,
+            "sha256": "f7b080c55bb4d15c8504faaa241a795648f3d2c513ccfdf76e356d15ed680a97",
+            "bytes": 184969,
             "pose": {
               "x": -128.5,
               "z": 77.8,
@@ -1449,9 +1494,10 @@
               "fov": 64
             },
             "cameraBodyClear": true,
+            "nightK": 1,
             "stats": {
-              "fps": 9.1,
-              "frameMs": 56.9,
+              "fps": 5.4,
+              "frameMs": 61.1,
               "drawCalls": 81,
               "triangles": 792617,
               "pixelRatio": 1,
@@ -1461,7 +1507,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/cismigiu/ground-346f7986/winter-night/backgammon.jpg"
+            "image": "assets/spots/cismigiu/ground-9824fd56/winter-night/backgammon.jpg"
           },
           {
             "id": "rowing-landing",
@@ -1469,8 +1515,8 @@
             "place": "cismigiu",
             "label": "Debarcader · dry shore approach and rowing boat",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-12T19:52:30.096Z",
-            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+            "capturedAt": "2026-11-13T05:35:01.757Z",
+            "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1496,17 +1542,18 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794513149825,
+                "updatedAt": 1794548101173,
                 "climate": null
               },
               "date": "2026-01-15T21:00:00.000Z",
               "timeZone": "Europe/Bucharest",
               "sunElevation": -60.688225876300045,
               "nightLights": true,
+              "nightK": 1,
               "quality": "high"
             },
-            "sha256": "1b149c17287196eb5c740736ffb19d144755cffa285d119ccbb13b75df5a71b6",
-            "bytes": 203141,
+            "sha256": "4a1c4c8781c48ef8db997dfc241c1c71dc0bcad0bdb17ae1ccb80371bd897eca",
+            "bytes": 203039,
             "pose": {
               "x": -16.039442855671236,
               "z": 100.80608662535704,
@@ -1518,15 +1565,16 @@
               ],
               "heightAboveSupport": 1.65,
               "bearing": 67.06169082288812,
-              "pitch": -11.507972981100892,
+              "pitch": -11.507972981100894,
               "fov": 70
             },
             "cameraBodyClear": true,
+            "nightK": 1,
             "stats": {
-              "fps": 9.1,
-              "frameMs": 26,
+              "fps": 5.4,
+              "frameMs": 27,
               "drawCalls": 93,
-              "triangles": 792738,
+              "triangles": 796938,
               "pixelRatio": 1,
               "shadows": 4096,
               "post": "full",
@@ -1534,7 +1582,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/cismigiu/ground-346f7986/winter-night/rowing-landing.jpg"
+            "image": "assets/spots/cismigiu/ground-9824fd56/winter-night/rowing-landing.jpg"
           },
           {
             "id": "writers-rotunda",
@@ -1542,8 +1590,8 @@
             "place": "cismigiu",
             "label": "Writers’ Rotunda · busts and garden path",
             "purpose": "Walking-height detail of the production scene.",
-            "capturedAt": "2026-11-12T19:52:30.130Z",
-            "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+            "capturedAt": "2026-11-13T05:35:01.799Z",
+            "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
             "viewport": {
               "width": 1280,
               "height": 800
@@ -1569,17 +1617,18 @@
                 "visibilityM": 1600,
                 "cloud": 1,
                 "season": "winter",
-                "updatedAt": 1794513149825,
+                "updatedAt": 1794548101173,
                 "climate": null
               },
               "date": "2026-01-15T21:00:00.000Z",
               "timeZone": "Europe/Bucharest",
               "sunElevation": -60.688225876300045,
               "nightLights": true,
+              "nightK": 1,
               "quality": "high"
             },
-            "sha256": "3763543bd4b6d2aada6d1e6ef81b7e0f048e76eb1b6fe236b5913b234c288cb2",
-            "bytes": 191064,
+            "sha256": "ace67f2c7bd2f4556d3c8edb967e62e3ef06bc428c7743429a440c277846b088",
+            "bytes": 191968,
             "pose": {
               "x": -144,
               "z": 27,
@@ -1595,9 +1644,10 @@
               "fov": 74
             },
             "cameraBodyClear": true,
+            "nightK": 1,
             "stats": {
-              "fps": 9.1,
-              "frameMs": 28.4,
+              "fps": 5.4,
+              "frameMs": 26.3,
               "drawCalls": 78,
               "triangles": 773393,
               "pixelRatio": 1,
@@ -1607,7 +1657,7 @@
               "auto": false,
               "level": 1
             },
-            "image": "assets/spots/cismigiu/ground-346f7986/winter-night/writers-rotunda.jpg"
+            "image": "assets/spots/cismigiu/ground-9824fd56/winter-night/writers-rotunda.jpg"
           }
         ]
       }
@@ -1619,8 +1669,8 @@
         "place": "cismigiu",
         "label": "Cișmigiu · garden approach and paths",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-12T19:52:27.146Z",
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "capturedAt": "2026-11-13T05:34:53.642Z",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -1646,17 +1696,18 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794513145653,
+            "updatedAt": 1794548089123,
             "climate": null
           },
           "date": "2026-07-15T09:00:00.000Z",
           "timeZone": "Europe/Bucharest",
           "sunElevation": 61.54205009846908,
           "nightLights": false,
+          "nightK": 0,
           "quality": "high"
         },
-        "sha256": "76ab5d2f2e28d72a889f39eac6e727a408d73921a81de3fe4a44a36b452371b3",
-        "bytes": 194783,
+        "sha256": "275e17f65553ebf4499f6437269b448f49eaaa4a2baa492db1d96fcf504b8399",
+        "bytes": 194716,
         "pose": {
           "x": 2,
           "z": -74,
@@ -1668,15 +1719,16 @@
           ],
           "heightAboveSupport": 1.65,
           "bearing": 200.55604521958347,
-          "pitch": -0.2445499841088054,
+          "pitch": -0.24454998410880543,
           "fov": 74
         },
         "cameraBodyClear": true,
+        "nightK": 0,
         "stats": {
-          "fps": 0.8,
-          "frameMs": 1252.2,
-          "drawCalls": 205,
-          "triangles": 1358843,
+          "fps": 0.25,
+          "frameMs": 4015.5,
+          "drawCalls": 185,
+          "triangles": 1363043,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -1684,7 +1736,7 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/cismigiu/ground-346f7986/summer-day/garden-entrance.jpg"
+        "image": "assets/spots/cismigiu/ground-9824fd56/summer-day/garden-entrance.jpg"
       },
       {
         "id": "backgammon",
@@ -1692,8 +1744,8 @@
         "place": "cismigiu",
         "label": "La Șahiști · backgammon table and Doru",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-12T19:52:27.188Z",
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "capturedAt": "2026-11-13T05:34:53.666Z",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -1719,17 +1771,18 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794513145653,
+            "updatedAt": 1794548089123,
             "climate": null
           },
           "date": "2026-07-15T09:00:00.000Z",
           "timeZone": "Europe/Bucharest",
           "sunElevation": 61.54205009846908,
           "nightLights": false,
+          "nightK": 0,
           "quality": "high"
         },
-        "sha256": "5e419b25ec09bf51dd14c43a96f2d11292d3e1b33418c8506bc4cba567fa801f",
-        "bytes": 189384,
+        "sha256": "67da218730c2b45944860cfac6dcd6f28798a93d28db885dd0fedbf4d7424934",
+        "bytes": 189345,
         "pose": {
           "x": -128.5,
           "z": 77.8,
@@ -1745,10 +1798,11 @@
           "fov": 64
         },
         "cameraBodyClear": true,
+        "nightK": 0,
         "stats": {
-          "fps": 0.8,
-          "frameMs": 254.9,
-          "drawCalls": 135,
+          "fps": 2,
+          "frameMs": 508,
+          "drawCalls": 131,
           "triangles": 1368233,
           "pixelRatio": 1,
           "shadows": 4096,
@@ -1757,7 +1811,7 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/cismigiu/ground-346f7986/summer-day/backgammon.jpg"
+        "image": "assets/spots/cismigiu/ground-9824fd56/summer-day/backgammon.jpg"
       },
       {
         "id": "rowing-landing",
@@ -1765,8 +1819,8 @@
         "place": "cismigiu",
         "label": "Debarcader · dry shore approach and rowing boat",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-12T19:52:27.221Z",
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "capturedAt": "2026-11-13T05:34:53.701Z",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -1792,13 +1846,14 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794513145653,
+            "updatedAt": 1794548089123,
             "climate": null
           },
           "date": "2026-07-15T09:00:00.000Z",
           "timeZone": "Europe/Bucharest",
           "sunElevation": 61.54205009846908,
           "nightLights": false,
+          "nightK": 0,
           "quality": "high"
         },
         "sha256": "7a5907b5a3f5089c39e7394024ac1b5bdf6288c166930e1e2116b81c5062f717",
@@ -1814,15 +1869,16 @@
           ],
           "heightAboveSupport": 1.65,
           "bearing": 67.06169082288812,
-          "pitch": -11.507972981100892,
+          "pitch": -11.507972981100894,
           "fov": 70
         },
         "cameraBodyClear": true,
+        "nightK": 0,
         "stats": {
-          "fps": 0.8,
-          "frameMs": 35.7,
-          "drawCalls": 163,
-          "triangles": 1367659,
+          "fps": 2,
+          "frameMs": 24.5,
+          "drawCalls": 159,
+          "triangles": 1376059,
           "pixelRatio": 1,
           "shadows": 4096,
           "post": "full",
@@ -1830,7 +1886,7 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/cismigiu/ground-346f7986/summer-day/rowing-landing.jpg"
+        "image": "assets/spots/cismigiu/ground-9824fd56/summer-day/rowing-landing.jpg"
       },
       {
         "id": "writers-rotunda",
@@ -1838,8 +1894,8 @@
         "place": "cismigiu",
         "label": "Writers’ Rotunda · busts and garden path",
         "purpose": "Walking-height detail of the production scene.",
-        "capturedAt": "2026-11-12T19:52:27.255Z",
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "capturedAt": "2026-11-13T05:34:53.728Z",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "viewport": {
           "width": 1280,
           "height": 800
@@ -1865,13 +1921,14 @@
             "visibilityM": 19500,
             "cloud": 0.1,
             "season": "summer",
-            "updatedAt": 1794513145653,
+            "updatedAt": 1794548089123,
             "climate": null
           },
           "date": "2026-07-15T09:00:00.000Z",
           "timeZone": "Europe/Bucharest",
           "sunElevation": 61.54205009846908,
           "nightLights": false,
+          "nightK": 0,
           "quality": "high"
         },
         "sha256": "c39aecadfb66e319230f5034b062369ab7f6c8ddf7ec654235971ace744c3bf6",
@@ -1891,10 +1948,11 @@
           "fov": 74
         },
         "cameraBodyClear": true,
+        "nightK": 0,
         "stats": {
-          "fps": 0.8,
-          "frameMs": 32.2,
-          "drawCalls": 119,
+          "fps": 2,
+          "frameMs": 33.9,
+          "drawCalls": 115,
           "triangles": 1329011,
           "pixelRatio": 1,
           "shadows": 4096,
@@ -1903,11 +1961,11 @@
           "auto": false,
           "level": 1
         },
-        "image": "assets/spots/cismigiu/ground-346f7986/summer-day/writers-rotunda.jpg"
+        "image": "assets/spots/cismigiu/ground-9824fd56/summer-day/writers-rotunda.jpg"
       }
     ],
-    "report": "assets/spots/cismigiu/ground-346f7986/manifest.json",
-    "reportSha256": "775f601e389ddc774dfde110cf1154bd02747e21867ccaba9135d4fc8c3998d5"
+    "report": "assets/spots/cismigiu/ground-9824fd56/manifest.json",
+    "reportSha256": "e703ee710fb58ea7db5562765f0c74e907f42ed5e693840cf1538b4a75642c35"
   },
   "historicalCollections": [
     {
@@ -3112,20 +3170,1222 @@
           "image": "assets/spots/cismigiu/ground-dc93023f/winter-night/writers-rotunda.jpg"
         }
       ]
+    },
+    {
+      "id": "visitor-gallery-346f7986",
+      "label": "Four-condition walking gallery before fidelity pass round 2",
+      "status": "historical",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededBy": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededAt": "2026-11-13T05:41:38.367Z",
+      "reason": "The scene changed in 94a177d5..9824fd56; these pictures show the earlier scene and keep their original source, dates and manifest.",
+      "notice": "4 matched walking-height viewpoints in each of four conditions, recaptured from game source 346f798 after the district fidelity pass. Open any picture at its original size.",
+      "setup": "Production app, scene, actors, lighting and renderer at High quality, 1280 × 800. Automatic animation was paused and explicit frames rendered at fixed on-foot cameras 1.65 m above their supporting surfaces. Local simulation dates and weather were controlled; capturedAt records the real capture time.",
+      "limitations": [
+        "Fixed on-foot appearance fixtures; cameras were positioned for inspection. These pictures do not establish a traversed route, activity completion, physical-phone behavior or hardware FPS.",
+        "Viewpoint ids, positions, look and field of view are those of the dc93023f gallery.",
+        "The captured High-quality frames reach 1,368,233 triangles / 205 draw calls.",
+        "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
+      ],
+      "conditionIds": [
+        "summer-day",
+        "summer-night",
+        "winter-day",
+        "winter-night"
+      ],
+      "viewpointIds": [
+        "garden-entrance",
+        "backgammon",
+        "rowing-landing",
+        "writers-rotunda"
+      ],
+      "reports": [
+        {
+          "label": "Original capture manifest",
+          "report": "assets/spots/cismigiu/ground-346f7986/manifest.json",
+          "sha256": "775f601e389ddc774dfde110cf1154bd02747e21867ccaba9135d4fc8c3998d5"
+        }
+      ],
+      "captures": [
+        {
+          "id": "garden-entrance",
+          "kind": "visit",
+          "place": "cismigiu",
+          "label": "Cișmigiu · garden approach and paths",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-12T19:52:27.146Z",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794513145653,
+              "climate": null
+            },
+            "date": "2026-07-15T09:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 61.54205009846908,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "76ab5d2f2e28d72a889f39eac6e727a408d73921a81de3fe4a44a36b452371b3",
+          "bytes": 194783,
+          "pose": {
+            "x": 2,
+            "z": -74,
+            "floor": 0.4012061059474945,
+            "eye": [
+              2,
+              2.0512061059474944,
+              -74
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 200.55604521958347,
+            "pitch": -0.2445499841088054,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.8,
+            "frameMs": 1252.2,
+            "drawCalls": 205,
+            "triangles": 1358843,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/cismigiu/ground-346f7986/summer-day/garden-entrance.jpg"
+        },
+        {
+          "id": "backgammon",
+          "kind": "visit",
+          "place": "cismigiu",
+          "label": "La Șahiști · backgammon table and Doru",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-12T19:52:27.188Z",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794513145653,
+              "climate": null
+            },
+            "date": "2026-07-15T09:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 61.54205009846908,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "5e419b25ec09bf51dd14c43a96f2d11292d3e1b33418c8506bc4cba567fa801f",
+          "bytes": 189384,
+          "pose": {
+            "x": -128.5,
+            "z": 77.8,
+            "floor": -0.007708792283665398,
+            "eye": [
+              -128.5,
+              1.6422912077163345,
+              77.8
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 301.21840276434625,
+            "pitch": -23.58160917527706,
+            "fov": 64
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.8,
+            "frameMs": 254.9,
+            "drawCalls": 135,
+            "triangles": 1368233,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/cismigiu/ground-346f7986/summer-day/backgammon.jpg"
+        },
+        {
+          "id": "rowing-landing",
+          "kind": "visit",
+          "place": "cismigiu",
+          "label": "Debarcader · dry shore approach and rowing boat",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-12T19:52:27.221Z",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794513145653,
+              "climate": null
+            },
+            "date": "2026-07-15T09:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 61.54205009846908,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "7a5907b5a3f5089c39e7394024ac1b5bdf6288c166930e1e2116b81c5062f717",
+          "bytes": 168218,
+          "pose": {
+            "x": -16.039442855671236,
+            "z": 100.80608662535704,
+            "floor": -0.17414771346622793,
+            "eye": [
+              -16.039442855671236,
+              1.475852286533772,
+              100.80608662535704
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 67.06169082288812,
+            "pitch": -11.507972981100892,
+            "fov": 70
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.8,
+            "frameMs": 35.7,
+            "drawCalls": 163,
+            "triangles": 1367659,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/cismigiu/ground-346f7986/summer-day/rowing-landing.jpg"
+        },
+        {
+          "id": "writers-rotunda",
+          "kind": "visit",
+          "place": "cismigiu",
+          "label": "Writers’ Rotunda · busts and garden path",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-12T19:52:27.255Z",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-day",
+            "label": "Summer · day",
+            "season": "summer",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "☀️",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794513145653,
+              "climate": null
+            },
+            "date": "2026-07-15T09:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 61.54205009846908,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "c39aecadfb66e319230f5034b062369ab7f6c8ddf7ec654235971ace744c3bf6",
+          "bytes": 163053,
+          "pose": {
+            "x": -144,
+            "z": 27,
+            "floor": -0.11165772750973701,
+            "eye": [
+              -144,
+              1.538342272490263,
+              27
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 237.52880770915164,
+            "pitch": 2.366906948249684,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 0.8,
+            "frameMs": 32.2,
+            "drawCalls": 119,
+            "triangles": 1329011,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/cismigiu/ground-346f7986/summer-day/writers-rotunda.jpg"
+        },
+        {
+          "id": "garden-entrance",
+          "kind": "visit",
+          "place": "cismigiu",
+          "label": "Cișmigiu · garden approach and paths",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-12T19:52:29.476Z",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794513147263,
+              "climate": null
+            },
+            "date": "2026-07-15T20:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -16.621291350918778,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "73d1543f61134b6d6ef245d794b2d263ae4792c85f78f03c01daf4225761b55d",
+          "bytes": 188988,
+          "pose": {
+            "x": 2,
+            "z": -74,
+            "floor": 0.4012061059474945,
+            "eye": [
+              2,
+              2.0512061059474944,
+              -74
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 200.55604521958347,
+            "pitch": -0.2445499841088054,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 2.2,
+            "frameMs": 1904.8,
+            "drawCalls": 153,
+            "triangles": 791099,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/cismigiu/ground-346f7986/summer-night/garden-entrance.jpg"
+        },
+        {
+          "id": "backgammon",
+          "kind": "visit",
+          "place": "cismigiu",
+          "label": "La Șahiști · backgammon table and Doru",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-12T19:52:29.498Z",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794513147263,
+              "climate": null
+            },
+            "date": "2026-07-15T20:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -16.621291350918778,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "4891d5c04619604dbb6a8cbe0d3996ff79c5dcf37890f9ba7800e32d90464394",
+          "bytes": 192470,
+          "pose": {
+            "x": -128.5,
+            "z": 77.8,
+            "floor": -0.007708792283665398,
+            "eye": [
+              -128.5,
+              1.6422912077163345,
+              77.8
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 301.21840276434625,
+            "pitch": -23.58160917527706,
+            "fov": 64
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 2.2,
+            "frameMs": 314.9,
+            "drawCalls": 80,
+            "triangles": 792617,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/cismigiu/ground-346f7986/summer-night/backgammon.jpg"
+        },
+        {
+          "id": "rowing-landing",
+          "kind": "visit",
+          "place": "cismigiu",
+          "label": "Debarcader · dry shore approach and rowing boat",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-12T19:52:29.524Z",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794513147263,
+              "climate": null
+            },
+            "date": "2026-07-15T20:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -16.621291350918778,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "d88ab81dc615ccc63b9bf443cfc41916d9ed893f49384f9289f5c6759d6defad",
+          "bytes": 183000,
+          "pose": {
+            "x": -16.039442855671236,
+            "z": 100.80608662535704,
+            "floor": -0.17414771346622793,
+            "eye": [
+              -16.039442855671236,
+              1.475852286533772,
+              100.80608662535704
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 67.06169082288812,
+            "pitch": -11.507972981100892,
+            "fov": 70
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 2.2,
+            "frameMs": 19.9,
+            "drawCalls": 109,
+            "triangles": 793868,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/cismigiu/ground-346f7986/summer-night/rowing-landing.jpg"
+        },
+        {
+          "id": "writers-rotunda",
+          "kind": "visit",
+          "place": "cismigiu",
+          "label": "Writers’ Rotunda · busts and garden path",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-12T19:52:29.553Z",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "summer-night",
+            "label": "Summer · night",
+            "season": "summer",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 0,
+              "kind": "clear",
+              "label": "Clear sky",
+              "icon": "🌙",
+              "tempC": 22,
+              "precipMm": 0,
+              "snowCm": 0,
+              "snowfallCm": 0,
+              "windKmh": 8,
+              "windDir": 270,
+              "visibilityM": 19500,
+              "cloud": 0.1,
+              "season": "summer",
+              "updatedAt": 1794513147263,
+              "climate": null
+            },
+            "date": "2026-07-15T20:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -16.621291350918778,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "b437f8492c2433e4f30b03e3254072a704423ea8d13c3080c36e2ecc55510333",
+          "bytes": 180646,
+          "pose": {
+            "x": -144,
+            "z": 27,
+            "floor": -0.11165772750973701,
+            "eye": [
+              -144,
+              1.538342272490263,
+              27
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 237.52880770915164,
+            "pitch": 2.366906948249684,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 2.2,
+            "frameMs": 29.2,
+            "drawCalls": 71,
+            "triangles": 773332,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/cismigiu/ground-346f7986/summer-night/writers-rotunda.jpg"
+        },
+        {
+          "id": "garden-entrance",
+          "kind": "visit",
+          "place": "cismigiu",
+          "label": "Cișmigiu · garden approach and paths",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-12T19:52:29.740Z",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794513149559,
+              "climate": null
+            },
+            "date": "2026-01-15T10:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 24.23245030272935,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "1d5e170428966b362e4dfe5eff1f63e58537bc59dd983e0903c38b4006222af2",
+          "bytes": 197875,
+          "pose": {
+            "x": 2,
+            "z": -74,
+            "floor": 0.4012061059474945,
+            "eye": [
+              2,
+              2.0512061059474944,
+              -74
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 200.55604521958347,
+            "pitch": -0.2445499841088054,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 9.1,
+            "frameMs": 161.8,
+            "drawCalls": 182,
+            "triangles": 1140245,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/cismigiu/ground-346f7986/winter-day/garden-entrance.jpg"
+        },
+        {
+          "id": "backgammon",
+          "kind": "visit",
+          "place": "cismigiu",
+          "label": "La Șahiști · backgammon table and Doru",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-12T19:52:29.767Z",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794513149559,
+              "climate": null
+            },
+            "date": "2026-01-15T10:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 24.23245030272935,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "b613bfe85234345731ac200568c520ab3280edc31a5d52b34df803d9720f7e47",
+          "bytes": 160015,
+          "pose": {
+            "x": -128.5,
+            "z": 77.8,
+            "floor": -0.007708792283665398,
+            "eye": [
+              -128.5,
+              1.6422912077163345,
+              77.8
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 301.21840276434625,
+            "pitch": -23.58160917527706,
+            "fov": 64
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 9.1,
+            "frameMs": 26.6,
+            "drawCalls": 131,
+            "triangles": 1163683,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/cismigiu/ground-346f7986/winter-day/backgammon.jpg"
+        },
+        {
+          "id": "rowing-landing",
+          "kind": "visit",
+          "place": "cismigiu",
+          "label": "Debarcader · dry shore approach and rowing boat",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-12T19:52:29.791Z",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794513149559,
+              "climate": null
+            },
+            "date": "2026-01-15T10:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 24.23245030272935,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "9b503cb763aaa984087772d4e4bb80958f7219b726991290376c00478d8a283f",
+          "bytes": 155104,
+          "pose": {
+            "x": -16.039442855671236,
+            "z": 100.80608662535704,
+            "floor": -0.17414771346622793,
+            "eye": [
+              -16.039442855671236,
+              1.475852286533772,
+              100.80608662535704
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 67.06169082288812,
+            "pitch": -11.507972981100892,
+            "fov": 70
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 9.1,
+            "frameMs": 27.4,
+            "drawCalls": 146,
+            "triangles": 1141761,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/cismigiu/ground-346f7986/winter-day/rowing-landing.jpg"
+        },
+        {
+          "id": "writers-rotunda",
+          "kind": "visit",
+          "place": "cismigiu",
+          "label": "Writers’ Rotunda · busts and garden path",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-12T19:52:29.819Z",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-day",
+            "label": "Winter · day",
+            "season": "winter",
+            "period": "day",
+            "hour": 12,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794513149559,
+              "climate": null
+            },
+            "date": "2026-01-15T10:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": 24.23245030272935,
+            "nightLights": false,
+            "quality": "high"
+          },
+          "sha256": "c3864f85d00e8431f22d78b6148e67f24fbf65199fd24dcc78139ae9e6123be7",
+          "bytes": 142486,
+          "pose": {
+            "x": -144,
+            "z": 27,
+            "floor": -0.11165772750973701,
+            "eye": [
+              -144,
+              1.538342272490263,
+              27
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 237.52880770915164,
+            "pitch": 2.366906948249684,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 9.1,
+            "frameMs": 24.1,
+            "drawCalls": 120,
+            "triangles": 1123297,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/cismigiu/ground-346f7986/winter-day/writers-rotunda.jpg"
+        },
+        {
+          "id": "garden-entrance",
+          "kind": "visit",
+          "place": "cismigiu",
+          "label": "Cișmigiu · garden approach and paths",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-12T19:52:30.042Z",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794513149825,
+              "climate": null
+            },
+            "date": "2026-01-15T21:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -60.688225876300045,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "c94a3ab8086a0c26876b0ab43ddcd1b9fd497895f8807af03423db891e352d06",
+          "bytes": 226964,
+          "pose": {
+            "x": 2,
+            "z": -74,
+            "floor": 0.4012061059474945,
+            "eye": [
+              2,
+              2.0512061059474944,
+              -74
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 200.55604521958347,
+            "pitch": -0.2445499841088054,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 9.1,
+            "frameMs": 167.3,
+            "drawCalls": 133,
+            "triangles": 789725,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/cismigiu/ground-346f7986/winter-night/garden-entrance.jpg"
+        },
+        {
+          "id": "backgammon",
+          "kind": "visit",
+          "place": "cismigiu",
+          "label": "La Șahiști · backgammon table and Doru",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-12T19:52:30.068Z",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794513149825,
+              "climate": null
+            },
+            "date": "2026-01-15T21:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -60.688225876300045,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "530707a534e889bf98e2d3a3c9b737ed5745a67cbc38172813d9e44a683ad892",
+          "bytes": 185696,
+          "pose": {
+            "x": -128.5,
+            "z": 77.8,
+            "floor": -0.007708792283665398,
+            "eye": [
+              -128.5,
+              1.6422912077163345,
+              77.8
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 301.21840276434625,
+            "pitch": -23.58160917527706,
+            "fov": 64
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 9.1,
+            "frameMs": 56.9,
+            "drawCalls": 81,
+            "triangles": 792617,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/cismigiu/ground-346f7986/winter-night/backgammon.jpg"
+        },
+        {
+          "id": "rowing-landing",
+          "kind": "visit",
+          "place": "cismigiu",
+          "label": "Debarcader · dry shore approach and rowing boat",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-12T19:52:30.096Z",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794513149825,
+              "climate": null
+            },
+            "date": "2026-01-15T21:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -60.688225876300045,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "1b149c17287196eb5c740736ffb19d144755cffa285d119ccbb13b75df5a71b6",
+          "bytes": 203141,
+          "pose": {
+            "x": -16.039442855671236,
+            "z": 100.80608662535704,
+            "floor": -0.17414771346622793,
+            "eye": [
+              -16.039442855671236,
+              1.475852286533772,
+              100.80608662535704
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 67.06169082288812,
+            "pitch": -11.507972981100892,
+            "fov": 70
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 9.1,
+            "frameMs": 26,
+            "drawCalls": 93,
+            "triangles": 792738,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/cismigiu/ground-346f7986/winter-night/rowing-landing.jpg"
+        },
+        {
+          "id": "writers-rotunda",
+          "kind": "visit",
+          "place": "cismigiu",
+          "label": "Writers’ Rotunda · busts and garden path",
+          "purpose": "Walking-height detail of the production scene.",
+          "capturedAt": "2026-11-12T19:52:30.130Z",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "condition": {
+            "id": "winter-night",
+            "label": "Winter · night",
+            "season": "winter",
+            "period": "night",
+            "hour": 23,
+            "weather": {
+              "source": "override",
+              "code": 73,
+              "kind": "snow",
+              "label": "Snow",
+              "icon": "🌨️",
+              "tempC": -2,
+              "precipMm": 0.8,
+              "snowCm": 12,
+              "snowfallCm": 0.6,
+              "windKmh": 12,
+              "windDir": 330,
+              "visibilityM": 1600,
+              "cloud": 1,
+              "season": "winter",
+              "updatedAt": 1794513149825,
+              "climate": null
+            },
+            "date": "2026-01-15T21:00:00.000Z",
+            "timeZone": "Europe/Bucharest",
+            "sunElevation": -60.688225876300045,
+            "nightLights": true,
+            "quality": "high"
+          },
+          "sha256": "3763543bd4b6d2aada6d1e6ef81b7e0f048e76eb1b6fe236b5913b234c288cb2",
+          "bytes": 191064,
+          "pose": {
+            "x": -144,
+            "z": 27,
+            "floor": -0.11165772750973701,
+            "eye": [
+              -144,
+              1.538342272490263,
+              27
+            ],
+            "heightAboveSupport": 1.65,
+            "bearing": 237.52880770915164,
+            "pitch": 2.366906948249684,
+            "fov": 74
+          },
+          "cameraBodyClear": true,
+          "stats": {
+            "fps": 9.1,
+            "frameMs": 28.4,
+            "drawCalls": 78,
+            "triangles": 773393,
+            "pixelRatio": 1,
+            "shadows": 4096,
+            "post": "full",
+            "quality": "high",
+            "auto": false,
+            "level": 1
+          },
+          "image": "assets/spots/cismigiu/ground-346f7986/winter-night/writers-rotunda.jpg"
+        }
+      ]
     }
   ],
   "visitorGalleryRecapture": {
-    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-    "assembledAt": "2026-11-12T20:03:08.418Z",
-    "passRange": "332ae423..346f7986",
-    "sceneCommits": [
-      "f9787fa85ddbe6d4e9dd6b5eb9fedbb1fa436440",
-      "c59429ae3a2613f38d9668c00d81ba177b2cd69e"
-    ],
-    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes.",
+    "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+    "assembledAt": "2026-11-13T05:41:38.367Z",
+    "passRange": "94a177d5..9824fd56",
+    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted).",
     "sourceVerification": {
-      "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
-      "checkedAt": "2026-11-12T20:03:08.417Z"
+      "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+      "checkedAt": "2026-11-13T05:41:38.367Z"
     }
   }
 }

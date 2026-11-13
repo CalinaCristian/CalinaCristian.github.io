@@ -1,0 +1,139 @@
+{
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r06-c05",
+    "aerial-r10-c09",
+    "aerial-r11-c09",
+    "aerial-r05-c04",
+    "aerial-r01-c03",
+    "aerial-r01-c04",
+    "aerial-r01-c05",
+    "aerial-r02-c02",
+    "aerial-r03-c01",
+    "aerial-r04-c01",
+    "aerial-r05-c01",
+    "aerial-r11-c12",
+    "aerial-r12-c12",
+    "aerial-r14-c08",
+    "aerial-r14-c09",
+    "aerial-r14-c10"
+  ],
+  "reviewedAt": "2026-11-13T05:49:20.060Z",
+  "method": "Published game capture, a 94a177d5 render and the 9824fd56 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r06-c05",
+      "originalGameSha256": "a01bb57659f33f6b1f55078596cd5556b7f477106eb403776d27dd920ac247a7",
+      "originalGameSourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+      "retakeGameSha256": "5235c5eea129c4ca15ce529d6ccaba60c23975678ec591bd6d2b0f714eba83e1",
+      "observation": "Piața Victoriei centre paved (was lawn)"
+    },
+    {
+      "id": "aerial-r10-c09",
+      "originalGameSha256": "2ccd699f5848ff26323fb9fa8ad0569f398c4c37d074c6844c387f44d1296ed1",
+      "originalGameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "retakeGameSha256": "75fdceccdde0e7f9521021347fffe46b75700bbde4547249687b4bd73ac9be3c",
+      "observation": "ARO tower and Hotel Ambasador models redrawn"
+    },
+    {
+      "id": "aerial-r11-c09",
+      "originalGameSha256": "44d113a2b512d78493a0cce51d52a522928af234cf7bdae559500476b6b747ef",
+      "originalGameSourceCommit": "8add95f35681eddaf01a136ff1f5769a5329b102",
+      "retakeGameSha256": "6ef801f197d73664c9f85cf48e1d57f675ca4aa31b041bdd3beab5b294d0eb55",
+      "observation": "Royal Palace model redrawn (pale stone fronts)"
+    },
+    {
+      "id": "aerial-r05-c04",
+      "originalGameSha256": "ef1c5119f75125c25115c261b2099257c4ab89c2f601ba6742a5b1b6086eaf28",
+      "originalGameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "retakeGameSha256": "75e8a752759b77f79aa17788e963631d4827c88a1cc2399347c6fcc8248158d1",
+      "observation": "building model redrawn with its own roof edge and courtyard fronts"
+    },
+    {
+      "id": "aerial-r01-c03",
+      "originalGameSha256": "c5ac9b8e3df4d0effeb799f886cfe9898a26ca731a4137a641182b27640a468c",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "507289aa1cb751fd16c694c1dda66cb50db703f9298b5ffcdc1e70295c2cf914",
+      "observation": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r01-c04",
+      "originalGameSha256": "0514ecd5d432dedb24d983452c0bc72141925fba1ad7096072ca538faed3e866",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "d99d369ac85e44617bc600e12434ac3e77ef1a18ee617b127a0143713acf1617",
+      "observation": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r01-c05",
+      "originalGameSha256": "302cf56d2d330f4c5e707072382078103579b06735a23ff0daae2e56abff9839",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "d3505a4adae73f831eb2a317b17a4901778812f44d45d04eb284d279cbfbd7d6",
+      "observation": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r02-c02",
+      "originalGameSha256": "8f23640919a098043725d8db19db653046c1449d9aba0d4778350ccbf009a2fc",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "7f6f8dc2ad564dd2daf06391f0477b8044b7d75cbb7609edcd85fa149d5a62fa",
+      "observation": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r03-c01",
+      "originalGameSha256": "0dbdf2ab00943121dcc744ba1f7ffa9ca1d0b9e1f2996f94c9082ca856741883",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "c24d7df25704cced9805b3f253ec2cab8ad83a1db1282f518cadfae3a11cf34f",
+      "observation": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r04-c01",
+      "originalGameSha256": "b197ffd1f97e305dfda43f2b584dd1f7e01c14a95d02767b21f9c750fe24fa25",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "9b4641731acd72a65aea18329d572183a19374c47033dd2f942c59805ff9ae96",
+      "observation": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r05-c01",
+      "originalGameSha256": "b8336f33db7d20cf31861a5100b493cfac242ba210a3c150de0d45ec87a5e532",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "b3520033b96c3f48e6b22229f1d07a5e49e748654b98b2a477747af54663912c",
+      "observation": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r11-c12",
+      "originalGameSha256": "d0bb8337ebe9ac33a765f192718dc754126692f011f89e8e157ce22f4bd1f4be",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "ee0aec672cd7da58e0d5d83721fbf4fe94a83b43667ad242409306d9ba8b7c1f",
+      "observation": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r12-c12",
+      "originalGameSha256": "ef0e1d50e7823c033d6d890ca9573ceccfc69c080871f9b7fae1989594a32fa9",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "9d01157ef1bc28c2ad66d0bd765e52073a2e2b58dc833fdfba998eb671aae8c3",
+      "observation": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r14-c08",
+      "originalGameSha256": "2557af192474400dae850580c43b653b42f4d698ae09f3289c370dc920587d1f",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "a18ef5148dd3207954f77aafad6942875a62560167cc642801d602d700f90b98",
+      "observation": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r14-c09",
+      "originalGameSha256": "45178bcd491ca8a14c0b15eccfef4b573811cd1a5fe7067cf2aa5734bd4c779f",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "dcc0d5b0095712c9d325e0062c565c0b9e3872175d4c3fa69f77b55b53e3f904",
+      "observation": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    },
+    {
+      "id": "aerial-r14-c10",
+      "originalGameSha256": "8856121e4a705c7cb8c99cdd1fe026198d50d3f8eeef0fa4805796e1c9dbe6bc",
+      "originalGameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "retakeGameSha256": "3e7118103628c8081c188421a694e2071513b62281a030d6dad56e6420a7fdd8",
+      "observation": "far background boxes differ from the 2026-11-08 capture (left unpublished in round 1 because the 346f7986 render showed bare ground; restored after 01248118)"
+    }
+  ]
+}

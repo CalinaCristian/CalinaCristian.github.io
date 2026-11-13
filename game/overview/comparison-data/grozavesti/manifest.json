@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "Grozavesti aerial comparisons",
-  "generatedDate": "2026-11-12",
-  "generatedAt": "2026-11-12T19:48:10.868Z",
+  "generatedDate": "2026-11-13",
+  "generatedAt": "2026-11-13T05:28:07.148Z",
   "defaultTile": "aerial-r04-c08",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -252,19 +252,19 @@
         500,
         -1500
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 70,
-        "triangles": 259703,
-        "renderMs": 9.300000000745058,
+        "drawCalls": 78,
+        "triangles": 206511,
+        "renderMs": 3.3999999910593033,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -274,23 +274,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:55:11.289Z",
-      "gamePath": "images/aerial-r01-c08.jpg",
-      "image": "images/aerial-r01-c08.jpg",
-      "thumbnail": "thumbs/aerial-r01-c08.jpg",
-      "sha256": "4a17b4392fd4c686c839890d74f981a14d0025be45de27f41a3980ff69a0ba1d",
+      "capturedAt": "2026-11-13T05:27:23.502Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r01-c08.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r01-c08.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r01-c08.jpg",
+      "sha256": "7f019c3e054c529ab1f521cf171779a559bc79076b510e6fbdbea5a193103bfc",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7846,
+      "captureWallMs": 528,
       "dataset": "atlas",
-      "thumbnailSha256": "6a5ec7180ca22fcafc7e5095abdc3a13b7883caca321deceb767a9850db953aa",
+      "thumbnailSha256": "63798710e46f52820e138df3fd761a175ddf79c2813d08b0b5daa53b7a0fdeaf",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.45469746247706,
         26.06234548212785,
         44.45694703955657,
         26.065490964255698
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)); prior collection archived."
     },
     {
       "id": "aerial-r01-c09",
@@ -315,19 +317,19 @@
         750,
         -1500
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 69,
-        "triangles": 235424,
-        "renderMs": 27.899999998509884,
+        "drawCalls": 83,
+        "triangles": 265672,
+        "renderMs": 1.2999999970197678,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -337,23 +339,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:55:19.136Z",
-      "gamePath": "images/aerial-r01-c09.jpg",
-      "image": "images/aerial-r01-c09.jpg",
-      "thumbnail": "thumbs/aerial-r01-c09.jpg",
-      "sha256": "9e11f62e74c6be70f7b00103e52e7f42347b2b9b0c8dfc836eaffac0764ac54a",
+      "capturedAt": "2026-11-13T05:27:24.031Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r01-c09.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r01-c09.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r01-c09.jpg",
+      "sha256": "f02b4588c8041924b0987c5ada6e0a07d477344f8ad6a4a23bd59f200297924c",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5362,
+      "captureWallMs": 427,
       "dataset": "atlas",
-      "thumbnailSha256": "8ed2e1b42a67846725727d5a9742442951923329cf046aaf09db1253e283fb68",
+      "thumbnailSha256": "c50b3b6ce4cb45c09974a2ecf30dfdc538a748408493c1ca07c00bcd76463f4e",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.45469746247706,
         26.065490964255698,
         44.45694703955657,
         26.068636446383543
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)); prior collection archived."
     },
     {
       "id": "aerial-r01-c10",
@@ -378,19 +382,19 @@
         1000,
         -1500
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 51,
-        "triangles": 175299,
-        "renderMs": 8.699999999254942,
+        "drawCalls": 89,
+        "triangles": 300036,
+        "renderMs": 2.300000011920929,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -400,23 +404,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:55:24.498Z",
-      "gamePath": "images/aerial-r01-c10.jpg",
-      "image": "images/aerial-r01-c10.jpg",
-      "thumbnail": "thumbs/aerial-r01-c10.jpg",
-      "sha256": "d2c105a24d16bd80dbd05b023e1fa8d3038b032bf633bb9f0322cb231599ab6c",
+      "capturedAt": "2026-11-13T05:27:24.459Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r01-c10.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r01-c10.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r01-c10.jpg",
+      "sha256": "77b00f85ce8d9706d5f020b848fade30dccc5add068291f493cbfbb1a33f99c2",
       "width": 640,
       "height": 640,
-      "captureWallMs": 4113,
+      "captureWallMs": 617,
       "dataset": "atlas",
-      "thumbnailSha256": "0eccbf285a8639927ccaf063c884eee3006962a88643a689be196fa03046f9ed",
+      "thumbnailSha256": "5da85332e5dad5d101560acc2624f28c0294bbb65fcb0add5ac20b2f458c6db2",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.45469746247706,
         26.068636446383543,
         44.45694703955657,
         26.071781928511392
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)); prior collection archived."
     },
     {
       "id": "aerial-r02-c05",
@@ -504,19 +510,19 @@
         0,
         -1250
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 74,
-        "triangles": 293758,
-        "renderMs": 23.5,
+        "drawCalls": 77,
+        "triangles": 193407,
+        "renderMs": 1.800000011920929,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -526,23 +532,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:55:33.933Z",
-      "gamePath": "images/aerial-r02-c06.jpg",
-      "image": "images/aerial-r02-c06.jpg",
-      "thumbnail": "thumbs/aerial-r02-c06.jpg",
-      "sha256": "ddcf037e35028e29d6bc8b59984eb65d3b4a677bcd282ca4f7faad2ebfb68ec4",
+      "capturedAt": "2026-11-13T05:27:25.387Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r02-c06.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r02-c06.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r02-c06.jpg",
+      "sha256": "c3af67b97d1ff0174a8b2d387ac14452fc836a7c039075d39652ffa599969e81",
       "width": 640,
       "height": 640,
-      "captureWallMs": 6151,
+      "captureWallMs": 365,
       "dataset": "atlas",
-      "thumbnailSha256": "77b8a09a4882fca3391cafa79a2d498fd5e284992a521400879620c10d00af97",
+      "thumbnailSha256": "6c9a87fce051b70363dfd728fab95d583b8f54c7e39c3fed380eab2a4cb190ef",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.45244788539755,
         26.056054517872152,
         44.45469746247706,
         26.0592
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)); prior collection archived."
     },
     {
       "id": "aerial-r02-c07",
@@ -567,19 +575,19 @@
         250,
         -1250
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 86,
-        "triangles": 414771,
-        "renderMs": 8.900000002235174,
+        "drawCalls": 89,
+        "triangles": 285084,
+        "renderMs": 2.5,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -589,23 +597,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:55:40.084Z",
-      "gamePath": "images/aerial-r02-c07.jpg",
-      "image": "images/aerial-r02-c07.jpg",
-      "thumbnail": "thumbs/aerial-r02-c07.jpg",
-      "sha256": "99470e1ca43d1c56c75532235c2ddd05ce47e9b2c8454184e07b1cdbbfef854b",
+      "capturedAt": "2026-11-13T05:27:25.752Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r02-c07.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r02-c07.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r02-c07.jpg",
+      "sha256": "5e1134cb4c9fdc98d0a377d8770ac5c1750f1d2fe7e01a7b18fbb3056893b8c8",
       "width": 640,
       "height": 640,
-      "captureWallMs": 6685,
+      "captureWallMs": 388,
       "dataset": "atlas",
-      "thumbnailSha256": "06e26786af0e6c17b136fa4455e2e2a897a8c3d3b7351a570bdc22fadaef3e9d",
+      "thumbnailSha256": "a84b6c9de8b1bfc1b70a42533f9bfe27c3efb276b61e78c50b7db8c55daa558c",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.45244788539755,
         26.0592,
         44.45469746247706,
         26.06234548212785
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)); prior collection archived."
     },
     {
       "id": "aerial-r02-c08",
@@ -819,19 +829,19 @@
         1250,
         -1250
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 59,
-        "triangles": 197045,
-        "renderMs": 18.399999998509884,
+        "drawCalls": 98,
+        "triangles": 458821,
+        "renderMs": 1.5999999940395355,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -841,23 +851,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:56:11.632Z",
-      "gamePath": "images/aerial-r02-c11.jpg",
-      "image": "images/aerial-r02-c11.jpg",
-      "thumbnail": "thumbs/aerial-r02-c11.jpg",
-      "sha256": "f2e1a99d1fdffdc5c92e1ee1b617b43141ebc219e8cf8dc60abef5028b8077d4",
+      "capturedAt": "2026-11-13T05:27:27.544Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r02-c11.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r02-c11.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r02-c11.jpg",
+      "sha256": "4304e7cf80f20304087e293de6eae214890f583812b0fc4532e1ae8cb46f4ab9",
       "width": 640,
       "height": 640,
-      "captureWallMs": 4796,
+      "captureWallMs": 826,
       "dataset": "atlas",
-      "thumbnailSha256": "c783f61bcc89ae4a36371bab83804f255b35c130bfccf6ed10e39598f1fa04f9",
+      "thumbnailSha256": "7c2381aeca45063b94a9a90526db6d691b271ce17aba3ddd8c8aa3f6c986998c",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.45244788539755,
         26.071781928511392,
         44.45469746247706,
         26.07492741063924
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)); prior collection archived."
     },
     {
       "id": "aerial-r03-c04",
@@ -1260,19 +1272,19 @@
         1000,
         -1000
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 100,
-        "triangles": 483925,
-        "renderMs": 7.100000001490116,
+        "drawCalls": 122,
+        "triangles": 667710,
+        "renderMs": 2.2999999970197678,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -1282,23 +1294,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:57:14.182Z",
-      "gamePath": "images/aerial-r03-c10.jpg",
-      "image": "images/aerial-r03-c10.jpg",
-      "thumbnail": "thumbs/aerial-r03-c10.jpg",
-      "sha256": "ab059230e22c4dcd8bf1206e1478f2ffb0ae9a77db5f0af90fe70786bd714d41",
+      "capturedAt": "2026-11-13T05:27:31.126Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r03-c10.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r03-c10.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r03-c10.jpg",
+      "sha256": "17cf0ac5b1abb0be26a8ec76edd818c760cadaab1adc00a446e80139f3fecadf",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7508,
+      "captureWallMs": 600,
       "dataset": "atlas",
-      "thumbnailSha256": "a5794fbc999db571c10d7056676da8ce8da1f2cab73a9368b11cd5614f8a4d7e",
+      "thumbnailSha256": "27bd8252ab8b230f2fde46e7ebbc69680edd17429b2ce89869097f4ebc588551",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.450198308318036,
         26.068636446383543,
         44.45244788539755,
         26.071781928511392
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)); prior collection archived."
     },
     {
       "id": "aerial-r03-c11",
@@ -1323,19 +1337,19 @@
         1250,
         -1000
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 87,
-        "triangles": 379539,
-        "renderMs": 10.899999998509884,
+        "drawCalls": 112,
+        "triangles": 543215,
+        "renderMs": 4.5,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -1345,23 +1359,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:57:21.691Z",
-      "gamePath": "images/aerial-r03-c11.jpg",
-      "image": "images/aerial-r03-c11.jpg",
-      "thumbnail": "thumbs/aerial-r03-c11.jpg",
-      "sha256": "6b59080c1662ade34748434896fa6fd33b8a4b8c7fd2f7e64154d387d43561b2",
+      "capturedAt": "2026-11-13T05:27:31.727Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r03-c11.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r03-c11.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r03-c11.jpg",
+      "sha256": "09c9eb04cb07e1a920154f5d382b9a4bb7f1875d79510979f37fcaa428e1512f",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7016,
+      "captureWallMs": 548,
       "dataset": "atlas",
-      "thumbnailSha256": "53fede762297e78e3e13b638b0a79af017e980f3f785e7c3ae39aab71683a10d",
+      "thumbnailSha256": "4e7eac8d288039fed810eff765fb7f63e587bf23fdb4d50cb68a533804537c71",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.450198308318036,
         26.071781928511392,
         44.45244788539755,
         26.07492741063924
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)); prior collection archived."
     },
     {
       "id": "aerial-r04-c04",
@@ -1386,19 +1402,19 @@
         -500,
         -750
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 78,
-        "triangles": 274544,
-        "renderMs": 7.100000001490116,
+        "drawCalls": 81,
+        "triangles": 227253,
+        "renderMs": 0.9000000059604645,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -1408,23 +1424,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:57:28.709Z",
-      "gamePath": "images/aerial-r04-c04.jpg",
-      "image": "images/aerial-r04-c04.jpg",
-      "thumbnail": "thumbs/aerial-r04-c04.jpg",
-      "sha256": "4aac591373bc5662183cdbc1bfbf955d772e72548a43a07f0d5f6d25fd333dbf",
+      "capturedAt": "2026-11-13T05:27:32.276Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r04-c04.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r04-c04.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r04-c04.jpg",
+      "sha256": "be31693f16dbd47b666e0130566e30162764f483ae5dd4e5f28be32e2b829fdb",
       "width": 640,
       "height": 640,
-      "captureWallMs": 6181,
+      "captureWallMs": 382,
       "dataset": "atlas",
-      "thumbnailSha256": "bd19af58ed1717c114522961b42f4f4d39d719bdd755a7cfb143b0ce61153d5b",
+      "thumbnailSha256": "c665c1aeaa541d3fb6989071082a8168b04595d0da28cf94d8b06e8bffc188a7",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.447948731238526,
         26.049763553616458,
         44.450198308318036,
         26.052909035744303
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)); prior collection archived."
     },
     {
       "id": "aerial-r04-c05",
@@ -1512,19 +1530,19 @@
         0,
         -750
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 99,
-        "triangles": 579639,
-        "renderMs": 2.699999999254942,
+        "drawCalls": 100,
+        "triangles": 354652,
+        "renderMs": 1.2000000029802322,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -1534,23 +1552,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:57:43.229Z",
-      "gamePath": "images/aerial-r04-c06.jpg",
-      "image": "images/aerial-r04-c06.jpg",
-      "thumbnail": "thumbs/aerial-r04-c06.jpg",
-      "sha256": "3027bb1f67fb97dea10685972f354bb4e8b01949cda1d13330c1e83e78dfc873",
+      "capturedAt": "2026-11-13T05:27:33.076Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r04-c06.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r04-c06.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r04-c06.jpg",
+      "sha256": "3a6febfc685af69994f6e2b704fd53c338a8e0dc6fa0ab2f6e3b921d61b8e91c",
       "width": 640,
       "height": 640,
-      "captureWallMs": 10537,
+      "captureWallMs": 420,
       "dataset": "atlas",
-      "thumbnailSha256": "2d74b687681128f6b98ee76485f5e679f1a1b750f9a6ec7e0fcbf8281add9d8b",
+      "thumbnailSha256": "635d819c5406f3391df010f23ce093ef88be3effd0117f0810152419be8819e2",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.447948731238526,
         26.056054517872152,
         44.450198308318036,
         26.0592
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)); prior collection archived."
     },
     {
       "id": "aerial-r04-c07",
@@ -1638,19 +1658,19 @@
         500,
         -750
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 102,
-        "triangles": 682290,
-        "renderMs": 6.699999999254942,
+        "drawCalls": 105,
+        "triangles": 620892,
+        "renderMs": 1,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -1660,23 +1680,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:58:02.015Z",
-      "gamePath": "images/aerial-r04-c08.jpg",
-      "image": "images/aerial-r04-c08.jpg",
-      "thumbnail": "thumbs/aerial-r04-c08.jpg",
-      "sha256": "3a510379fe42862e0d204eaf97865308166d3e346fdd5c12bbedbbe3b55568b2",
+      "capturedAt": "2026-11-13T05:27:33.923Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r04-c08.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r04-c08.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r04-c08.jpg",
+      "sha256": "c47ed8e1a2158bf134d63075a13d3a5b162286c62752da737b18bcffcb7f071e",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8002,
+      "captureWallMs": 541,
       "dataset": "atlas",
-      "thumbnailSha256": "2e8ab80fd3b2868c884d7133f8a4a584d5596976d432105e58c2fdb70a81e326",
+      "thumbnailSha256": "ae7b6575e80ce2a14af2db2f8cbe73826c3adcbe32ab17dc0fe0867f53ff8ceb",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.447948731238526,
         26.06234548212785,
         44.450198308318036,
         26.065490964255698
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)); prior collection archived."
     },
     {
       "id": "aerial-r04-c09",
@@ -1701,19 +1723,19 @@
         750,
         -750
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 100,
-        "triangles": 627666,
-        "renderMs": 6.199999999254942,
+        "drawCalls": 116,
+        "triangles": 720019,
+        "renderMs": 2.7000000029802322,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -1723,23 +1745,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T21:58:10.019Z",
-      "gamePath": "images/aerial-r04-c09.jpg",
-      "image": "images/aerial-r04-c09.jpg",
-      "thumbnail": "thumbs/aerial-r04-c09.jpg",
-      "sha256": "996c42f6b7e68c50090b49974799f2008c6948a0838c9fb0827eabd0d2bcef23",
+      "capturedAt": "2026-11-13T05:27:34.465Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r04-c09.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r04-c09.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r04-c09.jpg",
+      "sha256": "5bd4d57b50e8d5da669c7fed9cbf6318d99e6db4c8bb3a4af68666d36c103609",
       "width": 640,
       "height": 640,
-      "captureWallMs": 4855,
+      "captureWallMs": 547,
       "dataset": "atlas",
-      "thumbnailSha256": "cc20964d8256cc76a815f996ee4f1f78ab4e7bf1a9c8174b125366e8099e3cd3",
+      "thumbnailSha256": "1fd3bc01fdbe15c3a4fcb40dc40cfcf0e211c4311c3240dd9e3836796cfe9278",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.447948731238526,
         26.065490964255698,
         44.450198308318036,
         26.068636446383543
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (elevated road deck and buildings redrawn)); prior collection archived."
     },
     {
       "id": "aerial-r04-c10",
@@ -1890,19 +1914,19 @@
         -500,
         -500
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 82,
-        "triangles": 243647,
-        "renderMs": 137.30000000447035,
+        "drawCalls": 87,
+        "triangles": 282631,
+        "renderMs": 1.0999999940395355,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -1912,16 +1936,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:37:55.533Z",
-      "gamePath": "images/aerial-r05-c04.jpg",
-      "image": "images/aerial-r05-c04.jpg",
-      "thumbnail": "thumbs/aerial-r05-c04.jpg",
-      "sha256": "8934d6f60b6cba13e5a14644a3ac3d738a225d440710f4b7f0f9df8e8add73c5",
+      "capturedAt": "2026-11-13T05:27:35.843Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r05-c04.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r05-c04.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r05-c04.jpg",
+      "sha256": "ff07780ffd1ec83d32c0ea72af8baf8cbc581433c7cfa8fca1028c6c3b594755",
       "width": 640,
       "height": 640,
-      "captureWallMs": 9497,
+      "captureWallMs": 391,
       "dataset": "atlas",
-      "thumbnailSha256": "f68554adcb82b7c36c736857f1be20f17c2e5c04829b7db9da40f8db192eba27",
+      "thumbnailSha256": "5cf10b6ba3b4a68c364fa14b70b9b3cbd89c747940e01ecaf8d4251dfe660513",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.44569915415902,
@@ -1929,8 +1953,8 @@
         44.447948731238526,
         26.052909035744303
       ],
-      "sourceCaptureManifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
-      "sourceNote": "Exact-pose scoped retake; full prior mixed atlas archived byte-identically."
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published bbaffc0d capture predates later data/model changes; the current render visibly differs (building models changed)); prior collection archived."
     },
     {
       "id": "aerial-r05-c05",
@@ -2467,19 +2491,19 @@
         -750,
         -250
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 89,
-        "triangles": 243569,
-        "renderMs": 7.200000002980232,
+        "drawCalls": 92,
+        "triangles": 246650,
+        "renderMs": 1,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -2489,16 +2513,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:38:16.561Z",
-      "gamePath": "images/aerial-r06-c03.jpg",
-      "image": "images/aerial-r06-c03.jpg",
-      "thumbnail": "thumbs/aerial-r06-c03.jpg",
-      "sha256": "880224fd61995cdfbfb386c34dba47b74bbc88f854443914dcad2abb1ec27c39",
+      "capturedAt": "2026-11-13T05:27:39.974Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c03.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c03.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r06-c03.jpg",
+      "sha256": "674ea7a92ca8e319963307e6a52eb3ace8683e38c7c1b18098dd5de1a61dc44f",
       "width": 640,
       "height": 640,
-      "captureWallMs": 2152,
+      "captureWallMs": 384,
       "dataset": "atlas",
-      "thumbnailSha256": "ae34b9ffd2ec6f22069709d2596ed72cfa2338e98894e8118ee6149c37cc5c1e",
+      "thumbnailSha256": "2c81fa5ae82534c8b62f77b70e0df4e34a17193e28f5bb05fdbf30d8523b551d",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.44344957707951,
@@ -2506,8 +2530,8 @@
         44.44569915415902,
         26.049763553616458
       ],
-      "sourceCaptureManifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
-      "sourceNote": "Exact-pose scoped retake; full prior mixed atlas archived byte-identically."
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (Dâmbovița water level and bank edges redrawn); prior collection archived."
     },
     {
       "id": "aerial-r06-c04",
@@ -2532,19 +2556,19 @@
         -500,
         -250
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 88,
-        "triangles": 330995,
-        "renderMs": 5.699999995529652,
+        "drawCalls": 92,
+        "triangles": 353335,
+        "renderMs": 1.2000000029802322,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -2554,16 +2578,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:38:18.714Z",
-      "gamePath": "images/aerial-r06-c04.jpg",
-      "image": "images/aerial-r06-c04.jpg",
-      "thumbnail": "thumbs/aerial-r06-c04.jpg",
-      "sha256": "5a7b271571b77c876751eeafd2648f310e15bb6a3f73a22345edb658d29ebc73",
+      "capturedAt": "2026-11-13T05:27:40.358Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c04.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c04.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r06-c04.jpg",
+      "sha256": "f46319de6ed2890d58e176140b9df0916cf53c8824c1048e203295ca6b19b2c5",
       "width": 640,
       "height": 640,
-      "captureWallMs": 2484,
+      "captureWallMs": 404,
       "dataset": "atlas",
-      "thumbnailSha256": "9b4021265865ce1e21152b16ff4b2b3cc6b19c42df2b10da83455d80a9eff304",
+      "thumbnailSha256": "8f0c61a7d79d7df0d8e689ad8c3abad20fd59a0f0dd438f2d687913f98acd32a",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.44344957707951,
@@ -2571,8 +2595,8 @@
         44.44569915415902,
         26.052909035744303
       ],
-      "sourceCaptureManifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
-      "sourceNote": "Exact-pose scoped retake; full prior mixed atlas archived byte-identically."
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (Dâmbovița water level and bank edges redrawn); prior collection archived."
     },
     {
       "id": "aerial-r06-c05",
@@ -2597,19 +2621,19 @@
         -250,
         -250
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 93,
-        "triangles": 391630,
-        "renderMs": 6.600000001490116,
+        "drawCalls": 96,
+        "triangles": 410805,
+        "renderMs": 1.5,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -2619,16 +2643,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:38:21.202Z",
-      "gamePath": "images/aerial-r06-c05.jpg",
-      "image": "images/aerial-r06-c05.jpg",
-      "thumbnail": "thumbs/aerial-r06-c05.jpg",
-      "sha256": "c8de85ee694bf7ff53f6c575acc8de9fe60d3ca83723062d5179bf3aa7b72154",
+      "capturedAt": "2026-11-13T05:27:40.763Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c05.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c05.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r06-c05.jpg",
+      "sha256": "d43d5d53375d37c2975af5c46f83db8f99b62a8fb82f440175c693f3eccdc875",
       "width": 640,
       "height": 640,
-      "captureWallMs": 2290,
+      "captureWallMs": 466,
       "dataset": "atlas",
-      "thumbnailSha256": "7bc16345abc01e7c11909b032e03a8d3de254d537ed647244f3dc35c417ad71f",
+      "thumbnailSha256": "1ba962a721a67b64e4d71762a49c932a0b01d7bbbbcd10694ee87f22dcf402ca",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.44344957707951,
@@ -2636,8 +2660,8 @@
         44.44569915415902,
         26.056054517872152
       ],
-      "sourceCaptureManifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
-      "sourceNote": "Exact-pose scoped retake; full prior mixed atlas archived byte-identically."
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (Dâmbovița water level and bank edges redrawn); prior collection archived."
     },
     {
       "id": "aerial-r06-c06",
@@ -2662,19 +2686,19 @@
         0,
         -250
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 107,
-        "triangles": 515230,
-        "renderMs": 3,
+        "drawCalls": 112,
+        "triangles": 528810,
+        "renderMs": 2.3999999910593033,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -2684,16 +2708,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:38:23.493Z",
-      "gamePath": "images/aerial-r06-c06.jpg",
-      "image": "images/aerial-r06-c06.jpg",
-      "thumbnail": "thumbs/aerial-r06-c06.jpg",
-      "sha256": "1ff4637145f678499143d12931f86da543a0de75f09b6a22b74e2502daa3d04f",
+      "capturedAt": "2026-11-13T05:27:41.229Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c06.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c06.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r06-c06.jpg",
+      "sha256": "b678a2a7df395a4fcef08c75d6dca98493313fa58eb64313143c2b79f6342d07",
       "width": 640,
       "height": 640,
-      "captureWallMs": 3360,
+      "captureWallMs": 495,
       "dataset": "atlas",
-      "thumbnailSha256": "cc4f775d5fd307eed85afc5a9a41810f02659c60e51299ffa7b315bde0e3ebd1",
+      "thumbnailSha256": "866af4da51437092e2eafa8651ebbdd3089ee46ec08a203056f010d6c19bce30",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.44344957707951,
@@ -2701,8 +2725,8 @@
         44.44569915415902,
         26.0592
       ],
-      "sourceCaptureManifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
-      "sourceNote": "Exact-pose scoped retake; full prior mixed atlas archived byte-identically."
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (Dâmbovița water level and bank edges redrawn); prior collection archived."
     },
     {
       "id": "aerial-r06-c07",
@@ -2727,13 +2751,13 @@
         250,
         -250
       ],
-      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 121,
-        "triangles": 676935,
-        "renderMs": 2.0999999940395355,
+        "drawCalls": 125,
+        "triangles": 641828,
+        "renderMs": 2.7999999970197678,
         "quality": "high"
       },
       "traffic": {
@@ -2749,16 +2773,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-12T19:47:44.504Z",
-      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c07.jpg",
-      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r06-c07.jpg",
-      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r06-c07.jpg",
-      "sha256": "127abd33106ed26520bb9a2759648fa155548bee3f6c09d37b4b1ed8d7ebae06",
+      "capturedAt": "2026-11-13T05:27:41.724Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c07.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c07.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r06-c07.jpg",
+      "sha256": "e4836d1493b7436e41270147822849ef656a14443afb5077d6c1a9e5ac53e8fb",
       "width": 640,
       "height": 640,
-      "captureWallMs": 646,
+      "captureWallMs": 658,
       "dataset": "atlas",
-      "thumbnailSha256": "f3aa73238ca09e2893624ec34cf02fedb08fea7354ebe853f853c3e41bf39127",
+      "thumbnailSha256": "4f021f851ce9a4f5c54800e53debeaac64f93eb0387ba200bf1720f6969d6d18",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.44344957707951,
@@ -2766,9 +2790,9 @@
         44.44569915415902,
         26.06234548212785
       ],
-      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
-      "reviewSourceManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
-      "sourceNote": "Exact-pose scoped retake at 346f7986 (Dâmbovița shows as open water at the south-west corner under the Grozăvești bridges); prior collection archived.",
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "reviewSourceManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (bridge guard railings drawn on both edges of the deck); prior collection archived.",
       "district": "grozavesti"
     },
     {
@@ -2983,19 +3007,19 @@
         1250,
         -250
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 74,
-        "triangles": 268395,
-        "renderMs": 28,
+        "drawCalls": 90,
+        "triangles": 302472,
+        "renderMs": 1.7000000029802322,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -3005,23 +3029,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:00:14.121Z",
-      "gamePath": "images/aerial-r06-c11.jpg",
-      "image": "images/aerial-r06-c11.jpg",
-      "thumbnail": "thumbs/aerial-r06-c11.jpg",
-      "sha256": "252196cfdc3c8b43e5176c93ad479eeb8166325cdcd4dc2cee6b1b5fadf9dcf1",
+      "capturedAt": "2026-11-13T05:27:43.630Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c11.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r06-c11.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r06-c11.jpg",
+      "sha256": "d1bd58ee393e38cc3efe67849494e663f3e99d4ebbb3b62c9ec939b5e7a1cbca",
       "width": 640,
       "height": 640,
-      "captureWallMs": 3558,
+      "captureWallMs": 400,
       "dataset": "atlas",
-      "thumbnailSha256": "b64541508047a8aa15ce4c806b0021f77f83a7d8b6e6b0b801af4e15ec598077",
+      "thumbnailSha256": "98170974985de44cdf76314b32db36927d08bcec53f21428b996730f8539cd4f",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.44344957707951,
         26.071781928511392,
         44.44569915415902,
         26.07492741063924
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)); prior collection archived."
     },
     {
       "id": "aerial-r07-c01",
@@ -3434,13 +3460,13 @@
         250,
         0
       ],
-      "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 121,
-        "triangles": 622953,
-        "renderMs": 2.4000000059604645,
+        "drawCalls": 126,
+        "triangles": 583147,
+        "renderMs": 1.7000000029802322,
         "quality": "high"
       },
       "traffic": {
@@ -3456,16 +3482,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-12T19:47:49.461Z",
-      "gamePath": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c07.jpg",
-      "image": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/images/aerial-r07-c07.jpg",
-      "thumbnail": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/thumbs/aerial-r07-c07.jpg",
-      "sha256": "9dd8dffb3a2f674a00e2dbee52c6cd062a8b876a27766b99aecaf2a76312617c",
+      "capturedAt": "2026-11-13T05:27:46.467Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r07-c07.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r07-c07.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r07-c07.jpg",
+      "sha256": "7da91e063324bfd5c64a7dd970fb86ea1e833082dd54d1d4bf039387f56a21e9",
       "width": 640,
       "height": 640,
-      "captureWallMs": 486,
+      "captureWallMs": 511,
       "dataset": "atlas",
-      "thumbnailSha256": "d8264b615e07bca1164f61206a28cbbfdebe40515c4153ddb01e871574cd0c0b",
+      "thumbnailSha256": "00510fae93236b383847da440f9e52d19096aa7fdce750cea23c575863c076ab",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.4412,
@@ -3473,8 +3499,8 @@
         44.44344957707951,
         26.06234548212785
       ],
-      "sourceCaptureManifest": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/manifest.json",
-      "sourceNote": "Exact-pose scoped retake at 346f7986 (Dâmbovița channel is open water instead of grass); prior collection archived.",
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (Dâmbovița water level and bank edges redrawn); prior collection archived.",
       "district": "grozavesti"
     },
     {
@@ -3631,19 +3657,19 @@
         1000,
         0
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 83,
-        "triangles": 222555,
-        "renderMs": 2,
+        "drawCalls": 96,
+        "triangles": 316251,
+        "renderMs": 1.2000000029802322,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -3653,16 +3679,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:39:00.706Z",
-      "gamePath": "images/aerial-r07-c10.jpg",
-      "image": "images/aerial-r07-c10.jpg",
-      "thumbnail": "thumbs/aerial-r07-c10.jpg",
-      "sha256": "07125c4f876956180db39daec0943f760a00e11fe4daebe5d8c7fb697d254dde",
+      "capturedAt": "2026-11-13T05:27:47.902Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r07-c10.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r07-c10.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r07-c10.jpg",
+      "sha256": "42e25e8ab97e9c263520ca1c57803fd868a01edef6515747cf268cea7022b84b",
       "width": 640,
       "height": 640,
-      "captureWallMs": 2185,
+      "captureWallMs": 456,
       "dataset": "atlas",
-      "thumbnailSha256": "72cc138be7448aef3d178187ef3ad8faed04e5be73f4a03ed618919d8b4624a2",
+      "thumbnailSha256": "8a6568440a51c6ab6959ef5283f43e18fc0676f0974dc249172fd48a42376d13",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.4412,
@@ -3670,8 +3696,8 @@
         44.44344957707951,
         26.071781928511392
       ],
-      "sourceCaptureManifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
-      "sourceNote": "Exact-pose scoped retake; full prior mixed atlas archived byte-identically."
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published bbaffc0d capture predates later data/model changes; the current render visibly differs (lawn replaced by the treed park; buildings redrawn)); prior collection archived."
     },
     {
       "id": "aerial-r08-c01",
@@ -3822,19 +3848,19 @@
         -750,
         250
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 105,
-        "triangles": 423174,
-        "renderMs": 23.099999997764826,
+        "drawCalls": 108,
+        "triangles": 339219,
+        "renderMs": 2.199999988079071,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -3844,23 +3870,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:01:21.901Z",
-      "gamePath": "images/aerial-r08-c03.jpg",
-      "image": "images/aerial-r08-c03.jpg",
-      "thumbnail": "thumbs/aerial-r08-c03.jpg",
-      "sha256": "d24c347e8566f4d76fce74c3ba41ebf3005cc1c85dc996cb1ee439b767df3aeb",
+      "capturedAt": "2026-11-13T05:27:49.106Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r08-c03.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r08-c03.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r08-c03.jpg",
+      "sha256": "e380ba35db72211925ad6537f2f4479f9615fcf2f7bb0be8cc4222e868a03cf2",
       "width": 640,
       "height": 640,
-      "captureWallMs": 10117,
+      "captureWallMs": 453,
       "dataset": "atlas",
-      "thumbnailSha256": "0f363823670ef5f4b4f428344c7f0c9fc00712c83be5dddf0d2d36e09719ce6f",
+      "thumbnailSha256": "15f019c95edd15a76734fa438f9d933ee926cbf27440f2e6ecb7bab1d14de5db",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.43895042292049,
         26.04661807148861,
         44.4412,
         26.049763553616458
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)); prior collection archived."
     },
     {
       "id": "aerial-r08-c04",
@@ -4269,19 +4297,19 @@
         1000,
         250
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 65,
-        "triangles": 183323,
-        "renderMs": 3.8000000044703484,
+        "drawCalls": 94,
+        "triangles": 272393,
+        "renderMs": 0.800000011920929,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -4291,16 +4319,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:39:14.733Z",
-      "gamePath": "images/aerial-r08-c10.jpg",
-      "image": "images/aerial-r08-c10.jpg",
-      "thumbnail": "thumbs/aerial-r08-c10.jpg",
-      "sha256": "4efdbe6734924782d6762ab98f6c0a1a1ae7417eee7d7cdb3031ec7278caccae",
+      "capturedAt": "2026-11-13T05:27:52.348Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r08-c10.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r08-c10.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r08-c10.jpg",
+      "sha256": "3d402068057dc4a3feaabefe57bc2ead848480cec884d5e47512c0ca377212d7",
       "width": 640,
       "height": 640,
-      "captureWallMs": 2840,
+      "captureWallMs": 403,
       "dataset": "atlas",
-      "thumbnailSha256": "61285262232d09a2f5fa7f98d0b4cd7c5ab170d036b23d6dcfbf6c916fc4a49c",
+      "thumbnailSha256": "829c8c665d291e486dc8ab7af104d42d4875268ddea9f4c97a7f562bd626bbb1",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.43895042292049,
@@ -4308,8 +4336,8 @@
         44.4412,
         26.071781928511392
       ],
-      "sourceCaptureManifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
-      "sourceNote": "Exact-pose scoped retake; full prior mixed atlas archived byte-identically."
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published bbaffc0d capture predates later data/model changes; the current render visibly differs (the building next to the river was missing)); prior collection archived."
     },
     {
       "id": "aerial-r09-c01",
@@ -4334,19 +4362,19 @@
         -1250,
         500
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 80,
-        "triangles": 230598,
-        "renderMs": 34.600000001490116,
+        "drawCalls": 78,
+        "triangles": 236390,
+        "renderMs": 1.1000000089406967,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -4356,23 +4384,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:02:24.034Z",
-      "gamePath": "images/aerial-r09-c01.jpg",
-      "image": "images/aerial-r09-c01.jpg",
-      "thumbnail": "thumbs/aerial-r09-c01.jpg",
-      "sha256": "25ca9ae05379bbb4a4b92b8ca64990b58538d57318af351e67ee8f2fb8ab8cd2",
+      "capturedAt": "2026-11-13T05:27:52.751Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r09-c01.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r09-c01.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r09-c01.jpg",
+      "sha256": "cfba28d017706dab86e2485dc60612221de5332ac7f81b4e0b59c44836f39430",
       "width": 640,
       "height": 640,
-      "captureWallMs": 4978,
+      "captureWallMs": 405,
       "dataset": "atlas",
-      "thumbnailSha256": "5a3384d134448046be765711d3226021da3c253fa8520834203b1da0278f8335",
+      "thumbnailSha256": "476e8bf0c5da56436d0e8bc8ce1ac4b6e613e263a1066812e5d3860cb0ab6184",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.43670084584098,
         26.040327107232912,
         44.43895042292049,
         26.04347258936076
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)); prior collection archived."
     },
     {
       "id": "aerial-r09-c02",
@@ -4907,19 +4937,19 @@
         -1250,
         750
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 64,
-        "triangles": 170306,
-        "renderMs": 9.400000002235174,
+        "drawCalls": 86,
+        "triangles": 266471,
+        "renderMs": 1.5,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -4929,23 +4959,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:03:36.437Z",
-      "gamePath": "images/aerial-r10-c01.jpg",
-      "image": "images/aerial-r10-c01.jpg",
-      "thumbnail": "thumbs/aerial-r10-c01.jpg",
-      "sha256": "23ad45bcf89fed2ac879266b5fadf09eaf11fd7ec8ac415ea05db0f7a217bd6a",
+      "capturedAt": "2026-11-13T05:27:56.976Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r10-c01.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r10-c01.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r10-c01.jpg",
+      "sha256": "337dfd7805226e1085f27fb155acef9bb8794160cd341c09aca151513e59b6d7",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5666,
+      "captureWallMs": 381,
       "dataset": "atlas",
-      "thumbnailSha256": "d942c6201d6aa7200c6f700fc572a9427d5434ef1151b29f8415f12bbecedffd",
+      "thumbnailSha256": "05ac46be1be6647aae40fbc9da9381b5d30f6e7e975eb92bcaddddd32f5a30f4",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.43445126876148,
         26.040327107232912,
         44.43670084584098,
         26.04347258936076
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)); prior collection archived."
     },
     {
       "id": "aerial-r10-c02",
@@ -5413,19 +5445,19 @@
         750,
         750
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 59,
-        "triangles": 242858,
-        "renderMs": 8.700000002980232,
+        "drawCalls": 79,
+        "triangles": 275107,
+        "renderMs": 0.7000000029802322,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -5435,23 +5467,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:04:35.297Z",
-      "gamePath": "images/aerial-r10-c09.jpg",
-      "image": "images/aerial-r10-c09.jpg",
-      "thumbnail": "thumbs/aerial-r10-c09.jpg",
-      "sha256": "24be14918a3f19d461925c00e6940da8b0e83acde12333ce8f2dcec267289138",
+      "capturedAt": "2026-11-13T05:28:00.304Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r10-c09.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r10-c09.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r10-c09.jpg",
+      "sha256": "58329d0285e04b599d34a454c10e4fd820ec9111f964ee3a9dabd06a1ebd8a8f",
       "width": 640,
       "height": 640,
-      "captureWallMs": 4681,
+      "captureWallMs": 367,
       "dataset": "atlas",
-      "thumbnailSha256": "975a83bb6d431546fcd10e6c55a830621b8517aeb247d29d2f283b7515e51c0e",
+      "thumbnailSha256": "4547ba91e49cfc08a9abd84c57bb90d7e1267641d151c4377f48fe18321e7f60",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.43445126876148,
         26.065490964255698,
         44.43670084584098,
         26.068636446383543
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)); prior collection archived."
     },
     {
       "id": "aerial-r11-c02",
@@ -5476,19 +5510,19 @@
         -1000,
         1000
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 70,
-        "triangles": 187391,
-        "renderMs": 2.899999998509884,
+        "drawCalls": 97,
+        "triangles": 326539,
+        "renderMs": 1.4000000059604645,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -5498,23 +5532,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:04:39.978Z",
-      "gamePath": "images/aerial-r11-c02.jpg",
-      "image": "images/aerial-r11-c02.jpg",
-      "thumbnail": "thumbs/aerial-r11-c02.jpg",
-      "sha256": "05e288bcbbd630b999eb647acec83adff82319962f1be97e1859d78482140fde",
+      "capturedAt": "2026-11-13T05:28:00.671Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r11-c02.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r11-c02.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r11-c02.jpg",
+      "sha256": "ba791dadd0f1dbd151689e05ebb4ce0a0bbfbbb8b03abe1666deb01a0aeebc9f",
       "width": 640,
       "height": 640,
-      "captureWallMs": 4111,
+      "captureWallMs": 373,
       "dataset": "atlas",
-      "thumbnailSha256": "98814b34927ef80b1aa11804118d5c03da93e7768ef33a4a7919adea59a00183",
+      "thumbnailSha256": "3864198383b35510f0dd764a284d3f988101fa685ab4accb83c42cfa5901b056",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.43220169168197,
         26.04347258936076,
         44.43445126876148,
         26.04661807148861
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)); prior collection archived."
     },
     {
       "id": "aerial-r11-c03",
@@ -5854,19 +5890,19 @@
         500,
         1000
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 63,
-        "triangles": 221744,
-        "renderMs": 15.5,
+        "drawCalls": 87,
+        "triangles": 376210,
+        "renderMs": 1.2999999970197678,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -5876,23 +5912,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:45:37.993Z",
-      "gamePath": "images/aerial-r11-c08.jpg",
-      "image": "images/aerial-r11-c08.jpg",
-      "thumbnail": "thumbs/aerial-r11-c08.jpg",
-      "sha256": "9970d5d38a8bb85709b02983295dba8ea5483ad810ccd46684ed62f1d66f03a4",
+      "capturedAt": "2026-11-13T05:28:02.987Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r11-c08.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r11-c08.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r11-c08.jpg",
+      "sha256": "df00a993a99a56338ee5aa8c2ec7cbabaca985a9c3f64d9dad660a95c753bd53",
       "width": 640,
       "height": 640,
-      "captureWallMs": 6500,
+      "captureWallMs": 430,
       "dataset": "atlas",
-      "thumbnailSha256": "6819282e275b55d7b504591b0f454d964d66e4c81441afb9e5bc6a1109217676",
+      "thumbnailSha256": "369f898931ec8cdbd43f58a01fa121040aa5eb535eba6d3977ee60a087b865fc",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.43220169168197,
         26.06234548212785,
         44.43445126876148,
         26.065490964255698
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (lawn replaced by the park with ponds and its building)); prior collection archived."
     },
     {
       "id": "aerial-r12-c03",
@@ -5917,19 +5955,19 @@
         -750,
         1250
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 66,
-        "triangles": 109334,
-        "renderMs": 7.300000000745058,
+        "drawCalls": 96,
+        "triangles": 241395,
+        "renderMs": 0.699999988079071,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -5939,23 +5977,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:05:22.897Z",
-      "gamePath": "images/aerial-r12-c03.jpg",
-      "image": "images/aerial-r12-c03.jpg",
-      "thumbnail": "thumbs/aerial-r12-c03.jpg",
-      "sha256": "df49b4377bf2327d6b8a44cf3d52f463412239399b53ae7dfb8e9d32a1ffac1a",
+      "capturedAt": "2026-11-13T05:28:03.418Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r12-c03.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r12-c03.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r12-c03.jpg",
+      "sha256": "53af30b52c00cc41654696fe5de113fd4f56d01d8b2a62f20b2871f2885d037c",
       "width": 640,
       "height": 640,
-      "captureWallMs": 3880,
+      "captureWallMs": 343,
       "dataset": "atlas",
-      "thumbnailSha256": "dec9db12c6ebd7e921e15a1ae7a3b1cf243eac92c1f11aea6467ca853e5d0f60",
+      "thumbnailSha256": "98c84961864ff7dc44204da2366b17ea91787c8de0d704258f95f7e22d4e68dc",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.42995211460246,
         26.04661807148861,
         44.43220169168197,
         26.049763553616458
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)); prior collection archived."
     },
     {
       "id": "aerial-r12-c04",
@@ -5980,19 +6020,19 @@
         -500,
         1250
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 68,
-        "triangles": 130227,
-        "renderMs": 9.800000000745058,
+        "drawCalls": 81,
+        "triangles": 178490,
+        "renderMs": 1.6000000089406967,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -6002,23 +6042,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:05:26.781Z",
-      "gamePath": "images/aerial-r12-c04.jpg",
-      "image": "images/aerial-r12-c04.jpg",
-      "thumbnail": "thumbs/aerial-r12-c04.jpg",
-      "sha256": "5b9b597a2d9d1ef8f90b46cae2b8fc33b87d4251e83e362737e925fd363eb148",
+      "capturedAt": "2026-11-13T05:28:03.761Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r12-c04.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r12-c04.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r12-c04.jpg",
+      "sha256": "bba234915a6b1590247e3ffb182a9b6026db1d9d9a91ab240c5f4667db0b648f",
       "width": 640,
       "height": 640,
-      "captureWallMs": 4508,
+      "captureWallMs": 347,
       "dataset": "atlas",
-      "thumbnailSha256": "63993ade1fa530e494b281d5ffa49de4affa125585b1440ddd3505822eeb64d1",
+      "thumbnailSha256": "cd27d9018a85f824bcb6817cf4aaa2993c906b631a9da60785ea22fb56a4ad2d",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.42995211460246,
         26.049763553616458,
         44.43220169168197,
         26.052909035744303
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (large curved roof now drawn over the former dark ground)); prior collection archived."
     },
     {
       "id": "aerial-r12-c05",
@@ -6043,19 +6085,19 @@
         -250,
         1250
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 79,
-        "triangles": 207395,
-        "renderMs": 4.300000000745058,
+        "drawCalls": 91,
+        "triangles": 229235,
+        "renderMs": 1.0999999940395355,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -6065,23 +6107,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:05:31.289Z",
-      "gamePath": "images/aerial-r12-c05.jpg",
-      "image": "images/aerial-r12-c05.jpg",
-      "thumbnail": "thumbs/aerial-r12-c05.jpg",
-      "sha256": "ca571e5d22a7e702491426ec15a8abcebeb62d983082bd197e8dbb5a91095a14",
+      "capturedAt": "2026-11-13T05:28:04.108Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r12-c05.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r12-c05.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r12-c05.jpg",
+      "sha256": "46a209f2246d6022b9f684702dd2faa1363a5df609a386aa9ad92dfa0159c74e",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5236,
+      "captureWallMs": 336,
       "dataset": "atlas",
-      "thumbnailSha256": "9345ecd1c3eba2b2e02e4582ce87261df247671e19eca172a5d93b365a219d16",
+      "thumbnailSha256": "88894a73878126acb422baa1dc72e3478f6293905551184267654ac0c1dc6629",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.42995211460246,
         26.052909035744303,
         44.43220169168197,
         26.056054517872152
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)); prior collection archived."
     },
     {
       "id": "aerial-r12-c06",
@@ -6106,19 +6150,19 @@
         0,
         1250
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 85,
-        "triangles": 238982,
-        "renderMs": 1.7999999970197678,
+        "drawCalls": 102,
+        "triangles": 263179,
+        "renderMs": 1,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -6128,23 +6172,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:05:36.525Z",
-      "gamePath": "images/aerial-r12-c06.jpg",
-      "image": "images/aerial-r12-c06.jpg",
-      "thumbnail": "thumbs/aerial-r12-c06.jpg",
-      "sha256": "c9936ce96f79a09cced6f7ddf43d89d0eeddf6fba78cbe03a2b2a16dc9d6a041",
+      "capturedAt": "2026-11-13T05:28:04.445Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r12-c06.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r12-c06.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r12-c06.jpg",
+      "sha256": "8d3f702e0cc4077ded0ace43403c290667e9322eada299685646b57de2a4cedb",
       "width": 640,
       "height": 640,
-      "captureWallMs": 4319,
+      "captureWallMs": 332,
       "dataset": "atlas",
-      "thumbnailSha256": "1ff3e28a8f4ee06a62d2ce80fb63ffcabdba96dd54c9f110a26cf50ef602f5b0",
+      "thumbnailSha256": "41bc52f6668ef02e3ba6b24a210c26e75a652d2e9f4e3f7f317415720b594389",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.42995211460246,
         26.056054517872152,
         44.43220169168197,
         26.0592
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)); prior collection archived."
     },
     {
       "id": "aerial-r12-c07",
@@ -6169,19 +6215,19 @@
         250,
         1250
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 80,
-        "triangles": 193610,
-        "renderMs": 1.7999999970197678,
+        "drawCalls": 99,
+        "triangles": 278249,
+        "renderMs": 1.2000000029802322,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -6191,23 +6237,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:05:40.845Z",
-      "gamePath": "images/aerial-r12-c07.jpg",
-      "image": "images/aerial-r12-c07.jpg",
-      "thumbnail": "thumbs/aerial-r12-c07.jpg",
-      "sha256": "08e4f7a3564636871dd5704d0fc2efd73b2f653ec3771a4b99c390e0d0fbd217",
+      "capturedAt": "2026-11-13T05:28:04.778Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r12-c07.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r12-c07.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r12-c07.jpg",
+      "sha256": "dd2105061947ea764b16d601b3482061e860f3b9b7045401ba37f329e5a36a52",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5063,
+      "captureWallMs": 361,
       "dataset": "atlas",
-      "thumbnailSha256": "af64eeb50377434ea8c35160394d28e6d2c080a4f1bb3cf8ecf3cd4032809b77",
+      "thumbnailSha256": "b682ebc9fdca94b96fd4cd4e5a594128a84850673ce60b49cdba34b11ebdf555",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.42995211460246,
         26.0592,
         44.43220169168197,
         26.06234548212785
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)); prior collection archived."
     },
     {
       "id": "context-northwest",
@@ -6295,19 +6343,19 @@
         1250,
         -1500
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 44,
-        "triangles": 130303,
-        "renderMs": 1.800000000745058,
+        "drawCalls": 88,
+        "triangles": 328289,
+        "renderMs": 1.4000000059604645,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -6317,23 +6365,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:05:49.909Z",
-      "gamePath": "images/context-northeast.jpg",
-      "image": "images/context-northeast.jpg",
-      "thumbnail": "thumbs/context-northeast.jpg",
-      "sha256": "fae495b45fa2ca2c105f1990b1c56fe79055f9c6172516b1f82505d73b4383dc",
+      "capturedAt": "2026-11-13T05:28:05.573Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/context-northeast.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/context-northeast.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/context-northeast.jpg",
+      "sha256": "f24d5adbc40597af2b17f9055a480ed82d7fea91649f5a93b01f160864af1a5a",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7476,
+      "captureWallMs": 411,
       "dataset": "atlas",
-      "thumbnailSha256": "6e3a6b8ea110be37352d6e9a1bd1d94ee9fc0938752d0119f3223ae0db0ba9e6",
+      "thumbnailSha256": "9a4d6ee76a425542e584d5ea9b66989ca14259122a90e258a0035ba642f744d8",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.45469746247706,
         26.071781928511392,
         44.45694703955657,
         26.07492741063924
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)); prior collection archived."
     },
     {
       "id": "context-southwest",
@@ -6358,19 +6408,19 @@
         -1250,
         1250
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 42,
-        "triangles": 73293,
-        "renderMs": 6.300000000745058,
+        "drawCalls": 78,
+        "triangles": 161826,
+        "renderMs": 1.199999988079071,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -6380,23 +6430,25 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:05:57.386Z",
-      "gamePath": "images/context-southwest.jpg",
-      "image": "images/context-southwest.jpg",
-      "thumbnail": "thumbs/context-southwest.jpg",
-      "sha256": "f757f0f41eb9ec81abdfcb62b363ced9e7581555e5deeb80cac985307333b78a",
+      "capturedAt": "2026-11-13T05:28:05.985Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/context-southwest.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/context-southwest.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/context-southwest.jpg",
+      "sha256": "dd2050aaa1204f18f09548c11c0ae045f53b1bcf69b1111b53d7976787d29007",
       "width": 640,
       "height": 640,
-      "captureWallMs": 4741,
+      "captureWallMs": 384,
       "dataset": "atlas",
-      "thumbnailSha256": "2e2eac11496b750eb3042e6d417acf0792ba035aff1ae341d07b84cfc04147ec",
+      "thumbnailSha256": "d4a60731231712d3cb154f3f9040d1c6eecc331e3fb0997fecd80f1b96c9e123",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.42995211460246,
         26.040327107232912,
         44.43220169168197,
         26.04347258936076
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)); prior collection archived."
     },
     {
       "id": "context-southeast",
@@ -6484,20 +6536,20 @@
         1960.8155491891057,
         1822.0189796005013
       ],
-      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "gridAligned": false,
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 28,
-        "triangles": 65902,
-        "renderMs": 14.199999999254942,
+        "drawCalls": 29,
+        "triangles": 71736,
+        "renderMs": 1.2999999970197678,
         "quality": "high"
       },
       "traffic": {
         "enabled": false,
         "visible": false,
-        "vehicleCount": 169
+        "vehicleCount": 311
       },
       "renderer": {
         "width": 640,
@@ -6507,31 +6559,34 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:06:06.816Z",
-      "gamePath": "images/context-cathedral.jpg",
-      "image": "images/context-cathedral.jpg",
-      "thumbnail": "thumbs/context-cathedral.jpg",
-      "sha256": "526ed1eee15570de61d6f7392d8653c3294679182701573feffcda547d0a3812",
+      "capturedAt": "2026-11-13T05:28:06.742Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/context-cathedral.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/context-cathedral.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/context-cathedral.jpg",
+      "sha256": "719d1d6b9143669e55d06e4e0b5c32849361b991adbf5da9a2f6591b71a664a9",
       "width": 640,
       "height": 640,
-      "captureWallMs": 6362,
+      "captureWallMs": 405,
       "dataset": "atlas",
-      "thumbnailSha256": "e8a3b42b700f57a927af9f44166edf65e1f3f1174f37cca48e3aae8d24b920cb",
+      "thumbnailSha256": "2a2618b0837202691a9eb41bb8ffe578688f50c44448690ee5bc04530e0cbbad",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.42480491146024,
         26.080725358936075,
         44.42705448853975,
         26.083870841063924
-      ]
+      ],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes beside the cathedral removed)); prior collection archived."
     }
   ],
   "atlasSourceCounts": {
-    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 65,
-    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 19,
+    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 39,
+    "9824fd56de3f0e420821e871436906186a80e493": 36,
+    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 12,
     "8add95f35681eddaf01a136ff1f5769a5329b102": 4,
-    "346f798681d891de6cebfc9e1d094996b1ace2e3": 8,
-    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 4
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 6,
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 3
   },
   "sourceSnapshots": [
     {
@@ -6574,6 +6629,15 @@
       "sourceProvenance": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/source-provenance.json",
       "sourceProvenanceSha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47",
       "frames": 8
+    },
+    {
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "treeSha256": "ae5b9d7a70a4b3fd14dfcdce1a76092981d8db36d05abb7b1aaaa70af7b27b0b",
+      "manifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "manifestSha256": "baa7edd4ae80e2347bb4a6d75209cb558c2cdd4def9300bf3a9e8b6a89cdccd0",
+      "sourceProvenance": "retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
+      "sourceProvenanceSha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b",
+      "frames": 36
     }
   ],
   "sourceCompatibility": {
@@ -6596,18 +6660,19 @@
     "delivery": "Live image request; no aerial reference imagery is stored in this repository.",
     "extent": "250 m ground square centred at each listed WGS84 coordinate; EPSG:3857 with latitude scale correction."
   },
-  "description": "Mixed-source technical atlas: 8 poses retaken on 2026-11-12 at 346f7986 (Dâmbovița channel uncovered, CET Grozăvești cooling towers, Botanica pond at grade, Basarab north-east); all other images retain their recorded sources and dates.",
+  "description": "Mixed-source technical atlas: 36 poses retaken on 2026-11-13 at 9824fd56 (Dâmbovița level and banks; stale tiles refreshed); all other images retain their recorded sources and dates.",
   "coverageNote": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score. Boundary cells also contain land outside the ring.",
   "reviewNote": "Sign-affected current game captures inspected at full size; source/aerial comparisons retain their historical scope. No district fidelity acceptance.",
   "review": {
     "district": "grozavesti",
     "gameSourceCommit": null,
     "sourceCounts": {
-      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 65,
-      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 19,
+      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 39,
+      "9824fd56de3f0e420821e871436906186a80e493": 36,
+      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 12,
       "8add95f35681eddaf01a136ff1f5769a5329b102": 4,
-      "346f798681d891de6cebfc9e1d094996b1ace2e3": 8,
-      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 4
+      "346f798681d891de6cebfc9e1d094996b1ace2e3": 6,
+      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 3
     },
     "framesReviewed": 100,
     "status": "Complete retained earlier review coverage plus 1 fresh exact-pose structural/separator pairs inspected; genuine source-height, materials, context and imagery-date limits remain.",
@@ -6646,8 +6711,8 @@
       },
       {
         "id": "aerial-r01-c08",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "4a17b4392fd4c686c839890d74f981a14d0025be45de27f41a3980ff69a0ba1d",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "7f019c3e054c529ab1f521cf171779a559bc79076b510e6fbdbea5a193103bfc",
         "boundsWgs84": [
           44.45469746247706,
           26.06234548212785,
@@ -6655,18 +6720,17 @@
           26.065490964255698
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r01-c08.jpg",
-        "pairSha256": "198ae399c67672d28dae71f66196e7ef7085ebbc4a897215fc9ee8a3b335524d",
         "reviewSheet": "comparison-01.jpg",
         "reviewSheetSha256": "c817c8e8bcb1736bf0806106a6e4d1a77a993ccaab726fb3d8281ec0b923f292",
         "reviewedAt": "2026-11-08T22:48:45.409001+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Outer north rail/road corridor: large grey areas, missing rail detail and simplified outside blocks are major gaps against dense reference trees/streets."
+        "observations": "Outer north rail/road corridor: large grey areas, missing rail detail and simplified outside blocks are major gaps against dense reference trees/streets.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r01-c09",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "9e11f62e74c6be70f7b00103e52e7f42347b2b9b0c8dfc836eaffac0764ac54a",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "f02b4588c8041924b0987c5ada6e0a07d477344f8ad6a4a23bd59f200297924c",
         "boundsWgs84": [
           44.45469746247706,
           26.065490964255698,
@@ -6674,18 +6738,17 @@
           26.068636446383543
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r01-c09.jpg",
-        "pairSha256": "7059e33848cf2061a25940679082d9eb85b73761d49004d24b61164e816013ec",
         "reviewSheet": "comparison-01.jpg",
         "reviewSheetSha256": "c817c8e8bcb1736bf0806106a6e4d1a77a993ccaab726fb3d8281ec0b923f292",
         "reviewedAt": "2026-11-08T22:48:45.415200+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Outer north rail/road corridor: large grey areas, missing rail detail and simplified outside blocks are major gaps against dense reference trees/streets."
+        "observations": "Outer north rail/road corridor: large grey areas, missing rail detail and simplified outside blocks are major gaps against dense reference trees/streets.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r01-c10",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "d2c105a24d16bd80dbd05b023e1fa8d3038b032bf633bb9f0322cb231599ab6c",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "77b00f85ce8d9706d5f020b848fade30dccc5add068291f493cbfbb1a33f99c2",
         "boundsWgs84": [
           44.45469746247706,
           26.068636446383543,
@@ -6693,13 +6756,12 @@
           26.071781928511392
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r01-c10.jpg",
-        "pairSha256": "1d3dbf3ba13b1d98ca1a3557011050ffbc8771b7076c0cdacebae3e3425a7cbd",
         "reviewSheet": "comparison-01.jpg",
         "reviewSheetSha256": "c817c8e8bcb1736bf0806106a6e4d1a77a993ccaab726fb3d8281ec0b923f292",
         "reviewedAt": "2026-11-08T22:48:45.417368+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Outer north rail/road corridor: large grey areas, missing rail detail and simplified outside blocks are major gaps against dense reference trees/streets."
+        "observations": "Outer north rail/road corridor: large grey areas, missing rail detail and simplified outside blocks are major gaps against dense reference trees/streets.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r02-c05",
@@ -6722,8 +6784,8 @@
       },
       {
         "id": "aerial-r02-c06",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "ddcf037e35028e29d6bc8b59984eb65d3b4a677bcd282ca4f7faad2ebfb68ec4",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "c3af67b97d1ff0174a8b2d387ac14452fc836a7c039075d39652ffa599969e81",
         "boundsWgs84": [
           44.45244788539755,
           26.056054517872152,
@@ -6731,18 +6793,17 @@
           26.0592
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r02-c06.jpg",
-        "pairSha256": "0d3dc531e2677ac0bbfb634573476016bab8c26e5c9e32adf6999fb7917c93cb",
         "reviewSheet": "comparison-01.jpg",
         "reviewSheetSha256": "c817c8e8bcb1736bf0806106a6e4d1a77a993ccaab726fb3d8281ec0b923f292",
         "reviewedAt": "2026-11-08T22:48:45.425315+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Outer north rail/road corridor: large grey areas, missing rail detail and simplified outside blocks are major gaps against dense reference trees/streets."
+        "observations": "Outer north rail/road corridor: large grey areas, missing rail detail and simplified outside blocks are major gaps against dense reference trees/streets.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r02-c07",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "99470e1ca43d1c56c75532235c2ddd05ce47e9b2c8454184e07b1cdbbfef854b",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "5e1134cb4c9fdc98d0a377d8770ac5c1750f1d2fe7e01a7b18fbb3056893b8c8",
         "boundsWgs84": [
           44.45244788539755,
           26.0592,
@@ -6750,13 +6811,12 @@
           26.06234548212785
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r02-c07.jpg",
-        "pairSha256": "a6a31e97aac4d9338b5a99748bfbd68c8b2526b569ab5d907f3d45b35585eee8",
         "reviewSheet": "comparison-02.jpg",
         "reviewSheetSha256": "f5946c3bdcfe8e060337c67882fed3ed553cec6d8ef1eb7553494648df99544e",
         "reviewedAt": "2026-11-08T22:48:45.428161+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Northern housing and yards: retained source masses and road lines are readable; canopy, small roofs and outer background detail remain approximate."
+        "observations": "Northern housing and yards: retained source masses and road lines are readable; canopy, small roofs and outer background detail remain approximate.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r02-c08",
@@ -6817,8 +6877,8 @@
       },
       {
         "id": "aerial-r02-c11",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "f2e1a99d1fdffdc5c92e1ee1b617b43141ebc219e8cf8dc60abef5028b8077d4",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "4304e7cf80f20304087e293de6eae214890f583812b0fc4532e1ae8cb46f4ab9",
         "boundsWgs84": [
           44.45244788539755,
           26.071781928511392,
@@ -6826,13 +6886,12 @@
           26.07492741063924
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r02-c11.jpg",
-        "pairSha256": "5b5f9158738b14b9a0527809d3b47458695cdc5223f2f31b4a8ef6546c70c808",
         "reviewSheet": "comparison-02.jpg",
         "reviewSheetSha256": "f5946c3bdcfe8e060337c67882fed3ed553cec6d8ef1eb7553494648df99544e",
         "reviewedAt": "2026-11-08T22:48:45.456783+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Northern housing and yards: retained source masses and road lines are readable; canopy, small roofs and outer background detail remain approximate."
+        "observations": "Northern housing and yards: retained source masses and road lines are readable; canopy, small roofs and outer background detail remain approximate.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r03-c04",
@@ -6950,8 +7009,8 @@
       },
       {
         "id": "aerial-r03-c10",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "ab059230e22c4dcd8bf1206e1478f2ffb0ae9a77db5f0af90fe70786bd714d41",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "17cf0ac5b1abb0be26a8ec76edd818c760cadaab1adc00a446e80139f3fecadf",
         "boundsWgs84": [
           44.450198308318036,
           26.068636446383543,
@@ -6959,18 +7018,17 @@
           26.071781928511392
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r03-c10.jpg",
-        "pairSha256": "f8a89478f81090541221a3d8abc6ecb10e40e6fad79c32c742ada0316da0affb",
         "reviewSheet": "comparison-03.jpg",
         "reviewSheetSha256": "0a6bd7aa681d60da25dcfa78573b4a9bed202c42dca101c9b2e7ea31517902ef",
         "reviewedAt": "2026-11-08T22:48:45.504394+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Bridge/rail corridor and yard roofs: exact source ribbons and source buildings remain; detailed railway layout, sheds and actual canopy differ."
+        "observations": "Bridge/rail corridor and yard roofs: exact source ribbons and source buildings remain; detailed railway layout, sheds and actual canopy differ.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r03-c11",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "6b59080c1662ade34748434896fa6fd33b8a4b8c7fd2f7e64154d387d43561b2",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "09c9eb04cb07e1a920154f5d382b9a4bb7f1875d79510979f37fcaa428e1512f",
         "boundsWgs84": [
           44.450198308318036,
           26.071781928511392,
@@ -6978,18 +7036,17 @@
           26.07492741063924
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r03-c11.jpg",
-        "pairSha256": "1d91d9726d407eb38272532c33535c7f7ae165b616d5de91fc11879ed25c70bf",
         "reviewSheet": "comparison-04.jpg",
         "reviewSheetSha256": "5caace3e206a8ef71ff6cf7f060aeb5b75278706357bf9995c719cb44c70de9a",
         "reviewedAt": "2026-11-08T22:48:45.515709+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Northern street blocks and sports grounds: roof forms, sports detail, gardens and canopy remain simplified versus the reference."
+        "observations": "Northern street blocks and sports grounds: roof forms, sports detail, gardens and canopy remain simplified versus the reference.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r04-c04",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "4aac591373bc5662183cdbc1bfbf955d772e72548a43a07f0d5f6d25fd333dbf",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "be31693f16dbd47b666e0130566e30162764f483ae5dd4e5f28be32e2b829fdb",
         "boundsWgs84": [
           44.447948731238526,
           26.049763553616458,
@@ -6997,13 +7054,12 @@
           26.052909035744303
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r04-c04.jpg",
-        "pairSha256": "ffd4d7962707f2f9ac94f3752c765e3b75a7378c6934bd1ea2cf52d435337777",
         "reviewSheet": "comparison-04.jpg",
         "reviewSheetSha256": "5caace3e206a8ef71ff6cf7f060aeb5b75278706357bf9995c719cb44c70de9a",
         "reviewedAt": "2026-11-08T22:48:45.519633+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Northern street blocks and sports grounds: roof forms, sports detail, gardens and canopy remain simplified versus the reference."
+        "observations": "Northern street blocks and sports grounds: roof forms, sports detail, gardens and canopy remain simplified versus the reference.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r04-c05",
@@ -7026,8 +7082,8 @@
       },
       {
         "id": "aerial-r04-c06",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "3027bb1f67fb97dea10685972f354bb4e8b01949cda1d13330c1e83e78dfc873",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "3a6febfc685af69994f6e2b704fd53c338a8e0dc6fa0ab2f6e3b921d61b8e91c",
         "boundsWgs84": [
           44.447948731238526,
           26.056054517872152,
@@ -7035,13 +7091,12 @@
           26.0592
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r04-c06.jpg",
-        "pairSha256": "ad309ecce58619954c9727be187082139c8c2da370ed384a3aba939f28ea0e5d",
         "reviewSheet": "comparison-04.jpg",
         "reviewSheetSha256": "5caace3e206a8ef71ff6cf7f060aeb5b75278706357bf9995c719cb44c70de9a",
         "reviewedAt": "2026-11-08T22:48:45.526024+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Northern street blocks and sports grounds: roof forms, sports detail, gardens and canopy remain simplified versus the reference."
+        "observations": "Northern street blocks and sports grounds: roof forms, sports detail, gardens and canopy remain simplified versus the reference.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r04-c07",
@@ -7064,8 +7119,8 @@
       },
       {
         "id": "aerial-r04-c08",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "3a510379fe42862e0d204eaf97865308166d3e346fdd5c12bbedbbe3b55568b2",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "c47ed8e1a2158bf134d63075a13d3a5b162286c62752da737b18bcffcb7f071e",
         "boundsWgs84": [
           44.447948731238526,
           26.06234548212785,
@@ -7073,18 +7128,17 @@
           26.065490964255698
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r04-c08.jpg",
-        "pairSha256": "e57535a6442969445e174b58220566913f506e4f5b8a92dab9c562a88d0521ad",
         "reviewSheet": "comparison-04.jpg",
         "reviewSheetSha256": "5caace3e206a8ef71ff6cf7f060aeb5b75278706357bf9995c719cb44c70de9a",
         "reviewedAt": "2026-11-08T22:48:45.573510+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Northern street blocks and sports grounds: roof forms, sports detail, gardens and canopy remain simplified versus the reference."
+        "observations": "Northern street blocks and sports grounds: roof forms, sports detail, gardens and canopy remain simplified versus the reference.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r04-c09",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "996c42f6b7e68c50090b49974799f2008c6948a0838c9fb0827eabd0d2bcef23",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "5bd4d57b50e8d5da669c7fed9cbf6318d99e6db4c8bb3a4af68666d36c103609",
         "boundsWgs84": [
           44.447948731238526,
           26.065490964255698,
@@ -7092,13 +7146,12 @@
           26.068636446383543
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r04-c09.jpg",
-        "pairSha256": "c946b40ded177b1ae3ef06414e3e91d8217238bee3d61ff25bc610ff4f05054c",
         "reviewSheet": "comparison-05.jpg",
         "reviewSheetSha256": "0959569fc1b23e74dc8593e2116486946bbe9e4eb50cf837a84f3d18f29ff432",
         "reviewedAt": "2026-11-08T22:48:45.580490+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Main bridge approaches and rail yard: source roads remain visible; actual bridge structural/rail details and complex industrial roofs are approximate."
+        "observations": "Main bridge approaches and rail yard: source roads remain visible; actual bridge structural/rail details and complex industrial roofs are approximate.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r04-c10",
@@ -7142,15 +7195,15 @@
         "id": "aerial-r05-c04",
         "originalGameSha256": "a1b7f91cd7b3b9b698cc408a1fc1f9f1f6ebfd7e33d7176e616083fcc8235cf3",
         "retakeGameSha256": "8934d6f60b6cba13e5a14644a3ac3d738a225d440710f4b7f0f9df8e8add73c5",
-        "gameSha256": "8934d6f60b6cba13e5a14644a3ac3d738a225d440710f4b7f0f9df8e8add73c5",
-        "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-        "pairSha256": "766161b2ce44fb9541093831feae95330df335d7cf896dbc630108c6f88b53bc",
+        "gameSha256": "ff07780ffd1ec83d32c0ea72af8baf8cbc581433c7cfa8fca1028c6c3b594755",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "reviewSheet": "comparison-01.jpg",
         "reviewSheetSha256": "c32e7886a70573a08db6fe7e43388e1ce9a6b8f6db4aaafa627477ba05ce8173",
         "referenceCoverageFraction": 1.0,
         "reviewedAt": "2026-11-09T00:40:32.238037+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Conservative source-water mask tile reviewed against the actual aerial. This masked tile chiefly shows surrounding district context; it does not itself establish a visible ribbon correction. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate."
+        "observations": "Conservative source-water mask tile reviewed against the actual aerial. This masked tile chiefly shows surrounding district context; it does not itself establish a visible ribbon correction. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r05-c05",
@@ -7287,64 +7340,64 @@
         "id": "aerial-r06-c03",
         "originalGameSha256": "0093a607e0dbd297432f68f639950b25abb100c0c353a80cdbc8b34ae1880d99",
         "retakeGameSha256": "880224fd61995cdfbfb386c34dba47b74bbc88f854443914dcad2abb1ec27c39",
-        "gameSha256": "880224fd61995cdfbfb386c34dba47b74bbc88f854443914dcad2abb1ec27c39",
-        "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-        "pairSha256": "bf29d5e82a7033b6a38e3eae18e69cb893085d8130bec6e4851cd8afac435487",
+        "gameSha256": "674ea7a92ca8e319963307e6a52eb3ace8683e38c7c1b18098dd5de1a61dc44f",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "reviewSheet": "comparison-01.jpg",
         "reviewSheetSha256": "c32e7886a70573a08db6fe7e43388e1ce9a6b8f6db4aaafa627477ba05ce8173",
         "referenceCoverageFraction": 1.0,
         "reviewedAt": "2026-11-09T00:40:32.248165+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Conservative source-water mask tile reviewed against the actual aerial. Visible river retains the source polygon shoreline without the broad overlapping estimated line ribbon on the bank/road. Model-blue water differs from the green unknown-date reference; no date-matched optical parity is claimed. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate."
+        "observations": "Conservative source-water mask tile reviewed against the actual aerial. Visible river retains the source polygon shoreline without the broad overlapping estimated line ribbon on the bank/road. Model-blue water differs from the green unknown-date reference; no date-matched optical parity is claimed. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r06-c04",
         "originalGameSha256": "4bb7b73003203778a839a7d37f41ecf5f3657460c8ebec9af988dbe6e547a050",
         "retakeGameSha256": "5a7b271571b77c876751eeafd2648f310e15bb6a3f73a22345edb658d29ebc73",
-        "gameSha256": "5a7b271571b77c876751eeafd2648f310e15bb6a3f73a22345edb658d29ebc73",
-        "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-        "pairSha256": "b2826190130391f62c7297a40146ad08da83499cd98c0953b7845f9f698fd3e7",
+        "gameSha256": "f46319de6ed2890d58e176140b9df0916cf53c8824c1048e203295ca6b19b2c5",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "reviewSheet": "comparison-02.jpg",
         "reviewSheetSha256": "11defd85ff91d0f0f5643f2ac97eb126202e3746a3f7d3ad1ca6036c3c10c220",
         "referenceCoverageFraction": 1.0,
         "reviewedAt": "2026-11-09T00:40:32.249861+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Conservative source-water mask tile reviewed against the actual aerial. Visible river retains the source polygon shoreline without the broad overlapping estimated line ribbon on the bank/road. Model-blue water differs from the green unknown-date reference; no date-matched optical parity is claimed. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate."
+        "observations": "Conservative source-water mask tile reviewed against the actual aerial. Visible river retains the source polygon shoreline without the broad overlapping estimated line ribbon on the bank/road. Model-blue water differs from the green unknown-date reference; no date-matched optical parity is claimed. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r06-c05",
         "originalGameSha256": "91186e958b0e3e9aca295130bff80f47658c7a12c28f1a117b973303a25487c3",
         "retakeGameSha256": "c8de85ee694bf7ff53f6c575acc8de9fe60d3ca83723062d5179bf3aa7b72154",
-        "gameSha256": "c8de85ee694bf7ff53f6c575acc8de9fe60d3ca83723062d5179bf3aa7b72154",
-        "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-        "pairSha256": "7353b98ffc37877df554453c9af97d3a683bde9878a58d8dc0248c918c2649fd",
+        "gameSha256": "d43d5d53375d37c2975af5c46f83db8f99b62a8fb82f440175c693f3eccdc875",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "reviewSheet": "comparison-02.jpg",
         "reviewSheetSha256": "11defd85ff91d0f0f5643f2ac97eb126202e3746a3f7d3ad1ca6036c3c10c220",
         "referenceCoverageFraction": 1.0,
         "reviewedAt": "2026-11-09T00:40:32.251278+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Conservative source-water mask tile reviewed against the actual aerial. Visible river retains the source polygon shoreline without the broad overlapping estimated line ribbon on the bank/road. Model-blue water differs from the green unknown-date reference; no date-matched optical parity is claimed. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate."
+        "observations": "Conservative source-water mask tile reviewed against the actual aerial. Visible river retains the source polygon shoreline without the broad overlapping estimated line ribbon on the bank/road. Model-blue water differs from the green unknown-date reference; no date-matched optical parity is claimed. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r06-c06",
         "originalGameSha256": "7d731cb31993ecf35ddf94492bb7c67d6d062da14bb2b357a14a9ba053a9fb27",
         "retakeGameSha256": "1ff4637145f678499143d12931f86da543a0de75f09b6a22b74e2502daa3d04f",
-        "gameSha256": "1ff4637145f678499143d12931f86da543a0de75f09b6a22b74e2502daa3d04f",
-        "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-        "pairSha256": "7708562f0a092cae8770e7ce2af36cfb6e7beccd3e6d8824144c8a5358a1288d",
+        "gameSha256": "b678a2a7df395a4fcef08c75d6dca98493313fa58eb64313143c2b79f6342d07",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "reviewSheet": "comparison-02.jpg",
         "reviewSheetSha256": "11defd85ff91d0f0f5643f2ac97eb126202e3746a3f7d3ad1ca6036c3c10c220",
         "referenceCoverageFraction": 1.0,
         "reviewedAt": "2026-11-09T00:40:32.252864+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Conservative source-water mask tile reviewed against the actual aerial. Visible river retains the source polygon shoreline without the broad overlapping estimated line ribbon on the bank/road. Model-blue water differs from the green unknown-date reference; no date-matched optical parity is claimed. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate."
+        "observations": "Conservative source-water mask tile reviewed against the actual aerial. Visible river retains the source polygon shoreline without the broad overlapping estimated line ribbon on the bank/road. Model-blue water differs from the green unknown-date reference; no date-matched optical parity is claimed. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r06-c07",
         "originalGameSha256": "595b3dcf5a4a0da65add4e365d92f9ded2154be6edc07069f05954a334b14cf7",
         "retakeGameSha256": "3fb6eb7a1846857f16ac07bdd50f4d24fd3f6eee67b62b157ba9e95dea9c8621",
-        "gameSha256": "127abd33106ed26520bb9a2759648fa155548bee3f6c09d37b4b1ed8d7ebae06",
-        "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "gameSha256": "e4836d1493b7436e41270147822849ef656a14443afb5077d6c1a9e5ac53e8fb",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "originalSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
         "referenceCropSha256": "ad49aa551e9217868b0d4140523036d9a98b5c9722b6f0b20e40dfb7ec708474",
         "referenceCoverageFraction": 1.0,
@@ -7417,8 +7470,8 @@
       },
       {
         "id": "aerial-r06-c11",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "252196cfdc3c8b43e5176c93ad479eeb8166325cdcd4dc2cee6b1b5fadf9dcf1",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "d1bd58ee393e38cc3efe67849494e663f3e99d4ebbb3b62c9ec939b5e7a1cbca",
         "boundsWgs84": [
           44.44344957707951,
           26.071781928511392,
@@ -7426,13 +7479,12 @@
           26.07492741063924
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r06-c11.jpg",
-        "pairSha256": "0f5d29366bc58a6316f79c1b4581a0c0a784db199796fbe2813b7c5a39b12d8a",
         "reviewSheet": "comparison-08.jpg",
         "reviewSheetSha256": "9f7a8b875bd991b67f09ca1ca5b68717250d8aa8b6de54046511976ce3af79b8",
         "reviewedAt": "2026-11-08T22:48:45.681208+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Industrial yards and roofs: source outlines are retained but roof machinery/sawtooth detail, occupancy and external dense context are simplified."
+        "observations": "Industrial yards and roofs: source outlines are retained but roof machinery/sawtooth detail, occupancy and external dense context are simplified.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r07-c01",
@@ -7527,8 +7579,8 @@
         "id": "aerial-r07-c07",
         "originalGameSha256": "e6f7b3d9976e3164cc3fd8a365ef8dde90cc92a333358c3339ea0f73b4658113",
         "retakeGameSha256": "30ba29e19a7f8ba124d849def7affd6f2b20af59386bef47008f68bf984d494a",
-        "gameSha256": "9dd8dffb3a2f674a00e2dbee52c6cd062a8b876a27766b99aecaf2a76312617c",
-        "gameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+        "gameSha256": "7da91e063324bfd5c64a7dd970fb86ea1e833082dd54d1d4bf039387f56a21e9",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "reviewSheet": "comparison-03.jpg",
         "reviewSheetSha256": "a7b99b0dda885960a0f0c92934a98c963f4a330411c05a0397e8d7feda93cd37",
         "referenceCoverageFraction": 1.0,
@@ -7569,15 +7621,15 @@
         "id": "aerial-r07-c10",
         "originalGameSha256": "5880261a1655f5ec00ef17bea532473608ae05251c952c4208ca758982cd13d7",
         "retakeGameSha256": "07125c4f876956180db39daec0943f760a00e11fe4daebe5d8c7fb697d254dde",
-        "gameSha256": "07125c4f876956180db39daec0943f760a00e11fe4daebe5d8c7fb697d254dde",
-        "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-        "pairSha256": "30f10b2d230c5e733ebb37a4ee626c97b999be5127ef87812bd0a644b4a4b836",
+        "gameSha256": "42e25e8ab97e9c263520ca1c57803fd868a01edef6515747cf268cea7022b84b",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "reviewSheet": "comparison-04.jpg",
         "reviewSheetSha256": "73b8281ace59e10226c7874dcc50df02eff38889320c27a04472f36cb1cfa66e",
         "referenceCoverageFraction": 1.0,
         "reviewedAt": "2026-11-09T00:40:32.270593+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Conservative source-water mask tile reviewed against the actual aerial. This masked tile chiefly shows surrounding district context; it does not itself establish a visible ribbon correction. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate."
+        "observations": "Conservative source-water mask tile reviewed against the actual aerial. This masked tile chiefly shows surrounding district context; it does not itself establish a visible ribbon correction. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r08-c01",
@@ -7619,8 +7671,8 @@
       },
       {
         "id": "aerial-r08-c03",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "d24c347e8566f4d76fce74c3ba41ebf3005cc1c85dc996cb1ee439b767df3aeb",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "e380ba35db72211925ad6537f2f4479f9615fcf2f7bb0be8cc4222e868a03cf2",
         "boundsWgs84": [
           44.43895042292049,
           26.04661807148861,
@@ -7628,13 +7680,12 @@
           26.049763553616458
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r08-c03.jpg",
-        "pairSha256": "465dd7f1f0b88495edca981fea82c979dc05f515ce1e949969bd8fb6badfc363",
         "reviewSheet": "comparison-10.jpg",
         "reviewSheetSha256": "c1571c44f0a44edcbdc78b5bddc64614f98fe7894314197d69c724a3281dd249",
         "reviewedAt": "2026-11-08T22:48:45.767718+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Campus buildings/sports grounds: source masses and courtyards remain; complex roof profiles and actual tree/ground detail remain approximate."
+        "observations": "Campus buildings/sports grounds: source masses and courtyards remain; complex roof profiles and actual tree/ground detail remain approximate.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r08-c04",
@@ -7739,20 +7790,20 @@
         "id": "aerial-r08-c10",
         "originalGameSha256": "521cc78bc22795ba5289628232702a75613e6f8d60be94dd5cc3ebc4418f2626",
         "retakeGameSha256": "4efdbe6734924782d6762ab98f6c0a1a1ae7417eee7d7cdb3031ec7278caccae",
-        "gameSha256": "4efdbe6734924782d6762ab98f6c0a1a1ae7417eee7d7cdb3031ec7278caccae",
-        "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-        "pairSha256": "a58395f08a40a949dbbf7a67a3dc6e391ce9b3819bb720a15bc008360fcca20e",
+        "gameSha256": "3d402068057dc4a3feaabefe57bc2ead848480cec884d5e47512c0ca377212d7",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
         "reviewSheet": "comparison-04.jpg",
         "reviewSheetSha256": "73b8281ace59e10226c7874dcc50df02eff38889320c27a04472f36cb1cfa66e",
         "referenceCoverageFraction": 1.0,
         "reviewedAt": "2026-11-09T00:40:32.276919+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Conservative source-water mask tile reviewed against the actual aerial. This masked tile chiefly shows surrounding district context; it does not itself establish a visible ribbon correction. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate. Outer contextual masses and bare ground remain much simpler than the reference."
+        "observations": "Conservative source-water mask tile reviewed against the actual aerial. This masked tile chiefly shows surrounding district context; it does not itself establish a visible ribbon correction. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate. Outer contextual masses and bare ground remain much simpler than the reference.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r09-c01",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "25ca9ae05379bbb4a4b92b8ca64990b58538d57318af351e67ee8f2fb8ab8cd2",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "cfba28d017706dab86e2485dc60612221de5332ac7f81b4e0b59c44836f39430",
         "boundsWgs84": [
           44.43670084584098,
           26.040327107232912,
@@ -7760,13 +7811,12 @@
           26.04347258936076
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r09-c01.jpg",
-        "pairSha256": "c9423ae72a1a5ea30dc52d39bb39e04759dfe81e6a2dd268b56e580bc2238766",
         "reviewSheet": "comparison-11.jpg",
         "reviewSheetSha256": "86762a4e39bf9236376b42aa9209f7fe998e8773a1e60fa7e05ebeae47ff243f",
         "reviewedAt": "2026-11-08T22:48:45.802388+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Industrial cooling-tower and campus context: simplified cylinders/masses do not establish matching structure or roof treatment. Surrounding canopy differs."
+        "observations": "Industrial cooling-tower and campus context: simplified cylinders/masses do not establish matching structure or roof treatment. Surrounding canopy differs.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r09-c02",
@@ -7907,8 +7957,8 @@
       },
       {
         "id": "aerial-r10-c01",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "23ad45bcf89fed2ac879266b5fadf09eaf11fd7ec8ac415ea05db0f7a217bd6a",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "337dfd7805226e1085f27fb155acef9bb8794160cd341c09aca151513e59b6d7",
         "boundsWgs84": [
           44.43445126876148,
           26.040327107232912,
@@ -7916,13 +7966,12 @@
           26.04347258936076
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r10-c01.jpg",
-        "pairSha256": "86ed8baad6fc2facf02476f7da53df332fe63151057db36603634ec702d046c4",
         "reviewSheet": "comparison-13.jpg",
         "reviewSheetSha256": "532829d4a6c440bf540f19e8f7fe8533be17773cef816139d0d9783b0acc1076",
         "reviewedAt": "2026-11-08T22:48:45.859041+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Southern campus/residential edge: source building outlines remain; outer sparse blocks, canopy density and sports/green-ground detail differ."
+        "observations": "Southern campus/residential edge: source building outlines remain; outer sparse blocks, canopy density and sports/green-ground detail differ.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r10-c02",
@@ -8058,8 +8107,8 @@
       },
       {
         "id": "aerial-r10-c09",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "24be14918a3f19d461925c00e6940da8b0e83acde12333ce8f2dcec267289138",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "58329d0285e04b599d34a454c10e4fd820ec9111f964ee3a9dabd06a1ebd8a8f",
         "boundsWgs84": [
           44.43445126876148,
           26.065490964255698,
@@ -8067,18 +8116,17 @@
           26.068636446383543
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r10-c09.jpg",
-        "pairSha256": "5582d4a1f98038831e17f083577c5ee0b9debcde7c8f280880fea3ec74d8e799",
         "reviewSheet": "comparison-14.jpg",
         "reviewSheetSha256": "31254cf39ab8bd168337d67ba26cdddf96af5ce84f8eb4e7a94b6420ca5ee77c",
         "reviewedAt": "2026-11-08T22:48:45.895759+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Southern park/pond and throughroad: model water and crowns differ from reference; external ring context remains sparse. Water squares require0775 retakes."
+        "observations": "Southern park/pond and throughroad: model water and crowns differ from reference; external ring context remains sparse. Water squares require0775 retakes.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r11-c02",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "05e288bcbbd630b999eb647acec83adff82319962f1be97e1859d78482140fde",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "ba791dadd0f1dbd151689e05ebb4ce0a0bbfbbb8b03abe1666deb01a0aeebc9f",
         "boundsWgs84": [
           44.43220169168197,
           26.04347258936076,
@@ -8086,13 +8134,12 @@
           26.04661807148861
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r11-c02.jpg",
-        "pairSha256": "d31ba5825a20b8f5552336cd9d3731f4af1c64b5286301c93c8b761f33ae95c0",
         "reviewSheet": "comparison-14.jpg",
         "reviewSheetSha256": "31254cf39ab8bd168337d67ba26cdddf96af5ce84f8eb4e7a94b6420ca5ee77c",
         "reviewedAt": "2026-11-08T22:48:45.897591+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Southern park/pond and throughroad: model water and crowns differ from reference; external ring context remains sparse. Water squares require0775 retakes."
+        "observations": "Southern park/pond and throughroad: model water and crowns differ from reference; external ring context remains sparse. Water squares require0775 retakes.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r11-c03",
@@ -8191,8 +8238,8 @@
       },
       {
         "id": "aerial-r11-c08",
-        "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
-        "gameSha256": "9970d5d38a8bb85709b02983295dba8ea5483ad810ccd46684ed62f1d66f03a4",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "df00a993a99a56338ee5aa8c2ec7cbabaca985a9c3f64d9dad660a95c753bd53",
         "boundsWgs84": [
           44.43220169168197,
           26.06234548212785,
@@ -8200,18 +8247,17 @@
           26.065490964255698
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r11-c08.jpg",
-        "pairSha256": "54063fbb324f5a38107d892b1f7d7e6890d9f9759673ca082a189148b7648f70",
         "reviewSheet": "comparison-04.jpg",
         "reviewSheetSha256": "4b93b6ff61fc4833176db73e30d4c0d3558f4d7803893d9a63df94b0d1a9d199",
         "reviewedAt": "2026-11-08T22:50:31.448887+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Current0775 southern pond/boundary square retains source water but sparse outer detail and canopy differences remain visible."
+        "observations": "Current0775 southern pond/boundary square retains source water but sparse outer detail and canopy differences remain visible.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r12-c03",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "df49b4377bf2327d6b8a44cf3d52f463412239399b53ae7dfb8e9d32a1ffac1a",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "53af30b52c00cc41654696fe5de113fd4f56d01d8b2a62f20b2871f2885d037c",
         "boundsWgs84": [
           44.42995211460246,
           26.04661807148861,
@@ -8219,18 +8265,17 @@
           26.049763553616458
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r12-c03.jpg",
-        "pairSha256": "6af6c1eac33a01d664ce07ce9805a4872ab70aabf56f837501b3135ba2f38315",
         "reviewSheet": "comparison-16.jpg",
         "reviewSheetSha256": "f3729cbaa3fac6e6cf75255b61878563e369de6784c0f7e351ca78a7449d233b",
         "reviewedAt": "2026-11-08T22:48:45.910024+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "South boundary and distant context: large sparse or blank outside areas and unsupported modern podium/roof detail remain explicit gaps."
+        "observations": "South boundary and distant context: large sparse or blank outside areas and unsupported modern podium/roof detail remain explicit gaps.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r12-c04",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "5b9b597a2d9d1ef8f90b46cae2b8fc33b87d4251e83e362737e925fd363eb148",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "bba234915a6b1590247e3ffb182a9b6026db1d9d9a91ab240c5f4667db0b648f",
         "boundsWgs84": [
           44.42995211460246,
           26.049763553616458,
@@ -8238,18 +8283,17 @@
           26.052909035744303
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r12-c04.jpg",
-        "pairSha256": "fbc22204ff652f4b93bb2d3399be4f874872dabd8a47d7f6f19832b71c1a7231",
         "reviewSheet": "comparison-16.jpg",
         "reviewSheetSha256": "f3729cbaa3fac6e6cf75255b61878563e369de6784c0f7e351ca78a7449d233b",
         "reviewedAt": "2026-11-08T22:48:45.911362+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "South boundary and distant context: large sparse or blank outside areas and unsupported modern podium/roof detail remain explicit gaps."
+        "observations": "South boundary and distant context: large sparse or blank outside areas and unsupported modern podium/roof detail remain explicit gaps.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r12-c05",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "ca571e5d22a7e702491426ec15a8abcebeb62d983082bd197e8dbb5a91095a14",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "46a209f2246d6022b9f684702dd2faa1363a5df609a386aa9ad92dfa0159c74e",
         "boundsWgs84": [
           44.42995211460246,
           26.052909035744303,
@@ -8257,18 +8301,17 @@
           26.056054517872152
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r12-c05.jpg",
-        "pairSha256": "287c18a6dbc1259632bf858720dbd40f0b5d16f87a622536c34053f6c96c1e0b",
         "reviewSheet": "comparison-16.jpg",
         "reviewSheetSha256": "f3729cbaa3fac6e6cf75255b61878563e369de6784c0f7e351ca78a7449d233b",
         "reviewedAt": "2026-11-08T22:48:45.916315+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "South boundary and distant context: large sparse or blank outside areas and unsupported modern podium/roof detail remain explicit gaps."
+        "observations": "South boundary and distant context: large sparse or blank outside areas and unsupported modern podium/roof detail remain explicit gaps.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r12-c06",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "c9936ce96f79a09cced6f7ddf43d89d0eeddf6fba78cbe03a2b2a16dc9d6a041",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "8d3f702e0cc4077ded0ace43403c290667e9322eada299685646b57de2a4cedb",
         "boundsWgs84": [
           44.42995211460246,
           26.056054517872152,
@@ -8276,18 +8319,17 @@
           26.0592
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r12-c06.jpg",
-        "pairSha256": "dd92e6cf0f46890b68f1f77390e9e76d528b67b8354582b7feaa6f49f95f9e55",
         "reviewSheet": "comparison-16.jpg",
         "reviewSheetSha256": "f3729cbaa3fac6e6cf75255b61878563e369de6784c0f7e351ca78a7449d233b",
         "reviewedAt": "2026-11-08T22:48:45.917825+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "South boundary and distant context: large sparse or blank outside areas and unsupported modern podium/roof detail remain explicit gaps."
+        "observations": "South boundary and distant context: large sparse or blank outside areas and unsupported modern podium/roof detail remain explicit gaps.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "aerial-r12-c07",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "08e4f7a3564636871dd5704d0fc2efd73b2f653ec3771a4b99c390e0d0fbd217",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "dd2105061947ea764b16d601b3482061e860f3b9b7045401ba37f329e5a36a52",
         "boundsWgs84": [
           44.42995211460246,
           26.0592,
@@ -8295,13 +8337,12 @@
           26.06234548212785
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/aerial-r12-c07.jpg",
-        "pairSha256": "a89eeaf3c6e709d5a410ed55ccd4729903d97b0124350aff15c384570b76f8cd",
         "reviewSheet": "comparison-16.jpg",
         "reviewSheetSha256": "f3729cbaa3fac6e6cf75255b61878563e369de6784c0f7e351ca78a7449d233b",
         "reviewedAt": "2026-11-08T22:48:45.919284+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "South boundary and distant context: large sparse or blank outside areas and unsupported modern podium/roof detail remain explicit gaps."
+        "observations": "South boundary and distant context: large sparse or blank outside areas and unsupported modern podium/roof detail remain explicit gaps.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "context-northwest",
@@ -8324,8 +8365,8 @@
       },
       {
         "id": "context-northeast",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "fae495b45fa2ca2c105f1990b1c56fe79055f9c6172516b1f82505d73b4383dc",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "f24d5adbc40597af2b17f9055a480ed82d7fea91649f5a93b01f160864af1a5a",
         "boundsWgs84": [
           44.45469746247706,
           26.071781928511392,
@@ -8333,18 +8374,17 @@
           26.07492741063924
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/context-northeast.jpg",
-        "pairSha256": "d6c2c8057e95ba444398953f70284bc31ef7b7d7be4dac99bbcc3136f8cdbcc7",
         "reviewSheet": "comparison-17.jpg",
         "reviewSheetSha256": "89e221a031414291022c7ed3a34cd60d0a46591ceea32a945ef497ddd8f35b96",
         "reviewedAt": "2026-11-08T22:48:45.922173+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Four distant context frames: generic blocks and cathedral surroundings remain visibly incomplete. Cathedral placement is retained but this does not establish contextual parity."
+        "observations": "Four distant context frames: generic blocks and cathedral surroundings remain visibly incomplete. Cathedral placement is retained but this does not establish contextual parity.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "context-southwest",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "f757f0f41eb9ec81abdfcb62b363ced9e7581555e5deeb80cac985307333b78a",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "dd2050aaa1204f18f09548c11c0ae045f53b1bcf69b1111b53d7976787d29007",
         "boundsWgs84": [
           44.42995211460246,
           26.040327107232912,
@@ -8352,13 +8392,12 @@
           26.04347258936076
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/context-southwest.jpg",
-        "pairSha256": "308e3905a403c888b013526c229d33408afa8dc7c41d6e6a6853465aaa9505ca",
         "reviewSheet": "comparison-17.jpg",
         "reviewSheetSha256": "89e221a031414291022c7ed3a34cd60d0a46591ceea32a945ef497ddd8f35b96",
         "reviewedAt": "2026-11-08T22:48:45.971005+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Four distant context frames: generic blocks and cathedral surroundings remain visibly incomplete. Cathedral placement is retained but this does not establish contextual parity."
+        "observations": "Four distant context frames: generic blocks and cathedral surroundings remain visibly incomplete. Cathedral placement is retained but this does not establish contextual parity.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       },
       {
         "id": "context-southeast",
@@ -8381,8 +8420,8 @@
       },
       {
         "id": "context-cathedral",
-        "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
-        "gameSha256": "526ed1eee15570de61d6f7392d8653c3294679182701573feffcda547d0a3812",
+        "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "gameSha256": "719d1d6b9143669e55d06e4e0b5c32849361b991adbf5da9a2f6591b71a664a9",
         "boundsWgs84": [
           44.42480491146024,
           26.080725358936075,
@@ -8390,25 +8429,25 @@
           26.083870841063924
         ],
         "referenceCoverageFraction": 1.0,
-        "pair": "pairs/context-cathedral.jpg",
-        "pairSha256": "9db3f655e0ac9d16606faaefd2686d89415049c3a1989e62e137e883a36a1e3c",
         "reviewSheet": "comparison-17.jpg",
         "reviewSheetSha256": "89e221a031414291022c7ed3a34cd60d0a46591ceea32a945ef497ddd8f35b96",
         "reviewedAt": "2026-11-08T22:48:45.974017+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Four distant context frames: generic blocks and cathedral surroundings remain visibly incomplete. Cathedral placement is retained but this does not establish contextual parity."
+        "observations": "Four distant context frames: generic blocks and cathedral surroundings remain visibly incomplete. Cathedral placement is retained but this does not establish contextual parity.",
+        "retakeNote": "Fresh game capture reviewed against the prior capture; no reference pair recorded."
       }
     ],
-    "targetedRetakeReview": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+    "targetedRetakeReview": "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
     "structureRetakeReview": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
     "structureRetakeSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
     "structureRetakesReviewed": 1,
     "currentAtlasSourceCounts": {
-      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 65,
-      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 19,
+      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 39,
+      "9824fd56de3f0e420821e871436906186a80e493": 36,
+      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 12,
       "8add95f35681eddaf01a136ff1f5769a5329b102": 4,
-      "346f798681d891de6cebfc9e1d094996b1ace2e3": 8,
-      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 4
+      "346f798681d891de6cebfc9e1d094996b1ace2e3": 6,
+      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 3
     },
     "priorCompleteReview": {
       "manifest": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/c4b8b9d74682e19390f9a60313013898bcf28428/game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/manifest.json",
@@ -8418,11 +8457,12 @@
     "priorTargetedRetakeReview": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/paired-review.json",
     "structureRetakeReviewedAt": "2026-11-09T02:11:54.818451+00:00",
     "earlierTargetedRetakeReviews": [
-      "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json"
+      "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+      "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json"
     ]
   },
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 8 poses retaken on 2026-11-12 at 346f7986 (Dâmbovița channel uncovered, CET Grozăvești cooling towers, Botanica pond at grade, Basarab north-east); all other images retain their recorded sources and dates."
+    "atlas": "Mixed-source technical atlas: 36 poses retaken on 2026-11-13 at 9824fd56 (Dâmbovița level and banks; stale tiles refreshed); all other images retain their recorded sources and dates."
   },
   "perspectiveCollections": [
     {
@@ -8522,6 +8562,21 @@
         "bbaffc0d6cdccb6246edeb9478c58590852980d9": 22,
         "8add95f35681eddaf01a136ff1f5769a5329b102": 7,
         "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
+      },
+      "captureType": "mixed-source-survey"
+    },
+    {
+      "manifest": "historical/mixed-before-9824fd56-ed9f7791/manifest.json",
+      "label": "Atlas before the 9824fd5 retake (Dâmbovița level and banks; stale tiles refreshed)",
+      "frames": 100,
+      "generatedAt": "2026-11-12T19:48:10.868Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 65,
+        "bbaffc0d6cdccb6246edeb9478c58590852980d9": 19,
+        "8add95f35681eddaf01a136ff1f5769a5329b102": 4,
+        "346f798681d891de6cebfc9e1d094996b1ace2e3": 8,
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 4
       },
       "captureType": "mixed-source-survey"
     }

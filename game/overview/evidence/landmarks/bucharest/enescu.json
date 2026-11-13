@@ -1,0 +1,267 @@
+{
+  "schemaVersion": 1,
+  "id": "enescu",
+  "city": "bucharest",
+  "name": "Statuia George Enescu",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4437403,
+    "lon": 26.0980397
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/1171605516",
+      "label": "OSM w1171605516 · tourism=artwork, artwork_type=statue; a 4.4 m square outline = the base",
+      "type": "osm"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/9824fd56de3f0e420821e871436906186a80e493/game/research/bucharest-romana.md",
+      "label": "District dossier: seated bronze on two granite steps",
+      "type": "research"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493",
+      "label": "Fidelity pass round 2 (9824fd5), not yet published when captured",
+      "type": "implementation"
+    }
+  ],
+  "sourceIds": [],
+  "reviewedAt": "2026-11-13",
+  "improvements": [
+    "The George Enescu statue at Bd. Magheru × Str. George Enescu is a district landmark: a dark bronze man seated on a rough block, on two low grey granite steps, facing west-south-west towards the boulevard (panorama at 44.443605, 26.098132, viewed only)."
+  ],
+  "remainingGaps": [
+    "Step and figure heights are estimates; the figure is a silhouette class, not a likeness. The registry declares no replacement source id; districtOnly scenery in Romana.",
+    "Isolated model studies; placement in the Romana district was not captured for this record."
+  ],
+  "checks": [
+    {
+      "label": "Registry identity",
+      "passed": true,
+      "details": "id, name, anchor and sourceIds are read from game/src/landmarks.js at 9824fd5."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 9824fd5 (game/src clean) on 2026-11-13: passed, 2144 checks over 70 models; this model 184 triangles, 1 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "Matched Street View / aerial comparison",
+      "passed": false,
+      "details": "No matched reference comparison was made for this record. The source comments name panoramas used as viewed reference only; no reference imagery is stored or published."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study · 11 m in front of the figure",
+      "kind": "front",
+      "image": "assets/landmarks/enescu/source-9824fd56/front.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "4ba56a52fa121e5f614340f848b9932a2945b5479d00d46d434e411cda7344de",
+      "bytes": 2304,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:55.459Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=enescu&clean=1&fountains=on&view=street&az=-70&d=11",
+        "anchor": {
+          "lat": 44.4437403,
+          "lon": 26.0980397,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            -10.336618828644992,
+            1.3,
+            3.7622215765823572
+          ],
+          "quaternion": [
+            -0.002159560307419636,
+            -0.5735744430922255,
+            -0.001512140406473707,
+            0.8191491976203805
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 220,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -2.799999952316284,
+            0,
+            -2.799999952316284
+          ],
+          "max": [
+            2.799999952316284,
+            2.759999990463257,
+            2.799999952316284
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "North-up orthographic model study",
+      "kind": "top",
+      "image": "assets/landmarks/enescu/source-9824fd56/top.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "2710be0615f6f69e91773f0da096f7e8a3ed3f9c4ccb51012ded7a79a147ab2a",
+      "bytes": 10830,
+      "width": 720,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:56.079Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=enescu&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4437403,
+          "lon": 26.0980397,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "orthographic",
+          "position": [
+            0,
+            100,
+            0
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 2000,
+          "viewport": [
+            720,
+            720
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -5.247999944686889,
+          "right": 5.247999944686889,
+          "top": 5.247999944686889,
+          "bottom": -5.247999944686889,
+          "zoom": 1,
+          "groundSquareM": 10.495999889373778,
+          "groundWidthM": 10.495999889373778,
+          "groundDepthM": 10.495999889373778,
+          "orientation": "north-up"
+        },
+        "bounds": {
+          "min": [
+            -2.799999952316284,
+            0,
+            -2.799999952316284
+          ],
+          "max": [
+            2.799999952316284,
+            2.759999990463257,
+            2.799999952316284
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/enescu/source-9824fd56/oblique.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "2b006e58298a49ee12a25034225cd69e8d7078c2d5edebcdf61e0ce6775bb75a",
+      "bytes": 6746,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:56.679Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=enescu&clean=1&fountains=on&view=oblique&az=-35&el=24",
+        "anchor": {
+          "lat": 44.4437403,
+          "lon": 26.0980397,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            -6.008841568815687,
+            5.768258257788158,
+            8.581515109333285
+          ],
+          "quaternion": [
+            -0.1982889037916216,
+            -0.29413465631184554,
+            -0.06252025121363956,
+            0.9328759471535393
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 229.3502855474772,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -2.799999952316284,
+            0,
+            -2.799999952316284
+          ],
+          "max": [
+            2.799999952316284,
+            2.759999990463257,
+            2.799999952316284
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 186,
+    "drawCalls": 2,
+    "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
+  },
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T05:41:38.367Z"
+  },
+  "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+}

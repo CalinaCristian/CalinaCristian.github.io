@@ -1,0 +1,40 @@
+{
+  "district": "romana",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "frames": 116,
+  "retakesInstalled": 16,
+  "retakenIds": [
+    "aerial-r06-c05",
+    "aerial-r10-c09",
+    "aerial-r11-c09",
+    "aerial-r05-c04",
+    "aerial-r01-c03",
+    "aerial-r01-c04",
+    "aerial-r01-c05",
+    "aerial-r02-c02",
+    "aerial-r03-c01",
+    "aerial-r04-c01",
+    "aerial-r05-c01",
+    "aerial-r11-c12",
+    "aerial-r12-c12",
+    "aerial-r14-c08",
+    "aerial-r14-c09",
+    "aerial-r14-c10"
+  ],
+  "untouchedItemsAndBytesPreserved": 100,
+  "archivedManifest": "historical/mixed-before-9824fd56-69bd7d76/manifest.json",
+  "archivedManifestSha256": "69bd7d766bc460e95bb9e8301c18113d7d19c18bdbcbfe2f34cbe25996bee0f5",
+  "archivedItemsResolved": 116,
+  "sourceFilesVerifiedAgainstCommit": 514,
+  "atlasSourceCounts": {
+    "9824fd56de3f0e420821e871436906186a80e493": 16,
+    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 79,
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 13,
+    "d8e7d119ba8dcc29fce289e8c9f988092507fc10": 2,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 1,
+    "8add95f35681eddaf01a136ff1f5769a5329b102": 5
+  },
+  "allGroundPosesPreserved": true,
+  "sourceRevisionCorrections": [],
+  "failures": []
+}

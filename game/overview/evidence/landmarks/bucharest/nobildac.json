@@ -1,0 +1,267 @@
+{
+  "schemaVersion": 1,
+  "id": "nobildac",
+  "city": "bucharest",
+  "name": "Statuia „Nobil Dac”",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4466925,
+    "lon": 26.0945949
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/1170480716",
+      "label": "OSM w1170480716 · tourism=artwork, artwork_type=statue, material=marble; a 1.5 m square outline = the plinth",
+      "type": "osm"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/9824fd56de3f0e420821e871436906186a80e493/game/research/bucharest-romana.md",
+      "label": "District dossier: marble, cloaked standing figure on a square plinth",
+      "type": "research"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493",
+      "label": "Fidelity pass round 2 (9824fd5), not yet published when captured",
+      "type": "implementation"
+    }
+  ],
+  "sourceIds": [],
+  "reviewedAt": "2026-11-13",
+  "improvements": [
+    "\"Nobil Dac\" at Str. Mendeleev × Str. George Enescu is a district landmark: a grey-weathered marble standing figure wrapped in a long cloak, facing east, on a plain square stone plinth with a plaque on the front and a low base (panoramas at 44.44681, 26.094523 and 44.446652, 26.094859, viewed only)."
+  ],
+  "remainingGaps": [
+    "Plinth and figure heights are estimates; the figure is a silhouette class, not a likeness. The registry declares no replacement source id; districtOnly scenery in Romana.",
+    "Isolated model studies; placement in the Romana district was not captured for this record."
+  ],
+  "checks": [
+    {
+      "label": "Registry identity",
+      "passed": true,
+      "details": "id, name, anchor and sourceIds are read from game/src/landmarks.js at 9824fd5."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 9824fd5 (game/src clean) on 2026-11-13: passed, 2144 checks over 70 models; this model 228 triangles, 1 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "Matched Street View / aerial comparison",
+      "passed": false,
+      "details": "No matched reference comparison was made for this record. The source comments name panoramas used as viewed reference only; no reference imagery is stored or published."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study · 9 m east, the figure's facing side",
+      "kind": "front",
+      "image": "assets/landmarks/nobildac/source-9824fd56/front.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "509abd0824c20c9ae9cbeed189b72e06de20950a8ead5a7646d8226b190a0449",
+      "bytes": 4812,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:53.680Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=nobildac&clean=1&fountains=on&view=street&az=90&d=9",
+        "anchor": {
+          "lat": 44.4466925,
+          "lon": 26.0945949,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            9,
+            1.3,
+            5.51091059616309e-16
+          ],
+          "quaternion": [
+            0.028411672534373704,
+            0.7065357576682155,
+            -0.028411672534373704,
+            0.7065357576682156
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 180,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -1.0399999618530273,
+            0,
+            -0.9100000262260437
+          ],
+          "max": [
+            1.0399999618530273,
+            4.5,
+            0.9100000262260437
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "North-up orthographic model study",
+      "kind": "top",
+      "image": "assets/landmarks/nobildac/source-9824fd56/top.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "48c88765bf6ef3d63ae540d7e0acdf5afc7646f4677220d8f958487aad99a073",
+      "bytes": 10650,
+      "width": 720,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:54.292Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=nobildac&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4466925,
+          "lon": 26.0945949,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "orthographic",
+          "position": [
+            0,
+            100,
+            0
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 2000,
+          "viewport": [
+            720,
+            720
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -3.2063999557495118,
+          "right": 3.2063999557495118,
+          "top": 3.2063999557495118,
+          "bottom": -3.2063999557495118,
+          "zoom": 1,
+          "groundSquareM": 6.4127999114990235,
+          "groundWidthM": 6.4127999114990235,
+          "groundDepthM": 6.4127999114990235,
+          "orientation": "north-up"
+        },
+        "bounds": {
+          "min": [
+            -1.0399999618530273,
+            0,
+            -0.9100000262260437
+          ],
+          "max": [
+            1.0399999618530273,
+            4.5,
+            0.9100000262260437
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/nobildac/source-9824fd56/oblique.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "1226d509defeecfabbb07f37e09dc824ad7f344aa5143043b4c6a4394bcb6733",
+      "bytes": 9496,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:54.879Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=nobildac&clean=1&fountains=on&view=oblique&az=125&el=24",
+        "anchor": {
+          "lat": 44.4466925,
+          "lon": 26.0945949,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            8.1016278529076,
+            6.203428085124225,
+            -5.672820894375647
+          ],
+          "quaternion": [
+            -0.09600293491045152,
+            0.8676275182981714,
+            0.18441992209975355,
+            0.4516582981780104
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 216.52477887533695,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -1.0399999618530273,
+            0,
+            -0.9100000262260437
+          ],
+          "max": [
+            1.0399999618530273,
+            4.5,
+            0.9100000262260437
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 230,
+    "drawCalls": 2,
+    "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
+  },
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T05:41:38.367Z"
+  },
+  "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+}

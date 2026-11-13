@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "Otopeni aerial comparisons",
-  "generatedDate": "2026-11-12",
-  "generatedAt": "2026-11-12T19:47:15.670Z",
+  "generatedDate": "2026-11-13",
+  "generatedAt": "2026-11-13T05:27:11.015Z",
   "defaultTile": "aerial-r11-c04",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -1771,13 +1771,13 @@
         0,
         -500
       ],
-      "gameSourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 111,
-        "triangles": 274467,
-        "renderMs": 9.699999988079071,
+        "drawCalls": 112,
+        "triangles": 286949,
+        "renderMs": 2.300000011920929,
         "quality": "high"
       },
       "traffic": {
@@ -1793,16 +1793,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-12T15:57:36.766Z",
-      "gamePath": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/images/aerial-r04-c06.jpg",
-      "image": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/images/aerial-r04-c06.jpg",
-      "thumbnail": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/thumbs/aerial-r04-c06.jpg",
-      "sha256": "30d661d5c01bb949ac034e112b3a591fc7cc13a9bd00985e8c69becc70ca94cf",
+      "capturedAt": "2026-11-13T05:26:36.870Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r04-c06.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r04-c06.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r04-c06.jpg",
+      "sha256": "8cc0d2e05b87c2fa41044e2dea760e31b6bbd8fd123b708e51f26007246f568f",
       "width": 640,
       "height": 640,
-      "captureWallMs": 1970,
+      "captureWallMs": 741,
       "dataset": "atlas",
-      "thumbnailSha256": "b88e0abe0a2aa44052cd54a11692af018334f959f832b97ac4d4c08d0c1e4f54",
+      "thumbnailSha256": "0384f90771b3774eaf422f36c17d37a98fa63e6aa149647ed09accd0b549e1b1",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.56949915415902,
@@ -1810,8 +1810,8 @@
         44.57174873123852,
         26.077
       ],
-      "sourceCaptureManifest": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/manifest.json",
-      "sourceNote": "Exact-pose scoped retake (station service drive at street level); prior collection archived."
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (Plecări (departures) forecourt canopies along the terminal front); prior collection archived."
     },
     {
       "id": "aerial-r04-c07",
@@ -2431,13 +2431,13 @@
         0,
         -250
       ],
-      "gameSourceCommit": "d8e7d119ba8dcc29fce289e8c9f988092507fc10",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 102,
-        "triangles": 300989,
-        "renderMs": 1.5999999940395355,
+        "drawCalls": 107,
+        "triangles": 323875,
+        "renderMs": 3.2000000029802322,
         "quality": "high"
       },
       "traffic": {
@@ -2453,16 +2453,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-12T15:57:38.736Z",
-      "gamePath": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/images/aerial-r05-c06.jpg",
-      "image": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/images/aerial-r05-c06.jpg",
-      "thumbnail": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/thumbs/aerial-r05-c06.jpg",
-      "sha256": "8af8eec73964175d392be3d375ff1e1b66136dae35e442a8a217a2817d33e2f7",
+      "capturedAt": "2026-11-13T05:26:41.421Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r05-c06.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r05-c06.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r05-c06.jpg",
+      "sha256": "16890f802facb5fad09dc4b3439960e8110695f4c8bfd5b205edb43761e5c9d1",
       "width": 640,
       "height": 640,
-      "captureWallMs": 549,
+      "captureWallMs": 528,
       "dataset": "atlas",
-      "thumbnailSha256": "85b4c8e0224c35cd37d1668024e012598543e7fab5373b2aea7e20db4b31fb7a",
+      "thumbnailSha256": "52c1f7b41be0ec886688f8b5567df0ecbd420c530a1b1c16365bec6f04bd6a55",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.56724957707951,
@@ -2470,8 +2470,8 @@
         44.56949915415902,
         26.077
       ],
-      "sourceCaptureManifest": "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/manifest.json",
-      "sourceNote": "Exact-pose scoped retake (station service drive at street level); prior collection archived."
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (Gara Aeroport Henri Coandă: glazed barrel vault over the platforms); prior collection archived."
     },
     {
       "id": "aerial-r05-c07",
@@ -4683,13 +4683,13 @@
         -750,
         750
       ],
-      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 92,
-        "triangles": 439043,
-        "renderMs": 15.899999998509884,
+        "triangles": 336342,
+        "renderMs": 1.7999999970197678,
         "quality": "high"
       },
       "traffic": {
@@ -4705,16 +4705,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T22:34:48.171Z",
-      "gamePath": "images/aerial-r09-c03.jpg",
-      "image": "images/aerial-r09-c03.jpg",
-      "thumbnail": "thumbs/aerial-r09-c03.jpg",
-      "sha256": "a13b68caff747b34bf488aba5cbaa3c4b84f0a22e03353d10dd9b1eb594dcf3b",
+      "capturedAt": "2026-11-13T05:26:54.314Z",
+      "gamePath": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r09-c03.jpg",
+      "image": "retakes/9824fd56de3f0e420821e871436906186a80e493/images/aerial-r09-c03.jpg",
+      "thumbnail": "retakes/9824fd56de3f0e420821e871436906186a80e493/thumbs/aerial-r09-c03.jpg",
+      "sha256": "9dbc34792549af97cb93177302b7b3befac35cd9f28ab8e4b4eb7d0bed5bc339",
       "width": 640,
       "height": 640,
-      "captureWallMs": 10135,
+      "captureWallMs": 471,
       "dataset": "atlas",
-      "thumbnailSha256": "ba9ec9fa00c024803634fd54c89478e5efd6488eea5b6c0a9dc9d924a4b988dc",
+      "thumbnailSha256": "5269082bdd8d948747aefc10fe761498302f184a40faa6503a9c5b4998b08af7",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.558251268761474,
@@ -4724,7 +4724,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceCaptureManifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "sourceNote": "Exact-pose scoped retake at 9824fd56 (multi-storey car park with its clad deck edges); prior collection archived."
     },
     {
       "id": "aerial-r09-c04",
@@ -7177,17 +7179,17 @@
   ],
   "locationId": "otopeni",
   "captureType": "immutable-source-snapshot",
-  "description": "Mixed-source technical atlas: 12 poses retaken on 2026-11-12 at 346f7986 (airport rail viaduct, three DN1 footbridges, DN1 central barrier); all other images retain their recorded sources and dates.",
+  "description": "Mixed-source technical atlas: 3 poses retaken on 2026-11-13 at 9824fd56 (CFR airport station glazed vault, Plecări canopies, car park cladding); all other images retain their recorded sources and dates.",
   "coverageNote": "107 captured 250 m squares: 26 touch the playable mask, 77 additional squares touch its exact 600 m ring and 4 are optional distant context. Boundary squares also include land beyond the ring.",
   "reviewNote": "Twelve affected current game frames inspected at full size. Source/aerial comparisons retain their historical review scope; no photographic parity claim.",
   "collectionNotes": {
-    "atlas": "Mixed-source technical atlas: 12 poses retaken on 2026-11-12 at 346f7986 (airport rail viaduct, three DN1 footbridges, DN1 central barrier); all other images retain their recorded sources and dates."
+    "atlas": "Mixed-source technical atlas: 3 poses retaken on 2026-11-13 at 9824fd56 (CFR airport station glazed vault, Plecări canopies, car park cladding); all other images retain their recorded sources and dates."
   },
   "atlasSourceCounts": {
-    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 83,
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 82,
     "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10,
     "346f798681d891de6cebfc9e1d094996b1ace2e3": 12,
-    "d8e7d119ba8dcc29fce289e8c9f988092507fc10": 2
+    "9824fd56de3f0e420821e871436906186a80e493": 3
   },
   "sourceCaptureManifest": {
     "path": "capture-manifest.json",
@@ -7227,15 +7229,16 @@
     "latestGameFrameSource": "b1e33eeee64e3b582a249e73ca5105a7a78d8c48",
     "gameSourceCommit": null,
     "sourceCounts": {
-      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 83,
+      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 82,
       "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10,
       "346f798681d891de6cebfc9e1d094996b1ace2e3": 12,
-      "d8e7d119ba8dcc29fce289e8c9f988092507fc10": 2
+      "9824fd56de3f0e420821e871436906186a80e493": 3
     },
     "framesReviewed": 107,
-    "targetedRetakeReview": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json",
+    "targetedRetakeReview": "retakes/9824fd56de3f0e420821e871436906186a80e493/paired-review.json",
     "earlierTargetedRetakeReviews": [
-      "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/paired-review.json"
+      "retakes/d8e7d119ba8dcc29fce289e8c9f988092507fc10/paired-review.json",
+      "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/paired-review.json"
     ]
   },
   "groundConditions": {
@@ -7287,6 +7290,15 @@
       "sourceProvenance": "retakes/346f798681d891de6cebfc9e1d094996b1ace2e3/source-provenance.json",
       "sourceProvenanceSha256": "82bdb82e7611dae001426e5418f75fdb03d033b4c2afc107d6cb4d95114f0e47",
       "frames": 12
+    },
+    {
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "treeSha256": "ae5b9d7a70a4b3fd14dfcdce1a76092981d8db36d05abb7b1aaaa70af7b27b0b",
+      "manifest": "retakes/9824fd56de3f0e420821e871436906186a80e493/manifest.json",
+      "manifestSha256": "ccb86c62c8447b91063c3f556be01809354c5583cb88c6eb49caf1c356a206d9",
+      "sourceProvenance": "retakes/9824fd56de3f0e420821e871436906186a80e493/source-provenance.json",
+      "sourceProvenanceSha256": "97546c0f739451c080fb256480562790b3336cdb87392026dfbc5aea7473185b",
+      "frames": 3
     }
   ],
   "historicalCollections": [
@@ -7311,6 +7323,20 @@
       "sourceCounts": {
         "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 97,
         "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10
+      },
+      "captureType": "mixed-source-survey"
+    },
+    {
+      "manifest": "historical/mixed-before-9824fd56-2d2eb0f3/manifest.json",
+      "label": "Atlas before the 9824fd5 retake (CFR airport station glazed vault, Plecări canopies, car park cladding)",
+      "frames": 107,
+      "generatedAt": "2026-11-12T19:47:15.670Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 83,
+        "b1e33eeee64e3b582a249e73ca5105a7a78d8c48": 10,
+        "346f798681d891de6cebfc9e1d094996b1ace2e3": 12,
+        "d8e7d119ba8dcc29fce289e8c9f988092507fc10": 2
       },
       "captureType": "mixed-source-survey"
     }

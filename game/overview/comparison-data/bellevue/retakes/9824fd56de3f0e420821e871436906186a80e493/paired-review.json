@@ -1,0 +1,115 @@
+{
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r02-c10",
+    "aerial-r03-c10",
+    "aerial-r04-c10",
+    "aerial-r05-c07",
+    "aerial-r05-c08",
+    "aerial-r05-c09",
+    "aerial-r05-c10",
+    "aerial-r04-c03",
+    "aerial-r04-c06",
+    "aerial-r05-c03",
+    "aerial-r05-c04",
+    "aerial-r06-c03",
+    "aerial-r06-c04"
+  ],
+  "reviewedAt": "2026-11-13T05:49:22.250Z",
+  "method": "Published game capture, a 94a177d5 render and the 9824fd56 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r02-c10",
+      "originalGameSha256": "ef3e9db5b1f9fbd161b423069ff7762d4773b047e916f6a4401204bebd6a65a4",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "9c3adce6511610068894a8a184756270f12595bff1d8dd7e75d03023fc9009be",
+      "observation": "Link 2 Line elevated guideway now crosses the tile"
+    },
+    {
+      "id": "aerial-r03-c10",
+      "originalGameSha256": "11c840811f9f9dfb3137789b2e802dab0275b3fcf0abd6a9fb1430d920ea44f4",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "687be9b318bfdb740f3dec3671959e8f8bb29ac3ad0a87efac01406883b28de5",
+      "observation": "Link 2 Line elevated guideway now crosses the tile"
+    },
+    {
+      "id": "aerial-r04-c10",
+      "originalGameSha256": "7a75c176301daab5ca699be930de6e33002de3e3238775d4a9d1288034cb1ddd",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "bf3fb5f8b654cfd4359baef8b7c515c58b289180cbd1ed7ce674faf5b4a1757d",
+      "observation": "Link 2 Line elevated guideway now crosses the tile"
+    },
+    {
+      "id": "aerial-r05-c07",
+      "originalGameSha256": "75da1551866807b04e0219765e2dff2f66c6cbc4ff20dce9e0479b2932f1ac24",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "39c659d1446e44edf0e65772ecbf0b20510179d30cf7d6a9ab7c67931966bb21",
+      "observation": "Link 2 Line elevated guideway now crosses the tile"
+    },
+    {
+      "id": "aerial-r05-c08",
+      "originalGameSha256": "3e0437689bc527215dee813a5439652844a23ece5ee582f9093686d143f901dd",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "79b3698276aa139330e373254c7c96a5afa5fc1d16f409c6ea674780a5d87ca9",
+      "observation": "Link 2 Line elevated guideway now crosses the tile"
+    },
+    {
+      "id": "aerial-r05-c09",
+      "originalGameSha256": "40a5952d2918ec671fd38e8049d471367edfae9e08b7fd01bed232970a0c9b12",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "dd472420aaf31ab60a32542e08d40dd96191888a45d2ccf11c4490457b139c06",
+      "observation": "Link 2 Line elevated guideway now crosses the tile"
+    },
+    {
+      "id": "aerial-r05-c10",
+      "originalGameSha256": "f9acbe98c2e9b8b46f39f6ec05b4dbea98749bab0f2bfde3f18999fcd8ab2e31",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "23416103cfb81d6501f2df632c828db2f744ecfe628184c73665cb9bb523bc24",
+      "observation": "Link 2 Line elevated guideway now crosses the tile"
+    },
+    {
+      "id": "aerial-r04-c03",
+      "originalGameSha256": "84d35e39e1c61caff25e9f2e0d24fe02241bf84818ddcdd17fef323f6ce560a6",
+      "originalGameSourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "retakeGameSha256": "1c1c24f4b360f3421ba046a920c6c86c9c2cb2ab9adaf2261b6102496d431181",
+      "observation": "multi-storey car park drawn as an open / louvred deck"
+    },
+    {
+      "id": "aerial-r04-c06",
+      "originalGameSha256": "46b24118429afee5484d9d9ed83ecfcf7da0bafa2b99ee964232c637c91c9faf",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "eabc82e1a9333cce6682fd85d0421a91ed5537d7c86857ccdd91eb10365f02a8",
+      "observation": "multi-storey car park drawn as an open / louvred deck"
+    },
+    {
+      "id": "aerial-r05-c03",
+      "originalGameSha256": "b5f54b495879c3651e956beb6db758c70fbc692fb12381aa02d88f892366d4c7",
+      "originalGameSourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "retakeGameSha256": "236df453e297397c4eb055e8a17702a0a0beeadbf58445ba8de0f7f12b5d47c4",
+      "observation": "multi-storey car park drawn as an open / louvred deck"
+    },
+    {
+      "id": "aerial-r05-c04",
+      "originalGameSha256": "f04634aa7d1d9cfe8c4028d25e3ebdec849429bef128220f2f72795fd8706d9e",
+      "originalGameSourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "retakeGameSha256": "bcd8c85dd79baa6f26c479e66c7a909a022885f80337dbddb0d9b6178dbcc6a8",
+      "observation": "multi-storey car park drawn as an open / louvred deck"
+    },
+    {
+      "id": "aerial-r06-c03",
+      "originalGameSha256": "4a1cab67db779e04b9829cc5613c2122b647c0c5304d64ff138c7f79c31b79f7",
+      "originalGameSourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "retakeGameSha256": "0782a9b903f1291049dfcea4692b0810bd904191ab9548849929bf221e9fab9c",
+      "observation": "multi-storey car park drawn as an open / louvred deck"
+    },
+    {
+      "id": "aerial-r06-c04",
+      "originalGameSha256": "4942b9587fb2a32209cdecd5bba21372d89285a6a19ff6b339de41d57a35f7b5",
+      "originalGameSourceCommit": "7593b636fc58f1c2bd4ef50f47dd8d25c2a3852d",
+      "retakeGameSha256": "67313a0764be53824650c1199a168ae6fa329e3bc7c6685559f1995b9f28d797",
+      "observation": "multi-storey car park drawn as an open / louvred deck"
+    }
+  ]
+}

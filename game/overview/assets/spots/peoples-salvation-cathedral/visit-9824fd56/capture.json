@@ -1,0 +1,318 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "purpose": "Visitor scene illustrations after fidelity pass round 2; not public-route proof or a matched reference comparison.",
+  "tool": "visit-capture.cjs: the procedure of handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/capture.cjs and capture-portrait.cjs (native destination entry, production on-foot controller placed at the viewpoint, look acquired with CDP touch drags, no free camera), run on Windows with hardware GL",
+  "toolSHA256": "8f878841017205d1316f0549584e7b5fe7b84a39e1b9ce5db90cd41afdcc54f6",
+  "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted).",
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T05:41:38.367Z"
+  },
+  "record": {
+    "id": "peoples-salvation-cathedral",
+    "captures": [
+      {
+        "kind": "scene-east-footway",
+        "file": "peoples-salvation-cathedral/scene-east-footway.webp",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "capturedAt": "2026-11-13T05:34:23.416Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": -641.2,
+          "z": 287.9,
+          "y": 18.285553631025607,
+          "heading": 0.08726648437500001
+        },
+        "pose": {
+          "position": [
+            -641.2,
+            19.935553631025606,
+            287.9
+          ],
+          "bearing": 354.9999987523681,
+          "pitch": 24.999999523810065
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-13T05:34:21.521Z",
+        "triangles": 610058,
+        "drawCalls": 93,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "7206ce5f25452670562a63a4324a09d95226595fbe964759182ad3d1df99f666",
+        "bytes": 44572,
+        "fullPageHUD": false
+      },
+      {
+        "kind": "phone-east-footway",
+        "file": "peoples-salvation-cathedral/phone-east-footway.jpg",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "capturedAt": "2026-11-13T05:34:23.668Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -641.2,
+          "z": 287.9,
+          "y": 18.285553631025607,
+          "heading": 0.08726648437500001
+        },
+        "pose": {
+          "position": [
+            -641.2,
+            19.935553631025606,
+            287.9
+          ],
+          "bearing": 354.9999987523681,
+          "pitch": 24.999999523810065
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-13T05:34:21.774Z",
+        "triangles": 400472,
+        "drawCalls": 56,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "5701767404d0620b70bfc28768ed0d71319ba20f423ef312b984c6d746984afb",
+        "bytes": 55532,
+        "fullPageHUD": true
+      }
+    ],
+    "startedAt": "2026-11-13T05:34:20.181Z",
+    "probe": {
+      "sceneId": "buc-parliament",
+      "spawn": {
+        "x": -732,
+        "z": 169,
+        "heading": -1.4835298641951802,
+        "y": 14.000000000000002
+      },
+      "challenges": [
+        {
+          "view": [
+            -160,
+            -10.5
+          ],
+          "id": "palace-parliament",
+          "x": 31,
+          "z": -10.5,
+          "bearing": 270,
+          "pitch": 14,
+          "fov": 70,
+          "text": "From the east edge of Piața Constituției by the \"București 1459\" clock, ~330 m from the façade, camera on the Unirii axis so the central pavilion is centred; at dusk the floodlights turn on. Postcard alt: from the Bd. Unirii median fountains (outside footprint).",
+          "r": 18,
+          "tol": 26,
+          "targets": [],
+          "condHint": null
+        },
+        {
+          "view": [
+            -653.1034357889633,
+            157.82457397694287
+          ],
+          "id": "peoples-salvation-cathedral",
+          "x": -731,
+          "z": 165,
+          "bearing": 85,
+          "pitch": 28,
+          "fov": 70,
+          "text": "From the mapped west forecourt, outside the church inner ring and the western source building, looking toward the main portal and bell tower.",
+          "r": 6,
+          "tol": 28,
+          "targets": [],
+          "condHint": null
+        }
+      ],
+      "interactables": [
+        {
+          "x": 43.2,
+          "z": -60,
+          "label": "Read: Size"
+        },
+        {
+          "x": 43.300000000000004,
+          "z": -38,
+          "label": "Read: Anca Petrescu"
+        },
+        {
+          "x": 43.2,
+          "z": -16,
+          "label": "Read: The heaviest building"
+        },
+        {
+          "x": 43.300000000000004,
+          "z": 6,
+          "label": "Read: What was lost"
+        },
+        {
+          "x": 43.2,
+          "z": 28,
+          "label": "Read: Romanian materials"
+        },
+        {
+          "x": 43.300000000000004,
+          "z": 50,
+          "label": "Read: Not for sale"
+        },
+        {
+          "x": -730.8,
+          "z": 130,
+          "label": "Read: 127 metres"
+        },
+        {
+          "x": -730.8,
+          "z": 141,
+          "label": "Read: Murano mosaics"
+        },
+        {
+          "x": -730.8,
+          "z": 152,
+          "label": "Read: The great bell"
+        },
+        {
+          "x": -730.8,
+          "z": 163,
+          "label": "Read: Consecrated"
+        },
+        {
+          "x": -730.8,
+          "z": 174,
+          "label": "Read: The piazza"
+        },
+        {
+          "x": 25.6,
+          "z": -125.3,
+          "label": "Pace the Palace: start the public frontage course"
+        },
+        {
+          "x": 15.2,
+          "z": 51,
+          "label": "Pace the Palace: begin at the north waypoint"
+        },
+        {
+          "x": 44,
+          "z": -16,
+          "label": "Frame the Palace facade"
+        },
+        {
+          "x": -726,
+          "z": 170,
+          "label": "Light and place a virtual candle"
+        },
+        {
+          "x": -727.6665982366424,
+          "z": 172.63615582137638,
+          "label": "Join the short guided tour"
+        },
+        {
+          "x": 1000000000,
+          "z": 1000000000,
+          "label": ""
+        }
+      ]
+    },
+    "setup": {
+      "arrival": {
+        "x": -732,
+        "z": 169,
+        "y": 14.000000000000002,
+        "heading": -1.4835298641951802
+      },
+      "authoredViewpoint": {
+        "view": [
+          -653.1034357889633,
+          157.82457397694287
+        ],
+        "id": "peoples-salvation-cathedral",
+        "x": -731,
+        "z": 165,
+        "bearing": 85,
+        "pitch": 28,
+        "fov": 70,
+        "text": "From the mapped west forecourt, outside the church inner ring and the western source building, looking toward the main portal and bell tower.",
+        "r": 6,
+        "tol": 28,
+        "targets": [],
+        "condHint": null
+      },
+      "viewpoint": {
+        "view": [
+          -653.1034357889633,
+          157.82457397694287
+        ],
+        "id": "peoples-salvation-cathedral",
+        "x": -641.2,
+        "z": 287.9,
+        "bearing": 355,
+        "pitch": 25,
+        "fov": 70,
+        "text": "South facade from exact mapped footway w1364230357 point [-641.2,287.9]. Explicit native on-foot setup, not a walked route.",
+        "r": 6,
+        "tol": 28,
+        "targets": [],
+        "condHint": null,
+        "authoredOverride": true
+      },
+      "position": {
+        "x": -641.2,
+        "z": 287.9,
+        "y": 18.285553631025607,
+        "heading": 0
+      },
+      "walker": "OnFootController",
+      "sceneId": "buc-parliament",
+      "origin": {
+        "lat": 44.42735,
+        "lon": 26.0905,
+        "elev": 70.8
+      },
+      "projection": {
+        "mLat": 111120.59,
+        "mLon": 79628.31
+      }
+    },
+    "look": {
+      "drags": 1,
+      "residualInputPixels": {
+        "x": 0.000009073034915966598,
+        "y": -0.00000346295099077724
+      }
+    },
+    "lookBefore": {
+      "heading": 0.08726648437500001,
+      "pitch": 0.4363323046875
+    },
+    "lookAfterInitialTouch": {
+      "heading": -0.08553351562499997,
+      "pitch": 0.4363323046875
+    },
+    "phoneLook": {
+      "drags": 1,
+      "residualInputPixels": {
+        "x": 0.000009073034915966598,
+        "y": -0.00000346295099077724
+      }
+    },
+    "passed": true,
+    "endedAt": "2026-11-13T05:34:23.771Z"
+  }
+}

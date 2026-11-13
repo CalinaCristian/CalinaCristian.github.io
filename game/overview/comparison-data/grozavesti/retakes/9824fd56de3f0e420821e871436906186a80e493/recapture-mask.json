@@ -1,0 +1,224 @@
+{
+  "district": "grozavesti",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "tiles": [
+    {
+      "id": "aerial-r06-c03",
+      "reason": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r06-c04",
+      "reason": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r06-c05",
+      "reason": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r06-c06",
+      "reason": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r07-c07",
+      "reason": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r06-c07",
+      "reason": "bridge guard railings drawn on both edges of the deck"
+    },
+    {
+      "id": "aerial-r08-c10",
+      "reason": "stale before this range: the published bbaffc0d capture predates later data/model changes; the current render visibly differs (the building next to the river was missing)"
+    },
+    {
+      "id": "aerial-r01-c08",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r01-c09",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r01-c10",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r02-c11",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r10-c01",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r10-c09",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r12-c03",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r12-c05",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "context-northeast",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "context-southwest",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r02-c06",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)"
+    },
+    {
+      "id": "aerial-r02-c07",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)"
+    },
+    {
+      "id": "aerial-r03-c10",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)"
+    },
+    {
+      "id": "aerial-r03-c11",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)"
+    },
+    {
+      "id": "aerial-r04-c04",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)"
+    },
+    {
+      "id": "aerial-r04-c06",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)"
+    },
+    {
+      "id": "aerial-r04-c08",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)"
+    },
+    {
+      "id": "aerial-r06-c11",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)"
+    },
+    {
+      "id": "aerial-r08-c03",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)"
+    },
+    {
+      "id": "aerial-r09-c01",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)"
+    },
+    {
+      "id": "aerial-r11-c02",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)"
+    },
+    {
+      "id": "aerial-r12-c06",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)"
+    },
+    {
+      "id": "aerial-r12-c07",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (building models and footprints changed)"
+    },
+    {
+      "id": "aerial-r04-c09",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (elevated road deck and buildings redrawn)"
+    },
+    {
+      "id": "aerial-r05-c04",
+      "reason": "stale before this range: the published bbaffc0d capture predates later data/model changes; the current render visibly differs (building models changed)"
+    },
+    {
+      "id": "aerial-r07-c10",
+      "reason": "stale before this range: the published bbaffc0d capture predates later data/model changes; the current render visibly differs (lawn replaced by the treed park; buildings redrawn)"
+    },
+    {
+      "id": "aerial-r11-c08",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (lawn replaced by the park with ponds and its building)"
+    },
+    {
+      "id": "aerial-r12-c04",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (large curved roof now drawn over the former dark ground)"
+    },
+    {
+      "id": "context-cathedral",
+      "reason": "stale before this range: the published 4378317f capture predates later data/model changes; the current render visibly differs (background boxes beside the cathedral removed)"
+    }
+  ],
+  "reason": "Dâmbovița level and banks; stale tiles refreshed",
+  "originalManifestSha256": "ed9f77915928a70205d29b8851ff6824e81f08d8bf21dd63b2e387103c2f5f0d",
+  "totalFrames": 100,
+  "method": "Round 2. Every atlas pose was rendered at 9824fd56 and, for diagnosis only, at the range start 94a177d5 (game images only, same tool and conditions). Poses were ranked by compact changed pixels (vegetation masked) between the two renders and against the published tile. Range-changed poses were compared by eye (published | 94a177d5 | 9824fd56, same pixels). As asked, poses whose published capture is older than later changes were also checked (published | 9824fd56) and refreshed where buildings, streets, water or structures visibly differ. Not counted as a change: roof / facade tints, tree crowns and parked cars, which vary between source revisions. Every kept image was inspected at full size.",
+  "baselineCommit": "94a177d5e739e0f23dc1ea9af696174364684084",
+  "candidatesCaptured": 100,
+  "rejected": [
+    {
+      "ids": [
+        "aerial-r08-c08"
+      ],
+      "reason": "no visible change"
+    },
+    {
+      "ids": [
+        "aerial-r05-c08"
+      ],
+      "reason": "embankment ramp ground (376, -727): no compact change between 94a177d5 and 9824fd56"
+    },
+    {
+      "ids": [
+        "aerial-r02-c05",
+        "aerial-r02-c08",
+        "aerial-r02-c09",
+        "aerial-r02-c10",
+        "aerial-r03-c05",
+        "aerial-r03-c06",
+        "aerial-r03-c07",
+        "aerial-r03-c08",
+        "aerial-r03-c09",
+        "aerial-r04-c05",
+        "aerial-r04-c07",
+        "aerial-r04-c10",
+        "aerial-r04-c11",
+        "aerial-r05-c05",
+        "aerial-r05-c06",
+        "aerial-r05-c07",
+        "aerial-r05-c09",
+        "aerial-r05-c10",
+        "aerial-r06-c10",
+        "aerial-r07-c02",
+        "aerial-r07-c03",
+        "aerial-r07-c04",
+        "aerial-r07-c05",
+        "aerial-r07-c06",
+        "aerial-r07-c09",
+        "aerial-r08-c01",
+        "aerial-r08-c02",
+        "aerial-r08-c04",
+        "aerial-r08-c05",
+        "aerial-r08-c06",
+        "aerial-r08-c09",
+        "aerial-r09-c02",
+        "aerial-r09-c03",
+        "aerial-r09-c05",
+        "aerial-r09-c06",
+        "aerial-r09-c07",
+        "aerial-r09-c09",
+        "aerial-r10-c02",
+        "aerial-r10-c03",
+        "aerial-r10-c04",
+        "aerial-r10-c05",
+        "aerial-r10-c07",
+        "aerial-r11-c03",
+        "aerial-r11-c04",
+        "aerial-r11-c05",
+        "aerial-r11-c06",
+        "aerial-r11-c07",
+        "context-northwest"
+      ],
+      "reason": "stale-tile check: only roof / facade tints, tree crowns or parked cars differ"
+    }
+  ],
+  "notRetaken": "Every other pose: no visible change between the 94a177d5 and 9824fd56 renders at the same pose, or only the differences listed under rejected."
+}

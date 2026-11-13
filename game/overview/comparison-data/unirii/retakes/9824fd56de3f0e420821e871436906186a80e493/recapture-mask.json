@@ -1,0 +1,207 @@
+{
+  "district": "unirii",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "tiles": [
+    {
+      "id": "aerial-r04-c02",
+      "reason": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r05-c02",
+      "reason": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r06-c03",
+      "reason": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r06-c04",
+      "reason": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r07-c06",
+      "reason": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r08-c07",
+      "reason": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r09-c07",
+      "reason": "Dâmbovița water level and bank edges redrawn"
+    },
+    {
+      "id": "aerial-r06-c05",
+      "reason": "Unirea store skin redrawn (and the east basin edge)"
+    },
+    {
+      "id": "aerial-r07-c05",
+      "reason": "Unirea store skin redrawn (and the east basin edge)"
+    },
+    {
+      "id": "aerial-r05-c03",
+      "reason": "stale before this range: the published bbaffc0d capture predates later data/model changes; the current render visibly differs (building models changed)"
+    },
+    {
+      "id": "aerial-r01-c06",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r02-c05",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r03-c03",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r10-c03",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r10-c06",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r10-c07",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes replaced by real buildings and streets)"
+    },
+    {
+      "id": "aerial-r01-c11",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "aerial-r02-c12",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "aerial-r05-c01",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "aerial-r06-c12",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "aerial-r08-c01",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "aerial-r09-c01",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "aerial-r10-c02",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "context-northeast",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "context-southeast",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "context-southwest",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (background boxes added, removed or moved)"
+    },
+    {
+      "id": "aerial-r03-c04",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (buildings added or reshaped)"
+    },
+    {
+      "id": "aerial-r09-c08",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (buildings added or reshaped)"
+    },
+    {
+      "id": "aerial-r10-c04",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (buildings added or reshaped)"
+    },
+    {
+      "id": "aerial-r10-c05",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (buildings added or reshaped)"
+    },
+    {
+      "id": "aerial-r08-c05",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (boulevard drawn with its underpass)"
+    },
+    {
+      "id": "context-parliament",
+      "reason": "stale before this range: the published 0775fdaf capture predates later data/model changes; the current render visibly differs (boxes inside the Palace courtyard removed)"
+    }
+  ],
+  "reason": "Dâmbovița water levels and banks, Unirea skin; stale tiles refreshed",
+  "originalManifestSha256": "d7b35fbf465b2266480dbffab52f0a7d2c6cdfa50fe5139a20ad65697cb7d0a8",
+  "totalFrames": 98,
+  "method": "Round 2. Every atlas pose was rendered at 9824fd56 and, for diagnosis only, at the range start 94a177d5 (game images only, same tool and conditions). Poses were ranked by compact changed pixels (vegetation masked) between the two renders and against the published tile. Range-changed poses were compared by eye (published | 94a177d5 | 9824fd56, same pixels). As asked, poses whose published capture is older than later changes were also checked (published | 9824fd56) and refreshed where buildings, streets, water or structures visibly differ. Not counted as a change: roof / facade tints, tree crowns and parked cars, which vary between source revisions. Every kept image was inspected at full size.",
+  "baselineCommit": "94a177d5e739e0f23dc1ea9af696174364684084",
+  "candidatesCaptured": 98,
+  "rejected": [
+    {
+      "ids": [
+        "aerial-r06-c06"
+      ],
+      "reason": "no visible change"
+    },
+    {
+      "ids": [
+        "aerial-r01-c07",
+        "aerial-r01-c08",
+        "aerial-r01-c09",
+        "aerial-r01-c10",
+        "aerial-r02-c06",
+        "aerial-r02-c07",
+        "aerial-r02-c08",
+        "aerial-r02-c09",
+        "aerial-r02-c10",
+        "aerial-r02-c11",
+        "aerial-r03-c05",
+        "aerial-r03-c06",
+        "aerial-r03-c07",
+        "aerial-r03-c08",
+        "aerial-r03-c09",
+        "aerial-r03-c10",
+        "aerial-r03-c11",
+        "aerial-r03-c12",
+        "aerial-r04-c03",
+        "aerial-r04-c04",
+        "aerial-r04-c06",
+        "aerial-r04-c08",
+        "aerial-r04-c10",
+        "aerial-r04-c11",
+        "aerial-r04-c12",
+        "aerial-r05-c04",
+        "aerial-r05-c05",
+        "aerial-r05-c07",
+        "aerial-r05-c08",
+        "aerial-r05-c09",
+        "aerial-r05-c10",
+        "aerial-r05-c11",
+        "aerial-r05-c12",
+        "aerial-r06-c07",
+        "aerial-r06-c08",
+        "aerial-r06-c09",
+        "aerial-r06-c10",
+        "aerial-r06-c11",
+        "aerial-r07-c04",
+        "aerial-r07-c07",
+        "aerial-r07-c08",
+        "aerial-r07-c09",
+        "aerial-r07-c10",
+        "aerial-r07-c11",
+        "aerial-r08-c03",
+        "aerial-r08-c04",
+        "aerial-r08-c06",
+        "aerial-r08-c08",
+        "aerial-r09-c02",
+        "aerial-r09-c03",
+        "aerial-r09-c04",
+        "aerial-r09-c05",
+        "aerial-r09-c06"
+      ],
+      "reason": "stale-tile check: only roof / facade tints, tree crowns or parked cars differ"
+    }
+  ],
+  "notRetaken": "Every other pose: no visible change between the 94a177d5 and 9824fd56 renders at the same pose, or only the differences listed under rejected."
+}

@@ -1,0 +1,27 @@
+{
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r09-c04",
+    "aerial-r10-c04"
+  ],
+  "reviewedAt": "2026-11-13T05:49:20.827Z",
+  "method": "Published game capture, a 94a177d5 render and the 9824fd56 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r09-c04",
+      "originalGameSha256": "6529bb0b16cf9a608009701a94158c8567833ae6b1ef76618f176e60c327a3e6",
+      "originalGameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "retakeGameSha256": "207e7c514401657516d8d29d8e60a3ede2d09ab126862968d6ad12ab00b8749b",
+      "observation": "Stadionul Dinamo sunk into its pit: stands, pitch level and surroundings redrawn"
+    },
+    {
+      "id": "aerial-r10-c04",
+      "originalGameSha256": "17eab42e394b44b89e9cb80e54bfe802616ed147ab588d9efe4e5ee584f04816",
+      "originalGameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "retakeGameSha256": "a429585155e30a0831c9b8ac447437b99dabdd6267e06ce938ea9540f96ae770",
+      "observation": "Stadionul Dinamo sunk into its pit: stands, pitch level and surroundings redrawn"
+    }
+  ]
+}

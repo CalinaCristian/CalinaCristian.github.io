@@ -3,7 +3,7 @@
   "id": "spaceneedle",
   "city": "seattle",
   "name": "Space Needle",
-  "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
   "status": "in-progress",
   "coordinates": {
     "lat": 47.6205063,
@@ -130,11 +130,17 @@
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13",
       "label": "Accepted production explicit-ID source replacement; implementation scope only (2c73f3d9)",
       "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493",
+      "label": "Fidelity pass round 2 (9824fd5), not yet published when captured",
+      "type": "implementation"
     }
   ],
   "improvements": [
     "Replaced the shallow dish with a continuous deep top-house profile, observation glazing, lower glass base, three paired legs and the 200 ft tie.",
-    "Reprojected every declared base/top-house part from the complete current OSM source rings; complete beacon height is 184 m."
+    "Reprojected every declared base/top-house part from the complete current OSM source rings; complete beacon height is 184 m.",
+    "The antenna rod ends at the mapped 184 m (it ended at 184.4 m)."
   ],
   "remainingGaps": [
     "Fine mullions, restaurant interior, current roof equipment and individual structural joints remain simplified.",
@@ -143,6 +149,26 @@
     "The shared explicit-ID source-replacement implementation is integrated in production (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). These studies retain their actual capture-era source and do not establish current district placement, road/body clearance, traffic/mirror budgets or seasonal parity. Registry entries outside a district list and context-only models with no replacement IDs do not replace neighbouring buildings."
   ],
   "checks": [
+    {
+      "label": "Pictures recaptured at 9824fd5 (round 2)",
+      "passed": true,
+      "details": "Front, top and oblique pictures recaptured from the commit snapshot. Visual change below a pixel at these framings; recaptured so the published pictures come from the current model. Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 9824fd5 (game/src clean) on 2026-11-13: passed, 2144 checks over 70 models; this model 6456 triangles, 7 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "Earlier checks below",
+      "passed": null,
+      "details": "The checks that follow were recorded for source 7273204 or earlier and were not re-run for this recapture."
+    },
     {
       "label": "Historical Bucharest foot,a regression",
       "passed": true,
@@ -178,16 +204,21 @@
     {
       "id": "front",
       "label": "Isolated model study · front elevation",
-      "image": "assets/landmarks/spaceneedle/front.webp",
       "kind": "front",
-      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
-      "sha256": "fa73727f26edb83094f410e1a81ef694115587086d38bd3443b7c09fdf69d691",
-      "capturedAt": "2026-11-08T17:04:11.386Z",
+      "image": "assets/landmarks/spaceneedle/source-9824fd56/front.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "eb52887da1671a04fc000d20c76853f762cfae5f00d139bb1466e62ee59e92f8",
+      "bytes": 18400,
+      "width": 640,
+      "height": 640,
+      "capturedAt": "2026-11-13T05:29:22.627Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "position": [
           0,
-          73.65226243138314,
-          322.5242270943784
+          73.72000000476838,
+          322.81807539688026
         ],
         "up": [
           0,
@@ -204,24 +235,34 @@
         "fov": 45,
         "target": [
           0,
-          73.65226243138314,
+          73.72000000476838,
           0
         ],
-        "frame": "isolated landmark model, +x east / +z south, metres"
+        "frame": "isolated landmark model, +x east / +z south, metres",
+        "viewerRoute": "/game/dev/landmarks.html?id=spaceneedle&view=34&clean=1&az=0&el=0",
+        "viewport": [
+          640,
+          640
+        ]
       }
     },
     {
       "id": "top",
       "label": "Isolated model study · orthographic north-up plan",
-      "image": "assets/landmarks/spaceneedle/top.webp",
       "kind": "top",
-      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
-      "sha256": "8056ead28e91610b5afabe3afb8e12e1fdd49b27a46490a80fd2d87ec0d0a2ec",
-      "capturedAt": "2026-11-08T17:04:15.213Z",
+      "image": "assets/landmarks/spaceneedle/source-9824fd56/top.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "998ee40caf663284bed5a187dbd965bac48617239c2fb0db010849dea035e0e0",
+      "bytes": 44238,
+      "width": 640,
+      "height": 640,
+      "capturedAt": "2026-11-13T05:29:23.237Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "position": [
           0,
-          247.72203210364853,
+          244.0424879406898,
           0
         ],
         "up": [
@@ -230,35 +271,45 @@
           -1
         ],
         "quaternion": [
-          -0.7071067811865475,
+          -0.7071067811865474,
           0,
           0,
           0.7071067811865476
         ],
         "projection": "orthographic",
-        "groundSquareM": 63.591376025190705,
+        "groundSquareM": 59.74248792876888,
         "orientation": "north-up",
         "target": [
           0,
           0,
           0
         ],
-        "frame": "isolated landmark model, +x east / +z south, metres"
+        "frame": "isolated landmark model, +x east / +z south, metres",
+        "viewerRoute": "/game/dev/landmarks.html?id=spaceneedle&view=top&clean=1&az=35&el=26",
+        "viewport": [
+          640,
+          640
+        ]
       }
     },
     {
       "id": "oblique",
       "label": "Isolated model study · oblique overview",
-      "image": "assets/landmarks/spaceneedle/oblique.webp",
       "kind": "oblique",
-      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
-      "sha256": "ae3aaa6e38125b5027c6128940ac5f99725f4a8cc5fafa5ca0ee3fa60cb8071a",
-      "capturedAt": "2026-11-08T17:04:18.396Z",
+      "image": "assets/landmarks/spaceneedle/source-9824fd56/oblique.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "e5a7fb30c3062005f70a495f903bd49c56f4deacfda7527ea9640ff62ebbfff4",
+      "bytes": 20374,
+      "width": 640,
+      "height": 640,
+      "capturedAt": "2026-11-13T05:29:23.854Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "position": [
-          166.2699749873341,
-          215.0375777300066,
-          237.45813335922244
+          166.42146174647536,
+          215.23412992074162,
+          237.67447887233783
         ],
         "up": [
           0,
@@ -266,27 +317,161 @@
           0
         ],
         "quaternion": [
-          -0.21453963361642958,
+          -0.21453963361642955,
           0.2929987293442745,
-          0.0676440866458011,
+          0.06764408664580109,
           0.929273247087327
         ],
         "projection": "perspective",
         "fov": 45,
         "target": [
           0,
-          73.65226243138314,
+          73.72000000476838,
           0
         ],
-        "frame": "isolated landmark model, +x east / +z south, metres"
+        "frame": "isolated landmark model, +x east / +z south, metres",
+        "viewerRoute": "/game/dev/landmarks.html?id=spaceneedle&view=34&clean=1&az=35&el=26",
+        "viewport": [
+          640,
+          640
+        ]
       }
     }
   ],
   "perf": {
-    "triangles": 4191,
+    "triangles": 6458,
     "drawCalls": 3,
-    "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+    "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
   },
   "implementationNotesUpdatedAt": "2026-11-09",
-  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance.",
+  "historicalCollections": [
+    {
+      "id": "captures-72732045",
+      "label": "Pictures before fidelity pass round 2",
+      "status": "historical",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "supersededBy": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededAt": "2026-11-13T05:41:38.367Z",
+      "reason": "The model changed in 94a177d5..9824fd56; these pictures show the earlier model and keep their original source, dates and files.",
+      "perf": {
+        "triangles": 4191,
+        "drawCalls": 3,
+        "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+      },
+      "captures": [
+        {
+          "id": "front",
+          "label": "Isolated model study · front elevation",
+          "image": "assets/landmarks/spaceneedle/front.webp",
+          "kind": "front",
+          "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+          "sha256": "fa73727f26edb83094f410e1a81ef694115587086d38bd3443b7c09fdf69d691",
+          "capturedAt": "2026-11-08T17:04:11.386Z",
+          "pose": {
+            "position": [
+              0,
+              73.65226243138314,
+              322.5242270943784
+            ],
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "projection": "perspective",
+            "fov": 45,
+            "target": [
+              0,
+              73.65226243138314,
+              0
+            ],
+            "frame": "isolated landmark model, +x east / +z south, metres"
+          }
+        },
+        {
+          "id": "top",
+          "label": "Isolated model study · orthographic north-up plan",
+          "image": "assets/landmarks/spaceneedle/top.webp",
+          "kind": "top",
+          "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+          "sha256": "8056ead28e91610b5afabe3afb8e12e1fdd49b27a46490a80fd2d87ec0d0a2ec",
+          "capturedAt": "2026-11-08T17:04:15.213Z",
+          "pose": {
+            "position": [
+              0,
+              247.72203210364853,
+              0
+            ],
+            "up": [
+              0,
+              0,
+              -1
+            ],
+            "quaternion": [
+              -0.7071067811865475,
+              0,
+              0,
+              0.7071067811865476
+            ],
+            "projection": "orthographic",
+            "groundSquareM": 63.591376025190705,
+            "orientation": "north-up",
+            "target": [
+              0,
+              0,
+              0
+            ],
+            "frame": "isolated landmark model, +x east / +z south, metres"
+          }
+        },
+        {
+          "id": "oblique",
+          "label": "Isolated model study · oblique overview",
+          "image": "assets/landmarks/spaceneedle/oblique.webp",
+          "kind": "oblique",
+          "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+          "sha256": "ae3aaa6e38125b5027c6128940ac5f99725f4a8cc5fafa5ca0ee3fa60cb8071a",
+          "capturedAt": "2026-11-08T17:04:18.396Z",
+          "pose": {
+            "position": [
+              166.2699749873341,
+              215.0375777300066,
+              237.45813335922244
+            ],
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "quaternion": [
+              -0.21453963361642958,
+              0.2929987293442745,
+              0.0676440866458011,
+              0.929273247087327
+            ],
+            "projection": "perspective",
+            "fov": 45,
+            "target": [
+              0,
+              73.65226243138314,
+              0
+            ],
+            "frame": "isolated landmark model, +x east / +z south, metres"
+          }
+        }
+      ]
+    }
+  ],
+  "recapturedAt": "2026-11-13T05:41:38.367Z",
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T05:41:38.367Z"
+  }
 }

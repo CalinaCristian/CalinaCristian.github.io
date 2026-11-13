@@ -3,7 +3,7 @@
   "id": "globalworth",
   "city": "bucharest",
   "name": "Globalworth Tower",
-  "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.4792401,
@@ -38,6 +38,11 @@
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/b203c38abf3651dd3d472c491238ad36089a633a/handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json",
       "label": "Existing recorded source-book/topology result; not a new execution",
       "type": "validation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493",
+      "label": "Fidelity pass round 2 (9824fd5), not yet published when captured",
+      "type": "implementation"
     }
   ],
   "sourceIds": [
@@ -47,13 +52,35 @@
   "reviewedAt": "2026-11-08",
   "improvements": [
     "Refreshed the full angled tower source outline at centimetre precision.",
-    "Retained the mapped 120 m / 27-level envelope and exact source replacement identity."
+    "Retained the mapped 120 m / 27-level envelope and exact source replacement identity.",
+    "The base is a white-framed, double-height glazed podium (it was a navy block) and the shaft is grey-blue glass."
   ],
   "remainingGaps": [
     "The 120 m / 27-level source envelope is retained; curtain-wall grid, roof equipment and podium detailing remain simplified.",
-    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity.",
+    "Podium height (11.5 m) and bay width are estimates."
   ],
   "checks": [
+    {
+      "label": "Pictures recaptured at 9824fd5 (round 2)",
+      "passed": true,
+      "details": "Front, top and oblique pictures recaptured from the commit snapshot. Same viewer routes as the previous pictures. Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 9824fd5 (game/src clean) on 2026-11-13: passed, 2144 checks over 70 models; this model 942 triangles, 1 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "Earlier checks below",
+      "passed": null,
+      "details": "The checks that follow were recorded for source ef21d14 or earlier and were not re-run for this recapture."
+    },
     {
       "label": "Historical source boundary and replacement-identity checks",
       "passed": true,
@@ -90,10 +117,15 @@
       "id": "front",
       "label": "Street-height model study",
       "kind": "front",
-      "image": "assets/landmarks/globalworth/front.webp",
-      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
-      "sha256": "0c80c4dabaa5a02f138ae55c944db9d4daa2c8285e55cfbf08e1697d8f2ece76",
-      "capturedAt": "2026-11-08T17:07:17.592031Z",
+      "image": "assets/landmarks/globalworth/source-9824fd56/front.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "0e9e7ee6d74926ac8cfbc66b8b4231d78164d87f68f8addd91999855ee0b34f0",
+      "bytes": 49006,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:50.121Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=globalworth&clean=1&fountains=on&view=street&az=0",
         "anchor": {
@@ -102,10 +134,11 @@
           "rotation": 0
         },
         "camera": {
+          "projection": "perspective",
           "position": [
-            -0.044147491455078125,
+            -0.11772727966308594,
             1.3,
-            174.0140266418457
+            174.0290699005127
           ],
           "quaternion": [
             0.1465161611107752,
@@ -119,32 +152,42 @@
           "viewport": [
             960,
             720
+          ],
+          "up": [
+            0,
+            1,
+            0
           ]
         },
         "bounds": {
           "min": [
-            -33.38887023925781,
+            -34.18699264526367,
             0,
-            -25.56291389465332
+            -26.184436798095703
           ],
           "max": [
-            33.300575256347656,
+            33.9515380859375,
             120,
-            25.590967178344727
+            26.242576599121094
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
       }
     },
     {
       "id": "top",
-      "label": "Top model study (perspective)",
+      "label": "North-up orthographic model study",
       "kind": "top",
-      "image": "assets/landmarks/globalworth/top.webp",
-      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
-      "sha256": "472228508ba6e2efffed96a8995946b8caacd1c296a26fa31e5e3a1020c019b6",
-      "capturedAt": "2026-11-08T17:07:23.195969Z",
+      "image": "assets/landmarks/globalworth/source-9824fd56/top.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "8907c74c2832b91549bbd156d466e62a197d73b0d1427b696798a209a643dc07",
+      "bytes": 10680,
+      "width": 720,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:50.736Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=globalworth&clean=1&fountains=on&view=top&az=0",
         "anchor": {
@@ -153,49 +196,69 @@
           "rotation": 0
         },
         "camera": {
+          "projection": "orthographic",
           "position": [
-            -0.044147491455078125,
-            309.2741886528919,
-            0.3233009335900173
+            -0.11772727966308594,
+            203.04069564819335,
+            0.029069900512695312
           ],
           "quaternion": [
-            -0.70675313942234,
+            -0.7071067811865475,
             0,
             0,
-            0.7074602461740636
+            0.7071067811865476
           ],
           "fov": 45,
-          "near": 0.6185486865801013,
-          "far": 6185.486865801013,
+          "near": 0.5,
+          "far": 4060.813912963867,
           "viewport": [
-            960,
+            720,
             720
-          ]
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -41.520347824096675,
+          "right": 41.520347824096675,
+          "top": 41.520347824096675,
+          "bottom": -41.520347824096675,
+          "zoom": 1,
+          "groundSquareM": 83.04069564819335,
+          "groundWidthM": 83.04069564819335,
+          "groundDepthM": 83.04069564819335,
+          "orientation": "north-up"
         },
         "bounds": {
           "min": [
-            -33.38887023925781,
+            -34.18699264526367,
             0,
-            -25.56291389465332
+            -26.184436798095703
           ],
           "max": [
-            33.300575256347656,
+            33.9515380859375,
             120,
-            25.590967178344727
+            26.242576599121094
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
       }
     },
     {
       "id": "oblique",
       "label": "Oblique model study",
       "kind": "oblique",
-      "image": "assets/landmarks/globalworth/oblique.webp",
-      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
-      "sha256": "97ef693da444d374abfdbf98a775ab5c3fca700c48d7e5105f31539ae297f84d",
-      "capturedAt": "2026-11-08T17:07:29.591897Z",
+      "image": "assets/landmarks/globalworth/source-9824fd56/oblique.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "e2a6f50a716ac86b763f90e800088f3c9c2c3f6abac8d71bc0aaafee0fd68d5e",
+      "bytes": 48168,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:51.341Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=globalworth&clean=1&fountains=on&view=oblique&az=35&el=28",
         "anchor": {
@@ -204,10 +267,11 @@
           "rotation": 0
         },
         "camera": {
+          "projection": "perspective",
           "position": [
-            106.93766873237466,
+            106.86408894416665,
             147.1729037272916,
-            152.79989423955936
+            152.81493749822636
           ],
           "quaternion": [
             -0.2307250125905461,
@@ -221,30 +285,211 @@
           "viewport": [
             960,
             720
+          ],
+          "up": [
+            0,
+            1,
+            0
           ]
         },
         "bounds": {
           "min": [
-            -33.38887023925781,
+            -34.18699264526367,
             0,
-            -25.56291389465332
+            -26.184436798095703
           ],
           "max": [
-            33.300575256347656,
+            33.9515380859375,
             120,
-            25.590967178344727
+            26.242576599121094
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
       }
     }
   ],
   "perf": {
-    "triangles": 734,
+    "triangles": 944,
     "drawCalls": 3,
-    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+    "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
   },
   "implementationNotesUpdatedAt": "2026-11-09",
-  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance.",
+  "historicalCollections": [
+    {
+      "id": "captures-ef21d14a",
+      "label": "Pictures before fidelity pass round 2",
+      "status": "historical",
+      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "supersededBy": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededAt": "2026-11-13T05:41:38.367Z",
+      "reason": "The model changed in 94a177d5..9824fd56; these pictures show the earlier model and keep their original source, dates and files.",
+      "perf": {
+        "triangles": 734,
+        "drawCalls": 3,
+        "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+      },
+      "captures": [
+        {
+          "id": "front",
+          "label": "Street-height model study",
+          "kind": "front",
+          "image": "assets/landmarks/globalworth/front.webp",
+          "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+          "sha256": "0c80c4dabaa5a02f138ae55c944db9d4daa2c8285e55cfbf08e1697d8f2ece76",
+          "capturedAt": "2026-11-08T17:07:17.592031Z",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=globalworth&clean=1&fountains=on&view=street&az=0",
+            "anchor": {
+              "lat": 44.4792401,
+              "lon": 26.1024141,
+              "rotation": 0
+            },
+            "camera": {
+              "position": [
+                -0.044147491455078125,
+                1.3,
+                174.0140266418457
+              ],
+              "quaternion": [
+                0.1465161611107752,
+                0,
+                0,
+                0.9892082766199246
+              ],
+              "fov": 62,
+              "near": 0.3,
+              "far": 3480,
+              "viewport": [
+                960,
+                720
+              ]
+            },
+            "bounds": {
+              "min": [
+                -33.38887023925781,
+                0,
+                -25.56291389465332
+              ],
+              "max": [
+                33.300575256347656,
+                120,
+                25.590967178344727
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+          }
+        },
+        {
+          "id": "top",
+          "label": "Top model study (perspective)",
+          "kind": "top",
+          "image": "assets/landmarks/globalworth/top.webp",
+          "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+          "sha256": "472228508ba6e2efffed96a8995946b8caacd1c296a26fa31e5e3a1020c019b6",
+          "capturedAt": "2026-11-08T17:07:23.195969Z",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=globalworth&clean=1&fountains=on&view=top&az=0",
+            "anchor": {
+              "lat": 44.4792401,
+              "lon": 26.1024141,
+              "rotation": 0
+            },
+            "camera": {
+              "position": [
+                -0.044147491455078125,
+                309.2741886528919,
+                0.3233009335900173
+              ],
+              "quaternion": [
+                -0.70675313942234,
+                0,
+                0,
+                0.7074602461740636
+              ],
+              "fov": 45,
+              "near": 0.6185486865801013,
+              "far": 6185.486865801013,
+              "viewport": [
+                960,
+                720
+              ]
+            },
+            "bounds": {
+              "min": [
+                -33.38887023925781,
+                0,
+                -25.56291389465332
+              ],
+              "max": [
+                33.300575256347656,
+                120,
+                25.590967178344727
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+          }
+        },
+        {
+          "id": "oblique",
+          "label": "Oblique model study",
+          "kind": "oblique",
+          "image": "assets/landmarks/globalworth/oblique.webp",
+          "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+          "sha256": "97ef693da444d374abfdbf98a775ab5c3fca700c48d7e5105f31539ae297f84d",
+          "capturedAt": "2026-11-08T17:07:29.591897Z",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=globalworth&clean=1&fountains=on&view=oblique&az=35&el=28",
+            "anchor": {
+              "lat": 44.4792401,
+              "lon": 26.1024141,
+              "rotation": 0
+            },
+            "camera": {
+              "position": [
+                106.93766873237466,
+                147.1729037272916,
+                152.79989423955936
+              ],
+              "quaternion": [
+                -0.2307250125905461,
+                0.2917735521254029,
+                0.07274731703388741,
+                0.9253874813879795
+              ],
+              "fov": 45,
+              "near": 0.5,
+              "far": 4224.873734152917,
+              "viewport": [
+                960,
+                720
+              ]
+            },
+            "bounds": {
+              "min": [
+                -33.38887023925781,
+                0,
+                -25.56291389465332
+              ],
+              "max": [
+                33.300575256347656,
+                120,
+                25.590967178344727
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+          }
+        }
+      ]
+    }
+  ],
+  "recapturedAt": "2026-11-13T05:41:38.367Z",
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T05:41:38.367Z"
+  }
 }

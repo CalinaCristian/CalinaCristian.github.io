@@ -47,9 +47,28 @@ After the district fidelity pass of 2026-11-12, 47 tiles in seven districts were
 Pipera 2; Bellevue none: its changes do not read at tile scale). Each district's `retakes/346f7986…/` holds the new
 images, the mask with the reason per tile and the tiles tried and rejected, and the review; the previous collection is
 kept as a manifest under `historical/mixed-before-346f7986-…/` that resolves to the unchanged original files. Every
-other tile keeps its earlier revision, and many Unirii and Grozăvești tiles predate later data changes. At 346f7986
-Romană's far background west of Piața Victoriei rendered as bare ground (fixed in the following commit); the roughly
-20 tiles showing it were not published.
+other tile keeps its earlier revision, and many Unirii and Grozăvești tiles predated later data changes. At 346f7986
+Romană's far background rendered with whole blocks missing (fixed in 01248118); the roughly 20 tiles showing it were
+not published in this round. Twelve of them were retaken in round 2 below; the others match their published capture
+again.
+
+Round 2 (second fidelity round, captured 2026-11-13 UTC): 106 tiles were retaken at their original poses from
+9824fd56de3f0e420821e871436906186a80e493 (Grozăvești 36, Unirii 32, Romană 16, Bellevue 13, Otopeni 3, SeaTac 2,
+Floreasca 2, Pipera 2). The changes in the range that show from above are:
+- Bellevue: the Link 2 Line guideway and the car parks drawn as open or louvred decks.
+- Floreasca: Stadionul Dinamo sunk into its pit.
+- Otopeni: the CFR station's glazed vault, the departures canopies and a clad car park.
+- SeaTac: two car parks.
+- Pipera: the Promenada front.
+- Romană: the paved centre of Piața Victoriei, ARO / Ambasador, the Royal Palace and one building model.
+- Unirii and Grozăvești: the Dâmbovița water levels and banks, the Unirea skin and bridge guards.
+
+The twelve Romană far-background tiles and 53 Unirii / Grozăvești tiles (30 Grozăvești, 23 Unirii) whose earlier captures predated later data
+changes were refreshed only where buildings, streets, water or structures visibly differ. Tiles that differ only in roof
+tints, tree crowns or parked cars were not retaken. Generic monuments, fuel pump islands, apron lighting masts, podium
+details and the Grozăvești embankment-ramp ground do not read at tile scale. Each district's `retakes/9824fd56…/`
+records the mask with a reason per tile and the tiles tried and rejected. The prior collection is kept under
+`historical/mixed-before-9824fd56-…/`.
 
 The default collection shows tiles touching the playable area. The scenery ring
 is an optional, approximately 600 m area around it; distant background is a

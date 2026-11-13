@@ -61,19 +61,26 @@
       "label": "District fidelity pass scene change (451c5f9)",
       "type": "Game source change",
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/451c5f9e91f993c3a30ecf80f855d6565f1cfdcd"
+    },
+    {
+      "label": "Fidelity pass round 2 scene change (9824fd5)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493"
     }
   ],
   "improvements": [
     "Current native scene retains 325 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
     "Physical exterior approach; three manually aimed outside-gate shutters",
     "The selected primary activity approach is accepted separately from full-scene comparison.",
-    "District fidelity pass, 451c5f9 (range 332ae423..346f7986): Invented shopfronts were removed and the garden canopy was added."
+    "District fidelity pass, 451c5f9 (range 332ae423..346f7986): Invented shopfronts were removed and the garden canopy was added.",
+    "Fidelity pass round 2, 9824fd5 (range 94a177d5..9824fd56): A plain rendered wall about 2 m high closes the property on Bd. Primaverii."
   ],
   "remainingGaps": [
     "No interior visit; complete facade/garden comparison remains open",
     "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
     "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
-    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 93b0d86 or earlier, before the district fidelity pass, and were not re-run at 346f798."
+    "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 93b0d86 or earlier, before the district fidelity pass, and were not re-run at 346f798.",
+    "Validation frames, native proofs, source-geometry counts and performance figures in this record predate 9824fd5 and were not re-run for round 2."
   ],
   "checks": [
     {
@@ -115,6 +122,16 @@
       "label": "Validation frames and native proofs re-run at 346f798",
       "passed": false,
       "details": "Not re-run. The validation captures and proofs above keep their original source and date and describe the scene before the pass."
+    },
+    {
+      "label": "Visitor views recaptured at 9824fd5 (round 2)",
+      "passed": true,
+      "details": "scene view and complete phone page recaptured (scene, phone-ui-touch); peak 339,651 triangles / 130 draw calls in these frames. Every picture was inspected after capture. Appearance only; no route, activity or reference-match claim."
+    },
+    {
+      "label": "Validation frames and native proofs re-run at 9824fd5",
+      "passed": false,
+      "details": "Not re-run. The validation captures and proofs keep their original source and date."
     }
   ],
   "captures": [
@@ -330,7 +347,7 @@
     "counts": {},
     "collection": "previous-context-gallery"
   },
-  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical exterior approach; three manually aimed outside-gate shutters No interior visit; complete facade/garden comparison remains open Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates.",
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical exterior approach; three manually aimed outside-gate shutters No interior visit; complete facade/garden comparison remains open Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates. Round-2 visitor views recaptured 2026-11-13 from 9824fd5; the 346f7986 views are kept in historicalCollections.",
   "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
   "menuAvailable": true,
   "captureSourceCommits": [
@@ -377,12 +394,12 @@
   ],
   "visitorGallery": {
     "id": "spring-palace",
-    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
     "captures": [
       {
         "kind": "scene",
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-        "capturedAt": "2026-11-12T19:50:19.734Z",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "capturedAt": "2026-11-13T05:33:55.778Z",
         "viewport": {
           "width": 1280,
           "height": 720
@@ -407,20 +424,20 @@
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-12T19:50:19.300Z",
-        "triangles": 340439,
-        "drawCalls": 146,
+        "simulationDate": "2026-11-13T05:33:55.188Z",
+        "triangles": 339651,
+        "drawCalls": 130,
         "cameraParent": "onfoot",
         "ui": {
           "touch": true,
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "51ff2e7baabe017da1695f5d3ba62bb61af636fc4a7618c7e46f75c7eb1c44eb",
-        "bytes": 53960,
+        "sha256": "a69b5dd36747930017e54c7f4cbf2147f7eb8ea038fdb770d67bf53abd4f492f",
+        "bytes": 53896,
         "fullPageHUD": false,
-        "image": "assets/spots/spring-palace/visit-346f7986/scene.webp",
-        "captureRecord": "assets/spots/spring-palace/visit-346f7986/capture.json",
+        "image": "assets/spots/spring-palace/visit-9824fd56/scene.webp",
+        "captureRecord": "assets/spots/spring-palace/visit-9824fd56/capture.json",
         "setup": {
           "arrival": {
             "x": -23.18625,
@@ -485,8 +502,8 @@
       },
       {
         "kind": "phone-ui-touch",
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-        "capturedAt": "2026-11-12T19:50:19.991Z",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "capturedAt": "2026-11-13T05:33:56.030Z",
         "viewport": {
           "width": 390,
           "height": 844
@@ -511,8 +528,8 @@
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-12T19:50:19.556Z",
-        "triangles": 310923,
+        "simulationDate": "2026-11-13T05:33:55.440Z",
+        "triangles": 310135,
         "drawCalls": 84,
         "cameraParent": "onfoot",
         "ui": {
@@ -520,11 +537,11 @@
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "86a747ff77469dce1916681fb70c684f6b8f8a90f8889e8cd73979a432383c74",
-        "bytes": 47140,
+        "sha256": "3a9459548e6d9d42e60ee3099d6df6bae4699795596f4f2837c7fd1407f49e72",
+        "bytes": 47132,
         "fullPageHUD": true,
-        "image": "assets/spots/spring-palace/visit-346f7986/phone-ui-touch.jpg",
-        "captureRecord": "assets/spots/spring-palace/visit-346f7986/capture.json",
+        "image": "assets/spots/spring-palace/visit-9824fd56/phone-ui-touch.jpg",
+        "captureRecord": "assets/spots/spring-palace/visit-9824fd56/capture.json",
         "setup": {
           "arrival": {
             "x": -23.18625,
@@ -590,17 +607,17 @@
     ],
     "limitations": [
       "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
-      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
+      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
     ],
     "reports": [
       {
-        "label": "Scene and portrait capture record, 346f798",
-        "report": "assets/spots/spring-palace/visit-346f7986/capture.json",
-        "sha256": "c84467bc0c2e84e909d8f901b6483490088cb1728fb62637eda0699564a5c66e"
+        "label": "Scene and portrait capture record, 9824fd5",
+        "report": "assets/spots/spring-palace/visit-9824fd56/capture.json",
+        "sha256": "9fb0911aadadc608cda12db052f9759eec2ef118a7c77882e0aa920d36f4d723"
       }
     ],
-    "updatedAt": "2026-11-12T19:50:19.991Z",
-    "notice": "Recaptured from game source 346f798 after the district fidelity pass. The earlier aabd17a views are kept in this record as historical.",
+    "updatedAt": "2026-11-13T05:33:56.030Z",
+    "notice": "Recaptured from game source 9824fd5 after fidelity pass round 2. Earlier views are kept in this record as historical.",
     "setup": "Explicit production on-foot viewpoints with native touch look, at 1280 × 720 and as the complete 390 × 844 phone page. The scene-authored postcard pose is used unless a limitation below says otherwise. No route, reference match or release acceptance is implied."
   },
   "historicalCollections": [
@@ -814,19 +831,249 @@
           "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
         }
       ]
+    },
+    {
+      "id": "visitor-gallery-346f7986",
+      "label": "Visitor views before fidelity pass round 2",
+      "status": "historical",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededBy": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededAt": "2026-11-13T05:41:38.367Z",
+      "reason": "The scene changed in 94a177d5..9824fd56; these pictures show the earlier scene and keep their original source, dates and capture records.",
+      "notice": "Recaptured from game source 346f798 after the district fidelity pass. The earlier aabd17a views are kept in this record as historical.",
+      "setup": "Explicit production on-foot viewpoints with native touch look, at 1280 × 720 and as the complete 390 × 844 phone page. The scene-authored postcard pose is used unless a limitation below says otherwise. No route, reference match or release acceptance is implied.",
+      "limitations": [
+        "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+        "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
+      ],
+      "updatedAt": "2026-11-12T19:50:19.991Z",
+      "reports": [
+        {
+          "label": "Scene and portrait capture record, 346f798",
+          "report": "assets/spots/spring-palace/visit-346f7986/capture.json",
+          "sha256": "c84467bc0c2e84e909d8f901b6483490088cb1728fb62637eda0699564a5c66e"
+        }
+      ],
+      "captures": [
+        {
+          "kind": "scene",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "capturedAt": "2026-11-12T19:50:19.734Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 30,
+            "z": -35,
+            "y": 0.013236538178546142,
+            "heading": 1.59684046875
+          },
+          "pose": {
+            "position": [
+              30,
+              1.663236538178546,
+              -35
+            ],
+            "bearing": 268.50778058493296,
+            "pitch": 7.999999310471287
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-12T19:50:19.300Z",
+          "triangles": 340439,
+          "drawCalls": 146,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "51ff2e7baabe017da1695f5d3ba62bb61af636fc4a7618c7e46f75c7eb1c44eb",
+          "bytes": 53960,
+          "fullPageHUD": false,
+          "image": "assets/spots/spring-palace/visit-346f7986/scene.webp",
+          "captureRecord": "assets/spots/spring-palace/visit-346f7986/capture.json",
+          "setup": {
+            "arrival": {
+              "x": -23.18625,
+              "z": -69.525,
+              "y": 0.0034843147516254386,
+              "heading": -2.488791289792414
+            },
+            "authoredViewpoint": {
+              "view": [
+                -15.78869300683543,
+                -33.807204236460606
+              ],
+              "id": "spring-palace",
+              "x": 30,
+              "z": -35,
+              "bearing": 268.50778203495156,
+              "pitch": 8,
+              "fov": 60,
+              "text": "The Spring Palace from its garden",
+              "r": 12,
+              "tol": 34,
+              "targets": [],
+              "condHint": null
+            },
+            "viewpoint": {
+              "view": [
+                -15.78869300683543,
+                -33.807204236460606
+              ],
+              "id": "spring-palace",
+              "x": 30,
+              "z": -35,
+              "bearing": 268.50778203495156,
+              "pitch": 8,
+              "fov": 60,
+              "text": "The Spring Palace from its garden",
+              "r": 12,
+              "tol": 34,
+              "targets": [],
+              "condHint": null
+            },
+            "position": {
+              "x": 30,
+              "z": -35,
+              "y": 0.013236538178546142,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "spring-palace",
+            "origin": {
+              "lat": 44.4685,
+              "lon": 26.09235,
+              "elev": 86.9
+            },
+            "projection": {
+              "mLat": 111121.39,
+              "mLon": 79572.43
+            }
+          },
+          "label": "The palace facade and garden",
+          "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+        },
+        {
+          "kind": "phone-ui-touch",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "capturedAt": "2026-11-12T19:50:19.991Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 30,
+            "z": -35,
+            "y": 0.013236538178546142,
+            "heading": 1.59684046875
+          },
+          "pose": {
+            "position": [
+              30,
+              1.663236538178546,
+              -35
+            ],
+            "bearing": 268.50778058493296,
+            "pitch": 7.999999310471287
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-12T19:50:19.556Z",
+          "triangles": 310923,
+          "drawCalls": 84,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "86a747ff77469dce1916681fb70c684f6b8f8a90f8889e8cd73979a432383c74",
+          "bytes": 47140,
+          "fullPageHUD": true,
+          "image": "assets/spots/spring-palace/visit-346f7986/phone-ui-touch.jpg",
+          "captureRecord": "assets/spots/spring-palace/visit-346f7986/capture.json",
+          "setup": {
+            "arrival": {
+              "x": -23.18625,
+              "z": -69.525,
+              "y": 0.0034843147516254386,
+              "heading": -2.488791289792414
+            },
+            "authoredViewpoint": {
+              "view": [
+                -15.78869300683543,
+                -33.807204236460606
+              ],
+              "id": "spring-palace",
+              "x": 30,
+              "z": -35,
+              "bearing": 268.50778203495156,
+              "pitch": 8,
+              "fov": 60,
+              "text": "The Spring Palace from its garden",
+              "r": 12,
+              "tol": 34,
+              "targets": [],
+              "condHint": null
+            },
+            "viewpoint": {
+              "view": [
+                -15.78869300683543,
+                -33.807204236460606
+              ],
+              "id": "spring-palace",
+              "x": 30,
+              "z": -35,
+              "bearing": 268.50778203495156,
+              "pitch": 8,
+              "fov": 60,
+              "text": "The Spring Palace from its garden",
+              "r": 12,
+              "tol": 34,
+              "targets": [],
+              "condHint": null
+            },
+            "position": {
+              "x": 30,
+              "z": -35,
+              "y": 0.013236538178546142,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "spring-palace",
+            "origin": {
+              "lat": 44.4685,
+              "lon": 26.09235,
+              "elev": 86.9
+            },
+            "projection": {
+              "mLat": 111121.39,
+              "mLon": 79572.43
+            }
+          },
+          "label": "Phone view with the native touch interface",
+          "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+        }
+      ]
     }
   ],
   "visitorGalleryRecapture": {
-    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-    "assembledAt": "2026-11-12T20:03:08.418Z",
-    "passRange": "332ae423..346f7986",
-    "sceneCommits": [
-      "451c5f9e91f993c3a30ecf80f855d6565f1cfdcd"
-    ],
-    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes.",
+    "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+    "assembledAt": "2026-11-13T05:41:38.367Z",
+    "passRange": "94a177d5..9824fd56",
+    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted).",
     "sourceVerification": {
-      "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
-      "checkedAt": "2026-11-12T20:03:08.417Z"
+      "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+      "checkedAt": "2026-11-13T05:41:38.367Z"
     }
   }
 }

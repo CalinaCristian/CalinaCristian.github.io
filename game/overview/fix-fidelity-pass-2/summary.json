@@ -1,0 +1,779 @@
+{
+  "scope": "Eleven street-level before/after pairs for round 2 of the district fidelity pass (2026-11-12/13). Each frame was rendered from immutable git objects of the named commit, at the same reference viewpoint (game/dev/reality/viewpoints.json at the after commit), fov 70, 1280x800, day and clear overrides. They show what changed in the game at that place; they are not a comparison with reality and certify nothing else. Traffic and people are as loaded and differ between frames.",
+  "baselineSource": "94a177d5e739e0f23dc1ea9af696174364684084",
+  "runtimeSource": "9824fd56de3f0e420821e871436906186a80e493",
+  "captures": [
+    {
+      "id": "flo-dinamo-stefan7",
+      "district": "floreasca",
+      "name": "7 Șoseaua Ștefan cel Mare, Dinamo gate and access lane",
+      "file": "flo-dinamo-stefan7-before.png",
+      "role": "before",
+      "source": "94a177d5e739e0f23dc1ea9af696174364684084",
+      "capturedAt": "2026-11-13T05:25:05.771Z",
+      "sha256": "d4b7f7ea4de433a6bbfa1276bc3d86d21e33b936da1b26accbb1c83ec94236e7",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.4530935,
+        "lon": 26.1026882,
+        "eye": [
+          -88.33,
+          2.74,
+          1256.51
+        ],
+        "bearing": 5,
+        "pitch": 3,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "flo-dinamo-stefan7",
+      "district": "floreasca",
+      "name": "7 Șoseaua Ștefan cel Mare, Dinamo gate and access lane",
+      "file": "flo-dinamo-stefan7-after.png",
+      "role": "after",
+      "source": "9824fd56de3f0e420821e871436906186a80e493",
+      "capturedAt": "2026-11-13T05:26:19.164Z",
+      "sha256": "fa2fdcb36a91fe83ffec4134cd0ddc58bac2721c7cbe59d337b78cbc6a9778bc",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.4530935,
+        "lon": 26.1026882,
+        "eye": [
+          -88.33,
+          2.74,
+          1256.51
+        ],
+        "bearing": 5,
+        "pitch": 3,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "rom-aro-magheru",
+      "district": "romana",
+      "name": "Bd. Magheru, Blocul ARO / Patria",
+      "file": "rom-aro-magheru-before.png",
+      "role": "before",
+      "source": "94a177d5e739e0f23dc1ea9af696174364684084",
+      "capturedAt": "2026-11-13T05:25:13.196Z",
+      "sha256": "c4c757d26532da1096f2316bc52e1330ce03673fbee85a736a3659e57000a840",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.442644,
+        "lon": 26.098615,
+        "eye": [
+          589.27,
+          2.74,
+          628.56
+        ],
+        "bearing": 110,
+        "pitch": 16,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "rom-aro-magheru",
+      "district": "romana",
+      "name": "Bd. Magheru, Blocul ARO / Patria",
+      "file": "rom-aro-magheru-after.png",
+      "role": "after",
+      "source": "9824fd56de3f0e420821e871436906186a80e493",
+      "capturedAt": "2026-11-13T05:26:28.377Z",
+      "sha256": "78d00577e163701c24f0638f3cd5e1258a7a4248bcde4cc72e9ef44fccfdf1df",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.442644,
+        "lon": 26.098615,
+        "eye": [
+          589.27,
+          2.74,
+          628.56
+        ],
+        "bearing": 110,
+        "pitch": 16,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "rom-thelandmark-alecsandri",
+      "district": "romana",
+      "name": "Str. Vasile Alecsandri, The Landmark corner",
+      "file": "rom-thelandmark-alecsandri-before.png",
+      "role": "before",
+      "source": "94a177d5e739e0f23dc1ea9af696174364684084",
+      "capturedAt": "2026-11-13T05:25:13.419Z",
+      "sha256": "04036886083fc3c18bc0034dd1863b562b99b7ce2e644930db3a1158fae3cc8b",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.450288,
+        "lon": 26.094312,
+        "eye": [
+          247.31,
+          2.74,
+          -220.93
+        ],
+        "bearing": 143,
+        "pitch": 12,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "rom-thelandmark-alecsandri",
+      "district": "romana",
+      "name": "Str. Vasile Alecsandri, The Landmark corner",
+      "file": "rom-thelandmark-alecsandri-after.png",
+      "role": "after",
+      "source": "9824fd56de3f0e420821e871436906186a80e493",
+      "capturedAt": "2026-11-13T05:26:28.601Z",
+      "sha256": "4ae6cd49ccb490c3ffc2aafb196573e5f656502c7f9afa691c24d3ed93187739",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.450288,
+        "lon": 26.094312,
+        "eye": [
+          247.31,
+          2.74,
+          -220.93
+        ],
+        "bearing": 143,
+        "pitch": 12,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "rom-victoriei-centre",
+      "district": "romana",
+      "name": "Piața Victoriei centre",
+      "file": "rom-victoriei-centre-before.png",
+      "role": "before",
+      "source": "94a177d5e739e0f23dc1ea9af696174364684084",
+      "capturedAt": "2026-11-13T05:25:13.562Z",
+      "sha256": "daa3e8e743305eb6fbcb696d1f9d54da0c487f472e270cf6a063ee3b79e3f118",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.452163,
+        "lon": 26.08598,
+        "eye": [
+          -414.83,
+          2.74,
+          -429.3
+        ],
+        "bearing": 0,
+        "pitch": -12,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "rom-victoriei-centre",
+      "district": "romana",
+      "name": "Piața Victoriei centre",
+      "file": "rom-victoriei-centre-after.png",
+      "role": "after",
+      "source": "9824fd56de3f0e420821e871436906186a80e493",
+      "capturedAt": "2026-11-13T05:26:28.770Z",
+      "sha256": "58b59569ebb19c28e4e3b70fe678badaf4a552f07f2916d1067f711f83ab2c77",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.452163,
+        "lon": 26.08598,
+        "eye": [
+          -414.83,
+          2.74,
+          -429.3
+        ],
+        "bearing": 0,
+        "pitch": -12,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "oto-cfr-station",
+      "district": "otopeni",
+      "name": "Under the CFR airport station viaduct",
+      "file": "oto-cfr-station-before.png",
+      "role": "before",
+      "source": "94a177d5e739e0f23dc1ea9af696174364684084",
+      "capturedAt": "2026-11-13T05:25:16.454Z",
+      "sha256": "85e8b6b6fd6c13a615c26362b800616120d6c47c13862bf4939c289ec2f73caf",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.56887,
+        "lon": 26.07495,
+        "eye": [
+          -162.59,
+          2.74,
+          -430.08
+        ],
+        "bearing": 10,
+        "pitch": 16,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "oto-cfr-station",
+      "district": "otopeni",
+      "name": "Under the CFR airport station viaduct",
+      "file": "oto-cfr-station-after.png",
+      "role": "after",
+      "source": "9824fd56de3f0e420821e871436906186a80e493",
+      "capturedAt": "2026-11-13T05:26:32.433Z",
+      "sha256": "a7319dbcbf6f932285d65d4a6011dc0af20cbd83b346bbd958ef9334a271bf95",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.56887,
+        "lon": 26.07495,
+        "eye": [
+          -162.59,
+          2.74,
+          -430.08
+        ],
+        "bearing": 10,
+        "pitch": 16,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "otp-romstal",
+      "district": "otopeni",
+      "name": "DN1 at Romstal",
+      "file": "otp-romstal-before.png",
+      "role": "before",
+      "source": "94a177d5e739e0f23dc1ea9af696174364684084",
+      "capturedAt": "2026-11-13T05:25:16.573Z",
+      "sha256": "efcbdfa4031036498ae800d76d865d946b21e08cab294c1c7c2114d3d1626ed6",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.5544,
+        "lon": 26.0693,
+        "eye": [
+          -610.69,
+          2.74,
+          1178
+        ],
+        "bearing": 80,
+        "pitch": 3,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "otp-romstal",
+      "district": "otopeni",
+      "name": "DN1 at Romstal",
+      "file": "otp-romstal-after.png",
+      "role": "after",
+      "source": "9824fd56de3f0e420821e871436906186a80e493",
+      "capturedAt": "2026-11-13T05:26:32.585Z",
+      "sha256": "0cd1d7cf160e0b20e4fac5034d0d326ed10132de26bde22344d9aea96f4327c9",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.5544,
+        "lon": 26.0693,
+        "eye": [
+          -610.69,
+          2.74,
+          1178
+        ],
+        "bearing": 80,
+        "pitch": 3,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "unr-carpark",
+      "district": "unirii",
+      "name": "Bd. Corneliu Coposu side, Unirea car park",
+      "file": "unr-carpark-before.png",
+      "role": "before",
+      "source": "94a177d5e739e0f23dc1ea9af696174364684084",
+      "capturedAt": "2026-11-13T05:25:26.960Z",
+      "sha256": "6915bccbc248bdf9dc064f11e7cfcfad33d5659ef809d761244321b5bbfdfee1",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.42908,
+        "lon": 26.10534,
+        "eye": [
+          -290.95,
+          2.74,
+          68.9
+        ],
+        "bearing": 200,
+        "pitch": 8,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "unr-carpark",
+      "district": "unirii",
+      "name": "Bd. Corneliu Coposu side, Unirea car park",
+      "file": "unr-carpark-after.png",
+      "role": "after",
+      "source": "9824fd56de3f0e420821e871436906186a80e493",
+      "capturedAt": "2026-11-13T05:26:43.750Z",
+      "sha256": "86ac19eeef88924362b10c5bde09327513a980a2e0b9a6990640684d91724d95",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.42908,
+        "lon": 26.10534,
+        "eye": [
+          -290.95,
+          2.74,
+          68.9
+        ],
+        "bearing": 200,
+        "pitch": 8,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "uni-franceza",
+      "district": "unirii",
+      "name": "Str. Franceză (pedestrian), Old Town",
+      "file": "uni-franceza-before.png",
+      "role": "before",
+      "source": "94a177d5e739e0f23dc1ea9af696174364684084",
+      "capturedAt": "2026-11-13T05:25:27.119Z",
+      "sha256": "0ef0ec37b0913cf3f745d40d828832400d15e52bec04e1c9c4ce06f2a48901a8",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.430444,
+        "lon": 26.102414,
+        "eye": [
+          -523.55,
+          2.74,
+          -82.68
+        ],
+        "bearing": 126,
+        "pitch": 3,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "uni-franceza",
+      "district": "unirii",
+      "name": "Str. Franceză (pedestrian), Old Town",
+      "file": "uni-franceza-after.png",
+      "role": "after",
+      "source": "9824fd56de3f0e420821e871436906186a80e493",
+      "capturedAt": "2026-11-13T05:26:43.904Z",
+      "sha256": "8cf0fc72c68c80727053488b32f0a2b85264f4a39ef638e8c592002c4a0e7362",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.430444,
+        "lon": 26.102414,
+        "eye": [
+          -523.55,
+          2.74,
+          -82.68
+        ],
+        "bearing": 126,
+        "pitch": 3,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "unr-unirea-rotunda",
+      "district": "unirii",
+      "name": "Piața Unirii, Unirea Shopping Center south-west rotunda and west front",
+      "file": "unr-unirea-rotunda-before.png",
+      "role": "before",
+      "source": "94a177d5e739e0f23dc1ea9af696174364684084",
+      "capturedAt": "2026-11-13T05:25:27.268Z",
+      "sha256": "c4356de980c15592df0a60a4f66dfc8fa6de06d8febf2f6274ae7bf0f103fce8",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.4269991,
+        "lon": 26.1037744,
+        "eye": [
+          -415.41,
+          2.74,
+          300.16
+        ],
+        "bearing": 40,
+        "pitch": 10,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "unr-unirea-rotunda",
+      "district": "unirii",
+      "name": "Piața Unirii, Unirea Shopping Center south-west rotunda and west front",
+      "file": "unr-unirea-rotunda-after.png",
+      "role": "after",
+      "source": "9824fd56de3f0e420821e871436906186a80e493",
+      "capturedAt": "2026-11-13T05:26:44.049Z",
+      "sha256": "5d0efc4249f1c69a9e09ef144ddd3b9efe8719266338f201d1695f1bdb89b226",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 44.4269991,
+        "lon": 26.1037744,
+        "eye": [
+          -415.41,
+          2.74,
+          300.16
+        ],
+        "bearing": 40,
+        "pitch": 10,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "bel-guideway-405",
+      "district": "bellevue",
+      "name": "2 Line guideway seen from 112th Ave NE area",
+      "file": "bel-guideway-405-before.png",
+      "role": "before",
+      "source": "94a177d5e739e0f23dc1ea9af696174364684084",
+      "capturedAt": "2026-11-13T05:25:32.942Z",
+      "sha256": "ac245ca13c3437f6680dd7bd32cf2c57cbb6797f8efb3c6b94548e648d1cb4d7",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 47.61504,
+        "lon": -122.188416,
+        "eye": [
+          494.08,
+          2.74,
+          -60.01
+        ],
+        "bearing": 60,
+        "pitch": 10,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "bel-guideway-405",
+      "district": "bellevue",
+      "name": "2 Line guideway seen from 112th Ave NE area",
+      "file": "bel-guideway-405-after.png",
+      "role": "after",
+      "source": "9824fd56de3f0e420821e871436906186a80e493",
+      "capturedAt": "2026-11-13T05:26:49.666Z",
+      "sha256": "1d43915bb8a6c0022b6266f88016b21be4c811a72186732293036190b669cf28",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 47.61504,
+        "lon": -122.188416,
+        "eye": [
+          494.08,
+          2.74,
+          -60.01
+        ],
+        "bearing": 60,
+        "pitch": 10,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "bel-lincoln-podium-n",
+      "district": "bellevue",
+      "name": "547 Bellevue Way NE, Lincoln Square North podium",
+      "file": "bel-lincoln-podium-n-before.png",
+      "role": "before",
+      "source": "94a177d5e739e0f23dc1ea9af696174364684084",
+      "capturedAt": "2026-11-13T05:25:33.122Z",
+      "sha256": "aae877c08ab6ed5ecf99eefe80afbccb9016a228e8a6624b50a637d249f64088",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 47.6170863,
+        "lon": -122.2018217,
+        "eye": [
+          -511.92,
+          2.74,
+          -287.42
+        ],
+        "bearing": 90,
+        "pitch": 14,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "id": "bel-lincoln-podium-n",
+      "district": "bellevue",
+      "name": "547 Bellevue Way NE, Lincoln Square North podium",
+      "file": "bel-lincoln-podium-n-after.png",
+      "role": "after",
+      "source": "9824fd56de3f0e420821e871436906186a80e493",
+      "capturedAt": "2026-11-13T05:26:49.838Z",
+      "sha256": "43cb22694bfdb2a5ff0a6353dd67ef26faa5ac355f4e39007934f29ee3c890de",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "lat": 47.6170863,
+        "lon": -122.2018217,
+        "eye": [
+          -511.92,
+          2.74,
+          -287.42
+        ],
+        "bearing": 90,
+        "pitch": 14,
+        "fov": 70,
+        "eyeAboveSurfaceM": 2.5,
+        "surface": "ground"
+      },
+      "conditions": {
+        "time": "day (override)",
+        "weather": "clear (override)",
+        "season": "by capture date",
+        "traffic": "as loaded, not simulated between shots"
+      },
+      "bytesUnmodified": true
+    }
+  ],
+  "visualReview": "All 28 captured images were looked at. Rejected: grz-petrom-canopy (camera too close to a wall to show the canopy), sea-departures-deck (the barrier change does not read at this pose), rom-boteanu (kept out: the church face in frame is a narrow side).",
+  "openWork": "handoffs/fidelity/BACKLOG.md"
+}

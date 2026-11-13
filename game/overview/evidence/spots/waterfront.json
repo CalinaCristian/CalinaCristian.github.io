@@ -126,20 +126,26 @@
       "label": "District fidelity pass scene change (6ccf348)",
       "type": "Game source change",
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/6ccf3480235682cd5fe4f9c756b65f07165ad9a8"
+    },
+    {
+      "label": "Fidelity pass round 2 scene change (9824fd5)",
+      "type": "Game source change",
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493"
     }
   ],
   "improvements": [
     "Current native scene retains 92 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
     "Physical ride-coordinate approach; actual guide/follower 156 m path around retained queue; earlier three-turn ride controls/cancellation",
     "The selected primary activity approach is accepted separately from full-scene comparison.",
-    "District fidelity pass, 0446b77 / 6ccf348 (range 332ae423..346f7986): Shoreline taken from the mapped coastline, pier sheds, the Overlook Walk deck and mapped business signs were added; traffic runs on the carriageways."
+    "District fidelity pass, 0446b77 / 6ccf348 (range 332ae423..346f7986): Shoreline taken from the mapped coastline, pier sheds, the Overlook Walk deck and mapped business signs were added; traffic runs on the carriageways.",
+    "Fidelity pass round 2, 9824fd5 (range 94a177d5..9824fd56): The pier decks are closed rings joined from the live OSM relations (Pier 57 crossed itself, Piers 59 and 60 lost half their deck); the postcard point moved onto the deck at [3.5, -7.5]."
   ],
   "remainingGaps": [
     "Final approach facing is close to a wall; no postcard completion is inferred from arrival",
     "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
     "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
     "The arrival / activity-approach / phone validation frames, native proofs, source-geometry counts and performance figures in this record were recorded at 93b0d86 or earlier, before the district fidelity pass, and were not re-run at 346f798.",
-    "The authored postcard point [1.41, -1.41] is in an open slip at water level at 346f7986 (walk surface 0.92 m against a 3.4 m deck); the photo challenge position needs correcting in the scene source."
+    "Validation frames, native proofs, source-geometry counts and performance figures in this record predate 9824fd5 and were not re-run for round 2."
   ],
   "checks": [
     {
@@ -181,6 +187,16 @@
       "label": "Validation frames and native proofs re-run at 346f798",
       "passed": false,
       "details": "Not re-run. The validation captures and proofs above keep their original source and date and describe the scene before the pass."
+    },
+    {
+      "label": "Visitor views recaptured at 9824fd5 (round 2)",
+      "passed": true,
+      "details": "scene view and complete phone page recaptured (scene, phone-ui-touch); peak 300,091 triangles / 85 draw calls in these frames. Every picture was inspected after capture. Appearance only; no route, activity or reference-match claim."
+    },
+    {
+      "label": "Validation frames and native proofs re-run at 9824fd5",
+      "passed": false,
+      "details": "Not re-run. The validation captures and proofs keep their original source and date."
     }
   ],
   "captures": [
@@ -399,7 +415,7 @@
     },
     "collection": "previous-context-gallery"
   },
-  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical ride-coordinate approach; actual guide/follower 156 m path around retained queue; earlier three-turn ride controls/cancellation Final approach facing is close to a wall; no postcard completion is inferred from arrival Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates.",
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical ride-coordinate approach; actual guide/follower 156 m path around retained queue; earlier three-turn ride controls/cancellation Final approach facing is close to a wall; no postcard completion is inferred from arrival Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance. Visitor views recaptured 2026-11-12 from 346f798 after the district fidelity pass; the previous visitor views are kept in historicalCollections with their original source and dates. Round-2 visitor views recaptured 2026-11-13 from 9824fd5; the 346f7986 views are kept in historicalCollections.",
   "publicPathProof": {
     "sourceCommit": "b84de823e769c2bb02c3b4c6a4c422b14980748f",
     "priorSourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
@@ -467,50 +483,50 @@
   ],
   "visitorGallery": {
     "id": "waterfront",
-    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+    "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
     "captures": [
       {
         "kind": "scene",
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-        "capturedAt": "2026-11-12T19:53:23.422Z",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "capturedAt": "2026-11-13T05:34:08.889Z",
         "viewport": {
           "width": 1280,
           "height": 720
         },
         "position": {
-          "x": 5,
-          "z": -5,
+          "x": 3.5,
+          "z": -7.5,
           "y": 3.4000000953674316,
           "heading": 2.530727578125
         },
         "pose": {
           "position": [
-            5,
+            3.5,
             5.050000095367432,
-            -5
+            -7.5
           ],
           "bearing": 214.99999067607317,
-          "pitch": 11.999998965706927
+          "pitch": 14.999997028546368
         },
         "conditions": {
           "tod": "day",
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-12T19:53:22.555Z",
-        "triangles": 300270,
-        "drawCalls": 97,
+        "simulationDate": "2026-11-13T05:34:07.493Z",
+        "triangles": 300091,
+        "drawCalls": 85,
         "cameraParent": "onfoot",
         "ui": {
           "touch": true,
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "374fec6eb3018bc2bec0c83ba666ed68bf47971e739f09cb684895019a0c4a4b",
-        "bytes": 33194,
+        "sha256": "461cef6dedc9f0097dd9e5a2f76cd395940d6264e32fe081a9ad2389c3e7d94e",
+        "bytes": 32916,
         "fullPageHUD": false,
-        "image": "assets/spots/waterfront/visit-346f7986/scene.webp",
-        "captureRecord": "assets/spots/waterfront/visit-346f7986/capture.json",
+        "image": "assets/spots/waterfront/visit-9824fd56/scene.webp",
+        "captureRecord": "assets/spots/waterfront/visit-9824fd56/capture.json",
         "setup": {
           "arrival": {
             "x": 6,
@@ -521,13 +537,13 @@
           "authoredViewpoint": {
             "view": null,
             "id": "waterfront",
-            "x": 1.4142135623730947,
-            "z": -1.4142135623730954,
+            "x": 3.5,
+            "z": -7.5,
             "bearing": 215,
             "pitch": 15,
             "fov": 55,
             "text": "Great Wheel with gondolas lit against Elliott Bay at dusk",
-            "r": 14,
+            "r": 6,
             "tol": 30,
             "targets": [],
             "condHint": null
@@ -535,21 +551,20 @@
           "viewpoint": {
             "view": null,
             "id": "waterfront",
-            "x": 5,
-            "z": -5,
+            "x": 3.5,
+            "z": -7.5,
             "bearing": 215,
-            "pitch": 12,
+            "pitch": 15,
             "fov": 55,
-            "text": "On the Pier 57 deck 5 m from the authored postcard point, same bearing. At this source the authored point [1.41,-1.41] lies in an open slip of the rebuilt shore (walk surface 0.92 m, at the water), so the deck beside it is used.",
-            "r": 14,
+            "text": "Great Wheel with gondolas lit against Elliott Bay at dusk",
+            "r": 6,
             "tol": 30,
             "targets": [],
-            "condHint": null,
-            "authoredOverride": true
+            "condHint": null
           },
           "position": {
-            "x": 5,
-            "z": -5,
+            "x": 3.5,
+            "z": -7.5,
             "y": 3.4000000953674316,
             "heading": 0
           },
@@ -570,46 +585,46 @@
       },
       {
         "kind": "phone-ui-touch",
-        "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-        "capturedAt": "2026-11-12T19:53:23.623Z",
+        "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+        "capturedAt": "2026-11-13T05:34:09.166Z",
         "viewport": {
           "width": 390,
           "height": 844
         },
         "position": {
-          "x": 5,
-          "z": -5,
+          "x": 3.5,
+          "z": -7.5,
           "y": 3.4000000953674316,
           "heading": 2.5307274609375
         },
         "pose": {
           "position": [
-            5,
+            3.5,
             5.050000095367432,
-            -5
+            -7.5
           ],
           "bearing": 214.99999739042235,
-          "pitch": 11.999998965706924
+          "pitch": 14.999997028546368
         },
         "conditions": {
           "tod": "day",
           "weather": "clear",
           "season": "summer"
         },
-        "simulationDate": "2026-11-12T19:53:22.756Z",
-        "triangles": 287898,
-        "drawCalls": 69,
+        "simulationDate": "2026-11-13T05:34:07.770Z",
+        "triangles": 285640,
+        "drawCalls": 60,
         "cameraParent": "onfoot",
         "ui": {
           "touch": true,
           "spotHUD": true,
           "touchAction": true
         },
-        "sha256": "82327e7f8d64f6cbd1c97a5e8bf5f674fb239776a2de5e1be93c60c99545edca",
-        "bytes": 49617,
+        "sha256": "17836cd9abeeadedc90d8a34088524ae07cb2ed5726090d1ef070b766eec183c",
+        "bytes": 49838,
         "fullPageHUD": true,
-        "image": "assets/spots/waterfront/visit-346f7986/phone-ui-touch.jpg",
-        "captureRecord": "assets/spots/waterfront/visit-346f7986/capture.json",
+        "image": "assets/spots/waterfront/visit-9824fd56/phone-ui-touch.jpg",
+        "captureRecord": "assets/spots/waterfront/visit-9824fd56/capture.json",
         "setup": {
           "arrival": {
             "x": 6,
@@ -620,13 +635,13 @@
           "authoredViewpoint": {
             "view": null,
             "id": "waterfront",
-            "x": 1.4142135623730947,
-            "z": -1.4142135623730954,
+            "x": 3.5,
+            "z": -7.5,
             "bearing": 215,
             "pitch": 15,
             "fov": 55,
             "text": "Great Wheel with gondolas lit against Elliott Bay at dusk",
-            "r": 14,
+            "r": 6,
             "tol": 30,
             "targets": [],
             "condHint": null
@@ -634,21 +649,20 @@
           "viewpoint": {
             "view": null,
             "id": "waterfront",
-            "x": 5,
-            "z": -5,
+            "x": 3.5,
+            "z": -7.5,
             "bearing": 215,
-            "pitch": 12,
+            "pitch": 15,
             "fov": 55,
-            "text": "On the Pier 57 deck 5 m from the authored postcard point, same bearing. At this source the authored point [1.41,-1.41] lies in an open slip of the rebuilt shore (walk surface 0.92 m, at the water), so the deck beside it is used.",
-            "r": 14,
+            "text": "Great Wheel with gondolas lit against Elliott Bay at dusk",
+            "r": 6,
             "tol": 30,
             "targets": [],
-            "condHint": null,
-            "authoredOverride": true
+            "condHint": null
           },
           "position": {
-            "x": 5,
-            "z": -5,
+            "x": 3.5,
+            "z": -7.5,
             "y": 3.4000000953674316,
             "heading": 0
           },
@@ -670,18 +684,18 @@
     ],
     "limitations": [
       "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
-      "At this source the scene-authored postcard point [1.41, -1.41] lies in an open slip of the rebuilt shore: the walk surface there is 0.92 m, at the water, below the 3.4 m deck. The camera stands on the deck 5 m away with the authored bearing. The authored point itself needs a source fix.",
-      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
+      "The scene-authored postcard point is now [3.5, -7.5] on the deck; the earlier 346f7986 views used [5, -5] because the old point lay in an open slip.",
+      "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
     ],
     "reports": [
       {
-        "label": "Scene and portrait capture record, 346f798",
-        "report": "assets/spots/waterfront/visit-346f7986/capture.json",
-        "sha256": "2016ae82d5e41d8cb4e18e15f658b598b7b39175c9af69d4742d4fae85e6ba28"
+        "label": "Scene and portrait capture record, 9824fd5",
+        "report": "assets/spots/waterfront/visit-9824fd56/capture.json",
+        "sha256": "1c5dc5f75711e22543f887572df15f4f685a114f3e5f419cc407e52468bef628"
       }
     ],
-    "updatedAt": "2026-11-12T19:53:23.623Z",
-    "notice": "Recaptured from game source 346f798 after the district fidelity pass. The earlier aabd17a views are kept in this record as historical.",
+    "updatedAt": "2026-11-13T05:34:09.166Z",
+    "notice": "Recaptured from game source 9824fd5 after fidelity pass round 2. Earlier views are kept in this record as historical.",
     "setup": "Explicit production on-foot viewpoints with native touch look, at 1280 × 720 and as the complete 390 × 844 phone page. The scene-authored postcard pose is used unless a limitation below says otherwise. No route, reference match or release acceptance is implied."
   },
   "historicalCollections": [
@@ -889,20 +903,240 @@
           "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
         }
       ]
+    },
+    {
+      "id": "visitor-gallery-346f7986",
+      "label": "Visitor views before fidelity pass round 2",
+      "status": "historical",
+      "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "supersededBy": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededAt": "2026-11-13T05:41:38.367Z",
+      "reason": "The scene changed in 94a177d5..9824fd56; these pictures show the earlier scene and keep their original source, dates and capture records.",
+      "notice": "Recaptured from game source 346f798 after the district fidelity pass. The earlier aabd17a views are kept in this record as historical.",
+      "setup": "Explicit production on-foot viewpoints with native touch look, at 1280 × 720 and as the complete 390 × 844 phone page. The scene-authored postcard pose is used unless a limitation below says otherwise. No route, reference match or release acceptance is implied.",
+      "limitations": [
+        "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+        "At this source the scene-authored postcard point [1.41, -1.41] lies in an open slip of the rebuilt shore: the walk surface there is 0.92 m, at the water, below the 3.4 m deck. The camera stands on the deck 5 m away with the authored bearing. The authored point itself needs a source fix.",
+        "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes."
+      ],
+      "updatedAt": "2026-11-12T19:53:23.623Z",
+      "reports": [
+        {
+          "label": "Scene and portrait capture record, 346f798",
+          "report": "assets/spots/waterfront/visit-346f7986/capture.json",
+          "sha256": "2016ae82d5e41d8cb4e18e15f658b598b7b39175c9af69d4742d4fae85e6ba28"
+        }
+      ],
+      "captures": [
+        {
+          "kind": "scene",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "capturedAt": "2026-11-12T19:53:23.422Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 5,
+            "z": -5,
+            "y": 3.4000000953674316,
+            "heading": 2.530727578125
+          },
+          "pose": {
+            "position": [
+              5,
+              5.050000095367432,
+              -5
+            ],
+            "bearing": 214.99999067607317,
+            "pitch": 11.999998965706927
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-12T19:53:22.555Z",
+          "triangles": 300270,
+          "drawCalls": 97,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "374fec6eb3018bc2bec0c83ba666ed68bf47971e739f09cb684895019a0c4a4b",
+          "bytes": 33194,
+          "fullPageHUD": false,
+          "image": "assets/spots/waterfront/visit-346f7986/scene.webp",
+          "captureRecord": "assets/spots/waterfront/visit-346f7986/capture.json",
+          "setup": {
+            "arrival": {
+              "x": 6,
+              "z": -6,
+              "y": 3.4000000953674316,
+              "heading": -3.7524578917878086
+            },
+            "authoredViewpoint": {
+              "view": null,
+              "id": "waterfront",
+              "x": 1.4142135623730947,
+              "z": -1.4142135623730954,
+              "bearing": 215,
+              "pitch": 15,
+              "fov": 55,
+              "text": "Great Wheel with gondolas lit against Elliott Bay at dusk",
+              "r": 14,
+              "tol": 30,
+              "targets": [],
+              "condHint": null
+            },
+            "viewpoint": {
+              "view": null,
+              "id": "waterfront",
+              "x": 5,
+              "z": -5,
+              "bearing": 215,
+              "pitch": 12,
+              "fov": 55,
+              "text": "On the Pier 57 deck 5 m from the authored postcard point, same bearing. At this source the authored point [1.41,-1.41] lies in an open slip of the rebuilt shore (walk surface 0.92 m, at the water), so the deck beside it is used.",
+              "r": 14,
+              "tol": 30,
+              "targets": [],
+              "condHint": null,
+              "authoredOverride": true
+            },
+            "position": {
+              "x": 5,
+              "z": -5,
+              "y": 3.4000000953674316,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "waterfront",
+            "origin": {
+              "lat": 47.6069,
+              "lon": -122.3416,
+              "elev": 0
+            },
+            "projection": {
+              "mLat": 111182.67,
+              "mLon": 75190.53
+            }
+          },
+          "label": "Pier 57 and the Great Wheel",
+          "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+        },
+        {
+          "kind": "phone-ui-touch",
+          "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+          "capturedAt": "2026-11-12T19:53:23.623Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 5,
+            "z": -5,
+            "y": 3.4000000953674316,
+            "heading": 2.5307274609375
+          },
+          "pose": {
+            "position": [
+              5,
+              5.050000095367432,
+              -5
+            ],
+            "bearing": 214.99999739042235,
+            "pitch": 11.999998965706924
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-12T19:53:22.756Z",
+          "triangles": 287898,
+          "drawCalls": 69,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "82327e7f8d64f6cbd1c97a5e8bf5f674fb239776a2de5e1be93c60c99545edca",
+          "bytes": 49617,
+          "fullPageHUD": true,
+          "image": "assets/spots/waterfront/visit-346f7986/phone-ui-touch.jpg",
+          "captureRecord": "assets/spots/waterfront/visit-346f7986/capture.json",
+          "setup": {
+            "arrival": {
+              "x": 6,
+              "z": -6,
+              "y": 3.4000000953674316,
+              "heading": -3.7524578917878086
+            },
+            "authoredViewpoint": {
+              "view": null,
+              "id": "waterfront",
+              "x": 1.4142135623730947,
+              "z": -1.4142135623730954,
+              "bearing": 215,
+              "pitch": 15,
+              "fov": 55,
+              "text": "Great Wheel with gondolas lit against Elliott Bay at dusk",
+              "r": 14,
+              "tol": 30,
+              "targets": [],
+              "condHint": null
+            },
+            "viewpoint": {
+              "view": null,
+              "id": "waterfront",
+              "x": 5,
+              "z": -5,
+              "bearing": 215,
+              "pitch": 12,
+              "fov": 55,
+              "text": "On the Pier 57 deck 5 m from the authored postcard point, same bearing. At this source the authored point [1.41,-1.41] lies in an open slip of the rebuilt shore (walk surface 0.92 m, at the water), so the deck beside it is used.",
+              "r": 14,
+              "tol": 30,
+              "targets": [],
+              "condHint": null,
+              "authoredOverride": true
+            },
+            "position": {
+              "x": 5,
+              "z": -5,
+              "y": 3.4000000953674316,
+              "heading": 0
+            },
+            "walker": "OnFootController",
+            "sceneId": "waterfront",
+            "origin": {
+              "lat": 47.6069,
+              "lon": -122.3416,
+              "elev": 0
+            },
+            "projection": {
+              "mLat": 111182.67,
+              "mLon": 75190.53
+            }
+          },
+          "label": "Phone view with the native touch interface",
+          "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+        }
+      ]
     }
   ],
   "visitorGalleryRecapture": {
-    "sourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
-    "assembledAt": "2026-11-12T20:03:08.418Z",
-    "passRange": "332ae423..346f7986",
-    "sceneCommits": [
-      "0446b773eafd3b53e353c997fdb26dc4e920c2b3",
-      "6ccf3480235682cd5fe4f9c756b65f07165ad9a8"
-    ],
-    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted). Earlier collections in this record were rendered with SwiftShader, so small shading and anti-aliasing differences are not scene changes.",
+    "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+    "assembledAt": "2026-11-13T05:41:38.367Z",
+    "passRange": "94a177d5..9824fd56",
+    "renderer": "Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted).",
     "sourceVerification": {
-      "method": "git status --porcelain over game/src, game/data, game/vendor, game/dev, game/index.html and game/style.css reported no difference from the source commit; captures were served from this unmodified worktree by a no-store static server",
-      "checkedAt": "2026-11-12T20:03:08.417Z"
+      "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+      "checkedAt": "2026-11-13T05:41:38.367Z"
     }
   }
 }

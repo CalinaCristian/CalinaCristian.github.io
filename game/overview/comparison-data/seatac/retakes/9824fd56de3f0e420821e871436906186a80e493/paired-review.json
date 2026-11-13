@@ -1,0 +1,27 @@
+{
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "reviewedIds": [
+    "aerial-r05-c07",
+    "aerial-r06-c07"
+  ],
+  "reviewedAt": "2026-11-13T05:49:16.779Z",
+  "method": "Published game capture, a 94a177d5 render and the 9824fd56 retake compared side by side at the same pose, at full size; the changed structure is visible in each replaced tile. Game images only; no reference pair recorded.",
+  "items": [
+    {
+      "id": "aerial-r05-c07",
+      "originalGameSha256": "310596783d175b0e517c0ad59fff37b82d54c16128ec6a7c267a11c51169b889",
+      "originalGameSourceCommit": "346f798681d891de6cebfc9e1d094996b1ace2e3",
+      "retakeGameSha256": "4de1e015f4a8b85e4e9763d035988478b6ceee1afcbb3c516e19afb81063b4de",
+      "observation": "car park redrawn as a clad multi-storey deck (deck grid and open sides visible from above)"
+    },
+    {
+      "id": "aerial-r06-c07",
+      "originalGameSha256": "e49d93742abce7d3d091eead068a8fe8ff861b648ce58023a5c0c66e3aad8aa9",
+      "originalGameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "retakeGameSha256": "c3347d8fb32ec61c8889b514a53cd62ca871dedd3c204ba1df336647a01f32f9",
+      "observation": "car park redrawn as a clad multi-storey deck (deck grid and open sides visible from above)"
+    }
+  ]
+}

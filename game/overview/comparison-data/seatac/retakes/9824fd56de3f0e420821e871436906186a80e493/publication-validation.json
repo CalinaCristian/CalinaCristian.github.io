@@ -1,0 +1,24 @@
+{
+  "district": "seatac",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "frames": 139,
+  "retakesInstalled": 2,
+  "retakenIds": [
+    "aerial-r05-c07",
+    "aerial-r06-c07"
+  ],
+  "untouchedItemsAndBytesPreserved": 137,
+  "archivedManifest": "historical/mixed-before-9824fd56-6fb5b064/manifest.json",
+  "archivedManifestSha256": "6fb5b06460240e22fd6cf63b4bea69bfa4dfd7aa58ad2a3676e6c8b828d1a85c",
+  "archivedItemsResolved": 139,
+  "sourceFilesVerifiedAgainstCommit": 514,
+  "atlasSourceCounts": {
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 109,
+    "346f798681d891de6cebfc9e1d094996b1ace2e3": 13,
+    "9824fd56de3f0e420821e871436906186a80e493": 2,
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 15
+  },
+  "allGroundPosesPreserved": true,
+  "sourceRevisionCorrections": [],
+  "failures": []
+}

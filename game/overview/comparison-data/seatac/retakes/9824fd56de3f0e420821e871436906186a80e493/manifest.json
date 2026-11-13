@@ -1,0 +1,268 @@
+{
+  "schemaVersion": 1,
+  "title": "seatac aerial comparisons",
+  "generatedDate": "2026-11-13",
+  "generatedAt": "2026-11-13T05:26:17.106Z",
+  "defaultTile": "aerial-r09-c05",
+  "tileMetres": 250,
+  "orientation": "north-up",
+  "atlasScopeCounts": {
+    "ring-touches": 86,
+    "core-touches": 50,
+    "outside-ring": 3
+  },
+  "publishedBaseline": "9824fd56de3f0e420821e871436906186a80e493",
+  "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+  "capture": {
+    "startedAt": "2026-11-13T05:25:10.349Z",
+    "endedAt": "2026-11-13T05:26:17.106Z",
+    "elapsedSeconds": 66.757,
+    "source": "ae5b9d7a70a4b3fd14dfcdce1a76092981d8db36d05abb7b1aaaa70af7b27b0b",
+    "loaded": {
+      "key": "seattle-seatac",
+      "city": "seattle",
+      "district": "seatac",
+      "ms": 6425,
+      "edges": 2428,
+      "ribbons": 4468
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "frameCounts": 2,
+    "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+    "scopeCounts": {
+      "ring-touches": 86,
+      "core-touches": 50,
+      "outside-ring": 3
+    },
+    "candidateFramesCaptured": 139,
+    "note": "One capture run over every atlas pose of the district; only the reviewed changed tiles are kept here. Tool: tools/aerial/capture-game-grid.cjs (unmodified, sha256 329f0d5e83d2581771f0f3d40975a0352cfa5c13b2d61189597f69026429cefd)."
+  },
+  "locations": [
+    {
+      "id": "seatac-chapter-start",
+      "label": "Arrivals Drive chapter start",
+      "lat": 47.4435,
+      "lon": -122.3003,
+      "kind": "chapter-start",
+      "source": "game/src/cities.js CHAPTERS; original configured position before public-lane snapping",
+      "tileId": "aerial-r09-c05"
+    },
+    {
+      "id": "seatac-source-anchor",
+      "label": "SeaTac terminal",
+      "lat": 47.4423743,
+      "lon": -122.3012208,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w23772634",
+        "w23772637",
+        "w734002404",
+        "w869951038"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/23772634",
+        "https://www.openstreetmap.org/way/23772637",
+        "https://www.openstreetmap.org/way/734002404",
+        "https://www.openstreetmap.org/way/869951038"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r10-c05"
+    },
+    {
+      "id": "seatower-source-anchor",
+      "label": "Airport control tower",
+      "lat": 47.4557242,
+      "lon": -122.3013712,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w53199557",
+        "w1199936806",
+        "w1199936807"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/53199557",
+        "https://www.openstreetmap.org/way/1199936806",
+        "https://www.openstreetmap.org/way/1199936807"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r04-c05"
+    },
+    {
+      "id": "seagarage-source-anchor",
+      "label": "SeaTac parking garage",
+      "lat": 47.4432823,
+      "lon": -122.2992416,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "r15763840",
+        "w37017724",
+        "w37017725",
+        "w37017726",
+        "w37017727",
+        "w37017728",
+        "w37017729"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/relation/15763840",
+        "https://www.openstreetmap.org/way/37017724",
+        "https://www.openstreetmap.org/way/37017725",
+        "https://www.openstreetmap.org/way/37017726",
+        "https://www.openstreetmap.org/way/37017727",
+        "https://www.openstreetmap.org/way/37017728",
+        "https://www.openstreetmap.org/way/37017729"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r09-c05"
+    },
+    {
+      "id": "sealink-source-anchor",
+      "label": "Airport Link station",
+      "lat": 47.4452089,
+      "lon": -122.2969786,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w54139654"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/54139654"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r09-c06"
+    },
+    {
+      "id": "seatac-expressway-waypoint",
+      "label": "Airport Expressway chapter objective",
+      "lat": 47.454,
+      "lon": -122.30023,
+      "kind": "chapter-end",
+      "source": "game/src/cities.js CHAPTERS waypoint",
+      "tileId": "aerial-r05-c05"
+    }
+  ],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "boundarySource": "boundary-source.json",
+  "items": [
+    {
+      "id": "aerial-r05-c07",
+      "label": "Row 5 · Column 7",
+      "row": 5,
+      "column": 7,
+      "lat": 47.45337436561927,
+      "lon": -122.29330252585996,
+      "x": -624.9999999998607,
+      "z": -375.00000000021555,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": 0,
+      "boundsXZ": [
+        -750,
+        -500,
+        -500,
+        -250
+      ],
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 93,
+        "triangles": 288588,
+        "renderMs": 1.7999999970197678,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 149
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T05:25:36.901Z",
+      "gamePath": "images/aerial-r05-c07.jpg",
+      "image": "images/aerial-r05-c07.jpg",
+      "thumbnail": "thumbs/aerial-r05-c07.jpg",
+      "sha256": "4de1e015f4a8b85e4e9763d035988478b6ceee1afcbb3c516e19afb81063b4de",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 520,
+      "dataset": "atlas",
+      "thumbnailSha256": "56ad7ed9c40c0f4d9fe624301f5d042fd5fd4dbedbd34fbf08ae018a2f999e9a",
+      "retakeReason": "car park redrawn as a clad multi-storey deck (deck grid and open sides visible from above)"
+    },
+    {
+      "id": "aerial-r06-c07",
+      "label": "Row 6 · Column 7",
+      "row": 6,
+      "column": 7,
+      "lat": 47.45112478853976,
+      "lon": -122.29330252585996,
+      "x": -624.9999999998607,
+      "z": -125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": 0,
+      "boundsXZ": [
+        -750,
+        -250,
+        -500,
+        0
+      ],
+      "gameSourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 98,
+        "triangles": 275347,
+        "renderMs": 3.5,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 149
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-13T05:25:41.017Z",
+      "gamePath": "images/aerial-r06-c07.jpg",
+      "image": "images/aerial-r06-c07.jpg",
+      "thumbnail": "thumbs/aerial-r06-c07.jpg",
+      "sha256": "c3347d8fb32ec61c8889b514a53cd62ca871dedd3c204ba1df336647a01f32f9",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 492,
+      "dataset": "atlas",
+      "thumbnailSha256": "6378c86d3f1805b9adc1ccfcb2693048c052bd7311198542667be3771fe3f888",
+      "retakeReason": "car park redrawn as a clad multi-storey deck (deck grid and open sides visible from above)"
+    }
+  ]
+}

@@ -3,7 +3,7 @@
   "id": "cec",
   "city": "bucharest",
   "name": "Palatul CEC",
-  "sourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
+  "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.4320212,
@@ -75,6 +75,11 @@
       "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/29f4533895e1abba65f342ebffed735791c1e301/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
       "label": "Existing 93b0d864 native scene/phone/primary-route report; scope remains limited",
       "type": "validation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/9824fd56de3f0e420821e871436906186a80e493",
+      "label": "Fidelity pass round 2 (9824fd5), not yet published when captured",
+      "type": "implementation"
     }
   ],
   "sourceIds": [
@@ -246,7 +251,8 @@
     "Canonical model now represents all 162 mapped source volumes (155 previously registered volumes and seven restored relation outers), across 161 real OSM identities.",
     "Every exact outer ring, five inner rings and all 153 literal source total heights are preserved. Body surfaces are unioned at every source vertical band; visible roof surfaces are clipped against the complete source assembly.",
     "The six real restored relation IDs now have model coverage before replacement association; the two outers of r13104229 are retained separately. Exact model collision retains all 162 source polygons and holes.",
-    "Canonical CEC, including both prepared r13104229 outers, is associated in Old Town and uses native per-solid polygon/hole/height bands without the obsolete blanket parent collider (bb32f06f2b84080edf7efef90e361498f4227e12, 052ecc8d02358782b5e191050842952d529db853)."
+    "Canonical CEC, including both prepared r13104229 outers, is associated in Old Town and uses native per-solid polygon/hole/height bands without the obsolete blanket parent collider (bb32f06f2b84080edf7efef90e361498f4227e12, 052ecc8d02358782b5e191050842952d529db853).",
+    "Dome shells over the stepped mapped parts: the glass-and-metal central dome above the 25 m crossing (the lantern w657898053 to 37.5 m stays visible above it) and the four corner pavilion domes over drums w657898126 / w657898137 and the two western ones. No source volume is removed and the 37.5 m maximum is kept."
   ],
   "remainingGaps": [
     "Nine source total heights and absent roof rises remain estimates. The literal mapped maximum is 37.5 m; literal total heights include their roofs.",
@@ -254,9 +260,30 @@
     "Many source decorative parts have literal total heights and no minimum height. Their ground-based bands remain source-first, even where the resulting vertical faces appear stronger than the actual roof structure. No contradictory source tag is silently rewritten.",
     "Facade windows, cornices, clock, columns and absent material colours remain explicit architectural estimates.",
     "Shaped-roof collision retains each complete source total-height band rather than a pointwise curved roof height. Canonical association and removal of obsolete blanket parent caps are integrated; complete independent courtyard/frontage, neighbouring-MNIR, public-access and crowd-behaviour comparison remains separate from the recorded primary candle approach.",
-    "Matched exterior Street View comparison and complete district traffic/mirror budgets are separate checks; isolated model captures do not establish those passes."
+    "Matched exterior Street View comparison and complete district traffic/mirror budgets are separate checks; isolated model captures do not establish those passes.",
+    "Shell radii and rises are estimates fitted inside the mapped totals (roof:shape=dome / onion are not supported by the source roofs)."
   ],
   "checks": [
+    {
+      "label": "Pictures recaptured at 9824fd5 (round 2)",
+      "passed": true,
+      "details": "Front, top and oblique pictures recaptured from the commit snapshot. Same viewer routes as the previous pictures. Headless Chromium (Playwright), ANGLE Direct3D 11 on an NVIDIA GeForce RTX 5070 (hardware GL, audio muted)."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs run against the worktree at 9824fd5 (game/src clean) on 2026-11-13: passed, 2144 checks over 70 models; this model 24848 triangles, 162 collision volumes."
+    },
+    {
+      "label": "Published game pictures inspected",
+      "passed": true,
+      "details": "All 3 pictures inspected after capture on 2026-11-13; framing choices and remaining estimates are listed. Game pictures only."
+    },
+    {
+      "label": "Earlier checks below",
+      "passed": null,
+      "details": "The checks that follow were recorded for source 556b252 or earlier and were not re-run for this recapture."
+    },
     {
       "label": "Independent source-volume and literal-height regression",
       "passed": true,
@@ -293,10 +320,15 @@
       "id": "front",
       "label": "Street-height model study",
       "kind": "front",
-      "image": "assets/landmarks/cec/front.webp",
-      "sourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
-      "sha256": "d95a1e61b9bfccba67f3e0a7bd8fe9db86fb73edf7ef7ebba45cd5a3575d7b66",
-      "capturedAt": "2026-11-08T21:22:05.307Z",
+      "image": "assets/landmarks/cec/source-9824fd56/front.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "e810a18d10b94a2ca96107ddce33ca3dc130f138a2981d6482a389d53edfc211",
+      "bytes": 36128,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:27.136Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=cec&clean=1&fountains=on&view=street&az=78.00226376996056",
         "anchor": {
@@ -307,19 +339,19 @@
         "camera": {
           "projection": "perspective",
           "position": [
-            78.52134557674881,
+            78.80440751714809,
             1.3,
-            16.661308814516843
+            16.644906089132984
           ],
           "quaternion": [
-            0.07453557231987204,
-            0.6264344577463428,
-            -0.06036015443319049,
-            0.7735508841464768
+            0.07428879737915427,
+            0.6264536814168347,
+            -0.06016031195437992,
+            0.7735746224436305
           ],
           "fov": 62,
           "near": 0.3,
-          "far": 1601.4094786519786,
+          "far": 1606.8788586208648,
           "viewport": [
             960,
             720
@@ -332,28 +364,33 @@
         },
         "bounds": {
           "min": [
-            -28.484425364690534,
+            -28.50518142594587,
             0,
-            -34.40223052901153
+            -34.6463982115173
           ],
           "max": [
-            28.884317206529154,
+            28.93620656669476,
             37.5,
-            34.435861886737115
+            34.53353045228675
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only native viewer. Top is orthographic and north-up; no reference image, adjacent scene or public-path acceptance is included."
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
       }
     },
     {
       "id": "top",
-      "label": "North-up orthographic source model study",
+      "label": "North-up orthographic model study",
       "kind": "top",
-      "image": "assets/landmarks/cec/top.webp",
-      "sourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
-      "sha256": "fdb0e5ba2fd3545282f9cbf72a196226e5bccea4196a8d2a98e2721a98b03a35",
-      "capturedAt": "2026-11-08T21:22:06.793Z",
+      "image": "assets/landmarks/cec/source-9824fd56/top.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "5de37e3e0e74cb25f0f0db9bf893ea23086323f544e425d0a9e472dd0eee7927",
+      "bytes": 68668,
+      "width": 720,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:27.811Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=cec&clean=1&fountains=on&view=top&az=0",
         "anchor": {
@@ -364,9 +401,9 @@
         "camera": {
           "projection": "orthographic",
           "position": [
-            0.19994592091931018,
-            121.35218720226842,
-            0.016815678862791117
+            0.21551257037444493,
+            121.74871725001269,
+            -0.056433879615276794
           ],
           "quaternion": [
             -0.7071067811865475,
@@ -376,9 +413,9 @@
           ],
           "fov": 45,
           "near": 0.5,
-          "far": 2427.0437440453684,
+          "far": 2434.974345000254,
           "viewport": [
-            960,
+            720,
             720
           ],
           "up": [
@@ -386,40 +423,45 @@
             0,
             -1
           ],
-          "left": -55.90145813484561,
-          "right": 55.90145813484561,
-          "top": 41.92609360113421,
-          "bottom": -41.92609360113421,
+          "left": -42.124358625006344,
+          "right": 42.124358625006344,
+          "top": 42.124358625006344,
+          "bottom": -42.124358625006344,
           "zoom": 1,
-          "groundSquareM": 111.80291626969122,
-          "groundWidthM": 111.80291626969122,
-          "groundDepthM": 83.85218720226842,
+          "groundSquareM": 84.24871725001269,
+          "groundWidthM": 84.24871725001269,
+          "groundDepthM": 84.24871725001269,
           "orientation": "north-up"
         },
         "bounds": {
           "min": [
-            -28.484425364690534,
+            -28.50518142594587,
             0,
-            -34.40223052901153
+            -34.6463982115173
           ],
           "max": [
-            28.884317206529154,
+            28.93620656669476,
             37.5,
-            34.435861886737115
+            34.53353045228675
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only native viewer. Top is orthographic and north-up; no reference image, adjacent scene or public-path acceptance is included."
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
       }
     },
     {
       "id": "oblique",
-      "label": "Oblique source model study",
+      "label": "Oblique model study",
       "kind": "oblique",
-      "image": "assets/landmarks/cec/oblique.webp",
-      "sourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
-      "sha256": "722e774288990e2796901ead0319cfbad623f9ba87873a0b145f5a8a84c36672",
-      "capturedAt": "2026-11-08T21:22:07.949Z",
+      "image": "assets/landmarks/cec/source-9824fd56/oblique.webp",
+      "sourceCommit": "9824fd56de3f0e420821e871436906186a80e493",
+      "sha256": "dbc84be7bfeb77f4611670999f0a030956cd5089b5fab5fd5e1574407f276582",
+      "bytes": 67454,
+      "width": 960,
+      "height": 720,
+      "capturedAt": "2026-11-13T05:29:28.486Z",
+      "encoding": "Lossless WebP of the PNG canvas screenshot; RGB pixel-verified against it",
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5070 (0x00002F04) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=cec&clean=1&fountains=on&view=oblique&az=113.00226376996056&el=28",
         "anchor": {
@@ -430,19 +472,19 @@
         "camera": {
           "projection": "perspective",
           "position": [
-            87.07123898116754,
-            65.18013799551446,
-            -36.86191127923343
+            87.50601168023158,
+            65.42228723350658,
+            -37.11312279612263
           ],
           "quaternion": [
             -0.13352165640842228,
             0.8091264288942631,
-            0.20173787656384146,
+            0.20173787656384148,
             0.5355261137370243
           ],
           "fov": 45,
           "near": 0.5,
-          "far": 2137.728543034238,
+          "far": 2148.0443643613144,
           "viewport": [
             960,
             720
@@ -455,27 +497,230 @@
         },
         "bounds": {
           "min": [
-            -28.484425364690534,
+            -28.50518142594587,
             0,
-            -34.40223052901153
+            -34.6463982115173
           ],
           "max": [
-            28.884317206529154,
+            28.93620656669476,
             37.5,
-            34.435861886737115
+            34.53353045228675
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only native viewer. Top is orthographic and north-up; no reference image, adjacent scene or public-path acceptance is included."
+        "note": "Static daylight game-only development viewer; no adjacent district buildings, district signs or terrain. Not an aerial- or street-matched comparison."
       }
     }
   ],
   "perf": {
-    "triangles": 24158,
+    "triangles": 24850,
     "drawCalls": 3,
-    "modelTriangles": 24156,
-    "note": "Isolated development viewer including its ground; excludes district, traffic, mirrors and tourist-scene population."
+    "note": "Isolated viewer frame includes ground and shadow rendering; neither a whole-world budget measurement nor hardware FPS."
   },
   "implementationNotesUpdatedAt": "2026-11-09",
-  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance.",
+  "historicalCollections": [
+    {
+      "id": "captures-556b252d",
+      "label": "Pictures before fidelity pass round 2",
+      "status": "historical",
+      "sourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
+      "supersededBy": "9824fd56de3f0e420821e871436906186a80e493",
+      "supersededAt": "2026-11-13T05:41:38.367Z",
+      "reason": "The model changed in 94a177d5..9824fd56; these pictures show the earlier model and keep their original source, dates and files.",
+      "perf": {
+        "triangles": 24158,
+        "drawCalls": 3,
+        "modelTriangles": 24156,
+        "note": "Isolated development viewer including its ground; excludes district, traffic, mirrors and tourist-scene population."
+      },
+      "captures": [
+        {
+          "id": "front",
+          "label": "Street-height model study",
+          "kind": "front",
+          "image": "assets/landmarks/cec/front.webp",
+          "sourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
+          "sha256": "d95a1e61b9bfccba67f3e0a7bd8fe9db86fb73edf7ef7ebba45cd5a3575d7b66",
+          "capturedAt": "2026-11-08T21:22:05.307Z",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=cec&clean=1&fountains=on&view=street&az=78.00226376996056",
+            "anchor": {
+              "lat": 44.4320212,
+              "lon": 26.0964749,
+              "rotation": -0.2094
+            },
+            "camera": {
+              "projection": "perspective",
+              "position": [
+                78.52134557674881,
+                1.3,
+                16.661308814516843
+              ],
+              "quaternion": [
+                0.07453557231987204,
+                0.6264344577463428,
+                -0.06036015443319049,
+                0.7735508841464768
+              ],
+              "fov": 62,
+              "near": 0.3,
+              "far": 1601.4094786519786,
+              "viewport": [
+                960,
+                720
+              ],
+              "up": [
+                0,
+                1,
+                0
+              ]
+            },
+            "bounds": {
+              "min": [
+                -28.484425364690534,
+                0,
+                -34.40223052901153
+              ],
+              "max": [
+                28.884317206529154,
+                37.5,
+                34.435861886737115
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only native viewer. Top is orthographic and north-up; no reference image, adjacent scene or public-path acceptance is included."
+          }
+        },
+        {
+          "id": "top",
+          "label": "North-up orthographic source model study",
+          "kind": "top",
+          "image": "assets/landmarks/cec/top.webp",
+          "sourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
+          "sha256": "fdb0e5ba2fd3545282f9cbf72a196226e5bccea4196a8d2a98e2721a98b03a35",
+          "capturedAt": "2026-11-08T21:22:06.793Z",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=cec&clean=1&fountains=on&view=top&az=0",
+            "anchor": {
+              "lat": 44.4320212,
+              "lon": 26.0964749,
+              "rotation": -0.2094
+            },
+            "camera": {
+              "projection": "orthographic",
+              "position": [
+                0.19994592091931018,
+                121.35218720226842,
+                0.016815678862791117
+              ],
+              "quaternion": [
+                -0.7071067811865475,
+                0,
+                0,
+                0.7071067811865476
+              ],
+              "fov": 45,
+              "near": 0.5,
+              "far": 2427.0437440453684,
+              "viewport": [
+                960,
+                720
+              ],
+              "up": [
+                0,
+                0,
+                -1
+              ],
+              "left": -55.90145813484561,
+              "right": 55.90145813484561,
+              "top": 41.92609360113421,
+              "bottom": -41.92609360113421,
+              "zoom": 1,
+              "groundSquareM": 111.80291626969122,
+              "groundWidthM": 111.80291626969122,
+              "groundDepthM": 83.85218720226842,
+              "orientation": "north-up"
+            },
+            "bounds": {
+              "min": [
+                -28.484425364690534,
+                0,
+                -34.40223052901153
+              ],
+              "max": [
+                28.884317206529154,
+                37.5,
+                34.435861886737115
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only native viewer. Top is orthographic and north-up; no reference image, adjacent scene or public-path acceptance is included."
+          }
+        },
+        {
+          "id": "oblique",
+          "label": "Oblique source model study",
+          "kind": "oblique",
+          "image": "assets/landmarks/cec/oblique.webp",
+          "sourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
+          "sha256": "722e774288990e2796901ead0319cfbad623f9ba87873a0b145f5a8a84c36672",
+          "capturedAt": "2026-11-08T21:22:07.949Z",
+          "pose": {
+            "viewerRoute": "/game/dev/landmarks.html?id=cec&clean=1&fountains=on&view=oblique&az=113.00226376996056&el=28",
+            "anchor": {
+              "lat": 44.4320212,
+              "lon": 26.0964749,
+              "rotation": -0.2094
+            },
+            "camera": {
+              "projection": "perspective",
+              "position": [
+                87.07123898116754,
+                65.18013799551446,
+                -36.86191127923343
+              ],
+              "quaternion": [
+                -0.13352165640842228,
+                0.8091264288942631,
+                0.20173787656384146,
+                0.5355261137370243
+              ],
+              "fov": 45,
+              "near": 0.5,
+              "far": 2137.728543034238,
+              "viewport": [
+                960,
+                720
+              ],
+              "up": [
+                0,
+                1,
+                0
+              ]
+            },
+            "bounds": {
+              "min": [
+                -28.484425364690534,
+                0,
+                -34.40223052901153
+              ],
+              "max": [
+                28.884317206529154,
+                37.5,
+                34.435861886737115
+              ]
+            },
+            "isolatedModel": true,
+            "note": "Static daylight game-only native viewer. Top is orthographic and north-up; no reference image, adjacent scene or public-path acceptance is included."
+          }
+        }
+      ]
+    }
+  ],
+  "recapturedAt": "2026-11-13T05:41:38.367Z",
+  "sourceVerification": {
+    "method": "Captured from a snapshot of 9824fd56de3f0e420821e871436906186a80e493: `git archive 9824fd56de3f0e420821e871436906186a80e493 game` extracted to a scratch directory and served by a no-store static server; key runtime files were re-hashed against `git show` at assembly",
+    "checkedAt": "2026-11-13T05:41:38.367Z"
+  }
 }

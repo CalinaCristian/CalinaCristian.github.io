@@ -12,7 +12,7 @@
 //  enter(x, z, heading, y) · exit() · update(dt) · get position() · teleport(x, z, heading?)
 // ============================================================================
 import * as THREE from '../vendor/three.module.min.js';
-import { collideBuildings } from './world.js';
+import { collideBuildings } from './world-collide.js';
 import { clamp, damp } from './util.js';
 
 const EYE = 1.65, R = 0.3, WALK = 1.7, RUN = 4.6, JUMP_V = 4.4, G = 9.8, STEP = 0.7; // (after round 6: hills / kerbs / canal copings no longer stop you dead; a jump clears ≈ 1 m)

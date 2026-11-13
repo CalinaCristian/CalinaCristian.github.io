@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import * as THREE from '../../game/vendor/three.module.min.js';
 import { canopyGeometry } from '../../game/src/building-canopies.js';
 import { makeRoofProfile } from '../../game/src/building-roofs.js';
-import { collideBuildings } from '../../game/src/world.js';
+import { collideBuildings } from '../../game/src/world-collide.js';
 const triangulate=(outer,holes=[])=>({pts:outer.concat(...holes),tris:THREE.ShapeUtils.triangulateShape(outer.map(p=>new THREE.Vector2(...p)),holes.map(r=>r.map(p=>new THREE.Vector2(...p))))});
 const area=ring=>Math.abs(ring.reduce((sum,a,i)=>{const b=ring[(i+1)%ring.length];return sum+a[0]*b[1]-b[0]*a[1];},0))/2;
 const projected=faces=>faces.reduce((sum,[a,b,c])=>sum+Math.abs((b[0]-a[0])*(c[2]-a[2])-(b[2]-a[2])*(c[0]-a[0]))/2,0);

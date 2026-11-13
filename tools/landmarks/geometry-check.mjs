@@ -1,7 +1,7 @@
 // Procedural landmark geometry invariants. No browser, downloaded images, or reference-derived attributes.
 import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
-import { collideBuildings } from '../../game/src/world.js';
+import { collideBuildings } from '../../game/src/world-collide.js';
 const url = new URL('../../game/src/landmarks.js', import.meta.url);
 const source = (await fs.readFile(url, 'utf8')).replace(/from '([^']+)'/g, (_, path) => `from '${new URL(path, url).href}'`) + '\nexport { Builder };';
 const { Builder, LANDMARKS, buildLandmark } = await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));

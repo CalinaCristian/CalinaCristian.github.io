@@ -7,7 +7,7 @@ import { makeRng, clamp, angleLerp } from './util.js';
 import { makeCrowd, dressFor } from './crowd.js';
 import { lanesDir, canTravel, edgeSpeed, isMotorway, turnAngle, nodeList, EdgeIndex, roadSideWidth, roadLateral } from './nav.js';
 import { assignSignalPhases, signalState } from './signals.js';
-import { collideBuildings } from './world.js';
+import { collideBuildings } from './world-collide.js';
 import { SharedLaneGate } from './shared-lanes.js';
 import { ambientTrafficAccess } from './road-access.js';
 import { admitInitialTraffic, previewInitialTrafficPose, initialTrafficStaticClearance, initialBodyCover } from './initial-traffic-admission.js';

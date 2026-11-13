@@ -8,6 +8,7 @@ import { clamp, distPointSeg, pointInPolygon } from './util.js';
 import { rgb } from './geobuild.js';
 import { basarabEdge } from './basarab-structure.js';
 import { emitDeckLamps } from './deck-lamps.js';
+import { quayBalustradeRow, emitOrnamentalQuayPanels } from './quay-balustrades.js';
 import { Y, props } from './world-shared.js';
 
 export async function buildStreetFurniture(ctx) {
@@ -158,8 +159,11 @@ export async function buildStreetFurniture(ctx) {
                     sb.face4(P(t0, 0, 0), P(t1, 0, 0), P(t1, 0, KH), P(t0, 0, KH), capC, [nx, 0, nz]);
                     sb.face4(P(t1, -0.3, 0), P(t0, -0.3, 0), P(t0, -0.3, KH), P(t1, -0.3, KH), capC, [-nx, 0, -nz]);
                     sb.face4(P(t0, -0.3, KH), P(t1, -0.3, KH), P(t1, 0, KH), P(t0, 0, KH), conc, [0, 1, 0]);
+                    if (quayBalustradeRow(distId, a.sourceId)?.style === 'ornamental-panels') emitOrnamentalQuayPanels(sb, cellOf(mx, mz).detail, P, t0, t1, KH, [nx, 0, nz], ang, L); // (r3-look-5: east basin, quay-balustrades.js)
+                    else {
                     for (const [ry, rh] of [[1.0, 0.06], [0.66, 0.035], [0.34, 0.035]]) sb.box(rx, ry, rz, 0.05, rh, t1 - t0, ang, iron);
                     for (let t = t0 + 1; t < t1; t += 2) { const [px, , pz] = P(t, -0.15, 0); sb.box(px, KH, pz, 0.08, 0.86, 0.08, ang, iron); }
+                    }
                 } else {
                 // parapet (0.75 m, 0.3 m thick) on the quay edge + a steel railing on top (posts every 2.5 m, top rail at 1.15 m)
                 sb.face4(P(t0, 0, 0), P(t1, 0, 0), P(t1, 0, 0.75), P(t0, 0, 0.75), capC, [nx, 0, nz]);

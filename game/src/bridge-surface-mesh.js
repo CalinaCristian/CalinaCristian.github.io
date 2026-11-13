@@ -1,3 +1,5 @@
+import { MeshBuilder } from './geobuild.js';
+
 // (spec 10 load budget) heightAtWorld is a pure function of its arguments; neighbouring triangles ask it again at the same
 // points (shared corners, the samples of a shared edge), mostly moments apart: close to half the questions on a deck.
 // Recent answers are kept in a small direct-mapped table (a slot holds the last key that hashed to it), keyed by the
@@ -85,4 +87,17 @@ export function displaceBridgeSurface(mesh, fromVertex, fromIndex, heightAtWorld
     };
     for (let r = 0; r < inputs; r++) { const q0 = r * 3 * S, q1 = q0 + S, q2 = q1 + S; recurse(q0, q1, q2, 0, at(q0), at(q1), at(q2), NaN, NaN, NaN); }
     return stats;
+}
+
+/** (spec 10 load budget) displaceBridgeSurface over a deck's input triangles given as corners (12 numbers each: position,
+ *  normal, uv, colour, tile −1), in a builder of their own → { stats, count, p, n, u, c } (the shaped triangles, three
+ *  points each, in order). world.js and the build workers both shape a deferred deck with this. */
+export function shapeDeckSoup(input, fn) {
+    const n = input.length / 12, mb = new MeshBuilder(false, Math.max(64, n));
+    for (let q = 0; q < n; q++) { const k = q * 12; mb.v(input[k], input[k + 1], input[k + 2], input[k + 3], input[k + 4], input[k + 5], input[k + 6], input[k + 7], [input[k + 8], input[k + 9], input[k + 10]]); }
+    for (let q = 0; q < n; q += 3) mb.tri(q, q + 1, q + 2);
+    const stats = displaceBridgeSurface(mb, 0, 0, fn);
+    if (mb.ic !== mb.vc) throw new Error('deck shaping: unexpected vertex count');
+    for (let k = 0; k < mb.ic; k++) if (mb.i[k] !== k) throw new Error('deck shaping: unexpected index order');
+    return { stats, count: mb.vc, p: mb.p.slice(0, mb.vc * 3), n: mb.n.slice(0, mb.vc * 3), u: mb.u.slice(0, mb.vc * 2), c: mb.c.slice(0, mb.vc * 3) };
 }

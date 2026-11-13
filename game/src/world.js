@@ -11,7 +11,7 @@ import { compileSharedBridgeProfile } from './shared-bridge-profile.js';
 import { buildGeneratedParapetOwnership, emitOwnedSeparationQuad } from './generated-parapet-ownership.js';
 
 import { compileSourceBridgeDescents } from './source-bridge-descents.js';
-import { displaceBridgeSurface } from './bridge-surface-mesh.js';
+import { displaceBridgeSurface, shapeDeckSoup } from './bridge-surface-mesh.js';
 import * as THREE from '../vendor/three.module.min.js';
 import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landmarkHelpers } from './util.js';
 import { makeTextures, emitFacadeSlab } from './buildings.js';
@@ -2398,6 +2398,13 @@ export async function buildWorld(city, renderer, opts = {}) {
         const es=n.edges.filter(e=>!e.virtual),hull=convexHull(es.flatMap(e=>[corner(e,n,1,widthAsphalt(e,1),widthAsphalt),corner(e,n,-1,widthAsphalt(e,-1),widthAsphalt)])),surface=sharedBridgePadSurface(n,hull,es,(e,p)=>yAlong(e,...p));
         if(surface){sharedPadSurfaces.set(n.id,surface);sharedBridgeProfile.bindPadSurface?.(n,surface);sourceBridgeDescents.bindPadSurface?.(n,surface);}
     }
+    // (spec 10 load budget) the deck height models as data for the build workers (bridge-height-models.js): they shape the
+    // decks' ground ribbons (displace, finishDeckJobs) with the same functions
+    if (buildPool && (sharedBridgeProfile.known || sourceBridgeDescents.known)) try {
+        buildPool.deckModels({ shared: sharedBridgeProfile.known ? sharedBridgeProfile.workerSpec : null, descents: [...(sourceBridgeDescents.workerSpecs || new Map()).values()],
+            pads: [...sharedPadSurfaces].map(([id, s]) => [id, { P: s.poly, triangles: s.topTriangles, baseM: s.baseM }]) });
+        deckWorkers = true;
+    } catch (err) { console.warn('[world] deck models for the workers', err); }
     const padCorners = new Map(); // node -> {road:[], side:[]}
     const pushPad = (n, kind, p) => { let o = padCorners.get(n); if (!o) padCorners.set(n, o = { road: [], side: [], y: 0 }); o[kind].push(p); };
     const markingStations = buildMarkingStations(edges, e => data.roadSourceGeometry?.[e.road]?.sourceId || e.access?.sourceId);
@@ -2445,10 +2452,29 @@ export async function buildWorld(city, renderer, opts = {}) {
     };
     const ribbons = []; // carriageway polygons (asphalt incl. shoulder) of every edge + junction pads → definitive clearance checks
     const dash = US ? [3, 9] : [3, 5];
-    const displace = (mb, from, fn, edge=null, fromIndex=null) => {
+    // (spec 10 load budget) deck shaping results enter sharedBridgeMeshAudit in call order (foldDeckAudit), also those
+    // shaped in the build workers (deferred: the range stays in its builder until finishDeckJobs splices the result in)
+    const deckAudit = [], deckJobs = []; let deckWorkers = false;
+    const foldDeckAudit = () => {
+        let n = 0;
+        for (; n < deckAudit.length && deckAudit[n].a; n++) { const { a, context } = deckAudit[n];
+            sharedBridgeMeshAudit.inputTriangles+=a.inputTriangles;sharedBridgeMeshAudit.outputTriangles+=a.outputTriangles;if(a.maxLeafControlErrorM>sharedBridgeMeshAudit.maxLeafControlErrorM)sharedBridgeMeshAudit.worstControl={...a.worstControl,...context};sharedBridgeMeshAudit.maxLeafControlErrorM=Math.max(sharedBridgeMeshAudit.maxLeafControlErrorM,a.maxLeafControlErrorM);sharedBridgeMeshAudit.depthLimit+=a.depthLimit;for(const sample of a.limitSamples)if(sharedBridgeMeshAudit.limitSamples.length<32)sharedBridgeMeshAudit.limitSamples.push({...sample,...context}); }
+        deckAudit.splice(0, n);
+    };
+    const displace = (mb, from, fn, edge=null, fromIndex=null, worker=null) => {
         if(edge?.sourceBridgeGrade?.known){
             if(fromIndex===null){fromIndex=mb.ic;for(let k=0;k<mb.ic;k+=3)if(mb.i[k]>=from||mb.i[k+1]>=from||mb.i[k+2]>=from){fromIndex=k;break;}}
-            const a=displaceBridgeSurface(mb,from,fromIndex,fn),context={edgeId:edge.id,sourceId:edge.access?.sourceId||edge.sourceId};sharedBridgeMeshAudit.inputTriangles+=a.inputTriangles;sharedBridgeMeshAudit.outputTriangles+=a.outputTriangles;if(a.maxLeafControlErrorM>sharedBridgeMeshAudit.maxLeafControlErrorM)sharedBridgeMeshAudit.worstControl={...a.worstControl,...context};sharedBridgeMeshAudit.maxLeafControlErrorM=Math.max(sharedBridgeMeshAudit.maxLeafControlErrorM,a.maxLeafControlErrorM);sharedBridgeMeshAudit.depthLimit+=a.depthLimit;for(const sample of a.limitSamples)if(sharedBridgeMeshAudit.limitSamples.length<32)sharedBridgeMeshAudit.limitSamples.push({...sample,...context});return;
+            const context={edgeId:edge.id,sourceId:edge.access?.sourceId||edge.sourceId};
+            // in a worker: a deck whose triangles nothing reads before the join (no rail-roadside cut on its edge; a builder
+            // without tiles), from the same input triangles and the same height model made from its spec
+            if (worker && deckWorkers && edge.sourceBridgeGrade.workerSpec && !railRoadside.active(edge) && !mb.t && mb.ic > fromIndex) {
+                const n = mb.ic - fromIndex, input = new Float64Array(n * 12);
+                for (let q = 0; q < n; q++) { const v = mb.i[fromIndex + q], k = q * 12; input[k] = mb.p[v * 3]; input[k + 1] = mb.p[v * 3 + 1]; input[k + 2] = mb.p[v * 3 + 2]; input[k + 3] = mb.n[v * 3]; input[k + 4] = mb.n[v * 3 + 1]; input[k + 5] = mb.n[v * 3 + 2]; input[k + 6] = mb.u[v * 2]; input[k + 7] = mb.u[v * 2 + 1]; input[k + 8] = mb.c[v * 3]; input[k + 9] = mb.c[v * 3 + 1]; input[k + 10] = mb.c[v * 3 + 2]; input[k + 11] = -1; }
+                const job = { builder: mb, sv: from, ev: mb.vc, si: fromIndex, ei: mb.ic, input, fn, entry: { a: null, context } };
+                job.promise = buildPool.deck(input, edge.sourceBridgeGrade.workerSpec, worker.verge);
+                deckJobs.push(job); deckAudit.push(job.entry); return;
+            }
+            deckAudit.push({ a: displaceBridgeSurface(mb,from,fromIndex,fn), context }); foldDeckAudit(); return;
         }
         for (let i = from; i < mb.vc; i++) mb.p[i * 3 + 1] += fn(mb.p[i * 3], mb.p[i * 3 + 2]);
     };
@@ -2925,7 +2951,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             // the sidewalk rides with the ramp; on an embankment ramp the verge beyond it stays on the ground, under the skirt
             const wPos = widthSide(e, 1), wNeg = widthSide(e, -1); // (the edge does not change while it is displaced)
             const fg = e.bridge || e.tunnel ? f : (x, z) => { const lat = (x - e.a.x) * e.nx + (z - e.a.z) * e.nz; return Math.abs(lat) <= (lat >= 0 ? wPos : wNeg) + 0.05 ? f(x, z) : Math.min(0, f(x, z)); };
-            displace(c.ground, v0g, fg, e, i0g);
+            displace(c.ground, v0g, fg, e, i0g, { verge: e.bridge || e.tunnel ? null : { ax: e.a.x, az: e.a.z, nx: e.nx, nz: e.nz, wPos, wNeg } });
             // (owner, 2026-11-11, Grozavesti (68.5, 203): "looks odd", "not smooth", "let's simulate real life") the verge of a
             // raised ramp ended in a stepped cliff above the grass (each segment's strip ends square-on). Street-level reference
             // (game/research/bucharest-grozavesti.md, Pasajul Basarab): the Basarab and Pasajul ramps stand on vertical concrete
@@ -3025,6 +3051,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         return { x0: Math.min(...points.map(p => p[0])), x1: Math.max(...points.map(p => p[0])), z0: Math.min(...points.map(p => p[1])), z1: Math.max(...points.map(p => p[1])) };
     });
     const underpassOwnerOptions = { fallbackM: -.3, regions: underpassRegions }; // exact unchanged emitted groundPlane datum
+    if (underpassRegions.length) await finishDeckJobs(); // (the index reads every ground triangle: the decks first)
     const underpassGroundOwners = buildUnderpassOwnerIndex(underpassRegions.length ? [
         ...[...cells].flatMap(([key, c]) => ['area', 'grass', 'pave', 'sport', 'ground', 'road', 'pad'].map(layer => ({ mesh: c[layer], id: layer + ':' + key }))),
         { mesh: bigWater, id: 'water-big', water: true },
@@ -4625,19 +4652,41 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     /** replace the vertex / index ranges of `items` (in builder order) by their clipped faces, as builder.v / builder.tri
      *  would have emitted them at that point, and shift the indices of everything after */
+    /** the decks shaped in the build workers: their results replace their ranges (in call order per builder), and their
+     *  audits join sharedBridgeMeshAudit in call order. A failed job is shaped here from the same input. */
+    async function finishDeckJobs() {
+        if (deckJobs.length) {
+            const jobs = deckJobs.splice(0);
+            const results = await Promise.all(jobs.map(j => j.promise.catch(err => (console.warn('[world] deck worker failed, shaping here', err), null))));
+            const byBuilder = new Map();
+            jobs.forEach((j, n) => {
+                let r = results[n];
+                if (!r) r = shapeDeckSoup(j.input, j.fn);
+                j.entry.a = r.stats;
+                const o = r, count = o.count;
+                let l = byBuilder.get(j.builder); if (!l) byBuilder.set(j.builder, l = []);
+                l.push({ sv: j.sv, ev: j.ev, si: j.si, ei: j.ei, count, fill: (p, nn, u, c, t, at) => { p.set(o.p, at * 3); nn.set(o.n, at * 3); u.set(o.u, at * 2); c.set(o.c, at * 3); if (t) t.fill(-1, at, at + count); } });
+            });
+            for (const [B, items] of byBuilder) spliceDetailRanges(B, items);
+        }
+        foldDeckAudit();
+    }
     function spliceDetailRanges(B, items) {
+        // an item gives its faces as `replace` (12 numbers per point) or as `count` points written by `fill`
+        const countOf = it => it.fill ? it.count : it.replace.length / 12;
         let nv = B.vc, ni = B.ic;
-        for (const it of items) { const n = it.replace.length / 36; nv += 3 * n - (it.ev - it.sv); ni += 3 * n - (it.ei - it.si); }
+        for (const it of items) { const n = countOf(it); nv += n - (it.ev - it.sv); ni += n - (it.ei - it.si); }
         const p = new Float32Array(Math.max(1, nv) * 3), nn = new Float32Array(Math.max(1, nv) * 3), u = new Float32Array(Math.max(1, nv) * 2), c = new Uint8Array(Math.max(1, nv) * 3), t = B.t ? new Float32Array(Math.max(1, nv)) : null, ix = new Uint32Array(Math.max(1, ni));
         // old vertex → new: shifted by the size change of every replaced range before it; a reference into a replaced range is an error
         const ends = [], deltas = []; let d = 0;
-        for (const it of items) { d += 3 * (it.replace.length / 36) - (it.ev - it.sv); ends.push(it.ev); deltas.push(d); }
+        for (const it of items) { d += countOf(it) - (it.ev - it.sv); ends.push(it.ev); deltas.push(d); }
         const map = x => { let lo = 0, hi = items.length; while (lo < hi) { const m = (lo + hi) >> 1; if (ends[m] <= x) lo = m + 1; else hi = m; } if (lo < items.length && x >= items[lo].sv) throw new Error('detail splice: index into a clipped range'); return x + (lo ? deltas[lo - 1] : 0); };
         const copyV = (from, to, at) => { p.set(B.p.subarray(from * 3, to * 3), at * 3); nn.set(B.n.subarray(from * 3, to * 3), at * 3); u.set(B.u.subarray(from * 2, to * 2), at * 2); c.set(B.c.subarray(from * 3, to * 3), at * 3); if (t) t.set(B.t.subarray(from, to), at); };
         const copyI = (from, to, at) => { for (let q = from; q < to; q++) ix[at++] = map(B.i[q]); return at; };
         let ov = 0, oi = 0, av = 0, ai = 0;
         for (const it of items) {
             copyV(ov, it.sv, av); av += it.sv - ov; ai = copyI(oi, it.si, ai);
+            if (it.fill) { it.fill(p, nn, u, c, t, av); for (let q = 0; q < it.count; q++) ix[ai++] = av++; ov = it.ev; oi = it.ei; continue; }
             const f = it.replace, n = f.length / 12;
             for (let q = 0; q < n; q++) { const k = q * 12, a3 = av * 3; p[a3] = f[k]; p[a3 + 1] = f[k + 1]; p[a3 + 2] = f[k + 2]; nn[a3] = f[k + 3]; nn[a3 + 1] = f[k + 4]; nn[a3 + 2] = f[k + 5]; u[av * 2] = f[k + 6]; u[av * 2 + 1] = f[k + 7]; c[a3] = f[k + 8]; c[a3 + 1] = f[k + 9]; c[a3 + 2] = f[k + 10]; if (t) t[av] = f[k + 11]; ix[ai++] = av++; }
             ov = it.ev; oi = it.ei;
@@ -6993,6 +7042,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     //      barriers, cones, jersey barriers, arrow boards, an excavator or a Poliția Rutieră car; US: ROAD CLOSED type III
     //      barricades, drums, DETOUR / LOCAL TRAFFIC ONLY, a flagger, ramp closed for bridge maintenance)
     const closures = [];
+    await finishDeckJobs();
     await finishDetailClips();
     if (mapEnds.length) {
         const P = props();

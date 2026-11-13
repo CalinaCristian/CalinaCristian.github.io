@@ -7,6 +7,8 @@ import { overlapCandidates, overlapPieces, unpackOverlapRecords, overlapGrid } f
 import { fetchDistrictPackText } from './district-pack.js';
 import { roofMesh } from './building-roofs.js';
 import { triangulate } from './triangulate.js';
+import { shapeDeckSoup } from './bridge-surface-mesh.js';
+import { sharedContextFromSpec, sharedEdgeHeight, descentFromSpec, padFromSpec } from './bridge-height-models.js';
 
 let overlapLive = [], overlapIndex = new Map(), overlapCells = null; // the live building records of this build (overlap cuts)
 let cuts = []; // fallback ground source openings of this build, sent once per worker
@@ -19,6 +21,19 @@ const roofFaces = (i) => {
     else { const { pts, tris } = triangulate(sp.ring, sp.holes); f = tris.map((t) => t.map((k) => [pts[k][0], sp.h, pts[k][1]])); }
     roofs.set(i, f); return f;
 };
+// deck height models of this build (world.js deckModels): made from their specs on first use
+let deckSpec = null, deckShared = null;
+const deckDescents = new Map(), deckPads = new Map();
+const padOf = (id) => { if (!deckSpec.padIds.has(id)) return undefined; let f = deckPads.get(id); if (!f) deckPads.set(id, f = padFromSpec(deckSpec.padIds.get(id))); return f; };
+function deckHeight(grade, verge) {
+    let f;
+    if (grade.kind === 'shared') { deckShared ||= sharedContextFromSpec(deckSpec.shared); const { atWorld } = sharedEdgeHeight(deckShared, grade.edge, padOf); f = (x, z) => atWorld([x, z]); }
+    else if (grade.kind === 'descent') { let d = deckDescents.get(grade.modelId); if (!d) deckDescents.set(grade.modelId, d = descentFromSpec(deckSpec.descents.find((s) => s.modelId === grade.modelId))); f = d.atWorld; }
+    else throw new Error('deck: unknown grade ' + grade.kind);
+    // world.js's verge rule for an embankment ramp: beyond its sidewalk the ground stays down
+    if (!verge) return f;
+    return (x, z) => { const lat = (x - verge.ax) * verge.nx + (z - verge.az) * verge.nz; return Math.abs(lat) <= (lat >= 0 ? verge.wPos : verge.wNeg) + 0.05 ? f(x, z) : Math.min(0, f(x, z)); };
+}
 const ring = (a) => { const r = []; for (let k = 0; k < a.length; k += 2) r.push([a[k], a[k + 1]]); return r; };
 const unpack = (flat, size) => { const faces = []; for (let k = 0; k < flat.length; k += 3 * size) { const f = []; for (let j = 0; j < 3; j++) f.push(Array.from(flat.subarray(k + j * size, k + (j + 1) * size))); faces.push(f); } return faces; };
 
@@ -45,7 +60,9 @@ self.onmessage = (ev) => {
     const m = ev.data;
     if (m.type === 'pack') { fetchDistrictPackText(m.url).then((text) => self.postMessage({ id: m.id, text }), (e) => self.postMessage({ id: m.id, error: String(e && e.stack || e) })); return; }
     try {
-        if (m.type === 'reset') { roofs.clear(); specs.clear(); cuts = []; overlapLive = []; overlapIndex = new Map(); overlapCells = null; return; }
+        if (m.type === 'reset') { roofs.clear(); specs.clear(); deckSpec = null; deckShared = null; deckDescents.clear(); deckPads.clear(); cuts = []; overlapLive = []; overlapIndex = new Map(); overlapCells = null; return; }
+        if (m.type === 'deckModels') { deckSpec = { ...m.spec, padIds: new Map(m.spec.pads) }; deckShared = null; deckDescents.clear(); deckPads.clear(); return; }
+        if (m.type === 'deck') { const r = shapeDeckSoup(m.input, deckHeight(m.grade, m.verge)); self.postMessage({ id: m.id, ...r }, [r.p.buffer, r.n.buffer, r.u.buffer, r.c.buffer]); return; }
         if (m.type === 'roofSpecs') { for (const sp of m.specs) specs.set(sp.i, { kind: sp.kind, ring: ring(sp.ring), holes: sp.holes.map(ring), profile: sp.profile, h: sp.h }); return; }
         if (m.type === 'clip') { const r = clipJob(m); self.postMessage(r, r.faces ? [r.faces.buffer] : []); return; }
         if (m.type === 'clips') {

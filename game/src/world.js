@@ -5,6 +5,7 @@ import { emitOvalDormers } from './reviewed-dormers.js';
 import { emitHallFurniture, HALL_FURNITURE_MODEL } from './hall-furniture.js';
 import { reviewedLampForm, CANDELABRA_MODEL } from './lamp-reviews.js';
 import { emitPlaygrounds } from './playgrounds.js';
+import { emitCarParkFronts } from './car-park-fronts.js';
 import { emitStreetLevelWaterBridgeRailings, emitReviewedStreetBridgeRailings } from './water-bridge-railings.js';
 import { emitPedestrianBridges, PEDESTRIAN_BRIDGES } from './pedestrian-bridges.js';
 import { trenchParapetRow, emitTrenchBalustrade } from './trench-parapets.js';
@@ -8396,6 +8397,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         blocked: (x, z, r) => onRibbon(x, z, r) ? 'on-carriageway' : buildingAt(x, z) ? 'inside-building' : isWater(x, z) ? 'in-water' : tramSweep?.circle(x, z, r + 0.2, 0, 6) ? 'tram-sweep' : null,
         faceAngle: (x, z) => { const q = nearestEdge(x, z, e => !e.virtual && !e.tunnel, 80); return q ? Math.atan2(q.edge.dirx, q.edge.dirz) : 0; },
         baseY: (x, z) => raisedTop(x, z) ?? 0.05, addCollider: (x, z, r, h, rec) => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h, prop: true, kind: 'playground', sourceId: rec.id, estimated: true }) }) : null;
+    const carParkFronts = distId ? emitCarParkFronts({ key: city.id + '-' + distId, project: (la, lo) => city.proj(la, lo), cellOf, rgb, baseY: (x, z) => raisedTop(x, z) ?? 0, // (r3-look-7: car-park-fronts.js)
+        topAt: (x, z) => { let t = null; bGrid.each(x, z, x, z, (b) => { if (!b.skip && !b.dropped && b.ring?.length >= 3 && (b.minH || 0) <= 0.5 && pointInPolygon(x, z, b.ring)) t = Math.max(t ?? 0, b.roofProfile?.eavesM ?? b.h); }); return t; } }) : null;
     const weirs = distId ? emitWeirs({ district: distId, project: (la, lo) => city.proj(la, lo), cellOf, rgb, inWater: isWater, keep: (x, z) => !ringGeometry || sceneryMargin(x, z) <= 400 }) : []; // (r3: mapped weirs in reviewed channels, weirs.js)
     // (2026-11-12 render review) under ANY mapped footprint, also one drawn by a landmark model (skipped here), a canopy
     // or an elevated part: SeaTac's Talking Fountain n8920167700 stands inside the Main Terminal w23772634 (drawn by its
@@ -8868,7 +8871,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.tramPropEnvelope = tramPropEnvelope;
     stats.tramSweep = tramSweep ? { ...tramSweep.report, conflicts: tramSweepConflicts } : null;
     stats.tramRailings = tramRailings;
-    stats.monuments = monuments; stats.playgrounds = playgrounds; stats.parkWalls = parkWalls; stats.deckLamps = deckLamps; stats.facadeBands = facadeBands; stats.treeAdditions = treeAdditions; stats.weirs = weirs; stats.medianLinkSidewalks = medianLinkSidewalks;
+    stats.monuments = monuments; stats.playgrounds = playgrounds; stats.carParkFronts = carParkFronts; stats.parkWalls = parkWalls; stats.deckLamps = deckLamps; stats.facadeBands = facadeBands; stats.treeAdditions = treeAdditions; stats.weirs = weirs; stats.medianLinkSidewalks = medianLinkSidewalks;
     stats.fuelForecourts = fuelForecourts;
     stats.landmarkWaterFootprints = landmarkWaterFootprints;
     stats.trenchGroundCuts = { corridors: trenchQuads.length, channelWaterTriangles: channelCuts.length, triangles: trenchCutTris }; // (ground layers cut out of open trenches and sunken water channels)

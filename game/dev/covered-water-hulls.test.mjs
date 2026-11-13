@@ -22,3 +22,12 @@ for (const h of hulls) open = open.flatMap(q => subtractConvex(q, h));
 assert(open.length >= 2);
 for (const q of open) for (const [x, z] of q) assert(distance(x, z) >= 34 + pad - 1e-6, 'no ground cut reaches into the covered river');
 assert.deepEqual(coveredWaterHulls([], 4), []);
+// Square-ended reach (Piața Unirii slab): nothing beyond the first / last point is covered or held, the inside still is.
+{
+    const sq = [{ r: 34, square: true, pts: [[0, 0], [120, 30], [150, 160]] }], hs = coveredWaterHulls(sq, pad);
+    assert.equal(hs.length, 3, 'square ends: one 16-gon per inner vertex only, one rectangle per span');
+    assert(!coveredWaterAt(-20, -5, sq) && !hs.some(h => inside([-20, -5], h)), 'past the first point is open');
+    assert(!coveredWaterAt(155, 185, sq) && !hs.some(h => inside([155, 185], h)), 'past the last point is open');
+    assert(coveredWaterAt(60, 15, sq) && hs.some(h => inside([60, 15], h)), 'the reach itself stays covered');
+    for (let x = -60; x <= 210; x += 3) for (let z = -60; z <= 220; z += 3) if (coveredWaterAt(x, z, sq)) assert(hs.some(h => inside([x, z], h)), `covered point ${x},${z} lies in a hull`);
+}

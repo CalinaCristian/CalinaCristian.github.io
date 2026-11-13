@@ -14,12 +14,17 @@
 //                       and railing height are estimates; the unmapped conifers in the beds are not added (not in OSM).
 //  maccaPortal(ctx)     Pasajul Macca-Vilacrosse, Str. Eugeniu Carada (panorama 2022-10, 44.43299 26.09897): the arched
 //                       portal on the face of the passage block (r19924112) where the arcade way w657740103 enters it.
-//                       The glazed roof over the passage is not drawn: OSM maps the passage inside the building mass
-//                       (tunnel=yes, no roof part), so there is no source volume to open.
+//                       The glazed roof over the passage arms inside the block is not drawn: OSM maps them inside the
+//                       building mass (layer=-1, no roof part), so there is no source volume to open.
+//  maccaGlassRoof(ctx)  (round 4, r3-buc-spots-ot-3) the two Calea Victoriei arms of the passage (Pasajul Vilacrosse
+//                       w657740097, Pasajul Macca w108817132) are mapped open in OSM but covered by the iron-and-glass
+//                       roof in the 2023-08 panorama: a documented look exception. A pitched glass roof on iron ribs spans
+//                       between the mapped walls on either side; its height (1 m under the lower flanking eaves, at most
+//                       10.5 m), the 1.4 m rise and the 2 m rib spacing are estimates.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, canvas, canvasTexture, distPolyline, inPoly } from '../kit.js';
-import { flagpole } from '../buc.js';
+import { flagpole, classicFacade, classicWalls, balustrade, balustradeMaterial } from '../buc.js';
 
 // ---------------------------------------------------------------------------- iron railing (alpha-tested, vertex tinted)
 const RAIL_MATS = {};
@@ -171,6 +176,32 @@ export function bnrLipscani(ctx) {
     ctx.add(rails.build('bnr-lipscani-railing', { castShadow: false, matOverrides: { 'rail-spear': railMaterial('spear') } }));
     // generated trees never stand in the beds or on the steps
     ctx.trees = ctx.trees.filter((t) => !bedPolys.some((p) => inPoly(t.x, t.z, p)));
+    // 3. (round 4, r3-buc-spots-ot-5) the Lipscani front's stonework (official panorama 2022-10): a rusticated ground floor with
+    //    round-arched windows, pedimented windows between pilasters above, a dentilled top storey and a balustrade on the
+    //    cornice, drawn as a façade skin 6 cm proud of the mapped source walls (the parts keep their own volumes and roofs).
+    //    Each wall stops 0.3 m under the source roof found above it; bay width, storey heights and the balustrade height
+    //    are estimates. The Doamnei side was not compared (no panorama) and keeps the generic façade.
+    const facade = (() => {
+        const grp = ctx.extras.buildings?.group; if (!grp) return null; grp.updateMatrixWorld(true);
+        const rc = new THREE.Raycaster(), V = new THREE.Vector3(), D = new THREE.Vector3(0, -1, 0);
+        const topAt = (x, z) => { rc.set(V.set(x, y0 + 80, z), D); const h = rc.intersectObject(grp, true).find((q) => q.point.y > y0 + 4); return h ? h.point.y : null; };
+        const fac = classicFacade('bnr-lipscani', [{ t: 'arch', w: 0.42, rustic: true }, { t: 'pediment', w: 0.34, pil: 'pair', rail: true }, { t: 'pediment', w: 0.32, pil: 'pair' }, { t: 'small', w: 0.28, dentils: true }], { bay: 4.2, floor: 4.6, lit: 0.4 });
+        const fb = new GeoBatch(); let segs = 0;
+        for (const face of [westFace, bay, eastFace]) for (let i = 1; i < face.length; i++) {
+            const a = face[i - 1], c = face[i], L = Math.hypot(c[0] - a[0], c[1] - a[1]); if (L < 1.5) continue;
+            const [fx, fz] = nrm(a, c).map((v) => v * sideOut), mx = (a[0] + c[0]) / 2, mz = (a[1] + c[1]) / 2;
+            const top = topAt(mx - fx * 1.0, mz - fz * 1.0); if (top === null) continue;
+            const yb = Math.min(g.heightAt(a[0], a[1]), g.heightAt(c[0], c[1])) - 0.1, yt = top - 0.3; if (yt - yb < 6) continue;
+            const pa = [a[0] + fx * 0.06, a[1] + fz * 0.06], pc = [c[0] + fx * 0.06, c[1] + fz * 0.06];
+            classicWalls(fb, fac, [pa, pc], yb, yt, '#e2d8c4', yb);
+            balustrade(fb, [[pa[0] + fx * 0.25, pa[1] + fz * 0.25], [pc[0] + fx * 0.25, pc[1] + fz * 0.25]], yt, 0.95, { colour: '#efe8da' });
+            fb.box((pa[0] + pc[0]) / 2 + fx * 0.2, yt - 0.35, (pa[1] + pc[1]) / 2 + fz * 0.2, 0.5, 0.35, L, '#e9e1cf', 'stone', Math.atan2(c[0] - a[0], c[1] - a[1])); // cornice
+            segs++;
+        }
+        ctx.add(fb.build('bnr-lipscani-facade', { matOverrides: { [fac.key]: fac.mat, balustrade: balustradeMaterial() } }));
+        return segs;
+    })();
+    ctx.extras.bnrFacade = { segments: facade };
     return { beds: bedPolys, steps: { x: cx, z: cz } };
 }
 /**
@@ -248,4 +279,35 @@ export function maccaPortal(ctx, { sourceTop = null } = {}) {
     s.box(cx + nx * 0.25, y0 + top, cz + nz * 0.25, 0.5, 0.5, FW - 0.4, '#e9dfc9', 'stone', yawS);
     ctx.add(s.build('macca-vilacrosse-portal-surround'));
     return { x: cx, z: cz, nx, nz, w: FW, h: H };
+}
+
+// ---------------------------------------------------------------------------- Pasajul Macca-Vilacrosse: glass roof over the open arms
+let GLASS_ROOF = null;
+export function maccaGlassRoof(ctx, { ids = ['w657740097', 'w108817132'], recordOf } = {}) {
+    const d = ctx.data, g = ctx.ground, b = new GeoBatch(), arms = [];
+    const blds = d.buildings.filter((q) => !q.part && q.poly?.length > 2);
+    // nearest wall along a ray (x, z) + t·(dx, dz), 0.5 < t < 12: { t, bd }
+    const hit = (x, z, dx, dz) => { let best = null; for (const bd of blds) { const P = bd.poly; for (let i = 0, j = P.length - 1; i < P.length; j = i++) { const [ax, az] = P[j], ex = P[i][0] - ax, ez = P[i][1] - az, den = dx * ez - dz * ex; if (Math.abs(den) < 1e-9) continue; const t = ((ax - x) * ez - (az - z) * ex) / den, u = ((ax - x) * dz - (az - z) * dx) / den; if (t > 0.5 && t < 12 && u >= 0 && u <= 1 && (!best || t < best.t)) best = { t, bd }; } } return best; };
+    for (const id of ids) {
+        const w = d.ways.find((q) => q.id === id); if (!w || w.pts.length < 2) continue;
+        let n = 0;
+        for (let i = 1; i < w.pts.length; i++) {
+            const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 1) continue;
+            const ux = (bx - ax) / L, uz = (bz - az) / L, nx = -uz, nz = ux, mx = (ax + bx) / 2, mz = (az + bz) / 2;
+            const l = hit(mx, mz, nx, nz), r = hit(mx, mz, -nx, -nz); if (!l || !r) continue;
+            const top = Math.min(recordOf(l.bd), recordOf(r.bd)), y0 = Math.min(g.heightAt(ax, az), g.heightAt(bx, bz)), H = Math.min(y0 + 10.5, top - 1.0); if (H - y0 < 4) continue;
+            const c = (l.t - r.t) / 2, P = (s, o, y) => [ax + ux * s + nx * o, y, az + uz * s + nz * o], rise = 1.4;
+            b.quad(P(0, l.t, H), P(L, l.t, H), P(L, c, H + rise), P(0, c, H + rise), '#d8e6ea', 'glassroof');
+            b.quad(P(0, c, H + rise), P(L, c, H + rise), P(L, -r.t, H), P(0, -r.t, H), '#d8e6ea', 'glassroof');
+            for (let s = 0; s <= L + 1e-6; s += 2) { b.rod(P(s, l.t, H), P(s, c, H + rise + 0.02), 0.035, '#2a2d2c', 'metal', 4); b.rod(P(s, c, H + rise + 0.02), P(s, -r.t, H), 0.035, '#2a2d2c', 'metal', 4); }
+            b.rod(P(0, c, H + rise + 0.03), P(L, c, H + rise + 0.03), 0.06, '#2a2d2c', 'metal', 5);
+            for (const o of [l.t - 0.05, -r.t + 0.05]) b.rod(P(0, o, H), P(L, o, H), 0.07, '#2a2d2c', 'metal', 5);
+            n++;
+        }
+        if (n) arms.push(id);
+    }
+    if (!GLASS_ROOF) { GLASS_ROOF = new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, transparent: true, opacity: 0.32, roughness: 0.08, metalness: 0.3, side: THREE.DoubleSide, depthWrite: false }); GLASS_ROOF.name = 'macca-glass-roof'; GLASS_ROOF.userData.shared = true; }
+    const m = b.build('macca-glass-roof', { castShadow: false, matOverrides: { glassroof: GLASS_ROOF } }); ctx.add(m);
+    ctx.extras.maccaGlassRoof = { arms };
+    return arms;
 }

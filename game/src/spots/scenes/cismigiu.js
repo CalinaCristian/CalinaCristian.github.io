@@ -16,6 +16,7 @@ import { backgammonGame } from '../backgammon-game.js';
 import { addBikeRental } from '../bike.js';
 import { bust, standingFigure } from '../buc-streetscape.js';
 import { osmBarriers } from '../buc-barriers.js';
+import { osmPlaces } from '../buc-places.js';
 
 // Signed distance to a ring (m; > 0 outside, < 0 inside), sampled on a grid round it and read back bilinearly. Beyond the
 // grid, `far` (positive: outside). Rows use a scanline for inside/outside.
@@ -344,6 +345,8 @@ export default {
         // crowd
         // (round 4) the mapped walls, fences and hedges this scene does not draw itself (buc-barriers.js)
         osmBarriers(ctx, { skip: ['w1478446281', 'w1478446287', 'w1478446288'] });
+        // (round 4) mapped unnamed waterfalls, viewpoints and playgrounds (buc-places.js)
+        osmPlaces(ctx);
         ctx.crowdCfg = {
             personas: { local_elder: 3.5, local_young: 3, local_parent: 2, kid: 1.4, tourist_fr: 1, tourist_it: 1 },
             walkers: 40, paths: ctx.footLines(),

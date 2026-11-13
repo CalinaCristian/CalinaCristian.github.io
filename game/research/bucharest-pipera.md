@@ -129,8 +129,10 @@ Both chapters are 2017. Starts and roads are authoritative in `cities.js` CHAPTE
   white walls without a window row, a black tenant band at the north end (Douglas, Hervis, Zara, C&A, H&M: OSM shop nodes inside
   the mall), Starbucks under it (n4833254421, level 0), the glazed entrance hall south of it, the mall's name and colour bars;
   positions along the wall estimated to a few metres. East (Barbu Văcărescu) front, pano 44.478431, 26.104866 h 255: white
-  cladding, dark glazed band, rounded corners, curved roof edge, a large LED screen and flagpoles on a paved forecourt; the
-  glazed band, screen and curved edge are not modelled (open: backlog r3-landmarks-8).
+  cladding, dark glazed band, rounded corners, curved roof edge, a large LED screen and flagpoles on a paved forecourt. Drawn
+  since 2026-11-13 from that record (no new panorama): a dark glazed band along the upper storey of the east face with light
+  mullions, a white rounded roll along its roof edge, a lit LED screen on two legs near the middle of the face (where the
+  pano looks square onto it) and five flagpoles on the forecourt; the rounded corners are the OSM outline's own.
 - **Pipera metro** (M2 terminus, w41337085): low pavilion with the blue M sign at the east end of Pompeiu; entrances at 44.48078,
   26.11660 and 44.48073, 26.11639.
 - **Courtyard by Marriott** (w764534288; pose `pip-courtyard` 44.478444, 26.106966 h 163): dark anthracite glass tower and a
@@ -198,6 +200,13 @@ Key buildings:
 
 ## 7. Measurements, trees and green
 
+- **Pedestrian plazas and the green raster** (r3-look-14, 2026-11-13; `ground-review.js`, plazas in `pedestrian-plazas.js`
+  from the live OSM data via `tools/osm/pedestrian-plazas.mjs`): a mapped pedestrian area (`highway=pedestrian|footway` +
+  `area=yes`, `area:highway`, `place=square`; ways and multipolygons) is paved over its whole polygon: its `surface` decides,
+  no surface tag counts as paved, and only `surface=grass` keeps the aerial raster's lawn there. Before, only a 3.5 m band
+  round mapped pedestrian lines was kept free, so plazas kept the raster's green cells (tree shade, planters, joints).
+  Mapped grass / park polygons and trees inside a plaza stay as OSM has them (Piața Unirii's `place=square` covers its park:
+  its lawns are OSM polygons and are unchanged). Not compared with a panorama: the rule follows OSM's tags. Here: 18 plazas, none tagged grass (the Promenada forecourt among them).
 Independent full-ring measurements (2026-11-08; ledger `measurements-bucharest-pipera.json`):
 
 - Fresh OSM API 0.6 tiles cover the analytic core and a complete 600 m ring of intersecting sources; every source ID is audited
@@ -230,6 +239,18 @@ Independent full-ring measurements (2026-11-08; ledger `measurements-bucharest-p
 
 ## 9. Estimates and open questions
 
+- **Places of worship** (r3-look-11, 2026-11-13; `worship.js`, tags in `worship-source.js` from the live OSM API): one rule
+  from OSM tags, not church by church. A building with an Orthodox (or Armenian) `denomination` gets the convention towers,
+  an octagonal drum with a metal helmet and a cross over the middle of its long axis, and a smaller pronaos tower 30 % of
+  the length towards the west end when the footprint is at least 20 m long and 1.6 times as long as wide (Armenian: one
+  drum with a cone; `building=chapel` or under 120 m2: one small tower; under 60 m2: none), and only where its height and
+  roof are the build's estimates: an OSM `height` is read as the top of the church with its tower (nothing added), and
+  building parts, mapped domes / flat roofs and courtyards are kept as mapped. Western-rite, free-church, Jewish and
+  untagged buildings get none. Estimates: radius 0.2 x footprint width (1.4-3 m; small 0.9-1.5 m), drum 1.4 r + 0.8 m
+  (2.4-5.5 m) above the roof top, helmet 1.3 r, pronaos tower 0.7 r and 0.4 of the drum, helmet colour from
+  `roof:colour` / `roof:material`, else the roof's colour, else dark tin #5e6668. Which churches really have one tower or
+  two, a porch (pridvor) or a separate bell tower was not compared (porches and separate bell towers stay unmodelled unless
+  mapped). Here: 4 churches with 6 towers (Herăstrău, Pogorârea Duhului Sfânt și Sf. Apostoli Petru și Pavel, Sf. Grigore Dascălul, Doamna Ghica - Tei); no tower on Teocentric (free church), the other Pogorârea Duhului Sfânt building and Sf. Tecla (no denomination tag).
 - Park wall: opening 3.2 m, thickness 0.3 m, cap colour. Museum fence: height and post pitch.
 - Lake levels below the street (no source gives them): Plumbuita 2.0 m (EU-DEM via OpenTopoData, 2026-11-13: water
   63.3–63.8 m, the bridge deck 64.3 m, which a smoothed surface model under-reads; the panorama shows the water some metres
@@ -242,6 +263,10 @@ Independent full-ring measurements (2026-11-08; ledger `measurements-bucharest-p
 - Aircraft exhibits: vertical dimensions; the three point-only aircraft (size unknown, not drawn).
 - BOB metre height (≈ 28 m from GF + 6); which building in the panorama is BOB.
 - Promenada tenant-band positions; the Calea Floreasca median (unmapped).
+- Promenada east front (`bPromenada`): glazed band 124 m long at 11.3-15.8 m (local x -62..62), mullions every 3 m, roll radius
+  1.05 m, LED screen 14.4 x 8 m on 2.6 m legs centred 12 m along the face (its picture is a generic lit panel), five 10.5 m
+  flagpoles 9 m in front of the face 7 m apart with plain-colour flags: positions, sizes and colours are estimates (extents
+  were not measured on the panorama).
 - Petrom pump islands (≈ 4 seen, 2 drawn); reviewed pylon places ±10 m (`fuel-stations-review.json`).
 - Uncompared: entrance buildings of the metro tunnels, the building passages, the clay courts, Kaufland's store front, the
   Kaufland median barrier on Fabrica de Glucoză.

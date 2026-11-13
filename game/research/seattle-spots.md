@@ -135,17 +135,29 @@ looking at the sign). Pike Place is car-free in the scene by design: a car-free 
 - SkyBridge over Western Ave (w296789534, `building=roof`, layer 1): an enclosed walkway between two green steel Warren
   trusses with pale green panels, flat roof, white concrete pier at the market-side kerb (iFZRr4o9WP2yFdlbuLUkeQ @ 315).
 - Pike Place Market Parking garage w184870422: its Western Ave wall is a garage front, not shops.
+- Western Ave (`pike-place-westface.js`): a colonnade at street level along the market's west walls facing the avenue
+  (Main Arcade / Leland Hotel volumes w1271653801, w1271653800, w231357660: square white piers, beam and soffit) and
+  PIKE PLACE MARKET in red letters on the white wall above it. West side: the low pink-stucco building with a parking
+  sign = Market Heritage Center (w231359028, 1 storey, PARKING board on its avenue face); the cream three-storey block =
+  Fix Building (w231359020). "Market Place North" (tan, ribbon windows) is not an OSM name: the mapped Market Place
+  complex north of the market (landuse w403552339) has Market Place One (w231355701, 2003 Western Ave, 8 levels) and Two
+  (w231355696, 2001 Western Ave, 5 levels); both take the tan band-window front.
+- Victor Steinbrueck Park lamps: the three mapped `street_lamp` nodes (n11660363671, n11660363674, n11660363677) and
+  the generated park lamps are drawn by the shared lamp builder.
 
 **Estimates**: sign letter row ≈ 14–16 m, clock Ø ≈ 2.5–3 m; North Arcade eave 3.3 m, roof run 7 m; SkyBridge underside
-≈ 6.5 m over the road. The Gum Wall's current height after cleanings is unknown (2024 figure used).
+≈ 6.5 m over the road. Western Ave: which mapped volumes the pink and cream west-side blocks and "Market Place North"
+are (assignments above), their colours (#d8a598 pink, #e6dcc4 cream, #c8b08a tan) and storeys (Heritage Center 4.6 m,
+Fix Building 3 × 3.7 m); colonnade piers 0.7 m square, 1.6 m off the wall, ≈ 4.5 m apart, beam at 4.4 m; the lettering's
+face (the longest avenue-facing wall), height (7.2 m over the road), 18 m width and red. The Gum Wall's current height after cleanings is unknown (2024 figure used).
 
 **Open (needs a panorama look)**: the Main Arcade street front has a green dado, small-pane windows and ENTRANCE signs —
 the pigs on the roof edge of the Economy / Main Arcade were not seen on any panorama checked and are not modelled; the
 barrel-vaulted canopy left of the sign is neither confirmed nor excluded (small and partly hidden by the sign frame from
-1st Ave and the Corner Market); the Western Ave west side (a low pink-stucco building with a parking sign, a cream
-three-storey block — which of the mapped volumes they are), the "Pike Place Market" lettering and street-level colonnade
-on the market's west face; Steinbrueck Park benches / lamps; Market Place North (tan with ribbon windows; a generic grey
-extrusion in the game).
+1st Ave and the Corner Market).
+
+**Source gaps**: Steinbrueck Park benches — none mapped in the park (the two mapped benches nearby, n8508584428 and
+n8508584429, are on 1st Ave / Pike Place) and no recorded positions, so none are drawn.
 
 ## Seattle Center: Space Needle, Chihuly Garden and Glass, MoPOP (`space-needle`, `chihuly`, `mopop`)
 
@@ -185,10 +197,24 @@ Needle).
   skillion buttresses w1352666990 / w1352647807 / w1352647810 / w1352647812, Alaska Airlines Atrium w1270549342 — and the
   parent outline as a glass curtain wall up to 8 m under a thin white fascia (xLh7PyEOCxKVuesNWAzPBw @ 270,
   jLP72IlkxVljWg52cvsHAA @ 10 / 60: green-tinted glass, white mullions, a white sloped A-frame mid east side).
+- MoPOP skin (`scenes/seattle-center-mopop.js`): the seven lobes keep their OSM footprints, heights and colours but are
+  continuous curved metal masses — corners rounded, walls bulging out above the ground and rolling into a rounded crown at
+  the mapped height, each leaning away from the building's middle — in an iridescent shingled metal (purple sheen on the
+  silver lobes).
+- Climate Pledge Arena: the west and north A-frames stand on the parent outline's mapped 4.6 m spurs (feet at x −427.4,
+  z −254.5), with the mapped east part's section (white wedge, ground → 11 m, 10.1 m inside the wall); the south side has
+  no spur (the atria). CLIMATE PLEDGE ARENA lettering on the white fascia of the longest east (1st Ave N) glass wall.
+- Planting (`scenes/seattle-center-trees.js`): 56 live-OSM trees missing from the extract (rows along the Armory's west
+  side and Thomas St, the double row west of the Chihuly garden; API map call 2026-11-13); the mapped natural=wood
+  polygons round the Armory and east of the Needle (w394259997) filled at one tree per 30 m²; shrubs and small trees in
+  the mapped bed w394259987 by the pavilion.
 - Howard S. Wright fountain (w241876412), Armory (w231764919), Pacific Science Center (w394955903) at their mapped places.
   All 35 live businesses and 25 tourism / artwork objects inside the terrain box were in the extract (2026-11-12).
 
-**Estimates**: International Fountain micro-shooter and floodlight ring radii, the show rhythm (90 s show, 60 s still),
+**Estimates**: MoPOP's bulge (≤ 6 %), crown profile, 1.6 m lean, shingle size, metal sheen / iridescence and the 18 %
+toning of the tagged colours toward polished metal; the A-frames' inner end (copied from the east part); the lettering's
+face (the review that noted it did not record which face), its dark green colour and 26 m width; wood fill density
+(1 / 30 m², ≥ 3.5 m apart), the bed's shrub density and tree sizes. International Fountain micro-shooter and floodlight ring radii, the show rhythm (90 s show, 60 s still),
 the 6 m asphalt apron; the Iliad's split into legs and top, tube lengths and angles; the station canopy's rise and rib
 spacing; MoPOP height at the highest lobes ≈ 26–30 m; monorail beam ≈ 6–8 m overhead. Pacific Science Center has no
 height tag (generic volume) and its arches have no OSM object.
@@ -196,10 +222,8 @@ height tag (generic volume) and its arches have no OSM object.
 **Not modelled**: the Acrobat Constellation (n3211770205: three figures 21–25 ft on poles, mapped as one node, pole
 positions unknown); Chihuly's EXHIBITION ENTRANCE / bookstore signs and planted wall.
 
-**Open (needs a panorama look)**: MoPOP's real skin (iridescent purple-bronze and silver, continuous curved lobes; needs a
-hero model); screening trees at the Armory (reality wooded, the game open lawn) and round the Needle pavilion (its
-soffit band is deeper in reality); the arena's A-frames on the sides other than the mapped east one and its "CLIMATE
-PLEDGE ARENA" lettering; the Pacific Science Center arches (no panorama found shows them).
+**Source gaps**: the Pacific Science Center arches (no OSM object, no panorama found shows them); the Needle pavilion's
+deeper soffit band (no measurement recorded).
 
 ## Fremont Troll (`fremont-troll`)
 
@@ -262,9 +286,14 @@ same bearing.
   −122.34237; header of `waterfront-piers.js`): Pier 54 pale grey-green two-storey (Ivar's, Ye Olde Curiosity Shop); Pier 55
   red-brown under a dark hipped roof (Starbucks); Pier 56 dark green gabled with white trim, shopfront on its slanted
   street end; Pier 57 red with MINERS LANDING in gold letters, yellow awnings; Pier 59 grey-green with SEATTLE AQUARIUM on
-  the street front; Pier 60 (w1154870289) a low open-sided shed under a shallow gable (VuVTZJti0rfyEFN0lJAiMQ @ 240), drawn
-  as a low shed in the Aquarium's grey-green. The panorama Google returns at 47.60625, −122.34070 is from the construction
+  the street front; Pier 60 (w1154870289) a low open-sided shed under a shallow gable (VuVTZJti0rfyEFN0lJAiMQ @ 240). The panorama Google returns at 47.60625, −122.34070 is from the construction
   years: not used.
+- Pier 57 is several sheds joined: each mapped `building:part` is its own gabled volume at its OSM height, ridges along
+  the pier — the 3-level main shed (w429553383, 10.9 m) with the 4-level raised middle shed (w396606860, 14.2 m,
+  clerestory windows) down its spine, the 2-level street-end shed on the slanted Alaskan Way front (w429553384, 7.6 m,
+  ridge along that front; MINERS LANDING on it, PIER 57 on the main gable above), the 2-level west shed (w429553382) and
+  the 1-level west tip (w396606855); a party wall is drawn by the taller part only. Pier 60: the shallow gable clipped
+  to its irregular 59-vertex plan (`spots/gable-plan.js`), on posts, the deck walkable under it.
 - Great Wheel (n1809238334): 53.3 m, 42 gondolas, 12.2 m over the water.
 - Ocean Pavilion (w1256939021, Aug 2024): charcoal ribbed cladding over a board-formed concrete base ≈ 2.2 m high
   (d_zvaPdDFeRnyCx2epCvqA @ 250, nVwg3181AIHZBcGR4Gy80w @ 270), outside stair tower.
@@ -286,16 +315,18 @@ same bearing.
 - **Documented exception (OSM incomplete)**: "Elliott's Oyster House" has no OSM object; its sign is on the Pier 56 street
   gable in the Sep 2025 panorama, and the game shows the name there only.
 
-**Estimates**: shed eave / ridge heights (OSM gives 10.9 m for Piers 54 / 55 and 10.9–14.2 m for Pier 57's parts), window
-rhythm, colours; Pier 60's 7 m (no height tag); Salish Steps width; promenade lamp post 9 m, arm 2 m, head size; the
+**Estimates**: shed eave / ridge heights (OSM gives 10.9 m for Piers 54 / 55 and 4.3–14.2 m for Pier 57's parts), window
+rhythm, colours; Pier 57's eaves (ridge − 2.4 m main, − 1.6 m middle, − 1.4 m 2-level parts, − 0.7 m west tip), 0.45 m
+roof overhang and the clerestory row; Pier 60 (no height or roof tags): eave 5.2 m, ridge 7 m, ridge along the plan's
+long axis, posts every ≈ 6 m, 0.6 m overhang, dark grey roof over a pale soffit; Salish Steps width; promenade lamp post 9 m, arm 2 m, head size; the
 Overlook Walk's bridge steps w1320933924/5 are folded into the deck's one level (their fall is not known). Source gaps kept:
 the water triangle (−39.5, 58.4)–(−35.6, 65.7)–(−33.6, 65.8) lies outside Pier 57 (r812609) and Pier 58 in OSM and is water
 in the coastline; Pier 55's three inner rings are recorded in `waterfront-pier-rings.js` and not opened (the coastline
 treats them as land).
 
-**Open (needs a panorama look)**: Pier 57's joined sheds and Pier 60's open gabled roof over its irregular plan; the Ocean
-Pavilion's oculus and planted roof (no view of the roof); planters, bins and traffic on Alaskan Way (open paving in the
-game). No official panorama lies within 45 m of Piers 55–57.
+**Source gaps**: the Ocean Pavilion's oculus and planted roof (no view of the roof, no OSM roof object; the roof is the
+green-grey tint only); planters and bins on Alaskan Way (not mapped; open paving in the game). No official panorama lies
+within 45 m of Piers 55–57.
 
 ## Pioneer Square & Smith Tower (`pioneer-square`)
 
@@ -365,17 +396,38 @@ the west end down to Elliott Bay. Spawn 47.60166, −122.3342 heading 20° (1st 
   (96BnTtZETD_9PxJd3_oy9w @ 250 / 300); Water Taxi terminal (w226321140, 1 level). Panoramas fYcy5IxBB8nxBtlHlp0w6w,
   icoHFzEOnBuL9Tmg_QeZUw: concrete roadways, white zebras, grey mast-arm signals, young street trees, grass beds. The fine
   (2 m) terrain reaches x = −336; west of it 8 m steps.
+- Fronts behind the walk area (`scenes/pioneer-square-backfronts.js`, `FRONTS_OSM`; no panorama recorded): the mapped
+  fronts on 2nd Ave, Yesler Way east of Occidental and S Washington St east in the same facade system, from OSM tags
+  (live API 2026-11-13): storeys, `building:colour` #85552e and `building:architecture=neo-romanesque` on the S Washington
+  St pair (w226321135, w439990240, 1890), start dates 1890–1928 (Collins Building w226321732 1894, Florence Building
+  w910445794 1900, Monterey Lofts w226323029 1909, Chin Gee Hee Building w226323030 1890, Apex Building w439990263 1928,
+  Frye Apartments w226323020 1908, w226321144 1893, McCoy's Firehouse BBQ w226321143, w439990242, w439990247).
+- Smith Tower's storefront base: a two-storey granite facing with storefront and mezzanine glazing on every street face
+  of the mapped footprint, a pale terracotta cornice band over it, the entrance canopy with SMITH TOWER on the face
+  nearest 2nd Ave (its address street). Merchant's Cafe and Saloon (w52782171, 109 Yesler Way): its own name board,
+  MERCHANT'S CAFE & SALOON in gold on the storefront's dark green over the Yesler Way front (the generic shop sign is
+  dropped for it).
+- Colman Dock (`scenes/pioneer-square-colman.js`, live OSM 2026-11-13): the Water Taxi / Fast Ferries Terminal on its
+  outline (w226321140, 1 level) as the "low grey shed" with a glazed waiting room, a flat roof overhanging as a canopy
+  and its name; the 2-level block at the end of its pier (w736858270) with the two flights up to it (w736858271,
+  w736858273); the WSF slip-approach canopy (w1251064470, metal shelter roof, layer 3) on posts; the WSF stairs
+  (w1194539050, w1436091947); the four ferry slips (`mooring=ferry`: w389138743, w448857944, w448857945, w1241786940) as
+  steel aprons on piles with a pair of white transfer-span towers where each outline widens; the Waterfront Trail's
+  mapped benches (n14145559226 … 39) and lamps (n14005374592, n14005381663, n14005403057, n14005408300, n14145559225).
+  The fine terrain now reaches x = −440 (the slips and Pier 48's west end are off the 8 m outer steps).
 - Businesses: live OSM 2026-11-12 adds Sam Day Studio & Gallery, Cookie's Country Chicken, Good Bar; mapped closed and not
   signed: Woven Art (n2351695509), Luigi's (n2351695585), The Underground Gallery (n2351695606), Revolution Books
   (n2351695730), Flame Catering Cafe (n2351700811), Tobacco Patch (n2354406522), Comedy Underground (n4626879391).
 
 **Estimates**: bay widths, opening sizes, floor heights, colours and window frames of the 25 fronts; Pioneer Building tower
 width, depths, oriel sizes; vault-light strip extent (1.2 m panels of 4 × 4 prisms); Occidental Square's trees (generated);
-playground pieces.
+playground pieces. Behind the walk area: every wall colour without `building:colour`, arch patterns, bases, cornices and
+storefront colours of the 12 OSM-only fronts. Smith Tower base: 7.6 m granite band, ≈ 4.2 m bays, glazing sizes, the
+canopy (5.2 × 1.6 m at 4.1 m) and its bronze; Merchant's Cafe board 7.5 × 0.85 m at 4.15 m and its lettering. Colman Dock:
+shed 4.6 m with 1.2 m roof overhang, glazed band, the 2-level block 7.2 m, flight rises (2.4 m, 4.2 m), canopy at 10.5 m
+on posts every ≈ 8 m, apron thickness, piles, towers 9 m; colours. Pier 48: no `surface` tag — plain concrete paint.
 
-**Open (needs a panorama look)**: fronts behind the walk area (2nd Ave, Yesler east of Occidental, S Washington St east),
-Smith Tower's storefront base and crown colours, Merchant's Cafe's own sign board; the Water Taxi terminal's look, the
-ferry slips and Pier 48 surface, the terminal's roof canopy and stairs, the seawall promenade dressing.
+**Open (needs a panorama look)**: Smith Tower's crown colours.
 
 ### The totem pole (n3211770116)
 
@@ -430,6 +482,12 @@ the south-bank plaza and fish ladder. Spawn 47.6664, −122.397 heading 180°. L
   lamp posts; gate tops a little above the footbridge deck. No red hoist boxes.
 - Buildings (1915: Administration Building w51475867, Operating Houses w285289605 / w285289606, Control Tower w223562285
   of 1969): grey concrete walls with arched openings (Administration front), red tile hipped roofs (seen from the dam).
+- `scenes/ballard-locks-buildings.js`: the 1915 buildings carry a concrete tile with tall round-arched windows; the
+  Control Tower (w223562285: `man_made=tower`, `tower:type=observation`, 1969, the lock's VHF station "Locks") is a
+  concrete shaft on its footprint under a glazed control cab, flat roof and radio mast; the Fish Ladder Viewing Room
+  (n3413278212, wheelchair, 07:00–21:00) is entered at the mapped tunnel mouths (ramp w285281015 → tunnel w285281016,
+  steps w285281017): the scene's ground is one terrain surface, so the room is built apart (like the Carusel bar) — a dim
+  concrete room with six windows into the ladder and salmon swimming upstream past them.
 - Administration garden w60973304 (`leisure=garden`): wooded with tall conifers in Street View, drawn as conifers on a 5 m
   staggered grid. Carl S. English Jr. Botanical Garden: w51475864.
 - Salmon Waves (n3211770269, Paul Sorey 2001, SPU04.087; `scenes/ballard-locks-art.js`): "Seven stainless steel waves
@@ -444,12 +502,12 @@ the south-bank plaza and fish ladder. Spawn 47.6664, −122.397 heading 180°. L
 **Estimates**: footbridge and service-bridge levels (lake +0.1 m / +2.5 m) and all wall tops (7.0 m, the north bank's coping)
 read from one panorama and the bank; the large chamber moves as one sheet across the intermediate gate; Salmon Waves'
 layout, facing and curl from one panorama; plaza level from two dry DEM samples; parapet 1.05 × 0.25 m; the garden's
-conifer grid and tree sizes; 1915 building heights.
+conifer grid and tree sizes; 1915 building heights; the arched windows' size and rhythm (one per 3.2 m bay and 3 m
+floor); Control Tower shaft 9 m, cab 3 m with a 0.45 m overhang, mast 4.5 m; the viewing room's size (18 × 7 × 3.2 m),
+six 2.4 × 2.2 m windows, the water colour and the 14 salmon.
 
-**Open (needs a panorama look of the lock grounds)**: the Control Tower is still a generic block, the 1915 buildings keep
-generic windows, the fish-ladder viewing room interior and entrance are not modelled; the visitor centre, the garden's
-planting; roof-tile colour against a reference. Lock-wall panoramas put the game's eye in the chamber (no valid
-comparison).
+**Open (needs a panorama look of the lock grounds)**: the visitor centre, the garden's planting; roof-tile colour against a
+reference. Lock-wall panoramas put the game's eye in the chamber (no valid comparison).
 
 ## Gas Works Park (`gas-works`)
 

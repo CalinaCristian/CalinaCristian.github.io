@@ -289,8 +289,10 @@ channel starts and ends at the mapped tunnel ends, with square ends (`final-wate
   about 2–2.5 m below the quay. Drawn at -2.4 m with sloped banks.
 - **Quays** (Splaiul Unirii east, Splaiul Independenței west): no solid parapet; an iron balustrade on a low stone kerb
   (dark ornamental panels east, plain green railing west), a grass strip and plane trees on the quay, a sloped concrete far
-  bank with graffiti. The game draws a low kerb and a dark-green three-rail iron balustrade; a coping strip closes the gap
-  between ground and quay kerb along every channel quay. The ornamental east balustrade is backlog r3-look-5.
+  bank with graffiti. The game draws a low kerb and a dark-green three-rail iron balustrade on the west channel; a coping
+  strip closes the gap between ground and quay kerb along every channel quay. On the east basin w174991904 (since
+  2026-11-13, `quay-balustrades.js`, from the recorded review, no new panorama) the iron is dark cast panels between square
+  posts: handrail, bottom and frame rails, a lozenge with a boss in each panel and a baluster either side.
 - **Weir** w1434558024 (`waterway=weir`, 44.425858–44.426298, 26.10454–26.10461, at the outfall east of the square): a row
   of about sixteen low grey concrete blocks across the basin just downstream of the covered section
   (`NrlzOfq1HTfol_d90aJ3FA h95`); `weirs.js` draws it at the basin level (water -2.4 m + 0.45 m freeboard). Weir
@@ -303,8 +305,13 @@ carriageways in one walled trench with a row of concrete planters between them; 
 perforated metal with green leaf, flower and butterfly motifs, rising well above street level as a screen; a "PASAJUL
 UNIRII" header over the portal; inside, pale mesh wall panels with yellow accent panels, a continuous light line along the
 wall head, a dark mesh ceiling and a raised kerb walkway. The game has the dark ramp walls and the pale interior with
-yellow panels and the light line (`unr-pasaj-south`, `unr-pasaj-inside`); the motifs, header, planter median and tall
-screen are backlog unirii-pasaj-look.
+yellow panels and the light line (`unr-pasaj-south`, `unr-pasaj-inside`). Since 2026-11-13 (`pasaj-unirii-look.js`, drawn
+from the recorded review above, no new panorama): the open ramp walls carry a pattern of green leaf sprays, flowers and
+butterflies on the dark cladding, the rim is a dark cladding screen rising to 2.4 m above the street where the cut is deep
+(steel uprights on the street side, the motifs on both faces), the south pair (w241368618 / w1383050305, centre lines
+8.4 m apart in one cut) has a row of concrete planters with shrubs on the line between the carriageways instead of trench
+walls or an inferred barrier there (the collision walls are unchanged), and each portal has a dark beam with "PASAJUL
+UNIRII" (one shared by the south pair; the two north portals, 22 m apart, one each).
 
 **Footbridge** w231671712 (`bridge=yes`, `layer=1`, 13 m, 44.42873, 26.10576 → 44.42867, 26.10562): an enclosed glazed
 walkway one storey up across the brick-paved Aleea Alexandru Brătescu-Voinești from the Unirea car park (w184169515) to the
@@ -325,9 +332,28 @@ w241369588, w241369345, w899314658, 44.4237, 26.1124) is 600 m outside the playa
   Unirii; old chestnuts and robinias on Călărașilor; the square is open with trees mainly in the central park.
 - The aerial green raster is not drawn where a cell's centre lies in a mapped water polygon (crowns over the water had
   been measured as green ground).
+- **Pedestrian plazas and the green raster** (r3-look-14, 2026-11-13; `ground-review.js`, plazas in `pedestrian-plazas.js`
+  from the live OSM data via `tools/osm/pedestrian-plazas.mjs`): a mapped pedestrian area (`highway=pedestrian|footway` +
+  `area=yes`, `area:highway`, `place=square`; ways and multipolygons) is paved over its whole polygon: its `surface` decides,
+  no surface tag counts as paved, and only `surface=grass` keeps the aerial raster's lawn there. Before, only a 3.5 m band
+  round mapped pedestrian lines was kept free, so plazas kept the raster's green cells (tree shade, planters, joints).
+  Mapped grass / park polygons and trees inside a plaza stay as OSM has them (Piața Unirii's `place=square` covers its park:
+  its lawns are OSM polygons and are unchanged). Not compared with a panorama: the rule follows OSM's tags. Here: 89 plazas, none tagged grass.
 
 ## Estimates and open questions
 
+- **Places of worship** (r3-look-11, 2026-11-13; `worship.js`, tags in `worship-source.js` from the live OSM API): one rule
+  from OSM tags, not church by church. A building with an Orthodox (or Armenian) `denomination` gets the convention towers,
+  an octagonal drum with a metal helmet and a cross over the middle of its long axis, and a smaller pronaos tower 30 % of
+  the length towards the west end when the footprint is at least 20 m long and 1.6 times as long as wide (Armenian: one
+  drum with a cone; `building=chapel` or under 120 m2: one small tower; under 60 m2: none), and only where its height and
+  roof are the build's estimates: an OSM `height` is read as the top of the church with its tower (nothing added), and
+  building parts, mapped domes / flat roofs and courtyards are kept as mapped. Western-rite, free-church, Jewish and
+  untagged buildings get none. Estimates: radius 0.2 x footprint width (1.4-3 m; small 0.9-1.5 m), drum 1.4 r + 0.8 m
+  (2.4-5.5 m) above the roof top, helmet 1.3 r, pronaos tower 0.7 r and 0.4 of the drum, helmet colour from
+  `roof:colour` / `roof:material`, else the roof's colour, else dark tin #5e6668. Which churches really have one tower or
+  two, a porch (pridvor) or a separate bell tower was not compared (porches and separate bell towers stay unmodelled unless
+  mapped). Here: 26 churches with 44 towers; no tower on 3 with an OSM height, 3 Jewish, 3 free-church, 2 Western-rite, 1 mapped dome (Sf. Nicolae - Ghica), the small or untagged ones and building parts.
 - **Dâmbovița levels**: one water level per polygon, each reviewed at one place: east basin w174991904 -2.4 m (44.42609,
   26.10433), Grozăvești w170930341 -1.6 m. The west polygon w174990751 looked about 2.5–3 m down at 26.0998
   (`4Tc0SMwEbrKg8LFcABcVWg h110`) and about 4.5 m at 26.0976, but OSM maps no weir, dam or lock between them (live OSM
@@ -349,6 +375,15 @@ w241369588, w241369345, w899314658, 44.4237, 26.1124) is 600 m outside the playa
   and place are estimates; the north end and the east (rear) faces were not seen on a sharp panorama and keep the light
   panel skin of the south front.
 - **Footbridge** w231671712: deck height 6 m and section 3.2 × 3 m.
+- **East quay balustrade** (`QUAY_PANEL_MODEL`): post pitch 2 m, post 0.1 m, handrail 1.05 m, rails at 0.36 / 0.94 m,
+  colour #262b29 and the ornament (lozenge, two balusters per panel) are estimates; the review recorded "dark ornamental
+  panels", not their design or sizes.
+- **Pasajul Unirii look** (`PASAJ_UNIRII_MODEL`): screen height 2.4 m (rising from the 1 m rim over the first 2 m of cut
+  depth), post pitch 3 m, the motif lattice (1.5 × 1.1 m), shapes and greens, planter size (2.2 × 0.9 × 0.85 m, 3.2 m
+  pitch, from 0.9 m of cut depth), the header beam (1.3 m deep, letters 0.9 m, white on dark grey) are estimates: the review
+  recorded what is there, not sizes or the exact panel design. Whether the north ramps (two separate cuts in OSM, 22 m
+  apart) also have screens and motifs on every wall was not compared at the pano pose (the camera lands beside the trench);
+  the game gives every open Pasajul Unirii wall the same treatment.
 - **Fountain basins** appended by `add-areas.mjs`: the generic 0.45 m light-stone coping with full water (no panorama shows
   them; the Colțea ones are not visible from `i2dCK2VAtXOYKj-5Wy-EHA`). Show jet heights and LED details: medium–low.
 - **Bd. Unirii carriageways through the square**: lane count (2), lane width and sidewalk are the builder's class defaults.

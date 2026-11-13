@@ -2021,10 +2021,14 @@ export class Traffic {
             const l = (P.x - v.x) * rx + (P.z - v.z) * rz, el = playerExtent(P, rx, rz);
             shifts = [l - el - v.width / 2 - margin, l + el + v.width / 2 + margin];
         } else shifts = [-(e.laneW ?? 3.3) * 0.95];
+        // (2026-11-13, harness foot run in Floreasca: a hatch 1.1 m beyond Strada Garibaldi's kerb) where the car settles is its
+        // target lane plus the shift; a stopped car has not yet moved to that lane (it steers only while moving), so a shift
+        // that fits from where it stands (still in lane 1) could end beyond the kerb once it rolls into lane 0. Both fit now.
+        const finOff = laneOffset(e, v.lane, v.dir) + v.latExtraCur, outside = o => o + v.width / 2 > right + 0.3 || o - v.width / 2 < -left - 0.3;
         let best = null;
         for (const sh of shifts) {
             const off = curOff + sh; // lateral offset from the centreline (right of travel = +)
-            if (off + v.width / 2 > right + 0.3 || off - v.width / 2 < -left - 0.3) continue; // stay on the carriageway
+            if (outside(off) || outside(finOff + sh)) continue; // stay on the carriageway, now and where the car settles
             if (Math.abs(sh) > (e.laneW ?? 3.3) * 1.5) continue;
             const contra = !e.oneway && off - v.width / 2 < v.dir * (e.laneCenterShiftM || 0) + medianOf(e) / 2 - 0.2;
             if (contra && !this.oncomingClear(v, off, 45)) continue;
@@ -2792,7 +2796,19 @@ export class Pedestrians {
             }
         }
     }
-    width(e, side, fallback = 3) { return sidewalkWidthOf(this.t.world, e, side, fallback); }
+    width(e, side, fallback = 3) { const w = sidewalkWidthOf(this.t.world, e, side, fallback); return w > 0 ? w : this.separateSidewalk(e, side); }
+    /** (2026-11-13, Bellevue: 132 of 180 walkers piled on three junction stubs) OSM `sidewalk=separate` (270 of Bellevue's 305
+     *  streets) maps the sidewalk as its own way beside the road; the road then has no sidewalk band, so the crowd had almost
+     *  nowhere to walk. Such a side counts as a 1.8 m sidewalk just beyond the kerb, where the separate way runs. */
+    separateSidewalk(e, side) {
+        const cache = this._sepSide || (this._sepSide = new Map()); let v = cache.get(e);
+        if (v === undefined) {
+            const t = this.t.world?.data?.roadSourceGeometry?.[e.road]?.tags || {}, sep = k => /separate/.test(t[k] || '');
+            const both = sep('sidewalk') || sep('sidewalk:both');
+            v = { r: both || sep('sidewalk:right'), l: both || sep('sidewalk:left') }; cache.set(e, v);
+        }
+        return (side > 0 ? v.r : v.l) ? 1.8 : 0;
+    }
     ok(e) { return !isMotorway(e) && !e.tunnel && !e.bridge && e.len > 4 && Math.max(this.width(e, 1, 1), this.width(e, -1, 1)) > 0 && e.type !== 'dn' && e.type !== 'service'; }
     // (2026-11-08, owner: "people not even walking on it") district worlds: the walking line is the middle of that side's own
     // sidewalk — halfW (the wider half) put the line metres past the sidewalk on the narrow side of asymmetric streets

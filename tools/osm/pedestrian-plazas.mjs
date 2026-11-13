@@ -1,0 +1,72 @@
+// Mapped pedestrian plazas of every district, from the live OSM data (backlog r3-look-14, 2026-11-13).
+//
+// The aerial green raster (data.green) draws lawn wherever the imagery looked green: on pedestrian squares that is tree
+// shade, planters or paving joints as often as grass. ground-review.js keeps a 3.5 m band round every mapped pedestrian
+// street free of it; a plaza mapped as an area is paved over its whole polygon unless OSM says it is grass. This tool
+// fetches those areas (Overpass API) inside each district's bbox plus its 600 m scenery ring and writes
+//   game/src/pedestrian-plazas.js — rows [sourceId, class, surface, name, rings] per district; class 'paved' unless the
+//                                   area's `surface` is grass ('grass'); rings are lat/lon outers and inners (even-odd)
+// Selected: highway=pedestrian|footway with area=yes, area:highway=pedestrian|footway, place=square (ways and
+// multipolygon relations). No surface tag counts as paved (a mapped pedestrian area is a hard surface by default).
+//   node tools/osm/pedestrian-plazas.mjs
+import fs from 'node:fs';
+import { CITIES } from '../../game/src/cities.js';
+
+const ROOT = new URL('../../', import.meta.url);
+const ENDPOINT = process.env.OVERPASS || 'https://overpass-api.de/api/interpreter';
+const RING_DEG_LAT = 0.0055, GREEN = new Set(['grass']);
+const round = (v) => Math.round(v * 1e6) / 1e6;
+
+// join member ways (arrays of [lat, lon]) into closed rings by matching end points
+function joinRings(parts) {
+    const rings = [], open = parts.map(p => p.slice());
+    while (open.length) {
+        let ring = open.shift();
+        for (let guard = 0; guard < 500 && open.length; guard++) {
+            const end = ring[ring.length - 1], first = ring[0];
+            if (end[0] === first[0] && end[1] === first[1] && ring.length > 3) break;
+            const k = open.findIndex(p => (p[0][0] === end[0] && p[0][1] === end[1]) || (p[p.length - 1][0] === end[0] && p[p.length - 1][1] === end[1]));
+            if (k < 0) break;
+            let next = open.splice(k, 1)[0]; if (next[0][0] !== end[0] || next[0][1] !== end[1]) next = next.slice().reverse();
+            ring = ring.concat(next.slice(1));
+        }
+        const a = ring[0], b = ring[ring.length - 1];
+        if (ring.length > 3 && a[0] === b[0] && a[1] === b[1]) rings.push(ring);
+    }
+    return rings;
+}
+
+const out = {};
+for (const [cityId, city] of Object.entries(CITIES)) for (const [distId, d] of Object.entries(city.districts || {})) {
+    if (!d.bbox) continue;
+    const [s, w, n, e] = d.bbox, dLon = RING_DEG_LAT / Math.cos((s + n) / 2 * Math.PI / 180);
+    const bb = [s - RING_DEG_LAT, w - dLon, n + RING_DEG_LAT, e + dLon].map(v => v.toFixed(5)).join(',');
+    const q = `[out:json][timeout:120];(way["highway"~"^(pedestrian|footway)$"]["area"="yes"](${bb});way["area:highway"~"^(pedestrian|footway)$"](${bb});way["place"="square"](${bb});` +
+        `relation["highway"~"^(pedestrian|footway)$"]["type"="multipolygon"](${bb});relation["area:highway"~"^(pedestrian|footway)$"](${bb});relation["place"="square"]["type"="multipolygon"](${bb}););out geom tags;`;
+    let res = null;
+    for (let attempt = 0; attempt < 5; attempt++) { // (Overpass answers 429 / 502 / 504 when busy: wait and retry)
+        res = await fetch(ENDPOINT, { method: 'POST', body: new URLSearchParams({ data: q }), headers: { 'User-Agent': 'drive-my-cv-osm-tools/1.0' } });
+        if (res.ok) break; await new Promise(r => setTimeout(r, 10000 * (attempt + 1)));
+    }
+    if (!res.ok) throw new Error(`Overpass ${res.status} for ${cityId}-${distId}`);
+    const rows = [];
+    for (const el of (await res.json()).elements) {
+        const t = el.tags || {}; let rings = [];
+        if (el.type === 'way') { const g = (el.geometry || []).map(p => [round(p.lat), round(p.lon)]); const a = g[0], b = g[g.length - 1]; if (g.length > 3 && a[0] === b[0] && a[1] === b[1]) rings = [g]; }
+        else for (const role of ['outer', 'inner']) rings.push(...joinRings((el.members || []).filter(m => m.type === 'way' && (m.role || 'outer') === role && m.geometry).map(m => m.geometry.map(p => [round(p.lat), round(p.lon)]))));
+        if (!rings.length) continue;
+        const surface = t.surface || '';
+        rows.push([el.type[0] + el.id, GREEN.has(surface) ? 'grass' : 'paved', surface, t.name || '', rings]);
+    }
+    rows.sort((p, q2) => p[0].localeCompare(q2[0]));
+    out[`${cityId}-${distId}`] = rows;
+    console.log(`${cityId}-${distId}: ${rows.length} plazas (${rows.filter(r => r[1] === 'grass').length} grass)`);
+    await new Promise(r => setTimeout(r, 1500));
+}
+const fetched = new Date().toISOString().slice(0, 10);
+const body = Object.entries(out).map(([k, rows]) => `    '${k}': [\n${rows.map(r => '        ' + JSON.stringify(r) + ',').join('\n')}\n    ],`).join('\n');
+fs.writeFileSync(new URL('game/src/pedestrian-plazas.js', ROOT),
+    `// GENERATED by tools/osm/pedestrian-plazas.mjs on ${fetched} from the live OSM data (Overpass API; © OpenStreetMap contributors, ODbL):\n` +
+    `// mapped pedestrian plazas per district (highway=pedestrian|footway area=yes, area:highway, place=square; ways and multipolygons).\n` +
+    `// Rows [sourceId, 'paved' | 'grass', surface, name, rings ([lat, lon] outers and inners, even-odd)]. Read by ground-review.js.\n` +
+    `// Re-run the tool to refresh; do not edit by hand.\nexport const PEDESTRIAN_PLAZAS_FETCHED = '${fetched}';\nexport const PEDESTRIAN_PLAZAS = {\n${body}\n};\n`);

@@ -164,12 +164,12 @@ function frontTexture(id, F, H, n, wall) {
  * walls re-mapped so v runs 0 → 1 from the street to the top, roofs merged into one mesh, cornice mouldings on street faces.
  * The scene's own osmBackdrop must leave these ids out (`filter`).
  */
-export function buildFronts(ctx) {
+export function buildFronts(ctx, table = FRONTS) { // (table: FRONTS plus the OSM-only fronts of pioneer-square-backfronts.js)
     const d = ctx.data, g = ctx.ground, out = { fronts: [], tris: 0 }, grp = new THREE.Group(); grp.name = 'pioneer-fronts';
     const cornices = new GeoBatch(), roofs = [];
     const others = d.buildings.filter((q) => q.k !== 'roof' && q.poly?.length > 2 && !q.part);
     for (const b of d.buildings) {
-        const F = FRONTS[b.id]; if (!F || ctx.skipBuildings.has(b.id) || b.part) continue;
+        const F = table[b.id]; if (!F || ctx.skipBuildings.has(b.id) || b.part) continue;
         const wall = F.osmColour && b.c ? b.c : F.wall;
         const clone = { ...d, buildings: d.buildings.map((q) => (q === b ? { ...q, c: '#ffffff' } : q)) };
         const B = buildBuildings(clone, g, { skip: ctx.skipBuildings, urban: false, style: () => 'brick', filter: (q) => q.id === b.id });

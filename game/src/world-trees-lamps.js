@@ -204,7 +204,7 @@ export async function buildTreesLamps(ctx) {
             at = 0; for (const p of propColl) if (!bodies.has(p)) propColl[at++] = p; propColl.length = at;
         }
         vegetation.treeCrownMeshes.push(...T.crownMeshes); vegetation.treeTrunkMeshes.push(...T.trunkMeshes);
-        vegetation.update = T.update;
+        vegetation.update = T.update; vegetation.mirrorLod = T.mirrorLod;
         vegetation.deciduousMask = new Float32Array(treeList.map(t => t.dec));
     }
     // street lamps: real OSM highway=street_lamp nodes (moved to the sidewalk edge when mapped on the carriageway)

@@ -264,5 +264,11 @@ export function buildSpeciesTrees(trees, opts = {}) {
         nearT.count = kt; nearT.instanceMatrix.needsUpdate = true;
         cur = sel;
     };
-    return { group, crownMeshes, trunkMeshes, update, count: T.length };
+    // (r2-perf-5, Pasajul Unirii worst frame) the rear-view mirror draws the near crowns as low-poly spheres fitted to each
+    // shape's bounding sphere (same local frame, so the near instance matrices fit): a small, distant image; the main view
+    // and the shadow map keep the full crowns. mirrorLod(true) before the mirror render, mirrorLod(false) after it.
+    const mirrorGeos = new Map();
+    for (const [name, m] of Object.entries(nearM)) { const bs = G.shapes[name].geo.boundingSphere; const g = new THREE.IcosahedronGeometry(bs.radius * .92, 1); g.translate(bs.center.x, bs.center.y, bs.center.z); g.computeBoundingSphere(); mirrorGeos.set(m, { low: g, full: m.geometry }); }
+    const mirrorLod = (on) => { for (const [m, g] of mirrorGeos) m.geometry = on ? g.low : g.full; };
+    return { group, crownMeshes, trunkMeshes, update, mirrorLod, count: T.length };
 }

@@ -9,6 +9,7 @@ import { emitCarParkFronts } from './car-park-fronts.js';
 import { emitStreetLevelWaterBridgeRailings, emitReviewedStreetBridgeRailings } from './water-bridge-railings.js';
 import { emitPedestrianBridges, PEDESTRIAN_BRIDGES } from './pedestrian-bridges.js';
 import { trenchParapetRow, emitTrenchBalustrade } from './trench-parapets.js';
+import { isPasajUnirii, emitPasajMotifs, emitPasajScreen, emitPasajPlanters, PASAJ_UNIRII_MODEL } from './pasaj-unirii-look.js';
 import { nonShopWindowBands } from './facade-window-bands.js';
 import { sourceTransitShelterDecision } from './source-transit-shelter.js';
 import { projectCoveredWater, coveredWaterHulls, prepareFinalWaterGeometry, prepareSmallWaterGroups, consumePreparedSmallWater, waterOwnerSurface, landmarkWaterSurfaces, combineUnderpassWaterOwners } from './final-water-topology.js';
@@ -261,9 +262,23 @@ export async function buildWorld(city, renderer, opts = {}) {
     //      profile can bend where a ramp meets its street (gore pass below).
     {
         const PIECE = 10, src = edges.slice();
-        let split = 0;
+        // (2026-11-13) an at-grade approach that leaves a deck and has a ramp (*_link) merging inside its carriageway (Bellevue:
+        // NE 8th St west of the I-405 bridge, one 92 m edge from the abutment to 112th Ave, with the Exit to NE 8th St
+        // West joining along it) is cut too: as one straight slope it stayed 0.3–0.6 m above the ramp where they merge
+        const shares = (e, f) => e.a === f.a || e.a === f.b || e.b === f.a || e.b === f.b;
+        const nearDeck = new Map(); // node → graph distance to a deck end over at-grade edges (≤ 40 m)
+        {
+            const q = []; for (const f of src) if (f.bridge || f.tunnel) for (const n of [f.a, f.b]) if (!nearDeck.has(n)) { nearDeck.set(n, 0); q.push(n); }
+            while (q.length) { const n = q.shift(), d = nearDeck.get(n); for (const f of n.edges) { if (f.bridge || f.tunnel) continue; const o = f.a === n ? f.b : f.a, nd = d + f.len; if (nd <= 40 && nd < (nearDeck.get(o) ?? Infinity)) { nearDeck.set(o, nd); q.push(o); } } }
+        }
+        const mergeApproach = (e) => {
+            if (e.bridge || e.tunnel || !(nearDeck.has(e.a) || nearDeck.has(e.b))) return false;
+            return src.some(f => f !== e && /_link$/.test(f.type) && !f.bridge && !f.tunnel && !nearDeck.has(f.a) && !nearDeck.has(f.b) && !shares(e, f) && (e.oneway && f.oneway ? 1 : Math.sign(e.dirx * f.dirx + e.dirz * f.dirz)) * (e.dirx * f.dirx + e.dirz * f.dirz) >= 0.85 // (a merge runs the same way: not the twin carriageway)
+                && [f.a, f.b].some(p => { const q = distPointSeg(p.x, p.z, e.a.x, e.a.z, e.b.x, e.b.z); return q.t > 0.02 && q.t < 0.98 && q.d < e.halfW + f.halfW; })); // (the two carriageways overlap)
+        };
+        let split = 0, approaches = 0;
         for (const e of src) {
-            if (e.len <= PIECE * 1.4 || !(e.bridge || e.tunnel)) continue; // (at-grade links stay whole: traffic queues / merges there)
+            if (e.len <= PIECE * 1.4 || !(e.bridge || e.tunnel || (mergeApproach(e) && ++approaches))) continue; // (other at-grade links stay whole: traffic queues / merges there)
             const k = Math.ceil(e.len / PIECE), b = e.b, plen = e.len / k;
             b.edges.splice(b.edges.indexOf(e), 1);
             let prev = e.a;
@@ -277,7 +292,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 prev = n;
             }
         }
-        if (split) console.info('[world] profile points: +' + split + ' edge pieces');
+        if (split) console.info('[world] profile points: +' + split + ' edge pieces (' + approaches + ' merge approaches)');
     }
     for (const n of nodeArr) {
         if (!n.edges.length) continue;
@@ -980,6 +995,13 @@ export async function buildWorld(city, renderer, opts = {}) {
     let underpassOwners = combineUnderpassWaterOwners(underpassGroundOwners, buildUnderpassOwnerIndex(underpassRegions.length ?
         [...cells].map(([key, c]) => ({ mesh: c.water, id: 'water:' + key, water: true })) : [], underpassOwnerOptions));
     const deferredUnderpassDown = [];
+    const pasajPortals = [], pasajStats = { planters: 0, motifTris: 0, headers: 0 }; // (unirii-pasaj-look: pasaj-unirii-look.js)
+    // open Pasajul Unirii ramps that share one cut (the south pair, centre lines 8.4 m apart): edge → its partner and the
+    // partner's offset along the edge normal. Between them stand the planters, not trench walls or an inferred barrier.
+    const pasajMedian = new Map(), pasajOpen = raised.filter(e => !e.tunnel && isPasajUnirii(data.roadSourceGeometry?.[e.road]));
+    for (const e of pasajOpen) for (const f of pasajOpen) { if (f === e || f.dirx * e.dirx + f.dirz * e.dirz > -0.95) continue; const off = (f.a.x - e.a.x) * e.nx + (f.a.z - e.a.z) * e.nz; if (Math.abs(off) <= 12) pasajMedian.set(e, { f, off }); }
+    const pasajMedianSide = (e, o) => { const m = pasajMedian.get(e); return !!m && Math.sign(m.off) === Math.sign(o); };
+    const pasajMedianBarrier = (w) => { const e = w.edge, m = e && pasajMedian.get(e); if (!m) return false; const d = (w.x - e.a.x) * e.nx + (w.z - e.a.z) * e.nz; return Math.sign(d) === Math.sign(m.off) && Math.abs(d) < Math.abs(m.off); };
     // shared underpass hall (2026-11-12 fidelity pass): roofed tram-station pieces and the deep covered carriageways beside them
     const tramHallPieces = []; let hallRoads = null; const hallFurnitureStats = { posts: 0, benches: 0, lamps: 0 }, hallLampRuns = new Set();
     const hallTramStops = (data.pois || []).filter(r => data.poiKinds?.[r[0]] === 'busstop' && str(r[5]) === 'tram_stop').map(r => [r[1] / 10, r[2] / 10]);
@@ -1074,11 +1096,13 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const top = t => covered ? roof.ceilingAt(t) : .4;
                 // (fidelity pass, street-level look 2024) Pasajul Unirii: dark perforated-metal cladding on the open ramps, pale
                 // mesh panels inside the covered box; every other underpass keeps the plain concrete
-                const wallCol = source?.tags?.name === 'Pasajul Unirii' ? rgb(covered ? '#c3c5c1' : '#4d5154') : conc;
-                for (const [o, sgn] of [[wr, -1], [-wl, 1]]) for (const [a2, b2] of sideRuns ? clipRuns(sideRuns.get(o), a, b) : [[a, b]]) {
+                const pasaj = isPasajUnirii(source), wallCol = pasaj ? rgb(covered ? '#c3c5c1' : '#4d5154') : conc;
+                for (const [o, sgn] of [[wr, -1], [-wl, 1]]) for (const [a2, b2] of sideRuns && !(pasaj && pasajMedianSide(e, o)) ? clipRuns(sideRuns.get(o), a, b) : pasaj && pasajMedianSide(e, o) ? [] : [[a, b]]) {
                     const yf = t => Math.min(yA + (yB - yA) * t, 0), pm = roofPoint((a2 + b2) / 2, o, 0);
                     const hall = covered ? sharedHallTram(pm[0], pm[2], -e.nx * sgn, -e.nz * sgn) : null;
-                    if (!hall) { sb.face4(roofPoint(a2, o, yf(a2)), roofPoint(b2, o, yf(b2)), roofPoint(b2, o, top(b2)), roofPoint(a2, o, top(a2)), wallCol, [e.nx * sgn, 0, e.nz * sgn]); continue; }
+                    if (!hall) { sb.face4(roofPoint(a2, o, yf(a2)), roofPoint(b2, o, yf(b2)), roofPoint(b2, o, top(b2)), roofPoint(a2, o, top(a2)), wallCol, [e.nx * sgn, 0, e.nz * sgn]);
+                        if (pasaj && !covered) pasajStats.motifTris += emitPasajMotifs(c.detail, (s2, y) => roofPoint(s2 / e.len, o + sgn * 0.02, y), a2 * e.len, b2 * e.len, s2 => yf(s2 / e.len) + 0.35, () => 0.35, [e.nx * sgn, 0, e.nz * sgn]); // (leaf / flower / butterfly motifs on the ramp cladding)
+                        continue; }
                     // shared hall (2026-11-12 fidelity pass, Pasajul Victoria): a covered carriageway beside the roofed tram
                     // station is one hall in reality — a raised platform strip and a pier row instead of a wall (estimated sizes)
                     const so = Math.sign(o), o2 = o + so * Math.max(0, hall.gap), pf = .25, up = [0, 1, 0], inn = [e.nx * sgn, 0, e.nz * sgn];
@@ -1116,13 +1140,29 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const cut = (thr, keepBelow) => { if (fY(0) < thr === fY(1) < thr) return (fY(0) < thr) === keepBelow; const tc = tAt(thr); if ((fY(0) < thr) === keepBelow) p1 = Math.min(p1, tc); else p0 = Math.max(p0, tc); return true; };
                 if (cut(-0.35, true) && (!e.tunnel || cut(-4.2, false)) && p1 - p0 > 0.01) {
                     const Pt = (t, o, y) => P(t * e.len, o, y), cap = rgb('#b4b0a8');
-                    for (const [o, sgn] of [[wr, -1], [-wl, 1]]) for (const [q0, q1] of sideRuns ? clipRuns(sideRuns.get(o), p0, p1) : [[p0, p1]]) {
+                    for (const [o, sgn] of [[wr, -1], [-wl, 1]]) for (const [q0, q1] of isPasajUnirii(source) && pasajMedianSide(e, o) ? [] : sideRuns ? clipRuns(sideRuns.get(o), p0, p1) : [[p0, p1]]) {
                         const oo = o + 0.25 * -sgn;
                         if (trenchParapetRow(`${city.id}-${distId}`, e.name)) { emitTrenchBalustrade(sb, c.detail, Pt, q0, q1, o, oo, [e.nx * sgn, 0, e.nz * sgn], e.len); continue; } // (round 3: reviewed rim class, trench-parapets.js)
+                        if (isPasajUnirii(source)) { emitPasajScreen(sb, c.detail, Pt, q0, q1, o, oo, [e.nx * sgn, 0, e.nz * sgn], e.len, fY); continue; } // (unirii-pasaj-look: perforated screen above the rim)
                         sb.face4(Pt(q0, o, 0.4), Pt(q1, o, 0.4), Pt(q1, o, 1.0), Pt(q0, o, 1.0), conc, [e.nx * sgn, 0, e.nz * sgn]);
                         sb.face4(Pt(q1, oo, 0), Pt(q0, oo, 0), Pt(q0, oo, 1.0), Pt(q1, oo, 1.0), conc, [-e.nx * sgn, 0, -e.nz * sgn]);
                         sb.face4(Pt(q0, oo, 1.0), Pt(q1, oo, 1.0), Pt(q1, o, 1.0), Pt(q0, o, 1.0), cap, [0, 1, 0]);
                     }
+                }
+            }
+            if (isPasajUnirii(source) && !e.tunnel) { // (unirii-pasaj-look) planter row between the carriageways sharing this cut; portal header
+                const roadAt = (s2) => e.ya + (e.yb - e.ya) * clamp(s2 / e.len, 0, 1);
+                const m = pasajMedian.get(e), f = m?.f;
+                if (m && f.id > e.id) { // (once per pair)
+                    const h = m.off / 2, onF = (x, z) => { const t = (x - f.a.x) * f.dirx + (z - f.a.z) * f.dirz; return t > 0 && t < f.len; };
+                    const mid = (s2) => [e.a.x + e.dirx * s2 + e.nx * h, e.a.z + e.dirz * s2 + e.nz * h];
+                    let s0 = Infinity, s1 = -Infinity; for (let s2 = 0; s2 <= e.len; s2 += 1) if (onF(...mid(s2))) { s0 = Math.min(s0, s2); s1 = Math.max(s1, s2); }
+                    if (s1 > s0) pasajStats.planters += emitPasajPlanters(sb, c.detail, mid, (s2) => roadAt(s2) + Y.road, [e.dirx, e.dirz], s0, s1);
+                }
+                for (const [n, other] of [[e.a, e.b], [e.b, e.a]]) {
+                    const yEnd = n === e.a ? e.ya : e.yb; if (yEnd > -3 || !n.edges.some(f => f !== e && f.tunnel && isPasajUnirii(data.roadSourceGeometry?.[f.road]))) continue;
+                    const L = Math.hypot(other.x - n.x, other.z - n.z) || 1, cx = (wr - wl) / 2;
+                    pasajPortals.push({ x: n.x + e.nx * cx, z: n.z + e.nz * cx, fx: (other.x - n.x) / L, fz: (other.z - n.z) / L, w: wr + wl, y: yEnd + Y.road });
                 }
             }
             if (!closedRoof && e.tunnel && !e.coveredRoadModel && !e.lidded && Math.min(e.ya, e.yb) < -4.2) { // (play-test note 45) partly deep tunnel edge: the
@@ -1177,7 +1217,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         cellOf, data, distCfg, edgeGrid, edges, medianGrid, onOtherCarriageway, padHeightAt,
         parapetOwnership, polyDist, raisedDeck, retract, ribGrid, ribPoly, ribbons, segsCross,
         sharedTrenchSide, surfacesAt, tramGrades, tramPropEnvelope, tramSweep, tramSweepConflicts, wallCut, walls,
-        widthAsphalt, widthSide, yAlong, blocksLane,
+        widthAsphalt, widthSide, yAlong, blocksLane, barrierHidden: pasajMedianBarrier,
     });
     blocksLane = __buildWallsBarriers.blocksLane;
     for (const w of railRoadsideCaps) { // exact render-matched new fascia; no invented barrier thickness
@@ -1926,6 +1966,21 @@ export async function buildWorld(city, renderer, opts = {}) {
         mbS.tri(i0, i1, i2); mbS.tri(i0, i2, i3);
     }
 
+    { // (unirii-pasaj-look) "PASAJUL UNIRII" header on a dark beam over each portal; portals of one cut side by side share one
+        const H = PASAJ_UNIRII_MODEL.header, groups = [];
+        for (const p of pasajPortals) { const g = groups.find(q => q.fx * p.fx + q.fz * p.fz > 0.9 && Math.hypot(q.x - p.x, q.z - p.z) < 12); if (g) { g.list.push(p); g.x = (g.x + p.x) / 2; g.z = (g.z + p.z) / 2; } else groups.push({ x: p.x, z: p.z, fx: p.fx, fz: p.fz, list: [p] }); }
+        const sg = signs.get(H.text, H.bg, H.fg, null, true);
+        for (const g of groups) {
+            const ux = g.fz, uz = -g.fx; let lo = Infinity, hi = -Infinity; // span across the facing direction
+            for (const p of g.list) { const d = (p.x - g.x) * ux + (p.z - g.z) * uz; lo = Math.min(lo, d - p.w / 2 - 0.25); hi = Math.max(hi, d + p.w / 2 + 0.25); }
+            const cx = g.x + ux * (lo + hi) / 2, cz = g.z + uz * (lo + hi) / 2, half = (hi - lo) / 2, c = cellOf(cx, cz), y1 = 0.1, y0 = -H.beamM;
+            const A = (s2, y) => [cx + ux * s2, y, cz + uz * s2];
+            c.solid.face4(A(-half, y0), A(half, y0), A(half, y1), A(-half, y1), rgb(H.bg), [g.fx, 0, g.fz]);
+            c.solid.face4(A(-half, y0), A(half, y0), [cx + ux * half - g.fx * 0.4, y0, cz + uz * half - g.fz * 0.4], [cx - ux * half - g.fx * 0.4, y0, cz - uz * half - g.fz * 0.4], rgb(H.bg), [0, -1, 0]);
+            if (sg) { const w = Math.min(half * 2 - 1.5, 9); addSignQuad(c, cx, cz, Math.atan2(g.fx, g.fz), 1, w, H.letterM, (y0 + y1) / 2, sg, 0.04); pasajStats.headers++; }
+        }
+    }
+
     // -----------------------------------------------------------------------
     //  TREES, LAMPS, PARKED CARS
     // -----------------------------------------------------------------------
@@ -2342,6 +2397,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.landmarkWaterFootprints = landmarkWaterFootprints;
     stats.trenchGroundCuts = { corridors: trenchQuads.length, channelWaterTriangles: channelCuts.length, triangles: trenchCutTris }; // (ground layers cut out of open trenches and sunken water channels)
     stats.trenchGoreCuts = trenchGoreCuts.n; // (#59: trench wall sides stopped at another sunken ramp)
+    stats.pasajUnirii = { ...pasajStats, portals: pasajPortals.length }; // (unirii-pasaj-look: planters, motif triangles, portal headers)
     stats.buildingOverlapCuts = overlapCuts; // (world-space basin outlines: audits of what stands in or over them)
     stats.buildingOutlineParts = outlineParts; // (style-estimated outlines left undrawn in favour of the tagged volumes inside them)
     stats.bridgeGuardCompletion = guardCompletion; stats.railingNetwork = railingNetwork; stats.railingDrops = railingDrops;

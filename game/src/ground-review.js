@@ -8,11 +8,18 @@
 // ============================================================================
 
 import { PEDESTRIAN_FRONTS } from './pedestrian-fronts.js';
+import { PEDESTRIAN_PLAZAS } from './pedestrian-plazas.js';
 
 // (Old Town, Unirii: panoramas at 44.430444, 26.102414 and 44.431796, 26.102087 show cobbled pedestrian streets wall to
 // wall; the raster marked them as lawn) mapped OSM highway=pedestrian ways are paved: a band of this half-width round
 // their centre line is kept free of raster grass. Mapped grass / park polygons are not affected.
 export const PEDESTRIAN_PAVED_HALF_M = 3.5;
+
+// (r3-look-14, 2026-11-13) a mapped pedestrian plaza (highway=pedestrian|footway area=yes, area:highway, place=square;
+// pedestrian-plazas.js, live OSM) is paved over its whole polygon: OSM's `surface` decides, and no surface tag counts as
+// paved; only `surface=grass` keeps the raster's lawn. The 3.5 m band above covered only the plaza's outline, so the
+// raster's green cells inside it stayed (Romană, Piața Revoluției). Mapped grass / park polygons inside are not affected.
+export const plazaPaved = (row) => row[1] !== 'grass';
 
 export const PAVED_REVIEW = {
     'bucharest-romana': [
@@ -32,6 +39,11 @@ export function pavedReviewAreas(key, project) {
             const ring = [[ax - ux + nx, az - uz + nz], [bx + ux + nx, bz + uz + nz], [bx + ux - nx, bz + uz - nz], [ax - ux - nx, az - uz - nz]];
             bands.push({ kind: 'paved-pedestrian', sourceId: 'w' + id, rings: [ring], z0: Math.min(...ring.map(p => p[1])), z1: Math.max(...ring.map(p => p[1])) });
         }
+    }
+    for (const row of PEDESTRIAN_PLAZAS[key] || []) {
+        if (!plazaPaved(row)) continue;
+        const rings = row[4].map(r => r.map(([la, lo]) => { const q = project(la, lo); return [q.x, q.z]; })), zs = rings.flat().map(p => p[1]);
+        bands.push({ kind: 'paved-plaza', sourceId: row[0], rings, z0: Math.min(...zs), z1: Math.max(...zs) });
     }
     return bands.concat((PAVED_REVIEW[key] || []).map(row => {
         const ring = row.ring.map(([lat, lon]) => { const q = project(lat, lon); return [q.x, q.z]; });

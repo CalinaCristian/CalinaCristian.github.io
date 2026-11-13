@@ -207,7 +207,7 @@ Reviewed looks are rows in `game/src/building-review.js` (`bucharest-romana`) an
 
 - **Places of worship** (Sinagoga Eșua Tova, Boteanu, Visarion): drawn with plain walls and tall arched openings (`worship.js`),
   no longer house windows. The real ones: a two-storey synagogue front with a tracery window, a church with a round banded
-  porch tower, an ochre neo-Romanian church with an arcaded porch. Towers / domes only where OSM tags them.
+  porch tower, an ochre neo-Romanian church with an arcaded porch. Towers: the Orthodox convention rule in section 10.
 - **Victoria Center** w173938539 carries its own name board; its corner unit is a Starbucks (dark fascia, white STARBUCKS COFFEE
   letters; GKPZybRO6HC9NrDEiel-DA h 240).
 - **POI links to footprints**: Hotel Michelangelo n2942500701 → w437256698 (4.8 m from the node; a cream eclectic house with
@@ -278,8 +278,13 @@ Key buildings:
   physical exclusion (`tree-reviews.js`), the source record stays in the pack. The street trees along the island edges stay.
 - **Piața Victoriei**: the green came from the aerial green raster (no OSM polygon); a reviewed paved ring (`ground-review.js`)
   keeps it out of the square.
-- **Pedestrian streets**: top-down renders show no lawn on the mapped pedestrian bands; plazas outside the 3.5 m band (around
-  44.4398, 26.0968) keep the aerial-measured green raster (lawn or paving not compared: backlog r3-look-14).
+- **Pedestrian plazas and the green raster** (r3-look-14, 2026-11-13; `ground-review.js`, plazas in `pedestrian-plazas.js`
+  from the live OSM data via `tools/osm/pedestrian-plazas.mjs`): a mapped pedestrian area (`highway=pedestrian|footway` +
+  `area=yes`, `area:highway`, `place=square`; ways and multipolygons) is paved over its whole polygon: its `surface` decides,
+  no surface tag counts as paved, and only `surface=grass` keeps the aerial raster's lawn there. Before, only a 3.5 m band
+  round mapped pedestrian lines was kept free, so plazas kept the raster's green cells (tree shade, planters, joints).
+  Mapped grass / park polygons and trees inside a plaza stay as OSM has them (Piața Unirii's `place=square` covers its park:
+  its lawns are OSM polygons and are unchanged). Not compared with a panorama: the rule follows OSM's tags. Here: 58 plazas, none tagged grass; the cited one round 44.4398, 26.0968 (w180685596, paving stones) lost its green cells.
 - **Antipa tree belt**: the museum facade is hidden by trees in reality; the game shows it over open lawn. Inferred trees are
   suppressed inside the aerial survey's coverage, so those crowns need measuring on the aerial mosaic (`tools/aerial`), never
   placing from a panorama.
@@ -301,6 +306,18 @@ Key buildings:
 
 ## 10. Estimates and open questions
 
+- **Places of worship** (r3-look-11, 2026-11-13; `worship.js`, tags in `worship-source.js` from the live OSM API): one rule
+  from OSM tags, not church by church. A building with an Orthodox (or Armenian) `denomination` gets the convention towers,
+  an octagonal drum with a metal helmet and a cross over the middle of its long axis, and a smaller pronaos tower 30 % of
+  the length towards the west end when the footprint is at least 20 m long and 1.6 times as long as wide (Armenian: one
+  drum with a cone; `building=chapel` or under 120 m2: one small tower; under 60 m2: none), and only where its height and
+  roof are the build's estimates: an OSM `height` is read as the top of the church with its tower (nothing added), and
+  building parts, mapped domes / flat roofs and courtyards are kept as mapped. Western-rite, free-church, Jewish and
+  untagged buildings get none. Estimates: radius 0.2 x footprint width (1.4-3 m; small 0.9-1.5 m), drum 1.4 r + 0.8 m
+  (2.4-5.5 m) above the roof top, helmet 1.3 r, pronaos tower 0.7 r and 0.4 of the drum, helmet colour from
+  `roof:colour` / `roof:material`, else the roof's colour, else dark tin #5e6668. Which churches really have one tower or
+  two, a porch (pridvor) or a separate bell tower was not compared (porches and separate bell towers stay unmodelled unless
+  mapped). Here: 16 churches with 27 towers; no tower on 3 with an OSM height (among them Biserica Albă and Biserica Doamnei), the Western-rite (Sf. Iosif, Italiană, Anglicană, Sacré-Cœur, Luterană, greco-catolică), free-church, Jewish and untagged ones.
 - **Statues** (Catargiu, Nobil Dac, Enescu): hand-modelled silhouettes, sizes estimated. **Observatory**: tower height, dome
   form, size and finish.
 - **Royal Palace front**: column radius, pair spacing (one pair per two 4.2 m bays), cornice depth, dentil and baluster pitch;

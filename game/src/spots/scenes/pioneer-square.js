@@ -18,6 +18,8 @@ import { LANDMARKS, buildLandmark } from '../../landmarks.js';
 import { FRONTS, buildFronts, OCC_CANOPY, occidentalSquareProps } from './pioneer-square-fronts.js';
 import { playgroundKit } from '../playground-kit.js';
 import { westEndStreets } from './pioneer-square-westend.js';
+import { colmanDock, colmanFurniture } from './pioneer-square-colman.js';
+import { FRONTS_OSM, smithTowerBase, merchantsCafeSign } from './pioneer-square-backfronts.js';
 
 // ---------------------------------------------------------------------------- the Chief-of-All-Women pole (1940 replica)
 /**
@@ -185,7 +187,7 @@ function buildWestEnd(ctx) {
         // timber-slatted upper storey and a dark flat roof; the Water Taxi terminal a low grey shed). Level splits estimated.
         const b = new GeoBatch();
         { const y = Math.min(...WSF.map(([x, z]) => g.heightAt(x, z))); b.prism(WSF, y - 0.5, y + 4.2, '#2f3b44', 'darkglass', { noTop: true }); b.prism(WSF, y + 4.2, y + 8.4, '#a8835c', 'wood', { noTop: true }); b.prism(WSF, y + 8.4, y + 9, '#3a3d40', 'metal'); ctx.poly(WSF); }
-        { const y = Math.min(...TAXI.map(([x, z]) => g.heightAt(x, z))); b.prism(TAXI, y - 0.5, y + 5, '#8d9294', 'metal'); ctx.poly(TAXI); }
+        void TAXI; ctx.extras.colmanDock = colmanDock(ctx); // (r3-sea-spots-b-3) the Water Taxi shed on its OSM outline, its pier block, the WSF canopy / stairs, the slips (pioneer-square-colman.js)
         ctx.add(b.build('colman-dock'));
     } };
 }
@@ -242,7 +244,7 @@ export default {
         const g = ctx.ground, d = ctx.data, sp = ctx.spot('pioneer-square');
         // round 3: the fine (2 m) terrain reaches west over Alaskan Way and Colman Dock (was 8 m outer steps there)
         ctx.treeLod = { cap: Infinity, near: 90, max: 700, force: true }; // round 3: every tree kept; the far ones (the west end's street trees) draw the low crown
-        ctx.terrainOpts = { bg: '#8c8578', bgMask: 'slab', innerPx: 2560, inner: { x0: -336, z0: -184, x1: 288, z1: 264 } }; // (+43 k terrain triangles; the default box starts at x = −144)
+        ctx.terrainOpts = { bg: '#8c8578', bgMask: 'slab', innerPx: 2816, inner: { x0: -440, z0: -184, x1: 288, z1: 264 } }; // (r3-sea-spots-b-3) to x = −440: the slips and Pier 48's west end off the 8 m outer steps // (+43 k terrain triangles; the default box starts at x = −144)
         const west = buildWestEnd(ctx);
         const per = buildPergola(ctx);
         ctx.extras.pioneerBuilding = buildPioneerBuilding(ctx);
@@ -270,15 +272,17 @@ export default {
         // (12.68 m NAVD88), the levels below it run down the slope (one open level shows at the prow); the rest of the
         // mapped 10.9 m is below the high street.
         { const ss = d.buildings.find((x) => x.id === 'w52781697'); if (ss) { const hi = Math.max(...ss.poly.map(([x, z]) => g.heightAt(x, z))), deck = 12.68 - d.origin.elev; if (deck > hi) { ss.h = deck - hi; ss.lv = 1; ctx.extras.sinkingShipDeck = +deck.toFixed(2); } } }
-        ctx.osmBackdrop({ paint: {}, filter: (bd) => !FRONTS[bd.id], style: (bd) => (bd.amenity === 'parking' || bd.k === 'parking' ? 'parking' : (bd.h || 0) > 60 ? 'office' : 'brick'), // the Sinking Ship and the other garages are open concrete decks, not brick blocks
+        ctx.extras.colmanFurniture = colmanFurniture(ctx); // (r3-sea-spots-b-3) the Waterfront Trail's mapped benches and lamps
+        ctx.osmBackdrop({ paint: {}, filter: (bd) => !FRONTS[bd.id] && !FRONTS_OSM[bd.id], style: (bd) => (bd.amenity === 'parking' || bd.k === 'parking' ? 'parking' : (bd.h || 0) > 60 ? 'office' : 'brick'), // the Sinking Ship and the other garages are open concrete decks, not brick blocks
             lampOpts: { kinds: ['primary', 'secondary', 'tertiary', 'residential'] }, streetTreeOpts: { spacing: 14, prob: 0.45 } });
-        ctx.extras.pioneerFronts = buildFronts(ctx); // the mapped fronts, each with its panorama-checked facade
+        ctx.extras.pioneerFronts = buildFronts(ctx, { ...FRONTS, ...FRONTS_OSM }); // the mapped fronts, each with its panorama-checked facade (+ the OSM-only fronts behind the walk area)
+        ctx.extras.smithBase = smith ? smithTowerBase(ctx, smith.y0) : null; ctx.extras.merchantsSign = merchantsCafeSign(ctx); // (r3-sea-spots-b-1)
         ctx.lampOpts = { style: 'acorn', color: '#1c2a24', h: 4.6 };
         // Pioneer Place is under big trees (Street View): the nine mapped maples there (OSM natural=tree, genus Acer) stand; only
         // generated street trees stay out of the square
         for (const [x, z] of d.trees) if (x > per.cx - 32 && x < per.cx + 32 && z > per.cz - 40 && z < per.cz + 30) ctx.trees.push({ x, z, kind: 'broad', s: 1.45 });
         west?.finish();
-        ctx.extras.shops = buildShopSigns(ctx, { list: pioneerBusinesses(d), skip: (b) => /Smith Tower/.test(b.name) });
+        ctx.extras.shops = buildShopSigns(ctx, { list: pioneerBusinesses(d), skip: (b) => /Smith Tower|^Merchant's Cafe/.test(b.name) }); // (Merchant's Cafe: its own board, merchantsCafeSign)
         occidentalArt(ctx);
         // Occidental Square: big London plane trees on the brick square
         { const sq = d.areas.find((a) => a.id === 'w174692555'); if (sq) { const bb = polyBox(sq.poly), r = rng(6); const can = d.buildings.find((q) => q.id === OCC_CANOPY)?.poly; for (let i = 0; i < 26; i++) { const x = bb.x0 + 5 + r() * (bb.x1 - bb.x0 - 10), z = bb.z0 + 5 + r() * (bb.z1 - bb.z0 - 10); if (can && inPoly(x, z, polyBox(can) && [[polyBox(can).x0 - 3, polyBox(can).z0 - 3], [polyBox(can).x1 + 3, polyBox(can).z0 - 3], [polyBox(can).x1 + 3, polyBox(can).z1 + 3], [polyBox(can).x0 - 3, polyBox(can).z1 + 3]])) continue; ctx.trees.push({ x, z, kind: 'broad', s: 1.25 + r() * 0.35 }); } ctx.painter.poly(sq.poly, '#9a5a44', 'brick'); } }

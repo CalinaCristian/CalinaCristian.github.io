@@ -115,6 +115,10 @@ Three placed outdoors (Celestial Navigation, Talking Fountain, one statue); work
 
 ## 12. Open questions and gaps
 
+- **Pedestrian plazas** (r3-look-14, 2026-11-13): a mapped pedestrian area (`highway=pedestrian|footway` + `area=yes`,
+  `area:highway`, `place=square`; `pedestrian-plazas.js`) is drawn paved over its whole polygon unless its OSM `surface` is
+  grass (no surface tag counts as paved); mapped grass / park polygons inside stay. Rule as in `bucharest-romana.md`
+  section 8; not compared with a panorama. Here: 1 plaza, untagged (paved).
 - Ground step west of International Blvd (§5): drawn as a wall, rockery and bank at the boulevard's level; the real 3–9 m step needs ground heights.
 - Car park w479818870 level count and SureStay storeys (§6).
 - Terminal facade, curb canopy and airline door signs are not photo-verified (Commons has almost no CC photos of the drives).

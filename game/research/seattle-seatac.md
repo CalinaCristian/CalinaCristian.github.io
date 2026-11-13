@@ -241,3 +241,10 @@ outline w1035290130, 47.444099, -122.293207 h330): a low white enclosed corridor
   round 3 (`car-parks.js`). Estimate: 3 levels from the pack's 9 m height. OSM has no `height` / `building:levels` and the only
   official panorama (KauyPKtqD_ylEozRWpdOXg) cuts the upper levels; no other source found.
 - **SureStay** w314940622 (r3-landmarks-5): storey count still not established (see section 16); the 9 m default is an estimate.
+- **Shell** n824050627 (r3-look-3): its two canopies are mapped after all, as untagged `building=roof` `layer=1` ways w647569414 /
+  w647566814 (live OSM 2026-11-13; covered service ways with `maxheight=13'0"` run under them), and the pack already drew them as plain
+  open roofs. `fuel-look.js` now ties them to the node: Shell fascia (yellow over red) on both, pumps under each, the pylon by the
+  nearer one. Canopy height / clearance stay the pack's estimates.
+- **Landmark colours** (r2-landmarks-b-2): the control tower's base building is beige concrete with dark window strips (was white with
+  navy bands); the garage's facade columns are round with a red band at street level (were square posts; 8-sided columns, band
+  0.9 - 1.8 m an estimate).

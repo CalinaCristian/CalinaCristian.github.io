@@ -18,19 +18,25 @@ export function stripRing(a,c,thickness) {
 export function boundaryBand(b,ring,y0,y1,thickness,sourceId,kind) {
     for(let i=0;i<ring.length;i++)structureCollider(b,stripRing(ring[i],ring[(i+1)%ring.length],thickness),[],y0,y1,sourceId,kind);
 }
+const GARAGE_POST_BAND={fromM:0.9,toM:1.8,colour:'#b5272d'}; // red band on each facade column at street level: height / position estimates
 export function garagePosts(b,ring,height,colour) {
     const p=GARAGE_STRUCTURE,area=ring.reduce((v,a,i)=>{const c=ring[(i+1)%ring.length];return v+a[0]*c[1]-c[0]*a[1];},0),s=area>0?1:-1;
     for(let i=0;i<ring.length;i++){
         const [ax,az]=ring[i],[bx,bz]=ring[(i+1)%ring.length],L=Math.hypot(bx-ax,bz-az);if(L<p.postPitchM*.9)continue;
         const n=Math.max(1,Math.round(L/p.postPitchM)),dx=(bx-ax)/L,dz=(bz-az)/L,nx=s*dz,nz=-s*dx;
         for(let j=0;j<=n;j++){
-            const t=Math.min(L-p.postWidthM/2,Math.max(p.postWidthM/2,j/n*L)),x=ax+dx*t,z=az+dz*t,w=p.postWidthM/2,d=p.postDepthM;
-            const q=[[x-dx*w,z-dz*w],[x+dx*w,z+dz*w],[x+dx*w+nx*d,z+dz*w+nz*d],[x-dx*w+nx*d,z-dz*w+nz*d]];
+            const t=Math.min(L-p.postWidthM/2,Math.max(p.postWidthM/2,j/n*L)),x=ax+dx*t,z=az+dz*t,w=p.postWidthM/2;
+            // (r2-landmarks-b-2, round 2b panorama 47.4423, -122.3005 h 41) the facade columns are round with red bands, not square
+            // posts: an 8-sided column of the post width just inside the outline, a red band at street level (band height an estimate)
+            const q=Array.from({length:8},(_,k)=>[x+nx*w+Math.cos(k*Math.PI/4)*w,z+nz*w+Math.sin(k*Math.PI/4)*w]);
             // Mapped public skybridge mouths interrupt an estimated facade post only
             // at their own entry storey; its support below/above remains physical.
             const entry=SKYBRIDGE_STRUCTURE.profiles.find(p=>Math.hypot(x-p.garage[0],z-p.garage[1])<3.65);
             const bands=entry?[[0,entry.garageFloorM],[entry.garageFloorM+SKYBRIDGE_STRUCTURE.clearInteriorM,height]]:[[0,height]];
-            for(const [lo,hi]of bands){b.prism(q,lo,hi,colour);structureCollider(b,q,[],lo,hi,'r15763840','garage-visible-post');}
+            for(const [lo,hi]of bands){
+                let y=lo;{const r0=GARAGE_POST_BAND.fromM,r1=GARAGE_POST_BAND.toM;if(r0>=y&&r1<=hi){b.prism(q,y,r0,colour);b.prism(q,r0,r1,GARAGE_POST_BAND.colour);y=r1;}}
+                if(hi>y)b.prism(q,y,hi,colour);structureCollider(b,q,[],lo,hi,'r15763840','garage-visible-post');
+            }
         }
     }
 }

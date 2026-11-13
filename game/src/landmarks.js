@@ -2609,7 +2609,9 @@ function bSeaTac(b) {
 // SeaTac Air Traffic Control Tower (2004) — 71 m (233 ft) overall, OSM way 1199936807.
 // Src: https://en.wikipedia.org/wiki/Seattle–Tacoma_International_Airport (tower 233 ft) ; game/research/seattle-seatac.json landmarks[sea-control-tower] ; OSM way 1199936807
 function bSeaTower(b) {
-    const p=U.w1199936806; b.prism(p,0,9,'#cfcdc6');b.bands(p,0,9,4.5,'#4c5964',{frac:0.5});
+    // (r2-landmarks-b-2, panorama 47.4535, -122.3005 h 20, round 2b) the base building is beige concrete (was white with navy
+    // bands); its window strips read as dark glass
+    const p=U.w1199936806; b.prism(p,0,9,'#cbbb9c');b.bands(p,0,9,4.5,'#3f464a',{frac:0.36});
     // Tagged 71 m is the complete tower height, not an invented 71 m cab floor.
     atcTower(b,0,0,65.7,{r:3.6,col:'#dedcd5'});
     b.colPolygon(p,{y1:9});b.col(0,0,3.6,3.6,0,{y0:0,y1:71});
@@ -2624,7 +2626,8 @@ function bBellevueTowers(b) {
     // (round 2, panoramas at 47.613977, -122.198816 heading 54 and NE 4th / 106th heading 47, viewed only): the podium is
     // grey-beige stone with a tall glazed retail floor under a canopy line and windows above; the model wrapped it in five
     // bold blue-and-cream stripes (a car-park look).
-    b.prism(pod, 0, 18, '#b9b3a6', { topCol: '#7f9e6b' });
+    // (r2-landmarks-b-2, round 2b at 47.613977, -122.198816 h 54) the podium stone is a darker grey than the first estimate
+    b.prism(pod, 0, 18, '#9c978e', { topCol: '#7f9e6b' });
     b.windows(pod, 0, 5.6, 5.6, '#56707f', { bay: 6.5, wf: 0.84, hf: 0.8, start: 0.2, mat: 'g', minL: 5, off: 0.07 });
     b.cornice(pod, 5.6, 0.35, 0.9, '#8f979b');
     b.windows(pod, 6.2, 17.6, 3.8, '#5d7887', { bay: 3.25, wf: 0.6, hf: 0.6, start: 0.7, mat: 'g', minL: 5, off: 0.07 });

@@ -448,22 +448,28 @@ export function buildTerrain(ground, painter, { inner, outer, innerPx = 2048, ou
         for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) {
             const xa = box.x0 + i * W / nx, za = box.z0 + j * H / nz, xb = xa + W / nx, zb = za + H / nz;
             if (insideHole((xa + xb) / 2, (za + zb) / 2)) continue;
-            const a = vert(i, j), b = vert(i + 1, j), c = vert(i + 1, j + 1), d = vert(i, j + 1);
             const hits = cuts.length ? cuts.filter(q => q.x1 > xa && q.x0 < xb && q.z1 > za && q.z0 < zb) : null;
-            if (!hits?.length) { idx.push(a, d, b, b, d, c); continue; }
-            // the cell's two triangles minus every cutout triangle over it; corners keep their grid vertex
-            const corner = new Map([[`${xa},${za}`, a], [`${xb},${za}`, b], [`${xb},${zb}`, c], [`${xa},${zb}`, d]]);
+            if (!hits?.length) { const a = vert(i, j), b = vert(i + 1, j), c = vert(i + 1, j + 1), d = vert(i, j + 1); idx.push(a, d, b, b, d, c); continue; }
+            // the cell's two triangles minus every cutout triangle over it; corners keep their grid vertex, made only when a
+            // kept piece uses them (a corner inside the cut would be an unused vertex with a zero normal: sea-spots-a-9)
+            const cv = { [`${xa},${za}`]: [i, j], [`${xb},${za}`]: [i + 1, j], [`${xb},${zb}`]: [i + 1, j + 1], [`${xa},${zb}`]: [i, j + 1] };
+            const corner = { get: (k) => cv[k] ? vert(...cv[k]) : undefined };
             for (const tri of [[[xa, za], [xa, zb], [xb, za]], [[xb, za], [xa, zb], [xb, zb]]]) {
                 let pieces = [tri]; const want = Math.sign(sArea(tri));
                 for (const h of hits) { pieces = pieces.flatMap(p => subtractConvex(p, h.t)); if (!pieces.length) break; }
                 for (const p of pieces) {
-                    const ids = p.map(([x, z]) => corner.get(`${x},${z}`) ?? freeVert(x, z)), flip = Math.sign(sArea(p)) !== want;
-                    for (let k = 1; k < p.length - 1; k++) { const t = [ids[0], ids[k], ids[k + 1]]; if (t[0] === t[1] || t[1] === t[2] || t[0] === t[2]) continue; idx.push(...(flip ? [t[0], t[2], t[1]] : t)); }
+                    const id = ([x, z]) => corner.get(`${x},${z}`) ?? freeVert(x, z), flip = Math.sign(sArea(p)) !== want;
+                    for (let k = 1; k < p.length - 1; k++) {
+                        // a sliver of the cut (zero-area fan triangle, collinear points) is dropped before its vertices are made,
+                        // so no unused vertex is left with a zero normal (sea-spots-a-9, waterfront coastline cut)
+                        if (Math.abs(sArea([p[0], p[k], p[k + 1]])) < 1e-6) continue;
+                        const t = [id(p[0]), id(p[k]), id(p[k + 1])]; if (t[0] === t[1] || t[1] === t[2] || t[0] === t[2]) continue; idx.push(...(flip ? [t[0], t[2], t[1]] : t)); }
                 }
             }
         }
         const g = new THREE.BufferGeometry();
         g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+        const pos32 = g.attributes.position.array;
         g.setIndex(pos.length / 3 > 65535 ? new THREE.Uint32BufferAttribute(idx, 1) : new THREE.Uint16BufferAttribute(idx, 1));
         g.computeVertexNormals();
         const mesh = new THREE.Mesh(g, m); mesh.receiveShadow = true; mesh.name = 'groundPlane';
@@ -474,12 +480,13 @@ export function buildTerrain(ground, painter, { inner, outer, innerPx = 2048, ou
             if (x < box.x0 || x > box.x1 || z < box.z0 || z > box.z1) return null;
             const ci = Math.min(nx - 1, Math.floor((x - box.x0) * nx / W));
             const cj = Math.min(nz - 1, Math.floor((z - box.z0) * nz / H));
-            const ids = [vid[ci + cj * (nx + 1)], vid[ci + 1 + cj * (nx + 1)], vid[ci + (cj + 1) * (nx + 1)], vid[ci + 1 + (cj + 1) * (nx + 1)]];
-            if (ids.some(id => id < 0) || insideHole(box.x0 + (ci + .5) * W / nx, box.z0 + (cj + .5) * H / nz)) return null;
-            const p = g.attributes.position, [a, b, d, c] = ids;
-            const u = (x - p.getX(a)) / (p.getX(b) - p.getX(a)), v = (z - p.getZ(a)) / (p.getZ(d) - p.getZ(a));
-            return u + v <= 1 ? p.getY(a) * (1 - u - v) + p.getY(b) * u + p.getY(d) * v
-                : p.getY(c) * (u + v - 1) + p.getY(d) * (1 - u) + p.getY(b) * (1 - v);
+            if (insideHole(box.x0 + (ci + .5) * W / nx, box.z0 + (cj + .5) * H / nz)) return null;
+            // corner heights as the Float32 grid vertices hold them (a corner inside a cutout has no vertex: same value)
+            const Y = (i, j) => { const id = vid[i + j * (nx + 1)]; return id >= 0 ? pos32[id * 3 + 1] : Math.fround(ground.heightAt(box.x0 + i * W / nx, box.z0 + j * H / nz)); };
+            const xa = box.x0 + ci * W / nx, za = box.z0 + cj * H / nz, u = (x - xa) / (W / nx), v = (z - za) / (H / nz);
+            const ya = Y(ci, cj), yb = Y(ci + 1, cj), yd = Y(ci, cj + 1), yc = Y(ci + 1, cj + 1);
+            return u + v <= 1 ? ya * (1 - u - v) + yb * u + yd * v
+                : yc * (u + v - 1) + yd * (1 - u) + yb * (1 - v);
         };
         return mesh;
     };

@@ -256,6 +256,14 @@ export default {
         ctx.painter.custom((x, T, k, isMask) => { if (isMask) return; const r = rng(3); for (const [x0, z0, x1, z1] of [[8, -60, 12, -20], [-12, -40, -8, -12], [14, 2, 18, 40]]) for (let px = x0; px < x1; px += 0.45) for (let pz = z0; pz < z1; pz += 0.45) { if (r() < 0.25) continue; const [a, b] = T(px, pz); x.fillStyle = r() < 0.7 ? '#7d5aa6' : '#9b7cc4'; x.fillRect(a, b, Math.max(1, 0.3 * k), Math.max(1, 0.3 * k)); } });
         ctx.exclude.push([[per.cx - 32, per.cz - 40], [per.cx + 32, per.cz - 40], [per.cx + 32, per.cz + 30], [per.cx - 32, per.cz + 30]].map(([x, z]) => [x, z])); // keep Pioneer Place open (no street trees)
         ctx.skipBuildings.add(OCC_CANOPY); ctx.extras.occidentalSquare = occidentalSquareProps(ctx); // the open canopy over the square's kiosk (round 3)
+        // (r3-sea-spots-b-2) Sinking Ship Garage w52781697 (OSM 3 levels / 10.9 m): the building volume stands on the highest
+        // ground under its footprint, so its roof was 10.9 m above the 2nd Ave Extension corner. Official panorama
+        // NMuWBnWs062EFE23JyuBAg on 2nd Ave Extension shows the open top deck about level with that street; the USGS 1 m DEM
+        // gives 12.52–12.84 m NAVD88 at the footprint's 2nd Ave Extension corners and 8.2 m at the prow (EPQS, 2026-11-13).
+        // Documented exception (look from the panorama, plan from OSM): the deck is at the street level of that corner
+        // (12.68 m NAVD88), the levels below it run down the slope (one open level shows at the prow); the rest of the
+        // mapped 10.9 m is below the high street.
+        { const ss = d.buildings.find((x) => x.id === 'w52781697'); if (ss) { const hi = Math.max(...ss.poly.map(([x, z]) => g.heightAt(x, z))), deck = 12.68 - d.origin.elev; if (deck > hi) { ss.h = deck - hi; ss.lv = 1; ctx.extras.sinkingShipDeck = +deck.toFixed(2); } } }
         ctx.osmBackdrop({ paint: {}, filter: (bd) => !FRONTS[bd.id], style: (bd) => (bd.amenity === 'parking' || bd.k === 'parking' ? 'parking' : (bd.h || 0) > 60 ? 'office' : 'brick'), // the Sinking Ship and the other garages are open concrete decks, not brick blocks
             lampOpts: { kinds: ['primary', 'secondary', 'tertiary', 'residential'] }, streetTreeOpts: { spacing: 14, prob: 0.45 } });
         ctx.extras.pioneerFronts = buildFronts(ctx); // the mapped fronts, each with its panorama-checked facade

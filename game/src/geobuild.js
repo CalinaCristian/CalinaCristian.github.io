@@ -142,16 +142,24 @@ export class MeshBuilder {
     }
     build() {
         const geo = new THREE.BufferGeometry();
-        geo.setAttribute('position', new THREE.BufferAttribute(this.p.slice(0, this.vc * 3), 3));
-        geo.setAttribute('normal', new THREE.BufferAttribute(this.n.slice(0, this.vc * 3), 3));
-        geo.setAttribute('uv', new THREE.BufferAttribute(this.u.slice(0, this.vc * 2), 2));
-        geo.setAttribute('color', new THREE.BufferAttribute(this.c.slice(0, this.vc * 3), 3, true));
-        if (this.t) geo.setAttribute('tile', new THREE.BufferAttribute(this.t.slice(0, this.vc), 1));
-        geo.setIndex(new THREE.BufferAttribute(this.vc > 65535 ? this.i.slice(0, this.ic) : new Uint16Array(this.i.subarray(0, this.ic)), 1));
-        // (spec 10 load budget) the box once: BufferGeometry.computeBoundingSphere builds the same box from the positions
-        // again before its radius pass; this is that radius pass, on the box computeBoundingBox made
-        geo.computeBoundingBox();
-        const sphere = geo.boundingSphere = new THREE.Sphere(), P = geo.attributes.position.array;
+        // (spec 10 load budget) an array already of the exact size (appendAll makes them so) is handed over as it is: the
+        // same numbers as its copy. The builder must not be written after build() (none is: meshes are made last)
+        const exact = (a, n) => (a.length === n ? a : a.slice(0, n));
+        geo.setAttribute('position', new THREE.BufferAttribute(exact(this.p, this.vc * 3), 3));
+        geo.setAttribute('normal', new THREE.BufferAttribute(exact(this.n, this.vc * 3), 3));
+        geo.setAttribute('uv', new THREE.BufferAttribute(exact(this.u, this.vc * 2), 2));
+        geo.setAttribute('color', new THREE.BufferAttribute(exact(this.c, this.vc * 3), 3, true));
+        if (this.t) geo.setAttribute('tile', new THREE.BufferAttribute(exact(this.t, this.vc), 1));
+        geo.setIndex(new THREE.BufferAttribute(this.vc > 65535 ? exact(this.i, this.ic) : new Uint16Array(this.i.subarray(0, this.ic)), 1));
+        // (spec 10 load budget) the box once, as computeBoundingBox makes it (Box3.setFromBufferAttribute: Math.min / Math.max
+        // from ±Infinity over every point) but read straight from the array; a NaN box goes through three's own pass, which
+        // also reports it. computeBoundingSphere would build the same box again before its radius pass: that pass is below
+        const P = geo.attributes.position.array;
+        let bx0 = Infinity, by0 = Infinity, bz0 = Infinity, bx1 = -Infinity, by1 = -Infinity, bz1 = -Infinity;
+        for (let k = 0; k < this.vc * 3; k += 3) { const x = P[k], y = P[k + 1], z = P[k + 2]; bx0 = Math.min(bx0, x); by0 = Math.min(by0, y); bz0 = Math.min(bz0, z); bx1 = Math.max(bx1, x); by1 = Math.max(by1, y); bz1 = Math.max(bz1, z); }
+        geo.boundingBox = new THREE.Box3(new THREE.Vector3(bx0, by0, bz0), new THREE.Vector3(bx1, by1, bz1));
+        if (isNaN(bx0) || isNaN(by0) || isNaN(bz0)) geo.computeBoundingBox();
+        const sphere = geo.boundingSphere = new THREE.Sphere();
         geo.boundingBox.getCenter(sphere.center);
         const cx = sphere.center.x, cy = sphere.center.y, cz = sphere.center.z; let r2 = 0;
         for (let k = 0; k < this.vc * 3; k += 3) { const dx = cx - P[k], dy = cy - P[k + 1], dz = cz - P[k + 2]; r2 = Math.max(r2, dx * dx + dy * dy + dz * dz); }

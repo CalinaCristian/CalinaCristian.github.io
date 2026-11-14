@@ -3,8 +3,8 @@
 Scope: the Seattle and Bellevue tourist-spot scenes (`game/src/spots/scenes/`). Machine-readable spec:
 [`seattle-spots.json`](seattle-spots.json) (`spots[]` with structures, plaques, iconic photo, local checks and dialogue;
 `ranking`, `culture`, `dialogue_general`). Per-spot OSM extract + USGS terrain grid: [`osm/sea-spots/`](osm/sea-spots/).
-Reference photos: [`refs/sea-spots/`](refs/sea-spots/) (Wikimedia Commons, free licences; attribution per file in each
-folder's section of `refs/LICENSES.md`). Activities: [`activities.md`](activities.md). Data © OpenStreetMap contributors (ODbL); USGS 3DEP is
+Reference photos: `refs/sea-spots/` (kept locally; Wikimedia Commons, free licences; attribution per file in
+[`refs/LICENSES.md`](refs/LICENSES.md)). Activities: [`activities.md`](activities.md). Data © OpenStreetMap contributors (ODbL); USGS 3DEP is
 public domain; Google Street View panoramas were viewed for reference only (nothing stored, traced or copied).
 
 Conventions: scene metres are x east / z south of the scene origin (`origin` in `game/data/spots/<id>.json`); heights are
@@ -59,7 +59,7 @@ Gum Wall) forced in; scenes must be small walkable outdoor places. Rank evidence
   [wp_ppm](https://en.wikipedia.org/wiki/Pike_Place_Market), [wp_bellsq](https://en.wikipedia.org/wiki/Bellevue_Square).
   Tripadvisor itself was not fetchable (403); Stacker's 2024 copy is used.
 
-## Shared findings and tooling
+## Shared rules and tooling
 
 - **Copyright**: the US has no freedom of panorama for artworks. The Fremont Troll's artists hold image rights and have
   sued commercial users (free for non-profits, per Wikipedia); Chihuly glass, Rachel (Gerber 1986), Changing Form (1971),
@@ -68,17 +68,17 @@ Gum Wall) forced in; scenes must be small walkable outdoor places. Rank evidence
   interior or the UiPath office; the Troll has one full view.
 - **Reference photos**: Ballard Locks, Gas Works, part of Pioneer Square and the four Bellevue spots have none (Commons
   rate-limited the downloads); Lincoln Square photos are shared from `refs/bellevue/`.
-- **Relation outlines**: the extracts had joined multipolygon member ways without reversing them (bow-tie outlines).
-  `tools/spots/repair-relation-outlines.mjs --from-extracts --clip-scenes` repaired 28 relation outlines in
-  `osm/sea-spots/*.json` and the scene files from live OSM relation geometry; a relation with several outer rings keeps its
-  id on the largest ring and gets `<id>_<k>` areas for the others. The extract tool is not in this repo: the repaired
+- **Relation outlines**: the relation outlines in `osm/sea-spots/*.json` and the scene files come from live OSM relation
+  geometry (`tools/spots/repair-relation-outlines.mjs --from-extracts --clip-scenes`), because the extract tool joined
+  multipolygon member ways without reversing them (bow-tie outlines); a relation with several outer rings keeps its id on
+  the largest ring and gets `<id>_<k>` areas for the others. The extract tool is not in this repo: the repaired
   extracts are the source, so a rebuild with `build-data.mjs` keeps the repair. Clipped bodies (Lake Washington r2793848,
   Lake Union r2793813, Elliott Bay r13316235, Ballard railway r4065613) are the assembled live ring clipped to the stored
   outline's bounding box.
 - **Appending live OSM**: `tools/spots/append-osm-features.mjs` appends live ways to a spot's data in the
   `build-data.mjs` schema.
 - **Furniture**: picnic tables with both seats and flagpoles at the mapped nodes come from `spots/furniture-extra.js` (the
-  hash-locked `osm.js` draws one seat and no poles); `tourism=information` boards stay undrawn by design (note 36).
+  hash-locked `osm.js` draws one seat and no poles); `tourism=information` boards stay undrawn by design.
   Playground equipment where OSM maps only the area: `spots/playground-kit.js` (generic climbing tower and swings).
 - **Backdrop** (`spots/source-landmark.js`): Mount Rainier and the Olympics recolour a copy of the shared USGS mesh with
   snow from 1950 m (blend 1650–1950 m) over haze-tinted rock and a 45 % haze mix — judged, not measured (artistic
@@ -150,7 +150,7 @@ are (assignments above), their colours (#d8a598 pink, #e6dcc4 cream, #c8b08a tan
 Fix Building 3 × 3.7 m); colonnade piers 0.7 m square, 1.6 m off the wall, ≈ 4.5 m apart, beam at 4.4 m; the lettering's
 face (the longest avenue-facing wall), height (7.2 m over the road), 18 m width and red. The Gum Wall's current height after cleanings is unknown (2024 figure used).
 
-**Open (needs a panorama look)**: the Main Arcade street front has a green dado, small-pane windows and ENTRANCE signs —
+**Not compared**: the Main Arcade street front has a green dado, small-pane windows and ENTRANCE signs —
 the pigs on the roof edge of the Economy / Main Arcade were not seen on any panorama checked and are not modelled; the
 barrel-vaulted canopy left of the sign is neither confirmed nor excluded (small and partly hidden by the sign frame from
 1st Ave and the Corner Market).
@@ -242,12 +242,11 @@ deeper soffit band (no measurement recorded).
 **Estimates**: Troll footprint ≈ 7 × 9 m; the three column lines under the deck (two are visible flanking the Troll).
 Panoramas under the bridge along N 36th St (Z4ECcm_Bohycl_4lNh_0Yw, 1Ei0hgAU9k4ebaKIP7yMvw, Yz1JPc9S36oaFTKzQyz7Mg,
 s2nejgAfrxEcFPqUbBfauA) disagree with the Troll's bearing by ≈ 30°: whether the arch over the Troll spans to a column on
-its east side, or the x = −8.75 bent line stands west of it, needs an aerial or survey of the bent positions; the game
-keeps its bent lines. From the deck panoramas the column lines are not visible.
+its east side, or the x = −8.75 bent line stands west of it, is not established (no survey of the bent positions); the
+game keeps its bent lines. From the deck panoramas the column lines are not visible.
 
-**Open (needs a panorama look)**: the Troll itself (the nearest official panorama is on the deck), the fences behind it,
-the knoll's planting (Street View shows the east bank wooded; the scene has lawn with scattered trees), the Troll Eye
-Apartments sign.
+**Not compared**: the Troll itself (the nearest official panorama is on the deck), the fences behind it, the Troll Eye
+Apartments sign. The knoll's east bank is wooded in Street View; the scene has lawn with scattered trees.
 
 ## Kerry Park (`kerry-park`)
 
@@ -265,7 +264,7 @@ Spawn 47.6295, −122.3601 heading 141° (railing beside Changing Form). Park �
 - No street trees on the park's kerb (none in OSM or the panoramas).
 - Postcard: Needle at bearing 141°, Rainier at 152.4° and ≈ 2.1° above the horizon; the backdrop matches both.
 
-**Open**: hanging planters and plaza benches seen in earlier reviews have no OSM nodes or recorded positions; the "street
+**Not modelled**: hanging planters and plaza benches seen on panoramas have no OSM nodes or recorded positions; the "street
 lamp in front of the sculpture" was not found within 9 m of Changing Form. Parked cars along W Highland Dr and the north
 side's hedges are not modelled.
 
@@ -413,7 +412,7 @@ the west end down to Elliott Bay. Spawn 47.60166, −122.3342 heading 20° (1st 
   (w1194539050, w1436091947); the four ferry slips (`mooring=ferry`: w389138743, w448857944, w448857945, w1241786940) as
   steel aprons on piles with a pair of white transfer-span towers where each outline widens; the Waterfront Trail's
   mapped benches (n14145559226 … 39) and lamps (n14005374592, n14005381663, n14005403057, n14005408300, n14145559225).
-  The fine terrain now reaches x = −440 (the slips and Pier 48's west end are off the 8 m outer steps).
+  The fine terrain reaches x = −440 (the slips and Pier 48's west end are off the 8 m outer steps).
 - Businesses: live OSM 2026-11-12 adds Sam Day Studio & Gallery, Cookie's Country Chicken, Good Bar; mapped closed and not
   signed: Woven Art (n2351695509), Luigi's (n2351695585), The Underground Gallery (n2351695606), Revolution Books
   (n2351695730), Flame Catering Cafe (n2351700811), Tobacco Patch (n2354406522), Comedy Underground (n4626879391).
@@ -426,7 +425,7 @@ canopy (5.2 × 1.6 m at 4.1 m) and its bronze; Merchant's Cafe board 7.5 × 0.85
 shed 4.6 m with 1.2 m roof overhang, glazed band, the 2-level block 7.2 m, flight rises (2.4 m, 4.2 m), canopy at 10.5 m
 on posts every ≈ 8 m, apron thickness, piles, towers 9 m; colours. Pier 48: no `surface` tag — plain concrete paint.
 
-**Open (needs a panorama look)**: Smith Tower's crown colours.
+**Not compared**: Smith Tower's crown colours.
 
 ### The totem pole (n3211770116)
 
@@ -456,8 +455,8 @@ Landmark file (Pitts 1977) and the Seattle Department of Neighborhoods. NRHP loc
   the sun, moon and stars). The top figure identifies the owner.
 - **Model**: black formline, red secondary formline / lips / nostrils, blue-green eye sockets and tertiary areas on
   unpainted grey-brown weathered cedar; no other colours. Deep relief with projecting beaks, fins, wings and the frog child
-  (`pioneer-square.js`). Proportions and paint placement: check against the Commons category "Pioneer Square totem pole"
-  (reference only).
+  (`pioneer-square.js`). Proportions and paint placement are estimates (reference: the Commons category "Pioneer Square
+  totem pole").
 - **Wording**: say "taken without consent" or "stolen", never "gift". The Coast Salish peoples native to Seattle did not
   traditionally carve totem poles; the city reviewed its totem poles for cultural sensitivity in 2018. Plaque text in
   `seattle-spots.json` credits the carvers first.
@@ -505,7 +504,7 @@ conifer grid and tree sizes; 1915 building heights; the arched windows' size and
 floor); Control Tower shaft 9 m, cab 3 m with a 0.45 m overhang, mast 4.5 m; the viewing room's size (18 × 7 × 3.2 m),
 six 2.4 × 2.2 m windows, the water colour and the 14 salmon.
 
-**Open (needs a panorama look of the lock grounds)**: the visitor centre, the garden's planting; roof-tile colour against a
+**Not compared** (no panorama of the lock grounds): the visitor centre, the garden's planting; roof-tile colour against a
 reference. Lock-wall panoramas put the game's eye in the chamber (no valid comparison).
 
 ## Gas Works Park (`gas-works`)
@@ -528,7 +527,7 @@ the lake view closed by the high bridges. Spawn 47.6456, −122.3356 heading 160
 - Aurora Bridge (w370645739, 870 m west) and I-5 Ship Canal Bridge (w4644173 / w474077561 along 122.3225 W, 1 km east) as
   silhouettes at their mapped positions.
 
-**Open / unverified** (one official panorama within 60 m, at the entrance): the amphitheatre steps (not found in OSM), the
+**Not compared** (one official panorama within 60 m, at the entrance): the amphitheatre steps (not found in OSM), the
 sundial's real design (the scene's is stylised), the towers' individual shapes, the car park, the entrance sign, the
 Burke-Gilman trail edge, floatplane and houseboat positions.
 
@@ -536,18 +535,18 @@ Burke-Gilman trail edge, floatplane and houseboat positions.
 
 **Modelled**: both sides of Bellevue Way NE between NE 4th and NE 8th St. Spawn 47.61755, −122.20195 heading 135° (NW corner
 of NE 8th × Bellevue Way). The landmark models (Lincoln Square towers, Bellevue Square, skybridges) are in
-`game/src/landmarks.js` / `landmark-bellevue-square.js`; facade colours, entrance node and skybridges are in
+`game/src/landmarks/bellevue.js` / `landmark-bellevue-square.js`; facade colours, entrance node and skybridges are in
 `seattle-bellevue.md` §6.1.
 - **UiPath Bellevue**: UiPath's offices page lists Lincoln Square North, 700 Bellevue Way NE, Suite 2000; GeekWire (2025):
   two floors, 44,735 sq ft, product & engineering hub, moved Sept 2025. Lincoln Square North (w604028609, 2005): 126 m,
   28 storeys (Wikipedia's 2005 plan says 27), staff entrance on Bellevue Way (OSM entrance n7945526075). The lobby, suite
-  look and second floor are not public — owner to confirm. `cities.js` `uipath-bel` is at 47.61723, −122.20148.
+  look and second floor are not public; the game's lobby is generic. `cities.js` `uipath-bel` is at 47.61723, −122.20148.
 - One Lincoln Tower (w604028611, w328017119; Westin + condos, 137 m, 42 storeys); Lincoln Square podium (w161929514,
   3 storeys, 10.9 m; glass canopy, The Container Store and Earls at street level, beige / salmon piers, "LINCOLN SQUARE"
   on the NE 8th canopy); Lincoln Square South (w1326151866, w1326151868, w1326151818; office 137 m / 31 storeys, W Bellevue /
   Avalon 41 storeys); Bellevue Square (w29234887, w33106348, w497738386, w497739259; 1946, 3 storeys, 120,774 m² GLA);
-  Bellevue Arts Museum (w33613449, Steven Holl 2001; sale to KidsQuest announced Oct 2025 — keep the façade, check
-  signage).
+  Bellevue Arts Museum (w33613449, Steven Holl 2001; sale to KidsQuest announced Oct 2025; the
+  game keeps the museum façade).
 - w33106348 ("Bellevue Square Mall", the L-shaped block at the SW corner of NE 8th × Bellevue Way wrapping the NE parking
   garage) is not one of the `bellevuesq` landmark's source rings (w29234887 + w497739259): it is drawn as an OSM building
   with its mapped ground-level shop signs (Crate & Barrel on the corner; Pressed Juicery, Starbucks, Cactus, Farzi Café,
@@ -576,9 +575,9 @@ garage-facing inner faces keep the generic shopfront; median width = the gap bet
 (0.6–2.4 m), planted stretch, kerb height, turn-lane breaks; skybridge / open walkway floor 6.2 m over the higher end's
 ground (`SKY_Y`, no measured level); skybridge width ≈ 4–5 m; Avenue Bellevue balcony depth 1.2 m, slab 0.22 m.
 
-**Open (needs a panorama look)**: the drive between the mall and the West Parking Garage (official panoramas
-EE7cKAltcksKzsSBPd822A, odcxtWhNyv-UeSc9O436Lw, _-8mGqQtoDS7uRaPUYC-ww, xnT4Gtmue9XZR7R-xc0iTQ, not yet viewed) for the
-skybridge floor level; UiPath lobby and signage (owner); Snowflake Lane dates (annual, December).
+**Not compared**: the drive between the mall and the West Parking Garage (official panoramas EE7cKAltcksKzsSBPd822A,
+odcxtWhNyv-UeSc9O436Lw, _-8mGqQtoDS7uRaPUYC-ww, xnT4Gtmue9XZR7R-xc0iTQ exist), so the skybridge floor level is an
+estimate; UiPath lobby and signage; Snowflake Lane dates (annual, December).
 
 ## Bellevue Downtown Park (`bel-downtown-park`)
 
@@ -604,7 +603,7 @@ Bellevue Way gateway).
 **Estimates**: no official panorama inside the park — canal coping colour, weir sills, cascade face, waterfall drop
 (≈ 3 m), terrace walls (0.45 m above the higher side), the old-school kerb, Piloti's column count / places and six 0.9 m
 vaults (its undulating canopy edge is a plain shell), obelisk height 2.9 m. Not modelled: the forecourt's lantern lamps
-and kerb bollards (no OSM nodes). Unchecked: the Bellevue Way raised median near NE 2nd St.
+and kerb bollards (no OSM nodes). Not compared: the Bellevue Way raised median near NE 2nd St.
 
 ## Bellevue Botanical Garden (`bel-botanical-garden`)
 
@@ -635,8 +634,8 @@ courtyard).
   w403375045, bleachers w1434241117/8, six `man_made=mast` floodlights, basketball court w1332124896.
 - Car park r19655198: in use with dense conifers round it; parked cars square to the mapped aisles.
 - Postcard: the guided tour's postcard frames the Perennial Border; the research iconic photo (ravine bridge) is ≈ 300 m
-  from the entry spawn, past the tour's 230 m reach, and the bridge keeps its own activity ("Cross the suspension
-  bridge"). Kept that way (2026-11-13): the postcard stays inside the tour's reach and the bridge has its own activity.
+  from the entry spawn, past the tour's 230 m reach, so the postcard stays inside the tour's reach and the bridge keeps
+  its own activity ("Cross the suspension bridge").
 
 **Estimates**: artwork stand-ins sized from one photo each; Shorts House exterior (one storey, flat roof — no exterior
 photo); pitch markings (standard proportions), floodlight masts 18 m; parked cars (OSM maps lot + aisles, not bays). Name

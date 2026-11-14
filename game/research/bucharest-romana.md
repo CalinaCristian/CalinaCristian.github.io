@@ -1,8 +1,7 @@
 # Bucharest — Romană & Victoriei (`romana`): research dossier
 
 The reference for why the Romană & Victoriei district looks the way it does. Facts are keyed by OSM id (w = way, n = node,
-r = relation); bracketed keys point to **Sources** at the end. Git history keeps the round-by-round review notes this page
-replaced.
+r = relation); bracketed keys point to **Sources** at the end.
 
 ## 1. Overview and sources
 
@@ -43,7 +42,7 @@ Starts and roads are authoritative in `cities.js` CHAPTERS.
 - Look: blue-green reflective curtain wall (#5E7F8C) with grey aluminium mullions (#9EA3A6), stone / grey-panelled base
   (#B9B4AA), flat roof with plant room and antennas. Panoramas 44.450804, 26.088191 h 315 and 44.4511, 26.0869 h 87: the glass
   is a lighter blue; the south-east end at Lascăr Catargiu is a rounded volume of grey bands between ribbon windows. The
-  landmark `europehouse` has the lighter glass and a grey-banded end volume (still square; band pitch estimated).
+  landmark `europehouse` has the lighter glass and a grey-banded end volume (square, not rounded; band pitch estimated).
 
 ### uipath-buc — UiPath HQ — The Landmark (w546500235)
 
@@ -121,7 +120,7 @@ Starts and roads are authoritative in `cities.js` CHAPTERS.
   (44.4492, 26.0915, r 450 m, 8–10 and 17–19, 0.6); Calea Dorobanților south (44.4505, 26.0985, r 200 m, 8–10 and 17–19, 0.6).
 - **Signals in the game**: equal-slot simulation phases, not measured plans (Magheru's slot at the five-phase Piața Romană is one
   fifth of the cycle). A car that has just left a controller's box is not held by the same controller's next head within 40 m
-  (`traffic.js` `SAME_CONTROLLER_M`), which stopped Piața Romană and Magheru locking up.
+  (`traffic-shared.js` `SAME_CONTROLLER_M`), so Piața Romană and Magheru do not lock up.
 
 ## 4. Structures
 
@@ -133,16 +132,14 @@ Starts and roads are authoritative in `cities.js` CHAPTERS.
   with fences between them; tram tracks and the underground tram stop in the middle; sodium lighting. Game: the shared hall
   with steel fences between the piers along the platform's road edge, benches and a stop pole only where the hall holds a mapped
   tram stop (the four "Piața Victoriei" tram_stop nodes), dark lamp housings with orange lenses every 9 m under the soffit
-  (`hall-furniture.js`: 139 posts, 20 benches, 103 lamps).
+  (`hall-furniture.js`).
 - **Pasajul Victoria approaches**: east ramp trench on Bd. Iancu de Hunedoara (44.452073, 26.088653 h 91): square light stone
   piers with dark cast-iron balustrade panels; every open approach draws that class (`trench-parapets.js`). The west descent
   (44.452076, 26.082576) is already walled ≈ 115 m before the portal, with a fenced tram reservation to the north: the eastbound
   ramp w27008418 descends at half the model grade (`grade-review.js`); the westbound exit ramp w241374320 keeps the model grade
   (9 %, ≈ 67 m).
-- **Pasajul render check** (two renders with a 2 mm camera shift): at the underpass points (-506.8, -413.3), (-386.8, -413.7),
-  (-267.8, -424.7) and (-701.6, -417.2) the changing pixels are moving vehicles and road-texture shimmer; no coplanar pair
-  except the road markings (3 cm, by design). A 6.8 m² overlap of a building outline with a service edge at (-642.1, -470.5)
-  is a source-data overlap, kept as mapped.
+- A 6.8 m² overlap of a building outline with a service edge at (-642.1, -470.5) by the underpass is in the source data
+  and kept as mapped.
 - **Driveway under Palatul Victoria** (w1516934660, `tunnel=yes`, `layer=-1`): runs under a building part with `min_height=7`:
   a street-level passage, not a dug tunnel.
 - **ASE covered footbridges** w783025570 / w783025571 / w942676266 (`bridge=covered`, layer 1): concrete deck with a cream
@@ -254,13 +251,13 @@ Key buildings:
   n11261959886 and n11222737061, bureau_de_change n11618365273, pharmacy n2637716554, bank n3757940559, community_centre
   n3956663257 (Centrul Rus de Știință și Cultură), mobile_phone n5084229431, cinema n5859527796 (Cinema Studio), shop
   n7293870987.
-- **Coverage** (live OSM 2026-11-12): 320 mapped businesses in the playable area (316 named); 292 were game POIs by name within
-  45 m; no game POI lacked a live OSM object. Kinds the builder's `poiKind()` does not keep are not POIs: nightclub (Club XS
+- **Coverage** (live OSM 2026-11-12): every game POI has a live OSM object. Kinds the builder's `poiKind()` does not keep are
+  not POIs: nightclub (Club XS
   n3118882252), `craft` (Miva Foto n2615818199), adult gaming (Win Boss n11618371471), fitness (Sky Fitness Romana
   n9947523117), galleries (OB'ART n2872402339, FormART n12318228499, Galeria SIMEZA n12318285854, Galeria Romană n6513765648),
   kindergartens, offices outside the kept list (Electrica w180563617 and other notary / lawyer / consulting nodes; arnia's own
-  office node n9913919522), physiotherapist n2839154414. `add-pois.mjs` (2026-11-12, `--edge 100`) then appended 254 rows to
-  the original 362.
+  office node n9913919522), physiotherapist n2839154414. The rest come from the build plus `add-pois.mjs` (2026-11-12,
+  `--edge 100`).
 - **Garanti BBVA**: OSM `brand=Garanti Bankası` (Turkish parent); Romanian branches are signed "Garanti BBVA".
 - Stanleybet: a shop beside the synagogue in the panorama; OSM has Stanleybet only at n11361411581 (44.44393, 26.09433), so it
   is not shown there.
@@ -270,18 +267,16 @@ Key buildings:
 ## 8. Trees, green, water and sports
 
 - **Lascăr Catargiu trees**: continuous rows on both sidewalks, crowns meeting over the sidewalk, few on the median. OSM maps
-  49 trees within 25 m (44 *Platanus orientalis*, 1 *Salix babylonica*); the 2026-11-06 research described lindens and horse
-  chestnuts. Kiseleff has a broad tree belt.
+  49 trees within 25 m (44 *Platanus orientalis*, 1 *Salix babylonica*). Kiseleff has a broad tree belt.
 - **Statue of Lascăr Catargiu**: an aerial-measured crown ≈ 11 m south-east of the statue (≈ 44.449049, 26.093009; no OSM tree
   node within 20 m) stood on the paved island that the panorama at 44.448932, 26.093057 h 331 shows open; it is a reviewed
   physical exclusion (`tree-reviews.js`), the source record stays in the pack. The street trees along the island edges stay.
-- **Piața Victoriei**: the green came from the aerial green raster (no OSM polygon); a reviewed paved ring (`ground-review.js`)
+- **Piața Victoriei**: the aerial green raster marks green there (no OSM polygon); a reviewed paved ring (`ground-review.js`)
   keeps it out of the square.
 - **Pedestrian plazas**: the shared rule ([shared-rules.md](shared-rules.md#pedestrian-plazas)). Here: 58 plazas, none
   tagged grass; the cited one round 44.4398, 26.0968 (w180685596, paving stones) is paved.
-- **Antipa tree belt**: the museum facade is hidden by trees in reality; the game shows it over open lawn. Inferred trees are
-  suppressed inside the aerial survey's coverage, so those crowns need measuring on the aerial mosaic (`tools/aerial`), never
-  placing from a panorama.
+- **Antipa tree belt**: the museum facade is hidden by trees in reality; the game shows it over open lawn, because inferred
+  trees are suppressed inside the aerial survey's coverage and the survey has no crowns there (BACKLOG.md).
 - **Water and sports**: Kiseleff fountains n7894980887 / n4405655095 and pond w1092796819, Piscina Lido w810540711 (not seen from
   a street panorama), tartan pitch w916708228; fountain basins w1331108694 and w809629318 (`add-areas.mjs`: generic 0.45 m
   light-stone coping, full water; no panorama in reach).
@@ -294,11 +289,11 @@ Key buildings:
 - **Storck collection** (n2634651933, Str. Vasile Alecsandri 16): the museum is the 1912–13 house by Alexandru Clavel,
   Anglo-Norman neo-Gothic (Muzeul Bucureștiului; cimec ghidul muzeelor); Wikipedia's coordinates (44.4509722, 26.0944917) lie
   12 m from w546500256 and 19 / 25 m from w546500238 / w546500250. w546500256 is drawn as a red-brick two-storey gabled house
-  without a shop floor, w546500238 as the cream one-storey house (pano 44.450834, 26.094312 h 60). OSM still tags the museum
-  node `tourism=artwork` in no outline: an OSM fix (`tourism=museum` on w546500256), not made here.
+  without a shop floor, w546500238 as the cream one-storey house (pano 44.450834, 26.094312 h 60). OSM tags the museum node
+  `tourism=artwork` outside any outline.
 - **Statue tree exclusion** and **Piața Victoriei paved ring**: section 8 (exceptions to the aerial survey / raster, not to OSM).
 
-## 10. Estimates and open questions
+## 10. Estimates
 
 - **Places of worship**: the shared rule ([shared-rules.md](shared-rules.md#places-of-worship)). Here: 16 churches
   with 27 towers; no tower on 3 with an OSM height (among them Biserica Albă and Biserica Doamnei), the Western-rite
@@ -307,7 +302,7 @@ Key buildings:
   form, size and finish.
 - **Royal Palace front**: column radius, pair spacing (one pair per two 4.2 m bays), cornice depth, dentil and baluster pitch;
   Carol I is massing only (plinth / group split of the 13 m OSM height).
-- **Muzeul Țăranului Român**: total height 19.6 m (a re-estimate) and 6 m roof rise (behind the Kiseleff tree belt); the
+- **Muzeul Țăranului Român**: total height 19.6 m and 6 m roof rise (behind the Kiseleff tree belt); the
   entrance tower has no OSM part or sourced height and is not drawn.
 - **Monumentul Infanteriei**: form and height (no dimensions published, hidden by trees).
 - **Pasajul Victoria**: platform and pier sizes, fence height 1.1 m, post / bench / lamp spacing and lamp colour
@@ -318,8 +313,9 @@ Key buildings:
 - **Casa Filipescu-Cesianu dormers**: one per 3.6 m along each face, size and set-back. **Storck houses**: heights 9 m /
   4.5 m. **Europe House**: band pitch; storey count conflict (OSM 14 vs listing GF + 10).
 - **Fountain basin copings** (0.45 m).
-- **Open looks**: Europe House's rounded SE end (drawn square); the copper-glass ASE new wing, white eclectic house and yellow
-  four-storey building beside ASE (generic beige block in the game); Sheraton's glazed corner cylinder; the ground floor of the
+- **Drawn generically** (the game's look is the style rule, not the real one): Europe House's rounded SE end (drawn
+  square); the copper-glass ASE new wing, white eclectic house and yellow four-storey building beside ASE (generic beige
+  block); Sheraton's glazed corner cylinder; the ground floor of the
   curved block on Str. Buzești (a row of shopfronts behind a parking strip; the game shows signs on a wall with windows);
   eclectic houses at `rom-coanda-michelangelo`; porches and separate bell towers of churches; lamp / luminaire
   model per street; facade colours of unnamed buildings are style-rule estimates.

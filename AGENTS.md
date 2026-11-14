@@ -30,7 +30,7 @@ something the next agent needs, add it here (imperative) or in the relevant spec
 ## Checks before you push (look at the pictures — numbers alone have missed real breakage)
 - Syntax of every edited module: `node --input-type=module --check < game/src/world.js` (plain `node --check` misses
   a `//` comment pasted into a one-line statement).
-- Unit tests: `node --test game/dev/*.test.mjs game/dev/harness/*.test.mjs` (known failures are listed in BACKLOG.md).
+- Unit tests: `node --test game/dev/*.test.mjs game/dev/harness/*.test.mjs tools/osm/*.test.mjs` (all pass).
 - Logic harness: `npm run harness -- --scenario=foot,a --city=bucharest` with 0 high / 0 medium.
 - Bridge and tram audits: `node game/dev/harness/bridge-bents-check.cjs <repo> <out> bucharest grozavesti` and
   `node game/dev/harness/tram-sweep-audit.cjs <repo> <out> bucharest grozavesti`.

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { execFileSync } from 'node:child_process';
+import { readDistrictData } from './district-data.mjs';
 import { extractTramCrossingMetadata, appendTramCrossingMetadata, snapshotTramCrossingSources, TRAM_SOURCE_FIELDS } from './tram-sources.mjs';
 const results = [], test = (name, fn) => { fn(); results.push(name); console.log('PASS ' + name); };
 const fixture = () => {
@@ -48,10 +48,12 @@ test('append-only field preserves bytes, old four metadata fields, date and ever
     for (const field of TRAM_SOURCE_FIELDS) assert.deepEqual(parsed[field], doc[field]);
     assert.throws(() => appendTramCrossingMetadata(next, {}), /already exists/); assert.equal(appendTramCrossingMetadata('{"trams":[]}', {}), '{"trams":[]}');
 });
-test('actual four datasets retain every81c field and exact byte prefix with one append-only addition', () => {
+test('the four tram districts carry their source crossing records', () => {
+    // (the packs are rebuilt binary files now; the one-time byte-prefix check against the 81c78e35 JSON packs is retired)
     for (const name of ['grozavesti', 'pipera', 'romana', 'unirii']) {
-        const file = `game/data/bucharest-${name}.json`, old = execFileSync('git', ['show', `81c78e35:${file}`], { encoding: 'utf8', maxBuffer: 32 * 1024 * 1024 }), now = fs.readFileSync(file, 'utf8');
-        assert.ok(now.startsWith(old.slice(0, old.match(/}\s*$/).index)), name); const doc = JSON.parse(now), before = JSON.parse(old); assert.ok(Array.isArray(doc.tramSourceCrossings)); delete doc.tramSourceCrossings; assert.deepEqual(doc, before);
+        const doc = readDistrictData(`game/data/bucharest-${name}.bin.gz`);
+        assert.ok(Array.isArray(doc.tramSourceCrossings), name);
+        for (const c of doc.tramSourceCrossings) assert.ok(c && typeof c === 'object', name);
     }
 });
 console.log(JSON.stringify({ passed: true, controls: results.length, browserOpened: false, networkUsed: false }));

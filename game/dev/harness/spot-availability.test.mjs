@@ -7,7 +7,7 @@ const block=text.split('export const SPOTS_ALL = [')[1].split('\n];')[0];
 const {all}=await import('data:text/javascript;base64,'+Buffer.from('export const all=['+block+'\n];').toString('base64'));
 const visible=MENU_ORDER.map(id=>all.find(s=>s.id===id));
 assert.equal(new Set(MENU_ORDER).size,MENU_ORDER.length);assert(visible.every(Boolean));
-assert.deepEqual([...RECOMMENDED_SPOTS],['fremont-troll','peoples-salvation-cathedral','old-town-lipscani']);
+assert.deepEqual([...RECOMMENDED_SPOTS],MENU_ORDER,'every menu spot is a recommended favourite');
 assert.equal(touristTarget('postcards-all',24,visible),visible.length);
 assert.equal(touristTarget('spots-buc',10,visible)+touristTarget('spots-sea',14,visible),visible.length);
 assert.equal(touristTarget('tours-buc',10,visible),visible.filter(s=>s.city==='bucharest').length);

@@ -284,8 +284,8 @@ exports plus focused modules; importers never import the parts.
   active }`, reused by tourist spots; harness hook `auto = {fwd, side, heading, run, jump}`.
 - Chapters (`chapters.js`): `chapterCard({done, next, index, total})`, `chapterMontage({cityName, districts, from, to,
   year0, year1, title, caption, kicker, travel, via})`, `loadProgress()` / `saveProgress()`; game `game.chapter`,
-  `game.chapterIdx`, `game.goToChapter(i)`, `game.completeChapter()`, `game.progress.{reached, done}`. main.js passes
-  `ch.montageCaption` as `travel` and `MONTAGE_VIA[ch.id]` (data.js) as `via`.
+  `game.chapterIdx`, `game.goToChapter(i)`, `game.completeChapter()`, `game.progress.{reached, done}`. The game (`game-story.js`)
+  passes `ch.montageCaption` as `travel` and `MONTAGE_VIA[ch.id]` (data.js) as `via`.
 - Free roam (`explore.js`): `game.freeRoam`, `game.explore.roam(district)`, `game.explore.resumeStory()`; saves store free
   roam as `mode: 'explore'`. `travelConditions()` returns `{tod, weather, season}`; district and city travel keep them
   unless the caller overrides.

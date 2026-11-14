@@ -1,7 +1,7 @@
 # Bucharest — Otopeni — Henri Coandă (OTP) (`otopeni`): research dossier
 
 The reference for why the Otopeni district looks the way it does. Facts are keyed by OSM id (w = way, n = node, r = relation);
-bracketed keys point to **Sources** at the end. Git history keeps the round-by-round review notes this page replaced.
+bracketed keys point to **Sources** at the end.
 
 ## 1. Overview and sources
 
@@ -44,8 +44,8 @@ bracketed keys point to **Sources** at the end. Git history keeps the round-by-r
   `lanes=3`), 70 km/h through Otopeni and on the flyover, 50 on the airport link. Seen at 44.5595, 44.5672, 44.5687 and
   44.568650, 26.069899: one continuous concrete New Jersey barrier between the carriageways; kerb, sidewalk, bollards and grass
   on the outer edges, no guard rail in town. Game: one barrier on the line between the carriageways (`dualCarriagewayBarrier`
-  in `cities.js`, rule in `world.js`); plain trunk edges with a mapped sidewalk of 1.2 m or more get no generated concrete
-  guard (`world.js`; only DN1 qualifies in the eight districts). Frontage: car dealerships, fuel stations, Novomatic HQ,
+  in `cities.js`, rule in `world-walls.js`); plain trunk edges with a mapped sidewalk of 1.2 m or more get no generated
+  concrete guard (`world-walls.js`; only DN1 qualifies in the eight districts). Frontage: car dealerships, fuel stations, Novomatic HQ,
   warehouses, hotels, billboards on tall poles, flat open land. Transit: STB express buses 100 and 780, regional 4xx.
 - **Bd. Aeroportului**: one-way airport loop (2 lanes, north side), Hilton Garden Inn (w756554173, 4 lv / 12 m), car parks.
 - **Access road from DN1 under the rail viaduct** (panoramas 44.568636, 26.071303; 44.56877, 26.07244; 44.56878, 26.0734):
@@ -59,7 +59,7 @@ bracketed keys point to **Sources** at the end. Git history keeps the round-by-r
   [speed_ro].
 - **Rompetrol on Str. Nicolae Grigorescu** (w918040922): the street and the DN1 northbound carriageway south of it form a
   pocket entered only from the southern map edge; no legal route reaches it from the chapter start inside the district (no join
-  is invented). The map's Gas stations list offers a station only when a route reaches it (`main.js` `stationOffered`); it
+  is invented). The map's Gas stations list offers a station only when a route reaches it (`game-road.js` `stationOffered`); it
   stays a real POI.
 
 ## 4. Structures
@@ -97,7 +97,7 @@ bracketed keys point to **Sources** at the end. Git history keeps the round-by-r
   entrance canopies on white columns, a white cylindrical stair tower and the blue curtain wall at the ground kerb; drawn so.
   The vault canopy positions along the front are estimates (door groups not mapped). Terminal Vioara has no panorama in reach.
 - **Control tower**: the five ring floors stand under the mapped cab w794617342 (`aeroway=tower`, `min_height=20`,
-  `height=25`). In the panorama the tower looks about twice as tall; the OSM height is kept (estimate not settled).
+  `height=25`). In the panorama the tower looks about twice as tall; the OSM height is kept.
 - **CFR station `otpgara`** (w813193384; poses 44.56887, 26.07495 h 10 / 300 and 44.568817, 26.073336 h 60 / 66): concrete box
   girder deck on hammerhead wall piers with crossheads, glazed barrel vault with green ribs and edge bands over the platforms
   (rise 4.6 m estimate), glazed stair / lift tower at the west end. `airport-forecourt.js` skips its own vault when the
@@ -121,8 +121,8 @@ Business research (2026-11-07): zone = within 60 m of a chapter route (routed on
 door, one-way and turn-restriction aware) plus recognisable businesses within 50 m of a main street in the district mask;
 standalone ATMs, parcel lockers, chargers and pure company offices left out. Confidence: high = official locator match or OSM
 `check_date` ≥ 2025-05; medium = OSM element edited / checked since 2023-11; low = older, or a chain missing from its
-locator. Locators used are listed under Sources [locators]. POIs in the game: `tools/osm/add-pois.mjs` (live OSM 2026-11-12,
-`--edge 100`) appended 17 rows to the original 72.
+locator. Locators used are listed under Sources [locators]. POIs in the game: the build plus `tools/osm/add-pois.mjs`
+(live OSM 2026-11-12, `--edge 100`).
 
 Businesses along DN1, south to north (all present in the game on the right building unless noted):
 
@@ -184,11 +184,10 @@ Other business facts:
   tagged grass (Piața Otopeni among them).
 - Flat, open landscape: the forecourts and fields along DN1 are open grass with few trees.
 - **DN1 fields crowns**: the crowns in 44.563–44.568 × 26.0705–26.078 are measured (aerial survey
-  `trees-bucharest-otopeni.json`: 307 crowns, radius median 3.1 m, quartiles 2.2 / 4.9 m), not inferred. All 307 were drawn
-  over Esri z19 imagery and inspected (2026-11-13): 63 stood on the airside taxiway and 2 on paving and were removed from the
-  survey and the pack (ledger `trees-bucharest-otopeni-review.json` `dn1FieldsReview20261113`); the other 242 (hedgerow trees,
-  wood edge, ambiguous vegetation) stay. Removing more needs a bounded crop review on the aerial mosaic (`tools/aerial`),
-  never thinning.
+  `trees-bucharest-otopeni.json`), not inferred. Each was checked over Esri z19 imagery (2026-11-13); crowns on the airside
+  taxiway and on paving are excluded (ledger `trees-bucharest-otopeni-review.json` `dn1FieldsReview20261113`), and the
+  hedgerow, wood-edge and ambiguous-vegetation crowns stay. Any further removal goes through a crop review on the aerial
+  mosaic (`tools/aerial`), never thinning.
 - No water body or fountain inside the district. Ramada pools w1322339467 (21 m², 44.55956, 26.07210) and w706499892 are
   areas with a coping / deck (`add-areas.mjs`); no panorama shows them. Pitch w1244012657, tennis w1244012659 and the Water
   Park Otopeni pools (r3149817, w233941336, w233941343) are 190 – 390 m outside the playable area, present as areas; the
@@ -199,10 +198,9 @@ Other business facts:
 - **MOL station tagged OMV** (w244429098): green canopy with white MOL letters, white columns, green MOL pylon at the south end
   by DN1 (panoramas NDGwi1S_sXzOjXEXu_Xs8w h16, iNwZVPNKq8h9KgXzPzc8YA h152). OSM tags `brand=OMV` but its own
   `brand:wikipedia` reads en:MOL. Drawn as seen: MOL look, canopy / pylon lettering, map label and canopy building name
-  (`fuel-look.js` `seenBrand` / `text`, read by `world.js`); the data keeps OSM's brand. Upstream fix still to make
-  (brand=MOL), then the exception can go.
+  (`fuel-look.js` `seenBrand` / `text`); the data keeps OSM's brand. The exception lasts while OSM tags `brand=OMV`.
 
-## 9. Estimates and open questions
+## 9. Estimates
 
 - **Rail viaduct**: deck width 6.5 m, girder depth 2.2 m, piers every 24 m (real pier positions not surveyed; 3 spans have no
   support where no free ground was found). **Footbridges**: clearance 5.5 m, deck 2.6 m, truss 2.4 m. All recorded per source
@@ -215,7 +213,7 @@ Other business facts:
   Terminal Vioara, the memorial plaza, the Ramada pools.
 - **Access road sidewalk**: the game has a sidewalk with bollards on the north side; reality has one on the south side only.
 - **Forecourt flags / sculpture**: in the panorama, not in OSM (possibly removed by the M6 works).
-- **2022 vs 2025 kerb layout** and terminal facade details beyond the reviewed poses.
+- **Terminal facade** details beyond the reviewed poses; the kerb follows the 2022 layout (section 2).
 
 ## 10. Sources
 

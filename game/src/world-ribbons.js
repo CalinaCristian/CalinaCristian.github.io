@@ -6,6 +6,7 @@ import { displaceBridgeSurface } from './bridge-surface-mesh.js';
 import { distPointSeg, pointInPolygon } from './util.js';
 import { insetFootprint } from './building-parts.js';
 import { sidewalkWidth } from './sidewalk-source.js';
+import { deckWalkSide } from './bridge-walkways.js';
 import { buildMarkingStations, clipAffineMarkingRange, clipMarkingConvex, markingArea, markingDashIntervals, subtractMarkingConvex } from './road-markings.js';
 import { BoxGrid, CLASS_RANK, convexHull, isMotorwayTrunk } from './world-shared.js';
 import { buildEdgeRibbons } from './world-edge-ribbons.js';
@@ -201,7 +202,8 @@ export function buildRibbons(ctx) {
     // (2026-11-08, owner: "parked cars look sunk", then "do the sidewalks") sidewalks at the kerb's height
     // (Y.road + Y.kerb) instead of 0.22 m below it — the top of every sidewalk band, the junction corners between them, the
     // physics (surfacesAt → walkers, the car mounting a kerb), the crowd and everything standing on a sidewalk (DY_SIDE)
-    const raisedEdge = (e, side = null) => !e.virtual && (side == null ? Math.max(sidewalkWidth(e, 1), sidewalkWidth(e, -1)) : sidewalkWidth(e, side)) > 0.3 && !isMotorwayTrunk(e.type) && !e.tunnel && !e.bridge;
+    // (a deck walkway, bridge-walkways.js: the sidewalk a mapped footway puts on a raised deck is raised too, on any road class)
+    const raisedEdge = (e, side = null) => !e.virtual && (side == null ? Math.max(sidewalkWidth(e, 1), sidewalkWidth(e, -1)) : sidewalkWidth(e, side)) > 0.3 && !e.tunnel && (e.deckWalk ? side == null || deckWalkSide(e, side) > 0 : !isMotorwayTrunk(e.type) && !e.bridge);
     // (edge ribbons: world-edge-ribbons.js)
     const __buildEdgeRibbons = buildEdgeRibbons({
         RETAIN_H, US, asphaltBase, asphaltEnds, ballastCol, band, cellOf, city,

@@ -90,6 +90,10 @@ exports plus focused modules; importers never import the parts.
   `world.surfacesAt(x, z)`, `world.walkTop`, `world.onRibbon(x, z, r)`, `world.ribbons`, `world.sidewalkWidth(edge, side)`
   (`side` +1/−1 = right/left of `a→b`; pedestrians, furniture and roadside parking must use it; `edge.sidewalk` is the
   aggregate fallback).
+- Deck walkways (`bridge-walkways.js`): a reviewed OSM sidewalk footway on a raised deck sets that side's sidewalk width
+  and `edge.deckWalk[side]`; the walkway is raised, the deck and its railing are widened by it. Where a district has one,
+  `world.deckWalkLevel(x, z)` gives the walkway top (else null) and walkers carry `p.deckY`: roads, vehicles and the
+  player at another level ignore them. Report: `world.stats.bridgeWalkways`.
 - Static bodies: `world.buildings` (+ `.query(x, z, r, cb)`, records carry `holes` and optional `sourceId`),
   `collideBuildings(list, x, z, r, y?)` export (hole-aware), `world.walls[] {ax,az,bx,bz,y0a,y1a,y0b,y1b,nx,nz,kind,edge}`.
 - `world.pois[] {id, kind, label, brand, x, z, doorX, doorZ, cv, interactive, …}`; CV stop ids `rosetti, upb, gts,

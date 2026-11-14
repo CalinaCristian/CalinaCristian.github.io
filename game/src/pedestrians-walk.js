@@ -1,9 +1,10 @@
 // Pedestrians methods (split from traffic.js, spec 22; mixed into Pedestrians by mixin.js): initial admission (walk /
 // stand slots), walk planning and replanning, static obstacles, side offsets and the peer-spacing guards.
 import { clamp } from './util.js';
+import { deckWalkShiftAt } from './bridge-walkways.js';
 import { roadSideWidth } from './nav.js';
 import { collideBuildings } from './world-collide.js';
-import { Grid, PED_R, pointInPoly, streetLevel } from './traffic-shared.js';
+import { Grid, PED_R, pointInPoly, walkerLevel } from './traffic-shared.js';
 
 export class PedestriansWalk {
     /** The free sidewalk slots of `edges` (each on p's side, then the other) nearest p first: the order of a stable sort
@@ -133,9 +134,9 @@ export class PedestriansWalk {
      * Change its route from its physical pose; normal walking supplies every step. */
     freeVehiclePoint(x, z, r = PED_R + 0.4) {
         const G = this.t.grid; if (!G?.items) return true;
-        let clear = true;
+        let clear = true; const deck = this.t.world?.deckWalkLevel?.(x, z) ?? null;
         G.query(x, z, 12, v => {
-            if (!clear || v.inactive || !streetLevel(v)) return;
+            if (!clear || v.inactive || !walkerLevel(v, deck)) return;
             const fx = -Math.sin(v.heading), fz = -Math.cos(v.heading), dx = x - v.x, dz = z - v.z;
             if (Math.abs(dx * fx + dz * fz) < v.length / 2 + r + 0.05 && Math.abs(-dx * fz + dz * fx) < v.width / 2 + r + 0.05) clear = false;
         });
@@ -361,7 +362,7 @@ export class PedestriansWalk {
         p.walkOff = (dx * e.nx + dz * e.nz) * p.side - this.off(e, p.side) - (p.dodge || 0) - this.taper(e, p.side, p.s);
     }
     /** A lane-drop taper moves the sidewalk out with the kerb (world.sideExtra): the walking line follows it. */
-    taper(e, side, s) { return e.taperR ? this.t.world?.sideExtra?.(e, side, s) || 0 : 0; }
+    taper(e, side, s) { return (e.taperR ? this.t.world?.sideExtra?.(e, side, s) || 0 : 0) + (e.deckWalkShift ? deckWalkShiftAt(e, side, s / (e.len || 1)) : 0); }
     placeWalk(p) {
         const ox = p.x, oz = p.z;
         if (this.width(p.e, p.side) <= 0 && this.width(p.e, -p.side) > 0) { p.side = -p.side; p.walkOff = 0; p.dodge = 0; p.dodgeEdge = null; }
@@ -470,7 +471,7 @@ export class PedestriansWalk {
         if (!p.onRoad && !this.roadAt(oldX, oldZ, PED_R) && this.roadAt(x, z, PED_R)) return false;
         let clear = true;
         if (this.t.grid?.items) this.t.grid.query(x, z, 12, v => {
-            if (!clear || v.inactive || !streetLevel(v)) return;
+            if (!clear || v.inactive || !walkerLevel(v, p.deckY)) return;
             const fx = -Math.sin(v.heading), fz = -Math.cos(v.heading);
             const pen = (a, b) => Math.min(v.length / 2 + PED_R - Math.abs((a - v.x) * fx + (b - v.z) * fz), v.width / 2 + PED_R - Math.abs(-(a - v.x) * fz + (b - v.z) * fx));
             const after = pen(x, z); if (after > 0 && after > pen(oldX, oldZ) + 1e-6) clear = false;

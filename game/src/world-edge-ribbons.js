@@ -49,12 +49,13 @@ export function buildEdgeRibbons(ctx) {
         for (const poly of railRoadside.footprint(e, [aR, bR, bL, aL])) ribbons.push({ e, poly });
         // sidewalks
         const hasSide = Math.max(sidewalkWidth(e, 1), sidewalkWidth(e, -1)) > 0.3;
-        if (!hasSide && (e.bridge || elevated) && !e.tunnel) {
+        if ((!hasSide || e.deckWalk) && (e.bridge || elevated) && !e.tunnel) {
             // (round 6 note 52) decks / ramps without a walkway: a concrete edge strip from the asphalt to under the barrier
             // (it stands 0.3 m out) — the gap showed the ground / the void below the deck as a black band
             // per side, and only where the strip would not lie over another road (a gore with a ramp at another height)
             const wE = (ed, sd) => widthAsphalt(ed, sd) + 0.45, wI = (ed, sd) => Math.max(0.1, widthAsphalt(ed, sd) - 0.05);
             for (const sd of [1, -1]) {
+                if (e.deckWalk && sidewalkWidth(e, sd) > .3) continue; // (the deck walkway's own side)
                 let clear = true;
                 for (const t of [0.1, 0.3, 0.5, 0.7, 0.9]) {
                     const px = e.a.x + (e.b.x - e.a.x) * t + e.nx * wE(e, sd) * sd, pz = e.a.z + (e.b.z - e.a.z) * t + e.nz * wE(e, sd) * sd, py = yAlong(e,px,pz);
@@ -97,7 +98,7 @@ export function buildEdgeRibbons(ctx) {
             if (e.a.pad) { if (sidewalkWidth(e, 1) > .3) pushPad(e.a, 'side', sa); if (sidewalkWidth(e, -1) > .3) pushPad(e.a, 'side', ta); }
             if (e.b.pad) { if (sidewalkWidth(e, 1) > .3) pushPad(e.b, 'side', sb); if (sidewalkWidth(e, -1) > .3) pushPad(e.b, 'side', tb); }
             // kerbs: raised strip + vertical face along both edges
-            if (!isMotorwayTrunk(e.type) && !e.tunnel) {
+            if ((!isMotorwayTrunk(e.type) || e.deckWalk) && !e.tunnel) {
                 for (const s of [1, -1]) {
                     if (sidewalkWidth(e, s) <= .3) continue;
                     const ia = s > 0 ? aR : aL, ib = s > 0 ? bR : bL;
@@ -141,23 +142,32 @@ export function buildEdgeRibbons(ctx) {
                             // A ramp's back slope cannot project over the street below it: use its retaining face.
                             // The usual 1 m level filter is for kerbs / markings, not for this apron footprint.
                             const backCov = p => coveredByOther(p[0], p[1], e, yAlong(e, p[0], p[1]), 0.02, false, elevated ? Infinity : 1);
+                            if (e.deckWalk && e.bridge) { // a deck walkway ends at the deck edge: its outer face down to the deck, the railing stands on it
+                                c.ground.wall(w0[0], w0[1], w1[0], w1[1], yR - 0.45, top, e.nx * s, e.nz * s, shadeRgb(sideCol, 0.8)); raisedPieces++; return; }
                             if (!backCov(f0) && !backCov(f1) && !backCov(lp(f0, f1, 0.5)) && !backCov(lp(w0, f0, 0.5)) && !backCov(lp(w1, f1, 0.5))) c.ground.face4([w0[0], top, w0[1]], [w1[0], top, w1[1]], [f1[0], Y.landuse + 0.01, f1[1]], [f0[0], Y.landuse + 0.01, f0[1]], sideCol, [e.nx * s * 0.34, SL, e.nz * s * 0.34]);
                             else c.ground.wall(w0[0], w0[1], w1[0], w1[1], Y.landuse - 0.02, top, e.nx * s, e.nz * s, shadeRgb(sideCol, 0.8));
                             raisedPieces++;
                         };
                         const clear = (o0, o1, w0, w1, fs) => { for (const f of fs) { const p1 = lp(o0, o1, f), p2 = lp(w0, w1, f); if (cov(p1) || cov(p2) || cov(lp(p1, p2, 0.5))) return false; } return true; };
-                        const F5 = [0, 0.25, 0.5, 0.75, 1], F3 = [0, 0.5, 1];
+                        const F5 = [0, 0.25, 0.5, 0.75, 1], F3 = [0, 0.5, 1]; let covered = 0;
                         for (let j = 0; j < k; j++) {
                             const o0 = lp(oa, ob, j / k), o1 = lp(oa, ob, (j + 1) / k), w0 = lp(sa2, sb2, j / k), w1 = lp(sa2, sb2, (j + 1) / k);
                             if (clear(o0, o1, w0, w1, F5)) { swq(o0, o1, w0, w1); continue; }
                             const m = Math.max(1, Math.ceil(Math.hypot(o1[0] - o0[0], o1[1] - o0[1]) / 0.8));
-                            for (let q = 0; q < m; q++) { const a0 = lp(o0, o1, q / m), a1 = lp(o0, o1, (q + 1) / m), b0 = lp(w0, w1, q / m), b1 = lp(w0, w1, (q + 1) / m); if (clear(a0, a1, b0, b1, F3)) swq(a0, a1, b0, b1); }
+                            for (let q = 0; q < m; q++) { const a0 = lp(o0, o1, q / m), a1 = lp(o0, o1, (q + 1) / m), b0 = lp(w0, w1, q / m), b1 = lp(w0, w1, (q + 1) / m); if (clear(a0, a1, b0, b1, F3)) swq(a0, a1, b0, b1); else if (e.deckWalk) covered += 1 / (k * m); }
                         }
+                        // (bridge-walkways.js) how much of a deck walkway another carriageway at its level covers: the crowd keeps off one mostly covered
+                        if (e.deckWalk) (e.deckWalkCovered || (e.deckWalkCovered = {}))[s] = Math.round(covered * 100) / 100;
                     }
                     if (raise) for (const n of [e.a, e.b]) { // a raised sidewalk that just stops (dead end, map edge): close its end
                         if (n.pad || n.edges.filter(f => !f.virtual).length !== 1) continue;
                         const [ki, wo] = n === e.a ? [oa, sa2] : [ob, sb2], ri = n === e.a ? ia : ib, out = n === e.a ? -1 : 1;
                         c.ground.wall(ri[0], ri[1], wo[0], wo[1], Y.landuse - 0.02, top, e.dirx * out, e.dirz * out, shadeRgb(sideCol, 0.8));
+                    }
+                    if (raise && e.deckWalk && e.bridge) for (const n of [e.a, e.b]) { // a deck walkway the next edge does not carry on: its end face (bridge-walkways.js)
+                        const next = n.pad ? null : n.edges.find(f => f !== e && !f.virtual); if (n.pad || (next && raisedEdge(next, (next.a === n) === (e.b === n) ? s : -s))) continue;
+                        const [ki, wo] = n === e.a ? [oa, sa2] : [ob, sb2], out = n === e.a ? -1 : 1;
+                        c.ground.wall(ki[0], ki[1], wo[0], wo[1], yR - 0.45, top, e.dirx * out, e.dirz * out, shadeRgb(sideCol, 0.8));
                     }
                     if (raise) for (const n of [e.a, e.b]) if (n.pad) { // corner pieces at the junction (drawn with the pads)
                         let L2 = sideJoins.get(n); if (!L2) sideJoins.set(n, L2 = []);

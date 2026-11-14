@@ -2,7 +2,7 @@
 // (carriageway tests, kerb clamp, vehicle avoidance, crossings and node plans) and crowd separation.
 import { angleLerp, clamp } from './util.js';
 import { turnAngle } from './nav.js';
-import { PED_R, streetLevel } from './traffic-shared.js';
+import { PED_R, walkerLevel } from './traffic-shared.js';
 
 const T_BUC = (peds) => peds.t.buc;
 
@@ -11,7 +11,7 @@ export class PedestriansRoad {
      * from moving away from the waiting person. Preview the actual native
      * placement, including its unfinished heading/turn, without moving it. */
     vehicleStepClearsPerson(v, p, dt) {
-        if (!streetLevel(v) || !v.edge || !this.t.placeOnLane) return false;
+        if (!walkerLevel(v, p.deckY) || !v.edge || !this.t.placeOnLane) return false;
         const radius = Math.max(PED_R, this.reach(p)), fx = -Math.sin(v.heading), fz = -Math.cos(v.heading);
         if ((p.x - v.x) * fx + (p.z - v.z) * fz > v.length / 2) return false; // retain genuine front crossing yield
         const distance = (x, z, h) => { const fx = -Math.sin(h), fz = -Math.cos(h), dx = p.x - x, dz = p.z - z; return Math.max(Math.abs(dx * fx + dz * fz) - v.length / 2, Math.abs(-dx * fz + dz * fx) - v.width / 2); };
@@ -57,8 +57,10 @@ export class PedestriansRoad {
     roadAt(x, z, margin = 0.4) {
         const list = this.t.index.near(x, z, 30, this._near || (this._near = [])), boxes = this._roadBox || (this._roadBox = new Map());
         let best = null, bp = 0;
+        const deck = this.t.world.deckWalkLevel?.(x, z) ?? null; // (on a deck walkway: a road passing below is not in its way, bridge-walkways.js)
         for (const e of list) {
             if (e.tunnel || (e.ya ?? 0) > 1.5 || (e.yb ?? 0) > 1.5) continue;
+            if (deck !== null && deck - Math.max(e.ya ?? 0, e.yb ?? 0) > 2.5) continue;
             // (spec 10 load budget) the nearest point lies in the edge's bounding box: an axis gap past the wider half width
             // plus the margin (and 1 µm) cannot be a hit, so that edge is skipped (the static graph's boxes are kept here)
             let bb = boxes.get(e);
@@ -131,7 +133,7 @@ export class PedestriansRoad {
         const sd = (v, a, x, z) => { const dx = x - v.x, dz = z - v.z; return Math.max(Math.abs(dx * a[0] + dz * a[1]) - v.length / 2, Math.abs(dx * a[2] + dz * a[3]) - v.width / 2); };
         if (moved) {
             T.grid.query(p.x, p.z, 10, (v) => {
-                if (blocked || v.inactive || !streetLevel(v)) return;
+                if (blocked || v.inactive || !walkerLevel(v, p.deckY)) return;
                 const a = ax(v), n = sd(v, a, p.x, p.z); if (n >= R + M) return;
                 if (n < sd(v, a, ox, oz) - 1e-4) blocked = true;
             });
@@ -141,7 +143,7 @@ export class PedestriansRoad {
         for (let pass = 0; pass < 2; pass++) {
             let any = false;
             T.grid.query(p.x, p.z, 10, (v) => {
-                if (v.inactive || !streetLevel(v)) return;
+                if (v.inactive || !walkerLevel(v, p.deckY)) return;
                 const a = ax(v), dx = p.x - v.x, dz = p.z - v.z;
                 const f = dx * a[0] + dz * a[1], l = dx * a[2] + dz * a[3];
                 const hl = v.length / 2 + R, hw = v.width / 2 + R;
@@ -167,7 +169,7 @@ export class PedestriansRoad {
         const x0 = p.x, z0 = p.z, dx = leg.x - x0, dz = leg.z - z0, L = Math.hypot(dx, dz) || 1;
         let hit = false;
         T.grid.query(x0 + dx / 2, z0 + dz / 2, L / 2 + 6, (v) => {
-            if (hit || v.inactive || !streetLevel(v)) return;
+            if (hit || v.inactive || !walkerLevel(v, p.deckY)) return;
             for (let s = 0; s <= L; s += 0.7) {
                 const x = x0 + dx * s / L - v.x, z = z0 + dz * s / L - v.z, hfx = -Math.sin(v.heading), hfz = -Math.cos(v.heading);
                 if (Math.abs(x * hfx + z * hfz) < v.length / 2 + 0.5 && Math.abs(-x * hfz + z * hfx) < v.width / 2 + 0.5) { hit = true; return; }

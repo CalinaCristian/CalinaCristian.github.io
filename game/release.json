@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-94d0756481eb1eef",
-  "sourceCommit": "c71e539196f8250880d668b09dd4a7677e39335a",
-  "fingerprint": "94d0756481eb1eef7ae4e7b24de6bc6ee25a9ea3001dc7cd17f8af4c2468c056",
+  "releaseId": "game-791caa1410a5afa5",
+  "sourceCommit": "043d9c3954898f5d26b2c35b4fc39b29b516f58d",
+  "fingerprint": "791caa1410a5afa5dfd025e4345babea6301ae8e18991c4cee385737030eccce",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -277,6 +277,10 @@
       "sha256": "a808088b2254da3d0089e3db6b331f779911918b329518f67df6a0122c810081"
     },
     {
+      "path": "game/src/bridge-walkways.js",
+      "sha256": "3d2ab0abb548a8a3d2899b20592f110448cb888837b4d68d5f11058a6d9cc32d"
+    },
+    {
       "path": "game/src/build-pool.js",
       "sha256": "d2aa54a330f6d95f1b8af9d3f86ed0bf27810f06cbe9d514c0a7ffbb61a80fec"
     },
@@ -386,7 +390,7 @@
     },
     {
       "path": "game/src/chapter-start.js",
-      "sha256": "7133ba88d886b15f6ccae502eeb11dc4128f8f1a877eca7783a767704de316f3"
+      "sha256": "0af26fbf7af0710c6e6d0b0a8fc4395bf261a00bfb664cc7b6446ced63e0a4c8"
     },
     {
       "path": "game/src/chapter-waypoint.js",
@@ -403,10 +407,6 @@
     {
       "path": "game/src/cockpit-displays.js",
       "sha256": "27b748de131baa24e1ea9089e9e836a49e25c32472d92aa35130ef188e5aed53"
-    },
-    {
-      "path": "game/src/contraflow-bus.js",
-      "sha256": "843a4e87dc02c426c2a29e03072aa6cb51a06a10881709a163cf0f4f16cb3353"
     },
     {
       "path": "game/src/covered-platform-canopies.js",
@@ -614,7 +614,7 @@
     },
     {
       "path": "game/src/initial-traffic-admission.js",
-      "sha256": "52a6d6ce18d5010ec4fd56e07de103701388dda7c8600bf0f0d0b91064319ff6"
+      "sha256": "06629b683b09bf274dd672d779e55ca8fd3d64512be230fefc4a5834bd05d443"
     },
     {
       "path": "game/src/initial-vehicle-admission.js",
@@ -790,7 +790,7 @@
     },
     {
       "path": "game/src/nav.js",
-      "sha256": "7b434624be2f9fd2c0ed830cd9c4296e28bf282bc2a2625b8341030a881f4d24"
+      "sha256": "8bd27525e696f72485fdd40967f22ddff6d634295c743d14372d4fa72cee2bb3"
     },
     {
       "path": "game/src/normal-guard.js",
@@ -934,15 +934,15 @@
     },
     {
       "path": "game/src/pedestrians-road.js",
-      "sha256": "29cccab59fa4acda619e351b8c033232bbd300458342ec02933da8359a1999e0"
+      "sha256": "b9e6ac2f1d51230bcaac861bbcb9fb3ac4c4103e9f50cbb3e24e1a0cea7eb1b0"
     },
     {
       "path": "game/src/pedestrians-walk.js",
-      "sha256": "5af0d2140ecf616625bcb1332f2d6084e423e09958cbcbfddeeb2035e644d6b8"
+      "sha256": "2361cea08b744a8bbe3a2db29d99eddcee902c2fa4252889c95ee9d6270b4a8e"
     },
     {
       "path": "game/src/pedestrians.js",
-      "sha256": "d14f9981906ae11703be56b57877975a75d77822690d7234f241ed7b7a4daf4b"
+      "sha256": "2f8b3c1bb929862b2bedea67e0f4139c7ebd184619cc34e9cf67db9f73759995"
     },
     {
       "path": "game/src/photo.js",
@@ -954,7 +954,7 @@
     },
     {
       "path": "game/src/player.js",
-      "sha256": "b215b6b09f3e92c0704cf76f5ad590c4071340ee55c2ee0c26766045b5da2e6d"
+      "sha256": "8112ad1c78decf534301ee9ebfbaf1a33efba32b216ff1667e326099eeb18b1a"
     },
     {
       "path": "game/src/playgrounds.js",
@@ -1630,15 +1630,15 @@
     },
     {
       "path": "game/src/traffic-lanes.js",
-      "sha256": "04889784d95ec1b6e631777ab2db642d5a546d62b938b7025512ee6f17ead4dc"
+      "sha256": "015590d6659d3f8ada810938dcd4cc71263f47962b76ee1ba5225af4891b3486"
     },
     {
       "path": "game/src/traffic-parking.js",
-      "sha256": "884341f515090fb4961b60d8e89c10f53eaf428f9b8d00424de6aae20f277e11"
+      "sha256": "298872274fd18f15bbef75d58feee40258a0bf6d3b9d322d3f1b973940623533"
     },
     {
       "path": "game/src/traffic-shared.js",
-      "sha256": "4c7e0f708d0cd2d16edc2a853cf259e449ce7c6cc2da927e13a314827ffe446e"
+      "sha256": "f1e15e2b2455bb1474ee19b6a90c014934c9ec6880f6d06c4d39f6d1db4e7cd9"
     },
     {
       "path": "game/src/traffic-step.js",
@@ -1710,7 +1710,7 @@
     },
     {
       "path": "game/src/turn-lanes.js",
-      "sha256": "cf9e513d43f0a224ac0423b024d75d98746fbdb0f912335f825b93afb2a98db3"
+      "sha256": "1891090004c411251dc18526086b0d6ab072a6a542fa35e9f87a5104ebe2b716"
     },
     {
       "path": "game/src/underpass-ground-owner.js",
@@ -1782,7 +1782,7 @@
     },
     {
       "path": "game/src/world-api.js",
-      "sha256": "7cb8d039096722a89e675119d21fb835f58829060703c7a9391fd70824b3fd18"
+      "sha256": "6d97bb7b82483d2bef06ee23620acf3bad57c2442d5f2fd2606371346bbcecb7"
     },
     {
       "path": "game/src/world-areas-water.js",
@@ -1806,11 +1806,11 @@
     },
     {
       "path": "game/src/world-district-graph.js",
-      "sha256": "8edcfa3d0b4e307459a71df0ead1ccf1f5a64c2cdfca25b3a5735876e1f9abea"
+      "sha256": "929decb310c8862663cfad630a9c9e2c2302cf73cd0f37e00f6a1844f4a3bdfc"
     },
     {
       "path": "game/src/world-edge-ribbons.js",
-      "sha256": "b210f4fc25c7cd22b69ae78834df09a158d611d95e7b911d35a4ca8f5ca2608b"
+      "sha256": "53238ee92b247e062234313c916774b8197bc79b0efe110da0f00fc9c4f42680"
     },
     {
       "path": "game/src/world-extrusion.js",
@@ -1822,7 +1822,7 @@
     },
     {
       "path": "game/src/world-facades-guards.js",
-      "sha256": "0776c4eb916f75a4ace8385d236afc71a8e94913a72bb11eed753f38365b22c9"
+      "sha256": "9bb0e782b5a695787e34b0137ccb24e4e34a96654d720578f3d58ba66367aa2a"
     },
     {
       "path": "game/src/world-final-meshes.js",
@@ -1830,7 +1830,7 @@
     },
     {
       "path": "game/src/world-finish.js",
-      "sha256": "738244fe9e1d32ad65f9fea2b4896a37d1ac1929e56125f7e5ed44d8f8dcff15"
+      "sha256": "defa0fab85f73bfcb5067d36dc7cefec3282d2255ba2ae1f92e702321ef616ac"
     },
     {
       "path": "game/src/world-furniture.js",
@@ -1878,11 +1878,11 @@
     },
     {
       "path": "game/src/world-ribbons.js",
-      "sha256": "b426533a8dc4d81038a52c1b544ace8089fea445ed9014135f291b85ef173931"
+      "sha256": "3b5f8bc8d5d05eba2d2d5ba73c100a42dd903cd135da5eac5d713024f14a5f4c"
     },
     {
       "path": "game/src/world-road-graph.js",
-      "sha256": "52490d3a6af928dd96261439a964eac857c3076d5874c8b0de391ef3d6289198"
+      "sha256": "2c03ff99a522e17c9f2f8020433be590afd228fe76eed550efa43b8fd31f5fd6"
     },
     {
       "path": "game/src/world-roofads-fuel.js",
@@ -1898,7 +1898,7 @@
     },
     {
       "path": "game/src/world-side-joins.js",
-      "sha256": "a913038ab5c8dd67a0070f9edf714efae6fcb8e3c8a85311c0adb74e872861ef"
+      "sha256": "36f0c3aad70cd5336ca1354dca088c8fa6b568edbd505aa6154db27dba9e0732"
     },
     {
       "path": "game/src/world-sports.js",
@@ -1906,7 +1906,7 @@
     },
     {
       "path": "game/src/world-streetscape.js",
-      "sha256": "a4c058640f100813ba5d30c9adbc440e7fd14a33e02895a7e0fbd0147bb0e13e"
+      "sha256": "d575ab2ab7e7e2c3bc3ed24d68ccb7786c24981574697167be607d44d7732f17"
     },
     {
       "path": "game/src/world-trees-lamps.js",
@@ -1918,7 +1918,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "f91ac86f3d7af721357aa0563421d4574fe9f8553be24af69c26e07b2e407898"
+      "sha256": "f987af024ea6c72c53bec0f941bd35f80c8ce413997be31090f878ab01e50c19"
     },
     {
       "path": "game/src/worldmap.js",

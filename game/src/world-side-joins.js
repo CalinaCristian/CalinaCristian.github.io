@@ -5,6 +5,7 @@
 import { distPointSeg, pointInPolygon } from './util.js';
 import { rgb, shadeRgb } from './geobuild.js';
 import { sidewalkWidth } from './sidewalk-source.js';
+import { deckWalkShiftAt } from './bridge-walkways.js';
 import { bridgeJunctionSlab, uncoveredBridgePadBoundary } from './bridge-junction.js';
 import { BENT_MODEL } from './bridge-bents.js';
 import { basarabEdge } from './basarab-structure.js';
@@ -34,7 +35,9 @@ export function buildSideJoins(ctx) {
             if (cross(q[0], q[1], q[2], q[3]) || cross(q[1], q[2], q[3], q[0])) { skip('self-crossing'); continue; }
             let ar = 0; for (let k = 0; k < 4; k++) ar += q[k][0] * q[(k + 1) % 4][1] - q[(k + 1) % 4][0] * q[k][1]; if (Math.abs(ar) / 2 < 0.4 || Math.abs(ar) / 2 > 400) { skip('area ' + Math.round(Math.abs(ar) / 2)); continue; }
             const cx = (q[0][0] + q[1][0] + q[2][0] + q[3][0]) / 4, cz = (q[0][1] + q[1][1] + q[2][1] + q[3][1]) / 4;
-            if (r1.e.name && r1.e.name === r2.e.name && Math.abs(r1.e.dirx * r2.e.dirx + r1.e.dirz * r2.e.dirz) > 0.9) { skip('median'); continue; } // (the two halves of a dual carriageway)
+            // (two ends of one deck walkway, bridge-walkways.js: the walkway goes on round the pad, at the deck's edge)
+            const deck = !!(r1.e.deckWalk && r1.e.bridge && r2.e.deckWalk && r2.e.bridge);
+            if (!deck && r1.e.name && r1.e.name === r2.e.name && Math.abs(r1.e.dirx * r2.e.dirx + r1.e.dirz * r2.e.dirz) > 0.9) { skip('median'); continue; } // (the two halves of a dual carriageway)
             const inP = (p, f = 0.3) => { const l = Math.hypot(cx - p[0], cz - p[1]) || 1; return [p[0] + (cx - p[0]) / l * f, p[1] + (cz - p[1]) / l * f]; };
             const smp = [[cx, cz], ...q.map(v => inP(v)), ...q.map((v, k) => inP([(v[0] + q[(k + 1) % 4][0]) / 2, (v[1] + q[(k + 1) % 4][1]) / 2]))];
             if (smp.some(([x, z]) => coveredByOther(x, z, null, padHeightAt(n, x, z), 0.02))) { skip('covered'); continue; }
@@ -43,10 +46,12 @@ export function buildSideJoins(ctx) {
             mb.triUp(base, base + 1, base + 2); mb.triUp(base, base + 2, base + 3);
             const tn = (a, b, away) => { const mx = (a[0] + b[0]) / 2 - n.x, mz = (a[1] + b[1]) / 2 - n.z, l = Math.hypot(mx, mz) || 1; return away ? [mx / l, mz / l] : [-mx / l, -mz / l]; };
             { const [nx, nz] = tn(q[3], q[0], false); mb.wall(q[3][0], q[3][1], q[0][0], q[0][1], Y.road - 0.01 + padHeightAt(n, cx, cz), hy(cx, cz), nx, nz, shadeRgb(kerbCol, 0.85)); }   // kerb face toward the pad
-            { const [nx, nz] = tn(q[1], q[2], true), f1 = [q[1][0] + nx * 2.4, q[1][1] + nz * 2.4], f2 = [q[2][0] + nx * 2.4, q[2][1] + nz * 2.4], yg = Y.landuse + 0.01 + padHeightAt(n, cx, cz); // back: a 2.4 m slope (a face where it would land on a road)
+            if (deck) { const [nx, nz] = tn(q[1], q[2], true); mb.wall(q[1][0], q[1][1], q[2][0], q[2][1], Y.road - 0.45 + padHeightAt(n, cx, cz), hy(cx, cz), nx, nz, shadeRgb(sideCol, 0.8)); } // (the deck's edge: the railing stands on it)
+            else { const [nx, nz] = tn(q[1], q[2], true), f1 = [q[1][0] + nx * 2.4, q[1][1] + nz * 2.4], f2 = [q[2][0] + nx * 2.4, q[2][1] + nz * 2.4], yg = Y.landuse + 0.01 + padHeightAt(n, cx, cz); // back: a 2.4 m slope (a face where it would land on a road)
               if (![f1, f2].some(([x, z]) => coveredByOther(x, z, null, padHeightAt(n, x, z), 0.02))) mb.face4([q[1][0], hy(q[1][0], q[1][1]), q[1][1]], [q[2][0], hy(q[2][0], q[2][1]), q[2][1]], [f2[0], yg, f2[1]], [f1[0], yg, f1[1]], sideCol, [nx * 0.34, 2.4, nz * 0.34]);
               else mb.wall(q[1][0], q[1][1], q[2][0], q[2][1], Y.landuse - 0.02 + padHeightAt(n, cx, cz), hy(cx, cz), nx, nz, shadeRgb(sideCol, 0.8)); }
             const cp = { p: q, n, x0: Math.min(...q.map(v => v[0])), x1: Math.max(...q.map(v => v[0])), z0: Math.min(...q.map(v => v[1])), z1: Math.max(...q.map(v => v[1])) };
+            if (deck) { cp.deck = true; cp.e = r1.e; (n.deckWalkCorners || (n.deckWalkCorners = [])).push(cp); }
             cornerPolys.push(cp); cornerGrid.insert(cp.x0, cp.z0, cp.x1, cp.z1, cp);
         }
     }
@@ -189,20 +194,25 @@ export function buildSideJoins(ctx) {
      *  property line, + tol: fences / hedges standing on the back edge) or a raised junction corner, never on a carriageway /
      *  pad → height (with the street's profile) or null */
     const RIB_ONLY = () => true;
+    /** the ribbon filter for a deck walkway at road level y (yAlong) above (x, z): only carriageways at its level, other than
+     *  the walkway's own (a walkway over a road passing below is still a walkway, and its own carriageway's mitred end at a
+     *  width step reaches under it; bridge-walkways.js) */
+    const ribbonsAtLevel = (x, z, y, own = null) => rb => rb.e !== own && Math.abs((rb.e ? yAlong(rb.e, x, z) : rb.node ? padHeightAt(rb.node, x, z) : 0) - y) < 1.5;
     const raisedTop = (x, z, tol = 0) => {
-        let top = null;
+        let top = null, deckY = null, deckE = null;
         cornerGrid.each(x - tol, z - tol, x + tol, z + tol, (cp) => {
             if (top !== null || x < cp.x0 - tol || x > cp.x1 + tol || z < cp.z0 - tol || z > cp.z1 + tol) return;
-            if (pointInPolygon(x, z, cp.p) || (tol > 0 && polyDist(x, z, cp.p) < tol)) top = Y.road + Y.kerb + padHeightAt(cp.n, x, z);
+            if (pointInPolygon(x, z, cp.p) || (tol > 0 && polyDist(x, z, cp.p) < tol)) { top = Y.road + Y.kerb + padHeightAt(cp.n, x, z); if (cp.deck) deckY = padHeightAt(cp.n, x, z); }
         });
         if (top === null) edgeGrid.each(x - 2, z - 2, x + 2, z + 2, (e) => {
             if (top !== null || !raisedEdge(e)) return;
             const q = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z); if (q.t <= 0 || q.t >= 1) return;
-            const side = ((x - q.cx) * e.nx + (z - q.cz) * e.nz) >= 0 ? 1 : -1, wa = widthAsphalt(e, side) + sideExtra(e, side, q.t * e.len);
+            const side = ((x - q.cx) * e.nx + (z - q.cz) * e.nz) >= 0 ? 1 : -1, wa = widthAsphalt(e, side) + sideExtra(e, side, q.t * e.len) + (e.deckWalkShift ? deckWalkShiftAt(e, side, q.t) : 0);
             if (!raisedEdge(e, side) || q.d < wa + 0.02 || q.d > wa + sidewalkWidth(e, side) + SIDE_BACK + tol) return;
             top = railRoadside.surface(e, x, z, Y.road + Y.kerb + yAlong(e,x,z));
+            if (top !== null && e.deckWalk && e.bridge) { deckY = yAlong(e, x, z); deckE = e; }
         });
-        if (top !== null && onRibbon(x, z, 0, RIB_ONLY)) return null;
+        if (top !== null && onRibbon(x, z, 0, deckY === null ? RIB_ONLY : ribbonsAtLevel(x, z, deckY, deckE))) return null;
         return top;
     };
     /** vertices added to a cell's solid / detail builders since (v0s, v0d) lifted onto the raised sidewalk when (x, z) is on one */
@@ -319,6 +329,6 @@ export function buildSideJoins(ctx) {
     const walls = [];
     return {
         RIB_ONLY, clearOf, kerbSpot, liftOnSide, medianFill, medianGrid, obbPoly, onRibbon,
-        polyOnRibbon, raisedDeck, raisedTop, ribGrid, segsCross, walls,
+        polyOnRibbon, raisedDeck, raisedTop, ribGrid, ribbonsAtLevel, segsCross, walls,
     };
 }

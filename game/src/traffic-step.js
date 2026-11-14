@@ -3,16 +3,10 @@
 import { clamp } from './util.js';
 import { edgeSpeed, lanesDir, roadSideWidth, turnAngle } from './nav.js';
 import { initialTrafficStaticClearance } from './initial-traffic-admission.js';
-import { tramPathPolyline } from './tram-path.js';
-import { KNOT_HOLD_S, KNOT_OPEN_GAP, KNOT_YIELD_GAP, KNOT_YIELD_S, SAME_CONTROLLER_M, laneOffset, medianOf, noseInto, pedestrianPen, playerExtent, segDist, streetLevel, tramOffset, vpPen, vvClearance, vvPen } from './traffic-shared.js';
+import { KNOT_HOLD_S, KNOT_OPEN_GAP, KNOT_YIELD_GAP, KNOT_YIELD_S, SAME_CONTROLLER_M, laneOffset, medianOf, noseInto, pedestrianPen, playerExtent, streetLevel, vpPen, vvClearance, vvPen } from './traffic-shared.js';
 
 /** How far a knot's follower may back over the node it has just passed (m, s below 0 on its edge). */
 const BACK_OVER_NODE_M = 2;
-/** A box occupant that has stood still this long (s), or waits this close behind another vehicle (m), no longer holds
- *  the other signal phases red: it is not clearing the box itself. */
-const OCCUPANCY_STALL_S = 8, OCCUPANCY_QUEUE_GAP_M = 8;
-/** A junction claim whose vehicle has stood this long (s) behind another vehicle no longer makes later cars wait. */
-const CLAIM_STALL_S = 4;
 /** How far a long body's rear corner may swing into a follower's nose while it pulls away (m of overlap). */
 const NOSE_SWING_M = 0.25;
 
@@ -130,6 +124,7 @@ export class TrafficStep {
         }
         let curE = e, curDir = v.dir, curLane = v.lane, curLaneCur = v.laneCur, D = L - v.s - half, prevNode = null, prevD = 0;
         const seenSignals = new Set();
+        let claimDone = false;
         const maxLook = Math.max(70, v.speed * v.speed / 4 + 30);
         for (let k = -1; k < v.route.length && D < maxLook; k++) {
             const node = curDir > 0 ? curE.b : curE.a;
@@ -197,18 +192,25 @@ export class TrafficStep {
                 if (gap > entry - 0.5 && gap < entry + 2 * rad + v.length + 1.5) { const _d = entry - 0.5; if (_d < stopD) { stopD = _d; stopWhy = 'box-full'; } }
             }
             if (v.bus) { const bs = this.busStopAhead(v, curE, curDir, D, k === -1); if (bs < stopD) { stopD = bs; stopWhy = 'busstop'; } }
-            // junction box reservation: a car about to enter the box claims its path across the pad (entry lane point →
-            // exit lane point); a car whose path would cross / merge with a claimed one waits at the line. (Rosetti finale,
-            // Calea Floreasca at Str. Protopopescu) also while its rear is still on the pad it has just crossed: on a link
-            // shorter than that pad plus the claim reach it otherwise reached the next line unclaimed and drove into a bus
-            // turning across it; it waits at the line like any car, only a front already in the box goes on.
-            if (k === -1 && nxt && this.isJunction(node) && !(this.isJunction(endNode) && toEntry < -0.5) && !nxt.uturn) {
+            // junction box reservation: a car about to enter a box claims its path across the pad (entry lane point →
+            // exit lane point, through the whole controller); a car whose path would cross / merge with a claimed one waits
+            // at the line. The box claimed is the first one ahead whose pad the front has not entered: (Șoseaua Petricani at
+            // Fabrica de Glucoză, 14.5 m pads on 11-13 m links) a link shorter than the pad it leads into is inside that pad
+            // from its first metre, and cars that only ever claimed from the link itself entered unclaimed and locked the
+            // box in a ring. A car also enters only with room for its body beyond the exit pad (keep the box clear).
+            if (!claimDone && nxt && this.isJunction(node) && !nxt.uturn && D - rad >= -0.5 && (k === -1 || !curE.rail) && !this.ownsBox(v, node)) {
+                claimDone = true;
                 const reach = Math.max(9, v.speed * v.speed / 9 + 3);
                 if (D - rad < reach) {
-                    const res = this.boxCheck(v, curE, curDir, nxt, node, rad);
-                    if (res === 'wait' && D - rad - 0.8 > -0.3) { const _d = D - rad - 0.8; if (_d < stopD) { stopD = _d; stopWhy = 'claim'; } } // (already over the line: committed, clear the box)
+                    const res = this.boxCheck(v, curE, curDir, nxt, node, rad), entry = D - rad - 0.8;
+                    const full = res !== 'wait' && entry > -0.3 && this.exitBlocked(v, res);
+                    v.exitBy = full || null;
+                    // (Calea Floreasca at Str. Protopopescu: a van stopped at its line inside the corner a 12 m bus cut while
+                    // turning in, and neither could move) a car waiting for a turning long body stops its sweep short of the line
+                    const setback = res === 'wait' && this.boxWaitSweep > 0 ? this.boxWaitSweep + 1 : 0;
+                    if ((res === 'wait' || full) && entry > -0.3) { if (entry - setback < stopD) { stopD = entry - setback; stopWhy = full ? 'exit-full' : 'claim'; } } // (already over the line: committed, clear the box)
                     else if (res !== 'wait' && D - rad < Math.max(4, v.speed * 0.6 + 2)) this.boxClaim(v, node, res);
-                    else if (res === 'wait') this.boxClaim(v, node, this.boxPath(v, curE, curDir, nxt, rad));
+                    else if (res === 'wait') this.boxClaim(v, node, this.reservationPath(v, curE, curDir, nxt, node, rad));
                 }
             }
             // lane drop ahead (next edge has fewer lanes): merge before the end of this edge, or wait at the end
@@ -224,7 +226,13 @@ export class TrafficStep {
                     const into = Math.min(curLane > nl - 1 ? nl - 1 : v.lane, Math.max(0, lanesDir(curE, curDir) - 1));
                     v.dropGo = Math.round(v.laneCur) === into || this.laneFree(v, into) ? node : null;
                 }
-                if (v.dropGo === node) vCap = Math.min(vCap, 3);
+                // (Calea Floreasca 3 → 2 lanes behind a 9 m link: a bus held for minutes) the same for a drop at a node beyond
+                // the next one: the link before it is shorter than the pad, so the car never stands on it to be released
+                // there. It goes once its own lane fits the narrower road or the lane it merges into is free beside it.
+                else if (k >= 0 && v.dropAhead !== node && v.stuck >= 3 && (v.stopWhy === 'lanedrop' || v.stopWhy === 'lanedrop2') && Math.abs(v.stopD - (D - rad - 1.5)) < 0.3) {
+                    if (Math.round(v.laneCur) <= nl - 1 || this.laneFree(v, Math.min(nl - 1, Math.max(0, lanesDir(e, v.dir) - 1)))) v.dropAhead = node;
+                }
+                if (v.dropGo === node || v.dropAhead === node) vCap = Math.min(vCap, 3);
                 else if (curLane > nl - 1) {
                     // wait for a gap before the line; already at / past it (or waited long): merge on the move,
                     // car-following and the junction claim keep it off the others (a stop inside the box locks the junction)
@@ -278,6 +286,7 @@ export class TrafficStep {
         // At 30Hz a tram's first 1.2m/s² step is .04m/s. Do not erase
         // that positive acceleration on every source-rail tick from rest.
         if (v.speed < 0.05 && (!e.rail || target < 0.05)) v.speed = 0;
+        this.ringBackStep(v, dt); // (traffic-knots.js: backing out of a closed waiting ring)
         v.gap = gap; v.leader = leader; v.leaderCross = leaderCross; v.stopD = stopD; v.stopWhy = stopWhy;
 
         // ---------------- stuck / honking ----------------
@@ -401,110 +410,6 @@ export class TrafficStep {
         return laneCur > nextLanes - 1 + 0.25 && distance - radius < 6 && stop > -0.5 ? stop : Infinity;
     }
 
-    /** path across the junction pad for v going (curE,curDir) → nxt: entry lane point → exit lane point */
-    boxPath(v, curE, curDir, nxt, rad) {
-        if (curE.rail) {
-            const sIn = Math.max(0, curE.len - rad), sOut = Math.min(nxt.e.len, rad), index = v.route.findIndex(r => r.e === nxt.e && r.dir === nxt.dir);
-            const virtual = { ...v, edge: curE, dir: curDir, s: sIn, route: index < 0 ? [nxt] : v.route.slice(index) };
-            const segments = tramPathPolyline(virtual, -v.length / 2, curE.len - sIn + sOut + v.length / 2);
-            if (!segments?.length) throw new Error('Unresolved source rail reservation ' + v.id);
-            return { ...segments[0], p1x: segments.at(-1).p1x, p1z: segments.at(-1).p1z, inE: curE, outE: nxt.e, outDir: nxt.dir, lane: 0, laneIn: 0, railSegments: segments };
-        }
-        const laneIn = this.routeLaneAt(v, curE, curDir), lane = this.laneOnNext(v, laneIn, nxt.e, nxt.dir);
-        const latIn = v.tram ? tramOffset(curE, curDir) : laneOffset(curE, laneIn, curDir), latOut = v.tram ? tramOffset(nxt.e, nxt.dir) : laneOffset(nxt.e, lane, nxt.dir);
-        const sIn = Math.max(0, curE.len - rad), sOut = Math.min(nxt.e.len, rad);
-        const st = curDir > 0 ? curE.a : curE.b, fx = curE.dirx * curDir, fz = curE.dirz * curDir;
-        const st2 = nxt.dir > 0 ? nxt.e.a : nxt.e.b, gx = nxt.e.dirx * nxt.dir, gz = nxt.e.dirz * nxt.dir;
-        // the body extends half a length beyond both ends of the chord
-        const p0x = st.x + fx * sIn + curE.nx * curDir * latIn - fx * v.length * 0.5, p0z = st.z + fz * sIn + curE.nz * curDir * latIn - fz * v.length * 0.5;
-        const p1x = st2.x + gx * sOut + nxt.e.nx * nxt.dir * latOut + gx * v.length * 0.5, p1z = st2.z + gz * sOut + nxt.e.nz * nxt.dir * latOut + gz * v.length * 0.5;
-        return { p0x, p0z, p1x, p1z, inE: curE, outE: nxt.e, outDir: nxt.dir, lane, laneIn };
-    }
-    /** 'wait' when the path conflicts with a reservation of another car still in / entering the box, else the path */
-    boxCheck(v, curE, curDir, nxt, node, rad) {
-        const path = this.reservationPath(v, curE, curDir, nxt, node, rad);
-        const key = this.boxController(node);
-        const list = this.boxes.get(key); if (!list) return path;
-        // first come, first served: only claims older than ours count (no two cars ever wait for each other)
-        let mine = Infinity; for (const r of list) if (r.v === v) mine = r.t0;
-        for (const r of list) {
-            const o = r.v; if (o === v || o.inactive || r.t0 >= mine || !this.inBox(r, key)) continue;
-            if (r.inE === curE && r.laneIn === v.lane) continue; // ahead of us in our lane: plain car-following
-            // (Rosetti finale, Calea Floreasca at Str. Protopopescu) a claimant standing in a queue inside the box waits for
-            // its leader, and that queue may itself wait for us (a bus turning across our lanes held up by our queue): its
-            // body stays an obstacle for car-following and the overlap guard, the part of its path it has not reached
-            // does not hold us.
-            if (o.speed < 0.3 && (o.stuck || 0) > CLAIM_STALL_S && o.leader && typeof o.leader === 'object') continue;
-            for (const a of path.segments) for (const b of r.segments) {
-                const gap = segDist(a.p0x, a.p0z, a.p1x, a.p1z, b.p0x, b.p0z, b.p1x, b.p1z);
-                if (gap < (v.width + o.width) * 0.5 + 0.5) return 'wait';
-            }
-        }
-        return path;
-    }
-    boxClaim(v, node, path) {
-        const key = this.boxController(node);
-        let list = this.boxes.get(key); if (!list) this.boxes.set(key, list = []);
-        if (!path.segments) path = this.reservationPath(v, v.edge, v.dir, v.route[0], node, node.radius ?? 6);
-        for (const r of list) if (r.v === v) { if (!r.entered) { const t0 = r.t0; Object.assign(r, path); r.t0 = t0; } r.t = this.time; return; }
-        path.v = v; path.t = this.time; path.t0 = this.time; list.push(path);
-    }
-    /** Reserve every pad and connecting lane through this controller, including turns. */
-    reservationPath(v, curE, curDir, nxt, node, rad) {
-        const path = this.boxPath(v, curE, curDir, nxt, rad);
-        path.segments = path.railSegments || [{ ...path }]; path.internalEdges = new Set(); path.entryRad = rad; path.exitRad = rad;
-        path.phase = node.sourceSignal?.phase ?? this.world.nodeLight?.[node.id]?.approaches.find(a => a.edge === curE)?.phase;
-        const cl = node.lightCluster;
-        let step = nxt, i = 0, exitIndex = 0;
-        while (cl && step && i < v.route.length) {
-            const end = step.dir > 0 ? step.e.b : step.e.a, after = v.route[++i];
-            if (end.lightCluster !== cl || !after || after.uturn) break;
-            path.internalEdges.add(step.e);
-            const segment = this.boxPath(v, step.e, step.dir, after, end.radius ?? 6), last = path.segments[path.segments.length - 1];
-            path.segments.push({ p0x: last.p1x, p0z: last.p1z, p1x: segment.p0x, p1z: segment.p0z }, segment);
-            path.outE = after.e; path.outDir = after.dir; path.exitRad = end.radius ?? 6; step = after; exitIndex = i;
-        }
-        path.generation = v._moveGeneration || 0;
-        path.clearEdges = new Set(v.route.slice(exitIndex).map(r => r.e));
-        path.clearOdo = (v.odo || 0) + curE.len - v.s + v.route.slice(0, exitIndex).reduce((d, r) => d + r.e.len, 0) + path.exitRad + v.length * 0.5 + 1;
-        return path;
-    }
-    /** a reservation holds until the car's rear has left the pad (or it went elsewhere / timed out) */
-    inBox(r, node) {
-        const o = r.v;
-        if (o.inactive || (o._moveGeneration || 0) !== r.generation || o.odo >= r.clearOdo) return false;
-        if (o.edge === r.inE) {
-            if (o.s + o.length * 0.5 > o.edge.len - r.entryRad - 0.8) r.entered = true;
-            return r.entered || this.time - r.t0 < 6 || o.speed > 0.5;
-        }
-        if (r.internalEdges.has(o.edge)) { r.entered = true; return true; }
-        if (o.edge === r.outE) { r.entered = true; return o.s - o.length * 0.5 < r.exitRad + 1; }
-        // A short shape segment can end while a bus's rear still occupies the pad.
-        if (r.entered && r.clearEdges.has(o.edge) && o.odo < r.clearOdo) return true;
-        return false;
-    }
-    syncSignalOccupancy() {
-        for (const l of this.world.lights || []) l.node.lightCluster.occupiedPhases = [];
-        for (const [key, list] of this.boxes) for (const r of list) {
-            if (!this.inBox(r, key) || !r.entered) continue;
-            // (h-sim) the last signal controller this car was inside, and where: see SAME_CONTROLLER_M
-            r.v.sigCtl = key; r.v.sigCtlOdo = r.v.odo || 0;
-            // (Șoseaua Pipera cluster, Piața Romană: one controller over 8 and 15 signal nodes) a car queued in the box
-            // behind a car that waits at the cluster's next signal head, or stalled in a knot, held every other phase red:
-            // the car at the head of its queue never got its green and the cluster locked for the whole drive. Only a car
-            // that is clearing the box on its own holds the signal; a queued or stalled one keeps its path reservation
-            // (other cars still wait for it in boxCheck).
-            const L = r.v.leader, queued = !!L && typeof L === 'object' && (r.v.gap ?? Infinity) < OCCUPANCY_QUEUE_GAP_M && (r.v.speed || 0) < 3;
-            if (queued || (r.v.stuck || 0) > OCCUPANCY_STALL_S) continue;
-            if (Number.isInteger(r.phase) && key.occupiedPhases && !key.occupiedPhases.includes(r.phase)) key.occupiedPhases.push(r.phase);
-        }
-    }
-    pruneBoxes() {
-        for (const [node, list] of this.boxes) {
-            for (let i = list.length - 1; i >= 0; i--) if (!this.inBox(list[i], node)) list.splice(i, 1);
-            if (!list.length) this.boxes.delete(node);
-        }
-    }
     /** undo this frame's step of v (incl. edge changes); false when it cannot (respawned / not stepped) */
     revert(v) {
         if (v._f !== this._frame || v._resp) return false;

@@ -440,6 +440,11 @@ export class Pedestrians {
             if (p.onRoad && p.state === 'legs') {
                 const leg = p.legs[0];
                 p.crossT = (p.crossT || 0) + dt;
+                // (Piața Unirii: a walker standing just ahead of a stopped car's bumper on the carriageway, the car waiting for
+                // the walker and the walker for the car, both for minutes) standing on the carriageway without headway counts as
+                // pinned: the walker turns back (or leaves the road) as below, and the car can go
+                if (Math.hypot(p.x - (p.roadX ?? Infinity), p.z - (p.roadZ ?? Infinity)) > 0.5) { p.roadX = p.x; p.roadZ = p.z; p.roadStillT = 0; }
+                else if ((p.roadStillT = (p.roadStillT || 0) + dt) > 8) { p.roadStillT = 0; p.blockT = Math.max(p.blockT || 0, 4.01); }
                 // pinned between cars on the carriageway (they wait for the pedestrian, the pedestrian for them): step through
                 // (2026-11-08: was a jump onto the leg's end — "they teleport") a crossing turns back now; any other leg is
                 // dropped and they carry on from where they stand

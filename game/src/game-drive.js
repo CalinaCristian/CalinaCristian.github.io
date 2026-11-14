@@ -547,8 +547,17 @@ export class DriveMethods {
             if (e.type === 'service' && !e.sharedLane && lanesDir(e, 1) + lanesDir(e, -1) <= 2) lat = Math.min(lat, dir * (e.laneCenterShiftM || 0) + (e.oneway ? 0 : 0.6));
             return { x: e.a.x + e.dirx * s + e.nx * dir * lat, z: e.a.z + e.dirz * s + e.nz * dir * lat, heading: Math.atan2(-e.dirx * dir, -e.dirz * dir), edge: e, dir };
         };
-        for (const c of scored.slice(0, 8)) for (const sh of [0, 8, -8, 16, -16]) { const p = poseOf(c, sh); if (this.spotFree(p)) return p; }
-        return poseOf(scored[0]);
+        // (R reset in the chapter drives: "no route after reset") with a GPS destination, the pose must be one the route
+        // can start from: an edge outside the main one-way component, too low for the car or cut off by turn bans was
+        // the nearest road but left the player with no route. A pose that routes wins over a nearer one that does not.
+        const dest = this.nav?.dest, routes = (p) => !dest || !!this.nav.compute(p.x, p.z, dest.x, dest.z, p.heading, y);
+        let fallback = null, tries = 0;
+        for (const c of scored.slice(0, 8)) for (const sh of [0, 8, -8, 16, -16]) {
+            const p = poseOf(c, sh); if (!this.spotFree(p)) continue;
+            if (!fallback) fallback = p;
+            if (tries++ < 12 && routes(p)) return p;
+        }
+        return fallback || poseOf(scored[0]);
     }
     /** a car pose is free of buildings / props / walls at its level (the car body = 3 circles of 1 m) and, with
      *  `vehR`, of non-parked-away vehicles within that radius on the same level */

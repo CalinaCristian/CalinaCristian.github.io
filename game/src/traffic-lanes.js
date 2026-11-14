@@ -495,8 +495,12 @@ export class TrafficLanes {
         const fx = e.dirx * dir, fz = e.dirz * dir;
         let best = null, total = 0, anyLane = false;
         const cands = this._cands || (this._cands = []); cands.length = 0;
-        for (let pass = 0; pass < 2 && !cands.length; pass++) {
-        if (pass) {
+        // (Șoseaua Petricani, the A3 entry 1150 → 1151) pass 2: the only road on is the one that runs out of the district.
+        // It is taken: the vehicle leaves at the district edge (advance → respawn out of view). Ending the route at this
+        // node instead parked every car that came here at the end of the link, in view, for good, and the queue behind
+        // them filled the junction box upstream.
+        for (let pass = 0; pass < 3 && !cands.length; pass++) {
+        if (pass === 1) {
             // (Rosetti finale, Calea Floreasca at Str. Glinka) the lane's mapped role leaves it no road at this node (its
             // turn leads to a district-edge closure, is restricted, or the vehicle does not fit under it): a car there
             // stopped at the line for good and its queue locked the junction. It takes a road that exists from its lane.
@@ -511,7 +515,7 @@ export class TrafficLanes {
             if (!v.tram && n.tram && n.tramOnly) continue;
             if (!this.turnLaneAllows(e, dir, lane, { e: n, dir: nd, anyLane }, v)) continue;
             if (n.type === 'service' && !v.isPolice && this.rng() < 0.8) continue;
-            if ((nd > 0 ? n.b : n.a).mapEnd) continue; // toward a district-edge closure: turn off before it
+            if ((nd > 0 ? n.b : n.a).mapEnd && pass < 2) continue; // toward a district-edge closure: turn off before it
             if (n.main === false && e.main !== false && !v.tram) continue; // never drive into a one-way trap
             const dot = n.dirx * nd * fx + n.dirz * nd * fz;
             let w = (1 + Math.max(0, dot) * 2.5) * (0.4 + trafficMulOf(n));
@@ -575,6 +579,7 @@ export class TrafficLanes {
         }
         (v._sh || (v._sh = [])).push(nx);
         v.dropGo = null; // (traffic-step.js: a lane-drop hold released at the node just passed)
+        if (v.dropAhead === (odir > 0 ? e.b : e.a)) v.dropAhead = null;
         const oldLat = v.tram ? tramOffset(e, v.dir) : laneOffset(e, v.laneCur, v.dir) + v.latExtraCur + (v.latBlend || 0) * Math.max(0, 1 - v.s / 12);
         if (v.hist) { v.hist.push({ e, dir: odir, lat: oldLat }); if (v.hist.length > (e.rail ? 256 : 6)) v.hist.shift(); }
         this.sharedLanes.advance(v, e, odir, nx.e, nx.dir, odir > 0 ? e.b : e.a);

@@ -1,14 +1,27 @@
 // Conservative simulation phases, not measured real-world signal timings. Each incoming
 // road axis has its own phase. Opposing traffic shares green and yields through path
 // reservations; a skew crossing must never fall into a binary 45° bucket.
-export function assignSignalPhases(approaches) {
+// A controller over several nodes (a split junction, a square) runs its stages for the roads entering it from outside.
+// A link between two of its own nodes (`internal(ap)`) gets no stage of its own: a car on it entered on the entry
+// signal and clears the box on it; the head on the link shows the stage of the entry axis it lines up with best. Giving
+// every inner link its own stage cut each approach's green to one slot in up to eight (Piața Romană, Piața Victoriei)
+// and their queues drained at a few cars a minute.
+export function assignSignalPhases(approaches, internal = null) {
     const groups = [];
+    const inner = [];
     for (const ap of approaches) {
         const dir = ap.edge.b === ap.node ? 1 : -1;
         ap.fx = ap.edge.dirx * dir; ap.fz = ap.edge.dirz * dir;
+        if (internal?.(ap)) { inner.push(ap); continue; }
         let phase = groups.findIndex(g => g.every(a => Math.abs(a.fx * ap.fx + a.fz * ap.fz) > Math.cos(Math.PI / 9)));
         if (phase < 0) { phase = groups.length; groups.push([]); }
         groups[phase].push(ap); ap.phase = phase;
+    }
+    for (const ap of inner) {
+        let best = -1, bd = -Infinity;
+        groups.forEach((g, i) => { for (const a of g) { const d = Math.abs(a.fx * ap.fx + a.fz * ap.fz); if (d > bd) { bd = d; best = i; } } });
+        if (best < 0) { best = groups.length; groups.push([]); }
+        groups[best].push(ap); ap.phase = best;
     }
     return Math.max(1, groups.length);
 }

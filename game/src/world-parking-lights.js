@@ -149,7 +149,9 @@ export async function buildParkingLights(ctx) {
         }
         if (approaches.length) lights.push({ node: n, approaches, offset: cl.offset });
     }
-    for (const cl of clusters.values()) cl.phaseCount = assignSignalPhases(lights.filter(l => l.node.lightCluster === cl).flatMap(l => l.approaches));
+    // (signals.js) a link from another node of the same controller is no stage of its own
+    const innerLink = (ap) => { const o = ap.edge.a === ap.node ? ap.edge.b : ap.edge.a; return !!o.lightCluster && o.lightCluster === ap.node.lightCluster; };
+    for (const cl of clusters.values()) cl.phaseCount = assignSignalPhases(lights.filter(l => l.node.lightCluster === cl).flatMap(l => l.approaches), cl.nodes.length > 1 ? innerLink : null);
     const nodeLight = {};
     for (const l of lights) nodeLight[l.node.id] = l;
     const lampMesh = new THREE.InstancedMesh(new THREE.SphereGeometry(0.17, 6, 4), new THREE.MeshBasicMaterial({ color: '#ffffff', toneMapped: false }), Math.max(1, lampList.length));

@@ -14,6 +14,8 @@ import { mixin } from './mixin.js';
 import { DISTRICT_LOD_VEHICLE_FAR_M, DISTRICT_LOD_VEHICLE_M, Grid, HOUR_PROFILE, RECOVERY_VIEW_FAR_M, actorCanTravel, bandOf, closedEdge, hourDensity, isJunction, junctionDist, laneOffset, layerOf, lodStride, trafficMulOf, vpPen } from './traffic-shared.js';
 import { TrafficLanes } from './traffic-lanes.js';
 import { TrafficStep } from './traffic-step.js';
+import { TrafficBoxes } from './traffic-boxes.js';
+import { TrafficKnots } from './traffic-knots.js';
 import { TrafficParking } from './traffic-parking.js';
 import { Pedestrians } from './pedestrians.js';
 export { hourDensity, bandOf, medianOf, laneOffset, junctionDist, playerPen } from './traffic-shared.js';
@@ -521,7 +523,7 @@ export class Traffic {
             }
         }
         this._dlT = (this._dlT || 0) + dt;
-        if (this._dlT > 1) { this._dlT = 0; this.resolveDeadlocks(); }
+        if (this._dlT > 1) { this._dlT = 0; this.resolveDeadlocks(); this.breakLeaderRings(); }
         this.playerWatchdog(dt);
         if ((this._frame & 31) === 0) this.pruneBoxes();
         this._rbT = (this._rbT || 0) + dt;
@@ -583,4 +585,4 @@ export class Traffic {
 
     dispose() { try { this.endParking('dispose'); } catch { /* ignore */ } this._situational?.dispose();this._situational=null;for(const timer of this._replyTimers||[])clearTimeout(timer);this._replyTimers?.clear();this._bub=[];this.scene.remove(this.group); this.peds.dispose(); }
 }
-mixin(Traffic, TrafficLanes, TrafficStep, TrafficParking);
+mixin(Traffic, TrafficLanes, TrafficStep, TrafficBoxes, TrafficKnots, TrafficParking);

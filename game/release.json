@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-5bbc7c0910a57364",
-  "sourceCommit": "4bebffa337372819878706c57cfee657a62a6ad7",
-  "fingerprint": "5bbc7c0910a573641e1a7f088c2b6518c4d00da328ad161c8db64f500eb73081",
+  "releaseId": "game-ae7f72ee847d592e",
+  "sourceCommit": "17cdde5151553719066ba07dce7a7dfcf6a5b517",
+  "fingerprint": "ae7f72ee847d592e7204338fdd59c672124f972bab34c779505d1f043be9e208",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -82,7 +82,7 @@
     },
     {
       "path": "game/data/landmarks/cec-source-masses.json",
-      "sha256": "3cd44006b499e77525f9a295f807ff353065bd10f856e2810f4413e0fe606fe1"
+      "sha256": "deb3c99b5e8e647fc7d0dc2311b94750c649bbc2808580ff08039ea0bcb2cf00"
     },
     {
       "path": "game/data/places.json",
@@ -798,7 +798,7 @@
     },
     {
       "path": "game/src/office-floors.js",
-      "sha256": "94564dcb95a41a3136640b734fbb00456453c31aa738ab071fedbaadd7d444db"
+      "sha256": "df2fe869e7c1cc7ef62faf32459c3e7f3e37f76555ad3a3a2afaf085da2d6213"
     },
     {
       "path": "game/src/office-interior-details.js",
@@ -830,7 +830,7 @@
     },
     {
       "path": "game/src/office.js",
-      "sha256": "2d71d98fba6af295baeec5f915c8e9942fb0493ce577bfad1ffd1317f4f12ac6"
+      "sha256": "f12911b98cf9e1aca8d4af268035ec90e4b0ebe0f9a4aadc153649850eae99d7"
     },
     {
       "path": "game/src/onfoot.js",
@@ -1686,7 +1686,7 @@
     },
     {
       "path": "game/src/tree-additions.js",
-      "sha256": "f3f9e31ee9987ec942c4062af19a0e939df4bb70f4b7e5105ca5990cb68314bb"
+      "sha256": "ad5954f28429cb301b53c4a272e2825210fbc02b90245db6d228379fd9c8de9d"
     },
     {
       "path": "game/src/tree-reviews.js",

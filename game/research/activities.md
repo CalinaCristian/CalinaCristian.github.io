@@ -1,4 +1,4 @@
-# Activities at landmarks and tourist spots (note 57)
+# Activities at landmarks and tourist spots
 
 What visitors really do at each place, with hours as checked and sources. Machine-readable twin: `activities.json` (one entry per place, with the in-game interaction first proposed). The game's own list is the Landmarks category in `game/src/data.js` (`lm-*` ids, keyed `<spot>:<activity>`); an id in brackets below is in the game, "no achievement" means the activity is only researched. Retired activities (`RETIRED_ACTIVITIES` in `game/src/spot-availability.js`) are not listed.
 

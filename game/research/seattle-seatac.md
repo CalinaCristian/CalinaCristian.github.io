@@ -1,6 +1,6 @@
 # Seattle · `seatac` district — research dossier
 
-Machine-readable twin: [`seattle-seatac.json`](seattle-seatac.json) · businesses and speed limits: [Businesses and speed limits](#businesses-and-speed-limits) · photo candidates: [refs/LICENSES.md](refs/LICENSES.md) (`refs/seatac/`) (none downloaded).
+Machine-readable twin: [`seattle-seatac.json`](seattle-seatac.json) · businesses and speed limits: [Businesses and speed limits](#businesses-and-speed-limits) · photo selection (not downloaded): [refs/LICENSES.md](refs/LICENSES.md) (`refs/seatac/`).
 
 Scope (spec 10): chapter "Welcome to Seattle" (2022), out of Sea-Tac: the terminal loop (Departures upper / Arrivals lower drives), the garage and its skybridges, the SeaTac/Airport Link station, the Airport Expressway and SR-518 east to the I-5 / I-405 junction. US marking, sign and furniture standards are those of the Bellevue dossier (WSDOT + MUTCD), [`seattle-bellevue.md` §3–§5](seattle-bellevue.md). All OSM data © OpenStreetMap contributors (ODbL).
 
@@ -26,7 +26,7 @@ Route A: start on **Departures Drive** (upper, elevated, w428095059) at the nort
 - **Departures Drive (upper)**: one-way SB viaduct along the terminal face, 2–3 lanes + drop-off kerb on the right, 20 mph (OSM `maxspeed`). Overhead: **six enclosed skybridges** ("Skybridge 1"–"6" in OSM, ~33–40 m long, garage level 4 ↔ terminal, ~70 m apart; [w37017725](https://www.openstreetmap.org/way/37017725)). On the left the 7-level garage. Upper deck against the garage with a concrete barrier: matches the panoramas in type.
 - **Arrivals Drive (lower)**: under the viaduct, 3–5 lanes SB, posted clearance **12 ft 0 in** (OSM `maxheight`), baggage-claim doors on the right, round columns between the lanes and the garage wall.
 - **Exit** at the south end: "Return to Terminal / Parking / Overheight Vehicle Parking" vs "International Blvd — SR 99, to I-5 · I-405 · SR 509" ([w952961192](https://www.openstreetmap.org/way/952961192)).
-- **Airport Expressway**: 3 → 5 lanes NB between the garage and the Link guideway; lane destinations "Terminal Parking ×3 | Terminal Parking; International Blvd; Rental Car Return; Cell Phone Lot", later "Burien | Burien; Seattle; Tacoma | Seattle; Tacoma" ([w68522640](https://www.openstreetmap.org/way/68522640)). Over S 170th St (w23609851, w1165458667, w6429448; outlines w598629034, w1165460002, w598629039 beam): concrete girder bridges on column bents, street at grade — matches. At 47.45097, −122.30067 reality is one wide carriageway with a painted gore between expressway and ramp; the slot between the mapped decks is filled as painted asphalt gore (US link gores, world.js median fill).
+- **Airport Expressway**: 3 → 5 lanes NB between the garage and the Link guideway; lane destinations "Terminal Parking ×3 | Terminal Parking; International Blvd; Rental Car Return; Cell Phone Lot", later "Burien | Burien; Seattle; Tacoma | Seattle; Tacoma" ([w68522640](https://www.openstreetmap.org/way/68522640)). Over S 170th St (w23609851, w1165458667, w6429448; outlines w598629034, w1165460002, w598629039 beam): concrete girder bridges on column bents, street at grade — matches. At 47.45097, −122.30067 reality is one wide carriageway with a painted gore between expressway and ramp; the slot between the mapped decks is filled as painted asphalt gore (US link gores, the median fill in `world-side-joins.js`).
 - **SR-518**: 3.42-mile freeway Burien–Tukwila, 38,000–102,000 veh/day, busiest between the airport and I-5; becomes I-405 east of I-5 ([SR 518](https://en.wikipedia.org/wiki/Washington_State_Route_518)). OSM: 3 EB lanes, 60 mph, asphalt with concrete bridge decks; at 51st Ave S "Seattle | Renton | Tacoma; Portland; 51st Ave S; Southcenter Pkwy"; final 2-lane split Renton (left) / Tacoma-Portland (right).
 - **Deck guards** (`bridge-guards.json`): concrete barriers on the expressway (w6429448, w23609851, w1165458667), its ramps (w291552722, w428094930, w1165458668), Departures Drive (w37017723, w963677010, w428095059, exit w1548998258), Airport Departures (w427909577, w428003817), Ramp w31928842, Exit to Parking w103929484, w369418216 and w124272635 (seen from below only). Rideshare ramp w955297074: solid parapet with a pipe rail. Garage service decks w955297071 / w722314207 / w1165140428 / w1165151564 / w256517923: solid concrete walls (seen from the surface car park; weak).
 - **Garage aisles**: OSM maps the Port garage's aisles (rel 15763840) as `highway=service` on `layer=2` (w344201644-55, w430427477, w430442190, w722071151-60, w1444470941, ramp w521034679) and `layer=1` `tunnel=building_passage` `level=3` drives. A way on layer ≥ 1 lying wholly inside a multi-storey car park is taken as an internal deck (`game/src/garage-decks.js`): not drawn, not routable. The ground-level entry ways stay as mapped but have no mapped exit, so they are not routable.
@@ -46,7 +46,7 @@ Review against panoramas (2026-11-12):
 - Terminal: glazed curtain wall, garage opposite — match. Terminal curb canopy, airline door signs and the airline-to-door layout are approximations (not verified).
 - Control tower: shaft and cab match; the base building is beige concrete with dark window strips.
 - Garage: facade columns round with a red band at street level (drawn 8-sided; band 0.9–1.8 m is an estimate). Garage `#a9a8a2` precast and terminal glass `#7c8e99` are estimated colours.
-- Station: elevated guideway and truss canopy match. **Station footbridge over International Blvd** (footway w54139652, outline w469766790 `bridge:structure=beam`): open white steel truss around a glazed walkway with a thin flat roof, landing east of the road on a dark steel open stair tower with a glazed lift shaft (building w469766788); authored in `bSeaLink` (landmarks.js).
+- Station: elevated guideway and truss canopy match. **Station footbridge over International Blvd** (footway w54139652, outline w469766790 `bridge:structure=beam`): open white steel truss around a glazed walkway with a thin flat roof, landing east of the road on a dark steel open stair tower with a glazed lift shaft (building w469766788); authored in `bSeaLink` (`landmarks/seattle.js`).
 - Panoramas on the airport access road at S 182nd St predate the 2022 International Arrivals Facility; OSM (w734002404) is kept.
 
 ## 4. Link 1 Line guideway (`game/src/seatac-guideway.js`, `guideway-ocs.js`)
@@ -61,11 +61,11 @@ Review against panoramas (2026-11-12):
 
 USGS 3DEP (epqs.nationalmap.gov, 2026-11-13): 107.9 m on International Blvd at 47.4475 and 110.8 / 115.2 / 114.6 m at 26 / 52 / 130 m west of it; 107.2 → 110.3 m at 47.4460; 113.4 → 122.0 m at 47.4490. Between S 176th and S 170th the boulevard lies below a ~3 m concrete retaining wall, rockery and planted bank carrying the expressway and the station, which stand 3–9 m above it. OSM maps no retaining wall there.
 
-Drawn by `retaining-banks.js`, without moving any road: the district ground is flat and the expressway lies at the boulevard's level 0–6 m west of its sidewalk, so the full step cannot be shown. Along the back of the boulevard's west sidewalk from 47.44875 to 47.44545 (354 m) a concrete wall 1.4 m high; where a strip is left before the expressway's guard rail (2.0–3.7 m wide, 204 m of the run) a rockery steps back to 2.0 m and a planted bank with shrubs (to about 3 m above the boulevard, the USGS step) fills it up to the guard rail, so the expressway side sees a 2.0 m planted bank behind its rail; where the sidewalk meets the expressway's edge (152 m, round the station footbridge and at 47.4480) the wall takes the back 0.4 m of the sidewalk and stands alone against the barrier. Colliders follow the wall and bank. Estimates: wall 1.4 m, rockery 0.9 m deep to 2.0 m, shrubs 0.7–1.1 m, colours; the reference's split between plain wall, rockery and bank along the run was not measured (the same section is drawn wherever the strip allows). The 3–9 m step itself still needs ground heights outside the road decks.
+Drawn by `retaining-banks.js`, without moving any road: the district ground is flat and the expressway lies at the boulevard's level 0–6 m west of its sidewalk, so the full step cannot be shown. Along the back of the boulevard's west sidewalk from 47.44875 to 47.44545 (354 m) a concrete wall 1.4 m high; where a strip is left before the expressway's guard rail (2.0–3.7 m wide, 204 m of the run) a rockery steps back to 2.0 m and a planted bank with shrubs (to about 3 m above the boulevard, the USGS step) fills it up to the guard rail, so the expressway side sees a 2.0 m planted bank behind its rail; where the sidewalk meets the expressway's edge (152 m, round the station footbridge and at 47.4480) the wall takes the back 0.4 m of the sidewalk and stands alone against the barrier. Colliders follow the wall and bank. Estimates: wall 1.4 m, rockery 0.9 m deep to 2.0 m, shrubs 0.7–1.1 m, colours; the reference's split between plain wall, rockery and bank along the run was not measured (the same section is drawn wherever the strip allows). The 3–9 m step itself is not modelled: the district ground is flat.
 
 ## 6. Buildings, hotels and car parks
 
-- **Hotels** get their own name as the sign and a windowed block facade (world.js "principal occupant" rule). Hilton (r5186200, white 3–4-storey wings behind trees), Radisson (w314940617, 7 storeys), Ramada (w374790721, cream stucco, arched windows), Red Roof Inn (w246328444, 4 storeys), Skybridge hotel (w246328436, 12-storey concrete tower), Motel 6 (w374790724, 2-storey motel). Hotels without `building:levels`, set from panoramas in `building-review.js`:
+- **Hotels** get their own name as the sign and a windowed block facade (the "principal occupant" rule in `world-buildings.js`). Hilton (r5186200, white 3–4-storey wings behind trees), Radisson (w314940617, 7 storeys), Ramada (w374790721, cream stucco, arched windows), Red Roof Inn (w246328444, 4 storeys), Skybridge hotel (w246328436, 12-storey concrete tower), Motel 6 (w374790724, 2-storey motel). Hotels without `building:levels`, set from panoramas in `building-review.js`:
   - Rodeway Inn w647567422: two-storey orange motel, blue trim and entrance canopy → 6.5 m, 2 storeys.
   - Red Lion Inn w364221560: beige wing with a brick-red end, three window rows above a 4 m hedge → 13 m, 4 storeys (hidden ground storey estimated).
   - SureStay w314940622: only an old panorama (Clarion signage), at least three storeys behind a one-storey front; the 9 m default is an estimate.
@@ -113,12 +113,13 @@ Three placed outdoors (Celestial Navigation, Talking Fountain, one statue); work
 11. No houses near the terminal: hotels and parking east, the airfield west; the three runways run nearly north–south just west of the terminal.
 12. Morning (4:30–7:30) departures jam, late-evening arrivals jam. White LED night lighting is typical (not verified for SEA).
 
-## 12. Open questions and gaps
+## 12. Estimates and shared rules
 
 - **Pedestrian plazas**: the shared rule ([shared-rules.md](shared-rules.md#pedestrian-plazas)). Here: 1 plaza,
   untagged (paved).
-- Ground step west of International Blvd (§5): drawn as a wall, rockery and bank at the boulevard's level; the real 3–9 m step needs ground heights.
-- Car park w479818870 level count and SureStay storeys (§6).
+- Ground step west of International Blvd (§5): drawn as a wall, rockery and bank at the boulevard's level; the real 3–9 m
+  step is not modelled.
+- Car park w479818870 level count and SureStay storeys (§6) are estimates.
 - Terminal facade, curb canopy and airline door signs are not photo-verified (Commons has almost no CC photos of the drives).
 
 ## 13. Sources
@@ -143,9 +144,7 @@ Missing chain brands at research time: ARCO, Starbucks, ampm. Brands with no sig
 
 ### POIs added from live OSM (2026-11-12)
 
-`tools/osm/add-pois.mjs --edge 100` on API 0.6 tiles of the playable area + 260 m appended 5 rows (2 in the edge strip, 1 new in OSM / relation; 210 before). Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or indoor, nodes deep inside the terminal (11), unnamed objects, ATMs outside the area. Street View: the 7-Eleven has a pylon at the lot (the game signs the store fascia).
-
-Bibito Cafe (n14111796067) and Olympia Coffee (n14189991289, Concourse C) were re-mapped in live OSM in 2026; the game rows stay.
+`tools/osm/add-pois.mjs --edge 100` on API 0.6 tiles of the playable area + 260 m appended the businesses, places and stops the build lacked, including the 100 m edge strip. Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or indoor, nodes deep inside the terminal (11), unnamed objects, ATMs outside the area. Street View: the 7-Eleven has a pylon at the lot (the game signs the store fascia).
 
 ### Speed limits on the chapter route
 

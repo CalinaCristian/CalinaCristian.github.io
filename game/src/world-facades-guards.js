@@ -7,6 +7,7 @@ import { clamp, pointInPolygon } from './util.js';
 import { triangulate } from './triangulate.js';
 import { rgb } from './geobuild.js';
 import { openRuns, weldEnds } from './deck-outline.js';
+import { deckWalkSide } from './bridge-walkways.js';
 import { BoxGrid, CELL, PALETTES, ROOF_COL, TILE, TILE_GRID, Y, archetypesModule, brandStyle, signedArea } from './world-shared.js';
 import { buildBridgeStructures } from './world-bridge-structures.js';
 
@@ -182,22 +183,30 @@ export async function buildFacadesGuards(ctx) {
         // level (its own guard line runs there, or the two are one road), inside a deck up to 3 m above (the line would stand
         // in that deck), or at a filled median
         const sidePolys = new Map(), sideOf = e => { let q = sidePolys.get(e); if (!q) sidePolys.set(e, q = asphaltCorners(e, widthSide)); return q; };
-        const takenAt = (x, z, y, ownE, ownN, ownMedian = null) => {
+        // (bridge-walkways.js) the deck walkways: a walkway band reaches past its carriageway's box, and the walkway joins round
+        // a pad (deck corners) are deck too
+        const walkReach = edges.some(e => e.deckWalk) ? Math.max(...edges.map(e => e.deckWalk ? Math.max(deckWalkSide(e, 1), deckWalkSide(e, -1)) : 0)) + .5 : 0;
+        const deckCorners = walkReach ? [...new Set(edges.flatMap(e => [...(e.a.deckWalkCorners || []), ...(e.b.deckWalkCorners || [])]))] : [];
+        const takenAt = (x, z, y, ownE, ownN, ownMedian = null, ownCorner = null) => {
             let hit = false;
-            surfGrid.each(x - 1, z - 1, x + 1, z + 1, o => {
-                if (hit || (ownE && o.e === ownE) || (ownN && o.node === ownN) || x < o.x0 - 1 || x > o.x1 + 1 || z < o.z0 - 1 || z > o.z1 + 1) return;
+            surfGrid.each(x - 1 - walkReach, z - 1 - walkReach, x + 1 + walkReach, z + 1 + walkReach, o => {
+                const m = 1 + (o.e?.deckWalk ? walkReach : 0);
+                if (hit || (ownE && o.e === ownE) || (ownN && o.node === ownN) || x < o.x0 - m || x > o.x1 + m || z < o.z0 - m || z > o.z1 + m) return;
                 const dy = o.h(x, z) - y; if (dy <= -LEVEL || dy >= 3) return;
                 // (on another deck's walkway band too: two decks parting share their walkways until those separate, so the
                 // two guards meet in one nose there instead of a short cage of two pieces before a filled median begins)
-                if (pointInPolygon(x, z, o.poly) || polyDist(x, z, o.poly) < GROW - EPS || (o.e && o.e.bridge && pointInPolygon(x, z, sideOf(o.e)))) hit = true;
+                if (pointInPolygon(x, z, o.poly) || polyDist(x, z, o.poly) < GROW - EPS || (o.e && o.e.bridge && (pointInPolygon(x, z, sideOf(o.e)) || (o.e.deckWalk && polyDist(x, z, sideOf(o.e)) < GROW - EPS)))) hit = true;
             });
+            if (!hit) for (const cp of deckCorners) if (cp !== ownCorner && Math.abs(padHeightAt(cp.n, x, z) - y) < LEVEL && (pointInPolygon(x, z, cp.p) || polyDist(x, z, cp.p) < GROW - EPS)) { hit = true; break; }
             if (!hit) medianGrid.each(x - .7, z - .7, x + .7, z + .7, d => { if (!hit && d !== ownMedian && Math.abs(d.roofHeightAt(x, z) - Y.road - y) < 1.6 && (pointInPolygon(x, z, d.poly) || polyDist(x, z, d.poly) < (ownMedian ? .05 : .65))) hit = true; });
             return hit;
         };
         const cands = [];
+        // (a deck walkway, bridge-walkways.js: the railing stands on the walkway's outer edge, the deck widened by it)
+        const guardW = (f, sd) => (deckWalkSide(f, sd) > 0 ? widthSide(f, sd) : widthAsphalt(f, sd)) + GROW;
         for (const e of edges) {
             if (!e.bridge || e.virtual || e.tunnel || !raisedDeck(e)) continue;
-            const [aR, bR, bL, aL] = asphaltCorners(e, (f, sd) => widthAsphalt(f, sd) + GROW), h = (x, z) => yAlong(e, x, z);
+            const [aR, bR, bL, aL] = asphaltCorners(e, guardW), h = (x, z) => yAlong(e, x, z);
             cands.push({ e, node: null, a: aR, b: bR, nx: -e.nx, nz: -e.nz, h, low: e.overWater ? -Infinity : LOW }, { e, node: null, a: aL, b: bL, nx: e.nx, nz: e.nz, h, low: e.overWater ? -Infinity : LOW });
         }
         for (const o of surfList) {
@@ -208,6 +217,24 @@ export async function buildFacadesGuards(ctx) {
                 let ox = (q[1] - p[1]) / L, oz = -(q[0] - p[0]) / L; if (((p[0] + q[0]) / 2 - cx) * ox + ((p[1] + q[1]) / 2 - cz) * oz < 0) { ox = -ox; oz = -oz; }
                 cands.push({ e: n.edges.find(e => e.bridge && !e.virtual && raisedDeck(e)), node: n, a: [p[0] + ox * GROW, p[1] + oz * GROW], b: [q[0] + ox * GROW, q[1] + oz * GROW], nx: -ox, nz: -oz, h, low: LOW });
             }
+        }
+        // across the end of a deck walkway the next edge does not carry on (bridge-walkways.js): from its outer edge to the
+        // carriageway's railing line
+        if (walkReach) for (const e of edges) {
+            if (!e.deckWalk || !e.bridge || e.virtual || e.tunnel || !raisedDeck(e)) continue;
+            const [oR, obR, obL, oL] = asphaltCorners(e, guardW), [iR, ibR, ibL, iL] = asphaltCorners(e, (f, sd) => widthAsphalt(f, sd) + GROW), h = (x, z) => yAlong(e, x, z);
+            for (const sd of [1, -1]) for (const n of [e.a, e.b]) {
+                if (!(deckWalkSide(e, sd) > 0) || n.pad) continue;
+                const next = n.edges.find(f => f !== e && !f.virtual); if (next && deckWalkSide(next, (next.a === n) === (e.b === n) ? sd : -sd) > 0) continue;
+                const a = n === e.a ? (sd > 0 ? oR : oL) : (sd > 0 ? obR : obL), b = n === e.a ? (sd > 0 ? iR : iL) : (sd > 0 ? ibR : ibL), out = n === e.a ? -1 : 1;
+                cands.push({ e, node: null, a: a.slice(), b: b.slice(), nx: -e.dirx * out, nz: -e.dirz * out, h, low: LOW });
+            }
+        }
+        // the outer edge of a deck walkway's join round a pad (bridge-walkways.js; it lies on the railing's line already)
+        for (const cp of deckCorners) {
+            const [, p, q] = cp.p, L = Math.hypot(q[0] - p[0], q[1] - p[1]); if (L < .05) continue;
+            let ox = (q[1] - p[1]) / L, oz = -(q[0] - p[0]) / L; if (((p[0] + q[0]) / 2 - cp.n.x) * ox + ((p[1] + q[1]) / 2 - cp.n.z) * oz < 0) { ox = -ox; oz = -oz; }
+            cands.push({ e: cp.e, node: cp.n, corner: cp, a: p.slice(), b: q.slice(), nx: -ox, nz: -oz, h: (x, z) => padHeightAt(cp.n, x, z), low: LOW });
         }
         // the open end of a filled median (where its two carriageways part by more than the fill spans) is an edge too
         for (const d of medianFill.decks) {
@@ -223,7 +250,7 @@ export async function buildFacadesGuards(ctx) {
         for (const c of cands) {
             const taken = c.median
                 ? (x, z) => { const y = c.h(x, z); return !(y > c.low) || takenAt(x + c.ox * .3, z + c.oz * .3, y, null, null, c.median); } // (beyond the cap: the next piece of the fill, or a carriageway)
-                : (x, z) => { const y = c.h(x, z); return !(y > c.low) || takenAt(x, z, y, c.node ? null : c.e, c.node); };
+                : (x, z) => { const y = c.h(x, z); return !(y > c.low) || takenAt(x, z, y, c.node ? null : c.e, c.node, null, c.corner || null); };
             for (const [t0, t1] of openRuns(c.a, c.b, taken)) {
                 const a = [c.a[0] + (c.b[0] - c.a[0]) * t0, c.a[1] + (c.b[1] - c.a[1]) * t0], b = [c.a[0] + (c.b[0] - c.a[0]) * t1, c.a[1] + (c.b[1] - c.a[1]) * t1];
                 pieces.push({ a, b, ya: c.h(...a), yb: c.h(...b), c });

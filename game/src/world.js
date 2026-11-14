@@ -13,6 +13,7 @@ import { roadMiter, needsRoadBevelPad } from './road-joins.js';
 import { buildSourceBoundarySupport } from './district-boundary.js';
 
 import { dropMedianLinkSidewalks } from './sidewalk-overlap.js';
+import { assignBridgeWalkways, deckWalkShiftAt, deckWalkSide } from './bridge-walkways.js';
 import { Y, convexHull, shoulderOf } from './world-shared.js';
 import { buildLandmarkGrounds } from './world-landmark-grounds.js';
 import { buildBuildingsLandmarks } from './world-buildings.js';
@@ -150,6 +151,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         const f = n.edges[0] === e ? n.edges[1] : n.edges[0];
         const same = (e.b === n && f.a === n) || (e.a === n && f.b === n);
         const sf = same ? s : -s;
+        // (bridge-walkways.js) a deck walkway that does not go on along the next edge ends square at the node: neither its
+        // outline nor the next edge's is mitred with the other (only widths that include the walkway: the asphalt still is)
+        if ((deckWalkSide(e, s) > 0) !== (deckWalkSide(f, sf) > 0) && (deckWalkSide(e, s) > 0 ? w - (s > 0 ? e.wR : e.wL) - shoulderOf(e) - sideExtra(e, s, e.a === n ? 0 : e.len) : wOtherFn(f, sf) - (sf > 0 ? f.wR : f.wL) - shoulderOf(f)) > .5) return [px, pz];
         const wf = wOtherFn(f, sf) + sideExtra(f, sf, f.a === n ? 0 : f.len);
         const qx = n.x + f.nx * sf * wf, qz = n.z + f.nz * sf * wf;
         const join = roadMiter(e, f, n, [px, pz], [qx, qz], Math.max(w, wf));
@@ -223,6 +227,15 @@ export async function buildWorld(city, renderer, opts = {}) {
     const widthAsphalt = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e);
     const widthSide = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + sidewalkWidth(e, s);
     const widthKerb = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + 0.28;
+    // a sidewalk OSM maps as its own footway on a raised deck: its strip on the deck, beside the carriageway (bridge-walkways.js)
+    const bridgeWalkways = assignBridgeWalkways(`${city.id}-${distId}`, edges, (la, lo) => city.proj(la, lo), widthAsphalt, sidewalkWidth);
+    // the deck walkway as drawn: its kerb is mitred with the next carriageway's where the width steps; the crowd walks it there
+    // (e.deckWalkShift[side] = [at a, at b], metres outward of the nominal kerb, read by the crowd's taper)
+    if (bridgeWalkways) for (const e of edges) if (e.deckWalk && e.bridge) for (const s of [1, -1]) {
+        if (!(deckWalkSide(e, s) > 0)) continue;
+        const lat = p => ((p[0] - e.a.x) * e.nx + (p[1] - e.a.z) * e.nz) * s, wk = widthKerb(e, s);
+        (e.deckWalkShift || (e.deckWalkShift = {}))[s] = [lat(corner(e, e.a, s, wk, widthKerb)) - wk - sideExtra(e, s, 0), lat(corner(e, e.b, s, wk, widthKerb)) - wk - sideExtra(e, s, e.len)];
+    }
     const sharedPadSurfaces=new Map();
     if(sharedBridgeProfile.known||sourceBridgeDescents.known)for(const n of nodeArr){
         if(!n.pad||!n.edges.some(e=>e.sourceBridgeGrade?.known))continue;
@@ -263,7 +276,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // (world side joins: world-side-joins.js)
     const {
         RIB_ONLY, clearOf, kerbSpot, liftOnSide, medianFill, medianGrid, obbPoly, onRibbon,
-        polyOnRibbon, raisedDeck, raisedTop, ribGrid, segsCross, walls,
+        polyOnRibbon, raisedDeck, raisedTop, ribGrid, ribbonsAtLevel, segsCross, walls,
     } = buildSideJoins({
         ASPHALT, DY_SIDE, SIDE_BACK, US, asphaltCorners, bridgeJunctionAudit, bridgeJunctionDecks, cellOf,
         cornerGrid, cornerPolys, cornerSkips, coveredByOther, data, edgeGrid, edges, kerbCol,
@@ -514,7 +527,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     } = buildWorldFinish({
         ASPHALT, LANDMARKS, US, WATER_API: __buildRaisedEdges.WATER_API, __buildPaintSetup, __buildRibbons, __buildRoadGraphAids, __buildStreetFurniture,
         addPropColl, areas, assemblyAudit, assemblyRejected, atlas, bDropped, bGrid, bRecs,
-        bShrunk, basarabLamps, bigWater, boundarySupport, bounds, bridgeBents, bridgeJunctionAudit, buildPool,
+        bShrunk, basarabLamps, bigWater, boundarySupport, bounds, bridgeBents, bridgeJunctionAudit, bridgeWalkways, buildPool,
         buildingAt, buildingPassageAudit, cellOf, cells, channelCuts, channelM, city, clearanceAudit,
         collision, collisionBoxes, cornerPolys, cornerSkips, country, coveredOutlines, coveredRoadModels, coveredWater,
         crossings, data, deckLamps, distCfg, distId, dmask: __buildAreasWater.dmask, edges, elevatedDataset,
@@ -548,8 +561,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         let seen = null; // (made for the first edge near enough: four in five that the grid cells hold are not)
         sceneryDeckGrid.each(x, z, x, z, deck => { if (pointInPolygon(x, z, deck.poly)) cb(deck.roofHeightAt(x, z),false,deck); });
         if (!carriagewayOnly && cornerPolys.length) { // a raised junction corner: the only surface there (cb(h, raised))
-            let hc = null; cornerGrid.each(x, z, x, z, (cp) => { if (hc === null && x >= cp.x0 && x <= cp.x1 && z >= cp.z0 && z <= cp.z1 && pointInPolygon(x, z, cp.p)) hc = Y.road + Y.kerb + padHeightAt(cp.n, x, z); });
-            if (hc !== null && !onRibbon(x, z, 0, RIB_ONLY)) { cb(hc, true); return; }
+            let hc = null, hcDeck = false; cornerGrid.each(x, z, x, z, (cp) => { if (hc === null && x >= cp.x0 && x <= cp.x1 && z >= cp.z0 && z <= cp.z1 && pointInPolygon(x, z, cp.p)) { hc = Y.road + Y.kerb + padHeightAt(cp.n, x, z); hcDeck = !!cp.deck; } });
+            if (hc !== null && !onRibbon(x, z, 0, hcDeck ? ribbonsAtLevel(x, z, hc - Y.road - Y.kerb) : RIB_ONLY)) { cb(hc, true); return; }
         }
         // (spec 10 load budget) the edge grid's cells as flat arrays (surfCells): the same cells and edges in the same order
         // as edgeGrid.each(x - 2, z - 2, x + 2, z + 2), each edge's first test read from numbers instead of the edge
@@ -570,11 +583,12 @@ export async function buildWorld(city, renderer, opts = {}) {
                 seen.add(e);
                 const q = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z);
                 const side = ((x - q.cx) * e.nx + (z - q.cz) * e.nz) >= 0 ? 1 : -1;
-                const lim = (side > 0 ? e.wR : e.wL) + shoulderOf(e) + (carriagewayOnly ? 0 : sidewalkWidth(e, side) + (raisedEdge(e, side) ? SIDE_BACK : 0.05)) + (e === prefer ? 1.5 : 0);
+                const walkShift = e.deckWalkShift && !carriagewayOnly ? deckWalkShiftAt(e, side, q.t) : 0; // (a deck walkway as drawn, bridge-walkways.js)
+                const lim = (side > 0 ? e.wR : e.wL) + shoulderOf(e) + (carriagewayOnly ? 0 : sidewalkWidth(e, side) + (raisedEdge(e, side) ? SIDE_BACK : 0.05)) + (e === prefer ? 1.5 : 0) + walkShift;
                 if (q.d > lim) continue;
                 if ((q.t <= 0 || q.t >= 1) && Math.hypot(x - (q.t <= 0 ? e.a.x : e.b.x), z - (q.t <= 0 ? e.a.z : e.b.z)) > (q.t <= 0 ? e.a : e.b).radius + (carriagewayOnly ? 0 : 1)) continue;
                 const h = Y.road + yAlong(e,x,z);
-                if (!carriagewayOnly && q.t > 0 && q.t < 1 && raisedEdge(e, side) && q.d > widthAsphalt(e, side) + 0.02 && !onRibbon(x, z, 0, RIB_ONLY)) { const sh = railRoadside.surface(e, x, z, h + Y.kerb); if (sh !== null) cb(sh, sh > h + .01); continue; } // source-rail flush paving follows rendered h
+                if (!carriagewayOnly && q.t > 0 && q.t < 1 && raisedEdge(e, side) && q.d > widthAsphalt(e, side) + walkShift + 0.02 && !onRibbon(x, z, 0, e.deckWalk && e.bridge ? ribbonsAtLevel(x, z, h - Y.road, e) : RIB_ONLY)) { const sh = railRoadside.surface(e, x, z, h + Y.kerb); if (sh !== null) cb(sh, sh > h + .01); continue; } // source-rail flush paving follows rendered h
                 let adjusted = railRoadside.surface(e, x, z, h);
                 if (adjusted === null && !carriagewayOnly) adjusted = railRoadside.surface(e, x, z, h + Y.side - Y.road);
                 if (adjusted !== null) cb(adjusted);
@@ -591,7 +605,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             list.forEach((e, k) => {
                 const o = 7 * k, base = Math.max(e.wR, e.wL) + 1.2;
                 box[o] = Math.min(e.a.x, e.b.x); box[o + 1] = Math.max(e.a.x, e.b.x); box[o + 2] = Math.min(e.a.z, e.b.z); box[o + 3] = Math.max(e.a.z, e.b.z);
-                box[o + 4] = base + (Math.max(sidewalkWidth(e, 1), sidewalkWidth(e, -1)) + SIDE_BACK); box[o + 5] = base + 0; box[o + 6] = e.virtual ? 1 : 0;
+                box[o + 4] = base + (Math.max(sidewalkWidth(e, 1), sidewalkWidth(e, -1)) + SIDE_BACK) + (e.deckWalkShift ? Math.max(0, ...Object.values(e.deckWalkShift).flat()) : 0); box[o + 5] = base + 0; box[o + 6] = e.virtual ? 1 : 0;
             });
             out.set(key, { list, box });
         }

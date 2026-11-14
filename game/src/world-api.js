@@ -210,6 +210,12 @@ export function buildWorldApi(ctx) {
             if (dirty) { lampMesh.instanceMatrix.needsUpdate = true; if (lampMesh.instanceColor) lampMesh.instanceColor.needsUpdate = true; }
         },
     };
+    // (a deck walkway, bridge-walkways.js) the crowd is otherwise all at street level: walkers on a deck walkway are at its
+    // level, so a road or a car passing below is not theirs. deckWalkLevel(x, z): the walkway top there (y), else null.
+    let deckBox = null;
+    for (const e of edges) if (e.deckWalk && e.bridge) { const r = Math.max(e.wL, e.wR) + 8, b = deckBox || (deckBox = [Infinity, Infinity, -Infinity, -Infinity]);
+        b[0] = Math.min(b[0], e.a.x - r, e.b.x - r); b[1] = Math.min(b[1], e.a.z - r, e.b.z - r); b[2] = Math.max(b[2], e.a.x + r, e.b.x + r); b[3] = Math.max(b[3], e.a.z + r, e.b.z + r); }
+    if (deckBox) world.deckWalkLevel = (x, z) => { if (x < deckBox[0] || z < deckBox[1] || x > deckBox[2] || z > deckBox[3]) return null; const t = world.walkTop(x, z); return t !== null && t > 1.5 ? t : null; };
     return {
         world,
     };

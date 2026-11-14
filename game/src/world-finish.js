@@ -20,7 +20,7 @@ export function buildWorldFinish(ctx) {
     const {
         ASPHALT, LANDMARKS, US, WATER_API, __buildPaintSetup, __buildRibbons, __buildRoadGraphAids, __buildStreetFurniture,
         addPropColl, areas, assemblyAudit, assemblyRejected, atlas, bDropped, bGrid, bRecs,
-        bShrunk, basarabLamps, bigWater, boundarySupport, bounds, bridgeBents, bridgeJunctionAudit, buildPool,
+        bShrunk, basarabLamps, bigWater, boundarySupport, bounds, bridgeBents, bridgeJunctionAudit, bridgeWalkways, buildPool,
         buildingAt, buildingPassageAudit, cellOf, cells, channelCuts, channelM, city, clearanceAudit,
         collision, collisionBoxes, cornerPolys, cornerSkips, country, coveredOutlines, coveredRoadModels, coveredWater,
         crossings, data, deckLamps, distCfg, distId, dmask, edges, elevatedDataset,
@@ -299,7 +299,7 @@ export function buildWorldFinish(ctx) {
     stats.tramPropEnvelope = tramPropEnvelope;
     stats.tramSweep = tramSweep ? { ...tramSweep.report, conflicts: tramSweepConflicts } : null;
     stats.tramRailings = tramRailings;
-    stats.monuments = monuments; stats.playgrounds = playgrounds; stats.carParkFronts = carParkFronts; stats.parkWalls = parkWalls; stats.retainingBanks = retainingBanks; stats.hillStructures = hillStructures; stats.freewayCuts = freewayCuts; stats.deckLamps = deckLamps; stats.facadeBands = facadeBands; stats.treeAdditions = treeAdditions; stats.weirs = weirs; stats.medianLinkSidewalks = medianLinkSidewalks;
+    stats.monuments = monuments; stats.playgrounds = playgrounds; stats.carParkFronts = carParkFronts; stats.parkWalls = parkWalls; stats.retainingBanks = retainingBanks; stats.hillStructures = hillStructures; stats.freewayCuts = freewayCuts; stats.deckLamps = deckLamps; stats.facadeBands = facadeBands; stats.treeAdditions = treeAdditions; stats.weirs = weirs; stats.medianLinkSidewalks = medianLinkSidewalks; if (bridgeWalkways) stats.bridgeWalkways = bridgeWalkways;
     stats.fuelForecourts = fuelForecourts;
     stats.landmarkWaterFootprints = landmarkWaterFootprints;
     stats.trenchGroundCuts = { corridors: trenchQuads.length, channelWaterTriangles: channelCuts.length, triangles: __live.trenchCutTris }; // (ground layers cut out of open trenches and sunken water channels)

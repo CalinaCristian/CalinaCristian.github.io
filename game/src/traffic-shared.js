@@ -36,6 +36,8 @@ export function hourDensity(table, h) {
 export function bandOf(density) { return density >= 1.3 ? 'rush' : density <= 0.45 ? 'night' : 'normal'; }
 /** vehicles at (x,z) on the street level (not on a deck above / in a tunnel below) */
 export const streetLevel = (v) => Math.abs((v.y ?? 0.24) - 0.24) < 2;
+/** a vehicle at the level of a walker at deck level y (bridge-walkways.js; y null: street level) */
+export const walkerLevel = (v, y) => y == null ? streetLevel(v) : Math.abs((v.y ?? 0.24) - y) < 2;
 /** width of the median (tram tracks / divider) */
 export function medianOf(e) {
     if (e.median != null) return e.median;
@@ -63,6 +65,7 @@ export const PED_R = 0.3; // pedestrian body radius (vehicles and static obstacl
 // (h-sim) a signal head of the controller a car left less than this far back is part of the same movement (no new red)
 export const SAME_CONTROLLER_M = 40;
 export function pedestrianPen(v, p, x = v.x, z = v.z, heading = v.heading) {
+    if (p.deckY != null && Math.abs((v.y ?? 0.24) - p.deckY) > 2) return -Infinity; // (a walker on a deck walkway above or below the vehicle)
     const fx = -Math.sin(heading), fz = -Math.cos(heading), dx = p.x - x, dz = p.z - z;
     return PED_R - Math.max(Math.abs(dx * fx + dz * fz) - v.length / 2, Math.abs(-dx * fz + dz * fx) - v.width / 2);
 }

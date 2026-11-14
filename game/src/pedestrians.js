@@ -173,7 +173,7 @@ export class Pedestrians {
             }
         }
     }
-    width(e, side, fallback = 3) { const w = sidewalkWidthOf(this.t.world, e, side, fallback); return w > 0 ? w : this.separateSidewalk(e, side); }
+    width(e, side, fallback = 3) { const w = sidewalkWidthOf(this.t.world, e, side, fallback); return e.deckWalk && e.bridge ? (e.deckWalkCovered?.[side] > .25 ? 0 : w) : w > 0 ? w : this.separateSidewalk(e, side); }
     /** (2026-11-13, Bellevue: 132 of 180 walkers piled on three junction stubs) OSM `sidewalk=separate` (270 of Bellevue's 305
      *  streets) maps the sidewalk as its own way beside the road; the road then has no sidewalk band, so the crowd had almost
      *  nowhere to walk. Such a side counts as a 1.8 m sidewalk just beyond the kerb, where the separate way runs. */
@@ -186,7 +186,8 @@ export class Pedestrians {
         }
         return (side > 0 ? v.r : v.l) ? 1.8 : 0;
     }
-    ok(e) { return !isMotorway(e) && !e.tunnel && !e.bridge && e.len > 4 && Math.max(this.width(e, 1, 1), this.width(e, -1, 1)) > 0 && e.type !== 'dn' && e.type !== 'service'; }
+    // (a deck walkway, bridge-walkways.js: the one bridge sidewalk the crowd walks, whatever the carriageway's class)
+    ok(e) { return (e.deckWalk ? !!e.bridge || !isMotorway(e) : !isMotorway(e) && !e.bridge) && !e.tunnel && e.len > 4 && Math.max(this.width(e, 1, 1), this.width(e, -1, 1)) > 0 && e.type !== 'dn' && e.type !== 'service'; }
     // (2026-11-08, owner: "people not even walking on it") district worlds: the walking line is the middle of that side's own
     // sidewalk — halfW (the wider half) put the line metres past the sidewalk on the narrow side of asymmetric streets
     off(e, side = 0) {
@@ -253,10 +254,12 @@ export class Pedestrians {
         const skipped = p => { const n = strideOf(p); return n > 1 && (this._fr + p.i) % n !== 0; };
         this.stats.lodWalkers = 0;
         this.ensurePeerGrid(true);
+        const deckLevel = T.world?.deckWalkLevel; // (bridge-walkways.js: a walker on a deck walkway is at its level: p.deckY)
         for (const p of this.list) {
             const stride = strideOf(p);
             if (stride > 1) { this.stats.lodWalkers++; if ((this._fr + p.i) % stride !== 0) continue; }
             p.drawStride = stride;
+            if (deckLevel) p.deckY = deckLevel(p.x, p.z) ?? (p.e?.deckWalk && p.e.bridge ? T.world.roadHeight(p.x, p.z, { y: 0.24 + Math.max(p.e.ya, p.e.yb), edge: p.e }) : null);
             const dt = frameDt * stride; // (shadows the frame step for this walker's whole move)
             this._stepDt = dt;
             this.ensurePeerGrid();
@@ -495,7 +498,7 @@ export class Pedestrians {
         // feet on the raised sidewalk where the district has one (world.walkTop, 2026-11-08), else the legacy 0.2 m;
         // re-sampled when the walker has moved ≥ 0.5 m
         const wt = this.t.world?.walkTop;
-        const footY = (p) => { if (!wt) return 0.2; if (p._fyx === undefined || Math.abs(p.x - p._fyx) + Math.abs(p.z - p._fyz) > 0.5) { const h = wt(p.x, p.z); p._fy = h === null ? 0.2 : h + 0.01; p._fyx = p.x; p._fyz = p.z; } return p._fy; };
+        const footY = (p) => { if (!wt) return 0.2; if (p._fyx === undefined || Math.abs(p.x - p._fyx) + Math.abs(p.z - p._fyz) > 0.5) { const h = wt(p.x, p.z); p._fy = h === null ? (p.deckY != null ? p.deckY + 0.01 : 0.2) : h + 0.01; p._fyx = p.x; p._fyz = p.z; } return p._fy; }; // (on a deck off its walkway: the deck's road, bridge-walkways.js)
         for (const p of this.list) {
             const s = p.scale;
             if (p.state === 'down') { p.drawX = undefined; C.set(p.i, { x: p.x, y: footY(p), z: p.z, scale: s, down: true, fallDir: p.fallDir }); continue; }

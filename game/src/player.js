@@ -436,7 +436,8 @@ export class Player {
      *  (round 6 note 11: only "on the road" pedestrians could fall, and a 3 s cooldown let the car pass through the rest) */
     collidePeds() {
         if (!this.traffic || !this.traffic.nearPeds) return;
-        if (Math.abs((this.surfY ?? GROUND_Y) - GROUND_Y) > 1.5) return; // on a deck / in a tunnel: pedestrians are on another level
+        const pedY = this.world?.deckWalkLevel ? (this.surfY ?? GROUND_Y) : null; // (bridge-walkways.js: walkers on a deck walkway are at its level)
+        if (pedY === null && Math.abs((this.surfY ?? GROUND_Y) - GROUND_Y) > 1.5) return; // on a deck / in a tunnel: pedestrians are on another level
         this.pedCd = Math.max(0, (this.pedCd || 0) - 1 / 60);
         // (2026-11-08) the body as drawn (nose `front` m ahead of the eye, boot `rear` m behind) and the person's reach
         // (an umbrella / guitar / flag / bag they carry: crowd.reach)
@@ -444,6 +445,7 @@ export class Player {
         const C = this.traffic.peds?.crowd;
         for (const p of this.traffic.nearPeds(this.x + this.fx * co, this.z + this.fz * co, 5)) {
             if (p.state === 'down') continue;
+            if (pedY !== null && Math.abs(pedY - (p.deckY ?? GROUND_Y)) > 1.5) continue;
             const PR = p.reach || (C?.reach ? C.reach(p.i) : 0.3);
             const dx = p.x - this.x, dz = p.z - this.z;
             const lon = dx * this.fx + dz * this.fz - co, lat = dx * sx + dz * sz;

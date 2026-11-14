@@ -12,7 +12,7 @@ after finishing work, push it to `master` (see `AGENTS.md` → Publishing), watc
 `curl -s -o /dev/null -w "%{http_code}" https://cristiancalina.com/game/index.html` returns 200.
 `_config.yml` keeps `game/dev`, `game/research`, `specs`, `tools` and the large evidence folders out of the Pages
 build, which otherwise times out in "syncing_files"; add new dev-only folders to that list.
-Commits: author and committer Cristian Calina <cristycalina@gmail.com>, no session lines in messages. Keep history
+Commits: author and committer Cristian Calina <cristycalina@gmail.com>, no Claude / Co-Authored-By / session lines in messages. Keep history
 clean: one scoped commit per area of change (squash fixups locally before pushing), and push to `master` once per
 finished batch of work, not after every small step. Work on `master` directly (no side branches left on the remote).
 

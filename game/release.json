@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-1f743ad71f980b1a",
-  "sourceCommit": "fd6e04903dd4223abd7384eee5c8d4a3608c53b0",
-  "fingerprint": "1f743ad71f980b1ab2201fe1db70da49f9fffe3562963bb128f0b988c4533320",
+  "releaseId": "game-7e69435695f267e9",
+  "sourceCommit": "e89ab8589daaa02052c9344f6e4eba9617df0a7d",
+  "fingerprint": "7e69435695f267e95aece7f20559242d1d9566ac1429dc4a3134d555e9b3cd7f",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -538,7 +538,7 @@
     },
     {
       "path": "game/src/game-drive.js",
-      "sha256": "05fb6fe4a28f0e22117794401d9269cbe5714e1615f883839cafae03f3a3ebf0"
+      "sha256": "20b9ca4b2257d74262e144aedb705dfb7bea6b85e1a2610a3d30d530940ccf77"
     },
     {
       "path": "game/src/game-foot.js",
@@ -1634,15 +1634,15 @@
     },
     {
       "path": "game/src/traffic-boxes.js",
-      "sha256": "f6f4dc4dee7228c88839a0b0ab146a1295da35b52a35eed18bfbd2b3a67f8c65"
+      "sha256": "ba899e0396939185c9cef996d212becb225348ca55475de74a094c9b0c67b3b6"
     },
     {
       "path": "game/src/traffic-knots.js",
-      "sha256": "c5d384b2fecfc45e5b9b385084e61fd356023c332732202287dacee19d36669e"
+      "sha256": "211b77da285f2efd2f0564ac6a8e963cd96c32c63420a9ae0e23f3cebf110ccc"
     },
     {
       "path": "game/src/traffic-lanes.js",
-      "sha256": "61ad048060da16668b6985786ecd9284009199cf1820db1f85d4388aa06e8628"
+      "sha256": "fc43307991e0621f511f84bcab3d4e4ef71d18ac12ab598eb3adddd6b91dc305"
     },
     {
       "path": "game/src/traffic-parking.js",
@@ -1654,11 +1654,11 @@
     },
     {
       "path": "game/src/traffic-step.js",
-      "sha256": "5f914f88bc0b980e9a99967483e16384d2de1d1d318ae7755acae77a7f58d05a"
+      "sha256": "17476888b5617490573f21e19871d502489a832ed8177bd78b6ea22f354c49d8"
     },
     {
       "path": "game/src/traffic.js",
-      "sha256": "860c4973105ae1e8e71ddb1a9276a3c1bce53623ead01767d264e91ba65a3179"
+      "sha256": "21714c7186811662672af3b658f4d134eca3c7845408deb2db91e90119051a2c"
     },
     {
       "path": "game/src/tram-body-support.js",

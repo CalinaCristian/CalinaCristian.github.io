@@ -300,7 +300,7 @@ export function bSeaTac(b) {
     b.box(wx, 25.9, zc, 15, 1.4, L, '#f2f3f4');
     b.box(wx, 27.3, zc, 14, 5.3, L, '#8fb0c4', { mat: 'g' });
     b.box(wx, 32.6, zc, 15.6, 0.9, L + 1, '#f2f3f4');
-    for (let k = 0; k <= 16; k++) { const z = z0 + k / 16 * L; b.box(wx, 22.4, z, 15.2, 3.5, 0.35, '#e6e8ea'); b.box(wx, 22.4 + 1.6, z + L / 32, 15.2, 0.35, L / 16 * 1.1, '#e6e8ea', { rx: k % 2 ? 0.3 : -0.3 }); }
+    for (let k = 0; k <= 16; k++) { const z = z0 + k / 16 * L; b.box(wx, 22.4, z, 15.2, 3.5, 0.35, '#e6e8ea'); if (k < 16) b.box(wx, 22.4 + 1.6, z + L / 32, 15.2, 0.35, L / 16 * 1.1, '#e6e8ea', { rx: k % 2 ? 0.3 : -0.3 }); } // 17 verticals, 16 diagonal panels (a 17th diagonal hung past the South Satellite end)
     b.box(wx, 22, zc, 15.4, 0.5, L, '#e6e8ea');
     for (const z of [-150, 22]) for (const e of [-1, 1]) for (const sx of [-5, 5]) b.box(wx + sx, 0, z + e * 5.5, 2, 23.5, 2, '#eef0f1', { rx: e * 0.45 });   // V-struts (Commons "IAF Pedestrian Walkway.jpg")
     b.text('WELCOME TO SEATTLE', wx - 7.65, 28.6, zc, -Math.PI / 2, 2.2, '#ffffff');

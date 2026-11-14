@@ -68,6 +68,11 @@ export class WeatherMethods {
         const nm = new Set(v?.nightMaterials || []);
         sc.traverse((o) => { const ms = !o.material ? [] : Array.isArray(o.material) ? o.material : [o.material]; for (const m of ms) if (m.userData?.nightEmissive > 0 && m.emissive) nm.add(m); });
         this._nightMats = [...nm]; this._nightMatK = -1;
+        // far mountain backdrops (userData.hazeHidden: Rainier, the Olympics, 80-90 km away) are drawn without fog; under
+        // a low overcast, rain or fog they cannot be seen, and drawn crisp above a hazy foreground they read as a slab
+        // floating in the sky (owner, SeaTac 2026-11-13: "random floating ... that don't connect to anything")
+        const hm = new Set(); sc.traverse((o) => { const ms = !o.material ? [] : Array.isArray(o.material) ? o.material : [o.material]; for (const m of ms) if (m.userData?.hazeHidden) hm.add(m); });
+        this._hazeMats = [...hm]; this._applyBackdropHaze();
     }
     _wxPlace() { return this.clock || { lat: 44.43, lon: 26.1, timeZone: 'Europe/Bucharest' }; }
     _refreshWeather({ live = true } = {}) {
@@ -83,11 +88,17 @@ export class WeatherMethods {
             .catch((err) => { if (!this._wxWarned) { this._wxWarned = true; console.info('[weather] live weather unavailable, using climatology:', err?.message || err); } })
             .finally(() => { if (gen === this._wxGen) this._wxBusy = false; });
     }
+    /** far backdrops show only in a clear, long-visibility sky (see the scene scan above) */
+    _applyBackdropHaze() {
+        const w = this._wxData, show = !w || ((w.visibilityM ?? 24000) >= 24000 && (w.cloud ?? 0.4) < 0.85);
+        for (const m of this._hazeMats || []) m.visible = show;
+    }
     _applyWeatherData(w, source, loc) {
         this._wxData = w; this._wxSource = source; this._wxDataLoc = loc;
         const t = weatherTargets(w);
         t.fogDens = 3.912 / Math.max(150, t.visibilityM); // Koschmieder: 2 % contrast left at the visibility distance
         this._wxT = t;
+        this._applyBackdropHaze();
         // a fresh place / load snaps to the weather instead of easing in; the climatology placeholder shown while the
         // live request runs keeps that window open (round 6 note 33: climatology said rain, the ground loaded fully
         // wet, then the live — dry — weather arrived and the ground visibly dried over a minute)

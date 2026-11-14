@@ -21,8 +21,9 @@ another vehicle or stalled there keeps just its path reservation), and a claiman
 cars with the part of its path it has not reached; a car leaving one junction pad claims the next junction before its
 line. A car claims the first junction box ahead whose pad its front has not entered, also when the link before it is
 shorter than that pad (it claims from the edge before), and enters a box only with room for its whole body beyond the
-exit pad in its exit lane (keep the box clear); a turning long body's claim is widened by its off-tracking, and a car
-waiting for it stops that much short of its line. A lane-drop hold at a node beyond the next one is released the same
+exit pad in its exit lane (keep the box clear; after 20 s of waiting behind an exit queue that has not moved for
+20 s other than at a red light, it moves up); a turning long body's claim is widened by its off-tracking, and a car
+waiting for it stops that much short of its line, and a car following a turning long body keeps 2.5 m more gap. A lane-drop hold at a node beyond the next one is released the same
 way as at the next node. A closed ring of vehicles each waiting for the next (all stopped ≥ 15 s) is undone by the
 member with the most room behind it backing up along its lane at walking pace (≤ 4 m), then letting the car that waited
 for it go. A walker standing on the carriageway without headway for 8 s counts as pinned (turns back or leaves the
@@ -70,7 +71,8 @@ R13.23 A signal controller over several nodes (a split junction, a square) runs 
 from outside; a link between two of its own nodes has no stage of its own and shows the stage of the entry axis it
 lines up with best. A controller over three or more nodes (a square) stretches each stage up to twice the base slot,
 keeping its whole cycle within 60 s. A car inside the box holds the other stages red only while it clears the box on
-its own and makes headway (≥ 1 m in 8 s).
+its own and makes headway (≥ 1 m in 8 s), and then for at most the first 4 s of a stage (a stage is never skipped; the
+box claims keep the cars that get its green off the occupied paths).
 R13.24 With a GPS destination set, the R reset puts the car on the nearest free lane pose from which a route to that
 destination exists (a nearer pose with no route is skipped).
 

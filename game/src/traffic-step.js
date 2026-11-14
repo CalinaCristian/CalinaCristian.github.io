@@ -203,9 +203,7 @@ export class TrafficStep {
                 const reach = Math.max(9, v.speed * v.speed / 9 + 3);
                 if (D - rad < reach) {
                     const res = this.boxCheck(v, curE, curDir, nxt, node, rad), entry = D - rad - 0.8;
-                    const full = res !== 'wait' && entry > -0.3 && this.exitBlocked(v, res);
-                    v.exitBy = full || null;
-                    // (Calea Floreasca at Str. Protopopescu: a van stopped at its line inside the corner a 12 m bus cut while
+                    const full = res !== 'wait' && entry > -0.3 && this.exitBlocked(v, res);                    // (Calea Floreasca at Str. Protopopescu: a van stopped at its line inside the corner a 12 m bus cut while
                     // turning in, and neither could move) a car waiting for a turning long body stops its sweep short of the line
                     const setback = res === 'wait' && this.boxWaitSweep > 0 ? this.boxWaitSweep + 1 : 0;
                     if ((res === 'wait' || full) && entry > -0.3) { if (entry - setback < stopD) { stopD = entry - setback; stopWhy = full ? 'exit-full' : 'claim'; } } // (already over the line: committed, clear the box)
@@ -273,7 +271,10 @@ export class TrafficStep {
         }
 
         // ---------------- speed control ----------------
-        const headway = this.buc ? 0.6 : 1.0, minGap = leader === P ? 2.2 : (this.buc ? 1.6 : 2.4), b = 4.5;
+        // (Calea Floreasca at Str. Protopopescu: a car's nose in the rear of a 12 m bus that swung it while turning, both
+        // locked for minutes) a car hangs back behind a long body that is turning
+        const swing = leader && typeof leader === 'object' && leader !== P && leader.long && Math.abs(Math.sin(leader.heading - v.heading)) > 0.3 ? 2.5 : 0;
+        const headway = this.buc ? 0.6 : 1.0, minGap = (leader === P ? 2.2 : (this.buc ? 1.6 : 2.4)) + swing, b = 4.5;
         let target = Math.min(desired, vCap);
         if (gap < Infinity) target = Math.min(target, Math.sqrt(Math.max(0, leaderSpeed * leaderSpeed + 2 * b * (gap - minGap - v.speed * headway))));
         if (stopD < Infinity) target = Math.min(target, Math.sqrt(Math.max(0, 2 * b * (stopD - 0.3))));

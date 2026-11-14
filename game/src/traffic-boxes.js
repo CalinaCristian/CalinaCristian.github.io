@@ -13,6 +13,8 @@ const CLAIM_STALL_S = 4, CLAIM_STALL_LONG_S = 12;
 const EXIT_ROOM_M = 1.5;
 /** A vehicle in the exit lane slower than this (m/s) is a queue, not traffic that will have moved on. */
 const EXIT_QUEUE_SPEED = 2;
+/** How long a car keeps a box clear for an exit queue that does not move (s, its own wait and the queue's). */
+const EXIT_PATIENCE_S = 20;
 
 export class TrafficBoxes {
     /** path across the junction pad for v going (curE,curDir) → nxt: entry lane point → exit lane point */
@@ -152,6 +154,10 @@ export class TrafficBoxes {
             from += e.len; const nx = v.route[++i]; if (!nx || nx.uturn) break;
             lane = this.laneOnNext(v, lane, nx.e, nx.dir); e = nx.e; dir = nx.dir;
         }
+        // (Calea Floreasca: chains of cars each keeping the next box clear behind a queue that did not move for minutes)
+        // keeping clear is a courtesy with a limit: once both have stood EXIT_PATIENCE_S, the car moves up into the box
+        // behind it (the claims still keep it off every crossing path)
+        if (blocker && (v.stuck || 0) > EXIT_PATIENCE_S && (blocker.still || 0) > EXIT_PATIENCE_S) return null; // (still: not a red-light queue)
         return blocker;
     }
     /** vehicles whose current edge is e (an index rebuilt once per frame) */

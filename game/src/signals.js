@@ -28,6 +28,8 @@ export function assignSignalPhases(approaches, internal = null) {
 
 /** Longest whole cycle of a multi-node controller with stretched stages (s). */
 const CYCLE_MAX_S = 60;
+/** Longest extension of a stage's start while another stage's car still clears the box (s). */
+const OCCUPANCY_HOLD_S = 4;
 export function signalState(controller, phase, time, greenTime) {
     if (!Number.isInteger(phase) || phase < 0 || phase >= controller.phaseCount) return 'red';
     // A controller over three or more nodes (a square: Piața Romană, Piața Victoriei, Piața Unirii) runs longer stages,
@@ -40,7 +42,10 @@ export function signalState(controller, phase, time, greenTime) {
     // Slow/stopped vehicles retain their reservation until their rear clears the whole
     // split junction. Do not release a conflicting green just because a timer elapsed
     // (traffic-step.js syncSignalOccupancy: only an occupant stalled in the box stops holding it).
-    if (controller.occupiedPhases?.some(p => p !== phase)) return 'red';
+    // The hold extends the all-red clearance by at most OCCUPANCY_HOLD_S: a stage is never skipped (a box that did not
+    // clear in time held a whole approach red for minutes at Piața Victoriei); the box claims keep a car that gets its
+    // green off any path still occupied.
     const local = t % slot;
+    if (local < OCCUPANCY_HOLD_S && controller.occupiedPhases?.some(p => p !== phase)) return 'red';
     return local < green ? 'green' : local < green + yellow ? 'yellow' : 'red';
 }

@@ -389,6 +389,12 @@ export class Traffic {
         const P = this.walker?.active ? this.walker : this.player; if (!P) return false;
         const dx = v.x - P.x, dz = v.z - P.z, d = Math.hypot(dx, dz);
         if (d < 70 || (d < 230 && dx * P.fx + dz * P.fz > -2)) return true;
+        return this.inCameraView(v);
+    }
+    /** v in an active camera's frustum (within RECOVERY_VIEW_FAR_M), or within 70 m of the viewer */
+    inCameraView(v) {
+        const P = this.walker?.active ? this.walker : this.player; if (!P) return false;
+        if (Math.hypot(v.x - P.x, v.z - P.z) < 70) return true;
         const G = globalThis.game;
         if (G?.traffic !== this) return false;
         if (!this._recoveryViews || this._recoveryViewFrame !== this._frame) {

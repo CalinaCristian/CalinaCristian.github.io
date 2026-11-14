@@ -574,7 +574,8 @@ export class TrafficLanes {
         if (!nx) {
             // A route-ending bus waits at the end while visible; recycling it is
             // deferred until hidden, rather than driving it beyond its last edge.
-            if (!this.respawn(v)) { v.s = Math.min(v.s, e.len - 0.1); v.speed = 0; }
+            const out = (odir > 0 ? e.b : e.a).mapEnd;
+            if (!this.respawn(v, out ? 'edge' : true)) { v.s = Math.min(v.s, e.len - 0.1); v.speed = 0; }
             return;
         }
         (v._sh || (v._sh = [])).push(nx);
@@ -603,7 +604,8 @@ export class TrafficLanes {
     }
     /** move a vehicle somewhere else in the city, out of sight of the player */
     respawn(v, hidden = true) {
-        if (hidden && v.mesh.visible !== false && this.inView(v)) return false;
+        // ('edge': a vehicle leaving at a district-edge closure, traffic-lanes advance) leaves once no camera shows it
+        if (hidden && v.mesh.visible !== false && (hidden === 'edge' ? this.inCameraView(v) : this.inView(v))) return false;
         const original = this.savePose(v);
         v._resp = true; v.latBlend = 0;
 

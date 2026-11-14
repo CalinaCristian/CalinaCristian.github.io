@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-d2ee34e9794199c3",
-  "sourceCommit": "ceb3bfd27bbdcbce38ade784e6bf3e83fc464966",
-  "fingerprint": "d2ee34e9794199c36d54ba8a36815a35a7c51d713a57755a449110a8b81c736a",
+  "releaseId": "game-4214a8e44eb919a0",
+  "sourceCommit": "7d15ca498ef2ab39b62d89424dd1c6fba74b6913",
+  "fingerprint": "4214a8e44eb919a003de62dac7711f611cb78e091a037b54281e48ca6ccad9a3",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -734,7 +734,7 @@
     },
     {
       "path": "game/src/landmarks/kit.js",
-      "sha256": "a720bcb11d32f7ca33928a5c178efed4d7e786dbe6e7d2ca8b31cc68e7280449"
+      "sha256": "e912a54f829cc55225b3a0ed9384bb4a851e3e4676f65b1962af35ad1193b783"
     },
     {
       "path": "game/src/landmarks/parts.js",
@@ -742,7 +742,7 @@
     },
     {
       "path": "game/src/landmarks/seattle.js",
-      "sha256": "c8dfd26bf2e1aca9a32638c58928a28a4433e612c0d243bad9466c5f58974ea7"
+      "sha256": "6d4ffdf8185faf5964c9de4f0d4f89481614deb3b2987649280be367883ba5e3"
     },
     {
       "path": "game/src/landmarks/source-data.js",
@@ -982,7 +982,7 @@
     },
     {
       "path": "game/src/render-weather.js",
-      "sha256": "5337391d8ec13ff7bda7b32d07444573debd1e72eef9232c13162cbc8c36c7f9"
+      "sha256": "0a712d52ed714ea5abee9500187cce90eb42a6a94232e3261358b2f8e247e928"
     },
     {
       "path": "game/src/render.js",

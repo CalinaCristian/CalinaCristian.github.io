@@ -19,7 +19,14 @@ head-on keep one yielder, a follower touching only the other's side may drive aw
 its rear may swing its rear corner into it by at most 0.25 m while it moves off; only a car clearing a signal box on its own holds the other phases red (one queued behind
 another vehicle or stalled there keeps just its path reservation), and a claimant stalled in a queue does not hold later
 cars with the part of its path it has not reached; a car leaving one junction pad claims the next junction before its
-line.
+line. A car claims the first junction box ahead whose pad its front has not entered, also when the link before it is
+shorter than that pad (it claims from the edge before), and enters a box only with room for its whole body beyond the
+exit pad in its exit lane (keep the box clear); a turning long body's claim is widened by its off-tracking, and a car
+waiting for it stops that much short of its line. A lane-drop hold at a node beyond the next one is released the same
+way as at the next node. A closed ring of vehicles each waiting for the next (all stopped ≥ 15 s) is undone by the
+member with the most room behind it backing up along its lane at walking pace (≤ 4 m), then letting the car that waited
+for it go. A walker standing on the carriageway without headway for 8 s counts as pinned (turns back or leaves the
+road). A vehicle whose only road on runs to a district-edge closure takes it and leaves at the edge.
 R13.6 District boundaries: vehicles despawn/respawn out of view at the edges.
 R13.7 A side/rear pedestrian yield releases only when the vehicle body is already clear and its next motion increases
 clearance (including what the pedestrian carries); front crossing yields stay.
@@ -59,6 +66,13 @@ R13.22 A bus lane mapped against a one-way (`busway=opposite_lane`, `oneway:bus=
 topology, from the runtime source tags: buses (spawn, route choice, stops on its side, its own signal approach) use it;
 cars, GPS routes, private-car connectivity and the chapter start treat the way as one-way. The no-entry sign where the
 bus lane enters the one-way carries the supplementary plate exempting buses.
+R13.23 A signal controller over several nodes (a split junction, a square) runs one stage per road axis entering it
+from outside; a link between two of its own nodes has no stage of its own and shows the stage of the entry axis it
+lines up with best. A controller over three or more nodes (a square) stretches each stage up to twice the base slot,
+keeping its whole cycle within 60 s. A car inside the box holds the other stages red only while it clears the box on
+its own and makes headway (≥ 1 m in 8 s).
+R13.24 With a GPS destination set, the R reset puts the car on the nearest free lane pose from which a route to that
+destination exists (a nearer pose with no route is skipped).
 
 ## Acceptance
 - Harness: vehicle-overlap ≤ 5, ped-in-vehicle 0, vehicle-overlaps-player 0, scenario `i` passes.

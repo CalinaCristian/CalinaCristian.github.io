@@ -277,7 +277,9 @@ export class Harness {
         // keep the game's own navigation in sync (instructions + HUD), but follow our own copy of the route
         try { g.setNavDest ? g.setNavDest({ x, z, label: o.label }, true) : g.nav.setDestination({ x, z, label: o.label }, P); } catch (e) { this.issue('harness-api', 'medium', 'setNavDest failed: ' + e.message, {}, { key: 'setNavDest' }); }
         if (!this.apRoute()) { this.ap = null; this.setControls(0, 0, true); return { ok: false, reason: 'no route' }; }
-        await this.run(o.timeout, () => ap.done);
+        // (drive:seatac) a chapter whose goal the game itself completes on arrival opens its chapter card there
+        // (`arriveState`): the autopilot no longer runs, and that is the arrival
+        await this.run(o.timeout, () => { if (!ap.done && o.arriveState && g.state === o.arriveState) { ap.done = true; ap.reason = 'arrived'; ap.remaining = ap.remaining ?? 0; } return ap.done; });
         this.setControls(0, 0, true);
         const res = { ok: ap.done && ap.reason === 'arrived', reason: ap.done ? ap.reason : 'timeout', t: r1(this.scT - ap.t0), dist: Math.round((g.stats?.dist ?? 0) - ap.dist0), resets: ap.resets, remaining: Math.round(ap.remaining ?? -1) };
         if (!res.ok) this.note(`driveTo ${o.label} failed: ${res.reason} (remaining ${res.remaining} m)`);

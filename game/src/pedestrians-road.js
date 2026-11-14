@@ -40,12 +40,16 @@ export class PedestriansRoad {
         return previous > before + 1e-6;
     }
     /** gap from vehicle front to the nearest pedestrian on the carriageway in its path */
-    obstacleGap(v, look, dt = 1 / 30) {
+    obstacleGap(v, look, dt = 1 / 30, inBox = false) {
         let gap = Infinity; const half = v.length / 2;
-        this.grid.query(v.x + v.fx * look * 0.5, v.z + v.fz * look * 0.5, look * 0.5 + 2, (p) => {
+        // (Piața Unirii: a car inside the box waited for minutes as walkers crossed one after another a metre beside its
+        // path) a car committed inside a junction box clears it, yielding to a walker in its own path only; the walkers
+        // beside it keep their distance by themselves (avoidVehicles) and the pedestrian guard keeps the body off them
+        const side = inBox ? 0.5 : 1.2, fx = inBox ? -Math.sin(v.heading) : v.fx, fz = inBox ? -Math.cos(v.heading) : v.fz, rx = inBox ? -fz : v.rx, rz = inBox ? fx : v.rz;
+        this.grid.query(v.x + fx * look * 0.5, v.z + fz * look * 0.5, look * 0.5 + 2, (p) => {
             if (!p.onRoad) return;
-            const dx = p.x - v.x, dz = p.z - v.z; const f = dx * v.fx + dz * v.fz; if (f <= 0) return;
-            const l = dx * v.rx + dz * v.rz; if (Math.abs(l) > v.width * 0.5 + 1.2) return;
+            const dx = p.x - v.x, dz = p.z - v.z; const f = dx * fx + dz * fz; if (f <= 0) return;
+            const l = dx * rx + dz * rz; if (Math.abs(l) > v.width * 0.5 + side) return;
             const g = f - half - 0.6;
             if (g < 0 && this.vehicleStepClearsPerson(v, p, dt)) return;
             if (g < gap) gap = g;
@@ -382,10 +386,22 @@ export class PedestriansRoad {
         if (p && this.crossBlocked(p, leg)) return false; // a car is standing on the crossing
         if (node.hasLight) {
             if (T.lightState(node, X) === 'red') return this.noFastCar(leg, 6);
-            return T.buc && waited > 25 && this.noFastCar(leg, 30);
+            // (Piața Victoriei: walkers crossing against the vehicle green in front of the queued cars, one after another,
+            // held the queue at the zebra inside the box for minutes) against the green only with no car at all near the line
+            return T.buc && waited > 25 && this.noFastCar(leg, 30) && this.noCarNear(leg, 12);
         }
         if (waited > (T.buc ? 14 : 30)) return this.noFastCar(leg, 8);
         return this.noFastCar(leg, node.crossing ? 16 : 26);
+    }
+    /** no moving or waiting vehicle within r of the crossing point that is headed for it */
+    noCarNear(leg, r) {
+        let ok = true;
+        this.t.grid.query(leg.x, leg.z, r, (v) => {
+            if (!ok || v.parked || v.inactive) return;
+            const dx = leg.x - v.x, dz = leg.z - v.z;
+            if (Math.hypot(dx, dz) < r && dx * v.fx + dz * v.fz > -2) ok = false;
+        });
+        return ok;
     }
     noFastCar(leg, r) {
         const mx = leg.x, mz = leg.z; let ok = true;

@@ -102,7 +102,7 @@ export class TrafficStep {
                 }
             }
         }
-        const pg = this.peds.obstacleGap(v, look, dt);
+        const pg = this.peds.obstacleGap(v, look, dt, inJunction);
         if (pg < gap) { gap = pg; leader = 'ped'; leaderSpeed = 0; leaderCross = false; }
         if (leader === P && P && Math.abs(P.speed) < 1.2 && gap < 14) v.blockT += dt; else v.blockT = Math.max(0, v.blockT - dt * 2);
 

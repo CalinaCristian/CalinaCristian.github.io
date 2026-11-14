@@ -732,7 +732,7 @@ async function driveChapter(H, chId, limit = null) {
         };
         const t0 = H.scT;
         const origStep = H.stepOnce.bind(H); H.stepOnce = (dt) => { origStep(dt); if (H.mon.steps % 15 === 0) watch(); };
-        try { res.drive = await H.driveTo(o.doorX ?? o.x, o.doorZ ?? o.z, { label: `${chId} chapter drive`, arriveR: stop ? 9 : 25, timeout: 300, stop: !!stop }); }
+        try { res.drive = await H.driveTo(o.doorX ?? o.x, o.doorZ ?? o.z, { label: `${chId} chapter drive`, arriveR: stop ? 9 : 25, timeout: 300, stop: !!stop, arriveState: 'card' }); }
         finally { H.stepOnce = origStep; }
         res.seconds = r1(H.scT - t0); res.junctionStillMax = r1(worst); res.junctionStillAt = worstAt;
         res.shot = await H.shot(`drive-${chId}-arrived`);

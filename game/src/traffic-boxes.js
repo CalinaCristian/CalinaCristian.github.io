@@ -8,7 +8,7 @@ import { laneOffset, segDist, tramOffset } from './traffic-shared.js';
  *  the other signal phases red: it is not clearing the box itself. */
 const OCCUPANCY_STALL_S = 8, OCCUPANCY_QUEUE_GAP_M = 8;
 /** A junction claim whose vehicle has stood this long (s) behind another vehicle no longer makes later cars wait. */
-const CLAIM_STALL_S = 4;
+const CLAIM_STALL_S = 4, CLAIM_STALL_LONG_S = 12;
 /** Room a car needs beyond the exit pad before it enters a box (m, on top of its own length). */
 const EXIT_ROOM_M = 1.5;
 /** A vehicle in the exit lane slower than this (m/s) is a queue, not traffic that will have moved on. */
@@ -49,7 +49,9 @@ export class TrafficBoxes {
             // its leader, and that queue may itself wait for us (a bus turning across our lanes held up by our queue): its
             // body stays an obstacle for car-following and the overlap guard, the part of its path it has not reached
             // does not hold us.
-            if (o.speed < 0.3 && (o.stuck || 0) > CLAIM_STALL_S && o.leader && typeof o.leader === 'object') continue;
+            // (Piața Victoriei, Titulescu) so does an entered claimant that has stood still much longer, whatever holds it
+            // (a walker, a light at the next head, a knot): a waiting claim with no end left the cars behind it at the line
+            if (o.speed < 0.3 && (o.stuck || 0) > (o.leader && typeof o.leader === 'object' ? CLAIM_STALL_S : CLAIM_STALL_LONG_S) && (r.entered || o.leader)) continue;
             for (const a of path.segments) for (const b of r.segments) {
                 const gap = segDist(a.p0x, a.p0z, a.p1x, a.p1z, b.p0x, b.p0z, b.p1x, b.p1z);
                 // (a car waiting for a long body's turn stops that body's sweep short of the line: see stepVehicle)
@@ -172,8 +174,12 @@ export class TrafficBoxes {
             // the car at the head of its queue never got its green and the cluster locked for the whole drive. Only a car
             // that is clearing the box on its own holds the signal; a queued or stalled one keeps its path reservation
             // (other cars still wait for it in boxCheck).
-            const L = r.v.leader, queued = !!L && typeof L === 'object' && (r.v.gap ?? Infinity) < OCCUPANCY_QUEUE_GAP_M && (r.v.speed || 0) < 3;
-            if (queued || (r.v.stuck || 0) > OCCUPANCY_STALL_S) continue;
+            // (Șoseaua Pipera at Gara Herăstrău) nor does one that makes no headway (≥ 1 m in OCCUPANCY_STALL_S): two cars
+            // knotted in the box opened and closed their contact without getting anywhere, their stall timers kept
+            // restarting, and the other phase stayed red for minutes.
+            const o = r.v, L = o.leader, queued = !!L && typeof L === 'object' && (o.gap ?? Infinity) < OCCUPANCY_QUEUE_GAP_M && (o.speed || 0) < 3;
+            if (o.occOdo === undefined || Math.abs((o.odo || 0) - o.occOdo) > 1) { o.occOdo = o.odo || 0; o.occT = this.time; }
+            if (queued || (o.stuck || 0) > OCCUPANCY_STALL_S || this.time - o.occT > OCCUPANCY_STALL_S) continue;
             if (Number.isInteger(r.phase) && key.occupiedPhases && !key.occupiedPhases.includes(r.phase)) key.occupiedPhases.push(r.phase);
         }
     }

@@ -26,8 +26,13 @@ export function assignSignalPhases(approaches, internal = null) {
     return Math.max(1, groups.length);
 }
 
+/** Longest whole cycle of a multi-node controller with stretched stages (s). */
+const CYCLE_MAX_S = 60;
 export function signalState(controller, phase, time, greenTime) {
     if (!Number.isInteger(phase) || phase < 0 || phase >= controller.phaseCount) return 'red';
+    // A controller over three or more nodes (a square: Piața Romană, Piața Victoriei, Piața Unirii) runs longer stages,
+    // as such squares do: each slot up to twice the base, the whole cycle no longer than CYCLE_MAX_S.
+    if ((controller.nodes?.length || 0) >= 3) greenTime = Math.min(2 * greenTime, Math.max(greenTime, CYCLE_MAX_S / controller.phaseCount));
     const yellow = 2.2, clearing = 3, green = Math.max(4, greenTime - yellow - clearing);
     const slot = green + yellow + clearing, period = slot * controller.phaseCount;
     const t = ((time + controller.offset) % period + period) % period;

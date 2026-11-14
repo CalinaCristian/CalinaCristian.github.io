@@ -31,6 +31,16 @@ for (const ap of approaches) {
     assert.equal(signalState(controller, ap.phase, t + 9, 11), 'red');
 }
 assert.equal(signalState(controller, undefined, 0, 11), 'red', 'unknown approaches fail closed');
+{
+    // a link between two nodes of one controller is no stage of its own: it shows the best-aligned entry stage
+    const a = node(0, 0), b = node(30, 20), w = node(-40, 0), n = node(0, -40), s = node(30, 60);
+    const aps = [{ edge: edge(w, a), node: a }, { edge: edge(n, a), node: a }, { edge: edge(s, b), node: b }, { edge: edge(a, b), node: b }];
+    const inner = (ap) => ap.edge.a === a && ap.node === b;
+    assert.equal(assignSignalPhases(aps.map(x => ({ ...x })), inner), 2, 'the inner link adds no stage');
+    const res = aps.map(x => ({ ...x })); assignSignalPhases(res, inner);
+    assert.equal(res[3].phase, res[0].phase, 'the inner link shows the stage of the entry axis it lines up with');
+    assert.equal(assignSignalPhases(aps.map(x => ({ ...x }))), 3, 'without the controller test every axis has a stage');
+}
 
 // Two split pads with an intervening lane, crossed by a third pad. Reservations
 // must compare the whole movement across the controller rather than node identity.
@@ -39,6 +49,7 @@ const north = node(0, -50), middle = node(0, 0), south = node(0, 70);
 const incoming = edge(west, left), internal = edge(left, right), outgoing = edge(right, east);
 const crossIn = edge(north, middle, 'crossing'), crossOut = edge(middle, south, 'crossing');
 const cl = { nodes: [left, right, middle], offset: 0, phaseCount: 2 };
+const slotC = 22; // (a controller over three nodes runs stretched slots: twice the base here)
 for (const n of cl.nodes) n.lightCluster = cl;
 const t = Object.create(Traffic.prototype);
 t.time = 0; t.boxes = new Map();
@@ -51,18 +62,20 @@ assert.equal(t.boxCheck(other, crossIn, 1, other.route[0], middle, 5), 'wait', '
 car.edge = internal; car.s = 5;
 t.syncSignalOccupancy();
 assert.deepEqual(cl.occupiedPhases, [0]);
-assert.equal(signalState(cl, 1, slot + 1, 11), 'red', 'occupied split box holds conflicting green');
+assert.equal(signalState(cl, 1, slotC + 1, 11), 'red', 'occupied split box holds conflicting green');
 t.time = 45;
 t.pruneBoxes();
 assert.equal(t.boxes.get(cl).length, 1, 'slow committed cars never lose their clearance reservation on a timeout');
-car.edge = outgoing; car.s = 5;
+car.edge = outgoing; car.s = 5; car.odo = (car.odo || 0) + 25; // (it drove on: an occupant holds only while it makes headway)
 t.syncSignalOccupancy();
-assert.equal(signalState(cl, 1, slot + 1, 11), 'red', 'rear still inside the last pad');
+assert.equal(signalState(cl, 1, slotC + 1, 11), 'red', 'rear still inside the last pad');
+t.time = 60; t.syncSignalOccupancy();
+assert.notEqual(signalState(cl, 1, slotC + 1, 11), 'red', 'an occupant that makes no headway no longer holds the other phase');
 car.s = 10;
 t.syncSignalOccupancy(); t.pruneBoxes();
 assert.deepEqual(cl.occupiedPhases, []);
 assert.notEqual(t.boxCheck(other, crossIn, 1, other.route[0], middle, 5), 'wait');
-assert.equal(signalState(cl, 1, slot + 1, 11), 'green', 'waiting queue is released once the rear clears');
+assert.equal(signalState(cl, 1, slotC + 1, 11), 'green', 'waiting queue is released once the rear clears');
 // A car queued in the box behind another vehicle (or stalled there) keeps its path reservation but no longer holds the
 // other phases red: the car at the head of its queue may be waiting for that very green (Piața Romană, Șoseaua Pipera).
 t.boxes.clear(); car.edge = incoming; car.s = incoming.len - 10;
@@ -70,7 +83,7 @@ t.boxClaim(car, left, t.boxCheck(car, incoming, 1, car.route[0], left, 5));
 car.edge = internal; car.s = 5; car.leader = { id: 'ahead' }; car.gap = 2; car.speed = 0;
 t.syncSignalOccupancy();
 assert.deepEqual(cl.occupiedPhases, [], 'a queued occupant does not hold the other phases');
-car.leader = null; car.speed = 2;
+car.leader = null; car.speed = 2; car.odo += 5;
 t.syncSignalOccupancy();
 assert.deepEqual(cl.occupiedPhases, [0], 'a car clearing the box on its own still holds them');
 assert.equal(t.boxCheck(other, crossIn, 1, other.route[0], middle, 5), 'wait', 'its path still holds a crossing car');

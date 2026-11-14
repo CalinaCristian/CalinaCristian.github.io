@@ -275,8 +275,18 @@ Key buildings:
   keeps it out of the square.
 - **Pedestrian plazas**: the shared rule ([shared-rules.md](shared-rules.md#pedestrian-plazas)). Here: 58 plazas, none
   tagged grass; the cited one round 44.4398, 26.0968 (w180685596, paving stones) is paved.
-- **Antipa tree belt**: the museum facade is hidden by trees in reality; the game shows it over open lawn, because inferred
-  trees are suppressed inside the aerial survey's coverage and the survey has no crowns there (BACKLOG.md).
+- **Antipa tree belt**: OSM maps no `natural=tree` or `tree_row` within 250 m of the museum (w23610985). On the aerial mosaic
+  (Esri World Imagery zoom 19, 0.21 m/px, `tools/aerial/mosaic.py`) the lawn between the Kiseleff facade and footway w303358002
+  (15–25 m wide) is under near-continuous canopy, while the survey (`trees-bucharest-romana.json`) has fewer and smaller
+  crowns there (r 2.7–6.8 m). Four lit crowns that no survey crown covers are measured by eye over the mosaic with the OSM
+  outlines and survey circles drawn on it, centre in exact Web Mercator, radius from the crown's width, and added in
+  `tree-additions.js`: 44.453027, 26.085067 r 4.5 m (a red-brown crown on the summer image, before the south wing),
+  44.453174, 26.084976 r 3.5 m and 44.453174, 26.085046 r 3.0 m (one broad crown before the porch), 44.453322, 26.085059
+  r 3.5 m (before the north wing). The dark patch directly before the porch (≈ 44.45324, 26.08504) reads as shadow on the
+  lawn: it lies north-north-east of the porch crown, as every crown's shadow does on this image, and light objects at the
+  footway edge show through it, so it stays open and the porch shows through that gap from Kiseleff. Estimates: centres
+  ± 2 m (crowns lean ≈ 3 m east on this imagery, as the roof does against the OSM outline), radii ± 1 m; species not
+  identified.
 - **Water and sports**: Kiseleff fountains n7894980887 / n4405655095 and pond w1092796819, Piscina Lido w810540711 (not seen from
   a street panorama), tartan pitch w916708228; fountain basins w1331108694 and w809629318 (`add-areas.mjs`: generic 0.45 m
   light-stone coping, full water; no panorama in reach).

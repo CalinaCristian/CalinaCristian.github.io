@@ -1,8 +1,10 @@
 # Reference image licences
 
 Free-licensed reference photos used while modelling (Wikimedia Commons and similar; spec 20). The image files stay on
-the researcher's machine (`.gitignore`: `game/research/refs/**`); this list records each one's author, licence and source
-page, by folder. Textures the game uses are copied into game assets explicitly with their own attribution.
+the researcher's machine (`.gitignore` excludes images under `game/research/refs/`), except the eight Matei Basarab /
+Parfumului photos tracked in `refs/unirii/`; this list records each one's author, licence and source page, by folder.
+Textures the game uses are copied into game assets explicitly with their own attribution. A "taken" / "date" cell of
+"—" means the date was not recorded.
 
 ## `refs/bellevue/`
 
@@ -36,18 +38,20 @@ Free-licensed images from Wikimedia Commons only, downscaled to Commons standard
 
 Free-licensed images from Wikimedia Commons, resized to <=1280 px and <=400 KB for modelling reference. Attribution is required for CC BY / CC BY-SA images if any are ever shipped (e.g. as textures). **Romania has no freedom of panorama**: photos of buildings whose architect died less than 70 years ago (Palace of the Parliament, Arcul de Triumf, People's Salvation Cathedral, Cărturești Carusel interior 2015, Royal Palace 1937 façade, Memorial of Rebirth) are reference-only, never textures.
 
+Per-file attribution is in the sections below.
+
 | spot | images | facade-texture candidates |
 |---|---|---|
-| [palace-parliament](palace-parliament/LICENSES.md) | 10 | 0 |
-| [old-town-lipscani](old-town-lipscani/LICENSES.md) | 13 | 7 |
-| [stavropoleos-cec](stavropoleos-cec/LICENSES.md) | 13 | 7 |
-| [athenaeum-revolution](athenaeum-revolution/LICENSES.md) | 11 | 6 |
-| [arcul-de-triumf](arcul-de-triumf/LICENSES.md) | 7 | 0 |
-| [village-museum](village-museum/LICENSES.md) | 11 | 9 |
-| [herastrau-park](herastrau-park/LICENSES.md) | 7 | 1 |
-| [spring-palace](spring-palace/LICENSES.md) | 7 | 0 |
-| [cismigiu](cismigiu/LICENSES.md) | 10 | 1 |
-| [peoples-salvation-cathedral](peoples-salvation-cathedral/LICENSES.md) | 6 | 0 |
+| palace-parliament | 10 | 0 |
+| old-town-lipscani | 13 | 7 |
+| stavropoleos-cec | 13 | 7 |
+| athenaeum-revolution | 11 | 6 |
+| arcul-de-triumf | 7 | 0 |
+| village-museum | 11 | 9 |
+| herastrau-park | 7 | 1 |
+| spring-palace | 7 | 0 |
+| cismigiu | 10 | 1 |
+| peoples-salvation-cathedral | 6 | 0 |
 
 Total: 95 images.
 
@@ -230,13 +234,13 @@ Free-licensed Wikimedia Commons images only (CC BY / CC BY-SA / CC0 / PD), downs
 
 | file | taken | near | author | licence | Commons page | facade-texture candidate |
 |---|---|---|---|---|---|---|
-| View_from_Sky_Tower_level_35_to_the_North-West_of_Bucharest_-_panoramio.jpg | Taken on 2 | Sky Tower (36 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:View_from_Sky_Tower_level_35_to_the_North-West_of_Bucharest_-_panoramio.jpg |  |
-| View_from_Sky_Tower_level_35_to_the_South_-_panoramio.jpg | Taken on 2 | Sky Tower (38 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:View_from_Sky_Tower_level_35_to_the_South_-_panoramio.jpg |  |
-| Sky_Tower_level_35_Floreasca_Lake_-_panoramio.jpg | Taken on 2 | Sky Tower (38 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Sky_Tower_(level_35)_Floreasca_Lake_-_panoramio.jpg |  |
-| View_from_Promenada_Mall_-_panoramio.jpg | Taken on 2 | Sky Tower (92 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:View_from_Promenada_Mall_-_panoramio.jpg |  |
-| Floreasca_Lake_-_panoramio.jpg | Taken on 2 | Str. Barbu Văcărescu (111 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Floreasca_Lake_-_panoramio.jpg |  |
-| Terasa_Promenada_02_-_panoramio.jpg | Taken on 2 | Sky Tower (17 m) | Marius-Ionut | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Terasa_Promenada_02_-_panoramio.jpg |  |
-| Terasa_Promenada_Mall_-_panoramio.jpg | Taken on 2 | Sky Tower (23 m) | Marius-Ionut | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Terasa_Promenada_Mall_-_panoramio.jpg |  |
+| View_from_Sky_Tower_level_35_to_the_North-West_of_Bucharest_-_panoramio.jpg | — | Sky Tower (36 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:View_from_Sky_Tower_level_35_to_the_North-West_of_Bucharest_-_panoramio.jpg |  |
+| View_from_Sky_Tower_level_35_to_the_South_-_panoramio.jpg | — | Sky Tower (38 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:View_from_Sky_Tower_level_35_to_the_South_-_panoramio.jpg |  |
+| Sky_Tower_level_35_Floreasca_Lake_-_panoramio.jpg | — | Sky Tower (38 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Sky_Tower_(level_35)_Floreasca_Lake_-_panoramio.jpg |  |
+| View_from_Promenada_Mall_-_panoramio.jpg | — | Sky Tower (92 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:View_from_Promenada_Mall_-_panoramio.jpg |  |
+| Floreasca_Lake_-_panoramio.jpg | — | Str. Barbu Văcărescu (111 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Floreasca_Lake_-_panoramio.jpg |  |
+| Terasa_Promenada_02_-_panoramio.jpg | — | Sky Tower (17 m) | Marius-Ionut | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Terasa_Promenada_02_-_panoramio.jpg |  |
+| Terasa_Promenada_Mall_-_panoramio.jpg | — | Sky Tower (23 m) | Marius-Ionut | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Terasa_Promenada_Mall_-_panoramio.jpg |  |
 
 ## `refs/grozavesti/`
 
@@ -278,14 +282,14 @@ Free-licensed Wikimedia Commons images only (CC BY / CC BY-SA / CC0 / PD), downs
 
 | file | taken | near | author | licence | Commons page | facade-texture candidate |
 |---|---|---|---|---|---|---|
-| Sky_Tower_level_35_Floreasca_Lake_-_panoramio.jpg | Taken on 2 | Pipera bridge / Barbu Văcărescu (160 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Sky_Tower_(level_35)_Floreasca_Lake_-_panoramio.jpg |  |
-| View_from_Sky_Tower_level_35_to_the_South_-_panoramio.jpg | Taken on 2 | Pipera bridge / Barbu Văcărescu (161 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:View_from_Sky_Tower_level_35_to_the_South_-_panoramio.jpg |  |
-| View_from_Sky_Tower_level_35_to_the_North-West_of_Bucharest_-_panoramio.jpg | Taken on 2 | Pipera bridge / Barbu Văcărescu (162 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:View_from_Sky_Tower_level_35_to_the_North-West_of_Bucharest_-_panoramio.jpg |  |
-| Sky_Tower_in_Winter_20160223_083746_1PS_28802141231_.jpg | Taken on 2 | Novo Park (35 m) | Alexandru Panoiu from Bucharest, Romania | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Sky_Tower_in_Winter_(20160223_083746_1PS)_(28802141231).jpg |  |
+| Sky_Tower_level_35_Floreasca_Lake_-_panoramio.jpg | — | Pipera bridge / Barbu Văcărescu (160 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Sky_Tower_(level_35)_Floreasca_Lake_-_panoramio.jpg |  |
+| View_from_Sky_Tower_level_35_to_the_South_-_panoramio.jpg | — | Pipera bridge / Barbu Văcărescu (161 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:View_from_Sky_Tower_level_35_to_the_South_-_panoramio.jpg |  |
+| View_from_Sky_Tower_level_35_to_the_North-West_of_Bucharest_-_panoramio.jpg | — | Pipera bridge / Barbu Văcărescu (162 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:View_from_Sky_Tower_level_35_to_the_North-West_of_Bucharest_-_panoramio.jpg |  |
+| Sky_Tower_in_Winter_20160223_083746_1PS_28802141231_.jpg | — | Novo Park (35 m) | Alexandru Panoiu from Bucharest, Romania | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Sky_Tower_in_Winter_(20160223_083746_1PS)_(28802141231).jpg |  |
 | Cugir_Mosin-Nagant_M44_carbine.jpg | 05.11.2020 | Pipera bridge / Barbu Văcărescu (176 m) | National Heritage Institute | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Cugir_Mosin-Nagant_M44_carbine.jpg |  |
 | Pu_ca_ZB_model_1924_cu_vergea_i_baionet_.jpg | 05.11.2020 | Pipera bridge / Barbu Văcărescu (176 m) | National Heritage Institute | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Pu%C8%99ca_ZB_model_1924_cu_vergea_%C8%99i_baionet%C4%83.jpg |  |
-| SkyTower_in_the_urban_wilderness_20151028_101210_1PS_23383531113_.jpg | Taken on 2 | Novo Park (58 m) | Alexandru Panoiu from Bucharest, Romania | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:SkyTower_in_the_urban_wilderness_(20151028_101210_1PS)_(23383531113).jpg |  |
-| Sector_2_Bucharest_Romania_-_panoramio_3_.jpg | Taken on 2 | Pipera bridge / Barbu Văcărescu (68 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Sector_2,_Bucharest,_Romania_-_panoramio_(3).jpg |  |
+| SkyTower_in_the_urban_wilderness_20151028_101210_1PS_23383531113_.jpg | — | Novo Park (58 m) | Alexandru Panoiu from Bucharest, Romania | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:SkyTower_in_the_urban_wilderness_(20151028_101210_1PS)_(23383531113).jpg |  |
+| Sector_2_Bucharest_Romania_-_panoramio_3_.jpg | — | Pipera bridge / Barbu Văcărescu (68 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Sector_2,_Bucharest,_Romania_-_panoramio_(3).jpg |  |
 
 ## `refs/romana/`
 
@@ -316,71 +320,32 @@ Free-licensed Wikimedia Commons images only (CC BY / CC BY-SA / CC0 / PD), downs
 | 8A_Bulevardul_Aviatorilor_Bucharest_26_.jpg | 2023-05-30 | Palatul Victoria (103 m) | Neoclassicism Enthusiast | CC0 | https://commons.wikimedia.org/wiki/File:8A_Bulevardul_Aviatorilor,_Bucharest_(26).jpg | yes |
 | 10_Strada_Paris_Bucharest_02_.jpg | 2023-06-03 | Palatul Victoria (106 m) | Neoclassicism Enthusiast | CC0 | https://commons.wikimedia.org/wiki/File:10_Strada_Paris,_Bucharest_(02).jpg | yes |
 | 35_Strada_Grigore_Alexandrescu_Bucharest_01_.jpg | 2022-09-22 | Bd. Iancu de Hunedoara (164 m) | Neoclassicism Enthusiast | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:35_Strada_Grigore_Alexandrescu,_Bucharest_(01).jpg | yes |
-| 30_Bulevardul_Lasc_r_Catargiu_Bucharest_Romania_2.jpg | Taken on 1 | Bd. Lascăr Catargiu (middle) (58 m) | Neoclassicism Enthusiast | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:30,_Bulevardul_Lasc%C4%83r_Catargiu,_Bucharest_(Romania)_2.jpg |  |
+| 30_Bulevardul_Lasc_r_Catargiu_Bucharest_Romania_2.jpg | — | Bd. Lascăr Catargiu (middle) (58 m) | Neoclassicism Enthusiast | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:30,_Bulevardul_Lasc%C4%83r_Catargiu,_Bucharest_(Romania)_2.jpg |  |
 | 30_Bulevardul_Lasc_r_Catargiu_Bucharest_Romania_.jpg | 2020-05-17 | Bd. Lascăr Catargiu (middle) (63 m) | Neoclassicism Enthusiast | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:30,_Bulevardul_Lasc%C4%83r_Catargiu,_Bucharest_(Romania).jpg |  |
 | 20230426.Ansichten_von_Bukarest.-023.jpg | 2023-04-26 | Palatul Victoria (51 m) | Bybbisch94, Christian Gebhardt | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:20230426.Ansichten_von_Bukarest.-023.jpg |  |
-| Grigore_Antipa_Natural_History_Museum_11.jpg | Taken on 2 | Antipa museum / Kiseleff (92 m) | Tiia Monto | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Grigore_Antipa_Natural_History_Museum_11.jpg |  |
-| Grigore_Antipa_Natural_History_Museum.jpg | Taken on 2 | Antipa museum / Kiseleff (92 m) | Tiia Monto | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Grigore_Antipa_Natural_History_Museum.jpg |  |
+| Grigore_Antipa_Natural_History_Museum_11.jpg | — | Antipa museum / Kiseleff (92 m) | Tiia Monto | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Grigore_Antipa_Natural_History_Museum_11.jpg |  |
+| Grigore_Antipa_Natural_History_Museum.jpg | — | Antipa museum / Kiseleff (92 m) | Tiia Monto | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Grigore_Antipa_Natural_History_Museum.jpg |  |
 | Nicu_or_Dan_campaign_rally_in_Bucharest_May_11_2025.jpg | 2025-05-11 | Palatul Victoria (96 m) | fusion-of-horizons | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Nicu%C8%99or_Dan_campaign_rally_in_Bucharest,_May_11_2025.jpg |  |
-| Grigore_Antipa_Natural_History_Museum_8.jpg | Taken on 2 | Antipa museum / Kiseleff (107 m) | Tiia Monto | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Grigore_Antipa_Natural_History_Museum_8.jpg |  |
+| Grigore_Antipa_Natural_History_Museum_8.jpg | — | Antipa museum / Kiseleff (107 m) | Tiia Monto | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Grigore_Antipa_Natural_History_Museum_8.jpg |  |
 | Mavrogheni_Church_51.jpg | 2021-12-23 | Antipa museum / Kiseleff (106 m) | Biruitorul | CC0 | https://commons.wikimedia.org/wiki/File:Mavrogheni_Church_51.jpg |  |
 | Carmina_Cotfas_16_decembrie_2021.jpg | 2021-12-16 | Calea Dorobanților south (153 m) | TraianBadulescu | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Carmina_Cotfas,_16_decembrie_2021.jpg |  |
 
 ## `refs/sea-spots/`
 
-Wikimedia Commons, free licences only (CC BY / CC BY-SA / CC0 / Public domain). Resized to ≤1280 px, ≤400 KB JPEG (modified from the originals). Attribution per file in each folder's LICENSES.md. Facade-texture candidates marked ★ (buildings only — never artworks).
+Wikimedia Commons, free licences only (CC BY / CC BY-SA / CC0 / Public domain). Resized to ≤1280 px, ≤400 KB JPEG (modified from the originals). Attribution per file in the sections below. Facade-texture candidates marked ★ (buildings only — never artworks).
 
 | Spot | Images |
 |---|---|
-| [fremont-troll](fremont-troll/LICENSES.md) | 6 downloaded, 0 vetted candidates |
-| [pike-place](pike-place/LICENSES.md) | 20 downloaded, 0 vetted candidates |
-| [space-needle](space-needle/LICENSES.md) | 9 downloaded, 0 vetted candidates |
-| [chihuly](chihuly/LICENSES.md) | 6 downloaded, 0 vetted candidates |
-| [mopop](mopop/LICENSES.md) | 6 downloaded, 0 vetted candidates |
-| [kerry-park](kerry-park/LICENSES.md) | 6 downloaded, 0 vetted candidates |
-| [waterfront](waterfront/LICENSES.md) | 7 downloaded, 0 vetted candidates |
-| [pioneer-square](pioneer-square/LICENSES.md) | 3 downloaded, 4 vetted candidates |
-| [ballard-locks](ballard-locks/LICENSES.md) | 0 downloaded, 7 vetted candidates |
-| [gas-works](gas-works/LICENSES.md) | 0 downloaded, 6 vetted candidates |
-| [bel-lincoln-square](bel-lincoln-square/LICENSES.md) | 0 downloaded, 7 vetted candidates |
-| [bel-downtown-park](bel-downtown-park/LICENSES.md) | 0 downloaded, 6 vetted candidates |
-| [bel-botanical-garden](bel-botanical-garden/LICENSES.md) | 0 downloaded, 5 vetted candidates |
-| [bel-meydenbauer](bel-meydenbauer/LICENSES.md) | 0 downloaded, 5 vetted candidates |
+| fremont-troll | 6 |
+| pike-place | 20 |
+| space-needle | 9 |
+| chihuly | 6 |
+| mopop | 6 |
+| kerry-park | 6 |
+| waterfront | 7 |
+| pioneer-square | 3 |
 
-## `refs/sea-spots/ballard-locks/`
-
-Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded as JPEG ≤400 KB. ★ = facade-texture candidate.
-
-| File | Author | Licence | Commons page | Date | Size |
-|---|---|---|---|---|---|
-
-## `refs/sea-spots/bel-botanical-garden/`
-
-Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded as JPEG ≤400 KB. ★ = facade-texture candidate.
-
-| File | Author | Licence | Commons page | Date | Size |
-|---|---|---|---|---|---|
-
-## `refs/sea-spots/bel-downtown-park/`
-
-Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded as JPEG ≤400 KB. ★ = facade-texture candidate.
-
-| File | Author | Licence | Commons page | Date | Size |
-|---|---|---|---|---|---|
-
-## `refs/sea-spots/bel-lincoln-square/`
-
-Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded as JPEG ≤400 KB. ★ = facade-texture candidate.
-
-| File | Author | Licence | Commons page | Date | Size |
-|---|---|---|---|---|---|
-
-## `refs/sea-spots/bel-meydenbauer/`
-
-Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded as JPEG ≤400 KB. ★ = facade-texture candidate.
-
-| File | Author | Licence | Commons page | Date | Size |
-|---|---|---|---|---|---|
+Ballard Locks, Gas Works and the four Bellevue spots have no reference photos.
 
 ## `refs/sea-spots/chihuly/`
 
@@ -402,18 +367,11 @@ Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded
 | File | Author | Licence | Commons page | Date | Size |
 |---|---|---|---|---|---|
 | `Fremont_troll.jpg` | Sambusak74 | CC BY-SA 4.0 | [File:Fremont troll.jpg](https://commons.wikimedia.org/wiki/File:Fremont_troll.jpg) | 2026-08-26 | 302 KB |
-| `Fremont_randoms_-_Flickr_-_eliduke_1_.jpg` | Eli Duke from Portland, OR, USA | CC BY-SA 2.0 | [File:Fremont randoms - Flickr - eliduke (1).jpg](https://commons.wikimedia.org/wiki/File:Fremont_randoms_-_Flickr_-_eliduke_(1).jpg) | Taken on 2 | 364 KB |
+| `Fremont_randoms_-_Flickr_-_eliduke_1_.jpg` | Eli Duke from Portland, OR, USA | CC BY-SA 2.0 | [File:Fremont randoms - Flickr - eliduke (1).jpg](https://commons.wikimedia.org/wiki/File:Fremont_randoms_-_Flickr_-_eliduke_(1).jpg) | — | 364 KB |
 | `Troll_Ave_Fremont_Seattle_USA.jpg` | GeoTrinity | CC BY-SA 3.0 | [File:Troll Ave Fremont Seattle USA.jpg](https://commons.wikimedia.org/wiki/File:Troll_Ave_Fremont_Seattle_USA.jpg) | 2015-08-15 | 204 KB |
 | `Troll_Avenue_and_36th_Street_signs.jpg` | Runner1928 | CC BY-SA 4.0 | [File:Troll Avenue and 36th Street signs.jpg](https://commons.wikimedia.org/wiki/File:Troll_Avenue_and_36th_Street_signs.jpg) | 2015-01-14 | 229 KB |
 | `Troll_Eye_Apartments.jpg` | Kingofthedead | CC BY-SA 4.0 | [File:Troll Eye Apartments.jpg](https://commons.wikimedia.org/wiki/File:Troll_Eye_Apartments.jpg) | 2016-03-21 | 376 KB |
 | `Fremont_Troll_plaque.jpg` | Kingofthedead | CC BY-SA 4.0 | [File:Fremont Troll plaque.jpg](https://commons.wikimedia.org/wiki/File:Fremont_Troll_plaque.jpg) | 2016-03-21 | 354 KB |
-
-## `refs/sea-spots/gas-works/`
-
-Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded as JPEG ≤400 KB. ★ = facade-texture candidate.
-
-| File | Author | Licence | Commons page | Date | Size |
-|---|---|---|---|---|---|
 
 ## `refs/sea-spots/kerry-park/`
 
@@ -426,7 +384,7 @@ Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded
 | `Seattle_Skyline_Kerry_Park.jpg` | Sajad Mohamad | CC BY-SA 4.0 | [File:Seattle Skyline Kerry Park.jpg](https://commons.wikimedia.org/wiki/File:Seattle_Skyline_Kerry_Park.jpg) | 2014-04-13 | 270 KB |
 | `Kerry_Park_view_of_Seattle_Mt_Rainier_28356722347_.jpg` | Michael Neubert from Arlington, VA, USA | CC BY 2.0 | [File:Kerry Park view of Seattle, Mt Rainier (28356722347).jpg](https://commons.wikimedia.org/wiki/File:Kerry_Park_view_of_Seattle,_Mt_Rainier_(28356722347).jpg) | 2018-07-04 | 117 KB |
 | `Kerry_Park_sign_Seattle.jpg` | Another Believer | CC BY-SA 3.0 | [File:Kerry Park sign, Seattle.jpg](https://commons.wikimedia.org/wiki/File:Kerry_Park_sign,_Seattle.jpg) | 2011-09-04 | 387 KB |
-| `Seattle_-_tourists_at_Kerry_Park_01.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Seattle - tourists at Kerry Park 01.jpg](https://commons.wikimedia.org/wiki/File:Seattle_-_tourists_at_Kerry_Park_01.jpg) | Taken on 1 | 280 KB |
+| `Seattle_-_tourists_at_Kerry_Park_01.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Seattle - tourists at Kerry Park 01.jpg](https://commons.wikimedia.org/wiki/File:Seattle_-_tourists_at_Kerry_Park_01.jpg) | — | 280 KB |
 
 ## `refs/sea-spots/mopop/`
 
@@ -437,7 +395,7 @@ Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded
 | `Museum_of_Pop_Culture_Seattle_Washington1.jpg` | Burley Packwood | CC BY-SA 4.0 | [File:Museum of Pop Culture Seattle Washington1.jpg](https://commons.wikimedia.org/wiki/File:Museum_of_Pop_Culture_Seattle_Washington1.jpg) | 2018-07-29 | 278 KB |
 | `View_of_Museum_of_Pop_Culture_of_Seattle_Center_monorail_0127.jpg` | SecretName101 | CC BY-SA 4.0 | [File:View of Museum of Pop Culture of Seattle Center monorail 0127.jpg](https://commons.wikimedia.org/wiki/File:View_of_Museum_of_Pop_Culture_of_Seattle_Center_monorail_0127.jpg) | 2019-08-02 | 229 KB |
 | `Seattle_Museum_of_Pop_Culture_buiobuione_03.jpg` | Buiobuione | CC BY-SA 4.0 | [File:Seattle Museum of Pop Culture buiobuione 03.jpg](https://commons.wikimedia.org/wiki/File:Seattle_Museum_of_Pop_Culture_buiobuione_03.jpg) | 2019-08-21 | 133 KB |
-| `Seattle_WA_USA_Museum_of_Pop_Culture_Fassade_--_2022_--_1582.jpg` | Dietmar Rabich | CC BY-SA 4.0 | [File:Seattle (WA, USA), Museum of Pop Culture, Fassade -- 2022 -- 1582.jpg](https://commons.wikimedia.org/wiki/File:Seattle_(WA,_USA),_Museum_of_Pop_Culture,_Fassade_--_2022_--_1582.jpg) | Taken on 1 | 204 KB |
+| `Seattle_WA_USA_Museum_of_Pop_Culture_Fassade_--_2022_--_1582.jpg` | Dietmar Rabich | CC BY-SA 4.0 | [File:Seattle (WA, USA), Museum of Pop Culture, Fassade -- 2022 -- 1582.jpg](https://commons.wikimedia.org/wiki/File:Seattle_(WA,_USA),_Museum_of_Pop_Culture,_Fassade_--_2022_--_1582.jpg) | — | 204 KB |
 | ★ `Close-up_of_Exterieur_wall_of_the_Museum_of_Pop-Culture_formerly_knows_as_EMP_Seattle_USA_.jpg` | ABruszik | CC BY-SA 4.0 | [File:Close-up of Exterieur wall of the Museum of Pop-Culture (formerly knows as EMP) Seattle, USA 01.jpg](https://commons.wikimedia.org/wiki/File:Close-up_of_Exterieur_wall_of_the_Museum_of_Pop-Culture_(formerly_knows_as_EMP)_Seattle,_USA_01.jpg) | 2023-02-12 | 158 KB |
 | `Museum_of_Pop_Culture_in_Seattle_6248401525_.jpg` | Guilhem Vellut from Annecy, France | CC BY 2.0 | [File:Museum of Pop Culture in Seattle (6248401525).jpg](https://commons.wikimedia.org/wiki/File:Museum_of_Pop_Culture_in_Seattle_(6248401525).jpg) | 2011-10-04 | 126 KB |
 
@@ -451,20 +409,20 @@ Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded
 | `Public_Market_Center_sign_at_Pike_Place.jpg` | Kissmykumbaya | CC0 | [File:Public Market Center sign at Pike Place.jpg](https://commons.wikimedia.org/wiki/File:Public_Market_Center_sign_at_Pike_Place.jpg) | 2012-08-21 | 250 KB |
 | `Pike_Place_Market_clock_at_4_38.jpg` | Ron Clausen | CC0 | [File:Pike Place Market clock at 4ː38.jpg](https://commons.wikimedia.org/wiki/File:Pike_Place_Market_clock_at_4%CB%9038.jpg) | 2017-10-01 | 260 KB |
 | `Pike_Place_Market_at_night.jpg` | Michael Righi | CC BY 2.0 | [File:Pike Place Market at night.jpg](https://commons.wikimedia.org/wiki/File:Pike_Place_Market_at_night.jpg) | 2006-03-15 | 178 KB |
-| `Back_of_Pike_Place_Public_Market_Center_sign_01.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Back of Pike Place 'Public Market Center' sign 01.jpg](https://commons.wikimedia.org/wiki/File:Back_of_Pike_Place_%27Public_Market_Center%27_sign_01.jpg) | Taken on 1 | 243 KB |
+| `Back_of_Pike_Place_Public_Market_Center_sign_01.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Back of Pike Place 'Public Market Center' sign 01.jpg](https://commons.wikimedia.org/wiki/File:Back_of_Pike_Place_%27Public_Market_Center%27_sign_01.jpg) | — | 243 KB |
 | `Pike_Place_Market_Entrance.jpg` | Mtaylor444 | CC BY-SA 3.0 | [File:Pike Place Market Entrance.JPG](https://commons.wikimedia.org/wiki/File:Pike_Place_Market_Entrance.JPG) | 2012-12-09 | 267 KB |
 | `Pine_Street_entrance_at_Pike_Place_Market_0286_.jpg` | SecretName101 | CC BY-SA 4.0 | [File:Pine Street entrance at Pike Place Market (0286).jpg](https://commons.wikimedia.org/wiki/File:Pine_Street_entrance_at_Pike_Place_Market_(0286).jpg) | 2019-08-03 | 258 KB |
 | `Gum_wall_Seattle_Washington_Estados_Unidos_2017-09-02_DD_19-21_HDR.jpg` | Diego Delso | CC BY-SA 4.0 | [File:Gum wall, Seattle, Washington, Estados Unidos, 2017-09-02, DD 19-21 HDR.jpg](https://commons.wikimedia.org/wiki/File:Gum_wall,_Seattle,_Washington,_Estados_Unidos,_2017-09-02,_DD_19-21_HDR.jpg) | 2017-09-02 | 379 KB |
-| `The_Gum_Wall_Seattle_Washington_2025.jpg` | Julian Lupyan | CC0 | [File:The Gum Wall, Seattle, Washington, 2025.jpg](https://commons.wikimedia.org/wiki/File:The_Gum_Wall,_Seattle,_Washington,_2025.jpg) | Taken on 1 | 357 KB |
+| `The_Gum_Wall_Seattle_Washington_2025.jpg` | Julian Lupyan | CC0 | [File:The Gum Wall, Seattle, Washington, 2025.jpg](https://commons.wikimedia.org/wiki/File:The_Gum_Wall,_Seattle,_Washington,_2025.jpg) | — | 357 KB |
 | ★ `Seattle_Gum_Wall_Close_Up.jpg` | Almdudler26 | CC BY-SA 3.0 | [File:Seattle Gum Wall Close Up.JPG](https://commons.wikimedia.org/wiki/File:Seattle_Gum_Wall_Close_Up.JPG) | 2012-08-28 | 366 KB |
 | `Gum_Wall_in_2022.jpg` | Handrieu | CC BY-SA 4.0 | [File:Gum Wall in 2022.jpg](https://commons.wikimedia.org/wiki/File:Gum_Wall_in_2022.jpg) | 2022-04-12 | 358 KB |
 | `Pike_Place_Fish_0.jpg` | Daniel Schwen | CC BY-SA 4.0 | [File:Pike Place Fish 0.jpg](https://commons.wikimedia.org/wiki/File:Pike_Place_Fish_0.jpg) | 2010-02-18 | 349 KB |
-| `02_Pike_Place_Fish_Market_main_sign.jpg` | Rootology | CC BY-SA 3.0 | [File:02 Pike Place Fish Market main sign.jpg](https://commons.wikimedia.org/wiki/File:02_Pike_Place_Fish_Market_main_sign.jpg) | 0005 | 320 KB |
-| `Justin_preparing_to_catch_a_fish_Pike_Place_Fish_Market_Seattle.jpg` | MarmadukePercy | CC BY-SA 3.0 | [File:Justin preparing to catch a fish Pike Place Fish Market Seattle.JPG](https://commons.wikimedia.org/wiki/File:Justin_preparing_to_catch_a_fish_Pike_Place_Fish_Market_Seattle.JPG) | Taken on 1 | 354 KB |
+| `02_Pike_Place_Fish_Market_main_sign.jpg` | Rootology | CC BY-SA 3.0 | [File:02 Pike Place Fish Market main sign.jpg](https://commons.wikimedia.org/wiki/File:02_Pike_Place_Fish_Market_main_sign.jpg) | — | 320 KB |
+| `Justin_preparing_to_catch_a_fish_Pike_Place_Fish_Market_Seattle.jpg` | MarmadukePercy | CC BY-SA 3.0 | [File:Justin preparing to catch a fish Pike Place Fish Market Seattle.JPG](https://commons.wikimedia.org/wiki/File:Justin_preparing_to_catch_a_fish_Pike_Place_Fish_Market_Seattle.JPG) | — | 354 KB |
 | `Starbucks_Seattle_PikePlace_1912.jpg` | SilentDeath | CC BY-SA 4.0 | [File:Starbucks Seattle PikePlace 1912.jpg](https://commons.wikimedia.org/wiki/File:Starbucks_Seattle_PikePlace_1912.jpg) | 2016-11-11 | 291 KB |
 | `Original_Starbucks_2021_.jpg` | Srikar Devaguptapu | Public domain | [File:Original Starbucks (2021).jpg](https://commons.wikimedia.org/wiki/File:Original_Starbucks_(2021).jpg) | 2021-06-29 | 140 KB |
 | `Original_Starbucks_sign.jpg` | Kingofthedead | CC BY-SA 4.0 | [File:Original Starbucks sign.jpg](https://commons.wikimedia.org/wiki/File:Original_Starbucks_sign.jpg) | 2016-03-21 | 250 KB |
-| ★ `Pike_Place_Market_-_Leland_Hotel.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Pike Place Market - Leland Hotel.jpg](https://commons.wikimedia.org/wiki/File:Pike_Place_Market_-_Leland_Hotel.jpg) | Taken on 1 | 212 KB |
+| ★ `Pike_Place_Market_-_Leland_Hotel.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Pike Place Market - Leland Hotel.jpg](https://commons.wikimedia.org/wiki/File:Pike_Place_Market_-_Leland_Hotel.jpg) | — | 212 KB |
 | `Pike_Place_Market_veggie_stalls.jpg` | Casey Yee from Vancouver, BC, Canada | CC BY-SA 2.0 | [File:Pike Place Market veggie stalls.jpg](https://commons.wikimedia.org/wiki/File:Pike_Place_Market_veggie_stalls.jpg) | 2010-06-04 | 354 KB |
 | `Buiobuione_Fish_market_at_Pike_Place_in_Seattle.jpg` | Buiobuione | CC BY-SA 4.0 | [File:Buiobuione Fish market at Pike Place in Seattle.jpg](https://commons.wikimedia.org/wiki/File:Buiobuione_Fish_market_at_Pike_Place_in_Seattle.jpg) | 2019-08-20 | 169 KB |
 
@@ -474,7 +432,7 @@ Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded
 
 | File | Author | Licence | Commons page | Date | Size |
 |---|---|---|---|---|---|
-| `Seattle_-_Pioneer_Square_Pergola_-_2020-04-24.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Seattle - Pioneer Square Pergola - 2020-04-24.jpg](https://commons.wikimedia.org/wiki/File:Seattle_-_Pioneer_Square_Pergola_-_2020-04-24.jpg) | Taken on 2 | 370 KB |
+| `Seattle_-_Pioneer_Square_Pergola_-_2020-04-24.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Seattle - Pioneer Square Pergola - 2020-04-24.jpg](https://commons.wikimedia.org/wiki/File:Seattle_-_Pioneer_Square_Pergola_-_2020-04-24.jpg) | — | 370 KB |
 | `Pergola_Pioneer_Square_Seattle_WA.jpg` | Msuner | CC BY-SA 4.0 | [File:Pergola Pioneer Square, Seattle, WA.jpg](https://commons.wikimedia.org/wiki/File:Pergola_Pioneer_Square,_Seattle,_WA.jpg) | 2018-08-22 | 323 KB |
 | `Pioneer_Square_Pergola_detail_01.jpg` | Joe Mabel | CC BY-SA 3.0 | [File:Pioneer Square Pergola detail 01.jpg](https://commons.wikimedia.org/wiki/File:Pioneer_Square_Pergola_detail_01.jpg) | 2007-09-24 | 284 KB |
 
@@ -486,12 +444,12 @@ Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded
 |---|---|---|---|---|---|
 | `Space_Needle_Seattle_Washington1.jpg` | Burley Packwood | CC BY-SA 4.0 | [File:Space Needle Seattle Washington1.jpg](https://commons.wikimedia.org/wiki/File:Space_Needle_Seattle_Washington1.jpg) | 2018-07-29 | 177 KB |
 | `Space_Needle_Seattle_Washington2.jpg` | Burley Packwood | CC BY-SA 4.0 | [File:Space Needle Seattle Washington2.jpg](https://commons.wikimedia.org/wiki/File:Space_Needle_Seattle_Washington2.jpg) | 2018-07-29 | 240 KB |
-| `Seattle_WA_USA_Space_Needle_--_2022_--_1498.jpg` | Dietmar Rabich | CC BY-SA 4.0 | [File:Seattle (WA, USA), Space Needle -- 2022 -- 1498.jpg](https://commons.wikimedia.org/wiki/File:Seattle_(WA,_USA),_Space_Needle_--_2022_--_1498.jpg) | Taken on 1 | 105 KB |
-| `Seattle_WA_USA_Space_Needle_--_2022_--_1510.jpg` | Dietmar Rabich | CC BY-SA 4.0 | [File:Seattle (WA, USA), Space Needle -- 2022 -- 1510.jpg](https://commons.wikimedia.org/wiki/File:Seattle_(WA,_USA),_Space_Needle_--_2022_--_1510.jpg) | Taken on 1 | 143 KB |
-| `Seattle_WA_USA_Space_Needle_--_2022_--_1507.jpg` | Dietmar Rabich | CC BY-SA 4.0 | [File:Seattle (WA, USA), Space Needle -- 2022 -- 1507.jpg](https://commons.wikimedia.org/wiki/File:Seattle_(WA,_USA),_Space_Needle_--_2022_--_1507.jpg) | Taken on 1 | 192 KB |
+| `Seattle_WA_USA_Space_Needle_--_2022_--_1498.jpg` | Dietmar Rabich | CC BY-SA 4.0 | [File:Seattle (WA, USA), Space Needle -- 2022 -- 1498.jpg](https://commons.wikimedia.org/wiki/File:Seattle_(WA,_USA),_Space_Needle_--_2022_--_1498.jpg) | — | 105 KB |
+| `Seattle_WA_USA_Space_Needle_--_2022_--_1510.jpg` | Dietmar Rabich | CC BY-SA 4.0 | [File:Seattle (WA, USA), Space Needle -- 2022 -- 1510.jpg](https://commons.wikimedia.org/wiki/File:Seattle_(WA,_USA),_Space_Needle_--_2022_--_1510.jpg) | — | 143 KB |
+| `Seattle_WA_USA_Space_Needle_--_2022_--_1507.jpg` | Dietmar Rabich | CC BY-SA 4.0 | [File:Seattle (WA, USA), Space Needle -- 2022 -- 1507.jpg](https://commons.wikimedia.org/wiki/File:Seattle_(WA,_USA),_Space_Needle_--_2022_--_1507.jpg) | — | 192 KB |
 | `International_Fountain_Space_Needle_Seattle_Center_285281694_.jpg` | David Davies from Birmingham, UK | CC BY-SA 2.0 | [File:International Fountain & Space Needle, Seattle Center (285281694).jpg](https://commons.wikimedia.org/wiki/File:International_Fountain_%26_Space_Needle,_Seattle_Center_(285281694).jpg) | 2006-10-31 | 256 KB |
-| `Seattle_Center_-_Armory_Space_Needle_01.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Seattle Center - Armory & Space Needle 01.jpg](https://commons.wikimedia.org/wiki/File:Seattle_Center_-_Armory_%26_Space_Needle_01.jpg) | Taken on 1 | 320 KB |
-| `Aboard_Seattle_Center_Monorail_Space_Needle_visible.jpg` | Joe Mabel | CC BY 4.0 | [File:Aboard Seattle Center Monorail, Space Needle visible.jpg](https://commons.wikimedia.org/wiki/File:Aboard_Seattle_Center_Monorail,_Space_Needle_visible.jpg) | Taken on 1 | 131 KB |
+| `Seattle_Center_-_Armory_Space_Needle_01.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Seattle Center - Armory & Space Needle 01.jpg](https://commons.wikimedia.org/wiki/File:Seattle_Center_-_Armory_%26_Space_Needle_01.jpg) | — | 320 KB |
+| `Aboard_Seattle_Center_Monorail_Space_Needle_visible.jpg` | Joe Mabel | CC BY 4.0 | [File:Aboard Seattle Center Monorail, Space Needle visible.jpg](https://commons.wikimedia.org/wiki/File:Aboard_Seattle_Center_Monorail,_Space_Needle_visible.jpg) | — | 131 KB |
 | `Seattle_Space_Needle_in_the_fog_44897628634_.jpg` | Andy Reago &amp; Chrissy McClarren | CC BY 2.0 | [File:Seattle Space Needle in the fog (44897628634).jpg](https://commons.wikimedia.org/wiki/File:Seattle_Space_Needle_in_the_fog_(44897628634).jpg) | 2018-10-21 | 97 KB |
 
 ## `refs/sea-spots/waterfront/`
@@ -503,15 +461,16 @@ Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded
 | `Seattle_Great_Wheel_Ferris_Wheel.jpg` | Dacomet | CC BY-SA 4.0 | [File:Seattle Great Wheel Ferris Wheel.jpg](https://commons.wikimedia.org/wiki/File:Seattle_Great_Wheel_Ferris_Wheel.jpg) | 2015-06-12 | 155 KB |
 | `Seattle_Great_Wheel_Washington1.jpg` | Burley Packwood | CC BY-SA 4.0 | [File:Seattle Great Wheel Washington1.jpg](https://commons.wikimedia.org/wiki/File:Seattle_Great_Wheel_Washington1.jpg) | 2018-07-30 | 293 KB |
 | `Seattle_Great_Wheel_ticket_booth.jpg` | Kingofthedead | CC BY-SA 4.0 | [File:Seattle Great Wheel ticket booth.jpg](https://commons.wikimedia.org/wiki/File:Seattle_Great_Wheel_ticket_booth.jpg) | 2016-03-20 | 240 KB |
-| `Seattle_-_Overlook_Walk_01.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Seattle - Overlook Walk 01.jpg](https://commons.wikimedia.org/wiki/File:Seattle_-_Overlook_Walk_01.jpg) | Taken on 2 | 317 KB |
-| `Seattle_-_Overlook_Walk_and_skyline_01.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Seattle - Overlook Walk and skyline 01.jpg](https://commons.wikimedia.org/wiki/File:Seattle_-_Overlook_Walk_and_skyline_01.jpg) | Taken on 2 | 243 KB |
-| `Downtown_Seattle_Waterfront_from_Overlook_Walk_July_2025_-_01.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Downtown Seattle Waterfront from Overlook Walk July 2025 - 01.jpg](https://commons.wikimedia.org/wiki/File:Downtown_Seattle_Waterfront_from_Overlook_Walk_July_2025_-_01.jpg) | Taken on 8 | 321 KB |
-| `Seattle_Aquarium_booth_on_Overlook_Walk_01.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Seattle Aquarium booth on Overlook Walk 01.jpg](https://commons.wikimedia.org/wiki/File:Seattle_Aquarium_booth_on_Overlook_Walk_01.jpg) | Taken on 8 | 296 KB |
+| `Seattle_-_Overlook_Walk_01.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Seattle - Overlook Walk 01.jpg](https://commons.wikimedia.org/wiki/File:Seattle_-_Overlook_Walk_01.jpg) | — | 317 KB |
+| `Seattle_-_Overlook_Walk_and_skyline_01.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Seattle - Overlook Walk and skyline 01.jpg](https://commons.wikimedia.org/wiki/File:Seattle_-_Overlook_Walk_and_skyline_01.jpg) | — | 243 KB |
+| `Downtown_Seattle_Waterfront_from_Overlook_Walk_July_2025_-_01.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Downtown Seattle Waterfront from Overlook Walk July 2025 - 01.jpg](https://commons.wikimedia.org/wiki/File:Downtown_Seattle_Waterfront_from_Overlook_Walk_July_2025_-_01.jpg) | — | 321 KB |
+| `Seattle_Aquarium_booth_on_Overlook_Walk_01.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Seattle Aquarium booth on Overlook Walk 01.jpg](https://commons.wikimedia.org/wiki/File:Seattle_Aquarium_booth_on_Overlook_Walk_01.jpg) | — | 296 KB |
 
 ## `refs/seatac/`
 
-No image files were downloaded for this area: upload.wikimedia.org returned HTTP 429 (Retry-After 600 s) for every request after the Bellevue batch (shared egress IP). The list below is the vetted, free-licensed selection to fetch later (960 px or 500 px Commons thumbnails, ≤ 400 KB). Attribution required for CC BY / CC BY-SA.
-upload.wikimedia.org rate-limited this sandbox (HTTP 429 with 10-minute Retry-After) during the run. These free-licensed photos were selected and checked (licence from the Commons API) but not fetched; download the 960 px or 500 px thumbnail later with the same attribution rules.
+No image files exist for this area (Commons rate-limited the download). The rows record the free-licensed photos that
+were selected and licence-checked through the Commons API, with the attribution any use of them requires (CC BY /
+CC BY-SA: author, licence, link).
 
 | Commons file | author | licence | date | page |
 |---|---|---|---|---|
@@ -520,7 +479,7 @@ upload.wikimedia.org rate-limited this sandbox (HTTP 429 with 10-minute Retry-Af
 | SeaTac Airport station from airport parking garage.jpg | SounderBruce | CC BY-SA 4.0 | 2018-01-30 | [https://commons.wikimedia.org/wiki/File:SeaTac_Airport_station_from_airport_parking_garage.jpg](https://commons.wikimedia.org/wiki/File:SeaTac_Airport_station_from_airport_parking_garage.jpg) |
 | Airport Expressway northbound, SeaTac.jpg | SounderBruce | CC BY-SA 3.0 | 2014-07-10 | [https://commons.wikimedia.org/wiki/File:Airport_Expressway_northbound,_SeaTac.jpg](https://commons.wikimedia.org/wiki/File:Airport_Expressway_northbound,_SeaTac.jpg) |
 | SeaTac Terminal (15638742214).jpg | Atomic Taco from Seattle, WA, USA | CC BY-SA 2.0 | 2014-11-28 | [https://commons.wikimedia.org/wiki/File:SeaTac_Terminal_(15638742214).jpg](https://commons.wikimedia.org/wiki/File:SeaTac_Terminal_(15638742214).jpg) |
-| WA-518 eastbound near I-5.jpg | Doug Kerr | CC BY-SA 2.0 | Taken on 2 | [https://commons.wikimedia.org/wiki/File:WA-518_eastbound_near_I-5.jpg](https://commons.wikimedia.org/wiki/File:WA-518_eastbound_near_I-5.jpg) |
+| WA-518 eastbound near I-5.jpg | Doug Kerr | CC BY-SA 2.0 | — | [https://commons.wikimedia.org/wiki/File:WA-518_eastbound_near_I-5.jpg](https://commons.wikimedia.org/wiki/File:WA-518_eastbound_near_I-5.jpg) |
 | SeaTac Airport Station, from International Boulevard.jpg | SounderBruce | CC BY 3.0 | 2014-07-10 | [https://commons.wikimedia.org/wiki/File:SeaTac_Airport_Station,_from_International_Boulevard.jpg](https://commons.wikimedia.org/wiki/File:SeaTac_Airport_Station,_from_International_Boulevard.jpg) |
 | SeaTac - control tower 01.jpg | Joe Mabel | CC BY 3.0 | 2015-02-26 | [https://commons.wikimedia.org/wiki/File:SeaTac_-_control_tower_01.jpg](https://commons.wikimedia.org/wiki/File:SeaTac_-_control_tower_01.jpg) |
 | Airport Expressway and Link guideway from S 160th Street, SeaTac.jpg | SounderBruce | CC BY-SA 3.0 | 2014-07-10 | [https://commons.wikimedia.org/wiki/File:Airport_Expressway_and_Link_guideway_from_S_160th_Street,_SeaTac.jpg](https://commons.wikimedia.org/wiki/File:Airport_Expressway_and_Link_guideway_from_S_160th_Street,_SeaTac.jpg) |
@@ -544,25 +503,25 @@ Free-licensed Wikimedia Commons images only (CC BY / CC BY-SA / CC0 / PD), downs
 | 23_Strada_Mihail_Georgescu_Bucharest_03_.jpg | 2022-09-30 | Hala Traian (82 m) | Neoclassicism Enthusiast | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:23_Strada_Mihail_Georgescu,_Bucharest_(03).jpg | yes |
 | 23_Strada_Mihail_Georgescu_Bucharest_02_.jpg | 2022-09-30 | Hala Traian (85 m) | Neoclassicism Enthusiast | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:23_Strada_Mihail_Georgescu,_Bucharest_(02).jpg | yes |
 | 34_Calea_Mo_ilor_Bucharest_03_.jpg | 2023-04-29 | Bd. I.C. Brătianu / Coposu (130 m) | Neoclassicism Enthusiast | CC0 | https://commons.wikimedia.org/wiki/File:34_Calea_Mo%C8%99ilor,_Bucharest_(03).jpg | yes |
-| The_pediment_above_the_entrance_of_Hala_Traian_from_the_Calea_C_l_ra_i_in_Bucharest_Romani.jpg | Taken on 2 | Hala Traian (16 m) | Beautiful Buildings Pics | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:The_pediment_above_the_entrance_of_Hala_Traian_from_the_Calea_C%C4%83l%C4%83ra%C8%99i,_in_Bucharest_(Romania)._There_is_written_MDCCCXCVI_(1896).jpg |  |
+| The_pediment_above_the_entrance_of_Hala_Traian_from_the_Calea_C_l_ra_i_in_Bucharest_Romani.jpg | — | Hala Traian (16 m) | Beautiful Buildings Pics | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:The_pediment_above_the_entrance_of_Hala_Traian_from_the_Calea_C%C4%83l%C4%83ra%C8%99i,_in_Bucharest_(Romania)._There_is_written_MDCCCXCVI_(1896).jpg |  |
 | Ikarus_415T_-_trolleybus_Bucarest_5_.jpg | 2023-07-29 | Piața Unirii south / Dealul Mitropoliei (57 m) | Kyah117 | CC BY 4.0 | https://commons.wikimedia.org/wiki/File:Ikarus_415T_-_trolleybus_Bucarest_(5).jpg |  |
 | Degraded_building_on_Strada_Bibescu_Vod_in_Bucharest_01_.jpg | 2022-05-31 | Piața Unirii south / Dealul Mitropoliei (99 m) | Neoclassicism Enthusiast | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Degraded_building_on_Strada_Bibescu_Vod%C4%83_in_Bucharest_(01).jpg |  |
-| Bucharest_-_tram_in_front_of_Hala_Traian_01.jpg | Taken on 1 | Hala Traian (49 m) | Joe Mabel | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Bucharest_-_tram_in_front_of_Hala_Traian_01.jpg |  |
-| Bulevardul_Unirii_with_fountains.jpg | Taken on 1 | Bd. Unirii east (101 m) | Jaimrsilva | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Bulevardul_Unirii_with_fountains.jpg |  |
-| Cablaggio_strutturato_lampione_angolo_boulevardul_unirii_-_panoramio.jpg | Taken on 3 | Bd. Unirii east (104 m) | Luca Sironi | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Cablaggio_strutturato,lampione_angolo_boulevardul_unirii_-_panoramio.jpg |  |
+| Bucharest_-_tram_in_front_of_Hala_Traian_01.jpg | — | Hala Traian (49 m) | Joe Mabel | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Bucharest_-_tram_in_front_of_Hala_Traian_01.jpg |  |
+| Bulevardul_Unirii_with_fountains.jpg | — | Bd. Unirii east (101 m) | Jaimrsilva | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Bulevardul_Unirii_with_fountains.jpg |  |
+| Cablaggio_strutturato_lampione_angolo_boulevardul_unirii_-_panoramio.jpg | — | Bd. Unirii east (104 m) | Luca Sironi | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Cablaggio_strutturato,lampione_angolo_boulevardul_unirii_-_panoramio.jpg |  |
 | 20260523_115813_May_2026_in_Bucharest.jpg | 2026-05-23 | Piața Unirii south / Dealul Mitropoliei (54 m) | Rakoon | CC0 | https://commons.wikimedia.org/wiki/File:20260523_115813_May_2026_in_Bucharest.jpg |  |
-| Boulevardul_Unirii_-_panoramio.jpg | 8 April 20 | Piața Unirii fountains (68 m) | Luca Sironi | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Boulevardul_Unirii_-_panoramio.jpg |  |
-| Strada_Vulturilor_-_Bucharest_Romania_-_Travel_photography_33785881754_.jpg | Taken on 1 | Bd. Unirii / Calea Călărașilor east (69 m) | Giuseppe Milo from Dublin, Ireland | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Strada_Vulturilor_-_Bucharest,_Romania_-_Travel_photography_(33785881754).jpg |  |
-| Strada_Vulturilor_Bucharest_Romania_Travel_Photography_211763961_.jpeg | 12 May 201 | Bd. Unirii / Calea Călărașilor east (69 m) | Giuseppe Milo | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Strada_Vulturilor_Bucharest_Romania_Travel_Photography_(211763961).jpeg |  |
-| Piata_Unirii_-_panoramio_2_.jpg | Taken on 1 | Piața Unirii fountains (20 m) | Mister No | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Piata_Unirii_-_panoramio_(2).jpg |  |
+| Boulevardul_Unirii_-_panoramio.jpg | — | Piața Unirii fountains (68 m) | Luca Sironi | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Boulevardul_Unirii_-_panoramio.jpg |  |
+| Strada_Vulturilor_-_Bucharest_Romania_-_Travel_photography_33785881754_.jpg | — | Bd. Unirii / Calea Călărașilor east (69 m) | Giuseppe Milo from Dublin, Ireland | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Strada_Vulturilor_-_Bucharest,_Romania_-_Travel_photography_(33785881754).jpg |  |
+| Strada_Vulturilor_Bucharest_Romania_Travel_Photography_211763961_.jpeg | — | Bd. Unirii / Calea Călărașilor east (69 m) | Giuseppe Milo | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Strada_Vulturilor_Bucharest_Romania_Travel_Photography_(211763961).jpeg |  |
+| Piata_Unirii_-_panoramio_2_.jpg | — | Piața Unirii fountains (20 m) | Mister No | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Piata_Unirii_-_panoramio_(2).jpg |  |
 | Bucharest_Day_1_-_Unirii_9330316144_.jpg | 2013-07-20 | Piața Unirii fountains (28 m) | Stefan Jurca from Munich, Germany | CC BY-SA 2.0 | https://commons.wikimedia.org/wiki/File:Bucharest_Day_1_-_Unirii_(9330316144).jpg |  |
-| Bucharest_-_Hala_Traian_01.jpg | Taken on 1 | Hala Traian (49 m) | Joe Mabel | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Bucharest_-_Hala_Traian_01.jpg |  |
+| Bucharest_-_Hala_Traian_01.jpg | — | Hala Traian (49 m) | Joe Mabel | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Bucharest_-_Hala_Traian_01.jpg |  |
 | Bucharest_Day_1_-_Unirii_9330342042_.jpg | 2013-07-20 | Piața Unirii south / Dealul Mitropoliei (45 m) | Stefan Jurca from Munich, Germany | CC BY-SA 2.0 | https://commons.wikimedia.org/wiki/File:Bucharest_Day_1_-_Unirii_(9330342042).jpg |  |
 | Bucharest_Day_2_-_Unirii_9335170995_.jpg | 2013-07-21 | Piața Unirii south / Dealul Mitropoliei (80 m) | Stefan Jurca from Munich, Germany | CC BY-SA 2.0 | https://commons.wikimedia.org/wiki/File:Bucharest_Day_2_-_Unirii_(9335170995).jpg |  |
 | Romania-1164_-_Romanian_Military_Academy_7557743754_.jpg | 2012-05-08 | Piața Unirii south / Dealul Mitropoliei (63 m) | Dennis G. Jarvis | CC BY-SA 2.0 | https://commons.wikimedia.org/wiki/File:Romania-1164_-_Romanian_Military_Academy_(7557743754).jpg |  |
-| Boekarest_Traian_hotel_view_north_-_panoramio.jpg | 26 Novembe | Piața Alba Iulia (163 m) | Edo de Roo | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Boekarest,_Traian_hotel,_view_north_-_panoramio.jpg |  |
+| Boekarest_Traian_hotel_view_north_-_panoramio.jpg | — | Piața Alba Iulia (163 m) | Edo de Roo | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Boekarest,_Traian_hotel,_view_north_-_panoramio.jpg |  |
 | Bucharest_Day_2_-_Unirii_9335170651_.jpg | 2013-07-21 | Piața Unirii south / Dealul Mitropoliei (94 m) | Stefan Jurca from Munich, Germany | CC BY-SA 2.0 | https://commons.wikimedia.org/wiki/File:Bucharest_Day_2_-_Unirii_(9335170651).jpg |  |
-| Welcome_217726283_.jpeg | before 27  | Piața Unirii fountains (19 m) | Ovidiu Marius Stefancu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Welcome_(217726283).jpeg |  |
+| Welcome_217726283_.jpeg | — | Piața Unirii fountains (19 m) | Ovidiu Marius Stefancu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Welcome_(217726283).jpeg |  |
 | Strada_Parfumului_nr._11_B-II-m-B-19334_.JPG | 2012-04-29 | Bd. Unirii / Calea Călărașilor east (136 m) | Razvan Socol | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Strada_Parfumului_nr._11_(B-II-m-B-19334).JPG |  |
 | Strada_Matei_Basarab_nr._59_B-II-m-B-18088_.JPG | 2012-04-29 | Calea Călărașilor × Traian (141 m) | Razvan Socol | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Strada_Matei_Basarab_nr._59_(B-II-m-B-18088).JPG |  |
 | Strada_Parfumului_nr._13_B-II-m-B-19336_.JPG | 2012-04-29 | Bd. Unirii / Calea Călărașilor east (145 m) | Razvan Socol | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Strada_Parfumului_nr._13_(B-II-m-B-19336).JPG |  |
@@ -571,5 +530,5 @@ Free-licensed Wikimedia Commons images only (CC BY / CC BY-SA / CC0 / PD), downs
 | Strada_Matei_Basarab_nr._48_B-II-m-B-18081_.JPG | 2012-04-29 | Calea Călărașilor × Traian (167 m) | Razvan Socol | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Strada_Matei_Basarab_nr._48_(B-II-m-B-18081).JPG |  |
 | Strada_Matei_Basarab_nr._46_B-II-m-B-18080_.JPG | 2012-04-29 | Calea Călărașilor × Traian (170 m) | Razvan Socol | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Strada_Matei_Basarab_nr._46_(B-II-m-B-18080).JPG |  |
 | Strada_Parfumului_nr._6_B-II-m-B-19333_.JPG | 2012-04-29 | Bd. Unirii / Calea Călărașilor east (179 m) | Razvan Socol | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Strada_Parfumului_nr._6_(B-II-m-B-19333).JPG |  |
-| Red_bushes_and_young_trees_i-Contrast_off_5727584545_.jpg | Taken on 1 | Bd. Unirii east (172 m) | Alexandru Panoiu from Bucharest, Romania | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Red_bushes_and_young_trees_(i-Contrast_off)_(5727584545).jpg |  |
-| Red_bushes_and_young_trees_i-Contrast_on_5727585257_.jpg | Taken on 1 | Bd. Unirii east (172 m) | Alexandru Panoiu from Bucharest, Romania | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Red_bushes_and_young_trees_(i-Contrast_on)_(5727585257).jpg |  |
+| Red_bushes_and_young_trees_i-Contrast_off_5727584545_.jpg | — | Bd. Unirii east (172 m) | Alexandru Panoiu from Bucharest, Romania | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Red_bushes_and_young_trees_(i-Contrast_off)_(5727584545).jpg |  |
+| Red_bushes_and_young_trees_i-Contrast_on_5727585257_.jpg | — | Bd. Unirii east (172 m) | Alexandru Panoiu from Bucharest, Romania | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Red_bushes_and_young_trees_(i-Contrast_on)_(5727585257).jpg |  |

@@ -26,7 +26,11 @@ exit pad in its exit lane (keep the box clear; after 20 s of waiting behind an e
 waiting for it stops that much short of its line, and a car following a turning long body keeps 2.5 m more gap. A lane-drop hold at a node beyond the next one is released the same
 way as at the next node. A closed ring of vehicles each waiting for the next (all stopped ≥ 15 s) is undone by the
 member with the most room behind it backing up along its lane at walking pace (≤ 4 m), then letting the car that waited
-for it go. A walker standing on the carriageway without headway for 8 s counts as pinned (turns back or leaves the
+for it go. A follower that cannot back out of a contact because the queue behind it is packed is freed from the back:
+the rearmost queued car with room behind it backs up ≤ 1.5 m at walking pace and holds there, then the next one, until
+the follower can back out. A lane change by choice needs, in a queue that stands or crawls, a full car length of room
+ahead on top of the usual gap. A car waiting at its line keeps its claim and its place in the first-come order while
+it waits there. A walker standing on the carriageway without headway for 8 s counts as pinned (turns back or leaves the
 road). A vehicle whose only road on runs to a district-edge closure takes it and leaves at the edge.
 R13.6 District boundaries: vehicles despawn/respawn out of view at the edges.
 R13.7 A side/rear pedestrian yield releases only when the vehicle body is already clear and its next motion increases
@@ -74,7 +78,8 @@ keeping its whole cycle within 60 s. A car inside the box holds the other stages
 its own and makes headway (≥ 1 m in 8 s), and then for at most the first 4 s of a stage (a stage is never skipped; the
 box claims keep the cars that get its green off the occupied paths).
 R13.24 With a GPS destination set, the R reset puts the car on the nearest free lane pose from which a route to that
-destination exists (a nearer pose with no route is skipped).
+destination exists (a nearer pose with no route is skipped); a pose keeping the driving direction (within 60°) wins over
+a nearer one facing the other way, and one whose route starts on its own road over one whose route starts elsewhere.
 
 ## Acceptance
 - Harness: vehicle-overlap ≤ 5, ped-in-vehicle 0, vehicle-overlaps-player 0, scenario `i` passes.

@@ -10,6 +10,9 @@ import { clamp, angleDiff } from './util.js';
 import { chapterWaypointReached } from './chapter-waypoint.js';
 import { $, DEV, FUEL_ACC, FUEL_AERO, FUEL_GAME_MULT, FUEL_IDLE, FUEL_ROLL, GAL, money, PRICES, TANK_L } from './game-common.js';
 
+/** R reset with a GPS destination: a pose within 60° of the car's heading keeps its driving direction. */
+const RESET_KEEP_COS = 0.5;
+
 export class DriveMethods {
     /** put a point on the nearest drivable lane, returns {x,z,heading,edge,dir} */
     roadPose(x, z, preferDir = 1) {
@@ -550,14 +553,25 @@ export class DriveMethods {
         // (R reset in the chapter drives: "no route after reset") with a GPS destination, the pose must be one the route
         // can start from: an edge outside the main one-way component, too low for the car or cut off by turn bans was
         // the nearest road but left the player with no route. A pose that routes wins over a nearer one that does not.
-        const dest = this.nav?.dest, routes = (p) => !dest || !!this.nav.compute(p.x, p.z, dest.x, dest.z, p.heading, y);
-        let fallback = null, tries = 0;
+        // (Bellevue, NE 8th Street at 108th Avenue NE) a routable pose that keeps the driving direction wins over a nearer one
+        // facing the other way: the nearest was the other carriageway of the divided street, and the reset turned the car
+        // round onto a 2.4 km detour. (Piața Unirii) So does one whose route starts on its own road: a pose in the square
+        // whose route began on another carriageway 10 m away left the car beside its route, and every reset put it back there.
+        const dest = this.nav?.dest;
+        let fallback = null, best = null, bestRank = 4, tries = 0;
         for (const c of scored.slice(0, 8)) for (const sh of [0, 8, -8, 16, -16]) {
             const p = poseOf(c, sh); if (!this.spotFree(p)) continue;
             if (!fallback) fallback = p;
-            if (tries++ < 12 && routes(p)) return p;
+            if (!dest) return p;
+            const turned = Math.cos(angleDiff(p.heading, heading)) < RESET_KEEP_COS;
+            if (tries++ >= 12) break;
+            if ((turned ? 2 : 0) >= bestRank) continue;
+            const route = this.nav.compute(p.x, p.z, dest.x, dest.z, p.heading, y); if (!route) continue;
+            const rank = (turned ? 2 : 0) + (route.legs?.[0] && route.legs[0].e !== p.edge ? 1 : 0);
+            if (rank < bestRank) { best = p; bestRank = rank; }
+            if (rank === 0) return p;
         }
-        return fallback || poseOf(scored[0]);
+        return best || fallback || poseOf(scored[0]);
     }
     /** a car pose is free of buildings / props / walls at its level (the car body = 3 circles of 1 m) and, with
      *  `vehR`, of non-parked-away vehicles within that radius on the same level */

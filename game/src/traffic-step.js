@@ -108,7 +108,7 @@ export class TrafficStep {
 
         // ---------------- path constraints: lights, stops, zebras, turns ----------------
         const laneDropMax = this.laneDropMax(v, 60);
-        if (!v.tram && v.lane > laneDropMax && this.laneFree(v, v.lane - 1)) { v.lane--; v.laneChangeCd = 2; }
+        if (!v.tram && v.lane > laneDropMax && this.laneFree(v, v.lane - 1, true)) { v.lane--; v.laneChangeCd = 2; }
         let stopD = Infinity, vCap = Infinity, waitingRed = false, stopWhy = null;
         if (e.rail && this.world.district?.inside) {
             // A source rail runs on past the district edge. The leaf rule below stops a tram at the end of the rail, which
@@ -288,6 +288,7 @@ export class TrafficStep {
         // that positive acceleration on every source-rail tick from rest.
         if (v.speed < 0.05 && (!e.rail || target < 0.05)) v.speed = 0;
         this.ringBackStep(v, dt); // (traffic-knots.js: backing out of a closed waiting ring)
+        this.chainHoldStep(v, dt); // (traffic-knots.js: a queue car that made room for a knot ahead keeps it)
         v.gap = gap; v.leader = leader; v.leaderCross = leaderCross; v.stopD = stopD; v.stopWhy = stopWhy;
 
         // ---------------- stuck / honking ----------------
@@ -347,7 +348,7 @@ export class TrafficStep {
                 if (this.rng() < 0.5) options.reverse();
                 let done = false;
                 for (const l of options) {
-                    if (this.laneFree(v, l)) { v.lane = l; v.laneChangeCd = this.rng.range(this.buc ? 4 : 6, this.buc ? 9 : 14); done = true; if (this.chaos > 0.5 && this.rng.chance(0.2)) this.honk(v, 'lanechange'); break; }
+                    if (this.laneFree(v, l, true)) { v.lane = l; v.laneChangeCd = this.rng.range(this.buc ? 4 : 6, this.buc ? 9 : 14); done = true; if (this.chaos > 0.5 && this.rng.chance(0.2)) this.honk(v, 'lanechange'); break; }
                 }
                 if (!done) v.laneChangeCd = this.buc ? 0.8 : 1.5;
             }
@@ -580,6 +581,7 @@ export class TrafficStep {
                 this.stats.separate = (this.stats.separate || 0) + 1; this.stats.separateCross = (this.stats.separateCross || 0) + 1;
             }
             if (opening) continue;
+            if (!separated) fol.knotNoBackT = this.time; // (traffic-knots.js backPackedChains: the queue behind opens it)
             if (!separated && other.speed < 0.3 && !other.parked && !other.tram && other.s + 0.25 < other.edge.len - 0.5 && !(P && vpPen(other, P) > -0.3)) {
                 // the follower cannot back up (start of its edge): nudge the one in front forward instead
                 this.separateVehicleStep(other, fol, Math.min(0.25, 0.8 * dt));

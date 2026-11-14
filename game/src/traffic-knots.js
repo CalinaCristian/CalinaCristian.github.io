@@ -10,6 +10,9 @@ const RING_STUCK_S = 15;
 const RING_MAX = 12;
 /** Reversing: pace (m/s), longest distance (m), the clearance it keeps to whatever is behind (m). */
 const BACK_SPEED = 1, BACK_MAX_M = 4, BACK_KEEP_M = 0.8;
+/** A contact whose follower could not back for this long (s) is opened by the packed queue behind it; each car of that
+ *  queue backs at most CHAIN_BACK_M (m), and needs at least CHAIN_ROOM_M of room behind it to start (m). */
+const CHAIN_AFTER_S = 1, CHAIN_BACK_M = 1.5, CHAIN_ROOM_M = 0.5, CHAIN_MAX = 10;
 
 export class TrafficKnots {
     /** once a second: closed leader cycles of stopped vehicles; the member with the most room behind it backs up */
@@ -44,26 +47,65 @@ export class TrafficKnots {
         v.speed = -BACK_SPEED; v.zeroWhy = 'ringBack';
         return true;
     }
-    /** free distance behind v's rear along its own axis (m), to vehicles, the player and walkers */
+    /**
+     * once a second: a contact whose follower cannot back because the queue behind it is packed (a car's nose in a
+     * stopped bus, Șoseaua Pipera at Barbu Văcărescu) is opened from the back: the rearmost car of the packed queue that
+     * has room behind it backs up a little at walking pace and holds there, then the one in front of it, until the
+     * follower can back out of the contact. Never through a vehicle, a walker or the player (roomBehind, overlap guard).
+     */
+    backPackedChains() {
+        const now = this.time;
+        for (const v of this.vehicles) {
+            if (v.chainHoldT > 0 && !(v.chainHead && now - (v.chainHead.knotNoBackT ?? -9) < 2)) v.chainHoldT = 0;
+            if (v.inactive || v.parked || v.tram || !(now - (v.knotNoBackT ?? -9) < 1.5) || (v.ovT || 0) < CHAIN_AFTER_S) continue;
+            let c = v;
+            for (let k = 0; k < CHAIN_MAX; k++) {
+                const room = this.roomBehind(c), by = this._behindBy;
+                if (c !== v) { c.chainHead = v; c.chainHoldT = 3; } // the packed queue holds (and keeps what room it makes) while the knot lasts
+                if (room > CHAIN_ROOM_M + BACK_KEEP_M) {
+                    if (c === v || c.backT > 0) break;
+                    c.backT = Math.min(CHAIN_BACK_M, room - BACK_KEEP_M) / BACK_SPEED; c.backYield = null;
+                    this.stats.chainBacks = (this.stats.chainBacks || 0) + 1;
+                    break;
+                }
+                // packed: the car behind backs first (only another queued car can; the player, a walker or the lane end stop it)
+                if (!by || typeof by !== 'object' || by === this.player || by.parked || by.tram || by.inactive || by.speed > 0.3 || by.backT > 0) break;
+                c = by;
+            }
+        }
+    }
+    /** stepVehicle: a queue car that has made room for a knot ahead of it does not close the gap again */
+    chainHoldStep(v, dt) {
+        if (!(v.chainHoldT > 0)) return false;
+        v.chainHoldT -= dt;
+        if (v.backT > 0) return false;
+        v.speed = Math.min(v.speed, 0); v.zeroWhy = 'chainHold';
+        return true;
+    }
+    /** free distance behind v's rear along its own axis (m), to vehicles, the player and walkers; `_behindBy` = what
+     *  limits it (a vehicle, the player, 'ped' or 'lane') */
     roomBehind(v, look = 12) {
         const bx = Math.sin(v.heading), bz = Math.cos(v.heading), rx = -bz, rz = bx, half = v.length / 2;
-        let room = look;
-        const consider = (x, z, ext, latExt) => {
+        let room = look, by = null;
+        const consider = (x, z, ext, latExt, o) => {
             const dx = x - v.x, dz = z - v.z, f = dx * bx + dz * bz, l = dx * rx + dz * rz;
             if (f <= 0 || Math.abs(l) > v.width / 2 + latExt + 0.3) return;
-            room = Math.min(room, f - half - ext);
+            if (f - half - ext < room) { room = f - half - ext; by = o; }
         };
         this.grid.query(v.x + bx * (half + look / 2), v.z + bz * (half + look / 2), look / 2 + 10, (o) => {
             if (o === v || o.inactive || Math.abs(o.y - v.y) > 2) return;
             const ofx = -Math.sin(o.heading), ofz = -Math.cos(o.heading);
             const ext = Math.abs(ofx * bx + ofz * bz) * o.length / 2 + Math.abs(ofx * rx + ofz * rz) * o.width / 2;
             const lat = Math.abs(ofx * rx + ofz * rz) * o.length / 2 + Math.abs(ofx * bx + ofz * bz) * o.width / 2;
-            consider(o.x, o.z, ext, lat);
+            consider(o.x, o.z, ext, lat, o);
         });
         const P = this.player;
-        if (P && Math.abs((P.y ?? 0.24) - v.y) < 2.5) consider(P.x, P.z, playerExtent(P, bx, bz), playerExtent(P, rx, rz));
-        this.peds?.grid.query(v.x + bx * (half + look / 2), v.z + bz * (half + look / 2), look / 2 + 2, (p) => consider(p.x, p.z, 0.4, 0.4));
+        if (P && Math.abs((P.y ?? 0.24) - v.y) < 2.5) consider(P.x, P.z, playerExtent(P, bx, bz), playerExtent(P, rx, rz), P);
+        this.peds?.grid.query(v.x + bx * (half + look / 2), v.z + bz * (half + look / 2), look / 2 + 2, (p) => consider(p.x, p.z, 0.4, 0.4, 'ped'));
         // its own lane behind: at most just over the node it came over (as a knot's follower backs)
-        return Math.min(room, v.s - 0.3 + (v.hist?.length ? 1.5 : 0));
+        const lane = v.s - 0.3 + (v.hist?.length ? 1.5 : 0);
+        if (lane < room) { room = lane; by = 'lane'; }
+        this._behindBy = by;
+        return room;
     }
 }

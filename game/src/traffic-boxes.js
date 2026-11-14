@@ -15,6 +15,8 @@ const EXIT_ROOM_M = 1.5;
 const EXIT_QUEUE_SPEED = 2;
 /** How long a car keeps a box clear for an exit queue that does not move (s, its own wait and the queue's). */
 const EXIT_PATIENCE_S = 20;
+/** A claim of a car waiting at its line holds while the car renews it (every step it waits there) within this time (s). */
+const CLAIM_RENEW_S = 0.5;
 
 export class TrafficBoxes {
     /** path across the junction pad for v going (curE,curDir) → nxt: entry lane point → exit lane point */
@@ -118,14 +120,17 @@ export class TrafficBoxes {
     inBox(r, node) {
         const o = r.v;
         if (o.inactive || (o._moveGeneration || 0) !== r.generation || o.odo >= r.clearOdo) return false;
+        // (Piața Victoriei, Kiseleff entry) a car still waiting at its line for an older claim keeps its own (renewed every
+        // step): it lapsed after 6 s, was taken again as the newest claim, and every car arriving on the other approaches
+        // was older than it from then on: it waited for minutes. First come, first served across the whole box.
         if (o.edge === r.inE) {
             if (o.s + o.length * 0.5 > o.edge.len - r.entryRad - 0.8) r.entered = true;
-            return r.entered || this.time - r.t0 < 6 || o.speed > 0.5;
+            return r.entered || this.time - r.t0 < 6 || o.speed > 0.5 || this.time - r.t < CLAIM_RENEW_S;
         }
         if (r.preEdges?.has(o.edge)) {
             // claimed from the edge before a short entry link: its front may already be inside the pad
             if ((o.odo || 0) + o.length * 0.5 > r.nodeOdo - r.entryRad - 0.8) r.entered = true;
-            return r.entered || this.time - r.t0 < 6 || o.speed > 0.5;
+            return r.entered || this.time - r.t0 < 6 || o.speed > 0.5 || this.time - r.t < CLAIM_RENEW_S;
         }
         if (r.internalEdges.has(o.edge)) { r.entered = true; return true; }
         if (o.edge === r.outE) { r.entered = true; return o.s - o.length * 0.5 < r.exitRad + 1; }

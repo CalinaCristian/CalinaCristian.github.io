@@ -529,7 +529,7 @@ export class Traffic {
             }
         }
         this._dlT = (this._dlT || 0) + dt;
-        if (this._dlT > 1) { this._dlT = 0; this.resolveDeadlocks(); this.breakLeaderRings(); }
+        if (this._dlT > 1) { this._dlT = 0; this.resolveDeadlocks(); this.breakLeaderRings(); this.backPackedChains(); }
         this.playerWatchdog(dt);
         if ((this._frame & 31) === 0) this.pruneBoxes();
         this._rbT = (this._rbT || 0) + dt;

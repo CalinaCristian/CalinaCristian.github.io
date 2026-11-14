@@ -18,6 +18,9 @@ import { fitTramBodySupport } from './tram-body-support.js';
 import { LONG_BODY, LONG_LEN, actorCanTravel, closedEdge, junctionDist, laneOffset, layerOf, padOf, pedestrianPen, playerExtent, streetLevel, trafficMulOf, tramOffset, vvPen } from './traffic-shared.js';
 import { Pedestrians } from './pedestrians.js';
 
+/** A lane change by choice treats target-lane traffic slower than this (m/s) as a queue, and keeps this much room behind (m). */
+const QUEUE_SPEED = 2, QUEUE_BACK_M = 4;
+
 export class TrafficLanes {
 
     // ------------------------------------------------------------------ transit (R13.3)
@@ -589,7 +592,7 @@ export class TrafficLanes {
         v.edge = nx.e; v.dir = nx.dir; v.layer = layerOf(nx.e);
         const lanes = lanesDir(nx.e, nx.dir) || 1;
         if (v.bus) v.lane = lanes - 1;
-        else if (lanes > lanesDir(e, odir) && this.buc && this.rng() < 0.12) { const l = this.rng.int(0, lanes - 1); if (Math.abs(l - v.lane) <= 1 && l < lanes && this.laneFree(v, l)) v.lane = l; }
+        else if (lanes > lanesDir(e, odir) && this.buc && this.rng() < 0.12) { const l = this.rng.int(0, lanes - 1); if (Math.abs(l - v.lane) <= 1 && l < lanes && this.laneFree(v, l, true)) v.lane = l; }
         v.lane = clamp(v.lane, 0, v.bus || v.tram || v.isPolice ? lanes - 1 : this.carLaneMax(nx.e, nx.dir, v));
         v.laneCur = clamp(v.laneCur, 0, lanes - 1);
         if (nx.uturn) { v.laneCur = v.lane; v.transition = 1.2; v.latBlend = 0; }
@@ -715,20 +718,24 @@ export class TrafficLanes {
         return best;
     }
 
-    laneFree(v, lane) {
+    /** `queue`: a lane change by choice. Into a queue that stands or crawls it needs a full car gap ahead (steering needs
+     *  about that much travel to finish the move): squeezing into a shorter gap left cars standing across two lanes, nose
+     *  to side with their neighbours (Piața Victoriei: Kiseleff, Titulescu; Șoseaua Pipera at Barbu Văcărescu). */
+    laneFree(v, lane, queue = false) {
         const lat = laneOffset(v.edge, lane, v.dir) + v.latExtraCur;
         const curLat = laneOffset(v.edge, v.laneCur, v.dir) + v.latExtraCur;
         const tx = v.x + v.rx * (lat - curLat), tz = v.z + v.rz * (lat - curLat);
         const front = this.buc ? 4 : 10, back = this.buc ? 2.5 : 8;
         let free = true;
-        this.grid.query(tx, tz, 18, (o) => {
+        this.grid.query(tx, tz, 18 + (queue ? v.length : 0), (o) => {
             if (!free || o === v || o.layer !== v.layer) return;
             if (o.fx * v.fx + o.fz * v.fz < 0.5 && !o.parked) return;
             const dx = o.x - tx, dz = o.z - tz;
             const f = dx * v.fx + dz * v.fz, l = dx * v.rx + dz * v.rz;
             if (Math.abs(l) > (v.width + o.width) * 0.5 + 0.2) return;
             const L2 = (v.length + o.length) * 0.5;
-            if (f > -(L2 + back + Math.max(0, o.speed - v.speed) * 1.5) && f < L2 + front) free = false;
+            const slow = queue && !o.parked && o.speed < QUEUE_SPEED;
+            if (f > -(L2 + (slow ? Math.max(back, QUEUE_BACK_M) : back) + Math.max(0, o.speed - v.speed) * 1.5) && f < L2 + front + (slow ? v.length : 0)) free = false;
         });
         const P = this.player;
         if (free && P) {

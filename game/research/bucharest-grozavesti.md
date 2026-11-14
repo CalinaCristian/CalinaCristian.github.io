@@ -11,11 +11,11 @@ estimates the game makes where no source exists, and the places where it knowing
   `handoffs/fidelity/d-grozavesti/source-ledger.json`; z18 aerial mosaic 44.428, 26.038 – 44.458, 26.079 at about
   0.426 m/px, acquisition date unknown, only derived measurements committed); live OSM re-checked 2026-11-12/13. Every
   OSM fact is keyed by id (w = way, n = node, r = relation). Bracketed keys like [osm] point to **Sources**.
-- **Machine-readable twin** `bucharest-grozavesti.json` holds the generated tables this file no longer repeats: per-street
+- **Machine-readable twin** `bucharest-grozavesti.json` holds the generated tables: per-street
   segments, every building with its style-rule facade estimate, businesses, junctions and crossings, transit lines, stops,
   metro entrances and STB liveries, the Bucharest-wide streetscape rules (`city_rules`), palette (`colours`),
   `top_local_details`, `gaps`, district pedestrians (`dialogue`) and traffic hotspots (`traffic`). Business detail:
-  `businesses-bucharest-grozavesti.md`.
+  the Businesses and speed limits section below.
 - **Street level.** Official Street View panoramas were looked at only; nothing was stored, traced or measured from them.
   A panorama is cited as its id plus heading (`hGqephV5yIK6jWNVMdcHBw h70`) or as its position. Game views:
   `node game/dev/reality/capture.cjs --district=grozavesti`.
@@ -224,30 +224,16 @@ Nord, outside the district. Street View, viewed 2026-11-11/13 (reference only; t
 
 ## Trees and green
 
-- **Pedestrian plazas and the green raster** (r3-look-14, 2026-11-13; `ground-review.js`, plazas in `pedestrian-plazas.js`
-  from the live OSM data via `tools/osm/pedestrian-plazas.mjs`): a mapped pedestrian area (`highway=pedestrian|footway` +
-  `area=yes`, `area:highway`, `place=square`; ways and multipolygons) is paved over its whole polygon: its `surface` decides,
-  no surface tag counts as paved, and only `surface=grass` keeps the aerial raster's lawn there. Before, only a 3.5 m band
-  round mapped pedestrian lines was kept free, so plazas kept the raster's green cells (tree shade, planters, joints).
-  Mapped grass / park polygons and trees inside a plaza stay as OSM has them (Piața Unirii's `place=square` covers its park:
-  its lawns are OSM polygons and are unchanged). Not compared with a panorama: the rule follows OSM's tags. Here: 45 plazas, none tagged grass.
+- **Pedestrian plazas**: the shared rule ([shared-rules.md](shared-rules.md#pedestrian-plazas)). Here: 45 plazas, none
+  tagged grass.
 - 27 OSM trees in the 2026-11-06 extract (four Populus near Str. Economu Cezărescu); poplar and linden rows along the
   canal embankments; campus lawns and car parks. Street species lists are in the JSON (`streets[].research.trees`).
 
 ## Estimates and open questions
 
-- **Places of worship** (r3-look-11, 2026-11-13; `worship.js`, tags in `worship-source.js` from the live OSM API): one rule
-  from OSM tags, not church by church. A building with an Orthodox (or Armenian) `denomination` gets the convention towers,
-  an octagonal drum with a metal helmet and a cross over the middle of its long axis, and a smaller pronaos tower 30 % of
-  the length towards the west end when the footprint is at least 20 m long and 1.6 times as long as wide (Armenian: one
-  drum with a cone; `building=chapel` or under 120 m2: one small tower; under 60 m2: none), and only where its height and
-  roof are the build's estimates: an OSM `height` is read as the top of the church with its tower (nothing added), and
-  building parts, mapped domes / flat roofs and courtyards are kept as mapped. Western-rite, free-church, Jewish and
-  untagged buildings get none. Estimates: radius 0.2 x footprint width (1.4-3 m; small 0.9-1.5 m), drum 1.4 r + 0.8 m
-  (2.4-5.5 m) above the roof top, helmet 1.3 r, pronaos tower 0.7 r and 0.4 of the drum, helmet colour from
-  `roof:colour` / `roof:material`, else the roof's colour, else dark tin #5e6668. Which churches really have one tower or
-  two, a porch (pridvor) or a separate bell tower was not compared (porches and separate bell towers stay unmodelled unless
-  mapped). Here: 3 churches with 5 towers; no tower on 4 with an OSM height (Sf. Mina, Sf. Nicolae, Belvedere, Sf. Gheorghe - Plevna), the Baptist ones and the untagged chapels.
+- **Places of worship**: the shared rule ([shared-rules.md](shared-rules.md#places-of-worship)). Here: 3 churches with
+  5 towers; no tower on 4 with an OSM height (Sf. Mina, Sf. Nicolae, Belvedere, Sf. Gheorghe - Plevna), the Baptist ones
+  and the untagged chapels.
 - **Dâmbovița**: the -1.6 m section was seen at one place; the weir sill height is a model estimate.
 - **Regie footbridge**: rise 1.6 m and width 4.2 m.
 - **Grozăvești metro pavilion**: footprint, heights and position; the east canopy's height, columns, stair run and well
@@ -286,3 +272,46 @@ Nord, outside the district. Street View, viewed 2026-11-11/13 (reference only; t
 | tomtom_peak | https://www.romania-insider.com/bucharest-has-the-biggest-traffic-jams-in-europe-study-shows-which-are-the-busiest-hours |
 
 The Bucharest-wide sources (road signs and markings, STB, Metrorex, lighting, trams) are listed in the JSON `meta.sources`.
+
+## Businesses and speed limits
+
+Research pass 2026-11-07 (spec 20, R12.2 / R11). Machine-readable: `businesses-bucharest-grozavesti.json` (one entry per business, independents included) and the `bucharest-grozavesti` block of `speedlimits.json`. Zone = everything within **60 m of a chapter route** (routes recomputed on the OSM graph from `CHAPTERS` starts to the stop doors, one-way and turn-restriction aware) **plus** recognisable businesses within 50 m of a main street (motorway…tertiary) inside the district mask. Standalone ATMs, parcel lockers, chargers and pure company offices are left out. Confidence and sign-style rules as in `businesses-bucharest-floreasca.md`.
+
+### On the chapter route (upb)
+
+| brand | category | address | side | conf. |
+|---|---|---|---|---|
+| BCR | bank | Șoseaua Orhideelor 15D | W side of Șos. Orhideelor | medium |
+| Lukoil | fuel + convenience | Șoseaua Orhideelor 4 | E side of Șos. Orhideelor | medium |
+| OMV | fuel | Bd. Doina Cornea 5 | SE side of Bd. Doina Cornea | medium |
+
+Fuel: canopy fascia in brand colours plus a price pylon at the kerb. Lukoil's international assets (Romanian stations included) were offered for sale in Nov 2025 (Wikipedia "Lukoil"): the station brand may change, re-check. Nine independents on the route are in the JSON.
+
+### Official-locator checks
+
+- **Carrefour Express** Șos. Orhideelor 15A: position match, "Express Orhideea Towers" (121 m), carrefour.ro/corporate/magazine.
+- Closed per OSM lifecycle tags: n6792143476 (`disused:amenity=restaurant`, 44.44581, 26.05984): draw as a vacant "De închiriat" unit if modelled.
+
+### POIs added from live OSM (2026-11-12 / 13)
+
+`tools/osm/add-pois.mjs --edge 100` on API 0.6 tiles of the playable area + 260 m appended 140 rows (161 before; 117 in the edge strip; 21 dropped by class; 2 new in OSM / relations; 6 own building names). Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or indoor, nodes deep inside multi-tenant halls (Carrefour Orhideea gallery, 40), unnamed objects, ATMs outside the area.
+- Germag n5862008006 (`shop=yes`, named; named `shop=yes` is now a shop class): pano wEy2ri9fhmOq0iOEkX5jIg shows the GERMAG front at Bd. Banu Manta 2.
+- Street View, Calea Griviței 158: ground-floor shop fronts where the game has a Catena fascia (name not readable in the preview). 6 Bd. Iuliu Maniu (The Light One): glass office tower, no tenant name dominates at street level.
+
+### Speed limits on the chapter route
+
+Romanian legal default: see `bucharest-floreasca.md` (Businesses and speed limits). **upb** — 1661 m, all OSM ways tagged.
+
+| street | class | m | OSM maxspeed | game km/h |
+|---|---|---|---|---|
+| Șoseaua Orhideelor | secondary | 536 | 50 | 50 |
+| Șoseaua Orhideelor | secondary | 300 | RO:urban | 50 |
+| Podul Grozăvești | secondary | 56 | 50 | 50 |
+| Șoseaua Grozăvești | secondary | 70 | 50 | 50 |
+| Bulevardul Doina Cornea | secondary | 691 | 50 | 50 |
+
+Schools / kindergartens within 150 m: Grădinița nr. 168 (w1331454041, 41 m).
+
+### Sources
+
+OpenStreetMap API 0.6 tiles fetched 2026-11-06 and 2026-11-12, © OpenStreetMap contributors, ODbL; official Street View panoramas viewed for appearance only (nothing stored); locators as listed in `businesses-bucharest-floreasca.md`.

@@ -194,7 +194,7 @@ Reviewed looks are rows in `game/src/building-review.js` (`bucharest-romana`) an
 
 | OSM | Seen at street level | Row |
 | --- | --- | --- |
-| Hotel Lido w162494340 (Magheru) | cream-white interwar hotel, bronze entrance canopy | cream (was default blue) |
+| Hotel Lido w162494340 (Magheru) | cream-white interwar hotel, bronze entrance canopy | cream |
 | Muzeul Țăranului Român r2552618 | red brick behind large trees, two tall storeys under a steep red tile roof | red brick, no shop floor, 6 m roof rise inside the 19.6 m total |
 | Colecția Severeanu w231445058 (Str. Henri Coandă 26) | yellow one-storey eclectic house, white window surrounds | yellow eclectic |
 | Sheraton w29819032 (ex-Hotel Dorobanți, 18 lv / 70 m, 1976) | grey stone-clad podium, Pizza Hut and Alpha Bank at the ground floor, cylindrical glazed corner; SHERATON wordmark on the roof crown | signed "Sheraton" with its tenant signs (cylinder not modelled) |
@@ -205,8 +205,7 @@ Reviewed looks are rows in `game/src/building-review.js` (`bucharest-romana`) an
 | Storck museum w546500256 / w546500238 | section 9 | red-brick gabled house / cream one-storey house |
 | Churches (`building-review-look.js`) | Boteanu-Ienii w179319626 warm ochre plaster, arcaded porch (SjOI2XLkhdK5Ic0qM-OaLQ h 71); Crețulescu w1476760553 exposed red brick over a stone plinth (q4sm16NZ5g9nzAl59Pleug h 140); Amzei w76915020 cream stone banded with red brick, one warm tone (8to4VNCB5GgzGL5IUsc2oA h 162) | recoloured; Biserica Albă w78467985 and Icoanei w76920898 are white and match the class |
 
-- **Places of worship** (Sinagoga Eșua Tova, Boteanu, Visarion): drawn with plain walls and tall arched openings (`worship.js`),
-  no longer house windows. The real ones: a two-storey synagogue front with a tracery window, a church with a round banded
+- **Places of worship** (Sinagoga Eșua Tova, Boteanu, Visarion): drawn with plain walls and tall arched openings (`worship.js`). The real ones: a two-storey synagogue front with a tracery window, a church with a round banded
   porch tower, an ochre neo-Romanian church with an arcaded porch. Towers: the Orthodox convention rule in section 10.
 - **Victoria Center** w173938539 carries its own name board; its corner unit is a Starbucks (dark fascia, white STARBUCKS COFFEE
   letters; GKPZybRO6HC9NrDEiel-DA h 240).
@@ -278,13 +277,8 @@ Key buildings:
   physical exclusion (`tree-reviews.js`), the source record stays in the pack. The street trees along the island edges stay.
 - **Piața Victoriei**: the green came from the aerial green raster (no OSM polygon); a reviewed paved ring (`ground-review.js`)
   keeps it out of the square.
-- **Pedestrian plazas and the green raster** (r3-look-14, 2026-11-13; `ground-review.js`, plazas in `pedestrian-plazas.js`
-  from the live OSM data via `tools/osm/pedestrian-plazas.mjs`): a mapped pedestrian area (`highway=pedestrian|footway` +
-  `area=yes`, `area:highway`, `place=square`; ways and multipolygons) is paved over its whole polygon: its `surface` decides,
-  no surface tag counts as paved, and only `surface=grass` keeps the aerial raster's lawn there. Before, only a 3.5 m band
-  round mapped pedestrian lines was kept free, so plazas kept the raster's green cells (tree shade, planters, joints).
-  Mapped grass / park polygons and trees inside a plaza stay as OSM has them (Piața Unirii's `place=square` covers its park:
-  its lawns are OSM polygons and are unchanged). Not compared with a panorama: the rule follows OSM's tags. Here: 58 plazas, none tagged grass; the cited one round 44.4398, 26.0968 (w180685596, paving stones) lost its green cells.
+- **Pedestrian plazas**: the shared rule ([shared-rules.md](shared-rules.md#pedestrian-plazas)). Here: 58 plazas, none
+  tagged grass; the cited one round 44.4398, 26.0968 (w180685596, paving stones) is paved.
 - **Antipa tree belt**: the museum facade is hidden by trees in reality; the game shows it over open lawn. Inferred trees are
   suppressed inside the aerial survey's coverage, so those crowns need measuring on the aerial mosaic (`tools/aerial`), never
   placing from a panorama.
@@ -306,18 +300,9 @@ Key buildings:
 
 ## 10. Estimates and open questions
 
-- **Places of worship** (r3-look-11, 2026-11-13; `worship.js`, tags in `worship-source.js` from the live OSM API): one rule
-  from OSM tags, not church by church. A building with an Orthodox (or Armenian) `denomination` gets the convention towers,
-  an octagonal drum with a metal helmet and a cross over the middle of its long axis, and a smaller pronaos tower 30 % of
-  the length towards the west end when the footprint is at least 20 m long and 1.6 times as long as wide (Armenian: one
-  drum with a cone; `building=chapel` or under 120 m2: one small tower; under 60 m2: none), and only where its height and
-  roof are the build's estimates: an OSM `height` is read as the top of the church with its tower (nothing added), and
-  building parts, mapped domes / flat roofs and courtyards are kept as mapped. Western-rite, free-church, Jewish and
-  untagged buildings get none. Estimates: radius 0.2 x footprint width (1.4-3 m; small 0.9-1.5 m), drum 1.4 r + 0.8 m
-  (2.4-5.5 m) above the roof top, helmet 1.3 r, pronaos tower 0.7 r and 0.4 of the drum, helmet colour from
-  `roof:colour` / `roof:material`, else the roof's colour, else dark tin #5e6668. Which churches really have one tower or
-  two, a porch (pridvor) or a separate bell tower was not compared (porches and separate bell towers stay unmodelled unless
-  mapped). Here: 16 churches with 27 towers; no tower on 3 with an OSM height (among them Biserica Albă and Biserica Doamnei), the Western-rite (Sf. Iosif, Italiană, Anglicană, Sacré-Cœur, Luterană, greco-catolică), free-church, Jewish and untagged ones.
+- **Places of worship**: the shared rule ([shared-rules.md](shared-rules.md#places-of-worship)). Here: 16 churches
+  with 27 towers; no tower on 3 with an OSM height (among them Biserica Albă and Biserica Doamnei), the Western-rite
+  (Sf. Iosif, Italiană, Anglicană, Sacré-Cœur, Luterană, greco-catolică), free-church, Jewish and untagged ones.
 - **Statues** (Catargiu, Nobil Dac, Enescu): hand-modelled silhouettes, sizes estimated. **Observatory**: tower height, dome
   form, size and finish.
 - **Royal Palace front**: column radius, pair spacing (one pair per two 4.2 m bays), cornice depth, dentil and baluster pitch;
@@ -336,7 +321,7 @@ Key buildings:
 - **Open looks**: Europe House's rounded SE end (drawn square); the copper-glass ASE new wing, white eclectic house and yellow
   four-storey building beside ASE (generic beige block in the game); Sheraton's glazed corner cylinder; the ground floor of the
   curved block on Str. Buzești (a row of shopfronts behind a parking strip; the game shows signs on a wall with windows);
-  eclectic houses at `rom-coanda-michelangelo`; porches and bell towers of churches (backlog r3-look-11); lamp / luminaire
+  eclectic houses at `rom-coanda-michelangelo`; porches and separate bell towers of churches; lamp / luminaire
   model per street; facade colours of unnamed buildings are style-rule estimates.
 
 ## 11. Sources

@@ -1,5 +1,0 @@
-{
-  "passed": true,
-  "forcedWinterFar5000RejectedBeforeMutation": true,
-  "stderr": "Traceback (most recent call last):\n  File \"/workspace/fidelity-workers/original-districts-refresh/handoffs/fidelity/original-districts-refresh/merge-context-recaptures.py\", line 44, in <module>\n    assert abs(item['pose']['far'] - expected_far) < 1e-6, 'Far plane differs from native weather policy'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Far plane differs from native weather policy\n"
-}

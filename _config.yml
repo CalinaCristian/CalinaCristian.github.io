@@ -9,16 +9,9 @@ exclude:
   - README.md
   # Large internal diagnostics remain in Git, outside the published site.
   # Public native activity proofs under tourist-context-activities stay available.
-  - handoffs/fidelity/original-districts-refresh
   - handoffs/fidelity/integration-final-acceptance
   - handoffs/fidelity/us-districts
-  - handoffs/fidelity/root-acceptance-archive
   - handoffs/fidelity/source-controlled-crossing
-
-
-  # Closed internal native/controller diagnostics; public viewer assets stay under game/overview.
-
-
   # Latest public surveys only; original archived source stays in Git history.
   - game/overview/comparison-data/floreasca/historical
   - game/overview/comparison-data/romana/historical

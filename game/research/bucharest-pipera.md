@@ -200,13 +200,8 @@ Key buildings:
 
 ## 7. Measurements, trees and green
 
-- **Pedestrian plazas and the green raster** (r3-look-14, 2026-11-13; `ground-review.js`, plazas in `pedestrian-plazas.js`
-  from the live OSM data via `tools/osm/pedestrian-plazas.mjs`): a mapped pedestrian area (`highway=pedestrian|footway` +
-  `area=yes`, `area:highway`, `place=square`; ways and multipolygons) is paved over its whole polygon: its `surface` decides,
-  no surface tag counts as paved, and only `surface=grass` keeps the aerial raster's lawn there. Before, only a 3.5 m band
-  round mapped pedestrian lines was kept free, so plazas kept the raster's green cells (tree shade, planters, joints).
-  Mapped grass / park polygons and trees inside a plaza stay as OSM has them (Piața Unirii's `place=square` covers its park:
-  its lawns are OSM polygons and are unchanged). Not compared with a panorama: the rule follows OSM's tags. Here: 18 plazas, none tagged grass (the Promenada forecourt among them).
+- **Pedestrian plazas**: the shared rule ([shared-rules.md](shared-rules.md#pedestrian-plazas)). Here: 18 plazas, none
+  tagged grass (the Promenada forecourt among them).
 Independent full-ring measurements (2026-11-08; ledger `measurements-bucharest-pipera.json`):
 
 - Fresh OSM API 0.6 tiles cover the analytic core and a complete 600 m ring of intersecting sources; every source ID is audited
@@ -239,18 +234,10 @@ Independent full-ring measurements (2026-11-08; ledger `measurements-bucharest-p
 
 ## 9. Estimates and open questions
 
-- **Places of worship** (r3-look-11, 2026-11-13; `worship.js`, tags in `worship-source.js` from the live OSM API): one rule
-  from OSM tags, not church by church. A building with an Orthodox (or Armenian) `denomination` gets the convention towers,
-  an octagonal drum with a metal helmet and a cross over the middle of its long axis, and a smaller pronaos tower 30 % of
-  the length towards the west end when the footprint is at least 20 m long and 1.6 times as long as wide (Armenian: one
-  drum with a cone; `building=chapel` or under 120 m2: one small tower; under 60 m2: none), and only where its height and
-  roof are the build's estimates: an OSM `height` is read as the top of the church with its tower (nothing added), and
-  building parts, mapped domes / flat roofs and courtyards are kept as mapped. Western-rite, free-church, Jewish and
-  untagged buildings get none. Estimates: radius 0.2 x footprint width (1.4-3 m; small 0.9-1.5 m), drum 1.4 r + 0.8 m
-  (2.4-5.5 m) above the roof top, helmet 1.3 r, pronaos tower 0.7 r and 0.4 of the drum, helmet colour from
-  `roof:colour` / `roof:material`, else the roof's colour, else dark tin #5e6668. Which churches really have one tower or
-  two, a porch (pridvor) or a separate bell tower was not compared (porches and separate bell towers stay unmodelled unless
-  mapped). Here: 4 churches with 6 towers (Herăstrău, Pogorârea Duhului Sfânt și Sf. Apostoli Petru și Pavel, Sf. Grigore Dascălul, Doamna Ghica - Tei); no tower on Teocentric (free church), the other Pogorârea Duhului Sfânt building and Sf. Tecla (no denomination tag).
+- **Places of worship**: the shared rule ([shared-rules.md](shared-rules.md#places-of-worship)). Here: 4 churches with
+  6 towers (Herăstrău, Pogorârea Duhului Sfânt și Sf. Apostoli Petru și Pavel, Sf. Grigore Dascălul, Doamna Ghica -
+  Tei); no tower on Teocentric (free church), the other Pogorârea Duhului Sfânt building and Sf. Tecla (no denomination
+  tag).
 - Park wall: opening 3.2 m, thickness 0.3 m, cap colour. Museum fence: height and post pitch.
 - Lake levels below the street (no source gives them): Plumbuita 2.0 m (EU-DEM via OpenTopoData, 2026-11-13: water
   63.3–63.8 m, the bridge deck 64.3 m, which a smoothed surface model under-reads; the panorama shows the water some metres

@@ -26,8 +26,7 @@ bracketed keys point to **Sources** at the end. Git history keeps the round-by-r
   elevated departures ramp to the Plecări kerb. Research route length 3.24 km on the OSM drivable graph.
 - **Stop: Henri Coandă International Airport, Departures (Plecări)**, Calea Bucureștilor 224E. Terminal w771096082 ("Plecări"),
   arrivals w771096081 ("Sosiri"), CFR station w813193384. Door 44.5696, 26.0770 on the departures ramp w180054678 (tertiary,
-  `bridge=yes`, `layer=1`, one-way northbound along the terminal; terminal on the right). The stop was first airside
-  ≈ 600 m east; it is now this landside kerb.
+  `bridge=yes`, `layer=1`, one-way northbound along the terminal; terminal on the right).
 - **Drop-off history**: in 2022 cars dropped off on the elevated kerb. Since 8 Dec 2025 cars may not stop on the Plecări lane
   (M6 works): drop-off moved to the car park in front of Departures; the Sosiri multi-storey car park (588 spaces) closed for
   structural repairs; taxis / ride-hailing / buses moved to Plecări [otp_plecari_2025] [otp_sosiri_parking]. The game models
@@ -113,7 +112,7 @@ bracketed keys point to **Sources** at the end. Git history keeps the round-by-r
 - **Car parks**: staff / taxi w23585062, long-term w406904953, departures w110663816: surface car parks behind hedges, red /
   white barriers, lamp masts. Airport car park w1215048759 (drawn through its part w217927380, 2 levels): open decks.
 - **TAROM office** w216626527: long office slab south of the departures car park (OSM 4 lv / 20 m); facade not compared.
-- **Salonul Oficial** w771096084 (1969): two storeys from OSM `min_level=0` / `max_level=1` (previously a 17.7 m default);
+- **Salonul Oficial** w771096084 (1969): two storeys from OSM `min_level=0` / `max_level=1`;
   look not compared (no panorama).
 
 ## 6. Buildings and businesses on DN1
@@ -140,9 +139,9 @@ are estimates from the storey count, a height or roof shape tagged in OSM is nev
 
 | OSM | Seen at street level | Row |
 | --- | --- | --- |
-| Romstal w219767593 | blue panel showroom hall, two low storeys | 8.5 m (was a 24.2 m block) |
+| Romstal w219767593 | blue panel showroom hall, two low storeys | 8.5 m |
 | Mega Image w312547018 | one-storey dark grey flat-roofed box, red entrance portal, car park in front | 6 m flat box (portal not drawn) |
-| Ferremo Trendy w259171763 | three-storey showroom, white / grey panels, dark red glazed centre bay | 11.5 m, ribbon windows (was 17.7 m) |
+| Ferremo Trendy w259171763 | three-storey showroom, white / grey panels, dark red glazed centre bay | 11.5 m, ribbon windows |
 | Cris Garden Plaza w259171686 | low glazed garden-centre hall behind a fenced yard | glazed; OSM levels 3 kept |
 | Ramada w259171710 | silver-grey panels and glass, curved glazed corner | light grey (OSM 20 m / 5 lv kept) |
 | Vienna House Easy w303678262 | white hotel slab, vertical HOTEL lettering, flags | white (OSM 18 m / 6 lv kept) |
@@ -181,13 +180,8 @@ Other business facts:
 
 ## 7. Trees, green, water and sports
 
-- **Pedestrian plazas and the green raster** (r3-look-14, 2026-11-13; `ground-review.js`, plazas in `pedestrian-plazas.js`
-  from the live OSM data via `tools/osm/pedestrian-plazas.mjs`): a mapped pedestrian area (`highway=pedestrian|footway` +
-  `area=yes`, `area:highway`, `place=square`; ways and multipolygons) is paved over its whole polygon: its `surface` decides,
-  no surface tag counts as paved, and only `surface=grass` keeps the aerial raster's lawn there. Before, only a 3.5 m band
-  round mapped pedestrian lines was kept free, so plazas kept the raster's green cells (tree shade, planters, joints).
-  Mapped grass / park polygons and trees inside a plaza stay as OSM has them (Piața Unirii's `place=square` covers its park:
-  its lawns are OSM polygons and are unchanged). Not compared with a panorama: the rule follows OSM's tags. Here: 3 plazas, none tagged grass (Piața Otopeni among them).
+- **Pedestrian plazas**: the shared rule ([shared-rules.md](shared-rules.md#pedestrian-plazas)). Here: 3 plazas, none
+  tagged grass (Piața Otopeni among them).
 - Flat, open landscape: the forecourts and fields along DN1 are open grass with few trees.
 - **DN1 fields crowns**: the crowns in 44.563–44.568 × 26.0705–26.078 are measured (aerial survey
   `trees-bucharest-otopeni.json`: 307 crowns, radius median 3.1 m, quartiles 2.2 / 4.9 m), not inferred. All 307 were drawn

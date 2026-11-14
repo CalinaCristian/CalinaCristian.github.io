@@ -1,6 +1,6 @@
 # Seattle · `seatac` district — research dossier
 
-Machine-readable twin: [`seattle-seatac.json`](seattle-seatac.json) · businesses and speed limits: [`businesses-seattle-seatac.md`](businesses-seattle-seatac.md) · photo candidates: [`refs/seatac/LICENSES.md`](refs/seatac/LICENSES.md) (none downloaded).
+Machine-readable twin: [`seattle-seatac.json`](seattle-seatac.json) · businesses and speed limits: [Businesses and speed limits](#businesses-and-speed-limits) · photo candidates: [`refs/seatac/LICENSES.md`](refs/seatac/LICENSES.md) (none downloaded).
 
 Scope (spec 10): chapter "Welcome to Seattle" (2022), out of Sea-Tac: the terminal loop (Departures upper / Arrivals lower drives), the garage and its skybridges, the SeaTac/Airport Link station, the Airport Expressway and SR-518 east to the I-5 / I-405 junction. US marking, sign and furniture standards are those of the Bellevue dossier (WSDOT + MUTCD), [`seattle-bellevue.md` §3–§5](seattle-bellevue.md). All OSM data © OpenStreetMap contributors (ODbL).
 
@@ -61,7 +61,7 @@ Review against panoramas (2026-11-12):
 
 USGS 3DEP (epqs.nationalmap.gov, 2026-11-13): 107.9 m on International Blvd at 47.4475 and 110.8 / 115.2 / 114.6 m at 26 / 52 / 130 m west of it; 107.2 → 110.3 m at 47.4460; 113.4 → 122.0 m at 47.4490. Between S 176th and S 170th the boulevard lies below a ~3 m concrete retaining wall, rockery and planted bank carrying the expressway and the station, which stand 3–9 m above it. OSM maps no retaining wall there.
 
-Drawn since 2026-11-13 (`retaining-banks.js`, backlog seatac-6), without moving any road: the district ground is flat and the expressway lies at the boulevard's level 0–6 m west of its sidewalk, so the full step cannot be shown. Along the back of the boulevard's west sidewalk from 47.44875 to 47.44545 (354 m) a concrete wall 1.4 m high; where a strip is left before the expressway's guard rail (2.0–3.7 m wide, 204 m of the run) a rockery steps back to 2.0 m and a planted bank with shrubs (to about 3 m above the boulevard, the USGS step) fills it up to the guard rail, so the expressway side sees a 2.0 m planted bank behind its rail; where the sidewalk meets the expressway's edge (152 m, round the station footbridge and at 47.4480) the wall takes the back 0.4 m of the sidewalk and stands alone against the barrier. Colliders follow the wall and bank. Estimates: wall 1.4 m, rockery 0.9 m deep to 2.0 m, shrubs 0.7–1.1 m, colours; the reference's split between plain wall, rockery and bank along the run was not measured (the same section is drawn wherever the strip allows). The 3–9 m step itself still needs ground heights outside the road decks.
+Drawn by `retaining-banks.js`, without moving any road: the district ground is flat and the expressway lies at the boulevard's level 0–6 m west of its sidewalk, so the full step cannot be shown. Along the back of the boulevard's west sidewalk from 47.44875 to 47.44545 (354 m) a concrete wall 1.4 m high; where a strip is left before the expressway's guard rail (2.0–3.7 m wide, 204 m of the run) a rockery steps back to 2.0 m and a planted bank with shrubs (to about 3 m above the boulevard, the USGS step) fills it up to the guard rail, so the expressway side sees a 2.0 m planted bank behind its rail; where the sidewalk meets the expressway's edge (152 m, round the station footbridge and at 47.4480) the wall takes the back 0.4 m of the sidewalk and stands alone against the barrier. Colliders follow the wall and bank. Estimates: wall 1.4 m, rockery 0.9 m deep to 2.0 m, shrubs 0.7–1.1 m, colours; the reference's split between plain wall, rockery and bank along the run was not measured (the same section is drawn wherever the strip allows). The 3–9 m step itself still needs ground heights outside the road decks.
 
 ## 6. Buildings, hotels and car parks
 
@@ -115,10 +115,8 @@ Three placed outdoors (Celestial Navigation, Talking Fountain, one statue); work
 
 ## 12. Open questions and gaps
 
-- **Pedestrian plazas** (r3-look-14, 2026-11-13): a mapped pedestrian area (`highway=pedestrian|footway` + `area=yes`,
-  `area:highway`, `place=square`; `pedestrian-plazas.js`) is drawn paved over its whole polygon unless its OSM `surface` is
-  grass (no surface tag counts as paved); mapped grass / park polygons inside stay. Rule as in `bucharest-romana.md`
-  section 8; not compared with a panorama. Here: 1 plaza, untagged (paved).
+- **Pedestrian plazas**: the shared rule ([shared-rules.md](shared-rules.md#pedestrian-plazas)). Here: 1 plaza,
+  untagged (paved).
 - Ground step west of International Blvd (§5): drawn as a wall, rockery and bank at the boulevard's level; the real 3–9 m step needs ground heights.
 - Car park w479818870 level count and SureStay storeys (§6).
 - Terminal facade, curb canopy and airline door signs are not photo-verified (Commons has almost no CC photos of the drives).
@@ -126,3 +124,44 @@ Three placed outdoors (Celestial Navigation, Talking Fountain, one statue); work
 ## 13. Sources
 
 OpenStreetMap (ODbL) <https://www.openstreetmap.org> · [Seattle–Tacoma International Airport](https://en.wikipedia.org/wiki/Seattle%E2%80%93Tacoma_International_Airport) · [SeaTac/Airport station](https://en.wikipedia.org/wiki/SeaTac/Airport_station) · [SR 518](https://en.wikipedia.org/wiki/Washington_State_Route_518) · [Port of Seattle travel tips](https://www.portseattle.org/node/1435) (403 from the sandbox; peak hours via search summaries) · [WSDOT I-405 dashboard](https://wsdot.wa.gov/about/data/Multimodal-mobility-dashboard/dashboard/central-puget-sound/interstate405-cps/severe-congestion.htm) · USGS 3DEP elevation (epqs.nationalmap.gov) · WSDOT Standard Plans & MUTCD (Bellevue dossier) · Commons photo candidates in [refs/seatac/LICENSES.md](refs/seatac/LICENSES.md).
+
+## Businesses and speed limits
+
+Research pass 2026-11-07 (spec 20, R12.2 / R11). Machine-readable: `businesses-seattle-seatac.json` (one entry per business) and the `seattle-seatac` block of `speedlimits.json`. Zone = everything within **60 m of a chapter route** (routes recomputed on the OSM graph from `CHAPTERS` starts to the stop doors, one-way and turn-restriction aware) **plus** recognisable businesses within 50 m of a main street (motorway…tertiary) inside the district mask. Standalone ATMs, parcel lockers, chargers and pure company offices are left out. Airport and hotel businesses: `seattle-seatac.md` §8.
+
+Confidence: **high** = official locator match, or OSM `check_date` ≥ 2025-05; **medium** = OSM element edited or checked since 2023-11; **low** = older OSM data, or a chain store missing from its official locator. Sign `style` is a category rule (fuel → pylon, drive-thru fast food in its own building → pylon, else fascia); `sign.basis` says where the colours come from.
+
+### On the chapter route
+
+No chain brand. Independent: Seattle Airport Car Rental (car_rental, dropped by `poiKind()`).
+
+### Official-locator checks
+
+- **Starbucks** 17801 International Blvd ("SEA Bag Claim 4", https://www.starbucks.com/store-locator/store/1024029): not in OSM within the zone; added from the locator.
+
+Missing chain brands at research time: ARCO, Starbucks, ampm. Brands with no sign colours (generic kind colours): Denny's, Extended Stay America, Hudson, Red Roof Inn, ampm.
+
+### POIs added from live OSM (2026-11-12)
+
+`tools/osm/add-pois.mjs --edge 100` on API 0.6 tiles of the playable area + 260 m appended 5 rows (2 in the edge strip, 1 new in OSM / relation; 210 before). Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or indoor, nodes deep inside the terminal (11), unnamed objects, ATMs outside the area. Street View: the 7-Eleven has a pylon at the lot (the game signs the store fascia).
+
+Bibito Cafe (n14111796067) and Olympia Coffee (n14189991289, Concourse C) were re-mapped in live OSM in 2026; the game rows stay.
+
+### Speed limits on the chapter route
+
+**Legal default (Washington).** RCW 46.61.400: 25 mph on city and town streets, 50 on county roads, 60 on state highways unless posted (https://app.leg.wa.gov/rcw/default.aspx?cite=46.61.400, fetched 2026-11-07). School and playground crosswalks: 20 mph when signed, the zone extending 300 ft either side (RCW 46.61.440). Seattle's 25 mph arterial default applies only inside Seattle city limits, not to SeaTac or Bellevue.
+
+**seatac** — 2375 m; OSM ways with `maxspeed`: 7 (1540 m), without: 3 (815 m).
+
+| street | class | m | OSM maxspeed | game km/h |
+|---|---|---|---|---|
+| Airport Expressway | motorway | 596 | 40 mph | 64 |
+| Seattle;Tacoma | motorway_link | 372 | — | 64 (default) |
+| (unnamed) | motorway_link | 443 | — | 64 (default) |
+| SR 518 | motorway | 944 | 60 mph | 97 |
+
+### Sources
+
+- OpenStreetMap API 0.6 tiles fetched 2026-11-06 and 2026-11-12, © OpenStreetMap contributors, ODbL — element ids in every entry.
+- Starbucks store locator API https://www.starbucks.com/store-locator (`/apiproxy/v1/locations`, 6 query points around downtown Bellevue and SeaTac, 107 stores, 2026-11-07).
+- Not machine-readable from here: Chase, U.S. Bank, Walgreens (JavaScript-only), CVS, McDonald's US, Trader Joe's (HTTP 403), QFC (no response).

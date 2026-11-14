@@ -1,7 +1,7 @@
 # Bucharest — Pipera (Dimitrie Pompeiu) (`pipera`): research dossier
 
 The reference for why the Pipera district looks the way it does. Facts are keyed by OSM id (w = way, n = node, r = relation);
-bracketed keys point to **Sources** at the end. Git history keeps the round-by-round review notes this page replaced.
+bracketed keys point to **Sources** at the end.
 
 ## 1. Overview and sources
 
@@ -103,10 +103,10 @@ Both chapters are 2017. Starts and roads are authoritative in `cities.js` CHAPTE
   bridge between Lacul Tei and Lacul Plumbuita. Panoramas 44.474233, 26.124001 h 7 / 95 / 275: W-beam guard rails at both
   carriageway edges, yellow steel picket railing at the east sidewalk edge, water some metres below on the east; on the west a
   gravel / green strip, no water visible. Drawn: W-beam guards and the yellow railing (`bridge-guards.js`,
-  `water-bridge-railings.js`). Settled: the "weir" w1507038443 is a small `natural=water`, `water=weir` polygon at 44.4705,
+  `water-bridge-railings.js`). The "weir" w1507038443 is a small `natural=water`, `water=weir` polygon at 44.4705,
   26.1230, ≈ 420 m south of the bridge, not a line across the lake; not seen on a panorama, not drawn. The tram reserve west of
   the bridge carries the tram bridges w23583767 / w902027550 (`railway=construction`, STB extension, opening_date 2027):
-  construction railways are not drawn until OSM maps them open. Lakes below the street (2026-11-13, `sunken-lakes.js`): Lacul
+  construction railways are not drawn until OSM maps them open. Lakes below the street (`sunken-lakes.js`): Lacul
   Plumbuita r11546654 is drawn 2.0 m and Lacul Tei w117140697 1.5 m below the street inside their mapped outlines, with a
   2.4 m grass bank and a 0.9 m concrete slab revetment at the waterline (the 1930s Colentina regularisation); bridges and
   streets over the water keep the bank open. The coarse outline w117140691 is narrowed to the Colentina (section 8).
@@ -158,7 +158,7 @@ Both chapters are 2017. Starts and roads are authoritative in `cities.js` CHAPTE
 Business research (2026-11-07): zone = within 60 m of a chapter route plus recognisable businesses within 50 m of a main
 street in the district mask; standalone ATMs, parcel lockers, chargers and pure company offices left out. Confidence: high =
 official locator match or OSM `check_date` ≥ 2025-05; medium = OSM element edited / checked since 2023-11; low = older.
-POIs: `tools/osm/add-pois.mjs` (live OSM 2026-11-12, `--edge 100`) appended 61 rows to the original 260.
+POIs: the build plus `tools/osm/add-pois.mjs` (live OSM 2026-11-12, `--edge 100`).
 
 - **Added from official locators** (not in OSM in the zone): Carrefour Express "Express Green Court" (Str. Gara Herăstrău 4C),
   Kaufland "Kaufland Bucuresti Fabrica de Glucoza" (Str. Fabrica de Glucoză 6-8), KFC Promenada and McDonald's Promenada Mall
@@ -187,7 +187,7 @@ POIs: `tools/osm/add-pois.mjs` (live OSM 2026-11-12, `--edge 100`) appended 61 r
   canopy or pylon. Both canopies carry the brand fascia colour and name on their two longest faces.
 - **Reaching the stations**: all three stand on Șos. Pipera westbound, whose only inflows inside the district come from the map
   ends or through passage w350999211. From the luxoft start no legal route reaches them, from the db start one does; the Gas
-  stations list offers a station only when a route reaches it (`main.js` `stationOffered`).
+  stations list offers a station only when a route reaches it (`game-road.js` `stationOffered`).
 
 Key buildings:
 
@@ -228,11 +228,11 @@ Independent full-ring measurements (2026-11-08; ledger `measurements-bucharest-p
   w1420388611, grass w1420394519, reedbeds w1254087120 / 21 / 22 and dirt paths ("Poteca principală") lie inside it, and the
   only water mapped through it is the Colentina river line w231801791; the bridge panorama (h 275) shows no water west of the
   bridge. Inside this outline only a band 4 m either side of the pack's river line is water (sunk 1.2 m, a 1.2 m grass bank
-  and a muddy edge); the rest is drawn as meadow, and the 46 crowns of the aerial survey that stand inside the outline
-  (`trees-bucharest-pipera.json`; the pack had left them out as trees in water) are placed: 45 stand, 1 falls in the band.
-  The source outline stays in the data unchanged.
+  and a muddy edge); the rest is drawn as meadow, where the 46 aerial-survey crowns inside the outline
+  (`trees-bucharest-pipera.json`) stand, except the one that falls in the river band. The source outline stays in the
+  data unchanged.
 
-## 9. Estimates and open questions
+## 9. Estimates
 
 - **Places of worship**: the shared rule ([shared-rules.md](shared-rules.md#places-of-worship)). Here: 4 churches with
   6 towers (Herăstrău, Pogorârea Duhului Sfânt și Sf. Apostoli Petru și Pavel, Sf. Grigore Dascălul, Doamna Ghica -
@@ -257,7 +257,7 @@ Independent full-ring measurements (2026-11-08; ledger `measurements-bucharest-p
 - Petrom pump islands (≈ 4 seen, 2 drawn); reviewed pylon places ±10 m (`fuel-stations-review.json`).
 - Uncompared: entrance buildings of the metro tunnels, the building passages, the clay courts, Kaufland's store front, the
   Kaufland median barrier on Fabrica de Glucoză.
-- Pompeiu widening works status; HBC1/2/3 footprints not split in OSM.
+- HBC1/2/3 footprints are not split in OSM.
 
 ## 10. Sources
 

@@ -82,6 +82,32 @@ export async function buildStreetscape(ctx) {
             : { key: 'kmh' + v, draw: (ctx, X, Y2, S2) => { const c2 = [X + S2 / 2, Y2 + S2 / 2]; ctx.fillStyle = '#d0021b'; ctx.beginPath(); ctx.arc(c2[0], c2[1], S2 / 2 - 1, 0, 7); ctx.fill(); ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(c2[0], c2[1], S2 / 2 - 8, 0, 7); ctx.fill(); ctx.fillStyle = '#111'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = `bold ${v >= 100 ? 20 : 26}px Arial`; ctx.fillText(String(v), c2[0], c2[1] + 1); } };
         const noEntry = { key: 'noentry', draw: (ctx, X, Y2, S2) => { ctx.fillStyle = '#d0021b'; ctx.beginPath(); ctx.arc(X + S2 / 2, Y2 + S2 / 2, S2 / 2 - 1, 0, 7); ctx.fill(); ctx.fillStyle = '#fff'; ctx.fillRect(X + 12, Y2 + S2 / 2 - 6, S2 - 24, 12); } };
         const oneWay = { key: 'oneway', w: 0.9, h: 0.5, draw: (ctx, X, Y2, S2) => { ctx.fillStyle = US ? '#111' : '#1d4ed8'; ctx.fillRect(X, Y2 + 14, S2, S2 - 28); ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.moveTo(X + 8, Y2 + 28); ctx.lineTo(X + 40, Y2 + 28); ctx.lineTo(X + 40, Y2 + 21); ctx.lineTo(X + 57, Y2 + 32); ctx.lineTo(X + 40, Y2 + 43); ctx.lineTo(X + 40, Y2 + 36); ctx.lineTo(X + 8, Y2 + 36); ctx.closePath(); ctx.fill(); } };
+        // (contraflow-bus.js) the no-entry sign where a contraflow bus lane enters a one-way carries the supplementary plate
+        // that exempts buses: white with a black border, "EXCEPTÂND" over a bus pictogram (Romanian additional panel; US:
+        // "EXCEPT BUSES"), about 0.6 × 0.3 m just under the disc on the same post. Wording and size are an estimate
+        // (research dossiers: bucharest-floreasca.md, bucharest-unirii.md → Estimates).
+        const plateIcon = { key: US ? 'except-buses' : 'exceptand-autobuz', draw: (ctx, X, Y2, S2) => {
+            const y = Y2 + S2 / 4, h = S2 / 2; // the plate is the middle band of the square cell (drawn 2:1 on a square quad)
+            ctx.fillStyle = '#111'; ctx.fillRect(X + 1, y, S2 - 2, h); ctx.fillStyle = '#fff'; ctx.fillRect(X + 3, y + 2, S2 - 6, h - 4);
+            ctx.fillStyle = '#111'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            if (US) { ctx.font = 'bold 10px Arial'; ctx.fillText('EXCEPT', X + S2 / 2, y + 10, S2 - 8); ctx.fillText('BUSES', X + S2 / 2, y + 22, S2 - 8); return; }
+            ctx.font = 'bold 8px Arial'; ctx.fillText('EXCEPTÂND', X + S2 / 2, y + 8, S2 - 8);
+            const bx = X + 17, by = y + 14, bw = 30, bh = 12; // bus pictogram: body, windows, wheels
+            ctx.fillRect(bx, by, bw, bh - 3); ctx.fillStyle = '#fff';
+            for (let k = 0; k < 4; k++) ctx.fillRect(bx + 2 + k * 6.5, by + 2, 4.5, 3);
+            ctx.fillStyle = '#111'; ctx.beginPath(); ctx.arc(bx + 7, by + bh - 3, 2.6, 0, 7); ctx.arc(bx + bw - 7, by + bh - 3, 2.6, 0, 7); ctx.fill();
+        } };
+        const busPlate = (e, along, sd) => {
+            const w = (sd > 0 ? e.wR : e.wL) + shoulderOf(e), sw = sidewalkWidth(e, sd), o = sw >= 1.2 ? w + Math.min(0.6, sw * 0.4) : w + 0.7;
+            const x = e.a.x + e.dirx * along + e.nx * o * sd, z = e.a.z + e.dirz * along + e.nz * o * sd; // (the no-entry sign's post)
+            const y0 = 0.15 + yAlong(e, x, z) + (raisedTop(x, z) !== null ? DY_SIDE : 0), ang = Math.atan2(e.dirx, e.dirz);
+            const s = signs.icon(plateIcon.key, plateIcon.draw); if (!s) return;
+            const c = cellOf(x, z), S = 0.62; // square quad; the drawn plate is its middle band, 0.62 × 0.31 m
+            addSignQuad(c, x, z, ang, 1, S, S, y0 + 2.0 - 0.375 - 0.04 - S / 4, s, 0.06);
+            const back = signs.icon('plate-back', (ctx, X, Y2, S2) => { ctx.fillStyle = '#9aa0a6'; ctx.fillRect(X + 1, Y2 + S2 / 4, S2 - 2, S2 / 2); });
+            if (back) addSignQuad(c, x, z, ang, -1, S, S, y0 + 2.0 - 0.375 - 0.04 - S / 4, back, 0.04);
+            signCount++;
+        };
         const cont = (n, e) => { // the edge continuing e through node n (same name preferred, best aligned)
             let best = null, bs = -Infinity;
             for (const f of n.edges) { if (f === e || f.virtual) continue; const out = f.a === n ? 1 : -1, inn = e.b === n ? 1 : -1; const d = (f.dirx * out) * (e.dirx * inn) + (f.dirz * out) * (e.dirz * inn); const sc = d + (f.name && f.name === e.name ? 1 : 0); if (sc > bs) { bs = sc; best = f; } }
@@ -99,7 +125,7 @@ export async function buildStreetscape(ctx) {
             }
             if (!motorOneway(e) || mw || e.roundabout || /_link/.test(e.type)) continue;
             if (e.a.edges.length >= 3) placeSign(e, retract(e, e.a) + 3, 1, -1, oneWay);
-            if (e.b.edges.length >= 3) { const r = e.len - retract(e, e.b) - 2.5; if (r > 3) { placeSign(e, r, 1, 1, noEntry); placeSign(e, r, -1, 1, noEntry); } }
+            if (e.b.edges.length >= 3) { const r = e.len - retract(e, e.b) - 2.5; if (r > 3) for (const sd of [1, -1]) if (placeSign(e, r, sd, 1, noEntry) && e.contraflowBus) busPlate(e, r, sd); }
         }
     }
     // instanced posts + heads (filled with the lamps near the viewer, see the culling hook below)

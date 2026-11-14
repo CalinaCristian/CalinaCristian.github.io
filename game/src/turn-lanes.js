@@ -29,9 +29,13 @@ function turnTokenAllows(token, a) {
     return false;
 }
 
-/** Pure source lookup; does not mutate graph/data or draw random numbers. */
+/** Pure source lookup; does not mutate graph/data or draw random numbers.
+ *  `rules.unserved` counts the mapped lanes whose role has no legal road for it at the way's end node
+ *  ({ lanes, through: carried straight on, open: no road straight on either, every turn that exists allowed,
+ *  contraflow: of them on a way with a contraflow bus lane }). */
 export function buildTurnLaneRules(data, edges) {
     const rules = new Map(), byRoad = new Map();
+    rules.unserved = { lanes: 0, through: 0, open: 0, contraflow: 0 };
     for (const e of edges || []) {
         if (e.virtual || e.rail) continue;
         let list = byRoad.get(e.road); if (!list) byRoad.set(e.road, list = []);
@@ -54,14 +58,19 @@ export function buildTurnLaneRules(data, edges) {
                 }
                 const lanes = parseTurnLanes(data.strings?.[textIndex], laneCount(e, dir));
                 if (lanes) {
-                    // On a one-way with a contraflow bus lane (its general lanes come from `lanes:forward`, contraflow-bus.js) a
-                    // role with no legal road for it at this node (Calea Floreasca w1206961911: its `left` lane turns into
-                    // Str. Puțul lui Zamfir one node into the next way) keeps the lane going straight on to that turn
-                    // instead of leaving the lane without any continuation.
-                    if (e.contraflowBus) {
-                        const outs = end.edges.filter(f => f !== e && !f.rail && canTravel(f, f.a === end ? 1 : -1));
-                        const fits = (tokens) => outs.some(f => [...tokens].some(t => turnTokenAllows(t, angle(e, dir, f, f.a === end ? 1 : -1))));
-                        for (let k = 0; k < lanes.length; k++) if (lanes[k] && !fits(lanes[k])) lanes[k] = fits(['through']) ? new Set([...lanes[k], 'through']) : null;
+                    // A role with no legal road for it at this node leaves its lane without any continuation: the car in it
+                    // stops at the line for good (Calea Floreasca w1206961911 on the contraflow way: its `left` lane turns into
+                    // Str. Puțul lui Zamfir one node into the next way; Calea Floreasca at Str. Glinka, Rosetti finale: the
+                    // `right` lane's turn is the next junction). Such a lane carries straight on to that turn; with no road
+                    // straight on either it allows the turns that exist (the native default).
+                    const outs = end.edges.filter(f => f !== e && !f.rail && canTravel(f, f.a === end ? 1 : -1));
+                    const fits = (tokens) => outs.some(f => [...tokens].some(t => turnTokenAllows(t, angle(e, dir, f, f.a === end ? 1 : -1))));
+                    const uturn = canTravel(e, -dir); // (a `reverse` lane turns back on this road itself)
+                    for (let k = 0; k < lanes.length; k++) {
+                        if (!lanes[k] || fits(lanes[k]) || (uturn && lanes[k].has('reverse'))) continue;
+                        const through = fits(['through']);
+                        lanes[k] = through ? new Set([...lanes[k], 'through']) : null;
+                        rules.unserved.lanes++; rules.unserved[through ? 'through' : 'open']++; if (e.contraflowBus) rules.unserved.contraflow++;
                     }
                     let pair = rules.get(e); if (!pair) rules.set(e, pair = {});
                     pair[dir] = lanes;

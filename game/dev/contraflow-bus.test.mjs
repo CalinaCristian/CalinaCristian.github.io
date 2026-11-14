@@ -45,16 +45,23 @@ assert.ok(rects.length >= 10);
 for (const [s0, s1, o0, o1] of rects) { assert.ok(s0 >= 47 - 1e-9 && s1 <= 50 + 1e-9); assert.ok(o0 >= -5.25 && o1 <= -1.75); }
 const firstB = laneLettering('B', 0, 0, 1, 3.5), firstBRev = laneLettering('B', 0, 0, -1, 3.5);
 assert.deepEqual(firstB.map(([s0, s1, o0, o1]) => [-s1, -s0, -o1, -o0].map(v => v + 0)), firstBRev.map(r => r.map(v => v + 0)));
-// turn:lanes on a contraflow way: a role with no road for it at the way's end (the left turn is one node further on) keeps
-// the lane going straight; elsewhere the role stays as mapped
-const turnRules = (contraflowBus) => {
-    const nodes = [[0, 0], [0, -100], [0, -200], [100, -100]].map(([x, z], id) => ({ id, x, z, edges: [] }));
+// turn:lanes: a role with no legal road for it at the way's end (the left turn is one node further on) keeps the lane
+// going straight on, on a contraflow way and elsewhere; with no road straight on either the lane allows the turns that
+// exist; a served role stays as mapped
+const turnRules = (contraflowBus, { straight = true, text = 'left|through;right', leftOneway = false } = {}) => {
+    const nodes = [[0, 0], [0, -100], [0, -200], [100, -100], [-100, -100]].map(([x, z], id) => ({ id, x, z, edges: [] }));
     const link = (a, b, road, extra = {}) => { const A = nodes[a], B = nodes[b], len = Math.hypot(B.x - A.x, B.z - A.z), dirx = (B.x - A.x) / len, dirz = (B.z - A.z) / len; const f = { id: road, a: A, b: B, len, dirx, dirz, nx: -dirz, nz: dirx, road, oneway: true, lanesF: 1, lanesB: 0, ...extra }; A.edges.push(f); B.edges.push(f); return f; };
     const e = link(0, 1, 0, contraflowBus ? { oneway: false, lanesF: 2, lanesB: 1, contraflowBus: 1 } : { lanesF: 2 });
-    link(1, 2, 1); link(1, 3, 2); // straight on, right turn; no left
-    const rules = buildTurnLaneRules({ roads: [[0, 0, 2, 0, 0, 35, 0, 50, 1, 0, 0, 1]], turnLanes: [0, 0, -1], strings: ['left|through;right'] }, [e]);
-    return rules.get(e)[1].map(s => s && [...s].sort());
+    if (straight) link(1, 2, 1);
+    link(1, 3, 2); // right turn
+    if (leftOneway) link(4, 1, 3); // a left road that is a one-way toward this node: no road for the left lane
+    const rules = buildTurnLaneRules({ roads: [[0, 0, 2, 0, 0, 35, 0, 50, 1, 0, 0, 1]], turnLanes: [0, 0, -1], strings: [text] }, [e]);
+    return { lanes: rules.get(e)[1].map(s => s && [...s].sort()), unserved: rules.unserved };
 };
-assert.deepEqual(turnRules(true), [['left', 'through'], ['right', 'through']]);
-assert.deepEqual(turnRules(false), [['left'], ['right', 'through']]);
+assert.deepEqual(turnRules(true).lanes, [['left', 'through'], ['right', 'through']]);
+assert.deepEqual(turnRules(true).unserved, { lanes: 1, through: 1, open: 0, contraflow: 1 });
+assert.deepEqual(turnRules(false).lanes, [['left', 'through'], ['right', 'through']]);
+assert.deepEqual(turnRules(false, { leftOneway: true }).lanes, [['left', 'through'], ['right', 'through']], 'a one-way against the turn is no road for it');
+assert.deepEqual(turnRules(false, { straight: false }), { lanes: [null, ['right', 'through']], unserved: { lanes: 1, through: 0, open: 1, contraflow: 0 } });
+assert.deepEqual(turnRules(false, { text: 'through|right' }).lanes, [['through'], ['right']], 'served roles stay as mapped');
 console.log('PASS: contraflow bus lane tags, edge lanes, legality, lettering and unserved turn roles');

@@ -6,6 +6,16 @@ import { initialTrafficStaticClearance } from './initial-traffic-admission.js';
 import { tramPathPolyline } from './tram-path.js';
 import { KNOT_HOLD_S, KNOT_OPEN_GAP, KNOT_YIELD_GAP, KNOT_YIELD_S, SAME_CONTROLLER_M, laneOffset, medianOf, noseInto, pedestrianPen, playerExtent, segDist, streetLevel, tramOffset, vpPen, vvClearance, vvPen } from './traffic-shared.js';
 
+/** How far a knot's follower may back over the node it has just passed (m, s below 0 on its edge). */
+const BACK_OVER_NODE_M = 2;
+/** A box occupant that has stood still this long (s), or waits this close behind another vehicle (m), no longer holds
+ *  the other signal phases red: it is not clearing the box itself. */
+const OCCUPANCY_STALL_S = 8, OCCUPANCY_QUEUE_GAP_M = 8;
+/** A junction claim whose vehicle has stood this long (s) behind another vehicle no longer makes later cars wait. */
+const CLAIM_STALL_S = 4;
+/** How far a long body's rear corner may swing into a follower's nose while it pulls away (m of overlap). */
+const NOSE_SWING_M = 0.25;
+
 export class TrafficStep {
 
     stepVehicle(v, dt) {
@@ -188,8 +198,11 @@ export class TrafficStep {
             }
             if (v.bus) { const bs = this.busStopAhead(v, curE, curDir, D, k === -1); if (bs < stopD) { stopD = bs; stopWhy = 'busstop'; } }
             // junction box reservation: a car about to enter the box claims its path across the pad (entry lane point →
-            // exit lane point); a car whose path would cross / merge with a claimed one waits at the line
-            if (k === -1 && nxt && this.isJunction(node) && !inJunction && !nxt.uturn) {
+            // exit lane point); a car whose path would cross / merge with a claimed one waits at the line. (Rosetti finale,
+            // Calea Floreasca at Str. Protopopescu) also while its rear is still on the pad it has just crossed: on a link
+            // shorter than that pad plus the claim reach it otherwise reached the next line unclaimed and drove into a bus
+            // turning across it; it waits at the line like any car, only a front already in the box goes on.
+            if (k === -1 && nxt && this.isJunction(node) && !(this.isJunction(endNode) && toEntry < -0.5) && !nxt.uturn) {
                 const reach = Math.max(9, v.speed * v.speed / 9 + 3);
                 if (D - rad < reach) {
                     const res = this.boxCheck(v, curE, curDir, nxt, node, rad);
@@ -202,10 +215,20 @@ export class TrafficStep {
             // instead of being squeezed sideways onto a car in the remaining lane
             if (nxt && !v.tram && !nxt.uturn && D < 60 && !this.keepsTurnLane(curE, curDir, nxt)) {
                 const nl = Math.max(1, lanesDir(nxt.e, nxt.dir));
-                if (curLane > nl - 1) {
+                // (Rosetti finale, Calea Floreasca 3 → 2 lanes) steering needs travel: a car held at the line still half in
+                // the ending lane could never finish its merge and stood there for good. Once it has waited there (≥ 3 s)
+                // the hold is released for this node while the lane it merges into is free beside it: it merges on the move
+                // at a crawl, car-following and the junction claim keep it off the others. (Releasing it only while v.stuck
+                // stayed high re-held it after every centimetre.)
+                if (k === -1 && (v.dropGo === node || (v.stuck >= 3 && (v.stopWhy === 'lanedrop' || v.stopWhy === 'lanedrop2') && v.stopD < 2))) {
+                    const into = Math.min(curLane > nl - 1 ? nl - 1 : v.lane, Math.max(0, lanesDir(curE, curDir) - 1));
+                    v.dropGo = Math.round(v.laneCur) === into || this.laneFree(v, into) ? node : null;
+                }
+                if (v.dropGo === node) vCap = Math.min(vCap, 3);
+                else if (curLane > nl - 1) {
                     // wait for a gap before the line; already at / past it (or waited long): merge on the move,
                     // car-following and the junction claim keep it off the others (a stop inside the box locks the junction)
-                    if (D - rad - 1.5 > -0.5 && v.stuck < 3) { const _d = D - rad - 1.5; if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop'; } }
+                    if (D - rad - 1.5 > -0.5) { const _d = D - rad - 1.5; if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop'; } }
                 } else {
                     const _d = this.laneDropStop(v, nl, D, rad, curLaneCur);
                     if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop2'; }
@@ -407,6 +430,11 @@ export class TrafficStep {
         for (const r of list) {
             const o = r.v; if (o === v || o.inactive || r.t0 >= mine || !this.inBox(r, key)) continue;
             if (r.inE === curE && r.laneIn === v.lane) continue; // ahead of us in our lane: plain car-following
+            // (Rosetti finale, Calea Floreasca at Str. Protopopescu) a claimant standing in a queue inside the box waits for
+            // its leader, and that queue may itself wait for us (a bus turning across our lanes held up by our queue): its
+            // body stays an obstacle for car-following and the overlap guard, the part of its path it has not reached
+            // does not hold us.
+            if (o.speed < 0.3 && (o.stuck || 0) > CLAIM_STALL_S && o.leader && typeof o.leader === 'object') continue;
             for (const a of path.segments) for (const b of r.segments) {
                 const gap = segDist(a.p0x, a.p0z, a.p1x, a.p1z, b.p0x, b.p0z, b.p1x, b.p1z);
                 if (gap < (v.width + o.width) * 0.5 + 0.5) return 'wait';
@@ -461,6 +489,13 @@ export class TrafficStep {
             if (!this.inBox(r, key) || !r.entered) continue;
             // (h-sim) the last signal controller this car was inside, and where: see SAME_CONTROLLER_M
             r.v.sigCtl = key; r.v.sigCtlOdo = r.v.odo || 0;
+            // (Șoseaua Pipera cluster, Piața Romană: one controller over 8 and 15 signal nodes) a car queued in the box
+            // behind a car that waits at the cluster's next signal head, or stalled in a knot, held every other phase red:
+            // the car at the head of its queue never got its green and the cluster locked for the whole drive. Only a car
+            // that is clearing the box on its own holds the signal; a queued or stalled one keeps its path reservation
+            // (other cars still wait for it in boxCheck).
+            const L = r.v.leader, queued = !!L && typeof L === 'object' && (r.v.gap ?? Infinity) < OCCUPANCY_QUEUE_GAP_M && (r.v.speed || 0) < 3;
+            if (queued || (r.v.stuck || 0) > OCCUPANCY_STALL_S) continue;
             if (Number.isInteger(r.phase) && key.occupiedPhases && !key.occupiedPhases.includes(r.phase)) key.occupiedPhases.push(r.phase);
         }
     }
@@ -548,7 +583,13 @@ export class TrafficStep {
                     // recovery translations below use their stricter contact
                     // checks; tiny enclosing-box corner contact must not turn
                     // ordinary junction travel into an indefinite wait.
-                    const apart = p0 > 0.05 && p < p0 + 0.04 && Math.hypot(v.x - o.x, v.z - o.z) > Math.hypot(v._x0 - o.x, v._z0 - o.z) + 0.005;
+                    // (Rosetti finale: a 12 m bus turning off Calea Floreasca, a follower's nose 4 cm in its rear) a body with a
+                    // nose already in its rear or side (its own nose free) may take a step that brings its rear corner a little
+                    // further in (≤ NOSE_SWING_M overlap in all): the first step from rest swings a long body back onto its path (here
+                    // 0.19 m and 0.17 rad after the recovery translations), and refusing it froze the bus, the junction and
+                    // both queues for good. The follower then opens the contact as usual.
+                    const apart = (p0 > 0.05 && p < p0 + 0.04 && Math.hypot(v.x - o.x, v.z - o.z) > Math.hypot(v._x0 - o.x, v._z0 - o.z) + 0.005) ||
+                        (p0 > 0 && p < NOSE_SWING_M && noseInto(o, v) && !noseInto(v, o));
                     if (p > p0 + 0.002 && !apart) worse = true;
                 }
                 if (p > hp) { hp = p; hit = o; }
@@ -593,9 +634,13 @@ export class TrafficStep {
             let crossing = false;
             { const vn = noseInto(v, hit), hn = noseInto(hit, v);
                 if (vn !== hn) fol = vn ? v : hit;
-                // converging noses have no follower either: one of them keeps yielding (the same one, once chosen)
-                else if (vn && Math.abs(Math.sin(v.heading - hit.heading)) > .35) fol = v.yieldT > 0 && v.yieldTo === hit ? v : hit.yieldT > 0 && hit.yieldTo === v ? hit : v.id > hit.id ? v : hit;
-                crossing = (vn || hn) && Math.abs(Math.sin(v.heading - hit.heading)) > .35; }
+                // converging noses have no follower either: one of them keeps yielding (the same one, once chosen). (Rosetti
+                // finale, Calea Floreasca at Str. Călinescu) so do two noses meeting head-on (a left turn cutting into the
+                // oncoming lane): the follower chosen afresh every frame made both open the gap and drive into each other
+                // again, for minutes
+                const headOn = vn && Math.cos(v.heading - hit.heading) < -0.7;
+                if (vn && hn && (headOn || Math.abs(Math.sin(v.heading - hit.heading)) > .35)) fol = v.yieldT > 0 && v.yieldTo === hit ? v : hit.yieldT > 0 && hit.yieldTo === v ? hit : v.id > hit.id ? v : hit;
+                crossing = (vn || hn) && (headOn || Math.abs(Math.sin(v.heading - hit.heading)) > .35); }
             if (fol.parked || fol.tram) fol = fol === v ? hit : v;
             if (fol.parked) {
                 // two parked cars inside each other (placed / respawned onto one another): move one away, out of view
@@ -603,11 +648,20 @@ export class TrafficStep {
                 continue;
             }
             const other = fol === v ? hit : v;
+            // (Rosetti finale: a car waiting for the next light just past the junction where a bus turns across its tail) a
+            // follower that only touches the other's side and drives away from it is not held (its own steps still pass the
+            // guard above): holding it kept it in the turning bus's way for good
+            if (!crossing && !noseInto(fol, other) && vvPen(fol, other, fol.x - Math.sin(fol.heading) * 0.3, fol.z - Math.cos(fol.heading) * 0.3) < vvPen(fol, other) - 0.01) continue;
             fol.speed = 0; fol.zeroWhy = (opening ? 'ovOpen:' : 'ovFol:') + (other.kind || '') + '#' + other.id; if (!opening) fol.ovT = (fol.ovT || 0) + dt;
             const yields = (a, b) => { if (!crossing || a.tram) return; a.yieldTo = b; a.yieldT = KNOT_YIELD_S; if (b.yieldTo === a) b.yieldT = 0; };
             const back = Math.min(hp + (opening ? (crossing ? KNOT_YIELD_GAP : KNOT_OPEN_GAP) : 0.05), 0.8 * dt);
             let separated = false;
-            const canBack = (a) => a.s - back > 0.3 && !a.tram && !a.parked && !(P && Math.hypot(P.x - a.x, P.z - a.z) < 12 && vpPen(a, P) > -0.4 && (P.x - a.x) * -Math.sin(a.heading) + (P.z - a.z) * -Math.cos(a.heading) < 0);
+            // (Rosetti finale: an estate whose nose touched a turning bus's side, a crossover that had just entered Calea
+            // Floreasca beside a bus turning off Ceaikovski) a car that has only just passed a node may back over it: its
+            // body still stands on the pad it came from (pathPoint follows the previous link behind s = 0). Refusing every
+            // step at s < 0.3 froze both bodies of such a knot for minutes, with the junction and the queues behind them.
+            const overNode = (a) => a.s - back > -BACK_OVER_NODE_M && !!(a.dir > 0 ? a.edge.a : a.edge.b)?.edges && !!this.prevLink(a, a.edge, a.dir, (a.hist?.length ?? 0) - 1);
+            const canBack = (a) => (a.s - back > 0.3 || overNode(a)) && !a.tram && !a.parked && !(P && Math.hypot(P.x - a.x, P.z - a.z) < 12 && vpPen(a, P) > -0.4 && (P.x - a.x) * -Math.sin(a.heading) + (P.z - a.z) * -Math.cos(a.heading) < 0);
             if (canBack(fol)) {
                 separated = this.separateVehicleStep(fol, other, -back);
                 if (separated) { this.stats.separate = (this.stats.separate || 0) + 1; yields(fol, other); }
@@ -639,7 +693,8 @@ export class TrafficStep {
             const pen = vpPen(v, P); if (pen <= 0.05) continue;
             const hx = -Math.sin(v.heading), hz = -Math.cos(v.heading);
             const sg = (v.x - P.x) * hx + (v.z - P.z) * hz >= 0 ? 1 : -1, d = Math.min(pen + 0.05, 0.5) * sg;
-            if (v.s + d < 0.2 || v.s + d > v.edge.len - 0.2) continue;
+            if (v.s + d > v.edge.len - 0.2) continue;
+            if (v.s + d < 0.2 && !(v.s + d > -BACK_OVER_NODE_M && (v.dir > 0 ? v.edge.a : v.edge.b)?.edges && this.prevLink(v, v.edge, v.dir, (v.hist?.length ?? 0) - 1))) continue; // (back over the node it has just passed, as a knot's follower does)
             const oldX = v.x, oldZ = v.z;
             v.s += d; v.odo += d; v.x += hx * d; v.z += hz * d; v.speed = 0; v.mesh.position.set(v.x, v.y, v.z);
             this.refreshVehicleCell(v, oldX, oldZ);

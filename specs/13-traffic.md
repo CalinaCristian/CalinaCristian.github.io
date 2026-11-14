@@ -12,7 +12,14 @@ R13.3 Transit with real liveries/routes from research: STB trams (articulated), 
 King County Metro buses, Sound Transit Link where visible.
 R13.4 Pedestrians: never inside cars, never on the carriageway except at crossings; density by area/hour; placed on the
 source sidewalk sides; crossings need real roadside endpoints on both sides.
-R13.5 Zero visible NPC–NPC and NPC–player overlaps (harness ≤ 5 minor).
+R13.5 Zero visible NPC–NPC and NPC–player overlaps (harness ≤ 5 minor). No permanent standstill from the traffic rules
+themselves: a car held at a lane-drop line merges on the move once it has waited there and the lane beside it is free; a
+knot's follower may back over the node it has just passed (its body still stands on that pad), two noses meeting
+head-on keep one yielder, a follower touching only the other's side may drive away, and a body with a follower's nose in
+its rear may swing its rear corner into it by at most 0.25 m while it moves off; only a car clearing a signal box on its own holds the other phases red (one queued behind
+another vehicle or stalled there keeps just its path reservation), and a claimant stalled in a queue does not hold later
+cars with the part of its path it has not reached; a car leaving one junction pad claims the next junction before its
+line.
 R13.6 District boundaries: vehicles despawn/respawn out of view at the edges.
 R13.7 A side/rear pedestrian yield releases only when the vehicle body is already clear and its next motion increases
 clearance (including what the pedestrian carries); front crossing yields stay.
@@ -25,7 +32,10 @@ R13.10 Trams bind before the first frame to source-legal rail poses with whole-b
 meshes and random sequence; motion, stopping, recovery and recycling use the same rail path; they stop at mapped stop
 nodes (estimated 5 s dwell). A binding failure fails initial admission.
 R13.11 Respect mapped turn-lane roles at the source-way terminal (not at internal shape nodes or clipped ends); keep
-approach lanes on turns and their lateral history through node hand-off; plan straight lane drops early.
+approach lanes on turns and their lateral history through node hand-off; plan straight lane drops early. A role with no
+legal road for it at that node (the turn is one node further on) carries its lane straight on, or, with no road straight
+on either, allows the turns that exist; a lane whose roles reach only closed roads (district-edge closure, restriction,
+clearance) takes a road that exists. No lane ends without a continuation.
 R13.12 Rail-mode eligibility is separate from motor access: no car on a rail edge, no tram against the rail direction or
 unbound; relocation and respawn obey the same gate. Rail grades use the same model as the rendered track and support.
 R13.13 Rail spawn spans and terminal stops keep the crossing-pad radius plus 1.5 m beyond the whole vehicle body.
@@ -47,8 +57,8 @@ R13.21 GPS and NPC routes respect mapped height/width limits against the actual 
 trolley poles); unknown limits are never a pass.
 R13.22 A bus lane mapped against a one-way (`busway=opposite_lane`, `oneway:bus=no` with a lane) is a lane of the road
 topology, from the runtime source tags: buses (spawn, route choice, stops on its side, its own signal approach) use it;
-cars, GPS routes, private-car connectivity and the chapter start treat the way as one-way. On such a way a mapped turn
-role with no legal road for it at the way's end keeps its lane going straight on.
+cars, GPS routes, private-car connectivity and the chapter start treat the way as one-way. The no-entry sign where the
+bus lane enters the one-way carries the supplementary plate exempting buses.
 
 ## Acceptance
 - Harness: vehicle-overlap ≤ 5, ped-in-vehicle 0, vehicle-overlaps-player 0, scenario `i` passes.

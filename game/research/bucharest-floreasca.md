@@ -238,6 +238,13 @@ w38757552, grandstand w859972644, outdoor pool w23611448.
   line (0.26 m solid); the BUS lettering (3 m letters, 7 m past each junction the bus leaves and then every 70 m) has
   estimated size and spacing, not measured ones. The bus approach shares the northbound signal phase (simulation phases,
   no measured timings), and the buses on it are the street's usual bus share (9 % of the traffic on a bus route).
+  The no-entry sign where the bus lane enters each one-way segment carries a supplementary plate exempting buses: white
+  with a black border, "EXCEPTÂND" over a bus pictogram, about 0.6 × 0.3 m just under the disc. The wording and size
+  follow the usual Romanian additional panel; the plate itself is an estimate (no survey of the actual signs).
+- **Turn lanes with no road for their turn**: where a mapped `turn:lanes` role has no legal road for it at the way's
+  end node (the turn is one node further on, or the side street is a one-way toward the junction), the lane carries
+  straight on to that turn; with no road straight on either it allows the turns that exist. Calea Floreasca's
+  northbound `right` lane at Str. Glinka is one such lane.
 - **School-run congestion** is an assumption, not sourced.
 
 ## Sources

@@ -63,6 +63,20 @@ t.syncSignalOccupancy(); t.pruneBoxes();
 assert.deepEqual(cl.occupiedPhases, []);
 assert.notEqual(t.boxCheck(other, crossIn, 1, other.route[0], middle, 5), 'wait');
 assert.equal(signalState(cl, 1, slot + 1, 11), 'green', 'waiting queue is released once the rear clears');
+// A car queued in the box behind another vehicle (or stalled there) keeps its path reservation but no longer holds the
+// other phases red: the car at the head of its queue may be waiting for that very green (Piața Romană, Șoseaua Pipera).
+t.boxes.clear(); car.edge = incoming; car.s = incoming.len - 10;
+t.boxClaim(car, left, t.boxCheck(car, incoming, 1, car.route[0], left, 5));
+car.edge = internal; car.s = 5; car.leader = { id: 'ahead' }; car.gap = 2; car.speed = 0;
+t.syncSignalOccupancy();
+assert.deepEqual(cl.occupiedPhases, [], 'a queued occupant does not hold the other phases');
+car.leader = null; car.speed = 2;
+t.syncSignalOccupancy();
+assert.deepEqual(cl.occupiedPhases, [0], 'a car clearing the box on its own still holds them');
+assert.equal(t.boxCheck(other, crossIn, 1, other.route[0], middle, 5), 'wait', 'its path still holds a crossing car');
+car.speed = 0; car.stuck = 5; car.leader = { id: 'ahead' };
+assert.notEqual(t.boxCheck(other, crossIn, 1, other.route[0], middle, 5), 'wait', 'the unreached path of a claimant stalled in a queue does not');
+car.stuck = 0; car.speed = 2; car.leader = null; t.boxes.clear();
 
 // Opposing circular greens are permissive: a left turn yields to the reserved
 // oncoming straight path rather than meeting it in the junction.

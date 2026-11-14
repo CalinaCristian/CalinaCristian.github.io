@@ -596,6 +596,10 @@ export const SCENARIOS = [
             pts.push([door.x, door.z]);
             const t0 = H.scT; let inside = 0;
             for (const [x, z] of pts) {
+                // the driving route obeys one-ways and may loop round the block past the door (Calea Floreasca since its
+                // contraflow bus lane): a walker near the door never walks away from it again
+                const dNow = Math.hypot(F.x - door.x, F.z - door.z);
+                if (dNow < 25 && Math.hypot(x - door.x, z - door.z) > dNow && (x !== door.x || z !== door.z)) continue;
                 const ok = await walkTo(H, x, z, { r: 3, timeout: 40 });
                 g.world.buildings.query(F.x, F.z, 2, (c) => { if (c.poly && !c.prop && pip(F.x, F.z, c.poly) && (c.h ?? 10) > 1) inside++; });
                 if (!ok && Math.hypot(F.x - door.x, F.z - door.z) > 7) { H.issue('foot-walk-blocked', 'medium', `on foot: could not walk to (${r1(x)}, ${r1(z)}) toward ${stop.id}`, { x, z }, { shot: true, key: 'foot-walk' }); break; }

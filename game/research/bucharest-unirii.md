@@ -339,6 +339,9 @@ w241369588, w241369345, w899314658, 44.4237, 26.1124) is 600 m outside the playa
 - **Calea Moșilor contraflow bus lane** (w1004394633, w1409238821: `oneway=yes`, `busway=opposite_lane`,
   `oneway:bus=no`, `lanes=2`, no `lanes:forward`): OSM counts the bus lane in `lanes`, so the game has one general lane and
   one bus-only lane against the one-way on its left; the 7 m carriageway (2 × 3.5 m class lane width) is an estimate.
+  The no-entry sign where the bus lane enters the one-way carries a supplementary plate exempting buses ("EXCEPTÂND"
+  over a bus pictogram, white with a black border, about 0.6 × 0.3 m under the disc): the usual Romanian additional
+  panel, an estimate (the actual signs are not surveyed).
 - **Places of worship**: the shared rule ([shared-rules.md](shared-rules.md#places-of-worship)). Here: 26 churches
   with 44 towers; no tower on 3 with an OSM height, 3 Jewish, 3 free-church, 2 Western-rite, 1 mapped dome (Sf. Nicolae
   - Ghica), the small or untagged ones and building parts.

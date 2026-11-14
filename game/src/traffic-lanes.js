@@ -447,7 +447,7 @@ export class TrafficLanes {
 
     // ------------------------------------------------------------------ routing
     turnLaneAllows(e, dir, lane, next, v) {
-        return v?.tram || laneTurnAllowed(this.turnLaneRules, e, dir, lane, next?.e, next?.dir) &&
+        return v?.tram || (next?.anyLane || laneTurnAllowed(this.turnLaneRules, e, dir, lane, next?.e, next?.dir)) &&
             (!next || motorTurnAllowed(this.motorTurnRestrictions,e,dir,next.e,next.dir,{mode:motorRestrictionMode(v)}) && sourceRoadClearance(this.world?.data,next.e,v).eligible===true);
     }
     /** Constructor planning normally has no motor routes: spawnAll consumes no
@@ -493,15 +493,23 @@ export class TrafficLanes {
         }
         const node = dir > 0 ? e.b : e.a;
         const fx = e.dirx * dir, fz = e.dirz * dir;
-        let best = null, total = 0;
+        let best = null, total = 0, anyLane = false;
         const cands = this._cands || (this._cands = []); cands.length = 0;
+        for (let pass = 0; pass < 2 && !cands.length; pass++) {
+        if (pass) {
+            // (Rosetti finale, Calea Floreasca at Str. Glinka) the lane's mapped role leaves it no road at this node (its
+            // turn leads to a district-edge closure, is restricted, or the vehicle does not fit under it): a car there
+            // stopped at the line for good and its queue locked the junction. It takes a road that exists from its lane.
+            if (canTravel(e, -dir) && !e.roundabout && !v.long && this.turnLaneAllows(e, dir, lane, { e, dir: -dir }, v)) return { e, dir: -dir, uturn: true };
+            anyLane = true;
+        }
         for (const n of node.edges) {
             if (n === e) continue;
             const nd = n.a === node ? 1 : -1;
             if (!(v.bus && !n.rail ? canTravelBus(n, nd) : canTravel(n, nd)) || !ambientTrafficAccess(n)) continue; // (buses: also the bus lanes against a one-way)
             if (v.tram && !n.tram) continue;
             if (!v.tram && n.tram && n.tramOnly) continue;
-            if (!this.turnLaneAllows(e, dir, lane, { e: n, dir: nd }, v)) continue;
+            if (!this.turnLaneAllows(e, dir, lane, { e: n, dir: nd, anyLane }, v)) continue;
             if (n.type === 'service' && !v.isPolice && this.rng() < 0.8) continue;
             if ((nd > 0 ? n.b : n.a).mapEnd) continue; // toward a district-edge closure: turn off before it
             if (n.main === false && e.main !== false && !v.tram) continue; // never drive into a one-way trap
@@ -515,16 +523,14 @@ export class TrafficLanes {
             if (this.park?.blockEdge === n && (lanesDir(n, nd) || 1) <= 1 && !v.service) w *= 0.03; // the player's car left in the only lane: go round
             cands.push({ n, nd, w }); total += w;
         }
-        if (!cands.length) {
-            // (long vehicles never U-turn on the carriageway — an 18 m bus turning on the spot stands broadside across the
-            //  road: the route ends here and the vehicle is respawned elsewhere when it reaches the end)
-            if (canTravel(e, -dir) && !e.roundabout && !v.long && this.turnLaneAllows(e, dir, lane, { e, dir: -dir }, v)) return { e, dir: -dir, uturn: true };
-            return null;
         }
+        // (long vehicles never U-turn on the carriageway — an 18 m bus turning on the spot stands broadside across the
+        //  road: the route ends here and the vehicle is respawned elsewhere when it reaches the end)
+        if (!cands.length) return null;
         let r = this.rng() * total;
         for (const c of cands) { r -= c.w; if (r <= 0) { best = c; break; } }
         best = best || cands[cands.length - 1];
-        return { e: best.n, dir: best.nd };
+        return anyLane ? { e: best.n, dir: best.nd, anyLane } : { e: best.n, dir: best.nd };
     }
     ensureRoute(v) {
         const R = v.route;
@@ -568,6 +574,7 @@ export class TrafficLanes {
             return;
         }
         (v._sh || (v._sh = [])).push(nx);
+        v.dropGo = null; // (traffic-step.js: a lane-drop hold released at the node just passed)
         const oldLat = v.tram ? tramOffset(e, v.dir) : laneOffset(e, v.laneCur, v.dir) + v.latExtraCur + (v.latBlend || 0) * Math.max(0, 1 - v.s / 12);
         if (v.hist) { v.hist.push({ e, dir: odir, lat: oldLat }); if (v.hist.length > (e.rail ? 256 : 6)) v.hist.shift(); }
         this.sharedLanes.advance(v, e, odir, nx.e, nx.dir, odir > 0 ? e.b : e.a);

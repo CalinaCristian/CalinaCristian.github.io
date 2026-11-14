@@ -20,7 +20,8 @@ export function signalState(controller, phase, time, greenTime) {
     const t = ((time + controller.offset) % period + period) % period;
     if (Math.floor(t / slot) !== phase) return 'red';
     // Slow/stopped vehicles retain their reservation until their rear clears the whole
-    // split junction. Do not release a conflicting green just because a timer elapsed.
+    // split junction. Do not release a conflicting green just because a timer elapsed
+    // (traffic-step.js syncSignalOccupancy: only an occupant stalled in the box stops holding it).
     if (controller.occupiedPhases?.some(p => p !== phase)) return 'red';
     const local = t % slot;
     return local < green ? 'green' : local < green + yellow ? 'yellow' : 'red';

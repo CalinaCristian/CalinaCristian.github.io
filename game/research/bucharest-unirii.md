@@ -123,7 +123,7 @@ estimates the game makes where no source exists, and the places where it knowing
 - **Hanul lui Manuc** (r19803024, `building:colour=white`, `roof:shape=hipped`, `roof:colour=brown`, 2 levels, courtyard;
   inn of 1808 at the north-east corner towards the Old Town): two storeys, white walls, long dark-brown hipped roof, shops
   and terraces on the ground floor of the Str. Halelor front. A literal `building:colour` in the source tags wins over the
-  style palette (`world.js`). The wooden courtyard galleries and the terraces are not modelled.
+  style palette (`world-extrusion.js`). The wooden courtyard galleries and the terraces are not modelled.
 - **Hala Traian** (`halatraian`, w35147215, Calea Călărașilor 133 at the Traian corner): 1896 market hall, one of the last
   two 19th-century halls; cream facade with red-brick bands and a big arched window, small shops in front (red fascia,
   blue PESCĂRIE), a Mega Image inside; Piața Traian open market opposite on the south side; tram stop "Hala Traian" at the
@@ -136,7 +136,7 @@ estimates the game makes where no source exists, and the places where it knowing
 - **Parcare Unirea** w184169515 (`amenity=parking`, `parking=multi-storey`, 10 levels): drawn with the reviewed louvred
   facade (`car-parks.js`, pale wall with a dark louvre ribbon per level), signed with its own name. The car wash on its 7th
   floor ("Spălătorie Unirea Etaj 7", n1439628129, no `level` tag) gets no street board: a business named for an upper
-  floor ("Etaj n") has no street-level fascia (`world.js` `addUnitSign`).
+  floor ("Etaj n") has no street-level fascia (`world-facade-detail.js` `addUnitSign`).
 - **Parcare Cocor** w658281398 (a `building:part` of the Cocor store, an amenity polygon without a building tag): the
   north-east street face (live OSM vertices 44.4301812, 26.1048784 → 44.4304824, 26.1044621) is a dark grey panelled
   wall with a vehicle entrance and barrier arm (`ky8lvOleKFvuiFVszKDv7Q h240`), drawn over the store's glazing there
@@ -157,8 +157,8 @@ unnamed shops n3875095826, n5686059121).
   7 m paved band, and business fascias stand on pedestrian fronts (e.g. Hanu' lui Manuc, City Grill, Mojo Music Club,
   Gelateria La Romania dal 1947).
 - **Sign side** (`fix-pois.mjs`, all districts): a POI is moved only to an `entrance`-node anchor, never to the face on
-  its own `addr:street` (a postal address names a street, not the face a sign hangs on: the sample would have moved
-  Unirea's interior KFC / Mega Image 57 m onto the Piața Unirii facade). A node POI with two footprints within 2.5 m of
+  its own `addr:street` (a postal address names a street, not the face a sign hangs on: that would move Unirea's
+  interior KFC / Mega Image 57 m onto the Piața Unirii facade). A node POI with two footprints within 2.5 m of
   each other stays at its own point, unlinked (`linksAmbiguous`).
 
 **Fuel stations** (`fuel-look.js`, `fuel-stations-review.json`): OMV Bd. Corneliu Coposu w263315803: green fascia with a
@@ -237,8 +237,8 @@ areas and jet nodes: JSON `fountains.layout.basins[]` [fountains_44] [fountains_
   73–76 m. A raised landform would have to lift the cathedral w232296927, the Patriarchal Palace, the bell tower
   w381822404, the Strada Patriarhiei driveways (one in a short tunnel, w1458826486), Aleea Dealul Mitropoliei with its
   houses and every tree and path of the slope park w283790894; the plateau also lies outside the playable edge (about
-  100 m west of it). So the hill stays flat, and what OSM maps of its built relief is drawn instead (`hill-structures.js`,
-  2026-11-13): the switchback stair on the south-east flank (steps w1053336775 / w1053336776 / w1053336783 between the
+  100 m west of it). So the hill stays flat, and what OSM maps of its built relief is drawn instead (`hill-structures.js`):
+  the switchback stair on the south-east flank (steps w1053336775 / w1053336776 / w1053336783 between the
   retaining walls w1053336778–w1053336782, 126 m of wall) and the flight w677291288 below the bell tower. The district's
   ground stands for the plateau there, so they are drawn as seen from the top: each wall shows a 0.9 m stone parapet
   with a coping and each stair a paved strip with marked treads; drawn as rising blocks they read as walls and stairs to
@@ -290,9 +290,8 @@ channel starts and ends at the mapped tunnel ends, with square ends (`final-wate
 - **Quays** (Splaiul Unirii east, Splaiul Independenței west): no solid parapet; an iron balustrade on a low stone kerb
   (dark ornamental panels east, plain green railing west), a grass strip and plane trees on the quay, a sloped concrete far
   bank with graffiti. The game draws a low kerb and a dark-green three-rail iron balustrade on the west channel; a coping
-  strip closes the gap between ground and quay kerb along every channel quay. On the east basin w174991904 (since
-  2026-11-13, `quay-balustrades.js`, from the recorded review, no new panorama) the iron is dark cast panels between square
-  posts: handrail, bottom and frame rails, a lozenge with a boss in each panel and a baluster either side.
+  strip closes the gap between ground and quay kerb along every channel quay. On the east basin w174991904
+  (`quay-balustrades.js`, from the recorded review, no new panorama) the iron is dark cast panels between square posts: handrail, bottom and frame rails, a lozenge with a boss in each panel and a baluster either side.
 - **Weir** w1434558024 (`waterway=weir`, 44.425858–44.426298, 26.10454–26.10461, at the outfall east of the square): a row
   of about sixteen low grey concrete blocks across the basin just downstream of the covered section
   (`NrlzOfq1HTfol_d90aJ3FA h95`); `weirs.js` draws it at the basin level (water -2.4 m + 0.45 m freeboard). Weir
@@ -330,12 +329,12 @@ w241369588, w241369345, w899314658, 44.4237, 26.1124) is 600 m outside the playa
 - OSM maps 5,054 trees in the extraction area with species (lists per street in the JSON): Bd. Unirii's 25 m band alone
   holds about 1,035 (Quercus robur, Tilia tomentosa, Fraxinus americana, Abies alba, Thuja and others). Lindens line Bd.
   Unirii; old chestnuts and robinias on Călărașilor; the square is open with trees mainly in the central park.
-- The aerial green raster is not drawn where a cell's centre lies in a mapped water polygon (crowns over the water had
-  been measured as green ground).
+- The aerial green raster is not drawn where a cell's centre lies in a mapped water polygon (the raster measures crowns
+  over the water as green ground).
 - **Pedestrian plazas**: the shared rule ([shared-rules.md](shared-rules.md#pedestrian-plazas)). Here: 89 plazas, none
   tagged grass.
 
-## Estimates and open questions
+## Estimates
 
 - **Places of worship**: the shared rule ([shared-rules.md](shared-rules.md#places-of-worship)). Here: 26 churches
   with 44 towers; no tower on 3 with an OSM height, 3 Jewish, 3 free-church, 2 Western-rite, 1 mapped dome (Sf. Nicolae
@@ -376,10 +375,11 @@ w241369588, w241369345, w899314658, 44.4237, 26.1124) is 600 m outside the playa
 - **Wayside crosses**: size is a class estimate.
 - **Fuel**: MOL's four pump islands were not counted on a panorama; OMV's curved shop canopy is not modelled. Canopy soffits
   read dark under shade although white in every panorama (lighting, not colour).
-- **Open**: the GTS office unit at no. 101 (courtyard building?) is unverified; the rooftop advertising brands round
-  Piața Unirii are not verified; Dealul Mitropoliei's relief needs ground heights under its roads, buildings and the
-  cathedral (only its mapped walls and stairs are drawn; parapet 0.9 m, stair width 2 m and materials are estimates); not seen at street level: Hala Traian main front, Sf. Spiridon Nou, the school pitches, the park
-  interior of Piața Unirii, the tenant fronts along the middle of the Unirea west side.
+- **Not established**: which unit at no. 101 holds the GTS office (possibly a courtyard building); the rooftop
+  advertising brands round Piața Unirii. **Dealul Mitropoliei** stays flat (only its mapped walls and stairs are drawn;
+  parapet 0.9 m, stair width 2 m and materials are estimates). Not seen at street level: Hala Traian main front, Sf.
+  Spiridon Nou, the school pitches, the park interior of Piața Unirii, the tenant fronts along the middle of the Unirea
+  west side.
 
 ## Documented exceptions
 
@@ -395,7 +395,7 @@ w241369588, w241369345, w899314658, 44.4237, 26.1124) is 600 m outside the playa
     basins in the 2024 panoramas too.
 - **w608657873** (Piața Sfântul Ștefan, 44.43414, 26.11631) is still mapped as `amenity=fountain`, but panorama
   `m4ZygVZxXJZodU3nvvedUg` shows a round planted bed at grade (a shrub, grass), no basin: OSM looks stale; excluded
-  (`add-areas.mjs --exclude`). Correcting the OSM object is a mapper's edit, not made from this repo.
+  (`add-areas.mjs --exclude`).
 - **Stop at Piața Sf. Gheorghe** (node/5810960053, appended, no shelter metadata): pano `6pmwrKMHq2FbxifltMYaqw` shows a
   pole only; `world-shared.js` `STOP_POLE_ONLY` draws the pole and sign without the inferred shelter.
 
@@ -444,7 +444,7 @@ The Bucharest-wide sources (road signs and markings, STB, Metrorex, lighting, tr
 
 Research pass 2026-11-07 (spec 20, R12.2 / R11), re-checked against live OSM on 2026-11-12. Machine-readable: `businesses-bucharest-unirii.json` (one entry per business, independents included), the `bucharest-unirii` block of `speedlimits.json`, and `businesses-gamediff.json` → `bucharest-unirii` (live missing list with `edgeM`, the `recheck` counts and `closed` disused units). Zone = everything within **60 m of a chapter route** (routes recomputed on the OSM graph from `CHAPTERS` starts to the stop doors, one-way and turn-restriction aware) **plus** recognisable businesses within 50 m of a main street (motorway…tertiary) inside the district mask. Standalone ATMs, parcel lockers, chargers and pure company offices are left out. Confidence and sign-style rules as in `bucharest-floreasca.md` (Businesses and speed limits).
 
-### On the chapter route (gts)
+### On the chapter route (gts, as routed on 2026-11-07 via Bd. Corneliu Coposu)
 
 | brand | category | address | side | conf. |
 |---|---|---|---|---|
@@ -462,23 +462,24 @@ Research pass 2026-11-07 (spec 20, R12.2 / R11), re-checked against live OSM on 
 | Maxbet | casino | Bd. Dimitrie Cantemir 2 | W of Cantemir | medium |
 | Garanti BBVA, Annabella | bank, convenience | — | SW / NE of Str. Sfânta Vineri | medium |
 
-To verify with a dated photo: Telekom Romania Mobile shops (brand status not verifiable, telekom.ro behind a bot wall, 2026-11-07); Alpha Bank (brand possibly absorbed in a 2024–25 merger; site did not respond).
+Not verified (OSM names kept): Telekom Romania Mobile shops (telekom.ro behind a bot wall, 2026-11-07); Alpha Bank (brand possibly absorbed in a 2024–25 merger; site did not respond).
 
 ### Official-locator checks
 
 - **KFC** Piața Unirii 1: "KFC Unirea" (2 m). **McDonald's** Piața Unirii 1: "McDonald's Unirea" (64 m).
 - **Dona** Bd. Corneliu Coposu: "Farmacia Dona - Coposu" (10 m); a second Dona: "Farmacia Dona - Hala Traian" (14 m).
 - **Carrefour Express** Bd. Unirii 21: "Express Bucuresti Unirii" (20 m).
-- **Not in the locator** (possibly closed, do not add until a dated photo confirms): Carrefour Express n14152468402 (v1, 2026-09-04).
+- **Not in the locator** (treated as possibly closed, not shown): Carrefour Express n14152468402 (v1, 2026-09-04).
 - Closed per OSM lifecycle tags (vacant "De închiriat" unit if modelled): H&M n1814949000 (`disused:shop=clothes`, 44.42725, 26.10448, edit 2026-10-19), n1726032531 (`disused:shop=yes`, 44.43284, 26.11216); five more in `businesses-gamediff.json`.
 
 ### POIs added from live OSM (2026-11-12)
 
-`tools/osm/add-pois.mjs --edge 100` on API 0.6 tiles of the playable area + 260 m appended 241 rows (341 before; 200 in the edge strip; 34 dropped by class; 7 new in OSM / relations; 4 own building names). Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or indoor, nodes deep inside multi-tenant halls, unnamed objects, ATMs outside the area. Street View: 104 Str. Lipscani (May 2024) has a Banca Transilvania branch, matched by the game's fascia (the real sign is a wide lettered band, the game's a small board); 13 Bd. Dimitrie Cantemir has ground-floor shop fronts where the game has a Catena fascia (name not readable in the preview).
+`tools/osm/add-pois.mjs --edge 100` on API 0.6 tiles of the playable area + 260 m appended the businesses, places and stops the build lacked, including the 100 m edge strip. Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or indoor, nodes deep inside multi-tenant halls, unnamed objects, ATMs outside the area. Street View: 104 Str. Lipscani (May 2024) has a Banca Transilvania branch, matched by the game's fascia (the real sign is a wide lettered band, the game's a small board); 13 Bd. Dimitrie Cantemir has ground-floor shop fronts where the game has a Catena fascia (name not readable in the preview).
 
 ### Speed limits on the chapter route
 
-Romanian legal default: see `bucharest-floreasca.md` (Businesses and speed limits). **gts** — 1891 m, all OSM ways tagged.
+Romanian legal default: see `bucharest-floreasca.md` (Businesses and speed limits). **gts** — 1891 m, all OSM ways tagged (the `speedlimits.json` record of the 2026-11-07 route via Bd. Corneliu Coposu;
+the chapter start above runs along Bd. Unirii and Bd. Mircea Vodă instead).
 
 | street | class | m | OSM maxspeed | game km/h |
 |---|---|---|---|---|

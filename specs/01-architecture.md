@@ -51,6 +51,14 @@ Large files are a thin facade with the original exports plus focused modules; im
   `game-debug.js`, shared `game-common.js`.
 - **Render**: `render.js` (`Renderer3D` core) with `render-shaders.js`, `render-lighting.js`, `render-lamps.js`,
   `render-weather.js`.
+- **Spots**: `spots/index.js` (registry, `loadSpot`, the scene context; it re-exports the rest of the API) with
+  `spots/session.js` (`SpotSession`, progress) and `spots/audit.js` (`auditSpot`, `floorProbe`). The registry stays in
+  `index.js`: the overview generator, the visual harness and tests read it as text. Kits with parts: `buc.js`
+  (+ `buc-terraces.js`), `space-needle.js` (+ `space-needle-frame.js`), `scenes/sea-common.js`
+  (+ `scenes/sea-models.js`); scene parts `scenes/old-town-landmarks.js`, `scenes/bel-meydenbauer-kit.js`,
+  `scenes/seattle-center-chihuly.js`.
+- **Dinamo pitch paint**: `landmark-pitch-paint-coverage.js` joins the two generated halves
+  `landmark-pitch-paint-coverage-a.js` / `-b.js` (`tools/landmarks/generate-pitch-paint.py`).
 - Method groups are plain classes copied onto the prototype by `mixin.js` (same descriptors as a class body; a name
   defined twice throws), so every method stays on `window.game`, `game.r3d` and the traffic objects.
 - World data: `game/data/<city>-<district>.bin.gz` (format in `game/data/README.md`); Natural Earth 1:110m in

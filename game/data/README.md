@@ -55,7 +55,7 @@ hotspots. `tools/osm/corridors.mjs` computes the exact area from these shapes.
 | `bounds` | `[minX, minZ, maxX, maxZ]` of the road graph |
 | `classes`, `styles`, `roofs`, `poiKinds`, `areaKinds`, `lineKinds`, `furnKinds` | lookup tables for the indices below. Roofs: flat, pyramid, gabled, dome, hipped, skillion, mansard. Append new kinds at the end so old indices stay valid |
 | `district` | `{id, name, bbox, areaKm2, geometry, polys, ends, sourceReturns?, mask}` (below) |
-| `corridor` | `{areaKm2, legs}`: playable-area size from `corridors.mjs` (`legs` is empty for districts) |
+| `corridor` | `{areaKm2, legs}`: playable-area size from `corridors.mjs` (`legs` is empty) |
 | `backdrop` | `[x, z, w, d, h, angleDeg, …]` low-poly boxes (one per 40 m cell) beyond the scenery ring |
 | `brands` | `{brand: [bg, fg, accent, logoText?]}` sign colours from research |
 
@@ -80,7 +80,7 @@ hotspots. `tools/osm/corridors.mjs` computes the exact area from these shapes.
 | `roadInfo` | 6 per road: `[osmLayer, flags, widthDm, maxheightDm, placement, bridgeStructure]`. Raw OSM `layer` (`roads` keeps the adjusted one); flags 1 covered, 2 tunnel=building_passage, 4 bridge, 8 `level` tagged, 16 `*_link`, 32 `layer` tagged, 64 / 128 kerbside parking right / left, 256 / 512 no parking right / left; OSM `width` / `maxheight` (0 unknown); `placement` and `bridge:structure` / `bridge:name` as strings |
 | `turnLanes` | `[roadIndex, forward, backward, …]`: OSM `turn:lanes` strings (`left\|through;right`) for painted arrows |
 | `parking` | optional rows `[roadIndex, rightLocation, rightOrientation, leftLocation, leftOrientation]` (strings) from `parking:{side}[:orientation]` / `parking:lane:*`; sides follow the output road direction. Location `lane` / `street_side` / `on_kerb` does not imply sidewalk parking |
-| `rampLimits` | `[roadIndex, legalKmh, …]`: US ramps without a posted limit (`maxspeed` holds the advisory). Written by the build; nothing in `game/src` reads it yet |
+| `rampLimits` | `[roadIndex, legalKmh, …]`: US ramps without a posted limit (`maxspeed` holds the advisory). Written by the build; no runtime reader |
 | `scenery` | `[carriagewayWidthDm, sidewalkDm, class, flags, delta…]` per street piece of the scenery ring and inside pieces off the drivable network; flags 1 bridge, 2 inside fragment. Drawn as asphalt and sidewalks, no traffic |
 
 Source road detail (districts declare `roadGeometryPolicy: "source"`; runtime uses the precise metre values):

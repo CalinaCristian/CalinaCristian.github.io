@@ -86,7 +86,7 @@ Scenarios live in `page/scenarios.js` (`SCENARIOS`; streets for `b` in `STREETS`
 ```js
 await H.run(seconds, until?)                                // step the sim (invariants run every frame)
 await H.driveTo(x, z, { arriveR, timeout, stop, label })    // autopilot along the nav route → { ok, reason, t, dist }
-H.placeOnRoad(x, z, heading, { edge, dir, s, lane })        // teleport onto a lane (rebuilds the traffic bubble)
+H.placeOnRoad(x, z, heading, { edge, dir, s, lane })        // teleport onto a lane (clears traffic around the pose)
 findStreet(H, /Regex/, 400, { ll: [lat, lon], bearing })    // scenarios.js: a stretch of a named road
 H.issue(type, 'high'|'medium'|'low', msg, { x, z, ...data }, { key, shot: true })
 await H.shot('name'); H.note(msg)
@@ -102,7 +102,7 @@ takeover, autopilot, invariants, ribbon checks), `page/scenarios.js`, `page/audi
 helpers; missing game APIs are reported as `harness-api`).
 
 Limits: software GL, so fps and lamp flicker are heuristics and visual-only bugs are not detected; traffic and
-pedestrians only exist in the ~650 m bubble around the player; the autopilot is not perfect, so check the screenshot of a
+pedestrians exist only in the loaded district; the autopilot is not perfect, so check the screenshot of a
 `traffic-blockage`, `autopilot-no-progress` or `drive-failed` before filing a game bug.
 
 ## Other checks in this folder

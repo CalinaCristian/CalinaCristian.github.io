@@ -68,7 +68,7 @@ before committing.
 
 | tool | what |
 |---|---|
-| `add-pois.mjs --city C --district D --osm DIR [--edge 100] [--report F] [--write]` | appends OSM businesses, public places and stops the dataset lacks (up to `--edge` m outside the area; classes the build once dropped mapped onto existing kinds) to `pois`, `poiSources`, `buildingOwnTags`; small fountains to `furniture` (`--no-fountains`, `--no-building-names` to skip). Never adds closed / research-stale businesses, off-street units, unnamed businesses or duplicates |
+| `add-pois.mjs --city C --district D --osm DIR [--edge 100] [--report F] [--write]` | appends OSM businesses, public places and stops the dataset lacks (up to `--edge` m outside the area; classes without their own kind mapped onto existing kinds) to `pois`, `poiSources`, `buildingOwnTags`; small fountains to `furniture` (`--no-fountains`, `--no-building-names` to skip). Never adds closed / research-stale businesses, off-street units, unnamed businesses or duplicates |
 | `add-areas.mjs --city C --district D --osm DIR [--exclude w1,w2] [--classes water,pool] [--write]` | appends fountain basins, `natural=water` basins and outdoor pools ≥ 4 m² to `areas` / `areaSourceIds` / `areaSourceTags`; removes a furniture fountain inside an added basin |
 | `add-area-tags.mjs --city C --district D [--report F] [--write]` | adds each area's literal `tourism` / `man_made` / `sport` from the live OSM API to `areaSourceTags` |
 | `fix-pois.mjs --city C --district D --osm DIR [--write]` | links a node POI drawn just outside its footprint (one footprint within 5 m, the next 2.5 m further) and writes `poiSignAnchors` (OSM entrance node, else the face on the POI's `addr:street`) |

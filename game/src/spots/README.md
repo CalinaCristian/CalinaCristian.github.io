@@ -18,7 +18,7 @@ Dev page parameters: `id`, `ov` (`day|sunset|dusk|night|dawn`), `hour` (local ti
 `at=x,z,bearing,pitch` (walker pose), `cam=x,y,z,bearing,pitch,fov` (free camera), `fov`, `ui=0` (hide all UI), `hud=0`
 (hide the spot card / help), `dev=0` (hide the dev panel), `manual=1` (no rAF loop; drive frames with
 `spotDev.step(n, dt)`), `audit=1|0` (run / skip `auditSpot`; on by default under automation), `legacy=1` /
-`ground=legacy` (pre-round-5 core behaviour for A/B). `window.spotDev = { session, r3d, camera, THREE, setCam, walkTo,
+`ground=legacy` (the older core ground, footprint, clipping and crowd placement, for A/B comparison). `window.spotDev = { session, r3d, camera, THREE, setCam, walkTo,
 step, photo, loadMs, audit }`.
 
 ## API
@@ -134,7 +134,8 @@ reachable decks, water level); the walker's deep-water / steep-sculpture barrier
        },
    };
    ```
-4. Check it in `game/dev/spots.html?id=<id>` (day, dusk, rain) beside `game/research/refs/<dir>/`; keep ≤ 1 M triangles
+4. Check it in `game/dev/spots.html?id=<id>` (day, dusk, rain) beside the reference photos listed in
+   `game/research/refs/LICENSES.md`; keep ≤ 1 M triangles
    (the dev stats show them) and load < 3 s.
 
 Data caveats:

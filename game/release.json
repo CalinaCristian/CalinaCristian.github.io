@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-3c32bdc354bce24b",
-  "sourceCommit": "204b692b03ea3a4f69584d79cab28e69e52bae19",
-  "fingerprint": "3c32bdc354bce24b4d2afe1df25d4a8e72de5d515e67fbc56583f95c45737d1a",
+  "releaseId": "game-da306f52f168a3e9",
+  "sourceCommit": "f60537093ac1f9348b8a0a0fe8c914958f8e4723",
+  "fingerprint": "da306f52f168a3e9d66fab2ec84fd30fe11f80f1c8e2aec8d9f1a913e0346c14",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -1062,7 +1062,7 @@
     },
     {
       "path": "game/src/signals.js",
-      "sha256": "47b7dd7a016a3e48faf9f2348121bd8c1e280d7b07fc7acd27103ab39a29b1ac"
+      "sha256": "03c0b11b193403e3937843e1e4719f53c5170842a359cc6874d79fdda3911bd6"
     },
     {
       "path": "game/src/situational-dialogue-context.js",
@@ -1634,7 +1634,7 @@
     },
     {
       "path": "game/src/traffic-lanes.js",
-      "sha256": "04889784d95ec1b6e631777ab2db642d5a546d62b938b7025512ee6f17ead4dc"
+      "sha256": "b89b7e16320cb0a727d13c24a45f7436e691e8b3525fd64382126c717d244b78"
     },
     {
       "path": "game/src/traffic-parking.js",
@@ -1646,7 +1646,7 @@
     },
     {
       "path": "game/src/traffic-step.js",
-      "sha256": "85ae581c143fcb44dd35b6b214ed708e9e8f08282a1f8c0945928c342e1ed5d0"
+      "sha256": "49f1c24931b460073c92a03fb783deed80449aecf989b6b4761d371ab5a31a65"
     },
     {
       "path": "game/src/traffic.js",
@@ -1714,7 +1714,7 @@
     },
     {
       "path": "game/src/turn-lanes.js",
-      "sha256": "cf9e513d43f0a224ac0423b024d75d98746fbdb0f912335f825b93afb2a98db3"
+      "sha256": "afc0bd5ffe696e97378f7f9c7852cb008ee27fab2f52712341fe92bc6e20e3d7"
     },
     {
       "path": "game/src/underpass-ground-owner.js",
@@ -1910,7 +1910,7 @@
     },
     {
       "path": "game/src/world-streetscape.js",
-      "sha256": "a4c058640f100813ba5d30c9adbc440e7fd14a33e02895a7e0fbd0147bb0e13e"
+      "sha256": "5fb69f857b7f479c1a169141a51b8a1f75763dfdc47aa12cd57694c08f9c7a00"
     },
     {
       "path": "game/src/world-trees-lamps.js",

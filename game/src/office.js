@@ -150,7 +150,7 @@ const THEMES = {
     gts: { W: 9, D: 9, H: 2.9, floor: () => parquet('#b39470'), wallLow: '#f2f2ef', wall: '#f2f2ef', ceil: '#f7f7f5', view: 'bucharest', props: 'startup',
         npc: { title: 'Team lead', persona: 'lead', look: { top: '#1f2937', bottom: '#2c3e5c', skin: '#e8bc9a', hair: '#3b2a1e' }, at: [0.8, -2.8], yaw: -0.5 },
         mates: [[-2.6, -1.6, 'sit'], [-2.6, 0.9, 'sit'], [2.6, 0.9, 'sit']], tone: 'office' },
-    // (owner register #52: "generic interior, opaque windows") an upper office floor (floor 3 estimate, owner to confirm) with
+    // (owner register #52: "generic interior, opaque windows") an upper office floor (floor 3, an estimate) with
     // open-plan development desks and a live window onto Pipera, not the campus's ground-floor lobby
     luxoft: { W: 16, D: 18, H: 3.4, floor: () => carpet('#5d636b'), wallLow: '#e9edf1', wall: '#f4f6f8', ceil: '#f4f6f8', view: 'pipera', props: 'devFloor',
         npc: { title: 'Team lead', persona: 'lead', look: { top: '#1f2a44', bottom: '#2f3237', skin: '#e8bc9a', hair: '#1a1410' }, at: [3, -3.4], yaw: -0.3 },

@@ -1,16 +1,12 @@
 # Backlog · the one list of open work
 
 Updated 2026-11-13. Only what is still open. A finished item is removed once its fix is on `master` and re-checked live
-(owner reports: at the report pose); its record is the git history. Report poses:
-[owner-reports-20261110.json](owner-reports-20261110.json), [owner-reports-20261112.json](owner-reports-20261112.json)
-and the F8 JSON the owner pastes.
+(owner reports: at the report pose, from the F8 JSON the owner pastes); its record is the git history.
 
 ## Owner reports
 
-| Where | Report | State / diagnosis |
-| --- | --- | --- |
-| Romana, UiPath (241, -184), 2026-11-13 | "uipath is broken it has a building in side it" | not reproduced: rendered at the exact F8 eye / bearing / pitch by day and at the report hour (21:05, night). The Landmark (Corp B, L-shaped) has no other mesh or collider inside its walls (scene scan of its volume); the only neighbour touching it is w583612401 (Corp A, a 25 m generic glass block east of the courtyard), which overlaps the open courtyard by a 2.5 m strip, not the building. The F8 `release` / `source` fields were stale (stamped 2026-11-11, before the round-2 remodel of this model), so which build the owner saw is unknown; re-stamped 2026-11-13, so the next F8 report identifies its build |
-| SeaTac (-981, -16), 2026-11-13 | "bridges with borders that don't connect", "floating connecting buildings that don't connect to anything", "invisible wall … can't even reach destination" | wall and railings fixed (live); not reproduced: the floating connectors — the garage skybridges reach both ends from the drives, and skybridge ends now extend up to 8 m to their buildings. Needs the owner's pose of the one that floats |
+None open. (2026-11-13: UiPath at night, SeaTac walkway / backdrop / railings / invisible wall, Bellevue merge and US lane
+lines fixed and re-checked live at the report poses.)
 
 ## Other open work
 

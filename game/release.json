@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-4214a8e44eb919a0",
-  "sourceCommit": "7d15ca498ef2ab39b62d89424dd1c6fba74b6913",
-  "fingerprint": "4214a8e44eb919a003de62dac7711f611cb78e091a037b54281e48ca6ccad9a3",
+  "releaseId": "game-5bbc7c0910a57364",
+  "sourceCommit": "4bebffa337372819878706c57cfee657a62a6ad7",
+  "fingerprint": "5bbc7c0910a573641e1a7f088c2b6518c4d00da328ad161c8db64f500eb73081",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -114,11 +114,11 @@
     },
     {
       "path": "game/data/spots/bel-downtown-park.json",
-      "sha256": "bcedd2fad5a6bbe599ad9c4b9c47e79439d249d9cc5b5f4fd5816ae3f7c3fdd6"
+      "sha256": "38cc5a38d7f591e071ce856d5adff5600c3fab373623bef6d6866826f268cb50"
     },
     {
       "path": "game/data/spots/bel-lincoln-square.json",
-      "sha256": "08ecf7a6d0a875739b2bf6bfdbdc60155af895ee671d34b4bf6bdd7289cf211f"
+      "sha256": "4d0583548052a9b606cb90ab18a6c490359518603b7daedce4f311a7052fabbd"
     },
     {
       "path": "game/data/spots/bel-meydenbauer-shore.json",
@@ -126,7 +126,7 @@
     },
     {
       "path": "game/data/spots/bel-meydenbauer.json",
-      "sha256": "1c036e8563e0e3472fec6d0654086d39a6d7a048674005151ebb3f8228993cb8"
+      "sha256": "71444607db0d9c160ea81e5a35b3d37cbe95aa8391c42541597ac74a8b81c958"
     },
     {
       "path": "game/data/spots/buc-herastrau.json",
@@ -1578,7 +1578,7 @@
     },
     {
       "path": "game/src/spots/space-needle.js",
-      "sha256": "5c1f0478821094a2ad92a990df4a1111e5337f1930ca1e439df554dec874e147"
+      "sha256": "e4a2a00c2d576c8f90b3e146a7acbaf50f637f405cf894c2b88b3dcfcc26ceb3"
     },
     {
       "path": "game/src/spots/stone-skipping.js",

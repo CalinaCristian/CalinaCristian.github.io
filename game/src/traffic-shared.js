@@ -1,6 +1,6 @@
 // Traffic helpers shared by the Traffic / Pedestrians classes and their method modules (split from traffic.js, spec 22):
 // edge geometry (lane / tram offsets, medians, sidewalk widths), hour profiles, body overlap tests and the spatial grid.
-import { canTravel } from './nav.js';
+import { canTravel, canTravelBus } from './nav.js';
 import { ambientTrafficAccess } from './road-access.js';
 import { canTravelTram } from './tram-path.js';
 
@@ -49,7 +49,7 @@ export const layerOf = (e) => e.modelLayer ?? ((e.bridge ? 1 : 0) + (e.tunnel ? 
 export const isJunction = (n) => n.edges.length >= 3 || n.hasLight;
 /** a road cut at the district boundary (closure at its map-end node, spec R10.9): never routed into, never spawned on */
 export const closedEdge = (e) => e.rail ? !e.usable : !!(e.a.mapEnd || e.b.mapEnd || !ambientTrafficAccess(e));
-export const actorCanTravel = (e, dir, v) => e.rail ? !!v.tram && canTravelTram(e, dir) : canTravel(e, dir);
+export const actorCanTravel = (e, dir, v) => e.rail ? !!v.tram && canTravelTram(e, dir) : v?.bus ? canTravelBus(e, dir) : canTravel(e, dir);
 // long vehicles (buses, trams, trucks ≥ 8.5 m): the body follows the lane path — front and rear axle points on the
 // path, the junction pad crossed as the chord entry lane → exit lane — instead of pivoting on its centre (note 4:
 // an 18 m bus turning on its centre swept broadside across the junction mouth, and froze like that when stopped)

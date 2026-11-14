@@ -250,6 +250,7 @@ export class TrafficParking {
             const e = car.e, side = car.lat >= 0 ? 1 : -1, laneW = e.laneW ?? 3.3;
             if (e.tram && Math.abs(car.lat - (e.laneCenterShiftM || 0)) < tramBaseOffset(e) + 2.1) R.add('tram');
             if (e.busLane && Math.abs(car.lat) > car.hw - laneW - 0.3) R.add('buslane');
+            if (e.contraflowBus && car.lat < (e.laneCenterShiftM || 0) - 0.3) R.add('buslane'); // (the bus lane against a one-way, contraflow-bus.js)
             const kerbOk = (/^(residential|unclassified|living_street)$/.test(e.type) || (US && /^(tertiary|secondary)$/.test(e.type))) && Math.abs(car.lat) > car.hw - 2.8;
             if (e.type !== 'service' && !kerbOk && !e.tramOnly) R.add('lane');
             for (const p of this.world.pois || []) {

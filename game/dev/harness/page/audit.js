@@ -87,7 +87,7 @@ export async function staticAudit(H, { maxPerType = 4000 } = {}) {
             if (++k % 300 === 0) await sleep(0);
             let bad = 0, worst = 0, at = null;
             for (const dir of [1, -1]) {
-                if (!canTravel(e, dir)) continue;
+                if (!canTravel(e, dir) && !(dir < 0 && e.contraflowBus)) continue; // (the bus lane against a one-way is audited too)
                 const lat = laneOff(e, 0, dir) * dir;
                 for (let s = 2; s < e.len - 2; s += 4) {
                     const x = e.a.x + e.dirx * s + e.nx * lat, z = e.a.z + e.dirz * s + e.nz * lat;

@@ -8,7 +8,8 @@ single polygons built from incoming ribbon corners; no two road meshes overlap c
 R11.2 Strict layering with `renderOrder` + `polygonOffset`: ground < landuse < sidewalk < road < junction < markings <
 decals. Zero z-fighting.
 R11.3 Markings per country from research: RO white lane/centre lines, bus lanes, tram tracks, zebra crossings, stop
-lines, turn arrows (from `turn:lanes`); US white dashed lanes, double yellow centre on two-way roads, yellow left / white
+lines, turn arrows (from `turn:lanes`), a bus lane against a one-way (`busway=opposite_lane`) behind the wide solid
+bus-lane line with BUS lettering read by the bus; US white dashed lanes, double yellow centre on two-way roads, yellow left / white
 right edges on every one-way carriageway, HOV diamonds where tagged. Markings never cross junction pads (except stop
 lines/zebras at pad edges) and never leave their own ribbon. No markings on service roads.
 R11.4 Vertical profile: grades ≤ 8 %; overlapping ribbons either share one surface or have ≥ 5 m clearance (never

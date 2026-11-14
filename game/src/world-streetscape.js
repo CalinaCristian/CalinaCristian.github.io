@@ -8,6 +8,7 @@ import { bakeProp, mergeProps, rgb } from './geobuild.js';
 import { sidewalkWidth } from './sidewalk-source.js';
 import { inferredRoadSignUnit } from './inferred-road-sign.js';
 import { setProgress, shoulderOf, tick } from './world-shared.js';
+import { motorOneway } from './contraflow-bus.js';
 import { buildParkingLights } from './world-parking-lights.js';
 import { buildTreesLamps } from './world-trees-lamps.js';
 import { buildMapEndClosures } from './world-map-ends.js';
@@ -89,14 +90,14 @@ export async function buildStreetscape(ctx) {
         for (const e of edges) {
             if (e.virtual || e.tunnel || !e.drivable || e.type === 'service' || e.len < 20) continue;
             const mw = /motorway/.test(e.type);
-            for (const dir of e.oneway ? [1] : [1, -1]) {
+            for (const dir of motorOneway(e) ? [1] : [1, -1]) { // (a contraflow bus lane keeps the one-way's signs)
                 const n = dir > 0 ? e.a : e.b; // node where traffic in direction `dir` enters e
                 const f = cont(n, e);
                 if (!f || label(f) === label(e) || (mw && !/motorway/.test(f.type))) continue;
                 const r = retract(e, n) + 6; if (r > e.len - 6) continue;
                 placeSign(e, dir > 0 ? r : e.len - r, dir, -dir, speedIcon(label(e)));
             }
-            if (!e.oneway || mw || e.roundabout || /_link/.test(e.type)) continue;
+            if (!motorOneway(e) || mw || e.roundabout || /_link/.test(e.type)) continue;
             if (e.a.edges.length >= 3) placeSign(e, retract(e, e.a) + 3, 1, -1, oneWay);
             if (e.b.edges.length >= 3) { const r = e.len - retract(e, e.b) - 2.5; if (r > 3) { placeSign(e, r, 1, 1, noEntry); placeSign(e, r, -1, 1, noEntry); } }
         }

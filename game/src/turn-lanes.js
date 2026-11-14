@@ -1,5 +1,6 @@
 // OSM turn:lanes describes lanes, left to right in the direction of travel,
 // at the source way's exit. Internal shape vertices do not repeat that rule.
+import { canTravel } from './nav.js';
 const laneCount = (e, dir) => dir > 0 ? (e.lanesF ?? e.lanes ?? 1) : e.oneway ? 0 : (e.lanesB ?? e.lanes ?? 1);
 const angle = (e, dir, n, nd) => Math.atan2(
     e.dirx * dir * n.dirz * nd - e.dirz * dir * n.dirx * nd,
@@ -53,6 +54,15 @@ export function buildTurnLaneRules(data, edges) {
                 }
                 const lanes = parseTurnLanes(data.strings?.[textIndex], laneCount(e, dir));
                 if (lanes) {
+                    // On a one-way with a contraflow bus lane (its general lanes come from `lanes:forward`, contraflow-bus.js) a
+                    // role with no legal road for it at this node (Calea Floreasca w1206961911: its `left` lane turns into
+                    // Str. Puțul lui Zamfir one node into the next way) keeps the lane going straight on to that turn
+                    // instead of leaving the lane without any continuation.
+                    if (e.contraflowBus) {
+                        const outs = end.edges.filter(f => f !== e && !f.rail && canTravel(f, f.a === end ? 1 : -1));
+                        const fits = (tokens) => outs.some(f => [...tokens].some(t => turnTokenAllows(t, angle(e, dir, f, f.a === end ? 1 : -1))));
+                        for (let k = 0; k < lanes.length; k++) if (lanes[k] && !fits(lanes[k])) lanes[k] = fits(['through']) ? new Set([...lanes[k], 'through']) : null;
+                    }
                     let pair = rules.get(e); if (!pair) rules.set(e, pair = {});
                     pair[dir] = lanes;
                 }

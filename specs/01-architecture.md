@@ -36,8 +36,8 @@ exports plus focused modules; importers never import the parts.
   (`world-trees-lamps.js`, `world-furniture.js`, `world-parking-lights.js`), `world-landmark-grounds.js`,
   `world-scenery.js`, `world-materials.js`, `world-paint-setup.js`, `world-final-meshes.js`, `world-finish.js`,
   `world-collide.js`, `world-map-ends.js`, and `world-api.js` (the returned `world` object). Shared helpers:
-  `world-shared.js`. A step takes a context object and returns its outputs; names the assembler still changes later
-  are read through getter objects (`__live.x`).
+  `world-shared.js`, `contraflow-bus.js` (bus lanes against a one-way). A step takes a context object and returns its
+  outputs; names the assembler still changes later are read through getter objects (`__live.x`).
 - **Buildings**: `buildings.js` (facade generator), `building-specs.js` over `building-specs/<city>-<district>.js`,
   `archetypes.js` + `archetype-atlas.js`.
 - **Landmarks**: `landmarks.js` is the registry (`LANDMARKS`, `buildLandmark`); builders in `landmarks/`
@@ -83,7 +83,7 @@ exports plus focused modules; importers never import the parts.
 - Graph: `world.graph.{nodes, edges}` (main strongly-connected network), `world.allEdges`; edge fields `id, a, b, dirx,
   dirz, len, nx, nz, name, type, lanesF, lanesB, lanes, oneway, laneW, median (negative on one-way), wR, wL, halfW,
   sidewalk, maxspeed, speed, tram, bridge, tunnel, layer, toll, busLane, roundabout, drivable, virtual, ya, yb`, plus
-  `sidewalkRightM`, `sidewalkLeftM`, `sidewalkSource`, `sharedLane`, `lidded` (a tunnel deeper than 4.5 m along its whole
+  `sidewalkRightM`, `sidewalkLeftM`, `sidewalkSource`, `sharedLane`, `contraflowBus`, `lidded` (a tunnel deeper than 4.5 m along its whole
   length: only those get a ceiling, lid and portals).
 - Lane centre: lateral offset right of the centreline `median/2 + laneW*(i+0.5)` (mirror for b→a).
 - Queries: `world.nearestEdge(x, z, filter?, maxR?)`, `world.edgesInBox(...)`, `world.roadHeight(x, z, { y, edge } | edge?)`,
@@ -124,6 +124,12 @@ exports plus focused modules; importers never import the parts.
 - Source roads keep every original vertex and legal direction; `roadAccess` separates public/through legality from
   physical geometry; reviewed `roadWidths` win over class defaults, positive OSM width/placement wins over everything;
   `laneCenterShiftM` is relative to the edge's right vector.
+- Contraflow bus lanes: `contraflow-bus.js` reads the runtime source tags (`busway[:left|:right]=opposite_lane`, or
+  `oneway:bus|psv=no` with a mapped backward bus lane) of a one-way way; its edges get `oneway: false`, `lanesF` = the
+  one-way's general lanes, `lanesB` = `contraflowBus` = the bus-only lanes on the left of a→b, `contraflowTotal`, median 0
+  and `laneCenterShiftM` on the divider (`layContraflowLanes` after any width pass). `nav.js` `canTravel` refuses b→a to
+  every vehicle; `canTravelBus` / `actorCanTravel` admit buses; `motorOneway(e)` is the one-way test for private-car
+  connectivity, signs and the chapter start.
 - Shared physical lanes: edges from `sharedLanes` keep two legal directions with `sharedLane: true` and one carriageway.
   `SharedLaneGate` admits one direction at a time through connected narrow sections (reserve before the mouth, hold until
   the rear clears, then give the waiting side priority).

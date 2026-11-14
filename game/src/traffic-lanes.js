@@ -6,7 +6,7 @@ import * as VEH from './vehicles.js';
 import { CAR_COLORS, makeVehicle } from './vehicles.js';
 import { TRANSIT, TRANSIT_RE } from './data.js';
 import { angleLerp, clamp, makeRng } from './util.js';
-import { canTravel, isMotorway, lanesDir } from './nav.js';
+import { canTravel, canTravelBus, isMotorway, lanesDir } from './nav.js';
 import { ambientTrafficAccess } from './road-access.js';
 import { initialTrafficStaticClearance } from './initial-traffic-admission.js';
 import { sampleTramPath, tramContinuations, tramSpan } from './tram-path.js';
@@ -107,10 +107,12 @@ export class TrafficLanes {
         const density = this.city.traffic?.density ?? 0.7;
         // transit share: buses on bus routes (more on trolley streets: trolleybuses), cars from the fleet mix elsewhere
         const TK = this.transitKinds || {}, anyRoutes = (this.transit?.busEdges || 0) > 0;
+        const busShare = (e) => anyRoutes ? (e.busRoute ? (this.buc ? 0.09 : 0.07) : 0.006) : (this.buc ? 0.05 : 0.03);
+        const transitBus = (e) => e.trolleyWire && TK.trolley && this.rng() < 0.6 ? this.transitKind('trolleybus') : (this.transitKind('bus') || 'bus');
         const pickKind = (e) => {
             if (!isMotorway(e) && !e.tramOnly && !closedEdge(e)) {
-                const pBus = anyRoutes ? (e.busRoute ? (this.buc ? 0.09 : 0.07) : 0.006) : (this.buc ? 0.05 : 0.03);
-                if (this.rng() < pBus) return e.trolleyWire && TK.trolley && this.rng() < 0.6 ? this.transitKind('trolleybus') : (this.transitKind('bus') || 'bus');
+                const pBus = busShare(e);
+                if (this.rng() < pBus) return transitBus(e);
             }
             return this.carKind(e);
         };
@@ -119,9 +121,11 @@ export class TrafficLanes {
             if (e.len < 4 || closedEdge(e)) continue;
             for (const dir of [1, -1]) {
                 const lanes = lanesDir(e, dir); if (!lanes) continue;
-                const exp = (e.len / 55) * trafficMulOf(e) * density * lanes;
+                // a bus lane against a one-way (contraflow-bus.js) carries only the buses of the street's transit share
+                const busOnly = dir < 0 && !!e.contraflowBus; if (busOnly && (isMotorway(e) || e.tramOnly)) continue;
+                const exp = (e.len / 55) * trafficMulOf(e) * density * lanes * (busOnly ? busShare(e) : 1);
                 let n = Math.floor(exp); if (this.rng() < exp - n) n++;
-                for (let i = 0; i < n; i++) plan.push({ e, dir });
+                for (let i = 0; i < n; i++) plan.push(busOnly ? { e, dir, busOnly } : { e, dir });
             }
         }
         for (let i = plan.length - 1; i > 0; i--) { const j = Math.floor(this.rng() * (i + 1)); [plan[i], plan[j]] = [plan[j], plan[i]]; }
@@ -133,9 +137,9 @@ export class TrafficLanes {
             arr.push(s); occupied.set(k, arr); return true;
         };
         const nPolice = this.buc ? 2 : 2;
-        for (const { e, dir } of plan) {
+        for (const { e, dir, busOnly } of plan) {
             if (this.vehicles.length >= this.maxVehicles - nPolice) break;
-            const kind = pickKind(e);
+            const kind = busOnly ? transitBus(e) : pickKind(e);
             const lanes = lanesDir(e, dir), isBus = this.isBusKind(kind), kL = this.kindLength(kind);
             const lane = isBus ? lanes - 1 : this.rng.int(0, this.carLaneMax(e, dir));
             const sp = this.sSpan(e, dir, kL, isBus || kL >= LONG_LEN); if (!sp) continue; // (a bus never straddles a junction mouth)
@@ -260,7 +264,7 @@ export class TrafficLanes {
 
     /** double-parking is allowed only on roads with ≥2 lanes in that direction (never motorways / roundabouts / trams) */
     parkOk(e, dir) {
-        return lanesDir(e, dir) >= 2 && !isMotorway(e) && e.type !== 'dn' && !e.roundabout && !e.tram && !e.tunnel && !e.bridge && e.len >= 40;
+        return lanesDir(e, dir) >= 2 && !(dir < 0 && e.contraflowBus) && !isMotorway(e) && e.type !== 'dn' && !e.roundabout && !e.tram && !e.tunnel && !e.bridge && e.len >= 40;
     }
     /** a freshly placed vehicle must not be on top of / just in front of the player, nor overlap another vehicle */
     spawnClear(v) {
@@ -494,7 +498,7 @@ export class TrafficLanes {
         for (const n of node.edges) {
             if (n === e) continue;
             const nd = n.a === node ? 1 : -1;
-            if (!canTravel(n, nd) || !ambientTrafficAccess(n)) continue;
+            if (!(v.bus && !n.rail ? canTravelBus(n, nd) : canTravel(n, nd)) || !ambientTrafficAccess(n)) continue; // (buses: also the bus lanes against a one-way)
             if (v.tram && !n.tram) continue;
             if (!v.tram && n.tram && n.tramOnly) continue;
             if (!this.turnLaneAllows(e, dir, lane, { e: n, dir: nd }, v)) continue;

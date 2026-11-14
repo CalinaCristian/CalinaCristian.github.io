@@ -603,7 +603,7 @@ export class Harness {
             if (!full && dP > 160) continue;
             const e = v.edge; if (!e) continue;
             // against a one-way
-            if (!v.tram && !canTravel(e, v.dir)) this.issue('vehicle-wrong-way', 'medium', `${v.kind} ${v.id} drives against the one-way ${roadName(e)}`, { x: v.x, z: v.z, edge: e.id }, { key: 'ww-' + e.id });
+            if (!v.tram && !canTravel(e, v.dir) && !(v.bus && lanesDir(e, v.dir) > 0)) this.issue('vehicle-wrong-way', 'medium', `${v.kind} ${v.id} drives against the one-way ${roadName(e)}`, { x: v.x, z: v.z, edge: e.id }, { key: 'ww-' + e.id });
             // off its carriageway (corners / transitions / near junctions excluded)
             if (!v.transition || v.transition <= 0) {
                 const L = edgeLocal(e, v.x, v.z);

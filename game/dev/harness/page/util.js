@@ -3,7 +3,7 @@
 //  from game/src) so the harness keeps working while the game modules change.
 // ============================================================================
 export const lanesDir = (e, dir) => dir > 0 ? (e.lanesF ?? e.lanes ?? 1) : (e.oneway ? 0 : (e.lanesB ?? e.lanes ?? 1));
-export const canTravel = (e, dir) => lanesDir(e, dir) > 0;
+export const canTravel = (e, dir) => lanesDir(e, dir) > 0 && !(dir < 0 && e.contraflowBus); // (as nav.js: the bus lane against a one-way is not the player's)
 export const edgeSpeed = (e) => e.maxspeed ?? e.speed ?? 13;
 export const medianOf = (e) => e.median != null ? e.median : (e.tram ? 4.4 : 0);
 // Travel-relative offset: callers multiply by dir to obtain the canonical +n coordinate.

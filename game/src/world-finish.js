@@ -6,6 +6,7 @@
 import { consumePreparedSmallWater, prepareFinalWaterGeometry } from './final-water-topology.js';
 import * as THREE from '../vendor/three.module.min.js';
 import { clamp, pointInPolygon } from './util.js';
+import { motorOneway } from './contraflow-bus.js';
 import { collisionBounds } from './world-collide.js';
 import { CHAPTERS } from './cities.js';
 import { rgb } from './geobuild.js';
@@ -254,13 +255,13 @@ export function buildWorldFinish(ctx) {
     if (startLL) {
         const sp = startLL; const q = city.proj(sp.lat, sp.lon);
         const brW = (sp.bearing ?? 0) * Math.PI / 180, wantX = Math.sin(brW), wantZ = -Math.cos(brW);
-        const legalDir = (e) => sp.bearing == null || !e.oneway || e.dirx * wantX + e.dirz * wantZ > 0.2; // a one-way carriageway must run the way the chapter faces
+        const legalDir = (e) => sp.bearing == null || !motorOneway(e) || e.dirx * wantX + e.dirz * wantZ > 0.2; // a one-way carriageway must run the way the chapter faces
         const flt = (e) => e.drivable && legalDir(e) && (sp.road ? sp.road.test(e.name) : true) && (sp.classes ? sp.classes.test(e.type) : sp.road ? true : !/motorway/.test(e.type)) && e.len > 15;
         const ne = nearestEdge(q.x, q.z, flt, 1500) || nearestEdge(q.x, q.z, (e) => e.drivable && e.len > 10);
         const e = ne.edge;
         const br = (sp.bearing ?? 0) * Math.PI / 180; const want = [Math.sin(br), -Math.cos(br)];
         let dir = (e.dirx * want[0] + e.dirz * want[1]) >= 0 ? 1 : -1;
-        if (e.oneway) dir = 1;
+        if (motorOneway(e)) dir = 1;
         const t = clamp(ne.t, 0.15, 0.85);
         city.spawn = { edge: [e.a.id, e.b.id], t, dir };
         const lat = (e.sharedLane ? 0 : (e.median / 2 + e.laneW * 0.5) * dir) + (e.laneCenterShiftM || 0);

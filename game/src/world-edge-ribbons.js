@@ -11,6 +11,7 @@ import { basarabEdge } from './basarab-structure.js';
 import { clipMarkingHalfPlane } from './road-markings.js';
 import { subtractConvex } from './building-overlap.js';
 import { BoxGrid, Y, isMotorwayTrunk, shoulderOf, signedArea } from './world-shared.js';
+import { BUS_LETTER_LENGTH, laneLettering } from './contraflow-bus.js';
 
 export function buildEdgeRibbons(ctx) {
     const {
@@ -187,6 +188,18 @@ export function buildEdgeRibbons(ctx) {
                     if (e.lanesB > 1) { const o = shift - (med2 + e.laneW * (e.lanesB - 1)); band(longM, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); }
                 }
             }
+            // a bus lane against a one-way (contraflow-bus.js): the same wide solid line, here between the two directions, and
+            // BUS in each bus lane, read by the bus (it runs b → a) 7 m past every junction it leaves and then every 70 m
+            if (e.contraflowBus && !isMotorwayTrunk(e.type)) {
+                band(longM, e, s0, s1, shift - 0.13, shift + 0.13, yM - 0.002, rgb('#ecebe6'));
+                let D = 0, first = e; // D: the bus's run from the junction it left (first.b) to e.b
+                for (let k = 0; k < 40; k++) { const n = first.b, prev = n.edges.filter(f => f !== first && !f.virtual); if (prev.length !== 1 || !prev[0].contraflowBus || prev[0].a !== n) break; first = prev[0]; D += first.len; }
+                for (let d = retract(first, first.b) + 7; d - D < e.len; d += 70) {
+                    const sNear = e.len - (d - D);
+                    if (sNear > s1 - 0.5 || sNear - BUS_LETTER_LENGTH < s0 + 0.5) continue;
+                    for (let j = 0; j < e.contraflowBus; j++) for (const [sa, sb, oa, ob] of laneLettering('BUS', sNear, shift - e.laneW * (j + 0.5), -1, e.laneW)) band(longM, e, sa, sb, oa, ob, yM, white);
+                }
+            }
             // surface texture: transverse joints on concrete motorways (US, ~4.6 m panels); patched asphalt (repair
             // patches: Bucharest many, darker / lighter rectangles; Seattle a few dark sealed ones)
             if (isConcrete(e)) {
@@ -214,7 +227,7 @@ export function buildEdgeRibbons(ctx) {
                 for (let i = 1; i < e.lanesB; i++) dashLine(longM, e, s0, s1, shift - (med2 + e.laneW * i), yM, white, dash[0], dash[1], hw);
             }
             // centre
-            if (!e.oneway && !e.sharedLane) {
+            if (!e.oneway && !e.sharedLane && !e.contraflowBus) {
                 const cc = US ? yellow : white;
                 if (e.median > 0.5) {
                     // median: tram bed or concrete divider

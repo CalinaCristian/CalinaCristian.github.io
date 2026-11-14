@@ -1,6 +1,6 @@
 // Native constructor adapter. Called once after spawnAll, before pedestrians or
 // first publication. Preserve all original actors, source assignments and RNG.
-import { canTravel, lanesDir } from './nav.js';
+import { canTravel, canTravelBus, lanesDir } from './nav.js';
 import { ambientTrafficAccess } from './road-access.js';
 import { collideBuildings } from './world-collide.js';
 import {sourceRoadClearance} from './source-road-clearance.js';
@@ -146,7 +146,7 @@ function initialTrafficPedestrianClearance(T, body) {
 
 function sourcePlacement(T, v, b, endMarginM) {
     const e = b.edge;
-    const legal = e.rail ? v.tram && canTravelTram(e, b.dir) : canTravel(e, b.dir) && ambientTrafficAccess(e);
+    const legal = e.rail ? v.tram && canTravelTram(e, b.dir) : (v.bus ? canTravelBus(e, b.dir) : canTravel(e, b.dir)) && ambientTrafficAccess(e);
     if (e !== v.edge || b.dir !== v.dir || b.lane !== v.lane || b.laneCur !== v.laneCur || !legal || e.a.mapEnd || e.b.mapEnd || (v.tram && !e.tram)) return { valid: false, reason: 'source-edge-direction-lane-access' };
     const clearance=sourceRoadClearance(T.world?.data,e,{...v,...b});
     if(clearance.eligible!==true)return{valid:false,reason:'source-clearance-access',clearance};

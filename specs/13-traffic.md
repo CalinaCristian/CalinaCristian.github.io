@@ -45,6 +45,10 @@ R13.20 A signalized `railway=tram_crossing` without mapped tram heads is pedestr
 infer vehicle priority, timings or signal-head positions.
 R13.21 GPS and NPC routes respect mapped height/width limits against the actual vehicle model (mirrors, taxi signs,
 trolley poles); unknown limits are never a pass.
+R13.22 A bus lane mapped against a one-way (`busway=opposite_lane`, `oneway:bus=no` with a lane) is a lane of the road
+topology, from the runtime source tags: buses (spawn, route choice, stops on its side, its own signal approach) use it;
+cars, GPS routes, private-car connectivity and the chapter start treat the way as one-way. On such a way a mapped turn
+role with no legal road for it at the way's end keeps its lane going straight on.
 
 ## Acceptance
 - Harness: vehicle-overlap ≤ 5, ped-in-vehicle 0, vehicle-overlaps-player 0, scenario `i` passes.

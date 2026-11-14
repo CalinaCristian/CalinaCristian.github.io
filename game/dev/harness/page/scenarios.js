@@ -123,7 +123,7 @@ function checkPose(H, label, edge = null) {
         if (Math.abs(L.lat) > w + 0.5) { probs.push(`${r1(Math.abs(L.lat))} m from the centreline of ${roadName(e)} (half-width ${r1(w)})`); if (Math.abs(L.lat) > w + 1.5) probs.severe = true; }
         const dir = (P.fx * e.dirx + P.fz * e.dirz) >= 0 ? 1 : -1;
         if (!canTravel(e, dir)) { probs.push(`facing against the one-way ${roadName(e)}`); probs.severe = true; }
-        else if (Math.sign(L.lat) !== dir && Math.abs(L.lat) > 1 && !e.oneway) probs.push(`on the left-hand (oncoming) side of ${roadName(e)}`);
+        else { const off = L.lat - (e.contraflowBus ? e.laneCenterShiftM : 0); if (Math.sign(off) !== dir && Math.abs(off) > 1 && !e.oneway) probs.push(`on the left-hand (oncoming) side of ${roadName(e)}`); } // (a contraflow bus lane: left of its divider)
     }
     let hit = null; W.buildings?.query?.(P.x, P.z, 3, (c) => { if (!hit && solidFor(P, c, P.x, P.z) && colliderDist(c, P.x, P.z) < 0.9) hit = c; });
     if (hit) { probs.push(`touching a ${colliderKind(hit, H.lampSet)}`); probs.severe = true; }

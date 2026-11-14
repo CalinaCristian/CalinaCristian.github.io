@@ -54,7 +54,10 @@ and reality pass 2026-11-08 [osm] [floreasca_nightlife] [strazi_compozitori].
   lanes 3–5 with turn pockets such as `left|through|through;right`), split into one-way pairs round short islands at
   Piața Floreasca and Ceaikovski; kerbside parking lanes (`parking=lane`) on long stretches; buses only (OSM relations 135,
   343, 449, 459, 461; no tram, no trolleybus). The bus lane is a contraflow lane on the west side, plain asphalt with BUS
-  lettering (aerial 2026-11-08). Renovated 3–4 m grey-paver sidewalks, bollards along the west side, linden and chestnut
+  lettering (aerial 2026-11-08): the one-way northbound ways w669019902, w1308416610, w259898145, w1206961908–w1206961911,
+  w1206961917 and w1206961918 carry `busway=opposite_lane`, `oneway:bus=no`, `lanes:bus:backward=1` and `lanes:forward=2`
+  (3 at the turn bays w1206961909 / w1206961911), so one southbound bus-only lane runs beside the northbound general lanes
+  behind a wide solid line. Renovated 3–4 m grey-paver sidewalks, bollards along the west side, linden and chestnut
   rows both sides. Frontage W: Piața Floreasca market (S end), Agora, Souk (131B), Nusco Floreasca offices, One Tower (151,
   16 levels), Sanador clinic (165), Parcul Floreasca; E: three- to four-storey 1930s–50s villas and small blocks with cafés,
   restaurants and clinics on the ground floor [osm] [wp_fcc] [floreasca_nightlife].
@@ -229,8 +232,12 @@ w38757552, grandstand w859972644, outdoor pool w23611448.
 - **Facades and heights**: facade colours are per-type palettes (no measurement source); untagged heights are rule-based.
   Villa-by-villa facades on Garibaldi were not researched individually; the Rosetti building's construction year is
   unverified.
-- **Bus lane**: the contraflow bus lane on the west side of Calea Floreasca (OSM `busway=opposite_lane`) is not in the
-  game's road topology (BACKLOG.md).
+- **Contraflow bus lane** (Calea Floreasca, west side): lane counts are the OSM tags; the carriageway width is the OSM
+  `lanes` (3, or 4 at the turn bays) times the 3.5 m class lane width, an estimate (no `width` tag, no aerial measurement),
+  with the west kerb held where the narrowest neighbouring segment puts it. The separating line is the game's bus-lane
+  line (0.26 m solid); the BUS lettering (3 m letters, 7 m past each junction the bus leaves and then every 70 m) has
+  estimated size and spacing, not measured ones. The bus approach shares the northbound signal phase (simulation phases,
+  no measured timings), and the buses on it are the street's usual bus share (9 % of the traffic on a bus route).
 - **School-run congestion** is an assumption, not sourced.
 
 ## Sources

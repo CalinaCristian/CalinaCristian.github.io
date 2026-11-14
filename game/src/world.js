@@ -32,6 +32,7 @@ import { buildRaisedEdges } from './world-raised-edges.js';
 import { buildAreasWater } from './world-areas-water.js';
 import { buildBridgeTramSignals } from './world-bridge-tram-signals.js';
 import { loadDistrictGraph } from './world-district-graph.js';
+import { layContraflowLanes } from './contraflow-bus.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>-<district>.bin.gz,
@@ -194,7 +195,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (sd > 0) e.sidewalkRightM = 0; else e.sidewalkLeftM = 0;
                 const lanes = Math.max(1, e.lanesF + e.lanesB), other = sd > 0 ? e.wL : e.wR, minSide = Math.max(1.3, 2.6 * lanes - other);
                 const nw = Math.max(minSide, gap - shoulderOf(e));
-                if (nw < e[key] - .05) { e[key] = nw; e.laneW = Math.min(e.laneW, (e.wL + e.wR) / lanes); if (e.oneway) e.median = -2 * e.wL; e.halfW = Math.max(e.wL, e.wR); }
+                if (nw < e[key] - .05) { e[key] = nw; e.laneW = Math.min(e.laneW, (e.wL + e.wR) / lanes); if (e.oneway) e.median = -2 * e.wL; layContraflowLanes(e); e.halfW = Math.max(e.wL, e.wR); }
                 narrowed++;
             }
         }
@@ -215,7 +216,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (!hit(w0)) continue;
                 let nw = null; for (const d of [.2, .4, .6, .8, 1, 1.2]) { if (w0 - d < minSide - 1e-9) break; if (!hit(w0 - d)) { nw = w0 - d; break; } }
                 if (nw === null) continue;
-                e[key] = nw; e.laneW = Math.min(e.laneW, (e.wL + e.wR) / lanes); if (e.oneway) e.median = -2 * e.wL; e.halfW = Math.max(e.wL, e.wR); narrowed++;
+                e[key] = nw; e.laneW = Math.min(e.laneW, (e.wL + e.wR) / lanes); if (e.oneway) e.median = -2 * e.wL; layContraflowLanes(e); e.halfW = Math.max(e.wL, e.wR); narrowed++;
             }
         }
         if (narrowed) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + .5; __buildRoadGraphAids.sccInfo.narrowedBesideTram = narrowed; }

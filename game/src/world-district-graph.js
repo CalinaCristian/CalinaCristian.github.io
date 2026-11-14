@@ -12,6 +12,7 @@ import { projector } from './cities.js';
 import { reviewBrands } from './brand-review.js';
 import { garageDeckRoads } from './garage-decks.js';
 import { BoxGrid, CLASS_RANK, TRAFFIC_MUL, setProgress, setRESEARCHBRANDS, tick } from './world-shared.js';
+import { contraflowBusLanes, contraflowEdge } from './contraflow-bus.js';
 
 export async function loadDistrictGraph(ctx) {
     const {
@@ -86,6 +87,7 @@ export async function loadDistrictGraph(ctx) {
             oneway: !!(flags & 1), bridge: !!(flags & 2), tunnel: !!(flags & 4), roundabout: !!(flags & 8), busLane: !!(flags & 16),
             tram: !!(flags & 32), toll: !!(flags & 64), unpaved: !!(flags & 128), tramMedian: !!(flags & 256),
             bikeLane: !!(flags & 512), cycleTrack: !!(flags & 1024), lit: !!(flags & 2048), unlit: !!(flags & 4096),
+            contraflow: (flags & 1) && !shared ? contraflowBusLanes(data.roadSourceGeometry?.[ri]?.tags, r[2]) : null, // (a bus lane against the one-way: contraflow-bus.js)
         };
     });
     const unnamed = US ? '' : '';
@@ -114,6 +116,7 @@ export async function loadDistrictGraph(ctx) {
                 busLane: rd.busLane, roundabout: rd.roundabout, unpaved: rd.unpaved, layer: rd.layer, trafficMul: TRAFFIC_MUL[rd.type] ?? 0.5,
                 bikeLane: rd.bikeLane, cycleTrack: rd.cycleTrack, lit: rd.lit, unlit: rd.unlit,
             };
+            if (rd.contraflow) contraflowEdge(e, rd.contraflow);
             edges.push(e); a.edges.push(e); b.edges.push(e);
         }
     }

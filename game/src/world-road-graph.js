@@ -6,6 +6,7 @@ import { clamp, distPointSeg, pointInPolygon } from './util.js';
 import { TRAM_BRIDGE_MODELS } from './tram-grade-models.js';
 import { buildCoveredRoadModels } from './covered-road-models.js';
 import { BoxGrid, undelta } from './world-shared.js';
+import { layContraflowLanes, motorOneway } from './contraflow-bus.js';
 
 export function buildRoadGraphAids(ctx) {
     const {
@@ -51,7 +52,7 @@ export function buildRoadGraphAids(ctx) {
     const computeSCC = () => {
         const N = nodeArr.length + 1, OUT = nodeArr.length;
         const out = Array.from({ length: N }, () => []), inn = Array.from({ length: N }, () => []);
-        for (const e of edges) { if (e.publicDrive === false) continue; out[e.a.id].push(e.b.id); inn[e.b.id].push(e.a.id); if (!e.oneway) { out[e.b.id].push(e.a.id); inn[e.a.id].push(e.b.id); } }
+        for (const e of edges) { if (e.publicDrive === false) continue; out[e.a.id].push(e.b.id); inn[e.b.id].push(e.a.id); if (!motorOneway(e)) { out[e.b.id].push(e.a.id); inn[e.a.id].push(e.b.id); } }
         for (const n of nodeArr) if (n.mapEnd && n.edges.some(e => e.publicDrive !== false)) { out[n.id].push(OUT); inn[OUT].push(n.id); out[OUT].push(n.id); inn[n.id].push(OUT); }
         // Kosaraju (iterative)
         const order = [], seen = new Uint8Array(N);
@@ -92,15 +93,17 @@ export function buildRoadGraphAids(ctx) {
     // (traffic lanes are counted from the left: median/2 + laneW·(i + ½)).
     {
         let aligned = 0;
-        const nextOf = (e) => e.b.edges.filter(f => f !== e && f.a === e.b && f.oneway && !f.virtual && f.name === e.name);
-        const prevOf = (e) => e.a.edges.filter(f => f !== e && f.b === e.a && f.oneway && !f.virtual && f.name === e.name);
+        // (a one-way with a contraflow bus lane counts all its lanes across; its bus lane stays along the left kerb)
+        const across = (f) => f.contraflowBus ? f.contraflowTotal : f.lanesF;
+        const nextOf = (e) => e.b.edges.filter(f => f !== e && f.a === e.b && motorOneway(f) && !f.virtual && f.name === e.name);
+        const prevOf = (e) => e.a.edges.filter(f => f !== e && f.b === e.a && motorOneway(f) && !f.virtual && f.name === e.name);
         for (const e of edges) {
-            if (!e.oneway || e.virtual || !e.name || e.madeTwoWay || e.roadWidthSource?.leftM != null) continue;
-            let base = e.lanesF, f = e;
-            for (let k = 0; k < 4; k++) { const n2 = prevOf(f); if (n2.length !== 1) break; f = n2[0]; base = Math.min(base, f.lanesF); }
-            f = e; for (let k = 0; k < 4; k++) { const n2 = nextOf(f); if (n2.length !== 1) break; f = n2[0]; base = Math.min(base, f.lanesF); }
-            if (base >= e.lanesF || Math.abs(e.laneW * e.lanesF - (e.wL + e.wR)) > 0.05) continue;
-            e.wL = base * e.laneW / 2; e.wR = e.lanesF * e.laneW - e.wL; e.median = -2 * e.wL; e.halfW = Math.max(e.wL, e.wR); aligned++;
+            if (!motorOneway(e) || e.virtual || !e.name || e.madeTwoWay || e.roadWidthSource?.leftM != null) continue;
+            let base = across(e), f = e;
+            for (let k = 0; k < 4; k++) { const n2 = prevOf(f); if (n2.length !== 1) break; f = n2[0]; base = Math.min(base, across(f)); }
+            f = e; for (let k = 0; k < 4; k++) { const n2 = nextOf(f); if (n2.length !== 1) break; f = n2[0]; base = Math.min(base, across(f)); }
+            if (base >= across(e) || Math.abs(e.laneW * across(e) - (e.wL + e.wR)) > 0.05) continue;
+            e.wL = base * e.laneW / 2; e.wR = across(e) * e.laneW - e.wL; if (e.contraflowBus) layContraflowLanes(e); else e.median = -2 * e.wL; e.halfW = Math.max(e.wL, e.wR); aligned++;
         }
         if (aligned) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + 0.5; sccInfo.laneAligned = aligned; }
     }
@@ -192,7 +195,7 @@ export function buildRoadGraphAids(ctx) {
             let narrowed = 0;
             for (const e of edges) {
                 if (e.virtual || e.bridge || e.tunnel || e.len < 4) continue;
-                const lanesSide = sd => e.oneway ? Math.max(1, e.lanesF + e.lanesB) : Math.max(1, sd > 0 ? e.lanesF : e.lanesB); let changed = false;
+                const span = motorOneway(e), lanesSide = sd => span ? Math.max(1, e.lanesF + e.lanesB) : Math.max(1, sd > 0 ? e.lanesF : e.lanesB); let changed = false;
                 for (const sd of [1, -1]) {
                     const key = sd > 0 ? 'wR' : 'wL', w = e[key]; let n = 0, hits = 0, need = w;
                     for (let st = 1; st < e.len - 1; st += 1.5) {
@@ -203,11 +206,11 @@ export function buildRoadGraphAids(ctx) {
                         need = Math.min(need, lo);
                     }
                     if (hits < 0 || !n || (hits / n < .25 && hits * 1.5 < 3)) continue; // (a quarter of the side, or 3 m of it)
-                    const other = sd > 0 ? e.wL : e.wR, minSide = e.oneway ? Math.max(1.3, 2.6 * lanesSide(sd) - other) : 2.6 * lanesSide(sd); // (one-way lanes span both sides)
+                    const other = sd > 0 ? e.wL : e.wR, minSide = span ? Math.max(1.3, 2.6 * lanesSide(sd) - other) : 2.6 * lanesSide(sd); // (one-way lanes span both sides)
                     const nw = Math.max(minSide, need - .3);
                     if (nw < w - .15) { e[key] = nw; narrowed++; changed = true; }
                 }
-                if (changed) { e.laneW = Math.min(e.laneW, (e.wL + e.wR) / Math.max(1, e.lanesF + e.lanesB)); if (e.oneway && !e.roadWidthSource) e.median = -2 * e.wL; e.halfW = Math.max(e.wL, e.wR); e.footprintNarrowed = true; }
+                if (changed) { e.laneW = Math.min(e.laneW, (e.wL + e.wR) / Math.max(1, e.lanesF + e.lanesB)); if (e.oneway && !e.roadWidthSource) e.median = -2 * e.wL; layContraflowLanes(e); e.halfW = Math.max(e.wL, e.wR); e.footprintNarrowed = true; }
             }
             if (narrowed) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + 0.5; sccInfo.footprintNarrowed = narrowed; }
         }

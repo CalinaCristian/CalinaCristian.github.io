@@ -15,7 +15,9 @@ export function lanesDir(e, dir) {
     if (e.oneway) return 0;
     return e.lanesB ?? e.lanes ?? 1;
 }
-export const canTravel = (e, dir) => !e.virtual && e.publicDrive !== false && lanesDir(e, dir) > 0;
+export const canTravel = (e, dir) => !e.virtual && e.publicDrive !== false && lanesDir(e, dir) > 0 && !(dir < 0 && e.contraflowBus);
+/** buses may also take the bus-only lanes against a one-way (contraflow-bus.js) */
+export const canTravelBus = (e, dir) => !e.virtual && e.publicDrive !== false && lanesDir(e, dir) > 0;
 export const edgeSpeed = (e) => e.maxspeed ?? e.speed ?? 13;
 /** Physical edge of the pavement on the canonical right (+) or left (-) of the source centreline. */
 export const roadSideWidth = (e, side) => (side >= 0 ? e.wR : e.wL) ?? e.halfW ?? 6;

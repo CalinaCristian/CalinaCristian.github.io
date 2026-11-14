@@ -12,7 +12,7 @@
 //  - w170930341, Dâmbovița at Grozăvești (review 2026-11-12, lane world-b, from the north quay at 44.443748, 26.058521
 //    looking south-south-west, and from the Podul Grozăvești deck looking upstream): the water is high, about 1.5 m below
 //    the quay railing, with a short sloped concrete revetment and no bench. Applied to the polygon inside the district.
-export const CHANNEL_REVIEW = {
+const CHANNEL_REVIEW = {
     grozavesti: {
         w170930341: { water: -1.6, bank: -1.4, bankW: 0.3, slope: 1.4, source: 'street-level review 2026-11-12 (world-b): high water, short sloped revetment; level estimate' },
     },

@@ -8,7 +8,7 @@
 // w23731459 (leisure=park, around n1174026151 Monumentul Soldatului Sovietic and the cemetery w28379658), from its
 // north-west corner n257012533 to its north-east corner n11871379035, open at the two swing gates n311736694 /
 // n311737019 where the park's footway w28379731 enters. Opening width, thickness and the cap are estimates.
-export const PARK_WALLS = [
+const PARK_WALLS = [
     {
         id: 'w23731459-north', district: 'pipera', name: 'Soviet Soldier park, Șos. Pipera wall',
         line: [[44.4791078, 26.0965095], [44.4791264, 26.0969735], [44.4791570, 26.0976758], [44.4792043, 26.0985534]],
@@ -27,7 +27,7 @@ export const PARK_WALLS = [
         review: 'panorama 44.479143, 26.110517 (round 2): concrete panel fence with graffiti and a tree belt; OSM edge of w392466489',
     },
 ];
-export const PARK_WALL_MODEL = { estimates: 'opening, thickness and cap', gateM: 3.2, thickM: 0.3, capM: 0.08, capOverM: 0.05, brick: '#7c4536', cap: '#b8b2a6' };
+const PARK_WALL_MODEL = { estimates: 'opening, thickness and cap', gateM: 3.2, thickM: 0.3, capM: 0.08, capOverM: 0.05, brick: '#7c4536', cap: '#b8b2a6' };
 
 /** env: { district, project(lat, lon) -> {x, z}, cellOf, rgb, blocked(x, z, r) -> reason | null, baseY(x, z), addWall(ax, az, bx, bz, h, rec) } */
 export function emitParkWalls(env) {

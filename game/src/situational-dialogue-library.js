@@ -510,6 +510,6 @@ group('bel.july',{locale:'bellevue',...ambient,calendar:{month:7,day:4}},[
 export const SITUATIONAL_DIALOGUE = Object.freeze(lines);
 export const SITUATIONAL_DIALOGUE_KINDS = Object.freeze(['player-honk','npc-honk','collision','ambient','greeting','waiting']);
 /** Library coverage only. No event integration or native proof is implied. */
-export function situationalDialogueCoverage(){
+function situationalDialogueCoverage(){
  const locales={};for(const l of lines){const s=locales[l.locale]||(locales[l.locale]={lines:0,kinds:{},places:0,time:0,weather:0,temperature:0,calendar:0,signal:0});s.lines++;for(const k of l.kinds)s.kinds[k]=(s.kinds[k]||0)+1;if(l.places)s.places++;if(l.hours)s.time++;if(l.weather)s.weather++;if(l.minTemperatureC!=null||l.maxTemperatureC!=null)s.temperature++;if(l.calendar)s.calendar++;if(l.facts?.speakerSignal||l.facts?.speakerWalkSignal)s.signal++;}return{version:SITUATIONAL_DIALOGUE_VERSION,total:lines.length,locales,wiredEvents:[],nativeProvedEvents:[]};
 }

@@ -312,7 +312,7 @@ export class Ground {
 //  Splat painter: records draw ops in world metres, replays them onto canvases
 // ============================================================================
 // mask weights live in RGB only (canvas alpha is premultiplied): R brick (cobble at half), G slab joints (wood at half), B grass (dirt at half); black = asphalt grain
-export const MASK = { brick: [255, 0, 0], cobble: [120, 0, 0], slab: [0, 255, 0], wood: [0, 120, 0], grass: [0, 0, 255], dirt: [0, 0, 120], asphalt: [0, 0, 0], none: [0, 0, 0] };
+const MASK = { brick: [255, 0, 0], cobble: [120, 0, 0], slab: [0, 255, 0], wood: [0, 120, 0], grass: [0, 0, 255], dirt: [0, 0, 120], asphalt: [0, 0, 0], none: [0, 0, 0] };
 
 export class Painter {
     constructor() { this.ops = []; }

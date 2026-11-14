@@ -19,7 +19,7 @@ import { GeoBatch, inPoly, polyBox, obb } from '../kit.js';
 import { signBoard } from '../props.js';
 import { gableFrame, gableRoof } from '../gable-plan.js';
 
-export const COLMAN = {
+const COLMAN = {
     taxi: [[-266.8, 25.3], [-276.6, 25.2], [-308.9, 25], [-312.5, 19.5], [-316.2, 13.6], [-316.5, 13.1], [-220.7, 13.3], [-217.1, 11.8], [-214.9, 10.9], [-215, 17.7], [-267, 17.9]],
     taxiEnd: [[-340.7, 12.9], [-333.7, 12.9], [-333.7, 16.4], [-340.7, 16.4]],
     taxiSteps: [[[-327.6, 13.3], [-331.2, 12.7]], [[-319.2, 13.5], [-324.2, 13.5]]],

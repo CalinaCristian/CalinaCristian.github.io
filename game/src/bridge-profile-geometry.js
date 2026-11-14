@@ -36,7 +36,7 @@ export function sourcePath(lookup, definition) {
     }
     return { points, nodeIds, legs, stations, length };
 }
-export function sourceStation(way, point) {
+function sourceStation(way, point) {
     const hits = []; let s = 0;
     for (let i = 1; i < way.projected.length; i++) {
         const a = way.projected[i - 1], b = way.projected[i], len = distance(a, b), dx = b[0] - a[0], dz = b[1] - a[1];

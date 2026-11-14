@@ -20,7 +20,7 @@ import { palisade } from './buc.js';
 
 /** untagged heights (m above ground), estimates: wall 1.8, fence 1.5, hedge 1.1, retaining wall 1.0 above the low side,
  *  city wall 3.0 */
-export const DEFAULT_H = { wall: 1.8, fence: 1.5, hedge: 1.1, retaining_wall: 1.0, city_wall: 3.0 };
+const DEFAULT_H = { wall: 1.8, fence: 1.5, hedge: 1.1, retaining_wall: 1.0, city_wall: 3.0 };
 const THICK = { wall: 0.3, retaining_wall: 0.45, city_wall: 1.2 };
 const KINDS = new Set(Object.keys(DEFAULT_H));
 const WALKABLE = new Set(['footway', 'path', 'pedestrian', 'steps', 'cycleway', 'bridleway', 'living_street', 'residential', 'service', 'track', 'unclassified', 'tertiary', 'secondary', 'primary', 'trunk']);

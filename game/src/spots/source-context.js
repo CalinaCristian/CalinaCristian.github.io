@@ -68,7 +68,7 @@ export function addSourceContext(ctx){
 }
 /** Whole-source chunks: only native scene duplicates are reused. Every other
  * original triangle remains available; actual indexed bounds drive frustum culling. */
-export function addSourceContextBuildings(ctx,{chunkM=800}={}){
+function addSourceContextBuildings(ctx,{chunkM=800}={}){
     const state=ctx.extras.sourceContext;if(!state)throw Error('Source context not prepared');
     const p=state.packet,group=new THREE.Group();group.name='literal-source-city-context';group.userData.noFloor=true; // Source solids/roofs are not crowd step platforms.
     const sourceBounds=new Map();

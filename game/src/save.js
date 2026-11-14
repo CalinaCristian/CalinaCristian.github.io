@@ -25,7 +25,7 @@ const lsDel = (k) => { try { localStorage.removeItem(k); } catch { /* ignore */ 
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const req = (r) => new Promise((res, rej) => { r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
 
-export class SaveStore {
+class SaveStore {
     constructor() {
         this.db = null; this.mode = 'memory'; this.mem = { kv: new Map(), photos: [] }; this.memId = 1;
         this.session = null; this.game = null; this.seen = new WeakSet();

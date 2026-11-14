@@ -7,7 +7,7 @@ const angle = (e, dir, n, nd) => Math.atan2(
 const known = new Set(['left', 'slight_left', 'sharp_left', 'through', 'right', 'slight_right', 'sharp_right', 'reverse']);
 
 /** Missing, empty/none or unsupported lane values retain the native default. */
-export function parseTurnLanes(text, count) {
+function parseTurnLanes(text, count) {
     if (typeof text !== 'string' || !text) return null;
     const rows = text.split('|');
     if (rows.length !== count) return null;
@@ -17,7 +17,7 @@ export function parseTurnLanes(text, count) {
     });
 }
 
-export function turnTokenAllows(token, a) {
+function turnTokenAllows(token, a) {
     const abs = Math.abs(a), side = a < 0 ? 'left' : 'right';
     if (token === 'through') return abs <= Math.PI / 6;
     if (token === 'reverse') return abs >= 5 * Math.PI / 6;

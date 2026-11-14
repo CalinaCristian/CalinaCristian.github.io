@@ -4,7 +4,7 @@ import { createOfficeWindowTarget, retainedOfficeWindowCapacity } from './office
 import { createOfficeWindowBinding, inRing } from './office-window-binding.js';
 
 /** Homogeneous clipping gives actual visible aperture pixels, including near-plane crossings. */
-export function projectedOfficeAperture(pane, camera, width, height) {
+function projectedOfficeAperture(pane, camera, width, height) {
   if (![width, height].every((n) => Number.isFinite(n) && n > 0)) return null;
   pane.updateWorldMatrix(true, false);
   camera.updateWorldMatrix(true, false);

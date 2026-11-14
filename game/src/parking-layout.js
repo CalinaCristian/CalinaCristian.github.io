@@ -1,5 +1,5 @@
 // Optional independently measured surface-lot orientation. Bearings are axial compass degrees.
-export const PARKING_LAYOUT_CONFIDENCE = 0.75;
+const PARKING_LAYOUT_CONFIDENCE = 0.75;
 const axial = v => ((v % 180) + 180) % 180;
 const angle = (a,b) => Math.min(axial(a-b),180-axial(a-b));
 export const parkingBearingYaw = bearing => Math.PI-bearing*Math.PI/180;

@@ -37,7 +37,7 @@ export function marketWestMaterial() {
     MAT = m; return m;
 }
 /** the wall colour that goes with the tile (vertex colour: near white, the tile carries the cream) */
-export const MARKET_WEST_TINT = '#ffffff';
+const MARKET_WEST_TINT = '#ffffff';
 
 // ---------------------------------------------------------------------------- (r3-sea-spots-b-5) Western Ave dressing
 // The dossier's panorama notes (seattle-spots.md "Pike Place Market") list, on the market's west face over Western Ave, a
@@ -48,7 +48,7 @@ export const MARKET_WEST_TINT = '#ffffff';
 // keeps its parking front. Market Place North (tan with ribbon windows) is not a name in OSM: the two "Market Place"
 // buildings of the mapped complex north of the market (landuse "Market Place" w403552339) take that look — Market Place
 // One (w231355701) and Two (w231355696). Colours, storey heights and the window band are estimates.
-export const WEST_SIDE_LOOKS = {
+const WEST_SIDE_LOOKS = {
     w231359028: { c: '#d8a598', lv: 1, h: 4.6, style: 'concrete' }, // Market Heritage Center: low pink stucco (PARKING sign: westSideSigns)
     w231359020: { c: '#e6dcc4', lv: 3, h: 11.1, style: 'concrete' }, // Fix Building: cream, three storeys
     w231355696: { c: '#c8b08a', style: 'concrete' },                 // Market Place Two: tan, ribbon windows

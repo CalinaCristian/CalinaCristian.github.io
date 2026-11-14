@@ -4,7 +4,7 @@
 let shared;
 /** one pool for the page, created on first use (world.js asks at import, so the workers are ready by the first build) */
 export const sharedBuildPool = () => (shared === undefined ? (shared = createBuildPool()) : shared);
-export function createBuildPool(size = Math.max(1, Math.min(6, ((typeof navigator !== 'undefined' && navigator.hardwareConcurrency) || 4) - 1))) {
+function createBuildPool(size = Math.max(1, Math.min(6, ((typeof navigator !== 'undefined' && navigator.hardwareConcurrency) || 4) - 1))) {
     if (typeof Worker === 'undefined') return null;
     let workers;
     try { workers = Array.from({ length: size }, () => new Worker(new URL('./build-worker.js', import.meta.url), { type: 'module' })); }

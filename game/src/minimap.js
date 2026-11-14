@@ -22,7 +22,7 @@ const PLACE_DRAW = { landmark: 1, spot: 1, fuel: 1, transit: 1, park: 1, busines
 // full-map category filter (the legend rows toggle it; kept for the session): shops / transit / parks off by default (owner note 81)
 // shared map filter (big map pins, its legend and the M-map nav list): `game.mapFilter` = this object, saved as localStorage `dmcv.map.filter`;
 // keys cv / landmark / spot / fuel / shop / park / transit (places.json's `business` category is the `shop` key); a toggle fires window `dmcv:mapfilter`
-export const MAP_FILTER_DEFAULT = { cv: true, landmark: true, spot: true, fuel: true, shop: false, park: false, transit: false };
+const MAP_FILTER_DEFAULT = { cv: true, landmark: true, spot: true, fuel: true, shop: false, park: false, transit: false };
 export const MAP_FILTER = (() => { const f = { ...MAP_FILTER_DEFAULT }; try { const v = JSON.parse(localStorage.getItem('dmcv.map.filter') || 'null'); if (v && typeof v === 'object') for (const k in f) if (typeof v[k] === 'boolean') f[k] = v[k]; } catch { /* no storage */ } return f; })();
 const fkey = (cat) => (cat === 'business' ? 'shop' : cat);
 const mapFilter = () => { const g = globalThis.game; if (g && !g.mapFilter) g.mapFilter = MAP_FILTER; return g?.mapFilter || MAP_FILTER; };

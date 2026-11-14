@@ -7,7 +7,7 @@
 import { smooth } from '../kit.js';
 
 /** bilinear sampler over a fine grid: (x, z) → metres above the scene origin, or null outside the grid */
-export function fineDemSampler(grid) {
+function fineDemSampler(grid) {
     const { x0, z0, d, nx, nz, h, unit = 0.01 } = grid;
     const at = (x, z) => {
         const fx = (x - x0) / d, fz = (z - z0) / d;

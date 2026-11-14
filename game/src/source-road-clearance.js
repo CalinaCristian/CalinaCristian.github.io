@@ -5,7 +5,7 @@ const cache = new WeakMap();
 const MODES = {motorcar:['motorcar','motor_vehicle','vehicle'],taxi:['taxi','psv','motorcar','motor_vehicle','vehicle'],bus:['bus','psv','motor_vehicle','vehicle'],hgv:['hgv','goods','motor_vehicle','vehicle'],goods:['goods','motor_vehicle','vehicle'],motorcycle:['motorcycle','motor_vehicle','vehicle'],motor_vehicle:['motor_vehicle','vehicle']};
 /** OSM bare numeric clearance is metres. Never turn default, signed=no,
  * condition text, ranges or a source layer into a numeric clearance. */
-export function parseSourceClearance(raw) {
+function parseSourceClearance(raw) {
     const value = typeof raw === 'number' ? String(raw) : String(raw ?? '').trim().toLowerCase();
     if (value === 'none') return {known:true,unbounded:true,raw};
     if (/^[0-9]+(?:\.[0-9]+)?\s*(?:m|metres?|meters?)?$/.test(value)) {

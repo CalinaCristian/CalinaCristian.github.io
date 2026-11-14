@@ -8,11 +8,11 @@
 // band above it (the deck is open to the air), concrete piers on the long faces, a closing band at the top.
 // Sourced: footprint, total height (pack), `levels` where OSM tags building:levels. Estimates, stated: spandrel height,
 // slab edge, pier spacing and width, and the level count where OSM has none (height / 3.1 m).
-export const CAR_PARK_MODEL = { spandrelM: 1.1, slabEdgeM: 0.4, pierEveryM: 8.1, pierWidthM: 0.5, levelM: 3.1, estimates: ['spandrelM', 'slabEdgeM', 'pierEveryM', 'pierWidthM', 'levelM when OSM has no building:levels'] };
+const CAR_PARK_MODEL = { spandrelM: 1.1, slabEdgeM: 0.4, pierEveryM: 8.1, pierWidthM: 0.5, levelM: 3.1, estimates: ['spandrelM', 'slabEdgeM', 'pierEveryM', 'pierWidthM', 'levelM when OSM has no building:levels'] };
 
-export const LOUVRE_MODEL = { ribbonM: 1.3, slats: 3, estimates: ['ribbonM', 'slats'] };
+const LOUVRE_MODEL = { ribbonM: 1.3, slats: 3, estimates: ['ribbonM', 'slats'] };
 
-export const CAR_PARK_SOURCES = {
+const CAR_PARK_SOURCES = {
     w1215048759: { district: 'otopeni', name: '', levels: 2, tags: 'building=parking, building:levels=2, height=6' },
     w184169515: { district: 'unirii', name: 'Parcare Unirea', levels: 10, tags: 'amenity=parking, parking=multi-storey, building=yes, building:levels=10',
         // (2026-11-12 render review, official panorama ZB0x1qp9_B503488Hc4AGw at 44.428334, 26.105980 looking 243°: rendered

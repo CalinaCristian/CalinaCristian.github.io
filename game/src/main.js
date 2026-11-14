@@ -24,7 +24,7 @@ import { createRosettiBasketball } from './basketball.js';
 import { initExplore } from './explore.js'; // world-map hub, free roam ⇄ story (resume chip), drone — hooks listed in spec 10 (one mode since 2026-11-08)
 
 // Game methods by concern (prototype mixins, installed right after the class below)
-import { $, CHAPTERS, CITIES, DEV, MiniMap, TANK_L, TIME_ZONES, WEATHER_OVERRIDES } from './game-common.js';
+import { $, CHAPTERS, CITIES, DEV, MiniMap, TANK_L, WEATHER_OVERRIDES } from './game-common.js';
 import { mixin } from './mixin.js';
 import { DriveMethods } from './game-drive.js';
 import { RoadMethods } from './game-road.js';
@@ -303,7 +303,7 @@ class Game {
         this.disposeCity();
         this.city = city;
         this.chapter = null; this.ch = null; this.chapterIdx = -1; this.chapterDone = false; this.district = district;
-        this.clock.timeZone = city.timeZone || TIME_ZONES[id] || 'UTC';
+        this.clock.timeZone = city.timeZone || 'UTC';
         const scene = this.scene = new THREE.Scene();
         const env = city.env;
         // lighting, sky, fog and weather are owned by Renderer3D (set up after the world exists)

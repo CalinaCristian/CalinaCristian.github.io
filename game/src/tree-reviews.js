@@ -3,7 +3,7 @@
 // in the pack; the generated tree is listed and left out after generation, like the basin / tram conflicts in world.js, so
 // every retained tree keeps its rotation, colour and random stream. Each entry names its evidence (official panorama pose,
 // looked at only; nothing stored or traced). Match: the nearest source crown within `radiusM` of the reviewed point.
-export const REVIEWED_TREE_EXCLUSIONS = [
+const REVIEWED_TREE_EXCLUSIONS = [
     // (r3-landmarks-4) Statuia Lascăr Catargiu, Bd. Lascăr Catargiu: the measured crown ≈ 11 m south-east of the statue stood on
     // the open paved island in front of it and hid the figure; the official panorama at 44.448932, 26.093057 heading 331 shows
     // the island open (no tree between the camera and the statue). The street trees along the island edges are kept.

@@ -4,7 +4,7 @@ import { distPolyline } from '../kit.js';
 
 // Actual native bronze plaque: .62x.42x.03m plate, tilted-.4rad. The complete
 // projected plate, rather than only its .08m post collider, must clear racers.
-export const ARC_PLAQUE_RADIUS=Math.hypot(.62/2,.42/2*Math.sin(.4)+.03/2*Math.cos(.4));
+const ARC_PLAQUE_RADIUS=Math.hypot(.62/2,.42/2*Math.sin(.4)+.03/2*Math.cos(.4));
 export function arcPlaquePlacements(course,center,count,{inside,activeRoad,blocked}) {
     const out=[],deltas=[0,Math.PI/6,-Math.PI/6,Math.PI/3,-Math.PI/3,Math.PI/2,-Math.PI/2,2*Math.PI/3,-2*Math.PI/3,Math.PI];
     for(let i=0;i<count;i++){

@@ -5,7 +5,7 @@ for(const line of SITUATIONAL_DIALOGUE)for(const kind of line.kinds){const key=`
 const ROLES=new Set(['driver','pedestrian','staff']), RELATIONS=new Set(['source','recipient','witness','participant','conversant']);
 const KINDS=new Set(SITUATIONAL_DIALOGUE_KINDS), COLLISIONS=new Set(['vehicle','pedestrian','static']);
 const WEATHER=new Set(['rain','snow','clear','cloud','fog']);
-export const SITUATIONAL_DIALOGUE_LIMITS=Object.freeze({maxRecentLines:64,maxEvents:96,maxPairs:128,maxSpeakers:96,maxPending:4,maxResponsesPerEvent:2,lineCooldownMs:45000,lineRetentionMs:120000,eventRetentionMs:30000,pairCooldownMs:12000,speakerCooldownMs:6500,pendingTtlMs:1200,eventMaxAgeMs:2500});
+const SITUATIONAL_DIALOGUE_LIMITS=Object.freeze({maxRecentLines:64,maxEvents:96,maxPairs:128,maxSpeakers:96,maxPending:4,maxResponsesPerEvent:2,lineCooldownMs:45000,lineRetentionMs:120000,eventRetentionMs:30000,pairCooldownMs:12000,speakerCooldownMs:6500,pendingTtlMs:1200,eventMaxAgeMs:2500});
 const id=value=>typeof value==='string'&&value.length>0&&value.length<=96?value:null;
 function hash(parts){let h=2166136261;const text=JSON.stringify(parts);for(let i=0;i<text.length;i++){h^=text.charCodeAt(i);h=Math.imul(h,16777619);}h^=h>>>16;h=Math.imul(h,0x85ebca6b);h^=h>>>13;h=Math.imul(h,0xc2b2ae35);return(h^(h>>>16))>>>0;}
 function normalize(request){
@@ -45,7 +45,7 @@ function fits(line,r){
  return true;
 }
 /** Pure coverage/filter inspection; not an event trigger or actor query. */
-export function situationalDialogueCandidates(request){const r=normalize(request);return r?(index.get(`${r.locale}:${r.kind}`)||[]).filter(l=>fits(l,r)):[];}
+function situationalDialogueCandidates(request){const r=normalize(request);return r?(index.get(`${r.locale}:${r.kind}`)||[]).filter(l=>fits(l,r)):[];}
 function settings(options){
  if(!options||typeof options!=='object'||Array.isArray(options)||Object.keys(options).some(k=>!Object.hasOwn(SITUATIONAL_DIALOGUE_LIMITS,k)))throw new TypeError('Only known numeric dialogue limits are accepted');
  const s={...SITUATIONAL_DIALOGUE_LIMITS,...options};

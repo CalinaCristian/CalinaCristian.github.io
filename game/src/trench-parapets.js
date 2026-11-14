@@ -12,7 +12,7 @@
 // ============================================================================
 import { rgb } from './geobuild.js';
 
-export const TRENCH_PARAPET_REVIEW = {
+const TRENCH_PARAPET_REVIEW = {
     'bucharest-romana': { names: ['Pasajul Victoria'], style: 'stone-iron', note: 'every open approach of Pasajul Victoria (name match on the source way): stone piers and iron panels' },
 };
 

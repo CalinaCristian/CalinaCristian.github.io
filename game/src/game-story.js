@@ -13,7 +13,7 @@ import { showFinale } from './finale.js';
 import { playChapterTransition } from './transition.js';
 import { save } from './save.js';
 import { chapterStartPose } from './chapter-start.js';
-import { $, CITIES, FUEL_AERO, FUEL_GAME_MULT, FUEL_IDLE, FUEL_ROLL, GAL, makeVehicle, money, TANK_L, TIME_ZONES, WEATHER_OVERRIDES } from './game-common.js';
+import { $, CITIES, FUEL_AERO, FUEL_GAME_MULT, FUEL_IDLE, FUEL_ROLL, GAL, makeVehicle, money, TANK_L, WEATHER_OVERRIDES } from './game-common.js';
 
 export class StoryMethods {
     /** free roam in a district: the car at the district's chapter start, no objective, no chapter cards / story progress */
@@ -31,7 +31,7 @@ export class StoryMethods {
         try {
             await save.saveSession('before-travel'); // before changing destination/conditions or releasing the stable scene
             this.freeRoam = { district: d.id, tod, weather, season };
-            this.applyRoamTime(tod, CITIES[d.city].timeZone || TIME_ZONES[d.city]);
+            this.applyRoamTime(tod, CITIES[d.city].timeZone);
             this.weatherOverride = weather === 'live' ? null : (WEATHER_OVERRIDES.includes(weather) ? weather : null);
             this.r3d.setSeason?.(season === 'auto' ? null : season);
             this.photo?.close?.(); this.state = 'loading';
@@ -97,7 +97,7 @@ export class StoryMethods {
         const ch = this.chapters[idx]; if (!ch) return false;
         const conditions = this.travelConditions();
         if (this.freeRoam) { this.freeRoam = null; this.toggleConditions(false); document.body.classList.remove('free-roam'); }
-        this.applyRoamTime(conditions.tod, CITIES[ch.city].timeZone || TIME_ZONES[ch.city]);
+        this.applyRoamTime(conditions.tod, CITIES[ch.city].timeZone);
         const same = this.world && this.city?.id === ch.city && this.district === ch.district && !initial;
         if (!same) {
             $('#loading').classList.add('show');

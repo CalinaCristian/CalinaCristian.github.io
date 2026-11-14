@@ -4,7 +4,7 @@
 // ("șase-cinci", "dublă de patru"); only a few old Turkish names survive: "dușeș" (6-6), "șeș-beș" (6-5), "epiec" (1-1),
 // and "gherlă" for a useless roll. Each line is [Romanian, English]; {…} are filled from the event.
 const side = (p) => (p === 1 ? 0 : 1);
-export const NUMBERS = { ro: ['', 'unu', 'doi', 'trei', 'patru', 'cinci', 'șase'], en: ['', 'one', 'two', 'three', 'four', 'five', 'six'] };
+const NUMBERS = { ro: ['', 'unu', 'doi', 'trei', 'patru', 'cinci', 'șase'], en: ['', 'one', 'two', 'three', 'four', 'five', 'six'] };
 const cap = (t) => t.charAt(0).toUpperCase() + t.slice(1);
 
 /** the roll as a player would call it: higher die first; doubles as "dublă de …" */

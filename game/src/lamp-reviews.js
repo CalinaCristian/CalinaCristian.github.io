@@ -4,7 +4,7 @@
 // OSM's; nothing is added). Form sizes are estimates (CANDELABRA_MODEL); the instanced geometry is built in world.js.
 export const CANDELABRA_MODEL = { globes: 5, globeR: 0.32, armHalfM: 0.95, estimates: ['globes', 'globeR', 'armHalfM', 'post height (the lamp\'s own height rule)'] };
 
-export const LAMP_FORM_ZONES = {
+const LAMP_FORM_ZONES = {
     'bucharest-unirii': [
         // Piața Unirii: 16 mapped street_lamp nodes in the square, no style tags; the 2024 panoramas of the fountain field
         // (game/research/bucharest-unirii.md, "Landmarks, monuments and street furniture") show tall dark candelabra lamps with globe clusters

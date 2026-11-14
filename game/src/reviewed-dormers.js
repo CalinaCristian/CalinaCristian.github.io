@@ -2,7 +2,7 @@
 // Casa Filipescu-Cesianu: a dark slate mansard with oval dormers seen from Calea Victoriei / Str. Sevastopol). OSM has no
 // dormer data (no roof:dormers / roof:windows on the way), so the dormers are a class: one per `spacingM` along every face
 // long enough, set back `setbackM` from the wall line on the lower slope. Estimates, stated: spacing, size, set-back.
-export const OVAL_DORMER_MODEL = { spacingM: 3.6, widthM: 1.15, heightM: 1.5, setbackM: 0.35, cornerM: 1.6, estimates: ['spacingM', 'widthM', 'heightM', 'setbackM', 'cornerM'] };
+const OVAL_DORMER_MODEL = { spacingM: 3.6, widthM: 1.15, heightM: 1.5, setbackM: 0.35, cornerM: 1.6, estimates: ['spacingM', 'widthM', 'heightM', 'setbackM', 'cornerM'] };
 
 /**
  * Emit the dormers of one building. ring: footprint (x, z) in any winding; eavesM: roof profile eaves height; heightAt(x, z):

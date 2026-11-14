@@ -1,7 +1,7 @@
 // The publisher keeps the footage and player. No copied broadcast/video files.
 import { onActivityCancel } from './participation.js';
 
-export const HAGI_BROADCAST = Object.freeze({
+const HAGI_BROADCAST = Object.freeze({
     id: 'rx8GxxrkJEc',
     title: 'Hagi & Romania | Every Goal | 1994 FIFA World Cup',
     publisher: 'FIFA',
@@ -9,7 +9,7 @@ export const HAGI_BROADCAST = Object.freeze({
     fallback: 'https://www.fifa.com/en/watch/2h1DNc78yJkeazIDAsjWuv',
 });
 
-export function hagiEmbedURL(origin) {
+function hagiEmbedURL(origin) {
     const u = new URL(`https://www.youtube.com/embed/${HAGI_BROADCAST.id}`);
     u.search = new URLSearchParams({ autoplay: '1', mute: '1', playsinline: '1', controls: '1',
         loop: '1', playlist: HAGI_BROADCAST.id, enablejsapi: '1', origin, rel: '0' });

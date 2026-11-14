@@ -17,8 +17,8 @@
 // ============================================================================
 import { rgb } from './geobuild.js';
 
-export const MOUTH_MODEL = { widthM: 3, runM: 6.5, parapetM: 0.9, railM: 1.05, estimates: ['widthM', 'runM', 'parapetM', 'railM', 'canopy topM / clearanceM'] };
-export const UNDERPASS_MOUTHS = {
+const MOUTH_MODEL = { widthM: 3, runM: 6.5, parapetM: 0.9, railM: 1.05, estimates: ['widthM', 'runM', 'parapetM', 'railM', 'canopy topM / clearanceM'] };
+const UNDERPASS_MOUTHS = {
     'bucharest-grozavesti': [
         { id: 'w277315766 (n2818578048)', top: [44.4374225, 26.0548483], toward: [44.4371686, 26.0551191] },
         { id: 'w277315766 (n2818578046)', top: [44.4371686, 26.0551191], toward: [44.4374225, 26.0548483] },
@@ -26,7 +26,7 @@ export const UNDERPASS_MOUTHS = {
     ],
 };
 // reviewed open roofs (same record as fuel-canopy-review.js; world.js draws them as open canopies on estimated columns)
-export const ENTRANCE_CANOPIES = {
+const ENTRANCE_CANOPIES = {
     'bucharest-grozavesti': {
         w905217305: { topM: 3.9, clearanceM: 3.45, topSource: 'estimate', clearanceSource: 'estimate', supportSource: 'estimate', estimateSupports: true, supportWidthM: 0.3,
             classificationSource: 'OSM building=roof over the metro entrance n2479115705 (underpass-mouths.js)',

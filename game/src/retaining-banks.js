@@ -14,13 +14,13 @@
 // (to 2.0 m) with shrubs on top (to about 3 m) give the boulevard side its measured height, and the expressway side sees
 // a 2.0 m planted bank behind its guard rail; where the strip is under a metre the wall stands alone against the
 // expressway's barrier. Wall, rockery and shrub sizes are estimates.
-export const RETAINING_BANKS = {
+const RETAINING_BANKS = {
     seatac: [
         { id: 'seatac-intl-blvd-west', street: 'International Boulevard', side: 'west', from: [47.44875, -122.2963], to: [47.44545, -122.2963],
           wallH: 1.4, rockTopH: 2.0, bankBackH: 2.0, maxStripM: 9, review: 'USGS 3DEP steps 2.9–3.1 m (8.6 m at 47.4490); seattle-seatac.md section 5' },
     ],
 };
-export const RETAINING_BANK_MODEL = { capW: 0.35, rockW: 0.9, step: 2, concrete: '#aaa69c', cap: '#b8b4aa', rock: ['#7b7366', '#8a8273', '#6e675c'], bank: '#5d7140', back: '#4f6236', shrub: ['#4b6a34', '#557a3a', '#44602f'] };
+const RETAINING_BANK_MODEL = { capW: 0.35, rockW: 0.9, step: 2, concrete: '#aaa69c', cap: '#b8b4aa', rock: ['#7b7366', '#8a8273', '#6e675c'], bank: '#5d7140', back: '#4f6236', shrub: ['#4b6a34', '#557a3a', '#44602f'] };
 
 /** env: { district, proj(lat, lon) -> {x, z}, edges, onRibbon(x, z, r), raisedTop(x, z), buildingAt(x, z), cellOf(x, z), rgb,
  *  addCollider(x, z, hw, hd, angle, h, rec) }  Returns one audit record per run. */

@@ -41,7 +41,7 @@ const N36 = [[-102, -61], [-93, -59], [-57, -50], [-23, -42], [-16, -41], [-4, -
 // ============================================================================
 //  The Troll — SDF sculpt (troll-local: origin at base centre, +z toward the viewer/south, +x viewer's right)
 // ============================================================================
-export function trollSDF() {
+function trollSDF() {
     // limb groups with bounding spheres (skip far groups → fast)
     const E = sdEllipsoid, C = sdCapsule, S = sdSphere;
     const fingersL = [[-4.3, -0.55], [-3.68, -0.24], [-3.08, 0.06], [-2.52, 0.34]];

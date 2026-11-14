@@ -2,7 +2,7 @@
 // record carries one wall colour). Geometry stands a few centimetres proud of the mapped outline (OSM) at the reviewed
 // building's own height; colours and the facts come from the panoramas named in each record (viewed only, nothing kept).
 // Band depth and front widths are estimates. Data © OpenStreetMap contributors (ODbL).
-export const FACADE_BANDS = [
+const FACADE_BANDS = [
     // (backlog r3-landmarks-2) Brico Dépôt / Altex, Calea Giulești 1-3: panoramas 44.447216, 26.061955 h 0 and 44.448422,
     // 26.062576 h 270 show a red fascia band round the top of the light-grey panel box and a red Altex front at the
     // south-east corner, where OSM maps the Altex POI (44.448203, 26.062284)

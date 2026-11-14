@@ -10,7 +10,7 @@
 import { MONUMENT_SOURCES, MONUMENT_NOT_FREESTANDING } from './monument-sources.js';
 
 // names (lower case, as tagged) of monuments that landmarks.js builds itself: extend when a landmark is added
-export const MONUMENT_LANDMARK_OWNED = ['lascăr catargiu', 'monumentul eroilor aerului', 'monumentul aerului'];
+const MONUMENT_LANDMARK_OWNED = ['lascăr catargiu', 'monumentul eroilor aerului', 'monumentul aerului'];
 
 export const MONUMENT_MODEL = {
     estimates: 'all dimensions except a tagged OSM height',
@@ -20,7 +20,7 @@ export const MONUMENT_MODEL = {
 // (r2-world-monuments, 2026-11-13) works whose subject is known from their OSM name and article (not from a panorama trace):
 // a low-poly subject form instead of the class block. Still not likenesses; proportions are estimates. heightM only where
 // noted (Memorialul Renașterii: about 25 m, ro.wikipedia "Memorialul Renașterii"; OSM has no height).
-export const MONUMENT_SUBJECT = {
+const MONUMENT_SUBJECT = {
     n1731041124: { form: 'wolf' },                      // Lupoaica (Lupa Capitolina): the she-wolf with the twins
     w170953582: { form: 'lion' },                       // Monumentul Trupelor de Geniu (Leul)
     n7350336938: { form: 'lion' },                      // Leul Ierusalimului

@@ -62,7 +62,7 @@ export function bridgeBeam(cellOf,a,b,width,col,colliders=null,kind='basarab-ste
  * AABB alone would make a sloping arch/cable block the street underneath it.
  * At radius0 the vertical slab intersection is exact; a moving body's radius
  * conservatively expands the three horizontal projections of the same solid. */
-export function bridgePrismCollider(center,axes,half,kind){
+function bridgePrismCollider(center,axes,half,kind){
  const vertices=[];
  for(const i of[-1,1])for(const j of[-1,1])for(const k of[-1,1])vertices.push(center.map((v,d)=>v+axes[0][d]*half[0]*i+axes[1][d]*half[1]*j+axes[2][d]*half[2]*k));
  const poly=convexHull(vertices.map(p=>[p[0],p[2]])),[x,,z]=center,y0=Math.min(...vertices.map(p=>p[1])),y1=Math.max(...vertices.map(p=>p[1]));

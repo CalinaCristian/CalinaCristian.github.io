@@ -22,14 +22,14 @@ const SPOTS_KEY = 'dmcv.spots.v1';      // spots/index.js (read-only here)
 const CHAPTERS_KEY = 'dmcv:chapters';   // chapters.js (read-only here; cleared by reset)
 
 /** completion weights (sum 100) — the one table */
-export const WEIGHTS = [
+const WEIGHTS = [
     { key: 'story', label: 'Story chapters', icon: '📖', weight: 40 },
     { key: 'cv', label: 'CV story sections', icon: '💬', weight: 10 }, // (offices are conversations since note 37)
     { key: 'spots', label: 'Tourist spots visited', icon: '🏛️', weight: 15 },
     { key: 'postcards', label: 'Postcards', icon: '💌', weight: 10 },
     { key: 'achievements', label: 'Achievements', icon: '🏆', weight: 25 },
 ];
-export const CATEGORIES = [
+const CATEGORIES = [
     { id: 'story', label: 'Story', icon: '📖' }, { id: 'explorer', label: 'Explorer', icon: '🧭' },
     { id: 'driver', label: 'Driver', icon: '🚗' }, { id: 'local', label: 'Local colour', icon: '📣' },
     { id: 'photo', label: 'Photographer', icon: '📷' }, { id: 'foot', label: 'On foot', icon: '🚶' },
@@ -73,14 +73,14 @@ function loadState() {
 function readJSON(key) { try { return JSON.parse(localStorage.getItem(key) || '{}') || {}; } catch { return {}; } }
 
 /** SVG progress ring */
-export function ringSvg(pct, size = 64, stroke = 7) {
+function ringSvg(pct, size = 64, stroke = 7) {
     const r = (size - stroke) / 2, c = 2 * Math.PI * r, off = c * (1 - Math.max(0, Math.min(100, pct)) / 100);
     return `<svg class="achv-ring" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true"><circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="rgba(148,163,184,.25)" stroke-width="${stroke}"/>`
         + `<circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="${pct >= 100 ? GOLD : '#fbbf24'}" stroke-width="${stroke}" stroke-linecap="round" stroke-dasharray="${c.toFixed(2)}" stroke-dashoffset="${off.toFixed(2)}" transform="rotate(-90 ${size / 2} ${size / 2})"/>`
         + `<text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" fill="#fff" font-size="${Math.round(size * (pct >= 100 ? 0.22 : 0.27))}" font-weight="700" font-family="system-ui,sans-serif">${Math.floor(pct)}%</text></svg>`;
 }
 
-export class Progression {
+class Progression {
     constructor(game) {
         this.game = game;
         this.state = loadState();

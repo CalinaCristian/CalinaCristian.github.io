@@ -3,9 +3,9 @@
 // (e.g. store glazing) is drawn there. A row below names the part's street face (two vertices of the OSM part, live OSM) and
 // what the street-level review saw; the module draws that face over the host wall: a panelled wall, a vehicle entrance and
 // its barrier arm. Panel width, entrance size and barrier are estimates; the level count is not visible and not drawn.
-export const CAR_PARK_FRONT_MODEL = { offsetM: 0.12, panelM: 3.0, entranceW: 4.8, entranceH: 3.2, estimates: ['offsetM', 'panelM', 'entranceW', 'entranceH', 'barrier'] };
+const CAR_PARK_FRONT_MODEL = { offsetM: 0.12, panelM: 3.0, entranceW: 4.8, entranceH: 3.2, estimates: ['offsetM', 'panelM', 'entranceW', 'entranceH', 'barrier'] };
 
-export const CAR_PARK_FRONTS = {
+const CAR_PARK_FRONTS = {
     'bucharest-unirii': [
         // Parcare Cocor w658281398 (amenity=parking, parking=multi-storey, building:part=yes, inside the Cocor store): official
         // panorama ky8lvOleKFvuiFVszKDv7Q (44.430274, 26.104834, heading 240) shows its street face as a dark grey panelled

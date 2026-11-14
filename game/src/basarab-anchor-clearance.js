@@ -16,7 +16,7 @@ export function raisedRoadTriangles(cells){
 }
 /** Exact segment clipping against the outward half-planes of a convex source
  * polygon. Expansion circumscribes a member; it never rounds source vertices. */
-export function segmentPolygonBand(a,b,poly,radius=0){
+function segmentPolygonBand(a,b,poly,radius=0){
  let signed=0;for(let i=0;i<poly.length;i++){const p=poly[i],q=poly[(i+1)%poly.length];signed+=p[0]*q[1]-q[0]*p[1];}const sign=Math.sign(signed);if(!sign)return null;
  const dx=b[0]-a[0],dz=b[1]-a[1];let lo=0,hi=1;
  for(let i=0;i<poly.length;i++){

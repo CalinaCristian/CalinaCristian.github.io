@@ -1,6 +1,6 @@
 import {createSituationalDialogue} from './situational-dialogue.js';
 import {compileDialoguePlaces,currentDialogueContext,dialogueActorY} from './situational-dialogue-context.js';
-export const SITUATIONAL_DIALOGUE_INTEGRATION=Object.freeze({wiredEvents:Object.freeze(['player-honk','npc-honk','collision','ambient','greeting']),nativeProvedEvents:Object.freeze([]),collisionAuthority:'Player.hit→Main.onCollide and retained actual NPC body contacts after overlap rollback',mode:'existing city traffic in drive/foot'});
+const SITUATIONAL_DIALOGUE_INTEGRATION=Object.freeze({wiredEvents:Object.freeze(['player-honk','npc-honk','collision','ambient','greeting']),nativeProvedEvents:Object.freeze([]),collisionAuthority:'Player.hit→Main.onCollide and retained actual NPC body contacts after overlap rollback',mode:'existing city traffic in drive/foot'});
 let sceneSequence=0;
 /** Owns one bounded governor and a 3-slot legacy admission ledger. It never
  * chooses/moves actors, rolls traffic RNG, fabricates impacts or renders a world. */

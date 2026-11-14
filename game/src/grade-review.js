@@ -8,7 +8,7 @@
 //  from where the walls were seen to begin, not a surveyed profile.
 // ============================================================================
 
-export const GRADE_REVIEW = {
+const GRADE_REVIEW = {
     'bucharest-romana': {
         w27008418: { gradeK: .5, note: 'Pasajul Victoria west ramp, eastbound: the panorama at 44.452076, 26.082576 (about 115 m before the portal) is already between balustraded retaining walls' },
         // (w241374320, the westbound exit ramp, keeps the model grade: it was not seen from its own carriageway, and with a

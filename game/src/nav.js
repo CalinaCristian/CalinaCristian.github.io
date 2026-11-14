@@ -488,7 +488,7 @@ export function stepArrow(step) {
 }
 
 /** vector arrow for the in-car display */
-export function drawTurnArrow(ctx, step, cx, cy, size, color = '#fff') {
+function drawTurnArrow(ctx, step, cx, cy, size, color = '#fff') {
     ctx.save(); ctx.translate(cx, cy);
     ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = size * 0.16; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
     const head = (x, y, a) => { ctx.save(); ctx.translate(x, y); ctx.rotate(a); ctx.beginPath(); ctx.moveTo(0, -size * 0.2); ctx.lineTo(size * 0.2, size * 0.06); ctx.lineTo(-size * 0.2, size * 0.06); ctx.closePath(); ctx.fill(); ctx.restore(); };

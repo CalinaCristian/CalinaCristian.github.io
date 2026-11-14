@@ -14,8 +14,8 @@
 // ============================================================================
 import { rgb } from './geobuild.js';
 
-export const FENCE_MODEL = { heightM: 2, postEveryM: 2.5, estimates: ['heightM', 'postEveryM', 'mesh look'] };
-export const AREA_FENCES = {
+const FENCE_MODEL = { heightM: 2, postEveryM: 2.5, estimates: ['heightM', 'postEveryM', 'mesh look'] };
+const AREA_FENCES = {
     'bucharest-grozavesti': [
         { id: 'w813901657', tags: 'amenity=school, barrier=fence', gates: [[44.440673, 26.0556944]],
             ring: [[44.4408332, 26.0560162], [44.4407621, 26.0560506], [44.4405908, 26.0561335], [44.4406334, 26.0563124], [44.4403618, 26.056442], [44.4403562, 26.0564309],

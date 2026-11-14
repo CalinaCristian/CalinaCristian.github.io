@@ -18,7 +18,7 @@ const P = { SKIN: 0, TOP: 1, BOTTOM: 2, SHOES: 3, HAIR: 4, COAT: 5, HAT: 6, UMBR
 const HIP_Y = 0.9, KNEE_Y = 0.5, SHOULDER_Y = 1.43, ELBOW_Y = 1.15;
 export const CROWD_FLAGS = { coat: 1, umbrella: 2, hat: 4, bag: 8, worker: 16, shortSleeves: 32, phone: 64, camera: 128, flag: 256, guitar: 512, fan: 1024 };
 /** idle poses (crowd.set(i, { pose })): shader-driven, 'walk' = the walk cycle (amp), others hold / loop on their own */
-export const CROWD_POSES = { walk: 0, stand: 0, sit: 1, phone: 2, photo: 3, wave: 4, point: 5, flag: 6, talk: 7, guitar: 8, umbrella: 9, cheer: 10, play: 11 }; // play: seated, the right hand out over a table (a board game)
+const CROWD_POSES = { walk: 0, stand: 0, sit: 1, phone: 2, photo: 3, wave: 4, point: 5, flag: 6, talk: 7, guitar: 8, umbrella: 9, cheer: 10, play: 11 }; // play: seated, the right hand out over a table (a board game)
 /** hand-held props (crowd.set(i, { prop })) → flag bits */
 const PROP_BITS = { phone: 64, camera: 128, flag: 256, guitar: 512 };
 const PROP_MASK = 64 | 128 | 256 | 512;
@@ -405,6 +405,6 @@ export function makeCrowd({ max = 256, city = 'bucharest', season = seasonOf(), 
 }
 const _IDENT = new THREE.Matrix4();
 /** LOD / cull distances for all crowds: { near (m, detailed model), far (m, culled beyond), margin } */
-export function setCrowdOptions(o = {}) { Object.assign(OPTS, o); }
+function setCrowdOptions(o = {}) { Object.assign(OPTS, o); }
 /** triangles of the near / far person model */
-export function crowdTriangles() { const G = personGeometry(); return { near: G.near.index.count / 3, far: G.far.index.count / 3 }; }
+function crowdTriangles() { const G = personGeometry(); return { near: G.near.index.count / 3, far: G.far.index.count / 3 }; }

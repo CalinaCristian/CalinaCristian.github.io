@@ -53,7 +53,7 @@ export function emitWorshipOpenings(mb, ring, ccw, y0, top, wallCol, skip = null
     return n;
 }
 
-export const WORSHIP_TOWER_MODEL = {
+const WORSHIP_TOWER_MODEL = {
     radiusOfWidth: 0.2, radiusM: [1.4, 3.0], smallRadiusM: [0.9, 1.5], drumOfRadius: 1.4, drumAddM: 0.8, drumM: [2.4, 5.5],
     helmetOfRadius: 1.3, coneOfRadius: 1.7, eaveOverhang: 1.12, crossM: 1.3, pronaosAt: 0.3, pronaosRadius: 0.7, pronaosDrum: 0.4,
     pronaosMinLengthM: 20, pronaosMinRatio: 1.6, smallAreaM2: 120, minAreaM2: 60, defaultCap: '#5e6668', copperCap: '#6f8f86',

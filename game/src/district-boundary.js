@@ -83,7 +83,7 @@ export function districtMaskSegments(mask){
 
 // The actual cockpit collision extent from vehicles.js: front3.42/rear2.36,
 // half-width0.9. This finite domain margin is not a collision tolerance.
-export const SOURCE_DOMAIN_BODY_RADIUS = Math.hypot(3.42,.9);
+const SOURCE_DOMAIN_BODY_RADIUS = Math.hypot(3.42,.9);
 
 /** supports: exact emitted core-road/pad polygons as XYZ, with owning edges. */
 export function buildSourceBoundarySupport(supports,{bodyRadiusM=SOURCE_DOMAIN_BODY_RADIUS}={}){

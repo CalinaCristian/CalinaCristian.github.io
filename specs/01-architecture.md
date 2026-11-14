@@ -14,13 +14,47 @@ README.md → Tests and QA, spec 19.
 | **gameplay** | `game/src/main.js`, `player.js`, `traffic.js` and its `initial-*` / `tram-*` / `signals.js` / `shared-lanes.js` modules, `nav.js`, `hud.js`, `input.js`, `audio.js`, `data.js`, `onfoot.js`, `chapters.js`, `explore.js`, `drone.js`, `football.js`, `basketball.js`, `inspection.js`, `modal-controls.js`, `game/index.html`, `game/dev/harness/page/*` (autopilot) | 10 (flow), 13, 14 |
 | **cockpit-ui** | `game/src/vehicles.js`, `office.js` and `office-*.js`, `flight.js`, `transition.js`, `finale.js`, `photo.js`, `canvasText.js`, `crowd.js`, `game/style.css` | 16, 17 |
 | **render** | `game/src/render.js`, `weather.js`, `water.js`, `cockpit-displays.js`, `progressive-pmrem.js`, `game/dev/render.html`, `game/vendor/addons/*` | 18 |
-| **landmarks** | `game/src/landmarks.js`, `landmark-*.js`, `game/dev/landmarks.html` | 12 (landmarks) |
+| **landmarks** | `game/src/landmarks.js`, `landmarks/*.js`, `landmark-*.js`, `game/data/landmarks/*`, `game/dev/landmarks.html` | 12 (landmarks) |
 | **spots** | `game/src/spots/*`, `spot-availability.js`, `game/data/spots/*`, `game/dev/spots.html` | 15 |
 | **qa** | `game/dev/harness/run.js`, `report.js`, `README.md`, `game/dev/harness/visual/*`, root `package.json` scripts | 19 |
 | **progression** | `game/src/achievements.js`, `save.js`; the `ACHIEVEMENTS` block in `data.js`; the `/* achievements */` block in `style.css`; hook lines in `hud.js` and `main.js` coordinated with gameplay | 23 |
 | **research-\*** | `game/research/*` only | 20 |
 
 Shared files touched by several roles (`main.js` hooks for new modules) go through **gameplay**.
+
+## Module map (spec 22)
+No file in `game/src` is over 60 KB except `spots/osm.js` (hashed into the Seattle spot bundle, kept byte-identical).
+Large files are a thin facade with the original exports plus focused modules; importers never import the parts.
+- **World**: `world.js` is the `buildWorld` assembler. Its step modules: `world-district-graph.js` (pack,
+  projection, nodes, edges; profile pieces), `world-road-graph.js`, `world-levels.js` (+ `world-levels-gore.js`),
+  `world-bridge-tram-signals.js`, `world-areas-water.js`, `world-raised-edges.js`, `world-ribbons.js`
+  (+ `world-edge-ribbons.js`), `world-walls.js`, `world-railing-network.js`, `world-side-joins.js`,
+  `world-facades-guards.js` (+ `world-bridge-structures.js`), `world-buildings.js`, `world-extrusion.js`,
+  `world-facade-detail.js`, `world-roofads-fuel.js`, `world-sports.js`, `world-pois.js`, `world-streetscape.js`
+  (`world-trees-lamps.js`, `world-furniture.js`, `world-parking-lights.js`), `world-landmark-grounds.js`,
+  `world-scenery.js`, `world-materials.js`, `world-paint-setup.js`, `world-final-meshes.js`, `world-finish.js`,
+  `world-collide.js`, `world-map-ends.js`, and `world-api.js` (the returned `world` object). Shared helpers:
+  `world-shared.js`. A step takes a context object and returns its outputs; names the assembler still changes later
+  are read through getter objects (`__live.x`).
+- **Buildings**: `buildings.js` (facade generator), `building-specs.js` over `building-specs/<city>-<district>.js`,
+  `archetypes.js` + `archetype-atlas.js`.
+- **Landmarks**: `landmarks.js` is the registry (`LANDMARKS`, `buildLandmark`); builders in `landmarks/`
+  (`kit.js` materials / Builder, `footprints.js`, `parts.js`, `anchors.js`, `fountains.js`, `fountain-water.js`,
+  per-area builder files) and source masses in `game/data/landmarks/*.json`, loaded by `landmarks/source-data.js`.
+- **Traffic and crowd**: `traffic.js` (the `Traffic` core, re-exports) with method modules `traffic-lanes.js`,
+  `traffic-step.js`, `traffic-parking.js` and helpers `traffic-shared.js`; `pedestrians.js` with `pedestrians-walk.js`
+  and `pedestrians-road.js`; `pedestrian-fronts.js` / `pedestrian-plazas.js` index per-district data folders.
+- **Fleet**: `vehicles.js` (registry, pools, `makeVehicle`) with `vehicle-models.js`, `vehicle-materials.js`,
+  `vehicle-cockpit.js`.
+- **Game**: `main.js` (the `Game` core: options, menu, start, city load, loop) with method groups `game-drive.js`,
+  `game-story.js`, `game-foot.js`, `game-menus.js`, `game-conditions.js`, `game-road.js`, `game-spots.js`,
+  `game-debug.js`, shared `game-common.js`.
+- **Render**: `render.js` (`Renderer3D` core) with `render-shaders.js`, `render-lighting.js`, `render-lamps.js`,
+  `render-weather.js`.
+- Method groups are plain classes copied onto the prototype by `mixin.js` (same descriptors as a class body; a name
+  defined twice throws), so every method stays on `window.game`, `game.r3d` and the traffic objects.
+- World data: `game/data/<city>-<district>.bin.gz` (format in `game/data/README.md`); Natural Earth 1:110m in
+  `game/data/geo/ne110.js`.
 
 ## Contracts (keep in sync; update here first)
 
@@ -224,7 +258,7 @@ Shared files touched by several roles (`main.js` hooks for new modules) go throu
 - `playChapterTransition({ cityName, districts, from, to, year0, year1, title, caption, kicker, travel, via, water, card,
   fromStop?, toStop?, globe?, audio?, duration? }) → Promise` (`transition.js`).
 - `playFlight({ from, hud, audio, texts })`, `drawGlobe(ctx, {...})`, `slerpLL`, `ortho`, `drawPlane`, `OTP`, `SEA`
-  (`flight.js`; Natural Earth in `geo-ne110.js`).
+  (`flight.js`; Natural Earth in `game/data/geo/ne110.js`).
 - `showFinale({ profile, stops, stats, actions: {cv?, worldmap?, spots?, replay?}, onAction }) → Promise<actionId>`.
 - Touch (`input.js`): left half steers / floating thumbstick, right half looks, analog pedals while driving;
   `input.touch.stick {x, y, mag, active}`, `input.setTouchMode('drive'|'foot'|'drone'|null)`, `input.touchModeNow`.

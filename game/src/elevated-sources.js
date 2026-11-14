@@ -12,9 +12,9 @@ import { rgb, shadeRgb } from './geobuild.js';
 import { pointInPolygon } from './util.js';
 import { FOOTBRIDGE_SOURCES } from './footbridge-sources.js';
 
-export const RAIL_VIADUCT_MODEL = { deckWidthM: 6.5, girderDepthM: 2.2, girderWidthM: 0.35, floorM: 0.45, pierSpacingM: 24, pierSlideM: 10, portalReachM: 9,
+const RAIL_VIADUCT_MODEL = { deckWidthM: 6.5, girderDepthM: 2.2, girderWidthM: 0.35, floorM: 0.45, pierSpacingM: 24, pierSlideM: 10, portalReachM: 9,
     estimates: ['deckWidthM', 'girderDepthM', 'pierSpacingM'], soffit: 'OSM min_height' };
-export const FOOTBRIDGE_MODEL = { clearanceM: 5.5, deckWidthM: 2.6, trussM: 2.4, stairWidthM: 1.5, riserM: 0.18, estimates: ['clearanceM', 'deckWidthM', 'trussM', 'riserM'] };
+const FOOTBRIDGE_MODEL = { clearanceM: 5.5, deckWidthM: 2.6, trussM: 2.4, stairWidthM: 1.5, riserM: 0.18, estimates: ['clearanceM', 'deckWidthM', 'trussM', 'riserM'] };
 
 const polyline = (pts) => {
     const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));

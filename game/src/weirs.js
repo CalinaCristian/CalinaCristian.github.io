@@ -9,7 +9,7 @@
 // ============================================================================
 import { channelProfile } from './water-channel-review.js';
 
-export const WEIR_REVIEW = {
+const WEIR_REVIEW = {
     unirii: {
         w1434558024: { channel: 'w174991904', line: [[44.425858, 26.104542], [44.426063, 26.104577], [44.426298, 26.104613]],
             blocks: 16, blockAlongM: 1.9, blockAcrossM: 1.2, freeboardM: 0.45, colour: '#b9b4a8',

@@ -3,14 +3,14 @@
 // class set, a safety-surface patch with a swing frame and a slide, NOT the real equipment (none is mapped). Live OSM tags,
 // checked 2026-11-13; every size is an estimate (PLAYGROUND_MODEL). Nothing is placed on a carriageway, inside a building or
 // in water; such records are reported, never moved. Data © OpenStreetMap contributors (ODbL).
-export const PLAYGROUND_SOURCES = {
+const PLAYGROUND_SOURCES = {
     unirii: [
         { id: 'n7958996084', lat: 44.424677, lon: 26.1032383, tags: 'leisure=playground, access=yes' },
         { id: 'n5766022623', lat: 44.4343301, lon: 26.1163682, tags: 'leisure=playground, access=yes' },
     ],
 };
 
-export const PLAYGROUND_MODEL = { patchW: 9, patchD: 7, swingH: 2.4, slideH: 1.6, estimates: 'all dimensions and the equipment itself (class set)' };
+const PLAYGROUND_MODEL = { patchW: 9, patchD: 7, swingH: 2.4, slideH: 1.6, estimates: 'all dimensions and the equipment itself (class set)' };
 
 /** env: { district, project(lat, lon) -> {x, z}, cellOf, rgb, blocked(x, z, r) -> reason | null, faceAngle(x, z), baseY(x, z), addCollider(x, z, r, h, rec) } */
 export function emitPlaygrounds(env) {

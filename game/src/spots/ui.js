@@ -233,7 +233,7 @@ export class SpotUI {
     dispose() { this.setActivityActive(false); this.closePanel(); this._toastLayoutObserver.disconnect();this._toastLayoutObserver=null;window.removeEventListener('resize',this._layoutToasts);this.el.remove(); }
 }
 /** map marker kinds: [kind, icon, legend name] */
-export const MAP_KINDS = [['hero', '⭐', 'Landmark'], ['plaque', '📜', 'Plaque'], ['postcard', '📷', 'Postcard photo'], ['activity', '🎯', 'Activity'], ['bike', '🚲', 'Bikes'], ['entrance', '🚪', 'Entrance'], ['view', '👁', 'Viewpoint'], ['guide', '🚩', 'Tour guide'], ['waypoint', '📍', 'Waypoint'], ['you', '➤', 'You']];
+const MAP_KINDS = [['hero', '⭐', 'Landmark'], ['plaque', '📜', 'Plaque'], ['postcard', '📷', 'Postcard photo'], ['activity', '🎯', 'Activity'], ['bike', '🚲', 'Bikes'], ['entrance', '🚪', 'Entrance'], ['view', '👁', 'Viewpoint'], ['guide', '🚩', 'Tour guide'], ['waypoint', '📍', 'Waypoint'], ['you', '➤', 'You']];
 const ICON = Object.fromEntries(MAP_KINDS.map(([k, i]) => [k, i]));
 /**
  * Spot map: a top-down image of the scene's ground (the terrain painter: streets, paths, lawns, water, footprints)

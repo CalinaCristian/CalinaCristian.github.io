@@ -4,7 +4,7 @@
 //
 //  Canvas 2D, orthographic, drawn in device pixels:
 //    · Natural Earth 1:50m land (Caspian as a hole), big lakes, glaciers / ice caps and land borders
-//      (game/data/geo/ne50m.bin, 157 KB, lazy) — the 1:110m set in geo-ne110.js draws until it arrives;
+//      (game/data/geo/ne50m.bin, 157 KB, lazy) — the 1:110m set in game/data/geo/ne110.js draws until it arrives;
 //    · proper horizon clipping (rings cut at the limb and closed along it), screen-space decimation (≈1 px);
 //    · ocean depth gradient + coastal shelf glow + sun glint, graticule, soft atmosphere rim;
 //    · day / night from the real sun position (low-precision solar ephemeris) with twilight, and NASA Black Marble
@@ -38,9 +38,9 @@ export function slerpLL(a, b, t) {
     return toLL([A[0] * ka + B[0] * kb, A[1] * ka + B[1] * kb, A[2] * ka + B[2] * kb]);
 }
 /** great-circle distance in km */
-export function gcKm(a, b) { const A = toV(lonOf(a), latOf(a)), B = toV(lonOf(b), latOf(b)); return 6371 * Math.acos(clamp(A[0] * B[0] + A[1] * B[1] + A[2] * B[2], -1, 1)); }
+function gcKm(a, b) { const A = toV(lonOf(a), latOf(a)), B = toV(lonOf(b), latOf(b)); return 6371 * Math.acos(clamp(A[0] * B[0] + A[1] * B[1] + A[2] * B[2], -1, 1)); }
 /** subsolar point [lon, lat] for a Date (low-precision ephemeris, ~0.01° — plenty for a terminator) */
-export function sunLL(date) {
+function sunLL(date) {
     const d = date.getTime() / 864e5 - 10957.5; // days since J2000.0
     const g = (357.529 + 0.98560028 * d) * D2R, q = 280.459 + 0.98564736 * d;
     const L = (q + 1.915 * Math.sin(g) + 0.02 * Math.sin(2 * g)) * D2R, e = (23.439 - 0.00000036 * d) * D2R;
@@ -137,7 +137,7 @@ async function loadLights() {
 }
 let loading = null;
 /** lazy-load the 1:50m vectors + Black Marble lights (idempotent); the globe draws 1:110m without lights meanwhile */
-export function loadGlobeData() {
+function loadGlobeData() {
     ensure110();
     return loading || (loading = Promise.all([
         fetch(url('ne50m.bin')).then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(`HTTP ${r.status}`)))).then((buf) => {
@@ -146,7 +146,7 @@ export function loadGlobeData() {
         loadLights().catch((e) => console.warn('[globe] city lights unavailable', e)),
     ]));
 }
-export const geoInfo = () => ({ src: GEO.src, land: GEO.land?.pts || 0, lakes: GEO.lakes?.pts || 0, borders: GEO.borders?.pts || 0, ice: GEO.ice?.pts || 0, lights: LIGHTS.tex ? `${LIGHTS.w}×${LIGHTS.h}` : null });
+const geoInfo = () => ({ src: GEO.src, land: GEO.land?.pts || 0, lakes: GEO.lakes?.pts || 0, borders: GEO.borders?.pts || 0, ice: GEO.ice?.pts || 0, lights: LIGHTS.tex ? `${LIGHTS.w}×${LIGHTS.h}` : null });
 
 // ---------------------------------------------------------------------------------------------------- projection
 export function makeProj(lon0, lat0, R, cx, cy) {
@@ -391,7 +391,7 @@ export class Globe {
 
 // ---------------------------------------------------------------------------------------------------- overlays
 /** deep-space backdrop with a faint nebula and fixed stars (device px) */
-export function drawSpace(ctx, W, H, cx, cy, R, dpr = 1) {
+function drawSpace(ctx, W, H, cx, cy, R, dpr = 1) {
     const bg = ctx.createRadialGradient(cx, cy, R * 0.3, cx, cy, Math.max(W, H) * 0.9);
     bg.addColorStop(0, '#0d1b33'); bg.addColorStop(0.5, '#060d1c'); bg.addColorStop(1, '#02050c');
     ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
@@ -405,7 +405,7 @@ export function drawSpace(ctx, W, H, cx, cy, R, dpr = 1) {
     }
 }
 /** great-circle samples from a to b: [{ lon, lat, v }] */
-export function routePoints(a, b, n = 160) {
+function routePoints(a, b, n = 160) {
     const out = []; for (let i = 0; i <= n; i++) { const [lon, lat] = slerpLL(a, b, i / n); out.push({ lon, lat, v: toV(lon, lat) }); } return out;
 }
 function routePath(pr, pts, f0, f1) {
@@ -423,7 +423,7 @@ function routePath(pr, pts, f0, f1) {
  * the route as a glowing line: done part (0..upto) glows gold with flowing light, the rest is a faint dashed line.
  * opts: { upto = 1, dpr, t (s, animates the flow), rest = true, glow = 1 }
  */
-export function drawRoute(ctx, pr, pts, { upto = 1, dpr = 1, t = 0, rest = true, glow = 1 } = {}) {
+function drawRoute(ctx, pr, pts, { upto = 1, dpr = 1, t = 0, rest = true, glow = 1 } = {}) {
     ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
     if (rest && upto < 1) { const r = routePath(pr, pts, upto, 1).path; ctx.setLineDash([5 * dpr, 7 * dpr]); ctx.strokeStyle = 'rgba(255,255,255,0.5)'; ctx.lineWidth = 1.5 * dpr; ctx.stroke(r); ctx.setLineDash([]); }
     if (upto > 0.001) {
@@ -449,7 +449,7 @@ export function drawPlane(ctx, x, y, ang, s = 1) {
 }
 function pill(ctx, x, y, w, h, r) { ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(x, y, w, h, r); else { ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); } }
 /** a glowing city dot (device px); returns [x, y, z] or null when behind the globe */
-export function drawDot(ctx, pr, ll, { dpr = 1, color = '#fbbf24', size = 1, pulse = 0, t = 0 } = {}) {
+function drawDot(ctx, pr, ll, { dpr = 1, color = '#fbbf24', size = 1, pulse = 0, t = 0 } = {}) {
     const [x, y, z] = pr.P(lonOf(ll), latOf(ll)); if (z <= 0) return null;
     const a = smooth(0, 0.12, z); ctx.save(); ctx.globalAlpha = a;
     const g = ctx.createRadialGradient(x, y, 0, x, y, 14 * dpr * size); g.addColorStop(0, `${color}aa`); g.addColorStop(1, `${color}00`);
@@ -463,7 +463,7 @@ export function drawDot(ctx, pr, ll, { dpr = 1, color = '#fbbf24', size = 1, pul
  * label pill next to an anchor (device px): title (+ optional sub line); side 'left' | 'right'; returns the box [x0, y0, x1, y1].
  * Kept inside [0, W] × [0, H].
  */
-export function drawLabel(ctx, ax, ay, { title, sub = '', side = 'right', dpr = 1, W = 1e9, H = 1e9, alpha = 1, accent = '#fbbf24', dy = 0, size = 14 } = {}) {
+function drawLabel(ctx, ax, ay, { title, sub = '', side = 'right', dpr = 1, W = 1e9, H = 1e9, alpha = 1, accent = '#fbbf24', dy = 0, size = 14 } = {}) {
     ctx.save(); ctx.globalAlpha = alpha;
     const fs = size * dpr, fs2 = (size - 3) * dpr, padX = 10 * dpr, gap = 14 * dpr;
     ctx.font = FONT(600, fs); const w1 = ctx.measureText(title).width; ctx.font = FONT(500, fs2); const w2 = sub ? ctx.measureText(sub).width : 0;

@@ -3,7 +3,7 @@ import { OFFICE_FLOORS, officeFloorElevation } from './office-floors.js';
 import { structuralOwnerPlanes } from './office-window-structural-plane.js';
 
 // Reviewed identities and owner floor assignments; exact metre heights/bearings remain estimates.
-export const OFFICE_WINDOW_SOURCES = Object.freeze({
+const OFFICE_WINDOW_SOURCES = Object.freeze({
   rosetti: { landmark: 'rosetti', ids: ['w28240279'], skin: 0.15 },
   upb: {
     landmark: 'politehnica',
@@ -81,14 +81,14 @@ function segmentInside(a, b, outer, holes) {
   return true;
 }
 /** Boundary allowed only on the outer ring; complete edges/interiors, including enclosed holes. */
-export function polygonFits(poly, outer, holes = []) {
+function polygonFits(poly, outer, holes = []) {
   return (
     poly.every((p) => inRing(p, outer) && !holes.some((h) => inRing(p, h, true))) &&
     poly.every((p, i) => segmentInside(p, poly[(i + 1) % poly.length], outer, holes)) &&
     !holes.some((h) => h.some((p) => inRing(p, poly, true)))
   );
 }
-export function officePaneFrame(office) {
+function officePaneFrame(office) {
   const pane = office.windowPane;
   if (!pane?.geometry) return null;
   pane.updateWorldMatrix(true, false);
@@ -167,7 +167,7 @@ function subtract(poly, tri) {
   return rest;
 }
 /** Only this known source owner's actual emitted triangles may certify a thin skin. */
-export function emittedFacade(owner, { center, right, outward, width, y0, y1, maxSkin }) {
+function emittedFacade(owner, { center, right, outward, width, y0, y1, maxSkin }) {
   let remaining = [
       [
         [-width / 2, y0],

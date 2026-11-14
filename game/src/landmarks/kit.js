@@ -45,6 +45,12 @@ export function materials() {
             totalEmissiveRadiance *= wall * lit * tint * glassy * step(2.5, vGW.y); }`);
       };
       g.customProgramCacheKey = () => 'landmark-glass-night2'; }
+    // (2026-11-13, owner: "uipath is broken it has a building in side it") punched windows (Builder.windows on glass) are
+    // whole panes: the world-space pane grid above does not line up with them, so at night it lit small panes inside a
+    // shopfront and half panes in the upper windows — like a second building behind the facade. Each such window is one
+    // pane: lit warm / cool at night (gww / gwc) or dark (gd); by day all three look like 'g'.
+    { const pane = (name, col, night) => { const m = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.28, metalness: 0.35, emissive: new THREE.Color(col), emissiveIntensity: 0 }); m.name = name; m.userData.nightEmissive = night; m.userData.nightGlow = night; m.userData.dayGlow = 0; return m; };
+      MATS.gww = pane('landmark-window-lit', '#ffd9a8', 0.7); MATS.gwc = pane('landmark-window-lit-cool', '#c4d3ee', 0.7); MATS.gd = pane('landmark-window', '#000000', 0); }
     // floodlit masonry (LANDMARKS[].floodlit): the 'm' geometry of floodlit monuments uses this material instead. Warm
     // emissive scaled per vertex by the vertex colour (stone glows, dark windows stay dark) and dimmed on up-facing
     // surfaces (floodlights hit the walls, not the roofs), fading with height and varying by facade direction. emissiveIntensity is 0 by day; render.js eases it to
@@ -171,6 +177,15 @@ export function M(x = 0, y = 0, z = 0, ry = 0, sx = 1, sy = 1, sz = 1, rx = 0, r
     return new THREE.Matrix4().compose(_v.set(x, y, z), _q.setFromEuler(_e), _s.set(sx, sy, sz));
 }
 
+/** the material of one punched window on glass ('g'): about 30 % lit at night (as the old pane grid), only glass tints
+ *  (not gold or white trims) and only above 2.5 m (shopfronts stay dark), chosen per window from its position */
+function paneMat(mat, col, cx, cz, ya, yb) {
+    if (mat !== 'g') return mat;
+    const [r, g, b] = rgb(col);
+    if (!(r <= b + 0.12 && Math.max(r, g, b) <= 0.75) || (ya + yb) / 2 < 2.5) return 'gd';
+    const h = Math.abs(Math.sin(cx * 12.9898 + cz * 78.233 + ya * 37.719) * 43758.5453) % 1;
+    return h >= 0.3 ? 'gd' : (h * 7.3) % 1 < 0.5 ? 'gwc' : 'gww';
+}
 export class Builder {
     constructor(hs = 1) { this.hs = hs; this.wall = null; this.bk = {}; this.cols = []; this.extras = []; this.fences = []; this.covers = []; this.grounds = []; this.coverPolys = []; this.stack = [new THREE.Matrix4()]; this.ox = 0; this.oz = 0; this.baseY = 0; }
     /** translate everything that follows by (dx, dz) model metres (lets a builder keep its source coordinates when its anchor moves) */
@@ -391,11 +406,11 @@ export class Builder {
                 const x0 = cx - dx * hw, z0 = cz - dz * hw, x1 = cx + dx * hw, z1 = cz + dz * hw;
                 for (let f = 0; f < nF; f++) {
                     if (o.skip && o.skip(i, j, f, k)) continue;
-                    const ya = y0 + start + f * fh, yb = ya + fh * hf;
-                    this.quad([x0, ya, z0], [x1, ya, z1], [x1, yb, z1], [x0, yb, z0], col, mat, hint); n++;
+                    const ya = y0 + start + f * fh, yb = ya + fh * hf, wm = paneMat(mat, col, cx, cz, ya, yb);
+                    this.quad([x0, ya, z0], [x1, ya, z1], [x1, yb, z1], [x0, yb, z0], col, wm, hint); n++;
                     if (o.arch) {  // round head approximated by a trapezoid cap
                         const ys = yb + hw * 0.72, k2 = 0.38;
-                        this.quad([x0, yb, z0], [x1, yb, z1], [x1 - dx * hw * k2, ys, z1 - dz * hw * k2], [x0 + dx * hw * k2, ys, z0 + dz * hw * k2], col, mat, hint);
+                        this.quad([x0, yb, z0], [x1, yb, z1], [x1 - dx * hw * k2, ys, z1 - dz * hw * k2], [x0 + dx * hw * k2, ys, z0 + dz * hw * k2], col, wm, hint);
                     }
                 }
             }

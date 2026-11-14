@@ -6,8 +6,9 @@ something the next agent needs, add it here (imperative) or in the relevant spec
 ## The repo in one minute
 - Static CV site (`index.html`) + **Drive My CV**, a first-person 3D game in `game/` (Three.js, vanilla ES modules, **no
   build step**), deployed by **GitHub Pages from `master`** → https://cristiancalina.com/game/.
-- Open work: [`handoffs/fidelity/BACKLOG.md`](handoffs/fidelity/BACKLOG.md) is the single list (owner reports, other open
-  items, rules, checks). Update it in the same commit as a fix; remove an item once it is fixed on `master`.
+- Open work: [`handoffs/fidelity/BACKLOG.md`](handoffs/fidelity/BACKLOG.md) is the single list (owner reports and other
+  open items). Update it in the same commit as a fix; remove an item once it is fixed on `master`. Findings, to-dos and
+  open questions live only there, never in specs, dossiers or READMEs.
 - Specs: [`specs/README.md`](specs/README.md) (process), `specs/00-vision.md`, `specs/01-architecture.md` (modules,
   ownership, contracts), one spec per area. Specs hold requirements only; read the ones your work touches.
 - World data: OSM → `tools/osm/build-data.mjs` → `game/data/<city>-<district>.bin.gz` (format and tools:
@@ -28,9 +29,11 @@ something the next agent needs, add it here (imperative) or in the relevant spec
 
 ## Checks before you push (look at the pictures — numbers alone have missed real breakage)
 - Syntax of every edited module: `node --input-type=module --check < game/src/world.js` (plain `node --check` misses
-  a `//` comment pasted into a one-line statement, which once broke the whole game).
-- The push checks in `handoffs/fidelity/BACKLOG.md` → "Checks before every push" (unit tests, logic harness
-  `npm run harness -- --scenario=foot,a --city=bucharest` with 0 high / 0 medium, bridge and tram audits).
+  a `//` comment pasted into a one-line statement).
+- Unit tests: `node --test game/dev/*.test.mjs game/dev/harness/*.test.mjs` (known failures are listed in BACKLOG.md).
+- Logic harness: `npm run harness -- --scenario=foot,a --city=bucharest` with 0 high / 0 medium.
+- Bridge and tram audits: `node game/dev/harness/bridge-bents-check.cjs <repo> <out> bucharest grozavesti` and
+  `node game/dev/harness/tram-sweep-audit.cjs <repo> <out> bucharest grozavesti`.
 - Visual QA of the district you touched: `npm run harness:visual -- --city=bucharest --district=<id> --viewports=none`;
   compare the finding counts with a run on the previous commit and keep the frame under **1.5 M triangles / 400 draw
   calls**.
@@ -43,6 +46,8 @@ something the next agent needs, add it here (imperative) or in the relevant spec
 - **README.md reflects the current game**: a change that adds, removes or changes a player-facing feature, control,
   district / landmark, dev tool or data source / credit updates README.md (and the relevant spec) in the same commit.
   Remove text that is no longer true; history lives in git, not in the docs.
+- `handoffs/fidelity/` holds BACKLOG.md plus only the evidence that game code, tools, tests or the overview read (for
+  example `d-otopeni/terminal-roof-measurements.json`); delete an evidence folder once nothing reads it.
 - **Keep the published overview (`/game/overview/`) current.** A change that affects it updates the affected prose,
   inventory, district / landmark / tourist records, comparisons, links, captions and **every affected picture**
   (screenshots, thumbnails, street / aerial views, activity frames, phone captures) in the same change. Recapture from
@@ -52,9 +57,12 @@ something the next agent needs, add it here (imperative) or in the relevant spec
   caching, and check the live page after publishing.
 
 ## Reality rules
-- **Street View is for visual side-by-side comparison only** (Google's terms): never extract data from it, never commit
-  or publish its imagery. Building data comes from OSM plus measurements on aerial imagery (only measurements are
-  committed).
+- **Street View is for visual side-by-side comparison only** (Google's terms): never extract data from it, never
+  download panoramas in bulk, trace them, copy them into textures, commit or publish them. Building data comes from OSM
+  plus measurements on aerial imagery (only measurements are committed). OSM decides where things are; panoramas show
+  what they look like. When a panorama shows OSM is wrong, the fix is a documented exception in the district dossier,
+  never a silent move. Review sheets: `node game/dev/reality/capture.cjs --district=<id>` (viewpoints in
+  `game/dev/reality/viewpoints.json`).
 - **OSM tags always win** over measurements; measurements win over rules of thumb. Never invent shops, signs, names,
   prices or gameplay places (gas stations only from OSM `amenity=fuel`).
 - Preserve every source footprint, courtyard and road exactly: never move, shrink or delete a real building to clear a
@@ -74,7 +82,7 @@ something the next agent needs, add it here (imperative) or in the relevant spec
 5. What a review establishes goes into the district's `game/research/` dossier; open gaps go to BACKLOG.md.
 
 ## Pitfalls (each one shipped a visible bug)
-- Never trust counts alone: the builder once silently dropped footprints just past the playable edge and far pitches /
+- Never trust counts alone: the builder can silently drop footprints just past the playable edge and far pitches /
   lawns, leaving dead belts. Check with `DEBUG_DROPS` and `building-audit.py`.
 - Decide building types from measurements (aerial roof class + footprint shape) with deterministic variety per OSM id,
   never blanket zone defaults (a "sea of roofs").
@@ -96,7 +104,7 @@ something the next agent needs, add it here (imperative) or in the relevant spec
   `camera-poses.json`.
 - `buildWorld` ordering: never use a variable before it is defined (`data` is loaded after `distId`), and never call a
   `const` helper from code that runs earlier (signs run inside the building loop): use a hoisted function declaration.
-  Both have broken the boot.
+  Either breaks the boot.
 - OSM grounds / landuse are often drawn to the street centre line: fences and hedges along them snap to the property
   line on the grounds' side (`inside`). The largest building in a named amenity gets its name as a sign: drop it when a
   landmark carries the sign.

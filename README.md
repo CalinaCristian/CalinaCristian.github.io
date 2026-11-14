@@ -135,8 +135,10 @@ in Git but are excluded from the deploy in `_config.yml`.
   [Natural Earth](https://www.naturalearthdata.com/) (public domain); night-side city lights from NASA Earth
   Observatory's Black Marble 2016 (public domain).
 - Artworks are modelled in 3-D from public descriptions and credited in-game (e.g. the Fremont Troll by Steve Badanes,
-  Will Martin, Donna Walter and Ross Whitehead; glass by Dale Chihuly). Buildings are modelled without photo textures;
-  research reference photos are not part of the repository.
+  Will Martin, Donna Walter and Ross Whitehead; glass by Dale Chihuly). Buildings are modelled without photo textures.
+  Research reference photos stay out of the repository, except eight Wikimedia Commons photos in
+  `game/research/refs/unirii/`; every reference photo's source and licence is in
+  [`game/research/refs/LICENSES.md`](game/research/refs/LICENSES.md).
 - Analytics: cookieless PostHog (EU), production only, respects Do Not Track / Global Privacy Control. Health
   diagnostics cover loads, renderer stalls and recoveries; a 15-minute per-tab breadcrumb carries fixed place/action
   IDs only, no visitor identity or precise position. Dashboards: [`tools/telemetry/README.md`](tools/telemetry/README.md).
@@ -144,4 +146,3 @@ in Git but are excluded from the deploy in `_config.yml`.
 ## Technical overview
 [The game overview](https://cristiancalina.com/game/overview/) documents the architecture, simulation, controls and the
 spec-driven AI workflow, with game-versus-reality comparisons for every district, landmark and tourist destination.
-What changed and why: the git history.

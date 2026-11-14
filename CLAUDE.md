@@ -4,6 +4,5 @@ All agent instructions live in `AGENTS.md` (shared with Codex and other agents).
 
 @AGENTS.md
 
-Mandatory overview upkeep: when a change affects anything published in `/game/overview/`, update the overview too,
-including its pictures/screenshots/thumbnails, comparisons, captions, links, inventory and evidence. Recapture affected
-views from the changed source, retain honest dates and revisions, and follow the full overview rule in `AGENTS.md`.
+The overview rule in `AGENTS.md` ("Keep the published overview current") is mandatory: a change that affects
+`/game/overview/` updates the overview and recaptures its affected pictures in the same change.

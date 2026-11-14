@@ -1,6 +1,6 @@
 # 14 — On foot (GTA-style)
 
-Owner role: **gameplay** (`onfoot.js` new, hooks in main.js/input.js/hud.js).
+Owner role: **gameplay** (`onfoot.js`, `game-foot.js`, hooks in main.js/input.js/hud.js).
 
 The player can leave the car and walk, run and jump, GTA-style.
 

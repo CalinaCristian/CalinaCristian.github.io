@@ -1,7 +1,7 @@
 # Drive My CV: specs (spec-driven development)
 
-This folder says what we are building and who owns what. Open work (owner reports and
-everything else) lives in one place: [`handoffs/fidelity/BACKLOG.md`](../handoffs/fidelity/BACKLOG.md). Progress history is git history.
+This folder says what we are building and who owns what. Open work (owner reports and everything else) lives in one
+place: [`handoffs/fidelity/BACKLOG.md`](../handoffs/fidelity/BACKLOG.md).
 
 | File | What |
 |---|---|
@@ -26,5 +26,5 @@ everything else) lives in one place: [`handoffs/fidelity/BACKLOG.md`](../handoff
 2. Contracts: change the *Contracts* section of `01-architecture.md` first when you change an API another module uses.
 3. Specs hold requirements and acceptance only: no progress logs, request threads or finding lists. Findings go to
    `handoffs/fidelity/BACKLOG.md`, updated in the same commit as the fix; history stays in git.
-4. Verify with the checks in `19-qa-harness.md` and BACKLOG.md, and look at the captures; a report closes only when
-   published and re-checked live at the owner's pose.
+4. Verify with `19-qa-harness.md` and the push checks in `AGENTS.md`, and look at the captures; a report closes only
+   when published and re-checked live at the owner's pose.

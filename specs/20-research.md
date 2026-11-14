@@ -14,7 +14,7 @@ Research the kept areas in depth so the visuals match reality as closely as poss
   - `colours`: palette (facades, road, sidewalk, kerb, markings).
   - `traffic`: congestion hotspots (location, hours, severity, source e.g. TomTom/news) → feeds `congestion` (spec 13).
 - `game/research/<city>-<area>.md` — readable dossier with a source URL for every claim + "top 30 things a local would notice if wrong".
-- `game/research/refs/<area>/` — free-licensed reference images only (Wikimedia Commons CC-BY/CC-BY-SA/PD), ≤ 400 KB each, ≤ 60 per area, each listed in `game/research/refs/LICENSES.md` (author, license, URL; mark facade-texture candidates).
+- `game/research/refs/<area>/` — free-licensed reference images only (Wikimedia Commons CC-BY/CC-BY-SA/PD), ≤ 400 KB each, ≤ 60 per area, each listed in `game/research/refs/LICENSES.md` (author, license, URL). The images stay local (`.gitignore`); only `refs/<area>/index.json` files and the eight `refs/unirii/` photos are tracked.
 - Tourist spots and districts additionally: `dialogue` per spot/district — personas (locals, tourists by origin, vendors, guides, buskers, staff) with 15–40 short lines each for: greeting, bumped, photographed, idle chatter, spot-specific; original language + English translation; cultural notes on tone/etiquette with sources; no stereotypes.
 - Tourist spots additionally: `spots[]` with full scene spec (footprint, dimensions, materials, colours, signage text, props, vegetation, typical crowd, sounds, 3–6 plaque facts with sources, fun interaction idea, best photo angle).
 
@@ -23,8 +23,8 @@ Research the kept areas in depth so the visuals match reality as closely as poss
 |---|---|
 | research-buc-districts | floreasca, grozavesti, unirii, pipera, romana, otopeni (spec 10 table) |
 | research-sea-districts | seatac, bellevue (incl. I-90 floating bridge approach) |
-| research-buc-spots | Bucharest top 10 tourist spots (spec 15) — confirm the list with evidence first |
-| research-sea-spots | Seattle top 10 tourist spots (spec 15) — confirm the list with evidence first |
+| research-buc-spots | Bucharest top 10 tourist spots (spec 15), list justified with evidence |
+| research-sea-spots | Seattle top 10 tourist spots (spec 15), list justified with evidence |
 
 ## Sources & etiquette
 OSM tags (building:levels, building:colour, roof:*, building:material, shop/amenity/brand, lanes, turn:lanes, lanes:bus, cycleway, sidewalk, surface, lit, natural=tree, railway=tram, trolley_wire) from api.openstreetmap.org (tiles: `tools/osm/README.md`); Wikipedia (en/ro), Wikivoyage, Wikimedia Commons categories, KartaView open imagery (Mapillary needs a token — skip), brand store locators, transit agencies (STB, King County Metro, Sound Transit), city open data (Seattle SDOT, Bellevue GIS), TomTom Traffic Index. Rate-limit (≥ 1.5 s between Wikimedia requests, descriptive User-Agent).

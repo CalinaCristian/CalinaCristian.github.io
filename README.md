@@ -81,7 +81,7 @@ that chapter tells its part of the CV.
 | Look | click the view and move the mouse (`Esc` frees the cursor) · `C` look back | drag the right half |
 | Car | `L` headlights · `E` enter office / refuel · `R` reset to the road · `F` fast travel · `U` U-turn at a closure | buttons |
 | Map | `M` map & navigation (click to drop a waypoint; in free roam: the world map) · `N` mini-map · 🌍 world map | 🧭 🌍 |
-| On foot | `Enter` get out / back in · `W`/`A`/`S`/`D` walk · `Shift` run · `Space` jump · `T` call the car | 🚶 + thumbstick |
+| On foot | `Enter` get out / back in · `W`/`A`/`S`/`D` walk · `Shift` run · `Space` jump · `V` back in the car · `T` call the car | 🚶 + thumbstick |
 | Drone | `G` deploy / land · mouse look + `WASD` fly (W/S follow pitch, A/D strafe) · `1` `2` `3` speed · `T` go here · `H` home | 🚁 + stick |
 | Spots | `E` read / interact · `G` spot map · `J` skip a tour step | buttons |
 | Camera | `P` photo mode | 📷 |

@@ -26,7 +26,7 @@ R15.3 Interactions: 3–6 info plaques per spot (short facts, sources), a postca
 spot-specific activities.
 
 R15.4 Access: the menu lists the ordered `MENU_ORDER` set in `game/src/spot-availability.js` — at most three visits per
-Bucharest / Seattle / Bellevue and six to eight in total. Currently seven: Old Town, Cișmigiu, Arcul de Triumf, Pike
+Bucharest / Seattle / Bellevue and six to eight in total. The menu holds seven: Old Town, Cișmigiu, Arcul de Triumf, Pike
 Place, Space Needle (combined with Chihuly), Meydenbauer, Downtown Park. Every other spot stays loadable by id (dev page,
 `?spots=all`). Retired visits and activities (`RETIRED_ACTIVITIES`) keep earned history but do not count toward current
 completion; achievement ids stay stable for saves (an achievement may accept an old activity key, e.g. the Glasshouse's

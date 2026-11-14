@@ -24,7 +24,7 @@ R19.5 Fast loop: subset flags (`--city`, `--district`, `--chapter`, `--viewports
 1. Acceptance criteria met, evidence in the commit message.
 2. Logic harness: 0 high; no new medium issues in the area touched.
 3. Visual QA: detectors clean in the area touched; review.md has no medium+ defect there; capture coverage complete.
-4. The checks in `handoffs/fidelity/BACKLOG.md` pass; the change is published and re-checked live (owner reports at
-   the report pose).
+4. The push checks in `AGENTS.md` pass; the change is published and re-checked live (owner reports at the report
+   pose).
 5. README.md, the relevant spec and the published overview are updated in the same change (AGENTS.md → "Keep the docs
    and the overview current").

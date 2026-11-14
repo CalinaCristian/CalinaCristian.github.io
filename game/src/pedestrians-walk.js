@@ -433,7 +433,7 @@ export class PedestriansWalk {
             // (owner register #67 Bellevue, L15: "pedestrian pileups at multiple closures") a closure standing across the crossing
             // both ways (turned back once, blocked again): they froze in the road for good. After 2 s they leave the carriageway
             // for a sidewalk away from the camera, like a walker pinned between cars
-            else if(p.state==='legs'&&p.legs?.[0]?.back){p.staticPinT=(p.staticPinT||0)+dt;if(p.staticPinT>2){p.staticPinT=0;p.onRoad=false;p.state='walk';p.legs.length=0;this.stats.closurePinnedRelocated=(this.stats.closurePinnedRelocated||0)+1;if(this.t.large)this.relocate(p,120,420,true);else this.relocate(p,30,200,true);return false;}}
+            else if(p.state==='legs'&&p.legs?.[0]?.back){p.staticPinT=(p.staticPinT||0)+dt;if(p.staticPinT>2){p.staticPinT=0;p.onRoad=false;p.state='walk';p.legs.length=0;this.stats.closurePinnedRelocated=(this.stats.closurePinnedRelocated||0)+1;this.relocate(p,30,200,true);return false;}}
         }
         // (owner register #67 Bellevue, L15: "pedestrian pileups at multiple closures") two flows meeting head-on on a crossing
         // refused each other's steps for good (79 of 121 walkers frozen). Someone on the carriageway blocked only by peers for

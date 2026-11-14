@@ -60,7 +60,7 @@ for (const [signal, code] of [['SIGTERM',143],['SIGINT',130]]) process.on(signal
         game.r3d.setQuality('high'); game.player.mirrorEnabled = true; game.traffic.setHour(8, true);
         const T = game.traffic, S = __integrationSoak, C = T.peds;
         const snapshot = () => ({ counts: T.counts, base: T.base, target: T.target, profile: T.profile, maxVehicles: T.maxVehicles,
-            jamExtra: T.jamExtra, jamBuilt: T._jamBuilt || 0, large: T.large,
+            jamExtra: T.jamExtra, jamBuilt: T._jamBuilt || 0,
             kinds: Object.fromEntries([...new Set([...T.vehicles, ...T.pool].map(v => v.kind))].map(kind => [kind, { active: T.vehicles.filter(v => v.kind === kind).length, pooled: T.pool.filter(v => v.kind === kind).length }])),
             activeIds: T.vehicles.map(v => v.id), pooledIds: T.pool.map(v => v.id) });
         S.populationPreparation = { initial: snapshot(), seconds: [] };

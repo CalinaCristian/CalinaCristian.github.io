@@ -42,7 +42,7 @@ const held = t.savePose(visible);
 assert.equal(t.respawn(visible), false, 'automatic respawn cannot remove a visible stopped source');
 assert.equal(t.relocate(visible, 250, 650, true), false, 'automatic relocation cannot remove a visible stopped source');
 assert.deepEqual(t.savePose(visible), held);
-t.player = { x: 1000, z: 1000, fx: 1, fz: 0 }; t._large = false;
+t.player = { x: 1000, z: 1000, fx: 1, fz: 0 };
 t.world = { graph: { edges: [e] } }; t.rng = () => 0.5; t.rng.range = (a, b) => (a + b) / 2;
 t.carLaneMax = () => 2; t.spawnClear = () => false; t.nearEdges = () => [e];
 visible.mesh.rotation.x = 0.08; visible.desiredMul = 1; visible.odo = 200; visible.route = [{ e, dir: 1 }]; visible.hist = [{ e, dir: 1 }];

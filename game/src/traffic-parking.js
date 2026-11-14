@@ -143,10 +143,6 @@ export class TrafficParking {
         for (const cb of (this._parkCbs || []).slice()) { try { cb(ev); } catch (e) { console.warn('[traffic] parking event handler', e); } }
         return ev;
     }
-    // (spec 22 split) this getter stood in the Traffic class body before the bubble() method below, which replaces it on
-    // the prototype: this.bubble in relocate calls is that method, not 650. Kept here, in front of the method, so the
-    // prototype stays exactly as before the split (behaviour unchanged, R22.5).
-    get bubble() { return 650; }
     /** a driver's chat bubble of a kind (honkedAt, bumped, stuck, green, redLight) from data.js PHRASES: Romanian lines
      *  are {t, en} and show the English gloss underneath (plain strings still work); falls back to opts.onBubble */
     bubble(v, kind,dialogueEvent=null) {
@@ -402,7 +398,7 @@ export class TrafficParking {
         const h = VEH.vehicleSize?.(kind, this.city.id)?.height || 3;
         const b = st.beacon = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.16, 0.3), new THREE.MeshBasicMaterial({ color: '#ffae00' }));
         b.position.set(0, h + 0.08, -Lt * 0.3); v.mesh.add(b);
-        for (const o of this.near(v.x, v.z, 16)) if (o !== v && !o.service && !o.inactive && vvPen(v, o) > -0.3) { if (!(this.large && this.relocate(o, 250, this.bubble, true))) this.respawn(o); }
+        for (const o of this.near(v.x, v.z, 16)) if (o !== v && !o.service && !o.inactive && vvPen(v, o) > -0.3) { this.respawn(o); }
         this.grid.build(this.vehicles);
         st.truck = v; st.S.truckAt = st.t;
         this.emitParking('towtruck');

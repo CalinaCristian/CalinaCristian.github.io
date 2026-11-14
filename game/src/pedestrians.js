@@ -155,7 +155,6 @@ export class Pedestrians {
         Object.assign(p, saved);
         if (!p.e) p.state = 'stand'; // nowhere to walk: just stand where we are
     }
-    relocateAll() { for (const p of this.list) this.relocate(p, 0, 420, false); this.buildGrid(); this.writeMatrices(); }
     recycle() {
         const P = this.t.player; if (!P || !this.list.length) return;
         if (this.noWalkRoomUntil > this.t.time) return; // (see relocate: no free walking room near the player a moment ago)
@@ -163,14 +162,14 @@ export class Pedestrians {
             this._rr = ((this._rr || 0) + 1) % this.list.length;
             const p = this.list[this._rr];
             // districts (~1 km²): keep the walkers around the player (a busy street at noon), big legacy maps as before
-            const far = this.t.large ? 480 : 230;
+            const far = 230;
             if (p.state !== 'down' && Math.hypot(p.x - P.x, p.z - P.z) > far && !(p.recycleAfter > this.t.time)) {
                 // One attempt per step, a few placements each, and a walker that found no room waits before asking again:
                 // with sidewalks at their walking fill every attempt scanned all sidewalks within 420 m and the whole crowd,
                 // up to ten walkers a step and fifty placements each (8 % of the traffic step).
-                const x = p.x, z = p.z; this.relocate(p, this.t.large ? 120 : 45, this.t.large ? 420 : 200, true, this.t.large ? 50 : 8);
+                const x = p.x, z = p.z; this.relocate(p, 45, 200, true, 8);
                 if (p.x === x && p.z === z) p.recycleAfter = this.t.time + 15;
-                if (!this.t.large) break;
+                break;
             }
         }
     }
@@ -249,7 +248,7 @@ export class Pedestrians {
         this._stepDt = dt;
         this._fr = (this._fr || 0) + 1;
         // district level of detail (see DISTRICT_LOD_WALKER_M): a far walker takes every other frame, with twice the step
-        const lod = !T.large && typeof T.viewerTier === 'function' && T.districtLod !== false;
+        const lod = (typeof T.viewerTier === 'function') && T.districtLod !== false;
         const strideOf = p => lod ? walkerStride(T.viewerTier(p.x, p.z, DISTRICT_LOD_WALKER_M, DISTRICT_LOD_WALKER_FAR_M), frameDt) : 1;
         const skipped = p => { const n = strideOf(p); return n > 1 && (this._fr + p.i) % n !== 0; };
         this.stats.lodWalkers = 0;

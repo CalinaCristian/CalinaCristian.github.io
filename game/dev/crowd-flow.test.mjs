@@ -107,12 +107,4 @@ let from = source;
 for (const leg of detour.legs) { assert.equal(E.clearWalkSegment(from, leg, true), true); from = leg; }
 assert.deepEqual(from, goal);
 assert.equal(E.freeVehiclePoint(13, 3.0), false, 'recovery planning uses the normal 0.7 m body clearance');
-// Large-map setup must rebuild the vehicle grid after pooling/splicing cars,
-// before the new pedestrian admission queries it (qa16 threw at Grid.query).
-const setup = Object.create(Traffic.prototype); let rebuilt = false;
-setup._large = true; setup.vehicles = [{ mesh: { visible: true } }]; setup.pool = [];
-setup.relocate = () => false; setup.grid = { build(list) { rebuilt = list.length === 0; } };
-setup.peds = { relocateAll() { assert.equal(rebuilt, true, 'admission sees the final vehicle grid'); } };
-setup.setPlayer({ x: 0, z: 0 });
-assert.equal(setup.pool.length, 1);
 console.log('PASS: physical walking capacity, carried clearance, preserved failed placement, congestion routing, continuous recovery and measured-motion gait/camera visibility');

@@ -315,7 +315,6 @@ export class Traffic {
                 v.inactive = false;
                 let ok;
                 if (kind === 'moving' && this.jamMax > 0.05 && this.rng() < 0.75 && this.placeInHot(v, budget < 1e8)) ok = true;
-                else if (this.large) ok = this.relocate(v, 300, this.bubble, true);
                 else ok = this.respawn(v, budget < 1e8);
                 if (!ok) { v.inactive = true; continue; }
                 this.pool.splice(i, 1); v.mesh.visible = true; this.vehicles.push(v);
@@ -358,11 +357,6 @@ export class Traffic {
         return signalState(ph, ph.get(edge), this.time, this.cycle);
     }
 
-    /** big (OSM) worlds: keep the simulation in a bubble around the player */
-    get large() {
-        if (this._large === undefined) { const b = this.world.bounds; this._large = !!b && ((b.maxX - b.minX) > 4000 || (b.maxZ - b.minZ) > 4000); }
-        return this._large;
-    }
     /** NPC head/tail lights (night) — applied to current and future vehicles */
     setNightLights(on) {
         this.nightLights = !!on;
@@ -370,19 +364,7 @@ export class Traffic {
     }
     setPlayer(p) {
         this.player = p;
-        if (this.large) {
-            // mass relocation around the new spot: each placement is checked against the ones placed before it
-            // (the spatial grid still holds the old positions); vehicles that find no free spot wait in the pool
-            this._bulk = [];
-            const list = this.vehicles.slice();
-            for (const v of list) {
-                if (this.relocate(v, 0, this.bubble, false)) continue;
-                const i = this.vehicles.indexOf(v); if (i >= 0) { this.vehicles.splice(i, 1); v.inactive = true; v.mesh.visible = false; this.pool.push(v); }
-            }
-            this._bulk = null;
-            this.grid.build(this.vehicles); // admission checks the final relocated/pooled vehicle set
-            this.peds.relocateAll();
-        }
+
     }
     /** edges around the player, cached (refreshed when the player moved 80 m or every 2 s) */
     nearEdges(r, rail = false) {
@@ -451,7 +433,7 @@ export class Traffic {
     /** move vehicle v onto a random edge whose midpoint is rMin..rMax from the player. returns success */
     relocate(v, rMin, rMax, hidden) {
         const P = this.player; if (!P || (hidden && v.mesh.visible !== false && this.inView(v))) return false;
-        const cands = this.nearEdges(rMax <= this.bubble ? this.bubble : rMax, !!v.edge.rail);
+        const cands = this.nearEdges(rMax, !!v.edge.rail);
         if (!cands.length) return false;
         const save = this.savePose(v);
         for (let tries = 0; tries < 60; tries++) {
@@ -488,16 +470,7 @@ export class Traffic {
     }
     recycle() {
         const P = this.player; if (!P) return;
-        this.peds.recycle(); // (districts too: walkers stay around the player)
-        if (!this.large) return;
-        const all = this.vehicles; const n = Math.min(all.length, 25);
-        const R = this.bubble + 100;
-        for (let k = 0; k < n; k++) {
-            this._rr = ((this._rr || 0) + 1) % all.length;
-            const v = all[this._rr];
-            const d = Math.hypot(v.x - P.x, v.z - P.z);
-            if (d > R) this.relocate(v, 350, this.bubble, true);
-        }
+        this.peds.recycle(); // (walkers stay around the player; districts keep every vehicle in play)
     }
 
     // ------------------------------------------------------------------ main update
@@ -513,13 +486,13 @@ export class Traffic {
         this.grid.build(all);
         this.peds.buildGrid();
         this._frame = (this._frame || 0) + 1;
-        const P = this.player, lod = this.large && P;
+        const P = this.player, lod = false;
         // who is looking: the player, the walker on foot, and the active camera (a drone or an office window is elsewhere)
         const viewers = this._viewers || (this._viewers = []); viewers.length = 0;
         if (P) viewers.push(P.x, P.z);
         if (this.walker?.active) viewers.push(this.walker.x, this.walker.z);
         { const camera = this.observerCamera || (globalThis.game?.traffic === this ? globalThis.game.camera : null), m = camera?.matrixWorld?.elements; if (m && Number.isFinite(m[12]) && Number.isFinite(m[14])) viewers.push(m[12], m[14]); }
-        const lodDistrict = !this.large && viewers.length > 0 && this.districtLod !== false;
+        const lodDistrict = (viewers.length > 0) && this.districtLod !== false;
         this.stats.lodVehicles = 0;
         if (P) P.stillT = Math.abs(P.speed) < 0.5 ? (P.stillT || 0) + dt : 0; // (mutual waits with a stopped player, stepVehicle)
         for (let i = 0; i < all.length; i++) {
@@ -583,7 +556,7 @@ export class Traffic {
         let n = 0;
         for (const v of this.vehicles) {
             if (Math.hypot(v.x - x, v.z - z) >= r + v.length * 0.5) continue;
-            if (!(this.large && this.relocate(v, 250, this.bubble, true))) this.respawn(v, false);
+            this.respawn(v, false);
             v.touchT = 0; n++;
         }
         this.grid.build(this.vehicles);
@@ -599,7 +572,7 @@ export class Traffic {
             const dx = v.x - P.x, dz = v.z - P.z, f = dx * P.fx + dz * P.fz, l = Math.abs(dx * -P.fz + dz * P.fx);
             const near = Math.hypot(dx, dz) < r + v.length * 0.5, inLane = l < 2.6 + v.width * 0.5 && f > -behind - v.length * 0.5 && f < ahead + v.length * 0.5;
             if (!near && !inLane) continue;
-            if (!(this.large && this.relocate(v, 250, this.bubble, true))) this.respawn(v, false);
+            this.respawn(v, false);
             v.touchT = 0; n++;
         }
         this.grid.build(this.vehicles);

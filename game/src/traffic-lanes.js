@@ -152,7 +152,7 @@ export class TrafficLanes {
         }
         // double-parked cars (Bucharest special)
         const pc = this.city.traffic?.parkedChance ?? 0;
-        const maxParked = Math.round(this.maxVehicles * 0.2), maxTrams = this.large ? 26 : 200;
+        const maxParked = Math.round(this.maxVehicles * 0.2), maxTrams = 200;
         this.initialParking = { attempted: 0, admitted: 0, refused: 0, records: [], rngDraws: 0,
             scope: 'Generated parked behavior admitted before publication only; refused slots keep their original ordinary actor, source station and all historic RNG draws.' };
         const parkingWalk = Object.create(Pedestrians.prototype); parkingWalk.t = this;
@@ -590,7 +590,7 @@ export class TrafficLanes {
         if (hidden && v.mesh.visible !== false && this.inView(v)) return false;
         const original = this.savePose(v);
         v._resp = true; v.latBlend = 0;
-        if (this.large && this.relocate(v, 300, this.bubble, hidden)) return true;
+
         const edges = v.edge.rail ? this.tramNetwork.edges : this.world.graph.edges; const P = this.player;
         for (let tries = 0; tries < 30; tries++) {
             const e = edges[Math.floor(this.rng() * edges.length)];
@@ -640,7 +640,7 @@ export class TrafficLanes {
             if (f < 0) continue;
             let knot = false;
             if (l > 4.5) { this.grid.query(v.x, v.z, v.length / 2 + 6, (o) => { if (!knot && o !== v && !o.inactive && Math.abs(o.y - v.y) < 2 && vvPen(v, o) > 0.05) knot = true; }); if (!knot) continue; }
-            if (!(this.large && this.relocate(v, 250, this.bubble, true))) this.respawn(v);
+            this.respawn(v);
             v.stuck = 0; v.still = 0; n++;
         }
         if (n) { this.stats.playerWatchdog = (this.stats.playerWatchdog || 0) + n; P.blockedT = 6; this.grid.build(this.vehicles); }
@@ -657,7 +657,7 @@ export class TrafficLanes {
             const inView = this.inView(h);
             if (h.dlTries && h.odo - (h.dlOdo ?? h.odo) > 15) h.dlTries = 0; // it got going since the last try
             if (h.inactive || inView) continue;
-            if (!(this.large && this.relocate(h, 300, this.bubble, true)) && !this.respawn(h)) continue;
+            if (!this.respawn(h)) continue;
             h.still = 0; h.dlTries = 0; this.stats.deadlocks = (this.stats.deadlocks || 0) + 1;
             for (const s of seen) s.still = Math.min(s.still, 10);
         }

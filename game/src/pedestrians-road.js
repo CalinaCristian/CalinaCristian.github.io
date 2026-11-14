@@ -80,7 +80,7 @@ export class PedestriansRoad {
      *  them in the road in the walk state, walking their sidewalk line through it (Romană, George Enescu / Tache Ionescu) */
     leaveRoad(p) {
         const x = p.x, z = p.z;
-        if (this.t.large) this.relocate(p, 120, 420, true); else this.relocate(p, 30, 200, true);
+        this.relocate(p, 30, 200, true);
         if (p.x === x && p.z === z && this.roadAt(p.x, p.z, 0.4) && this.replanWalk(p)) this.stats.leaveRoadReplanned = (this.stats.leaveRoadReplanned || 0) + 1;
     }
     inWater(x, z) { const w = this.t.world.isWater; if (!w) return false; return w(x, z) || w(x + 1, z) || w(x - 1, z) || w(x, z + 1) || w(x, z - 1); }
@@ -229,7 +229,7 @@ export class PedestriansRoad {
             if (p.ovT > 8 && P && !fixed(p)) {
                 const dx = p.x - P.x, dz = p.z - P.z, d = Math.hypot(dx, dz);
                 if (d > 70 || (d > 25 && dx * (P.fx || 0) + dz * (P.fz || 0) < 0)) {
-                    p.ovT = 0; p.unpiled = false; this.relocate(p, this.t.large ? 120 : 30, this.t.large ? 420 : 200, true);
+                    p.ovT = 0; p.unpiled = false; this.relocate(p, 30, 200, true);
                     this.t.stats.pedUnclump = (this.t.stats.pedUnclump || 0) + 1;
                 }
             }

@@ -628,7 +628,7 @@ export class TrafficStep {
             if (fol.ovT > 0.4) {
                 let hidden = true;
                 if (P) { const dx = fol.x - P.x, dz = fol.z - P.z, d = Math.hypot(dx, dz); hidden = d > 70 || (d > 30 && dx * P.fx + dz * P.fz < 0); } // (a swap 70 m away goes unnoticed; two cars stuck in each other would not)
-                if (hidden) { fol.ovT = 0; if (!(this.large && this.relocate(fol, 250, this.bubble, true))) this.respawn(fol); this.stats.unstuck = (this.stats.unstuck || 0) + 1; }
+                if (hidden) { fol.ovT = 0; this.respawn(fol); this.stats.unstuck = (this.stats.unstuck || 0) + 1; }
                 // Visible knots keep their physical pose and bounded separating
                 // steps. A timeout never enables penetration or a visible swap.
             }
@@ -741,7 +741,7 @@ export class TrafficStep {
             v.s = old; this.placeOnLane(v, true, 0);
         }
         v.nudges = 0;
-        if (!(this.large && this.relocate(v, 250, this.bubble, true))) this.respawn(v);
+        this.respawn(v);
     }
     /** A recovery on rails still samples the source path; it cannot translate
      * along a turning body's chord and leave the track. Existing pace and

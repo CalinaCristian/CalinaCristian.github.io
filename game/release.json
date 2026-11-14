@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-da306f52f168a3e9",
-  "sourceCommit": "f60537093ac1f9348b8a0a0fe8c914958f8e4723",
-  "fingerprint": "da306f52f168a3e9d66fab2ec84fd30fe11f80f1c8e2aec8d9f1a913e0346c14",
+  "releaseId": "game-0c4116120562c262",
+  "sourceCommit": "fccc7f4570972235f813299eeb746fde23d22140",
+  "fingerprint": "0c4116120562c262ad3129fb2082aea7ad567e77cf47e1501bfe3c299d02f0ad",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -510,7 +510,7 @@
     },
     {
       "path": "game/src/freeway-cut.js",
-      "sha256": "6c1908f93306fda8f6fd1b7dba845f9b6046dece375739eadf7cb0cc5d68efe6"
+      "sha256": "d2a6d969700d04b9bd4f072ce535d5f98323c6e80827e03336e1e6e56f40d53c"
     },
     {
       "path": "game/src/fuel-canopy-review.js",
@@ -958,7 +958,7 @@
     },
     {
       "path": "game/src/player.js",
-      "sha256": "8112ad1c78decf534301ee9ebfbaf1a33efba32b216ff1667e326099eeb18b1a"
+      "sha256": "805a8a384f620acf8e1f3ad35a130796d691f2a036360579b4507a616f7d6711"
     },
     {
       "path": "game/src/playgrounds.js",
@@ -1786,7 +1786,7 @@
     },
     {
       "path": "game/src/world-api.js",
-      "sha256": "6d97bb7b82483d2bef06ee23620acf3bad57c2442d5f2fd2606371346bbcecb7"
+      "sha256": "a2af9a870e909bdb2f034b05c5e1b10182f2c4043ad6462488ba092a09ef6dc4"
     },
     {
       "path": "game/src/world-areas-water.js",
@@ -1822,7 +1822,7 @@
     },
     {
       "path": "game/src/world-facade-detail.js",
-      "sha256": "dfbb9fcb8db2db5f1e5d0627e45d3c445410bc9cf8c4ac7991457ee07697f364"
+      "sha256": "fa935d5aea7d6e13596baae381e3cab580d12ba9f5ee61662fecb69869e651ca"
     },
     {
       "path": "game/src/world-facades-guards.js",
@@ -1874,7 +1874,7 @@
     },
     {
       "path": "game/src/world-railing-network.js",
-      "sha256": "a0f0af720b98e43eac04b5d1826f3fb295f8ff41c37777634039d95f1c0a4bc3"
+      "sha256": "e95a2da7e1ca6de33aade4b173c50e3ef46d84788411759dc69b351db376a780"
     },
     {
       "path": "game/src/world-raised-edges.js",

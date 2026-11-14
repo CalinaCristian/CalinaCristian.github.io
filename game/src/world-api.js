@@ -85,6 +85,8 @@ export function buildWorldApi(ctx) {
             }, opts && opts.edge);
             return best ?? Y.road;
         },
+        /** top of a source bridge-junction slab at (x, z) (its drawn pad skin), or null */
+        junctionSlabTopAt(x, z) { let top = null; allColl.query(x, z, 0.1, (c) => { if (c.bridgeJunction && c.roofHeightAt) { const y = c.roofHeightAt(x, z, 0); if (y !== null && (top === null || y > top)) top = y; } }); return top; },
         /** all drivable surface heights at (x, z) (array, ascending) */
         surfacesAt(x, z) { const hs = []; surfacesAt(x, z, (h) => hs.push(h)); return hs.sort((p, q) => p - q); },
         /** invisible collision walls {ax, az, bx, bz, y0a, y1a, y0b, y1b, nx, nz, kind: rail|embank|trench|guard, edge} (also in world.buildings) */

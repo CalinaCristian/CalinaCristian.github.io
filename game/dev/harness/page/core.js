@@ -579,7 +579,10 @@ export class Harness {
                 const px = P.x + P.fx * o, pz = P.z + P.fz * o;
                 W.buildings.query(px, pz, 1.5, (c) => {
                     if (!solidFor(P, c, px, pz)) return;
-                    if (c.poly) { if (pointInCollider(c, px, pz, 0, P.surfY ?? P.y ?? 0.24, P.bodyHeight ?? 2)) this.issue('clipping', 'high', `car body inside a building footprint${c.poi ? ' (CV building)' : ''}`, { kind: colliderKind(c, this.lampSet) }, { shot: true }); }
+                    // (a road deck: the body is inside it where its top stands above the car's own surface at that sample point,
+                    //  not above the surface under the car's centre: on a ramp rising onto a junction slab the point 1.3 m ahead is higher)
+                    const yS = c.roadDeck && o !== 0 && typeof P.surfaceAt === 'function' ? P.surfaceAt(px, pz, P.surfY ?? P.y ?? 0.24).h : (P.surfY ?? P.y ?? 0.24);
+                    if (c.poly) { if (pointInCollider(c, px, pz, 0, yS, P.bodyHeight ?? 2)) this.issue('clipping', 'high', `car body inside a building footprint${c.poi ? ' (CV building)' : ''}`, { kind: colliderKind(c, this.lampSet) }, { shot: true }); }
                     else {
                         const d = colliderDist(c, px, pz, P.surfY ?? P.y ?? 0.24, P.bodyHeight ?? 2);
                         // the player resolves a 1.0 m circle around each sample point: d < 0.4 = the object is inside the car body

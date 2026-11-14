@@ -6,6 +6,7 @@ import { roadWidthAt } from './nav.js';
 import { playerBodySampler } from './player-body-interval.js';
 
 const GROUND_Y = 0.24;   // road surface top at street level (world Y.road)
+const SLAB_STEP = 0.2;  // a source bridge junction's drawn top this far above the road heights is the surface (player.surfaceAt)
 const MAX_STEP = 0.9;    // bigger height jumps between frames = deck edge / trench wall (not drivable)
 const WHEELBASE = 2.7;   // m, for the bicycle model
 const LOOK_YAW = 150 * Math.PI / 180, LOOK_PITCH = 40 * Math.PI / 180;
@@ -178,6 +179,10 @@ export class Player {
         if (mode === 'legacy') { out.h = w.roadHeight(x, z); return out; }
         const own = this.ownSurface(x, z, yRef);
         out.h = own.h; out.edge = own.edge;
+        // (SeaTac, Airport Expressway merge at (-985, -20), 2026-11-13: the wheels sank up to 13 cm into the junction) a source
+        // bridge junction is drawn as its own slab whose skin stands a little above the edges' linear heights: on it the
+        // car rides on the drawn top
+        if (own.ok && typeof w.junctionSlabTopAt === 'function') { const t = w.junctionSlabTopAt(x, z); if (t !== null && t > out.h && t - out.h <= SLAB_STEP) out.h = t; }
         if (yRef == null || own.ok) return out;
         // sidewalks / junction pads on decks: the world knows every drivable surface at (x, z)
         if (typeof w.surfacesAt === 'function') {

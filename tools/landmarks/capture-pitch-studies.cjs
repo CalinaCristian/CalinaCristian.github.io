@@ -6,7 +6,7 @@ const hash=v=>createHash('sha256').update(v).digest('hex');
 if(!/^[a-f0-9]{40}$/.test(sourceCommit))throw Error('Complete source commit required');
 if(fs.existsSync(out)&&fs.readdirSync(out).length)throw Error('Preserve prior output');
 const inputs={};
-for(const file of ['game/dev/landmarks.html','game/src/landmarks.js','game/src/landmark-pitch-paint.js','game/src/landmark-pitch-paint-coverage.js']){
+for(const file of ['game/dev/landmarks.html','game/src/landmarks.js','game/src/landmark-pitch-paint.js','game/src/landmark-pitch-paint-coverage.js','game/src/landmark-pitch-paint-coverage-a.js','game/src/landmark-pitch-paint-coverage-b.js']){
   const served=fs.readFileSync(path.join(root,file)),expected=execFileSync('git',['show',sourceCommit+':'+file]);
   if(!served.equals(expected))throw Error('Snapshot does not match commit: '+file);inputs[file]=hash(served);
 }

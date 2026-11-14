@@ -74,7 +74,8 @@ separate modules instead (`furniture-extra.js`, `canopy-posts.js`, `willow.js`, 
 
 ## Files
 
-- Core: `index.js` (registry, `loadSpot`, `SpotSession`, the `SceneContext`, `auditSpot`, `floorProbe`),
+- Core: `index.js` (registry, `loadSpot`, the `SceneContext`; re-exports the rest of the API), `session.js`
+  (`SpotSession`, `spotProgress`), `audit.js` (`auditSpot`, `floorProbe`),
   `scenes/<scene>.js` (`export default { env?, async build(ctx) }`, plus helper modules per scene), `walker.js`
   (collider index, `LocalWalker`), `people.js` (`Crowd`), `ui.js` (`SpotUI`, `SpotMap`, `BubbleLayer`, `plaqueMesh`),
   `sound.js` (`SpotSound`), `cars.js`.
@@ -84,8 +85,9 @@ separate modules instead (`furniture-extra.js`, `canopy-posts.js`, `willow.js`, 
 - Terrain: `ground.js` (`Ground`, `Painter`, `buildTerrain`), `scenes/fine-dem*.js` (`applyFineDem`: USGS 1 m DEM where
   the 20 m grid is too coarse), `source-*.js` (literal source context shared with the street worlds).
 - Building kits: `osm.js` and `kit.js` (hash-locked, see above), `sdf.js` (sculptures), `props.js`, `space-needle.js`
-  (`spaceNeedleModel`, `needlePavilion`, `NEEDLE`; estimates in its header), `backdrop.js` (Seattle far backdrop),
-  `buc.js` (Bucharest kit: `bucBackdrop`, `classicFacade`, `placeLandmark`, `signAtlas`, `oldTownTerraces`, …),
+  (`spaceNeedleModel`, `needlePavilion`, `NEEDLE` from `space-needle-frame.js`; estimates in its header),
+  `backdrop.js` (Seattle far backdrop), `buc.js` (Bucharest kit: `bucBackdrop`, `classicFacade`, `placeLandmark`,
+  `signAtlas`, …; `oldTownTerraces` in `buc-terraces.js`),
   `buc-barriers.js` (`osmBarriers`), `buc-places.js` (`osmPlaces`), `buc-streetscape.js`, `scenes/buc-green.js`,
   `scenes/buc-walls.js` (`stoneWall`), `landmark-colliders.js`.
 - `frame-budget.js`: `compactMaterialGroups`, batched city context per 120 m cell with frustum / skyline culling (falls

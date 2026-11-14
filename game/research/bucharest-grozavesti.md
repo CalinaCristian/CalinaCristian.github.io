@@ -94,10 +94,10 @@ on Orhideelor. Students everywhere in term time; open, flat, windy riverside.
 |---|---|---|---|---|---|---|
 | w661134293 | The Bridge 1 (Orhideelor 15D) | 11 / 52 | #7D93A0 glass curtain wall | | 2017 | [osm] |
 | w699470645 | The Light One | 11 / 45 | #8A9BA5 glass + white fins | | | [osm] |
-| w28240552 | UPB Rectorat | 5 / – (OSM has no height; an earlier 24 m override was unsupported and removed) | #EDEDE8 white concrete frame grid + red infill panels (#B8312F) + glazing | flat with a central shallow saucer dome (aula), blue rim lighting at night | 1970s | upb [osm] [ref_upb] |
+| w28240552 | UPB Rectorat | 5 / – (OSM has no height) | #EDEDE8 white concrete frame grid + red infill panels (#B8312F) + glazing | flat with a central shallow saucer dome (aula), blue rim lighting at night | 1970s | upb [osm] [ref_upb] |
 | w50538006 | Biblioteca Centrală UPB | | | | | [osm] |
 
-**Reviewed buildings and landmarks** (`building-review.js`, `landmarks.js`; live OSM 2026-11-13):
+**Reviewed buildings and landmarks** (`building-review.js`, `game/src/landmarks/`; live OSM 2026-11-13):
 
 - **The Bridge 1** (`thebridge1`; pano 44.4441, 26.0628 h212): dark glass box, grey mullion grid, BCR band: matches.
 - **Centrul Comercial Orhideea** w23557062 (height 8) with **Carrefour** w925593033: pale panel façade with red bands, no
@@ -167,7 +167,7 @@ design.
 steel railing with posts on the quay sidewalk and a tree row between sidewalk and railing, on both banks. From the north
 quay (44.443748, 26.058521, looking SSW) the water is about 1.5 m below the quay with a short sloped revetment; the
 section is drawn at -1.6 m (`water-channel-review.js`). Green aerial-raster cells that touch a channel are not drawn (the
-raster had classified about 46,000 m² of river surface as lawn). A weir crosses the river about 100 m west of Podul
+raster classifies about 46,000 m² of river surface as lawn). A weir crosses the river about 100 m west of Podul
 Grozăvești (w902058419), drawn as a low sill.
 
 **Podul Grozăvești and the Basarab arch** (w902056192 `bridge:structure=arch`, street-level decks w128304847 /
@@ -229,7 +229,7 @@ Nord, outside the district. Street View, viewed 2026-11-11/13 (reference only; t
 - 27 OSM trees in the 2026-11-06 extract (four Populus near Str. Economu Cezărescu); poplar and linden rows along the
   canal embankments; campus lawns and car parks. Street species lists are in the JSON (`streets[].research.trees`).
 
-## Estimates and open questions
+## Estimates
 
 - **Places of worship**: the shared rule ([shared-rules.md](shared-rules.md#places-of-worship)). Here: 3 churches with
   5 towers; no tower on 4 with an OSM height (Sf. Mina, Sf. Nicolae, Belvedere, Sf. Gheorghe - Plevna), the Baptist ones
@@ -244,16 +244,15 @@ Nord, outside the district. Street View, viewed 2026-11-11/13 (reference only; t
 - **Fountain basins** w1454825579, w1279629948: the generic coping and full water.
 - **Leul**: height is the class estimate.
 - **MOL Dinicu Golescu** canopy height.
-- **Open**: the Rectorat's construction year and architect were not found (look confirmed from photos); floor heights,
-  fin depths and bay widths of the Rectorat are estimates; the campus internal road layout is only from OSM; the
-  Orhideea entrance canopy cannot be measured without tracing a panorama.
+- **Rectorat**: construction year and architect not found (look from photos); floor heights, fin depths and bay widths
+  are estimates. The campus internal road layout is only from OSM; the Orhideea entrance canopy cannot be measured
+  without tracing a panorama, so it is not drawn.
 
 ## Documented exceptions
 
 - **Lukoil canopy** w256806132: live OSM (v7, 2026-11-13) tags `height=3`, which leaves 2.6 m under the slab; both official
   panoramas (`hGqephV5yIK6jWNVMdcHBw h70`, `FxOOz6e8e3HgHwgY0fxicg h137`) show a roof about 5–5.5 m high. Drawn at 5.4 m
-  with 4.6 m clearance like the district's other canopies (`fuel-canopy-review.js`). Correct the OSM tag upstream, then
-  drop the exception.
+  with 4.6 m clearance like the district's other canopies (`fuel-canopy-review.js`) for as long as OSM tags 3 m.
 
 ## Sources
 
@@ -285,7 +284,7 @@ Research pass 2026-11-07 (spec 20, R12.2 / R11). Machine-readable: `businesses-b
 | Lukoil | fuel + convenience | Șoseaua Orhideelor 4 | E side of Șos. Orhideelor | medium |
 | OMV | fuel | Bd. Doina Cornea 5 | SE side of Bd. Doina Cornea | medium |
 
-Fuel: canopy fascia in brand colours plus a price pylon at the kerb. Lukoil's international assets (Romanian stations included) were offered for sale in Nov 2025 (Wikipedia "Lukoil"): the station brand may change, re-check. Nine independents on the route are in the JSON.
+Fuel: canopy fascia in brand colours plus a price pylon at the kerb. Lukoil's international assets (Romanian stations included) were offered for sale in Nov 2025 (Wikipedia "Lukoil"), so the station brand may change. Nine independents on the route are in the JSON.
 
 ### Official-locator checks
 
@@ -294,8 +293,8 @@ Fuel: canopy fascia in brand colours plus a price pylon at the kerb. Lukoil's in
 
 ### POIs added from live OSM (2026-11-12 / 13)
 
-`tools/osm/add-pois.mjs --edge 100` on API 0.6 tiles of the playable area + 260 m appended 140 rows (161 before; 117 in the edge strip; 21 dropped by class; 2 new in OSM / relations; 6 own building names). Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or indoor, nodes deep inside multi-tenant halls (Carrefour Orhideea gallery, 40), unnamed objects, ATMs outside the area.
-- Germag n5862008006 (`shop=yes`, named; named `shop=yes` is now a shop class): pano wEy2ri9fhmOq0iOEkX5jIg shows the GERMAG front at Bd. Banu Manta 2.
+`tools/osm/add-pois.mjs --edge 100` on API 0.6 tiles of the playable area + 260 m appended the businesses, places and stops the build lacked, including the 100 m edge strip. Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or indoor, nodes deep inside multi-tenant halls (Carrefour Orhideea gallery, 40), unnamed objects, ATMs outside the area.
+- Germag n5862008006 (`shop=yes`, named; a named `shop=yes` counts as a shop): pano wEy2ri9fhmOq0iOEkX5jIg shows the GERMAG front at Bd. Banu Manta 2.
 - Street View, Calea Griviței 158: ground-floor shop fronts where the game has a Catena fascia (name not readable in the preview). 6 Bd. Iuliu Maniu (The Light One): glass office tower, no tenant name dominates at street level.
 
 ### Speed limits on the chapter route

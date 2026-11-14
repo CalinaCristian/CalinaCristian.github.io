@@ -53,7 +53,7 @@ export async function buildFacadeDetail(ctx) {
         addPropColl, fenceSegs, railingNetwork, reviewedBridgeRailings, treeClear, waterBridgeRailings,
     } = buildRailingNetwork({
         DROP, DY_SIDE, bRecs, basarabBlue, basarabStructure, buildingAt, buildingIndex, cellOf,
-        coveredByOther, data, edges, fountainBasinColl, ghostRails, group, isWater, landmarkFences,
+        coveredByOther, data, edgeGrid, edges, fountainBasinColl, ghostRails, group, isWater, landmarkFences,
         liftOnSide, lmSignColl, nearestEdge, onRibbon, propColl, raisedTop, segsCross, sportsColl,
         str, surfacesAt, tramSweep, walls, widthAsphalt, widthSide, yAlong,
     });

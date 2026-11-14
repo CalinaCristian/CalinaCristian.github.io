@@ -102,8 +102,17 @@ export function emitFreewayCuts(env) {
                         for (let k = 1; k < kmax; k++) c.face4(P(p, p.prof[k - 1][0], p.prof[k - 1][1]), P(q, q.prof[k - 1][0], q.prof[k - 1][1]), P(q, q.prof[k][0], q.prof[k][1]), P(p, p.prof[k][0], p.prof[k][1]), capC, [0, 1, 0]);
                         const pe = p.prof[kmax - 1], qe = q.prof[kmax - 1]; // back face, where the fill stops
                         c.face4(P(p, pe[0], pe[1]), P(q, qe[0], qe[1]), P(q, qe[0], 0), P(p, pe[0], 0), wallC, [nx * side, 0, nz * side]);
-                        const hw = (pe[0] - pf[0]) / 2, mid = (pf[0] + pe[0]) / 2;
-                        env.addCollider((p.ox + q.ox) / 2 + nx * mid * side, (p.oz + q.oz) / 2 + nz * mid * side, Math.max(0.2, hw), 0.5, Math.atan2(nx, nz), Math.min(pf[1], qf[1]), 'abutment', cut);
+                        // (owner, Bellevue NE 8th St at (404, -317), 2026-11-13: an invisible wall on the westbound approach) the fill
+                        // under a descending approach is lower than at the wall face: its collision follows the top under the soffit,
+                        // one box per run of steps that stay within 0.3 m, at the lowest top of the run and of both rows
+                        const tops = []; for (let k = 0; k < kmax; k++) tops.push([p.prof[k][0], Math.min(p.prof[k][1], q.prof[k][1])]);
+                        const box = (s0, s1, h) => { const hw = (s1 - s0) / 2, mid = (s0 + s1) / 2; env.addCollider((p.ox + q.ox) / 2 + nx * mid * side, (p.oz + q.oz) / 2 + nz * mid * side, Math.max(0.2, hw), 0.5, Math.atan2(nx, nz), h, 'abutment', cut); };
+                        if (kmax === 1) box(tops[0][0], tops[0][0] + 0.4, tops[0][1]);
+                        else for (let k0 = 0; k0 < kmax - 1;) {
+                            let k1 = k0 + 1, lo = Math.min(tops[k0][1], tops[k1][1]), hi = Math.max(tops[k0][1], tops[k1][1]);
+                            while (k1 + 1 < kmax && Math.max(hi, tops[k1 + 1][1]) - Math.min(lo, tops[k1 + 1][1]) <= 0.3) { k1++; lo = Math.min(lo, tops[k1][1]); hi = Math.max(hi, tops[k1][1]); }
+                            box(tops[k0][0], tops[k1][0], lo); k0 = k1;
+                        }
                         metres += Math.hypot(q.ox - p.ox, q.oz - p.oz);
                     }
                     for (const [r, k] of [[run2[0], -1], [run2[run2.length - 1], 1]]) { // wing faces at the deck's edges

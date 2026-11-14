@@ -14,7 +14,7 @@ import { BoxGrid, Y, shoulderOf } from './world-shared.js';
 export function buildRailingNetwork(ctx) {
     const {
         DROP, DY_SIDE, bRecs, basarabBlue, basarabStructure, buildingAt, buildingIndex, cellOf,
-        coveredByOther, data, edges, fountainBasinColl, ghostRails, group, isWater, landmarkFences,
+        coveredByOther, data, edgeGrid, edges, fountainBasinColl, ghostRails, group, isWater, landmarkFences,
         liftOnSide, lmSignColl, nearestEdge, onRibbon, propColl, raisedTop, segsCross, sportsColl,
         str, surfacesAt, tramSweep, walls, widthAsphalt, widthSide, yAlong,
     } = ctx;
@@ -77,6 +77,19 @@ export function buildRailingNetwork(ctx) {
                     const d = Math.hypot(b[0] - a[0], b[1] - a[1]), n = Math.max(1, Math.ceil(d / .5));
                     for (let i = 1; i < n; i++) { const f = i / n, x = a[0] + (b[0] - a[0]) * f, z = a[1] + (b[1] - a[1]) * f; if (coveredByOther(x, z, null, ya + (yb - ya) * f - Y.road, .35, false, .8)) return false; } // (through a carriageway: a mouth stays open)
                     if (tramSweep && tramSweep.segment(a, b, .05, Math.min(ya, yb) - .5, Math.max(ya, yb) + 1.1)) return false;
+                    // (owner, SeaTac (-909, 1001), 2026-11-13: an invisible wall across Exit → Return To Terminal) the samples above
+                    // test the ribbons' interiors; a join laid along the seam where a ramp's ribbon meets its bridge deck's lies on
+                    // both rims and passed. A join never crosses a carriageway's centre line (0.5 m past its ends) at its own level.
+                    let road = false;
+                    edgeGrid.each(Math.min(a[0], b[0]) - 1, Math.min(a[1], b[1]) - 1, Math.max(a[0], b[0]) + 1, Math.max(a[1], b[1]) + 1, f => {
+                        if (road || f.virtual) return;
+                        const A = [f.a.x - f.dirx * .5, f.a.z - f.dirz * .5], B = [f.b.x + f.dirx * .5, f.b.z + f.dirz * .5];
+                        if (!segsCross(a, b, A, B)) return;
+                        const dx = b[0] - a[0], dz = b[1] - a[1], ex = B[0] - A[0], ez = B[1] - A[1], den = dx * ez - dz * ex; if (Math.abs(den) < 1e-9) return;
+                        const t = ((A[0] - a[0]) * ez - (A[1] - a[1]) * ex) / den, x = a[0] + dx * t, z = a[1] + dz * t;
+                        if (Math.abs(yAlong(f, x, z) - (ya + (yb - ya) * t - Y.road)) < .8) road = true;
+                    });
+                    if (road) return false;
                     let cross = false; const test = w => { if (cross || skip.includes(w)) return; if (Math.abs((w.y1a + w.y1b) / 2 - 1.1 - (ya + yb) / 2) < 1.5 && segsCross(a, b, [w.ax, w.az], [w.bx, w.bz])) cross = true; };
                     N.bodies.each(Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[0], b[0]), Math.max(a[1], b[1]), test); for (const w of added) test(w);
                     return !cross;

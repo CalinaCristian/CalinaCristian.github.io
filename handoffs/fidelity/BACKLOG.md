@@ -13,3 +13,4 @@ None open.
 | Item | What is open |
 |---|---|
 | Two failing unit tests | `game/dev/harness/landmark-cec-source.test.mjs` expects the CEC source relation `r2230390` but the source data now gives `r13104090`; `game/dev/harness/spot-availability.test.mjs` expects a recommendation order (`fremont-troll`, `peoples-salvation-cathedral`, `old-town-lipscani`) that `spot-availability.js` no longer returns. Decide per test whether the expectation or the code is wrong and fix it. |
+| Floreasca contraflow bus lane | Calea Floreasca's west-side bus lane runs against the one-way traffic (OSM `busway=opposite_lane`, plain asphalt with BUS lettering on the aerial); the build only sets the edge's bus-lane flag, so no contraflow lane exists in the road topology. |

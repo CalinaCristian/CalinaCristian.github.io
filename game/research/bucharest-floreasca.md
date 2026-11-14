@@ -93,7 +93,7 @@ and reality pass 2026-11-08 [osm] [floreasca_nightlife] [strazi_compozitori].
 
 - **Piața Floreasca / Agora** w34832556 (Calea Floreasca 111-113; pano 44.460443, 26.101023 h240): two-storey light
   silver-grey glass curtain wall with hedges and terraces, Medicover / Agora signs, AGORA letters on the roof edge. Row: 9 m,
-  two storeys, `glass`, #c5cacc; a light reviewed glass colour renders as pale coated glass (`world.js`). South end
+  two storeys, `glass`, #c5cacc; a light reviewed glass colour renders as pale coated glass (`world-materials.js`). South end
   (Bălănescu Rosetti): mauve upper storey with a dark louvred panel, the drive-through passage in the middle, the Dona
   pharmacy right of it. Banul Antonache side: single-storey dark-grey front with the Mega Image sign and perpendicular
   parking bays; it is the same OSM footprint (see **Estimates**).
@@ -109,8 +109,7 @@ and reality pass 2026-11-08 [osm] [floreasca_nightlife] [strazi_compozitori].
   with a yellow villa beside it).
 
 **Businesses.** In live OSM 2026-11-12, 93 named businesses lie within 40 m of the playable area; every one the builder's
-`poiKind()` accepts inside the mask is in the game with the same name on the same building (Chez Toni n14289829501, Poke
-House n14295309652 and Shop&Go n14316864304 confirmed). A building signed with a business mapped inside it carries the
+`poiKind()` accepts inside the mask is in the game with the same name on the same building. A building signed with a business mapped inside it carries the
 sign over the unit's street front at the OSM point; unbranded businesses whose point lies outside a footprint (moft, iMZA,
 Cozofino, Farine, Pizzeria Due Amici) are signed too; names are not cut short.
 
@@ -173,7 +172,7 @@ the model's source ids), w427813551 pitch, r9146639 track, w860001496 Peluza Că
 - Elevation, EU-DEM 25 m (opentopodata `eudem25m`, 2026-11-12): pitch 74.2–77.0 m; Calea Floreasca 82–84 m; Ștefan cel
   Mare side 79–82 m (inflated by buildings); the sports park north and east of the stadium 77 m. A smoothed surface model
   under-reads a 190 m pit.
-- Decision: the bowl is sunk 9 m below the street (`DIN_DEPTH`, `landmarks.js`, estimate); top rows 0–1.6 m above the
+- Decision: the bowl is sunk 9 m below the street (`DIN_DEPTH`, `landmarks/bucharest-dinamo-monuments.js`, estimate); top rows 0–1.6 m above the
   street, parapet 1.1 m; masts on the rim inside the outline.
 - OSM gap: w387467641 (`building=yes`, 44.45373, 26.10237) lies 60 m north of the gate, so the unfinished frame seen west
   of the gate lane has no footprint at its place and is not drawn.
@@ -210,7 +209,7 @@ w38757552, grandstand w859972644, outdoor pool w23611448.
   sides; Garibaldi and the villa streets linden and robinia over gardens; Parcul Floreasca old park trees. The street
   species lists live in the JSON (`streets[].research.trees`) and feed `streetTrees`.
 
-## Estimates and open questions
+## Estimates
 
 - **Places of worship**: the shared rule ([shared-rules.md](shared-rules.md#places-of-worship)). Here: no church takes
   a tower: Nașterea Maicii Domnului - Floreasca has a measured flat roof, the greco-catolică cathedral is Western-rite,
@@ -228,9 +227,10 @@ w38757552, grandstand w859972644, outdoor pool w23611448.
   single-storey Banul Antonache side, and a panorama cannot be traced for one, so the footprint is not split.
 - **Nusco Floreasca 1** height and **Automatica** netting storey height: estimates.
 - **Facades and heights**: facade colours are per-type palettes (no measurement source); untagged heights are rule-based.
-  A shadow-length height estimate calibrated on OSM-tagged buildings is the obvious next step. Villa-by-villa facades on
-  Garibaldi were not researched individually; the Rosetti building's construction year is unverified.
-- **Bus lane**: the contraflow bus lane on the west side of Calea Floreasca is not in the game's road topology (open).
+  Villa-by-villa facades on Garibaldi were not researched individually; the Rosetti building's construction year is
+  unverified.
+- **Bus lane**: the contraflow bus lane on the west side of Calea Floreasca (OSM `busway=opposite_lane`) is not in the
+  game's road topology (BACKLOG.md).
 - **School-run congestion** is an assumption, not sourced.
 
 ## Sources
@@ -283,13 +283,14 @@ Closed per OSM lifecycle tags (draw as a vacant "De închiriat" unit if modelled
 
 ### POIs added from live OSM (2026-11-12)
 
-`tools/osm/add-pois.mjs --edge 100` on API 0.6 tiles of the playable area + 260 m appended 64 rows (94 before; 56 in the edge strip; 8 dropped by class; 2 own building names). Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or indoor, nodes deep inside multi-tenant halls, unnamed objects, ATMs outside the area. Street View at 109 Calea Dorobanți: ground-floor shop fronts where the game has a Banca Transilvania fascia; the preview was too coarse to read the name.
+`tools/osm/add-pois.mjs --edge 100` on API 0.6 tiles of the playable area + 260 m appended the businesses, places and stops the build lacked, including the 100 m edge strip. Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or indoor, nodes deep inside multi-tenant halls, unnamed objects, ATMs outside the area. Street View at 109 Calea Dorobanți: ground-floor shop fronts where the game has a Banca Transilvania fascia; the preview was too coarse to read the name.
 
 ### Speed limits on the chapter route
 
 **Legal default (Romania).** 50 km/h inside localities unless signed; the road owner may, with police approval, raise sections to 80 or lower them to 30 (OUG 195/2002 art. 49, via en.wikipedia.org/wiki/Speed_limits_in_Romania, 2026-11-07; legislatie.just.ro did not respond). Big boulevards are signed 60 (OSM `maxspeed=60`); no automatic school-zone limit: "Copii" warning signs and, where the city chose, a signed 30.
 
-**rosetti** — 1637 m, all OSM ways tagged.
+**rosetti** — 1637 m, all OSM ways tagged (the `speedlimits.json` record, computed on 2026-11-07 via Béla Bartók; the
+chapter start above turns into Johann Strauss, `RO:urban`, instead).
 
 | street | class | m | OSM maxspeed | game km/h |
 |---|---|---|---|---|

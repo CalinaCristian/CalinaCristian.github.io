@@ -1,7 +1,7 @@
 # Bucharest tourist spots (research dossier)
 
 What the seven Bucharest spot scenes model, from which sources, what is a documented exception to OSM, what is estimated
-and what is still open. First research 2026-11-06; reviewed against live OSM and Street View 2026-11-12/13.
+and what was not compared. First research 2026-11-06; reviewed against live OSM and Street View 2026-11-12/13.
 
 The scene specs are machine-readable in [`bucharest-spots.json`](bucharest-spots.json): `ranking` (method, evidence per
 spot, places considered and not selected, caveats, source key), `dialogue_general` (persona library, pedestrian lines,
@@ -36,7 +36,7 @@ colour samples, refs, dialogue). Those fields are not repeated here. Reference i
   rule of thumb from panoramas (Calea 13 Septembrie blocks have commercial ground floors OSM does not map; the palace 25.6 m
   behind Calea Victoriei at the Memorial of Rebirth and Piața Revoluției 1 have none). Blocks of flats with mapped shops
   (Bd. Unirii 1–11) stay without a shopfront because osm.js would glaze their courtyard sides too (C. A. Rosetti courtyard
-  gate panorama); fixing that needs a front-only shopfront outside osm.js. Old Town opts out (`shopEvidence: false`).
+  gate panorama); a front-only shopfront would have to live outside osm.js. Old Town opts out (`shopEvidence: false`).
 - **Name boards.** Mapped named venues get a board on their own building; names are the OSM names, colours procedural.
   Closed venues (OSM `disused:` / lifecycle tags) get none. Strip clubs, massage parlours and erotic shops (17 adult-venue
   POIs in Old Town) stay unsigned by design, although Street View shows their lit signs. The north scenes (Arcul,
@@ -105,8 +105,8 @@ colour samples, refs, dialogue). Those fields are not repeated here. Reference i
 - **Panoramas used:** Bd. Libertății (May 2025, about 44.42744, 26.09073), Calea 13 Septembrie at the cathedral (44.42471,
   26.08879, Aug 2024), Strada Izvor 86 (44.42951, 26.08152), Bd. Națiunile Unite at the visitors' gate (44.43034,
   26.08874). The north / west palace faces seen from Națiunile Unite match in tiers and colour; façade detail is generic.
-- **Open:** the palace's south face and the Senate gardens' look (no panorama resolved on Bd. Libertății south, Calea 13
-  Septembrie west or Izvor west).
+- **Not compared:** the palace's south face and the Senate gardens' look (no panorama resolved on Bd. Libertății south,
+  Calea 13 Septembrie west or Izvor west).
 - **Copyright:** the architect's heirs have claimed a 2 % royalty for commercial use of images of the building;
   non-commercial use is described as unrestricted (en wiki). Keep the game non-commercial; no palace photos as textures.
 - **A local would notice if wrong:** the square is huge, open setts / parked cars, no trees or lawn; cream / ivory stone
@@ -120,7 +120,8 @@ colour samples, refs, dialogue). Those fields are not repeated here. Reference i
   west portal, long axis 95°. Piazza r16698908 (pedestrian area, 13,270 m² in OSM; 11,600 m² and 23,000 people per en
   wiki), retaining walls w1223607030–35, chapel w224624283, Casa Academiei r2230394. Parcul Catedralei w393036564
   (`landuse=construction`) is drawn as plain ground.
-- **Open:** no official panorama on the piazza or within 217 m of Parcul Catedralei: the precinct is not compared up close.
+- **Not compared:** no official panorama on the piazza or within 217 m of Parcul Catedralei, so the precinct is not
+  compared up close.
 - **Copyright:** recent architecture, reference only.
 - **A local would notice if wrong:** white stone with many gilded ribbed domes, the central one huge and gold; bell tower
   over the west portal; wide open stone piazza; 9–11 storey 1980s blocks along Calea 13 Septembrie; the Parliament right
@@ -130,8 +131,7 @@ colour samples, refs, dialogue). Those fields are not repeated here. Reference i
 
 Spots `old-town-lipscani` and `stavropoleos-cec`. Walkable: the research `walk_extent` of each spot (Lipscani 28–71 and
 upper Smârdan; Strada Stavropoleos from the church to Caru' cu Bere), `OLD_TOWN_FOCUS` in
-`scenes/old-town-nightlife.js`. The size of the walk polygon is the owner's call (change `walk_extent`). Everything else
-is the source streets and buildings as scenery. Façades not trimmed by the scene follow the Bucharest rules (19th-century
+`scenes/old-town-nightlife.js`. Everything else is the source streets and buildings as scenery. Façades not trimmed by the scene follow the Bucharest rules (19th-century
 stucco fronts below 7 storeys).
 
 ### Streets
@@ -189,8 +189,7 @@ Covaci, Smârdan, Franceză articles; Hanul cu Tei, Hanul lui Manuc, Curtea Vech
   conifers in the Lipscani beds are not in OSM and not added.
 - **Businesses:** live OSM 2026-11-12 matches the data; node n1731040985 is "Mojo Music Club" on the OSM API (an Overpass
   mirror returned an older "Mao Pub"). Appended from live OSM: Gelateria La Romania dal 1947 n14360710671, Pizza al taglio
-  n14360710672 (Lipscani 76, panorama `5US26vfoz6vYXxqBYx39Fg`), Class shoes n14360710673; Dunk Shop n10775260921 removed
-  (deleted in OSM). Closed for good per Google Maps (2026-11-11) but still in OSM, so their signs stay until OSM changes:
+  n14360710672 (Lipscani 76, panorama `5US26vfoz6vYXxqBYx39Fg`), Class shoes n14360710673. Closed for good per Google Maps (2026-11-11) but still in OSM, so their signs stay until OSM changes:
   Coffee & Travel (Lipscani 52), Ted's Coffee Co. (Lipscani 79), CLATeatARIE (Lipscani 20), Uau Gelato (Gabroveni 1-3).
 - The plaques "Lipscani = Leipzig" and "Guild streets" stand on Lipscani.
 - **A local would notice if wrong:** every ground floor a bar with a terrace pergola; black cast-iron lantern lamps, not LED
@@ -212,15 +211,14 @@ hour. Checked 2026-11-11.
 | `mojo-karaoke` | Mojo Music Club, Lipscani 69 (n1731040985, `karaoke=yes`) | 21:00–03:00 | venue hours Google Maps; karaoke nightly from 21:00 (In Your Pocket, bucharest.ro: undated, medium), end not found, game stops 03:00; upstairs, free entry, 18+ from 22:00 (mojomusic.ro/regulament). Room not modelled: you sing at the door. Tune "Lipscani refrain" (2026), original, CC0-1.0 |
 
 - **Freddo** (Smârdan 24; OSM n1416523788 in w657568283; freddo.ro checked 2026-11-09): the source building and entrance;
-  the interior is estimated. **Owner decision (2026-11-11):** by day Freddo is visibly closed with "opens 22:00"; the game's
+  the interior is estimated. **Owner decision:** by day Freddo is visibly closed with "opens 22:00"; the game's
   Freddo is its club night, 22:00–05:00; the bar's published daytime hours (10:00) are not modelled. Club music
   (`spots/club-music.js`, "Lipscani after dark", 2026) is an original procedural composition, CC0-1.0: no samples,
   quotations, recordings or known melodies.
 - **Left out:** Bubble Waffles (Smârdan 37, existence not verified); Obraznic (Smârdan 12, adult-novelty waffles);
-  St. Patrick Irish Pub (Smârdan 23-25, daily 11:00–02:00, stpatrick.ro: a candidate for a pint / match activity); Muzeul
-  Micul Paris (Lipscani 41, Wed–Sun 11:00–19:00, needs an interior); ARCUB Hanul Gabroveni (Lipscani 84-90, Tue–Sun
-  10:00–20:00, needs an interior and programme); Hanul cu Tei gateways as a photo target (the `hanul-cu-tei` gateway group
-  was empty at runtime on 2026-11-11); the Șerban Vodă glass cover (just west of the visit area).
+  St. Patrick Irish Pub (Smârdan 23-25, daily 11:00–02:00, stpatrick.ro); Muzeul Micul Paris (Lipscani 41, Wed–Sun
+  11:00–19:00, would need an interior); ARCUB Hanul Gabroveni (Lipscani 84-90, Tue–Sun 10:00–20:00, would need an interior
+  and programme); Hanul cu Tei gateways as a photo target; the Șerban Vodă glass cover (just west of the visit area).
 
 ### Stavropoleos, Caru' cu Bere, CEC Palace and the History Museum (`stavropoleos-cec`)
 
@@ -232,16 +230,15 @@ The entry arrives on Str. Stavropoleos.
   `height` 1.8), on the street and west sides only.
 - **Caru' cu Bere** w1456401783 (OSM `building=yes` only; POI n916075216): steep slate roof with a gabled centre and a slim
   corner spire, "CARU' CU BERE" over the door. Roof rise, gable and spire sizes estimated; bay balconies and terrace
-  parasols not modelled. Open: the terrace (position and furniture from OSM `outdoor_seating`) is not compared with a
-  panorama.
+  parasols not modelled. The terrace (position and furniture from OSM `outdoor_seating`) is not compared with a panorama.
 - **CEC Palace** w973712798 (60.5 × 45.2 m, landmark model). The 162 mapped parts carry the domes as stepped flat rings
   (`roof:shape=dome` / `onion` unsupported), so dome shells sit over the mapped steps: central r 8.4 m from 24.6 m (the
   lantern w657898053 rises to 37.5 m above it), four corner domes r 4.5 m from 25.2 m; radii and rises are estimates inside
   the mapped totals. Garden boundary w657976539 / w657976540: a turquoise railing on a stone kerb with the mapped gates
   (heights estimated). In this scene the stone is warmed (red +4 %, green +1.5 %, blue −7 %, an estimate) toward the warm
-  cream limestone of the 2023-08 panoramas; the landmark source colours and the driving world are unchanged. OSM question:
-  the garden trees are all mapped as 5 m Prunus persica, the 2023 panorama shows mature 12–18 m trees (unchanged).
-- **National History Museum** (Palatul Poștelor) r19919941 (`landmarks.js` `bMNIR`): colonnade, steps, lettering; the two
+  cream limestone of the 2023-08 panoramas; the landmark source colours and the driving world are unchanged. OSM maps the
+  garden trees as 5 m Prunus persica while the 2023 panorama shows mature 12–18 m trees; OSM's trees are kept.
+- **National History Museum** (Palatul Poștelor) r19919941 (`landmarks/bucharest-centre.js` `bMNIR`): colonnade, steps, lettering; the two
   end pavilions on Calea Victoriei carry domes (r 4.7 m, estimate) over a low hip base; the 10 OSM flagpoles. Invented
   street trees in front of both palaces are removed (OSM trees kept) and the landuse grass is paved.
 - **Pasajul Macca–Vilacrosse** (w108817126, w108817130, w657742193, w108817132, w657740097, w657740103; OSM `tunnel=yes`,
@@ -253,11 +250,12 @@ The entry arrives on Str. Stavropoleos.
 - **Panoramas used:** Calea Victoriei 2023-08 (44.43181, 26.09704; 44.43137, 26.09688; 44.43238, 26.09701), Lipscani at the
   BNR 2022-10 (44.43216, 26.09936 / 26.09985), Eugeniu Carada 2022-10 (44.43299, 26.09897), Bd. Corneliu Coposu (44.42903,
   26.10212).
-- **Open, History Museum:** (1) from 44.4319, 26.097074 heading 150 the real view shows the south pavilion dome above the
+- **History Museum, known differences:** (1) from 44.4319, 26.097074 heading 150 the real view shows the south pavilion dome above the
   colonnade; in the game the line to the dome (top 32.2 m, 90 m away) crosses the portico attic, which projects about 8 m
   in front of the pavilions with its top at 20.3 m. The real projection, column height and attic height are not measured
   (OSM maps the outline only). (2) The model's 3 m podium has four steps protruding 1.1 m; the 2023-08 panoramas show broad
-  steps rising from the forecourt. Podium height and stair depth unmeasured, no steps in OSM. Both kept until measured.
+  steps rising from the forecourt. Podium height and stair depth unmeasured, no steps in OSM; the model stays as it is
+  without a measurement.
 - **A local would notice if wrong:** Stavropoleos is tiny and hemmed in by taller buildings; carved stone columns and
   painted medallions; setts in fan arcs with light slab bands; Caru' cu Bere usually has a queue; CEC glass dome plus four
   corner domes; the naked bronze Trajan on the History Museum steps.
@@ -273,8 +271,8 @@ The entry arrives on Str. Stavropoleos.
   metal), w1457045952, w1457045969: iron on a low base. Three sculptures in the court n11068954269–71.
 - **Central University Library** r19896250: dark slate mansard, domes with lanterns on the two rounded corner pavilions
   facing the square (sized to the mapped pavilion outlines). Carol I n1883108499 at the mapped 13 m.
-- **Kretzulescu church** w1476760553: red brick, two towers domed per the OSM parts. OSM question: part w1476833908
-  (31–31.5 m, no base) is open sky in the 2024 panoramas; not drawn, listed in `extras.sourceContradictions`.
+- **Kretzulescu church** w1476760553: red brick, two towers domed per the OSM parts. Part w1476833908 (31–31.5 m, no
+  base) is open sky in the 2024 panoramas: not drawn, listed in `extras.sourceContradictions`.
 - **Revolution Square:** Memorialul Renașterii n1393030628, a plain white spire with a dark woven ball about 3/4 up (sizes
   estimated; no Commons images, deleted for no FoP). Memorial Revoluție w996044652, a white marble wedge on the mapped 6 m
   outline (size and orientation estimated). Former CC building: white stone, giant columns, balcony at the recessed centre.
@@ -291,7 +289,7 @@ The entry arrives on Str. Stavropoleos.
   the data but about 200 m outside the walk (sign area = walk + 40 m): no board.
 - **Panoramas used:** Calea Victoriei 47 / Piața Revoluției (44.43877, 26.09709), Piața George Enescu and Revolution Square
   2024–25, Piața Revoluției 1 (0sGmssKDFO598LkYM63_-A).
-- **Open:** Athénée Palace (InterContinental) and the library's other sides not compared.
+- **Not compared:** Athénée Palace (InterContinental) and the library's other sides.
 - **A local would notice if wrong:** dark grey dome over a white drum with lyre medallions; six fluted Ionic columns, gold
   mosaic medallions behind; cars park in front behind steel bollards; equestrian Carol I in front of the library, the CC
   balcony opposite.
@@ -299,14 +297,13 @@ The entry arrives on Str. Stavropoleos.
 ## Arcul de Triumf (`arcul-de-triumf`)
 
 - **Modelled (OSM):** the arch w217851530 (27 m on a 25 × 11.5 m base, opening 11 × 9.5 m, long axis 69.7°, passage along
-  Kiseleff at 160°), roof w1191615181, passage w1191738378; landmark model `landmarks.js` `bArcul`.
+  Kiseleff at 160°), roof w1191615181, passage w1191738378; landmark model `landmarks/bucharest-civic.js` `bArcul`.
 - **Inscriptions:** from Romanian Wikipedia, "Arcul de Triumf din București", section "Arhitectura monumentului" (accessed
   2026-11-13; no footnote): south "DUPĂ SECOLE DE SUFERINȚE … CU AJUTORUL ÎNTREGII NAȚIUNI ȘI GÂNDUL REGINEI MARIA", north
   "LIBERATOR DE NEAM … DUPĂ ÎNCORONAREA LA ALBA-IULIA", east "GLORIE CELOR CE PRIN LUMINA MINTEI ȘI PUTEREA SUFLETULUI AU
   PREGĂTIT UNITATEA NAȚIONALĂ", west "GLORIE CELOR CE PRIN VITEJIA ȘI PRIN JERTFA LOR DE SÂNGE AU ÎNFĂPTUIT UNITATEA
   NAȚIONALĂ" (full wording in `scenes/arcul-de-triumf.js` `INSCRIPTIONS` and the landmark). Carved five lines per long face,
-  three per short face; the line breaks are not in the source (balanced by length). A primary source (the monument record)
-  would be stronger.
+  three per short face; the line breaks are not in the source (balanced by length).
 - **Approaches:** splitter islands and the strips between carriageways are open (signals, paving, low grass): generated
   trees there are removed; the five mapped trees on the east side stay. Both sides of Kiseleff are closed mature woodland
   (estimated canopy).
@@ -315,7 +312,7 @@ The entry arrives on Str. Stavropoleos.
   carriageways). Count, 16 m height, four heads and the verge offset (kerb + 2.2 m) are estimates; OSM maps no lamp there.
 - **Panoramas used:** the arch from the south (44.466984, 26.078359; 44.46641, 26.07847), north (44.467656, 26.077879;
   44.46790, 26.07779), east (44.467132, 26.078782), Kiseleff south of the arch (44.466061, 26.078638).
-- **Open:** the park edges; villas and embassies keep generic façades (no comparison per villa).
+- **Not compared:** the park edges; villas and embassies keep generic façades (no comparison per villa).
 - **A local would notice if wrong:** it stands in a busy roundabout reached by signalised crossings; light granite with long
   carved inscriptions on all four attic faces; bronze medallions of Ferdinand and Maria on the south face; terrace open in
   season.
@@ -351,8 +348,7 @@ The entry arrives on Str. Stavropoleos.
   (backdrop). The households are generic regional types on the real footprints. Point-mapped houses Casa Mastaacăn Neamț
   n6815285188 (OSM spelling) and Casa Naruja, Vrancea n6815289695 get a peasant house at their node.
 - **Windmills: not placed.** No `man_made=windmill` in live OSM inside w29701978 (2026-11-12) and no official panorama inside
-  the museum (nearest official coverage on Kiseleff, 44.47155, 26.07613). Needs a mapper or a museum plan with a usable
-  licence to give positions.
+  the museum (nearest official coverage on Kiseleff, 44.47155, 26.07613), so there are no positions to place them at.
 - **Panoramas used:** Kiseleff at the museum (44.471548, 26.076127; 44.472284, 26.075721): plane-tree verge, cycle track,
   dense wood; the gate is not visible from the coverage.
 - **A local would notice if wrong:** houses in small fenced yards on grass; the church's needle spire and shingles
@@ -362,8 +358,8 @@ The entry arrives on Str. Stavropoleos.
 ## Spring Palace (`spring-palace`)
 
 - **Modelled (OSM):** main building w549676146 (53.5 × 42.3 m, identified by size), annex w549676153 (32 × 30.7 m, probably
-  the pool wing), grounds w38236017. The grounds polygon is still a 4-node outline in live OSM, much smaller than the real
-  14,830 m² plot (an OSM question), so the tree belt behind the wall is thin. Architect attribution conflicts in the
+  the pool wing), grounds w38236017. The grounds polygon is a 4-node outline in live OSM, much smaller than the real
+  14,830 m² plot, so the tree belt behind the wall is thin. Architect attribution conflicts in the
   sources (Grimberg-Solari vs Lăzărescu).
 - **Frontage:** on Bd. Primăverii a plain rendered wall about 2 m high with greenery over it (height estimated); the other
   sides keep a railing. The scene's gate on the boulevard is an estimate: none of the 11 mapped gate nodes in the extent
@@ -376,8 +372,7 @@ The entry arrives on Str. Stavropoleos.
   heights (3.8 + 3 × 3.1 + 3.0 m), balcony radius 2.5 m, wall line (kerb + 3 m pavement) and gate positions are estimates;
   windows are continuous bands (reality: separate windows).
 - **Kuwait embassy:** live OSM has n5470974719 "Ambasada Kuweit" (Bd. Aviatorilor 94-96, v4 2022-01-09) and w781162166
-  "Ambasada Statului Kuwait" (Bd. Primăverii 52, v4 2022-09-21). Both stay (OSM decides; which is current is an OSM
-  question); the board sits on the villa's east front (panorama `SX8mIxs3UE94qbTFIlKK4g`).
+  "Ambasada Statului Kuwait" (Bd. Primăverii 52, v4 2022-09-21). Both stay (OSM decides); the board sits on the villa's east front (panorama `SX8mIxs3UE94qbTFIlKK4g`).
 - Mapped and drawn: playground n6401707601. Other villas and embassies keep generic façades.
 - **A local would notice if wrong:** a quiet villa street with high fences and embassies, not a grand square; cream stucco
   villa with arched ground-floor windows and a balustraded terrace; peacocks in the garden.
@@ -400,7 +395,7 @@ The entry arrives on Str. Stavropoleos.
 - **Documented exception:** on Bd. Regina Elisabeta (panorama no. 59, 44.43460, 26.09060) the lawns are closed by a green
   iron railing on a low stone base: drawn on the three mapped fence pieces round the gate recess (w1478446281 / 87 / 88)
   and along the mapped park outline w16291869 west and east of it.
-- **Open:** the only official panoramas inside the garden date from August 2012 and none is within 90 m of Podul Mare,
+- **Not compared:** the only official panoramas inside the garden date from August 2012 and none is within 90 m of Podul Mare,
   Podul de Nuc, café n13206539592, kiosk n13206526147 or Lacul Lebedelor's edge (render-checked only); the lake, kiosks,
   gates and the other sides' fences are not compared. The café and kiosk have no mapped outline; street name plates are not
   placed (positions not mapped); the lakeside restaurant (historic "Monte Carlo") name and status are unverified.

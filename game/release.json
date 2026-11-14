@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-3421a339bab2cbfa",
-  "sourceCommit": "6c4b122fa7564aa5cb1519b76534bf4ab125d063",
-  "fingerprint": "3421a339bab2cbfa5fd476ca635d17ec892fd1b8eb820e0e8d654a6b7c49e99d",
+  "releaseId": "game-d2ee34e9794199c3",
+  "sourceCommit": "ceb3bfd27bbdcbce38ade784e6bf3e83fc464966",
+  "fingerprint": "d2ee34e9794199c36d54ba8a36815a35a7c51d713a57755a449110a8b81c736a",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -37,76 +37,80 @@
       "sha256": "0131d14a11397aaf69f162e51926362180a445bdc45a07f91503d2e1a6b1a5d9"
     },
     {
-      "path": "game/data/bucharest-floreasca.json",
-      "sha256": "a188f2f5b856965191935b5433b756080c711154e8ab00ff8e2f5b28ca77097b"
+      "path": "game/data/bucharest-floreasca.bin.gz",
+      "sha256": "121aa39c6cb037d1c303cc12e35410f2b30910d108ce6cff4bfc6863f82d31e3"
     },
     {
-      "path": "game/data/bucharest-grozavesti.json",
-      "sha256": "649ff6069e2a2be96bde0a6a90ff41a63cb22850f4b0147334b3c04eb99ea093"
+      "path": "game/data/bucharest-grozavesti.bin.gz",
+      "sha256": "1c0571c5684ba8d088e573cea88be1119c3a036ca0a310261f9b218f8d485ca9"
     },
     {
-      "path": "game/data/bucharest-otopeni.json",
-      "sha256": "eea0a6023fd5053b3564f4d5da8a6de96b8f420038ff91cfc9c8d749e5501229"
+      "path": "game/data/bucharest-otopeni.bin.gz",
+      "sha256": "a3f78fa05c97f85ac76bc3d0030868f4f35c44bff489bc9c9b53fa76c39c3155"
     },
     {
-      "path": "game/data/bucharest-pipera.json",
-      "sha256": "873c974d4c532d9acf08bdbcbc3bbc2fa271bd018b7874a08efc99f4971dd8de"
+      "path": "game/data/bucharest-pipera.bin.gz",
+      "sha256": "44ec4a64b3e30e63a25f11a0b2f4eaf670a55f2402437df4f79d07a8cc19b725"
     },
     {
-      "path": "game/data/bucharest-romana.json",
-      "sha256": "af976b05482ce0663264cadeb2d1a0d1dd3a67a05cc7b07b1c592ddfa7fa2e6d"
+      "path": "game/data/bucharest-romana.bin.gz",
+      "sha256": "1c4e053b3e6a5ef93331d0eedbe9b021836c0bd31a84e95b0ede1b867df147cf"
     },
     {
-      "path": "game/data/bucharest-unirii.json",
-      "sha256": "e94dc563fc82efe0f6dac21e7e20ac8e34ea5a7e20eb38bf97e829abebe9657d"
-    },
-    {
-      "path": "game/data/bucharest.json",
-      "sha256": "b0e2870767528727b4d57ad4e05a666d440c8fe19620422ebde63c27d0a7b0f5"
+      "path": "game/data/bucharest-unirii.bin.gz",
+      "sha256": "87df31e629a2fbae60e51aa16a2be94eca3bbefe2186bdd4f970fbe5e56d1bc6"
     },
     {
       "path": "game/data/dialogue.json",
-      "sha256": "02d45fbe12d81e97e38e6cd0f8d4ea8061e6d1c7475c774b3d6c5a335b70ba66"
+      "sha256": "680a0bbabcc382f14f3a2280ab72f91d6fd575941fed763c1000ce93ac02e419"
     },
     {
       "path": "game/data/geo/lights.jpg",
       "sha256": "b77448f6a73cbc45ca6a04d861d8c20c96b4ee1d42758e1ba8eabc75a6cebc53"
     },
     {
+      "path": "game/data/geo/ne110.js",
+      "sha256": "6d9c86444680f5007b90d41e7a5d93a2d1f081dcc556b665fcbcb9cd0ecf8f36"
+    },
+    {
       "path": "game/data/geo/ne50m.bin",
       "sha256": "03e42acf1ec84500ab3a42fbf03d065650509c8301353b6c1e645013443da372"
     },
     {
+      "path": "game/data/landmarks/bucharest-source-masses.json",
+      "sha256": "3e279fa723ee68c6046001836bfe62f727bff67d4bc68db3b744a634582d8543"
+    },
+    {
+      "path": "game/data/landmarks/cec-source-masses.json",
+      "sha256": "3cd44006b499e77525f9a295f807ff353065bd10f856e2810f4413e0fe606fe1"
+    },
+    {
       "path": "game/data/places.json",
-      "sha256": "38b7297d798f7d197a64b3123a3542e6b5b516ad1916ee8d0813492852b14127"
+      "sha256": "b21e87f1985805b687b059fddabbd67ecea2c6d070244a344578173b26560fdd"
     },
     {
-      "path": "game/data/seattle-bellevue.json",
-      "sha256": "b6e30458ac8d9f32cf6c1437047fa9f8fb01370997e9ecee1bfc6482d970c2f9"
+      "path": "game/data/seattle-bellevue.bin.gz",
+      "sha256": "12d15ccd96ca60a688b849fe0e4ff9e7708bd3063280bc879cb61d1625feacd5"
     },
     {
-      "path": "game/data/seattle-seatac.json",
-      "sha256": "f9ee586426661b53b50a7147e525b2a7b8a2534ff1015fae5bc900c25ead144c"
-    },
-    {
-      "path": "game/data/seattle.json",
-      "sha256": "d0676592a69d57c9a60501119a71a4b7f414dca5a45e7417bdd967565b93f88d"
+      "path": "game/data/seattle-seatac.bin.gz",
+      "sha256": "fb7c7f1455c76e8286abea8af731efe8e393b79cc0c18a7d23313d4edb2e7f98"
     },
     {
       "path": "game/data/spots/arcul-de-triumf.json",
-      "sha256": "8caa472caf22455e972685bc3a48e25d169f6aa147af990782fe86e87e43f398"
+      "sha256": "a02db15e31ceb6e6d4971025ed726a884abd020d4e6f5db282bdaa74bdebcf44"
     },
     {
       "path": "game/data/spots/athenaeum-revolution.json",
-      "sha256": "f933d738f1926d0cfe28d1040f39316cc8206996071f2585035448e1726f287b"
+      "sha256": "9ed311549c95370a349684256c43c8aabb95f161db79bfcf7a7956d5f5d018fa"
     },
     {
       "path": "game/data/spots/ballard-locks.json",
-      "sha256": "889041635e10369ba9245550215c3b5242e4b82ac4f9b3e9ab864ebf5748549f"
+      "sha256": "249c0a75bce6d4a87cfe56183f6cce16ab72735918a5588183451db1915d81c0"
     },
     {
       "path": "game/data/spots/bel-botanical-garden.json",
-      "sha256": "d343c70d586496268f86fddce6c601d14244d0f1ea63e47ec605b8372196956c"
+      "sha256": "148be5873715274cfb6a2e3059aaa85a9d4b1fe30231551da57a859a7993adb4"
     },
     {
       "path": "game/data/spots/bel-downtown-park.json",
@@ -114,27 +118,31 @@
     },
     {
       "path": "game/data/spots/bel-lincoln-square.json",
-      "sha256": "a505f6bc29553bac4944bb960f4a50fa65be22cf3b72d287530483322bee6350"
+      "sha256": "08ecf7a6d0a875739b2bf6bfdbdc60155af895ee671d34b4bf6bdd7289cf211f"
+    },
+    {
+      "path": "game/data/spots/bel-meydenbauer-shore.json",
+      "sha256": "c9b90213025b6ba31f9f292ed7e4e01b6b0da3d505b2fadc6f5e1ba0eba9c69c"
     },
     {
       "path": "game/data/spots/bel-meydenbauer.json",
-      "sha256": "7a82af63ef198a597bb3bf8cb7fecf4d0341706c0fb907354d05a4c280b924cf"
+      "sha256": "1c036e8563e0e3472fec6d0654086d39a6d7a048674005151ebb3f8228993cb8"
     },
     {
       "path": "game/data/spots/buc-herastrau.json",
-      "sha256": "604109642e39d08621b90bb923e67b4ea410920ac80651ae18aa53a4c433dddd"
+      "sha256": "9d7f95c28ef89f6c0661d1221be9f7df50e2d2e0449b24f3be8a5e1f72bc8d8a"
     },
     {
       "path": "game/data/spots/buc-old-town.json",
-      "sha256": "ef781d87819df761930ccf4a88cd97b4183b036d22c2a9ebc446b06d7da4417d"
+      "sha256": "1599b699e7d0737caf8473b5d8033621b0dce1f7b0c2d1d15ec14c45041b1506"
     },
     {
       "path": "game/data/spots/buc-parliament.json",
-      "sha256": "ddd887f137f82a82bb3a07775a4dd726a95a4484c312610fcbecfeda44cedf72"
+      "sha256": "151b838f296d2263681785fc0494bcb9727d8e4f5772cd72c50086ddfe90d489"
     },
     {
       "path": "game/data/spots/cismigiu.json",
-      "sha256": "7f39870051f19fe8fcad96dfa8dea7c8d9a99b855447073a85a7b0dc06277f4e"
+      "sha256": "1e22e494ccdb1bae6cd83a578035fc8195c28e335b0124c70398e4f54299bd74"
     },
     {
       "path": "game/data/spots/fremont-troll.json",
@@ -142,7 +150,7 @@
     },
     {
       "path": "game/data/spots/gas-works.json",
-      "sha256": "b1f8eebe08ed1da4d3e84a147c77f24f4d511847c349eeb5754c7cc4528cc442"
+      "sha256": "f81c438173d39f73df5e5e444abc537aa1d9b28fcea5e474f40b736e386b8ea5"
     },
     {
       "path": "game/data/spots/kerry-park.json",
@@ -150,7 +158,7 @@
     },
     {
       "path": "game/data/spots/pike-place.json",
-      "sha256": "484a00735a54b5aa60e07e20567e6a3cbd4142a78945ec463c6c5c9ee236c0d8"
+      "sha256": "144ed9b7e3231eebf8e11d24cbfa088a4ab39dcbac82b2a0b0249e2131f7f75a"
     },
     {
       "path": "game/data/spots/pioneer-square.json",
@@ -158,19 +166,27 @@
     },
     {
       "path": "game/data/spots/seattle-center.json",
-      "sha256": "68daf29e90ea1e0a9dac45b5365d40af5de4bc81b3437d571fd39f2d47cd8f41"
+      "sha256": "a385735c020ee57af14290ce454691b8be1e1aae6f8e87d312fc775ce425d5c6"
     },
     {
       "path": "game/data/spots/seattle-context-manifest.json",
       "sha256": "45f852cb04a915be3b1cbf18f23673842d58543e21969addd451610372c7e14c"
     },
     {
+      "path": "game/data/spots/seattle-context-render.bin.gz",
+      "sha256": "7af4d78ceec697587d90c7604a94225d79e18ba8b368318d386ef1777a4d2e28"
+    },
+    {
+      "path": "game/data/spots/seattle-context.json.gz",
+      "sha256": "8793003010552f72b13c305aded8af6e6caa6ba72e8a247822de87b75a4af7c6"
+    },
+    {
       "path": "game/data/spots/spring-palace.json",
-      "sha256": "f6a7f974645aa21e1ed9b52af58d2d0151a81efdc6ab1e39e5bf532180765e72"
+      "sha256": "583643a6a0dddf796dcb8b28cf8d93a6c00750a2de3d7337ce11d244eea57095"
     },
     {
       "path": "game/data/spots/waterfront.json",
-      "sha256": "c726b6d58bfa54ff71443f3f0387f5ebd649919bb3d25cc4f3323371a9581ea9"
+      "sha256": "aec399aa042effe76b1efd8ebaf1cdb7a0dfd61a61a573a4f4d8b7d8207e0635"
     },
     {
       "path": "game/index.html",
@@ -178,11 +194,23 @@
     },
     {
       "path": "game/src/achievements.js",
-      "sha256": "39628641dc1c63cc69cf8528a1970f8f4e786caeed588c717ed7912d77892b19"
+      "sha256": "67047b67480b0033b4c2eefce29f8350e37f3bde91d144a73b7497cc36ad880a"
+    },
+    {
+      "path": "game/src/airport-forecourt.js",
+      "sha256": "0cc31e7ef72cf15b314ad385093d410e76db01a93a300fdf0ce696331ede5bb7"
+    },
+    {
+      "path": "game/src/archetype-atlas.js",
+      "sha256": "db43258df81dbd89a1bfa9c491b7d0bbf6064059e9c81f2dd16126ebc6caceb4"
     },
     {
       "path": "game/src/archetypes.js",
-      "sha256": "3ac87643083fa98989d05279d8d174bde5932332920fc87796dcf7d976c2ecf3"
+      "sha256": "5573fb1a93546ae6a6ee4680f1a011d1105515215018e08c6aac44386070ec8c"
+    },
+    {
+      "path": "game/src/area-fences.js",
+      "sha256": "bed5b00b1d81534aee376dff02c99f25318e998b90bcce372c7130902da83869"
     },
     {
       "path": "game/src/audio.js",
@@ -193,8 +221,40 @@
       "sha256": "28566da17373e4715ed22361f8f6672c896d1f4d3298e5ed88603474de6aa094"
     },
     {
+      "path": "game/src/basarab-anchor-clearance.js",
+      "sha256": "a2a40dd5b223d2005ad5c3f1c358a6295c328d386a8fca71c826858a885d7760"
+    },
+    {
+      "path": "game/src/basarab-source.js",
+      "sha256": "20183cf19b34963f703559282859f7231893ba4dfb209fa15654ea252f05fb4b"
+    },
+    {
+      "path": "game/src/basarab-structure.js",
+      "sha256": "2c994626b1a583c6b7149e8854976c25217db86de6bd475d079e123163906bf7"
+    },
+    {
       "path": "game/src/basketball.js",
       "sha256": "a84a93eb1257da5fb4cb1d931612c48b0ddaf29cfab3d133b99e06178a824795"
+    },
+    {
+      "path": "game/src/bellevue-guideway.js",
+      "sha256": "dc4ac73ebd26cde312ad567cf38025477019f940e6910ee7f3be4c542c8d4f25"
+    },
+    {
+      "path": "game/src/brand-review.js",
+      "sha256": "a4644942fd4a053971ecd3638c83584cd417d7ed746321116136b746eeab0045"
+    },
+    {
+      "path": "game/src/bridge-bents.js",
+      "sha256": "461e6852456f600cd7bf4849ba0b78f276ad4498af4f0aec20a5a93ad438baaf"
+    },
+    {
+      "path": "game/src/bridge-guards.js",
+      "sha256": "afee26cde3404c4741c834f2b2f432bebf8b72e6a3553ade36a27b03cdcb2c92"
+    },
+    {
+      "path": "game/src/bridge-height-models.js",
+      "sha256": "a97796ab23ede652b1111c1328ea9fa6a151ff64d6880c9962acd4759c15a2d1"
     },
     {
       "path": "game/src/bridge-junction.js",
@@ -202,15 +262,27 @@
     },
     {
       "path": "game/src/bridge-pad-profile.js",
-      "sha256": "fc41d864ea1adeb0f24569114f0d0206ea99ab201e85283e5f00349f74d2a74c"
+      "sha256": "355521d1cc949b60ad86e8f12c27bc235977b4b27f9e5729c5a8e3b688cb9f8d"
     },
     {
       "path": "game/src/bridge-profile-geometry.js",
-      "sha256": "65b83df1cf242f632861d405c138f136facbfba5d3786ed4a85abb639f07982e"
+      "sha256": "1e3e791b2aeb60aa705424301459f1d1f6e9f6cf7dc1137fead034846e099127"
+    },
+    {
+      "path": "game/src/bridge-surface-band.js",
+      "sha256": "307a1916d346ad9fda09510983eef396f5e10b2b6660d774c99832e313a45b50"
     },
     {
       "path": "game/src/bridge-surface-mesh.js",
-      "sha256": "bd70267f78fa36e1b47f2f5d77ecd1c8b88a8e4541eac958009c4e9a439b9d93"
+      "sha256": "a808088b2254da3d0089e3db6b331f779911918b329518f67df6a0122c810081"
+    },
+    {
+      "path": "game/src/build-pool.js",
+      "sha256": "d2aa54a330f6d95f1b8af9d3f86ed0bf27810f06cbe9d514c0a7ffbb61a80fec"
+    },
+    {
+      "path": "game/src/build-worker.js",
+      "sha256": "b64cb799150ced462b5e885091fc1d5b9beea2c98deef361cf19b2212c398f89"
     },
     {
       "path": "game/src/building-aircraft.js",
@@ -222,11 +294,15 @@
     },
     {
       "path": "game/src/building-detail-range.js",
-      "sha256": "9b666987443fec1f7e9d720ab0e240f513a1e50031f3b44b6a0a7abcd790c1d0"
+      "sha256": "93932eafb9ce9c028f0d1e552c76b21dabc0f100fb129aed779734426811c719"
     },
     {
       "path": "game/src/building-detail-visibility.js",
-      "sha256": "974e03efeb2b1b6d422b45d72ca2f3cd649fae7a18196a98ca80b25cb6c283b6"
+      "sha256": "76c7ff29d832db86718bdf98ed27db6c5b0fba812c7f19ee5a92fdbb1089dd0f"
+    },
+    {
+      "path": "game/src/building-overlap.js",
+      "sha256": "c6496e550bb441a8d74220214c189c70c04e67604fdda2ce05aabada8cbfc586"
     },
     {
       "path": "game/src/building-parts.js",
@@ -237,24 +313,80 @@
       "sha256": "6bd606c4b3a62ffc3af3b4e8b4be65c5880fe7546ab7fc6ad5b521168045fe5d"
     },
     {
+      "path": "game/src/building-review-look.js",
+      "sha256": "7079a446f423cddf75523a81a79405a345f74255425e8a54a0ff6edc9796e5d2"
+    },
+    {
+      "path": "game/src/building-review.js",
+      "sha256": "a2812b4b2a1d80dafd55b3d1fb81db1feaf64078d68b202206b2a7a742932164"
+    },
+    {
       "path": "game/src/building-roofs.js",
       "sha256": "a82db31d1197b3953c9f4718dbc44b2972a90e25d9c2c07c683e6ab5386fa8ac"
     },
     {
+      "path": "game/src/building-specs.js",
+      "sha256": "c0d9dad815a4ae9d9e774e5b7036859fcd0d46ef1c893c147d552283863e5bbf"
+    },
+    {
+      "path": "game/src/building-specs/bucharest-floreasca.js",
+      "sha256": "daa130b2182ac276fabb01d74421e6f8bd1b092a183e463e7d8b255b8989562d"
+    },
+    {
+      "path": "game/src/building-specs/bucharest-grozavesti.js",
+      "sha256": "44c54daec6e2f68816b9cdace51d148c98f02a8e9b61e120d16bad10d5cf5756"
+    },
+    {
+      "path": "game/src/building-specs/bucharest-otopeni.js",
+      "sha256": "4a896da84e3264531d54ab5cab72ec43c564eceef9b0d27a3886cbf6277df08c"
+    },
+    {
+      "path": "game/src/building-specs/bucharest-pipera.js",
+      "sha256": "da19c6c69c85ff4feb55d52d44d607df3cdc7fcc8943a04074cfc0cd1f3e5ab7"
+    },
+    {
+      "path": "game/src/building-specs/bucharest-romana.js",
+      "sha256": "3de5f08e6926ba63cb31e294ae141341e1a4e89f45aab41b219c8e465d87cd9b"
+    },
+    {
+      "path": "game/src/building-specs/bucharest-unirii.js",
+      "sha256": "992fae0af28f0d3c61b175c7962207f88703f3b68114cc122490008adeb07938"
+    },
+    {
+      "path": "game/src/building-specs/seattle-bellevue.js",
+      "sha256": "c7823552737a5bc9f603c0223f47b7c28edea1b25bb7174b1d84336760d1c8d4"
+    },
+    {
+      "path": "game/src/building-specs/seattle-seatac.js",
+      "sha256": "08f20b789ab11480b7c77cfb70ed7075c948731a7764217a151aa715ddb45257"
+    },
+    {
       "path": "game/src/building-surface-cache.js",
-      "sha256": "6223c96eea1a7e2a48b359d331e257346ed9b5cbabbbadc874145d00ac933367"
+      "sha256": "b9dd32b283a4df8ff50ba0d59935a61b74f6052f846e1986064eabfae321b9be"
     },
     {
       "path": "game/src/buildings.js",
-      "sha256": "b08383fe3176bf2ab6715c661c7ff8169df25bff0934350f1776663da51c770b"
+      "sha256": "a67d99e63635aff7e144a6160ffce4e61c5e62dcd8cbe81b361e630cd4672c8d"
     },
     {
       "path": "game/src/canvasText.js",
-      "sha256": "35983021a8548740d623d83aaa092fa9f95a3f58b454575b8ab4732a47db2714"
+      "sha256": "c87ed6d164e87c55834f4ca5caf8b933ff154cdd034662a7f3555b8f1723d370"
+    },
+    {
+      "path": "game/src/car-park-fronts.js",
+      "sha256": "39f5800883aa7b8365bfcec4e29e368ba0e1b78bbff1c5b248f36c6ceffd5eb9"
+    },
+    {
+      "path": "game/src/car-parks.js",
+      "sha256": "0080aed36f9f551d0133b93e663ace2e8624fad4d4d7dd0b4d71e64e278b5f66"
     },
     {
       "path": "game/src/cell-frustum.js",
       "sha256": "75180d907270939422d304d2eb7d35f76abb6a4657ac36137c72538799b3e07a"
+    },
+    {
+      "path": "game/src/chapter-start.js",
+      "sha256": "0af26fbf7af0710c6e6d0b0a8fc4395bf261a00bfb664cc7b6446ced63e0a4c8"
     },
     {
       "path": "game/src/chapter-waypoint.js",
@@ -266,27 +398,43 @@
     },
     {
       "path": "game/src/cities.js",
-      "sha256": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac"
+      "sha256": "62a8dcfd5393a4569b057326b107f507f2356f92f8c70773d5b7fd3692fbdb48"
     },
     {
       "path": "game/src/cockpit-displays.js",
       "sha256": "27b748de131baa24e1ea9089e9e836a49e25c32472d92aa35130ef188e5aed53"
     },
     {
+      "path": "game/src/covered-platform-canopies.js",
+      "sha256": "b24d8a1596167705c34995d48ec2593654c793ab8ef6d3156c877a6de7ab2045"
+    },
+    {
       "path": "game/src/covered-road-models.js",
-      "sha256": "3a3c35cb068fd7aa97c078429f03cf834077002bf3b3268fb88db40a1f60c925"
+      "sha256": "9b3bd07569f52f293cf1a92a27af7fc05ff413254d2688ff8004bf34dca576ea"
     },
     {
       "path": "game/src/crowd.js",
-      "sha256": "e674c3ac0b207ae4e8ee0bc083851d02abc93f8df3333694e2cad9bd40a93257"
+      "sha256": "12662d83476dd6e7044d24bbbd246b149d7d63ec017a432594e144c3ace9c386"
     },
     {
       "path": "game/src/data.js",
-      "sha256": "ba5f484aa4b543dcbc4254c30081b9dad5acdbfff7d641fd159bfaa84615ffd0"
+      "sha256": "4a6716377776777452820b6108c89931a59445c5e5cb6a46db928dde80c45650"
+    },
+    {
+      "path": "game/src/deck-lamps.js",
+      "sha256": "7641fbfafa5ae0f502ae5e41864e0819863b88125653e05acac6382038f21aab"
+    },
+    {
+      "path": "game/src/deck-outline.js",
+      "sha256": "23a6d8610829b68c9442c768f84aa68112556f9957ed27858eaaca4b01479b17"
     },
     {
       "path": "game/src/district-boundary.js",
-      "sha256": "05060b5902c564254c52e7636ee32500408680885a7ca6705a420a3a616a76e2"
+      "sha256": "7fa0187e27a97617266d500a4f17b9ca37d38b6412464c37271d3ae9fd4b4acd"
+    },
+    {
+      "path": "game/src/district-pack.js",
+      "sha256": "da5c1bd38392a68a6ef3749fd1f9f908dcd9465c978fad2507b1f2a4a0b181e9"
     },
     {
       "path": "game/src/drone-boundary.js",
@@ -294,11 +442,23 @@
     },
     {
       "path": "game/src/drone.js",
-      "sha256": "13bb4465177bae41bda90cb69d81d7c7efd8a1a47a3d1984b55b374853422dff"
+      "sha256": "62aff70ba60a4bc5c8abbac27aeae0068f43ccf7a68df665575cd79dcc96ed7e"
+    },
+    {
+      "path": "game/src/elevated-sources.js",
+      "sha256": "fee746108b5908bf4bb6dc651bc555cbeac26bab3420927106f0b108e6e9fa55"
     },
     {
       "path": "game/src/explore.js",
-      "sha256": "2f8abf2e4b3e14f1002f0088322b9e59e713f1865bba60644d200030cf653993"
+      "sha256": "56b39d41aec4ce61de0a2e98df6c1996a69eb7954b98fd08b9b5cbb13fad756f"
+    },
+    {
+      "path": "game/src/facade-bands.js",
+      "sha256": "7bae119eb6783e7f6cdd506f8726eab05d3f007a2cf0514f0ba790b6c6045051"
+    },
+    {
+      "path": "game/src/facade-detail.js",
+      "sha256": "fb44fc01226d56e52f6a51812c52779f582cfa8909380e8d7d14880c3692ee68"
     },
     {
       "path": "game/src/facade-panels.js",
@@ -314,11 +474,15 @@
     },
     {
       "path": "game/src/fallback-ground.js",
-      "sha256": "de71ecc3bbbd1b7e15b4ef9140bbc6212c4b66f5bde07d143e82050930759084"
+      "sha256": "dc71f4bfdea774a17182047aa986759304a8a10fad0f0b2c0d5ebcf8987830cd"
+    },
+    {
+      "path": "game/src/fallback-partition.js",
+      "sha256": "c13dffa80023e11338accb9af2be9f890eaa74f586f83ca27eeae3b9d45dbce1"
     },
     {
       "path": "game/src/final-water-topology.js",
-      "sha256": "f293186ad02f941f2822214ea494d5bed1af8bf7a092c6090f26638b0b02a9e9"
+      "sha256": "bd3232990359917c77ac8eef27d83b14da46c01559ce2e86ebe7b65cbbeeeab3"
     },
     {
       "path": "game/src/finale.js",
@@ -326,27 +490,103 @@
     },
     {
       "path": "game/src/flight.js",
-      "sha256": "e5b5a05691a3abbd684ccbd20e11e5c1370ff71bb0a540d8483045bf42f3b544"
+      "sha256": "20677eedd9a75735486fc30470aea6d65f30e3963d3d7c9e0ea25b072aee6ea6"
     },
     {
       "path": "game/src/football.js",
-      "sha256": "0fea24f051593185b93c8457c27ec13af2344ba34b442115f3472a662317df7f"
+      "sha256": "b772303f1cd86eb922ac5de388a23513b109e02e18ac60931689ebb792d395c1"
+    },
+    {
+      "path": "game/src/footbridge-sources.js",
+      "sha256": "0b42d4ae3cb80a57c274e462a827bf588273a138c807ae05b0e19b256dc75458"
+    },
+    {
+      "path": "game/src/freeway-cut.js",
+      "sha256": "6c1908f93306fda8f6fd1b7dba845f9b6046dece375739eadf7cb0cc5d68efe6"
+    },
+    {
+      "path": "game/src/fuel-canopy-review.js",
+      "sha256": "dfeaa28746442c74689542a310acadac73f42645c9bcf3bea0ec50ab6ffe3001"
+    },
+    {
+      "path": "game/src/fuel-forecourt.js",
+      "sha256": "0b7364c53e7fcf938c0af8eee97581edbe75fb2f376eda76c2ae490f251d543c"
+    },
+    {
+      "path": "game/src/fuel-look.js",
+      "sha256": "9bd86ddd92cba6d1bc5b704bae8548f4f30d039d63316c3e7be552080b7892f9"
+    },
+    {
+      "path": "game/src/game-common.js",
+      "sha256": "004e6542c34f25f96c3a9d0078894d018840b67dee954e1cf056dba7c6643ef2"
+    },
+    {
+      "path": "game/src/game-conditions.js",
+      "sha256": "e75fa93dea2578618ae8ca22b3df7f6b44b89f1be6a6aaf7844cbc991ca2ea54"
+    },
+    {
+      "path": "game/src/game-debug.js",
+      "sha256": "d41a19c74267fddf44d2f51982abda9bbf8fa6d9c088b97d96171085f74c21f6"
+    },
+    {
+      "path": "game/src/game-drive.js",
+      "sha256": "06ae102f09868f64388c3422b9948be37d7515de4cc864fafcf79ef90b8a5ef5"
+    },
+    {
+      "path": "game/src/game-foot.js",
+      "sha256": "0c71639d1adbf45c4ab9e2d05acf9f07bb746b90f4b288fc13ac81692bcef4f8"
+    },
+    {
+      "path": "game/src/game-menus.js",
+      "sha256": "bb3da76efbc3254ed3da05d3b0beca6ae807e2877e1f60e8cf08b8e9ad19ced0"
+    },
+    {
+      "path": "game/src/game-road.js",
+      "sha256": "2928459412008b2e742b759e66e1f6db7949f3d2b5b7de04924b0aa326b71970"
+    },
+    {
+      "path": "game/src/game-spots.js",
+      "sha256": "3061a07e941eddf5fb221ed599155a10df37978b82c870c7ad7b6e6d5a873444"
+    },
+    {
+      "path": "game/src/game-story.js",
+      "sha256": "08ae7dd75cefecc63aee611acef676e0687045ec4b2d5582a10c0a2c7dc1fa20"
+    },
+    {
+      "path": "game/src/garage-decks.js",
+      "sha256": "cca05e2376be7063aebc4f87d7cb30a268fa574a8a739a4d6157de05e7672985"
     },
     {
       "path": "game/src/generated-parapet-ownership.js",
       "sha256": "ed75fc65c6859907697ec51c8ddceca4871525e388e02db0706d4f82eb077a2a"
     },
     {
-      "path": "game/src/geo-ne110.js",
-      "sha256": "6d9c86444680f5007b90d41e7a5d93a2d1f081dcc556b665fcbcb9cd0ecf8f36"
-    },
-    {
       "path": "game/src/geobuild.js",
-      "sha256": "28e535a8934df3d3d249f13180ce04db1b86d47318530e74344a532a2a0fb2d3"
+      "sha256": "b7810ff940ec6c02bb3725a1eba0dff35ec52056578aaa6799748831fb4c3012"
     },
     {
       "path": "game/src/globe.js",
-      "sha256": "6b5eae150fdf803a81f9b3696def2dd8e26d2c846c73b2aeb16c22e6b40d76d6"
+      "sha256": "37eb417b0d1e75cd8c6f735755550717967144072977c66886aca9dc76f61180"
+    },
+    {
+      "path": "game/src/grade-review.js",
+      "sha256": "f02d27d68052fc653d6d17ce95d66f3af64aeb03d2589a4dea89ff99f0ff2805"
+    },
+    {
+      "path": "game/src/ground-review.js",
+      "sha256": "42312440a0053004b4e76ae5a6630957e61b453cdfb6986dec285dfc1524ea12"
+    },
+    {
+      "path": "game/src/guideway-ocs.js",
+      "sha256": "2f349131ce7fb26a2df5784b9fff588072d3aa324f6e588724633d1acf63e220"
+    },
+    {
+      "path": "game/src/hall-furniture.js",
+      "sha256": "1f0ac858fe42e993ee387c56a5bdd4522c4eef48c1bf85c5e74d18e20bc8af68"
+    },
+    {
+      "path": "game/src/hill-structures.js",
+      "sha256": "4405d45e804922e503f65bf5f72d76e803db81007bd24d13b832e1c0e3b31b09"
     },
     {
       "path": "game/src/hud.js",
@@ -362,7 +602,7 @@
     },
     {
       "path": "game/src/initial-parking-behavior.js",
-      "sha256": "d97430424a10c19918e1a9d0cce3ecb00704de49473bf59f23f333beab21a82a"
+      "sha256": "b881bf4d298a49aae2c4f9f64e49a5f5557aad83bf65e4cd0d423e675a8a000b"
     },
     {
       "path": "game/src/initial-parking-support.js",
@@ -370,11 +610,11 @@
     },
     {
       "path": "game/src/initial-traffic-admission.js",
-      "sha256": "eafaa325e686e6fc631cd8bf5af4fb8b4fba5e70124925cad81c6eec5b25b6ea"
+      "sha256": "06629b683b09bf274dd672d779e55ca8fd3d64512be230fefc4a5834bd05d443"
     },
     {
       "path": "game/src/initial-vehicle-admission.js",
-      "sha256": "f1a27dea11a127e4becc9b718d68a2b73dd2e3afc03beaa49c0156ec189e389f"
+      "sha256": "6c889cec8ab3aee246458802f61999ead15f815c46add7889ff315a989cc39cf"
     },
     {
       "path": "game/src/input.js",
@@ -382,19 +622,19 @@
     },
     {
       "path": "game/src/inspection.js",
-      "sha256": "e6108ced8e407fe493816bbea1131a7ec23c6645339f25b5de3a4da56637e6eb"
+      "sha256": "1bd73770f2dc6c96dd6e3baacc44dc477d04ef41b5b46b2c49f868cb9336dfae"
+    },
+    {
+      "path": "game/src/lamp-reviews.js",
+      "sha256": "225a15b618fcf3b30dcd6ab6378fd35f17ba5bdf54802757071521b431ac3c21"
     },
     {
       "path": "game/src/landmark-arcul-source.js",
-      "sha256": "b28578073b825692dbf98f1e1efa4d05fff98252e2be27e130f579adfff46cf6"
+      "sha256": "c054a36ce0654306eaa0291f798cded90923d6e391a5f001b799a927d2807d35"
     },
     {
       "path": "game/src/landmark-bellevue-square.js",
-      "sha256": "6dc123febbb43293548bd52b2ca76641620ae4539f7eb6ff18ff37b7f9173bb8"
-    },
-    {
-      "path": "game/src/landmark-cec-source.js",
-      "sha256": "4891822203ad126ab75511e2196965848db37cfdfabadef54b13cea4ffbe4356"
+      "sha256": "5df6a1eb2505f7e9c8486818b8f5611224fc4a48d4f84ada163d7f1118ceaac9"
     },
     {
       "path": "game/src/landmark-otp-pier.js",
@@ -409,8 +649,16 @@
       "sha256": "360f553df971200d2fe9ff67c60937d07d650e98d6c5dbb60ed4a8442685e3cd"
     },
     {
+      "path": "game/src/landmark-pitch-paint-coverage-a.js",
+      "sha256": "c55788f04d321309672e3b0f4e1aef76938c7cd62ecc601400f1c70f3ea5338c"
+    },
+    {
+      "path": "game/src/landmark-pitch-paint-coverage-b.js",
+      "sha256": "1a77bd02b90dca31179e7ad064067dddce25b5924a1b91f83f97e09ade53b717"
+    },
+    {
       "path": "game/src/landmark-pitch-paint-coverage.js",
-      "sha256": "db48ecb69657184e42aa165909396f09f0e3185e6f7375968188121770a4fa8c"
+      "sha256": "b5e9116be1b2e52f4f46f125ac1bc4db2f1f1995f90451ff80536b2c46e623e9"
     },
     {
       "path": "game/src/landmark-pitch-paint.js",
@@ -422,15 +670,11 @@
     },
     {
       "path": "game/src/landmark-seatac-structure.js",
-      "sha256": "babdf7e471ad949ca982a737701280785005a950b18227205bd047d32e418bb5"
+      "sha256": "ea793bd7d5e9d1d1e909e1e86f56a08dd436fb9daa812452677cf010fef3328b"
     },
     {
       "path": "game/src/landmark-source-identities.js",
       "sha256": "03bc7c88e8cbe6e9aa8db4bba660a3e868a54b2b12e5d1a80522bd14858e244c"
-    },
-    {
-      "path": "game/src/landmark-source-masses.js",
-      "sha256": "b5009b0f96ee984cc674793d7170a5c49763fb91d87e168c2847c1218d68e2b9"
     },
     {
       "path": "game/src/landmark-us-geometry.js",
@@ -446,23 +690,95 @@
     },
     {
       "path": "game/src/landmarks.js",
-      "sha256": "ef6b97d423d32c74c2f1c990a4f41ff0c7b4c2cd9c02340b771be6f29f3493e3"
+      "sha256": "14c4a38e36b06befab35206c5f0b179ef64f3ca268755527850b7a6561e07fc6"
+    },
+    {
+      "path": "game/src/landmarks/anchors.js",
+      "sha256": "4cebf29962d46e5403767b061e81a8497f5dcfc47dbf50dce118ae6fba0e9433"
+    },
+    {
+      "path": "game/src/landmarks/bellevue.js",
+      "sha256": "884038f6c00cb9ff6ef0decb416f8269d2bbaa46b998216a515c1c9adf6ffe83"
+    },
+    {
+      "path": "game/src/landmarks/bucharest-centre.js",
+      "sha256": "38c17bba9975a7084434aaf6bda4b4a8c4a220af18e2ae768aedde0247a254f5"
+    },
+    {
+      "path": "game/src/landmarks/bucharest-civic.js",
+      "sha256": "d1f7e59eae974a739d3d8a41e2a7d4638840d3e1bc785c18f4995a2729c782dd"
+    },
+    {
+      "path": "game/src/landmarks/bucharest-dinamo-monuments.js",
+      "sha256": "3d873b984e37b8abb9107125f54d1d9213eaf99aa66ea58e6ca975a087744c85"
+    },
+    {
+      "path": "game/src/landmarks/bucharest-districts.js",
+      "sha256": "03bb12f1d38dc0057f900428e50bc65e8e68619636bd15e73bebed58bf2671e6"
+    },
+    {
+      "path": "game/src/landmarks/bucharest-north.js",
+      "sha256": "2ca7c368d63832d0fe15ea9dabd9c9c13e220fc2806d3ddce880f2f903a9653e"
+    },
+    {
+      "path": "game/src/landmarks/footprints.js",
+      "sha256": "cd5f8740f5654a356927753065e6555098c3d80612db7da0e7493b2b237862f9"
+    },
+    {
+      "path": "game/src/landmarks/fountain-water.js",
+      "sha256": "c923884a1e86a4028315f23242e8dbf6702605f232ba653933bdf6dae8c5cb48"
+    },
+    {
+      "path": "game/src/landmarks/fountains.js",
+      "sha256": "425a198d0800d9411c5f29c96385418b83d235c823f0ddbff744a8c38d37519c"
+    },
+    {
+      "path": "game/src/landmarks/kit.js",
+      "sha256": "a720bcb11d32f7ca33928a5c178efed4d7e786dbe6e7d2ca8b31cc68e7280449"
+    },
+    {
+      "path": "game/src/landmarks/parts.js",
+      "sha256": "5dc1bb24d66ec311ba92c537bbec0a44fe55e94312ad725cf0ef3f8e686c6ea0"
+    },
+    {
+      "path": "game/src/landmarks/seattle.js",
+      "sha256": "c8dfd26bf2e1aca9a32638c58928a28a4433e612c0d243bad9466c5f58974ea7"
+    },
+    {
+      "path": "game/src/landmarks/source-data.js",
+      "sha256": "596009212964bce02728e072c0963937f21e253117d99b4057593443b25d799c"
     },
     {
       "path": "game/src/main.js",
-      "sha256": "ac257ff1bc6865be0238428f9dae0a4cb5e5a038efed2eef8156853a08e556c1"
+      "sha256": "343d8f880dcbfc3921a5d1514663f52e9565364f4cd84f2036bb761626da621e"
     },
     {
       "path": "game/src/map-place-actions.js",
       "sha256": "eb5749a020fed4b6967fa7222a97abc512d304ea8cb9d56022ec58e0afbcaf63"
     },
     {
+      "path": "game/src/mesh-tiles.js",
+      "sha256": "8aa1a5be9ff052d0214960b3b055580e2f55d5bbeb635ea3cc73976c524fcf71"
+    },
+    {
       "path": "game/src/minimap.js",
-      "sha256": "cca958895b0b56e9c3819fba0d89752458482a37227e49ed2ba52ad5639c691b"
+      "sha256": "c9800108bc42d77794bbf2ec5643b009babb74ac2eae1c163bb6a551942334cd"
+    },
+    {
+      "path": "game/src/mixin.js",
+      "sha256": "3e358e11b3e326cf5ba2063d415a8f94f45ffcbbf1bc208398f11a13874a6f5e"
     },
     {
       "path": "game/src/modal-controls.js",
       "sha256": "6e7609fb6156f6936b05b66f719419d67a4497cfde9a7525bcb9379d2f2bc2e4"
+    },
+    {
+      "path": "game/src/monument-sources.js",
+      "sha256": "3cf2ba53189bb5af9d34fa4adb2c698541b3f5b3fbf1d5b4601d383650fe5be2"
+    },
+    {
+      "path": "game/src/monuments.js",
+      "sha256": "8a4486de88102408b7f65fee0b3cdd20af2918fe1e7ccee7694e57499980a311"
     },
     {
       "path": "game/src/motor-turn-restrictions.js",
@@ -470,7 +786,7 @@
     },
     {
       "path": "game/src/nav.js",
-      "sha256": "e6610c76bd5482d24acb50380dc65318c543021fec4e48629ca7762127386ffe"
+      "sha256": "8bd27525e696f72485fdd40967f22ddff6d634295c743d14372d4fa72cee2bb3"
     },
     {
       "path": "game/src/normal-guard.js",
@@ -482,7 +798,7 @@
     },
     {
       "path": "game/src/office-floors.js",
-      "sha256": "81d7e8a92814a24d0b94905486f581c5ce591f0a05bb8d2a25a07c8a7ce60351"
+      "sha256": "94564dcb95a41a3136640b734fbb00456453c31aa738ab071fedbaadd7d444db"
     },
     {
       "path": "game/src/office-interior-details.js",
@@ -494,7 +810,7 @@
     },
     {
       "path": "game/src/office-window-binding.js",
-      "sha256": "632bb9a5da6b890b659e77b363bc52c6b7c1041cd4185ed44c0b93c9063a4260"
+      "sha256": "78d31e7a3b3e33d218a7662862447410a062fd8f88d52ede1da744ff03f2e9ed"
     },
     {
       "path": "game/src/office-window-math.js",
@@ -502,7 +818,7 @@
     },
     {
       "path": "game/src/office-window-service.js",
-      "sha256": "09ed2efa3eea65e191112ec89607fc6c399bf8c6ddd9f3e100191e80274f2b49"
+      "sha256": "23aa11d7b649c516b1dafe821181a20755f912d8f9bb057cc0143d8c921acdbc"
     },
     {
       "path": "game/src/office-window-structural-plane.js",
@@ -510,47 +826,175 @@
     },
     {
       "path": "game/src/office-window-target.js",
-      "sha256": "a695dd98d081cd12d7e60179659ab901444b36b3be56f1a83b48d6e93142ba0b"
+      "sha256": "2e3bb78c3571c1dc943f1d17e50b158d91382ebe2940bbf02a456c11188e989d"
     },
     {
       "path": "game/src/office.js",
-      "sha256": "5998d93648732e2ec7dcd14ed3f35a7362377a31ef8862f58f47ab1388d8d5df"
+      "sha256": "2d71d98fba6af295baeec5f915c8e9942fb0493ce577bfad1ffd1317f4f12ac6"
     },
     {
       "path": "game/src/onfoot.js",
-      "sha256": "870d0294232fb2b1e11af42906da780bd6d8a34604179ca9de657da1d08848f7"
+      "sha256": "cd74edf2e4844132777b000fd1c96d44969cb21e8e430339af6a07fc6351546f"
+    },
+    {
+      "path": "game/src/park-walls.js",
+      "sha256": "24db1be10f9f94c8b1050bb770e79b9269f67ea04e74410dbdc2fff828ea3b80"
     },
     {
       "path": "game/src/parking-layout.js",
-      "sha256": "b5c127c33e1c80e72a6cece698f831949ad637498ed7d7beb1252f30c6b4f0d9"
+      "sha256": "2c0e540ce47dd9011d782a3979055ec2c1c0e863729da4c94065e3f2a636e67f"
+    },
+    {
+      "path": "game/src/pasaj-unirii-look.js",
+      "sha256": "bae60e7311955a8c48fa927c469dcd4d48d338f3fe6257c6716b10173fe43e31"
+    },
+    {
+      "path": "game/src/pedestrian-bridges.js",
+      "sha256": "3077567ec70507e792b0d5ab7aabce397db7ab01e674d98f23676a8367a184db"
+    },
+    {
+      "path": "game/src/pedestrian-fronts.js",
+      "sha256": "b28fd203079670d245657673d8d8d3cad64c4bd3f00eb402ebc376e6eb91c145"
+    },
+    {
+      "path": "game/src/pedestrian-fronts/bucharest-floreasca.js",
+      "sha256": "209f989c368ff5ca52d4eb065ff3fea6f5fa4f260d18f41a873fb74bdea85a9c"
+    },
+    {
+      "path": "game/src/pedestrian-fronts/bucharest-grozavesti.js",
+      "sha256": "77571dcda6685610be60c69a490f259c09a09199924153daf35dc0c1aec8a967"
+    },
+    {
+      "path": "game/src/pedestrian-fronts/bucharest-otopeni.js",
+      "sha256": "341c5d7ae2b69fbc9379dd72c8033ff619f279243654d5cf764d02c7050e44fa"
+    },
+    {
+      "path": "game/src/pedestrian-fronts/bucharest-pipera.js",
+      "sha256": "b1de87ba1c807544563e63a435f5c7e1303d8d849b3f80e33a3a655d93ce1fac"
+    },
+    {
+      "path": "game/src/pedestrian-fronts/bucharest-romana.js",
+      "sha256": "3b0f37ab623ec757c2235d818a3db3bd9d5c90354f83a18620e6c10417b0b1a9"
+    },
+    {
+      "path": "game/src/pedestrian-fronts/bucharest-unirii.js",
+      "sha256": "1174689ffb7e2368f19923e0172a7f4ae6a994d36738ac4b99413a306143843e"
+    },
+    {
+      "path": "game/src/pedestrian-fronts/seattle-bellevue.js",
+      "sha256": "5bc698e47fb1357150534540d2de597a9821ed497500527673af34498ea43694"
+    },
+    {
+      "path": "game/src/pedestrian-fronts/seattle-seatac.js",
+      "sha256": "012c3054593cb1b0553b2e08389694fc4c72bb09a86ce87fd4afe937177b4029"
+    },
+    {
+      "path": "game/src/pedestrian-plazas.js",
+      "sha256": "f93c0d64f35e3be5363a936ac8d5fc15eed2f9432d65de0aa0365fcb66127a11"
+    },
+    {
+      "path": "game/src/pedestrian-plazas/bucharest-floreasca.js",
+      "sha256": "1f36c7900ae7f59b3e3ef0beadc0914a3cfb08aaaef6beb11427fdd00f880250"
+    },
+    {
+      "path": "game/src/pedestrian-plazas/bucharest-grozavesti.js",
+      "sha256": "eaddb1bb9aa2f288b842c7052f32353afeac6844ec4daa78048fb0c330a760f9"
+    },
+    {
+      "path": "game/src/pedestrian-plazas/bucharest-otopeni.js",
+      "sha256": "580ef02bd00d20a4f02d85d912930059c2adf3f20e7f92a548ef571628ca6b67"
+    },
+    {
+      "path": "game/src/pedestrian-plazas/bucharest-pipera.js",
+      "sha256": "d2584eecb7808f0f8b48143720207e43af2265dce93ed6179d807bbda2a9e2d3"
+    },
+    {
+      "path": "game/src/pedestrian-plazas/bucharest-romana.js",
+      "sha256": "7c5c9f35e381311e3ec7d339c75798ca210affa62f7904de8ceccebbebeb4382"
+    },
+    {
+      "path": "game/src/pedestrian-plazas/bucharest-unirii.js",
+      "sha256": "f7d8f9ee9ec22ca6225778a69ae20d639a8b7a84b7a3bd3b41ac6fce29329f48"
+    },
+    {
+      "path": "game/src/pedestrian-plazas/seattle-bellevue.js",
+      "sha256": "237adc8bea66f32c9223b1838c388c92844ccb428c30a44ac466f2a284e63ad4"
+    },
+    {
+      "path": "game/src/pedestrian-plazas/seattle-seatac.js",
+      "sha256": "dc69d983e7ba84a602197708dff82d7466be7af9c95cf3114acdabd820e9db4b"
     },
     {
       "path": "game/src/pedestrian-relocation-peers.js",
       "sha256": "84cc52b4666e5ed6b3a9cc4d45889f35ffdbc23095f58307a47f24179c2a5af7"
     },
     {
+      "path": "game/src/pedestrians-road.js",
+      "sha256": "29cccab59fa4acda619e351b8c033232bbd300458342ec02933da8359a1999e0"
+    },
+    {
+      "path": "game/src/pedestrians-walk.js",
+      "sha256": "5af0d2140ecf616625bcb1332f2d6084e423e09958cbcbfddeeb2035e644d6b8"
+    },
+    {
+      "path": "game/src/pedestrians.js",
+      "sha256": "d14f9981906ae11703be56b57877975a75d77822690d7234f241ed7b7a4daf4b"
+    },
+    {
       "path": "game/src/photo.js",
-      "sha256": "c8f18e59bab5e264d779dea69bef2668aff5d626e677edefe62869d9b744b13f"
+      "sha256": "8bdf70fbb4a8d04995050c3e1e2c8f4385336ef33c67a930bd8cb514b1e8fda3"
     },
     {
       "path": "game/src/player-body-interval.js",
-      "sha256": "948155dc5584abe4e20880155f038a08c551454b7ea5e0b8a131abbb2c357e9e"
+      "sha256": "235cc3f12e8ff8f8f4a3e650c45942bc0c07d2547748d7104717cfc2f919f645"
     },
     {
       "path": "game/src/player.js",
-      "sha256": "23be3729f855cfe708745f4ceb7eb86a2a8c86f970f07ab10b376fa103e2dea8"
+      "sha256": "b215b6b09f3e92c0704cf76f5ad590c4071340ee55c2ee0c26766045b5da2e6d"
+    },
+    {
+      "path": "game/src/playgrounds.js",
+      "sha256": "7ab620722219f8eeba9c5f1bc18c208f16f6a149f921058a0027a666b147a9af"
     },
     {
       "path": "game/src/progressive-pmrem.js",
       "sha256": "4b306f8bb4449be00c9dd654e7da6ba6607fec581d3a4360e9f772e11a2306a1"
     },
     {
+      "path": "game/src/quay-balustrades.js",
+      "sha256": "199fce802a737ab8356d9a01d3d2d15c9f6685e1a1802d7d4f0a6b4c63672a49"
+    },
+    {
       "path": "game/src/rail-roadside.js",
-      "sha256": "2bb1b3ad5fc4827c2dad1479f59669cbdd13cfc48b7fc79af050a73d30515ed3"
+      "sha256": "13600e77a513458295b3ff4c1458e182db237bb694f1dedd6d6b6d54535b79b3"
+    },
+    {
+      "path": "game/src/render-lamps.js",
+      "sha256": "dad4179ade2f09f826d0d26b58c26bc8544a76f220f9215018fd43922410a0d2"
+    },
+    {
+      "path": "game/src/render-lighting.js",
+      "sha256": "85d27ce8b3133a6eb4b6ccc641000607802c9a91ccd7750014fd6ed6bcda132f"
+    },
+    {
+      "path": "game/src/render-shaders.js",
+      "sha256": "fb44f2fcef2d43992cd8b57eade8bcf2e9e0fb66e9041e05b4c6ff8b2c460250"
+    },
+    {
+      "path": "game/src/render-weather.js",
+      "sha256": "5337391d8ec13ff7bda7b32d07444573debd1e72eef9232c13162cbc8c36c7f9"
     },
     {
       "path": "game/src/render.js",
-      "sha256": "43c33b24a3e530219d777bc9603e31e4275a3a19562102675bf8380939d0e679"
+      "sha256": "56f65ce814a40843deadc61852780bb368be2b4b1a555732eb19eb76ba6070c8"
+    },
+    {
+      "path": "game/src/retaining-banks.js",
+      "sha256": "8fe55f0021097e976a6c1e31ab53d699d7212c3d487aec0b0e9b091175dee75a"
+    },
+    {
+      "path": "game/src/reviewed-dormers.js",
+      "sha256": "7c677ac48f37c045ccbb9812b6875d7fc79d7657615739a9dc5ab080592e12cc"
     },
     {
       "path": "game/src/road-access.js",
@@ -570,7 +1014,7 @@
     },
     {
       "path": "game/src/save.js",
-      "sha256": "66ece4bff34ce8a3bafcc29ad74dd7a7792ceb80d0406890f27982ad052640dc"
+      "sha256": "ee2ab7198742a6bade6ebc18e720dfd75431d73373c760e62d8b0c4fb2bd3407"
     },
     {
       "path": "game/src/sceneResources.js",
@@ -578,11 +1022,15 @@
     },
     {
       "path": "game/src/scenery-bridges.js",
-      "sha256": "21f292275d0e4d991db1b290d774d0653fda472dc66fb704b136388f7ac501aa"
+      "sha256": "8c97a20f4f508ccdfe9ba2bb30990ae7bccb7d72291094e2b516b636673ba02b"
     },
     {
       "path": "game/src/scenery-source.js",
       "sha256": "c00801c1705325e205bd00fbcc223c16391661f58669514516753621e19b6ff2"
+    },
+    {
+      "path": "game/src/seatac-guideway.js",
+      "sha256": "72da51460aa96e123c67183a5ede7bea6ebf4944645c9a036f1beb74654e1bbf"
     },
     {
       "path": "game/src/shared-bridge-models.js",
@@ -590,11 +1038,15 @@
     },
     {
       "path": "game/src/shared-bridge-profile.js",
-      "sha256": "02287b60713933284be944d3ae8a93f548fecf8d8900d389cbb02f37000406a1"
+      "sha256": "4b91ac880b6fc6c72675bb9b97e5069683cb8d60933045875bbee964f8faa215"
     },
     {
       "path": "game/src/shared-lanes.js",
       "sha256": "0581d1f237c0b371843e3c7f7af0c80cb5b14bf3794148905ec1948c8255b4e9"
+    },
+    {
+      "path": "game/src/sidewalk-overlap.js",
+      "sha256": "015a31eb5e87e67000c4a0ae83c1e7f090e67705f2984da0a2fc314b90642527"
     },
     {
       "path": "game/src/sidewalk-source.js",
@@ -606,27 +1058,27 @@
     },
     {
       "path": "game/src/situational-dialogue-context.js",
-      "sha256": "371fcd223dfb38ae3ebc3252baaa5263447d923ddd34193ea971a83adfb7e0a1"
+      "sha256": "1c86768cda9242a414b9d21cbf70f2f5906d8839f97b6e4c6a8721704ee3c472"
     },
     {
       "path": "game/src/situational-dialogue-library.js",
-      "sha256": "5feff6f9d1abc4ae63ed239c94fa8754e9ddefd5819d03b4df25cacb8cfd8949"
+      "sha256": "583bec6c97246d40eeb64d67678a5f45e0a7532de5cdf8069dd5755335b8d5f6"
     },
     {
       "path": "game/src/situational-dialogue-traffic.js",
-      "sha256": "dc38041a90ca0cdc27f234ded6aceb611028cb1ddfb834028e2ebfd2e42744e6"
+      "sha256": "c1a4503ee35fd7e09d38a2af79a59977396481fa93b972af8daa28a0691cd474"
     },
     {
       "path": "game/src/situational-dialogue.js",
-      "sha256": "3d5877b22027c022c09e5937bd941d8e5a7781ffb8ccb804a31c3b912940202d"
+      "sha256": "24a6c9f37e4dfdb3ff6fcfc6c8f515f8418b7de54db769229b9f58d202d79475"
     },
     {
       "path": "game/src/source-bridge-descent-models.js",
-      "sha256": "e4412e8ed1fbcca038692b53ebdd1c36e074df26eb470fa1a11a3575ea05681c"
+      "sha256": "402f50d287a7d880a6232a9297673522f5af2ce16dde10e80f244d1dff7b2398"
     },
     {
       "path": "game/src/source-bridge-descents.js",
-      "sha256": "b70c61e65b75fac4bec3d8330da5dc82e6a558eba09c50097dd43ba9594aed32"
+      "sha256": "3e5dd3a511d15b213571e4501bfdb29ab024fad943565336d6ad82e63f4ea362"
     },
     {
       "path": "game/src/source-canopy-road-models.js",
@@ -634,7 +1086,7 @@
     },
     {
       "path": "game/src/source-road-clearance.js",
-      "sha256": "d698e90864d0df3086ba71346aa24ac0f7238adf222d133af12260e1683deae3"
+      "sha256": "981b77e6ccb39e9968ad7a5aa422c28a89f2c3aa87e88b4988a30c560f7649d1"
     },
     {
       "path": "game/src/source-transit-shelter.js",
@@ -653,20 +1105,32 @@
       "sha256": "158a72f60f883de08b0eceeb539136795d6805598a6bbff8e3d631120fa9202a"
     },
     {
+      "path": "game/src/sport-areas.js",
+      "sha256": "a30e0c6a2e84fadcd3adb1478fbdfe712e4ebc609f5ab3135626f28cbb166cbc"
+    },
+    {
       "path": "game/src/spot-availability.js",
-      "sha256": "5b52e40244e56ccb65a309ad82f57986e8b40fcbb49a2148237ea0795481281e"
+      "sha256": "f1da9663b86be9ffc7c6f6aec415aec09b532ee5437bac0d18b9d89005d1d5e8"
+    },
+    {
+      "path": "game/src/spots/audit.js",
+      "sha256": "5d3af87d3b4b9c3e5d5b84036f1ad28a7f8f6170ad5ae8b6ff6e1125298611b6"
     },
     {
       "path": "game/src/spots/backdrop.js",
       "sha256": "263637b1ec0dd171dd1c3ffc92846c66a0a859c609daf4f8d652a711e982c2c7"
     },
     {
+      "path": "game/src/spots/backgammon-banter.js",
+      "sha256": "ca19a1c1d2e685a5cedb66f4be3ce0f4290af1d61df7bdbe377c7ba575ab6e4c"
+    },
+    {
       "path": "game/src/spots/backgammon-engine.js",
-      "sha256": "2fe6d657d3df1c37a80eb2b9e73f3eaca5967be48301ed4fbd2f8bb3c4fea485"
+      "sha256": "2a1641fd0d10b903e1611e2cac6a79d64551507602ad034b8922b4bf4beb99cd"
     },
     {
       "path": "game/src/spots/backgammon-game.js",
-      "sha256": "605d372ca5749fcdfa01ced22cd322cf3c4fcaa22f69fbc368513b2eeda9cce0"
+      "sha256": "bb2e0654c7bea5bc60087c4daef49bff24542a44a9a86fb2eb91091800d736c0"
     },
     {
       "path": "game/src/spots/baguette-game.js",
@@ -674,15 +1138,35 @@
     },
     {
       "path": "game/src/spots/bike.js",
-      "sha256": "0fb51793b9cba6cfbb3454c842b7bce4ffe2e1ac40dc8049313faa51b9fe179b"
+      "sha256": "c30725181751979c663e565727292f71c0e3369dad1c8760f5609ebaaf812300"
+    },
+    {
+      "path": "game/src/spots/buc-barriers.js",
+      "sha256": "0ec1f5052f1f36dc416fd2710bc596286f342a858e67c6d4fc5e6358fa3dad30"
+    },
+    {
+      "path": "game/src/spots/buc-places.js",
+      "sha256": "857ba66d9b1937c346aed19ccda16f6b29a3a1a749d81f3b77729e76ffa6017a"
+    },
+    {
+      "path": "game/src/spots/buc-streetscape.js",
+      "sha256": "0ee13a8bd01e1fd97ac65691d2a9b332cfb688194a02c4c65b64c8e8fdffcf12"
+    },
+    {
+      "path": "game/src/spots/buc-terraces.js",
+      "sha256": "b7b7441c499c5d958759d427e0168d96024195412f59dd70ca629f0def8b5fbf"
     },
     {
       "path": "game/src/spots/buc.js",
-      "sha256": "50dba1078b737473b3004362f414fba691a0749598298718f807c301bb4dbf4e"
+      "sha256": "4b94172262032e17179170b544d7959978f4bd21ec920db7f84f2e402a4bff6f"
     },
     {
       "path": "game/src/spots/candle-light.js",
       "sha256": "779e0a236692496c744e89ce89000f7b41effd7b08a2ee2dc8391daae4248262"
+    },
+    {
+      "path": "game/src/spots/canopy-posts.js",
+      "sha256": "97474d3b9eb0a2232440be4e3e65cc4691ccdce2f15b12558dda5d5242ee03b1"
     },
     {
       "path": "game/src/spots/cars.js",
@@ -694,7 +1178,7 @@
     },
     {
       "path": "game/src/spots/club-music.js",
-      "sha256": "2cb670d0edba256ec4f96394b492e5bd70e9f9159cf58e0e62e90e57afd941a6"
+      "sha256": "6e1ec380e4599d9d700c3ca39bc4f4adf4ec163dc0e6989cfe75f5502551a6a4"
     },
     {
       "path": "game/src/spots/coin-drop.js",
@@ -709,12 +1193,24 @@
       "sha256": "3f1da643c88e464ab1ac2f92538eaf70c9b2eec33dff13985b4625eb99ef0046"
     },
     {
+      "path": "game/src/spots/frame-budget.js",
+      "sha256": "19290adc381a3a2fb1104fb736a15ac5b06bc517d58a436d413271a3c538eac9"
+    },
+    {
+      "path": "game/src/spots/furniture-extra.js",
+      "sha256": "0501e3339e6a3bd6c159c0a244cc6f4fc22c21f2c6991e72aae8079b8de046ff"
+    },
+    {
+      "path": "game/src/spots/gable-plan.js",
+      "sha256": "86d2373de841039b42de1630598ff3bb43e492eb3ba167e73a64fdeb49400584"
+    },
+    {
       "path": "game/src/spots/ground.js",
-      "sha256": "f269ad5471ffaa0098620bcd8a6056c604a9b89d22fb7fbd24bfd9c7ac6b1489"
+      "sha256": "f6befbca5bef48e955175919a00ac2167ca70c5ceeb7a65d0f46c646f839292f"
     },
     {
       "path": "game/src/spots/index.js",
-      "sha256": "d19b92e3d01b7968ad61b2c5e9c611aafd03fa8699bbb0170f6c7b29138aa410"
+      "sha256": "77ede62092d6fc17a38ddebb17ee9abdf45865fc404bd068f8c554edbdff7a60"
     },
     {
       "path": "game/src/spots/kit.js",
@@ -726,7 +1222,7 @@
     },
     {
       "path": "game/src/spots/official-hagi-tv.js",
-      "sha256": "d000fb0953480de783d90384534ea5756907db7cda6aaad7c2f5f44bd0b30bea"
+      "sha256": "bbace0ae7d53f51fc18736c57014c5a2c6892688bd4dbb7bcf5f57822aed4940"
     },
     {
       "path": "game/src/spots/osm.js",
@@ -738,15 +1234,23 @@
     },
     {
       "path": "game/src/spots/people.js",
-      "sha256": "ab60f1a4f6d44c537b1727b332eaa9f0c68b1c436cd55cecd7171fbebb323338"
+      "sha256": "3b50b096ca4ef83b6ba6d531815816832544c12799e812e8fe5322ccc2ae38ac"
     },
     {
       "path": "game/src/spots/photo-hunt.js",
       "sha256": "a5852148f76272a601e491cd56b1fa524b9a1b04fe697e82b5680e93f3a42462"
     },
     {
+      "path": "game/src/spots/playground-kit.js",
+      "sha256": "3a5bbf1ee0a3d5a0e1f876f5bb002833e4df937b29d0a0207ab300bebc874772"
+    },
+    {
+      "path": "game/src/spots/precip-shelter.js",
+      "sha256": "5ab4dad7eff5974596a1089a3c3b014aae40d1d3567e640a29f33d47c4e64df4"
+    },
+    {
       "path": "game/src/spots/props.js",
-      "sha256": "3511b4e65b284df7a939189893c78f9f2126fde7556a8b8a6f1de027aca902e5"
+      "sha256": "39dcc54a7629d9df1d2b586f0012b69588ef531fbc4c3e71d59579a9cfeae992"
     },
     {
       "path": "game/src/spots/race-course.js",
@@ -758,51 +1262,79 @@
     },
     {
       "path": "game/src/spots/scenes/arcul-de-triumf.js",
-      "sha256": "bfdd71886588da018f25b01dd4a0c34871c6fdf8fa4bf0ade503be1c244630cc"
+      "sha256": "ef042b3b1580bbec150ed3be3f0c4e5fe8bdb7fc333e446aeb52101974b9c47b"
     },
     {
       "path": "game/src/spots/scenes/arcul-layout.js",
-      "sha256": "a84b56c71418acbe1539cfc3e88f79d4c5e7ed8f7858c936811187beef19d93f"
+      "sha256": "a6bb3069bee22614e8f73252d4dac53eecbb77294a4911f2a2bea934a0d2bd0d"
     },
     {
       "path": "game/src/spots/scenes/athenaeum-revolution.js",
-      "sha256": "3b25c24129a903acabfdfb6259bd7874b7e012d8380a628a5600cf5fe7409c4a"
+      "sha256": "c0e61f241a49db68d3013fdccf768a094e66d2834d58a9494f3ca24ced93b533"
+    },
+    {
+      "path": "game/src/spots/scenes/ballard-locks-art.js",
+      "sha256": "7051f9e55c81fec205611917b1562e6fc2c3dbf0040397b0f6014c541901d231"
+    },
+    {
+      "path": "game/src/spots/scenes/ballard-locks-buildings.js",
+      "sha256": "789e955be889cc3b0c2064d102d248915bfde20ea0d9685b867c5a0d74444e5a"
     },
     {
       "path": "game/src/spots/scenes/ballard-locks.js",
-      "sha256": "a31f33db47739348ea371029eed186667502b37ea94f5b77fce115b11341a116"
+      "sha256": "d909b915b6503f459ef9cf700602545f8303fe4e2db0c7178c979244a46bf5de"
+    },
+    {
+      "path": "game/src/spots/scenes/bar-broadcast.js",
+      "sha256": "4e104b29bc686237853d9391783ac764066ede3f1a701887ac7ebdacf31da34a"
     },
     {
       "path": "game/src/spots/scenes/bel-botanical-garden.js",
-      "sha256": "c9f2da2e49026e7df8813fb57bcd01244f79ab2af710051684ebbf18e87e8eda"
+      "sha256": "6c0ce4ffe775a42996d94c28eee5bb980deee5bc70f181928150f5dd35730587"
     },
     {
       "path": "game/src/spots/scenes/bel-common.js",
-      "sha256": "4e750a6845b41f25b05c6516ba6bbef0fcc00d0184777ea01be3c010c8610ae3"
+      "sha256": "d02e93f2ea0a7aa69d5ee46618f3b5c31d16823a932d7b530609be3562ba59eb"
     },
     {
       "path": "game/src/spots/scenes/bel-downtown-park.js",
-      "sha256": "a0a8731d95eeac3d5752381e26eeb603650285d52486c9886ebc07299225fb75"
+      "sha256": "1d85d3d324c582a19092ef6d86fc8c2464dd06a33209e98a6ec2111044298f86"
     },
     {
       "path": "game/src/spots/scenes/bel-lincoln-square.js",
-      "sha256": "66b77149667fc526c177bdcb9a35e5a80d19a468b482f7c3ef9699196937e46b"
+      "sha256": "78b21cd1df4f1811cb58a74acfdf3cb7fbb24417d8fff84db4686ae3051212d6"
+    },
+    {
+      "path": "game/src/spots/scenes/bel-meydenbauer-kit.js",
+      "sha256": "324f0456025203d421cbba6f6e953535602440803b847e9c9f1f7d80dcb56d52"
     },
     {
       "path": "game/src/spots/scenes/bel-meydenbauer.js",
-      "sha256": "2b584225b92b6a2afb9fc76ff49bd2401d2d07d900e5ac08458c65e016fdb509"
+      "sha256": "e687a2421ccd61bd93cd665fb57ecd9274edcb6b524d37d0ac1013cdb4137c18"
+    },
+    {
+      "path": "game/src/spots/scenes/bel-shore-houses.js",
+      "sha256": "14233f761fbadb1af2ccfe5e391901294511f9b214f7a4da0725a2bd273fcf6c"
+    },
+    {
+      "path": "game/src/spots/scenes/buc-green.js",
+      "sha256": "82707bae54fbe4ce60213d11dcbfdfa77678738e31235e88152eecfdb2ef3aef"
     },
     {
       "path": "game/src/spots/scenes/buc-herastrau.js",
-      "sha256": "34016f415429c13de696439ffc23071b168c0d9d0e8278c3a8301aebe9ff0eff"
+      "sha256": "5e6722b96f9056cddfc7ff978871012cd65ae1ad23045260ed4c9cfa05a324e0"
     },
     {
       "path": "game/src/spots/scenes/buc-old-town.js",
-      "sha256": "274d6f1dc7857849aded643cd129f60059becad0ae74293b9d439694af169d9f"
+      "sha256": "c373290309d13466714391c6b9f84638c08dba773982a17ced573b68e20bbd7a"
     },
     {
       "path": "game/src/spots/scenes/buc-parliament.js",
-      "sha256": "3812f35188fe2d5a9ebf199dfc2378ad4751612136ad1210c482ddc46934115f"
+      "sha256": "bc4cb21a437fa2a31259b6e3b00a628ad88e22cd55f4a48578260b96fe1f0c78"
+    },
+    {
+      "path": "game/src/spots/scenes/buc-walls.js",
+      "sha256": "aba9292b757da184d0c26035598a665d6c24e393ba2178025a24a33d5c82b1f4"
     },
     {
       "path": "game/src/spots/scenes/carusel-interior.js",
@@ -814,63 +1346,191 @@
     },
     {
       "path": "game/src/spots/scenes/cismigiu.js",
-      "sha256": "5139163f56c8a2d782ff816b52e65dd121a24758013ed75a853024a8aa85c6eb"
+      "sha256": "c95433ba8611a9e9efe36a3471245d2159e49d1e0e15ccd5bf68626fcfb117e4"
+    },
+    {
+      "path": "game/src/spots/scenes/ctr-parking.js",
+      "sha256": "2d2b4257973f84dcc012d23436be8965dab562541a5791149cd2fefb0dfb89bf"
     },
     {
       "path": "game/src/spots/scenes/dinamo-hint-tv.js",
       "sha256": "c1dbe2057ebb1fedb92a5c72adf409790f08806606b36e6996d0ff1b254ab8d8"
     },
     {
+      "path": "game/src/spots/scenes/fine-dem-ballard-locks-south.js",
+      "sha256": "14ba7055a0250734909ba6addc1c5746b8b781bd37f8e39983a4530bb1c37b9d"
+    },
+    {
+      "path": "game/src/spots/scenes/fine-dem-ballard-locks.js",
+      "sha256": "cd74172a43002d7d9cd53c1fd676a3074ba4ed3d347d8122daf3660492809c2c"
+    },
+    {
+      "path": "game/src/spots/scenes/fine-dem-fremont-troll.js",
+      "sha256": "04a5e0889833a83353dd05e4079c0a8cef209c3c1375cbc90bb64c8415157cce"
+    },
+    {
+      "path": "game/src/spots/scenes/fine-dem-gas-works.js",
+      "sha256": "9942b85ccea83db26651413d1467d84054c18e02c913a2b149f46c7429bff736"
+    },
+    {
+      "path": "game/src/spots/scenes/fine-dem.js",
+      "sha256": "3b877b6910c988d0518e113579c5b965f48c0e3efcff64da5e19412a57777530"
+    },
+    {
       "path": "game/src/spots/scenes/freddo-look.js",
-      "sha256": "4c3ea0e41285114724edbc6b9c3dfccdb7e080930e2327c0c38ed3a482e16962"
+      "sha256": "398686d10d6e631b4458245ebb1b560209624431bdc4f4df55cc9f80fb519249"
     },
     {
       "path": "game/src/spots/scenes/fremont-troll.js",
-      "sha256": "9b6061ea59ad0669b68a41c092d1bf2937be86dd21849cc8de3d649139c61369"
+      "sha256": "8bf2bf288dd3a0c99d060caebc61cfb4ef5496cbf15670d5e260110f2aba9108"
     },
     {
       "path": "game/src/spots/scenes/gas-works.js",
-      "sha256": "c1252dbf3ed3b000700fc84b60915656857963bc8e500ca808561b110755989a"
+      "sha256": "d916f19c03c0baccfcf6334883188e8818da630730563a236f921d085d737b47"
     },
     {
       "path": "game/src/spots/scenes/kerry-park.js",
-      "sha256": "83f484862774a061bfa9ff872fd40b45ddb6451e2ca48203af15d22669975901"
+      "sha256": "b4fce4d186be96aef72411876391475079f188bb2ad0aebad59713459176f509"
+    },
+    {
+      "path": "game/src/spots/scenes/nth-un-house.js",
+      "sha256": "c9e553b0dfe2f65ea49c2b2731213d5e79c07de4f7c7f5c5db175d8c801c828f"
+    },
+    {
+      "path": "game/src/spots/scenes/old-town-daylife.js",
+      "sha256": "ae3d779545ce50444a6eac8ce75a83f041a67557c087e696224e1eb05405028c"
+    },
+    {
+      "path": "game/src/spots/scenes/old-town-landmarks.js",
+      "sha256": "6e3f894a1c9e289853fb5fe7421c4f06e1f3bda7e9025c52b40aa9b9c444526b"
     },
     {
       "path": "game/src/spots/scenes/old-town-nightlife.js",
-      "sha256": "c0b2d11516793f321d4559161ef6edb9d33779b29d921342173f6e2121c76c53"
+      "sha256": "8f2f12eeace098c68579a038f834335c053d16bfcc59c723139030ef8e79afb4"
+    },
+    {
+      "path": "game/src/spots/scenes/ot-fronts.js",
+      "sha256": "1a6507eb2f6f9096fb3bf997fea0d81bc3df20662467fee44b1e84f7e78f409f"
+    },
+    {
+      "path": "game/src/spots/scenes/pike-place-facades.js",
+      "sha256": "54eaf5efff8d3afc94d1c4e4d2d558d169132a95b108d32aa47db651703bd81a"
+    },
+    {
+      "path": "game/src/spots/scenes/pike-place-lower.js",
+      "sha256": "d2bc49e8ccd41fc355ff12f12c5a7ebdc31f4ae294e46c8a632a240391c183c5"
+    },
+    {
+      "path": "game/src/spots/scenes/pike-place-market.js",
+      "sha256": "83ea6c0727991be913d8ed34cc117ccfa6a869fc2185ffd9b85b0a8c125a5ae6"
+    },
+    {
+      "path": "game/src/spots/scenes/pike-place-shops.js",
+      "sha256": "e486a9da302add74ccb92f34c738c822553eb4869f2563538c3926450c884652"
+    },
+    {
+      "path": "game/src/spots/scenes/pike-place-skybridge.js",
+      "sha256": "8efc9192747cfe843cfb246ae866c1b4d506a62a8f6c40e5f05a78c474bd9da4"
+    },
+    {
+      "path": "game/src/spots/scenes/pike-place-streets.js",
+      "sha256": "e103347e5f8ce3ef509832e04e6ab20434805a266448a81352b12374f7b464f0"
+    },
+    {
+      "path": "game/src/spots/scenes/pike-place-westface.js",
+      "sha256": "53dbe3adb7ec9fa1f3f10fcd4aee1ba7386e1aeeec040fe417b79630ab2f0592"
     },
     {
       "path": "game/src/spots/scenes/pike-place.js",
-      "sha256": "ffc4583796810a4c9434700ee3d70e128af0e3af59adcf9b3534d3a312e1492f"
+      "sha256": "dc0aa8f9b675e3915b952edd93e039a98a89e36c25b76fb978ce29d3a0b2b8c3"
+    },
+    {
+      "path": "game/src/spots/scenes/pioneer-square-backfronts.js",
+      "sha256": "970cdea6d729149f02298218a5e9d3294c1bf5315ffdbb9ba383e32ecc8ec170"
+    },
+    {
+      "path": "game/src/spots/scenes/pioneer-square-colman.js",
+      "sha256": "2e0563ed49abc02d0578b80df0b03b141c3334a1daa804484d0d873ea29d958b"
+    },
+    {
+      "path": "game/src/spots/scenes/pioneer-square-fronts.js",
+      "sha256": "e6795a19825dedc0e6c63be402d7b4045dc045abb7b81f4a2279f44d7e232dee"
+    },
+    {
+      "path": "game/src/spots/scenes/pioneer-square-westend-data.js",
+      "sha256": "1addcea0fa30f0704de1ebadff1ccc3f57dc8ab9478ea0d60ef4883710ea567b"
+    },
+    {
+      "path": "game/src/spots/scenes/pioneer-square-westend.js",
+      "sha256": "02cc1be800cabfd17aaa96e6ecb913119c1932c81a52eae68deabf1a09263884"
     },
     {
       "path": "game/src/spots/scenes/pioneer-square.js",
-      "sha256": "eebc54feb03198f589d7598063ec137b0b856fa89547d35cc5d466ed9574e543"
+      "sha256": "6c31591424c70526268108a10a1c76c113ed704cb702f82e4f8d3e8da5985cc0"
     },
     {
       "path": "game/src/spots/scenes/sea-common.js",
-      "sha256": "224610b98e998d2a124f066b9b190b607caaa7e157cd447e7afb9268998b0585"
+      "sha256": "7250552321dbcbdd2e7eb5dea5253bfca8d5e0e13283fa4c65a0923e801c7181"
+    },
+    {
+      "path": "game/src/spots/scenes/sea-models.js",
+      "sha256": "7c7a2d67384cfa4b56696b4f068b82cab3e27b968b33f24317db067767ebad4a"
+    },
+    {
+      "path": "game/src/spots/scenes/seattle-center-chihuly.js",
+      "sha256": "34169c3c182f13ef9c694825836187ad7622144fd038262de65eb2c1017ada3d"
+    },
+    {
+      "path": "game/src/spots/scenes/seattle-center-fountain.js",
+      "sha256": "a9adae7957bd4d0e6b938e0c57cb7635714dcc0424d0cb261616d1e53b856d37"
+    },
+    {
+      "path": "game/src/spots/scenes/seattle-center-heroes.js",
+      "sha256": "a01905ac5155b06536ff2edbb540afad069750d99502475c6f2bc78be0d214b3"
+    },
+    {
+      "path": "game/src/spots/scenes/seattle-center-mopop.js",
+      "sha256": "84ba24cb956603c0a0d1a9d2cc533a73c7fc4dee3cc569caad29bf7bc6221e34"
+    },
+    {
+      "path": "game/src/spots/scenes/seattle-center-trees.js",
+      "sha256": "9124fd97a11e880ea28ef02db65a5491d5ca960e13c9d6ad1a25482db768d22e"
     },
     {
       "path": "game/src/spots/scenes/seattle-center.js",
-      "sha256": "b5c65503eba4dd62b5054474ce172df3055966643f2af150e2a77129e0c6c300"
+      "sha256": "61bfde081e386e123c9e08acfcc03ad2bfe8d01274c4a06d00145b92ba99208c"
     },
     {
       "path": "game/src/spots/scenes/spring-palace.js",
-      "sha256": "a43a9dd6dcd739debfcfd17b8ce96d3d7ea0a782d5a19f07dc0d5246aeee8c88"
+      "sha256": "4ff867588cd1ce9ed6335fae554d4cd1a4bfa5a1aba6012471f4ab5bc369fe1b"
+    },
+    {
+      "path": "game/src/spots/scenes/waterfront-pier-rings.js",
+      "sha256": "7b187c742887371e7c4e0e9d87b899439e7af1177194e53027c6f498a183a1d3"
+    },
+    {
+      "path": "game/src/spots/scenes/waterfront-piers.js",
+      "sha256": "2f94048bb3f809588d9196eea0bdfc8045dd7f4c1799c969aacb538f584f6811"
+    },
+    {
+      "path": "game/src/spots/scenes/waterfront-shore.js",
+      "sha256": "e6454e67e7b5419df7e871d632d2132819354ea785f0c8b98c89fef9404c7ba5"
     },
     {
       "path": "game/src/spots/scenes/waterfront.js",
-      "sha256": "fdfaf185454b32efac9e631043f221a0712c36a8f25981953828ced912efc0cf"
+      "sha256": "8c2b714f135726209241c03d9837d0b619aa0cba9dce897de6dccf15889f9b9a"
     },
     {
       "path": "game/src/spots/scenes/wcp-secret-bar.js",
-      "sha256": "6a3252afe89e2238e5b3b4c4ffc6d2a8fcf050b1d79de90c5a5aff22751211ea"
+      "sha256": "a2cf5b86f78913a25928efb45e5d2676c9f024d6e374bdc79d3897c6f731bab0"
     },
     {
       "path": "game/src/spots/sdf.js",
       "sha256": "742037ac8d81781aa775dd43f74a6f1e0abc0d6493981538df355cdc6f64cb49"
+    },
+    {
+      "path": "game/src/spots/session.js",
+      "sha256": "3fdd75c057ae0dd67864b35b276b9b32d2ada5110549bc417fcdb088601ead36"
     },
     {
       "path": "game/src/spots/sound.js",
@@ -882,7 +1542,7 @@
     },
     {
       "path": "game/src/spots/source-coast-water.js",
-      "sha256": "5187c160d1da6b87e232dc87c3ff45089226f26b224dc998a2e146103aea641e"
+      "sha256": "0e15e97eae1a77f7969951b605b938c986cd30ad7c1d14fa9bea9d3246a14e40"
     },
     {
       "path": "game/src/spots/source-context-data.js",
@@ -894,19 +1554,31 @@
     },
     {
       "path": "game/src/spots/source-context-surface.js",
-      "sha256": "8c6bc6d0081bf6031f8bc32f363a2f0857d6483429b54f7a7b64baf71d160386"
+      "sha256": "ff0f10df0c12de5d09604ead4506c87f48a4d79d2e01bffe912d4d29b6fad17d"
     },
     {
       "path": "game/src/spots/source-context.js",
-      "sha256": "3fc95de32279908e3be9f951ce6baecf48ab54d5f4d62c6c7819c779bea51807"
+      "sha256": "5e1480143433949fb9fb930d3e357fff96e2be8224ba6ee622abfada2a1230f8"
+    },
+    {
+      "path": "game/src/spots/source-facade.js",
+      "sha256": "77778d84e74138269236eb50e1b37fce72d9fb6adacdf8cde0d5d9b27d16b2ce"
     },
     {
       "path": "game/src/spots/source-landmark.js",
-      "sha256": "b17e4249f7e9323baeaf276d4f1f667af2763fef587b7a9b103b3c38b0130f0d"
+      "sha256": "7059aa9df2cb870e95fe4309b10dd9d631588f50b22c9e6f2f71fd4335095c99"
     },
     {
       "path": "game/src/spots/source-water-faces.js",
       "sha256": "d0e283399213d8d737a6e9d2cb210b4cb02019d7b764b574514da421c076a1ff"
+    },
+    {
+      "path": "game/src/spots/space-needle-frame.js",
+      "sha256": "46c7bc26883f1f7cd5636490e8275f0356d378cec26bf0e1a9b95c14340850ed"
+    },
+    {
+      "path": "game/src/spots/space-needle.js",
+      "sha256": "5c1f0478821094a2ad92a990df4a1111e5337f1930ca1e439df554dec874e147"
     },
     {
       "path": "game/src/spots/stone-skipping.js",
@@ -914,15 +1586,15 @@
     },
     {
       "path": "game/src/spots/tour.js",
-      "sha256": "9f09737433667fce25e2564a2dea60bd3da42a1a8e037c5f515b5a79d4f005a9"
+      "sha256": "060ad9fdc7097ff2af9f168e7dc34ab8d8d1ed1bbbe720215e47dbc95ff3bcc8"
     },
     {
       "path": "game/src/spots/ui.js",
-      "sha256": "2e6433740079b900e4b58c9cbb3a380827f851f940587506c32176854e6dfdd1"
+      "sha256": "eed1fe32afbffe435bd51289cd17aac238a35302c3df35b5e8b7cf6cfc7b9c64"
     },
     {
       "path": "game/src/spots/venue-activities.js",
-      "sha256": "5a3855d79e5de418a518537f23af2cc442d08a1d1901281a777e022b4649f869"
+      "sha256": "5b1f9ff69fcb51c999e883c183a5c7e336963fe8aca71d6bdf8aaae4d7fb830e"
     },
     {
       "path": "game/src/spots/walk-boundary.js",
@@ -930,11 +1602,19 @@
     },
     {
       "path": "game/src/spots/walker.js",
-      "sha256": "7cf12e74580b4b9dcc06c85afb0a3fc3865640199f4b37dab28f59b3d920d9bd"
+      "sha256": "0bba1c5674ddce80aaa8787e2acf5271872dab484c5bca3495a97bcf66aac09a"
     },
     {
       "path": "game/src/spots/water-route.js",
-      "sha256": "0c9421c2001c50156c31048e877bd9bcd99e2629d9c84f992bf5dbc18f8a7665"
+      "sha256": "435041fa66ae3cc05d3d2760eb736ad232691bcfa0303ca3261819719ef6f08b"
+    },
+    {
+      "path": "game/src/spots/willow.js",
+      "sha256": "a06204bcee76df0e171605cb54cea5e2be55bd98b4c08756b73a4b9512b6dbd5"
+    },
+    {
+      "path": "game/src/sunken-lakes.js",
+      "sha256": "95ab795e9a7b480a2a3e70711b83b0cf52635929f4a2dc35edfe33b32ca9d157"
     },
     {
       "path": "game/src/telemetry-game.js",
@@ -945,12 +1625,28 @@
       "sha256": "05805123b81c5aa14649512c551a1a4d3eca76746e95d0c5b63c89362734c0f1"
     },
     {
+      "path": "game/src/traffic-lanes.js",
+      "sha256": "015590d6659d3f8ada810938dcd4cc71263f47962b76ee1ba5225af4891b3486"
+    },
+    {
+      "path": "game/src/traffic-parking.js",
+      "sha256": "298872274fd18f15bbef75d58feee40258a0bf6d3b9d322d3f1b973940623533"
+    },
+    {
+      "path": "game/src/traffic-shared.js",
+      "sha256": "d494140f3c4034dcab991d8a34e2b7c834094c34c1d6237ab219b65693958517"
+    },
+    {
+      "path": "game/src/traffic-step.js",
+      "sha256": "85ae581c143fcb44dd35b6b214ed708e9e8f08282a1f8c0945928c342e1ed5d0"
+    },
+    {
       "path": "game/src/traffic.js",
-      "sha256": "2032708ea9d15a416312c33b32c452cc5265020018c07708c00a53bbfe81c695"
+      "sha256": "2093c588f5f608b69802ad9d44093d3fe645e3211cfabad38c7ec3926b1114a2"
     },
     {
       "path": "game/src/tram-body-support.js",
-      "sha256": "f78a8df825d19b269e7d642a83e792d0bd0f614cb9e42537d049f7383ca26976"
+      "sha256": "859dda676a5ad98741d6fbaa8e78a2a9ea0cf857b5323e38b6a2a8a935e03f7c"
     },
     {
       "path": "game/src/tram-clearance.js",
@@ -958,19 +1654,23 @@
     },
     {
       "path": "game/src/tram-grade-models.js",
-      "sha256": "bc2f44e47e3b1988d18d7f984380193e2c7e1ad179f9461fbccfe60ccfecd461"
+      "sha256": "11ade0a32fd60192c29e475fe17f973e6ca7c2514b78bfd04ea7e609d69f0fd6"
     },
     {
       "path": "game/src/tram-grade.js",
-      "sha256": "2129fa2c5037c0d4b21bfbb7d881084868d7b0f7a55aad0ef8e4c73fbc782ffa"
+      "sha256": "0d2c54690b2ae2cf753442444c393186bfba5d7d1a59c5fc29f38bd3ae9894f5"
     },
     {
       "path": "game/src/tram-path.js",
-      "sha256": "f296931a093085aa8e2d9409e462192316c6f09e7ac649dda207405385851ca4"
+      "sha256": "e304430a0ec8e2d6792b5957940aecfd60b1cbb48e3a29f0542102d703efa7b7"
     },
     {
       "path": "game/src/tram-source-signals.js",
       "sha256": "49374a21c5b3be4331221f72fdc0adccfa19c245aed5ae04099fb714fc224390"
+    },
+    {
+      "path": "game/src/tram-sweep.js",
+      "sha256": "13e476041320ba5c319020670ec152d5516a5ce42e21eca20783c434cb4c2907"
     },
     {
       "path": "game/src/tram-trench.js",
@@ -978,43 +1678,83 @@
     },
     {
       "path": "game/src/tram-tunnel-grade.js",
-      "sha256": "29e198ae6f04a3fc97b3fd1db7fe01891f86b44444c2e398afd58f41b67ef2de"
+      "sha256": "370b52a2488667bfdeb8f7ff5c7f05316588fdf959f16d0d0942dbb56e6e6f82"
     },
     {
       "path": "game/src/transition.js",
       "sha256": "35e0f270adb35d2462cf3a153ba4deec243d8537529520684b57198a56cda593"
     },
     {
+      "path": "game/src/tree-additions.js",
+      "sha256": "f3f9e31ee9987ec942c4062af19a0e939df4bb70f4b7e5105ca5990cb68314bb"
+    },
+    {
+      "path": "game/src/tree-reviews.js",
+      "sha256": "9436408c612f1b657871b512976288258ce95e93ed766fc8a5113eda82d47785"
+    },
+    {
       "path": "game/src/trees.js",
-      "sha256": "968891c47e5ceb7d57989a7ce1e1915fb589fbc771aa61bccb0ead66f5f8a620"
+      "sha256": "e3117508a40e2ee320b04871d7c72ecaa0afde7e2d13d49de815ee43070bb599"
+    },
+    {
+      "path": "game/src/trench-parapets.js",
+      "sha256": "5bfc81af166cb48c8a7ec276d84895d22287c3f36d7c35801e8870a8f00940d8"
+    },
+    {
+      "path": "game/src/triangulate.js",
+      "sha256": "60cfc6046f8a5030640c8eeaba916b85003921f9d131fec3513b4ac57b26dcdb"
     },
     {
       "path": "game/src/turn-lanes.js",
-      "sha256": "0911880d096c4efe126fc4f53a7df1559d8f6ee01cb52635afeb939648dece54"
+      "sha256": "1891090004c411251dc18526086b0d6ab072a6a542fa35e9f87a5104ebe2b716"
     },
     {
       "path": "game/src/underpass-ground-owner.js",
-      "sha256": "52d8e943ede3199ad485f06e455fa88c7b4d48a5d327f91837b7a73a9fdf37f2"
+      "sha256": "cf4a7f03160a652372ba920a6c2510a0ec52afe1355ee4b6001587a9fb9c70a7"
+    },
+    {
+      "path": "game/src/underpass-mouths.js",
+      "sha256": "fa8471b75aedb35991ef31c0af921a2dea7f4daf8b8fb65e53037f16b4e1401b"
     },
     {
       "path": "game/src/underpass-roof.js",
-      "sha256": "d1cc7dabf82d602959959f53bca26be699b62142e29ab0ab44e5b9936cec56b3"
+      "sha256": "25355da8de1d8cacc0290964ee992d5d801290d59e66bd275b1dc9ba29f5e725"
     },
     {
       "path": "game/src/util.js",
-      "sha256": "0a9dfc801adefd4dbf6f8485451404d92494dd9292fe0e310c9eb457f78afeb5"
+      "sha256": "56a0307f36d8bf2124e7022ea6a12393bb68362ce420ee388f2d0d019d87ce9b"
+    },
+    {
+      "path": "game/src/vehicle-cockpit.js",
+      "sha256": "d306a0c53c5c1e6144c75caeccc86c4e6195837add7f3372278c364c56c6038f"
+    },
+    {
+      "path": "game/src/vehicle-materials.js",
+      "sha256": "17a8fc182d8edd7eea1346991dc8992f411d4cc2d2d24a0c622f501746b8617e"
+    },
+    {
+      "path": "game/src/vehicle-models.js",
+      "sha256": "2835485abd97f18edc92c0e624f235ba8977c56629f2b05b82a79b1de313f3a1"
     },
     {
       "path": "game/src/vehicles.js",
-      "sha256": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df"
+      "sha256": "ba274881c709fbdbfea40841bdde7a42a54d6162dcc246dc09c73cbc59025572"
     },
     {
       "path": "game/src/water-batch.js",
       "sha256": "cd1a0fb7e59ff1c621eadc77acbd58c61d81cce09c5dbf9b74125268b41b5543"
     },
     {
+      "path": "game/src/water-bridge-railings.js",
+      "sha256": "9d7c19f412306452dfb374bad41add8971841cc3c454746a17b12a533543b4f1"
+    },
+    {
+      "path": "game/src/water-channel-review.js",
+      "sha256": "c68ff4b51482cb376d43b6a193c3f275eea6ce51a2250744438a9fcd2b07bf10"
+    },
+    {
       "path": "game/src/water-channel.js",
-      "sha256": "b7a645b3beb86c3e74ea681e1a20c39a6675536243342cf1cdff0d8d86e70504"
+      "sha256": "02aa9b79ebbf3565439698cd4c766cb161fdd684d520c7de64497505d7ee7d14"
     },
     {
       "path": "game/src/water-lines.js",
@@ -1022,7 +1762,7 @@
     },
     {
       "path": "game/src/water-shore.js",
-      "sha256": "6705b456454df3ac85ada90a96ff66280706ad306de401dea25896b8d379315e"
+      "sha256": "95506b8c35193e7e01b7ed1fb86b549e6c18902afe7e5ed2e168e88aa0713625"
     },
     {
       "path": "game/src/water.js",
@@ -1030,15 +1770,163 @@
     },
     {
       "path": "game/src/weather.js",
-      "sha256": "a2bb0854d3fe3792f94ca9f3b2f2ecbdd9e61b497aca1d3ac5d51d02ec5875b8"
+      "sha256": "cc6070f2067dbf409755f6067a8ea39d1339fd7f94beb611e3d7dda6984e9e7d"
+    },
+    {
+      "path": "game/src/weirs.js",
+      "sha256": "cb2ed838376e6d391bfc78fcdd2ec5df42cdfe98b6e5f22aa6bbf19a137e14ff"
+    },
+    {
+      "path": "game/src/world-api.js",
+      "sha256": "7cb8d039096722a89e675119d21fb835f58829060703c7a9391fd70824b3fd18"
+    },
+    {
+      "path": "game/src/world-areas-water.js",
+      "sha256": "4c9965f7edcaa6a3658bb335282eb207ef56a69f66f3ead1490a0d1ab1e00777"
+    },
+    {
+      "path": "game/src/world-bridge-structures.js",
+      "sha256": "f12c408af1a5cb2880b37a3d6c8327bf3f58cd54aca7c6481b290145d158e0b8"
+    },
+    {
+      "path": "game/src/world-bridge-tram-signals.js",
+      "sha256": "be0908d7f488a6fcb6db48af89698edebffe24f2601059143ab1f96638158516"
+    },
+    {
+      "path": "game/src/world-buildings.js",
+      "sha256": "ed9e83628cd45ac4e5fa9f51ba1a8df9a5910aebbd31a91ef09030384750e2cd"
+    },
+    {
+      "path": "game/src/world-collide.js",
+      "sha256": "5fb06c40283be35785713dacad987bdad3e9b58c63e067e476d60009b89d260b"
+    },
+    {
+      "path": "game/src/world-district-graph.js",
+      "sha256": "929decb310c8862663cfad630a9c9e2c2302cf73cd0f37e00f6a1844f4a3bdfc"
+    },
+    {
+      "path": "game/src/world-edge-ribbons.js",
+      "sha256": "c4fec3c7e39ce73d99c434c245274688b783768f251241553fa578dbfce2394c"
+    },
+    {
+      "path": "game/src/world-extrusion.js",
+      "sha256": "e36c22e6a67e056f018bb58dd590754559a0df1acc83b8399fd27a7208cdcd8e"
+    },
+    {
+      "path": "game/src/world-facade-detail.js",
+      "sha256": "dfbb9fcb8db2db5f1e5d0627e45d3c445410bc9cf8c4ac7991457ee07697f364"
+    },
+    {
+      "path": "game/src/world-facades-guards.js",
+      "sha256": "0776c4eb916f75a4ace8385d236afc71a8e94913a72bb11eed753f38365b22c9"
+    },
+    {
+      "path": "game/src/world-final-meshes.js",
+      "sha256": "b187ff2d44c84a78776751b64f26348617c6d71036a4efcb35b1dc473a4d0285"
+    },
+    {
+      "path": "game/src/world-finish.js",
+      "sha256": "7a4321085431333496a61e59fda0e55da2e715bd01fcf6f39a2c16096c68827e"
+    },
+    {
+      "path": "game/src/world-furniture.js",
+      "sha256": "3faa99559a0e2f02484a023e9d00ce598b6226b2215dc5a2227504636ea13352"
+    },
+    {
+      "path": "game/src/world-landmark-grounds.js",
+      "sha256": "9238e6e95aae0ec19deb2e89becaacb1a40768e5576954dfbaaf5e5b428a1259"
+    },
+    {
+      "path": "game/src/world-levels-gore.js",
+      "sha256": "05932dd3b29ecc6ffa19e14f6c17c8c6c848d2afa4888cc2e91dae271ebe789b"
+    },
+    {
+      "path": "game/src/world-levels.js",
+      "sha256": "baa5cd986e62869d5fa406c01b7e6aca8e142f23a2de38e4a41c483f551cff2a"
+    },
+    {
+      "path": "game/src/world-map-ends.js",
+      "sha256": "4514486e0423d1380c7c5830e69165f7faa2c47094b9a6decac584028c6f5b47"
+    },
+    {
+      "path": "game/src/world-materials.js",
+      "sha256": "cbab0b9b739a4f43770ddaf3d2db71a4739a31c70fa02765165fc6e6c2725970"
+    },
+    {
+      "path": "game/src/world-paint-setup.js",
+      "sha256": "117dd9a6badc31ed520779a4e7d421ed953fd649cbdd88f91b54c081d4543a93"
+    },
+    {
+      "path": "game/src/world-parking-lights.js",
+      "sha256": "f3eff424fef2a0a4779fde27973f4d7a5a1e4595304205214035002b1d6234a7"
+    },
+    {
+      "path": "game/src/world-pois.js",
+      "sha256": "5743555d096924cb827ff094550a9226638c33d701e26808c39b48ae7e2ef34a"
+    },
+    {
+      "path": "game/src/world-railing-network.js",
+      "sha256": "a0f0af720b98e43eac04b5d1826f3fb295f8ff41c37777634039d95f1c0a4bc3"
+    },
+    {
+      "path": "game/src/world-raised-edges.js",
+      "sha256": "e6ac90a356c77269d66b9438101302ecf43f86b0fbf1b4f1fd658d5c72de7b4f"
+    },
+    {
+      "path": "game/src/world-ribbons.js",
+      "sha256": "b426533a8dc4d81038a52c1b544ace8089fea445ed9014135f291b85ef173931"
+    },
+    {
+      "path": "game/src/world-road-graph.js",
+      "sha256": "2c03ff99a522e17c9f2f8020433be590afd228fe76eed550efa43b8fd31f5fd6"
+    },
+    {
+      "path": "game/src/world-roofads-fuel.js",
+      "sha256": "9800b51e881d2ed924ce7e19f5b98c701335cf67c7aa34389253ad1d60dc8959"
+    },
+    {
+      "path": "game/src/world-scenery.js",
+      "sha256": "52fc66d68a6ddcb58b2351858d6be926f2a69d2859e1997b75da946fe0a48aed"
+    },
+    {
+      "path": "game/src/world-shared.js",
+      "sha256": "848b50021a9442887e0a78ba0c059fc4894b8fa86318ad1c7f82b11a75a27388"
+    },
+    {
+      "path": "game/src/world-side-joins.js",
+      "sha256": "a913038ab5c8dd67a0070f9edf714efae6fcb8e3c8a85311c0adb74e872861ef"
+    },
+    {
+      "path": "game/src/world-sports.js",
+      "sha256": "704174b3811c42c285c1dc1792d35c598ec930ab137690facde8f2053c9e5807"
+    },
+    {
+      "path": "game/src/world-streetscape.js",
+      "sha256": "d575ab2ab7e7e2c3bc3ed24d68ccb7786c24981574697167be607d44d7732f17"
+    },
+    {
+      "path": "game/src/world-trees-lamps.js",
+      "sha256": "595924cff69b06bf5319492a046d01a108eee66c8e814a0a024ddbd6189e962c"
+    },
+    {
+      "path": "game/src/world-walls.js",
+      "sha256": "f9b12989379da2cc6108d319f222ea9b83f5a36dc974dc52e96b22adcc4c39db"
     },
     {
       "path": "game/src/world.js",
-      "sha256": "177ad6e264230712bde789a05abac61316ccdf5a45a17cfb8334c2dcbe2575ba"
+      "sha256": "a2801e6a9f765fc5b8e52baf04371b22dedb6c37acb98d1486e5b56ecb034602"
     },
     {
       "path": "game/src/worldmap.js",
-      "sha256": "cda4829131f34395b661cecf73564c08dc980ab10f9464d1c1f1ecd02b7b5f8b"
+      "sha256": "78d33861921c32c67702253a212edd85b21dc0a7e048e55b649751f90628d961"
+    },
+    {
+      "path": "game/src/worship-source.js",
+      "sha256": "f8424d253af90a5bdddd58a9ef2fd3b2ad3a36776e39a9181ce5473a20d7f5d9"
+    },
+    {
+      "path": "game/src/worship.js",
+      "sha256": "48367459b41a1e2178c31d86a3a4a8ded95b81ea59c26f50ffeaa91f2d131e51"
     },
     {
       "path": "game/style.css",

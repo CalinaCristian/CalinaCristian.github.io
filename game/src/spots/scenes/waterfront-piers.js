@@ -24,7 +24,7 @@ import { signBoard } from '../props.js';
 import { gableFrame, gableRoof, gableWalls } from '../gable-plan.js';
 
 const SERIF = (s) => `700 ${s}px Georgia, "Times New Roman", serif`, SANS = (s) => `800 ${s}px "Helvetica Neue", Arial, sans-serif`;
-export const SHEDS = {
+const SHEDS = {
     w232088564: { name: 'Pier 54', wall: '#a7ab9d', trim: '#e9e6da', roof: '#55585a', eave: 7.5, ridge: 10.9, awning: '#2f5a44', signs: [['PIER 54', 4.2, 0.9, '#a7ab9d', '#2b3a33', SANS]] },
     w166910704: { name: 'Pier 55', wall: '#8a3b2d', trim: '#e6dcc6', roof: '#3b3431', eave: 7.5, ridge: 10.9, hip: true, awning: '#6e2a20', signs: [['PIER 55', 4.2, 0.9, '#8a3b2d', '#f0e2c0', SANS]] },
     w166910697: { name: 'Pier 56', wall: '#3f5b47', trim: '#ece8dc', roof: '#4a4f4c', eave: 7.5, ridge: 11.5, awning: '#2c4434', signs: [["ELLIOTT'S OYSTER HOUSE", 7.5, 1.0, '#ece8dc', '#2c4434', SERIF], ['PIER 56', 4.2, 0.9, '#3f5b47', '#ece8dc', SANS]] },
@@ -32,7 +32,7 @@ export const SHEDS = {
     w35345179: { name: 'Pier 59', wall: '#51655c', trim: '#e6e4da', roof: '#3d4345', eave: 8, ridge: 12, awning: null, signs: [['SEATTLE AQUARIUM', 11, 1.3, '#51655c', '#f2f0e6', SANS]] },
 };
 // appearance only (colour and wall pattern) for mapped buildings that stay generic volumes
-export const TINTS = {
+const TINTS = {
     w1256939021: ['#3b3e41', '#4a5a4c', 'industrial'], // Ocean Pavilion: charcoal ribbed metal, planted roof
     w184870422: ['#a8a59c', '#8a8784', 'parking'],     // Pike Place Market garage
     w234810726: ['#8a3b2d', '#3b3431', 'house'],       // Argosy Cruises ticket office

@@ -24,7 +24,7 @@ import { LAMP_RANGE, LampMethods } from './render-lamps.js';
 // ============================================================================
 
 /** quality ladder, best → cheapest. Auto mode moves between AUTO_MIN..AUTO_MAX. */
-export const QUALITY_LADDER = [
+const QUALITY_LADDER = [
     { name: 'ultra', pr: 2.0, shadow: 4096, post: 'full', aa: 'smaa', ao: true, lamps: 24 },
     { name: 'high', pr: 1.5, shadow: 4096, post: 'full', aa: 'smaa', ao: false, lamps: 16 },
     { name: 'high-', pr: 1.25, shadow: 2048, span: 140, post: 'full', aa: 'smaa', ao: false, lamps: 12 },

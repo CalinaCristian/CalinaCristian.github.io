@@ -22,7 +22,7 @@
 // Wilburton station (platform w922284294, roof w615292866, lifts) is drawn from live OSM coordinates below (emitWilburton) and the
 // overhead line by guideway-ocs.js (estimates). Not drawn: Bellevue Downtown station (outside the district), trains.
 import { GUIDEWAY_OCS, ocsWires, ocsPole } from './guideway-ocs.js';
-export const BELLEVUE_GUIDEWAY = {
+const BELLEVUE_GUIDEWAY = {
     mains: ['w669516620', 'w1154876472'],
     others: ['w762965202', 'w762965203', 'w614517901', 'w669516619'],
     // [metres along w669516620, rail elevation m] — estimate, see above
@@ -52,7 +52,7 @@ export const WILBURTON_STATION = {
 
 const lerpTable = (T, s) => { if (s <= T[0][0]) return T[0][1]; for (let i = 1; i < T.length; i++) if (s <= T[i][0]) { const a = T[i - 1], b = T[i]; return a[1] + (b[1] - a[1]) * (s - a[0]) / (b[0] - a[0] || 1); } return T[T.length - 1][1]; };
 /** deck (rail) height above the game's flat ground, s metres along the first main track (negative: station tracks) */
-export const bellevueRailTop = (s) => Math.max(BELLEVUE_GUIDEWAY.endTopM, lerpTable(BELLEVUE_GUIDEWAY.RAIL_M, s) - lerpTable(BELLEVUE_GUIDEWAY.GROUND_M, s));
+const bellevueRailTop = (s) => Math.max(BELLEVUE_GUIDEWAY.endTopM, lerpTable(BELLEVUE_GUIDEWAY.RAIL_M, s) - lerpTable(BELLEVUE_GUIDEWAY.GROUND_M, s));
 
 function quad(m, P, n, col) {
     const id = P.map(p => m.v(p[0], p[1], p[2], n[0], n[1], n[2], (p[0] + p[2]) * 0.125, p[1] * 0.125, col));

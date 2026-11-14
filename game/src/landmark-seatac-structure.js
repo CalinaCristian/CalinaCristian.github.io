@@ -11,7 +11,7 @@ export function structureCollider(b,ring,holes,y0,y1,sourceId,kind) {
     b.colPolygon(ring,{holes,y0,y1});
     const c=b.cols[b.cols.length-1];delete c.y0;c.minH=y0;c.structureKind=kind;c.sourceId=sourceId;
 }
-export function stripRing(a,c,thickness) {
+function stripRing(a,c,thickness) {
     const dx=c[0]-a[0],dz=c[1]-a[1],l=Math.hypot(dx,dz)||1,nx=-dz/l*thickness/2,nz=dx/l*thickness/2;
     return [[a[0]+nx,a[1]+nz],[c[0]+nx,c[1]+nz],[c[0]-nx,c[1]-nz],[a[0]-nx,a[1]-nz]];
 }

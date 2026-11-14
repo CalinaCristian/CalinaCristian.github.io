@@ -287,7 +287,7 @@ function pointInRing(x, z, poly) {
     return inside;
 }
 
-export function buildTramDeckSupport(data, grades) {
+function buildTramDeckSupport(data, grades) {
     const pieces = [], cells = new Map(), size = 16;
     for (const [run, delta] of (data.trams || []).entries()) {
         const points = decodeTramPoints(delta, data.q || 10); if (!points) continue;

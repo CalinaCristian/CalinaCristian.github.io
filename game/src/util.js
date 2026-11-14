@@ -152,7 +152,7 @@ export function triangulate(points) {
     return tris;
 }
 
-export function addPolygonToBatch(batch, points, y, color) {
+function addPolygonToBatch(batch, points, y, color) {
     const col = color instanceof THREE.Color ? color : new THREE.Color(color);
     const tris = triangulate(points);
     const o = batch.vcount;
@@ -176,7 +176,7 @@ export function makeCanvasTexture(w, h, draw) {
     return tex;
 }
 
-export function signTexture(text, { bg = '#111827', fg = '#ffffff', sub = '', accent = '#f97316', w = 1024, h = 256 } = {}) {
+function signTexture(text, { bg = '#111827', fg = '#ffffff', sub = '', accent = '#f97316', w = 1024, h = 256 } = {}) {
     return makeCanvasTexture(w, h, (ctx) => {
         ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
         ctx.fillStyle = accent; ctx.fillRect(0, h - 14, w, 14);
@@ -194,7 +194,7 @@ export function signTexture(text, { bg = '#111827', fg = '#ffffff', sub = '', ac
     });
 }
 
-export function windowTexture({ day = true, tint = '#ffffff' } = {}) {
+function windowTexture({ day = true, tint = '#ffffff' } = {}) {
     return makeCanvasTexture(256, 256, (ctx, w, h) => {
         ctx.fillStyle = tint; ctx.fillRect(0, 0, w, h);
         const cols = 4, rows = 4;
@@ -209,8 +209,8 @@ export function windowTexture({ day = true, tint = '#ffffff' } = {}) {
     });
 }
 
-export function formatKmh(ms) { return Math.round(Math.abs(ms) * 3.6); }
-export function formatMph(ms) { return Math.round(Math.abs(ms) * 2.237); }
+function formatKmh(ms) { return Math.round(Math.abs(ms) * 3.6); }
+function formatMph(ms) { return Math.round(Math.abs(ms) * 2.237); }
 
 export const isTouch = () => ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 

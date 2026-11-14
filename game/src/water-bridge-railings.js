@@ -10,7 +10,7 @@
 //
 // A run = the consecutive bridge edges of one source road. It qualifies when it is at street level, not already a
 // water bridge, and water lies within `reachM` of the centre line on BOTH sides at the middle of the run.
-export function streetLevelWaterBridgeRuns(edges, isWater, { reachM = 36, maxLevelM = 0.3 } = {}) {
+function streetLevelWaterBridgeRuns(edges, isWater, { reachM = 36, maxLevelM = 0.3 } = {}) {
     const byRoad = new Map();
     for (const e of edges) {
         if (!e.bridge || e.virtual || e.tunnel || e.overWater || Math.max(Math.abs(e.ya || 0), Math.abs(e.yb || 0)) > maxLevelM) continue;

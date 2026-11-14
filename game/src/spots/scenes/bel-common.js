@@ -214,7 +214,7 @@ export function boulderWall(b, pts, yFn, { h = 1.4, seed = 1, cols = ['#8d8a83',
     }
 }
 const ROCK = (() => { const g = new THREE.IcosahedronGeometry(0.5, 1); const P = g.attributes.position; for (let i = 0; i < P.count; i++) { const x = P.getX(i), y = P.getY(i), z = P.getZ(i), k = 0.82 + 0.3 * hash2(x * 7.1 + z * 3.3, y * 5.7); P.setXYZ(i, x * k, y * k * (y < 0 ? 0.6 : 1), z * k); } g.computeVertexNormals(); return g; })();
-export const rockGeometry = () => ROCK;
+const rockGeometry = () => ROCK;
 
 /**
  * Fairy / holiday lights: small additive points (pts = [[x, y, z], …]), visible only at night (nightK) and while

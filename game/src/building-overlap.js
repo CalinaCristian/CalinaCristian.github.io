@@ -91,7 +91,7 @@ export function triangulate(poly) {
 }
 
 /** subject inside a convex polygon (all its half-planes). */
-export function intersectConvex(subject, convex) {
+function intersectConvex(subject, convex) {
     const s = Math.sign(area(convex)) || 1; let rest = subject;
     for (let i = 0; i < convex.length && rest.length >= 3; i++) { const a = convex[i], b = convex[(i + 1) % convex.length]; rest = clipHalf(rest, p => s * ((b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0]))); }
     return rest.length >= 3 && Math.abs(area(rest)) > 1e-6 ? rest : null;

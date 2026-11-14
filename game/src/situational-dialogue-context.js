@@ -1,6 +1,6 @@
 // Source identities are retained OSM building/area IDs, never name guesses.
 // The original source arrays/actors are not modified or rescaled.
-export const DIALOGUE_PLACE_SOURCES=Object.freeze([
+const DIALOGUE_PLACE_SOURCES=Object.freeze([
  {tag:'carusel',ids:['w658009149'],margin:18},
  {tag:'freddo',ids:['w657568283'],margin:18},
  {tag:'arc-de-triumf',ids:['w1190798203','w217851530'],margin:30},
@@ -25,7 +25,7 @@ export function compileDialoguePlaces(world){
  return{get count(){return entries.length;},at(x,z){if(!Number.isFinite(x)||!Number.isFinite(z))return[];const tags=[...new Set(entries.filter(e=>!e.holes.some(h=>inside(x,z,h))&&(inside(x,z,e.outer)||nearRing(x,z,e.outer,e.margin))).map(e=>e.tag))];if(tags.includes('carusel')||tags.includes('freddo'))tags.push('old-town');return tags;},dispose(){entries.length=0;wanted.clear();}};
 }
 /** Positively known SIMULATION condition, including explicit game overrides. */
-export function knownDialogueWeather(host){
+function knownDialogueWeather(host){
  const w=host?.weather;if(!w||typeof w!=='object')return{weatherObserved:false};
  const code=w.code,override=host.weatherOverride,label=String(w.kind||w.label||'').toLowerCase();let kind=null;
  if(override==='snow'||(typeof code==='number'&&((code>=71&&code<=77)||code===85||code===86))||(/snow|blizzard|flurr/.test(label)&&!/ground|cover/.test(label)))kind='snow';

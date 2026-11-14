@@ -10,7 +10,7 @@
 const EST = { topSource: 'estimate', clearanceSource: 'estimate', supportSource: 'estimate', estimateSupports: true, supportWidthM: 0.4,
     dimensionNote: 'Clearance, slab thickness and support arrangement are explicit authoring estimates; open canopy on columns seen in the panorama.' };
 
-export const FUEL_CANOPY_REVIEW = {
+const FUEL_CANOPY_REVIEW = {
     'bucharest-grozavesti': {
         // (r2-world-b-lukoil-height) documented exception: live OSM (v7, 2026-11-13) still tags height=3, which leaves 2.6 m under
         // the slab; both official panoramas show a roof about 5 - 5.5 m high over the pumps, like the other stations' canopies. Drawn at

@@ -33,7 +33,7 @@ function* rangeStations(origin, lo, hi, spacingM, limit) {
     for (const s of values) { const key = s.toFixed(9); if (seen.has(key)) continue; seen.add(key); yield s; if (++count >= limit) return; }
 }
 
-export function* nativeInitialTrafficCandidates(T, v, { spacingM = 0.25, endMarginM = 0.05, maxCandidates = 256 } = {}) {
+function* nativeInitialTrafficCandidates(T, v, { spacingM = 0.25, endMarginM = 0.05, maxCandidates = 256 } = {}) {
     if (v.parked || v.service) return;
     if (v.edge?.rail && (!v.tram || !canTravelTram(v.edge, v.dir))) return;
     const span = longBody(v) ? T.sSpan(v.edge, v.dir, v.length, true) : null;
@@ -128,7 +128,7 @@ export function initialTrafficStaticClearance(world, body, { cellM = 0.75 } = {}
  * measured interval, an XY contact is conservatively rejected across grades;
  * it is never hidden by an invented generic height exemption. Constructor's
  * normal first call precedes pedestrian creation. */
-export function initialTrafficPedestrianClearance(T, body) {
+function initialTrafficPedestrianClearance(T, body) {
     const people = T.peds?.list;
     if (!people?.length) return { valid: true, checked: 0 };
     const iv = vehicleVerticalInterval(body), fx = -Math.sin(body.heading), fz = -Math.cos(body.heading);

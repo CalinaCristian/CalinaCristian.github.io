@@ -132,7 +132,7 @@ export function createDinamoFootball(game) {
     return new DinamoFootball(game, source);
 }
 
-export class DinamoFootball {
+class DinamoFootball {
     constructor(game, source) {
         this.game = game; this.source = source; this.pitch = source.userData.footballPitch;
         this.mesh = ballMesh(); this.contact = contactMesh(); game.scene.add(this.mesh, this.contact); this.previousDrone = null; this.disposed = false;

@@ -3,7 +3,7 @@ import { assemblySignature, bakeSourceSolidSurface, simpleFootprint, touchingSol
 import { parseMeasure } from './building-roofs.js';
 import { signatureMatches } from './district-pack.js';
 
-export function sourceSurfaceAuthority(b) {
+function sourceSurfaceAuthority(b) {
     const raw = b.roofProfile?.originalOSM || b.roofProfile?.raw || {};
     const literal = parseMeasure(raw.height), levels = Number(raw['building:levels']);
     const researched = (b.roofProfile?.heightSource?.startsWith('research') && b.heightSourceCode !== 2) || b.heightSourceCode === 1;
@@ -16,7 +16,7 @@ export function sourceSurfaceEligible(b) {
     return !b.suppressed && !b.skip && !b.canopy && !b.aircraft && !b.passages?.length && Number.isFinite(b.h) && Number.isFinite(b.minH) && b.h > Math.max(.18, b.minH) && rings.every(r => Array.isArray(r) && r.length >= 3 && r.every(p => p.length === 2 && p.every(Number.isFinite)) && simpleFootprint(r));
 }
 
-export function buildSourceSurfaceCache(physical) {
+function buildSourceSurfaceCache(physical) {
     const active = physical.filter(sourceSurfaceEligible).map(b => ({ ...b, surfacePriority: sourceSurfaceAuthority(b).priority }));
     const neighbours = new Map(active.map(b => [b.i, []])), spatial = new Map();
     for (const b of active) {

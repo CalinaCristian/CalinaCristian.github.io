@@ -11,7 +11,7 @@
 // beside the freeway (the loops and the ground round them are at the freeway's level), the gantry over the deck's east
 // end (w1188380109: its text is not legible on any source), the north sidewalk (see the dossier).
 // Estimates: barrier 0.86 m single-slope section (WSDOT Type F size), abutment soffit clearance 0.9 m, wall colour.
-export const FREEWAY_CUTS = {
+const FREEWAY_CUTS = {
     bellevue: [{
         id: 'i405-ne8th', name: 'I-405 at NE 8th St',
         // the median line is found between the two carriageways at load; these bound it (I-405 inside the district)
@@ -21,7 +21,7 @@ export const FREEWAY_CUTS = {
         review: 'seattle-bellevue.md §3: panorama — freeway in a cut, concrete median barrier; OSM: no barrier on the I-405 median',
     }],
 };
-export const FREEWAY_CUT_MODEL = { step: 1.5, baseW: 0.6, topW: 0.2, soffitGap: 0.9, minClear: 1.2, concrete: '#a7a59f', wall: '#9f9c95', cap: '#b4b1aa' };
+const FREEWAY_CUT_MODEL = { step: 1.5, baseW: 0.6, topW: 0.2, soffitGap: 0.9, minClear: 1.2, concrete: '#a7a59f', wall: '#9f9c95', cap: '#b4b1aa' };
 
 /** env: { district, proj, onRibbon(x, z, r, filter), deckAbove(x, z) -> deck surface height | null, cellOf, rgb, solidAt(x, z, r) -> bool,
  *  addCollider(x, z, hw, hd, angle, h, kind, rec) }  Returns an audit list. */

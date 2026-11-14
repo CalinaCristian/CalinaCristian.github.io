@@ -37,12 +37,12 @@ const MAX_INT = 2 ** 50;
 const NT = T.F64 - T.INT + 1, CLASSES = 16, ROW_MAX = 4, SECTIONS = 8;
 const P_NONE = 0, P_ARRAY = 1, P_FIELD = 2, P_NEXT = 3, P_LINE = 4;
 // Signatures (stringified source geometry kept to validate the precomputed caches) this long or longer are stored as a hash.
-export const SIGNATURE_KEYS = new Set(['signature', 'authoritySignature']);
-export const SIGNATURE_MIN = 64;
+const SIGNATURE_KEYS = new Set(['signature', 'authoritySignature']);
+const SIGNATURE_MIN = 64;
 
 /** 53-bit string hash (cyrb53), as 'h1:' + 14 hex digits. Not cryptographic: it detects a cache whose source changed,
  *  which is all the signature comparison does (a stale cache passes with probability 2^-53). */
-export function signatureHash(s) {
+function signatureHash(s) {
     let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
     for (let i = 0; i < s.length; i++) { const ch = s.charCodeAt(i); h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); }
     h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507); h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
@@ -238,7 +238,7 @@ export const decodeDistrictPack = (u8) => parseDistrictPackText(decodeDistrictPa
 /** JSON.parse of decodeDistrictPackText's text, with the derived parts rebuilt: the district object */
 export const parseDistrictPackText = (text) => deriveIn(JSON.parse(text));
 /** pack bytes (not gzipped) → the JSON text JSON.parse turns into the district object (a worker can do this part) */
-export function decodeDistrictPackText(u8) {
+function decodeDistrictPackText(u8) {
     if (!isDistrictPack(u8)) throw new Error('not a district pack');
     const dv = new DataView(u8.buffer, u8.byteOffset, u8.byteLength), count = dv.getUint32(8, true);
     if (count !== SECTIONS) throw new Error('district pack: unknown section count ' + count);
@@ -370,7 +370,7 @@ export function decodeDistrictPackText(u8) {
 }
 
 /** gunzip with the platform's DecompressionStream (browsers, Node 18+); bytes that are not gzipped pass through */
-export async function inflate(u8) {
+async function inflate(u8) {
     if (!isGzip(u8)) return u8;
     return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer());
 }

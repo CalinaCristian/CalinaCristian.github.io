@@ -17,7 +17,7 @@ function sourceForward(source,e){
     const nodes=source.nodeIds||[],a=nodes.indexOf(e.a.sourceId),b=nodes.indexOf(e.b.sourceId);
     return a>=0&&b>=0&&Math.abs(a-b)===1?Math.sign(b-a):null;
 }
-export function initialParkingSource(T,v){
+function initialParkingSource(T,v){
     const e=v.edge,source=T.world?.data?.roadSourceGeometry?.[e.road],tags=source?.tags;
     if(!source||source.sourceId!==sourceId(e)||!tags)return{valid:false,reason:'missing-literal-parking-road-context'};
     const access=resolveRoadAccess(tags);

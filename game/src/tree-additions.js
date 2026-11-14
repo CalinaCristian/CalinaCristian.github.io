@@ -8,7 +8,7 @@
 // width. Positions come from the aerial image, never from a panorama. Crowns in the towers' shadows (most of NE 8th St and
 // Bellevue Way between 47.6150 and 47.6185) could not be read and are not added. They are placed as measured crowns ('osm' kind): the world
 // builder still refuses any that would stand on a carriageway, in a building or under a deck.
-export const MEASURED_TREE_ADDITIONS = [
+const MEASURED_TREE_ADDITIONS = [
     // Bellevue Way NE, west kerb, 47.6187 - 47.6200 (either side of the crossing at about 47.6192)
     ...[[47.619932, -122.20185], [47.619797, -122.20185], [47.619661, -122.20185], [47.619525, -122.20185], [47.619417, -122.20185],
         [47.619059, -122.20185], [47.618965, -122.20185], [47.618871, -122.201856], [47.618775, -122.201856], [47.618679, -122.201856]].map(([lat, lon]) => ({ district: 'bellevue', lat, lon, crownRadiusM: 2.8 })),

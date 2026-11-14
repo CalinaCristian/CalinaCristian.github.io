@@ -47,7 +47,7 @@ export function coverReach(lengthM, widthM, cellM = TRAM_SWEEP_MODEL.coverCellM)
 }
 
 /** Body sizes and the (height, length) outline of each emitted tram model, from its actual mesh vertices. */
-export function tramBodyProfiles(makeVehicle, city = 'bucharest', kinds = ['tram-v3a', 'tram-imperio']) {
+function tramBodyProfiles(makeVehicle, city = 'bucharest', kinds = ['tram-v3a', 'tram-imperio']) {
     return kinds.map(kind => {
         const group = makeVehicle(kind, '#ffffff', { city }); group.updateMatrixWorld(true);
         const yz = [];

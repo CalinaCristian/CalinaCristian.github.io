@@ -84,7 +84,7 @@ function pointInRing(x, z, poly) {
 /** Relative model constraint only: a tagged rail bridge may use an existing
  * compatible native deck where its actual body support is contained. There is
  * no nearest-edge search, layer-to-height arithmetic or mutation. */
-export function nativeTramGradeResolver(world, { bodyHalfWidthM = 1.2, sampleStepM = .5, heightToleranceM = .05 } = {}) {
+function nativeTramGradeResolver(world, { bodyHalfWidthM = 1.2, sampleStepM = .5, heightToleranceM = .05 } = {}) {
     const ribbons = (world?.ribbons || []).filter(r => r.e?.bridge && !r.e.tunnel && r.poly?.length >= 3).map(r => ({ ...r,
         x0: Math.min(...r.poly.map(p => p[0])), x1: Math.max(...r.poly.map(p => p[0])), z0: Math.min(...r.poly.map(p => p[1])), z1: Math.max(...r.poly.map(p => p[1])) }));
     return (way, leg) => {

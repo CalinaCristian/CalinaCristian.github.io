@@ -10,7 +10,7 @@ import { rgb, prep, mergeProps, bakeProp, UNIT_BOX } from './geobuild.js';
 try { if (typeof window !== 'undefined') sharedBuildPool(); } catch (e) { /* no workers: buildWorld runs everything here */ }
 // (spec 10 load budget) the modules buildWorld imports on demand are fetched and compiled while the page is idle; a build
 // awaits the same import (a failed prefetch is retried there, as before)
-export const lazyModule = (load) => { let p = null; if (typeof window !== 'undefined') { p = load(); p.catch(() => {}); } return () => (p ? p.catch(load) : load()); };
+const lazyModule = (load) => { let p = null; if (typeof window !== 'undefined') { p = load(); p.catch(() => {}); } return () => (p ? p.catch(load) : load()); };
 export const landmarksModule = lazyModule(() => import('./landmarks.js')), archetypesModule = lazyModule(() => import('./archetypes.js'));
 
 export const CELL = 250;
@@ -96,7 +96,7 @@ export const KIND_STYLE = {
     hotel: { bg: '#4b5563', fg: '#ffffff', icon: '🏨', color: '#6b7280' }, school: { bg: '#5b21b6', fg: '#ffffff', icon: '🎓', color: '#8b5cf6' },
     airport: { bg: '#111827', fg: '#ffffff', icon: '✈', color: '#111827' }, office: { bg: '#1f2937', fg: '#ffffff', icon: '🏢', color: '#f97316' },
 };
-export let RESEARCH_BRANDS = {}; // per loaded map: data.brands (sign colours from the field research)
+let RESEARCH_BRANDS = {}; // per loaded map: data.brands (sign colours from the field research)
 export const brandStyle = (name) => {
     if (!name) return null;
     const k = name.toLowerCase();
@@ -111,8 +111,8 @@ export const brandStyle = (name) => {
     let hit = null; for (const [re, style] of BRAND_RES) if (re.test(k)) { hit = style; break; }
     BRAND_HITS.set(k, hit); return hit;
 };
-export let BRAND_RES = null; export const BRAND_HITS = new Map();
-export function brandPatterns() { return Object.keys(BRANDS).map(b => [new RegExp('(^|[^\\p{L}\\p{N}])' + b.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '($|[^\\p{L}\\p{N}])', 'u'), BRANDS[b]]); }
+let BRAND_RES = null; const BRAND_HITS = new Map();
+function brandPatterns() { return Object.keys(BRANDS).map(b => [new RegExp('(^|[^\\p{L}\\p{N}])' + b.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '($|[^\\p{L}\\p{N}])', 'u'), BRANDS[b]]); }
 // (spec 10 load budget) the brand patterns (Unicode property classes: slow to compile, and V8 compiles a pattern on its
 // first test) are made and run once while the page is idle; the same patterns, in the same order
 if (typeof window !== 'undefined') setTimeout(() => { try { BRAND_RES ||= brandPatterns(); for (const [re] of BRAND_RES) re.test(''); } catch (e) { /* made on first use instead */ } }, 0);
@@ -122,7 +122,7 @@ export const MOTORWAY_TRUNK = new Map(), isMotorwayTrunk = (t) => { let v = MOTO
 export const shoulderOf = (e) => (e.roadWidthSource && (e.roadWidthSource.source === 'OSM width' || e.roadWidthSource.review)) ? 0 : (isMotorwayTrunk(e.type) ? (e.type.endsWith('_link') ? 0.6 : 1.2) : 0.15);
 export const AWNING = ['#b91c1c', '#1f4e79', '#14532d', '#7c2d12', '#374151', '#6b21a8', '#0f766e', '#a16207'].map(rgb);
 export const PHASES = [];
-export let _phaseT = 0, _phaseName = '';
+let _phaseT = 0, _phaseName = '';
 export const setProgress = (msg) => {
     const now = performance.now(); if (_phaseName) PHASES.push([_phaseName, Math.round(now - _phaseT)]); _phaseT = now; _phaseName = msg; if (!msg) return; try { const el = document.querySelector('#loading p'); if (el) el.textContent = msg; } catch (e) { /* no DOM */ } };
 export const tick = () => new Promise(r => setTimeout(r, 0));
@@ -211,7 +211,7 @@ export function props() {
     return PROPS;
 }
 
-export const carPropCache = new Map();
+const carPropCache = new Map();
 export function carProps(kind, color) {
     const key = kind + color;
     let p = carPropCache.get(key); if (p) return p;

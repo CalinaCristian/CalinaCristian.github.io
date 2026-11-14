@@ -7,7 +7,7 @@ import { facadeStyle, buildingStyle } from './osm.js';
 
 export const SHOP_FLOOR_M = 4.3;
 /** does buildBuildings give this source building a shopfront ground floor? (r: its sourceRecord) */
-export function sourceHasShopFloor(b, r, style, urban = true) {
+function sourceHasShopFloor(b, r, style, urban = true) {
     return !!(urban && r.minHeight === 0 && r.height > 7 && (b.shop || b.amenity || style === 'mall' || /commercial|retail|mixed|yes/.test(b.k)) && style !== 'house' && style !== 'industrial');
 }
 /** the drawn upper-floor facade of a source building: its style's bay and storey (S) and where its first upper storey starts */

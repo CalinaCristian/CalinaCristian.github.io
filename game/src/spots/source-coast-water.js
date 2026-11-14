@@ -2,7 +2,7 @@
 // the finite render surface, not to the source geometry or navigation graph.
 const area=p=>p.reduce((s,a,i)=>{const b=p[(i+1)%p.length];return s+a[0]*b[1]-a[1]*b[0];},0)/2;
 const same=(a,b)=>a[0]===b[0]&&a[1]===b[1];
-export function joinSourceCoasts(coasts){
+function joinSourceCoasts(coasts){
     const start=new Map(),end=new Map(),used=new Set(),chains=[],unresolved=[];
     for(const c of coasts){for(const[m,key]of[[start,c.nodeRefs[0]],[end,c.nodeRefs.at(-1)]]){const a=m.get(key)||[];a.push(c);m.set(key,a);}}
     for(const c of coasts){if(used.has(c.id))continue;let first=c;

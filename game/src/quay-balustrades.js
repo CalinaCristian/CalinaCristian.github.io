@@ -10,13 +10,13 @@
 // ============================================================================
 import { rgb } from './geobuild.js';
 
-export const QUAY_BALUSTRADE_REVIEW = {
+const QUAY_BALUSTRADE_REVIEW = {
     unirii: {
         w174991904: { style: 'ornamental-panels', note: 'Dâmbovița east basin quays (Splaiul Unirii): dark cast-iron panels between square posts on the low stone kerb' },
     },
 };
 export const quayBalustradeRow = (districtId, sourceId) => QUAY_BALUSTRADE_REVIEW[districtId]?.[sourceId] || null;
-export const QUAY_PANEL_MODEL = { postPitchM: 2.0, postM: 0.1, topM: 1.05, railLowM: 0.36, frameTopM: 0.94, frameLowM: 0.46, iron: '#262b29' };
+const QUAY_PANEL_MODEL = { postPitchM: 2.0, postM: 0.1, topM: 1.05, railLowM: 0.36, frameTopM: 0.94, frameLowM: 0.46, iron: '#262b29' };
 
 /**
  * One quay segment: P(t, o, y) a point t metres along the quay edge, o metres off it (negative: landward), y above the

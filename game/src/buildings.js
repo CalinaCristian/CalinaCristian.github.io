@@ -29,7 +29,7 @@ export function emitFacadeSlab(mb, frame, s, y, w, h, depth, color, { back = 0.0
     if (back > 0.02) mb.face4(b, a, top(a), top(b), color, [-nx, 0, -nz]);
 }
 
-export const PALETTE = {
+const PALETTE = {
     interwar: ['#e6dccb', '#efe7d8', '#d9cfbd', '#f1ece1', '#cfc5b2', '#e2d6bf'],
     eclectic: ['#e9d9b8', '#d8c6a3', '#efe3cc', '#cbbfa6', '#e4cfa7', '#d6d0c2', '#e8d8c4'],
     civic: ['#efe9db', '#e8e1cf', '#f3eee3', '#e4dccb'],
@@ -99,7 +99,7 @@ export function makeTextures() {
 const rnd = (rng, a, b) => a + (b - a) * rng();
 
 /** Generate parts for one building on a lot of frontage `w` (along street) and depth `d`. */
-export function generateBuilding(style, w, d, rng, opts = {}) {
+function generateBuilding(style, w, d, rng, opts = {}) {
     const parts = [];
     const P = (kind, x, y, z, bw, bh, bd, color, extra = {}) => parts.push({ kind, x, y, z, w: bw, h: bh, d: bd, color, ...extra });
     const pal = PALETTE[style] || PALETTE.interwar;
@@ -213,7 +213,7 @@ export function shade(hex, k) {
 }
 
 /** Appends generated parts to the batch set, transformed by (x, z, angle). */
-export function emitBuilding(batches, gen, x, z, angle, T) {
+function emitBuilding(batches, gen, x, z, angle, T) {
     const q = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), angle);
     const m = new THREE.Matrix4();
     const v = new THREE.Vector3();
@@ -238,7 +238,7 @@ export function emitBuilding(batches, gen, x, z, angle, T) {
     }
 }
 
-export function boxWithUV(w, h, d, floorH, bayW = 3.4) {
+function boxWithUV(w, h, d, floorH, bayW = 3.4) {
     const g = new THREE.BoxGeometry(1, 1, 1);
     const uv = g.attributes.uv;
     const floors = Math.max(1, Math.round(h / floorH));
@@ -254,7 +254,7 @@ export function boxWithUV(w, h, d, floorH, bayW = 3.4) {
 }
 
 /** Build meshes from the batch set. */
-export function finalizeBatches(batches, T) {
+function finalizeBatches(batches, T) {
     const meshes = [];
     for (const [key, b] of Object.entries(batches)) {
         if (b.empty) continue;

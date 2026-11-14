@@ -24,7 +24,7 @@ export function slerpLL(a, b, t) {
     return toLL([A[0] * ka + B[0] * kb, A[1] * ka + B[1] * kb, A[2] * ka + B[2] * kb]);
 }
 /** orthographic projection around (lon0, lat0), radius R, centre (cx, cy) → fn(lon, lat) = [x, y, visible(cos c)] */
-export function ortho(lon0, lat0, R, cx, cy) {
+function ortho(lon0, lat0, R, cx, cy) {
     const s0 = Math.sin(lat0 * D2R), c0 = Math.cos(lat0 * D2R);
     return (lon, lat) => {
         const p = lat * D2R, dl = (lon - lon0) * D2R, cp = Math.cos(p), sp = Math.sin(p), cd = Math.cos(dl);

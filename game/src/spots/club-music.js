@@ -1,10 +1,10 @@
 // Original procedural composition, "Lipscani after dark" (2026), CC0-1.0.
 // No samples, quotations, recordings or known melodies. See game/research/bucharest-spots.md, "Things to do by day and night".
-export const CLUB_BPM = 126;
+const CLUB_BPM = 126;
 export const CLUB_BEAT = 60 / CLUB_BPM;
 
 /** Deterministic stereo eight-bar house loop. Pure PCM generation also supports offline verification. */
-export function clubPCM(sampleRate = 44100) {
+function clubPCM(sampleRate = 44100) {
     const length = Math.round(32 * CLUB_BEAT * sampleRate), channels = [new Float32Array(length), new Float32Array(length)];
     let seed = 76357;
     const noise = () => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed / 2147483648 - 1; };

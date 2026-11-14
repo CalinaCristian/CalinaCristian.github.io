@@ -76,7 +76,7 @@ export function vehicleVerticalIntervalAlong(v, alongLo, alongHi) {
 }
 
 /** SAT penetration of the actual drawn-heading length/width rectangles. */
-export function vehicleBodyPenetration(a, b) {
+function vehicleBodyPenetration(a, b) {
     const afx = -Math.sin(a.heading), afz = -Math.cos(a.heading), bfx = -Math.sin(b.heading), bfz = -Math.cos(b.heading);
     const dx = b.x - a.x, dz = b.z - a.z;
     let min = Infinity;

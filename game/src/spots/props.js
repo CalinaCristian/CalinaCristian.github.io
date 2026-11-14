@@ -137,7 +137,7 @@ export function fishMesh() {
 }
 
 // ---------------------------------------------------------------------------- Seattle Great Wheel (2012): 53.3 m, 42 gondolas
-export function greatWheel(x, y, z, yaw, { spin = true } = {}) {
+function greatWheel(x, y, z, yaw, { spin = true } = {}) {
     const grp = new THREE.Group(); grp.name = 'great-wheel'; grp.position.set(x, y, z); grp.rotation.y = yaw;
     const H = 53.3, R = 24.5, hub = H - R - 1.5, white = '#f2f4f5';
     const b = new GeoBatch();

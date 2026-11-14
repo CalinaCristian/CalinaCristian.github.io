@@ -136,7 +136,7 @@ function facadeOf(d, px, pz, qx, qz) {
 }
 /** keep a board of width w on its wall: slide its centre along the hit edge (and narrow it on a short edge) so it never
  *  hangs past a corner (r3-builder-spots-3: the Kuwait embassy board hung half past the villa's west corner) */
-export function boardOnWall(f, w, margin = 0.25) {
+function boardOnWall(f, w, margin = 0.25) {
     const room = f.L - 2 * margin; if (room <= 0.6) return { x: f.x, z: f.z, w: Math.min(w, Math.max(0.6, f.L)) };
     const ww = Math.min(w, room), s = Math.min(Math.max(f.s, margin + ww / 2), f.L - margin - ww / 2);
     return { x: f.ax + f.ex * s, z: f.az + f.ez * s, w: ww };

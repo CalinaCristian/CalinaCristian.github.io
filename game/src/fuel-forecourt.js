@@ -15,7 +15,7 @@
 // world metres: the pylon goes on the nearest free ground within FUEL_MODEL.pylonSearchM of it), the brand's pump /
 // pylon colours (st.look), and, where the panorama shows islands either side of the forecourt's own drive lane
 // (`islandsBesideLane`), islands may stand on that service lane's paved band but never within laneClearM of its centre line.
-export const FUEL_MODEL = { islandM: [1.1, 0.16, 4.4], dispenserM: [0.5, 1.9, 1.0], islandGapM: 6.4, pylonM: [0.4, 6.2, 1.7],
+const FUEL_MODEL = { islandM: [1.1, 0.16, 4.4], dispenserM: [0.5, 1.9, 1.0], islandGapM: 6.4, pylonM: [0.4, 6.2, 1.7],
     frontageM: 12, frontageNoCanopyM: 20, canopyClearM: 1.2, pylonSearchM: 9, laneClearM: 2.7,
     estimates: 'all dimensions; island and pylon positions; the frontage reach; the reviewed pylon place (±10 m) and its search radius' };
 const segDist = (x, z, a, b) => { const ex = b[0] - a[0], ez = b[1] - a[1], L2 = ex * ex + ez * ez || 1, t = Math.max(0, Math.min(1, ((x - a[0]) * ex + (z - a[1]) * ez) / L2)); return Math.hypot(x - a[0] - ex * t, z - a[1] - ez * t); };

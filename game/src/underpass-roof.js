@@ -82,7 +82,7 @@ export function underpassRoofFaces(model, { pointAt, rightM, leftM, outerM = .3,
 
 // Independently useful vertical band for an actual roof collider, not a tall
 // full-height building box. Querying beyond the source span returns unknown.
-export function underpassRoofBand(model, edge, x, z, radiusM = 0) {
+function underpassRoofBand(model, edge, x, z, radiusM = 0) {
     if (!model?.known || ![x, z, radiusM, edge?.len].every(Number.isFinite) || edge.len <= 0) return null;
     const s = (x - edge.a.x) * edge.dirx + (z - edge.a.z) * edge.dirz;
     const t = s / edge.len;

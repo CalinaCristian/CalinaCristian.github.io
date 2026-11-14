@@ -1,7 +1,7 @@
 import * as THREE from '../vendor/three.module.min.js';
 
 /** Pixel bounds apply only to the portal target, never to source actors/geometry. */
-export function boundedOfficeWindowSize(width,height,pixelRatio=1,{maxPixels=262144,maxDimension=1024}={}){
+function boundedOfficeWindowSize(width,height,pixelRatio=1,{maxPixels=262144,maxDimension=1024}={}){
  if(![width,height,pixelRatio].every(n=>Number.isFinite(n)&&n>0)||!Number.isSafeInteger(maxPixels)||maxPixels<1||!Number.isSafeInteger(maxDimension)||maxDimension<1)throw new RangeError('Window dimensions and positive integer pixel limits are required');
  const w=Math.ceil(width*pixelRatio),h=Math.ceil(height*pixelRatio);if(!Number.isSafeInteger(w)||!Number.isSafeInteger(h))throw new RangeError('Requested pixel dimensions exceed safe integer range');
  const scale=Math.min(1,maxDimension/w,maxDimension/h,Math.sqrt(maxPixels/(w*h)));let x=Math.max(1,Math.floor(w*scale)),y=Math.max(1,Math.floor(h*scale));

@@ -13,15 +13,15 @@ import { PEDESTRIAN_PLAZAS } from './pedestrian-plazas.js';
 // (Old Town, Unirii: panoramas at 44.430444, 26.102414 and 44.431796, 26.102087 show cobbled pedestrian streets wall to
 // wall; the raster marked them as lawn) mapped OSM highway=pedestrian ways are paved: a band of this half-width round
 // their centre line is kept free of raster grass. Mapped grass / park polygons are not affected.
-export const PEDESTRIAN_PAVED_HALF_M = 3.5;
+const PEDESTRIAN_PAVED_HALF_M = 3.5;
 
 // (r3-look-14, 2026-11-13) a mapped pedestrian plaza (highway=pedestrian|footway area=yes, area:highway, place=square;
 // pedestrian-plazas.js, live OSM) is paved over its whole polygon: OSM's `surface` decides, and no surface tag counts as
 // paved; only `surface=grass` keeps the raster's lawn. The 3.5 m band above covered only the plaza's outline, so the
 // raster's green cells inside it stayed (Romană, Piața Revoluției). Mapped grass / park polygons inside are not affected.
-export const plazaPaved = (row) => row[1] !== 'grass';
+const plazaPaved = (row) => row[1] !== 'grass';
 
-export const PAVED_REVIEW = {
+const PAVED_REVIEW = {
     'bucharest-romana': [
         { name: 'Piața Victoriei', note: 'panorama at 44.452163, 26.085980: asphalt in every direction (carriageways and the car park), no lawn islands; the raster cells there are tree shade / markings',
           ring: [[44.453069, 26.084153], [44.453069, 26.086418], [44.452349, 26.086418], [44.452349, 26.086732], [44.451764, 26.086732], [44.451764, 26.084153]] },

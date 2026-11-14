@@ -16,7 +16,7 @@
 // ============================================================================
 import { rgb } from './geobuild.js';
 
-export const BRIDGE_GUARD_REVIEW = {
+const BRIDGE_GUARD_REVIEW = {
     // Pipera
     w119926495: { style: 'kerb-mesh', colour: '#8f979e', screen: 'north', note: 'Podul Barbu Văcărescu: low concrete kerb, galvanised posts with mesh panels; on the north edge transparent noise screens above the mesh (round 3, same panorama: frames only are drawn, the panes are clear)' },
     // Otopeni

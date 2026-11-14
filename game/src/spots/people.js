@@ -17,7 +17,7 @@ import { insideInterior } from './precip-shelter.js';
 const SKIN = ['#f1c9a5', '#e0ac85', '#c68863', '#9a6544', '#7a4b31', '#f5d6bc', '#d8a47f', '#5f3a26'];
 const HAIR = ['#1d1a17', '#3b2a1e', '#5a3d27', '#8c6a43', '#c9a46a', '#2b2b2b', '#6b6b6b', '#b8b2a6', '#7a3b1e'];
 const JEANS = ['#34465f', '#2b3a52', '#3d4f6b', '#22252b', '#4a4f57', '#5d6b54', '#7b6a55', '#2e2e33'];
-export const LOOKS = {
+const LOOKS = {
     local: { top: ['#2f4a3a', '#22304a', '#1d1f22', '#3a3f45', '#4b5b3a', '#5a2e2e'], legs: JEANS, prop: ['cup', 'none', 'phone'], hood: 0.4 },
     tech: { top: ['#4a4f57', '#6b7280', '#1f2937', '#334155', '#3f3f46'], legs: ['#4b4f55', '#6b6a63', '#2b3a52', '#a39c88'], pack: 0.8, prop: ['phone', 'cup', 'none'] },
     tourist_us: { top: ['#1e3a5f', '#002244', '#7a1f2b', '#69be28', '#9ca3af', '#e5e7eb', '#a7c7e7'], legs: JEANS, prop: ['phone', 'bag', 'phone', 'cup'], pack: 0.3 },
@@ -85,7 +85,7 @@ function mergeColored(list) {
 
 // ---------------------------------------------------------------------------- path network
 /** network of walkable polylines; links between endpoints and any vertex of another line within `snap` m */
-export function pathNetwork(lines, snap = 2.5) {
+function pathNetwork(lines, snap = 2.5) {
     const L = lines.filter((p) => p.length > 1).map((pts, id) => ({ id, pts, links: [[], []] }));
     for (const a of L) for (const end of [0, 1]) {
         const e = end ? a.pts[a.pts.length - 1] : a.pts[0];

@@ -6,7 +6,7 @@
 // ============================================================================
 
 /** every fit that needed more than 2 lines or did not fit at all (inspect with `window.fitTextLog`) */
-export const fitTextLog = [];
+const fitTextLog = [];
 if (typeof window !== 'undefined') window.fitTextLog = fitTextLog;
 
 const defFont = (s) => `${s}px "Helvetica Neue", Helvetica, Arial, sans-serif`;

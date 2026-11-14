@@ -6,7 +6,7 @@ import {parseMeasure} from '../building-roofs.js';
 import {sourceFaceHeightAt} from './source-water-faces.js';
 const boxOfPoints=pts=>polyBox(pts);
 const overlaps=(a,b)=>a.x0<=b.x1&&a.x1>=b.x0&&a.z0<=b.z1&&a.z1>=b.z0;
-export function nativeContextInner(ctx){
+function nativeContextInner(ctx){
     const W=Object.values(ctx.data.spots).flatMap(s=>s.extent?.polygon||[]),b=polyBox(W),m=v=>Math.round(v/8)*8;
     return{x0:m(b.x0-60),z0:m(b.z0-60),x1:m(b.x1+60),z1:m(b.z1+60)};
 }

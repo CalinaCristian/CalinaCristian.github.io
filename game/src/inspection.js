@@ -2,7 +2,7 @@
 const enabled = new URLSearchParams(globalThis.location?.search || '').get('inspect') === '1';
 export const inspectionEnabled = search => search === undefined ? enabled : new URLSearchParams(search).get('inspect') === '1';
 const rounded = (v, digits = 3) => Number.isFinite(v) ? +v.toFixed(digits) : null;
-export function inspectionReport(g) {
+function inspectionReport(g) {
     const spot = g.state === 'spot' ? g.spot?.spot : null, drone = g.explore?.drone;
     const camera = g.camera, eye = camera?.getWorldPosition(camera.position.clone()), direction = camera?.getWorldDirection(camera.position.clone());
     const actor = drone?.active ? eye : spot ? g.spot.ctl : g.state === 'foot' ? g.foot : g.player;

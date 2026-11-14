@@ -2,7 +2,7 @@
 // the deck edge touches the carriageway ribbon. OSM maps no street_lamp on these decks, so positions are a rule, not
 // data: one lamp in the guard line of each outer deck edge about every STEP metres, the arm over the carriageway.
 // The form (single arm) and the fact that both edges are lit come from the panorama named in each record (viewed only).
-export const DECK_LAMPS = [
+const DECK_LAMPS = [
     // (backlog r3-structures-3) panorama 44.479661, 26.100612 h 253: single-arm lamps on both deck edges, OSM w119926495
     { district: 'pipera', name: 'Podul Barbu Văcărescu', stepM: 30, heightM: 8, minDeckM: 2, review: 'panorama 44.479661, 26.100612 h 253 (round 3): single-arm lamps on both deck edges; spacing and height estimated' },
 ];

@@ -28,7 +28,7 @@ export function projector({ lat0, lon0, scale = 1, compress = null, mPerLat = 11
 }
 
 // Kept for backwards compatibility with older modules (traffic fallbacks). The OSM graph uses real highway classes.
-export const ROAD_TYPES = {
+const ROAD_TYPES = {
     boulevard: { lanes: 3, speed: 14, laneW: 3.4, sidewalk: 4, trafficMul: 2.4 },
     street: { lanes: 2, speed: 12, laneW: 3.3, sidewalk: 3, trafficMul: 1 },
     small: { lanes: 1, speed: 9, laneW: 3.4, sidewalk: 2.5, trafficMul: 0.5 },

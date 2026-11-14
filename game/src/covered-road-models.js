@@ -21,7 +21,7 @@ const sameRing = (a, b) => a?.length === b?.length && a.some((_, offset) => [1, 
 
 /** Source-centreline sweep, with finite-width mouths and the same0.1mm seam
  * convention as existing source building passages; no new road vertices. */
-export function coveredRoadPassageRing(a, b, width) {
+function coveredRoadPassageRing(a, b, width) {
     const length = distance(a, b), angle = Math.atan2(b[1] - a[1], b[0] - a[0]), u = [(b[0] - a[0]) / length, (b[1] - a[1]) / length], r = width / 2;
     const aa = [a[0] - u[0] * .0001, a[1] - u[1] * .0001], bb = [b[0] + u[0] * .0001, b[1] + u[1] * .0001], ring = [];
     for (const [p, start] of [[bb, angle + Math.PI / 2], [aa, angle - Math.PI / 2]]) for (let k = 0; k <= 12; k++) { const q = start - Math.PI * k / 12; ring.push([p[0] + Math.cos(q) * r, p[1] + Math.sin(q) * r]); }

@@ -15,7 +15,7 @@
 // at the plateau's level; the drop to the street below cannot be drawn on flat ground. Built as rising blocks they read
 // as walls and stairs to nowhere (render 2026-11-13). Parapet height, flight width and materials are estimates. The steps
 // w1219309567 by the Faculty of Theology are left out: no incline tag, and the plateau is equally far from both ends.
-export const HILL_STRUCTURES = {
+const HILL_STRUCTURES = {
     unirii: {
         id: 'dealul-mitropoliei', wallH: 0.9, flightW: 2.0,
         walls: {
@@ -33,7 +33,7 @@ export const HILL_STRUCTURES = {
         },
     },
 };
-export const HILL_STRUCTURE_MODEL = { wallT: 0.4, capT: 0.08, capOver: 0.05, tread: 0.32, stripH: 0.05, nosing: 0.04, stone: '#a39a8a', cap: '#bdb5a6', step: '#b1aa9c', nose: '#8d877b' };
+const HILL_STRUCTURE_MODEL = { wallT: 0.4, capT: 0.08, capOver: 0.05, tread: 0.32, stripH: 0.05, nosing: 0.04, stone: '#a39a8a', cap: '#bdb5a6', step: '#b1aa9c', nose: '#8d877b' };
 
 /** env: { district, proj(lat, lon) -> {x, z}, cellOf, rgb, blocked(x, z, r) -> reason | null, addCollider(x, z, hw, hd, angle, h, kind, id) } */
 export function emitHillStructures(env) {

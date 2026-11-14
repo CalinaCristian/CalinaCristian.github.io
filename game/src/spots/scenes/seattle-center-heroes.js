@@ -64,7 +64,7 @@ export function arenaParts(d) { const bd = d.buildings.find((q) => q.id === AREN
     for (const b of d.buildings) { if (!b.part || !b.poly?.length) continue; let x = 0, z = 0; for (const p of b.poly) { x += p[0] / b.poly.length; z += p[1] / b.poly.length; } if (inPolyXZ(x, z, bd.poly)) out.add(b.id); }
     return out; }
 function inPolyXZ(x, z, p) { let c = false; for (let i = 0, j = p.length - 1; i < p.length; j = i++) { const xi = p[i][0], zi = p[i][1], xj = p[j][0], zj = p[j][1]; if ((zi > z) !== (zj > z) && x < (xj - xi) * (z - zi) / (zj - zi) + xi) c = !c; } return c; }
-export function climatePledgeArena(ctx) {
+function climatePledgeArena(ctx) {
     const d = ctx.data, bd = d.buildings.find((q) => q.id === ARENA); if (!bd) return null;
     const g = ctx.ground, parts = arenaParts(d), roofPart = d.buildings.find((q) => q.id === 'w411521517');
     const y0 = Math.min(...bd.poly.map(([x, z]) => g.heightAt(x, z))), EAVE = roofPart?.minH ?? 8;

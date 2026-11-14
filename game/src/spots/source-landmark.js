@@ -2,7 +2,7 @@ import { LANDMARKS, buildLandmark } from '../landmarks.js';
 import * as THREE from '../../vendor/three.module.min.js';
 
 /** Uniformly compress source terrain about the actual eye, preserving its ray. */
-export function sourceBackdropTransform(anchor, originElevation, scale, eye) {
+function sourceBackdropTransform(anchor, originElevation, scale, eye) {
     return { x: eye.x + (anchor.x - eye.x) * scale,
         y: eye.y * (1 - scale) - originElevation * scale,
         z: eye.z + (anchor.z - eye.z) * scale };

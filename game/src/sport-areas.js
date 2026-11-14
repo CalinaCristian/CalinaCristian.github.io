@@ -11,7 +11,7 @@
 // standards (UCI outdoor velodromes; Rugby League International Federation pitch) and is listed in SPORT_ESTIMATES.
 export const AREA_SPORT = { w37899329: 'cycling', w362465818: 'rugby_league' };
 
-export const SPORT_ESTIMATES = {
+const SPORT_ESTIMATES = {
     bankDeg: { straight: 12, curve: 32 },  // banking of a 400 m outdoor concrete track: 10–15° straights, 25–35° bends
     apronM: 1.2,                           // flat inside band (côte d'azur) before the bank rises
     bankMaxM: 3.6,                         // cap of the outer edge above the infield

@@ -15,7 +15,7 @@
 // Bank widths (2.4 m slope, 0.9 m revetment, 1.2 m slope on the Colentina band) are estimates.
 import { defaultSpecies } from './trees.js';
 
-export const SUNKEN_LAKES = {
+const SUNKEN_LAKES = {
     pipera: {
         r11546654: { name: 'Lacul Plumbuita', water: -2.0, slopeW: 2.4, revW: 0.9, source: 'EU-DEM 63.3–63.8 m water vs 64.3 m deck; bridge panorama: water some metres below; level estimate' },
         w117140697: { name: 'Lacul Tei', water: -1.5, slopeW: 2.4, revW: 0.9, source: 'EU-DEM 63.3 m water; bank height as the Colentina chain review (buc-herastrau.js); level estimate' },
@@ -32,7 +32,7 @@ export const SUNKEN_LAKES = {
 // panorama (h 275) shows a gravel / green strip and no water west of the bridge. So inside this outline only a band
 // along the mapped river line is water: half-width 4 m (estimate: inside the 4.7 m the nearest measured crown leaves).
 // The source outline is kept in the data; the band is built from the pack's own river line at load.
-export const WATER_OUTLINE_EXCEPTIONS = {
+const WATER_OUTLINE_EXCEPTIONS = {
     pipera: {
         w117140691: { kind: 'river-band', halfW: 4, review: 'OSM meadow / reedbed / nature reserve inside the CORINE outline; 46 measured crowns; bridge panorama h 275: no water west of the bridge' },
     },
@@ -41,7 +41,7 @@ export const WATER_OUTLINE_EXCEPTIONS = {
 // The 46 crowns of the aerial survey (game/research/trees-bucharest-pipera.json, [lat, lon, crown radius m]) that stand
 // inside the coarse outline w117140691: the pack builder left them out as trees in water. With the outline narrowed they
 // stand on the mapped meadow; the world still refuses any whose trunk falls in the river band.
-export const OUTLINE_EXCEPTION_CROWNS = {
+const OUTLINE_EXCEPTION_CROWNS = {
     pipera: [[44.470691, 26.122897, 3.1], [44.470706, 26.122962, 3.5], [44.471387, 26.122511, 3.9], [44.471433, 26.1225, 3.1], [44.471448, 26.122597, 2.2],
         [44.471502, 26.122554, 4.4], [44.471563, 26.123788, 8.4], [44.47164, 26.122586, 5.3], [44.471686, 26.123863, 6.9], [44.471709, 26.122651, 3.9],
         [44.471793, 26.123884, 3.5], [44.471824, 26.122608, 6.6], [44.471824, 26.124056, 6], [44.471839, 26.122726, 2.8], [44.471877, 26.124131, 4.9],

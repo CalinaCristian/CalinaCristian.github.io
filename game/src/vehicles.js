@@ -280,7 +280,7 @@ if (!THREE.Scene.prototype.__fleetHook) {
     THREE.Scene.prototype.__fleetHook = true;
 }
 /** LOD / culling tuning: { near (m), nearBig (m, vehicles > 7 m), far (m), margin (m, frustum sphere padding for shadows) } */
-export function setFleetOptions(o = {}) { Object.assign(FLEET_OPTS, o); }
+function setFleetOptions(o = {}) { Object.assign(FLEET_OPTS, o); }
 
 /**
  * Create a vehicle. forward = −z, ground at y = 0. userData: length, width, height, kind, setLights(on), setBrake(on|null),

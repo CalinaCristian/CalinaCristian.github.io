@@ -21,7 +21,7 @@ const slug = (s) => String(s || 'photo').normalize('NFD').replace(/[̀-ͯ]/g, ''
 const pad2 = (n) => String(n).padStart(2, '0');
 
 /** per-pixel filters for the saved image (match the CSS preview closely; no ctx.filter needed → works in Safari) */
-export function applyFilter(canvas, id) {
+function applyFilter(canvas, id) {
     if (!id || id === 'none') return canvas;
     const ctx = canvas.getContext('2d'), W = canvas.width, H = canvas.height;
     const img = ctx.getImageData(0, 0, W, H), d = img.data;
@@ -50,7 +50,7 @@ export function applyFilter(canvas, id) {
 }
 
 /** polaroid postcard: white frame, caption (place · city · date · time), small watermark */
-export function composePostcard(photo, { caption, sub = '', watermark = 'cristiancalina.com' }) {
+function composePostcard(photo, { caption, sub = '', watermark = 'cristiancalina.com' }) {
     const pw = photo.width, ph = photo.height, m = Math.round(pw * 0.045), bottom = Math.round(ph * 0.24);
     const c = document.createElement('canvas'); c.width = pw + 2 * m; c.height = ph + m + bottom;
     const x = c.getContext('2d');

@@ -29,7 +29,7 @@ export function coveredWaterHulls(covered, pad = 0) {
     }
     return hulls;
 }
-export function dropCoveredWater(g, covered) {
+function dropCoveredWater(g, covered) {
     if (!covered.length) return g; const P = g.attributes.position; if (g.index || P.count % 3) return g;
     const keep = []; for (let i = 0; i < P.count; i += 3) { const x = (P.getX(i) + P.getX(i + 1) + P.getX(i + 2)) / 3, z = (P.getZ(i) + P.getZ(i + 1) + P.getZ(i + 2)) / 3; if (!coveredWaterAt(x, z, covered)) keep.push(i); }
     if (keep.length * 3 === P.count) return g;
@@ -40,7 +40,7 @@ export function dropCoveredWater(g, covered) {
 export function prepareFinalWaterGeometry(geometry, { subdivide, covered }) {
     return dropCoveredWater(subdivide(geometry, 6, 60000), covered);
 }
-export function waterGroupKey(i, j) { return Math.floor(i / 4) + ',' + Math.floor(j / 4); }
+function waterGroupKey(i, j) { return Math.floor(i / 4) + ',' + Math.floor(j / 4); }
 
 /** Copy only; never append into the actual first cell builder before World does. */
 export function prepareSmallWaterGroups(cells, options) {
@@ -63,7 +63,7 @@ export function prepareSmallWaterGroups(cells, options) {
     }
     return prepared;
 }
-export function sameWaterGeometry(a, b) {
+function sameWaterGeometry(a, b) {
     if (!!a.index !== !!b.index) return false;
     const same = (x, y) => {
         if (x.itemSize !== y.itemSize || x.normalized !== y.normalized || x.array.constructor !== y.array.constructor || x.array.length !== y.array.length) return false;

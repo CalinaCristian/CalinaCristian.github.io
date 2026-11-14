@@ -29,7 +29,7 @@ export function waveGeometry(H, { w = 0.65, t = 0.14, turns = 0.85, steps = 40 }
 /** The south-bank plaza over the fish ladder (OSM w1475183524, highway=footway area; the ladder w285286401 runs under it at
  *  layer −1). The DEM is hydro-flattened to the lake there (4.98 m NAVD88), so the scene drew open water; its dry
  *  samples on the plaza give 6.72 and 6.94 m NAVD88 (−1.78 / −1.56 relative, EPQS 2026-11-13): a deck at their mean. */
-export const SOUTH_PLAZA = { id: 'w1475183524', top: -1.67 };
+const SOUTH_PLAZA = { id: 'w1475183524', top: -1.67 };
 export function southPlaza(ctx, { floor = -9 } = {}) {
     const w = ctx.data.ways.find((x) => x.id === SOUTH_PLAZA.id); if (!w || w.pts.length < 4) return null;
     const ring = w.pts.slice(0, -1), top = SOUTH_PLAZA.top, b = new GeoBatch();

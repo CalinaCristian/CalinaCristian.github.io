@@ -9,7 +9,7 @@
 //  Keys are the lower-case brand / name exactly as data.brands keys them.
 // ============================================================================
 
-export const BRAND_REVIEW = {
+const BRAND_REVIEW = {
     'bucharest-otopeni': {
         // otopeni-1: the research palette (white / blue / orange) is not Rompetrol's; both stations on DN1 show a white board
         // with orange letters and the red drop logo, orange canopy band and columns

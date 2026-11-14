@@ -2,7 +2,7 @@ import * as THREE from '../vendor/three.module.min.js';
 
 // The square contains the native collision disc. Clipping complete triangles,
 // including their interiors, gives a conservative emitted-body height band.
-export function bodyVerticalInterval(triangles, matrix, x, z, radius) {
+function bodyVerticalInterval(triangles, matrix, x, z, radius) {
     let min=Infinity,max=-Infinity;const x0=x-radius,x1=x+radius,z0=z-radius,z1=z+radius;
     for(const tri of triangles){
         // A triangle whose complete vertical range is already enclosed by
@@ -65,4 +65,4 @@ export function playerBodySampler(player) {
     };
     Object.assign(previous,{key,sampler,cachedRevision:previous.revision});caches.set(player,previous);return sampler;
 }
-export function playerProbeVerticalInterval(player,x,z,radius){return playerBodySampler(player)(x,z,radius);}
+function playerProbeVerticalInterval(player,x,z,radius){return playerBodySampler(player)(x,z,radius);}

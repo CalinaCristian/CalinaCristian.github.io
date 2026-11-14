@@ -19,7 +19,7 @@
 //  and map label (world.js) follow the row's `text`.
 // ============================================================================
 
-export const FUEL_LOOK = {
+const FUEL_LOOK = {
     mol: { fascia: '#86c440', band: '#2f8f3a', bandAt: 'bottom', bandFrac: 0.3, soffit: '#eeeeea', column: '#ececec', sign: ['#86c440', '#ffffff', '#ffffff'], pylon: { body: '#4f9a35', cap: '#e2001a' } },
     omv: { fascia: '#86c440', band: '#2a8a3e', bandAt: 'bottom', bandFrac: 0.3, soffit: '#eeeeea', column: '#1c4f9c', sign: ['#1c4f9c', '#ffffff', '#86c440'], pylon: { body: '#f2f3f4', cap: '#1c4f9c' } },
     lukoil: { fascia: '#e30613', soffit: '#efefec', column: '#e8e8e6', sign: ['#e30613', '#ffffff', '#ffffff'], pylon: { body: '#f2f2f0', cap: '#e30613' } },

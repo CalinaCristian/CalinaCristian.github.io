@@ -13,8 +13,8 @@
 // ============================================================================
 import { rgb } from './geobuild.js';
 
-export const MAST_MODEL = { defaultM: 25, estimates: ['defaultM', 'shaft width', 'head'] };
-export const LIGHTING_MASTS = {
+const MAST_MODEL = { defaultM: 25, estimates: ['defaultM', 'shaft width', 'head'] };
+const LIGHTING_MASTS = {
     'bucharest-otopeni': [
         { id: 'n4086021663', lat: 44.57093, lon: 26.07994, heightM: 40 }, { id: 'n4086021669', lat: 44.57039, lon: 26.08006, heightM: 40 },
         { id: 'n4086021666', lat: 44.56875, lon: 26.08155, heightM: 30 }, { id: 'n4086021667', lat: 44.57245, lon: 26.07957, heightM: 30 },
@@ -24,7 +24,7 @@ export const LIGHTING_MASTS = {
         { id: 'n4089486527', lat: 44.56988, lon: 26.07689, banded: true },
     ],
 };
-export const STATION_VAULT = { 'bucharest-otopeni': { sourceId: 'w813193384', riseM: 4.6, ribEveryM: 6, estimates: ['riseM', 'ribEveryM'] } };
+const STATION_VAULT = { 'bucharest-otopeni': { sourceId: 'w813193384', riseM: 4.6, ribEveryM: 6, estimates: ['riseM', 'ribEveryM'] } };
 
 /** env: { key, project(lat, lon), cellOf, blocked(x, z, r) -> reason | null, baseY(x, z), addCollider(x, z, r, h, rec), building(sourceId) -> { ring, h } | null } */
 export function emitAirportForecourt(env) {

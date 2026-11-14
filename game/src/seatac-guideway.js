@@ -12,7 +12,7 @@
 // positions (OSM maps no supports); piers are only placed clear of carriageways and buildings, never moved onto them.
 // Street-level imagery was used to confirm the structure type only (concrete box girder on single columns).
 import { GUIDEWAY_OCS, ocsWires, ocsPole } from './guideway-ocs.js';
-export const SEATAC_GUIDEWAY = {
+const SEATAC_GUIDEWAY = {
     mains: ['w34746781', 'w260383054'],
     others: ['w164665648', 'w260383057', 'w911020383', 'w911020385', 'w911020386', 'w911020387', 'w916372227'],
     station: 'w54139654',      // deck inside the station is drawn by the landmark

@@ -9,7 +9,7 @@ const SANS = (w) => (px) => `${w} ${px}px "Helvetica Neue", Helvetica, Arial, sa
 const BOLD = SANS('bold'), REG = SANS('normal');
 
 /** lobby sign (1024×256): company (≤ 2 lines) + "role · period" (≤ 2 lines), both fitted */
-export function drawLobbySign(ctx, s, accent) {
+function drawLobbySign(ctx, s, accent) {
     const hex = '#' + new THREE.Color(accent).getHexString();
     ctx.fillStyle = '#0f1115'; ctx.fillRect(0, 0, 1024, 256); ctx.fillStyle = hex; ctx.fillRect(0, 236, 1024, 20);
     ctx.textAlign = 'center';
@@ -21,7 +21,7 @@ export function drawLobbySign(ctx, s, accent) {
     return [a, b];
 }
 /** station screen (512×320): title (≤ 3 lines) + hint */
-export function drawStationScreen(ctx, st, accent, stop = {}) {
+function drawStationScreen(ctx, st, accent, stop = {}) {
     const hex = '#' + new THREE.Color(accent).getHexString();
     ctx.fillStyle = '#0b1220'; ctx.fillRect(0, 0, 512, 320);
     ctx.fillStyle = hex; ctx.fillRect(0, 0, 512, 12);
@@ -32,7 +32,7 @@ export function drawStationScreen(ctx, st, accent, stop = {}) {
     const b = drawFitText(ctx, 'Press E to read', 256, 272, 440, { maxSize: 26, minSize: 14, font: REG, label: 'station hint' });
     return [a, b];
 }
-export function drawExitMat(ctx) {
+function drawExitMat(ctx) {
     ctx.fillStyle = '#334155'; ctx.fillRect(0, 0, 256, 128); ctx.fillStyle = '#fff'; ctx.textAlign = 'center';
     return [drawFitText(ctx, 'EXIT ▸', 128, 64, 220, { maxSize: 44, minSize: 16, maxHeight: 100, font: BOLD, label: 'exit mat' })];
 }
@@ -40,7 +40,7 @@ export function drawExitMat(ctx) {
  * Draw every office canvas text for the given stops off-screen and report what needed shrinking/wrapping.
  * Returns [{ stop, what, text, size, lines, fits }]; logs the ones that needed > 2 lines or did not fit.
  */
-export function auditOfficeTexts(stops) {
+function auditOfficeTexts(stops) {
     const c = document.createElement('canvas'), ctx = c.getContext('2d'), out = [];
     const add = (stop, what, res, text) => out.push({ stop: stop.id, what, text, size: res.size, lines: res.lines.length, fits: res.fits });
     for (const s of stops) {

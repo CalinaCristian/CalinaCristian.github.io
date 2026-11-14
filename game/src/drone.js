@@ -653,4 +653,4 @@ export class Drone {
     /** harness / debug: the drone's state */
     debug() { return this.active ? { phase: this.phase, x: this.pos.x, y: this.pos.y, z: this.pos.z, dist: Math.hypot(this.pos.x - this.home.x, this.pos.z - this.home.z), battery: this.battery, mode: MODES[this.mode].id, range: this.range } : { phase: null }; }
 }
-export const DRONE_LIMITS = { RANGE, CEIL_M, BATTERY_S, MODES };
+const DRONE_LIMITS = { RANGE, CEIL_M, BATTERY_S, MODES };

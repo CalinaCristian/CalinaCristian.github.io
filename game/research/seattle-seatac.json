@@ -16735,7 +16735,7 @@
   "wsdot-m2010": "https://wsdot.wa.gov/publications/fulltext/Standards/english/PDF/m20.10-04_e.pdf",
   "wsdot-m2030": "https://wsdot.wa.gov/publications/fulltext/Standards/english/PDF/m20.30-05_e.pdf",
   "mutcd-3d": "https://mutcd.fhwa.dot.gov/htm/2009/part3/part3d.htm",
-  "commons": "Wikimedia Commons photos in game/research/refs/seatac/ (see LICENSES.md)",
+  "commons": "Wikimedia Commons photos in game/research/refs/seatac/ (see refs/LICENSES.md)",
   "bellevue-json": "game/research/seattle-bellevue.json — shared WSDOT marking/sign/furniture standards (markings section applies verbatim to SR-518 and the Airport Expressway)"
  },
  "building_passages": [

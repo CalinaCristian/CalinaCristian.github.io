@@ -1,1 +1,0 @@
-PASS: actual pedestrian head-on/following progress, native cell crossing, partial recovery/third body, shared static correction and facade clearance

@@ -4,7 +4,7 @@ Scope: the Seattle and Bellevue tourist-spot scenes (`game/src/spots/scenes/`). 
 [`seattle-spots.json`](seattle-spots.json) (`spots[]` with structures, plaques, iconic photo, local checks and dialogue;
 `ranking`, `culture`, `dialogue_general`). Per-spot OSM extract + USGS terrain grid: [`osm/sea-spots/`](osm/sea-spots/).
 Reference photos: [`refs/sea-spots/`](refs/sea-spots/) (Wikimedia Commons, free licences; attribution per file in each
-folder's `LICENSES.md`). Activities: [`activities.md`](activities.md). Data © OpenStreetMap contributors (ODbL); USGS 3DEP is
+folder's section of `refs/LICENSES.md`). Activities: [`activities.md`](activities.md). Data © OpenStreetMap contributors (ODbL); USGS 3DEP is
 public domain; Google Street View panoramas were viewed for reference only (nothing stored, traced or copied).
 
 Conventions: scene metres are x east / z south of the scene origin (`origin` in `game/data/spots/<id>.json`); heights are
@@ -64,11 +64,10 @@ Gum Wall) forced in; scenes must be small walkable outdoor places. Rank evidence
 - **Copyright**: the US has no freedom of panorama for artworks. The Fremont Troll's artists hold image rights and have
   sued commercial users (free for non-profits, per Wikipedia); Chihuly glass, Rachel (Gerber 1986), Changing Form (1971),
   Piloti (2023), Typewriter Eraser are in copyright too. Artworks are stylised from descriptions, never photo-textured.
-  Owner to confirm the Troll replica for this non-commercial portfolio. No Commons photos exist of Rachel, the Glasshouse
+  The Troll stays a stylised replica (non-commercial portfolio). No Commons photos exist of Rachel, the Glasshouse
   interior or the UiPath office; the Troll has one full view.
-- **Reference photos** for Ballard Locks, Gas Works, part of Pioneer Square and the four Bellevue spots are vetted (licence +
-  URL in each `LICENSES.md` and `refs_candidates[]`) but were not downloaded (upload.wikimedia.org HTTP 429 with a renewing
-  Retry-After). Lincoln Square photos are shared from `refs/bellevue/`.
+- **Reference photos**: Ballard Locks, Gas Works, part of Pioneer Square and the four Bellevue spots have none (Commons
+  rate-limited the downloads); Lincoln Square photos are shared from `refs/bellevue/`.
 - **Relation outlines**: the extracts had joined multipolygon member ways without reversing them (bow-tie outlines).
   `tools/spots/repair-relation-outlines.mjs --from-extracts --clip-scenes` repaired 28 relation outlines in
   `osm/sea-spots/*.json` and the scene files from live OSM relation geometry; a relation with several outer rings keeps its

@@ -7,7 +7,7 @@ The scene specs are machine-readable in [`bucharest-spots.json`](bucharest-spots
 spot, places considered and not selected, caveats, source key), `dialogue_general` (persona library, pedestrian lines,
 `culture_notes`) and `spots[]` (footprint, `walk_extent`, structures with OSM ids and dimensions, ground, vegetation,
 furniture, lighting, backdrop, crowd, sounds, plaques with sources, interaction, postcard pose, season, copyright note,
-colour samples, refs, dialogue). Those fields are not repeated here. Reference images: [`refs/buc-spots/`](refs/buc-spots/LICENSES.md).
+colour samples, refs, dialogue). Those fields are not repeated here. Reference images: [`refs/buc-spots/`](refs/LICENSES.md).
 
 ## Sources and conventions
 

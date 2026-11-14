@@ -22,9 +22,11 @@ README.md → Tests and QA, spec 19.
 
 Shared files touched by several roles (`main.js` hooks for new modules) go through **gameplay**.
 
-## Module map (spec 22)
-No file in `game/src` is over 60 KB except `spots/osm.js` (hashed into the Seattle spot bundle, kept byte-identical).
-Large files are a thin facade with the original exports plus focused modules; importers never import the parts.
+## Module map
+Rules: no file in `game/src` over 60 KB (except `spots/osm.js`, hashed into the Seattle spot bundle and kept
+byte-identical; generated data goes to `game/data/`); no export that nothing imports; a split or move keeps every district
+world and crowd byte-identical (fingerprint all 8 before and after). Large files are a thin facade with the original
+exports plus focused modules; importers never import the parts.
 - **World**: `world.js` is the `buildWorld` assembler. Its step modules: `world-district-graph.js` (pack,
   projection, nodes, edges; profile pieces), `world-road-graph.js`, `world-levels.js` (+ `world-levels-gore.js`),
   `world-bridge-tram-signals.js`, `world-areas-water.js`, `world-raised-edges.js`, `world-ribbons.js`

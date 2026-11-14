@@ -1,8 +1,0 @@
-{
-  "pid": 309469,
-  "sourceCommit": "e12abd000b5488ea0adf291731a9ee7cee7b77df",
-  "toolCommit": "db7fa83c",
-  "startedUtc": "2026-11-09T00:58:44.477370+00:00",
-  "runnerSha256": "e254b177df42c74fe2f93ef1f584df0d8c294b13ad6e1c0cfb45ce2069e1f796",
-  "scope": "Small native desktop/390px disclosure height/open/close CSS readback after separate d53 menu/completion33case pass."
-}

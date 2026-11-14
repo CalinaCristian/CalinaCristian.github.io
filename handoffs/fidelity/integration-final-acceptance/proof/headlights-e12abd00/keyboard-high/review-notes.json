@@ -1,6 +1,0 @@
-{
-  "originalLaunchScopeCorrection": "launch.json incorrectly says cold Floreasca; actual executed runner and captures cold-start Arnia/Romana, then load Floreasca. Preserve launch unchanged.",
-  "assertions": "Complete4coldstages/9conditions, zeroerrors, no toggle shader/light resource allocations.",
-  "visualReview": "All10originalPNG inspected. Final Floreasca direct-load fog and Settings frames have central occlusion. Not a clean scene visual pass. Native touch replay includes separate read-only ray diagnosis and2normaldrive-tickfollowup; pending.",
-  "budgetScope": "Initial cold unadvanced fleet417calls,1,089,897tri. No budget pass claimed by this headlight protocol."
-}

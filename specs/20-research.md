@@ -14,7 +14,7 @@ Research the kept areas in depth so the visuals match reality as closely as poss
   - `colours`: palette (facades, road, sidewalk, kerb, markings).
   - `traffic`: congestion hotspots (location, hours, severity, source e.g. TomTom/news) → feeds `congestion` (spec 13).
 - `game/research/<city>-<area>.md` — readable dossier with a source URL for every claim + "top 30 things a local would notice if wrong".
-- `game/research/refs/<area>/` — free-licensed reference images only (Wikimedia Commons CC-BY/CC-BY-SA/PD), ≤ 400 KB each, ≤ 60 per area, with `LICENSES.md` (author, license, URL; mark facade-texture candidates).
+- `game/research/refs/<area>/` — free-licensed reference images only (Wikimedia Commons CC-BY/CC-BY-SA/PD), ≤ 400 KB each, ≤ 60 per area, each listed in `game/research/refs/LICENSES.md` (author, license, URL; mark facade-texture candidates).
 - Tourist spots and districts additionally: `dialogue` per spot/district — personas (locals, tourists by origin, vendors, guides, buskers, staff) with 15–40 short lines each for: greeting, bumped, photographed, idle chatter, spot-specific; original language + English translation; cultural notes on tone/etiquette with sources; no stereotypes.
 - Tourist spots additionally: `spots[]` with full scene spec (footprint, dimensions, materials, colours, signage text, props, vegetation, typical crowd, sounds, 3–6 plaque facts with sources, fun interaction idea, best photo angle).
 

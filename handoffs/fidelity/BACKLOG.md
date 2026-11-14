@@ -5,12 +5,11 @@ Updated 2026-11-13. Only what is still open. A finished item is removed once its
 
 ## Owner reports
 
-None open. (2026-11-13: UiPath at night, SeaTac walkway / backdrop / railings / invisible wall, Bellevue merge and US lane
-lines fixed and re-checked live at the report poses.)
+None open.
 
 ## Other open work
 
-None. (Spec 22 cleanup finished 2026-11-13: module map in `specs/01-architecture.md`.)
+None.
 
 ## Rules
 

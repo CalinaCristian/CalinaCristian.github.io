@@ -3,7 +3,7 @@ tools/osm/node_modules/
 .DS_Store
 game/dev/harness/report/
 
-# research reference photos stay local (sources + licences are listed in each LICENSES.md); textures used by the game are copied into game assets explicitly
+# research reference photos stay local (sources + licences are listed in game/research/refs/LICENSES.md); textures used by the game are copied into game assets explicitly
 game/research/refs/**/*.jpg
 game/research/refs/**/*.jpeg
 game/research/refs/**/*.png

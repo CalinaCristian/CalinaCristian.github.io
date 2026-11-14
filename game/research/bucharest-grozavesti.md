@@ -20,7 +20,7 @@ estimates the game makes where no source exists, and the places where it knowing
   A panorama is cited as its id plus heading (`hGqephV5yIK6jWNVMdcHBw h70`) or as its position. Game views:
   `node game/dev/reality/capture.cjs --district=grozavesti`.
 - **Images.** `refs/grozavesti/`: nine Commons photos, mostly of the UPB Rectorat (2004, 2024 day and night) and the
-  Bitdefender building (licences in `LICENSES.md`).
+  Bitdefender building (licences in `refs/LICENSES.md`).
 - **Heights.** OSM `height` / `building:levels` where mapped, otherwise default estimates.
 - **Confidence.** *high* = OSM / official / encyclopedic; *medium* = consistent across photos or common knowledge;
   *low* = estimate.
@@ -263,7 +263,7 @@ Nord, outside the district. Street View, viewed 2026-11-11/13 (reference only; t
 | upb_address | https://upb.ro/en/?p=14876 |
 | upb_bucharest_ro | https://www.bucharest.ro/article/the-polytechnic-university-of-bucharest-a-legacy-of-innovation-and-excellence-223 |
 | upb_zsn | https://zilesinopti.ro/locuri/universitatea-politehnica-din-bucuresti-upb/ |
-| ref_upb | https://commons.wikimedia.org/wiki/Category:Universitatea_Politehnica_din_Bucure%C8%99ti (exact files in refs/grozavesti/LICENSES.md) |
+| ref_upb | https://commons.wikimedia.org/wiki/Category:Universitatea_Politehnica_din_Bucure%C8%99ti (exact files in refs/LICENSES.md (refs/grozavesti/)) |
 | wp_grozavesti_metro | https://en.wikipedia.org/wiki/Groz%C4%83ve%C8%99ti_metro_station |
 | adevarul_grozavesti_works | https://adevarul.ro/stiri-locale/bucuresti/de-azi-nu-se-mai-circula-in-zona-podului-1377962.html |
 | newsweek_basarab | https://newsweek.ro/actualitate/podul-grant-se-deschide-doar-pe-jumatate-bucurestenii-nu-scapa-de-haos-in-trafic |
@@ -275,7 +275,7 @@ The Bucharest-wide sources (road signs and markings, STB, Metrorex, lighting, tr
 
 ## Businesses and speed limits
 
-Research pass 2026-11-07 (spec 20, R12.2 / R11). Machine-readable: `businesses-bucharest-grozavesti.json` (one entry per business, independents included) and the `bucharest-grozavesti` block of `speedlimits.json`. Zone = everything within **60 m of a chapter route** (routes recomputed on the OSM graph from `CHAPTERS` starts to the stop doors, one-way and turn-restriction aware) **plus** recognisable businesses within 50 m of a main street (motorway…tertiary) inside the district mask. Standalone ATMs, parcel lockers, chargers and pure company offices are left out. Confidence and sign-style rules as in `businesses-bucharest-floreasca.md`.
+Research pass 2026-11-07 (spec 20, R12.2 / R11). Machine-readable: `businesses-bucharest-grozavesti.json` (one entry per business, independents included) and the `bucharest-grozavesti` block of `speedlimits.json`. Zone = everything within **60 m of a chapter route** (routes recomputed on the OSM graph from `CHAPTERS` starts to the stop doors, one-way and turn-restriction aware) **plus** recognisable businesses within 50 m of a main street (motorway…tertiary) inside the district mask. Standalone ATMs, parcel lockers, chargers and pure company offices are left out. Confidence and sign-style rules as in `bucharest-floreasca.md` (Businesses and speed limits).
 
 ### On the chapter route (upb)
 
@@ -314,4 +314,4 @@ Schools / kindergartens within 150 m: Grădinița nr. 168 (w1331454041, 41 m).
 
 ### Sources
 
-OpenStreetMap API 0.6 tiles fetched 2026-11-06 and 2026-11-12, © OpenStreetMap contributors, ODbL; official Street View panoramas viewed for appearance only (nothing stored); locators as listed in `businesses-bucharest-floreasca.md`.
+OpenStreetMap API 0.6 tiles fetched 2026-11-06 and 2026-11-12, © OpenStreetMap contributors, ODbL; official Street View panoramas viewed for appearance only (nothing stored); locators as listed in `bucharest-floreasca.md` (Businesses and speed limits).

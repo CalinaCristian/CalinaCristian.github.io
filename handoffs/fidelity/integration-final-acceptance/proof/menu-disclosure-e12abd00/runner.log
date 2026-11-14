@@ -1,9 +1,0 @@
-PASS desktop native park disclosure is44px and reachable
-PASS desktop parks initially closed and not painted
-PASS desktop native open paints all park entries
-PASS desktop native close hides park entries
-PASS phone native park disclosure is44px and reachable
-PASS phone parks initially closed and not painted
-PASS phone native open paints all park entries
-PASS phone native close hides park entries
-PASS no browser exceptions or console errors

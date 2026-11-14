@@ -21,7 +21,7 @@ estimates the game makes where no source exists, and the places where it knowing
   (`NrlzOfq1HTfol_d90aJ3FA h95`) or as its position. Game views: the `unr-*` viewpoints in
   `game/dev/reality/viewpoints.json`.
 - **Images.** `refs/unirii/`: 40 Commons photos (Hala Traian, Calea Călărașilor and Matei Basarab listed houses, Piața
-  Unirii fountains, Bd. Unirii, Dealul Mitropoliei; licences in `LICENSES.md`).
+  Unirii fountains, Bd. Unirii, Dealul Mitropoliei; licences in `refs/LICENSES.md`).
 - **Confidence.** *high* = OSM / official / encyclopedic; *medium* = consistent across photos or common knowledge;
   *low* = estimate.
 - **Era.** The chapter is 2015: the game models the finished, normal layout of Piața Unirii (working fountains, open
@@ -305,7 +305,7 @@ carriageways in one walled trench with a row of concrete planters between them; 
 perforated metal with green leaf, flower and butterfly motifs, rising well above street level as a screen; a "PASAJUL
 UNIRII" header over the portal; inside, pale mesh wall panels with yellow accent panels, a continuous light line along the
 wall head, a dark mesh ceiling and a raised kerb walkway. The game has the dark ramp walls and the pale interior with
-yellow panels and the light line (`unr-pasaj-south`, `unr-pasaj-inside`). Since 2026-11-13 (`pasaj-unirii-look.js`, drawn
+yellow panels and the light line (`unr-pasaj-south`, `unr-pasaj-inside`). Also drawn (`pasaj-unirii-look.js`,
 from the recorded review above, no new panorama): the open ramp walls carry a pattern of green leaf sprays, flowers and
 butterflies on the dark cladding, the rim is a dark cladding screen rising to 2.4 m above the street where the cut is deep
 (steel uprights on the street side, the motifs on both faces), the south pair (w241368618 / w1383050305, centre lines
@@ -442,7 +442,7 @@ The Bucharest-wide sources (road signs and markings, STB, Metrorex, lighting, tr
 
 ## Businesses and speed limits
 
-Research pass 2026-11-07 (spec 20, R12.2 / R11), re-checked against live OSM on 2026-11-12. Machine-readable: `businesses-bucharest-unirii.json` (one entry per business, independents included), the `bucharest-unirii` block of `speedlimits.json`, and `businesses-gamediff.json` → `bucharest-unirii` (live missing list with `edgeM`, the `recheck` counts and `closed` disused units). Zone = everything within **60 m of a chapter route** (routes recomputed on the OSM graph from `CHAPTERS` starts to the stop doors, one-way and turn-restriction aware) **plus** recognisable businesses within 50 m of a main street (motorway…tertiary) inside the district mask. Standalone ATMs, parcel lockers, chargers and pure company offices are left out. Confidence and sign-style rules as in `businesses-bucharest-floreasca.md`.
+Research pass 2026-11-07 (spec 20, R12.2 / R11), re-checked against live OSM on 2026-11-12. Machine-readable: `businesses-bucharest-unirii.json` (one entry per business, independents included), the `bucharest-unirii` block of `speedlimits.json`, and `businesses-gamediff.json` → `bucharest-unirii` (live missing list with `edgeM`, the `recheck` counts and `closed` disused units). Zone = everything within **60 m of a chapter route** (routes recomputed on the OSM graph from `CHAPTERS` starts to the stop doors, one-way and turn-restriction aware) **plus** recognisable businesses within 50 m of a main street (motorway…tertiary) inside the district mask. Standalone ATMs, parcel lockers, chargers and pure company offices are left out. Confidence and sign-style rules as in `bucharest-floreasca.md` (Businesses and speed limits).
 
 ### On the chapter route (gts)
 
@@ -493,4 +493,4 @@ Mapped maxspeed=60 signs within 150 m: n6242940774 (113 m), n6225649427 (38 m). 
 
 ### Sources
 
-OpenStreetMap API 0.6 tiles fetched 2026-11-06 and 2026-11-12, © OpenStreetMap contributors, ODbL; official Street View panoramas viewed for appearance only (nothing stored); locators as listed in `businesses-bucharest-floreasca.md`.
+OpenStreetMap API 0.6 tiles fetched 2026-11-06 and 2026-11-12, © OpenStreetMap contributors, ODbL; official Street View panoramas viewed for appearance only (nothing stored); locators as listed in `bucharest-floreasca.md` (Businesses and speed limits).

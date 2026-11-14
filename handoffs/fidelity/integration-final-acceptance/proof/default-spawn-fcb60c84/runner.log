@@ -1,8 +1,0 @@
-PASS first destination draw has zero native player-NPC body overlaps
-PASS two normal drive ticks retain zero body overlaps
-PASS stationary player has no collision side push after two real drive ticks
-PASS native camera parent and local transform remain valid
-PASS first draw has no centered fleet occluder within two metres
-PASS full native high populations and all identities persist across two ticks
-PASS first measured frame uses high quality with full post and mirror enabled
-PASS zero browser exceptions and console errors

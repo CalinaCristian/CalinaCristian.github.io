@@ -12,7 +12,7 @@ replaced.
   transit lines / stops / metro entrances / liveries, colour palette, Bucharest-wide streetscape rules (`city_rules`), "things a
   local would notice" (`top_local_details`), pedestrian dialogue and the sources table. Businesses:
   `businesses-bucharest-romana.json` (section 7); speed limits: `speedlimits.json`. Reference photos: `refs/romana/`
-  (licences in `LICENSES.md`).
+  (licences in `refs/LICENSES.md`).
 - **Extraction area**: bbox `[44.4395, 26.0825, 44.457, 26.1]` (world bbox of `cities.js` BUC_DISTRICTS): west edge just past
   Piața Victoriei (Antipa, Kiseleff start), north edge Bd. Iancu de Hunedoara + one block, east edge Calea Dorobanților / Str.
   Mihai Eminescu, south edge Str. Biserica Amzei / Piața Amzei. Playable area = the 130 m bands and circles of `cities.js`.

@@ -10,7 +10,7 @@ bracketed keys point to **Sources** at the end. Git history keeps the round-by-r
   `buildings[].research`), junctions, crossings, transit stops and liveries, colour palette, Bucharest-wide streetscape rules
   (`city_rules`), "things a local would notice" (`top_local_details`), pedestrian dialogue and the sources table.
   Businesses: `businesses-bucharest-otopeni.json` (one entry per business, section 6); speed limits: `speedlimits.json`.
-  Reference photos: `refs/otopeni/` (licences in `LICENSES.md`).
+  Reference photos: `refs/otopeni/` (licences in `refs/LICENSES.md`).
 - **Extraction area**: bbox `[44.552, 26.062, 44.578, 26.093]` (world bbox of `cities.js` BUC_DISTRICTS, 7.1 km²): the DN1
   (Calea Bucureștilor) corridor through Otopeni town plus the landside of the airport. Airside (aprons, the two parallel
   3,500 m runways 08R/26L and 08L/26R) is backdrop. Otopeni is in Ilfov county, not Bucharest (blue "Otopeni" town signs).
@@ -233,7 +233,7 @@ Other business facts:
 | otp_taxi_guide | https://www.inyourpocket.com/bucharest/The-Definitive-Guide-to-Finding-a-Taxi-at-Bucharest-Airport_74243f |
 | tomtom_peak | https://www.romania-insider.com/bucharest-has-the-biggest-traffic-jams-in-europe-study-shows-which-are-the-busiest-hours |
 | speed_ro | https://en.wikipedia.org/wiki/Speed_limits_in_Romania (fetched 2026-11-07; legislatie.just.ro did not respond) |
-| ref_otp | `refs/otopeni/LICENSES.md` (Commons photos of the CFR station canopy and the terminal arches / control tower) |
+| ref_otp | `refs/LICENSES.md (refs/otopeni/)` (Commons photos of the CFR station canopy and the terminal arches / control tower) |
 | locators | McDonald's https://mcdonalds.ro/restaurante, KFC https://kfc.ro/restaurante, Kaufland https://www.kaufland.ro/.klstorefinder.json, Carrefour https://carrefour.ro/corporate/magazine, Dona https://www.dona.ro/farmacii (all 2026-11-07). Not machine-readable then: Mega Image, Profi, Dr.Max, HelpNet, CEC, Raiffeisen, Lidl, Penny, Catena, BT, BCR, ING, Orange, Vodafone, Petrom, OMV, MOL, Rompetrol, Lukoil, OTP, Alpha Bank, Digi, Telekom: these rely on OSM edit / check dates |
 
 The remaining keys cited inside `bucharest-otopeni.json` resolve in its `meta.sources`.

@@ -15,7 +15,7 @@ estimates the game makes where no source exists, and the places where it knowing
   Business detail: the Businesses and speed limits section below.
 - **Street level.** Official Street View panoramas (mostly May 2024) were looked at only; nothing was stored, traced or
   measured from them. A panorama is cited as its id plus heading (`orHAmm3GllAsPPrvYACycA h105`) or as its position.
-- **Images.** `refs/floreasca/`: seven Commons panoramio photos from Sky Tower and Promenada (licences in `LICENSES.md`).
+- **Images.** `refs/floreasca/`: seven Commons panoramio photos from Sky Tower and Promenada (licences in `refs/LICENSES.md`).
 - **Area.** The playable geometry is `cities.js` (BUC_DISTRICTS floreasca); the research extraction box was
   [44.454, 26.096, 44.479, 26.112]. Sky Tower and Promenada stand about 600 m north of the core: skyline backdrop.
 - **Confidence.** *high* = OSM / official / encyclopedic; *medium* = consistent across photos or common knowledge;

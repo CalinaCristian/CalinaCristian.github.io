@@ -9,7 +9,7 @@
 //  16.4 x 7.8 m wings at 30.5-36.6 m; 200 ft ring at 61-64 m; base footprint
 //  r 18.9 m with a glazed drum r 9.4 m). Appearance: Street View from Space
 //  Needle Loop (Aug 2025) and the CC-licensed photographs listed in
-//  game/research/refs/sea-spots/space-needle/LICENSES.md: twin-beam legs with
+//  game/research/refs/LICENSES.md (refs/sea-spots/space-needle/): twin-beam legs with
 //  plate rungs that merge at the waist and fork under the top house, an open
 //  lattice core, 48 radial fins under the revolving glass floor, the halo of
 //  perforated panels, the outward-leaning glass barrier of the open deck.

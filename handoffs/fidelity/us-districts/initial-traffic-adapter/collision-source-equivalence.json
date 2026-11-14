@@ -1,7 +1,0 @@
-{
-  "passed": true,
-  "nativeSourceCommit": "d981eee75d254faf7efd993bba18c9b4226db4e7",
-  "ownRuntimeBase": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
-  "scope": "Complete collideOne/collideBuildings source tail is byte-identical between the owned module base and pinned d981 native runtime; new adapter uses that shared unchanged native collision implementation.",
-  "collisionTailSha256": "ea213ac4fc35d4a22800eb9890f219daff7efb38bd827dd6ce9e65acba678314"
-}

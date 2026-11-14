@@ -1,6 +1,6 @@
 # Seattle · `seatac` district — research dossier
 
-Machine-readable twin: [`seattle-seatac.json`](seattle-seatac.json) · businesses and speed limits: [Businesses and speed limits](#businesses-and-speed-limits) · photo candidates: [`refs/seatac/LICENSES.md`](refs/seatac/LICENSES.md) (none downloaded).
+Machine-readable twin: [`seattle-seatac.json`](seattle-seatac.json) · businesses and speed limits: [Businesses and speed limits](#businesses-and-speed-limits) · photo candidates: [refs/LICENSES.md](refs/LICENSES.md) (`refs/seatac/`) (none downloaded).
 
 Scope (spec 10): chapter "Welcome to Seattle" (2022), out of Sea-Tac: the terminal loop (Departures upper / Arrivals lower drives), the garage and its skybridges, the SeaTac/Airport Link station, the Airport Expressway and SR-518 east to the I-5 / I-405 junction. US marking, sign and furniture standards are those of the Bellevue dossier (WSDOT + MUTCD), [`seattle-bellevue.md` §3–§5](seattle-bellevue.md). All OSM data © OpenStreetMap contributors (ODbL).
 
@@ -123,7 +123,7 @@ Three placed outdoors (Celestial Navigation, Talking Fountain, one statue); work
 
 ## 13. Sources
 
-OpenStreetMap (ODbL) <https://www.openstreetmap.org> · [Seattle–Tacoma International Airport](https://en.wikipedia.org/wiki/Seattle%E2%80%93Tacoma_International_Airport) · [SeaTac/Airport station](https://en.wikipedia.org/wiki/SeaTac/Airport_station) · [SR 518](https://en.wikipedia.org/wiki/Washington_State_Route_518) · [Port of Seattle travel tips](https://www.portseattle.org/node/1435) (403 from the sandbox; peak hours via search summaries) · [WSDOT I-405 dashboard](https://wsdot.wa.gov/about/data/Multimodal-mobility-dashboard/dashboard/central-puget-sound/interstate405-cps/severe-congestion.htm) · USGS 3DEP elevation (epqs.nationalmap.gov) · WSDOT Standard Plans & MUTCD (Bellevue dossier) · Commons photo candidates in [refs/seatac/LICENSES.md](refs/seatac/LICENSES.md).
+OpenStreetMap (ODbL) <https://www.openstreetmap.org> · [Seattle–Tacoma International Airport](https://en.wikipedia.org/wiki/Seattle%E2%80%93Tacoma_International_Airport) · [SeaTac/Airport station](https://en.wikipedia.org/wiki/SeaTac/Airport_station) · [SR 518](https://en.wikipedia.org/wiki/Washington_State_Route_518) · [Port of Seattle travel tips](https://www.portseattle.org/node/1435) (403 from the sandbox; peak hours via search summaries) · [WSDOT I-405 dashboard](https://wsdot.wa.gov/about/data/Multimodal-mobility-dashboard/dashboard/central-puget-sound/interstate405-cps/severe-congestion.htm) · USGS 3DEP elevation (epqs.nationalmap.gov) · WSDOT Standard Plans & MUTCD (Bellevue dossier) · Commons photo candidates in [refs/LICENSES.md](refs/LICENSES.md) (`refs/seatac/`).
 
 ## Businesses and speed limits
 

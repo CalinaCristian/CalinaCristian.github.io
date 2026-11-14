@@ -1,6 +1,6 @@
 # Seattle · `bellevue` district — research dossier
 
-Machine-readable twin: [`seattle-bellevue.json`](seattle-bellevue.json) · businesses and speed limits: [Businesses and speed limits](#businesses-and-speed-limits) · photos: [`refs/bellevue/LICENSES.md`](refs/bellevue/LICENSES.md)
+Machine-readable twin: [`seattle-bellevue.json`](seattle-bellevue.json) · businesses and speed limits: [Businesses and speed limits](#businesses-and-speed-limits) · photos: [refs/LICENSES.md](refs/LICENSES.md) (`refs/bellevue/`)
 
 The JSON: `chapterRoutes[].segments` = every OSM way of the researched routes in driving order with lanes / `hov:lanes` / `turn:lanes` / `destination:lanes` / surface / bridge / tunnel / layer; `streets[]` = curated stretches + every downtown street; `buildings[]` = every building within 70 m of a route or ≥ 25 m tall in the core (footprint, parts, height, curated facade hex, `estimateBasis`); `businesses[]` = branded POIs within 60 m; `signs[]`; `landmarks[]` = the two CV stops (`lincoln-square`, `plaza-center`); `traffic.hotspots` maps 1:1 onto `CITIES.seattle.districts.bellevue.congestion`. All OSM data © OpenStreetMap contributors (ODbL).
 
@@ -153,7 +153,7 @@ Other downtown PM v/c (MIP 2019): Bellevue Way × NE 8th 0.66, × NE 4th 0.59, �
 | trail railing / OCS steel | `#2e3133` / `#4e5459` | photo 2026 |
 | conifer / winter lawn | `#2f4a32` / `#4f6b35` | |
 
-Photo-derived values are medians of hand-picked regions. Facades of 400 Lincoln Square, Two Lincoln Tower, Bellevue Towers and Bellevue Square are estimated from photos with lower confidence; 19 more vetted Commons candidates (listed in `refs/bellevue/LICENSES.md`) could not be fetched (HTTP 429) and would allow re-sampling.
+Photo-derived values are medians of hand-picked regions. Facades of 400 Lincoln Square, Two Lincoln Tower, Bellevue Towers and Bellevue Square are estimated from photos with lower confidence.
 
 ## 13. What a local would notice if wrong
 
@@ -193,7 +193,7 @@ Photo-derived values are medians of hand-picked regions. Facades of 400 Lincoln 
 - [UiPath offices](https://www.uipath.com/about-us/offices); [GeekWire 2025](https://www.geekwire.com/2025/uipath-hires-former-f5-executive-as-cmo-relocates-bellevue-offices-to-lincoln-square/) (host blocked from the sandbox; via search summary); [UiPath 2018 press release](https://ir.uipath.com/news/detail/134/uipath-opens-first-u-s-development-center-in-bellevue-wash)
 - [TomTom Traffic Index Seattle](https://www.tomtom.com/traffic-index/seattle-traffic/); [The Columbian 2024 on WSDOT RPMs](https://columbian.com/news/2024/oct/28/why-dont-many-wa-highways-have-reflectors-if-the-state-gets-so-much-rain-we-asked-wsdot)
 - USGS 3DEP elevation (epqs.nationalmap.gov); Esri World Imagery (tree crowns read by eye, imagery not kept)
-- Wikimedia Commons photos — [refs/bellevue/LICENSES.md](refs/bellevue/LICENSES.md)
+- Wikimedia Commons photos — [refs/LICENSES.md](refs/LICENSES.md) (`refs/bellevue/`)
 
 Method (the scripts lived in the research scratchpad, not shipped): OSM `/api/0.6/map` tiles (≤ 0.02° squares, ≥ 1.5 s apart) → parser → Dijkstra router over drivable ways (oneway-aware, HOV-only links excluded) → extractor (route segments, buildings within 70 m or ≥ 25 m tall, POIs within 60 m, furniture) → curated overlay → `seattle-bellevue.json`. Photo colours: median RGB of hand-picked rectangles. Wikimedia API calls rate-limited, honouring `Retry-After`.
 

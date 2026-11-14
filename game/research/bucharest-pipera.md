@@ -10,7 +10,7 @@ bracketed keys point to **Sources** at the end. Git history keeps the round-by-r
   stops, metro entrances and liveries, colour palette, Bucharest-wide streetscape rules (`city_rules`), "things a local would
   notice" (`top_local_details`), pedestrian dialogue, building passages, road widths and the sources table. Businesses:
   `businesses-bucharest-pipera.json` (section 6); speed limits: `speedlimits.json`; measurement ledger:
-  `measurements-bucharest-pipera.json` (section 7). Reference photos: `refs/pipera/` (licences in `LICENSES.md`).
+  `measurements-bucharest-pipera.json` (section 7). Reference photos: `refs/pipera/` (licences in `refs/LICENSES.md`).
 - **Extraction area**: bbox `[44.4745, 26.101, 44.49, 26.124]` (world bbox of `cities.js` BUC_DISTRICTS): west edge Calea
   Floreasca / Gara Herăstrău (Sky Tower, Promenada, Floreasca Park), south edge Șos. Fabrica de Glucoză, north edge the Pipera
   industrial lots / Podul Pipera ramps, east edge Str. George Constantinescu. Playable area: 130 m either side of the two chapter
@@ -130,7 +130,7 @@ Both chapters are 2017. Starts and roads are authoritative in `cities.js` CHAPTE
   the mall), Starbucks under it (n4833254421, level 0), the glazed entrance hall south of it, the mall's name and colour bars;
   positions along the wall estimated to a few metres. East (Barbu Văcărescu) front, pano 44.478431, 26.104866 h 255: white
   cladding, dark glazed band, rounded corners, curved roof edge, a large LED screen and flagpoles on a paved forecourt. Drawn
-  since 2026-11-13 from that record (no new panorama): a dark glazed band along the upper storey of the east face with light
+  from that record (no new panorama): a dark glazed band along the upper storey of the east face with light
   mullions, a white rounded roll along its roof edge, a lit LED screen on two legs near the middle of the face (where the
   pano looks square onto it) and five flagpoles on the forecourt; the rounded corners are the OSM outline's own.
 - **Pipera metro** (M2 terminus, w41337085): low pavilion with the blue M sign at the east end of Pompeiu; entrances at 44.48078,

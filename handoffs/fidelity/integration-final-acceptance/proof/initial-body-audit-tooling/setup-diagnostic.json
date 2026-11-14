@@ -1,6 +1,0 @@
-{
-  "scope": "Setup diagnostics only; no browser or product test failure.",
-  "attempt": "node --experimental-default-type=module -e <native factory import>",
-  "outcome": "Nodev24.22.1 rejected removed option: bad option --experimental-default-type=module (exit9).",
-  "resolution": "Native module import without that flag succeeds; final controls use ordinary Node. Module-typeless warning is retained in logs; no package/source configuration changed."
-}

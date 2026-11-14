@@ -19,7 +19,6 @@ everything else) lives in one place: [`handoffs/fidelity/BACKLOG.md`](../handoff
 | [19-qa-harness.md](19-qa-harness.md) | Logic harness + visual QA harness; definition of done |
 | [20-research.md](20-research.md) | Field research for 100% visual fidelity: districts and tourist spots |
 | [21-telemetry-landing.md](21-telemetry-landing.md) | Analytics (PostHog EU) and the landing page |
-| [22-cleanup.md](22-cleanup.md) | Code cleanup after the district migration (split world.js, dead code, single sources) |
 | [23-achievements-completion.md](23-achievements-completion.md) | Achievements, completion %, achievements panel |
 
 ## Process (every agent)

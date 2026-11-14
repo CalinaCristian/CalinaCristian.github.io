@@ -6817,11 +6817,11 @@
    "refs_shared": [
     {
      "file": "refs/bellevue/Lincoln_Square_Office_Tower_and_One_Lincoln_Tower.jpg",
-     "licence": "see refs/bellevue/LICENSES.md (research-sea-districts)"
+     "licence": "see refs/LICENSES.md (refs/bellevue/) (research-sea-districts)"
     },
     {
      "file": "refs/bellevue/Lincoln_Square_from_Bellevue_Main.jpg",
-     "licence": "see refs/bellevue/LICENSES.md (research-sea-districts)"
+     "licence": "see refs/LICENSES.md (refs/bellevue/) (research-sea-districts)"
     }
    ],
    "dialogue": {
@@ -7334,7 +7334,7 @@
    "refs_shared": [
     {
      "file": "refs/bellevue/Lincoln_Square_from_Bellevue_Main.jpg",
-     "licence": "see refs/bellevue/LICENSES.md (research-sea-districts)"
+     "licence": "see refs/LICENSES.md (refs/bellevue/) (research-sea-districts)"
     }
    ],
    "dialogue": {
@@ -8142,7 +8142,7 @@
    "refs_shared": [
     {
      "file": "refs/bellevue/Bellevue_skyline_from_Lake_Washington.jpg",
-     "licence": "see refs/bellevue/LICENSES.md (research-sea-districts)"
+     "licence": "see refs/LICENSES.md (refs/bellevue/) (research-sea-districts)"
     }
    ],
    "dialogue": {

@@ -83,7 +83,6 @@ export function fineFor(cityId, overKmh) {
     return mph <= 10 ? 187 : mph <= 15 ? 236 : mph <= 20 ? 289 : mph <= 25 ? 370 : mph <= 30 ? 463 : 555;
 }
 // ---------- local time of the current city ----------
-export const TIME_ZONES = { bucharest: 'Europe/Bucharest', seattle: 'America/Los_Angeles' };
 export const OVERRIDE_HOURS = { dawn: 6.2, day: 13, sunset: 19.6, dusk: 20.3, night: 23.2 };
 export const PHASE_ICON = { night: '🌙', dawn: '🌅', dusk: '🌇', day: '☀️' };
 /** hours (0..24, fractional) of `date` in `timeZone` */

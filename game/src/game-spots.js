@@ -1,6 +1,6 @@
 // Game methods: walkable spots (spots/index.js) — the menu list, entering / leaving a spot, its update and
 // pause handling, tour and photo hooks. Installed on Game.prototype by main.js (mixin).
-import { $, CITIES, TIME_ZONES } from './game-common.js';
+import { $, CITIES } from './game-common.js';
 
 export class SpotMethods {
 
@@ -49,7 +49,7 @@ export class SpotMethods {
         if (!entry) { this.hud.toast('🏛️ Not available', 'This tourist spot is not ready yet.', 'warn'); return false; }
         const conditions = this.travelConditions();
         this._spotBusy = true;
-        this.applyRoamTime(conditions.tod, CITIES[entry.city]?.timeZone || TIME_ZONES[entry.city]);
+        this.applyRoamTime(conditions.tod, CITIES[entry.city]?.timeZone);
         this.audio.init(); this.audio.resume();
         this.photo?.close?.(); if (this.mapOpen) this.toggleMap(false);
         if (!this.spotReturn) {
@@ -99,7 +99,7 @@ export class SpotMethods {
         this.input.releaseLock(); this.input.flush(); this.hud.prompt(null);
         const toGame = this.world && this.player && ['drive', 'foot'].includes(R.state);
         if (toGame) {
-            this.applyRoamTime(conditions.tod, this.city.timeZone || TIME_ZONES[this.city.id]);
+            this.applyRoamTime(conditions.tod, this.city.timeZone);
             this.attachWorldRender();
             this.syncHeadlights(true);
             if (typeof this.r3d.setWeather === 'function') { try { this.r3d.setWeather(this.weatherOverride); } catch { /* ignore */ } }

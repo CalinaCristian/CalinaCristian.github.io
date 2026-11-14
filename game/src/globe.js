@@ -4,7 +4,7 @@
 //
 //  Canvas 2D, orthographic, drawn in device pixels:
 //    · Natural Earth 1:50m land (Caspian as a hole), big lakes, glaciers / ice caps and land borders
-//      (game/data/geo/ne50m.bin, 157 KB, lazy) — the 1:110m set in geo-ne110.js draws until it arrives;
+//      (game/data/geo/ne50m.bin, 157 KB, lazy) — the 1:110m set in game/data/geo/ne110.js draws until it arrives;
 //    · proper horizon clipping (rings cut at the limb and closed along it), screen-space decimation (≈1 px);
 //    · ocean depth gradient + coastal shelf glow + sun glint, graticule, soft atmosphere rim;
 //    · day / night from the real sun position (low-precision solar ephemeris) with twilight, and NASA Black Marble

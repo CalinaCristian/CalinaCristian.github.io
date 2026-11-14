@@ -1,7 +1,7 @@
 # game/data/geo — the world globe
 
 Loaded lazily by `game/src/globe.js` (the Explore hub's **World** tab and the OTP → SEA flight cut-scene), never on a
-district load. Until they arrive (or if they fail) the globe draws the 1:110m set baked into `game/src/geo-ne110.js`,
+district load. Until they arrive (or if they fail) the globe draws the 1:110m set baked into `game/data/geo/ne110.js`,
 without city lights.
 
 | file | size | content |

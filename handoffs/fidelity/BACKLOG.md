@@ -7,19 +7,15 @@ folder may hold: [`AGENTS.md`](../../AGENTS.md).
 ## Owner reports
 
 2026-11-15 reports (F8 poses: eye x, y, z · bearing° · pitch°). Grozăvești overpass lines, windows in roof, missing fence, support
-block, "looks odd" and the SeaTac sign are fixed and re-checked live (removed). Fixed on master a3fdd88b, still to re-check live:
+block, "looks odd", the SeaTac sign, Pasajul Unirii, Palatul Regal overlap, the NetBet legs and the Otopeni walkway are fixed and re-checked live (removed). Fixed on master a3fdd88b, still to re-check live:
 
 | Pose | Report | Status / next step |
 |---|---|---|
 | Grozăvești (83, 8, 120) · 300 · -35 | "weird fences": railing cages on the median | Fixed (median fill joins); re-check live |
-| Unirii (-410, -2, -22) · 87 · -1 | see-through at the Pasajul Unirii exit | Fixed (shared-cut wall pairing); re-check live |
 | Pipera (711, 24, 183) · 228 · -11 | "buildings within buildings?" | Real per OSM (Fabrica de Glucoză 6-8: towers w938553616–620 over blocks w938553607–610); the towers render all-glass though they are apartments — open |
 | Pipera (-1284, 9, 85) · 54 · -69 | lanes misplaced | Fixed (opposite one-ways overlapping narrowed to the midline); re-check live |
-| Romană (450, 34, 966) · 227 · -17 | buildings colliding | Fixed: Palatul Regal's own building:parts were not replaced by the landmark; re-check live |
-| Romană (350, 27, 105) · 278 · 13 | NetBet billboard floating | Fixed (legs to the roof under each); re-check live |
 | Romană, UiPath building | "is this how uipath looks?" | Remodelled from the leasing photos (stone block, glass storey, set-back glass box with the logo); re-check live |
 | Romană (-254, 1, -319) · 219 · 18 | door flicker | Fixed (entrance() offsets, 11 landmarks); re-check live |
-| Otopeni (-261, 15, -423) / (-158, 6, -435) | walkway ramp in the road; pillars short | Fixed (OSM stair flights; no support columns under replaced parts); re-check live |
 | Tourist spots | activities / map lists / photo walks / signs / bikes / boats / hidden bar / busker / race / pétanque / Starbucks / see-through people / bike + map / minimap | Shipped (spots pass); Kerry Park has nothing interactive left; Athenaeum, Spring Palace, Botanical Garden, Lincoln Square, Pioneer Square only the bike — open |
 | Spot surroundings | broken buildings at Cișmigiu / Arcul, top storey cut, distant buildings moiré | Shipped (facade-finish.js); roofs stay flat unless OSM tags a shape — open |
 | Bellevue | "LINCOLN SQUARE" sign, UiPath sign, lanes | Signs and driveway lane paint shipped; building walls onto NE 8th / 112th edges left — see Other open work |

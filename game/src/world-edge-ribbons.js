@@ -29,47 +29,6 @@ export function buildEdgeRibbons(ctx) {
     let raisedPieces = 0; const cornerSkips = []; // (stats: why a junction corner was left low)
     const SIDE_BACK = 0.3; // the raised top runs this far past the property line (fences / hedges there stand on it)
     const parapetOwnership = buildGeneratedParapetOwnership();
-    // the lane dividers of an edge, as offsets from its centre line (the same rule draws them below)
-    const laneDividers = (e) => {
-        const minor = e.type === 'residential' || e.type === 'living_street' || e.type === 'unclassified' || e.type === 'service';
-        const med2 = e.median / 2, shift = e.laneCenterShiftM || 0, out = [];
-        const Wc = e.wL + e.wR, nEff = e.oneway ? Math.round(Wc / e.laneW) : 0, evenLanes = e.oneway && nEff > e.lanesF && Wc - e.lanesF * e.laneW > e.laneW * 0.7;
-        if (evenLanes) { for (let i = 1; i < nEff; i++) if (!(e.busLane && i === nEff - 1)) out.push(-e.wL + Wc * i / nEff); }
-        else if (!minor || e.lanesF > 1 || e.lanesB > 1) {
-            for (let i = 1; i < e.lanesF; i++) out.push(shift + med2 + e.laneW * i);
-            for (let i = 1; i < e.lanesB; i++) out.push(shift - (med2 + e.laneW * i));
-        }
-        return out;
-    };
-    // (owner, 2026-11-15, SeaTac (-953, 995): "lanes are drawn badly") where a carriageway goes on through a plain node (or a
-    // pass-through pad) at another width — a side narrowed beside a street, a lane-alignment step, a deck taking a different
-    // width, a lane added on one side — every line used to step sideways at the node by up to 3.5 m. A line whose offset
-    // differs from the matching line of the next edge by 0.2-3.6 m now eases over to it along the edge where it lies farther
-    // out (1:10, at most 45% of the edge), so it reaches the node at the next edge's offset and runs on unbroken. Dividers
-    // only one edge has (a lane added or dropped) and lane-drop tapers keep their own rule.
-    const LINE_EASE = 10, LINE_EASE_MAX = 3.6;
-    const lineEase = (e) => {
-        const ends = [];
-        for (const n of [e.a, e.b]) {
-            if (n.pad && !n.passPad) continue;
-            const es = (n.allEdges || n.edges).filter(f => !f.virtual); if (es.length !== 2) continue;
-            const f = es[0] === e ? es[1] : es[0];
-            if (!(n === e.b ? f.a === n : f.b === n) || e.dirx * f.dirx + e.dirz * f.dirz < 0.7 || f.unpaved || f.type === 'service') continue;
-            ends.push({ atB: n === e.b, f });
-        }
-        return (o, pick) => {
-            const eases = [];
-            for (const { atB, f } of ends) {
-                const of = pick(f); if (of == null) continue;
-                const d = of - o; if (Math.abs(d) < 0.2 || Math.abs(d) > LINE_EASE_MAX) continue;
-                if (!(Math.abs(o) > Math.abs(of) + 1e-6 || (Math.abs(Math.abs(o) - Math.abs(of)) <= 1e-6 && e.id < f.id))) continue; // (laid on one of the two edges only)
-                const L = Math.min(Math.abs(d) * LINE_EASE, e.len * 0.45); if (L < 1) continue;
-                eases.push({ atB, d, L });
-            }
-            if (!eases.length) return o;
-            return s => { let v = o; for (const { atB, d, L } of eases) { const u = atB ? (s - (e.len - L)) / L : (L - s) / L; if (u > 0) v += d * Math.min(1, u); } return v; };
-        };
-    };
     for (const e of edges) {
         if (e.virtual) continue; // invisible U-turn connectors
         const mx = (e.a.x + e.b.x) / 2, mz = (e.a.z + e.b.z) / 2;
@@ -276,12 +235,11 @@ export function buildEdgeRibbons(ctx) {
             // (2026-11-08, owner: "some roads still don't have proper lines", Calea Floreasca by PAUL) a one-way carriageway
             // built wider than its lane count (lanes tag < the real width) left a whole unmarked lane: mark the lanes evenly
             // over the real width instead
-            const ease = lineEase(e), divs = laneDividers(e);
-            const divEase = (i) => ease(divs[i], f => { if (f.lanesF !== e.lanesF || f.lanesB !== e.lanesB) return null; const g = laneDividers(f); return g.length === divs.length ? g[i] : null; });
             if (evenLanes) {
-                for (let i = 0; i < divs.length; i++) dashLine(longM, e, s0, s1, divEase(i), yM, white, dash[0], dash[1], hw);
+                for (let i = 1; i < nEff; i++) if (!(e.busLane && i === nEff - 1)) dashLine(longM, e, s0, s1, -e.wL + Wc * i / nEff, yM, white, dash[0], dash[1], hw);
             } else if (!minor || e.lanesF > 1 || e.lanesB > 1) {
-                for (let i = 0; i < divs.length; i++) dashLine(longM, e, s0, s1, divEase(i), yM, white, dash[0], dash[1], hw * (i < e.lanesF - 1 && /motorway/.test(e.type) ? 1.4 : 1));
+                for (let i = 1; i < e.lanesF; i++) dashLine(longM, e, s0, s1, shift + med2 + e.laneW * i, yM, white, dash[0], dash[1], hw * (/motorway/.test(e.type) ? 1.4 : 1));
+                for (let i = 1; i < e.lanesB; i++) dashLine(longM, e, s0, s1, shift - (med2 + e.laneW * i), yM, white, dash[0], dash[1], hw);
             }
             // centre
             if (!e.oneway && !e.sharedLane && !e.contraflowBus) {
@@ -306,11 +264,11 @@ export function buildEdgeRibbons(ctx) {
                 const edgeM = { flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, ...rest) { const cx = (x0 + x1 + x2 + x3) / 4, cz = (z0 + z1 + z2 + z3) / 4; if (edgeLineCovered(cx, cz, e, yAlong(e, cx, cz))) return; longM.flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, ...rest); } };
                 if (s1 - s0 > .2) {
                     if (e.taperR) { const n = Math.max(1, Math.ceil(s1 - s0)); for (let i = 0; i < n; i++) { const sa = s0 + (s1 - s0) * i / n, sb = s0 + (s1 - s0) * (i + 1) / n, oa = e.wR - 0.15 + sideExtra(e, 1, sa), ob = e.wR - 0.15 + sideExtra(e, 1, sb), P = (q, o) => [e.a.x + e.dirx * q + e.nx * o, e.a.z + e.dirz * q + e.nz * o], A = P(sa, oa - 0.08), B = P(sb, ob - 0.08), C = P(sb, ob + 0.08), D = P(sa, oa + 0.08); edgeM.flatQuad(A[0], A[1], B[0], B[1], C[0], C[1], D[0], D[1], yM, white, 0); } } // (a lane-drop taper: the line closes in with the kerb)
-                    else dashLine(edgeM, e, s0, s1, ease(e.wR - 0.15, f => f.taperR ? null : f.wR - 0.15), yM, white, Math.min(1, s1 - s0), 0, 0.08);
+                    else dashLine(edgeM, e, s0, s1, e.wR - 0.15, yM, white, Math.min(1, s1 - s0), 0, 0.08);
                     // (owner, 2026-11-13: "lanes are drawn badly on both seattle and bellevue") US: the left edge line of every one-way
                     // roadway is yellow (MUTCD 3B.06: divided highways, one-way roadways and ramps), not only on motorways / trunks;
                     // International Blvd's and NE 8th St's carriageways had a white line along their median side
-                    dashLine(edgeM, e, s0, s1, ease(-(e.wL - 0.15), f => f.oneway === e.oneway ? -(f.wL - 0.15) : null), yM, (US && e.oneway) ? yellow : white, Math.min(1, s1 - s0), 0, 0.08);
+                    dashLine(edgeM, e, s0, s1, -(e.wL - 0.15), yM, (US && e.oneway) ? yellow : white, Math.min(1, s1 - s0), 0, 0.08);
                 }
             }
             // stop lines at lights / stop signs

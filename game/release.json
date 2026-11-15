@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-52ac80d3f4ac51be",
-  "sourceCommit": "824141595578e3e215007a61a11c3c72393a36cf",
-  "fingerprint": "52ac80d3f4ac51be46908d6bbf93473e88619f048300e528320a20b3e0a8c51a",
+  "releaseId": "game-dd6596e380fff853",
+  "sourceCommit": "66b34b31abab159ed5c75e209208c78abb86a3f9",
+  "fingerprint": "dd6596e380fff853ac23dc21e03fde9f470fdda8e9f46a39a76a9b0b62970156",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -810,7 +810,7 @@
     },
     {
       "path": "game/src/office-interior-details.js",
-      "sha256": "1ba4c8a675d1891bd2c0bef20a3b0a6bd8a878a45e912152d34fb3168bcb15e8"
+      "sha256": "c82a5a9f861c65f8281497755bb4fb13304fef1f0307f7f1bc73e8eba54a7be3"
     },
     {
       "path": "game/src/office-resources.js",

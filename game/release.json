@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-668d2cbe4dc95d9f",
-  "sourceCommit": "5cd6640cde296515e4f825e39efa7894b7261a74",
-  "fingerprint": "668d2cbe4dc95d9f7a2143071e8c83ce3025d7c1d26f0f857d02cbc6dfe19228",
+  "releaseId": "game-2566b2a8f4f8330e",
+  "sourceCommit": "f77dd6b18415a8a657ed7de857b76e1b938c9394",
+  "fingerprint": "2566b2a8f4f8330e81c77b7ae2cd0cd2b5099e53e3e3b3b657a1de8ee63483fe",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -1978,7 +1978,7 @@
     },
     {
       "path": "game/src/world-walls.js",
-      "sha256": "f9b12989379da2cc6108d319f222ea9b83f5a36dc974dc52e96b22adcc4c39db"
+      "sha256": "bf5e90105b1498ab4dba7ba24a04489cac56e5cd3dd1f7244e6f296c88157419"
     },
     {
       "path": "game/src/world.js",

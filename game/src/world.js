@@ -4,7 +4,7 @@ import { sharedBridgePadSurface } from './bridge-pad-profile.js';
 
 import { shapeDeckSoup } from './bridge-surface-mesh.js';
 import * as THREE from '../vendor/three.module.min.js';
-import { distPointSeg, pointInPolygon } from './util.js';
+import { clamp, distPointSeg, pointInPolygon } from './util.js';
 import { triangulate } from './triangulate.js';
 import { clipInferredBuildingDetail } from './building-detail-visibility.js';
 import { rgb } from './geobuild.js';
@@ -149,10 +149,15 @@ export async function buildWorld(city, renderer, opts = {}) {
     // service ways (garage / parking entrances) meet a road that goes straight on, with no signal, stop or crossing there,
     // the lane and edge lines run on to the node (world-edge-ribbons.js breaks the edge line across the driveway mouth).
     // NE 8th St had bare stretches between garage entrances: (-231 … -255, -331) 24 m with no line at all, 40 m elsewhere.
+    const linkPass = !!distCfg?.junctionFills;
     for (const n of nodeArr) {
         n.drivewayPass = null; if (!n.pad || n.passPad || n.edges.length < 3 || n.hasLight || n.stop || n.giveWay || n.zebra || n.crossing) continue;
         if (n.edges.some(e => e.virtual)) continue;
-        const through = n.edges.filter(e => e.type !== 'service'), drives = n.edges.filter(e => e.type === 'service');
+        // (owner backlog, 2026-11-15, Bellevue, NE 8th St at the I-405 ramps (544, -306 / -320): 25 m of each carriageway bare
+        // where the ramps leave and join) a district with `junctionFills` (cities.js) treats a ramp (a *_link way) leaving or
+        // joining a road that goes straight on, with no signal, stop or crossing there, as such a mouth too
+        const side = e => e.type === 'service' || (linkPass && /_link$/.test(e.type || ''));
+        const through = n.edges.filter(e => !side(e)), drives = n.edges.filter(side);
         if (through.length !== 2 || !drives.length) continue;
         const [e1, e2] = through, into = (e) => e.b === n ? [e.dirx, e.dirz] : [-e.dirx, -e.dirz];
         const [d1x, d1z] = into(e1), [d2x, d2z] = into(e2);
@@ -201,11 +206,11 @@ export async function buildWorld(city, renderer, opts = {}) {
     // raised carriageway running parallel beside a street at grade, closer than their two widths, loses the walkway on that
     // side and narrows that side (lanes down to 2.6 m) so its wall stands at the street's edge
     {
-        let narrowed = 0, splitWalkways = 0; const rampTaperRecs = distCfg?.rampTapers ? [] : null;
+        let narrowed = 0, splitWalkways = 0; const rampTaperRecs = distCfg?.rampTapers ? [] : null, giveWay = rampTaperRecs ? [] : null;
         for (const e of edges) {
             if (e.virtual || e.tunnel || !(Math.max(e.ya, e.yb) > .3) || (e.ya + e.yb) / 2 > 4.5 || e.roadWidthSource) continue; // (low enough to stand on its walls: a higher deck passes over the street)
             for (const sd of [1, -1]) {
-                let gap = Infinity, splitGap = Infinity;
+                let gap = Infinity, splitGap = Infinity, gapF = null, gapFs = 0;
                 for (const t of [.2, .5, .8]) {
                     const x = e.a.x + (e.b.x - e.a.x) * t, z = e.a.z + (e.b.z - e.a.z) * t, raisedHere = e.ya + (e.yb - e.ya) * t > .3;
                     edgesInBox(x - 12, z - 12, x + 12, z + 12, f => {
@@ -215,7 +220,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                         const q = distPointSeg(x, z, f.a.x, f.a.z, f.b.x, f.b.z); if (q.t <= .02 || q.t >= .98) return;
                         if (((q.cx - x) * e.nx + (q.cz - z) * e.nz) * sd <= 0) return; // (on this side)
                         const fSide = ((x - q.cx) * f.nx + (z - q.cz) * f.nz) > 0 ? f.wR : f.wL;
-                        if (partner) splitGap = Math.min(splitGap, q.d - fSide - shoulderOf(f)); else gap = Math.min(gap, q.d - fSide - shoulderOf(f));
+                        if (partner) splitGap = Math.min(splitGap, q.d - fSide - shoulderOf(f)); else if (q.d - fSide - shoulderOf(f) < gap) { gap = q.d - fSide - shoulderOf(f); gapF = f; gapFs = ((x - q.cx) * f.nx + (z - q.cz) * f.nz) > 0 ? 1 : -1; }
                     });
                 }
                 const key = sd > 0 ? 'wR' : 'wL', have = e[key] + shoulderOf(e) + sidewalkWidth(e, sd);
@@ -231,6 +236,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (sd > 0) e.sidewalkRightM = 0; else e.sidewalkLeftM = 0;
                 const lanes = Math.max(1, e.lanesF + e.lanesB), other = sd > 0 ? e.wL : e.wR, minSide = Math.max(1.3, 2.6 * lanes - other);
                 const nw = Math.max(minSide, gap - shoulderOf(e));
+                if (giveWay && gapF && gapF.oneway && gapF.type === 'motorway_link' && gapF.dirx * e.dirx + gapF.dirz * e.dirz > 0 && !gapF.roadWidthSource && gap - shoulderOf(e) < minSide - .05) giveWay.push({ f: gapF, sd: gapFs, rem: minSide + shoulderOf(e) - gap, e });
                 if (nw < e[key] - .05) { if (rampTaperRecs) rampTaperRecs.push({ e, sd, to: nw }); e[key] = nw; e.laneW = Math.min(e.laneW, (e.wL + e.wR) / lanes); if (e.oneway) e.median = -2 * e.wL; layContraflowLanes(e); e.halfW = Math.max(e.wL, e.wR); }
                 narrowed++;
             }
@@ -277,6 +283,25 @@ export async function buildWorld(city, renderer, opts = {}) {
                 tapered++;
             }
             if (tapered) { narrowed = narrowed || tapered; __buildRoadGraphAids.sccInfo.rampTapers = tapered; }
+        }
+        // (owner backlog, 2026-11-15, SeaTac: "Ramp w31928834 overlaps w31928843 by ~1 m") where the raised ramp is already at
+        // its narrowest (lanes 3.15 m) and still stands on the ramp beside it at grade, going the same way (w31928834 coming down
+        // beside w31928843: their ways run 5.6–5.8 m apart over 40 m, which leaves room for 1 + 2 lanes and no shoulders
+        // between them), the street gives way for the rest: its facing side narrows by what is left (lanes down to 2.6 m) on
+        // that segment and on to where the two roads meet, together, and the step where that begins is tapered (world.js
+        // `kerbTapers`, which takes such a road in). MODEL: lane widths and shoulders are estimates; no mapped width is changed.
+        if (giveWay?.length) {
+            const want = new Map(); for (const g of giveWay) { const k = g.f; const w = want.get(k); if (!w || g.rem > w.rem) want.set(k, g); }
+            for (const { f, sd, rem, e } of want.values()) {
+                const key = sd > 0 ? 'wR' : 'wL', meets = n => n.edges.some(h => h.road === e.road);
+                for (let c = f, k = 0; c && k < 12; k++) {
+                    const lanes = Math.max(1, c.lanesF + c.lanesB), other = sd > 0 ? c.wL : c.wR, nw = Math.max(1.3, 2.6 * lanes - other, c[key] - rem);
+                    if (nw < c[key] - .05) { c[key] = nw; c.laneW = Math.min(c.laneW, (c.wL + c.wR) / lanes); if (c.oneway) c.median = -2 * c.wL; layContraflowLanes(c); c.halfW = Math.max(c.wL, c.wR); c.gaveWay = true; narrowed++; }
+                    if (meets(c.b)) break;
+                    const nx = c.b.edges.filter(h => h !== c && !h.virtual && h.a === c.b && h.road === c.road); c = nx.length === 1 ? nx[0] : null;
+                }
+            }
+            __buildRoadGraphAids.sccInfo.gaveWayBesideRamp = [...want.values()].map(g => ({ sourceId: data.roadSourceGeometry?.[g.f.road]?.sourceId, besideOf: data.roadSourceGeometry?.[g.e.road]?.sourceId, m: +g.rem.toFixed(2) }));
         }
         if (narrowed) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + .5; __buildRoadGraphAids.sccInfo.raisedBesideStreet = narrowed; }
         if (splitWalkways) __buildRoadGraphAids.sccInfo.raisedBesideSplitStreet = splitWalkways;
@@ -398,6 +423,117 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         if (narrowed) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + .5; __buildRoadGraphAids.sccInfo.narrowedBesideTram = narrowed; }
     }
+    // (owner backlog, 2026-11-15, Bellevue: "lane lines jump up to ~3.5 m where a restored one-way run meets a different lane
+    // count") each segment of a one-way keeps its own cross-section (the lane alignment's left kerb, a restored run's real
+    // width, a lane added or dropped), so at every node where that changes both kerbs and every lane line stepped sideways:
+    // NE 8th St, 112th and 108th Ave NE, Bellevue Way. A district with `kerbTapers` (cities.js) walks each named one-way
+    // chain (consecutive segments of one name, each the only way on from the last) and turns every step of either kerb
+    // into a taper: the narrower side widens to meet the wider one, over 10 m per metre of step (15–45 m), on the segments
+    // before a node that widens and after one that narrows; where those cannot carry it, the wider side starts at the narrower
+    // width and opens out (a lane opening). Never on a deck, a raised ramp or a segment with a mapped width. Each
+    // segment keeps its own lanes and width (traffic, kerbs away from a step); the extra width is linear along a segment
+    // (e.taperL / e.taperR, world-road-graph.js sideExtra) and the lane lines are laid from the tapered left kerb
+    // (world-edge-ribbons.js), so they run on through the node and spread or close in with the kerbs.
+    if (distCfg?.kerbTapers) {
+        const only = distCfg.kerbTapers === 'motorway' ? 'motorway' : null; // (SeaTac: the Airport Expressway only, below)
+        const gaveWay = new Set(edges.filter(e => e.gaveWay).map(e => e.road)); // (and a road that gave way to a ramp beside it, above)
+        const ok = e => e.oneway && !e.virtual && !e.tunnel && !e.madeTwoWay && !e.contraflowBus && e.type !== 'service' && !!e.name && (!only || e.type === only || gaveWay.has(e.road));
+        const carries = e => !e.bridge && Math.max(Math.abs(e.ya || 0), Math.abs(e.yb || 0)) < .3 && !e.roadWidthSource && !e.taperR && !e.taperL && !e.rampTaper && !e.busLane;
+        const nextOf = e => {
+            const n = e.b, outs = n.edges.filter(f => f !== e && f.a === n && ok(f) && f.name === e.name); if (outs.length !== 1) return null;
+            const f = outs[0]; if (n.edges.filter(g => g !== f && g.b === n && ok(g) && g.name === f.name).length !== 1) return null;
+            return e.dirx * f.dirx + e.dirz * f.dirz > .5 ? f : null;
+        };
+        const prev = new Map(); for (const e of edges) if (ok(e)) { const f = nextOf(e); if (f) prev.set(f, e); }
+        const done = new Set(), touched = new Set(); let tapered = 0, steps = 0, recentred = 0, kept = 0;
+        for (const e0 of edges) {
+            if (!ok(e0) || done.has(e0)) continue;
+            let s = e0; const back = new Set([s]); while (prev.has(s) && !back.has(prev.get(s)) && !done.has(prev.get(s))) { s = prev.get(s); back.add(s); }
+            const chain = []; for (let c = s; c && !done.has(c); c = nextOf(c)) { done.add(c); chain.push(c); }
+            if (chain.length < 2) continue;
+            // (owner backlog, 2026-11-15, SeaTac: "the Airport Expressway 3-lane parts sit 1.85 m off their mapped line") the
+            // one-kerb rule (world-road-graph.js `kerbRuns`) holds a chain's left kerb half a lane out where it spans 3 to 5
+            // lanes, so the 3-lane parts (w31928831, w1165460001) lay 1.85 m left of their ways and the 4th lane opened on
+            // the right, while OSM brings it in from the left (link w428003842 joins at 47.4440, -122.2966). On a motorway
+            // chain (`kerbTapers: 'motorway'`) each run of one lane count goes back onto its own way, centred as OSM maps a
+            // carriageway, where every step at its ends can be tapered (one side of the node is at grade); the kerb steps
+            // that leaves are tapered below like any other
+            if (only) {
+                const runs = []; for (const c of chain) { const r = runs[runs.length - 1]; if (r && r[0].lanesF === c.lanesF) r.push(c); else runs.push([c]); }
+                runs.forEach((r, i) => {
+                    const total = r[0].wL + r[0].wR; if (r.some(c => Math.abs(c.wL + c.wR - total) > .05 || Math.abs((c.wR - c.wL) / 2) < .05 || c.taperR || c.rampTaper || c.roadWidthSource)) return;
+                    const endOk = (a, b) => !a || !b || ((carries(a) || carries(b)) && ![a, b].some(c => c.taperR || c.rampTaper)); // (a lane-drop taper beside it was laid for its present kerb)
+                    if (!endOk(runs[i - 1]?.at(-1), r[0]) || !endOk(r.at(-1), runs[i + 1]?.[0])) return;
+                    for (const c of r) { c.wL = c.wR = total / 2; c.median = -2 * c.wL; c.halfW = c.wL; touched.add(c.a).add(c.b); recentred++; }
+                });
+            }
+            const S = [0]; for (const c of chain) S.push(S[S.length - 1] + c.len);
+            const ext = {};
+            for (const key of ['wL', 'wR']) {
+                const T = chain.map(c => c[key]), raise = [], lower = [], claim = new Map(); // (segment index → the node whose taper it carries)
+                // (a segment that already has a taper, a lane drop or a ramp's, meets its neighbours at its tapered width)
+                const pre = (c, end) => { const t = key === 'wR' ? c.taperR : c.taperL; return t ? t[end] : 0; }, Ta = T.map((v, j) => v + pre(chain[j], 0)), Tb = T.map((v, j) => v + pre(chain[j], 1));
+                // (a segment's extra width is linear, so it carries the taper of one node only: a 98 m segment between a lane drop
+                // and a lane add would otherwise be widened along its whole length)
+                // (a kerb side narrowed to clear building footprints, world-road-graph.js, is never widened back toward them)
+                // (a taper runs from its node up to the next node where this side steps again, at most)
+                const roomOf = (k, dir, widen) => { let m = 0; for (let j = dir < 0 ? k - 1 : k; j >= 0 && j < chain.length && carries(chain[j]) && !(widen && key === 'wR' && chain[j].footprintNarrowed) && (!claim.has(j) || claim.get(j) === k); j += dir) { m += chain[j].len; const nx = j + dir; if (nx >= 0 && nx < chain.length && Math.abs(dir > 0 ? Tb[j] - Ta[nx] : Ta[j] - Tb[nx]) > .05) break; } return m; };
+                const take = (k, dir, L) => { let m = 0; for (let j = dir < 0 ? k - 1 : k; j >= 0 && j < chain.length && m < L; j += dir) { claim.set(j, k); m += chain[j].len; } };
+                for (let k = 1; k < chain.length; k++) {
+                    const lo = Math.min(Tb[k - 1], Ta[k]), hi = Math.max(Tb[k - 1], Ta[k]); if (hi - lo < .05) continue;
+                    const toNarrow = Ta[k] > Tb[k - 1] ? -1 : 1, L0 = clamp(10 * (hi - lo), 15, 45); // (-1: the narrower segments are those before the node)
+                    const rn = roomOf(k, toNarrow, true), rw = roomOf(k, -toNarrow, false);
+                    // the narrower side widens toward the node; where it cannot (a deck, a ramp beside, a segment carrying another
+                    // node's taper), the wider side starts at the narrower width and opens over the taper instead (a lane opening)
+                    if (rn >= Math.min(L0, rw) && rn >= 1) { const L = Math.min(rn, L0); raise.push({ k, S: S[k], v: hi, slope: (hi - lo) / L, dir: toNarrow }); take(k, toNarrow, L); }
+                    else if (rw >= 1) { const L = Math.min(rw, L0); lower.push({ k, S: S[k], v: lo, slope: (hi - lo) / L, dir: -toNarrow }); take(k, -toNarrow, L); }
+                    else continue; // (nothing to carry it: the step stays)
+                    steps++;
+                }
+                // the side's width at x on segment j: the segment's own, held down toward a narrower neighbour by an opening
+                // taper, or raised toward a wider one
+                const at = (x, j) => {
+                    let v = T[j];
+                    for (const r of lower) { const d = (x - r.S) * r.dir; if (d >= -1e-9 && claim.get(j) === r.k) v = Math.min(v, r.v + r.slope * d); }
+                    for (const r of raise) { const d = (x - r.S) * r.dir; if (d >= -1e-9 && claim.get(j) === r.k) v = Math.max(v, r.v - r.slope * d); }
+                    return v;
+                };
+                ext[key] = chain.map((c, j) => carries(c) ? [at(S[j], j) - T[j], at(S[j + 1], j) - T[j]] : [0, 0]);
+                // (never a step bigger than the one it replaces: such a chain side keeps its widths)
+                for (let k = 1; k < chain.length; k++) if (Math.abs(Tb[k - 1] + ext[key][k - 1][1] - Ta[k] - ext[key][k][0]) > Math.abs(Tb[k - 1] - Ta[k]) + .05) { ext[key] = chain.map(() => [0, 0]); kept++; break; }
+            }
+            chain.forEach((c, j) => {
+                const xl = ext.wL[j], xr = ext.wR[j], big = x => Math.max(...x.map(Math.abs)) > 1e-3; if (!big(xl) && !big(xr)) return;
+                c.taperL = big(xl) ? xl : null; c.taperR = big(xr) ? xr : null; c.kerbTaper = true;
+                c.halfW = Math.max(c.wL + Math.max(0, ...xl), c.wR + Math.max(0, ...xr)); touched.add(c.a).add(c.b); tapered++;
+            });
+        }
+        if (tapered || recentred) { for (const n of touched) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + .5; __buildRoadGraphAids.sccInfo.kerbTapers = { edges: tapered, steps, recentred, kept }; }
+    }
+    // (owner backlog, 2026-11-15, Bellevue, 112th Ave NE × NE 8th St (295 … 308, -330 … -303)) where two divided roads cross,
+    // OSM closes the junction with a ring of short ways between four junction nodes; each node's pad is the hull of its own
+    // approaches, so between the four pads a sliver of the median's grass showed inside the junction, and the short ways
+    // kept stubs of lane and edge lines (and an inferred walkway) in the middle of it. A district with `junctionFills`
+    // (cities.js) takes such a ring (junction nodes joined by ways under 25 m at grade, closing a loop) as one junction:
+    // its inside is paved (world-side-joins.js) and its ways carry no lane, edge line or walkway on the inside.
+    const junctionFills = [];
+    if (distCfg?.junctionFills) {
+        const deg = n => n.edges.filter(f => !f.virtual).length;
+        const inner = e => !e.virtual && !e.bridge && !e.tunnel && e.len < 25 && e.a.pad && e.b.pad && deg(e.a) >= 3 && deg(e.b) >= 3 && e.type !== 'service' && !/_link$/.test(e.type || '') && Math.max(Math.abs(e.ya || 0), Math.abs(e.yb || 0)) < .3;
+        const par = new Map(), find = n => { while (par.get(n) !== n) { par.set(n, par.get(par.get(n))); n = par.get(n); } return n; };
+        const ins = edges.filter(inner); for (const e of ins) for (const n of [e.a, e.b]) if (!par.has(n)) par.set(n, n);
+        for (const e of ins) par.set(find(e.a), find(e.b));
+        const comps = new Map(); for (const e of ins) { const r = find(e.a); let c = comps.get(r); if (!c) comps.set(r, c = { nodes: new Set(), edges: [] }); c.nodes.add(e.a).add(e.b); c.edges.push(e); }
+        for (const { nodes: ns, edges: es } of comps.values()) {
+            if (ns.size < 3 || es.length < ns.size) continue; // (a loop: a chain of short ways is no closed junction)
+            const poly = convexHull([...ns].map(n => [n.x, n.z])); let area = 0; for (let i = 0; i < poly.length; i++) { const p = poly[i], q = poly[(i + 1) % poly.length]; area += p[0] * q[1] - q[0] * p[1]; }
+            if (Math.abs(area) / 2 < 20) continue;
+            const cx = poly.reduce((m, p) => m + p[0], 0) / poly.length, cz = poly.reduce((m, p) => m + p[1], 0) / poly.length;
+            for (const e of es) { e.junctionInterior = true; const mx = (e.a.x + e.b.x) / 2, mz = (e.a.z + e.b.z) / 2; if ((cx - mx) * e.nx + (cz - mz) * e.nz > 0) e.sidewalkRightM = 0; else e.sidewalkLeftM = 0; }
+            junctionFills.push({ nodes: [...ns], poly, edges: es });
+        }
+        if (junctionFills.length) __buildRoadGraphAids.sccInfo.junctionFills = junctionFills.map(j => ({ at: [Math.round(j.poly.reduce((m, p) => m + p[0], 0) / j.poly.length), Math.round(j.poly.reduce((m, p) => m + p[1], 0) / j.poly.length)], nodes: j.nodes.length, ways: j.edges.length }));
+    }
     const widthAsphalt = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e);
     const widthSide = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + sidewalkWidth(e, s);
     const widthKerb = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + 0.28;
@@ -456,7 +592,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         cornerGrid, cornerPolys, cornerSkips, coveredByOther, data, distCfg, edgeGrid, edges, kerbCol,
         layerY, padAsphalt, padCorners, padHeightAt, pierColl, pierSpots, polyDist, railRoadside,
         raised, raisedEdge, retainedDeck, ribbons, sceneryDeckGrid, sharedPadSurfaces, sideCol, sideExtra,
-        sideJoins, widthAsphalt, widthSide, yAlong,
+        sideJoins, widthAsphalt, widthSide, yAlong, junctionFills,
     });
     // (world walls and barriers: world-walls.js)
     const __buildWallsBarriers = buildWallsBarriers({

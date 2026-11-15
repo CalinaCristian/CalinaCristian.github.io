@@ -44,7 +44,10 @@ export function buildRibbons(ctx) {
             let bx = e.a.x + e.dirx * sEnd + e.nx * off, bz = e.a.z + e.dirz * sEnd + e.nz * off;
             // continuous lines follow the mitred strip: at a plain bend (degree-2, no pad) end on the mitre line
             if (gap === 0) {
-                const mit = (n) => !n.pad && n.edges.length === 2 ? corner(e, n, off >= 0 ? 1 : -1, Math.abs(off), () => Math.abs(off)) : null;
+                // (a kerb taper, world.js kerbTapers: corner() adds a segment's taper to the width it is given, and the line's
+                // offset already reaches the tapered kerb of the neighbour it meets: without this the mitre jogged sideways)
+                const kx = (g, sd, n) => g.kerbTaper ? sideExtra(g, sd, g.a === n ? 0 : g.len) : 0;
+                const mit = (n) => !n.pad && n.edges.length === 2 ? corner(e, n, off >= 0 ? 1 : -1, Math.abs(off) - kx(e, off >= 0 ? 1 : -1, n), (f, sf) => Math.abs(off) - kx(f, sf, n)) : null;
                 if (s < 0.05) { const q = mit(e.a); if (q) { ax = q[0]; az = q[1]; } }
                 if (sEnd > e.len - 0.05) { const q = mit(e.b); if (q) { bx = q[0]; bz = q[1]; } }
             }
@@ -138,7 +141,7 @@ export function buildRibbons(ctx) {
             // width step the mitred corner pulls the outer rim in (a wedge up to ~6 m long): the lines run on to the node at their
             // own full width (the neighbour's paint takes over there)
             const sqEnd = n => paintThrough(n, e) || (!n.pad && n.edges.length === 2);
-            if (sqEnd(e.a) || sqEnd(e.b)) { const sq = (n, s) => [n.x + e.nx * s * widthAsphalt(e, s), n.z + e.nz * s * widthAsphalt(e, s)]; markPoly.set(e, [sqEnd(e.a) ? sq(e.a, 1) : aR, sqEnd(e.b) ? sq(e.b, 1) : bR, sqEnd(e.b) ? sq(e.b, -1) : bL, sqEnd(e.a) ? sq(e.a, -1) : aL]); }
+            if (sqEnd(e.a) || sqEnd(e.b)) { const sq = (n, s) => { const w = widthAsphalt(e, s) + (e.kerbTaper ? sideExtra(e, s, n === e.a ? 0 : e.len) : 0); return [n.x + e.nx * s * w, n.z + e.nz * s * w]; }; /* (a kerb taper, world.js kerbTapers: the outline reaches the tapered kerb) */ markPoly.set(e, [sqEnd(e.a) ? sq(e.a, 1) : aR, sqEnd(e.b) ? sq(e.b, 1) : bR, sqEnd(e.b) ? sq(e.b, -1) : bL, sqEnd(e.a) ? sq(e.a, -1) : aL]); }
             railRoadside.register(e, asphaltCorners(e, (f, sd) => sd > 0 ? f.wR : f.wL), asphaltCorners(e, widthSide));
             for (const [n, p, q] of [[e.a, aR, aL], [e.b, bR, bL]]) if (n.pad) { let o = padPts.get(n); if (!o) padPts.set(n, o = []); o.push(p, q); }
         }

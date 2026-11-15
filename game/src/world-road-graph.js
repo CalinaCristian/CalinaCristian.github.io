@@ -148,7 +148,8 @@ export function buildRoadGraphAids(ctx) {
     // follow, up to the first node at least 25 m on. e.taperR = [extra right-side width at a, at b]; corner() carries it
     // into every strip built from corners (asphalt, kerb, sidewalk). EXCEPTION to the source: the game keeps the left
     // kerb and ends the right-hand lane whichever lane the tag names (lanes are counted from the left).
-    const laneTapers = [], sideExtra = (e, side, along) => side > 0 && e.taperR ? e.taperR[0] + (e.taperR[1] - e.taperR[0]) * clamp(along / e.len, 0, 1) : 0;
+    // (e.taperL: the same on the left-hand side, world.js `kerbTapers`)
+    const laneTapers = [], sideExtra = (e, side, along) => { const t = side > 0 ? e.taperR : e.taperL; return t ? t[0] + (t[1] - t[0]) * clamp(along / e.len, 0, 1) : 0; };
     {
         const tl = data.turnLanes || [], merges = new Set(); for (let i = 0; i + 2 < tl.length; i += 3) if (/merge_to_/.test(str(tl[i + 1]))) merges.add(tl[i]);
         // (owner, 2026-11-15, SeaTac: "missing consistency on borders") a district with `laneDropTapers` (cities.js) tapers every

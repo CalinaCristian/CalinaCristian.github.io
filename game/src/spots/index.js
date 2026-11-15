@@ -26,6 +26,7 @@ import { compactMaterialGroups } from './frame-budget.js';
 import { floorProbe } from './audit.js';
 export { floorProbe, auditSpot } from './audit.js';
 import { SpotSession } from './session.js';
+import { addSpotBikes } from './spot-bikes.js';
 export { spotProgress, SpotSession, placeLabel, setNightWindows } from './session.js';
 
 // ---------------------------------------------------------------------------- registry (Seattle 10 + Bellevue 4; Bucharest added by its builder)
@@ -64,19 +65,19 @@ export const DEV_SPOTS = [
  * `game.emit('activity', { spot, id })` / `dmcv:activity` when one is completed. Scene lanes: ask spots-core to add yours.
  */
 export const ACTIVITIES = [
-    ['cismigiu', 'rowboat', 'Row a boat on the lake'], ['cismigiu', 'backgammon', 'Beat Doru at backgammon'], ['cismigiu', 'rotunda', 'Visit the Writers\' Rotunda'],
-    ['herastrau-park', 'boat', 'Boat on Lake Herăstrău'], ['herastrau-park', 'nymph', 'Frame the Sleeping Nymph'], ['village-museum', 'farmhouse', 'Collect a virtual household passport'],
-    ['old-town-lipscani', 'wcp-bar', 'Hidden project'], ['old-town-lipscani', 'romanian-style', 'Romanian style'],
+    // (owner, 2026-11-15) only interactive activities: the photo walks / framing rings, look-outs and walk-to goals are
+    // retired (spot-availability.js RETIRED_ACTIVITIES); the Arc's baguette catch became pétanque
+    ['cismigiu', 'rowboat', 'Row a boat on the lake'], ['cismigiu', 'backgammon', 'Beat Doru at backgammon'],
+    ['herastrau-park', 'boat', 'Boat on Lake Herăstrău'], ['village-museum', 'farmhouse', 'Collect a virtual household passport'],
+    ['old-town-lipscani', 'wcp-bar', 'Hidden project'], ['old-town-lipscani', 'romanian-style', 'Romanian style'], ['old-town-lipscani', 'wcp-halba', 'A halbă at the hidden bar'],
     ['old-town-lipscani', 'freddo-dance', 'Find your rhythm at Freddo'], ['old-town-lipscani', 'freddo-shot', 'Pour, toast and drink at Freddo'],
     ['old-town-lipscani', 'carusel', 'Climb Cărturești Carusel'], ['old-town-lipscani', 'curtea-veche', 'Old Princely Court'],
     ['old-town-lipscani', 'dristor-shaorma', 'Eat a shaorma at Dristor Kebap'], ['old-town-lipscani', 'shoteria-shot', 'Pour, toast and drink at Shoteria'],
-    ['old-town-lipscani', 'lipscani-coffee', 'Have a coffee on Lipscani'], ['old-town-lipscani', 'lipscani-photo-walk', 'Photo walk: Old Town details'],
+    ['old-town-lipscani', 'lipscani-coffee', 'Have a coffee on Lipscani'],
     ['old-town-lipscani', 'lipscani-busker', 'Toss a coin to the busker'], ['old-town-lipscani', 'mojo-karaoke', 'Sing karaoke at Mojo'], ['old-town-lipscani', 'jacks-papanasi', 'Eat papanași at Jack’s Pub'],
-    ['palace-parliament', 'balcony', 'Frame the Palace facade'], ['palace-parliament', 'pace', 'Walk the public Palace sidewalk'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
-    ['bel-meydenbauer', 'pier-end', 'Walk to the end of the pier'], ['bel-meydenbauer', 'kayak', 'Kayak on Meydenbauer Bay'], ['bel-downtown-park', 'loop', 'Walk the park loop'],
-    ['bel-botanical-garden', 'bridge', 'Cross the suspension bridge'], ['bel-lincoln-square', 'badge-in', 'Frame Lincoln Square'],
-    ['space-needle', 'lm-chihuly-glasshouse', 'Explore the Glasshouse details'], ['mopop', 'mopop-lobes', 'Frame MoPOP\'s metal lobes'],
-    ['arcul-de-triumf', 'arcul-race', 'Win the island race'], ['arcul-de-triumf', 'arcul-baguette', 'Catch the baguette three times'],
+    ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
+    ['bel-meydenbauer', 'kayak', 'Kayak on Meydenbauer Bay'], ['pike-place', 'starbucks-coffee', 'Coffee at the first Starbucks'],
+    ['arcul-de-triumf', 'arcul-race', 'Win the island race'], ['arcul-de-triumf', 'arcul-petanque', 'Pétanque at the Arc'],
 ].map(([spot, id, title]) => ({ spot, id, title }));
 /**
  * READY retains historical side-by-side review records. MENU_AVAILABLE separately
@@ -269,6 +270,8 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     // `rot` given on a noPost point puts the light pool under the head (render.js head offset), as for the generated posts
     { const np = ctx.lampPoints.filter((p) => p.noPost), ex = lamps.lamps.slice(lamps.lamps.length - np.length); ex.forEach((l, i) => { l.noPost = true; if (np[i].rot != null) l.rot = np[i].rot; }); }
     ctx.add(lamps.group); ctx.colliders.push(...lamps.colliders);
+    // a bike stand near the arrival of every large spot that has none of its own (spot-bikes.js)
+    addSpotBikes(ctx, id, spotById(id)?.city);
     // props need their base height (walkers jump onto low props)
     for (const c of ctx.colliders) if (c.prop && c.y === undefined) c.y = ctx.ground.heightAt(c.x, c.z);
     const colliders = colliderIndex(ctx.colliders);

@@ -24,6 +24,7 @@ import { skyBridge, SKYBRIDGE_ID } from './pike-place-skybridge.js';
 import { prepareLower, buildLower, GUM } from './pike-place-lower.js';
 import { prepareHalls, buildHalls, HALLS } from './pike-place-market.js';
 import { buildShopSigns } from './pike-place-shops.js';
+import { addStarbucksCoffee } from './pike-starbucks.js';
 import { prepareFacades, buildFacades, FACADE_IDS } from './pike-place-facades.js';
 import { batchSourceContext, horizonCuller, solidShells, onRenderCamera, distanceHide, boxDistanceHide } from '../frame-budget.js';
 
@@ -215,7 +216,7 @@ function buildStarbucks(ctx) {
     const along = [-(PIKE_PLACE[12][0] - PIKE_PLACE[11][0]), -(PIKE_PLACE[12][1] - PIKE_PLACE[11][1])]; const al = Math.hypot(...along);
     const qx = along[0] / al, qz = along[1] / al;
     const line = [[x + fx * 0.9, z + fz * 0.9], [x + fx * 0.9 + qx * 9, z + fz * 0.9 + qz * 9]];
-    return { x, z, yaw, line };
+    return { x, z, yaw, line, fx, fz };
 }
 
 // ---------------------------------------------------------------------------- Victor Steinbrueck Park
@@ -330,6 +331,7 @@ export default {
         buildRachel(ctx);
         const fish = buildFishThrow(ctx);
         const sb = buildStarbucks(ctx);
+        ctx.extras.starbucksCoffee = addStarbucksCoffee(ctx, sb); // (owner, 2026-11-15) order and drink a coffee at the first Starbucks
         buildSteinbrueck(ctx);
         // Elliott Bay view: the Great Wheel at Pier 57 (≈ 370 m south of MarketFront)
         { const w = ctx.ll(47.60617, -122.3425), wh = seaWheel(w.x, -33.5, w.z, -0.35, { spin: true }); ctx.add(wh.group); ctx.onUpdate((dt, s) => wh.update(dt, s.nightK, s.t)); }

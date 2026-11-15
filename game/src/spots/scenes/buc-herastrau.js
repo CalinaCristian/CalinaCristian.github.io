@@ -11,7 +11,8 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, obb, polyArea, offsetPolyline, distPolyline, prismGeometry } from '../kit.js';
-import { bucBackdrop, osmPoly, placeLandmark, palisade, signAtlas, bucActivity, boatRide } from '../buc.js';
+import { bucBackdrop, osmPoly, placeLandmark, palisade, signAtlas, bucActivity } from '../buc.js';
+import { freeBoat } from '../free-boat.js';
 import { railing } from '../props.js';
 import { addBikeRental } from '../bike.js';
 import { photoHunt } from '../photo-hunt.js';
@@ -291,7 +292,10 @@ export default {
         const landing=d.pois.find(p=>p.id==='n141706786');
         if(lake&&landing){const holes=lake.holes||[],bridges=d.ways.filter(w=>w.bridge),path=shortWaterRoute(lake.poly,landing,{reach:24,clearance:1.4,avoid:(x,z)=>holes.some(h=>inPoly(x,z,h)||distPolyline(x,z,[...h,h[0]]).d<1.4)||bridges.some(w=>distPolyline(x,z,w.pts).d<(w.width||4)/2+2)});
             if(path){const bt=new THREE.Group(),hull=new THREE.Mesh(new THREE.SphereGeometry(1,12,6,0,Math.PI*2,Math.PI/2,Math.PI/2),new THREE.MeshStandardMaterial({color:'#f2efe6',roughness:.5}));hull.scale.set(.95,.5,2.3);bt.add(hull);bt.position.set(path[0][0],level+.02,path[0][1]);ctx.add(bt);
-                const approach=dryLanding(lake.poly,landing),ride=boatRide(ctx,bt,path,level+.02,{speed:1.7,initialPitch:-.12,title:'Row from Debarcader Herăstrău',onDone:s=>bucActivity(s,'herastrau-park','boat','🚣 Returned to Debarcader','You rowed the short game course from the mapped marina and returned. Current rental operations and hours are unverified.')});
+                // (owner, 2026-11-15) steer the boat yourself anywhere within ~260 m of the marina (free-boat.js); three buoys, E to go ashore
+                const approach=dryLanding(lake.poly,landing),ride=freeBoat(ctx,bt,{poly:lake.poly,holes,y:level+.02,home:{x:path[0][0],z:path[0][1]},approach,reach:260,speed:2.2,
+                    avoid:(x,z)=>bridges.some(w=>distPolyline(x,z,w.pts).d<(w.width||4)/2+2),title:'🚣 Row on Lake Herăstrău',
+                    onDone:s=>bucActivity(s,'herastrau-park','boat','🚣 Three buoys','You rowed out to all three buoys off Debarcader Herăstrău. Row on, or E to go ashore. Current rental hours are unverified.')});
                 // Extend flight only to the retained marina path, its mapped public
                 // approach and the short game course. These estimated3m half-width
                 // strips stay inside the prepared DEM coverage; never expose the
@@ -304,7 +308,7 @@ export default {
                 for(const line of[sourceApproach,sourceLanding,[[approach.x,approach.z],path[0]],path.slice(0,Math.ceil(path.length/2))])for(let i=1;i<line.length;i++)strip(line[i-1],line[i]);
                 ctx.extras.droneFlightAreas=flightAreas;
                 const available=s=>s.r3d?.weather?.season!=='winter';ctx.extras.herastrauBoat={ride,path,landing,approach,source:landing.id,operatorHoursVerified:false,flightAreaSources:['w1162864482','w68336727','n141706786','r1130828'],flightAreaHalfWidthEstimate:3,flightBounds};
-                ctx.interactables.push({kind:'rowboat',x:approach.x,z:approach.z,r:3,source:landing.id,label:'Row a short course from Debarcader',tourAvailable:available,cond:()=>!ride.active(),use:s=>{if(!available(s)){s.ui.toast('🚣 Warm-season game course','Choose a warm season for this rowing exercise. Current operator hours are not confirmed.');return;}ride.start(s);}});
+                ctx.interactables.push({kind:'rowboat',x:approach.x,z:approach.z,r:3,source:landing.id,label:'Take a rowing boat out from Debarcader',tourActivityIds:['boat'],tourAvailable:available,cond:()=>!ride.active(),use:s=>{if(!available(s)){s.ui.toast('🚣 Warm-season game course','Choose a warm season for this rowing exercise. Current operator hours are not confirmed.');return;}ride.start(s);}});
             }}
         // postcards: the church spire from the lawn (research pose); the nymph with the lake behind
         if (church) { const ic = spV.photo.iconic, dx = ic.x - church.x, dz = ic.z - church.z, L = Math.hypot(dx, dz) || 1, px = church.x + dx / L * 16, pz = church.z + dz / L * 16; ctx.challenge('village-museum', { view: [church.x, church.z], x: px, z: pz, heading: (Math.atan2(church.x - px, -(church.z - pz)) * 180 / Math.PI + 360) % 360, pitch: 32, r: 10, tol: 28 }); }

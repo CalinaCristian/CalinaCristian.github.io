@@ -53,7 +53,7 @@ export function addBikeRental(ctx, { x, z, heading = 0, n = 6, name = 'Bike rent
     const parkedIt = { kind: 'bike', noTour: true, x: 1e9, z: 1e9, r: 2.2, label: () => (parked && !st ? 'Get back on your bike' : ''), cond: () => !!parked && !st, use: (s) => start(s, true) };
     ctx.interactables.push(parkedIt);
     const start = (s, fromParked = false) => flow.begin(s, {
-        title: 'Ride the park paths', action: 'Dismount', cameraRide: true,
+        title: 'Ride the park paths', action: 'Dismount (E)', cameraRide: true, ride: true, // (ride: the map, pause or photo only pause it)
         help: 'Pedal with W / ↑ or the touch stick; steer with A / D or the stick. Pedal and Brake buttons also work. Ride 30 m, then Dismount / E to finish; Leave or Esc cancels.',
         started(s,r) {
         const p = fromParked && parked ? { x: parked.x, z: parked.z, y: parked.y } : s.ctl.position, yaw0 = fromParked && parked ? parked.yaw : s.ctl.heading;
@@ -93,7 +93,9 @@ export function addBikeRental(ctx, { x, z, heading = 0, n = 6, name = 'Bike rent
         const turn = sgn * steer * dt * (0.9 + 1.4 / (1 + av)) * Math.min(1, 0.4 + av / 3); st.yaw -= turn; st.lean += ((-steer * Math.min(1, Math.max(0, st.v) / 4)) * 0.22 - st.lean) * Math.min(1, dt * 4);
         const dfx = -Math.sin(st.yaw), dfz = -Math.cos(st.yaw); let nx = st.x + dfx * st.v * dt, nz = st.z + dfz * st.v * dt;
         let ny = g.groundAt(nx, nz, st.y + 0.5);
-        if (!Number.isFinite(ny) || Math.abs(ny-st.y)>.6 || (g.waterY != null && ny < g.waterY - 0.3)) { st.v = 0; nx = st.x; nz = st.z; ny = st.y; } // a wall / steps up / water: stop
+        // a wall / steps up / water / the edge of the spot's walkable area: stop (the bike never leaves what the walker may reach)
+        const boundary = s.spot.ctx.extras.walkBoundary, box = s.spot.ctx.extras.terrainBox, outside = (x, z) => (boundary && !boundary.inside(x, z)) || (g.walkInside && !g.walkInside(x, z)) || (box && (x < box.x0 + 8 || x > box.x1 - 8 || z < box.z0 + 8 || z > box.z1 - 8));
+        if (!Number.isFinite(ny) || Math.abs(ny-st.y)>.6 || (g.waterY != null && ny < g.waterY - 0.3) || outside(nx, nz)) { st.v = 0; nx = st.x; nz = st.z; ny = st.y; }
         const people=(s.spot.crowd?.obstacles(nx,nz,4)||[]).filter(o=>Math.abs((o.y??ny)-ny)<1.7).map(o=>({x:o.x,z:o.z,r:Math.hypot(o.width,o.length)/2,hw:o.width/2,hd:o.length/2,angle:Math.atan2(o.fx,o.fz),y0:o.y??ny,y1:(o.y??ny)+1.8}));
         const hit = collide(s.spot.colliders||[],nx,nz,.45,ny+.3)||collide(people,nx,nz,.45,ny+.3);
         if (hit) { nx += hit.px; nz += hit.pz; st.v *= 0.3; ny = g.groundAt(nx, nz, st.y + 0.5); if (!(ny < st.y + 0.6)) { nx = st.x; nz = st.z; ny = st.y; } }

@@ -238,7 +238,7 @@ export default {
                 { label: 'The ribbed dome', ...dome, y: AT.y + 27.7 + 10 * (41-27.7)/(47.4-27.7), radius: 1.6, surfaceTolerance: 2 },
             ], onDone: s => bucActivity(s, 'athenaeum-revolution', 'concert-hall', '📷 Athenaeum details', 'You framed the Ionic portico, inscription and dome from the garden.') });
         }
-        if (balcony) ctx.interactables.push({ x: balcony.x, z: balcony.z, r: 4, label: 'Stand below the balcony (21 December 1989)', use: (s) => { s.ui.toast('21 December 1989', 'Ceaușescu\'s last speech from this balcony was booed by the crowd; he fled by helicopter from the roof the next day.'); s.sound.play('crowd', 0.6); } });
+        if (balcony) ctx.interactables.push({ kind: 'viewpoint', x: balcony.x, z: balcony.z, r: 4, label: 'Stand below the balcony (21 December 1989)', use: (s) => { s.ui.toast('21 December 1989', 'Ceaușescu\'s last speech from this balcony was booed by the crowd; he fled by helicopter from the roof the next day.'); s.sound.play('crowd', 0.6); } });
         // postcard: from the garden in front of the portico, looking back at the portico and the dome (the research point
         // lies at the building's south side; the portico faces the garden / Calea Victoriei)
         if (AT) { const cp = local(AT, 56, 7), hd = (Math.atan2(AT.x - cp.x, -(AT.z - cp.z)) * 180 / Math.PI + 360) % 360; ctx.challenge('athenaeum-revolution', { view: [AT.x, AT.z], x: cp.x, z: cp.z, heading: hd, r: 12, tol: 26 }); const sp2 = local(AT, 56, -8); ctx.spawns['athenaeum-revolution'] = { x: sp2.x, z: sp2.z, heading: headingFromBearing((Math.atan2(AT.x - sp2.x, -(AT.z - sp2.z)) * 180 / Math.PI + 360) % 360) }; }

@@ -2,7 +2,10 @@
 export function syncModalControls(host) {
     const modal = !!(!['drive', 'foot', 'office', 'spot'].includes(host.state) || host._pauseOpen || host.mapOpen || host.condOpen || host.hud.panelOpen || host.spot?.ui?.panelOpen || host.explore?.map?.isOpen || host.photo?.active || document.querySelector('#achv-panel.show, #save-gallery.show') || document.body.classList.contains('finale-open'));
     const extras = host.state === 'spot' ? host.spot?.spot?.ctx?.extras : null;
-    const activity = !!(extras?.participation?.active || extras?.venueActivities?.active);
+    // a ride (bike / boat) keeps the minimap, the touch stick and the launchers: it is how you move, not a modal task
+    // (owner, 2026-11-15: "I also can't see minimap on bike")
+    const ride = !!extras?.participation?.run?.opts?.ride;
+    const activity = !ride && !!(extras?.participation?.active || extras?.venueActivities?.active);
     if (modal === host._controlsModal && activity === host._controlsActivity) return;
     host._controlsModal = modal; host._controlsActivity = activity;
     document.body.classList.toggle('ui-modal', modal);

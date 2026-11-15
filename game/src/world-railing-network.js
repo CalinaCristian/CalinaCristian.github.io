@@ -65,7 +65,11 @@ export function buildRailingNetwork(ctx) {
                     });
                     N.bodies.each(q.x - 4, q.z - 4, q.x + 4, q.z + 4, w => {
                         if (w === q.w || seenW.has(w)) return; seenW.add(w);
-                        const p = N.nearestOn(w, q.x, q.z), dy = Math.abs(p.top - q.top); if (p.d > 4 || p.d < .05 || dy > Math.max(.5, p.d * .4) || (p.d > 3 && dy <= .5) || (p.x - q.x) * q.ux + (p.z - q.z) * q.uz < -.3 * p.d) return;
+                        // (owner, 2026-11-15, Grozăvești (452, -778) "missing fence": the pad rim of the Exit → Giulești split
+                        // ended 3.2 m short of the exit's own railing, a gap in the deck edge where it bends) a level join of
+                        // 3-4 m is made when it carries straight on along the open end's own direction (within ≈ 35°)
+                        const p = N.nearestOn(w, q.x, q.z), dy = Math.abs(p.top - q.top), ahead = (p.x - q.x) * q.ux + (p.z - q.z) * q.uz;
+                        if (p.d > 4 || p.d < .05 || dy > Math.max(.5, p.d * .4) || (p.d > 3 && dy <= .5 && ahead < .82 * p.d) || ahead < -.3 * p.d) return;
                         // (onto a railing at another level only along a surface that carries the piece: a sloped infill)
                         if (dy > .5 && ![.25, .5, .75].every(f => { let on = false; const y = q.top + (p.top - q.top) * f - 1.1; surfacesAt(q.x + (p.x - q.x) * f, q.z + (p.z - q.z) * f, h => { if (Math.abs(h - y) < .5) on = true; }); return on; })) return;
                         cands.push({ d: p.d, q, p });

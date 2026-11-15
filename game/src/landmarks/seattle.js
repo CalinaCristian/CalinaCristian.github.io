@@ -286,7 +286,16 @@ export function bSeaTac(b) {
         skip:(i,j,f,k)=>{const a=p[i],c=p[(i+1)%p.length],t=(j+.5)/k,x=a[0]+(c[0]-a[0])*t,z=a[1]+(c[1]-a[1])*t;return f===1?curb.contains(x,z):terminalBridgeEntries(p).contains(x,z);} });
     b.cornice(p, 16.4, 1.2, 1.2, WH);
     b.prism(offset(p, -6), 17, 19.5, WH);
-    b.text('SEATTLE-TACOMA INTERNATIONAL AIRPORT', -120, 11, zAt([p], -120)[0] - 1.25, Math.PI, 3.2, '#1f3550');
+    // (owner, 2026-11-15, SeaTac: "what is international A") the sign was one flat plane in front of a curved frontage: both
+    // ends sank into the facade and only "INTERNATIONAL A" showed. Each letter now stands 1.25 m before the frontage where it
+    // is, turned with it, so the whole name reads along the curve.
+    { const str = 'SEATTLE-TACOMA INTERNATIONAL AIRPORT', h = 3.2, px = h / 7, adv = 6 * px, front = x => zAt([p], x)?.[0];
+        [...str].forEach((ch, i) => {
+            if (ch === ' ') return;
+            const xc = -120 - (i + 0.5) * adv, zc = front(xc), za = front(xc - 1), zb = front(xc + 1); if (zc == null || za == null || zb == null) return;
+            const sl = (zb - za) / 2, n = Math.hypot(1, sl), dx = -1 / n, dz = -sl / n, ry = Math.atan2(sl, -1);
+            b.text(ch, xc - dx * 2.5 * px, 11, zc - 1.25 - dz * 2.5 * px, ry, h, '#1f3550');
+        }); }
     // South Satellite (1973, rebuilt)
     b.prism(ss, 0, 14, '#d7dadb', { topCol: '#c4c8ca' }); b.windows(ss, 0, 14, 7, GL, { bay: 6, wf: 0.85, hf: 0.55, start: 2, mat: 'g', minL: 10 });
     b.cornice(ss, 13.6, 1, 1, WH);

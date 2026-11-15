@@ -6,24 +6,14 @@ folder may hold: [`AGENTS.md`](../../AGENTS.md).
 
 ## Owner reports
 
-2026-11-15 reports (F8 poses: eye x, y, z · bearing° · pitch°). Grozăvești overpass lines, windows in roof, missing fence, support
-block, "looks odd", the SeaTac sign, Pasajul Unirii, Palatul Regal overlap, the NetBet legs and the Otopeni walkway are fixed and re-checked live (removed). Fixed on master a3fdd88b, still to re-check live:
+All 2026-11-15 reports are fixed and re-checked live (release 9f47516f), so they are removed. What is left of them:
 
-| Pose | Report | Status / next step |
+| Where | Open | Next step |
 |---|---|---|
-| Grozăvești (83, 8, 120) · 300 · -35 | "weird fences": railing cages on the median | Fixed (median fill joins); re-check live |
-| Pipera (711, 24, 183) · 228 · -11 | "buildings within buildings?" | Real per OSM (Fabrica de Glucoză 6-8: towers w938553616–620 over blocks w938553607–610); apartment towers now draw as residential blocks, not glass (68 in Pipera, 67 in Bellevue); re-check live |
-| Pipera (-1284, 9, 85) · 54 · -69 | lanes misplaced | Fixed (opposite one-ways overlapping narrowed to the midline); re-check live |
-| Romană, UiPath building | "is this how uipath looks?" | Remodelled from the leasing photos (stone block, glass storey, set-back glass box with the logo); re-check live |
-| Romană (-254, 1, -319) · 219 · 18 | door flicker | Fixed (entrance() offsets, 11 landmarks); re-check live |
-| Tourist spots | activities / map lists / photo walks / signs / bikes / boats / hidden bar / busker / race / pétanque / Starbucks / see-through people / bike + map / minimap | Shipped, plus one real activity each for Kerry Park (hoops), Athenaeum (concert), Spring Palace (peacock), Botanical Garden (Garden d'Lights hunt), Lincoln Square (bowling), Pioneer Square (ping pong). Those six spots are not in the spot menu (MENU_ORDER), so their achievements count only with ?spots=all — open |
-| Spot surroundings | broken buildings at Cișmigiu / Arcul, top storey cut, distant buildings moiré | Shipped (facade-finish.js); roofs stay flat unless OSM tags a shape — open |
-| Bellevue | "LINCOLN SQUARE" sign, UiPath sign, lanes | Signs, driveway lane paint and real one-way widths shipped (buildings on carriageways 4 → 0; 10620 NE 8th St clipped to the sidewalk line as a documented exception). Open: lane lines jump up to ~3.5 m where a restored run meets a different lane count; bare junction interiors at 112th / NE 8th and the I-405 ramp terminal |
-| SeaTac (-953, 2, 995) · 100 · 1 | airport drives broken | Shipped (SeaTac-only flags in cities.js): barriers out of lanes, one kerb per one-way chain (line jumps 82 → 37), ramp narrows once with a taper, lane-drop tapers on the decks, guards on raised fill (railing open ends 34 → 13), no railing inside the garage decks; re-check live. Open: Ramp w31928834 overlaps w31928843 by ~1 m; Airport Expressway 3-lane parts sit 1.85 m off their mapped line |
-| Pike Place spot (-147, -3, -53) | broken below street level; fish throw | Shipped: market floors at street level, bluff railings; fish crew throw (catch 3 of 5, 7–17 h); re-check live |
-| Space Needle (4, 155, -6) · 142 · 26 | "why do I see a roof here": stair under a closed slab | Shipped (stairwell opened in the Loupe ceiling); re-check live |
-| Meydenbauer (19, 1, -11) · 126 · -21 | people sitting on nothing | Shipped (sitters on a real seat, a spawned bench with a collider, or a blanket); no sitter on the Fremont Troll; re-check live |
-| Bellevue parks | creative, working activities | Shipped: Downtown Park frisbee, swing, winter rink; Meydenbauer paddleboard, swim to the float, stone skips (park hours); Botanical Garden still has only the bike and its bridge walk — open |
+| Spot menu | Kerry Park, Athenaeum, Spring Palace, Botanical Garden, Lincoln Square and Pioneer Square have real activities but are not in MENU_ORDER, so their achievements count only with `?spots=all` | The owner decides whether to add them to the menu |
+| Spot surroundings | Roofs stay flat where OSM tags no `roof:shape` | Find a source-backed rule (tagged neighbours, building type) or leave as mapped |
+| Bellevue | Lane lines jump up to ~3.5 m where a restored one-way run meets a different lane count; bare junction interiors at 112th Ave / NE 8th St and the I-405 ramp terminal | Taper the lane change over the run; fill the interiors from the junction polygon |
+| SeaTac | Ramp w31928834 overlaps w31928843 by ~1 m; the Airport Expressway 3-lane parts sit 1.85 m off their mapped line | Check against OSM and Street View at those ways |
 
 ## Other open work
 

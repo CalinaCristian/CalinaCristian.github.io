@@ -27,7 +27,7 @@ block, "looks odd" and the SeaTac sign are fixed and re-checked live (removed). 
 | Pike Place spot (-147, -3, -53) | broken below street level; fish throw | In progress |
 | Space Needle (4, 155, -6) · 142 · 26 | "why do I see a roof here": stair under a closed slab | In progress (with Pike Place) |
 | Meydenbauer (19, 1, -11) · 126 · -21 | people sitting on nothing | In progress (with Pike Place) |
-| Bellevue parks | creative, working activities | Built (frisbee, swing, rink, paddleboard, swim, stone skips); being merged onto the spots pass |
+| Bellevue parks | creative, working activities | Shipped: Downtown Park frisbee, swing, winter rink; Meydenbauer paddleboard, swim to the float, stone skips (park hours); Botanical Garden still has only the bike and its bridge walk — open |
 
 ## Other open work
 

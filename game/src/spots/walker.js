@@ -11,13 +11,16 @@ import { clamp, inPoly, distSeg } from './kit.js';
 /** spatial hash over colliders: array with .query(x, z, r, cb) (OnFootController uses it) */
 export function colliderIndex(list, cell = 16) {
     const grid = new Map(), key = (i, j) => i * 73856093 ^ j * 19349663;
-    for (const c of list) {
+    const insert = (c) => {
         if (c.wall && c.x === undefined) { c.x = (c.ax + c.bx) / 2; c.z = (c.az + c.bz) / 2; c.r = Math.hypot(c.bx - c.ax, c.bz - c.az) / 2 + 0.5; } // segments: centre + half length
         if (!c.r) { c.r = c.poly ? 1 : Math.hypot(c.hw || 0.3, c.hd || 0.3); }
         const i0 = Math.floor((c.x - c.r) / cell), i1 = Math.floor((c.x + c.r) / cell), j0 = Math.floor((c.z - c.r) / cell), j1 = Math.floor((c.z + c.r) / cell);
         for (let i = i0; i <= i1; i++) for (let j = j0; j <= j1; j++) { const k = key(i, j); let b = grid.get(k); if (!b) grid.set(k, b = []); b.push(c); }
-    }
+    };
+    for (const c of list) insert(c);
     const arr = [...list];
+    /** a collider placed after the index was built (the crowd's spawned benches): indexed and listed like the others */
+    arr.add = (c) => { insert(c); arr.push(c); return c; };
     let stamp = 0;
     arr.query = (x, z, r, cb) => {
         stamp++;

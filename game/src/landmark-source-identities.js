@@ -158,10 +158,16 @@ export const LANDMARK_SOURCE_IDS = {
         "w1493204405",
         "w16291602"
     ],
+    // (2026-11-15 owner report, Romană (450, 34, 966) "buildings colliding") w1476782273, w1476784157, w1476785348 added:
+    // building:part=yes (building:colour #eee8aa; 4 / 15.7 / 15.7-16 m) inside the Palatul Regal outline w232472401, its
+    // south-east wing (OSM API, versions 8-9 of 2026-03-30). Undeclared, they stood as a yellow block through the palace model.
     "regal": [
         "w1476782271",
         "w1476782272",
+        "w1476782273",
         "w1476782274",
+        "w1476784157",
+        "w1476785348",
         "w1476790706",
         "w1476795653",
         "w1476795654",

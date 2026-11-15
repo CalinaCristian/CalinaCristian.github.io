@@ -141,8 +141,11 @@ export function nearestFacade(p, px, pz) {
 export function entrance(b, f, o = {}) {
     const { x, z, nx, nz } = f, ux = -nz, uz = nx, ry = Math.atan2(nx, nz), w = o.w ?? 2.4, h = o.h ?? 2.9, y = o.y ?? 0;
     const at = (u, n) => [x + ux * u + nx * n, z + uz * u + nz * n];
-    { const [cx, cz] = at(0, 0.1); b.box(cx, y, cz, w + 0.5, h + 0.35, 0.22, o.frame || '#3c3f42', { ry }); }
-    { const [cx, cz] = at(0, 0.2); b.box(cx, y, cz, w, h, 0.08, o.door || '#7e959e', { ry, mat: o.doorMat || 'g' }); }
+    // (owner, 2026-11-15, Romană (-254, 1, -319) "flickering on the door": the door's face lay at 0.24 m, the plane of the
+    // kit's band piers (bands: off 0.18 + 0.06), so a pier in front of the Europe House door depth-fought with it) frame and
+    // door stand proud of that plane: frame face 0.28 m, door face 0.31 m
+    { const [cx, cz] = at(0, 0.135); b.box(cx, y, cz, w + 0.5, h + 0.35, 0.29, o.frame || '#3c3f42', { ry }); }
+    { const [cx, cz] = at(0, 0.27); b.box(cx, y, cz, w, h, 0.08, o.door || '#7e959e', { ry, mat: o.doorMat || 'g' }); }
     if (o.canopy) { const [cx, cz] = at(0, o.canopy / 2); b.box(cx, y + h + 0.35, cz, w + 1.6, 0.25, o.canopy, o.canopyCol || '#3c3f42', { ry }); if (o.canopyText) { const [tx, tz] = at(0, o.canopy + 0.02); b.text(o.canopyText, tx, y + h + 0.37, tz, ry, o.canopyTextH || 0.2, o.canopyTextCol || '#f2f2f2', { d: 0.01 }); } }
     if (o.plate) {
         const pw = o.plate.w ?? 0.8, ph = o.plate.h ?? 0.55, side = o.plate.side ?? 1, u = side * (w / 2 + (o.plate.gap ?? 0.55) + pw / 2), yb = y + (o.plate.y ?? 1.35);

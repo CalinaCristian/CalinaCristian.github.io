@@ -58,6 +58,12 @@ Starts and roads are authoritative in `cities.js` CHAPTERS.
   (#3C3F42), glass #6F8A94, glazed ground floor with cafés, recessed top floor. Panorama 44.450288, 26.094312 h 143: stone grid
   with windows on every storey, glazed ground floor, set-back glass top storey (landmark `thelandmark`). A modern beige / grey
   block among old villas.
+- Massing (2026-11-15, the leasing listing's drone photos at spatii-de-birouri.ro/en/bucharest-the-landmark, viewed only,
+  nothing stored; listing: levels "3S+P+6+7T", completed 2016, 3 buildings): Corp B is a white stone block of ground + 4
+  storeys, a glass storey over the whole footprint with a dark floor band and a glass balustrade round its roof terrace, and a
+  two-storey glass box set back from the street fronts behind planted terraces, light reflective glass in a fine dark mullion
+  grid, with the red UiPath logo on its top edge (two faces). No grey rooftop mesh screen. Storey heights are estimates within
+  OSM's 29.4 m.
 
 ## 3. Streets and traffic
 

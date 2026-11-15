@@ -40,7 +40,10 @@ export async function buildRaisedEdges(ctx) {
     // open Pasajul Unirii ramps that share one cut (the south pair, centre lines 8.4 m apart): edge → its partner and the
     // partner's offset along the edge normal. Between them stand the planters, not trench walls or an inferred barrier.
     const pasajMedian = new Map(), pasajOpen = raised.filter(e => !e.tunnel && isPasajUnirii(data.roadSourceGeometry?.[e.road]));
-    for (const e of pasajOpen) for (const f of pasajOpen) { if (f === e || f.dirx * e.dirx + f.dirz * e.dirz > -0.95) continue; const off = (f.a.x - e.a.x) * e.nx + (f.a.z - e.a.z) * e.nz; if (Math.abs(off) <= 12) pasajMedian.set(e, { f, off }); }
+    // (2026-11-15 owner report, Unirii (-410, -2, -22): the partner must lie beside the edge, not just on its line: the
+    // north ramp's east carriageway w/ the south ramp 600 m further on its line lost its east wall, and the street showed through)
+    const alongOverlap = (e, f) => { const s = [f.a, f.b].map(p => (p.x - e.a.x) * e.dirx + (p.z - e.a.z) * e.dirz); return Math.min(Math.max(...s), e.len) - Math.max(Math.min(...s), 0); };
+    for (const e of pasajOpen) for (const f of pasajOpen) { if (f === e || f.dirx * e.dirx + f.dirz * e.dirz > -0.95 || alongOverlap(e, f) < 1) continue; const off = (f.a.x - e.a.x) * e.nx + (f.a.z - e.a.z) * e.nz; if (Math.abs(off) <= 12) pasajMedian.set(e, { f, off }); }
     const pasajMedianSide = (e, o) => { const m = pasajMedian.get(e); return !!m && Math.sign(m.off) === Math.sign(o); };
     const pasajMedianBarrier = (w) => { const e = w.edge, m = e && pasajMedian.get(e); if (!m) return false; const d = (w.x - e.a.x) * e.nx + (w.z - e.a.z) * e.nz; return Math.sign(d) === Math.sign(m.off) && Math.abs(d) < Math.abs(m.off); };
     // shared underpass hall (2026-11-12 fidelity pass): roofed tram-station pieces and the deep covered carriageways beside them

@@ -214,6 +214,37 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         if (narrowed) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + .5; __buildRoadGraphAids.sccInfo.raisedBesideStreet = narrowed; }
     }
+    // (owner, 2026-11-15, Pipera (-1284, 9, 85) "lanes missplaced? conflicting") a divided road OSM maps as two one-way ways
+    // closer than their modelled widths (Șos. Pipera w8063802 / w1443263022: centre lines 5.9 m apart, 2 lanes each, drawn
+    // 2 × 3.5 m) overlapped by a metre: each carriageway's edge line ran inside the other's lane, under its cars. The two
+    // facing sides are narrowed to meet on the line midway between the ways (lanes down to 2.6 m), so paint, lanes and traffic
+    // stay on each way's own half. MODEL: lane widths are estimates; a way with a mapped or reviewed width is left alone.
+    {
+        let narrowed = 0; const touched = new Set();
+        for (const e of edges) {
+            if (!e.oneway || e.virtual || e.tunnel || e.bridge || Math.max(Math.abs(e.ya), Math.abs(e.yb)) > .3 || e.roadWidthSource) continue;
+            for (const sd of [1, -1]) {
+                let half = Infinity;
+                for (const t of [.2, .5, .8]) {
+                    const x = e.a.x + (e.b.x - e.a.x) * t, z = e.a.z + (e.b.z - e.a.z) * t;
+                    edgesInBox(x - 12, z - 12, x + 12, z + 12, f => {
+                        if (f === e || !f.oneway || f.virtual || f.tunnel || f.bridge || Math.max(Math.abs(f.ya), Math.abs(f.yb)) > .3 || f.dirx * e.dirx + f.dirz * e.dirz > -.9) return;
+                        if (f.a === e.a || f.a === e.b || f.b === e.a || f.b === e.b) return;
+                        const q = distPointSeg(x, z, f.a.x, f.a.z, f.b.x, f.b.z); if (q.t <= .02 || q.t >= .98) return;
+                        if (((q.cx - x) * e.nx + (q.cz - z) * e.nz) * sd <= 0) return; // (on this side)
+                        const fSide = ((x - q.cx) * f.nx + (z - q.cz) * f.nz) > 0 ? f.wR : f.wL;
+                        if (q.d < (sd > 0 ? e.wR : e.wL) + shoulderOf(e) + fSide + shoulderOf(f) - .05) half = Math.min(half, q.d / 2 - shoulderOf(e));
+                    });
+                }
+                const key = sd > 0 ? 'wR' : 'wL';
+                if (!(half < e[key] - .05)) continue;
+                const lanes = Math.max(1, e.lanesF + e.lanesB), other = sd > 0 ? e.wL : e.wR, nw = Math.max(Math.max(1.3, 2.6 * lanes - other), half);
+                if (!(nw < e[key] - .05)) continue;
+                e[key] = nw; e.laneW = Math.min(e.laneW, (e.wL + e.wR) / lanes); e.median = -2 * e.wL; layContraflowLanes(e); e.halfW = Math.max(e.wL, e.wR); touched.add(e.a).add(e.b); narrowed++;
+            }
+        }
+        if (narrowed) { for (const n of touched) n.radius = Math.max(...n.edges.map(e => e.halfW)) + .5; __buildRoadGraphAids.sccInfo.dividedPairNarrowed = narrowed; }
+    }
     // (owner, 2026-11-12, Grozavesti: "fences are not continuous on the bridge still in many places") along 100 m of the Basarab
     // decks the tram on the slab beside a carriageway overhangs that carriageway's edge by 0.3-0.6 m (OSM centre lines and
     // modelled widths leave no room between them), so the railing between road and track could not stand: a tram would run

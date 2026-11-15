@@ -70,7 +70,7 @@ export function activityFlow(ctx) {
         if (!run) return;
         if (s !== run.s || activityBlocked(s)) { api.cancel('mode'); return; }
         if (s.input?.take?.('Escape')) { api.cancel('escape'); return; }
-        if (s.input?.take?.('KeyE')) run.button.click();
+        if (s.input?.take?.('KeyE')) { run.button.click(); if (!run) return; } // (the action may end the run)
         s.input?.take?.('Space');
         if (run.opts.lockWalker !== false && !run.opts.cameraRide) {
             const look = s.input?.takeLook?.() || { dx: 0, dy: 0 };

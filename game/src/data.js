@@ -359,6 +359,13 @@ export const ACHIEVEMENTS = [
     { id: 'lm-bbg-bridge', cat: 'landmarks', activity: 'bel-botanical-garden:bridge', live: true, icon: '🌉', title: 'Ravine bridge', desc: 'Crossed the suspension bridge over the ravine in the Bellevue Botanical Garden.' },
     { id: 'lm-meyd-pier', cat: 'landmarks', activity: 'bel-meydenbauer:pier-end', live: true, icon: '🌊', title: 'End of the crescent', desc: 'Walked to the end of the 420 ft crescent pier at Meydenbauer Bay.' },
     { id: 'lm-meyd-kayak', cat: 'landmarks', activity: 'bel-meydenbauer:kayak', live: true, icon: '🛶', title: 'Meydenbauer paddle', desc: 'Paddled a kayak around Meydenbauer Bay.' },
+    // Bellevue park activities (2026-11-15, spots/scenes/bel-park-activities.js; lm-bdp-loop / lm-meyd-pier retired in spot-availability.js)
+    { id: 'lm-bdp-frisbee', cat: 'landmarks', activity: 'bel-downtown-park:frisbee', live: true, icon: '🥏', title: 'Lawn game', desc: 'Three throws caught and three catches in a frisbee game on the Downtown Park lawn.' },
+    { id: 'lm-bdp-swing', cat: 'landmarks', activity: 'bel-downtown-park:swing', live: true, icon: '🛝', title: 'Sky high', desc: 'Pumped a swing at Inspiration Playground up past 50°.' },
+    { id: 'lm-bdp-skate', cat: 'landmarks', activity: 'bel-downtown-park:skate', live: true, icon: '⛸️', title: 'With the flow', desc: 'Skated three anticlockwise laps of the seasonal ice rink in Downtown Park.' },
+    { id: 'lm-meyd-sup', cat: 'landmarks', activity: 'bel-meydenbauer:sup', live: true, icon: '🏄', title: 'Round the pier buoys', desc: 'Stand-up paddled round three buoys off the crescent pier and back to the launch.' },
+    { id: 'lm-meyd-swim', cat: 'landmarks', activity: 'bel-meydenbauer:swim', live: true, icon: '🏊', title: 'To the float and back', desc: 'Swam out to the summer swim float inside the buoy line, climbed on and swam back.' },
+    { id: 'lm-meyd-skip', cat: 'landmarks', activity: 'bel-meydenbauer:skip', live: true, icon: '🪨', title: 'Stone skipper', desc: 'Skipped three stones across Meydenbauer Bay.' },
     { id: 'lm-bel-badge', cat: 'landmarks', activity: 'bel-lincoln-square:badge-in', live: true, icon: '📷', title: 'Lincoln Square details', desc: 'Framed three Lincoln Square details from the public approach.' },
     { id: 'lm-palace-balcony', cat: 'landmarks', activity: 'palace-parliament:balcony', live: true, icon: '🏛️', title: 'Across the Palace facade', desc: 'Framed the balcony and both wings from the public square.' },
     { id: 'lm-cathedral-dome', cat: 'landmarks', activity: 'peoples-salvation-cathedral:candle', live: true, icon: '🕯️', title: 'A candle at the cathedral', desc: 'Completed the outdoor virtual candle practice in a handheld holder.' },

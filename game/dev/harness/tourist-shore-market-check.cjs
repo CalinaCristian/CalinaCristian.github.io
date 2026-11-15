@@ -65,7 +65,7 @@ const out = process.env.OUT || '/tmp/tourist-shore-market'; fs.mkdirSync(out, { 
                     const arc = [...way.pts].reverse(), root = arc[0], prefix = s._navPath(s.position.x, s.position.z, ...root, { radius: 1, maxLength: 300 });
                     let surfacePath = null;
                     if (surfacePlan) {
-                        const { findWalkPath } = await import('./src/spots/tour.js'), ground = s.spot.ground, it = s.spot.interactables.find(i => i.label === 'Walk to the end of the crescent pier'), supportCeiling = Math.max(s.position.y, it.y) + 1.2;
+                        const { findWalkPath } = await import('./src/spots/tour.js'), ground = s.spot.ground, it = { x: arc.at(-1)[0], z: arc.at(-1)[1], y: s.position.y } /* the pier tip (its walk activity was retired 2026-11-15) */, supportCeiling = Math.max(s.position.y, it.y) + 1.2;
                         // A read-only planning adapter samples real reachable
                         // deck tops, instead of the bare lake bed. Physics and
                         // the source surfaces/colliders remain untouched.
@@ -117,7 +117,7 @@ const out = process.env.OUT || '/tmp/tourist-shore-market'; fs.mkdirSync(out, { 
                     const { collide } = await import('./src/spots/walker.js'), dx = t[0] - p.x, dz = t[1] - p.z, len = Math.hypot(dx, dz), sample = (x, z) => { const hit = collide(s.spot.colliders, x, z, .3, p.y + .3); return { x, z, ground: s.spot.ground.groundAt(x, z, p.y), collider: hit && { px: hit.px, pz: hit.pz, hit: { ...hit.hit } }, bodies: s.spot.crowd.obstacles(x, z, 2) }; };
                     return { target: t, current: sample(p.x, p.z), ahead: sample(p.x + dx / len * .23, p.z + dz / len * .23), sides: [-1.6, -1.2, -.8, .8, 1.2, 1.6].map(offset => sample(p.x + dz / len * offset, p.z - dx / len * offset)) };
                 }); save(); await page.evaluate(() => { game.spot.ctl.auto = null; game.spot.input.flush(); }); await capture('pier-public-end');
-                assert.equal(r.walk.reached, true); assert.equal(r.walk.award, true);
+                assert.equal(r.walk.reached, true);
                 for (const k of ['people', 'buildings', 'colliders']) assert.equal(r.walk[k], r.plan[k]);
             });
             await test('stone-native-release-cancellation-and-three-flights', async r => {

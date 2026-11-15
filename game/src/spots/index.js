@@ -73,7 +73,10 @@ export const ACTIVITIES = [
     ['old-town-lipscani', 'lipscani-coffee', 'Have a coffee on Lipscani'], ['old-town-lipscani', 'lipscani-photo-walk', 'Photo walk: Old Town details'],
     ['old-town-lipscani', 'lipscani-busker', 'Toss a coin to the busker'], ['old-town-lipscani', 'mojo-karaoke', 'Sing karaoke at Mojo'], ['old-town-lipscani', 'jacks-papanasi', 'Eat papanași at Jack’s Pub'],
     ['palace-parliament', 'balcony', 'Frame the Palace facade'], ['palace-parliament', 'pace', 'Walk the public Palace sidewalk'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
-    ['bel-meydenbauer', 'pier-end', 'Walk to the end of the pier'], ['bel-meydenbauer', 'kayak', 'Kayak on Meydenbauer Bay'], ['bel-downtown-park', 'loop', 'Walk the park loop'],
+    ['bel-meydenbauer', 'kayak', 'Kayak on Meydenbauer Bay'],
+    // Bellevue parks (2026-11-15, bel-park-activities.js): the pier and loop walks retired (spot-availability.js)
+    ['bel-downtown-park', 'frisbee', 'Play frisbee on the lawn'], ['bel-downtown-park', 'swing', 'Pump a swing sky-high'], ['bel-downtown-park', 'skate', 'Skate the seasonal ice rink'],
+    ['bel-meydenbauer', 'sup', 'Paddleboard round the pier buoys'], ['bel-meydenbauer', 'swim', 'Swim to the float and back'], ['bel-meydenbauer', 'skip', 'Skip stones across the bay'],
     ['bel-botanical-garden', 'bridge', 'Cross the suspension bridge'], ['bel-lincoln-square', 'badge-in', 'Frame Lincoln Square'],
     ['space-needle', 'lm-chihuly-glasshouse', 'Explore the Glasshouse details'], ['mopop', 'mopop-lobes', 'Frame MoPOP\'s metal lobes'],
     ['arcul-de-triumf', 'arcul-race', 'Win the island race'], ['arcul-de-triumf', 'arcul-baguette', 'Catch the baguette three times'],

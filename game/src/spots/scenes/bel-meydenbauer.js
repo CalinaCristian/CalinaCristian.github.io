@@ -15,8 +15,9 @@
 //  Round 2 of the 2026-11-12 fidelity pass compared the scene with Street View
 //  from 99th Ave NE, the marina lot and Lake Washington Blvd (see
 //  game/research/seattle-spots.md, "Meydenbauer Bay Park", for what was established).
-//  Activities (note 57): walk to the end of the crescent; rent a kayak at the
-//  boathouse (summer) for a paddle round the bay; skip stones from the beach.
+//  Activities (note 57; owner 2026-11-15): rent a kayak at the boathouse for a paddle round the bay; a stand-up
+//  paddleboard round the pier buoys; swim to the summer float; skip stones from the beach (bel-park-activities.js:
+//  opening hours by the in-game clock). (Walking to the end of the crescent was retired: a walk, not an activity.)
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { polyArea, GeoBatch, M, rng, headingFromBearing, lerp, smooth, clamp, inPoly, polyBox, alongPolyline, polylineLength, distPolyline } from '../kit.js';
@@ -26,6 +27,7 @@ import { boatRide } from '../buc.js';
 import { dryLanding, shortWaterRoute, waterLoop } from '../water-route.js';
 import { stoneSkipping } from '../stone-skipping.js';
 import { loadShoreHouses, shoreHouses } from './bel-shore-houses.js';
+import { meydenbauerActivities, parkActivity, MEYDENBAUER_HOURS } from './bel-park-activities.js';
 import { emitActivity, seasonal, shoreField, waterGrid, boulderWall, nightLit, glowText, gableRoof, tri, fairyLights } from './bel-common.js';
 import { LAKE_Y, DECK, meshMaterial, stripGeo, boat, lwbBridge, hullGeo } from './bel-meydenbauer-kit.js';
 export default {
@@ -263,7 +265,7 @@ export default {
         for (const [dx, dz] of [[-0.6, -0.5], [0.6, -0.5], [-0.6, 0.5], [0.6, 0.5]]) sb.rod([lg.x + dx, ly, lg.z + dz], [lg.x + dx * 0.7, ly + 2.1, lg.z + dz * 0.7], 0.06, '#f2f2ee', 'paint', 6);
         sb.box(lg.x, ly + 2.1, lg.z, 1.2, 0.1, 1.1, '#f2f2ee', 'paint'); sb.box(lg.x, ly + 2.2, lg.z + 0.45, 0.9, 0.5, 0.1, '#c8102e', 'paint'); sb.cyl(lg.x, ly + 2.2, lg.z, 0.04, 1.6, '#cccccc', 'metal', 4); sb.cyl(lg.x, ly + 3.7, lg.z, 0.9, 0.35, '#c8102e', 'fabric', 10, 0.1);
         summer.add(sb.build('summer-swim'));
-        ctx.add(summer); seasonal(ctx, [5, 25], [9, 8], (on) => { summer.visible = on; });
+        ctx.add(summer); // shown in the swim season (late May – early Sep, or Summer picked): meydenbauerActivities below
         for (const [x, z, a] of [[-18, -26, 0.3], [8, -14, 1.1], [-26, -33, 2.1]]) { const y = g.heightAt(x, z); fb.rod([x - Math.cos(a) * 2.2, y + 0.25, z - Math.sin(a) * 2.2], [x + Math.cos(a) * 2.2, y + 0.3, z + Math.sin(a) * 2.2], 0.28, '#8d7a64', 'wood', 8, 0.24); ctx.box(x, z, 2.2, 0.3, -a, { prop: true, h: 0.55 }); }
         // ---------------------------------------------------------------- rockeries (OSM retaining walls) + boulders along the promenade
         const rk = new GeoBatch();
@@ -392,10 +394,7 @@ export default {
         // Seattle on the horizon (≈ 9 km west) + Olympics, Rainier on clear days
         seattleBackdrop(ctx, { baseY: LAKE_Y - 0.4, clear: 3000, hazeK: 0.45, olympics: true, rainier: true, eyeY: 1.6 });
         // ---------------------------------------------------------------- activities (note 57)
-        // 1) walk to the end of the crescent
-        let pierDone = false;
-        ctx.onUpdate((dt, s, pl) => { if (pierDone || !pl) return; if (Math.hypot(pl.x - TC.x, pl.z - TC.z) < TR - 0.5 && pl.y > DECK - 0.5) { pierDone = true; emitActivity(s, 'bel-meydenbauer', 'pier-end', '🌊 End of the crescent', '420 ft out over Meydenbauer Bay — Seattle is 9 km west across Lake Washington.'); } });
-        ctx.interactables.push({ kind: 'activity', x: TC.x, z: TC.z, r: TR - 0.6, y: DECK, label: 'Walk to the end of the crescent pier', use: (s) => { if (!pierDone) { pierDone = true; emitActivity(s, 'bel-meydenbauer', 'pier-end', '🌊 End of the crescent', '420 ft out over Meydenbauer Bay — Seattle is 9 km west across Lake Washington.'); } else s.ui.toast('🌊 Meydenbauer Bay', 'Floating crescent pier, opened March 2019.'); } });
+        // (the walk to the end of the crescent was retired 2026-11-15: a walk, not an activity)
         // The city confirms a public hand-carry launch and seasonal rentals.
         // Its current page names Best Kayak Rentals; the OSM boathouse name REI
         // is historical, so this game course never claims an open REI rental.
@@ -429,7 +428,15 @@ export default {
         const beachC = beachPoly.length ? { x: (bb.x0 + bb.x1) / 2, z: (bb.z0 + bb.z1) / 2 } : { x: 10, z: -15 };
         const skipFrom=dryLanding(lakePoly,{x:-28,z:-16},2),skipTo={x:-40,z:1};
         ctx.extras.stoneSkipping=stoneSkipping(ctx,{from:skipFrom,target:new THREE.Vector3(skipTo.x,LAKE_Y+.03,skipTo.z),waterY:LAKE_Y,onDone:s=>emitActivity(s,'bel-meydenbauer','skip','🪨 Three stone throws','You released three visible stones across the water outside the swimming area.')});
-        ctx.interactables.push({kind:'skip',...skipFrom,r:2.4,label:'Practise three stone skips',use:s=>ctx.extras.stoneSkipping.start(s)});
+        parkActivity(ctx,MEYDENBAUER_HOURS,{kind:'skip',...skipFrom,r:2.4,title:'🪨 Stone skipping',label:'Practise three stone skips',start:s=>ctx.extras.stoneSkipping.start(s)});
+        // Stand-up paddleboard round the pier buoys + swim to the summer float (bel-park-activities.js). The board keeps
+        // 2 m from docks, sheds and the swimming area, 1.2 m from moored boats, and glances off the buoys (the kayak's 6 m
+        // crescent margin would shut the buoys off: the board keeps 1.1 m off the crescent deck instead).
+        { const SUP_CLEAR_M=2,supAvoid=(x,z)=>d.buildings.some(b=>nearPoly(x,z,b.poly,SUP_CLEAR_M))||nearPoly(x,z,sourcePier?.poly,SUP_CLEAR_M)||nearPoly(x,z,swimming,2)||pierLines.some(p=>distPolyline(x,z,p).d<1.1+SUP_CLEAR_M)||
+                mooredBodies.some(b=>{const dx=x-b.x,dz=z-b.z,c=Math.cos(b.angle),s=Math.sin(b.angle);return Math.abs(dx*c-dz*s)<b.hw+1.2&&Math.abs(dx*s+dz*c)<b.hd+1.2;})||ctx.colliders.some(c=>c.prop&&c.hw===c.r&&Math.hypot(x-c.x,z-c.z)<c.r+1.2);
+          const K=ctx.extras.meydenbauerKayak;
+          meydenbauerActivities(ctx,{lakePoly,sdf,waterY:LAKE_Y,swim:swimming,float:{x:-6,z:38,top:LAKE_Y+.35},summer,pierLine:pierLine0||[],avoid:supAvoid,buoys:buoyPts,
+            launch:K?{x:K.launch.x,z:K.launch.z,y:LAKE_Y+.42}:null,put:K?{x:K.path[0][0],z:K.path[0][1]}:null,out:K?.path[3]?{x:K.path[3][0],z:K.path[3][1]}:null,guard:{x:5,z:-14},busy:()=>!!K?.ride.active()}); }
         // ---------------------------------------------------------------- plaques (research), postcard, crowd, sounds, spawn
         const PL = sp.plaques, py0 = (x, z) => g.heightAt(x, z);
         if (PL[0] && wh) { const c = polyBox(wh); ctx.plaque(PL[0], c.x0 - 6, c.z0 - 5, -2.4); }

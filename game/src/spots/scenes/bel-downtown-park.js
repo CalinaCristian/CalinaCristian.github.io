@@ -11,17 +11,18 @@
 //  seasonal ice-rink tent (late Nov – early Jan), and the edge streets
 //  (Bellevue Way, NE 4th, 100th Ave, NE 1st) from OSM with Lincoln Square and
 //  the downtown towers rising behind.
-//  Activities (note 57): walk the half-mile loop (timer + steps); toss a coin.
+//  Activities (note 57; owner 2026-11-15): frisbee on the lawn, pump a swing at Inspiration Playground, skate the
+//  seasonal rink (bel-park-activities.js); toss a virtual coin. (The half-mile loop walk was retired: not interactive.)
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
-import { activityBlocked, onActivityCancel } from '../participation.js';
 import { GeoBatch, rng, headingFromBearing, smooth, lerp, clamp, inPoly, polyBox, canvas, canvasTexture, distPolyline } from '../kit.js';
 import { coinDrop } from '../coin-drop.js';
 import { meshSDF, sdCapsule, sdEllipsoid, smin, smax, noise3 } from '../sdf.js';
 import { seattleBackdrop } from '../backdrop.js';
 import { addTraffic } from '../cars.js';
 import { makeWaterMaterial } from '../../water.js';
-import { emitActivity, seasonal, waterPoly, nightLit, glowText, placeLitLandmark, skipNearLandmark, fairyLights, treeLightPoints, gableRoof, parkPavilions } from './bel-common.js';
+import { downtownParkActivities } from './bel-park-activities.js';
+import { seasonal, waterPoly, nightLit, glowText, placeLitLandmark, skipNearLandmark, fairyLights, treeLightPoints, gableRoof, parkPavilions } from './bel-common.js';
 
 const C = { x: -61.3, z: 89.2 }, R = 99.15, HW = 2.3; // canal centre circle (fitted to the 45 OSM weirs), half-width
 const TOP = 0.55, STEP = 0.105;                       // canal water level at the north gateway, drop per weir
@@ -167,7 +168,7 @@ export default {
         // ---------------------------------------------------------------- Inspiration Playground (SW): equipment at its mapped places
         // Live OSM 2026-11-12 (the spot extract has only the outline): playground=* nodes + the splash pad way w1389888661.
         // Each piece stands where it is mapped; the shapes are plain stand-ins for their mapped type, sizes are estimates.
-        const pgp = area('w503657594');
+        const pgp = area('w503657594'); let swingFrame = null, rinkInfo = null;
         if (pgp) { const q = new GeoBatch();
             const PG = [['structure', -172.8, 169.7], ['structure', -213.6, 156.1], ['climbingframe', -228.1, 165.2], ['slide', -169.6, 171.7], ['slide', -209.3, 153.0], ['slide', -211.4, 155.3], ['slide', -233.8, 160.3],
                 ['swing', -174.2, 179.1], ['basketswing', -236.9, 169.7], ['basketswing', -238.8, 166.6], ['spinner_bowl', -184.3, 161.5], ['spinning_circle', -223.4, 174.8], ['trampoline', -222.5, 169.1], ['bannister_bars', -183.3, 175.2], ['water_table', -198.7, 174.2]];
@@ -177,7 +178,7 @@ export default {
                 else if (kind === 'climbingframe') { q.cyl(x, y, z, 0.08, 4, '#d9d9d4', 'chrome', 8); for (let k = 0; k < 6; k++) { const a = k / 6 * TAU; q.rod([x + Math.cos(a) * 2.6, y, z + Math.sin(a) * 2.6], [x, y + 4, z], 0.025, '#c8452e', 'fabric', 4); } ctx.circle(x, z, 0.3, 4); }
                 else if (kind === 'slide') { const t = towers.slice().sort((a, b) => Math.hypot(a[1] - x, a[2] - z) - Math.hypot(b[1] - x, b[2] - z))[0], dx = x - t[1], dz = z - t[2], L = Math.hypot(dx, dz) || 1; q.rod([x - dx / L * 1.4, y + 1.6, z - dz / L * 1.4], [x + dx / L * 1.6, y + 0.2, z + dz / L * 1.6], 0.32, '#d9d9d4', 'chrome', 8); ctx.circle(x, z, 0.5, 1.2); }
                 else if (kind === 'swing' || kind === 'basketswing') { for (const s of [-1.5, 1.5]) for (const o of [-0.9, 0.9]) q.rod([x + s, y, z + o], [x + s, y + 2.4, z], 0.05, '#2f6f8f', 'paint', 6); q.rod([x - 1.5, y + 2.4, z], [x + 1.5, y + 2.4, z], 0.05, '#2f6f8f', 'paint', 6);
-                    if (kind === 'swing') for (const s of [-0.6, 0.6]) { q.rod([x + s, y + 2.4, z], [x + s, y + 0.5, z], 0.012, '#555', 'steel', 4); q.box(x + s, y + 0.46, z, 0.45, 0.04, 0.2, '#222', 'rubber'); } else { q.rod([x, y + 2.4, z], [x, y + 0.6, z], 0.015, '#555', 'steel', 4); q.cyl(x, y + 0.5, z, 0.55, 0.1, '#222', 'rubber', 14); }
+                    if (kind === 'swing') swingFrame = { x, z }; /* its two seats hang from the beam in bel-park-activities.js (swingRide): they swing */ else { q.rod([x, y + 2.4, z], [x, y + 0.6, z], 0.015, '#555', 'steel', 4); q.cyl(x, y + 0.5, z, 0.55, 0.1, '#222', 'rubber', 14); }
                     for (const s of [-1.5, 1.5]) ctx.circle(x + s, z, 0.25, 2.4); }
                 else if (kind === 'spinner_bowl') { q.cyl(x, y + 0.25, z, 0.5, 0.35, c, 'plastic', 14, 0.55, 0.25); q.cyl(x, y, z, 0.06, 0.3, '#888', 'steel', 6); ctx.circle(x, z, 0.5, 0.6); }
                 else if (kind === 'spinning_circle') { q.cyl(x, y + 0.18, z, 1.2, 0.08, c, 'plastic', 20); q.cyl(x, y, z, 0.08, 0.9, '#d9d9d4', 'chrome', 8); ctx.circle(x, z, 0.2, 0.9); }
@@ -201,7 +202,7 @@ export default {
             const lightsPts = []; for (let i = 0; i < 4; i++) { const [ax, az] = tent.poly[i], [qx, qz] = tent.poly[(i + 1) % 4]; for (let t = 0; t < 1; t += 0.025) lightsPts.push([ax + (qx - ax) * t, y + 4.1 - Math.sin(t * Math.PI * 6) * 0.15, az + (qz - az) * t]); }
             const sgn = glowText('MAGIC SEASON ICE ARENA', 5, 0.6, { fg: '#ffffff', bg: '#1f3c66', night: 1.2 }); sgn.position.set(e0[0] + (e1[0] - e0[0]) / 2 - Math.cos(yaw) * 0.2, y + 5.2, e0[1] + (e1[1] - e0[1]) / 2 + Math.sin(yaw) * 0.2); sgn.rotation.y = yaw - Math.PI / 2; rink.add(sgn);
             ctx.add(rink); fairyLights(ctx, lightsPts, { color: '#fff1cf', size: 0.3, on: () => rink.visible, name: 'rink-lights' });
-            seasonal(ctx, [11, 21], [1, 4], (on) => { rink.visible = on; });
+            rinkInfo = { poly: tent.poly, y: y + 0.14, group: rink }; // shown in season (late Nov – mid Jan, or Winter picked): bel-park-activities.js
         }
         // holiday lights wrapped round the gateway trees in season (Bellevue Magic Season)
         { const pts = []; for (let i = 0; i < 6; i++) { const a = A_N + 0.6 + i * 0.05, x = C.x + Math.cos(a) * (R + 14.5), z = C.z + Math.sin(a) * (R + 14.5); pts.push(...treeLightPoints(x, g.heightAt(x, z), z, { seed: i, n: 70 })); } let on = false; seasonal(ctx, [11, 21], [1, 6], (v) => { on = v; }); fairyLights(ctx, pts, { on: () => on, name: 'holiday-tree-lights' }); }
@@ -274,25 +275,10 @@ export default {
         seattleBackdrop(ctx, { clear: 2000, hazeK: 0.4 });
         addTraffic(ctx, { lanes: [{ pts: [[134, 300], [138, 120], [140, 20], [142, -150]], n: 4, speed: 9 }, { pts: [[-300, -60], [-140, -60], [-30, -58], [120, -58]], n: 3, speed: 8 }] });
         // ---------------------------------------------------------------- activities (note 57)
-        // 1) the half-mile loop: walk the full promenade ring (timer + steps), any direction
-        const loop = { acc: 0, last: null, previous:null, armed:false, t0: 0, marks: 0, done: false };
-        onActivityCancel(ctx, () => { Object.assign(loop, { acc: 0, marks: 0, last: null, previous: null, armed: false, t0: 0 }); });
-        ctx.extras.downtownLoop={state:loop,center:{...C},radius:R+8,startAngle:A_N+.35};
-        ctx.onUpdate((dt, s, pl2) => {
-            if (!pl2 || loop.done || !loop.armed) return;
-            const previous=loop.previous;loop.previous={x:pl2.x,z:pl2.z};
-            if(!s.ctl.active || activityBlocked(s) || previous && Math.hypot(pl2.x-previous.x,pl2.z-previous.z)>Math.max(1,dt*6)){loop.acc=0;loop.marks=0;loop.last=null;return;}
-            const rr = Math.hypot(pl2.x - C.x, pl2.z - C.z);
-            if (rr < R - 12 || rr > R + 26) { loop.acc=0;loop.marks=0;loop.last=null;loop.t0=s.t;return; }
-            const a = ang(pl2.x, pl2.z);
-            if (loop.last === null) { loop.last = a; if (!loop.t0) loop.t0 = s.t; return; }
-            let da = a - loop.last; if (da > Math.PI) da -= TAU; if (da < -Math.PI) da += TAU; loop.last = a; loop.acc += da;
-            const q = Math.floor(Math.abs(loop.acc) / (Math.PI / 2));
-            if (q > loop.marks && q < 4) { loop.marks = q; s.ui.toast(`🚶 Loop ${q}/4`, `${Math.round(Math.abs(loop.acc) * (R + 8))} m of the half-mile promenade`); }
-            if (Math.abs(loop.acc) >= TAU) { loop.done = true; const secs = Math.round(s.t - loop.t0), m = Math.round(TAU * (R + 8)); emitActivity(s, 'bel-downtown-park', 'loop', '🏁 Half a mile round', `${m} m in ${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')} — about ${Math.round(m / 0.75)} steps.`); }
-        });
-        { const st = { x: C.x + Math.cos(A_N + 0.35) * (R + 8), z: C.z + Math.sin(A_N + 0.35) * (R + 8) }; ctx.interactables.push({ kind: 'activity', x: st.x, z: st.z, r: 3, label: 'Walk the half-mile loop (promenade ring)', use: (s) => { loop.armed=true;loop.previous=null;loop.acc = 0; loop.marks = 0; loop.last = null; loop.t0 = s.t; s.ui.toast('🚶 Half-mile loop', 'Follow the promenade all the way round the canal — the timer runs from here. Travel or a discontinuous position change resets the loop.'); } }); }
-        // 2) toss a coin into the reflecting pool
+        // 1) frisbee on the lawn, the playground swing, the seasonal rink (bel-park-activities.js, opening hours by the
+        //    in-game clock). The half-mile loop walk (retired 2026-11-15: a walk, not an activity) is gone.
+        downtownParkActivities(ctx, { C, R, mem, swing: swingFrame, rink: rinkInfo });
+        // 2) toss a coin into the reflecting pool (no achievement)
         const coinAt = { x: C.x + Math.cos(2.15) * (R + 7), z: C.z + Math.sin(2.15) * (R + 7) };
         let coinTarget=null,coinDistance=Infinity;
         for(let x=pb.x0+1;x<pb.x1;x+=2)for(let z=pb.z0+1;z<pb.z1;z+=2){if(!inPoly(x,z,pool)||distPolyline(x,z,[...pool,pool[0]]).d<1.5)continue;const d=Math.hypot(x-coinAt.x,z-coinAt.z);if(d<coinDistance){coinDistance=d;coinTarget=new THREE.Vector3(x,POOL_Y+.025,z);}}

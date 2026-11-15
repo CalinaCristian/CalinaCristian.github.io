@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-8490fef363a28f3b",
-  "sourceCommit": "f3e8c54ef3b7a73038d4a4f688bd60c9c8015c55",
-  "fingerprint": "8490fef363a28f3b6df2298f595aa5865125072914c00af1043e50f44a40a94e",
+  "releaseId": "game-ff702424ceb695db",
+  "sourceCommit": "9f47516f212662b7092fe789d1fc155a9cbceb82",
+  "fingerprint": "ff702424ceb695db74d97635acf2e522a9a0a207e7e71d4474c5df51a98f3178",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -402,7 +402,7 @@
     },
     {
       "path": "game/src/cities.js",
-      "sha256": "98f06356c06f369021795fac29672073c42baafb835dd7548cdd6b5dca7328a7"
+      "sha256": "b65d16ec1191e6102f4f61533fa68ec996e3127e68fe492fab0060ca20c9b674"
     },
     {
       "path": "game/src/cockpit-displays.js",
@@ -1914,7 +1914,7 @@
     },
     {
       "path": "game/src/world-edge-ribbons.js",
-      "sha256": "587f8440e6fc742c83ae4c97ee9d70729eb750dedc0212d28d8319282cb745e5"
+      "sha256": "dd66cd22360ae83e34f0e30e1efbed8d21ea2c60a76e5a5d86fa47d13ea0a55d"
     },
     {
       "path": "game/src/world-extrusion.js",
@@ -1922,11 +1922,11 @@
     },
     {
       "path": "game/src/world-facade-detail.js",
-      "sha256": "9404f91a8ae4de77d916023c4378ee1e3870d5fda8b3662a600715d555edd067"
+      "sha256": "9f1f28a2f95c5128ed9d5c227658d8b42b3537a9c00cfd83db2f3261d65762df"
     },
     {
       "path": "game/src/world-facades-guards.js",
-      "sha256": "9bb0e782b5a695787e34b0137ccb24e4e34a96654d720578f3d58ba66367aa2a"
+      "sha256": "999ad123b28053df37cc1c9fb6617d72b414c4126814261e47c2caf9dae4ce0b"
     },
     {
       "path": "game/src/world-final-meshes.js",
@@ -1974,7 +1974,7 @@
     },
     {
       "path": "game/src/world-railing-network.js",
-      "sha256": "c3a564c2b92b3d6cd7124b82248c7a0a02908d5346d66252b5c78464cfa73583"
+      "sha256": "fdde1a1a43d6fec255bed77652afee06f6826871d225723a9a1b367c66babd80"
     },
     {
       "path": "game/src/world-raised-edges.js",
@@ -1982,11 +1982,11 @@
     },
     {
       "path": "game/src/world-ribbons.js",
-      "sha256": "fe80e1f41a7a92bdf99234b0d0d68eb4ccb0a132f6a3551058b07bed7fe6ea72"
+      "sha256": "92f0c8057ae271e907537dc58ae75b058e2cf4efa56fd9cdcdb22115dfa523ba"
     },
     {
       "path": "game/src/world-road-graph.js",
-      "sha256": "52490d3a6af928dd96261439a964eac857c3076d5874c8b0de391ef3d6289198"
+      "sha256": "93cf19131f1a985c9ce048f50894e63c928f6a6a2dc27fa6f72c22001d422245"
     },
     {
       "path": "game/src/world-roofads-fuel.js",
@@ -2002,7 +2002,7 @@
     },
     {
       "path": "game/src/world-side-joins.js",
-      "sha256": "d5f72273c745c3c355dff2371919b06e925d742c0563796870f07e759d4f2df7"
+      "sha256": "38147aae202eb4a5aa0356d9fa7036d76f6461de2ff3c4f4f9fd7faa5224be04"
     },
     {
       "path": "game/src/world-sports.js",
@@ -2022,7 +2022,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "465a1575e90aed1fb54da3f68f6264b1f47c750d3ef2b558048de7a183c01dcc"
+      "sha256": "1e4e50495f1451258e1e10329d3d813710d5676b1468c3ba65d533856fcaeedb"
     },
     {
       "path": "game/src/worldmap.js",

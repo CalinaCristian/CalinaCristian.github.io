@@ -18,8 +18,8 @@ Dev page parameters: `id`, `ov` (`day|sunset|dusk|night|dawn`), `hour` (local ti
 `at=x,z,bearing,pitch` (walker pose), `cam=x,y,z,bearing,pitch,fov` (free camera), `fov`, `ui=0` (hide all UI), `hud=0`
 (hide the spot card / help), `dev=0` (hide the dev panel), `manual=1` (no rAF loop; drive frames with
 `spotDev.step(n, dt)`), `audit=1|0` (run / skip `auditSpot`; on by default under automation), `legacy=1` /
-`ground=legacy` (the older core ground, footprint, clipping and crowd placement, for A/B comparison). `window.spotDev = { session, r3d, camera, THREE, setCam, walkTo,
-step, photo, loadMs, audit }`.
+`ground=legacy` (the older core ground, footprint, clipping and crowd placement, for A/B comparison).
+`window.spotDev = { session, r3d, camera, THREE, setCam, walkTo, step, photo, loadMs, audit }`.
 
 ## API
 
@@ -57,11 +57,12 @@ an activity fires `game.emit('activity', { spot, id })` / `dmcv:activity`; activ
   rides set `cameraRide: true`; other locked activities keep mouse / touch look. A vehicle (`ride: true`: the bike, the
   free boat) is only paused by the map, pause, photo, conditions and the drone, and keeps the minimap and touch stick.
 - What is offered (map list, 🎯 markers, guided tour): `activity-offer.js`. Only interactive activities; plaques,
-  inscriptions, viewpoints, photo walks / framing rings (`photo-hunt.js` registers nothing now), walk-to goals
+  inscriptions, viewpoints, photo walks / framing rings (`photo-hunt.js` registers none), walk-to goals
   (`kind: 'walk-goal'`), stairs and exit / return steps are never listed. A closed venue is listed under "Opens later".
 - `onActivityCancel(ctx, cancel)`: walking courses (no panel) register here so `cancelActivities()` clears their partial
   progress.
-- Helpers: `free-boat.js` (WASD boat / kayak, buoys, E ashore), `petanque.js`, `spot-bikes.js` (a stand at every large spot), `race-course.js`, `water-route.js` (paddle courses, dry-bank landings), `photo-hunt.js`, `venue-activities.js`
+- Helpers: `free-boat.js` (WASD boat / kayak, buoys, E ashore), `petanque.js`, `spot-bikes.js` (a stand at every large
+  spot), `race-course.js`, `water-route.js` (paddle courses, dry-bank landings), `photo-hunt.js`, `venue-activities.js`
   (held-item sequences), `candle-light.js`, `coin-drop.js`, `stone-skipping.js`, `dance-camera.js`, `bike.js`,
   `backgammon-*.js`, `chess-opening.js`, `tour.js` (guided-walk routing), `walk-boundary.js`
   (visit boundary applied after walker and crowd collision).
@@ -139,8 +140,7 @@ reachable decks, water level); the walker's deep-water / steep-sculpture barrier
    };
    ```
 4. Check it in `game/dev/spots.html?id=<id>` (day, dusk, rain) beside the reference photos listed in
-   `game/research/refs/LICENSES.md`; keep ≤ 1 M triangles
-   (the dev stats show them) and load < 3 s.
+   `game/research/refs/LICENSES.md`; keep ≤ 1 M triangles (the dev stats show them) and load < 3 s.
 
 Data caveats:
 - The OSM extracts drop multipolygon inner rings: derive shorelines from the terrain grid and let the water plane draw

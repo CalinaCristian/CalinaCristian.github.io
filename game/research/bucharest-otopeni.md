@@ -14,7 +14,7 @@ bracketed keys point to **Sources** at the end.
 - **Extraction area**: bbox `[44.552, 26.062, 44.578, 26.093]` (world bbox of `cities.js` BUC_DISTRICTS, 7.1 km²): the DN1
   (Calea Bucureștilor) corridor through Otopeni town plus the landside of the airport. Airside (aprons, the two parallel
   3,500 m runways 08R/26L and 08L/26R) is backdrop. Otopeni is in Ilfov county, not Bucharest (blue "Otopeni" town signs).
-- **Method** (fidelity passes 2026-11-12/13): live OSM (Overpass, bbox 44.5524,26.0645 – 44.5729,26.0820) decides position
+- **Method**: live OSM (Overpass, bbox 44.5524,26.0645 – 44.5729,26.0820) decides position
   and kind; official street-level panoramas were looked at for appearance only (ids from coverage metadata; nothing stored,
   traced or measured). Game views: `game/dev/reality/viewpoints.json` (`otp-*`). Not reviewed: the airside, the terminal
   interior, DN1 north of the playable edge (≈ 44.5694), night views.
@@ -49,14 +49,13 @@ bracketed keys point to **Sources** at the end.
   warehouses, hotels, billboards on tall poles, flat open land. Transit: STB express buses 100 and 780, regional 4xx.
 - **Bd. Aeroportului**: one-way airport loop (2 lanes, north side), Hilton Garden Inn (w756554173, 4 lv / 12 m), car parks.
 - **Access road from DN1 under the rail viaduct** (panoramas 44.568636, 26.071303; 44.56877, 26.07244; 44.56878, 26.0734):
-  two lanes, grass verges, sidewalk on the south side only (the game also has a sidewalk with bollards on the north side).
+  two lanes, grass verges, sidewalk on the south side only.
 - **Signs**: blue gantry signs for DN routes, white for local, to "Aeroport Henri Coandă".
 - **Congestion hotspots** (feed `congestion`): DN1 southbound towards Băneasa (44.562, 26.0697, r 400 m, 7–10 and 16:30–20,
   level 0.65; northbound lighter in the morning) [tomtom_peak]; departures kerb / ramp (44.5696, 26.077, r 150 m, 4:30–7:30
   and 15–20, level 0.45; early-morning departure waves, taxis) [otp_plecari_2025] [otp_taxi_guide].
-- **Speed limits on the route** (OSM maxspeed = game): Calea Bucureștilor trunk 70; airport tertiary 50 (tagged 50 or
-  `RO:urban`). Romanian rules: 50 km/h inside localities unless signed; the road owner may sign 30–80 (OUG 195/2002 art. 49)
-  [speed_ro].
+- **Speed limits**: OSM `maxspeed` = game km/h (per way in `speedlimits.json`): Calea Bucureștilor trunk 70; airport
+  tertiary 50 (tagged 50 or `RO:urban`). Romanian default: shared-rules.md → Business research [speed_ro].
 - **Rompetrol on Str. Nicolae Grigorescu** (w918040922): the street and the DN1 northbound carriageway south of it form a
   pocket entered only from the southern map edge; no legal route reaches it from the chapter start inside the district (no join
   is invented). The map's Gas stations list offers a station only when a route reaches it (`game-road.js` `stationOffered`); it
@@ -105,8 +104,8 @@ bracketed keys point to **Sources** at the end.
 - **Forecourt roundabout** (44.5700, 26.0757): planted island. 12 OSM lighting masts (`man_made=tower`,
   `tower:type=lighting`) are drawn at their nodes (`airport-forecourt.js`): OSM height where tagged (20–40 m), else 25 m
   estimate; n4089486527 banded orange / white as seen. The panorama also shows two flag masts and a sculpture group on the
-  island; live OSM (2026-11-13) has no object there and the island is now crossed by the M6 works, so the panorama may predate
-  them. Not drawn (no mapped position).
+  island; live OSM has no object there and the island is now crossed by the M6 works, so the panorama may predate them. Not
+  drawn (no mapped position).
 - **Monumentul Eroilor Jandarmi** (w565845891, `historic=memorial`): granite-paved plaza, low stone blocks, benches, dense trees
   behind (photosphere only); drawn as a marble `stele` (`monument-sources.js`).
 - **Car parks**: staff / taxi w23585062, long-term w406904953, departures w110663816: surface car parks behind hedges, red /
@@ -117,12 +116,8 @@ bracketed keys point to **Sources** at the end.
 
 ## 6. Buildings and businesses on DN1
 
-Business research (2026-11-07): zone = within 60 m of a chapter route (routed on the OSM graph from the CHAPTERS start to the
-door, one-way and turn-restriction aware) plus recognisable businesses within 50 m of a main street in the district mask;
-standalone ATMs, parcel lockers, chargers and pure company offices left out. Confidence: high = official locator match or OSM
-`check_date` ≥ 2025-05; medium = OSM element edited / checked since 2023-11; low = older, or a chain missing from its
-locator. Locators used are listed under Sources [locators]. POIs in the game: the build plus `tools/osm/add-pois.mjs`
-(live OSM 2026-11-12, `--edge 100`).
+Business research method: [shared-rules.md → Business research](shared-rules.md#business-research); locators used
+are listed under Sources [locators].
 
 Businesses along DN1, south to north (all present in the game on the right building unless noted):
 
@@ -184,7 +179,7 @@ Other business facts:
   tagged grass (Piața Otopeni among them).
 - Flat, open landscape: the forecourts and fields along DN1 are open grass with few trees.
 - **DN1 fields crowns**: the crowns in 44.563–44.568 × 26.0705–26.078 are measured (aerial survey
-  `trees-bucharest-otopeni.json`), not inferred. Each was checked over Esri z19 imagery (2026-11-13); crowns on the airside
+  `trees-bucharest-otopeni.json`), not inferred. Each was checked over Esri z19 imagery; crowns on the airside
   taxiway and on paving are excluded (ledger `trees-bucharest-otopeni-review.json` `dn1FieldsReview20261113`), and the
   hedgerow, wood-edge and ambiguous-vegetation crowns stay. Any further removal goes through a crop review on the aerial
   mosaic (`tools/aerial`), never thinning.
@@ -211,7 +206,6 @@ Other business facts:
 - **Reviewed building heights** (Romstal, Mega Image, Ferremo, Maxigel): from storey counts.
 - **Uncompared** (no official panorama): the departures ramp parapets, the arrivals level, the P2 car park, Salonul Oficial,
   Terminal Vioara, the memorial plaza, the Ramada pools.
-- **Access road sidewalk**: the game has a sidewalk with bollards on the north side; reality has one on the south side only.
 - **Forecourt flags / sculpture**: in the panorama, not in OSM (possibly removed by the M6 works).
 - **Terminal facade** details beyond the reviewed poses; the kerb follows the 2022 layout (section 2).
 
@@ -219,7 +213,7 @@ Other business facts:
 
 | key | URL |
 |---|---|
-| osm | https://www.openstreetmap.org (API 0.6 tiles 2026-11-06; live Overpass / API 2026-11-12/13) |
+| osm | https://www.openstreetmap.org (API 0.6 tiles; live Overpass / API re-checks) |
 | wp_otp | https://en.wikipedia.org/wiki/Henri_Coand%C4%83_International_Airport |
 | wp_m6 | https://en.wikipedia.org/wiki/Bucharest_Metro_Line_M6 |
 | otp_2025_traffic | https://www.romania-insider.com/index%2Ephp/traffic-bucharest-airports-2025 |

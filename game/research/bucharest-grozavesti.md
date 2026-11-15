@@ -5,17 +5,16 @@ estimates the game makes where no source exists, and the places where it knowing
 
 ## Overview and sources
 
-- **Data.** First generated 2026-11-06 (role research-buc-districts) from the OSM API 0.6 snapshot of that day; reality
-  pass 2026-11-08 (sixteen OSM API tiles over 44.425–44.465, 26.029–26.093, the actual `cities.js` band and circles plus
-  their 600 m scenery ring, at 1:1; source hashes and the imagery measurement ledger in
-  `handoffs/fidelity/d-grozavesti/source-ledger.json`; z18 aerial mosaic 44.428, 26.038 – 44.458, 26.079 at about
-  0.426 m/px, acquisition date unknown, only derived measurements committed); live OSM re-checked 2026-11-12/13. Every
-  OSM fact is keyed by id (w = way, n = node, r = relation). Bracketed keys like [osm] point to **Sources**.
+- **Data.** OSM API 0.6 tiles over 44.425–44.465, 26.029–26.093 (the `cities.js` band and circles plus their 600 m
+  scenery ring; source hashes and the imagery measurement ledger in `handoffs/fidelity/d-grozavesti/source-ledger.json`),
+  re-checked against live OSM; z18 aerial mosaic 44.428, 26.038 – 44.458, 26.079 at about 0.426 m/px, acquisition date
+  unknown, only derived measurements committed. Every OSM fact is keyed by id (w = way, n = node, r = relation).
+  Bracketed keys like [osm] point to **Sources**.
 - **Machine-readable twin** `bucharest-grozavesti.json` holds the generated tables: per-street
   segments, every building with its style-rule facade estimate, businesses, junctions and crossings, transit lines, stops,
   metro entrances and STB liveries, the Bucharest-wide streetscape rules (`city_rules`), palette (`colours`),
-  `top_local_details`, `gaps`, district pedestrians (`dialogue`) and traffic hotspots (`traffic`). Business detail:
-  the Businesses and speed limits section below.
+  `top_local_details`, `gaps`, district pedestrians (`dialogue`) and traffic hotspots (`traffic`). Businesses:
+  `businesses-bucharest-grozavesti.json`; speed limits: `speedlimits.json`.
 - **Street level.** Official Street View panoramas were looked at only; nothing was stored, traced or measured from them.
   A panorama is cited as its id plus heading (`hGqephV5yIK6jWNVMdcHBw h70`) or as its position. Game views:
   `node game/dev/reality/capture.cjs --district=grozavesti`.
@@ -45,8 +44,8 @@ on Orhideelor. Students everywhere in term time; open, flat, windy riverside.
   beside the campus (w227053932) is one-way eastbound.
 - **Look.** 1970s modernist Rectorat: long symmetrical frame of pale vertical concrete fins with red panels between the
   window bays, a brick recessed lower floor, a recessed glazed top storey, a wide roof slab, and a wide shallow saucer
-  dome (the aula) on the roof, its rim lit blue at night; flagpoles; large paved forecourt with parking. Facade review
-  2026-11-08 from the 2024 Commons photos (CC BY-SA 4.0), measurements in `landmark-politehnica-measurements.json`. OSM
+  dome (the aula) on the roof, its rim lit blue at night; flagpoles; large paved forecourt with parking. Facade from the
+  2024 Commons photos (CC BY-SA 4.0), measurements in `landmark-politehnica-measurements.json`. OSM
   gives 5 levels and no metre height; the dome is roof part w1217715300 (`min_level=6`), about 40 ± 4 m across on aerial
   imagery [ref_upb]. No driving-street panorama faces it (none within 200 m).
 
@@ -97,7 +96,7 @@ on Orhideelor. Students everywhere in term time; open, flat, windy riverside.
 | w28240552 | UPB Rectorat | 5 / – (OSM has no height) | #EDEDE8 white concrete frame grid + red infill panels (#B8312F) + glazing | flat with a central shallow saucer dome (aula), blue rim lighting at night | 1970s | upb [osm] [ref_upb] |
 | w50538006 | Biblioteca Centrală UPB | | | | | [osm] |
 
-**Reviewed buildings and landmarks** (`building-review.js`, `game/src/landmarks/`; live OSM 2026-11-13):
+**Reviewed buildings and landmarks** (`building-review.js`, `game/src/landmarks/`):
 
 - **The Bridge 1** (`thebridge1`; pano 44.4441, 26.0628 h212): dark glass box, grey mullion grid, BCR band: matches.
 - **Centrul Comercial Orhideea** w23557062 (height 8) with **Carrefour** w925593033: pale panel façade with red bands, no
@@ -120,7 +119,7 @@ on Orhideelor. Students everywhere in term time; open, flat, windy riverside.
 - **Germag** (Bd. Banu Manta 2, n5862008006, appended by `add-pois.mjs`): a block carrying an appended street-level shop
   POI gets the builder's shop-unit flag, so a shop front with its fascia (pano `wEy2ri9fhmOq0iOEkX5jIg`).
 
-**Businesses.** Live OSM 2026-11-12: 116 named businesses inside the playable geometry, 108 in the game at their mapped
+**Businesses.** Live OSM: 116 named businesses inside the playable geometry, 108 in the game at their mapped
 place. Not drawn (categories the builder does not keep): Columbia Fitness n6793227019, Domestina România n13710547706,
 Manpower n11508840180, WorkAsia.ro n11998746459, Bioclinica n14013820311, Debarcaderul Regie w1429973848 (marina),
 Grădinița nr. 168 w1331454041 (drawn as grounds without a name sign). Mall units beyond the playable edge are not signed by
@@ -184,7 +183,7 @@ where it lands.
 ### Pasajul Basarab
 
 Cable-stayed viaduct (2011) along Orhideelor and Doina Cornea carrying cars and trams; the cable-stayed span is near Gara de
-Nord, outside the district. Street View, viewed 2026-11-11/13 (reference only; the game follows it):
+Nord, outside the district. Seen on Street View (the game follows it):
 
 - **West ramp** (Pasajul): both carriageways at street level at 44.44005 (z ≈ 128), then one embankment on retaining
   walls with a grass median as they climb; a kerbed concrete median with the arch hangers on the river arch; no railing
@@ -207,7 +206,7 @@ Nord, outside the district. Street View, viewed 2026-11-11/13 (reference only; t
   w738281345 is a 5 m `layer=3` link between platform footways w738281336 (ref 1) and w738281339 (ref 10), a tagging
   oddity, not a separate structure.
 
-**Pedestrian passages** (live OSM 2026-11-13; `underpass-mouths.js`):
+**Pedestrian passages** (`underpass-mouths.js`):
 
 - **Grozăvești metro passage** w737986560 / w737986561 (`tunnel=yes`, `layer=-1`) between the two subway entrances. West
   entrance n610921621 (no OSM building; pano 44.442913, 26.060332 h256): a low glazed pavilion, grey metal frames, shallow
@@ -226,7 +225,7 @@ Nord, outside the district. Street View, viewed 2026-11-11/13 (reference only; t
 
 - **Pedestrian plazas**: the shared rule ([shared-rules.md](shared-rules.md#pedestrian-plazas)). Here: 45 plazas, none
   tagged grass.
-- 27 OSM trees in the 2026-11-06 extract (four Populus near Str. Economu Cezărescu); poplar and linden rows along the
+- 27 OSM trees (four Populus near Str. Economu Cezărescu); poplar and linden rows along the
   canal embankments; campus lawns and car parks. Street species lists are in the JSON (`streets[].research.trees`).
 
 ## Estimates
@@ -258,7 +257,7 @@ Nord, outside the district. Street View, viewed 2026-11-11/13 (reference only; t
 
 | key | URL |
 |---|---|
-| osm | https://www.openstreetmap.org (API 0.6 map tiles, 2026-11-06; live re-checks 2026-11-12/13) |
+| osm | https://www.openstreetmap.org (API 0.6 map tiles; live re-checks) |
 | upb_address | https://upb.ro/en/?p=14876 |
 | upb_bucharest_ro | https://www.bucharest.ro/article/the-polytechnic-university-of-bucharest-a-legacy-of-innovation-and-excellence-223 |
 | upb_zsn | https://zilesinopti.ro/locuri/universitatea-politehnica-din-bucuresti-upb/ |
@@ -274,43 +273,13 @@ The Bucharest-wide sources (road signs and markings, STB, Metrorex, lighting, tr
 
 ## Businesses and speed limits
 
-Research pass 2026-11-07 (spec 20, R12.2 / R11). Machine-readable: `businesses-bucharest-grozavesti.json` (one entry per business, independents included) and the `bucharest-grozavesti` block of `speedlimits.json`. Zone = everything within **60 m of a chapter route** (routes recomputed on the OSM graph from `CHAPTERS` starts to the stop doors, one-way and turn-restriction aware) **plus** recognisable businesses within 50 m of a main street (motorway…tertiary) inside the district mask. Standalone ATMs, parcel lockers, chargers and pure company offices are left out. Confidence and sign-style rules as in `bucharest-floreasca.md` (Businesses and speed limits).
+`businesses-bucharest-grozavesti.json`, the `bucharest-grozavesti` block of `speedlimits.json` (per-way OSM `maxspeed`
+vs game km/h, schools nearby). Method and the Romanian rules:
+[shared-rules.md → Business research](shared-rules.md#business-research). Units deep inside the Carrefour Orhideea
+gallery (40) are kept out by that rule.
 
-### On the chapter route (upb)
-
-| brand | category | address | side | conf. |
-|---|---|---|---|---|
-| BCR | bank | Șoseaua Orhideelor 15D | W side of Șos. Orhideelor | medium |
-| Lukoil | fuel + convenience | Șoseaua Orhideelor 4 | E side of Șos. Orhideelor | medium |
-| OMV | fuel | Bd. Doina Cornea 5 | SE side of Bd. Doina Cornea | medium |
-
-Fuel: canopy fascia in brand colours plus a price pylon at the kerb. Lukoil's international assets (Romanian stations included) were offered for sale in Nov 2025 (Wikipedia "Lukoil"), so the station brand may change. Nine independents on the route are in the JSON.
-
-### Official-locator checks
-
-- **Carrefour Express** Șos. Orhideelor 15A: position match, "Express Orhideea Towers" (121 m), carrefour.ro/corporate/magazine.
-- Closed per OSM lifecycle tags: n6792143476 (`disused:amenity=restaurant`, 44.44581, 26.05984): draw as a vacant "De închiriat" unit if modelled.
-
-### POIs added from live OSM (2026-11-12 / 13)
-
-`tools/osm/add-pois.mjs --edge 100` on API 0.6 tiles of the playable area + 260 m appended the businesses, places and stops the build lacked, including the 100 m edge strip. Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or indoor, nodes deep inside multi-tenant halls (Carrefour Orhideea gallery, 40), unnamed objects, ATMs outside the area.
-- Germag n5862008006 (`shop=yes`, named; a named `shop=yes` counts as a shop): pano wEy2ri9fhmOq0iOEkX5jIg shows the GERMAG front at Bd. Banu Manta 2.
-- Street View, Calea Griviței 158: ground-floor shop fronts where the game has a Catena fascia (name not readable in the preview). 6 Bd. Iuliu Maniu (The Light One): glass office tower, no tenant name dominates at street level.
-
-### Speed limits on the chapter route
-
-Romanian legal default: see `bucharest-floreasca.md` (Businesses and speed limits). **upb** — 1661 m, all OSM ways tagged.
-
-| street | class | m | OSM maxspeed | game km/h |
-|---|---|---|---|---|
-| Șoseaua Orhideelor | secondary | 536 | 50 | 50 |
-| Șoseaua Orhideelor | secondary | 300 | RO:urban | 50 |
-| Podul Grozăvești | secondary | 56 | 50 | 50 |
-| Șoseaua Grozăvești | secondary | 70 | 50 | 50 |
-| Bulevardul Doina Cornea | secondary | 691 | 50 | 50 |
-
-Schools / kindergartens within 150 m: Grădinița nr. 168 (w1331454041, 41 m).
-
-### Sources
-
-OpenStreetMap API 0.6 tiles fetched 2026-11-06 and 2026-11-12, © OpenStreetMap contributors, ODbL; official Street View panoramas viewed for appearance only (nothing stored); locators as listed in `bucharest-floreasca.md` (Businesses and speed limits).
+- On the route: BCR (Șos. Orhideelor 15D, W side), Lukoil (Șos. Orhideelor 4, E side), OMV (Bd. Doina Cornea 5, SE side).
+- **Carrefour Express** Șos. Orhideelor 15A: matches the locator's "Express Orhideea Towers" (121 m;
+  carrefour.ro/corporate/magazine).
+- Street View: Calea Griviței 158 has ground-floor shop fronts where the game has a Catena fascia (name not readable); 6 Bd.
+  Iuliu Maniu (The Light One) is a glass office tower with no dominant tenant name at street level.

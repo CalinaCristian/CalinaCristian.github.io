@@ -1,10 +1,10 @@
 # Seattle · `bellevue` district — research dossier
 
-Machine-readable twin: [`seattle-bellevue.json`](seattle-bellevue.json) · businesses and speed limits: [Businesses and speed limits](#businesses-and-speed-limits) · photos: [refs/LICENSES.md](refs/LICENSES.md) (`refs/bellevue/`)
+Machine-readable twin: [`seattle-bellevue.json`](seattle-bellevue.json) · businesses and speed limits: [Businesses and speed limits](#businesses-and-speed-limits) · photos: [refs/LICENSES.md](refs/LICENSES.md) (`refs/bellevue/`). The US standards in §3–§5 also apply to the SeaTac dossier.
 
 The JSON: `chapterRoutes[].segments` = every OSM way of the researched routes in driving order with lanes / `hov:lanes` / `turn:lanes` / `destination:lanes` / surface / bridge / tunnel / layer; `streets[]` = curated stretches + every downtown street; `buildings[]` = every building within 70 m of a route or ≥ 25 m tall in the core (footprint, parts, height, curated facade hex, `estimateBasis`); `businesses[]` = branded POIs within 60 m; `signs[]`; `landmarks[]` = the two CV stops (`lincoln-square`, `plaza-center`); `traffic.hotspots` maps 1:1 onto `CITIES.seattle.districts.bellevue.congestion`. All OSM data © OpenStreetMap contributors (ODbL).
 
-Street-level reviews (2026-11-12/13) compared game renders with official Street View panoramas at the same pose (ids from coverage metadata; looked at only, nothing stored, traced or measured). Reference poses: `game/dev/reality/viewpoints.json` (ids `bel-*`).
+Street View panoramas were looked at only (ids from coverage metadata; nothing stored, traced or measured). Reference poses: `game/dev/reality/viewpoints.json` (ids `bel-*`).
 
 ## 1. District and chapter route
 
@@ -44,7 +44,7 @@ The real approach to the finale (I-90 EB out of the Mount Baker Ridge Tunnel, ov
 
 Rules that follow: never a yellow line between two same-direction lanes; never a double yellow on a freeway; the median-side (left) edge of every one-way carriageway is yellow (MUTCD 3B.06); lane lines stop at the gore and continue as dotted extensions across ramp mouths; the HOV lane is separated by a wider white broken line plus diamonds. Floating-bridge photos show exactly this.
 
-Driveways (2026-11-15 survey): lane and edge lines run on past garage and parking entrances (OSM `highway=service` meeting a road that goes straight on, no signal, stop or crossing there); only the edge line on the driveway side breaks across the mouth, kerb to kerb (`drivewayPass`, world.js). Before, every driveway node was a junction pad for the paint: 12 carriageway edges in the playable area (211 m) carried under 0.25 m² of paint per metre, NE 8th St westbound had 24 m with no line at all between two garage entrances at (-231 … -255, -331); after, 8 edges (122 m), all inside the 112th Ave / NE 8th junction and the I-405 ramp terminal.
+Driveways: lane and edge lines run on past garage and parking entrances (OSM `highway=service` meeting a road that goes straight on, no signal, stop or crossing there); only the edge line on the driveway side breaks across the mouth, kerb to kerb (`drivewayPass`, world.js).
 
 ## 4. Guide signs
 
@@ -58,7 +58,7 @@ Green, white legend, FHWA Series E(M)/Clearview, retroreflective, on galvanised 
   - **Cut** (`freeway-cut.js`): the game keeps I-405 at the district's level with the deck about 5 m up on piers, so the cut slopes cannot be drawn without lifting the loops and the ground round them. Under each end of the deck a concrete abutment wall rises from the outermost carriageway's shoulder to the deck soffit (soffit 0.9 m below the deck surface, estimate) and is filled back to where the approach meets the ground (west 22 m, east 26 m along the freeway), so the freeway and its ramps pass under the bridge between concrete walls. The fill's collision follows its top under the soffit, so it stays below the descending approach roads.
   - **Sidewalks** (`bridge-walkways.js`): OSM maps both as separate ways, footway w67144854 on the north side (beside the westbound carriageway and the Exit → Renton lane, 47.61748–47.61750) and w111869523 on the south side (beside the eastbound carriageway), both `bridge=yes`, `footway=sidewalk`, no `width`; the carriageways carry `sidewalk:right=separate`. Each is a raised concrete walkway on the outer side of the deck: the lanes keep their widths, the deck (fascia, underside, piers) is widened outward by the walkway and the reviewed parapet and fence stand on its outer edge. Width 1.8 m, an estimate: on the aerial mosaic (Esri World Imagery, zoom 19, 0.20 m/px; imagery kept in scratch only) the kerb line lies 1.9–2.2 m inside the deck edge on both sides, parapet included. The mapped centrelines run from 3.8 m inside to 4.0 m outside the game's carriageway edge (the lane widths are estimates), so the walkway follows the carriageway, not the mapped line. Both walkways come down the approach ramps to the street at the east end, the south one also at the west end. The north one ends at the deck's west end, where the Exit → Renton lane leaves the deck on its embankment (OSM's next sidewalk, w67144870, is at street level beside the ramp, which the game keeps raised): the parapet closes the end. Pedestrians walk both, except the 7 m near the west end where the Renton lane crosses the north walkway diagonally.
   - **Gantry** w1188380109 (`man_made=gantry`, layer 2) over the east end of the deck: not drawn, its sign text is not legible on any source.
-- **NE 8th St cross-section** (2026-11-15, live OSM `map` call over 47.6155–47.6190, −122.2030 – −122.1900, measured perpendicular to the one-way ways every 6 m): the eastbound and westbound ways run 11.3–12.2 m apart east of Bellevue Way (9.7–10.2 m west of it); the separately mapped sidewalks (`footway=sidewalk`) stand 7.4–7.5 m from the 4-lane westbound ways (w513503505, w513503506), 9.4–9.5 m from the 5-lane one at Bellevue Place (w513503500), 3.9–4.2 m from the 2–3-lane ones and 7.4–8.5 m from the 4-lane eastbound way west of Bellevue Way (w513490800): the ways run along the carriageway's middle, and a 4–5-lane stretch (`turn:lanes=left|left|||right`, `left|||right`) widens on both sides, its left-turn pockets into the median. Footprints: Bellevue Square 8.8–10 m south of w513490800, Bellevue Place 10.9–11.1 m north of w513503500, 10620 NE 8th St (w33725909, building=retail) 7.8–7.9 m north of w513503505, over the line of its sidewalk. Lane widths: Bellevue's arterial standard is 11–12 ft per travel lane, a raised median at least 4 ft and in addition to the lanes ([Transportation Design Manual 2024 Table 3-7 and §3.3](https://bellevuewa.gov/sites/default/files/media/pdf_document/2024/trans-design-standards-v1pt1-2024.pdf)); the game's 3.5 m lies inside it. Game model (world.js "keeps its real width"): footprint-narrowed one-ways with an OSM lane count keep lanes × 3.5 m and open into the median; 10620 NE 8th is clipped to the kerb + 1.5 m walk (exception, world-buildings.js). Not verified on Street View: whether the NE 8th median is raised or painted.
+- **NE 8th St cross-section** (live OSM `map` call over 47.6155–47.6190, −122.2030 – −122.1900, measured perpendicular to the one-way ways every 6 m): the eastbound and westbound ways run 11.3–12.2 m apart east of Bellevue Way (9.7–10.2 m west of it); the separately mapped sidewalks (`footway=sidewalk`) stand 7.4–7.5 m from the 4-lane westbound ways (w513503505, w513503506), 9.4–9.5 m from the 5-lane one at Bellevue Place (w513503500), 3.9–4.2 m from the 2–3-lane ones and 7.4–8.5 m from the 4-lane eastbound way west of Bellevue Way (w513490800): the ways run along the carriageway's middle, and a 4–5-lane stretch (`turn:lanes=left|left|||right`, `left|||right`) widens on both sides, its left-turn pockets into the median. Footprints: Bellevue Square 8.8–10 m south of w513490800, Bellevue Place 10.9–11.1 m north of w513503500, 10620 NE 8th St (w33725909, building=retail) 7.8–7.9 m north of w513503505, over the line of its sidewalk. Lane widths: Bellevue's arterial standard is 11–12 ft per travel lane, a raised median at least 4 ft and in addition to the lanes ([Transportation Design Manual 2024 Table 3-7 and §3.3](https://bellevuewa.gov/sites/default/files/media/pdf_document/2024/trans-design-standards-v1pt1-2024.pdf)); the game's 3.5 m lies inside it. Game model (world.js "keeps its real width"): footprint-narrowed one-ways with an OSM lane count keep lanes × 3.5 m and open into the median; 10620 NE 8th is clipped to the kerb + 1.5 m walk (exception, world-buildings.js). Not verified on Street View: whether the NE 8th median is raised or painted.
 - **Bellevue Way NE**: split carriageways 9.7–12.3 m apart, 2–3 lanes each way + left pockets; Bellevue Square west, Lincoln Square east; a planted median.
 - **108th Ave NE**: office spine, bike lanes both sides, mostly 1 lane each way + turn lane. **NE 6th St** 108th–110th: Transit Center bus street with a diagonal scramble crossing, no private cars.
 - **Sidewalks**: concrete, **2 ft × 2 ft scored squares, light broom finish** (detail DT-120-1), ≥ 5 ft planters / tree pits between walk and kerb, 6-in vertical kerb + gutter ([Bellevue Transportation Design Manual 2024 §3](https://bellevuewa.gov/sites/default/files/media/pdf_document/2024/trans-design-standards-v1pt1-2024.pdf)).
@@ -75,7 +75,7 @@ Green, white legend, FHWA Series E(M)/Clearview, retroreflective, on galvanised 
 - **Lincoln Square North, 700 Bellevue Way NE, Suite 2000** ([UiPath offices](https://www.uipath.com/about-us/offices), fetched 2026-11-06). GeekWire (2025): product & engineering hub, two floors, 44,735 sq ft, after Plaza Center from 2018 ([GeekWire](https://www.geekwire.com/2025/uipath-hires-former-f5-executive-as-cmo-relocates-bellevue-offices-to-lincoln-square/), via search summary). Second floor unknown (suite 2000 → floor 20 + one adjacent).
 - **Tower**: 126 m, 28 floors, 2005, formerly "Eddie Bauer at Lincoln Square", later mostly Microsoft ([tallest list](https://en.wikipedia.org/wiki/List_of_tallest_buildings_in_Bellevue,_Washington); OSM part w604028609). Footprint ≈ 53 × 43 m on the SE corner of NE 8th × Bellevue Way. Facade (photo `Lincoln_Square_Office_Tower_and_One_Lincoln_Tower.jpg`): blue-grey reflective glass `#7f97ad` with light-grey spandrel bands `#c8ced3`, darker recessed top floors, dark louvred crown `#5f6163`, flat roof.
 - **Entrance**: OSM node 7945526075 at **47.61723, −122.20148** on the Bellevue Way NE frontage just south of NE 8th, facing west (confidence medium); a level-1 entrance from the podium/skybridge on the NE 8th side (47.61726, −122.20089). Lobby interior and UiPath signage: no open source, no exterior UiPath sign found; the modelled lobby is generic.
-- **Signs** (owner reports 2026-11-15, "sign sucks" and "I INCOLN SQUARE"): the stop no longer gets the generic CV board (`ownSign` on `lincoln`); the model carries the building's own signs: "LINCOLN SQUARE NORTH" on the canopy fascia, a stone address monument ("700 / BELLEVUE WAY NE") at the sidewalk with a small steel tenant plate ("UIPATH SUITE 2000"); monument size and plate are estimates. The "LINCOLN SQUARE" name on the NE 8th face sits on a stone fascia panel in the solid band between the two window rows, 1.0 m letters on the straight 16 m face (it was 1.4 m and 16.6 m wide: cut at the set-back, run into the rounded corner). Street View panoramas viewed (not stored): `lK7f8aUefijIvAtloF9a_w` (Bellevue Way at 47.617176, −122.201826, headings 40–175: blue awnings, a closed Thomasville store, a small blue plaque on a stone pier, no tower lobby canopy at the entrance node) and `XAdv4ZJdi3F5sMFCBdAoGA` (NE 8th at 47.617574, −122.200616, headings 180–255: red brick and tan stone, "10455" on the awnings, Lucky Strike sign on the corner tower). Neither shows "LINCOLN SQUARE" lettering on the podium, so its position and size stay an estimate.
+- **Signs**: no generic CV board (`ownSign` on `lincoln`); the model carries the building's own signs: "LINCOLN SQUARE NORTH" on the canopy fascia, a stone address monument ("700 / BELLEVUE WAY NE") at the sidewalk with a small steel tenant plate ("UIPATH SUITE 2000"), and "LINCOLN SQUARE" in 1.0 m letters on a stone fascia panel in the solid band between the two window rows of the straight 16 m NE 8th face. Panoramas: `lK7f8aUefijIvAtloF9a_w` (Bellevue Way at 47.617176, −122.201826, headings 40–175: blue awnings, a closed Thomasville store, a small blue plaque on a stone pier, no tower lobby canopy at the entrance node) and `XAdv4ZJdi3F5sMFCBdAoGA` (NE 8th at 47.617574, −122.200616, headings 180–255: red brick and tan stone, "10455" on the awnings, Lucky Strike sign on the corner tower). Neither shows "LINCOLN SQUARE" lettering on the podium.
 - **Podium** (OSM w161929514, `building=retail`, 3 levels; `bLincolnN` / `bOneLincoln` in `landmarks/bellevue.js`): cream / tan stone piers (`#d9cba6`, bands `#e6dcc3`) with wide blue-glass bays over a grey storefront base on both street faces and the curved corner; brick piers between shopfronts; blue sidewalk canopies. The bay just south of the Bellevue Square skybridge is red-brown brick; a red-brick accent bay where the NE 8th skybridge lands (drawn on the NE 8th face, 12 m wide, estimate). Mapped OSM tenants carry their own fascias where OSM puts them (Din Tai Fung on the NE 8th face). Westin podium and its level 2–3 connector: tan stone with punched square windows (size / pitch estimated). The NE 8th face beyond these items was never compared with a panorama; poster boards beside the Cinemark sign are not drawn (no source).
 - **Complex** (heights from the Wikipedia list): **One Lincoln Tower** (Westin + condos, 137 m, 42 fl, 2005; blue glass with white slab bands, "WESTIN" letters on the crown), **400 Lincoln Square** (office, 137 m, 31 fl, 2017; blue-grey glass `#6e8a9e`, silver mullions; podium of tall glazed bays), **Two Lincoln Tower** (W Bellevue + residences, 137 m, 42 fl, 2017); retail podiums north (10455 NE 8th: Cinemark Reserve, Earls, Din Tai Fung, Paddy Coyne's, Topgolf Swing Suite, The Container Store) and south (500 Bellevue Way NE: Fogo de Chão, Duke's Seafood, Wild Ginger, Japonessa, TruFusion).
 - **Skybridges** (OSM; open white steel trusses with glazing, drawn with white chords, posts and diagonals): (1) over Bellevue Way NE at ~NE 7th to Bellevue Square, w43872832, ~32 m, 2007 ([Bellevue Square](https://en.wikipedia.org/wiki/Bellevue_Square)); (2) diagonally over NE 8th to Bellevue Place / Hyatt, w43872826 + building w1364249504, ~56 m, glazed pitched roof (ridge 1.2 m above the eaves, estimate) and a white curved pier on the north sidewalk (not drawn: not mapped); (3) over NE 6th St, w516915099, ~22 m.
@@ -104,7 +104,7 @@ All in `buildings[]` with footprints. Heights: Wikipedia/SkyscraperCenter where 
 
 ## 8. Businesses
 
-Live OSM (2026-11-12): 494 named shops / amenities / offices in the bbox; inside the playable geometry every food / bank / shop / hotel POI is in the game, except indoor level-2 units (Topgolf Swing Suite n11214249972, Par One n11214249971), Lucky Strike (n4188521492, `leisure=amusement_arcade`), Pure Barre (n3883822560), financial-advisor offices (TD Ameritrade n4190985796, Wells Fargo Advisors n4190985798) and The Ruby Room (n5608446843). Documented exclusions: Starbucks n471973082 (not in the official locator; the corner unit at 110th Ave NE carries a CoCo sign) and Microsoft Store n7658557693 (the Bravern frontage shows a Microsoft office sign). Route B (Bellevue Way) is the densest retail strip: restaurants and shops (Cheesecake Factory, Shake Shack, Din Tai Fung, Earls, Starbucks); NE 8th is banks and offices. Full lists: `businesses[]` and the Businesses and speed limits section below.
+Live OSM: 494 named shops / amenities / offices in the bbox; inside the playable geometry every food / bank / shop / hotel POI is in the game, except indoor level-2 units (Topgolf Swing Suite n11214249972, Par One n11214249971), Lucky Strike (n4188521492, `leisure=amusement_arcade`), Pure Barre (n3883822560), financial-advisor offices (TD Ameritrade n4190985796, Wells Fargo Advisors n4190985798) and The Ruby Room (n5608446843). Documented exclusions: Starbucks n471973082 (not in the official locator; the corner unit at 110th Ave NE carries a CoCo sign) and Microsoft Store n7658557693 (the Bravern frontage shows a Microsoft office sign). Route B (Bellevue Way) is the densest retail strip: restaurants and shops (Cheesecake Factory, Shake Shack, Din Tai Fung, Earls, Starbucks); NE 8th is banks and offices. Full lists: `businesses[]` and the Businesses and speed limits section below.
 
 - **Arco** w425947102 (`building=roof`, `amenity=fuel`): blue fascia over two pump islands; no canopy record in the pack (POI only); no pylon (a small pole sign). Its nearest edge is NE 8th St just past the map edge, so `nav.compute` ends routes on the next reachable edge, 6.5 m away.
 - No mapped business lies within 15 m of the 11 pedestrian ways / named footways, so the pedestrian-front sign rule has nothing to sign here.
@@ -123,6 +123,8 @@ Live OSM (2026-11-12): 494 named shops / amenities / offices in the bbox; inside
 - **Monuments** (`monuments.js`): 11 placed as generic class objects (Mahatma Gandhi statue n1704038437, Guan Yin, Double Inquiry, Heronious One, #BVUE, unnamed sculptures; no likenesses). Murals and untyped artworks stay markers. Skipped by the footprint test: Root n11862631648 (in water), Story Pole VI n12554043199 (on a carriageway). Forest Deity n7205021680 (Dudley C. Carter, 1947) lies outside the playable area.
 
 ## 11. Congestion hotspots (feeds `CITIES.seattle.districts.bellevue.congestion`)
+
+The I-90 and Bellevue Way SE rows describe the unplayable approach; `cities.js` keeps the other five.
 
 | id | where | local hours (weekday) | level | evidence |
 |---|---|---|---|---|
@@ -179,18 +181,17 @@ Photo-derived values are medians of hand-picked regions. Facades of 400 Lincoln 
 
 - **Pedestrian plazas**: the shared rule ([shared-rules.md](shared-rules.md#pedestrian-plazas)). Here: 18 plazas, none
   tagged grass.
-- Lincoln Square: lobby and UiPath signage, the second UiPath floor, the NE 8th podium face beyond the reviewed items (§6.1).
+- Lincoln Square: lobby and UiPath signage, the second UiPath floor, the NE 8th podium face beyond the reviewed items, the
+  "LINCOLN SQUARE" letters' position and size, the address monument and tenant plate (§6.1).
 - NE 8th St bridge over I-405: the overhead gantry's text is not legible; the cut slopes are not drawn on the flat district
   ground; the sidewalks' 1.8 m width is an aerial estimate (§5).
 - Street trees in the towers' shadows on NE 8th / Bellevue Way are not added (unreadable on the imagery, §5).
 - Wilburton station look and stairs; the 2 Line rail level (§9).
 - Tunnel interior and floating-bridge parapet heights / deck freeboard come from photos only (no WSDOT drawing retrieved).
-- The `bel-lincoln-square` spot is not in `MENU_ORDER` (`game/src/spot-availability.js`), so it is not offered and
-  places.json does not list it.
 
 ## 15. Sources and method
 
-- OpenStreetMap (ODbL), API 0.6 extracts 2026-11-06 and live Overpass 2026-11-12/13 — <https://www.openstreetmap.org>
+- OpenStreetMap (ODbL), API 0.6 extracts and live Overpass re-checks — <https://www.openstreetmap.org>
 - Wikipedia: [Lacey V. Murrow Memorial Bridge](https://en.wikipedia.org/wiki/Lacey_V._Murrow_Memorial_Bridge), [Homer M. Hadley Memorial Bridge](https://en.wikipedia.org/wiki/Homer_M._Hadley_Memorial_Bridge), [Mount Baker Tunnel](https://en.wikipedia.org/wiki/Mount_Baker_Tunnel), [I-90 in Washington](https://en.wikipedia.org/wiki/Interstate_90_in_Washington), [I-405](https://en.wikipedia.org/wiki/Interstate_405_(Washington)), [2 Line](https://en.wikipedia.org/wiki/2_Line_(Sound_Transit)), [Tallest buildings in Bellevue](https://en.wikipedia.org/wiki/List_of_tallest_buildings_in_Bellevue,_Washington), [Bellevue Square](https://en.wikipedia.org/wiki/Bellevue_Square), [Bellevue Towers](https://en.wikipedia.org/wiki/Bellevue_Towers), [Downtown Bellevue](https://en.wikipedia.org/wiki/Downtown_Bellevue)
 - WSDOT Standard Plans [M-20.10-04](https://wsdot.wa.gov/publications/fulltext/Standards/english/PDF/m20.10-04_e.pdf), [M-20.20-02](https://wsdot.wa.gov/publications/fulltext/Standards/english/PDF/m20.20-02_e.pdf), [M-20.30-05](https://wsdot.wa.gov/publications/fulltext/Standards/english/PDF/m20.30-05_e.pdf), [M-20.40-03](https://wsdot.wa.gov/publications/fulltext/Standards/english/PDF/m20.40-03_e.pdf), [M-24.20-02](https://wsdot.wa.gov/publications/fulltext/Standards/english/PDF/m24.20-02_e.pdf), [M-24.40-02](https://wsdot.wa.gov/publications/fulltext/Standards/english/PDF/m24.40-02_e.pdf), [M-24.60-04](https://wsdot.wa.gov/publications/fulltext/Standards/english/PDF/m24.60-04_e.pdf); [Traffic Manual ch.3](https://wsdot.wa.gov/publications/manuals/fulltext/M51-02/Chapter3.pdf)
 - MUTCD 2009 [Part 3A](https://mutcd.fhwa.dot.gov/htm/2009r1r2r3/part3/part3a.htm), [Part 3D](https://mutcd.fhwa.dot.gov/htm/2009/part3/part3d.htm)
@@ -201,74 +202,32 @@ Photo-derived values are medians of hand-picked regions. Facades of 400 Lincoln 
 - USGS 3DEP elevation (epqs.nationalmap.gov); Esri World Imagery (tree crowns read by eye, imagery not kept)
 - Wikimedia Commons photos — [refs/LICENSES.md](refs/LICENSES.md) (`refs/bellevue/`)
 
-Method (the scripts lived in the research scratchpad, not shipped): OSM `/api/0.6/map` tiles (≤ 0.02° squares, ≥ 1.5 s apart) → parser → Dijkstra router over drivable ways (oneway-aware, HOV-only links excluded) → extractor (route segments, buildings within 70 m or ≥ 25 m tall, POIs within 60 m, furniture) → curated overlay → `seattle-bellevue.json`. Photo colours: median RGB of hand-picked rectangles. Wikimedia API calls rate-limited, honouring `Retry-After`.
+Method (research scripts, not shipped): OSM `/api/0.6/map` tiles (≤ 0.02° squares, ≥ 1.5 s apart) → parser → Dijkstra router over drivable ways (oneway-aware, HOV-only links excluded) → extractor (route segments, buildings within 70 m or ≥ 25 m tall, POIs within 60 m, furniture) → curated overlay → `seattle-bellevue.json`. Photo colours: median RGB of hand-picked rectangles. Wikimedia API calls rate-limited, honouring `Retry-After`.
 
 ## Businesses and speed limits
 
-Research pass 2026-11-07 (spec 20, R12.2 / R11). Machine-readable: `businesses-seattle-bellevue.json` (one entry per business) and the `seattle-bellevue` block of `speedlimits.json`. Zone = everything within **60 m of a chapter route** (routes recomputed on the OSM graph from `CHAPTERS` starts to the stop doors, one-way and turn-restriction aware) **plus** recognisable businesses within 50 m of a main street (motorway…tertiary) inside the district mask. Standalone ATMs, parcel lockers, chargers and pure company offices are left out. District review of businesses: `seattle-bellevue.md` §8.
+`businesses-seattle-bellevue.json`, the `seattle-bellevue` block of `speedlimits.json` (per-way OSM `maxspeed` vs game
+km/h; the Washington and Bellevue legal defaults under `countries.US`). Method, the Washington rules and the locators:
+[shared-rules.md → Business research](shared-rules.md#business-research).
 
-Confidence: **high** = official locator match, or OSM `check_date` ≥ 2025-05; **medium** = OSM element edited or checked since 2023-11; **low** = older OSM data, or a chain store missing from its official locator. Sign `style` is a category rule (fuel → pylon, drive-thru fast food in its own building → pylon, else fascia); `sign.basis` says where the colours come from.
+- **Live POIs**: `add-pois.mjs` ran over the playable area + 260 m; nodes deep inside the Bellevue malls (68) stay out by
+  rule. POIs mapped as relations (Courtyard hotel r8064670) are read by `tools/osm/build-data.mjs`.
+- **Locator matches**: Starbucks 545 Bellevue Way NE ("The Lodge", [18615](https://www.starbucks.com/store-locator/store/18615)),
+  10214 NE 8th St ([18416](https://www.starbucks.com/store-locator/store/18416)), 601 108th Ave NE ("Key Center",
+  [11106](https://www.starbucks.com/store-locator/store/11106)), 10116 NE 8th St (inside QFC 808,
+  [8021](https://www.starbucks.com/store-locator/store/8021)), 300 Bellevue Way NE (inside Safeway 1600,
+  [11038](https://www.starbucks.com/store-locator/store/11038)), 42 Bellevue Way NE
+  ([16023](https://www.starbucks.com/store-locator/store/16023)); Safeway 300 Bellevue Way NE; Bank of America 425 106th Ave
+  NE ([locator](https://locators.bankofamerica.com/wa/bellevue/)). **QFC** 10116 NE 8th St is not in OSM: added from the
+  locator.
+- **Not shown** (not in the official locator): Starbucks 11010 NE 8th St (n471973082; the unit carries a CoCo sign), Bank of
+  America 10116 NE 8th St (n697212586). Microsoft Store n7658557693: all Microsoft consumer stores closed in June 2020; the
+  Bravern frontage shows a Microsoft office sign.
+- **Route notes**: Din Tai Fung is signed on the Lincoln Square podium's NE 8th face; Crate & Barrel is inside on level 0;2
+  (no street-front sign); The Container Store and AT&T are classes dropped by `poiKind()`.
+- **Bartell Drugs**: about half the stores closed by 2025, the rest became CVS Pharmacy in Rite Aid's 2025 liquidation (all
+  Rite Aid stores closed 2025-10-03; Wikipedia "Bartell Drugs" / "Rite Aid"): no Bartell storefront appears in the game.
+- Street View: Westin lettering on the tower at NE 6th St; 999 Bellevue Way NE (Tempur-Pedic) unreadable behind a tree.
 
-### On the chapter route `uipath-bel` (chain brands)
-
-| brand | category | address | side | conf. | note |
-|---|---|---|---|---|---|
-| Fidelity Investments | bank | — | N of NE 8th St | medium | |
-| Starbucks | cafe | 11010 NE 8th St | N of NE 8th St | low | not in the official locator; the unit carries a CoCo sign (exclusion) |
-| CoCo | cafe | 11028 NE 8th St | N of NE 8th St | medium | |
-| Charles Schwab | bank | 11100 NE 8th St | N of NE 8th St | medium | |
-| Umpqua Bank | bank | 11100 NE 8th St | N of NE 8th St | medium | |
-| U.S. Bank | bank | 10900 NE 8th St (Plaza Center) | N of NE 8th St | low | |
-| U.S. Bank | bank | 10800 NE 8th St | N of NE 8th St | medium | |
-| Chase | bank | 10550 NE 8th St | N of NE 8th St | medium | |
-| Hermès | clothes | 11111 NE 8th St | S of NE 8th St | high | |
-| Microsoft Store | electronics | 11025 NE 8th St | S of NE 8th St | low | all Microsoft consumer stores closed (June 2020); the Bravern frontage shows a Microsoft office sign, not a shop (exclusion) |
-| Crate & Barrel | furniture | — | S of NE 8th St | medium | inside a building on level 0;2: no street-front sign |
-| Din Tai Fung | restaurant | 700 Bellevue Way NE | S of NE 8th St | medium | signed on the Lincoln Square podium's NE 8th face |
-| Earls | restaurant | 700 Bellevue Way NE | E of Bellevue Way | high | |
-| The Container Store | houseware | Bellevue Way NE | E of Bellevue Way | high | class dropped by `poiKind()` |
-| AT&T | mobile_phone | 821 Bellevue Way NE | N of NE 8th St | high | class dropped by `poiKind()` |
-| Starbucks | cafe | 545 Bellevue Way NE | W of Bellevue Way | high | |
-| Pressed | fast_food | — | W of Bellevue Way | high | |
-| Shake Shack | fast_food | 503 Bellevue Way NE | W of Bellevue Way | medium | |
-| The Cheesecake Factory | restaurant | 401 Bellevue Square | W of Bellevue Way | medium | |
-
-Independents on the route (28): ? (second_hand), Bellevue Water Grill, Cactus - Bellevue Square, Castilla Restaurant and Tapas Bar, Chocolate Lounge, Chromatique, Daniel's Broiler, Eco Car Cafe, Farzi Café, Forum Social House, Hummus Republic, Joey, MIX Poke Bar, Optima Dental Spa, Paddy Coyne's, Paper Source, Prime 21 Lounge, STK Steakhouse, Sabine Cafe and Bar, Schoener, Story Coffee, Sugar Factory, TRUCE Spa, Tavern Hall, Thomasville & Urban Interiors, Trillium Custom Tailoring & Design, Woods Coffee, Yardbird.
-
-### Official-locator checks
-
-Position matches: Starbucks 545 Bellevue Way NE ("The Lodge", [18615](https://www.starbucks.com/store-locator/store/18615)), 10214 NE 8th St ([18416](https://www.starbucks.com/store-locator/store/18416)), 601 108th Ave NE ("Key Center", [11106](https://www.starbucks.com/store-locator/store/11106)), 10116 NE 8th St (inside QFC 808, [8021](https://www.starbucks.com/store-locator/store/8021)), 300 Bellevue Way NE (inside Safeway 1600, [11038](https://www.starbucks.com/store-locator/store/11038)), 42 Bellevue Way NE ("Main St.&Bellevue Way", [16023](https://www.starbucks.com/store-locator/store/16023)); Safeway 300 Bellevue Way NE; Bank of America 425 106th Ave NE and one more pin ([locator](https://locators.bankofamerica.com/wa/bellevue/)). **QFC** 10116 NE 8th St: not in OSM within the zone, added from the locator.
-
-Not in the official locator (treated as possibly closed, not shown): Starbucks 11010 NE 8th St (node/471973082, check_date 2024-09-05), Bank of America 10116 NE 8th St (node/697212586, last edit 2024-01-16).
-
-Closed per OSM lifecycle tags (draw as a vacant 'For Lease' unit if modelled): Plaza Salon `disused:shop=hairdresser` (node/5752787322, 47.61768, −122.19418), unnamed `disused:amenity=restaurant` (node/1271661516, 47.61683, −122.20197), Legion `disused:amenity=bar` (node/3926527641, 47.61626, −122.20122).
-
-Missing chain brands at research time: 7-Eleven, AT&T★, CVS Pharmacy, Edible Arrangements, FedEx, Finish Line, Jo Malone, LensCrafters, Mattress Firm, Mephisto, QFC, See's Candies, Tempur-Pedic, The Container Store★, Xfinity (★ = on the route). Most brands here have no sign colours in `data.brands` or `BRANDS` (`world-shared.js`) and fall back to generic kind colours.
-
-### POIs added from live OSM (2026-11-12)
-
-`tools/osm/add-pois.mjs --edge 100` on API 0.6 tiles of the playable area + 260 m appended the businesses, places and stops the build lacked, including the 100 m edge strip. POIs mapped as relations (Courtyard hotel r8064670) are read by `tools/osm/build-data.mjs`. Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or indoor, nodes deep inside the Bellevue malls (68), unnamed objects, ATMs outside the area. Street View: Westin lettering on the tower at NE 6th St; 999 Bellevue Way NE (Tempur-Pedic) unreadable behind a tree.
-
-### Speed limits on the chapter route
-
-**Legal default (Washington).** RCW 46.61.400: 25 mph on city and town streets, 50 on county roads, 60 on state highways unless posted (https://app.leg.wa.gov/rcw/default.aspx?cite=46.61.400, fetched 2026-11-07). School and playground crosswalks: 20 mph when signed, 300 ft either side (RCW 46.61.440). Bellevue: posted limits 20–40 mph; arterials 25–40; most local streets are being lowered to 20 mph during 2026 (https://bellevuewa.gov/city-government/departments/transportation/safety-and-maintenance/traffic-safety/speed-limits-speed-management, fetched 2026-11-07). Seattle's 25 mph arterial default applies only inside Seattle city limits.
-
-**uipath-bel** — 1388 m; OSM ways with `maxspeed`: 26 (1262 m), without: 3 (92 m).
-
-| street | class | m | OSM maxspeed | game km/h |
-|---|---|---|---|---|
-| Northeast 8th Street West | motorway_link | 39 | — | 64 (default) |
-| Northeast 8th Street | primary | 1056 | 30 mph | 48 |
-| Bellevue Way Northeast | primary | 206 | 30 mph | 48 |
-| (unnamed) | primary_link | 39 | — | 48 (default) |
-| Northeast 7th Street | service | 14 | — | 24 (default) |
-
-Mapped signs / cameras within 150 m: node/5773437927 speed_camera (traffic_signals enforcement), 20 m.
-
-### Sources
-
-- OpenStreetMap API 0.6 tiles fetched 2026-11-06 and 2026-11-12, © OpenStreetMap contributors, ODbL — element ids in every entry.
-- Starbucks store locator API https://www.starbucks.com/store-locator (`/apiproxy/v1/locations`, 6 query points around downtown Bellevue and SeaTac, 107 stores, 2026-11-07). Licensed stores inside Safeway / QFC / Target also confirm those host stores.
-- Bank of America locator https://locators.bankofamerica.com/wa/bellevue/ (2026-11-07: 4 pins in or near downtown).
-- Bartell Drugs: Wikipedia "Bartell Drugs" / "Rite Aid" (fetched 2026-11-07): about half the stores closed by 2025, the rest rebranded CVS Pharmacy during Rite Aid's 2025 liquidation (all Rite Aid stores closed 2025-10-03). No Bartell storefront should appear in the game.
-- Not machine-readable from here: Chase, U.S. Bank, Walgreens (JavaScript-only), CVS, McDonald's US, Trader Joe's (HTTP 403), QFC (no response).
+Sources: OpenStreetMap API 0.6 tiles (element ids in every entry); the locators and Washington law in shared-rules.md
+(Starbucks queried at 6 points round downtown Bellevue and SeaTac, 107 stores).

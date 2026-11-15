@@ -14,7 +14,7 @@ import { BoxGrid, Y, shoulderOf } from './world-shared.js';
 export function buildRailingNetwork(ctx) {
     const {
         DROP, DY_SIDE, bRecs, basarabBlue, basarabStructure, buildingAt, buildingIndex, cellOf,
-        coveredByOther, data, edgeGrid, edges, fountainBasinColl, ghostRails, group, isWater, landmarkFences,
+        coveredByOther, data, distCfg, edgeGrid, edges, fountainBasinColl, ghostRails, group, isWater, landmarkFences,
         liftOnSide, lmSignColl, nearestEdge, onRibbon, propColl, raisedTop, segsCross, sportsColl,
         str, surfacesAt, tramSweep, walls, widthAsphalt, widthSide, yAlong,
     } = ctx;
@@ -27,6 +27,7 @@ export function buildRailingNetwork(ctx) {
     //          reach without crossing a carriageway at its level, another railing or a tram's swept body;
     //      (2) a dead-end spur under 6 m and an isolated group under 16 m are removed;
     //      (3) only then is the railing drawn. What still ends in the air is listed in stats.railingNetwork.openEnds.
+    const stackedDecks = !!distCfg?.stackedDecks; // (cities.js: no join through the lanes of a deck just below)
     const railingNetwork = { basis: 'MODEL: raised-deck railings joined into one network before they are drawn', joins: 0, joinM: 0, endToRailing: 0, prunedSpurs: 0, prunedIsolated: 0, prunedM: 0, openEnds: [] };
     {
         const mine = w => w.kind === 'rail' && w.basarabStyle === true;
@@ -79,7 +80,7 @@ export function buildRailingNetwork(ctx) {
                 const used = new Set(), added = [];
                 const free = (a, b, ya, yb, skip) => {
                     const d = Math.hypot(b[0] - a[0], b[1] - a[1]), n = Math.max(1, Math.ceil(d / .5));
-                    for (let i = 1; i < n; i++) { const f = i / n, x = a[0] + (b[0] - a[0]) * f, z = a[1] + (b[1] - a[1]) * f; if (coveredByOther(x, z, null, ya + (yb - ya) * f - Y.road, .35, false, .8)) return false; } // (through a carriageway: a mouth stays open)
+                    for (let i = 1; i < n; i++) { const f = i / n, x = a[0] + (b[0] - a[0]) * f, z = a[1] + (b[1] - a[1]) * f; if (coveredByOther(x, z, null, ya + (yb - ya) * f - Y.road, .35, false, .8)) return false; if (stackedDecks && coveredByOther(x, z, null, ya + (yb - ya) * f - Y.road - 1.4, .35, false, .8)) return false; } // (through a carriageway: a mouth stays open; with `stackedDecks`, through one 0.6-2.2 m below too: world-facades-guards.js)
                     if (tramSweep && tramSweep.segment(a, b, .05, Math.min(ya, yb) - .5, Math.max(ya, yb) + 1.1)) return false;
                     // (owner, SeaTac (-909, 1001), 2026-11-13: an invisible wall across Exit → Return To Terminal) the samples above
                     // test the ribbons' interiors; a join laid along the seam where a ramp's ribbon meets its bridge deck's lies on

@@ -230,6 +230,15 @@ const SEA_DISTRICTS = {
         bbox: [47.4385, -122.3060, 47.4575, -122.2925], center: { lat: 47.4500, lon: -122.2850 },
         landmarks: ['seatac', 'seatower', 'seagarage', 'sealink', 'rainier', 'olympics'],
         scenery: ['seatac', 'seatower', 'seagarage', 'sealink', 'rainier', 'olympics'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
+        // (owner, 2026-11-15, Arrivals Drive (-953, 995): "This brige is still extremely broken -- borders in th emiddle of the
+        // road, missing consistency on borders, lanes are drawn badly", "all teh briges are broken there") the terminal drives
+        // are stacked one-way roads, ramps and garage decks: rules for them, opted into here because the shared road and deck
+        // rules they change also lay out the Bucharest decks, which stay as they are (two attempts on the shared rules moved
+        // the Pasajul Basarab lanes, 2026-11-15): one left kerb along a named one-way chain (world-road-graph.js `kerbRuns`),
+        // a ramp leaving a street narrowed once and tapered (world.js `rampTapers`), lane drops at plain nodes tapered
+        // (world-road-graph.js `laneDropTapers`), raised ramps on fill guarded like the decks they continue
+        // (world-side-joins.js `embankGuards`), no deck guard standing in the lanes of a deck just below (world-facades-guards.js `stackedDecks`)
+        kerbRuns: true, rampTapers: true, laneDropTapers: true, embankGuards: true, stackedDecks: true,
         congestion: [ // from game/research/seattle-seatac.json traffic.hotspots
             { lat: 47.44400, lon: -122.30000, radius: 250, hours: [[4.5,  7.5],  [11,  14]], level: 0.70, note: 'Departures Drive kerb' },
             { lat: 47.44350, lon: -122.30000, radius: 250, hours: [[11,  14],  [20.5,  24]], level: 0.60, note: 'Arrivals Drive kerb' },

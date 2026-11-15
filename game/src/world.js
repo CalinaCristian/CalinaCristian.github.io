@@ -70,7 +70,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     let surfCells = null;
     // (world road graph: world-road-graph.js)
     const __buildRoadGraphAids = buildRoadGraphAids({
-        EG, data, edgeGrid, edges, nodeArr, str,
+        EG, data, distCfg, edgeGrid, edges, nodeArr, str,
     });
     const {
         CLEAR, GRADE, coveredRoadModels, crossings, edgesInBox, laneTapers, nearestEdge, sideExtra,
@@ -201,7 +201,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // raised carriageway running parallel beside a street at grade, closer than their two widths, loses the walkway on that
     // side and narrows that side (lanes down to 2.6 m) so its wall stands at the street's edge
     {
-        let narrowed = 0, splitWalkways = 0;
+        let narrowed = 0, splitWalkways = 0; const rampTaperRecs = distCfg?.rampTapers ? [] : null;
         for (const e of edges) {
             if (e.virtual || e.tunnel || !(Math.max(e.ya, e.yb) > .3) || (e.ya + e.yb) / 2 > 4.5 || e.roadWidthSource) continue; // (low enough to stand on its walls: a higher deck passes over the street)
             for (const sd of [1, -1]) {
@@ -231,9 +231,52 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (sd > 0) e.sidewalkRightM = 0; else e.sidewalkLeftM = 0;
                 const lanes = Math.max(1, e.lanesF + e.lanesB), other = sd > 0 ? e.wL : e.wR, minSide = Math.max(1.3, 2.6 * lanes - other);
                 const nw = Math.max(minSide, gap - shoulderOf(e));
-                if (nw < e[key] - .05) { e[key] = nw; e.laneW = Math.min(e.laneW, (e.wL + e.wR) / lanes); if (e.oneway) e.median = -2 * e.wL; layContraflowLanes(e); e.halfW = Math.max(e.wL, e.wR); }
+                if (nw < e[key] - .05) { if (rampTaperRecs) rampTaperRecs.push({ e, sd, to: nw }); e[key] = nw; e.laneW = Math.min(e.laneW, (e.wL + e.wR) / lanes); if (e.oneway) e.median = -2 * e.wL; layContraflowLanes(e); e.halfW = Math.max(e.wL, e.wR); }
                 narrowed++;
             }
+        }
+        // (owner, 2026-11-15, SeaTac (-953, 995): "borders in th emiddle of the road", "lanes are drawn badly") each edge of a
+        // ramp is narrowed by its own three samples, so Exit → Return To Terminal (w369422790), leaving Arrivals Drive at a
+        // narrow split, went 3.7, 1.5, 2.4, 3.7 m on its right edge by edge: the kerb, its wall and every lane line stepped at
+        // each node. A district with `rampTapers` (cities.js) narrows such a ramp once. From a split (the ramp's at-grade
+        // first edges overlap the street even more) it keeps the narrowest width any edge needed, never wider than a later
+        // edge allows; elsewhere it closes in over the 10 m before the first narrowed edge. After the last one it widens
+        // back over at least 10 m. The width varies along an edge as a lane-drop taper does (e.taperR; the lane lines follow
+        // it, world-edge-ribbons.js). Only a right-hand side (taperR); a left-hand one keeps the per-edge widths.
+        if (rampTaperRecs?.length) {
+            const recOf = new Map(); for (const r of rampTaperRecs) if (r.sd > 0) recOf.set(r.e, r);
+            const lanesOf = e => Math.max(1, e.lanesF + e.lanesB);
+            const along = (e, dir) => { const n = dir > 0 ? e.b : e.a, es = n.edges.filter(g => !g.virtual); if (es.length !== 2) return null; const g = es[0] === e ? es[1] : es[0]; return g.road === e.road && (dir > 0 ? g.a === n : g.b === n) ? g : null; };
+            const done = new Set(); let tapered = 0;
+            for (const r of rampTaperRecs) {
+                if (r.sd < 0 || done.has(r.e)) continue;
+                let first = r.e; for (let p = along(first, -1); p && recOf.has(p) && !done.has(p); p = along(first, -1)) first = p;
+                const run = []; for (let c = first; c && recOf.has(c) && !done.has(c); c = along(c, 1)) run.push(c);
+                for (const c of run) done.add(c);
+                // the at-grade start of the ramp back to its split (at most 30 m); else the edges it closes in over; the edges it widens back over
+                const head = []; let headM = 0; for (let p = along(first, -1); p && Math.max(p.ya, p.yb) <= .3 && !recOf.has(p) && headM + p.len <= 30; p = along(p, -1)) { head.unshift(p); headM += p.len; }
+                if (head.length && (head[0].a.edges.filter(g => !g.virtual).length < 3)) head.length = 0; // (only from a split / junction)
+                const lead = []; let leadM = 0; if (!head.length) for (let p = along(first, -1); p && !recOf.has(p) && leadM < 10; p = along(p, -1)) { lead.unshift(p); leadM += p.len; }
+                const tail = []; let tailM = 0; for (let c = along(run[run.length - 1], 1); c && !recOf.has(c) && tailM < 10; c = along(c, 1)) { tail.push(c); tailM += c.len; }
+                const chain = [...lead, ...head, ...run, ...tail];
+                if (!tail.length || (!head.length && !lead.length) || chain.some(c => c.taperR || c.roadWidthSource || !c.oneway)) continue;
+                const k0 = lead.length, k1 = k0 + head.length + run.length;
+                // node k (the start of chain[k]) takes the narrowest width a narrowed edge beside it allows, and none further on
+                // is narrower; the lead closes in to it and the tail widens back to the full width
+                const wAt = [];
+                for (let k = 0; k <= k1; k++) wAt.push(Math.min(...[chain[k - 1], chain[k]].filter(c => c && recOf.has(c)).map(c => c.wR)));
+                for (let k = k1 - 1; k >= k0; k--) wAt[k] = Math.min(wAt[k], wAt[k + 1]);
+                if (k0) { const from = lead[0].wR; let s = 0; for (let k = 0; k < k0; k++) { wAt[k] = from + (wAt[k0] - from) * s / leadM; s += lead[k].len; } }
+                const full = tail[tail.length - 1].wR;
+                let s = 0; for (let k = k1; k < chain.length; k++) { s += chain[k].len; wAt.push(wAt[k1] + (full - wAt[k1]) * Math.min(1, s / tailM)); }
+                for (let k = 0; k < chain.length; k++) {
+                    const c = chain[k], wa = Math.min(c.wR, wAt[k]), wb = Math.min(c.wR, wAt[k + 1]), base = Math.min(wa, wb);
+                    c.wR = base; c.taperR = Math.max(wa, wb) - base > 1e-3 ? [wa - base, wb - base] : null; c.rampTaper = true; if (k >= k0 && k < k1) c.sidewalkRightM = 0;
+                    c.laneW = Math.min(c.laneW, (c.wL + c.wR) / lanesOf(c)); if (c.oneway) c.median = -2 * c.wL; layContraflowLanes(c); c.halfW = Math.max(c.wL, c.wR + (c.taperR ? Math.max(...c.taperR) : 0));
+                }
+                tapered++;
+            }
+            if (tapered) { narrowed = narrowed || tapered; __buildRoadGraphAids.sccInfo.rampTapers = tapered; }
         }
         if (narrowed) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + .5; __buildRoadGraphAids.sccInfo.raisedBesideStreet = narrowed; }
         if (splitWalkways) __buildRoadGraphAids.sccInfo.raisedBesideSplitStreet = splitWalkways;
@@ -344,7 +387,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         polyOnRibbon, raisedDeck, raisedTop, ribGrid, ribbonsAtLevel, segsCross, walls,
     } = buildSideJoins({
         ASPHALT, DY_SIDE, SIDE_BACK, US, asphaltCorners, bridgeJunctionAudit, bridgeJunctionDecks, cellOf,
-        cornerGrid, cornerPolys, cornerSkips, coveredByOther, data, edgeGrid, edges, kerbCol,
+        cornerGrid, cornerPolys, cornerSkips, coveredByOther, data, distCfg, edgeGrid, edges, kerbCol,
         layerY, padAsphalt, padCorners, padHeightAt, pierColl, pierSpots, polyDist, railRoadside,
         raised, raisedEdge, retainedDeck, ribbons, sceneryDeckGrid, sharedPadSurfaces, sideCol, sideExtra,
         sideJoins, widthAsphalt, widthSide, yAlong,
@@ -547,7 +590,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         ASPHALT, DY_SIDE, LANDMARKS, US, areas, asphaltCorners, bGrid, bRecs,
         basarabBlue, bridgeJunctionDecks, buildPool, builderEpoch, buildingAt, buildingIndex, carParkOutlines, cellOf,
         cells, city, clipBuildingDetails, convexRing, country, coveredByOther, coveredOutlines, data,
-        distId, edgeGrid, edges, edgesInBox, floatingSupport, fountainBasinColl, group, inDistrictLL,
+        distCfg, distId, edgeGrid, edges, edgesInBox, floatingSupport, fountainBasinColl, group, inDistrictLL,
         insetRing, isPark, isWater, landmarkFences, landmarks, lazyRoofMesh, liftOnSide, lmGroup,
         medianFill, medianGrid, nearestEdge, obbPoly, onRibbon, padHeightAt, pasajPortals, pasajStats,
         pierColl, pois, polyDist, polyOnRibbon, raised, raisedDeck, raisedTop, retainedDeck,

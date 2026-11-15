@@ -15,7 +15,7 @@ export async function buildFacadesGuards(ctx) {
     const {
         ASPHALT, LANDMARKS, US, addSignQuad, asphaltCorners, bGrid, bRecs, bridgeJunctionDecks,
         buildingAt, buildingIndex, cellOf, cells, city, country, coveredByOther, coveredOutlines,
-        data, distId, edgeGrid, edges, floatingSupport, group, isWater, landmarks,
+        data, distCfg, distId, edgeGrid, edges, floatingSupport, group, isWater, landmarks,
         lmGroup, medianFill, medianGrid, nearestEdge, onRibbon, padHeightAt, pierColl, pois,
         polyDist, raised, raisedDeck, retainedDeck, sceneryDeckGrid, signMB, signs, surfGrid,
         surfList, surfacesAt, tramDecks, tramGrades, tramPropEnvelope, tramSweep, tramSweepConflicts, trams,
@@ -187,12 +187,22 @@ export async function buildFacadesGuards(ctx) {
         // a pad (deck corners) are deck too
         const walkReach = edges.some(e => e.deckWalk) ? Math.max(...edges.map(e => e.deckWalk ? Math.max(deckWalkSide(e, 1), deckWalkSide(e, -1)) : 0)) + .5 : 0;
         const deckCorners = walkReach ? [...new Set(edges.flatMap(e => [...(e.a.deckWalkCorners || []), ...(e.b.deckWalkCorners || [])]))] : [];
+        // (owner, 2026-11-15, SeaTac garage service decks (-1022, 725), (-998, 757): 11.4 m of railing stood in the lanes of a
+        // deck 0.6-2.2 m below, where OSM overlaps two garage ramps) a district with `stackedDecks` (cities.js) leaves the guard
+        // out where its line lies inside a carriageway or pad that low under it: no car fits between the two, so the guard
+        // could only stand in the lower deck's lanes. The same where the guard's own road is at most 2.6 m up (its wall
+        // reaches the ground) and its line lies inside a lower street: Ramp w31928834 on fill descends 5.6 m from Ramp
+        // w31928843's centre line, their asphalt overlapping by a metre. A guard up to 4.2 m above such a street's lanes is
+        // drawn without its wall (its 2.2 m skirt would reach the cars below): the ramp keeps its railing, the street its lane.
+        const STACKED = distCfg?.stackedDecks ? 2.2 : 0;
+        const overLowLanes = (x, z, y) => { let hit = false; if (STACKED) surfGrid.each(x, z, x, z, o => { if (hit || !o.e || x < o.x0 || x > o.x1 || z < o.z0 || z > o.z1) return; const dy = o.h(x, z) - y; if (dy <= -LEVEL && dy > -4.2 && pointInPolygon(x, z, o.poly)) hit = true; }); return hit; };
         const takenAt = (x, z, y, ownE, ownN, ownMedian = null, ownCorner = null) => {
             let hit = false;
             surfGrid.each(x - 1 - walkReach, z - 1 - walkReach, x + 1 + walkReach, z + 1 + walkReach, o => {
                 const m = 1 + (o.e?.deckWalk ? walkReach : 0);
                 if (hit || (ownE && o.e === ownE) || (ownN && o.node === ownN) || x < o.x0 - m || x > o.x1 + m || z < o.z0 - m || z > o.z1 + m) return;
-                const dy = o.h(x, z) - y; if (dy <= -LEVEL || dy >= 3) return;
+                const dy = o.h(x, z) - y; if (STACKED && dy <= -LEVEL && (dy > -STACKED || y <= 2.6) && pointInPolygon(x, z, o.poly)) { hit = true; return; } // (or a guard low enough for its wall to reach down to the street: a ramp on fill descending over a street's lane)
+                if (dy <= -LEVEL || dy >= 3) return;
                 // (on another deck's walkway band too: two decks parting share their walkways until those separate, so the
                 // two guards meet in one nose there instead of a short cage of two pieces before a filled median begins)
                 if (pointInPolygon(x, z, o.poly) || polyDist(x, z, o.poly) < GROW - EPS || (o.e && o.e.bridge && (pointInPolygon(x, z, sideOf(o.e)) || (o.e.deckWalk && polyDist(x, z, sideOf(o.e)) < GROW - EPS)))) hit = true;
@@ -203,19 +213,22 @@ export async function buildFacadesGuards(ctx) {
         };
         const cands = [];
         // (a deck walkway, bridge-walkways.js: the railing stands on the walkway's outer edge, the deck widened by it)
-        const guardW = (f, sd) => (deckWalkSide(f, sd) > 0 ? widthSide(f, sd) : widthAsphalt(f, sd)) + GROW;
+        // (a raised way on fill: the guard stands on the retaining wall at the asphalt's edge, where a ramp narrowed beside a
+        // street meets that street's edge; the mitred corners lead it on to a deck's guard line, GROW further out)
+        const guardW = (f, sd) => (deckWalkSide(f, sd) > 0 ? widthSide(f, sd) : widthAsphalt(f, sd)) + (raisedDeck.embankment?.(f) ? 0 : GROW);
         for (const e of edges) {
-            if (!e.bridge || e.virtual || e.tunnel || !raisedDeck(e)) continue;
+            if ((!e.bridge && !raisedDeck.embankment?.(e)) || e.virtual || e.tunnel || !raisedDeck(e)) continue; // (a raised way on fill: world-side-joins.js embankGuards)
             const [aR, bR, bL, aL] = asphaltCorners(e, guardW), h = (x, z) => yAlong(e, x, z);
             cands.push({ e, node: null, a: aR, b: bR, nx: -e.nx, nz: -e.nz, h, low: e.overWater ? -Infinity : LOW }, { e, node: null, a: aL, b: bL, nx: e.nx, nz: e.nz, h, low: e.overWater ? -Infinity : LOW });
         }
         for (const o of surfList) {
-            const n = o.node; if (!n || o.poly.length < 3 || !n.edges.some(e => e.bridge && !e.virtual && !e.tunnel && raisedDeck(e))) continue;
+            const deckOf = e => (e.bridge || raisedDeck.embankment?.(e)) && !e.virtual && !e.tunnel && raisedDeck(e);
+            const n = o.node; if (!n || o.poly.length < 3 || !n.edges.some(deckOf)) continue;
             const P = o.poly, cx = P.reduce((s2, q) => s2 + q[0], 0) / P.length, cz = P.reduce((s2, q) => s2 + q[1], 0) / P.length, h = (x, z) => padHeightAt(n, x, z);
             for (let k = 0; k < P.length; k++) {
                 const p = P[k], q = P[(k + 1) % P.length], L = Math.hypot(q[0] - p[0], q[1] - p[1]); if (L < .05) continue;
                 let ox = (q[1] - p[1]) / L, oz = -(q[0] - p[0]) / L; if (((p[0] + q[0]) / 2 - cx) * ox + ((p[1] + q[1]) / 2 - cz) * oz < 0) { ox = -ox; oz = -oz; }
-                cands.push({ e: n.edges.find(e => e.bridge && !e.virtual && raisedDeck(e)), node: n, a: [p[0] + ox * GROW, p[1] + oz * GROW], b: [q[0] + ox * GROW, q[1] + oz * GROW], nx: -ox, nz: -oz, h, low: LOW });
+                cands.push({ e: n.edges.find(e => e.bridge && !e.virtual && raisedDeck(e)) || n.edges.find(deckOf), node: n, a: [p[0] + ox * GROW, p[1] + oz * GROW], b: [q[0] + ox * GROW, q[1] + oz * GROW], nx: -ox, nz: -oz, h, low: LOW });
             }
         }
         // across the end of a deck walkway the next edge does not carry on (bridge-walkways.js): from its outer edge to the
@@ -305,6 +318,7 @@ export async function buildFacadesGuards(ctx) {
                 // no wall can stand there. Clear of the body itself, the railing is still drawn, without a wall: a tram passes
                 // 5 cm from it and a car can cross it onto the track slab, which is level with the road there.
                 let ghost = false;
+                if (STACKED && !c.median && overLowLanes((A[0] + B[0]) / 2, (A[1] + B[1]) / 2, c.h((A[0] + B[0]) / 2, (A[1] + B[1]) / 2))) ghost = true; // (over a street's lanes: see overLowLanes)
                 if (base === null) { if (bodyLine(A, B, ya, yb)) { DROP((A[0] + B[0]) / 2, (A[1] + B[1]) / 2, "swept"); guardCompletion.sweptM += len; continue; } ghost = true; base = .3; }
                 const low = Math.min(ya, yb) - Y.road <= 2.6 && base === 2.2;
                 const w = { wall: true, completed: true, ax: A[0], az: A[1], bx: B[0], bz: B[1], y0a: low ? -1.5 : ya - base, y1a: ya + 1.1, y0b: low ? -1.5 : yb - base, y1b: yb + 1.1, yr: undefined, nx: p.nx ?? c.nx, nz: p.nz ?? c.nz, kind: 'rail', edge: c.e, x: (A[0] + B[0]) / 2, z: (A[1] + B[1]) / 2, r: len / 2 + .3, hw: 0, hd: 0, angle: 0, poly: null, h: 1 };

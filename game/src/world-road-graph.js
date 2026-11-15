@@ -10,7 +10,7 @@ import { layContraflowLanes, motorOneway } from './contraflow-bus.js';
 
 export function buildRoadGraphAids(ctx) {
     const {
-        EG, data, edgeGrid, edges, nodeArr, str,
+        EG, data, distCfg, edgeGrid, edges, nodeArr, str,
     } = ctx;
  // (surfacesAt's flat copy of these cells, made at its first query: surfCellsOf)
     const nearestEdge = (x, z, filter = null, maxR = 3000) => {
@@ -97,12 +97,44 @@ export function buildRoadGraphAids(ctx) {
         const across = (f) => f.contraflowBus ? f.contraflowTotal : f.lanesF;
         const nextOf = (e) => e.b.edges.filter(f => f !== e && f.a === e.b && motorOneway(f) && !f.virtual && f.name === e.name);
         const prevOf = (e) => e.a.edges.filter(f => f !== e && f.b === e.a && motorOneway(f) && !f.virtual && f.name === e.name);
+        // (owner, 2026-11-15, SeaTac, Arrivals Drive (-953, 995): "lanes are drawn badly") the narrowest segment within four
+        // edges is a different one for each edge of a long chain: along one five-lane way (w124272605) the left kerb, and every
+        // lane line with it, stood 3.5, 5.3, 8.8, 7.0 and 5.3 m left of the way, stepping at each node, and the four-lane way
+        // after it started another 1.75 m over. A district with `kerbRuns` (cities.js) keeps one left kerb along the whole
+        // chain (consecutive edges of one name, each the only way on from the last): the narrowest segment of the chain puts
+        // it, so the lane lines run straight through every node and lanes are added or dropped on the right. A chain is cut
+        // where two or more lanes are added at once (Arrivals Drive, three lanes to five at (-1170, 616)): that widening is
+        // drawn through a pad anyway, and one kerb across it pushed the five lanes 5 m off their mapped line, under the
+        // Departures deck, whose columns then had nowhere to stand (7 bents lost). A lane drop never cuts a chain: a left
+        // kerb stepping in there would stand in the left lane. Elsewhere the four-edge window stays as it was (the
+        // Bucharest decks were laid out with it).
+        let chainBase = null;
+        if (distCfg?.kerbRuns) {
+            chainBase = new Map();
+            const only = (list) => list.length === 1 ? list[0] : null;
+            const link = (e, f) => f && only(nextOf(e)) === f && only(prevOf(f)) === e && across(f) - across(e) < 2; // (e runs on into f and only f, f comes only from e)
+            for (const e of edges) {
+                if (chainBase.has(e) || !motorOneway(e) || e.virtual || !e.name) continue;
+                let s = e; const back = new Set([e]);
+                for (let p = only(prevOf(s)); p && !back.has(p) && link(p, s); p = only(prevOf(s))) { s = p; back.add(s); }
+                const chain = [], seen = new Set();
+                for (let c = s; c && !seen.has(c);) { seen.add(c); chain.push(c); const n2 = only(nextOf(c)); c = link(c, n2) ? n2 : null; }
+                // (the kerb half a lane further out where the chain spans two lane counts more than its narrowest: the widest and
+                // narrowest runs then each lie at most half a lane off their mapped lines; Arrivals Drive's five lanes kept
+                // their kerb 3.5 m off theirs and still took the Departures deck's columns)
+                const lo = Math.min(...chain.map(across)), base = Math.max(...chain.map(across)) - lo === 2 ? lo + 1 : lo;
+                for (const f of chain) chainBase.set(f, base);
+            }
+        }
         for (const e of edges) {
             if (!motorOneway(e) || e.virtual || !e.name || e.madeTwoWay || e.roadWidthSource?.leftM != null) continue;
             let base = across(e), f = e;
-            for (let k = 0; k < 4; k++) { const n2 = prevOf(f); if (n2.length !== 1) break; f = n2[0]; base = Math.min(base, across(f)); }
-            f = e; for (let k = 0; k < 4; k++) { const n2 = nextOf(f); if (n2.length !== 1) break; f = n2[0]; base = Math.min(base, across(f)); }
-            if (base >= across(e) || Math.abs(e.laneW * across(e) - (e.wL + e.wR)) > 0.05) continue;
+            if (chainBase) base = chainBase.get(e) ?? base; // (may lie past this edge's own lane count: its kerb then stands further out than its centred one)
+            else {
+                for (let k = 0; k < 4; k++) { const n2 = prevOf(f); if (n2.length !== 1) break; f = n2[0]; base = Math.min(base, across(f)); }
+                f = e; for (let k = 0; k < 4; k++) { const n2 = nextOf(f); if (n2.length !== 1) break; f = n2[0]; base = Math.min(base, across(f)); }
+            }
+            if ((chainBase ? base === across(e) || (across(e) - base / 2) * e.laneW < e.laneW / 2 : base >= across(e)) || Math.abs(e.laneW * across(e) - (e.wL + e.wR)) > 0.05) continue;
             e.wL = base * e.laneW / 2; e.wR = across(e) * e.laneW - e.wL; if (e.contraflowBus) layContraflowLanes(e); else e.median = -2 * e.wL; e.halfW = Math.max(e.wL, e.wR); aligned++;
         }
         if (aligned) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + 0.5; sccInfo.laneAligned = aligned; }
@@ -119,9 +151,13 @@ export function buildRoadGraphAids(ctx) {
     const laneTapers = [], sideExtra = (e, side, along) => side > 0 && e.taperR ? e.taperR[0] + (e.taperR[1] - e.taperR[0]) * clamp(along / e.len, 0, 1) : 0;
     {
         const tl = data.turnLanes || [], merges = new Set(); for (let i = 0; i + 2 < tl.length; i += 3) if (/merge_to_/.test(str(tl[i + 1]))) merges.add(tl[i]);
-        const plain = e => e.oneway && !e.virtual && !e.bridge && !e.tunnel && !e.madeTwoWay && !e.roadWidthSource;
+        // (owner, 2026-11-15, SeaTac: "missing consistency on borders") a district with `laneDropTapers` (cities.js) tapers every
+        // such drop of the right-hand lane, mapped as a merge or not, on a deck too: upper Departures Drive goes from three
+        // lanes to two at (-1166, 591), 11 m up, and its right edge line and railing stepped 3.5 m in at the node
+        const dropTapers = !!distCfg?.laneDropTapers;
+        const plain = e => e.oneway && !e.virtual && (!e.bridge || dropTapers) && !e.tunnel && !e.madeTwoWay && !e.roadWidthSource;
         for (const e of edges) {
-            if (!plain(e) || !merges.has(e.road)) continue;
+            if (!plain(e) || !(merges.has(e.road) || dropTapers)) continue;
             const N = e.b, out = N.edges.filter(f => !f.virtual); if (out.length !== 2) continue;
             const f = out.find(g => g !== e); if (!f || f.a !== N || !plain(f) || f.lanesF !== e.lanesF - 1 || Math.abs(f.wL - e.wL) > .05) continue;
             const D = e.wR - f.wR; if (!(D > 1.5 && D < 5)) continue;

@@ -247,7 +247,9 @@ export function buildEdgeRibbons(ctx) {
             if (evenLanes) {
                 for (let i = 1; i < nEff; i++) if (!(e.busLane && i === nEff - 1)) dashLine(longM, e, s0, s1, -e.wL + Wc * i / nEff, yM, white, dash[0], dash[1], hw);
             } else if (!minor || e.lanesF > 1 || e.lanesB > 1) {
-                for (let i = 1; i < e.lanesF; i++) dashLine(longM, e, s0, s1, shift + med2 + e.laneW * i, yM, white, dash[0], dash[1], hw * (/motorway/.test(e.type) ? 1.4 : 1));
+                // (a ramp taper, world.js rampTapers: the lanes share the width as it grows, so each line runs straight on into the next edge's)
+                const tapered = e.rampTaper && e.taperR && e.oneway ? i => s => shift + med2 + (e.wL + e.wR + sideExtra(e, 1, s)) / Math.max(1, e.lanesF + e.lanesB) * i : null;
+                for (let i = 1; i < e.lanesF; i++) dashLine(longM, e, s0, s1, tapered ? tapered(i) : shift + med2 + e.laneW * i, yM, white, dash[0], dash[1], hw * (/motorway/.test(e.type) ? 1.4 : 1));
                 for (let i = 1; i < e.lanesB; i++) dashLine(longM, e, s0, s1, shift - (med2 + e.laneW * i), yM, white, dash[0], dash[1], hw);
             }
             // centre

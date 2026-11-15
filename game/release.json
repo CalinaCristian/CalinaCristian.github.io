@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-f5053982bc96128c",
-  "sourceCommit": "3f89f327be6fb3c03e6e3f54e6c9c1b6a4f5ef12",
-  "fingerprint": "f5053982bc96128c115915e52bf9b45e4aae23208c10f4d3bca64691652dd900",
+  "releaseId": "game-8a1039088021d715",
+  "sourceCommit": "3ceacac740507d484cd2ac32e4caf4f8f15e5260",
+  "fingerprint": "8a1039088021d7155b3fb314b2b6d52703f4a624cfd8991aadf085aec515adc6",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -750,7 +750,7 @@
     },
     {
       "path": "game/src/landmarks/seattle.js",
-      "sha256": "6d4ffdf8185faf5964c9de4f0d4f89481614deb3b2987649280be367883ba5e3"
+      "sha256": "d607615e11619d49970904ab4ee328f7e64ab17f40869f4e19b0a2c44361e083"
     },
     {
       "path": "game/src/landmarks/source-data.js",

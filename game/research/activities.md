@@ -50,13 +50,20 @@ Research pass 2026-11-07 (Old Town day / night activities 2026-11-11). Where off
 - **Cross the skybridges** (no achievement): Bellevue Square linked to Lincoln Square by skybridge (2007), together the Bellevue Collection; UiPath's office is in Lincoln Square North (two floors, since 2025). Snowflake Lane parade November–December (dates not checked). Source: Wikipedia Bellevue_Square.
 
 ### Bellevue Downtown Park (`bel-downtown-park`)
-- **Waterfall loop** (`lm-bdp-loop`): 21 acres; half-mile promenade with a double row of trees and a stepped canal to a 240 ft waterfall into a reflecting pond; 10-acre lawn. Source: bellevuewa.gov (parks / bellevue-downtown-park).
+- **Frisbee on the lawn** (`lm-bdp-frisbee`): The 10-acre lawn inside the canal ring is the park's open lawn for picnics (city page); the half-mile promenade and stepped canal ring it. Frisbee with someone from the crowd: aim with the mouse, throw with E on a power gauge; walk under their throw (WASD) and catch with E. 3 throws caught + 3 catches. Game hours 6:00–23:00. Sources: bellevuewa.gov.
+- **Inspiration Playground swing** (`lm-bdp-swing`): Inspiration Playground (opened June 2017) is built for children of all abilities and their caregivers; open year-round, the spray park Memorial Day to Labor Day 10 am – 8 pm. Sit on the mapped swing and pump it (W on the forward swing, S on the back swing) up past 50°. Game hours 6:00–23:00. Sources: bellevuewa.gov.
+- **Public skating at the ice rink** (`lm-bdp-skate`): The Bellevue Downtown Ice Rink (formerly the Magic Season Ice Arena) is a seasonal tent rink on the park's lower plaza by NE 1st St; last season ran Nov 21 – Jan 19; public-session times vary. Skate three anticlockwise laps (W strides, A/D turn, S stop; the boards bounce and a hard hit is a fall). Rink season or Winter picked; game hours 10:00–22:00 (estimate). Sources: bellevuedowntown.com.
+- (Retired 2026-11-15: the half-mile loop walk `lm-bdp-loop` — a walk, not an activity.)
 
 ### Bellevue Botanical Garden (`bel-botanical-garden`)
 - **Garden walk** (no achievement; the game has `lm-bbg-bridge` for the ravine suspension bridge): 53 acres; Perennial Border, Yao Garden, Fuchsia Garden, Native Discovery Garden, Urban Meadow, Rhododendron Glen; free; dawn to dusk every day; Garden d'Lights in December (dates not checked). Sources: bellevuebotanical.org, Wikipedia.
 
 ### Meydenbauer Bay Park (`bel-meydenbauer`)
-- **Crescent pier, kayaks** (`lm-meyd-pier`): floating 420 ft crescent pier (March 2019), beach, terrace, historic whaling building; Best Kayak Rentals seasonally (non-motorised launch). Lifeguards late June to Labor Day. Sources: bellevuewa.gov (meydenbauer-beach-park), Wikipedia.
+- **Stand-up paddleboard** (`lm-meyd-sup`): Non-motorised launch on the crescent pier; Best Kayak Rentals rents kayaks, canoes and stand-up paddleboards from the boathouse in season (Thu–Fri 1–9 pm, Sat–Sun 10 am–9 pm per Visit Bellevue). Free-steered board (W strokes, A/D turn, S back-paddle; hard turns at speed tip you in) round three mapped buoys off the crescent and back to the dock. Game hours 10:00–21:00 every day, not winter. Sources: bellevuewa.gov, visitbellevuewa.com.
+- **Swim to the float** (`lm-meyd-swim`): The swimming beach has a lifeguard in summer (late June – Labor Day, noon – 7 pm); a summer swim float sits inside the buoy line. Swim (W, A/D) inside the buoy line out to the float, climb on, swim back to the beach. Float season (late May – early Sep) or Summer picked; game hours 12:00–19:00. Sources: bellevuewa.gov.
+- **Skip stones** (`lm-meyd-skip`): The sand-and-pebble beach on Meydenbauer Bay. Release three stones on a timing gauge from the beach outside the swimming area. Game hours 6:00–23:00. Sources: bellevuewa.gov.
+- **Kayak round the marina** (`lm-meyd-kayak`): Seasonal kayak and canoe rentals at the boathouse (Best Kayak Rentals). Paddle-stroke loop round the marina moorage (existing). Sources: bellevuewa.gov, visitbellevuewa.com.
+- (Retired 2026-11-15: the walk to the end of the crescent pier `lm-meyd-pier` — a walk, not an activity.)
 
 ## Bucharest
 

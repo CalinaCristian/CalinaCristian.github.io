@@ -358,17 +358,45 @@
    "landmark": null,
    "activities": [
     {
-     "name": "Waterfall loop",
-     "real": "A 21-acre park: a half-mile promenade with a double row of shade trees and a stepped canal leads to a 240 ft wide waterfall into a reflecting pond. A 10-acre lawn looks out on the skyline and, on clear days, Mount Rainier.",
-     "when": "City park.",
+     "name": "Frisbee on the lawn",
+     "real": "The 10-acre lawn inside the canal ring is the park's open lawn for picnics (city page); the half-mile promenade and stepped canal ring it.",
+     "when": "Park open half an hour before sunrise to 11 pm.",
      "sources": [
       "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/bellevue-downtown-park"
      ],
      "confidence": "high",
-     "interaction": "Walk the half-mile loop (timer and step counter); stop at the waterfall.",
+     "interaction": "Frisbee with someone from the crowd: aim with the mouse, throw with E on a power gauge; walk under their throw (WASD) and catch with E. 3 throws caught + 3 catches. Game hours 6:00–23:00.",
      "achievement": {
-      "id": "lm-bdp-loop",
-      "title": "Half a mile round"
+      "id": "lm-bdp-frisbee",
+      "title": "Lawn game"
+     }
+    },
+    {
+     "name": "Inspiration Playground swing",
+     "real": "Inspiration Playground (opened June 2017) is built for children of all abilities and their caregivers; open year-round, the spray park Memorial Day to Labor Day 10 am – 8 pm.",
+     "when": "Park hours.",
+     "sources": [
+      "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/bellevue-downtown-park"
+     ],
+     "confidence": "high",
+     "interaction": "Sit on the mapped swing and pump it (W on the forward swing, S on the back swing) up past 50°. Game hours 6:00–23:00.",
+     "achievement": {
+      "id": "lm-bdp-swing",
+      "title": "Sky high"
+     }
+    },
+    {
+     "name": "Public skating at the ice rink",
+     "real": "The Bellevue Downtown Ice Rink (formerly the Magic Season Ice Arena) is a seasonal tent rink on the park's lower plaza by NE 1st St; last season ran Nov 21 – Jan 19; public-session times vary.",
+     "when": "Late November – mid January.",
+     "sources": [
+      "https://bellevuedowntown.com/do/bellevue-downtown-ice-rink"
+     ],
+     "confidence": "medium",
+     "interaction": "Skate three anticlockwise laps (W strides, A/D turn, S stop; the boards bounce and a hard hit is a fall). Rink season or Winter picked; game hours 10:00–22:00 (estimate).",
+     "achievement": {
+      "id": "lm-bdp-skate",
+      "title": "With the flow"
      }
     }
    ]
@@ -405,18 +433,62 @@
    "landmark": null,
    "activities": [
     {
-     "name": "Kayak or walk the crescent pier",
-     "real": "A floating 420 ft crescent pedestrian pier (opened March 2019), beach, viewing terrace and historic whaling building. Best Kayak Rentals rents canoes and kayaks seasonally; it is a non-motorised watercraft launch site.",
-     "when": "Lifeguards late June to Labor Day; kayak rentals seasonal.",
+     "name": "Stand-up paddleboard",
+     "real": "Non-motorised launch on the crescent pier; Best Kayak Rentals rents kayaks, canoes and stand-up paddleboards from the boathouse in season (Thu–Fri 1–9 pm, Sat–Sun 10 am–9 pm per Visit Bellevue).",
+     "when": "Warm season; rental hours above.",
      "sources": [
       "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/meydenbauer-beach-park",
-      "https://en.wikipedia.org/wiki/Meydenbauer_Bay_Park"
+      "https://www.visitbellevuewa.com/media/newsroom-feed/post/best-kayak-rentals-at-the-boathouse-at-meydenbauer-bay-park-and-enatai-beach-park/"
+     ],
+     "confidence": "medium",
+     "interaction": "Free-steered board (W strokes, A/D turn, S back-paddle; hard turns at speed tip you in) round three mapped buoys off the crescent and back to the dock. Game hours 10:00–21:00 every day, not winter.",
+     "achievement": {
+      "id": "lm-meyd-sup",
+      "title": "Round the pier buoys"
+     }
+    },
+    {
+     "name": "Swim to the float",
+     "real": "The swimming beach has a lifeguard in summer (late June – Labor Day, noon – 7 pm); a summer swim float sits inside the buoy line.",
+     "when": "Summer, noon – 7 pm.",
+     "sources": [
+      "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/meydenbauer-beach-park",
+      "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/beach-parks-lifeguards"
      ],
      "confidence": "high",
-     "interaction": "Walk to the end of the crescent pier; summer only, a short kayak loop in the bay.",
+     "interaction": "Swim (W, A/D) inside the buoy line out to the float, climb on, swim back to the beach. Float season (late May – early Sep) or Summer picked; game hours 12:00–19:00.",
      "achievement": {
-      "id": "lm-meyd-pier",
-      "title": "End of the crescent"
+      "id": "lm-meyd-swim",
+      "title": "To the float and back"
+     }
+    },
+    {
+     "name": "Skip stones",
+     "real": "The sand-and-pebble beach on Meydenbauer Bay.",
+     "when": "Park open 6 am – 11 pm.",
+     "sources": [
+      "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/meydenbauer-beach-park"
+     ],
+     "confidence": "medium",
+     "interaction": "Release three stones on a timing gauge from the beach outside the swimming area. Game hours 6:00–23:00.",
+     "achievement": {
+      "id": "lm-meyd-skip",
+      "title": "Stone skipper"
+     }
+    },
+    {
+     "name": "Kayak round the marina",
+     "real": "Seasonal kayak and canoe rentals at the boathouse (Best Kayak Rentals).",
+     "when": "Warm season.",
+     "sources": [
+      "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/meydenbauer-beach-park",
+      "https://www.visitbellevuewa.com/media/newsroom-feed/post/best-kayak-rentals-at-the-boathouse-at-meydenbauer-bay-park-and-enatai-beach-park/"
+     ],
+     "confidence": "high",
+     "interaction": "Paddle-stroke loop round the marina moorage (existing).",
+     "achievement": {
+      "id": "lm-meyd-kayak",
+      "title": "Meydenbauer paddle"
      }
     }
    ]

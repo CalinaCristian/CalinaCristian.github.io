@@ -79,6 +79,9 @@ export const ACTIVITIES = [
     ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
     ['bel-meydenbauer', 'kayak', 'Kayak on Meydenbauer Bay'], ['pike-place', 'starbucks-coffee', 'Coffee at the first Starbucks'],
     ['arcul-de-triumf', 'arcul-race', 'Win the island race'], ['arcul-de-triumf', 'arcul-petanque', 'Pétanque at the Arc'],
+    // Bellevue parks (2026-11-15, bel-park-activities.js): the pier and loop walks retired (spot-availability.js)
+    ['bel-downtown-park', 'frisbee', 'Play frisbee on the lawn'], ['bel-downtown-park', 'swing', 'Pump a swing sky-high'], ['bel-downtown-park', 'skate', 'Skate the seasonal ice rink'],
+    ['bel-meydenbauer', 'sup', 'Paddleboard round the pier buoys'], ['bel-meydenbauer', 'swim', 'Swim to the float and back'], ['bel-meydenbauer', 'skip', 'Skip stones across the bay'],
 ].map(([spot, id, title]) => ({ spot, id, title }));
 /**
  * READY retains historical side-by-side review records. MENU_AVAILABLE separately

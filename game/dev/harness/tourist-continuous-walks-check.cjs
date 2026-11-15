@@ -54,15 +54,13 @@ fs.copyFileSync(__filename, `${out}/runner.cjs`);
             rec.plan = await page.evaluate(async () => {
                 const s = game.spot, arc = [...s.spot.data.ways.find(w => w.id === 'w688415225').pts].reverse(), [x, z] = arc[0];
                 const path = s._navPath(s.position.x, s.position.z, x, z, { radius: .5, maxLength: 250 });
-                const tip = s.spot.interactables.find(i => i.label === 'Walk to the end of the crescent pier');
-                return { approach: path, arc, terminal: { x: tip.x, z: tip.z, r: tip.r, y: tip.y }, sourceWay: 'w688415225', sourceDeck: 'w687934817', arrival: { ...s.position }, award: game.achievements.isUnlocked('lm-meyd-pier') };
+                const tip = arc[arc.length - 1]; // (the pier-end activity was retired 2026-11-15: the walk itself is still checked)
+                return { approach: path, arc, terminal: { x: tip[0], z: tip[1], r: 4 }, sourceWay: 'w688415225', sourceDeck: 'w687934817', arrival: { ...s.position } };
             });
-            assert.ok(rec.plan.approach && !rec.plan.award, JSON.stringify(rec.plan));
+            assert.ok(rec.plan.approach, JSON.stringify(rec.plan));
             rec.approach = await walk(rec.plan.approach); assert.ok(rec.approach.reached, JSON.stringify(rec.approach));
-            assert.ok(!await page.evaluate(() => game.achievements.isUnlocked('lm-meyd-pier')));
             rec.pier = await walk(rec.plan.arc); rec.frame = await frame('meydenbauer-terminal');
-            rec.award = await page.evaluate(() => game.achievements.isUnlocked('lm-meyd-pier'));
-            assert.ok(rec.pier.reached && rec.award, JSON.stringify(rec));
+            assert.ok(rec.pier.reached, JSON.stringify(rec));
             assert.ok(Math.hypot(rec.pier.position.x - rec.plan.terminal.x, rec.pier.position.z - rec.plan.terminal.z) < rec.plan.terminal.r); save();
         }
         if (selected('bel-botanical-garden')) {

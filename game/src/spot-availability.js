@@ -1,7 +1,10 @@
 // Menu access is separate from the historical architectural review flag.
+// (2026-11-15) Athenaeum, Spring Palace, Kerry Park, Pioneer Square, Lincoln Square and the Botanical Garden joined once
+// each had a real activity (concert, peacock, hoops, ping pong, bowling, the light hunt)
 export const MENU_ORDER = [
-    'old-town-lipscani', 'cismigiu', 'arcul-de-triumf',
-    'pike-place', 'space-needle', 'bel-meydenbauer', 'bel-downtown-park',
+    'old-town-lipscani', 'cismigiu', 'arcul-de-triumf', 'athenaeum-revolution', 'spring-palace',
+    'pike-place', 'space-needle', 'kerry-park', 'pioneer-square',
+    'bel-meydenbauer', 'bel-downtown-park', 'bel-lincoln-square', 'bel-botanical-garden',
 ];
 export const MENU_AVAILABLE = new Set(MENU_ORDER);
 export const RECOMMENDED_SPOTS = new Set(MENU_ORDER);

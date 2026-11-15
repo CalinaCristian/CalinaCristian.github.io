@@ -65,6 +65,8 @@ export function freeBoat(ctx, boat, { poly, holes = [], avoid = () => false, y, 
         const body = new THREE.Mesh(new THREE.SphereGeometry(.35, 14, 10), mat); body.scale.y = .8; m.add(body);
         const pole = new THREE.Mesh(new THREE.CylinderGeometry(.03, .03, 1.1, 6), new THREE.MeshStandardMaterial({ color: '#f5f5f4' })); pole.position.y = .6; m.add(pole);
         buoyGroup.add(m); return { ...p, i, mesh: m, mat, hit: false }; })); };
+    /** the boat starts pointing at the longest run of open water (never nose-first into the landing) */
+    const openHeading = (o) => { let best = 0, bl = -1; for (let k = 0; k < 24; k++) { const a = k / 24 * Math.PI * 2; let l = 0; while (l < 40 && water(o.x + Math.sin(a) * (l + 1), o.z + Math.cos(a) * (l + 1))) l += 1; if (l > bl) { bl = l; best = a; } } return best; };
     let ride = null, rewarded = false;
     const fade = (s, then) => { const o = document.createElement('div'); o.style.cssText = 'position:fixed;inset:0;background:#000;opacity:0;transition:opacity .25s;pointer-events:none;z-index:40'; document.body.append(o);
         requestAnimationFrame(() => { o.style.opacity = '1'; }); setTimeout(() => { then(); o.style.opacity = '0'; setTimeout(() => o.remove(), 300); }, 260); };
@@ -88,7 +90,7 @@ export function freeBoat(ctx, boat, { poly, holes = [], avoid = () => false, y, 
             return flow.begin(s, { title, action: 'Go ashore (E)', cameraRide: true, ride: true,
                 help: `W / ↑ row, S / ↓ back water, A / D turn (or the touch stick); look with the mouse. Go anywhere on the open water. ${buoys.length ? `Optional: touch the ${buoys.length} orange buoys. ` : ''}E takes you ashore at any time.`,
                 started(_s, r) {
-                    const p = s.position; ride = { x: start0.x, z: start0.z, yaw: Math.atan2(start0.x - home.x, start0.z - home.z) || 0, v: 0, look: 0, pitch: -.12, t: 0, stroke: 0, back: { x: p.x, z: p.z, heading: s.ctl.heading } };
+                    const p = s.position; ride = { x: start0.x, z: start0.z, yaw: openHeading(start0), v: 0, look: 0, pitch: -.12, t: 0, stroke: 0, back: { x: p.x, z: p.z, heading: s.ctl.heading } };
                     rewarded = false; boat.visible = true; buoyGroup.visible = true; buoys.forEach((b) => { b.hit = false; b.mat.color.set('#f97316'); b.mat.emissive.set('#f97316'); });
                     r.status.textContent = buoys.length ? `0/${buoys.length} buoys · row anywhere, E to go ashore` : 'Row anywhere, E to go ashore';
                 },

@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-c27960a22cc876c6",
-  "sourceCommit": "c64c9e7cb94747d99340e100d4c26d7cccb1755d",
-  "fingerprint": "c27960a22cc876c6a2939635028dd6ba5a9e9526a6cc240535e6054c47e3b205",
+  "releaseId": "game-1fb29c659ba38846",
+  "sourceCommit": "1daacdc917e4dfc42b5a4c267ebef7f5b35448b5",
+  "fingerprint": "1fb29c659ba388463f4e9e9fbf49474c751ec6bc17fda8bd38e00bae0a8a8d38",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -426,7 +426,7 @@
     },
     {
       "path": "game/src/data.js",
-      "sha256": "55e59ce6e268c3b936e8c27acfd7d1da85ad4c27b2aa2e597ad04a6a2215ae8e"
+      "sha256": "8067d01b60580019bcf3e0df7521173792dae8f3199ebfcfa0806bff8140673d"
     },
     {
       "path": "game/src/deck-lamps.js",
@@ -1213,6 +1213,10 @@
       "sha256": "5281dc27f7aa70b4a2cf3284f1a29032dace46d7a0b06f588e94c027cfb6de76"
     },
     {
+      "path": "game/src/spots/free-water.js",
+      "sha256": "0b851f06c2f458d3fa57ae9285afa9be4780ad85472a7ee35525842c307640fa"
+    },
+    {
       "path": "game/src/spots/furniture-extra.js",
       "sha256": "0501e3339e6a3bd6c159c0a244cc6f4fc22c21f2c6991e72aae8079b8de046ff"
     },
@@ -1225,8 +1229,12 @@
       "sha256": "f6befbca5bef48e955175919a00ac2167ca70c5ceeb7a65d0f46c646f839292f"
     },
     {
+      "path": "game/src/spots/ice-skate.js",
+      "sha256": "e8fa4022e98df3164872e726db2a4f4edf60d324496f9c9794fd609f0a0b32dc"
+    },
+    {
       "path": "game/src/spots/index.js",
-      "sha256": "9f788a6ef7e7420aaed642dfe70f49ab22e0d323236cb48763892b4b2ec75e9e"
+      "sha256": "dd4dd32e9b8bd2ef3c65e753418aee562b05fa36b4c1f5718b9acdf64d9410ad"
     },
     {
       "path": "game/src/spots/kit.js",
@@ -1237,8 +1245,16 @@
       "sha256": "3cc9d9a55cde442e481eaf94bacb85ce8477749a141d657a7a5f80f33db7bd70"
     },
     {
+      "path": "game/src/spots/lawn-frisbee.js",
+      "sha256": "17a453430c0230d4403023be5125f9500082aca4ac6178aa410eaef42227a779"
+    },
+    {
       "path": "game/src/spots/osm.js",
       "sha256": "6578c0627324db7ae12e42f3d3b612b65575ddd0387da6dc25b649ac091d4360"
+    },
+    {
+      "path": "game/src/spots/park-hours.js",
+      "sha256": "e04cb311c3777a9a6a61e3a6ed0b4665614f9cb348e32ec1ad5bb995acbf991b"
     },
     {
       "path": "game/src/spots/participation.js",
@@ -1314,7 +1330,7 @@
     },
     {
       "path": "game/src/spots/scenes/bel-downtown-park.js",
-      "sha256": "2ee332cb4362755046b5b40febc4f57abe0d400915ff4bf922a6fc08f0c28a26"
+      "sha256": "5adcd19d8d130d92081c9886b9077e2cb3373a2c6c586a1f8ecc71f8f5388bbc"
     },
     {
       "path": "game/src/spots/scenes/bel-lincoln-square.js",
@@ -1326,7 +1342,11 @@
     },
     {
       "path": "game/src/spots/scenes/bel-meydenbauer.js",
-      "sha256": "f0e226e20cb18a40730b803d10dbbee063b1a7e6637e93120fc3bf96a3d52ddb"
+      "sha256": "87c9e251fda5d5034f8cbc0bb0d0e08d3bf37d186a82e9be8e0ca6a03569a12f"
+    },
+    {
+      "path": "game/src/spots/scenes/bel-park-activities.js",
+      "sha256": "ea1844f949fdf0cc59742cdd98d14a5aa6ef049dbd903cdcfed60b2fd16a2ea5"
     },
     {
       "path": "game/src/spots/scenes/bel-shore-houses.js",
@@ -1607,6 +1627,10 @@
     {
       "path": "game/src/spots/stone-skipping.js",
       "sha256": "c27ba42cef47f6128eac7d88b428fe198a8e193f3aae7a057f22e73930485d3d"
+    },
+    {
+      "path": "game/src/spots/swing-ride.js",
+      "sha256": "9b66b508fd6691dcc67b2b26d63931b12cb4f6f65ec92817b067c1bba753d713"
     },
     {
       "path": "game/src/spots/tour.js",

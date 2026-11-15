@@ -577,6 +577,7 @@ export class Crowd {
                 else if (q === 'flag') { pose = 'flag'; prop = 'flag'; }
                 else if (q === 'perform' || L.prop === 'guitar') { pose = 'guitar'; prop = 'guitar'; }
                 else if (q === 'talk') pose = 'talk';
+                else if (q === 'point' || q === 'cheer') pose = q; // a scene's short gesture (the fishmongers' call and throw)
                 else if (L.prop === 'phone' && i % 3 === 0) { pose = 'phone'; prop = 'phone'; }
                 if (walking && L.prop === 'phone' && i % 5 === 0) prop = 'phone';
                 // (2026-11-12 render review) nobody holds an open umbrella under a roof: people inside a declared interior

@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-ff702424ceb695db",
-  "sourceCommit": "9f47516f212662b7092fe789d1fc155a9cbceb82",
-  "fingerprint": "ff702424ceb695db74d97635acf2e522a9a0a207e7e71d4474c5df51a98f3178",
+  "releaseId": "game-52ac80d3f4ac51be",
+  "sourceCommit": "824141595578e3e215007a61a11c3c72393a36cf",
+  "fingerprint": "52ac80d3f4ac51be46908d6bbf93473e88619f048300e528320a20b3e0a8c51a",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -1118,7 +1118,7 @@
     },
     {
       "path": "game/src/spot-availability.js",
-      "sha256": "22535c3dc07d678af6629999223512923c9debefb447af67334ae0dec1d720c1"
+      "sha256": "935aa1f0313152b99dcca4b49534e1b5aa6cf6ee964b17c39defbf69d71ed362"
     },
     {
       "path": "game/src/spots/activity-offer.js",

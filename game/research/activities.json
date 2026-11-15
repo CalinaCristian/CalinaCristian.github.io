@@ -216,6 +216,35 @@
       "id": "lm-totem-read",
       "title": "Read the pole"
      }
+    },
+    {
+     "name": "Ping pong in Occidental Square",
+     "real": "Occidental Square has \"bocce courts and ping pong tables\", a play area, and park concierges who hand out games; the table is mapped (OSM n14005376908, sport=table_tennis).",
+     "when": "Daily 6:00–22:00 (Seattle Parks).",
+     "sources": [
+      "https://www.seattle.gov/parks/allparks/occidental-square",
+      "https://www.openstreetmap.org/node/14005376908"
+     ],
+     "confidence": "high",
+     "interaction": "Built: a first-to-five game against a regular from the square at the mapped table; A / D slide along your end, the mouse aims your return across his half, E swings as the ball arrives (and serves on your serves); he reaches what is near him, so move him from corner to corner.",
+     "achievement": {
+      "id": "lm-pioneer-ping-pong",
+      "title": "Occidental Square champion"
+     }
+    },
+    {
+     "name": "Not built: bocce, Waterfall Garden, a coffee, Smith Tower bar",
+     "real": "Bocce in Occidental Square (same page; pétanque at the Arc already plays the same way); Waterfall Garden Park (8:00–15:45 autumn/winter, 8:00–17:45 spring/summer); Zeitgeist Coffee, 171 S Jackson St; the Smith Tower Observatory bar (ticketed, 35th floor). The Underground Tour is a guided walk and stays out.",
+     "when": "See sources.",
+     "sources": [
+      "https://www.pioneersquare.org/experiences/waterfall-garden-park",
+      "https://zeitgeistcoffee.com",
+      "https://smithtower.com/ticket-info-hours",
+      "https://www.undergroundtour.com/"
+     ],
+     "confidence": "medium",
+     "interaction": "none",
+     "achievement": null
     }
    ]
   },
@@ -324,6 +353,35 @@
       "id": "lm-kerry-mountain",
       "title": "The Mountain is out"
      }
+    },
+    {
+     "name": "Shoot hoops on the lower park court",
+     "real": "Kerry Park and its lower half, Bayview-Kinnear (\"Lower Kerry Park\"), list a play area and basketball courts; the west-end stairs (3rd Ave W) lead down to it. OSM maps the half court (w730946886, sport=basketball). Children also climb about in Changing Form, which Wikipedia calls \"popular as a play area for children\".",
+     "when": "Daily 6:00–22:00 (Seattle Parks).",
+     "sources": [
+      "https://www.seattle.gov/parks/allparks/kerry-park",
+      "https://seattle.gov/parks/allparks/bayview-kinnear-%28lower-kerry-park%29",
+      "https://en.wikipedia.org/wiki/Changing_Form",
+      "https://www.openstreetmap.org/way/730946886"
+     ],
+     "confidence": "high",
+     "interaction": "Built: \"around the world\" on the court — walk into each of five rings round the key, aim with the mouse (look up for the arc), E shoots with the game's basketball physics; one basket from every spot within 12 balls.",
+     "achievement": {
+      "id": "lm-kerry-hoops",
+      "title": "Around the world"
+     }
+    },
+    {
+     "name": "Not built: buskers at sunset, climbing Changing Form",
+     "real": "No source documents buskers at Kerry Park (the city's 2026 busking programme uses Ballard Commons, Cal Anderson, City Hall and Denny Park). Climbing the sculpture is what children do, but it needs climbing controls the game does not have.",
+     "when": "—",
+     "sources": [
+      "https://www.seattle.gov/parks/recreation/events-and-attractions/downtown-park-events",
+      "https://en.wikipedia.org/wiki/Kerry_Park"
+     ],
+     "confidence": "medium",
+     "interaction": "none",
+     "achievement": null
     }
    ]
   },
@@ -347,6 +405,36 @@
       "id": "lm-bellevue-skybridges",
       "title": "Above NE 8th"
      }
+    },
+    {
+     "name": "Bowling at Lucky Strike",
+     "real": "Lucky Strike Lanes & Power Play is a tenant of Lincoln Square North (2nd floor, Suite 250): 16 lanes (some VIP), billiards, an arcade; 21+ after 8 pm; Sun–Thu 11 am – midnight, Fri–Sat 11 am – 2 am. OSM n4188521492 (sport=10pin).",
+     "when": "Daily 11:00–24:00 in the game (Fri–Sat until 2 am in reality).",
+     "sources": [
+      "https://www.luckystrikeent.com/location/lucky-strike-bellevue",
+      "https://bellevuecollection.com/tenant/lucky-strike-lanes-power-play",
+      "https://www.openstreetmap.org/node/4188521492"
+     ],
+     "confidence": "high",
+     "interaction": "Built: one lane (60 ft, 41.5 in) in a remote interior; three frames with standard strike / spare scoring and bonus balls; A / D line up on the foul line, the mouse aims (dotted line), E releases on the power meter; the pins are discs with pin action and kickbacks.",
+     "achievement": {
+      "id": "lm-bel-bowling",
+      "title": "Three frames at Lucky Strike"
+     }
+    },
+    {
+     "name": "Not built: Cinemark Reserve, Mirra, Game Show Battle Rooms, Snowflake Lane",
+     "real": "Cinemark Reserve (21+ dine-in, 3rd floor of Lincoln Square South), Mirra (party games, 3rd floor), Game Show Battle Rooms (1st floor), and the free nightly Snowflake Lane parade on Bellevue Way at 7:00–7:30 pm from late November to Dec 24.",
+     "when": "See sources.",
+     "sources": [
+      "https://ir.cinemark.com/news-events/press-releases/detail/354/cinemark-announces-grand-opening-of-new-luxury-theatre-at",
+      "https://bellevuecollection.com/tenant/mirra",
+      "https://bellevuecollection.com/tenant/game-show-battle-rooms/",
+      "https://bellevuewa.gov/events/snowflake-lane"
+     ],
+     "confidence": "medium",
+     "interaction": "none",
+     "achievement": null
     }
    ]
   },
@@ -422,6 +510,34 @@
       "id": "lm-bbg-plants",
       "title": "Five plants named"
      }
+    },
+    {
+     "name": "Garden d'Lights critter hunt",
+     "real": "Garden d'Lights, the garden's holiday light show, has a \"plants and critters\" scavenger hunt map. 2026 run: Nov 28 – Jan 3 (closed Dec 25); first entry 4:30 pm, last entry 9 pm, lights out 9:30 pm; timed tickets ($10, free 10 and under; $5 nights Mon–Thu early December). The garden itself is free, dawn to dusk; no picnics on the lawns and \"no area for children to play\".",
+     "when": "Nov 28 – Jan 3 (or Winter picked in the game), 16:30–21:30.",
+     "sources": [
+      "https://bellevuebotanical.org/garden-dlights/",
+      "https://bellevuebotanical.org/admission-hours-directions-parking/",
+      "https://bellevuebotanical.org/garden-etiquette-rules/"
+     ],
+     "confidence": "high",
+     "interaction": "Built: eight light critters (frog, snail, hummingbird, dragonfly, heron, salmon, owl, butterfly) by the paths of eight mapped garden rooms; the panel names the nearest unfound one, its room and compass bearing; look at it and press E. Six before the lights go out (4 min).",
+     "achievement": {
+      "id": "lm-bbg-dlights",
+      "title": "Critter hunter"
+     }
+    },
+    {
+     "name": "Not built: a coffee across the ravine bridge",
+     "real": "The Copper Kettle Coffee Bar in the Shorts House (Sleepy Monk coffee; Sat–Sun 10–2 in November). A \"carry a full cup across the swaying bridge\" challenge was considered, but the bridge is about 300 m from the Shorts House.",
+     "when": "Sat–Sun 10:00–14:00 (November).",
+     "sources": [
+      "https://bellevuebotanical.org/garden-cafe/",
+      "https://bellevuewa.gov/city-government/departments/parks/planning-and-development/completed-projects/bellevue-botanical-garden-master-plan-update/ravine-experience"
+     ],
+     "confidence": "high",
+     "interaction": "none",
+     "achievement": null
     }
    ]
   },
@@ -713,6 +829,32 @@
       "id": "lm-ateneu-concert",
       "title": "Under the dome"
      }
+    },
+    {
+     "name": "An evening concert, applauding at the right moments",
+     "real": "The Athenaeum is the George Enescu Philharmonic's hall. Tickets are sold online and at the Athenaeum box office (2025/26 season: Tue–Fri 12:00–19:00 from October, weekends 10:00–11:00 and 16:00–19:00 on concert days); symphonic concerts start at 19:00, usually Thursday and Friday (e.g. 29–30 Oct 2026).",
+     "when": "Concerts at 19:00; the game opens the doors 18:00–21:00 by the in-game hour (days of the week are not modelled).",
+     "sources": [
+      "https://agerpres.ro/cultura-media/2025/09/12/filarmonica-george-enescu-pune-in-vanzare-biletele-pentru-concertele-si-recitalurile-din-noua-stagiu--1483877",
+      "https://zilesinopti.ro/"
+     ],
+     "confidence": "medium",
+     "interaction": "Built: a seat in the stalls of a modelled round hall; tuning, the conductor's entrance and a short original three-movement piece. E applauds — welcome the conductor, never between the movements or before the baton comes down, then through the ovation and bows (an encore if you keep it up). A faux pas gets a \"Shhh!\" and no award.",
+     "achievement": {
+      "id": "lm-ateneu-bravo",
+      "title": "Bravo!"
+     }
+    },
+    {
+     "name": "Not built: candles at the Memorial of Rebirth",
+     "real": "The 2025 \"Grădina Amintirilor\" event round the memorial (19–20 Dec) lit LED candles together at 18:00; candles and flowers after the 21 December march are reported at the heroes' monument. No everyday practice was found, so no candle activity was built.",
+     "when": "19–20 December (2025 event).",
+     "sources": [
+      "https://zilesinopti.ro/?p=791214"
+     ],
+     "confidence": "low",
+     "interaction": "none",
+     "achievement": null
     }
    ]
   },
@@ -824,6 +966,22 @@
      "achievement": {
       "id": "lm-spring-peacock",
       "title": "Peacock portrait"
+     }
+    },
+    {
+     "name": "Creep up on a peacock in the garden",
+     "real": "Peacocks stroll freely in the residence garden (visitor accounts); visits to the house are guided only (45 min, Romanian or English), photography inside is forbidden; a 25-minute documentary is a separate ticket; the mosaic pool is drained and shows a photo exhibition.",
+     "when": "Tuesday–Sunday 10:00–17:00, last group at 17:00; closed Mondays and public holidays. The game opens the garden game 10:00–17:00 by the in-game hour.",
+     "sources": [
+      "https://casaceausescu.ro/ro/detalii-vizitare/",
+      "https://www.bucharest.ro/locations/museums-galleries-spring-palace-ceausescu-house-638",
+      "https://traveltastefeel.com/all-you-need-to-know-about-ceausescu-palace-in-bucharest-romania/"
+     ],
+     "confidence": "medium",
+     "interaction": "Built: grandmother's footsteps with a peacock — walk up (WASD) while it feeds head-down, freeze when it jerks its head up (moving while it looks, or running near it, scares it; three scares and it hides), stand still within ~2.6 m and it fans its tail.",
+     "achievement": {
+      "id": "lm-spring-peacock",
+      "title": "The full fan"
      }
     }
    ]

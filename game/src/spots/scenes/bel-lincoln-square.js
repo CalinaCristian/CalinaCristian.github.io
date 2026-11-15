@@ -9,8 +9,8 @@
 //  holiday lights in the trees (late Nov – early Jan), the remaining skybridges
 //  (Bellevue Square ↔ garage, Bellevue Place), the Bellevue Square pylon.
 //  UiPath (Lincoln Square North, 700 Bellevue Way NE, Suite 2000, since Sept
-//  2025 — the game's final CV chapter). The office is private. The visitor
-//  activity frames the documented tower and skybridge from the sidewalk.
+//  2025 — the game's final CV chapter). The office is private. Activity
+//  (2026-11-15): three frames at Lucky Strike in the podium (lincoln-bowling.js).
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { photoHunt } from '../photo-hunt.js';
@@ -18,6 +18,7 @@ import { GeoBatch, rng, headingFromBearing, polyBox, inPoly, distPolyline, offse
 import { signBoard, shopfrontSigns } from '../props.js';
 import { seattleBackdrop } from '../backdrop.js';
 import { addTraffic } from '../cars.js';
+import { luckyStrikeBowling } from './lincoln-bowling.js';
 import { emitActivity, seasonal, placeLitLandmark, skipNearLandmark, fairyLights, treeLightPoints, glowText, nightLit, parkPavilions } from './bel-common.js';
 
 const SKY_Y = 6.2; // skybridge floor above the roadway (landmarks.js uses the same)
@@ -250,6 +251,8 @@ export default {
             ],
         };
         ctx.sound('traffic', 18, 12, 120, 1); ctx.sound('crowd', 18, 60, 60, 0.6);
+        // (owner 2026-11-15: real activities) bowl three frames at Lucky Strike, a tenant of the podium (lincoln-bowling.js)
+        luckyStrikeBowling(ctx);
         ctx.spawns['bel-lincoln-square'] = { x: sp.spawn.x - 3, z: sp.spawn.z - 3, heading: headingFromBearing(sp.spawn.heading_deg) };
     },
 };

@@ -5,6 +5,7 @@
 //  Romanesque Pioneer Building, purple vault-light glass in the sidewalks,
 //  Occidental Square under its plane trees, and the white terracotta Smith
 //  Tower (1914) up Yesler Way. Acorn street lamps throughout.
+//  Activity (2026-11-15): ping pong at the Occidental Square table (pioneer-ping-pong.js).
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly } from '../kit.js';
@@ -20,6 +21,7 @@ import { playgroundKit } from '../playground-kit.js';
 import { westEndStreets } from './pioneer-square-westend.js';
 import { colmanDock, colmanFurniture } from './pioneer-square-colman.js';
 import { FRONTS_OSM, smithTowerBase, merchantsCafeSign } from './pioneer-square-backfronts.js';
+import { pioneerPingPong } from './pioneer-ping-pong.js';
 
 // ---------------------------------------------------------------------------- the Chief-of-All-Women pole (1940 replica)
 /**
@@ -308,6 +310,8 @@ export default {
             onDone:s=>seaActivity(s,'lm-underground','pioneer-square','🏛 Public square details framed','You framed three outdoor details in Pioneer Square. A ticketed Underground interior has not been entered or simulated.')});
         ctx.extras.pioneerContext={removedUnverifiedUndergroundRoom:true};
         ctx.challenge('pioneer-square', { r: 10, tol: 30 });
+        // (owner 2026-11-15: real activities) ping pong at the Occidental Square table (OSM n14005376908; pioneer-ping-pong.js)
+        pioneerPingPong(ctx);
         ctx.crowdCfg = {
             personas: { local: 4, tourist_us: 4, tech: 1.5, guide: 0.8, tourist_cn: 1, tourist_kr: 1, tourist_jp: 1, tourist_de: 1.2, tourist_es: 1, tourist_ca: 1, tourist_in: 1, kid: 0.8 },
             walkers: 32, paths: ctx.footLines(),

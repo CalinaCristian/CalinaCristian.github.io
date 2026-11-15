@@ -707,6 +707,25 @@ async function visitSpot(H, id) {
 }
 
 // ---------------------------------------------------------------- the Bellevue finale at legal speed (spec 10: ≤ 3 min)
+/** a stalled vehicle and what it waits for, link by link (its wait-for chain: `waitFor` when the traffic records one,
+ *  else its car-following leader), for the knot notes of a chapter drive */
+function knotChain(g, v) {
+    const T = g.traffic, R = (x) => Math.round(x * 10) / 10, out = [], seen = new Set();
+    let c = v;
+    while (c && typeof c === 'object' && c !== g.player && !seen.has(c) && out.length < 16) {
+        seen.add(c);
+        const w = c.waitFor, nx = w && typeof w === 'object' && w.v ? w.v : c.leader;
+        out.push({ id: c.id, kind: c.kind, x: R(c.x), z: R(c.z), h: Math.round(c.heading * 57.3), sp: R(c.speed), why: c.stopWhy || null, stuck: R(c.stuck || 0), road: roadName(c.edge), w: w ? (w.kind || String(w)) + (w.v?.id != null ? '#' + w.v.id : '') : null, leader: c.leader === g.player ? 'PLAYER' : c.leader && typeof c.leader === 'object' ? c.leader.id : c.leader ?? null, zw: c.zeroWhy || null, d: c.stopD != null && Number.isFinite(c.stopD) ? R(c.stopD) : null, gap: Number.isFinite(c.gap) ? R(c.gap) : null });
+        if (c.stopWhy === 'claim') {
+            // its own claim and the one it waits on: age (s), entered, still held (inBox), and the box they are in
+            const claimOf = (o) => { for (const [key, list] of T.boxes || []) for (const r of list) if (r.v === o) return { box: key.id ?? key.nodes?.[0]?.id ?? '?', age: R(T.time - r.t0), ent: !!r.entered, held: T.inBox(r, key) }; return null; };
+            out[out.length - 1].mine = claimOf(c); out[out.length - 1].theirs = c.claimBy ? claimOf(c.claimBy) : null;
+        }
+        c = nx;
+    }
+    if (c === g.player) out.push('PLAYER'); else if (c && typeof c === 'object') out.push('cycle#' + c.id); else if (c) out.push(String(c));
+    return { simT: R(T.time), chain: out };
+}
 /** a whole chapter route at legal speed from the start (13:00): time, resets, junction stalls; `fin` = the Bellevue finale (≤ 180 s) */
 async function driveChapter(H, chId, limit = null) {
         const g = H.g; const idx = (g.chapters || []).findIndex(c => c.id === chId);
@@ -719,14 +738,22 @@ async function driveChapter(H, chId, limit = null) {
         const o = stop?.poiRef || (g.objective ? { x: g.objective.doorX ?? g.objective.x, z: g.objective.doorZ ?? g.objective.z } : null); if (!o) return { skipped: 'no goal' };
         const res = { route: g.nav.route ? Math.round(g.nav.route.total) : null, via: g.nav.route ? [...new Set(g.nav.route.legs.map(l => roadName(l.e)))].slice(0, 8) : null };
         // junction watch: NPCs standing still inside a junction box for > 20 s
-        const stuckIn = new Map(); let worst = 0, worstAt = null;
+        const stuckIn = new Map(); let worst = 0, worstAt = null, jsum = 0, dumpedAt = -99, pstill = 0;
         const watch = () => {
             for (const v of g.traffic.vehicles) {
                 if (v.parked) continue;
                 const n = v.s < 6 ? (v.dir > 0 ? v.edge.a : v.edge.b) : v.edge.len - v.s < 6 ? (v.dir > 0 ? v.edge.b : v.edge.a) : null;
-                if (n && n.hasLight && Math.abs(v.speed) < 0.2 && Math.hypot(v.x - g.player.x, v.z - g.player.z) > 25) { /* (not the ones queued behind / beside the player itself) */ const t = (stuckIn.get(v) || 0) + H.dt * 15; stuckIn.set(v, t); if (t > worst) { worst = t; const T = g.traffic, hits = {}; for (let k = 0; k < 60; k++) { const st = g.world.lightState ? g.world.lightState(n.id, v.edge, T.time + k, T.cycle) : T.lightState(n, v.edge); hits[st] = (hits[st] || 0) + 1; }
+                if (n && n.hasLight && Math.abs(v.speed) < 0.2 && Math.hypot(v.x - g.player.x, v.z - g.player.z) > 25) { /* (not the ones queued behind / beside the player itself) */ const t = (stuckIn.get(v) || 0) + H.dt * 15; stuckIn.set(v, t); if (t > 30) jsum += H.dt * 15; if (t > worst) { worst = t; const T = g.traffic, hits = {}; for (let k = 0; k < 60; k++) { const st = g.world.lightState ? g.world.lightState(n.id, v.edge, T.time + k, T.cycle) : T.lightState(n, v.edge); hits[st] = (hits[st] || 0) + 1; }
                     worstAt = { x: Math.round(v.x), z: Math.round(v.z), why: v.stopWhy || null, road: roadName(v.edge), kind: v.kind, node: n.id, cycle: T.cycle, light60s: hits, leader: v.leader && typeof v.leader === 'object' ? `${v.leader.kind || 'player'}:${v.leader.stopWhy || ''}` : String(v.leader), stopD: Math.round(v.stopD ?? -1) }; } }
                 else stuckIn.delete(v);
+            }
+            // (knot notes) the player standing for 15 s (or waiting behind a car for 12): what the car in front of it waits for, link by link
+            const ap = H.ap, P = g.player; if (Math.abs(P.speed || 0) < 0.5) pstill += H.dt * 15;
+            if (ap && ((P.stillT || 0) > 15 || ap.waitT > 12) && H.scT - dumpedAt > 15 && (res.knots ||= []).length < 12) {
+                dumpedAt = H.scT;
+                let first = ap.leaderInfo?.id != null ? g.traffic.vehicles.find(o => o.id === ap.leaderInfo.id) || null : null, bd = first ? -1 : 1e9;
+                for (const o of g.traffic.near(P.x, P.z, 20)) { const dx = o.x - P.x, dz = o.z - P.z, f = dx * P.fx + dz * P.fz, l = Math.abs(dx * -P.fz + dz * P.fx); if (f > 0 && l < 3 && f < bd) { bd = f; first = o; } }
+                res.knots.push({ t: r1(H.scT), at: [Math.round(P.x), Math.round(P.z)], ph: Math.round((P.heading ?? 0) * 57.3), ahead: ap.leader || null, ...(first ? knotChain(g, first) : {}) });
             }
             return false;
         };
@@ -734,7 +761,8 @@ async function driveChapter(H, chId, limit = null) {
         const origStep = H.stepOnce.bind(H); H.stepOnce = (dt) => { origStep(dt); if (H.mon.steps % 15 === 0) watch(); };
         try { res.drive = await H.driveTo(o.doorX ?? o.x, o.doorZ ?? o.z, { label: `${chId} chapter drive`, arriveR: stop ? 9 : 25, timeout: 300, stop: !!stop, arriveState: 'card' }); }
         finally { H.stepOnce = origStep; }
-        res.seconds = r1(H.scT - t0); res.junctionStillMax = r1(worst); res.junctionStillAt = worstAt;
+        res.seconds = r1(H.scT - t0); res.junctionStillMax = r1(worst); res.junctionStillOver30 = Math.round(jsum); res.playerStillS = Math.round(pstill); res.junctionStillAt = worstAt;
+        { const S = g.traffic.stats || {}, PS = g.traffic.peds?.stats || {}; res.recoveries = { deadlocks: S.deadlocks, ringBacks: S.ringBacks, chainBacks: S.chainBacks, unstuck: S.unstuck, watchdog: S.playerWatchdog, release: S.waitRelease, releaseBy: S.waitReleaseBy, claimYield: S.claimYield, starved: S.claimStarved, rings: S.waitRings, ringBacks2: S.waitRingBacks, ringOpens: S.waitRingOpens, playerBacks: S.waitPlayerBacks, walkers: S.waitWalkers, asideWalks: PS.asideWalks, asideMoved: PS.asideMoved }; }
         res.shot = await H.shot(`drive-${chId}-arrived`);
         if (!res.drive?.ok) H.issue('chapter-drive-failed', 'medium', `chapter ${chId}: the legal-speed drive from the start did not arrive (${res.drive?.reason}, ${res.drive?.resets} resets, ${res.drive?.remaining} m left)`, {}, { shot: true, key: 'chd:' + chId });
         if (limit && res.seconds > limit) H.issue('finale-too-long', 'medium', `${chId} took ${res.seconds} s at legal speed (spec ≤ ${limit} s)`, {}, { key: 'fin-time' });

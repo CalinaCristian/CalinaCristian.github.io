@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-8197ab0aa57a8695",
-  "sourceCommit": "327e18b017a9824f4acef1fd517e49b5ebcf3a3f",
-  "fingerprint": "8197ab0aa57a8695fff242b118891015947cf244e942deb30b18d7ac237cc2b1",
+  "releaseId": "game-8490fef363a28f3b",
+  "sourceCommit": "f3e8c54ef3b7a73038d4a4f688bd60c9c8015c55",
+  "fingerprint": "8490fef363a28f3b6df2298f595aa5865125072914c00af1043e50f44a40a94e",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -426,7 +426,7 @@
     },
     {
       "path": "game/src/data.js",
-      "sha256": "8755b85dacaeb22ae8392c42431918ad7023bf6cfd61d2cd998d2a5aa85fb3eb"
+      "sha256": "06ca39fde74877837f8a9fc9c1010c165e800097813c57cbee45763055d08843"
     },
     {
       "path": "game/src/deck-lamps.js",
@@ -1149,6 +1149,10 @@
       "sha256": "c177ee10eacb018a2ea8efaf31f713ee747868896f137ab6bf5ec6900e058550"
     },
     {
+      "path": "game/src/spots/bowling.js",
+      "sha256": "ca5622e034a703f9238ef93962d8c165c35d6401d296f71a5f41dc9e4e8a8e76"
+    },
+    {
       "path": "game/src/spots/buc-barriers.js",
       "sha256": "0ec1f5052f1f36dc416fd2710bc596286f342a858e67c6d4fc5e6358fa3dad30"
     },
@@ -1191,6 +1195,10 @@
     {
       "path": "game/src/spots/coin-drop.js",
       "sha256": "f2d113a95f53ec8cc1f28ed45b3467eafee3f11672a211c45e6767b095ae6c7c"
+    },
+    {
+      "path": "game/src/spots/concert-etiquette.js",
+      "sha256": "56e1d9eba23304e34e5c68796b8ae26e750a619766a142466a5bfaf5b047ef83"
     },
     {
       "path": "game/src/spots/context-array-codec.js",
@@ -1238,7 +1246,7 @@
     },
     {
       "path": "game/src/spots/index.js",
-      "sha256": "dd4dd32e9b8bd2ef3c65e753418aee562b05fa36b4c1f5718b9acdf64d9410ad"
+      "sha256": "ba4dd5d464bf8ab7fc598d94555f69b25de80124c0742e1c194fc04c2c2e9c1e"
     },
     {
       "path": "game/src/spots/kit.js",
@@ -1258,11 +1266,15 @@
     },
     {
       "path": "game/src/spots/park-hours.js",
-      "sha256": "e04cb311c3777a9a6a61e3a6ed0b4665614f9cb348e32ec1ad5bb995acbf991b"
+      "sha256": "e3b5a82e28f52dcae89d597a1b11e4667568bc54de6608ba22bc464260069d56"
     },
     {
       "path": "game/src/spots/participation.js",
       "sha256": "f455d04cbba20459441b9add4d5187bfc87fe723c6e7c26f552351cefe1a0fb4"
+    },
+    {
+      "path": "game/src/spots/peacock-stalk.js",
+      "sha256": "021bff01c49a6e39d09fc89a9e0c5e7431553539eb10fb5d8684f4624acee625"
     },
     {
       "path": "game/src/spots/people.js",
@@ -1305,8 +1317,12 @@
       "sha256": "a6bb3069bee22614e8f73252d4dac53eecbb77294a4911f2a2bea934a0d2bd0d"
     },
     {
+      "path": "game/src/spots/scenes/athenaeum-concert.js",
+      "sha256": "25ddd83af029ff27b460a6a36345b408866e19b7c6dce083f2a82a72ef6ce4e1"
+    },
+    {
       "path": "game/src/spots/scenes/athenaeum-revolution.js",
-      "sha256": "45bfbd8846765c50b53de75eb7a2f78e02c41854429b8428095c2d76b585c745"
+      "sha256": "1f26d91eddb6b842f418328843993a1fb4fb7d99aca1543543c525b1107130f7"
     },
     {
       "path": "game/src/spots/scenes/ballard-locks-art.js",
@@ -1326,11 +1342,15 @@
     },
     {
       "path": "game/src/spots/scenes/bel-botanical-garden.js",
-      "sha256": "b25ee1fe708887bb9b4e6d004a1893c332934f50f0dcdd9b0e809880850d247a"
+      "sha256": "c6ea4034c2ee40754ccf4ac0be3e72630278a2e5e4aece20839b463efd2fb195"
     },
     {
       "path": "game/src/spots/scenes/bel-common.js",
       "sha256": "d02e93f2ea0a7aa69d5ee46618f3b5c31d16823a932d7b530609be3562ba59eb"
+    },
+    {
+      "path": "game/src/spots/scenes/bel-dlights-hunt.js",
+      "sha256": "c4d9096a5bf980fd98618379d02b4276681b616c12e3abdf1e09788a93e68597"
     },
     {
       "path": "game/src/spots/scenes/bel-downtown-park.js",
@@ -1338,7 +1358,7 @@
     },
     {
       "path": "game/src/spots/scenes/bel-lincoln-square.js",
-      "sha256": "78b21cd1df4f1811cb58a74acfdf3cb7fbb24417d8fff84db4686ae3051212d6"
+      "sha256": "0d84e08040d10da62c378408118c7aee126ba2894b7e19e3fd22f79fd4aed3ad"
     },
     {
       "path": "game/src/spots/scenes/bel-meydenbauer-kit.js",
@@ -1429,8 +1449,16 @@
       "sha256": "d916f19c03c0baccfcf6334883188e8818da630730563a236f921d085d737b47"
     },
     {
+      "path": "game/src/spots/scenes/kerry-hoops.js",
+      "sha256": "a07d7a3b96694a652a5fdd4086d34ee40ad0f84c6250749950cfe33b553d0c5c"
+    },
+    {
       "path": "game/src/spots/scenes/kerry-park.js",
-      "sha256": "b4fce4d186be96aef72411876391475079f188bb2ad0aebad59713459176f509"
+      "sha256": "b9c6e3632805b272627a055d2a4e77d47ef8f1dd3470cbb2059d06fa9f8298f4"
+    },
+    {
+      "path": "game/src/spots/scenes/lincoln-bowling.js",
+      "sha256": "74d4788ce5075d6408d024f794f33c1f192541a4c15ae1f724c1e4952afcd1dc"
     },
     {
       "path": "game/src/spots/scenes/nth-un-house.js",
@@ -1497,6 +1525,10 @@
       "sha256": "9e8cd7065825f507f74fd56d35c9ffceb2a308aed81157b3657b885775ccbe1c"
     },
     {
+      "path": "game/src/spots/scenes/pioneer-ping-pong.js",
+      "sha256": "3ee82be601fa222cfcec2436bb9b42844bf9a8cf90ab16fb07509459589d808a"
+    },
+    {
       "path": "game/src/spots/scenes/pioneer-square-backfronts.js",
       "sha256": "970cdea6d729149f02298218a5e9d3294c1bf5315ffdbb9ba383e32ecc8ec170"
     },
@@ -1518,7 +1550,7 @@
     },
     {
       "path": "game/src/spots/scenes/pioneer-square.js",
-      "sha256": "6c31591424c70526268108a10a1c76c113ed704cb702f82e4f8d3e8da5985cc0"
+      "sha256": "61626d97686d77f32c97050f9b19e859d5206f1a4757d71638b3b766737113c2"
     },
     {
       "path": "game/src/spots/scenes/sea-common.js",
@@ -1554,7 +1586,11 @@
     },
     {
       "path": "game/src/spots/scenes/spring-palace.js",
-      "sha256": "4ff867588cd1ce9ed6335fae554d4cd1a4bfa5a1aba6012471f4ab5bc369fe1b"
+      "sha256": "516cfe84d9514bff95ddf4c602f08db9b1b67f5700d04329db7ff24d4fcf6ca2"
+    },
+    {
+      "path": "game/src/spots/scenes/spring-peacock.js",
+      "sha256": "c34c41dd931ad845602287320724bef729713f7dd6b5d16299fcbdfd789057a0"
     },
     {
       "path": "game/src/spots/scenes/waterfront-pier-rings.js",
@@ -1643,6 +1679,10 @@
     {
       "path": "game/src/spots/swing-ride.js",
       "sha256": "9b66b508fd6691dcc67b2b26d63931b12cb4f6f65ec92817b067c1bba753d713"
+    },
+    {
+      "path": "game/src/spots/table-tennis.js",
+      "sha256": "adabc1e553f452ce923334a83c2b8df12e482ae9b295bda4cc81f9d518fe7697"
     },
     {
       "path": "game/src/spots/tour.js",

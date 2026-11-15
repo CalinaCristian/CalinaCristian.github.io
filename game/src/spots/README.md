@@ -54,12 +54,16 @@ an activity fires `game.emit('activity', { spot, id })` / `dmcv:activity`; activ
 
 - `activityFlow(ctx)` (`participation.js`): the shared participatory flow — 44 px buttons, E / Escape, explicit busy
   phases, completion callbacks only on a real finish, cleanup on map, travel, visibility change and disposal. Camera
-  rides set `cameraRide: true`; other locked activities keep mouse / touch look.
+  rides set `cameraRide: true`; other locked activities keep mouse / touch look. A vehicle (`ride: true`: the bike, the
+  free boat) is only paused by the map, pause, photo, conditions and the drone, and keeps the minimap and touch stick.
+- What is offered (map list, 🎯 markers, guided tour): `activity-offer.js`. Only interactive activities; plaques,
+  inscriptions, viewpoints, photo walks / framing rings (`photo-hunt.js` registers nothing now), walk-to goals
+  (`kind: 'walk-goal'`), stairs and exit / return steps are never listed. A closed venue is listed under "Opens later".
 - `onActivityCancel(ctx, cancel)`: walking courses (no panel) register here so `cancelActivities()` clears their partial
   progress.
-- Helpers: `buc.js` `boatRide`, `race-course.js`, `water-route.js` (paddle courses, dry-bank landings), `photo-hunt.js`, `venue-activities.js`
+- Helpers: `free-boat.js` (WASD boat / kayak, buoys, E ashore), `petanque.js`, `spot-bikes.js` (a stand at every large spot), `race-course.js`, `water-route.js` (paddle courses, dry-bank landings), `photo-hunt.js`, `venue-activities.js`
   (held-item sequences), `candle-light.js`, `coin-drop.js`, `stone-skipping.js`, `dance-camera.js`, `bike.js`,
-  `backgammon-*.js`, `baguette-game.js`, `chess-opening.js`, `tour.js` (guided-walk routing), `walk-boundary.js`
+  `backgammon-*.js`, `chess-opening.js`, `tour.js` (guided-walk routing), `walk-boundary.js`
   (visit boundary applied after walker and crowd collision).
 
 ## Seattle context cache

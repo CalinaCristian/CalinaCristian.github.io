@@ -66,7 +66,7 @@ export function freeWaterRide(ctx, o) {
     };
     const rel = (s, x, z) => { const dx = x - st.x, dz = z - st.z, d = Math.hypot(dx, dz), a = Math.atan2(-dx, -dz) - st.yaw, w = Math.atan2(Math.sin(a), Math.cos(a)); return `${Math.round(d)} m ${Math.abs(w) < 0.35 ? 'ahead' : Math.abs(w) > 2.6 ? 'behind you' : w > 0 ? 'to your left' : 'to your right'}`; };
     const start = (s) => flow.begin(s, {
-        title: o.title, action: o.action || 'Back to shore', cameraRide: true,
+        title: o.title, action: o.action || 'Back to shore', cameraRide: true, ride: true, // (a ride: the map / pause / photo only pause it)
         help: o.help,
         started(s, r) {
             const w0 = s.ctl.position; st = { exit: { x: w0.x, z: w0.z, y: w0.y, heading: s.ctl.heading }, x: o.start.x, z: o.start.z, yaw: o.start.heading ?? s.ctl.heading, v: 0, look: 0, pitch: sup ? -0.3 : -0.05, stroke: 0, strokes: 0, side: 1, wobble: 0, roll: 0, falls: 0, fall: 0, climb: 0, next: 0, distance: 0, blockedT: 0, t: 0 };

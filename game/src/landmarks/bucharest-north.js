@@ -399,7 +399,7 @@ export function bOTP(b, ctx = {}) {
 // and one long glazed barrel vault on a white lattice over the platforms; an open stair with green rails climbs to the
 // west end. The generic rendering was a flat green-topped slab on thin columns. Documented exception: the vault follows
 // the panoramas, the mapped `gabled` is the nearest tag for it. Deck depth, vault rise (the two mapped levels: 5 → 13 m),
-// pier spacing and the stair's place are estimates; piers are left out where a mapped road passes under the deck.
+// pier spacing are estimates; piers are left out where a mapped road passes under the deck. The stairs are OSM's (below).
 const OTP_GARA_RING = [[-85.2,-1],[-83.5,16.9],[-24.4,11.4],[45.9,4.6],[61.2,3.3],[85.2,1],[84.9,-1.8],[83.7,-12.5],[83.2,-16.9],[59.3,-14.7],[45.4,-13.4],[-26.5,-6.7]];
 export function bOtpGara(b, ctx = {}) {
     const ring = ctx.sourceBuildings?.w813193384?.[0]?.ring || OTP_GARA_RING, CON = '#c9c6bd', GRN = '#2f9460', WH = '#eef0ee';
@@ -422,9 +422,15 @@ export function bOtpGara(b, ctx = {}) {
         b.box(x, 0, z, 2.2, deck0 - 0.9, 8.6, CON, { ry: ry + Math.PI / 2 }); b.box(x, deck0 - 0.9, z, 2.8, 0.9, 13.5, CON, { ry: ry + Math.PI / 2 });
         b.col(x, z, 1.1, 4.3, ry + Math.PI / 2, { y0: 0, y1: deck0 });
     }
-    // open stair to the west end, south side
-    { const s = W / 2 + 1.6, p0 = at(-L / 2 - 23, s), p1 = at(-L / 2 + 1, s);
-      b.strut([p0[0], 0.15, p0[1]], [p1[0], deck1, p1[1]], 2.6, 0.35, CON);
-      for (const e of [-1.3, 1.3]) { const q0 = at(-L / 2 - 23, s + e), q1 = at(-L / 2 + 1, s + e); b.strut([q0[0], 1.2, q0[1]], [q1[0], deck1 + 1.05, q1[1]], 0.08, 0.08, GRN); }
-      const m = at(-L / 2 - 11, s); b.col(m[0], m[1], 12, 1.4, ry, { y0: 0, y1: deck1 + 1 }); }
+    // (owner, 2026-11-15, Otopeni (-261, 15, -423) "in the middle of the road?": the one estimated stair, 10 m south of the axis,
+    // came down on the carriageway south of the station) the two stair flights OSM maps, from each platform's west end down
+    // westwards to the north-south footway w1443573593: w1443573592 (north platform) and w1443573591 (south platform), both
+    // highway=steps, handrail=yes (api.openstreetmap.org, 2026-11-15). Points in this model's frame (the station ring's
+    // projection: frame = game metres − (−147.0, −448.4)); the flight width (2.6 m) and the handrails' height are estimates.
+    for (const [foot, top] of [[[-106.8, 16.1], [-71.6, 13.3]], [[-107.4, 5.0], [-72.8, 2.0]]]) {
+        const fx = top[0] - foot[0], fz = top[1] - foot[1], fl = Math.hypot(fx, fz), fux = fx / fl, fuz = fz / fl, fnx = -fuz, fnz = fux, fry = Math.atan2(-fuz, fux);
+        b.strut([foot[0], 0.15, foot[1]], [top[0], deck1, top[1]], 2.6, 0.35, CON);
+        for (const e of [-1.3, 1.3]) b.strut([foot[0] + fnx * e, 1.2, foot[1] + fnz * e], [top[0] + fnx * e, deck1 + 1.05, top[1] + fnz * e], 0.08, 0.08, GRN);
+        const m = [foot[0] + fux * fl * 0.4, foot[1] + fuz * fl * 0.4]; b.col(m[0], m[1], fl * 0.3, 1.3, fry, { y0: 0, y1: deck1 + 1 });
+    }
 }

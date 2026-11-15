@@ -23,7 +23,7 @@ export function iceSkate(ctx, { poly, y, gate, laps = 3, onDone = null }) {
     let st = null;
     const stop = (s) => { if (!st) return; st = null; const c = s.ctl; c.x = gate.x; c.z = gate.z; c.y = ctx.ground.heightAt(gate.x, gate.z); c.heading = Math.atan2(-(cx - gate.x), -(cz - gate.z)) + Math.PI; c.pitch = 0; c.vx = c.vz = 0; c.vel = 0; c.active = true; c.place?.(); };
     const start = (s) => flow.begin(s, {
-        title: 'Public skate at the rink', action: 'Step off the ice', cameraRide: true,
+        title: 'Public skate at the rink', action: 'Step off the ice (E)', cameraRide: true, ride: true,
         help: `Hold W to stride (Shift: longer strides), A / D to turn, S to stop. You glide — mind the boards. Skate ${laps} laps anticlockwise, with the flow. E, Leave or Esc to step off.`,
         started(s, r) {
             const gx = gate.x - cx, gz = gate.z - cz, gl = Math.hypot(gx, gz) || 1, sx = cx + gx / gl * minR * 1.6, sz = cz + gz / gl * minR * 1.6;

@@ -7,6 +7,7 @@ import { Crowd } from './people.js';
 import { SpotUI, SpotMap } from './ui.js';
 import { SpotSound } from './sound.js';
 import { LocalWalker } from './walker.js';
+import { offered, availability, offerName } from './activity-offer.js';
 import { findWalkPath, pathLength, walkHeight, walkSegment, withMovingBodies, walkingLevelGround, TOUR_WALK_LIMIT_M } from './tour.js';
 import { inPoly, polyBox, DEG, distPolyline } from './kit.js';
 import { spotById } from './index.js';
@@ -85,14 +86,18 @@ export class SpotSession {
         for (const pl of S.plaques) out.push({ kind: 'plaque', x: pl.x, z: pl.z, label: pl.title, text: pl.text, done: !!read[S.sceneId + ':' + pl.title], plaque: pl });
         for (const c of S.challenges) if (c.id === S.id || spotById(c.id)?.available) out.push({ kind: 'postcard', id: c.id, challenge: c, x: c.x, z: c.z, label: 'Postcard photo: ' + (spotById(c.id)?.name || 'the iconic view'), text: c.text, done: !!P.postcards?.[c.id] });
         const acts = [];
-        for (const it of S.interactables) { if (it.kind === 'plaque' || it.kind === 'guide' || it.kind === 'talk' || it.hidden) continue; const lb = typeof it.label === 'function' ? it.label(this) : it.label; if (!lb) continue;
-            acts.push({ kind: it.kind === 'bike' ? 'bike' : 'activity', interaction: it, noTour: !!it.noTour, x: it.x, z: it.z, full: lb, done: false }); }
+        // only interactive activities (activity-offer.js), with what is possible at this hour: 'now' or 'later'
+        for (const it of S.interactables) { if (!offered(it, this)) continue; const when = availability(it, this); if (!when) continue;
+            acts.push({ kind: it.kind === 'bike' ? 'bike' : 'activity', interaction: it, noTour: !!it.noTour || when !== 'now', when, x: it.x, z: it.z, full: offerName(it, this), done: false }); }
+        // one entry per activity: the same offer at several points (two elevators, a venue's two doors) keeps the nearest
+        { const me = this.ctl?.position || { x: 0, z: 0 }, seen = new Set(); acts.sort((a, b) => Math.hypot(a.x - me.x, a.z - me.z) - Math.hypot(b.x - me.x, b.z - me.z));
+            const keep = acts.filter((a) => { const k = a.full.toLowerCase(); if (seen.has(k)) return false; seen.add(k); return true; }); acts.length = 0; acts.push(...keep); }
         // short labels; activities sharing a "Verb: name" prefix (≥ 3, e.g. the Village Museum houses) become one group objective
         const pre = (l) => (/^([^:—]{3,40}):\s*(.+)$/.exec(l) || null), count = {};
         for (const a of acts) { const m = pre(a.full); if (m) count[m[1]] = (count[m[1]] || 0) + 1; }
         for (const a of acts) { const m = pre(a.full);
             if (m && count[m[1]] >= 3) { a.group = groupName(m[1]); a.name = m[2]; a.label = shortLabel(m[2]); }
-            else { a.name = a.full; a.label = shortLabel(a.full.split(' — ')[0]); } out.push(a); }
+            else { a.name = a.full; a.label = a.full.split(' — ')[0]; a.short = a.label; } out.push(a); }
         for (const o of out) {
             if (!o.name) o.name = o.label; o.short = o.short || shortLabel(o.label);
             o.floorY = S.ground.groundAt(o.x, o.z, o.interaction?.y ?? S.ground.heightAt(o.x, o.z) + 1.2);
@@ -136,12 +141,24 @@ export class SpotSession {
         this.cancelActivities('map');
         if (this.input) { this.input.lookAllowed = false; this.input.releaseLock?.(); }
         this._refreshMarkers();
-        const ICONS = { hero: '⭐', plaque: '📜', postcard: '📷', bike: '🚲', activity: '🎯' }, items = [], groups = new Map();
-        for (const m of this._objs) { if (m.kind === 'guide' || m.kind === 'entrance') continue;
-            if (m.group) { let g = groups.get(m.group); if (!g) { g = { icon: ICONS[m.kind] || '•', label: m.group, members: [], kind: m.kind }; groups.set(m.group, g); items.push(g); } g.members.push(m); continue; }
-            items.push({ icon: ICONS[m.kind] || '•', label: m.short || m.label, done: m.done, kind: m.kind, marker: m }); }
+        // (owner, 2026-11-15: "clean this up I want easy to follow things -- it should be based on what's available at
+        // my hour") the list holds only the activities: what you can do now, then what opens later; no plaques,
+        // postcards, landmarks or steps (they stay on the map itself). A pick sets the waypoint to its E point.
+        const ICONS = { bike: '🚲', activity: '🎯' }, items = [], groups = new Map();
+        for (const when of ['now', 'later']) {
+            const list = this._objs.filter((m) => ['activity', 'bike'].includes(m.kind) && (m.when || 'now') === when);
+            if (!list.length) continue;
+            items.push({ header: when === 'now' ? 'You can do now' : 'Opens later' });
+            for (const m of list) {
+                if (m.group) { const key = when + ':' + m.group; let g = groups.get(key); if (!g) { g = { icon: ICONS[m.kind] || '•', label: m.group, members: [], kind: m.kind }; groups.set(key, g); items.push(g); } g.members.push(m); continue; }
+                items.push({ icon: ICONS[m.kind] || '•', label: m.name || m.label, done: m.done, kind: m.kind, marker: m, later: when === 'later' });
+            }
+        }
+        if (!items.length) items.push({ header: 'Nothing to do here at this hour: explore freely' });
         for (const g of groups.values()) { const d = g.members.filter((m) => m.done).length; g.label = `${g.label} (${d}/${g.members.length})`; g.done = d === g.members.length; }
-        await this.ui.showMap(this.map, { title: this.spot.name, items, navigate: {set: target => this.setWaypoint(target),clear:()=>this.clearWaypoint()}, tour: this.guide ? { label: this.tour && this.tour.state !== 'done' ? 'End the guided tour' : '🚩 Short guided tour · up to 3 stops', run: () => { if (this.tour && this.tour.state !== 'done') this.endTour(); else { this.endTour(); this.startTour(); } } } : null });
+        // (owner, 2026-11-15: "all maps are broken") no guided-tour button in the map: the guide is joined in the scene (E);
+        // only a running tour keeps its End button here
+        await this.ui.showMap(this.map, { title: this.spot.name, items, navigate: {set: target => this.setWaypoint(target),clear:()=>this.clearWaypoint()}, tour: this.guide && this.tour && this.tour.state !== 'done' ? { label: 'End the guided tour', run: () => this.endTour() } : null });
         if (this.input) { this.input.lookAllowed = true; this.input.flush?.(); this.input.keys?.clear?.(); }
         this.returnFocus();
     }
@@ -238,8 +255,9 @@ export class SpotSession {
             this.ui.toast('No activity route right now', 'Choose an activity on M and explore freely. The guide could not find a safe short route to an available activity.');
             return false;
         }
-        addNearest(objs.filter((m) => m.kind === 'plaque'));
-        addNearest(objs.filter((m) => m.kind === 'postcard'));
+        // (owner, 2026-11-15: "reading signs should not be part of guided tours") the tour is up to three activities,
+        // nearest first; plaques and postcards stay on the map for whoever wants them
+        while (stops.length < 3 && addNearest(active.filter((m) => !stops.includes(m) && !stops.some((q) => q.interaction === m.interaction)))) { /* next activity */ }
         if (!stops.length) { this.ui.toast('No short walking route', 'Explore freely with M. The guide could not find a safe route from here.'); return false; }
         this.tour = { stops, i: 0, state: 'walk', wait: 0, said: false, t: 0, walked, travelled:0, skipped: 0 };
         this.guide.act = 'guide'; this.guide.sayCd = 1e9;
@@ -447,15 +465,19 @@ export class SpotSession {
     /** Keep a nearby guide's conversation from swallowing the arrived task's E prompt. */
     _interactionAt(p) {
         const T=this.tour, target=T?.state==='arrive'?T.stops[T.i]?.interaction:null;
-        let best=null,bd=Infinity,task=null;
+        let best=null,bd=Infinity,task=null,act=null,ad=Infinity;
         for(const it of this.spot.interactables){
             if(it.cond&&!it.cond(this))continue;
             const d=Math.hypot(p.x-it.x,p.z-it.z);
             if(!(d<(it.r||2)&&Math.abs((it.y??p.y)-p.y)<3))continue;
             if(it===target)task=it;
             if(d<bd){bd=d;best=it;}
+            if(!['guide','talk'].includes(it.kind)&&d<ad){ad=d;act=it;}
         }
-        return task&&['guide','talk'].includes(best?.kind)?task:best;
+        // (owner, 2026-11-15: "toss a coin is broken") a person standing by an activity (the busker by the guitar case)
+        // must not swallow its prompt: talking yields to any activity in reach
+        if(['guide','talk'].includes(best?.kind))return task||act||best;
+        return best;
     }
     /** per-frame: walker, crowd, interactions, scene animations, night, UI, sound */
     update(dt) {
@@ -540,7 +562,7 @@ export class SpotSession {
 /** "Seattle, WA" / "Bellevue, WA" / "Bucharest, Romania" */
 export function placeLabel(sp) { return sp.entry?.area === 'bellevue' ? 'Bellevue, WA' : sp.city === 'seattle' ? 'Seattle, WA' : sp.city === 'bucharest' ? 'Bucharest, Romania' : sp.city; }
 function shortLabel(t, n = 28) { const s = String(t || '').replace(/\s*\(.*?\)\s*/g, ' ').replace(/\s+/g, ' ').trim(); return s.length > n ? s.slice(0, n - 1).trim() + '…' : s; }
-function groupName(p) { return /house|household|farm|gospod|casa/i.test(p) ? 'Households' : shortLabel(p.replace(/^(step into|visit|see|try|read)\s+(the\s+)?/i, (m) => m), 24); }
+function groupName(p) { return /house|household|farm|gospod|casa/i.test(p) ? 'Households' : p.replace(/\s+/g, ' ').trim(); } // (whole, never cut with "…": owner, 2026-11-15)
 function firstSentence(t) { const s = String(t || '').trim(); const m = s.match(/^.{20,220}?[.!?](\s|$)/); return (m ? m[0] : s.slice(0, 200)).trim(); }
 function escapeHtml(s) { return String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
 /** façade night windows + anything flagged userData.nightWindows / nightGlow */

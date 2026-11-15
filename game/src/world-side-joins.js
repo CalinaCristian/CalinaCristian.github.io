@@ -274,16 +274,22 @@ export function buildSideJoins(ctx) {
             });
             return covered ? null : best;
         };
-        const emit = (A, B) => {
+        const emit = (A, B, forcedKind = null) => {
             const gap = Math.max(A.hit.t, B.hit.t), maxTop = Math.max(A.top, B.top, A.hit.top, B.hit.top) - Y.road;
             // (r2, SeaTac Airport Expressway 47.45097, -122.30067: the gore between a US ramp and its carriageway is painted asphalt)
             const usGore = US && (/_link$/.test(A.st.e.type) || /_link$/.test(A.hit.st.e.type));
-            const kind = gap <= 1.2 || usGore ? 'asphalt' : maxTop <= 9 ? 'grass' : 'concrete', rise = kind === 'asphalt' ? 0 : .15;
+            const kind = forcedKind || (gap <= 1.2 || usGore ? 'asphalt' : maxTop <= 9 ? 'grass' : 'concrete'), rise = kind === 'asphalt' ? 0 : .15;
             const top = [[A.ox, A.top + rise, A.oz], [B.ox, B.top + rise, B.oz], [B.hit.x, B.hit.top + rise, B.hit.z], [A.hit.x, A.hit.top + rise, A.hit.z]];
             const up = (top[1][2] - top[0][2]) * (top[2][0] - top[0][0]) - (top[1][0] - top[0][0]) * (top[2][2] - top[0][2]) > 0, Q = up ? top : top.slice().reverse();
             const cx = (A.ox + B.ox + A.hit.x + B.hit.x) / 4, cz = (A.oz + B.oz + A.hit.z + B.hit.z) / 4, cell = cellOf(cx, cz);
-            if (kind === 'grass') cell.ground.face4(...Q, grass, [0, 1, 0], -1, Q.map(p => [p[0] * .125, p[2] * .125]));
-            else cell.solid.face4(...Q, kind === 'asphalt' ? rgb(ASPHALT) : conc, [0, 1, 0]);
+            // (a cap join, below, spans two fills of different cross slopes: its top is a twisted quad, drawn as a 4 × 4
+            //  bilinear patch so it does not fold along one diagonal)
+            const sub = forcedKind ? 4 : 1, lerp3 = (p, q, f) => p.map((v, i) => v + (q[i] - v) * f), P = (s, t) => lerp3(lerp3(Q[0], Q[1], s), lerp3(Q[3], Q[2], s), t);
+            for (let i = 0; i < sub; i++) for (let j = 0; j < sub; j++) {
+                const q4 = sub === 1 ? Q : [P(i / sub, j / sub), P((i + 1) / sub, j / sub), P((i + 1) / sub, (j + 1) / sub), P(i / sub, (j + 1) / sub)];
+                if (kind === 'grass') cell.ground.face4(...q4, grass, [0, 1, 0], -1, q4.map(p => [p[0] * .125, p[2] * .125]));
+                else cell.solid.face4(...q4, kind === 'asphalt' ? rgb(ASPHALT) : conc, [0, 1, 0]);
+            }
             const thick = q => Math.min(1.1, Math.max(.05, q[1] - Y.road)), bottom = top.map(q => [q[0], q[1] - rise - thick(q), q[2]]);
             cell.solid.face4(...(up ? bottom.slice().reverse() : bottom), dark, [0, -1, 0]);
             if (rise) for (const [p, q] of [[top[0], top[1]], [top[2], top[3]]]) { const lo = v => [v[0], v[1] - rise, v[2]], L = Math.hypot(q[0] - p[0], q[2] - p[2]) || 1; cell.solid.face4(lo(p), lo(q), q, p, conc, [(q[2] - p[2]) / L, 0, -(q[0] - p[0]) / L]); cell.solid.face4(p, q, lo(q), lo(p), conc, [-(q[2] - p[2]) / L, 0, (q[0] - p[0]) / L]); } // (kerb faces, both ways)
@@ -292,6 +298,7 @@ export function buildSideJoins(ctx) {
                 y0: Math.min(...bottom.map(q => q[1])), y1: Math.max(...top.map(q => q[1])), h: Math.max(...top.map(q => q[1])), roofHeightAt: plane(top), minHeightAt: plane(bottom) };
             sceneryDeckGrid.insert(cx - deck.r, cz - deck.r, cx + deck.r, cz + deck.r, deck); medianGrid.insert(cx - deck.r, cz - deck.r, cx + deck.r, cz + deck.r, deck); medianFill.decks.push(deck);
             medianFill.quads++; medianFill.areaM2 += Math.hypot(B.ox - A.ox, B.oz - A.oz) * (A.hit.t + B.hit.t) / 2;
+            return deck;
         };
         for (const st of strips) for (const side of [1, -1]) {
             const w = st.half(side), dx = st.nx * side, dz = st.nz * side, at = q => { const ox = q[0] + dx * w, oz = q[1] + dz * w, top = st.topAt(ox, oz); return { st, ox, oz, top, hit: reach(st, ox, oz, dx, dz, top) }; };
@@ -320,6 +327,44 @@ export function buildSideJoins(ctx) {
             if (ends[k0].hit.st.id < st.id && !US) continue; // (each pair once, from its lower id)
             let prev = null;
             for (let i = 0; i <= n; i++) { const f = i / n, cur = at([P0[0] + (P1[0] - P0[0]) * f, P0[1] + (P1[1] - P0[1]) * f]); if (!cur.hit) break; if (prev && (!US || (prev.hit.st.id > st.id && cur.hit.st.id > st.id))) emit(prev, cur); prev = cur; }
+        }
+        // (owner, 2026-11-15, Grozăvești (83, 120) "weird fences": small box-shaped cages on the grass median at the south end
+        // of the overpass) the fill is laid per carriageway segment from that segment's own end nodes; where the two
+        // carriageways' nodes do not line up, one segment's fill stopped up to ~1 m before the next one began. Each of the two
+        // facing ends was an open cap, so each took a railing across the median and the railing network closed the short
+        // sides: a cage. Two caps facing each other across such a short gap (same level) are joined by one more piece of the
+        // same fill and are no longer caps.
+        {
+            const CAP_GAP = 2.5, p2 = p => [p[0], p[2]], mid = c => [(c[0][0] + c[1][0]) / 2, (c[0][2] + c[1][2]) / 2];
+            const deckCount = medianFill.decks.length, capGrid = new BoxGrid(8), capList = [];
+            for (let i = 0; i < deckCount; i++) { const d = medianFill.decks[i]; for (const c of d.caps) { const m = mid(c), q = { d, c, m }; capList.push(q); capGrid.insert(m[0], m[1], m[0], m[1], q); } }
+            // (a cap shared with the next 2 m piece of the same run is inside the fill, not an open end)
+            const same = (a, b) => Math.hypot(a[0] - b[0], a[2] - b[2]) < .05;
+            for (const q of capList) capGrid.each(q.m[0] - .1, q.m[1] - .1, q.m[0] + .1, q.m[1] + .1, r => { if (r !== q && r.d !== q.d && ((same(r.c[0], q.c[0]) && same(r.c[1], q.c[1])) || (same(r.c[0], q.c[1]) && same(r.c[1], q.c[0])))) q.inner = true; });
+            let joined = 0;
+            for (const q of capList) {
+                if (q.used || q.inner) continue;
+                let best = null;
+                capGrid.each(q.m[0] - CAP_GAP - 3, q.m[1] - CAP_GAP - 3, q.m[0] + CAP_GAP + 3, q.m[1] + CAP_GAP + 3, r => {
+                    if (r === q || r.used || r.inner || r.d === q.d) return;
+                    // pair each end of q's cap with the nearer end of r's: both pairs short, the two caps not crossing
+                    const [u1, v1] = q.c, sw = Math.hypot(r.c[0][0] - u1[0], r.c[0][2] - u1[2]) > Math.hypot(r.c[1][0] - u1[0], r.c[1][2] - u1[2]), u2 = sw ? r.c[1] : r.c[0], v2 = sw ? r.c[0] : r.c[1];
+                    const du = Math.hypot(u2[0] - u1[0], u2[2] - u1[2]), dv = Math.hypot(v2[0] - v1[0], v2[2] - v1[2]);
+                    if (du + dv < .1 || du > CAP_GAP || dv > CAP_GAP || Math.abs(u2[1] - u1[1]) > .6 || Math.abs(v2[1] - v1[1]) > .6 || segsCross(p2(u1), p2(u2), p2(v1), p2(v2))) return;
+                    // the piece between them lies outside both decks (they face each other, they do not overlap)
+                    const c = [(u1[0] + u2[0] + v1[0] + v2[0]) / 4, (u1[2] + u2[2] + v1[2] + v2[2]) / 4];
+                    if (pointInPolygon(c[0], c[1], q.d.poly) || pointInPolygon(c[0], c[1], r.d.poly)) return;
+                    const score = du + dv; if (!best || score < best.score) best = { r, u1, v1, u2, v2, score };
+                });
+                if (!best) continue;
+                const { r, u1, v1, u2, v2 } = best, kind = q.d.medianKind, rise = kind === 'asphalt' ? 0 : .15, st = strips.find(s => s.e === q.d.edge) || strips[0];
+                const row = (o, h) => ({ st, ox: o[0], oz: o[2], top: o[1] - rise, hit: { t: Math.hypot(h[0] - o[0], h[2] - o[2]), st, x: h[0], z: h[2], top: h[1] - rise } });
+                const deck = emit(row(u1, v1), row(u2, v2), kind);
+                deck.caps = []; deck.capJoin = true;
+                q.d.caps = q.d.caps.filter(c => c !== q.c); r.d.caps = r.d.caps.filter(c => c !== r.c);
+                q.used = r.used = true; joined++; (medianFill.capJoinAt ||= []).push([u1, u2, v2, v1].map(p => p.map(v => Math.round(v * 100) / 100)));
+            }
+            medianFill.capJoins = joined;
         }
         medianFill.areaM2 = Math.round(medianFill.areaM2);
     }

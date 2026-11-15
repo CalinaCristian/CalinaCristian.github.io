@@ -8,7 +8,6 @@ import { GeoBatch, distPolyline, inPoly, canvas, canvasTexture, disposeTree } fr
 import { facadeToward, bucActivity } from '../buc.js';
 import { activityFlow } from '../participation.js';
 import { collide } from '../walker.js';
-import { photoHunt } from '../photo-hunt.js';
 import { coinDrop } from '../coin-drop.js';
 
 const SPOT = 'old-town-lipscani';
@@ -272,20 +271,7 @@ export function buildOldTownDaylife(ctx, { focused, carusel, busker, photoStart,
         places.busker = { x: ix, z: iz, case: { x: cx, z: cz, y }, toss };
     }
 
-    // -- a photo walk: three details that are really there, framed from the lanes
-    {
-        const targets = [];
-        const fr = ctx.extras.freddoFrontage;
-        if (fr && Number.isFinite(fr.baseY)) targets.push({ label: 'Freddo · the glazed front on Smârdan', x: fr.a[0] + fr.ux * fr.L / 2 + fr.nx * .1, y: fr.baseY + 2.3, z: fr.a[1] + fr.uz * fr.L / 2 + fr.nz * .1, radius: 2.4, surfaceTolerance: 4 });
-        if (carusel) { const f = carusel.front; targets.push({ label: 'Cărturești Carusel · the giant arch', x: f.x + f.nx * .1, y: carusel.sourceDatum + 10.5, z: f.z + f.nz * .1, radius: 2.6, surfaceTolerance: 4 }); }
-        // (the Hanul cu Tei gateway would be the third, but the scene does not build it at present: its group is empty)
-        const mid = (q) => [(q.A.x + q.B.x) / 2, (q.A.z + q.B.z) / 2], line = festoons.filter((q) => focused(...mid(q))).sort((a, c) => Math.hypot(mid(a)[0] - 140, mid(a)[1] + 58) - Math.hypot(mid(c)[0] - 140, mid(c)[1] + 58))[0];
-        if (line) { const span = Math.hypot(line.B.x - line.A.x, line.B.z - line.A.z); targets.push({ label: 'The string lights over Lipscani', x: mid(line)[0], y: line.y - .27 - span * .035, z: mid(line)[1], radius: 1.7, minDistance: 4 }); }
-        const start = photoStart || { x: 128, z: -56.5 };
-        if (targets.length >= 2) places.photo = { targets, hunt: photoHunt(ctx, { x: start.x, z: start.z, r: 2.6, spot: SPOT, title: 'Photo walk · Old Town details', targets,
-            unavailable: 'Three details of the old merchants\' quarter, all seen from the street.',
-            onDone: (s) => bucActivity(s, SPOT, 'lipscani-photo-walk', '📸 Three frames of Lipscani', 'You framed Freddo’s glazed front, the Carusel arch and the string lights over Lipscani from the public lanes.') }) };
-    }
+    // (owner, 2026-11-15) the photo walk (three details framed in a gold ring) is retired: not an activity any more
     ctx.extras.oldTownDaylife = { places, props, flow, get hour() { return hour; }, hours: DAYLIFE_HOURS };
     return ctx.extras.oldTownDaylife;
 }

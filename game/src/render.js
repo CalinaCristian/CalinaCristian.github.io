@@ -307,7 +307,22 @@ export class Renderer3D {
                   const skip = o => o.userData?.skipNormalPrepass || (o.isMesh && (Array.isArray(o.material) ? o.material.some(m => m?.transparent) : o.material?.transparent));
                   // (parked meshes are flagged too: a pre-render hook that sets its own mesh's visibility, the crowd's, must leave it off)
                   pass.overrideVisibility = () => { hide(); pass.scene?.traverse(o => { if (o.visible && skip(o)) { o.visible = false; o.userData.prepassParked = true; parked.push(o); } }); };
-                  pass.restoreVisibility = () => { for (const o of parked) { o.visible = true; delete o.userData.prepassParked; } parked.length = 0; show(); }; }
+                  pass.restoreVisibility = () => { for (const o of parked) { o.visible = true; delete o.userData.prepassParked; } parked.length = 0; show(); };
+                  // A parked mesh that brings its own posed prepass material (the crowd: crowd.js crowdNormalMaterial) is then drawn
+                  // into the same normal / depth target alone (layer 31). Without its depth the occlusion of whatever stands behind a
+                  // person was painted over them (owner, 2026-11-15: "people are seethrough?", a seated visitor at a café terrace).
+                  const renderOverride = pass.renderOverride.bind(pass);
+                  pass.renderOverride = (renderer, material, target, clearColor, clearAlpha) => {
+                      renderOverride(renderer, material, target, clearColor, clearAlpha);
+                      const own = material === pass.normalMaterial ? parked.filter(o => o.userData.prepassMaterial) : [];
+                      if (!own.length || !pass.scene || !pass.camera) return;
+                      const cam = pass.camera, scene = pass.scene, mask = cam.layers.mask, bg = scene.background, auto = renderer.autoClear, sm = renderer.shadowMap, smAuto = sm.autoUpdate, smNeeds = sm.needsUpdate;
+                      const saved = own.map(o => [o, o.material, o.layers.mask]);
+                      for (const o of own) { o.visible = true; delete o.userData.prepassParked; o.material = o.userData.prepassMaterial; o.layers.set(31); }
+                      cam.layers.set(31); scene.background = null; sm.autoUpdate = false; sm.needsUpdate = false; renderer.setRenderTarget(target); renderer.autoClear = false;
+                      try { renderer.render(scene, cam); }
+                      finally { cam.layers.mask = mask; scene.background = bg; renderer.autoClear = auto; sm.autoUpdate = smAuto; sm.needsUpdate = smNeeds; for (const [o, m, l] of saved) { o.material = m; o.layers.mask = l; o.visible = false; o.userData.prepassParked = true; } }
+                  }; }
                 this.gtaoPass.updateGtaoMaterial({ radius: 0.6, distanceExponent: 1.5, thickness: 1, scale: 1 });
                 this.gtaoPass.blendIntensity = 0.85;
                 if (this.tier.ao) this._buildPasses();

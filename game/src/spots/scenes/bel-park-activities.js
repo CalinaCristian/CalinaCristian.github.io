@@ -30,7 +30,7 @@ export const DOWNTOWN_PARK_HOURS = { open: 6, close: 23, note: 'The park opens h
 export const MEYDENBAUER_HOURS = { open: 6, close: 23, note: 'Meydenbauer Bay Park is open 6 am – 11 pm.' };
 
 export const parkActivity = (ctx, spec, it) => { // an interactable that names its hours when closed and is skipped by the tour while closed
-    const label = it.label; ctx.interactables.push({ ...it, label: hoursLabel(spec, label), tourAvailable: (s) => openNow(spec, s), use: gated(spec, it.title, it.start) });
+    const label = it.label; ctx.interactables.push({ tourActivityIds: [it.kind], ...it, label: hoursLabel(spec, label), tourAvailable: (s) => openNow(spec, s), use: gated(spec, it.title, it.start) });
 };
 
 /** Downtown Park: the lawn, the swing, the rink. g: { C, R, mem, swing: {x, z}, rink: { poly, y, group } } */
@@ -70,13 +70,18 @@ export function meydenbauerActivities(ctx, m) {
         const water = (x, z) => inPoly(x, z, m.lakePoly) && distPolyline(x, z, shore).d > 1.2 && !m.avoid(x, z) && distPolyline(x, z, m.pierLine).d > 3.3;
         const BUOYS = [[10, 66.1, 'the first buoy off the crescent'], [-14.6, 67.9, 'the second buoy'], [-41.1, 62.6, 'the third buoy']];
         const SUP = { open: 10, close: 21, season: (s) => seasonNow(s) !== 'winter', seasonNote: 'Board rentals run in the warm season — pick Spring, Summer or Autumn in the time & weather panel (K).', note: 'Best Kayak Rentals rents boards here Thu–Sun in season.' };
-        out.sup = freeWaterRide(ctx, { kind: 'sup', waterY: Y, title: 'Stand-up paddleboard', action: 'Paddle back in',
+        out.sup = freeWaterRide(ctx, { kind: 'sup', waterY: Y, title: 'Stand-up paddleboard', action: 'Paddle back in (E)',
             help: 'Hold W to paddle (Shift: harder strokes), A / D to turn, S to back-paddle; the mouse looks around. Turning hard at speed rocks the board — ease off or you fall in. Round the three buoys off the pier (yellow ring), then back to the dock. E, Leave or Esc returns you to the dock.',
             start: { x: m.put.x, z: m.put.z, heading: m.out ? Math.atan2(-(m.out.x - m.put.x), -(m.out.z - m.put.z)) : Math.atan2(-(BUOYS[0][0] - m.put.x), -(BUOYS[0][1] - m.put.z)) }, // (facing out of the moorage, along the kayak course)
             allowed: water, obstacles: (m.buoys || []).map(([x, z]) => ({ x, z, r: 0.9 })), blockedNote: 'Too close — keep clear of the pier, the moored boats and the swimming area.',
             checkpoints: BUOYS.map(([x, z, name]) => ({ x, z, r: 3.6, name })), finish: { x: m.put.x, z: m.put.z, r: 4, name: 'the launch dock' }, boardColour: '#e8f1f2',
             onDone: (s, st) => emitActivity(s, 'bel-meydenbauer', 'sup', '🏄 Round the pier buoys', `${Math.round(st.distance)} m on the board in ${Math.floor(st.secs / 60)}:${String(Math.round(st.secs % 60)).padStart(2, '0')}${st.falls ? `, ${st.falls} dip${st.falls > 1 ? 's' : ''} in the lake` : ', dry all the way'}.`) });
-        parkActivity(ctx, SUP, { kind: 'sup', x: m.launch.x - 1.2, z: m.launch.z + 0.8, y: m.launch.y, r: 1.8, title: '🏄 Paddleboard', label: 'Rent a stand-up paddleboard', cond: () => !out.sup.active() && !m.busy?.(), start: (s) => out.sup.start(s) });
+        // the board rental stands on the same launch dock as the kayak, a few metres along it (two prompts, two map markers)
+        let at = { x: m.launch.x - 1.2, z: m.launch.z + 0.8 };
+        if (m.dock) { let bd = Infinity; for (let i = -12; i <= 12; i++) for (let j = -12; j <= 12; j++) { const x = m.launch.x + i * 0.5, z = m.launch.z + j * 0.5, d = Math.hypot(i, j) * 0.5;
+            if (d >= 3.5 && d < bd && inPoly(x, z, m.dock) && [[0.3, 0], [-0.3, 0], [0, 0.3], [0, -0.3]].every(([u, v]) => inPoly(x + u, z + v, m.dock)) && Math.abs(ctx.ground.groundAt(x, z, m.launch.y + 0.5) - m.launch.y) < 0.2) { bd = d; at = { x, z }; } } } // (on the walkable deck)
+        out.supAt = at;
+        parkActivity(ctx, SUP, { kind: 'sup', x: at.x, z: at.z, y: m.launch.y, r: 1.8, title: '🏄 Paddleboard', label: 'Rent a stand-up paddleboard', cond: () => !out.sup.active() && !m.busy?.(), start: (s) => out.sup.start(s) });
     }
     // ---- swim to the summer float (inside the buoy line, lifeguard hours) and back to the beach
     if (m.swim && m.float) {
@@ -97,7 +102,7 @@ export function meydenbauerActivities(ctx, m) {
             const { entry, put } = best;
             const on = seasonWindow(ctx, [5, 25], [9, 8], 'summer', (v) => { if (m.summer) m.summer.visible = v; });
             const SWIM = { open: 12, close: 19, season: on, seasonNote: 'The swim float is out from late May to early September — or pick Summer in the time & weather panel (K).', note: 'Swim with the lifeguards: on duty noon – 7 pm in summer.' };
-            out.swim = freeWaterRide(ctx, { kind: 'swim', waterY: Y, title: 'Swim to the float', action: 'Swim back in',
+            out.swim = freeWaterRide(ctx, { kind: 'swim', waterY: Y, title: 'Swim to the float', action: 'Swim back in (E)',
                 help: 'Hold W to swim (Shift: faster), A / D to turn; the mouse looks around. Stay inside the buoy line. Swim out to the float (yellow ring), climb on, then swim back to the beach. E, Leave or Esc wades back to the beach.',
                 start: { x: put.x, z: put.z, heading: Math.atan2(-(m.float.x - put.x), -(m.float.z - put.z)) },
                 allowed: inSwim, blockedNote: 'Stay inside the buoy line — the lifeguards are watching.',

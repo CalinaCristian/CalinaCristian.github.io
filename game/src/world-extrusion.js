@@ -181,7 +181,10 @@ export function buildExtrusion(ctx) {
                         if(split>face.y0)mb.wall(a[0],a[1],p[0],p[1],face.y0,split,nx,nz,distId?mixRgb(wallCol,[255,255,255],.45):rgb('#ffffff'),(perim+L*face.t0)/16,(perim+L*face.t1)/16,(face.y0-y0)/(yShop-y0),(split-y0)/(yShop-y0),TILE.shop+(b.i%2)*8);
                         const lower=Math.max(face.y0,yShop);
                         if(face.y1>lower)mb.wall(a[0],a[1],p[0],p[1],lower,face.y1,nx,nz,wallCol,u0+(u1-u0)*face.t0,u0+(u1-u0)*face.t1,(lower-yShop)/(floorH*gr),(face.y1-yShop)/(floorH*gr),tile);
-                    } else if (b.sourceSurface && !b.assembly && shop) {
+                    } else if (shop) {
+                        // (2026-11-15, owner: "windows in roof", w156815215) with a shop the storey height above was
+                        // re-fitted from the shop datum (yShop), so a wall cut round a passage must also count its window
+                        // rows from yShop: counted from y0 the top row ran into the eaves
                         for (const band of nonShopWindowBands(face.y0,face.y1,y0,yShop,floorH,gr))
                             mb.wall(a[0],a[1],p[0],p[1],band.y0,band.y1,nx,nz,wallCol,u0+(u1-u0)*face.t0,u0+(u1-u0)*face.t1,band.v0,band.v1,tile);
                     } else mb.wall(a[0],a[1],p[0],p[1],face.y0,face.y1,nx,nz,wallCol,u0+(u1-u0)*face.t0,u0+(u1-u0)*face.t1,(face.y0-y0)/(floorH*gr),(face.y1-y0)/(floorH*gr),tile);
@@ -231,8 +234,13 @@ export function buildExtrusion(ctx) {
                 const [columns, rows] = TILE_GRID[tile] || [1, 1];
                 for(const face of clipPassageWall(a,p,surface?.holeWalls?.[holeIndex]?.[i]||[{t0:0,t1:1,y0,y1:wallTop}],b.passages||[])){
                     const lo=[a[0]+(p[0]-a[0])*face.t0,a[1]+(p[1]-a[1])*face.t0],hi=[a[0]+(p[0]-a[0])*face.t1,a[1]+(p[1]-a[1])*face.t1];
-                    if (b.carParkCols) emitCarParkWall(mb, lo[0], lo[1], hi[0], hi[1], face.y0, face.y1, b.carParkCols.base, b.carParkCols.top, b.carParkCols.levels, nx, nz, b.carParkCols); else
-                    mb.wall(lo[0],lo[1],hi[0],hi[1],face.y0,face.y1,nx,nz,wallCol,0,Math.max(1,Math.round(length/bayW))/columns,0,(face.y1-face.y0)/(floorH*rows),tile);
+                    if (b.carParkCols) emitCarParkWall(mb, lo[0], lo[1], hi[0], hi[1], face.y0, face.y1, b.carParkCols.base, b.carParkCols.top, b.carParkCols.levels, nx, nz, b.carParkCols); else {
+                        // (2026-11-15) courtyard walls count their window rows from the same datum as the outer walls
+                        // (yShop above a shop, else y0), so the top row ends at the eaves, not sliced by the roof edge
+                        const hu1 = Math.max(1, Math.round(length / bayW)) / columns;
+                        if (shop) for (const band of nonShopWindowBands(face.y0, face.y1, y0, yShop, floorH, rows)) mb.wall(lo[0], lo[1], hi[0], hi[1], band.y0, band.y1, nx, nz, wallCol, 0, hu1, band.v0, band.v1, tile);
+                        else mb.wall(lo[0], lo[1], hi[0], hi[1], face.y0, face.y1, nx, nz, wallCol, 0, hu1, (face.y0 - y0) / (floorH * rows), (face.y1 - y0) / (floorH * rows), tile);
+                    }
                 }
             }
         }

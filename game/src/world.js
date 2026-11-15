@@ -145,6 +145,20 @@ export async function buildWorld(city, renderer, opts = {}) {
         const d1x = e1.b === n ? e1.dirx : -e1.dirx, d1z = e1.b === n ? e1.dirz : -e1.dirz, d2x = e2.a === n ? e2.dirx : -e2.dirx, d2z = e2.a === n ? e2.dirz : -e2.dirz;
         n.passPad = d1x * d2x + d1z * d2z >= 0.7 && !e1.virtual && !e2.virtual;
     }
+    // (owner, 2026-11-15, Bellevue: "lanes, roads") a driveway is no junction for the through road's paint either: where only
+    // service ways (garage / parking entrances) meet a road that goes straight on, with no signal, stop or crossing there,
+    // the lane and edge lines run on to the node (world-edge-ribbons.js breaks the edge line across the driveway mouth).
+    // NE 8th St had bare stretches between garage entrances: (-231 … -255, -331) 24 m with no line at all, 40 m elsewhere.
+    for (const n of nodeArr) {
+        n.drivewayPass = null; if (!n.pad || n.passPad || n.edges.length < 3 || n.hasLight || n.stop || n.giveWay || n.zebra || n.crossing) continue;
+        if (n.edges.some(e => e.virtual)) continue;
+        const through = n.edges.filter(e => e.type !== 'service'), drives = n.edges.filter(e => e.type === 'service');
+        if (through.length !== 2 || !drives.length) continue;
+        const [e1, e2] = through, into = (e) => e.b === n ? [e.dirx, e.dirz] : [-e.dirx, -e.dirz];
+        const [d1x, d1z] = into(e1), [d2x, d2z] = into(e2);
+        if (-(d1x * d2x + d1z * d2z) < 0.8 || e1.oneway !== e2.oneway) continue; // straight on (e2 travelled out of n)
+        n.drivewayPass = { through, drives };
+    }
     function retract(e, n) { return ((n.pad ?? isPadNode(n)) && (n.allEdges || n.edges).length >= 2 ? Math.min(n.radius, e.len * 0.45) : 0); }
     /**
      * corner point of edge e at node n on side s (+1 = right of a→b, -1 = left) at lateral distance w (≥0) from the centreline;
@@ -187,24 +201,33 @@ export async function buildWorld(city, renderer, opts = {}) {
     // raised carriageway running parallel beside a street at grade, closer than their two widths, loses the walkway on that
     // side and narrows that side (lanes down to 2.6 m) so its wall stands at the street's edge
     {
-        let narrowed = 0;
+        let narrowed = 0, splitWalkways = 0;
         for (const e of edges) {
             if (e.virtual || e.tunnel || !(Math.max(e.ya, e.yb) > .3) || (e.ya + e.yb) / 2 > 4.5 || e.roadWidthSource) continue; // (low enough to stand on its walls: a higher deck passes over the street)
             for (const sd of [1, -1]) {
-                let gap = Infinity;
+                let gap = Infinity, splitGap = Infinity;
                 for (const t of [.2, .5, .8]) {
-                    const x = e.a.x + (e.b.x - e.a.x) * t, z = e.a.z + (e.b.z - e.a.z) * t;
+                    const x = e.a.x + (e.b.x - e.a.x) * t, z = e.a.z + (e.b.z - e.a.z) * t, raisedHere = e.ya + (e.yb - e.ya) * t > .3;
                     edgesInBox(x - 12, z - 12, x + 12, z + 12, f => {
                         if (f === e || f.virtual || f.tunnel || f.bridge || Math.max(Math.abs(f.ya), Math.abs(f.yb)) > .3 || Math.abs(f.dirx * e.dirx + f.dirz * e.dirz) < .9) return;
-                        if (f.a === e.a || f.a === e.b || f.b === e.a || f.b === e.b) return;
+                        const partner = f.a === e.a || f.a === e.b || f.b === e.a || f.b === e.b;
+                        if (partner && !raisedHere) return;
                         const q = distPointSeg(x, z, f.a.x, f.a.z, f.b.x, f.b.z); if (q.t <= .02 || q.t >= .98) return;
                         if (((q.cx - x) * e.nx + (q.cz - z) * e.nz) * sd <= 0) return; // (on this side)
                         const fSide = ((x - q.cx) * f.nx + (z - q.cz) * f.nz) > 0 ? f.wR : f.wL;
-                        gap = Math.min(gap, q.d - fSide - shoulderOf(f));
+                        if (partner) splitGap = Math.min(splitGap, q.d - fSide - shoulderOf(f)); else gap = Math.min(gap, q.d - fSide - shoulderOf(f));
                     });
                 }
                 const key = sd > 0 ? 'wR' : 'wL', have = e[key] + shoulderOf(e) + sidewalkWidth(e, sd);
-                if (!(gap < have - .05)) continue;
+                // (owner, 2026-11-15, Grozăvești (495, -653) "looks odd": the Calea Plevnei ramp up to the Basarab overpass splits
+                // from the street at one node and rises beside it; its inferred 3.5 m walkway lay over the street's left lane, a
+                // pale raised strip with a kerb and a retaining wall standing in the lane) a street sharing the split node is
+                // measured too, but only where the ramp is already raised; it takes the walkway on that side, never the lanes
+                // (beside the split the two always touch)
+                if (!(gap < have - .05)) {
+                    if (splitGap < have - .05 && sidewalkWidth(e, sd) > 0 && !e.sidewalkSource?.explicit) { if (sd > 0) e.sidewalkRightM = 0; else e.sidewalkLeftM = 0; splitWalkways++; }
+                    continue;
+                }
                 if (sd > 0) e.sidewalkRightM = 0; else e.sidewalkLeftM = 0;
                 const lanes = Math.max(1, e.lanesF + e.lanesB), other = sd > 0 ? e.wL : e.wR, minSide = Math.max(1.3, 2.6 * lanes - other);
                 const nw = Math.max(minSide, gap - shoulderOf(e));
@@ -213,6 +236,38 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
         }
         if (narrowed) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + .5; __buildRoadGraphAids.sccInfo.raisedBesideStreet = narrowed; }
+        if (splitWalkways) __buildRoadGraphAids.sccInfo.raisedBesideSplitStreet = splitWalkways;
+    }
+    // (owner, 2026-11-15, Pipera (-1284, 9, 85) "lanes missplaced? conflicting") a divided road OSM maps as two one-way ways
+    // closer than their modelled widths (Șos. Pipera w8063802 / w1443263022: centre lines 5.9 m apart, 2 lanes each, drawn
+    // 2 × 3.5 m) overlapped by a metre: each carriageway's edge line ran inside the other's lane, under its cars. The two
+    // facing sides are narrowed to meet on the line midway between the ways (lanes down to 2.6 m), so paint, lanes and traffic
+    // stay on each way's own half. MODEL: lane widths are estimates; a way with a mapped or reviewed width is left alone.
+    {
+        let narrowed = 0; const touched = new Set();
+        for (const e of edges) {
+            if (!e.oneway || e.virtual || e.tunnel || e.bridge || Math.max(Math.abs(e.ya), Math.abs(e.yb)) > .3 || e.roadWidthSource) continue;
+            for (const sd of [1, -1]) {
+                let half = Infinity;
+                for (const t of [.2, .5, .8]) {
+                    const x = e.a.x + (e.b.x - e.a.x) * t, z = e.a.z + (e.b.z - e.a.z) * t;
+                    edgesInBox(x - 12, z - 12, x + 12, z + 12, f => {
+                        if (f === e || !f.oneway || f.virtual || f.tunnel || f.bridge || Math.max(Math.abs(f.ya), Math.abs(f.yb)) > .3 || f.dirx * e.dirx + f.dirz * e.dirz > -.9) return;
+                        if (f.a === e.a || f.a === e.b || f.b === e.a || f.b === e.b) return;
+                        const q = distPointSeg(x, z, f.a.x, f.a.z, f.b.x, f.b.z); if (q.t <= .02 || q.t >= .98) return;
+                        if (((q.cx - x) * e.nx + (q.cz - z) * e.nz) * sd <= 0) return; // (on this side)
+                        const fSide = ((x - q.cx) * f.nx + (z - q.cz) * f.nz) > 0 ? f.wR : f.wL;
+                        if (q.d < (sd > 0 ? e.wR : e.wL) + shoulderOf(e) + fSide + shoulderOf(f) - .05) half = Math.min(half, q.d / 2 - shoulderOf(e));
+                    });
+                }
+                const key = sd > 0 ? 'wR' : 'wL';
+                if (!(half < e[key] - .05)) continue;
+                const lanes = Math.max(1, e.lanesF + e.lanesB), other = sd > 0 ? e.wL : e.wR, nw = Math.max(Math.max(1.3, 2.6 * lanes - other), half);
+                if (!(nw < e[key] - .05)) continue;
+                e[key] = nw; e.laneW = Math.min(e.laneW, (e.wL + e.wR) / lanes); e.median = -2 * e.wL; layContraflowLanes(e); e.halfW = Math.max(e.wL, e.wR); touched.add(e.a).add(e.b); narrowed++;
+            }
+        }
+        if (narrowed) { for (const n of touched) n.radius = Math.max(...n.edges.map(e => e.halfW)) + .5; __buildRoadGraphAids.sccInfo.dividedPairNarrowed = narrowed; }
     }
     // (owner, 2026-11-12, Grozavesti: "fences are not continuous on the bridge still in many places") along 100 m of the Basarab
     // decks the tram on the slab beside a carriageway overhangs that carriageway's edge by 0.3-0.6 m (OSM centre lines and

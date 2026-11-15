@@ -40,7 +40,7 @@ export function lawnFrisbee(ctx, { at, facing = 0, area = () => true, onDone = n
     const flyPos = (f, out) => { const q = Math.min(1, f.t / f.secs); out.lerpVectors(f.from, f.to, q); out.y += Math.sin(q * Math.PI) * f.arc; return q; };
     const status = (r, text) => { r.status.textContent = `${text}  ·  your throws caught ${st.good}/${GOAL} · your catches ${st.caught}/${GOAL}${st.drops ? ` · drops ${st.drops}` : ''}`; r.progress.value = (Math.min(GOAL, st.good) + Math.min(GOAL, st.caught)) / (GOAL * 2); };
     const start = (s) => flow.begin(s, {
-        title: 'Frisbee on the lawn', action: 'Throw', lockWalker: false,
+        title: 'Frisbee on the lawn', action: 'Throw (E)', lockWalker: false,
         help: 'Walk with WASD, aim with the mouse. Throw: E when the gauge is right for the distance. Catch: walk to the ring and press E as the disc reaches you. Three throws caught + three catches wins. Leave or Esc stops.',
         started(s, r) {
             const p = s.ctl.position, fx = -Math.sin(facing), fz = -Math.cos(facing);
@@ -48,7 +48,7 @@ export function lawnFrisbee(ctx, { at, facing = 0, area = () => true, onDone = n
             const P = recruit(s, spot.x, spot.z);
             st = { P, spot, phase: 'joining', t: 0, power: 0, good: 0, caught: 0, drops: 0, throws: 0, flight: null, lie: null, wait: 0 };
             disc.visible = true; disc.position.copy(handPos(s)); void p;
-            r.button.textContent = 'Throw';
+            r.button.textContent = 'Throw (E)';
             if (!P) { status(r, 'Nobody is free to play right now.'); st.phase = 'aim'; }
             else s.ui.toast('🥏 Frisbee', 'Someone from the lawn is coming over to play.');
         },
@@ -81,7 +81,7 @@ export function lawnFrisbee(ctx, { at, facing = 0, area = () => true, onDone = n
             }
             if (st.phase === 'aim') {
                 st.power = (Math.sin(st.t * 3.2) + 1) / 2; disc.position.copy(handPos(s)); disc.rotation.set(0.2, 0, 0.1);
-                r.button.textContent = 'Throw'; if (P) { P.p.speed = 0; face(P.p, p.x, p.z); }
+                r.button.textContent = 'Throw (E)'; if (P) { P.p.speed = 0; face(P.p, p.x, p.z); }
                 const d = P ? Math.hypot(P.p.x - p.x, P.p.z - p.z) : 0;
                 status(r, `Gauge ${Math.round(5 + st.power * 23)} m — your partner is ${Math.round(d)} m away. E throws`);
                 r.progress.value = st.power;
@@ -106,13 +106,13 @@ export function lawnFrisbee(ctx, { at, facing = 0, area = () => true, onDone = n
                     mark.position.set(tx, yAt(tx, tz) + 0.04, tz); mark.visible = true; P.p.pose = 'wave'; P.p.poseT = 0.6; s.sound?.play?.('whoosh', 0.3);
                 }
             } else if (st.phase === 'in') { // incoming: catch with E inside the window
-                const q = flyPos(st.flight, disc.position); st.flight.t += dt; disc.rotation.y += dt * 18; r.button.textContent = 'Catch';
+                const q = flyPos(st.flight, disc.position); st.flight.t += dt; disc.rotation.y += dt * 18; r.button.textContent = 'Catch (E)';
                 const d = disc.position.distanceTo(me); status(r, d < REACH ? 'NOW — press E!' : 'Get under the ring…');
                 if (q >= 1 && st.flight.t > st.flight.secs + 0.35) { // dropped: it lands on the grass beyond you
-                    const L = st.land; disc.position.set(L.x, yAt(L.x, L.z) + 0.03, L.z); disc.rotation.set(0, 0, 0); st.drops++; st.phase = 'lie'; st.lie = { x: L.x, z: L.z }; st.flight = null; r.button.textContent = 'Pick up';
+                    const L = st.land; disc.position.set(L.x, yAt(L.x, L.z) + 0.03, L.z); disc.rotation.set(0, 0, 0); st.drops++; st.phase = 'lie'; st.lie = { x: L.x, z: L.z }; st.flight = null; r.button.textContent = 'Pick up (E)';
                     s.ui.toast('🥏 Dropped', 'Walk to the disc and press E to pick it up.');
                 } else if (q >= 1) { disc.position.y -= dt * 2.4; }
-            } else if (st.phase === 'lie') { const L = st.lie, d = Math.hypot(L.x - p.x, L.z - p.z); status(r, d < 1.8 ? 'Press E to pick it up.' : `The disc is ${Math.round(d)} m away.`); r.button.textContent = 'Pick up'; }
+            } else if (st.phase === 'lie') { const L = st.lie, d = Math.hypot(L.x - p.x, L.z - p.z); status(r, d < 1.8 ? 'Press E to pick it up.' : `The disc is ${Math.round(d)} m away.`); r.button.textContent = 'Pick up (E)'; }
             last = { phase: st.phase, good: st.good, caught: st.caught, drops: st.drops, power: st.power, disc: disc.position.toArray(), partner: P && { x: P.p.x, z: P.p.z }, land: st.land, target: st.target };
         },
     });

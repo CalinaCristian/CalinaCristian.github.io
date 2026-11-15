@@ -501,7 +501,7 @@ export async function buildFacadeDetail(ctx) {
     const {
         P, fuelForecourts, fuelLog, roofAdList, roofAds, transitShelterAudit,
     } = await buildRoofAdsFuel({
-        US, addPropColl, addSignQuad, addUnitSign, bGrid, bRecs, buildingAt, buildingIndex,
+        US, addPropColl, addSignQuad, addUnitSign, bGrid, bRecs, buildingAt, buildingIndex, collision,
         cellOf, city, data, distId, edgeGrid, inDistrictLL, liftOnSide, nearestEdge,
         obbPoly, onRibbon, pois, polyDist, polyOnRibbon, propColl, raisedTop, sceneryStopEdge,
         signs, stopMarginM, str, surfacesAt, tramSweep, treeClear,

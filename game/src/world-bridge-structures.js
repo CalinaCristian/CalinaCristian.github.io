@@ -251,6 +251,23 @@ export function buildBridgeStructures(ctx) {
             if (hit) { bridgeBents.report.hammerheadsInTramSweep = (bridgeBents.report.hammerheadsInTramSweep || 0) + 1; bridgeBents.report.bents--; }
             return !hit;
         });
+        // (owner, 2026-11-15, Grozăvești (100, -36) "bridge support is longer than bridge") the crosshead was drawn 0.6 m longer
+        // than the planned beam, whose ends lie on the slab edges (the fascia, widthSide): every bent stood 0.3 m out past both
+        // deck edges, and further at the corners where an outer deck runs askew to the beam. The beam now ends under the slab:
+        // at each deck edge less the skew of that deck across the beam's half width (and 5 cm), unless it must reach a column
+        // standing outside the deck (a portal frame over a lower road), where it ends 0.2 m past that column.
+        for (const b of bridgeBents.bents) {
+            if (b.kind !== 'crosshead' || !b.members?.length) continue;
+            const half = BENT_MODEL.beamWidthM / 2, skew = c => { const k = Math.max(.2, Math.min(1, c ?? 1)); return half * Math.sqrt(1 - k * k) / k + .05; };
+            const mLo = b.members.reduce((a, m) => m.lo < a.lo ? m : a), mHi = b.members.reduce((a, m) => m.hi > a.hi ? m : a);
+            let lo = b.deckLo + skew(mLo.cos), hi = b.deckHi - skew(mHi.cos);
+            if (b.columns.length) { lo = Math.min(lo, Math.min(...b.columns.map(c => c.o)) - BENT_MODEL.columnM * .5 - .2); hi = Math.max(hi, Math.max(...b.columns.map(c => c.o)) + BENT_MODEL.columnM * .5 + .2); }
+            lo = Math.max(lo, b.lo); hi = Math.min(hi, b.hi);
+            if (!(hi - lo > 1)) continue;
+            const mid0 = (b.lo + b.hi) / 2, mid = (lo + hi) / 2;
+            b.x += b.nx * (mid - mid0); b.z += b.nz * (mid - mid0); b.lo = lo; b.hi = hi; b.width = hi - lo;
+            bridgeBents.report.beamsClippedToDeck = (bridgeBents.report.beamsClippedToDeck || 0) + 1;
+        }
         const conc = rgb('#a9a69e'), base = -.4;
         // The guard takes one height interval for a whole pitched tram body: on a ramp its low end reads below the deck
         // under its high end. A pier is under the slab that carries that tram, so its collider ends below that reading;
@@ -282,7 +299,7 @@ export function buildBridgeStructures(ctx) {
                 pierColl.push({ x: b.x, z: b.z, hw: w / 2, hd: .45, angle: b.angle, r: Math.hypot(w / 2, .45), poly: null, h: b.seat, prop: true, kind: 'pier', yMax: pierTop(b.x, b.z, Math.hypot(w / 2, .45), b.seat) });
                 continue;
             }
-            sb.box(b.x, b.soffit, b.z, b.width + .6, BENT_MODEL.beamDepthM, BENT_MODEL.beamWidthM, b.angle, conc);
+            sb.box(b.x, b.soffit, b.z, b.width, BENT_MODEL.beamDepthM, BENT_MODEL.beamWidthM, b.angle, conc); // (ends under the slab: above)
             for (const p of b.pedestals) sb.box(p.x, p.y0, p.z, p.width, p.y1 - p.y0, 1, b.angle, conc);
             const vee = veeLegs(b);
             if (vee) {

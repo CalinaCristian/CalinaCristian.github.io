@@ -23,7 +23,7 @@ import * as THREE from '../../../vendor/three.module.min.js';
 import { polyArea, GeoBatch, M, rng, headingFromBearing, lerp, smooth, clamp, inPoly, polyBox, alongPolyline, polylineLength, distPolyline } from '../kit.js';
 import { seattleBackdrop } from '../backdrop.js';
 import { bench, buildLamps } from '../osm.js';
-import { boatRide } from '../buc.js';
+import { freeBoat } from '../free-boat.js';
 import { dryLanding, shortWaterRoute, waterLoop } from '../water-route.js';
 import { stoneSkipping } from '../stone-skipping.js';
 import { loadShoreHouses, shoreHouses } from './bel-shore-houses.js';
@@ -416,12 +416,12 @@ export default {
         if(course&&sourcePier&&inPoly(launch.x,launch.z,sourcePier.poly)){
             const kay=new GeoBatch();kay.add(hullGeo(4.3,.66,.32,.12),'plastic',null,'#f0a21c');kay.box(0,.28,-.3,.42,.06,.9,'#1f1f1f','rubber');
             const kayak=kay.build('kayak');kayak.visible=false;ctx.add(kayak);
-            const ride=boatRide(ctx,kayak,course,LAKE_Y,{speed:3,eye:.95,floatHeight:0,initialPitch:-.12,title:'Paddle Meydenbauer Bay',action:'Paddle a stroke',outfit:false,paddle:'kayak',
-                help:'Paddle each stroke to follow a loop round the marina moorage, outside the swimming area, and back to the mapped dock. Leave or Esc returns to your starting deck. Real operator dates and hours are not modeled; check the city and current operator before visiting.',
-                onDone:s=>emitActivity(s,'bel-meydenbauer','kayak','🛶 Bay paddle completed','You paddled the loop round the marina and returned to the mapped launch dock.')});
+            // (owner, 2026-11-15) paddle anywhere in the bay clear of the moorage, pier and swimming area (free-boat.js); three buoys, E to go ashore
+            const ride=freeBoat(ctx,kayak,{poly:lakePoly,avoid:kayakAvoid,y:LAKE_Y,floatHeight:0,eye:.95,home:put,approach:launch,reach:180,speed:3,outfit:false,paddle:'kayak',clearance:1.2,title:'🛶 Paddle Meydenbauer Bay',
+                onDone:s=>emitActivity(s,'bel-meydenbauer','kayak','🛶 Three buoys','You paddled to all three buoys of Meydenbauer Bay. Paddle on, or E to go ashore. Real operator dates and hours are not modeled.')});
             ctx.extras.meydenbauerKayak={ride,path:course,launch,source:'w819169611',operatorHoursVerified:false,sourceUrl:'https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/meydenbauer-beach-park',launchPositionEstimated:true};
             const available=s=>s.r3d?.weather?.season!=='winter';
-            ctx.interactables.push({kind:'kayak',x:launch.x,z:launch.z,y:LAKE_Y+.42,r:1.8,source:'w819169611',label:'Paddle a loop round the marina',tourAvailable:available,cond:()=>!ride.active(),use:s=>{if(!available(s)){s.ui.toast('🛶 Warm-season game course','Choose a warm season for the paddle exercise. The real operator publishes its own current opening dates.');return;}ride.start(s);}});
+            ctx.interactables.push({kind:'kayak',x:launch.x,z:launch.z,y:LAKE_Y+.42,r:1.8,source:'w819169611',label:'Take a kayak out on the bay',tourActivityIds:['kayak'],tourAvailable:available,cond:()=>!ride.active(),use:s=>{if(!available(s)){s.ui.toast('🛶 Warm-season game course','Choose a warm season for the paddle exercise. The real operator publishes its own current opening dates.');return;}ride.start(s);}});
         }
         // Input-driven virtual stone practice, outside the mapped swimming area.
         // The temporary stone and ripples disappear; no real fixture is added.
@@ -435,7 +435,7 @@ export default {
         { const SUP_CLEAR_M=2,supAvoid=(x,z)=>d.buildings.some(b=>nearPoly(x,z,b.poly,SUP_CLEAR_M))||nearPoly(x,z,sourcePier?.poly,SUP_CLEAR_M)||nearPoly(x,z,swimming,2)||pierLines.some(p=>distPolyline(x,z,p).d<1.1+SUP_CLEAR_M)||
                 mooredBodies.some(b=>{const dx=x-b.x,dz=z-b.z,c=Math.cos(b.angle),s=Math.sin(b.angle);return Math.abs(dx*c-dz*s)<b.hw+1.2&&Math.abs(dx*s+dz*c)<b.hd+1.2;})||ctx.colliders.some(c=>c.prop&&c.hw===c.r&&Math.hypot(x-c.x,z-c.z)<c.r+1.2);
           const K=ctx.extras.meydenbauerKayak;
-          meydenbauerActivities(ctx,{lakePoly,sdf,waterY:LAKE_Y,swim:swimming,float:{x:-6,z:38,top:LAKE_Y+.35},summer,pierLine:pierLine0||[],avoid:supAvoid,buoys:buoyPts,
+          meydenbauerActivities(ctx,{lakePoly,sdf,waterY:LAKE_Y,swim:swimming,float:{x:-6,z:38,top:LAKE_Y+.35},summer,pierLine:pierLine0||[],avoid:supAvoid,buoys:buoyPts,dock:sourcePier?.poly,
             launch:K?{x:K.launch.x,z:K.launch.z,y:LAKE_Y+.42}:null,put:K?{x:K.path[0][0],z:K.path[0][1]}:null,out:K?.path[3]?{x:K.path[3][0],z:K.path[3][1]}:null,guard:{x:5,z:-14},busy:()=>!!K?.ride.active()}); }
         // ---------------------------------------------------------------- plaques (research), postcard, crowd, sounds, spawn
         const PL = sp.plaques, py0 = (x, z) => g.heightAt(x, z);

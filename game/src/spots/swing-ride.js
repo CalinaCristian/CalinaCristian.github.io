@@ -28,7 +28,7 @@ export function swingRide(ctx, { x, y, z, beam = 2.4, seat = 0.46, seats = [-0.6
         const c = s.ctl, ex = x + seats[i], ez = z + fz * 1.3; c.x = ex; c.z = ez; c.y = ctx.ground.heightAt(ex, ez); c.heading = facing < 0 ? 0 : Math.PI; c.pitch = 0; c.vx = c.vz = 0; c.vel = 0; c.active = true; c.place?.();
     };
     const start = (s) => flow.begin(s, {
-        title: 'Swing at Inspiration Playground', action: 'Hop off', cameraRide: true,
+        title: 'Swing at Inspiration Playground', action: 'Hop off (E)', cameraRide: true, ride: true,
         help: `Pump to swing higher: hold W while you swing forward, S while you swing back (pumping the wrong way slows you). Reach ${goal}°. E, Leave or Esc to hop off.`,
         started(s, r) {
             const p = s.ctl.position, i = seats.map((sx, k) => [k, Math.hypot(p.x - (x + sx), p.z - z)]).sort((a, b) => a[1] - b[1])[0][0];
@@ -51,7 +51,7 @@ export function swingRide(ctx, { x, y, z, beam = 2.4, seat = 0.46, seats = [-0.6
             st.t += dt;
             const deg = Math.abs(st.th) * 180 / Math.PI; st.best = Math.max(st.best, deg);
             r.progress.value = Math.min(goal, st.best);
-            if (!st.done && st.best >= goal) { st.done = true; r.button.textContent = 'Hop off'; onDone?.(s, { secs: st.t }); }
+            if (!st.done && st.best >= goal) { st.done = true; r.button.textContent = 'Hop off (E)'; onDone?.(s, { secs: st.t }); }
             r.status.textContent = st.done ? `Sky high — ${Math.round(deg)}°. Keep swinging, or E to hop off.` : `Swing ${Math.round(deg)}° · best ${Math.round(st.best)}° / ${goal}° · ${Math.abs(st.w) < 0.05 && st.best < 3 ? 'W to kick off' : st.w > 0 ? 'swinging forward: W!' : 'swinging back: S!'}`;
             // ---- ride the seat
             const pv = pivots[st.i]; pv.rotation.x = st.th;

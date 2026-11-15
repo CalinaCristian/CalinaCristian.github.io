@@ -11,7 +11,7 @@ import { KIND_STYLE, STOP_POLE_ONLY, Y, brandStyle, polysCross, props, setProgre
 
 export async function buildRoofAdsFuel(ctx) {
     const {
-        US, addPropColl, addSignQuad, addUnitSign, bGrid, bRecs, buildingAt, buildingIndex,
+        US, addPropColl, addSignQuad, addUnitSign, bGrid, bRecs, buildingAt, buildingIndex, collision,
         cellOf, city, data, distId, edgeGrid, inDistrictLL, liftOnSide, nearestEdge,
         obbPoly, onRibbon, pois, polyDist, polyOnRibbon, propColl, raisedTop, sceneryStopEdge,
         signs, stopMarginM, str, surfacesAt, tramSweep, treeClear,
@@ -49,7 +49,12 @@ export async function buildRoofAdsFuel(ctx) {
         const x = best.mx - best.nx * 1.0, z = best.mz - best.nz * 1.0, ang = Math.atan2(best.nx, best.nz), y = b.h + 1.2 + hh / 2;
         addSignQuad(c2, x, z, ang, 1, w, hh, y, sg, 0.15);
         const steel = rgb('#3a3d42');
-        for (const f of [-0.42, 0, 0.42]) { const px = x + best.nz * w * f, pz = z - best.nx * w * f; c2.solid.box(px, b.h, pz, 0.14, 1.2 + hh, 0.14, ang, steel); }
+        // (owner, 2026-11-15, Romană (350, 27, 105) "floaring": on the pitched roof of Lascăr Catargiu 2-4 the legs stopped at the
+        // ridge height, above the slope) each leg stands on the roof surface under it: the source roof's own surface where the
+        // building has one (its collider's roofHeightAt), else the roof line b.h
+        const roofColl = collision?.find(o => o.poly === b.ring && o.roofHeightAt), top = b.h + 1.2 + hh;
+        const roofAt = (px, pz) => { let y = null; try { y = roofColl?.roofHeightAt(px, pz) ?? null; } catch { y = null; } return Number.isFinite(y) && y < top - 0.5 ? y - 0.05 : b.h; };
+        for (const f of [-0.42, 0, 0.42]) { const px = x + best.nz * w * f, pz = z - best.nx * w * f, y0 = roofAt(px, pz); c2.solid.box(px, y0, pz, 0.14, top - y0, 0.14, ang, steel); }
         c2.solid.box(x - best.nx * 0.08, b.h + 1.2, z - best.nz * 0.08, w, hh, 0.12, ang, steel);
         roofAds++; roofAdList.push({ text: ad.text, x: Math.round(x), z: Math.round(z), y: Math.round(y), nx: +best.nx.toFixed(2), nz: +best.nz.toFixed(2) });
     }

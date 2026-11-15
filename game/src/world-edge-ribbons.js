@@ -179,7 +179,16 @@ export function buildEdgeRibbons(ctx) {
         if (e.a.pad) { pushPad(e.a, 'road', aR); pushPad(e.a, 'road', aL); }
         if (e.b.pad) { pushPad(e.b, 'road', bR); pushPad(e.b, 'road', bL); }
         // ---- markings
-        const s0 = e.a.passPad ? 0 : retract(e, e.a), s1 = e.len - (e.b.passPad ? 0 : retract(e, e.b)); // (a pass-through pad: the lines run on to the node, world.js)
+        const thru = (n) => n.passPad || (n.drivewayPass && n.drivewayPass.through.includes(e)); // (a pass-through pad or a driveway node, world.js)
+        const s0 = thru(e.a) ? 0 : retract(e, e.a), s1 = e.len - (thru(e.b) ? 0 : retract(e, e.b)); // (a pass-through pad: the lines run on to the node, world.js)
+        // driveway mouths on this edge's sides (world.js drivewayPass): the edge line breaks across each, kerb to kerb
+        const mouths = [];
+        for (const n of [e.a, e.b]) if (n.drivewayPass && n.drivewayPass.through.includes(e)) for (const f of n.drivewayPass.drives) {
+            const fx = f.a === n ? f.dirx : -f.dirx, fz = f.a === n ? f.dirz : -f.dirz, across = fx * e.nx + fz * e.nz;
+            if (Math.abs(across) < 0.2) continue;
+            mouths.push({ n, side: Math.sign(across), along: (fx * e.dirx + fz * e.dirz) / across, half: ((f.wL + f.wR) / 2 + 1.5) / Math.abs(across) });
+        }
+        const inMouth = (x, z) => mouths.some(m => { const o = (x - m.n.x) * e.nx + (z - m.n.z) * e.nz, t = (x - m.n.x) * e.dirx + (z - m.n.z) * e.dirz; return Math.sign(o) === m.side && Math.abs(t - o * m.along) < m.half; });
         const sourceMarks=markProxy(c.marks,e),pendingLongitudinal=[],longM={flatQuad(...q){pendingLongitudinal.push(q);}};
         let longStart=-Infinity,longEnd=Infinity;
         const reserveControl=(end,sa,sb)=>{if(end===e.a)longStart=Math.max(longStart,sa,sb);else longEnd=Math.min(longEnd,sa,sb);};
@@ -218,11 +227,16 @@ export function buildEdgeRibbons(ctx) {
             } else if (!e.tunnel && e.len > 8) {
                 const pr = makeRng(e.id * 7919 + 101), per = US ? 90 : minor ? 22 : 34;
                 const n = Math.floor((s1 - s0) / per + pr());
+                const laid = []; // (owner, 2026-11-15, Grozăvești (495, -653): "a dark sliver strip" — two patches laid end to end / over
+                //                  each other read as one long dark strip; a patch overlapping or within 0.5 m of one already laid on this
+                //                  edge is left out. Its random draws are still taken, so every other patch keeps its place.)
                 for (let q = 0; q < n; q++) {
                     const L = pr.range(1.2, US ? 4 : 7), sa = pr.range(s0 + 0.5, Math.max(s0 + 0.6, s1 - L - 0.5));
                     const wR2 = e.wR - 0.3, wL2 = -(e.wL - 0.3); if (wR2 - wL2 < 2) break;
                     const W = Math.min(wR2 - wL2, pr.range(0.9, e.laneW * 1.1)), o = pr.range(wL2, wR2 - W);
                     const pc = shadeRgb(asphaltBase, US ? 0.72 : pr.chance(0.6) ? 0.74 : 1.12);
+                    if (laid.some(p => sa < p[1] + 0.5 && sa + L > p[0] - 0.5 && o < p[3] + 0.5 && o + W > p[2] - 0.5)) continue;
+                    laid.push([sa, sa + L, o, o + W]);
                     band(m, e, sa, sa + L, o, o + W, yM - 0.0095 + Math.min(q, 9) * 0.0007 + (e.id % 3) * 0.0002, pc); // (owner register #3, Floreasca: overlapping patches at one height flickered: each its own height, all below the lines)
                 }
             }
@@ -256,7 +270,7 @@ export function buildEdgeRibbons(ctx) {
             // higher, so the paint priority kept it). An edge line inside another carriageway at its level marks nothing: it is
             // laid in 1 m pieces and a piece whose middle lies inside another level carriageway is left out.
             if (!minor) {
-                const edgeM = { flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, ...rest) { const cx = (x0 + x1 + x2 + x3) / 4, cz = (z0 + z1 + z2 + z3) / 4; if (edgeLineCovered(cx, cz, e, yAlong(e, cx, cz))) return; longM.flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, ...rest); } };
+                const edgeM = { flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, ...rest) { const cx = (x0 + x1 + x2 + x3) / 4, cz = (z0 + z1 + z2 + z3) / 4; if ((mouths.length && inMouth(cx, cz)) || edgeLineCovered(cx, cz, e, yAlong(e, cx, cz))) return; longM.flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, ...rest); } };
                 if (s1 - s0 > .2) {
                     if (e.taperR) { const n = Math.max(1, Math.ceil(s1 - s0)); for (let i = 0; i < n; i++) { const sa = s0 + (s1 - s0) * i / n, sb = s0 + (s1 - s0) * (i + 1) / n, oa = e.wR - 0.15 + sideExtra(e, 1, sa), ob = e.wR - 0.15 + sideExtra(e, 1, sb), P = (q, o) => [e.a.x + e.dirx * q + e.nx * o, e.a.z + e.dirz * q + e.nz * o], A = P(sa, oa - 0.08), B = P(sb, ob - 0.08), C = P(sb, ob + 0.08), D = P(sa, oa + 0.08); edgeM.flatQuad(A[0], A[1], B[0], B[1], C[0], C[1], D[0], D[1], yM, white, 0); } } // (a lane-drop taper: the line closes in with the kerb)
                     else dashLine(edgeM, e, s0, s1, e.wR - 0.15, yM, white, Math.min(1, s1 - s0), 0, 0.08);

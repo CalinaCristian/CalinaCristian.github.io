@@ -26,6 +26,8 @@ folder may hold: [`AGENTS.md`](../../AGENTS.md).
 | Romană (-254, 1, -319) · 219 · 18 | "flickering on the door": the Europe House entrance, a light door panel z-fights with the dark opening behind it | Separate the door panel from the opening (offset / one surface) |
 | Otopeni (-261, 15, -423) · 69 · -35 | "in the middle of the road?": the ramp down from the covered airport walkway lands in the middle of the carriageway | Check the walkway / ramp against OSM (footway, layer, where it touches down); put it beside the road or end it where the source does |
 | Otopeni (-158, 6, -435) · 64 · -11 | "not connected?": the pillars under the covered walkway stop short of the deck | Pillars up to the deck soffit along the whole walkway |
+| Tourist spots, Activities | "activities should not have photo walks (the guided ones) -- it should just take me to the spots I can do where there's interactivity -- this center ring sucks anyway as a goal" | Drop the guided photo / walk activities from the list; an activity leads to its interaction point, not a ring at the spot's centre |
+| Tourist spots, bikes | "i should have bikes in every tourist spot that is large (so all except arcul de triumf and seattle needle maybe)" | Give every large spot the bike (spots/bike.js); skip Arcul de Triumf and the Space Needle |
 | (453, 13, -778) · 330 · -43 | "missing fence": a gap in the blue railing where the overpass bends; the lines break there too | Railing open ends along the whole overpass (`railingNetwork.openEnds`); close this one |
 
 ## Other open work

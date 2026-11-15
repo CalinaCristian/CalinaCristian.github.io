@@ -738,7 +738,7 @@ async function driveChapter(H, chId, limit = null) {
         const o = stop?.poiRef || (g.objective ? { x: g.objective.doorX ?? g.objective.x, z: g.objective.doorZ ?? g.objective.z } : null); if (!o) return { skipped: 'no goal' };
         const res = { route: g.nav.route ? Math.round(g.nav.route.total) : null, via: g.nav.route ? [...new Set(g.nav.route.legs.map(l => roadName(l.e)))].slice(0, 8) : null };
         // junction watch: NPCs standing still inside a junction box for > 20 s
-        const stuckIn = new Map(); let worst = 0, worstAt = null, jsum = 0, dumpedAt = -99, pstill = 0;
+        const stuckIn = new Map(); let worst = 0, worstAt = null, jsum = 0, dumpedAt = -99, pstill = 0, prun = 0, prunMax = 0;
         const watch = () => {
             for (const v of g.traffic.vehicles) {
                 if (v.parked) continue;
@@ -748,7 +748,7 @@ async function driveChapter(H, chId, limit = null) {
                 else stuckIn.delete(v);
             }
             // (knot notes) the player standing for 15 s (or waiting behind a car for 12): what the car in front of it waits for, link by link
-            const ap = H.ap, P = g.player; if (Math.abs(P.speed || 0) < 0.5) pstill += H.dt * 15;
+            const ap = H.ap, P = g.player; if (Math.abs(P.speed || 0) < 0.5) { pstill += H.dt * 15; prun += H.dt * 15; if (prun > prunMax) prunMax = prun; } else prun = 0;
             if (ap && ((P.stillT || 0) > 15 || ap.waitT > 12) && H.scT - dumpedAt > 15 && (res.knots ||= []).length < 12) {
                 dumpedAt = H.scT;
                 let first = ap.leaderInfo?.id != null ? g.traffic.vehicles.find(o => o.id === ap.leaderInfo.id) || null : null, bd = first ? -1 : 1e9;
@@ -761,11 +761,16 @@ async function driveChapter(H, chId, limit = null) {
         const origStep = H.stepOnce.bind(H); H.stepOnce = (dt) => { origStep(dt); if (H.mon.steps % 15 === 0) watch(); };
         try { res.drive = await H.driveTo(o.doorX ?? o.x, o.doorZ ?? o.z, { label: `${chId} chapter drive`, arriveR: stop ? 9 : 25, timeout: 300, stop: !!stop, arriveState: 'card' }); }
         finally { H.stepOnce = origStep; }
-        res.seconds = r1(H.scT - t0); res.junctionStillMax = r1(worst); res.junctionStillOver30 = Math.round(jsum); res.playerStillS = Math.round(pstill); res.junctionStillAt = worstAt;
+        res.seconds = r1(H.scT - t0); res.junctionStillMax = r1(worst); res.junctionStillOver30 = Math.round(jsum); res.playerStillS = Math.round(pstill); res.playerStillMax = r1(prunMax); res.junctionStillAt = worstAt;
         { const S = g.traffic.stats || {}, PS = g.traffic.peds?.stats || {}; res.recoveries = { deadlocks: S.deadlocks, ringBacks: S.ringBacks, chainBacks: S.chainBacks, unstuck: S.unstuck, watchdog: S.playerWatchdog, release: S.waitRelease, releaseBy: S.waitReleaseBy, claimYield: S.claimYield, starved: S.claimStarved, rings: S.waitRings, ringBacks2: S.waitRingBacks, ringOpens: S.waitRingOpens, playerBacks: S.waitPlayerBacks, walkers: S.waitWalkers, asideWalks: PS.asideWalks, asideMoved: PS.asideMoved }; }
         res.shot = await H.shot(`drive-${chId}-arrived`);
-        if (!res.drive?.ok) H.issue('chapter-drive-failed', 'medium', `chapter ${chId}: the legal-speed drive from the start did not arrive (${res.drive?.reason}, ${res.drive?.resets} resets, ${res.drive?.remaining} m left)`, {}, { shot: true, key: 'chd:' + chId });
-        if (limit && res.seconds > limit) H.issue('finale-too-long', 'medium', `${chId} took ${res.seconds} s at legal speed (spec ≤ ${limit} s)`, {}, { key: 'fin-time' });
+        // (owner, 2026-11-15: "gate on deadlocks only") a chapter drive fails only on a deadlock: an NPC standing in a junction
+        // box > DEADLOCK_S, the player standing still > DEADLOCK_S at a stretch (two whole square cycles; signals.js caps a cycle
+        // at 60 s), or the autopilot losing its route. Slow traffic (long reds, queues) is realistic: reported, not gated.
+        const DEADLOCK_S = 120, lost = res.drive && !res.drive.ok && res.drive.reason !== 'timeout';
+        if (worst > DEADLOCK_S || prunMax > DEADLOCK_S || lost) H.issue('chapter-drive-deadlock', 'medium', `chapter ${chId}: ${lost ? 'the autopilot lost its route (' + res.drive.reason + ')' : worst > DEADLOCK_S ? 'an NPC stood ' + r1(worst) + ' s in a junction at ' + JSON.stringify(worstAt && [worstAt.x, worstAt.z]) : 'the player stood still ' + r1(prunMax) + ' s at a stretch'} (deadlock > ${DEADLOCK_S} s)`, {}, { shot: true, key: 'chd:' + chId });
+        if (!res.drive?.ok && !lost) H.issue('chapter-drive-slow', 'low', `chapter ${chId}: not at the stop after ${res.seconds} s (${res.drive?.resets} resets, ${res.drive?.remaining} m left)`, {}, { key: 'chs:' + chId });
+        if (limit && res.seconds > limit) H.issue('finale-too-long', 'low', `${chId} took ${res.seconds} s at legal speed (target ≤ ${limit} s)`, {}, { key: 'fin-time' });
         if (worst > 45) H.issue('junction-gridlock', 'high', `an NPC stood ${r1(worst)} s at a signalised junction on the finale route (${worstAt?.road}, ${worstAt?.why})`, worstAt || {}, { shot: true, key: 'fin-grid' });
         g.clock.trafficHour = prevHour;
         return res;

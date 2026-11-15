@@ -46,7 +46,7 @@ SeaTac) unless the scenario names its own. The full run is `FULL` in `run.js`.
 | `i` | Bucharest | Romana | 60 s stopped in Magheru's inner lane: traffic must get past |
 
 Run by id only (not in the full run): `ch` (every chapter in its district, including the flight), `drive:<chapter>`
-and `fin` (a chapter route at legal speed), `jam` (Romana rush hour), `foot` (walk to an office and back), `roam` (free
+and `fin` (a chapter route at legal speed; medium only on a deadlock > 120 s, slow arrival is low), `jam` (Romana rush hour), `foot` (walk to an office and back), `roam` (free
 roam in every district), `spots:<id>` (enter a tourist spot from the drive and leave), and the `r5` group (`pause`,
 `fines`, `chain`, `restore`, `office-talk`, `findcar`, `parking`). `run.js` lists the known ids on a typo.
 

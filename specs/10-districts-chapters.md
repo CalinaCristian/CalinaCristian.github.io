@@ -4,7 +4,9 @@ Owner roles: **world** (district data, CHAPTERS, boundaries), **gameplay** (chap
 
 ## Requirements
 R10.1 Districts at **real 1:1 scale**, ~**1 km²** each, sized so the chapter route is 1.5–2.5 km (≈ 2–4 min with
-traffic); the Bellevue finale drive is **≤ 3 min** at legal speeds including signals. The playable area is 130 m either
+traffic; the Bellevue finale aims at ≤ 3 min). A chapter drive at legal speed may be slow (real reds and queues) but
+must **never deadlock**: no car standing in a junction box and no stop of the player longer than 120 s, and no lost
+route (`--scenario=drive:<id>`; owner, 2026-11-15). The playable area is 130 m either
 side of the chapter routes, 200 m round each door, 110 m round each start and 120 m round the CV-stop building, fully
 covered (roads, buildings, POIs, trees, furniture).
 R10.2 District list:

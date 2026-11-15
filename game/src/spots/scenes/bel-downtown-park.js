@@ -291,7 +291,7 @@ export default {
             if (q > loop.marks && q < 4) { loop.marks = q; s.ui.toast(`🚶 Loop ${q}/4`, `${Math.round(Math.abs(loop.acc) * (R + 8))} m of the half-mile promenade`); }
             if (Math.abs(loop.acc) >= TAU) { loop.done = true; const secs = Math.round(s.t - loop.t0), m = Math.round(TAU * (R + 8)); emitActivity(s, 'bel-downtown-park', 'loop', '🏁 Half a mile round', `${m} m in ${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')} — about ${Math.round(m / 0.75)} steps.`); }
         });
-        { const st = { x: C.x + Math.cos(A_N + 0.35) * (R + 8), z: C.z + Math.sin(A_N + 0.35) * (R + 8) }; ctx.interactables.push({ kind: 'activity', x: st.x, z: st.z, r: 3, label: 'Walk the half-mile loop (promenade ring)', use: (s) => { loop.armed=true;loop.previous=null;loop.acc = 0; loop.marks = 0; loop.last = null; loop.t0 = s.t; s.ui.toast('🚶 Half-mile loop', 'Follow the promenade all the way round the canal — the timer runs from here. Travel or a discontinuous position change resets the loop.'); } }); }
+        { const st = { x: C.x + Math.cos(A_N + 0.35) * (R + 8), z: C.z + Math.sin(A_N + 0.35) * (R + 8) }; ctx.interactables.push({ kind: 'walk-goal', x: st.x, z: st.z, r: 3, label: 'Walk the half-mile loop (promenade ring)', use: (s) => { loop.armed=true;loop.previous=null;loop.acc = 0; loop.marks = 0; loop.last = null; loop.t0 = s.t; s.ui.toast('🚶 Half-mile loop', 'Follow the promenade all the way round the canal — the timer runs from here. Travel or a discontinuous position change resets the loop.'); } }); }
         // 2) toss a coin into the reflecting pool
         const coinAt = { x: C.x + Math.cos(2.15) * (R + 7), z: C.z + Math.sin(2.15) * (R + 7) };
         let coinTarget=null,coinDistance=Infinity;

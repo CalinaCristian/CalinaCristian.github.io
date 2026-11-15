@@ -44,7 +44,14 @@ function props() {
     cyl(bottle, .021, .021, .08, '#78988b', 0, .285, 0);
     cyl(bottle, .061, .061, .07, '#e9dfbd', 0, .08, 0);
     const stream = cyl(root, .008, .008, .17, '#e8bd64', -.18, -.08, -.65, 6); stream.visible = false;
-    return { root, food, bites, shot, glass, liquid, bottle, stream };
+    // a halbă: the half-litre dimpled mug of a Romanian beer hall, with its handle and a head of foam
+    const mug = new THREE.Group(); mug.name = 'halba-and-hand'; root.add(mug); hand(mug);
+    mesh(mug, new THREE.CylinderGeometry(.068, .062, .17, 18, 1, true), mat('#d9ecef', { transparent: true, opacity: .32, roughness: .1, side: THREE.DoubleSide, depthWrite: false }), 0, .1, 0);
+    cyl(mug, .062, .062, .016, '#c4dbe0', 0, .022, 0);
+    for (const k of [-1, 1]) { const h = cyl(mug, .011, .011, .085, '#d3e7ea', .092, .1 + k * .045, 0, 8); h.rotation.z = Math.PI / 2; }
+    cyl(mug, .012, .012, .1, '#d3e7ea', .135, .1, 0, 8);
+    const beer = cyl(mug, .06, .055, .15, '#d8962a', 0, .095, 0, 18), foam = cyl(mug, .061, .061, .03, '#fbf6e8', 0, .18, 0, 18);
+    return { root, food, bites, shot, glass, liquid, bottle, stream, mug, beer, foam };
 }
 
 export function createVenueActivities(ctx) {
@@ -53,8 +60,9 @@ export function createVenueActivities(ctx) {
     let run = null, disposed = false, lastCancel = null;
     const foodSteps = ['Take the first bite', 'One more bite', 'Finish the shaorma'];
     const shotSteps = ['Pour the shot', 'Raise it: Noroc!', 'Drink the shot'];
-    const steps = () => run.kind === 'shaorma' ? foodSteps : shotSteps;
-    const duration = () => run.kind === 'shaorma' ? 1.8 : [2.2, 1.6, 2.2][run.step];
+    const beerSteps = ['Pull the tap', 'Raise it: Noroc!', 'Drink the halbă'];
+    const steps = () => run.kind === 'shaorma' ? foodSteps : run.kind === 'beer' ? beerSteps : shotSteps;
+    const duration = () => run.kind === 'shaorma' ? 1.8 : run.kind === 'beer' ? [2.4, 1.6, 2.8][run.step] : [2.2, 1.6, 2.2][run.step];
     function restore() {
         if (!run) return;
         const { s, ctlActive, ui } = run;
@@ -67,7 +75,7 @@ export function createVenueActivities(ctx) {
     }
     function note(type, extra = {}) {
         if (!run) return;
-        window.dispatchEvent(new CustomEvent('dmcv:activity-flow', { detail: { type, spot: run.spot, id: run.venue.activity || (run.kind === 'shaorma' ? 'dristor-shaorma' : 'shoteria-shot'), attempt: run.token, step: run.step, elapsed_ms: Math.round(performance.now() - run.began), ...extra } }));
+        window.dispatchEvent(new CustomEvent('dmcv:activity-flow', { detail: { type, spot: run.spot, id: run.venue.activity || (run.kind === 'shaorma' ? 'dristor-shaorma' : run.kind === 'beer' ? 'wcp-halba' : 'shoteria-shot'), attempt: run.token, step: run.step, elapsed_ms: Math.round(performance.now() - run.began), ...extra } }));
     }
     function cancel(reason = 'cancel') { if (!run) return; lastCancel = reason; note('cancel', { reason }); restore(); }
     function blocked(s) {
@@ -78,13 +86,24 @@ export function createVenueActivities(ctx) {
     function act() {
         if (!run || run.animating || run.intro > 0 || blocked(run.s)) return;
         run.animating = true; run.t = 0; run.button.disabled = true;
-        run.status.textContent = run.kind === 'shaorma' ? 'Lift, bite… savour.' : ['A steady pour…', 'Noroc! Cheers!', 'Lift, tilt… and lower.'][run.step];
+        run.status.textContent = run.kind === 'shaorma' ? 'Lift, bite… savour.' : run.kind === 'beer' ? ['The tap runs, the foam climbs…', 'Noroc! Mugs up!', 'A long, cold drink…'][run.step] : ['A steady pour…', 'Noroc! Cheers!', 'Lift, tilt… and lower.'][run.step];
     }
     function render() {
         if (!run) return;
         const r = run, u = r.animating ? Math.min(1, r.t / duration()) : 0;
         const lift = smooth(u / .35) * (1 - smooth((u - .68) / .32));
-        p.food.visible = r.kind === 'shaorma'; p.shot.visible = p.bottle.visible = r.kind === 'shot'; p.stream.visible = false;
+        p.food.visible = r.kind === 'shaorma'; p.shot.visible = p.bottle.visible = r.kind === 'shot'; p.mug.visible = r.kind === 'beer'; p.stream.visible = false;
+        if (r.kind === 'beer') { // pull the tap (the mug fills, the head climbs) · raise it · drink it down
+            p.mug.position.set(-.1, -.3, -.62); p.mug.rotation.set(0, 0, 0);
+            let fill = r.step > 0 ? 1 : 0;
+            if (r.animating && r.step === 0) fill = smooth(u / .85);
+            if (r.animating && r.step === 1) { p.mug.position.y += lift * .3; p.mug.position.x += Math.sin(u * Math.PI) * .07; p.mug.rotation.z = -.12 * lift; }
+            if (r.animating && r.step === 2) { p.mug.position.set(-.1 + .1 * lift, -.3 + .27 * lift, -.62 + .3 * lift); p.mug.rotation.x = 1.25 * lift; fill = 1 - smooth((u - .3) / .4); }
+            p.beer.visible = fill > .01; p.beer.scale.y = Math.max(.001, fill); p.beer.position.y = .02 + .075 * fill;
+            p.foam.visible = fill > .2; p.foam.position.y = .025 + .15 * fill;
+            const intro = smooth(1 - r.intro / .4); p.root.position.y = -.3 * (1 - intro);
+            r.progress.value = r.step + (r.animating ? u : 0); return;
+        }
         const foodSide = r.s.camera.aspect < .75 ? .04 : .15;
         p.food.position.set(foodSide - Math.min(.12, foodSide) * lift, -.4 + .25 * lift, -.72 + .22 * lift);
         p.food.rotation.set(.25 + .35 * lift, -.15, -.12 + .15 * lift);
@@ -159,11 +178,12 @@ export function createVenueActivities(ctx) {
                 if (run.step === 3) {
                     const { kind, venue, tourStop } = run; restore();
                     if (kind === 'shot' && drank(s)) { s.completeTourActivity?.(tourStop); return; } // (the fifth: lights out)
-                    bucActivity(s, 'old-town-lipscani', venue.activity || (kind === 'shaorma' ? 'dristor-shaorma' : 'shoteria-shot'), kind === 'shaorma' ? '🥙 Poftă bună!' : '🥂 Noroc!', kind === 'shaorma' ? 'Shaorma finished at Dristor Kebap, Strada Franceză 17.' : `Poured, raised and finished a virtual shot at ${venue.name}, ${venue.address}.`);
+                    if (kind === 'beer') bucActivity(s, 'old-town-lipscani', venue.activity || 'wcp-halba', '🍺 Noroc!', 'A halbă poured, raised and finished at the hidden bar. Hai România!');
+                    else bucActivity(s, 'old-town-lipscani', venue.activity || (kind === 'shaorma' ? 'dristor-shaorma' : 'shoteria-shot'), kind === 'shaorma' ? '🥙 Poftă bună!' : '🥂 Noroc!', kind === 'shaorma' ? 'Shaorma finished at Dristor Kebap, Strada Franceză 17.' : `Poured, raised and finished a virtual shot at ${venue.name}, ${venue.address}.`);
                     s.completeTourActivity?.(tourStop);
                     return;
                 }
-                run.status.textContent = `${run.step}/3 · ${run.kind === 'shaorma' ? 'A little less shaorma, a little more Old Town.' : run.step === 1 ? 'Glass filled. Time for a toast.' : 'A toast to the Old Town.'}`;
+                run.status.textContent = `${run.step}/3 · ${run.kind === 'shaorma' ? 'A little less shaorma, a little more Old Town.' : run.kind === 'beer' ? (run.step === 1 ? 'Half a litre, a proper head. Time for a toast.' : 'Noroc! To the Tricolorii.') : run.step === 1 ? 'Glass filled. Time for a toast.' : 'A toast to the Old Town.'}`;
                 run.button.textContent = steps()[run.step] + ' (E)';
             }
         }
@@ -171,7 +191,7 @@ export function createVenueActivities(ctx) {
     }
     const key = (e) => {
         // Native button activation keeps Space/Enter out of the walker's action queue.
-        if (run?.ui.contains(e.target) && ['Space', 'Enter'].includes(e.code)) { e.stopImmediatePropagation(); return; }
+        if (e.target instanceof Node && run?.ui.contains(e.target) && ['Space', 'Enter'].includes(e.code)) { e.stopImmediatePropagation(); return; }
         if (!run || !['KeyE', 'Escape'].includes(e.code)) return;
         e.preventDefault(); e.stopImmediatePropagation();
         if (e.type === 'keyup') return;
@@ -190,14 +210,14 @@ export function createVenueActivities(ctx) {
             if (!document.getElementById('sp-venue-css')) { const st = document.createElement('style'); st.id = 'sp-venue-css'; st.textContent = CSS; document.head.append(st); }
             const ui = document.createElement('section'); ui.className = 'sp-venue'; ui.setAttribute('aria-label', `${venue.name} activity`);
             ui.innerHTML = '<h2></h2><small></small><p aria-live="polite"></p><progress max="3" value="0" aria-label="Activity progress"></progress><nav><button data-act></button><button data-cancel>Leave</button></nav>';
-            ui.querySelector('h2').textContent = (kind === 'shaorma' ? '🥙 ' : '🥂 ') + venue.name;
+            ui.querySelector('h2').textContent = (kind === 'shaorma' ? '🥙 ' : kind === 'beer' ? '🍺 ' : '🥂 ') + venue.name;
             ui.querySelector('small').textContent = venue.address;
             const button = ui.querySelector('[data-act]'), status = ui.querySelector('p'), progress = ui.querySelector('progress');
             run = { s, kind, venue, spot: s.spot.id, x: s.position.x, z: s.position.z, step: 0, t: 0, intro: .4, animating: false, ctlActive: s.ctl.active, ui, button, status, progress, began: performance.now(), token: globalThis.crypto?.randomUUID?.() || String(performance.now()) };
             note('start');
             run.tourStop = s.captureTourActivity?.();
             s.ctl.active = false; s.input.releaseLock?.(); s.input.take?.('KeyE'); s.ui.prompt(null);
-            s.ui.el.append(ui); s.ui.setActivityActive?.(true, ui); button.textContent = steps()[0] + ' (E)'; status.textContent = kind === 'shaorma' ? 'Three bites. Take your time.' : 'Pour, raise, then drink. Three small actions.';
+            s.ui.el.append(ui); s.ui.setActivityActive?.(true, ui); button.textContent = steps()[0] + ' (E)'; status.textContent = kind === 'shaorma' ? 'Three bites. Take your time.' : kind === 'beer' ? 'A halbă: half a litre in a dimpled mug. Pull, raise, then drink.' : 'Pour, raise, then drink. Three small actions.';
             button.onclick = act; ui.querySelector('[data-cancel]').onclick = () => cancel('leave');
             p.root.visible = true; s.camera.add(p.root); render(); return true;
         },

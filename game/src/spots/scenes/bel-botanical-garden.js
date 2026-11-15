@@ -300,7 +300,7 @@ export default {
                 }
             } else if (dA < 3 || dB < 3) crossing = { from: dA < dB ? 'A' : 'B', walked: 0, previous: { x: p.x, z: p.z } };
         });
-        ctx.interactables.push({ kind: 'activity', x: bridge.A.x, z: bridge.A.z, r: 3, label: 'Cross the ravine suspension bridge', use: (s) => s.ui.toast('🌉 Ravine Experience', 'Walk across to the far end — it sways a little.') });
+        ctx.interactables.push({ kind: 'walk-goal', x: bridge.A.x, z: bridge.A.z, r: 3, label: 'Cross the ravine suspension bridge', use: (s) => s.ui.toast('🌉 Ravine Experience', 'Walk across to the far end — it sways a little.') });
         // 2) virtual trail notes at mapped garden rooms. Source names do not
         // establish specimen labels or physical sign hardware at these points.
         const LABELS = [['Perennial Border', 'r19655849', 'Northwest Perennial Alliance border — hardy geraniums, asters, sedums'], ['Yao Garden', 'w32121704', 'Japanese maple (Acer palmatum) — sister city Yao, Japan'], ['Fuchsia Garden', 'r19658437', 'Hardy fuchsias (Fuchsia magellanica)'], ['Rhododendron Glen', 'r19675946', 'Rhododendrons — Washington\'s state flower is the coast rhododendron'], ['Native Discovery Garden', 'r19676251', 'Sword fern (Polystichum munitum) and Oregon grape'], ['Waterwise Garden', 'r19674922', 'Drought-tolerant lavender, rockrose and grasses'], ['Rock Garden', 'r19795610', 'Alpine plants among granite boulders']];

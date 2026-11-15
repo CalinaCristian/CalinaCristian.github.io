@@ -6,7 +6,6 @@ import { GeoBatch, M, canvas, canvasTexture, obb, polyArea, offsetPolyline, flat
 import { bucActivity, signAtlas } from '../buc.js';
 import { wallGeometry } from '../osm.js';
 import { addDinamoHintTV } from './dinamo-hint-tv.js';
-import { officialHagiTV } from '../official-hagi-tv.js';
 import { createBarBroadcast } from './bar-broadcast.js';
 import { dressFor } from '../../crowd.js';
 const grow = (poly, d) => { const o = offsetPolyline([...poly, poly[0], poly[1]], polyArea(poly) > 0 ? -d : d); return o.slice(1, poly.length + 1); };
@@ -79,10 +78,13 @@ function buildRoom(ctx, B) {
     const ux = door.ux, uz = door.uz, vx = -door.nx, vz = -door.nz, depth = D - 0.3, half = door.L / 2 - 0.6;
     const P = (u, v) => [door.mx + ux * u + vx * v, door.mz + uz * u + vz * v], yaw = Math.atan2(ux, uz);
     // bar counter along the back wall, taps, bottle shelves, stools
-    const cv = depth - 1.6; { const [x, z] = P(0, cv); b.box(x, y, z, 0.7, 1.08, door.L * 0.62, '#3b2416', 'wood', yaw); b.box(x, y + 1.08, z, 0.82, 0.06, door.L * 0.64, '#1d1a17', 'stone', yaw); ctx.box(x, z, door.L * 0.31, 0.4, Math.atan2(vx, vz) + Math.PI / 2, { prop: true, h: 1.1 });
+    const cv = depth - 1.6; { const [x, z] = P(0, cv); b.box(x, y, z, 0.7, 1.08, door.L * 0.62, '#3b2416', 'wood', yaw); b.box(x, y + 1.08, z, 0.82, 0.06, door.L * 0.64, '#1d1a17', 'stone', yaw); ctx.box(x, z, door.L * 0.32, 0.42, -Math.atan2(uz, ux), { prop: true, h: 1.1 });
+        // (owner, 2026-11-15: "I can go through objects in the hidden bar") the counter collider ran across the room
+        // instead of along it; the staff side behind it (shelves, taps) is closed off wall to wall
+        { const vb = (cv + depth + 0.3) / 2, [bx, bz] = P(0, vb); ctx.box(bx, bz, door.L / 2, (depth + 0.3 - cv) / 2 + 0.05, -Math.atan2(uz, ux), { prop: true, h: 2.6 }); }
         for (let k = -3; k <= 3; k++) { const [tx, tz] = P(k * 0.35, cv + 0.15); b.cyl(tx, y + 1.14, tz, 0.03, 0.42, '#c9c9c9', 'chrome', 8); b.box(tx, y + 1.5, tz, 0.07, 0.14, 0.05, NATIONS[(k + 6) % NATIONS.length][0], 'paint', yaw); }
         const [sx, sz] = P(0, depth - 0.25); for (const hh of [1.3, 1.8, 2.3]) { b.box(sx, y + hh, sz, 0.3, 0.04, door.L * 0.62, '#3b2416', 'wood', yaw); for (let k = 0; k < 26; k++) { const [bx, bz] = P(-door.L * 0.29 + k * door.L * 0.58 / 25, depth - 0.25); b.cyl(bx, y + hh + 0.04, bz, 0.035, 0.26, ['#2e5a2e', '#6b3a1a', '#d8d0b0', '#3a2a5a', '#8a1a1a'][k % 5], 'glass', 6); } }
-        for (let k = -2; k <= 2; k++) { const [qx, qz] = P(k * door.L * 0.13, cv - 0.75); b.cyl(qx, y, qz, 0.03, 0.75, '#222', 'metal', 6); b.cyl(qx, y + 0.75, qz, 0.2, 0.06, '#5a1e22', 'fabric', 10); } }
+        for (let k = -2; k <= 2; k++) { const [qx, qz] = P(k * door.L * 0.13, cv - 0.75); b.cyl(qx, y, qz, 0.03, 0.75, '#222', 'metal', 6); b.cyl(qx, y + 0.75, qz, 0.2, 0.06, '#5a1e22', 'fabric', 10); ctx.circle(qx, qz, 0.22, 0.82); } }
     // high tables, scarves and flags of many nations, bunting across the ceiling
     for (const [u, v] of [[-half * 0.6, 1.8], [half * 0.6, 1.8], [-half * 0.6, 3.6], [half * 0.6, 3.6]]) { if (v > cv - 1.2) continue; const [x, z] = P(u, v); b.cyl(x, y, z, 0.05, 1.05, '#1e1f21', 'metal', 6); b.cyl(x, y + 1.05, z, 0.38, 0.04, '#3b2416', 'wood', 12); ctx.circle(x, z, 0.4, 1.1); }
     NATIONS.forEach((n, i) => { const side = i % 2 ? 1 : -1, v = 0.8 + (i >> 1) * Math.max(0.6, (depth - 1.6) / 6); if (side === 1 && Math.abs(v - 4.6) < 1.9) return; const [x, z] = P(side * (door.L / 2 - 0.36), v); for (let k = 0; k < 3; k++) b.box(x, y + 2.3 + k * 0.42, z, 0.03, 0.42, 1.0, n[k], 'fabric', yaw); });
@@ -91,21 +93,24 @@ function buildRoom(ctx, B) {
     // Main sports TV: enter the official repeating Hagi player from the floor before the bar.
     // (L28) the screen plays an original match broadcast on its own while the room is visible (bar-broadcast.js)
     const tvCanvas = canvas(768, 432), broadcast = createBarBroadcast(tvCanvas);
-    const hagi = officialHagiTV(ctx), tvTex = canvasTexture(tvCanvas), tvMat = new THREE.MeshBasicMaterial({ map: tvTex, color: new THREE.Color(0.8, 0.8, 0.8), toneMapped: false }); tvMat.name = 'wcp-tv';
+    const tvTex = canvasTexture(tvCanvas), tvMat = new THREE.MeshBasicMaterial({ map: tvTex, color: new THREE.Color(0.8, 0.8, 0.8), toneMapped: false }); tvMat.name = 'wcp-tv';
     const tvs = [];
     const tv = (u, v, ry, w = 1.6) => { const [x, z] = P(u, v); b.box(x, y + 2.1, z, w + 0.08, w * 0.5625 + 0.08, 0.06, '#111', 'plastic', ry); const m = new THREE.Mesh(new THREE.PlaneGeometry(w, w * 0.5625), tvMat); m.position.set(x + Math.sin(ry) * 0.035, y + 2.1 + (w * 0.5625 + 0.08) / 2, z + Math.cos(ry) * 0.035); m.rotation.y = ry; m.name = 'hagi-highlights-tv'; ctx.add(m); tvs.push(m); };
     tv(0, depth - 0.3, Math.PI, 2.6);
     const [hx, hz] = P(half - 0.03, 4.6);
     const hint = addDinamoHintTV(ctx, { x: hx, y: y + 2.6, z: hz, yaw: -Math.PI / 2, w: 2.6 });
     const [watchX, watchZ] = P(0, cv - 1.0);
-    ctx.interactables.push({ hidden: true, x: watchX, z: watchZ, y, r: 2.0, label: 'Watch Hagi highlights · FIFA', cond: () => ctx.room.visible, use: s => hagi.open(s) });
-    ctx.extras.hagiTV = hagi;
+    // (owner, 2026-11-15: "watch gica hagi should not be available since the youtube link doesn't load") the Hagi
+    // highlights player is gone; the screen keeps its own match broadcast. In its place at the bar: a halbă.
+    // (owner, same day: "maybe add a drink beer \"halba\"") pour, toast and drink a half-litre mug, like the shots at Freddo.
+    ctx.interactables.push({ hidden: true, x: watchX, z: watchZ, y, r: 2.0, label: 'Order a halbă · a big mug of beer', cond: () => ctx.room.visible && !ctx.extras.venueActivities?.active,
+        use: s => ctx.extras.venueActivities?.start(s, 'beer', { name: 'The hidden bar', address: 'Behind the Carusel bookshop', activity: 'wcp-halba' }) });
     ctx.onUpdate(dt => { if (ctx.room.visible && broadcast.update(dt)) tvTex.needsUpdate = true; });
     ctx.extras.barBroadcast = broadcast;
     // the World Cup Predictions kiosk (owner's project): a standing screen cycling through the site previews; E = next page
     const kv = Math.min(1.6, depth * 0.3), [kx, kz] = P(-(half - 0.5), kv), kyaw = yaw + Math.PI / 2 * 0 + Math.atan2(0, 1) + Math.PI * 0 + (Math.PI / 2); void kyaw;
     const kioskYaw = Math.PI / 2; // faces +u (into the room from the left wall)
-    b.box(kx, y, kz, 0.6, 0.9, 0.5, '#1d1f22', 'plastic', kioskYaw); b.box(kx, y + 0.9, kz, 0.12, 0.6, 0.12, '#1d1f22', 'metal', kioskYaw);
+    b.box(kx, y, kz, 0.6, 0.9, 0.5, '#1d1f22', 'plastic', kioskYaw); ctx.box(kx, kz, 0.38, 0.72, 0, { prop: true, h: 2.4 }); b.box(kx, y + 0.9, kz, 0.12, 0.6, 0.12, '#1d1f22', 'metal', kioskYaw);
     const tl = new THREE.TextureLoader(), pages = WCP_PAGES.map((n) => { const t = tl.load(new URL(`../../../assets/wcp/${n}.webp`, import.meta.url).href); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; });
     const kMat = new THREE.MeshBasicMaterial({ map: pages[0], color: new THREE.Color(0.82, 0.82, 0.82), toneMapped: false }); kMat.name = 'wcp-kiosk'; // readable: unlit, ~0.82 white, under the bloom threshold
     const kScr = new THREE.Mesh(new THREE.PlaneGeometry(1.28, 0.8), kMat); const fx = Math.sin(kioskYaw), fz = Math.cos(kioskYaw);

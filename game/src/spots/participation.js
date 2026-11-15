@@ -17,6 +17,8 @@ export function onActivityCancel(ctx, cancel) {
     (ctx.extras.sceneCleanups ||= []).push(() => document.removeEventListener('visibilitychange', hidden));
 }
 
+const PAUSE_ONLY = new Set(['map', 'pause', 'mode', 'conditions', 'drone', 'hidden', 'photo']);
+
 export function activityFlow(ctx) {
     if (ctx.extras.participation) return ctx.extras.participation;
     let run = null;
@@ -31,7 +33,10 @@ export function activityFlow(ctx) {
     const api = {
         get active() { return !!run; },
         get run() { return run; },
-        cancel(reason = 'cancel') { const old = restore(); old?.opts.cancel?.(old.s, reason); },
+        // A ride (the bike, a boat: opts.ride) is a vehicle, not a modal task: host takeovers (map, pause, photo,
+        // conditions, the drone, a hidden tab) only pause it; it ends by its own Leave / E, Esc, a teleport or the exit.
+        // (owner, 2026-11-15: "if i open map on bike it takes me off the bike")
+        cancel(reason = 'cancel') { if (run?.opts.ride && PAUSE_ONLY.has(reason)) return; const old = restore(); old?.opts.cancel?.(old.s, reason); },
         complete() { const old = restore(); if (old) { old.opts.complete?.(old.s); old.s.completeTourActivity?.(old.tourStop); } },
         begin(s, opts) {
             if (run || s.ctl.active === false || activityBlocked(s) || ctx.extras.venueActivities?.active) return false;
@@ -58,7 +63,7 @@ export function activityFlow(ctx) {
     const key = e => {
         if (!run) return;
         if (run.opts.key?.(e, run)) { e.preventDefault(); e.stopImmediatePropagation(); return; }
-        if (run.ui.contains(e.target) && ['Enter', 'Space'].includes(e.code)) { e.stopImmediatePropagation(); return; }
+        if (e.target instanceof Node && run.ui.contains(e.target) && ['Enter', 'Space'].includes(e.code)) { e.stopImmediatePropagation(); return; }
         if (!['KeyE', 'Escape'].includes(e.code)) return;
         e.preventDefault(); e.stopImmediatePropagation();
         if (e.type === 'keyup' || e.repeat) return;
@@ -68,9 +73,11 @@ export function activityFlow(ctx) {
     window.addEventListener('keydown', key, true); window.addEventListener('keyup', key, true); document.addEventListener('visibilitychange', visibility);
     ctx.onUpdate((dt, s) => {
         if (!run) return;
-        if (s !== run.s || activityBlocked(s)) { api.cancel('mode'); return; }
+        if (s !== run.s) { api.cancel('mode'); return; }
+        if (activityBlocked(s)) { if (!run.opts.ride) api.cancel('mode'); return; } // (a ride waits under the panel)
         if (s.input?.take?.('Escape')) { api.cancel('escape'); return; }
         if (s.input?.take?.('KeyE')) run.button.click();
+        if (!run) return; // (that E may have finished or left the activity: the bike's Dismount)
         s.input?.take?.('Space');
         if (run.opts.lockWalker !== false && !run.opts.cameraRide) {
             const look = s.input?.takeLook?.() || { dx: 0, dy: 0 };

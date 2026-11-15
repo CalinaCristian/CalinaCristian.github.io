@@ -310,7 +310,7 @@ export function initExplore(game) {
             if (strict) { const b = sp.ctx?.extras?.terrainBox; if (Math.hypot(dry.x - x, dry.z - z) > 40 || (b && (dry.x < b.x0 || dry.x > b.x1 || dry.z < b.z0 || dry.z > b.z1))) return null; }
             const free = freeSpot(sp.colliders, dry.x, dry.z, (px, pz) => sp.ground?.heightAt?.(px, pz) ?? 0);
             if (strict && free.bad) return null;
-            await warp(() => g.spot.ctl.teleport(free.x, free.z, g.spot.ctl.heading));
+            await warp(() => { g.spot.cancelActivities?.('teleport'); g.spot.ctl.teleport(free.x, free.z, g.spot.ctl.heading); }); // (a bike / boat ride ends here)
             return { x: free.x, z: free.z };
         }
         if (!g.world || !['drive', 'foot'].includes(g.state)) return strict ? null : false;

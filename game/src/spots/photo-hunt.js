@@ -4,6 +4,8 @@ import { inPoly, distPolyline } from './kit.js';
 
 // A visitor camera exercise from the public approach. The rings are game
 // guides, not new site fixtures, and no interior access is implied.
+const PHOTO_WALKS_OFFERED = false;
+
 export function photoHunt(ctx, { x, z, y, r = 3, spot, cond, title, targets, unavailable = '', onDone }) {
     const flow = activityFlow(ctx), points = [];
     for (let i=0;i<48;i++) { const a=i*Math.PI/24; points.push(new THREE.Vector3(Math.cos(a),Math.sin(a),0)); }
@@ -34,7 +36,10 @@ export function photoHunt(ctx, { x, z, y, r = 3, spot, cond, title, targets, una
     const guide = { targets, captures: [], ring };
     ctx.extras.photoHunt=guide;
     const available=s=>(!spot||s.spot.entry.id===spot)&&(!cond||cond(s));
-    ctx.interactables.push({ kind:'photo-hunt',x,z,y,r,label:title,cond:available,use:s=>available(s)&&flow.begin(s,{
+    // (owner, 2026-11-15: "activities should not have photo walks ... this center ring sucks anyway as a goal") the
+    // framing exercises are retired: nothing is registered, so no prompt, map entry or tour stop offers them, and
+    // their achievements are retired in spot-availability.js. The guide object stays for the scenes that keep a handle.
+    if (PHOTO_WALKS_OFFERED) ctx.interactables.push({ kind:'photo-hunt',x,z,y,r,label:title,cond:available,use:s=>available(s)&&flow.begin(s,{
         title,action:'Frame the detail',lockWalker:false,
         help:`${unavailable} Move along the public paths for a clear view, look with the mouse or swipe, centre the gold ring, then take each of ${targets.length} pictures.`,
         started(s,r){r.step=0;r.flash=0;r.sightAt=-Infinity;guide.captures=[];r.busy=true;ring.visible=true;occluders=[];ctx.scene.traverse(o=>{if(!o.isMesh)return;for(let p=o;p;p=p.parent)if(['visitor-photo-guide','visitor-candle','virtual-handheld-candle-holder','activity-coin'].includes(p.name))return;const materials=Array.isArray(o.material)?o.material:[o.material];if(!materials.some(opaque))return;if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();occluders.push(o);});},

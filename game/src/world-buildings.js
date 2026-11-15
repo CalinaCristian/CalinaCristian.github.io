@@ -251,6 +251,18 @@ export async function buildBuildingsLandmarks(ctx) {
             if (s.text) { b.name = s.text; b.flags |= 2 | (s.brand ? 8 : 0); }
             if (US && (b.style === 'plain' || b.style === 'shop')) { b.style = 'bloc'; b.flags &= ~1; }
         }
+        // (owner, 2026-11-15, Pipera (711, 24, 183): "buildings within buildings?" — Bl. 9–13 at Șos. Fabrica de Glucoză 6-8,
+        // w938553616–620, 12-storey building=apartments towers, drew as all-glass curtain walls) the data build gives every
+        // large footprint in the Pipera office zone and in downtown Bellevue the 'glass' style by area alone, dwellings
+        // included (tools/osm/build-data.mjs). A dwelling (building=apartments / residential / dormitory) is a residential
+        // block — punched windows, balconies, its own wall colour — unless its own tags say glass (building:material=glass)
+        // or a street-level review row says so (building-review.js, applied after this). Hotels keep theirs.
+        const dwellingRestyled = bRecs.dwellingRestyled = [];
+        for (const b of bRecs) {
+            if (b.style !== 'glass' || !/^(apartments|residential|dormitory)$/.test(b.type || '') || /glass/.test(b.material || '') || lodging.has(b.i)) continue;
+            b.style = 'bloc'; dwellingRestyled.push(b.sourceId || b.i);
+        }
+        if (dwellingRestyled.length) console.info('[world] dwellings drawn as residential blocks, not glass:', dwellingRestyled.length);
     }
     // ---- street-level review rows by OSM id (round 2 fidelity pass; game/src/building-review.js): reviewed storeys / style / colour
     const buildingReviewAudit = applyBuildingReview({ key: city.id + '-' + distId, bRecs });

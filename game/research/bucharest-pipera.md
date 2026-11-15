@@ -19,6 +19,11 @@ bracketed keys point to **Sources** at the end.
   floors, 2016; AFI Lakeview 15 lv / 65 m; Corp A/B 15 lv / 53 m; Courtyard by Marriott 14 lv / 55 m; Sky Tower 137 m at the
   SW corner), lift-gate barriers at every office car park, remnant Pipera industrial halls (JTI factory, Corp 1–20) north of
   Pompeiu, few old trees, wide new sidewalks in front of new offices and broken ones elsewhere [wp_globalworth_tower] [osm].
+- **Apartment towers** (2026-11-15): the new residential blocks of the area (e.g. Bl. 9–13 at Șos. Fabrica de Glucoză 6-8,
+  w938553616–620, `building=apartments`, 12 levels, 2018–2019, over the 3-storey blocks w938553607–610) carry no glass
+  material tag; the data build styled every large Pipera footprint 'glass' by area. The game draws a dwelling as a
+  residential block (punched windows, balconies, its own wall colour) unless it is tagged or reviewed glass (68 footprints
+  in this district). Facades not reviewed on Street View.
 - **Method** (fidelity passes 2026-11-12/13): live OSM (API 0.6 `map` 2026-11-12: 19,803 nodes, 2,850 ways, 192 relations)
   decides position and kind; official street-level panoramas were looked at for appearance only (ids from coverage metadata;
   nothing stored, traced or measured). Game views: `game/dev/reality/viewpoints.json` (`pip-*`).

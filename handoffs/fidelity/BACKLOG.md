@@ -13,7 +13,7 @@ block, "looks odd" and the SeaTac sign are fixed and re-checked live (removed). 
 |---|---|---|
 | Grozăvești (83, 8, 120) · 300 · -35 | "weird fences": railing cages on the median | Fixed (median fill joins); re-check live |
 | Unirii (-410, -2, -22) · 87 · -1 | see-through at the Pasajul Unirii exit | Fixed (shared-cut wall pairing); re-check live |
-| Pipera (711, 24, 183) · 228 · -11 | "buildings within buildings?" | Real per OSM (Fabrica de Glucoză 6-8: towers w938553616–620 over blocks w938553607–610); the towers render all-glass though they are apartments — open |
+| Pipera (711, 24, 183) · 228 · -11 | "buildings within buildings?" | Real per OSM (Fabrica de Glucoză 6-8: towers w938553616–620 over blocks w938553607–610). Fixed: a dwelling the data build styled 'glass' by area (68 in Pipera, 67 in Bellevue; none elsewhere) draws as a residential block unless tagged / reviewed glass or a hotel; re-check live |
 | Pipera (-1284, 9, 85) · 54 · -69 | lanes misplaced | Fixed (opposite one-ways overlapping narrowed to the midline); re-check live |
 | Romană (450, 34, 966) · 227 · -17 | buildings colliding | Fixed: Palatul Regal's own building:parts were not replaced by the landmark; re-check live |
 | Romană (350, 27, 105) · 278 · 13 | NetBet billboard floating | Fixed (legs to the roof under each); re-check live |

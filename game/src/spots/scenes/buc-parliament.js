@@ -516,11 +516,11 @@ export default {
             if (delta > Math.max(1, dt * 6) || distPolyline(p.x, p.z, [[mA.x, mA.z], [mB.x, mB.z]]).d > 3) { pace = null; return; }
             pace.walked += delta; pace.previous = { x: p.x, z: p.z };
         });
-        ctx.interactables.push({ x: mA.x, z: mA.z, r: 2, cond: s => s.spot.entry.id === 'palace-parliament', label: 'Pace the Palace: start the public frontage course', use: s => {
+        ctx.interactables.push({ kind: 'walk-goal', x: mA.x, z: mA.z, r: 2, cond: s => s.spot.entry.id === 'palace-parliament', label: 'Pace the Palace: start the public frontage course', use: s => {
             pace = { t: s.t, walked: 0, previous: { x: s.position.x, z: s.position.z } };
             s.ui.toast('⏱ Pace the Palace', `Walk the public frontage to the other waypoint, about ${Math.round(paceMetres)} game metres. Travel, leaving the route or opening another mode cancels the course.`);
         } });
-        ctx.interactables.push({ x: mB.x, z: mB.z, r: 2, cond: s => s.spot.entry.id === 'palace-parliament', label: () => pace ? 'Pace the Palace: finish the walk' : 'Pace the Palace: begin at the north waypoint', use: s => {
+        ctx.interactables.push({ kind: 'walk-goal', x: mB.x, z: mB.z, r: 2, cond: s => s.spot.entry.id === 'palace-parliament', label: () => pace ? 'Pace the Palace: finish the walk' : 'Pace the Palace: begin at the north waypoint', use: s => {
             if (!pace || pace.walked < paceMetres - 5) return;
             const sec = s.t - pace.t, metres = Math.round(pace.walked); pace = null;
             bucActivity(s, 'palace-parliament', 'pace', `⏱ ${sec.toFixed(0)} s for ${metres} game metres`, 'You walked continuously along the public east frontage. This course is a game exercise, not a surveyed building dimension.');

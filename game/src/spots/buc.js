@@ -40,8 +40,13 @@ export function bucBackdrop(ctx, o = {}) {
     // building=yes keeps that shopfront only with evidence (shopfrontKinds); the rest get a neutral kind for
     // this one call (copies; source records and every later consumer keep the original tags). Old Town
     // scenes opt out (shopEvidence: false): every street front there is commercial.
-    const d0 = ctx.data, swap = (o.urban ?? true) && o.shopEvidence !== false ? shopfrontKinds(d0) : null;
-    if (swap?.size) ctx.data = { ...d0, buildings: d0.buildings.map((b) => (swap.has(b) ? { ...b, ...swap.get(b) } : b)) };
+    const d0 = ctx.data, shops = (o.urban ?? true) && o.shopEvidence !== false, swap = shops ? shopfrontKinds(d0) : new Map();
+    // osm.js gives a house its default hipped roof only in its own 'house' style (Seattle siding), which bucStyle never
+    // returns: every untagged Bucharest villa / house stood as a flat-topped box. Small house kinds without a mapped
+    // roof:shape get the same default as an estimate (estimatedRoof: a label, never the OSM tag; the footprint and the
+    // literal height are unchanged). Pass houseRoofs: false to keep them flat.
+    if (o.houseRoofs !== false && !globalThis.__rawFacades) for (const b of d0.buildings) if (houseRoofEstimate(b)) swap.set(b, { ...(swap.get(b) || {}), estimatedRoof: 'hipped' });
+    if (swap.size) ctx.data = { ...d0, buildings: d0.buildings.map((b) => (swap.has(b) ? { ...b, ...swap.get(b) } : b)) };
     try {
         ctx.osmBackdrop({
             urban: true, style: o.style || bucStyle, shopStyle: 'bucshop',
@@ -51,11 +56,17 @@ export function bucBackdrop(ctx, o = {}) {
             paint: { centre: '#e8e6df', centreSingle: !o.doubleCentre, ...(o.paint || {}) },
         });
     } finally { ctx.data = d0; }
-    if (swap) ctx.extras.shopEvidence = { plain: swap.size };
+    if (shops) ctx.extras.shopEvidence = { plain: [...swap.values()].filter((v) => v.k).length };
+    ctx.extras.houseRoofEstimates = [...swap.values()].filter((v) => v.estimatedRoof).length;
     ctx.treeLod = { dist: 45, cap: 3200, ...(o.treeLod || {}) };
     ctx.finishTrees = () => assignSpecies(ctx, o.species); // run by loadSpot after the scene added all its trees
     if (o.treeScale) for (const t of ctx.trees) t.s = (t.s || 0.9) * o.treeScale; // mature boulevard trees (Kiseleff: 15–20 m)
     ctx.lampOpts = { style: o.lampStyle || 'lantern', color: o.lampColor || '#1b1d1e', h: o.lampH || (o.lampStyle === 'candelabra' ? 9 : 4.4) };
+}
+
+/** an untagged small house (house / detached / villa / semi-detached / bungalow, ≤ 3 storeys, not a part) */
+export function houseRoofEstimate(b) {
+    return !b.part && !b.roof && !b.estimatedRoof && !b.roofTags?.['roof:shape'] && /^(house|detached|villa|semidetached_house|bungalow)$/.test(b.k || '') && (+b.lv || 2) <= 3 && b.poly?.length >= 3;
 }
 
 // amenities that occupy a ground floor behind a street front (not street furniture, parking or places of worship)

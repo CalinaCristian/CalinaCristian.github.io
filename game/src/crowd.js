@@ -266,6 +266,21 @@ function crowdDepthMaterial() {
     return (DEPTH = m);
 }
 
+/** ambient-occlusion normal prepass material with the same poses / outfit visibility (render.js draws the crowd into
+ *  that prepass with it). (owner, 2026-11-15: "people are seethrough?") Left out of the prepass, a person had no depth
+ *  there, and the occlusion of the chairs, tables and walls behind was painted over them: a seated visitor right in
+ *  front of the camera showed the terrace through their body. */
+let NORMAL = null;
+export function crowdNormalMaterial() {
+    if (NORMAL) return NORMAL;
+    const m = new THREE.MeshNormalMaterial(); m.blending = THREE.NoBlending;
+    m.onBeforeCompile = (sh) => { sh.uniforms.uCrowdTime = UTIME; sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\n' + GLSL_HEAD)
+        .replace('#include <beginnormal_vertex>', '#include <beginnormal_vertex>\n{ vec3 pDummy = crowdPose(position, objectNormal); }')
+        .replace('#include <begin_vertex>', '#include <begin_vertex>\n' + GLSL_POSE); };
+    m.customProgramCacheKey = () => 'crowdNormal7';
+    return (NORMAL = m);
+}
+
 // ---------------------------------------------------------------------------
 //  Outfits per city / season / weather (real-world-ish shares)
 // ---------------------------------------------------------------------------
@@ -323,7 +338,7 @@ export function makeCrowd({ max = 256, city = 'bucharest', season = seasonOf(), 
         const at = {};
         for (const [k, n] of [['aTop', 3], ['aBottom', 3], ['aSkin', 3], ['aHair', 3], ['aAcc', 3], ['aAnim', 4]]) { at[k] = new THREE.InstancedBufferAttribute(new Float32Array(N * n), n); at[k].setUsage(THREE.DynamicDrawUsage); g.setAttribute(k, at[k]); }
         const mesh = new THREE.InstancedMesh(g, mat, N); mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage); mesh.customDepthMaterial = crowdDepthMaterial();
-        mesh.frustumCulled = false; mesh.castShadow = cast; mesh.receiveShadow = true; mesh.count = 0; mesh.userData.shared = true; mesh.userData.skipNormalPrepass = true; // (its shape is in its vertex shader: see the ambient-occlusion prepass in render.js)
+        mesh.frustumCulled = false; mesh.castShadow = cast; mesh.receiveShadow = true; mesh.count = 0; mesh.userData.shared = true; mesh.userData.skipNormalPrepass = true; mesh.userData.prepassMaterial = crowdNormalMaterial(); // (its shape is in its vertex shader: see the ambient-occlusion prepass in render.js)
         object.add(mesh);
         return { mesh, at };
     };

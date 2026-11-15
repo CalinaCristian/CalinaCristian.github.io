@@ -27,11 +27,14 @@ assert.equal(karaokeNote(-1), undefined); assert.equal(karaokeNote(0), 0); asser
 
 // every activity the module completes is listed for the spot and has a live achievement that counts
 const emitted = [...source.matchAll(/bucActivity\(s2?, SPOT, '([a-z-]+)'/g)].map((m) => m[1]);
-assert.deepEqual([...new Set(emitted)].sort(), ['jacks-papanasi', 'lipscani-busker', 'lipscani-coffee', 'lipscani-photo-walk', 'mojo-karaoke']);
+assert.deepEqual([...new Set(emitted)].sort(), ['jacks-papanasi', 'lipscani-busker', 'lipscani-coffee', 'mojo-karaoke']);
 const registry = fs.readFileSync(new URL('../../src/spots/index.js', import.meta.url), 'utf8');
 for (const id of emitted) {
     assert(registry.includes(`['old-town-lipscani', '${id}',`), `ACTIVITIES lists ${id}`);
     const a = ACHIEVEMENTS.find((x) => x.activity === `old-town-lipscani:${id}`);
     assert(a && a.live && a.cat === 'landmarks' && activityAvailable(a), `achievement for ${id}`);
 }
-console.log('Old Town day activities: hours across midnight, the 32-beat tune and five registered, counted achievements passed.');
+// (owner, 2026-11-15) the photo walk is retired: not emitted, not listed, and its achievement does not count
+assert(!source.includes("'lipscani-photo-walk'") && !registry.includes("'lipscani-photo-walk'"));
+assert(!activityAvailable(ACHIEVEMENTS.find((x) => x.activity === 'old-town-lipscani:lipscani-photo-walk')));
+console.log('Old Town day activities: hours across midnight, the 32-beat tune and four registered, counted achievements passed (the retired photo walk is not emitted).');

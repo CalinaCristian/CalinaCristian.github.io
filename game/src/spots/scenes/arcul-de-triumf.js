@@ -110,7 +110,11 @@ export default {
         // local(+15.8, 0) "east" stood on the west side and vice versa.
         const long=[local(0,-6.2),local(0,6.2)].sort((p,q)=>q.z-p.z),short=[local(15.8,0),local(-15.8,0)].sort((p,q)=>q.x-p.x);
         const faces={south:long[0],north:long[1],east:short[0],west:short[1]},read=new Set();
-        for(const ins of INSCRIPTIONS){const p=faces[ins.face];ctx.interactables.push({...p,y:floor,r:2.3,label:`Read the inscription (${ins.face} face)`,use:s=>{read.add(ins.face);s.ui.toast(ins.ro,`${ins.en} (${read.size}/4 faces read)`);}});}
+        // (owner, 2026-11-15: "read left right bottom top is weird") the four carved texts are no longer a "read every face
+        // (n/4)" task listed as four activities by compass face: each is simply readable where it is carved, named by
+        // what it says, and none is offered as an activity or a tour stop (kind 'inscription', activity-offer.js)
+        const NAMES={south:'the dedication over the arch',north:'King Ferdinand\'s entry, 1922',east:'"Glory to those who prepared the unity"',west:'"Glory to those who achieved the unity"'};
+        for(const ins of INSCRIPTIONS){const p=faces[ins.face];ctx.interactables.push({kind:'inscription',...p,y:floor,r:2.3,label:`Read ${NAMES[ins.face]}`,use:s=>{read.add(ins.face);s.ui.toast(ins.ro,ins.en);}});}
         const photoAt=local(0,17.5),left=local(-9,-4.8),right=local(9,-4.8);
         photoHunt(ctx,{...photoAt,title:'Frame the Arc memorial',unavailable:'Current museum and roof admission are not verified; interior access is unavailable.',targets:[
             {label:'The central arch opening',x:AR.x,y:AR.y+10,z:AR.z,radius:2},{label:'The western sculpted pier',...left,y:AR.y+15,radius:1.8},{label:'The eastern sculpted pier',...right,y:AR.y+15,radius:1.8}],

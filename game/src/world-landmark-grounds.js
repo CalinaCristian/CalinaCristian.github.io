@@ -32,8 +32,13 @@ export function buildLandmarkGrounds(ctx) {
         const grid = new BoxGrid(32);
         for (const o of bRecs) { if (!o.ring || o.ring.length < 3) continue; const xs = o.ring.map(p => p[0]), zs = o.ring.map(p => p[1]); grid.insert(Math.min(...xs), Math.min(...zs), Math.max(...xs), Math.max(...zs), o); }
         const conc = rgb('#a9a69e');
+        // (owner, 2026-11-15, Otopeni (-158, 6, -435) "not connected?": 0.6 m columns stood at the station's mapped min_height
+        // (5 m) under the landmark's 7.2 m deck edge) a part that a landmark model replaces (the model's sourceIds, matched
+        // below) is carried by the model's own structure: no columns under it
+        const replacedByModel = new Set(data.buildingGeometryPolicy === 'source' ? LANDMARKS.flatMap(lm => lm.sourceIds || []) : []);
         for (const b of bRecs) {
             if (!(b.minH > 2.5) || !b.ring || b.ring.length < 3) continue;
+            if (b.skip || replacedByModel.has(data.buildingIds?.[b.derivedFrom ?? b.i])) continue;
             if (b.canopy?.estimateSupports) continue; // (r3: a reviewed open canopy draws its own estimated columns; these doubled them at every fuel station)
             const cx = b.ring.reduce((n, p) => n + p[0], 0) / b.ring.length, cz = b.ring.reduce((n, p) => n + p[1], 0) / b.ring.length;
             const inset = (p, d) => { const dx = cx - p[0], dz = cz - p[1], L = Math.hypot(dx, dz) || 1; return [p[0] + dx / L * Math.min(d, L * .5), p[1] + dz / L * Math.min(d, L * .5)]; };

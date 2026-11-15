@@ -77,7 +77,7 @@ export async function buildStreetFurniture(ctx) {
         // between the carriageways: two arc lamps back to back on the filled medians, about every 30 m (form estimated)
         const twins = [];
         for (const d of medianFill.decks) {
-            if (d.medianKind === 'asphalt') continue;
+            if (d.medianKind === 'asphalt' || d.capJoin) continue; // (capJoin: a short piece closing a gap between two fills, world-side-joins.js)
             const x = d.x, z = d.z, y = d.roofHeightAt(x, z), skip = r => { (basarabLamps.medianSkipped ??= {})[r] = (basarabLamps.medianSkipped[r] || 0) + 1; };
             if (!(y > .3)) { skip('low'); continue; } if (!pointInPolygon(x, z, d.poly)) { skip('outside'); continue; } if (twins.some(q => Math.hypot(q[0] - x, q[1] - z) < 28)) { skip('spacing'); continue; }
             const ne = nearestEdge(x, z, null, 20); if (!ne) { skip('no-edge'); continue; } const e = ne.edge, MH = 10;

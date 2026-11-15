@@ -60,6 +60,8 @@ const CSS = `
 #spot-ui .sp-map li{padding:3px 4px;border-radius:6px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #spot-ui .sp-map li:hover,#spot-ui .sp-map li.sel{background:rgba(251,191,36,.18)}
 #spot-ui .sp-map li.done{opacity:.55}
+#spot-ui .sp-map li.sp-h{cursor:default;min-height:0;padding:8px 4px 2px;font:700 11px system-ui;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8;background:none!important}
+#spot-ui .sp-map li.later{opacity:.7}
 #spot-ui .sp-map li{white-space:normal;overflow-wrap:anywhere;min-height:36px;box-sizing:border-box;display:flex;align-items:center}
 #spot-ui .sp-map .sp-nav-status{padding:7px 0;color:#b9e4ff;overflow-wrap:anywhere}
 #spot-ui .sp-waypoint{margin-top:7px;color:#b9e4ff;font-size:12px}
@@ -193,7 +195,7 @@ export class SpotUI {
         p.innerHTML = `<div class="sp-map"><canvas></canvas><div class="sp-tip"></div><div class="sp-side"><h3>${esc(title)}</h3>
             ${navigate ? '<p>Tap a place or the map to set a waypoint. Blue is your route; gold follows the guide.</p><div class="sp-nav-status" role="status" aria-live="polite"></div>' : ''}
             <div class="sp-legend">${kinds.filter(([k]) => k !== 'you').map(([k, ic, nm]) => `<button data-kind="${k}" aria-pressed="${!map.hidden.has(k)}" title="Show / hide">${ic} ${nm}</button>`).join('')}</div>
-            <ul>${items.map((it, i) => `<li data-i="${i}" class="${it.done ? 'done' : ''}">${it.done ? '✓' : it.icon} ${esc(it.label)}</li>`).join('')}</ul>
+            <ul>${items.map((it, i) => it.header ? `<li class="sp-h" role="presentation">${esc(it.header)}</li>` : `<li data-i="${i}" class="${it.done ? 'done' : ''}${it.later ? ' later' : ''}">${it.done ? '✓' : it.icon} ${esc(it.label)}</li>`).join('')}</ul>
             <div class="sp-btns">${navigate ? '<button type="button" data-clear-waypoint>Clear waypoint</button>' : ''}${tour ? `<button data-tour>${esc(tour.label)}</button>` : ''}<button data-close>Resume walk${document.body.classList.contains('touch') ? '' : ' (M)'}</button></div></div></div>`;
         const box = p.querySelector('.sp-map'), cv = p.querySelector('canvas'), tip = p.querySelector('.sp-tip');
         p.classList.add('show');
@@ -243,7 +245,8 @@ const ICON = Object.fromEntries(MAP_KINDS.map(([k, i]) => [k, i]));
 export class SpotMap {
     constructor(ui, { image, bounds }) {
         this.ui = ui; this.img = image; this.b = bounds; this.markers = []; this.route = null; this.player = { x: 0, z: 0, heading: 0 }; this.t = 0;
-        this.mini = ui.$('.sp-mini canvas'); this.span = 160; this.hidden = new Set(); this.sel = null; this.focus = null;
+        this.mini = ui.$('.sp-mini canvas'); this.span = 160; this.sel = null; this.focus = null;
+        this.hidden = new Set(['plaque', 'postcard']); // (owner, 2026-11-15: "clean this up") signs and postcards: off until shown with the legend
     }
     setMarkers(list) { this.markers = list; this._dirty = true; }
     /** the marker drawn nearest to canvas pixel (px, py) within r (full map), or null */
@@ -351,12 +354,12 @@ export function plaqueMesh(pl, { style = 'bronze', w = 0.62, h = 0.42 } = {}) {
     fitDraw(x, pl.text, 34, 84, 444, 200, { font: (s) => `${s}px Georgia, serif`, color: fg, max: 26, min: 9, maxLines: 9, lineH: 1.25 });
     if (pl.credit) fitDraw(x, pl.credit, 34, 288, 444, 34, { font: (s) => `italic ${s}px Georgia, serif`, color: fg, max: 18, min: 8 });
     const t = canvasTexture(c);
-    // note 36: the text reads on both faces (a box's −z face shows the map unmirrored from behind); a lectern tilt that
-    // still reads from the back (bronze) or an upright park board
+    // (owner, 2026-11-15: "signs should not have text on both sides") the text is on the reading face only (+z, where the
+    // reader stands); the back (−z) is the plain cast / painted plate like the edges. It used to carry the same texture,
+    // which a box's −z face shows unmirrored, so every plaque read from behind as well.
     const face = new THREE.MeshStandardMaterial({ map: t, metalness: style === 'bronze' ? 0.45 : 0.1, roughness: 0.45 });
-    const board = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.03), [
-        ...Array(4).fill(new THREE.MeshStandardMaterial({ color: style === 'bronze' ? '#4a3b20' : '#2b2f2a', metalness: 0.7, roughness: 0.4 })), face, face,
-    ]);
+    const plate = new THREE.MeshStandardMaterial({ color: style === 'bronze' ? '#4a3b20' : '#2b2f2a', metalness: 0.7, roughness: 0.4 });
+    const board = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.03), [...Array(4).fill(plate), face, plate]);
     board.position.set(0, style === 'bronze' ? 1.0 : 1.12, 0); board.rotation.x = style === 'bronze' ? -0.4 : -0.08; board.castShadow = true;
     const post = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.95, 8), new THREE.MeshStandardMaterial({ color: '#2f3134', metalness: 0.6, roughness: 0.4 }));
     post.position.y = 0.47; post.castShadow = true;

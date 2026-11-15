@@ -10,6 +10,10 @@ export function compileRaceCourse(points) {
     return {points:pts,cumulative:cum,length,at};
 }
 
+/** how far from the start line the walker may stand to start (the prompt reaches 2.3 m), and how far off the centreline
+ * the walker may run (the island walks are 3–6 m wide; runners and visitors are passed on either side) */
+const START_REACH = 3, OFF_COURSE_M = 3;
+
 export function createRace(course,{opponents=[{name:'Mara',pace:2.7},{name:'Andrei',pace:3.25}],countdown=3,limit=90}={}) {
     let state='ready',elapsed=0,clock=0,progress=0,offCourse=0,last=null,reason=null;
     const rivals=opponents.map((o,i)=>({...o,progress:i*1.1+.8,start:i*1.1+.8,finishTime:null}));
@@ -26,27 +30,34 @@ export function createRace(course,{opponents=[{name:'Mara',pace:2.7},{name:'Andr
         return best;
     }
     return {
-        start(p){if(state!=='ready'||Math.hypot(p.x-course.points[0][0],p.z-course.points[0][1])>2)return false;state='countdown';last={...p};return true;},
+        start(p){if(state!=='ready'||Math.hypot(p.x-course.points[0][0],p.z-course.points[0][1])>START_REACH)return false;state='countdown';last={...p};return true;},
         cancel(){if(!['won','lost','cancelled'].includes(state)){state='cancelled';reason='cancelled';}},
         tick(dt,p,{canAdvanceRival=()=>true}={}){
             if(!Number.isFinite(dt)||dt<=0||dt>.101||!Number.isFinite(p.x+p.z))throw Error('Race needs a real bounded physical step');
             if(!['countdown','running'].includes(state))return;
             const moved=Math.hypot(p.x-last.x,p.z-last.z);last={...p};
-            if(moved>6*dt+.16){fail('Movement discontinuity');return;}
+            // (owner, 2026-11-15: "race the runners is broken") a push-out from a runner's body or a slow frame (the step is
+            // clamped to 0.1 s) moved the walker more than 6 m/s × dt + 0.16 and lost the race on the spot; only a real
+            // teleport (several metres in one step) is a discontinuity now
+            if(moved>9*dt+1.2){fail('Movement discontinuity');return;}
             if(state==='countdown'){
-                clock+=dt;if(Math.hypot(p.x-course.points[0][0],p.z-course.points[0][1])>2){fail('Stay at the start for the countdown');return;}
+                clock+=dt;if(Math.hypot(p.x-course.points[0][0],p.z-course.points[0][1])>START_REACH+1){fail('Stay at the start for the countdown');return;}
                 if(clock>=countdown)state='running';return;
             }
             elapsed+=dt;
             const near=project(p);
-            if(!near||near.distance>1.4){offCourse+=dt;if(offCourse>2)fail('Left the island course');}
+            if(!near||near.distance>OFF_COURSE_M){offCourse+=dt;if(offCourse>3)fail('Left the island course');}
             else{
                 offCourse=0;
                 // Progress cannot increase faster than the actual swept player
                 // displacement. Close parallel legs cannot skip checkpoints.
-                if(near.s>progress&&near.s-progress<=moved+.12)progress=near.s;
-                const target=checkpoints[checkpoint];
-                if(target!==undefined&&progress>=target-.6&&Math.hypot(p.x-course.at(target).x,p.z-course.at(target).z)<1.5)checkpoint++;
+                // (a lag behind the projection, e.g. after a corner where it jumps ahead, is caught up at up to 1.5× the
+                // walked distance; the old all-or-nothing rule froze progress for the rest of the race)
+                if(near.s>progress)progress=Math.min(near.s,progress+moved*1.5+.05);
+                // A checkpoint counts once the swept progress passes it: progress already needs the walker on the course
+                // (within OFF_COURSE_M) and cannot jump. The old extra 1.5 m radius silently skipped checkpoints passed a
+                // little wide (round a runner, a corner), so a clear win ended as "Both opponents finished".
+                while(checkpoints[checkpoint]!==undefined&&progress>=checkpoints[checkpoint]-.6)checkpoint++;
             }
             for(let i=0;i<rivals.length;i++){
                 const r=rivals[i];if(r.finishTime!==null)continue;

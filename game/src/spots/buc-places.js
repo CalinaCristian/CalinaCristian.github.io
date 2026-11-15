@@ -4,7 +4,7 @@
 //  viewpoints (tourism=viewpoint) and playgrounds (leisure=playground). `osmPlaces(ctx)` shows each one at its OSM node:
 //    - waterfall: a small stone cascade with a falling water sheet and a basin, plus its sound (height 1.6 m and width
 //      2.4 m are estimates; an `artificial=yes` fall is drawn the same);
-//    - viewpoint: an E point "look out" (a viewpoint is a place to stand, not an object; nothing is built);
+//    - viewpoint: recorded only (a viewpoint is a place to stand, not an object; nothing is built, no prompt);
 //    - playground: a slide, a swing frame and a sand box round the node, clear of mapped ways and buildings (the
 //      equipment, its size and its layout are estimates: OSM maps only the point);
 //    - gate (`furniture.gate`): piers and an open iron double gate at the node (row r3-buc-spots-nth-4).
@@ -31,7 +31,7 @@ export function osmPlaces(ctx, o = {}) {
             ctx.box(p.x, p.z, W / 2 + 0.4, 0.9, yaw, { h: H + 0.25 }); ctx.sound('water', p.x, p.z, 30, 0.45);
             out.waterfalls.push(p.id);
         } else if (p.tourism === 'viewpoint') {
-            ctx.interactables.push({ x: p.x, z: p.z, r: 2.6, source: p.id, label: 'Look out from the viewpoint', use: (s) => s.ui?.toast?.('👀 Viewpoint', 'A mapped viewpoint (OpenStreetMap). Take a photo from here.') });
+            // (owner, 2026-11-15: "look out from the viewpoint goals are dumb") no E point any more: the place is just there
             out.viewpoints.push(p.id);
         } else if (p.leisure === 'playground') {
             // find a clear spot for each piece within 7 m of the node (rings of candidates)

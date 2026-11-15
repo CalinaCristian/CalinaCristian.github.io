@@ -8,7 +8,8 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, polyArea, offsetPolyline, distPolyline } from '../kit.js';
-import { bucBackdrop, osmPoly, cityFiller, signAtlas, bucActivity, boatRide, palisade } from '../buc.js';
+import { bucBackdrop, osmPoly, cityFiller, signAtlas, bucActivity, palisade } from '../buc.js';
+import { freeBoat } from '../free-boat.js';
 import { bench } from '../osm.js';
 import { clockFace, railing } from '../props.js';
 import { shortWaterRoute, dryLanding } from '../water-route.js';
@@ -328,15 +329,19 @@ export default {
                 // The real Debarcader POI is the shore access, not the former
                 // invented trigger 250 m away. Only a short, validated course
                 // near this landing is used; all of the lake remains scenery.
-                rb.position.set(loop[0][0], level + .02, loop[0][1]); ctx.add(rb);
-                const ride = boatRide(ctx, rb, loop, level + .02, { speed: 1.5, title: 'Row on Lake Cișmigiu', onDone: s => bucActivity(s, 'cismigiu', 'rowboat', '🚣 Rowed in Cișmigiu', 'You rowed the short course and returned to Debarcader. Rowing on the lake is a warm-season activity.') });
+                ctx.add(rb);
+                // (owner, 2026-11-15: "the boat rowing is dumb", "wasd to control, go anywhere, exit anytime") a boat you steer
+                // over the whole lake (free-boat.js), clear of the bridges; three buoys as the optional goal, E to go ashore
+                const ride = freeBoat(ctx, rb, { poly: lake, y: level + .02, home: { x: loop[0][0], z: loop[0][1] }, approach: dryLanding(lake, landing), reach: 220, speed: 2,
+                    avoid: (x, z) => bridges.some(w => distPolyline(x, z, w.pts).d < 4), title: '🚣 Row on Lake Cișmigiu',
+                    onDone: s => bucActivity(s, 'cismigiu', 'rowboat', '🚣 Three buoys', 'You rowed out to all three buoys of Lake Cișmigiu. Row on, or E to go ashore.') });
                 // (owner, 2026-11-12: "row a boat seems to never work") The gate used to need a calendar month of April to
                 // October as well, so from November to March the landing only ever answered "Boats are seasonal". Like the
                 // Herăstrău and Meydenbauer courses it now follows the season the game shows: closed only in winter.
                 const inSeason = s => s.r3d?.weather?.season !== 'winter';
                 const approach = dryLanding(lake, landing);
                 ctx.extras.rowboat = { ride, path: loop, source: landing.id, landing, approach };
-                ctx.interactables.push({ x: approach.x, z: approach.z, source: landing.id, r: 3, label: 'Row a boat from Debarcader (warm season)', tourAvailable: inSeason, cond: () => !ride.active(), use: s => { if (!inSeason(s)) { s.ui.toast('🚣 No boats in winter', 'The boats are put away for the winter. Choose another season to row.'); return; } ride.start(s); } });
+                ctx.interactables.push({ kind: 'rowboat', x: approach.x, z: approach.z, source: landing.id, r: 3, label: 'Take a rowing boat out (warm season)', tourActivityIds: ['rowboat'], tourAvailable: inSeason, cond: () => !ride.active(), use: s => { if (!inSeason(s)) { s.ui.toast('🚣 No boats in winter', 'The boats are put away for the winter. Choose another season to row.'); return; } ride.start(s); } });
             }
         }
         // the Writers' Rotunda: read all twelve names (walk past each bust)

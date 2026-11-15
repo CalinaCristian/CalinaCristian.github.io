@@ -1,27 +1,14 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { activityFlow } from '../participation.js';
 import { createRace } from '../race-course.js';
-import { createBaguetteGame } from '../baguette-game.js';
+import { petanqueGame } from '../petanque.js';
 import { Crowd } from '../people.js';
 import { collide } from '../walker.js';
 import { bucActivity } from '../buc.js';
-import { disposeTree } from '../kit.js';
-
-function heldBaguette() {
-    const root=new THREE.Group();root.name='playful-baguette';root.visible=false;
-    const bread=new THREE.Group(),hand=new THREE.Group();root.add(bread,hand);
-    const crust=new THREE.MeshStandardMaterial({color:'#c38230',roughness:.9}),cut=new THREE.MeshStandardMaterial({color:'#efd39a',roughness:1}),skin=new THREE.MeshStandardMaterial({color:'#bd8764',roughness:.9});
-    const loaf=new THREE.Mesh(new THREE.CapsuleGeometry(.055,.43,5,12),crust);loaf.rotation.z=-Math.PI/2;bread.add(loaf);
-    for(let i=0;i<5;i++){const slash=new THREE.Mesh(new THREE.BoxGeometry(.027,.004,.07),cut);slash.position.set(-.16+i*.08,.055,0);slash.rotation.y=-.5;bread.add(slash);}
-    const palm=new THREE.Mesh(new THREE.SphereGeometry(.066,10,7),skin);palm.scale.set(1.1,.6,1.2);hand.add(palm);
-    const arm=new THREE.Mesh(new THREE.CylinderGeometry(.04,.055,.28,8),skin);arm.position.set(.06,-.13,.09);arm.rotation.z=.35;hand.add(arm);
-    for(let i=0;i<4;i++){const finger=new THREE.Mesh(new THREE.CapsuleGeometry(.012,.055,3,5),skin);finger.rotation.x=1.2;finger.position.set(-.03+i*.021,.025,-.045);hand.add(finger);}
-    return{root,bread,hand};
-}
 
 export function createArcActivities(ctx,course,{floor,arch}) {
-    const flow=activityFlow(ctx),props=heldBaguette(),owner=new THREE.Group();owner.name='arcul-activities';ctx.add(owner);owner.add(props.root);
-    const grid=[.8,1.9],positions=[...grid];let returning=false,race=null,bag=null,session=null;
+    const flow=activityFlow(ctx),owner=new THREE.Group();owner.name='arcul-activities';ctx.add(owner);
+    const grid=[.8,1.9],positions=[...grid];let returning=false,race=null,session=null;
     const rivals=new Crowd({ground:ctx.ground,city:'bucharest',walkers:0,paths:[],seed:1936,personas:{local_young:1},
         groups:grid.map((s,i)=>{const p=course.at(s);return{x:p.x,z:p.z,r:0,n:1,act:'watch',y:floor,personas:[i?'tourist_it':'local_young'],fixedYaw:true,yaw:Math.atan2(p.tx,p.tz)};})});
     rivals.group.name='arcul-race-opponents';ctx.add(rivals.group);
@@ -39,9 +26,8 @@ export function createArcActivities(ctx,course,{floor,arch}) {
     const routeGeometry=new THREE.BufferGeometry().setFromPoints(course.points.map(([x,z])=>new THREE.Vector3(x,floor+.035,z)));
     const route=new THREE.Line(routeGeometry,new THREE.LineDashedMaterial({color:'#70dfff',dashSize:.5,gapSize:.4,transparent:true,opacity:.8,depthWrite:false}));
     route.name='virtual-island-race-course';route.userData.noFloor=true;route.computeLineDistances();route.visible=false;owner.add(route);
-    const hideBread=()=>{props.root.visible=false;owner.add(props.root);};
     function beginRace(s) {
-        if(returning){s.ui.toast('The runners are returning','They are walking back to the start. Try the baguette catch while you wait.');return;}
+        if(returning){s.ui.toast('The runners are returning','They are walking back to the start. A round of pétanque while you wait?');return;}
         const engine=createRace(course);let awarded=false;
         const began=flow.begin(s,{title:'Race around the Arc',lockWalker:false,action:'Start the race',
             help:'One island lap, two opponents. Follow the blue checkpoint. WASD to walk, hold Shift to run; touch movement works too. Stay off the roundabout.',
@@ -61,25 +47,11 @@ export function createArcActivities(ctx,course,{floor,arch}) {
         });
         if(began){session=s;race=engine;}
     }
-    function beginBread(s) {
-        const engine=createBaguetteGame();
-        if(flow.begin(s,{title:'Baguette catch',action:'Toss',help:'An entirely unserious souvenir challenge: toss your baguette, catch it on the way down. Land three in a row. E or the button; Leave cancels.',
-            started(){bag=engine;session=s;s.camera.add(props.root);props.root.visible=true;},
-            actioned(){engine.action();},
-            update(dt,_s,r){
-                engine.tick(dt);const q=engine.snapshot();bag=engine;r.progress.value=q.streak/3;
-                r.busy=q.state==='caught'||q.state==='recovering'||(q.state==='dropped'&&q.time<.55);
-                r.button.textContent=q.state==='flight'?'Catch!':q.state==='dropped'?'Pick it up':'Toss';
-                r.status.textContent=q.state==='flight'?(q.catchNow?'Catch NOW!':'Watch the baguette…'):q.state==='dropped'?'On the floor! The streak resets. Pick it up and try again.':q.state==='caught'?`Nice catch! ${q.streak}/3`:q.state==='recovering'?'Picking it up…':`${q.streak}/3 clean catches · E / Toss when ready`;
-                if(q.state==='won'){hideBread();flow.complete();}
-            },
-            complete(){bag=null;bucActivity(s,'arcul-de-triumf','arcul-baguette','🥖 A perfect catch','Three clean tosses, one very well-travelled baguette.');},
-            cancel(){engine.cancel();bag=null;hideBread();},
-        }))session=s;
-    }
-    const p0=course.at(0),breadAt=course.at(course.length/2+3);
+    // (owner, 2026-11-15: "the baguette catch is dumb") a round of pétanque on the apron opposite the start (petanque.js)
+    const p0=course.at(0),boulesAt=course.at(course.length/2+3);
+    const petanque=petanqueGame(ctx,{x:boulesAt.x,z:boulesAt.z,floor,onWin:s=>bucActivity(s,'arcul-de-triumf','arcul-petanque','🎯 Carreau!','Your boule beat Mihai\'s to the jack, a point by Bucharest\'s Paris-style arch.')});
     ctx.interactables.push({x:p0.x,z:p0.z,y:floor,r:2.3,label:'Race the island runners',tourActivityIds:['arcul-race'],use:beginRace},
-        {x:breadAt.x,z:breadAt.z,y:floor,r:2.3,label:'Try the baguette catch',tourActivityIds:['arcul-baguette'],use:beginBread});
+        {x:boulesAt.x,z:boulesAt.z,y:floor,r:2.3,label:'Play pétanque against Mihai',tourActivityIds:['arcul-petanque'],use:s=>petanque.start(s)});
     ctx.onUpdate((dt,s)=>{
         const q=race?.snapshot();
         if(q){for(let i=0;i<positions.length;i++)positions[i]=q.rivals[i].progress;}
@@ -100,16 +72,9 @@ export function createArcActivities(ctx,course,{floor,arch}) {
             p.yaw+=Math.atan2(Math.sin(p.tyaw-p.yaw),Math.cos(p.tyaw-p.yaw))*Math.min(1,dt*8);p.phase+=dt*p.speed*4.6;
         }
         rivals.update(dt,null,null);
-        if(bag){const b=bag.snapshot(),u=Math.min(1,b.time/1.18);props.hand.position.set(.17,-.36,-.82);props.root.position.set(0,0,0);
-            let lift=0,spin=0;if(b.state==='flight'){lift=4*u*(1-u)*.68;spin=u*Math.PI*2;}
-            if(b.state==='caught')lift=.1*Math.sin(Math.PI*Math.min(1,b.time/.6));
-            if(b.state==='dropped')lift=-Math.min(1,b.time*2);if(b.state==='recovering')lift=-1+Math.min(1,b.time/.7);
-            props.bread.position.set(.17+Math.sin(u*Math.PI)*.08,-.29+lift,-.85);props.bread.rotation.set(.25,spin,.15+spin*.45);
-            props.hand.position.y+=Math.min(.1,lift*.3);
-        }
         void s;
     });
-    (ctx.extras.sceneCleanups||=[]).push(()=>{race?.cancel();bag?.cancel();hideBread();props.root.removeFromParent();disposeTree(props.root);rivals.dispose();rivals.group.removeFromParent();ctx.extras.obstacles=previousObstacles;});
-    const api={course,opponents:rivals,get race(){return race?.snapshot()||null;},get baguette(){return bag?.snapshot()||null;},get returning(){return returning;},get session(){return session;},arch};
+    (ctx.extras.sceneCleanups||=[]).push(()=>{race?.cancel();rivals.dispose();rivals.group.removeFromParent();ctx.extras.obstacles=previousObstacles;});
+    const api={course,opponents:rivals,get race(){return race?.snapshot()||null;},get petanque(){return petanque;},get returning(){return returning;},get session(){return session;},arch};
     ctx.extras.arcActivities=api;return api;
 }

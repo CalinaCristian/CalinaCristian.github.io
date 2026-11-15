@@ -123,6 +123,9 @@ export function planBridgeBents({ edges, halfWidth, topAt, soffitAt, eachEdge, e
             // (owner, 2026-11-11: "we need those supports across the bridge otherwise it looks like it's floating -- LIKE THE
             // REAL THING"; Street View at 44.44516, 26.06153: single hammerhead piers stand in the strips between the roads and
             // tracks below) a frame under the whole group of parallel decks often cannot stand; each deck then tries its own pier
+            // |cos| of the angle between a member deck's direction and the bent's travel direction (a skewed deck's edge meets
+            // the crosshead's rectangle at a slant: the drawing keeps the beam's corners under the slab, world-bridge-structures.js)
+            const skewCos = m => { const d = m.e ? [m.e.dirx, m.e.dirz] : m.rail ? [m.rail.b[0] - m.rail.a[0], m.rail.b[1] - m.rail.a[1]] : null; const L = d ? Math.hypot(d[0], d[1]) : 0; return L > 1e-9 ? Math.min(1, Math.abs(dot(d[0], d[1], p.tx, p.tz)) / L) : 1; };
             const build = (group, single = false, lim = M) => {
                 const lo = Math.min(...group.map(m => m.lo)), hi = Math.max(...group.map(m => m.hi));
                 const seat = Math.min(...group.map(m => m.soffit));
@@ -167,7 +170,7 @@ export function planBridgeBents({ edges, halfWidth, topAt, soffitAt, eachEdge, e
                 const pedestals = group.filter(m => m.soffit - seat > .05).map(m => ({ o: (m.lo + m.hi) / 2, x: at((m.lo + m.hi) / 2)[0], z: at((m.lo + m.hi) / 2)[1], width: Math.max(1, (m.hi - m.lo) * .7), y0: seat, y1: m.soffit }));
                 const [cx, cz] = at((beamLo + beamHi) / 2);
                 bents.push({ kind: wall ? 'wall' : 'crosshead', x: cx, z: cz, angle: Math.atan2(p.tx, p.tz), tx: p.tx, tz: p.tz, nx, nz, lo: beamLo, hi: beamHi, deckLo: lo, deckHi: hi, width, seat, soffit, columns, pedestals,
-                    members: group.map(m => ({ lo: m.lo, hi: m.hi, top: m.top, soffit: m.soffit, rail: !!(m.rail || m.e?.railDeck) })), chain: chain.id, s, single });
+                    members: group.map(m => ({ lo: m.lo, hi: m.hi, top: m.top, soffit: m.soffit, rail: !!(m.rail || m.e?.railDeck), cos: skewCos(m) })), chain: chain.id, s, single });
                 report[wall ? 'walls' : 'bents']++;
                 return 'ok';
             };

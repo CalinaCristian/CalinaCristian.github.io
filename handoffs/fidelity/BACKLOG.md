@@ -24,9 +24,9 @@ block, "looks odd" and the SeaTac sign are fixed and re-checked live (removed). 
 | Spot surroundings | broken buildings at Cișmigiu / Arcul, top storey cut, distant buildings moiré | Shipped (facade-finish.js); roofs stay flat unless OSM tags a shape — open |
 | Bellevue | "LINCOLN SQUARE" sign, UiPath sign, lanes | Signs and driveway lane paint shipped; building walls onto NE 8th / 112th edges left — see Other open work |
 | SeaTac (-953, 2, 995) · 100 · 1 | airport drives broken | In progress: fix branch backed out (line zigzags on the Basarab, spawn drive fails) and sent back |
-| Pike Place spot (-147, -3, -53) | broken below street level; fish throw | In progress |
-| Space Needle (4, 155, -6) · 142 · 26 | "why do I see a roof here": stair under a closed slab | In progress (with Pike Place) |
-| Meydenbauer (19, 1, -11) · 126 · -21 | people sitting on nothing | In progress (with Pike Place) |
+| Pike Place spot (-147, -3, -53) | broken below street level; fish throw | Shipped: market floors at street level, bluff railings; fish crew throw (catch 3 of 5, 7–17 h); re-check live |
+| Space Needle (4, 155, -6) · 142 · 26 | "why do I see a roof here": stair under a closed slab | Shipped (stairwell opened in the Loupe ceiling); re-check live |
+| Meydenbauer (19, 1, -11) · 126 · -21 | people sitting on nothing | Shipped (sitters on a real seat, a spawned bench or a blanket in all spots); spawned benches have no collider — open |
 | Bellevue parks | creative, working activities | Shipped: Downtown Park frisbee, swing, winter rink; Meydenbauer paddleboard, swim to the float, stone skips (park hours); Botanical Garden still has only the bike and its bridge walk — open |
 
 ## Other open work

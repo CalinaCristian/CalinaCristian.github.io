@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-27109a9c04cc3b95",
-  "sourceCommit": "938a90ad6f8d81f4efbfa9a0334455892e0ee2ce",
-  "fingerprint": "27109a9c04cc3b95e7f7f14d5cc5ee454fb9aa3c1c70a986dea2166f8d1e9ad8",
+  "releaseId": "game-c27960a22cc876c6",
+  "sourceCommit": "c64c9e7cb94747d99340e100d4c26d7cccb1755d",
+  "fingerprint": "c27960a22cc876c6a2939635028dd6ba5a9e9526a6cc240535e6054c47e3b205",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -698,7 +698,7 @@
     },
     {
       "path": "game/src/landmarks.js",
-      "sha256": "14c4a38e36b06befab35206c5f0b179ef64f3ca268755527850b7a6561e07fc6"
+      "sha256": "687fa161af85ff77846a6f8fbbc73f6322c9d1d2ecce2f9c0257fb68cd0b1f1f"
     },
     {
       "path": "game/src/landmarks/anchors.js",
@@ -706,7 +706,7 @@
     },
     {
       "path": "game/src/landmarks/bellevue.js",
-      "sha256": "884038f6c00cb9ff6ef0decb416f8269d2bbaa46b998216a515c1c9adf6ffe83"
+      "sha256": "fb955da0f7c9a795d763a1c25bcb2c9170a633228ae0cd06c91258a88fae2b7a"
     },
     {
       "path": "game/src/landmarks/bucharest-centre.js",
@@ -1838,7 +1838,7 @@
     },
     {
       "path": "game/src/world-edge-ribbons.js",
-      "sha256": "981f8506adf76de0594d03578899cbbf930f8869266756f7d41a81f41a0e7776"
+      "sha256": "587f8440e6fc742c83ae4c97ee9d70729eb750dedc0212d28d8319282cb745e5"
     },
     {
       "path": "game/src/world-extrusion.js",
@@ -1906,7 +1906,7 @@
     },
     {
       "path": "game/src/world-ribbons.js",
-      "sha256": "bb8259bf9f063a731f5de473609e3ef0d57310c6358e99fdbda379f012553848"
+      "sha256": "fe80e1f41a7a92bdf99234b0d0d68eb4ccb0a132f6a3551058b07bed7fe6ea72"
     },
     {
       "path": "game/src/world-road-graph.js",
@@ -1946,7 +1946,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "c4f8caac9781b099b2c16cfa8337bd870a708bd3d066abb372a5b60dea575f04"
+      "sha256": "07e83915430d71f7d41e8b47bc13cb4860bc140623b6bc951dd34ef755df9862"
     },
     {
       "path": "game/src/worldmap.js",

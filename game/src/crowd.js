@@ -18,7 +18,7 @@ const P = { SKIN: 0, TOP: 1, BOTTOM: 2, SHOES: 3, HAIR: 4, COAT: 5, HAT: 6, UMBR
 const HIP_Y = 0.9, KNEE_Y = 0.5, SHOULDER_Y = 1.43, ELBOW_Y = 1.15;
 export const CROWD_FLAGS = { coat: 1, umbrella: 2, hat: 4, bag: 8, worker: 16, shortSleeves: 32, phone: 64, camera: 128, flag: 256, guitar: 512, fan: 1024 };
 /** idle poses (crowd.set(i, { pose })): shader-driven, 'walk' = the walk cycle (amp), others hold / loop on their own */
-const CROWD_POSES = { walk: 0, stand: 0, sit: 1, phone: 2, photo: 3, wave: 4, point: 5, flag: 6, talk: 7, guitar: 8, umbrella: 9, cheer: 10, play: 11 }; // play: seated, the right hand out over a table (a board game)
+const CROWD_POSES = { walk: 0, stand: 0, sit: 1, phone: 2, photo: 3, wave: 4, point: 5, flag: 6, talk: 7, guitar: 8, umbrella: 9, cheer: 10, play: 11, sitground: 12 }; // play: seated, the right hand out over a table (a board game); sitground: on the ground / a blanket, knees up, leaning on the hands
 /** hand-held props (crowd.set(i, { prop })) → flag bits */
 const PROP_BITS = { phone: 64, camera: 128, flag: 256, guitar: 512 };
 const PROP_MASK = 64 | 128 | 256 | 512;
@@ -144,6 +144,7 @@ const GLSL_HEAD = `
     // joints: arm = (shoulder pitch [+ forward], shoulder roll [+ outward], elbow [+ forearm forward]); leg = (hip pitch, knee)
     float cIs(float p, float id) { return 1.0 - step(0.5, abs(p - id)); }
     float cSit(float p) { return max(cIs(p, 1.0), cIs(p, 11.0)); }
+    float cGround(float p) { return cIs(p, 12.0); }
     void armJoints(float side, out float pitch, out float roll, out float elbow, out float yaw) {
         float pose = aAnim.w, fl = aAnim.z, t = uCrowdTime + aAnim.x * 0.37, sw = sin(aAnim.x) * aAnim.y, R = step(0.0, side);
         float umb = max(flagOn(fl, 2.0), cIs(pose, 9.0));
@@ -152,6 +153,7 @@ const GLSL_HEAD = `
         if (cIs(pose, 10.0) > 0.5) { pitch = 2.75 + sin(t * 6.0 + side) * 0.12; roll = 0.35; elbow = 0.25 + max(0.0, sin(t * 6.0)) * 0.3; }       // cheer: both arms up
         if (umb > 0.5 && R > 0.5) { pitch = 0.4; roll = 0.0; elbow = 2.1; yaw = 0.6; }                          // umbrella: fist at (0.074, 1.43, −0.25), on the shaft (round 6 note 48)
         if (cIs(pose, 1.0) > 0.5) { pitch = 0.55; roll = 0.0; elbow = 0.75; yaw = 0.15; }                       // sit: hands on the thighs
+        if (cGround(pose) > 0.5) { pitch = -0.62; roll = 0.12; elbow = 0.05; yaw = 0.0; }                       // sit on the ground: leaning back on the hands
         if (cIs(pose, 11.0) > 0.5) { if (R > 0.5) { pitch = 1.02 + sin(t * 5.0) * 0.05; roll = 0.0; elbow = 0.32; yaw = -0.22; } else { pitch = 0.55; roll = 0.0; elbow = 0.75; yaw = 0.15; } } // play: the right hand reaches over the board
         if (cIs(pose, 2.0) > 0.5) { if (R > 0.5) { pitch = 0.3; roll = 0.0; elbow = 1.85; yaw = 0.55; } else { pitch = 0.2; roll = 0.0; elbow = 1.55; yaw = 0.5; } } // phone
         if (cIs(pose, 3.0) > 0.5) { if (flagOn(fl, 64.0) > 0.5 && flagOn(fl, 128.0) < 0.5) { if (R > 0.5) { pitch = 1.62; roll = 0.0; elbow = 0.3; yaw = 0.12; } } // phone photo: right arm out to the phone held in front of the face (note 50)
@@ -166,6 +168,7 @@ const GLSL_HEAD = `
         float pose = aAnim.w, fl = aAnim.z, sw = sin(aAnim.x) * aAnim.y, coat = flagOn(fl, 1.0);
         hip = side * sw * 0.42 * (1.0 - 0.35 * coat); knee = -max(0.0, -sin(aAnim.x + side * 1.2)) * aAnim.y * 0.55;
         if (cSit(pose) > 0.5) { hip = 1.5; knee = -1.5; }                                                       // sit
+        if (cGround(pose) > 0.5) { hip = 2.2; knee = -1.6; }                                                     // sit on the ground: knees up, feet flat in front
     }
     // pose a rest-pose point (and normal): returns the transformed point; n is rotated in place
     vec3 crowdPose(vec3 p, inout vec3 n) {
@@ -188,7 +191,7 @@ const GLSL_HEAD = `
         return p;
     }
     float crowdShow() {
-        float fl = aAnim.z, pose = aAnim.w, sit = cSit(pose), coat = flagOn(fl, 1.0), umb = max(flagOn(fl, 2.0), cIs(pose, 9.0)), hat = flagOn(fl, 4.0), bag = flagOn(fl, 8.0), wk = flagOn(fl, 16.0);
+        float fl = aAnim.z, pose = aAnim.w, sit = max(cSit(pose), cGround(pose)), coat = flagOn(fl, 1.0), umb = max(flagOn(fl, 2.0), cIs(pose, 9.0)), hat = flagOn(fl, 4.0), bag = flagOn(fl, 8.0), wk = flagOn(fl, 16.0);
         if (aPart > 4.5 && aPart < 5.5) return coat;
         if (aPart > 12.5 && aPart < 13.5) return coat * (1.0 - sit);
         if (aPart > 5.5 && aPart < 6.5) return hat * (1.0 - wk);
@@ -207,7 +210,7 @@ const GLSL_HEAD = `
     }`;
 const GLSL_POSE = `
     { vec3 nDummy = vec3(0.0, 1.0, 0.0); transformed = crowdPose(transformed, nDummy); }
-    transformed.y -= 0.45 * cSit(aAnim.w);   // sit: hips at ~0.45 m
+    transformed.y -= 0.45 * cSit(aAnim.w) + 0.78 * cGround(aAnim.w);   // sit: hips at ~0.45 m; on the ground: at ~0.12 m
     transformed.y += cIs(aAnim.w, 10.0) * abs(sin((uCrowdTime + aAnim.x * 0.37) * 6.0)) * 0.07; // cheer: short bounce
     transformed *= crowdShow();`;
 function crowdMaterial() {

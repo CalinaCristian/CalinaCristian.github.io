@@ -298,7 +298,18 @@ function buildInterior(grp, Mt) {
     lathe(T, [[L.turnR0 - 0.02, YL], [L.coreR, YL]], N).into(b, 'gloss', '#b9b5ac');                                   // fixed inner floor
     lathe(T, [[L.loupeWallR - 0.05, YL + 0.012], [L.turnR1 + 0.02, YL + 0.012]], N).into(b, 'gloss', '#c4c2bb'); // fixed outer margin
     lathe(T, [[L.coreR, YL - 0.25], [L.turnR0 - 0.02, YL - 0.25]], N).into(b, 'dark', '#55595c');                  // its underside, behind the drum
-    lathe(T, [[L.coreR, L.loupeCeil], [15.95, L.loupeCeil]], N).into(b, 'int', '#6b6862');                         // dark ceiling: little to mirror in the glass
+    // dark ceiling: little to mirror in the glass — with the stairwell left open over the flight to the observation level
+    // (owner 2026-11-15, "why do I see a roof here": the stair climbed into a closed ceiling)
+    const SW = L.stair, swR = SW.r1 + 0.05, swSpan = SW.a1 - SW.a0, swRest = Math.max(8, Math.round(N * (TAU - swSpan) / TAU)), swN = Math.max(4, N - swRest);
+    lathe(T, [[L.coreR, L.loupeCeil], [15.95, L.loupeCeil]], swRest, SW.a1, SW.a0 + TAU);
+    lathe(T, [[swR, L.loupeCeil], [15.95, L.loupeCeil]], swN, SW.a0, SW.a1).into(b, 'int', '#6b6862');
+    // the stairwell through the slab: plaster linings up to the observation floor, a timber band round the opening
+    lathe(T, [[L.coreR, L.loupeCeil], [L.coreR, YD]], swN, SW.a0, SW.a1);                                          // core side
+    lathe(T, [[swR, YD], [swR, L.loupeCeil]], swN, SW.a0, SW.a1);                                                  // outer side
+    { const c = Math.cos(SW.a0), s = Math.sin(SW.a0); T.quad([c * L.coreR, L.loupeCeil, s * L.coreR], [c * swR, L.loupeCeil, s * swR], [c * swR, YD, s * swR], [c * L.coreR, YD, s * L.coreR], [-s, 0, c]); } // over the foot of the flight
+    T.into(b, 'int', '#f3f2ed');
+    sector(T, swR - 0.04, swR + 0.02, SW.a0, SW.a1, L.loupeCeil - 0.14, L.loupeCeil + 0.02, swN).into(b, 'int', WOOD);
+    sector(T, L.coreR, swR, SW.a0 - 0.02, SW.a0 + 0.004, L.loupeCeil - 0.14, L.loupeCeil + 0.02, 4).into(b, 'int', WOOD);
     lathe(T, [[L.coreR, YL], [L.coreR, L.loupeCeil]], N).into(b, 'int', WOOD);                                     // core wall, timber lining
     for (let i = 0; i < 96; i++) { const a = i / 96 * TAU; if (L.elAz.some((e) => Math.abs(Math.atan2(Math.sin(a - e), Math.cos(a - e))) < 0.22)) continue; sector(T, L.coreR, L.coreR + 0.035, a - 0.012, a + 0.012, YL + 0.1, L.loupeCeil - 0.1); }
     T.into(b, 'int', '#8f6238');
@@ -307,7 +318,7 @@ function buildInterior(grp, Mt) {
     for (const r of [L.turnR0 + 0.45, L.turnR1 - 0.45]) sector(T, r - 0.07, r + 0.07, 0, TAU, YL - 0.2, YL - 0.1, N); T.into(b, 'steel', '#d7dadb');
     for (let i = 0; i < 12; i++) { const a = (i + 0.5) / 12 * TAU, [x, , z] = pol(L.turnR0 + 0.45, a); b.box(x, YL - 0.21, z, 0.5, 0.16, 0.26, '#8d9296', 'steel', yawX(-Math.sin(a), Math.cos(a))); }
     // ceiling fittings: a cove at the core and two rings of downlights
-    sector(T, L.coreR + 0.02, L.coreR + 0.12, 0, TAU, L.loupeCeil - 0.07, L.loupeCeil - 0.02, N).into(b, 'glow', '#ffe6bf');
+    sector(T, L.coreR + 0.02, L.coreR + 0.12, SW.a1, SW.a0 + TAU, L.loupeCeil - 0.07, L.loupeCeil - 0.02, swRest).into(b, 'glow', '#ffe6bf'); // (not across the stairwell)
     for (const [r, n] of [[9.0, 24], [12.4, 36], [14.9, 48]]) for (let i = 0; i < n; i++) { const [x, , z] = pol(r, (i + 0.5) / n * TAU); b.cyl(x, L.loupeCeil - 0.03, z, 0.075, 0.025, '#fff0d2', 'glow', 8); }
     // lift lobbies on both levels: stainless doors in a dark reveal, call panel, lit floor indicator
     for (const y of [YL, YD]) for (const e of L.elAz) {

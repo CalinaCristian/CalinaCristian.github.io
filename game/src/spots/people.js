@@ -8,7 +8,8 @@
 //  chat among themselves. One draw call per body part.
 // ============================================================================
 import * as THREE from '../../vendor/three.module.min.js';
-import { rng, clamp, distSeg, inPoly } from './kit.js';
+import { rng, clamp, distSeg, inPoly, GeoBatch } from './kit.js';
+import { bench as benchMesh } from './osm.js';
 import { collide } from './walker.js';
 import { makeCrowd, dressFor, seasonOf } from '../crowd.js';
 import { insideInterior } from './precip-shelter.js';
@@ -129,6 +130,7 @@ export class Crowd {
             if (list?.length) return this.r.pick(list);
             let x = this.r() * total; for (const [p, w] of weights) { x -= w; if (x <= 0) return p; } return weights[0][0];
         };
+        this.seats = this._findSeats();
         for (const g of o.groups || []) this._spawnGroup(g);
         for (let i = 0; i < (o.walkers || 0) && this.net.length; i++) this._spawnWalker();
         // final pass (note 27): nobody stands inside a collider at the height they were placed (explicit y, lifted onto steps…)
@@ -180,8 +182,35 @@ export class Crowd {
         }
         p.stuck = true; return false;
     }
+    /**
+     * Seats a sitter can take (owner 2026-11-15, "what are those guys even sitting on": a row of people in the chair pose
+     * floated over the beach at Meydenbauer Bay): the scene's benches and stools, i.e. the prop colliders of seat height
+     * (0.38–0.56 m), one place per 0.65 m of their length. Each: { x, z, y (feet for the chair pose = seat top − 0.45),
+     * yaw (facing; backless = either way), backless }.
+     */
+    _findSeats() {
+        const out = [];
+        for (const c of this.colliders || []) {
+            if (!c.prop || c.wall || c.poly || c.hw === undefined || c.hw === c.r || !(c.h >= 0.38 && c.h <= 0.56)) continue; // (circles: bollards, posts)
+            const hw = Math.max(c.hw, c.hd ?? 0), long = c.hw >= (c.hd ?? 0), n = Math.max(1, Math.floor(2 * hw / 0.65)), a = c.angle || 0, C = Math.cos(a), S = Math.sin(a);
+            const base = c.y ?? this._floor(c.x, c.z, null), backless = Math.min(c.hw, c.hd ?? c.hw) > 0.32; // (the generic bench is 0.6 deep with a back; a deeper block is a backless bench / plinth)
+            for (let i = 0; i < n; i++) { const u = n === 1 ? 0 : (i + 0.5) / n * 2 * hw - hw, lx = long ? u : 0, lz = long ? 0 : u;
+                out.push({ x: c.x + C * lx + S * lz, z: c.z - S * lx + C * lz, y: base + c.h + 0.02 - 0.45, yaw: long ? a : a + Math.PI / 2, backless, used: false }); }
+        }
+        return out;
+    }
+    /** the nearest free seat within `reach` of (x, z) (closest to the wanted spot first) */
+    _takeSeat(x, z, reach) {
+        let best = null, bd = reach;
+        for (const s of this.seats) { if (s.used) continue; const d = Math.hypot(s.x - x, s.z - z); if (d < bd) { bd = d; best = s; } }
+        if (best) best.used = true; return best;
+    }
     _spawnGroup(g) {
         const r = this.r, n = g.n || 1;
+        // a sitting group the scene did not put on a seat of its own (a terrace chair, a stool, a bar: `fixedYaw` / `seat`,
+        // or one person placed exactly, r ≤ 0.1) takes the benches near it; whoever finds none sits on the ground (a
+        // blanket under them on open ground) instead of in the air
+        if (g.act === 'sit' && !g.fixedYaw && !g.seat && !((g.r ?? 2) <= 0.1 && g.y === undefined) && !globalThis.__spotsLegacy) { this._spawnSitters(g); return; }
         for (let i = 0; i < n; i++) {
             let x, z, yaw;
             if (g.line) { // queue along a polyline (first = front)
@@ -204,6 +233,37 @@ export class Crowd {
             const p = this._ped(persona, x, z, yaw, g.act || 'watch', { home: { x, z, yaw }, lookAt: g.look, y: g.y !== undefined ? (typeof g.y === 'function' ? g.y(x, z) : g.y) : undefined, group: g });
             if (g.prop) p.look.prop = g.prop;
             if (g.act === 'photo' && p.look.prop === 'none') p.look.prop = 'phone';
+        }
+    }
+    /** a park bench (three places) for a sitting group with no seat near it, at the group's spot, facing what it looks at */
+    _benchFor(g) {
+        const a = g.yaw ?? (g.look ? Math.atan2(g.look[0] - g.x, g.look[1] - g.z) : 0), C = Math.cos(a), S = Math.sin(a), k = g._benches = (g._benches || 0) + 1, off = (k - 1) * 2.3; // (a second bench beside the first)
+        let x = g.x + C * off, z = g.z - S * off; const probe = { x, z, y: 0 }; if (this.colliders && this._blocked(x, z, this._floor(x, z, null), 1.0)) { this._settle(probe); x = probe.x; z = probe.z; }
+        const y = this._floor(x, z, null);
+        (this.benches ||= []).push({ x, z, y, a });
+        for (const u of [-0.6, 0, 0.6]) this.seats.push({ x: x + C * u, z: z - S * u, y: y + 0.47 - 0.45, yaw: a, backless: false, used: false });
+    }
+    _spawnSitters(g) {
+        const r = this.r, n = g.n || 1, R = g.r ?? 2, wy = this.ground.waterY;
+        for (let i = 0; i < n; i++) {
+            let x = g.x, z = g.z;
+            for (let t = 0; t < 24; t++) { const ang = r() * 6.28, rad = R * Math.sqrt(r()); x = g.x + Math.cos(ang) * rad; z = g.z + Math.sin(ang) * rad; if (wy == null || g.y !== undefined || this._floor(x, z, null) >= wy + 0.05) break; }
+            const persona = this.pickPersona(g.personas);
+            let seat = this._takeSeat(x, z, R + 6);
+            // none near and they would sit on a path or a plaza (not a lawn or a beach): a park bench comes with them
+            if (!seat && g.y === undefined && this.ground.onStreet?.(g.x, g.z)) { this._benchFor(g); seat = this._takeSeat(x, z, R + 6); }
+            if (seat) {
+                let yaw = seat.yaw; if (seat.backless && g.look && Math.cos(Math.atan2(g.look[0] - seat.x, g.look[1] - seat.z) - yaw) < 0) yaw += Math.PI; // a backless bench: face the view
+                this._ped(persona, seat.x, seat.z, yaw, 'sit', { home: { x: seat.x, z: seat.z, yaw }, lookAt: g.look, y: seat.y, group: g, seated: seat });
+                continue;
+            }
+            // on the ground: the explicit level (a sculpture, a lawn the scene graded) or the walkable floor; out of colliders
+            const yaw = g.yaw ?? (g.look ? Math.atan2(g.look[0] - x, g.look[1] - z) : r() * 6.28);
+            const y = g.y !== undefined ? (typeof g.y === 'function' ? g.y(x, z) : g.y) : undefined;
+            const p = this._ped(persona, x, z, yaw, 'sit', { home: { x, z, yaw }, lookAt: g.look, y, group: g, groundSit: true });
+            if (y === undefined && !globalThis.__spotsLegacy) { this._settle(p); p.y = this._floor(p.x, p.z, null); }
+            p.home.x = p.x; p.home.z = p.z;
+            p.blanket = Math.abs(p.y - this.ground.heightAt(p.x, p.z)) < 0.12 && !(this.ground.floorAt?.(p.x, p.z) != null); // on open ground (not a deck, a sculpture, a floor)
         }
     }
     _spawnWalker(avoid = null) {
@@ -238,6 +298,13 @@ export class Crowd {
             legs: mk(G.leg, N * 2, 'legs'), arms: mk(G.arm, N * 2, 'arms'), hands: mk(G.hand, N * 2, 'hands'), torso: mk(G.torso, N, 'torso'), head: mk(G.head, N, 'head'),
             hair: mk(G.hair, N, 'hair'), hat: mk(G.hat, N, 'hat'), pack: mk(G.pack, N, 'pack'), prop: mk(G.prop, N, 'prop'), apron: mk(G.apron, N, 'apron'),
         };
+        // a blanket under each person sitting on open ground (picnic rug / beach towel colours)
+        { const on = this.peds.filter((p) => p.blanket && !p.hidden);
+            if (on.length) { const m = new THREE.InstancedMesh(new THREE.BoxGeometry(1.0, 0.02, 1.5), new THREE.MeshStandardMaterial({ roughness: 0.95 }), on.length); m.name = 'crowd:blankets'; m.receiveShadow = true;
+                const cols = ['#c8463d', '#2f6db3', '#e8c547', '#3f8f5a', '#e9e4d6', '#d2691e', '#7b4ea3', '#1f8a8a'];
+                on.forEach((p, k) => { const fx = Math.sin(p.yaw), fz = Math.cos(p.yaw); _m.compose(_v.set(p.x + fx * 0.35, p.y + 0.01, p.z + fz * 0.35), _q.setFromAxisAngle(_s.set(0, 1, 0), p.yaw + (this.r() - 0.5) * 0.2), _s.set(1, 1, 1)); m.setMatrixAt(k, _m); m.setColorAt(k, _c.set(cols[(p.id * 5 + 3) % cols.length])); });
+                grp.add(m); this.blankets = m; } }
+        if (this.benches?.length) { const b = new GeoBatch(); for (const q of this.benches) benchMesh(b, q.x, q.y, q.z, q.a); const m = b.build('crowd-benches'); grp.add(m); }
         this.group = grp;
         this.peds.forEach((p, i) => this._colour(p, i));
         for (const m of Object.values(this.mesh)) m.instanceColor.needsUpdate = true;
@@ -273,7 +340,7 @@ export class Crowd {
             else {
                 p.speed = 0;
                 // fidget: dwellers shift weight, look around, sometimes turn toward the player
-                if (player && dP < 4.5 && !p.group?.fixedYaw) p.tyaw = Math.atan2(player.x - p.x, player.z - p.z);
+                if (player && dP < 4.5 && !p.group?.fixedYaw && !p.seated && !p.groundSit) p.tyaw = Math.atan2(player.x - p.x, player.z - p.z);
                 else if (p.home) p.tyaw = p.home.yaw + Math.sin(this.t * 0.3 + p.id) * (p.act === 'sit' ? 0.04 : 0.25);
             }
             // turn smoothly
@@ -485,7 +552,7 @@ export class Crowd {
         if (p.act !== 'sit') { p.pose = p.talkN === 1 ? 'wave' : 'talk'; p.poseT = 2.6; }
         return { line, tip };
     }
-    _headRef(p) { return { get x() { return p.x; }, get z() { return p.z; }, get y() { return p.y + 1.95 * p.look.scale + (p.act === 'sit' ? -0.45 : 0); } }; }
+    _headRef(p) { return { get x() { return p.x; }, get z() { return p.z; }, get y() { return p.y + 1.95 * p.look.scale + (p.act === 'sit' ? (p.groundSit ? -0.82 : -0.45) : 0); } }; }
     /** obstacles for the walker (nearby peds as small boxes) */
     obstacles(x, z, R = 3) {
         const out = [];
@@ -504,12 +571,13 @@ export class Crowd {
             if (cr) { // crowd.js idle poses + hand-held props (sit / phone / photo / wave / flag / guitar / talk)
                 let pose = 'stand', prop = null; const q = p.pose || ({ photo: 'photo', perform: 'perform', guide: 'flag', sit: 'sit', talk: 'talk' })[p.act] || (L.prop === 'flag' ? 'flag' : null);
                 if (walking) { pose = 'walk'; if (p.driven && L.prop === 'flag') prop = 'flag'; }
-                else if (q === 'sit') pose = 'sit';
+                else if (q === 'sit') pose = p.groundSit ? 'sitground' : 'sit';
                 else if (q === 'photo') { pose = 'photo'; prop = L.prop === 'camera' ? 'camera' : 'phone'; }
                 else if (q === 'wave' || q === 'peace') pose = 'wave';
                 else if (q === 'flag') { pose = 'flag'; prop = 'flag'; }
                 else if (q === 'perform' || L.prop === 'guitar') { pose = 'guitar'; prop = 'guitar'; }
                 else if (q === 'talk') pose = 'talk';
+                else if (q === 'point' || q === 'cheer') pose = q; // a scene's short gesture (the fishmongers' call and throw)
                 else if (L.prop === 'phone' && i % 3 === 0) { pose = 'phone'; prop = 'phone'; }
                 if (walking && L.prop === 'phone' && i % 5 === 0) prop = 'phone';
                 // (2026-11-12 render review) nobody holds an open umbrella under a roof: people inside a declared interior
@@ -521,7 +589,7 @@ export class Crowd {
             const sw = walking ? Math.sin(p.phase) * clamp(p.speed / 1.4, 0, 1.2) : 0;
             const sitting = p.act === 'sit';
             const bob = walking ? Math.abs(Math.cos(p.phase)) * 0.035 : Math.sin(this.t * 1.3 + i) * 0.004;
-            const hipY = sitting ? 0.47 : 0.92;
+            const hipY = sitting ? (p.groundSit ? 0.14 : 0.47) : 0.92;
             // base (feet on the ground)
             _b.compose(_v.set(p.x, p.y + bob * s, p.z), _q.setFromAxisAngle(_s.set(0, 1, 0), p.yaw), _s.set(s, s, s));
             const part = (mesh, k, x, y, z, rx = 0, ry = 0, rz = 0, sx = 1, sy = 1, sz = 1) => {

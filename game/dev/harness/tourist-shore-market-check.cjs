@@ -37,19 +37,31 @@ const out = process.env.OUT || '/tmp/tourist-shore-market'; fs.mkdirSync(out, { 
         };
         const test = async (name, fn) => { if (process.env.CASES && !process.env.CASES.split(',').includes(name)) return; const record = { name }; report.cases.push(record); save(); try { await fn(record); record.passed = true; } catch (e) { record.passed = false; record.failure = { message: e.message, stack: e.stack }; } save(); };
         if (!process.env.CASES?.startsWith('pier-')) await page.evaluate(() => game.enterSpot('pike-place'));
+        // Pike Place Fish (pike-place-fish.js): the crew throw five salmon over the ice to the player behind the counter; a
+        // catch needs the button at the end of the flight while facing the monger who threw it; three catches win
+        const fishState = () => page.evaluate(() => ({ game: game.spot.spot.ctx.extras.fishToss.game, active: game.spot.spot.ctx.extras.participation.active, fish: game.achievements.isUnlocked('lm-pike-fish'), crew: game.achievements.isUnlocked('lm-pike-fish-crew'), count: game.spot.progress.fish || 0 }));
+        const fishUntil = (cond) => page.evaluate(cond => { const f = () => game.spot.spot.ctx.extras.fishToss.game; for (let i = 0; i < 200 && f() && !(new Function('q', 'return ' + cond))(f()); i++) step(); return f(); }, cond);
+        const faceThrower = async () => { const t = await page.evaluate(() => { const F = game.spot.spot.ctx.extras.fishToss, T = F.throwers[F.game.thrower], y = game.camera.getWorldPosition(game.camera.position.clone()).y; return { x: T.x, y, z: T.z }; }); return aim(t); };
         await test('fish-immediate-pause-cancellation', async r => {
-            r.setup = await setup('fish'); r.controls = await act(); await page.evaluate(() => step(5));
-            r.inFlight = await page.evaluate(() => { const s = game.spot, it = s.spot.interactables.find(it => it.kind === 'fish'); return { label: it.label(s), award: game.achievements.isUnlocked('lm-pike-fish') }; });
-            assert.equal(r.inFlight.label, 'Catch!'); assert.equal(r.inFlight.award, false);
-            await tap('#pause-btn'); r.paused = await page.evaluate(() => { const s = game.spot, it = s.spot.interactables.find(it => it.kind === 'fish'); return { open: game.pauseOpen, label: it.label(s), award: game.achievements.isUnlocked('lm-pike-fish') }; });
-            await tap('#pause-menu .pm-x[data-pa=resume]'); assert.equal(r.paused.open, true); assert.equal(r.paused.award, false);
-            assert.ok(r.paused.label.startsWith('Ask'), 'Unfinished player fish throw survived host pause before another update');
+            r.setup = await setup('fish'); r.controls = await act(); r.inFlight = await fishUntil("q.state === 'flight'");
+            r.inFlight = await fishState(); assert.equal(r.inFlight.game.state, 'flight'); assert.equal(r.inFlight.active, true); assert.equal(r.inFlight.crew, false);
+            await tap('#pause-btn'); r.paused = { ...(await fishState()), open: await page.evaluate(() => game.pauseOpen) };
+            await tap('#pause-menu .pm-x[data-pa=resume]'); assert.equal(r.paused.open, true); assert.equal(r.paused.crew, false);
+            assert.equal(r.paused.active, false, 'Unfinished fish toss survived host pause before another update'); assert.equal(r.paused.game, null);
         });
-        await test('fish-native-timing-and-completion', async r => {
-            await page.evaluate(() => step(50)); r.setup = await setup('fish'); await act(); await page.evaluate(() => step(5)); await act();
-            assert.equal(await page.evaluate(() => game.achievements.isUnlocked('lm-pike-fish')), false, 'Early catch awarded');
-            await page.evaluate(() => step(8)); await capture('fish-in-flight'); await page.evaluate(() => step(5)); await act();
-            r.complete = await page.evaluate(() => ({ award: game.achievements.isUnlocked('lm-pike-fish'), count: game.spot.progress.fish, events: activityEvents })); assert.equal(r.complete.award, true); assert.equal(r.complete.count, 1);
+        await test('fish-native-timing-aim-and-completion', async r => {
+            await page.evaluate(() => step(50)); r.setup = await setup('fish'); await act(); r.start = await fishState(); assert.equal(r.start.active, true);
+            await fishUntil("q.state === 'flight' && q.time > 0.2 && !q.catchNow"); await tap('.sp-participation [data-action]'); // too early
+            r.early = await fishState(); assert.equal(r.early.game.last, 'early'); assert.equal(r.early.game.catches, 0);
+            r.catches = [];
+            for (let i = 0; i < 3; i++) {
+                await fishUntil("q.state === 'call'"); r.catches.push({ drags: await faceThrower() });
+                await fishUntil("q.state === 'flight' && q.k > 0.5"); if (i === 0) await capture('fish-in-flight');
+                await fishUntil('q.catchNow'); await tap('.sp-participation [data-action]'); r.catches[i].after = await fishState(); assert.equal(r.catches[i].after.game.last, 'catch', 'Facing the thrower at the end of the flight is a catch');
+            }
+            await page.evaluate(() => step(30)); r.complete = await fishState();
+            assert.equal(r.complete.active, false); assert.equal(r.complete.fish, true); assert.equal(r.complete.crew, true); assert.ok(r.complete.count >= 3);
+            r.events =await page.evaluate(() => activityEvents.filter(e => e.spot === 'pike-place')); assert.ok(r.events.some(e => e.id === 'fish-crew'));
         });
         if (process.env.ONLY !== 'fish') {
             await test('gum-native-aim-and-physical-wall-placement', async r => {

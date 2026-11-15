@@ -11,12 +11,11 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, canvas, canvasTexture, inPoly, clamp, smooth, headingFromBearing, offsetPolyline, alongPolyline, polylineLength, distPolyline, lerp, polyBox } from '../kit.js';
 import { meshSDF, sdEllipsoid, sdCapsule, sdSphere, smin, smax, noise3 } from '../sdf.js';
-import { neonSign, signBoard, latticeFrame, clockFace, canopy, stall, fishMesh, totemPole, railing } from '../props.js';
+import { neonSign, signBoard, latticeFrame, clockFace, canopy, stall, totemPole, railing } from '../props.js';
 import { addTraffic } from '../cars.js';
 import { buildingStyle, wallGeometry, facadeMaterial, facadeStyle } from '../osm.js';
 import { seaActivity, seaWheel, seaBackdrop, signAtlas } from './sea-common.js';
 import { coinDrop } from '../coin-drop.js';
-import { activityBlocked, onActivityCancel } from '../participation.js';
 import {prepareSourceContext,addSourceContext} from '../source-context.js';
 import { SURVEY, profile, gradeStreets, gradeWesternEastBank } from './pike-place-streets.js';
 import { marketWestMaterial, prepareWestSide, westFaceDressing, westSideSigns } from './pike-place-westface.js';
@@ -25,6 +24,8 @@ import { prepareLower, buildLower, GUM } from './pike-place-lower.js';
 import { prepareHalls, buildHalls, HALLS } from './pike-place-market.js';
 import { buildShopSigns } from './pike-place-shops.js';
 import { addStarbucksCoffee } from './pike-starbucks.js';
+import { marketFloors, floorWalls } from './pike-place-floors.js';
+import { buildFishToss } from './pike-place-fish.js';
 import { prepareFacades, buildFacades, FACADE_IDS } from './pike-place-facades.js';
 import { batchSourceContext, horizonCuller, solidShells, onRenderCamera, distanceHide, boxDistanceHide } from '../frame-budget.js';
 
@@ -136,61 +137,6 @@ function buildArcade(ctx, names = []) {
     ctx.lampPoints.push(...lamps.filter((_, i) => i % 5 === 2).map((l) => ({ x: l.x, z: l.z, y: l.y - 3.1, h: 3.0, noPost: true })));
 }
 
-// ---------------------------------------------------------------------------- flying fish
-function buildFishThrow(ctx) {
-    const fishLine = ctx.data.spots['pike-place'].dialogue.lines.filter((l) => l.p === 'fishmonger');
-    const fish = fishMesh(); fish.visible = false; ctx.add(fish);
-    const p0 = alongPolyline(PIKE_PLACE, 9.6);
-    const yS = profileY(9.6);
-    const front = { x: p0.x - p0.tz * -1.2, z: p0.z + p0.tx * -1.2 };    // monger in front of the counter (street side)
-    const back = { x: p0.x - p0.tz * -5.6, z: p0.z + p0.tx * -5.6 };     // catcher behind the counter
-    let t = -1, from = null, to = null, dur = 1.1, next = 4, toPlayer = false, caught = false, catchWindow = 0;
-    const cancelPlayerThrow = () => {
-        if (!toPlayer) return;
-        t = -1; catchWindow = 0; toPlayer = false; fish.visible = false; next = 5;
-    };
-    // Pause/conditions stop scene updates. Clear the unfinished player throw
-    // before the host freezes the scene, just as the shared activity flows do.
-    onActivityCancel(ctx, cancelPlayerThrow);
-    const throwFish = (a, bb, toP = false) => { from = a; to = bb; t = 0; dur = toP ? 1.25 : 1.05; fish.visible = true; toPlayer = toP; caught = false; };
-    ctx.onUpdate((dt, s, pl) => {
-        if (toPlayer && activityBlocked(s)) { cancelPlayerThrow(); return; }
-        next -= dt;
-        if (t < 0 && next <= 0) {
-            next = 5 + Math.random() * 6;
-            throwFish({ ...front, y: yS + 1.5 }, { ...back, y: yS + 1.6 });
-            const c = s.spot.crowd, m = c?.peds.find((p) => p.persona === 'fishmonger' && Math.hypot(p.x - front.x, p.z - front.z) < 2.5);
-            if (m && fishLine.length) { const l = fishLine[Math.floor(Math.random() * fishLine.length)]; s.ui.bubbles.say(c._headRef(m), l.text, '', ''); }
-            s.sound.play('calls', 1);
-        }
-        if (t >= 0) {
-            t += dt / dur;
-            const k = Math.min(1, t), x = lerp(from.x, to.x, k), z = lerp(from.z, to.z, k), y = lerp(from.y, to.y, k) + Math.sin(Math.PI * k) * 2.4;
-            fish.position.set(x, y, z); fish.lookAt(to.x, y + (k < 0.5 ? 0.6 : -0.6), to.z); fish.rotateZ(t * 9);
-            if (toPlayer) { catchWindow = k > 0.72 ? 0.45 : 0; if (pl && k > 0.72) { to.x = pl.x; to.z = pl.z; to.y = pl.y + 1.3; } }
-            if (t >= 1) {
-                if (toPlayer && !caught) { s.ui.toast('🐟 Butterfingers!', 'Press E as the fish arrives to catch it.'); s.sound.play('splat'); }
-                fish.visible = false; t = -1;
-            }
-        }
-    });
-    ctx.interactables.push({
-        kind: 'fish', x: front.x + (front.x - back.x) * 0.5, z: front.z + (front.z - back.z) * 0.5, r: 4.5,
-        label: (s) => (t >= 0 && toPlayer ? 'Catch!' : 'Ask the fishmongers to throw you a salmon'),
-        use: (s) => {
-            if (activityBlocked(s)) return;
-            if (t >= 0 && toPlayer) {
-                if (catchWindow > 0 && !caught) { caught = true; fish.visible = false; t = -1; s.ui.toast('🐟 Caught it!', 'Flying fish since 1986 — up to 10,000 people watch on a summer day.'); s.sound.play('catch'); s.progress.fish = (s.progress.fish || 0) + 1; seaActivity(s, 'lm-pike-fish', 'pike-place'); }
-                return;
-            }
-            const p = s.ctl.position;
-            throwFish({ ...front, y: yS + 1.5 }, { x: p.x, z: p.z, y: p.y + 1.3 }, true);
-            s.ui.bubbles.say({ x: front.x, z: front.z, y: yS + 2.2 }, 'One salmon flying to our visitor!', '', 'friendly'); s.sound.play('calls');
-        },
-    });
-    return { front, back };
-}
-
 // ---------------------------------------------------------------------------- the original Starbucks (1912 Pike Place, Soames-Dunn Building)
 function buildStarbucks(ctx) {
     const grp = new THREE.Group(); grp.name = 'original-starbucks';
@@ -230,7 +176,20 @@ function benchFoot(x, z) { return 1 - smooth(-4, 0, (x + 277) * 0.692 - (z + 83)
 function buildSteinbrueck(ctx) {
     const b = new GeoBatch(), g = ctx.ground;
     for (const [x, z, h, sd] of [[-297.6, -110.4, 15.2, 3], [-320.3, -130.7, 15.2, 8]]) { totemPole(b, x, g.heightAt(x, z), z, h, 0.5, { seed: sd }); ctx.circle(x, z, 0.5, h); }
-    ctx.add(b.build('steinbrueck-poles'));
+    // the park is a lid on the bluff: where its edge drops to the slope below (its west wall over Western Ave, the south-east
+    // corner), a railing runs along it and the walker cannot step off (the flood test from the spawn fell 10–30 m there)
+    const park = ctx.data.areas.find((a) => a.id === 'w14026690');
+    if (park) { const P = park.poly, runs = []; let run = null;
+        for (let i = 0; i < P.length; i++) { const A = P[i], B = P[(i + 1) % P.length], L = Math.hypot(B[0] - A[0], B[1] - A[1]), n = Math.max(1, Math.round(L / 1.5)); let nx = (B[1] - A[1]) / L, nz = -(B[0] - A[0]) / L;
+            if (inPoly((A[0] + B[0]) / 2 + nx * 0.5, (A[1] + B[1]) / 2 + nz * 0.5, P)) { nx = -nx; nz = -nz; } // outward
+            for (let k = 0; k <= n; k++) { const x = A[0] + (B[0] - A[0]) * k / n, z = A[1] + (B[1] - A[1]) * k / n, drop = g.heightAt(x - nx * 1.0, z - nz * 1.0) - g.heightAt(x + nx * 2.5, z + nz * 2.5);
+                if (drop > 1.5) { const p = [x - nx * 0.35, z - nz * 0.35]; if (!run) runs.push(run = []); if (!run.length || Math.hypot(p[0] - run[run.length - 1][0], p[1] - run[run.length - 1][1]) > 0.05) run.push(p); } else run = null; }
+        }
+        const rb = new GeoBatch(), yAt = (x, z) => g.heightAt(x, z);
+        for (const r of runs) { if (r.length < 2) continue; railing(rb, r, yAt, { h: 1.07 });
+            for (let i = 1; i < r.length; i++) { const [ax, az] = r[i - 1], [bx, bz] = r[i], L = Math.hypot(bx - ax, bz - az) || 1; ctx.collider({ wall: true, ax, az, bx, bz, y0a: yAt(ax, az) - 1, y1a: yAt(ax, az) + 1.3, y0b: yAt(bx, bz) - 1, y1b: yAt(bx, bz) + 1.3, nx: (bz - az) / L, nz: -(bx - ax) / L }); } }
+        ctx.add(rb.build('steinbrueck-rail')); ctx.extras.steinbrueckRail = runs.reduce((a, r) => a + r.length, 0);
+    }
 }
 
 // ---------------------------------------------------------------------------- 1st Ave: three-globe lamp posts
@@ -263,6 +222,9 @@ export default {
         // ---- ground: Pike Place, Pike St, Post Alley at their real levels; Elliott Bay below the bluff
         gradeStreets(g); gradeWesternEastBank(g, d.buildings.filter((b) => !b.part).map((b) => b.poly)); // every street at its surveyed level (Pike St is nearly flat; the steep cobbles are the ramp into Post Alley)
         g.flatten([[-58.4, 39.9], [-61.3, 41.6], [-54.9, 51.8], [-53.6, 53.8], [-50.3, 51.7], [-44, 47.9], [-46.6, 40.3], [-51, 39.5]], SURVEY.pikeSt[3][2], 2); // the market-level floor under the sign, out to the deck over Post Alley
+        // … and the wedge between the sign corner, the LaSalle Hotel and the top of the espresso corner (under the OSM roof
+        // w1275882967): the bluff showed through it as a 3–4 m pit at the edge of the market floor
+        g.flatten([[-54.9, 51.8], [-53.6, 53.8], [-56.6, 56.4], [-60.5, 55.6]], SURVEY.pikeSt[3][2], 0);
         g.mod((x,z,h)=>{const t=d.terrain,dx=Math.max(t.x0-x,0,x-(t.x0+(t.nx-1)*t.d)),dz=Math.max(t.z0-z,0,z-(t.z0+(t.nz-1)*t.d)),weight=1-smooth(0,t.d,Math.hypot(dx,dz));
             const local=x < -335 ? Math.min(h,-40) : x < -315 ? Math.min(h,lerp(-31,-40,(-315-x)/20)) : h;return lerp(h,local,weight*benchFoot(x,z));});
         // Victor Steinbrueck Park is a level lid on top of the bluff: USGS 3DEP 1 m DEM (EPQS, 2026-11-12) 30.7–31.5 m NAVD88
@@ -296,10 +258,11 @@ export default {
         // hero arcade replacing the Main Arcade footprints: storeys drop down the bluff to the west (below street level),
         // an open market floor at street level (stalls under the canopy, dark hall behind), cream stucco + green trim above
         {
-            const bb = new GeoBatch();
+            const bb = new GeoBatch(), floors = [], walls = [];
             const mains = d.buildings.filter((b) => b.id === 'w231357660' || b.id === 'w1271653800'); // the sign corner + the Leland Hotel
             for (const m of mains) {
                 let top = -1e9; for (const [x, z] of m.poly) top = Math.max(top, ppAt(x, z).y);
+                floors.push({ poly: m.poly, y: () => top }); // the market floor (pike-place-floors.js): the bluff falls away under it
                 const hotel = m.id === 'w1271653800', hh = hotel ? 13.4 : 5.6, bottom = Math.min(...m.poly.map(([x, z]) => g.base(x, z))) - 2;
                 if (hotel) ctx.extras.lelandRoof = top + hh; // (its upper storeys: pike-place-facades.js)
                 else bb.prism(m.poly, top + 3.9, top + hh, '#e9dfc6', 'paint', { noTop: true }); // the corner is one storey: the sign stands on its roof
@@ -308,6 +271,7 @@ export default {
                 // the market-floor storey is enclosed except on the Pike Place / Pike St fronts (no see-through to the bay, note 49)
                 for (let i = 0; i < m.poly.length; i++) { const [ax, az] = m.poly[i], [bx, bz] = m.poly[(i + 1) % m.poly.length], mx = (ax + bx) / 2, mz = (az + bz) / 2;
                     if (Math.hypot(bx - ax, bz - az) < 0.5 || distPolyline(mx, mz, PIKE_PLACE).d < 7 || distPolyline(mx, mz, PIKE_ST).d < 8) continue;
+                    walls.push({ a: [ax, az], b: [bx, bz], y0: top - 0.5, y1: top + 3.95 });
                     bb.quad([ax, top - 0.2, az], [bx, top - 0.2, bz], [bx, top + 3.95, bz], [ax, top + 3.95, az], '#d9cfb6', 'concrete'); const L = Math.hypot(bx - ax, bz - az), ox = (bz - az) / L * 0.08, oz = -(bx - ax) / L * 0.08; bb.quad([bx + ox, top - 0.2, bz + oz], [ax + ox, top - 0.2, az + oz], [ax + ox, top + 3.95, az + oz], [bx + ox, top + 3.95, bz + oz], '#3a332c', 'concrete'); }
                 bb.flat(m.poly, top + hh, '#77736c', 'roofs');
                 bb.prism(m.poly, top + 3.75, top + 3.9, '#3b3631', 'concrete', { bottom: true, noTop: true }); // ceiling of the market floor
@@ -317,6 +281,7 @@ export default {
             const trim = offsetPolyline(OPEN_FRONT, -5.0);
             for (let i = 1; i < trim.length; i++) { const [ax, az] = trim[i - 1], [bx, bz] = trim[i], ya = ppAt(ax, az).y, yb = ppAt(bx, bz).y; bb.quad([ax, ya + 3.9, az], [bx, yb + 3.9, bz], [bx, yb + 4.5, bz], [ax, ya + 4.5, az], '#2f5a44', 'paint'); { const L = Math.hypot(bx - ax, bz - az) || 1, ox = (bz - az) / L * 0.06, oz = -(bx - ax) / L * 0.06; bb.quad([bx + ox, yb + 3.9, bz + oz], [ax + ox, ya + 3.9, az + oz], [ax + ox, ya + 4.5, az + oz], [bx + ox, yb + 4.5, bz + oz], '#2f5a44', 'paint'); } }
             ctx.add(bb.build('main-arcade', { matOverrides: { 'f-brick': facadeMaterial('brick'), 'f-apartment': marketWestMaterial() } }));
+            marketFloors(ctx, floors); floorWalls(ctx, walls);
         }
         buildHalls(ctx, { line: PIKE_PLACE, at: ppAt });
         { const W = profile(SURVEY.western); ctx.extras.westFace = westFaceDressing(ctx, W); ctx.extras.westSideSigns = westSideSigns(ctx, W); } // colonnade + lettering, PARKING sign
@@ -329,7 +294,7 @@ export default {
                 return /^(w206858876|w206858888)$/.test(W.host.id) ? 'stripe' : ['#2f5a44', '#7a2e1d', '#1f3a52', '#3b3b3b'][Math.abs(Math.round(mx * 7 + mz * 3)) % 4]; } });
         buildSigns(ctx, ctx.extras.signRoof ?? profileY(0) + 10.8);
         buildRachel(ctx);
-        const fish = buildFishThrow(ctx);
+        const fish = buildFishToss(ctx, { line: PIKE_PLACE, seaActivity }); // Pike Place Fish Market: the everyday toss + the catch challenge (pike-place-fish.js)
         const sb = buildStarbucks(ctx);
         ctx.extras.starbucksCoffee = addStarbucksCoffee(ctx, sb); // (owner, 2026-11-15) order and drink a coffee at the first Starbucks
         buildSteinbrueck(ctx);
@@ -379,10 +344,11 @@ export default {
             walkers: 46,
             paths: [PIKE_PLACE, offsetPolyline(PIKE_PLACE, 3.2), offsetPolyline(PIKE_PLACE, -2.6), PIKE_ST, lower.rampLine, [lower.rampLine[2], ...lower.alleyLine, ...POST_ALLEY_S], offsetPolyline(firstAve, 9.2), offsetPolyline(firstAve, -9.2), [[-140, -58], [-122, -69], [-93, -87]], [[-172, -75], [-144, -108], [-120, -136]]],
             groups: [
-                { x: fish.front.x, z: fish.front.z, r: 0.3, n: 1, act: 'throw', look: [fish.back.x, fish.back.z], personas: ['fishmonger'] },
-                { x: fish.back.x, z: fish.back.z, r: 0.4, n: 2, act: 'watch', look: [fish.front.x, fish.front.z], personas: ['fishmonger'] },
-                { x: fwx, z: fwz, r: 3.2, n: 14, act: 'watch', look: [fish.back.x, fish.back.z], personas: ['tourist_us', 'tourist_cn', 'tourist_jp', 'tourist_kr', 'tourist_de', 'tourist_es', 'tourist_in', 'kid', 'local'] },
-                { x: fwx - 1.5, z: fwz + 2.5, r: 1.2, n: 3, act: 'photo', look: [fish.back.x, fish.back.z], personas: ['tourist_us', 'tourist_cn', 'photographer'] },
+                // Pike Place Fish: two mongers out front of the ice, one catching and wrapping behind the counter (pike-place-fish.js)
+                ...fish.throwers.map((t) => ({ x: t.x, z: t.z, r: 0.05, n: 1, act: 'watch', yaw: t.yaw, fixedYaw: true, personas: ['fishmonger'] })),
+                { x: fish.crew.x, z: fish.crew.z, r: 0.05, n: 1, act: 'watch', yaw: fish.crew.yaw, fixedYaw: true, personas: ['fishmonger'] },
+                { x: fwx, z: fwz, r: 3.2, n: 14, act: 'watch', look: [fish.catcher.x, fish.catcher.z], personas: ['tourist_us', 'tourist_cn', 'tourist_jp', 'tourist_kr', 'tourist_de', 'tourist_es', 'tourist_in', 'kid', 'local'] },
+                { x: fwx - 1.5, z: fwz + 2.5, r: 1.2, n: 3, act: 'photo', look: [fish.catcher.x, fish.catcher.z], personas: ['tourist_us', 'tourist_cn', 'photographer'] },
                 { x: RACHEL.x + 2.4, z: RACHEL.z + 1.6, r: 1.2, n: 3, act: 'photo', look: [RACHEL.x, RACHEL.z], personas: ['tourist_us', 'tourist_in', 'tourist_es'] },
                 { x: RACHEL.x + 0.6, z: RACHEL.z + 0.9, r: 0.3, n: 1, act: 'pose', look: [RACHEL.x + 4, RACHEL.z + 3], personas: ['kid'] },
                 { x: GUM.x - 0.4, z: GUM.z - 1.5, r: 1.6, n: 6, act: 'photo', look: [GUM.x + 2.6, GUM.z - 1.2], y: lower.floorY, personas: ['tourist_us', 'tourist_kr', 'tourist_cn', 'tourist_ca', 'kid'] },
@@ -397,7 +363,7 @@ export default {
             ],
         };
         // ---- sounds: crowd murmur, fish calls, gulls over the bay, 1st Ave traffic
-        ctx.sound('crowd', -60, 30, 60, 1.2); ctx.sound('crowd', -150, -60, 70, 1); ctx.sound('calls', fish.front.x, fish.front.z, 40, 1);
+        ctx.sound('crowd', -60, 30, 60, 1.2); ctx.sound('crowd', -150, -60, 70, 1); ctx.sound('calls', fish.throwers[0].x, fish.throwers[0].z, 40, 1);
         ctx.sound('gulls', -240, -40, 160, 1); ctx.sound('traffic', -10, 10, 50, 0.6); ctx.sound('bell', -150, -60, 200, 0.5);
         // top of Pike St, the sign straight ahead — 9 m down from the 1st Avenue centreline (L34: the old spawn stood in the
         // 1st Ave carriageway, a car brushing past the player)

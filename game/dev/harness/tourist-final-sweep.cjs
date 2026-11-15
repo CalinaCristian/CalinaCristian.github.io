@@ -9,7 +9,7 @@ const targets = [
     ['kerry-park', 'photo-hunt'], ['waterfront', 'ride'], ['pioneer-square', 'Frame the seven pole figures'], ['ballard-locks', 'lockage'], ['gas-works', 'kite'],
     ['bel-lincoln-square', 'photo-hunt'], ['athenaeum-revolution', 'photo-hunt'], ['arcul-de-triumf', 'photo-hunt'], ['spring-palace', 'photo-hunt'], ['palace-parliament', 'photo-hunt'],
     ['cismigiu', 'Row a boat from Debarcader'], ['herastrau-park', 'rowboat'], ['village-museum', 'Record a virtual passport visit:'],
-    ['bel-meydenbauer', 'Walk to the end of the crescent pier'], ['bel-downtown-park', 'coin'], ['bel-botanical-garden', 'Cross the ravine suspension bridge'],
+    ['bel-meydenbauer', 'sup'], ['bel-downtown-park', 'coin'], ['bel-botanical-garden', 'Cross the ravine suspension bridge'],
 ];
 (async () => {
     const browser = await chromium.launch({ headless: true, args: ['--mute-audio', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });

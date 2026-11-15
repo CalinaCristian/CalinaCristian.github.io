@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-2566b2a8f4f8330e",
-  "sourceCommit": "f77dd6b18415a8a657ed7de857b76e1b938c9394",
-  "fingerprint": "2566b2a8f4f8330e81c77b7ae2cd0cd2b5099e53e3e3b3b657a1de8ee63483fe",
+  "releaseId": "game-8197ab0aa57a8695",
+  "sourceCommit": "327e18b017a9824f4acef1fd517e49b5ebcf3a3f",
+  "fingerprint": "8197ab0aa57a8695fff242b118891015947cf244e942deb30b18d7ac237cc2b1",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -1266,7 +1266,7 @@
     },
     {
       "path": "game/src/spots/people.js",
-      "sha256": "7bf7876606fe2ce74ab367786312cc3f8eef17149cab899b335f36830adc4b0e"
+      "sha256": "cdff42ba43e119b3b7fc9c608a399ca69d86f11bfe2dad073f35317fcd24ed21"
     },
     {
       "path": "game/src/spots/petanque.js",
@@ -1422,7 +1422,7 @@
     },
     {
       "path": "game/src/spots/scenes/fremont-troll.js",
-      "sha256": "8bf2bf288dd3a0c99d060caebc61cfb4ef5496cbf15670d5e260110f2aba9108"
+      "sha256": "6816a567d61c6b0466bc41f3d2e08871388977d0e58449acc020ec43958df929"
     },
     {
       "path": "game/src/spots/scenes/gas-works.js",
@@ -1662,7 +1662,7 @@
     },
     {
       "path": "game/src/spots/walker.js",
-      "sha256": "0bba1c5674ddce80aaa8787e2acf5271872dab484c5bca3495a97bcf66aac09a"
+      "sha256": "cc4e1bdd1f0cae6eb7a4ba63eefb62832992bfd3844ab26b5c18c91ebab0522b"
     },
     {
       "path": "game/src/spots/water-route.js",
@@ -1862,7 +1862,7 @@
     },
     {
       "path": "game/src/world-buildings.js",
-      "sha256": "ed9e83628cd45ac4e5fa9f51ba1a8df9a5910aebbd31a91ef09030384750e2cd"
+      "sha256": "ccf0f8285ca4cfe3ada52c880315ff05a7ed676f6ad85386894c1c9c3ce78b39"
     },
     {
       "path": "game/src/world-collide.js",
@@ -1894,7 +1894,7 @@
     },
     {
       "path": "game/src/world-finish.js",
-      "sha256": "ba2a108c9ed50b2098c6cd532be97fc2a203a0754fb44a2c436f472e92fdb939"
+      "sha256": "6970e5bf4b9b636fe46f2276748556a47f3890466151811ecf1096ff5a862327"
     },
     {
       "path": "game/src/world-furniture.js",
@@ -1982,7 +1982,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "07e83915430d71f7d41e8b47bc13cb4860bc140623b6bc951dd34ef755df9862"
+      "sha256": "465a1575e90aed1fb54da3f68f6264b1f47c750d3ef2b558048de7a183c01dcc"
     },
     {
       "path": "game/src/worldmap.js",

@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-7e69435695f267e9",
-  "sourceCommit": "e89ab8589daaa02052c9344f6e4eba9617df0a7d",
-  "fingerprint": "7e69435695f267e95aece7f20559242d1d9566ac1429dc4a3134d555e9b3cd7f",
+  "releaseId": "game-bbe7c232a399f098",
+  "sourceCommit": "224eb771997ece823437f1e1b61a4c411c5189e7",
+  "fingerprint": "bbe7c232a399f0983e7a7db468fa8490b6cd9fc437cc4cee3ebb0262f4d2d9a3",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -402,7 +402,7 @@
     },
     {
       "path": "game/src/cities.js",
-      "sha256": "62a8dcfd5393a4569b057326b107f507f2356f92f8c70773d5b7fd3692fbdb48"
+      "sha256": "98f06356c06f369021795fac29672073c42baafb835dd7548cdd6b5dca7328a7"
     },
     {
       "path": "game/src/cockpit-displays.js",

@@ -49,7 +49,8 @@ bracketed keys point to **Sources** at the end.
   warehouses, hotels, billboards on tall poles, flat open land. Transit: STB express buses 100 and 780, regional 4xx.
 - **Bd. Aeroportului**: one-way airport loop (2 lanes, north side), Hilton Garden Inn (w756554173, 4 lv / 12 m), car parks.
 - **Access road from DN1 under the rail viaduct** (panoramas 44.568636, 26.071303; 44.56877, 26.07244; 44.56878, 26.0734):
-  two lanes, grass verges, sidewalk on the south side only.
+  two lanes, grass verges, sidewalk on the south side only. OSM w19750498 has no sidewalk tag: game exception
+  `sidewalk=right` (`SIDE_TAG_GAPS` in `game/src/sidewalk-source.js`), so no inferred north sidewalk.
 - **Signs**: blue gantry signs for DN routes, white for local, to "Aeroport Henri Coandă".
 - **Congestion hotspots** (feed `congestion`): DN1 southbound towards Băneasa (44.562, 26.0697, r 400 m, 7–10 and 16:30–20,
   level 0.65; northbound lighter in the morning) [tomtom_peak]; departures kerb / ramp (44.5696, 26.077, r 150 m, 4:30–7:30

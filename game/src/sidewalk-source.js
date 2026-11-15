@@ -2,6 +2,10 @@
 // This only describes inferred roadside pavement. Separately mapped footways
 // and source areas are not altered or reclassified here.
 const absent = v => v == null || v === '';
+// Documented exceptions: sidewalk side tags OSM lacks, read from Street View (a gap filled, nothing mapped is overridden).
+// w19750498, the one-way access road from DN1 under the Otopeni rail viaduct: sidewalk on the south (right of travel)
+// side only (panoramas 44.568636, 26.071303; 44.56877, 26.07244; 44.56878, 26.0734; research/bucharest-otopeni.md).
+const SIDE_TAG_GAPS = { w19750498: { sidewalk: 'right' } };
 const state = v => /^(yes|both|left|right)$/.test(v) ? true : /^(no|none|separate)$/.test(v) ? false : null;
 
 function sourceDirection(source, edge) {
@@ -22,10 +26,10 @@ function sourceDirection(source, edge) {
 }
 
 export function sourceSidewalkSides(data, edge) {
-    const source = data.roadSourceGeometry?.[edge.road], tags = source?.tags || {}, width = Math.max(0, edge.sidewalk || 0);
+    const source = data.roadSourceGeometry?.[edge.road], gap = SIDE_TAG_GAPS[source?.sourceId], tags = gap && !['sidewalk', 'sidewalk:both', 'sidewalk:left', 'sidewalk:right'].some(k => !absent(source.tags?.[k])) ? { ...source.tags, ...gap } : source?.tags || {}, width = Math.max(0, edge.sidewalk || 0);
     const explicit = ['sidewalk', 'sidewalk:both', 'sidewalk:left', 'sidewalk:right'].some(k => !absent(tags[k]));
     const result = { rightM: width, leftM: width, explicit, sourceId: source?.sourceId || null, sourceForward: null,
-        basis: explicit ? 'literal original-source sidewalk side tags' : 'unchanged inferred fallback; source side tags absent' };
+        basis: gap && tags !== source?.tags ? 'documented exception: side tag OSM lacks (SIDE_TAG_GAPS)' : explicit ? 'literal original-source sidewalk side tags' : 'unchanged inferred fallback; source side tags absent' };
     if (!explicit) return result;
     const forward = sourceDirection(source, edge); result.sourceForward = forward;
     if (forward == null) return { ...result, unresolved: 'source-way direction not uniquely matched; inferred fallback retained' };

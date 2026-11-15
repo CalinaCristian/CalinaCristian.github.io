@@ -17,7 +17,7 @@ export function buildEdgeRibbons(ctx) {
     const {
         RETAIN_H, US, asphaltBase, asphaltEnds, ballastCol, band, cellOf, city,
         concreteCol, convexApart, convexOverlap, corner, coveredByOther, dash, dashLine, data,
-        displace, edgeGrid, edges, edgesInBox, isConcrete, kerbCol, lampSpots, laneTapers,
+        displace, edgeGrid, edgeLineCovered, edges, edgesInBox, isConcrete, kerbCol, lampSpots, laneTapers,
         layerY, markProxy, nodeArr, pushPad, railRoadside, raised, raisedEdge, researchTrees,
         retainedDeck, retract, ribPoly, ribbons, rng, roads, sharedBridgeMeshAudit, sideCol,
         sideExtra, solidLine, str, surfGrid, tramGrades, treeSpots, white, widthAsphalt,
@@ -179,7 +179,7 @@ export function buildEdgeRibbons(ctx) {
         if (e.a.pad) { pushPad(e.a, 'road', aR); pushPad(e.a, 'road', aL); }
         if (e.b.pad) { pushPad(e.b, 'road', bR); pushPad(e.b, 'road', bL); }
         // ---- markings
-        const s0 = retract(e, e.a), s1 = e.len - retract(e, e.b);
+        const s0 = e.a.passPad ? 0 : retract(e, e.a), s1 = e.len - (e.b.passPad ? 0 : retract(e, e.b)); // (a pass-through pad: the lines run on to the node, world.js)
         const sourceMarks=markProxy(c.marks,e),pendingLongitudinal=[],longM={flatQuad(...q){pendingLongitudinal.push(q);}};
         let longStart=-Infinity,longEnd=Infinity;
         const reserveControl=(end,sa,sb)=>{if(end===e.a)longStart=Math.max(longStart,sa,sb);else longEnd=Math.min(longEnd,sa,sb);};
@@ -256,7 +256,7 @@ export function buildEdgeRibbons(ctx) {
             // higher, so the paint priority kept it). An edge line inside another carriageway at its level marks nothing: it is
             // laid in 1 m pieces and a piece whose middle lies inside another level carriageway is left out.
             if (!minor) {
-                const edgeM = { flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, ...rest) { const cx = (x0 + x1 + x2 + x3) / 4, cz = (z0 + z1 + z2 + z3) / 4; if (coveredByOther(cx, cz, e, yAlong(e, cx, cz), .3, false, .15)) return; longM.flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, ...rest); } };
+                const edgeM = { flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, ...rest) { const cx = (x0 + x1 + x2 + x3) / 4, cz = (z0 + z1 + z2 + z3) / 4; if (edgeLineCovered(cx, cz, e, yAlong(e, cx, cz))) return; longM.flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, ...rest); } };
                 if (s1 - s0 > .2) {
                     if (e.taperR) { const n = Math.max(1, Math.ceil(s1 - s0)); for (let i = 0; i < n; i++) { const sa = s0 + (s1 - s0) * i / n, sb = s0 + (s1 - s0) * (i + 1) / n, oa = e.wR - 0.15 + sideExtra(e, 1, sa), ob = e.wR - 0.15 + sideExtra(e, 1, sb), P = (q, o) => [e.a.x + e.dirx * q + e.nx * o, e.a.z + e.dirz * q + e.nz * o], A = P(sa, oa - 0.08), B = P(sb, ob - 0.08), C = P(sb, ob + 0.08), D = P(sa, oa + 0.08); edgeM.flatQuad(A[0], A[1], B[0], B[1], C[0], C[1], D[0], D[1], yM, white, 0); } } // (a lane-drop taper: the line closes in with the kerb)
                     else dashLine(edgeM, e, s0, s1, e.wR - 0.15, yM, white, Math.min(1, s1 - s0), 0, 0.08);

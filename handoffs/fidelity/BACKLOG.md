@@ -6,7 +6,27 @@ folder may hold: [`AGENTS.md`](../../AGENTS.md).
 
 ## Owner reports
 
-None open.
+2026-11-15, Grozăvești, release game-bbe7c232a399f098 (F8 poses: eye x, y, z · bearing° · pitch°).
+
+| Pose | Report | Next step |
+|---|---|---|
+| (1088, 19, -1265) · 3 · 19 | "windows in roof": the top window row of w156815215 (29 m block north of Titulescu) reads as openings in the roof edge | Find which layer (facade tile, near detail, parapet) puts a window at the eaves; fix for every block, check the pose |
+| (887, 32, -1127) · 226 · -52 | "lines should be continouse": lane and edge lines on the Basarab overpass stop and restart | Audit marking continuity along the whole overpass (both carriageways); fix the cause, survey top-down |
+| (720, 31, -964) · 225 · -23 | (same class) a solid line on the overpass ends abruptly | As above |
+| (678, 22, -932) · 226 · -50 | (same class) the left edge line of the overpass carriageway stops | As above |
+| (495, 16, -653) · 229 · -84 | "looks odd": street level beside the overpass seen from above: a dark sliver strip, overlapping kerbs and islands, lines ending in the carriageway, a pale patch on the road | Identify each piece (edge ribbons, islands, profile pieces) and fix the overlaps |
+| (83, 8, 120) · 300 · -35 | "weird fences": on the grass median at the south end of the overpass the railing ends turn into small box-shaped cages | Find the railing end / return pieces there and end the runs cleanly |
+| (100, 18, -36) · 347 · -39 | "bridge support is longer than bridge": a grey support block under the overpass sticks out past the deck edge over the street below | Clip the bent / pier block to the deck footprint (bridge-bents.js) and check every bent along the overpass |
+| Unirii (-410, -2, -22) · 87 · -1, driving | "i can see throguh in pasajul unirii when i exit it": leaving the underpass eastbound, the street level above shows through (ground seen from below, buildings at eye level) | Close the tunnel mouth / lid at the east exit; check both mouths of Pasajul Unirii |
+| Pipera (711, 24, 183) · 228 · -11 | "is this real? the buildings withing buildings?": glass towers rise out of low three-storey blocks along the boulevard | Check OSM there (overlapping `building` ways, stale pre-tower blocks, `building:part`); answer, and drop or cut whatever is not real |
+| Pipera (-1284, 9, 85) · 54 · -69 | "lanes missplaced? conflicting": on a wide carriageway the lane dashes are sparse and do not match where the queued cars drive | Compare the painted dividers with the lane count / width and the traffic lane offsets there |
+| Romană (450, 34, 966) · 227 · -17 | "buildings colliding": the large stone building with the flag (Piața Victoriei) runs into the yellow building beside it | Identify both (landmark model vs OSM footprint), cut the overlap to the real outlines |
+| Romană (350, 27, 105) · 278 · 13 | "floaring": the NetBet rooftop billboard floats, its legs end above the pitched roof | Stand rooftop billboard legs on the roof surface under each leg (pitched roofs too) |
+| Romană, UiPath building (chapter uipath-buc) | "is this how uipath building looks in real life? looks weird to me": a pale gridded block with a black glass top floor and a grey slab on the roof | Check the building's research dossier and photos; correct the model to the real facade and roof |
+| Romană (-254, 1, -319) · 219 · 18 | "flickering on the door": the Europe House entrance, a light door panel z-fights with the dark opening behind it | Separate the door panel from the opening (offset / one surface) |
+| Otopeni (-261, 15, -423) · 69 · -35 | "in the middle of the road?": the ramp down from the covered airport walkway lands in the middle of the carriageway | Check the walkway / ramp against OSM (footway, layer, where it touches down); put it beside the road or end it where the source does |
+| Otopeni (-158, 6, -435) · 64 · -11 | "not connected?": the pillars under the covered walkway stop short of the deck | Pillars up to the deck soffit along the whole walkway |
+| (453, 13, -778) · 330 · -43 | "missing fence": a gap in the blue railing where the overpass bends; the lines break there too | Railing open ends along the whole overpass (`railingNetwork.openEnds`); close this one |
 
 ## Other open work
 

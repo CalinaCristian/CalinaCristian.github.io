@@ -136,6 +136,15 @@ export async function buildWorld(city, renderer, opts = {}) {
         return d1x * d2x + d1z * d2z < 0.35 || needsRoadBevelPad(e1, e2, n, (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + sideExtra(e, s, e.a === n ? 0 : e.len)); // sharp turn / infeasible width transition → bevel pad
     }
     for (const n of nodeArr) n.pad = n.edges.length ? isPadNode(n) : false;
+    // (owner, 2026-11-15, Grozavesti, the Basarab overpass: "lines should be continouse") a pad where one road only goes on
+    // (two edges, nothing else meeting, a bend under ~45°: a width change or a short bend) is no junction for the paint:
+    // lane and edge lines run on to the node instead of stopping short of the pad (up to 45% of each 9 m piece was bare)
+    for (const n of nodeArr) {
+        n.passPad = false; if (!n.pad || n.edges.length !== 2 || (n.allEdges && n.allEdges.length !== 2)) continue;
+        const [e1, e2] = n.edges;
+        const d1x = e1.b === n ? e1.dirx : -e1.dirx, d1z = e1.b === n ? e1.dirz : -e1.dirz, d2x = e2.a === n ? e2.dirx : -e2.dirx, d2z = e2.a === n ? e2.dirz : -e2.dirz;
+        n.passPad = d1x * d2x + d1z * d2z >= 0.7 && !e1.virtual && !e2.virtual;
+    }
     function retract(e, n) { return ((n.pad ?? isPadNode(n)) && (n.allEdges || n.edges).length >= 2 ? Math.min(n.radius, e.len * 0.45) : 0); }
     /**
      * corner point of edge e at node n on side s (+1 = right of a→b, -1 = left) at lateral distance w (≥0) from the centreline;

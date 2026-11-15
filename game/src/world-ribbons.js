@@ -112,13 +112,19 @@ export function buildRibbons(ctx) {
     // ---- pass 1: every carriageway polygon (mitred at degree-2 nodes, cut back to the pad at junctions) and every
     //      junction pad (hull of the incoming ribbon corners), so pass 2 can keep kerbs / markings off any OTHER
     //      surface (dual carriageways that touch, slip lanes, pads): one visible surface per spot, no marking over it
-    const ribPoly = new Map(), surfGrid = new BoxGrid(24), surfList = [];
+    const ribPoly = new Map(), markPoly = new Map(), surfGrid = new BoxGrid(24), surfList = [];
+    const ownPad = (o, e) => !!(o.node && o.node.passPad && (o.node === e.a || o.node === e.b)); // (the road's own pass-through pad holds its paint)
     {
         const padPts = new Map();
         for (const e of edges) {
             if (e.virtual) continue;
             const [aR, bR, bL, aL] = asphaltCorners(e, widthAsphalt);
             const poly = [aR, bR, bL, aL]; ribPoly.set(e, poly);
+            // paint outline: at a pass-through pad (world.js) the ribbon stops short of the node, and where one road goes on at a
+            // width step the mitred corner pulls the outer rim in (a wedge up to ~6 m long): the lines run on to the node at their
+            // own full width (the neighbour's paint takes over there)
+            const sqEnd = n => n.passPad || (!n.pad && n.edges.length === 2);
+            if (sqEnd(e.a) || sqEnd(e.b)) { const sq = (n, s) => [n.x + e.nx * s * widthAsphalt(e, s), n.z + e.nz * s * widthAsphalt(e, s)]; markPoly.set(e, [sqEnd(e.a) ? sq(e.a, 1) : aR, sqEnd(e.b) ? sq(e.b, 1) : bR, sqEnd(e.b) ? sq(e.b, -1) : bL, sqEnd(e.a) ? sq(e.a, -1) : aL]); }
             railRoadside.register(e, asphaltCorners(e, (f, sd) => sd > 0 ? f.wR : f.wL), asphaltCorners(e, widthSide));
             for (const [n, p, q] of [[e.a, aR, aL], [e.b, bR, bL]]) if (n.pad) { let o = padPts.get(n); if (!o) padPts.set(n, o = []); o.push(p, q); }
         }
@@ -131,10 +137,10 @@ export function buildRibbons(ctx) {
     // directions of a road mapped too close), only the higher-class one (then the lower id) keeps its markings, so the
     // overlap reads as one road with one set of lines instead of a slab with none (review #3 / #4); pads always win
     const markWins = (e, f) => { if (Math.abs(e.dirx * f.dirx + e.dirz * f.dirz) < 0.94) return false; const re = CLASS_RANK[e.type] || 0, rf = CLASS_RANK[f.type] || 0; return re !== rf ? re > rf : e.id < f.id; }; // (near-parallel overlaps only: a road crossing at grade keeps its mouth clear)
-    const coveredByOther = (x, z, e, y, inset = 0.25, prio = false, maxDY = 1) => {
+    const coveredByOther = (x, z, e, y, inset = 0.25, prio = false, maxDY = 1, paint = false) => {
         let hit = false;
         surfGrid.each(x, z, x, z, (o) => {
-            if (hit || o.e === e || x < o.x0 || x > o.x1 || z < o.z0 || z > o.z1) return;
+            if (hit || o.e === e || (paint && ownPad(o, e)) || x < o.x0 || x > o.x1 || z < o.z0 || z > o.z1) return;
             const dy = o.h(x, z) - y;
             if (Math.abs(dy) > maxDY || !pointInPolygon(x, z, o.poly) || polyDist(x, z, o.poly) < inset) return;
             // Paint belongs to the visible pavement. Class/id priority only decides nearly level overlaps;
@@ -144,16 +150,37 @@ export function buildRibbons(ctx) {
         });
         return hit;
     };
+    // (owner, 2026-11-15, Grozavesti, the Basarab overpass: "lines should be continouse") an edge line inside another carriageway
+    // at its level is left out (2026-11-12: a ramp's line ran on across the other road's lanes), except where two near-parallel
+    // carriageways overlap each other (two ways mapped closer than their widths, a split running side by side): both lines fell
+    // inside the other road and the lanes ran together with no line. In such a mutual overlap the road that wins the paint
+    // priority keeps its line, so one line separates them.
+    const edgeLineCovered = (x, z, e, y) => {
+        let hit = null;
+        surfGrid.each(x, z, x, z, (o) => {
+            if (hit || o.e === e || ownPad(o, e) || x < o.x0 || x > o.x1 || z < o.z0 || z > o.z1) return;
+            if (Math.abs(o.h(x, z) - y) > 0.15 || !pointInPolygon(x, z, o.poly) || polyDist(x, z, o.poly) < 0.3) return;
+            hit = o;
+        });
+        if (!hit) return false;
+        const f = hit.e; if (!f || Math.abs(e.dirx * f.dirx + e.dirz * f.dirz) < 0.94 || !markWins(e, f)) return true;
+        const se = (x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz, cx = e.a.x + e.dirx * se, cz = e.a.z + e.dirz * se; // e's centre line here
+        const sf = (cx - f.a.x) * f.nx + (cz - f.a.z) * f.nz >= 0 ? 1 : -1, of = sf > 0 ? f.wR - 0.15 : -(f.wL - 0.15); // f's line facing e
+        const tf = (x - f.a.x) * f.dirx + (z - f.a.z) * f.dirz, qx = f.a.x + f.dirx * tf + f.nx * of, qz = f.a.z + f.dirz * tf + f.nz * of;
+        const own = ribPoly.get(e); if (!own) return true;
+        const mutual = pointInPolygon(qx, qz, own) && polyDist(qx, qz, own) >= 0.3 && Math.abs(yAlong(e, qx, qz) - yAlong(f, qx, qz)) <= 0.15;
+        return !mutual;
+    };
     // Retain the prior point policy for non-affine pad/profile exceptions. The
     // usual affine or flat surfaces below are clipped as polygons, so a centre
     // outside the ribbon cannot discard the valid end of a line or zebra stripe.
-    const onOwn = (e, x, z, tol = 0.05) => { const p = ribPoly.get(e); return !p || pointInPolygon(x, z, p) || polyDist(x, z, p) < tol; };
+    const onOwn = (e, x, z, tol = 0.05) => { const p = markPoly.get(e) || ribPoly.get(e); return !p || pointInPolygon(x, z, p) || polyDist(x, z, p) < tol; };
     const legacyMarkProxy = (mb, e) => ({
         flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, y, col, uvS, depth = 0) {
             const cx = (x0 + x1 + x2 + x3) / 4, cz = (z0 + z1 + z2 + z3) / 4;
             const qa = depth ? 0 : Math.abs((x2 - x0) * (z3 - z1) - (x3 - x1) * (z2 - z0)) / 2; if (qa) e._mkAll = (e._mkAll || 0) + qa; // (stats: share dropped per edge)
-            if (coveredByOther(cx, cz, e, yAlong(e, cx, cz), 0.15, true)) { if (qa) e._mkDrop = (e._mkDrop || 0) + qa; return; }
-            const ok = (x, z) => onOwn(e, x, z) && !coveredByOther(x, z, e, yAlong(e, x, z), 0.15, true);
+            if (coveredByOther(cx, cz, e, yAlong(e, cx, cz), 0.15, true, 1, true)) { if (qa) e._mkDrop = (e._mkDrop || 0) + qa; return; }
+            const ok = (x, z) => onOwn(e, x, z) && !coveredByOther(x, z, e, yAlong(e, x, z), 0.15, true, 1, true);
             if (!(ok(x0, z0) && ok(x1, z1) && ok(x2, z2) && ok(x3, z3))) {
                 const dropQ = () => { e._mkOut = (e._mkOut || 0) + Math.abs((x2 - x0) * (z3 - z1) - (x3 - x1) * (z2 - z0)) / 2; };
                 if (!onOwn(e, cx, cz) && depth > 0) { dropQ(); return; }
@@ -173,13 +200,13 @@ export function buildRibbons(ctx) {
             this.flatPolygon([[x0,z0],[x1,z1],[x2,z2],[x3,z3]],y,col,uvS);
         },
         flatPolygon(input,y,col,uvS) {
-            const own=ribPoly.get(e), area=markingArea(input);
+            const own=markPoly.get(e)||ribPoly.get(e), area=markingArea(input);
             const kept=own?clipMarkingConvex(input,own):input, ownedArea=markingArea(kept), blockers=[]; let seen=null;
             if(kept.length){
                 const xs=kept.map(p=>p[0]),zs=kept.map(p=>p[1]);let unsupported=false;
                 const kx0=Math.min(...xs),kz0=Math.min(...zs),kx1=Math.max(...xs),kz1=Math.max(...zs);
                 surfGrid.each(kx0,kz0,kx1,kz1,o=>{
-                    if(o.e===e)return;
+                    if(o.e===e||ownPad(o,e))return;
                     // (spec 10 load budget) the clip keeps only points within its tolerance of every edge of o.poly (shrunk by
                     // the inset): bounds farther apart than that tolerance leave no region, as clipMarkingConvex finds. A pure
                     // test of o, so it comes before the duplicate check (the Set is made for the first surface that passes)
@@ -208,7 +235,7 @@ export function buildRibbons(ctx) {
     const __buildEdgeRibbons = buildEdgeRibbons({
         RETAIN_H, US, asphaltBase, asphaltEnds, ballastCol, band, cellOf, city,
         concreteCol, convexApart, convexOverlap, corner, coveredByOther, dash, dashLine, data,
-        displace, edgeGrid, edges, edgesInBox, isConcrete, kerbCol, lampSpots, laneTapers,
+        displace, edgeGrid, edgeLineCovered, edges, edgesInBox, isConcrete, kerbCol, lampSpots, laneTapers,
         layerY, markProxy, nodeArr, pushPad, railRoadside, raised, raisedEdge, researchTrees,
         retainedDeck, retract, ribPoly, ribbons, rng, roads, sharedBridgeMeshAudit, sideCol,
         sideExtra, solidLine, str, surfGrid, tramGrades, treeSpots, white, widthAsphalt,

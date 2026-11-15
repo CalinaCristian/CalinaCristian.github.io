@@ -1,8 +1,8 @@
 # Seattle · `seatac` district — research dossier
 
 Machine-readable twin: [`seattle-seatac.json`](seattle-seatac.json) (streets, buildings, landmarks, signs, markings,
-furniture, transit, palette, `traffic.hotspots`); businesses: `businesses-seattle-seatac.json`; speed limits: the
-`seattle-seatac` block of `speedlimits.json`; photo candidates (not downloaded): [refs/LICENSES.md](refs/LICENSES.md)
+furniture, transit, palette, `traffic.hotspots`); businesses: `businesses-seattle-seatac.json`; speed limits: the OSM `maxspeed` tags;
+photo candidates (not downloaded): [refs/LICENSES.md](refs/LICENSES.md)
 (`refs/seatac/`). US marking, sign and furniture standards (WSDOT + MUTCD) are those of the Bellevue dossier,
 [`seattle-bellevue.md`](seattle-bellevue.md) §3–§5; the business method and Washington speed law:
 [shared-rules.md → Business research](shared-rules.md#business-research). All OSM data © OpenStreetMap contributors (ODbL).

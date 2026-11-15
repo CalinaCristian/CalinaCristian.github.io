@@ -268,7 +268,7 @@ The Bucharest-wide sources (road signs and markings, STB, Metrorex, lighting, tr
 
 ## Businesses and speed limits
 
-`businesses-bucharest-floreasca.json`, the `bucharest-floreasca` block of `speedlimits.json`. Method, confidence, sign
+`businesses-bucharest-floreasca.json`; speed limits are the OSM `maxspeed` tags. Method, confidence, sign
 style, POI appending, locators and the Romanian speed default:
 [shared-rules.md → Business research](shared-rules.md#business-research).
 

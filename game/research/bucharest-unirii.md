@@ -443,8 +443,8 @@ The Bucharest-wide sources (road signs and markings, STB, Metrorex, lighting, tr
 
 ## Businesses and speed limits
 
-Machine-readable: `businesses-bucharest-unirii.json` (one entry per business, independents included), the
-`bucharest-unirii` block of `speedlimits.json`, and `businesses-gamediff.json` → `bucharest-unirii` (missing list with
+Machine-readable: `businesses-bucharest-unirii.json` (one entry per business, independents included),
+and `businesses-gamediff.json` → `bucharest-unirii` (missing list with
 `edgeM`, `closed` disused units). Zone, confidence and sign-style rules, POI appending (`add-pois.mjs`) and the Romanian
 speed default: [shared-rules.md → Business research](shared-rules.md#business-research).
 

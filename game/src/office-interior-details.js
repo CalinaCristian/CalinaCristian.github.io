@@ -1,6 +1,6 @@
 // Original procedural interpretation of privately compared interior photographs.
 // Geometry dimensions/positions are authored estimates, not measured floor plans.
-// Source links and the photo/CGI/historical distinctions: research/cv-interiors.md.
+// No source ledger for these interiors is kept in this repo (building facts: research/cv-buildings.md).
 import * as THREE from '../vendor/three.module.min.js';
 import {makeCanvasTexture} from './util.js';
 import {GeoBatch} from './spots/kit.js';

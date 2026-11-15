@@ -24,6 +24,7 @@ import { skyBridge, SKYBRIDGE_ID } from './pike-place-skybridge.js';
 import { prepareLower, buildLower, GUM } from './pike-place-lower.js';
 import { prepareHalls, buildHalls, HALLS } from './pike-place-market.js';
 import { buildShopSigns } from './pike-place-shops.js';
+import { marketFloors, floorWalls } from './pike-place-floors.js';
 import { prepareFacades, buildFacades, FACADE_IDS } from './pike-place-facades.js';
 import { batchSourceContext, horizonCuller, solidShells, onRenderCamera, distanceHide, boxDistanceHide } from '../frame-budget.js';
 
@@ -229,7 +230,20 @@ function benchFoot(x, z) { return 1 - smooth(-4, 0, (x + 277) * 0.692 - (z + 83)
 function buildSteinbrueck(ctx) {
     const b = new GeoBatch(), g = ctx.ground;
     for (const [x, z, h, sd] of [[-297.6, -110.4, 15.2, 3], [-320.3, -130.7, 15.2, 8]]) { totemPole(b, x, g.heightAt(x, z), z, h, 0.5, { seed: sd }); ctx.circle(x, z, 0.5, h); }
-    ctx.add(b.build('steinbrueck-poles'));
+    // the park is a lid on the bluff: where its edge drops to the slope below (its west wall over Western Ave, the south-east
+    // corner), a railing runs along it and the walker cannot step off (the flood test from the spawn fell 10–30 m there)
+    const park = ctx.data.areas.find((a) => a.id === 'w14026690');
+    if (park) { const P = park.poly, runs = []; let run = null;
+        for (let i = 0; i < P.length; i++) { const A = P[i], B = P[(i + 1) % P.length], L = Math.hypot(B[0] - A[0], B[1] - A[1]), n = Math.max(1, Math.round(L / 1.5)); let nx = (B[1] - A[1]) / L, nz = -(B[0] - A[0]) / L;
+            if (inPoly((A[0] + B[0]) / 2 + nx * 0.5, (A[1] + B[1]) / 2 + nz * 0.5, P)) { nx = -nx; nz = -nz; } // outward
+            for (let k = 0; k <= n; k++) { const x = A[0] + (B[0] - A[0]) * k / n, z = A[1] + (B[1] - A[1]) * k / n, drop = g.heightAt(x - nx * 1.0, z - nz * 1.0) - g.heightAt(x + nx * 2.5, z + nz * 2.5);
+                if (drop > 1.5) { const p = [x - nx * 0.35, z - nz * 0.35]; if (!run) runs.push(run = []); if (!run.length || Math.hypot(p[0] - run[run.length - 1][0], p[1] - run[run.length - 1][1]) > 0.05) run.push(p); } else run = null; }
+        }
+        const rb = new GeoBatch(), yAt = (x, z) => g.heightAt(x, z);
+        for (const r of runs) { if (r.length < 2) continue; railing(rb, r, yAt, { h: 1.07 });
+            for (let i = 1; i < r.length; i++) { const [ax, az] = r[i - 1], [bx, bz] = r[i], L = Math.hypot(bx - ax, bz - az) || 1; ctx.collider({ wall: true, ax, az, bx, bz, y0a: yAt(ax, az) - 1, y1a: yAt(ax, az) + 1.3, y0b: yAt(bx, bz) - 1, y1b: yAt(bx, bz) + 1.3, nx: (bz - az) / L, nz: -(bx - ax) / L }); } }
+        ctx.add(rb.build('steinbrueck-rail')); ctx.extras.steinbrueckRail = runs.reduce((a, r) => a + r.length, 0);
+    }
 }
 
 // ---------------------------------------------------------------------------- 1st Ave: three-globe lamp posts
@@ -262,6 +276,9 @@ export default {
         // ---- ground: Pike Place, Pike St, Post Alley at their real levels; Elliott Bay below the bluff
         gradeStreets(g); gradeWesternEastBank(g, d.buildings.filter((b) => !b.part).map((b) => b.poly)); // every street at its surveyed level (Pike St is nearly flat; the steep cobbles are the ramp into Post Alley)
         g.flatten([[-58.4, 39.9], [-61.3, 41.6], [-54.9, 51.8], [-53.6, 53.8], [-50.3, 51.7], [-44, 47.9], [-46.6, 40.3], [-51, 39.5]], SURVEY.pikeSt[3][2], 2); // the market-level floor under the sign, out to the deck over Post Alley
+        // … and the wedge between the sign corner, the LaSalle Hotel and the top of the espresso corner (under the OSM roof
+        // w1275882967): the bluff showed through it as a 3–4 m pit at the edge of the market floor
+        g.flatten([[-54.9, 51.8], [-53.6, 53.8], [-56.6, 56.4], [-60.5, 55.6]], SURVEY.pikeSt[3][2], 0);
         g.mod((x,z,h)=>{const t=d.terrain,dx=Math.max(t.x0-x,0,x-(t.x0+(t.nx-1)*t.d)),dz=Math.max(t.z0-z,0,z-(t.z0+(t.nz-1)*t.d)),weight=1-smooth(0,t.d,Math.hypot(dx,dz));
             const local=x < -335 ? Math.min(h,-40) : x < -315 ? Math.min(h,lerp(-31,-40,(-315-x)/20)) : h;return lerp(h,local,weight*benchFoot(x,z));});
         // Victor Steinbrueck Park is a level lid on top of the bluff: USGS 3DEP 1 m DEM (EPQS, 2026-11-12) 30.7–31.5 m NAVD88
@@ -295,10 +312,11 @@ export default {
         // hero arcade replacing the Main Arcade footprints: storeys drop down the bluff to the west (below street level),
         // an open market floor at street level (stalls under the canopy, dark hall behind), cream stucco + green trim above
         {
-            const bb = new GeoBatch();
+            const bb = new GeoBatch(), floors = [], walls = [];
             const mains = d.buildings.filter((b) => b.id === 'w231357660' || b.id === 'w1271653800'); // the sign corner + the Leland Hotel
             for (const m of mains) {
                 let top = -1e9; for (const [x, z] of m.poly) top = Math.max(top, ppAt(x, z).y);
+                floors.push({ poly: m.poly, y: () => top }); // the market floor (pike-place-floors.js): the bluff falls away under it
                 const hotel = m.id === 'w1271653800', hh = hotel ? 13.4 : 5.6, bottom = Math.min(...m.poly.map(([x, z]) => g.base(x, z))) - 2;
                 if (hotel) ctx.extras.lelandRoof = top + hh; // (its upper storeys: pike-place-facades.js)
                 else bb.prism(m.poly, top + 3.9, top + hh, '#e9dfc6', 'paint', { noTop: true }); // the corner is one storey: the sign stands on its roof
@@ -307,6 +325,7 @@ export default {
                 // the market-floor storey is enclosed except on the Pike Place / Pike St fronts (no see-through to the bay, note 49)
                 for (let i = 0; i < m.poly.length; i++) { const [ax, az] = m.poly[i], [bx, bz] = m.poly[(i + 1) % m.poly.length], mx = (ax + bx) / 2, mz = (az + bz) / 2;
                     if (Math.hypot(bx - ax, bz - az) < 0.5 || distPolyline(mx, mz, PIKE_PLACE).d < 7 || distPolyline(mx, mz, PIKE_ST).d < 8) continue;
+                    walls.push({ a: [ax, az], b: [bx, bz], y0: top - 0.5, y1: top + 3.95 });
                     bb.quad([ax, top - 0.2, az], [bx, top - 0.2, bz], [bx, top + 3.95, bz], [ax, top + 3.95, az], '#d9cfb6', 'concrete'); const L = Math.hypot(bx - ax, bz - az), ox = (bz - az) / L * 0.08, oz = -(bx - ax) / L * 0.08; bb.quad([bx + ox, top - 0.2, bz + oz], [ax + ox, top - 0.2, az + oz], [ax + ox, top + 3.95, az + oz], [bx + ox, top + 3.95, bz + oz], '#3a332c', 'concrete'); }
                 bb.flat(m.poly, top + hh, '#77736c', 'roofs');
                 bb.prism(m.poly, top + 3.75, top + 3.9, '#3b3631', 'concrete', { bottom: true, noTop: true }); // ceiling of the market floor
@@ -316,6 +335,7 @@ export default {
             const trim = offsetPolyline(OPEN_FRONT, -5.0);
             for (let i = 1; i < trim.length; i++) { const [ax, az] = trim[i - 1], [bx, bz] = trim[i], ya = ppAt(ax, az).y, yb = ppAt(bx, bz).y; bb.quad([ax, ya + 3.9, az], [bx, yb + 3.9, bz], [bx, yb + 4.5, bz], [ax, ya + 4.5, az], '#2f5a44', 'paint'); { const L = Math.hypot(bx - ax, bz - az) || 1, ox = (bz - az) / L * 0.06, oz = -(bx - ax) / L * 0.06; bb.quad([bx + ox, yb + 3.9, bz + oz], [ax + ox, ya + 3.9, az + oz], [ax + ox, ya + 4.5, az + oz], [bx + ox, yb + 4.5, bz + oz], '#2f5a44', 'paint'); } }
             ctx.add(bb.build('main-arcade', { matOverrides: { 'f-brick': facadeMaterial('brick'), 'f-apartment': marketWestMaterial() } }));
+            marketFloors(ctx, floors); floorWalls(ctx, walls);
         }
         buildHalls(ctx, { line: PIKE_PLACE, at: ppAt });
         { const W = profile(SURVEY.western); ctx.extras.westFace = westFaceDressing(ctx, W); ctx.extras.westSideSigns = westSideSigns(ctx, W); } // colonnade + lettering, PARKING sign

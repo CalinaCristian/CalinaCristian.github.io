@@ -14,6 +14,7 @@ import { triangulate } from '../../building-overlap.js';
 import { neonSign, latticeFrame, stall } from '../props.js';
 import { wallGeometry, facadeMaterial, facadeStyle } from '../osm.js';
 import { marketWestMaterial } from './pike-place-westface.js';
+import { marketFloors } from './pike-place-floors.js';
 
 // OSM footprint → height of the eave above the street (Street View estimates) and roof colour
 export const HALLS = {
@@ -32,12 +33,13 @@ export function prepareHalls(ctx) { for (const id of Object.keys(HALLS)) ctx.ski
 export function buildHalls(ctx, street) {
     const g = ctx.ground, b = new GeoBatch(), grp = new THREE.Group(); grp.name = 'market-halls';
     const cream = '#e9dfc6', green = '#3d6a4d', dark = '#1b1815';
-    let bays = 0;
+    let bays = 0; const floors = [];
     const others = ctx.data.buildings.filter((o) => o.k !== 'roof' && !o.part && o.poly?.length > 2);
     for (const m of ctx.data.buildings) {
         const H = HALLS[m.id]; if (!H) continue;
         const poly = polyArea(m.poly) > 0 ? m.poly : [...m.poly].reverse(), yS = poly.map(([x, z]) => street.at(x, z).y);
         const bottom = Math.min(...poly.map(([x, z]) => g.heightAt(x, z))) - 2;
+        floors.push({ poly, y: (x, z) => street.at(x, z).y }); // the hall floor at the street's level, over the bluff (pike-place-floors.js)
         for (let i = 0; i < poly.length; i++) {
             const A = poly[i], B = poly[(i + 1) % poly.length], L = Math.hypot(B[0] - A[0], B[1] - A[1]); if (L < 0.3) continue;
             const ux = (B[0] - A[0]) / L, uz = (B[1] - A[1]) / L; let nx = uz, nz = -ux; if (inPoly((A[0] + B[0]) / 2 + nx * 0.4, (A[1] + B[1]) / 2 + nz * 0.4, poly)) { nx = -nx; nz = -nz; }
@@ -109,5 +111,6 @@ export function buildHalls(ctx, street) {
     }
     grp.add(b.build('market-halls', { matOverrides: { 'f-apartment': marketWestMaterial() } })); // round 3: white walls, red steel sash (pike-place-westface.js)
     ctx.add(grp);
+    marketFloors(ctx, floors);
     ctx.extras.marketHalls = { ...ctx.extras.marketHalls, bays };
 }

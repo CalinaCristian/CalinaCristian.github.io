@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-bbe7c232a399f098",
-  "sourceCommit": "224eb771997ece823437f1e1b61a4c411c5189e7",
-  "fingerprint": "bbe7c232a399f0983e7a7db468fa8490b6cd9fc437cc4cee3ebb0262f4d2d9a3",
+  "releaseId": "game-f5053982bc96128c",
+  "sourceCommit": "3f89f327be6fb3c03e6e3f54e6c9c1b6a4f5ef12",
+  "fingerprint": "f5053982bc96128c115915e52bf9b45e4aae23208c10f4d3bca64691652dd900",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -1822,7 +1822,7 @@
     },
     {
       "path": "game/src/world-edge-ribbons.js",
-      "sha256": "b4a2e8cb802b7310926deec5a609f21730e97a0daf204c062495e331f3843131"
+      "sha256": "82980ce6ad3d97bc89247aea1d5d39bd8a1e1aedb4fdf31f7b4ef5152a4a53ce"
     },
     {
       "path": "game/src/world-extrusion.js",
@@ -1890,7 +1890,7 @@
     },
     {
       "path": "game/src/world-ribbons.js",
-      "sha256": "3b5f8bc8d5d05eba2d2d5ba73c100a42dd903cd135da5eac5d713024f14a5f4c"
+      "sha256": "bb8259bf9f063a731f5de473609e3ef0d57310c6358e99fdbda379f012553848"
     },
     {
       "path": "game/src/world-road-graph.js",
@@ -1930,7 +1930,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "74a04466357860a43ea3436af3e5e7868c6779ba8257e0954fcc15cc7e2723ae"
+      "sha256": "acee161f8daa9c0ed40d445b08e15ed5066221e772d9e0e96e17f93eadf34ca7"
     },
     {
       "path": "game/src/worldmap.js",

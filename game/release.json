@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-dd6596e380fff853",
-  "sourceCommit": "66b34b31abab159ed5c75e209208c78abb86a3f9",
-  "fingerprint": "dd6596e380fff853ac23dc21e03fde9f470fdda8e9f46a39a76a9b0b62970156",
+  "releaseId": "game-0204257eab7d091b",
+  "sourceCommit": "40bbdd932c271902799926b069609933655b35be",
+  "fingerprint": "0204257eab7d091b1fa0e3bdd8e7006ef5116e544a6b318b6f70e127db112c6a",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -1058,7 +1058,7 @@
     },
     {
       "path": "game/src/sidewalk-source.js",
-      "sha256": "d7a37535e91da36b9e383fd609f969d4205dfd427681328caa6a8adf688c9c82"
+      "sha256": "9438f11a39e156434518cc8be3a61b2bbedc253f8cbddcf42e20b76a4a467132"
     },
     {
       "path": "game/src/signals.js",

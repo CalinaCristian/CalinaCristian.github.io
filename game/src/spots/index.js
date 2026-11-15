@@ -15,6 +15,7 @@ export { MENU_AVAILABLE } from '../spot-availability.js';
 import { Ground, Painter, buildTerrain } from './ground.js';
 import { buildWillows } from './willow.js';
 import { patchSpotFacade } from '../facade-detail.js';
+import { finishContextFacades } from './facade-finish.js';
 import { canopyPosts } from './canopy-posts.js';
 import { withoutExtraFurniture, buildPicnicTables, buildFlagpoles } from './furniture-extra.js';
 import { paintOSM, buildBuildings, buildTrees, buildLamps, buildFurniture, roadLampPoints, streetTrees, areaTrees, waterPlane, polyCollider, streetBands, carriagewayTest } from './osm.js';
@@ -260,6 +261,8 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     ctx.add(trees.group); ctx.colliders.push(...trees.colliders); ctx.crownMeshes.push(...trees.crowns);
     // facade surface detail (stone, rusticated bases, panel joints, plaster) on every facade material of the spot
     ctx.scene.traverse((o) => { for (const m of !o.material ? [] : Array.isArray(o.material) ? o.material : [o.material]) patchSpotFacade(m); });
+    // context façades: whole storeys and bays, plain gables, night windows per building, far look (facade-finish.js)
+    if (!globalThis.__rawFacades) ctx.extras.facadeFinish = finishContextFacades(ctx.scene); // (dev A/B: __rawFacades = the façades and house roofs as built before 2026-11-15)
     // note 29: no lamp post or tree inside a carriageway (scene points included; `keepOnRoad: true` keeps a deliberate one)
     { const n0 = ctx.lampPoints.length;
         if (!globalThis.__spotsLegacy) ctx.lampPoints = ctx.lampPoints.filter((p) => p.noPost || p.keepOnRoad || !ctx.onRoad(p.x, p.z, 0.25));

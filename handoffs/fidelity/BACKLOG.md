@@ -11,9 +11,6 @@ folder may hold: [`AGENTS.md`](../../AGENTS.md).
 | Pose | Report | Next step |
 |---|---|---|
 | (1088, 19, -1265) · 3 · 19 | "windows in roof": the top window row of w156815215 (29 m block north of Titulescu) reads as openings in the roof edge | Find which layer (facade tile, near detail, parapet) puts a window at the eaves; fix for every block, check the pose |
-| (887, 32, -1127) · 226 · -52 | "lines should be continouse": lane and edge lines on the Basarab overpass stop and restart | Audit marking continuity along the whole overpass (both carriageways); fix the cause, survey top-down |
-| (720, 31, -964) · 225 · -23 | (same class) a solid line on the overpass ends abruptly | As above |
-| (678, 22, -932) · 226 · -50 | (same class) the left edge line of the overpass carriageway stops | As above |
 | (495, 16, -653) · 229 · -84 | "looks odd": street level beside the overpass seen from above: a dark sliver strip, overlapping kerbs and islands, lines ending in the carriageway, a pale patch on the road | Identify each piece (edge ribbons, islands, profile pieces) and fix the overlaps |
 | (83, 8, 120) · 300 · -35 | "weird fences": on the grass median at the south end of the overpass the railing ends turn into small box-shaped cages | Find the railing end / return pieces there and end the runs cleanly |
 | (100, 18, -36) · 347 · -39 | "bridge support is longer than bridge": a grey support block under the overpass sticks out past the deck edge over the street below | Clip the bent / pier block to the deck footprint (bridge-bents.js) and check every bent along the overpass |

@@ -5,8 +5,7 @@ r = relation); bracketed keys point to **Sources** at the end.
 
 ## 1. Overview and sources
 
-- **Machine-readable twin**: `bucharest-romana.json` (generated 2026-11-06 from the OSM API 0.6 snapshot of that day):
-  coverage metrics, per-segment street data (`streets[].segments`, research under `streets[].research`), all buildings with
+- **Machine-readable twin**: `bucharest-romana.json`: coverage metrics, per-segment street data (`streets[].segments`, research under `streets[].research`), all buildings with
   style-rule estimates (`buildings[]`, reviewed values under `buildings[].research`), junctions and signal nodes, crossings,
   transit lines / stops / metro entrances / liveries, colour palette, Bucharest-wide streetscape rules (`city_rules`), "things a
   local would notice" (`top_local_details`), pedestrian dialogue and the sources table. Businesses:
@@ -15,10 +14,9 @@ r = relation); bracketed keys point to **Sources** at the end.
 - **Extraction area**: bbox `[44.4395, 26.0825, 44.457, 26.1]` (world bbox of `cities.js` BUC_DISTRICTS): west edge just past
   Piața Victoriei (Antipa, Kiseleff start), north edge Bd. Iancu de Hunedoara + one block, east edge Calea Dorobanților / Str.
   Mihai Eminescu, south edge Str. Biserica Amzei / Piața Amzei. Playable area = the 130 m bands and circles of `cities.js`.
-- **Method** (fidelity passes 2026-11-12/13): live OSM (API 0.6 `map` for 44.4385,26.0803 – 44.4584,26.1031 on 2026-11-12:
-  48,672 nodes, 6,390 ways, 287 relations; Overpass 2026-11-13) decides position and kind; official street-level panoramas
-  were looked at for appearance only (ids from coverage metadata; nothing stored, traced or measured). Game views:
-  `game/dev/reality/viewpoints.json` (`rom-*`). Not reviewed: interiors, side streets beyond the listed poses, night views.
+- **Method**: live OSM (API 0.6 / Overpass) decides position and kind; official street-level panoramas were looked at for
+  appearance only (nothing stored, traced or measured). Game views: `game/dev/reality/viewpoints.json` (`rom-*`). Not
+  reviewed: interiors, side streets beyond the listed poses, night views.
 
 ## 2. Chapters and CV stops
 
@@ -58,8 +56,8 @@ Starts and roads are authoritative in `cities.js` CHAPTERS.
   (#3C3F42), glass #6F8A94, glazed ground floor with cafés, recessed top floor. Panorama 44.450288, 26.094312 h 143: stone grid
   with windows on every storey, glazed ground floor, set-back glass top storey (landmark `thelandmark`). A modern beige / grey
   block among old villas.
-- Massing (2026-11-15, the leasing listing's drone photos at spatii-de-birouri.ro/en/bucharest-the-landmark, viewed only,
-  nothing stored; listing: levels "3S+P+6+7T", completed 2016, 3 buildings): Corp B is a white stone block of ground + 4
+- Massing (the leasing listing's drone photos [landmark_spatii], viewed only, nothing stored; listing: levels
+  "3S+P+6+7T", completed 2016, 3 buildings): Corp B is a white stone block of ground + 4
   storeys, a glass storey over the whole footprint with a dark floor band and a glass balustrade round its roof terrace, and a
   two-storey glass box set back from the street fronts behind planted terraces, light reflective glass in a fine dark mullion
   grid, with the red UiPath logo on its top edge (two faces). No grey rooftop mesh screen. Storey heights are estimates within
@@ -115,8 +113,8 @@ Starts and roads are authoritative in `cities.js` CHAPTERS.
   northbound bus / trolleybus lane (`busway=opposite_lane`).
 - **Speed limits on the routes** (OSM maxspeed = game km/h): arnia: Magheru 60, Piața Romană 60, Lascăr Catargiu 60, Piața
   Victoriei 50; uipath-buc: Kiseleff 60, Piața Victoriei 50, Iancu de Hunedoara 50, Clopotarii Vechi 50 (RO:urban), Grigore
-  Alexandrescu 30, Vasile Alecsandri 50 (RO:urban). Mapped sign n6251793021 (maxweight; maxspeed 40). Romanian rule: 50 km/h in
-  localities unless signed, signed range 30–80, no automatic school-zone limit [speed_ro]. Schools within 150 m: Grădinița nr.
+  Alexandrescu 30, Vasile Alecsandri 50 (RO:urban). Mapped sign n6251793021 (maxweight; maxspeed 40). Romanian default:
+  [shared-rules.md → Business research](shared-rules.md#business-research) [speed_ro]. Schools within 150 m: Grădinița nr.
   116 (n2558783253), Liceul de Arte Plastice Nicolae Tonitza (w405529583), Școala Internațională Italiană „Aldo Moro”
   (w245083700), Grădinița nr. 50 (w1059582478), Școala Generală nr. 11 (w23611106).
 - **Congestion hotspots** (feed `congestion`; city ≈ 62.5 % congestion, ~171 h lost in 2025, 10 km take > 32 min on average and
@@ -130,7 +128,7 @@ Starts and roads are authoritative in `cities.js` CHAPTERS.
 
 ## 4. Structures
 
-- **Pasajul Victoria** (1987–89 road underpass beneath Piața Victoriei, W–E). OSM (2026-11-12): two one-way road tunnels
+- **Pasajul Victoria** (1987–89 road underpass beneath Piața Victoriei, W–E). OSM: two one-way road tunnels
   (w669751868 / w241374325 westbound; w669751870 / w669751871 / w241374324 eastbound) with the two tram tracks between them
   (w241374326, w920117619), busway w1358411333, tram stop nodes n8544117694 / n8544117695 on level −1; all `tunnel=yes` over the
   same extent, portal to portal. The west ramps (w241374320 up, w27008418 down) reach Șos. Nicolae Titulescu ≈ 190 m west of the
@@ -243,11 +241,8 @@ Key buildings:
 
 ## 7. Businesses
 
-- **Research method** (2026-11-07): zone = within 60 m of a chapter route (routed on the OSM graph from the CHAPTERS start to the
-  door, one-way and turn-restriction aware) plus recognisable businesses within 50 m of a main street in the district mask;
-  standalone ATMs, parcel lockers, chargers and pure company offices left out. Confidence: high = official locator match or
-  OSM `check_date` ≥ 2025-05; medium = edited / checked since 2023-11; low = older. Sign style is a category rule (fuel →
-  pylon, RO pharmacy → projecting green cross, drive-thru fast food in its own building → pylon, else fascia).
+- **Method, confidence scale, sign-style rule, Garanti BBVA renaming**: [shared-rules.md → Business
+  research](shared-rules.md#business-research). Per-business records: `businesses-bucharest-romana.json`.
 - **Locator matches** [locators]: McDonald's Magheru 24 ("McDonald's Romană"), Dona Magheru (13 m), KFC Magheru 28-30 ("KFC
   Romană", 11 m), Carrefour Express Piața Victoriei 155 ("Express Calea Victoriei"), Carrefour Market Calea Dorobanților 31-33
   ("Market Dorobantilor-ASE"), Carrefour Express Calea Dorobanților 102-110 ("Express Proxi Dorobanti"), McDonald's Str. Doctor
@@ -257,18 +252,13 @@ Key buildings:
   n11261959886 and n11222737061, bureau_de_change n11618365273, pharmacy n2637716554, bank n3757940559, community_centre
   n3956663257 (Centrul Rus de Știință și Cultură), mobile_phone n5084229431, cinema n5859527796 (Cinema Studio), shop
   n7293870987.
-- **Coverage** (live OSM 2026-11-12): every game POI has a live OSM object. Kinds the builder's `poiKind()` does not keep are
-  not POIs: nightclub (Club XS
-  n3118882252), `craft` (Miva Foto n2615818199), adult gaming (Win Boss n11618371471), fitness (Sky Fitness Romana
+- **Coverage**: every game POI has a live OSM object. Kinds the builder's `poiKind()` does not keep are not POIs: nightclub
+  (Club XS n3118882252), `craft` (Miva Foto n2615818199), adult gaming (Win Boss n11618371471), fitness (Sky Fitness Romana
   n9947523117), galleries (OB'ART n2872402339, FormART n12318228499, Galeria SIMEZA n12318285854, Galeria Romană n6513765648),
   kindergartens, offices outside the kept list (Electrica w180563617 and other notary / lawyer / consulting nodes; arnia's own
-  office node n9913919522), physiotherapist n2839154414. The rest come from the build plus `add-pois.mjs` (2026-11-12,
-  `--edge 100`).
-- **Garanti BBVA**: OSM `brand=Garanti Bankası` (Turkish parent); Romanian branches are signed "Garanti BBVA".
+  office node n9913919522), physiotherapist n2839154414. The rest come from the build plus `add-pois.mjs --edge 100`.
 - Stanleybet: a shop beside the synagogue in the panorama; OSM has Stanleybet only at n11361411581 (44.44393, 26.09433), so it
   is not shown there.
-- Bd. Dacia 30 (Aug 2023): Alpha Bank and Pizza Hut ground-floor units of the Sheraton block. Str. George Enescu: Mega Image on
-  the ground floor of a block.
 
 ## 8. Trees, green, water and sports
 
@@ -340,7 +330,7 @@ Key buildings:
 
 | key | URL |
 |---|---|
-| osm | https://www.openstreetmap.org (API 0.6 tiles 2026-11-06; live API / Overpass 2026-11-12/13) |
+| osm | https://www.openstreetmap.org (API 0.6 / Overpass) |
 | europe_house_caimmo | https://caimmo.com/en/press-corner/news/news-detail/bristol-myers-squibb-romania-remains-another-5-years-in-europe-house-office-building |
 | europe_house_cw | https://office.cwechinox.com/?p=20629 |
 | europe_house_zf | https://m.zf.ro/amp/zf-english/the-first-glass-offices-of-bucharest-still-lure-tenants-owing-to-location-6744587 |
@@ -363,7 +353,7 @@ Key buildings:
 | ref_romana9 | https://commons.wikimedia.org/wiki/File:9_Pia%C8%9Ba_Roman%C4%83,_Bucharest_(05).jpg |
 | ref_lascar4 | https://commons.wikimedia.org/wiki/File:4_Bulevardul_Lasc%C4%83r_Catargiu,_Bucharest_(03).jpg |
 | ref_magheru14 | https://commons.wikimedia.org/wiki/File:14_Bulevardul_Gheorghe_Magheru,_Bucharest_(04).jpg |
-| speed_ro | https://en.wikipedia.org/wiki/Speed_limits_in_Romania (fetched 2026-11-07; legislatie.just.ro did not respond) |
-| locators | McDonald's https://mcdonalds.ro/restaurante, KFC https://kfc.ro/restaurante, Kaufland https://www.kaufland.ro/.klstorefinder.json, Carrefour https://carrefour.ro/corporate/magazine, Dona https://www.dona.ro/farmacii (all 2026-11-07). Not machine-readable then: Mega Image, Profi, Dr.Max, HelpNet, CEC, Raiffeisen, Lidl, Penny, Catena, BT, BCR, ING, Orange, Vodafone, Petrom, OMV, MOL, Rompetrol, Lukoil, OTP, Alpha Bank, Digi, Telekom: these rely on OSM edit / check dates |
+| speed_ro | https://en.wikipedia.org/wiki/Speed_limits_in_Romania |
+| locators | McDonald's, KFC, Kaufland, Carrefour, Dona store locators (list and OSM-only brands: `shared-rules.md`, Business research) |
 
 The remaining keys cited inside `bucharest-romana.json` resolve in its `meta.sources`.

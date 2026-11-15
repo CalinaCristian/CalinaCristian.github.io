@@ -19,14 +19,13 @@ bracketed keys point to **Sources** at the end.
   floors, 2016; AFI Lakeview 15 lv / 65 m; Corp A/B 15 lv / 53 m; Courtyard by Marriott 14 lv / 55 m; Sky Tower 137 m at the
   SW corner), lift-gate barriers at every office car park, remnant Pipera industrial halls (JTI factory, Corp 1–20) north of
   Pompeiu, few old trees, wide new sidewalks in front of new offices and broken ones elsewhere [wp_globalworth_tower] [osm].
-- **Apartment towers** (2026-11-15): the new residential blocks of the area (e.g. Bl. 9–13 at Șos. Fabrica de Glucoză 6-8,
+- **Apartment towers**: the new residential blocks of the area (e.g. Bl. 9–13 at Șos. Fabrica de Glucoză 6-8,
   w938553616–620, `building=apartments`, 12 levels, 2018–2019, over the 3-storey blocks w938553607–610) carry no glass
-  material tag; the data build styled every large Pipera footprint 'glass' by area. The game draws a dwelling as a
-  residential block (punched windows, balconies, its own wall colour) unless it is tagged or reviewed glass (68 footprints
-  in this district). Facades not reviewed on Street View.
-- **Method** (fidelity passes 2026-11-12/13): live OSM (API 0.6 `map` 2026-11-12: 19,803 nodes, 2,850 ways, 192 relations)
-  decides position and kind; official street-level panoramas were looked at for appearance only (ids from coverage metadata;
-  nothing stored, traced or measured). Game views: `game/dev/reality/viewpoints.json` (`pip-*`).
+  material tag, so the game draws a dwelling as a residential block (punched windows, balconies, its own wall colour) unless
+  it is tagged or reviewed glass (68 footprints in this district). Facades not reviewed on Street View.
+- **Method**: live OSM (API 0.6 `map`: 19,803 nodes, 2,850 ways, 192 relations) decides position and kind; official
+  street-level panoramas were looked at for appearance only (ids from coverage metadata; nothing stored, traced or
+  measured). Game views: `game/dev/reality/viewpoints.json` (`pip-*`).
 
 ## 2. Chapters and CV stops
 
@@ -85,10 +84,8 @@ Both chapters are 2017. Starts and roads are authoritative in `cities.js` CHAPTE
 - **Calea Floreasca** north end at Promenada / Sky Tower: 2+2 with turn pockets. A hedge and jersey-barrier median is seen in
   front of Promenada but not mapped (no `barrier=hedge` / `jersey_barrier`; the carriageways alternate between one 4-lane way
   and one-way pairs), so it has no line and is not drawn.
-- **Speed limits on the routes** (OSM maxspeed = game km/h): luxoft: Șos. Petricani 60 / 40 / 50, Str. Petricani 40, Fabrica de
-  Glucoză 40, George Constantinescu 50, Pompeiu 50; db: Șos. Pipera 50, Gara Herăstrău 50, Pompeiu 50. Schools within 150 m:
-  Colegiul Tehnic "Edmond Nicolau" (w23732187, 72 m), Liceul Tehnologic "Constantin Brâncuși" (w256525667, 62 m). Romanian
-  rule: 50 km/h in localities unless signed, signed range 30–80; no automatic school-zone limit [speed_ro].
+- **Speed limits**: OSM `maxspeed` = game km/h on both routes (per way, with the schools within 150 m, in
+  `speedlimits.json`); Romanian default: shared-rules.md → Business research [speed_ro].
 - **Congestion hotspots** (feed `congestion`; city: ≈ 62.5 % congestion, 171 h lost per driver in 2025, worst slot Wednesday
   17–18 [tomtom_2025] [tomtom_2025b]): Bd. Dimitrie Pompeiu (44.4802, 26.114, r 300 m, 8–10:30 and 16:30–20, level 0.95;
   "paralysed for hours" as thousands of employees leave, parking barriers block lanes) [pipera_protv] [pipera_adevarul];
@@ -141,7 +138,7 @@ Both chapters are 2017. Starts and roads are authoritative in `cities.js` CHAPTE
 - **Pipera metro** (M2 terminus, w41337085): low pavilion with the blue M sign at the east end of Pompeiu; entrances at 44.48078,
   26.11660 and 44.48073, 26.11639.
 - **Courtyard by Marriott** (w764534288; pose `pip-courtyard` 44.478444, 26.106966 h 163): dark anthracite glass tower and a
-  mirrored podium behind a lawn; the game's glass reads more saturated.
+  mirrored podium behind a lawn.
 - **Muzeul Național al Aviației Române** (w392466489): the 23 mapped `historic=aircraft` outlines are aircraft exhibits (not
   houses), drawn by the aircraft class at their planforms (`building-aircraft.js`); vertical body / fin / clearance detail is
   estimated and their silhouettes are excluded from roof-class claims. Three exhibits mapped only as points (IAK-52
@@ -160,18 +157,12 @@ Both chapters are 2017. Starts and roads are authoritative in `cities.js` CHAPTE
 
 ## 6. Buildings, businesses and fuel
 
-Business research (2026-11-07): zone = within 60 m of a chapter route plus recognisable businesses within 50 m of a main
-street in the district mask; standalone ATMs, parcel lockers, chargers and pure company offices left out. Confidence: high =
-official locator match or OSM `check_date` ≥ 2025-05; medium = OSM element edited / checked since 2023-11; low = older.
-POIs: the build plus `tools/osm/add-pois.mjs` (live OSM 2026-11-12, `--edge 100`).
+Business research method, Garanti BBVA and the Lukoil sale: [shared-rules.md → Business
+research](shared-rules.md#business-research).
 
 - **Added from official locators** (not in OSM in the zone): Carrefour Express "Express Green Court" (Str. Gara Herăstrău 4C),
   Kaufland "Kaufland Bucuresti Fabrica de Glucoza" (Str. Fabrica de Glucoză 6-8), KFC Promenada and McDonald's Promenada Mall
   (Calea Floreasca 246B). Carrefour Market Șos. Pipera 61 matches "Market Cloud 9 Residence" (79 m) [locators].
-- **Garanti BBVA**: OSM `brand=Garanti Bankası` (Turkish parent); Romanian branches are signed "Garanti BBVA"
-  (garantibbva.ro, 2026-11-07).
-- **Lukoil**: its international assets (incl. Romanian stations) were offered for sale in Nov 2025 (Wikipedia "Lukoil"); the
-  station brand may change.
 - **Kaufland** (w1198250017, store mapped as one point deep inside the footprint): the sign goes on the east face toward its
   own car park; from Str. Marin Preda the real wall is a blank service wall. From Șos. Fabrica de Glucoză (`pip-kaufland`,
   44.478452, 26.122228 h 149) the store is a low box far behind its car park, with a concrete barrier in the middle of the road;
@@ -207,7 +198,8 @@ Key buildings:
 
 - **Pedestrian plazas**: the shared rule ([shared-rules.md](shared-rules.md#pedestrian-plazas)). Here: 18 plazas, none
   tagged grass (the Promenada forecourt among them).
-Independent full-ring measurements (2026-11-08; ledger `measurements-bucharest-pipera.json`):
+
+Full-ring measurements (ledger `measurements-bucharest-pipera.json`):
 
 - Fresh OSM API 0.6 tiles cover the analytic core and a complete 600 m ring of intersecting sources; every source ID is audited
   directly, including small structures, parts and courtyard relations (all 2,282 source records retained).
@@ -228,7 +220,7 @@ Independent full-ring measurements (2026-11-08; ledger `measurements-bucharest-p
 - **Aviation museum fence** (`park-walls.js`): 2 m concrete panel fence along the grounds' boulevard edge (n696844080 →
   n4161774631 → n4161774633, 238 m); no mapped barrier.
 - **Lacul Tei w117140691 narrowed to the Colentina** (`sunken-lakes.js`, `WATER_OUTLINE_EXCEPTIONS`): the polygon is a 2006
-  CORINE import (`CLC:year=2006`) covering the strip south of the Petricani bridge as open water. Live OSM (2026-11-13) maps
+  CORINE import (`CLC:year=2006`) covering the strip south of the Petricani bridge as open water. Live OSM maps
   that strip as land: the protected meadow "Aria naturală protejată Pajiștea Petricani" w1420394521, meadow w1420395543 /
   w1420388611, grass w1420394519, reedbeds w1254087120 / 21 / 22 and dirt paths ("Poteca principală") lie inside it, and the
   only water mapped through it is the Colentina river line w231801791; the bridge panorama (h 275) shows no water west of the
@@ -268,7 +260,7 @@ Independent full-ring measurements (2026-11-08; ledger `measurements-bucharest-p
 
 | key | URL |
 |---|---|
-| osm | https://www.openstreetmap.org (API 0.6 tiles 2026-11-06 and 2026-11-08; live API 2026-11-12/13) |
+| osm | https://www.openstreetmap.org (API 0.6 tiles; live API re-checks) |
 | luxoft_careers | https://career.luxoft.com/locations/romania |
 | luxoft_ripe | https://ripe.net/membership/indices/data/ro.lux.html |
 | hermes_atenor | https://atenor.eu/en/?p=19339 |

@@ -19,9 +19,8 @@ NAVD88 unless marked "relative" (to the origin's ground). Panoramas are official
   Wherever a level changes within a few metres the scenes use fine grids of the USGS 3DEP 1 m DEM sampled through EPQS
   (`scenes/fine-dem-<scene>.js`, read through `scenes/fine-dem.js`).
 - **Street View**: panoramas found through Maps' coverage lookup (`photometa/ac/v1`, z17 tiles, metadata only) and viewed
-  through the thumbnail endpoint, where a positive `pitch` looks down. In the hidden browser pane a Maps tab resolves a
-  panorama only after a screenshot forces a frame (navigate, one small screenshot, wait 3–5 s, read the tab URL). User
-  photospheres were not used for bearings (their heading is unreliable). Panorama metadata has no altitude, so views from a
+  through the thumbnail endpoint, where a positive `pitch` looks down. User photospheres were not used for bearings
+  (their heading is unreliable). Panorama metadata has no altitude, so views from a
   bridge deck or lock wall put the game's eye in the wrong place. Game frames were rendered at the panorama position, eye
   2.5 m, same bearing (`game/dev/spots.html`, summer, clear day, High).
 - **Colours** are estimates (judged albedo) unless a structure has `ref_check` in the JSON (Troll, Pike Place sign) or OSM
@@ -29,35 +28,10 @@ NAVD88 unless marked "relative" (to the origin's ground). Panoramas are official
 
 ## Selection of the spots
 
-Composite of the Tripadvisor Seattle ranking (via Stacker, data 2024-05-31), Visit Seattle "Top 25" (2026), Lonely Planet
-(2025), Wikivoyage Seattle / Downtown / Fremont / Bellevue and published visitor numbers; owner must-haves (Fremont Troll,
-Gum Wall) forced in; scenes must be small walkable outdoor places. Rank evidence per spot is in `seattle-spots.json`
-`ranking`.
-
-- **Seattle**: Pike Place Market & Gum Wall (TA #2, VS #2, ≈ 10 M visitors/yr per the City; Wikipedia 20.9 M visits in
-  2023); Chihuly Garden and Glass (TA #1); Space Needle & Seattle Center (TA #3, ≈ 1.3 M guests/yr); Fremont Troll (owner
-  must-have; free public art, not in TA's top 30); Kerry Park (TA #6); MoPOP (TA #9, LP #3); Waterfront (VS #4; Great Wheel
-  TA #16, Aquarium #28); Pioneer Square & Smith Tower (VS #9; Klondike Gold Rush NHP TA #12, Smith Tower #20); Ballard Locks
-  (TA #8, > 1 M visitors/yr, > 2 M per the Army Corps); Gas Works Park (TA #30, VS #15). Space Needle, Chihuly and MoPOP share
-  one scene (`seattle-center`, ≤ 150 m apart) with three spawns.
-- **Bellevue**: Lincoln Square / Bellevue Square & skybridges (Bellevue Square > 23 M visitors/yr in 2014; UiPath's office
-  since 2025, the game's final CV chapter); Downtown Park; Botanical Garden; Meydenbauer Bay Park.
-- **Alternates rejected**: Museum of Flight (indoor, 15 km south), Washington State Ferries (an activity; ferries are
-  backdrop), T-Mobile Park / Lumen Field (stadium interiors), Sky View Observatory (indoor; the Needle covers the view),
-  Seattle Central Library (interior; first alternate for Gas Works), SAM / Olympic Sculpture Park (artworks in copyright),
-  Discovery Park (too large), Woodland Park Zoo; in Bellevue: Bellevue Arts Museum (kept as a façade in Lincoln Square),
-  The Bravern, Old Main Street (one block south of Downtown Park), Mercer Slough / Kelsey Creek Farm.
-- Ranking sources: [ta_stacker](https://stacker.com/washington/seattle/highest-rated-things-do-seattle-according-tripadvisor),
-  [vs_top25](https://visitseattle.org/things-to-do/sightseeing/top-25-attractions/),
-  [lp_top](https://www.lonelyplanet.com/articles/top-things-to-do-in-seattle),
-  [wv_seattle](https://en.wikivoyage.org/wiki/Seattle), [wv_downtown](https://en.wikivoyage.org/wiki/Seattle/Downtown),
-  [wv_fremont](https://en.wikivoyage.org/wiki/Seattle/Fremont), [wv_bellevue](https://en.wikivoyage.org/wiki/Bellevue),
-  [vb_attr](https://www.visitbellevuewa.com/things-to-do/attractions/),
-  [kiro_ppm10m](https://www.kiro7.com/news/local/city-of-seattle-plans-to-extend-pike-place-market-to-waterfront/545245400),
-  [needle_facts](https://www.spaceneedle.com/facts-1),
-  [cascadepbs_locks](https://www.cascadepbs.org/environment/2025/02/key-maintaining-and-renovating-seattles-ballard-locks),
-  [wp_ppm](https://en.wikipedia.org/wiki/Pike_Place_Market), [wp_bellsq](https://en.wikipedia.org/wiki/Bellevue_Square).
-  Tripadvisor itself was not fetchable (403); Stacker's 2024 copy is used.
+Method, rank evidence per spot, rejected alternates and source URLs: `seattle-spots.json` `ranking` (Tripadvisor via
+Stacker's 2024 copy, Visit Seattle, Lonely Planet, Wikivoyage, visitor numbers; owner must-haves Fremont Troll and Gum Wall
+forced in; scenes must be small walkable outdoor places). Space Needle, Chihuly and MoPOP share one scene
+(`seattle-center`, ≤ 150 m apart) with three spawns.
 
 ## Shared rules and tooling
 
@@ -66,8 +40,8 @@ Gum Wall) forced in; scenes must be small walkable outdoor places. Rank evidence
   Piloti (2023), Typewriter Eraser are in copyright too. Artworks are stylised from descriptions, never photo-textured.
   The Troll stays a stylised replica (non-commercial portfolio). No Commons photos exist of Rachel, the Glasshouse
   interior or the UiPath office; the Troll has one full view.
-- **Reference photos**: Ballard Locks, Gas Works, part of Pioneer Square and the four Bellevue spots have none (Commons
-  rate-limited the downloads); Lincoln Square photos are shared from `refs/bellevue/`.
+- **Reference photos**: Ballard Locks, Gas Works, part of Pioneer Square and the four Bellevue spots have none; Lincoln
+  Square photos are shared from `refs/bellevue/`.
 - **Relation outlines**: the relation outlines in `osm/sea-spots/*.json` and the scene files come from live OSM relation
   geometry (`tools/spots/repair-relation-outlines.mjs --from-extracts --clip-scenes`), because the extract tool joined
   multipolygon member ways without reversing them (bow-tie outlines); a relation with several outer rings keeps its id on
@@ -86,23 +60,10 @@ Gum Wall) forced in; scenes must be small walkable outdoor places. Rank evidence
 
 ## Crowds, dialogue and tone
 
-- "Seattle Freeze": locals are "very polite but not particularly friendly" to strangers; Washington ranked 48th of 50
-  states for extraversion (2008 study) — local lines courteous, brief, low-key
-  ([source](https://en.wikipedia.org/wiki/Seattle_Freeze)).
-- Honking is rare and seen as rude (≈ 3 in 4 Northwest drivers rarely or never honk, PEMCO 2017; 65 % found it at least
-  somewhat appropriate by 2021): NPCs react surprised / disapproving, not aggressive
-  ([source](https://pemco.com/blog/horn-honking-nw-drivers)).
-- Coffee is a safe icebreaker (Seattle drinks more coffee than any other US city,
-  [source](https://en.wikipedia.org/wiki/Coffee_in_Seattle)); rain talk is universal, locals favour hoods over umbrellas
-  (folklore, keep light).
-- Visitors: Canada was 73 % of Seattle's 2.4 M international visitors in 2024, then China, India, UK, South Korea, Germany,
-  Japan, Australia, France, Taiwan ([source](https://visitseattle.org/press/press-releases/visit-seattle-2025-annual-meeting/)).
-  Non-English lines carry `orig` + `lang` (fr-CA, zh-Hans, hi, ko, ja, de, es) with the English `text` as subtitle.
-- Indigenous art (totems, Salish Welcome): staff and guides speak respectfully; no jokes about sacred objects. No
-  stereotypes, phonetic accents, slurs, politics or alcohol jokes about any group.
-- `dialogue_general.lines` (49) also serve the Seattle and Bellevue driving districts. Personas: `local`, `tech`,
-  `tourist_us`, `tourist_ca`, `tourist_cn`, `tourist_in`, `tourist_kr`, `tourist_jp`, `tourist_de`, `tourist_es`,
-  `fishmonger`, `vendor`, `busker`, `guide`, `staff`, `kid`, `photographer`.
+Tone notes with sources (Seattle Freeze, rare honking, coffee and rain small talk, the international visitor mix,
+respect for Indigenous art, no stereotypes): `seattle-spots.json` `culture`. Personas and the shared lines (also used
+in the Seattle and Bellevue driving districts): `dialogue_general`. Non-English lines carry `orig` + `lang` with the
+English `text` as subtitle.
 
 ## Pike Place Market & the Gum Wall (`pike-place`)
 
@@ -175,8 +136,7 @@ Needle).
   (w329416198); the garden glass sits in dense planting, fenced and ticketed.
 - MoPOP (w161587742, `building:material=steel`; Sky Church w1092469435, 22 m; 21,000 shingles on 3,000 panels): the seven
   OSM lobes are drawn in their tagged colours (maroon, silver, #6495ED, red, gold); the outline and Sky Church have no
-  colour tag. The monorail passes through the building. Lobe camera targets sit at two thirds of each part's mapped
-  height; its guided tour stops at "Frame MoPOP's metal lobes". Grass Blades (w1362384591; 44 m × 9.1 m, 110 blades),
+  colour tag. The monorail passes through the building. Grass Blades (w1362384591; 44 m × 9.1 m, 110 blades),
   Typewriter Eraser (n8533332630), Chris Cornell statue (n6140930665).
 - Monorail (w161609433): twin beams on T-columns, the beam into MoPOP (matched). Seattle Center station: a curved
   translucent canopy on arched ribs over the platforms (w333355314/5/7) and concourse (w637649471), dark columns, black
@@ -195,24 +155,24 @@ Needle).
 - Climate Pledge Arena (w25123756): its OSM parts drawn as mapped — roof w411521517 (white, pyramidal, 8 m to 33 m),
   skillion buttresses w1352666990 / w1352647807 / w1352647810 / w1352647812, Alaska Airlines Atrium w1270549342 — and the
   parent outline as a glass curtain wall up to 8 m under a thin white fascia (xLh7PyEOCxKVuesNWAzPBw @ 270,
-  jLP72IlkxVljWg52cvsHAA @ 10 / 60: green-tinted glass, white mullions, a white sloped A-frame mid east side).
+  jLP72IlkxVljWg52cvsHAA @ 10 / 60: green-tinted glass, white mullions, a white sloped A-frame mid east side). The west
+  and north A-frames stand on the parent outline's mapped 4.6 m spurs (feet at x −427.4, z −254.5), with the mapped east
+  part's section (white wedge, ground → 11 m, 10.1 m inside the wall); the south side has no spur (the atria). CLIMATE
+  PLEDGE ARENA lettering (seen in the panorama review, which did not record its face) on the white fascia of the longest
+  east (1st Ave N) glass wall.
 - MoPOP skin (`scenes/seattle-center-mopop.js`): the seven lobes keep their OSM footprints, heights and colours but are
   continuous curved metal masses — corners rounded, walls bulging out above the ground and rolling into a rounded crown at
   the mapped height, each leaning away from the building's middle — in an iridescent shingled metal (purple sheen on the
   silver lobes).
-- Climate Pledge Arena: the west and north A-frames stand on the parent outline's mapped 4.6 m spurs (feet at x −427.4,
-  z −254.5), with the mapped east part's section (white wedge, ground → 11 m, 10.1 m inside the wall); the south side has
-  no spur (the atria). CLIMATE PLEDGE ARENA lettering on the white fascia of the longest east (1st Ave N) glass wall.
 - Planting (`scenes/seattle-center-trees.js`): 56 live-OSM trees missing from the extract (rows along the Armory's west
   side and Thomas St, the double row west of the Chihuly garden; API map call 2026-11-13); the mapped natural=wood
   polygons round the Armory and east of the Needle (w394259997) filled at one tree per 30 m²; shrubs and small trees in
   the mapped bed w394259987 by the pavilion.
 - Howard S. Wright fountain (w241876412), Armory (w231764919), Pacific Science Center (w394955903) at their mapped places.
-  All 35 live businesses and 25 tourism / artwork objects inside the terrain box were in the extract (2026-11-12).
 
 **Estimates**: MoPOP's bulge (≤ 6 %), crown profile, 1.6 m lean, shingle size, metal sheen / iridescence and the 18 %
 toning of the tagged colours toward polished metal; the A-frames' inner end (copied from the east part); the lettering's
-face (the review that noted it did not record which face), its dark green colour and 26 m width; wood fill density
+face, its dark green colour and 26 m width; wood fill density
 (1 / 30 m², ≥ 3.5 m apart), the bed's shrub density and tree sizes. International Fountain micro-shooter and floodlight ring radii, the show rhythm (90 s show, 60 s still),
 the 6 m asphalt apron; the Iliad's split into legs and top, tube lengths and angles; the station canopy's rise and rib
 spacing; MoPOP height at the highest lobes ≈ 26–30 m; monorail beam ≈ 6–8 m overhead. Pacific Science Center has no
@@ -304,7 +264,7 @@ same bearing.
 - Promenade: planted beds (OSM `natural=scrub`, `landuse=flowerbed`, `man_made=bioswale`) carry low shrubs; a two-way cycle
   track between road and promenade; lamps are tall dark square-section posts with a slim arm and flat head, every 22 m
   (not the shared cobra). Pier 58 playground (w1417461575, equipment not mapped) uses the generic kit.
-- **Businesses**: live OSM 2026-11-12 adds Mark's Ark, Pirates Plunder, Sports Den, The Sourdough Bakery (Pier 57); The
+- **Businesses** appended from live OSM (2026-11-12): Mark's Ark, Pirates Plunder, Sports Den, The Sourdough Bakery (Pier 57); The
   Seattle Shop at Pier 56, WingDome (Pier 56); Starbucks, Seattle Shirt Company, Burgundy Viscosi Gallery (Pier 55); Ivar's
   Acres of Clams, Ye Olde Curiosity Shop, Simply Seattle, Ivar's Fish Bar, Great State Burger, Premier Meat Pies,
   Harley-Davidson Motorcycles (Pier 54); Copperworks Tasting Room & Distillery. Mapped closed (`disused:*`), not signed:
@@ -413,7 +373,7 @@ the west end down to Elliott Bay. Spawn 47.60166, −122.3342 heading 20° (1st 
   steel aprons on piles with a pair of white transfer-span towers where each outline widens; the Waterfront Trail's
   mapped benches (n14145559226 … 39) and lamps (n14005374592, n14005381663, n14005403057, n14005408300, n14145559225).
   The fine terrain reaches x = −440 (the slips and Pier 48's west end are off the 8 m outer steps).
-- Businesses: live OSM 2026-11-12 adds Sam Day Studio & Gallery, Cookie's Country Chicken, Good Bar; mapped closed and not
+- Businesses appended from live OSM (2026-11-12): Sam Day Studio & Gallery, Cookie's Country Chicken, Good Bar; mapped closed and not
   signed: Woven Art (n2351695509), Luigi's (n2351695585), The Underground Gallery (n2351695606), Revolution Books
   (n2351695730), Flame Catering Cafe (n2351700811), Tobacco Patch (n2354406522), Comedy Underground (n4626879391).
 
@@ -577,7 +537,7 @@ ground (`SKY_Y`, no measured level); skybridge width ≈ 4–5 m; Avenue Bellevu
 
 **Not compared**: the drive between the mall and the West Parking Garage (official panoramas EE7cKAltcksKzsSBPd822A,
 odcxtWhNyv-UeSc9O436Lw, _-8mGqQtoDS7uRaPUYC-ww, xnT4Gtmue9XZR7R-xc0iTQ exist), so the skybridge floor level is an
-estimate; UiPath lobby and signage; Snowflake Lane dates (annual, December).
+estimate; UiPath lobby and signage.
 
 ## Bellevue Downtown Park (`bel-downtown-park`)
 
@@ -634,8 +594,7 @@ courtyard).
   w403375045, bleachers w1434241117/8, six `man_made=mast` floodlights, basketball court w1332124896.
 - Car park r19655198: in use with dense conifers round it; parked cars square to the mapped aisles.
 - Postcard: the guided tour's postcard frames the Perennial Border; the research iconic photo (ravine bridge) is ≈ 300 m
-  from the entry spawn, past the tour's 230 m reach, so the postcard stays inside the tour's reach and the bridge keeps
-  its own activity ("Cross the suspension bridge").
+  from the entry spawn, past the tour's 230 m reach.
 
 **Estimates**: artwork stand-ins sized from one photo each; Shorts House exterior (one storey, flat roof — no exterior
 photo); pitch markings (standard proportions), floodlight masts 18 m; parked cars (OSM maps lot + aisles, not bays). Name

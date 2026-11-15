@@ -1,18 +1,19 @@
 # Bucharest tourist spots (research dossier)
 
-What the seven Bucharest spot scenes model, from which sources, what is a documented exception to OSM, what is estimated
-and what was not compared. First research 2026-11-06; reviewed against live OSM and Street View 2026-11-12/13.
+What the Bucharest spot scenes model, from which sources, what is a documented exception to OSM, what is estimated and
+what was not compared.
 
 The scene specs are machine-readable in [`bucharest-spots.json`](bucharest-spots.json): `ranking` (method, evidence per
 spot, places considered and not selected, caveats, source key), `dialogue_general` (persona library, pedestrian lines,
 `culture_notes`) and `spots[]` (footprint, `walk_extent`, structures with OSM ids and dimensions, ground, vegetation,
 furniture, lighting, backdrop, crowd, sounds, plaques with sources, interaction, postcard pose, season, copyright note,
-colour samples, refs, dialogue). Those fields are not repeated here. Reference images: [`refs/buc-spots/`](refs/LICENSES.md).
+colour samples, refs, dialogue) and `conventions` (units, `*_hex`, `*_est`). Those fields are not repeated here.
+Reference images: [`refs/buc-spots/`](refs/LICENSES.md).
 
 ## Sources and conventions
 
-- **OSM decides** position, outline and class (ODbL, © OpenStreetMap contributors). Live reads: OSM API 0.6 `map` calls and
-  Overpass, 2026-11-12/13; where live reads failed, the scene extracts of 2026-11-07.
+- **OSM decides** position, outline and class (ODbL, © OpenStreetMap contributors): OSM API 0.6 and Overpass reads of
+  2026-11-12/13, else the scene extracts of 2026-11-07.
 - **Street View**: official Google panoramas were looked at beside game renders from the same position and bearing, as a
   visual reference only; nothing was stored, traced or measured. What a panorama shows and OSM does not map is listed per
   scene as a documented exception or an estimate. User photospheres: position and heading unreliable.
@@ -20,9 +21,7 @@ colour samples, refs, dialogue). Those fields are not repeated here. Reference i
   Rebirth, the National Cathedral, sculptures) are modelling reference only, never textures. Sculptures are drawn as size
   class and material, not reproduced.
 - Colours (`*_hex`) are judged albedos from photos under varying light; paving patterns (fan setts at Stavropoleos,
-  Lipscani cobbles) are photo-derived, not surveyed. Dimensions in metres; `*_est` = estimated.
-- Ranking: Tripadvisor, Lonely Planet, Trip.com and bucharest.ro were not reachable (403 / DNS); their positions come from
-  search snippets. Visit Bucharest studies measure searches on one guide site, not footfall. KartaView / Mapillary not used.
+  Lipscani cobbles) are photo-derived, not surveyed. Ranking caveats: `ranking.caveats`.
 - Dialogue: Romanian for locals with an English translation, tourists in their own language; tourist origins from the
   Visit Bucharest 2024 study. Lines stay factual about 1989 and Ceaușescu, Vlad Țepeș is a national figure (Dracula only as
   souvenir patter), no ethnic jokes, never confuse Romanians with Roma (full notes: `dialogue_general.culture_notes`).
@@ -187,8 +186,8 @@ Covaci, Smârdan, Franceză articles; Hanul cu Tei, Hanul lui Manuc, Curtea Vech
   pilasters, a dentilled top storey, cornice and balustrade (`scenes/ot-fronts.js` `bnrLipscani`). Bay width, storey
   heights and balustrade height are estimates; the Doamnei side (colonnade) has no official panorama and stays generic; the
   conifers in the Lipscani beds are not in OSM and not added.
-- **Businesses:** live OSM 2026-11-12 matches the data; node n1731040985 is "Mojo Music Club" on the OSM API (an Overpass
-  mirror returned an older "Mao Pub"). Appended from live OSM: Gelateria La Romania dal 1947 n14360710671, Pizza al taglio
+- **Businesses:** node n1731040985 is "Mojo Music Club" on the OSM API (an Overpass mirror returned an older "Mao Pub").
+  Appended from live OSM: Gelateria La Romania dal 1947 n14360710671, Pizza al taglio
   n14360710672 (Lipscani 76, panorama `5US26vfoz6vYXxqBYx39Fg`), Class shoes n14360710673. Closed for good per Google Maps (2026-11-11) but still in OSM, so their signs stay until OSM changes:
   Coffee & Travel (Lipscani 52), Ted's Coffee Co. (Lipscani 79), CLATeatARIE (Lipscani 20), Uau Gelato (Gabroveni 1-3).
 - The plaques "Lipscani = Leipzig" and "Guild streets" stand on Lipscani.
@@ -200,14 +199,13 @@ Covaci, Smârdan, Franceză articles; Hanul cu Tei, Hanul lui Manuc, Curtea Vech
 
 Every activity stands at a real OSM place inside the visit area, on the street in front of it; no interior, kiosk, sign
 or terrace is added (`scenes/old-town-daylife.js`; achievements `lm-<key>`). A closed place says so and gives its opening
-hour. Checked 2026-11-11.
+hour. Hours as checked on 2026-11-11.
 
 | Activity (key) | Place | Open in game | Source and what is estimated |
 | --- | --- | --- | --- |
 | `lipscani-coffee` | Gregory's, Lipscani 27 (n6324709232) | 08:00–16:00 | Google Maps only (medium): Mon–Fri 07:30–16:00, Sat–Sun 07:30–18:00; game uses the weekday hours, rounded, every day. The cup is a plain espresso |
 | `jacks-papanasi` | Jack's Pub, Lipscani 45 (n1416626264) | 10:00–02:00 | jackspub.ro + Google Maps (high): Sun–Thu 10:00–02:00, Fri–Sat 10:00–05:00; reviews mention papanași. Generic plate |
 | `lipscani-busker` | the scene's busker on Lipscani | 10:00–24:00 | buskers documented thinly (Coldplay filmed a Lipscani singer, June 2024, antena3.ro; a 2005 "free zone" for about 20 street musicians, adevarul.ro); busker, guitar case and hours are estimates |
-| `lipscani-photo-walk` | Smârdan to Lipscani | always | Freddo's front, the Carusel arch, the festoons over Lipscani (the scene's own modelled fronts) |
 | `mojo-karaoke` | Mojo Music Club, Lipscani 69 (n1731040985, `karaoke=yes`) | 21:00–03:00 | venue hours Google Maps; karaoke nightly from 21:00 (In Your Pocket, bucharest.ro: undated, medium), end not found, game stops 03:00; upstairs, free entry, 18+ from 22:00 (mojomusic.ro/regulament). Room not modelled: you sing at the door. Tune "Lipscani refrain" (2026), original, CC0-1.0 |
 
 - **Freddo** (Smârdan 24; OSM n1416523788 in w657568283; freddo.ro checked 2026-11-09): the source building and entrance;
@@ -215,10 +213,6 @@ hour. Checked 2026-11-11.
   Freddo is its club night, 22:00–05:00; the bar's published daytime hours (10:00) are not modelled. Club music
   (`spots/club-music.js`, "Lipscani after dark", 2026) is an original procedural composition, CC0-1.0: no samples,
   quotations, recordings or known melodies.
-- **Left out:** Bubble Waffles (Smârdan 37, existence not verified); Obraznic (Smârdan 12, adult-novelty waffles);
-  St. Patrick Irish Pub (Smârdan 23-25, daily 11:00–02:00, stpatrick.ro); Muzeul Micul Paris (Lipscani 41, Wed–Sun
-  11:00–19:00, would need an interior); ARCUB Hanul Gabroveni (Lipscani 84-90, Tue–Sun 10:00–20:00, would need an interior
-  and programme); Hanul cu Tei gateways as a photo target; the Șerban Vodă glass cover (just west of the visit area).
 
 ### Stavropoleos, Caru' cu Bere, CEC Palace and the History Museum (`stavropoleos-cec`)
 
@@ -326,8 +320,8 @@ The entry arrives on Str. Stavropoleos.
   closed woods behind (the game's park is thinner).
 - **Statues:** mapped `artwork_type=statue` objects are standing figures, or small animal forms for the three animal
   bronzes (Curcan, Căprioară, Gâscanul); bust / statue material follows the OSM `material` tag; each faces the nearest
-  mapped path. The Sleeping Nymph n1342884103 carries a camera exercise. Michael Jackson plaque n2382565617 (the 1992
-  concert fact is not plaque-sourced).
+  mapped path; the Sleeping Nymph n1342884103 reclines on a plinth. Michael Jackson plaque n2382565617 (the 1992 concert
+  fact is not plaque-sourced).
 - **Japanese garden** w28342074 (10,749 m²): live OSM maps only a dog park (w274448991) and a footway (w339802841) inside, no
   water and no bridge, so none is drawn. The stone lanterns (from this dossier's description) stand at estimated positions
   clear of both; the cherries are an estimated scatter.
@@ -405,7 +399,7 @@ The entry arrives on Str. Stavropoleos.
 
 ### Table (Romanian backgammon) at "La Șahiști"
 
-Research (web, 2026-11-11) for the seated game against Doru (`spots/backgammon-game.js`, rules in
+Research for the seated game against Doru (`spots/backgammon-game.js`, rules in
 `backgammon-engine.js`, lines in `backgammon-banter.js`). Doru and the onlooker are fictional. "La Șahiști" is OSM
 n473428599 with three concrete tables n10877390595–97; board, checker and dice sizes are estimates.
 

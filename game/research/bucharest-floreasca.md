@@ -5,19 +5,16 @@ estimates the game makes where no source exists, and the places where it knowing
 
 ## Overview and sources
 
-- **Data.** First generated 2026-11-06 (role research-buc-districts) from the OSM API 0.6 snapshot of that day; live OSM
-  re-checked 2026-11-12 and 2026-11-13. Every OSM fact is keyed by id (w = way, n = node, r = relation). Bracketed keys
+- **Data.** OSM API 0.6 (live checks up to 2026-11-13), keyed by id (w = way, n = node, r = relation). Bracketed keys
   like [wp_fcc] point to **Sources** at the end.
-- **Machine-readable twin** `bucharest-floreasca.json` holds the generated tables: per-street
-  segments (lanes, turn lanes, parking, speed, surface), every building with its style-rule facade estimate, businesses,
-  junctions and crossings, transit lines, stops and STB liveries, the Bucharest-wide streetscape rules (`city_rules`),
-  palette (`colours`), `top_local_details`, `gaps`, district pedestrians (`dialogue`) and traffic hotspots (`traffic`).
-  Business detail: the Businesses and speed limits section below.
-- **Street level.** Official Street View panoramas (mostly May 2024) were looked at only; nothing was stored, traced or
-  measured from them. A panorama is cited as its id plus heading (`orHAmm3GllAsPPrvYACycA h105`) or as its position.
-- **Images.** `refs/floreasca/`: seven Commons panoramio photos from Sky Tower and Promenada (licences in `refs/LICENSES.md`).
-- **Area.** The playable geometry is `cities.js` (BUC_DISTRICTS floreasca); the research extraction box was
-  [44.454, 26.096, 44.479, 26.112]. Sky Tower and Promenada stand about 600 m north of the core: skyline backdrop.
+- **Machine-readable twin** `bucharest-floreasca.json`: per-street segments (lanes, turn lanes, parking, speed, surface),
+  buildings with their style-rule facade estimates, businesses, junctions and crossings, transit and STB liveries, the
+  Bucharest-wide streetscape rules (`city_rules`), palette (`colours`), `top_local_details`, `gaps`, pedestrians
+  (`dialogue`) and traffic hotspots (`traffic`).
+- **Street level.** Official Street View panoramas (mostly May 2024), looked at only; nothing stored, traced or measured.
+  A panorama is cited as its id plus heading (`orHAmm3GllAsPPrvYACycA h105`) or as its position.
+- **Images.** `refs/floreasca/`: seven Commons photos from Sky Tower and Promenada (licences in `refs/LICENSES.md`).
+- **Area.** Playable geometry: `cities.js` (BUC_DISTRICTS floreasca); research box [44.454, 26.096, 44.479, 26.112].
 - **Confidence.** *high* = OSM / official / encyclopedic; *medium* = consistent across photos or common knowledge;
   *low* = estimate.
 
@@ -25,8 +22,8 @@ estimates the game makes where no source exists, and the places where it knowing
 plain balconies; one- to three-storey red-tile villas between them, densest on the "composer streets" (Mozart, Chopin,
 Bach, Verdi, Ceaikovski, Garibaldi) laid out between the wars; newer four- to six-storey blocks with light membrane roofs.
 Gardens, wrought-iron fences, sliding gates and dense tree canopy almost everywhere; cars parked on both kerbs (on the
-sidewalk) of the residential streets. Calea Floreasca is the food and nightlife street (terraces, valet parking). Aerial
-and reality pass 2026-11-08 [osm] [floreasca_nightlife] [strazi_compozitori].
+sidewalk) of the residential streets. Calea Floreasca is the food and nightlife street (terraces, valet parking) [osm]
+[floreasca_nightlife] [strazi_compozitori].
 
 ## Chapter route and CV stop: `rosetti` (2009)
 
@@ -54,7 +51,7 @@ and reality pass 2026-11-08 [osm] [floreasca_nightlife] [strazi_compozitori].
   lanes 3–5 with turn pockets such as `left|through|through;right`), split into one-way pairs round short islands at
   Piața Floreasca and Ceaikovski; kerbside parking lanes (`parking=lane`) on long stretches; buses only (OSM relations 135,
   343, 449, 459, 461; no tram, no trolleybus). The bus lane is a contraflow lane on the west side, plain asphalt with BUS
-  lettering (aerial 2026-11-08): the one-way northbound ways w669019902, w1308416610, w259898145, w1206961908–w1206961911,
+  lettering (aerial): the one-way northbound ways w669019902, w1308416610, w259898145, w1206961908–w1206961911,
   w1206961917 and w1206961918 carry `busway=opposite_lane`, `oneway:bus=no`, `lanes:bus:backward=1` and `lanes:forward=2`
   (3 at the turn bays w1206961909 / w1206961911), so one southbound bus-only lane runs beside the northbound general lanes
   behind a wide solid line. Renovated 3–4 m grey-paver sidewalks, bollards along the west side, linden and chestnut
@@ -92,7 +89,7 @@ and reality pass 2026-11-08 [osm] [floreasca_nightlife] [strazi_compozitori].
 | w872211888 | One Tower (Calea Floreasca 151 / 165) | 16 / – | #6F8A94 glass curtain wall | | 2020s | [osm] |
 | w28240279 | Liceul Teoretic C.A. Rosetti (main block) | 3 / 11 | #E8DDB8 | flat / low | post-war school block (est.) | rosetti [osm] [edupedu_seismic] |
 
-**Reviewed buildings** (`building-review.js`; official panoramas, live OSM 2026-11-13):
+**Reviewed buildings** (`building-review.js`; official panoramas):
 
 - **Piața Floreasca / Agora** w34832556 (Calea Floreasca 111-113; pano 44.460443, 26.101023 h240): two-storey light
   silver-grey glass curtain wall with hedges and terraces, Medicover / Agora signs, AGORA letters on the roof edge. Row: 9 m,
@@ -111,20 +108,20 @@ and reality pass 2026-11-08 [osm] [floreasca_nightlife] [strazi_compozitori].
   block with French balconies and a dark shopfront; the game's block is green); no. 70–72 (brick-and-cream modern block
   with a yellow villa beside it).
 
-**Businesses.** In live OSM 2026-11-12, 93 named businesses lie within 40 m of the playable area; every one the builder's
-`poiKind()` accepts inside the mask is in the game with the same name on the same building. A building signed with a business mapped inside it carries the
-sign over the unit's street front at the OSM point; unbranded businesses whose point lies outside a footprint (moft, iMZA,
-Cozofino, Farine, Pizzeria Due Amici) are signed too; names are not cut short.
+**Businesses.** Every OSM business the builder's `poiKind()` accepts inside the mask is in the game with its name on its
+building, the sign over the unit's street front at the OSM point; unbranded businesses whose point lies outside a
+footprint (moft, iMZA, Cozofino, Farine, Pizzeria Due Amici) are signed too.
 
 - Not drawn: Mondayz Coffee n5053344722 (an OSM point with no building within 16 m, so no wall to sign); Golf Room and
   Beat45 inside Agora (arcade / fitness, not `poiKind` classes); Paradisul Copiilor kindergarten; ONE Estate office.
   Outside the mask by 5–34 m: Luxury Aesthetics, Two Minute, Rawdia, Kanpai, Expert Implant, Hotel Diesel (its restaurant
-  building is signed). Fantasy Massage n2526169532 lost its shop tags on 2026-08-30 and is absent.
-- Disused in OSM: n5053344622 (44.46589, 26.10271), n7038762287 (44.46140, 26.10021), n6968373504 (44.46004, 26.09999)
-  carry no "DE ÎNCHIRIAT" board: OSM says only that the shop closed, and the one panorama that reaches a disused point (the
-  café at Calea Floreasca 70–72) shows no board. Calea Floreasca 43 (n7038739416, `disused:shop=motorcycle_repair`, edit
-  2025-04-22) keeps the vacant board although the May 2024 panorama shows a trading blue "Automecanica" shop: OSM is the
-  later source (owner decision).
+  building is signed).
+- Disused in OSM, no "DE ÎNCHIRIAT" board: n5053344622 (44.46589, 26.10271), n7038762287 (44.46140, 26.10021),
+  n6968373504 (44.46004, 26.09999), n1081724064 (`disused:amenity=cafe`), My Maya n4454713391 (`disused:shop=bakery`):
+  OSM says only that the shop closed, and the one panorama that reaches a disused point (the café at Calea Floreasca
+  70–72) shows no board. Exception: Calea Floreasca 43 (n7038739416, `disused:shop=motorcycle_repair`, edit 2025-04-22)
+  keeps the vacant board although the May 2024 panorama shows a trading blue "Automecanica" shop: OSM is the later
+  source (owner decision).
 - Cannoleria (n13869497589) is newer than the panorama, which shows "Nadasan" and "Chicineta" there: OSM kept.
 - Not compared at street level; names, positions and signs are OSM's: Banul Antonache 40–44 (Yoshi, CAU), Madison,
   Graffiti Hotel / My Maya, Komodo, Schnitzel King, Genin / Mumbai, Shop&Go, Hotel Johann Strauss.
@@ -208,7 +205,7 @@ w38757552, grandstand w859972644, outdoor pool w23611448.
 
 - **Pedestrian plazas**: the shared rule ([shared-rules.md](shared-rules.md#pedestrian-plazas)). Here: 3 plazas, none
   tagged grass.
-- OSM maps no individual trees in the district (2026-11-06). Calea Floreasca has mature linden and chestnut rows on both
+- OSM maps no individual trees in the district. Calea Floreasca has mature linden and chestnut rows on both
   sides; Garibaldi and the villa streets linden and robinia over gardens; Parcul Floreasca old park trees. The street
   species lists live in the JSON (`streets[].research.trees`) and feed `streetTrees`.
 
@@ -251,7 +248,7 @@ w38757552, grandstand w859972644, outdoor pool w23611448.
 
 | key | URL |
 |---|---|
-| osm | https://www.openstreetmap.org (API 0.6 map tiles, 2026-11-06; live re-checks 2026-11-12/13) |
+| osm | https://www.openstreetmap.org (API 0.6) |
 | wp_floreasca | https://en.wikipedia.org/wiki/Floreasca |
 | wp_fcc | https://en.wikipedia.org/wiki/Floreasca_City_Center |
 | skytower_ctbuh | https://www.skyscrapercenter.com/building/floreasca-city-sky-tower/9029 |
@@ -271,53 +268,16 @@ The Bucharest-wide sources (road signs and markings, STB, Metrorex, lighting, tr
 
 ## Businesses and speed limits
 
-Research pass 2026-11-07 (spec 20, R12.2 / R11). Machine-readable: `businesses-bucharest-floreasca.json` (one entry per business, independents included) and the `bucharest-floreasca` block of `speedlimits.json`. Zone = everything within **60 m of a chapter route** (routes recomputed on the OSM graph from `CHAPTERS` starts to the stop doors, one-way and turn-restriction aware) **plus** recognisable businesses within 50 m of a main street (motorway…tertiary) inside the district mask. Standalone ATMs, parcel lockers, chargers and pure company offices are left out.
+`businesses-bucharest-floreasca.json`, the `bucharest-floreasca` block of `speedlimits.json`. Method, confidence, sign
+style, POI appending, locators and the Romanian speed default:
+[shared-rules.md → Business research](shared-rules.md#business-research).
 
-Confidence: **high** = official locator match, or OSM `check_date` ≥ 2025-05; **medium** = OSM element edited or checked since 2023-11; **low** = older OSM data, or a chain store missing from its official locator. Sign `style` is a category rule (fuel → pylon, RO pharmacy → projecting green cross, drive-thru fast food in its own building → pylon, else fascia); `sign.basis` says where the colours come from.
+- **Locator checks**: Dona Calea Floreasca 111-113 (address match, "Crisen Farm - CF2 - Floreasca", 55 m); Carrefour
+  Express Calea Dorobanților 102-110 (position match, "Express Proxi Dorobanti", 26 m); McDonald's Str. Barbu Văcărescu
+  146-158 (address match).
 
-### On the chapter route (rosetti)
+**Speed limits.** On the rosetti route every way is tagged: Calea Floreasca 50, Garibaldi 40, the composer streets `RO:urban` (50). Schools / kindergartens within 150 m of
+the route: Paradisul Copiilor (n1544915641), Grădinița nr. 12 Albinuța (n4365350292), Școala Gimnazială Maria Rosetti
+(w26974362), Liceul Teoretic C.A. Rosetti (w253216276).
 
-| brand | category | address | side | conf. |
-|---|---|---|---|---|
-| Garanti BBVA | bank | Calea Floreasca 141-143 | W side of Calea Floreasca | medium |
-| Maxbet | bookmaker | Calea Floreasca 91-111 | W side of Calea Floreasca | low |
-| Paul | bakery | Calea Floreasca 111-113 | W side of Calea Floreasca | low |
-| Superbet | bookmaker | Calea Floreasca 111-113 | W side of Calea Floreasca | low |
-| Dona | pharmacy | Calea Floreasca 111-113 | N side of Str. Bălănescu Rosetti | high |
-
-Garanti: OSM `brand=Garanti Bankası` (Turkish parent); Romanian branches are signed **Garanti BBVA** (garantibbva.ro, 2026-11-07); `tools/osm/poi-kinds.mjs` renames it. 40 independents on the route are in the JSON.
-
-### Official-locator checks
-
-- **Dona** Calea Floreasca 111-113: address match, "Crisen Farm - CF2 - Floreasca" (55 m), dona.ro/farmacii.
-- **Carrefour Express** Calea Dorobanților 102-110: position match, "Express Proxi Dorobanti" (26 m), carrefour.ro/corporate/magazine.
-- **McDonald's** Str. Barbu Văcărescu 146-158: address match, "McDonald's Barbu Văcărescu", mcdonalds.ro/restaurante.
-
-Closed per OSM lifecycle tags (draw as a vacant "De închiriat" unit if modelled): n1081724064 (`disused:amenity=cafe`, 44.45817, 26.10084), My Maya n4454713391 (`disused:shop=bakery`, 44.45557, 26.09995), n7038739416 (`disused:shop=motorcycle_repair`, 44.45634, 26.10046).
-
-### POIs added from live OSM (2026-11-12)
-
-`tools/osm/add-pois.mjs --edge 100` on API 0.6 tiles of the playable area + 260 m appended the businesses, places and stops the build lacked, including the 100 m edge strip. Not added by rule: closed / disused / vacant objects, research-stale and research-closed businesses, units with `level` ≠ 0 or indoor, nodes deep inside multi-tenant halls, unnamed objects, ATMs outside the area. Street View at 109 Calea Dorobanți: ground-floor shop fronts where the game has a Banca Transilvania fascia; the preview was too coarse to read the name.
-
-### Speed limits on the chapter route
-
-**Legal default (Romania).** 50 km/h inside localities unless signed; the road owner may, with police approval, raise sections to 80 or lower them to 30 (OUG 195/2002 art. 49, via en.wikipedia.org/wiki/Speed_limits_in_Romania, 2026-11-07; legislatie.just.ro did not respond). Big boulevards are signed 60 (OSM `maxspeed=60`); no automatic school-zone limit: "Copii" warning signs and, where the city chose, a signed 30.
-
-**rosetti** — 1637 m, all OSM ways tagged (the `speedlimits.json` record, computed on 2026-11-07 via Béla Bartók; the
-chapter start above turns into Johann Strauss, `RO:urban`, instead).
-
-| street | class | m | OSM maxspeed | game km/h |
-|---|---|---|---|---|
-| Calea Floreasca | tertiary | 758 | 50 | 50 |
-| Strada Béla Bartók | residential | 124 | RO:urban | 50 |
-| Strada Serghei Vasilievici Rahmaninov | residential | 535 | RO:urban | 50 |
-| Strada Georges Bizet | residential | 176 | RO:urban | 50 |
-| Strada General Giuseppe Garibaldi | residential | 42 | 40 | 40 |
-
-Schools / kindergartens within 150 m: Paradisul Copiilor (n1544915641, 12 m), Grădinița nr. 12 Albinuța (n4365350292, 111 m), Școala Gimnazială Maria Rosetti (w26974362, 129 m), Liceul Teoretic C.A. Rosetti (w253216276, 76 m).
-
-### Sources
-
-- OpenStreetMap API 0.6 tiles fetched 2026-11-06 and 2026-11-12, © OpenStreetMap contributors, ODbL; element ids in every entry.
-- Locators (2026-11-07): mcdonalds.ro/restaurante (118 restaurants, coordinates for 33), kfc.ro/restaurante, kaufland.ro/.klstorefinder.json, carrefour.ro/corporate/magazine (451 stores, `temporarily_closed` flag), dona.ro/farmacii (672 with coordinates).
-- Not machine-readable then (OSM only): Mega Image, Profi, Dr.Max, HelpNet, CEC, Raiffeisen (403), Lidl / Penny / Catena / BT / BCR / ING / Orange / Vodafone / Petrom / OMV / MOL / Rompetrol (JavaScript-only or 404), Lukoil / OTP / Alpha Bank / Digi / telekom.ro (no response or bot wall).
+**Sources**: OSM API 0.6 (ODbL; element ids in every entry); the locators in shared-rules.md.

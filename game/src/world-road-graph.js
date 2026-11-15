@@ -97,31 +97,13 @@ export function buildRoadGraphAids(ctx) {
         const across = (f) => f.contraflowBus ? f.contraflowTotal : f.lanesF;
         const nextOf = (e) => e.b.edges.filter(f => f !== e && f.a === e.b && motorOneway(f) && !f.virtual && f.name === e.name);
         const prevOf = (e) => e.a.edges.filter(f => f !== e && f.b === e.a && motorOneway(f) && !f.virtual && f.name === e.name);
-        // (owner, 2026-11-15, SeaTac (-953, 995): "lanes are drawn badly") the narrowest segment was looked for within four
-        // edges of each edge, so inside a long run of one lane count the left kerb, and every line with it, still jumped
-        // 1.75 m wherever that window first reached a narrower neighbour (Arrivals Drive under the Departures deck, five lanes
-        // all along: 3.5, 5.3, 8.8, 7.0, 5.3 m left of the way). The kerb is decided once per run of equal lane count: a
-        // short run (a turn bay, a short narrowing: at most four edges or under 60 m) keeps the left kerb of the narrowest
-        // segment within four edges of it, as before; a longer run stays centred on its way as mapped.
-        const eligible = e => motorOneway(e) && !e.virtual && e.name && !e.madeTwoWay && e.roadWidthSource?.leftM == null;
-        const windowBase = e => {
+        for (const e of edges) {
+            if (!motorOneway(e) || e.virtual || !e.name || e.madeTwoWay || e.roadWidthSource?.leftM != null) continue;
             let base = across(e), f = e;
             for (let k = 0; k < 4; k++) { const n2 = prevOf(f); if (n2.length !== 1) break; f = n2[0]; base = Math.min(base, across(f)); }
             f = e; for (let k = 0; k < 4; k++) { const n2 = nextOf(f); if (n2.length !== 1) break; f = n2[0]; base = Math.min(base, across(f)); }
-            return base;
-        };
-        const inRun = new Set();
-        for (const e of edges) {
-            if (!eligible(e) || inRun.has(e)) continue;
-            const n = across(e), run = [e]; inRun.add(e);
-            for (let f = e; ;) { const p = prevOf(f); if (p.length !== 1 || !eligible(p[0]) || across(p[0]) !== n || inRun.has(p[0])) break; f = p[0]; run.unshift(f); inRun.add(f); }
-            for (let f = e; ;) { const p = nextOf(f); if (p.length !== 1 || !eligible(p[0]) || across(p[0]) !== n || inRun.has(p[0])) break; f = p[0]; run.push(f); inRun.add(f); }
-            if (run.length > 4 && run.reduce((s, f) => s + f.len, 0) >= 60) continue;
-            const base = Math.min(...run.map(windowBase));
-            for (const f of run) {
-                if (base >= across(f) || Math.abs(f.laneW * across(f) - (f.wL + f.wR)) > 0.05) continue;
-                f.wL = base * f.laneW / 2; f.wR = across(f) * f.laneW - f.wL; if (f.contraflowBus) layContraflowLanes(f); else f.median = -2 * f.wL; f.halfW = Math.max(f.wL, f.wR); aligned++;
-            }
+            if (base >= across(e) || Math.abs(e.laneW * across(e) - (e.wL + e.wR)) > 0.05) continue;
+            e.wL = base * e.laneW / 2; e.wR = across(e) * e.laneW - e.wL; if (e.contraflowBus) layContraflowLanes(e); else e.median = -2 * e.wL; e.halfW = Math.max(e.wL, e.wR); aligned++;
         }
         if (aligned) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + 0.5; sccInfo.laneAligned = aligned; }
     }
